@@ -12,6 +12,12 @@ class BreakingNews extends Component {
     render() {
         // const content = this.props.globalContent;
         const { tags, title, link, subTitle } = this.props.customFields;
+        let subtitulo = subTitle;
+        debugger
+        if(subtitulo.length > 29 ){
+            subtitulo ="caracteres no validos";
+        }
+        
         return (
             <div className="BreakingNews">
                 <div className="box combine" {...this.props.editableField('tags')}>
@@ -29,7 +35,7 @@ class BreakingNews extends Component {
                 </div>
                 <div className="box" {...this.props.editableField('subTitle')}>
                     <h5>
-                    {subTitle}
+                    {subtitulo}
                     </h5>
                     
                 </div>
