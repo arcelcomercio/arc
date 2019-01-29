@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Content extends Component {
+class ContentLayout extends Component {
     render() {
         //console.log('--------> Content')
         //console.log(this.props.elements, this.props.elements.length)
@@ -12,4 +12,4 @@ class Content extends Component {
     }
 }
 
-export default Content;
+export default ContentLayout;

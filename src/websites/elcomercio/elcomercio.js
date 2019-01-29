@@ -1,2 +1,2 @@
-import './elcomercio.css'
+import './scss/elcomercio.css'
 import './favicon.ico'

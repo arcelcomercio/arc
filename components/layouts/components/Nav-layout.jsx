@@ -1,23 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import Nav from '../../features/layout/nav/default'
 
-class Nav extends Component {
+class NavLayout extends Component {
     render() {
         return(
-            <nav alt="nav" className="backRed">
-                <a href="#">Buscar</a>
-                <a href="#">Secciones</a>
-                <div>
-                    <ul>
-                        <li>Politica</li>
-                        <li>Deportes</li>
-                        <li>Mundo</li>
-                        <li>Economia</li>
-                        <li>Opinion</li>
-                    </ul>
-                </div>
-            </nav>
+            <Fragment>
+                <Nav />
+            </Fragment>
         )
     }
 }
 
-export default Nav;
+export default NavLayout;
