@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import FeatureTest from '../../features/pp/default'
+import Header from '../../features/header/default'
 
-class Header extends Component {
+class HeaderLayout extends Component {
     render() {
         return(
             <header alt="header">
-                <FeatureTest />
+                <Header />
                 {this.props.elements}
             </header>
         )
     }
 }
 
-export default Header;
+export default HeaderLayout;

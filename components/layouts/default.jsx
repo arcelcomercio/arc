@@ -6,7 +6,6 @@ const DefaultLayout = props => {
 		<Fragment>
 			<div>
 				<header>
-					header
 					{props.children[0]}
 				</header>
 			</div>
@@ -25,7 +24,6 @@ const DefaultLayout = props => {
 				</section>
 
 				<footer>
-					footer
 					{props.children[4]}
 				</footer>
 			</div>
