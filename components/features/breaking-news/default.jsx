@@ -6,11 +6,19 @@ import "./breaking-news.css";
 
 @Consumer
 class BreakingNews extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        const { contentService, contentConfigValues } = this.props.customFields.articleConfig
+        this.fetchContent({
+          article: {
+            source: contentService,
+            query: contentConfigValues
+          }
+        })
     }
     render() {
         // const content = this.props.globalContent;
+        const content = this.state.article
         const { tags, title, link, subTitle } = this.props.customFields;
         return (
             <div className="BreakingNews">
@@ -23,7 +31,7 @@ class BreakingNews extends Component {
                 <div className="box" {...this.props.editableField('title')}>
                     <a href={link ? link : '#'} >
                         <h4>
-                            {title}
+                            {title || (content && content.headlines && content.headlines.basic)}
                         </h4>
                     </a>
                 </div>
@@ -43,6 +51,7 @@ BreakingNews.propTypes = {
         title: PropTypes.string.isRequired,
         link: PropTypes.string.isRequired,
         subTitle: PropTypes.string.isRequired,
+        articleConfig: PropTypes.contentConfig('article'),
     })
 };
 export default BreakingNews;
