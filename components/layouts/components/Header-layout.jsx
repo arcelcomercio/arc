@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import Header from '../../features/header/default'
+import React, { Component, Fragment } from 'react'
+import Header from '../../features/layout/header/default'
 
 class HeaderLayout extends Component {
     render() {
         return(
-            <header alt="header">
+            <Fragment>
                 <Header />
                 {this.props.elements}
-            </header>
+            </Fragment>
         )
     }
 }

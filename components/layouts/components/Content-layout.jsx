@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Content extends Component {
+class ContentLayout extends Component {
     render() {
         return(
             <main alt="content">
@@ -10,4 +10,4 @@ class Content extends Component {
     }
 }
 
-export default Content;
+export default ContentLayout;
