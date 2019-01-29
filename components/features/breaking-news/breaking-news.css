@@ -10,9 +10,30 @@
 }
 .BreakingNews .box{
     color: white;
+    display: grid;
     /* border: 2px solid black; */
     align-content: center;
+    padding-left: 10px;
 }
-.BreakingNews .combine{
+.BreakingNews .box a{
+    color: white;
+    text-decoration: none;
+}
+.combine{
     grid-row: 1 / 3;
+    display: grid;
+    grid-template-columns: 60px;
+    grid-template-rows: 40px;
+    align-content: center;
+    justify-content: center;
+    padding-left: 0 !important;
+}
+
+.BreakingNews .combine .lavel{
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    color: red;
+    font-size: 13px;
+    background-color: white;
 }

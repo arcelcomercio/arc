@@ -15,15 +15,23 @@ class BreakingNews extends Component {
         return (
             <div className="BreakingNews">
                 <div className="box combine" {...this.props.editableField('tags')}>
-                    {tags}
+                    <div className="lavel">
+                        <span>{tags}</span>
+                    </div>
+
                 </div>
                 <div className="box" {...this.props.editableField('title')}>
-                    <a href={link?link:'#'} >
-                        {title}
+                    <a href={link ? link : '#'} >
+                        <h4>
+                            {title}
+                        </h4>
                     </a>
                 </div>
                 <div className="box" {...this.props.editableField('subTitle')}>
+                    <h5>
                     {subTitle}
+                    </h5>
+                    
                 </div>
             </div>
         );
