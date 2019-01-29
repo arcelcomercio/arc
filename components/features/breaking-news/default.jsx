@@ -1,45 +1,31 @@
-import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import Consumer from "fusion:consumer";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import './breaking-news.css';
+import "./breaking-news.css";
 
 @Consumer
 class BreakingNews extends Component {
-
-    constructor(){
-        super();
-    }
-    handleOnClick = () => {
-        alert("holaa");
-    }
-
-    render() {
-        // const content = this.props.globalContent;
-        const { ButtonLavel, Title, SubTitle } = this.props.customFields;
-        return (
-            <div className="BreakingNews">
-                <div className="box combine">
-                    <button onClick={this.handleOnClick}>{ButtonLavel ? ButtonLavel : ""}</button>
-                </div>
-                <div className="box">
-                    sdsfdsdfds
-                    {Title && Title}
-                    {/* Introduzca titulo aqui (2) */}
-                </div>
-                <div className="box">
-                    {SubTitle&& SubTitle}
-                    {/* Etiqueda (3) */}
-                </div>
-            </div>
-        )
-    }   
+  constructor() {
+    super();
+  }
+  render() {
+    // const content = this.props.globalContent;
+    const { tags, title, subTitle } = this.props.customFields;
+    return (
+      <div className="BreakingNews">
+        <div className="box combine" {...this.props.editableField('tags')}>{tags}</div>
+        <div className="box" {...this.props.editableField('title')}>{title}</div>
+        <div className="box" {...this.props.editableField('subTitle')}>{subTitle}</div>
+      </div>
+    );
+  }
 }
 BreakingNews.propTypes = {
-    customFields: PropTypes.shape({
-        ButtonLavel: PropTypes.string,
-        Title: PropTypes.string,
-        SubTitle: PropTypes.string
-    })
-} 
-export default BreakingNews
+  customFields: PropTypes.shape({
+    tags: PropTypes.string,
+    title: PropTypes.string,
+    subTitle: PropTypes.string
+  })
+};
+export default BreakingNews;
