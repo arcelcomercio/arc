@@ -1,0 +1,22 @@
+{
+  "name": "arc-components",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@arc-core-components/feature_article-body": "^0.2.0",
+    "prop-types": "^15.6.2"
+  },
+  "devDependencies": {
+    "@arc-fusion/cli": "^0.1.44",
+    "prop-types": "^15.6.2"
+  },
+  "scripts": {
+    "fusion": "fusion",
+    "start": "fusion start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
