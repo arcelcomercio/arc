@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "elcomercio",
+    "display_name": "El Comercio",
+    "is_default_website": true
+  },
+  {
+    "_id": "depor",
+    "display_name": "Depor",
+    "is_default_website": false
+  },
+  {
+    "_id": "gestion",
+    "display_name": "Gestion",
+    "is_default_website": false
+  },
+  {
+    "_id": "peru21",
+    "display_name": "Peru21",
+    "is_default_website": false
+  },
+  {
+    "_id": "trome",
+    "display_name": "Trome",
+    "is_default_website": false
+  },
+  {
+    "_id": "publimetro",
+    "display_name": "Publimetro",
+    "is_default_website": false
+  },
+  {
+    "_id": "correo",
+    "display_name": "Correo",
+    "is_default_website": false
+  },
+  {
+    "_id": "ojo",
+    "display_name": "Ojo",
+    "is_default_website": false
+  }
+]
