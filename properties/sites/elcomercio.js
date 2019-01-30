@@ -16,6 +16,7 @@ export default {
     background: '#1F1F1F',
     titleColor: '#fff',
     textColor: '#fff',
+    gecColor: '#1F1F1F',
     img: 'https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png',
     info: ['Empresa Editora El Comercio', 'Jr. Santa Rosa #300 Lima 1 Perú', 'Copyright © Elcomercio.pe', 'Grupo El Comercio - Todos los derechos reservados'],
     menus: [
