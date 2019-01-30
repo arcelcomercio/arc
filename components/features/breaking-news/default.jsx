@@ -51,14 +51,11 @@ class BreakingNews extends Component {
     // const content = this.props.globalContent;
     // const content = this.state.article
     const { headlines, subheadlines } = this.state.article;
-
-    const { tags, title, link, subTitle } = this.props.customFields;
-
+    const { tags, title, subTitle, isExternalLink, link, articleConfig } = this.props.customFields;
     let objContent = {
       title: title || headlines.basic,
       subTitle: subTitle || subheadlines.basic
     };
-
     return (
       <div className={this.state.contentBreakingNews}>
         <span className="close" onClick={this.handleOnclickClose}>
@@ -71,7 +68,7 @@ class BreakingNews extends Component {
             </div>
           </div>
           <div className="box" {...this.props.editableField("title")}>
-            <a href={link ? link : "#"}>
+            <a href={isExternalLink ? link : articleConfig.contentConfigValues.website_url}>
               <h4>
                 {objContent.title}
                 {/* {title || (content && content.headlines && content.headlines.basic)} */}
@@ -96,8 +93,9 @@ BreakingNews.propTypes = {
   customFields: PropTypes.shape({
     tags: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
     subTitle: PropTypes.string.isRequired,
+    isExternalLink: PropTypes.bool,
+    link: PropTypes.string.isRequired,
     articleConfig: PropTypes.contentConfig("article")
   })
 };
