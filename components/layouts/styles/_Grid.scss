@@ -1,0 +1,16 @@
+.layout__basic {
+    display: flex;
+    flex-direction: column;
+}
+
+.content_container{
+    display: flex;
+}
+
+/* .content_container {
+    grid-area: main;
+    display: grid;
+    grid-template-areas: 
+        'zocalo-left content zocalo-right';
+    grid-template-columns: 1fr minmax(max-content, 1024px) 1fr;
+} */

@@ -7,6 +7,10 @@ class ContentLayout extends Component {
         return(
             <main alt="content" className='content'>
                 {this.props.elements}
+                <div>1</div>
+                <div>1</div>
+                <div>1</div>
+                <div>1</div>
             </main>
         )
     }
