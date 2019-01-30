@@ -3,9 +3,10 @@ export default {
   colorPrimary: '#f7c600',
 
   footer: {
-    background: '#f7c600',
-    titleColor: '#000',
-    img: 'https://img.elcomercio.pe/bundles/appcms/images/elcomercio/logo_ec.png?1548351598',
+    background: '#1F1F1F',
+    titleColor: '#fff',
+    textColor: '#fff',
+    img: 'https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png',
     info: ['Empresa Editora El Comercio', 'Jr. Santa Rosa #300 Lima 1 Perú', 'Copyright © Elcomercio.pe', 'Grupo El Comercio - Todos los derechos reservados'],
     menus: [
       {
