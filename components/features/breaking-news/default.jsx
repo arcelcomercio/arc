@@ -28,11 +28,12 @@ class BreakingNews extends Component {
       contentBreakingNews: "content-BreakingNews hidden"
     });
   };
+  
   render() {
     // const content = this.props.globalContent;
     // const content = this.state.article
     const { headlines, subheadlines } = this.state.article;
-    debugger;
+    
     const { tags, title, link, subTitle } = this.props.customFields;
 
     let objContent = {
