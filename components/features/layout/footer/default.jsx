@@ -25,7 +25,7 @@ class Footer extends Component {
       }
     }
     return (
-      <div>
+      <footer className='footer'>
         <div className="home-footer-top" style={styles.container}>
           <div className="home-footer-col">
             <a href="" className="site-logo">
@@ -54,7 +54,7 @@ class Footer extends Component {
 
         </div>
         <div className="home-footer-bot"></div>
-      </div>
+      </footer>
     )
   }
 }

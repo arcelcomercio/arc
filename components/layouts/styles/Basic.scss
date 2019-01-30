@@ -19,6 +19,16 @@ ul {
     align-items: center;
 }
 
+.layout__basic {
+    display: grid;
+    grid-template-areas: 
+        'nav nav nav'
+        'header header header'
+        'zocalo-left content zocalo-right'
+        'footer footer footer';
+    grid-template-columns: 180px 1fr 180px;
+}
+
 .nav {
 
     display: flex;
@@ -27,6 +37,7 @@ ul {
     justify-content: space-between;
     height: 46px;
     padding: 0 15px;
+    grid-area: nav;
     
 
     &__button {
@@ -59,4 +70,17 @@ ul {
         padding: 0 5px;
         height: inherit;
     }   
+}
+
+.zocalo-1{
+    grid-area: zocalo-1;
+}
+.zocalo-2{
+    grid-area: zocalo-2;
+}
+
+.content{
+    grid-area: content;
+    height: 300px;
+    background-color: red;
 }

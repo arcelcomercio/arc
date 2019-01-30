@@ -16,8 +16,8 @@ class Header extends Component {
           }
 
         return(
-            <Fragment>
-                <header alt='header' className='header' style={styles}>
+            <header alt='header' className='header' >
+                <div className="header__main" style={styles}>
                     <span>29 DE ENERO, 2019</span>
                     <img 
                         src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} 
@@ -28,7 +28,7 @@ class Header extends Component {
                         <button>Ingresar</button>
                         <button>Suscríbete</button>
                     </div>
-                </header>
+                </div>
                 <ul className='hot'>
                     <li>lomas </li>
                     <li>lomas </li>
@@ -36,7 +36,7 @@ class Header extends Component {
                     <li>lomas </li>
                     <li>lomas </li>
                 </ul>    
-            </Fragment>
+            </header>
         )
     }
 }
