@@ -1,35 +1,35 @@
 export default {
-  siteName: "El comercio",
+  siteName: "Depor",
 
 
   footer: {
-    background: '#f7c600',
-    titleColor: '#000',
-    img: 'https://img.elcomercio.pe/bundles/appcms/images/elcomercio/logo_ec.png?1548351598',
-    info: ['Empresa Editora El Comercio', 'Jr. Santa Rosa #300 Lima 1 Perú', 'Copyright © Elcomercio.pe', 'Grupo El Comercio - Todos los derechos reservados'],
+    background: '#fff',
+    titleColor: '#007c31',
+    img: 'https://assets.depor.com/img/depor/logo_depor.png',
+    info: ['Empresa Editora El Comercio', 'Jr. Santa Rosa #300 Lima 1 Perú', 'Copyright © depor.pe', 'Grupo El Comercio - Todos los derechos reservados'],
     menus: [
       {
-        title: 'secciones',
+        title: 'Jugadores',
         path: '',
         list: [
           {
-            name: 'Portada',
+            name: 'Messi',
             path: ''
           },
           {
-            name: 'Economía',
+            name: 'Ronaldo',
             path: ''
           },
           {
-            name: 'Mundo',
+            name: 'Neymar',
             path: ''
           },
           {
-            name: 'Perú',
+            name: 'Guerrero',
             path: ''
           },
           {
-            name: 'Tecnología',
+            name: 'Cueva',
             path: ''
           }
         ]
@@ -55,7 +55,7 @@ export default {
             path: ''
           }
         ]
-      } ,
+      },
       {
         title: 'Contacto',
         path: '',
