@@ -22,7 +22,59 @@ ul {
     align-items: center;
 }
 
+<<<<<<< HEAD
 @import './Nav';
+=======
+.nav {
+
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    height: 46px;
+    padding: 0 15px;
+    grid-area: nav;
+    
+
+    &__button {
+        color: white;
+        padding: 0 5px;
+        height: inherit;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+
+        &__container {
+            display: flex;
+            align-items: center;   
+            justify-content: center;
+            height: inherit;
+        }
+
+        &--featured {
+            color: #FBD03C;
+            padding: 0 5px;
+            height: inherit;
+            text-decoration: none;  
+            display: flex;
+            align-items: center;    
+        }
+    }
+
+    &__list {
+        color: white;
+        padding: 0 5px;
+        height: inherit;
+    }   
+}
+
+.zocalo-1{
+    grid-area: zocalo-1;
+}
+.zocalo-2{
+    grid-area: zocalo-2;
+}
+>>>>>>> 1d5fa02c81f78590e032e0af00e7853dc0c9de66
 
 .content{
     height: 1400px;

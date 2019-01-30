@@ -1,4 +1,5 @@
 .layout__basic {
+<<<<<<< HEAD
     display: flex;
     flex-direction: column;
 }
@@ -14,3 +15,13 @@
         'zocalo-left content zocalo-right';
     grid-template-columns: 1fr minmax(max-content, 1024px) 1fr;
 } */
+=======
+    display: grid;
+    grid-template-areas: 
+        'nav nav nav'
+        'header header header'
+        'zocalo-left content zocalo-right'
+        'footer footer footer';
+    grid-template-columns: 180px 1fr 180px;
+}
+>>>>>>> 1d5fa02c81f78590e032e0af00e7853dc0c9de66
