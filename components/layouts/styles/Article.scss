@@ -1,4 +1,15 @@
 .container-article {
     display: grid;
-    
+    grid-template-columns: repeat(12, calc(100%) / 12);
+    //grid-gap: 10px;
+    max-width: 1024px;
+    margin: 0 auto;
+    main {
+        grid-column-start: 1;
+        grid-column-end: 7;
+    }
+    sidebar {
+        grid-column-start: 8;
+        grid-column-end: 12;
+    }
 }
