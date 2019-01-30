@@ -8,9 +8,16 @@ class Header extends Component {
 
     render() {
 
+        const { background, color } = this.props.siteProperties.header
+
+        const styles = {
+              backgroundColor: background,
+              color: color
+          }
+
         return(
             <Fragment>
-                <header alt='header' className='header'>
+                <header alt='header' className='header' style={styles}>
                     <span>29 DE ENERO, 2019</span>
                     <img 
                         src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} 

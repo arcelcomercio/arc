@@ -6,8 +6,15 @@ class Nav extends Component {
 
     render() {
 
+        const { background, color } = this.props.siteProperties.nav
+
+        const styles = {
+              backgroundColor: background,
+              color: color
+          }
+
         return(
-            <nav alt="nav" className="nav">
+            <nav alt="nav" className="nav" style={styles}>
                 <div className="nav__button__container">
                     <a className='nav__button' href="#">Buscar</a>
                     <a className='nav__button' href="#">Secciones</a>
