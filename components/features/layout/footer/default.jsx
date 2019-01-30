@@ -14,14 +14,18 @@ class Footer extends Component {
   }
 
   render() {
-    const { background, img, info, menus, titleColor } = this.props.siteProperties.footer
+    const { background, img, info, menus, titleColor, textColor } = this.props.siteProperties.footer
     const styles = {
       container: {
         backgroundColor: background
       },
       titleColor: {
         color: titleColor,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: '16px'
+      },
+      textColor: {
+        color: textColor
       }
     }
     return (
@@ -32,19 +36,19 @@ class Footer extends Component {
               <img src={img} alt="" />
             </a>
             <ul className="site-legal">
-              {info.map(el => <li>{el}</li>)}
+              {info.map(el => <li style={styles.textColor}>{el}</li>)}
             </ul>
           </div>
           {menus.map((el, keyID) => {
             return (
               <div className="home-footer-col">
-                <ul>
+                <ul className="menus">
                   <li key={keyID}>
                     <a  style={styles.titleColor} href="">{el.title}</a>
                   </li>
                   {el.list.map((e, key) =>
                     <li key={key}>
-                      <a href="">{e.name}</a>
+                      <a style={styles.textColor} href="">{e.name}</a>
                     </li>
                   )}
                 </ul>
