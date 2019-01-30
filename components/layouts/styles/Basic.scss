@@ -1,3 +1,5 @@
+@import './Grid';
+
 $gray-light: #E7EBED;
 
 body {
@@ -18,16 +20,6 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.layout__basic {
-    display: grid;
-    grid-template-areas: 
-        'nav nav nav'
-        'header header header'
-        'zocalo-left content zocalo-right'
-        'footer footer footer';
-    grid-template-columns: 180px 1fr 180px;
 }
 
 .nav {
