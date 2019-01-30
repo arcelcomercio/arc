@@ -19,9 +19,9 @@ const Basic = props => {
                 <ZocaloLayout
                     position='left'
                 />
-                    <ContentLayout 
-                        elements={props.children[1]} 
-                        />
+                <ContentLayout 
+                    elements={props.children[1]} 
+                    />
                 <ZocaloLayout
                     position='right'
                 />

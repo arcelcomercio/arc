@@ -10,18 +10,5 @@ const ZocaloLayout = (props) => {
     </Fragment>
     )
 }
-/* class ZocaloLayout extends Component {
-    render() {
-        return(
-            <Fragment>
-                <div className='zocalo__container'>
-                    <Zocalo
-                        position={this.props.position}
-                    />
-                </div>
-            </Fragment>
-        )
-    }
-}
- */
+
 export default ZocaloLayout;
