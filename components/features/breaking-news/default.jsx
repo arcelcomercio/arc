@@ -10,16 +10,22 @@ class BreakingNews extends Component {
         super(props);
         const { contentService, contentConfigValues } = this.props.customFields.articleConfig
         this.fetchContent({
-          article: {
-            source: contentService,
-            query: contentConfigValues
-          }
+            article: {
+                source: contentService,
+                query: contentConfigValues
+            }
         })
     }
     render() {
         // const content = this.props.globalContent;
         const content = this.state.article
         const { tags, title, link, subTitle } = this.props.customFields;
+        let subtitulo = subTitle;
+        debugger
+        if (subtitulo.length > 29) {
+            subtitulo = "caracteres no validos";
+        }
+
         return (
             <div className="BreakingNews">
                 <div className="box combine" {...this.props.editableField('tags')}>
@@ -37,9 +43,9 @@ class BreakingNews extends Component {
                 </div>
                 <div className="box" {...this.props.editableField('subTitle')}>
                     <h5>
-                    {subTitle || (content && content.subheadlines && content.subheadlines.basic)}
+                        {subtitulo || (content && content.subheadlines && content.subheadlines.basic)}
                     </h5>
-                    
+
                 </div>
             </div>
         );
