@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Footer from '../../features/layout/footer/default'
 
 class FooterLayout extends Component {
     render() {
         return(
-            <footer>
+            <Fragment>
                 <Footer/>
                 {this.props.elements}
-            </footer>
+            </Fragment>
         )
     }
 }
