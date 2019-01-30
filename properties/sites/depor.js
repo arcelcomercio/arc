@@ -1,6 +1,6 @@
 export default {
   siteName: "Depor",
-
+  colorPrimary: '##007c31',
 
   footer: {
     background: '#fff',

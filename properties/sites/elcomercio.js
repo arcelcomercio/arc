@@ -1,6 +1,6 @@
 export default {
-  siteName: "El comercio",
-
+  siteName: 'El comercio',
+  colorPrimary: '#f7c600',
 
   footer: {
     background: '#f7c600',
