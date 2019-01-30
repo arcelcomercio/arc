@@ -1,6 +1,7 @@
 export default {
   siteName: 'El comercio',
   colorPrimary: '#f7c600',
+  siteUrl: 'elcomercio.pe',
 
   nav: {
     background: '#1F1F1F',

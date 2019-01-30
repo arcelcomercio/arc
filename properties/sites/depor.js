@@ -1,6 +1,7 @@
 export default {
   siteName: "Depor",
   colorPrimary: '#007c31',
+  siteUrl: 'depor.com',
 
   nav: {
     background: '#007c31',

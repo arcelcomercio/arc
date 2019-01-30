@@ -15,7 +15,7 @@ class Footer extends Component {
 
   render() {
     const { background, img, info, menus, titleColor, textColor, gecColor } = this.props.siteProperties.footer
-    const { gecSites } = this.props.siteProperties
+    const { gecSites, siteUrl } = this.props.siteProperties
     const styles = {
       container: {
         backgroundColor: background
@@ -33,7 +33,7 @@ class Footer extends Component {
       }
     }
     return (
-      <div>
+      <div className="pre">
         <div className="home-footer-top-container" style={styles.container}>
           <div className="home-footer-top">
             <div className="home-footer-col">
@@ -41,15 +41,15 @@ class Footer extends Component {
                 <img src={img} alt="" />
               </a>
               <ul className="site-legal">
-                {info.map(el => <li style={styles.textColor}>{el}</li>)}
+                {info.map((el, k) => <li key={k} style={styles.textColor}>{el}</li>)}
               </ul>
             </div>
             {menus.map((el, keyID) => {
               return (
-                <div className="home-footer-col">
+                <div className="home-footer-col" key={keyID}>
                   <ul className="menus">
-                    <li key={keyID}>
-                      <a  style={styles.titleColor} href="">{el.title}</a>
+                    <li>
+                      <a style={styles.titleColor} href="">{el.title}</a>
                     </li>
                     {el.list.map((e, key) =>
                       <li key={key}>
@@ -61,16 +61,20 @@ class Footer extends Component {
               )
             })}
           </div>
-          
+
         </div>
 
         <div className="home-footer-bot">
           <ul>
             <li style={styles.gecColor}>Visite también:</li>
-            {gecSites.map(site => 
-              <li>
-                <a href="">{site.name}</a>
-              </li>
+            {gecSites.map((site, key) => {
+              if (site.name !== siteUrl) {
+                return (
+                <li key={key}>
+                  <a href="">{site.name}</a>
+                </li>
+              )}
+            }
             )}
           </ul>
         </div>

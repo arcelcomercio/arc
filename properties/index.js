@@ -18,6 +18,10 @@ export default {
       url: ''
     },
     {
+      name: 'depor.com',
+      url: ''
+    },
+    {
       name: 'peru.com',
       url: ''
     },
