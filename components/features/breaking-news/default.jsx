@@ -12,10 +12,10 @@ class BreakingNews extends Component {
       contentService,
       contentConfigValues
     } = this.props.customFields.articleConfig;
-    
-    this.state={
-        contentBreakingNews:'content-BreakingNews'
-    }
+
+    this.state = {
+      contentBreakingNews: "content-BreakingNews"
+    };
     this.fetchContent({
       article: {
         source: contentService,
@@ -23,17 +23,35 @@ class BreakingNews extends Component {
       }
     });
   }
+
+  componentDidMount = () => {
+      debugger
+    // let contentBreakingNews = "content-BreakingNews";
+    const { link } = this.props.customFields;
+    let status = localStorage.getItem(link);
+    debugger;
+
+    if (status === "false") {
+      this.setState({
+        contentBreakingNews: "content-BreakingNews hidden"
+      });
+    }
+  };
+
   handleOnclickClose = () => {
+    const { link } = this.props.customFields;
+    debugger
+    localStorage.setItem(link, "false");
     this.setState({
       contentBreakingNews: "content-BreakingNews hidden"
     });
   };
-  
+
   render() {
     // const content = this.props.globalContent;
     // const content = this.state.article
     const { headlines, subheadlines } = this.state.article;
-    
+
     const { tags, title, link, subTitle } = this.props.customFields;
 
     let objContent = {
