@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react'
-import Zocalo from '../../features/layout/zocalo/default'
 
 class Zocalo extends Component {
     render() {
         return(
             <Fragment>
-                <Zocalo />
+                <div className='zocalo-1'></div>
+                <div className='zocalo-2'></div>
             </Fragment>
         )
     }
