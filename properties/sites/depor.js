@@ -1,6 +1,16 @@
 export default {
   siteName: "Depor",
-  colorPrimary: '##007c31',
+  colorPrimary: '#007c31',
+
+  nav: {
+    background: '#007c31',
+    color: '#ffffff'
+  },
+
+  header: {
+    background: '#007c31',
+    color: '#ffffff'
+  },
 
   footer: {
     background: '#fff',

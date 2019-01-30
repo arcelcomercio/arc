@@ -2,6 +2,16 @@ export default {
   siteName: 'El comercio',
   colorPrimary: '#f7c600',
 
+  nav: {
+    background: '#1F1F1F',
+    color: '#ffffff'
+  },
+
+  header: {
+    background: '#f7c600',
+    color: '#1F1F1F'
+  },
+
   footer: {
     background: '#1F1F1F',
     titleColor: '#fff',
