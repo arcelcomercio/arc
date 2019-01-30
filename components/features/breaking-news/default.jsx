@@ -32,11 +32,12 @@ class BreakingNews extends Component {
   render() {
     // const content = this.props.globalContent;
     // const content = this.state.article
-    const { headlines, subheadlines } = this.state.article;
+    console.log('this.state.article', this.state.article);
+    const { headlines, subheadlines } = this.state.article || {};
     const { tags, title, subTitle, isExternalLink, link, articleConfig } = this.props.customFields;
     let objContent = {
-      title: title || headlines.basic,
-      subTitle: subTitle || subheadlines.basic
+      title: title || (headlines && headlines.basic),
+      subTitle: subTitle || (subheadlines && subheadlines.basic)
     };
     return (
       <div className={this.state.contentBreakingNews}>
@@ -46,24 +47,19 @@ class BreakingNews extends Component {
         <div className="BreakingNews">
           <div className="box combine" {...this.props.editableField("tags")}>
             <div className="lavel">
-              <span>{tags}</span>
+              <span>{tags.substr(0,13)}</span>
             </div>
           </div>
           <div className="box" {...this.props.editableField("title")}>
             <a href={isExternalLink ? link : articleConfig.contentConfigValues.website_url}>
               <h4>
                 {objContent.title}
-                {/* {title || (content && content.headlines && content.headlines.basic)} */}
               </h4>
             </a>
           </div>
           <div className="box" {...this.props.editableField("subTitle")}>
             <h5>
-              {objContent.subTitle.length > 29
-                ? "no valido"
-                : objContent.subTitle}
-              {/* {content.subheadlines.basic} */}
-              {/* {subTitle || (content && content.subheadlines && content.subheadlines.basic)} */}
+              {objContent.subTitle && objContent.subTitle.substr(0,30)}
             </h5>
           </div>
         </div>
