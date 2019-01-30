@@ -1,3 +1,7 @@
+.footer {
+  grid-area: footer;
+}
+
 .home-footer-top {
   display: flex;
   padding: 60px 17px 80px;
@@ -19,10 +23,21 @@
     }
     .site-logo {
       margin-bottom: 15px;
-      width: 170px;
+      width: 180px;
       display: block;
       img {
         width: 100%;
+      }
+    }
+    .site-legal {
+      li {
+        font-size: 11px;
+      }
+    }
+    .menus {
+      li {
+        margin-bottom: 5px;
+        line-height: 18px;
       }
     }
     ul {
@@ -33,7 +48,7 @@
       align-items: start;
       li {
         margin-bottom: 3px;
-        font-size: 10.5px;
+        font-size: 15px;
         a {
           text-decoration: none;
           color: black;

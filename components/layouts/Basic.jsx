@@ -9,7 +9,7 @@ import './styles/Basic.scss';
 
 const Basic = props => {
     return (
-        <div>
+        <div className='layout__basic'>
             <NavLayout />
             <HeaderLayout 
                 elements={props.children[0]} 

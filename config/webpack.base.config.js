@@ -23,7 +23,7 @@ const paths = {
 const entries = {};
 
 // Get site(s) to include from .env in the project root.
-const buildSites = ["elcomercio", "bugle"];
+const buildSites = ["elcomercio", "depor"];
 
 // Render into webpack entry format
 buildSites.forEach(site => {

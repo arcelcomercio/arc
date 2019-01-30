@@ -5,7 +5,7 @@ class ContentLayout extends Component {
         //console.log('--------> Content')
         //console.log(this.props.elements, this.props.elements.length)
         return(
-            <main alt="content">
+            <main alt="content" className='content'>
                 {this.props.elements}
             </main>
         )
