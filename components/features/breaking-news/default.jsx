@@ -37,7 +37,7 @@ class BreakingNews extends Component {
                 </div>
                 <div className="box" {...this.props.editableField('subTitle')}>
                     <h5>
-                    {subTitle}
+                    {subTitle || (content && content.subheadlines && content.subheadlines.basic)}
                     </h5>
                     
                 </div>
