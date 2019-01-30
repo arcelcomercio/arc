@@ -6,7 +6,7 @@ import ContentLayout from './components/Content-layout'
 import SidebarLayout from './components/Sidebar-layout'
 import FooterLayout from './components/Footer-layout'
 
-import './styles/Basic.scss';
+import './styles/Article.scss';
 
 const Basic = props => {
     return (
@@ -15,7 +15,7 @@ const Basic = props => {
             <HeaderLayout 
                 elements={props.children[0]} 
                 />
-            <div className="container">
+            <div className="container-article">
                 <ContentLayout 
                     elements={props.children[1]} 
                     />
