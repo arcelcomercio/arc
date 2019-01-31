@@ -10,21 +10,6 @@ class ContentLayout extends Component {
                 <div className="q col-12 row-1"> Breaking new</div>
                 <div className="q col-4 row-2"></div>
                 <div className="q col-8 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
-                <div className="q col-4 row-2"></div>
             </main>
         )
     }
