@@ -37,10 +37,6 @@ class BreakingNews extends Component {
     }
   };
 
-  componentWillMount() {
-    console.log('componentWillMount');
-  }
-
   handleOnclickClose = () => {
     const { link } = this.props.customFields;
     localStorage.setItem(link, "false");
@@ -54,8 +50,9 @@ class BreakingNews extends Component {
     // const content = this.state.article
     console.log('this.state.article', this.state.article);
     const { headlines, subheadlines } = this.state.article || {};
-    const { tags, title, subTitle, isExternalLink, link } = this.props.customFields;
-    const webUrlService = typeof contentConfigValues != 'undefined'?contentConfigValues.website_url:'';
+    const { tags, title, subTitle, isExternalLink, link, articleConfig } = this.props.customFields;
+    const webUrlService = typeof articleConfig != 'undefined' && typeof articleConfig.contentConfigValues != 'undefined'?
+        articleConfig.contentConfigValues.website_url:'';
     let objContent = {
       title: title || (headlines && headlines.basic),
       subTitle: subTitle || (subheadlines && subheadlines.basic),
