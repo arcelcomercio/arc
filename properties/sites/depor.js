@@ -1,6 +1,7 @@
 export default {
   siteName: "Depor",
   colorPrimary: '#007c31',
+  siteUrl: 'depor.com',
 
   nav: {
     background: '#007c31',
@@ -16,6 +17,7 @@ export default {
     background: '#fff',
     titleColor: '#007c31',
     textColor: '#000',
+    gecColor: '#007c31',
     img: 'https://assets.depor.com/img/depor/logo_depor.png',
     info: ['Empresa Editora El Comercio', 'Jr. Santa Rosa #300 Lima 1 Perú', 'Copyright © depor.pe', 'Grupo El Comercio - Todos los derechos reservados'],
     menus: [
