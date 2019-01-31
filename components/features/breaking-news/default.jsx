@@ -11,26 +11,25 @@ class BreakingNews extends Component {
     const {
       contentService,
       contentConfigValues
-    } = this.props.customFields.articleConfig;
+    } = this.props.customFields.articleConfig || {};
 
     this.state = {
       contentBreakingNews: "content-BreakingNews"
     };
-    this.fetchContent({
-      article: {
-        source: contentService,
-        query: contentConfigValues
-      }
-    });
+    if(typeof contentService != 'undefined' && typeof contentConfigValues != 'undefined'){
+        this.fetchContent({
+            article: {
+              source: contentService,
+              query: contentConfigValues
+            }
+          });
+    }
   }
 
   componentDidMount = () => {
-      debugger
     // let contentBreakingNews = "content-BreakingNews";
     const { link } = this.props.customFields;
     let status = localStorage.getItem(link);
-    debugger;
-
     if (status === "false") {
       this.setState({
         contentBreakingNews: "content-BreakingNews hidden"
@@ -38,9 +37,12 @@ class BreakingNews extends Component {
     }
   };
 
+  componentWillMount() {
+    console.log('componentWillMount');
+  }
+
   handleOnclickClose = () => {
     const { link } = this.props.customFields;
-    debugger
     localStorage.setItem(link, "false");
     this.setState({
       contentBreakingNews: "content-BreakingNews hidden"
@@ -52,10 +54,12 @@ class BreakingNews extends Component {
     // const content = this.state.article
     console.log('this.state.article', this.state.article);
     const { headlines, subheadlines } = this.state.article || {};
-    const { tags, title, subTitle, isExternalLink, link, articleConfig } = this.props.customFields;
+    const { tags, title, subTitle, isExternalLink, link } = this.props.customFields;
+    const webUrlService = typeof contentConfigValues != 'undefined'?contentConfigValues.website_url:'';
     let objContent = {
       title: title || (headlines && headlines.basic),
-      subTitle: subTitle || (subheadlines && subheadlines.basic)
+      subTitle: subTitle || (subheadlines && subheadlines.basic),
+      link: isExternalLink ? link : webUrlService
     };
     return (
       <div className={this.state.contentBreakingNews}>
@@ -65,11 +69,11 @@ class BreakingNews extends Component {
         <div className="BreakingNews">
           <div className="box combine" {...this.props.editableField("tags")}>
             <div className="lavel">
-              <span>{tags.substr(0,13)}</span>
+              <span>{tags}</span>
             </div>
           </div>
           <div className="box" {...this.props.editableField("title")}>
-            <a href={isExternalLink ? link : articleConfig.contentConfigValues.website_url}>
+            <a href={objContent.link}>
               <h4>
                 {objContent.title}
               </h4>
@@ -77,7 +81,7 @@ class BreakingNews extends Component {
           </div>
           <div className="box" {...this.props.editableField("subTitle")}>
             <h5>
-              {objContent.subTitle && objContent.subTitle.substr(0,30)}
+              {objContent.subTitle && objContent.subTitle}
             </h5>
           </div>
         </div>
