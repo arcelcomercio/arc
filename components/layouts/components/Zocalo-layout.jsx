@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react'
+import Zocalo from '../../features/layout/zocalo/default'
 
-class Zocalo extends Component {
-    render() {
-        return(
-            <Fragment>
-                <div className='zocalo-1'></div>
-                <div className='zocalo-2'></div>
-            </Fragment>
-        )
-    }
+const ZocaloLayout = (props) => {
+    return(
+    <Fragment>
+        <div className={`zocalo__container zocalo__${props.position}`}>
+            <Zocalo/>
+        </div>
+    </Fragment>
+    )
 }
 
-export default Zocalo;
+export default ZocaloLayout;

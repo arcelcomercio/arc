@@ -8,7 +8,7 @@ import FooterLayout from './components/Footer-layout'
 
 import './styles/Article.scss';
 
-const Basic = props => {
+const Article = props => {
     return (
         <div className="layout__basic">
             <NavLayout />
@@ -30,6 +30,6 @@ const Basic = props => {
     );
 }
 
-Basic.sections = ['Cabecera', 'Contenido', 'Lateral', 'Pie de Página']
+Article.sections = ['Cabecera', 'Contenido', 'Lateral', 'Pie de Página']
 
-export default Basic;
+export default Article;
