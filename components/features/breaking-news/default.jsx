@@ -16,13 +16,13 @@ class BreakingNews extends Component {
     this.state = {
       contentBreakingNews: "content-BreakingNews"
     };
-    if(typeof contentService != 'undefined' && typeof contentConfigValues != 'undefined'){
+    if(contentService !== undefined && contentConfigValues !== undefined){
         this.fetchContent({
             article: {
               source: contentService,
               query: contentConfigValues
             }
-          });
+        });
     }
   }
 
@@ -51,7 +51,7 @@ class BreakingNews extends Component {
     console.log('this.state.article', this.state.article);
     const { headlines, subheadlines } = this.state.article || {};
     const { tags, title, subTitle, isExternalLink, link, articleConfig } = this.props.customFields;
-    const webUrlService = typeof articleConfig != 'undefined' && typeof articleConfig.contentConfigValues != 'undefined'?
+    const webUrlService = articleConfig !== undefined && articleConfig.contentConfigValues !== undefined?
         articleConfig.contentConfigValues.website_url:'';
     let objContent = {
       title: title || (headlines && headlines.basic),
