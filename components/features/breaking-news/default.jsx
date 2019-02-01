@@ -70,16 +70,11 @@ class BreakingNews extends Component {
             </div>
           </div>
           <div className="box" {...this.props.editableField("title")}>
-            <a href={objContent.link}>
-              <h4>
+            <a href={objContent.link} target="_blank">
+              <h2>
                 {objContent.title}
-              </h4>
+              </h2>
             </a>
-          </div>
-          <div className="box" {...this.props.editableField("subTitle")}>
-            <h5>
-              {objContent.subTitle && objContent.subTitle}
-            </h5>
           </div>
         </div>
       </div>
@@ -103,12 +98,20 @@ BreakingNews.propTypes = {
         },
         defaultValue: 'bn-color-1'
     }),
-    tags: PropTypes.string.isRequired.tag({name: 'Etiqueta'}),
-    title: PropTypes.string.isRequired.tag({name: 'Título'}),
-    subTitle: PropTypes.string.isRequired.tag({name: 'Descripción'}),
+    tags: PropTypes.string.tag({name: 'Etiqueta'}),
+    title: PropTypes.string.isRequired.tag({
+        name: 'Título',
+        description: 'Dejar vacio para que tome el título de la historia'
+    }),
+    subTitle: PropTypes.string.tag({name: 'Descripción', hidden: true}),
+    articleConfig: PropTypes.contentConfig("story").tag({
+        name: 'Configuración de nota interna'
+    }),
     isExternalLink: PropTypes.bool.tag({name: '¿Nota externa?'}),
-    link: PropTypes.string.isRequired.tag({name: 'Link'}),
-    articleConfig: PropTypes.contentConfig("article").tag({name: 'Configuración de nota'})
+    link: PropTypes.string.tag({
+        name: 'Link externo', 
+        fieldType: 'url'
+    })
   })
 };
 export default BreakingNews;
