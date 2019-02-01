@@ -12,7 +12,7 @@ class BreakingNews extends Component {
       this.props.customFields.articleConfig || {};
 
     this.state = {
-      contentBreakingNews: "content-BreakingNews"
+      contentBreakingNews: "breaking-news"
     };
     if (contentService !== undefined && contentConfigValues !== undefined) {
       this.fetchContent({
@@ -25,12 +25,12 @@ class BreakingNews extends Component {
   }
 
   componentDidMount = () => {
-    // let contentBreakingNews = "content-BreakingNews";
+    // let contentBreakingNews = "breaking-news";
     const { link } = this.props.customFields;
     let status = localStorage.getItem(link);
     if (status === "false") {
       this.setState({
-        contentBreakingNews: "content-BreakingNews hidden"
+        contentBreakingNews: "breaking-news bn-hidden"
       });
     }
   };
@@ -39,7 +39,7 @@ class BreakingNews extends Component {
     const { link } = this.props.customFields;
     localStorage.setItem(link, "false");
     this.setState({
-      contentBreakingNews: "content-BreakingNews hidden"
+      contentBreakingNews: "breaking-news bn-hidden"
     });
   };
 
@@ -68,21 +68,17 @@ class BreakingNews extends Component {
       link: isExternalLink ? link : webUrlService
     };
     return (
-      <div className={`${this.state.contentBreakingNews} ${backgroundColor}`}>
-        <span className="close" onClick={this.handleOnclickClose}>
-          x
-        </span>
-        <div className="BreakingNews"{...this.props.editableField("tags")}>
-          <div className="volada">
-            <span>{tags}</span>
-          </div>
-          <div className="box" {...this.props.editableField("title")}>
-            <a href={objContent.link} target="_blank">
-              <h2>{objContent.title}</h2>
-            </a>
-          </div>
+        <div className={`${this.state.contentBreakingNews} ${backgroundColor}`}>
+            <span className="bn-close" onClick={this.handleOnclickClose}>x</span>
+            <h2>
+                <span className="bn-tag" {...this.props.editableField("tags")}>{tags}</span>
+                <span {...this.props.editableField("title")}>
+                    <a href={objContent.link} target="_blank">
+                        {objContent.title}
+                    </a>
+                </span>
+            </h2>
         </div>
-      </div>
     );
   }
 }
