@@ -1,6 +1,18 @@
 .content-BreakingNews {
-  background-color: red;
+  &.bn-color-1 {
+    background-color: red;
+  }
+  &.bn-color-2 {
+    background-color: green;
+  }
+  &.bn-color-3 {
+    background-color: yellow;
+  }
+  &.bn-color-4 {
+    background-color: gray;
+  }
 }
+
 .hidden {
   display: none;
 }
@@ -9,7 +21,6 @@
   grid-template-columns: 8% 90%;
   grid-template-rows: 40px 40px;
   grid-gap: 0px;
-  background-color: red;
   height: 100px;
   align-content: center;
   justify-content: center;

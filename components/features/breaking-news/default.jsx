@@ -2,7 +2,7 @@ import Consumer from "fusion:consumer";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import "./breaking-news.css";
+import "./breaking-news.scss";
 
 @Consumer
 class BreakingNews extends Component {
@@ -50,7 +50,7 @@ class BreakingNews extends Component {
     // const content = this.state.article
     console.log('this.state.article', this.state.article);
     const { headlines, subheadlines } = this.state.article || {};
-    const { tags, title, subTitle, isExternalLink, link, articleConfig } = this.props.customFields;
+    const { backgroundColor, tags, title, subTitle, isExternalLink, link, articleConfig } = this.props.customFields;
     const webUrlService = articleConfig !== undefined && articleConfig.contentConfigValues !== undefined?
         articleConfig.contentConfigValues.website_url:'';
     let objContent = {
@@ -59,7 +59,7 @@ class BreakingNews extends Component {
       link: isExternalLink ? link : webUrlService
     };
     return (
-      <div className={this.state.contentBreakingNews}>
+      <div className={`${this.state.contentBreakingNews} ${backgroundColor}`}>
         <span className="close" onClick={this.handleOnclickClose}>
           x
         </span>
@@ -88,12 +88,27 @@ class BreakingNews extends Component {
 }
 BreakingNews.propTypes = {
   customFields: PropTypes.shape({
-    tags: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    subTitle: PropTypes.string.isRequired,
-    isExternalLink: PropTypes.bool,
-    link: PropTypes.string.isRequired,
-    articleConfig: PropTypes.contentConfig("article")
+    backgroundColor: PropTypes.oneOf([
+        'bn-color-1',
+        'bn-color-2',
+        'bn-color-3',
+        'bn-color-4'
+    ]).tag({
+        name: 'Color de fondo',
+        labels: {
+            'bn-color-1': 'Color 1',
+            'bn-color-2': 'Color 2',
+            'bn-color-3': 'Color 3',
+            'bn-color-4': 'Color 4'
+        },
+        defaultValue: 'bn-color-1'
+    }),
+    tags: PropTypes.string.isRequired.tag({name: 'Etiqueta'}),
+    title: PropTypes.string.isRequired.tag({name: 'Título'}),
+    subTitle: PropTypes.string.isRequired.tag({name: 'Descripción'}),
+    isExternalLink: PropTypes.bool.tag({name: '¿Nota externa?'}),
+    link: PropTypes.string.isRequired.tag({name: 'Link'}),
+    articleConfig: PropTypes.contentConfig("article").tag({name: 'Configuración de nota'})
   })
 };
 export default BreakingNews;
