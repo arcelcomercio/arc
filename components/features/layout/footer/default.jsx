@@ -15,8 +15,10 @@ class Footer extends Component {
   }
 
   fetch() {
-    const { fetched } = this.getContent('site-navigation', { website: this.props.arcSite })
+    // take only section's name
+    const { fetched } = this.getContent('site-navigation', { website: this.props.arcSite }, '{ children { name } }')
     fetched.then(response => {
+      // console.log(response)
       this.castSection(response)
     })
   }
@@ -59,7 +61,7 @@ class Footer extends Component {
       }
     }
     return (
-      <div className="pre">
+      <footer>
         <div className="home-footer-top-container" style={styles.container}>
           <div className="home-footer-top">
             <div className="home-footer-col">
@@ -87,9 +89,7 @@ class Footer extends Component {
               )
             })}
           </div>
-
         </div>
-
         <div className="home-footer-bot">
           <ul>
             <li style={styles.gecColor}>Visite también:</li>
@@ -104,7 +104,7 @@ class Footer extends Component {
             })}
           </ul>
         </div>
-      </div>
+      </footer>
     )
   }
 }
