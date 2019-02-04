@@ -5,17 +5,17 @@ const baseDir = path.resolve(__dirname, '..');
 
 const paths = {
   base: baseDir,
-  components: path.resolve(baseDir, 'components'),
-  chains: path.resolve(baseDir, 'components', 'chains'),
+  //components: path.resolve(baseDir, 'components'),
+  //chains: path.resolve(baseDir, 'components', 'chains'),
   config: path.resolve(baseDir, 'config'),
-  docs: path.resolve(baseDir, 'docs'),
+  //docs: path.resolve(baseDir, 'docs'),
   dist: path.resolve(baseDir, 'resources', 'dist'),
-  features: path.resolve(baseDir, 'components', 'features'),
-  fonts: path.resolve(baseDir, 'resources', 'fonts'),
-  images: path.resolve(baseDir, 'resources', 'images'),
-  layouts: path.resolve(baseDir, 'components', 'layouts'),
-  outputTypes: path.resolve(baseDir, 'components', 'output-types'),
-  reports: path.resolve(baseDir, 'reports'),
+  //features: path.resolve(baseDir, 'components', 'features'),
+  //fonts: path.resolve(baseDir, 'resources', 'fonts'),
+  //images: path.resolve(baseDir, 'resources', 'images'),
+  //layouts: path.resolve(baseDir, 'components', 'layouts'),
+  //outputTypes: path.resolve(baseDir, 'components', 'output-types'),
+  //reports: path.resolve(baseDir, 'reports'),
   resources: path.resolve(baseDir, 'resources'),
 };
 
@@ -27,7 +27,7 @@ const buildSites = ["elcomercio", "depor"];
 
 // Render into webpack entry format
 buildSites.forEach(site => {
-	entries[site] = `./src/websites/${site}/${site}.js`;
+	entries[site] = `./src/websites/${site}/index.js`;
 });
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -65,6 +65,7 @@ module.exports = (env) => {
         publicPath: paths.dist,
         filename: '[name]/js/index.js',
     },
+    devtool: 'source-map',
     module: {
       rules: [
         {
@@ -79,14 +80,14 @@ module.exports = (env) => {
             }
         },
         {
-          test: /\.css$/,
+          test: /\.(scss|css)$/,
           use: [
             {
                 loader: MiniCssExtractPlugin.loader,
                 options: {
                     // you can specify a publicPath here
                     // by default it use publicPath in webpackOptions.output
-                    publicPath: paths.dist
+
                 }
             },
             {
@@ -96,16 +97,27 @@ module.exports = (env) => {
                   importLoaders: 1
                 }
             },
-            'postcss-loader'
+            'postcss-loader',
+            {
+              loader: 'resolve-url-loader',
+              options: {},
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                  implementation: require("sass"),
+                  sourceMap: true,
+                  outputStyle: 'expanded' //or compressed
+              }
+            }
         ]
         },
         {
           test: /\.(jpeg|jpg|png|gif|svg)$/,
           use: {
-            loader: 'url-loader',
+            loader: 'file-loader',
             options: {
-              limit: 4000,
-              fallback: 'file-loader',
+              publicPath: '/pb/resources/dist/',
               name: ';[path];/images/[name].[ext]', // ;[path]; es reemplazado
             }
           }
@@ -113,10 +125,9 @@ module.exports = (env) => {
         {
           test: /\.(ttf|eot|woff)$/,
           use: {
-            loader: 'url-loader',
+            loader: 'file-loader',
             options: {
-                limit: 5000,
-                fallback: 'file-loader',
+                publicPath: '/pb/resources/dist/',
                 name: ';[path];/fonts/[name].[ext]' // ;[path]; es reemplazado
             } 
           }
