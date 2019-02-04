@@ -3,7 +3,7 @@
 **/node_modules
 
 /.fusion
-
+/.idea
 /data/db/
 /data/dumps/**
 !/data/dumps/.gitkeep
