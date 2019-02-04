@@ -1,4 +1,0 @@
-sudo chown -R edgar:edgar ./*   -->permisos en la carpeta
-sudo chown -R edgar:edgar ./* ->carpetas escondidas
-
-CONTENT_BASE=https://2018-12:1e2d52d4ead4a36107f31f30ad5d2562@api.sandbox.elcomercio.arcpublishing.com
