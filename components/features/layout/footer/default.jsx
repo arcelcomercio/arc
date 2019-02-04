@@ -10,7 +10,35 @@ import React, { Fragment, Component } from 'react'
 class Footer extends Component {
   constructor(props) {
     super(props)
+    this.state = { menus: [] }
+    this.fetch()
+  }
 
+  fetch() {
+    // take only section's name
+    const { fetched } = this.getContent('site-navigation', { website: this.props.arcSite }, '{ children { name } }')
+    fetched.then(response => {
+      // console.log(response)
+      this.castSection(response)
+    })
+  }
+
+  castSection(res) {
+    // temporary menus footer data
+    let { menus } = this.props.siteProperties.footer
+    // temporary structure
+    const auxMenu = { title: '', path: '', list: [] }
+    if (res) {
+      menus = menus.filter((e, i) => i !== 0)
+      auxMenu.title = 'Secciones'
+      auxMenu.list = res.children.map(el => {
+        return ({ name: el.name, path: '' })
+      })
+      menus = [auxMenu, ...menus]
+      this.setState({ menus: menus })
+    } else {
+      this.setState({menus: menus})
+    }
   }
 
   render() {
@@ -33,7 +61,7 @@ class Footer extends Component {
       }
     }
     return (
-      <div className="pre">
+      <footer>
         <div className="home-footer-top-container" style={styles.container}>
           <div className="home-footer-top">
             <div className="home-footer-col">
@@ -44,7 +72,7 @@ class Footer extends Component {
                 {info.map((el, k) => <li key={k} style={styles.textColor}>{el}</li>)}
               </ul>
             </div>
-            {menus.map((el, keyID) => {
+            {this.state.menus.map((el, keyID) => {
               return (
                 <div className="home-footer-col" key={keyID}>
                   <ul className="menus">
@@ -61,24 +89,22 @@ class Footer extends Component {
               )
             })}
           </div>
-
         </div>
-
         <div className="home-footer-bot">
           <ul>
             <li style={styles.gecColor}>Visite también:</li>
             {gecSites.map((site, key) => {
               if (site.name !== siteUrl) {
                 return (
-                <li key={key}>
-                  <a href="">{site.name}</a>
-                </li>
-              )}
-            }
-            )}
+                  <li key={key}>
+                    <a href="">{site.name}</a>
+                  </li>
+                )
+              }
+            })}
           </ul>
         </div>
-      </div>
+      </footer>
     )
   }
 }
