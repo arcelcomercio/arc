@@ -1,11 +1,14 @@
 import React, { Component, Fragment } from 'react'
-import Zocalo from '../../features/layout/zocalo/default'
+import Ads from '../../features/ads/default'
 
 const ZocaloLayout = (props) => {
     return(
     <Fragment>
-        <div className={`zocalo__container zocalo__${props.position}`}>
-            <Zocalo/>
+        <div className='zocalo__container'>
+            <Ads
+                adElement={props.adElement}
+                device={props.device}
+            />
         </div>
     </Fragment>
     )

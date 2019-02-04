@@ -3,8 +3,10 @@
     flex-direction: column;
 }
 
-.content_container{
+.main__container{
     display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 /* .content_container {

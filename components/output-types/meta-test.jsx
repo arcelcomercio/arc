@@ -21,9 +21,9 @@ export default ({
       <MetaTags />
       <Libs />
       <CssLinks />
-{/*       <link rel='stylesheet' type='text/css' href={deployment(`${contextPath}/resources/dist/${arcSite}/css/style.css`)} />
+      <link rel='stylesheet' type='text/css' href={deployment(`${contextPath}/resources/dist/${arcSite}/css/style.css`)} />
       <link rel='icon' type='image/x-icon' href={deployment(`${contextPath}/resources/dist/${arcSite}/favicon.ico`)} />
-      <CustomMeta 
+      {/* <CustomMeta 
         properties={siteProperties}
         uri={requestUri}
       /> */}
@@ -32,7 +32,7 @@ export default ({
       <div id='fusion-app'>
         {children}
       </div>
-      {/* <script src={deployment(`${contextPath}/resources/dist/${arcSite}/js/index.js`)}></script> */}
+      <script src={deployment(`${contextPath}/resources/dist/${arcSite}/js/index.js`)}></script>
       <Fusion />
     </body>
   </html>
