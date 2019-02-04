@@ -7,6 +7,10 @@ module.exports = {
         features: {
           'nesting-rules': true
         }
+      },
+      'css-mqpacker':{},
+      'cssnano':{
+        preset: 'default'
       }
     }
   }

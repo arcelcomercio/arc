@@ -1,0 +1,35 @@
+.content{
+    min-width: 940px;
+    max-width: 1024px;
+    margin: 20px 0 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.content--box{
+    grid-template-rows: repeat(4, 374px);
+}
+
+.content--infinite{
+    grid-auto-rows: 374px;
+}
+
+.q {
+    overflow: hidden;
+    background-color: gray;
+
+}
+
+@for $i from 1 through 3 {
+    .col-#{$i} {
+        grid-column: span $i
+    }
+}
+
+@for $i from 1 through 4 {
+    .row-#{$i} {
+        grid-row: span $i
+    }
+}
