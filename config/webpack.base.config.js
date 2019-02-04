@@ -100,6 +100,10 @@ module.exports = (env) => {
         ]
         },
         {
+          test:/\.(s*)css$/,
+          use:['css-loader', 'sass-loader']
+        },
+        {
           test: /\.(jpeg|jpg|png|gif|svg)$/,
           use: {
             loader: 'url-loader',
