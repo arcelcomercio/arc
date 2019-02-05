@@ -1,23 +1,35 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import './default.scss'
-
+import PropTypes from 'prop-types'
+@Consumer
 class Ads extends Component {
 
     render(){
-
-        const { adElement, device } = this.props 
-
+        const { adElement, device, customFields } = this.props
+        console.log(this.props)
         return(
             <Fragment>
-                <div 
-                    className='ad' 
-                    id={`ads_${device}_${adElement}`}
-                ></div>
+                {/* zocalos */}
+                {!customFields && <div className='ad' id={`ads_${device}_${adElement}`}></div>}
+                {/* Bloques */}
+                {customFields && customFields.isMobile && <div id={`ads-m-${customFields.adElement}`}></div>}
+                {customFields && customFields.isDesktop && <div id={`ads-d-${customFields.adElement}`}></div>}
             </Fragment>
         )
     }
 }
+
+Ads.propTypes = {
+    customFields: PropTypes.shape({
+        adElement: PropTypes.string.isRequired.tag({
+        name: "Nombre"
+      }),
+      isDesktop: PropTypes.bool.tag({ name: "Desktop", group: 'Dispositivo' }),
+      isMobile: PropTypes.bool.tag({ name: "Mobile", group: 'Dispositivo' })
+    })
+  };
+  
 
 Ads.static = true
 
