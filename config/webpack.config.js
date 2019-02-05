@@ -31,14 +31,15 @@ buildSites.forEach(site => {
 });
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-//const CleanWebpackPlugin = require('clean-webpack-plugin');
-
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = (env) => {
+
   let plugins = [
     new MiniCssExtractPlugin({
         filename: '[name]/css/style.css',
     }),
+
     // Aquí se reemplaza ;[path]; por el nombre del sitio web
     new webpack.LoaderOptionsPlugin({
       options: {
@@ -49,15 +50,17 @@ module.exports = (env) => {
     })
   ]
 
-  /* if (env.NODE_ENV === 'production') {
+  //if (env.prod) {
     plugins.push(new CleanWebpackPlugin([paths.dist], {
         verbose: true,
         root: paths.base,
       }));
-  } */
+  //}
+
+  const mode = env.dev ? 'development' : 'production'
 
   return {
-    mode: env.dev ? 'development': 'production',
+    mode: mode,
     context: paths.base,
     entry: entries,
     output: {
@@ -87,17 +90,26 @@ module.exports = (env) => {
                 options: {
                     // you can specify a publicPath here
                     // by default it use publicPath in webpackOptions.output
-
                 }
             },
             {
-                loader: 'css-loader',
-                options: {
-                  //modules: true,
-                  importLoaders: 1
-                }
+                  loader: 'css-loader',
+                  options: {
+                    //modules: true,
+                    importLoaders: 1
+                  }
             },
-            'postcss-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                config: {
+                  ctx: {
+                    env: mode,
+                    cssnano: { preset:'default' },
+                  }
+                }
+              }
+            },
             {
               loader: 'resolve-url-loader',
               options: {},

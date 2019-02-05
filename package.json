@@ -35,7 +35,8 @@
   "scripts": {
     "fusion": "fusion",
     "start": "fusion start",
-    "dev": "webpack -w --config ./config/webpack.base.config.js --env.dev",
+    "dev": "webpack --config ./config/webpack.config.js --env.dev",
+    "prod": "webpack --config ./config/webpack.config.js --env.prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
