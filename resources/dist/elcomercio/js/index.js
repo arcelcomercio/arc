@@ -117,8 +117,8 @@ module.exports = "/pb/resources/dist/elcomercio/images/logo.png";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_elcomercio_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scss/elcomercio.css */ "./src/websites/elcomercio/scss/elcomercio.css");
-/* harmony import */ var _scss_elcomercio_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_elcomercio_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _scss_elcomercio_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scss/elcomercio.scss */ "./src/websites/elcomercio/scss/elcomercio.scss");
+/* harmony import */ var _scss_elcomercio_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_elcomercio_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./favicon.ico */ "./src/websites/elcomercio/favicon.ico");
 /* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_favicon_ico__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _images_logo_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./images/logo.png */ "./src/websites/elcomercio/images/logo.png");
@@ -129,10 +129,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/websites/elcomercio/scss/elcomercio.css":
-/*!*****************************************************!*\
-  !*** ./src/websites/elcomercio/scss/elcomercio.css ***!
-  \*****************************************************/
+/***/ "./src/websites/elcomercio/scss/elcomercio.scss":
+/*!******************************************************!*\
+  !*** ./src/websites/elcomercio/scss/elcomercio.scss ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

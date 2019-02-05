@@ -10,28 +10,26 @@ import './styles/Basic.scss';
 
 const Basic = props => {
     return (
-        <div className='layout__basic'>
-            <NavLayout />
-            <HeaderLayout 
-                elements={props.children[0]} 
-                />
             <div className='main__container'>
                 <ZocaloLayout
                     adElement='zocalo1'
                     device='d'  // This is gonna be variable
                 />
-                <ContentLayout 
-                    elements={props.children[1]} 
+                <ContentLayout>
+                    <NavLayout />
+                    <HeaderLayout 
+                        elements={props.children[0]} 
                     />
+                    {props.children[1]} 
+                    <FooterLayout 
+                        elements={props.children[2]} 
+                    />            
+                </ContentLayout>
                 <ZocaloLayout
                     adElement='zocalo2'
                     device='d'  // This is gonna be variable
                 />
             </div>
-            <FooterLayout 
-                elements={props.children[2]} 
-                />            
-        </div>
     );
 }
 

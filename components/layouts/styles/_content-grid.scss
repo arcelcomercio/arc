@@ -1,15 +1,32 @@
+
 .content{
-    min-width: 940px;
-    max-width: 1024px;
-    margin: 20px 0 0;
+
+    @media screen and (min-width: 768px) {
+        min-width: 620px;
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    
+    @media screen and (min-width: 1024px) {
+        min-width: 940px;
+        grid-template-columns: repeat(3, 1fr);        
+    }
 
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    margin: 20px 0 0;
     gap: 20px;
+    grid-template-columns: 1fr;
+    min-width: 320px;
+    max-width: 100%; 
+    
 }
 
 .content--box{
-    grid-template-rows: repeat(4, 374px);
+
+    @media screen and (min-width: 1024px) {
+        grid-template-rows: repeat(4, 374px);       
+    }
+
+    grid-auto-rows: 374px;    
 }
 
 .content--infinite{
@@ -19,17 +36,38 @@
 .q {
     overflow: hidden;
     background-color: gray;
-
 }
 
-@for $i from 1 through 3 {
-    .col-#{$i} {
-        grid-column: span $i
-    }
-}
+/*-------------- Process to create the 1 col classes */
 
 @for $i from 1 through 4 {
     .row-#{$i} {
-        grid-row: span $i
+        grid-row: span $i;
     }
 }
+
+.col-1, .col-2, .col-3 {
+    grid-column: span 1;
+}
+
+/*-------------- Process to create the 2 col classes */
+
+@media screen and (min-width: 768px) {
+    .col-1 {
+        grid-column: span 1;
+    }
+    .col-2, .col-3 {
+        grid-column: span 2;
+    }
+}
+
+/*-------------- Process to create the 3 col classes */
+
+@media screen and (min-width: 1024px) {
+    @for $i from 1 through 3 {
+        .col-#{$i} {
+            grid-column: span $i
+        }
+    }
+}
+/****************************************************/

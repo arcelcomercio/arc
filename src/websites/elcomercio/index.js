@@ -1,3 +1,3 @@
-import './scss/elcomercio.css'
+import './scss/elcomercio.scss'
 import './favicon.ico'
 import './images/logo.png'
