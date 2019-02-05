@@ -10,6 +10,9 @@ class AperturaExtraordinaria extends Component
 
 AperturaExtraordinaria.propTypes = {
     customFields: PropTypes.shape({
+        content: PropTypes.label.tag({
+            name: 'Contenido'
+        }),
         section: PropTypes.string.isRequired.tag({
             name: 'Sección',
             description: 'Dejar vacío para tomar el valor original de la noticia.'
@@ -22,8 +25,34 @@ AperturaExtraordinaria.propTypes = {
             name: 'Bajada',
             description: 'Dejar vacío para tomar el valor original de la noticia.'
         }),
+        orientation: PropTypes.label.tag({
+            name: 'Posición del contenido'
+        }),
+        imageAndVideoOrientation: PropTypes.oneOf(['top', 'bottom', 'left', 'right']).tag({
+            name: 'Posición de la imagen o video',
+            labels: {
+                top: 'Superior',
+                bottom: 'Inferior',
+                left: 'Izquierda',
+                right: 'Derecha'
+            },
+            defaultValue: 'top'
+        }),
+        contentOrientation: PropTypes.oneOf(['center', 'left', 'right']).tag({
+            name: 'Posición del contenido',
+            labels: {
+                center: 'Centro',
+                left: 'Izquierda',
+                right: 'Derecha'
+            },
+            defaultValue: 'left'
+        }),
+        hasVideo: PropTypes.bool.tag({
+            name: '¿Colocar un video?',
+            group: 'Video'
+        }),
         videoService: PropTypes.oneOf(['goldfish', 'youtube']).tag({
-            name: 'Video test',
+            name: 'Proveedor',
             group: 'Video',
             labels: {
                 goldfish: 'GoldFish',
@@ -31,27 +60,10 @@ AperturaExtraordinaria.propTypes = {
             },
             defaultValue: 'goldfish'
         }),
-        hasVideo: PropTypes.bool.tag({
-            name: '¿Colocar un video?',
-            group: 'Video'
-        }),
         videoCode: PropTypes.string.tag({
             name: 'Código de video',
             group: 'Video'
-        }),
-        ll: PropTypes.label,
-        rt: PropTypes.richtext,
-        dd: PropTypes.date,
-        dt: PropTypes.dateTime,
-        ur: PropTypes.url,
-        em: PropTypes.email,
-        li: PropTypes.link,
-        topics: PropTypes.list,
-        candidateVotePercent: PropTypes.kvp,
-        j: PropTypes.json,
-        n: PropTypes.number,
-        di: PropTypes.disabled
-        //imageAndVideoOrientation
+        })
     })
 }
 
