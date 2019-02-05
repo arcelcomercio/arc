@@ -4,9 +4,9 @@ class ContentLayout extends Component {
     render() {
 
         return(
-            <main alt="content" className='layout__basic'>
-                {this.props.elements}
-            </main>
+            <div className='layout__basic'>
+                {this.props.children}
+            </div>
         )
     }
 }
