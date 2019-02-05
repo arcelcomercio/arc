@@ -15,7 +15,7 @@ const Basic = props => {
             <HeaderLayout 
                 elements={props.children[0]} 
                 />
-            <div className='content_container'>
+            <div className='main__container'>
                 <ZocaloLayout
                     adElement='zocalo1'
                     device='d'  // This is gonna be variable

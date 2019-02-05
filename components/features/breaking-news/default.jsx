@@ -2,8 +2,6 @@ import Consumer from "fusion:consumer";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import "./breaking-news.css";
-
 @Consumer
 class BreakingNews extends Component {
     constructor() {

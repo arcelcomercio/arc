@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import './style.scss'
-
 @Consumer
 class Article extends Component {
     render() {
