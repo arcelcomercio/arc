@@ -6,8 +6,6 @@ import ContentLayout from './components/Content-layout'
 import ZocaloLayout from './components/Zocalo-layout'
 import FooterLayout from './components/Footer-layout'
 
-import './styles/Basic.scss';
-
 const Basic = props => {
     return (
             <div className='main__container'>

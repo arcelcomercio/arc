@@ -1,8 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-
 const baseDir = path.resolve(__dirname, '..');
-
 const paths = {
   base: baseDir,
   //components: path.resolve(baseDir, 'components'),
@@ -18,18 +16,14 @@ const paths = {
   //reports: path.resolve(baseDir, 'reports'),
   resources: path.resolve(baseDir, 'resources'),
 };
-
 // Placeholder for webpack entries.
 const entries = {};
-
 // Get site(s) to include from .env in the project root.
 const buildSites = ["elcomercio", "depor"];
-
 // Render into webpack entry format
 buildSites.forEach(site => {
-	entries[site] = `./src/websites/${site}/index.js`;
+    entries[site] = `./src/websites/${site}/index.js`;
 });
-
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
@@ -68,7 +62,7 @@ module.exports = (env) => {
         publicPath: paths.dist,
         filename: '[name]/js/index.js',
     },
-    devtool: 'source-map',
+    //devtool: 'source-map',
     module: {
       rules: [
         {
@@ -118,7 +112,7 @@ module.exports = (env) => {
               loader: "sass-loader",
               options: {
                   implementation: require("sass"),
-                  sourceMap: true,
+                  sourceMap: false,
                   outputStyle: 'expanded' //or compressed
               }
             }

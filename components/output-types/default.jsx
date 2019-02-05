@@ -6,6 +6,7 @@ export default ({
   children,
   contextPath,
   deployment,
+  arcSite,
   CssLinks,
   Fusion,
   Libs,
@@ -17,7 +18,8 @@ export default ({
       <MetaTags />
       <Libs />
       <CssLinks />
-      <link rel='icon' type='image/x-icon' href={deployment(`${contextPath}/resources/favicon.ico`)} />
+      <link rel='icon' type='image/x-icon' href={deployment(`${contextPath}/resources/dist/${arcSite}/favicon.ico`)} />
+      <link rel='stylesheet' href={deployment(`${contextPath}/resources/dist/${arcSite}/css/style.css`)} />
     </head>
     <body>
       <div id='fusion-app'>
