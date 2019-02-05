@@ -7,8 +7,6 @@ import ContentLayout from './components/Content-layout'
 import SidebarLayout from './components/Sidebar-layout'
 import FooterLayout from './components/Footer-layout'
 
-import './styles/Article.scss';
-
 const Article = props => {
     return (
         <div className='main__container'>

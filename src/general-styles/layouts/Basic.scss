@@ -1,4 +1,8 @@
-@import './Layout';
+@import './partials/Layout';
+@import './partials/content-grid';
+@import '../components/statics/Nav.scss';
+@import '../components/statics/Header.scss';
+@import '../components/statics/Footer.scss';
 
 $gray-light: #E7EBED;
 
@@ -22,6 +26,3 @@ ul {
     justify-content: center;
     align-items: center;
 }
-
-@import './Nav';
-@import './content-grid'
