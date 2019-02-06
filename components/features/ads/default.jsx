@@ -7,7 +7,6 @@ class Ads extends Component {
 
     render(){
         const { adElement, device, customFields } = this.props
-        console.log(!this.props.customFields)
         return(
             <Fragment>
                 {/* Zocalos */}
