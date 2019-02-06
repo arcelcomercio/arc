@@ -126,13 +126,12 @@ class Slider extends React.PureComponent {
 	next = () => {
 		if (!this.canGoNext()) return;
 		const nextSlideIndex = (this.state.currentSlideIndex + 1) % this.slideCount;
-		
-		
+		this.goTo(nextSlideIndex, NEXT);
+/*
 		const locationHref = "//" + location.host + location.pathname +'&foto=' + (nextSlideIndex+1);
 		window.history.pushState('', "", locationHref);
 		console.log(this			); debugger;
-		console.log(this.props.match.params.redirectParam			); debugger;
-		
+		console.log(this.props.match.params.redirectParam			); debugger;*/
 	};
 
 	getSlideClass = (index) => {
