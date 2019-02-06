@@ -1,9 +1,54 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import Consumer from 'fusion:consumer'
 
+@Consumer
 class AperturaExtraordinaria extends Component 
 {
+    constructor (props) {
+        super(props)
+        this.fetch()
+    }
+
+    fetch() {
+        if(this.props.customFields.link){
+            const { fetched } = this.getContent(
+                'apertura-extraordinaria', 
+                { website_url: this.props.customFields.link, website: this.props.arcSite }, 
+                this.filterSchema()
+            )
+            fetched.then(response => {
+                console.log('apertura-extraordinaria')
+                console.dir(response)
+            })
+        }
+    }
+
+    filterSchema() {
+        return `{
+            headlines {
+                basic
+            }
+            subheadlines {
+                basic
+            }
+            promo_items {
+                basic {
+                    type
+                    url
+                }
+            }
+            credits {
+                by {
+                    type
+                    name
+                }
+            }
+        }`
+    }
+    
     render(){
+        console.log('this', this)
         return <div className="apertura-extraordinaria">Apertura Extraordinaria</div>
     }
 }
@@ -12,6 +57,9 @@ AperturaExtraordinaria.propTypes = {
     customFields: PropTypes.shape({
         content: PropTypes.label.tag({
             name: 'Contenido'
+        }),
+        link: PropTypes.string.isRequired.tag({
+            name: 'Link de nota interna'
         }),
         section: PropTypes.string.isRequired.tag({
             name: 'Sección',
