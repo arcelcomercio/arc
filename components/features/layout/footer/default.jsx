@@ -1,7 +1,3 @@
-/*  /components/features/movies/movie-list.jsx  */
-
-import './style.scss'
-
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Fragment, Component } from 'react'
