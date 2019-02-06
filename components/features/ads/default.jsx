@@ -7,10 +7,10 @@ class Ads extends Component {
 
     render(){
         const { adElement, device, customFields } = this.props
-        console.log(this.props)
+        console.log(!this.props.customFields)
         return(
             <Fragment>
-                {/* zocalos */}
+                {/* Zocalos */}
                 {!customFields && <div className='ad' id={`ads_${device}_${adElement}`}></div>}
                 {/* Bloques */}
                 {customFields && customFields.isMobile && <div id={`ads-m-${customFields.adElement}`}></div>}
