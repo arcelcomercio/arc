@@ -55,6 +55,7 @@
 @for $i from 1 through 4 {
     .row-#{$i} {
         grid-row: span $i;
+        height: ($heightRow * $i)+($spacingNormal * ($i - 1));
     }
 }
 

@@ -2,7 +2,6 @@ import React, { Fragment, Component } from 'react'
 
 const styles = [
     'content--grid-base',
-    'content-layout',
     'content--1col',
     'col-1'
 ]
