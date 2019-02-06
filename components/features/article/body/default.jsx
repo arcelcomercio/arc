@@ -19,8 +19,10 @@ class ContentArticleBody extends Component {
 
     return (
       <Fragment>
+        <div className='col-2'>
+        
         {contentElements && (
-          <ArticleBody class='news-text-content'
+          <ArticleBody className='news-text-content col-3'
             data={contentElements}
             elementClasses={elementClasses}
             renderElement={element => {
@@ -38,6 +40,7 @@ class ContentArticleBody extends Component {
             }
           />
         )}
+        </div>
       </Fragment>
     );
   }

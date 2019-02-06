@@ -2,6 +2,7 @@
 **/.env
 **/node_modules
 
+
 /.fusion
 /.idea
 /data/db/
@@ -9,6 +10,6 @@
 !/data/dumps/.gitkeep
 /data/restore/**
 !/data/restore/.gitkeep
-
 /dist
+/resources/dist
 package-lock.json

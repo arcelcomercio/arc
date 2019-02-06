@@ -10,17 +10,19 @@ import PropTypes from "prop-types";
 class ArticleHeader extends Component {
   render() {
     const { content_elements: contentElements } = this.props.globalContent;
-
+    const { content_elements: galleryElements } = (typeof contentElements === "undefined" )?'':contentElements[0];
+    //console.log(contentElements);debugger;
     return (
       <Fragment>
-        <Heading />
-
-        <Subheading />
-        {contentElements && contentElements.map((value, key) => {
-          if (key == 0 && value.type == 'gallery') {
-            return <Gallery data={value} id={key} />;
-          }
-        })}
+        <div class={(galleryElements) ? '_gallery col-3':'col-3' }>
+          <Heading />
+          <Subheading />
+          {contentElements && contentElements.map((value, key) => {
+            if (key == 0 && value.type == 'gallery') {
+              return <Gallery data={value} id={key} />;
+            }
+          })}
+        </div>
       </Fragment>
     );
   }
