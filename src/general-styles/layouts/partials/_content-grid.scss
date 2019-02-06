@@ -1,37 +1,48 @@
+.content--grid-base {
+    display: grid;
+    gap: $spacingNormal;
+}
 
-
-.content{
-
-    @media screen and (min-width: 768px) {
+.content-layout{
+    @media screen and (min-width: 640px) {
         min-width: 620px;
-        grid-template-columns: repeat(2, 1fr); 
     }
     
     @media screen and (min-width: 1024px) {
         min-width: 940px;
-        grid-template-columns: repeat(3, 1fr);        
+        max-width: 1024px;
     }
 
-    display: grid;
-    margin: 20px 0 0;
-    gap: 20px;
-    grid-template-columns: 1fr;
     min-width: 320px;
     max-width: 100%; 
-    
 }
 
 .content--box{
-
     @media screen and (min-width: 1024px) {
-        grid-template-rows: repeat(4, 374px);       
+        grid-template-rows: repeat(4, $heightRow);       
     }
-
-    grid-auto-rows: 374px;    
+    
+    grid-auto-rows: $heightRow;    
 }
 
 .content--infinite{
-    grid-auto-rows: 374px;
+    grid-auto-rows: $heightRow;
+}
+
+.content--3col{
+    @media screen and (min-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr);        
+    }
+}
+
+.content--2col{
+    @media screen and (min-width: 640px) {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+.content--1col{
+    grid-template-columns: 1fr;
 }
 
 .q {
@@ -53,7 +64,7 @@
 
 /*-------------- Process to create the 2 col classes */
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 640px) {
     .col-1 {
         grid-column: span 1;
     }

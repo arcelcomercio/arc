@@ -3,6 +3,7 @@ import React from 'react';
 import NavLayout from './components/Nav-layout'
 import HeaderLayout from './components/Header-layout'
 import ContentLayout from './components/Content-layout'
+import MainLayout from './components/Main-layout'
 import ZocaloLayout from './components/Zocalo-layout'
 import FooterLayout from './components/Footer-layout'
 
@@ -18,7 +19,9 @@ const Basic = props => {
                     <HeaderLayout 
                         elements={props.children[0]} 
                     />
-                    {props.children[1]} 
+                    <MainLayout
+                        elements={props.children[1]} 
+                    />
                     <FooterLayout 
                         elements={props.children[2]} 
                     />            
