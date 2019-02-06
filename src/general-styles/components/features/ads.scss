@@ -1,0 +1,13 @@
+.zocalo__container {
+
+    width: 0;
+    overflow: hidden;
+
+    @media screen and (min-width: 1024px) {
+        display: flex;
+        height: fit-content;
+        width: auto; 
+        position: sticky;
+        top: 0;
+    }
+}

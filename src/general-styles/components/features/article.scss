@@ -1,0 +1,17 @@
+.article-principal { 
+    width: 400px; 
+    display: flex; 
+    flex-direction: column; 
+}
+.article { 
+    width: 400px; 
+    display: flex; 
+    flex-direction: row; 
+}
+.article figure,
+.article-principal figure { 
+    width: 100%; 
+    margin: 0; 
+}
+.article figure img,
+.article-principal figure img { width: 100%; }

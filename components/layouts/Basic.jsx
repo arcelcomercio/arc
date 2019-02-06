@@ -3,33 +3,34 @@ import React from 'react';
 import NavLayout from './components/Nav-layout'
 import HeaderLayout from './components/Header-layout'
 import ContentLayout from './components/Content-layout'
+import MainLayout from './components/Main-layout'
 import ZocaloLayout from './components/Zocalo-layout'
 import FooterLayout from './components/Footer-layout'
 
-import './styles/Basic.scss';
-
 const Basic = props => {
     return (
-        <div className='layout__basic'>
-            <NavLayout />
-            <HeaderLayout 
-                elements={props.children[0]} 
-                />
-            <div className='content_container'>
+            <div className='main__container'>
                 <ZocaloLayout
-                    position='left'
+                    adElement='zocalo1'
+                    device='d'  // This is gonna be variable
                 />
-                <ContentLayout 
-                    elements={props.children[1]} 
+                <ContentLayout>
+                    <NavLayout />
+                    <HeaderLayout 
+                        elements={props.children[0]} 
                     />
+                    <MainLayout
+                        elements={props.children[1]} 
+                    />
+                    <FooterLayout 
+                        elements={props.children[2]} 
+                    />            
+                </ContentLayout>
                 <ZocaloLayout
-                    position='right'
+                    adElement='zocalo2'
+                    device='d'  // This is gonna be variable
                 />
             </div>
-            <FooterLayout 
-                elements={props.children[2]} 
-                />            
-        </div>
     );
 }
 

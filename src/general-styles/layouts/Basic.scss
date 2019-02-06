@@ -1,0 +1,28 @@
+@import './partials/Layout';
+@import './partials/content-grid';
+@import '../components/statics/Nav.scss';
+@import '../components/statics/Header.scss';
+@import '../components/statics/Footer.scss';
+
+$gray-light: #E7EBED;
+
+body {
+    background: $gray-light;
+    overflow-x: hidden;
+}
+
+.spaceAvoid {
+    background: #c6c6c6;
+    border: 1px dotted #999;
+}
+
+ul, body {
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

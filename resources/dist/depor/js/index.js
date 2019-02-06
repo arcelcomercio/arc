@@ -77,35 +77,57 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/home/usuario/Proyectos/Fusion-Training-PageBuilder-Features/resources/dist";
+/******/ 	__webpack_require__.p = "/home/ec-ed/www/arc/resources/dist";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/websites/bugle/bugle.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/websites/depor/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/websites/bugle/bugle.css":
-/*!**************************************!*\
-  !*** ./src/websites/bugle/bugle.css ***!
-  \**************************************/
+/***/ "./src/websites/depor/favicon.ico":
+/*!****************************************!*\
+  !*** ./src/websites/depor/favicon.ico ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/websites/bugle/bugle.css?");
+eval("module.exports = __webpack_require__.p + \"depor/favicon.ico\";\n\n//# sourceURL=webpack:///./src/websites/depor/favicon.ico?");
 
 /***/ }),
 
-/***/ "./src/websites/bugle/bugle.js":
+/***/ "./src/websites/depor/images/logo.png":
+/*!********************************************!*\
+  !*** ./src/websites/depor/images/logo.png ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"/pb/resources/dist/depor/images/logo.png\";\n\n//# sourceURL=webpack:///./src/websites/depor/images/logo.png?");
+
+/***/ }),
+
+/***/ "./src/websites/depor/index.js":
 /*!*************************************!*\
-  !*** ./src/websites/bugle/bugle.js ***!
+  !*** ./src/websites/depor/index.js ***!
   \*************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _bugle_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bugle.css */ \"./src/websites/bugle/bugle.css\");\n/* harmony import */ var _bugle_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bugle_css__WEBPACK_IMPORTED_MODULE_0__);\n\n\n//# sourceURL=webpack:///./src/websites/bugle/bugle.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scss/main.scss */ \"./src/websites/depor/scss/main.scss\");\n/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_main_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./favicon.ico */ \"./src/websites/depor/favicon.ico\");\n/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_favicon_ico__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _images_logo_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./images/logo.png */ \"./src/websites/depor/images/logo.png\");\n/* harmony import */ var _images_logo_png__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_images_logo_png__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\n\n//# sourceURL=webpack:///./src/websites/depor/index.js?");
+
+/***/ }),
+
+/***/ "./src/websites/depor/scss/main.scss":
+/*!*******************************************!*\
+  !*** ./src/websites/depor/scss/main.scss ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/websites/depor/scss/main.scss?");
 
 /***/ })
 
