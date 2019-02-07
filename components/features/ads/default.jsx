@@ -7,6 +7,11 @@ class Ads extends Component {
 
     render() {
         const { adElement, device, customFields } = this.props
+        console.log(this.props.customFields)
+        function createMarkup(html) {
+            return { __html: html };
+        }
+
         return (
             <Fragment>
                 {/* Zocalos */}
@@ -15,6 +20,7 @@ class Ads extends Component {
                         {/* Bloques */}
                         {customFields.isMobile && <div id={`ads-m-${customFields.adElement}`}></div>}
                         {customFields.isDesktop && <div id={`ads-d-${customFields.adElement}`}></div>}
+                        {customFields.freeHtml && <div dangerouslySetInnerHTML={createMarkup(this.props.customFields.freeHtml)}></div>}
                     </div>}
 
             </Fragment>
@@ -50,6 +56,7 @@ Ads.propTypes = {
             defaultValue: "row-1",
             group: 'Dimensiones'
         }),
+        freeHtml: PropTypes.richtext.tag({ name: "Código HTML", group: 'Agregar bloque de html' }),
     })
 };
 
