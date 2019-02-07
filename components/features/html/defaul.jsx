@@ -6,13 +6,14 @@ import PropTypes from 'prop-types'
 class Html extends Component {
 
   createMarkup(html) {
-    return {__html: html};
+    return { __html: html };
   }
 
   render() {
+
     return (
       <div
-        dangerouslySetInnerHTML={createMarkup(this.props.customFields.freeHtml)}>
+        dangerouslySetInnerHTML={this.createMarkup(this.props.customFields.freeHtml)}>
       </div>
     )
   }

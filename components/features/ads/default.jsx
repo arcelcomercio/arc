@@ -5,12 +5,12 @@ import PropTypes from 'prop-types'
 @Consumer
 class Ads extends Component {
 
+    createMarkup(html) {
+        return { __html: html };
+    }
+
     render() {
         const { adElement, device, customFields } = this.props
-        console.log(this.props.customFields)
-        function createMarkup(html) {
-            return { __html: html };
-        }
 
         return (
             <Fragment>
@@ -20,7 +20,7 @@ class Ads extends Component {
                         {/* Bloques */}
                         {customFields.isMobile && <div id={`ads-m-${customFields.adElement}`}></div>}
                         {customFields.isDesktop && <div id={`ads-d-${customFields.adElement}`}></div>}
-                        {customFields.freeHtml && <div dangerouslySetInnerHTML={createMarkup(this.props.customFields.freeHtml)}></div>}
+                        {customFields.freeHtml && <div dangerouslySetInnerHTML={this.createMarkup(this.props.customFields.freeHtml)}></div>}
                     </div>}
 
             </Fragment>
