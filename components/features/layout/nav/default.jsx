@@ -1,6 +1,25 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 
+const styles = {
+    nav: [
+        'flex--center-vertical',
+        'flex__justify--between',
+    ],
+    navButton: [
+        'flex--center-vertical',
+        'nav__button'
+    ],
+    navButtonContainer: [
+        'flex--center-vertical',
+        'flex__justify--center',
+        'nav__button__container'
+    ],
+    navButtonFeatured: [
+        'flex--center-vertical',
+        'nav__button--featured'
+    ]
+}
 @Consumer
 class Nav extends Component {
 
@@ -8,16 +27,16 @@ class Nav extends Component {
 
         const { background, color } = this.props.siteProperties.nav
 
-        const styles = {
+        const inline = {
               backgroundColor: background,
               color: color
           }
 
         return(
-            <nav alt="nav" className="nav" style={styles}>
-                <div className="nav__button__container">
-                    <a className='nav__button' href="#">Buscar</a>
-                    <a className='nav__button' href="#">Secciones</a>
+            <nav alt="nav" className={styles.nav.join(' ')} style={inline}>
+                <div className={styles.navButtonContainer.join(' ')}>
+                    <a className={styles.navButton.join(' ')} href="#">Buscar</a>
+                    <a className={styles.navButton.join(' ')} href="#">Secciones</a>
                 </div>
                 <ul className='nav__list'>
                     <li>Politica</li>
@@ -26,9 +45,9 @@ class Nav extends Component {
                     <li>Economia</li>
                     <li>Opinion</li>
                 </ul>
-                <div className="nav__button__container">
-                    <a className='nav__button--featured' href="#">ZONA EJECUTIVA</a>
-                    <a className='nav__button--featured' href="#">CONSTRUYE BIEN</a>
+                <div className={styles.navButtonContainer.join(' ')}>
+                    <a className={styles.navButtonFeatured.join(' ')} href="#">ZONA EJECUTIVA</a>
+                    <a className={styles.navButtonFeatured.join(' ')} href="#">CONSTRUYE BIEN</a>
                 </div>
             </nav>
         )
