@@ -5,16 +5,18 @@ import PropTypes from 'prop-types'
 @Consumer
 class Ads extends Component {
 
-    render(){
-        const { adElement, device, customFields } = this.props
-        console.log(this.props)
-        return(
+    createMarkup(html) {
+        return { __html: html };
+    }
+
+    render() {
+        const { adElement, isDesktop, isMobile, freeHtml } = this.props.customFields
+
+        return (
             <Fragment>
-                {/* zocalos */}
-                {!customFields && <div className='ad' id={`ads_${device}_${adElement}`}></div>}
-                {/* Bloques */}
-                {customFields && customFields.isMobile && <div id={`ads-m-${customFields.adElement}`}></div>}
-                {customFields && customFields.isDesktop && <div id={`ads-d-${customFields.adElement}`}></div>}
+                {isMobile && <div id={`ads-m-${adElement}`}></div>}
+                {isDesktop && <div id={`ads-d-${adElement}`}></div>}
+                {freeHtml && <div dangerouslySetInnerHTML={this.createMarkup(freeHtml)}></div>}
             </Fragment>
         )
     }
@@ -23,14 +25,12 @@ class Ads extends Component {
 Ads.propTypes = {
     customFields: PropTypes.shape({
         adElement: PropTypes.string.isRequired.tag({
-        name: "Nombre"
-      }),
-      isDesktop: PropTypes.bool.tag({ name: "Desktop", group: 'Dispositivo' }),
-      isMobile: PropTypes.bool.tag({ name: "Mobile", group: 'Dispositivo' })
+            name: "Nombre"
+        }),
+        isDesktop: PropTypes.bool.tag({ name: "Desktop", group: 'Dispositivo' }),
+        isMobile: PropTypes.bool.tag({ name: "Mobile", group: 'Dispositivo' }),
+        freeHtml: PropTypes.richtext.tag({ name: "Código HTML", group: 'Agregar bloque de html' }),
     })
-  };
-  
-
-Ads.static = true
+};
 
 export default Ads
