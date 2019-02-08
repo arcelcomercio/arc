@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
+import Ae from './_children/ae'
+import './style.scss'
 
 @Consumer
 class AperturaExtraordinaria extends Component 
 {
     constructor (props) {
         super(props)
+        this.state = { data: {} }
         this.fetch()
     }
 
@@ -20,6 +23,7 @@ class AperturaExtraordinaria extends Component
             fetched.then(response => {
                 console.log('apertura-extraordinaria')
                 console.dir(response)
+                this.setState({ data: response })
             })
         }
     }
@@ -48,8 +52,8 @@ class AperturaExtraordinaria extends Component
     }
     
     render(){
-        console.log('this', this)
-        return <div className="apertura-extraordinaria">Apertura Extraordinaria</div>
+        console.log('this render', this)
+        return <Ae/>
     }
 }
 
