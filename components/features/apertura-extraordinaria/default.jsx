@@ -53,7 +53,7 @@ class AperturaExtraordinaria extends Component
     
     render(){
         console.log('this render', this)
-        return <Ae/>
+        return <Ae multimediaOrientation={this.props.customFields.multimediaOrientation} />
     }
 }
 
@@ -80,7 +80,7 @@ AperturaExtraordinaria.propTypes = {
         orientation: PropTypes.label.tag({
             name: 'Posición del contenido'
         }),
-        imageAndVideoOrientation: PropTypes.oneOf(['top', 'bottom', 'left', 'right']).tag({
+        multimediaOrientation: PropTypes.oneOf(['top', 'bottom', 'left', 'right']).tag({
             name: 'Posición de la imagen o video',
             labels: {
                 top: 'Superior',
@@ -88,7 +88,7 @@ AperturaExtraordinaria.propTypes = {
                 left: 'Izquierda',
                 right: 'Derecha'
             },
-            defaultValue: 'top'
+            defaultValue: 'bottom'
         }),
         contentOrientation: PropTypes.oneOf(['center', 'left', 'right']).tag({
             name: 'Posición del contenido',
