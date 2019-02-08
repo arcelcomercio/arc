@@ -288,11 +288,6 @@ main {
   -ms-grid-column: 1;
   grid-area: main;
 }
-sidebar {
-  -ms-grid-row: 1;
-  -ms-grid-column: 2;
-  grid-area: sidebar;
-}
 .article-principal {
   width: 400px;
   display: flex;
@@ -362,7 +357,6 @@ sidebar {
 }
 @media screen and (min-width: 1024px) {
   .content-layout {
-    min-width: 940px;
     max-width: 1024px;
   }
   .content--box {
