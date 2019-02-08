@@ -11,7 +11,9 @@ import PropTypes from "prop-types";
 @Consumer
 class ArticleHeader extends Component {
   render() {
-    const { content_elements: contentElements } = this.props.globalContent;
+    console.log(this.props); debugger;
+    
+    const { content_elements: contentElements, website_url: baseUrl , headlines: title } = this.props.globalContent;
     const { content_elements: galleryElements } = (typeof contentElements === "undefined") ? '' : contentElements[0];
     //console.log(contentElements);debugger;
     return (
@@ -19,7 +21,7 @@ class ArticleHeader extends Component {
         <div class={(galleryElements) ? '_gallery col-3' : 'col-3'}>
           <Heading />
           <Subheading />
-          <Share />
+          <Share url={baseUrl} title={title} />
           {contentElements && contentElements.map((value, key) => {
             if (key == 0 && value.type == 'gallery') {
               return <Gallery data={value} id={key} />;

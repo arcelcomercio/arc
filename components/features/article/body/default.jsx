@@ -19,10 +19,10 @@ class ContentArticleBody extends Component {
 
     return (
       <Fragment>
-        <div className='col-2'>
+        <div className='news-text-content col-2'>
         
         {contentElements && (
-          <ArticleBody className='news-text-content col-3'
+          <ArticleBody class='news-text-content '
             data={contentElements}
             elementClasses={elementClasses}
             renderElement={element => {
