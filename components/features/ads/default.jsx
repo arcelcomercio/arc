@@ -10,19 +10,13 @@ class Ads extends Component {
     }
 
     render() {
-        const { adElement, device, customFields } = this.props
+        const { adElement, isDesktop, isMobile, freeHtml } = this.props.customFields
 
         return (
             <Fragment>
-                {/* Zocalos */}
-                {!customFields ? <div className='ad' id={`ads_${device}_${adElement}`}></div>
-                    : <div className={`${customFields.customWidth} ${customFields.customHeight}`}>
-                        {/* Bloques */}
-                        {customFields.isMobile && <div id={`ads-m-${customFields.adElement}`}></div>}
-                        {customFields.isDesktop && <div id={`ads-d-${customFields.adElement}`}></div>}
-                        {customFields.freeHtml && <div dangerouslySetInnerHTML={this.createMarkup(this.props.customFields.freeHtml)}></div>}
-                    </div>}
-
+                {isMobile && <div id={`ads-m-${adElement}`}></div>}
+                {isDesktop && <div id={`ads-d-${adElement}`}></div>}
+                {freeHtml && <div dangerouslySetInnerHTML={this.createMarkup(freeHtml)}></div>}
             </Fragment>
         )
     }
@@ -35,32 +29,8 @@ Ads.propTypes = {
         }),
         isDesktop: PropTypes.bool.tag({ name: "Desktop", group: 'Dispositivo' }),
         isMobile: PropTypes.bool.tag({ name: "Mobile", group: 'Dispositivo' }),
-        customWidth: PropTypes.oneOf(["col-1", "col-2", "col-3"]).tag({
-            name: "Ancho del contenedor",
-            labels: {
-                "col-1": "1 columna",
-                "col-2": "2 columnas",
-                "col-3": "3 columnas"
-            },
-            defaultValue: "col-1",
-            group: 'Dimensiones'
-        }),
-        customHeight: PropTypes.oneOf(["row-1", "row-2", "row-3", "row-4"]).tag({
-            name: "Alto del contenedor",
-            labels: {
-                "row-1": "1 fila",
-                "row-2": "2 filas",
-                "row-3": "3 filas",
-                "row-4": "4 filas"
-            },
-            defaultValue: "row-1",
-            group: 'Dimensiones'
-        }),
         freeHtml: PropTypes.richtext.tag({ name: "Código HTML", group: 'Agregar bloque de html' }),
     })
 };
-
-
-Ads.static = true
 
 export default Ads
