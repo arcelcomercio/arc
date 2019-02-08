@@ -1,14 +1,17 @@
 import React from 'react';
 
+
 import NavLayout from './components/Nav-layout'
 import HeaderLayout from './components/Header-layout'
 import ZocaloLayout from './components/Zocalo-layout'
+
 import ContentLayout from './components/Content-layout'
 import SidebarLayout from './components/Sidebar-layout'
 import FooterLayout from './components/Footer-layout'
 
 const Article = props => {
     return (
+
         <div className='main__container'>
                 <ZocaloLayout
                     adElement='zocalo1'
