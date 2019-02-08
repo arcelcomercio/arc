@@ -16,12 +16,12 @@ class AperturaExtraordinaria extends Component
     fetch() {
         if(this.props.customFields.link){
             const { fetched } = this.getContent(
-                'apertura-extraordinaria', 
+                'get-story-by-websiteurl', 
                 { website_url: this.props.customFields.link, website: this.props.arcSite }, 
                 this.filterSchema()
             )
             fetched.then(response => {
-                console.log('apertura-extraordinaria')
+                console.log('get-story-by-websiteurl')
                 console.dir(response)
                 this.setState({ data: response })
             })
