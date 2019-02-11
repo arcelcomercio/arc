@@ -1,14 +1,23 @@
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
+import Button from '../../../../resources/components/button'
+import { FormatClassName } from '../../../../src/utilsJs/utilities'
 
-const styles = {
+const styles = FormatClassName({
     nav: [
         'flex--center-vertical',
         'flex__justify--between',
+        'nav'
     ],
     navButton: [
         'flex--center-vertical',
         'nav__button'
+    ],
+    navButtonIconSearch: [
+        'icon--search'
+    ],
+    navButtonIconMenu: [
+        'icon--menu'
     ],
     navButtonContainer: [
         'flex--center-vertical',
@@ -19,7 +28,7 @@ const styles = {
         'flex--center-vertical',
         'nav__button--featured'
     ]
-}
+})
 @Consumer
 class Nav extends Component {
 
@@ -33,10 +42,20 @@ class Nav extends Component {
           }
 
         return(
-            <nav alt="nav" className={styles.nav.join(' ')} style={inline}>
-                <div className={styles.navButtonContainer.join(' ')}>
-                    <a className={styles.navButton.join(' ')} href="#">Buscar</a>
-                    <a className={styles.navButton.join(' ')} href="#">Secciones</a>
+            <nav alt="nav" className={styles.nav} style={inline}>
+                <div className={styles.navButtonContainer}>
+                    <Button
+                        iconClass={styles.navButtonIconSearch}
+                        btnClass={styles.navButton}
+                        btnText='Buscar'
+                        btnLink='#'
+                    />
+                    <Button
+                        iconClass={styles.navButtonIconMenu}
+                        btnClass={styles.navButton}
+                        btnText='Secciones'
+                        btnLink='#'
+                    />
                 </div>
                 <ul className='nav__list'>
                     <li>Politica</li>
@@ -45,15 +64,15 @@ class Nav extends Component {
                     <li>Economia</li>
                     <li>Opinion</li>
                 </ul>
-                <div className={styles.navButtonContainer.join(' ')}>
-                    <a className={styles.navButtonFeatured.join(' ')} href="#">ZONA EJECUTIVA</a>
-                    <a className={styles.navButtonFeatured.join(' ')} href="#">CONSTRUYE BIEN</a>
+                <div className={styles.navButtonContainer}>
+                    <a className={styles.navButtonFeatured} href="#">ZONA EJECUTIVA</a>
+                    <a className={styles.navButtonFeatured} href="#">CONSTRUYE BIEN</a>
                 </div>
             </nav>
         )
     }
 }
 
-Nav.static = true
+//Nav.static = true
 
 export default Nav

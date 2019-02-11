@@ -1,10 +1,11 @@
 import React, { Fragment, Component } from 'react'
+import { FormatClassName } from '../../src/utilsJs/utilities'
 
-const styles = [
+const styles = FormatClassName([
     //'content--1col',
     'content--grid-base',
     'col-1'
-]
+])
 
 class Content1Col extends Component {
     render(){
@@ -12,7 +13,7 @@ class Content1Col extends Component {
         const { children } = this.props
 
         return(
-            <section className={styles.join(' ')}>
+            <section className={styles}>
                 {children}
             </section>
         )

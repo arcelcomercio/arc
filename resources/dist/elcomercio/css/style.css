@@ -106,6 +106,10 @@
 
 /****************************************************/
 
+* {
+  box-sizing: border-box;
+}
+
 .margin-top {
   margin-top: 20px;
 }
@@ -125,12 +129,17 @@
   height: 46px;
   padding: 0 15px;
   z-index: 20;
+  font-family: "open_sansregular";
+  font-size: 0.8em;
+  font-weight: 600;
 }
 
 .nav__button {
+  background-color: #373737;
+  border-radius: 4px;
   color: white;
-  padding: 0 5px;
-  height: inherit;
+  padding: 8px 16px;
+  margin-right: 8px;
   text-decoration: none;
 }
 
@@ -149,6 +158,26 @@
   color: white;
   padding: 0 5px;
   height: inherit;
+}
+
+.nav__list li {
+  margin: 0 8px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  background-size: cover;
+}
+
+.icon--search {
+  background-image: url(/pb/resources/dist/elcomercio/images/icon-search.svg);
+  margin-right: 8px;
+}
+
+.icon--menu {
+  background-image: url(/pb/resources/dist/elcomercio/images/icon-menu.svg);
+  margin-right: 8px;
 }
 
 .header {
@@ -349,6 +378,10 @@ ul {
 .flex--center-vertical {
   display: flex;
   align-items: center;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 .margin-top {
