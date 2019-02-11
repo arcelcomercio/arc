@@ -7,7 +7,7 @@ const Share = (props) => {
     //console.log(url);     debugger;
     const inUrl ="http://www.linkedin.com/shareArticle?url=" + url;
     const fbUrl ="http://www.facebook.com/sharer.php?u=" + url;
-    const waUrl ="whatsapp://send?text=" + title.basic + url;
+    const waUrl ="whatsapp://send?text=" + ( title )? 'title.basic':'' + url;
     const gpUrl ="https://plus.google.com/share?url=" + url;
     return (
         <Fragment>
