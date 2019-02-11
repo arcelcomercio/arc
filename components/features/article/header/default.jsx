@@ -11,22 +11,22 @@ import PropTypes from "prop-types";
 @Consumer
 class ArticleHeader extends Component {
   render() {
-  //  console.log(this.props); debugger;
+  
     
-    const { content_elements: contentElements, website_url: baseUrl , headlines: title } = this.props.globalContent;
-    const { content_elements: galleryElements } = (typeof contentElements === "undefined") ? '' : contentElements[0];
+    const { content_elements: contentElements, website_url: baseUrl , headlines: title, promo_items:gallery_items  } = this.props.globalContent;
+    //console.log(gallery_items); debugger;
+    const { content_elements: galleryElements } = (typeof gallery_items.gallery === "undefined") ? '' : gallery_items.gallery;
+
     //console.log(contentElements);debugger;
     return (
       <Fragment>
-        <div class={(galleryElements) ? '_gallery col-3' : 'col-3'}>
+        <div class={(typeof galleryElements ===  "undefined") ? ' col-3' : 'col-3 _gallery'}>
           <Heading />
           <Subheading />
           <Share url={baseUrl} title={title} />
-          {contentElements && contentElements.map((value, key) => {
-            if (key == 0 && value.type == 'gallery') {
-              return <Gallery data={value} id={key} />;
-            }
-          })}
+          {(typeof galleryElements ===  "undefined") ? '':
+              <Gallery data={gallery_items.gallery}  />
+          }
         </div>
       </Fragment>
     );
