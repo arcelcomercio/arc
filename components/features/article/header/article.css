@@ -81,7 +81,7 @@
 .share-item.item-in  {
     background-color: #1da1f2;
 }
-.news-text-content>p {
+.news-text-content>p, p {
     font-size: 20px;
     line-height: 1.5;
     margin-bottom: 25px;
@@ -114,4 +114,24 @@
 	 table th:nth-child(7),
 	 table td:nth-child(8),
 	 table th:nth-child(8){display: none;}
+}
+.visual__image img{
+    width: 100%
+}
+.news-media-description {
+    color: #999;
+    font-family: "Open Sans",arial,sans serif;
+    font-size: 13px;
+    margin: 0;
+    padding-top: 5px;
+    text-align: left;
+}
+.visual__image {
+    margin: 0px;
+}
+
+.tabla th {
+    background-color: #CCC;
+    padding: 5px;
+    height: 30px;
 }
