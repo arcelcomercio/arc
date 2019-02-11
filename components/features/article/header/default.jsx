@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 @Consumer
 class ArticleHeader extends Component {
   render() {
-    console.log(this.props); debugger;
+  //  console.log(this.props); debugger;
     
     const { content_elements: contentElements, website_url: baseUrl , headlines: title } = this.props.globalContent;
     const { content_elements: galleryElements } = (typeof contentElements === "undefined") ? '' : contentElements[0];

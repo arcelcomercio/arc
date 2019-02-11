@@ -81,9 +81,6 @@
 .share-item.item-in  {
     background-color: #1da1f2;
 }
-.visual__image{
-    width: 100%
-}
 .news-text-content>p {
     font-size: 20px;
     line-height: 1.5;
@@ -103,4 +100,18 @@
     font: 22px/1.3 "ChronicleDisplaySemibold",Times New Roman,serif;
     margin-bottom: 50px;
     word-wrap: break-word;
+}
+
+@media only screen and (max-width: 800px) {
+	 table td:nth-child(2), 
+	 table th:nth-child(2) {display: none;}
+}
+ 
+@media only screen and (max-width: 640px) {
+	 table td:nth-child(4),
+	 table th:nth-child(4),
+	 table td:nth-child(7),
+	 table th:nth-child(7),
+	 table td:nth-child(8),
+	 table th:nth-child(8){display: none;}
 }
