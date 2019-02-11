@@ -2,11 +2,9 @@ import React, { Fragment, Component } from 'react'
 import PropTypes from 'prop-types'
 
 const styles = [
-    // 'content--1col',
-    // 'content--2col',
-    // 'content--3col',
+    //'content--1col',
     'content--grid-base',
-    'col-3'
+    'col-1'
 ]
 
 const makeDynamic = () => {
@@ -23,7 +21,7 @@ const makeStatic = () => {
     )
 }
 
-class Content3Col extends Component {
+class Sidebar extends Component {
     render(){
 
         const { customFields: { dynamicHeight }, children } = this.props
@@ -39,10 +37,10 @@ class Content3Col extends Component {
 }
 
 
-Content3Col.propTypes = {
+Sidebar.propTypes = {
     customFields: PropTypes.shape({
       dynamicHeight: PropTypes.bool.tag({ name: "¿Alto auto-ajustable?", group: "Opciones"}),
     })
 }
 
-export default Content3Col;
+export default Sidebar;

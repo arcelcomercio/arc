@@ -57,7 +57,7 @@ class Footer extends Component {
       }
     }
     return (
-      <footer>
+      <footer className="margin-top">
         <div className="home-footer-top-container" style={styles.container}>
           <div className="home-footer-top">
             <div className="home-footer-col">
