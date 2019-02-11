@@ -102,7 +102,7 @@ AperturaExtraordinaria.propTypes = {
             defaultValue: 'bottom'
         }),
         contentOrientation: PropTypes.oneOf(['center', 'left', 'right']).tag({
-            name: 'Posición del contenido',
+            name: 'Posición de los textos',
             labels: {
                 center: 'Centro',
                 left: 'Izquierda',

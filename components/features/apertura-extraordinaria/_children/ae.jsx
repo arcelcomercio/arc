@@ -8,7 +8,7 @@ class Ae extends Component
     render () {
         const data = new Data(this.props.customFields, this.props.data, this.props.website)
         
-        return <div className={`apertura-extraordinaria ae-multimedia-${data.multimediaOrientation}`}>
+        return <div className={`apertura-extraordinaria ae-multimedia-${data.multimediaOrientation} ae-text-${data.contentOrientation}`}>
             <div className='ae-section' {...this.props.editableField("section")}>{data.section}</div>
             <div className='ae-content'>
                 <div className='ae-title' {...this.props.editableField("title")}>

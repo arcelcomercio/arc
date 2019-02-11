@@ -16,6 +16,9 @@ class Data
     get multimediaOrientation(){
         return this.customFields.multimediaOrientation
     }
+    get contentOrientation(){
+        return this.customFields.contentOrientation
+    }
     get author(){
         const authorData =this.data && this.data.credits && this.data.credits.by || []
         return this.getValData(authorData, 'author')
