@@ -15,7 +15,7 @@ class ArticleHeader extends Component {
     
     const { content_elements: contentElements, website_url: baseUrl , headlines: title, promo_items:gallery_items  } = this.props.globalContent;
     //console.log(gallery_items); debugger;
-    const { content_elements: galleryElements } = (typeof gallery_items.gallery === "undefined") ? '' : gallery_items.gallery;
+    const { content_elements: galleryElements } = (gallery_items && typeof gallery_items.gallery !== "undefined") ?  gallery_items.gallery:'';
 
     //console.log(contentElements);debugger;
     return (
