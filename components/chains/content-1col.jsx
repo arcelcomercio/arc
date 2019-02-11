@@ -1,5 +1,4 @@
 import React, { Fragment, Component } from 'react'
-import PropTypes from 'prop-types'
 
 const styles = [
     //'content--1col',
