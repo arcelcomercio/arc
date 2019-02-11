@@ -41,9 +41,9 @@
 
     grid-auto-rows: $heightRow;    
 } */
-.content--rows-height {
-  grid-auto-rows: 374px;
-}
+/* .content--rows-height {
+    grid-auto-rows: minmax(calc(($heightRow - ($spacingNormal * ($rowParts - 1))) / $rowParts), auto);
+} */
 .content--1col {
   -ms-grid-columns: 1fr;
   grid-template-columns: 1fr;
@@ -54,23 +54,23 @@
 }
 /*-------------- Process to create the 1 col classes */
 .row-1 {
-  -ms-grid-row-span: 1;
-  grid-row: span 1;
+  -ms-grid-row-span: 6;
+  grid-row: span 6;
   height: 374px;
 }
 .row-2 {
-  -ms-grid-row-span: 2;
-  grid-row: span 2;
+  -ms-grid-row-span: 12;
+  grid-row: span 12;
   height: 768px;
 }
 .row-3 {
-  -ms-grid-row-span: 3;
-  grid-row: span 3;
+  -ms-grid-row-span: 18;
+  grid-row: span 18;
   height: 1162px;
 }
 .row-4 {
-  -ms-grid-row-span: 4;
-  grid-row: span 4;
+  -ms-grid-row-span: 24;
+  grid-row: span 24;
   height: 1556px;
 }
 .col-1, .col-2, .col-3 {
@@ -86,9 +86,8 @@
 .block {
   display: block;
 }
-.block__fill {
+.block__fill-width {
   width: 100%;
-  height: 100%;
 }
 .nav {
   position: -webkit-sticky;
@@ -288,9 +287,8 @@ ul {
 .block {
   display: block;
 }
-.block__fill {
+.block__fill-width {
   width: 100%;
-  height: 100%;
 }
 .container-article {
   display: -ms-grid;
@@ -300,6 +298,7 @@ ul {
   grid-template-columns: 1fr 318px;
   grid-area: content;
 }
+<<<<<<< HEAD
 .container-article .news-summary {
   color: #444;
   font: 22px/1.3 "ChronicleDisplaySemibold", Times New Roman, serif;
@@ -323,6 +322,8 @@ main {
   -ms-grid-column: 1;
   grid-area: main;
 }
+=======
+>>>>>>> feature/layout_backend
 .article-principal {
   width: 400px;
   display: flex;
@@ -441,10 +442,9 @@ main {
   }
   .zocalo__container {
     display: flex;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
-    height: fit-content;
-    width: auto;
+    padding: 20px;
+    height: 600px;
+    width: 160px;
     position: -webkit-sticky;
     position: sticky;
     top: 0;

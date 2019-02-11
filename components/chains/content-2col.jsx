@@ -1,24 +1,25 @@
 import React, { Fragment, Component } from 'react'
+import { FormatClassName } from '../../src/utilsJs/utilities'
 import PropTypes from 'prop-types'
 
-const styles = [
+const styles = FormatClassName([
     //'content--1col',
     //'content--2col',
     'content--grid-base',
     'col-2'
-]
+])
 
 const makeDynamic = () => {
     styles.splice(styles.indexOf('content--rows-height'))
     return(
-        styles.join(' ')
+        styles
     )
 }
 
 const makeStatic = () => {
     styles.push('content--rows-height')
     return(
-        styles.join(' ')
+        styles
     )
 }
 

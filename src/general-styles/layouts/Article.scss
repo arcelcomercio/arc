@@ -6,26 +6,4 @@
     grid-template-areas: 'main sidebar';
     grid-template-columns: 1fr 318px;
     grid-area: content;
-    .news-summary{
-        color: #444;
-        font: 22px/1.3 "ChronicleDisplaySemibold",Times New Roman,serif;
-        margin-bottom: 50px;
-        word-wrap: break-word;
-    }
-    .news-title{
-        clear: both;
-        color: #444;
-        font: 48px/1.15 "ChronicleDisplayBold",Times New Roman,serif;
-        margin-bottom: 20px;
-    }
-    .content>p {
-        font-size: 20px;
-        line-height: 1.5;
-        margin-bottom: 25px;
-        word-wrap: break-word;
-    }
-}
-
-main {
-    grid-area: main;
 }
