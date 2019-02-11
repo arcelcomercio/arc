@@ -5,6 +5,7 @@ import Gallery from '../header/types/gallery'
 import Consumer from "fusion:consumer";
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import Table from './types/table'
 
 @Consumer
 class ContentArticleBody extends Component {
@@ -19,35 +20,40 @@ class ContentArticleBody extends Component {
 
     return (
       <Fragment>
-        <div className='col-2'>
-        
-        {contentElements && (
-          <ArticleBody className='news-text-content col-3'
-            data={contentElements}
-            elementClasses={elementClasses}
-            renderElement={element => {
-              const { type } = element
-              if (type === 'image') {
-                return <Image url={element.url} alt="" className="visual__image visual__image--cover" />
+        <div className='news-text-content col-2'>
+
+          {contentElements && (
+            <ArticleBody class='news-text-content '
+              data={contentElements}
+              elementClasses={elementClasses}
+              renderElement={element => {
+                const { type } = element
+                if (type === 'image') {
+                  return <Image url={element.url} alt="" className="visual__image visual__image--cover" />
+                }
+                if (type === 'video') {
+                  return <Video data={element.embed_html} className="visual__image visual__image--cover" />
+                }
+                if (type === 'gallery') {
+                  return <Gallery data={element} type={type} />;
+                }
+                if (type === 'table') {
+                  return <Table data={element} type={type} />;
+                }
               }
-              if (type === 'video') {
-                return <Video data={element.embed_html} className="visual__image visual__image--cover" />
               }
-              if (type === 'gallery') {
-                return <Gallery data={element} type={type} />;
-              }
-            }
-            }
-          />
-        )}
+            />
+          )}
         </div>
+
+        
       </Fragment>
-    );
-  }
-}
+                  );
+                }
+              }
 
 ContentArticleBody.propTypes = {
-  globalContent: PropTypes.object
-};
-
-export default ContentArticleBody;
+                    globalContent: PropTypes.object
+    };
+    
+    export default ContentArticleBody;
