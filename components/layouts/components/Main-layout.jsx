@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
+import { FormatClassName } from '../../../src/utilsJs/utilities'
 
-const styles = [
+const styles = FormatClassName([
     'content--grid-base',
     'content-layout',
     'content--1col',
     'content--2col',
     'content--3col',
     'margin-top'
-]
+])
 
 class MainLayout extends Component {
 
@@ -15,7 +16,7 @@ class MainLayout extends Component {
 
         return(
             <div 
-                className={styles.join(' ')}>
+                className={styles}>
                 {this.props.elements}
             </div>
         )
