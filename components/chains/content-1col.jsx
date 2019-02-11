@@ -21,7 +21,7 @@ const makeStatic = () => {
     )
 }
 
-class Sidebar extends Component {
+class Content1Col extends Component {
     render(){
 
         const { customFields: { dynamicHeight }, children } = this.props
@@ -37,10 +37,10 @@ class Sidebar extends Component {
 }
 
 
-Sidebar.propTypes = {
+Content1Col.propTypes = {
     customFields: PropTypes.shape({
-      dynamicHeight: PropTypes.bool.tag({ name: "¿Alto auto-ajustable?", group: "Opciones"}),
+      dynamicHeight: PropTypes.bool.tag({ name: "¿Alto de fila automático?", group: "Opciones"}),
     })
 }
 
-export default Sidebar;
+export default Content1Col;

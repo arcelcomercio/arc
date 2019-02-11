@@ -77,11 +77,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-<<<<<<< HEAD
 /******/ 	__webpack_require__.p = "/home/usuario/Proyectos/arcCurrent/resources/dist";
-=======
-/******/ 	__webpack_require__.p = "/home/usuario/Documentos/arc/resources/dist";
->>>>>>> 809022dd8c1863ff1c3acf0cc40d1ed4e5f87418
 /******/
 /******/
 /******/ 	// Load entry module and return exports

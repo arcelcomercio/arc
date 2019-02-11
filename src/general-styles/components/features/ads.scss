@@ -5,8 +5,9 @@
 
     @media screen and (min-width: 1024px) {
         display: flex;
-        height: fit-content;
-        width: auto; 
+        padding: $spacingNormal;
+        height: 600px;
+        width: 160px; 
         position: sticky;
         top: 0;
     }
