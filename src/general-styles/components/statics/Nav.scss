@@ -9,15 +9,10 @@
     font-size: .8em;
     font-weight: 600;
 
-    &__button {
+    &__btn {
 
         background-color: #373737;
-        border-radius: 4px;
-
         color: white;
-        padding: 8px 16px;
-        margin-right: 8px;
-        text-decoration: none;
 
         &__container {
             height: inherit;
@@ -25,9 +20,7 @@
 
         &--featured {
             color: #FBD03C;
-            padding: 0 5px;
-            height: inherit;
-            text-decoration: none;    
+            height: inherit; 
         }
     }
 
@@ -40,21 +33,4 @@
             margin: 0 8px;
         }
     }   
-}
-
-.icon {
-
-    width: 16px;
-    height: 16px;
-    background-size: cover;
-
-    &--search {
-        background-image: url('../images/icon-search.svg');
-        margin-right: 8px;
-    }
-
-    &--menu {
-        background-image: url('../images/icon-menu.svg');
-        margin-right: 8px;
-    }
 }

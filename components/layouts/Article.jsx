@@ -4,11 +4,11 @@ import { FormatClassName } from '../../src/utilsJs/utilities'
 let styles = FormatClassName({
     layout: [
         'flex',
-        'flex__justify--center'
+        'flex--justify-center'
     ],
     contentContainer: [
         'flex',
-        'flex__column'
+        'flex-column'
     ],
     mainContent: [
         'content--grid-base',
