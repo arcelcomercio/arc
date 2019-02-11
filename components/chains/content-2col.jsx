@@ -8,40 +8,17 @@ const styles = [
     'col-2'
 ]
 
-const makeDynamic = () => {
-    styles.splice(styles.indexOf('content--rows-height'))
-    return(
-        styles.join(' ')
-    )
-}
-
-const makeStatic = () => {
-    styles.push('content--rows-height')
-    return(
-        styles.join(' ')
-    )
-}
-
 class Content2Col extends Component {
     render(){
 
-        const { customFields: { dynamicHeight }, children } = this.props
+        const { children } = this.props
 
         return(
-            <section className={
-                dynamicHeight ? makeDynamic() : makeStatic()
-            }>
+            <section className={styles.join(' ')}>
                 {children}
             </section>
         )
     }
-}
-
-
-Content2Col.propTypes = {
-    customFields: PropTypes.shape({
-      dynamicHeight: PropTypes.bool.tag({ name: "¿Alto auto-ajustable?", group: "Opciones"}),
-    })
 }
 
 export default Content2Col;
