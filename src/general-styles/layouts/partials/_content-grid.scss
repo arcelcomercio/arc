@@ -25,9 +25,9 @@
     grid-auto-rows: $heightRow;    
 } */
 
-.content--rows-height {
-    grid-auto-rows: $heightRow; 
-}
+/* .content--rows-height {
+    grid-auto-rows: minmax(calc(($heightRow - ($spacingNormal * ($rowParts - 1))) / $rowParts), auto);
+} */
 
 .content--3col{
     @media screen and (min-width: 1024px) {
@@ -54,7 +54,7 @@
 
 @for $i from 1 through 4 {
     .row-#{$i} {
-        grid-row: span $i;
+        grid-row: span $rowParts*$i;
         height: ($heightRow * $i)+($spacingNormal * ($i - 1));
     }
 }
