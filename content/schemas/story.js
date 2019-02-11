@@ -34,7 +34,10 @@ type BasicPromoItems {
 type PromoItems {
     basic: BasicPromoItems
 }
+
 type Query {
+ 
+ canonical_url: String
  type: String!
  version: String!
  description: Description
@@ -43,4 +46,7 @@ type Query {
  promo_items: PromoItems
  credits: Credits
 }
+
+
+
 `;

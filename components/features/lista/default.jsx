@@ -5,19 +5,23 @@ import PropTypes from "prop-types";
 // import { ListItemNews } from "./ItemNews";
 import "./lista.css";
 
-const HeaderList = ({ title, background, seeMore }) => {
+const HeaderList = ({ nameSection, background, seeMore }) => {
   return (
     <div className={"lista-header " + background}>
       <div className="title">
-        <h4>{title} </h4>
+        <h4>{nameSection} </h4>
       </div>
-      {seeMore && (
-        <SeeMore />
-      )}
+      {seeMore && <SeeMore />}
     </div>
   );
 };
-const SeeMore = () =>(<div className="more-news"><a href="#"><h4>ver mas</h4></a></div>)
+const SeeMore = () => (
+  <div className="more-news">
+    <a href="#">
+      <h4>ver mas</h4>
+    </a>
+  </div>
+);
 const ImageNews = () => {
   return (
     <figure>
@@ -78,7 +82,7 @@ class Lista extends Component {
     super(props);
 
     const {
-      title,
+      nameSection,
       background = "",
       seeMore,
       seeHour,
@@ -86,23 +90,60 @@ class Lista extends Component {
       // listNews
     } = this.props.customFields || {};
     const { listNews } = this.props;
-
+    
     this.state = {
-      title,
+      nameSection,
       background,
       seeMore,
       seeHour,
       seeImageNews,
-      listNews
+      listNews,
+      data: {}
     };
+
+    this.fetch();
+    
   }
+
+  fetch(){
+    
+    const { fetched } = this.getContent(
+      "get-lis-news",
+      {
+        website: "elcomercio",
+      },
+      this.filterSchema()
+    );
+    fetched.then(response => {
+      debugger
+      
+      this.setState({
+        data: response.content_elements
+      });
+    })
+  };
+
+  filterSchema() {
+    return `
+    {
+      content_elements{
+        canonical_url
+        website_url
+        display_date
+        headlines{
+          basic
+        }
+      }
+    }
+    `;
+  };
 
   render() {
     debugger;
     return (
       <div className="List">
         <HeaderList
-          title={this.state.title}
+          nameSection={this.state.nameSection}
           background={this.state.background}
           seeMore={this.state.seeMore}
         />
@@ -167,7 +208,7 @@ Lista.propTypes = {
       defaultValue: "color-backgroud-light-blue"
     }),
 
-    title: PropTypes.string.isRequired.tag({ name: "Título" }),
+    nameSection: PropTypes.string.isRequired.tag({ name: "Sección" }),
     seeMore: PropTypes.bool.tag({ name: "Ver más" }),
     seeHour: PropTypes.bool.tag({ name: "Ver hora" }),
     seeImageNews: PropTypes.bool.tag({ name: "Ver imagen" })
