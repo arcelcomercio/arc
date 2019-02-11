@@ -1,3 +1,17 @@
 .margin-top {
     margin-top: $spacingNormal;
 }
+
+.no-desktop {
+    @media screen and (min-width: 640px) {
+        display: none;
+    }
+}
+
+.block {
+    display: block;
+}
+
+.block__fill-width{
+    width: 100%;
+}

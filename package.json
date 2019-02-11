@@ -6,6 +6,7 @@
   "dependencies": {
     "@arc-core-components/feature_article-body": "^0.2.0",
     "@babel/runtime": "7.3.1",
+    "normalize-scss": "^7.0.1",
     "prop-types": "^15.6.2",
     "react-render-html": "^0.6.0"
   },
