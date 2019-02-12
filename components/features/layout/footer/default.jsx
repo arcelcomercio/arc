@@ -1,6 +1,23 @@
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Fragment, Component } from 'react'
+import { FormatClassName } from '../../../../src/utilsJs/utilities'
+
+const classes = FormatClassName({
+  footerTop: [
+    'flex',
+    'flex--justify-center',
+    'footer-top'
+  ],
+  flexUl: [
+    'flex',
+    'flex--column'
+  ],
+  footerBottom: [
+    'flex',
+    'flex--justify-center'
+  ]
+})
 
 @Consumer
 class Footer extends Component {
@@ -58,20 +75,19 @@ class Footer extends Component {
     }
     return (
       <footer className="margin-top">
-        <div className="home-footer-top-container" style={styles.container}>
-          <div className="home-footer-top">
-            <div className="home-footer-col">
-              <a href="" className="site-logo">
-                <img src={img} alt="" />
-              </a>
-              <ul className="site-legal">
-                {info.map((el, k) => <li key={k} style={styles.textColor}>{el}</li>)}
-              </ul>
-            </div>
-            {this.state.menus.map((el, keyID) => {
+        <div className={classes.footerTop} style={styles.container}>
+          <div className="footer-top__col">
+            <a href="" className="footer-top__col__site-logo">
+              <img src={img} alt="" />
+            </a>
+            <ul className={ `${classes.flexUl} footer-top__col__ul footer-top__col__site-legal` }>
+              {info.map((el, k) => <li key={k} style={styles.textColor}>{el}</li>)}
+            </ul>
+          </div>
+          {this.state.menus.map((el, keyID) => {
               return (
-                <div className="home-footer-col" key={keyID}>
-                  <ul className="menus">
+                <div className="footer-top__col" key={keyID}>
+                  <ul className={ `${classes.flexUl} footer-top__col__ul footer-top__col__menus` }>
                     <li>
                       <a style={styles.titleColor} href="">{el.title}</a>
                     </li>
@@ -83,11 +99,10 @@ class Footer extends Component {
                   </ul>
                 </div>
               )
-            })}
-          </div>
+          })}
         </div>
-        <div className="home-footer-bot">
-          <ul>
+        <div className="footer-bot">
+          <ul className="flex">
             <li style={styles.gecColor}>Visite también:</li>
             {gecSites.map((site, key) => {
               if (site.name !== siteUrl) {
