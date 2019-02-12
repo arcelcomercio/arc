@@ -32,7 +32,7 @@ class Data
         return this.customFields.section || this.getDataSection().name
     }
     get link(){
-        return this.getDataSection().path + (this.data && this.data.website_url || '#')
+        return (this.data && this.data.website_url || '#')
     }
     get sectionLink(){
         return this.getDataSection().path
