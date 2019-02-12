@@ -1,0 +1,17 @@
+//variables
+@import './variables/colors';
+@import './variables/dimensions';
+
+@import './partials/fonts';
+@import './variables/fonts';
+
+//utils
+@import '../../../general-styles/layouts/Basic.scss';
+@import '../../../general-styles/layouts/Article.scss';
+
+
+//Components Features
+@import '../../../general-styles/components/features/article.scss';
+@import '../../../general-styles/components/features/breaking-news.scss';
+@import '../../../general-styles/components/features/ads.scss';
+

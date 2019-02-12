@@ -2,8 +2,11 @@ import Consumer from "fusion:consumer";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+<<<<<<< HEAD
 import "./breaking-news.scss";
 
+=======
+>>>>>>> feature/layout_backend
 @Consumer
 class BreakingNews extends Component {
   constructor(props) {

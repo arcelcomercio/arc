@@ -1,0 +1,14 @@
+.zocalo__container {
+
+    width: 0;
+    overflow: hidden;
+
+    @media screen and (min-width: 1024px) {
+        display: flex;
+        padding: $spacingNormal;
+        height: 600px;
+        width: 160px; 
+        position: sticky;
+        top: 0;
+    }
+}

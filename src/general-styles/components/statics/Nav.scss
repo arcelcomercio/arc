@@ -1,0 +1,36 @@
+.nav {
+
+    position: sticky;
+    top: 0;
+    height: 46px;
+    padding: 0 15px;
+    z-index: 20;
+    font-family: 'open_sansregular';
+    font-size: .8em;
+    font-weight: 600;
+
+    &__btn {
+
+        background-color: #373737;
+        color: white;
+
+        &__container {
+            height: inherit;
+        }
+
+        &--featured {
+            color: #FBD03C;
+            height: inherit; 
+        }
+    }
+
+    &__list {
+        color: white;
+        padding: 0 5px;
+        height: inherit;
+
+        & li {
+            margin: 0 8px;
+        }
+    }   
+}

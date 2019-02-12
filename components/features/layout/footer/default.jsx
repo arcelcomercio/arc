@@ -1,7 +1,3 @@
-/*  /components/features/movies/movie-list.jsx  */
-
-import './style.scss'
-
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Fragment, Component } from 'react'
@@ -61,7 +57,7 @@ class Footer extends Component {
       }
     }
     return (
-      <footer>
+      <footer className="margin-top">
         <div className="home-footer-top-container" style={styles.container}>
           <div className="home-footer-top">
             <div className="home-footer-col">
