@@ -1,24 +1,33 @@
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
+import Button from '../../../../resources/components/button'
 import { FormatClassName } from '../../../../src/utilsJs/utilities'
 
 const styles = FormatClassName({
     nav: [
-        'flex--center-vertical',
-        'flex__justify--between',
+        'flex-center-vertical',
+        'flex--justify-between',
+        'nav'
     ],
     navButton: [
-        'flex--center-vertical',
-        'nav__button'
+        'flex-center-vertical',
+        'btn',
+        'nav__btn'
+    ],
+    navButtonIconSearch: [
+        'icon--search'
+    ],
+    navButtonIconMenu: [
+        'icon--menu'
     ],
     navButtonContainer: [
-        'flex--center-vertical',
-        'flex__justify--center',
-        'nav__button__container'
+        'flex-center',
+        'nav__btn__container'
     ],
     navButtonFeatured: [
-        'flex--center-vertical',
-        'nav__button--featured'
+        'flex-center-vertical',
+        'btn',
+        'nav__btn--featured'
     ]
 })
 @Consumer
@@ -34,10 +43,20 @@ class Nav extends Component {
           }
 
         return(
-            <nav alt="nav" className={styles.nav} style={inline}>
+            <nav className={styles.nav} style={inline}>
                 <div className={styles.navButtonContainer}>
-                    <a className={styles.navButton} href="#">Buscar</a>
-                    <a className={styles.navButton} href="#">Secciones</a>
+                    <Button
+                        iconClass={styles.navButtonIconSearch}
+                        btnClass={styles.navButton}
+                        btnText='Buscar'
+                        btnLink='#'
+                    />
+                    <Button
+                        iconClass={styles.navButtonIconMenu}
+                        btnClass={styles.navButton}
+                        btnText='Secciones'
+                        btnLink='#'
+                    />
                 </div>
                 <ul className='nav__list'>
                     <li>Politica</li>
@@ -55,6 +74,6 @@ class Nav extends Component {
     }
 }
 
-Nav.static = true
+//Nav.static = true
 
 export default Nav

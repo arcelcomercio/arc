@@ -1,5 +1,21 @@
-.test {
-  color: red;
+.bg-color--link {
+  background-color: #524CFF;
+  color: #FFFFFF;
+}
+
+.bg-color--white {
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+}
+
+.bg-color--error {
+  background-color: #FF0000;
+  color: #FFFFFF;
+}
+
+.bg-color--dark {
+  background-color: #1F1F1F;
+  color: #FFFFFF;
 }
 
 @font-face {
@@ -27,12 +43,25 @@
 }
 
 .flex--align {
+<<<<<<< HEAD
+  align-items: center;
+}
+
+.flex-center-vertical {
+=======
   align-items: center;
 }
 
 .flex-center-vertical {
   display: flex;
   align-items: center;
+}
+
+.flex-center {
+>>>>>>> master
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .flex-center {
@@ -112,6 +141,7 @@
 
 /****************************************************/
 
+<<<<<<< HEAD
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -176,6 +206,12 @@ html {
   font-family: "system-ui", sans-serif;
 }
 
+=======
+* {
+  box-sizing: border-box;
+}
+
+>>>>>>> master
 .margin-top {
   margin-top: 20px;
 }
@@ -188,6 +224,34 @@ html {
   width: 100%;
 }
 
+.btn {
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 0 4px;
+  text-decoration: none;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  background-size: cover;
+}
+
+.icon--search {
+  background-image: url(/pb/resources/dist/elcomercio/images/icon-search.svg);
+  margin-right: 8px;
+}
+
+.icon--menu {
+  background-image: url(/pb/resources/dist/elcomercio/images/icon-menu.svg);
+  margin-right: 8px;
+}
+
+.icon--login {
+  background-image: url(/pb/resources/dist/elcomercio/images/icon-user.svg);
+  margin-right: 8px;
+}
+
 .nav {
   position: -webkit-sticky;
   position: sticky;
@@ -195,30 +259,33 @@ html {
   height: 46px;
   padding: 0 15px;
   z-index: 20;
+  font-family: "open_sansregular";
+  font-size: 0.8em;
+  font-weight: 600;
 }
 
-.nav__button {
+.nav__btn {
+  background-color: #373737;
   color: white;
-  padding: 0 5px;
-  height: inherit;
-  text-decoration: none;
 }
 
-.nav__button__container {
+.nav__btn__container {
   height: inherit;
 }
 
-.nav__button--featured {
+.nav__btn--featured {
   color: #FBD03C;
-  padding: 0 5px;
   height: inherit;
-  text-decoration: none;
 }
 
 .nav__list {
   color: white;
   padding: 0 5px;
   height: inherit;
+}
+
+.nav__list li {
+  margin: 0 8px;
 }
 
 .header {
@@ -230,12 +297,15 @@ html {
   height: 76px;
   font-size: 12px;
   font-weight: bold;
-  font-family: Arial;
+  font-family: "open_sansregular";
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 15px;
-  box-sizing: border-box;
+}
+
+.header__main__btn-container {
+  height: inherit;
 }
 
 .hot {
@@ -246,7 +316,6 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
 }
 
 .hot li {
@@ -396,12 +465,29 @@ ul {
 }
 
 .flex--align {
+<<<<<<< HEAD
+  align-items: center;
+}
+
+.flex-center-vertical {
+=======
   align-items: center;
 }
 
 .flex-center-vertical {
   display: flex;
   align-items: center;
+}
+
+.flex-center {
+>>>>>>> master
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 .flex-center {
@@ -463,16 +549,21 @@ html {
   width: 100%;
 }
 
-.breaking-news {
-  color: #ffffff;
-  padding: 15px 15px;
-  margin: 10px 0px;
-}
-
-.breaking-news--bgcolor-1 {
+.BreakingNews {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 8% 90%;
+  grid-template-columns: 8% 90%;
+  -ms-grid-rows: 40px 40px;
+  grid-template-rows: 40px 40px;
+  grid-gap: 0px;
   background-color: red;
+  height: 100px;
+  align-content: center;
+  justify-content: center;
 }
 
+<<<<<<< HEAD
 .breaking-news--bgcolor-2 {
   background-color: green;
 }
@@ -509,15 +600,22 @@ html {
   margin: 0px;
   font-size: 1.1em;
   font-weight: 600;
-}
-
-.breaking-news__h2__tag {
-  margin-right: 10px;
-}
-
-.breaking-news__h2__link {
+=======
+.BreakingNews .box {
   color: white;
-  text-decoration: none;
+  /* border: 2px solid black; */
+  align-content: center;
+>>>>>>> master
+}
+
+.BreakingNews .combine {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  grid-row: 1/3;
+}
+
+.test {
+  background: #f7c600;
 }
 
 .zocalo__container {
@@ -552,6 +650,7 @@ html {
 
 @media screen and (min-width: 1024px) {
   .content-layout {
+    min-width: 940px;
     max-width: 1024px;
   }
   .content--3col {

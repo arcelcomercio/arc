@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormatClassName } from '../../src/utilsJs/utilities'
+import { FormatClassName } from '../../../src/utilsJs/utilities'
 
 const styles = FormatClassName([
     'content--grid-base',
