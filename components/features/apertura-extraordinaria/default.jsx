@@ -38,14 +38,19 @@ class AperturaExtraordinaria extends Component
             }
             promo_items {
                 basic {
-                    type
-                    url
+                    type url
                 }
             }
             credits {
                 by {
-                    type
-                    name
+                    type name
+                }
+            }
+            website
+            website_url
+            taxonomy {
+                sections {
+                    _id _website type name path
                 }
             }
         }`
@@ -53,7 +58,13 @@ class AperturaExtraordinaria extends Component
     
     render(){
         console.log('this render', this)
-        return <Ae multimediaOrientation={this.props.customFields.multimediaOrientation} />
+        const params = {
+            customFields: this.props.customFields,
+            data: this.state.data,
+            editableField: this.props.editableField,
+            website: this.props.arcSite
+        }
+        return <Ae {...params} />
     }
 }
 
@@ -91,7 +102,7 @@ AperturaExtraordinaria.propTypes = {
             defaultValue: 'bottom'
         }),
         contentOrientation: PropTypes.oneOf(['center', 'left', 'right']).tag({
-            name: 'Posición del contenido',
+            name: 'Posición de los textos',
             labels: {
                 center: 'Centro',
                 left: 'Izquierda',

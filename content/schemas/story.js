@@ -34,7 +34,21 @@ type BasicPromoItems {
 type PromoItems {
     basic: BasicPromoItems
 }
+type Taxonomy {
+    sections: [SectionTaxonomy]
+}
+type SectionTaxonomy {
+    _id: String!,
+    _website: String!,
+    type: String!,
+    name: String!,
+    path: String!,
+    parent_id: String,
+    _website_section_id: String!
+}
 type Query {
+ 
+ canonical_url: String
  type: String!
  version: String!
  description: Description
@@ -42,5 +56,11 @@ type Query {
  subheadlines: Subheadlines
  promo_items: PromoItems
  credits: Credits
+ website: String!
+ website_url: String!
+ taxonomy: Taxonomy
 }
+
+
+
 `;

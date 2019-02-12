@@ -7,6 +7,10 @@
     //grid-gap: 10px;
     grid-template-columns: 1fr 1fr;
 
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
     &.ae-multimedia-bottom {
         grid-template-areas: 
         "ae-section ae-section"
@@ -25,6 +29,9 @@
         "ae-multimedia ae-content";
         grid-template-rows: auto 1fr;
 
+        img{
+            height: 100%;
+        }
     }
     &.ae-multimedia-right {
         grid-template-areas: 
@@ -32,6 +39,9 @@
         "ae-content ae-multimedia";
         grid-template-rows: auto 1fr;
 
+        img{
+            height: 100%;
+        }
     }
     .ae-section {
         background-color: #c51f1f;
@@ -46,6 +56,10 @@
     .ae-content {
         padding: 20px 20px 0px 20px;
         grid-area: ae-content;
+        //vertical center
+        display: inline-grid;
+        align-content: space-evenly;
+        //align-items: center;
 
         div {
             margin-bottom: 15px;
@@ -69,5 +83,14 @@
         img{
             width: 100%;
         }
+    }
+    &.ae-text-center {
+        text-align: center;
+    }
+    &.ae-text-left {
+        text-align: left;
+    }
+    &.ae-text-right {
+        text-align: right;
     }
 }
