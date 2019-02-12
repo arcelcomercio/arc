@@ -1,7 +1,6 @@
-import { CONTENT_BASE } from 'fusion:environment'
 
 const resolve = (query) => {
-  const requestUri = `${CONTENT_BASE}site/v3/navigation/`
+  const requestUri = `/site/v3/navigation/`
 
   if (query.hasOwnProperty('website')) return `${requestUri}${query.website}`
 
