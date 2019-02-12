@@ -19,13 +19,13 @@
         height: 38px;
         font-size: 16px;
     
-        & li {
-            padding: 0 8px;
+        &__item {
+            padding: 8px;
             height: inherit;
-            
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
+            &:first-child {
+                color: $color-error;
+            }
         }
     }
 }
