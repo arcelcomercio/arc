@@ -59,7 +59,7 @@ class CardNotaManual extends Component {
     const { imageSize, headband, size, titleField } = this.props.customFields
 
     return (
-      <article className={`${imageSize == 'complete' ? 'img-complete' : ''} ${size == 'twoCol' ? 'twoCol' : ''}`}>
+      <article className={`${imageSize == 'complete' ? 'img-complete' : ''} ${size == 'twoCol' ? 'twoCol col-2' : ''}`}>
         {imageSize == 'complete' && <span className="gradient"></span>}
         <div className="flow-detail">
           <div>
