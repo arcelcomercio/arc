@@ -35,15 +35,8 @@ class Nav extends Component {
 
     render() {
 
-        const { background, color } = this.props.siteProperties.nav
-
-        const inline = {
-              backgroundColor: background,
-              color: color
-          }
-
         return(
-            <nav className={styles.nav} style={inline}>
+            <nav className={styles.nav}>
                 <div className={styles.navButtonContainer}>
                     <Button
                         iconClass={styles.navButtonIconSearch}

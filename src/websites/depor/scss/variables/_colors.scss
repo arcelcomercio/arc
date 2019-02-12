@@ -1,11 +1,21 @@
-$first-color: #007c31;
-$second-color: #9abf16;
-$third-color: #f15a24;
+$color-primary: #007c31;
+$color-secondary: #9abf16;
+$color-tertiary: #f15a24;
 
 $color-link: #524CFF;
 $color-white: #FFFFFF;
 $color-error: #FF0000;
+
+$color-black: #000000;
 $color-dark: #1F1F1F;
+$color-gray: #373737;
+$color-silver: #A5A9A9;
+$color-soft: #E7EBED;
+
+$header-bg-color: $color-primary;
+$header-text-color: $color-white;
+
+$nav-color: $color-dark;
 
 .bg-color--link {
     background-color: $color-link;

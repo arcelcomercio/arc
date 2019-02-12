@@ -42,15 +42,15 @@ class CardNotaManual extends Component {
         author: response.credits.by[0].name,
       })
       if (size == 'twoCol') {
-        this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal2x1/uploads/2019/02/11/5c6197d68fb3d.jpeg' })
+        this.setState({ image: 'https://www.foxsportsasia.com/uploads/2019/02/mbapperashford.jpg' })
       } else {
         switch (imageSize) {
           case 'parcial':
-            this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal/uploads/2019/02/11/5c6189afd3c81.jpeg' })
+            this.setState({ image: 'https://www.foxsportsasia.com/uploads/2019/02/mbapperashford.jpg' })
             break;
 
           case 'complete':
-            this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal_completo/uploads/2019/02/11/5c618f8a3e0b4.jpeg' })
+            this.setState({ image: 'http://rollingstone.com.mx/wp-content/uploads/2018/05/Pepsi-Dua.jpg' })
             break;
         }
       }
