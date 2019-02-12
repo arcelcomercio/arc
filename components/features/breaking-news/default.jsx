@@ -2,8 +2,6 @@ import Consumer from "fusion:consumer";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import "./breaking-news.scss";
-
 @Consumer
 class BreakingNews extends Component {
   constructor(props) {
@@ -30,7 +28,7 @@ class BreakingNews extends Component {
     let status = localStorage.getItem(link);
     if (status === "false") {
       this.setState({
-        contentBreakingNews: "breaking-news bn-hidden"
+        contentBreakingNews: "breaking-news breaking-news--hidden"
       });
     }
   };
@@ -39,14 +37,13 @@ class BreakingNews extends Component {
     const { link } = this.props.customFields;
     localStorage.setItem(link, "false");
     this.setState({
-      contentBreakingNews: "breaking-news bn-hidden"
+      contentBreakingNews: "breaking-news breaking-news--hidden"
     });
   };
 
   render() {
     // const content = this.props.globalContent;
     // const content = this.state.article
-    console.log("this.state.article", this.state.article);
     const { headlines, subheadlines } = this.state.article || {};
     const {
       backgroundColor,
@@ -67,13 +64,13 @@ class BreakingNews extends Component {
       subTitle: subTitle || (subheadlines && subheadlines.basic),
       link: isExternalLink ? link : webUrlService
     };
-    return (
+    return (                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
         <div className={`${this.state.contentBreakingNews} ${backgroundColor}`}>
-            <span className="bn-close" onClick={this.handleOnclickClose}>x</span>
-            <h2>
-                <span className="bn-tag" {...this.props.editableField("tags")}>{tags}</span>
+            <span className="breaking-news__bn-close" onClick={this.handleOnclickClose}>x</span>
+            <h2 className="breaking-news__h2">
+                <span className="breaking-news__h2__tag" {...this.props.editableField("tags")}>{tags}</span>
                 <span {...this.props.editableField("title")}>
-                    <a href={objContent.link} target="_blank">
+                    <a className="breaking-news__h2__link" href={objContent.link} target="_blank">
                         {objContent.title}
                     </a>
                 </span>
@@ -85,19 +82,19 @@ class BreakingNews extends Component {
 BreakingNews.propTypes = {
   customFields: PropTypes.shape({
     backgroundColor: PropTypes.oneOf([
-      "bn-color-1",
-      "bn-color-2",
-      "bn-color-3",
-      "bn-color-4"
+      "breaking-news--bgcolor-1",
+      "breaking-news--bgcolor-2",
+      "breaking-news--bgcolor-3",
+      "breaking-news--bgcolor-4"
     ]).tag({
       name: "Color de fondo",
       labels: {
-        "bn-color-1": "Color 1",
-        "bn-color-2": "Color 2",
-        "bn-color-3": "Color 3",
-        "bn-color-4": "Color 4"
+        "breaking-news--bgcolor-1": "Color 1",
+        "breaking-news--bgcolor-2": "Color 2",
+        "breaking-news--bgcolor-3": "Color 3",
+        "breaking-news--bgcolor-4": "Color 4"
       },
-      defaultValue: "bn-color-1"
+      defaultValue: "breaking-news--bgcolor-1"
     }),
     tags: PropTypes.string.tag({ name: "Etiqueta" }),
     title: PropTypes.string.isRequired.tag({

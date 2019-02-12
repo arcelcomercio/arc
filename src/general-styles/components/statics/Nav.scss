@@ -1,0 +1,32 @@
+.nav {
+
+    position: sticky;
+    top: 0;
+    height: 46px;
+    padding: 0 15px;
+    z-index: 20;
+
+    &__button {
+        color: white;
+        padding: 0 5px;
+        height: inherit;
+        text-decoration: none;
+
+        &__container {
+            height: inherit;
+        }
+
+        &--featured {
+            color: #FBD03C;
+            padding: 0 5px;
+            height: inherit;
+            text-decoration: none;    
+        }
+    }
+
+    &__list {
+        color: white;
+        padding: 0 5px;
+        height: inherit;
+    }   
+}

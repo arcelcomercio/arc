@@ -1,0 +1,9 @@
+@import './partials/flex';
+@import './partials/normalize';
+
+.container-article {
+    display: grid;
+    grid-template-areas: 'main sidebar';
+    grid-template-columns: 1fr 318px;
+    grid-area: content;
+}
