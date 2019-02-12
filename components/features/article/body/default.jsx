@@ -12,7 +12,7 @@ import ElePrincipal from './types/ele-principal'
 @Consumer
 class ContentArticleBody extends Component {
   render() {
-    const { content_elements: contentElements, promo_items:promo_items  } = this.props.globalContent;
+    const { content_elements: contentElements, promo_items: promo_items } = this.props.globalContent;
 
     const elementClasses = {
       textClasses: "font--secondary",
@@ -23,7 +23,10 @@ class ContentArticleBody extends Component {
     return (
       <Fragment>
         <div className='news-text-content col-2'>
-        <ElePrincipal data={promo_items} />
+          {(promo_items) &&
+            <ElePrincipal data={promo_items} />
+          }
+
           {contentElements && (
             <ArticleBody class='news-text-content '
               data={contentElements}
@@ -48,14 +51,14 @@ class ContentArticleBody extends Component {
           )}
         </div>
 
-        
+
       </Fragment>
-                  );
-                }
-              }
+    );
+  }
+}
 
 ContentArticleBody.propTypes = {
-                    globalContent: PropTypes.object
-    };
-    
-    export default ContentArticleBody;
+  globalContent: PropTypes.object
+};
+
+export default ContentArticleBody;
