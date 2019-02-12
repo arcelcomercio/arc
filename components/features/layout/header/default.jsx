@@ -9,7 +9,8 @@ const styles = FormatClassName({
     ],
     headerMain: [
         'header__main',
-        'flex-center'
+        'flex-center-vertical',
+        'flex--justify-between'
     ],
     headerButtonContainer: [
         'flex-center',
@@ -31,6 +32,14 @@ const styles = FormatClassName({
     headerFeatured: [
         'flex-center',
         'header__featured'
+    ],
+    headerFeaturedItem:  [
+        'flex-center',
+        'header__featured__item'
+    ],
+    headerFeaturedItemIcon: [
+        'icon',
+        'icon--fire'
     ]
 })
 @Consumer
@@ -69,11 +78,15 @@ class Header extends Component {
                     </div>
                 </div>
                 <ul className={styles.headerFeatured}>
-                    <li>lomas </li>
-                    <li>lomas </li>
-                    <li>lomas </li>
-                    <li>lomas </li>
-                    <li>lomas </li>
+                    <li className={styles.headerFeaturedItem}>
+                        <i className={styles.headerFeaturedItemIcon}></i>
+                        LOS TEMAS DE HOY 
+                    </li>
+                    <li className={styles.headerFeaturedItem}>CNM </li>
+                    <li className={styles.headerFeaturedItem}>Vizcarra </li>
+                    <li className={styles.headerFeaturedItem}>Congreso </li>
+                    <li className={styles.headerFeaturedItem}>Poder Judicial </li>
+                    <li className={styles.headerFeaturedItem}>Corrupción </li>
                 </ul>    
             </header>
         )
