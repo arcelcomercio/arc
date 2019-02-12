@@ -3,7 +3,6 @@ import Video from './video'
 import Imagen from './image'
 
 const ElePrincipal = (props) => {
-    console.log(props); debugger;
     const { initial : initialEl, basic:basic } = props.data;
     return (
         <Fragment>
