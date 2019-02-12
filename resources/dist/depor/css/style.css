@@ -128,8 +128,68 @@
 
 /****************************************************/
 
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 * {
+  position: relative;
   box-sizing: border-box;
+}
+
+html {
+  font-family: "system-ui", sans-serif;
 }
 
 .margin-top {
@@ -169,6 +229,11 @@
 
 .icon--login {
   background-image: url(/pb/resources/dist/depor/images/icon-user.svg);
+  margin-right: 8px;
+}
+
+.icon--fire {
+  background-image: url(/pb/resources/dist/depor/images/icon-fire.svg);
   margin-right: 8px;
 }
 
@@ -218,9 +283,6 @@
   font-size: 12px;
   font-weight: bold;
   font-family: "open_sansregular";
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 0 15px;
 }
 
@@ -228,121 +290,102 @@
   height: inherit;
 }
 
-.hot {
+.header__featured {
   background-color: #ffffff;
   width: 100%;
   height: 38px;
   font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-.hot li {
-  padding: 0 8px;
+.header__featured__item {
+  padding: 8px;
   height: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-.home-footer-top-container {
-  display: flex;
-  justify-content: center;
+.header__featured__item:first-child {
+  color: #FF0000;
 }
 
-.home-footer-top {
-  display: flex;
+.footer-top {
   padding: 60px 17px 65px;
-  justify-content: center;
   max-width: 1024px;
   width: 100%;
-  box-sizing: border-box;
 }
 
-.home-footer-top .home-footer-col {
+.footer-top__col {
   padding-right: 15px;
 }
 
-.home-footer-top .home-footer-col:nth-child(1) {
+.footer-top__col:nth-child(1) {
   width: 30%;
 }
 
-.home-footer-top .home-footer-col:nth-child(2) {
+.footer-top__col:nth-child(2) {
   width: calc(70%/3);
 }
 
-.home-footer-top .home-footer-col:nth-child(3) {
+.footer-top__col:nth-child(3) {
   width: calc(70%/3);
 }
 
-.home-footer-top .home-footer-col:nth-child(4) {
+.footer-top__col:nth-child(4) {
   width: calc(70%/3);
   padding-right: 0;
 }
 
-.home-footer-top .home-footer-col .site-logo {
-  margin-bottom: 15px;
-  width: 180px;
-  display: block;
-}
-
-.home-footer-top .home-footer-col .site-logo img {
-  width: 100%;
-}
-
-.home-footer-top .home-footer-col .site-legal li {
-  font-size: 11px;
-}
-
-.home-footer-top .home-footer-col .menus li {
-  margin-bottom: 5px;
-  line-height: 18px;
-}
-
-.home-footer-top .home-footer-col ul {
+.footer-top__col__ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  flex-direction: column;
   align-items: start;
 }
 
-.home-footer-top .home-footer-col ul li {
+.footer-top__col__ul li {
   margin-bottom: 3px;
   font-size: 15px;
 }
 
-.home-footer-top .home-footer-col ul li a {
+.footer-top__col__ul li a {
   text-decoration: none;
   color: black;
   text-transform: capitalize;
 }
 
-.home-footer-top .home-footer-col ul li a:hover {
+.footer-top__col__ul li a:hover {
   text-decoration: underline;
 }
 
-.home-footer-top .home-footer-col ul .highlight {
-  font-weight: bold;
-  text-transform: capitalize;
+.footer-top__col__site-logo {
+  margin-bottom: 15px;
+  width: 180px;
+  display: block;
 }
 
-.home-footer-bot {
+.footer-top__col__site-logo img {
+  width: 100%;
+}
+
+.footer-top__col__site-legal li {
+  font-size: 11px;
+}
+
+.footer-top__col__menus li {
+  margin-bottom: 5px;
+  line-height: 18px;
+}
+
+.footer-bot {
   padding: 20px 20px 15px;
-  display: flex;
-  justify-content: center;
 }
 
-.home-footer-bot ul {
-  display: flex;
+.footer-bot ul {
   flex-wrap: wrap;
   padding: 0;
   max-width: 775px;
   width: 100%;
 }
 
-.home-footer-bot ul li {
+.footer-bot ul li {
   font-size: 15px;
   line-height: 1;
   margin: 0 3px;
@@ -351,16 +394,16 @@
   border-right: 1px solid #333;
 }
 
-.home-footer-bot ul li:last-child {
+.footer-bot ul li:last-child {
   border-right: unset;
 }
 
-.home-footer-bot ul li a {
+.footer-bot ul li a {
   text-decoration: none;
   color: black;
 }
 
-.home-footer-bot ul li a:hover {
+.footer-bot ul li a:hover {
   text-decoration: underline;
 }
 
@@ -417,7 +460,12 @@ ul {
 }
 
 * {
+  position: relative;
   box-sizing: border-box;
+}
+
+html {
+  font-family: "system-ui", sans-serif;
 }
 
 .margin-top {
@@ -463,29 +511,33 @@ ul {
 .article-principal figure img {
   width: 100%;
 }
+
 .breaking-news {
   color: #ffffff;
   padding: 15px 15px;
   margin: 10px 0px;
 }
+
 .breaking-news--bgcolor-1 {
   background-color: red;
-  height: 100px;
-  align-content: center;
-  justify-content: center;
 }
+
 .breaking-news--bgcolor-2 {
   background-color: green;
 }
+
 .breaking-news--bgcolor-3 {
   background-color: yellow;
 }
+
 .breaking-news--bgcolor-4 {
   background-color: gray;
 }
+
 .breaking-news--hidden {
   display: none;
 }
+
 .breaking-news__bn-close {
   background-color: #000000;
   opacity: 0.3;
@@ -493,25 +545,19 @@ ul {
   text-align: center;
   width: 15px;
   display: inline-block;
-  position: relative;
   float: right;
 }
+
 .breaking-news__bn-close:hover {
   opacity: 0.5;
   filter: alpha(opacity=50);
   cursor: default;
 }
+
 .breaking-news__h2 {
   margin: 0px;
   font-size: 1.1em;
   font-weight: 600;
-}
-.breaking-news__h2__tag {
-  margin-right: 10px;
-}
-.breaking-news__h2__link {
-  color: white;
-  text-decoration: none;
 }
 
 .zocalo__container {

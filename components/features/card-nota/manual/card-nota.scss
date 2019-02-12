@@ -15,14 +15,9 @@ article {
     padding: 5px;
   }
 }
-.twoCol {
-  // width: 625px;
-  .flow-detail {
-    width: 260px;
-  }
-}
 
 .flow-detail {
+  width: 260px;
   min-height: 178px;
   display: flex;
   flex-direction: column;

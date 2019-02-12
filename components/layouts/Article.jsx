@@ -8,7 +8,7 @@ let styles = FormatClassName({
     ],
     contentContainer: [
         'flex',
-        'flex-column'
+        'flex--column'
     ],
     mainContent: [
         'content--grid-base',
