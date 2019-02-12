@@ -5,22 +5,25 @@
   font-weight: normal;
   font-style: normal;
 }
-.layout--basic {
+.flex {
   display: flex;
+}
+.flex__column {
   flex-direction: column;
 }
-.main__container {
-  display: flex;
+.flex__justify--center {
   justify-content: center;
-  margin-bottom: 20px;
 }
-/* .content_container {
-    grid-area: main;
-    display: grid;
-    grid-template-areas: 
-        'zocalo-left content zocalo-right';
-    grid-template-columns: 1fr minmax(max-content, 1024px) 1fr;
-} */
+.flex__justify--between {
+  justify-content: space-between;
+}
+.flex__align {
+  align-items: center;
+}
+.flex--center-vertical {
+  display: flex;
+  align-items: center;
+}
 .content--grid-base {
   display: -ms-grid;
   display: grid;
@@ -31,12 +34,16 @@
   min-width: 320px;
   max-width: 100%;
 }
-.content--box {
-  grid-auto-rows: 374px;
-}
-.content--infinite {
-  grid-auto-rows: 374px;
-}
+/* .content--box{
+    @media screen and (min-width: 1024px) {
+        grid-template-rows: repeat(4, $heightRow);       
+    }
+
+    grid-auto-rows: $heightRow;    
+} */
+/* .content--rows-height {
+    grid-auto-rows: minmax(calc(($heightRow - ($spacingNormal * ($rowParts - 1))) / $rowParts), auto);
+} */
 .content--1col {
   -ms-grid-columns: 1fr;
   grid-template-columns: 1fr;
@@ -47,23 +54,23 @@
 }
 /*-------------- Process to create the 1 col classes */
 .row-1 {
-  -ms-grid-row-span: 1;
-  grid-row: span 1;
+  -ms-grid-row-span: 6;
+  grid-row: span 6;
   height: 374px;
 }
 .row-2 {
-  -ms-grid-row-span: 2;
-  grid-row: span 2;
+  -ms-grid-row-span: 12;
+  grid-row: span 12;
   height: 768px;
 }
 .row-3 {
-  -ms-grid-row-span: 3;
-  grid-row: span 3;
+  -ms-grid-row-span: 18;
+  grid-row: span 18;
   height: 1162px;
 }
 .row-4 {
-  -ms-grid-row-span: 4;
-  grid-row: span 4;
+  -ms-grid-row-span: 24;
+  grid-row: span 24;
   height: 1556px;
 }
 .col-1, .col-2, .col-3 {
@@ -73,13 +80,19 @@
 /*-------------- Process to create the 2 col classes */
 /*-------------- Process to create the 3 col classes */
 /****************************************************/
+.margin-top {
+  margin-top: 20px;
+}
+.block {
+  display: block;
+}
+.block__fill-width {
+  width: 100%;
+}
 .nav {
-  display: flex;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  align-items: center;
-  justify-content: space-between;
   height: 46px;
   padding: 0 15px;
   z-index: 20;
@@ -89,13 +102,8 @@
   padding: 0 5px;
   height: inherit;
   text-decoration: none;
-  display: flex;
-  align-items: center;
 }
 .nav__button__container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: inherit;
 }
 .nav__button--featured {
@@ -103,8 +111,6 @@
   padding: 0 5px;
   height: inherit;
   text-decoration: none;
-  display: flex;
-  align-items: center;
 }
 .nav__list {
   color: white;
@@ -256,24 +262,33 @@ ul {
   justify-content: center;
   align-items: center;
 }
-.layout--basic {
+.flex {
   display: flex;
+}
+.flex__column {
   flex-direction: column;
 }
-.main__container {
-  display: flex;
+.flex__justify--center {
   justify-content: center;
-  margin-bottom: 20px;
 }
-/* .content_container {
-    grid-area: main;
-    display: grid;
-    grid-template-areas: 
-        'zocalo-left content zocalo-right';
-    grid-template-columns: 1fr minmax(max-content, 1024px) 1fr;
-} */
+.flex__justify--between {
+  justify-content: space-between;
+}
+.flex__align {
+  align-items: center;
+}
+.flex--center-vertical {
+  display: flex;
+  align-items: center;
+}
 .margin-top {
   margin-top: 20px;
+}
+.block {
+  display: block;
+}
+.block__fill-width {
+  width: 100%;
 }
 .container-article {
   display: -ms-grid;
@@ -282,34 +297,6 @@ ul {
   -ms-grid-columns: 1fr 318px;
   grid-template-columns: 1fr 318px;
   grid-area: content;
-}
-.container-article .news-summary {
-  color: #444;
-  font: 22px/1.3 "ChronicleDisplaySemibold", Times New Roman, serif;
-  margin-bottom: 50px;
-  word-wrap: break-word;
-}
-.container-article .news-title {
-  clear: both;
-  color: #444;
-  font: 48px/1.15 "ChronicleDisplayBold", Times New Roman, serif;
-  margin-bottom: 20px;
-}
-.container-article .content > p {
-  font-size: 20px;
-  line-height: 1.5;
-  margin-bottom: 25px;
-  word-wrap: break-word;
-}
-main {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  grid-area: main;
-}
-sidebar {
-  -ms-grid-row: 1;
-  -ms-grid-column: 2;
-  grid-area: sidebar;
 }
 .article-principal {
   width: 400px;
@@ -330,31 +317,52 @@ sidebar {
 .article-principal figure img {
   width: 100%;
 }
-.BreakingNews {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 8% 90%;
-  grid-template-columns: 8% 90%;
-  -ms-grid-rows: 40px 40px;
-  grid-template-rows: 40px 40px;
-  grid-gap: 0px;
+.breaking-news {
+  color: #ffffff;
+  padding: 15px 15px;
+  margin: 10px 0px;
+}
+.breaking-news--bgcolor-1 {
   background-color: red;
-  height: 100px;
-  align-content: center;
-  justify-content: center;
 }
-.BreakingNews .box {
+.breaking-news--bgcolor-2 {
+  background-color: green;
+}
+.breaking-news--bgcolor-3 {
+  background-color: yellow;
+}
+.breaking-news--bgcolor-4 {
+  background-color: gray;
+}
+.breaking-news--hidden {
+  display: none;
+}
+.breaking-news__bn-close {
+  background-color: #000000;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+  text-align: center;
+  width: 15px;
+  display: inline-block;
+  position: relative;
+  float: right;
+}
+.breaking-news__bn-close:hover {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  cursor: default;
+}
+.breaking-news__h2 {
+  margin: 0px;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.breaking-news__h2__tag {
+  margin-right: 10px;
+}
+.breaking-news__h2__link {
   color: white;
-  /* border: 2px solid black; */
-  align-content: center;
-}
-.BreakingNews .combine {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 2;
-  grid-row: 1/3;
-}
-.test {
-  background: #007c31;
+  text-decoration: none;
 }
 .zocalo__container {
   width: 0;
@@ -377,15 +385,16 @@ sidebar {
     -ms-grid-column-span: 2;
     grid-column: span 2;
   }
+  .no-desktop {
+    display: none;
+  }
+  .no-desktop {
+    display: none;
+  }
 }
 @media screen and (min-width: 1024px) {
   .content-layout {
-    min-width: 940px;
     max-width: 1024px;
-  }
-  .content--box {
-    -ms-grid-rows: (374px)[4];
-    grid-template-rows: repeat(4, 374px);
   }
   .content--3col {
     -ms-grid-columns: (1fr)[3];
@@ -407,10 +416,9 @@ sidebar {
   }
   .zocalo__container {
     display: flex;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
-    height: fit-content;
-    width: auto;
+    padding: 20px;
+    height: 600px;
+    width: 160px;
     position: -webkit-sticky;
     position: sticky;
     top: 0;

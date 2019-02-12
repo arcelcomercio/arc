@@ -1,39 +1,56 @@
 import React from 'react';
+import { FormatClassName } from '../../src/utilsJs/utilities'
 
-import NavLayout from './components/Nav-layout'
-import HeaderLayout from './components/Header-layout'
-import ContentLayout from './components/Content-layout'
-import MainLayout from './components/Main-layout'
-import ZocaloLayout from './components/Zocalo-layout'
-import FooterLayout from './components/Footer-layout'
+const styles = FormatClassName({
+    layout: [
+        'flex',
+        'flex__justify--center'
+    ],
+    contentContainer: [
+        'flex',
+        'flex__column'
+    ],
+    mainContent: [
+        'content--grid-base',
+        'content-layout',
+        'content--1col',
+        'content--2col',
+        'content--3col',
+        'margin-top'
+    ],
+    zocalo: [
+        'zocalo__container'
+    ]
+})
 
 const Basic = props => {
     return (
-            <div className='main__container'>
-                <ZocaloLayout
-                    adElement='zocalo1'
-                    device='d'  // This is gonna be variable
-                />
-                <ContentLayout>
-                    <NavLayout />
-                    <HeaderLayout 
-                        elements={props.children[0]} 
-                    />
-                    <MainLayout
-                        elements={props.children[1]} 
-                    />
-                    <FooterLayout 
-                        elements={props.children[2]} 
-                    />            
-                </ContentLayout>
-                <ZocaloLayout
-                    adElement='zocalo2'
-                    device='d'  // This is gonna be variable
-                />
+            <div className={styles.layout}>
+                <div className={styles.zocalo}> 
+                    {props.children[0] /*Zocalo izquierda*/}
+                </div>
+                <div className={styles.contentContainer}>
+                    {props.children[1] /*Nav*/}
+                    {props.children[2] /*Header*/}
+                    <div className={styles.mainContent}>
+                        {props.children[3] /*Content*/}
+                    </div>
+                    {props.children[4] /*Footer*/}
+                </div>
+                <div className={styles.zocalo}>
+                    {props.children[5] /*Zocalo izquierda*/}
+                </div>
             </div>
     );
 }
 
-Basic.sections = ['Cabecera', 'Contenido', 'Pie de Página']
+Basic.sections = [
+    'Zocalo izquierda', 
+    'Nav', 
+    'Header', 
+    'Contenido', 
+    'Footer', 
+    'Zocalo derecha'
+]
 
 export default Basic;

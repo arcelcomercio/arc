@@ -9,7 +9,7 @@
     }
     
     @media screen and (min-width: 1024px) {
-        min-width: 940px;
+        //min-width: 940px;
         max-width: 1024px;
     }
 
@@ -17,17 +17,17 @@
     max-width: 100%; 
 }
 
-.content--box{
+/* .content--box{
     @media screen and (min-width: 1024px) {
         grid-template-rows: repeat(4, $heightRow);       
     }
     
     grid-auto-rows: $heightRow;    
-}
+} */
 
-.content--infinite{
-    grid-auto-rows: $heightRow;
-}
+/* .content--rows-height {
+    grid-auto-rows: minmax(calc(($heightRow - ($spacingNormal * ($rowParts - 1))) / $rowParts), auto);
+} */
 
 .content--3col{
     @media screen and (min-width: 1024px) {
@@ -54,7 +54,7 @@
 
 @for $i from 1 through 4 {
     .row-#{$i} {
-        grid-row: span $i;
+        grid-row: span $rowParts*$i;
         height: ($heightRow * $i)+($spacingNormal * ($i - 1));
     }
 }
