@@ -27,16 +27,19 @@ class CardNotaManual extends Component {
       website: this.props.arcSite,
       website_url: path
     }
-    const schema = ``
+    const schema = `{ 
+      headlines { basic }
+      credits { by { name } }
+    }`
 
-    const { fetched } = this.getContent(source, params)
+    const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
       console.log(response)
       console.log(this.props)
       this.setState({
         category: 'Editorial',
-        title: 'Piura: fuertes lluvias y crecida de ríos aíslan centros poblados y caseríos',
-        author: 'Carlos Chunga',
+        title: response.headlines.basic,
+        author: response.credits.by[0].name,
       })
       if (size == 'twoCol') {
         this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal2x1/uploads/2019/02/11/5c6197d68fb3d.jpeg' })
