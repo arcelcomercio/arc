@@ -15,6 +15,7 @@ const HeaderList = ({ nameSection, background, seeMore }) => {
     </div>
   );
 };
+
 const SeeMore = () => (
   <div className="more-news">
     <a href="#">
@@ -130,6 +131,11 @@ class Lista extends Component {
         canonical_url
         website_url
         display_date
+        promo_items{
+          basic{
+            url
+          }
+        }
         headlines{
           basic
         }
