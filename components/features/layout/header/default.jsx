@@ -8,7 +8,8 @@ const styles = FormatClassName({
         'header'
     ],
     headerMain: [
-        'header__main'
+        'header__main',
+        'flex-center'
     ],
     headerButtonContainer: [
         'flex-center',
@@ -27,6 +28,10 @@ const styles = FormatClassName({
     headerBtnIconLogin: [
         'icon--login'
     ],
+    headerFeatured: [
+        'flex-center',
+        'header__featured'
+    ]
 })
 @Consumer
 class Header extends Component {
@@ -63,7 +68,7 @@ class Header extends Component {
                         />
                     </div>
                 </div>
-                <ul className='hot'>
+                <ul className={styles.headerFeatured}>
                     <li>lomas </li>
                     <li>lomas </li>
                     <li>lomas </li>
