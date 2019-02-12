@@ -2,23 +2,29 @@
     display: flex;
 }
 
-.flex__column {
+.flex--column {
     flex-direction: column;
 }
 
-.flex__justify--center {
+.flex--justify-center {
     justify-content: center;
 }
 
-.flex__justify--between {
+.flex--justify-between {
     justify-content: space-between;
 }
 
-.flex__align {
+.flex--align {
     align-items: center;
 }
 
-.flex--center-vertical {
+.flex-center-vertical {
     display: flex;
     align-items: center; 
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

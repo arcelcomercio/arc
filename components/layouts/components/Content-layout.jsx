@@ -3,7 +3,7 @@ import { FormatClassName } from '../../../src/utilsJs/utilities'
 
 const styles = FormatClassName([
     'flex',
-    'flex__column'
+    'flex--column'
 ])
 
 class ContentLayout extends Component {

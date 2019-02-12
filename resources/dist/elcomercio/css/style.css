@@ -1,5 +1,21 @@
-.test {
-  color: red;
+.bg-color--link {
+  background-color: #524CFF;
+  color: #FFFFFF;
+}
+
+.bg-color--white {
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+}
+
+.bg-color--error {
+  background-color: #FF0000;
+  color: #FFFFFF;
+}
+
+.bg-color--dark {
+  background-color: #1F1F1F;
+  color: #FFFFFF;
 }
 
 @font-face {
@@ -14,25 +30,31 @@
   display: flex;
 }
 
-.flex__column {
+.flex--column {
   flex-direction: column;
 }
 
-.flex__justify--center {
+.flex--justify-center {
   justify-content: center;
 }
 
-.flex__justify--between {
+.flex--justify-between {
   justify-content: space-between;
 }
 
-.flex__align {
+.flex--align {
   align-items: center;
 }
 
-.flex--center-vertical {
+.flex-center-vertical {
   display: flex;
   align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .content--grid-base {
@@ -106,6 +128,10 @@
 
 /****************************************************/
 
+* {
+  box-sizing: border-box;
+}
+
 .margin-top {
   margin-top: 20px;
 }
@@ -118,6 +144,34 @@
   width: 100%;
 }
 
+.btn {
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 0 4px;
+  text-decoration: none;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  background-size: cover;
+}
+
+.icon--search {
+  background-image: url(/pb/resources/dist/elcomercio/images/icon-search.svg);
+  margin-right: 8px;
+}
+
+.icon--menu {
+  background-image: url(/pb/resources/dist/elcomercio/images/icon-menu.svg);
+  margin-right: 8px;
+}
+
+.icon--login {
+  background-image: url(/pb/resources/dist/elcomercio/images/icon-user.svg);
+  margin-right: 8px;
+}
+
 .nav {
   position: -webkit-sticky;
   position: sticky;
@@ -125,30 +179,33 @@
   height: 46px;
   padding: 0 15px;
   z-index: 20;
+  font-family: "open_sansregular";
+  font-size: 0.8em;
+  font-weight: 600;
 }
 
-.nav__button {
+.nav__btn {
+  background-color: #373737;
   color: white;
-  padding: 0 5px;
-  height: inherit;
-  text-decoration: none;
 }
 
-.nav__button__container {
+.nav__btn__container {
   height: inherit;
 }
 
-.nav__button--featured {
+.nav__btn--featured {
   color: #FBD03C;
-  padding: 0 5px;
   height: inherit;
-  text-decoration: none;
 }
 
 .nav__list {
   color: white;
   padding: 0 5px;
   height: inherit;
+}
+
+.nav__list li {
+  margin: 0 8px;
 }
 
 .header {
@@ -160,12 +217,15 @@
   height: 76px;
   font-size: 12px;
   font-weight: bold;
-  font-family: Arial;
+  font-family: "open_sansregular";
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 15px;
-  box-sizing: border-box;
+}
+
+.header__main__btn-container {
+  height: inherit;
 }
 
 .hot {
@@ -176,7 +236,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
 }
 
 .hot li {
@@ -326,52 +385,6 @@ ul {
   align-items: center;
 }
 
-.flex {
-  display: flex;
-}
-
-.flex__column {
-  flex-direction: column;
-}
-
-.flex__justify--center {
-  justify-content: center;
-}
-
-.flex__justify--between {
-  justify-content: space-between;
-}
-
-.flex__align {
-  align-items: center;
-}
-
-.flex--center-vertical {
-  display: flex;
-  align-items: center;
-}
-
-.margin-top {
-  margin-top: 20px;
-}
-
-.block {
-  display: block;
-}
-
-.block__fill-width {
-  width: 100%;
-}
-
-.container-article {
-  display: -ms-grid;
-  display: grid;
-      grid-template-areas: "main sidebar";
-  -ms-grid-columns: 1fr 318px;
-  grid-template-columns: 1fr 318px;
-  grid-area: content;
-}
-
 .article-principal {
   width: 400px;
   display: flex;
@@ -478,13 +491,11 @@ ul {
   .no-desktop {
     display: none;
   }
-  .no-desktop {
-    display: none;
-  }
 }
 
 @media screen and (min-width: 1024px) {
   .content-layout {
+    min-width: 940px;
     max-width: 1024px;
   }
   .content--3col {

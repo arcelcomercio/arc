@@ -7,7 +7,7 @@ const styles = FormatClassName([
     // 'content--3col',
     'content--grid-base',
     'col-3'
-]);
+])
 
 class Content3Col extends Component {
     render(){
