@@ -16,7 +16,6 @@ const HeaderList = ({ nameSection, background, seeMore }) => {
   );
 };
 
-
 const SeeMore = () => (
   <div className="more-news">
     <a href="#">
@@ -24,19 +23,25 @@ const SeeMore = () => (
     </a>
   </div>
 );
-const ImageNews = () => {
+const ImageNews = ({urlNews, promo_items}) => {
+  //"https://img.elcomercio.pe/files/article_content_ec_fotos/uploads/2019/02/05/5c59eaa4ad426.jpeg"
+  // srcSet="https://img.elcomercio.pe/files/listing_ec_home_bloque5/files/article_content_ec_fotos/uploads/2019/02/05/5c59eaa4ad426.jpeg"
+  //"https://elcomercio.pe/vamos/peru/cinco-restaurantes-encontraras-mejores-causas-lima-fotos-noticia-604647"
+  
+  let imagen = promo_items.basic.url;
+  debugger
   return (
     <figure>
-      <a href="https://elcomercio.pe/vamos/peru/cinco-restaurantes-encontraras-mejores-causas-lima-fotos-noticia-604647">
+      <a href={urlNews} >
         <picture>
           <source
             data-type="srcset"
-            srcSet="https://img.elcomercio.pe/files/listing_ec_home_bloque5/files/article_content_ec_fotos/uploads/2019/02/05/5c59eaa4ad426.jpeg"
+            srcSet={imagen}
             media="(max-width: 639px)"
           />
           <img
             datatype="src"
-            src="https://img.elcomercio.pe/files/article_content_ec_fotos/uploads/2019/02/05/5c59eaa4ad426.jpeg"
+            src={imagen}
           />
         </picture>
       </a>
@@ -46,10 +51,10 @@ const ImageNews = () => {
 
 const TimeItem = ({ time }) => <div className="time">{time}</div>;
 
-const ItemNews = ({ seeHour, seeImageNews, time, title, urlNews }) => {
+const ItemNews = ({ seeHour, seeImageNews, time, title, urlNews, promo_items }) => {
   return (
     <article className="item-news">
-      {seeImageNews && <ImageNews />}
+      {seeImageNews && <ImageNews urlNews={urlNews} promo_items={promo_items} />}
       {seeHour && <TimeItem time={time} />}
       <div className="page-link">
         <a href={urlNews}>
@@ -63,12 +68,12 @@ const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
   let classListItems =
     listNews.length > 3 ? "list-news-items scrol" : "list-news-items";
   //let nuevalista =[];
-
+  debugger
   return (
     <div className={classListItems}>
-      {listNews.map(({ display_date, headlines:{basic}, canonical_url }, index) => {
+      {listNews.map(({ display_date, headlines:{basic}, canonical_url, promo_items }, index) => {
         let fechaPublicacion = new Date(display_date);
-        debugger
+        
         return(
         <ItemNews
           key={index}
@@ -77,6 +82,7 @@ const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
           time={fechaPublicacion.getHours()+ ':'+fechaPublicacion.getMinutes()+'-'}
           title={basic}
           urlNews={canonical_url}
+          promo_items ={promo_items||''}
         />)
         
       })}
@@ -104,19 +110,19 @@ class Lista extends Component {
       seeImageNews,
       data: []
     }; 
+    
   }
 
   componentDidMount =() =>{
     const { fetched } = this.getContent(
       "get-lis-news",
       {
-        website: "elcomercio",
+        website: this.props.arcSite,
       },
       this.filterSchema()
     );
     fetched.then(response => {
-      
-      
+      debugger
       this.setState({
         data: response.content_elements
       });
@@ -145,8 +151,6 @@ class Lista extends Component {
   };
 
   render() {
-    //const {data} = this.state;
-    
     return (
       <div className="List">
         <HeaderList
@@ -164,45 +168,21 @@ class Lista extends Component {
   }
 }
 
-Lista.defaultProps = {
-  // title: 'ÚLTIMO MINUTO'
-  //title: "Politica",
-  //background: "color-backgroud-light-blue",
-  listNews: [
-    {
-      time: "14:15",
-      title: "Yanet García y su singular baile para recibir el Año Nuevo Chino",
-      urlNews:
-        "https://elcomercio.pe/politica/partido-morado-viable-tacha-agrupacion-julio-guzman-analisis-noticia-605056"
-    },
-    {
-      time: "14:14",
-      title:
-        "El presidente independiente, la columna de Maria Alejandra Campos",
-      urlNews:
-        "https://elcomercio.pe/politica/presidente-independiente-columna-maria-alejandra-campos-noticia-604782"
-    },
-    {
-      time: "14:13",
-      title:
-        "Partido Morado: ¿Es viable la tacha contra agrupación de Julio Guzmán?",
-      urlNews:
-        "https://elcomercio.pe/politica/partido-morado-viable-tacha-agrupacion-julio-guzman-analisis-noticia-605056"
-    },
-    {
-      time: "14:11",
-      title:
-        "La ley no exige sentencia en segunda instancia para caso Donayre, señala Prado",
-      urlNews:
-        "https://elcomercio.pe/politica/presidente-independiente-columna-maria-alejandra-campos-noticia-604782"
-    }
-  ]
-  //seeMore: false,
-  //seeHour: false,
-  //seeImageNews: false
-};
 Lista.propTypes = {
   customFields: PropTypes.shape({
+    secction: PropTypes.oneOf([
+      'Política',
+      'Deporte',
+      'Ultimo minuto'
+    ]).tag({
+      name:'Sección',
+      labels:{
+        'Política':'Política',
+        'Deporte':'Deporte',
+        'Ultimo minuto':'Ultimo minuto',
+      },
+      defaultValue: "Ultimo minuto"
+    }),
     background: PropTypes.oneOf([
       "color-backgroud-light-blue",
       "color-backgroud-white"
