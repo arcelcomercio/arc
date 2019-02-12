@@ -16,6 +16,7 @@ const HeaderList = ({ nameSection, background, seeMore }) => {
   );
 };
 
+
 const SeeMore = () => (
   <div className="more-news">
     <a href="#">
@@ -61,19 +62,24 @@ const ItemNews = ({ seeHour, seeImageNews, time, title, urlNews }) => {
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
   let classListItems =
     listNews.length > 3 ? "list-news-items scrol" : "list-news-items";
+  //let nuevalista =[];
 
   return (
     <div className={classListItems}>
-      {listNews.map(({ time, title, urlNews }, index) => (
+      {listNews.map(({ display_date, headlines:{basic}, canonical_url }, index) => {
+        let fechaPublicacion = new Date(display_date);
+        debugger
+        return(
         <ItemNews
-          key={time}
+          key={index}
           seeHour={seeHour}
           seeImageNews={seeImageNews === true && index === 0 ? true : false}
-          time={time}
-          title={title}
-          urlNews={urlNews}
-        />
-      ))}
+          time={fechaPublicacion.getHours()+ ':'+fechaPublicacion.getMinutes()+'-'}
+          title={basic}
+          urlNews={canonical_url}
+        />)
+        
+      })}
     </div>
   );
 };
@@ -88,9 +94,7 @@ class Lista extends Component {
       seeMore,
       seeHour,
       seeImageNews
-      // listNews
     } = this.props.customFields || {};
-    const { listNews } = this.props;
     
     this.state = {
       nameSection,
@@ -98,16 +102,11 @@ class Lista extends Component {
       seeMore,
       seeHour,
       seeImageNews,
-      listNews,
-      data: {}
-    };
-
-    this.fetch();
-    
+      data: []
+    }; 
   }
 
-  fetch(){
-    
+  componentDidMount =() =>{
     const { fetched } = this.getContent(
       "get-lis-news",
       {
@@ -116,11 +115,12 @@ class Lista extends Component {
       this.filterSchema()
     );
     fetched.then(response => {
-      debugger
+      
       
       this.setState({
         data: response.content_elements
       });
+      
     })
   };
 
@@ -145,7 +145,8 @@ class Lista extends Component {
   };
 
   render() {
-    debugger;
+    //const {data} = this.state;
+    
     return (
       <div className="List">
         <HeaderList
@@ -156,7 +157,7 @@ class Lista extends Component {
         <ListItemNews
           seeHour={this.state.seeHour}
           seeImageNews={this.state.seeImageNews}
-          listNews={this.state.listNews}
+          listNews={this.state.data || []}
         />
       </div>
     );
