@@ -5,20 +5,20 @@ import PropTypes from "prop-types";
 // import { ListItemNews } from "./ItemNews";
 import "./lista.css";
 
-const HeaderList = ({ nameSection, background, seeMore }) => {
+const HeaderList = ({ nameSection, background, seeMore, seeMoreurl }) => {
   return (
     <div className={"lista-header " + background}>
       <div className="title">
         <h4>{nameSection} </h4>
       </div>
-      {seeMore && <SeeMore />}
+      {seeMore && <SeeMore seeMoreurl={seeMoreurl} />}
     </div>
   );
 };
 
-const SeeMore = () => (
+const SeeMore = ({seeMoreurl}) => (
   <div className="more-news">
-    <a href="#">
+    <a href={seeMoreurl} >
       <h4>ver mas</h4>
     </a>
   </div>
@@ -27,9 +27,9 @@ const ImageNews = ({urlNews, promo_items}) => {
   //"https://img.elcomercio.pe/files/article_content_ec_fotos/uploads/2019/02/05/5c59eaa4ad426.jpeg"
   // srcSet="https://img.elcomercio.pe/files/listing_ec_home_bloque5/files/article_content_ec_fotos/uploads/2019/02/05/5c59eaa4ad426.jpeg"
   //"https://elcomercio.pe/vamos/peru/cinco-restaurantes-encontraras-mejores-causas-lima-fotos-noticia-604647"
-  
-  let imagen = promo_items.basic.url;
   debugger
+  let imagen = promo_items.basic? promo_items.basic.url||'' :'';
+  
   return (
     <figure>
       <a href={urlNews} >
@@ -98,16 +98,20 @@ class Lista extends Component {
       nameSection,
       background = "",
       seeMore,
+      seeMoreurl,
       seeHour,
-      seeImageNews
+      seeImageNews,
+      secction
     } = this.props.customFields || {};
-    
+    debugger
     this.state = {
       nameSection,
       background,
       seeMore,
+      seeMoreurl,
       seeHour,
       seeImageNews,
+      secction,
       data: []
     }; 
     
@@ -118,6 +122,7 @@ class Lista extends Component {
       "get-lis-news",
       {
         website: this.props.arcSite,
+        secction: this.state.secction
       },
       this.filterSchema()
     );
@@ -157,6 +162,7 @@ class Lista extends Component {
           nameSection={this.state.nameSection}
           background={this.state.background}
           seeMore={this.state.seeMore}
+          seeMoreurl={this.state.seeMoreurl}
         />
         <ListItemNews
           seeHour={this.state.seeHour}
@@ -171,17 +177,17 @@ class Lista extends Component {
 Lista.propTypes = {
   customFields: PropTypes.shape({
     secction: PropTypes.oneOf([
-      'Política',
-      'Deporte',
-      'Ultimo minuto'
+      'politica',
+      'economia',
+      'lastnews'
     ]).tag({
       name:'Sección',
       labels:{
-        'Política':'Política',
-        'Deporte':'Deporte',
-        'Ultimo minuto':'Ultimo minuto',
+        'politica':'Política',
+        'economia':'economia',
+        'lastnews':'Ultimo minuto',
       },
-      defaultValue: "Ultimo minuto"
+      defaultValue: "politica"
     }),
     background: PropTypes.oneOf([
       "color-backgroud-light-blue",
@@ -198,7 +204,8 @@ Lista.propTypes = {
     nameSection: PropTypes.string.isRequired.tag({ name: "Sección" }),
     seeMore: PropTypes.bool.tag({ name: "Ver más" }),
     seeHour: PropTypes.bool.tag({ name: "Ver hora" }),
-    seeImageNews: PropTypes.bool.tag({ name: "Ver imagen" })
+    seeImageNews: PropTypes.bool.tag({ name: "Ver imagen" }),
+    seeMoreurl: PropTypes.string.tag({name:"Ver más url"})
   })
 
   //title: PropTypes.string.isRequired,
