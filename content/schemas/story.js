@@ -47,6 +47,8 @@ type SectionTaxonomy {
     _website_section_id: String!
 }
 type Query {
+ 
+ canonical_url: String
  type: String!
  version: String!
  description: Description
@@ -58,4 +60,7 @@ type Query {
  website_url: String!
  taxonomy: Taxonomy
 }
+
+
+
 `;
