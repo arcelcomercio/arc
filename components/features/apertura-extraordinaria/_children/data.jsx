@@ -8,16 +8,16 @@ class Data
         this.website = website
     }
     get title() {
-        return this.customFields.title || (this.data && this.data.headlines && this.data.headlines.basic)
+        return this.customFields.title || (this.data && this.data.headlines && this.data.headlines.basic) || ''
     }
     get subTitle() {
-        return this.customFields.subTitle || (this.data && this.data.headlines && this.data.subheadlines.basic)
+        return this.customFields.subTitle || (this.data && this.data.headlines && this.data.subheadlines.basic) || ''
     }
     get multimediaOrientation(){
-        return this.customFields.multimediaOrientation
+        return this.customFields.multimediaOrientation || 'bottom'
     }
     get contentOrientation(){
-        return this.customFields.contentOrientation
+        return this.customFields.contentOrientation || 'left'
     }
     get author(){
         const authorData =this.data && this.data.credits && this.data.credits.by || []
