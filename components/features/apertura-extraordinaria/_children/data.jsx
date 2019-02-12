@@ -34,6 +34,9 @@ class Data
     get link(){
         return this.getDataSection().path + (this.data && this.data.website_url || '#')
     }
+    get sectionLink(){
+        return this.getDataSection().path
+    }
     getDataSection(data, type){
         const sectionData =this.data && this.data.taxonomy && this.data.taxonomy.sections || []
         let section = '', path = ''
