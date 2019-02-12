@@ -1,6 +1,15 @@
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Fragment, Component } from 'react'
+import { FormatClassName } from '../../../../src/utilsJs/utilities'
+
+const classes = FormatClassName({
+  footerTop: [
+    'flex',
+    'flex--justify-center',
+    'footer-top'
+  ],
+})
 
 @Consumer
 class Footer extends Component {
@@ -58,9 +67,8 @@ class Footer extends Component {
     }
     return (
       <footer className="margin-top">
-        <div className="home-footer-top-container" style={styles.container}>
-          <div className="home-footer-top">
-            <div className="home-footer-col">
+        <div className={classes.footerTop} style={styles.container}>
+          <div className="footer-top__col">
               <a href="" className="site-logo">
                 <img src={img} alt="" />
               </a>
@@ -68,9 +76,9 @@ class Footer extends Component {
                 {info.map((el, k) => <li key={k} style={styles.textColor}>{el}</li>)}
               </ul>
             </div>
-            {this.state.menus.map((el, keyID) => {
+          {this.state.menus.map((el, keyID) => {
               return (
-                <div className="home-footer-col" key={keyID}>
+                <div className="footer-container__col" key={keyID}>
                   <ul className="menus">
                     <li>
                       <a style={styles.titleColor} href="">{el.title}</a>
@@ -83,8 +91,7 @@ class Footer extends Component {
                   </ul>
                 </div>
               )
-            })}
-          </div>
+          })}
         </div>
         <div className="home-footer-bot">
           <ul>
