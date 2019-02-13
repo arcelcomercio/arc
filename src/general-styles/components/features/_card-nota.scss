@@ -5,6 +5,9 @@ $text-secondary: #979797;
   box-sizing: border-box;
   background-color: $color-white;
 
+  display: flex;
+  flex-direction: column;
+
   .live {
     font-size: 13px;
     font-weight: bold;
@@ -12,6 +15,10 @@ $text-secondary: #979797;
     background: red;
     padding: 5px;
   }
+}
+
+.parcialTop {
+  flex-direction: column-reverse;
 }
 
 .flow-detail {
