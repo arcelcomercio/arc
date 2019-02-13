@@ -3,12 +3,6 @@ import React, { Component } from 'react'
 import Button from '../../../../resources/components/button'
 import { FormatClassName } from '../../../../src/utilsJs/utilities'
 
-const flex = {
-    display: 'flex',
-    flexColumn: 'flex--column'
-
-}
-
 const styles = FormatClassName({
     nav: [
         'flex-center-vertical',
@@ -34,6 +28,10 @@ const styles = FormatClassName({
         'flex-center-vertical',
         'btn',
         'nav__btn--featured'
+    ],
+    navList: [
+        'flex-center',
+        'nav__list'
     ]
 })
 @Consumer
@@ -57,7 +55,7 @@ class Nav extends Component {
                         btnLink='#'
                     />
                 </div>
-                <ul className='nav__list'>
+                <ul className={styles.navList}>
                     <li>Politica</li>
                     <li>Deportes</li>
                     <li>Mundo</li>

@@ -1,18 +1,24 @@
-//variables
+/******* Variables *******/
 @import './variables/colors';
 @import './variables/dimensions';
 
-@import './variables/fonts';
 @import './partials/fonts';
+@import './variables/fonts';
+/*---------------------*/
 
-//utils
-@import '../../../general-styles/layouts/Basic.scss';
-@import '../../../general-styles/layouts/Article.scss';
+/******* Partials *******/
+@import '../../../general-styles/partials/general.scss';
+@import './partials/base';
+/*---------------------*/
 
+/******* Components *******/
+@import '../../../general-styles/components/features/nav';
+@import '../../../general-styles/components/features/header';
+@import '../../../general-styles/components/features/footer';
+@import '../../../general-styles/components/features/ads';
+@import '../../../general-styles/components/features/article';
+@import '../../../general-styles/components/features/breaking-news';
 
-//Components Features
-@import '../../../general-styles/components/features/article.scss';
-@import '../../../general-styles/components/features/breaking-news.scss';
-@import '../../../general-styles/components/features/ads.scss';
-
-
+@import '../../../general-styles/components/features/components/button';
+@import '../../../general-styles/components/features/components/icons';
+/*---------------------*/
