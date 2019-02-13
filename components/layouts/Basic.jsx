@@ -8,7 +8,8 @@ const styles = FormatClassName({
     ],
     contentContainer: [
         'flex',
-        'flex--column'
+        'flex--column',
+        'content-layout-container'
     ],
     mainContent: [
         'content--grid-base',

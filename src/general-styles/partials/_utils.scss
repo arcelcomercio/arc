@@ -21,10 +21,10 @@ html {
     display: block;
 }
 
-.block__fill-width{
+.full-width{
     width: 100%;
 }
 
-.pb-feature-toolbar-wrapper {
-    flex: auto !important;
+.hide {
+    display: none;
 }

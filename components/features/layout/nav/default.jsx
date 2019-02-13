@@ -28,6 +28,10 @@ const styles = FormatClassName({
         'flex-center-vertical',
         'btn',
         'nav__btn--featured'
+    ],
+    navList: [
+        'flex-center',
+        'nav__list'
     ]
 })
 @Consumer
@@ -35,15 +39,8 @@ class Nav extends Component {
 
     render() {
 
-        const { background, color } = this.props.siteProperties.nav
-
-        const inline = {
-              backgroundColor: background,
-              color: color
-          }
-
         return(
-            <nav className={styles.nav} style={inline}>
+            <nav className={styles.nav}>
                 <div className={styles.navButtonContainer}>
                     <Button
                         iconClass={styles.navButtonIconSearch}
@@ -58,7 +55,7 @@ class Nav extends Component {
                         btnLink='#'
                     />
                 </div>
-                <ul className='nav__list'>
+                <ul className={styles.navList}>
                     <li>Politica</li>
                     <li>Deportes</li>
                     <li>Mundo</li>

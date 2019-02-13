@@ -1,6 +1,15 @@
 import React, { Component, Fragment } from "react";
 import renderHTML from 'react-render-html';
+import { FormatClassName } from '../../../../../src/utilsJs/utilities';
 
+const styles = FormatClassName({
+    share: [
+        'share-news'
+    ],
+    shareListItem: [
+        'share'
+    ]
+});
 
 const Share = (props) => {
     const {url,  title } = props;
@@ -11,8 +20,8 @@ const Share = (props) => {
     const gpUrl ="https://plus.google.com/share?url=" + url;
     return (
         <Fragment>
-            <div class="share-news">
-                <div id="share-items" class="share-items clearfix">
+            <div className={ styles.share }>
+                <div id="share-items" className="clearfix">
                     <div class="share-item item-in">
                         <a href={inUrl} class="share-link link-in">
                             <i class="icon-in"></i> <span>Compartir</span>

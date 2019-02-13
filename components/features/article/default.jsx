@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
+import { FormatClassName } from '../../../src/utilsJs/utilities'
+
+const styles = FormatClassName({
+    article: [
+        'flex',
+        'flex--column',
+        'article'
+    ],
+    articlePrincipal: [
+        'flex',
+        'flex--row',
+        'article'
+    ],
+    articleFigure: [
+        'article__figure'
+    ],
+    articleFigureImg: [
+        'article__figure__img'
+    ]
+});
 @Consumer
 class Article extends Component {
     render() {
         return (
-            <article className={ this.props.customFields.isPrincipal ? 'article-principal' : 'article' }>
-                <figure>
-                    <img src="https://picsum.photos/400/300" alt=""/>
+            <article className={ this.props.customFields.isPrincipal ? styles.articlePrincipal : styles.article }>
+                <figure className={ styles.articleFigure }>
+                    <img className={ styles.articleFigureImg } src="https://picsum.photos/400/300" alt=""/>
                 </figure>
                 <div>
                     <h1>Titulo principal de articulo</h1>
