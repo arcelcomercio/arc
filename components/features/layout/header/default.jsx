@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import Button from '../../../../resources/components/button'
-import { FormatClassName } from '../../../../src/utilsJs/utilities'
+import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
 const styles = FormatClassName({
     header: [

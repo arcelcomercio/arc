@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import Table from './types/table'
 import ElePrincipal from './types/ele-principal'
 import Moment from 'react-moment'
-import { FormatClassName } from '../../../../src/utilsJs/utilities'
+import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
 const styles = FormatClassName({
   news: [

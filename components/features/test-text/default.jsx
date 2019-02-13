@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { customWidth } from '../../../src/utilsJs/customFields';
+import { customWidth } from '../../../resources/utilsJs/customFields';
 
 class TextTest extends Component {
     render() {

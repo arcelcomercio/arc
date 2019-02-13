@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormatClassName } from '../../src/utilsJs/utilities'
+import { FormatClassName } from '../../resources/utilsJs/utilities'
 
 const styles = FormatClassName({
     layout: [
