@@ -1,7 +1,6 @@
 .breaking-news {
-  color: #ffffff;
-  padding: 15px 15px;
-  margin: 10px 0px;
+  color: $color-white;
+  padding: 15px;
 }
 
 .breaking-news--bgcolor-1 {
@@ -28,6 +27,7 @@
   width: 15px;
   display: inline-block;
   float: right;
+
   &:hover {
     opacity: 0.5;
     filter: alpha(opacity=50);
@@ -35,13 +35,8 @@
   }
 }
 
-<<<<<<< HEAD
-.test {
-    background: $color-primary;
-=======
 .breaking-news__h2 {
   margin: 0px;
   font-size: 1.1em;
   font-weight: 600;
->>>>>>> 7b76186d675f6e02e6509fe8649b044f1ee3ea0f
 }

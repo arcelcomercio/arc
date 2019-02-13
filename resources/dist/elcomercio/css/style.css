@@ -493,7 +493,7 @@ html {
   display: block;
 }
 
-.block__fill-width {
+.full-width {
   width: 100%;
 }
 
@@ -530,9 +530,8 @@ html {
 }
 
 .breaking-news {
-  color: #ffffff;
-  padding: 15px 15px;
-  margin: 10px 0px;
+  color: #FFFFFF;
+  padding: 15px;
 }
 
 .breaking-news--bgcolor-1 {
