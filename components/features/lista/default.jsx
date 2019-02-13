@@ -26,20 +26,16 @@ const ImageNews = ({ urlNews, promo_items }) => {
   let imagen = promo_items.basic ? promo_items.basic.url || "" : "";
   return (
     <figure>
-      {imagen ? (
-        <a href={urlNews}>
-          <picture>
-            <source
-              data-type="srcset"
-              srcSet={imagen}
-              media="(max-width: 639px)"
-            />
-            <img datatype="src" src={imagen} />
-          </picture>
-        </a>
-      ) : (
-        <span> no hay imagen</span>
-      )}
+      <a href={urlNews}>
+        <picture>
+          <source
+            data-type="srcset"
+            srcSet={imagen}
+            media="(max-width: 639px)"
+          />
+          <img datatype="src" src={imagen} />
+        </picture>
+      </a>
     </figure>
   );
 };
@@ -142,14 +138,18 @@ class Lista extends Component {
     fetched.then(response => {
       if (!response) {
         response = [];
-        console.log("No hay respuesta del servicio para obtener el listado de noticias");
+        console.log(
+          "No hay respuesta del servicio para obtener el listado de noticias"
+        );
       }
 
-      if(!response.content_elements){
+      if (!response.content_elements) {
         response.content_elements = [];
-        console.log("No hay respuesta del servicio para obtener el listado de noticias");
+        console.log(
+          "No hay respuesta del servicio para obtener el listado de noticias"
+        );
       }
-      
+
       this.setState({
         data: response.content_elements
       });
