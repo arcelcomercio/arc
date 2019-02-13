@@ -8,12 +8,13 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Table from './types/table'
 import ElePrincipal from './types/ele-principal'
+import Moment from 'react-moment'
 
 @Consumer
 class ContentArticleBody extends Component {
   render() {
-    const { content_elements: contentElements, promo_items:promo_items  } = this.props.globalContent;
-
+    const { content_elements: contentElements, promo_items: promo_items, publish_date: date, credits: authorArray } = this.props.globalContent;
+    const { by: author } = authorArray;
     const elementClasses = {
       textClasses: "font--secondary",
       headerClasses: "font--primary",
@@ -23,7 +24,16 @@ class ContentArticleBody extends Component {
     return (
       <Fragment>
         <div className='news-text-content col-2'>
-        <ElePrincipal data={promo_items} />
+          {(promo_items) &&
+            <ElePrincipal data={promo_items} />
+          }
+          <div class="news-author-date">
+            {author[0] &&
+              <a href={author && "/" + author[0].slug} >{author && author[0].name} </a>
+            }
+            <Moment format="DD.MM.YYYY / LT " class="news-date" date={date && date} />
+
+          </div>
           {contentElements && (
             <ArticleBody class='news-text-content '
               data={contentElements}
@@ -48,14 +58,14 @@ class ContentArticleBody extends Component {
           )}
         </div>
 
-        
+
       </Fragment>
-                  );
-                }
-              }
+    );
+  }
+}
 
 ContentArticleBody.propTypes = {
-                    globalContent: PropTypes.object
-    };
-    
-    export default ContentArticleBody;
+  globalContent: PropTypes.object
+};
+
+export default ContentArticleBody;

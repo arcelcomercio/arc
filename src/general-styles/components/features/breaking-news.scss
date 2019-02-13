@@ -1,6 +1,17 @@
 .breaking-news {
+<<<<<<< HEAD
   color: $color-white;
   padding: 15px;
+=======
+  color: #ffffff;
+  padding: 15px 15px;
+  margin: 10px 0px;
+
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
+>>>>>>> 774d1ae27c6080425e499b3b49bf7dbe1c685a6c
 }
 
 .breaking-news--bgcolor-1 {
@@ -31,7 +42,7 @@
   &:hover {
     opacity: 0.5;
     filter: alpha(opacity=50);
-    cursor: default;
+    cursor: pointer;
   }
 }
 
@@ -39,4 +50,8 @@
   margin: 0px;
   font-size: 1.1em;
   font-weight: 600;
+}
+
+.breaking-news__h2__tag {
+  margin-right: 5px;
 }
