@@ -59,5 +59,3 @@ export default Consumer
 ```
 
 This will always result in `<div>site1</div>`.
-
-
