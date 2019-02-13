@@ -5,12 +5,14 @@
     height: 46px;
     padding: 0 15px;
     z-index: 20;
+    font-family: 'open_sansregular';
+    font-size: .8em;
+    font-weight: 600;
 
-    &__button {
+    &__btn {
+
+        background-color: #373737;
         color: white;
-        padding: 0 5px;
-        height: inherit;
-        text-decoration: none;
 
         &__container {
             height: inherit;
@@ -18,9 +20,7 @@
 
         &--featured {
             color: #FBD03C;
-            padding: 0 5px;
-            height: inherit;
-            text-decoration: none;    
+            height: inherit; 
         }
     }
 
@@ -28,5 +28,9 @@
         color: white;
         padding: 0 5px;
         height: inherit;
+
+        & li {
+            margin: 0 8px;
+        }
     }   
 }

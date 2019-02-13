@@ -1,0 +1,121 @@
+$text-primary: #333;
+$text-secondary: #979797;
+
+article {
+  box-sizing: border-box;
+  // width: 307px;
+  height: 361px;
+  padding: 10px 15px;
+
+  .live {
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    background: red;
+    padding: 5px;
+  }
+}
+
+.flow-detail {
+  width: 260px;
+  min-height: 178px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  div {
+    padding: 15px 0px;
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      padding-bottom: 10px;
+      &::after {
+        border-bottom: 1px solid #333;
+        content: "";
+        display: block;
+        height: 1px;
+        left: 0;
+        overflow: hidden;
+        position: relative;
+        width: 25px;
+        bottom: -5px;
+      }
+    }
+    h2 {
+      margin: 0;
+      max-height: 75.6px;
+      font-size: 21px;
+      line-height: 1.2;
+      padding: 10px 0;
+    }
+  }
+  .author {
+    font-size: 10px;
+    text-transform: uppercase;
+    margin: 10px 0;
+    a {
+      color: $text-secondary;
+    }
+  }
+
+  a {
+    outline: 0;
+    text-decoration: none;
+    color:  $text-primary;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.flow-image {
+  height: 157px;
+  overflow: hidden;
+  margin: 0;
+  display: inline-block;
+  a {
+    display: block;
+    img {
+      width: 100%;
+      display: inline;
+    }
+  }
+}
+
+.img-complete {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  .gradient {
+    background: linear-gradient(to bottom,rgba(68,68,68,0) 20%,#444);
+    bottom: 0;
+    display: block;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00444444',endColorstr='#444444',GradientType=0);
+    height: 306px;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+  .flow-detail {
+    position: absolute;
+    bottom: 10px;
+    z-index: 10;
+    padding: 0 15px;
+    a {
+      color: #fff;
+    }
+    div {
+      h3 {
+        &::after {
+          border-bottom: 1px solid #fff;
+        }
+      }
+    }
+  }
+  .flow-image {
+    height: auto;
+    top: 0;
+    z-index: -1;
+  }
+}

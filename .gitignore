@@ -10,6 +10,5 @@
 !/data/dumps/.gitkeep
 /data/restore/**
 !/data/restore/.gitkeep
-/dist
-/resources/dist
 package-lock.json
+/resources/dist/
