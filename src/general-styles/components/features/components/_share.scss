@@ -13,24 +13,20 @@
             display: block;
             padding-left: 15px;
         }
-        &--item-in {
+        &--linkedin {
             background-color: #1da1f2;
         }
-        &--item-fb {
+        &--face {
             background-color: #43609c;
         }
-        &--item-wa {
-            display: none;
-        }
-        &--item-gp {
+        &--gplus {
             background-color: #dd4d42;
         }
-        &--other-share-items {
+        &--other-items {
             left: 0;
             position: absolute;
             top: 0;
             width: 891px;
-            display: none
         }
         &--show-more {
             font-size: 24px;

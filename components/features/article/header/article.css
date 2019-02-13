@@ -26,9 +26,11 @@
 
 /*.share-news .other-share-items {
     display: none;
-}*/
-
-/*.share-news .item-wa {
+}
+.share-news .share-item {
+    float: left;
+}
+.share-news .item-wa {
     display: none;
 }
 .share-news {
@@ -90,19 +92,6 @@
     word-wrap: break-word;
 }
 
-@media only screen and (max-width: 800px) {
-	 table td:nth-child(2), 
-	 table th:nth-child(2) {display: none;}
-}
- 
-@media only screen and (max-width: 640px) {
-	 table td:nth-child(4),
-	 table th:nth-child(4),
-	 table td:nth-child(7),
-	 table th:nth-child(7),
-	 table td:nth-child(8),
-	 table th:nth-child(8){display: none;}
-}
 .visual__image img{
     width: 100%
 }

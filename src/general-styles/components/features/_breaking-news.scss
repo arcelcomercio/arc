@@ -1,6 +1,10 @@
 .breaking-news {
   color: $color-white;
   padding: 15px;
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
 }
 
 .breaking-news--bgcolor-1 {
