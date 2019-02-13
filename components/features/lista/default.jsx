@@ -26,16 +26,20 @@ const ImageNews = ({ urlNews, promo_items }) => {
   let imagen = promo_items.basic ? promo_items.basic.url || "" : "";
   return (
     <figure>
-      <a href={urlNews}>
-        <picture>
-          <source
-            data-type="srcset"
-            srcSet={imagen}
-            media="(max-width: 639px)"
-          />
-          <img datatype="src" src={imagen} />
-        </picture>
-      </a>
+      {imagen ? (
+        <a href={urlNews}>
+          <picture>
+            <source
+              data-type="srcset"
+              srcSet={imagen}
+              media="(max-width: 639px)"
+            />
+            <img datatype="src" src={imagen} />
+          </picture>
+        </a>
+      ) : (
+        null
+      )}
     </figure>
   );
 };
@@ -104,19 +108,22 @@ class Lista extends Component {
   constructor(props) {
     super(props);
 
-    const {
+    var {
       titleList,
       background = "",
+      newsNumber,
       seeMore,
       seeMoreurl,
       seeHour,
       seeImageNews,
       secction
     } = this.props.customFields || {};
-
+    debugger
+    
     this.state = {
       titleList,
       background,
+      newsNumber,
       seeMore,
       seeMoreurl,
       seeHour,
@@ -124,6 +131,7 @@ class Lista extends Component {
       secction,
       data: []
     };
+    
   }
 
   componentDidMount = () => {
@@ -131,25 +139,22 @@ class Lista extends Component {
       "get-lis-news",
       {
         website: this.props.arcSite,
-        secction: this.state.secction
+        secction: this.state.secction,
+        newsNumber: this.state.newsNumber,
       },
       this.filterSchema()
     );
     fetched.then(response => {
       if (!response) {
         response = [];
-        console.log(
-          "No hay respuesta del servicio para obtener el listado de noticias"
-        );
+        console.log("No hay respuesta del servicio para obtener el listado de noticias");
       }
 
-      if (!response.content_elements) {
+      if(!response.content_elements){
         response.content_elements = [];
-        console.log(
-          "No hay respuesta del servicio para obtener el listado de noticias"
-        );
+        console.log("No hay respuesta del servicio para obtener el listado de noticias");
       }
-
+      
       this.setState({
         data: response.content_elements
       });
@@ -220,6 +225,7 @@ Lista.propTypes = {
     }),
 
     titleList: PropTypes.string.isRequired.tag({ name: "Título de la lista" }),
+    newsNumber: PropTypes.number.tag({name: "Número de noticas"}),
     seeMore: PropTypes.bool.tag({ name: "Ver más" }),
     seeHour: PropTypes.bool.tag({ name: "Ver hora" }),
     seeImageNews: PropTypes.bool.tag({ name: "Ver imagen" }),
