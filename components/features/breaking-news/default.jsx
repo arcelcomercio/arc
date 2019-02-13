@@ -47,7 +47,7 @@ class BreakingNews extends Component {
     let status = localStorage.getItem(link);
     if (status === "false") {
       this.setState({
-        contentBreakingNews: "breaking-news breaking-news--hidden"
+        contentBreakingNews: "breaking-news hide"
       });
     }
   };
@@ -56,7 +56,7 @@ class BreakingNews extends Component {
     const { link } = this.props.customFields;
     localStorage.setItem(link, "false");
     this.setState({
-      contentBreakingNews: "breaking-news breaking-news--hidden"
+      contentBreakingNews: "breaking-news hide"
     });
   };
 
