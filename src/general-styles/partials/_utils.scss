@@ -11,6 +11,10 @@ html {
     margin-top: $spacingNormal;
 }
 
+.padding-normal {
+    padding: $spacingNormal;
+}
+
 .no-desktop {
     @media screen and (min-width: 640px) {
         display: none;
@@ -23,4 +27,18 @@ html {
 
 .full-width{
     width: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
 }

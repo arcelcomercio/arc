@@ -1,8 +1,9 @@
-.apertura-extraordinaria {
-    border-style: solid;
-    border-width: 5px 7px;
-    border-color: #adadad;
-    padding: 5px;
+// apertura-extraordinaria
+.ae { 
+    //border-style: solid;
+    //border-width: 5px 7px;
+    background-color: $color-white;
+    border-color: $color-silver;
     display: grid;
     //grid-gap: 10px;
     grid-template-columns: 1fr 1fr;
@@ -11,19 +12,20 @@
         text-decoration: none;
         color: inherit;
     }
-    &.ae-multimedia-bottom {
+
+    &--multimedia-bottom {
         grid-template-areas: 
         "ae-section ae-section"
         "ae-content ae-content"
         "ae-multimedia ae-multimedia";
     }
-    &.ae-multimedia-top {
+    &--multimedia-top {
         grid-template-areas: 
         "ae-multimedia ae-multimedia"
         "ae-section ae-section"
         "ae-content ae-content";
     }
-    &.ae-multimedia-left {
+    &--multimedia-left {
         grid-template-areas: 
         "ae-multimedia ae-section"
         "ae-multimedia ae-content";
@@ -33,7 +35,7 @@
             height: 100%;
         }
     }
-    &.ae-multimedia-right {
+    &--multimedia-right {
         grid-template-areas: 
         "ae-section ae-multimedia"
         "ae-content ae-multimedia";
@@ -43,17 +45,16 @@
             height: 100%;
         }
     }
-    .ae-section {
-        background-color: #c51f1f;
-        text-align: center;
-        color: #ffffff;
+    &__section {
+        background-color: $color-error;
+        color: $color-white;
         text-transform: uppercase;
         font-weight: bold;
         padding: 8px;
         grid-area: ae-section;
         //height: 15px;
     }
-    .ae-content {
+    &__content {
         padding: 20px 20px 0px 20px;
         grid-area: ae-content;
         //vertical center
@@ -64,33 +65,26 @@
         div {
             margin-bottom: 15px;
         }
-        .ae-title {
+
+        &__title {
             font-size: 3em;
             font-weight: bold;
         }
-        .ae-subtitle {
-            color: #adadad;
+        &__subtitle {
+            color: $color-silver;
         }
-        .ae-author {
+        &__author {
             text-transform: uppercase;
             font-size: 0.7em;
-            color: #adadad;
+            color: $color-silver;
         }
     }
-    .ae-multimedia {
+
+    &__multimedia {
         grid-area: ae-multimedia;
 
         img{
             width: 100%;
         }
-    }
-    &.ae-text-center {
-        text-align: center;
-    }
-    &.ae-text-left {
-        text-align: left;
-    }
-    &.ae-text-right {
-        text-align: right;
     }
 }
