@@ -20,26 +20,29 @@ class CardNotaAuto extends Component {
   }
 
   fetch() {
-    const { path, imageSize, size } = this.props.customFields
+    const { section, imageSize, size } = this.props.customFields
 
-    const source = 'get-story-by-websiteurl'
+    const source = 'get-last-story-by-section'
     const params = {
-      website: this.props.arcSite,
-      website_url: path
+      section: section,
+      website: this.props.arcSite
     }
     const schema = `{ 
-      headlines { basic }
-      credits { by { name } }
+      content_elements { 
+        headlines { basic }
+        credits { by { name } }
+      }
     }`
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
       console.log(response)
       console.log(this.props)
+      const storyElement = response.content_elements[0]
       this.setState({
         category: 'Editorial',
-        title: response.headlines.basic,
-        author: response.credits.by[0].name,
+        title: storyElement.headlines.basic,
+        author: storyElement.credits.by[0].name,
       })
       if (size == 'twoCol') {
         this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal2x1/uploads/2019/02/11/5c6197d68fb3d.jpeg' })
@@ -59,17 +62,16 @@ class CardNotaAuto extends Component {
 
   render() {
     const { category, title, author, image } = this.state
-    const { imageSize, headband, size, titleField } = this.props.customFields
+    const { imageSize, size, titleField, categoryField } = this.props.customFields
 
     return (
       <article className={`row-1 ${imageSize == 'complete' ? 'img-complete' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
         {imageSize == 'complete' && <span className="gradient"></span>}
         <div className="flow-detail">
           <div>
-            {headband == 'normal' && <h3>
-              <a href="">{category}</a>
-            </h3>}
-            {headband == 'live' && <span className="live">EN VIVO</span>}
+            <h3>
+              <a href="" {...this.props.editableField('categoryField')}>{categoryField || category}</a>
+            </h3>
             <h2>
               <a href="" {...this.props.editableField('titleField')}>{titleField || title}</a>
             </h2>
@@ -93,8 +95,8 @@ class CardNotaAuto extends Component {
 
 CardNotaAuto.propTypes = {
   customFields: PropTypes.shape({
-    path: PropTypes.string.tag({
-      name: 'Path'
+    section: PropTypes.string.tag({
+      name: 'Sección'
     }),
     imageSize: PropTypes.oneOf(['parcial', 'complete']).tag({
       name: 'Posición de la imagen',
@@ -104,14 +106,6 @@ CardNotaAuto.propTypes = {
       },
       defaultValue: 'parcial'
     }),
-    headband: PropTypes.oneOf(['normal', 'live']).tag({
-      name: 'Cintillo',
-      labels: {
-        normal: 'Normal',
-        live: 'En vivo'
-      },
-      defaultValue: 'normal'
-    }),
     size: PropTypes.oneOf(['oneCol', 'twoCol']).tag({
       name: 'Tamaño del card',
       labels: {
@@ -120,10 +114,14 @@ CardNotaAuto.propTypes = {
       },
       defaultValue: 'oneCol'
     }),
+    categoryField: PropTypes.string.tag({
+      name: 'Categoría',
+      group: 'Editar texto'
+    }),
     titleField: PropTypes.string.tag({
       name: 'Título',
       group: 'Editar texto'
-    }),
+    })
   })
 }
 
