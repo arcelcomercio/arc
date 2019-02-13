@@ -2,7 +2,7 @@ import Consumer from "fusion:consumer";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import "./lista.css";
+//import "./lista.css";
 
 const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
   return (
