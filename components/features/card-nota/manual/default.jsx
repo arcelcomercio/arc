@@ -71,7 +71,7 @@ class CardNotaManual extends Component {
             </h3>}
             {headband == 'live' && <span className="live">EN VIVO</span>}
             <h2>
-              <a href="" {...this.props.editableField('titleField')}>{titleField ? titleField : title}</a>
+              <a href="" {...this.props.editableField('titleField')}>{titleField || title}</a>
             </h2>
           </div>
           <span className="author">
