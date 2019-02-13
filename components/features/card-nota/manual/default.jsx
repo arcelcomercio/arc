@@ -56,7 +56,7 @@ class CardNotaManual extends Component {
 
   render() {
     const { category, title, author, image } = this.state
-    const { imageSize, headband, size, titleField } = this.props.customFields
+    const { imageSize, headband, size, titleField, categoryField } = this.props.customFields
 
     return (
       <article className={`padding-normal card row-1 ${imageSize == 'complete' ? 'img-complete' : imageSize == 'parcialTop' ? 'parcialTop' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
@@ -64,7 +64,7 @@ class CardNotaManual extends Component {
         <div className="flow-detail">
           <div>
             {headband == 'normal' && <h3>
-              <a href="">{category}</a>
+              <a href="" {...this.props.editableField('categoryField')}>{categoryField || category}</a>
             </h3>}
             {headband == 'live' && <span className="live">EN VIVO</span>}
             <h2>
@@ -117,6 +117,10 @@ CardNotaManual.propTypes = {
         twoCol: '2 columnas'
       },
       defaultValue: 'oneCol'
+    }),
+    categoryField: PropTypes.string.tag({
+      name: 'Categoría',
+      group: 'Editar texto'
     }),
     titleField: PropTypes.string.tag({
       name: 'Título',
