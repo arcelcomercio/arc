@@ -63,7 +63,7 @@ class CardNotaAuto extends Component {
     const { imageSize, size, titleField, categoryField } = this.props.customFields
 
     return (
-      <article className={`row-1 ${imageSize == 'complete' ? 'img-complete' : imageSize == 'parcialTop' ? 'parcialTop' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
+      <article className={`card padding-normal row-1 ${imageSize == 'complete' ? 'img-complete' : imageSize == 'parcialTop' ? 'parcialTop' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
         {imageSize == 'complete' && <span className="gradient"></span>}
         <div className="flow-detail">
           <div>

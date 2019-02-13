@@ -47,7 +47,7 @@ class CardNotaManual extends Component {
             this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal/uploads/2019/02/11/5c6189afd3c81.jpeg' })
             break;
           case 'complete':
-            this.setState({ image: 'http://rollingstone.com.mx/wp-content/uploads/2018/05/Pepsi-Dua.jpg' })
+            this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal_completo/uploads/2019/02/11/5c618f8a3e0b4.jpeg' })
             break;
         }
       }
