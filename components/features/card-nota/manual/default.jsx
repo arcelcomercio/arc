@@ -45,10 +45,10 @@ class CardNotaManual extends Component {
         this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal2x1/uploads/2019/02/11/5c6197d68fb3d.jpeg' })
       } else {
         switch (imageSize) {
-          case 'parcial':
+          case 'parcialBot':
+          case 'parcialTop':
             this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal/uploads/2019/02/11/5c6189afd3c81.jpeg' })
             break;
-
           case 'complete':
             this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal_completo/uploads/2019/02/11/5c618f8a3e0b4.jpeg' })
             break;
@@ -62,7 +62,7 @@ class CardNotaManual extends Component {
     const { imageSize, headband, size, titleField } = this.props.customFields
 
     return (
-      <article className={`row-1 ${imageSize == 'complete' ? 'img-complete' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
+      <article className={`row-1 ${imageSize == 'complete' ? 'img-complete' : imageSize == 'parcialTop' ? 'parcialTop' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
         {imageSize == 'complete' && <span className="gradient"></span>}
         <div className="flow-detail">
           <div>
@@ -96,13 +96,14 @@ CardNotaManual.propTypes = {
     path: PropTypes.string.tag({
       name: 'Path'
     }),
-    imageSize: PropTypes.oneOf(['parcial', 'complete']).tag({
+    imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
       name: 'Posición de la imagen',
       labels: {
-        parcial: 'Parcial',
+        parcialBot: 'Parcial inferior',
+        parcialTop: 'Parcial Superior',
         complete: 'Completa'
       },
-      defaultValue: 'parcial'
+      defaultValue: 'parcialBot'
     }),
     headband: PropTypes.oneOf(['normal', 'live']).tag({
       name: 'Cintillo',

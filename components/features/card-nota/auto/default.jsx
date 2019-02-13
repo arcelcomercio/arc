@@ -48,7 +48,8 @@ class CardNotaAuto extends Component {
         this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal2x1/uploads/2019/02/11/5c6197d68fb3d.jpeg' })
       } else {
         switch (imageSize) {
-          case 'parcial':
+          case 'parcialBot':
+          case 'parcialTop':
             this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal/uploads/2019/02/11/5c6189afd3c81.jpeg' })
             break;
 
@@ -65,7 +66,7 @@ class CardNotaAuto extends Component {
     const { imageSize, size, titleField, categoryField } = this.props.customFields
 
     return (
-      <article className={`row-1 ${imageSize == 'complete' ? 'img-complete' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
+      <article className={`row-1 ${imageSize == 'complete' ? 'img-complete' : imageSize == 'parcialTop' ? 'parcialTop' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
         {imageSize == 'complete' && <span className="gradient"></span>}
         <div className="flow-detail">
           <div>
@@ -98,13 +99,14 @@ CardNotaAuto.propTypes = {
     section: PropTypes.string.tag({
       name: 'Sección'
     }),
-    imageSize: PropTypes.oneOf(['parcial', 'complete']).tag({
+    imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
       name: 'Posición de la imagen',
       labels: {
-        parcial: 'Parcial',
+        parcialBot: 'Parcial inferior',
+        parcialTop: 'Parcial Superior',
         complete: 'Completa'
       },
-      defaultValue: 'parcial'
+      defaultValue: 'parcialBot'
     }),
     size: PropTypes.oneOf(['oneCol', 'twoCol']).tag({
       name: 'Tamaño del card',

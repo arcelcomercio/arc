@@ -7,6 +7,9 @@ article {
   height: 361px;
   padding: 10px 15px;
 
+  display: flex;
+  flex-direction: column;
+
   .live {
     font-size: 13px;
     font-weight: bold;
@@ -14,6 +17,10 @@ article {
     background: red;
     padding: 5px;
   }
+}
+
+.parcialTop {
+  flex-direction: column-reverse;
 }
 
 .flow-detail {
