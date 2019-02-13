@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import Ae from './_children/ae'
-import './style.scss'
 
 @Consumer
 class AperturaExtraordinaria extends Component 

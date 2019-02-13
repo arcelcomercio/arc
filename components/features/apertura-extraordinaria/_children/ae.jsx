@@ -1,14 +1,10 @@
 import React, {Component} from 'react'
 import Data from './data'
-//import { FormatClassName } from '../../../../src/utilsJs/utilities'
+import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-//import Consumer from 'fusion:consumer'
-
-/* const styles = FormatClassName({
-    aeContainer: [
-        'apertura-extraordinaria',
-    ],
-}) */
+const styles = FormatClassName({
+    
+})
 
 //@Consumer
 class Ae extends Component
