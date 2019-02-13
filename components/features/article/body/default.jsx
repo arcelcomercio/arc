@@ -8,11 +8,12 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Table from './types/table'
 import ElePrincipal from './types/ele-principal'
+import Moment from 'react-moment'
 
 @Consumer
 class ContentArticleBody extends Component {
   render() {
-    const { content_elements: contentElements, promo_items: promo_items } = this.props.globalContent;
+    const { content_elements: contentElements, promo_items: promo_items, publish_date: date } = this.props.globalContent;
 
     const elementClasses = {
       textClasses: "font--secondary",
@@ -26,7 +27,10 @@ class ContentArticleBody extends Component {
           {(promo_items) &&
             <ElePrincipal data={promo_items} />
           }
-
+          <div class="news-author-date">
+              <a href="/autor/redaccion-ec">Redactor</a>
+              <Moment format="DD.MM.YYYY" class="news-date" date={date && date} />
+          </div>
           {contentElements && (
             <ArticleBody class='news-text-content '
               data={contentElements}
