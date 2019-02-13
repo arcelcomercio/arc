@@ -3,6 +3,12 @@ import React, { Component } from 'react'
 import Button from '../../../../resources/components/button'
 import { FormatClassName } from '../../../../src/utilsJs/utilities'
 
+const flex = {
+    display: 'flex',
+    flexColumn: 'flex--column'
+
+}
+
 const styles = FormatClassName({
     nav: [
         'flex-center-vertical',
