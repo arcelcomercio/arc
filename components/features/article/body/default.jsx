@@ -29,7 +29,7 @@ class ContentArticleBody extends Component {
           }
           <div class="news-author-date">
               <a href="/autor/redaccion-ec">Redactor </a>
-              <Moment format="DD.MM.YYYY / HH:I " class="news-date" date={date && date} />
+              <Moment format="DD.MM.YYYY / HH:I LT " class="news-date" date={date && date} />
           </div>
           {contentElements && (
             <ArticleBody class='news-text-content '
