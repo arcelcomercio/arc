@@ -3,7 +3,7 @@ import Video from './video'
 import Imagen from './image'
 
 const ElePrincipal = (props) => {
-    const { initial : initialEl, basic:basic } = props.data;
+    const { Basic : initialEl, basic:basic } = props.data;
     return (
         <Fragment>
             {(basic && basic.type == 'image') &&
