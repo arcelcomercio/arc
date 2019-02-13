@@ -3,7 +3,7 @@ $text-secondary: #979797;
 
 .card {
   box-sizing: border-box;
-  padding: 10px 15px;
+  background-color: $color-white;
 
   .live {
     font-size: 13px;
@@ -81,7 +81,8 @@ $text-secondary: #979797;
 
 .img-complete {
   position: relative;
-  padding: 0;
+  background-color: unset;
+  padding: initial;
   overflow: hidden;
   .gradient {
     background: linear-gradient(to bottom,rgba(68,68,68,0) 20%,#444);

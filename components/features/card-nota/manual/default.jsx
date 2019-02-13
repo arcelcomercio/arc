@@ -2,9 +2,6 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Fragment, Component } from 'react'
 
-// Temp
-import './card-nota.scss'
-
 @Consumer
 class CardNotaManual extends Component {
 
@@ -62,7 +59,7 @@ class CardNotaManual extends Component {
     const { imageSize, headband, size, titleField } = this.props.customFields
 
     return (
-      <article className={`card row-1 ${imageSize == 'complete' ? 'img-complete' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
+      <article className={`padding-normal card row-1 ${imageSize == 'complete' ? 'img-complete' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
         {imageSize == 'complete' && <span className="gradient"></span>}
         <div className="flow-detail">
           <div>
