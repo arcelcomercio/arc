@@ -1,10 +1,8 @@
 $text-primary: #333;
 $text-secondary: #979797;
 
-article {
+.card {
   box-sizing: border-box;
-  // width: 307px;
-  height: 361px;
   padding: 10px 15px;
 
   .live {

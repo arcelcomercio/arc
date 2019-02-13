@@ -5,27 +5,27 @@
     height: 46px;
     padding: 0 15px;
     z-index: 20;
-    font-family: 'open_sansregular';
-    font-size: .8em;
-    font-weight: 600;
+    font-family: $main-font;
+    font-size: $font-sm;
+    font-weight: bold;
+    background-color: $nav-color;
+    color: $color-white;
 
     &__btn {
-
-        background-color: #373737;
-        color: white;
+        background-color: $color-gray; 
+        color: $color-white;
 
         &__container {
             height: inherit;
         }
 
         &--featured {
-            color: #FBD03C;
+            color: $color-primary;
             height: inherit; 
         }
     }
 
     &__list {
-        color: white;
         padding: 0 5px;
         height: inherit;
 

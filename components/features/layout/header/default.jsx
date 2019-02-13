@@ -12,6 +12,9 @@ const styles = FormatClassName({
         'flex-center-vertical',
         'flex--justify-between'
     ],
+    headerLogo: [
+        'header__logo'
+    ],
     headerButtonContainer: [
         'flex-center',
         'header__main__btn-container'
@@ -31,7 +34,8 @@ const styles = FormatClassName({
     ],
     headerFeatured: [
         'flex-center',
-        'header__featured'
+        'header__featured',
+        'bg-color--white'
     ],
     headerFeaturedItem:  [
         'flex-center',
@@ -47,21 +51,14 @@ class Header extends Component {
 
     render() {
 
-        const { background, color } = this.props.siteProperties.header
-
-        const otros = {
-              backgroundColor: background,
-              color: color
-          }
-
         return(
             <header className={styles.header} >
-                <div className={styles.headerMain} style={otros}>
+                <div className={styles.headerMain}>
                     <span>29 DE ENERO, 2019</span>
                     <img 
                         src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} 
                         alt={`Logo de ${this.props.arcSite}`}
-                        height={34}
+                        className={styles.headerLogo}
                     />
                     <div className={styles.headerButtonContainer}>
                         <Button

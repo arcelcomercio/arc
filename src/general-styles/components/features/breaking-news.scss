@@ -1,8 +1,6 @@
 .breaking-news {
-  color: #ffffff;
-  padding: 15px 15px;
-  margin: 10px 0px;
-
+  color: $color-white;
+  padding: 15px;
   a {
     color: #000000;
     text-decoration: none;
@@ -26,13 +24,14 @@
 }
 
 .breaking-news__bn-close {
-  background-color: #000000;
+  background-color: $color-black;
   opacity: 0.3;
   filter: alpha(opacity=30);
   text-align: center;
   width: 15px;
   display: inline-block;
   float: right;
+
   &:hover {
     opacity: 0.5;
     filter: alpha(opacity=50);
