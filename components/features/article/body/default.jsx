@@ -13,8 +13,8 @@ import Moment from 'react-moment'
 @Consumer
 class ContentArticleBody extends Component {
   render() {
-    const { content_elements: contentElements, promo_items: promo_items, publish_date: date } = this.props.globalContent;
-
+    const { content_elements: contentElements, promo_items: promo_items, publish_date: date, credits: authorArray } = this.props.globalContent;
+    const { by: author } = authorArray;
     const elementClasses = {
       textClasses: "font--secondary",
       headerClasses: "font--primary",
@@ -28,8 +28,11 @@ class ContentArticleBody extends Component {
             <ElePrincipal data={promo_items} />
           }
           <div class="news-author-date">
-              <a href="/autor/redaccion-ec">Redactor</a>
-              <Moment format="DD.MM.YYYY" class="news-date" date={date && date} />
+            {author[0] &&
+              <a href={author && "/" + author[0].slug} >{author && author[0].name} </a>
+            }
+            <Moment format="DD.MM.YYYY / LT " class="news-date" date={date && date} />
+
           </div>
           {contentElements && (
             <ArticleBody class='news-text-content '
