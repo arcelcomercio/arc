@@ -8,8 +8,9 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Blockquote from "./types/blockquote"
 import Table from './types/table'
+import Autor from './types/autor'
 import ElePrincipal from './types/ele-principal'
-import Moment from 'react-moment'
+
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
 const styles = FormatClassName({
@@ -17,13 +18,11 @@ const styles = FormatClassName({
     'news-text-content',
     'col-2'
   ],
-  newsAuthor: [
-    'news-author-date'
-  ],
   newsImage: [
     'visual__image',
     'visual__image--cover'
   ]
+ 
 })
 @Consumer
 class ContentArticleBody extends Component {
@@ -41,19 +40,13 @@ class ContentArticleBody extends Component {
           {(promo_items) &&
             <ElePrincipal data={promo_items} />
           }
-          <div className={styles.newsAuthor}>
-            {author && author.by && author.by[0] &&
-              <a href={author && "/" + author.by[0].slug} >{author && author.by[0].name} </a>
-            }
-            <Moment format="DD.MM.YYYY / LT " date={date && date} />
-          </div>
+          {(author) && <Autor data={author} date={date} />}
           {contentElements && (
             <ArticleBody
               data={contentElements}
               elementClasses={elementClasses}
               renderElement={element => {
                 const { type } = element
-                console.log(element); debugger;
                 if (type === 'image') {
                   return <Imagen data={element} />
                 }
