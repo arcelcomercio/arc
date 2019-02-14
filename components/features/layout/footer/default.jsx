@@ -34,6 +34,10 @@ const classes = FormatClassName({
     'flex',
     'flex--justify-center',
     'footer-bot'
+  ],
+  footerBottomList: [
+    'flex',
+    'flex--justify-center'
   ]
 })
 
@@ -120,7 +124,7 @@ class Footer extends Component {
           })}
         </div>
         <div className={ classes.footerBottom }>
-          <ul className="flex">
+          <ul className={ classes.footerBottomList }>
             <li style={styles.gecColor}>Visite también:</li>
             {gecSites.map((site, key) => {
               if (site.name !== siteUrl) {
