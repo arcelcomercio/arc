@@ -6,6 +6,10 @@
     flex-direction: column;
 }
 
+.flex--column-reverse {
+    flex-direction: column-reverse;
+}
+
 .flex--justify-center {
     justify-content: center;
 }
