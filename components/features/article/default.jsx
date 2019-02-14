@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import { FormatClassName } from '../../../src/utilsJs/utilities'
+import { FormatClassName } from '../../../resources/utilsJs/utilities'
 
 const styles = FormatClassName({
     article: [

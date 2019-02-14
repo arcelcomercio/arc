@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import renderHTML from 'react-render-html';
-import { FormatClassName } from '../../../../../src/utilsJs/utilities';
+import { FormatClassName } from '../../../../../resources/utilsJs/utilities';
 
 const styles = FormatClassName({
     share: [
@@ -36,7 +36,7 @@ const styles = FormatClassName({
         'share-news__list-items__item__link'
     ],
     shareBtnLess: [
-        
+        'hide'
     ]
 });
 
@@ -77,7 +77,7 @@ const Share = (props) => {
                     </div>
                     <div className={ styles.shareItemShowMore }>
                         <a href="#"  className="link-show-more ui-toggle" id="">
-                            <span className="more">+</span><span className="less">- </span>
+                            <span className="more">+</span><span className={ styles.shareBtnLess }>- </span>
                         </a>
                     </div>
                 </div>

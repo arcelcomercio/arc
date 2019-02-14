@@ -11,6 +11,10 @@ html {
     margin-top: $spacingNormal;
 }
 
+.padding-normal {
+    padding: $spacingNormal;
+}
+
 .no-desktop {
     @media screen and (min-width: 640px) {
         display: none;
@@ -25,12 +29,16 @@ html {
     width: 100%;
 }
 
-<<<<<<< HEAD:src/general-styles/partials/_utils.scss
 .hide {
     display: none;
 }
-=======
-.bold{
-    font-weight: bold;
-  }
->>>>>>> master:src/general-styles/layouts/partials/_general.scss
+
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}

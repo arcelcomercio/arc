@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import React, { Fragment, Component } from 'react'
 
 @Consumer
-class CardNotaManual extends Component {
+class CardNotaAuto extends Component {
 
   constructor(props) {
     super(props)
@@ -17,35 +17,39 @@ class CardNotaManual extends Component {
   }
 
   fetch() {
-    const { path, imageSize, size } = this.props.customFields
+    const { section, imageSize, size } = this.props.customFields
 
-    const source = 'get-story-by-websiteurl'
+    const source = 'get-last-story-by-section'
     const params = {
-      website: this.props.arcSite,
-      website_url: path
+      section: section,
+      website: this.props.arcSite
     }
     const schema = `{ 
-      headlines { basic }
-      credits { by { name } }
+      content_elements { 
+        headlines { basic }
+        credits { by { name } }
+      }
     }`
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
       console.log(response)
       console.log(this.props)
+      const storyElement = response.content_elements[0]
       this.setState({
         category: 'Editorial',
-        title: response.headlines.basic,
-        author: response.credits.by[0].name,
+        title: storyElement.headlines.basic,
+        author: storyElement.credits.by[0].name,
       })
       if (size == 'twoCol') {
-        this.setState({ image: 'https://www.foxsportsasia.com/uploads/2019/02/mbapperashford.jpg' })
+        this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal2x1/uploads/2019/02/11/5c6197d68fb3d.jpeg' })
       } else {
         switch (imageSize) {
           case 'parcialBot':
           case 'parcialTop':
             this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal/uploads/2019/02/11/5c6189afd3c81.jpeg' })
             break;
+
           case 'complete':
             this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal_completo/uploads/2019/02/11/5c618f8a3e0b4.jpeg' })
             break;
@@ -56,17 +60,16 @@ class CardNotaManual extends Component {
 
   render() {
     const { category, title, author, image } = this.state
-    const { imageSize, headband, size, titleField, categoryField } = this.props.customFields
+    const { imageSize, size, titleField, categoryField } = this.props.customFields
 
     return (
-      <article className={`padding-normal card row-1 ${imageSize == 'complete' ? 'img-complete' : imageSize == 'parcialTop' ? 'parcialTop' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
+      <article className={`card padding-normal row-1 ${imageSize == 'complete' ? 'img-complete' : imageSize == 'parcialTop' ? 'parcialTop' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
         {imageSize == 'complete' && <span className="gradient"></span>}
         <div className="flow-detail">
           <div>
-            {headband == 'normal' && <h3>
+            <h3>
               <a href="" {...this.props.editableField('categoryField')}>{categoryField || category}</a>
-            </h3>}
-            {headband == 'live' && <span className="live">EN VIVO</span>}
+            </h3>
             <h2>
               <a href="" {...this.props.editableField('titleField')}>{titleField || title}</a>
             </h2>
@@ -88,10 +91,10 @@ class CardNotaManual extends Component {
   }
 }
 
-CardNotaManual.propTypes = {
+CardNotaAuto.propTypes = {
   customFields: PropTypes.shape({
-    path: PropTypes.string.tag({
-      name: 'Path'
+    section: PropTypes.string.tag({
+      name: 'Sección'
     }),
     imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
       name: 'Posición de la imagen',
@@ -101,14 +104,6 @@ CardNotaManual.propTypes = {
         complete: 'Completa'
       },
       defaultValue: 'parcialBot'
-    }),
-    headband: PropTypes.oneOf(['normal', 'live']).tag({
-      name: 'Cintillo',
-      labels: {
-        normal: 'Normal',
-        live: 'En vivo'
-      },
-      defaultValue: 'normal'
     }),
     size: PropTypes.oneOf(['oneCol', 'twoCol']).tag({
       name: 'Tamaño del card',
@@ -125,9 +120,9 @@ CardNotaManual.propTypes = {
     titleField: PropTypes.string.tag({
       name: 'Título',
       group: 'Editar texto'
-    }),
+    })
   })
 }
 
 
-export default CardNotaManual
+export default CardNotaAuto
