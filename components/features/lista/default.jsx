@@ -118,7 +118,7 @@ class Lista extends Component {
       seeImageNews,
       secction
     } = this.props.customFields || {};
-    debugger
+    
     
     this.state = {
       titleList,
@@ -135,6 +135,7 @@ class Lista extends Component {
   }
 
   componentDidMount = () => {
+    debugger
     const { fetched } = this.getContent(
       "get-lis-news",
       {
