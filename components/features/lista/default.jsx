@@ -37,9 +37,9 @@ const ImageNews = ({ urlNews, promo_items }) => {
             <img datatype="src" src={imagen} />
           </picture>
         </a>
-      ):
-      <span> no hay imagen</span>
-      }
+      ) : (
+        null
+      )}
     </figure>
   );
 };
@@ -108,19 +108,22 @@ class Lista extends Component {
   constructor(props) {
     super(props);
 
-    const {
+    var {
       titleList,
       background = "",
+      newsNumber,
       seeMore,
       seeMoreurl,
       seeHour,
       seeImageNews,
       secction
     } = this.props.customFields || {};
-
+    
+    
     this.state = {
       titleList,
       background,
+      newsNumber,
       seeMore,
       seeMoreurl,
       seeHour,
@@ -128,18 +131,31 @@ class Lista extends Component {
       secction,
       data: []
     };
+    
   }
 
   componentDidMount = () => {
+    debugger
     const { fetched } = this.getContent(
       "get-lis-news",
       {
         website: this.props.arcSite,
-        secction: this.state.secction
+        secction: this.state.secction,
+        newsNumber: this.state.newsNumber,
       },
       this.filterSchema()
     );
     fetched.then(response => {
+      if (!response) {
+        response = [];
+        console.log("No hay respuesta del servicio para obtener el listado de noticias");
+      }
+
+      if(!response.content_elements){
+        response.content_elements = [];
+        console.log("No hay respuesta del servicio para obtener el listado de noticias");
+      }
+      
       this.setState({
         data: response.content_elements
       });
@@ -187,15 +203,16 @@ class Lista extends Component {
 
 Lista.propTypes = {
   customFields: PropTypes.shape({
-    secction: PropTypes.oneOf(["politica", "economia", "lastnews"]).tag({
-      name: "Sección",
-      labels: {
-        politica: "Política",
-        economia: "economia",
-        lastnews: "Ultimo minuto"
-      },
-      defaultValue: "politica"
-    }),
+    // secction: PropTypes.oneOf(["politica", "economia", "lastnews"]).tag({
+    //   name: "Sección",
+    //   labels: {
+    //     politica: "Política",
+    //     economia: "economia",
+    //     lastnews: "Ultimo minuto"
+    //   },
+    //   defaultValue: "politica"
+    // }),
+    secction: PropTypes.string.isRequired.tag({ name: "Sección" }),
     background: PropTypes.oneOf([
       "color-backgroud-light-blue",
       "color-backgroud-white"
@@ -209,18 +226,12 @@ Lista.propTypes = {
     }),
 
     titleList: PropTypes.string.isRequired.tag({ name: "Título de la lista" }),
+    newsNumber: PropTypes.number.tag({name: "Número de noticas"}),
     seeMore: PropTypes.bool.tag({ name: "Ver más" }),
     seeHour: PropTypes.bool.tag({ name: "Ver hora" }),
     seeImageNews: PropTypes.bool.tag({ name: "Ver imagen" }),
     seeMoreurl: PropTypes.string.tag({ name: "Ver más url" })
   })
-
-  //title: PropTypes.string.isRequired,
-  //background: PropTypes.string.isRequired,
-  //seeMore: PropTypes.bool.isRequired,
-  //seeHour: PropTypes.bool.isRequired,
-  //seeImageNews: PropTypes.bool,
-  //defaultProps: PropTypes.array
 };
 
 export default Lista;

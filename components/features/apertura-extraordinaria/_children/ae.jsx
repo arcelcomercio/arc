@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Data from './data'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 

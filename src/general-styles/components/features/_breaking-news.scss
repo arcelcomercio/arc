@@ -26,6 +26,8 @@
     width: 15px;
     //display: inline-block;
     float: right;
+    height: 17px;
+    z-index: 1;
   
     &:hover {
       opacity: 0.5;
@@ -38,6 +40,7 @@
     margin: 0;
     font-size: 1.1em;
     font-weight: 600;
+    line-height: 1.2em;
   }
   
   &__h2__tag {
