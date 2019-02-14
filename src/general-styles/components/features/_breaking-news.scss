@@ -1,0 +1,46 @@
+.breaking-news {
+  color: $color-white;
+
+  a {
+    color: $color-dark;
+    text-decoration: none;
+  }
+
+  &--bgcolor-1 {
+    background-color: red;
+  }
+  &--bgcolor-2 {
+    background-color: green;
+  }
+  &--bgcolor-3 {
+    background-color: yellow;
+  }
+  &--bgcolor-4 {
+    background-color: gray;
+  }
+  
+  &__btn-close {
+    background-color: $color-black;
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+    width: 15px;
+    //display: inline-block;
+    float: right;
+  
+    &:hover {
+      opacity: 0.5;
+      filter: alpha(opacity=50);
+      cursor: pointer;
+    }
+  }
+  
+  &__h2 {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+  
+  &__h2__tag {
+    margin-right: 5px;
+  }
+}

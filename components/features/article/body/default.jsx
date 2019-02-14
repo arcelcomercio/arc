@@ -9,7 +9,21 @@ import PropTypes from "prop-types";
 import Table from './types/table'
 import ElePrincipal from './types/ele-principal'
 import Moment from 'react-moment'
+import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
+const styles = FormatClassName({
+  news: [
+    'news-text-content',
+    'col-2'
+  ],
+  newsAuthor: [
+    'news-author-date'
+  ],
+  newsImage: [
+    'visual__image',
+    'visual__image--cover'
+  ]
+})
 @Consumer
 class ContentArticleBody extends Component {
   render() {
@@ -19,22 +33,20 @@ class ContentArticleBody extends Component {
       headerClasses: "font--primary",
       imageClasses: "visual__image visual__image--cover"
     };
-
     return (
       <Fragment>
-        <div className='news-text-content col-2'>
+        <div className={styles.news}>
           {(promo_items) &&
             <ElePrincipal data={promo_items} />
           }
-          <div class="news-author-date">
-            {author && author.by && author.by[0] && 
+          <div className={styles.newsAuthor}>
+            {author && author.by && author.by[0] &&
               <a href={author && "/" + author.by[0].slug} >{author && author.by[0].name} </a>
             }
-            <Moment format="DD.MM.YYYY / LT " class="news-date" date={date && date} />
-
+            <Moment format="DD.MM.YYYY / LT " date={date && date} />
           </div>
           {contentElements && (
-            <ArticleBody class='news-text-content '
+            <ArticleBody
               data={contentElements}
               elementClasses={elementClasses}
               renderElement={element => {
@@ -43,7 +55,7 @@ class ContentArticleBody extends Component {
                   return <Imagen data={element} />
                 }
                 if (type === 'video') {
-                  return <Video data={element.embed_html} className="visual__image visual__image--cover" />
+                  return <Video data={element.embed_html} className={styles.newsImage} />
                 }
                 if (type === 'gallery') {
                   return <Gallery data={element} type={type} />;

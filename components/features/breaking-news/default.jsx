@@ -1,7 +1,26 @@
 import Consumer from "fusion:consumer";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { FormatClassName } from '../../../resources/utilsJs/utilities'
 
+const styles = FormatClassName({
+  breakingnews: [
+    'padding-normal'
+  ],
+  breakingnewsBtnClose: [
+    'breaking-news__btn-close',
+    'text-center'
+  ],
+  breakingnewsH2: [
+    'breaking-news__h2'
+  ],
+  breakingnewsH2Tag: [
+    'breaking-news__h2__tag'
+  ],
+  breakingnewsH2Link: [
+    'breaking-news__h2__link'
+  ],
+})
 @Consumer
 class BreakingNews extends Component {
   constructor(props) {
@@ -28,7 +47,7 @@ class BreakingNews extends Component {
     let status = localStorage.getItem(link);
     if (status === "false") {
       this.setState({
-        contentBreakingNews: "breaking-news breaking-news--hidden"
+        contentBreakingNews: "breaking-news hide"
       });
     }
   };
@@ -37,7 +56,7 @@ class BreakingNews extends Component {
     const { link } = this.props.customFields;
     localStorage.setItem(link, "false");
     this.setState({
-      contentBreakingNews: "breaking-news breaking-news--hidden"
+      contentBreakingNews: "breaking-news hide"
     });
   };
 
@@ -65,16 +84,22 @@ class BreakingNews extends Component {
       link: isExternalLink ? link : webUrlService
     };
     return (                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-        <div className={`${this.state.contentBreakingNews} ${backgroundColor}`}>
-            <span className="breaking-news__bn-close" onClick={this.handleOnclickClose}>x</span>
-            <h2 className="breaking-news__h2">
-                <span className="breaking-news__h2__tag" {...this.props.editableField("tags")}>{tags}</span>
-                <span {...this.props.editableField("title")}>
-                    <a className="breaking-news__h2__link" href={objContent.link} target="_blank">
-                        {objContent.title}
-                    </a>
-                </span>
-            </h2>
+        <div className={
+          `
+          ${this.state.contentBreakingNews} 
+          ${backgroundColor} 
+          ${styles.breakingnews}
+          `
+        }>
+          <span className={styles.breakingnewsBtnClose} onClick={this.handleOnclickClose}>x</span>
+          <h2 className={styles.breakingnewsH2}>
+              <span className={styles.breakingnewsH2Tag} {...this.props.editableField("tags")}>{tags}</span>
+              <span {...this.props.editableField("title")}>
+                  <a className={styles.breakingnewsH2Link} href={objContent.link} target="_blank">
+                      {objContent.title}
+                  </a>
+              </span>
+          </h2>
         </div>
     );
   }
