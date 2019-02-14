@@ -76,7 +76,7 @@ class BreakingNews extends Component {
     const webUrlService =
       articleConfig !== undefined &&
       articleConfig.contentConfigValues !== undefined
-        ? articleConfig.contentConfigValues.website_url
+        ? articleConfig.contentConfigValues.website_url + '?_website='+this.props.arcSite
         : "";
     let objContent = {
       title: title || (headlines && headlines.basic),
