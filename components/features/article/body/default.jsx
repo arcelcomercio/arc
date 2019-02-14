@@ -6,6 +6,7 @@ import Gallery from '../header/types/gallery'
 import Consumer from "fusion:consumer";
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import Blockquote from "./types/blockquote"
 import Table from './types/table'
 import ElePrincipal from './types/ele-principal'
 import Moment from 'react-moment'
@@ -33,6 +34,7 @@ class ContentArticleBody extends Component {
       headerClasses: "font--primary",
       imageClasses: "visual__image visual__image--cover"
     };
+
     return (
       <Fragment>
         <div className={styles.news}>
@@ -51,6 +53,7 @@ class ContentArticleBody extends Component {
               elementClasses={elementClasses}
               renderElement={element => {
                 const { type } = element
+                console.log(element); debugger;
                 if (type === 'image') {
                   return <Imagen data={element} />
                 }
@@ -63,6 +66,13 @@ class ContentArticleBody extends Component {
                 if (type === 'table') {
                   return <Table data={element} type={type} />;
                 }
+                if (type === 'quote') {
+                  return <Blockquote data={element} />;
+                }
+                if (type === 'oembed_response') {
+                  return;
+                }
+
               }
               }
             />
