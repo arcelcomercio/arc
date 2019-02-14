@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import { FormatClassName } from '../../resources/utilsJs/utilities'
 
-const styles = FormatClassName([
+const classes = FormatClassName([
     // 'content--1col',
     // 'content--2col',
     // 'content--3col',
@@ -15,7 +15,7 @@ class Content3Col extends Component {
         const { children } = this.props
 
         return(
-            <section className={styles}>
+            <section className={classes}>
                 {children}
             </section>
         )
