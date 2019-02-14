@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormatClassName } from '../../src/utilsJs/utilities'
+import { FormatClassName } from '../../resources/utilsJs/utilities'
 
 let styles = FormatClassName({
     layout: [
@@ -8,7 +8,8 @@ let styles = FormatClassName({
     ],
     contentContainer: [
         'flex',
-        'flex--column'
+        'flex--column',
+        'content-layout-container'
     ],
     mainContent: [
         'content--grid-base',
@@ -67,8 +68,8 @@ Article.sections = [
     'Zocalo izquierda', 
     'Barra de navegación', 
     'Encabezado adicional',
-    'Encabezado',
-    'Header', 
+    'Encabezado de Página',
+    'Encabezado de Articulo', 
     'Contenido',
     'Sidebar',
     'Contenido adicional',

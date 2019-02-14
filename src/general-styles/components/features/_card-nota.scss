@@ -1,11 +1,12 @@
 $text-primary: #333;
 $text-secondary: #979797;
 
-article {
+.card {
   box-sizing: border-box;
-  // width: 307px;
-  height: 361px;
-  padding: 10px 15px;
+  background-color: $color-white;
+
+  display: flex;
+  flex-direction: column;
 
   .live {
     font-size: 13px;
@@ -14,6 +15,10 @@ article {
     background: red;
     padding: 5px;
   }
+}
+
+.parcialTop {
+  flex-direction: column-reverse;
 }
 
 .flow-detail {
@@ -83,7 +88,8 @@ article {
 
 .img-complete {
   position: relative;
-  padding: 0;
+  background-color: unset;
+  padding: initial;
   overflow: hidden;
   .gradient {
     background: linear-gradient(to bottom,rgba(68,68,68,0) 20%,#444);

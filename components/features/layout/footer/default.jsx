@@ -1,19 +1,41 @@
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Fragment, Component } from 'react'
-import { FormatClassName } from '../../../../src/utilsJs/utilities'
+import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
 const classes = FormatClassName({
+  footerContainer: [
+    'margin-top'
+  ],
   footerTop: [
     'flex',
     'flex--justify-center',
     'footer-top'
   ],
-  flexUl: [
+  footerTopColumn: [
+    'footer-top__col'
+  ],
+  footerSiteLogo: [
+    'footer-top__col__site-logo'
+  ],
+  footerSiteLegal: [
     'flex',
-    'flex--column'
+    'flex--column',
+    'footer-top__col__ul',
+    'footer-top__col__site-legal'
+  ],
+  footerTopMenus: [
+    'flex',
+    'flex--column',
+    'footer-top__col__ul',
+    'footer-top__col__menus'
   ],
   footerBottom: [
+    'flex',
+    'flex--justify-center',
+    'footer-bot'
+  ],
+  footerBottomList: [
     'flex',
     'flex--justify-center'
   ]
@@ -74,20 +96,20 @@ class Footer extends Component {
       }
     }
     return (
-      <footer className="margin-top">
+      <footer className={classes.footerContainer}>
         <div className={classes.footerTop} style={styles.container}>
-          <div className="footer-top__col">
-            <a href="" className="footer-top__col__site-logo">
+          <div className={classes.footerTopColumn}>
+            <a href="" className={classes.footerSiteLogo}>
               <img src={img} alt="" />
             </a>
-            <ul className={ `${classes.flexUl} footer-top__col__ul footer-top__col__site-legal` }>
+            <ul className={ classes.footerSiteLegal }>
               {info.map((el, k) => <li key={k} style={styles.textColor}>{el}</li>)}
             </ul>
           </div>
           {this.state.menus.map((el, keyID) => {
               return (
-                <div className="footer-top__col" key={keyID}>
-                  <ul className={ `${classes.flexUl} footer-top__col__ul footer-top__col__menus` }>
+                <div className={classes.footerTopColumn} key={keyID}>
+                  <ul className={ classes.footerTopMenus }>
                     <li>
                       <a style={styles.titleColor} href="">{el.title}</a>
                     </li>
@@ -101,8 +123,8 @@ class Footer extends Component {
               )
           })}
         </div>
-        <div className="footer-bot">
-          <ul className="flex">
+        <div className={ classes.footerBottom }>
+          <ul className={ classes.footerBottomList }>
             <li style={styles.gecColor}>Visite también:</li>
             {gecSites.map((site, key) => {
               if (site.name !== siteUrl) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormatClassName } from '../../src/utilsJs/utilities'
+import { FormatClassName } from '../../resources/utilsJs/utilities'
 
 const styles = FormatClassName({
     layout: [
@@ -8,7 +8,8 @@ const styles = FormatClassName({
     ],
     contentContainer: [
         'flex',
-        'flex--column'
+        'flex--column',
+        'content-layout-container'
     ],
     mainContent: [
         'content--grid-base',

@@ -20,7 +20,7 @@ class ArticleHeader extends Component {
     //console.log(contentElements);debugger;
     return (
       <Fragment>
-        <div class={(typeof galleryElements ===  "undefined") ? ' col-3' : 'col-3 _gallery'}>
+        <div className={(typeof galleryElements ===  "undefined") ? ' col-3' : 'col-3 _gallery'}>
           <Heading />
           <Subheading />
           <Share url={baseUrl} title={title} />
