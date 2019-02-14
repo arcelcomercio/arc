@@ -8,7 +8,8 @@ let styles = FormatClassName({
     ],
     contentContainer: [
         'flex',
-        'flex--column'
+        'flex--column',
+        'content-layout-container'
     ],
     mainContent: [
         'content--grid-base',
@@ -67,8 +68,8 @@ Article.sections = [
     'Zocalo izquierda', 
     'Barra de navegación', 
     'Encabezado adicional',
-    'Encabezado',
-    'Header', 
+    'Encabezado de Página',
+    'Encabezado de Articulo', 
     'Contenido',
     'Sidebar',
     'Contenido adicional',
