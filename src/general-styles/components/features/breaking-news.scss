@@ -33,6 +33,9 @@
   width: 15px;
   display: inline-block;
   float: right;
+  height: 17px;
+  z-index: 1;
+  
   &:hover {
     opacity: 0.5;
     filter: alpha(opacity=50);
