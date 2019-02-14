@@ -1,7 +1,43 @@
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Fragment, Component } from 'react'
+import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
+const classes = FormatClassName({
+  cardNotaContainer: [
+    'padding-normal',
+    'card',
+    'flex',
+    'flex--column',
+    'row-1'
+  ],
+  imgComplete: [
+    'img-complete'
+  ],
+  parcialTop: [
+    'flex--column-reverse'
+  ],
+  twoCol: [
+    'col-2'
+  ],
+  spanGradient: [
+    'gradient',
+    'full-width',
+    'block'
+  ],
+  flowDetail: [
+    'flow-detail',
+    'flex',
+    'flex--column',
+    'flex--justify-between'
+  ],
+  author: [
+    'author'
+  ],
+  flowImage: [
+    'flow-image'
+  ]
+})
 @Consumer
 class CardNotaAuto extends Component {
 
@@ -39,7 +75,7 @@ class CardNotaAuto extends Component {
       this.setState({
         category: 'Editorial',
         title: storyElement.headlines.basic,
-        author: storyElement.credits.by[0].name,
+        author: storyElement.credits.by.length ? storyElement.credits.by[0].name : '',
       })
       if (size == 'twoCol') {
         this.setState({ image: 'https://img.elcomercio.pe/files/listing_ec_home_principal2x1/uploads/2019/02/11/5c6197d68fb3d.jpeg' })
@@ -63,9 +99,9 @@ class CardNotaAuto extends Component {
     const { imageSize, size, titleField, categoryField } = this.props.customFields
 
     return (
-      <article className={`card padding-normal row-1 ${imageSize == 'complete' ? 'img-complete' : imageSize == 'parcialTop' ? 'parcialTop' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
-        {imageSize == 'complete' && <span className="gradient"></span>}
-        <div className="flow-detail">
+      <article className={`${classes.cardNotaContainer} ${imageSize == 'complete' ? classes.imgComplete : imageSize == 'parcialTop' ? classes.parcialTop : ''} ${size == 'twoCol' ? classes.twoCol : ''}`}>
+        {imageSize == 'complete' && <span className={classes.spanGradient}></span>}
+        <div className={classes.flowDetail}>
           <div>
             <h3>
               <a href="" {...this.props.editableField('categoryField')}>{categoryField || category}</a>
@@ -74,11 +110,11 @@ class CardNotaAuto extends Component {
               <a href="" {...this.props.editableField('titleField')}>{titleField || title}</a>
             </h2>
           </div>
-          <span className="author">
+          <span className={classes.author}>
             <a href="">{author}</a>
           </span>
         </div>
-        <figure className="flow-image">
+        <figure className={classes.flowImage}>
           <a href="">
             <img
               src={image}
