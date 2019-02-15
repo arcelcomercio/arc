@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Data from './data'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-const styles = FormatClassName({
+const classes = FormatClassName({
     ae: [
         'ae',
         'padding-normal'
@@ -36,24 +36,24 @@ class Ae extends Component {
          
         return  <div className={
                         `
-                        ${styles.ae} 
+                        ${classes.ae} 
                         ae--multimedia-${data.multimediaOrientation} 
                         text-${data.contentOrientation}
                         `
                     }>
-                    <div className={styles.aeSection} {...this.props.editableField("section")}>
+                    <div className={classes.aeSection} {...this.props.editableField("section")}>
                         <a href={data.sectionLink}>{data.section}</a>
                     </div>
-                    <div className={styles.aeContent}>
-                        <div className={styles.aeContentTitle} {...this.props.editableField("title")}>
+                    <div className={classes.aeContent}>
+                        <div className={classes.aeContentTitle} {...this.props.editableField("title")}>
                             <a href={data.link}>{data.title}</a>
                         </div>
-                        <div className={styles.aeContentSubtitle} {...this.props.editableField("subTitle")}>
+                        <div className={classes.aeContentSubtitle} {...this.props.editableField("subTitle")}>
                             <a href={data.link}>{data.subTitle}</a>
                         </div>
-                        <div className={styles.aeContentAuthor}>{data.author}</div>
+                        <div className={classes.aeContentAuthor}>{data.author}</div>
                     </div>
-                    <div className={styles.aeMultimedia}>
+                    <div className={classes.aeMultimedia}>
                         <img src={data.image} alt={data.title}/>
                     </div>
                 </div>
