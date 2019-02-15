@@ -5,25 +5,25 @@ class Tm extends Component
 {
     render(){
         return <div className='tm'>
-            <div className='tm__item tm__item--multimedia-right'>
+            <article className='tm__item tm__item--multimedia-right'>
                 <div className='tm__item__title'>TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO TÍTULO</div>
-                <div className='tm__item__multimedia'>
+                <figure className='tm__item__multimedia'>
                     <img src="https://arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/PCFGIWR2MVE7DPPOHO5TFV3CEM.jpeg"/>
-                </div>
+                </figure>
                 <div className='tm__item__author'>AUTHOR</div>
-            </div>
-            <div className='tm__item tm__item--multimedia-right'>
+            </article>
+            <article className='tm__item tm__item--multimedia-right'>
                 <div className='tm__item__title'>TÍTULO</div>
-                <div className='tm__item__multimedia'>
+                <figure className='tm__item__multimedia'>
                     <img src="https://arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/PCFGIWR2MVE7DPPOHO5TFV3CEM.jpeg"/>
-                </div>
+                </figure>
                 <div className='tm__item__author'>AUTHOR</div>
-            </div>
-            <div className='tm__item tm__item--multimedia-right'>
+            </article>
+            <article className='tm__item tm__item--multimedia-right'>
                 <div className='tm__item__title'>TÍTULO</div>
-                <div className='tm__item__multimedia'>IMAGEN</div>
+                <figure className='tm__item__multimedia'>IMAGEN</figure>
                 <div className='tm__item__author'>AUTHOR</div>
-            </div>
+            </article>
         </div>
     }
 }

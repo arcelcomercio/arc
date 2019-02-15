@@ -8,14 +8,22 @@
     &__item {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: 90px 1fr;
+        padding: 15px;
+        border-bottom: 1px solid gray;
 
+        &:last-child {
+            border-bottom: 0px;
+        }
         &__title {
             grid-area: tm__item__title;
             //font-size: 1em;
             font-weight: bold;
+            overflow: hidden;
         }
         &__multimedia {
             grid-area: tm__item__multimedia;
+            padding-left: 10%;
 
             img{
                 width: 100%;
@@ -26,13 +34,21 @@
             text-transform: uppercase;
             font-size: 0.7em;
             color: gray;//$color-silver;
+            padding-top: 10px;
         }
-
         &--multimedia-right {
             grid-template-areas: 
             "tm__item__title tm__item__multimedia"
             "tm__item__author tm__item__author";
-            grid-template-rows: auto 1fr;
+    
+            img{
+                height: 100%;
+            }
+        }
+        &--multimedia-left {
+            grid-template-areas: 
+            "tm__item__multimedia tm__item__title"
+            "tm__item__author tm__item__author";
     
             img{
                 height: 100%;
