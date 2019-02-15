@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react'
 import Button from '../../../../resources/components/button'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-const styles = FormatClassName({
+const classes = FormatClassName({
     header: [
         'header'
     ],
@@ -52,38 +52,38 @@ class Header extends Component {
     render() {
 
         return(
-            <header className={styles.header} >
-                <div className={styles.headerMain}>
+            <header className={classes.header} >
+                <div className={classes.headerMain}>
                     <span>29 DE ENERO, 2019</span>
                     <img 
                         src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} 
                         alt={`Logo de ${this.props.arcSite}`}
-                        className={styles.headerLogo}
+                        className={classes.headerLogo}
                     />
-                    <div className={styles.headerButtonContainer}>
+                    <div className={classes.headerButtonContainer}>
                         <Button
-                            iconClass={styles.headerBtnIconLogin}
+                            iconClass={classes.headerBtnIconLogin}
                             btnText='Ingresar'
-                            btnClass={styles.headerBtnLogin}
+                            btnClass={classes.headerBtnLogin}
                             btnLink='#'
                         />
                         <Button
                             btnText='Suscríbete'
-                            btnClass={styles.headerBtnSubscribe}
+                            btnClass={classes.headerBtnSubscribe}
                             btnLink='#'
                         />
                     </div>
                 </div>
-                <ul className={styles.headerFeatured}>
-                    <li className={styles.headerFeaturedItem}>
-                        <i className={styles.headerFeaturedItemIcon}></i>
+                <ul className={classes.headerFeatured}>
+                    <li className={classes.headerFeaturedItem}>
+                        <i className={classes.headerFeaturedItemIcon}></i>
                         LOS TEMAS DE HOY 
                     </li>
-                    <li className={styles.headerFeaturedItem}>CNM </li>
-                    <li className={styles.headerFeaturedItem}>Vizcarra </li>
-                    <li className={styles.headerFeaturedItem}>Congreso </li>
-                    <li className={styles.headerFeaturedItem}>Poder Judicial </li>
-                    <li className={styles.headerFeaturedItem}>Corrupción </li>
+                    <li className={classes.headerFeaturedItem}>CNM </li>
+                    <li className={classes.headerFeaturedItem}>Vizcarra </li>
+                    <li className={classes.headerFeaturedItem}>Congreso </li>
+                    <li className={classes.headerFeaturedItem}>Poder Judicial </li>
+                    <li className={classes.headerFeaturedItem}>Corrupción </li>
                 </ul>    
             </header>
         )

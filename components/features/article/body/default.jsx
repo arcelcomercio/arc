@@ -12,7 +12,7 @@ import ElePrincipal from './types/ele-principal'
 import Moment from 'react-moment'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-const styles = FormatClassName({
+const classes = FormatClassName({
   news: [
     'news-text-content',
     'col-2'
@@ -37,11 +37,11 @@ class ContentArticleBody extends Component {
 
     return (
       <Fragment>
-        <div className={styles.news}>
+        <div className={classes.news}>
           {(promo_items) &&
             <ElePrincipal data={promo_items} />
           }
-          <div className={styles.newsAuthor}>
+          <div className={classes.newsAuthor}>
             {author && author.by && author.by[0] &&
               <a href={author && "/" + author.by[0].slug} >{author && author.by[0].name} </a>
             }
@@ -58,7 +58,7 @@ class ContentArticleBody extends Component {
                   return <Imagen data={element} />
                 }
                 if (type === 'video') {
-                  return <Video data={element.embed_html} className={styles.newsImage} />
+                  return <Video data={element.embed_html} className={classes.newsImage} />
                 }
                 if (type === 'gallery') {
                   return <Gallery data={element} type={type} />;
