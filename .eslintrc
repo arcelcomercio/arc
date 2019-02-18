@@ -1,0 +1,13 @@
+{
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["prettier"],
+  "rules": {
+    "import/no-unresolved": false,
+    "react/prop-types": [
+      "enabled",
+      { "ignore": "ignore", "customValidators": "customValidator" }
+    ],
+    "react/require-default-props": ["disabled"]
+  },
+  "parser": "babel-eslint"
+}
