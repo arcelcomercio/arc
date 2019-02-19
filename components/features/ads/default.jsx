@@ -2,8 +2,6 @@ import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-import './default.scss'
-
 @Consumer
 class Ads extends Component {
   constructor(props) {
