@@ -5,6 +5,10 @@
     //background-color: $color-white;
     border-color: $color-silver;
 
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
     &__item {
         display: grid;
         grid-template-columns: 1fr 1fr;
