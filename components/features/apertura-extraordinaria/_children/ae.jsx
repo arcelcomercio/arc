@@ -41,15 +41,15 @@ class Ae extends Component {
                         text-${data.contentOrientation}
                         `
                     }>
-                    <div className={classes.aeSection} {...this.props.editableField("section")}>
-                        <a href={data.sectionLink}>{data.section}</a>
+                    <div className={classes.aeSection}>
+                        <a href={data.sectionLink} {...this.props.editableField("section")}>{data.section}</a>
                     </div>
                     <div className={classes.aeContent}>
-                        <div className={classes.aeContentTitle} {...this.props.editableField("title")}>
-                            <a href={data.link}>{data.title}</a>
+                        <div className={classes.aeContentTitle}>
+                            <a href={data.link} {...this.props.editableField("title")}>{data.title}</a>
                         </div>
-                        <div className={classes.aeContentSubtitle} {...this.props.editableField("subTitle")}>
-                            <a href={data.link}>{data.subTitle}</a>
+                        <div className={classes.aeContentSubtitle}>
+                            <a href={data.link} {...this.props.editableField("subTitle")}>{data.subTitle}</a>
                         </div>
                         <div className={classes.aeContentAuthor}>{data.author}</div>
                     </div>
