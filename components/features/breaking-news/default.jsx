@@ -94,8 +94,8 @@ class BreakingNews extends Component {
           <span className={classes.breakingnewsBtnClose} onClick={this.handleOnclickClose}>x</span>
           <h2 className={classes.breakingnewsH2}>
               <span className={classes.breakingnewsH2Tag} {...this.props.editableField("tags")}>{tags}</span>
-              <span {...this.props.editableField("title")}>
-                  <a className={classes.breakingnewsH2Link} href={objContent.link} target="_blank">
+              <span>
+                  <a className={classes.breakingnewsH2Link} href={objContent.link} target="_blank" {...this.props.editableField("title")}>
                       {objContent.title}
                   </a>
               </span>
