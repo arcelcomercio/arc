@@ -1,5 +1,12 @@
-import React, { Component } from "react";
-
+import Consumer from "fusion:consumer";
+import React, { Component, Fragment } from "react";
+import {
+  
+  MobileView,
+  isBrowser,
+  isMobile,
+  isMobileOnly
+} from "react-device-detect";
 //import "./_separador.scss";
 const SeparatorItem = () => {
   return (
@@ -20,7 +27,31 @@ const SeparatorItem = () => {
     </article>
   );
 };
+const SeparatorListItem = () => {
+  if (isMobileOnly) {
+    return (
+      <Fragment>
+        <SeparatorItem />
+      </Fragment>
+    );
+  } else {
+    return (
+      <Fragment>
+        <SeparatorItem />
+        <SeparatorItem />
+        <SeparatorItem />
+        <SeparatorItem />
+      </Fragment>
+    );
+  }
+};
+@Consumer
 class Separador extends Component {
+  
+  msj = () =>{
+    debugger
+    console.log("cambio el tamaño");
+  }
   render() {
     return (
       <div className="separator">
@@ -30,10 +61,7 @@ class Separador extends Component {
           </a>
         </h1>
         <div className="separator__body">
-          <SeparatorItem />
-          <SeparatorItem />
-          <SeparatorItem />
-          <SeparatorItem />
+          <SeparatorListItem />
         </div>
       </div>
     );
