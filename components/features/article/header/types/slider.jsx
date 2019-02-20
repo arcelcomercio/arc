@@ -7,17 +7,17 @@ export const HORIZONTAL = 'horizontal';
 export const VERTICAL = 'vertical';
 
 const DEFAULT_CLASSNAMES = {
-	previousButton: 'previousButton',
-	nextButton: 'nextButton',
+	previousButton: 'slider__previousButton',
+	nextButton: 'slider__nextButton',
 	buttonDisabled: 'disabled',
 	track: 'track',
-	slide: 'slide',
-	hidden: 'hidden',
-	previous: 'previous',
-	current: 'current',
-	next: 'next',
-	animateIn: 'animateIn',
-	animateOut: 'animateOut',
+	slide: 'slider__slide',
+	hidden: 'slider__slide--hidden',
+	previous: 'slider__slide--previous',
+	current: 'slider__slide--current',
+	next: 'slider__slide--next',
+	animateIn: 'slider__slide--animateIn',
+	animateOut: 'slider__slide--animateOut',
 };
 const DEFAULT_DURATION = 2000;
 

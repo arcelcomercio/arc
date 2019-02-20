@@ -32,10 +32,10 @@ class Data
         return this.customFields.section || this.getDataSection().name
     }
     get link(){
-        return (this.data && this.data.website_url || '#')
+        return (this.data && this.data.website_url + '?_website=' + this.website|| '#')
     }
     get sectionLink(){
-        return this.getDataSection().path
+        return this.getDataSection().path + '?_website=' + this.website
     }
     getDataSection(data, type){
         const sectionData =this.data && this.data.taxonomy && this.data.taxonomy.sections || []
