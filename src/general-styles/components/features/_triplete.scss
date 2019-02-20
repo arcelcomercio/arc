@@ -1,5 +1,5 @@
-//Triplete manual
-.tm {
+//Triplete
+.triplete {
     border-style: solid;
     border-width: 1px;
     //background-color: $color-white;
@@ -23,20 +23,20 @@
             border-bottom: 0px;
         }
         &__title {
-            grid-area: tm__item__title;
+            grid-area: triplete__item__title;
             //font-size: 1em;
             font-weight: bold;
             overflow: hidden;
         }
         &__multimedia {
-            grid-area: tm__item__multimedia;
+            grid-area: triplete__item__multimedia;
 
             img{
                 width: 100%;
             }
         }
         &__author {
-            grid-area: tm__item__author;
+            grid-area: triplete__item__author;
             text-transform: uppercase;
             font-size: 0.7em;
             color: $color-silver;
@@ -44,8 +44,8 @@
         }
         &--multimedia-right {
             grid-template-areas: 
-            "tm__item__title tm__item__multimedia"
-            "tm__item__author tm__item__author";
+            "triplete__item__title triplete__item__multimedia"
+            "triplete__item__author triplete__item__author";
     
             figure {
                 padding-left: 10%;
@@ -53,8 +53,8 @@
         }
         &--multimedia-left {
             grid-template-areas: 
-            "tm__item__multimedia tm__item__title"
-            "tm__item__author tm__item__author";
+            "triplete__item__multimedia triplete__item__title"
+            "triplete__item__author triplete__item__author";
     
             figure {
                 padding-right: 10%;

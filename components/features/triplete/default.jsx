@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import Consumer from 'fusion:consumer'
 import {customFields} from './_children/customfields'
-import Api from './_children/api'
-import Tm from './_children/tm'
+//import Api from './_children/api'
 import {filterSchema} from './_children/filterschema'
+import TripleteChildren from './_children/triplete';
 
 @Consumer
 class Triplete extends Component
@@ -25,7 +25,7 @@ class Triplete extends Component
             editableField: this.props.editableField,
             website: this.props.arcSite
         }
-        return <Tm {...params} />
+        return <TripleteChildren {...params} />
     }
 
     exec(){
