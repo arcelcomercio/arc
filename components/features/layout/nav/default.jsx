@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Button from '../../../../resources/components/button'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
@@ -15,10 +15,14 @@ const classes = FormatClassName({
         'nav__btn'
     ],
     navButtonIconSearch: [
-        'icon--search'
+        'icon',
+        'icon--search',
+        'icon--margin-right'
     ],
     navButtonIconMenu: [
-        'icon--menu'
+        'icon',
+        'icon--menu',
+        'icon--margin-right'
     ],
     navButtonContainer: [
         'flex-center',
@@ -32,28 +36,109 @@ const classes = FormatClassName({
     navList: [
         'flex-center',
         'nav__list'
+    ],
+    navLogo: [
+        'nav__logo'
+    ],
+    headerButtonContainer: [
+        'flex-center',
+        'header__main__btn-container'
+    ],
+    headerBtnLogin: [
+        'flex-center-vertical',
+        'btn',
+        'bg-color--white'
+    ],
+    headerBtnSubscribe: [
+        'flex-center-vertical',
+        'btn',
+        'bg-color--link'
+    ],
+    headerBtnIconLogin: [
+        'icon',
+        'icon--login',
+        'icon--margin-right'
     ]
 })
+
 @Consumer
 class Nav extends Component {
+    constructor(props){
+        super(props)
+        //------ Checks if you are in desktop or not
+        this.state = {
+            device: this.setDevice()
+        }
+    }
+
+    setDevice = () => {
+        const wsize = window.innerWidth
+
+        if(wsize < 640) {
+            return 'mobile'
+        } else if(wsize >= 640 && wsize < 1024){ 
+            return 'tablet'
+        } else {
+            return 'desktop'
+        }   
+    }
+
+    handleDevice = (device) => {
+        this.setState({
+            device: device
+        })
+    }
+
+    componentDidMount() {
+        this.addEventListener('displayChange', this.handleDevice)
+    }
 
     render() {
 
         return(
             <nav className={classes.nav}>
                 <div className={classes.navButtonContainer}>
-                    <Button
-                        iconClass={classes.navButtonIconSearch}
-                        btnClass={classes.navButton}
-                        btnText='Buscar'
-                        btnLink='#'
-                    />
-                    <Button
-                        iconClass={classes.navButtonIconMenu}
-                        btnClass={classes.navButton}
-                        btnText='Secciones'
-                        btnLink='#'
-                    />
+                    {
+                        this.state.device === 'desktop' &&
+                        <Fragment>
+                            <Button
+                                iconClass={classes.navButtonIconSearch}
+                                btnClass={classes.navButton}
+                                btnText='Buscar'
+                                btnLink='#'
+                                />
+                            <Button
+                                iconClass={classes.navButtonIconMenu}
+                                btnClass={classes.navButton}
+                                btnText='Secciones'
+                                btnLink='#'
+                                />
+                        </Fragment>
+                    }
+                    {
+                        this.state.device === 'tablet' &&
+                        <Fragment>
+                            <Button
+                                iconClass={classes.navButtonIconSearch.replace('icon--margin-right', '')} 
+                                btnClass={classes.navButton}
+                                btnLink='#'
+                                />
+                            <Button
+                                iconClass={classes.navButtonIconMenu}
+                                btnClass={classes.navButton}
+                                btnText='Secciones'
+                                btnLink='#'
+                                />
+                        </Fragment>
+                    }
+                    {
+                        this.state.device === 'mobile' &&
+                            <Button
+                                iconClass={classes.navButtonIconMenu.replace('icon--margin-right', '')}
+                                btnClass={classes.navButton}
+                                btnLink='#'
+                                />
+                    }
                 </div>
                 <ul className={classes.navList}>
                     <li>Politica</li>
@@ -62,10 +147,34 @@ class Nav extends Component {
                     <li>Economia</li>
                     <li>Opinion</li>
                 </ul>
-                <div className={classes.navButtonContainer}>
-                    <a className={classes.navButtonFeatured} href="#">ZONA EJECUTIVA</a>
-                    <a className={classes.navButtonFeatured} href="#">CONSTRUYE BIEN</a>
-                </div>
+                <img
+                    src='https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png'
+                    /* src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} */ 
+                    alt={`Logo de ${this.props.arcSite}`}
+                    className={classes.navLogo}
+                />
+                {
+                    this.state.device === 'desktop' 
+                        ?
+                        <div className={classes.navButtonContainer}>
+                            <a className={classes.navButtonFeatured} href="#">ZONA EJECUTIVA</a>
+                            <a className={classes.navButtonFeatured} href="#">CONSTRUYE BIEN</a>
+                        </div>
+                        :
+                        <div className={classes.headerButtonContainer}>
+                            <Button
+                                iconClass={classes.headerBtnIconLogin}
+                                btnText='Ingresar'
+                                btnClass={classes.headerBtnLogin}
+                                btnLink='#'
+                            />
+                            <Button
+                                btnText='Suscríbete'
+                                btnClass={classes.headerBtnSubscribe}
+                                btnLink='#'
+                            />
+                        </div>
+                }
             </nav>
         )
     }
