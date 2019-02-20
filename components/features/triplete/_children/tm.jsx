@@ -7,7 +7,7 @@ class Tm extends Component
         const data = new Data(this.props.customFields, this.props.state, this.props.website)
 
         return <div className='tm'>
-            <article className='tm__item tm__item--multimedia-right'>
+            <article className={`tm__item tm__item--multimedia-${data.multimediaOrientation}`}>
                 <div className='tm__item__title'>
                     <h2>
                         <a href={data.link1} {...this.props.editableField("title1")}>{data.title1}</a>
@@ -18,7 +18,7 @@ class Tm extends Component
                 </figure>
                 <div className='tm__item__author'>{data.author1}</div>
             </article>
-            <article className='tm__item tm__item--multimedia-right'>
+            <article className={`tm__item tm__item--multimedia-${data.multimediaOrientation}`}>
                 <div className='tm__item__title'>
                     <h2>
                         <a href={data.link2} {...this.props.editableField("title2")}>{data.title2}</a>
@@ -29,7 +29,7 @@ class Tm extends Component
                 </figure>
                 <div className='tm__item__author'>{data.author2}</div>
             </article>
-            <article className='tm__item tm__item--multimedia-right'>
+            <article className={`tm__item tm__item--multimedia-${data.multimediaOrientation}`}>
                 <div className='tm__item__title'>
                     <h2>
                         <a href={data.link3} {...this.props.editableField("title3")}>{data.title3}</a>

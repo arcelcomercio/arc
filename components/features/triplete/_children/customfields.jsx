@@ -35,14 +35,12 @@ export const customFields = PropTypes.shape({
     orientation: PropTypes.label.tag({
         name: 'Posición del contenido'
     }),
-    multimediaOrientation: PropTypes.oneOf(['top', 'bottom', 'left', 'right']).tag({
+    multimediaOrientation: PropTypes.oneOf(['left', 'right']).tag({
         name: 'Posición de la imagen',
         labels: {
-            top: 'Superior',
-            bottom: 'Inferior',
             left: 'Izquierda',
             right: 'Derecha'
         },
-        defaultValue: 'bottom'
+        defaultValue: 'right'
     })
 })

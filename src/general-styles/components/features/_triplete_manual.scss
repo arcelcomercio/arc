@@ -16,6 +16,9 @@
         padding: 15px;
         border-bottom: 1px solid $color-silver;
 
+        img{
+            height: 100%;
+        }
         &:last-child {
             border-bottom: 0px;
         }
@@ -27,7 +30,6 @@
         }
         &__multimedia {
             grid-area: tm__item__multimedia;
-            padding-left: 10%;
 
             img{
                 width: 100%;
@@ -45,8 +47,8 @@
             "tm__item__title tm__item__multimedia"
             "tm__item__author tm__item__author";
     
-            img{
-                height: 100%;
+            figure {
+                padding-left: 10%;
             }
         }
         &--multimedia-left {
@@ -54,8 +56,8 @@
             "tm__item__multimedia tm__item__title"
             "tm__item__author tm__item__author";
     
-            img{
-                height: 100%;
+            figure {
+                padding-right: 10%;
             }
         }
     }
