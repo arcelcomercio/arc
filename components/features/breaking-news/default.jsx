@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { FormatClassName } from '../../../resources/utilsJs/utilities'
 
-const styles = FormatClassName({
+const classes = FormatClassName({
   breakingnews: [
     'padding-normal'
   ],
@@ -88,14 +88,14 @@ class BreakingNews extends Component {
           `
           ${this.state.contentBreakingNews} 
           ${backgroundColor} 
-          ${styles.breakingnews}
+          ${classes.breakingnews}
           `
         }>
-          <span className={styles.breakingnewsBtnClose} onClick={this.handleOnclickClose}>x</span>
-          <h2 className={styles.breakingnewsH2}>
-              <span className={styles.breakingnewsH2Tag} {...this.props.editableField("tags")}>{tags}</span>
+          <span className={classes.breakingnewsBtnClose} onClick={this.handleOnclickClose}>x</span>
+          <h2 className={classes.breakingnewsH2}>
+              <span className={classes.breakingnewsH2Tag} {...this.props.editableField("tags")}>{tags}</span>
               <span {...this.props.editableField("title")}>
-                  <a className={styles.breakingnewsH2Link} href={objContent.link} target="_blank">
+                  <a className={classes.breakingnewsH2Link} href={objContent.link} target="_blank">
                       {objContent.title}
                   </a>
               </span>

@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react'
 import Button from '../../../../resources/components/button'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-const styles = FormatClassName({
+const classes = FormatClassName({
     nav: [
         'flex-center-vertical',
         'flex--justify-between',
@@ -15,10 +15,14 @@ const styles = FormatClassName({
         'nav__btn'
     ],
     navButtonIconSearch: [
-        'icon--search'
+        'icon',
+        'icon--search',
+        'icon--margin-right'
     ],
     navButtonIconMenu: [
-        'icon--menu'
+        'icon',
+        'icon--menu',
+        'icon--margin-right'
     ],
     navButtonContainer: [
         'flex-center',
@@ -51,7 +55,9 @@ const styles = FormatClassName({
         'bg-color--link'
     ],
     headerBtnIconLogin: [
-        'icon--login'
+        'icon',
+        'icon--login',
+        'icon--margin-right'
     ]
 })
 
@@ -90,20 +96,20 @@ class Nav extends Component {
     render() {
 
         return(
-            <nav className={styles.nav}>
-                <div className={styles.navButtonContainer}>
+            <nav className={classes.nav}>
+                <div className={classes.navButtonContainer}>
                     {
                         this.state.device === 'desktop' &&
                         <Fragment>
                             <Button
-                                iconClass={styles.navButtonIconSearch}
-                                btnClass={styles.navButton}
+                                iconClass={classes.navButtonIconSearch}
+                                btnClass={classes.navButton}
                                 btnText='Buscar'
                                 btnLink='#'
                                 />
                             <Button
-                                iconClass={styles.navButtonIconMenu}
-                                btnClass={styles.navButton}
+                                iconClass={classes.navButtonIconMenu}
+                                btnClass={classes.navButton}
                                 btnText='Secciones'
                                 btnLink='#'
                                 />
@@ -111,22 +117,30 @@ class Nav extends Component {
                     }
                     {
                         this.state.device === 'tablet' &&
-                            <Fragment>
-                                <Button
-                                    iconClass={styles.navButtonIconSearch}
-                                    btnClass={styles.navButton}
-                                    btnLink='#'
-                                    />
-                                <Button
-                                    iconClass={styles.navButtonIconMenu}
-                                    btnClass={styles.navButton}
-                                    btnText='Secciones'
-                                    btnLink='#'
-                                    />
-                            </Fragment>  
+                        <Fragment>
+                            <Button
+                                iconClass={classes.navButtonIconSearch.replace('icon--margin-right', '')} 
+                                btnClass={classes.navButton}
+                                btnLink='#'
+                                />
+                            <Button
+                                iconClass={classes.navButtonIconMenu}
+                                btnClass={classes.navButton}
+                                btnText='Secciones'
+                                btnLink='#'
+                                />
+                        </Fragment>
+                    }
+                    {
+                        this.state.device === 'mobile' &&
+                            <Button
+                                iconClass={classes.navButtonIconMenu.replace('icon--margin-right', '')}
+                                btnClass={classes.navButton}
+                                btnLink='#'
+                                />
                     }
                 </div>
-                <ul className={styles.navList}>
+                <ul className={classes.navList}>
                     <li>Politica</li>
                     <li>Deportes</li>
                     <li>Mundo</li>
@@ -137,26 +151,26 @@ class Nav extends Component {
                     src='https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png'
                     /* src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} */ 
                     alt={`Logo de ${this.props.arcSite}`}
-                    className={styles.navLogo}
+                    className={classes.navLogo}
                 />
                 {
                     this.state.device === 'desktop' 
                         ?
-                        <div className={styles.navButtonContainer}>
-                            <a className={styles.navButtonFeatured} href="#">ZONA EJECUTIVA</a>
-                            <a className={styles.navButtonFeatured} href="#">CONSTRUYE BIEN</a>
+                        <div className={classes.navButtonContainer}>
+                            <a className={classes.navButtonFeatured} href="#">ZONA EJECUTIVA</a>
+                            <a className={classes.navButtonFeatured} href="#">CONSTRUYE BIEN</a>
                         </div>
                         :
-                        <div className={styles.headerButtonContainer}>
+                        <div className={classes.headerButtonContainer}>
                             <Button
-                                iconClass={styles.headerBtnIconLogin}
+                                iconClass={classes.headerBtnIconLogin}
                                 btnText='Ingresar'
-                                btnClass={styles.headerBtnLogin}
+                                btnClass={classes.headerBtnLogin}
                                 btnLink='#'
                             />
                             <Button
                                 btnText='Suscríbete'
-                                btnClass={styles.headerBtnSubscribe}
+                                btnClass={classes.headerBtnSubscribe}
                                 btnLink='#'
                             />
                         </div>
