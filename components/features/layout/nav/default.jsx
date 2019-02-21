@@ -64,15 +64,18 @@ class Nav extends Component {
   }
 
   fetch() {
+    const { arcSite } = this.props
+
     const source = 'section__by-hierarchy'
     const params = {
-      website: this.arcSite,
+      website: arcSite,
       hierarchy: 'navbar-header-sections',
     }
 
     const schema = `[
         children
-    ]`
+    ]
+    `
 
     const { fetched } = this.getContent(source, params, schema)
 

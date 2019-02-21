@@ -7,7 +7,7 @@ const resolve = (query) => {
   if (hasWebsite && hasHierarchy)
     return requestUri
 
-  throw new Error('site-navigation content source requires a website')
+  throw new Error('This content source requires a website and hierarchy')
 }
 
 export default {

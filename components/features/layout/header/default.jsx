@@ -6,8 +6,14 @@ import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 const classes = FormatClassName({
   header: ['header'],
   headerMain: ['header__main', 'flex-center-vertical', 'flex--justify-between'],
+  headerDate: ['flex-1'],
   headerLogo: ['header__logo'],
-  headerBtnContainer: ['flex-center', 'header__main__btn-container'],
+  headerBtnContainer: [
+    'flex-center-vertical',
+    'flex-1',
+    'flex--justify-end',
+    'header__main__btn-container',
+  ],
   headerBtnLogin: ['flex-center-vertical', 'btn', 'bg-color--white'],
   headerBtnSubscribe: ['flex-center-vertical', 'btn', 'bg-color--link'],
   headerBtnIconLogin: ['icon', 'icon--login', 'icon--margin-right'],
@@ -20,10 +26,14 @@ const classes = FormatClassName({
 class Header extends Component {
   constructor(props) {
     super(props)
-    //------ Checks if you are in desktop or not
+    // ------ Checks if you are in desktop or not
     this.state = {
       device: this.setDevice(),
     }
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize)
   }
 
   setDevice = () => {
@@ -31,24 +41,26 @@ class Header extends Component {
 
     if (wsize < 640) {
       return 'mobile'
-    } else if (wsize >= 640 && wsize < 1024) {
-      return 'tablet'
-    } else {
-      return 'desktop'
     }
+
+    if (wsize >= 640 && wsize < 1024) {
+      return 'tablet'
+    }
+
+    return 'desktop'
   }
 
   handleResize = () => {
     const wsize = window.innerWidth
 
-    //------ Set the new state if you change from mobile to desktop
+    // ------ Set the new state if you change from mobile to desktop
     if (wsize >= 1024 && this.state.device !== 'desktop') {
       this.setState({
         device: 'desktop',
       })
       this.dispatchEvent('displayChange', this.state.device)
     } else {
-      //------ Set the new state if you change from desktop to mobile
+      // ------ Set the new state if you change from desktop to mobile
       if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
         this.setState({
           device: 'tablet',
@@ -66,15 +78,11 @@ class Header extends Component {
     }
   }
 
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize)
-  }
-  x
   render() {
     return this.state.device === 'desktop' ? (
       <header className={classes.header}>
         <div className={classes.headerMain}>
-          <span>29 DE ENERO, 2019</span>
+          <span className={classes.headerDate}>29 DE ENERO, 2019</span>
           <img
             src={`${this.props.contextPath}/resources/dist/${
               this.props.arcSite
