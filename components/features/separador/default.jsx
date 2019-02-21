@@ -1,7 +1,9 @@
 import Consumer from "fusion:consumer";
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
+
 // import {
-  
+
 //   MobileView,
 //   isBrowser,
 //   isMobile,
@@ -46,18 +48,55 @@ const SeparatorListItem = () => {
     );
   }
 };
+
+const HeaderTitulo = ({ titleSeparator, titleLink }) => {
+  return (
+    <Fragment>
+      <h1 className="separator__header__title">
+        <a href={titleLink}>{titleSeparator}</a>
+      </h1>
+    </Fragment>
+  );
+};
+const createMarkup = html => {
+  return { __html: html };
+};
+
+const HeaderHTML = ({ htmlCode }) => {
+  return <div dangerouslySetInnerHTML={createMarkup(htmlCode)} />;
+};
 @Consumer
 class Separador extends Component {
-  
+  constructor(props) {
+    super(props);
+
+    const { titleSeparator, titleLink, secction } =
+      this.props.customFields || {};
+
+    var { htmlCode } = this.props.customFields || {};
+
+    this.state = {
+      titleSeparator,
+      titleLink,
+      secction,
+      htmlCode
+    };
+    debugger;
+  }
+
 
   render() {
     return (
       <div className="separator">
-        <h1 className="separator__header__title">
-          <a href="https://elcomercio.pe/mundo/eeuu/muro-trump-declaratoria-emergencia-frontera-estados-unidos-mexico-graficos-prototipos-quiere-construir-bbc-noticia-599781">
-            MURO DE TRUMP
-          </a>
-        </h1>
+        {this.state.titleSeparator ? (
+          <HeaderTitulo
+            titleSeparator={this.state.titleSeparator}
+            titleLink={this.state.titleLink}
+          />
+        ) : (
+          <HeaderHTML htmlCode={this.state.htmlCode} />
+        )}
+
         <div className="separator__body">
           <SeparatorListItem />
         </div>
@@ -66,7 +105,12 @@ class Separador extends Component {
   }
 }
 
-{
-  /**/
-}
+Separador.propTypes = {
+  customFields: PropTypes.shape({
+    titleSeparator: PropTypes.string.tag({ name: "Titulo del separador" }),
+    titleLink: PropTypes.string.tag({ name: "Enlace del separador" }),
+    secction: PropTypes.string.isRequired.tag({ name: "Sección" }),
+    htmlCode: PropTypes.richtext.tag({ name: "Código HTML" })
+  })
+};
 export default Separador;
