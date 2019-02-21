@@ -48,7 +48,7 @@ class ContentArticleBody extends Component {
               renderElement={element => {
                 const { type } = element
                 if (type === 'image') {
-                  return <Imagen data={element} />
+                  return <Imagen data={element} className={styles.newsImage} />
                 }
                 if (type === 'video') {
                   return <Video data={element.embed_html} className={styles.newsImage} />

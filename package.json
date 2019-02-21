@@ -10,7 +10,8 @@
     "normalize-scss": "^7.0.1",
     "prop-types": "^15.6.2",
     "react-moment": "^0.8.4",
-    "react-render-html": "^0.6.0"
+    "react-render-html": "^0.6.0",
+    "react-share": "^2.4.0"
   },
   "devDependencies": {
     "@arc-fusion/cli": "^0.1.44",

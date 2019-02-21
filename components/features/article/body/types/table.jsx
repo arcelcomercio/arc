@@ -1,15 +1,14 @@
 import React, { Component, Fragment } from "react";
 
-const Table = (props) => {
+const Tables = (props) => {
 
     const { header: header, rows: rows } = props.data;
 
     return (
-        <Fragment>
             <table className='tabla'>
                 <thead>
                     <tr>
-                        {header.map((item, index) => (
+                        {header.map((item) => (
                             <th>
                                 {item.content}
                             </th>
@@ -20,7 +19,7 @@ const Table = (props) => {
 
                     {rows.map((itemRows, indexRow) => (
                         <tr data-editor={indexRow} >
-                            {rows[indexRow].map((itemRows2, indexRow2) => (
+                            {itemRows.map((itemRows2) => (
                                 <td data-editor={indexRow} >
                                     {itemRows2.content}
                                 </td>
@@ -29,8 +28,7 @@ const Table = (props) => {
                     ))}
                 </tbody>
             </table>
-        </Fragment >
     );
 }
 
-export default Table;
+export default Tables;

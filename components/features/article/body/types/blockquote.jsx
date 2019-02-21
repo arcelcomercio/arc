@@ -13,7 +13,7 @@ const styles = FormatClassName({
 });
 
 const Blockquote = (props) => {
-    const { citation: citation, content_elements: elementos, subtype: subtype } = props.data;
+    const { citation, content_elements: elementos, subtype } = props.data;
     return (
         <Fragment>
             <blockquote className={(subtype == 'blockquote') ? styles.blockquote : styles.pull }>

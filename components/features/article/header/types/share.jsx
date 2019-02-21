@@ -1,20 +1,34 @@
 import React, { Component, Fragment } from "react";
-import renderHTML from 'react-render-html';
+import Consumer from "fusion:consumer";
 import { FormatClassName } from '../../../../../resources/utilsJs/utilities';
+
+import {
+    FacebookShareButton,
+    GooglePlusShareButton,
+    LinkedinShareButton,
+    TwitterShareButton,
+    PinterestShareButton,
+    EmailShareButton,
+} from 'react-share';
 
 const styles = FormatClassName({
     share: [
         'share-news'
     ],
-    shareListItem: [ ],
-    shareItemLinkedIn: [
-        'share-news__list-items__item',
-        'share-news__list-items__item--linkedin'
-    ],
+    shareListItem: [],
     shareItemFb: [
         'share-news__list-items__item',
         'share-news__list-items__item--face'
     ],
+    shareItemTw: [
+        'share-news__list-items__item',
+        'share-news__list-items__item--tw'
+    ],
+    shareItemLinkedIn: [
+        'share-news__list-items__item',
+        'share-news__list-items__item--linkedin'
+    ],
+
     shareItemWs: [
         'share-news__list-items__item',
         'hide'
@@ -36,57 +50,79 @@ const styles = FormatClassName({
         'share-news__list-items__item__link'
     ],
     shareBtnLess: [
-        'hide'
+        'less'
+    ],
+    shareBtnMore: [
+        'more'
     ]
 });
 
-const Share = (props) => {
-    const {url,  title } = props;
-    //console.log(url);     debugger;
-    const inUrl ="http://www.linkedin.com/shareArticle?url=" + url;
-    const fbUrl ="http://www.facebook.com/sharer.php?u=" + url;
-    const waUrl ="whatsapp://send?text=" + ( title )? 'title.basic':'' + url;
-    const gpUrl ="https://plus.google.com/share?url=" + url;
-    return (
-        <Fragment>
-            <div className={ styles.share }>
-                <div className={ styles.shareListItem }>
-                    <div className={ styles.shareItemLinkedIn }>
-                        <a href={inUrl} className={ styles.shareItemLink }>
-                            <i className="icon-in"></i> <span>Compartir</span>
-                        </a>
-                    </div>
-                    <div className={ styles.shareItemFb }>
-                        <a href={fbUrl} className={ styles.shareItemLink }>
-                            <i className="icon-fb"> </i><span>Compartir </span></a>
-                    </div>
-                    <div className={ styles.shareItemWs }>
-                        <a href={waUrl} className={ styles.shareItemLink }>
-                            <i className="icon-wa"> </i>
-                        </a>
-                    </div>
-                    <div className={ styles.shareItemGplus }>
-                        <a href={gpUrl} className={ styles.shareItemLink }><i className="icon-gp"> </i>
+@Consumer
+class Share extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            shareMas: ""
+        };
+
+    }
+    handleOnclickMas = () => {
+        this.setState({
+            shareMas: " share-news__list-items__item--active"
+        });
+    };
+    handleOnclickckClose = () => {
+        this.setState({
+            shareMas: ""
+        });
+    };
+    render() {
+        const { url, title } = this.props;
+        //console.log(url);     debugger;
+        const inUrl = "http://www.linkedin.com/shareArticle?url=" + url;
+        const twUrl = url + title;
+        const fbUrl = "http://www.facebook.com/sharer.php?u=" + url;
+        const waUrl = "whatsapp://send?text=" + (title) ? 'title.basic' : '' + url;
+        const gpUrl = "https://plus.google.com/share?url=" + url;
+        return (
+
+            <Fragment>
+                <div className={styles.share + this.state.shareMas}>
+                    <div className={styles.shareListItem} >
+                        <FacebookShareButton className={styles.shareItemFb} url={fbUrl} >
+                            <i className="icon-fb"> </i><span>Compartir </span>
+                        </FacebookShareButton>
+                        <TwitterShareButton className={styles.shareItemTw} url={twUrl}>
+                            <i className="icon-tw"></i> <span>Compartir</span>
+                        </TwitterShareButton>
+                        <LinkedinShareButton url={inUrl} className={styles.shareItemLinkedIn}>
+                            <i className="icon-in"> </i>
                             <span>Compartir </span>
-                        </a>
-                    </div>
-                    <div className={ styles.shareItemOtherItems }>
-                        <a href="//pinterest.com/pin/create/button/?url=&amp;description=Las%20siete%20licencias%20laborales%20remuneradas%20a%20las%20que%20puede%20acceder%20un%20trabajador%20en%20Per%C3%BA" className="share-link link-pin"><i className="icon-pin"> </i><span>Compartir </span></a> <a href="https://twitter.com/intent/tweet?original_referer=amp;tw_p=tweetbutton&amp;text=Las%20siete%20licencias%20laborales%20remuneradas%20a%20las%20que%20puede%20acceder%20un%20trabajador%20en%20Per%C3%BA&amp;url=https://gestion.pe/fotogalerias/siete-licencias-laborales-remuneradas-acceder-trabajador-peru-257914&amp;via=Gestionpe" className="share-link link-tw">
-                            <i className="icon-tw"> </i><span>Compartir </span></a>
-                        <a  className={ styles.shareItemLink }><i className="icon-print"> </i><span>Imprimir </span></a>
-                    </div>
-                    <div className={ styles.shareItemShowMore }>
-                        <a href="#"  className="link-show-more ui-toggle" id="">
-                            <span className="more">+</span><span className={ styles.shareBtnLess }>- </span>
-                        </a>
+                        </LinkedinShareButton>
+
+                        <div className={styles.shareItemOtherItems + this.state.shareMas}>
+                            <GooglePlusShareButton url={gpUrl} className={styles.shareItemLinkedIn}>
+                                <i className="icon-in"> </i>
+                                <span>Compartir </span>
+                            </GooglePlusShareButton>
+                            <PinterestShareButton url={url} className={styles.shareItemLinkedIn}>
+                                <i className="icon-in"> </i>
+                                <span>Compartir </span>
+                            </PinterestShareButton>
+
+                            <EmailShareButton url={inUrl} className={styles.shareItemLinkedIn}>
+                                <i className="icon-in"> </i>
+                                <span>Compartir </span>
+                            </EmailShareButton>
+                        </div>
+                        <div className={styles.shareItemShowMore}>
+                            <span className={styles.shareBtnMore} onClick={this.handleOnclickMas}>+</span>
+                            <span className={styles.shareBtnLess} onClick={this.handleOnclickckClose}>- </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Fragment>
-    );
+            </Fragment>
+        );
+    }
 }
-
 export default Share;
-
-
-
