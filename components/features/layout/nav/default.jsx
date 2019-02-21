@@ -73,6 +73,22 @@ class Nav extends Component {
         this.state = {
             device: this.setDevice()
         }
+        this.fetch()
+    }
+
+    fetch() {
+
+        const source = 'sections-by-hierarchy'
+        const params = {
+            website: this.props.arcSite,
+            hierarchy: 'navbar-header-sections'
+        }
+
+        const { fetched } = this.getContent(source, params)
+
+        fetched.then(response => {
+            console.log(response)
+        })
     }
 
     setDevice = () => {
