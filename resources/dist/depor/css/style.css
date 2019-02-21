@@ -83,6 +83,15 @@
 .flex--justify-between {
   justify-content: space-between;
 }
+.flex--justify-start {
+  justify-content: flex-start;
+}
+.flex--justify-end {
+  justify-content: flex-end;
+}
+.flex-1 {
+  flex: 1;
+}
 .content--grid-base {
   display: -ms-grid;
   display: grid;
@@ -935,10 +944,86 @@ body {
 .List .list-news-items .item-news .page-link a:hover {
   text-decoration: underline;
 }
+.triplete {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #A5A9A9;
+}
+.triplete a {
+  text-decoration: none;
+  color: inherit;
+}
+.triplete__item {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: 80px 1fr;
+  grid-template-rows: 80px 1fr;
+  padding: 15px;
+  border-bottom: 1px solid #A5A9A9;
+}
+.triplete__item img {
+  height: 100%;
+}
+.triplete__item:last-child {
+  border-bottom: 0px;
+}
+.triplete__item__title {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: triplete__item__title;
+  font-weight: bold;
+  overflow: hidden;
+}
+.triplete__item--multimedia-left > .triplete__item__title {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+}
+.triplete__item__multimedia {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: triplete__item__multimedia;
+}
+.triplete__item--multimedia-left > .triplete__item__multimedia {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+}
+.triplete__item__multimedia img {
+  width: 100%;
+}
+.triplete__item__author {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: triplete__item__author;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  color: #A5A9A9;
+  padding-top: 10px;
+}
+.triplete__item--multimedia-left > .triplete__item__author {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+}
+.triplete__item--multimedia-right {
+      grid-template-areas: "triplete__item__title triplete__item__multimedia" "triplete__item__author triplete__item__author";
+}
+.triplete__item--multimedia-right figure {
+  padding-left: 10%;
+}
+.triplete__item--multimedia-left {
+      grid-template-areas: "triplete__item__multimedia triplete__item__title" "triplete__item__author triplete__item__author";
+}
+.triplete__item--multimedia-left figure {
+  padding-right: 10%;
+}
 .btn {
   border-radius: 4px;
   padding: 8px 16px;
   margin: 0 4px;
+  line-height: 16px;
   text-decoration: none;
 }
 .icon {

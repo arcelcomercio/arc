@@ -15,7 +15,7 @@ const classes = FormatClassName({
     headerLogo: [
         'header__logo'
     ],
-    headerButtonContainer: [
+    headerBtnContainer: [
         'flex-center',
         'header__main__btn-container'
     ],
@@ -116,7 +116,7 @@ x
                             alt={`Logo de ${this.props.arcSite}`}
                             className={classes.headerLogo}
                         />
-                        <div className={classes.headerButtonContainer}>
+                        <div className={classes.headerBtnContainer}>
                             <Button
                                 iconClass={classes.headerBtnIconLogin}
                                 btnText='Ingresar'

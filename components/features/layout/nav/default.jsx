@@ -25,7 +25,9 @@ const classes = FormatClassName({
         'icon--margin-right'
     ],
     navButtonContainer: [
-        'flex-center',
+        'flex-center-vertical',
+        'flex--justify-start',
+        'flex-1',
         'nav__btn__container'
     ],
     navButtonFeatured: [
@@ -41,7 +43,9 @@ const classes = FormatClassName({
         'nav__logo'
     ],
     headerButtonContainer: [
-        'flex-center',
+        'flex-center-vertical',
+        'flex--justify-end',
+        'flex-1',
         'header__main__btn-container'
     ],
     headerBtnLogin: [
@@ -119,7 +123,8 @@ class Nav extends Component {
                         this.state.device === 'tablet' &&
                         <Fragment>
                             <Button
-                                iconClass={classes.navButtonIconSearch.replace('icon--margin-right', '')} 
+                                iconClass={classes.navButtonIconSearch
+                                    .replace('icon--margin-right', '')} 
                                 btnClass={classes.navButton}
                                 btnLink='#'
                                 />
@@ -134,7 +139,8 @@ class Nav extends Component {
                     {
                         this.state.device === 'mobile' &&
                             <Button
-                                iconClass={classes.navButtonIconMenu.replace('icon--margin-right', '')}
+                                iconClass={classes.navButtonIconMenu
+                                    .replace('icon--margin-right', '')}
                                 btnClass={classes.navButton}
                                 btnLink='#'
                                 />
@@ -154,23 +160,35 @@ class Nav extends Component {
                     className={classes.navLogo}
                 />
                 {
-                    this.state.device === 'desktop' 
-                        ?
+                    this.state.device === 'desktop' && 
                         <div className={classes.navButtonContainer}>
                             <a className={classes.navButtonFeatured} href="#">ZONA EJECUTIVA</a>
                             <a className={classes.navButtonFeatured} href="#">CONSTRUYE BIEN</a>
                         </div>
-                        :
+                }
+                {
+                    this.state.device === 'tablet' &&
                         <div className={classes.headerButtonContainer}>
                             <Button
-                                iconClass={classes.headerBtnIconLogin}
-                                btnText='Ingresar'
+                                iconClass={classes.headerBtnIconLogin
+                                    .replace('icon--margin-right', '')}
                                 btnClass={classes.headerBtnLogin}
                                 btnLink='#'
                             />
                             <Button
                                 btnText='Suscríbete'
                                 btnClass={classes.headerBtnSubscribe}
+                                btnLink='#'
+                            />
+                        </div>
+                }
+                {
+                    this.state.device === 'mobile' &&
+                        <div className={classes.headerButtonContainer}>
+                            <Button
+                                iconClass={classes.headerBtnIconLogin
+                                    .replace('icon--margin-right', '')}
+                                btnClass={classes.headerBtnLogin}
                                 btnLink='#'
                             />
                         </div>
