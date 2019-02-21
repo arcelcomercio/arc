@@ -11,7 +11,8 @@ import {
     EmailShareButton,
 } from 'react-share';
 
-const styles = FormatClassName({
+
+const classes = FormatClassName({
     share: [
         'share-news'
     ],
@@ -99,7 +100,6 @@ class Share extends Component {
                             <i className="icon-in"> </i>
                             <span>Compartir </span>
                         </LinkedinShareButton>
-
                         <div className={styles.shareItemOtherItems + this.state.shareMas}>
                             <GooglePlusShareButton url={gpUrl} className={styles.shareItemLinkedIn}>
                                 <i className="icon-in"> </i>

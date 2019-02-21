@@ -12,7 +12,15 @@ import { resizerSecretKey } from 'fusion:environment';
 
 import source, { addResizedUrls } from "@arc-core-components/content-source_content-api-v4";
 
-
+const classes = {
+    image: [
+        'visual__image',
+        'visual__image--cover'
+    ],
+    description: [
+        'news-media-description'
+    ]
+}
 @Consumer
 class ImageConent extends Component {
     constructor(props) {
@@ -33,13 +41,14 @@ class ImageConent extends Component {
         return (
             <Fragment>
 
-                <Image url={props.data.url} alt="" className="visual__image visual__image--cover" />
+                <Image url={props.data.url} alt="" className={ classes.image }  />
                 {props.data.caption &&
-                    <figcaption className="news-media-description">
+                    <figcaption className={ classes.description }>
                         {renderHTML(props.data.caption)}</figcaption>}
             </Fragment>
         );
     }
+
 }
 
-export default ImageConent;
+export default ImageContent;

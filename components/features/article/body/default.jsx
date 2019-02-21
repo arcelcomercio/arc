@@ -13,7 +13,7 @@ import ElePrincipal from './types/ele-principal'
 
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-const styles = FormatClassName({
+const classes = FormatClassName({
   news: [
     'news-text-content',
     'col-2'
@@ -22,7 +22,7 @@ const styles = FormatClassName({
     'visual__image',
     'visual__image--cover'
   ]
- 
+
 })
 @Consumer
 class ContentArticleBody extends Component {
@@ -36,7 +36,7 @@ class ContentArticleBody extends Component {
 
     return (
       <Fragment>
-        <div className={styles.news}>
+        <div className={classes.news}>
           {(promo_items) &&
             <ElePrincipal data={promo_items} />
           }
@@ -51,7 +51,7 @@ class ContentArticleBody extends Component {
                   return <Imagen data={element} className={styles.newsImage} />
                 }
                 if (type === 'video') {
-                  return <Video data={element.embed_html} className={styles.newsImage} />
+                  return <Video data={element.embed_html} className={classes.newsImage} />
                 }
                 if (type === 'gallery') {
                   return <Gallery data={element} type={type} />;
@@ -71,8 +71,6 @@ class ContentArticleBody extends Component {
             />
           )}
         </div>
-
-
       </Fragment>
     );
   }

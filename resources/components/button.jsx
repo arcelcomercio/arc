@@ -6,7 +6,7 @@ export default (props) => {
 
     return(
         <a className={btnClass} href={btnLink}>
-            {iconClass && <i className={`icon ${iconClass}`}></i>}
+            {iconClass && <i className={iconClass}></i>}
             {btnText}
         </a>
     )

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FormatClassName } from '../../../resources/utilsJs/utilities'
 
-const styles = FormatClassName([
+const classes = FormatClassName([
     'flex',
     'flex--column'
 ])
@@ -10,7 +10,7 @@ class ContentLayout extends Component {
     render() {
 
         return(
-            <div className={styles}>
+            <div className={classes}>
                 {this.props.children}
             </div>
         )
