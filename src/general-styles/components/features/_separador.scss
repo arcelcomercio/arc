@@ -7,6 +7,12 @@
   border: 1px solid #d5e1e1;
   padding: 0px 15px 15px;
 
+  &__header__html{
+    height: 70px;
+    width: 300px;
+    margin-top: 0%;
+    margin-bottom: 10px;
+  }
   &__header__title {
     display: grid;
     grid-template-columns: 1fr;

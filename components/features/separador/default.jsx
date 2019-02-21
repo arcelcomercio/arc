@@ -10,45 +10,63 @@ import PropTypes from "prop-types";
 //   isMobileOnly
 // } from "react-device-detect";
 //import "./_separador.scss";
-const SeparatorItem = () => {
+const SeparatorItem = ({ headlines, promo_items, website_url }) => {
   return (
     <article className="separator__body__item">
       <div className="separator__body__item__detail">
         <h2 className="separator__body__item__detail__title">
-          <a href="https://elcomercio.pe/somos/firmas/choros-dos-satanizacion-indiscrimada-motocicleta-jaime-bedoya-noticia-608112">
-            Así era Kukín Flores, el niño prodigio de Cantolao, por Daniel
-            Peredo
-          </a>
+          <a href={website_url}>{headlines}</a>
         </h2>
       </div>
       <figure>
-        <a href="https://elcomercio.pe/somos/firmas/choros-dos-satanizacion-indiscrimada-motocicleta-jaime-bedoya-noticia-608112">
-          <img src="https://img.elcomercio.pe/files/listing_ec_home_separador_standar_nolazy/uploads/2019/02/18/5c6b4eba39457.jpeg" />
-        </a>
+        {website_url ? (
+          <a href={website_url}>
+            <img src={promo_items} />
+          </a>
+        ) : null}
       </figure>
     </article>
   );
 };
-const SeparatorListItem = () => {
-  //if (isMobileOnly) {
-  if (false) {
+const SeparatorListItem = ({ data }) => {
+  let result = data.map((item, i) => {
+
+    let imagen = null;
+    if(item.promo_items){
+      imagen = item.promo_items.basic ? item.promo_items.basic.url || null : null;
+    }
+    
     return (
-      <Fragment>
-        <SeparatorItem />
-      </Fragment>
+      <SeparatorItem
+        key={i}
+        headlines={item.headlines.basic}
+        promo_items={imagen}
+        website_url={item.website_url}
+      />
     );
-  } else {
-    return (
-      <Fragment>
-        <SeparatorItem />
-        <SeparatorItem />
-        <SeparatorItem />
-        <SeparatorItem />
-      </Fragment>
-    );
-  }
+  });
+  return result;
 };
 
+// const SeparatorListItem = () => {
+//   //if (isMobileOnly) {
+//   if (false) {
+//     return (
+//       <Fragment>
+//         <SeparatorItem />
+//       </Fragment>
+//     );
+//   } else {
+//     return (
+//       <Fragment>
+//         <SeparatorItem />
+//         <SeparatorItem />
+//         <SeparatorItem />
+//         <SeparatorItem />
+//       </Fragment>
+//     );
+//   }
+// };
 const HeaderTitulo = ({ titleSeparator, titleLink }) => {
   return (
     <Fragment>
@@ -63,7 +81,7 @@ const createMarkup = html => {
 };
 
 const HeaderHTML = ({ htmlCode }) => {
-  return <div dangerouslySetInnerHTML={createMarkup(htmlCode)} />;
+  return <div className="separator__header__title" dangerouslySetInnerHTML={createMarkup(htmlCode)} />;
 };
 @Consumer
 class Separador extends Component {
@@ -73,17 +91,65 @@ class Separador extends Component {
     const { titleSeparator, titleLink, secction } =
       this.props.customFields || {};
 
-    var { htmlCode } = this.props.customFields || {};
+    let { htmlCode } = this.props.customFields || {};
 
     this.state = {
       titleSeparator,
       titleLink,
       secction,
-      htmlCode
+      htmlCode,
+      data: []
     };
-    debugger;
   }
+  componentDidMount = () => {
+    const { fetched } = this.getContent(
+      "get-lis-news",
+      {
+        website: this.props.arcSite,
+        secction: this.state.secction,
+        newsNumber: 4
+      },
+      this.filterSchema()
+    );
+    fetched.then(response => {
+      if (!response) {
+        response = [];
+        console.log(
+          "No hay respuesta del servicio para obtener el listado de noticias"
+        );
+      }
 
+      if (!response.content_elements) {
+        response.content_elements = [];
+        console.log(
+          "No hay respuesta del servicio para obtener el listado de noticias"
+        );
+      }
+      
+      this.setState({
+        data: response.content_elements
+      });
+    });
+  };
+
+  filterSchema() {
+    return `
+    {
+      content_elements{
+        canonical_url
+        website_url
+        promo_items{
+          basic{
+            url
+          }
+        }
+        headlines{
+          basic
+        }
+      }
+    }
+    `;
+  }
 
   render() {
     return (
@@ -98,7 +164,7 @@ class Separador extends Component {
         )}
 
         <div className="separator__body">
-          <SeparatorListItem />
+          <SeparatorListItem data={this.state.data} />
         </div>
       </div>
     );
