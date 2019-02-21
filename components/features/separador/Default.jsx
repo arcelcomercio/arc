@@ -1,12 +1,12 @@
 import Consumer from "fusion:consumer";
 import React, { Component, Fragment } from "react";
-import {
+// import {
   
-  MobileView,
-  isBrowser,
-  isMobile,
-  isMobileOnly
-} from "react-device-detect";
+//   MobileView,
+//   isBrowser,
+//   isMobile,
+//   isMobileOnly
+// } from "react-device-detect";
 //import "./_separador.scss";
 const SeparatorItem = () => {
   return (
@@ -28,7 +28,8 @@ const SeparatorItem = () => {
   );
 };
 const SeparatorListItem = () => {
-  if (isMobileOnly) {
+  //if (isMobileOnly) {
+  if (false) {
     return (
       <Fragment>
         <SeparatorItem />
@@ -48,10 +49,7 @@ const SeparatorListItem = () => {
 @Consumer
 class Separador extends Component {
   
-  msj = () =>{
-    debugger
-    console.log("cambio el tamaño");
-  }
+
   render() {
     return (
       <div className="separator">
