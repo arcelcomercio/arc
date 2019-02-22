@@ -14,9 +14,9 @@ const classes = {
 }
 
 const NavSidebar = props => {
-  const { sections } = props
+	const { sections, showSidebar } = props
   return (
-    <div className={classes.navSidebar}>
+		<div className={`${classes.navSidebar} ${showSidebar ? 'active' : ''}`}>
       <div className={classes.navSidebarContent}>
         <div className="nav-sidebar__top">
           <div className="nav-sidebar__header">
