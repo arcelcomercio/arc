@@ -108,7 +108,7 @@ class Separador extends Component {
   }
   componentDidMount = () => {
     let newsNumber = 4;
-    debugger
+    
     if (isMobileOnly) {
       newsNumber = 1;
     }
