@@ -28,6 +28,7 @@ export default ({
       <div id='fusion-app'>
         {children}
       </div>
+      <script src={deployment(`${contextPath}/resources/dist/${arcSite}/js/index.js`)}></script>
       <Fusion />
     </body>
   </html>

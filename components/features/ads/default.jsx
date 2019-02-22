@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
+//import './default.scss'
 import PropTypes from 'prop-types'
 
 @Consumer

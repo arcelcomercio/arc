@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Data from './data'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-const styles = FormatClassName({
+const classes = FormatClassName({
     ae: [
         'ae',
         'padding-normal'
@@ -36,24 +36,24 @@ class Ae extends Component {
          
         return  <div className={
                         `
-                        ${styles.ae} 
+                        ${classes.ae} 
                         ae--multimedia-${data.multimediaOrientation} 
                         text-${data.contentOrientation}
                         `
                     }>
-                    <div className={styles.aeSection} {...this.props.editableField("section")}>
-                        <a href={data.sectionLink}>{data.section}</a>
+                    <div className={classes.aeSection}>
+                        <a href={data.sectionLink} {...this.props.editableField("section")}>{data.section}</a>
                     </div>
-                    <div className={styles.aeContent}>
-                        <div className={styles.aeContentTitle} {...this.props.editableField("title")}>
-                            <a href={data.link}>{data.title}</a>
+                    <div className={classes.aeContent}>
+                        <div className={classes.aeContentTitle}>
+                            <a href={data.link} {...this.props.editableField("title")}>{data.title}</a>
                         </div>
-                        <div className={styles.aeContentSubtitle} {...this.props.editableField("subTitle")}>
-                            <a href={data.link}>{data.subTitle}</a>
+                        <div className={classes.aeContentSubtitle}>
+                            <a href={data.link} {...this.props.editableField("subTitle")}>{data.subTitle}</a>
                         </div>
-                        <div className={styles.aeContentAuthor}>{data.author}</div>
+                        <div className={classes.aeContentAuthor}>{data.author}</div>
                     </div>
-                    <div className={styles.aeMultimedia}>
+                    <div className={classes.aeMultimedia}>
                         <img src={data.image} alt={data.title}/>
                     </div>
                 </div>
