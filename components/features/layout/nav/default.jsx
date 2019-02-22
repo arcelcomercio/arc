@@ -1,10 +1,17 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
-import Button from '../../../../resources/components/button'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
+import Button from '../../../../resources/components/button'
+import NavSidebar from './_children/nav-sidebar'
 
 const classes = FormatClassName({
-  nav: ['flex-center-vertical', 'flex--justify-between', 'nav'],
+  nav: ['nav', 'flex', 'flex-center-vertical'],
+  navWrapper: [
+    'flex-center-vertical',
+    'flex--justify-between',
+    'nav__wrapper',
+    'full-width',
+  ],
   navButton: ['flex-center-vertical', 'btn', 'nav__btn'],
   navButtonIconSearch: ['icon', 'icon--search', 'icon--margin-right'],
   navButtonIconMenu: ['icon', 'icon--menu', 'icon--margin-right'],
@@ -35,7 +42,7 @@ class Nav extends Component {
     // ------ Checks the display to set the initial device state
     this.state = {
       device: this.setDevice(),
-      sections: '',
+      services: [],
     }
   }
 
@@ -64,10 +71,6 @@ class Nav extends Component {
     this.setState({
       device,
     })
-  }
-
-  handleSections = ({ children: sections }) => {
-    sections.map(section => {})
   }
 
   // ------ Fetchs the sections data from site-navigation API
@@ -102,114 +105,120 @@ class Nav extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
 
-    fetched.then(response => {})
+    fetched.then(response => {
+      this.setState({
+        services: response,
+      })
+    })
   }
 
   render() {
-    const { device } = this.state
+    const {
+      device,
+      services: { children: sections },
+    } = this.state
     const { arcSite } = this.props
 
     return (
       <nav className={classes.nav}>
-        <div className={classes.navButtonContainer}>
-          {device === 'desktop' && (
-            <Fragment>
+        <div className={classes.navWrapper}>
+          <div className={classes.navButtonContainer}>
+            {device === 'desktop' && (
+              <Fragment>
+                <Button
+                  iconClass={classes.navButtonIconSearch}
+                  btnClass={classes.navButton}
+                  btnText="Buscar"
+                  btnLink="#"
+                />
+                <Button
+                  iconClass={classes.navButtonIconMenu}
+                  btnClass={classes.navButton}
+                  btnText="Secciones"
+                  btnLink="#"
+                />
+              </Fragment>
+            )}
+            {device === 'tablet' && (
+              <Fragment>
+                <Button
+                  iconClass={classes.navButtonIconSearch.replace(
+                    'icon--margin-right',
+                    ''
+                  )}
+                  btnClass={classes.navButton}
+                  btnLink="#"
+                />
+                <Button
+                  iconClass={classes.navButtonIconMenu}
+                  btnClass={classes.navButton}
+                  btnText="Secciones"
+                  btnLink="#"
+                />
+              </Fragment>
+            )}
+            {device === 'mobile' && (
               <Button
-                iconClass={classes.navButtonIconSearch}
-                btnClass={classes.navButton}
-                btnText="Buscar"
-                btnLink="#"
-              />
-              <Button
-                iconClass={classes.navButtonIconMenu}
-                btnClass={classes.navButton}
-                btnText="Secciones"
-                btnLink="#"
-              />
-            </Fragment>
-          )}
-          {device === 'tablet' && (
-            <Fragment>
-              <Button
-                iconClass={classes.navButtonIconSearch.replace(
+                iconClass={classes.navButtonIconMenu.replace(
                   'icon--margin-right',
                   ''
                 )}
                 btnClass={classes.navButton}
                 btnLink="#"
               />
+            )}
+          </div>
+          <ul className={classes.navList}>
+            {sections
+              ? sections.map((item, key) => {
+                  return (
+                    <li key={key}>
+                      <a href={item._id}>{item.name}</a>
+                    </li>
+                  )
+                })
+              : null}
+          </ul>
+          <img
+            src="https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png"
+            /* src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} */
+            alt={`Logo de ${arcSite}`}
+            className={classes.navLogo}
+          />
+          {device === 'desktop' && (
+            <div className={classes.navButtonContainer} />
+          )}
+          {device === 'tablet' && (
+            <div className={classes.headerButtonContainer}>
               <Button
-                iconClass={classes.navButtonIconMenu}
-                btnClass={classes.navButton}
-                btnText="Secciones"
+                iconClass={classes.headerBtnIconLogin.replace(
+                  'icon--margin-right',
+                  ''
+                )}
+                btnClass={classes.headerBtnLogin}
                 btnLink="#"
               />
-            </Fragment>
+              <Button
+                btnText="Suscríbete"
+                btnClass={classes.headerBtnSubscribe}
+                btnLink="#"
+              />
+            </div>
           )}
           {device === 'mobile' && (
-            <Button
-              iconClass={classes.navButtonIconMenu.replace(
-                'icon--margin-right',
-                ''
-              )}
-              btnClass={classes.navButton}
-              btnLink="#"
-            />
+            <div className={classes.headerButtonContainer}>
+              <Button
+                iconClass={classes.headerBtnIconLogin.replace(
+                  'icon--margin-right',
+                  ''
+                )}
+                btnClass={classes.headerBtnLogin}
+                btnLink="#"
+              />
+            </div>
           )}
         </div>
-        <ul className={classes.navList}>
-          <li>Politica</li>
-          <li>Deportes</li>
-          <li>Mundo</li>
-          <li>Economia</li>
-          <li>Opinion</li>
-        </ul>
-        <img
-          src="https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png"
-          /* src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} */
-
-          alt={`Logo de ${arcSite}`}
-          className={classes.navLogo}
-        />
-        {device === 'desktop' && (
-          <div className={classes.navButtonContainer}>
-            <a className={classes.navButtonFeatured} href="#">
-              ZONA EJECUTIVA
-            </a>
-            <a className={classes.navButtonFeatured} href="#">
-              CONSTRUYE BIEN
-            </a>
-          </div>
-        )}
-        {device === 'tablet' && (
-          <div className={classes.headerButtonContainer}>
-            <Button
-              iconClass={classes.headerBtnIconLogin.replace(
-                'icon--margin-right',
-                ''
-              )}
-              btnClass={classes.headerBtnLogin}
-              btnLink="#"
-            />
-            <Button
-              btnText="Suscríbete"
-              btnClass={classes.headerBtnSubscribe}
-              btnLink="#"
-            />
-          </div>
-        )}
-        {device === 'mobile' && (
-          <div className={classes.headerButtonContainer}>
-            <Button
-              iconClass={classes.headerBtnIconLogin.replace(
-                'icon--margin-right',
-                ''
-              )}
-              btnClass={classes.headerBtnLogin}
-              btnLink="#"
-            />
-          </div>
-        )}
+        <NavSidebar sections={sections} />
       </nav>
     )
   }
