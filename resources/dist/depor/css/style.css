@@ -229,13 +229,15 @@ body {
   position: sticky;
   top: 0;
   height: 46px;
-  padding: 0 15px;
   z-index: 20;
   font-family: "open_sansregular";
   font-size: 12px;
   font-weight: bold;
   background-color: #1F1F1F;
   color: #FFFFFF;
+}
+.nav__wrapper {
+  padding: 0 15px;
 }
 .nav__btn {
   background-color: #373737;

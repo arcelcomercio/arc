@@ -1,10 +1,12 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import Button from '../../../../resources/components/button'
+import NavSidebar from './_children/nav-sidebar'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
 const classes = FormatClassName({
-  nav: ['flex-center-vertical', 'flex--justify-between', 'nav'],
+  nav: ['nav', 'flex', 'flex-center-vertical'],
+  navWrapper: ['flex-center-vertical', 'flex--justify-between', 'nav__wrapper', 'full-width'],
   navButton: ['flex-center-vertical', 'btn', 'nav__btn'],
   navButtonIconSearch: ['icon', 'icon--search', 'icon--margin-right'],
   navButtonIconMenu: ['icon', 'icon--menu', 'icon--margin-right'],
@@ -35,6 +37,7 @@ class Nav extends Component {
     // ------ Checks if you are in desktop or not
     this.state = {
       device: this.setDevice(),
+      services: []
     }
     this.fetch()
   }
@@ -80,7 +83,9 @@ class Nav extends Component {
     const { fetched } = this.getContent(source, params, schema)
 
     fetched.then(response => {
-      console.log(response)
+      this.setState({
+        services: response
+      })
     })
   }
 
@@ -90,6 +95,7 @@ class Nav extends Component {
 
     return (
       <nav className={classes.nav}>
+        <div className={classes.navWrapper}>
         <div className={classes.navButtonContainer}>
           {device === 'desktop' && (
             <Fragment>
@@ -189,6 +195,8 @@ class Nav extends Component {
             />
           </div>
         )}
+        </div>
+        <NavSidebar sections={this.state.services} />
       </nav>
     )
   }
