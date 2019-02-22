@@ -1,4 +1,46 @@
+/******* Framework Variables*******/
 /******* Variables *******/
+/******* Brand colors *******/
+/*-----------------------*/
+/******* Other colors *******/
+/*-----------------------*/
+/******* Grayscale *******/
+/*-----------------------*/
+/******* Header colors *******/
+/*-----------------------*/
+/******* Nav colors *******/
+/*-----------------------*/
+/******* Background-text contrast *******/
+.bg-color--link {
+  background-color: #524CFF;
+  color: #FFFFFF;
+}
+.bg-color--white {
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+}
+.bg-color--error {
+  background-color: #FF0000;
+  color: #FFFFFF;
+}
+.bg-color--dark {
+  background-color: #1F1F1F;
+  color: #FFFFFF;
+}
+/*-----------------------*/
+/******* Row dimensions *******/
+/*-----------------------*/
+/******* Spacing *******/
+/*-----------------------*/
+/******* Header dimensions *******/
+/*-----------------------*/
+/******* Families *******/
+/*-----------------------*/
+/******* Sizes *******/
+/*-----------------------*/
+/*---------------------*/
+/*---------------------*/
+/******* Site Variables *******/
 /******* Brand colors *******/
 /*-----------------------*/
 /******* Other colors *******/
@@ -54,43 +96,137 @@
     font-size: $font-sm;
 } */
 /*---------------------*/
-/******* Partials *******/
-/******* Partials *******/
-.flex {
-  display: flex;
+/******* Framework Core *******/
+/******* Core *******/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+* {
+  position: relative;
+  box-sizing: border-box;
 }
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+table,
+tbody,
+thead,
+tfoot,
+td,
+tr,
+th,
+fieldset,
+form,
+label,
+legend,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
 }
-.flex-center-vertical {
-  display: flex;
-  align-items: center;
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
-.flex--column {
-  flex-direction: column;
+body {
+  line-height: 1;
 }
-.flex--column-reverse {
-  flex-direction: column-reverse;
+ol,
+ul {
+  list-style: none;
 }
-.flex--row {
-  flex-direction: row;
+blockquote,
+q {
+  quotes: none;
 }
-.flex--justify-center {
-  justify-content: center;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
-.flex--justify-between {
-  justify-content: space-between;
-}
-.flex--justify-start {
-  justify-content: flex-start;
-}
-.flex--justify-end {
-  justify-content: flex-end;
-}
-.flex-1 {
-  flex: 1;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 .content--grid-base {
   display: -ms-grid;
@@ -140,55 +276,41 @@
 /*-------------- Process to create the 2 col classes */
 /*-------------- Process to create the 3 col classes */
 /****************************************************/
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-table, tbody, thead, tfoot, td, tr, th,
-fieldset, form, label, legend,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  vertical-align: baseline;
+.flex {
+  display: flex;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-body {
-  line-height: 1;
+.flex-center-vertical {
+  display: flex;
+  align-items: center;
 }
-ol, ul {
-  list-style: none;
+.flex--column {
+  flex-direction: column;
 }
-blockquote, q {
-  quotes: none;
+.flex--column-reverse {
+  flex-direction: column-reverse;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: "";
-  content: none;
+.flex--row {
+  flex-direction: row;
 }
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+.flex--justify-center {
+  justify-content: center;
 }
-* {
-  position: relative;
-  box-sizing: border-box;
+.flex--justify-between {
+  justify-content: space-between;
+}
+.flex--justify-start {
+  justify-content: flex-start;
+}
+.flex--justify-end {
+  justify-content: flex-end;
+}
+.flex-1 {
+  flex: 1;
 }
 html {
   font-family: "system-ui", sans-serif;
@@ -218,11 +340,14 @@ html {
   text-align: right;
 }
 /*---------------------*/
+/*---------------------*/
+/******* Partials *******/
 body {
   background: #E7EBED;
   overflow-x: hidden;
 }
 /*---------------------*/
+/******* Components *******/
 /******* Components *******/
 .nav {
   position: -webkit-sticky;
@@ -809,7 +934,6 @@ body {
   text-decoration: underline;
 }
 .flow-image {
-  height: 157px;
   overflow: hidden;
   margin: 0;
   display: inline-block;
@@ -831,7 +955,7 @@ body {
 .img-complete .gradient {
   background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
   bottom: 0;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00444444",endColorstr="#444444",GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00444444", endColorstr="#444444", GradientType=0);
   height: 306px;
   left: 0;
   pointer-events: none;
@@ -1046,6 +1170,7 @@ body {
 .icon--margin-right {
   margin-right: 8px;
 }
+/*---------------------*/
 /*---------------------*/
 @media screen and (min-width: 640px) {
   .content-layout {
