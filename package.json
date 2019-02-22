@@ -1,7 +1,6 @@
 {
   "name": "arc-components",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "@arc-core-components/feature_article-body": "^0.2.0",
@@ -13,7 +12,7 @@
     "react-render-html": "^0.6.0"
   },
   "devDependencies": {
-    "@arc-fusion/cli": "^0.1.44",
+    "@arc-fusion/cli": "^0.1.45",
     "@babel/core": "7.2.2",
     "@babel/plugin-transform-runtime": "7.2.0",
     "@babel/preset-env": "7.3.1",
@@ -37,14 +36,19 @@
     "webpack-cli": "3.2.1"
   },
   "scripts": {
-    "fusion": "fusion",
-    "start": "fusion start",
     "dev": "webpack --config ./config/webpack.config.js --env.dev",
-    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev",
+    "fusion": "fusion",
     "prod": "webpack --config ./config/webpack.config.js --env.prod",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "fusion start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.ec.pe:contenidos/arc.git"
+  },
+  "description": ""
 }

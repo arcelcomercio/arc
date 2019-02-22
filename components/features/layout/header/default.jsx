@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Button from '../../../../resources/components/button'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
+
 const classes = FormatClassName({
     header: [
         'header'
@@ -56,8 +57,9 @@ class Header extends Component {
         super(props)
         //------ Checks if you are in desktop or not
         this.state = {
-            device: this.setDevice()
-        }
+            device: this.setDevice(),
+            temas:[]
+        }   
     }
 
     setDevice = () => {
@@ -100,17 +102,41 @@ class Header extends Component {
         }
     }
 
+    fechaActual = () => {
+        let ndate = new Date();
+        let ayear = ndate.getFullYear();
+        let amonth = ndate.getMonth();
+        let aday = ndate.getDate();
+        let arrayMeses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+        
+        return `${aday} de ${arrayMeses[amonth]}, ${ayear}`;
+    }
+
     componentDidMount() {
         window.addEventListener('resize', this.handleResize);
+        this.fetch();
     }
-x
+
+    fetch(){
+        const {fetched} = this.getContent('get-temas-del-dia',{website: this.props.arcSite});
+        fetched.then( response => {
+            response.json();
+        }).then( data => {
+            this.setState({
+                temas: data
+            })
+        })
+
+        console.log(this.state.temas)
+    }
+
     render() {
 
         return(
             this.state.device === 'desktop' ?
                 <header className={classes.header} >
                     <div className={classes.headerMain}>
-                        <span>29 DE ENERO, 2019</span>
+                        <span>{this.fechaActual()}</span>
                         <img 
                             src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} 
                             alt={`Logo de ${this.props.arcSite}`}
@@ -136,10 +162,12 @@ x
                             LOS TEMAS DE HOY 
                         </li>
                         <li className={classes.headerFeaturedItem}>CNM </li>
+                        <li className={classes.headerFeaturedItem}>Cesar Hinostroza </li>
                         <li className={classes.headerFeaturedItem}>Vizcarra </li>
                         <li className={classes.headerFeaturedItem}>Congreso </li>
+                        <li className={classes.headerFeaturedItem}>Odebretch </li>
                         <li className={classes.headerFeaturedItem}>Poder Judicial </li>
-                        <li className={classes.headerFeaturedItem}>Corrupción </li>
+                        <li className={classes.headerFeaturedItem}>Walter Rios </li>
                     </ul>    
                 </header>
             : null
