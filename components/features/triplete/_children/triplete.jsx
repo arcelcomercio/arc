@@ -16,7 +16,7 @@ class TripleteChildren extends Component
                     <figure className='triplete__item__multimedia'>
                         <a href={data['link'+v]}><img src={data['image'+v]}/></a>
                     </figure>
-                    <div className='triplete__item__author'>{data['author'+v]}</div>
+                    <div className='triplete__item__author'>{data.authorOrSection(v)}</div>
                 </article>
             )}
         </div>

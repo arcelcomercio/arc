@@ -46,6 +46,22 @@ type SectionTaxonomy {
     parent_id: String,
     _website_section_id: String!
 }
+type WebsiteSection {
+    _id: String
+    _website: String
+    type: String
+    name: String
+    description: String
+    path: String
+}
+type DataWebsites {
+    website_section: WebsiteSection
+    website_url: String
+}
+type Websites {
+    elcomercio: DataWebsites
+    peru21: DataWebsites
+}
 type Query {
  
  canonical_url: String
@@ -59,6 +75,7 @@ type Query {
  website: String!
  website_url: String!
  taxonomy: Taxonomy
+ websites: Websites!
 }
 
 

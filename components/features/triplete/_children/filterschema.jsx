@@ -25,4 +25,19 @@ export const filterSchema = `{
             path
         }
     }
+    websites {
+        elcomercio {
+            website_section {
+                name
+                path
+            }
+        }
+        peru21 {
+            website_section {
+                name
+                path
+            }
+        }
+    }
 }`
+//@todo improve the data websites nodes

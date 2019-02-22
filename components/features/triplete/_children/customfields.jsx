@@ -35,6 +35,14 @@ export const customFields = PropTypes.shape({
     orientation: PropTypes.label.tag({
         name: 'Posición del contenido'
     }),
+    showAuthorOrSection: PropTypes.oneOf(['author', 'section']).tag({
+        name: 'Mostrar autor o sección',
+        labels: {
+            author: 'Autor',
+            section: 'Sección'
+        },
+        defaultValue: 'author'
+    }),
     multimediaOrientation: PropTypes.oneOf(['left', 'right']).tag({
         name: 'Posición de la imagen',
         labels: {
