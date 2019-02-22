@@ -1,6 +1,8 @@
 const schema = `
   type Children {
     name: String
+    _id: String
+    children: [Children]
   }
 
   type Query {

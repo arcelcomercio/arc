@@ -34,18 +34,19 @@ const classes = FormatClassName({
 class Nav extends Component {
   constructor(props) {
     super(props)
-    // ------ Checks if you are in desktop or not
+    // ------ Checks the display to set the initial device state
     this.state = {
       device: this.setDevice(),
       services: []
     }
-    this.fetch()
   }
 
   componentDidMount() {
     this.addEventListener('displayChange', this.handleDevice)
+    this.fetch()
   }
 
+  // ------ Sets the initial device state
   setDevice = () => {
     const wsize = window.innerWidth
 
@@ -60,12 +61,14 @@ class Nav extends Component {
     return 'desktop'
   }
 
+  // ------ Sets the new device state when the listener is activated
   handleDevice = device => {
     this.setState({
       device,
     })
   }
 
+  // ------ Fetchs the sections data from site-navigation API
   fetch() {
     const { arcSite } = this.props
 
@@ -75,9 +78,24 @@ class Nav extends Component {
       hierarchy: 'navbar-header-sections',
     }
 
-    const schema = `[
-        children
-    ]
+    const schema = `{
+        children {
+            name
+            _id
+            children {
+                name
+                _id
+                children {
+                    name
+                    _id
+                    children {
+                        name
+                        _id
+                    }
+                } 
+            }
+        }
+    }
     `
 
     const { fetched } = this.getContent(source, params, schema)
@@ -201,7 +219,5 @@ class Nav extends Component {
     )
   }
 }
-
-// Nav.static = true
 
 export default Nav
