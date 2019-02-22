@@ -22,12 +22,16 @@
     display: block;
 }
 
+.hide {
+    display: none;
+}
+
 .full-width {
     width: 100%;
 }
 
-.hide {
-    display: none;
+.height-inherit {
+    height: inherit;
 }
 
 .text-center {

@@ -1,17 +1,17 @@
 import React from 'react'
 import Button from '../../../../../resources/components/button'
-import { FormatClassName } from '../../../../../resources/utilsJs/utilities'
 
-const classes = FormatClassName({
-  navSidebar: ['nav-sidebar'],
-  navSidebarContent: [
-    'nav-sidebar__content',
-    'flex',
-    'flex--column',
-    'flex--justify-between',
-  ],
-  navBarBtn: ['flex-center', 'btn', 'bg-color--white', 'nav-sidebar__btn'],
-})
+const classes = {
+  navSidebar: `
+  	nav-sidebar`,
+  navSidebarContent: `
+  	nav-sidebar__content
+    flex
+    flex--column
+    flex--justify-between`,
+  navBarBtn: `
+  	flex-center btn bg-color--white nav-sidebar__btn`,
+}
 
 const NavSidebar = props => {
   const { sections } = props
