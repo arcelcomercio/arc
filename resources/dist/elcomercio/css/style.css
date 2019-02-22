@@ -489,9 +489,8 @@ body {
   text-decoration: underline;
 }
 .footer-container {
-  height: 500px;
+  background-color: #333;
   width: 100%;
-  background-color: grey;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 1fr;
@@ -517,7 +516,22 @@ body {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
+  background-color: #fff;
   grid-area: sites;
+}
+.footer-container__sites-list {
+  flex-wrap: wrap;
+  padding: 0;
+  max-width: 775px;
+  width: 100%;
+}
+.footer-container__sites-list-element {
+  font-size: 15px;
+  line-height: 1;
+  margin: 0 3px;
+  padding-right: 8px;
+  margin-bottom: 5px;
+  border-right: 1px solid #333;
 }
 .zocalo__container {
   width: 0;

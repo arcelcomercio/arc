@@ -1,69 +1,84 @@
 export default {
-
   gecSites: [
     {
       name: 'elcomercio.pe',
-      url: ''
+      arcSite: 'elcomercio',
+      url: '',
     },
     {
       name: 'peru21.pe',
-      url: ''
+      arcSite: 'peru21',
+      url: '',
     },
     {
       name: 'gestion.pe',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'trome.pe',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'depor.com',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'peru.com',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'publimetro.pe',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'gec.pe',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'clubelcomercio.pe',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'comprabien.com',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'Perured.pe',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'avansys.edu.pe',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'maseducacion.com',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'pagoefectivo.pe',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'Lumingo',
-      url: ''
+      arcSite: '',
+      url: '',
     },
     {
       name: 'Comercioxpress',
-      url: ''
-    }
-  ]
+      arcSite: '',
+      url: '',
+    },
+  ],
 }

@@ -87,10 +87,12 @@
 
 // Pie de página
 
+$footer-background: #333;
+
 .footer-container {
-  height: 500px;
+  // height: 500px;
+  background-color: $footer-background;
   width: 100%;
-  background-color: grey;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -107,6 +109,21 @@
     grid-area: contact;
   }
   &__sites {
+    background-color: #fff;
     grid-area: sites;
+  }
+  &__sites-list {
+    flex-wrap: wrap;
+    padding: 0;
+    max-width: 775px;
+    width: 100%;
+  }
+  &__sites-list-element {
+    font-size: 15px;
+    line-height: 1;
+    margin: 0 3px;
+    padding-right: 8px;
+    margin-bottom: 5px;
+    border-right: 1px solid #333;
   }
 }
