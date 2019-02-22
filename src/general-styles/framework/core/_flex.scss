@@ -33,6 +33,18 @@
     justify-content: space-between;
 }
 
+.flex--justify-start {
+    justify-content: flex-start;
+}
+
+.flex--justify-end {
+    justify-content: flex-end;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
 // .flex--align {
 //     align-items: center;
 // }
