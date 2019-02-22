@@ -12,6 +12,9 @@ type ByCredits {
     type: String
     version: String
     name: String
+    slug: String
+    url: String
+    description: String
 }
 type Credits {
     by: [ByCredits]

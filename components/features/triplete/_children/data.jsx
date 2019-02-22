@@ -17,8 +17,10 @@ class Data
         return this.customFields.title1 || (this.state.data1 && this.state.data1.headlines && this.state.data1.headlines.basic) || ''
     }
     get author1(){
-        const authorData =this.state.data1 && this.state.data1.credits && this.state.data1.credits.by || []
-        return this.getValData(authorData, 'author')
+        return this.getDataAuthor(this.state.data1).name
+    }
+    get authorLink1(){
+        return this.getDataAuthor(this.state.data1).url
     }
     get section1(){
         return this.getDataSection(this.state.data1).name
@@ -38,8 +40,10 @@ class Data
         return this.customFields.title2 || (this.state.data2 && this.state.data2.headlines && this.state.data2.headlines.basic) || ''
     }
     get author2(){
-        const authorData =this.state.data2 && this.state.data2.credits && this.state.data2.credits.by || []
-        return this.getValData(authorData, 'author')
+        return this.getDataAuthor(this.state.data2).name
+    }
+    get authorLink2(){
+        return this.getDataAuthor(this.state.data2).url
     }
     get section2(){
         return this.getDataSection(this.state.data2).name
@@ -59,8 +63,10 @@ class Data
         return this.customFields.title3 || (this.state.data3 && this.state.data3.headlines && this.state.data3.headlines.basic) || ''
     }
     get author3(){
-        const authorData =this.state.data3 && this.state.data3.credits && this.state.data3.credits.by || []
-        return this.getValData(authorData, 'author')
+        return this.getDataAuthor(this.state.data3).name
+    }
+    get authorLink3(){
+        return this.getDataAuthor(this.state.data3).url
     }
     get section3(){
         return this.getDataSection(this.state.data3).name
@@ -79,15 +85,20 @@ class Data
     authorOrSection(index){
         return this.showAuthorOrSection === 'author' ? this['author'+index] : this['section'+index]
     }
-    getValData(data, type){
-        let val = ''
-        for (let i=0; i<data.length; i++) {
-            if(data[i].type == type){
-                val = data[i].name
+    authorOrSectionLink(index){
+        return this.showAuthorOrSection === 'author' ? this['authorLink'+index] : this['sectionLink'+index]
+    }
+    getDataAuthor(data){
+        const authorData = data && data.credits && data.credits.by || []
+        let name = '', url = ''
+        for (let i=0; i<authorData.length; i++) {
+            if(authorData[i].type == 'author'){
+                name = authorData[i].name
+                url = authorData[i].url
                 break
             }
         }
-        return val
+        return {name: name, url: url}
     }
     getDataSection(data){
         const sectionData = data && data.websites && data.websites[this.website] 
