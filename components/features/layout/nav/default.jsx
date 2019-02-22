@@ -43,12 +43,22 @@ class Nav extends Component {
     this.state = {
       device: this.setDevice(),
       services: [],
+      statusSidebar: false
     }
+
+    this.handleOpenSectionsSidebar = this.handleOpenSectionsSidebar.bind(this)
   }
 
   componentDidMount() {
     this.addEventListener('displayChange', this.handleDevice)
     this.fetch()
+  }
+
+  handleOpenSectionsSidebar = () => {
+    this.setState({
+      statusSidebar: !this.state.statusSidebar
+    })
+    console.log(this.state.statusSidebar)
   }
 
   // ------ Sets the initial device state
@@ -135,7 +145,7 @@ class Nav extends Component {
                   iconClass={classes.navButtonIconMenu}
                   btnClass={classes.navButton}
                   btnText="Secciones"
-                  btnLink="#"
+                  onClick={this.handleOpenSectionsSidebar}
                 />
               </Fragment>
             )}
@@ -149,12 +159,13 @@ class Nav extends Component {
                   btnClass={classes.navButton}
                   btnLink="#"
                 />
-                <Button
+                {/* <Button
                   iconClass={classes.navButtonIconMenu}
                   btnClass={classes.navButton}
                   btnText="Secciones"
                   btnLink="#"
-                />
+                /> */}
+                <button onClick={this.test}>Test</button>
               </Fragment>
             )}
             {device === 'mobile' && (
@@ -218,7 +229,7 @@ class Nav extends Component {
             </div>
           )}
         </div>
-        <NavSidebar sections={sections} />
+        <NavSidebar sections={sections} showSidebar={this.state.statusSidebar} />
       </nav>
     )
   }
