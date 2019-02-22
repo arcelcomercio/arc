@@ -2,14 +2,13 @@ import Consumer from "fusion:consumer";
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 
-// import {
+import {
+  MobileView,
+  isBrowser,
+  isTablet,
+  isMobileOnly
+} from "react-device-detect";
 
-//   MobileView,
-//   isBrowser,
-//   isMobile,
-//   isMobileOnly
-// } from "react-device-detect";
-//import "./_separador.scss";
 const SeparatorItem = ({ headlines, promo_items, website_url }) => {
   return (
     <article className="separator__body__item">
@@ -30,12 +29,13 @@ const SeparatorItem = ({ headlines, promo_items, website_url }) => {
 };
 const SeparatorListItem = ({ data }) => {
   let result = data.map((item, i) => {
-
     let imagen = null;
-    if(item.promo_items){
-      imagen = item.promo_items.basic ? item.promo_items.basic.url || null : null;
+    if (item.promo_items) {
+      imagen = item.promo_items.basic
+        ? item.promo_items.basic.url || null
+        : null;
     }
-    
+
     return (
       <SeparatorItem
         key={i}
@@ -81,7 +81,12 @@ const createMarkup = html => {
 };
 
 const HeaderHTML = ({ htmlCode }) => {
-  return <div className="separator__header__title" dangerouslySetInnerHTML={createMarkup(htmlCode)} />;
+  return (
+    <div
+      className="separator__header__title"
+      dangerouslySetInnerHTML={createMarkup(htmlCode)}
+    />
+  );
 };
 @Consumer
 class Separador extends Component {
@@ -102,12 +107,22 @@ class Separador extends Component {
     };
   }
   componentDidMount = () => {
+    let newsNumber = 4;
+    debugger
+    if (isMobileOnly) {
+      newsNumber = 1;
+    }
+    
+    if(isTablet){
+      newsNumber = 4;
+    }
+
     const { fetched } = this.getContent(
       "get-lis-news",
       {
         website: this.props.arcSite,
         secction: this.state.secction,
-        newsNumber: 4
+        newsNumber: newsNumber
       },
       this.filterSchema()
     );
@@ -125,7 +140,7 @@ class Separador extends Component {
           "No hay respuesta del servicio para obtener el listado de noticias"
         );
       }
-      
+
       this.setState({
         data: response.content_elements
       });
