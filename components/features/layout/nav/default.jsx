@@ -35,6 +35,7 @@ class Nav extends Component {
     // ------ Checks the display to set the initial device state
     this.state = {
       device: this.setDevice(),
+      sections: '',
     }
   }
 
@@ -101,7 +102,7 @@ class Nav extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
 
-    fetched.then(response => this.handleSections(response))
+    fetched.then(response => {})
   }
 
   render() {
