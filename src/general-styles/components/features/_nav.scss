@@ -29,6 +29,12 @@
 
     &__list-link {
         margin: 0 8px;
+        color: $color-soft;
+        transition: .3s;
+
+        &:hover {
+            color: $color-white;
+        }
     }
 
     &__logo {

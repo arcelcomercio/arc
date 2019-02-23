@@ -13,8 +13,7 @@ const classes = {
     flex--justify-between 
     nav__wrapper 
     full-width 
-    height-inherit 
-    `,
+    height-inherit`,
   navButton: `
     flex-center-vertical 
     btn nav__btn`,
@@ -27,10 +26,12 @@ const classes = {
   navButtonContainer: `
     flex-center-vertical
     flex--justify-start
-    flex-1
     height-inherit`,
   navList: `
-    flex-center nav__list 
+    flex-center-vertical 
+    flex--justify-start
+    flex-1 
+    nav__list 
     height-inherit`,
   navListItem: ` 
     height-inherit`,
@@ -43,7 +44,6 @@ const classes = {
   headerButtonContainer: `
     flex-center-vertical
     flex--justify-end
-    flex-1
     header__main__btn-container`,
   headerBtnLogin: `
     flex-center-vertical 
@@ -65,7 +65,7 @@ class Nav extends Component {
     this.state = {
       device: this.setDevice(),
       services: [],
-      statusSidebar: false
+      statusSidebar: false,
     }
 
     this.handleOpenSectionsSidebar = this.handleOpenSectionsSidebar.bind(this)
@@ -77,10 +77,11 @@ class Nav extends Component {
   }
 
   handleOpenSectionsSidebar = () => {
+    const { statusSidebar } = this.state
     this.setState({
-      statusSidebar: !this.state.statusSidebar
+      statusSidebar: !statusSidebar,
     })
-    console.log(this.state.statusSidebar)
+    console.log(statusSidebar)
   }
 
   // ------ Sets the initial device state
@@ -148,6 +149,7 @@ class Nav extends Component {
     const {
       device,
       services: { children: sections },
+      statusSidebar,
     } = this.state
     const { arcSite } = this.props
 
@@ -187,7 +189,9 @@ class Nav extends Component {
                   btnText="Secciones"
                   btnLink="#"
                 /> */}
-                <button onClick={this.test}>Test</button>
+                <button type="button" onClick={this.test}>
+                  Test
+                </button>
               </Fragment>
             )}
             {device === 'mobile' && (
@@ -253,7 +257,7 @@ class Nav extends Component {
             </div>
           )}
         </div>
-        <NavSidebar sections={sections} showSidebar={this.state.statusSidebar} />
+        <NavSidebar sections={sections} showSidebar={statusSidebar} />
       </nav>
     )
   }

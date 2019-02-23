@@ -1,20 +1,20 @@
 .nav-sidebar {
 	position: absolute;
-	width: 100%;
 	max-width: 330px;
 	top: 45px;
 	bottom: 0;
 	overflow: hidden;
 	height: calc(100vh - 46px);
 	background-color: #2a2a2a;
-	transform: translate3d(-103%, 0, 0);
+
+	transform: translateX(-103%);
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
 	transition: all .50s cubic-bezier(0.565, 1.65, 0.765, 0.88);
 
 	&.active {
 		transition: all .50s cubic-bezier(0.565, 1.65, 0.765, 0.88);
-		transform: translate3d(0, 0, 0);
+		transform: translateX(0);
 		-webkit-backface-visibility: hidden;
 		-webkit-perspective: 1000;
 	}
@@ -65,7 +65,7 @@
 	&__link {
 		font-size: 14px;
 		color: #FFF;
-		display: block;
+		display: block; // .block
 		padding: 15px 0;
 		transition: all .15s ease;
 	}
@@ -76,7 +76,7 @@
 	}
 
 	&__text {
-		display: block;
+		display: block; // .block
 		color: #FFF;
 		font-size: 14px;
 		padding: 6px 0;
