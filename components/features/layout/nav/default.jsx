@@ -1,41 +1,62 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
-import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 import Button from '../../../../resources/components/button'
 import NavSidebar from './_children/nav-sidebar'
 
-const classes = FormatClassName({
-  nav: ['nav', 'flex', 'flex-center-vertical'],
-  navWrapper: [
-    'flex-center-vertical',
-    'flex--justify-between',
-    'nav__wrapper',
-    'full-width',
-  ],
-  navForm: ['nav__form', 'flex'],
-  navSearch: ['nav__input-search'],
-  navButton: ['flex-center-vertical', 'btn', 'nav__btn'],
-  navButtonIconSearch: ['icon', 'icon--search'],
-  navButtonIconMenu: ['icon', 'icon--menu', 'icon--margin-right'],
-  navButtonContainer: [
-    'flex-center-vertical',
-    'flex--justify-start',
-    'flex-1',
-    'nav__btn__container',
-  ],
-  navButtonFeatured: ['flex-center-vertical', 'btn', 'nav__btn--featured'],
-  navList: ['flex-center', 'nav__list'],
-  navLogo: ['nav__logo'],
-  headerButtonContainer: [
-    'flex-center-vertical',
-    'flex--justify-end',
-    'flex-1',
-    'header__main__btn-container',
-  ],
-  headerBtnLogin: ['flex-center-vertical', 'btn', 'bg-color--white'],
-  headerBtnSubscribe: ['flex-center-vertical', 'btn', 'bg-color--link'],
-  headerBtnIconLogin: ['icon', 'icon--login', 'icon--margin-right'],
-})
+const classes = {
+  nav: `
+    nav 
+    flex 
+    flex-center-vertical`,
+  navWrapper: `
+    flex-center-vertical 
+    flex--justify-between 
+    nav__wrapper 
+    full-width 
+    height-inherit 
+    `,
+  navForm: `nav__form flex`,
+  navSearch: `nav__input-search`,
+  navButton: `
+    flex-center-vertical 
+    btn nav__btn`,
+  navButtonIconSearch: `
+    icon icon--search`,
+  navButtonIconMenu: `
+    icon icon--menu 
+    icon--margin-right`,
+  navButtonContainer: `
+    flex-center-vertical
+    flex--justify-start
+    flex-1
+    height-inherit`,
+  navList: `
+    flex-center nav__list 
+    height-inherit`,
+  navListItem: ` 
+    height-inherit`,
+  navListLink: `
+    flex-center-vertical
+    nav__list-link
+    height-inherit`,
+  navLogo: `
+    nav__logo`,
+  headerButtonContainer: `
+    flex-center-vertical
+    flex--justify-end
+    flex-1
+    header__main__btn-container`,
+  headerBtnLogin: `
+    flex-center-vertical 
+    btn bg-color--white`,
+  headerBtnSubscribe: `
+    flex-center-vertical 
+    btn 
+    bg-color--link`,
+  headerBtnIconLogin: `
+    icon icon--login 
+    icon--margin-right`,
+}
 
 @Consumer
 class Nav extends Component {
@@ -253,8 +274,10 @@ class Nav extends Component {
             {sections
               ? sections.map((item, key) => {
                   return (
-                    <li key={key}>
-                      <a href={item._id}>{item.name}</a>
+                    <li key={key} className={classes.navListItem}>
+                      <a href={item._id} className={classes.navListLink}>
+                        {item.name}
+                      </a>
                     </li>
                   )
                 })

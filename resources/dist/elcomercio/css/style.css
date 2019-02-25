@@ -193,6 +193,9 @@ blockquote,
 q {
   quotes: none;
 }
+a {
+  text-decoration: none;
+}
 blockquote:before,
 blockquote:after,
 q:before,
@@ -306,11 +309,14 @@ input[type=search]::-webkit-search-results-decoration {
 .block {
   display: block;
 }
+.hide {
+  display: none;
+}
 .full-width {
   width: 100%;
 }
-.hide {
-  display: none;
+.height-inherit {
+  height: inherit;
 }
 .text-center {
   text-align: center;
@@ -386,10 +392,9 @@ body {
 }
 .nav__list {
   padding: 0 5px;
-  height: inherit;
   display: none;
 }
-.nav__list li {
+.nav__list-link {
   margin: 0 8px;
 }
 .nav__logo {
@@ -483,7 +488,6 @@ body {
   font-size: 15px;
 }
 .footer-top__col__ul li a {
-  text-decoration: none;
   color: black;
   text-transform: capitalize;
 }
@@ -526,7 +530,6 @@ body {
   border-right: unset;
 }
 .footer-bot ul li a {
-  text-decoration: none;
   color: black;
 }
 .footer-bot ul li a:hover {
@@ -602,9 +605,6 @@ body {
   text-align: center;
   text-decoration: blink;
 }
-.share-news__list-items__item--show-more a:hover {
-  text-decoration: none;
-}
 .table th {
   background-color: #ccc;
   padding: 5px;
@@ -663,7 +663,6 @@ body {
   z-index: 1;
   color: #333;
   padding: 10px;
-  text-decoration: none;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
@@ -749,7 +748,6 @@ body {
 }
 .breaking-news a {
   color: #1F1F1F;
-  text-decoration: none;
 }
 .breaking-news--bgcolor-1 {
   background-color: red;
@@ -795,7 +793,6 @@ body {
   grid-template-columns: 1fr 1fr;
 }
 .ae a {
-  text-decoration: none;
   color: inherit;
 }
 .ae--multimedia-bottom {
@@ -962,7 +959,6 @@ body {
 }
 .flow-detail a {
   outline: 0;
-  text-decoration: none;
   color: #333;
 }
 .flow-detail a:hover {
@@ -1059,7 +1055,6 @@ body {
 }
 .List .lista-header .more-news a {
   color: #999;
-  text-decoration: none;
 }
 .List .list-news-items {
   background: #ffffff;
@@ -1097,9 +1092,6 @@ body {
   color: #4c4c4c;
   margin: 0px;
 }
-.List .list-news-items .item-news .page-link a {
-  text-decoration: none;
-}
 .List .list-news-items .item-news .page-link a:hover {
   text-decoration: underline;
 }
@@ -1109,7 +1101,6 @@ body {
   border-color: #A5A9A9;
 }
 .triplete a {
-  text-decoration: none;
   color: inherit;
 }
 .triplete__item {
@@ -1183,7 +1174,6 @@ body {
   padding: 8px 16px;
   margin: 0 4px;
   line-height: 16px;
-  text-decoration: none;
   cursor: pointer;
 }
 .icon {
@@ -1266,7 +1256,6 @@ body {
   color: #FFF;
   display: block;
   padding: 15px 0;
-  text-decoration: none;
   transition: all 0.15s ease;
 }
 .nav-sidebar__footer {
@@ -1274,7 +1263,6 @@ body {
   padding: 30px;
 }
 .nav-sidebar__text {
-  text-decoration: none;
   display: block;
   color: #FFF;
   font-size: 14px;
