@@ -106,7 +106,7 @@ class Nav extends Component {
 
   // Open - Close Search
   handleToggleSectionsSearch = () => {
-    const { statusSidebar } = this.state
+    const { statusSidebar, statusSearch } = this.state
 
     if (statusSidebar) {
       this.setState({
@@ -115,7 +115,7 @@ class Nav extends Component {
     }
 
     this.setState({
-      statusSearch: !this.state.statusSearch,
+      statusSearch: !statusSearch,
     })
 
     this.focusInputSearch()
@@ -174,6 +174,52 @@ class Nav extends Component {
     }
   }
 
+  // Open - Close Search
+  handleToggleSectionsSearch = () => {
+    const { statusSidebar } = this.state
+
+    if (statusSidebar) {
+      this.setState({
+        statusSidebar: !this.state.statusSidebar,
+      })
+    }
+
+    this.setState({
+      statusSearch: !this.state.statusSearch,
+    })
+
+    this.focusInputSearch()
+  }
+
+  // Close Search
+  handleCloseSectionsSearch = () => {
+    setTimeout(() => {
+      this.setState({
+        statusSearch: false,
+      })
+    }, 100)
+  }
+
+  // Open search and automatic focus input
+  focusInputSearch = () => {
+    this.inputSearch.current.focus()
+  }
+
+  // Active find with enter key
+  watchKeys = e => {
+    e.preventDefault()
+    const { value } = e.target
+    if (value !== '' && e.which === 13) {
+      this.foundSearch()
+    }
+  }
+
+  // set Query search and location replace
+  foundSearch = () => {
+    const { value } = this.inputSearch.current
+    location.href = `${location.pathname}?query=${value}`
+  }
+
   // ------ Sets the initial device state
   setDevice = () => {
     const wsize = window.innerWidth
@@ -198,6 +244,17 @@ class Nav extends Component {
     if (device === 'desktop')
       window.addEventListener('scroll', this.handleScroll)
     else window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  // Add - Remove Class active input and button search
+  activeSearch = () => {
+    return this.state.statusSearch ? 'active' : ''
+  }
+
+  // If input search is empty, buton close search else buton find search
+  optionButtonClick = () => {
+    const { statusSearch } = this.state
+    return statusSearch ? this.foundSearch : this.handleToggleSectionsSearch
   }
 
   // Add - Remove Class active input and button search
