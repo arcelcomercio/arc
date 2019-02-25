@@ -12,8 +12,10 @@ const classes = FormatClassName({
     'nav__wrapper',
     'full-width',
   ],
+  navForm: ['nav__form', 'flex'],
+  navSearch: ['nav__input-search'],
   navButton: ['flex-center-vertical', 'btn', 'nav__btn'],
-  navButtonIconSearch: ['icon', 'icon--search', 'icon--margin-right'],
+  navButtonIconSearch: ['icon', 'icon--search'],
   navButtonIconMenu: ['icon', 'icon--menu', 'icon--margin-right'],
   navButtonContainer: [
     'flex-center-vertical',
@@ -43,10 +45,16 @@ class Nav extends Component {
     this.state = {
       device: this.setDevice(),
       services: [],
-      statusSidebar: false
+      statusSidebar: false,
+      statusSearch: false
     }
+    this.inputSearch = React.createRef();
 
-    this.handleOpenSectionsSidebar = this.handleOpenSectionsSidebar.bind(this)
+    this.handleToggleSectionsSidebar = this.handleToggleSectionsSidebar.bind(this)
+    this.handleToggleSectionsSearch = this.handleToggleSectionsSearch.bind(this)
+    this.focusInputSearch = this.focusInputSearch.bind(this)
+    this.foundSearch = this.foundSearch.bind(this)
+    this.handleCloseSectionsSearch = this.handleCloseSectionsSearch.bind(this)
   }
 
   componentDidMount() {
@@ -54,13 +62,57 @@ class Nav extends Component {
     this.fetch()
   }
 
-  handleOpenSectionsSidebar = () => {
+  // Open - Close navBar
+  handleToggleSectionsSidebar = () => {
+    const { statusSearch } = this.state
+
+    if(statusSearch){
+      this.setState({
+        statusSearch: !this.state.statusSidebar
+      })
+    }
     this.setState({
       statusSidebar: !this.state.statusSidebar
     })
-    console.log(this.state.statusSidebar)
   }
 
+  // Open - Close Search
+  handleToggleSectionsSearch = () => {
+    const { statusSidebar } = this.state
+    
+    if(statusSidebar) {
+      this.setState({
+        statusSidebar: !this.state.statusSidebar
+      })
+    }
+
+    this.setState({
+      statusSearch: !this.state.statusSearch
+    })
+
+    this.focusInputSearch()
+  }
+
+  // Close Search
+  handleCloseSectionsSearch = () => {
+    setTimeout(() =>{
+      this.setState({
+        statusSearch: false
+      })
+    }, 100);
+  }
+
+  // Open search and automatic focus input
+  focusInputSearch = () => {
+    this.inputSearch.current.focus();
+  }
+
+  // set Query search and location replace
+  foundSearch = () => {
+    const { value } = this.inputSearch.current
+    location.href = `${location.pathname}?query=${value}`
+  }
+  
   // ------ Sets the initial device state
   setDevice = () => {
     const wsize = window.innerWidth
@@ -81,6 +133,17 @@ class Nav extends Component {
     this.setState({
       device,
     })
+  }
+
+  // Add - Remove Class active input and button search
+  activeSearch = () => {
+    return this.state.statusSearch ? 'active' : ''
+  }
+
+  // If input search is empty, buton close search else buton find search
+  optionButtonClick = () => {
+    const { statusSearch } = this.state 
+    return statusSearch ? this.foundSearch : this.handleToggleSectionsSearch
   }
 
   // ------ Fetchs the sections data from site-navigation API
@@ -135,17 +198,24 @@ class Nav extends Component {
           <div className={classes.navButtonContainer}>
             {device === 'desktop' && (
               <Fragment>
-                <Button
-                  iconClass={classes.navButtonIconSearch}
-                  btnClass={classes.navButton}
-                  btnText="Buscar"
-                  btnLink="#"
-                />
+                <form className={classes.navForm}>
+                  <input  ref={this.inputSearch}  
+                          type="search" 
+                          onBlur={this.handleCloseSectionsSearch} 
+                          placeholder="Buscar" 
+                          className={`${classes.navSearch} ${this.activeSearch()}`} 
+                  />
+                  <Button
+                    iconClass={classes.navButtonIconSearch}
+                    btnClass={`${classes.navButton.concat(' nav__btn--search')} ${this.activeSearch()}`}
+                    onClick={ this.optionButtonClick() }
+                  />
+                </form>
                 <Button
                   iconClass={classes.navButtonIconMenu}
                   btnClass={classes.navButton}
                   btnText="Secciones"
-                  onClick={this.handleOpenSectionsSidebar}
+                  onClick={this.handleToggleSectionsSidebar}
                 />
               </Fragment>
             )}
