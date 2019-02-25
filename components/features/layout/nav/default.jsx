@@ -17,14 +17,18 @@ const classes = {
     `,
   navForm: `nav__form flex`,
   navSearch: `nav__input-search`,
-  navButton: `
+  navButtonSearch: `
     flex-center-vertical 
-    btn nav__btn`,
+    btn nav__btn
+    nav__btn--search`,
+  navButtonSection: `
+    flex-center-vertical 
+    btn nav__btn
+    nav__btn--section`,
   navButtonIconSearch: `
     icon icon--search`,
   navButtonIconMenu: `
-    icon icon--menu 
-    icon--margin-right`,
+    icon icon--menu`,
   navButtonContainer: `
     flex-center-vertical
     flex--justify-start
@@ -51,14 +55,16 @@ const classes = {
     header__main__btn-container`,
   headerBtnLogin: `
     flex-center-vertical 
-    btn bg-color--white`,
+    btn bg-color--white,
+    nav__header-login`,
   headerBtnSubscribe: `
     flex-center-vertical 
     btn 
-    bg-color--link`,
+    bg-color--link
+    nav__header-sub
+    `,
   headerBtnIconLogin: `
-    icon icon--login 
-    icon--margin-right`,
+    icon icon--login`,
 }
 
 @Consumer
@@ -253,7 +259,6 @@ class Nav extends Component {
           {/** ************* LEFT *************** */}
 
           <div className={classes.navButtonContainer}>
-            {device === 'desktop' && (
               <Fragment>
                 <form className={classes.navForm}>
                   <input
@@ -266,49 +271,21 @@ class Nav extends Component {
                   />
                   <Button
                     iconClass={classes.navButtonIconSearch}
-                    btnClass={`${classes.navButton.concat(
-                      ' nav__btn--search'
-                    )} ${this.activeSearch()}`}
+                    btnClass={`${classes.navButtonSearch} ${this.activeSearch()}`}
                     onClick={this.optionButtonClick()}
                   />
                 </form>
                 <Button
                   iconClass={classes.navButtonIconMenu}
-                  btnClass={classes.navButton}
+                  btnClass={classes.navButtonSection}
                   btnText="Secciones"
                   onClick={this.handleToggleSectionsSidebar}
                 />
               </Fragment>
-            )}
-            {device === 'tablet' && (
-              <Fragment>
-                <Button
-                  iconClass={classes.navButtonIconSearch.replace(
-                    'icon--margin-right',
-                    ''
-                  )}
-                  btnClass={classes.navButton}
-                  btnLink="#"
-                />
-                <button type="button" onClick={this.test}>
-                  Test
-                </button>
-              </Fragment>
-            )}
-            {device === 'mobile' && (
-              <Button
-                iconClass={classes.navButtonIconMenu.replace(
-                  'icon--margin-right',
-                  ''
-                )}
-                btnClass={classes.navButton}
-                btnLink="#"
-              />
-            )}
           </div>
 
           {/** ************* MIDDLE *************** */}
-
+          
           <ul className={`${classes.navList} ${scrolled ? '' : 'active'}`}>
             {sections
               ? sections.map((item, key) => {
@@ -331,40 +308,24 @@ class Nav extends Component {
 
           {/** ************* RIGHT *************** */}
 
-          {device === 'desktop' && (
+          {device === 'desktop' ? (
             <div className={classes.navButtonContainer}>
               <div id="ads_d_zocaloNav1" className={classes.navAds} />
               <div id="ads_d_zocaloNav2" className={classes.navAds} />
             </div>
-          )}
-          {device === 'tablet' && (
-            <div className={classes.headerButtonContainer}>
-              <Button
-                iconClass={classes.headerBtnIconLogin.replace(
-                  'icon--margin-right',
-                  ''
-                )}
-                btnClass={classes.headerBtnLogin}
-                btnLink="#"
-              />
-              <Button
-                btnText="Suscríbete"
-                btnClass={classes.headerBtnSubscribe}
-                btnLink="#"
-              />
-            </div>
-          )}
-          {device === 'mobile' && (
-            <div className={classes.headerButtonContainer}>
-              <Button
-                iconClass={classes.headerBtnIconLogin.replace(
-                  'icon--margin-right',
-                  ''
-                )}
-                btnClass={classes.headerBtnLogin}
-                btnLink="#"
-              />
-            </div>
+          ) : (
+              <div className={classes.headerButtonContainer}>
+                <Button
+                  iconClass={classes.headerBtnIconLogin}
+                  btnClass={classes.headerBtnLogin}
+                  btnLink="#"
+                />
+                <Button
+                  btnText="Suscríbete"
+                  btnClass={classes.headerBtnSubscribe}
+                  btnLink="#"
+                />
+              </div>
           )}
         </div>
         <NavSidebar sections={sections} showSidebar={statusSidebar} />
