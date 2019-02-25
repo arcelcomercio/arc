@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FormatClassName } from '../../../resources/utilsJs/utilities'
 
-const styles = FormatClassName([
+const classes = FormatClassName([
     'content--grid-base',
     'content-layout',
     'content--1col',
@@ -16,7 +16,7 @@ class MainLayout extends Component {
 
         return(
             <div 
-                className={styles}>
+                className={classes}>
                 {this.props.elements}
             </div>
         )

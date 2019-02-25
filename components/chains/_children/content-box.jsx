@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import { FormatClassName } from '../../../resources/utilsJs/utilities'
 
-const styles = FormatClassName([
+const classes = FormatClassName([
     'content--grid-base',
     'content-layout',
     'content--box',
@@ -13,7 +13,7 @@ const styles = FormatClassName([
 class ContentBox extends Component {
     render(){
         return(
-            <section className={styles}>
+            <section className={classes}>
                 {this.props.children}
             </section>
         )

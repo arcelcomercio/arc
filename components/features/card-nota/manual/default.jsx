@@ -2,6 +2,46 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Fragment, Component } from 'react'
 
+import { FormatClassName } from '../../../../resources/utilsJs/utilities'
+
+const classes = FormatClassName({
+  cardNotaContainer: [
+    'padding-normal',
+    'card',
+    'flex',
+    'flex--column',
+    'row-1'
+  ],
+  imgComplete: [
+    'img-complete'
+  ],
+  parcialTop: [
+    'flex--column-reverse'
+  ],
+  twoCol: [
+    'col-2'
+  ],
+  spanGradient: [
+    'gradient',
+    'full-width',
+    'block'
+  ],
+  flowDetail: [
+    'flow-detail',
+    'flex',
+    'flex--column',
+    'flex--justify-between'
+  ],
+  spanHeadband: [
+    'live'
+  ],
+  author: [
+    'author'
+  ],
+  flowImage: [
+    'flow-image'
+  ]
+})
 @Consumer
 class CardNotaManual extends Component {
 
@@ -36,7 +76,7 @@ class CardNotaManual extends Component {
       this.setState({
         category: 'Editorial',
         title: response.headlines.basic,
-        author: response.credits.by[0].name,
+        author: response.credits.by.length ? response.credits.by[0].name : '',
       })
       if (size == 'twoCol') {
         this.setState({ image: 'https://www.foxsportsasia.com/uploads/2019/02/mbapperashford.jpg' })
@@ -59,23 +99,23 @@ class CardNotaManual extends Component {
     const { imageSize, headband, size, titleField, categoryField } = this.props.customFields
 
     return (
-      <article className={`padding-normal card row-1 ${imageSize == 'complete' ? 'img-complete' : imageSize == 'parcialTop' ? 'parcialTop' : ''} ${size == 'twoCol' ? 'col-2' : ''}`}>
-        {imageSize == 'complete' && <span className="gradient"></span>}
-        <div className="flow-detail">
+      <article className={`${classes.cardNotaContainer} ${imageSize == 'complete' ? classes.imgComplete : imageSize == 'parcialTop' ? classes.parcialTop : ''} ${size == 'twoCol' ? classes.twoCol : ''}`}>
+        {imageSize == 'complete' && <span className={classes.spanGradient}></span>}
+        <div className={classes.flowDetail}>
           <div>
             {headband == 'normal' && <h3>
               <a href="" {...this.props.editableField('categoryField')}>{categoryField || category}</a>
             </h3>}
-            {headband == 'live' && <span className="live">EN VIVO</span>}
+            {headband == 'live' && <span className={classes.spanHeadband}>EN VIVO</span>}
             <h2>
               <a href="" {...this.props.editableField('titleField')}>{titleField || title}</a>
             </h2>
           </div>
-          <span className="author">
+          <span className={classes.author}>
             <a href="">{author}</a>
           </span>
         </div>
-        <figure className="flow-image">
+        <figure className={classes.flowImage}>
           <a href="">
             <img
               src={image}

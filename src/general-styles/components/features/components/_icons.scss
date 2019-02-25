@@ -6,21 +6,21 @@
 
     &--search {
         background-image: url('../images/icon-search.svg');
-        margin-right: 8px;
     }
 
     &--menu {
         background-image: url('../images/icon-menu.svg');
-        margin-right: 8px;
     }
 
     &--login {
         background-image: url('../images/icon-user.svg');
-        margin-right: 8px;
     }
 
     &--fire {
         background-image: url('../images/icon-fire.svg');
+    }
+
+    &--margin-right {
         margin-right: 8px;
     }
 }

@@ -21,6 +21,12 @@ html {
     }
 }
 
+.no-mobile {
+    @media screen and (max-width: 639px) {
+        display: none;
+    }
+}
+
 .block {
     display: block;
 }

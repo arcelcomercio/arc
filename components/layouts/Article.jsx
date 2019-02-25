@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormatClassName } from '../../resources/utilsJs/utilities'
 
-let styles = FormatClassName({
+let classes = FormatClassName({
     layout: [
         'flex',
         'flex--justify-center'
@@ -37,27 +37,27 @@ let styles = FormatClassName({
 const Article = props => {
 
     return (
-            <div className={styles.layout}>
-                <div className={styles.zocalo}> 
+            <div className={classes.layout}>
+                <div className={classes.zocalo}> 
                     {props.children[0] /*Zocalo izquierda*/}
                 </div>
-                <div className={styles.contentContainer}>
+                <div className={classes.contentContainer}>
                     {props.children[1] /*Nav*/}
                     {props.children[2] /*Header*/}
                     {props.children[3] && props.children[3] /*Encabezado adicional*/}
                     {props.children[4] && props.children[4] /*Encabezado*/}
-                    <div className={styles.mainContent}>
-                        <main className={styles.main}>
+                    <div className={classes.mainContent}>
+                        <main className={classes.main}>
                             {props.children[5] /*Content*/}
                         </main>
-                        <aside className={styles.sidebar}>
+                        <aside className={classes.sidebar}>
                             {props.children[6] /*Sidebar */}
                         </aside>
                         {props.children[7] && props.children[7] /*Contenido adicional*/}
                     </div>
                     {props.children[8] /*Footer*/}
                 </div>
-                <div className={styles.zocalo}>
+                <div className={classes.zocalo}>
                     {props.children[9] /*Zocalo izquierda*/}
                 </div>
             </div>

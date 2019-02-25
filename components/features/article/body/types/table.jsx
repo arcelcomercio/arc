@@ -8,7 +8,7 @@ const Table = (props) => {
 
     return (
         <Fragment>
-            <table className='tabla'>
+            <table className='table'>
                 <thead>
                     <tr>
                         {header.map((item, index) => (
