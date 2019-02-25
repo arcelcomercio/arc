@@ -76,6 +76,7 @@ class Nav extends Component {
     this.focusInputSearch = this.focusInputSearch.bind(this)
     this.foundSearch = this.foundSearch.bind(this)
     this.handleCloseSectionsSearch = this.handleCloseSectionsSearch.bind(this)
+    this.watchKeys = this.watchKeys.bind(this)
   }
 
   componentDidMount() {
@@ -126,6 +127,15 @@ class Nav extends Component {
   // Open search and automatic focus input
   focusInputSearch = () => {
     this.inputSearch.current.focus();
+  }
+
+  // Active find with enter key
+  watchKeys = (e) => {
+    e.preventDefault()
+    const { value } = e.target
+    if(value !== '' && e.which === 13){
+      this.foundSearch()
+    }
   }
 
   // set Query search and location replace
@@ -222,7 +232,8 @@ class Nav extends Component {
                 <form className={classes.navForm}>
                   <input  ref={this.inputSearch}  
                           type="search" 
-                          onBlur={this.handleCloseSectionsSearch} 
+                          onBlur={this.handleCloseSectionsSearch}
+                          onKeyUp={this.watchKeys} 
                           placeholder="Buscar" 
                           className={`${classes.navSearch} ${this.activeSearch()}`} 
                   />
