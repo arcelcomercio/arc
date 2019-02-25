@@ -8,8 +8,8 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Blockquote from "./types/blockquote"
 import Table from './types/table'
+import Autor from './types/autor'
 import ElePrincipal from './types/ele-principal'
-import Moment from 'react-moment'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
 const classes = FormatClassName({
@@ -17,13 +17,11 @@ const classes = FormatClassName({
     'news-text-content',
     'col-2'
   ],
-  newsAuthor: [
-    'news-author-date'
-  ],
   newsImage: [
     'visual__image',
     'visual__image--cover'
   ]
+
 })
 @Consumer
 class ContentArticleBody extends Component {
@@ -35,27 +33,23 @@ class ContentArticleBody extends Component {
       imageClasses: "visual__image visual__image--cover"
     };
 
+ 
+
     return (
       <Fragment>
         <div className={classes.news}>
           {(promo_items) &&
             <ElePrincipal data={promo_items} />
           }
-          <div className={classes.newsAuthor}>
-            {author && author.by && author.by[0] &&
-              <a href={author && "/" + author.by[0].slug} >{author && author.by[0].name} </a>
-            }
-            <Moment format="DD.MM.YYYY / LT " date={date && date} />
-          </div>
+          {(author) && <Autor data={author} date={date} />}
           {contentElements && (
             <ArticleBody
               data={contentElements}
               elementClasses={elementClasses}
               renderElement={element => {
                 const { type } = element
-                console.log(element); debugger;
                 if (type === 'image') {
-                  return <Imagen data={element} />
+                  return <Imagen data={element} className={classes.newsImage} />
                 }
                 if (type === 'video') {
                   return <Video data={element.embed_html} className={classes.newsImage} />
@@ -78,8 +72,6 @@ class ContentArticleBody extends Component {
             />
           )}
         </div>
-
-
       </Fragment>
     );
   }

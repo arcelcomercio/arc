@@ -40,7 +40,7 @@ const Gallery = (props) => {
 						</div>
 						<div className={ classes.itemDetail }>
 							<span className={ classes.itemDetailPagImage }>{index + 1} / 5</span>
-							<p id="m203-2-204" className={ classes.itemDetailDescription }>A continuación, te mostramos en qué países (Perú, Brasil, Colombia y Chile) se miente más en las hojas de vida. (Foto: Shutterstock)</p>
+							<p className={ classes.itemDetailDescription }>A continuación, te mostramos en qué países (Perú, Brasil, Colombia y Chile) se miente más en las hojas de vida. (Foto: Shutterstock)</p>
 						</div>
 
 					</div>

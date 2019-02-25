@@ -1,20 +1,31 @@
-import React, { Component, Fragment } from "react";
-import Video from './video'
-import Imagen from './image'
+import React, { Fragment } from "react";
+import renderHTML from 'react-render-html';
+import { FormatClassName } from '../../../../../resources/utilsJs/utilities';
+
+const styles = FormatClassName({
+    blockquote: [
+        'pquote',
+    ],
+    pull: [
+        'pquote',
+        'pquote__pull'
+    ]
+});
 
 const Blockquote = (props) => {
-    const { citation: citation } = props.data;
+    const { citation, content_elements: elementos, subtype } = props.data;
     return (
         <Fragment>
-            <blockquote>
+            <blockquote className={(subtype == 'blockquote') ? styles.blockquote : styles.pull }>
                 <p>
-                    Yo llegué en el momento justo, interesado, cuando el hipertexto e Internet habían visto ya la luz. La tarea que me correspondía era hacer que casaran.
-                <br />
-                    Tim Berners-Lee, Tejiendo la Web.
+                    {elementos && elementos[0] && renderHTML(elementos[0].content)}
+                    <br />
+                    {citation && renderHTML(citation.content)}
                 </p>
             </blockquote>
         </Fragment>
     );
 }
+
 
 export default Blockquote;
