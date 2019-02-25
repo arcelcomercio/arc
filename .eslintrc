@@ -5,7 +5,10 @@
     "import/no-unresolved": false,
     "react/prop-types": [
       "enabled",
-      { "ignore": "ignore", "customValidators": "customValidator" }
+      {
+        "ignore": "ignore",
+        "customValidators": "customValidator"
+      }
     ],
     "react/require-default-props": ["disabled"]
   },

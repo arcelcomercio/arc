@@ -1,9 +1,7 @@
 .nav {
-
     position: sticky;
     top: 0;
     height: 46px;
-    padding: 0 15px;
     z-index: 20;
     font-family: $main-font;
     font-size: $font-sm;
@@ -11,32 +9,26 @@
     background-color: $nav-color;
     color: $color-white;
 
+    &__wrapper {
+        padding: 0 15px;
+    }
+
     &__btn {
-        background-color: $color-gray; 
+        background-color: $color-gray;
         color: $color-white;
-
-        &__container {
-            height: inherit;
-        }
-
-        &--featured {
-            color: $color-primary;
-            height: inherit; 
-        }
     }
 
     &__list {
         padding: 0 5px;
-        height: inherit;
         display: none;
 
         @media screen and (min-width: 1024px) {
             display: inherit;
         }
+    }
 
-        & li {
-            margin: 0 8px;
-        }
+    &__list-link {
+        margin: 0 8px;
     }
 
     &__logo {

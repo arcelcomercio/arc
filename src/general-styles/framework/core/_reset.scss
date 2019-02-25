@@ -7,6 +7,10 @@
 	box-sizing: border-box;
 }
 
+html {
+	font-family: 'system-ui', sans-serif;
+}
+
 html,
 body,
 div,
@@ -121,6 +125,10 @@ ul {
 blockquote,
 q {
 	quotes: none;
+}
+
+a {
+	text-decoration: none;
 }
 
 blockquote:before,
