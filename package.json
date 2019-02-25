@@ -9,6 +9,7 @@
     "moment": "^2.24.0",
     "normalize-scss": "^7.0.1",
     "prop-types": "^15.6.2",
+    "react-device-detect": "^1.6.2",
     "react-moment": "^0.8.4",
     "react-render-html": "^0.6.0"
   },
