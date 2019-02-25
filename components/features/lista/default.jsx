@@ -44,7 +44,7 @@ const ImageNews = ({ urlNews, promo_items }) => {
   );
 };
 
-const TimeItem = ({ time }) => <div className="time">{time}</div>;
+const TimeItem = ({ time }) => <div className="List__time">{time}</div>;
 
 const ItemNews = ({
   seeHour,
@@ -55,12 +55,12 @@ const ItemNews = ({
   promo_items
 }) => {
   return (
-    <article className="item-news">
+    <article className="List__item__news">
       {seeImageNews && (
         <ImageNews urlNews={urlNews} promo_items={promo_items} />
       )}
       {seeHour && <TimeItem time={time} />}
-      <div className="page-link">
+      <div className="List__page__link">
         <a href={urlNews}>
           <h3 className="bold">{title}</h3>
         </a>
@@ -70,7 +70,7 @@ const ItemNews = ({
 };
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
   let classListItems =
-    listNews.length > 3 ? "list-news-items scrol-horizontal" : "list-news-items";
+    listNews.length > 3 ? "List__listItems scrol-horizontal" : "list-news-items";
   //let nuevalista =[];
 
   return (
@@ -224,7 +224,6 @@ Lista.propTypes = {
       },
       defaultValue: "bg-color--lightblue"
     }),
-
     titleList: PropTypes.string.isRequired.tag({ name: "Título de la lista" }),
     newsNumber: PropTypes.number.tag({name: "Número de noticas"}),
     seeMore: PropTypes.bool.tag({ name: "Ver más" }),
