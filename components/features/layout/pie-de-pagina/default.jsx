@@ -44,12 +44,18 @@ class PieDePagina extends Component {
     super(props)
     this.state = {
       device: this.setDevice(),
+      legalList: [],
+      sectionsList: [],
     }
   }
 
   componentDidMount() {
     this.addEventListener('displayChange', this.handleDevice)
-    this.fetch()
+    this.setState({
+      legalList: [],
+    })
+    this.fetchByHierarchy('footer-legal-links')
+    this.fetchByHierarchy('footer-sections')
   }
 
   setDevice = () => {
@@ -70,19 +76,59 @@ class PieDePagina extends Component {
     })
   }
 
-  fetch() {
-    const { fetched } = this.getContent()
+  fetchByHierarchy(hierarchy) {
+    const { arcSite } = this.props
+
+    const source = 'section__by-hierarchy'
+    const params = {
+      website: arcSite,
+      hierarchy,
+    }
+    const schema = `{ 
+      children {
+        name
+        _id
+        display_name
+        url
+        node_type
+      }
+    }`
+
+    const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
       console.log(response)
+      const auxList = response.children.map(el => {
+        if (el.node_type === 'link') {
+          return {
+            name: el.display_name,
+            url: el.url,
+            node_type: el.node_type,
+          }
+        }
+        return {
+          name: el.name,
+          // eslint-disable-next-line no-underscore-dangle
+          url: el._id,
+          node_type: el.node_type,
+        }
+      })
+      switch (hierarchy) {
+        case 'footer-legal-links':
+          this.setState({ legalList: auxList })
+          break
+        case 'footer-sections':
+          this.setState({ sectionsList: auxList })
+          break
+        default:
+          break
+      }
     })
   }
 
   render() {
     const { siteProperties, arcSite, contextPath, requestUri } = this.props
-    const { device } = this.state
+    const { device, legalList, sectionsList } = this.state
 
-    console.log(this.props)
-    console.log(device)
     return (
       <footer className={classes.footer}>
         <div className={classes.footerInfo}>
@@ -103,9 +149,30 @@ class PieDePagina extends Component {
           </ul>
         </div>
         {device === 'desktop' && (
-          <div className={classes.footerSections}>2</div>
+          <div className={classes.footerSections}>
+            <ul className={classes.footerList}>
+              <li className={classes.footerListTitle}>Contacto</li>
+              {sectionsList.map(el => (
+                <li className={classes.footerListItem}>
+                  <a className={classes.footerListLink} href={el.url}>
+                    {el.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
         <div className={classes.footerContact}>
+          <ul className={classes.footerList}>
+            <li className={classes.footerListTitle}>Contacto</li>
+            {legalList.map(el => (
+              <li className={classes.footerListItem}>
+                <a className={classes.footerListLink} href={el.url}>
+                  {el.name}
+                </a>
+              </li>
+            ))}
+          </ul>
           <ul className={classes.footerList}>
             <li className={classes.footerListTitle}>Síguenos</li>
             {siteProperties.footer.socialNetworks.map(el => (
