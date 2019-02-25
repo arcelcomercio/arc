@@ -1,19 +1,41 @@
 import Consumer from "fusion:consumer";
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-
+import { FormatClassName } from './../../../resources/utilsJs/utilities';
 import {
-  MobileView,
-  isBrowser,
   isTablet,
   isMobileOnly
 } from "react-device-detect";
 
+const classes = FormatClassName({
+  separator:[
+    "separator"
+  ],
+  headerHtml:[
+    "separator__header__html"
+  ],
+  title:[
+    "separator__header__title"
+  ],
+  body:[
+    "separator__body"
+  ],
+  item:[
+    "separator__item"
+  ],
+  detail:[
+    "separator__detail"
+  ],
+  separatorTitle:[
+    "separator__title"
+  ]
+ 
+})
 const SeparatorItem = ({ headlines, promo_items, website_url }) => {
   return (
-    <article className="separator__body__item">
-      <div className="separator__body__item__detail">
-        <h2 className="separator__body__item__detail__title">
+    <article className={classes.item}>
+      <div className={classes.detail}>
+        <h2 className={classes.separatorTitle}>
           <a href={website_url}>{headlines}</a>
         </h2>
       </div>
@@ -48,29 +70,10 @@ const SeparatorListItem = ({ data }) => {
   return result;
 };
 
-// const SeparatorListItem = () => {
-//   //if (isMobileOnly) {
-//   if (false) {
-//     return (
-//       <Fragment>
-//         <SeparatorItem />
-//       </Fragment>
-//     );
-//   } else {
-//     return (
-//       <Fragment>
-//         <SeparatorItem />
-//         <SeparatorItem />
-//         <SeparatorItem />
-//         <SeparatorItem />
-//       </Fragment>
-//     );
-//   }
-// };
 const HeaderTitulo = ({ titleSeparator, titleLink }) => {
   return (
     <Fragment>
-      <h1 className="separator__header__title">
+      <h1 className={classes.title}>
         <a href={titleLink}>{titleSeparator}</a>
       </h1>
     </Fragment>
@@ -83,7 +86,7 @@ const createMarkup = html => {
 const HeaderHTML = ({ htmlCode }) => {
   return (
     <div
-      className="separator__header__title"
+      className={classes.title}
       dangerouslySetInnerHTML={createMarkup(htmlCode)}
     />
   );
@@ -168,7 +171,7 @@ class Separador extends Component {
 
   render() {
     return (
-      <div className="separator">
+      <div className={classes.separator}>
         {this.state.titleSeparator ? (
           <HeaderTitulo
             titleSeparator={this.state.titleSeparator}
@@ -178,7 +181,7 @@ class Separador extends Component {
           <HeaderHTML htmlCode={this.state.htmlCode} />
         )}
 
-        <div className="separator__body">
+        <div className={classes.body}>
           <SeparatorListItem data={this.state.data} />
         </div>
       </div>
