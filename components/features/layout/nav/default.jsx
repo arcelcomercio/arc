@@ -41,6 +41,8 @@ const classes = {
     height-inherit`,
   navLogo: `
     nav__logo`,
+  navAds: `
+    nav__ads`,
   headerButtonContainer: `
     flex-center-vertical
     flex--justify-end
@@ -225,7 +227,10 @@ class Nav extends Component {
             className={classes.navLogo}
           />
           {device === 'desktop' && (
-            <div className={classes.navButtonContainer} />
+            <div className={classes.navButtonContainer}>
+              <div id="ads_d_zocaloNav1" className={classes.navAds} />
+              <div id="ads_d_zocaloNav2" className={classes.navAds} />
+            </div>
           )}
           {device === 'tablet' && (
             <div className={classes.headerButtonContainer}>

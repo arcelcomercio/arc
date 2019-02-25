@@ -380,6 +380,13 @@ body {
 .nav__logo {
   height: 46px;
 }
+.nav__ads {
+  margin: 0 4px;
+  background-color: red;
+  width: 100px;
+  height: 30px;
+  border-radius: 4px;
+}
 .header {
   width: 100%;
   font-size: 12px;

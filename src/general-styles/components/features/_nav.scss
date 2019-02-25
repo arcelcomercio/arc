@@ -22,7 +22,7 @@
         padding: 0 5px;
         display: none;
 
-        @media screen and (min-width: 1024px) {
+        @media (--desktop) {
             display: inherit;
         }
     }
@@ -40,8 +40,16 @@
     &__logo {
         height: 46px;
 
-        @media screen and (min-width: 1024px) {
+        @media (--desktop) {
             display: none;
         }
+    }
+
+    &__ads {
+        margin: 0 4px;
+        background-color: red;
+        width: 100px;
+        height: 30px;
+        border-radius: 4px;
     }
 }
