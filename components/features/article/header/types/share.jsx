@@ -88,36 +88,31 @@ class Share extends Component {
         return (
 
             <Fragment>
-                <div className={styles.share + this.state.shareMas}>
-                    <div className={styles.shareListItem} >
-                        <FacebookShareButton className={styles.shareItemFb} url={fbUrl} >
+                <div className={classes.share + this.state.shareMas}>
+                    <div className={classes.shareListItem} >
+                        <FacebookShareButton className={classes.shareItemFb} url={fbUrl} >
                             <i className="icon-fb"> </i><span>Compartir </span>
                         </FacebookShareButton>
-                        <TwitterShareButton className={styles.shareItemTw} url={twUrl}>
+                        <TwitterShareButton className={classes.shareItemTw} url={twUrl}>
                             <i className="icon-tw"></i> <span>Compartir</span>
                         </TwitterShareButton>
-                        <LinkedinShareButton url={inUrl} className={styles.shareItemLinkedIn}>
+                        <LinkedinShareButton url={inUrl} className={classes.shareItemLinkedIn}>
                             <i className="icon-in"> </i>
                             <span>Compartir </span>
                         </LinkedinShareButton>
-                        <div className={styles.shareItemOtherItems + this.state.shareMas}>
-                            <GooglePlusShareButton url={gpUrl} className={styles.shareItemLinkedIn}>
+                        <div className={classes.shareItemOtherItems + this.state.shareMas}>
+                            <GooglePlusShareButton url={gpUrl} className={classes.shareItemLinkedIn}>
                                 <i className="icon-in"> </i>
                                 <span>Compartir </span>
                             </GooglePlusShareButton>
-                            <PinterestShareButton url={url} className={styles.shareItemLinkedIn}>
-                                <i className="icon-in"> </i>
-                                <span>Compartir </span>
-                            </PinterestShareButton>
-
-                            <EmailShareButton url={inUrl} className={styles.shareItemLinkedIn}>
+                            <EmailShareButton url={inUrl} className={classes.shareItemLinkedIn}>
                                 <i className="icon-in"> </i>
                                 <span>Compartir </span>
                             </EmailShareButton>
                         </div>
-                        <div className={styles.shareItemShowMore}>
-                            <span className={styles.shareBtnMore} onClick={this.handleOnclickMas}>+</span>
-                            <span className={styles.shareBtnLess} onClick={this.handleOnclickckClose}>- </span>
+                        <div className={classes.shareItemShowMore}>
+                            <span className={classes.shareBtnMore} onClick={this.handleOnclickMas}>+</span>
+                            <span className={classes.shareBtnLess} onClick={this.handleOnclickckClose}>- </span>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,6 @@ import Blockquote from "./types/blockquote"
 import Table from './types/table'
 import Autor from './types/autor'
 import ElePrincipal from './types/ele-principal'
-
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
 const classes = FormatClassName({
@@ -34,6 +33,8 @@ class ContentArticleBody extends Component {
       imageClasses: "visual__image visual__image--cover"
     };
 
+ 
+
     return (
       <Fragment>
         <div className={classes.news}>
@@ -48,7 +49,7 @@ class ContentArticleBody extends Component {
               renderElement={element => {
                 const { type } = element
                 if (type === 'image') {
-                  return <Imagen data={element} className={styles.newsImage} />
+                  return <Imagen data={element} className={classes.newsImage} />
                 }
                 if (type === 'video') {
                   return <Video data={element.embed_html} className={classes.newsImage} />

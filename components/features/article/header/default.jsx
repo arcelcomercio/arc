@@ -17,7 +17,7 @@ class ArticleHeader extends Component {
     //console.log(gallery_items); debugger;
     const { content_elements: galleryElements } = (gallery_items && typeof gallery_items.gallery !== "undefined") ?  gallery_items.gallery:'';
 
-    //console.log(contentElements);debugger;
+    console.log(contentElements);debugger;
     return (
       <Fragment>
         <div className={(typeof galleryElements ===  "undefined") ? ' col-3' : 'col-3 _gallery'}>
