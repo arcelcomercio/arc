@@ -3,20 +3,23 @@ import Button from '../../../../../resources/components/button'
 
 const classes = {
   navSidebar: `
-  	nav-sidebar`,
+    nav-sidebar 
+    full-width`,
   navSidebarContent: `
   	nav-sidebar__content
     flex
     flex--column
     flex--justify-between`,
   navBarBtn: `
-  	flex-center btn bg-color--white nav-sidebar__btn`,
+    flex-center 
+    btn bg-color--white 
+    nav-sidebar__btn`,
 }
 
 const NavSidebar = props => {
-	const { sections, showSidebar } = props
+  const { sections, showSidebar } = props
   return (
-		<div className={`${classes.navSidebar} ${showSidebar ? 'active' : ''}`}>
+    <div className={`${classes.navSidebar} ${showSidebar ? 'active' : ''}`}>
       <div className={classes.navSidebarContent}>
         <div className="nav-sidebar__top">
           <div className="nav-sidebar__header">
@@ -46,28 +49,25 @@ const NavSidebar = props => {
         </div>
         <div className="nav-sidebar__footer">
           <a href="/" className="nav-sidebar__text">
-            washingtonpost.com
+            elcomercio.pe
           </a>
           <a href="/" className="nav-sidebar__text">
-            1996-2019 The Washington Post
+            1984-2019 Grupo El Comercio
           </a>
           <a href="/" className="nav-sidebar__text">
-            Policies and Standards
+            Términos de Servicio
           </a>
           <a href="/" className="nav-sidebar__text">
-            Terms of Service
+            Políticas de Privacidad
           </a>
           <a href="/" className="nav-sidebar__text">
-            Privacy Policy
+            Políticas de Discusión
           </a>
           <a href="/" className="nav-sidebar__text">
-            Submissions and Discussion Policy
+            RSS Términos de Servicio
           </a>
           <a href="/" className="nav-sidebar__text">
-            RSS Terms of Service
-          </a>
-          <a href="/" className="nav-sidebar__text">
-            Ad Choices
+            Preferencias de Publicidad
           </a>
         </div>
       </div>
