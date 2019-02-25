@@ -61,9 +61,6 @@ const classes = {
     icon--margin-right`,
 }
 
-// ------ Empty variable to set logo reference later
-let $navLogo
-
 @Consumer
 class Nav extends Component {
   constructor(props) {
@@ -77,7 +74,6 @@ class Nav extends Component {
       scrolled: false,
     }
     this.inputSearch = React.createRef()
-    this.navLogo = React.createRef()
   }
 
   componentDidMount() {
@@ -90,49 +86,41 @@ class Nav extends Component {
     this.fetch()
   }
 
-  // Open - Close navBar
-  handleToggleSectionsSidebar = () => {
-    const { statusSearch, statusSidebar } = this.state
+  // ------ Sets the initial device state
+  setDevice = () => {
+    const wsize = window.innerWidth
 
-    if (statusSearch) {
-      this.setState({
-        statusSearch: !statusSidebar,
-      })
-    }
-    this.setState({
-      statusSidebar: !statusSidebar,
-    })
-  }
-
-  // Open - Close Search
-  handleToggleSectionsSearch = () => {
-    const { statusSidebar, statusSearch } = this.state
-
-    if (statusSidebar) {
-      this.setState({
-        statusSidebar: !statusSidebar,
-      })
+    if (wsize < 640) {
+      return 'mobile'
     }
 
-    this.setState({
-      statusSearch: !statusSearch,
-    })
+    if (wsize >= 640 && wsize < 1024) {
+      return 'tablet'
+    }
 
-    this.focusInputSearch()
+    return 'desktop'
   }
 
-  // Close Search
-  handleCloseSectionsSearch = () => {
-    setTimeout(() => {
-      this.setState({
-        statusSearch: false,
-      })
-    }, 100)
+  // Add - Remove Class active input and button search
+  activeSearch = () => {
+    return this.state.statusSearch ? 'active' : ''
+  }
+
+  // If input search is empty, buton close search else buton find search
+  optionButtonClick = () => {
+    const { statusSearch } = this.state
+    return statusSearch ? this.foundSearch : this.handleToggleSectionsSearch
   }
 
   // Open search and automatic focus input
   focusInputSearch = () => {
     this.inputSearch.current.focus()
+  }
+
+  // set Query search and location replace
+  foundSearch = () => {
+    const { value } = this.inputSearch.current
+    location.href = `${location.pathname}?query=${value}`
   }
 
   // Active find with enter key
@@ -144,34 +132,20 @@ class Nav extends Component {
     }
   }
 
-  // set Query search and location replace
-  foundSearch = () => {
-    const { value } = this.inputSearch.current
-    location.href = `${location.pathname}?query=${value}`
-  }
-
   handleScroll = () => {
-    const navLogo = this.navLogo.current
+    const { scrolled } = this.state
+
     // ------ Logic to set state to hide or show logo in navbar
-    if (
-      (!navLogo.classList.contains('active') &&
-        document.documentElement.scrollTop > 100) ||
-      (!navLogo.classList.contains('active') && document.body.scrollTop > 100)
-    ) {
-      console.log(navLogo.classList.contains('active'))
+    const { scrollTop } = document.documentElement
+
+    if (!scrolled && scrollTop > 100) {
       this.setState({
         scrolled: true,
       })
-    } else if (
-      (navLogo.classList.contains('active') &&
-        document.documentElement.scrollTop <= 100) ||
-      (navLogo.classList.contains('active') && document.body.scrollTop <= 100)
-    ) {
-      console.log(navLogo.classList.contains('active'))
+    } else if (scrolled && scrollTop <= 100)
       this.setState({
         scrolled: false,
       })
-    }
   }
 
   // Open - Close Search
@@ -200,41 +174,6 @@ class Nav extends Component {
     }, 100)
   }
 
-  // Open search and automatic focus input
-  focusInputSearch = () => {
-    this.inputSearch.current.focus()
-  }
-
-  // Active find with enter key
-  watchKeys = e => {
-    e.preventDefault()
-    const { value } = e.target
-    if (value !== '' && e.which === 13) {
-      this.foundSearch()
-    }
-  }
-
-  // set Query search and location replace
-  foundSearch = () => {
-    const { value } = this.inputSearch.current
-    location.href = `${location.pathname}?query=${value}`
-  }
-
-  // ------ Sets the initial device state
-  setDevice = () => {
-    const wsize = window.innerWidth
-
-    if (wsize < 640) {
-      return 'mobile'
-    }
-
-    if (wsize >= 640 && wsize < 1024) {
-      return 'tablet'
-    }
-
-    return 'desktop'
-  }
-
   // ------ Sets the new device state when the listener is activated
   handleDevice = device => {
     this.setState({
@@ -246,26 +185,18 @@ class Nav extends Component {
     else window.removeEventListener('scroll', this.handleScroll)
   }
 
-  // Add - Remove Class active input and button search
-  activeSearch = () => {
-    return this.state.statusSearch ? 'active' : ''
-  }
+  // Open - Close navBar
+  handleToggleSectionsSidebar = () => {
+    const { statusSearch, statusSidebar } = this.state
 
-  // If input search is empty, buton close search else buton find search
-  optionButtonClick = () => {
-    const { statusSearch } = this.state
-    return statusSearch ? this.foundSearch : this.handleToggleSectionsSearch
-  }
-
-  // Add - Remove Class active input and button search
-  activeSearch = () => {
-    return this.state.statusSearch ? 'active' : ''
-  }
-
-  // If input search is empty, buton close search else buton find search
-  optionButtonClick = () => {
-    const { statusSearch } = this.state
-    return statusSearch ? this.foundSearch : this.handleToggleSectionsSearch
+    if (statusSearch) {
+      this.setState({
+        statusSearch: !statusSidebar,
+      })
+    }
+    this.setState({
+      statusSidebar: !statusSidebar,
+    })
   }
 
   // ------ Fetchs the sections data from site-navigation API
@@ -396,7 +327,6 @@ class Nav extends Component {
             /* src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} */
             alt={`Logo de ${arcSite}`}
             className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
-            ref={this.navLogo}
           />
 
           {/** ************* RIGHT *************** */}
