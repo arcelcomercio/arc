@@ -9,5 +9,9 @@
     ],
     "react/require-default-props": ["disabled"]
   },
+  "globals": {
+    "document": true,
+    "window": true
+  },
   "parser": "babel-eslint"
 }
