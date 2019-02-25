@@ -4,29 +4,30 @@
 }
 
 
-.content-layout{
-    @media screen and (min-width: 640px) {
+.content-layout {
+    @media (--tablet) {
         min-width: 620px;
     }
-    
-    @media screen and (min-width: 1024px) {
+
+    @media (--desktop) {
         min-width: 940px;
         //max-width: 1024px;
     }
-    
+
     min-width: 320px;
-    max-width: 100%; 
+    max-width: 100%;
 }
 
 .content-layout-container {
-    @media screen and (min-width: 1024px) {
+    @media (--desktop) {
         width: 100%;
         max-width: 1024px;
-        overflow: hidden;
+        //overflow: hidden;
     }
 }
+
 /* .content--box{
-    @media screen and (min-width: 1024px) {
+    @media (--desktop) {
         grid-template-rows: repeat(4, $heightRow);       
     }
     
@@ -36,19 +37,19 @@
 /* .content--rows-height {
     grid-auto-rows: minmax(calc(($heightRow - ($spacingNormal * ($rowParts - 1))) / $rowParts), auto);
 } */
-.content--1col{
+.content--1col {
     grid-template-columns: 1fr;
 }
 
-.content--2col{
-    @media screen and (min-width: 640px) {
-        grid-template-columns: repeat(2, 1fr); 
+.content--2col {
+    @media (--tablet) {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-.content--3col{
-    @media screen and (min-width: 1024px) {
-        grid-template-columns: repeat(3, 1fr);        
+.content--3col {
+    @media (--desktop) {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -66,28 +67,33 @@
     }
 }
 
-.col-1, .col-2, .col-3 {
+.col-1,
+.col-2,
+.col-3 {
     grid-column: span 1;
 }
 
 /*-------------- Process to create the 2 col classes */
 
-@media screen and (min-width: 640px) {
+@media (--tablet) {
     .col-1 {
         grid-column: span 1;
     }
-    .col-2, .col-3 {
+
+    .col-2,
+    .col-3 {
         grid-column: span 2;
     }
 }
 
 /*-------------- Process to create the 3 col classes */
 
-@media screen and (min-width: 1024px) {
+@media (--desktop) {
     @for $i from 1 through 3 {
         .col-#{$i} {
             grid-column: span $i
         }
     }
 }
+
 /****************************************************/

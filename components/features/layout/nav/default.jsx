@@ -13,13 +13,15 @@ const classes = {
     flex--justify-between 
     nav__wrapper 
     full-width 
-    height-inherit`,
+    height-inherit 
+    `,
+  navForm: `nav__form flex`,
+  navSearch: `nav__input-search`,
   navButton: `
     flex-center-vertical 
     btn nav__btn`,
   navButtonIconSearch: `
-    icon icon--search 
-    icon--margin-right`,
+    icon icon--search`,
   navButtonIconMenu: `
     icon icon--menu 
     icon--margin-right`,
@@ -59,6 +61,9 @@ const classes = {
     icon--margin-right`,
 }
 
+// ------ Empty variable to set logo reference later
+let $navLogo
+
 @Consumer
 class Nav extends Component {
   constructor(props) {
@@ -68,22 +73,105 @@ class Nav extends Component {
       device: this.setDevice(),
       services: [],
       statusSidebar: false,
+      statusSearch: false,
+      scrolled: false,
     }
-
-    this.handleOpenSectionsSidebar = this.handleOpenSectionsSidebar.bind(this)
+    this.inputSearch = React.createRef()
+    this.navLogo = React.createRef()
   }
 
   componentDidMount() {
+    const { device } = this.state
     this.addEventListener('displayChange', this.handleDevice)
+
+    // ------ Sets scroll eventListener if device is desktop
+    if (device === 'desktop')
+      window.addEventListener('scroll', this.handleScroll)
     this.fetch()
   }
 
-  handleOpenSectionsSidebar = () => {
-    const { statusSidebar } = this.state
+  // Open - Close navBar
+  handleToggleSectionsSidebar = () => {
+    const { statusSearch, statusSidebar } = this.state
+
+    if (statusSearch) {
+      this.setState({
+        statusSearch: !statusSidebar,
+      })
+    }
     this.setState({
       statusSidebar: !statusSidebar,
     })
-    console.log(statusSidebar)
+  }
+
+  // Open - Close Search
+  handleToggleSectionsSearch = () => {
+    const { statusSidebar } = this.state
+
+    if (statusSidebar) {
+      this.setState({
+        statusSidebar: !statusSidebar,
+      })
+    }
+
+    this.setState({
+      statusSearch: !this.state.statusSearch,
+    })
+
+    this.focusInputSearch()
+  }
+
+  // Close Search
+  handleCloseSectionsSearch = () => {
+    setTimeout(() => {
+      this.setState({
+        statusSearch: false,
+      })
+    }, 100)
+  }
+
+  // Open search and automatic focus input
+  focusInputSearch = () => {
+    this.inputSearch.current.focus()
+  }
+
+  // Active find with enter key
+  watchKeys = e => {
+    e.preventDefault()
+    const { value } = e.target
+    if (value !== '' && e.which === 13) {
+      this.foundSearch()
+    }
+  }
+
+  // set Query search and location replace
+  foundSearch = () => {
+    const { value } = this.inputSearch.current
+    location.href = `${location.pathname}?query=${value}`
+  }
+
+  handleScroll = () => {
+    const navLogo = this.navLogo.current
+    // ------ Logic to set state to hide or show logo in navbar
+    if (
+      (!navLogo.classList.contains('active') &&
+        document.documentElement.scrollTop > 100) ||
+      (!navLogo.classList.contains('active') && document.body.scrollTop > 100)
+    ) {
+      console.log(navLogo.classList.contains('active'))
+      this.setState({
+        scrolled: true,
+      })
+    } else if (
+      (navLogo.classList.contains('active') &&
+        document.documentElement.scrollTop <= 100) ||
+      (navLogo.classList.contains('active') && document.body.scrollTop <= 100)
+    ) {
+      console.log(navLogo.classList.contains('active'))
+      this.setState({
+        scrolled: false,
+      })
+    }
   }
 
   // ------ Sets the initial device state
@@ -106,6 +194,21 @@ class Nav extends Component {
     this.setState({
       device,
     })
+    // ------ Add or remove Scroll eventListener on resize
+    if (device === 'desktop')
+      window.addEventListener('scroll', this.handleScroll)
+    else window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  // Add - Remove Class active input and button search
+  activeSearch = () => {
+    return this.state.statusSearch ? 'active' : ''
+  }
+
+  // If input search is empty, buton close search else buton find search
+  optionButtonClick = () => {
+    const { statusSearch } = this.state
+    return statusSearch ? this.foundSearch : this.handleToggleSectionsSearch
   }
 
   // ------ Fetchs the sections data from site-navigation API
@@ -152,26 +255,40 @@ class Nav extends Component {
       device,
       services: { children: sections },
       statusSidebar,
+      scrolled,
     } = this.state
     const { arcSite } = this.props
 
     return (
       <nav className={classes.nav}>
         <div className={classes.navWrapper}>
+          {/** ************* LEFT *************** */}
+
           <div className={classes.navButtonContainer}>
             {device === 'desktop' && (
               <Fragment>
-                <Button
-                  iconClass={classes.navButtonIconSearch}
-                  btnClass={classes.navButton}
-                  btnText="Buscar"
-                  btnLink="#"
-                />
+                <form className={classes.navForm}>
+                  <input
+                    ref={this.inputSearch}
+                    type="search"
+                    onBlur={this.handleCloseSectionsSearch}
+                    onKeyUp={this.watchKeys}
+                    placeholder="Buscar"
+                    className={`${classes.navSearch} ${this.activeSearch()}`}
+                  />
+                  <Button
+                    iconClass={classes.navButtonIconSearch}
+                    btnClass={`${classes.navButton.concat(
+                      ' nav__btn--search'
+                    )} ${this.activeSearch()}`}
+                    onClick={this.optionButtonClick()}
+                  />
+                </form>
                 <Button
                   iconClass={classes.navButtonIconMenu}
                   btnClass={classes.navButton}
                   btnText="Secciones"
-                  onClick={this.handleOpenSectionsSidebar}
+                  onClick={this.handleToggleSectionsSidebar}
                 />
               </Fragment>
             )}
@@ -185,12 +302,6 @@ class Nav extends Component {
                   btnClass={classes.navButton}
                   btnLink="#"
                 />
-                {/* <Button
-                  iconClass={classes.navButtonIconMenu}
-                  btnClass={classes.navButton}
-                  btnText="Secciones"
-                  btnLink="#"
-                /> */}
                 <button type="button" onClick={this.test}>
                   Test
                 </button>
@@ -207,7 +318,10 @@ class Nav extends Component {
               />
             )}
           </div>
-          <ul className={classes.navList}>
+
+          {/** ************* MIDDLE *************** */}
+
+          <ul className={`${classes.navList} ${scrolled ? '' : 'active'}`}>
             {sections
               ? sections.map((item, key) => {
                   return (
@@ -224,8 +338,12 @@ class Nav extends Component {
             src="https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png"
             /* src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} */
             alt={`Logo de ${arcSite}`}
-            className={classes.navLogo}
+            className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
+            ref={this.navLogo}
           />
+
+          {/** ************* RIGHT *************** */}
+
           {device === 'desktop' && (
             <div className={classes.navButtonContainer}>
               <div id="ads_d_zocaloNav1" className={classes.navAds} />

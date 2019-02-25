@@ -3,15 +3,17 @@ import Button from '../../../../../resources/components/button'
 
 const classes = {
   navSidebar: `
-	nav-sidebar 
-	full-width`,
+    nav-sidebar 
+    full-width`,
   navSidebarContent: `
   	nav-sidebar__content
     flex
     flex--column
     flex--justify-between`,
   navBarBtn: `
-  	flex-center btn bg-color--white nav-sidebar__btn`,
+    flex-center 
+    btn bg-color--white 
+    nav-sidebar__btn`,
 }
 
 const NavSidebar = props => {
