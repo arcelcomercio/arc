@@ -144,16 +144,18 @@ class PieDePagina extends Component {
           </a>
           <ul className={classes.footerLegalList}>
             {siteProperties.footer.siteLegal.map(el => (
-              <li className={classes.footerLegalItem}>{el}</li>
+              <li className={classes.footerLegalItem} key={el}>
+                {el}
+              </li>
             ))}
           </ul>
         </div>
         {device === 'desktop' && (
           <div className={classes.footerSections}>
             <ul className={classes.footerList}>
-              <li className={classes.footerListTitle}>Contacto</li>
+              <li className={classes.footerListTitle}>Nuestras secciones</li>
               {sectionsList.map(el => (
-                <li className={classes.footerListItem}>
+                <li className={classes.footerListItem} key={el.url}>
                   <a className={classes.footerListLink} href={el.url}>
                     {el.name}
                   </a>
@@ -166,7 +168,7 @@ class PieDePagina extends Component {
           <ul className={classes.footerList}>
             <li className={classes.footerListTitle}>Contacto</li>
             {legalList.map(el => (
-              <li className={classes.footerListItem}>
+              <li className={classes.footerListItem} key={el.url}>
                 <a className={classes.footerListLink} href={el.url}>
                   {el.name}
                 </a>
@@ -176,7 +178,7 @@ class PieDePagina extends Component {
           <ul className={classes.footerList}>
             <li className={classes.footerListTitle}>Síguenos</li>
             {siteProperties.footer.socialNetworks.map(el => (
-              <li className={classes.footerListItem}>
+              <li className={classes.footerListItem} key={el.url}>
                 <a className={classes.footerListLink} href={el.url}>
                   {el.name}
                 </a>

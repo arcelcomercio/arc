@@ -128,11 +128,18 @@ $desktop-media: 'min-width: 1024px';
   grid-template-areas:
     'info contact'
     'sites sites '; */
-  @media screen and (#{$desktop-media}) {
+  @media screen and (--desktop) {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
       'info sections contact'
       'sites sites sites';
+  }
+  @media screen and (--tablet) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'info contact'
+      'sites sites ';
   }
   &__footer-bacground-color {
     background-color: $footer-background;
@@ -152,11 +159,12 @@ $desktop-media: 'min-width: 1024px';
   &__sites {
     grid-area: sites;
     margin-top: 15px;
+    padding: 10px;
   }
   &__sites-list {
     flex-wrap: wrap;
     padding: 0;
-    max-width: 775px;
+    max-width: 950px;
     width: 100%;
   }
   &__sites-list-element {
