@@ -15,6 +15,10 @@ const transform = data => {
   const { website } = data;
   const { resizerSecretKeyEnvVar, resizerUrl } = getProperties(website);
   const resizerSecretKey = envVars[resizerSecretKeyEnvVar];
+  console.log('==========================>>>>>>>>>>>>>>>>>>>>>>>2222222');
+  console.log(envVars);
+  console.log('==========================>>>>>>>>>>>>>>>>>>>>>>>44');
+  debugger;
   return addResizedUrls(data, resizerUrl, resizerSecretKeyEnvVar, aspectRatios);
 };
 
