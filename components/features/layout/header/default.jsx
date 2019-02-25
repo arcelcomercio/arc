@@ -54,12 +54,13 @@ const classes = FormatClassName({
 @Consumer
 class Header extends Component {
     constructor(props){
-        super(props)
+        super(props);
         //------ Checks if you are in desktop or not
         this.state = {
             device: this.setDevice(),
             temas:[]
-        }   
+        };
+        this.fetch();
     }
 
     setDevice = () => {
@@ -104,35 +105,38 @@ class Header extends Component {
 
     fechaActual = () => {
         let ndate = new Date();
-        let ayear = ndate.getFullYear();
-        let amonth = ndate.getMonth();
-        let aday = ndate.getDate();
-        let arrayMeses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-        
-        return `${aday} de ${arrayMeses[amonth]}, ${ayear}`;
+        let arrayMeses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];        
+
+        return `${ndate.getDate()} de ${arrayMeses[ndate.getMonth()]}, ${ndate.getFullYear()}`;
     }
 
+    
+    fetch = () => {
+        let { fetched } = this.getContent('get-temas-del-dia', {website: this.props.arcSite});
+        
+        fetched.then( data => {
+            this.setState({
+                temas: data.children
+            })
+        });
+
+    }
+
+    lista = () => {
+        return this.state.temas.map( (tag, index) =>{
+            return <li className={classes.headerFeaturedItem} key={index}>{tag.display_name}</li>
+        })
+    }
+    
     componentDidMount() {
         window.addEventListener('resize', this.handleResize);
-        this.fetch();
-    }
-
-    fetch(){
-        const {fetched} = this.getContent('get-temas-del-dia',{website: this.props.arcSite});
-        fetched.then( response => {
-            response.json();
-        }).then( data => {
-            this.setState({
-                temas: data
-            })
-        })
-
+        console.log("INICIO componentDidMount")
         console.log(this.state.temas)
+        console.log("FIN componentDidMount")
     }
 
     render() {
-
-        return(
+        return (this.state.temas[0] &&
             this.state.device === 'desktop' ?
                 <header className={classes.header} >
                     <div className={classes.headerMain}>
@@ -152,22 +156,17 @@ class Header extends Component {
                             <Button
                                 btnText='Suscríbete'
                                 btnClass={classes.headerBtnSubscribe}
-                                btnLink='#'
+                                btnLink='#'x
                             />
                         </div>
                     </div>
+
                     <ul className={classes.headerFeatured}>
                         <li className={classes.headerFeaturedItem}>
                             <i className={classes.headerFeaturedItemIcon}></i>
                             LOS TEMAS DE HOY 
                         </li>
-                        <li className={classes.headerFeaturedItem}>CNM </li>
-                        <li className={classes.headerFeaturedItem}>Cesar Hinostroza </li>
-                        <li className={classes.headerFeaturedItem}>Vizcarra </li>
-                        <li className={classes.headerFeaturedItem}>Congreso </li>
-                        <li className={classes.headerFeaturedItem}>Odebretch </li>
-                        <li className={classes.headerFeaturedItem}>Poder Judicial </li>
-                        <li className={classes.headerFeaturedItem}>Walter Rios </li>
+                        {this.state.temas[0] && this.lista()}
                     </ul>    
                 </header>
             : null
