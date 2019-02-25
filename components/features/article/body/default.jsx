@@ -15,11 +15,14 @@ import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 const classes = FormatClassName({
   news: [
     'news-text-content',
-    'col-2'
+    'col-2',
+    'padding-normal',
+    'bg-color--white'
+
   ],
   newsImage: [
     'visual__image',
-    'visual__image--cover'
+    'visual__image--cover',
   ]
 
 })

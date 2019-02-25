@@ -8,6 +8,21 @@ import Consumer from "fusion:consumer";
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 
+import { FormatClassName } from '../../../../resources/utilsJs/utilities'
+
+const classes = FormatClassName({
+  news: [
+    'col-3',
+    'padding-normal',
+    'bg-color--white'
+
+  ],
+  gallery: [
+    'col-3',
+    '_gallery--cover',
+  ]
+
+})
 @Consumer
 class ArticleHeader extends Component {
   render() {
@@ -17,10 +32,10 @@ class ArticleHeader extends Component {
     //console.log(gallery_items); debugger;
     const { content_elements: galleryElements } = (gallery_items && typeof gallery_items.gallery !== "undefined") ?  gallery_items.gallery:'';
 
-    console.log(contentElements);debugger;
+    //console.log(contentElements);debugger;
     return (
       <Fragment>
-        <div className={(typeof galleryElements ===  "undefined") ? ' col-3' : 'col-3 _gallery'}>
+        <div className={(typeof galleryElements ===  "undefined") ? classes.news : classes.gallery}>
           <Heading />
           <Subheading />
           <Share url={baseUrl} title={title} />
