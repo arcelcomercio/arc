@@ -124,15 +124,15 @@ class Header extends Component {
 
     lista = () => {
         return this.state.temas.map( (tag, index) =>{
-            return <li className={classes.headerFeaturedItem} key={index}>{tag.display_name}</li>
+            return(
+                <li className={classes.headerFeaturedItem} key={index}>
+                    <a href={tag.url}>{tag.display_name}</a>
+                </li>)
         })
     }
     
     componentDidMount() {
         window.addEventListener('resize', this.handleResize);
-        console.log("INICIO componentDidMount")
-        console.log(this.state.temas)
-        console.log("FIN componentDidMount")
     }
 
     render() {

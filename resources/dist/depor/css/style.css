@@ -290,6 +290,17 @@ body {
 }
 .header__featured__item:first-child {
   color: #FF0000;
+  font-weight: bold;
+}
+.header__featured__item :hover {
+  text-decoration: none;
+}
+.header__featured a {
+  text-decoration: none;
+  color: #1F1F1F;
+}
+.header__featured :hover {
+  color: #FF0000;
 }
 .footer-top {
   padding: 60px 17px 65px;

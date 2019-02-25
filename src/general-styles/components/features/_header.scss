@@ -32,7 +32,18 @@
 
             &:first-child {
                 color: $color-error;
+                font-weight: bold;
             }
+            :hover{
+                text-decoration: none;
+            }
+        }
+        a {
+            text-decoration: none;
+            color: $color-dark;
+        }
+        :hover{
+            color: $color-error;
         }
     }
 }
