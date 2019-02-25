@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 
 const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
   return (
-    <div className={"lista-header " + background}>
-      <div className="title">
+    <div className={"List__Header " + background}>
+      <div className="List__title">
         <h4>{titleList} </h4>
       </div>
       {seeMore && <SeeMore seeMoreurl={seeMoreurl} />}
@@ -16,7 +16,7 @@ const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
 };
 
 const SeeMore = ({ seeMoreurl }) => (
-  <div className="more-news">
+  <div className="List__more__news">
     <a href={seeMoreurl}>
       <h4>ver mas</h4>
     </a>
@@ -70,7 +70,7 @@ const ItemNews = ({
 };
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
   let classListItems =
-    listNews.length > 3 ? "list-news-items scrol" : "list-news-items";
+    listNews.length > 3 ? "list-news-items scrol-horizontal" : "list-news-items";
   //let nuevalista =[];
 
   return (
@@ -135,7 +135,7 @@ class Lista extends Component {
   }
 
   componentDidMount = () => {
-    debugger
+    
     const { fetched } = this.getContent(
       "get-lis-news",
       {
@@ -214,15 +214,15 @@ Lista.propTypes = {
     // }),
     secction: PropTypes.string.isRequired.tag({ name: "Sección" }),
     background: PropTypes.oneOf([
-      "color-backgroud-light-blue",
-      "color-backgroud-white"
+      "bg-color--lightblue",
+      "bg-color--white"
     ]).tag({
       name: "Color de fondo cabecera",
       labels: {
-        "color-backgroud-light-blue": "celeste",
-        "color-backgroud-white": "blanco"
+        "bg-color--lightblue": "celeste",
+        "bg-color--white": "blanco"
       },
-      defaultValue: "color-backgroud-light-blue"
+      defaultValue: "bg-color--lightblue"
     }),
 
     titleList: PropTypes.string.isRequired.tag({ name: "Título de la lista" }),

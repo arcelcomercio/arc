@@ -1,20 +1,11 @@
 .List {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    height: 100%;
-    margin: 10px;
-  }
-  
-  /* colores de fondo */
-  .List .color-backgroud-light-blue {
-    background-color: #d5e5ed;
-  }
-  .List .color-backgroud-white {
-    background-color: #ffffff;
-  }
-  /* estilos del header */
-  .List .lista-header {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  margin: 10px;
+
+  &__Header {
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -22,10 +13,8 @@
     width: auto;
     height: 50px;
     padding: 0px 20px 0px 10px;
-    /* margin-bottom: 15px; */
   }
-  
-  .List .lista-header .title {
+  &__title {
     height: 100%;
     min-width: 10%;
     max-width: 60%;
@@ -33,7 +22,7 @@
     flex-direction: column;
     justify-content: center;
   }
-  .List .lista-header .more-news {
+  &__more__news {
     align-self: center;
     flex-direction: column;
     justify-content: center;
@@ -43,56 +32,54 @@
     height: 25px;
     display: flex;
   }
-  
-  .List .lista-header .more-news a {
-    color: #999;
-    text-decoration: none;
-  }
-  
-  .List .list-news-items{
-    background: #ffffff;
-    height: calc(100% - 70px);
-  }
-  .List .scrol{
-    overflow-y: scroll;
-  }
-  
-  .List .list-news-items .item-news {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    padding: 10px 10px 10px 10px;
-    border-bottom: 1px solid #d5e1e1;
-  
-  }
-  
-  .List .list-news-items .item-news figure picture img{
-    width: 100%;
-  }
-  .List .list-news-items .item-news .time {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 16px;
-    line-height: 19.2px;
-    color: #333;
-  }
-  
-  .List .list-news-items .item-news .page-link {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    margin: 2px 0px 2px 0px;
-  }
-  .List .list-news-items .item-news .page-link h3 {
-    font-size: 15px;
-    color: #4c4c4c;
-    margin: 0px;
-  }
-  
-  .List .list-news-items .item-news .page-link a {
-    text-decoration: none;
-  }
-  .List .list-news-items .item-news .page-link a:hover {
-    text-decoration:underline;
-  }
+}
+
+
+.List .lista-header .more-news a {
+  color: #999;
+  text-decoration: none;
+}
+
+.List .list-news-items {
+  background: #ffffff;
+  max-height: 300px;
+}
+
+.List .list-news-items .item-news {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  padding: 10px 10px 10px 10px;
+  border-bottom: 1px solid #d5e1e1;
+}
+
+.List .list-news-items .item-news figure picture img {
+  width: 100%;
+}
+.List .list-news-items .item-news .time {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 19.2px;
+  color: #333;
+}
+
+.List .list-news-items .item-news .page-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin: 2px 0px 2px 0px;
+}
+.List .list-news-items .item-news .page-link h3 {
+  font-size: 15px;
+  color: #4c4c4c;
+  margin: 0px;
+}
+
+.List .list-news-items .item-news .page-link a {
+  text-decoration: none;
+}
+.List .list-news-items .item-news .page-link a:hover {
+  text-decoration: underline;
+}
