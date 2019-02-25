@@ -135,7 +135,7 @@ class Lista extends Component {
   }
 
   componentDidMount = () => {
-    debugger
+    
     const { fetched } = this.getContent(
       "get-lis-news",
       {

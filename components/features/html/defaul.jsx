@@ -1,30 +1,24 @@
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
-// import './default.scss'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+
 @Consumer
 class Html extends Component {
-
-  createMarkup(html) {
-    return { __html: html };
-  }
-
   render() {
-
-    return (
-      <div
-        dangerouslySetInnerHTML={this.createMarkup(this.props.customFields.freeHtml)}>
-      </div>
-    )
+    const { customFields } = this.props
+    const createMarkup = html => {
+      return { __html: html }
+    }
+    return <div dangerouslySetInnerHTML={createMarkup(customFields.freeHtml)} />
   }
 }
 
 Html.propTypes = {
   customFields: PropTypes.shape({
     freeHtml: PropTypes.richtext.tag({
-      name: "Código HTML"
-    })
-  })
-};
+      name: 'Código HTML',
+    }),
+  }),
+}
 
 export default Html
