@@ -1,0 +1,64 @@
+//Triplete
+.triplete {
+    border-style: solid;
+    border-width: 1px;
+    //background-color: $color-white;
+    border-color: $color-silver;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    &__item {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 80px 1fr;
+        padding: 15px;
+        border-bottom: 1px solid $color-silver;
+
+        img{
+            height: 100%;
+        }
+        &:last-child {
+            border-bottom: 0px;
+        }
+        &__title {
+            grid-area: triplete__item__title;
+            //font-size: 1em;
+            font-weight: bold;
+            overflow: hidden;
+        }
+        &__multimedia {
+            grid-area: triplete__item__multimedia;
+
+            img{
+                width: 100%;
+            }
+        }
+        &__author {
+            grid-area: triplete__item__author;
+            text-transform: uppercase;
+            font-size: 0.7em;
+            color: $color-silver;
+            padding-top: 10px;
+        }
+        &--multimedia-right {
+            grid-template-areas: 
+            "triplete__item__title triplete__item__multimedia"
+            "triplete__item__author triplete__item__author";
+    
+            figure {
+                padding-left: 10%;
+            }
+        }
+        &--multimedia-left {
+            grid-template-areas: 
+            "triplete__item__multimedia triplete__item__title"
+            "triplete__item__author triplete__item__author";
+    
+            figure {
+                padding-right: 10%;
+            }
+        }
+    }
+}
