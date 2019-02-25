@@ -1,13 +1,39 @@
 import Consumer from "fusion:consumer";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { FormatClassName } from './../../../resources/utilsJs/utilities';
 
 //import "./lista.css";
-
+const classes = FormatClassName({
+  lista:[
+    'List'
+  ],
+  header: [
+    'List__Header'
+  ],
+  title:[
+    "List__title"
+  ],
+  moreNews:[
+    "List__more__news"
+  ],
+  listItem:[
+    "List__listItems "
+  ],
+  itemNews:[
+    "List__item__news"
+  ],
+  time:[
+    "List__time"
+  ],
+  pageLink:[
+    "List__page__link"
+  ]
+});
 const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
   return (
-    <div className={"List__Header " + background}>
-      <div className="List__title">
+    <div className={classes.header +' '+ background}>
+      <div className={classes.title} >
         <h4>{titleList} </h4>
       </div>
       {seeMore && <SeeMore seeMoreurl={seeMoreurl} />}
@@ -16,7 +42,7 @@ const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
 };
 
 const SeeMore = ({ seeMoreurl }) => (
-  <div className="List__more__news">
+  <div className={classes.moreNews} >
     <a href={seeMoreurl}>
       <h4>ver mas</h4>
     </a>
@@ -55,12 +81,12 @@ const ItemNews = ({
   promo_items
 }) => {
   return (
-    <article className="List__item__news">
+    <article className={classes.itemNews}>
       {seeImageNews && (
         <ImageNews urlNews={urlNews} promo_items={promo_items} />
       )}
       {seeHour && <TimeItem time={time} />}
-      <div className="List__page__link">
+      <div className={classes.pageLink}>
         <a href={urlNews}>
           <h3 className="bold">{title}</h3>
         </a>
@@ -70,7 +96,7 @@ const ItemNews = ({
 };
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
   let classListItems =
-    listNews.length > 3 ? "List__listItems scrol-horizontal" : "list-news-items";
+    listNews.length > 3 ? classes.listItem+" scrol-horizontal" : classes.listItem;
   //let nuevalista =[];
 
   return (
@@ -184,7 +210,7 @@ class Lista extends Component {
 
   render() {
     return (
-      <div className="List">
+      <div className={classes.lista}>
         <HeaderList
           titleList={this.state.titleList}
           background={this.state.background}
