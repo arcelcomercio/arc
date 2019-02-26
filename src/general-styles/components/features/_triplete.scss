@@ -22,48 +22,49 @@
         &:last-child {
             border-bottom: 0px;
         }
-        &__title {
-            grid-area: triplete__item__title;
-            //font-size: 1em;
-            font-weight: bold;
-            overflow: hidden;
-        }
-        &__multimedia {
-            grid-area: triplete__item__multimedia;
-
-            img{
-                width: 100%;
-            }
-        }
-        &__author {
-            grid-area: triplete__item__author;
-            text-transform: uppercase;
-            font-size: 0.7em;
-            color: $color-silver;
-            padding-top: 10px;
-        }
         &--multimedia-right {
             grid-template-areas: 
-            "triplete__item__title triplete__item__multimedia"
-            "triplete__item__author triplete__item__author";
+            "triplete__title triplete__multimedia"
+            "triplete__author triplete__author";
     
-            figure {
+            & figure {
                 padding-left: 10%;
             }
         }
         &--multimedia-left {
             grid-template-areas: 
-            "triplete__item__multimedia triplete__item__title"
-            "triplete__item__author triplete__item__author";
+            "triplete__multimedia triplete__title"
+            "triplete__author triplete__author";
     
-            figure {
+            & figure {
                 padding-right: 10%;
             }
         }
     }
+    &__title {
+        grid-area: triplete__title;
+        //font-size: 1em;
+        font-weight: bold;
+        overflow: hidden;
+    }
+    &__multimedia {
+        grid-area: triplete__multimedia;
 
-    .triplete__icon {
-        background-color: rgba(255,255,255,0.5);
+        img{
+            width: 100%;
+        }
+    }
+    &__author {
+        grid-area: triplete__author;
+        text-transform: uppercase;
+        font-size: 0.7em;
+        color: $color-silver;
+        padding-top: 10px;
+    }
+    &__box-icon {
+        background-color: $color-white;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
         border-radius: 50%;
         color: #444;
         pointer-events: none;
@@ -73,25 +74,21 @@
         top: 30px;
         z-index: 1;
 
-        .triplete__icon--play {
+        .triplete__icon {
             display: table-cell;
             height: 40px;
             vertical-align: middle;
             width: 40px;
 
-            &:before {
-                content: 'v'
+            &--play {
+                &:before {
+                    content: 'v'
+                }
             }
-        }
-
-        .triplete__icon--gallery {
-            display: table-cell;
-            height: 40px;
-            vertical-align: middle;
-            width: 40px;
-
-            &:before {
-                content: 'g'
+            &--gallery {
+                &:before {
+                    content: 'g'
+                }
             }
         }
     }
