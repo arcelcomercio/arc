@@ -383,6 +383,9 @@ body {
   color: #f7c600;
   height: inherit;
 }
+.nav__btn--search {
+  display: none;
+}
 .nav__btn--search.active {
   right: 4px;
   top: 50%;
@@ -391,6 +394,9 @@ body {
   padding: 5px 5px;
   background: transparent;
   position: absolute;
+}
+.nav__btn--section span {
+  display: none;
 }
 .nav__list {
   padding: 0 5px;
@@ -413,6 +419,12 @@ body {
   width: 100px;
   height: 30px;
   border-radius: 4px;
+}
+.nav__header-sub {
+  display: none;
+}
+.nav__header-login {
+  background-color: #fff;
 }
 .nav__form {
   position: relative;
@@ -1329,6 +1341,13 @@ body {
   .no-desktop {
     display: none;
   }
+  .nav__btn--section span {
+    display: inline;
+    margin-left: 8px;
+  }
+  .nav__header-sub {
+    display: inline-block;
+  }
 }
 @media screen and (min-width: 1024px) {
   .content-layout {
@@ -1356,6 +1375,9 @@ body {
   .col-3 {
     -ms-grid-column-span: 3;
     grid-column: span 3;
+  }
+  .nav__btn--search {
+    display: flex;
   }
   .nav__list.active {
     display: flex;
