@@ -54,8 +54,8 @@ class PieDePagina extends Component {
     this.setState({
       legalList: [],
     })
-    this.fetchByHierarchy('footer-legal-links')
-    this.fetchByHierarchy('footer-sections')
+    this.fetchByHierarchy('Navegacion-Pie_de_pagina-Contacto')
+    this.fetchByHierarchy('Navegacion-Pie_de_pagina-secciones')
   }
 
   setDevice = () => {
@@ -112,10 +112,10 @@ class PieDePagina extends Component {
         }
       })
       switch (hierarchy) {
-        case 'footer-legal-links':
+        case 'Navegacion-Pie_de_pagina-Contacto':
           this.setState({ legalList: auxList })
           break
-        case 'footer-sections':
+        case 'Navegacion-Pie_de_pagina-secciones':
           this.setState({ sectionsList: auxList })
           break
         default:
