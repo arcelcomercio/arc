@@ -10,7 +10,8 @@
         "customValidators": "customValidator"
       }
     ],
-    "react/require-default-props": ["disabled"]
+    "react/require-default-props": ["disabled"],
+    "no-underscore-dangle": "off"
   },
   "globals": {
     "document": true,

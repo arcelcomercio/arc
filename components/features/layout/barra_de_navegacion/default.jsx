@@ -4,68 +4,27 @@ import Button from '../../../../resources/components/button'
 import NavSidebar from './_children/nav-sidebar'
 
 const classes = {
-  nav: `
-    nav 
-    full-width 
-    flex 
-    flex-center-vertical`,
-  navWrapper: `
-    flex-center-vertical 
-    flex--justify-between 
-    nav__wrapper 
-    full-width 
-    height-inherit 
-    `,
-  navForm: `nav__form flex`,
-  navSearch: `nav__input-search`,
-  navButtonSearch: `
-    flex-center-vertical 
-    btn nav__btn
-    nav__btn--search`,
-  navButtonSection: `
-    flex-center-vertical 
-    btn nav__btn
-    nav__btn--section`,
-  navButtonIconSearch: `
-    icon icon--search`,
-  navButtonIconMenu: `
-    icon icon--menu`,
-  navButtonContainer: `
-    flex-center-vertical
-    flex--justify-start
-    height-inherit`,
-  navList: `
-    flex-center-vertical 
-    flex--justify-start
-    flex-1 
-    nav__list 
-    height-inherit`,
-  navListItem: ` 
-    height-inherit`,
-  navListLink: `
-    flex-center-vertical
-    nav__list-link
-    height-inherit`,
-  navLogo: `
-    nav__logo`,
-  navAds: `
-    nav__ads`,
-  headerButtonContainer: `
-    flex-center-vertical
-    flex--justify-end
-    header__main__btn-container`,
-  headerBtnLogin: `
-    flex-center-vertical 
-    btn bg-color--white,
-    nav__header-login`,
-  headerBtnSubscribe: `
-    flex-center-vertical 
-    btn 
-    bg-color--link
-    nav__header-sub
-    `,
-  headerBtnIconLogin: `
-    icon icon--login`,
+  nav: 'nav full-width flex flex-center-vertical',
+  navWrapper:
+    'flex-center-vertical flex--justify-between nav__wrapper full-width height-inherit',
+  navForm: 'nav__form flex',
+  navSearch: 'nav__input-search',
+  navBtnContainer: 'flex-center-vertical flex--justify-start height-inherit',
+  navBtnSearch: 'flex-center-vertical btn nav__btn nav__btn--search',
+  navBtnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
+  navBtnIconSearch: 'icon icon--search',
+  navBtnIconMenu: 'icon icon--menu',
+  navList:
+    'flex-center-vertical flex--justify-start flex-1 nav__list height-inherit',
+  navListItem: 'height-inherit',
+  navListLink: 'flex-center-vertical nav__list-link height-inherit',
+  navLogo: 'nav__logo',
+  navAds: 'nav__ads',
+  headerBtnContainer:
+    'flex-center-vertical flex--justify-end header__btn-container',
+  headerBtnLogin: 'flex-center-vertical btn bg-color--white nav__header-login',
+  headerBtnSubscribe: 'flex-center-vertical btn bg-color--link nav__header-sub',
+  headerBtnIconLogin: 'icon icon--login',
 }
 
 @Consumer
@@ -85,11 +44,11 @@ class Nav extends Component {
 
   componentDidMount() {
     const { device } = this.state
-    this.addEventListener('displayChange', this.handleDevice)
+    this.addEventListener('displayChange', this._handleDevice)
 
     // ------ Sets scroll eventListener if device is desktop
     if (device === 'desktop')
-      window.addEventListener('scroll', this.handleScroll)
+      window.addEventListener('scroll', this._handleScroll)
     this.fetch()
   }
 
@@ -119,7 +78,7 @@ class Nav extends Component {
     const { statusSearch } = this.state
     return statusSearch
       ? this.findSearch
-      : this.handleToggleSectionsElement('statusSearch')
+      : this._handleToggleSectionsElement('statusSearch')
   }
 
   // Open search and automatic focus input
@@ -145,7 +104,7 @@ class Nav extends Component {
     }
   }
 
-  handleScroll = () => {
+  _handleScroll = () => {
     const { scrolled } = this.state
 
     // ------ Logic to set state to hide or show logo in navbar
@@ -162,7 +121,7 @@ class Nav extends Component {
   }
 
   // Open - Close Search
-  handleToggleSectionsElement = element => {
+  _handleToggleSectionsElement = element => {
     // eslint-disable-next-line no-unused-vars
     return e => {
       const { statusSidebar, statusSearch } = this.state
@@ -188,7 +147,7 @@ class Nav extends Component {
   }
 
   // Close Search
-  handleCloseSectionsSearch = () => {
+  _handleCloseSectionsSearch = () => {
     setTimeout(() => {
       this.setState({
         statusSearch: false,
@@ -197,15 +156,15 @@ class Nav extends Component {
   }
 
   // ------ Sets the new device state when the listener is activated
-  handleDevice = device => {
+  _handleDevice = device => {
     this.setState({
       device,
     })
-    this.handleScroll()
+    this._handleScroll()
     // ------ Add or remove Scroll eventListener on resize
     if (device === 'desktop')
-      window.addEventListener('scroll', this.handleScroll)
-    else window.removeEventListener('scroll', this.handleScroll)
+      window.addEventListener('scroll', this._handleScroll)
+    else window.removeEventListener('scroll', this._handleScroll)
   }
 
   // ------ Fetchs the sections data from site-navigation API
@@ -261,7 +220,7 @@ class Nav extends Component {
         <div className={classes.navWrapper}>
           {/** ************* LEFT *************** */}
 
-          <div className={classes.navButtonContainer}>
+          <div className={classes.navBtnContainer}>
             <Fragment>
               <form
                 className={classes.navForm}
@@ -270,22 +229,22 @@ class Nav extends Component {
                 <input
                   ref={this.inputSearch}
                   type="search"
-                  onBlur={this.handleCloseSectionsSearch}
+                  onBlur={this._handleCloseSectionsSearch}
                   onKeyUp={this.watchKeys}
                   placeholder="Buscar"
                   className={`${classes.navSearch} ${this.activeSearch()}`}
                 />
                 <Button
-                  iconClass={classes.navButtonIconSearch}
-                  btnClass={`${classes.navButtonSearch} ${this.activeSearch()}`}
+                  iconClass={classes.navBtnIconSearch}
+                  btnClass={`${classes.navBtnSearch} ${this.activeSearch()}`}
                   onClick={this.optionButtonClick()}
                 />
               </form>
               <Button
-                iconClass={classes.navButtonIconMenu}
-                btnClass={classes.navButtonSection}
+                iconClass={classes.navBtnIconMenu}
+                btnClass={classes.navBtnSection}
                 btnText="Secciones"
-                onClick={this.handleToggleSectionsElement('statusSidebar')}
+                onClick={this._handleToggleSectionsElement('statusSidebar')}
               />
             </Fragment>
           </div>
@@ -294,7 +253,7 @@ class Nav extends Component {
 
           <ul className={`${classes.navList} ${scrolled ? '' : 'active'}`}>
             {sections
-              ? sections.map(({ name, _id: id }) => {
+              ? sections.slice(0, 3).map(({ name, _id: id }) => {
                   return (
                     <li key={id} className={classes.navListItem}>
                       <a href={id} className={classes.navListLink}>
@@ -315,12 +274,12 @@ class Nav extends Component {
           {/** ************* RIGHT *************** */}
 
           {device === 'desktop' ? (
-            <div className={classes.navButtonContainer}>
+            <div className={classes.navBtnContainer}>
               <div id="ads_d_zocaloNav1" className={classes.navAds} />
               <div id="ads_d_zocaloNav2" className={classes.navAds} />
             </div>
           ) : (
-            <div className={classes.headerButtonContainer}>
+            <div className={classes.headerBtnContainer}>
               <Button
                 iconClass={classes.headerBtnIconLogin}
                 btnClass={classes.headerBtnLogin}

@@ -1,31 +1,23 @@
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-const classes = FormatClassName({
-  footerContainer: ['margin-top'],
-  footerTop: ['flex', 'flex--justify-center', 'footer-top'],
-  footerTopColumn: ['footer-top__col'],
-  footerSiteLogo: ['footer-top__col__site-logo'],
-  footerSiteLegal: [
-    'flex',
-    'flex--column',
-    'footer-top__col__ul',
-    'footer-top__col__site-legal',
-  ],
-  footerTopMenus: [
-    'flex',
-    'flex--column',
-    'footer-top__col__ul',
-    'footer-top__col__menus',
-  ],
-  footerBottom: ['flex', 'flex--justify-center', 'footer-bot'],
-  footerBottomList: ['flex', 'flex--justify-center'],
-})
+const classes = {
+  footerContainer: 'margin-top',
+  footerTop: 'flex flex--justify-center footer-top',
+  footerTopColumn: 'footer-top__col',
+  footerSiteLogo: 'footer-top__col__site-logo',
+  footerSiteLegal:
+    'flex flex--column footer-top__col__ul footer-top__col__site-legal',
+  footerTopMenus:
+    'flex flex--column footer-top__col__ul footer-top__col__menus',
+  footerBottom: 'flex flex--justify-center footer-bot',
+  footerBottomList: 'flex flex--justify-center',
+}
 
 @Consumer
-class Footer extends Component {
+class LayoutFooter extends Component {
   constructor(props) {
     super(props)
     this.state = { menus: [] }
@@ -37,7 +29,7 @@ class Footer extends Component {
     // take only section's name
     const { fetched } = this.getContent(
       'site-navigation',
-      { website: arcSite },
+      { website: this.props.arcSite },
       '{ children { name } }'
     )
     fetched.then(response => {
@@ -49,7 +41,7 @@ class Footer extends Component {
   castSection(res) {
     const { siteProperties } = this.props
     // temporary menus footer data
-    let { menus } = siteProperties.footer
+    let { menus } = this.props.siteProperties.footer
     // temporary structure
     const auxMenu = { title: '', path: '', list: [] }
     if (res) {
@@ -66,16 +58,16 @@ class Footer extends Component {
   }
 
   render() {
-    const { siteProperties } = this.props
     const {
       background,
       img,
       info,
+      menus,
       titleColor,
       textColor,
       gecColor,
-    } = siteProperties.footer
-    const { gecSites, siteUrl } = siteProperties
+    } = this.props.siteProperties.footer
+    const { gecSites, siteUrl } = this.props.siteProperties
     const styles = {
       container: {
         backgroundColor: background,
@@ -92,7 +84,6 @@ class Footer extends Component {
         color: gecColor,
       },
     }
-    const { menus } = this.state
     return (
       <footer className={classes.footerContainer}>
         <div className={classes.footerTop} style={styles.container}>
@@ -102,27 +93,24 @@ class Footer extends Component {
             </a>
             <ul className={classes.footerSiteLegal}>
               {info.map((el, k) => (
-                // eslint-disable-next-line react/no-array-index-key
                 <li key={k} style={styles.textColor}>
                   {el}
                 </li>
               ))}
             </ul>
           </div>
-          {menus.map((el, keyID) => {
+          {this.state.menus.map((el, keyID) => {
             return (
-              // eslint-disable-next-line react/no-array-index-key
               <div className={classes.footerTopColumn} key={keyID}>
                 <ul className={classes.footerTopMenus}>
                   <li>
-                    <a style={styles.titleColor} href>
+                    <a style={styles.titleColor} href="">
                       {el.title}
                     </a>
                   </li>
                   {el.list.map((e, key) => (
-                    // eslint-disable-next-line react/no-array-index-key
                     <li key={key}>
-                      <a style={styles.textColor} href>
+                      <a style={styles.textColor} href="">
                         {e.name}
                       </a>
                     </li>
@@ -153,4 +141,4 @@ class Footer extends Component {
   }
 }
 
-export default Footer
+export default LayoutFooter
