@@ -1,73 +1,72 @@
 .margin-top {
-    margin-top: $spacingNormal;
+  margin-top: $spacingNormal;
 }
 
 .padding-normal {
-    padding: $spacingNormal;
+  padding: $spacingNormal;
 }
 
 .no-desktop,
-[id^='ads_m'] {
-    @media (--tablet) {
-        display: none;
-    }
+[id^='ads-m'] {
+  @media (--tablet) {
+    display: none;
+  }
 }
 
 .no-mobile,
-[id^='ads_d'] {
-    @media screen and (max-width: 639px) {
-        display: none;
-    }
+[id^='ads-d'] {
+  @media screen and (max-width: 639px) {
+    display: none;
+  }
 }
 
 .block {
-    display: block;
+  display: block;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .full-width {
-    width: 100%;
+  width: 100%;
 }
 
 .height-inherit {
-    height: inherit;
+  height: inherit;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .text-left {
-    text-align: left;
+  text-align: left;
 }
 
 .text-right {
-    text-align: right;
+  text-align: right;
 }
-
 
 /******* Background-text contrast *******/
 .bg-color--link {
-    background-color: $color-link;
-    color: $color-white;
+  background-color: $color-link;
+  color: $color-white;
 }
 
 .bg-color--white {
-    background-color: $color-white;
-    color: $color-dark;
+  background-color: $color-white;
+  color: $color-dark;
 }
 
 .bg-color--error {
-    background-color: $color-error;
-    color: $color-white;
+  background-color: $color-error;
+  color: $color-white;
 }
 
 .bg-color--dark {
-    background-color: $color-dark;
-    color: $color-white;
+  background-color: $color-dark;
+  color: $color-white;
 }
 
 /*-----------------------*/

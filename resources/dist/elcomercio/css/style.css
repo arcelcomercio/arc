@@ -1468,7 +1468,7 @@ body {
     grid-column: span 2;
   }
   .no-desktop,
-[id^=ads_m] {
+[id^=ads-m] {
     display: none;
   }
   .nav__btn--section span {
@@ -1575,7 +1575,7 @@ body {
 }
 @media screen and (max-width: 639px) {
   .no-mobile,
-[id^=ads_d] {
+[id^=ads-d] {
     display: none;
   }
 }
