@@ -117,7 +117,7 @@ class Nav extends Component {
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
     const { statusSearch } = this.state
-    return statusSearch ? this.foundSearch : this.handleToggleSectionsSearch
+    return statusSearch ? this.findSearch : this.handleToggleSectionsSearch
   }
 
   // Open search and automatic focus input
@@ -126,9 +126,11 @@ class Nav extends Component {
   }
 
   // set Query search and location replace
-  foundSearch = () => {
+  findSearch = () => {
     const { value } = this.inputSearch.current
-    location.href = `${location.pathname}?query=${value}`
+    if(value !== ''){
+      location.href = `${location.pathname}?query=${value}`
+    }
   }
 
   // Active find with enter key
@@ -136,7 +138,7 @@ class Nav extends Component {
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
-      this.foundSearch()
+      this.findSearch()
     }
   }
 
@@ -263,7 +265,7 @@ class Nav extends Component {
 
           <div className={classes.navButtonContainer}>
             <Fragment>
-              <form className={classes.navForm}>
+              <form className={classes.navForm} onSubmit={(e) => e.preventDefault()}>
                 <input
                   ref={this.inputSearch}
                   type="search"
