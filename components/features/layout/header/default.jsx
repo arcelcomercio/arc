@@ -2,6 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import Button from '../../../../resources/components/button'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
+import { hResize} from '../../../../resources/utilsJs/prueba'
 
 
 const classes = FormatClassName({
@@ -40,7 +41,7 @@ const classes = FormatClassName({
         'header__featured',
         'bg-color--white'
     ],
-    headerFeaturedItem:  [
+    headerFeaturedItem: [
         'flex-center',
         'header__featured__item'
     ],
@@ -53,12 +54,12 @@ const classes = FormatClassName({
 
 @Consumer
 class Header extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         //------ Checks if you are in desktop or not
         this.state = {
             device: this.setDevice(),
-            temas:[]
+            temas: []
         };
         this.fetch();
     }
@@ -66,109 +67,117 @@ class Header extends Component {
     setDevice = () => {
         const wsize = window.innerWidth
 
-        if(wsize < 640) {
+        if (wsize < 640) {
             return 'mobile'
-        } else if(wsize >= 640 && wsize < 1024){ 
+        } else if (wsize >= 640 && wsize < 1024) {
             return 'tablet'
         } else {
             return 'desktop'
-        }   
-    }
-
-    handleResize = () => {
-        const wsize = window.innerWidth
-
-        //------ Set the new state if you change from mobile to desktop
-        if(wsize >= 1024 && this.state.device !== 'desktop') {
-            this.setState({
-                device: 'desktop'
-            });
-            this.dispatchEvent('displayChange', this.state.device)
-        } else {
-            //------ Set the new state if you change from desktop to mobile
-            if(wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
-                this.setState({
-                    device: 'tablet'
-                });
-                this.dispatchEvent('displayChange', this.state.device)
-            } else {
-                //------ Set the new state if you change from desktop to mobile
-                if(wsize < 640 && this.state.device !== 'mobile') {
-                    this.setState({
-                        device: 'mobile'
-                    });
-                    this.dispatchEvent('displayChange', this.state.device)
-                }
-            }
         }
     }
 
+    // handleResize = () => {
+    //     const wsize = window.innerWidth
+
+    //     //------ Set the new state if you change from mobile to desktop
+    //     if (wsize >= 1024 && this.state.device !== 'desktop') {
+    //         this.setState({
+    //             device: 'desktop'
+    //         });
+    //         console.log("desktop")
+    //         this.dispatchEvent('displayChange', this.state.device)
+    //     } else {
+    //         //------ Set the new state if you change from desktop to mobile
+    //         if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
+    //             this.setState({
+    //                 device: 'tablet'
+    //             });
+    //             console.log("tablet")
+    //             this.dispatchEvent('displayChange', this.state.device)
+    //         } else {
+    //             //------ Set the new state if you change from desktop to mobile
+    //             if (wsize < 640 && this.state.device !== 'mobile') {
+    //                 this.setState({
+    //                     device: 'mobile'
+    //                 });
+    //                 console.log("mobile")
+    //                 this.dispatchEvent('displayChange', this.state.device)
+    //             }
+    //         }
+    //     }
+    // }
+
     fechaActual = () => {
         let ndate = new Date();
-        let arrayMeses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];        
+        let arrayMeses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
         return `${ndate.getDate()} de ${arrayMeses[ndate.getMonth()]}, ${ndate.getFullYear()}`;
     }
 
-    
+
     fetch = () => {
-        let { fetched } = this.getContent('get-temas-del-dia', { website: this.props.arcSite, hierarchy:'navegacion-cabecera-tema-del-dia'});
-        
-        fetched.then( data => {
+        let { fetched } = this.getContent('get-temas-del-dia', { website: this.props.arcSite, hierarchy: 'navegacion-cabecera-tema-del-dia' });
+
+        fetched.then(data => {
             this.setState({
                 temas: data.children
             })
         });
-
     }
 
     lista = () => {
-        return this.state.temas.map( (tag, index) =>{
-            return(
+        return this.state.temas.map((tag, index) => {
+            return (
                 <li className={classes.headerFeaturedItem} key={index}>
                     <a href={tag.url}>{tag.display_name}</a>
                 </li>)
         })
     }
-    
+
     componentDidMount() {
-        window.addEventListener('resize', this.handleResize);
+        const dev =  this.state.device;
+        const size = window.innerWidth;
+        console.log("componentDidMount")
+        {this.state.device && hResize(dev,size)}
+        console.log(`resultado ${resultado}`)
+        //window.addEventListener('resize', handleResize(dev,size));
+        //window.addEventListener('resize', this.handleResize);
     }
 
     render() {
         return (this.state.temas[0] &&
             this.state.device === 'desktop' ?
-                <header className={classes.header} >
-                    <div className={classes.headerMain}>
-                        <span>{this.fechaActual()}</span>
-                        <img 
-                            src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} 
-                            alt={`Logo de ${this.props.arcSite}`}
-                            className={classes.headerLogo}
+            <header className={classes.header} >
+                <div className={classes.headerMain}>
+                    <span>{this.fechaActual()}</span>
+                    <img
+                        src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`}
+                        alt={`Logo de ${this.props.arcSite}`}
+                        className={classes.headerLogo}
+                    />
+                    <div className={classes.headerBtnContainer}>
+                        <Button
+                            iconClass={classes.headerBtnIconLogin}
+                            btnText='Ingresar'
+                            btnClass={classes.headerBtnLogin}
+                            btnLink='#'
                         />
-                        <div className={classes.headerBtnContainer}>
-                            <Button
-                                iconClass={classes.headerBtnIconLogin}
-                                btnText='Ingresar'
-                                btnClass={classes.headerBtnLogin}
-                                btnLink='#'
-                            />
-                            <Button
-                                btnText='Suscríbete'
-                                btnClass={classes.headerBtnSubscribe}
-                                btnLink='#'x
-                            />
-                        </div>
+                        <Button
+                            btnText='Suscríbete'
+                            btnClass={classes.headerBtnSubscribe}
+                            btnLink='#' x
+                        />
                     </div>
+                </div>
 
-                    <ul className={classes.headerFeatured}>
-                        <li className={classes.headerFeaturedItem}>
-                            <i className={classes.headerFeaturedItemIcon}></i>
-                            LOS TEMAS DE HOY 
+                <ul className={classes.headerFeatured}>
+                    <li className={classes.headerFeaturedItem}>
+                        <i className={classes.headerFeaturedItemIcon}></i>
+                        LOS TEMAS DE HOY
                         </li>
-                        {this.state.temas[0] && this.lista()}
-                    </ul>    
-                </header>
+                    {this.state.temas[0] && this.lista()}
+                </ul>
+            </header>
             : null
         )
     }
