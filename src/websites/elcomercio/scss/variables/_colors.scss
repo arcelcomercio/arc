@@ -1,11 +1,34 @@
-$first-color: #f7c600;
-$second-color: #000;
+/******* Brand colors *******/
+$color-primary: #f7c600;
+$color-secondary: #000;
+/*-----------------------*/
 
+/******* Other colors *******/
 $color-link: #524CFF;
 $color-white: #FFFFFF;
 $color-error: #FF0000;
-$color-dark: #1F1F1F;
+$color-light-blue:#d5e5ed;
+/*-----------------------*/
 
+/******* Grayscale *******/
+$color-black: #000000;
+$color-dark: #1F1F1F;
+$color-gray: #373737;
+$color-silver: #A5A9A9;
+$color-soft: #E7EBED;
+/*-----------------------*/
+
+/******* Header colors *******/
+$header-bg-color: $color-primary;
+$header-text-color: $color-dark;
+
+/*-----------------------*/
+
+/******* Nav colors *******/
+$nav-color: $color-dark;
+/*-----------------------*/
+
+/******* Background-text contrast *******/
 .bg-color--link {
     background-color: $color-link;
     color: $color-white;
@@ -25,3 +48,7 @@ $color-dark: #1F1F1F;
     background-color: $color-dark;
     color: $color-white;
 }
+.bg-color--lightblue{
+    background-color: $color-light-blue;
+}
+/*-----------------------*/

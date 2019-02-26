@@ -1,38 +1,62 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Data from './data'
-//import { FormatClassName } from '../../../../src/utilsJs/utilities'
+import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-//import Consumer from 'fusion:consumer'
-
-/* const styles = FormatClassName({
-    aeContainer: [
-        'apertura-extraordinaria',
+const classes = FormatClassName({
+    ae: [
+        'ae',
+        'padding-normal'
     ],
-}) */
+    aeSection: [
+        'ae__section',
+        'text-center'
+    ],
+    aeContent: [
+        'ae__content'
+    ],
+    aeContentTitle: [
+        'ae__content__title'
+    ],
+    aeContentSubtitle: [
+        'ae__content__subtitle'
+    ],
+    aeContentAuthor: [
+        'ae__content__author'
+    ],
+    aeMultimedia: [
+        'ae__multimedia'
+    ],
+})
 
 //@Consumer
-class Ae extends Component
-{
+class Ae extends Component {
+
     render () {
         const data = new Data(this.props.customFields, this.props.data, this.props.website)
-        
-        return <div className={`apertura-extraordinaria ae-multimedia-${data.multimediaOrientation} ae-text-${data.contentOrientation}`}>
-            <div className='ae-section' {...this.props.editableField("section")}>
-                <a href={data.sectionLink}>{data.section}</a>
-            </div>
-            <div className='ae-content'>
-                <div className='ae-title' {...this.props.editableField("title")}>
-                    <a href={data.link}>{data.title}</a>
+         
+        return  <div className={
+                        `
+                        ${classes.ae} 
+                        ae--multimedia-${data.multimediaOrientation} 
+                        text-${data.contentOrientation}
+                        `
+                    }>
+                    <div className={classes.aeSection}>
+                        <a href={data.sectionLink} {...this.props.editableField("section")}>{data.section}</a>
+                    </div>
+                    <div className={classes.aeContent}>
+                        <div className={classes.aeContentTitle}>
+                            <a href={data.link} {...this.props.editableField("title")}>{data.title}</a>
+                        </div>
+                        <div className={classes.aeContentSubtitle}>
+                            <a href={data.link} {...this.props.editableField("subTitle")}>{data.subTitle}</a>
+                        </div>
+                        <div className={classes.aeContentAuthor}>{data.author}</div>
+                    </div>
+                    <div className={classes.aeMultimedia}>
+                        <img src={data.image} alt={data.title}/>
+                    </div>
                 </div>
-                <div className='ae-subtitle' {...this.props.editableField("subTitle")}>
-                    <a href={data.link}>{data.subTitle}</a>
-                </div>
-                <div className='ae-author'>{data.author}</div>
-            </div>
-            <div className='ae-multimedia'>
-                <img src={data.image} alt=""/>
-            </div>
-        </div>
     }
 }
 

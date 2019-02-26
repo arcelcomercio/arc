@@ -9,7 +9,7 @@ class Heading extends Component {
         return (
             <Fragment>
                 {titleElements &&
-                    <h1 className='flow-title'> {titleElements.basic}</h1>}
+                    <h1 className='news-title'> {titleElements.basic}</h1>}
             </Fragment>
         );
     }

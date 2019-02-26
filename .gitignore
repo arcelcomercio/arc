@@ -10,5 +10,8 @@
 !/data/dumps/.gitkeep
 /data/restore/**
 !/data/restore/.gitkeep
-
 package-lock.json
+/resources/dist/
+
+#files
+*.css

@@ -1,8 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import Ae from './_children/ae'
-import './style.scss'
 
 @Consumer
 class AperturaExtraordinaria extends Component 
@@ -10,6 +9,7 @@ class AperturaExtraordinaria extends Component
     constructor (props) {
         super(props)
         this.state = { data: {} }
+        this.renderCount = 0
         this.fetch()
     }
 
@@ -21,8 +21,6 @@ class AperturaExtraordinaria extends Component
                 this.filterSchema()
             )
             fetched.then(response => {
-                console.log('get-story-by-websiteurl')
-                console.dir(response)
                 this.setState({ data: response })
             })
         }
@@ -57,7 +55,7 @@ class AperturaExtraordinaria extends Component
     }
     
     render(){
-        console.log('this render', this)
+        console.log('apertura extraordinaria render', ++this.renderCount)
         const params = {
             customFields: this.props.customFields,
             data: this.state.data,

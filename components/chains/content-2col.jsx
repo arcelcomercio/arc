@@ -1,7 +1,8 @@
 import React, { Fragment, Component } from 'react'
-import { FormatClassName } from '../../src/utilsJs/utilities'
+import { FormatClassName } from '../../resources/utilsJs/utilities'
+import PropTypes from 'prop-types'
 
-const styles = FormatClassName([
+const classes = FormatClassName([
     //'content--1col',
     //'content--2col',
     'content--grid-base',
@@ -11,14 +12,23 @@ const styles = FormatClassName([
 class Content2Col extends Component {
     render(){
 
-        const { children } = this.props
+        const { children, customFields: { staticHeight } } = this.props
 
         return(
-            <section className={styles}>
+            <section className={`${classes} ${staticHeight && 'row-1'}`}>
                 {children}
             </section>
         )
     }
 }
+
+Content2Col.propTypes = { 
+    customFields: PropTypes.shape({ 
+        staticHeight: PropTypes.bool
+        .tag({ 
+            name: "¿Alto fijo?"
+        }), 
+    }) 
+} 
 
 export default Content2Col;
