@@ -288,19 +288,18 @@ body {
   padding: 8px;
   height: inherit;
 }
+.header__featured__item a {
+  text-decoration: none;
+  color: #1F1F1F;
+  font-size: 1.1rem;
+}
+.header__featured__item :hover {
+  color: #1F1F1F;
+  text-decoration: underline;
+}
 .header__featured__item:first-child {
   color: #FF0000;
   font-weight: bold;
-}
-.header__featured__item :hover {
-  text-decoration: none;
-}
-.header__featured a {
-  text-decoration: none;
-  color: #1F1F1F;
-}
-.header__featured :hover {
-  color: #FF0000;
 }
 .footer-top {
   padding: 60px 17px 65px;

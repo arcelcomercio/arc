@@ -29,21 +29,21 @@
         &__item {
             padding: 8px;
             height: inherit;
+            a {
+                text-decoration: none;
+                color: $color-dark;
+                font-size: .8rem;
+                letter-spacing: .02rem;
+            }
+            :hover{
+                color: $color-dark;
+                text-decoration: underline;
+            }
 
             &:first-child {
                 color: $color-error;
                 font-weight: bold;
             }
-            :hover{
-                text-decoration: none;
-            }
-        }
-        a {
-            text-decoration: none;
-            color: $color-dark;
-        }
-        :hover{
-            color: $color-error;
         }
     }
 }

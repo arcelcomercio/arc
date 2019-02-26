@@ -112,7 +112,7 @@ class Header extends Component {
 
     
     fetch = () => {
-        let { fetched } = this.getContent('get-temas-del-dia', {website: this.props.arcSite});
+        let { fetched } = this.getContent('get-temas-del-dia', { website: this.props.arcSite, hierarchy:'navegacion-cabecera-tema-del-dia'});
         
         fetched.then( data => {
             this.setState({
