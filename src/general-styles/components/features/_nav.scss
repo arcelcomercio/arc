@@ -1,7 +1,7 @@
 .nav {
     position: sticky;
     top: 0;
-    height: 46px;
+    height: $nav-height;
     z-index: 20;
     font-family: $main-font;
     font-size: $font-sm;
@@ -17,7 +17,7 @@
         background-color: $color-gray;
         color: $color-white;
 
-        &__container {
+        &__btn-container {
             height: inherit;
         }
 
@@ -27,6 +27,11 @@
         }
 
         &--search {
+            display: none;
+
+            @media (--desktop) {
+                display: flex;
+            }
 
             //transition: all .002s;
             &.active {
@@ -37,6 +42,17 @@
                 padding: 5px 5px;
                 background: transparent;
                 position: absolute;
+            }
+        }
+
+        &--section {
+            & span {
+                display: none;
+
+                @media (--tablet) {
+                    display: inline;
+                    margin-left: 8px;
+                }
             }
         }
     }
@@ -83,6 +99,19 @@
         width: 100px;
         height: 30px;
         border-radius: 4px;
+    }
+
+    &__header-sub {
+        display: none;
+
+        @media (--tablet) {
+            display: inline-block;
+        }
+    }
+
+    &__header-login {
+        background-color: #fff;
+
     }
 
     &__form {

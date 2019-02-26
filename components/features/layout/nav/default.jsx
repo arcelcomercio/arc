@@ -6,6 +6,7 @@ import NavSidebar from './_children/nav-sidebar'
 const classes = {
   nav: `
     nav 
+    full-width 
     flex 
     flex-center-vertical`,
   navWrapper: `
@@ -17,14 +18,18 @@ const classes = {
     `,
   navForm: `nav__form flex`,
   navSearch: `nav__input-search`,
-  navButton: `
+  navButtonSearch: `
     flex-center-vertical 
-    btn nav__btn`,
+    btn nav__btn
+    nav__btn--search`,
+  navButtonSection: `
+    flex-center-vertical 
+    btn nav__btn
+    nav__btn--section`,
   navButtonIconSearch: `
     icon icon--search`,
   navButtonIconMenu: `
-    icon icon--menu 
-    icon--margin-right`,
+    icon icon--menu`,
   navButtonContainer: `
     flex-center-vertical
     flex--justify-start
@@ -51,14 +56,16 @@ const classes = {
     header__main__btn-container`,
   headerBtnLogin: `
     flex-center-vertical 
-    btn bg-color--white`,
+    btn bg-color--white,
+    nav__header-login`,
   headerBtnSubscribe: `
     flex-center-vertical 
     btn 
-    bg-color--link`,
+    bg-color--link
+    nav__header-sub
+    `,
   headerBtnIconLogin: `
-    icon icon--login 
-    icon--margin-right`,
+    icon icon--login`,
 }
 
 @Consumer
@@ -103,13 +110,16 @@ class Nav extends Component {
 
   // Add - Remove Class active input and button search
   activeSearch = () => {
-    return this.state.statusSearch ? 'active' : ''
+    const { statusSearch } = this.state
+    return statusSearch ? 'active' : ''
   }
 
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
     const { statusSearch } = this.state
-    return statusSearch ? this.foundSearch : this.handleToggleSectionsSearch
+    return statusSearch
+      ? this.findSearch
+      : this.handleToggleSectionsElement('statusSearch')
   }
 
   // Open search and automatic focus input
@@ -118,9 +128,11 @@ class Nav extends Component {
   }
 
   // set Query search and location replace
-  foundSearch = () => {
+  findSearch = () => {
     const { value } = this.inputSearch.current
-    location.href = `${location.pathname}?query=${value}`
+    if (value !== '') {
+      location.href = `${location.pathname}?query=${value}`
+    }
   }
 
   // Active find with enter key
@@ -128,7 +140,7 @@ class Nav extends Component {
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
-      this.foundSearch()
+      this.findSearch()
     }
   }
 
@@ -149,20 +161,28 @@ class Nav extends Component {
   }
 
   // Open - Close Search
-  handleToggleSectionsSearch = () => {
-    const { statusSidebar } = this.state
-
-    if (statusSidebar) {
-      this.setState({
-        statusSidebar: !this.state.statusSidebar,
-      })
+  handleToggleSectionsElement = element => {
+    return e => {
+      const { statusSidebar, statusSearch } = this.state
+      if (element === 'statusSearch') {
+        if (statusSidebar)
+          this.setState({
+            statusSidebar: !statusSidebar,
+          })
+        this.setState({
+          statusSearch: !statusSearch,
+        })
+        this.focusInputSearch()
+      } else if (element === 'statusSidebar') {
+        if (statusSearch)
+          this.setState({
+            statusSearch: !statusSidebar,
+          })
+        this.setState({
+          statusSidebar: !statusSidebar,
+        })
+      }
     }
-
-    this.setState({
-      statusSearch: !this.state.statusSearch,
-    })
-
-    this.focusInputSearch()
   }
 
   // Close Search
@@ -179,24 +199,11 @@ class Nav extends Component {
     this.setState({
       device,
     })
+    this.handleScroll()
     // ------ Add or remove Scroll eventListener on resize
     if (device === 'desktop')
       window.addEventListener('scroll', this.handleScroll)
     else window.removeEventListener('scroll', this.handleScroll)
-  }
-
-  // Open - Close navBar
-  handleToggleSectionsSidebar = () => {
-    const { statusSearch, statusSidebar } = this.state
-
-    if (statusSearch) {
-      this.setState({
-        statusSearch: !statusSidebar,
-      })
-    }
-    this.setState({
-      statusSidebar: !statusSidebar,
-    })
   }
 
   // ------ Fetchs the sections data from site-navigation API
@@ -253,58 +260,32 @@ class Nav extends Component {
           {/** ************* LEFT *************** */}
 
           <div className={classes.navButtonContainer}>
-            {device === 'desktop' && (
-              <Fragment>
-                <form className={classes.navForm}>
-                  <input
-                    ref={this.inputSearch}
-                    type="search"
-                    onBlur={this.handleCloseSectionsSearch}
-                    onKeyUp={this.watchKeys}
-                    placeholder="Buscar"
-                    className={`${classes.navSearch} ${this.activeSearch()}`}
-                  />
-                  <Button
-                    iconClass={classes.navButtonIconSearch}
-                    btnClass={`${classes.navButton.concat(
-                      ' nav__btn--search'
-                    )} ${this.activeSearch()}`}
-                    onClick={this.optionButtonClick()}
-                  />
-                </form>
-                <Button
-                  iconClass={classes.navButtonIconMenu}
-                  btnClass={classes.navButton}
-                  btnText="Secciones"
-                  onClick={this.handleToggleSectionsSidebar}
+            <Fragment>
+              <form
+                className={classes.navForm}
+                onSubmit={e => e.preventDefault()}
+              >
+                <input
+                  ref={this.inputSearch}
+                  type="search"
+                  onBlur={this.handleCloseSectionsSearch}
+                  onKeyUp={this.watchKeys}
+                  placeholder="Buscar"
+                  className={`${classes.navSearch} ${this.activeSearch()}`}
                 />
-              </Fragment>
-            )}
-            {device === 'tablet' && (
-              <Fragment>
                 <Button
-                  iconClass={classes.navButtonIconSearch.replace(
-                    'icon--margin-right',
-                    ''
-                  )}
-                  btnClass={classes.navButton}
-                  btnLink="#"
+                  iconClass={classes.navButtonIconSearch}
+                  btnClass={`${classes.navButtonSearch} ${this.activeSearch()}`}
+                  onClick={this.optionButtonClick()}
                 />
-                <button type="button" onClick={this.test}>
-                  Test
-                </button>
-              </Fragment>
-            )}
-            {device === 'mobile' && (
+              </form>
               <Button
-                iconClass={classes.navButtonIconMenu.replace(
-                  'icon--margin-right',
-                  ''
-                )}
-                btnClass={classes.navButton}
-                btnLink="#"
+                iconClass={classes.navButtonIconMenu}
+                btnClass={classes.navButtonSection}
+                btnText="Secciones"
+                onClick={this.handleToggleSectionsElement('statusSidebar')}
               />
-            )}
+            </Fragment>
           </div>
 
           {/** ************* MIDDLE *************** */}
@@ -331,37 +312,21 @@ class Nav extends Component {
 
           {/** ************* RIGHT *************** */}
 
-          {device === 'desktop' && (
+          {device === 'desktop' ? (
             <div className={classes.navButtonContainer}>
               <div id="ads_d_zocaloNav1" className={classes.navAds} />
               <div id="ads_d_zocaloNav2" className={classes.navAds} />
             </div>
-          )}
-          {device === 'tablet' && (
+          ) : (
             <div className={classes.headerButtonContainer}>
               <Button
-                iconClass={classes.headerBtnIconLogin.replace(
-                  'icon--margin-right',
-                  ''
-                )}
+                iconClass={classes.headerBtnIconLogin}
                 btnClass={classes.headerBtnLogin}
                 btnLink="#"
               />
               <Button
                 btnText="Suscríbete"
                 btnClass={classes.headerBtnSubscribe}
-                btnLink="#"
-              />
-            </div>
-          )}
-          {device === 'mobile' && (
-            <div className={classes.headerButtonContainer}>
-              <Button
-                iconClass={classes.headerBtnIconLogin.replace(
-                  'icon--margin-right',
-                  ''
-                )}
-                btnClass={classes.headerBtnLogin}
                 btnLink="#"
               />
             </div>
