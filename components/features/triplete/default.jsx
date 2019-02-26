@@ -44,7 +44,7 @@ class Triplete extends Component
                 let obj = {}
                 fetched.then(response => {
                     obj[KEY_STATE+i] = response
-                    //@todo improve set state for render just only times
+                    //TODO:- Improve set state for render just only times
                     this.setState(obj)
                 })
             }

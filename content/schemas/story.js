@@ -34,8 +34,33 @@ type BasicPromoItems {
     width: Int
     additional_properties: AdditionalPropertiesBasicPromoItems
 }
+type PromoImageVideo {
+    type: String
+    caption: String
+    url: String
+    width: Int
+    height: Int
+}
+type BasicVideoPromoItems {
+    _id: Int
+    type: String
+    canonical_url: String
+    duration: Int
+    video_type: String
+    embed_html: String
+    promo_image: PromoImageVideo
+}
+type PromoItemsGallery {
+    basic: BasicPromoItems
+}
+type galleryItems {
+    type: String
+    promo_items: PromoItemsGallery
+}
 type PromoItems {
     basic: BasicPromoItems
+    Basic: BasicVideoPromoItems
+    gallery: galleryItems
 }
 type Taxonomy {
     sections: [SectionTaxonomy]
@@ -80,7 +105,4 @@ type Query {
  taxonomy: Taxonomy
  websites: Websites!
 }
-
-
-
 `;

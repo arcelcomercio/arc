@@ -3,6 +3,22 @@ export const filterSchema = `{
         basic
     }
     promo_items {
+        Basic {
+            type
+            promo_image {
+                type
+                url
+            }
+        }
+        gallery {
+            type 
+            promo_items {
+                basic {
+                    type 
+                    url
+                }
+            }
+        }
         basic {
             type 
             url
