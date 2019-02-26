@@ -110,7 +110,8 @@ class Nav extends Component {
 
   // Add - Remove Class active input and button search
   activeSearch = () => {
-    return this.state.statusSearch ? 'active' : ''
+    const { statusSearch } = this.state
+    return statusSearch ? 'active' : ''
   }
 
   // If input search is empty, buton close search else buton find search
@@ -157,16 +158,16 @@ class Nav extends Component {
 
   // Open - Close Search
   handleToggleSectionsSearch = () => {
-    const { statusSidebar } = this.state
+    const { statusSidebar, statusSearch } = this.state
 
     if (statusSidebar) {
       this.setState({
-        statusSidebar: !this.state.statusSidebar,
+        statusSidebar: !statusSidebar,
       })
     }
 
     this.setState({
-      statusSearch: !this.state.statusSearch,
+      statusSearch: !statusSearch,
     })
 
     this.focusInputSearch()
@@ -261,33 +262,33 @@ class Nav extends Component {
           {/** ************* LEFT *************** */}
 
           <div className={classes.navButtonContainer}>
-              <Fragment>
-                <form className={classes.navForm}>
-                  <input
-                    ref={this.inputSearch}
-                    type="search"
-                    onBlur={this.handleCloseSectionsSearch}
-                    onKeyUp={this.watchKeys}
-                    placeholder="Buscar"
-                    className={`${classes.navSearch} ${this.activeSearch()}`}
-                  />
-                  <Button
-                    iconClass={classes.navButtonIconSearch}
-                    btnClass={`${classes.navButtonSearch} ${this.activeSearch()}`}
-                    onClick={this.optionButtonClick()}
-                  />
-                </form>
-                <Button
-                  iconClass={classes.navButtonIconMenu}
-                  btnClass={classes.navButtonSection}
-                  btnText="Secciones"
-                  onClick={this.handleToggleSectionsSidebar}
+            <Fragment>
+              <form className={classes.navForm}>
+                <input
+                  ref={this.inputSearch}
+                  type="search"
+                  onBlur={this.handleCloseSectionsSearch}
+                  onKeyUp={this.watchKeys}
+                  placeholder="Buscar"
+                  className={`${classes.navSearch} ${this.activeSearch()}`}
                 />
-              </Fragment>
+                <Button
+                  iconClass={classes.navButtonIconSearch}
+                  btnClass={`${classes.navButtonSearch} ${this.activeSearch()}`}
+                  onClick={this.optionButtonClick()}
+                />
+              </form>
+              <Button
+                iconClass={classes.navButtonIconMenu}
+                btnClass={classes.navButtonSection}
+                btnText="Secciones"
+                onClick={this.handleToggleSectionsSidebar}
+              />
+            </Fragment>
           </div>
 
           {/** ************* MIDDLE *************** */}
-          
+
           <ul className={`${classes.navList} ${scrolled ? '' : 'active'}`}>
             {sections
               ? sections.map((item, key) => {
@@ -316,18 +317,18 @@ class Nav extends Component {
               <div id="ads_d_zocaloNav2" className={classes.navAds} />
             </div>
           ) : (
-              <div className={classes.headerButtonContainer}>
-                <Button
-                  iconClass={classes.headerBtnIconLogin}
-                  btnClass={classes.headerBtnLogin}
-                  btnLink="#"
-                />
-                <Button
-                  btnText="Suscríbete"
-                  btnClass={classes.headerBtnSubscribe}
-                  btnLink="#"
-                />
-              </div>
+            <div className={classes.headerButtonContainer}>
+              <Button
+                iconClass={classes.headerBtnIconLogin}
+                btnClass={classes.headerBtnLogin}
+                btnLink="#"
+              />
+              <Button
+                btnText="Suscríbete"
+                btnClass={classes.headerBtnSubscribe}
+                btnLink="#"
+              />
+            </div>
           )}
         </div>
         <NavSidebar sections={sections} showSidebar={statusSidebar} />

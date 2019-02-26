@@ -1,89 +1,99 @@
 .nav-sidebar {
-	position: absolute;
-	max-width: 330px;
-	top: 46px;
-	bottom: 0;
-	overflow: hidden;
-	height: calc(100vh - 46px);
-	background-color: #2a2a2a;
+  position: absolute;
+  max-width: 330px;
+  top: 46px;
+  bottom: 0;
+  overflow: hidden;
+  height: calc(100vh - 46px);
+  background-color: #2a2a2a;
 
-	transform: translateX(-103%);
-	-webkit-backface-visibility: hidden;
-	-webkit-perspective: 1000;
-	transition: all .50s cubic-bezier(0.565, 1.65, 0.765, 0.88);
+  transform: scaleX(0);
+  transform-origin: left;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 
-	&.active {
-		transition: all .50s cubic-bezier(0.565, 1.65, 0.765, 0.88);
-		transform: translateX(0);
-		-webkit-backface-visibility: hidden;
-		-webkit-perspective: 1000;
-	}
+  &.active {
+    transition: all 0.5s cubic-bezier(0.56, 1.3, 0.76, 0.88);
+    transform: scaleX(1);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+  }
 
-	&__content {
-		width: calc(100% + 17px);
-		height: 100%;
-		overflow-y: scroll;
-		padding-right: 17px;
-		box-sizing: content-box;
-	}
+  &__content {
+    width: calc(100% + 17px);
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 17px;
+    box-sizing: content-box;
 
-	&__header {
-		padding: 30px;
-		padding-bottom: 0;
-	}
+    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) 1s;
+    opacity: 0;
 
-	&__box-btn {
-		border-bottom: solid 1px rgba(255, 255, 255, .2);
-		padding-bottom: 15px;
-	}
+    &.active {
+      transition: all 0.5s cubic-bezier(0.56, 1.3, 0.76, 0.88) 1s;
+      opacity: 1;
+    }
+  }
 
-	&__btn {
-		padding: 12px 16px;
-	}
+  &__header {
+    padding: 30px;
+    padding-bottom: 0;
+  }
 
-	&__body {
-		padding: 15px 0 15px 15px;
-	}
+  &__box-btn {
+    border-bottom: solid 1px rgba(255, 255, 255, 0.2);
+    padding-bottom: 15px;
+  }
 
-	&__list {}
+  &__btn {
+    padding: 12px 16px;
+  }
 
-	&__item {
-		padding: 0 15px;
-		transition: all .15s ease;
-		position: relative;
+  &__body {
+    padding: 15px 0 15px 15px;
+  }
 
-		&:hover {
-			transition: all .15s ease;
-			background-color: rgba(0, 0, 0, .96);
+  &__list {
+  }
 
-			.nav-sidebar__link {
-				padding-left: 10px;
-			}
-		}
-	}
+  &__item {
+    padding: 0 15px;
+    transition: all 0.15s ease;
+    position: relative;
 
-	&__link {
-		font-size: 14px;
-		color: #FFF;
-		display: block; // .block
-		padding: 15px 0;
-		transition: all .15s ease;
-	}
+    &:hover {
+      transition: all 0.15s ease;
+      background-color: rgba(0, 0, 0, 0.96);
 
-	&__footer {
-		border-top: solid 1px rgba(255, 255, 255, .2);
-		padding: 30px;
-	}
+      .nav-sidebar__link {
+        padding-left: 10px;
+      }
+    }
+  }
 
-	&__text {
-		display: block; // .block
-		color: #FFF;
-		font-size: 14px;
-		padding: 6px 0;
-		font-weight: 300;
-	}
+  &__link {
+    font-size: 14px;
+    color: #fff;
+    display: block; // .block
+    padding: 15px 0;
+    transition: all 0.15s ease;
+  }
 
-	&__sub-menu {
-		position: absolute;
-	}
+  &__footer {
+    border-top: solid 1px rgba(255, 255, 255, 0.2);
+    padding: 30px;
+  }
+
+  &__text {
+    display: block; // .block
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 0;
+    font-weight: 300;
+  }
+
+  &__sub-menu {
+    position: absolute;
+  }
 }

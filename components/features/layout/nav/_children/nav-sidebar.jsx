@@ -20,7 +20,11 @@ const NavSidebar = props => {
   const { sections, showSidebar } = props
   return (
     <div className={`${classes.navSidebar} ${showSidebar ? 'active' : ''}`}>
-      <div className={classes.navSidebarContent}>
+      <div
+        className={`${classes.navSidebarContent} ${
+          showSidebar ? 'active' : ''
+        }`}
+      >
         <div className="nav-sidebar__top">
           <div className="nav-sidebar__header">
             <div className="nav-sidebar__box-btn">
