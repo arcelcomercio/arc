@@ -13,77 +13,16 @@ class Data
     get showAuthorOrSection(){
         return this.customFields.showAuthorOrSection || 'author'
     }
-    get title1() {
-        return this.customFields.title1 || (this.state.data1 && this.state.data1.headlines && this.state.data1.headlines.basic) || ''
+    getTitle(index){
+        const dataIndex = 'data'+index
+        const titleIndex = 'title'+index
+        return this.customFields[titleIndex] || 
+            (this.state[dataIndex] && this.state[dataIndex].headlines 
+            && this.state[dataIndex].headlines.basic) || ''
     }
-    get author1(){
-        return this.getDataAuthor(this.state.data1).name
-    }
-    get authorLink1(){
-        return this.getDataAuthor(this.state.data1).url
-    }
-    get section1(){
-        return this.getDataSection(this.state.data1).name
-    }
-    get sectionLink1(){
-        return this.getDataSection(this.state.data1).path
-    }
-    get image1(){
-        return this.getImage(this.state.data1)
-    }
-    get link1(){
-        return (this.state.data1 && this.state.data1.website_url + '?_website=' + this.website|| '#')
-    }
-    get multimedia1(){
-        return this.getMultimedia(1)
-    }
-    get title2() {
-        return this.customFields.title2 || (this.state.data2 && this.state.data2.headlines && this.state.data2.headlines.basic) || ''
-    }
-    get author2(){
-        return this.getDataAuthor(this.state.data2).name
-    }
-    get authorLink2(){
-        return this.getDataAuthor(this.state.data2).url
-    }
-    get section2(){
-        return this.getDataSection(this.state.data2).name
-    }
-    get sectionLink2(){
-        return this.getDataSection(this.state.data2).path
-    }
-    get image2(){
-        return this.getImage(this.state.data2)
-    }
-    get link2(){
-        return (this.state.data2 && this.state.data2.website_url + '?_website=' + this.website|| '#')
-    }
-    get multimedia2(){
-        return this.getMultimedia(2)
-    }
-    get title3() {
-        return this.customFields.title3 || (this.state.data3 && this.state.data3.headlines && this.state.data3.headlines.basic) || ''
-    }
-    get author3(){
-        return this.getDataAuthor(this.state.data3).name
-    }
-    get authorLink3(){
-        return this.getDataAuthor(this.state.data3).url
-    }
-    get section3(){
-        return this.getDataSection(this.state.data3).name
-    }
-    get sectionLink3(){
-        return this.getDataSection(this.state.data3).path
-    }
-    get image3(){
-        return this.getImage(this.state.data3)
-    }
-    get link3(){
-        return (this.state.data3 && this.state.data3.website_url + '?_website=' + this.website|| '#')
-    }
-    get multimedia3(){
-        return this.getMultimedia(3)
+    getLink(index){
+        const dataIndex = 'data'+index
+        return (this.state[dataIndex] && this.state[dataIndex].website_url + '?_website=' + this.website|| '#')
     }
     getThumbnailVideo(data){
         const thumb = data && data.promo_items && data.promo_items.Basic 
@@ -104,15 +43,6 @@ class Data
     hasVideo(data){
         const video = data && data.promo_items && data.promo_items.Basic
         return typeof video == 'object' && video !== null
-    }
-    getMultimedia2(index){
-        let multimedia = ''
-        const data = this.state['data'+index]
-        if(this.hasVideo(data))
-            multimedia = this.getThumbnailVideo(data)
-        else
-            multimedia = this['image'+index]
-        return multimedia
     }
     getThumbnail(data, type){
         if(type == 'Basic'){
@@ -154,11 +84,27 @@ class Data
         const typeThumb = this.getTypeMultimedia(index)
         return typeThumb != '' ? baseTypeThumb[typeThumb]: ''
     }
+    getAuthor(index){
+        const data = this.state['data'+index]
+        return this.getDataAuthor(data).name
+    }
+    getAuthorLink(index){
+        const data = this.state['data'+index]
+        return this.getDataAuthor(data).url
+    }
+    getSection(index){
+        const data = this.state['data'+index]
+        return this.getDataSection(data).name
+    }
+    getSectionLink(index){
+        const data = this.state['data'+index]
+        return this.getDataSection(data).path
+    }
     authorOrSection(index){
-        return this.showAuthorOrSection === 'author' ? this['author'+index] : this['section'+index]
+        return this.showAuthorOrSection === 'author' ? this.getAuthor(index) : this.getSection(index)
     }
     authorOrSectionLink(index){
-        return this.showAuthorOrSection === 'author' ? this['authorLink'+index] : this['sectionLink'+index]
+        return this.showAuthorOrSection === 'author' ? this.getAuthorLink(index) : this.getSectionLink(index)
     }
     getDataAuthor(data){
         const authorData = data && data.credits && data.credits.by || []
