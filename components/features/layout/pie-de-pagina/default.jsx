@@ -96,7 +96,6 @@ class PieDePagina extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
-      console.log(response)
       const auxList = response.children.map(el => {
         if (el.node_type === 'link') {
           return {
@@ -156,7 +155,10 @@ class PieDePagina extends Component {
               <li className={classes.footerListTitle}>Nuestras secciones</li>
               {sectionsList.map(el => (
                 <li className={classes.footerListItem} key={el.url}>
-                  <a className={classes.footerListLink} href={el.url}>
+                  <a
+                    className={classes.footerListLink}
+                    href={`${contextPath}${el.url}${requestUri}`}
+                  >
                     {el.name}
                   </a>
                 </li>
@@ -169,7 +171,14 @@ class PieDePagina extends Component {
             <li className={classes.footerListTitle}>Contacto</li>
             {legalList.map(el => (
               <li className={classes.footerListItem} key={el.url}>
-                <a className={classes.footerListLink} href={el.url}>
+                <a
+                  className={classes.footerListLink}
+                  href={
+                    el.node_type === 'link'
+                      ? el.url
+                      : `${contextPath}${el.url}${requestUri}`
+                  }
+                >
                   {el.name}
                 </a>
               </li>

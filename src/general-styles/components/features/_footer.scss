@@ -123,11 +123,6 @@ $desktop-media: 'min-width: 1024px';
     'contact'
     'sites';
 
-  /* grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    'info contact'
-    'sites sites '; */
   @media screen and (--desktop) {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
@@ -178,6 +173,9 @@ $desktop-media: 'min-width: 1024px';
     &:first-child {
       font-weight: bold;
     }
+    &:last-child {
+      border-right: none;
+    }
   }
   &__sites-link {
     color: $sites-link-color;
@@ -203,7 +201,7 @@ $desktop-media: 'min-width: 1024px';
     font-size: $footer-legal-text-size;
     color: $legal-text-color;
     line-height: 17px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
   }
   &__list-link {
     color: $footer-list-tex-color;
