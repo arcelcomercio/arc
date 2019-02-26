@@ -1,8 +1,7 @@
-.content--grid-base {
+.content-grid-base {
     display: grid;
     gap: $spacingNormal;
 }
-
 
 .content-layout {
     @media (--tablet) {
@@ -19,10 +18,12 @@
 }
 
 .content-layout-container {
+    overflow: hidden;
+
     @media (--desktop) {
         width: 100%;
         max-width: 1024px;
-        //overflow: hidden;
+        min-width: 940px;
     }
 }
 

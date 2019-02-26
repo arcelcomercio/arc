@@ -6,6 +6,7 @@ import NavSidebar from './_children/nav-sidebar'
 const classes = {
   nav: `
     nav 
+    full-width 
     flex 
     flex-center-vertical`,
   navWrapper: `
@@ -179,6 +180,7 @@ class Nav extends Component {
     this.setState({
       device,
     })
+    this.handleScroll()
     // ------ Add or remove Scroll eventListener on resize
     if (device === 'desktop')
       window.addEventListener('scroll', this.handleScroll)

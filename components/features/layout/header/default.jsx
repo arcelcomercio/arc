@@ -4,21 +4,31 @@ import Button from '../../../../resources/components/button'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
 const classes = FormatClassName({
-  header: ['header'],
-  headerMain: ['header__main', 'flex-center-vertical', 'flex--justify-between'],
+  header: ['header', 'full-width'],
+  headerMain: [
+    'header__main',
+    'full-width',
+    'flex-center-vertical',
+    'flex--justify-between',
+  ],
   headerDate: ['flex-1'],
   headerLogo: ['header__logo'],
   headerBtnContainer: [
     'flex-center-vertical',
     'flex-1',
     'flex--justify-end',
-    'header__main__btn-container',
+    'height-inherit',
   ],
   headerBtnLogin: ['flex-center-vertical', 'btn', 'bg-color--white'],
   headerBtnSubscribe: ['flex-center-vertical', 'btn', 'bg-color--link'],
   headerBtnIconLogin: ['icon', 'icon--login', 'icon--margin-right'],
-  headerFeatured: ['flex-center', 'header__featured', 'bg-color--white'],
-  headerFeaturedItem: ['flex-center', 'header__featured__item'],
+  headerFeatured: [
+    'flex-center',
+    'header__featured',
+    'full-width',
+    'bg-color--white',
+  ],
+  headerFeaturedItem: ['flex-center', 'header__item'],
   headerFeaturedItemIcon: ['icon', 'icon--fire', 'icon--margin-right'],
 })
 
