@@ -17,27 +17,28 @@ const classes = {
 }
 
 class NavSidebar extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.inputSearchMovil = React.createRef()
   }
 
   submitSearch = () => {
     const { value } = this.inputSearchMovil.current
-    if(value !== ''){
+    if (value !== '') {
+      // eslint-disable-next-line no-restricted-globals
       location.href = `${location.pathname}?query=${value}`
     }
   }
 
-  render(){
+  render() {
     const { sections, showSidebar } = this.props
-    
+
     return (
       <div className={`${classes.navSidebar} ${showSidebar ? 'active' : ''}`}>
         <div
           className={`${classes.navSidebarContent} ${
             showSidebar ? 'active' : ''
-            }`}
+          }`}
         >
           <div className="nav-sidebar__top">
             <div className="nav-sidebar__header">
@@ -49,29 +50,35 @@ class NavSidebar extends Component {
                 />
               </div>
             </div>
-            <div className='nav-sidebar__search'>
-              <form className='nav-sidebar__box-search' onSubmit={(e) => {e.preventDefault(); this.submitSearch()}}>
+            <div className="nav-sidebar__search">
+              <form
+                className="nav-sidebar__box-search"
+                onSubmit={e => {
+                  e.preventDefault()
+                  this.submitSearch()
+                }}
+              >
                 <input
                   ref={this.inputSearchMovil}
                   type="search"
                   // onBlur={this.handleCloseSectionsSearch}
                   placeholder="Buscar"
-                  className='nav-sidebar__input'
+                  className="nav-sidebar__input"
                 />
               </form>
             </div>
             <div className="nav-sidebar__body">
               <ul className="nav-sidebar__list">
                 {sections
-                  ? sections.map((item, key) => {
-                    return (
-                      <li key={key} className="nav-sidebar__item">
-                        <a href={item._id} className="nav-sidebar__link">
-                          {item.name}
-                        </a>
-                      </li>
-                    )
-                  })
+                  ? sections.map(({ name, _id: id }) => {
+                      return (
+                        <li key={id} className="nav-sidebar__item">
+                          <a href={id} className="nav-sidebar__link">
+                            {name}
+                          </a>
+                        </li>
+                      )
+                    })
                   : null}
               </ul>
             </div>
@@ -79,25 +86,25 @@ class NavSidebar extends Component {
           <div className="nav-sidebar__footer">
             <a href="/" className="nav-sidebar__text">
               elcomercio.pe
-          </a>
+            </a>
             <a href="/" className="nav-sidebar__text">
               1984-2019 Grupo El Comercio
-          </a>
+            </a>
             <a href="/" className="nav-sidebar__text">
               Términos de Servicio
-          </a>
+            </a>
             <a href="/" className="nav-sidebar__text">
               Políticas de Privacidad
-          </a>
+            </a>
             <a href="/" className="nav-sidebar__text">
               Políticas de Discusión
-          </a>
+            </a>
             <a href="/" className="nav-sidebar__text">
               RSS Términos de Servicio
-          </a>
+            </a>
             <a href="/" className="nav-sidebar__text">
               Preferencias de Publicidad
-          </a>
+            </a>
           </div>
         </div>
       </div>

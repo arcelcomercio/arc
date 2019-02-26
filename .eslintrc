@@ -14,7 +14,8 @@
   },
   "globals": {
     "document": true,
-    "window": true
+    "window": true,
+    "location": true
   },
   "parser": "babel-eslint"
 }

@@ -131,6 +131,7 @@ class Nav extends Component {
   findSearch = () => {
     const { value } = this.inputSearch.current
     if (value !== '') {
+      // eslint-disable-next-line no-restricted-globals
       location.href = `${location.pathname}?query=${value}`
     }
   }
@@ -162,6 +163,7 @@ class Nav extends Component {
 
   // Open - Close Search
   handleToggleSectionsElement = element => {
+    // eslint-disable-next-line no-unused-vars
     return e => {
       const { statusSidebar, statusSearch } = this.state
       if (element === 'statusSearch') {
@@ -292,11 +294,11 @@ class Nav extends Component {
 
           <ul className={`${classes.navList} ${scrolled ? '' : 'active'}`}>
             {sections
-              ? sections.map((item, key) => {
+              ? sections.map(({ name, _id: id }) => {
                   return (
-                    <li key={key} className={classes.navListItem}>
-                      <a href={item._id} className={classes.navListLink}>
-                        {item.name}
+                    <li key={id} className={classes.navListItem}>
+                      <a href={id} className={classes.navListLink}>
+                        {name}
                       </a>
                     </li>
                   )
