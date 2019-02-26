@@ -117,7 +117,9 @@ class Nav extends Component {
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
     const { statusSearch } = this.state
-    return statusSearch ? this.foundSearch : this.handleToggleSectionsSearch
+    return statusSearch
+      ? this.foundSearch
+      : this.handleToggleSectionsElement('statusSearch')
   }
 
   // Open search and automatic focus input
@@ -157,20 +159,28 @@ class Nav extends Component {
   }
 
   // Open - Close Search
-  handleToggleSectionsSearch = () => {
-    const { statusSidebar, statusSearch } = this.state
-
-    if (statusSidebar) {
-      this.setState({
-        statusSidebar: !statusSidebar,
-      })
+  handleToggleSectionsElement = element => {
+    return e => {
+      const { statusSidebar, statusSearch } = this.state
+      if (element === 'statusSearch') {
+        if (statusSidebar)
+          this.setState({
+            statusSidebar: !statusSidebar,
+          })
+        this.setState({
+          statusSearch: !statusSearch,
+        })
+        this.focusInputSearch()
+      } else if (element === 'statusSidebar') {
+        if (statusSearch)
+          this.setState({
+            statusSearch: !statusSidebar,
+          })
+        this.setState({
+          statusSidebar: !statusSidebar,
+        })
+      }
     }
-
-    this.setState({
-      statusSearch: !statusSearch,
-    })
-
-    this.focusInputSearch()
   }
 
   // Close Search
@@ -192,20 +202,6 @@ class Nav extends Component {
     if (device === 'desktop')
       window.addEventListener('scroll', this.handleScroll)
     else window.removeEventListener('scroll', this.handleScroll)
-  }
-
-  // Open - Close navBar
-  handleToggleSectionsSidebar = () => {
-    const { statusSearch, statusSidebar } = this.state
-
-    if (statusSearch) {
-      this.setState({
-        statusSearch: !statusSidebar,
-      })
-    }
-    this.setState({
-      statusSidebar: !statusSidebar,
-    })
   }
 
   // ------ Fetchs the sections data from site-navigation API
@@ -282,7 +278,7 @@ class Nav extends Component {
                 iconClass={classes.navButtonIconMenu}
                 btnClass={classes.navButtonSection}
                 btnText="Secciones"
-                onClick={this.handleToggleSectionsSidebar}
+                onClick={this.handleToggleSectionsElement('statusSidebar')}
               />
             </Fragment>
           </div>

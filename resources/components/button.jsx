@@ -1,13 +1,12 @@
 import React from 'react'
 
-export default (props) => {
+export default props => {
+  const { iconClass, btnClass, btnText, btnLink, onClick } = props
 
-    const { iconClass, btnClass, btnText, btnLink, onClick } = props
-
-    return(
-        <a className={btnClass} href={btnLink} onClick={onClick}>
-            {iconClass && <i className={iconClass}></i>}
-            <span>{btnText}</span>
-        </a>
-    )
+  return (
+    <a className={btnClass} href={btnLink} onClick={onClick}>
+      {iconClass && <i className={iconClass} />}
+      <span>{btnText}</span>
+    </a>
+  )
 }
