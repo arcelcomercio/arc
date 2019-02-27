@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Fragment, Component } from 'react'
-import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
 const classes = {
   footerContainer: 'margin-top',

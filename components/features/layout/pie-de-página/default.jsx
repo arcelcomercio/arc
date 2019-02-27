@@ -1,42 +1,25 @@
 // import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-const classes = FormatClassName({
-  footer: ['footer-container', 'margin-top'],
-  footerInfo: [
-    'footer-container__info',
-    'footer-container__footer-bacground-color',
-  ],
-  footerSections: [
-    'footer-container__sections',
-    'footer-container__footer-bacground-color',
-  ],
-  footerContact: [
-    'footer-container__contact',
-    'footer-container__footer-bacground-color',
-  ],
-  footerSites: ['footer-container__sites', 'flex', 'flex--justify-center'],
-  footerSitesList: [
-    'footer-container__sites-list',
-    'flex',
-    'flex--justify-center',
-  ],
-  footerSitesListElemnt: ['footer-container__sites-list-element'],
-  footerSitesLink: ['footer-container__link', 'footer-container__sites-link'],
-  footerLegalList: ['footer-container__legal-list'],
-  footerLegalItem: ['footer-container__legal-item'],
-  footerLogoContainer: ['footer-container__logo-container'],
-  footerLogoImg: ['footer-container__logo-img'],
-  footerList: ['footer-container__list'],
-  footerListItem: ['footer-container__list-item'],
-  footerListTitle: [
-    'footer-container__list-item',
-    'footer-container__list-item--title',
-  ],
-  footerListLink: ['footer-container__link', 'footer-container__list-link'],
-})
+const classes = {
+  footer: 'footer margin-top full-width',
+  footerInfo: 'footer__info footer__footer-background-color padding-normal',
+  footerSections: 'footer__sections footer__footer-background-color',
+  footerContact: 'footer__contact footer__footer-background-color',
+  footerSites: 'footer__sites flex flex--justify-center',
+  footerSitesList: 'footer__sites-list flex flex--justify-center',
+  footerSitesListElemnt: 'footer__sites-list-element',
+  footerSitesLink: 'footer__link footer__sites-link',
+  footerLegalList: 'footer__legal-list',
+  footerLegalItem: 'footer__legal-item',
+  footerLogoContainer: 'footer__logo footer__logo-container',
+  footerLogoImg: 'footer__logo-img',
+  footerList: 'footer__list padding-normal',
+  footerListItem: 'footer__list-item',
+  footerListTitle: 'footer__list-item footer__list-item--title',
+  footerListLink: 'footer__link footer__list-link',
+}
 
 @Consumer
 class PieDePagina extends Component {

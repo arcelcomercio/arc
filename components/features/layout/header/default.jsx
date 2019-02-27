@@ -69,22 +69,18 @@ class Header extends Component {
         device: 'desktop',
       })
       this.dispatchEvent('displayChange', this.state.device)
-    } else {
       // ------ Set the new state if you change from desktop to mobile
-      if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
-        this.setState({
-          device: 'tablet',
-        })
-        this.dispatchEvent('displayChange', this.state.device)
-      } else {
-        //------ Set the new state if you change from desktop to mobile
-        if (wsize < 640 && this.state.device !== 'mobile') {
-          this.setState({
-            device: 'mobile',
-          })
-          this.dispatchEvent('displayChange', this.state.device)
-        }
-      }
+    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
+      this.setState({
+        device: 'tablet',
+      })
+      this.dispatchEvent('displayChange', this.state.device)
+    } else if (wsize < 640 && this.state.device !== 'mobile') {
+      // ------ Set the new state if you change from desktop to mobile
+      this.setState({
+        device: 'mobile',
+      })
+      this.dispatchEvent('displayChange', this.state.device)
     }
   }
 
