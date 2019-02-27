@@ -12,6 +12,9 @@ type ByCredits {
     type: String
     version: String
     name: String
+    slug: String
+    url: String
+    description: String
 }
 type Credits {
     by: [ByCredits]
@@ -31,8 +34,33 @@ type BasicPromoItems {
     width: Int
     additional_properties: AdditionalPropertiesBasicPromoItems
 }
+type PromoImageVideo {
+    type: String
+    caption: String
+    url: String
+    width: Int
+    height: Int
+}
+type BasicVideoPromoItems {
+    _id: Int
+    type: String
+    canonical_url: String
+    duration: Int
+    video_type: String
+    embed_html: String
+    promo_image: PromoImageVideo
+}
+type PromoItemsGallery {
+    basic: BasicPromoItems
+}
+type galleryItems {
+    type: String
+    promo_items: PromoItemsGallery
+}
 type PromoItems {
     basic: BasicPromoItems
+    Basic: BasicVideoPromoItems
+    gallery: galleryItems
 }
 type Taxonomy {
     sections: [SectionTaxonomy]
@@ -45,6 +73,22 @@ type SectionTaxonomy {
     path: String!,
     parent_id: String,
     _website_section_id: String!
+}
+type WebsiteSection {
+    _id: String
+    _website: String
+    type: String
+    name: String
+    description: String
+    path: String
+}
+type DataWebsites {
+    website_section: WebsiteSection
+    website_url: String
+}
+type Websites {
+    elcomercio: DataWebsites
+    peru21: DataWebsites
 }
 type Query {
  
@@ -59,8 +103,6 @@ type Query {
  website: String!
  website_url: String!
  taxonomy: Taxonomy
+ websites: Websites!
 }
-
-
-
 `;
