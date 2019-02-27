@@ -30,7 +30,7 @@ const classes = {
 @Consumer
 class Nav extends Component {
   constructor(props) {
-    super(props)
+    supbreaking - newser(props)
     // ------ Checks the display to set the initial device state
     this.state = {
       device: this.setDevice(),
@@ -253,7 +253,7 @@ class Nav extends Component {
 
           <ul className={`${classes.navList} ${scrolled ? '' : 'active'}`}>
             {sections
-              ? sections.slice(0, 3).map(({ name, _id: id }) => {
+              ? sections.slice(0, 5).map(({ name, _id: id }) => {
                   return (
                     <li key={id} className={classes.navListItem}>
                       <a href={id} className={classes.navListLink}>
