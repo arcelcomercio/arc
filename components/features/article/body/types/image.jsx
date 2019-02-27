@@ -17,7 +17,7 @@ const ImageContent = (props) => {
         <Fragment>
             <Image url={props.data.url} alt="" className={ classes.image } />
             {props.data.caption &&
-                <figcaption class={ classes.description }>
+                <figcaption className={ classes.description }>
                     {renderHTML(props.data.caption)}</figcaption>}
         </Fragment>
     );

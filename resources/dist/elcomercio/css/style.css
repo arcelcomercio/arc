@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /******* Variables *******/
 /******* Brand colors *******/
 /*-----------------------*/
@@ -135,19 +136,93 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-table, tbody, thead, tfoot, td, tr, th,
-fieldset, form, label, legend,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+* {
+  position: relative;
+  box-sizing: border-box;
+}
+html {
+  font-family: "system-ui", sans-serif;
+}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+table,
+tbody,
+thead,
+tfoot,
+td,
+tr,
+th,
+fieldset,
+form,
+label,
+legend,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -155,21 +230,34 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
   display: block;
 }
 body {
   line-height: 1;
 }
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
-blockquote, q {
+blockquote,
+q {
   quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
   content: "";
   content: none;
 }
@@ -177,12 +265,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-* {
-  position: relative;
-  box-sizing: border-box;
-}
-html {
-  font-family: "system-ui", sans-serif;
+a {
+  text-decoration: none;
+  color: #0e0e0e;
 }
 .margin-top {
   margin-top: 20px;
@@ -449,6 +534,9 @@ body {
   line-height: 1.5;
   margin-bottom: 25px;
   word-wrap: break-word;
+}
+.news-text-content img {
+  width: 100%;
 }
 .font--secondary {
   font-size: 20px;
@@ -935,6 +1023,89 @@ body {
 .List .list-news-items .item-news .page-link a:hover {
   text-decoration: underline;
 }
+.triplete {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #A5A9A9;
+}
+.triplete a {
+  text-decoration: none;
+  color: inherit;
+}
+.triplete__item {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: 80px 1fr;
+  grid-template-rows: 80px 1fr;
+  padding: 15px;
+  border-bottom: 1px solid #A5A9A9;
+}
+.triplete__item img {
+  height: 100%;
+}
+.triplete__item:last-child {
+  border-bottom: 0px;
+}
+.triplete__item__title {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: triplete__item__title;
+  font-weight: bold;
+  overflow: hidden;
+}
+.triplete__item--multimedia-left > .triplete__item__title {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+}
+.triplete__item__multimedia {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: triplete__item__multimedia;
+}
+.triplete__item--multimedia-left > .triplete__item__multimedia {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+}
+.triplete__item__multimedia img {
+  width: 100%;
+}
+.triplete__item__author {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: triplete__item__author;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  color: #A5A9A9;
+  padding-top: 10px;
+}
+.triplete__item--multimedia-left > .triplete__item__author {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+}
+.triplete__item--multimedia-right {
+      grid-template-areas: "triplete__item__title triplete__item__multimedia" "triplete__item__author triplete__item__author";
+}
+.triplete__item--multimedia-right figure {
+  padding-left: 10%;
+}
+.triplete__item--multimedia-left {
+      grid-template-areas: "triplete__item__multimedia triplete__item__title" "triplete__item__author triplete__item__author";
+}
+.triplete__item--multimedia-left figure {
+  padding-right: 10%;
+}
+.mas-leidas__title {
+  color: #fff;
+  background-color: #5f72a7;
+  padding: 15px 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+}
 .btn {
   border-radius: 4px;
   padding: 8px 16px;
@@ -960,6 +1131,47 @@ body {
 }
 .icon--margin-right {
   margin-right: 8px;
+}
+.new:not(:first-child) {
+  border-top: 1px solid #000;
+  padding: 15px 0;
+}
+.new:hover {
+  text-decoration: underline;
+}
+.new__figure {
+  width: 100%;
+  max-height: 75px;
+  overflow: hidden;
+}
+.new__figure__img {
+  width: 100%;
+}
+.new__figure__img--icon::after {
+  position: absolute;
+  bottom: -5px;
+  right: 5px;
+  z-index: 1;
+  font-size: 50px;
+  width: 100%;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 2px 2px 5px #666;
+}
+.new__figure__img--video::after {
+  content: "‣";
+}
+.new__figure__img--image::after {
+  content: "❑";
+}
+.new__detail {
+  font-size: 12px;
+  line-height: 1.3;
+  padding-left: 10px;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 /*---------------------*/
 @media screen and (min-width: 640px) {

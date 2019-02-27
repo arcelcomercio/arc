@@ -53,7 +53,7 @@ class ContentArticleBody extends Component {
               elementClasses={elementClasses}
               renderElement={element => {
                 const { type } = element
-                console.log(element); debugger;
+                //console.log(element); debugger;
                 if (type === 'image') {
                   return <Imagen data={element} />
                 }
