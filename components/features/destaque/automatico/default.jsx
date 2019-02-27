@@ -20,7 +20,7 @@ const classes = FormatClassName({
   flowImage: ['flow-image'],
 })
 @Consumer
-class CardNotaAuto extends Component {
+class DestaqueAutomatico extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -50,8 +50,6 @@ class CardNotaAuto extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
-      console.log(response)
-      console.log(this.props)
       const storyElement = response.content_elements[0]
       this.setState({
         category: 'Editorial',
@@ -82,6 +80,7 @@ class CardNotaAuto extends Component {
             })
             break
           default:
+            break
         }
       }
     })
@@ -137,7 +136,7 @@ class CardNotaAuto extends Component {
   }
 }
 
-CardNotaAuto.propTypes = {
+DestaqueAutomatico.propTypes = {
   customFields: PropTypes.shape({
     section: PropTypes.string.tag({
       name: 'Sección',
@@ -170,4 +169,4 @@ CardNotaAuto.propTypes = {
   }),
 }
 
-export default CardNotaAuto
+export default DestaqueAutomatico
