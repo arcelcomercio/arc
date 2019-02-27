@@ -29,7 +29,7 @@ const classes = FormatClassName({
 })
 
 //@Consumer
-class Ae extends Component {
+class AperturaExtraordinariaChildren extends Component {
 
     render () {
         const data = new Data(this.props.customFields, this.props.data, this.props.website)
@@ -60,4 +60,4 @@ class Ae extends Component {
     }
 }
 
-export default Ae
+export default AperturaExtraordinariaChildren
