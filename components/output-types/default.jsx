@@ -11,7 +11,7 @@ export default ({
   Fusion,
   Libs,
   MetaTags
-}) =>
+}) => 
   <html>
     <head>
       <title>Fusion Article</title>
