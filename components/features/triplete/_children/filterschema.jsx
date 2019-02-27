@@ -57,4 +57,4 @@ export const filterSchema = `{
         }
     }
 }`
-//@todo improve the data websites nodes
+//TODO: improve the data websites nodes

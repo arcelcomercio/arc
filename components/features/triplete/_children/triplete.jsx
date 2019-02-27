@@ -7,7 +7,7 @@ class TripleteChildren extends Component
     render(){
         const data = new Data(this.props.customFields, this.props.state, this.props.website)
         return <div className='triplete'> {[1,2,3].map(index => 
-                <article className={`triplete__item triplete__item--multimedia-${data.multimediaOrientation}`}>
+                <article className={`triplete__item triplete__item--${data.multimediaOrientation}`}>
                     <div className='triplete__title'>
                         <h2>
                             <a href={data.getLink(index)} 
@@ -20,7 +20,7 @@ class TripleteChildren extends Component
                         <a href={data.getLink(index)}>
                             <img src={data.getMultimedia(index)}/>
                         </a>
-                        <Icon iconClass={data.getIconClass(index)} />
+                        <Icon iconClass={data.getIconClass(index)} iconOrientation={data.multimediaOrientation} />
                     </figure>
                     <div className='triplete__author'>
                         <a href={data.authorOrSectionLink(index)}>{data.authorOrSection(index)}</a>

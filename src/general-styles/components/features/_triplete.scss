@@ -69,10 +69,16 @@
         color: #444;
         pointer-events: none;
         position: absolute;
-        right: 20px;
         text-align: center;
-        top: 30px;
+        top: 20px;
         z-index: 1;
+        
+        &--right {
+            right: 20px;
+        }
+        &--left {
+            right: 70px;
+        }
 
         .triplete__icon {
             display: table-cell;
