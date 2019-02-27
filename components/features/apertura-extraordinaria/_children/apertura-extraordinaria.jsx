@@ -1,32 +1,15 @@
 import React, { Component } from 'react'
 import Data from './data'
-import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-const classes = FormatClassName({
-    ae: [
-        'ae',
-        'padding-normal'
-    ],
-    aeSection: [
-        'ae__section',
-        'text-center'
-    ],
-    aeContent: [
-        'ae__content'
-    ],
-    aeContentTitle: [
-        'ae__content__title'
-    ],
-    aeContentSubtitle: [
-        'ae__content__subtitle'
-    ],
-    aeContentAuthor: [
-        'ae__content__author'
-    ],
-    aeMultimedia: [
-        'ae__multimedia'
-    ],
-})
+const classes = {
+    ae: 'ae padding-normal',
+    aeSection: 'ae__section text-center',
+    aeContent: 'ae__content',
+    aeContentTitle: 'ae__content__title',
+    aeContentSubtitle: 'ae__content__subtitle' ,
+    aeContentAuthor: 'ae__content__author',
+    aeMultimedia: 'ae__multimedia'
+}
 
 //@Consumer
 class AperturaExtraordinariaChildren extends Component {
