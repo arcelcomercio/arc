@@ -37,7 +37,7 @@ class Data
     get sectionLink(){
         return this.getDataSection().path + '?_website=' + this.website
     }
-    getDataSection(data, type){
+    getDataSection(){
         const sectionData =this.data && this.data.taxonomy && this.data.taxonomy.sections || []
         let section = '', path = ''
         for (let i=0; i<sectionData.length; i++) {

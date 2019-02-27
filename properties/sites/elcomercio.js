@@ -2,6 +2,8 @@ export default {
   siteName: 'El comercio',
   colorPrimary: '#f7c600',
   siteUrl: 'elcomercio.pe',
+  resizerUrl: "resizer.shared.arcpublishing.com",
+  resizerSecretKeyEnvVar: "Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7",
 
   nav: {
     background: '#1F1F1F',

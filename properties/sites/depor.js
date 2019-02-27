@@ -2,6 +2,8 @@ export default {
   siteName: "Depor",
   colorPrimary: '#007c31',
   siteUrl: 'depor.com',
+  resizerUrl: "my-resizer-endpoint.com",
+  resizerSecretKeyEnvVar: "Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7",
 
   nav: {
     background: '#007c31',

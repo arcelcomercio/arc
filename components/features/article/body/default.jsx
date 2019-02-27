@@ -8,32 +8,38 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Blockquote from "./types/blockquote"
 import Table from './types/table'
+import Autor from './types/autor'
 import ElePrincipal from './types/ele-principal'
-import Moment from 'react-moment'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
+
 
 const classes = FormatClassName({
   news: [
     'news-text-content',
-    'col-2'
-  ],
-  newsAuthor: [
-    'news-author-date'
+    'col-2',
+    'padding-normal',
+    'bg-color--white'
+
   ],
   newsImage: [
     'visual__image',
-    'visual__image--cover'
+    'visual__image--cover',
   ]
+
 })
 @Consumer
 class ContentArticleBody extends Component {
   render() {
+
     const { content_elements: contentElements, promo_items: promo_items, publish_date: date, credits: author } = this.props.globalContent;
+console.log(contentElements);
+    
     const elementClasses = {
       textClasses: "font--secondary",
       headerClasses: "font--primary",
       imageClasses: "visual__image visual__image--cover"
     };
+
 
     return (
       <Fragment>
@@ -41,21 +47,15 @@ class ContentArticleBody extends Component {
           {(promo_items) &&
             <ElePrincipal data={promo_items} />
           }
-          <div className={classes.newsAuthor}>
-            {author && author.by && author.by[0] &&
-              <a href={author && "/" + author.by[0].slug} >{author && author.by[0].name} </a>
-            }
-            <Moment format="DD.MM.YYYY / LT " date={date && date} />
-          </div>
+          {(author) && <Autor data={author} date={date} />}
           {contentElements && (
             <ArticleBody
               data={contentElements}
               elementClasses={elementClasses}
               renderElement={element => {
                 const { type } = element
-                console.log(element); debugger;
                 if (type === 'image') {
-                  return <Imagen data={element} />
+                  return <Imagen data={element} className={classes.newsImage} />
                 }
                 if (type === 'video') {
                   return <Video data={element.embed_html} className={classes.newsImage} />
@@ -78,8 +78,6 @@ class ContentArticleBody extends Component {
             />
           )}
         </div>
-
-
       </Fragment>
     );
   }

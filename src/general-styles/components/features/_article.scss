@@ -44,15 +44,24 @@ $BGImageOrd: #4aa8fa;
         font-size: 12px;
         line-height: 45px;
         margin-right: 2px;
-        width: 295px;
+        border-radius: 50%;
+        text-align: center;
+        border-radius: 5px;
+        width: 31.6%;
         float: left;
         &__link {
             color: $colorLinksWhite;
             display: block;
             padding-left: 15px;
         }
+         &--tw {
+            background-color: #1da1f2;
+         }
         &--linkedin {
             background-color: $colorLinkedIn;
+        }
+        &--linkedin {
+            background-color: #007cba;
         }
         &--face {
             background-color: $colorFacebook;
@@ -64,24 +73,56 @@ $BGImageOrd: #4aa8fa;
             left: 0;
             position: absolute;
             top: 0;
-            width: 891px;
+            width: 100%;
+        }
+        span.less{
+            display: none;
+        }
+        &--active{
+            display: block;
+            span.less{
+                display: block;
+            }
+            span.more{
+                display: none;
+            }
         }
         &--show-more {
             font-size: 24px;
             font-weight: 700;
             margin-right: 0;
             width: 35px;
+            background-color: #ccc;
+            text-align: center;
+            color: #fff;
+            text-decoration: blink;
+            
             & a {
                 background-color: $BGBtnShowMore;
                 color: $colorLinksWhite;
                 display: block;
-                text-align: center;
                 text-decoration: blink;
                 &:hover {
                     text-decoration: none;
                 }
             }
         }
+    }
+}
+
+.pquote {
+    background: none;
+    color: #030;
+    font-size: 26px;
+    line-height: 0.9;
+    font-style: italic;
+    padding: 13px;
+    &__pull{
+        background:  url('../images/openquote.svg') top left no-repeat;
+    }
+    & p:first-letter {
+        font-size: 39px;
+        font-weight: bold;
     }
 }
 .table {
