@@ -7,6 +7,7 @@ $color-secondary: #000;
 $color-link: #524CFF;
 $color-white: #FFFFFF;
 $color-error: #FF0000;
+$color-light-blue:#d5e5ed;
 /*-----------------------*/
 
 /******* Grayscale *******/
@@ -20,6 +21,7 @@ $color-soft: #E7EBED;
 /******* Header colors *******/
 $header-bg-color: $color-primary;
 $header-text-color: $color-dark;
+
 /*-----------------------*/
 
 /******* Nav colors *******/
@@ -45,5 +47,8 @@ $nav-color: $color-dark;
 .bg-color--dark {
     background-color: $color-dark;
     color: $color-white;
+}
+.bg-color--lightblue{
+    background-color: $color-light-blue;
 }
 /*-----------------------*/

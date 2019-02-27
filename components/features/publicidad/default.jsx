@@ -1,10 +1,9 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
-//import './default.scss'
 import PropTypes from 'prop-types'
 
 @Consumer
-class Ads extends Component {
+class Publicidad extends Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -28,7 +27,7 @@ class Ads extends Component {
   }
 }
 
-Ads.propTypes = {
+Publicidad.propTypes = {
   customFields: PropTypes.shape({
     adElement: PropTypes.string.isRequired.tag({
       name: 'Nombre',
@@ -42,4 +41,4 @@ Ads.propTypes = {
   }),
 }
 
-export default Ads
+export default Publicidad
