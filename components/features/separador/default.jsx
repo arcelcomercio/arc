@@ -1,36 +1,17 @@
-import Consumer from "fusion:consumer";
-import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
-import { FormatClassName } from './../../../resources/utilsJs/utilities';
-import {
-  isTablet,
-  isMobileOnly
-} from "react-device-detect";
+import Consumer from 'fusion:consumer'
+import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { isTablet, isMobileOnly } from 'react-device-detect'
 
-const classes = FormatClassName({
-  separator:[
-    "separator"
-  ],
-  headerHtml:[
-    "separator__header__html"
-  ],
-  title:[
-    "separator__header__title"
-  ],
-  body:[
-    "separator__body"
-  ],
-  item:[
-    "separator__item"
-  ],
-  detail:[
-    "separator__detail"
-  ],
-  separatorTitle:[
-    "separator__title"
-  ]
- 
-})
+const classes = {
+  separator: 'separator',
+  headerHtml: 'separator__header__html',
+  title: 'separator__header__title',
+  body: 'separator__body',
+  item: 'separator__item',
+  detail: 'separator__detail',
+  separatorTitle: 'separator__title',
+}
 const SeparatorItem = ({ headlines, promo_items, website_url }) => {
   return (
     <article className={classes.item}>
@@ -47,15 +28,15 @@ const SeparatorItem = ({ headlines, promo_items, website_url }) => {
         ) : null}
       </figure>
     </article>
-  );
-};
+  )
+}
 const SeparatorListItem = ({ data }) => {
   let result = data.map((item, i) => {
-    let imagen = null;
+    let imagen = null
     if (item.promo_items) {
       imagen = item.promo_items.basic
         ? item.promo_items.basic.url || null
-        : null;
+        : null
     }
 
     return (
@@ -65,10 +46,10 @@ const SeparatorListItem = ({ data }) => {
         promo_items={imagen}
         website_url={item.website_url}
       />
-    );
-  });
-  return result;
-};
+    )
+  })
+  return result
+}
 
 const HeaderTitulo = ({ titleSeparator, titleLink }) => {
   return (
@@ -77,11 +58,11 @@ const HeaderTitulo = ({ titleSeparator, titleLink }) => {
         <a href={titleLink}>{titleSeparator}</a>
       </h1>
     </Fragment>
-  );
-};
+  )
+}
 const createMarkup = html => {
-  return { __html: html };
-};
+  return { __html: html }
+}
 
 const HeaderHTML = ({ htmlCode }) => {
   return (
@@ -89,66 +70,66 @@ const HeaderHTML = ({ htmlCode }) => {
       className={classes.title}
       dangerouslySetInnerHTML={createMarkup(htmlCode)}
     />
-  );
-};
+  )
+}
 @Consumer
 class Separador extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     const { titleSeparator, titleLink, secction } =
-      this.props.customFields || {};
+      this.props.customFields || {}
 
-    let { htmlCode } = this.props.customFields || {};
+    let { htmlCode } = this.props.customFields || {}
 
     this.state = {
       titleSeparator,
       titleLink,
       secction,
       htmlCode,
-      data: []
-    };
+      data: [],
+    }
   }
   componentDidMount = () => {
-    let newsNumber = 4;
-    
+    let newsNumber = 4
+
     if (isMobileOnly) {
-      newsNumber = 1;
+      newsNumber = 1
     }
-    
-    if(isTablet){
-      newsNumber = 4;
+
+    if (isTablet) {
+      newsNumber = 4
     }
 
     const { fetched } = this.getContent(
-      "get-lis-news",
+      'get-lis-news',
       {
         website: this.props.arcSite,
         secction: this.state.secction,
-        newsNumber: newsNumber
+        newsNumber: newsNumber,
       },
       this.filterSchema()
-    );
+    )
     fetched.then(response => {
       if (!response) {
-        response = [];
+        response = []
         console.log(
-          "No hay respuesta del servicio para obtener el listado de noticias"
-        );
+          'No hay respuesta del servicio para obtener el listado de noticias'
+        )
       }
 
       if (!response.content_elements) {
-        response.content_elements = [];
+        response.content_elements = []
         console.log(
-          "No hay respuesta del servicio para obtener el listado de noticias"
-        );
+          'No hay respuesta del servicio para obtener el listado de noticias'
+        )
       }
 
       this.setState({
-        data: response.content_elements
-      });
-    });
-  };
+        data: response.content_elements,
+      })
+    })
+  }
 
   filterSchema() {
     return `
@@ -166,7 +147,7 @@ class Separador extends Component {
         }
       }
     }
-    `;
+    `
   }
 
   render() {
@@ -185,16 +166,16 @@ class Separador extends Component {
           <SeparatorListItem data={this.state.data} />
         </div>
       </div>
-    );
+    )
   }
 }
 
 Separador.propTypes = {
   customFields: PropTypes.shape({
-    titleSeparator: PropTypes.string.tag({ name: "Titulo del separador" }),
-    titleLink: PropTypes.string.tag({ name: "Enlace del separador" }),
-    secction: PropTypes.string.isRequired.tag({ name: "Sección" }),
-    htmlCode: PropTypes.richtext.tag({ name: "Código HTML" })
-  })
-};
-export default Separador;
+    titleSeparator: PropTypes.string.tag({ name: 'Titulo del separador' }),
+    titleLink: PropTypes.string.tag({ name: 'Enlace del separador' }),
+    secction: PropTypes.string.isRequired.tag({ name: 'Sección' }),
+    htmlCode: PropTypes.richtext.tag({ name: 'Código HTML' }),
+  }),
+}
+export default Separador
