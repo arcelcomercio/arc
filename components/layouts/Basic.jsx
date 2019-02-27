@@ -1,23 +1,15 @@
 import React from 'react'
-import { FormatClassName } from '../../resources/utilsJs/utilities'
+import PropTypes from 'prop-types'
 
-const classes = FormatClassName({
-  layout: ['flex', 'flex--justify-center'],
-  contentContainer: ['flex', 'flex--column', 'content-layout-container'],
-  mainContent: [
-    'content-grid-base',
-    'content-layout',
-    'content--1col',
-    'content--2col',
-    'content--3col',
-    'margin-top',
-  ],
-  zocalo: ['zocalo__container'],
-})
+const classes = {
+  layout: 'flex flex--justify-center',
+  contentContainer: 'flex flex--column content-layout-container',
+  mainContent:
+    'content-grid-base content-layout content--1col content--2col content--3col margin-top',
+  zocalo: 'zocalo__container',
+}
 
-const Basic = props => {
-  const { children } = props
-
+const BasicLayout = ({ children }) => {
   return (
     <div className={classes.layout}>
       <div className={classes.zocalo}>{children[0] /* Zocalo izquierda */}</div>
@@ -32,13 +24,17 @@ const Basic = props => {
   )
 }
 
-Basic.sections = [
+BasicLayout.propTypes = {
+  children: PropTypes.node,
+}
+
+BasicLayout.sections = [
   'Zocalo izquierda',
-  'Nav',
-  'Header',
-  'Contenido',
-  'Footer',
+  'Barra de navegación', // Nav
+  'Cabecera de página', // Header
+  'Contenido', // Content
+  'Pie de página', // Footer
   'Zocalo derecha',
 ]
 
-export default Basic
+export default BasicLayout
