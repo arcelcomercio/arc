@@ -14,6 +14,7 @@
     height: 50px;
     padding: 0px 20px 0px 10px;
   }
+
   &__title {
     height: 100%;
     min-width: 10%;
@@ -22,6 +23,7 @@
     flex-direction: column;
     justify-content: center;
   }
+
   &__more__news {
     align-self: center;
     flex-direction: column;
@@ -31,19 +33,19 @@
     width: 90px;
     height: 25px;
     display: flex;
-    
-    & a{
+
+    & a {
       color: #999;
       text-decoration: none;
     }
   }
 
-  &__listItems{
+  &__listItems {
     background: #ffffff;
     max-height: 300px;
   }
 
-  &__item__news{
+  &__item__news {
     display: flex;
     flex-direction: column;
     width: auto;
@@ -51,11 +53,11 @@
     border-bottom: 1px solid #d5e1e1;
   }
 
-  & img{
+  & img {
     width: 100%;
   }
 
-  &__time{
+  &__time {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,21 +65,24 @@
     line-height: 19.2px;
     color: #333;
   }
-  &__page__link{
+
+  &__page__link {
     display: flex;
     flex-direction: column;
     justify-content: start;
     margin: 2px 0px 2px 0px;
 
-    & a{
+    & a {
       text-decoration: none;
+
       & h3 {
         font-size: 15px;
         color: #4c4c4c;
         margin: 0px;
       }
     }
-    & a:hover{
+
+    & a:hover {
       text-decoration: underline;
     }
   }

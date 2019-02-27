@@ -28,6 +28,8 @@ const classes = FormatClassName({
 const Gallery = (props) => {
 	//console.log(props.data);debugger;
 	const { content_elements: elements } = props.data;
+	console.log(elements);
+	debugger;
 	return (
 		<Fragment>
 			<Slider>
@@ -36,7 +38,7 @@ const Gallery = (props) => {
 						<div
 							className={ classes.itemSlideImg }
 							key={index}						>
-							<Image url={item.url} alt="" className={ classes.itemImageComponent } />
+							<Image url={"http://" + item.resized_urls["4:3"]} className={ classes.itemImageComponent } />
 						</div>
 						<div className={ classes.itemDetail }>
 							<span className={ classes.itemDetailPagImage }>{index + 1} / 5</span>
