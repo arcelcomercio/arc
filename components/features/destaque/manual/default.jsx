@@ -2,25 +2,17 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import { FormatClassName } from '../../../../resources/utilsJs/utilities'
-
-const classes = FormatClassName({
-  cardNotaContainer: [
-    'padding-normal',
-    'card',
-    'flex',
-    'flex--column',
-    'row-1',
-  ],
-  imgComplete: ['img-complete'],
-  parcialTop: ['flex--column-reverse'],
-  twoCol: ['col-2'],
-  spanGradient: ['gradient', 'full-width', 'block'],
-  flowDetail: ['flow-detail', 'flex', 'flex--column', 'flex--justify-between'],
-  spanHeadband: ['live'],
-  author: ['author'],
-  flowImage: ['flow-image'],
-})
+const classes = {
+  cardNotaContainer: 'padding-normal card flex flex--column row-1',
+  imgComplete: 'img-complete',
+  parcialTop: 'flex--column-reverse',
+  twoCol: 'col-2',
+  spanGradient: 'gradient full-width block',
+  flowDetail: 'flow-detail flex flex--column flex--justify-between',
+  spanHeadband: 'live',
+  author: 'author',
+  flowImage: 'flow-image',
+}
 @Consumer
 class DestaqueManual extends Component {
   constructor(props) {
@@ -110,12 +102,12 @@ class DestaqueManual extends Component {
           size === 'twoCol' ? classes.twoCol : ''
         }`}
       >
-        {imageSize == 'complete' && <span className={classes.spanGradient} />}
+        {imageSize === 'complete' && <span className={classes.spanGradient} />}
         <div className={classes.flowDetail}>
           <div>
-            {headband == 'normal' && (
+            {headband === 'normal' && (
               <h3>
-                <a href="" {...editableField('categoryField')}>
+                <a href="#/" {...editableField('categoryField')}>
                   {categoryField || category}
                 </a>
               </h3>
@@ -124,17 +116,17 @@ class DestaqueManual extends Component {
               <span className={classes.spanHeadband}>EN VIVO</span>
             )}
             <h2>
-              <a href="" {...editableField('titleField')}>
+              <a href="#/" {...editableField('titleField')}>
                 {titleField || title}
               </a>
             </h2>
           </div>
           <span className={classes.author}>
-            <a href="">{author}</a>
+            <a href="#/">{author}</a>
           </span>
         </div>
         <figure className={classes.flowImage}>
-          <a href="">
+          <a href="#/">
             <img src={image} alt="" />
           </a>
         </figure>

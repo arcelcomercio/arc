@@ -1,24 +1,17 @@
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
-const classes = FormatClassName({
-  cardNotaContainer: [
-    'padding-normal',
-    'card',
-    'flex',
-    'flex--column',
-    'row-1',
-  ],
-  imgComplete: ['img-complete'],
-  parcialTop: ['flex--column-reverse'],
-  twoCol: ['col-2'],
-  spanGradient: ['gradient', 'full-width', 'block'],
-  flowDetail: ['flow-detail', 'flex', 'flex--column', 'flex--justify-between'],
-  author: ['author'],
-  flowImage: ['flow-image'],
-})
+const classes = {
+  cardNotaContainer: 'padding-normal card flex flex--column row-1',
+  imgComplete: 'img-complete',
+  parcialTop: 'flex--column-reverse',
+  twoCol: 'col-2',
+  spanGradient: 'gradient full-width block',
+  flowDetail: 'flow-detail flex flex--column flex--justify-between',
+  author: 'author',
+  flowImage: 'flow-image',
+}
 @Consumer
 class DestaqueAutomatico extends Component {
   constructor(props) {
