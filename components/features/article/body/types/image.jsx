@@ -21,7 +21,7 @@ class ImageConent extends Component {
     return (
       <Fragment>
         <Image
-          url={"http://" + this.props.data.resized_urls["3:2"]}
+          url={"http://" + this.props.data.resized_urls["2:3"]}
           aspectRatio="16:9"
           alt={this.props.data.subtitle}
           className={classes.image}

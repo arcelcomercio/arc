@@ -1,25 +1,22 @@
-import source, {
-  addResizedUrls
-} from "@arc-core-components/content-source_content-api-v4";
+
 import envVars from "fusion:environment";
+import { addResizedUrls } from '../../resources/utilsJs/thumbs'
 import getProperties from "fusion:properties";
+
 
 const resolve = key => {
   const requestUri = `/content/v4/stories/?website_url=${key.website_url ||
-    key}&website=elcomercio`;
+    key}&website=${key.website}`;
   return requestUri;
 };
 
 const transform = data => {
-  const aspectRatios = ["3:2"];
   const { website } = data;
+  const aspectRatios =["3:4|895x514","2:3|620x356"];
   const { resizerSecretKeyEnvVar, resizerUrl } = getProperties(website);
-  const resizerSecretKey = envVars[resizerSecretKeyEnvVar];
-  console.log('==========================>>>>>>>>>>>>>>>>>>>>>>>2222222');
-  console.log(envVars);
-  console.log('==========================>>>>>>>>>>>>>>>>>>>>>>>44');
-  debugger;
-  return addResizedUrls(data, resizerUrl, resizerSecretKeyEnvVar, aspectRatios);
+ // const resizerSecretKey = envVars[resizerSecretKeyEnvVar];
+  return  addResizedUrls( data, resizerUrl, resizerSecretKeyEnvVar,aspectRatios);
+
 };
 
 export default {
@@ -27,6 +24,10 @@ export default {
   schemaName: "story",
   transform,
   params: {
-    website_url: "text"
+    website_url: "text",
+    website: 'text'
+
   }
 };
+
+

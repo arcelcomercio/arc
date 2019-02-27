@@ -12,6 +12,7 @@ import Autor from './types/autor'
 import ElePrincipal from './types/ele-principal'
 import { FormatClassName } from '../../../../resources/utilsJs/utilities'
 
+
 const classes = FormatClassName({
   news: [
     'news-text-content',
@@ -29,14 +30,16 @@ const classes = FormatClassName({
 @Consumer
 class ContentArticleBody extends Component {
   render() {
+
     const { content_elements: contentElements, promo_items: promo_items, publish_date: date, credits: author } = this.props.globalContent;
+console.log(contentElements);
+    
     const elementClasses = {
       textClasses: "font--secondary",
       headerClasses: "font--primary",
       imageClasses: "visual__image visual__image--cover"
     };
 
- 
 
     return (
       <Fragment>
