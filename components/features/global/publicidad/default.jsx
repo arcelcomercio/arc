@@ -19,8 +19,8 @@ class Publicidad extends Component {
 
     return (
       <Fragment>
-        {isMobile && <div id={`ads-m-${adElement}`} />}
-        {isDesktop && <div id={`ads-d-${adElement}`} />}
+        {adElement && isMobile && <div id={`ads-m-${adElement}`} />}
+        {adElement && isDesktop && <div id={`ads-d-${adElement}`} />}
         {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
       </Fragment>
     )

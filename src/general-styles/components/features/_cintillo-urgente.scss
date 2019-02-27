@@ -1,4 +1,4 @@
-.breaking-news {
+.cintillo-u {
   color: $color-white;
 
   a {
@@ -38,14 +38,18 @@
     }
   }
 
-  &__h2 {
+  &__text {
     margin: 0;
     font-size: 1.1em;
     font-weight: 600;
     line-height: 1.2em;
   }
 
-  &__h2__tag {
+  &__tag {
+    margin-right: 5px;
+  }
+
+  &__link {
     margin-right: 5px;
   }
 }
