@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import Data from './data'
 
 const classes = {
-    ae: 'ae padding-normal',
-    aeSection: 'ae__section text-center',
-    aeContent: 'ae__content',
-    aeContentTitle: 'ae__title',
-    aeContentSubtitle: 'ae__subtitle' ,
-    aeContentAuthor: 'ae__author',
-    aeMultimedia: 'ae__multimedia'
+    aperturae: 'aperturae padding-normal',
+    aperturaeSection: 'aperturae__section text-center',
+    aperturaeContent: 'aperturae__content',
+    aperturaeTitle: 'aperturae__title',
+    aperturaeSubtitle: 'aperturae__subtitle' ,
+    aperturaeAuthor: 'aperturae__author',
+    aperturaeMultimedia: 'aperturae__multimedia'
 }
 
 //@Consumer
@@ -19,24 +19,24 @@ class AperturaExtraordinariaChildren extends Component {
          
         return  <div className={
                         `
-                        ${classes.ae} 
-                        ae--${data.multimediaOrientation} 
+                        ${classes.aperturae} 
+                        aperturae--${data.multimediaOrientation} 
                         text-${data.contentOrientation}
                         `
                     }>
-                    <div className={classes.aeSection}>
+                    <div className={classes.aperturaeSection}>
                         <a href={data.sectionLink} {...this.props.editableField("section")}>{data.section}</a>
                     </div>
-                    <div className={classes.aeContent}>
-                        <div className={classes.aeContentTitle}>
+                    <div className={classes.aperturaeContent}>
+                        <div className={classes.aperturaeTitle}>
                             <a href={data.link} {...this.props.editableField("title")}>{data.title}</a>
                         </div>
-                        <div className={classes.aeContentSubtitle}>
+                        <div className={classes.aperturaeSubtitle}>
                             <a href={data.link} {...this.props.editableField("subTitle")}>{data.subTitle}</a>
                         </div>
-                        <div className={classes.aeContentAuthor}>{data.author}</div>
+                        <div className={classes.aperturaeAuthor}>{data.author}</div>
                     </div>
-                    <div className={classes.aeMultimedia}>
+                    <div className={classes.aperturaeMultimedia}>
                         <img src={data.image} alt={data.title}/>
                     </div>
                 </div>

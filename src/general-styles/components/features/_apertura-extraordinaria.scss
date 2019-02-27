@@ -1,5 +1,5 @@
 // apertura-extraordinaria
-.ae { 
+.aperturae { 
     //border-style: solid;
     //border-width: 5px 7px;
     background-color: $color-white;
@@ -15,20 +15,20 @@
 
     &--bottom {
         grid-template-areas: 
-        "ae-section ae-section"
-        "ae-content ae-content"
-        "ae-multimedia ae-multimedia";
+        "aperturae-section aperturae-section"
+        "aperturae-content aperturae-content"
+        "aperturae-multimedia aperturae-multimedia";
     }
     &--top {
         grid-template-areas: 
-        "ae-multimedia ae-multimedia"
-        "ae-section ae-section"
-        "ae-content ae-content";
+        "aperturae-multimedia aperturae-multimedia"
+        "aperturae-section aperturae-section"
+        "aperturae-content aperturae-content";
     }
     &--left {
         grid-template-areas: 
-        "ae-multimedia ae-section"
-        "ae-multimedia ae-content";
+        "aperturae-multimedia aperturae-section"
+        "aperturae-multimedia aperturae-content";
         grid-template-rows: auto 1fr;
 
         img{
@@ -37,8 +37,8 @@
     }
     &--right {
         grid-template-areas: 
-        "ae-section ae-multimedia"
-        "ae-content ae-multimedia";
+        "aperturae-section aperturae-multimedia"
+        "aperturae-content aperturae-multimedia";
         grid-template-rows: auto 1fr;
 
         img{
@@ -51,12 +51,12 @@
         text-transform: uppercase;
         font-weight: bold;
         padding: 8px;
-        grid-area: ae-section;
+        grid-area: aperturae-section;
         //height: 15px;
     }
     &__content {
         padding: 20px 20px 0px 20px;
-        grid-area: ae-content;
+        grid-area: aperturae-content;
         //vertical center
         display: inline-grid;
         align-content: space-evenly;
@@ -79,7 +79,7 @@
         color: $color-silver;
     }
     &__multimedia {
-        grid-area: ae-multimedia;
+        grid-area: aperturae-multimedia;
 
         img{
             width: 100%;
