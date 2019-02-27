@@ -5,9 +5,9 @@ const classes = {
     ae: 'ae padding-normal',
     aeSection: 'ae__section text-center',
     aeContent: 'ae__content',
-    aeContentTitle: 'ae__content__title',
-    aeContentSubtitle: 'ae__content__subtitle' ,
-    aeContentAuthor: 'ae__content__author',
+    aeContentTitle: 'ae__title',
+    aeContentSubtitle: 'ae__subtitle' ,
+    aeContentAuthor: 'ae__author',
     aeMultimedia: 'ae__multimedia'
 }
 
@@ -20,7 +20,7 @@ class AperturaExtraordinariaChildren extends Component {
         return  <div className={
                         `
                         ${classes.ae} 
-                        ae--multimedia-${data.multimediaOrientation} 
+                        ae--${data.multimediaOrientation} 
                         text-${data.contentOrientation}
                         `
                     }>

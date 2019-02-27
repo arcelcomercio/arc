@@ -13,19 +13,19 @@
         color: inherit;
     }
 
-    &--multimedia-bottom {
+    &--bottom {
         grid-template-areas: 
         "ae-section ae-section"
         "ae-content ae-content"
         "ae-multimedia ae-multimedia";
     }
-    &--multimedia-top {
+    &--top {
         grid-template-areas: 
         "ae-multimedia ae-multimedia"
         "ae-section ae-section"
         "ae-content ae-content";
     }
-    &--multimedia-left {
+    &--left {
         grid-template-areas: 
         "ae-multimedia ae-section"
         "ae-multimedia ae-content";
@@ -35,7 +35,7 @@
             height: 100%;
         }
     }
-    &--multimedia-right {
+    &--right {
         grid-template-areas: 
         "ae-section ae-multimedia"
         "ae-content ae-multimedia";
@@ -65,21 +65,19 @@
         div {
             margin-bottom: 15px;
         }
-
-        &__title {
-            font-size: 3em;
-            font-weight: bold;
-        }
-        &__subtitle {
-            color: $color-silver;
-        }
-        &__author {
-            text-transform: uppercase;
-            font-size: 0.7em;
-            color: $color-silver;
-        }
     }
-
+    &__title {
+        font-size: 3em;
+        font-weight: bold;
+    }
+    &__subtitle {
+        color: $color-silver;
+    }
+    &__author {
+        text-transform: uppercase;
+        font-size: 0.7em;
+        color: $color-silver;
+    }
     &__multimedia {
         grid-area: ae-multimedia;
 
