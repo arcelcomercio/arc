@@ -22,7 +22,7 @@
         &:last-child {
             border-bottom: 0px;
         }
-        &--multimedia-right {
+        &--right {
             grid-template-areas: 
             "triplete__title triplete__multimedia"
             "triplete__author triplete__author";
@@ -31,7 +31,7 @@
                 padding-left: 10%;
             }
         }
-        &--multimedia-left {
+        &--left {
             grid-template-areas: 
             "triplete__multimedia triplete__title"
             "triplete__author triplete__author";
@@ -74,10 +74,10 @@
         z-index: 1;
         
         &--right {
-            right: 20px;
+            right: 5px;
         }
         &--left {
-            right: 70px;
+            right: 20px;
         }
 
         .triplete__icon {
