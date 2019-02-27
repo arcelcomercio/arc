@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { FormatClassName } from './../../../resources/utilsJs/utilities';
 
-//import "./lista.css";
 const classes = FormatClassName({
   lista:[
     'List'
@@ -96,7 +95,7 @@ const ItemNews = ({
 };
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
   let classListItems =
-    listNews.length > 3 ? classes.listItem+" scrol-horizontal" : classes.listItem;
+    listNews.length > 4 ? classes.listItem+" scrol-horizontal" : classes.listItem;
   //let nuevalista =[];
 
   return (
@@ -106,19 +105,36 @@ const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
           { display_date, headlines: { basic }, canonical_url, promo_items },
           index
         ) => {
+          
+          
           let fechaPublicacion = new Date(display_date);
+          let time = "";
 
+          let fechapresente = new Date().getTime();
+
+          if(((((fechapresente - new Date(display_date).getTime())/1000)/60)/60) >= 24){
+            time = (fechaPublicacion.getDate()<10 ? 
+            "0"+ fechaPublicacion.getDate() :
+            fechaPublicacion.getDate())
+            + "/" 
+            + 
+            (fechaPublicacion.getMonth()<10 ? 
+            "0"+ fechaPublicacion.getMonth() :
+            fechaPublicacion.getMonth())
+
+            +"/" + fechaPublicacion.getFullYear();
+          }else{
+
+            time = fechaPublicacion.getHours() +":" +fechaPublicacion.getMinutes() +"-";
+          }
+
+          
           return (
             <ItemNews
               key={index}
               seeHour={seeHour}
               seeImageNews={seeImageNews === true && index === 0 ? true : false}
-              time={
-                fechaPublicacion.getHours() +
-                ":" +
-                fechaPublicacion.getMinutes() +
-                "-"
-              }
+              time={time}
               title={basic}
               urlNews={canonical_url}
               promo_items={promo_items || ""}
@@ -229,15 +245,6 @@ class Lista extends Component {
 
 Lista.propTypes = {
   customFields: PropTypes.shape({
-    // secction: PropTypes.oneOf(["politica", "economia", "lastnews"]).tag({
-    //   name: "Sección",
-    //   labels: {
-    //     politica: "Política",
-    //     economia: "economia",
-    //     lastnews: "Ultimo minuto"
-    //   },
-    //   defaultValue: "politica"
-    // }),
     secction: PropTypes.string.isRequired.tag({ name: "Sección" }),
     background: PropTypes.oneOf([
       "bg-color--lightblue",
@@ -251,7 +258,7 @@ Lista.propTypes = {
       defaultValue: "bg-color--lightblue"
     }),
     titleList: PropTypes.string.isRequired.tag({ name: "Título de la lista" }),
-    newsNumber: PropTypes.number.tag({name: "Número de noticas"}),
+    newsNumber: PropTypes.number.tag({name: "Número de noticas", defaultValue: 5}),
     seeMore: PropTypes.bool.tag({ name: "Ver más" }),
     seeHour: PropTypes.bool.tag({ name: "Ver hora" }),
     seeImageNews: PropTypes.bool.tag({ name: "Ver imagen" }),
