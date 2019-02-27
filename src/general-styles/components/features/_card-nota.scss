@@ -16,12 +16,15 @@ $text-secondary: #979797;
 .flow-detail {
   width: 260px;
   min-height: 178px;
+
   div {
     padding: 15px 0px;
+
     h3 {
       margin: 0;
       font-size: 16px;
       padding-bottom: 10px;
+
       &::after {
         border-bottom: 1px solid $text-primary;
         content: "";
@@ -34,6 +37,7 @@ $text-secondary: #979797;
         bottom: -5px;
       }
     }
+
     h2 {
       margin: 0;
       max-height: 75.6px;
@@ -42,10 +46,12 @@ $text-secondary: #979797;
       padding: 10px 0;
     }
   }
+
   .author {
     font-size: 10px;
     text-transform: uppercase;
     margin: 10px 0;
+
     a {
       color: $text-secondary;
     }
@@ -53,8 +59,8 @@ $text-secondary: #979797;
 
   a {
     outline: 0;
-    text-decoration: none;
-    color:  $text-primary;
+    color: $text-primary;
+
     &:hover {
       text-decoration: underline;
     }
@@ -62,12 +68,13 @@ $text-secondary: #979797;
 }
 
 .flow-image {
-  height: 157px;
   overflow: hidden;
   margin: 0;
   display: inline-block;
+
   a {
     display: block;
+
     img {
       width: 100%;
       display: inline;
@@ -80,24 +87,28 @@ $text-secondary: #979797;
   background-color: unset;
   padding: initial;
   overflow: hidden;
+
   .gradient {
-    background: linear-gradient(to bottom,rgba(68,68,68,0) 20%,#444);
+    background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
     bottom: 0;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00444444',endColorstr='#444444',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00444444', endColorstr='#444444', GradientType=0);
     height: 306px;
     left: 0;
     pointer-events: none;
     position: absolute;
     z-index: 1;
   }
+
   .flow-detail {
     position: absolute;
     bottom: 10px;
     z-index: 10;
     padding: 0 15px;
+
     a {
       color: $color-white;
     }
+
     div {
       h3 {
         &::after {
@@ -106,6 +117,7 @@ $text-secondary: #979797;
       }
     }
   }
+
   .flow-image {
     height: auto;
     top: 0;
