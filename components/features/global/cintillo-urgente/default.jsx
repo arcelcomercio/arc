@@ -3,7 +3,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import { version } from 'moment'
+import {filterSchema} from './_children/filterschema'
 
 const classes = {
   breakingnews: 'padding-normal',
@@ -17,24 +17,40 @@ const classes = {
 class CintilloUrgente extends Component {
   constructor(props) {
     super(props)
-    const {
+    /*const {
       customFields: {
         articleConfig: { contentService, contentConfigValues },
       },
-    } = this.props || {}
+    } = this.props || {}*/
 
     this.state = {
       contentBreakingNews: 'cintillo-u',
+      article: {}
     }
-    if (contentService !== undefined && contentConfigValues !== undefined) {
+    this.fetch()
+    /*if (contentService !== undefined && contentConfigValues !== undefined) {
       this.fetchContent({
         article: {
           source: contentService,
           query: contentConfigValues,
         },
       })
-    }
+    }*/
   }
+
+  fetch() {
+    if(this.props.customFields.storyLink){
+        const { fetched } = this.getContent(
+            'get-story-by-websiteurl', 
+            { website_url: this.props.customFields.storyLink, website: this.props.arcSite }, 
+            filterSchema
+        )
+        fetched.then(response => {
+          console.log('response', response)
+            this.setState({ article: response })
+        })
+    }
+}
 
   componentDidMount = () => {
     // let contentBreakingNews = "cintillo-u";
@@ -64,6 +80,7 @@ class CintilloUrgente extends Component {
   render() {
     // const content = this.props.globalContent;
     // const content = this.state.article
+    // console.log('state', this.state)
     const {
       contentBreakingNews,
       article: { headlines, subheadlines },
@@ -78,14 +95,17 @@ class CintilloUrgente extends Component {
         subTitle,
         isExternalLink,
         link,
-        articleConfig,
+        //articleConfig,
+        storyLink
       },
     } = this.props
-    const webUrlService =
+    /*const webUrlService =
       articleConfig !== undefined &&
       articleConfig.contentConfigValues !== undefined
         ? `${articleConfig.contentConfigValues.website_url}?_website=${arcSite}`
-        : ''
+        : ''*/
+    const webUrlService = 
+      storyLink !== '' ? `${storyLink}?_website=${arcSite}` : ''
     const objContent = {
       title: title || (headlines && headlines.basic),
       subTitle: subTitle || (subheadlines && subheadlines.basic),
@@ -133,6 +153,20 @@ class CintilloUrgente extends Component {
 
 CintilloUrgente.propTypes = {
   customFields: PropTypes.shape({
+    settingLink: PropTypes.label.tag({
+      name: 'Configuración de link'
+    }),
+    storyLink: PropTypes.string.isRequired.tag({
+      name: 'Link de nota interna'
+    }),
+    isExternalLink: PropTypes.bool.tag({ name: '¿Nota externa?' }),
+    link: PropTypes.string.tag({
+      name: 'Link externo',
+      fieldType: 'url',
+    }),
+    settingContent: PropTypes.label.tag({
+      name: 'Configuración de contenido'
+    }),
     backgroundColor: PropTypes.oneOf([
       'cintillo-u--bgcolor-1',
       'cintillo-u--bgcolor-2',
@@ -149,19 +183,14 @@ CintilloUrgente.propTypes = {
       defaultValue: 'cintillo-u--bgcolor-1',
     }),
     tags: PropTypes.string.tag({ name: 'Etiqueta' }),
-    title: PropTypes.string.isRequired.tag({
+    title: PropTypes.string.tag({
       name: 'Título',
-      description: 'Dejar vacio para que tome el título de la historia',
+      description: 'Dejar vacío para tomar el valor original de la noticia.'
     }),
     subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true }),
-    articleConfig: PropTypes.contentConfig('story').tag({
+    /*articleConfig: PropTypes.contentConfig('story').tag({
       name: 'Configuración de nota interna',
-    }),
-    isExternalLink: PropTypes.bool.tag({ name: '¿Nota externa?' }),
-    link: PropTypes.string.tag({
-      name: 'Link externo',
-      fieldType: 'url',
-    }),
+    }),*/
   }),
 }
 export default CintilloUrgente
