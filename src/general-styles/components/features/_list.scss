@@ -24,7 +24,7 @@
     justify-content: center;
   }
 
-  &__more__news {
+  &__morenews {
     align-self: center;
     flex-direction: column;
     justify-content: center;
@@ -42,10 +42,10 @@
 
   &__listItems {
     background: #ffffff;
-    max-height: 300px;
+    max-height: 350px;
   }
 
-  &List__itemNews {
+  &__itemNews {
     display: flex;
     flex-direction: column;
     width: auto;

@@ -6,11 +6,13 @@ const classes = {
   lista: 'List',
   header: 'List__Header',
   title: 'List__title',
-  moreNews: 'List__more__news',
-  listItem: 'List__listItems ',
+  moreNews: 'List__morenews',
+  listItem: 'List__listItems',
   itemNews: 'List__itemNews',
   time: 'List__time',
   pageLink: 'List__pageLink',
+  bold: 'bold',
+  scrolY: 'scroll-vertical',
 }
 const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
   return (
@@ -50,7 +52,7 @@ const ImageNews = ({ urlNews, promo_items }) => {
   )
 }
 
-const TimeItem = ({ time }) => <div className="List__time">{time}</div>
+const TimeItem = ({ time }) => <div className={classes.time}>{time}</div>
 
 const ItemNews = ({
   seeHour,
@@ -68,7 +70,7 @@ const ItemNews = ({
       {seeHour && <TimeItem time={time} />}
       <div className={classes.pageLink}>
         <a href={urlNews}>
-          <h3 className="bold">{title}</h3>
+          <h3 className={classes.bold}>{title}</h3>
         </a>
       </div>
     </article>
@@ -77,9 +79,9 @@ const ItemNews = ({
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
   let classListItems =
     listNews.length > 4
-      ? classes.listItem + ' scrol-horizontal'
+      ? classes.listItem + ' ' + classes.scrolY
       : classes.listItem
-  //let nuevalista =[];
+  
 
   return (
     <div className={classListItems}>
@@ -247,7 +249,7 @@ Lista.propTypes = {
         defaultValue: 'bg-color--lightblue',
       }
     ),
-    
+
     newsNumber: PropTypes.number.tag({
       name: 'Número de noticas',
       defaultValue: 5,
