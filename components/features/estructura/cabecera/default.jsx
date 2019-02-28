@@ -95,16 +95,19 @@ class Header extends Component {
 
   fetch = () => {
     const { arcSite } = this.props
+
     const { fetched } = this.getContent('get-temas-del-dia', {
       website: arcSite,
       hierarchy: 'navegacion-cabecera-tema-del-dia',
     })
 
-    fetched.then(data => {
-      this.setState({
-        temas: data.children,
+    fetched
+      .then(data => {
+        this.setState({
+          temas: data.children,
+        })
       })
-    })
+      .catch(e => console.log(e))
   }
 
   lista = () => {
@@ -125,7 +128,7 @@ class Header extends Component {
     return temas[0] && device === 'desktop' ? (
       <header className={classes.header}>
         <div className={classes.headerMain}>
-          <span>{this.fechaActual()}</span>
+          <span className={classes.headerDate}>{this.fechaActual()}</span>
           <img
             src={`${contextPath}/resources/dist/${arcSite}/images/logo.png`}
             alt={`Logo de ${arcSite}`}

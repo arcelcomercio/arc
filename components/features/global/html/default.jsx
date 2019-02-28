@@ -9,6 +9,7 @@ class Html extends Component {
     const createMarkup = html => {
       return { __html: html }
     }
+    // eslint-disable-next-line react/no-danger
     return <div dangerouslySetInnerHTML={createMarkup(customFields.freeHtml)} />
   }
 }
