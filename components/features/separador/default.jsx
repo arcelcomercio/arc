@@ -5,8 +5,8 @@ import { isTablet, isMobileOnly } from 'react-device-detect'
 
 const classes = {
   separator: 'separator',
-  headerHtml: 'separator__header__html',
-  title: 'separator__header__title',
+  headerHtml: 'separator__headerHtml',
+  title: 'separator__headerTitle',
   body: 'separator__body',
   item: 'separator__item',
   detail: 'separator__detail',

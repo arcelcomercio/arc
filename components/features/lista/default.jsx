@@ -8,9 +8,9 @@ const classes = {
   title: 'List__title',
   moreNews: 'List__more__news',
   listItem: 'List__listItems ',
-  itemNews: 'List__item__news',
+  itemNews: 'List__itemNews',
   time: 'List__time',
-  pageLink: 'List__page__link',
+  pageLink: 'List__pageLink',
 }
 const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
   return (
@@ -235,6 +235,7 @@ class Lista extends Component {
 
 Lista.propTypes = {
   customFields: PropTypes.shape({
+    titleList: PropTypes.string.isRequired.tag({ name: 'Título de la lista' }),
     secction: PropTypes.string.isRequired.tag({ name: 'Sección' }),
     background: PropTypes.oneOf(['bg-color--lightblue', 'bg-color--white']).tag(
       {
@@ -246,7 +247,7 @@ Lista.propTypes = {
         defaultValue: 'bg-color--lightblue',
       }
     ),
-    titleList: PropTypes.string.isRequired.tag({ name: 'Título de la lista' }),
+    
     newsNumber: PropTypes.number.tag({
       name: 'Número de noticas',
       defaultValue: 5,
