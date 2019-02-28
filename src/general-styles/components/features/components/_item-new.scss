@@ -1,4 +1,5 @@
 $colorIconMasLeidas: rgba(255, 255, 255, 0.8);
+$colorTextItem: #000;
 
 .new {
   &:not(:first-child) {
@@ -7,6 +8,7 @@ $colorIconMasLeidas: rgba(255, 255, 255, 0.8);
   }
   &:hover {
     text-decoration: underline;
+    color: $colorTextItem;
   }
   &__figure {
     width: 100%;
@@ -39,6 +41,7 @@ $colorIconMasLeidas: rgba(255, 255, 255, 0.8);
     padding-left: 10px;
     width: 100%;
     height: 60px;
+    color: $colorTextItem;
     overflow: hidden;
     text-overflow: ellipsis;
   }

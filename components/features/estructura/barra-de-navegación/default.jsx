@@ -30,7 +30,7 @@ const classes = {
 @Consumer
 class Nav extends Component {
   constructor(props) {
-    supbreaking - newser(props)
+    super(props)
     // ------ Checks the display to set the initial device state
     this.state = {
       device: this.setDevice(),

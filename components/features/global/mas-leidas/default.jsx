@@ -12,8 +12,10 @@ const classes = {
 class MasLeidas extends Component {
   constructor(props) {
     super(props)
+    const { customFields } = props
     this.state = {
       news: [],
+      totalElements: customFields.numNotes,
     }
     this.fetch()
   }
@@ -25,8 +27,9 @@ class MasLeidas extends Component {
       imageUrl: 'https://picsum.photos/100/50',
       websiteUrl: '#',
     }
+    const { totalElements } = this.state
     const auxTest = []
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < totalElements; i++) {
       auxTest[i] = item
     }
     this.setState({
@@ -64,6 +67,7 @@ class MasLeidas extends Component {
       section: requestUri.split('/')[1],
       num_notes: numNotes,
     }
+    console.log(params)
     const schema = `{
       content_elements {
         canonical_url
@@ -83,8 +87,10 @@ class MasLeidas extends Component {
     fetched
       .then(response => {
         console.log(response)
-        if (response) this.castingData(response.content_elements)
-        else this.setDataTest()
+        console.log(`count elemnts: ${response.content_elements.length}`)
+        if (response && response.content_elements.length > 0) {
+          this.castingData(response.content_elements)
+        } else this.setDataTest()
       })
       .catch(error => {
         console.log(error)
