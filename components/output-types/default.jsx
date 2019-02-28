@@ -1,4 +1,5 @@
-// eslint-disable-next-line strict
+/* eslint-disable strict */
+
 'use strict'
 
 import React from 'react'
