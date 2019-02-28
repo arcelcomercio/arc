@@ -32,8 +32,16 @@ export const customFields = PropTypes.shape({
         name: 'Título 3',
         description: 'Dejar vacío para tomar el valor original de la noticia.'
     }),
-    orientation: PropTypes.label.tag({
-        name: 'Posición del contenido'
+    settings: PropTypes.label.tag({
+        name: 'Configuraciones'
+    }),
+    showAuthorOrSection: PropTypes.oneOf(['author', 'section']).tag({
+        name: 'Mostrar autor o sección',
+        labels: {
+            author: 'Autor',
+            section: 'Sección'
+        },
+        defaultValue: 'author'
     }),
     multimediaOrientation: PropTypes.oneOf(['left', 'right']).tag({
         name: 'Posición de la imagen',

@@ -1,17 +1,25 @@
-/******* Variables *******/
+/******* Framework Variables*******/
+@import '../../../general-styles/framework/variables/index';
+/*---------------------*/
+
+/******* Site Variables *******/
 @import './variables/colors';
 @import './variables/dimensions';
 
-@import './partials/fonts';
+@import './partials/import-fonts';
 @import './variables/fonts';
 /*---------------------*/
 
+/******* Framework Core *******/
+@import '../../../general-styles/framework/core/index';
+/*---------------------*/
+
 /******* Partials *******/
-@import '../../../general-styles/partials/general.scss';
 @import './partials/base';
 /*---------------------*/
 
 /******* Components *******/
+<<<<<<< HEAD
 @import '../../../general-styles/components/features/nav';
 @import '../../../general-styles/components/features/header';
 @import '../../../general-styles/components/features/footer';
@@ -28,3 +36,7 @@
 @import '../../../general-styles/components/features/components/icons';
 @import '../../../general-styles/components/features/components/item-new';
 /*---------------------*/
+=======
+@import '../../../general-styles/components/index';
+/*---------------------*/
+>>>>>>> master
