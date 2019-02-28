@@ -19,7 +19,7 @@ class Triplete extends Component
 
     render(){
         console.log('render triplete manual', ++this.renderCount)
-        console.dir(this.state)
+        //console.dir(this.state)
         const params = {
             customFields: this.props.customFields,
             state: this.state,
