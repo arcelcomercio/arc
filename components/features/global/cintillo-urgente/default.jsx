@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-undef */
-import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
+import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import {filterSchema} from './_children/filterschema'
+import { filterSchema } from './_children/filterschema'
 
 const classes = {
   breakingnews: 'padding-normal',
@@ -17,43 +17,15 @@ const classes = {
 class CintilloUrgente extends Component {
   constructor(props) {
     super(props)
-    /*const {
-      customFields: {
-        articleConfig: { contentService, contentConfigValues },
-      },
-    } = this.props || {}*/
-
     this.state = {
       contentBreakingNews: 'cintillo-u',
       article: {}
     }
+    this.renderCount = 0
     this.fetch()
-    /*if (contentService !== undefined && contentConfigValues !== undefined) {
-      this.fetchContent({
-        article: {
-          source: contentService,
-          query: contentConfigValues,
-        },
-      })
-    }*/
   }
-
-  fetch() {
-    if(this.props.customFields.storyLink){
-        const { fetched } = this.getContent(
-            'get-story-by-websiteurl', 
-            { website_url: this.props.customFields.storyLink, website: this.props.arcSite }, 
-            filterSchema
-        )
-        fetched.then(response => {
-          console.log('response', response)
-            this.setState({ article: response })
-        })
-    }
-}
-
+  
   componentDidMount = () => {
-    // let contentBreakingNews = "cintillo-u";
     const {
       customFields: { link },
     } = this.props
@@ -77,9 +49,21 @@ class CintilloUrgente extends Component {
     })
   }
 
+  fetch() {
+    if(this.props.customFields.storyLink){
+        const { fetched } = this.getContent(
+            'get-story-by-websiteurl', 
+            { website_url: this.props.customFields.storyLink, website: this.props.arcSite }, 
+            filterSchema
+        )
+        fetched.then(response => {
+            this.setState({ article: response })
+        })
+    }
+  }
+
   render() {
-    // const content = this.props.globalContent;
-    // const content = this.state.article
+    console.log('apertura extraordinaria render', ++this.renderCount)
     // console.log('state', this.state)
     const {
       contentBreakingNews,
@@ -95,15 +79,9 @@ class CintilloUrgente extends Component {
         subTitle,
         isExternalLink,
         link,
-        //articleConfig,
         storyLink
       },
     } = this.props
-    /*const webUrlService =
-      articleConfig !== undefined &&
-      articleConfig.contentConfigValues !== undefined
-        ? `${articleConfig.contentConfigValues.website_url}?_website=${arcSite}`
-        : ''*/
     const webUrlService = 
       storyLink !== '' ? `${storyLink}?_website=${arcSite}` : ''
     const objContent = {
@@ -187,10 +165,7 @@ CintilloUrgente.propTypes = {
       name: 'Título',
       description: 'Dejar vacío para tomar el valor original de la noticia.'
     }),
-    subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true }),
-    /*articleConfig: PropTypes.contentConfig('story').tag({
-      name: 'Configuración de nota interna',
-    }),*/
-  }),
+    subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true })
+  })
 }
 export default CintilloUrgente
