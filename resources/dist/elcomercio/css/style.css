@@ -467,9 +467,6 @@ body {
   background-color: #f7c600;
   color: #1F1F1F;
 }
-.header__btn-container {
-  height: inherit;
-}
 .header__logo {
   height: 34px;
 }
