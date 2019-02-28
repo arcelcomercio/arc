@@ -1,14 +1,16 @@
-
+/* eslint-disable react/destructuring-assignment */
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import Button from '../../../../resources/components/button'
 
 const classes = {
   header: 'header full-width',
-  headerMain: 'header__main full-width flex-center-vertical flex--justify-between',
+  headerMain:
+    'header__main full-width flex-center-vertical flex--justify-between',
   headerDate: 'flex-1',
   headerLogo: 'header__logo',
-  headerBtnContainer: 'flex-center-vertical flex-1 flex--justify-end height-inherit',
+  headerBtnContainer:
+    'flex-center-vertical flex-1 flex--justify-end height-inherit',
   headerBtnLogin: 'flex-center-vertical btn bg-color--white',
   headerBtnSubscribe: 'flex-center-vertical btn bg-color--link',
   headerBtnIconLogin: 'icon icon--login icon--margin-right',
@@ -20,13 +22,17 @@ const classes = {
 @Consumer
 class Header extends Component {
   constructor(props) {
-    super(props);
-    //------ Checks if you are in desktop or not
+    super(props)
+    // ------ Checks if you are in desktop or not
     this.state = {
       device: this.setDevice(),
-      temas: []
-    };
-    this.fetch();
+      temas: [],
+    }
+    this.fetch()
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize)
   }
 
   setDevice = () => {
@@ -34,113 +40,124 @@ class Header extends Component {
 
     if (wsize < 640) {
       return 'mobile'
-    } else if (wsize >= 640 && wsize < 1024) {
-      return 'tablet'
-    } else {
-      return 'desktop'
     }
+    if (wsize >= 640 && wsize < 1024) {
+      return 'tablet'
+    }
+    return 'desktop'
   }
 
   handleResize = () => {
     const wsize = window.innerWidth
 
-    //------ Set the new state if you change from mobile to desktop
+    // ------ Set the new state if you change from mobile to desktop
     if (wsize >= 1024 && this.state.device !== 'desktop') {
       this.setState({
-        device: 'desktop'
-      });
+        device: 'desktop',
+      })
       this.dispatchEvent('displayChange', this.state.device)
-    } else {
-      //------ Set the new state if you change from desktop to mobile
-      if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
-        this.setState({
-          device: 'tablet'
-        });
-        this.dispatchEvent('displayChange', this.state.device)
-      } else {
-        //------ Set the new state if you change from desktop to mobile
-        if (wsize < 640 && this.state.device !== 'mobile') {
-          this.setState({
-            device: 'mobile'
-          });
-          this.dispatchEvent('displayChange', this.state.device)
-        }
-      }
+      // ------ Set the new state if you change from desktop to mobile
+    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
+      this.setState({
+        device: 'tablet',
+      })
+      this.dispatchEvent('displayChange', this.state.device)
+    } else if (wsize < 640 && this.state.device !== 'mobile') {
+      // ------ Set the new state if you change from desktop to mobile
+      this.setState({
+        device: 'mobile',
+      })
+      this.dispatchEvent('displayChange', this.state.device)
     }
   }
 
   fechaActual = () => {
-    let ndate = new Date();
-    let arrayMeses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    const ndate = new Date()
+    const arrayMeses = [
+      'enero',
+      'febrero',
+      'marzo',
+      'abril',
+      'mayo',
+      'junio',
+      'julio',
+      'agosto',
+      'septiembre',
+      'octubre',
+      'noviembre',
+      'diciembre',
+    ]
 
-    return `${ndate.getDate()} de ${arrayMeses[ndate.getMonth()]}, ${ndate.getFullYear()}`;
+    return `${ndate.getDate()} de ${
+      arrayMeses[ndate.getMonth()]
+    }, ${ndate.getFullYear()}`
   }
 
-
   fetch = () => {
-    let { fetched } = this.getContent('get-temas-del-dia', { website: this.props.arcSite, hierarchy: 'navegacion-cabecera-tema-del-dia' });
+    const { arcSite } = this.props
+    const { fetched } = this.getContent('get-temas-del-dia', {
+      website: arcSite,
+      hierarchy: 'navegacion-cabecera-tema-del-dia',
+    })
 
     fetched.then(data => {
       this.setState({
-        temas: data.children
+        temas: data.children,
       })
-    });
-
-  }
-
-  lista = () => {
-    return this.state.temas.map((tag, index) => {
-      return (
-        <li className={classes.headerFeaturedItem} key={index}>
-          <a href={tag.url}>{tag.display_name}</a>
-        </li>)
     })
   }
 
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
+  lista = () => {
+    const { temas } = this.state
+    return temas.map(({ display_name: name, url }) => {
+      return (
+        <li className={classes.headerFeaturedItem} key={url}>
+          <a href={url}>{name}</a>
+        </li>
+      )
+    })
   }
 
   render() {
-    return (this.state.temas[0] &&
-      this.state.device === 'desktop' ?
-      <header className={classes.header} >
+    const { temas, device } = this.state
+    const { contextPath, arcSite } = this.props
+
+    return temas[0] && device === 'desktop' ? (
+      <header className={classes.header}>
         <div className={classes.headerMain}>
           <span>{this.fechaActual()}</span>
           <img
-            src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`}
-            alt={`Logo de ${this.props.arcSite}`}
+            src={`${contextPath}/resources/dist/${arcSite}/images/logo.png`}
+            alt={`Logo de ${arcSite}`}
             className={classes.headerLogo}
           />
           <div className={classes.headerBtnContainer}>
             <Button
               iconClass={classes.headerBtnIconLogin}
-              btnText='Ingresar'
+              btnText="Ingresar"
               btnClass={classes.headerBtnLogin}
-              btnLink='#'
+              btnLink="#"
             />
             <Button
-              btnText='Suscríbete'
+              btnText="Suscríbete"
               btnClass={classes.headerBtnSubscribe}
-              btnLink='#'
+              btnLink="#"
             />
           </div>
         </div>
 
         <ul className={classes.headerFeatured}>
           <li className={classes.headerFeaturedItem}>
-            <i className={classes.headerFeaturedItemIcon}></i>
+            <i className={classes.headerFeaturedItemIcon} />
             LOS TEMAS DE HOY
-                        </li>
-          {this.state.temas[0] && this.lista()}
+          </li>
+          {temas[0] && this.lista()}
         </ul>
       </header>
-      : null
-    )
+    ) : null
   }
 }
 
-//Header.static = truea
+//  Header.static = true
 
 export default Header
-
