@@ -1,9 +1,9 @@
 export default {
-  siteName: "Depor",
+  siteName: 'Depor',
   colorPrimary: '#007c31',
   siteUrl: 'depor.com',
-  resizerUrl: "my-resizer-endpoint.com",
-  resizerSecretKeyEnvVar: "Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7",
+  resizerUrl: 'http://my-resizer-endpoint.com',
+  resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
 
   footer: {
     siteLegal: [
