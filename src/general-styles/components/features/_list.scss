@@ -24,7 +24,7 @@
     justify-content: center;
   }
 
-  &__more__news {
+  &__morenews {
     align-self: center;
     flex-direction: column;
     justify-content: center;
@@ -42,10 +42,10 @@
 
   &__listItems {
     background: #ffffff;
-    max-height: 300px;
+    max-height: 350px;
   }
 
-  &__item__news {
+  &__itemNews {
     display: flex;
     flex-direction: column;
     width: auto;
@@ -66,7 +66,7 @@
     color: #333;
   }
 
-  &__page__link {
+  &__pageLink {
     display: flex;
     flex-direction: column;
     justify-content: start;

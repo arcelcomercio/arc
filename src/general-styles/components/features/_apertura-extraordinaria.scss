@@ -1,5 +1,5 @@
 // apertura-extraordinaria
-.aperturae { 
+.aperturae {
     //border-style: solid;
     //border-width: 5px 7px;
     background-color: $color-white;
@@ -13,31 +13,34 @@
     }
 
     &--bottom {
-        grid-template-areas: 
-        "aperturae-section aperturae-section"
-        "aperturae-content aperturae-content"
-        "aperturae-multimedia aperturae-multimedia";
+        grid-template-areas:
+            "aperturae-section aperturae-section"
+            "aperturae-content aperturae-content"
+            "aperturae-multimedia aperturae-multimedia";
     }
+
     &--top {
-        grid-template-areas: 
-        "aperturae-multimedia aperturae-multimedia"
-        "aperturae-section aperturae-section"
-        "aperturae-content aperturae-content";
+        grid-template-areas:
+            "aperturae-multimedia aperturae-multimedia"
+            "aperturae-section aperturae-section"
+            "aperturae-content aperturae-content";
     }
+
     &--left {
-        grid-template-areas: 
-        "aperturae-multimedia aperturae-section"
-        "aperturae-multimedia aperturae-content";
+        grid-template-areas:
+            "aperturae-multimedia aperturae-section"
+            "aperturae-multimedia aperturae-content";
         grid-template-rows: auto 1fr;
 
         img {
             height: 100%;
         }
     }
+
     &--right {
-        grid-template-areas: 
-        "aperturae-section aperturae-multimedia"
-        "aperturae-content aperturae-multimedia";
+        grid-template-areas:
+            "aperturae-section aperturae-multimedia"
+            "aperturae-content aperturae-multimedia";
         grid-template-rows: auto 1fr;
 
         img {
@@ -67,18 +70,22 @@
             margin-bottom: 15px;
         }
     }
+
     &__title {
         font-size: 3em;
         font-weight: bold;
     }
+
     &__subtitle {
         color: $color-silver;
     }
+
     &__author {
         text-transform: uppercase;
         font-size: 0.7em;
         color: $color-silver;
     }
+
     &__multimedia {
         grid-area: aperturae-multimedia;
 

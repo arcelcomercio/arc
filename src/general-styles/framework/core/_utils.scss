@@ -48,6 +48,13 @@
   text-align: right;
 }
 
+.scroll-vertical {
+  overflow-y: scroll;
+}
+.scroll-horizontal{
+  overflow-x:scroll;
+}
+
 /******* Background-text contrast *******/
 .bg-color--link {
   background-color: $color-link;

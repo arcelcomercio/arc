@@ -337,6 +337,12 @@ input[type=search]::-webkit-search-results-decoration {
 .text-right {
   text-align: right;
 }
+.scroll-vertical {
+  overflow-y: scroll;
+}
+.scroll-horizontal {
+  overflow-x: scroll;
+}
 /******* Background-text contrast *******/
 .bg-color--link {
   background-color: #524CFF;
@@ -471,9 +477,6 @@ body {
   background-color: #007c31;
   color: #FFFFFF;
 }
-.header__btn-container {
-  height: inherit;
-}
 .header__logo {
   height: 50px;
 }
@@ -485,8 +488,19 @@ body {
   padding: 8px;
   height: inherit;
 }
+.header__item a {
+  text-decoration: none;
+  color: #1F1F1F;
+  font-size: 0.8rem;
+  letter-spacing: 0.02rem;
+}
+.header__item :hover {
+  color: #1F1F1F;
+  text-decoration: underline;
+}
 .header__item:first-child {
   color: #FF0000;
+  font-weight: bold;
 }
 .footer {
   display: -ms-grid;
@@ -1196,7 +1210,7 @@ body {
   flex-direction: column;
   justify-content: center;
 }
-.List__more__news {
+.List__morenews {
   align-self: center;
   flex-direction: column;
   justify-content: center;
@@ -1206,15 +1220,15 @@ body {
   height: 25px;
   display: flex;
 }
-.List__more__news a {
+.List__morenews a {
   color: #999;
   text-decoration: none;
 }
 .List__listItems {
   background: #ffffff;
-  max-height: 300px;
+  max-height: 350px;
 }
-.List__item__news {
+.List__itemNews {
   display: flex;
   flex-direction: column;
   width: auto;
@@ -1232,21 +1246,21 @@ body {
   line-height: 19.2px;
   color: #333;
 }
-.List__page__link {
+.List__pageLink {
   display: flex;
   flex-direction: column;
   justify-content: start;
   margin: 2px 0px 2px 0px;
 }
-.List__page__link a {
+.List__pageLink a {
   text-decoration: none;
 }
-.List__page__link a h3 {
+.List__pageLink a h3 {
   font-size: 15px;
   color: #4c4c4c;
   margin: 0px;
 }
-.List__page__link a:hover {
+.List__pageLink a:hover {
   text-decoration: underline;
 }
 .triplete {
@@ -1364,13 +1378,13 @@ body {
   border: 1px solid #d5e1e1;
   padding: 0px 15px 15px;
 }
-.separator__header__html {
+.separator__headerHtml {
   height: 70px;
   width: 300px;
   margin-top: 0%;
   margin-bottom: 10px;
 }
-.separator__header__title {
+.separator__headerTitle {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr;
@@ -1380,14 +1394,14 @@ body {
   height: 70px;
   align-content: center;
 }
-.separator__header__title h1 {
+.separator__headerTitle h1 {
   margin: 0%;
 }
-.separator__header__title a {
+.separator__headerTitle a {
   text-decoration: none;
   color: #333;
 }
-.separator__header__title a:hover {
+.separator__headerTitle a:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
 }
