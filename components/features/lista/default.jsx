@@ -77,7 +77,7 @@ const ItemNews = ({
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
   const classListItems =
     listNews.length > 4
-      ? `${classes.listItem} scroll-horizontal`
+      ? `${classes.listItem} ${classes.scrolY}`
       : classes.listItem
   // let nuevalista =[];
 
@@ -196,6 +196,7 @@ class Lista extends Component {
       }
 
       this.setState({
+        
         data: response.content_elements,
       })
     })
