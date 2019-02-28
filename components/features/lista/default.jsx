@@ -1,54 +1,37 @@
-import Consumer from "fusion:consumer";
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { FormatClassName } from './../../../resources/utilsJs/utilities';
+import Consumer from 'fusion:consumer'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-const classes = FormatClassName({
-  lista:[
-    'List'
-  ],
-  header: [
-    'List__Header'
-  ],
-  title:[
-    "List__title"
-  ],
-  moreNews:[
-    "List__more__news"
-  ],
-  listItem:[
-    "List__listItems "
-  ],
-  itemNews:[
-    "List__item__news"
-  ],
-  time:[
-    "List__time"
-  ],
-  pageLink:[
-    "List__page__link"
-  ]
-});
+const classes = {
+  lista: 'List',
+  header: 'List__Header',
+  title: 'List__title',
+  moreNews: 'List__more__news',
+  listItem: 'List__listItems ',
+  itemNews: 'List__item__news',
+  time: 'List__time',
+  pageLink: 'List__page__link',
+}
 const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
   return (
-    <div className={classes.header +' '+ background}>
-      <div className={classes.title} >
+    <div className={classes.header + ' ' + background}>
+      <div className={classes.title}>
         <h4>{titleList} </h4>
       </div>
       {seeMore && <SeeMore seeMoreurl={seeMoreurl} />}
     </div>
-  );
-};
+  )
+}
 
 const SeeMore = ({ seeMoreurl }) => (
-  <div className={classes.moreNews} >
+  <div className={classes.moreNews}>
     <a href={seeMoreurl}>
       <h4>ver mas</h4>
     </a>
   </div>
-);
+)
 const ImageNews = ({ urlNews, promo_items }) => {
-  let imagen = promo_items.basic ? promo_items.basic.url || "" : "";
+  let imagen = promo_items.basic ? promo_items.basic.url || '' : ''
   return (
     <figure>
       {imagen ? (
@@ -62,14 +45,12 @@ const ImageNews = ({ urlNews, promo_items }) => {
             <img datatype="src" src={imagen} />
           </picture>
         </a>
-      ) : (
-        null
-      )}
+      ) : null}
     </figure>
-  );
-};
+  )
+}
 
-const TimeItem = ({ time }) => <div className="List__time">{time}</div>;
+const TimeItem = ({ time }) => <div className="List__time">{time}</div>
 
 const ItemNews = ({
   seeHour,
@@ -77,7 +58,7 @@ const ItemNews = ({
   time,
   title,
   urlNews,
-  promo_items
+  promo_items,
 }) => {
   return (
     <article className={classes.itemNews}>
@@ -91,11 +72,13 @@ const ItemNews = ({
         </a>
       </div>
     </article>
-  );
-};
+  )
+}
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
   let classListItems =
-    listNews.length > 4 ? classes.listItem+" scrol-horizontal" : classes.listItem;
+    listNews.length > 4
+      ? classes.listItem + ' scrol-horizontal'
+      : classes.listItem
   //let nuevalista =[];
 
   return (
@@ -105,30 +88,36 @@ const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
           { display_date, headlines: { basic }, canonical_url, promo_items },
           index
         ) => {
-          
-          
-          let fechaPublicacion = new Date(display_date);
-          let time = "";
+          let fechaPublicacion = new Date(display_date)
+          let time = ''
 
-          let fechapresente = new Date().getTime();
+          let fechapresente = new Date().getTime()
 
-          if(((((fechapresente - new Date(display_date).getTime())/1000)/60)/60) >= 24){
-            time = (fechaPublicacion.getDate()<10 ? 
-            "0"+ fechaPublicacion.getDate() :
-            fechaPublicacion.getDate())
-            + "/" 
-            + 
-            (fechaPublicacion.getMonth()<10 ? 
-            "0"+ fechaPublicacion.getMonth() :
-            fechaPublicacion.getMonth())
-
-            +"/" + fechaPublicacion.getFullYear();
-          }else{
-
-            time = fechaPublicacion.getHours() +":" +fechaPublicacion.getMinutes() +"-";
+          if (
+            (fechapresente - new Date(display_date).getTime()) /
+              1000 /
+              60 /
+              60 >=
+            24
+          ) {
+            time =
+              (fechaPublicacion.getDate() < 10
+                ? '0' + fechaPublicacion.getDate()
+                : fechaPublicacion.getDate()) +
+              '/' +
+              (fechaPublicacion.getMonth() < 10
+                ? '0' + fechaPublicacion.getMonth()
+                : fechaPublicacion.getMonth()) +
+              '/' +
+              fechaPublicacion.getFullYear()
+          } else {
+            time =
+              fechaPublicacion.getHours() +
+              ':' +
+              fechaPublicacion.getMinutes() +
+              '-'
           }
 
-          
           return (
             <ItemNews
               key={index}
@@ -137,31 +126,30 @@ const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
               time={time}
               title={basic}
               urlNews={canonical_url}
-              promo_items={promo_items || ""}
+              promo_items={promo_items || ''}
             />
-          );
+          )
         }
       )}
     </div>
-  );
-};
+  )
+}
 @Consumer
 class Lista extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     var {
       titleList,
-      background = "",
+      background = '',
       newsNumber,
       seeMore,
       seeMoreurl,
       seeHour,
       seeImageNews,
-      secction
-    } = this.props.customFields || {};
-    
-    
+      secction,
+    } = this.props.customFields || {}
+
     this.state = {
       titleList,
       background,
@@ -171,38 +159,40 @@ class Lista extends Component {
       seeHour,
       seeImageNews,
       secction,
-      data: []
-    };
-    
+      data: [],
+    }
   }
 
   componentDidMount = () => {
-    
     const { fetched } = this.getContent(
-      "get-lis-news",
+      'get-lis-news',
       {
         website: this.props.arcSite,
         secction: this.state.secction,
         newsNumber: this.state.newsNumber,
       },
       this.filterSchema()
-    );
+    )
     fetched.then(response => {
       if (!response) {
-        response = [];
-        console.log("No hay respuesta del servicio para obtener el listado de noticias");
+        response = []
+        console.log(
+          'No hay respuesta del servicio para obtener el listado de noticias'
+        )
       }
 
-      if(!response.content_elements){
-        response.content_elements = [];
-        console.log("No hay respuesta del servicio para obtener el listado de noticias");
+      if (!response.content_elements) {
+        response.content_elements = []
+        console.log(
+          'No hay respuesta del servicio para obtener el listado de noticias'
+        )
       }
-      
+
       this.setState({
-        data: response.content_elements
-      });
-    });
-  };
+        data: response.content_elements,
+      })
+    })
+  }
 
   filterSchema() {
     return `
@@ -221,7 +211,7 @@ class Lista extends Component {
         }
       }
     }
-    `;
+    `
   }
 
   render() {
@@ -239,31 +229,33 @@ class Lista extends Component {
           listNews={this.state.data || []}
         />
       </div>
-    );
+    )
   }
 }
 
 Lista.propTypes = {
   customFields: PropTypes.shape({
-    secction: PropTypes.string.isRequired.tag({ name: "Sección" }),
-    background: PropTypes.oneOf([
-      "bg-color--lightblue",
-      "bg-color--white"
-    ]).tag({
-      name: "Color de fondo cabecera",
-      labels: {
-        "bg-color--lightblue": "celeste",
-        "bg-color--white": "blanco"
-      },
-      defaultValue: "bg-color--lightblue"
+    secction: PropTypes.string.isRequired.tag({ name: 'Sección' }),
+    background: PropTypes.oneOf(['bg-color--lightblue', 'bg-color--white']).tag(
+      {
+        name: 'Color de fondo cabecera',
+        labels: {
+          'bg-color--lightblue': 'celeste',
+          'bg-color--white': 'blanco',
+        },
+        defaultValue: 'bg-color--lightblue',
+      }
+    ),
+    titleList: PropTypes.string.isRequired.tag({ name: 'Título de la lista' }),
+    newsNumber: PropTypes.number.tag({
+      name: 'Número de noticas',
+      defaultValue: 5,
     }),
-    titleList: PropTypes.string.isRequired.tag({ name: "Título de la lista" }),
-    newsNumber: PropTypes.number.tag({name: "Número de noticas", defaultValue: 5}),
-    seeMore: PropTypes.bool.tag({ name: "Ver más" }),
-    seeHour: PropTypes.bool.tag({ name: "Ver hora" }),
-    seeImageNews: PropTypes.bool.tag({ name: "Ver imagen" }),
-    seeMoreurl: PropTypes.string.tag({ name: "Ver más url" })
-  })
-};
+    seeMore: PropTypes.bool.tag({ name: 'Ver más' }),
+    seeHour: PropTypes.bool.tag({ name: 'Ver hora' }),
+    seeImageNews: PropTypes.bool.tag({ name: 'Ver imagen' }),
+    seeMoreurl: PropTypes.string.tag({ name: 'Ver más url' }),
+  }),
+}
 
-export default Lista;
+export default Lista
