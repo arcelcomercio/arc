@@ -9,7 +9,6 @@
     grid-template-columns: 1fr 1fr;
 
     a {
-        text-decoration: none;
         color: inherit;
     }
 
@@ -31,7 +30,7 @@
         "aperturae-multimedia aperturae-content";
         grid-template-rows: auto 1fr;
 
-        img{
+        img {
             height: 100%;
         }
     }
@@ -41,10 +40,11 @@
         "aperturae-content aperturae-multimedia";
         grid-template-rows: auto 1fr;
 
-        img{
+        img {
             height: 100%;
         }
     }
+
     &__section {
         background-color: $color-error;
         color: $color-white;
@@ -54,6 +54,7 @@
         grid-area: aperturae-section;
         //height: 15px;
     }
+
     &__content {
         padding: 20px 20px 0px 20px;
         grid-area: aperturae-content;
@@ -81,7 +82,7 @@
     &__multimedia {
         grid-area: aperturae-multimedia;
 
-        img{
+        img {
             width: 100%;
         }
     }
