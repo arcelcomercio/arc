@@ -77,7 +77,7 @@ const ItemNews = ({
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
   const classListItems =
     listNews.length > 4
-      ? `${classes.listItem} scrol-horizontal`
+      ? `${classes.listItem} scroll-horizontal`
       : classes.listItem
   // let nuevalista =[];
 
@@ -171,7 +171,7 @@ class Lista extends Component {
     const { section, newsNumber } = this.state
     const { arcSite: website } = this.props
     const { fetched } = this.getContent(
-      'get-lis-news',
+      'get-list-news',
       {
         website,
         section,
