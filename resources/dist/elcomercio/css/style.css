@@ -1067,29 +1067,71 @@ body {
 .ae__multimedia img {
   width: 100%;
 }
-.card {
+.destaque {
   background-color: #FFFFFF;
 }
-.card .live {
-  font-size: 13px;
-  font-weight: bold;
-  color: #FFFFFF;
-  background: red;
-  padding: 5px;
-}
-.flow-detail {
+.destaque__detail {
   width: 260px;
-  min-height: 178px;
+  height: calc(100% - 157px);
+  /* div {
+    padding: 15px 0px;
+
+    h2 {
+      margin: 0;
+      max-height: 75.6px;
+      font-size: 21px;
+      line-height: 1.2;
+      padding: 10px 0;
+    }
+  }
+
+  .author {
+    font-size: 10px;
+    text-transform: uppercase;
+    margin: 10px 0;
+
+    a {
+      color: $text-secondary;
+    }
+  }
+
+  a {
+    outline: 0;
+    color: $text-primary;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  } */
 }
-.flow-detail div {
-  padding: 15px 0px;
+.destaque__gradient {
+  background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
+  bottom: 0;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00444444", endColorstr="#444444", GradientType=0);
+  height: 306px;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
 }
-.flow-detail div h3 {
+.destaque__image {
+  height: 157px;
+  overflow: hidden;
+  margin: 0;
+}
+.destaque__image a {
+  display: block;
+}
+.destaque__image a img {
+  width: 100%;
+  display: inline;
+}
+.destaque__category {
   margin: 0;
   font-size: 16px;
   padding-bottom: 10px;
 }
-.flow-detail div h3::after {
+.destaque__category::after {
   border-bottom: 1px solid #333;
   content: "";
   display: block;
@@ -1100,39 +1142,24 @@ body {
   width: 25px;
   bottom: -5px;
 }
-.flow-detail div h2 {
+.destaque__title {
   margin: 0;
-  max-height: 75.6px;
   font-size: 21px;
   line-height: 1.2;
   padding: 10px 0;
 }
-.flow-detail .author {
-  font-size: 10px;
-  text-transform: uppercase;
-  margin: 10px 0;
+.destaque__link {
+  color: black;
 }
-.flow-detail .author a {
-  color: #979797;
-}
-.flow-detail a {
-  outline: 0;
-  color: #333;
-}
-.flow-detail a:hover {
+.destaque__link:hover {
   text-decoration: underline;
 }
-.flow-image {
-  overflow: hidden;
-  margin: 0;
-  display: inline-block;
-}
-.flow-image a {
-  display: block;
-}
-.flow-image a img {
-  width: 100%;
-  display: inline;
+.destaque .live {
+  font-size: 13px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: red;
+  padding: 5px;
 }
 .img-complete {
   position: relative;
@@ -1140,16 +1167,6 @@ body {
   padding: 0;
   padding: initial;
   overflow: hidden;
-}
-.img-complete .gradient {
-  background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
-  bottom: 0;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00444444", endColorstr="#444444", GradientType=0);
-  height: 306px;
-  left: 0;
-  pointer-events: none;
-  position: absolute;
-  z-index: 1;
 }
 .img-complete .flow-detail {
   position: absolute;
