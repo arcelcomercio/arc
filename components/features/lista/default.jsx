@@ -6,11 +6,13 @@ const classes = {
   lista: 'List',
   header: 'List__Header',
   title: 'List__title',
-  moreNews: 'List__more__news',
-  listItem: 'List__listItems ',
-  itemNews: 'List__item__news',
+  moreNews: 'List__morenews',
+  listItem: 'List__listItems',
+  itemNews: 'List__itemNews',
   time: 'List__time',
-  pageLink: 'List__page__link',
+  pageLink: 'List__pageLink',
+  bold: 'bold',
+  scrolY: 'scroll-vertical',
 }
 const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
   return (
@@ -50,7 +52,7 @@ const ImageNews = ({ urlNews, promo_items: promoItems }) => {
   )
 }
 
-const TimeItem = ({ time }) => <div className="List__time">{time}</div>
+const TimeItem = ({ time }) => <div className={classes.time}>{time}</div>
 
 const ItemNews = ({
   seeHour,
@@ -66,7 +68,7 @@ const ItemNews = ({
       {seeHour && <TimeItem time={time} />}
       <div className={classes.pageLink}>
         <a href={urlNews}>
-          <h3 className="bold">{title}</h3>
+          <h3 className={classes.bold}>{title}</h3>
         </a>
       </div>
     </article>
@@ -148,7 +150,7 @@ class Lista extends Component {
         seeMoreurl,
         seeHour,
         seeImageNews,
-        secction,
+        section,
       },
     } = this.props || {}
 
@@ -160,19 +162,19 @@ class Lista extends Component {
       seeMoreurl,
       seeHour,
       seeImageNews,
-      secction,
+      section,
       data: [],
     }
   }
 
   componentDidMount = () => {
-    const { secction, newsNumber } = this.state
+    const { section, newsNumber } = this.state
     const { arcSite: website } = this.props
     const { fetched } = this.getContent(
       'get-lis-news',
       {
         website,
-        secction,
+        section,
         newsNumber,
       },
       this.filterSchema()
@@ -249,7 +251,8 @@ class Lista extends Component {
 
 Lista.propTypes = {
   customFields: PropTypes.shape({
-    secction: PropTypes.string.isRequired.tag({ name: 'Sección' }),
+    titleList: PropTypes.string.isRequired.tag({ name: 'Título de la lista' }),
+    section: PropTypes.string.isRequired.tag({ name: 'Sección' }),
     background: PropTypes.oneOf(['bg-color--lightblue', 'bg-color--white']).tag(
       {
         name: 'Color de fondo cabecera',
@@ -260,7 +263,7 @@ Lista.propTypes = {
         defaultValue: 'bg-color--lightblue',
       }
     ),
-    titleList: PropTypes.string.isRequired.tag({ name: 'Título de la lista' }),
+
     newsNumber: PropTypes.number.tag({
       name: 'Número de noticas',
       defaultValue: 5,

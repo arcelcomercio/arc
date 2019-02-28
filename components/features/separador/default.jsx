@@ -5,49 +5,54 @@ import { isTablet, isMobileOnly } from 'react-device-detect'
 
 const classes = {
   separator: 'separator',
-  headerHtml: 'separator__header__html',
-  title: 'separator__header__title',
+  headerHtml: 'separator__headerHtml',
+  title: 'separator__headerTitle',
   body: 'separator__body',
   item: 'separator__item',
   detail: 'separator__detail',
   separatorTitle: 'separator__title',
 }
-const SeparatorItem = ({ headlines, promo_items, website_url }) => {
+
+const SeparatorItem = ({
+  headlines,
+  promo_items: promoItems,
+  website_url: websiteUrl,
+}) => {
   return (
     <article className={classes.item}>
       <div className={classes.detail}>
         <h2 className={classes.separatorTitle}>
-          <a href={website_url}>{headlines}</a>
+          <a href={websiteUrl}>{headlines}</a>
         </h2>
       </div>
       <figure>
-        {website_url ? (
-          <a href={website_url}>
-            <img src={promo_items} />
+        {websiteUrl && (
+          <a href={websiteUrl}>
+            <img src={promoItems} alt="" />
           </a>
-        ) : null}
+        )}
       </figure>
     </article>
   )
 }
 const SeparatorListItem = ({ data }) => {
-  let result = data.map((item, i) => {
-    let imagen = null
-    if (item.promo_items) {
-      imagen = item.promo_items.basic
-        ? item.promo_items.basic.url || null
-        : null
-    }
+  const result = data.map(
+    ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
+      let imagen = null
+      if (promoItems) {
+        imagen = promoItems.basic && (promoItems.basic.url || null)
+      }
 
-    return (
-      <SeparatorItem
-        key={i}
-        headlines={item.headlines.basic}
-        promo_items={imagen}
-        website_url={item.website_url}
-      />
-    )
-  })
+      return (
+        <SeparatorItem
+          key={websiteUrl}
+          headlines={headlines.basic}
+          promo_items={imagen}
+          website_url={websiteUrl}
+        />
+      )
+    }
+  )
   return result
 }
 
@@ -68,6 +73,7 @@ const HeaderHTML = ({ htmlCode }) => {
   return (
     <div
       className={classes.title}
+      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={createMarkup(htmlCode)}
     />
   )
@@ -77,19 +83,19 @@ class Separador extends Component {
   constructor(props) {
     super(props)
 
-    const { titleSeparator, titleLink, secction } =
-      this.props.customFields || {}
-
-    let { htmlCode } = this.props.customFields || {}
+    const {
+      customFields: { titleSeparator, titleLink, section, htmlCode },
+    } = this.props || {}
 
     this.state = {
       titleSeparator,
       titleLink,
-      secction,
+      section,
       htmlCode,
       data: [],
     }
   }
+
   componentDidMount = () => {
     let newsNumber = 4
 
@@ -101,17 +107,21 @@ class Separador extends Component {
       newsNumber = 4
     }
 
+    const { arcSite } = this.props
+    const { section } = this.state
+
     const { fetched } = this.getContent(
       'get-lis-news',
       {
-        website: this.props.arcSite,
-        secction: this.state.secction,
-        newsNumber: newsNumber,
+        website: arcSite,
+        section,
+        newsNumber,
       },
       this.filterSchema()
     )
     fetched.then(response => {
       if (!response) {
+        // eslint-disable-next-line no-param-reassign
         response = []
         console.log(
           'No hay respuesta del servicio para obtener el listado de noticias'
@@ -131,7 +141,7 @@ class Separador extends Component {
     })
   }
 
-  filterSchema() {
+  filterSchema = () => {
     return `
     {
       content_elements{
@@ -151,19 +161,18 @@ class Separador extends Component {
   }
 
   render() {
+    const { titleSeparator, titleLink, htmlCode, data } = this.state
+
     return (
       <div className={classes.separator}>
-        {this.state.titleSeparator ? (
-          <HeaderTitulo
-            titleSeparator={this.state.titleSeparator}
-            titleLink={this.state.titleLink}
-          />
+        {titleSeparator ? (
+          <HeaderTitulo titleSeparator={titleSeparator} titleLink={titleLink} />
         ) : (
-          <HeaderHTML htmlCode={this.state.htmlCode} />
+          <HeaderHTML htmlCode={htmlCode} />
         )}
 
         <div className={classes.body}>
-          <SeparatorListItem data={this.state.data} />
+          <SeparatorListItem data={data} />
         </div>
       </div>
     )
@@ -174,7 +183,7 @@ Separador.propTypes = {
   customFields: PropTypes.shape({
     titleSeparator: PropTypes.string.tag({ name: 'Titulo del separador' }),
     titleLink: PropTypes.string.tag({ name: 'Enlace del separador' }),
-    secction: PropTypes.string.isRequired.tag({ name: 'Sección' }),
+    section: PropTypes.string.isRequired.tag({ name: 'Sección' }),
     htmlCode: PropTypes.richtext.tag({ name: 'Código HTML' }),
   }),
 }
