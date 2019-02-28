@@ -1,69 +1,104 @@
 export default {
-
   gecSites: [
     {
       name: 'elcomercio.pe',
-      url: ''
+      arcSite: 'elcomercio',
+      url: 'https://elcomercio.pe',
     },
     {
       name: 'peru21.pe',
-      url: ''
+      arcSite: 'peru21',
+      url: 'https://peru21.pe',
     },
     {
       name: 'gestion.pe',
-      url: ''
-    },
-    {
-      name: 'trome.pe',
-      url: ''
-    },
-    {
-      name: 'depor.com',
-      url: ''
+      arcSite: '',
+      url: 'https://gestion.pe/',
     },
     {
       name: 'peru.com',
-      url: ''
+      arcSite: '',
+      url: 'https://peru.com/?ref=ecf',
+    },
+    {
+      name: 'depor.com',
+      arcSite: '',
+      url: 'https://depor.com/',
+    },
+    {
+      name: 'trome.pe',
+      arcSite: '',
+      url: 'https://trome.pe/',
     },
     {
       name: 'publimetro.pe',
-      url: ''
+      arcSite: '',
+      url: 'https://publimetro.pe/',
     },
     {
-      name: 'gec.pe',
-      url: ''
+      name: 'laprensa.pe',
+      arcSite: '',
+      url: 'http://laprensa.pe/',
+    },
+    {
+      name: 'ecomedia.pe',
+      arcSite: '',
+      url: 'http://ecomedia.pe/',
+    },
+    {
+      name: 'aptitus.com',
+      arcSite: '',
+      url: 'https://aptitus.com/',
+    },
+    {
+      name: 'neoauto.com',
+      arcSite: '',
+      url: 'https://neoauto.com/',
+    },
+    {
+      name: 'urbania.pe',
+      arcSite: '',
+      url: 'https://urbania.pe/',
+    },
+    {
+      name: 'perured.pe',
+      arcSite: '',
+      url: 'http://perured.pe/',
     },
     {
       name: 'clubelcomercio.pe',
-      url: ''
+      arcSite: '',
+      url: 'https://clubelcomercio.pe/',
     },
     {
-      name: 'comprabien.com',
-      url: ''
-    },
-    {
-      name: 'Perured.pe',
-      url: ''
-    },
-    {
-      name: 'avansys.edu.pe',
-      url: ''
-    },
-    {
-      name: 'maseducacion.com',
-      url: ''
+      name: 'clasificados.pe',
+      arcSite: '',
+      url: 'http://clasificados.pe/',
     },
     {
       name: 'pagoefectivo.pe',
-      url: ''
+      arcSite: '',
+      url: 'https://pagoefectivo.pe/',
     },
     {
-      name: 'Lumingo',
-      url: ''
+      name: 'avansys.edu.pe',
+      arcSite: '',
+      url: 'https://avansys.edu.pe/',
     },
     {
-      name: 'Comercioxpress',
-      url: ''
-    }
-  ]
+      name: 'maseducacion.com',
+      arcSite: '',
+      url: 'https://maseducacion.aptitus.com/',
+    },
+    {
+      name: 'lumingo',
+      arcSite: '',
+      url: 'https://lumingo.com/',
+    },
+    {
+      name: 'comercioxpress',
+      arcSite: '',
+      url: 'https://comercioxpress.com/',
+    },
+  ],
 }

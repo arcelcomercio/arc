@@ -1,0 +1,23 @@
+/******* Framework Variables*******/
+@import '../../../general-styles/framework/variables/index';
+/*---------------------*/
+
+/******* Site Variables *******/
+@import './variables/colors';
+@import './variables/dimensions';
+
+@import './partials/import-fonts';
+@import './variables/fonts';
+/*---------------------*/
+
+/******* Framework Core *******/
+@import '../../../general-styles/framework/core/index';
+/*---------------------*/
+
+/******* Partials *******/
+@import './partials/base';
+/*---------------------*/
+
+/******* Components *******/
+@import '../../../general-styles/components/index';
+/*---------------------*/

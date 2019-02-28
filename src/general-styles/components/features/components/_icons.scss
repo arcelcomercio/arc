@@ -1,0 +1,26 @@
+.icon {
+
+    width: 16px;
+    height: 16px;
+    background-size: cover;
+
+    &--search {
+        background-image: url('../images/icon-search.svg');
+    }
+
+    &--menu {
+        background-image: url('../images/icon-menu.svg');
+    }
+
+    &--login {
+        background-image: url('../images/icon-user.svg');
+    }
+
+    &--fire {
+        background-image: url('../images/icon-fire.svg');
+    }
+
+    &--margin-right {
+        margin-right: 8px;
+    }
+}

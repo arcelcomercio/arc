@@ -2,13 +2,16 @@
 **/.env
 **/node_modules
 
-/.fusion
 
+/.fusion
+/.idea
 /data/db/
 /data/dumps/**
 !/data/dumps/.gitkeep
 /data/restore/**
 !/data/restore/.gitkeep
-
-/dist
 package-lock.json
+/resources/dist/
+
+#files
+*.css

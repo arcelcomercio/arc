@@ -97,6 +97,17 @@ eval("module.exports = __webpack_require__.p + \"depor/favicon.ico\";\n\n//# sou
 
 /***/ }),
 
+/***/ "./src/websites/depor/images/footer-logo.png":
+/*!***************************************************!*\
+  !*** ./src/websites/depor/images/footer-logo.png ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"/pb/resources/dist/depor/images/footer-logo.png\";\n\n//# sourceURL=webpack:///./src/websites/depor/images/footer-logo.png?");
+
+/***/ }),
+
 /***/ "./src/websites/depor/images/logo.png":
 /*!********************************************!*\
   !*** ./src/websites/depor/images/logo.png ***!
@@ -116,18 +127,18 @@ eval("module.exports = \"/pb/resources/dist/depor/images/logo.png\";\n\n//# sour
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_depor_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scss/depor.css */ \"./src/websites/depor/scss/depor.css\");\n/* harmony import */ var _scss_depor_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_depor_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./favicon.ico */ \"./src/websites/depor/favicon.ico\");\n/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_favicon_ico__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _images_logo_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./images/logo.png */ \"./src/websites/depor/images/logo.png\");\n/* harmony import */ var _images_logo_png__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_images_logo_png__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\n\n//# sourceURL=webpack:///./src/websites/depor/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scss/main.scss */ \"./src/websites/depor/scss/main.scss\");\n/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_main_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./favicon.ico */ \"./src/websites/depor/favicon.ico\");\n/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_favicon_ico__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _images_logo_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./images/logo.png */ \"./src/websites/depor/images/logo.png\");\n/* harmony import */ var _images_logo_png__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_images_logo_png__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _images_footer_logo_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./images/footer-logo.png */ \"./src/websites/depor/images/footer-logo.png\");\n/* harmony import */ var _images_footer_logo_png__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_images_footer_logo_png__WEBPACK_IMPORTED_MODULE_3__);\n\n\n\n\n\n//# sourceURL=webpack:///./src/websites/depor/index.js?");
 
 /***/ }),
 
-/***/ "./src/websites/depor/scss/depor.css":
+/***/ "./src/websites/depor/scss/main.scss":
 /*!*******************************************!*\
-  !*** ./src/websites/depor/scss/depor.css ***!
+  !*** ./src/websites/depor/scss/main.scss ***!
   \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/websites/depor/scss/depor.css?");
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/websites/depor/scss/main.scss?");
 
 /***/ })
 

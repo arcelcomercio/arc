@@ -1,0 +1,36 @@
+.header {
+    font-size: $font-sm;
+    font-family: $main-font;
+    color: $color-dark;
+
+    &__main {
+        height: 76px;
+        padding: 0 15px;
+        font-weight: bold;
+        background-color: $header-bg-color;
+        color: $header-text-color;
+    }
+
+    &__btn-container {
+        height: inherit;
+    }
+
+    &__logo {
+        height: $header-logo-height;
+    }
+
+    &__featured {
+        height: 38px;
+        font-weight: normal;
+
+    }
+
+    &__item {
+        padding: 8px;
+        height: inherit;
+
+        &:first-child {
+            color: $color-error;
+        }
+    }
+}
