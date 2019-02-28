@@ -34,10 +34,12 @@ class AperturaExtraordinariaChildren extends Component {
                         <div className={classes.aperturaeSubtitle}>
                             <a href={data.link} {...this.props.editableField("subTitle")}>{data.subTitle}</a>
                         </div>
-                        <div className={classes.aperturaeAuthor}>{data.author}</div>
+                        <div className={classes.aperturaeAuthor}>
+                            <a href={data.authorLink}>{data.author}</a>
+                        </div>
                     </div>
                     <div className={classes.aperturaeMultimedia}>
-                        <img src={data.image} alt={data.title}/>
+                        <img src={data.multimedia} alt={data.title}/>
                     </div>
                 </div>
     }

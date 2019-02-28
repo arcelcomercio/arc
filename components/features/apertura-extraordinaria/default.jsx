@@ -29,7 +29,7 @@ class AperturaExtraordinaria extends Component
     
     render(){
         console.log('apertura extraordinaria render', ++this.renderCount)
-        console.dir(this.state)
+        //console.dir(this.state)
         const params = {
             customFields: this.props.customFields,
             data: this.state.data,
