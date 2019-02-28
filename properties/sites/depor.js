@@ -1,18 +1,18 @@
 export default {
-  siteName: "Depor",
+  siteName: 'Depor',
   colorPrimary: '#007c31',
   siteUrl: 'depor.com',
-  resizerUrl: "my-resizer-endpoint.com",
-  resizerSecretKeyEnvVar: "Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7",
+  resizerUrl: 'http://my-resizer-endpoint.com',
+  resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
 
   nav: {
     background: '#007c31',
-    color: '#ffffff'
+    color: '#ffffff',
   },
 
   header: {
     background: '#007c31',
-    color: '#ffffff'
+    color: '#ffffff',
   },
 
   footer: {
@@ -21,7 +21,12 @@ export default {
     textColor: '#000',
     gecColor: '#007c31',
     img: 'https://assets.depor.com/img/depor/logo_depor.png',
-    info: ['Empresa Editora El Comercio', 'Jr. Santa Rosa #300 Lima 1 Perú', 'Copyright © depor.pe', 'Grupo El Comercio - Todos los derechos reservados'],
+    info: [
+      'Empresa Editora El Comercio',
+      'Jr. Santa Rosa #300 Lima 1 Perú',
+      'Copyright © depor.pe',
+      'Grupo El Comercio - Todos los derechos reservados',
+    ],
     menus: [
       {
         title: 'Jugadores',
@@ -29,25 +34,25 @@ export default {
         list: [
           {
             name: 'Messi',
-            path: ''
+            path: '',
           },
           {
             name: 'Ronaldo',
-            path: ''
+            path: '',
           },
           {
             name: 'Neymar',
-            path: ''
+            path: '',
           },
           {
             name: 'Guerrero',
-            path: ''
+            path: '',
           },
           {
             name: 'Cueva',
-            path: ''
-          }
-        ]
+            path: '',
+          },
+        ],
       },
       {
         title: 'Síguenos',
@@ -55,21 +60,21 @@ export default {
         list: [
           {
             name: 'Twitter',
-            path: ''
+            path: '',
           },
           {
             name: 'Facebook',
-            path: ''
+            path: '',
           },
           {
             name: 'Google+',
-            path: ''
+            path: '',
           },
           {
             name: 'Pinterest',
-            path: ''
-          }
-        ]
+            path: '',
+          },
+        ],
       },
       {
         title: 'Contacto',
@@ -77,22 +82,22 @@ export default {
         list: [
           {
             name: 'Quienes somos',
-            path: ''
+            path: '',
           },
           {
             name: 'Terminos y condiciones',
-            path: ''
+            path: '',
           },
           {
             name: 'Política de privacidad',
-            path: ''
+            path: '',
           },
           {
             name: 'Preguntas frecuentes',
-            path: ''
-          }
-        ]
-      }
-    ]
-  }
+            path: '',
+          },
+        ],
+      },
+    ],
+  },
 }
