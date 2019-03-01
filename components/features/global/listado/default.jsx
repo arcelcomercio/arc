@@ -14,16 +14,35 @@ const classes = {
   bold: 'bold',
   scrolY: 'scroll-vertical',
 }
-
-const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
+const HeaderList = ({
+  titleList,
+  urlTitle,
+  background,
+  seeMore,
+  seeMoreurl,
+}) => {
   return (
     <div className={`${classes.header} ${background}`}>
       <div className={classes.title}>
-        <h4>{titleList} </h4>
+        <TituloLista urlTitle={urlTitle} titleList={titleList} />
       </div>
       {seeMore && <SeeMore seeMoreurl={seeMoreurl} />}
     </div>
   )
+}
+const TituloLista = ({ urlTitle, titleList }) => {
+  let result = null
+
+  if (urlTitle) {
+    result = (
+      <a href={urlTitle}>
+        <h4>{titleList} </h4>
+      </a>
+    )
+  } else {
+    result = <h4>{titleList}</h4>
+  }
+  return result
 }
 
 const SeeMore = ({ seeMoreurl }) => (
@@ -116,7 +135,11 @@ const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
                 : fechaPublicacion.getMonth()
             }/${fechaPublicacion.getFullYear()}`
           } else {
-            time = `${fechaPublicacion.getHours()}:${fechaPublicacion.getMinutes()}-`
+            time = `${fechaPublicacion.getHours()}:${
+              fechaPublicacion.getMinutes() < 10
+                ? `0${fechaPublicacion.getMinutes()}`
+                : fechaPublicacion.getMinutes()
+            }-`
           }
 
           return (
@@ -145,6 +168,7 @@ class Lista extends Component {
     const {
       customFields: {
         titleList,
+        urlTitle,
         background = '',
         newsNumber,
         seeMore,
@@ -157,6 +181,7 @@ class Lista extends Component {
 
     this.state = {
       titleList,
+      urlTitle,
       background,
       newsNumber,
       seeMore,
@@ -197,7 +222,6 @@ class Lista extends Component {
       }
 
       this.setState({
-        
         data: response.content_elements,
       })
     })
@@ -226,6 +250,7 @@ class Lista extends Component {
   render() {
     const {
       titleList,
+      urlTitle,
       background,
       seeMore,
       seeMoreurl,
@@ -237,6 +262,7 @@ class Lista extends Component {
       <div className={classes.lista}>
         <HeaderList
           titleList={titleList}
+          urlTitle={urlTitle}
           background={background}
           seeMore={seeMore}
           seeMoreurl={seeMoreurl}
@@ -254,6 +280,7 @@ class Lista extends Component {
 Lista.propTypes = {
   customFields: PropTypes.shape({
     titleList: PropTypes.string.isRequired.tag({ name: 'Título de la lista' }),
+    urlTitle: PropTypes.string.tag({ name: 'Url del título ' }),
     section: PropTypes.string.isRequired.tag({ name: 'Sección' }),
     background: PropTypes.oneOf(['bg-color--lightblue', 'bg-color--white']).tag(
       {
