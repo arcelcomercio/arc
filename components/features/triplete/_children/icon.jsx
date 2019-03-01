@@ -1,12 +1,20 @@
-import React from 'react';
+import React from 'react'
 
-const Icon = (props) => {
-    const html = (
-        <span className={`triplete__box-icon triplete__box-icon--${props.iconOrientation}`}>
-            <i className={`triplete__icon triplete__icon--${props.iconClass}`}></i>
-        </span>
-    )
-    return props.iconClass ? html : ''
-} 
+const classes = {
+  tripleteBoxIcon: 'triplete__box-icon',
+  tripleteIcon: 'triplete__icon',
+}
+const Icon = props => {
+  const html = (
+    <span
+      className={`${classes.tripleteBoxIcon} ${classes.tripleteBoxIcon}--${
+        props.iconOrientation
+      }`}
+    >
+      <i className={`${classes.tripleteIcon} ${classes.tripleteIcon}--${props.iconClass}`} />
+    </span>
+  )
+  return props.iconClass ? html : ''
+}
 
 export default Icon

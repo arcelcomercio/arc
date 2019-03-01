@@ -77,10 +77,10 @@ class Data {
     let nameAuthor = ''
     let urlAuthor = ''
     for (let i = 0; i < authorData.length; i++) {
-        const {type, name, url} = authorData[i]
+      const { type, name, url } = authorData[i]
       if (type === 'author') {
         nameAuthor = name
-        urlAuthor= url
+        urlAuthor = url
         break
       }
     }
