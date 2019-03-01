@@ -1,98 +1,30 @@
 export default {
-  siteName: "Depor",
+  siteName: 'Depor',
   colorPrimary: '#007c31',
   siteUrl: 'depor.com',
-  resizerUrl: "my-resizer-endpoint.com",
-  resizerSecretKeyEnvVar: "Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7",
-
-  nav: {
-    background: '#007c31',
-    color: '#ffffff'
-  },
-
-  header: {
-    background: '#007c31',
-    color: '#ffffff'
-  },
+  resizerUrl: 'http://my-resizer-endpoint.com',
+  resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
 
   footer: {
-    background: '#fff',
-    titleColor: '#007c31',
-    textColor: '#000',
-    gecColor: '#007c31',
-    img: 'https://assets.depor.com/img/depor/logo_depor.png',
-    info: ['Empresa Editora El Comercio', 'Jr. Santa Rosa #300 Lima 1 Perú', 'Copyright © depor.pe', 'Grupo El Comercio - Todos los derechos reservados'],
-    menus: [
-      {
-        title: 'Jugadores',
-        path: '',
-        list: [
-          {
-            name: 'Messi',
-            path: ''
-          },
-          {
-            name: 'Ronaldo',
-            path: ''
-          },
-          {
-            name: 'Neymar',
-            path: ''
-          },
-          {
-            name: 'Guerrero',
-            path: ''
-          },
-          {
-            name: 'Cueva',
-            path: ''
-          }
-        ]
+    siteLegal: [
+      'Empresa Editora Depor',
+      'Jr. Santa Rosa #300 Lima 1 Perú',
+      'Copyright © Depor.pe',
+      'Grupo Depor - Todos los derechos reservados',
+    ],
+
+    socialNetworks: [{
+        name: 'facebook',
+        url: 'https://www.facebook.com/depor.pe',
       },
       {
-        title: 'Síguenos',
-        path: '',
-        list: [
-          {
-            name: 'Twitter',
-            path: ''
-          },
-          {
-            name: 'Facebook',
-            path: ''
-          },
-          {
-            name: 'Google+',
-            path: ''
-          },
-          {
-            name: 'Pinterest',
-            path: ''
-          }
-        ]
+        name: 'twitter',
+        url: 'https://twitter.com/depor_peru',
       },
       {
-        title: 'Contacto',
-        path: '',
-        list: [
-          {
-            name: 'Quienes somos',
-            path: ''
-          },
-          {
-            name: 'Terminos y condiciones',
-            path: ''
-          },
-          {
-            name: 'Política de privacidad',
-            path: ''
-          },
-          {
-            name: 'Preguntas frecuentes',
-            path: ''
-          }
-        ]
-      }
-    ]
-  }
+        name: 'google+',
+        url: 'https://plus.google.com/u/0/+deporpe',
+      },
+    ],
+  },
 }

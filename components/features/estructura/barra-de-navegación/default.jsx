@@ -196,14 +196,14 @@ class Nav extends Component {
         }
     }
     `
-
     const { fetched } = this.getContent(source, params, schema)
-
-    fetched.then(response => {
-      this.setState({
-        services: response,
+    fetched
+      .then(response => {
+        this.setState({
+          services: response,
+        })
       })
-    })
+      .catch(e => console.log(e))
   }
 
   render() {

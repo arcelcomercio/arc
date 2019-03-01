@@ -2,6 +2,9 @@ export const filterSchema = `{
     headlines {
         basic
     }
+    subheadlines {
+        basic
+    }
     promo_items {
         Basic {
             type
@@ -33,15 +36,6 @@ export const filterSchema = `{
     }
     website
     website_url
-    taxonomy {
-        sections {
-            _id 
-            _website 
-            type 
-            name 
-            path
-        }
-    }
     websites {
         elcomercio {
             website_section {
@@ -57,4 +51,3 @@ export const filterSchema = `{
         }
     }
 }`
-//TODO: improve the data websites and promo_items nodes
