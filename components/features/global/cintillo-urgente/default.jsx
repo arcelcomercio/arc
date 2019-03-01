@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import { filterSchema } from './_children/filterschema'
+import { debug } from 'util';
 
 const classes = {
   breakingnews: 'padding-normal',
@@ -22,10 +23,17 @@ class CintilloUrgente extends Component {
       isVisible: false,
     }
   }
+
   componentWillMount(){
     const status = localStorage.link
-    status && status == this.props.customFields.storyLink  ? false : this.setState({isVisible: true})
+    debugger
+    if(status && status !== this.props.customFields.storyLink){
+      this.setState({ isVisible: true })
+    } else if (status && status !== this.props.customFields.link){
+      this.setState({ isVisible: true })
+    } else this.setState({ isVisible: true })
   }
+
   componentDidMount = () => {
     this.fetch()
     const {
@@ -34,18 +42,21 @@ class CintilloUrgente extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState){
-      const UPDATE_RENDER = nextProps && nextProps.customFields.storyLin !== this.props.customFields.storyLink ? true : false
-    return UPDATE_RENDER
+    const UPDATE_RENDER = nextProps && nextProps.customFields.storyLin !== this.props.customFields.storyLink || 
+      nextProps.customFields.isExternalLink !== this.props.customFields.isExternalLink || 
+      nextProps.customFields.link !== this.props.customFields.link ? true : false
+      debugger
+      return UPDATE_RENDER
   }
 
   handleOnclickClose = () => {
-    const {
-      customFields: { link },
-    } = this.props
-    localStorage.setItem('link', this.props.customFields.storyLink)
     this.setState({
       isVisible: false,
     })
+    if (this.props.customFields.isExternalLink){
+      localStorage.setItem('link', this.props.customFields.link)
+    }
+    else  localStorage.setItem('link', this.props.customFields.storyLink)
   }
 
   fetch() {
