@@ -1,4 +1,4 @@
-export const filterSchema = `{
+const filterSchema = `{
     headlines {
         basic
     }
@@ -51,3 +51,5 @@ export const filterSchema = `{
         }
     }
 }`
+
+export default filterSchema
