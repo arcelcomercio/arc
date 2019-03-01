@@ -11,10 +11,6 @@
         color: $header-text-color;
     }
 
-    &__btn-container {
-        height: inherit;
-    }
-
     &__logo {
         height: $header-logo-height;
     }
@@ -22,15 +18,26 @@
     &__featured {
         height: 38px;
         font-weight: normal;
-
+    
     }
 
     &__item {
         padding: 8px;
         height: inherit;
+        a {
+            text-decoration: none;
+            color: $color-dark;
+            font-size: .8rem;
+            letter-spacing: .02rem;
+        }
+        :hover{
+            color: $color-dark;
+            text-decoration: underline;
+        }
 
         &:first-child {
             color: $color-error;
+            font-weight: bold;
         }
     }
 }

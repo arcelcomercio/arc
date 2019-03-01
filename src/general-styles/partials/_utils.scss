@@ -1,57 +1,48 @@
-* {
-    position: relative;
-    box-sizing: border-box;
-}
-
-html {
-    font-family: 'system-ui', sans-serif 
-}
-
 .margin-top {
-    margin-top: $spacingNormal;
+  margin-top: $spacingNormal;
 }
 
 .padding-normal {
-    padding: $spacingNormal;
+  padding: $spacingNormal;
 }
 
 .no-desktop {
-    @media screen and (min-width: 640px) {
-        display: none;
-    }
+  @media screen and (min-width: 640px) {
+    display: none;
+  }
 }
 
 .no-mobile {
-    @media screen and (max-width: 639px) {
-        display: none;
-    }
+  @media screen and (max-width: 639px) {
+    display: none;
+  }
 }
 
 .block {
-    display: block;
+  display: block;
 }
 
-.full-width{
-    width: 100%;
+.full-width {
+  width: 100%;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 .text-left {
-    text-align: left;
+  text-align: left;
 }
 .text-right {
-    text-align: right;
+  text-align: right;
 }
 
-.scrol-horizontal{
-    overflow-y: scroll;
+.scrol-horizontal {
+  overflow-y: scroll;
 }
-.scrol-vertial{
-    overflow-x:scroll;
+.scrol-vertial {
+  overflow-x: scroll;
 }

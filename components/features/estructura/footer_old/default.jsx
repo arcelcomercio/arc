@@ -87,7 +87,7 @@ class LayoutFooter extends Component {
       <footer className={classes.footerContainer}>
         <div className={classes.footerTop} style={styles.container}>
           <div className={classes.footerTopColumn}>
-            <a href className={classes.footerSiteLogo}>
+            <a href="/" className={classes.footerSiteLogo}>
               <img src={img} alt="" />
             </a>
             <ul className={classes.footerSiteLegal}>
@@ -127,7 +127,7 @@ class LayoutFooter extends Component {
                 return (
                   // eslint-disable-next-line react/no-array-index-key
                   <li key={key}>
-                    <a href>{site.name}</a>
+                    <a href="/">{site.name}</a>
                   </li>
                 )
               }
