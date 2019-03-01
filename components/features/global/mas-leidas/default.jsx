@@ -82,7 +82,6 @@ class MasLeidas extends Component {
   }
 
   fetch() {
-    /* const { path, imageSize, size } = this.props.customFields */
     const { arcSite, requestUri, customFields } = this.props
     const { numNotes } = customFields
 
@@ -131,8 +130,6 @@ class MasLeidas extends Component {
     const { fetched } = this.getContent(source, params, schema)
     fetched
       .then(response => {
-        console.log(response)
-        console.log(`count elemnts: ${response.content_elements.length}`)
         if (response && response.content_elements.length > 0) {
           this.castingData(response.content_elements)
         } else this.setDataTest()
