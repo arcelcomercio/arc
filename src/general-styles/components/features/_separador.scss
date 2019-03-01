@@ -40,7 +40,7 @@
     margin-top: 0%;
     margin-bottom: 0%;
 
-    @media screen and (min-width: 320px) and (max-width: 480px) {
+    @media screen and (min-width: 320px) and (max-width: 640px) {
       grid-template-columns: 1fr;
     }
   }
