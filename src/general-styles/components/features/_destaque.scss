@@ -13,25 +13,6 @@ $image-height: 157px;
     /* div {
       padding: 15px 0px;
 
-      h2 {
-        margin: 0;
-        max-height: 75.6px;
-        font-size: 21px;
-        line-height: 1.2;
-        padding: 10px 0;
-      }
-    }
-
-    .author {
-      font-size: 10px;
-      text-transform: uppercase;
-      margin: 10px 0;
-
-      a {
-        color: $text-secondary;
-      }
-    }
-
     a {
       outline: 0;
       color: $text-primary;
@@ -55,20 +36,18 @@ $image-height: 157px;
     height: $image-height;
     overflow: hidden;
     margin: 0;
-    a {
+    /* a {
       display: block;
 
       img {
         width: 100%;
         display: inline;
       }
-    }
+    } */
   }
   &__category {
-    margin: 0;
     font-size: 16px;
-    padding-bottom: 10px;
-
+    padding-bottom: 16px;
     &::after {
       border-bottom: 1px solid $text-primary;
       content: '';
@@ -82,16 +61,41 @@ $image-height: 157px;
     }
   }
   &__title {
-    margin: 0;
+    margin-bottom: 8px;
     font-size: 21px;
     line-height: 1.2;
-    padding: 10px 0;
+  }
+  &__author {
+    font-size: 10px;
+    text-transform: uppercase;
+    margin-top: auto;
+    margin-bottom: 10px;
+    a {
+      color: $text-secondary;
+    }
   }
 
   &__link {
     color: black;
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  &--img-complete {
+    padding: 0;
+    overflow: hidden;
+    justify-content: flex-end;
+    .destaque__image {
+      position: absolute;
+      height: 100%;
+    }
+    .destaque__detail {
+      z-index: 10;
+      padding: $spacingNormal;
+    }
+    .destaque__link {
+      color: $color-white;
     }
   }
 

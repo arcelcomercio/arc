@@ -6,17 +6,19 @@ const classes = {
   destaque: 'destaque padding-normal flex flex--column row-1',
   gradient: 'destaque__gradient full-width block',
   detail: 'destaque__detail flex flex--column flex--justify-between',
+  image: 'destaque__image',
 
   category: 'destaque__category',
   title: 'destaque__title',
+  author: 'destaque__author',
 
   link: 'destaque__link',
+  imageLink: 'block',
 
-  image: 'destaque__image',
-  imgComplete: 'img-complete',
+  imgComplete: 'destaque--img-complete',
+
   parcialTop: 'flex--column-reverse',
   twoCol: 'col-2',
-  author: 'author',
 }
 @Consumer
 class DestaqueAutomatico extends Component {
@@ -134,7 +136,7 @@ class DestaqueAutomatico extends Component {
           </span>
         </div>
         <figure className={classes.image}>
-          <a className={classes.link} href="/#">
+          <a className={classes.imageLink} href="/#">
             <img src={image} alt="" />
           </a>
         </figure>
