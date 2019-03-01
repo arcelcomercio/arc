@@ -2,6 +2,8 @@ import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import Button from '../../../../resources/components/button'
 import NavSidebar from './_children/nav-sidebar'
+import Resizer from '../../../../resources/utilsJs/resizer'
+// import { setDevice } from '../../../../resources/utilsJs/utilities'
 
 const classes = {
   nav: 'nav full-width flex flex-center-vertical',
@@ -33,12 +35,13 @@ class Nav extends Component {
     super(props)
     // ------ Checks the display to set the initial device state
     this.state = {
-      device: this.setDevice(),
+      device: Resizer.setDevice(),
       services: [],
       statusSidebar: false,
       statusSearch: false,
       scrolled: false,
     }
+    // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
   }
 
@@ -50,21 +53,6 @@ class Nav extends Component {
     if (device === 'desktop')
       window.addEventListener('scroll', this._handleScroll)
     this.fetch()
-  }
-
-  // ------ Sets the initial device state
-  setDevice = () => {
-    const wsize = window.innerWidth
-
-    if (wsize < 640) {
-      return 'mobile'
-    }
-
-    if (wsize >= 640 && wsize < 1024) {
-      return 'tablet'
-    }
-
-    return 'desktop'
   }
 
   // Add - Remove Class active input and button search
@@ -196,6 +184,7 @@ class Nav extends Component {
         }
     }
     `
+
     const { fetched } = this.getContent(source, params, schema)
     fetched
       .then(response => {

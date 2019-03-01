@@ -14,6 +14,7 @@ const classes = {
   bold: 'bold',
   scrolY: 'scroll-vertical',
 }
+
 const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
   return (
     <div className={`${classes.header} ${background}`}>
