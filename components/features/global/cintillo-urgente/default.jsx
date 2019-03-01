@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import { filterSchema } from './_children/filterschema'
-import { debug } from 'util';
+import { debug } from 'util'
 
 const classes = {
   breakingnews: 'padding-normal',
@@ -24,50 +24,57 @@ class CintilloUrgente extends Component {
     }
   }
 
-  componentWillMount(){
+  componentWillMount() {
     const status = localStorage.link
-    if(status && status === this.props.customFields.storyLink){
+    const {
+      customFields: { storyLink },
+    } = this.props
+    if (status && status === storyLink) {
       this.setState({ isVisible: false })
-    }   
-    else this.setState({ isVisible: true })
+    } else this.setState({ isVisible: true })
   }
 
   componentDidMount = () => {
     this.fetch()
   }
 
-  shouldComponentUpdate(nextProps, nextState){
-    return (this.state.isVisible !== nextState.isVisible || this.state.article !== nextState.article)
+  shouldComponentUpdate(nextProps, nextState) {
+    const { isVisible, article } = this.state
+    return isVisible !== nextState.isVisible || article !== nextState.article
   }
 
   handleOnclickClose = () => {
     this.setState({
       isVisible: false,
     })
-    localStorage.setItem('link', this.props.customFields.storyLink)
+    const {
+      customFields: { storyLink },
+    } = this.props
+    localStorage.setItem('link', storyLink)
   }
 
   fetch() {
-    console.dir(this.props.customFields)
-    const { customFields: { storyLink, isExternalLink }, arcSite } = this.props
-    if (storyLink && (isExternalLink === undefined || isExternalLink === false)){
-        console.log('entro a fetch')
-        const { fetched } = this.getContent(
-            'get-story-by-websiteurl', 
-            { website_url: storyLink, website: arcSite }, 
-            filterSchema
-        )
-        fetched.then(response => {
-          console.log(response)
-            this.setState({ article: response })
-        })
+    const {
+      customFields: { storyLink, isExternalLink },
+      arcSite,
+    } = this.props
+    if (
+      storyLink &&
+      (isExternalLink === undefined || isExternalLink === false)
+    ) {
+      const { fetched } = this.getContent(
+        'get-story-by-websiteurl',
+        { website_url: storyLink, website: arcSite },
+        filterSchema
+      )
+      fetched.then(response => {
+        this.setState({ article: response })
+      })
     }
   }
 
   render() {
-    const {
-      article: { headlines, subheadlines },
-    } = this.state || {}
+    const { article } = this.state || {}
     const {
       editableField,
       arcSite,
@@ -77,14 +84,15 @@ class CintilloUrgente extends Component {
         title,
         subTitle,
         isExternalLink,
-        storyLink
+        storyLink,
       },
     } = this.props
-    const webUrlService = 
+    const webUrlService =
       storyLink !== '' ? `${storyLink}?_website=${arcSite}` : ''
     const objContent = {
-      title: title || (headlines && headlines.basic),
-      subTitle: subTitle || (subheadlines && subheadlines.basic),
+      title: title || (article && article.headlines && article.headlines.basic),
+      subTitle:
+        subTitle || (article && article.subheadlines && article.subheadlines.basic),
       link: webUrlService,
     }
     return (
@@ -129,17 +137,17 @@ class CintilloUrgente extends Component {
 CintilloUrgente.propTypes = {
   customFields: PropTypes.shape({
     settingLink: PropTypes.label.tag({
-      name: 'Configuración de link'
+      name: 'Configuración de link',
     }),
-    isExternalLink: PropTypes.bool.tag({ 
+    isExternalLink: PropTypes.bool.tag({
       name: '¿Nota externa?',
-      defaultValue: false, 
+      defaultValue: false,
     }),
     storyLink: PropTypes.string.isRequired.tag({
-      name: 'Link de nota interna'
+      name: 'Link de nota interna',
     }),
     settingContent: PropTypes.label.tag({
-      name: 'Configuración de contenido'
+      name: 'Configuración de contenido',
     }),
     backgroundColor: PropTypes.oneOf([
       'cintillo-u--bgcolor-1',
@@ -159,9 +167,9 @@ CintilloUrgente.propTypes = {
     tags: PropTypes.string.tag({ name: 'Etiqueta' }),
     title: PropTypes.string.tag({
       name: 'Título',
-      description: 'Dejar vacío para tomar el valor original de la noticia.'
+      description: 'Dejar vacío para tomar el valor original de la noticia.',
     }),
-    subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true })
-  })
+    subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true }),
+  }),
 }
 export default CintilloUrgente
