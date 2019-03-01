@@ -55,10 +55,12 @@
   overflow-y: auto;
 }
 
-.scroll-horizontal{
-  overflow-x:scroll;
+.scroll-horizontal {
+  overflow-x: scroll;
 }
-
+.scroll-horizontal {
+  overflow-x: auto;
+}
 /******* Background-text contrast *******/
 .bg-color--link {
   background-color: $color-link;
