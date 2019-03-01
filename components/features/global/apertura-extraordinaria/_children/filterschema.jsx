@@ -1,4 +1,5 @@
-const filterSchema = `{
+// eslint-disable-next-line import/prefer-default-export
+export const filterSchema = arcSite => `{
     headlines {
         basic
     }
@@ -37,13 +38,7 @@ const filterSchema = `{
     website
     website_url
     websites {
-        elcomercio {
-            website_section {
-                name
-                path
-            }
-        }
-        peru21 {
+        ${arcSite} {
             website_section {
                 name
                 path
@@ -51,5 +46,3 @@ const filterSchema = `{
         }
     }
 }`
-
-export default filterSchema
