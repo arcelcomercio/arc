@@ -39,18 +39,18 @@
     grid-auto-rows: minmax(calc(($heightRow - ($spacingNormal * ($rowParts - 1))) / $rowParts), auto);
 } */
 .content--1col {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(300px, 100vw);
 }
 
 .content--2col {
     @media (--tablet) {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(300px, calc((100vw - #{$gap}) / 2)));
     }
 }
 
 .content--3col {
     @media (--desktop) {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(300px, calc((1024px - (#{$gap} * 2)) / 3)));
     }
 }
 
