@@ -14,25 +14,25 @@ $colorTextItem: #000;
     width: 100%;
     max-height: 75px;
     overflow: hidden;
-    &__img {
+  }
+  &__img {
+    width: 100%;
+    &--icon::after {
+      position: absolute;
+      bottom: -5px;
+      right: 5px;
+      z-index: 1;
+      font-size: 50px;
       width: 100%;
-      &--icon::after {
-        position: absolute;
-        bottom: -5px;
-        right: 5px;
-        z-index: 1;
-        font-size: 50px;
-        width: 100%;
-        text-align: right;
-        color: $colorIconMasLeidas;
-        text-shadow: 2px 2px 5px #666;
-      }
-      &--video::after {
-        content: '\2023';
-      }
-      &--image::after {
-        content: '\2751';
-      }
+      text-align: right;
+      color: $colorIconMasLeidas;
+      text-shadow: 2px 2px 5px #666;
+    }
+    &--video::after {
+      content: '\2023';
+    }
+    &--image::after {
+      content: '\2709';
     }
   }
   &__detail {

@@ -1602,10 +1602,10 @@ body {
   max-height: 75px;
   overflow: hidden;
 }
-.new__figure__img {
+.new__img {
   width: 100%;
 }
-.new__figure__img--icon::after {
+.new__img--icon::after {
   position: absolute;
   bottom: -5px;
   right: 5px;
@@ -1616,11 +1616,11 @@ body {
   color: rgba(255, 255, 255, 0.8);
   text-shadow: 2px 2px 5px #666;
 }
-.new__figure__img--video::after {
+.new__img--video::after {
   content: "‣";
 }
-.new__figure__img--image::after {
-  content: "❑";
+.new__img--image::after {
+  content: "✉";
 }
 .new__detail {
   font-size: 12px;

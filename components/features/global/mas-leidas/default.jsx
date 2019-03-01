@@ -43,9 +43,34 @@ class MasLeidas extends Component {
       const d = {}
       if (el.website_url != null) d.websiteUrl = el.website_url
       if (el.promo_items != null) {
-        if (el.promo_items.basic != null) {
-          if (el.promo_items.basic.url != null)
-            d.imageUrl = el.promo_items.basic.url
+        if (el.promo_items.basic != null && el.promo_items.basic.url != null) {
+          d.imageUrl = el.promo_items.basic.url
+          d.captionImg = el.promo_items.basic.caption
+          d.typeNote = 'image'
+        }
+        if (
+          el.promo_items.Basic != null &&
+          el.promo_items.Basic.promo_items.basic != null
+        ) {
+          d.imageUrl = el.promo_items.Basic.promo_items.basic.url
+          d.captionImg = el.promo_items.Basic.promo_items.basic.caption
+          d.typeNote = 'video'
+        }
+        if (
+          el.promo_items.basic_image != null &&
+          el.promo_items.basic_image.url != null
+        ) {
+          d.imageUrl = el.promo_items.basic_image.url
+          d.captionImg = el.promo_items.basic_image.caption
+          d.typeNote = 'image'
+        }
+        if (
+          el.promo_items.basic_video != null &&
+          el.promo_items.basic_video.promo_items.basic != null
+        ) {
+          d.imageUrl = el.promo_items.basic_video.promo_items.basic.url
+          d.captionImg = el.promo_items.basic_video.promo_items.basic.caption
+          d.typeNote = 'video'
         }
       }
       if (el.headlines != null) d.title = el.headlines.basic
@@ -67,7 +92,6 @@ class MasLeidas extends Component {
       section: requestUri.split('/')[1],
       num_notes: numNotes,
     }
-    console.log(params)
     const schema = `{
       content_elements {
         canonical_url
@@ -79,6 +103,27 @@ class MasLeidas extends Component {
         promo_items {
           basic {
             url
+            caption
+          }
+          Basic {
+            promo_items {
+              basic {
+                url
+                caption
+              }
+            }
+          }
+          basic_image {
+            url
+            caption
+          }
+          basic_video {
+            promo_items {
+              basic {
+                url
+                caption
+              }
+            }
           }
         }
       }
