@@ -30,9 +30,9 @@ class DestaqueManual extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      category: '',
-      title: '',
-      author: '',
+      category: {},
+      title: {},
+      author: {},
       image: '',
     }
     this.fetch()
@@ -42,41 +42,71 @@ class DestaqueManual extends Component {
     const { customFields, arcSite } = this.props
     const { path, imageSize, size } = customFields
 
-    const source = 'get-story-by-websiteurl'
+    const source = 'story-api'
     const params = {
       website: arcSite,
       website_url: path,
     }
     const schema = `{ 
       headlines { basic }
-      credits { by { name } }
+      credits {
+        by { name  url }
+      }
+      website_url
+      promo_items {
+        basic_image { url caption }
+      }
+      websites {
+        ${arcSite} {
+          website_section {
+            name
+            path
+          }
+        }
+      }
     }`
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
       this.setState({
-        category: 'Editorial',
-        title: response.headlines.basic,
-        author: response.credits.by.length ? response.credits.by[0].name : '',
+        category: {
+          name: response.websites[`${arcSite}`]
+            ? response.websites[`${arcSite}`].website_section.name
+            : '',
+          url: response.websites[`${arcSite}`]
+            ? response.websites[`${arcSite}`].website_section.path
+            : '',
+        },
+        title: {
+          name: response.headlines.basic,
+          url: response.website_url,
+        },
+        author: {
+          name: response.credits.by.length ? response.credits.by[0].name : '',
+          url: response.credits.by.length ? response.credits.by[0].url : '',
+        },
       })
       if (size === 'twoCol') {
         this.setState({
-          image:
-            'https://www.foxsportsasia.com/uploads/2019/02/mbapperashford.jpg',
+          image: response.promo_items.basic_image
+            ? response.promo_items.basic_image.url
+            : '',
         })
       } else {
         switch (imageSize) {
           case 'parcialBot':
           case 'parcialTop':
             this.setState({
-              image:
-                'https://img.elcomercio.pe/files/listing_ec_home_principal/uploads/2019/02/11/5c6189afd3c81.jpeg',
+              image: response.promo_items.basic_image
+                ? response.promo_items.basic_image.url
+                : '',
             })
             break
           case 'complete':
             this.setState({
-              image:
-                'https://img.elcomercio.pe/files/listing_ec_home_principal_completo/uploads/2019/02/11/5c618f8a3e0b4.jpeg',
+              image: response.promo_items.basic_image
+                ? response.promo_items.basic_image.url
+                : '',
             })
             break
           default:
@@ -128,16 +158,16 @@ class DestaqueManual extends Component {
             <h3 className={classes.category}>
               <a
                 className={classes.link}
-                href="#/"
+                href={category.url}
                 {...editableField('categoryField')}
               >
-                {categoryField || category}
+                {categoryField || category.name}
               </a>
             </h3>
           ) : (
             <div className={classes.headband}>
               <a
-                href="#/"
+                href={category.url}
                 className={`${classes.link} ${classes.headbandLink}`}
               >
                 {headband === 'live' ? 'En vivo' : ''}
@@ -147,21 +177,21 @@ class DestaqueManual extends Component {
           <h2 className={classes.title}>
             <a
               className={classes.link}
-              href="#/"
+              href={title.url}
               {...editableField('titleField')}
             >
-              {titleField || title}
+              {titleField || title.name}
             </a>
           </h2>
 
           <span className={classes.author}>
-            <a className={classes.link} href="#/">
-              {author}
+            <a className={classes.link} href={author.url}>
+              {author.name}
             </a>
           </span>
         </div>
         <figure className={classes.image}>
-          <a className={classes.imageLink} href="#/">
+          <a className={classes.imageLink} href={title.url}>
             <img src={image} alt="" />
           </a>
         </figure>
@@ -172,7 +202,7 @@ class DestaqueManual extends Component {
 // TODO: agregar el required a path section y la ayuda de editar el texto
 DestaqueManual.propTypes = {
   customFields: PropTypes.shape({
-    path: PropTypes.string.tag({
+    path: PropTypes.string.isRequired.tag({
       name: 'Path',
     }),
     imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({

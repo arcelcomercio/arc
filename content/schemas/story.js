@@ -50,6 +50,10 @@ type BasicVideoPromoItems {
     embed_html: String
     promo_image: PromoImageVideo
 }
+type BasicUrlImg{
+    url: String
+    caption: String
+}
 type PromoItemsGallery {
     basic: BasicPromoItems
 }
@@ -61,6 +65,7 @@ type PromoItems {
     basic: BasicPromoItems
     Basic: BasicVideoPromoItems
     gallery: galleryItems
+    basic_image: BasicUrlImg
 }
 type Taxonomy {
     sections: [SectionTaxonomy]
@@ -105,4 +110,4 @@ type Query {
  taxonomy: Taxonomy
  websites: Websites!
 }
-`;
+`

@@ -9,7 +9,6 @@ $image-height: 157px;
   background-color: $color-white;
 
   &__detail {
-    width: 260px;
     height: calc(100% - #{$image-height});
   }
   &__gradient {

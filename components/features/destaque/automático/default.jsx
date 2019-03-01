@@ -27,7 +27,7 @@ class DestaqueAutomatico extends Component {
     this.state = {
       category: {},
       title: {},
-      author: '',
+      author: {},
       image: '',
     }
     this.fetch()
@@ -66,7 +66,6 @@ class DestaqueAutomatico extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
-      console.log(response)
       const storyElement = response.content_elements[0]
       this.setState({
         category: {
@@ -181,7 +180,7 @@ class DestaqueAutomatico extends Component {
 
 DestaqueAutomatico.propTypes = {
   customFields: PropTypes.shape({
-    section: PropTypes.string.tag({
+    section: PropTypes.string.isRequired.tag({
       name: 'Sección',
     }),
     imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
