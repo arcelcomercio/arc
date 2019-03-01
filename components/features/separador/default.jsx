@@ -42,7 +42,7 @@ const SeparatorListItem = ({ data }) => {
       if (promoItems) {
         imagen = promoItems.basic && (promoItems.basic.url || null)
       }
-
+      
       return (
         <SeparatorItem
           key={websiteUrl}
@@ -117,7 +117,7 @@ class Separador extends Component {
     const { arcSite } = this.props
     const { section } = this.state
 
-    debugger
+    
     const { fetched } = this.getContent(
       'get-list-news',
       {
@@ -151,7 +151,7 @@ class Separador extends Component {
     
 
   handleResize = () => {
-    debugger
+    
     const wsize = window.innerWidth
 
     // ------ Set the new state if you change from mobile to desktop
@@ -180,7 +180,7 @@ class Separador extends Component {
   setDevice = () => {
     const wsize = window.innerWidth
     console.log(wsize)
-    debugger
+    
     if (wsize < 640) {
       return 'mobile'
     }
