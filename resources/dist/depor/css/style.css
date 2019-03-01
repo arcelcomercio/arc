@@ -1721,7 +1721,7 @@ body {
     display: none;
   }
 }
-@media screen and (min-width: 320px) and (max-width: 480px) {
+@media screen and (min-width: 320px) and (max-width: 640px) {
   .separator__body {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
