@@ -1,48 +1,53 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Data from './data'
 
 const classes = {
-    aperturae: 'aperturae padding-normal',
-    aperturaeSection: 'aperturae__section text-center',
-    aperturaeContent: 'aperturae__content',
-    aperturaeTitle: 'aperturae__title',
-    aperturaeSubtitle: 'aperturae__subtitle' ,
-    aperturaeAuthor: 'aperturae__author',
-    aperturaeMultimedia: 'aperturae__multimedia'
+  aperturae: 'aperturae padding-normal',
+  aperturaeSection: 'aperturae__section text-center',
+  aperturaeContent: 'aperturae__content',
+  aperturaeTitle: 'aperturae__title',
+  aperturaeSubtitle: 'aperturae__subtitle',
+  aperturaeAuthor: 'aperturae__author',
+  aperturaeMultimedia: 'aperturae__multimedia',
 }
 
-//@Consumer
-class AperturaExtraordinariaChildren extends Component {
+const AperturaExtraordinariaChildren = props => {
+  const { customFields, data, website, editableField } = props
+  const elem = new Data(customFields, data, website)
 
-    render () {
-        const data = new Data(this.props.customFields, this.props.data, this.props.website)
-         
-        return  <div className={
-                        `
-                        ${classes.aperturae} 
-                        aperturae--${data.multimediaOrientation} 
-                        text-${data.contentOrientation}
-                        `
-                    }>
-                    <div className={classes.aperturaeSection}>
-                        <a href={data.sectionLink} {...this.props.editableField("section")}>{data.section}</a>
-                    </div>
-                    <div className={classes.aperturaeContent}>
-                        <div className={classes.aperturaeTitle}>
-                            <a href={data.link} {...this.props.editableField("title")}>{data.title}</a>
-                        </div>
-                        <div className={classes.aperturaeSubtitle}>
-                            <a href={data.link} {...this.props.editableField("subTitle")}>{data.subTitle}</a>
-                        </div>
-                        <div className={classes.aperturaeAuthor}>
-                            <a href={data.authorLink}>{data.author}</a>
-                        </div>
-                    </div>
-                    <div className={classes.aperturaeMultimedia}>
-                        <img src={data.multimedia} alt={data.title}/>
-                    </div>
-                </div>
-    }
+  return (
+    <div
+      className={`
+            ${classes.aperturae} 
+            aperturae--${elem.multimediaOrientation} 
+            text-${elem.contentOrientation}
+            `}
+    >
+      <div className={classes.aperturaeSection}>
+        <a href={elem.sectionLink} {...editableField('section')}>
+          {elem.section}
+        </a>
+      </div>
+      <div className={classes.aperturaeContent}>
+        <div className={classes.aperturaeTitle}>
+          <a href={elem.link} {...editableField('title')}>
+            {elem.title}
+          </a>
+        </div>
+        <div className={classes.aperturaeSubtitle}>
+          <a href={elem.link} {...editableField('subTitle')}>
+            {elem.subTitle}
+          </a>
+        </div>
+        <div className={classes.aperturaeAuthor}>
+          <a href={elem.authorLink}>{elem.author}</a>
+        </div>
+      </div>
+      <div className={classes.aperturaeMultimedia}>
+        <img src={elem.multimedia} alt={elem.title} />
+      </div>
+    </div>
+  )
 }
 
 export default AperturaExtraordinariaChildren
