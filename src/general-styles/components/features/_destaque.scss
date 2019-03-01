@@ -3,24 +3,14 @@ $text-secondary: #979797;
 
 $image-height: 157px;
 
+// TODO: Adaptar al minmax de las clumnas de la grilla
+
 .destaque {
   background-color: $color-white;
 
   &__detail {
     width: 260px;
     height: calc(100% - #{$image-height});
-
-    /* div {
-      padding: 15px 0px;
-
-    a {
-      outline: 0;
-      color: $text-primary;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    } */
   }
   &__gradient {
     background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
@@ -36,14 +26,6 @@ $image-height: 157px;
     height: $image-height;
     overflow: hidden;
     margin: 0;
-    /* a {
-      display: block;
-
-      img {
-        width: 100%;
-        display: inline;
-      }
-    } */
   }
   &__category {
     font-size: 16px;
@@ -74,12 +56,19 @@ $image-height: 157px;
       color: $text-secondary;
     }
   }
-
   &__link {
     color: black;
     &:hover {
       text-decoration: underline;
     }
+  }
+  &__headband {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  &__headband-link {
+    color: $color-white;
+    font-weight: bold;
   }
 
   &--img-complete {
@@ -97,45 +86,20 @@ $image-height: 157px;
     .destaque__link {
       color: $color-white;
     }
-  }
-
-  .live {
-    font-size: 13px;
-    font-weight: bold;
-    color: $color-white;
-    background: red;
-    padding: 5px;
-  }
-}
-
-.img-complete {
-  position: relative;
-  background-color: unset;
-  padding: initial;
-  overflow: hidden;
-
-  .flow-detail {
-    position: absolute;
-    bottom: 10px;
-    z-index: 10;
-    padding: 0 15px;
-
-    a {
-      color: $color-white;
-    }
-
-    div {
-      h3 {
-        &::after {
-          border-bottom: 1px solid $color-white;
-        }
+    .destaque__category {
+      &::after {
+        border-bottom: 1px solid $color-white;
       }
     }
+    .destaque__author {
+      margin-bottom: 0;
+    }
   }
-
-  .flow-image {
-    height: auto;
-    top: 0;
-    z-index: -1;
+  &--live {
+    .destaque__headband-link {
+      padding: 6px;
+      background-color: red;
+      display: inline-block;
+    }
   }
 }

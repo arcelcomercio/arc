@@ -16,8 +16,8 @@ const classes = {
   imageLink: 'block',
 
   imgComplete: 'destaque--img-complete',
-
   parcialTop: 'flex--column-reverse',
+
   twoCol: 'col-2',
 }
 @Consumer

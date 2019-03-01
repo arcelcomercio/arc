@@ -3,15 +3,27 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 const classes = {
-  cardNotaContainer: 'padding-normal card flex flex--column row-1',
-  imgComplete: 'img-complete',
+  destaque: 'destaque padding-normal flex flex--column row-1',
+  gradient: 'destaque__gradient full-width block',
+  detail: 'destaque__detail flex flex--column flex--justify-between',
+  image: 'destaque__image',
+
+  category: 'destaque__category',
+  title: 'destaque__title',
+  author: 'destaque__author',
+
+  link: 'destaque__link',
+  imageLink: 'block',
+
+  imgComplete: 'destaque--img-complete',
   parcialTop: 'flex--column-reverse',
+
   twoCol: 'col-2',
-  spanGradient: 'gradient full-width block',
-  flowDetail: 'flow-detail flex flex--column flex--justify-between',
-  spanHeadband: 'live',
-  author: 'author',
-  flowImage: 'flow-image',
+  // Headbands
+  headband: 'destaque__headband',
+  headbandLink: 'destaque__headband-link',
+
+  live: 'destaque--live',
 }
 @Consumer
 class DestaqueManual extends Component {
@@ -95,38 +107,61 @@ class DestaqueManual extends Component {
           return ''
       }
     }
+    const headBandModify = () => {
+      if (headband === 'live') {
+        return classes.live
+      }
+      return ''
+    }
 
     return (
       <article
-        className={`${classes.cardNotaContainer} ${getImageSizeClass()} ${
+        className={`${
+          classes.destaque
+        } ${getImageSizeClass()} ${headBandModify()} ${
           size === 'twoCol' ? classes.twoCol : ''
         }`}
       >
-        {imageSize === 'complete' && <span className={classes.spanGradient} />}
-        <div className={classes.flowDetail}>
-          <div>
-            {headband === 'normal' && (
-              <h3>
-                <a href="#/" {...editableField('categoryField')}>
-                  {categoryField || category}
-                </a>
-              </h3>
-            )}
-            {headband === 'live' && (
-              <span className={classes.spanHeadband}>EN VIVO</span>
-            )}
-            <h2>
-              <a href="#/" {...editableField('titleField')}>
-                {titleField || title}
+        {imageSize === 'complete' && <span className={classes.gradient} />}
+        <div className={classes.detail}>
+          {headband === 'normal' ? (
+            <h3 className={classes.category}>
+              <a
+                className={classes.link}
+                href="#/"
+                {...editableField('categoryField')}
+              >
+                {categoryField || category}
               </a>
-            </h2>
-          </div>
+            </h3>
+          ) : (
+            <div className={classes.headband}>
+              <a
+                href="#/"
+                className={`${classes.link} ${classes.headbandLink}`}
+              >
+                {headband === 'live' ? 'En vivo' : ''}
+              </a>
+            </div>
+          )}
+          <h2 className={classes.title}>
+            <a
+              className={classes.link}
+              href="#/"
+              {...editableField('titleField')}
+            >
+              {titleField || title}
+            </a>
+          </h2>
+
           <span className={classes.author}>
-            <a href="#/">{author}</a>
+            <a className={classes.link} href="#/">
+              {author}
+            </a>
           </span>
         </div>
-        <figure className={classes.flowImage}>
-          <a href="#/">
+        <figure className={classes.image}>
+          <a className={classes.imageLink} href="#/">
             <img src={image} alt="" />
           </a>
         </figure>
@@ -134,7 +169,7 @@ class DestaqueManual extends Component {
     )
   }
 }
-
+// TODO: agregar el required a path section y la ayuda de editar el texto
 DestaqueManual.propTypes = {
   customFields: PropTypes.shape({
     path: PropTypes.string.tag({
