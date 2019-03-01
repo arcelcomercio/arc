@@ -10,7 +10,7 @@
 /*-----------------------*/
 /******* Nav colors *******/
 /*-----------------------*/
-/******* Row dimensions *******/
+/******* Grid dimensions *******/
 /*-----------------------*/
 /******* Spacing *******/
 /*-----------------------*/
@@ -245,8 +245,8 @@ input[type=search]::-webkit-search-results-decoration {
     grid-auto-rows: minmax(calc(($heightRow - ($spacingNormal * ($rowParts - 1))) / $rowParts), auto);
 } */
 .content--1col {
-  -ms-grid-columns: 1fr;
-  grid-template-columns: 1fr;
+  -ms-grid-columns: minmax(300px, 100vw);
+  grid-template-columns: minmax(300px, 100vw);
 }
 .q {
   overflow: hidden;
@@ -1598,8 +1598,8 @@ body {
     min-width: 620px;
   }
   .content--2col {
-    -ms-grid-columns: (1fr)[2];
-    grid-template-columns: repeat(2, 1fr);
+    -ms-grid-columns: (minmax(300px, calc((100vw - 20px) / 2)))[2];
+    grid-template-columns: repeat(2, minmax(300px, calc((100vw - 20px) / 2)));
   }
   .col-1 {
     -ms-grid-column-span: 1;
@@ -1651,8 +1651,8 @@ body {
     min-width: 940px;
   }
   .content--3col {
-    -ms-grid-columns: (1fr)[3];
-    grid-template-columns: repeat(3, 1fr);
+    -ms-grid-columns: (minmax(300px, calc((1024px - (20px * 2)) / 3)))[3];
+    grid-template-columns: repeat(3, minmax(300px, calc((1024px - (20px * 2)) / 3)));
   }
   .col-1 {
     -ms-grid-column-span: 1;
