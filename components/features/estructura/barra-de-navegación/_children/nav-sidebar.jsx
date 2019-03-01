@@ -91,10 +91,10 @@ class NavSidebar extends Component {
           </div>
           <div className="nav-sidebar__footer">
             <a href="/" className="nav-sidebar__text">
-              elcomercio.pe
+              FUNCIONA POR FAVOR
             </a>
             <a href="/" className="nav-sidebar__text">
-              1984-2019 Grupo El Comercio
+              TU PUEDES TRACY
             </a>
             <a href="/" className="nav-sidebar__text">
               Términos de Servicio
