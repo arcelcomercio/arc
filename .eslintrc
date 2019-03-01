@@ -16,7 +16,10 @@
   "globals": {
     "document": true,
     "window": true,
-    "location": true
+    "location": true,
+    "no-plusplus": [2, {
+      "allowForLoopAfterthoughts": true
+    }]
   },
   "parser": "babel-eslint"
 }

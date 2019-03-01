@@ -33,7 +33,6 @@ const classes = {
 class Nav extends Component {
   constructor(props) {
     super(props)
-    // supbreaking - newser(props)
     // ------ Checks the display to set the initial device state
     this.state = {
       device: Resizer.setDevice(),
