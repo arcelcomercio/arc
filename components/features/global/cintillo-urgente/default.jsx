@@ -18,34 +18,33 @@ class CintilloUrgente extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      contentBreakingNews: 'cintillo-u',
-      article: {}
+      article: {},
+      isVisible: false,
     }
-    this.renderCount = 0
-    this.fetch()
   }
-  
+  componentWillMount(){
+    const status = localStorage.link
+    status && status == this.props.customFields.storyLink  ? false : this.setState({isVisible: true})
+  }
   componentDidMount = () => {
+    this.fetch()
     const {
       customFields: { link },
     } = this.props
+  }
 
-    const status = localStorage.getItem(link)
-
-    if (status === 'false') {
-      this.setState({
-        contentBreakingNews: 'cintillo-u hide',
-      })
-    }
+  shouldComponentUpdate(nextProps, nextState){
+      const UPDATE_RENDER = nextProps && nextProps.customFields.storyLin !== this.props.customFields.storyLink ? true : false
+    return UPDATE_RENDER
   }
 
   handleOnclickClose = () => {
     const {
       customFields: { link },
     } = this.props
-    localStorage.setItem(link, 'false')
+    localStorage.setItem('link', this.props.customFields.storyLink)
     this.setState({
-      contentBreakingNews: 'cintillo-u hide',
+      isVisible: false,
     })
   }
 
@@ -63,10 +62,7 @@ class CintilloUrgente extends Component {
   }
 
   render() {
-    console.log('apertura extraordinaria render', ++this.renderCount)
-    // console.log('state', this.state)
     const {
-      contentBreakingNews,
       article: { headlines, subheadlines },
     } = this.state || {}
     const {
@@ -91,8 +87,7 @@ class CintilloUrgente extends Component {
     }
     return (
       <div
-        className={`
-          ${contentBreakingNews} 
+        className={`cintillo-u ${this.state.isVisible ? '' : 'hide'}
           ${backgroundColor} 
           ${classes.breakingnews}
           `}
