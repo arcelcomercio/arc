@@ -25,7 +25,7 @@ class AperturaExtraordinaria extends Component {
           website_url: link,
           website: arcSite,
         },
-        filterSchema
+        filterSchema(arcSite)
       )
       fetched.then(response => {
         this.setState({ data: response })
