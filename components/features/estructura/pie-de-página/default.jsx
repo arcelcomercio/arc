@@ -78,33 +78,35 @@ class PieDePagina extends Component {
     }`
 
     const { fetched } = this.getContent(source, params, schema)
-    fetched.then(response => {
-      const auxList = response.children.map(el => {
-        if (el.node_type === 'link') {
+    fetched
+      .then(response => {
+        const auxList = response.children.map(el => {
+          if (el.node_type === 'link') {
+            return {
+              name: el.display_name,
+              url: el.url,
+              node_type: el.node_type,
+            }
+          }
           return {
-            name: el.display_name,
-            url: el.url,
+            name: el.name,
+            // eslint-disable-next-line no-underscore-dangle
+            url: el._id,
             node_type: el.node_type,
           }
-        }
-        return {
-          name: el.name,
-          // eslint-disable-next-line no-underscore-dangle
-          url: el._id,
-          node_type: el.node_type,
+        })
+        switch (hierarchy) {
+          case 'Navegacion-Pie_de_pagina-Contacto':
+            this.setState({ legalList: auxList })
+            break
+          case 'Navegacion-Pie_de_pagina-secciones':
+            this.setState({ sectionsList: auxList })
+            break
+          default:
+            break
         }
       })
-      switch (hierarchy) {
-        case 'Navegacion-Pie_de_pagina-Contacto':
-          this.setState({ legalList: auxList })
-          break
-        case 'Navegacion-Pie_de_pagina-secciones':
-          this.setState({ sectionsList: auxList })
-          break
-        default:
-          break
-      }
-    })
+      .catch(e => console.log(e))
   }
 
   render() {

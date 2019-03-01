@@ -14,12 +14,16 @@ class AperturaExtraordinaria extends Component {
   }
 
   fetch() {
-    if (this.props.customFields.link) {
+    const {
+      customFields: { link },
+      arcSite,
+    } = this.props
+    if (link) {
       const { fetched } = this.getContent(
         'get-story-by-websiteurl',
         {
-          website_url: this.props.customFields.link,
-          website: this.props.arcSite,
+          website_url: link,
+          website: arcSite,
         },
         filterSchema
       )
@@ -30,20 +34,24 @@ class AperturaExtraordinaria extends Component {
   }
 
   render() {
-    console.log('apertura extraordinaria render', ++this.renderCount)
+    console.log('apertura extraordinaria render', this.renderCount + 1)
     // console.dir(this.state)
+    // eslint-disable-next-line no-shadow
+    const { customFields, editableField, arcSite } = this.props
+    const { data } = this.state
+    const website = arcSite
     const params = {
-      customFields: this.props.customFields,
-      data: this.state.data,
-      editableField: this.props.editableField,
-      website: this.props.arcSite,
+      customFields,
+      data,
+      editableField,
+      website,
     }
     return <AperturaExtraordinariaChildren {...params} />
   }
 }
 
 AperturaExtraordinaria.propTypes = {
-  customFields: customFields,
+  customFields,
 }
 
 export default AperturaExtraordinaria
