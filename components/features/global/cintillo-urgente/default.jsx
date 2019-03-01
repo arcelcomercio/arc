@@ -26,7 +26,6 @@ class CintilloUrgente extends Component {
 
   componentWillMount(){
     const status = localStorage.link
-    debugger
     if(status && status !== this.props.customFields.storyLink){
       this.setState({ isVisible: true })
     } else if (status && status !== this.props.customFields.link){
@@ -45,7 +44,6 @@ class CintilloUrgente extends Component {
     const UPDATE_RENDER = nextProps && nextProps.customFields.storyLin !== this.props.customFields.storyLink || 
       nextProps.customFields.isExternalLink !== this.props.customFields.isExternalLink || 
       nextProps.customFields.link !== this.props.customFields.link ? true : false
-      debugger
       return UPDATE_RENDER
   }
 
