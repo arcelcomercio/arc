@@ -16,7 +16,7 @@ const classes = {
 }
 const HeaderList = ({ titleList, background, seeMore, seeMoreurl }) => {
   return (
-    <div className={classes.header + ' ' + background}>
+    <div className={`${classes.header} ${background}`}>
       <div className={classes.title}>
         <h4>{titleList} </h4>
       </div>
@@ -32,8 +32,8 @@ const SeeMore = ({ seeMoreurl }) => (
     </a>
   </div>
 )
-const ImageNews = ({ urlNews, promo_items }) => {
-  let imagen = promo_items.basic ? promo_items.basic.url || '' : ''
+const ImageNews = ({ urlNews, promo_items: promoItems }) => {
+  const imagen = promoItems.basic ? promoItems.basic.url || '' : ''
   return (
     <figure>
       {imagen ? (
@@ -44,7 +44,7 @@ const ImageNews = ({ urlNews, promo_items }) => {
               srcSet={imagen}
               media="(max-width: 639px)"
             />
-            <img datatype="src" src={imagen} />
+            <img datatype="src" src={imagen} alt="" />
           </picture>
         </a>
       ) : null}
@@ -60,13 +60,11 @@ const ItemNews = ({
   time,
   title,
   urlNews,
-  promo_items,
+  promo_items: promoItems,
 }) => {
   return (
     <article className={classes.itemNews}>
-      {seeImageNews && (
-        <ImageNews urlNews={urlNews} promo_items={promo_items} />
-      )}
+      {seeImageNews && <ImageNews urlNews={urlNews} promo_items={promoItems} />}
       {seeHour && <TimeItem time={time} />}
       <div className={classes.pageLink}>
         <a href={urlNews}>
@@ -77,58 +75,60 @@ const ItemNews = ({
   )
 }
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
-  let classListItems =
+  const classListItems =
     listNews.length > 4
-      ? classes.listItem + ' ' + classes.scrolY
+      ? `${classes.listItem} ${classes.scrolY}`
       : classes.listItem
-  
+  // let nuevalista =[];
 
   return (
     <div className={classListItems}>
       {listNews.map(
         (
-          { display_date, headlines: { basic }, canonical_url, promo_items },
+          {
+            display_date: displayDate,
+            headlines: { basic },
+            canonical_url: canonicalUrl,
+            promo_items: promoItems,
+          },
           index
         ) => {
-          let fechaPublicacion = new Date(display_date)
+          const fechaPublicacion = new Date(displayDate)
           let time = ''
 
-          let fechapresente = new Date().getTime()
+          const fechapresente = new Date().getTime()
 
           if (
-            (fechapresente - new Date(display_date).getTime()) /
+            (fechapresente - new Date(displayDate).getTime()) /
               1000 /
               60 /
               60 >=
             24
           ) {
-            time =
-              (fechaPublicacion.getDate() < 10
-                ? '0' + fechaPublicacion.getDate()
-                : fechaPublicacion.getDate()) +
-              '/' +
-              (fechaPublicacion.getMonth() < 10
-                ? '0' + fechaPublicacion.getMonth()
-                : fechaPublicacion.getMonth()) +
-              '/' +
-              fechaPublicacion.getFullYear()
+            time = `${
+              fechaPublicacion.getDate() < 10
+                ? `0${fechaPublicacion.getDate()}`
+                : fechaPublicacion.getDate()
+            }/${
+              fechaPublicacion.getMonth() < 10
+                ? `0${fechaPublicacion.getMonth()}`
+                : fechaPublicacion.getMonth()
+            }/${fechaPublicacion.getFullYear()}`
           } else {
-            time =
-              fechaPublicacion.getHours() +
-              ':' +
-              fechaPublicacion.getMinutes() +
-              '-'
+            time = `${fechaPublicacion.getHours()}:${fechaPublicacion.getMinutes()}-`
           }
 
           return (
             <ItemNews
-              key={index}
+              key={canonicalUrl}
               seeHour={seeHour}
-              seeImageNews={seeImageNews === true && index === 0 ? true : false}
+              seeImageNews={
+                seeImageNews === true && index === 0 /* ? true : false */
+              }
               time={time}
               title={basic}
-              urlNews={canonical_url}
-              promo_items={promo_items || ''}
+              urlNews={canonicalUrl}
+              promo_items={promoItems || ''}
             />
           )
         }
@@ -141,16 +141,18 @@ class Lista extends Component {
   constructor(props) {
     super(props)
 
-    var {
-      titleList,
-      background = '',
-      newsNumber,
-      seeMore,
-      seeMoreurl,
-      seeHour,
-      seeImageNews,
-      secction,
-    } = this.props.customFields || {}
+    const {
+      customFields: {
+        titleList,
+        background = '',
+        newsNumber,
+        seeMore,
+        seeMoreurl,
+        seeHour,
+        seeImageNews,
+        section,
+      },
+    } = this.props || {}
 
     this.state = {
       titleList,
@@ -160,23 +162,26 @@ class Lista extends Component {
       seeMoreurl,
       seeHour,
       seeImageNews,
-      secction,
+      section,
       data: [],
     }
   }
 
   componentDidMount = () => {
+    const { section, newsNumber } = this.state
+    const { arcSite: website } = this.props
     const { fetched } = this.getContent(
-      'get-lis-news',
+      'get-list-news',
       {
-        website: this.props.arcSite,
-        secction: this.state.secction,
-        newsNumber: this.state.newsNumber,
+        website,
+        section,
+        newsNumber,
       },
       this.filterSchema()
     )
     fetched.then(response => {
       if (!response) {
+        // eslint-disable-next-line no-param-reassign
         response = []
         console.log(
           'No hay respuesta del servicio para obtener el listado de noticias'
@@ -191,12 +196,13 @@ class Lista extends Component {
       }
 
       this.setState({
+        
         data: response.content_elements,
       })
     })
   }
 
-  filterSchema() {
+  filterSchema = () => {
     return `
     {
       content_elements{
@@ -217,18 +223,27 @@ class Lista extends Component {
   }
 
   render() {
+    const {
+      titleList,
+      background,
+      seeMore,
+      seeMoreurl,
+      seeHour,
+      seeImageNews,
+      data,
+    } = this.state
     return (
       <div className={classes.lista}>
         <HeaderList
-          titleList={this.state.titleList}
-          background={this.state.background}
-          seeMore={this.state.seeMore}
-          seeMoreurl={this.state.seeMoreurl}
+          titleList={titleList}
+          background={background}
+          seeMore={seeMore}
+          seeMoreurl={seeMoreurl}
         />
         <ListItemNews
-          seeHour={this.state.seeHour}
-          seeImageNews={this.state.seeImageNews}
-          listNews={this.state.data || []}
+          seeHour={seeHour}
+          seeImageNews={seeImageNews}
+          listNews={data || []}
         />
       </div>
     )
@@ -238,7 +253,7 @@ class Lista extends Component {
 Lista.propTypes = {
   customFields: PropTypes.shape({
     titleList: PropTypes.string.isRequired.tag({ name: 'Título de la lista' }),
-    secction: PropTypes.string.isRequired.tag({ name: 'Sección' }),
+    section: PropTypes.string.isRequired.tag({ name: 'Sección' }),
     background: PropTypes.oneOf(['bg-color--lightblue', 'bg-color--white']).tag(
       {
         name: 'Color de fondo cabecera',

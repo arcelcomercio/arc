@@ -20,44 +20,82 @@ class Data
         return this.customFields.contentOrientation || 'left'
     }
     get author(){
-        const authorData =this.data && this.data.credits && this.data.credits.by || []
-        return this.getValData(authorData, 'author')
+        return this.getDataAuthor(this.data).name
     }
-    get image(){
-        const basicPromoItems = this.data && this.data.promo_items && this.data.promo_items.basic || null
-        const typePromoItems = basicPromoItems && basicPromoItems.type || null
-        return typePromoItems && typePromoItems == 'image' ? basicPromoItems.url : ''
+    get authorLink(){
+        return this.getDataAuthor(this.data).url
+    }
+    get multimedia(){
+        return this.getThumbnail(this.data, this.getTypeMultimedia(this.data))
     }
     get section(){
-        return this.customFields.section || this.getDataSection().name
+        return this.customFields.section || this.getDataSection(this.data).name
     }
     get link(){
         return (this.data && this.data.website_url + '?_website=' + this.website|| '#')
     }
     get sectionLink(){
-        return this.getDataSection().path + '?_website=' + this.website
+        return this.getDataSection(this.data).path + '?_website=' + this.website
     }
-    getDataSection(){
-        const sectionData =this.data && this.data.taxonomy && this.data.taxonomy.sections || []
-        let section = '', path = ''
-        for (let i=0; i<sectionData.length; i++) {
-            if(sectionData[i].type == 'section' && sectionData[i]._website == this.website){
-                section = sectionData[i].name
-                path = sectionData[i].path
-                break
-            }
-        }
+    getDataSection(data){
+        const sectionData = data && data.websites && data.websites[this.website] 
+            && data.websites[this.website].website_section || {}
+        const section = sectionData.name || ''
+        const path = sectionData.path || ''
         return {name: section, path: path}
     }
-    getValData(data, type){
-        let val = ''
-        for (let i=0; i<data.length; i++) {
-            if(data[i].type == type){
-                val = data[i].name
+    getDataAuthor(data){
+        const authorData = data && data.credits && data.credits.by || []
+        let name = '', url = ''
+        for (let i=0; i<authorData.length; i++) {
+            if(authorData[i].type == 'author'){
+                name = authorData[i].name
+                url = authorData[i].url
                 break
             }
         }
-        return val
+        return {name: name, url: url}
+    }
+    getTypeMultimedia(data){
+        let typeMultimedia = ''
+        const promoItems = data && data.promo_items && data.promo_items || {}
+        const items = Object.keys(promoItems)
+        let item = {}
+        for(let i=0; i<=items.length; i++){
+            item = promoItems[items[i]]
+            if(typeof item == 'object' && item !== null){
+                typeMultimedia = items[i]
+                break
+            }
+        }
+        return typeMultimedia;
+    }
+    getThumbnailVideo(data){
+        const thumb = data && data.promo_items && data.promo_items.Basic 
+            && data.promo_items.Basic.promo_image && data.promo_items.Basic.promo_image.url || ''
+        return thumb
+    }
+    getThumbnailGallery(data){
+        const thumb = data && data.promo_items && data.promo_items.gallery 
+            && data.promo_items.gallery.promo_items && data.promo_items.gallery.promo_items.basic
+            && data.promo_items.gallery.promo_items.basic.url || ''
+        return thumb
+    }
+    getImage(data){
+        const basicPromoItems = data && data.promo_items && data.promo_items.basic || null
+        const typePromoItems = basicPromoItems && basicPromoItems.type || null
+        return typePromoItems && typePromoItems == 'image' ? basicPromoItems.url : ''
+    }
+    getThumbnail(data, type){
+        if(type == 'Basic'){
+            return this.getThumbnailVideo(data)
+        }else if(type == 'gallery'){
+            return this.getThumbnailGallery(data)
+        }else if(type == 'basic'){
+            return this.getImage(data)
+        }else{
+            return ''
+        }
     }
 }
 

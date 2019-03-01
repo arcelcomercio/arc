@@ -30,7 +30,8 @@ const classes = {
 @Consumer
 class Nav extends Component {
   constructor(props) {
-    supbreaking - newser(props)
+    super(props)
+    // supbreaking - newser(props)
     // ------ Checks the display to set the initial device state
     this.state = {
       device: this.setDevice(),
@@ -196,14 +197,14 @@ class Nav extends Component {
         }
     }
     `
-
     const { fetched } = this.getContent(source, params, schema)
-
-    fetched.then(response => {
-      this.setState({
-        services: response,
+    fetched
+      .then(response => {
+        this.setState({
+          services: response,
+        })
       })
-    })
+      .catch(e => console.log(e))
   }
 
   render() {
