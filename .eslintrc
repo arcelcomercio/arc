@@ -7,7 +7,8 @@
       "enabled",
       { "ignore": "ignore", "customValidators": "customValidator" }
     ],
-    "react/require-default-props": ["disabled"]
+    "react/require-default-props": ["disabled"],
+    "no-plusplus": [2, { "allowForLoopAfterthoughts": true }]
   },
   "parser": "babel-eslint"
 }
