@@ -39,6 +39,8 @@ export default {
   resolve,
   schemaName: "list",
   params: {
-    website: "text"
+    website: "text",
+    newsNumber: "number",
+    section: "text"
   }
 };

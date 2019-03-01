@@ -26,45 +26,39 @@ class CintilloUrgente extends Component {
 
   componentWillMount(){
     const status = localStorage.link
-    if(status && status !== this.props.customFields.storyLink){
-      this.setState({ isVisible: true })
-    } else if (status && status !== this.props.customFields.link){
-      this.setState({ isVisible: true })
-    } else this.setState({ isVisible: true })
+    if(status && status === this.props.customFields.storyLink){
+      this.setState({ isVisible: false })
+    }   
+    else this.setState({ isVisible: true })
   }
 
   componentDidMount = () => {
     this.fetch()
-    const {
-      customFields: { link },
-    } = this.props
   }
 
   shouldComponentUpdate(nextProps, nextState){
-    const UPDATE_RENDER = nextProps && nextProps.customFields.storyLin !== this.props.customFields.storyLink || 
-      nextProps.customFields.isExternalLink !== this.props.customFields.isExternalLink || 
-      nextProps.customFields.link !== this.props.customFields.link ? true : false
-      return UPDATE_RENDER
+    return (this.state.isVisible !== nextState.isVisible || this.state.article !== nextState.article)
   }
 
   handleOnclickClose = () => {
     this.setState({
       isVisible: false,
     })
-    if (this.props.customFields.isExternalLink){
-      localStorage.setItem('link', this.props.customFields.link)
-    }
-    else  localStorage.setItem('link', this.props.customFields.storyLink)
+    localStorage.setItem('link', this.props.customFields.storyLink)
   }
 
   fetch() {
-    if(this.props.customFields.storyLink){
+    console.dir(this.props.customFields)
+    const { customFields: { storyLink, isExternalLink }, arcSite } = this.props
+    if (storyLink && (isExternalLink === undefined || isExternalLink === false)){
+        console.log('entro a fetch')
         const { fetched } = this.getContent(
             'get-story-by-websiteurl', 
-            { website_url: this.props.customFields.storyLink, website: this.props.arcSite }, 
+            { website_url: storyLink, website: arcSite }, 
             filterSchema
         )
         fetched.then(response => {
+          console.log(response)
             this.setState({ article: response })
         })
     }
@@ -83,7 +77,6 @@ class CintilloUrgente extends Component {
         title,
         subTitle,
         isExternalLink,
-        link,
         storyLink
       },
     } = this.props
@@ -92,7 +85,7 @@ class CintilloUrgente extends Component {
     const objContent = {
       title: title || (headlines && headlines.basic),
       subTitle: subTitle || (subheadlines && subheadlines.basic),
-      link: isExternalLink ? link : webUrlService,
+      link: webUrlService,
     }
     return (
       <div
@@ -138,13 +131,12 @@ CintilloUrgente.propTypes = {
     settingLink: PropTypes.label.tag({
       name: 'Configuración de link'
     }),
+    isExternalLink: PropTypes.bool.tag({ 
+      name: '¿Nota externa?',
+      defaultValue: false, 
+    }),
     storyLink: PropTypes.string.isRequired.tag({
       name: 'Link de nota interna'
-    }),
-    isExternalLink: PropTypes.bool.tag({ name: '¿Nota externa?' }),
-    link: PropTypes.string.tag({
-      name: 'Link externo',
-      fieldType: 'url',
     }),
     settingContent: PropTypes.label.tag({
       name: 'Configuración de contenido'
