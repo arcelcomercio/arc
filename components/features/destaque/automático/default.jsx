@@ -25,8 +25,8 @@ class DestaqueAutomatico extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      category: '',
-      title: '',
+      category: {},
+      title: {},
       author: '',
       image: '',
     }
@@ -37,47 +37,81 @@ class DestaqueAutomatico extends Component {
     const { customFields, arcSite } = this.props
     const { section, imageSize, size } = customFields
 
-    const source = 'get-last-story-by-section'
+    const source = 'get-story-more-reads'
     const params = {
       section,
       website: arcSite,
+      num_notes: 1,
     }
     const schema = `{ 
       content_elements { 
         headlines { basic }
-        credits { by { name } }
+        credits { 
+          by { name  url } 
+        }
+        website_url
+        promo_items { 
+          basic_image { url caption }
+        }
+        websites {
+          ${arcSite} {
+            website_section {
+              name
+              path
+            }
+          }
+        }
       }
     }`
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
+      console.log(response)
       const storyElement = response.content_elements[0]
       this.setState({
-        category: 'Editorial',
-        title: storyElement.headlines.basic,
-        author: storyElement.credits.by.length
-          ? storyElement.credits.by[0].name
-          : '',
+        category: {
+          name: storyElement.websites[`${arcSite}`]
+            ? storyElement.websites[`${arcSite}`].website_section.name
+            : '',
+          url: storyElement.websites[`${arcSite}`]
+            ? storyElement.websites[`${arcSite}`].website_section.path
+            : '',
+        },
+        title: {
+          name: storyElement.headlines.basic,
+          url: storyElement.website_url,
+        },
+        author: {
+          name: storyElement.credits.by.length
+            ? storyElement.credits.by[0].name
+            : '',
+          url: storyElement.credits.by.length
+            ? storyElement.credits.by[0].url
+            : '',
+        },
       })
       if (size === 'twoCol') {
         this.setState({
-          image:
-            'https://img.elcomercio.pe/files/listing_ec_home_principal2x1/uploads/2019/02/11/5c6197d68fb3d.jpeg',
+          image: storyElement.promo_items.basic_image
+            ? storyElement.promo_items.basic_image.url
+            : '',
         })
       } else {
         switch (imageSize) {
           case 'parcialBot':
           case 'parcialTop':
             this.setState({
-              image:
-                'https://img.elcomercio.pe/files/listing_ec_home_principal/uploads/2019/02/11/5c6189afd3c81.jpeg',
+              image: storyElement.promo_items.basic_image
+                ? storyElement.promo_items.basic_image.url
+                : '',
             })
             break
 
           case 'complete':
             this.setState({
-              image:
-                'https://img.elcomercio.pe/files/listing_ec_home_principal_completo/uploads/2019/02/11/5c618f8a3e0b4.jpeg',
+              image: storyElement.promo_items.basic_image
+                ? storyElement.promo_items.basic_image.url
+                : '',
             })
             break
           default:
@@ -114,29 +148,29 @@ class DestaqueAutomatico extends Component {
           <h3 className={classes.category}>
             <a
               className={classes.link}
-              href="/#"
+              href={category.url}
               {...editableField('categoryField')}
             >
-              {categoryField || category}
+              {categoryField || category.name}
             </a>
           </h3>
           <h2 className={classes.title}>
             <a
               className={classes.link}
-              href="/#"
+              href={title.url}
               {...editableField('titleField')}
             >
-              {titleField || title}
+              {titleField || title.name}
             </a>
           </h2>
           <span className={classes.author}>
-            <a className={classes.link} href="/#">
-              {author}
+            <a className={classes.link} href={author.url}>
+              {author.name}
             </a>
           </span>
         </div>
         <figure className={classes.image}>
-          <a className={classes.imageLink} href="/#">
+          <a className={classes.imageLink} href={title.url}>
             <img src={image} alt="" />
           </a>
         </figure>
