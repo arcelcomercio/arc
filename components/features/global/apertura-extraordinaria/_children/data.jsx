@@ -16,7 +16,7 @@ class Data {
   get subTitle() {
     return (
       this.customFields.subTitle ||
-      (this.data && this.data.headlines && this.data.subheadlines.basic) ||
+      (this.data && this.data.subheadlines && this.data.subheadlines.basic) ||
       ''
     )
   }
