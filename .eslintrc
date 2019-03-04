@@ -5,10 +5,24 @@
     "import/no-unresolved": false,
     "react/prop-types": [
       "enabled",
-      { "ignore": "ignore", "customValidators": "customValidator" }
+      {
+        "ignore": "ignore",
+        "customValidators": "customValidator"
+      }
     ],
     "react/require-default-props": ["disabled"],
-    "no-plusplus": [2, { "allowForLoopAfterthoughts": true }]
+    "no-underscore-dangle": "off",
+    "no-plusplus": [
+      2,
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ]
+  },
+  "globals": {
+    "document": true,
+    "window": true,
+    "location": true
   },
   "parser": "babel-eslint"
 }

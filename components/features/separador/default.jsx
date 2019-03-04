@@ -98,26 +98,25 @@ class Separador extends Component {
   }
 
   componentDidMount = () => {
-    window.addEventListener('resize', this.handleResize);
-    this.getContentApi();
+    window.addEventListener('resize', this.handleResize)
+    this.getContentApi()
   }
 
   getContentApi = () => {
-    let newsNumber = 4;
-    const { device } = this.state;
+    let newsNumber = 4
+    const { device } = this.state
 
     if (device === 'mobile') {
-      newsNumber = 1;
-    }else if (device === 'desktop') {
-      newsNumber = 4;
+      newsNumber = 1
+    } else if (device === 'desktop') {
+      newsNumber = 4
     } else if (device === 'tablet') {
-      newsNumber = 4;
+      newsNumber = 4
     }
 
     const { arcSite } = this.props
     const { section } = this.state
 
-    
     const { fetched } = this.getContent(
       'get-list-news',
       {
@@ -148,10 +147,8 @@ class Separador extends Component {
       })
     })
   }
-    
 
   handleResize = () => {
-    
     const wsize = window.innerWidth
 
     // ------ Set the new state if you change from mobile to desktop
@@ -159,27 +156,24 @@ class Separador extends Component {
       this.setState({
         device: 'desktop',
       })
-      this.getContentApi();
+      this.getContentApi()
       // ------ Set the new state if you change from desktop to mobile
     } else if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
       this.setState({
         device: 'tablet',
       })
-      this.getContentApi();
+      this.getContentApi()
     } else if (wsize < 640 && this.state.device !== 'mobile') {
       // ------ Set the new state if you change from desktop to mobile
       this.setState({
         device: 'mobile',
       })
-      this.getContentApi();
+      this.getContentApi()
     }
-
-
   }
 
   setDevice = () => {
     const wsize = window.innerWidth
-    console.log(wsize)
     
     if (wsize < 640) {
       return 'mobile'
@@ -207,12 +201,12 @@ class Separador extends Component {
       }
     }
     `
-  };
+  }
 
   render() {
     const { titleSeparator, titleLink, htmlCode, data } = this.state
 
-    return(
+    return (
       <div className={classes.separator}>
         {titleSeparator ? (
           <HeaderTitulo titleSeparator={titleSeparator} titleLink={titleLink} />

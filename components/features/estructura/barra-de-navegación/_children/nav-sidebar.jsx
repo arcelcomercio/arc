@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Button from '../../../../../resources/components/button'
 
 const classes = {
@@ -28,6 +28,22 @@ class NavSidebar extends Component {
       // eslint-disable-next-line no-restricted-globals
       location.href = `${location.pathname}?query=${value}`
     }
+  }
+
+  renderSections = sections => {
+    return (
+      sections &&
+      sections.map(({ name, _id: id, children }) => (
+        <Fragment>
+          <li key={id} className="nav-sidebar__item">
+            <a href={id} className="nav-sidebar__link">
+              {name}
+            </a>
+          </li>
+          {children && this.renderSections(children)}
+        </Fragment>
+      ))
+    )
   }
 
   render() {
@@ -69,26 +85,16 @@ class NavSidebar extends Component {
             </div>
             <div className="nav-sidebar__body">
               <ul className="nav-sidebar__list">
-                {sections
-                  ? sections.map(({ name, _id: id }) => {
-                      return (
-                        <li key={id} className="nav-sidebar__item">
-                          <a href={id} className="nav-sidebar__link">
-                            {name}
-                          </a>
-                        </li>
-                      )
-                    })
-                  : null}
+                {sections && this.renderSections(sections)}
               </ul>
             </div>
           </div>
           <div className="nav-sidebar__footer">
             <a href="/" className="nav-sidebar__text">
-              elcomercio.pe
+              FUNCIONA POR FAVOR
             </a>
             <a href="/" className="nav-sidebar__text">
-              1984-2019 Grupo El Comercio
+              TU PUEDES TRACY
             </a>
             <a href="/" className="nav-sidebar__text">
               Términos de Servicio
