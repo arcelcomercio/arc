@@ -22,10 +22,7 @@ const TripleteChildren = props => {
         >
           <div className={classes.tripleteTitle}>
             <h2>
-              <a
-                href={data.getLink(index)}
-                {...editableField(`title${index}`)}
-              >
+              <a href={data.getLink(index)} {...editableField(`title${index}`)}>
                 {data.getTitle(index)}
               </a>
             </h2>
@@ -34,10 +31,7 @@ const TripleteChildren = props => {
             <a href={data.getLink(index)}>
               <img src={data.getMultimedia(index)} alt={data.getTitle(index)} />
             </a>
-            <Icon
-              iconClass={data.getIconClass(index)}
-              iconOrientation={data.multimediaOrientation}
-            />
+            <Icon iconClass={data.getIconClass(index)} />
           </figure>
           <div className={classes.tripleteAuthor}>
             <a href={data.authorOrSectionLink(index)}>

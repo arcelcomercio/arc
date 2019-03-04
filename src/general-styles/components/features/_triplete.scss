@@ -30,7 +30,7 @@
                 "triplete__author triplete__author";
 
             & figure {
-                padding-left: 10%;
+                margin-left: 10%;
             }
         }
 
@@ -40,7 +40,7 @@
                 "triplete__author triplete__author";
 
             & figure {
-                padding-right: 10%;
+                margin-right: 10%;
             }
         }
     }
@@ -79,14 +79,7 @@
         text-align: center;
         top: 20px;
         z-index: 1;
-
-        &--right {
-            right: 5px;
-        }
-
-        &--left {
-            right: 20px;
-        }
+        right: 5px;
 
         .triplete__icon {
             display: table-cell;

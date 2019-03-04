@@ -1,7 +1,7 @@
+/* eslint-disable import/prefer-default-export */
 import PropTypes from 'prop-types'
 
 // Maybe work without PropTypes.shape
-// eslint-disable-next-line import/prefer-default-export
 export const customFields = PropTypes.shape({
   content1: PropTypes.label.tag({
     name: 'Nota 1',

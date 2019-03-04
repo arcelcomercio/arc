@@ -7,9 +7,7 @@ const classes = {
 const Icon = props => {
   const html = (
     <span
-      className={`${classes.tripleteBoxIcon} ${classes.tripleteBoxIcon}--${
-        props.iconOrientation
-      }`}
+      className={`${classes.tripleteBoxIcon}`}
     >
       <i className={`${classes.tripleteIcon} ${classes.tripleteIcon}--${props.iconClass}`} />
     </span>
