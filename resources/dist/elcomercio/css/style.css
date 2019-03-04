@@ -1603,19 +1603,12 @@ body {
   border-top: 1px solid #000;
   padding: 15px 0;
 }
-.new:hover {
-  text-decoration: underline;
-  color: #000;
-}
 .new__figure {
   width: 100%;
   max-height: 75px;
   overflow: hidden;
 }
-.new__img {
-  width: 100%;
-}
-.new__img--icon::after {
+.new__figure--icon::after {
   position: absolute;
   bottom: -5px;
   right: 5px;
@@ -1626,17 +1619,26 @@ body {
   color: rgba(255, 255, 255, 0.8);
   text-shadow: 2px 2px 5px #666;
 }
-.new__img--video::after {
+.new__figure--video::after {
   content: "‣";
 }
-.new__img--image::after {
+.new__figure--image::after {
   content: "✉";
+}
+.new__img {
+  width: 100%;
+}
+.new a {
+  width: 100%;
+}
+.new a:hover {
+  text-decoration: underline;
+  color: #000;
 }
 .new__detail {
   font-size: 12px;
   line-height: 1.3;
   padding-left: 10px;
-  width: 100%;
   height: 60px;
   color: #000;
   overflow: hidden;

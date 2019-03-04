@@ -13,20 +13,24 @@ export default class ItemNew extends Component {
 
     const classes = {
       new: 'flex new',
-      figure: `new__figure new__img--icon new__img--${typeNote}`,
+      figure: `new__figure new__figure--icon new__figure--${typeNote}`,
       img: 'new__img',
       detail: 'new__detail',
     }
 
     return (
-      <a className={classes.new} href={websiteUrl}>
-        {viewImage && (
-          <figure className={classes.figure}>
-            <img className={classes.img} src={imageUrl} alt={captionImg} />
-          </figure>
-        )}
-        <p className={classes.detail}>{title}</p>
-      </a>
+      <div className={classes.new}>
+        <a href={websiteUrl}>
+          {viewImage && (
+            <figure className={classes.figure}>
+              <img className={classes.img} src={imageUrl} alt={captionImg} />
+            </figure>
+          )}
+        </a>
+        <a className={classes.detail} href={websiteUrl}>
+          {title}
+        </a>
+      </div>
     )
   }
 }
