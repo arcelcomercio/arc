@@ -1,6 +1,7 @@
 // import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
+import Resizer from '../../../../resources/utilsJs/resizer'
 
 const classes = {
   footer: 'footer margin-top full-width',
@@ -26,14 +27,14 @@ class PieDePagina extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      device: this.setDevice(),
+      device: Resizer.setDevice(),
       legalList: [],
       sectionsList: [],
     }
   }
 
   componentDidMount() {
-    this.addEventListener('displayChange', this.handleDevice)
+    this.addEventListener('displayChange', this._handleDevice)
     this.setState({
       legalList: [],
     })
@@ -41,19 +42,7 @@ class PieDePagina extends Component {
     this.fetchByHierarchy('Navegacion-Pie_de_pagina-secciones')
   }
 
-  setDevice = () => {
-    const wsize = window.innerWidth
-
-    if (wsize < 640) {
-      return 'mobile'
-    }
-    if (wsize >= 640 && wsize < 1024) {
-      return 'tablet'
-    }
-    return 'desktop'
-  }
-
-  handleDevice = device => {
+  _handleDevice = device => {
     this.setState({
       device,
     })
