@@ -11,15 +11,11 @@ const resolve = key => {
 const transform = data => {
   const { website } = data
   const aspectRatios = [
-    '16:9|288x157',
-    '4:3',
-    '3:2',
-    '2:1',
-    '1:1',
-    '1:2|300x374',
     '2:3|620x356',
     '3:4|895x514',
-    '9:16',
+    '288:157|288x157',
+    '164:187|328x374',
+    '388:187|676x374',
   ]
   const { resizerSecretKeyEnvVar, resizerUrl } = getProperties(website)
   // const resizerSecretKey = envVars[resizerSecretKeyEnvVar];

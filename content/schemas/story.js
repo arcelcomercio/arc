@@ -50,9 +50,11 @@ type BasicVideoPromoItems {
     embed_html: String
     promo_image: PromoImageVideo
 }
+scalar Resized_urls 
 type BasicUrlImg{
     url: String
     caption: String
+    resized_urls: Resized_urls
 }
 type PromoItemsGallery {
     basic: BasicPromoItems

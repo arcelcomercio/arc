@@ -193,7 +193,7 @@ DestaqueAutomatico.propTypes = {
       defaultValue: 'parcialBot',
     }),
     size: PropTypes.oneOf(['oneCol', 'twoCol']).tag({
-      name: 'Tamaño del card',
+      name: 'Tamaño del destaque',
       labels: {
         oneCol: '1 columna',
         twoCol: '2 columnas',
@@ -201,7 +201,7 @@ DestaqueAutomatico.propTypes = {
       defaultValue: 'oneCol',
     }),
     categoryField: PropTypes.string.tag({
-      name: 'Categoría',
+      name: 'Sección',
       group: 'Editar texto',
     }),
     titleField: PropTypes.string.tag({

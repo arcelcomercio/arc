@@ -54,7 +54,7 @@ class DestaqueManual extends Component {
       }
       website_url
       promo_items {
-        basic_image { url caption }
+        basic_image { url caption resized_urls }
       }
       websites {
         ${arcSite} {
@@ -68,6 +68,7 @@ class DestaqueManual extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
+      console.log(response)
       this.setState({
         category: {
           name: response.websites[`${arcSite}`]
@@ -89,7 +90,7 @@ class DestaqueManual extends Component {
       if (size === 'twoCol') {
         this.setState({
           image: response.promo_items.basic_image
-            ? response.promo_items.basic_image.url
+            ? response.promo_items.basic_image.resized_urls['388:187']
             : '',
         })
       } else {
@@ -98,14 +99,14 @@ class DestaqueManual extends Component {
           case 'parcialTop':
             this.setState({
               image: response.promo_items.basic_image
-                ? response.promo_items.basic_image.url
+                ? response.promo_items.basic_image.resized_urls['288:157']
                 : '',
             })
             break
           case 'complete':
             this.setState({
               image: response.promo_items.basic_image
-                ? response.promo_items.basic_image.url
+                ? response.promo_items.basic_image.resized_urls['164:187']
                 : '',
             })
             break
@@ -223,7 +224,7 @@ DestaqueManual.propTypes = {
       defaultValue: 'normal',
     }),
     size: PropTypes.oneOf(['oneCol', 'twoCol']).tag({
-      name: 'Tamaño del card',
+      name: 'Tamaño del destaque',
       labels: {
         oneCol: '1 columna',
         twoCol: '2 columnas',
@@ -231,7 +232,7 @@ DestaqueManual.propTypes = {
       defaultValue: 'oneCol',
     }),
     categoryField: PropTypes.string.tag({
-      name: 'Categoría',
+      name: 'Sección',
       group: 'Editar texto',
     }),
     titleField: PropTypes.string.tag({
