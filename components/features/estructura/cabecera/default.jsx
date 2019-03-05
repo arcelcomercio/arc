@@ -2,6 +2,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import Button from '../../../../resources/components/button'
+import Resizer from '../../../../resources/utilsJs/resizer'
 
 const classes = {
   header: 'header full-width',
@@ -25,29 +26,17 @@ class Header extends Component {
     super(props)
     // ------ Checks if you are in desktop or not
     this.state = {
-      device: this.setDevice(),
+      device: Resizer.setDevice(),
       temas: [],
     }
     this.fetch()
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this._handleResize)
   }
 
-  setDevice = () => {
-    const wsize = window.innerWidth
-
-    if (wsize < 640) {
-      return 'mobile'
-    }
-    if (wsize >= 640 && wsize < 1024) {
-      return 'tablet'
-    }
-    return 'desktop'
-  }
-
-  handleResize = () => {
+  _handleResize = () => {
     const wsize = window.innerWidth
 
     // ------ Set the new state if you change from mobile to desktop

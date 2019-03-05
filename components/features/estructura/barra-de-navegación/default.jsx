@@ -2,6 +2,8 @@ import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import Button from '../../../../resources/components/button'
 import NavSidebar from './_children/nav-sidebar'
+import Resizer from '../../../../resources/utilsJs/resizer'
+// import { setDevice } from '../../../../resources/utilsJs/utilities'
 
 const classes = {
   nav: 'nav full-width flex flex-center-vertical',
@@ -31,15 +33,15 @@ const classes = {
 class Nav extends Component {
   constructor(props) {
     super(props)
-    // supbreaking - newser(props)
     // ------ Checks the display to set the initial device state
     this.state = {
-      device: this.setDevice(),
+      device: Resizer.setDevice(),
       services: [],
       statusSidebar: false,
       statusSearch: false,
       scrolled: false,
     }
+    // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
   }
 
@@ -51,21 +53,6 @@ class Nav extends Component {
     if (device === 'desktop')
       window.addEventListener('scroll', this._handleScroll)
     this.fetch()
-  }
-
-  // ------ Sets the initial device state
-  setDevice = () => {
-    const wsize = window.innerWidth
-
-    if (wsize < 640) {
-      return 'mobile'
-    }
-
-    if (wsize >= 640 && wsize < 1024) {
-      return 'tablet'
-    }
-
-    return 'desktop'
   }
 
   // Add - Remove Class active input and button search
@@ -197,6 +184,7 @@ class Nav extends Component {
         }
     }
     `
+
     const { fetched } = this.getContent(source, params, schema)
     fetched
       .then(response => {
@@ -253,17 +241,16 @@ class Nav extends Component {
           {/** ************* MIDDLE *************** */}
 
           <ul className={`${classes.navList} ${scrolled ? '' : 'active'}`}>
-            {sections
-              ? sections.slice(0, 5).map(({ name, _id: id }) => {
-                  return (
-                    <li key={id} className={classes.navListItem}>
-                      <a href={id} className={classes.navListLink}>
-                        {name}
-                      </a>
-                    </li>
-                  )
-                })
-              : null}
+            {sections &&
+              sections.slice(0, 5).map(({ name, _id: id }) => {
+                return (
+                  <li key={id} className={classes.navListItem}>
+                    <a href={id} className={classes.navListLink}>
+                      {name}
+                    </a>
+                  </li>
+                )
+              })}
           </ul>
           <img
             src="https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png"

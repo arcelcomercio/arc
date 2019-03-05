@@ -14,8 +14,7 @@ const classes = {
 const Gallery = props => {
   //console.log(props.data);debugger;
   const { content_elements: elements } = props.data
-  console.log(elements)
-  debugger
+
   return (
     <Fragment>
       <Slider>
@@ -23,8 +22,12 @@ const Gallery = props => {
           <div className="item">
             <div className={classes.itemSlideImg} key={index}>
               <Image
-                url={'http://' + item.resized_urls['4:3']}
+                url={item.url}
+                alt={item.subtitle}
                 className={classes.itemImageComponent}
+                width=""
+                height=""
+                layout=""
               />
             </div>
             <div className={classes.itemDetail}>

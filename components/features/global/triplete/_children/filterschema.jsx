@@ -1,8 +1,6 @@
-export const filterSchema = `{
+// eslint-disable-next-line import/prefer-default-export
+export const filterSchema = arcSite => `{
     headlines {
-        basic
-    }
-    subheadlines {
         basic
     }
     promo_items {
@@ -36,14 +34,17 @@ export const filterSchema = `{
     }
     website
     website_url
-    websites {
-        elcomercio {
-            website_section {
-                name
-                path
-            }
+    taxonomy {
+        sections {
+            _id 
+            _website 
+            type 
+            name 
+            path
         }
-        peru21 {
+    }
+    websites {
+        ${arcSite} {
             website_section {
                 name
                 path
@@ -51,3 +52,4 @@ export const filterSchema = `{
         }
     }
 }`
+// TODO: improve the data of promo_items nodes
