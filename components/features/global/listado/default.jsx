@@ -12,7 +12,7 @@ const classes = {
   time: 'List__time',
   pageLink: 'List__pageLink',
   bold: 'bold',
-  scrolY: 'scroll-vertical',
+  scrolY: 'scroll-vertical-auto',
 }
 const HeaderList = ({
   titleList,
@@ -95,14 +95,14 @@ const ItemNews = ({
   )
 }
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
-  const classListItems =
-    listNews.length > 4
-      ? `${classes.listItem} ${classes.scrolY}`
-      : classes.listItem
+  // const classListItems =
+  //   listNews.length > 4
+  //     ? `${classes.listItem} ${classes.scrolY}`
+  //     : classes.listItem
   // let nuevalista =[];
 
   return (
-    <div className={classListItems}>
+    <div className={`${classes.listItem} ${classes.scrolY}`}>
       {listNews.map(
         (
           {

@@ -42,7 +42,7 @@ const SeparatorListItem = ({ data }) => {
       if (promoItems) {
         imagen = promoItems.basic && (promoItems.basic.url || null)
       }
-
+      
       return (
         <SeparatorItem
           key={websiteUrl}
@@ -174,7 +174,7 @@ class Separador extends Component {
 
   setDevice = () => {
     const wsize = window.innerWidth
-    console.log(wsize)
+    
     if (wsize < 640) {
       return 'mobile'
     }
