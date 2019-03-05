@@ -241,17 +241,16 @@ class Nav extends Component {
           {/** ************* MIDDLE *************** */}
 
           <ul className={`${classes.navList} ${scrolled ? '' : 'active'}`}>
-            {sections
-              ? sections.slice(0, 5).map(({ name, _id: id }) => {
-                  return (
-                    <li key={id} className={classes.navListItem}>
-                      <a href={id} className={classes.navListLink}>
-                        {name}
-                      </a>
-                    </li>
-                  )
-                })
-              : null}
+            {sections &&
+              sections.slice(0, 5).map(({ name, _id: id }) => {
+                return (
+                  <li key={id} className={classes.navListItem}>
+                    <a href={id} className={classes.navListLink}>
+                      {name}
+                    </a>
+                  </li>
+                )
+              })}
           </ul>
           <img
             src="https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png"

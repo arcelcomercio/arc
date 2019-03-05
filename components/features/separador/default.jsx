@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { isTablet, isMobileOnly } from 'react-device-detect'
+//import { isTablet, isMobileOnly } from 'react-device-detect'
 
 const classes = {
   separator: 'separator',
@@ -88,6 +88,7 @@ class Separador extends Component {
     } = this.props || {}
 
     this.state = {
+      device: this.setDevice(),
       titleSeparator,
       titleLink,
       section,
@@ -97,13 +98,19 @@ class Separador extends Component {
   }
 
   componentDidMount = () => {
+    window.addEventListener('resize', this.handleResize)
+    this.getContentApi()
+  }
+
+  getContentApi = () => {
     let newsNumber = 4
+    const { device } = this.state
 
-    if (isMobileOnly) {
+    if (device === 'mobile') {
       newsNumber = 1
-    }
-
-    if (isTablet) {
+    } else if (device === 'desktop') {
+      newsNumber = 4
+    } else if (device === 'tablet') {
       newsNumber = 4
     }
 
@@ -139,6 +146,42 @@ class Separador extends Component {
         data: response.content_elements,
       })
     })
+  }
+
+  handleResize = () => {
+    const wsize = window.innerWidth
+
+    // ------ Set the new state if you change from mobile to desktop
+    if (wsize >= 1024 && this.state.device !== 'desktop') {
+      this.setState({
+        device: 'desktop',
+      })
+      this.getContentApi()
+      // ------ Set the new state if you change from desktop to mobile
+    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
+      this.setState({
+        device: 'tablet',
+      })
+      this.getContentApi()
+    } else if (wsize < 640 && this.state.device !== 'mobile') {
+      // ------ Set the new state if you change from desktop to mobile
+      this.setState({
+        device: 'mobile',
+      })
+      this.getContentApi()
+    }
+  }
+
+  setDevice = () => {
+    const wsize = window.innerWidth
+    console.log(wsize)
+    if (wsize < 640) {
+      return 'mobile'
+    }
+    if (wsize >= 640 && wsize < 1024) {
+      return 'tablet'
+    }
+    return 'desktop'
   }
 
   filterSchema = () => {

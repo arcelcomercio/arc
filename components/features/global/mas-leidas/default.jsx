@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ItemNew from './_children/ItemNew'
 
 const classes = {
-  masLeidas: 'flex flex--column',
+  masLeidas: 'flex flex--column mas-leidas',
   title: 'mas-leidas__title',
 }
 
