@@ -63,11 +63,19 @@ type galleryItems {
     type: String
     promo_items: PromoItemsGallery
 }
+type BasicUrlImgVideo{
+    promo_items: Promo_items_video
+}
+type Promo_items_video {
+    basic: BasicUrlImg
+}
 type PromoItems {
     basic: BasicPromoItems
     Basic: BasicVideoPromoItems
     gallery: galleryItems
     basic_image: BasicUrlImg
+    basic_video: BasicUrlImgVideo
+    basic_gallery: BasicUrlImgVideo
 }
 type Taxonomy {
     sections: [SectionTaxonomy]

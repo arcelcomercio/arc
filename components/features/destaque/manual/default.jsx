@@ -54,7 +54,23 @@ class DestaqueManual extends Component {
       }
       website_url
       promo_items {
-        basic_image { url caption resized_urls }
+        basic_image { url resized_urls }
+        basic_video {
+          promo_items {
+            basic {
+              url
+              resized_urls
+            }
+          }
+        }
+        basic_gallery {
+          promo_items {
+            basic {
+              url
+              resized_urls
+            }
+          }
+        }
       }
       websites {
         ${arcSite} {
@@ -87,27 +103,42 @@ class DestaqueManual extends Component {
           url: response.credits.by.length ? response.credits.by[0].url : '',
         },
       })
+      let storyTypePath = response.promo_items.basic_image
+        ? response.promo_items.basic_image
+        : ''
+      if (
+        !response.promo_items.basic_image &&
+        response.promo_items.basic_gallery
+      ) {
+        storyTypePath = response.promo_items.basic_gallery.promo_items.basic
+      }
+      if (
+        !response.promo_items.basic_image &&
+        response.promo_items.basic_video
+      ) {
+        storyTypePath = response.promo_items.basic_video.promo_items.basic
+      }
       if (size === 'twoCol') {
         this.setState({
-          image: response.promo_items.basic_image
-            ? response.promo_items.basic_image.resized_urls['388:187']
-            : '',
+          image: storyTypePath.resized_urls
+            ? storyTypePath.resized_urls['388:187']
+            : storyTypePath.url,
         })
       } else {
         switch (imageSize) {
           case 'parcialBot':
           case 'parcialTop':
             this.setState({
-              image: response.promo_items.basic_image
-                ? response.promo_items.basic_image.resized_urls['288:157']
-                : '',
+              image: storyTypePath.resized_urls
+                ? storyTypePath.resized_urls['288:157']
+                : storyTypePath.url,
             })
             break
           case 'complete':
             this.setState({
-              image: response.promo_items.basic_image
-                ? response.promo_items.basic_image.resized_urls['164:187']
-                : '',
+              image: storyTypePath.resized_urls
+                ? storyTypePath.resized_urls['164:187']
+                : storyTypePath.url,
             })
             break
           default:

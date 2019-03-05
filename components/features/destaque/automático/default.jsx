@@ -37,28 +37,41 @@ class DestaqueAutomatico extends Component {
     const { customFields, arcSite } = this.props
     const { section, imageSize, size } = customFields
 
-    const source = 'get-story-more-reads'
+    const source = 'resized__story-by-section'
     const params = {
       section,
       website: arcSite,
-      num_notes: 1,
     }
     const schema = `{ 
-      content_elements { 
-        headlines { basic }
-        credits { 
-          by { name  url } 
-        }
-        website_url
-        promo_items { 
-          basic_image { url caption }
-        }
-        websites {
-          ${arcSite} {
-            website_section {
-              name
-              path
+      headlines { basic }
+      credits {
+        by { name  url }
+      }
+      website_url
+      promo_items {
+        basic_image { url resized_urls }
+        basic_video {
+          promo_items {
+            basic {
+              url
+              resized_urls
             }
+          }
+        }
+        basic_gallery {
+          promo_items {
+            basic {
+              url
+              resized_urls
+            }
+          }
+        }
+      }
+      websites {
+        ${arcSite} {
+          website_section {
+            name
+            path
           }
         }
       }
@@ -66,51 +79,61 @@ class DestaqueAutomatico extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
-      const storyElement = response.content_elements[0]
+      console.log(response)
       this.setState({
         category: {
-          name: storyElement.websites[`${arcSite}`]
-            ? storyElement.websites[`${arcSite}`].website_section.name
+          name: response.websites[`${arcSite}`]
+            ? response.websites[`${arcSite}`].website_section.name
             : '',
-          url: storyElement.websites[`${arcSite}`]
-            ? storyElement.websites[`${arcSite}`].website_section.path
+          url: response.websites[`${arcSite}`]
+            ? response.websites[`${arcSite}`].website_section.path
             : '',
         },
         title: {
-          name: storyElement.headlines.basic,
-          url: storyElement.website_url,
+          name: response.headlines.basic,
+          url: response.website_url,
         },
         author: {
-          name: storyElement.credits.by.length
-            ? storyElement.credits.by[0].name
-            : '',
-          url: storyElement.credits.by.length
-            ? storyElement.credits.by[0].url
-            : '',
+          name: response.credits.by.length ? response.credits.by[0].name : '',
+          url: response.credits.by.length ? response.credits.by[0].url : '',
         },
       })
+      let storyTypePath = response.promo_items.basic_image
+        ? response.promo_items.basic_image
+        : ''
+      if (
+        !response.promo_items.basic_image &&
+        response.promo_items.basic_gallery
+      ) {
+        storyTypePath = response.promo_items.basic_gallery.promo_items.basic
+      }
+      if (
+        !response.promo_items.basic_image &&
+        response.promo_items.basic_video
+      ) {
+        storyTypePath = response.promo_items.basic_video.promo_items.basic
+      }
       if (size === 'twoCol') {
         this.setState({
-          image: storyElement.promo_items.basic_image
-            ? storyElement.promo_items.basic_image.url
-            : '',
+          image: storyTypePath.resized_urls
+            ? storyTypePath.resized_urls['388:187']
+            : storyTypePath.url,
         })
       } else {
         switch (imageSize) {
           case 'parcialBot':
           case 'parcialTop':
             this.setState({
-              image: storyElement.promo_items.basic_image
-                ? storyElement.promo_items.basic_image.url
-                : '',
+              image: storyTypePath.resized_urls
+                ? storyTypePath.resized_urls['288:157']
+                : storyTypePath.url,
             })
             break
-
           case 'complete':
             this.setState({
-              image: storyElement.promo_items.basic_image
-                ? storyElement.promo_items.basic_image.url
-                : '',
+              image: storyTypePath.resized_urls
+                ? storyTypePath.resized_urls['164:187']
+                : storyTypePath.url,
             })
             break
           default:
