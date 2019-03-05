@@ -1,8 +1,8 @@
-const resolve = (query) => {
-  const requestUri = `/site/v3/navigation/${query.website}/?hierarchy=${query.hierarchy}`
+const resolve = key => {
+  const requestUri = `/site/v3/navigation/${key.website}/?hierarchy=${key.hierarchy}`
 
-  const hasWebsite = Object.prototype.hasOwnProperty.call(query, 'website')
-  const hasHierarchy = Object.prototype.hasOwnProperty.call(query, 'hierarchy')
+  const hasWebsite = Object.prototype.hasOwnProperty.call(key, 'website')
+  const hasHierarchy = Object.prototype.hasOwnProperty.call(key, 'hierarchy')
 
   if (hasWebsite && hasHierarchy)
     return requestUri

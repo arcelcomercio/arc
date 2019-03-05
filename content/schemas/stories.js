@@ -60,11 +60,10 @@ export default `
     website_url: String!
     taxonomy: Taxonomy
   }
-
+  
   type Query {
-
     content_elements: [Content_elements]
-
+    count: Int!
   }
 
 `;

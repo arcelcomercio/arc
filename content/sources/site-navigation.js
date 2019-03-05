@@ -1,9 +1,9 @@
-const resolve = (query) => {
+const resolve = key => {
   const requestUri = `/site/v3/navigation/`
 
-  const hasWebsite = Object.prototype.hasOwnProperty.call(query, 'website')
+  const hasWebsite = Object.prototype.hasOwnProperty.call(key, 'website')
 
-  if (hasWebsite) return `${requestUri}${query.website}`
+  if (hasWebsite) return `${requestUri}${key.website}`
 
   throw new Error('site-navigation content source requires a website')
 }
