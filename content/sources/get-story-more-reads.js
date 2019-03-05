@@ -1,3 +1,5 @@
+// TODO: ACTUALIZAR NOMBRE Y HOMOLOGAR, AGREGAR CASOS DE ERRORES
+// TODO: HOMOLOGAR ESQUEMA LIST CON STORIES
 const resolve = key => {
   const requestUri = `/content/v4/search/published?q=taxonomy.sites.path:"/${
     key.section

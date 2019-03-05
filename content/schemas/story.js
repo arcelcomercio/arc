@@ -50,6 +50,12 @@ type BasicVideoPromoItems {
     embed_html: String
     promo_image: PromoImageVideo
 }
+scalar Resized_urls 
+type BasicUrlImg{
+    url: String
+    caption: String
+    resized_urls: Resized_urls
+}
 type PromoItemsGallery {
     basic: BasicPromoItems
 }
@@ -57,10 +63,19 @@ type galleryItems {
     type: String
     promo_items: PromoItemsGallery
 }
+type BasicUrlImgVideo{
+    promo_items: Promo_items_video
+}
+type Promo_items_video {
+    basic: BasicUrlImg
+}
 type PromoItems {
     basic: BasicPromoItems
     Basic: BasicVideoPromoItems
     gallery: galleryItems
+    basic_image: BasicUrlImg
+    basic_video: BasicUrlImgVideo
+    basic_gallery: BasicUrlImgVideo
 }
 type Taxonomy {
     sections: [SectionTaxonomy]
@@ -105,4 +120,4 @@ type Query {
  taxonomy: Taxonomy
  websites: Websites!
 }
-`;
+`

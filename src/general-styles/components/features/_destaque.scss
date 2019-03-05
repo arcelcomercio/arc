@@ -1,0 +1,104 @@
+$text-primary: #333;
+$text-secondary: #979797;
+
+$image-height: 157px;
+
+// TODO: Adaptar al minmax de las clumnas de la grilla
+
+.destaque {
+  background-color: $color-white;
+
+  &__detail {
+    height: calc(100% - #{$image-height});
+  }
+  &__gradient {
+    background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
+    bottom: 0;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00444444', endColorstr='#444444', GradientType=0);
+    height: 306px;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+  }
+  &__image {
+    height: $image-height;
+    overflow: hidden;
+    margin: 0;
+  }
+  &__category {
+    font-size: 16px;
+    padding-bottom: 16px;
+    &::after {
+      border-bottom: 1px solid $text-primary;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      overflow: hidden;
+      position: relative;
+      width: 25px;
+      bottom: -5px;
+    }
+  }
+  &__title {
+    margin-bottom: 8px;
+    font-size: 21px;
+    line-height: 1.2;
+  }
+  &__author {
+    font-size: 10px;
+    text-transform: uppercase;
+    margin-top: auto;
+    margin-bottom: 10px;
+    a {
+      color: $text-secondary;
+    }
+  }
+  &__link {
+    color: black;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__headband {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  &__headband-link {
+    color: $color-white;
+    font-weight: bold;
+  }
+
+  &--img-complete {
+    padding: 0;
+    overflow: hidden;
+    justify-content: flex-end;
+    .destaque__image {
+      position: absolute;
+      height: 100%;
+    }
+    .destaque__detail {
+      z-index: 10;
+      padding: $spacingNormal;
+    }
+    .destaque__link {
+      color: $color-white;
+    }
+    .destaque__category {
+      &::after {
+        border-bottom: 1px solid $color-white;
+      }
+    }
+    .destaque__author {
+      margin-bottom: 0;
+    }
+  }
+  &--live {
+    .destaque__headband-link {
+      padding: 6px;
+      background-color: red;
+      display: inline-block;
+    }
+  }
+}
