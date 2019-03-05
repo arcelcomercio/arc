@@ -118,7 +118,7 @@ class Separador extends Component {
     const { section } = this.state
 
     const { fetched } = this.getContent(
-      'get-list-news',
+      'stories__by-section',
       {
         website: arcSite,
         section,

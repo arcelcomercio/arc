@@ -38,7 +38,7 @@ class DestaqueManual extends Component {
     const { customFields, arcSite } = this.props
     const { path, imageSize, size } = customFields
 
-    const source = 'get-story-by-websiteurl'
+    const source = 'story__by-websiteurl'
     const params = {
       website: arcSite,
       website_url: path,

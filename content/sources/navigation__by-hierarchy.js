@@ -12,7 +12,7 @@ const resolve = key => {
 
 export default {
   resolve,
-  schemaName: 'section',
+  schemaName: 'navigation',
   params: {
     website: 'text',
     hierarchy: 'text'

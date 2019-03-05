@@ -85,7 +85,7 @@ class MasLeidas extends Component {
     const { arcSite, requestUri, customFields } = this.props
     const { numNotes } = customFields
 
-    const source = 'get-story-more-reads'
+    const source = 'stories__more-reads'
     const params = {
       website: arcSite,
       section: requestUri.split('/')[1],

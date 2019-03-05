@@ -1297,13 +1297,13 @@ body {
       grid-template-areas: "triplete__title triplete__multimedia" "triplete__author triplete__author";
 }
 .triplete__item--right figure {
-  padding-left: 10%;
+  margin-left: 10%;
 }
 .triplete__item--left {
       grid-template-areas: "triplete__multimedia triplete__title" "triplete__author triplete__author";
 }
 .triplete__item--left figure {
-  padding-right: 10%;
+  margin-right: 10%;
 }
 .triplete__title {
   -ms-grid-row: 1;
@@ -1354,12 +1354,7 @@ body {
   text-align: center;
   top: 20px;
   z-index: 1;
-}
-.triplete__box-icon--right {
   right: 5px;
-}
-.triplete__box-icon--left {
-  right: 20px;
 }
 .triplete__box-icon .triplete__icon {
   display: table-cell;

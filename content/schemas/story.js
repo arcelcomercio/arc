@@ -19,53 +19,84 @@ type ByCredits {
 type Credits {
     by: [ByCredits]
 }
-type AdditionalPropertiesBasicPromoItems{
-    mime_type: String
-    originalName: String
-    originalUrl: String
-    proxyUrl: String
-    published: Boolean
-    resizeUrl: String
+scalar ResizedUrls
+type AdditionalPropertiesImage {
+  mime_type: String
+  originalName: String
+  originalUrl: String
+  proxyUrl: String
+  published: Boolean
+  resizeUrl: String
 }
-type BasicPromoItems {
-    height: Int
-    type: String
-    url: String
-    width: Int
-    additional_properties: AdditionalPropertiesBasicPromoItems
+type BasicImage {
+  height: Int!
+  type: String!
+  url: String!
+  width: Int!
+  caption: String
+  subtitle: String
+  resized_url: ResizedUrls
+  additional_properties: AdditionalPropertiesImage
 }
-type PromoImageVideo {
-    type: String
-    caption: String
-    url: String
-    width: Int
-    height: Int
+type Streams {
+  height: Int!
+  width: Int!
+  filesize: Int
+  stream_type: String
+  url: String!
 }
-type BasicVideoPromoItems {
-    _id: Int
-    type: String
-    canonical_url: String
-    duration: Int
-    video_type: String
-    embed_html: String
-    promo_image: PromoImageVideo
+type BasicVideo {
+  headlines: Headlines
+  subheadlines: Subheadlines
+  description: Description
+  duration: Int!
+  streams: [Streams]
+  promo_items: PromoItems
+  promo_image: BasicImage
 }
-type PromoItemsGallery {
-    basic: BasicPromoItems
+type BasicHtml {
+  content: String!
+  type: String
 }
-type galleryItems {
-    type: String
-    promo_items: PromoItemsGallery
+type AdditionalPropertiesGallery {
+  galleryOrder: Int
+  mime_type: String
+  originalName: String
+  originalUrl: String
+  proxyUrl: String
+  published: Boolean
+  resizeUrl: String
+}
+type ContentElementsGallery {
+  height: Int!
+  type: String!
+  url: String!
+  width: Int!
+  additional_properties: AdditionalPropertiesGallery
+}
+type BasicGallery {
+  headlines: Headlines
+  description: Description
+  promo_items: PromoItems
+  content_elements: [ContentElementsGallery]
 }
 type PromoItems {
-    basic: BasicPromoItems
-    Basic: BasicVideoPromoItems
-    gallery: galleryItems
+  basic: BasicImage
+  basic_html: BasicHtml
+  basic_video: BasicVideo
+  basic_gallery: BasicGallery
+}
+type Tags {
+    text: String
+    description: String
+    slug: String
 }
 type Taxonomy {
-    sections: [SectionTaxonomy]
+    sections: [Sections]
+    tags: [Tags]
+    seo_keywords: Array
 }
-type SectionTaxonomy {
+type Sections {
     _id: String!,
     _website: String!,
     type: String!,
@@ -91,7 +122,6 @@ type Websites {
     peru21: DataWebsites
 }
 type Query {
- 
  canonical_url: String
  type: String!
  version: String!
@@ -102,7 +132,11 @@ type Query {
  credits: Credits
  website: String!
  website_url: String!
+ created_date: String
+ publish_date: String
+ display_date: String
+ last_updated_date: String
  taxonomy: Taxonomy
  websites: Websites!
 }
-`;
+`

@@ -63,7 +63,7 @@ class CintilloUrgente extends Component {
       (isExternalLink === undefined || isExternalLink === false)
     ) {
       const { fetched } = this.getContent(
-        'get-story-by-websiteurl',
+        'story__by-websiteurl',
         { website_url: storyLink, website: arcSite },
         filterSchema
       )
@@ -92,7 +92,8 @@ class CintilloUrgente extends Component {
     const objContent = {
       title: title || (article && article.headlines && article.headlines.basic),
       subTitle:
-        subTitle || (article && article.subheadlines && article.subheadlines.basic),
+        subTitle ||
+        (article && article.subheadlines && article.subheadlines.basic),
       link: webUrlService,
     }
     return (
