@@ -96,23 +96,40 @@ class Header extends Component {
   fetch = () => {
     const { arcSite } = this.props
 
-    const { fetched } = this.getContent('get-temas-del-dia', {
+    const source = 'section__by-hierarchy'
+    const params = {
       website: arcSite,
       hierarchy: 'navegacion-cabecera-tema-del-dia',
-    })
+    }
+    const schema = `{ 
+      children {
+        name
+        _id
+        display_name
+        url
+        node_type
+      }
+    }`
 
-    fetched
-      .then(data => {
-        this.setState({
-          temas: data.children,
-        })
+    const { fetched } = this.getContent(source, params, schema)
+    fetched.then(response => {
+      const auxList = response.children.map(el => {
+        return {
+          name: el.node_type === 'link' ? el.display_name : el.name,
+          // eslint-disable-next-line no-underscore-dangle
+          url: el.node_type === 'link' ? el.url : el._id,
+          node_type: el.node_type,
+        }
       })
-      .catch(e => console.log(e))
+      this.setState({
+        temas: auxList,
+      })
+    })
   }
 
   lista = () => {
     const { temas } = this.state
-    return temas.map(({ display_name: name, url }) => {
+    return temas.map(({ name, url }) => {
       return (
         <li className={classes.headerFeaturedItem} key={url}>
           <a href={url}>{name}</a>
