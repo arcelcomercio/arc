@@ -1,6 +1,9 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+
+import { GetMultimediaContent } from './../../../resources/utilsJs/utilities'
+
 //import { isTablet, isMobileOnly } from 'react-device-detect'
 
 const classes = {
@@ -17,6 +20,7 @@ const SeparatorItem = ({
   headlines,
   promo_items: promoItems,
   website_url: websiteUrl,
+  medio,
 }) => {
   return (
     <article className={classes.item}>
@@ -38,17 +42,21 @@ const SeparatorItem = ({
 const SeparatorListItem = ({ data }) => {
   const result = data.map(
     ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
-      let imagen = null
-      if (promoItems) {
-        imagen = promoItems.basic && (promoItems.basic.url || null)
+      let multimedia = null
+
+      if (promoItems !== null) {
+        multimedia = GetMultimediaContent(promoItems)
       }
-      
+
+      const { url, medio } = multimedia
+
       return (
         <SeparatorItem
           key={websiteUrl}
           headlines={headlines.basic}
-          promo_items={imagen}
+          promo_items={url}
           website_url={websiteUrl}
+          medio={medio}
         />
       )
     }
@@ -78,6 +86,7 @@ const HeaderHTML = ({ htmlCode }) => {
     />
   )
 }
+
 @Consumer
 class Separador extends Component {
   constructor(props) {
@@ -174,7 +183,7 @@ class Separador extends Component {
 
   setDevice = () => {
     const wsize = window.innerWidth
-    
+
     if (wsize < 640) {
       return 'mobile'
     }
@@ -193,6 +202,26 @@ class Separador extends Component {
         promo_items{
           basic{
             url
+          }
+          Basic {
+            promo_items {
+              basic {
+                url
+                caption
+              }
+            }
+          }
+          basic_image {
+            url
+            caption
+          }
+          basic_video {
+            promo_items {
+              basic {
+                url
+                caption
+              }
+            }
           }
         }
         headlines{
