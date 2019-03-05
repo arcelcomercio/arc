@@ -19,7 +19,7 @@ export const GetMultimediaContent = ({
   Basic,
 }) => {
   let result = {url:null, medio:null}
-  debugger
+  
   if (basic_video) {
     if (basic_video.promo_items) {
       if (basic_video.promo_items.basic) {

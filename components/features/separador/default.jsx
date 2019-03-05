@@ -14,6 +14,7 @@ const classes = {
   item: 'separator__item',
   detail: 'separator__detail',
   separatorTitle: 'separator__title',
+  mvideo:'separator--video'
 }
 
 const SeparatorItem = ({
@@ -22,9 +23,12 @@ const SeparatorItem = ({
   website_url: websiteUrl,
   medio,
 }) => {
+  debugger
   return (
     <article className={classes.item}>
+      
       <div className={classes.detail}>
+      <span className={classes.mvideo} ></span>
         <h2 className={classes.separatorTitle}>
           <a href={websiteUrl}>{headlines}</a>
         </h2>
