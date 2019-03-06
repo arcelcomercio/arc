@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import { customFields } from './_children/customfields'
-import { filterSchema } from './_children/filterschema'
+import customFields from './_children/customfields'
+import filterSchema from './_children/filterschema'
 import AperturaExtraordinariaChildren from './_children/apertura-extraordinaria'
 
+const API_URL = 'story__by-websiteurl'
 @Consumer
 class AperturaExtraordinaria extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class AperturaExtraordinaria extends Component {
     } = this.props
     if (link) {
       const { fetched } = this.getContent(
-        'story__by-websiteurl',
+        API_URL,
         {
           website_url: link,
           website: arcSite,
