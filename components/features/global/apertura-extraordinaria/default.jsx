@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import { customFields } from './_children/customfields'
-import { filterSchema } from './_children/filterschema'
+import customFields from './_children/customfields'
+import filterSchema from './_children/filterschema'
 import AperturaExtraordinariaChildren from './_children/apertura-extraordinaria'
 
 const API_URL = 'story__by-websiteurl'
@@ -36,7 +36,7 @@ class AperturaExtraordinaria extends Component {
 
   render() {
     console.log('apertura extraordinaria render', this.renderCount + 1)
-    console.dir(this.state)
+    // console.dir(this.state)
     // eslint-disable-next-line no-shadow
     const { customFields, editableField, arcSite } = this.props
     const { data } = this.state
