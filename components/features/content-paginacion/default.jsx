@@ -13,7 +13,7 @@ class ContentPagination extends Component {
     this.state = {
       currentPage: numPag != null ? numPag[0].split('/')[1] : 0,
     }
-    console.log(props)
+    //console.log(props)
   }
   render() {
     return (

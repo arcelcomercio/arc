@@ -45,7 +45,7 @@ export default class Paginacion extends Component {
     this.setState({
       pages,
     })
-    console.log(currentPage, init, end, adyacentes, pages, totalPages)
+    //console.log(currentPage, init, end, adyacentes, pages, totalPages)
   }
 
   render() {
