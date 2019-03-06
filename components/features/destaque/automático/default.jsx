@@ -79,7 +79,7 @@ class DestaqueAutomatico extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
-      console.log(response)
+      // console.log(response)
       this.setState({
         category: {
           name: response.websites[`${arcSite}`]
