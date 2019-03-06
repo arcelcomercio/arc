@@ -94,7 +94,7 @@ export default `
   type Taxonomy {
     sections: [Sections]
     tags: [Tags]
-    seo_keywords: Array
+    seo_keywords: [String]
   }
   type Sections {
     _id: String!,
@@ -104,6 +104,22 @@ export default `
     path: String!,
     parent_id: String,
     _website_section_id: String!
+  }
+  type WebsiteSection {
+    _id: String
+    _website: String
+    type: String
+    name: String
+    description: String
+    path: String
+  }
+  type DataWebsites {
+      website_section: WebsiteSection
+      website_url: String
+  }
+  type Websites {
+      elcomercio: DataWebsites
+      peru21: DataWebsites
   }
   type ContentElements {
     canonical_url: String
@@ -123,10 +139,8 @@ export default `
     last_updated_date: String
     taxonomy: Taxonomy
   }
-
   type Query {
     content_elements: [ContentElements]
     count: Int
   }
-
 `;

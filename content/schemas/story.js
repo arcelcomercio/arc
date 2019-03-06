@@ -8,7 +8,7 @@ type Headlines {
 type Subheadlines {
  basic: String
 }
-type ByCredits {
+type By {
     type: String
     version: String
     name: String
@@ -17,7 +17,7 @@ type ByCredits {
     description: String
 }
 type Credits {
-    by: [ByCredits]
+    by: [By]
 }
 scalar ResizedUrls
 type AdditionalPropertiesImage {
@@ -94,7 +94,7 @@ type Tags {
 type Taxonomy {
     sections: [Sections]
     tags: [Tags]
-    seo_keywords: Array
+    seo_keywords: [String]
 }
 type Sections {
     _id: String!,
@@ -139,4 +139,4 @@ type Query {
  taxonomy: Taxonomy
  websites: Websites!
 }
-`
+`;

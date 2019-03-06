@@ -54,7 +54,7 @@ class DestaqueManual extends Component {
       }
       website_url
       promo_items {
-        basic_image { url resized_urls }
+        basic { url resized_urls }
         basic_video {
           promo_items {
             basic {

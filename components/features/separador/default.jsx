@@ -103,15 +103,15 @@ class Separador extends Component {
   }
 
   getContentApi = () => {
-    let newsNumber = 4
+    let news_number = 4
     const { device } = this.state
 
     if (device === 'mobile') {
-      newsNumber = 1
+      news_number = 1
     } else if (device === 'desktop') {
-      newsNumber = 4
+      news_number = 4
     } else if (device === 'tablet') {
-      newsNumber = 4
+      news_number = 4
     }
 
     const { arcSite } = this.props
@@ -122,7 +122,7 @@ class Separador extends Component {
       {
         website: arcSite,
         section,
-        newsNumber,
+        news_number,
       },
       this.filterSchema()
     )
