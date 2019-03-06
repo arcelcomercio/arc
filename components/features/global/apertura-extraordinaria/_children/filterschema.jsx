@@ -7,14 +7,16 @@ export const filterSchema = arcSite => `{
         basic
     }
     promo_items {
-        Basic {
+        basic_video {
             type
-            promo_image {
-                type
-                url
+            promo_items {
+                basic {
+                    type 
+                    url
+                }
             }
         }
-        gallery {
+        basic_gallery {
             type 
             promo_items {
                 basic {
