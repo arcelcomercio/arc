@@ -1,3 +1,7 @@
+const VIDEO = 'basic_video'
+const GALLERY = 'basic_gallery'
+const HTML = 'basic_html'
+const IMAGE = 'basic'
 class Data {
   constructor(customFields, data, website) {
     this.customFields = customFields
@@ -77,10 +81,10 @@ class Data {
     let nameAuthor = ''
     let urlAuthor = ''
     for (let i = 0; i < authorData.length; i++) {
-        const {type, name, url} = authorData[i]
+      const { type, name, url } = authorData[i]
       if (type === 'author') {
         nameAuthor = name
-        urlAuthor= url
+        urlAuthor = url
         break
       }
     }
@@ -106,9 +110,10 @@ class Data {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items.Basic &&
-        data.promo_items.Basic.promo_image &&
-        data.promo_items.Basic.promo_image.url) ||
+        data.promo_items[VIDEO] &&
+        data.promo_items[VIDEO].promo_items &&
+        data.promo_items[VIDEO].promo_items[IMAGE] &&
+        data.promo_items[VIDEO].promo_items[IMAGE].url) ||
       ''
     return thumb
   }
@@ -117,17 +122,17 @@ class Data {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items.gallery &&
-        data.promo_items.gallery.promo_items &&
-        data.promo_items.gallery.promo_items.basic &&
-        data.promo_items.gallery.promo_items.basic.url) ||
+        data.promo_items[GALLERY] &&
+        data.promo_items[GALLERY].promo_items &&
+        data.promo_items[GALLERY].promo_items[IMAGE] &&
+        data.promo_items[GALLERY].promo_items[IMAGE].url) ||
       ''
     return thumb
   }
 
   static getImage(data) {
     const basicPromoItems =
-      (data && data.promo_items && data.promo_items.basic) || null
+      (data && data.promo_items && data.promo_items[IMAGE]) || null
     const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
     return typePromoItems && typePromoItems === 'image'
       ? basicPromoItems.url
@@ -136,14 +141,12 @@ class Data {
 
   static getThumbnail(data, type) {
     let thumb = ''
-    if (type === 'Basic') {
+    if (type === VIDEO) {
       thumb = Data.getThumbnailVideo(data)
-    } else if (type === 'gallery') {
+    } else if (type === GALLERY) {
       thumb = Data.getThumbnailGallery(data)
-    } else if (type === 'basic') {
+    } else if (type === IMAGE) {
       thumb = Data.getImage(data)
-    } else {
-      thumb = ''
     }
     return thumb
   }

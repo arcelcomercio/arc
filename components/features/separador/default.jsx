@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-//import { isTablet, isMobileOnly } from 'react-device-detect'
+// import { isTablet, isMobileOnly } from 'react-device-detect'
 
 const classes = {
   separator: 'separator',
@@ -103,26 +103,26 @@ class Separador extends Component {
   }
 
   getContentApi = () => {
-    let newsNumber = 4
+    let news_number = 4
     const { device } = this.state
 
     if (device === 'mobile') {
-      newsNumber = 1
+      news_number = 1
     } else if (device === 'desktop') {
-      newsNumber = 4
+      news_number = 4
     } else if (device === 'tablet') {
-      newsNumber = 4
+      news_number = 4
     }
 
     const { arcSite } = this.props
     const { section } = this.state
 
     const { fetched } = this.getContent(
-      'get-list-news',
+      'stories__by-section',
       {
         website: arcSite,
         section,
-        newsNumber,
+        news_number,
       },
       this.filterSchema()
     )
@@ -174,7 +174,7 @@ class Separador extends Component {
 
   setDevice = () => {
     const wsize = window.innerWidth
-    console.log(wsize)
+
     if (wsize < 640) {
       return 'mobile'
     }

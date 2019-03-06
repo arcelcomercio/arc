@@ -1,16 +1,19 @@
-export const filterSchema = `{
+// eslint-disable-next-line import/prefer-default-export
+const filterSchema = arcSite => `{
     headlines {
         basic
     }
     promo_items {
-        Basic {
+        basic_video {
             type
-            promo_image {
-                type
-                url
+            promo_items {
+                basic {
+                    type 
+                    url
+                }
             }
         }
-        gallery {
+        basic_gallery {
             type 
             promo_items {
                 basic {
@@ -43,13 +46,7 @@ export const filterSchema = `{
         }
     }
     websites {
-        elcomercio {
-            website_section {
-                name
-                path
-            }
-        }
-        peru21 {
+        ${arcSite} {
             website_section {
                 name
                 path
@@ -57,4 +54,5 @@ export const filterSchema = `{
         }
     }
 }`
-//TODO: improve the data websites and promo_items nodes
+// TODO: improve the data of promo_items nodes
+export default filterSchema
