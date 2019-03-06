@@ -11,26 +11,26 @@ const classes = {
 }
 @Consumer
 class ImageConent extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
+    const {
+      data: { resized_urls: resizedUrls, subtitle, caption },
+    } = this.props
+
     return (
       <Fragment>
         <Image
-          resized_urls={this.props.data.resized_urls}
+          resized_urls={resizedUrls}
           aspectRatio="2:3"
-          alt={this.props.data.subtitle}
+          alt={subtitle}
           className={classes.image}
           width=""
           height=""
           layout=""
           url=""
         />
-        {this.props.data.caption && (
+        {caption && (
           <figcaption className={classes.description}>
-            {renderHTML(this.props.data.caption)}
+            {renderHTML(caption)}
           </figcaption>
         )}
       </Fragment>

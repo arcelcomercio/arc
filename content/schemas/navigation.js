@@ -1,4 +1,4 @@
-const schema = `
+export default `
   type Children {
     name: String
     _id: String
@@ -11,6 +11,4 @@ const schema = `
   type Query {
     children: [Children]
   }
-`
-
-export default schema
+`;

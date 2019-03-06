@@ -16,7 +16,7 @@ class Api {
         for(let i=1; i<=LINK_LENGTH; i++){
             if(this.props.customFields[LINK+i]){
                 this.dataState[KEY_STATE+i] = await this.getContent(
-                    'get-story-by-websiteurl', 
+                    'story__by-websiteurl', 
                     { website_url: this.props.customFields[LINK+i], website: this.props.arcSite }, 
                     filterSchema
                 )
@@ -28,7 +28,7 @@ class Api {
     for (let i = 1; i <= LINK_LENGTH; i++) {
       if (this.props.customFields[LINK + i]) {
         const { fetched } = this.getContent(
-          'get-story-by-websiteurl',
+          'story__by-websiteurl',
           {
             website_url: this.props.customFields[LINK + i],
             website: this.props.arcSite,

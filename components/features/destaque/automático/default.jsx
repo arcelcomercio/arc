@@ -37,7 +37,7 @@ class DestaqueAutomatico extends Component {
     const { customFields, arcSite } = this.props
     const { section, imageSize, size } = customFields
 
-    const source = 'resized__story-by-section'
+    const source = 'story__resized-by-section'
     const params = {
       section,
       website: arcSite,

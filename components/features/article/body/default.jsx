@@ -22,17 +22,19 @@ const elementClasses = {
 class ContentArticleBody extends Component {
   render() {
     const {
-      content_elements: contentElements,
-      promo_items,
-      publish_date: date,
-      credits: author,
-    } = this.props.globalContent
+      globalContent: {
+        content_elements: contentElements,
+        promo_items: promoItems,
+        publish_date: date,
+        credits: author,
+      },
+    } = this.props
     console.log(contentElements)
 
     return (
       <Fragment>
         <div className={elementClasses.news}>
-          {promo_items && <ElePrincipal data={promo_items} />}
+          {promoItems && <ElePrincipal data={promoItems} />}
           {author && <Autor data={author} date={date} />}
           {contentElements && (
             <ArticleBody
@@ -78,6 +80,7 @@ class ContentArticleBody extends Component {
 }
 
 ContentArticleBody.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   globalContent: PropTypes.object,
 }
 

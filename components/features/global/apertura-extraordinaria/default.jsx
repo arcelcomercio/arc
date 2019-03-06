@@ -20,7 +20,7 @@ class AperturaExtraordinaria extends Component {
     } = this.props
     if (link) {
       const { fetched } = this.getContent(
-        'get-story-by-websiteurl',
+        'story__by-websiteurl',
         {
           website_url: link,
           website: arcSite,
