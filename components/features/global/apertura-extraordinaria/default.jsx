@@ -35,7 +35,7 @@ class AperturaExtraordinaria extends Component {
   }
 
   render() {
-    console.log('apertura extraordinaria render', this.renderCount + 1)
+    // console.log('apertura extraordinaria render', this.renderCount + 1)
     // console.dir(this.state)
     // eslint-disable-next-line no-shadow
     const { customFields, editableField, arcSite } = this.props
