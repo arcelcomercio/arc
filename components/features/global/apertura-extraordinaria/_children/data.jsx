@@ -147,8 +147,6 @@ class Data {
       thumb = Data.getThumbnailGallery(data)
     } else if (type === IMAGE) {
       thumb = Data.getImage(data)
-    } else {
-      thumb = ''
     }
     return thumb
   }
