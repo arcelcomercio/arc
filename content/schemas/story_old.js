@@ -35,7 +35,7 @@ type BasicImage {
   width: Int!
   caption: String
   subtitle: String
-  resized_url: ResizedUrls
+  resized_urls: ResizedUrls
   additional_properties: AdditionalPropertiesImage
 }
 type Streams {

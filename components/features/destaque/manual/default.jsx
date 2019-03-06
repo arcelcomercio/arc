@@ -42,7 +42,7 @@ class DestaqueManual extends Component {
     const { customFields, arcSite } = this.props
     const { path, imageSize, size } = customFields
 
-    const source = 'story__by-websiteurl'
+    const source = 'story'
     const params = {
       website: arcSite,
       website_url: path,
@@ -103,19 +103,13 @@ class DestaqueManual extends Component {
           url: response.credits.by.length ? response.credits.by[0].url : '',
         },
       })
-      let storyTypePath = response.promo_items.basic_image
-        ? response.promo_items.basic_image
+      let storyTypePath = response.promo_items.basic
+        ? response.promo_items.basic
         : ''
-      if (
-        !response.promo_items.basic_image &&
-        response.promo_items.basic_gallery
-      ) {
+      if (!response.promo_items.basic && response.promo_items.basic_gallery) {
         storyTypePath = response.promo_items.basic_gallery.promo_items.basic
       }
-      if (
-        !response.promo_items.basic_image &&
-        response.promo_items.basic_video
-      ) {
+      if (!response.promo_items.basic && response.promo_items.basic_video) {
         storyTypePath = response.promo_items.basic_video.promo_items.basic
       }
       if (size === 'twoCol') {
