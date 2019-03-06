@@ -28,7 +28,7 @@ const transform = data => {
 
 export default {
   resolve,
-  schemaName: "story",
+  schemaName: "stories",
   transform,
   params: {
     website_url: "text",
