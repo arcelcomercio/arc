@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-//import { isTablet, isMobileOnly } from 'react-device-detect'
+// import { isTablet, isMobileOnly } from 'react-device-detect'
 
 const classes = {
   separator: 'separator',
@@ -42,7 +42,7 @@ const SeparatorListItem = ({ data }) => {
       if (promoItems) {
         imagen = promoItems.basic && (promoItems.basic.url || null)
       }
-      
+
       return (
         <SeparatorItem
           key={websiteUrl}
@@ -118,7 +118,7 @@ class Separador extends Component {
     const { section } = this.state
 
     const { fetched } = this.getContent(
-      'get-list-news',
+      'stories__by-section',
       {
         website: arcSite,
         section,
@@ -174,7 +174,7 @@ class Separador extends Component {
 
   setDevice = () => {
     const wsize = window.innerWidth
-    
+
     if (wsize < 640) {
       return 'mobile'
     }

@@ -9,7 +9,7 @@ const resolve = key => {
 
 export default {
   resolve,
-  schemaName: 'list',
+  schemaName: 'stories',
   params: {
     section: 'text',
     website: 'text',

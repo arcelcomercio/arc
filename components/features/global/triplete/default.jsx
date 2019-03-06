@@ -25,7 +25,7 @@ class Triplete extends Component {
     for (let i = 1; i <= LINK_LENGTH; i++) {
       if (customFields[LINK + i]) {
         const { fetched } = this.getContent(
-          'get-story-by-websiteurl',
+          'story__by-websiteurl',
           { website_url: customFields[LINK + i], website: arcSite },
           filterSchema(arcSite)
         )
