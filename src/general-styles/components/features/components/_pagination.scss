@@ -1,8 +1,15 @@
 $color-page: #777;
 
 .paginacion {
-  width: 60%;
+  width: 100%;
   margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  @media (--tablet) {
+    width: 60%;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
 }
 
 .paginacion__page {

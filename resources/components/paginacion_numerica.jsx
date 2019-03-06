@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 const classes = {
-  paginacion: 'flex flex--justify-between paginacion',
+  paginacion: 'flex paginacion',
   page: 'paginacion__page',
 }
 
