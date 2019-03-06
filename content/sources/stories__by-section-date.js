@@ -1,4 +1,11 @@
 const resolve = key => {
+  if (!key.website) {
+    throw new Error('This content source requires a website')
+  }
+  if (!key.startDate || !key.finalDate) {
+    throw new Error('This content source requires a start date and final date')
+  }
+
   const body = {
     query: {
       bool: {
@@ -21,14 +28,17 @@ const resolve = key => {
               'revision.published': 'true',
             },
           },
-          {
-            term: {
-              'taxonomy.sites.path': `/${key.section}`,
-            },
-          },
         ],
       },
     },
+  }
+
+  if (key.section) {
+    body.query.bool.must.push({
+      term: {
+        'taxonomy.sites.path': `/${key.section}`,
+      },
+    })
   }
 
   const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${

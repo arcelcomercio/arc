@@ -1,4 +1,11 @@
 const resolve = key => {
+  if (!key.website) {
+    throw new Error('This content source requires a website')
+  }
+  if (!key.author) {
+    throw new Error('This content source requires an author')
+  }
+
   const body = {
     query: {
       bool: {
