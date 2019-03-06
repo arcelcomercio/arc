@@ -1,0 +1,29 @@
+$color-page: #777;
+
+.paginacion {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.paginacion__page {
+  color: $color-page;
+  padding: 3px 7px;
+  font-size: 14px;
+  text-transform: uppercase;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.paginacion__page--current {
+  background: #000;
+  color: #fff;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.paginacion__page--disabled {
+  color: #ddd;
+  pointer-events: none;
+}
