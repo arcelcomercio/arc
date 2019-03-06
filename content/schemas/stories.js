@@ -46,7 +46,6 @@ export default `
     url: String!
   }
   type BasicVideo {
-    type: String
     headlines: Headlines
     subheadlines: Subheadlines
     description: Description
@@ -77,7 +76,6 @@ export default `
     additional_properties: AdditionalPropertiesGallery
   }
   type BasicGallery {
-    type: String
     headlines: Headlines
     description: Description
     type: String
