@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import { filterSchema } from './_children/filterschema'
+import filterSchema from './_children/filterschema'
 import { debug } from 'util'
 
 const classes = {

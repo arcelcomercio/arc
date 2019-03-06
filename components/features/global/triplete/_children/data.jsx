@@ -38,9 +38,9 @@ class Data {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items.Basic &&
-        data.promo_items.Basic.promo_image &&
-        data.promo_items.Basic.promo_image.url) ||
+        data.promo_items.basic_video &&
+        data.promo_items.basic_video.promo_image &&
+        data.promo_items.basic_video.promo_image.url) ||
       ''
     return thumb
   }
@@ -49,10 +49,10 @@ class Data {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items.gallery &&
-        data.promo_items.gallery.promo_items &&
-        data.promo_items.gallery.promo_items.basic &&
-        data.promo_items.gallery.promo_items.basic.url) ||
+        data.promo_items.basic_gallery &&
+        data.promo_items.basic_gallery.promo_items &&
+        data.promo_items.basic_gallery.promo_items.basic &&
+        data.promo_items.basic_gallery.promo_items.basic.url) ||
       ''
     return thumb
   }
@@ -67,15 +67,16 @@ class Data {
   }
 
   static hasVideo(data) {
-    const video = data && data.promo_items && data.promo_items.Basic
+    const video = data && data.promo_items && data.promo_items.basic_video
     return typeof video === 'object' && video !== null
   }
 
   static getThumbnail(data, type) {
     let thumb = ''
-    if (type === 'Basic') {
+    if (type === 'basic_video') {
       thumb = Data.getThumbnailVideo(data)
-    } else if (type === 'gallery') {
+    } else if (type === 'basic_gallery') {
+      // MIRAA
       thumb = Data.getThumbnailGallery(data)
     } else if (type === 'basic') {
       thumb = Data.getImage(data)
@@ -109,7 +110,7 @@ class Data {
 
   getIconClass(index) {
     const baseTypeThumb = {
-      Basic: 'play',
+      basic_video: 'play',
       basic: '',
       gallery: 'gallery',
     }

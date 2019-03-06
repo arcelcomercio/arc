@@ -40,7 +40,7 @@ class Triplete extends Component {
   }
 
   render() {
-    console.log('render triplete manual', ++this.renderCount)
+    // console.log('render triplete manual', ++this.renderCount)
     // console.dir(this.state)
     const { customFields, editableField, arcSite } = this.props
     const website = arcSite

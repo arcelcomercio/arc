@@ -49,7 +49,7 @@ class DestaqueAutomatico extends Component {
       }
       website_url
       promo_items {
-        basic_image { url resized_urls }
+        basic { url resized_urls }
         basic_video {
           promo_items {
             basic {
@@ -79,7 +79,7 @@ class DestaqueAutomatico extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
-      console.log(response)
+      // console.log(response)
       this.setState({
         category: {
           name: response.websites[`${arcSite}`]
@@ -98,19 +98,13 @@ class DestaqueAutomatico extends Component {
           url: response.credits.by.length ? response.credits.by[0].url : '',
         },
       })
-      let storyTypePath = response.promo_items.basic_image
-        ? response.promo_items.basic_image
+      let storyTypePath = response.promo_items.basic
+        ? response.promo_items.basic
         : ''
-      if (
-        !response.promo_items.basic_image &&
-        response.promo_items.basic_gallery
-      ) {
+      if (!response.promo_items.basic && response.promo_items.basic_gallery) {
         storyTypePath = response.promo_items.basic_gallery.promo_items.basic
       }
-      if (
-        !response.promo_items.basic_image &&
-        response.promo_items.basic_video
-      ) {
+      if (!response.promo_items.basic && response.promo_items.basic_video) {
         storyTypePath = response.promo_items.basic_video.promo_items.basic
       }
       if (size === 'twoCol') {

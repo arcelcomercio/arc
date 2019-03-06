@@ -3,12 +3,14 @@ import Video from './video'
 import Imagen from './image'
 
 const ElePrincipal = props => {
-  const { Basic: initialEl, basic } = props.data
+  const {
+    data: { basic_video: basicVideo, basic },
+  } = props
   return (
     <Fragment>
       {basic && basic.type === 'image' && <Imagen data={basic} />}
-      {initialEl && initialEl.type === 'video' && (
-        <Video data={initialEl.embed_html} />
+      {basicVideo && basicVideo.type === 'video' && (
+        <Video data={basicVideo.embed_html} />
       )}
     </Fragment>
   )

@@ -36,6 +36,7 @@ class Api {
           filterSchema
         )
         fetched.then(response => {
+          console.log(response)
           this.dataState[KEY_STATE + i] = response
         })
       }

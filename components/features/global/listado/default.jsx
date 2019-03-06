@@ -201,7 +201,7 @@ class Lista extends Component {
       {
         website,
         section,
-        newsNumber,
+        news_number: newsNumber,
       },
       this.filterSchema()
     )

@@ -11,7 +11,7 @@ const resolve = key => {
 
 export default {
   resolve,
-  schemaName: "story",
+  schemaName: "stories",
   params: {
     website_url: "text",
     website: "text"

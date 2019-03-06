@@ -21,8 +21,8 @@ class ArticleHeader extends Component {
       promo_items: gallery_items,
     } = this.props.globalContent
     const { content_elements: galleryElements } =
-      gallery_items && typeof gallery_items.gallery !== 'undefined'
-        ? gallery_items.gallery
+      gallery_items && typeof gallery_items.basic_gallery !== 'undefined'
+        ? gallery_items.basic_gallery
         : ''
 
     return (
@@ -40,7 +40,7 @@ class ArticleHeader extends Component {
           {typeof galleryElements === 'undefined' ? (
             ''
           ) : (
-            <Gallery data={gallery_items.gallery} />
+            <Gallery data={gallery_items.basic_gallery} />
           )}
         </div>
       </Fragment>
