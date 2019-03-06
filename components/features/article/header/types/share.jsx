@@ -38,30 +38,34 @@ class Share extends Component {
       shareMas: '',
     }
   }
+
   handleOnclickMas = () => {
     this.setState({
       shareMas: ' share-news__list-items__item--active',
     })
   }
+
   handleOnclickckClose = () => {
     this.setState({
       shareMas: '',
     })
   }
+
   render() {
     const { url, title } = this.props
-    //console.log(url);     debugger;
+    // console.log(url);     debugger;
     const inUrl = 'http://www.linkedin.com/shareArticle?url=' + url
     const twUrl = url + title
     const fbUrl = 'http://www.facebook.com/sharer.php?u=' + url
     const waUrl = 'whatsapp://send?text=' + title ? 'title.basic' : '' + url
     const gpUrl = 'https://plus.google.com/share?url=' + url
+    const { shareMas } = this.state
     return (
       <Fragment>
-        <div className={classes.share + this.state.shareMas}>
+        <div className={classes.share + shareMas}>
           <div className={classes.shareListItem}>
             <FacebookShareButton className={classes.shareItemFb} url={fbUrl}>
-              <i className="icon-fb"> </i>
+              <i className="icon-fb" />
               <span>Compartir </span>
             </FacebookShareButton>
             <TwitterShareButton className={classes.shareItemTw} url={twUrl}>
@@ -71,22 +75,22 @@ class Share extends Component {
               url={inUrl}
               className={classes.shareItemLinkedIn}
             >
-              <i className="icon-in"> </i>
+              <i className="icon-in" />
               <span>Compartir </span>
             </LinkedinShareButton>
-            <div className={classes.shareItemOtherItems + this.state.shareMas}>
+            <div className={classes.shareItemOtherItems + shareMas}>
               <GooglePlusShareButton
                 url={gpUrl}
                 className={classes.shareItemLinkedIn}
               >
-                <i className="icon-in"> </i>
+                <i className="icon-in" />
                 <span>Compartir </span>
               </GooglePlusShareButton>
               <EmailShareButton
                 url={inUrl}
                 className={classes.shareItemLinkedIn}
               >
-                <i className="icon-in"> </i>
+                <i className="icon-in" />
                 <span>Compartir </span>
               </EmailShareButton>
             </div>
@@ -94,12 +98,18 @@ class Share extends Component {
               <span
                 className={classes.shareBtnMore}
                 onClick={this.handleOnclickMas}
+                role="button"
+                onKeyPress={this.handleOnclickMas}
+                tabIndex={0}
               >
                 +
               </span>
               <span
                 className={classes.shareBtnLess}
                 onClick={this.handleOnclickckClose}
+                role="button"
+                onKeyPress={this.handleOnclickckClose}
+                tabIndex={-1}
               >
                 -{' '}
               </span>
