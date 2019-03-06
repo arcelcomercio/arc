@@ -1,7 +1,9 @@
 // Este Source debe devolver la úlitima historia publicada, filtrada por sección y con la imágen redimensionada
 
 import getProperties from 'fusion:properties'
-import { addResizedUrls } from '../../resources/utilsJs/thumbs'
+import {
+  addResizedUrls
+} from '../../resources/utilsJs/thumbs'
 
 const resolve = key => {
   const requestUri = `/content/v4/search/published?q=taxonomy.sites.path:"/${
@@ -12,9 +14,14 @@ const resolve = key => {
 
 const transform = data => {
   const firstStory = data.content_elements[0]
-  const { website } = firstStory
+  const {
+    website
+  } = firstStory
   const aspectRatios = ['288:157|288x157', '164:187|328x374', '388:187|676x374']
-  const { resizerSecretKeyEnvVar, resizerUrl } = getProperties(website)
+  const {
+    resizerSecretKeyEnvVar,
+    resizerUrl
+  } = getProperties(website)
   // const resizerSecretKey = envVars[resizerSecretKeyEnvVar];
   return addResizedUrls(
     data.content_elements[0],
@@ -27,7 +34,7 @@ const transform = data => {
 export default {
   resolve,
   transform,
-  schemaName: 'story',
+  schemaName: 'stories',
   params: {
     section: 'text',
     website: 'text',

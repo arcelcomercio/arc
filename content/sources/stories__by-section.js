@@ -10,8 +10,8 @@ const resolve = key => {
     if (key.section === "*") {
       requestUri = `/content/v4/search/published?sort=publish_date:desc&from=0&size=${numero}&q=`;
     } else {
-      requestUri = `/content/v4/search/published/?q=taxonomy.sites.path:/`;
-      requestUri = `${requestUri}"${
+      requestUri = `/content/v4/search/published/?q=taxonomy.sites.path:`;
+      requestUri = `${requestUri}"/${
         key.section
       }"&sort=publish_date:desc&from=0&size=${numero}`;
     }
