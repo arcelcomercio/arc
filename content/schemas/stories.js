@@ -52,6 +52,7 @@ export default `
     description: Description
     duration: Int!
     streams: [Streams]
+    type: String
     promo_items: PromoItems
     promo_image: BasicImage
   }
@@ -79,6 +80,7 @@ export default `
     type: String
     headlines: Headlines
     description: Description
+    type: String
     promo_items: PromoItems
     content_elements: [ContentElementsGallery]
   }
