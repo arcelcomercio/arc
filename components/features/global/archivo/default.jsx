@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import CardNotice from './../../../../resources/components/listado-noticias'
+import RenderPagination from './../../Navegacion-archivo/default'
 
 @Consumer
 class Archivo extends Component {
@@ -11,6 +12,8 @@ class Archivo extends Component {
   }
 
   render() {
+    console.log('props')
+    console.dir(this.props)
     const {
       globalContent: { content_elements: contentElements },
       arcSite,
@@ -22,6 +25,7 @@ class Archivo extends Component {
     }
     return <Fragment>
       <CardNotice {...params} />
+      <RenderPagination /> 
     </Fragment>
   }
 }
