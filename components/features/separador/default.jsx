@@ -23,9 +23,11 @@ const SeparatorItem = ({
   website_url: websiteUrl,
   medio,
 }) => {
+  
   return (
     <article className={classes.item}>
-      <span>&#8227;</span>
+      {medio === 'video' && <span>&#8227;</span>}
+      {medio === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
         <h2 className={classes.separatorTitle}>
           <a href={websiteUrl}>{headlines}</a>
@@ -66,15 +68,7 @@ const SeparatorListItem = ({ data }) => {
   return result
 }
 
-const HeaderTitulo = ({ titleSeparator, titleLink }) => {
-  return (
-    <Fragment>
-      <h1 className={classes.title}>
-        <a href={titleLink}>{titleSeparator}</a>
-      </h1>
-    </Fragment>
-  )
-}
+
 const createMarkup = html => {
   return { __html: html }
 }
@@ -205,22 +199,22 @@ class Separador extends Component {
           basic_video {
             type
             promo_items {
-                basic {
-                    type 
-                    url
-                }
+              basic {
+                type 
+                url
+              }
             }
           }
-        basic_gallery {
+          basic_gallery {
             type 
             promo_items {
-                basic {
-                    type 
-                    url
-                }
+              basic {
+                type 
+                url
+              }
             }
           }
-        basic {
+          basic {
             type 
             url
           }
@@ -239,7 +233,9 @@ class Separador extends Component {
     return (
       <div className={classes.separator}>
         {titleSeparator ? (
-          <HeaderTitulo titleSeparator={titleSeparator} titleLink={titleLink} />
+          <h1 className={classes.title}>
+            <a href={titleLink}>{titleSeparator}</a>
+          </h1>
         ) : (
           <HeaderHTML htmlCode={htmlCode} />
         )}

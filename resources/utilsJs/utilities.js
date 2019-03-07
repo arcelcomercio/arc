@@ -12,49 +12,32 @@ export const FormatClassName = styles => {
   return aux
 }
 
-export const GetMultimediaContent = ({
-  basic_video,
-  basic_image,
-  basic,
-  Basic,
-}) => {
-  let result = {url:null, medio:null}
-  
-  if (basic_video) {
-    if (basic_video.promo_items) {
-      if (basic_video.promo_items.basic) {
-        if (basic_video.promo_items.basic.url) {
-          result = basic_video.promo_items.basic.url
-          return { url: result , medio: 'video' }
-        }
-      }
-    }
+export const GetMultimediaContent = ({ basic_video, basic_gallery, basic }) => {
+  let result = { url: null, medio: null }
+
+  if (
+    basic_video &&
+    basic_video.promo_items &&
+    basic_video.promo_items.basic &&
+    basic_video.promo_items.basic.url
+  ) {
+    result.url = basic_video.promo_items.basic.url
+    return { url: result.url, medio: 'video' }
   }
 
-  if (basic_image) {
-    if (basic_image.url) {
-      result = basic_image.url
-      return { url: result , medio: 'image' }
-    }
+  if (
+    basic_gallery &&
+    basic_gallery.promo_items &&
+    basic_gallery.promo_items.basic &&
+    basic_gallery.promo_items.basic.url
+  ) {
+    result.url = basic_gallery.promo_items.basic.url
+    return { url: result.url, medio: 'gallery' }
   }
 
-  if (basic) {
-    if (basic.url) {
-      result = basic.url
-      return { url: result , medio: 'image' }
-    }
+  if (basic && basic.url) {
+    result.url = basic.url
+    return { url: result.url, medio: 'image' }
   }
-
-  if (Basic) {
-    if (Basic.promo_items) {
-      if (Basic.promo_items.basic) {
-        if (Basic.promo_items.basic.url) {
-          result = Basic.promo_items.basic.url
-          return result
-        }
-      }
-    }
-  }
-
   return result
 }
