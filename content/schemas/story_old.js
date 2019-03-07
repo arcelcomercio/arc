@@ -51,6 +51,7 @@ type BasicVideo {
   description: Description
   duration: Int!
   streams: [Streams]
+  type: String
   promo_items: PromoItems
   promo_image: BasicImage
 }
@@ -77,6 +78,7 @@ type ContentElementsGallery {
 type BasicGallery {
   headlines: Headlines
   description: Description
+  type: String
   promo_items: PromoItems
   content_elements: [ContentElementsGallery]
 }

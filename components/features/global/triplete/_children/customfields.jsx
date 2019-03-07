@@ -1,8 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import PropTypes from 'prop-types'
+import filterSchema from './filterschema'
 
 // Maybe work without PropTypes.shape
-export const customFields = PropTypes.shape({
+const customFields = PropTypes.shape({
   content1: PropTypes.label.tag({
     name: 'Nota 1',
   }),
@@ -53,3 +54,5 @@ export const customFields = PropTypes.shape({
     defaultValue: 'right',
   }),
 })
+
+export default customFields
