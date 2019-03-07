@@ -1,80 +1,81 @@
-const VIDEO = 'basic_video'
-const GALLERY = 'basic_gallery'
-const HTML = 'basic_html'
-const IMAGE = 'basic'
-
 class DataStory {
+  static VIDEO = 'basic_video'
+  
+  static GALLERY = 'basic_gallery'
+
+  static HTML = 'basic_html'
+
+  static IMAGE = 'basic'
+
   constructor(data, website) {
-    this.data = data
-    this.website = website
-    //
-    // this.dataAuthor = DataStory.getDataAuthor(this.data)
+    this._data = data
+    this._website = website
   }
 
-  get _data() {
-    return this.data
+  get __data() {
+    return this._data
   }
   
-  set _data(val) {
-    this.data = val
+  set __data(val) {
+    this._data = val
   }
 
-  get _website() {
-    return this.website
+  get __website() {
+    return this._website
   }
   
-  set _website(val) {
-    this.website = val
+  set __website(val) {
+    this._website = val
   }
 
   get title() {
-    return (this.data && this.data.headlines && this.data.headlines.basic) || ''
+    return (this._data && this._data.headlines && this._data.headlines.basic) || ''
   }
 
   get subTitle() {
     return (
-      (this.data && this.data.subheadlines && this.data.subheadlines.basic) ||
+      (this._data && this._data.subheadlines && this._data.subheadlines.basic) ||
       ''
     )
   }
 
   get author() {
-    return DataStory.getDataAuthor(this.data).name
+    return DataStory.getDataAuthor(this._data).name
   }
 
   get authorLink() {
-    return DataStory.getDataAuthor(this.data).url
+    return DataStory.getDataAuthor(this._data).url
   }
 
   get multimedia() {
     return DataStory.getThumbnail(
-      this.data,
-      DataStory.getTypeMultimedia(this.data)
+      this._data,
+      DataStory.getTypeMultimedia(this._data)
     )
   }
 
   get multimediaType() {
-    return DataStory.getTypeMultimedia(this.data)
+    return DataStory.getTypeMultimedia(this._data)
   }
 
   get section() {
-    return DataStory.getDataSection(this.data, this.website).name
+    return DataStory.getDataSection(this._data, this._website).name
   }
 
   get sectionLink() {
     return `${
-      DataStory.getDataSection(this.data, this.website).path
-    }?_website=${this.website}`
+      DataStory.getDataSection(this._data, this._website).path
+    }?_website=${this._website}`
   }
 
   get link() {
     return (
-      `${this.data && this.data.website_url}?_website=${this.website}` || '#'
+      `${this._data && this._data.website_url}?_website=${this._website}` || '#'
     )
   }
 
   get displayDate() {
-    return this.data && this.data.display_date || ''
+    return this._data && this._data.display_date || ''
   }
 
   static getDataSection(data, website) {
@@ -123,10 +124,10 @@ class DataStory {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items[VIDEO] &&
-        data.promo_items[VIDEO].promo_items &&
-        data.promo_items[VIDEO].promo_items[IMAGE] &&
-        data.promo_items[VIDEO].promo_items[IMAGE].url) ||
+        data.promo_items[this.VIDEO] &&
+        data.promo_items[this.VIDEO].promo_items &&
+        data.promo_items[this.VIDEO].promo_items[this.IMAGE] &&
+        data.promo_items[this.VIDEO].promo_items[this.IMAGE].url) ||
       ''
     return thumb
   }
@@ -135,17 +136,17 @@ class DataStory {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items[GALLERY] &&
-        data.promo_items[GALLERY].promo_items &&
-        data.promo_items[GALLERY].promo_items[IMAGE] &&
-        data.promo_items[GALLERY].promo_items[IMAGE].url) ||
+        data.promo_items[this.GALLERY] &&
+        data.promo_items[this.GALLERY].promo_items &&
+        data.promo_items[this.GALLERY].promo_items[this.IMAGE] &&
+        data.promo_items[this.GALLERY].promo_items[this.IMAGE].url) ||
       ''
     return thumb
   }
 
   static getImage(data) {
     const basicPromoItems =
-      (data && data.promo_items && data.promo_items[IMAGE]) || null
+      (data && data.promo_items && data.promo_items[this.IMAGE]) || null
     const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
     return typePromoItems && typePromoItems === 'image'
       ? basicPromoItems.url
@@ -154,11 +155,11 @@ class DataStory {
 
   static getThumbnail(data, type) {
     let thumb = ''
-    if (type === VIDEO) {
+    if (type === this.VIDEO) {
       thumb = DataStory.getThumbnailVideo(data)
-    } else if (type === GALLERY) {
+    } else if (type === this.GALLERY) {
       thumb = DataStory.getThumbnailGallery(data)
-    } else if (type === IMAGE) {
+    } else if (type === this.IMAGE) {
       thumb = DataStory.getImage(data)
     }
     return thumb
