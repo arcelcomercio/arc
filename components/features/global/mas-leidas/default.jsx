@@ -49,19 +49,16 @@ class MasLeidas extends Component {
           d.typeNote = 'image'
         }
         if (
-          el.promo_items.Basic != null &&
-          el.promo_items.Basic.promo_items.basic != null
+          el.promo_items.basic_video != null &&
+          el.promo_items.basic_video.promo_items.basic != null
         ) {
-          d.imageUrl = el.promo_items.Basic.promo_items.basic.url
-          d.captionImg = el.promo_items.Basic.promo_items.basic.caption
+          d.imageUrl = el.promo_items.basic_video.promo_items.basic.url
+          d.captionImg = el.promo_items.basic_video.promo_items.basic.caption
           d.typeNote = 'video'
         }
-        if (
-          el.promo_items.basic_image != null &&
-          el.promo_items.basic_image.url != null
-        ) {
-          d.imageUrl = el.promo_items.basic_image.url
-          d.captionImg = el.promo_items.basic_image.caption
+        if (el.promo_items.basic != null && el.promo_items.basic.url != null) {
+          d.imageUrl = el.promo_items.basic.url
+          d.captionImg = el.promo_items.basic.caption
           d.typeNote = 'image'
         }
         if (
@@ -85,7 +82,7 @@ class MasLeidas extends Component {
     const { arcSite, requestUri, customFields } = this.props
     const { numNotes } = customFields
 
-    const source = 'get-story-more-reads'
+    const source = 'stories__most-readed'
     const params = {
       website: arcSite,
       section: requestUri.split('/')[1],
@@ -104,7 +101,7 @@ class MasLeidas extends Component {
             url
             caption
           }
-          Basic {
+          basic_video {
             promo_items {
               basic {
                 url
@@ -112,7 +109,7 @@ class MasLeidas extends Component {
               }
             }
           }
-          basic_image {
+          basic {
             url
             caption
           }

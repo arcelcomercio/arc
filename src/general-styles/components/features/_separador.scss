@@ -7,7 +7,7 @@
   border: 1px solid #d5e1e1;
   padding: 0px 15px 15px;
 
-  &__headerHtml{
+  &__headerHtml {
     height: 70px;
     width: 300px;
     margin-top: 0%;
@@ -51,7 +51,7 @@
     padding: 0%;
     padding: 0%;
     position: relative;
-    
+
     & figure {
       padding: 0%;
       margin: 0%;
@@ -68,15 +68,20 @@
     }
   }
 
-  &--video::after {
-    content: '\2023';
+  & span {
     position: absolute;
+    height: 15px;
+    width: 15px;
+    right: 25px;
+    top: 28px;
+    margin: auto;
+    transform: scale(3.5);
     z-index: 2;
-    padding-left: 12px;
-    padding-right: 12px;
-    bottom: 30px;
-    left: 30px;
-    color: #fff;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.5);
+    color: #444;
+
   }
 
   &__detail {
@@ -95,7 +100,7 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    font-family: "ChronicleDisplayBold", Times New Roman, serif;
+    font-family: 'ChronicleDisplayBold', Times New Roman, serif;
     & a {
       color: #fff;
       text-decoration: none;

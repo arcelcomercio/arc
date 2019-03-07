@@ -3,8 +3,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import { filterSchema } from './_children/filterschema'
-import { debug } from 'util'
+import filterSchema from './_children/filterschema'
 
 const classes = {
   breakingnews: 'padding-normal',
@@ -63,7 +62,7 @@ class CintilloUrgente extends Component {
       (isExternalLink === undefined || isExternalLink === false)
     ) {
       const { fetched } = this.getContent(
-        'get-story-by-websiteurl',
+        'story__by-websiteurl',
         { website_url: storyLink, website: arcSite },
         filterSchema
       )
@@ -92,7 +91,8 @@ class CintilloUrgente extends Component {
     const objContent = {
       title: title || (article && article.headlines && article.headlines.basic),
       subTitle:
-        subTitle || (article && article.subheadlines && article.subheadlines.basic),
+        subTitle ||
+        (article && article.subheadlines && article.subheadlines.basic),
       link: webUrlService,
     }
     return (

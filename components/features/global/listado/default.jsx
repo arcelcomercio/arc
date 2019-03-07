@@ -197,11 +197,11 @@ class Lista extends Component {
     const { section, newsNumber } = this.state
     const { arcSite: website } = this.props
     const { fetched } = this.getContent(
-      'get-list-news',
+      'stories__by-section',
       {
         website,
         section,
-        newsNumber,
+        news_number: newsNumber,
       },
       this.filterSchema()
     )

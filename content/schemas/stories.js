@@ -8,15 +8,19 @@ export default `
   type Subheadlines {
     basic: String
   }
-  type ByCredits {
-    type: String
+  type By {
+    type: String!
     version: String
-    name: String
+    name: String!
+    slug: String
+    url: String
+    description: String
   }
   type Credits {
-    by: [ByCredits]
+    by: [By]
   }
-  type AdditionalPropertiesBasicPromoItems{
+  scalar ResizedUrls
+  type AdditionalPropertiesImage {
     mime_type: String
     originalName: String
     originalUrl: String
@@ -24,20 +28,77 @@ export default `
     published: Boolean
     resizeUrl: String
   }
-  type BasicPromoItems {
-    height: Int
+  type BasicImage {
+    height: Int!
+    type: String!
+    url: String!
+    width: Int!
+    caption: String
+    subtitle: String
+    resized_urls: ResizedUrls
+    additional_properties: AdditionalPropertiesImage
+  }
+  type Streams {
+    height: Int!
+    width: Int!
+    filesize: Int
+    stream_type: String
+    url: String!
+  }
+  type BasicVideo {
+    headlines: Headlines
+    subheadlines: Subheadlines
+    description: Description
+    duration: Int!
+    streams: [Streams]
     type: String
-    url: String
-    width: Int
-    additional_properties: AdditionalPropertiesBasicPromoItems
+    promo_items: PromoItems
+    promo_image: BasicImage
+  }
+  type BasicHtml {
+    content: String!
+    type: String
+  }
+  type AdditionalPropertiesGallery {
+    galleryOrder: Int
+    mime_type: String
+    originalName: String
+    originalUrl: String
+    proxyUrl: String
+    published: Boolean
+    resizeUrl: String
+  }
+  type ContentElementsGallery {
+    height: Int!
+    type: String!
+    url: String!
+    width: Int!
+    additional_properties: AdditionalPropertiesGallery
+  }
+  type BasicGallery {
+    headlines: Headlines
+    description: Description
+    type: String
+    promo_items: PromoItems
+    content_elements: [ContentElementsGallery]
   }
   type PromoItems {
-    basic: BasicPromoItems
+    basic: BasicImage
+    basic_html: BasicHtml
+    basic_video: BasicVideo
+    basic_gallery: BasicGallery
+  }
+  type Tags {
+    text: String
+    description: String
+    slug: String
   }
   type Taxonomy {
-    sections: [SectionTaxonomy]
+    sections: [Sections]
+    tags: [Tags]
+    seo_keywords: [String]
   }
-  type SectionTaxonomy {
+  type Sections {
     _id: String!,
     _website: String!,
     type: String!,
@@ -46,8 +107,41 @@ export default `
     parent_id: String,
     _website_section_id: String!
   }
-
-  type Content_elements {
+  type WebsiteSection {
+    _id: String
+    _website: String
+    type: String
+    name: String
+    description: String
+    path: String
+  }
+  type DataWebsites {
+      website_section: WebsiteSection
+      website_url: String
+  }
+  type Websites {
+      elcomercio: DataWebsites
+      peru21: DataWebsites
+  }
+  type ContentElements {
+    canonical_url: String
+    type: String!
+    subtype: String!
+    version: String!
+    description: Description
+    headlines: Headlines
+    subheadlines: Subheadlines
+    promo_items: PromoItems
+    credits: Credits
+    website: String!
+    website_url: String!
+    created_date: String
+    publish_date: String
+    display_date: String
+    last_updated_date: String
+    taxonomy: Taxonomy
+  }
+  type Query {
     canonical_url: String
     type: String!
     version: String!
@@ -58,13 +152,15 @@ export default `
     credits: Credits
     website: String!
     website_url: String!
+    created_date: String
+    publish_date: String
+    display_date: String
+    last_updated_date: String
     taxonomy: Taxonomy
+    websites: Websites!
+
+    
+    content_elements: [ContentElements]
+    count: Int
   }
-
-  type Query {
-
-    content_elements: [Content_elements]
-
-  }
-
 `;

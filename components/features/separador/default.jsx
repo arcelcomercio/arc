@@ -14,7 +14,7 @@ const classes = {
   item: 'separator__item',
   detail: 'separator__detail',
   separatorTitle: 'separator__title',
-  mvideo:'separator--video'
+  mvideo: 'separator--video',
 }
 
 const SeparatorItem = ({
@@ -23,12 +23,10 @@ const SeparatorItem = ({
   website_url: websiteUrl,
   medio,
 }) => {
-  debugger
   return (
     <article className={classes.item}>
-      
+      <span>&#8227;</span>
       <div className={classes.detail}>
-      <span className={classes.mvideo} ></span>
         <h2 className={classes.separatorTitle}>
           <a href={websiteUrl}>{headlines}</a>
         </h2>
@@ -116,26 +114,26 @@ class Separador extends Component {
   }
 
   getContentApi = () => {
-    let newsNumber = 4
+    let news_number = 4
     const { device } = this.state
 
     if (device === 'mobile') {
-      newsNumber = 1
+      news_number = 1
     } else if (device === 'desktop') {
-      newsNumber = 4
+      news_number = 4
     } else if (device === 'tablet') {
-      newsNumber = 4
+      news_number = 4
     }
 
     const { arcSite } = this.props
     const { section } = this.state
 
     const { fetched } = this.getContent(
-      'get-list-news',
+      'stories__by-section',
       {
         website: arcSite,
         section,
-        newsNumber,
+        news_number,
       },
       this.filterSchema()
     )
@@ -204,28 +202,27 @@ class Separador extends Component {
         canonical_url
         website_url
         promo_items{
-          basic{
-            url
-          }
-          Basic {
-            promo_items {
-              basic {
-                url
-                caption
-              }
-            }
-          }
-          basic_image {
-            url
-            caption
-          }
           basic_video {
+            type
             promo_items {
-              basic {
-                url
-                caption
-              }
+                basic {
+                    type 
+                    url
+                }
             }
+          }
+        basic_gallery {
+            type 
+            promo_items {
+                basic {
+                    type 
+                    url
+                }
+            }
+          }
+        basic {
+            type 
+            url
           }
         }
         headlines{
