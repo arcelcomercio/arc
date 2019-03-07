@@ -61,7 +61,7 @@ const ImageNews = ({ urlNews, promo_items: promoItems }) => {
     <figure>
       {medio === 'video' && <span>&#8227;</span>}
       {medio === 'gallery' && <span>G</span>}
-      {imagen ? (
+      {url ? (
         <a href={urlNews}>
           <picture>
             <source
