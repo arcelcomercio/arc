@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import CardNotice from './../../../../resources/components/listado-noticias'
@@ -17,10 +17,12 @@ class Archivo extends Component {
     } = this.props
 
     const params = {
-      data: contentElements,
+      data: contentElements || [],
       arcSite,
     }
-    return <CardNotice {...params} />
+    return <Fragment>
+      <CardNotice {...params} />
+    </Fragment>
   }
 }
 
