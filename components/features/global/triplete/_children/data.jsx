@@ -1,3 +1,8 @@
+const VIDEO = 'basic_video'
+const GALLERY = 'basic_gallery'
+const HTML = 'basic_html'
+const IMAGE = 'basic'
+const AUTHOR = 'author'
 class Data {
   constructor(customFields, state, website) {
     this.customFields = customFields
@@ -10,7 +15,7 @@ class Data {
   }
 
   get showAuthorOrSection() {
-    return this.customFields.showAuthorOrSection || 'author'
+    return this.customFields.showAuthorOrSection || AUTHOR
   }
 
   getTitle(index) {
@@ -38,9 +43,10 @@ class Data {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items.basic_video &&
-        data.promo_items.basic_video.promo_image &&
-        data.promo_items.basic_video.promo_image.url) ||
+        data.promo_items[VIDEO] &&
+        data.promo_items[VIDEO].promo_items &&
+        data.promo_items[VIDEO].promo_items[IMAGE] &&
+        data.promo_items[VIDEO].promo_items[IMAGE].url) ||
       ''
     return thumb
   }
@@ -49,17 +55,17 @@ class Data {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items.basic_gallery &&
-        data.promo_items.basic_gallery.promo_items &&
-        data.promo_items.basic_gallery.promo_items.basic &&
-        data.promo_items.basic_gallery.promo_items.basic.url) ||
+        data.promo_items[GALLERY] &&
+        data.promo_items[GALLERY].promo_items &&
+        data.promo_items[GALLERY].promo_items[IMAGE] &&
+        data.promo_items[GALLERY].promo_items[IMAGE].url) ||
       ''
     return thumb
   }
 
   static getImage(data) {
     const basicPromoItems =
-      (data && data.promo_items && data.promo_items.basic) || null
+      (data && data.promo_items && data.promo_items[IMAGE]) || null
     const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
     return typePromoItems && typePromoItems === 'image'
       ? basicPromoItems.url
@@ -67,21 +73,18 @@ class Data {
   }
 
   static hasVideo(data) {
-    const video = data && data.promo_items && data.promo_items.basic_video
+    const video = data && data.promo_items && data.promo_items[VIDEO]
     return typeof video === 'object' && video !== null
   }
 
   static getThumbnail(data, type) {
     let thumb = ''
-    if (type === 'basic_video') {
+    if (type === VIDEO) {
       thumb = Data.getThumbnailVideo(data)
-    } else if (type === 'basic_gallery') {
-      // MIRAA
+    } else if (type === GALLERY) {
       thumb = Data.getThumbnailGallery(data)
-    } else if (type === 'basic') {
+    } else if (type === IMAGE) {
       thumb = Data.getImage(data)
-    } else {
-      thumb = ''
     }
     return thumb
   }
@@ -139,13 +142,13 @@ class Data {
   }
 
   authorOrSection(index) {
-    return this.showAuthorOrSection === 'author'
+    return this.showAuthorOrSection === AUTHOR
       ? this.getAuthor(index)
       : this.getSection(index)
   }
 
   authorOrSectionLink(index) {
-    return this.showAuthorOrSection === 'author'
+    return this.showAuthorOrSection === AUTHOR
       ? this.getAuthorLink(index)
       : this.getSectionLink(index)
   }
@@ -156,7 +159,7 @@ class Data {
     let urlAuthor = ''
     for (let i = 0; i < authorData.length; i++) {
       const { type, name, url } = authorData[i]
-      if (type === 'author') {
+      if (type === AUTHOR) {
         nameAuthor = name
         urlAuthor = url
         break
