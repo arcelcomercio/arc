@@ -1564,6 +1564,39 @@ body {
   -o-object-position: center;
      object-position: center;
 }
+.pagination-file {
+  width: 100%;
+  margin-bottom: 50px;
+}
+.pagination-file__list {
+  display: flex;
+  justify-content: center;
+}
+.pagination-file__item {
+  margin: 0 5px;
+}
+.pagination-file__item:hover .pagination-file__link {
+  text-decoration: underline;
+}
+.pagination-file__item.active {
+  cursor: auto;
+  cursor: initial;
+}
+.pagination-file__item.active .pagination-file__link {
+  background-color: #383232;
+  color: #FFF;
+  text-decoration: none;
+}
+.pagination-file__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  color: #7d7d7d;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+}
 .btn {
   border-radius: 4px;
   padding: 8px 16px;
