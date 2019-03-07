@@ -3,7 +3,7 @@
   flex-direction: column;
   overflow: hidden;
   height: 100%;
-  margin: 10px;
+  //margin: 10px;
 
   &__Header {
     display: flex;
@@ -50,7 +50,7 @@
 
   &__listItems {
     background: #ffffff;
-    max-height: 350px;
+    max-height: 395px;
   }
 
   &__itemNews {
@@ -59,6 +59,26 @@
     width: auto;
     padding: 10px 10px 10px 10px;
     border-bottom: 1px solid #d5e1e1;
+
+    & figure {
+      position: relative;
+
+      & span {
+        position: absolute;
+        height: 15px;
+        width: 15px;
+        right: 25px;
+        top: 28px;
+        margin: auto;
+        transform: scale(3.5);
+        z-index: 2;
+        text-align: center;
+        border-radius: 50%;
+        background-color: rgba(255,255,255,0.5);
+        color: #444;
+    
+      }
+    }
   }
 
   & img {
