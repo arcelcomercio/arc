@@ -69,9 +69,6 @@ const ImageNews = ({ urlNews, promo_items: promoItems }) => {
               srcSet={imagen}
               media="(max-width: 639px)"
             />
-            
-            {/* {medio === 'video' && <span>&#8227;</span>} */}
-            {/* {medio === 'gallery' && <span>G</span>} */}
             <img datatype="src" src={url} alt="" />
           </picture>
         </a>
@@ -233,6 +230,7 @@ class Lista extends Component {
       content_elements{
         canonical_url
         website_url
+        display_date
         promo_items{
           basic_video {
             type
