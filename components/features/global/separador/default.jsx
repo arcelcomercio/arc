@@ -1,10 +1,8 @@
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { GetMultimediaContent } from './../../../resources/utilsJs/utilities'
-
-//import { isTablet, isMobileOnly } from 'react-device-detect'
+import { GetMultimediaContent } from './../../../../resources/utilsJs/utilities'
 
 const classes = {
   separator: 'separator',
@@ -19,24 +17,24 @@ const classes = {
 
 const SeparatorItem = ({
   headlines,
-  promo_items: promoItems,
-  website_url: websiteUrl,
+  urlImage,
+  website_url,
   medio,
 }) => {
-  
+  debugger
   return (
     <article className={classes.item}>
       {medio === 'video' && <span>&#8227;</span>}
       {medio === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
         <h2 className={classes.separatorTitle}>
-          <a href={websiteUrl}>{headlines}</a>
+          <a href={website_url}>{headlines}</a>
         </h2>
       </div>
       <figure>
-        {websiteUrl && (
-          <a href={websiteUrl}>
-            <img src={promoItems} alt="" />
+        {website_url && (
+          <a href={website_url}>
+            <img src={urlImage} alt="" />
           </a>
         )}
       </figure>
@@ -58,7 +56,7 @@ const SeparatorListItem = ({ data }) => {
         <SeparatorItem
           key={websiteUrl}
           headlines={headlines.basic}
-          promo_items={url}
+          urlImage={url}
           website_url={websiteUrl}
           medio={medio}
         />

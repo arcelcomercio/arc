@@ -1,6 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { GetMultimediaContent } from './../../../../resources/utilsJs/utilities'
 
 const classes = {
   lista: 'List',
@@ -26,7 +27,13 @@ const HeaderList = ({
       <div className={classes.title}>
         <TituloLista urlTitle={urlTitle} titleList={titleList} />
       </div>
-      {seeMore && <SeeMore seeMoreurl={seeMoreurl} />}
+      {seeMore && (
+        <div className={classes.moreNews}>
+          <a href={seeMoreurl}>
+            <h4>ver mas</h4>
+          </a>
+        </div>
+      )}
     </div>
   )
 }
@@ -45,17 +52,15 @@ const TituloLista = ({ urlTitle, titleList }) => {
   return result
 }
 
-const SeeMore = ({ seeMoreurl }) => (
-  <div className={classes.moreNews}>
-    <a href={seeMoreurl}>
-      <h4>ver mas</h4>
-    </a>
-  </div>
-)
 const ImageNews = ({ urlNews, promo_items: promoItems }) => {
   const imagen = promoItems.basic ? promoItems.basic.url || '' : ''
+  const multimedia = GetMultimediaContent(promoItems)
+  const { url, medio } = multimedia
+  
   return (
     <figure>
+      {medio === 'video' && <span>&#8227;</span>}
+      {medio === 'gallery' && <span>G</span>}
       {imagen ? (
         <a href={urlNews}>
           <picture>
@@ -64,15 +69,16 @@ const ImageNews = ({ urlNews, promo_items: promoItems }) => {
               srcSet={imagen}
               media="(max-width: 639px)"
             />
-            <img datatype="src" src={imagen} alt="" />
+            
+            {/* {medio === 'video' && <span>&#8227;</span>} */}
+            {/* {medio === 'gallery' && <span>G</span>} */}
+            <img datatype="src" src={url} alt="" />
           </picture>
         </a>
       ) : null}
     </figure>
   )
 }
-
-const TimeItem = ({ time }) => <div className={classes.time}>{time}</div>
 
 const ItemNews = ({
   seeHour,
@@ -85,7 +91,7 @@ const ItemNews = ({
   return (
     <article className={classes.itemNews}>
       {seeImageNews && <ImageNews urlNews={urlNews} promo_items={promoItems} />}
-      {seeHour && <TimeItem time={time} />}
+      {seeHour && <div className={classes.time}>{time}</div>}
       <div className={classes.pageLink}>
         <a href={urlNews}>
           <h3 className={classes.bold}>{title}</h3>
@@ -95,12 +101,6 @@ const ItemNews = ({
   )
 }
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
-  // const classListItems =
-  //   listNews.length > 4
-  //     ? `${classes.listItem} ${classes.scrolY}`
-  //     : classes.listItem
-  // let nuevalista =[];
-
   return (
     <div className={`${classes.listItem} ${classes.scrolY}`}>
       {listNews.map(
@@ -233,9 +233,27 @@ class Lista extends Component {
       content_elements{
         canonical_url
         website_url
-        display_date
         promo_items{
-          basic{
+          basic_video {
+            type
+            promo_items {
+              basic {
+                type 
+                url
+              }
+            }
+          }
+          basic_gallery {
+            type 
+            promo_items {
+              basic {
+                type 
+                url
+              }
+            }
+          }
+          basic {
+            type 
             url
           }
         }
