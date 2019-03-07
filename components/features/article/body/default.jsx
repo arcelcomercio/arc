@@ -8,6 +8,7 @@ import Imagen from './types/image'
 import Gallery from '../header/types/gallery'
 import Blockquote from './types/blockquote'
 import Table from './types/table'
+import Tags from './types/tags'
 import Autor from './types/autor'
 import ElePrincipal from './types/ele-principal'
 
@@ -27,6 +28,7 @@ class ContentArticleBody extends Component {
         promo_items: promoItems,
         publish_date: date,
         credits: author,
+        taxonomy,
       },
     } = this.props
     console.log(contentElements)
@@ -73,6 +75,7 @@ class ContentArticleBody extends Component {
               }}
             />
           )}
+          {taxonomy && <Tags data={taxonomy} />}
         </div>
       </Fragment>
     )

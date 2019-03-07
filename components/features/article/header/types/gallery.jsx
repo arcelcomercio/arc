@@ -12,15 +12,16 @@ const classes = {
 }
 
 const Gallery = props => {
-  //console.log(props.data);debugger;
-  const { content_elements: elements } = props.data
+  const {
+    data: { content_elements: elements },
+  } = props
 
   return (
     <Fragment>
       <Slider>
         {elements.map((item, index) => (
           <div className="item">
-            <div className={classes.itemSlideImg} key={index}>
+            <div className={classes.itemSlideImg} key={item.url}>
               <Image
                 url={item.url}
                 alt={item.subtitle}
