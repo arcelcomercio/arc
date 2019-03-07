@@ -35,7 +35,7 @@ export default `
     width: Int!
     caption: String
     subtitle: String
-    resized_url: ResizedUrls
+    resized_urls: ResizedUrls
     additional_properties: AdditionalPropertiesImage
   }
   type Streams {
@@ -51,6 +51,7 @@ export default `
     description: Description
     duration: Int!
     streams: [Streams]
+    type: String
     promo_items: PromoItems
     promo_image: BasicImage
   }
@@ -77,6 +78,7 @@ export default `
   type BasicGallery {
     headlines: Headlines
     description: Description
+    type: String
     promo_items: PromoItems
     content_elements: [ContentElementsGallery]
   }
@@ -94,7 +96,7 @@ export default `
   type Taxonomy {
     sections: [Sections]
     tags: [Tags]
-    seo_keywords: Array
+    seo_keywords: [String]
   }
   type Sections {
     _id: String!,
@@ -104,6 +106,22 @@ export default `
     path: String!,
     parent_id: String,
     _website_section_id: String!
+  }
+  type WebsiteSection {
+    _id: String
+    _website: String
+    type: String
+    name: String
+    description: String
+    path: String
+  }
+  type DataWebsites {
+      website_section: WebsiteSection
+      website_url: String
+  }
+  type Websites {
+      elcomercio: DataWebsites
+      peru21: DataWebsites
   }
   type ContentElements {
     canonical_url: String
@@ -123,10 +141,26 @@ export default `
     last_updated_date: String
     taxonomy: Taxonomy
   }
-
   type Query {
+    canonical_url: String
+    type: String!
+    version: String!
+    description: Description
+    headlines: Headlines
+    subheadlines: Subheadlines
+    promo_items: PromoItems
+    credits: Credits
+    website: String!
+    website_url: String!
+    created_date: String
+    publish_date: String
+    display_date: String
+    last_updated_date: String
+    taxonomy: Taxonomy
+    websites: Websites!
+
+    
     content_elements: [ContentElements]
     count: Int
   }
-
 `;

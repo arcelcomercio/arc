@@ -11,13 +11,12 @@ const classes = {
 @Consumer
 class Article extends Component {
   render() {
+    const {
+      customFields: { isPrincipal },
+    } = this.props
     return (
       <article
-        className={
-          this.props.customFields.isPrincipal
-            ? classes.articlePrincipal
-            : classes.article
-        }
+        className={isPrincipal ? classes.articlePrincipal : classes.article}
       >
         <figure className={classes.articleFigure}>
           <img

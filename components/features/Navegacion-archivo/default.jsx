@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react'
 
-class renderPagination extends Component {
+class RenderPagination extends Component {
 	constructor() {
 		super()
 		this.state = {
@@ -142,4 +142,4 @@ class renderPagination extends Component {
 	}
 }
 
-export default renderPagination
+export default RenderPagination

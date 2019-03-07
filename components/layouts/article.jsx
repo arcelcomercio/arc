@@ -19,8 +19,8 @@ const ArticleLayout = ({ children }) => {
       </div>
       <div className={classes.contentContainer}>
         {children[1] /* Nav */}
-        {children[2] /* Header */}
-        {children[3] && children[3] /* Encabezado adicional */}
+        {children[2] && children[2] /* Encabezado adicional */}
+        {children[3] /* Header */}
         {children[4] && children[4] /* Encabezado */}
         <div className={classes.mainContent}>
           <main className={classes.main}>{children[5] /* Content */}</main>
@@ -45,8 +45,8 @@ ArticleLayout.propTypes = {
 ArticleLayout.sections = [
   'Zocalo izquierda',
   'Barra de navegación', // Nav
-  'Encabezado adicional', // Header
-  'Cabecera de página',
+  'Encabezado adicional',
+  'Cabecera de página', // Header
   'Encabezado de articulo',
   'Contenido', // Content
   'Barra lateral', // Sidebar

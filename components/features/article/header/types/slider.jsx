@@ -47,12 +47,13 @@ function Arrow({ direction = 'right' }) {
 class Slider extends React.PureComponent {
   constructor(props) {
     super(props)
-    const { slideIndex = 0, direction = HORIZONTAL } = this.props
+    const { slideIndex = 0, direction = HORIZONTAL, children } = props
+
     this.state = {
       currentSlideIndex: slideIndex,
       animating: false,
     }
-    this.slideCount = React.Children.count(this.props.children)
+    this.slideCount = React.Children.count(children)
     this.direction = direction
     this.swipeProperty = direction === HORIZONTAL ? 'left' : 'top'
     this.swipeEventProperty = direction === HORIZONTAL ? 'clientX' : 'clientY'
@@ -62,116 +63,19 @@ class Slider extends React.PureComponent {
     this.setupAutoplay()
   }
 
+  componentWillReceiveProps(props) {
+    const { currentSlideIndex } = this.state
+    this.slideCount = React.Children.count(props.children)
+    if (currentSlideIndex >= this.slideCount) {
+      this.setState({ currentSlideIndex: 0 })
+    }
+  }
+
   componentWillUnmount() {
     this.stopAutoplay()
     if (this.animationTimerId) {
       clearTimeout(this.animationTimerId)
     }
-  }
-
-  componentWillReceiveProps(props) {
-    this.slideCount = React.Children.count(props.children)
-    if (this.state.currentSlideIndex >= this.slideCount) {
-      this.setState({ currentSlideIndex: 0 })
-    }
-  }
-
-  setupAutoplay = () => {
-    if (this.props.autoplay && !this.isMouseOver) {
-      this.stopAutoplay()
-      this.autoplayTimerId = setInterval(
-        this.next,
-        parseInt(this.props.autoplay, 10)
-      )
-    }
-  }
-
-  stopAutoplay = () => {
-    if (this.autoplayTimerId) {
-      clearInterval(this.autoplayTimerId)
-    }
-  }
-
-  onAnimationEnd = () => {
-    this.setState({
-      currentSlideIndex: this.nextSlideIndex,
-      animating: false,
-      animation: undefined,
-    })
-    this.setupAutoplay()
-    if (typeof this.props.onSlideChange === 'function') {
-      this.props.onSlideChange({ slideIndex: this.nextSlideIndex })
-    }
-  }
-
-  isDisabled = () =>
-    this.slideCount < 2 || this.state.animating || this.props.disabled
-
-  isInfinite = () => this.slideCount > 2 && this.props.infinite !== false
-
-  canGoPrevious = () => this.isInfinite() || this.state.currentSlideIndex > 0
-
-  canGoNext = () =>
-    this.isInfinite() || this.state.currentSlideIndex < this.slideCount - 1
-
-  goTo = (index, animation) => {
-    if (this.isDisabled()) return
-    this.nextSlideIndex = index
-    this.setState({ animating: true, animation })
-    const timeout = this.props.duration || DEFAULT_DURATION
-    this.animationTimerId = setTimeout(this.onAnimationEnd, timeout)
-  }
-
-  previous = () => {
-    if (!this.canGoPrevious()) return
-    const nextSlideIndex = this.state.currentSlideIndex - 1
-    const actualNextSlide =
-      nextSlideIndex >= 0 ? nextSlideIndex : this.slideCount - 1
-    this.goTo(actualNextSlide, PREVIOUS)
-  }
-
-  next = () => {
-    if (!this.canGoNext()) return
-    const nextSlideIndex = (this.state.currentSlideIndex + 1) % this.slideCount
-    this.goTo(nextSlideIndex, NEXT)
-    /*
-		const locationHref = "//" + location.host + location.pathname +'&foto=' + (nextSlideIndex+1);
-		window.history.pushState('', "", locationHref);
-		console.log(this			); debugger;
-		console.log(this.props.match.params.redirectParam			); debugger;*/
-  }
-
-  getSlideClass = index => {
-    const { currentSlideIndex, animation } = this.state
-    const classNames = this.getClassNames()
-    const lastSlideIndex = this.slideCount - 1
-    if (index === currentSlideIndex) {
-      if (animation) return `${classNames.animateOut} ${classNames[animation]}`
-      return classNames.current
-    }
-    if (this.slideCount === 2) {
-      if (animation) return `${classNames.animateIn} ${classNames[animation]}`
-      return index < currentSlideIndex ? classNames.previous : classNames.next
-    }
-    if (
-      index === currentSlideIndex - 1 ||
-      (currentSlideIndex === 0 && index === lastSlideIndex)
-    ) {
-      if (animation === PREVIOUS)
-        return `${classNames.animateIn} ${classNames.previous}`
-      if (animation === NEXT) return classNames.hidden
-      return classNames.previous
-    }
-    if (
-      index === currentSlideIndex + 1 ||
-      (index === 0 && currentSlideIndex === lastSlideIndex)
-    ) {
-      if (animation === NEXT)
-        return `${classNames.animateIn} ${classNames.next}`
-      if (animation === PREVIOUS) return classNames.hidden
-      return classNames.next
-    }
-    return classNames.hidden
   }
 
   /* eslint-disable lines-between-class-members */
@@ -227,6 +131,103 @@ class Slider extends React.PureComponent {
   }
 
   animating = false
+
+  setupAutoplay = () => {
+    const { autoplay } = this.props
+    if (autoplay && !this.isMouseOver) {
+      this.stopAutoplay()
+      this.autoplayTimerId = setInterval(this.next, parseInt(autoplay, 10))
+    }
+  }
+
+  stopAutoplay = () => {
+    if (this.autoplayTimerId) {
+      clearInterval(this.autoplayTimerId)
+    }
+  }
+
+  onAnimationEnd = () => {
+    this.setState({
+      currentSlideIndex: this.nextSlideIndex,
+      animating: false,
+      animation: undefined,
+    })
+    this.setupAutoplay()
+    if (typeof this.props.onSlideChange === 'function') {
+      this.props.onSlideChange({ slideIndex: this.nextSlideIndex })
+    }
+  }
+
+  isDisabled = () =>
+    this.slideCount < 2 || this.state.animating || this.props.disabled
+
+  isInfinite = () => this.slideCount > 2 && this.props.infinite !== false
+
+  canGoPrevious = () => this.isInfinite() || this.state.currentSlideIndex > 0
+
+  canGoNext = () =>
+    this.isInfinite() || this.state.currentSlideIndex < this.slideCount - 1
+
+  goTo = (index, animation) => {
+    if (this.isDisabled()) return
+    this.nextSlideIndex = index
+    this.setState({ animating: true, animation })
+    const timeout = this.props.duration || DEFAULT_DURATION
+    this.animationTimerId = setTimeout(this.onAnimationEnd, timeout)
+  }
+
+  previous = () => {
+    if (!this.canGoPrevious()) return
+    const nextSlideIndex = this.state.currentSlideIndex - 1
+    const actualNextSlide =
+      nextSlideIndex >= 0 ? nextSlideIndex : this.slideCount - 1
+    this.goTo(actualNextSlide, PREVIOUS)
+  }
+
+  next = () => {
+    if (!this.canGoNext()) return
+    const nextSlideIndex = (this.state.currentSlideIndex + 1) % this.slideCount
+    this.goTo(nextSlideIndex, NEXT)
+    /*
+  const locationHref = "//" + location.host + location.pathname +'&foto=' + (nextSlideIndex+1);
+  window.history.pushState('', "", locationHref);
+  console.log(this			); debugger;
+  console.log(this.props.match.params.redirectParam			); debugger;
+  */
+  }
+
+  getSlideClass = index => {
+    const { currentSlideIndex, animation } = this.state
+    const classNames = this.getClassNames()
+    const lastSlideIndex = this.slideCount - 1
+    if (index === currentSlideIndex) {
+      if (animation) return `${classNames.animateOut} ${classNames[animation]}`
+      return classNames.current
+    }
+    if (this.slideCount === 2) {
+      if (animation) return `${classNames.animateIn} ${classNames[animation]}`
+      return index < currentSlideIndex ? classNames.previous : classNames.next
+    }
+    if (
+      index === currentSlideIndex - 1 ||
+      (currentSlideIndex === 0 && index === lastSlideIndex)
+    ) {
+      if (animation === PREVIOUS)
+        return `${classNames.animateIn} ${classNames.previous}`
+      if (animation === NEXT) return classNames.hidden
+      return classNames.previous
+    }
+    if (
+      index === currentSlideIndex + 1 ||
+      (index === 0 && currentSlideIndex === lastSlideIndex)
+    ) {
+      if (animation === NEXT)
+        return `${classNames.animateIn} ${classNames.next}`
+      if (animation === PREVIOUS) return classNames.hidden
+      return classNames.next
+    }
+    return classNames.hidden
+  }
 
   handleTouchMove = e => {
     e.preventDefault()
@@ -335,8 +336,11 @@ class Slider extends React.PureComponent {
           onMouseOut: this.handleMouseOut,
         }}
       >
-        <a
+        <a // ESLinter pide usar button en lugar de "a"
           onClick={this.previous}
+          role="button"
+          onKeyPress={this.previous}
+          tabIndex={0}
           className={`${classNames.previousButton}${
             isDisabled || !this.canGoPrevious()
               ? ` ${classNames.buttonDisabled}`
@@ -345,8 +349,11 @@ class Slider extends React.PureComponent {
         >
           {previousButton}
         </a>
-        <a
+        <a // ESLinter pide usar button en lugar de "a"
           onClick={this.next}
+          role="button"
+          onKeyPress={this.next}
+          tabIndex={0}
           className={`${classNames.nextButton}${
             isDisabled || !this.canGoNext()
               ? ` ${classNames.buttonDisabled}`

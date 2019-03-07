@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 // TODO: Verify why can't use customfield in default.jsx with export default customFields
 // eslint-disable-next-line import/prefer-default-export
-export const customFields = PropTypes.shape({
+const customFields = PropTypes.shape({
   content: PropTypes.label.tag({
     name: 'Contenido',
   }),
@@ -66,3 +66,4 @@ export const customFields = PropTypes.shape({
     group: 'Video',
   }),
 })
+export default customFields

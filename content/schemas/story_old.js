@@ -8,7 +8,7 @@ type Headlines {
 type Subheadlines {
  basic: String
 }
-type ByCredits {
+type By {
     type: String
     version: String
     name: String
@@ -17,7 +17,7 @@ type ByCredits {
     description: String
 }
 type Credits {
-    by: [ByCredits]
+    by: [By]
 }
 scalar ResizedUrls
 type AdditionalPropertiesImage {
@@ -35,7 +35,7 @@ type BasicImage {
   width: Int!
   caption: String
   subtitle: String
-  resized_url: ResizedUrls
+  resized_urls: ResizedUrls
   additional_properties: AdditionalPropertiesImage
 }
 type Streams {
@@ -51,6 +51,7 @@ type BasicVideo {
   description: Description
   duration: Int!
   streams: [Streams]
+  type: String
   promo_items: PromoItems
   promo_image: BasicImage
 }
@@ -77,6 +78,7 @@ type ContentElementsGallery {
 type BasicGallery {
   headlines: Headlines
   description: Description
+  type: String
   promo_items: PromoItems
   content_elements: [ContentElementsGallery]
 }
@@ -94,7 +96,7 @@ type Tags {
 type Taxonomy {
     sections: [Sections]
     tags: [Tags]
-    seo_keywords: Array
+    seo_keywords: [String]
 }
 type Sections {
     _id: String!,
@@ -139,4 +141,4 @@ type Query {
  taxonomy: Taxonomy
  websites: Websites!
 }
-`
+`;
