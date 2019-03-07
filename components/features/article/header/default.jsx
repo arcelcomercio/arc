@@ -16,13 +16,15 @@ const classes = {
 class ArticleHeader extends Component {
   render() {
     const {
-      website_url: baseUrl,
-      headlines: title,
-      promo_items: gallery_items,
-    } = this.props.globalContent
+      globalContent: {
+        website_url: baseUrl,
+        headlines: title,
+        promo_items: galleryItems,
+      },
+    } = this.props
     const { content_elements: galleryElements } =
-      gallery_items && typeof gallery_items.basic_gallery !== 'undefined'
-        ? gallery_items.basic_gallery
+      galleryItems && typeof galleryItems.basic_gallery !== 'undefined'
+        ? galleryItems.basic_gallery
         : ''
 
     return (
@@ -40,7 +42,7 @@ class ArticleHeader extends Component {
           {typeof galleryElements === 'undefined' ? (
             ''
           ) : (
-            <Gallery data={gallery_items.basic_gallery} />
+            <Gallery data={galleryItems.basic_gallery} />
           )}
         </div>
       </Fragment>
