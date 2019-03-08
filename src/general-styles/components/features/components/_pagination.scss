@@ -17,9 +17,10 @@ $color-page: #777;
   padding: 3px 7px;
   font-size: 14px;
   text-transform: uppercase;
-  &:hover {
-    text-decoration: underline;
-  }
+}
+
+a.paginacion__page:hover {
+  text-decoration: underline;
 }
 
 .paginacion__page--current {

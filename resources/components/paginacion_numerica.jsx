@@ -34,13 +34,14 @@ export default class Paginacion extends Component {
           ? totalPages - 6
           : adyacentes.pre
 
-    if (init == 1) end = 7
-    else end = adyacentes.pos > totalPages ? totalPages : adyacentes.pos
+    if (init === 1) {
+      end = totalPages > 7 ? 7 : totalPages
+    } else end = adyacentes.pos > totalPages ? totalPages : adyacentes.pos
 
     for (let i = init; i <= end; i++) {
-      if (i == init && init > 2) pages.push('...')
+      if (i === init && init > 2) pages.push('...')
       pages.push(i)
-      if (i == end && end < totalPages - 1) pages.push('...')
+      if (i === end && end < totalPages - 1) pages.push('...')
     }
     this.setState({
       pages,
@@ -48,25 +49,34 @@ export default class Paginacion extends Component {
   }
 
   render() {
-    const { currentPage } = this.props
+    let { currentPage } = this.props
+    currentPage = parseInt(currentPage, 10)
+
     const { pages, totalPages } = this.state
-    const pathOrigin = window.location.pathname.match(/\D+/)
     const querys = window.location.search
 
+    let pathOrigin = window.location.pathname.match(/\D+/)
+    pathOrigin =
+      pathOrigin[0].charAt(pathOrigin[0].length - 1) === '/'
+        ? pathOrigin[0].slice(0, -1)
+        : pathOrigin[0]
+
+    const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
+    const prevPage = currentPage - 1
     return (
       <div className={classes.paginacion}>
         <a
           className={`${classes.page} ${
-            currentPage == 1 || currentPage == 0
+            currentPage === 1 || currentPage === 0
               ? 'paginacion__page--disabled'
               : ''
           }`}
-          href={`${pathOrigin}${currentPage - 1}${querys}`}
+          href={`${pathOrigin}/${prevPage}${querys}`}
         >
           anterior
         </a>
         {currentPage > 4 && (
-          <a className={classes.page} href={`${pathOrigin}1${querys}`}>
+          <a className={classes.page} href={`${pathOrigin}/1${querys}`}>
             1
           </a>
         )}
@@ -76,13 +86,11 @@ export default class Paginacion extends Component {
             tag = (
               <a
                 className={`${classes.page} ${
-                  currentPage == page || (currentPage == 0 && page == 1)
+                  currentPage == page || (currentPage === 0 && page == 1)
                     ? 'paginacion__page--current'
                     : ''
                 }`}
-                href={`${pathOrigin}${
-                  currentPage == 0 ? '/' : ''
-                }${page}${querys}`}
+                href={`${pathOrigin}/${page}${querys}`}
               >
                 {page}
               </a>
@@ -93,7 +101,7 @@ export default class Paginacion extends Component {
         {currentPage < totalPages - 3 && (
           <a
             className={classes.page}
-            href={`${pathOrigin}${totalPages}${querys}`}
+            href={`${pathOrigin}/${totalPages}${querys}`}
           >
             {totalPages}
           </a>
@@ -102,10 +110,7 @@ export default class Paginacion extends Component {
           className={`${classes.page} ${
             currentPage == totalPages ? 'paginacion__page--disabled' : ''
           }`}
-          href={`${pathOrigin}${currentPage == 0 ? '/' : ''}${parseInt(
-            currentPage,
-            10
-          ) + 1}${querys}`}
+          href={`${pathOrigin}/${nextPage}${querys}`}
         >
           siguiente
         </a>
