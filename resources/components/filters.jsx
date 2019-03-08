@@ -8,17 +8,24 @@ class Filter extends Component {
     this.state = {
       query: '',
       sort: '',
-      sections: [],
+      sections: '',
     }
 
     this.handleChangeSearch = this.handleChangeSearch.bind(this)
     this.handleChangeRadio = this.handleChangeRadio.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
 
-    this.fetch()
+    this.fetchSections()
   }
 
-  fetch() {
+  castingData(data) {
+    const aux = []
+    data.forEach(el => {
+      const d = {}
+    })
+  }
+
+  fetchSections() {
     const { arcSite } = this.props
 
     const source = 'section'
@@ -26,17 +33,18 @@ class Filter extends Component {
       website: arcSite,
     }
     const schema = `{
-      q_results 
+      q_results {
+        _id
+        name
+      }
     }`
     const { fetched } = this.getContent(source, params, schema)
-    const self = this
     fetched
       .then(response => {
         console.log(response)
-        self.setState({ sections: response })
-        /*if (response && response.q_results.length > 0) {
-          this.castingData(response.q_results)t
-        } else this.setDataTest()*/
+        if (response && response.q_results.length > 0) {
+          this.castingData(response.q_results)
+        } else this.setDataTest()
       })
       .catch(error => {
         console.log(error)
@@ -54,6 +62,7 @@ class Filter extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
+    console.log(this.props)
     const { website } = this.props
     const { query, sort } = this.state
     const { origin, pathname } = window.location
@@ -97,5 +106,4 @@ class Filter extends Component {
     )
   }
 }
-
 export default Filter
