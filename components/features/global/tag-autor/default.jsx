@@ -9,7 +9,7 @@ class tagAutor extends Component {
   constructor(props) {
     super(props)
     this.renderCount = 0
-    console.log(props)
+    console.dir(props)
   }
 
   render() {
@@ -23,9 +23,17 @@ class tagAutor extends Component {
       <Fragment>
         <CardNotice {...params} />
         <Paginacion
-          totalElements={globalContent.count}
-          totalViews={globalContentConfig.query.amountStories}
-          currentPage={globalContentConfig.query.currentNumPage || 1}
+          totalElements={globalContent.count || 0}
+          totalViews={
+            (globalContentConfig.query &&
+              globalContentConfig.query.amountStories) ||
+            0
+          }
+          currentPage={
+            (globalContentConfig.query &&
+              globalContentConfig.query.currentNumPage) ||
+            1
+          }
         />
       </Fragment>
     )
