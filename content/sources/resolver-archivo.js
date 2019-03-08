@@ -19,16 +19,16 @@ const resolve = key => {
   if (!key.website) {
     throw new Error('This content source requires a website')
   }
-  if (!key.fullPath) {
+  /* if (!key.fullPath) {
     throw new Error('This content source requires a fullPath')
-  }
+  } */
 
   // /archivo/seccion/18-09     ["", "archivo", "seccion", "18-09"]
-  const auxValues = key.fullPath.split('/')
+  // const auxValues = key.fullPath.split('/')
   const params = {
-    page: auxValues[1],
-    section: auxValues[2] ? auxValues[2] : '',
-    date: auxValues[3] ? auxValues[3] : '',
+    // page: auxValues[1],
+    section: key.section ? key.section : 'todas',
+    date: key.date ? key.date : getActualDate(),
   }
   globalParams = params
 
@@ -44,12 +44,8 @@ const resolve = key => {
           {
             range: {
               publish_date: {
-                gte: `${
-                  params.date ? params.date : getActualDate()
-                }T00:00:00-05:00`, // 2019-03-05T00:00:00-05:00
-                lte: `${
-                  params.date ? params.date : getActualDate()
-                }T23:59:59-05:00`, // 2019-03-06T00:00:00-05:00
+                gte: `${params.date}T00:00:00-05:00`, // 2019-03-05T00:00:00-05:00
+                lte: `${params.date}T23:59:59-05:00`, // 2019-03-06T00:00:00-05:00
               },
             },
           },
@@ -92,6 +88,8 @@ export default {
   transform,
   params: {
     website: 'text',
-    fullPath: 'text',
+    // fullPath: 'text',
+    section: 'text',
+    date: 'text',
   },
 }
