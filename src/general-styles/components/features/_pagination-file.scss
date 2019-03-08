@@ -1,0 +1,34 @@
+.pagination-file{
+	width: 100%;
+	margin-bottom: 50px;
+	&__list{
+		display: flex;
+		justify-content: center;
+	}
+	&__item{
+		margin: 0 5px;
+		&:hover{
+			.pagination-file__link{
+				text-decoration: underline;
+			}
+		}
+		&.active{
+			cursor: initial;
+			.pagination-file__link{
+				background-color:#383232;				
+				color: #FFF;
+				text-decoration: none;
+			}
+		}
+	}
+	&__link{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 6px 12px;
+		color: #7d7d7d;
+		text-transform: uppercase;
+		font-size: 14px;
+		font-weight: 600;
+	}
+}
