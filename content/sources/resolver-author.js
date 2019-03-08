@@ -2,8 +2,8 @@ const resolve = key => {
   if (!key.website) {
     throw new Error('This content source requires a website')
   }
-  if (!key.author) {
-    throw new Error('This content source requires an author')
+  if (!key.name) {
+    throw new Error('This content source requires a name')
   }
   if (!key.page) {
     throw new Error('This content source requires a page')
@@ -42,6 +42,21 @@ const resolve = key => {
     },
   }
 
+  if (key.page === 'autor') {
+    body.query.bool.must.push({
+      term: {
+        'credits.by._id': key.name, // patricia-del-rio
+      },
+    })
+  }
+  if (key.page === 'noticias') {
+    body.query.bool.must.push({
+      term: {
+        'taxonomy.tags.slug': key.name,
+      },
+    })
+  }
+
   const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${
     key.website
   }&from=${validateFrom()}&size=${key.amountStories}&body=${JSON.stringify(
@@ -57,7 +72,7 @@ export default {
   params: {
     page: 'text',
     website: 'text',
-    author: 'text',
+    name: 'text',
     currentNumPage: 'number',
     amountStories: 'number',
   },
