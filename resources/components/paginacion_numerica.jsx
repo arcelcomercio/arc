@@ -22,7 +22,7 @@ export default class Paginacion extends Component {
 
     const adyacentes = {
       pre: currentPage - 3,
-      pos: parseInt(currentPage) + 3,
+      pos: parseInt(currentPage, 10) + 3,
     }
     let init = 0
     let end = 0
@@ -45,7 +45,6 @@ export default class Paginacion extends Component {
     this.setState({
       pages,
     })
-    //console.log(currentPage, init, end, adyacentes, pages, totalPages)
   }
 
   render() {
@@ -101,7 +100,7 @@ export default class Paginacion extends Component {
           className={`${classes.page} ${
             currentPage == totalPages ? 'paginacion__page--disabled' : ''
           }`}
-          href={`${pathOrigin}${parseInt(currentPage) + 1}${querys}`}
+          href={`${pathOrigin}${parseInt(currentPage, 10) + 1}${querys}`}
         >
           siguiente
         </a>
