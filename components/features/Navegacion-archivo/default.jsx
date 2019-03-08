@@ -73,19 +73,26 @@ class RenderPagination extends Component {
 	}
 
 	// Obtener la fecha del path o devolver vacio
-	getDateURL() {
+	getURL() {
 		const regEx = /^\d{4}-\d{2}-\d{2}$/
-		const path = window.location.pathname
-		const lastPath = path.slice(path.lastIndexOf('/') + 1)
-		if (lastPath.match(regEx)) {
-			return lastPath
+		const fullpath = window.location.pathname
+		const date = fullpath.slice(fullpath.lastIndexOf('/') + 1)
+		const path = fullpath.slice(0, fullpath.lastIndexOf('/'))
+		if (date.match(regEx)) {
+			return {
+				date,
+				path 
+			}
 		}
-		return ''
+		return {
+			date: '',
+			path
+		}
 	}
 
 	// Si Hay en el path una fecha, la pasa como parametro a la funcion, si no se ejecuta la acutal
 	evalDate() {
-		const dateTest = this.getDateURL()
+		const dateTest = this.getURL().date
 		if (dateTest && dateTest !== '') {
 			return this.getFiveDays(dateTest)
 		}
@@ -113,21 +120,21 @@ class RenderPagination extends Component {
 			<div className="pagination-file">
 				<ul className="pagination-file__list">
 					<li className="pagination-file__item">
-						<a className="pagination-file__link" href={`/archivo/${this.getLastDay().concat(this.getQueryURL())}`}>Anterior</a>
+						<a className="pagination-file__link" href={`${this.getURL().path}/${this.getLastDay().concat(this.getQueryURL())}`}>Anterior</a>
 					</li>
 					{dateIterator.map((el, index) => {
 						return <li key={index} className={`pagination-file__item ${index === dateIterator.length - 1 ? 'active' : ''}`}>
 							{
 								index === dateIterator.length - 1
 									? <p className="pagination-file__link">{this.clearDate(el)}</p>
-									: <a className="pagination-file__link" href={`/archivo/${el.concat(this.getQueryURL())}`}>{this.clearDate(el)}</a>
+									: <a className="pagination-file__link" href={`${this.getURL().path}/${el.concat(this.getQueryURL())}`}>{this.clearDate(el)}</a>
 							}
 
 						</li>
 					})}
-					{this.getDateURL() !== ''
+					{this.getURL().date !== ''
 						? (<li className="pagination-file__item">
-							<a className="pagination-file__link" href={`/archivo/${this.getnextDay().concat(this.getQueryURL())}`}>Siguiente</a>
+							<a className="pagination-file__link" href={`${this.getURL().path}/${this.getnextDay().concat(this.getQueryURL())}`}>Siguiente</a>
 						</li>) : ''}
 				</ul>
 			</div>
