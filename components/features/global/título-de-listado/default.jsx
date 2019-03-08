@@ -74,7 +74,7 @@ class ListTitle extends Component {
   }
 
   setSearchTitle = uri => {
-    const aux = uri.match(/(?<=\?query=).*(?=&|\/)/)[0].split('+')
+    const aux = uri.match(/(\?query=)(.*(?=&|[/])|.*)/)[2].split('+')
     const search =
       aux.length > 1 ? aux.map(item => ` ${item.toUpperCase()}`) : aux
     return `ESTOS SON LOS RESULTADOS PARA: ${search.join(' ')}`
