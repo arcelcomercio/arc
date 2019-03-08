@@ -1,3 +1,5 @@
+let globalParams = {}
+
 const getActualDate = () => {
   const today = new Date()
   let dd = today.getDate()
@@ -14,6 +16,13 @@ const getActualDate = () => {
 }
 
 const resolve = key => {
+  if (!key.website) {
+    throw new Error('This content source requires a website')
+  }
+  if (!key.fullPath) {
+    throw new Error('This content source requires a fullPath')
+  }
+
   // /archivo/seccion/18-09     ["", "archivo", "seccion", "18-09"]
   const auxValues = key.fullPath.split('/')
   const params = {
@@ -21,12 +30,8 @@ const resolve = key => {
     section: auxValues[2] ? auxValues[2] : '',
     date: auxValues[3] ? auxValues[3] : '',
   }
-  if (!key.website) {
-    throw new Error('This content source requires a website')
-  }
-  if (!key.startDate || !key.finalDate) {
-    throw new Error('This content source requires a start date and final date')
-  }
+  globalParams = params
+
   const body = {
     query: {
       bool: {
@@ -73,11 +78,20 @@ const resolve = key => {
   return requestUri
 }
 
+const transform = data => {
+  const aux = {
+    ...data,
+    params: globalParams,
+  }
+  return aux
+}
+
 export default {
   resolve,
   schemaName: 'stories',
+  transform,
   params: {
+    website: 'text',
     fullPath: 'text',
-    website: ' text',
   },
 }
