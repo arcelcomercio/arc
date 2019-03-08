@@ -74,8 +74,21 @@ class DataStory {
     )
   }
 
+  // TODO: Cambiar la fecha a lo que se estandarice 
+  get date() {
+    return this.publishDate
+  }
+
   get displayDate() {
     return this._data && this._data.display_date || ''
+  }
+
+  get publishDate() {
+    return this._data && this._data.publish_date || ''
+  }
+
+  get firstPublishDate() {
+    return this._data && this._data.first_publish_date || ''
   }
 
   static getDataSection(data, website) {
