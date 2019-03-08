@@ -80,7 +80,9 @@ export default class Paginacion extends Component {
                     ? 'paginacion__page--current'
                     : ''
                 }`}
-                href={`${pathOrigin}${page}${querys}`}
+                href={`${pathOrigin}${
+                  currentPage == 0 ? '/' : ''
+                }${page}${querys}`}
               >
                 {page}
               </a>
@@ -100,7 +102,10 @@ export default class Paginacion extends Component {
           className={`${classes.page} ${
             currentPage == totalPages ? 'paginacion__page--disabled' : ''
           }`}
-          href={`${pathOrigin}${parseInt(currentPage, 10) + 1}${querys}`}
+          href={`${pathOrigin}${currentPage == 0 ? '/' : ''}${parseInt(
+            currentPage,
+            10
+          ) + 1}${querys}`}
         >
           siguiente
         </a>
