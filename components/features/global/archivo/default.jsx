@@ -20,17 +20,18 @@ class Archivo extends Component {
     const {
       globalContent: { content_elements: contentElements },
       arcSite,
-      globalContentConfig: {
-        query: { section, date },
-      },
+      globalContentConfig,
     } = this.props
-
+    const { query } = globalContentConfig || {}
+    const { section, date } = query || {}
     const params = {
       data: contentElements || [],
       arcSite,
     }
-    const sectionPag = section === '' ? this.SECTION_DEFAULT : section
-    const datePag = date === '' ? getActualDate() : date
+    const sectionPag =
+      section === undefined || section === '' ? this.SECTION_DEFAULT : section
+    const datePag = date === undefined || date === '' ? getActualDate() : date
+    
     return (
       <Fragment>
         <CardNotice {...params} />
