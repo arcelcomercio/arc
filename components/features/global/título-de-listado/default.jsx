@@ -69,9 +69,10 @@ class ListTitle extends Component {
     }
 
     // Setting correct Date format to new Date()
-    const [y, m, d] = date.split('-')
-    date = [m, d, y].join('-')
+    // const [y, m, d] = date.split('-')
+    // date = [m, d, y].join('-')
 
+    // NOTE: Usar librería como "moment" o "luxon"
     const dateObj = new Date(date)
     const days = [
       'Domingo',
@@ -98,10 +99,10 @@ class ListTitle extends Component {
     ]
 
     return `ARCHIVO, ${days[
-      dateObj.getDay()
-    ].toUpperCase()} ${dateObj.getDate()} DE ${months[
-      dateObj.getMonth()
-    ].toUpperCase()} DEL ${dateObj.getFullYear()}`
+      dateObj.getUTCDay()
+    ].toUpperCase()} ${dateObj.getUTCDate()} DE ${months[
+      dateObj.getUTCMonth()
+    ].toUpperCase()} DEL ${dateObj.getUTCFullYear()}`
   }
 
   setTagTitle = () => {
