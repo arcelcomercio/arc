@@ -2,34 +2,40 @@ import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import CardNotice from './../../../../resources/components/listado-noticias'
-import RenderPagination from './../../Navegacion-archivo/default'
+import Paginacion from '../../../../resources/components/paginacion_numerica'
 
 @Consumer
-class Archivo extends Component {
+class Buscar extends Component {
 	constructor(props) {
 		super(props)
 		this.renderCount = 0
+		console.dir(props)
 	}
 
 	render() {
-		const {
-			globalContent: { content_elements: contentElements },
-			arcSite,
-		} = this.props
+		const { globalContent, globalContentConfig, arcSite } = this.props
 
 		const params = {
-			data: contentElements || [],
+			data: globalContent.content_elements || [],
 			arcSite,
 		}
 		return <Fragment>
 			<CardNotice {...params} />
-			<RenderPagination />
+			<Paginacion
+				totalElements={globalContent.count || 0}
+				totalViews={
+					(globalContentConfig.query &&
+						globalContentConfig.query.size) ||
+					0
+				}
+				currentPage={
+					(globalContentConfig.query &&
+						globalContentConfig.query.from) ||
+					1
+				}
+			/>
 		</Fragment>
 	}
 }
 
-Archivo.propTypes = {
-	globalContent: PropTypes.object,
-}
-
-export default Archivo
+export default Buscar

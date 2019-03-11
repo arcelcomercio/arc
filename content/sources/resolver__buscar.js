@@ -6,10 +6,17 @@ const resolve = key => {
 	// 	throw new Error('This content source requires a start date and final date')
 	// }
 
+	const validateFrom = () => {
+		if (key.from !== '1' && key.from) {
+			return (key.from - 1) * key.size
+		}
+		return '0'
+	}
+
 	const website = `website=${key.website || 'elcomercio'}`
 	const sort = `sort=publish_date:${key.sort || 'desc'}`
-	const from = `from=${key.from || 0}`
-	const size = `size=${3}`
+	const from = `from=${validateFrom()}`
+	const size = `size=${key.size || 3}`
 	// const page = `page=${'1'}`
 	const valueQuery = key.query || '*'
 
@@ -69,6 +76,7 @@ export default {
 		sort: 'text',
 		from: 'number',
 		section: 'text',
+		size: 'number',
 		query: 'text'
 		// date_from: 'text',
 		// date_to: 'text',

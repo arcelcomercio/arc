@@ -8,8 +8,6 @@ import Paginacion from '../../../../resources/components/paginacion_numerica'
 class tagAutor extends Component {
   constructor(props) {
     super(props)
-    this.renderCount = 0
-    console.dir(props)
   }
 
   render() {
