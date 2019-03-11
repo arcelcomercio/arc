@@ -111,7 +111,12 @@ class ListTitle extends Component {
       },
     } = this.props
 
-    return tags.map(({ slug, text }) => tag === slug && text.toUpperCase())[2]
+    let title
+    tags.forEach(({ slug, text }) => {
+      if (tag === slug) title = text.toUpperCase()
+    })
+
+    return title
   }
 
   setAuthorTitle = () => {
