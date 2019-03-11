@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { GetMultimediaContent } from './../../../../resources/utilsJs/utilities'
+import { GetMultimediaContent } from '../../../../resources/utilsJs/utilities'
 
 const classes = {
   lista: 'List',
@@ -56,7 +56,7 @@ const ImageNews = ({ urlNews, promo_items: promoItems }) => {
   const imagen = promoItems.basic ? promoItems.basic.url || '' : ''
   const multimedia = GetMultimediaContent(promoItems)
   const { url, medio } = multimedia
-  
+
   return (
     <figure>
       {medio === 'video' && <span>&#8227;</span>}
