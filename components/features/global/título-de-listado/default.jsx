@@ -15,38 +15,45 @@ class ListTitle extends Component {
   }
 
   componentDidMount() {
-    const {
-      globalContentConfig: {
-        query: { page },
-      },
-    } = this.props
-    switch (page) {
-      case 'archivo': {
-        this.setState({
-          title: this.setArchivoTitle(),
-        })
-        break
+    const { isAdmin } = this.props
+    if (isAdmin) {
+      this.setState({
+        title: 'EL TÍTULO SÓLO SE MOSTRARÁ EN LA PÁGINA PUBLICADA',
+      })
+    } else {
+      const {
+        globalContentConfig: {
+          query: { page },
+        },
+      } = this.props
+      switch (page) {
+        case 'archivo': {
+          this.setState({
+            title: this.setArchivoTitle(),
+          })
+          break
+        }
+        case 'noticias': {
+          this.setState({
+            title: this.setTagTitle(),
+          })
+          break
+        }
+        case 'autor': {
+          this.setState({
+            title: this.setAuthorTitle(),
+          })
+          break
+        }
+        case 'buscar': {
+          this.setState({
+            title: this.setSearchTitle(),
+          })
+          break
+        }
+        default:
+          break
       }
-      case 'noticias': {
-        this.setState({
-          title: this.setTagTitle(),
-        })
-        break
-      }
-      case 'autor': {
-        this.setState({
-          title: this.setAuthorTitle(),
-        })
-        break
-      }
-      case 'buscar': {
-        this.setState({
-          title: this.setSearchTitle(),
-        })
-        break
-      }
-      default:
-        break
     }
   }
 
