@@ -15,43 +15,50 @@ class ListTitle extends Component {
   }
 
   componentDidMount() {
-    const {
-      globalContentConfig: {
-        query: { page },
-      },
-    } = this.props
-    switch (page) {
-      case 'archivo': {
-        this.setState({
-          title: this.setArchivoTitle(),
-        })
-        break
+    const { isAdmin } = this.props
+    if (isAdmin) {
+      this.setState({
+        title: 'EL TÍTULO SÓLO SE MOSTRARÁ EN LA PÁGINA PUBLICADA',
+      })
+    } else {
+      const {
+        globalContentConfig: {
+          query: { page },
+        },
+      } = this.props
+      switch (page) {
+        case 'archivo': {
+          this.setState({
+            title: this.setArchivoTitle(),
+          })
+          break
+        }
+        case 'noticias': {
+          this.setState({
+            title: this.setTagTitle(),
+          })
+          break
+        }
+        case 'autor': {
+          this.setState({
+            title: this.setAuthorTitle(),
+          })
+          break
+        }
+        case 'buscar': {
+          this.setState({
+            title: this.setSearchTitle(),
+          })
+          break
+        }
+        default:
+          break
       }
-      case 'noticias': {
-        this.setState({
-          title: this.setTagTitle(),
-        })
-        break
-      }
-      case 'autor': {
-        this.setState({
-          title: this.setAuthorTitle(),
-        })
-        break
-      }
-      case 'buscar': {
-        this.setState({
-          title: this.setSearchTitle(),
-        })
-        break
-      }
-      default:
-        break
     }
   }
 
   setArchivoTitle = () => {
-    let {
+    const {
       globalContentConfig: {
         query: { date },
       },
@@ -61,10 +68,7 @@ class ListTitle extends Component {
       return 'ÚLTIMO MINUTO'
     }
 
-    // Setting correct Date format to new Date()
-    const [y, m, d] = date.split('-')
-    date = [m, d, y].join('-')
-
+    // NOTE: Usar librería como "moment" o "luxon"
     const dateObj = new Date(date)
     const days = [
       'Domingo',
@@ -91,10 +95,10 @@ class ListTitle extends Component {
     ]
 
     return `ARCHIVO, ${days[
-      dateObj.getDay()
-    ].toUpperCase()} ${dateObj.getDate()} DE ${months[
-      dateObj.getMonth()
-    ].toUpperCase()} DEL ${dateObj.getFullYear()}`
+      dateObj.getUTCDay()
+    ].toUpperCase()} ${dateObj.getUTCDate()} DE ${months[
+      dateObj.getUTCMonth()
+    ].toUpperCase()} DEL ${dateObj.getUTCFullYear()}`
   }
 
   setTagTitle = () => {
