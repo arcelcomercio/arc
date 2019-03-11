@@ -33,7 +33,7 @@ class CardNotice extends Component {
                   {element.section}
                 </a>
                 <p className="card-notice__date">
-                  {formatDate(element.displayDate)}
+                  {formatDate(element.date)}
                 </p>
               </div>
               <div className="card-notice__bottom">

@@ -1,5 +1,8 @@
+import { getActualDate } from "../../resources/utilsJs/helpers"
+
 let globalParams = {}
 
+/*
 const getActualDate = () => {
   const today = new Date()
   let dd = today.getDate()
@@ -14,6 +17,7 @@ const getActualDate = () => {
   }
   return `${yyyy}-${mm}-${dd}`
 }
+*/
 
 const resolve = key => {
   if (!key.website) {
