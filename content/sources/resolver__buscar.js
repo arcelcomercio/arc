@@ -9,7 +9,7 @@ const resolve = key => {
 	const website = `website=${key.website || 'elcomercio'}`
 	const sort = `sort=publish_date:${key.sort || 'desc'}`
 	const from = `from=${key.from || 0}`
-	const size = `size=${50}`
+	const size = `size=${3}`
 	// const page = `page=${'1'}`
 	const valueQuery = key.query || '*'
 
@@ -67,6 +67,7 @@ export default {
 	params: {
 		website: 'text',
 		sort: 'text',
+		from: 'number',
 		section: 'text',
 		query: 'text'
 		// date_from: 'text',
