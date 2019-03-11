@@ -1,7 +1,8 @@
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import { isTablet, isMobileOnly } from 'react-device-detect'
+
+import { GetMultimediaContent } from './../../../../resources/utilsJs/utilities'
 
 const classes = {
   separator: 'separator',
@@ -11,24 +12,29 @@ const classes = {
   item: 'separator__item',
   detail: 'separator__detail',
   separatorTitle: 'separator__title',
+  mvideo: 'separator--video',
 }
 
 const SeparatorItem = ({
   headlines,
-  promo_items: promoItems,
-  website_url: websiteUrl,
+  urlImage,
+  website_url,
+  medio,
 }) => {
+  debugger
   return (
     <article className={classes.item}>
+      {medio === 'video' && <span>&#8227;</span>}
+      {medio === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
         <h2 className={classes.separatorTitle}>
-          <a href={websiteUrl}>{headlines}</a>
+          <a href={website_url}>{headlines}</a>
         </h2>
       </div>
       <figure>
-        {websiteUrl && (
-          <a href={websiteUrl}>
-            <img src={promoItems} alt="" />
+        {website_url && (
+          <a href={website_url}>
+            <img src={urlImage} alt="" />
           </a>
         )}
       </figure>
@@ -38,17 +44,21 @@ const SeparatorItem = ({
 const SeparatorListItem = ({ data }) => {
   const result = data.map(
     ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
-      let imagen = null
-      if (promoItems) {
-        imagen = promoItems.basic && (promoItems.basic.url || null)
+      let multimedia = null
+
+      if (promoItems !== null) {
+        multimedia = GetMultimediaContent(promoItems)
       }
+
+      const { url, medio } = multimedia
 
       return (
         <SeparatorItem
           key={websiteUrl}
           headlines={headlines.basic}
-          promo_items={imagen}
+          urlImage={url}
           website_url={websiteUrl}
+          medio={medio}
         />
       )
     }
@@ -56,15 +66,7 @@ const SeparatorListItem = ({ data }) => {
   return result
 }
 
-const HeaderTitulo = ({ titleSeparator, titleLink }) => {
-  return (
-    <Fragment>
-      <h1 className={classes.title}>
-        <a href={titleLink}>{titleSeparator}</a>
-      </h1>
-    </Fragment>
-  )
-}
+
 const createMarkup = html => {
   return { __html: html }
 }
@@ -78,6 +80,7 @@ const HeaderHTML = ({ htmlCode }) => {
     />
   )
 }
+
 @Consumer
 class Separador extends Component {
   constructor(props) {
@@ -191,7 +194,26 @@ class Separador extends Component {
         canonical_url
         website_url
         promo_items{
-          basic{
+          basic_video {
+            type
+            promo_items {
+              basic {
+                type 
+                url
+              }
+            }
+          }
+          basic_gallery {
+            type 
+            promo_items {
+              basic {
+                type 
+                url
+              }
+            }
+          }
+          basic {
+            type 
             url
           }
         }
@@ -209,7 +231,9 @@ class Separador extends Component {
     return (
       <div className={classes.separator}>
         {titleSeparator ? (
-          <HeaderTitulo titleSeparator={titleSeparator} titleLink={titleLink} />
+          <h1 className={classes.title}>
+            <a href={titleLink}>{titleSeparator}</a>
+          </h1>
         ) : (
           <HeaderHTML htmlCode={htmlCode} />
         )}
