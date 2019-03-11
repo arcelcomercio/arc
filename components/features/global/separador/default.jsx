@@ -15,12 +15,7 @@ const classes = {
   mvideo: 'separator--video',
 }
 
-const SeparatorItem = ({
-  headlines,
-  urlImage,
-  website_url,
-  medio,
-}) => {
+const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
   debugger
   return (
     <article className={classes.item}>
@@ -41,7 +36,10 @@ const SeparatorItem = ({
     </article>
   )
 }
+
 const SeparatorListItem = ({ data }) => {
+  console.log('separator listItem')
+  console.log(data)
   const result = data.map(
     ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
       let multimedia = null
@@ -66,6 +64,15 @@ const SeparatorListItem = ({ data }) => {
   return result
 }
 
+// const HeaderTitulo = ({ titleSeparator, titleLink }) => {
+//   return (
+//     <Fragment>
+//       <h1 className={classes.title}>
+//         <a href={titleLink}>{titleSeparator}</a>
+//       </h1>
+//     </Fragment>
+//   )
+// }
 
 const createMarkup = html => {
   return { __html: html }
