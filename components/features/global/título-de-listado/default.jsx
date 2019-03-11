@@ -7,86 +7,163 @@ const classes = {
 
 @Consumer
 class ListTitle extends Component {
-  setPageType = uri => {
-    let title
-    switch (uri.split('/')[1]) {
-      case 'archivo':
-        title = this.setArchivoTitle(uri)
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: 'CARGANDO...',
+    }
+  }
+
+  componentDidMount() {
+    const {
+      globalContentConfig: {
+        query: { page },
+      },
+    } = this.props
+    switch (page) {
+      case 'archivo': {
+        // Funciona
+        this.setState({
+          title: this.setArchivoTitle(),
+        })
         break
-      case 'autor':
-        title = this.setAutorOrTagTitle(uri)
+      }
+      case 'noticias': {
+        // Probar
+        this.setState({
+          title: this.setTagTitle(),
+        })
         break
-      case 'noticias':
-        title = this.setAutorOrTagTitle(uri)
+      }
+      case 'autor': {
+        // Probar
+        this.setState({
+          title: this.setAuthorTitle(),
+        })
         break
-      case 'buscar':
-        title = this.setSearchTitle(uri)
+      }
+      case 'buscar': {
+        // Probar
+        this.setState({
+          title: this.setSearchTitle(),
+        })
         break
+      }
       default:
         break
     }
-
-    return title
   }
 
-  setArchivoTitle = uri => {
-    let archivoTitle
-    if (!uri.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) archivoTitle = 'ÚLTIMO MINUTO'
-    else {
-      const date = new Date(uri.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/))
-      const days = [
-        'Domingo',
-        'Lunes',
-        'Martes',
-        'Miércoles',
-        'Jueves',
-        'Viernes',
-        'Sábado',
-      ]
-      const months = [
-        'Enero',
-        'Febrero',
-        'Marzo',
-        'Abril',
-        'Mayo',
-        'Junio',
-        'Julio',
-        'Agosto',
-        'Septiembre',
-        'Octubre',
-        'Noviembre',
-        'Diciembre',
-      ]
-      archivoTitle = `ARCHIVO, ${days[
-        date.getDay()
-      ].toUpperCase()} ${date.getMonth()} DE ${months[
-        date.getMonth()
-      ].toUpperCase()} DEL ${date.getFullYear()}`
+  setArchivoTitle = () => {
+    let {
+      globalContentConfig: {
+        query: { date },
+      },
+    } = this.props
+
+    if (!date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
+      return 'ÚLTIMO MINUTO'
     }
-    return archivoTitle
+
+    // Setting correct Date format to new Date()
+    const [y, m, d] = date.split('-')
+    date = [m, d, y].join('-')
+
+    const dateObj = new Date(date)
+    const days = [
+      'Domingo',
+      'Lunes',
+      'Martes',
+      'Miércoles',
+      'Jueves',
+      'Viernes',
+      'Sábado',
+    ]
+    const months = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ]
+
+    return `ARCHIVO, ${days[
+      dateObj.getDay()
+    ].toUpperCase()} ${dateObj.getDate()} DE ${months[
+      dateObj.getMonth()
+    ].toUpperCase()} DEL ${dateObj.getFullYear()}`
   }
 
-  setAutorOrTagTitle = uri => {
-    const aux = uri.split('/')[2].split('-')
+  setTagTitle = () => {
+    const {
+      globalContent: {
+        content_elements: [
+          {
+            taxonomy: {
+              tags: [{ text, slug }],
+            },
+          },
+        ],
+      },
+      globalContentConfig: {
+        query: { tag },
+      },
+    } = this.props
+
+    return tag === slug && text.toUpperCase()
+  }
+
+  setAuthorTitle = () => {
+    const {
+      globalContent: {
+        content_elements: [
+          {
+            credits: {
+              by: [{ name, org }],
+            },
+          },
+        ],
+      },
+    } = this.props
+
+    return `${name.toUpperCase} ${org && `DE ${org}`}`
+  }
+
+  setAutorOrTagTitle = key => {
+    const aux = key.split('-')
     const title =
       aux.length > 1 ? aux.map(item => ` ${item.toUpperCase()}`) : aux
     return title.join(' ')
   }
 
-  setSearchTitle = uri => {
-    const aux = uri.match(/(\?query=)(.*(?=&|[/])|.*)/)[2].split('+')
+  setSearchTitle = () => {
+    const {
+      globalContentConfig: {
+        query: { uri },
+      },
+    } = this.props
+
     const search =
-      aux.length > 1 ? aux.map(item => ` ${item.toUpperCase()}`) : aux
-    return `ESTOS SON LOS RESULTADOS PARA: ${search.join(' ')}`
+      uri !== '' && uri.match(/(\?query=)(.*(?=&|[/])|.*)/)[2].replace('+', ' ')
+    return `ESTOS SON LOS RESULTADOS PARA: ${search.toUpperCase()}`
   }
 
   render() {
-    const { isAdmin, requestUri } = this.props
+    const { isAdmin } = this.props
+    const { title } = this.state
+
+    console.log(title)
+
     return (
       <h1 className={classes.title}>
-        {isAdmin
-          ? 'ESTE TEXTO SÓLO FUNCIONARÁ EN LA PÁGINA PUBLICADA'
-          : this.setPageType(requestUri)}
+        {isAdmin ? 'ESTE TEXTO SÓLO SE MOSTRARÁ EN LA PÁGINA PUBLICADA' : title}
       </h1>
     )
   }
