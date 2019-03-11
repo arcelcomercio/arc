@@ -9,6 +9,7 @@ class Filter extends Component {
       query: '',
       sort: '',
       sections: '',
+      isSection: false,
     }
 
     this.handleChangeSearch = this.handleChangeSearch.bind(this)
@@ -18,22 +19,16 @@ class Filter extends Component {
     this.fetchSections()
   }
 
-  castingData(data) {
-    const aux = []
-    data.forEach(el => {
-      const d = {}
-    })
-  }
-
   fetchSections() {
     const { arcSite } = this.props
 
-    const source = 'section'
+    const source = 'navigation__by-hierarchy'
     const params = {
       website: arcSite,
+      hierarchy: 'filter-section',
     }
     const schema = `{
-      q_results {
+      children {
         _id
         name
       }
@@ -42,13 +37,12 @@ class Filter extends Component {
     fetched
       .then(response => {
         console.log(response)
-        if (response && response.q_results.length > 0) {
-          this.castingData(response.q_results)
-        } else this.setDataTest()
+        if (response && response.children.length > 0) {
+          this.setState({ sections: response.children })
+        }
       })
       .catch(error => {
         console.log(error)
-        //this.setDataTest()
       })
   }
 
@@ -57,7 +51,11 @@ class Filter extends Component {
   }
 
   handleChangeRadio(evt) {
-    this.setState({ sort: evt.target.value })
+    const valueRadio = evt.target.value
+    if (valueRadio !== 'section') {
+      this.setState({ sort: evt.target.value })
+      this.setState({ isSection: false })
+    } else this.setState({ isSection: true })
   }
 
   handleSubmit(evt) {
@@ -70,7 +68,7 @@ class Filter extends Component {
   }
 
   render() {
-    const { sort } = this.state
+    const { sort, sections, isSection } = this.state
     return (
       <div>
         <input
@@ -91,6 +89,15 @@ class Filter extends Component {
           onChange={this.handleChangeRadio}
         />
         <label>Menos Reciente</label>
+        <input
+          type="radio"
+          name="filter"
+          id=""
+          value="section"
+          onChange={this.handleChangeRadio}
+        />
+        <label>Sección</label>
+
         <form action="" onSubmit={this.handleSubmit}>
           <input
             type="search"
