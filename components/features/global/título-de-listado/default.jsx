@@ -58,7 +58,7 @@ class ListTitle extends Component {
   }
 
   setArchivoTitle = () => {
-    let {
+    const {
       globalContentConfig: {
         query: { date },
       },
@@ -67,10 +67,6 @@ class ListTitle extends Component {
     if (!date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
       return 'ÚLTIMO MINUTO'
     }
-
-    // Setting correct Date format to new Date()
-    // const [y, m, d] = date.split('-')
-    // date = [m, d, y].join('-')
 
     // NOTE: Usar librería como "moment" o "luxon"
     const dateObj = new Date(date)
