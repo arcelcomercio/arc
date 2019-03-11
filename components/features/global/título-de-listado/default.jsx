@@ -29,14 +29,15 @@ class ListTitle extends Component {
         break
       }
       case 'noticias': {
-        // Probar
+        // Tag
+        // Solucionando
         this.setState({
           title: this.setTagTitle(),
         })
         break
       }
       case 'autor': {
-        // Probar
+        // Funciona
         this.setState({
           title: this.setAuthorTitle(),
         })
@@ -106,9 +107,7 @@ class ListTitle extends Component {
       globalContent: {
         content_elements: [
           {
-            taxonomy: {
-              tags: [{ text, slug }],
-            },
+            taxonomy: { tags },
           },
         ],
       },
@@ -117,7 +116,7 @@ class ListTitle extends Component {
       },
     } = this.props
 
-    return tag === slug && text.toUpperCase()
+    return tags.find(({ slug, text }) => tag === slug && text)
   }
 
   setAuthorTitle = () => {
@@ -133,7 +132,7 @@ class ListTitle extends Component {
       },
     } = this.props
 
-    return `${name.toUpperCase} ${org && `DE ${org}`}`
+    return `${name.toUpperCase()} ${org && `DE ${org.toUpperCase()}`}`
   }
 
   setAutorOrTagTitle = key => {
