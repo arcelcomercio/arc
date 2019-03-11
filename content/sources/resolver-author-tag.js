@@ -32,11 +32,6 @@ const resolve = key => {
               'revision.published': 'true',
             },
           },
-          {
-            term: {
-              'credits.by._id': key.author, // patricia-del-rio
-            },
-          },
         ],
       },
     },
@@ -70,8 +65,8 @@ export default {
   resolve,
   schemaName: 'stories',
   params: {
-    page: 'text',
     website: 'text',
+    page: 'text',
     name: 'text',
     currentNumPage: 'number',
     amountStories: 'number',
