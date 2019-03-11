@@ -35,7 +35,10 @@ const SeparatorItem = ({
     </article>
   )
 }
+
 const SeparatorListItem = ({ data }) => {
+  console.log('separator listItem')
+  console.log(data)
   const result = data.map(
     ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
       let imagen = null
@@ -65,6 +68,7 @@ const HeaderTitulo = ({ titleSeparator, titleLink }) => {
     </Fragment>
   )
 }
+
 const createMarkup = html => {
   return { __html: html }
 }
@@ -78,6 +82,7 @@ const HeaderHTML = ({ htmlCode }) => {
     />
   )
 }
+
 @Consumer
 class Separador extends Component {
   constructor(props) {
