@@ -10,48 +10,50 @@ class ListTitle extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: 'CARGANDO...',
+      title: '',
     }
   }
 
   componentDidMount() {
-    const {
-      globalContentConfig: {
-        query: { page },
-      },
-    } = this.props
-    switch (page) {
-      case 'archivo': {
-        // Funciona
-        this.setState({
-          title: this.setArchivoTitle(),
-        })
-        break
+    const { isAdmin } = this.props
+    if (isAdmin) {
+      this.setState({
+        title: 'EL TÍTULO SÓLO SE MOSTRARÁ EN LA PÁGINA PUBLICADA',
+      })
+    } else {
+      const {
+        globalContentConfig: {
+          query: { page },
+        },
+      } = this.props
+      switch (page) {
+        case 'archivo': {
+          this.setState({
+            title: this.setArchivoTitle(),
+          })
+          break
+        }
+        case 'noticias': {
+          this.setState({
+            title: this.setTagTitle(),
+          })
+          break
+        }
+        case 'autor': {
+          this.setState({
+            title: this.setAuthorTitle(),
+          })
+          break
+        }
+        case 'buscar': {
+          this.setState({
+            title: this.setSearchTitle(),
+          })
+          break
+        }
+        default:
+          break
       }
-      case 'noticias': {
-        // Tag
-        // Solucionando
-        this.setState({
-          title: this.setTagTitle(),
-        })
-        break
-      }
-      case 'autor': {
-        // Funciona
-        this.setState({
-          title: this.setAuthorTitle(),
-        })
-        break
-      }
-      case 'buscar': {
-        // Probar
-        this.setState({
-          title: this.setSearchTitle(),
-        })
-        break
-      }
-      default:
-        break
     }
   }
 
@@ -113,11 +115,16 @@ class ListTitle extends Component {
         ],
       },
       globalContentConfig: {
-        query: { tag },
+        query: { name: tag },
       },
     } = this.props
 
-    return tags.find(({ slug, text }) => tag === slug && text)
+    let title
+    tags.forEach(({ slug, text }) => {
+      if (tag === slug) title = text.toUpperCase()
+    })
+
+    return title
   }
 
   setAuthorTitle = () => {
@@ -133,14 +140,7 @@ class ListTitle extends Component {
       },
     } = this.props
 
-    return `${name.toUpperCase()} ${org && `DE ${org.toUpperCase()}`}`
-  }
-
-  setAutorOrTagTitle = key => {
-    const aux = key.split('-')
-    const title =
-      aux.length > 1 ? aux.map(item => ` ${item.toUpperCase()}`) : aux
-    return title.join(' ')
+    return `${name.toUpperCase()}${org && `, ${org.toUpperCase()}`}`
   }
 
   setSearchTitle = () => {
@@ -148,18 +148,17 @@ class ListTitle extends Component {
       globalContentConfig: {
         query: { uri },
       },
+      globalContent: { count },
     } = this.props
 
     const search =
-      uri !== '' && uri.match(/(\?query=)(.*(?=&|[/])|.*)/)[2].replace('+', ' ')
-    return `ESTOS SON LOS RESULTADOS PARA: ${search.toUpperCase()}`
+      uri !== '' && uri.match(/(\?query=)(.*(?=&|\/)|.*)/)[2].replace('+', ' ')
+    return `SE ENCONTRARON ${count} RESULTADOS PARA: ${search.toUpperCase()}`
   }
 
   render() {
     const { isAdmin } = this.props
     const { title } = this.state
-
-    console.log(title)
 
     return (
       <h1 className={classes.title}>
@@ -170,5 +169,3 @@ class ListTitle extends Component {
 }
 
 export default ListTitle
-
-// Seguramente cambie comportamiento por global content
