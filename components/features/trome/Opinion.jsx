@@ -7,8 +7,29 @@ const clasess = {
   title: 'opiniontrome__title',
   body: 'opiniontrome__body',
   item: 'opiniontrome__item',
+  seccion: 'opiniontrome__seccion',
+  icono: 'opiniontrome__icono',
+  nombreSeccion: 'opiniontrome__nombreseccion',
 }
 
+const OpinionItem = () => {
+  return (
+    <div className={clasess.item}>
+      <div className={clasess.seccion}>
+        <h3 className={clasess.nombreSeccion}>pico tv</h3>
+        <h2>‘Saltaditos’ de el Búho </h2>
+      </div>
+      <div className={clasess.icono}>
+        <img
+          data-type="src"
+          src="https://assets.trome.pe/img/columnas/pico_tv.png"
+          data-src="https://assets.trome.pe/img/columnas/pico_tv.png"
+          alt="Pico TV"
+        />
+      </div>
+    </div>
+  )
+}
 @Consumer
 class Opinion extends Component {
   render() {
@@ -18,9 +39,10 @@ class Opinion extends Component {
           <h3 className={clasess.title}>OPINION</h3>
         </div>
         <div className={clasess.body}>
-          <div className={clasess.item} >
-            <h2>titulo</h2>
-          </div>
+          <OpinionItem />
+          <OpinionItem />
+          <OpinionItem />
+          <OpinionItem />
         </div>
       </div>
     )

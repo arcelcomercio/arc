@@ -3,31 +3,50 @@
   grid-template-columns: 1fr;
   padding-right: 10px;
   padding-left: 10px;
+  
   background-color: #fff;
   &__head {
     display: grid;
     grid-template-columns: 1fr;
     align-content: center;
     border-top: 1px solid #d8d7d4;
-    border-bottom: 1px solid #d8d7d4;
+    // padding-top: 0px;
   }
   &__title {
     text-align: center;
     color: #f15a24;
-    
-    font-size:26px;
-    padding: 10px 0px 10px 0px;
+    font-size: 26px;
+    // padding: 0px 0px 10px 0px;
     
   }
-  &__body{
-      display: grid;
-      grid-template-columns: 1fr;
-    //   background-color: #fff;
-      height: 350px;
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 350px;
   }
-  &__item{
-      height: 10px;
-      border: 2px solid black;
-      
+  &__item {
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+    border-top: 1px solid #d8d7d4;
+    padding-top: 10px;
+  }
+  &__seccion{
+    display: grid;
+    grid-template-rows: 20px 20px;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+  &__nombreseccion{
+    color: #f15a24;
+  }
+  &__icono{
+    display: grid;
+    grid-template-rows: 3fr;
+    align-items: center;
+    justify-content:center;
+
+    & img {
+      margin: 0 auto;
+    }
   }
 }
