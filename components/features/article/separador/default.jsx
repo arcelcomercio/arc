@@ -44,7 +44,7 @@ class Separador extends Component {
     if (device === 'mobile') {
       news_number = 0
     } else {
-      news_number = 7
+      news_number = 6
     }
 
     const { arcSite, globalContent } = this.props
