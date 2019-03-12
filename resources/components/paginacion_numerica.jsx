@@ -13,39 +13,64 @@ export default class Paginacion extends Component {
       pages: [],
       totalPages: Math.ceil(totalElements / totalViews),
     }
-    this.init()
   }
 
-  init() {
+  componentDidMount() {
     const { currentPage } = this.props
-    const { pages, totalPages } = this.state
+    const aux = this.createPaginator(currentPage)
+    this.setState({ pages: aux })
+  }
 
-    const adyacentes = {
-      pre: currentPage - 3,
-      pos: parseInt(currentPage, 10) + 3,
+  createPaginator(currentPage) {
+    const listPages = []
+    const { totalPages } = this.state
+    const initPage = 1
+
+    // eslint-disable-next-line no-param-reassign
+    currentPage =
+      Math.abs(currentPage) > totalPages ? totalPages : Math.abs(currentPage)
+
+    const leftPag = currentPage - initPage >= 6
+    const rightPag = totalPages - currentPage >= 6
+
+    if (leftPag && rightPag) {
+      for (let i = currentPage - 3; i <= currentPage + 3; i++) {
+        listPages.push(i)
+      }
     }
-    let init = 0
-    let end = 0
 
-    if (adyacentes.pre <= 1) init = 1
-    else
-      init =
-        currentPage > totalPages - 6 && currentPage <= totalPages
-          ? totalPages - 6
-          : adyacentes.pre
-
-    if (init === 1) {
-      end = totalPages > 7 ? 7 : totalPages
-    } else end = adyacentes.pos > totalPages ? totalPages : adyacentes.pos
-
-    for (let i = init; i <= end; i++) {
-      if (i === init && init > 2) pages.push('...')
-      pages.push(i)
-      if (i === end && end < totalPages - 1) pages.push('...')
+    if (leftPag && !rightPag) {
+      for (let i = totalPages - 6; i <= totalPages; i++) {
+        listPages.push(i)
+      }
     }
-    this.setState({
-      pages,
-    })
+
+    if (!leftPag && rightPag) {
+      for (let i = initPage; i <= initPage + 6; i++) {
+        listPages.push(i)
+      }
+    }
+
+    if (!leftPag && !rightPag) {
+      for (let i = initPage; i <= totalPages; i++) {
+        listPages.push(i)
+      }
+    }
+
+    if (rightPag) {
+      if (totalPages - listPages.length > 1) listPages.push('...')
+      if (totalPages - listPages.length >= 1) listPages.push(totalPages)
+    }
+
+    if (leftPag) {
+      const aux = []
+      if (listPages[0] - initPage >= 1) aux.push(initPage)
+      if (listPages[0] - initPage > 1) aux.push('...')
+      if (aux.length > 1) listPages.unshift(aux[0], aux[1])
+      else listPages.unshift(aux[0])
+    }
+
+    return listPages
   }
 
   render() {
@@ -61,8 +86,25 @@ export default class Paginacion extends Component {
         ? pathOrigin[0].slice(0, -1)
         : pathOrigin[0]
 
+    const isBuscar = window.location.pathname.match(/buscar/)
     const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
     const prevPage = currentPage - 1
+
+    let urlPrevPage
+    let urlNextPage
+
+    if (isBuscar !== null) {
+      urlPrevPage = querys
+        ? `${pathOrigin}${querys}&page=${prevPage}`
+        : `${pathOrigin}?page=${prevPage}`
+      urlNextPage = querys
+        ? `${pathOrigin}${querys}&page=${nextPage}`
+        : `${pathOrigin}?page=${nextPage}`
+    } else {
+      urlPrevPage = `${pathOrigin}/${prevPage}${querys}`
+      urlNextPage = `${pathOrigin}/${nextPage}${querys}`
+    }
+
     return (
       <div className={classes.paginacion}>
         <a
@@ -71,17 +113,19 @@ export default class Paginacion extends Component {
               ? 'paginacion__page--disabled'
               : ''
           }`}
-          href={`${pathOrigin}/${prevPage}${querys}`}
-        >
+          href={urlPrevPage}>
           anterior
         </a>
-        {currentPage > 4 && (
-          <a className={classes.page} href={`${pathOrigin}/1${querys}`}>
-            1
-          </a>
-        )}
         {pages.map(page => {
           let tag = null
+          let urlPage
+
+          if (isBuscar !== null)
+            urlPage = querys
+              ? `${pathOrigin}${querys}&page=${page}`
+              : `${pathOrigin}?page=${page}`
+          else urlPage = `${pathOrigin}/${page}${querys}`
+
           if (page != '...') {
             tag = (
               <a
@@ -90,28 +134,18 @@ export default class Paginacion extends Component {
                     ? 'paginacion__page--current'
                     : ''
                 }`}
-                href={`${pathOrigin}/${page}${querys}`}
-              >
+                href={urlPage}>
                 {page}
               </a>
             )
           } else tag = <span className={classes.page}>{page}</span>
           return tag
         })}
-        {currentPage < totalPages - 3 && (
-          <a
-            className={classes.page}
-            href={`${pathOrigin}/${totalPages}${querys}`}
-          >
-            {totalPages}
-          </a>
-        )}
         <a
           className={`${classes.page} ${
             currentPage == totalPages ? 'paginacion__page--disabled' : ''
           }`}
-          href={`${pathOrigin}/${nextPage}${querys}`}
-        >
+          href={urlNextPage}>
           siguiente
         </a>
       </div>

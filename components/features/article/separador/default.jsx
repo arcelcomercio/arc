@@ -76,6 +76,8 @@ class Separador extends Component {
 
       this.setState({
         data: response.content_elements,
+        excluir: globalContent.website_url,
+        website: arcSite,
       })
     })
   }
@@ -110,12 +112,13 @@ class Separador extends Component {
   }
 
   render() {
-    const { titleSeparator, titleLink, htmlCode, data } = this.state
+    const { data, excluir, website, device } = this.state
+    if (device == 'mobile') return ''
     return (
       <div className={classes.separator}>
         <h3 class={classes.title}>Más en Política</h3>
         <div className={classes.body}>
-          <SeparatorListItem data={data} />
+          <SeparatorListItem data={data} excluir={excluir} website={website} />
         </div>
       </div>
     )

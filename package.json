@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "@arc-core-components/content-source_content-api-v4": "^1.2.1-beta.3.1",
+    "@arc-core-components/content-source_content-api-v4": "^1.3.1",
     "@arc-core-components/element_image": "^0.3.1",
     "@arc-core-components/feature_article-body": "^0.2.0",
     "@babel/runtime": "7.3.1",
