@@ -38,8 +38,6 @@ const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
 }
 
 const SeparatorListItem = ({ data }) => {
-  console.log('separator listItem')
-  console.log(data)
   const result = data.map(
     ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
       let multimedia = null

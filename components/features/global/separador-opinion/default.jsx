@@ -4,49 +4,103 @@ import { customFields } from './children/customfields'
 import { OpinionTitle } from './children/opinion-title'
 import ListOpinion from './children/opinion-list'
 
+import { GetMultimediaContent } from './../../../../resources/utilsJs/utilities'
+
+// 01 evaluar las clases
+const classes = {
+  separator: 'separator',
+  headerHtml: 'separator__headerHtml',
+  title: 'separator__headerTitle',
+  body: 'separator__body',
+  item: 'separator__item',
+  detail: 'separator__detail',
+  separatorTitle: 'separator__title',
+  mvideo: 'separator--video',
+}
+// fin evaluar las clases
+
+// const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
+//   debugger
+//   return (
+//     <article className={classes.item}>
+//       {medio === 'video' && <span>&#8227;</span>}
+//       {medio === 'gallery' && <span>G</span>}
+//       <div className={classes.detail}>
+//         <h2 className={classes.separatorTitle}>
+//           <a href={website_url}>{headlines}</a>
+//         </h2>
+//       </div>
+//       <figure>
+//         {website_url && (
+//           <a href={website_url}>
+//             <img src={urlImage} alt="" />
+//           </a>
+//         )}
+//       </figure>
+//     </article>
+//   )
+// }
+
+// const SeparatorListItem = ({ data }) => {
+//   const result = data.map(
+//     ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
+//       let multimedia = null
+
+//       if (promoItems !== null) {
+//         multimedia = GetMultimediaContent(promoItems)
+//       }
+
+//       const { url, medio } = multimedia
+
+//       return (
+//         <SeparatorItem
+//           key={websiteUrl}
+//           headlines={headlines.basic}
+//           urlImage={url}
+//           website_url={websiteUrl}
+//           medio={medio}
+//         />
+//       )
+//     }
+//   )
+//   return result
+// }
+
+const createMarkup = html => {
+  return { __html: html }
+}
+
+const HeaderHTML = ({ htmlCode }) => {
+  return (
+    <div
+      className={classes.title}
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={createMarkup(htmlCode)}
+    />
+  )
+}
+
 @Consumer
 class SeparadorOpinion extends Component {
   constructor(props) {
     super(props)
 
     const {
-      customFields: { urlSection, titleSection },
+      customFields: { section, titleSection, htmlCode },
     } = this.props || {}
 
     this.state = {
       device: this.setDevice(),
-      urlSection,
+      section,
       titleSection,
-      defaultSectionName: 'separador opinion  - este es el titulo por defecto',
-      data: [
-        { title: 'titulo de prueba #1' },
-        { title: 'titulo de prueba #2' },
-      ],
+      htmlCode,
+      data: [],
     }
   }
 
   componentDidMount = () => {
     window.addEventListener('resize', this.handleResize)
     this.getContentApi()
-  }
-
-  filterSchema = () => {
-    return `
-    {
-      content_elements{
-        canonical_url
-        website_url
-        promo_items{
-          basic{
-            url
-          }
-        }
-        headlines{
-          basic
-        }
-      }
-    }
-    `
   }
 
   getContentApi = () => {
@@ -60,14 +114,18 @@ class SeparadorOpinion extends Component {
     }
 
     const { arcSite } = this.props
-    const { urlSection } = this.state
+    console.log(`arcSite: ${arcSite}`)
+
+    const { section } = this.state
+    console.log(`Section --> ${section}`)
+    console.log(`newsNumber --> ${news_number}`)
 
     const { fetched } = this.getContent(
       'stories__by-section',
       {
         website: arcSite,
-        urlSection,
         news_number,
+        section,
       },
       this.filterSchema()
     )
@@ -82,20 +140,24 @@ class SeparadorOpinion extends Component {
 
       if (!response.content_elements) {
         response.content_elements = []
-        console.log('Hay respuesta del servicio pero no contiene data')
+        console.log(
+          'No hay respuesta del servicio para obtener el listado de noticias'
+        )
       }
 
       this.setState({
         data: response.content_elements,
       })
+
+      console.log(response)
     })
   }
 
   handleResize = () => {
     const wsize = window.innerWidth
-    // change1080 by 640
+
     // ------ Set the new state if you change from mobile to desktop
-    if (wsize >= 640 && this.state.device !== 'desktop') {
+    if (wsize >= 1024 && this.state.device !== 'desktop') {
       this.setState({
         device: 'desktop',
       })
@@ -119,28 +181,58 @@ class SeparadorOpinion extends Component {
     return 'desktop'
   }
 
+  filterSchema = () => {
+    return `
+    {
+      content_elements{
+        website_url
+        taxonomy{
+          sections{
+            path
+            name
+          }
+        }
+        credits{
+          by{
+            name
+            url
+            image{
+              url
+            }
+          }
+        }
+        headlines{
+          basic
+        }
+      }  
+    }
+    `
+  }
+
   listado = data => {
-    const resultado = data.map(alias => {
-      return <li>{alias.title}</li>
+    const listOpinion = data.map(opinion => {
+      return <p>{opinion.headlines.basic}</p>
     })
-    return resultado
+    return listOpinion
   }
 
   render() {
-    const { urlSection, titleSection, defaultSectionName, data } = this.state
+    const { titleSection, htmlCode, data } = this.state
 
     return (
-      <div>
-        <h5>
-          {titleSection ? (
-            <OpinionTitle titleSection={titleSection} />
-          ) : (
-            defaultSectionName
-          )}
-        </h5>
-        {/* <ListOpinion data={data} /> */}
-        {/* <p>lista de opiniones</p> */}
-        <ul>{data[0] && this.listado(data)}</ul>
+      <div className={classes.separator}>
+        {titleSection ? (
+          <h1 className={classes.title}>
+            <a href="#">{titleSection}</a>
+          </h1>
+        ) : (
+          <HeaderHTML htmlCode={htmlCode} />
+        )}
+        <div className={classes.body}>
+          {/* <ListOpinion data={data} /> */}
+          {/* <SeparatorListItem data={data} /> */}
+          {this.listado(data)}
+        </div>
       </div>
     )
   }

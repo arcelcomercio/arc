@@ -8,6 +8,9 @@ export default `
   type Subheadlines {
     basic: String
   }
+  type Image {
+    url: String
+  }
   type By {
     type: String!
     version: String
@@ -15,6 +18,7 @@ export default `
     slug: String
     url: String
     description: String
+    image: [Image]
   }
   type Credits {
     by: [By]
@@ -163,4 +167,4 @@ export default `
     content_elements: [ContentElements]
     count: Int
   }
-`;
+`
