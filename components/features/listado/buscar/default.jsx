@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-// import PropTypes from 'prop-types'
 import CardNotice from '../../../../resources/components/listado-noticias'
 import Paginacion from '../../../../resources/components/paginacion_numerica'
 
 @Consumer
-class tagAutor extends Component {
+class Buscar extends Component {
   constructor(props) {
     super(props)
+    this.renderCount = 0
   }
 
   render() {
@@ -23,14 +23,10 @@ class tagAutor extends Component {
         <Paginacion
           totalElements={globalContent.count || 0}
           totalViews={
-            (globalContentConfig.query &&
-              globalContentConfig.query.amountStories) ||
-            0
+            (globalContentConfig.query && globalContentConfig.query.size) || 0
           }
           currentPage={
-            (globalContentConfig.query &&
-              globalContentConfig.query.currentNumPage) ||
-            1
+            (globalContentConfig.query && globalContentConfig.query.from) || 1
           }
         />
       </Fragment>
@@ -38,4 +34,4 @@ class tagAutor extends Component {
   }
 }
 
-export default tagAutor
+export default Buscar

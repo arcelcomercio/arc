@@ -6,9 +6,9 @@ import Filter from '../../../resources/components/filters'
 @Consumer
 class ContentFilter extends Component {
   render() {
-    const { arcSite } = this.props
+    const { arcSite: website } = this.props
     const params = {
-      website: arcSite,
+      website,
     }
     return <Filter {...params} />
   }

@@ -23,8 +23,7 @@ const resolve = key => {
 	const body = {
 		query: {
 			bool: {
-				must: [
-					{
+				must: [{
 						term: {
 							type: "story"
 						}
@@ -57,12 +56,12 @@ const resolve = key => {
 
 	if (key.section) {
 		body.query.bool.must.push({
-				term: {
-					'taxonomy.sites.path': `/${key.section}`
-				}
+			term: {
+				'taxonomy.sites.path': `${key.section}`
+			}
 		})
 	}
-	
+
 	const requestUri = `/content/v4/search/published?${sort}&${from}&${size}&${website}&body=${JSON.stringify(body)}`
 
 	return requestUri
@@ -71,14 +70,37 @@ const resolve = key => {
 export default {
 	resolve,
 	schemaName: 'stories',
-	params: {
-		website: 'text',
-		sort: 'text',
-		from: 'number',
-		section: 'text',
-		size: 'number',
-		query: 'text'
+	params: [{
+			name: 'website',
+			displayName: 'Sitio web',
+			type: 'text'
+		},
+		{
+			name: 'sort',
+			displayName: 'Orden',
+			type: 'text'
+		},
+		{
+			name: 'from',
+			displayName: 'Mostrar desde',
+			type: 'number'
+		},
+		{
+			name: 'section',
+			displayName: 'Sección / Categoría',
+			type: 'text'
+		},
+		{
+			name: 'size',
+			displayName: 'Cantidad a mostrar',
+			type: 'number'
+		},
+		{
+			name: 'query',
+			displayName: 'Búsqueda',
+			type: 'text'
+		},
 		// date_from: 'text',
 		// date_to: 'text',
-	},
+	],
 }

@@ -73,7 +73,7 @@ class CintilloUrgente extends Component {
   }
 
   render() {
-    const { article } = this.state || {}
+    const { article, isVisible } = this.state || {}
     const {
       editableField,
       arcSite,
@@ -97,7 +97,7 @@ class CintilloUrgente extends Component {
     }
     return (
       <div
-        className={`cintillo-u ${this.state.isVisible ? '' : 'hide'}
+        className={`cintillo-u ${isVisible ? '' : 'hide'}
           ${backgroundColor} 
           ${classes.breakingnews}
           `}
