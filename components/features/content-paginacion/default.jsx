@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import Paginacion from '../../../resources/components/paginacion_numerica'
 
-const totalElements = 24
+const totalElements = 30
 const totalViews = 2
 
 @Consumer
