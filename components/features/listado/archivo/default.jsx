@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import CardNotice from '../../../../resources/components/listado-noticias'
 import RenderPagination from '../../../../resources/components/paginador-fecha'
 import { getActualDate } from '../../../../resources/utilsJs/helpers'
@@ -31,7 +31,7 @@ class Archivo extends Component {
     const sectionPag =
       section === undefined || section === '' ? this.SECTION_DEFAULT : section
     const datePag = date === undefined || date === '' ? getActualDate() : date
-    
+
     return (
       <Fragment>
         <CardNotice {...params} />
@@ -41,8 +41,8 @@ class Archivo extends Component {
   }
 }
 
-Archivo.propTypes = {
+/* Archivo.propTypes = {
   globalContent: PropTypes.object,
-}
+} */
 
 export default Archivo

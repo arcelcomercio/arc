@@ -1,15 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-// import PropTypes from 'prop-types'
 import CardNotice from '../../../../resources/components/listado-noticias'
 import Paginacion from '../../../../resources/components/paginacion_numerica'
 
 @Consumer
 class tagAutor extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const { globalContent, globalContentConfig, arcSite } = this.props
 
