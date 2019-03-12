@@ -117,7 +117,7 @@ class ListTitle extends Component {
 
     let title
     tags.forEach(({ slug, text }) => {
-      if (tag === slug) title = text.toUpperCase()
+      if (tag === slug) title = text ? text.toUpperCase() : ''
     })
 
     return title
@@ -128,15 +128,20 @@ class ListTitle extends Component {
       globalContent: {
         content_elements: [
           {
-            credits: {
-              by: [{ name, org }],
-            },
+            credits: { by },
           },
         ],
       },
     } = this.props
 
-    return `${name.toUpperCase()}${org && `, ${org.toUpperCase()}`}`
+    let author
+    by.forEach(authorData => {
+      if (authorData && authorData.type && authorData.type === 'author')
+        author = authorData
+    })
+    return `${author.name ? author.name.toUpperCase() : ''}${
+      author.org ? `, ${author.org.toUpperCase()}` : ''
+    }`
   }
 
   setSearchTitle = () => {
@@ -149,7 +154,8 @@ class ListTitle extends Component {
 
     const search =
       uri !== '' && uri.match(/(\?query=)(.*(?=&|\/)|.*)/)[2].replace('+', ' ')
-    return `SE ENCONTRARON ${count} RESULTADOS PARA: ${search.toUpperCase()}`
+    return `SE ENCONTRARON ${count} RESULTADOS PARA: ${search &&
+      search.toUpperCase()}`
   }
 
   render() {
