@@ -97,6 +97,19 @@ export default `
     sections: [Sections]
     tags: [Tags]
     seo_keywords: [String]
+    sites:[Sites]
+  }
+  type Sites {
+    additional_properties: AdditionalProperties
+  }
+  type AdditionalProperties{
+    original: Original
+  }
+  type Original{
+    site_topper: SiteTopper
+  }
+  type SiteTopper{
+    site_logo_image: String!
   }
   type Sections {
     _id: String!,
