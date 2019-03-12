@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import { addResizedUrlItem } from '../../../../../resources/utilsJs/thumbs'
 import { GetMultimediaContent } from '../../../../../resources/utilsJs/utilities'
 const classes = {
   item: 'separator__item separator__item--nota',
@@ -27,28 +28,45 @@ const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
   )
 }
 
-const SeparatorListItem = ({ data }) => {
-  const result = data.map(
-    ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
-      let multimedia = null
+const SeparatorListItem = ({ data, excluir, website }) => {
+  // transform(data, website)
+  const result = data.map(elements => {
+    const {
+      promo_items: promoItems,
+      website_url: websiteUrl,
+      headlines,
+    } = elements
 
-      if (promoItems !== null) {
-        multimedia = GetMultimediaContent(promoItems)
-      }
-      if (multimedia == null) return
-      const { url, medio } = multimedia
+    let multimedia = null
 
-      return (
-        <SeparatorItem
-          key={websiteUrl}
-          headlines={headlines.basic}
-          urlImage={url}
-          website_url={websiteUrl}
-          medio={medio}
-        />
-      )
+    if (websiteUrl == excluir) return
+
+    if (promoItems !== null) {
+      multimedia = GetMultimediaContent(promoItems)
     }
-  )
+
+    if (multimedia.url == null) return
+    const { medio } = multimedia
+
+    const aspectRatios = ['3:4|147x80']
+
+    const { resized_urls } = addResizedUrlItem(
+      website,
+      multimedia.url,
+      aspectRatios
+    )
+
+    return (
+      <SeparatorItem
+        key={websiteUrl}
+        headlines={headlines.basic}
+        urlImage={resized_urls['3:4']}
+        website_url={websiteUrl}
+        medio={medio}
+      />
+    )
+  })
   return result
 }
+
 export default SeparatorListItem
