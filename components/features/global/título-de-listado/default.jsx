@@ -7,91 +7,167 @@ const classes = {
 
 @Consumer
 class ListTitle extends Component {
-  setPageType = uri => {
-    let title
-    switch (uri.split('/')[1]) {
-      case 'archivo':
-        title = this.setArchivoTitle(uri)
-        break
-      case 'autor':
-        title = this.setAutorOrTagTitle(uri)
-        break
-      case 'noticias':
-        title = this.setAutorOrTagTitle(uri)
-        break
-      case 'buscar':
-        title = this.setSearchTitle(uri)
-        break
-      default:
-        break
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: '',
     }
+  }
+
+  componentDidMount() {
+    const { isAdmin } = this.props
+    if (isAdmin) {
+      this.setState({
+        title: 'EL TÍTULO SÓLO SE MOSTRARÁ EN LA PÁGINA PUBLICADA',
+      })
+    } else {
+      const {
+        globalContentConfig: {
+          query: { page },
+        },
+      } = this.props
+      switch (page) {
+        case 'archivo': {
+          this.setState({
+            title: this.setArchivoTitle(),
+          })
+          break
+        }
+        case 'noticias': {
+          this.setState({
+            title: this.setTagTitle(),
+          })
+          break
+        }
+        case 'autor': {
+          this.setState({
+            title: this.setAuthorTitle(),
+          })
+          break
+        }
+        case 'buscar': {
+          this.setState({
+            title: this.setSearchTitle(),
+          })
+          break
+        }
+        default:
+          break
+      }
+    }
+  }
+
+  setArchivoTitle = () => {
+    const {
+      globalContentConfig: {
+        query: { date },
+      },
+    } = this.props
+
+    if (!date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
+      return 'ÚLTIMO MINUTO'
+    }
+
+    // NOTE: Usar librería como "moment" o "luxon"
+    const dateObj = new Date(date)
+    const days = [
+      'Domingo',
+      'Lunes',
+      'Martes',
+      'Miércoles',
+      'Jueves',
+      'Viernes',
+      'Sábado',
+    ]
+    const months = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ]
+
+    return `ARCHIVO, ${days[
+      dateObj.getUTCDay()
+    ].toUpperCase()} ${dateObj.getUTCDate()} DE ${months[
+      dateObj.getUTCMonth()
+    ].toUpperCase()} DEL ${dateObj.getUTCFullYear()}`
+  }
+
+  setTagTitle = () => {
+    const {
+      globalContent: {
+        content_elements: [
+          {
+            taxonomy: { tags },
+          },
+        ],
+      },
+      globalContentConfig: {
+        query: { name: tag },
+      },
+    } = this.props
+
+    let title
+    tags.forEach(({ slug, text }) => {
+      if (tag === slug) title = text ? text.toUpperCase() : ''
+    })
 
     return title
   }
 
-  setArchivoTitle = uri => {
-    let archivoTitle
-    if (!uri.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) archivoTitle = 'ÚLTIMO MINUTO'
-    else {
-      const date = new Date(uri.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/))
-      const days = [
-        'Domingo',
-        'Lunes',
-        'Martes',
-        'Miércoles',
-        'Jueves',
-        'Viernes',
-        'Sábado',
-      ]
-      const months = [
-        'Enero',
-        'Febrero',
-        'Marzo',
-        'Abril',
-        'Mayo',
-        'Junio',
-        'Julio',
-        'Agosto',
-        'Septiembre',
-        'Octubre',
-        'Noviembre',
-        'Diciembre',
-      ]
-      archivoTitle = `ARCHIVO, ${days[
-        date.getDay()
-      ].toUpperCase()} ${date.getMonth()} DE ${months[
-        date.getMonth()
-      ].toUpperCase()} DEL ${date.getFullYear()}`
-    }
-    return archivoTitle
+  setAuthorTitle = () => {
+    const {
+      globalContent: {
+        content_elements: [
+          {
+            credits: { by },
+          },
+        ],
+      },
+    } = this.props
+
+    let author
+    by.forEach(authorData => {
+      if (authorData && authorData.type && authorData.type === 'author')
+        author = authorData
+    })
+    return `${author.name ? author.name.toUpperCase() : ''}${
+      author.org ? `, ${author.org.toUpperCase()}` : ''
+    }`
   }
 
-  setAutorOrTagTitle = uri => {
-    const aux = uri.split('/')[2].split('-')
-    const title =
-      aux.length > 1 ? aux.map(item => ` ${item.toUpperCase()}`) : aux
-    return title.join(' ')
-  }
+  setSearchTitle = () => {
+    const {
+      globalContentConfig: {
+        query: { uri },
+      },
+      globalContent: { count },
+    } = this.props
 
-  setSearchTitle = uri => {
-    const aux = uri.match(/(?<=\?query=).*(?=&|\/)/)[0].split('+')
     const search =
-      aux.length > 1 ? aux.map(item => ` ${item.toUpperCase()}`) : aux
-    return `ESTOS SON LOS RESULTADOS PARA: ${search.join(' ')}`
+      uri !== '' && uri.match(/(\?query=)(.*(?=&|\/)|.*)/)[2].replace('+', ' ')
+    return `SE ENCONTRARON ${count} RESULTADOS PARA: ${search &&
+      search.toUpperCase()}`
   }
 
   render() {
-    const { isAdmin, requestUri } = this.props
+    const { isAdmin } = this.props
+    const { title } = this.state
+
     return (
       <h1 className={classes.title}>
-        {isAdmin
-          ? 'ESTE TEXTO SÓLO FUNCIONARÁ EN LA PÁGINA PUBLICADA'
-          : this.setPageType(requestUri)}
+        {isAdmin ? 'ESTE TEXTO SÓLO SE MOSTRARÁ EN LA PÁGINA PUBLICADA' : title}
       </h1>
     )
   }
 }
 
 export default ListTitle
-
-// Seguramente cambie comportamiento por global content
