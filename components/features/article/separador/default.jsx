@@ -38,7 +38,7 @@ class Separador extends Component {
   }
 
   getContentApi = () => {
-    let news_number = 7
+    let news_number = 6
     const { device } = this.state
 
     if (device === 'mobile') {
@@ -110,7 +110,6 @@ class Separador extends Component {
 
     return 'desktop'
   }
-
   render() {
     const { data, excluir, website, device } = this.state
     if (device == 'mobile') return ''
