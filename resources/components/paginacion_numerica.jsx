@@ -18,7 +18,6 @@ export default class Paginacion extends Component {
   componentDidMount() {
     const { currentPage } = this.props
     const aux = this.createPaginator(currentPage)
-    console.log(this.state, aux)
     this.setState({ pages: aux })
   }
 
@@ -80,7 +79,6 @@ export default class Paginacion extends Component {
 
     const { pages, totalPages } = this.state
     const querys = window.location.search
-    console.log(pages)
 
     let pathOrigin = window.location.pathname.match(/\D+/)
     pathOrigin =
