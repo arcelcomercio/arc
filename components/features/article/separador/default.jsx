@@ -113,7 +113,7 @@ class Separador extends Component {
 
   render() {
     const { data, excluir, website, device } = this.state
-    if (device == 'mobile') return
+    if (device == 'mobile') return ''
     return (
       <div className={classes.separator}>
         <h3 class={classes.title}>Más en Política</h3>
