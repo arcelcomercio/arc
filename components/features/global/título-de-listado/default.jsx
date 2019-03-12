@@ -139,7 +139,7 @@ class ListTitle extends Component {
         authorData && authorData.type && authorData === 'author' && authorData
     )
 
-    return `${author.name.toUpperCase()}${
+    return `${author.name ? author.name.toUpperCase() : ''}${
       author.org ? `, ${author.org.toUpperCase()}` : ''
     }`
   }

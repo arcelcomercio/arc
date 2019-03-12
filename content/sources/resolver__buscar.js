@@ -82,7 +82,7 @@ export default {
 		},
 		{
 			name: 'from',
-			displayName: 'Mostrar desde',
+			displayName: 'Página',
 			type: 'number'
 		},
 		{
