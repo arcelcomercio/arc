@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import Paginacion from '../../../resources/components/paginacion_numerica'
 
-const totalElements = 1500
-const totalViews = 50
+const totalElements = 30
+const totalViews = 2
 
 @Consumer
 class ContentPagination extends Component {

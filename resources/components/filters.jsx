@@ -3,12 +3,15 @@ import Consumer from 'fusion:consumer'
 
 @Consumer
 class Filter extends Component {
+  static queryAux
+
   constructor(props) {
     super(props)
     this.state = {
       query: '',
       sort: '',
       sections: '',
+      isSection: false,
     }
 
     this.handleChangeSearch = this.handleChangeSearch.bind(this)
@@ -18,22 +21,16 @@ class Filter extends Component {
     this.fetchSections()
   }
 
-  castingData(data) {
-    const aux = []
-    data.forEach(el => {
-      const d = {}
-    })
-  }
-
   fetchSections() {
     const { arcSite } = this.props
 
-    const source = 'section'
+    const source = 'navigation__by-hierarchy'
     const params = {
       website: arcSite,
+      hierarchy: 'filter-section',
     }
     const schema = `{
-      q_results {
+      children {
         _id
         name
       }
@@ -42,62 +39,101 @@ class Filter extends Component {
     fetched
       .then(response => {
         console.log(response)
-        if (response && response.q_results.length > 0) {
-          this.castingData(response.q_results)
-        } else this.setDataTest()
+        if (response && response.children.length > 0) {
+          this.setState({ sections: response.children })
+        }
       })
       .catch(error => {
         console.log(error)
-        //this.setDataTest()
       })
   }
 
   handleChangeSearch(evt) {
-    this.setState({ query: evt.target.value })
+    this.queryAux = evt.target.value
   }
 
   handleChangeRadio(evt) {
-    this.setState({ sort: evt.target.value })
+    const {
+      target: { value: valueRadio },
+    } = evt
+    if (valueRadio !== 'section') {
+      this.setState({
+        sort: valueRadio,
+        isSection: false,
+      })
+    } else this.setState({ isSection: true })
   }
 
   handleSubmit(evt) {
+    const { isSection } = this.state
+    const section =
+      isSection &&
+      evt.target.querySelector('select').options[
+        evt.target.querySelector('select').selectedIndex
+      ].value
     evt.preventDefault()
-    console.log(this.props)
     const { website } = this.props
-    const { query, sort } = this.state
+    const { sort } = this.state
     const { origin, pathname } = window.location
-    window.location.href = `${origin}${pathname}?_website=${website}&query=${query}&sort=${sort}`
+
+    window.location.href = `${origin}${pathname}?_website=${website}&query=${
+      this.queryAux ? this.queryAux : ''
+    }${isSection ? `&category=${section}` : ''}${sort ? `&sort=${sort}` : ''}`
   }
 
   render() {
-    const { sort } = this.state
+    const { sort, isSection, sections } = this.state
     return (
       <div>
-        <input
-          type="radio"
-          name="filter"
-          id=""
-          value="desc"
-          checked={sort == 'desc'}
-          onChange={this.handleChangeRadio}
-        />
-        <label>Mas Reciente</label>
-        <input
-          type="radio"
-          name="filter"
-          id=""
-          value="asc"
-          checked={sort == 'asc'}
-          onChange={this.handleChangeRadio}
-        />
-        <label>Menos Reciente</label>
-        <form action="" onSubmit={this.handleSubmit}>
+        <label htmlFor="recent">
           <input
-            type="search"
-            name="query"
-            id=""
-            onChange={this.handleChangeSearch}
+            type="radio"
+            name="recent"
+            id="recent"
+            value="desc"
+            checked={sort === 'desc'}
+            onChange={this.handleChangeRadio}
           />
+          Mas Reciente
+        </label>
+        <label htmlFor="old">
+          <input
+            type="radio"
+            name="old"
+            id="old"
+            value="asc"
+            checked={sort === 'asc'}
+            onChange={this.handleChangeRadio}
+          />
+          Menos Reciente
+        </label>
+        <label htmlFor="section">
+          <input
+            type="radio"
+            name="section"
+            id="section"
+            value="section"
+            onChange={this.handleChangeRadio}
+          />
+          Sección
+        </label>
+        <form action="" onSubmit={this.handleSubmit}>
+          {isSection ? (
+            <select name="query">
+              {sections.map(el => (
+                <option key={el._id} value={el._id}>
+                  {el.name}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type="search"
+              name="query"
+              id=""
+              onChange={this.handleChangeSearch}
+            />
+          )}
           <button type="submit">
             <span>&#9740;</span>
           </button>
