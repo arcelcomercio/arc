@@ -15,12 +15,7 @@ const classes = {
   mvideo: 'separator--video',
 }
 
-const SeparatorItem = ({
-  headlines,
-  urlImage,
-  website_url,
-  medio,
-}) => {
+const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
   debugger
   return (
     <article className={classes.item}>
@@ -65,7 +60,6 @@ const SeparatorListItem = ({ data }) => {
   )
   return result
 }
-
 
 const createMarkup = html => {
   return { __html: html }
