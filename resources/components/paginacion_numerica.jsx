@@ -18,7 +18,6 @@ export default class Paginacion extends Component {
   componentDidMount() {
     const { currentPage } = this.props
     const aux = this.createPaginator(currentPage)
-    console.log(this.state, aux)
     this.setState({ pages: aux })
   }
 
@@ -80,7 +79,6 @@ export default class Paginacion extends Component {
 
     const { pages, totalPages } = this.state
     const querys = window.location.search
-    console.log(pages)
 
     let pathOrigin = window.location.pathname.match(/\D+/)
     pathOrigin =
@@ -115,8 +113,7 @@ export default class Paginacion extends Component {
               ? 'paginacion__page--disabled'
               : ''
           }`}
-          href={urlPrevPage}
-        >
+          href={urlPrevPage}>
           anterior
         </a>
         {pages.map(page => {
@@ -137,8 +134,7 @@ export default class Paginacion extends Component {
                     ? 'paginacion__page--current'
                     : ''
                 }`}
-                href={urlPage}
-              >
+                href={urlPage}>
                 {page}
               </a>
             )
@@ -149,8 +145,7 @@ export default class Paginacion extends Component {
           className={`${classes.page} ${
             currentPage == totalPages ? 'paginacion__page--disabled' : ''
           }`}
-          href={urlNextPage}
-        >
+          href={urlNextPage}>
           siguiente
         </a>
       </div>
