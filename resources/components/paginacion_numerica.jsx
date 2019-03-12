@@ -115,8 +115,7 @@ export default class Paginacion extends Component {
               ? 'paginacion__page--disabled'
               : ''
           }`}
-          href={urlPrevPage}
-        >
+          href={urlPrevPage}>
           anterior
         </a>
         {pages.map(page => {
@@ -137,8 +136,7 @@ export default class Paginacion extends Component {
                     ? 'paginacion__page--current'
                     : ''
                 }`}
-                href={urlPage}
-              >
+                href={urlPage}>
                 {page}
               </a>
             )
@@ -149,8 +147,7 @@ export default class Paginacion extends Component {
           className={`${classes.page} ${
             currentPage == totalPages ? 'paginacion__page--disabled' : ''
           }`}
-          href={urlNextPage}
-        >
+          href={urlNextPage}>
           siguiente
         </a>
       </div>
