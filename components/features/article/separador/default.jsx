@@ -110,8 +110,10 @@ class Separador extends Component {
 
     return 'desktop'
   }
+
   render() {
     const { data, excluir, website, device } = this.state
+    console.log(data)
     if (device == 'mobile') return ''
     return (
       <div className={classes.separator}>
