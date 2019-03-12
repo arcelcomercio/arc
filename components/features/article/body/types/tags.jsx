@@ -1,22 +1,24 @@
 import React, { Fragment } from 'react'
-const Tables = props => {
-  const { tags } = props.data
+const TagsCons = props => {
+  const { tags: data } = props.data
   const classes = {
-    tags: 'tags',
+    tagsName: 'tags',
     titulo: 'tags__title',
     item: 'tags__item',
   }
   return (
     <Fragment>
-      <div className={classes.tags}>
+      <div className={classes.tagsName}>
         <h4 className={classes.titulo}>Tags Relacionados:</h4>
-        {tags.map(itemRows => (
-          <h2 className={classes.item}>
-            <a href={'/noticias/' + itemRows.slug}>{itemRows.text}</a>
+        {data.map((itemRows, key) => (
+          <h2 key={key} className={classes.item}>
+            <a href={itemRows && itemRows.slug && '/noticias/' + itemRows.slug}>
+              {itemRows && itemRows.text && itemRows.text}
+            </a>
           </h2>
         ))}
       </div>
     </Fragment>
   )
 }
-export default Tables
+export default TagsCons

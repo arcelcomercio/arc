@@ -116,7 +116,7 @@ class Separador extends Component {
     if (device == 'mobile') return ''
     return (
       <div className={classes.separator}>
-        <h3 class={classes.title}>Más en Política</h3>
+        <h3 className={classes.title}>Más en Política</h3>
         <div className={classes.body}>
           <SeparatorListItem data={data} excluir={excluir} website={website} />
         </div>
