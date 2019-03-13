@@ -16,7 +16,7 @@ const clasess = {
 }
 
 const OpinionItem = ({ titulo, urlImg, urlNew, sectionName, urlSection }) => {
-  debugger
+  
   return (
     <div className={clasess.item}>
       <div className={clasess.seccion}>
@@ -43,26 +43,19 @@ class Opinion extends Component {
     const {
       customFields: {
         titleOpinion,
-        titleSection1,
         section1,
-        titleSection2,
         section2,
-        titleSection3,
         section3,
-        titleSection4,
         section4,
       },
     } = this.props || {}
 
+    
     this.state = {
       titleOpinion,
-      titleSection1,
       section1,
-      titleSection2,
       section2,
-      titleSection3,
       section3,
-      titleSection4,
       section4,
       data1: {},
       data2: {},
@@ -111,6 +104,7 @@ class Opinion extends Component {
       )
 
       fetched.then(response => {
+        
         if (!response) {
           // eslint-disable-next-line no-param-reassign
           response = []
@@ -127,6 +121,7 @@ class Opinion extends Component {
         }
 
         if (response.content_elements.length > 0) {
+          
           const {
             headlines: { basic },
             taxonomy: { sites, sections },
@@ -193,16 +188,12 @@ class Opinion extends Component {
   render() {
     const {
       titleOpinion,
-      titleSection1,
-      titleSection2,
-      titleSection3,
-      titleSection4,
       data1,
       data2,
       data3,
       data4,
     } = this.state
-
+    
     return (
       <div className={clasess.opinion}>
         <div className={clasess.head}>
@@ -211,7 +202,6 @@ class Opinion extends Component {
         <div className={clasess.body}>
           {data1 && (
             <OpinionItem
-              seccion={titleSection1}
               titulo={data1.title}
               urlImg={data1.urlImg}
               urlNew={data1.urlNew}
@@ -221,7 +211,6 @@ class Opinion extends Component {
           )}
           {data2 && (
             <OpinionItem
-              seccion={titleSection2}
               titulo={data2.title}
               urlImg={data2.urlImg}
               urlNew={data2.urlNew}
@@ -231,7 +220,6 @@ class Opinion extends Component {
           )}
           {data3 && (
             <OpinionItem
-              seccion={titleSection3}
               titulo={data3.title}
               urlImg={data3.urlImg}
               urlNew={data3.urlNew}
@@ -241,7 +229,6 @@ class Opinion extends Component {
           )}
           {data4 && (
             <OpinionItem
-              seccion={titleSection4}
               titulo={data4.title}
               urlImg={data4.urlImg}
               urlNew={data4.urlNew}
@@ -257,19 +244,11 @@ class Opinion extends Component {
 
 Opinion.propTypes = {
   customFields: PropTypes.shape({
-    titleOpinion: PropTypes.string.tag({ name: 'Título' }),
-
-    titleSection1: PropTypes.string.tag({ name: 'Título sección 1' }),
-    section1: PropTypes.string.tag({ name: 'Sección 1:' }),
-
-    titleSection2: PropTypes.string.tag({ name: 'Título sección 2' }),
-    section2: PropTypes.string.tag({ name: 'Sección 2:' }),
-
-    titleSection3: PropTypes.string.tag({ name: 'Título sección 3' }),
-    section3: PropTypes.string.tag({ name: 'Sección 3:' }),
-
-    titleSection4: PropTypes.string.tag({ name: 'Título sección 4' }),
-    section4: PropTypes.string.tag({ name: 'Sección 4:' }),
+    titleOpinion: PropTypes.string.isRequired.tag({ name: 'Título' }),
+    section1: PropTypes.string.isRequired.tag({ name: 'Sección 1:' }),
+    section2: PropTypes.string.isRequired.tag({ name: 'Sección 2:' }),
+    section3: PropTypes.string.isRequired.tag({ name: 'Sección 3:' }),
+    section4: PropTypes.string.isRequired.tag({ name: 'Sección 4:' }),
   }),
 }
 export default Opinion
