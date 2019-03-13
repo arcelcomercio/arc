@@ -40,20 +40,20 @@ const OpinionComponent = ({ titleOpinion, dataList }) => {
         <h3 className={clasess.title}>{titleOpinion}</h3>
       </div>
       <div className={clasess.body}>
-        {dataList.map(data => (
-            data?
-          <OpinionItem
-            titulo={data.title}
-            urlImg={data.urlImg}
-            urlNew={data.urlNew}
-            sectionName={data.sectionName}
-            urlSection={data.urlSection}
-          />
-          :null
-        ))}
+        {dataList.map((data) =>
+          data ? (
+            <OpinionItem
+              titulo={data.title}
+              urlImg={data.urlImg}
+              urlNew={data.urlNew}
+              sectionName={data.sectionName}
+              urlSection={data.urlSection}
+            />
+          ) : null
+        )}
       </div>
     </div>
   )
 }
 
-export default OpinionComponent;
+export default OpinionComponent
