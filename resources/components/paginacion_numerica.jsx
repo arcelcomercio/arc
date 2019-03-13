@@ -128,9 +128,12 @@ export default class Paginacion extends Component {
           let urlPage
 
           if (isBuscar !== null)
-            urlPage = querys
-              ? `${pathOrigin}${querys}&page=${page}`
-              : `${pathOrigin}?page=${page}`
+            if (querys) {
+              urlPage =
+                querys.match(/page=[0-9]+/) !== null
+                  ? querys.replace(/&page=[0-9]+/, `&page=${page}`)
+                  : `${pathOrigin}${querys}&page=${page}`
+            } else urlPage = `${pathOrigin}?page=${page}`
           else urlPage = `${pathOrigin}/${page}${querys}`
 
           if (page != '...') {
