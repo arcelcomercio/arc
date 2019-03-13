@@ -1,12 +1,16 @@
-import React, { Component } from 'react'
+/* eslint-disable camelcase */
+import React from 'react'
 
 import { addResizedUrlItem } from '../../../../../resources/utilsJs/thumbs'
 import { GetMultimediaContent } from '../../../../../resources/utilsJs/utilities'
+
 const classes = {
   item: 'separator__item separator__item--nota',
   detail: 'separator__detail',
   separatorTitle: 'separator__title separator__title--nota',
 }
+
+// eslint-disable-next-line camelcase
 const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
   return (
     <article className={classes.item}>
@@ -30,7 +34,10 @@ const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
 
 const SeparatorListItem = ({ data, excluir, website }) => {
   // transform(data, website)
+  let key = 0
   const result = data.map(elements => {
+    // eslint-disable-next-line eqeqeq
+    if (key == 6) return
     const {
       promo_items: promoItems,
       website_url: websiteUrl,
@@ -39,6 +46,7 @@ const SeparatorListItem = ({ data, excluir, website }) => {
 
     let multimedia = null
 
+    // eslint-disable-next-line eqeqeq
     if (websiteUrl == excluir) return
 
     if (promoItems !== null) {
@@ -47,7 +55,8 @@ const SeparatorListItem = ({ data, excluir, website }) => {
 
     if (multimedia.url == null) return
     const { medio } = multimedia
-
+    // eslint-disable-next-line operator-assignment
+    key = key + 1
     const aspectRatios = ['3:4|147x80']
 
     const { resized_urls } = addResizedUrlItem(
@@ -56,6 +65,7 @@ const SeparatorListItem = ({ data, excluir, website }) => {
       aspectRatios
     )
 
+    // eslint-disable-next-line consistent-return
     return (
       <SeparatorItem
         key={websiteUrl}
@@ -66,6 +76,7 @@ const SeparatorListItem = ({ data, excluir, website }) => {
       />
     )
   })
+
   return result
 }
 

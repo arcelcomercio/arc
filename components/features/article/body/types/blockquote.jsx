@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Fragment } from 'react'
 import renderHTML from 'react-render-html'
 
@@ -11,8 +12,7 @@ const Blockquote = props => {
   return (
     <Fragment>
       <blockquote
-        className={subtype === 'blockquote' ? styles.blockquote : styles.pull}
-      >
+        className={subtype === 'blockquote' ? styles.blockquote : styles.pull}>
         <p>
           {elementos && elementos[0] && renderHTML(elementos[0].content)}
           <br />
