@@ -31,6 +31,9 @@
       text-decoration-line: underline;
     }
     &-opinion {
+      background: #334a81;
+      padding: 12px;
+      text-transform: uppercase;
     }
   }
 
@@ -44,6 +47,11 @@
 
     @media screen and (min-width: 320px) and (max-width: 640px) {
       grid-template-columns: 1fr;
+    }
+    opinion-item {
+      padding: 20px 15px;
+      background: #c5ddf9;
+      display: flex;
     }
   }
 

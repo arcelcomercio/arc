@@ -16,7 +16,9 @@ const classes = {
   detail: 'separator__detail',
   separatorTitle: 'separator__title',
   mvideo: 'separator--video',
-  opinionItem: '',
+  separadorTitleOpinion: 'separador__headerTitle-opinion',
+  opinionItem: 'opinion-item',
+  opinionItemImage: 'opinion-item-image'
 }
 
 const createMarkup = html => {
@@ -35,7 +37,7 @@ const HeaderHTML = ({ htmlCode }) => {
 
 const OpinionItem = props => {
   return (
-    <div className="opinion-item">
+    <div className={classes.opinionItem}>
       <article>
         <div className="item-detail">
           <h3 className="item-detail__column">
@@ -48,7 +50,7 @@ const OpinionItem = props => {
             <a href="#">{props.basic}</a>
           </p>
         </div>
-        <figure className="item-image">
+        <figure className={classes.opinionItemImage}>
           <a href="#">
             <img src={props.imagen} alt="imagen aqui" />
           </a>
@@ -216,7 +218,7 @@ class SeparadorOpinion extends Component {
     return (
       <div className={classes.separator}>
         {titleSection ? (
-          <h1 className={classes.title}>
+          <h1 className={classes.title classes.separadorTitleOpinion}>
             <a href="#">{titleSection}</a>
           </h1>
         ) : (
