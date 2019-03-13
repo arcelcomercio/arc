@@ -7,6 +7,7 @@ class FilterSearch extends Component {
     super(props)
 
     this.state = {
+      /* Agrega valor a estos estados fuera del PageBuilder */
       sort: !props.isAdmin && this.getOrder(),
       selected: !props.isAdmin && this.getSection(),
       sections: [],
@@ -14,9 +15,10 @@ class FilterSearch extends Component {
     }
 
     this.fetchSections()
-    this.inputSearch = React.createRef()
+    this.inputSearch = React.createRef() /* React ref del input */
   }
 
+  // Set the sort state from &sort=
   getOrder() {
     const {
       globalContentConfig: {
@@ -27,6 +29,7 @@ class FilterSearch extends Component {
     return sort
   }
 
+  // Set the section state from &category=
   getSection() {
     const {
       globalContentConfig: {
@@ -37,45 +40,82 @@ class FilterSearch extends Component {
     return section && section !== '' ? 'section' : ''
   }
 
+  // Replace the parameter from the query
   getUrl(type, value) {
     const { requestUri, arcSite } = this.props
-    switch (type) {
-      case 'query': {
-        const newUri = requestUri.replace(/\?query=.*?(?=&)/, `?query=${value}`)
-        return newUri.replace(/&page=.*?(?=&)/, '')
-      }
-      case 'section': {
-        const newUri = requestUri.replace(
-          /&category=.*?(?=&)/,
-          `&category=${value.slice(1)}`
-        )
-        return newUri.replace(/&page=.*?(?=&)/, '')
-      }
-      case 'sort': {
-        const newUri = requestUri.replace(/&sort=.*?(?=&)/, `&sort=${value}`)
-        return newUri.replace(/&page=.*?(?=&)/, '')
-      }
-      case 'from':
-        return requestUri.replace(/&page=.*?(?=&)/, `&page=${value}`)
-      default:
-        return `/buscar/?query=&category=&sort=desc&_website=${arcSite}`
+
+    /* Genera la expresión regular basado en el parámetro que se busca */
+    const regex = new RegExp(`(\\?|&)${type}=.*?(?=&)`)
+    let newUri
+
+    /* Si la URI actual tiene el parámetro que se quiere reemplazar, lo reemplaza */
+    if (requestUri.includes(type)) {
+      /* Si el parámetro es "query", agrega el "?" al inicio, sino el "&" */
+      newUri = requestUri.replace(
+        regex,
+        `${type === 'query' ? '?' : '&'}${type}=${
+          type === 'query'
+            ? encodeURIComponent(value).replace(/%20/g, '+')
+            : value
+        }`
+      )
+      /* Luego de agregar un parámetro resetea la paginación */
+      newUri = newUri.replace(/&page=.*?(?=&|$)/, '')
+    } else {
+      /*
+        Si el parámetro que se quiere reemplazar no está en la URI actual 
+        generará la URI desde cero usando los parámetros que ya tiene y
+        agregando el nuevo parámetro
+      */
+      const {
+        globalContentConfig: { query: params },
+      } = this.props
+
+      /* Por defecto "sort" será "desc", no "vacío" */
+      const sort = type === 'sort' ? value : 'desc'
+      /*
+        Es necesario hacer esto para poder agregar el parámetro "category" 
+        aún cuando no está presente en la URI actual
+      */
+      const category = type === 'category' ? value : ''
+
+      newUri = `/buscar/?query=${encodeURIComponent(params.query || '').replace(
+        /%20/g,
+        '+'
+      )}&category=${(params.section && params.section.slice(1)) ||
+        category}&sort=${params.sort || sort}&_website=${arcSite}`
+      /* El slice(0) es para eliminar el slash de la sección que se agrega para la consulta a la API */
     }
+
+    return newUri /* Retorna la nueva URI armada */
   }
 
+  // Establece el estado "selected" relacionado al filtro seleccionado
   _handleButton = event => {
     this.setState({
       selected: event.target.name,
     })
   }
 
+  // Agrega la nueva "query" a la URI
   _handleSearch = e => {
-    const { arcSite } = this.props
+    const {
+      arcSite,
+      globalContentConfig: {
+        query: { sort },
+      },
+    } = this.props
+    const { value } = this.inputSearch.current /* React ref del input */
+
     e.preventDefault()
-    const { value } = this.inputSearch.current
+
+    /* Sólo genera la URI si "query" tiene contenido */
     if (value && value !== '')
-      location.href = `${
-        location.pathname
-      }?query=${value}&category=&sort=desc&_website=${arcSite}`
+      location.href = `${location.pathname}?query=${encodeURIComponent(
+        value
+      ).replace(/%20/g, '+')}&category=&sort=${sort ||
+        'desc'}&_website=${arcSite}`
+    /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
   }
 
   fetchSections() {
@@ -122,10 +162,10 @@ class FilterSearch extends Component {
           <ul className={`filter-search__list ${showList ? 'active' : ''}`}>
             <li
               className={`filter-search__item ${
-                sort === 'desc' ? 'active' : ''
+                sort === 'desc' || !sort ? 'active' : ''
               }`}>
               <a
-                href={this.getUrl('sort', 'desc')}
+                href={this.getUrl('sort', 'desc')} // (type, value)
                 className="filter-search__link"
                 role="checkbox"
                 aria-checked="true">
@@ -137,7 +177,7 @@ class FilterSearch extends Component {
                 sort === 'asc' ? 'active' : ''
               }`}>
               <a
-                href={this.getUrl('sort', 'asc')}
+                href={this.getUrl('sort', 'asc')} // (type, value)
                 className="filter-search__link"
                 role="checkbox"
                 aria-checked="false">
@@ -149,7 +189,7 @@ class FilterSearch extends Component {
                 sort === 'rel' ? 'active' : ''
               }`}>
               <a
-                href={this.getUrl()}
+                href={this.getUrl()} // (type, value)
                 className="filter-search__link"
                 role="checkbox"
                 aria-checked="false">
@@ -181,12 +221,14 @@ class FilterSearch extends Component {
                 name="section">
                 Sección
               </button>
-              {selected === 'section' && sections !== [] && (
+              {/* Si el filtro seleccionado es "sección", renderiza la lista de secciones */
+              selected === 'section' && sections !== [] && (
                 <ul className="filter-search__sublist active">
                   {sections.map(section => (
                     <li key={section._id} className="filter-search__subitem">
                       <a
-                        href={this.getUrl('section', section._id)}
+                        href={this.getUrl('category', section._id.slice(1))} // (type, value)
+                        /* El slice(0) es para eliminar el slash inicial de la sección */
                         className="filter-search__sublink">
                         {section.name}
                       </a>

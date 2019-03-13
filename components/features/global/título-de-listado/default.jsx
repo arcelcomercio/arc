@@ -147,13 +147,15 @@ class ListTitle extends Component {
   setSearchTitle = () => {
     const {
       globalContentConfig: {
-        query: { uri },
+        query: { query },
       },
       globalContent: { count },
     } = this.props
 
     const search =
-      uri !== '' && uri.match(/(\?query=)(.*(?=&|\/)|.*)/)[2].replace('+', ' ')
+      query &&
+      query !== '' &&
+      query.match(/(\?query=)(.*(?=&|\/)|.*)/)[2].replace('+', ' ')
     return `SE ENCONTRARON ${count} RESULTADOS PARA: ${search &&
       search.toUpperCase()}`
   }
