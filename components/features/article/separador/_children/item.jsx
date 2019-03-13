@@ -39,7 +39,7 @@ const SeparatorListItem = ({ data, excluir, website }) => {
   // transform(data, website)
   let key = 0
   const result = data.map(elements => {
-    if (key == 5) return
+    if (key == 6) return
     const {
       promo_items: promoItems,
       website_url: websiteUrl,
