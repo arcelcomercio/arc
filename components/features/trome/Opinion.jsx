@@ -12,15 +12,21 @@ const clasess = {
   icono: 'opiniontrome__icono',
   nombreSeccion: 'opiniontrome__nombreseccion',
   titleNew: 'opiniontrome__titleNew',
+  orange: 'text_orange',
 }
 
-const OpinionItem = ({ seccion, titulo, urlImg }) => {
+const OpinionItem = ({ titulo, urlImg, urlNew, sectionName, urlSection }) => {
+  debugger
   return (
     <div className={clasess.item}>
       <div className={clasess.seccion}>
-        <h3 className={clasess.nombreSeccion}>{seccion}</h3>
-        <div className={clasess.titleNew}> 
-          <h2 >{titulo} </h2>
+        <h3 className={clasess.nombreSeccion}>
+          <a href={urlSection}>{ sectionName}</a>
+        </h3>
+        <div className={clasess.titleNew}>
+          <h2>
+            <a href={urlNew}>{titulo}</a>
+          </h2>
         </div>
       </div>
       <div className={clasess.icono}>
@@ -93,54 +99,64 @@ class Opinion extends Component {
   }
 
   getContentApi = (seccion, callback) => {
-    const { arcSite } = this.props
-    const { fetched } = this.getContent(
-      'stories__by-section',
-      {
-        website: arcSite,
-        section: seccion,
-      },
-      this.filterSchema()
-    )
+    if (seccion) {
+      const { arcSite } = this.props
+      const { fetched } = this.getContent(
+        'stories__by-section',
+        {
+          website: arcSite,
+          section: seccion,
+        },
+        this.filterSchema()
+      )
 
-    fetched.then(response => {
-      if (!response) {
-        // eslint-disable-next-line no-param-reassign
-        response = []
-        console.log(
-          'No hay respuesta del servicio para obtener la ultima noticia'
-        )
-      }
-
-      if (!response.content_elements) {
-        response.content_elements = []
-        console.log(
-          'No hay respuesta del servicio para obtener la ultima noticia'
-        )
-      }
-
-      if (response.content_elements.length > 0) {
-        let {
-          headlines: { basic },
-          taxonomy: { sites },
-        } = response.content_elements[0]
-        let {
-          additional_properties: {
-            original: {
-              site_topper: { site_logo_image },
-            },
-          },
-        } = sites[0]
-
-        const contenido = {
-          title: basic,
-          urlImg: site_logo_image,
+      fetched.then(response => {
+        if (!response) {
+          // eslint-disable-next-line no-param-reassign
+          response = []
+          console.log(
+            'No hay respuesta del servicio para obtener la ultima noticia'
+          )
         }
-        callback(contenido)
-      } else {
-        callback(null)
-      }
-    })
+
+        if (!response.content_elements) {
+          response.content_elements = []
+          console.log(
+            'No hay respuesta del servicio para obtener la ultima noticia'
+          )
+        }
+
+        if (response.content_elements.length > 0) {
+          const {
+            headlines: { basic },
+            taxonomy: { sites, sections },
+            canonical_url,
+          } = response.content_elements[0]
+          const {
+            additional_properties: {
+              original: {
+                site_topper: { site_logo_image },
+              },
+            },
+          } = sites[0]
+
+          const { name, path } = sections[0]
+
+          const contenido = {
+            title: basic,
+            urlImg: site_logo_image,
+            urlNew: canonical_url,
+            sectionName: name,
+            urlSection: path,
+          }
+          callback(contenido)
+        } else {
+          callback(null)
+        }
+      })
+    } else {
+      callback(null)
+    }
   }
 
   filterSchema = () => {
@@ -150,6 +166,7 @@ class Opinion extends Component {
         headlines {
             basic
         }
+        canonical_url
         taxonomy{
           sites{
             additional_properties{
@@ -159,6 +176,10 @@ class Opinion extends Component {
                 }
               }
             }
+          }
+          sections{
+            name
+            path
           }
         }
         subheadlines{
@@ -193,6 +214,9 @@ class Opinion extends Component {
               seccion={titleSection1}
               titulo={data1.title}
               urlImg={data1.urlImg}
+              urlNew={data1.urlNew}
+              sectionName={data1.sectionName}
+              urlSection={data1.urlSection}
             />
           )}
           {data2 && (
@@ -200,6 +224,9 @@ class Opinion extends Component {
               seccion={titleSection2}
               titulo={data2.title}
               urlImg={data2.urlImg}
+              urlNew={data2.urlNew}
+              sectionName={data2.sectionName}
+              urlSection={data2.urlSection}
             />
           )}
           {data3 && (
@@ -207,6 +234,9 @@ class Opinion extends Component {
               seccion={titleSection3}
               titulo={data3.title}
               urlImg={data3.urlImg}
+              urlNew={data3.urlNew}
+              sectionName={data3.sectionName}
+              urlSection={data3.urlSection}
             />
           )}
           {data4 && (
@@ -214,6 +244,9 @@ class Opinion extends Component {
               seccion={titleSection4}
               titulo={data4.title}
               urlImg={data4.urlImg}
+              urlNew={data4.urlNew}
+              sectionName={data4.sectionName}
+              urlSection={data4.urlSection}
             />
           )}
         </div>

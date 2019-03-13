@@ -20,7 +20,7 @@
   &__body {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 25% 25% 25% 25%;
+    grid-template-rows: auto;
     // height: 450px;
   }
   &__item {
@@ -34,16 +34,33 @@
     grid-template-rows: 2fr 8fr;
     grid-template-columns: 1fr;
     align-items: center;
+    & a{
+      color: #000;
+      text-decoration: none;
+    }
+    & a:hover {
+      color: #000;
+      text-decoration: underline;
+    }
   }
   &__nombreseccion {
     color: #f15a24;
+
+    & a{
+      color: #f15a24;
+      text-decoration: none;
+    }
+    & a:hover {
+      color: #f15a24;
+      text-decoration: underline;
+    }
   }
   &__titleNew {
     //text-overflow: ellipsis;
     
     overflow: hidden;
     text-align: left;
-
+    
   }
   &__icono {
     display: grid;
