@@ -49,11 +49,12 @@
   }
 
   &__listItems {
-    background: #ffffff;
+    
     max-height: 395px;
   }
 
   &__itemNews {
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     width: auto;
