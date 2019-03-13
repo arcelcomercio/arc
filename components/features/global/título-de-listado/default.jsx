@@ -134,10 +134,12 @@ class ListTitle extends Component {
       },
     } = this.props
 
-    const author = by.forEach(
-      authorData =>
-        authorData && authorData.type && authorData === 'author' && authorData
-    )
+    let author
+
+    by.forEach(authorData => {
+      if (authorData && authorData.type && authorData.type === 'author')
+        author = authorData
+    })
 
     return `${author.name ? author.name.toUpperCase() : ''}${
       author.org ? `, ${author.org.toUpperCase()}` : ''
