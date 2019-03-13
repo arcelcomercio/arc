@@ -146,6 +146,7 @@ class FilterSearch extends Component {
 
   render() {
     const { sections, selected, showList, sort } = this.state
+    const { isAdmin } = this.props
 
     return (
       <div className="filter-search full-width margin-top">
@@ -165,7 +166,7 @@ class FilterSearch extends Component {
                 sort === 'desc' || !sort ? 'active' : ''
               }`}>
               <a
-                href={this.getUrl('sort', 'desc')} // (type, value)
+                href={!isAdmin && this.getUrl('sort', 'desc')} // (type, value)
                 className="filter-search__link"
                 role="checkbox"
                 aria-checked="true">
@@ -177,7 +178,7 @@ class FilterSearch extends Component {
                 sort === 'asc' ? 'active' : ''
               }`}>
               <a
-                href={this.getUrl('sort', 'asc')} // (type, value)
+                href={!isAdmin && this.getUrl('sort', 'asc')} // (type, value)
                 className="filter-search__link"
                 role="checkbox"
                 aria-checked="false">
@@ -189,7 +190,7 @@ class FilterSearch extends Component {
                 sort === 'rel' ? 'active' : ''
               }`}>
               <a
-                href={this.getUrl()} // (type, value)
+                href={!isAdmin && this.getUrl()} // (type, value)
                 className="filter-search__link"
                 role="checkbox"
                 aria-checked="false">
@@ -227,7 +228,10 @@ class FilterSearch extends Component {
                   {sections.map(section => (
                     <li key={section._id} className="filter-search__subitem">
                       <a
-                        href={this.getUrl('category', section._id.slice(1))} // (type, value)
+                        href={
+                          !isAdmin &&
+                          this.getUrl('category', section._id.slice(1))
+                        } // (type, value)
                         /* El slice(0) es para eliminar el slash inicial de la sección */
                         className="filter-search__sublink">
                         {section.name}
