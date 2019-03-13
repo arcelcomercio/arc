@@ -16,6 +16,7 @@ const classes = {
   detail: 'separator__detail',
   separatorTitle: 'separator__title',
   mvideo: 'separator--video',
+  opinionItem: '',
 }
 
 const createMarkup = html => {
