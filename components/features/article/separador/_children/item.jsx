@@ -1,6 +1,3 @@
-/* eslint-disable operator-assignment */
-/* eslint-disable prefer-const */
-/* eslint-disable eqeqeq */
 /* eslint-disable camelcase */
 import React from 'react'
 
@@ -39,6 +36,7 @@ const SeparatorListItem = ({ data, excluir, website }) => {
   // transform(data, website)
   let key = 0
   const result = data.map(elements => {
+    // eslint-disable-next-line eqeqeq
     if (key == 6) return
     const {
       promo_items: promoItems,
@@ -48,6 +46,7 @@ const SeparatorListItem = ({ data, excluir, website }) => {
 
     let multimedia = null
 
+    // eslint-disable-next-line eqeqeq
     if (websiteUrl == excluir) return
 
     if (promoItems !== null) {
@@ -56,6 +55,7 @@ const SeparatorListItem = ({ data, excluir, website }) => {
 
     if (multimedia.url == null) return
     const { medio } = multimedia
+    // eslint-disable-next-line operator-assignment
     key = key + 1
     const aspectRatios = ['3:4|147x80']
 
