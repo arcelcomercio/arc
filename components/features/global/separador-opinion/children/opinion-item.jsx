@@ -1,20 +1,19 @@
 import React from 'react'
 
-const OpinionItem = () => {
+const OpinionItem = props => {
+  const { basic, websiteUrl, author } = props
   return (
     <div className="opinion-item">
       <article>
         <div className="item-detail">
           <h3 className="item-detail__column">
-            <a href="#">opinion</a>
+            <a href="#" />
           </h3>
           <span className="item-detail__author">
-            <a href="#">Jaime Bayly</a>
+            <a href="#">{author}</a>
           </span>
           <p className="item-detail__summary">
-            <a href="#">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            </a>
+            <a href={websiteUrl}>{basic}</a>
           </p>
         </div>
         <figure className="item-image">

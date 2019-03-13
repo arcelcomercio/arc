@@ -18,7 +18,7 @@ export default `
     slug: String
     url: String
     description: String
-    image: [Image]
+    image: Image
   }
   type Credits {
     by: [By]
