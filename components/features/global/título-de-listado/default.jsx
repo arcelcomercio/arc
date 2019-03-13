@@ -153,10 +153,12 @@ class ListTitle extends Component {
     } = this.props
 
     const search = query && query !== '' && query.replace('+', ' ')
-    console.log(search)
-    console.log(count)
-    return `SE ENCONTRARON ${count} RESULTADOS PARA: ${search &&
-      search.toUpperCase()}`
+    let title
+    if (search && search !== '')
+      title = `SE ENCONTRARON ${count} RESULTADOS PARA: ${search &&
+        search.toUpperCase()}`
+    else title = `ÚLTIMAS NOTICIAS`
+    return title
   }
 
   render() {
