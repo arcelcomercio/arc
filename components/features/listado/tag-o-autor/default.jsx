@@ -6,7 +6,6 @@ import Paginacion from '../../../../resources/components/paginacion_numerica'
 @Consumer
 class tagAutor extends Component {
   render() {
-    console.log(this.props)
     const { globalContent, globalContentConfig, arcSite } = this.props
 
     const params = {
