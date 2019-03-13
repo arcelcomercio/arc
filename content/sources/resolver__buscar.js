@@ -76,13 +76,18 @@ export default {
 			type: 'text'
 		},
 		{
+			name: 'page',
+			displayName: 'Página (Buscar)',
+			type: 'text'
+		},
+		{
 			name: 'sort',
 			displayName: 'Orden',
 			type: 'text'
 		},
 		{
 			name: 'from',
-			displayName: 'Página',
+			displayName: 'Página de inicio',
 			type: 'number'
 		},
 		{

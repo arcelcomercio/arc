@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 import { getActualDate } from '../utilsJs/helpers'
 
-const clases = {
+const classes = {
   paginationFile: 'pagination-file',
   paginationFileList: 'pagination-file__list',
   paginationFileItem: 'pagination-file__item',
@@ -132,11 +132,11 @@ class PaginadorFecha extends Component {
     const { dateIterator } = this.state
     const { date } = this.props
     return (
-      <div className={clases.paginationFile}>
-        <ul className={clases.paginationFileList}>
-          <li className={clases.paginationFileItem}>
+      <div className={classes.paginationFile}>
+        <ul className={classes.paginationFileList}>
+          <li className={classes.paginationFileItem}>
             <a
-              className={clases.paginationFileLink}
+              className={classes.paginationFileLink}
               href={`${this.getURL()}${this.getLastDay().concat(
                 this.getQueryURL()
               )}`}>
@@ -148,16 +148,16 @@ class PaginadorFecha extends Component {
               <li
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
-                className={`${clases.paginationFileItem} ${
+                className={`${classes.paginationFileItem} ${
                   index === dateIterator.length - 1 ? 'active' : ''
                 }`}>
                 {index === dateIterator.length - 1 ? (
-                  <p className={clases.paginationFileLink}>
+                  <p className={classes.paginationFileLink}>
                     {this.clearDate(el)}
                   </p>
                 ) : (
                   <a
-                    className={clases.paginationFileLink}
+                    className={classes.paginationFileLink}
                     href={`${this.getURL(index).concat(this.getQueryURL())}`}>
                     {this.clearDate(el)}
                   </a>
@@ -168,9 +168,9 @@ class PaginadorFecha extends Component {
           {date === getActualDate() ? (
             ''
           ) : (
-            <li className={clases.paginationFileItem}>
+            <li className={classes.paginationFileItem}>
               <a
-                className={clases.paginationFileLink}
+                className={classes.paginationFileLink}
                 href={`${this.getURL()}${this.getnextDay().concat(
                   this.getQueryURL()
                 )}`}>
