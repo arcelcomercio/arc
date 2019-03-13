@@ -1,56 +1,23 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
-const clasess = {
-  opinion: 'opiniontrome',
-  head: 'opiniontrome__head',
-  title: 'opiniontrome__title',
-  body: 'opiniontrome__body',
-  item: 'opiniontrome__item',
-  seccion: 'opiniontrome__seccion',
-  icono: 'opiniontrome__icono',
-  nombreSeccion: 'opiniontrome__nombreseccion',
-  titleNew: 'opiniontrome__titleNew',
-  orange: 'text_orange',
-}
+// import PropTypes from 'prop-types'
+import OpinionComponent from './_children/OpinionComponent'
 
-const OpinionItem = ({ titulo, urlImg, urlNew, sectionName, urlSection }) => {
-  
-  return (
-    <div className={clasess.item}>
-      <div className={clasess.seccion}>
-        <h3 className={clasess.nombreSeccion}>
-          <a href={urlSection}>{ sectionName}</a>
-        </h3>
-        <div className={clasess.titleNew}>
-          <h2>
-            <a href={urlNew}>{titulo}</a>
-          </h2>
-        </div>
-      </div>
-      <div className={clasess.icono}>
-        <img data-type="src" src={urlImg} data-src={urlImg} alt="" />
-      </div>
-    </div>
-  )
-}
+import filterSchema from './_children/filterSchema'
+
+import customFields from './_children/customField'
+
+
 @Consumer
 class Opinion extends Component {
   constructor(props) {
     super(props)
 
     const {
-      customFields: {
-        titleOpinion,
-        section1,
-        section2,
-        section3,
-        section4,
-      },
+      customFields: { titleOpinion, section1, section2, section3, section4 },
     } = this.props || {}
 
-    
     this.state = {
       titleOpinion,
       section1,
@@ -100,11 +67,11 @@ class Opinion extends Component {
           website: arcSite,
           section: seccion,
         },
-        this.filterSchema()
+        //this.filterSchema()
+        filterSchema()
       )
 
       fetched.then(response => {
-        
         if (!response) {
           // eslint-disable-next-line no-param-reassign
           response = []
@@ -121,7 +88,6 @@ class Opinion extends Component {
         }
 
         if (response.content_elements.length > 0) {
-          
           const {
             headlines: { basic },
             taxonomy: { sites, sections },
@@ -154,101 +120,19 @@ class Opinion extends Component {
     }
   }
 
-  filterSchema = () => {
-    return `
-    {
-      content_elements{
-        headlines {
-            basic
-        }
-        canonical_url
-        taxonomy{
-          sites{
-            additional_properties{
-              original{
-                site_topper{
-                  site_logo_image
-                }
-              }
-            }
-          }
-          sections{
-            name
-            path
-          }
-        }
-        subheadlines{
-          basic
-        }
-      }
-    }
-    `
-  }
-
   render() {
-    const {
-      titleOpinion,
-      data1,
-      data2,
-      data3,
-      data4,
-    } = this.state
-    
+    const { titleOpinion, data1, data2, data3, data4 } = this.state
+    const dataList = [data1, data2, data3, data4]
     return (
-      <div className={clasess.opinion}>
-        <div className={clasess.head}>
-          <h3 className={clasess.title}>{titleOpinion}</h3>
-        </div>
-        <div className={clasess.body}>
-          {data1 && (
-            <OpinionItem
-              titulo={data1.title}
-              urlImg={data1.urlImg}
-              urlNew={data1.urlNew}
-              sectionName={data1.sectionName}
-              urlSection={data1.urlSection}
-            />
-          )}
-          {data2 && (
-            <OpinionItem
-              titulo={data2.title}
-              urlImg={data2.urlImg}
-              urlNew={data2.urlNew}
-              sectionName={data2.sectionName}
-              urlSection={data2.urlSection}
-            />
-          )}
-          {data3 && (
-            <OpinionItem
-              titulo={data3.title}
-              urlImg={data3.urlImg}
-              urlNew={data3.urlNew}
-              sectionName={data3.sectionName}
-              urlSection={data3.urlSection}
-            />
-          )}
-          {data4 && (
-            <OpinionItem
-              titulo={data4.title}
-              urlImg={data4.urlImg}
-              urlNew={data4.urlNew}
-              sectionName={data4.sectionName}
-              urlSection={data4.urlSection}
-            />
-          )}
-        </div>
-      </div>
+      <OpinionComponent
+        titleOpinion={titleOpinion}
+        dataList={dataList}
+      />
     )
   }
 }
 
 Opinion.propTypes = {
-  customFields: PropTypes.shape({
-    titleOpinion: PropTypes.string.isRequired.tag({ name: 'Título' }),
-    section1: PropTypes.string.isRequired.tag({ name: 'Sección 1:' }),
-    section2: PropTypes.string.isRequired.tag({ name: 'Sección 2:' }),
-    section3: PropTypes.string.isRequired.tag({ name: 'Sección 3:' }),
-    section4: PropTypes.string.isRequired.tag({ name: 'Sección 4:' }),
-  }),
+  customFields,
 }
 export default Opinion
