@@ -30,6 +30,15 @@
     & a:hover {
       text-decoration-line: underline;
     }
+    &--nota {
+      border-style: solid;
+      border-color: #d5e1e1;
+      border-width: 1px 0;
+      margin-top: 15px;
+      text-align: center;
+      margin-bottom: 15px;
+      height: 46px;
+    }
   }
 
   &__body {
@@ -42,6 +51,11 @@
 
     @media screen and (min-width: 320px) and (max-width: 640px) {
       grid-template-columns: 1fr;
+    }
+    &--items {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      height: 169px;
+      border-bottom: 1px solid #999;
     }
   }
 
@@ -66,6 +80,13 @@
         }
       }
     }
+    &--nota {
+      & figure {
+        height: 80px;
+        margin-right: 2%;
+        width: 90%;
+      }
+    }
   }
 
   & span {
@@ -79,9 +100,8 @@
     z-index: 2;
     text-align: center;
     border-radius: 50%;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     color: #444;
-
   }
 
   &__detail {
@@ -91,6 +111,9 @@
     padding-left: 12px;
     padding-right: 12px;
     bottom: 10px;
+    &--nota {
+      bottom: 44px;
+    }
   }
   &__title {
     display: -webkit-box;
@@ -108,5 +131,13 @@
     & a:hover {
       text-decoration-line: underline;
     }
+    &--nota {
+      & a {
+        color: #333;
+      }
+    }
+  }
+  &--nota {
+    height: 254px;
   }
 }

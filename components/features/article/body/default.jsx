@@ -42,6 +42,7 @@ class ContentArticleBody extends Component {
             <ArticleBody
               data={contentElements}
               elementClasses={elementClasses}
+              // eslint-disable-next-line consistent-return
               renderElement={element => {
                 const { type } = element
                 if (type === 'image') {

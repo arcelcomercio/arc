@@ -1,6 +1,8 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react'
 
+import { getActualDate } from '../utilsJs/helpers'
+
 class PaginadorFecha extends Component {
   constructor() {
     super()
@@ -89,14 +91,24 @@ class PaginadorFecha extends Component {
     }
   }
 
-  // Devuelve el link del <Anterior> en paginacion
-  getLastDay() {
-    const { dateIterator } = this.state
-    return dateIterator[dateIterator.length - 2]
+  // Obtener la fecha del path o devolver vacio
+  getURL(index) {
+    const section = this.props.section ? this.props.section : 'todas'
+    const { origin } = location
+    return index || index === 0
+      ? // Si viene un indice devuelvo localhost/archivo/seccion/fecha
+        `${origin}/archivo/${section}/${this.state.dateIterator[index]}`
+      : // Si no viene index devuelvo localhost/archivo/seccion
+        `${origin}/archivo/${section}/`
   }
 
-  getQueryURL() {
-    return window.location.search
+  // Si Hay en el path una fecha, la pasa como parametro a la funcion, si no se ejecuta la acutal
+  evalDate() {
+    const { date } = this.props
+    if (date && date !== '') {
+      return this.getFiveDays(date)
+    }
+    return this.getFiveDays()
   }
 
   // Devuelve el link del <Siguiente> en paginacion
@@ -130,7 +142,7 @@ class PaginadorFecha extends Component {
           <li className="pagination-file__item">
             <a
               className="pagination-file__link"
-              href={`${this.getURL().path}/${this.getLastDay().concat(
+              href={`${this.getURL()}${this.getLastDay().concat(
                 this.getQueryURL()
               )}`}>
               Anterior
@@ -148,27 +160,25 @@ class PaginadorFecha extends Component {
                 ) : (
                   <a
                     className="pagination-file__link"
-                    href={`${this.getURL().path}/${el.concat(
-                      this.getQueryURL()
-                    )}`}>
+                    href={`${this.getURL(index).concat(this.getQueryURL())}`}>
                     {this.clearDate(el)}
                   </a>
                 )}
               </li>
             )
           })}
-          {this.getURL().date !== '' ? (
+          {this.props.date === getActualDate() ? (
+            ''
+          ) : (
             <li className="pagination-file__item">
               <a
                 className="pagination-file__link"
-                href={`${this.getURL().path}/${this.getnextDay().concat(
+                href={`${this.getURL()}${this.getnextDay().concat(
                   this.getQueryURL()
                 )}`}>
                 Siguiente
               </a>
             </li>
-          ) : (
-            ''
           )}
         </ul>
       </div>
