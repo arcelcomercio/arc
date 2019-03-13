@@ -59,7 +59,7 @@ class CardNotice extends Component {
                 </div>
                 <div className="card-notice__right">
                   <a href={element.link}>
-                    {element.multimediaType === 'basic' ? (
+                    {element.multimediaType === 'basic' || element.multimediaType === '' ? (
                       ''
                     ) : (
                       <span className="card-notice__icon">

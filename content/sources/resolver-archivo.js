@@ -1,46 +1,27 @@
-import { getActualDate } from "../../resources/utilsJs/helpers"
+import {
+  getActualDate
+} from '../../resources/utilsJs/helpers'
 
 let globalParams = {}
-
-/*
-const getActualDate = () => {
-  const today = new Date()
-  let dd = today.getDate()
-  let mm = today.getMonth() + 1 // January is 0!
-
-  const yyyy = today.getFullYear()
-  if (dd < 10) {
-    dd = `0${dd}`
-  }
-  if (mm < 10) {
-    mm = `0${mm}`
-  }
-  return `${yyyy}-${mm}-${dd}`
-}
-*/
 
 const resolve = key => {
   if (!key.website) {
     throw new Error('This content source requires a website')
   }
-  /* if (!key.fullPath) {
-    throw new Error('This content source requires a fullPath')
-  } */
 
-  // /archivo/seccion/18-09     ["", "archivo", "seccion", "18-09"]
-  // const auxValues = key.fullPath.split('/')
   const params = {
-    // page: auxValues[1],
+    page: key.page && key.page,
     section: key.section ? key.section : 'todas',
     date: key.date ? key.date : getActualDate(),
   }
-  globalParams = params
+  globalParams = {
+    ...params
+  }
 
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -81,7 +62,9 @@ const resolve = key => {
 const transform = data => {
   const aux = {
     ...data,
-    params: globalParams,
+    params: {
+      ...globalParams
+    },
   }
   return aux
 }
@@ -92,7 +75,7 @@ export default {
   transform,
   params: {
     website: 'text',
-    // fullPath: 'text',
+    page: 'text',
     section: 'text',
     date: 'text',
   },
