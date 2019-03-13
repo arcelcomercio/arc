@@ -2,29 +2,9 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-const classes = {
-  destaque: 'destaque padding-normal flex flex--column row-1',
-  gradient: 'destaque__gradient full-width block',
-  detail: 'destaque__detail flex flex--column flex--justify-between',
-  image: 'destaque__image',
+import Destaque from '../../../../resources/components/destaque'
+import { addResizedUrlItem } from '../../../../resources/utilsJs/thumbs'
 
-  category: 'destaque__category',
-  title: 'destaque__title',
-  author: 'destaque__author',
-
-  link: 'destaque__link',
-  imageLink: 'block',
-
-  imgComplete: 'destaque--img-complete',
-  parcialTop: 'flex--column-reverse',
-
-  twoCol: 'col-2',
-  // Headbands
-  headband: 'destaque__headband',
-  headbandLink: 'destaque__headband-link',
-
-  live: 'destaque--live',
-}
 @Consumer
 class DestaqueManual extends Component {
   constructor(props) {
@@ -84,7 +64,20 @@ class DestaqueManual extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
-      // console.log(response)
+      console.log(response)
+      console.log(
+        'original: ',
+        response.promo_items.basic_video.promo_items.basic.url
+      )
+      console.log(
+        'resized: ',
+        addResizedUrlItem(
+          arcSite,
+          response.promo_items.basic_video.promo_items.basic.url,
+          ['164:187|328x374']
+        ).resized_urls['164:187']
+      )
+
       this.setState({
         category: {
           name: response.websites[`${arcSite}`]
@@ -103,42 +96,44 @@ class DestaqueManual extends Component {
           url: response.credits.by.length ? response.credits.by[0].url : '',
         },
       })
-      let storyTypePath = response.promo_items.basic
-        ? response.promo_items.basic
-        : ''
-      if (!response.promo_items.basic && response.promo_items.basic_gallery) {
-        storyTypePath = response.promo_items.basic_gallery.promo_items.basic
+
+      let storyTypePath = ''
+      if (response.promo_items.basic) {
+        storyTypePath = response.promo_items.basic.url
+      } else if (response.promo_items.basic_gallery) {
+        storyTypePath = response.promo_items.basic_gallery.promo_items.basic.url
+      } else if (response.promo_items.basic_video) {
+        storyTypePath = response.promo_items.basic_video.promo_items.basic.url
       }
-      if (!response.promo_items.basic && response.promo_items.basic_video) {
-        storyTypePath = response.promo_items.basic_video.promo_items.basic
-      }
+
       if (size === 'twoCol') {
         this.setState({
-          image: storyTypePath.resized_urls
-            ? storyTypePath.resized_urls['388:187']
-            : storyTypePath.url,
+          image: addResizedUrlItem(arcSite, storyTypePath, ['388:187|676x374'])[
+            '388:187'
+          ],
         })
       } else {
         switch (imageSize) {
           case 'parcialBot':
           case 'parcialTop':
             this.setState({
-              image: storyTypePath.resized_urls
-                ? storyTypePath.resized_urls['288:157']
-                : storyTypePath.url,
+              image: addResizedUrlItem(arcSite, storyTypePath, [
+                '288:157|288x157',
+              ])['288:157'],
             })
             break
           case 'complete':
             this.setState({
-              image: storyTypePath.resized_urls
-                ? storyTypePath.resized_urls['164:187']
-                : storyTypePath.url,
+              image: addResizedUrlItem(arcSite, storyTypePath, [
+                '164:187|328x3744',
+              ])['164:187'],
             })
             break
           default:
             break
         }
       }
+      console.log(this.state)
     })
   }
 
@@ -153,79 +148,23 @@ class DestaqueManual extends Component {
       categoryField,
     } = customFields
 
-    const getImageSizeClass = () => {
-      switch (imageSize) {
-        case 'complete':
-          return classes.imgComplete
-        case 'parcialTop':
-          return classes.parcialTop
-        default:
-          return ''
-      }
-    }
-    const headBandModify = () => {
-      if (headband === 'live') {
-        return classes.live
-      }
-      return ''
-    }
-
     return (
-      <article
-        className={`${
-          classes.destaque
-        } ${getImageSizeClass()} ${headBandModify()} ${
-          size === 'twoCol' ? classes.twoCol : ''
-        }`}
-      >
-        {imageSize === 'complete' && <span className={classes.gradient} />}
-        <div className={classes.detail}>
-          {headband === 'normal' ? (
-            <h3 className={classes.category}>
-              <a
-                className={classes.link}
-                href={category.url}
-                {...editableField('categoryField')}
-              >
-                {categoryField || category.name}
-              </a>
-            </h3>
-          ) : (
-            <div className={classes.headband}>
-              <a
-                href={category.url}
-                className={`${classes.link} ${classes.headbandLink}`}
-              >
-                {headband === 'live' ? 'En vivo' : ''}
-              </a>
-            </div>
-          )}
-          <h2 className={classes.title}>
-            <a
-              className={classes.link}
-              href={title.url}
-              {...editableField('titleField')}
-            >
-              {titleField || title.name}
-            </a>
-          </h2>
-
-          <span className={classes.author}>
-            <a className={classes.link} href={author.url}>
-              {author.name}
-            </a>
-          </span>
-        </div>
-        <figure className={classes.image}>
-          <a className={classes.imageLink} href={title.url}>
-            <img src={image} alt="" />
-          </a>
-        </figure>
-      </article>
+      <Destaque
+        title={title}
+        category={category}
+        author={author}
+        image={image}
+        imageSize={imageSize}
+        headband={headband}
+        size={size}
+        editableField={editableField}
+        titleField={titleField}
+        categoryField={categoryField}
+      />
     )
   }
 }
-// TODO: agregar el required a path section y la ayuda de editar el texto
+
 DestaqueManual.propTypes = {
   customFields: PropTypes.shape({
     path: PropTypes.string.isRequired.tag({

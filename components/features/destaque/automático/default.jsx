@@ -2,24 +2,9 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-const classes = {
-  destaque: 'destaque padding-normal flex flex--column row-1',
-  gradient: 'destaque__gradient full-width block',
-  detail: 'destaque__detail flex flex--column flex--justify-between',
-  image: 'destaque__image',
+import Destaque from '../../../../resources/components/destaque'
+import { addResizedUrlItem } from '../../../../resources/utilsJs/thumbs'
 
-  category: 'destaque__category',
-  title: 'destaque__title',
-  author: 'destaque__author',
-
-  link: 'destaque__link',
-  imageLink: 'block',
-
-  imgComplete: 'destaque--img-complete',
-  parcialTop: 'flex--column-reverse',
-
-  twoCol: 'col-2',
-}
 @Consumer
 class DestaqueAutomatico extends Component {
   constructor(props) {
@@ -78,8 +63,8 @@ class DestaqueAutomatico extends Component {
     }`
 
     const { fetched } = this.getContent(source, params, schema)
+
     fetched.then(response => {
-      // console.log(response)
       this.setState({
         category: {
           name: response.websites[`${arcSite}`]
@@ -141,56 +126,18 @@ class DestaqueAutomatico extends Component {
     const { category, title, author, image } = this.state
     const { customFields, editableField } = this.props
     const { imageSize, size, titleField, categoryField } = customFields
-
-    const getImageSizeClass = () => {
-      switch (imageSize) {
-        case 'complete':
-          return classes.imgComplete
-        case 'parcialTop':
-          return classes.parcialTop
-        default:
-          return ''
-      }
-    }
-
     return (
-      <article
-        className={`${classes.destaque} ${getImageSizeClass()} ${
-          size === 'twoCol' ? classes.twoCol : ''
-        }`}
-      >
-        {imageSize === 'complete' && <span className={classes.gradient} />}
-        <div className={classes.detail}>
-          <h3 className={classes.category}>
-            <a
-              className={classes.link}
-              href={category.url}
-              {...editableField('categoryField')}
-            >
-              {categoryField || category.name}
-            </a>
-          </h3>
-          <h2 className={classes.title}>
-            <a
-              className={classes.link}
-              href={title.url}
-              {...editableField('titleField')}
-            >
-              {titleField || title.name}
-            </a>
-          </h2>
-          <span className={classes.author}>
-            <a className={classes.link} href={author.url}>
-              {author.name}
-            </a>
-          </span>
-        </div>
-        <figure className={classes.image}>
-          <a className={classes.imageLink} href={title.url}>
-            <img src={image} alt="" />
-          </a>
-        </figure>
-      </article>
+      <Destaque
+        title={title}
+        category={category}
+        author={author}
+        image={image}
+        imageSize={imageSize}
+        size={size}
+        editableField={editableField}
+        titleField={titleField}
+        categoryField={categoryField}
+      />
     )
   }
 }
