@@ -3,9 +3,15 @@ import React, { Component } from 'react'
 
 import { getActualDate } from '../utilsJs/helpers'
 
+const clases = {
+  paginationFile: 'pagination-file',
+  paginationFileList: 'pagination-file__list',
+  paginationFileItem: 'pagination-file__item',
+  paginationFileLink: 'flex-center pagination-file__link',
+}
 class PaginadorFecha extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       dateIterator: this.evalDate().fiveDays,
     }
@@ -23,10 +29,12 @@ class PaginadorFecha extends Component {
       } else {
         // Si la fecha es menor, se formatea y se pasa como parametro al new Date
         const arrDate = comingDate.split('-')
-        fecha = arrDate
-          .map(el => (el.startsWith('0') ? el.slice(1) : el))
-          .map(el => Number(el))
-          .map((el, index) => (index === 1 ? el - 1 : el))
+        fecha = arrDate.map((el, index) => {
+          if (el.startsWith('0')) {
+            return index === 1 ? Number(el.slice(1)) - 1 : Number(el.slice(1))
+          }
+          return Number(el)
+        })
       }
     }
 
@@ -74,32 +82,32 @@ class PaginadorFecha extends Component {
   }
 
   // Obtener la fecha del path o devolver vacio
-  getURL() {
-    const regEx = /^\d{4}-\d{2}-\d{2}$/
-    const fullpath = window.location.pathname
-    const date = fullpath.slice(fullpath.lastIndexOf('/') + 1)
-    const path = fullpath.slice(0, fullpath.lastIndexOf('/'))
-    if (date.match(regEx)) {
-      return {
-        date,
-        path,
-      }
-    }
-    return {
-      date: '',
-      path,
-    }
-  }
-
-  // Obtener la fecha del path o devolver vacio
   getURL(index) {
-    const section = this.props.section ? this.props.section : 'todas'
+    const { section } = this.props
+    const { dateIterator } = this.state
+    const printSection = section || 'todas'
+    // eslint-disable-next-line no-restricted-globals
     const { origin } = location
     return index || index === 0
       ? // Si viene un indice devuelvo localhost/archivo/seccion/fecha
-        `${origin}/archivo/${section}/${this.state.dateIterator[index]}`
+        `${origin}/archivo/${printSection}/${dateIterator[index]}`
       : // Si no viene index devuelvo localhost/archivo/seccion
-        `${origin}/archivo/${section}/`
+        `${origin}/archivo/${printSection}/`
+  }
+
+  // Devuelve el link del <Anterior> en paginacion
+  getLastDay() {
+    const { dateIterator } = this.state
+    return dateIterator[dateIterator.length - 2]
+  }
+
+  getQueryURL() {
+    return window.location.search
+  }
+
+  // Devuelve el link del <Siguiente> en paginacion
+  getnextDay() {
+    return this.evalDate().nextDay
   }
 
   // Si Hay en el path una fecha, la pasa como parametro a la funcion, si no se ejecuta la acutal
@@ -111,21 +119,7 @@ class PaginadorFecha extends Component {
     return this.getFiveDays()
   }
 
-  // Devuelve el link del <Siguiente> en paginacion
-  getnextDay() {
-    return this.evalDate().nextDay
-  }
-
-  // Si Hay en el path una fecha, la pasa como parametro a la funcion, si no se ejecuta la acutal
-  evalDate() {
-    const dateTest = this.getURL().date
-    if (dateTest && dateTest !== '') {
-      return this.getFiveDays(dateTest)
-    }
-    return this.getFiveDays()
-  }
-
-  // Remueve el año para imprimirlo en el componente Ej: 2010-10-10 => 10/10
+  // Remueve el año para imprimirlo en el componente Ej: 2010-01-10 => 10/01
   clearDate(date) {
     return date
       .slice(date.indexOf('-') + 1)
@@ -136,12 +130,13 @@ class PaginadorFecha extends Component {
 
   render() {
     const { dateIterator } = this.state
+    const { date } = this.props
     return (
-      <div className="pagination-file">
-        <ul className="pagination-file__list">
-          <li className="pagination-file__item">
+      <div className={clases.paginationFile}>
+        <ul className={clases.paginationFileList}>
+          <li className={clases.paginationFileItem}>
             <a
-              className="pagination-file__link"
+              className={clases.paginationFileLink}
               href={`${this.getURL()}${this.getLastDay().concat(
                 this.getQueryURL()
               )}`}>
@@ -151,15 +146,18 @@ class PaginadorFecha extends Component {
           {dateIterator.map((el, index) => {
             return (
               <li
+                // eslint-disable-next-line react/no-array-index-key
                 key={index}
-                className={`pagination-file__item ${
+                className={`${clases.paginationFileItem} ${
                   index === dateIterator.length - 1 ? 'active' : ''
                 }`}>
                 {index === dateIterator.length - 1 ? (
-                  <p className="pagination-file__link">{this.clearDate(el)}</p>
+                  <p className={clases.paginationFileLink}>
+                    {this.clearDate(el)}
+                  </p>
                 ) : (
                   <a
-                    className="pagination-file__link"
+                    className={clases.paginationFileLink}
                     href={`${this.getURL(index).concat(this.getQueryURL())}`}>
                     {this.clearDate(el)}
                   </a>
@@ -167,12 +165,12 @@ class PaginadorFecha extends Component {
               </li>
             )
           })}
-          {this.props.date === getActualDate() ? (
+          {date === getActualDate() ? (
             ''
           ) : (
-            <li className="pagination-file__item">
+            <li className={clases.paginationFileItem}>
               <a
-                className="pagination-file__link"
+                className={clases.paginationFileLink}
                 href={`${this.getURL()}${this.getnextDay().concat(
                   this.getQueryURL()
                 )}`}>
