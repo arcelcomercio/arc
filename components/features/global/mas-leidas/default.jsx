@@ -141,6 +141,7 @@ class MasLeidas extends Component {
     const { news } = this.state
     const { customFields } = this.props
     const { viewImage } = customFields
+
     return (
       <div className={classes.masLeidas}>
         <h4 className={classes.title}>lo más visto</h4>
