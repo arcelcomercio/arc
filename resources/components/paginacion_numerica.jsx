@@ -78,7 +78,7 @@ export default class Paginacion extends Component {
     currentPage = parseInt(currentPage, 10)
 
     const { pages, totalPages } = this.state
-    const querys = window.location.search
+    let querys = window.location.search
 
     let pathOrigin = window.location.pathname.match(/\D+/)
     pathOrigin =
@@ -94,12 +94,19 @@ export default class Paginacion extends Component {
     let urlNextPage
 
     if (isBuscar !== null) {
-      urlPrevPage = querys
-        ? `${pathOrigin}${querys}&page=${prevPage}`
-        : `${pathOrigin}?page=${prevPage}`
-      urlNextPage = querys
-        ? `${pathOrigin}${querys}&page=${nextPage}`
-        : `${pathOrigin}?page=${nextPage}`
+      if (querys) {
+        urlPrevPage =
+          querys.match(/page=[0-9]+/) !== null
+            ? querys.replace(/&page=[0-9]+/, `&page=${prevPage}`)
+            : `${pathOrigin}${querys}&page=${prevPage}`
+        urlNextPage =
+          querys.match(/page=[0-9]+/) !== null
+            ? querys.replace(/&page=[0-9]+/, `&page=${nextPage}`)
+            : `${pathOrigin}${querys}&page=${nextPage}`
+      } else {
+        urlPrevPage = `${pathOrigin}?page=${prevPage}`
+        urlNextPage = `${pathOrigin}?page=${nextPage}`
+      }
     } else {
       urlPrevPage = `${pathOrigin}/${prevPage}${querys}`
       urlNextPage = `${pathOrigin}/${nextPage}${querys}`
