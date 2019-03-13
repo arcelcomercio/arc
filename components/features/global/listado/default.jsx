@@ -1,7 +1,8 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { GetMultimediaContent } from '../../../../resources/utilsJs/utilities'
+import customFields from './_children/customFields'
+import filterSchema from './_children/filterSchema'
 
 const classes = {
   lista: 'List',
@@ -25,7 +26,13 @@ const HeaderList = ({
   return (
     <div className={`${classes.header} ${background}`}>
       <div className={classes.title}>
-        <TituloLista urlTitle={urlTitle} titleList={titleList} />
+        {urlTitle ? (
+          <a href={urlTitle}>
+            <h4>{titleList} </h4>
+          </a>
+        ) : (
+          <h4>{titleList}</h4>
+        )}
       </div>
       {seeMore && (
         <div className={classes.moreNews}>
@@ -36,20 +43,6 @@ const HeaderList = ({
       )}
     </div>
   )
-}
-const TituloLista = ({ urlTitle, titleList }) => {
-  let result = null
-
-  if (urlTitle) {
-    result = (
-      <a href={urlTitle}>
-        <h4>{titleList} </h4>
-      </a>
-    )
-  } else {
-    result = <h4>{titleList}</h4>
-  }
-  return result
 }
 
 const ImageNews = ({ urlNews, promo_items: promoItems }) => {
@@ -200,7 +193,7 @@ class Lista extends Component {
         section,
         news_number: newsNumber,
       },
-      this.filterSchema()
+      filterSchema()
     )
     fetched.then(response => {
       if (!response) {
@@ -222,45 +215,6 @@ class Lista extends Component {
         data: response.content_elements,
       })
     })
-  }
-
-  filterSchema = () => {
-    return `
-    {
-      content_elements{
-        canonical_url
-        website_url
-        display_date
-        promo_items{
-          basic_video {
-            type
-            promo_items {
-              basic {
-                type 
-                url
-              }
-            }
-          }
-          basic_gallery {
-            type 
-            promo_items {
-              basic {
-                type 
-                url
-              }
-            }
-          }
-          basic {
-            type 
-            url
-          }
-        }
-        headlines{
-          basic
-        }
-      }
-    }
-    `
   }
 
   render() {
@@ -294,30 +248,7 @@ class Lista extends Component {
 }
 
 Lista.propTypes = {
-  customFields: PropTypes.shape({
-    titleList: PropTypes.string.isRequired.tag({ name: 'Título de la lista' }),
-    urlTitle: PropTypes.string.tag({ name: 'Url del título ' }),
-    section: PropTypes.string.isRequired.tag({ name: 'Sección' }),
-    background: PropTypes.oneOf(['bg-color--lightblue', 'bg-color--white']).tag(
-      {
-        name: 'Color de fondo cabecera',
-        labels: {
-          'bg-color--lightblue': 'celeste',
-          'bg-color--white': 'blanco',
-        },
-        defaultValue: 'bg-color--lightblue',
-      }
-    ),
-
-    newsNumber: PropTypes.number.tag({
-      name: 'Número de noticas',
-      defaultValue: 5,
-    }),
-    seeMore: PropTypes.bool.tag({ name: 'Ver más' }),
-    seeHour: PropTypes.bool.tag({ name: 'Ver hora' }),
-    seeImageNews: PropTypes.bool.tag({ name: 'Ver imagen' }),
-    seeMoreurl: PropTypes.string.tag({ name: 'Ver más url' }),
-  }),
+  customFields,
 }
 
 export default Lista

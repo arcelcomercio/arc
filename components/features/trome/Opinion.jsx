@@ -1,13 +1,8 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-
-// import PropTypes from 'prop-types'
 import OpinionComponent from './_children/OpinionComponent'
-
 import filterSchema from './_children/filterSchema'
-
 import customFields from './_children/customField'
-
 
 @Consumer
 class Opinion extends Component {
@@ -67,7 +62,7 @@ class Opinion extends Component {
           website: arcSite,
           section: seccion,
         },
-        //this.filterSchema()
+        
         filterSchema()
       )
 
