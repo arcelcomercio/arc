@@ -7,13 +7,14 @@ class FilterSearch extends Component {
     super(props)
 
     this.state = {
-      sort: this.getOrder(),
-      selected: this.getSection(),
+      sort: !props.isAdmin && this.getOrder(),
+      selected: !props.isAdmin && this.getSection(),
       sections: [],
       showList: false,
     }
 
     this.fetchSections()
+    this.inputSearch = React.createRef()
   }
 
   getOrder() {
@@ -65,7 +66,16 @@ class FilterSearch extends Component {
     this.setState({
       selected: event.target.name,
     })
-    console.log(event)
+  }
+
+  _handleSearch = e => {
+    const { arcSite } = this.props
+    e.preventDefault()
+    const { value } = this.inputSearch.current
+    if (value && value !== '')
+      location.href = `${
+        location.pathname
+      }?query=${value}&category=&sort=desc&_website=${arcSite}`
   }
 
   fetchSections() {
@@ -85,7 +95,6 @@ class FilterSearch extends Component {
     const { fetched } = this.getContent(source, params, schema)
     fetched
       .then(response => {
-        console.log(response)
         if (response && response.children.length > 0) {
           this.setState({ sections: response.children })
         }
@@ -97,22 +106,19 @@ class FilterSearch extends Component {
 
   render() {
     const { sections, selected, showList, sort } = this.state
-    const {
-      globalContentConfig: { query },
-    } = this.props
 
     return (
-      <div className="filter-search content-layout-container">
+      <div className="filter-search full-width margin-top">
         <div className="filter-search__box-list">
-          <div
+          <button
             className={`filter-search__select ${showList ? 'active' : ''}`}
             onClick={() => this.setState({ showList: !showList })}
-            onKeyPress={() => this.setState({ showList: !showList })}
-            role="button">
-            <p className="filter-search__select-name">
+            onKeyDown={() => this.setState({ showList: !showList })}
+            type="button">
+            <span className="filter-search__select-name">
               Seleccione <span className="icon-angle-down">+</span>
-            </p>
-          </div>
+            </span>
+          </button>
           <ul className={`filter-search__list ${showList ? 'active' : ''}`}>
             <li
               className={`filter-search__item ${
@@ -205,10 +211,12 @@ class FilterSearch extends Component {
           </ul>
         </div>
         <div className="filter-search__box-search">
-          <div className="filter-search__search">
-            <span className="icon-search">Q</span>
-            <input type="search" placeholder="" />
-          </div>
+          <form className="filter-search__search" onSubmit={this._handleSearch}>
+            <button className="icon-search" type="submit">
+              Q
+            </button>
+            <input ref={this.inputSearch} type="search" placeholder="Buscar" />
+          </form>
         </div>
       </div>
     )
