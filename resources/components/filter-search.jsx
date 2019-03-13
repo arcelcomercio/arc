@@ -7,12 +7,12 @@ class FilterSearch extends Component {
     super(props)
 
     this.state = {
-      selected: '',
+      sort: this.getOrder(),
+      selected: this.getSection(),
       sections: [],
       showList: false,
     }
 
-    this.getOrder()
     this.fetchSections()
   }
 
@@ -22,21 +22,42 @@ class FilterSearch extends Component {
         query: { sort },
       },
     } = this.props
+
+    return sort
+  }
+
+  getSection() {
+    const {
+      globalContentConfig: {
+        query: { section },
+      },
+    } = this.props
+
+    return section && section !== '' ? 'section' : ''
   }
 
   getUrl(type, value) {
     const { requestUri, arcSite } = this.props
     switch (type) {
-      case 'query':
-        return requestUri.replace(/\?query=.*?(?=&)/, `?query=${value}`)
-      case 'section':
-        return requestUri.replace(/&category=.*?(?=&)/, `&category=${value}`)
-      case 'sort':
-        return requestUri.replace(/&sort=.*?(?=&)/, `&sort=${value}`)
+      case 'query': {
+        const newUri = requestUri.replace(/\?query=.*?(?=&)/, `?query=${value}`)
+        return newUri.replace(/&page=.*?(?=&)/, '')
+      }
+      case 'section': {
+        const newUri = requestUri.replace(
+          /&category=.*?(?=&)/,
+          `&category=${value.slice(1)}`
+        )
+        return newUri.replace(/&page=.*?(?=&)/, '')
+      }
+      case 'sort': {
+        const newUri = requestUri.replace(/&sort=.*?(?=&)/, `&sort=${value}`)
+        return newUri.replace(/&page=.*?(?=&)/, '')
+      }
       case 'from':
-        return requestUri.replace(/page=.*?(?=&)/, `&page=${value}`)
+        return requestUri.replace(/&page=.*?(?=&)/, `&page=${value}`)
       default:
-        return `/buscar/?query=&category=&sort=&page=&_website=${arcSite}`
+        return `/buscar/?query=&category=&sort=desc&_website=${arcSite}`
     }
   }
 
@@ -44,6 +65,7 @@ class FilterSearch extends Component {
     this.setState({
       selected: event.target.name,
     })
+    console.log(event)
   }
 
   fetchSections() {
@@ -74,11 +96,10 @@ class FilterSearch extends Component {
   }
 
   render() {
-    const { sections, selected, showList } = this.state
+    const { sections, selected, showList, sort } = this.state
     const {
       globalContentConfig: { query },
     } = this.props
-    console.log(query)
 
     return (
       <div className="filter-search content-layout-container">
@@ -93,7 +114,10 @@ class FilterSearch extends Component {
             </p>
           </div>
           <ul className={`filter-search__list ${showList ? 'active' : ''}`}>
-            <li className="filter-search__item active">
+            <li
+              className={`filter-search__item ${
+                sort === 'desc' ? 'active' : ''
+              }`}>
               <a
                 href={this.getUrl('sort', 'desc')}
                 className="filter-search__link"
@@ -102,7 +126,10 @@ class FilterSearch extends Component {
                 Más Recientes
               </a>
             </li>
-            <li className="filter-search__item">
+            <li
+              className={`filter-search__item ${
+                sort === 'asc' ? 'active' : ''
+              }`}>
               <a
                 href={this.getUrl('sort', 'asc')}
                 className="filter-search__link"
@@ -111,9 +138,12 @@ class FilterSearch extends Component {
                 Menos Recientes
               </a>
             </li>
-            <li className="filter-search__item">
+            <li
+              className={`filter-search__item ${
+                sort === 'rel' ? 'active' : ''
+              }`}>
               <a
-                href="/"
+                href={this.getUrl()}
                 className="filter-search__link"
                 role="checkbox"
                 aria-checked="false">
@@ -124,34 +154,34 @@ class FilterSearch extends Component {
               className={`filter-search__item ${
                 selected === 'type' ? 'selected' : ''
               }`}>
-              <a
-                href="/"
+              <button
+                type="button"
                 className="filter-search__link"
-                role="button"
                 onClick={this._handleButton}
                 onKeyDown={this._handleButton}
                 name="type">
                 Tipo de Nota
-              </a>
+              </button>
             </li>
             <li
               className={`filter-search__item ${
                 selected === 'section' ? 'selected' : ''
               }`}>
-              <a
-                href="/"
+              <button
+                type="button"
                 className="filter-search__link"
-                role="button"
                 onClick={this._handleButton}
                 onKeyDown={this._handleButton}
                 name="section">
                 Sección
-              </a>
+              </button>
               {selected === 'section' && sections !== [] && (
                 <ul className="filter-search__sublist active">
                   {sections.map(section => (
                     <li key={section._id} className="filter-search__subitem">
-                      <a href={section._id} className="filter-search__sublink">
+                      <a
+                        href={this.getUrl('section', section._id)}
+                        className="filter-search__sublink">
                         {section.name}
                       </a>
                     </li>
@@ -163,15 +193,14 @@ class FilterSearch extends Component {
               className={`filter-search__item ${
                 selected === 'time' ? 'selected' : ''
               }`}>
-              <a
-                href="/"
+              <button
+                type="button"
                 className="filter-search__link"
-                role="button"
                 onClick={this._handleButton}
                 onKeyDown={this._handleButton}
                 name="time">
                 Período de tiempo
-              </a>
+              </button>
             </li>
           </ul>
         </div>

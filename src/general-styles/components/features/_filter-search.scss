@@ -1,13 +1,15 @@
-.filter-search{
+.filter-search {
 	display: flex;
 	background-color: #e8f2f7;
 	flex-direction: column-reverse;
 	padding: 15px;
-	@media (--desktop){
+
+	@media (--desktop) {
 		flex-direction: row;
 		height: 152px;
 	}
-	&__select{
+
+	&__select {
 		position: relative;
 		width: 100%;
 		height: 40px;
@@ -15,24 +17,30 @@
 		align-items: center;
 		background-color: #d5e5ed;
 		padding: 0 15px;
-		&.active{
+		cursor: pointer;
+
+		&.active {
 			background-color: #fff;
 		}
-		@media (--desktop){
+
+		@media (--desktop) {
 			height: auto;
 			padding: 0;
 		}
 	}
-	&__select-name{
+
+	&__select-name {
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
 		font-size: 13px;
-		@media (--desktop){
+
+		@media (--desktop) {
 			display: none;
 		}
 	}
-	&__list{
+
+	&__list {
 		display: none;
 		position: absolute;
 		top: 40px;
@@ -40,10 +48,12 @@
 		width: 100%;
 		flex-direction: column;
 		background-color: #fff;
-		&.active{
+
+		&.active {
 			display: flex;
 		}
-		@media (--desktop){
+
+		@media (--desktop) {
 			background-color: transparent;
 			display: flex;
 			position: relative;
@@ -51,45 +61,63 @@
 			top: initial;
 		}
 	}
-	&__item{
-		padding: 10px 15px;
-		text-transform: uppercase;
-		&.active{
+
+	&__item {
+
+		&.active {
 			background-color: #f7c600;
-			.filter-search__link{
+
+			.filter-search__link {
 				font-weight: bold;
 			}
-			@media (--desktop){
+
+			@media (--desktop) {
 				background-color: #fff;
-				.filter-search__link{
+
+				.filter-search__link {
 					background-color: #bbd3e0;
 					font-weight: bold;
 				}
 			}
 		}
-		&.selected{
-			@media (--desktop){
-				.filter-search__link{
+
+		&.selected {
+			text-transform: uppercase;
+
+			@media (--desktop) {
+				.filter-search__link {
 					background-color: #f7c600;
 					font-weight: bold;
+					border: 0;
+					outline: 0;
 				}
 			}
 		}
-		@media (--desktop){
+
+		@media (--desktop) {
 			background-color: #fff;
 			padding: 0;
 			padding-right: 2px;
 			position: initial;
-			&:nth-last-child(1){
+
+			&:nth-last-child(1) {
 				padding-right: 0;
 			}
 		}
 	}
-	&__link{
+
+	&__link {
+		padding: 10px 15px;
+		cursor: pointer;
 		color: #000;
 		font-size: 13px;
-		@media (--desktop){
-			display: flex;
+		border: 0;
+		outline: 0;
+		text-transform: uppercase;
+		background-color: transparent;
+		display: flex;
+
+		@media (--desktop) {
 			justify-content: center;
 			align-items: center;
 			text-align: center;
@@ -100,36 +128,44 @@
 			font-weight: 300;
 		}
 	}
-	&__sublist{
+
+	&__sublist {
 		width: 100%;
 		margin-top: 10px;
 		display: none;
 		flex-direction: column;
-		&.active{
+
+		&.active {
 			display: flex;
 		}
-		@media (--desktop){
+
+		@media (--desktop) {
 			flex-direction: row;
 			position: absolute;
 			left: 0;
 			padding: 0 20px;
 		}
 	}
-	&__subitem{
+
+	&__subitem {
 		position: relative;
 		display: flex;
 		align-items: center;
 		padding: 5px;
-		&:nth-last-child(1){
+
+		&:nth-last-child(1) {
 			padding-bottom: 0;
 		}
-		@media (--desktop){
+
+		@media (--desktop) {
 			padding: 0;
 			margin-right: 15px;
-			&:nth-last-child(1){
+
+			&:nth-last-child(1) {
 				margin-right: 0;
 			}
-			&:before{
+
+			&:before {
 				content: '|';
 				position: absolute;
 				right: -7px;
@@ -138,28 +174,34 @@
 			}
 		}
 	}
-	&__sublink{
+
+	&__sublink {
 		font-size: 11px;
 		color: #a1a1a1;
 		padding: 2px;
 		cursor: pointer;
 		text-transform: capitalize;
-		&:hover{
+
+		&:hover {
 			text-decoration: underline;
 		}
 	}
-	&__box-search{
+
+	&__box-search {
 		display: flex;
 		align-items: center;
 		margin-bottom: 15px;
-		@media (--desktop){
+
+		@media (--desktop) {
 			margin-bottom: 0;
 			align-items: flex-start;
 		}
 	}
-	&__search{
+
+	&__search {
 		position: relative;
 		width: 100%;
+
 		& input {
 			width: 100%;
 			padding-right: 30px;
@@ -167,7 +209,8 @@
 			height: 40px;
 			line-height: 50px;
 			font-size: 13px;
-			@media (--desktop){
+
+			@media (--desktop) {
 				height: 90px;
 				font-size: 20px;
 				font-weight: 700;
@@ -176,6 +219,7 @@
 				border: 0;
 			}
 		}
+
 		& span {
 			z-index: 1;
 			cursor: pointer;
@@ -184,7 +228,8 @@
 			top: 50%;
 			right: 15px;
 			transform: translateY(-50%);
-			@media (--desktop){
+
+			@media (--desktop) {
 				height: 100%;
 				display: flex;
 				align-items: center;
