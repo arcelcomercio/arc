@@ -4,7 +4,7 @@ import Moment from 'react-moment'
 const styles = {
   newsAuthor: 'news-author-date',
 }
-const Video = props => {
+const Autor = props => {
   const { by } = props.data
   const { date } = props.date
   return (
@@ -19,4 +19,4 @@ const Video = props => {
   )
 }
 
-export default Video
+export default Autor
