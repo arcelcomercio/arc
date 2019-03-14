@@ -1,14 +1,10 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import { customFields } from './children/customfields'
-//import OpinionItem from './children/opinion-item'
-import ListOpinion from './children/opinion-list'
-
-import { GetMultimediaContent } from './../../../../resources/utilsJs/utilities'
 
 // 01 evaluar las clases
 const classes = {
-  separator: 'separator',
+  separator: 'separator__opinion',
   headerHtml: 'separator__headerHtml',
   title: 'separator__headerTitle',
   body: 'separator__body',
@@ -17,8 +13,13 @@ const classes = {
   separatorTitle: 'separator__title',
   mvideo: 'separator--video',
   separadorTitleOpinion: 'separador__headerTitle-opinion',
-  opinionItem: 'opinion-item',
-  opinionItemImage: 'opinion-item-image'
+  opinionItem: 'separator__opinion--item',
+  opinionItemImage: 'separator__opinion--item-image',
+  opinionBody: 'separator__opinion--body',
+  itemDetailAuthor: 'separator__opinion--item',
+  opinionSection: 'separator__opinion--section', //
+  opinionItemDetails: 'separator__opinion--item-details',
+  opinionTitle: 'separator__opinion-title',
 }
 
 const createMarkup = html => {
@@ -28,35 +29,40 @@ const createMarkup = html => {
 const HeaderHTML = ({ htmlCode }) => {
   return (
     <div
-      className={classes.title}
-      // eslint-disable-next-line react/no-danger
+      className={classes.opinionTitle}
       dangerouslySetInnerHTML={createMarkup(htmlCode)}
     />
   )
 }
 
-const OpinionItem = props => {
+const OpinionItem = ({
+  author,
+  basic,
+  websiteUrl,
+  sectionUrl,
+  authorUrl,
+  section,
+  imagen,
+}) => {
   return (
-    <div className={classes.opinionItem}>
-      <article>
-        <div className="item-detail">
-          <h3 className="item-detail__column">
-            <a href="#">{props.section}!!!</a>
-          </h3>
-          <span className="item-detail__author">
-            {/* <a href="#">{props.author}</a> */}
-          </span>
-          <p className="item-detail__summary">
-            <a href="#">{props.basic}</a>
-          </p>
-        </div>
-        <figure className={classes.opinionItemImage}>
-          <a href="#">
-            <img src={props.imagen} alt="imagen aqui" />
-          </a>
-        </figure>
-      </article>
-    </div>
+    <article className={classes.opinionItem}>
+      <div className={classes.opinionItemDetails}>
+        <h3>
+          <a href={sectionUrl}>{section}</a>
+        </h3>
+        <h5>
+          <a href={authorUrl}>{author}</a>
+        </h5>
+        <p>
+          <a href={websiteUrl}>{basic}</a>
+        </p>
+      </div>
+      <figure className={classes.opinionItemImage}>
+        {/* <a href={imagenUrl}> */}
+        <img src={imagen} alt="default" />
+        {/* </a> */}
+      </figure>
+    </article>
   )
 }
 
@@ -79,18 +85,20 @@ class SeparadorOpinion extends Component {
   }
 
   componentDidMount = () => {
-    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.handleResize) // Temporal
     this.getContentApi()
   }
 
   getContentApi = () => {
-    let news_number = 4
+    let newsNumber = 4
     const { device } = this.state
 
     if (device === 'mobile') {
-      news_number = 1
+      newsNumber = 1
+    } else if (device === 'tablet') {
+      newsNumber = 2
     } else if (device === 'desktop') {
-      news_number = 4
+      newsNumber = 4
     }
 
     const { arcSite } = this.props
@@ -98,13 +106,13 @@ class SeparadorOpinion extends Component {
 
     const { section } = this.state
     console.log(`Section --> ${section}`)
-    console.log(`newsNumber --> ${news_number}`)
+    console.log(`newsNumber --> ${newsNumber}`)
 
     const { fetched } = this.getContent(
       'stories__by-section',
       {
         website: arcSite,
-        news_number,
+        news_number: newsNumber,
         section,
       },
       this.filterSchema()
@@ -135,12 +143,18 @@ class SeparadorOpinion extends Component {
 
   handleResize = () => {
     const wsize = window.innerWidth
-    if (wsize >= 1024 && this.state.device !== 'desktop') {
+    const { device } = this.state
+    if (wsize >= 1024 && device !== 'desktop') {
       this.setState({
         device: 'desktop',
       })
       this.getContentApi()
-    } else if (wsize < 640 && this.state.device !== 'mobile') {
+    } else if (wsize >= 640 && wsize < 1024 && device !== 'tablet') {
+      this.setState({
+        device: 'tablet',
+      })
+      this.getContentApi()
+    } else if (wsize < 640 && device !== 'mobile') {
       this.setState({
         device: 'mobile',
       })
@@ -151,9 +165,8 @@ class SeparadorOpinion extends Component {
   setDevice = () => {
     const wsize = window.innerWidth
 
-    if (wsize < 640) {
-      return 'mobile'
-    }
+    if (wsize < 640) return 'mobile'
+    if (wsize >= 640 && wsize < 1024) return 'tablet'
     return 'desktop'
   }
 
@@ -161,6 +174,7 @@ class SeparadorOpinion extends Component {
     return `
     {
       content_elements{
+        _id
         website_url
         taxonomy{
           sections{
@@ -187,25 +201,54 @@ class SeparadorOpinion extends Component {
     `
   }
 
+  imagenAuthor = data => {
+    const { by } = data.credits
+
+    if (Object.keys(by).length !== 0) {
+      const imageData = data.credits.by[0]
+
+      if (imageData.image && imageData.image.url) {
+        return imageData.image.url
+      }
+      return 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg'
+    }
+    return 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg'
+  }
+
+  urlAuthor = data => {
+    const { by } = data.credits
+
+    if (Object.keys(by).length !== 0) {
+      const authorData = data.credits.by[0]
+
+      if (authorData.url) {
+        return authorData.url
+      }
+      return 'default'
+    }
+    return 'default'
+  }
+
   listado = () => {
     const { data } = this.state
-    const listOpinion = data.map(data => {
+    const listOpinion = data.map(story => {
       return (
         <OpinionItem
-          // author={
-          //   data.credits.by.some(alias => alias.type == 'author') &&
-          //   data.credits.by[0].name
-          // }
-          basic={data.headlines.basic}
-          websiteUrl={data.website_url}
-          section={
-            data.taxonomy.sections.some(alias => alias.type === 'section') &&
-            data.taxonomy.sections[0].name
+          key={story._id}
+          author={
+            story.credits.by.length !== 0
+              ? story.credits.by[0].name
+              : 'Editorial Peru 21'
           }
-          // imagen={
-          //   data.credits.by.some(credit => credit.type === 'author') &&
-          //   data.credits.by[0].url
-          // }
+          basic={story.headlines.basic}
+          section={
+            story.taxonomy.sections.some(alias => alias.type === 'section') &&
+            story.taxonomy.sections[0].name
+          }
+          imagen={this.imagenAuthor(story)}
+          websiteUrl={story.website_url}
+          authorUrl={this.urlAuthor(story)}
+          sectionUrl={story.taxonomy.sections[0].path}
         />
       )
     })
@@ -218,13 +261,11 @@ class SeparadorOpinion extends Component {
     return (
       <div className={classes.separator}>
         {titleSection ? (
-          <h1 className={classes.title classes.separadorTitleOpinion}>
-            <a href="#">{titleSection}</a>
-          </h1>
+          <div className={classes.opinionTitle}>{titleSection}</div>
         ) : (
           <HeaderHTML htmlCode={htmlCode} />
         )}
-        <div className={classes.body}>{data[0] && this.listado()}</div>
+        <div className={classes.opinionBody}>{data[0] && this.listado()}</div>
       </div>
     )
   }
