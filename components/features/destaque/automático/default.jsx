@@ -18,6 +18,13 @@ class DestaqueAutomatico extends Component {
     this.fetch()
   }
 
+  getImgResized(imgUrl, ratio, resolution) {
+    const { arcSite } = this.props
+
+    return addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
+      .resized_urls[ratio]
+  }
+
   fetch() {
     const { customFields, arcSite } = this.props
     const { section, imageSize, size } = customFields
@@ -83,36 +90,32 @@ class DestaqueAutomatico extends Component {
           url: response.credits.by.length ? response.credits.by[0].url : '',
         },
       })
-      let storyTypePath = response.promo_items.basic
-        ? response.promo_items.basic
-        : ''
-      if (!response.promo_items.basic && response.promo_items.basic_gallery) {
-        storyTypePath = response.promo_items.basic_gallery.promo_items.basic
+
+      let storyTypePath = ''
+      if (response.promo_items.basic) {
+        storyTypePath = response.promo_items.basic.url
+      } else if (response.promo_items.basic_gallery) {
+        storyTypePath = response.promo_items.basic_gallery.promo_items.basic.url
+      } else if (response.promo_items.basic_video) {
+        storyTypePath = response.promo_items.basic_video.promo_items.basic.url
       }
-      if (!response.promo_items.basic && response.promo_items.basic_video) {
-        storyTypePath = response.promo_items.basic_video.promo_items.basic
-      }
+      if (!storyTypePath) return
+
       if (size === 'twoCol') {
         this.setState({
-          image: storyTypePath.resized_urls
-            ? storyTypePath.resized_urls['388:187']
-            : storyTypePath.url,
+          image: this.getImgResized(storyTypePath, '3:4', '676x374'),
         })
       } else {
         switch (imageSize) {
           case 'parcialBot':
           case 'parcialTop':
             this.setState({
-              image: storyTypePath.resized_urls
-                ? storyTypePath.resized_urls['288:157']
-                : storyTypePath.url,
+              image: this.getImgResized(storyTypePath, '3:4', '288x157'),
             })
             break
           case 'complete':
             this.setState({
-              image: storyTypePath.resized_urls
-                ? storyTypePath.resized_urls['164:187']
-                : storyTypePath.url,
+              image: this.getImgResized(storyTypePath, '9:16', '328x374'),
             })
             break
           default:
