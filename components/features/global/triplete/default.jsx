@@ -16,6 +16,7 @@ class Triplete extends Component {
     // console.log('this.api.state', this.api.state)
     this.renderCount = 0
     this.exec()
+    console.log('el maldito triplete')
   }
 
   exec() {

@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable react/destructuring-assignment */
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -24,6 +26,7 @@ class Separador extends Component {
       data: [],
     }
   }
+
   getSeccionPrimary = dataArticle => {
     return (
       dataArticle.taxonomy &&
@@ -113,10 +116,11 @@ class Separador extends Component {
 
   render() {
     const { data, excluir, website, device } = this.state
+    // eslint-disable-next-line eqeqeq
     if (device == 'mobile') return ''
     return (
       <div className={classes.separator}>
-        <h3 class={classes.title}>Más en Política</h3>
+        <h3 className={classes.title}>Más en Política</h3>
         <div className={classes.body}>
           <SeparatorListItem data={data} excluir={excluir} website={website} />
         </div>
@@ -126,6 +130,7 @@ class Separador extends Component {
 }
 
 Separador.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   globalContent: PropTypes.object,
 }
 export default Separador

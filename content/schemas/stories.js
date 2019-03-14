@@ -8,6 +8,9 @@ export default `
   type Subheadlines {
     basic: String
   }
+  type Image {
+    url: String
+  }
   type By {
     type: String!
     version: String
@@ -15,6 +18,7 @@ export default `
     slug: String
     url: String
     description: String
+    image: Image
   }
   type Credits {
     by: [By]
@@ -97,6 +101,19 @@ export default `
     sections: [Sections]
     tags: [Tags]
     seo_keywords: [String]
+    sites:[Sites]
+  }
+  type Sites {
+    additional_properties: AdditionalProperties
+  }
+  type AdditionalProperties{
+    original: Original
+  }
+  type Original{
+    site_topper: SiteTopper
+  }
+  type SiteTopper{
+    site_logo_image: String!
   }
   type Sections {
     _id: String!,
@@ -163,4 +180,4 @@ export default `
     content_elements: [ContentElements]
     count: Int
   }
-`;
+`

@@ -6,7 +6,6 @@ import Heading from './types/heading'
 import Subheading from './types/subheading'
 import Gallery from './types/gallery'
 import Share from './types/share'
-import './article.css'
 
 const classes = {
   news: 'col-3 padding-normal bg-color--white',
