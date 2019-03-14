@@ -1,0 +1,91 @@
+.barra-autor{
+	&__wrapper{
+		width: 100%;
+		max-width: 800px;
+		display: flex;
+		margin: 0 auto;
+		border-bottom: solid 1px #333;
+		padding: 20px 0;
+		justify-content: center;
+	}
+	&__social{
+		display: none;
+		@media (--tablet){
+			display: flex;
+			padding-top: 10px;
+		}
+	}
+	&__icons{
+		display: inline-flex;
+	}
+	&__content{
+		display: flex;
+	}
+	&__fecha{
+		display: block;
+		font-size: 11px;
+		@media (--tablet){
+			display: none;
+		}
+		&.movil{
+			display: none;
+			@media (--tablet){
+				font-size: 13px;
+				display: block;
+			}
+		}
+	}
+	&__image{
+		img{
+			width: 50px;
+			object-fit: contain;
+			border-radius: 100%;
+			@media (--tablet){
+				border-radius: 0;
+				width: 70px;
+			}
+		}
+	}
+	&__icons{
+		margin-left: 20px;
+		a {
+			margin-right: 10px;
+			&:nth-last-child(1){
+				margin-right: 0;
+			}
+		}
+	}
+	&__name{
+		font-size: 22px;
+		color: #333;
+		margin-bottom: 10px;
+		padding-top: 10px;
+		display: block;
+		font-weight: 700;
+		font-family: Georgia, 'Times New Roman', Times, serif;
+		&:hover{
+			text-decoration: underline;
+		}
+		@media (--tablet){
+			font-size: 26px;
+		}
+	}
+	&__subtitle{
+		display: block;
+		font-size: 15px;
+		color: #333;
+		font-family: Georgia, 'Times New Roman', Times, serif;
+		&:hover{
+			text-decoration: underline;
+		}
+		@media (--tablet){
+			font-size: 17px;
+		}
+	}
+	&__content{
+		margin-left: 20px;
+	}
+	&__box-desc{
+		margin-left: 20px;
+	}
+}
