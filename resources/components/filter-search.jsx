@@ -1,6 +1,8 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
+const classes = {} // Falta refactorizar estilos
+
 @Consumer
 class FilterSearch extends Component {
   constructor(props) {
