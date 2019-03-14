@@ -43,12 +43,12 @@
       margin-bottom: 0%;
 
       @media (--tablet) {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 3px;
       }
 
       @media (--desktop) {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         grid-gap: 3px;
       }
     }
