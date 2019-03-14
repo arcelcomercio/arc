@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { GetMultimediaContent } from './../../../../resources/utilsJs/utilities'
+import { GetMultimediaContent } from '../../../../resources/utilsJs/utilities'
 
 const classes = {
   separator: 'separator',
@@ -15,20 +15,24 @@ const classes = {
   mvideo: 'separator--video',
 }
 
-const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
-  debugger
+const SeparatorItem = ({
+  headlines,
+  urlImage,
+  website_url: websiteUrl,
+  medio,
+}) => {
   return (
     <article className={classes.item}>
       {medio === 'video' && <span>&#8227;</span>}
       {medio === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
         <h2 className={classes.separatorTitle}>
-          <a href={website_url}>{headlines}</a>
+          <a href={websiteUrl}>{headlines}</a>
         </h2>
       </div>
       <figure>
-        {website_url && (
-          <a href={website_url}>
+        {websiteUrl && (
+          <a href={websiteUrl}>
             <img src={urlImage} alt="" />
           </a>
         )}
@@ -36,6 +40,7 @@ const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
     </article>
   )
 }
+
 const SeparatorListItem = ({ data }) => {
   const result = data.map(
     ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
@@ -100,15 +105,15 @@ class Separador extends Component {
   }
 
   getContentApi = () => {
-    let news_number = 4
+    let newsNumber = 4
     const { device } = this.state
 
     if (device === 'mobile') {
-      news_number = 1
+      newsNumber = 1
     } else if (device === 'desktop') {
-      news_number = 4
+      newsNumber = 4
     } else if (device === 'tablet') {
-      news_number = 4
+      newsNumber = 4
     }
 
     const { arcSite } = this.props
@@ -119,7 +124,7 @@ class Separador extends Component {
       {
         website: arcSite,
         section,
-        news_number,
+        news_number: newsNumber,
       },
       this.filterSchema()
     )
@@ -147,20 +152,21 @@ class Separador extends Component {
 
   handleResize = () => {
     const wsize = window.innerWidth
+    const { device } = this.state
 
     // ------ Set the new state if you change from mobile to desktop
-    if (wsize >= 1024 && this.state.device !== 'desktop') {
+    if (wsize >= 1024 && device !== 'desktop') {
       this.setState({
         device: 'desktop',
       })
       this.getContentApi()
       // ------ Set the new state if you change from desktop to mobile
-    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
+    } else if (wsize < 1024 && wsize >= 640 && device !== 'tablet') {
       this.setState({
         device: 'tablet',
       })
       this.getContentApi()
-    } else if (wsize < 640 && this.state.device !== 'mobile') {
+    } else if (wsize < 640 && device !== 'mobile') {
       // ------ Set the new state if you change from desktop to mobile
       this.setState({
         device: 'mobile',
