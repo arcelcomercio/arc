@@ -118,21 +118,20 @@ class Filter extends Component {
           Sección
         </label>
         <form action="" onSubmit={this.handleSubmit}>
-          {isSection ? (
-            <select name="query">
+          <input
+            type="search"
+            name="query"
+            id=""
+            onChange={this.handleChangeSearch}
+          />
+          {isSection && (
+            <select name="secquery">
               {sections.map(el => (
                 <option key={el._id} value={el._id}>
                   {el.name}
                 </option>
               ))}
             </select>
-          ) : (
-            <input
-              type="search"
-              name="query"
-              id=""
-              onChange={this.handleChangeSearch}
-            />
           )}
           <button type="submit">
             <span>&#9740;</span>

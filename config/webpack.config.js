@@ -131,7 +131,7 @@ module.exports = (env) => {
           }
         },
         {
-          test: /\.(ttf|eot|woff)$/,
+          test: /\.(ttf|eot|woff|woff2)$/,
           use: {
             loader: 'file-loader',
             options: {
