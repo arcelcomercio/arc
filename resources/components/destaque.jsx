@@ -56,6 +56,13 @@ export default props => {
     return ''
   }
 
+  const getEditafleField = element => {
+    if (editableField) {
+      return editableField(element)
+    }
+    return null
+  }
+
   return (
     <article
       className={`${
@@ -70,7 +77,7 @@ export default props => {
             <a
               className={classes.link}
               href={category.url}
-              {...editableField('categoryField')}
+              {...getEditafleField('categoryField')}
               suppressContentEditableWarning>
               {categoryField || category.name}
             </a>
@@ -88,7 +95,7 @@ export default props => {
           <a
             className={classes.link}
             href={title.url}
-            {...editableField('titleField')}
+            {...getEditafleField('titleField')}
             suppressContentEditableWarning>
             {titleField || title.name}
           </a>
