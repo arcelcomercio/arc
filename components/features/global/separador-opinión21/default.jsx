@@ -90,15 +90,15 @@ class SeparadorOpinion extends Component {
   }
 
   getContentApi = () => {
-    let newsNumber = 4
+    let newsNumber = 5
     const { device } = this.state
 
     if (device === 'mobile') {
       newsNumber = 1
     } else if (device === 'tablet') {
-      newsNumber = 2
+      newsNumber = 3
     } else if (device === 'desktop') {
-      newsNumber = 4
+      newsNumber = 5
     }
 
     const { arcSite } = this.props
