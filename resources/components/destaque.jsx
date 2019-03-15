@@ -26,16 +26,16 @@ const classes = {
 
 export default props => {
   const {
-    category,
-    title,
-    author,
-    image,
-    imageSize,
-    headband,
-    size,
-    editableField,
-    titleField,
-    categoryField,
+    category, // Se espera un objeto {name: '', url: ''}
+    title, // Se espera un objeto {name: '', url: ''}
+    author, // Se espera un objeto {name: '', url: ''}
+    image, // Url de la imágen
+    imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
+    headband, // OPCIONAL, otros valores: "live"
+    size, // Se espera "oneCol" o "twoCol"
+    editableField, // OPCIONAL, o pasar la función editableField de los props
+    titleField, // OPCIONAL, o pasar el customField de los props
+    categoryField, // OPCIONAL, o pasar el customField de los props
   } = props
 
   const getImageSizeClass = () => {
