@@ -30,10 +30,11 @@ class DestaqueAutomatico extends Component {
     const { customFields, arcSite } = this.props
     const { section, imageSize, size } = customFields
 
-    const source = 'story__resized-by-section'
+    const source = 'stories__by-section'
     const params = {
-      section,
       website: arcSite,
+      section,
+      news_number: 1,
     }
     const schema = `{ 
       headlines { basic }
@@ -67,7 +68,7 @@ class DestaqueAutomatico extends Component {
     const { fetched } = this.getContent(source, params, schema)
 
     fetched.then(response => {
-      const element = new DataStory(response, arcSite)
+      const element = new DataStory(response.content_elements[0], arcSite)
       this.setState({
         category: {
           name: element.section,
@@ -131,7 +132,8 @@ class DestaqueAutomatico extends Component {
 DestaqueAutomatico.propTypes = {
   customFields: PropTypes.shape({
     section: PropTypes.string.isRequired.tag({
-      name: 'Sección',
+      name: 'Path de la sección',
+      description: 'Ejemplo: /deporte-total',
     }),
     imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
       name: 'Posición de la imagen',
@@ -153,10 +155,12 @@ DestaqueAutomatico.propTypes = {
     categoryField: PropTypes.string.tag({
       name: 'Sección',
       group: 'Editar texto',
+      description: 'Dejar vacío para tomar el valor original de la noticia.',
     }),
     titleField: PropTypes.string.tag({
       name: 'Título',
       group: 'Editar texto',
+      description: 'Dejar vacío para tomar el valor original de la noticia.',
     }),
   }),
 }

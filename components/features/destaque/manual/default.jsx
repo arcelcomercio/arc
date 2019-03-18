@@ -30,7 +30,7 @@ class DestaqueManual extends Component {
     const { customFields, arcSite } = this.props
     const { path, imageSize, size } = customFields
 
-    const source = 'story'
+    const source = 'story__by-websiteurl'
     const params = {
       website: arcSite,
       website_url: path,
@@ -167,10 +167,12 @@ DestaqueManual.propTypes = {
     categoryField: PropTypes.string.tag({
       name: 'Sección',
       group: 'Editar texto',
+      description: 'Dejar vacío para tomar el valor original de la noticia.',
     }),
     titleField: PropTypes.string.tag({
       name: 'Título',
       group: 'Editar texto',
+      description: 'Dejar vacío para tomar el valor original de la noticia.',
     }),
   }),
 }
