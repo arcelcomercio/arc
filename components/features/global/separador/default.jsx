@@ -16,7 +16,7 @@ const classes = {
 }
 
 const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
-  debugger
+  
   return (
     <article className={classes.item}>
       {medio === 'video' && <span>&#8227;</span>}

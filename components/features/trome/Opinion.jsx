@@ -19,39 +19,32 @@ class Opinion extends Component {
       section2,
       section3,
       section4,
-      data1: {},
-      data2: {},
-      data3: {},
-      data4: {},
+      listNews:[]
     }
   }
 
   componentDidMount = () => {
     const { section1, section2, section3, section4 } = this.state
-    this.getContentApi(section1, result => {
-      this.setState({
-        data1: result,
-      })
-    })
 
-    this.getContentApi(section2, result => {
-      this.setState({
-        data2: result,
-      })
-    })
+    let listaSecciones = [section1, section2, section3, section4];
+    let listNews =[]
+    listaSecciones.forEach(element => {
+      this.getContentApi(element, result => {
+        
+        listNews.push(result)
+        if(listNews.length ===4 ){
+          
+          this.setState({
+            listNews: listNews,
+          })
+          
+        }
 
-    this.getContentApi(section3, result => {
-      this.setState({
-        data3: result,
       })
-    })
-
-    this.getContentApi(section4, result => {
-      this.setState({
-        data4: result,
-      })
-    })
+    });
   }
+
+
 
   getContentApi = (seccion, callback) => {
     if (seccion) {
@@ -115,13 +108,13 @@ class Opinion extends Component {
     }
   }
 
-  render() {
-    const { titleOpinion, data1, data2, data3, data4 } = this.state
-    const dataList = [data1, data2, data3, data4]
+  render(){
+    const { titleOpinion, listNews} = this.state
+    
     return (
       <OpinionComponent
         titleOpinion={titleOpinion}
-        dataList={dataList}
+        dataList={listNews}
       />
     )
   }
