@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import ItemNew from './_children/ItemNew'
+import DataStory from '../../../../resources/components/utils/data-story'
 
 const classes = {
   masLeidas: 'flex flex--column mas-leidas',
@@ -81,13 +82,13 @@ class MasLeidas extends Component {
   fetch() {
     const { arcSite, requestUri, customFields } = this.props
     const { numNotes } = customFields
-
     const source = 'stories__most-readed'
     const params = {
       website: arcSite,
-      section: requestUri.split('/')[1],
+      section: requestUri.split('?')[0].split('/')[1],
       num_notes: numNotes,
     }
+
     const schema = `{
       content_elements {
         canonical_url
@@ -127,6 +128,7 @@ class MasLeidas extends Component {
     const { fetched } = this.getContent(source, params, schema)
     fetched
       .then(response => {
+        console.log(response)
         if (response && response.content_elements.length > 0) {
           this.castingData(response.content_elements)
         } else this.setDataTest()
