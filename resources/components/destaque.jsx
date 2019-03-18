@@ -26,9 +26,7 @@ const classes = {
 }
 
 export default class Destaque extends Component {
-
   render() {
-
     const {
       category, // Se espera un objeto {name: '', url: ''}
       title, // Se espera un objeto {name: '', url: ''}
@@ -41,7 +39,7 @@ export default class Destaque extends Component {
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
     } = this.props
-  
+
     const getImageSizeClass = () => {
       switch (imageSize) {
         case 'complete':
@@ -52,14 +50,14 @@ export default class Destaque extends Component {
           return ''
       }
     }
-  
+
     const getHeadBandClass = () => {
       if (headband === 'live') {
         return classes.live
       }
       return ''
     }
-  
+
     const getEditafleField = element => {
       if (editableField) {
         return editableField(element)
@@ -69,82 +67,76 @@ export default class Destaque extends Component {
 
     return (
       <article
-      className={`${
-        classes.destaque
-      } ${getImageSizeClass()} ${getHeadBandClass()} ${
-        size === 'twoCol' ? classes.twoCol : ''
-      }`}>
-      {imageSize === 'complete' && <span className={classes.gradient} />}
-      <div className={classes.detail}>
-        {headband === 'normal' || !headband ? (
-          <h3 className={classes.category}>
+        className={`${
+          classes.destaque
+        } ${getImageSizeClass()} ${getHeadBandClass()} ${
+          size === 'twoCol' ? classes.twoCol : ''
+        }`}>
+        {imageSize === 'complete' && <span className={classes.gradient} />}
+        <div className={classes.detail}>
+          {headband === 'normal' || !headband ? (
+            <h3 className={classes.category}>
+              <a
+                className={classes.link}
+                href={category.url}
+                {...getEditafleField('categoryField')}
+                suppressContentEditableWarning>
+                {categoryField || category.name}
+              </a>
+            </h3>
+          ) : (
+            <div className={classes.headband}>
+              <a
+                href={category.url}
+                className={`${classes.link} ${classes.headbandLink}`}>
+                {headband === 'live' ? 'En vivo' : ''}
+              </a>
+            </div>
+          )}
+          <h2 className={classes.title}>
             <a
               className={classes.link}
-              href={category.url}
-              {...getEditafleField('categoryField')}
+              href={title.url}
+              {...getEditafleField('titleField')}
               suppressContentEditableWarning>
-              {categoryField || category.name}
+              {titleField || title.name}
             </a>
-          </h3>
-        ) : (
-          <div className={classes.headband}>
-            <a
-              href={category.url}
-              className={`${classes.link} ${classes.headbandLink}`}>
-              {headband === 'live' ? 'En vivo' : ''}
-            </a>
-          </div>
-        )}
-        <h2 className={classes.title}>
-          <a
-            className={classes.link}
-            href={title.url}
-            {...getEditafleField('titleField')}
-            suppressContentEditableWarning>
-            {titleField || title.name}
-          </a>
-        </h2>
+          </h2>
 
-        <span className={classes.author}>
-          <a className={classes.link} href={author.url}>
-            {author.name}
+          <span className={classes.author}>
+            <a className={classes.link} href={author.url}>
+              {author.name}
+            </a>
+          </span>
+        </div>
+        <figure className={classes.image}>
+          <a className={classes.imageLink} href={title.url}>
+            <img src={image} alt="" />
           </a>
-        </span>
-      </div>
-      <figure className={classes.image}>
-        <a className={classes.imageLink} href={title.url}>
-          <img src={image} alt="" />
-        </a>
-      </figure>
-    </article>
+        </figure>
+      </article>
     )
   }
 }
 
 Destaque.propTypes = {
   category: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    url:  PropTypes.string.isRequired
+    name: PropTypes.string,
+    url: PropTypes.string,
   }),
   title: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    url:  PropTypes.string.isRequired
+    name: PropTypes.string,
+    url: PropTypes.string,
   }),
   author: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    url:  PropTypes.string.isRequired
+    name: PropTypes.string,
+    url: PropTypes.string,
   }),
   image: PropTypes.string,
-  imageSize: PropTypes.oneOf([
-    'parcialBot', 'parcialTop', 'complete'
-  ]).isRequired,
-  headband: PropTypes.oneOf([
-    'live'
-  ]).isRequired,
-  size: PropTypes.oneOf([
-    'oneCol', 'twoCol'
-  ]).isRequired,
-  editableField: PropTypes.func, // OPCIONAL
-  titleField: PropTypes.string, // OPCIONAL
-  categoryField: PropTypes.string // OPCIONAL
+  imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']),
+  headband: PropTypes.oneOf(['normal', 'live']),
+  size: PropTypes.oneOf(['oneCol', 'twoCol']),
+  editableField: PropTypes.func,
+  titleField: PropTypes.string,
+  categoryField: PropTypes.string,
 }

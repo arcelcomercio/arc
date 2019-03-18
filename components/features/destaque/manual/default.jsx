@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 
 import Destaque from '../../../../resources/components/destaque'
 import { addResizedUrlItem } from '../../../../resources/utilsJs/thumbs'
+import DataStory from '../../../../resources/components/utils/data-story'
 
 @Consumer
 class DestaqueManual extends Component {
@@ -37,25 +38,19 @@ class DestaqueManual extends Component {
     const schema = `{ 
       headlines { basic }
       credits {
-        by { name  url }
+        by { name url type }
       }
       website_url
       promo_items {
-        basic { url resized_urls }
+        basic { url type }
         basic_video {
           promo_items {
-            basic {
-              url
-              resized_urls
-            }
+            basic { url type }
           }
         }
         basic_gallery {
           promo_items {
-            basic {
-              url
-              resized_urls
-            }
+            basic { url type }
           }
         }
       }
@@ -71,54 +66,43 @@ class DestaqueManual extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
+      const element = new DataStory(response, arcSite)
       this.setState({
         category: {
-          name: response.websites[`${arcSite}`]
-            ? response.websites[`${arcSite}`].website_section.name
-            : '',
-          url: response.websites[`${arcSite}`]
-            ? response.websites[`${arcSite}`].website_section.path
-            : '',
+          name: element.section,
+          url: element.sectionLink,
         },
         title: {
-          name: response.headlines.basic,
-          url: response.website_url,
+          name: element.title,
+          url: element.link,
         },
         author: {
-          name: response.credits.by.length ? response.credits.by[0].name : '',
-          url: response.credits.by.length ? response.credits.by[0].url : '',
+          name: element.author,
+          url: element.authorLink,
         },
       })
-
-      let storyTypePath = ''
-      if (response.promo_items.basic) {
-        storyTypePath = response.promo_items.basic.url
-      } else if (response.promo_items.basic_gallery) {
-        storyTypePath = response.promo_items.basic_gallery.promo_items.basic.url
-      } else if (response.promo_items.basic_video) {
-        storyTypePath = response.promo_items.basic_video.promo_items.basic.url
-      }
-      if (!storyTypePath) return
-
-      if (size === 'twoCol') {
-        this.setState({
-          image: this.getImgResized(storyTypePath, '3:4', '676x374'),
-        })
-      } else {
-        switch (imageSize) {
-          case 'parcialBot':
-          case 'parcialTop':
-            this.setState({
-              image: this.getImgResized(storyTypePath, '3:4', '288x157'),
-            })
-            break
-          case 'complete':
-            this.setState({
-              image: this.getImgResized(storyTypePath, '9:16', '328x374'),
-            })
-            break
-          default:
-            break
+      const imgUrl = element.multimedia
+      if (imgUrl) {
+        if (size === 'twoCol') {
+          this.setState({
+            image: this.getImgResized(imgUrl, '3:4', '676x374'),
+          })
+        } else {
+          switch (imageSize) {
+            case 'parcialBot':
+            case 'parcialTop':
+              this.setState({
+                image: this.getImgResized(imgUrl, '3:4', '288x157'),
+              })
+              break
+            case 'complete':
+              this.setState({
+                image: this.getImgResized(imgUrl, '9:16', '328x374'),
+              })
+              break
+            default:
+              break
+          }
         }
       }
     })
@@ -134,21 +118,19 @@ class DestaqueManual extends Component {
       titleField,
       categoryField,
     } = customFields
-
-    return (
-      <Destaque
-        title={title}
-        category={category}
-        author={author}
-        image={image}
-        imageSize={imageSize}
-        headband={headband}
-        size={size}
-        editableField={editableField}
-        titleField={titleField}
-        categoryField={categoryField}
-      />
-    )
+    const params = {
+      title,
+      category,
+      author,
+      image,
+      imageSize,
+      headband,
+      size,
+      editableField,
+      titleField,
+      categoryField,
+    }
+    return <Destaque {...params} />
   }
 }
 
