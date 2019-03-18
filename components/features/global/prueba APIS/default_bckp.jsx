@@ -1,12 +1,11 @@
 /* eslint-disable no-shadow */
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import customFields from './_children/customfields'
+import { customFields } from './_children/customfields'
 // import Api from './_children/api'
-import filterSchema from './_children/filterschema'
+import { filterSchema } from './_children/filterschema'
 import TripleteChildren from './_children/triplete'
 
-const API_URL = 'story__by-websiteurl'
 @Consumer
 class Triplete extends Component {
   constructor(props) {
@@ -27,7 +26,7 @@ class Triplete extends Component {
     for (let i = 1; i <= LINK_LENGTH; i++) {
       if (customFields[LINK + i]) {
         const { fetched } = this.getContent(
-          API_URL,
+          'story__by-websiteurl',
           { website_url: customFields[LINK + i], website: arcSite },
           filterSchema(arcSite)
         )
