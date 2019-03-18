@@ -1,26 +1,32 @@
 const filterSchema = () => {
-  return `{
-      content_elements{
-        headlines {
+  return `
+  {
+    content_elements{
+      headlines {
           basic
-        }
-        taxonomy{
-          sites{
-            additional_properties{
-              original{
-                site_topper{
-                  site_logo_image
-                }
+      }
+      canonical_url
+      taxonomy{
+        sites{
+          additional_properties{
+            original{
+              site_topper{
+                site_logo_image
               }
             }
           }
         }
-        subheadlines{
-          basic
+        sections{
+          name
+          path
         }
       }
+      subheadlines{
+        basic
+      }
     }
-    `
+  }
+  `
 }
 
-export default filterSchema()
+export default filterSchema;

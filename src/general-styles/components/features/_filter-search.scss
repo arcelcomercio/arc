@@ -1,0 +1,239 @@
+.filter-search {
+  display: flex;
+  background-color: #e8f2f7;
+  flex-direction: column-reverse;
+  padding: 15px;
+
+  @media (--desktop) {
+    flex-direction: row;
+    height: 152px;
+  }
+
+  &__select {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: #d5e5ed;
+    padding: 0 15px;
+
+    &.active {
+      background-color: $color-white;
+    }
+
+    @media (--desktop) {
+      height: auto;
+      padding: 0;
+    }
+  }
+
+  &__select-name {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 13px;
+
+    @media (--desktop) {
+      display: none;
+    }
+  }
+
+  &__list {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: $color-white;
+    z-index: 10;
+
+    &.active {
+      display: flex;
+    }
+
+    @media (--desktop) {
+      background-color: transparent;
+      display: flex;
+      position: relative;
+      flex-direction: row;
+      top: initial;
+    }
+  }
+
+  &__item {
+    &.active {
+      background-color: $color-primary;
+
+      .filter-search__link {
+        font-weight: bold;
+      }
+
+      @media (--desktop) {
+        background-color: $color-white;
+
+        .filter-search__link {
+          background-color: #bbd3e0;
+          font-weight: bold;
+        }
+      }
+    }
+
+    &.selected {
+      text-transform: uppercase;
+
+      @media (--desktop) {
+        .filter-search__link {
+          background-color: $color-primary;
+          font-weight: bold;
+          border: 0;
+          outline: 0;
+        }
+      }
+    }
+
+    @media (--desktop) {
+      background-color: $color-white;
+      padding: 0;
+      padding-right: 2px;
+      position: initial;
+
+      &:nth-last-child(1) {
+        padding-right: 0;
+      }
+    }
+  }
+
+  &__link {
+    padding: 10px 15px;
+    color: $color-dark;
+    font-size: 13px;
+    text-transform: uppercase;
+    display: flex;
+    width: 100%;
+
+    @media (--desktop) {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 110px;
+      height: 90px;
+      padding: 10px;
+      background-color: #d5e5ed;
+      font-weight: 300;
+    }
+  }
+
+  &__sublist {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    padding: 0 20px;
+
+    &.active {
+      display: flex;
+    }
+
+    @media (--desktop) {
+      flex-direction: row;
+      position: absolute;
+      margin-top: 10px;
+      left: 0;
+    }
+  }
+
+  &__subitem {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    @media (--desktop) {
+      padding: 0;
+      margin-right: 15px;
+
+      &:nth-last-child(1) {
+        margin-right: 0;
+      }
+
+      &:before {
+        content: '|';
+        position: absolute;
+        right: -7px;
+        color: #a1a1a1;
+        font-size: 9px;
+      }
+    }
+  }
+
+  &__sublink {
+    font-size: 11px;
+    color: #a1a1a1;
+    padding: 7px;
+    cursor: pointer;
+    text-transform: capitalize;
+    width: 100%;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__box-search {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    @media (--desktop) {
+      margin-bottom: 0;
+      align-items: flex-start;
+    }
+  }
+
+  &__search {
+    position: relative;
+    width: 100%;
+
+    & input {
+      width: 100%;
+      padding-right: 30px;
+      padding-left: 15px;
+      height: 40px;
+      line-height: 50px;
+      font-size: 13px;
+
+      @media (--desktop) {
+        height: 90px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 90px;
+        padding-right: 95px;
+        border: 0;
+      }
+    }
+
+    & button {
+      z-index: 1;
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+
+      &:active {
+        background-color: $color-primary;
+      }
+
+      @media (--desktop) {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 90px;
+        right: 0;
+        border-left: solid 1px #e8f2f7;
+        font-size: 24px;
+      }
+    }
+  }
+}
