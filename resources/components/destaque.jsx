@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 const classes = {
   destaque: 'destaque padding-normal flex flex--column row-1',
@@ -24,47 +25,50 @@ const classes = {
   live: 'destaque--live',
 }
 
-export default props => {
-  const {
-    category, // Se espera un objeto {name: '', url: ''}
-    title, // Se espera un objeto {name: '', url: ''}
-    author, // Se espera un objeto {name: '', url: ''}
-    image, // Url de la imágen
-    imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
-    headband, // OPCIONAL, otros valores: "live"
-    size, // Se espera "oneCol" o "twoCol"
-    editableField, // OPCIONAL, o pasar la función editableField de los props
-    titleField, // OPCIONAL, o pasar el customField de los props
-    categoryField, // OPCIONAL, o pasar el customField de los props
-  } = props
+export default class Destaque extends Component {
 
-  const getImageSizeClass = () => {
-    switch (imageSize) {
-      case 'complete':
-        return classes.imgComplete
-      case 'parcialTop':
-        return classes.parcialTop
-      default:
-        return ''
+  render() {
+
+    const {
+      category, // Se espera un objeto {name: '', url: ''}
+      title, // Se espera un objeto {name: '', url: ''}
+      author, // Se espera un objeto {name: '', url: ''}
+      image, // Url de la imágen
+      imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
+      headband, // OPCIONAL, otros valores: "live"
+      size, // Se espera "oneCol" o "twoCol"
+      editableField, // OPCIONAL, o pasar la función editableField de los props
+      titleField, // OPCIONAL, o pasar el customField de los props
+      categoryField, // OPCIONAL, o pasar el customField de los props
+    } = this.props
+  
+    const getImageSizeClass = () => {
+      switch (imageSize) {
+        case 'complete':
+          return classes.imgComplete
+        case 'parcialTop':
+          return classes.parcialTop
+        default:
+          return ''
+      }
     }
-  }
-
-  const getHeadBandClass = () => {
-    if (headband === 'live') {
-      return classes.live
+  
+    const getHeadBandClass = () => {
+      if (headband === 'live') {
+        return classes.live
+      }
+      return ''
     }
-    return ''
-  }
-
-  const getEditafleField = element => {
-    if (editableField) {
-      return editableField(element)
+  
+    const getEditafleField = element => {
+      if (editableField) {
+        return editableField(element)
+      }
+      return null
     }
-    return null
-  }
 
-  return (
-    <article
+    return (
+      <article
       className={`${
         classes.destaque
       } ${getImageSizeClass()} ${getHeadBandClass()} ${
@@ -113,5 +117,34 @@ export default props => {
         </a>
       </figure>
     </article>
-  )
+    )
+  }
+}
+
+Destaque.propTypes = {
+  category: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    url:  PropTypes.string.isRequired
+  }),
+  title: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    url:  PropTypes.string.isRequired
+  }),
+  author: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    url:  PropTypes.string.isRequired
+  }),
+  image: PropTypes.string,
+  imageSize: PropTypes.oneOf([
+    'parcialBot', 'parcialTop', 'complete'
+  ]).isRequired,
+  headband: PropTypes.oneOf([
+    'live'
+  ]).isRequired,
+  size: PropTypes.oneOf([
+    'oneCol', 'twoCol'
+  ]).isRequired,
+  editableField: PropTypes.func, // OPCIONAL
+  titleField: PropTypes.string, // OPCIONAL
+  categoryField: PropTypes.string // OPCIONAL
 }
