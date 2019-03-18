@@ -6,7 +6,7 @@ const ImageNews = ({ urlNews, promo_items: promoItems }) => {
   const multimedia = GetMultimediaContent(promoItems)
   const { url, medio } = multimedia
 
-  debugger
+  
   return (
     <figure>
       {medio === 'video' && <span>&#8227;</span>}
