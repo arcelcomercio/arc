@@ -1,83 +1,14 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-
-import { GetMultimediaContent } from '../../../../resources/utilsJs/utilities'
+import filterSchema from './_children/filterSchema'
+import customFields from './_children/customFields'
+import SeparatorListItem from './_children/separadorLista'
 
 const classes = {
   separator: 'separator',
   headerHtml: 'separator__headerHtml',
   title: 'separator__headerTitle',
   body: 'separator__body',
-  item: 'separator__item',
-  detail: 'separator__detail',
-  separatorTitle: 'separator__title',
-  mvideo: 'separator--video',
-}
-
-const SeparatorItem = ({
-  headlines,
-  urlImage,
-  website_url: websiteUrl,
-  medio,
-}) => {
-  return (
-    <article className={classes.item}>
-      {medio === 'video' && <span>&#8227;</span>}
-      {medio === 'gallery' && <span>G</span>}
-      <div className={classes.detail}>
-        <h2 className={classes.separatorTitle}>
-          <a href={websiteUrl}>{headlines}</a>
-        </h2>
-      </div>
-      <figure>
-        {websiteUrl && (
-          <a href={websiteUrl}>
-            <img src={urlImage} alt="" />
-          </a>
-        )}
-      </figure>
-    </article>
-  )
-}
-
-const SeparatorListItem = ({ data }) => {
-  const result = data.map(
-    ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
-      let multimedia = null
-
-      if (promoItems !== null) {
-        multimedia = GetMultimediaContent(promoItems)
-      }
-
-      const { url, medio } = multimedia
-
-      return (
-        <SeparatorItem
-          key={websiteUrl}
-          headlines={headlines.basic}
-          urlImage={url}
-          website_url={websiteUrl}
-          medio={medio}
-        />
-      )
-    }
-  )
-  return result
-}
-
-const createMarkup = html => {
-  return { __html: html }
-}
-
-const HeaderHTML = ({ htmlCode }) => {
-  return (
-    <div
-      className={classes.title}
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={createMarkup(htmlCode)}
-    />
-  )
 }
 
 @Consumer
@@ -85,16 +16,31 @@ class Separador extends Component {
   constructor(props) {
     super(props)
 
-    const {
-      customFields: { titleSeparator, titleLink, section, htmlCode },
-    } = this.props || {}
+    const { customFields, apliFields } = this.props || {}
+    let tituloSeparador, tituloLink, seccion, htmlCodigo
 
+    
+    if (apliFields) {
+      const { titleSeparator, titleLink, section, htmlCode } = apliFields || {}
+      tituloSeparador = titleSeparator
+      tituloLink = titleLink
+      seccion = section
+      htmlCodigo = htmlCode
+    } else {
+      const { titleSeparator, titleLink, section, htmlCode } =
+        customFields || {}
+      tituloSeparador = titleSeparator
+      tituloLink = titleLink
+      seccion = section
+      htmlCodigo = htmlCode
+    }
+    
     this.state = {
       device: this.setDevice(),
-      titleSeparator,
-      titleLink,
-      section,
-      htmlCode,
+      titleSeparator:tituloSeparador,
+      titleLink: tituloLink,
+      section: seccion,
+      htmlCode: htmlCodigo,
       data: [],
     }
   }
@@ -126,7 +72,7 @@ class Separador extends Component {
         section,
         news_number: newsNumber,
       },
-      this.filterSchema()
+      filterSchema()
     )
     fetched.then(response => {
       if (!response) {
@@ -187,42 +133,8 @@ class Separador extends Component {
     return 'desktop'
   }
 
-  filterSchema = () => {
-    return `
-    {
-      content_elements{
-        canonical_url
-        website_url
-        promo_items{
-          basic_video {
-            type
-            promo_items {
-              basic {
-                type 
-                url
-              }
-            }
-          }
-          basic_gallery {
-            type 
-            promo_items {
-              basic {
-                type 
-                url
-              }
-            }
-          }
-          basic {
-            type 
-            url
-          }
-        }
-        headlines{
-          basic
-        }
-      }
-    }
-    `
+  createMarkup = html => {
+    return { __html: html }
   }
 
   render() {
@@ -235,7 +147,11 @@ class Separador extends Component {
             <a href={titleLink}>{titleSeparator}</a>
           </h1>
         ) : (
-          <HeaderHTML htmlCode={htmlCode} />
+          <div
+            className={classes.title}
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={this.createMarkup(htmlCode)}
+          />
         )}
 
         <div className={classes.body}>
@@ -247,11 +163,6 @@ class Separador extends Component {
 }
 
 Separador.propTypes = {
-  customFields: PropTypes.shape({
-    titleSeparator: PropTypes.string.tag({ name: 'Titulo del separador' }),
-    titleLink: PropTypes.string.tag({ name: 'Enlace del separador' }),
-    section: PropTypes.string.isRequired.tag({ name: 'Sección' }),
-    htmlCode: PropTypes.richtext.tag({ name: 'Código HTML' }),
-  }),
+  customFields,
 }
 export default Separador
