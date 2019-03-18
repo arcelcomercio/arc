@@ -2,10 +2,10 @@ import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-import Heading from './types/heading'
-import Subheading from './types/subheading'
-import Gallery from './types/gallery'
-import Share from './types/share'
+import Heading from './_children/heading'
+import Subheading from './_children/subheading'
+import Gallery from './_children/gallery'
+import Share from './_children/share'
 
 const classes = {
   news: 'col-3 padding-normal bg-color--white',
@@ -33,8 +33,7 @@ class ArticleHeader extends Component {
             typeof galleryElements === 'undefined'
               ? classes.news
               : classes.gallery
-          }
-        >
+          }>
           <Heading />
           <Subheading />
           <Share url={baseUrl} title={title} />
@@ -50,6 +49,7 @@ class ArticleHeader extends Component {
 }
 
 ArticleHeader.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   globalContent: PropTypes.object,
 }
 
