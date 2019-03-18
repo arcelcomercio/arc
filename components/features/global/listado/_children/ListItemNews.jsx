@@ -47,7 +47,7 @@ const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
                 : fechaPublicacion.getMinutes()
             }-`
           }
-          debugger
+          
           return (
             <ItemNews
               key={canonicalUrl}
