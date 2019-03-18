@@ -2,7 +2,27 @@ const resolve = key => {
   let requestUri = ``
 
   if (!key.news_number) {
+    // eslint-disable-next-line no-param-reassign
     key.news_number = 1
+  }
+
+  const body = {
+    query: {
+      bool: {
+        must: [
+          {
+            term: {
+              type: 'story',
+            },
+          },
+          {
+            term: {
+              'revision.published': true,
+            },
+          },
+        ],
+      },
+    },
   }
 
   const numero = key.news_number
@@ -13,7 +33,9 @@ const resolve = key => {
       requestUri = `/content/v4/search/published/?q=taxonomy.sites.path:`
       requestUri = `${requestUri}"${
         key.section
-      }"&sort=publish_date:desc&from=0&size=${numero}`
+      }"&sort=publish_date:desc&from=0&size=${numero}&body=${JSON.stringify(
+        body
+      )}`
     }
   } else {
     throw new Error('Lista-component content source requires a section')

@@ -3,14 +3,14 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import ArticleBody from '@arc-core-components/feature_article-body'
 
-import Video from './types/video'
-import Imagen from './types/image'
-import Gallery from '../header/types/gallery'
-import Blockquote from './types/blockquote'
-import Table from './types/table'
-import Tags from './types/tags'
-import Autor from './types/autor'
-import ElePrincipal from './types/ele-principal'
+import Video from './_children/video'
+import Imagen from './_children/image'
+import Gallery from '../header/_children/gallery'
+import Blockquote from './_children/blockquote'
+import Table from './_children/table'
+import Tags from './_children/tags'
+import Autor from './_children/autor'
+import ElePrincipal from './_children/ele-principal'
 
 const elementClasses = {
   textClasses: 'font--secondary',
