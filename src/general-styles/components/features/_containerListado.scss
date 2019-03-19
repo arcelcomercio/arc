@@ -1,0 +1,15 @@
+.container {
+    background-color: #fff;
+    color: #000;
+    margin: 0;
+  &__title {
+    color: #26567f;
+    display: inline-block;
+    font-family: 'Lato';
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-left: 15px;
+  }
+}
