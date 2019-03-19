@@ -76,6 +76,7 @@ class GrillaDestaque extends Component {
   }
 
   render() {
+    console.log(this.props.globalContent)
     const { category, title, author, image } = this.state
     const { customFields, editableField } = this.props
     const { imageSize, size, titleField, categoryField } = customFields
