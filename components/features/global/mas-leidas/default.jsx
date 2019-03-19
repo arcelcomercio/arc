@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import ItemNew from './_children/ItemNew'
+import DataStory from '../../../../resources/components/utils/data-story'
 
 const classes = {
   masLeidas: 'flex flex--column mas-leidas',
@@ -39,39 +40,18 @@ class MasLeidas extends Component {
 
   castingData(data) {
     const aux = []
+    const { arcSite } = this.props
+    const element = new DataStory({}, arcSite)
+
     data.forEach(el => {
-      const d = {}
-      if (el.website_url != null) d.websiteUrl = el.website_url
-      if (el.promo_items != null) {
-        if (el.promo_items.basic != null && el.promo_items.basic.url != null) {
-          d.imageUrl = el.promo_items.basic.url
-          d.captionImg = el.promo_items.basic.caption
-          d.typeNote = 'image'
-        }
-        if (
-          el.promo_items.basic_video != null &&
-          el.promo_items.basic_video.promo_items.basic != null
-        ) {
-          d.imageUrl = el.promo_items.basic_video.promo_items.basic.url
-          d.captionImg = el.promo_items.basic_video.promo_items.basic.caption
-          d.typeNote = 'video'
-        }
-        if (el.promo_items.basic != null && el.promo_items.basic.url != null) {
-          d.imageUrl = el.promo_items.basic.url
-          d.captionImg = el.promo_items.basic.caption
-          d.typeNote = 'image'
-        }
-        if (
-          el.promo_items.basic_video != null &&
-          el.promo_items.basic_video.promo_items.basic != null
-        ) {
-          d.imageUrl = el.promo_items.basic_video.promo_items.basic.url
-          d.captionImg = el.promo_items.basic_video.promo_items.basic.caption
-          d.typeNote = 'video'
-        }
-      }
-      if (el.headlines != null) d.title = el.headlines.basic
-      aux.push(d)
+      element.__data = el
+      aux.push({
+        websiteUrl: element.link,
+        imageUrl: element.multimedia,
+        typeNote: element.multimediaType,
+        title: element.title,
+        id: el._id,
+      })
     })
     this.setState({
       news: aux,
@@ -81,42 +61,42 @@ class MasLeidas extends Component {
   fetch() {
     const { arcSite, requestUri, customFields } = this.props
     const { numNotes } = customFields
-
     const source = 'stories__most-readed'
     const params = {
       website: arcSite,
-      section: requestUri.split('/')[1],
+      section: `/${requestUri.split('?')[0].split('/')[1]}`,
       num_notes: numNotes,
     }
+
     const schema = `{
       content_elements {
         canonical_url
         website_url
         display_date
+        _id
         headlines {
           basic
         }
         promo_items {
           basic {
             url
+            type
             caption
           }
           basic_video {
             promo_items {
               basic {
                 url
+                type
                 caption
               }
             }
           }
-          basic {
-            url
-            caption
-          }
-          basic_video {
+          basic_gallery {
             promo_items {
               basic {
                 url
+                type
                 caption
               }
             }
@@ -141,12 +121,14 @@ class MasLeidas extends Component {
     const { news } = this.state
     const { customFields } = this.props
     const { viewImage } = customFields
+
     return (
       <div className={classes.masLeidas}>
         <h4 className={classes.title}>lo más visto</h4>
-        {news.map(item => (
-          <ItemNew item={item} viewImage={viewImage} />
-        ))}
+        {news.map(item => {
+          const params = { item, viewImage }
+          return <ItemNew key={item.id} {...params} />
+        })}
       </div>
     )
   }
