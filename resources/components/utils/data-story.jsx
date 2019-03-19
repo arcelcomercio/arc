@@ -91,6 +91,23 @@ class DataStory {
     return this._data && this._data.first_publish_date || ''
   }
 
+  get allData() {
+    return {
+      title: this.title,
+      subTitle: this.subTitle,
+      author: this.author,
+      authorLink: this.authorLink,
+      multimedia: this.multimedia,
+      multimediaType: this.multimediaType,
+      sectionLink: this.sectionLink,
+      link: this.link,
+      date: this.date,
+      displayDate: this.displayDate,
+      publishDate: this.publishDate,
+      firstPublishDate: this.firstPublishDate,
+    }
+  }
+
   static getDataSection(data, website) {
     const sectionData =
       (data &&
