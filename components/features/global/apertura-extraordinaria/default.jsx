@@ -37,18 +37,14 @@ class AperturaExtraordinaria extends Component {
   }
 
   render() {
-    // console.log('apertura extraordinaria render', this.renderCount + 1)
-    // console.dir(this.state)
     // eslint-disable-next-line no-shadow
-    const { customFields, editableField, arcSite } = this.props
-    // const { data } = this.state
-    //const website = arcSite
-    const data = new Data(customFields, this.state.data, arcSite)
+    const { customFields, arcSite } = this.props
+    const { data } = this.state
+    const formattedData = new Data(customFields, data, arcSite)
     const params = {
-      data,
+      data: formattedData,
       multimediaOrientation: data.multimediaOrientation,
       contentOrientation: data.contentOrientation,
-      //editableField,
     }
 
     return <AperturaExtraordinariaChildren {...params} />
