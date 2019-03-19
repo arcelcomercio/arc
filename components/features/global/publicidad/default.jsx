@@ -1,6 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+import Ads from '../../../../resources/components/ads'
 
 @Consumer
 class Publicidad extends Component {
@@ -12,6 +13,11 @@ class Publicidad extends Component {
   render() {
     const { customFields } = this.props
     const { adElement, isDesktop, isMobile, freeHtml } = customFields
+    const params = {
+      adElement,
+      isDesktop,
+      isMobile,
+    }
 
     const createMarkup = html => {
       return { __html: html }
@@ -19,8 +25,7 @@ class Publicidad extends Component {
 
     return (
       <Fragment>
-        {adElement && isMobile && <div id={`ads-m-${adElement}`} />}
-        {adElement && isDesktop && <div id={`ads-d-${adElement}`} />}
+        <Ads {...params} />
         {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
       </Fragment>
     )
