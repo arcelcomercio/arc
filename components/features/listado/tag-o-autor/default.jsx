@@ -14,7 +14,9 @@ class tagAutor extends Component {
     }
     return (
       <Fragment>
-        <CardNotice {...params} />
+        <div>
+          {params.data.map((el, index) => (<CardNotice key={index} data={el} arcSite={params.arcSite} />))}
+        </div>
         <Paginacion
           totalElements={globalContent.count || 0}
           totalViews={
