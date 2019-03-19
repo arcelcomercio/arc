@@ -50,6 +50,7 @@ class MasLeidas extends Component {
         imageUrl: element.multimedia,
         typeNote: element.multimediaType,
         title: element.title,
+        id: el._id,
       })
     })
     this.setState({
@@ -72,6 +73,7 @@ class MasLeidas extends Component {
         canonical_url
         website_url
         display_date
+        _id
         headlines {
           basic
         }
@@ -125,7 +127,7 @@ class MasLeidas extends Component {
         <h4 className={classes.title}>lo más visto</h4>
         {news.map(item => {
           const params = { item, viewImage }
-          return <ItemNew {...params} />
+          return <ItemNew key={item.id} {...params} />
         })}
       </div>
     )

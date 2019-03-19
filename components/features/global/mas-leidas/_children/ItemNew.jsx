@@ -17,13 +17,13 @@ export default props => {
 
   return (
     <div className={classes.new}>
-      <a href={websiteUrl}>
-        {viewImage && (
+      {viewImage && (
+        <a href={websiteUrl}>
           <figure className={classes.figure}>
             <img className={classes.img} src={imageUrl} alt={title} />
           </figure>
-        )}
-      </a>
+        </a>
+      )}
       <a className={classes.detail} href={websiteUrl}>
         {title}
       </a>
