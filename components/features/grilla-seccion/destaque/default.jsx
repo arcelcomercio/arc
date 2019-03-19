@@ -16,15 +16,16 @@ class GrillaDestaque extends Component {
       author: {},
       image: '',
     }
-    console.log(props)
   }
 
   componentDidMount() {
-    const { customFields, arcSite, globalContent } = this.props
-    const { imageSize, size } = customFields
-
+    const {
+      customFields: { imageSize, size },
+      arcSite,
+      globalContent,
+      storyNumber,
+    } = this.props
     const stories = globalContent.content_elements
-    const storyNumber = 1
 
     const element = new DataStory(stories[storyNumber], arcSite)
     this.setState({
