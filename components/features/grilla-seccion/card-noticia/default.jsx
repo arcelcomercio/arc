@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
@@ -16,6 +16,10 @@ class ListadoNoticia extends Component {
       globalContent: { content_elements: contentElements },
       arcSite,
       customFields: { initialStory, storiesQty },
+      globalContentConfig: {
+        query: { section },
+      },
+      contextPath,
     } = this.props
     const params = {
       data: contentElements || [],
@@ -23,18 +27,25 @@ class ListadoNoticia extends Component {
     }
 
     return (
-      <div>
-        {params.data
-          .slice(initialStory - 1, initialStory + storiesQty)
-          .map(el => (
-            <CardNotice
-              key={el.website_url}
-              formato="row"
-              data={el}
-              arcSite={params.arcSite}
-            />
-          ))}
-      </div>
+      <Fragment>
+        <div>
+          {params.data
+            .slice(initialStory - 1, initialStory + storiesQty)
+            .map(el => (
+              <CardNotice
+                key={el.website_url}
+                formato="row"
+                data={el}
+                arcSite={params.arcSite}
+              />
+            ))}
+        </div>
+        <div className="flex flex--justify-center margin-top">
+          <a href={`${contextPath}/archivo${section}?_website=${arcSite}`}>
+            Ver más
+          </a>
+        </div>
+      </Fragment>
     )
   }
 }
