@@ -39,9 +39,12 @@ class CardNotice extends Component {
     const element = new DataStory({}, arcSite)
     element.__data = data
     return (
-      <div className={clases.cardNotice}>
+      <div
+        className={`${clases.cardNotice} ${this.props.formato && this.props.formato === 'row' ? 'card-notice--row' : ''}`}>
         <div className={clases.cardNoticeTop}>
-          <a href={element.sectionLink} className={clases.cardNoticeSection}>
+          <a
+            href={element.sectionLink}
+            className={clases.cardNoticeSection}>
             {element.section}
           </a>
           <p className={clases.cardNoticeDate}>
@@ -63,15 +66,15 @@ class CardNotice extends Component {
             <div>
               <a
                 href={element.authorLink}
-                className={clases.cardNoticeAuthor}
-              >
+                className={clases.cardNoticeAuthor}>
                 {element.author}
               </a>
             </div>
           </div>
           <div className={clases.cardNoticeRight}>
             <a href={element.link}>
-              {element.multimediaType === 'basic' || element.multimediaType === '' ? (
+              {element.multimediaType === 'basic' ||
+              element.multimediaType === '' ? (
                 ''
               ) : (
                 <span className={clases.cardNoticeIcon}>
