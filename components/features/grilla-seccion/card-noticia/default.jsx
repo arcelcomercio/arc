@@ -5,8 +5,6 @@ import CardNotice from '../../../../resources/components/listado-noticias'
 
 @Consumer
 class ListadoNoticia extends Component {
-	static SECTION_DEFAULT = 'todas'
-
 	constructor(props) {
 		super(props)
 		this.renderCount = 0
