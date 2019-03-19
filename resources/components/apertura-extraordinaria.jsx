@@ -11,7 +11,7 @@ const classes = {
 }
 
 const AperturaExtraordinaria = props => {
-  const { data, multimediaOrientation='bottom', contentOrientation='left', editableField = () =>{} } = props
+  const { data, multimediaOrientation='bottom', contentOrientation='left' } = props
   return (
     <div
       className={`
@@ -20,18 +20,18 @@ const AperturaExtraordinaria = props => {
             text-${contentOrientation}
             `}>
       <div className={classes.aperturaESection}>
-        <a href={data.sectionLink} {...editableField('section')}>
+        <a href={data.sectionLink}>
           {data.section}
         </a>
       </div>
       <div className={classes.aperturaEContent}>
         <div className={classes.aperturaETitle}>
-          <a href={data.link} {...editableField('title')}>
+          <a href={data.link}>
             {data.title}
           </a>
         </div>
         <div className={classes.aperturaESubtitle}>
-          <a href={data.link} {...editableField('subTitle')}>
+          <a href={data.link}>
             {data.subTitle}
           </a>
         </div>
