@@ -19,16 +19,18 @@ class Default extends Component {
   render() {
     const {
       globalContent: { content_elements: contentElements },
-      arcSite,
+      arcSite,contextPath
     } = this.props
     const params = {
       data: contentElements || [],
       arcSite,
     }
+    //section
+    debugger
     return (
       <Fragment>
         <div className="content-grid-base col-2">
-          <div className={`${classes.container}content-grid-base col-2` }>
+          <div className={`${classes.container}content-grid-base col-2`}>
             <h1 className={classes.title}>Economia</h1>
             <div>
               {params.data.map((el, index) => (
@@ -40,15 +42,19 @@ class Default extends Component {
                 />
               ))}
             </div>
+            <div className="flex flex--justify-center margin-top">
+              <a href={`${contextPath}/archivo${''}?_website=${arcSite}`}>
+                Ver más
+              </a>
+            </div>
           </div>
-          
         </div>
         <div className=" col-1">
-            <div className="col-3">Publcidad</div>
-            <div className="col-3">Mas leidas</div>
+          <div className="col-3">Publcidad</div>
+          <div className="col-3">Mas leidas</div>
 
-            <div className="col-3">publicidad</div>
-          </div>
+          <div className="col-3">publicidad</div>
+        </div>
       </Fragment>
     )
   }
