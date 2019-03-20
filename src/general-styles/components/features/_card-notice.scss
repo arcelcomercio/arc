@@ -5,6 +5,32 @@
 	border-bottom: solid 1px #a9a9a9;
 	padding: 0 20px;
 	margin-bottom: 20px;
+	&--row{
+		@media (--tablet){
+			display: flex;
+			align-items: flex-start;
+		}
+		.card-notice__top{
+			flex-direction: row;
+			margin-top: 10px;
+			flex-basis: 110px;
+			flex-grow: 1;
+			flex-shrink: 0;
+		}
+		.card-notice__section{
+			display: none;
+		}
+		.card-notice__date{
+			margin-top: 0;
+		}
+		.card-notice__bottom{
+			flex-direction: row-reverse;
+		}
+		.card-notice__left{
+			padding-right: 0;
+			padding-left: 10px;
+		}
+	}
 	&:nth-last-child(1){
 		margin-bottom: 0;
 	}
@@ -86,6 +112,7 @@
 		display: block;
 		text-transform: uppercase;
 		font-size: 11px;
+		margin-top: 10px;
 		font-weight: 300;
 		color: #a9a9a9;
 	}
