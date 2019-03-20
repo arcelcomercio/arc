@@ -1,35 +1,20 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-<<<<<<< HEAD
-//import Publicidad from '../../../../resources/components/ads'
-import Publicidad from '../../../resources/components/ads'
-
-=======
 import CardNotice from './../../../resources/components/listado-noticias'
->>>>>>> 3c3f9f9a19430e705340638e7e0484e4a68cb31f
+import Ads from './../../../resources/components/ads'
+import MasLeidas from './../../features/global/mas-leidas/default'
+
 const classes = {
   container: 'container',
   title: 'container__title',
 }
 // eslint-disable-next-line react/require-render-return
 @Consumer
-<<<<<<< HEAD
-class seccionListado extends Component {
-  render() {
-    const { globalContent } = this.props
-
-    const params = {
-      data: globalContent.content_elements || [],
-    }
-
-=======
-class Default extends Component {
+export default class Default extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props)
-
   }
-
 
   render() {
     const {
@@ -40,18 +25,11 @@ class Default extends Component {
       data: contentElements || [],
       arcSite,
     }
->>>>>>> 3c3f9f9a19430e705340638e7e0484e4a68cb31f
+    console.log(contentElements)
     return (
       <div className="content-grid-base col-3">
         <div className={classes.container}>
           <h1 className={classes.title}>Economia</h1>
-<<<<<<< HEAD
-        </div>
-        <div>Cuerpo</div>
-        <div>
-          <Publicidad />
-        </div>
-=======
         </div>
         <div>
           {params.data.map((el, index) => (
@@ -63,10 +41,12 @@ class Default extends Component {
             />
           ))}
         </div>
->>>>>>> 3c3f9f9a19430e705340638e7e0484e4a68cb31f
+        <div>
+          <h1>sidebar aqui</h1>
+          <Ads adElement="isright1" isDesktop={true} isMobile={true} />
+          <MasLeidas />
+        </div>
       </div>
     )
   }
 }
-
-export default seccionListado
