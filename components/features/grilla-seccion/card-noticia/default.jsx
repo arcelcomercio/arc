@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-
+import DataStory from '../../../../resources/components/utils/data-story'
 import CardNotice from '../../../../resources/components/listado-noticias'
 
 @Consumer
-class ListadoNoticia extends Component {
+class GrillaListadoNoticia extends Component {
   constructor(props) {
     super(props)
     this.renderCount = 0
@@ -26,8 +26,12 @@ class ListadoNoticia extends Component {
       arcSite,
     }
 
+    const element = new DataStory(contentElements[0], arcSite)
+    const title = element.section
+
     return (
       <Fragment>
+        <h1 className="full-width text-center margin-top">{`ÚLTIMAS DE ${title.toUpperCase()}`}</h1>
         <div>
           {params.data
             .slice(initialStory - 1, initialStory + storiesQty)
@@ -50,7 +54,7 @@ class ListadoNoticia extends Component {
   }
 }
 
-ListadoNoticia.propTypes = {
+GrillaListadoNoticia.propTypes = {
   customFields: PropTypes.shape({
     initialStory: PropTypes.number.tag({
       name: 'Iniciar desde la noticia:',
@@ -66,4 +70,4 @@ ListadoNoticia.propTypes = {
   }),
 }
 
-export default ListadoNoticia
+export default GrillaListadoNoticia

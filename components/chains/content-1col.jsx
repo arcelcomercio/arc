@@ -1,9 +1,9 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
 import { FormatClassName } from '../../resources/utilsJs/utilities'
 import PropTypes from 'prop-types'
 
 const classes = FormatClassName([
-  //'content--1col',
+  // 'content--1col',
   'content-grid-base',
   'col-1',
 ])

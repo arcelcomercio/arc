@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import CardNotice from './../../../resources/components/listado-noticias'
 import Ads from './../../../resources/components/ads'
-import MasLeidas from './../../features/global/mas-leidas/default'
+//import MasLeidas from './../../features/global/mas-leidas/default'
 import ListadoLeidas from './../../../resources/components/listado-leidas'
 
 const classes = {
@@ -11,7 +11,7 @@ const classes = {
 }
 // eslint-disable-next-line react/require-render-return
 @Consumer
-export default class Default extends Component {
+class Default extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props)
@@ -21,33 +21,56 @@ export default class Default extends Component {
     const {
       globalContent: { content_elements: contentElements },
       arcSite,
+      contextPath,
+      globalContentConfig: {
+        query: { section },
+      },
     } = this.props
     const params = {
       data: contentElements || [],
       arcSite,
     }
-    console.log(contentElements)
+    //section
+
     return (
-      <div className="content-grid-base col-3">
-        <div className={classes.container} style={{}}>
-          <h1 className={classes.title}>Economia</h1>
+      <Fragment>
+        <div className="content-grid-base col-2">
+          <div className={`${classes.container}content-grid-base col-2`}>
+            <h1 className={classes.title}>Economia</h1>
+            <div>
+              {params.data.map((el, index) => (
+                <CardNotice
+                  key={index}
+                  formato="row"
+                  data={el}
+                  arcSite={params.arcSite}
+                />
+              ))}
+            </div>
+            <div className="flex flex--justify-center margin-top">
+              <a href={`${contextPath}/archivo${section}?_website=${arcSite}`}>
+                Ver más
+              </a>
+            </div>
+          </div>
         </div>
-        <div>
-          {params.data.map((el, index) => (
-            <CardNotice
-              key={index}
-              formato="row"
-              data={el}
-              arcSite={params.arcSite}
-            />
-          ))}
+        <div className=" col-1">
+          <div className="col-3">
+            <h3>publicidad y mas leidas</h3>
+          </div>
+          <div className="col-3">
+            <Ads adElement="isright1" isDesktop={true} isMobile={true} />
+          </div>
+          <div className="col-3">
+            <ListadoLeidas numNotes={3} viewImage={true} />
+          </div>
+          <div className="col-3">
+            <Ads adElement="isright2" isDesktop={true} isMobile={true} />
+          </div>
         </div>
-        <div>
-          <h1>sidebar aqui</h1>
-          <Ads adElement="isright1" isDesktop={true} isMobile={true} />
-          <ListadoLeidas numNotes={3} viewImage={true} />
-        </div>
-      </div>
+      </Fragment>
     )
   }
 }
+
+export default Default
