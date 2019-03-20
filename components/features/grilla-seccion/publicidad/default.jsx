@@ -59,7 +59,7 @@ GrillaPublicidad.propTypes = {
       group: 'Definir tamaño',
     }),
     rows: PropTypes.oneOf(['auto', 'oneRow', 'twoRow']).tag({
-      name: 'Número de columnas',
+      name: 'Número de filas',
       labels: {
         oneRow: '1 fila',
         twoRow: '2 filas',
