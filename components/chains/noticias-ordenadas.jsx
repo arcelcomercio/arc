@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 
 export default function OrderedNews({ children, customFields }) {
   let { initialStory: storyNumber } = customFields
-  storyNumber = storyNumber || 0
+  storyNumber = storyNumber || 1
+  storyNumber -= 1
   /**
    *    Recorre los hijos para clonarlos agregando como propiedad
    *    el número de la noticia que le corresponde imprimir.
@@ -34,7 +35,7 @@ OrderedNews.propTypes = {
   customFields: PropTypes.shape({
     initialStory: PropTypes.number.tag({
       name: 'Iniciar desde la noticia:',
-      defaultValue: 0,
+      defaultValue: 1,
       description:
         'Indique el número de la noticia desde la que quiere empezar a imprimir. La primera noticia corresponde al número 0',
     }),
