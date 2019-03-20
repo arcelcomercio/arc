@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import CardNotice from './../../../resources/components/listado-noticias'
-
-// import Publicidad from './../global/publicidad/default'
-// import MasLeidas from './../global/mas-leidas/default'
+import Ads from './../../../resources/components/ads'
+import ListadoLeidas from './../../../resources/components/listado-leidas'
 
 const classes = {
   container: 'container',
@@ -20,7 +19,8 @@ class Default extends Component {
   render() {
     const {
       globalContent: { content_elements: contentElements },
-      arcSite,contextPath,
+      arcSite,
+      contextPath,
       globalContentConfig: {
         query: { section },
       },
@@ -31,8 +31,6 @@ class Default extends Component {
     }
     //section
 
-    
-    
     return (
       <Fragment>
         <div className="content-grid-base col-2">
@@ -56,10 +54,12 @@ class Default extends Component {
           </div>
         </div>
         <div className=" col-1">
-          <div className="col-3">Publcidad</div>
-          <div className="col-3">Mas leidas</div>
-
-          <div className="col-3">publicidad</div>
+          <div className="col-3">
+            <Ads adElement="isright1" isDesktop={true} isMobile={true} />
+          </div>
+          <div className="col-3">
+            <ListadoLeidas numNotes={5} viewImage={true} />
+          </div>
         </div>
       </Fragment>
     )
