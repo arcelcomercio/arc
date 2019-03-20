@@ -1,36 +1,32 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class ItemNew extends Component {
-  constructor(props) {
-    super(props)
-    const { item } = props
+export default props => {
+  const { item, viewImage } = props
+  const { websiteUrl, imageUrl, title, typeNote } = item
+  let type = ''
+
+  if (typeNote === 'basic') type = 'image'
+  if (typeNote === 'basic_video') type = 'video'
+
+  const classes = {
+    new: 'flex new',
+    figure: `new__figure new__figure--icon new__figure--${type}`,
+    img: 'new__img',
+    detail: 'new__detail',
   }
 
-  render() {
-    const { item } = this.props
-    const { websiteUrl, imageUrl, title, captionImg, typeNote } = item
-    const { viewImage } = this.props
-
-    const classes = {
-      new: 'flex new',
-      figure: `new__figure new__figure--icon new__figure--${typeNote}`,
-      img: 'new__img',
-      detail: 'new__detail',
-    }
-
-    return (
-      <div className={classes.new}>
+  return (
+    <div className={classes.new}>
+      {viewImage && (
         <a href={websiteUrl}>
-          {viewImage && (
-            <figure className={classes.figure}>
-              <img className={classes.img} src={imageUrl} alt={captionImg} />
-            </figure>
-          )}
+          <figure className={classes.figure}>
+            <img className={classes.img} src={imageUrl} alt={title} />
+          </figure>
         </a>
-        <a className={classes.detail} href={websiteUrl}>
-          {title}
-        </a>
-      </div>
-    )
-  }
+      )}
+      <a className={classes.detail} href={websiteUrl}>
+        {title}
+      </a>
+    </div>
+  )
 }
