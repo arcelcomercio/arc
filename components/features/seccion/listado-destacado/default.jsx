@@ -6,6 +6,7 @@ import AperturaExtraordinaria from '../../../../resources/components/apertura-ex
 import Ads from '../../../../resources/components/ads'
 import MasLeidas from '../../../../resources/components/listado-leidas'
 import CardNotice from '../../../../resources/components/listado-noticias'
+import TitleSection from '../../global/título-de-seccion/default'
 
 const classes = {
   nameSection:
@@ -44,13 +45,11 @@ class ListadoDestacado extends Component {
       isSection: true,
     }
 
-    console.log(globalContentConfig)
-
     return (
       <Fragment>
-        <h4 className={classes.nameSection}>
-          {globalContentConfig.query.section}
-        </h4>
+        <div className={classes.nameSection}>
+          <TitleSection />
+        </div>
         <AperturaExtraordinaria {...paramsApertura} />
         <div className={classes.mainContent}>
           <div className={classes.main}>
