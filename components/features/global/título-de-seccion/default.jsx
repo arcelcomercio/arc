@@ -27,8 +27,6 @@ class ListTitle extends Component {
       this.setState({
         title: sectionName,
       })
-
-      /*  */
     }
   }
 
