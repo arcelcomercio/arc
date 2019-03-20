@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import CardNotice from './../../../resources/components/listado-noticias'
+
 // import Publicidad from './../global/publicidad/default'
 // import MasLeidas from './../global/mas-leidas/default'
 
@@ -19,14 +20,19 @@ class Default extends Component {
   render() {
     const {
       globalContent: { content_elements: contentElements },
-      arcSite,contextPath
+      arcSite,contextPath,
+      globalContentConfig: {
+        query: { section },
+      },
     } = this.props
     const params = {
       data: contentElements || [],
       arcSite,
     }
     //section
-    debugger
+
+    
+    
     return (
       <Fragment>
         <div className="content-grid-base col-2">
@@ -43,7 +49,7 @@ class Default extends Component {
               ))}
             </div>
             <div className="flex flex--justify-center margin-top">
-              <a href={`${contextPath}/archivo${''}?_website=${arcSite}`}>
+              <a href={`${contextPath}/archivo${section}?_website=${arcSite}`}>
                 Ver más
               </a>
             </div>
