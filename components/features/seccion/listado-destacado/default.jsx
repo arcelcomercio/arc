@@ -44,6 +44,8 @@ class ListadoDestacado extends Component {
       isSection: true,
     }
 
+    console.log(globalContentConfig)
+
     return (
       <Fragment>
         <h4 className={classes.nameSection}>
