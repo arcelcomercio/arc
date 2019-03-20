@@ -3,6 +3,7 @@ import Consumer from 'fusion:consumer'
 import CardNotice from './../../../resources/components/listado-noticias'
 import Ads from './../../../resources/components/ads'
 import MasLeidas from './../../features/global/mas-leidas/default'
+import ListadoLeidas from './../../../resources/components/listado-leidas'
 
 const classes = {
   container: 'container',
@@ -28,7 +29,7 @@ export default class Default extends Component {
     console.log(contentElements)
     return (
       <div className="content-grid-base col-3">
-        <div className={classes.container}>
+        <div className={classes.container} style={{}}>
           <h1 className={classes.title}>Economia</h1>
         </div>
         <div>
@@ -44,7 +45,7 @@ export default class Default extends Component {
         <div>
           <h1>sidebar aqui</h1>
           <Ads adElement="isright1" isDesktop={true} isMobile={true} />
-          <MasLeidas />
+          <ListadoLeidas numNotes={3} viewImage={true} />
         </div>
       </div>
     )
