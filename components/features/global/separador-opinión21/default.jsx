@@ -102,11 +102,8 @@ class SeparadorOpinion extends Component {
     }
 
     const { arcSite } = this.props
-    console.log(`arcSite: ${arcSite}`)
 
     const { section } = this.state
-    console.log(`Section --> ${section}`)
-    console.log(`newsNumber --> ${newsNumber}`)
 
     const { fetched } = this.getContent(
       'stories__by-section',
@@ -136,8 +133,6 @@ class SeparadorOpinion extends Component {
       this.setState({
         data: response.content_elements,
       })
-
-      console.log(response)
     })
   }
 
@@ -196,7 +191,7 @@ class SeparadorOpinion extends Component {
         headlines{
           basic
         }
-      }  
+      }
     }
     `
   }
@@ -231,6 +226,7 @@ class SeparadorOpinion extends Component {
 
   listado = () => {
     const { data } = this.state
+
     const listOpinion = data.map(story => {
       return (
         <OpinionItem
