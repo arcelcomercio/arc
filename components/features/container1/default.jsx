@@ -63,7 +63,7 @@ class Default extends Component {
             <Ads adElement="isright1" isDesktop={true} isMobile={true} />
           </div>
           <div className="col-3">
-            <ListadoLeidas numNotes={3} viewImage={true} />
+            <ListadoLeidas numNotes={5} viewImage={true} />
           </div>
           <div className="col-3">
             <Ads adElement="isright2" isDesktop={true} isMobile={true} />
