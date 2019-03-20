@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import CardNotice from './../../../resources/components/listado-noticias'
+
 import Ads from './../../../resources/components/ads'
-//import MasLeidas from './../../features/global/mas-leidas/default'
 import ListadoLeidas from './../../../resources/components/listado-leidas'
 
 const classes = {
@@ -55,18 +55,12 @@ class Default extends Component {
             </div>
           </div>
         </div>
-        <div className=" col-1">
-          <div className="col-3">
-            <h3>publicidad y mas leidas</h3>
-          </div>
+        <div className="col-1">
           <div className="col-3">
             <Ads adElement="isright1" isDesktop={true} isMobile={true} />
           </div>
           <div className="col-3">
             <ListadoLeidas numNotes={5} viewImage={true} />
-          </div>
-          <div className="col-3">
-            <Ads adElement="isright2" isDesktop={true} isMobile={true} />
           </div>
         </div>
       </Fragment>

@@ -41,7 +41,7 @@ class ListadoDestacado extends Component {
           <div className={classes.main}>
             <h4 className={classes.titleListado}>Ultimas Noticias</h4>
             {dataList &&
-              data.map(el => {
+              dataList.map(el => {
                 const paramsItem = { key: el.id, data: el, arcSite }
                 return <CardNotice {...paramsItem} />
               })}

@@ -29,7 +29,7 @@ const resolve = key => {
   if (key.section) {
     body.query.bool.must.push({
       term: {
-        'taxonomy.sites.path': `/${key.section}`,
+        'taxonomy.sites.path': `${key.section}`,
       },
     })
   }
