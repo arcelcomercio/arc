@@ -31,6 +31,7 @@ class Default extends Component {
       arcSite,
     }
     //section
+    console.log(section)
 
     return (
       <Fragment>
