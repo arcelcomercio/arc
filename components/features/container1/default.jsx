@@ -22,10 +22,11 @@ class Default extends Component {
       globalContent: { content_elements: contentElements },
       arcSite,
       contextPath,
-      globalContentConfig: {
-        query: { section },
-      },
-    } = this.props
+      globalContentConfig,
+      
+    } = this.props 
+
+    let sec = globalContentConfig.query? globalContentConfig.query.section : ''
     const params = {
       data: contentElements || [],
       arcSite,
@@ -49,7 +50,7 @@ class Default extends Component {
               ))}
             </div>
             <div className="flex flex--justify-center margin-top">
-              <a href={`${contextPath}/archivo${section}?_website=${arcSite}`}>
+              <a href={`${contextPath}/archivo${sec}?_website=${arcSite}`}>
                 Ver más
               </a>
             </div>
