@@ -1,4 +1,5 @@
 $borderColor: #a9a9a9;
+$btnMoreColor: #000;
 
 .listado-destacado {
   &__title {
@@ -6,7 +7,7 @@ $borderColor: #a9a9a9;
     padding-bottom: 15px;
   }
   &__btn-more {
-    color: $borderColor;
+    color: $btnMoreColor;
     &:hover {
       text-decoration: underline;
       cursor: pointer;
