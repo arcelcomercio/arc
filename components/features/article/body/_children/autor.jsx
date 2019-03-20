@@ -5,13 +5,13 @@ const styles = {
   newsAuthor: 'news-author-date',
 }
 const Autor = props => {
-  const { by } = props.data
-  const { date } = props.date
+  // eslint-disable-next-line react/destructuring-assignment
+  const { by, date } = props
   return (
     <Fragment>
       {props && (
         <div className={styles.newsAuthor}>
-          {by && by[0] && <a href={by && '/' + by[0].slug}>{by[0].name} </a>}
+          {by && by[0] && <a href={by && `/${by[0].slug}`}>{by[0].name} </a>}
           <Moment format="DD.MM.YYYY / LT " date={date && date} />
         </div>
       )}

@@ -1,6 +1,21 @@
 import React, { Component } from 'react'
 import DataStory from './utils/data-story'
-import { reduceWord, formatDate } from './../utilsJs/helpers'
+import { reduceWord, formatDate } from '../utilsJs/helpers'
+
+const clases = {
+  cardNotice: 'card-notice',
+  cardNoticeTop: 'card-notice__top',
+  cardNoticeSection: 'card-notice__section',
+  cardNoticeDate: 'card-notice__date',
+  cardNoticeBottom: 'card-notice__bottom',
+  cardNoticeLeft: 'card-notice__left',
+  cardNoticeTitle: 'card-notice__title',
+  cardNoticeSubtitle: 'card-notice__subtitle',
+  cardNoticeAuthor: 'card-notice__author',
+  cardNoticeRight: 'card-notice__right',
+  cardNoticeIcon: 'card-notice__icon',
+  cardNoticeFigure: 'card-notice__figure',
+}
 
 class CardNotice extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -22,61 +37,55 @@ class CardNotice extends Component {
   render() {
     const { arcSite, data } = this.props
     const element = new DataStory({}, arcSite)
+    element.__data = data
     return (
-      <div>
-        {data.map((el, index) => {
-          element.__data = el
-          return (
-            <div key={index} className="card-notice">
-              <div className="card-notice__top">
-                <a href={element.sectionLink} className="card-notice__section">
-                  {element.section}
+      <div className={clases.cardNotice}>
+        <div className={clases.cardNoticeTop}>
+          <a href={element.sectionLink} className={clases.cardNoticeSection}>
+            {element.section}
+          </a>
+          <p className={clases.cardNoticeDate}>
+            {formatDate(element.date)}
+          </p>
+        </div>
+        <div className={clases.cardNoticeBottom}>
+          <div className={clases.cardNoticeLeft}>
+            <div>
+              <h2>
+                <a className={clases.cardNoticeTitle} href={element.link}>
+                  {element.title}
                 </a>
-                <p className="card-notice__date">
-                  {formatDate(element.date)}
-                </p>
-              </div>
-              <div className="card-notice__bottom">
-                <div className="card-notice__left">
-                  <div>
-                    <h2>
-                      <a className="card-notice__title" href={element.link}>
-                        {element.title}
-                      </a>
-                    </h2>
-                    <p className="card-notice__subtitle">
-                      {reduceWord(element.subTitle)}
-                    </p>
-                  </div>
-                  <div>
-                    <a
-                      href={element.authorLink}
-                      className="card-notice__author"
-                    >
-                      {element.author}
-                    </a>
-                  </div>
-                </div>
-                <div className="card-notice__right">
-                  <a href={element.link}>
-                    {element.multimediaType === 'basic' || element.multimediaType === '' ? (
-                      ''
-                    ) : (
-                      <span className="card-notice__icon">
-                        {CardNotice.getIcon(element.multimediaType)}
-                      </span>
-                    )}
-                    <img
-                      alt={element.title}
-                      className="card-notice__figure"
-                      src={element.multimedia}
-                    />
-                  </a>
-                </div>
-              </div>
+              </h2>
+              <p className={clases.cardNoticeSubtitle}>
+                {reduceWord(element.subTitle)}
+              </p>
             </div>
-          )
-        })}
+            <div>
+              <a
+                href={element.authorLink}
+                className={clases.cardNoticeAuthor}
+              >
+                {element.author}
+              </a>
+            </div>
+          </div>
+          <div className={clases.cardNoticeRight}>
+            <a href={element.link}>
+              {element.multimediaType === 'basic' || element.multimediaType === '' ? (
+                ''
+              ) : (
+                <span className={clases.cardNoticeIcon}>
+                  {CardNotice.getIcon(element.multimediaType)}
+                </span>
+              )}
+              <img
+                alt={element.title}
+                className={clases.cardNoticeFigure}
+                src={element.multimedia}
+              />
+            </a>
+          </div>
+        </div>
       </div>
     )
   }

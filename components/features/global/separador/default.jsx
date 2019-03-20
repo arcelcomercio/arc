@@ -1,78 +1,14 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-
-import { GetMultimediaContent } from './../../../../resources/utilsJs/utilities'
+import filterSchema from './_children/filterSchema'
+import customFields from './_children/customFields'
+import SeparatorListItem from './_children/separadorLista'
 
 const classes = {
   separator: 'separator',
   headerHtml: 'separator__headerHtml',
   title: 'separator__headerTitle',
   body: 'separator__body',
-  item: 'separator__item',
-  detail: 'separator__detail',
-  separatorTitle: 'separator__title',
-  mvideo: 'separator--video',
-}
-
-const SeparatorItem = ({ headlines, urlImage, website_url, medio }) => {
-  debugger
-  return (
-    <article className={classes.item}>
-      {medio === 'video' && <span>&#8227;</span>}
-      {medio === 'gallery' && <span>G</span>}
-      <div className={classes.detail}>
-        <h2 className={classes.separatorTitle}>
-          <a href={website_url}>{headlines}</a>
-        </h2>
-      </div>
-      <figure>
-        {website_url && (
-          <a href={website_url}>
-            <img src={urlImage} alt="" />
-          </a>
-        )}
-      </figure>
-    </article>
-  )
-}
-const SeparatorListItem = ({ data }) => {
-  const result = data.map(
-    ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
-      let multimedia = null
-
-      if (promoItems !== null) {
-        multimedia = GetMultimediaContent(promoItems)
-      }
-
-      const { url, medio } = multimedia
-
-      return (
-        <SeparatorItem
-          key={websiteUrl}
-          headlines={headlines.basic}
-          urlImage={url}
-          website_url={websiteUrl}
-          medio={medio}
-        />
-      )
-    }
-  )
-  return result
-}
-
-const createMarkup = html => {
-  return { __html: html }
-}
-
-const HeaderHTML = ({ htmlCode }) => {
-  return (
-    <div
-      className={classes.title}
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={createMarkup(htmlCode)}
-    />
-  )
 }
 
 @Consumer
@@ -80,16 +16,31 @@ class Separador extends Component {
   constructor(props) {
     super(props)
 
-    const {
-      customFields: { titleSeparator, titleLink, section, htmlCode },
-    } = this.props || {}
+    const { customFields, apliFields } = this.props || {}
+    let tituloSeparador, tituloLink, seccion, htmlCodigo
 
+    
+    if (apliFields) {
+      const { titleSeparator, titleLink, section, htmlCode } = apliFields || {}
+      tituloSeparador = titleSeparator
+      tituloLink = titleLink
+      seccion = section
+      htmlCodigo = htmlCode
+    } else {
+      const { titleSeparator, titleLink, section, htmlCode } =
+        customFields || {}
+      tituloSeparador = titleSeparator
+      tituloLink = titleLink
+      seccion = section
+      htmlCodigo = htmlCode
+    }
+    
     this.state = {
       device: this.setDevice(),
-      titleSeparator,
-      titleLink,
-      section,
-      htmlCode,
+      titleSeparator:tituloSeparador,
+      titleLink: tituloLink,
+      section: seccion,
+      htmlCode: htmlCodigo,
       data: [],
     }
   }
@@ -100,15 +51,15 @@ class Separador extends Component {
   }
 
   getContentApi = () => {
-    let news_number = 4
+    let newsNumber = 4
     const { device } = this.state
 
     if (device === 'mobile') {
-      news_number = 1
+      newsNumber = 1
     } else if (device === 'desktop') {
-      news_number = 4
+      newsNumber = 4
     } else if (device === 'tablet') {
-      news_number = 4
+      newsNumber = 4
     }
 
     const { arcSite } = this.props
@@ -119,9 +70,9 @@ class Separador extends Component {
       {
         website: arcSite,
         section,
-        news_number,
+        news_number: newsNumber,
       },
-      this.filterSchema()
+      filterSchema()
     )
     fetched.then(response => {
       if (!response) {
@@ -147,20 +98,21 @@ class Separador extends Component {
 
   handleResize = () => {
     const wsize = window.innerWidth
+    const { device } = this.state
 
     // ------ Set the new state if you change from mobile to desktop
-    if (wsize >= 1024 && this.state.device !== 'desktop') {
+    if (wsize >= 1024 && device !== 'desktop') {
       this.setState({
         device: 'desktop',
       })
       this.getContentApi()
       // ------ Set the new state if you change from desktop to mobile
-    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
+    } else if (wsize < 1024 && wsize >= 640 && device !== 'tablet') {
       this.setState({
         device: 'tablet',
       })
       this.getContentApi()
-    } else if (wsize < 640 && this.state.device !== 'mobile') {
+    } else if (wsize < 640 && device !== 'mobile') {
       // ------ Set the new state if you change from desktop to mobile
       this.setState({
         device: 'mobile',
@@ -181,42 +133,8 @@ class Separador extends Component {
     return 'desktop'
   }
 
-  filterSchema = () => {
-    return `
-    {
-      content_elements{
-        canonical_url
-        website_url
-        promo_items{
-          basic_video {
-            type
-            promo_items {
-              basic {
-                type 
-                url
-              }
-            }
-          }
-          basic_gallery {
-            type 
-            promo_items {
-              basic {
-                type 
-                url
-              }
-            }
-          }
-          basic {
-            type 
-            url
-          }
-        }
-        headlines{
-          basic
-        }
-      }
-    }
-    `
+  createMarkup = html => {
+    return { __html: html }
   }
 
   render() {
@@ -229,7 +147,11 @@ class Separador extends Component {
             <a href={titleLink}>{titleSeparator}</a>
           </h1>
         ) : (
-          <HeaderHTML htmlCode={htmlCode} />
+          <div
+            className={classes.title}
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={this.createMarkup(htmlCode)}
+          />
         )}
 
         <div className={classes.body}>
@@ -241,11 +163,6 @@ class Separador extends Component {
 }
 
 Separador.propTypes = {
-  customFields: PropTypes.shape({
-    titleSeparator: PropTypes.string.tag({ name: 'Titulo del separador' }),
-    titleLink: PropTypes.string.tag({ name: 'Enlace del separador' }),
-    section: PropTypes.string.isRequired.tag({ name: 'Sección' }),
-    htmlCode: PropTypes.richtext.tag({ name: 'Código HTML' }),
-  }),
+  customFields,
 }
 export default Separador

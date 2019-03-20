@@ -2,24 +2,10 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-const classes = {
-  destaque: 'destaque padding-normal flex flex--column row-1',
-  gradient: 'destaque__gradient full-width block',
-  detail: 'destaque__detail flex flex--column flex--justify-between',
-  image: 'destaque__image',
+import Destaque from '../../../../resources/components/destaque'
+import { addResizedUrlItem } from '../../../../resources/utilsJs/thumbs'
+import DataStory from '../../../../resources/components/utils/data-story'
 
-  category: 'destaque__category',
-  title: 'destaque__title',
-  author: 'destaque__author',
-
-  link: 'destaque__link',
-  imageLink: 'block',
-
-  imgComplete: 'destaque--img-complete',
-  parcialTop: 'flex--column-reverse',
-
-  twoCol: 'col-2',
-}
 @Consumer
 class DestaqueAutomatico extends Component {
   constructor(props) {
@@ -33,37 +19,39 @@ class DestaqueAutomatico extends Component {
     this.fetch()
   }
 
+  getImgResized(imgUrl, ratio, resolution) {
+    const { arcSite } = this.props
+
+    return addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
+      .resized_urls[ratio]
+  }
+
   fetch() {
     const { customFields, arcSite } = this.props
     const { section, imageSize, size } = customFields
 
-    const source = 'story__resized-by-section'
+    const source = 'stories__by-section'
     const params = {
-      section,
       website: arcSite,
+      section,
+      news_number: 1,
     }
     const schema = `{ 
       headlines { basic }
       credits {
-        by { name  url }
+        by { name url type }
       }
       website_url
       promo_items {
-        basic { url resized_urls }
+        basic { url type }
         basic_video {
           promo_items {
-            basic {
-              url
-              resized_urls
-            }
+            basic { url type }
           }
         }
         basic_gallery {
           promo_items {
-            basic {
-              url
-              resized_urls
-            }
+            basic { url type }
           }
         }
       }
@@ -78,60 +66,45 @@ class DestaqueAutomatico extends Component {
     }`
 
     const { fetched } = this.getContent(source, params, schema)
+
     fetched.then(response => {
-      // console.log(response)
+      const element = new DataStory(response.content_elements[0], arcSite)
       this.setState({
         category: {
-          name: response.websites[`${arcSite}`]
-            ? response.websites[`${arcSite}`].website_section.name
-            : '',
-          url: response.websites[`${arcSite}`]
-            ? response.websites[`${arcSite}`].website_section.path
-            : '',
+          name: element.section,
+          url: element.sectionLink,
         },
         title: {
-          name: response.headlines.basic,
-          url: response.website_url,
+          name: element.title,
+          url: element.link,
         },
         author: {
-          name: response.credits.by.length ? response.credits.by[0].name : '',
-          url: response.credits.by.length ? response.credits.by[0].url : '',
+          name: element.author,
+          url: element.authorLink,
         },
       })
-      let storyTypePath = response.promo_items.basic
-        ? response.promo_items.basic
-        : ''
-      if (!response.promo_items.basic && response.promo_items.basic_gallery) {
-        storyTypePath = response.promo_items.basic_gallery.promo_items.basic
-      }
-      if (!response.promo_items.basic && response.promo_items.basic_video) {
-        storyTypePath = response.promo_items.basic_video.promo_items.basic
-      }
-      if (size === 'twoCol') {
-        this.setState({
-          image: storyTypePath.resized_urls
-            ? storyTypePath.resized_urls['388:187']
-            : storyTypePath.url,
-        })
-      } else {
-        switch (imageSize) {
-          case 'parcialBot':
-          case 'parcialTop':
-            this.setState({
-              image: storyTypePath.resized_urls
-                ? storyTypePath.resized_urls['288:157']
-                : storyTypePath.url,
-            })
-            break
-          case 'complete':
-            this.setState({
-              image: storyTypePath.resized_urls
-                ? storyTypePath.resized_urls['164:187']
-                : storyTypePath.url,
-            })
-            break
-          default:
-            break
+      const imgUrl = element.multimedia
+      if (imgUrl) {
+        if (size === 'twoCol') {
+          this.setState({
+            image: this.getImgResized(imgUrl, '3:4', '676x374'),
+          })
+        } else {
+          switch (imageSize) {
+            case 'parcialBot':
+            case 'parcialTop':
+              this.setState({
+                image: this.getImgResized(imgUrl, '3:4', '288x157'),
+              })
+              break
+            case 'complete':
+              this.setState({
+                image: this.getImgResized(imgUrl, '9:16', '328x374'),
+              })
+              break
+            default:
+              break
+          }
         }
       }
     })
@@ -141,64 +114,26 @@ class DestaqueAutomatico extends Component {
     const { category, title, author, image } = this.state
     const { customFields, editableField } = this.props
     const { imageSize, size, titleField, categoryField } = customFields
-
-    const getImageSizeClass = () => {
-      switch (imageSize) {
-        case 'complete':
-          return classes.imgComplete
-        case 'parcialTop':
-          return classes.parcialTop
-        default:
-          return ''
-      }
+    const params = {
+      title,
+      category,
+      author,
+      image,
+      imageSize,
+      size,
+      editableField,
+      titleField,
+      categoryField,
     }
-
-    return (
-      <article
-        className={`${classes.destaque} ${getImageSizeClass()} ${
-          size === 'twoCol' ? classes.twoCol : ''
-        }`}
-      >
-        {imageSize === 'complete' && <span className={classes.gradient} />}
-        <div className={classes.detail}>
-          <h3 className={classes.category}>
-            <a
-              className={classes.link}
-              href={category.url}
-              {...editableField('categoryField')}
-            >
-              {categoryField || category.name}
-            </a>
-          </h3>
-          <h2 className={classes.title}>
-            <a
-              className={classes.link}
-              href={title.url}
-              {...editableField('titleField')}
-            >
-              {titleField || title.name}
-            </a>
-          </h2>
-          <span className={classes.author}>
-            <a className={classes.link} href={author.url}>
-              {author.name}
-            </a>
-          </span>
-        </div>
-        <figure className={classes.image}>
-          <a className={classes.imageLink} href={title.url}>
-            <img src={image} alt="" />
-          </a>
-        </figure>
-      </article>
-    )
+    return <Destaque {...params} />
   }
 }
 
 DestaqueAutomatico.propTypes = {
   customFields: PropTypes.shape({
     section: PropTypes.string.isRequired.tag({
-      name: 'Sección',
+      name: 'Path de la sección',
+      description: 'Ejemplo: /deporte-total',
     }),
     imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
       name: 'Posición de la imagen',
@@ -220,10 +155,12 @@ DestaqueAutomatico.propTypes = {
     categoryField: PropTypes.string.tag({
       name: 'Sección',
       group: 'Editar texto',
+      description: 'Dejar vacío para tomar el valor original de la noticia.',
     }),
     titleField: PropTypes.string.tag({
       name: 'Título',
       group: 'Editar texto',
+      description: 'Dejar vacío para tomar el valor original de la noticia.',
     }),
   }),
 }

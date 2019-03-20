@@ -57,7 +57,7 @@ const resolve = key => {
 	if (key.section) {
 		body.query.bool.must.push({
 			term: {
-				'taxonomy.sites.path': `${key.section}`
+				'taxonomy.sites.path': `/${key.section}`
 			}
 		})
 	}
@@ -76,13 +76,18 @@ export default {
 			type: 'text'
 		},
 		{
+			name: 'page',
+			displayName: 'Página (Buscar)',
+			type: 'text'
+		},
+		{
 			name: 'sort',
 			displayName: 'Orden',
 			type: 'text'
 		},
 		{
 			name: 'from',
-			displayName: 'Mostrar desde',
+			displayName: 'Página de inicio',
 			type: 'number'
 		},
 		{

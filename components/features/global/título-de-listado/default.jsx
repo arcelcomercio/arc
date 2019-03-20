@@ -147,26 +147,24 @@ class ListTitle extends Component {
   setSearchTitle = () => {
     const {
       globalContentConfig: {
-        query: { uri },
+        query: { query },
       },
       globalContent: { count },
     } = this.props
 
-    const search =
-      uri !== '' && uri.match(/(\?query=)(.*(?=&|\/)|.*)/)[2].replace('+', ' ')
-    return `SE ENCONTRARON ${count} RESULTADOS PARA: ${search &&
-      search.toUpperCase()}`
+    const search = query && query !== '' && query.replace('+', ' ')
+    let title
+    if (search && search !== '')
+      title = `SE ENCONTRARON ${count} RESULTADOS PARA: ${search &&
+        search.toUpperCase()}`
+    else title = `ÚLTIMAS NOTICIAS`
+    return title
   }
 
   render() {
-    const { isAdmin } = this.props
     const { title } = this.state
 
-    return (
-      <h1 className={classes.title}>
-        {isAdmin ? 'ESTE TEXTO SÓLO SE MOSTRARÁ EN LA PÁGINA PUBLICADA' : title}
-      </h1>
-    )
+    return <h1 className={classes.title}>{title}</h1>
   }
 }
 
