@@ -21,7 +21,6 @@ class ListTitle extends Component {
         title: 'EL TÍTULO SÓLO SE MOSTRARÁ EN LA PÁGINA PUBLICADA',
       })
     } else {
-      console.log('props', this.props)
       const {
         globalContentConfig: {
           query: { section },
@@ -35,7 +34,6 @@ class ListTitle extends Component {
         },
       } = this.props
       const realSection = sections.find(item => section === item._id)
-      console.log(realSection)
       this.setState({
         title: realSection.name,
       })
