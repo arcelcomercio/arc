@@ -1,6 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import CardNotice from './../../../resources/components/listado-noticias'
+// import Publicidad from './../global/publicidad/default'
+// import MasLeidas from './../global/mas-leidas/default'
+
 const classes = {
   container: 'container',
   title: 'container__title',
@@ -11,9 +14,7 @@ class Default extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props)
-
   }
-
 
   render() {
     const {
@@ -25,21 +26,30 @@ class Default extends Component {
       arcSite,
     }
     return (
-      <div className="content-grid-base col-3">
-        <div className={classes.container}>
-          <h1 className={classes.title}>Economia</h1>
+      <Fragment>
+        <div className="content-grid-base col-2">
+          <div className={`${classes.container}content-grid-base col-2` }>
+            <h1 className={classes.title}>Economia</h1>
+            <div>
+              {params.data.map((el, index) => (
+                <CardNotice
+                  key={index}
+                  formato="row"
+                  data={el}
+                  arcSite={params.arcSite}
+                />
+              ))}
+            </div>
+          </div>
+          
         </div>
-        <div>
-          {params.data.map((el, index) => (
-            <CardNotice
-              key={index}
-              formato="row"
-              data={el}
-              arcSite={params.arcSite}
-            />
-          ))}
-        </div>
-      </div>
+        <div className=" col-1">
+            <div className="col-3">Publcidad</div>
+            <div className="col-3">Mas leidas</div>
+
+            <div className="col-3">publicidad</div>
+          </div>
+      </Fragment>
     )
   }
 }
