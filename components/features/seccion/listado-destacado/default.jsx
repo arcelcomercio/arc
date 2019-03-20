@@ -8,9 +8,11 @@ import MasLeidas from '../../../../resources/components/listado-leidas'
 import CardNotice from '../../../../resources/components/listado-noticias'
 
 const classes = {
+  nameSection:
+    'listado-destacado__titulo-section bg--white text-uppercase margin-top',
   aperturaExtraordinaria: 'content-grid-base content--1col col-3',
   mainContent:
-    'content-grid-base content-layout content--1col content--2col content--3col margin-top',
+    'content-grid-base content-layout content--1col content--2col content--3col padding-normal bg--white',
   main: 'content-grid-base content--1col col-2',
   sidebar: 'col-1',
   titleListado: 'text-center text-uppercase listado-destacado__title',
@@ -20,7 +22,12 @@ const classes = {
 @Consumer
 class ListadoDestacado extends Component {
   render() {
-    const { globalContent, arcSite, requestUri } = this.props
+    const {
+      globalContent,
+      globalContentConfig,
+      arcSite,
+      requestUri,
+    } = this.props
     const paramsMasLeidas = {
       viewImage: true,
       numNotes: 5,
@@ -31,12 +38,18 @@ class ListadoDestacado extends Component {
     const dataApertura = new DataStory(data[0], arcSite)
     const dataList = data.slice(1)
 
+    const paramsApertura = {
+      data: dataApertura,
+      multimediaOrientation: 'right',
+      isSection: true,
+    }
+
     return (
       <Fragment>
-        <AperturaExtraordinaria
-          data={dataApertura}
-          multimediaOrientation="right"
-        />
+        <h4 className={classes.nameSection}>
+          {globalContentConfig.query.section}
+        </h4>
+        <AperturaExtraordinaria {...paramsApertura} />
         <div className={classes.mainContent}>
           <div className={classes.main}>
             <h4 className={classes.titleListado}>Ultimas Noticias</h4>

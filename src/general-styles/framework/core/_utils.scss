@@ -6,6 +6,11 @@
   padding: $spacingNormal;
 }
 
+.padding-lateral-normal {
+  padding-left: $spacingNormal;
+  padding-right: $spacingNormal;
+}
+
 .no-desktop,
 [id^='ads-m'] {
   @media (--tablet) {
@@ -66,6 +71,10 @@
   overflow-x: auto;
 }
 /******* Background-text contrast *******/
+.bg--white {
+  background-color: $color-white;
+}
+
 .bg-color--link {
   background-color: $color-link;
   color: $color-white;
