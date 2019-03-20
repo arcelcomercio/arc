@@ -1,6 +1,5 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import DataStory from '../../../../resources/components/utils/data-story'
 
 const classes = {
   title: 'full-width text-left margin-top',
@@ -23,14 +22,24 @@ class ListTitle extends Component {
       })
     } else {
       const {
-        globalContent: { content_elements: contentElements },
-        arcSite,
+        globalContentConfig: {
+          query: { section },
+        },
+        globalContent: {
+          content_elements: [
+            {
+              taxonomy: { sections },
+            },
+          ],
+        },
       } = this.props
-
-      const element = new DataStory(contentElements[0], arcSite)
+      const realSection = sections.find(item => section === item._id)
+      console.log(realSection)
       this.setState({
-        title: element.section,
+        title: realSection.name,
       })
+
+      /*  */
     }
   }
 
