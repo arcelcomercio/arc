@@ -22,21 +22,10 @@ class ListTitle extends Component {
       })
     } else {
       const {
-        globalContentConfig: {
-          query: { section },
-        },
-        globalContent: {
-          content_elements: [
-            {
-              taxonomy: { sections },
-            },
-          ],
-        },
+        globalContent: { section_name: sectionName },
       } = this.props
-      const realSection = sections.find(item => section === item._id)
-      console.log(realSection)
       this.setState({
-        title: realSection.name,
+        title: sectionName,
       })
 
       /*  */

@@ -1,7 +1,8 @@
+let params
 const resolve = key => {
   // Si no se define el "section" te trae todas las secciones
   // Si no se define el "news_number" te trae máximo 10 stories
-
+  params = key
   if (!key.website) {
     throw new Error('This content source requires a website')
   }
@@ -41,8 +42,25 @@ const resolve = key => {
   return requestUri
 }
 
+const transform = data => {
+  if (data.content_elements.length === 0) return data
+  const {
+    content_elements: [
+      {
+        taxonomy: { sections },
+      },
+    ],
+  } = data
+  const realSection = sections.find(item => params.section === item._id)
+  const sectionName = {
+    section_name: realSection.name,
+  }
+  return { ...data, ...sectionName }
+}
+
 export default {
   resolve,
+  transform,
   schemaName: 'stories',
   params: {
     website: 'text',
