@@ -49,7 +49,6 @@ class ListadoDestacado extends Component {
       isSection: true,
     }
 
-    console.log(this.props)
     const urlSeeMore = `${contextPath}/archivo${section}?_website=${arcSite}`
 
     return (
