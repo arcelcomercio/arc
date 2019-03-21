@@ -1,7 +1,6 @@
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import Ads from '../../../../resources/components/ads'
 
 @Consumer
 class GrillaPublicidad extends Component {
@@ -12,12 +11,14 @@ class GrillaPublicidad extends Component {
 
   render() {
     const { customFields } = this.props
-    const { adElement, isDesktop, isMobile, columns, rows } = customFields
-    const params = {
+    const {
       adElement,
       isDesktop,
       isMobile,
-    }
+      columns,
+      rows,
+      freeHtml,
+    } = customFields
 
     const getSize = () => {
       let colCLass = ''
@@ -32,11 +33,25 @@ class GrillaPublicidad extends Component {
       if (colCLass || rowClass) return { className: `${colCLass} ${rowClass}` }
       return ''
     }
+    const createMarkup = html => {
+      return { __html: html }
+    }
 
+    // TODO: Corregir el nodo duplicado de html
     return (
-      <div {...getSize()}>
-        <Ads {...params} />
-      </div>
+      <Fragment>
+        <div {...getSize()} className="no-mobile">
+          {adElement && isDesktop && <div id={`ads_d_${adElement}`} />}
+          {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
+        </div>
+        {adElement && isMobile && <div id={`ads_m_${adElement}`} />}
+        {freeHtml && (
+          <div
+            className="no-desktop"
+            dangerouslySetInnerHTML={createMarkup(freeHtml)}
+          />
+        )}
+      </Fragment>
     )
   }
 }
@@ -66,6 +81,10 @@ GrillaPublicidad.propTypes = {
       },
       defaultValue: 'auto',
       group: 'Definir tamaño',
+    }),
+    freeHtml: PropTypes.richtext.tag({
+      name: 'Código HTML',
+      group: 'Agregar bloque de html',
     }),
   }),
 }
