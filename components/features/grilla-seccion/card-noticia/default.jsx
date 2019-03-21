@@ -34,7 +34,7 @@ class GrillaListadoNoticia extends Component {
         <h1 className="full-width text-center margin-top">{`ÚLTIMAS DE ${title.toUpperCase()}`}</h1>
         <div>
           {params.data
-            .slice(initialStory - 1, initialStory + storiesQty)
+            .slice(initialStory - 1, initialStory - 1 + storiesQty)
             .map(el => (
               <CardNotice
                 key={el.website_url}
