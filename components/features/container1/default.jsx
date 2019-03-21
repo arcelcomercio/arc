@@ -11,7 +11,9 @@ const classes = {
   col3: 'col-3',
   base: 'content-grid-base',
   container: 'container1',
+  contentRight:'content__right',
   title: 'container1__title',
+  listCard:'container1__listCardNotice',
   flex: 'flex',
   flexJustifyCenter: 'flex--justify-center',
   marginTop: 'margin-top',
@@ -62,7 +64,7 @@ class Default extends Component {
             </a>
           </div>
         </div>
-        <div className={`${classes.col1} ${classes.container}`}>
+        <div className={`${classes.col1} ${classes.contentRight}`}>
           <div className={classes.col3}>
             <Ads adElement="isright1" isDesktop={true} isMobile={true} />
           </div>
