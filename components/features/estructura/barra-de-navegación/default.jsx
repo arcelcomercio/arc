@@ -2,9 +2,8 @@ import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import Button from '../../../../resources/components/button'
 import NavSidebar from './_children/nav-sidebar'
-import Resizer from '../../../../resources/utilsJs/resizer'
+import { setDevice } from '../../../../resources/utilsJs/resizer'
 import Ads from '../../../../resources/components/ads'
-// import { setDevice } from '../../../../resources/utilsJs/utilities'
 
 const classes = {
   nav: 'nav full-width flex flex-center-vertical',
@@ -36,7 +35,7 @@ class Nav extends Component {
     super(props)
     // ------ Checks the display to set the initial device state
     this.state = {
-      device: Resizer.setDevice(),
+      device: setDevice(),
       services: [],
       statusSidebar: false,
       statusSearch: false,
