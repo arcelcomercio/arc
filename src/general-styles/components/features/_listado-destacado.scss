@@ -1,0 +1,19 @@
+$borderColor: #a9a9a9;
+$btnMoreColor: #000;
+
+.listado-destacado {
+  &__title {
+    border-bottom: 1px solid $borderColor;
+    padding-bottom: 15px;
+  }
+  &__btn-more {
+    color: $btnMoreColor;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+  &__titulo-section {
+    padding: 20px 20px 0 20px;
+  }
+}
