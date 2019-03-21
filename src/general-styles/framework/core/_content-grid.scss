@@ -1,30 +1,30 @@
 .content-grid-base {
-    display: grid;
-    gap: $spacingNormal;
+  display: grid;
+  gap: $spacingNormal;
 }
 
 .content-layout {
-    @media (--tablet) {
-        min-width: 620px;
-    }
+  @media (--tablet) {
+    min-width: 620px;
+  }
 
-    @media (--desktop) {
-        min-width: 940px;
-        //max-width: 1024px;
-    }
+  @media (--desktop) {
+    min-width: 940px;
+    //max-width: 1024px;
+  }
 
-    min-width: 320px;
-    max-width: 100%;
+  min-width: 320px;
+  max-width: 100%;
 }
 
 .content-layout-container {
-    //overflow: hidden;
+  //overflow: hidden;
 
-    @media (--desktop) {
-        width: 100%;
-        max-width: 1024px;
-        min-width: 940px;
-    }
+  @media (--desktop) {
+    width: 100%;
+    max-width: 1024px;
+    //min-width: 940px;
+  }
 }
 
 /* .content--box{
@@ -39,63 +39,69 @@
     grid-auto-rows: minmax(calc(($heightRow - ($spacingNormal * ($rowParts - 1))) / $rowParts), auto);
 } */
 .content--1col {
-    grid-template-columns: minmax(300px, 100vw);
+  grid-template-columns: minmax(300px, 100vw);
 }
 
 .content--2col {
-    @media (--tablet) {
-        grid-template-columns: repeat(2, minmax(300px, calc((100vw - #{$gap}) / 2)));
-    }
+  @media (--tablet) {
+    grid-template-columns: repeat(
+      2,
+      minmax(300px, calc((100vw - #{$gap}) / 2))
+    );
+  }
 }
 
 .content--3col {
-    @media (--desktop) {
-        grid-template-columns: repeat(3, minmax(300px, calc((1024px - (#{$gap} * 2)) / 3)));
-    }
+  @media (--desktop) {
+    grid-template-columns: repeat(
+      3,
+      minmax(285px, calc((1024px - (#{$gap} * 2)) / 3))
+    );
+  }
 }
 
 .q {
-    overflow: hidden;
-    background-color: gray;
+  overflow: hidden;
+  background-color: gray;
 }
 
 /*-------------- Process to create the 1 col classes */
 
 @for $i from 1 through 4 {
-    .row-#{$i} {
-        //grid-row: span $rowParts*$i;
-        grid-row: span $i;
-        height: ($heightRow * $i)+($spacingNormal * ($i - 1));
-    }
+  .row-#{$i} {
+    //grid-row: span $rowParts*$i;
+    grid-row: span $i;
+    height: ($heightRow * $i)+ ($spacingNormal * ($i - 1));
+  }
 }
 
 .col-1,
 .col-2,
 .col-3 {
-    grid-column: span 1;
+  grid-column: span 1;
 }
 
 /*-------------- Process to create the 2 col classes */
 
 @media (--tablet) {
-    .col-1 {
-        grid-column: span 1;
-    }
+  .col-1 {
+    grid-column: span 1;
+  }
 
-    .col-2,
-    .col-3 {
-        grid-column: span 2;
-    }
+  .col-2,
+  .col-3 {
+    grid-column: span 2;
+  }
 }
 
 /*-------------- Process to create the 3 col classes */
 
 @media (--desktop) {
-    @for $i from 1 through 3 {
-        .col-#{$i} {
-            grid-column: span $i
-        }
+  @for $i from 1 through 3 {
+    .col-#{$i} {
+      grid-column: span $i;
     }
+  }
 }
 
 /****************************************************/

@@ -82,6 +82,9 @@ class DestaqueManual extends Component {
         },
       })
       const imgUrl = element.multimedia
+      this.setState({
+        image: this.getImgResized(imgUrl, '3:4', '288x157'),
+      })
       if (imgUrl) {
         if (size === 'twoCol') {
           this.setState({

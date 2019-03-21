@@ -84,6 +84,9 @@ class DestaqueAutomatico extends Component {
         },
       })
       const imgUrl = element.multimedia
+      this.setState({
+        image: this.getImgResized(imgUrl, '3:4', '288x157'),
+      })
       if (imgUrl) {
         if (size === 'twoCol') {
           this.setState({
@@ -107,6 +110,7 @@ class DestaqueAutomatico extends Component {
           }
         }
       }
+      console.log(this.state)
     })
   }
 
