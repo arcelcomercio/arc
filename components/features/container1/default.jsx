@@ -34,8 +34,6 @@ class Default extends Component {
       data: contentElements || [],
       arcSite,
     }
-    //section
-    console.log(sectionName)
 
     return (
       <Fragment>
