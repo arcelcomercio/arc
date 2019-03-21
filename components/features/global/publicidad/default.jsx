@@ -13,6 +13,7 @@ class Publicidad extends Component {
   render() {
     const { customFields } = this.props
     const { adElement, isDesktop, isMobile, freeHtml } = customFields
+    
     const params = {
       adElement,
       isDesktop,
