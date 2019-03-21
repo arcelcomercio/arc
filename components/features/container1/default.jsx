@@ -10,13 +10,11 @@ const classes = {
   col2: 'col-2',
   col3: 'col-3',
   base: 'content-grid-base',
-  container: 'container',
-  title: 'container__title',
-  flex:'flex',
-  flexJustifyCenter:'flex--justify-center',
-  marginTop:'margin-top',
-
-
+  container: 'container1',
+  title: 'container1__title',
+  flex: 'flex',
+  flexJustifyCenter: 'flex--justify-center',
+  marginTop: 'margin-top',
 }
 // eslint-disable-next-line react/require-render-return
 @Consumer
@@ -42,8 +40,8 @@ class Default extends Component {
 
     return (
       <Fragment>
-
-        <div className={`${classes.container}  ${classes.base} ${classes.col2}`}>
+        <div
+          className={`${classes.container}  ${classes.base} ${classes.col2}`}>
           <h1 className={classes.title}>Economia</h1>
           <div>
             {params.data.map((el, index) => (
@@ -55,7 +53,10 @@ class Default extends Component {
               />
             ))}
           </div>
-          <div className={`${classes.flex} ${classes.flexJustifyCenter} ${classes.marginTop}`} >
+          <div
+            className={`${classes.flex} ${classes.flexJustifyCenter} ${
+              classes.marginTop
+            }`}>
             <a href={`${contextPath}/archivo${sec}?_website=${arcSite}`}>
               Ver más
             </a>
