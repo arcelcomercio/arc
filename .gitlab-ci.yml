@@ -1,0 +1,42 @@
+stages:
+  - analysis
+
+code-quality:
+ stage: analysis
+ image: linux982079/codequality:v1
+ variables:
+   SONAR_URL: http://34.222.33.190:9000
+   SONAR_ANALYSIS_MODE: issues
+ script:
+   - touch sonar-project.properties
+   - echo sonar.projectKey=arc_dev >> sonar-project.properties
+   - echo sonar.sources=. >> sonar-project.properties
+   - echo sonar.gitlab.project_id=git@gitlab.ec.pe:contenidos/arc.git >> sonar-project.properties
+   - echo sonar.login=$TOKEN_SONAR >> sonar-project.properties
+   - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
+   - cat sonar-project.properties
+   - gitlab-sonar-scanner
+ only:
+    - master
+ tags:
+   - severless_api
+
+code-quality-reports:
+ stage: analysis
+ image: linux982079/codequality:v1
+ variables:
+   SONAR_URL: http://34.222.33.190:9000
+   SONAR_ANALYSIS_MODE: publish
+ script:
+   - touch sonar-project.properties
+   - echo sonar.projectKey=arc_dev >> sonar-project.properties
+   - echo sonar.sources=. >> sonar-project.properties
+   - echo sonar.gitlab.project_id=git@gitlab.ec.pe:contenidos/arc.git >> sonar-project.properties
+   - echo sonar.login=$TOKEN_SONAR >> sonar-project.properties
+   - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
+   - cat sonar-project.properties
+   - gitlab-sonar-scanner
+ only:
+    - master
+ tags:
+   - severless_api
