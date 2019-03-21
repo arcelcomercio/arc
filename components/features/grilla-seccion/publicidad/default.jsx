@@ -12,7 +12,14 @@ class GrillaPublicidad extends Component {
 
   render() {
     const { customFields } = this.props
-    const { adElement, isDesktop, isMobile, columns, rows } = customFields
+    const {
+      adElement,
+      isDesktop,
+      isMobile,
+      columns,
+      rows,
+      freeHtml,
+    } = customFields
     const params = {
       adElement,
       isDesktop,
@@ -32,10 +39,14 @@ class GrillaPublicidad extends Component {
       if (colCLass || rowClass) return { className: `${colCLass} ${rowClass}` }
       return ''
     }
+    const createMarkup = html => {
+      return { __html: html }
+    }
 
     return (
       <div {...getSize()}>
         <Ads {...params} />
+        {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
       </div>
     )
   }
@@ -66,6 +77,10 @@ GrillaPublicidad.propTypes = {
       },
       defaultValue: 'auto',
       group: 'Definir tamaño',
+    }),
+    freeHtml: PropTypes.richtext.tag({
+      name: 'Código HTML',
+      group: 'Agregar bloque de html',
     }),
   }),
 }
