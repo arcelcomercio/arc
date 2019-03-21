@@ -13,9 +13,9 @@
 			height: 340px;
 			//max-width: 310px;
 		}
-		// @media (--desktop){
-		// 	height: 340px;
-		// }
+		@media (--desktop){
+			height: 380px;
+		}
 	}
 	&__box-image{
 		display: flex;

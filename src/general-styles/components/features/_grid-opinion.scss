@@ -9,14 +9,20 @@
         grid-template-columns: repeat(2, 1fr);
     }
     @media (--desktop){
-        max-width: 900px;
+        max-width: 100%;
         grid-template-columns: repeat(3, 1fr);
     }
     &--list{
         width: 100%;
-        max-width: 900px;
+        max-width: 100%;
         margin: 0 auto;
-		}
+    }
+    &--title{
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
 		&__box-title{
 			border-bottom: solid 1px #333;
 			padding: 15px 0;

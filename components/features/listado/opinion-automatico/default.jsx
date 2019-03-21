@@ -3,6 +3,7 @@ import Consumer from 'fusion:consumer'
 import CardAutor from '../../../../resources/components/option-autor'
 import CardEditorial from '../../../../resources/components/option-editorial'
 import BarraAutor from '../../../../resources/components/option-mas'
+import ListTitle from '../../global/título-de-seccion/default'
 
 @Consumer
 class OpinionAutomatica extends Component {
@@ -20,9 +21,11 @@ class OpinionAutomatica extends Component {
 			data: contentElements || [],
 			arcSite,
 		}
-    { console.log(params) }
     return (
       <div>
+        <div className="grid-opinion--title">
+          <ListTitle />
+        </div>
         <div className="grid-opinion">
           {params.data.slice(0, 12).map((el, index) => {
             const section = el.websites[
