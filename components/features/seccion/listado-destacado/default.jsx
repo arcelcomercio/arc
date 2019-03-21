@@ -25,9 +25,12 @@ class ListadoDestacado extends Component {
   render() {
     const {
       globalContent,
-      globalContentConfig,
+      globalContentConfig: {
+        query: { section },
+      },
       arcSite,
       requestUri,
+      contextPath,
     } = this.props
     const paramsMasLeidas = {
       viewImage: true,
@@ -35,6 +38,7 @@ class ListadoDestacado extends Component {
       arcSite,
       requestUri,
     }
+
     const data = globalContent.content_elements || []
     const dataApertura = new DataStory(data[0], arcSite)
     const dataList = data.slice(1)
@@ -44,6 +48,9 @@ class ListadoDestacado extends Component {
       multimediaOrientation: 'right',
       isSection: true,
     }
+
+    console.log(this.props)
+    const urlSeeMore = `${contextPath}/archivo${section}?_website=${arcSite}`
 
     return (
       <Fragment>
@@ -59,7 +66,7 @@ class ListadoDestacado extends Component {
                 const paramsItem = { key: el.id, data: el, arcSite }
                 return <CardNotice {...paramsItem} />
               })}
-            <a href="/#" className={classes.btnSeeMore}>
+            <a href={urlSeeMore} className={classes.btnSeeMore}>
               Ver Más
             </a>
           </div>
