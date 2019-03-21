@@ -11,9 +11,9 @@ const classes = {
   col3: 'col-3',
   base: 'content-grid-base',
   container: 'container1',
-  contentRight:'content__right',
+  contentRight: 'content__right',
   title: 'container1__title',
-  listCard:'container1__listCardNotice',
+  listCard: 'container1__listCardNotice',
   flex: 'flex',
   flexJustifyCenter: 'flex--justify-center',
   marginTop: 'margin-top',
@@ -34,7 +34,11 @@ class Default extends Component {
       globalContentConfig,
     } = this.props
 
-    let sec = globalContentConfig.query ? globalContentConfig.query.section : ''
+    const sec = globalContentConfig.query
+      ? globalContentConfig.query.section
+      : ''
+    const sectionName = sec.slice(1)
+
     const params = {
       data: contentElements || [],
       arcSite,
@@ -44,7 +48,9 @@ class Default extends Component {
       <Fragment>
         <div
           className={`${classes.container}  ${classes.base} ${classes.col2}`}>
-          <h1 className={classes.title}>Economia</h1>
+          <h1 className={classes.title}>
+            {sectionName || 'Nombre de Sección'}
+          </h1>
           <div>
             {params.data.map((el, index) => (
               <CardNotice
