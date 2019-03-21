@@ -23,22 +23,27 @@ class Default extends Component {
       arcSite,
       contextPath,
       globalContentConfig,
-      
-    } = this.props 
+    } = this.props
 
-    let sec = globalContentConfig.query? globalContentConfig.query.section : ''
+    const sec = globalContentConfig.query
+      ? globalContentConfig.query.section
+      : ''
+    const sectionName = sec.slice(1)
+
     const params = {
       data: contentElements || [],
       arcSite,
     }
     //section
-    console.log(section)
+    console.log(sectionName)
 
     return (
       <Fragment>
         <div className="content-grid-base col-2">
           <div className={`${classes.container}content-grid-base col-2`}>
-            <h1 className={classes.title}>Economia</h1>
+            <h1 className={classes.title}>
+              {sectionName || 'Nombre de sección'}
+            </h1>
             <div>
               {params.data.map((el, index) => (
                 <CardNotice
