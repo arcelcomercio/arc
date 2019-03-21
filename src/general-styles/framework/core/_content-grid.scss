@@ -98,21 +98,3 @@
 }
 
 /****************************************************/
-
-
-// Test Grid Notice
-.grid-notice{
-    width: 100%;
-    margin: 0 auto;
-    border: solid 1px #333;
-    display: grid;
-    grid-template-columns: 1fr;
-    @media (--tablet){
-        max-width: 700px;
-        grid-template-columns: repeat(2, 1fr);
-    }
-    @media (--desktop){
-        max-width: 900px;
-        grid-template-columns: repeat(3, 1fr);
-    }
-}

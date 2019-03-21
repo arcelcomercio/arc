@@ -40,11 +40,15 @@ class DataStory {
   }
 
   get author() {
-    return DataStory.getDataAuthor(this._data).name
+    return DataStory.getDataAuthor(this._data).nameAuthor
   }
 
   get authorLink() {
-    return DataStory.getDataAuthor(this._data).url
+    return DataStory.getDataAuthor(this._data).urlAuthor
+  }
+
+  get authorImage(){
+    return DataStory.getDataAuthor(this._data).imageAuthor
   }
 
   get multimedia() {
@@ -105,17 +109,32 @@ class DataStory {
 
   static getDataAuthor(data) {
     const authorData = (data && data.credits && data.credits.by) || []
+    const imageAuthorDefault =
+      'https://img.elcomercio.pe/files/listing_ec_opinion_destaques/uploads/2019/03/19/5c91731ccceee.png'
     let nameAuthor = ''
     let urlAuthor = ''
+    let imageAuthor = ''
     for (let i = 0; i < authorData.length; i++) {
-      const { type, name, url } = authorData[i]
-      if (type === 'author') {
-        nameAuthor = name
-        urlAuthor = url
+      const iterator = authorData[i]
+      if (iterator.type === 'author') {
+        nameAuthor =
+          iterator.name && iterator.name !== '' ? iterator.name : ''
+        urlAuthor =
+          iterator.url && iterator.url !== '' ? iterator.url : ''
+        imageAuthor =
+          iterator.image &&
+          iterator.image.url &&
+          iterator.image.url !== ''
+            ? iterator.image.url
+            : imageAuthorDefault
         break
       }
     }
-    return { name: nameAuthor, url: urlAuthor }
+    return { 
+      nameAuthor,
+      urlAuthor,
+      imageAuthor
+    }
   }
 
   static getTypeMultimedia(data) {

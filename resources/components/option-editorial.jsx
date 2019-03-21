@@ -1,42 +1,54 @@
 import React, { Component } from 'react';
+import DataStory from './utils/data-story'
 
+// eslint-disable-next-line react/prefer-stateless-function
 class CardEditorial extends Component {
+  // eslint-disable-next-line no-useless-constructor
+  constructor(...props) {
+    super(...props)
+  }
+
 	render() {
-		return (
+    const { arcSite, data } = this.props
+    const element = new DataStory({}, arcSite)
+    element.__data = data
+    return (
       <div className="card-editorial">
         <div className="card-editorial__wrapper">
-          <h4 className="card-editorial__grupo">Editorial</h4>
+          <h4 className="card-editorial__grupo">{element.section}</h4>
           <h2>
-            <a className="card-editorial__name" href="/">
-              EDITORIAL: ORDEN EN LA DESPENSA
+            <a className="card-editorial__name" href={element.link}>
+              EDITORIAL: {element.link}
             </a>
           </h2>
           <div className="card-editorial__description">
             <div className="card-editorial__box-image">
-              <a href="/"><img
-                className="card-editorial__image"
-                src="https://img.elcomercio.pe/files/listing_ec_opinion_destaques/uploads/2017/03/30/58dd6e97888c2.png"
-                alt="image"
-							/></a>
+              <a href={element.link}>
+                <img
+                  className="card-editorial__image"
+                  src={element.authorImage}
+                  alt={element.author}
+                />
+              </a>
             </div>
             <div className="card-editorial__box-detail">
-              <p className="card-editorial__title">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias dolorum iure, aliquam inventore possimus aspernatur unde dicta rem? Quasi odio labore.
-              </p>
+              <p className="card-editorial__title">{element.subTitle}</p>
             </div>
           </div>
-          <div className="card-editorial__social">
-            <a href="/" className="card-editorial__icono">
-              <span>f</span>
-            </a>
-            <a href="/" className="card-editorial__icono">
-              <span>t</span>
-            </a>
-          </div>
+          {/* <div className="card-editorial__social">
+          <a href="/" className="card-editorial__icono">
+            <span>f</span>
+          </a>
+          <a href="/" className="card-editorial__icono">
+            <span>t</span>
+          </a>
+        </div> */}
         </div>
       </div>
     )
 	}
 }
+
+
 
 export default CardEditorial

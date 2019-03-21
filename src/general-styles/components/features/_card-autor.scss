@@ -1,20 +1,21 @@
 .card-autor{
 	padding: 5px;
-	border-bottom: solid 1px #333;
-	&:nth-child(even){
-		border-right: solid 1px #333;
-	}
+	// border-bottom: solid 1px #333;
+	// &:nth-child(even){
+	// 	border-right: solid 1px #333;
+	// }
 	&__wrapper{
 		display: flex;
 		background-color: gold;
+		position: relative;
 		@media (--tablet){
 			flex-direction: row-reverse;
-			height: 360px;
+			height: 340px;
 			//max-width: 310px;
 		}
-		@media (--desktop){
-			height: 380px;
-		}
+		// @media (--desktop){
+		// 	height: 340px;
+		// }
 	}
 	&__box-image{
 		display: flex;
@@ -23,11 +24,17 @@
 		padding: 15px 12px;
 		@media (--tablet){
 			padding: 0;
+			width: 140px;
+			height: 250px;
+			position: absolute;
+			bottom: 0;
+			right: 0;
 		}
 	}
 	&__box-detail{
 		padding: 15px 12px;
 		padding-left: 22px;
+		width: 100%;
 	}
 	&__image{
 		width: 60px;
@@ -37,14 +44,12 @@
 		object-position: top;
 		background-color: #fff;
 		@media (--tablet){
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			width: auto;
-			height: 70%;
+			width: 100%;
+			height: 100%;
 			border-radius: 0;
 			background-color: transparent;
 			object-fit: contain;
+			object-position: bottom;
 		}
 	}
 	&__name{
