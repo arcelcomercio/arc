@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import Resizer from '../../../../resources/utilsJs/resizer'
+import { setDevice } from '../../../../resources/utilsJs/resizer'
 
 const classes = {
   footer: 'footer margin-top full-width',
@@ -27,7 +27,7 @@ class PieDePagina extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      device: Resizer.setDevice(),
+      device: setDevice(),
       legalList: [],
       sectionsList: [],
     }
@@ -107,8 +107,7 @@ class PieDePagina extends Component {
         <div className={classes.footerInfo}>
           <a
             href={`${contextPath}${requestUri}`}
-            className={classes.footerLogoContainer}
-          >
+            className={classes.footerLogoContainer}>
             <img
               className={classes.footerLogoImg}
               src={`${contextPath}/resources/dist/${arcSite}/images/footer-logo.png`}
@@ -131,8 +130,7 @@ class PieDePagina extends Component {
                 <li className={classes.footerListItem} key={el.url}>
                   <a
                     className={classes.footerListLink}
-                    href={`${contextPath}${el.url}${requestUri}`}
-                  >
+                    href={`${contextPath}${el.url}${requestUri}`}>
                     {el.name}
                   </a>
                 </li>
@@ -151,8 +149,7 @@ class PieDePagina extends Component {
                     el.node_type === 'link'
                       ? el.url
                       : `${contextPath}${el.url}${requestUri}`
-                  }
-                >
+                  }>
                   {el.name}
                 </a>
               </li>
