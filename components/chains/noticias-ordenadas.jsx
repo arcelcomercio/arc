@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+/* **************** SIN USO ****************** */
+
 export default function OrderedNews({ children, customFields }) {
   let { initialStory: storyNumber } = customFields
   storyNumber = storyNumber || 1
