@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import filterSchema from './_children/filterSchema'
-import customFieldsImport from './_children/customFields'
+import customFieldsimp from './_children/CustomFieldsImport'
 import SeparatorListItem from './_children/separadorLista'
 
 const classes = {
@@ -17,30 +17,26 @@ class Separador extends Component {
     super(props)
 
     const { customFields, apliFields } = this.props || {}
-    let tituloSeparador
-    let tituloLink
-    let seccion
-    let htmlCodigo
+    const { titleSeparator, titleLink, section, htmlCode } = apliFields || {}
 
-    
-    if (apliFields) {
-      const { titleSeparator, titleLink, section, htmlCode } = apliFields || {}
-      tituloSeparador = titleSeparator
-      tituloLink = titleLink
-      seccion = section
-      htmlCodigo = htmlCode
-    } else {
+    let tituloSeparador = titleSeparator
+    let tituloLink = titleLink
+    let seccion = section
+    let htmlCodigo = htmlCode
+
+    if (customFields) {
       const { titleSeparator, titleLink, section, htmlCode } =
         customFields || {}
+
       tituloSeparador = titleSeparator
       tituloLink = titleLink
       seccion = section
       htmlCodigo = htmlCode
     }
-    
+
     this.state = {
       device: this.setDevice(),
-      titleSeparator:tituloSeparador,
+      titleSeparator: tituloSeparador,
       titleLink: tituloLink,
       section: seccion,
       htmlCode: htmlCodigo,
@@ -57,13 +53,8 @@ class Separador extends Component {
     let newsNumber = 4
     const { device } = this.state
 
-    if (device === 'mobile') {
-      newsNumber = 1
-    } else if (device === 'desktop') {
-      newsNumber = 4
-    } else if (device === 'tablet') {
-      newsNumber = 4
-    }
+    if (device === 'mobile') newsNumber = 1
+    if (device === 'desktop' || device === 'tablet') newsNumber = 4
 
     const { arcSite } = this.props
     const { section } = this.state
@@ -77,26 +68,30 @@ class Separador extends Component {
       },
       filterSchema()
     )
-    fetched.then(response => {
-      if (!response) {
-        // eslint-disable-next-line no-param-reassign
-        response = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
+    fetched
+      .then(response => {
+        if (!response) {
+          // eslint-disable-next-line no-param-reassign
+          response = []
+          console.log(
+            'No hay respuesta del servicio para obtener el listado de noticias'
+          )
+        }
 
-      if (!response.content_elements) {
-        response.content_elements = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
+        if (!response.content_elements) {
+          response.content_elements = []
+          console.log(
+            'No hay respuesta del servicio para obtener el listado de noticias'
+          )
+        }
 
-      this.setState({
-        data: response.content_elements,
+        this.setState({
+          data: response.content_elements,
+        })
       })
-    })
+      .catch(result => {
+        console.log(result)
+      })
   }
 
   handleResize = () => {
@@ -166,6 +161,6 @@ class Separador extends Component {
 }
 
 Separador.propTypes = {
-  customFieldsImport,
+  customFields: customFieldsimp,
 }
 export default Separador
