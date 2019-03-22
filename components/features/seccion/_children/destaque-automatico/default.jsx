@@ -30,7 +30,7 @@ class DestaqueGrillaAuto extends Component {
       },
       author: {
         name: story.author,
-        url: `/autor/${story.authorSlug}`,
+        url: story.authorLink,
       },
     })
 
