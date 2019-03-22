@@ -19,7 +19,6 @@ const classes = {
   titleListado: 'text-center text-uppercase listado-destacado__title',
   btnSeeMore: 'text-center text-uppercase listado-destacado__btn-more',
 }
-
 @Consumer
 class ListadoDestacado extends Component {
   render() {
@@ -81,5 +80,4 @@ class ListadoDestacado extends Component {
     )
   }
 }
-
 export default ListadoDestacado
