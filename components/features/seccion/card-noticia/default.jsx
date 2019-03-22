@@ -60,7 +60,7 @@ GrillaListadoNoticia.propTypes = {
       name: 'Iniciar desde la noticia:',
       defaultValue: 1,
       description:
-        'Indique el número de la noticia desde la que quiere empezar a imprimir. La primera noticia corresponde al número 0',
+        'Indique el número de la noticia desde la que quiere empezar a imprimir. La primera noticia corresponde al número 1',
     }),
     storiesQty: PropTypes.number.tag({
       name: 'Cantidad de noticias',
