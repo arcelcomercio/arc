@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import filterSchema from './_children/filterSchema'
-import customFields from './_children/customFields'
+import customFieldsimp from './_children/CustomFieldsImport'
 import SeparatorListItem from './_children/separadorLista'
 
 const classes = {
@@ -19,6 +19,7 @@ class Separador extends Component {
     const { customFields, apliFields } = this.props || {}
     let tituloSeparador, tituloLink, seccion, htmlCodigo
 
+    debugger
     
     if (apliFields) {
       const { titleSeparator, titleLink, section, htmlCode } = apliFields || {}
@@ -163,6 +164,6 @@ class Separador extends Component {
 }
 
 Separador.propTypes = {
-  customFields,
+  customFields: customFieldsimp,
 }
 export default Separador
