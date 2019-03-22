@@ -2,7 +2,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import Button from '../../../../resources/components/button'
-import Resizer from '../../../../resources/utilsJs/resizer'
+import { setDevice } from '../../../../resources/utilsJs/resizer'
 
 const classes = {
   header: 'header full-width',
@@ -26,7 +26,7 @@ class Header extends Component {
     super(props)
     // ------ Checks if you are in desktop or not
     this.state = {
-      device: Resizer.setDevice(),
+      device: setDevice(),
       temas: [],
     }
     this.fetch()

@@ -30,7 +30,7 @@ class GrillaPublicidad extends Component {
       if (rows === 'oneRow') rowClass = 'row-1'
       else if (rows === 'twoRow') rowClass = 'row-2'
 
-      if (colCLass || rowClass) return { className: `${colCLass} ${rowClass}` }
+      if (colCLass || rowClass) return `${colCLass} ${rowClass}`
       return ''
     }
     const createMarkup = html => {
@@ -40,7 +40,7 @@ class GrillaPublicidad extends Component {
     // TODO: Corregir el nodo duplicado de html
     return (
       <Fragment>
-        <div {...getSize()} className="no-mobile">
+        <div className={`no-mobile ${getSize()}`}>
           {adElement && isDesktop && <div id={`ads_d_${adElement}`} />}
           {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
         </div>
