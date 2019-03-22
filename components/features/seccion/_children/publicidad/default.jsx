@@ -10,7 +10,6 @@ class GrillaPublicidad extends Component {
   }
 
   render() {
-    const { customFields } = this.props
     const {
       adElement,
       isDesktop,
@@ -18,7 +17,7 @@ class GrillaPublicidad extends Component {
       columns,
       rows,
       freeHtml,
-    } = customFields
+    } = this.props
 
     const getSize = () => {
       let colCLass = ''
@@ -58,34 +57,11 @@ class GrillaPublicidad extends Component {
 
 GrillaPublicidad.propTypes = {
   customFields: PropTypes.shape({
-    adElement: PropTypes.string.isRequired.tag({
-      name: 'Nombre',
-    }),
-    isDesktop: PropTypes.bool.tag({ name: 'Desktop', group: 'Dispositivo' }),
-    isMobile: PropTypes.bool.tag({ name: 'Mobile', group: 'Dispositivo' }),
-    columns: PropTypes.oneOf(['auto', 'oneCol', 'twoCol', 'threeCol']).tag({
-      name: 'Número de columnas',
-      labels: {
-        oneCol: '1 columna',
-        twoCol: '2 columnas',
-        threeCol: '3 columnas',
-      },
-      defaultValue: 'auto',
-      group: 'Definir tamaño',
-    }),
-    rows: PropTypes.oneOf(['auto', 'oneRow', 'twoRow']).tag({
-      name: 'Número de filas',
-      labels: {
-        oneRow: '1 fila',
-        twoRow: '2 filas',
-      },
-      defaultValue: 'auto',
-      group: 'Definir tamaño',
-    }),
-    freeHtml: PropTypes.richtext.tag({
-      name: 'Código HTML',
-      group: 'Agregar bloque de html',
-    }),
+    adElement: PropTypes.string.isRequired,
+    isDesktop: PropTypes.bool,
+    isMobile: PropTypes.bool,
+    columns: PropTypes.oneOf(['auto', 'oneCol', 'twoCol', 'threeCol']),
+    rows: PropTypes.oneOf(['auto', 'oneRow', 'twoRow']),
   }),
 }
 

@@ -53,6 +53,10 @@ class DataStory {
     return DataStory.getDataAuthor(this._data).urlAuthor
   }
 
+  get authorSlug() {
+    return DataStory.getDataAuthor(this._data).slugAuthor
+  }
+
   get authorImage() {
     return DataStory.getDataAuthor(this._data).imageAuthor
   }
@@ -126,12 +130,14 @@ class DataStory {
       'https://img.elcomercio.pe/files/listing_ec_opinion_destaques/uploads/2019/03/19/5c91731ccceee.png'
     let nameAuthor = ''
     let urlAuthor = ''
+    let slugAuthor = ''
     let imageAuthor = ''
     for (let i = 0; i < authorData.length; i++) {
       const iterator = authorData[i]
       if (iterator.type === 'author') {
         nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
         urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : ''
+        slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
           iterator.image && iterator.image.url && iterator.image.url !== ''
             ? iterator.image.url
@@ -142,6 +148,7 @@ class DataStory {
     return {
       nameAuthor,
       urlAuthor,
+      slugAuthor,
       imageAuthor,
     }
   }

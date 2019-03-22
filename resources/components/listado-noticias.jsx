@@ -40,16 +40,16 @@ class CardNotice extends Component {
     element.__data = data
     return (
       <div
-        className={`${clases.cardNotice} ${this.props.formato && this.props.formato === 'row' ? 'card-notice--row' : ''}`}>
+        className={`${clases.cardNotice} ${
+          this.props.formato && this.props.formato === 'row'
+            ? 'card-notice--row'
+            : ''
+        }`}>
         <div className={clases.cardNoticeTop}>
-          <a
-            href={element.sectionLink}
-            className={clases.cardNoticeSection}>
+          <a href={element.sectionLink} className={clases.cardNoticeSection}>
             {element.section}
           </a>
-          <p className={clases.cardNoticeDate}>
-            {formatDate(element.date)}
-          </p>
+          <p className={clases.cardNoticeDate}>{formatDate(element.date)}</p>
         </div>
         <div className={clases.cardNoticeBottom}>
           <div className={clases.cardNoticeLeft}>
@@ -65,7 +65,7 @@ class CardNotice extends Component {
             </div>
             <div>
               <a
-                href={element.authorLink}
+                href={`/autor/${element.authorSlug}`}
                 className={clases.cardNoticeAuthor}>
                 {element.author}
               </a>
