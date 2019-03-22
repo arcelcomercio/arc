@@ -43,8 +43,8 @@ class AperturaExtraordinaria extends Component {
     const formattedData = new Data(customFields, data, arcSite)
     const params = {
       data: formattedData,
-      multimediaOrientation: data.multimediaOrientation,
-      contentOrientation: data.contentOrientation,
+      multimediaOrientation: formattedData.multimediaOrientation,
+      contentOrientation: formattedData.contentOrientation,
     }
 
     return <AperturaExtraordinariaChildren {...params} />
