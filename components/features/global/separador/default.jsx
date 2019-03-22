@@ -68,26 +68,30 @@ class Separador extends Component {
       },
       filterSchema()
     )
-    fetched.then(response => {
-      if (!response) {
-        // eslint-disable-next-line no-param-reassign
-        response = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
+    fetched
+      .then(response => {
+        if (!response) {
+          // eslint-disable-next-line no-param-reassign
+          response = []
+          console.log(
+            'No hay respuesta del servicio para obtener el listado de noticias'
+          )
+        }
 
-      if (!response.content_elements) {
-        response.content_elements = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
+        if (!response.content_elements) {
+          response.content_elements = []
+          console.log(
+            'No hay respuesta del servicio para obtener el listado de noticias'
+          )
+        }
 
-      this.setState({
-        data: response.content_elements,
+        this.setState({
+          data: response.content_elements,
+        })
       })
-    })
+      .catch(result => {
+        console.log(result)
+      })
   }
 
   handleResize = () => {
