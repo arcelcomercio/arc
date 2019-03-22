@@ -2,6 +2,8 @@ import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
+import Ads from '../../../../../resources/components/ads'
+
 @Consumer
 class GrillaPublicidad extends Component {
   constructor(props) {
@@ -36,14 +38,20 @@ class GrillaPublicidad extends Component {
       return { __html: html }
     }
 
+    const params = {
+      adElement,
+      isDesktop,
+      isMobile,
+    }
+
     // TODO: Corregir el nodo duplicado de html
     return (
       <Fragment>
         <div className={`no-mobile ${getSize()}`}>
-          {adElement && isDesktop && <div id={`ads_d_${adElement}`} />}
+          <Ads {...params} />
           {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
         </div>
-        {adElement && isMobile && <div id={`ads_m_${adElement}`} />}
+        <Ads {...params} />
         {freeHtml && (
           <div
             className="no-desktop"

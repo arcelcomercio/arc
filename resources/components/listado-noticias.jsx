@@ -64,9 +64,7 @@ class CardNotice extends Component {
               </p>
             </div>
             <div>
-              <a
-                href={`/autor/${element.authorSlug}`}
-                className={clases.cardNoticeAuthor}>
+              <a href={element.authorLink} className={clases.cardNoticeAuthor}>
                 {element.author}
               </a>
             </div>
