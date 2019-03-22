@@ -17,28 +17,26 @@ class Separador extends Component {
     super(props)
 
     const { customFields, apliFields } = this.props || {}
-    let tituloSeparador, tituloLink, seccion, htmlCodigo
+    const { titleSeparator, titleLink, section, htmlCode } = apliFields || {}
 
-    debugger
-    
-    if (apliFields) {
-      const { titleSeparator, titleLink, section, htmlCode } = apliFields || {}
-      tituloSeparador = titleSeparator
-      tituloLink = titleLink
-      seccion = section
-      htmlCodigo = htmlCode
-    } else {
+    let tituloSeparador = titleSeparator
+    let tituloLink = titleLink
+    let seccion = section
+    let htmlCodigo = htmlCode
+
+    if (customFields) {
       const { titleSeparator, titleLink, section, htmlCode } =
         customFields || {}
+
       tituloSeparador = titleSeparator
       tituloLink = titleLink
       seccion = section
       htmlCodigo = htmlCode
     }
-    
+
     this.state = {
       device: this.setDevice(),
-      titleSeparator:tituloSeparador,
+      titleSeparator: tituloSeparador,
       titleLink: tituloLink,
       section: seccion,
       htmlCode: htmlCodigo,
@@ -55,13 +53,8 @@ class Separador extends Component {
     let newsNumber = 4
     const { device } = this.state
 
-    if (device === 'mobile') {
-      newsNumber = 1
-    } else if (device === 'desktop') {
-      newsNumber = 4
-    } else if (device === 'tablet') {
-      newsNumber = 4
-    }
+    if (device === 'mobile') newsNumber = 1
+    if (device === 'desktop' || device === 'tablet') newsNumber = 4
 
     const { arcSite } = this.props
     const { section } = this.state
