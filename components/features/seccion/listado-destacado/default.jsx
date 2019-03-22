@@ -25,19 +25,21 @@ class ListadoDestacado extends Component {
   render() {
     const {
       globalContent,
-      globalContentConfig: {
-        query: { section },
-      },
+      globalContentConfig,
       arcSite,
       requestUri,
       contextPath,
     } = this.props
+
     const paramsMasLeidas = {
       viewImage: true,
       numNotes: 5,
       arcSite,
       requestUri,
     }
+
+    const { query } = globalContentConfig && globalContentConfig
+    const { section } = query !== undefined ? query : '/'
 
     const data = globalContent.content_elements || []
     const dataApertura = new DataStory(data[0], arcSite)
