@@ -19,14 +19,18 @@ class Buscar extends Component {
     }
     return (
       <Fragment>
-        <CardNotice {...params} />
+        <div>
+          {params.data.map((el, index) => (<CardNotice key={index} data={el} arcSite={params.arcSite} />))}
+        </div>
         <Paginacion
           totalElements={globalContent.count || 0}
           totalViews={
-            (globalContentConfig.query && globalContentConfig.query.size) || 0
+            (globalContentConfig.query && globalContentConfig.query.size) ||
+            0
           }
           currentPage={
-            (globalContentConfig.query && globalContentConfig.query.from) || 1
+            (globalContentConfig.query && globalContentConfig.query.from) ||
+            1
           }
         />
       </Fragment>

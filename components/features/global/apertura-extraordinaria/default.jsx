@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import customFields from './_children/customfields'
 import filterSchema from './_children/filterschema'
-import AperturaExtraordinariaChildren from './_children/apertura-extraordinaria'
+import Data from './_children/data'
+// import AperturaExtraordinariaChildren from './_children/apertura-extraordinaria'
+import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
 
 const API_URL = 'story__by-websiteurl'
 @Consumer
@@ -35,18 +37,16 @@ class AperturaExtraordinaria extends Component {
   }
 
   render() {
-    // console.log('apertura extraordinaria render', this.renderCount + 1)
-    // console.dir(this.state)
     // eslint-disable-next-line no-shadow
-    const { customFields, editableField, arcSite } = this.props
+    const { customFields, arcSite } = this.props
     const { data } = this.state
-    const website = arcSite
+    const formattedData = new Data(customFields, data, arcSite)
     const params = {
-      customFields,
-      data,
-      editableField,
-      website,
+      data: formattedData,
+      multimediaOrientation: formattedData.multimediaOrientation,
+      contentOrientation: formattedData.contentOrientation,
     }
+
     return <AperturaExtraordinariaChildren {...params} />
   }
 }

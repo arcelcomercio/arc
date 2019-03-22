@@ -2,8 +2,8 @@ import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import Button from '../../../../resources/components/button'
 import NavSidebar from './_children/nav-sidebar'
-import Resizer from '../../../../resources/utilsJs/resizer'
-// import { setDevice } from '../../../../resources/utilsJs/utilities'
+import { setDevice } from '../../../../resources/utilsJs/resizer'
+import Ads from '../../../../resources/components/ads'
 
 const classes = {
   nav: 'nav full-width flex flex-center-vertical',
@@ -35,7 +35,7 @@ class Nav extends Component {
     super(props)
     // ------ Checks the display to set the initial device state
     this.state = {
-      device: Resizer.setDevice(),
+      device: setDevice(),
       services: [],
       statusSidebar: false,
       statusSearch: false,
@@ -213,8 +213,7 @@ class Nav extends Component {
             <Fragment>
               <form
                 className={classes.navForm}
-                onSubmit={e => e.preventDefault()}
-              >
+                onSubmit={e => e.preventDefault()}>
                 <input
                   ref={this.inputSearch}
                   type="search"
@@ -263,8 +262,16 @@ class Nav extends Component {
 
           {device === 'desktop' ? (
             <div className={classes.navBtnContainer}>
-              <div id="ads_d_zocaloNav1" className={classes.navAds} />
-              <div id="ads_d_zocaloNav2" className={classes.navAds} />
+              <Ads
+                adElement="zocaloNav1"
+                isDesktop="true"
+                classes={{ desktop: classes.navAds }}
+              />
+              <Ads
+                adElement="zocaloNav2"
+                isDesktop="true"
+                classes={{ desktop: classes.navAds }}
+              />
             </div>
           ) : (
             <div className={classes.headerBtnContainer}>

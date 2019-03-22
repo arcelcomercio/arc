@@ -1,24 +1,26 @@
-import Consumer from 'fusion:consumer'
+export const setDevice = () => {
+    console.log('SE EJECUTO -- SETDEVICE')
 
-@Consumer
-class Resizer {
+    const {
+        innerWidth
+    } = window
 
-    static setDevice = () => {
-        console.log('SE EJECUTO -- SETDEVICE')
-        const {
-            innerWidth
-        } = window
-
-        if (innerWidth < 640) {
-            return 'mobile'
-        }
-        if (innerWidth >= 640 && innerWidth < 1024) {
-            return 'tablet'
-        }
-        return 'desktop'
+    if (innerWidth < 640) {
+        return 'mobile'
     }
+    if (innerWidth >= 640 && innerWidth < 1024) {
+        return 'tablet'
+    }
+    return 'desktop'
+}
 
-    static _handleResize = () => {
+export const setResizeListener = (dispatch) => {
+    window.device = setDevice()
+    /* window.watch("device", (el, oldValue, newValue) => {
+        console.log(`${el} --- old -> ${oldValue} --- new -> ${newValue}`)
+    }) */
+    // window.addEventListener('resize', Resizer._handleResize)
+    window.addEventListener('resize', () => {
         const {
             innerWidth,
             device
@@ -27,24 +29,17 @@ class Resizer {
 
         if (innerWidth >= 1024 && device !== 'desktop') {
             window.device = 'desktop'
-            Resizer.dispatchEvent('displayChange', window.device)
+            dispatch('displayChange', window.device)
             console.log(window.device)
         } else if (innerWidth < 1024 && innerWidth >= 640 && device !== 'tablet') {
             window.device = 'tablet'
-            Resizer.dispatchEvent('displayChange', window.device)
+            dispatch('displayChange', window.device)
             console.log(window.device)
         } else if (innerWidth < 640 && device !== 'mobile') {
             window.device = 'mobile'
-            Resizer.dispatchEvent('displayChange', window.device)
-            console.log(window.device)
+            dispatch('displayChange', window.device)
+            console.log(window.device, 'device')
         }
-    }
-
-    static setResizeListener = () => {
-        window.device = Resizer.setDevice()
-        window.addEventListener('resize', Resizer._handleResize)
-        console.log('Se envió el Listener')
-    }
+    })
+    console.log('Se envió el Listener')
 }
-
-export default Resizer
