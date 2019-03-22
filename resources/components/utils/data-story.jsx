@@ -1,6 +1,8 @@
+import { addResizedUrlItem } from '../../utilsJs/thumbs'
+
 class DataStory {
   static VIDEO = 'basic_video'
-  
+
   static GALLERY = 'basic_gallery'
 
   static HTML = 'basic_html'
@@ -15,7 +17,7 @@ class DataStory {
   get __data() {
     return this._data
   }
-  
+
   set __data(val) {
     this._data = val
   }
@@ -23,18 +25,22 @@ class DataStory {
   get __website() {
     return this._website
   }
-  
+
   set __website(val) {
     this._website = val
   }
 
   get title() {
-    return (this._data && this._data.headlines && this._data.headlines.basic) || ''
+    return (
+      (this._data && this._data.headlines && this._data.headlines.basic) || ''
+    )
   }
 
   get subTitle() {
     return (
-      (this._data && this._data.subheadlines && this._data.subheadlines.basic) ||
+      (this._data &&
+        this._data.subheadlines &&
+        this._data.subheadlines.basic) ||
       ''
     )
   }
@@ -47,7 +53,11 @@ class DataStory {
     return DataStory.getDataAuthor(this._data).urlAuthor
   }
 
-  get authorImage(){
+  get authorSlug() {
+    return DataStory.getDataAuthor(this._data).slugAuthor
+  }
+
+  get authorImage() {
     return DataStory.getDataAuthor(this._data).imageAuthor
   }
 
@@ -78,21 +88,28 @@ class DataStory {
     )
   }
 
-  // TODO: Cambiar la fecha a lo que se estandarice 
+  // TODO: Cambiar la fecha a lo que se estandarice
   get date() {
     return this.publishDate
   }
 
   get displayDate() {
-    return this._data && this._data.display_date || ''
+    return (this._data && this._data.display_date) || ''
   }
 
   get publishDate() {
-    return this._data && this._data.publish_date || ''
+    return (this._data && this._data.publish_date) || ''
   }
 
   get firstPublishDate() {
-    return this._data && this._data.first_publish_date || ''
+    return (this._data && this._data.first_publish_date) || ''
+  }
+
+  // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
+  getResizedImage(ratio, resolution) {
+    return addResizedUrlItem(this.__website, this.multimedia, [
+      `${ratio}|${resolution}`,
+    ]).resized_urls[ratio]
   }
 
   static getDataSection(data, website) {
@@ -113,27 +130,26 @@ class DataStory {
       'https://img.elcomercio.pe/files/listing_ec_opinion_destaques/uploads/2019/03/19/5c91731ccceee.png'
     let nameAuthor = ''
     let urlAuthor = ''
+    let slugAuthor = ''
     let imageAuthor = ''
     for (let i = 0; i < authorData.length; i++) {
       const iterator = authorData[i]
       if (iterator.type === 'author') {
-        nameAuthor =
-          iterator.name && iterator.name !== '' ? iterator.name : ''
-        urlAuthor =
-          iterator.url && iterator.url !== '' ? iterator.url : ''
+        nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
+        urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : ''
+        slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
-          iterator.image &&
-          iterator.image.url &&
-          iterator.image.url !== ''
+          iterator.image && iterator.image.url && iterator.image.url !== ''
             ? iterator.image.url
             : imageAuthorDefault
         break
       }
     }
-    return { 
+    return {
       nameAuthor,
       urlAuthor,
-      imageAuthor
+      slugAuthor,
+      imageAuthor,
     }
   }
 
