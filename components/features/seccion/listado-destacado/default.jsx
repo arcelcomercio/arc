@@ -15,7 +15,7 @@ const classes = {
   mainContent:
     'content-grid-base content-layout content--1col content--2col content--3col padding-normal bg--white',
   main: 'content-grid-base content--1col col-2',
-  sidebar: 'col-1',
+  sidebar: 'col-1 no-mobile',
   titleListado: 'text-center text-uppercase listado-destacado__title',
   btnSeeMore: 'text-center text-uppercase listado-destacado__btn-more',
 }
