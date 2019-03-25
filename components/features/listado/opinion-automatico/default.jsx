@@ -46,7 +46,7 @@ class OpinionAutomatica extends Component {
 					<div className="grid-opinion__box-title">
 						<p className="grid-opinion__title">Ultimas Noticias</p>
 					</div>
-          {params.data.slice(13).map((el, index) => (
+          {params.data.slice(12).map((el, index) => (
             <BarraAutor key={index} data={el} arcSite={params.arcSite} />
 					))}
 					<div className="grid-opinion__box-more">
