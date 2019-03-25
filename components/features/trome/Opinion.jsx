@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import OpinionComponent from './_children/OpinionComponent'
 import filterSchema from './_children/filterSchema'
-import customFields from './_children/customField'
+import customFieldsImp from './_children/customField'
 
 @Consumer
 class Opinion extends Component {
@@ -19,32 +19,26 @@ class Opinion extends Component {
       section2,
       section3,
       section4,
-      listNews:[]
+      listNews: [],
     }
   }
 
   componentDidMount = () => {
     const { section1, section2, section3, section4 } = this.state
 
-    let listaSecciones = [section1, section2, section3, section4];
-    let listNews =[]
+    const listaSecciones = [section1, section2, section3, section4]
+    const listNews = []
     listaSecciones.forEach(element => {
       this.getContentApi(element, result => {
-        
         listNews.push(result)
-        if(listNews.length ===4 ){
-          
+        if (listNews.length === 4) {
           this.setState({
-            listNews: listNews,
+            listNews,
           })
-          
         }
-
       })
-    });
+    })
   }
-
-
 
   getContentApi = (seccion, callback) => {
     if (seccion) {
@@ -55,72 +49,72 @@ class Opinion extends Component {
           website: arcSite,
           section: seccion,
         },
-        
+
         filterSchema()
       )
 
-      fetched.then(response => {
-        if (!response) {
-          // eslint-disable-next-line no-param-reassign
-          response = []
-          console.log(
-            'No hay respuesta del servicio para obtener la ultima noticia'
-          )
-        }
-
-        if (!response.content_elements) {
-          response.content_elements = []
-          console.log(
-            'No hay respuesta del servicio para obtener la ultima noticia'
-          )
-        }
-
-        if (response.content_elements.length > 0) {
-          const {
-            headlines: { basic },
-            taxonomy: { sites, sections },
-            canonical_url,
-          } = response.content_elements[0]
-          const {
-            additional_properties: {
-              original: {
-                site_topper: { site_logo_image },
-              },
-            },
-          } = sites[0]
-
-          const { name, path } = sections[0]
-
-          const contenido = {
-            title: basic,
-            urlImg: site_logo_image,
-            urlNew: canonical_url,
-            sectionName: name,
-            urlSection: path,
+      fetched
+        .then(response => {
+          if (!response) {
+            // eslint-disable-next-line no-param-reassign
+            response = []
+            console.log(
+              'No hay respuesta del servicio para obtener la ultima noticia'
+            )
           }
-          callback(contenido)
-        } else {
+
+          if (!response.content_elements) {
+            response.content_elements = []
+            console.log(
+              'No hay respuesta del servicio para obtener la ultima noticia'
+            )
+          }
+
+          if (response.content_elements.length > 0) {
+            const {
+              headlines: { basic },
+              taxonomy: { sites, sections },
+              canonical_url,
+            } = response.content_elements[0]
+            const {
+              additional_properties: {
+                original: {
+                  site_topper: { site_logo_image },
+                },
+              },
+            } = sites[0]
+
+            const { name, path } = sections[0]
+
+            const contenido = {
+              title: basic,
+              urlImg: site_logo_image,
+              urlNew: canonical_url,
+              sectionName: name,
+              urlSection: path,
+            }
+            callback(contenido)
+          } else {
+            callback(null)
+          }
+        })
+        .catch(err => {
+          console.log(err)
           callback(null)
-        }
-      })
+        })
     } else {
       callback(null)
     }
   }
 
-  render(){
-    const { titleOpinion, listNews} = this.state
-    
-    return (
-      <OpinionComponent
-        titleOpinion={titleOpinion}
-        dataList={listNews}
-      />
-    )
+  render() {
+    const { titleOpinion, listNews } = this.state
+
+    return <OpinionComponent titleOpinion={titleOpinion} dataList={listNews} />
   }
 }
 
 Opinion.propTypes = {
-  customFields,
+  customFields: customFieldsImp,
 }
 export default Opinion
