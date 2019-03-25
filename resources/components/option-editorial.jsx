@@ -18,7 +18,7 @@ class CardEditorial extends Component {
           <h4 className="card-editorial__grupo">{element.section}</h4>
           <h2>
             <a className="card-editorial__name" href={element.link}>
-              EDITORIAL: {element.link}
+              {element.title}
             </a>
           </h2>
           <div className="card-editorial__description">
