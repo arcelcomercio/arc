@@ -1,5 +1,11 @@
 const resolve = key => {
-  const { website, page, name, currentNumPage, amountStories } = key
+  const {
+    website,
+    page,
+    name,
+    currentNumPage,
+    amountStories
+  } = key
 
   if (!website) {
     throw new Error('This content source requires a website')
@@ -23,8 +29,7 @@ const resolve = key => {
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -39,12 +44,18 @@ const resolve = key => {
     },
   }
 
+  let requestUri = ''
+
+  /** TODO: Separar estas consultas de autor y tag */
+  /** TODO: La consulta se debe hacer por SLUG, no por URL del autor */
   if (page === 'autor') {
-    body.query.bool.must.push({
-      term: {
-        'credits.by.url': `/autor/${name}` /** /autor/patricia-del-rio */,
-      },
-    })
+    /*     body.query.bool.must.push({
+          term: {
+            'credits.by.url': `/autor/${name}`,
+          },
+        }) */
+    const authorUrl = `/autor/${name}`
+    requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:${authorUrl}&size=${amountStories}&from=${validateFrom()}&sort=display_date:desc&website=${website}`
   }
   if (page === 'noticias') {
     body.query.bool.must.push({
@@ -52,11 +63,10 @@ const resolve = key => {
         'taxonomy.tags.slug': name,
       },
     })
+    requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${website}&from=${validateFrom()}&size=${amountStories}&body=${JSON.stringify(
+      body
+    )}`
   }
-
-  const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${website}&from=${validateFrom()}&size=${amountStories}&body=${JSON.stringify(
-    body
-  )}`
 
   return requestUri
 }
@@ -64,8 +74,7 @@ const resolve = key => {
 export default {
   resolve,
   schemaName: 'stories',
-  params: [
-    {
+  params: [{
       name: 'website',
       displayName: 'Sitio web',
       type: 'text',
