@@ -1,11 +1,5 @@
 const resolve = key => {
-  const {
-    website,
-    page,
-    name,
-    currentNumPage,
-    amountStories
-  } = key
+  const { website, page, name, currentNumPage, amountStories } = key
 
   if (!website) {
     throw new Error('This content source requires a website')
@@ -29,7 +23,8 @@ const resolve = key => {
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               type: 'story',
             },
@@ -47,7 +42,7 @@ const resolve = key => {
   if (page === 'autor') {
     body.query.bool.must.push({
       term: {
-        'credits.by.slug': name, // patricia-del-rio
+        'credits.by.url': `/autor/${name}` /** /autor/patricia-del-rio */,
       },
     })
   }
@@ -69,7 +64,8 @@ const resolve = key => {
 export default {
   resolve,
   schemaName: 'stories',
-  params: [{
+  params: [
+    {
       name: 'website',
       displayName: 'Sitio web',
       type: 'text',

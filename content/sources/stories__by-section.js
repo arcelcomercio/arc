@@ -11,8 +11,7 @@ const resolve = key => {
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -45,26 +44,40 @@ const resolve = key => {
 const transform = data => {
   if (data.content_elements.length === 0) return data
   const {
-    content_elements: [
-      {
-        taxonomy: { sections },
+    content_elements: [{
+      taxonomy: {
+        sections
       },
-    ],
+    }, ],
   } = data
   const realSection = sections.find(item => params.section === item._id)
   const sectionName = {
     section_name: realSection.name,
   }
-  return { ...data, ...sectionName }
+  return {
+    ...data,
+    ...sectionName
+  }
 }
 
 export default {
   resolve,
   transform,
   schemaName: 'stories',
-  params: {
-    website: 'text',
-    section: 'text',
-    news_number: 'number',
-  },
+  params: [{
+      name: 'website',
+      displayName: 'Sitio web',
+      type: 'text',
+    },
+    {
+      name: 'section',
+      displayName: 'Sección',
+      type: 'text',
+    },
+    {
+      name: 'news_number',
+      displayName: 'Cantidad de noticias',
+      type: 'number',
+    }
+  ]
 }
