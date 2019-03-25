@@ -38,7 +38,7 @@
 	}
 	&__name{
 		display: block;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1.2;
     font-family: "Georgia";
 		font-weight: 700;
@@ -49,7 +49,7 @@
 			text-decoration: underline;
 		}
 		@media (--tablet){
-			font-size: 26px;
+			font-size: 18px;
 		}
 	}
 	&__grupo{
