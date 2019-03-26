@@ -1,4 +1,5 @@
 const resolve = key => {
+	console.log(key, 'KEY')
   // if (!key.website) {
   // 	throw new Error('This content source requires a website')
   // }
@@ -72,7 +73,7 @@ const resolve = key => {
             must: [
               {
                 terms: {
-                  'taxonomy.sections._id': key.section,
+                  'taxonomy.sections._id': [`/${key.section}`],
                 },
               },
               {
