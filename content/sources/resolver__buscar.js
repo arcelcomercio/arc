@@ -13,24 +13,25 @@ const resolve = key => {
 		return '0'
 	}
 
-	const website = `website=${key.website || 'elcomercio'}`
-	const sort = `sort=publish_date:${key.sort || 'desc'}`
-	const from = `from=${validateFrom()}`
-	const size = `size=${key.size || 3}`
+	const website = `${key["arc-site"] || 'elcomercio'}`
+	const sort = `${key.sort || 'desc'}`
+	const from = `${validateFrom()}`
+	const size = `${key.size || 3}`
 	// const page = `page=${'1'}`
 	const valueQuery = key.query || '*'
 
 	const body = {
 		query: {
 			bool: {
-				must: [{
+				must: [
+					{
 						term: {
-							type: "story"
+							type: 'story'
 						}
 					},
 					{
 						term: {
-							'revision.published': true
+							'revision.published': 'true'
 						}
 					},
 					{
@@ -56,13 +57,33 @@ const resolve = key => {
 
 	if (key.section) {
 		body.query.bool.must.push({
-			term: {
-				'taxonomy.sites.path': `/${key.section}`
-			}
-		})
+      term: {
+        'taxonomy.site._id': `/${key.section}`,
+      },
+    })
 	}
 
-	const requestUri = `/content/v4/search/published?${sort}&${from}&${size}&${website}&body=${JSON.stringify(body)}`
+/*	if (key.section) {
+		body.query.bool.must.push({
+			nested: {
+				path: "taxonomy.sections",
+				query: {
+					bool: {
+						must: [
+							{
+								terms: {
+									"taxonomy.sections._id": `/${key.section}`
+								}
+							}
+						]
+					}
+				}
+			}
+		})
+	} */
+
+
+	const requestUri = `/content/v4/search/published?sort=publish_date:${sort}&from=${from}&size=${size}&website=${website}&body=${JSON.stringify(body)}`
 
 	return requestUri
 }
