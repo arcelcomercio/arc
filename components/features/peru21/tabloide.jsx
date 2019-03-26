@@ -17,11 +17,12 @@ class Tabloide extends Component {
     super(props)
 
     const {
-      customFields: { seccion },
+      customFields: { seccion, secctionName },
     } = this.props || {}
 
     this.state = {
       seccion,
+      secctionName,
       data: {},
     }
   }
@@ -34,19 +35,19 @@ class Tabloide extends Component {
   getContentApi = seccion => {
     if (seccion) {
       const { arcSite } = this.props
+
       const { fetched } = this.getContent(
         'stories__by-section',
         {
           website: arcSite,
           section: seccion,
-          news_number:1
+          news_number: 1,
         },
 
-        filterSchema()
+        filterSchema(arcSite)
       )
-      
+
       fetched.then(response => {
-        debugger
         if (!response) {
           // eslint-disable-next-line no-param-reassign
           response = []
@@ -63,91 +64,76 @@ class Tabloide extends Component {
         }
 
         if (response.content_elements.length > 0) {
-          const {
-            headlines: { basic },
-            taxonomy: { sites, sections },
-            canonical_url,
-          } = response.content_elements[0]
-          const {
-            additional_properties: {
-              original: {
-                site_topper: { site_logo_image },
-              },
-            },
-          } = sites[0]
-
-          const { name, path } = sections[0]
-
-          const contenido = {
-            title: basic,
-            urlImg: site_logo_image,
-            urlNew: canonical_url,
-            sectionName: name,
-            urlSection: path,
-          }
-          debugger
-          console.log(response)
           const prueba = new DataStory(response.content_elements[0], arcSite)
-          
+          debugger
           this.setState({
-            data: contenido,
+            data: prueba,
           })
         }
       })
     }
   }
 
-  // filterSchema = () => {
-  //   return `
-  //     {
-  //       content_elements{
-  //         headlines {
-  //             basic
-  //         }
-  //         canonical_url
-  //         taxonomy{
-  //           sites{
-  //             additional_properties{
-  //               original{
-  //                 site_topper{
-  //                   site_logo_image
-  //                 }
-  //               }
-  //             }
-  //           }
-  //           sections{
-  //             name
-  //             path
-  //           }
-  //         }
-  //         subheadlines{
-  //           basic
-  //         }
-  //       }
-  //     }
-  //     `
-  // }
+  nameDate = datestring => {
+    const dias = [
+      'Lunes',
+      'Martes',
+      'Miércoles',
+      'Jueves',
+      'Viernes',
+      'Sábado',
+      'Domingo',
+    ]
+    const meses = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ]
+    let date = new Date(datestring)
+    let name = `${dias[date.getDay()]} ${date.getDate()} de ${
+      meses[date.getMonth()]
+    } de ${date.getFullYear()}`
+
+    return name
+  }
 
   render() {
+    const {
+      secctionName,
+      data: { link, multimedia, title, date, section },
+    } = this.state
+
+    debugger
+    const nameDate = this.nameDate(date)
+
     return (
       <div className={classes.tabloide}>
         <div className={classes.header}>
-          <h4>El Otorongo</h4>
+          <h4>
+            <a href={link}>{secctionName ? secctionName : section}</a>
+          </h4>
         </div>
         <div className={classes.body}>
           <h3>
-            <a href="https://www.hbo.com/game-of-thrones">
-              Viernes 08 de marzo de 2019
-            </a>
+            <a href={link}>{nameDate}</a>
           </h3>
           <div className={classes.imgContent}>
             <figure>
               <picture>
-                <a href="https://www.hbo.com/game-of-thrones">
+                <a href={link}>
                   <img
                     className={classes.imgPortada}
-                    src="https://postparaprogramadores.com/wp-content/uploads/2018/04/php-vs-java.png"
-                    alt="ejemplo"
+                    src={multimedia}
+                    alt={title}
                   />
                 </a>
               </picture>

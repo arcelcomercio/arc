@@ -7,9 +7,16 @@
     display: grid;
     grid-template-columns: 1fr;
     background-color: #26567f;
-    color: #fff;
     align-items: center;
     margin-top: 20px;
+    & a {
+      text-decoration: none;
+      color: #fff;
+    }
+    & a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
     & h4 {
       margin: 0 auto;
     }

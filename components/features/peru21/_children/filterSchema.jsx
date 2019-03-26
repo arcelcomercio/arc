@@ -1,48 +1,47 @@
-const filterSchema = () => {
+const filterSchema = arcSite => {
   return `
-      {
-        content_elements{
-            headlines {
-                basic
+    {
+      content_elements{
+        canonical_url
+        website_url
+        publish_date
+        websites {
+          ${arcSite} {
+            website_section {
+              name
             }
+          }
         }
-        section_name
+        promo_items{
+          basic_video {
+            type
+            promo_items {
+              basic {
+                type 
+                url
+              }
+            }
+          }
+          basic_gallery {
+            type 
+            promo_items {
+              basic {
+                type 
+                url
+              }
+            }
+          }
+          basic {
+            type 
+            url
+          }
+        }
+        headlines{
+          basic
+        }
       }
-      `
+    }
+    `
 }
 
 export default filterSchema
-
-// canonical_url
-//     taxonomy{
-//     sites{
-//         additional_properties{
-//         original{
-//             site_topper{
-//             site_logo_image
-//             }
-//         }
-//         }
-//     }
-//     sections{
-//         name
-//         path
-//     }
-//     }
-//     subheadlines{
-//     basic
-//     }
-
-
-
-// {
-//     sites{
-//         additional_properties{
-//             original{
-//                 site_topper{
-//                     site_logo_image
-//                 }
-//             }
-//         }
-//     }
-// }
