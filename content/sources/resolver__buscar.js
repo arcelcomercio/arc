@@ -1,5 +1,4 @@
 const resolve = key => {
-	console.log(key, 'KEY')
   // if (!key.website) {
   // 	throw new Error('This content source requires a website')
   // }
@@ -99,11 +98,6 @@ export default {
   resolve,
   schemaName: 'stories',
   params: [
-    {
-      name: 'website',
-      displayName: 'Sitio web',
-      type: 'text',
-    },
     {
       name: 'page',
       displayName: 'Página (Buscar)',

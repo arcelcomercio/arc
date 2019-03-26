@@ -88,7 +88,7 @@ const pattern = (key = {}) => {
           bool: {
             must: [{
                 terms: {
-                  'taxonomy.sections._id': [section],
+                  'taxonomy.sections._id': [`/${section}`],
                 },
               },
               {

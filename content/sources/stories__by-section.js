@@ -53,6 +53,11 @@ const pattern = (key = {}) => {
               type: 'story',
             },
           },
+          {
+            term: {
+              canonical_website: website,
+            },
+          },
         ],
         must_not: [
           {
@@ -117,8 +122,8 @@ const resolve = key => {
 }
 
 const transform = data => {
-  if (!auxKey.includeSections) return data
-  const sectionsIncluded = itemsToArray(auxKey.includeSections)
+  if (!auxKey.section) return data
+  const sectionsIncluded = itemsToArray(auxKey.section)
   if (data.content_elements.length === 0 || sectionsIncluded.length > 1)
     return data
   const {
