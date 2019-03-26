@@ -12,10 +12,13 @@ class tagAutor extends Component {
       data: globalContent.content_elements || [],
       arcSite,
     }
+
     return (
       <Fragment>
         <div>
-          {params.data.map((el, index) => (<CardNotice key={index} data={el} arcSite={params.arcSite} />))}
+          {params.data.map((el, index) => (
+            <CardNotice key={index} data={el} arcSite={params.arcSite} />
+          ))}
         </div>
         <Paginacion
           totalElements={globalContent.count || 0}
