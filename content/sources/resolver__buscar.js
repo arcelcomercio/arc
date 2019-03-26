@@ -1,5 +1,4 @@
 const resolve = key => {
-	console.log(key, 'KEY')
   // if (!key.website) {
   // 	throw new Error('This content source requires a website')
   // }

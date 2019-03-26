@@ -1,6 +1,5 @@
 const schemaName = 'navigation'
 const params = {
-  website: 'text',
   hierarchy: 'text',
   // section: 'text',
 }
@@ -10,6 +9,8 @@ export const createContentSource = site => {
     const serviceSite = key['arc-site'] || site
     const endpoint = `/site/v3/navigation/${serviceSite}/?hierarchy=${key.hierarchy ||
       'default'}`
+
+    // return key.section ? `${endpoint}&_id=${key.section}` : endpoint;
 
     return endpoint
   }
