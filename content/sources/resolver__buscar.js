@@ -72,7 +72,7 @@ const resolve = key => {
             must: [
               {
                 terms: {
-                  'taxonomy.sections._id': key.section,
+                  'taxonomy.sections._id': [`/${key.section}`],
                 },
               },
               {
@@ -98,11 +98,6 @@ export default {
   resolve,
   schemaName: 'stories',
   params: [
-    {
-      name: 'website',
-      displayName: 'Sitio web',
-      type: 'text',
-    },
     {
       name: 'page',
       displayName: 'Página (Buscar)',
