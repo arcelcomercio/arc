@@ -1,24 +1,79 @@
-let params
-const resolve = key => {
-  // Si no se define el "section" te trae todas las secciones
-  // Si no se define el "news_number" te trae máximo 10 stories
-  params = key
-  if (!key.website) {
-    throw new Error('This content source requires a website')
-  }
-  const sizeFilter = key.news_number ? `&from=0&size=${key.news_number}` : ''
+const schemaName = 'stories'
+
+let auxKey
+
+const params = [
+  {
+    name: 'section',
+    displayName: 'Sección(s)',
+    type: 'text',
+  },
+  {
+    name: 'excludeSections',
+    displayName: 'Secciones excluidas',
+    type: 'text',
+  },
+  {
+    name: 'feedOffset',
+    displayName: 'Noticia inicial',
+    type: 'number',
+  },
+  {
+    name: 'news_number',
+    displayName: 'Cantidad de noticias',
+    type: 'number',
+  },
+]
+
+export const itemsToArray = (itemString = '') => {
+  return itemString.split(',').map(item => {
+    return item.replace(/"/g, '')
+  })
+}
+
+const pattern = (key = {}) => {
+  auxKey = key
+
+  const website = key['arc-site'] || 'Arc Site is not defined.'
+  const { section, excludeSections, feedOffset, news_number: newsNumber } = key
+
+  const sectionsExcluded = itemsToArray(excludeSections)
 
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
-              type: 'story',
+              'revision.published': 'true',
             },
           },
           {
             term: {
-              'revision.published': 'true',
+              type: 'story',
+            },
+          },
+        ],
+        must_not: [
+          {
+            nested: {
+              path: 'taxonomy.sections',
+              query: {
+                bool: {
+                  must: [
+                    {
+                      terms: {
+                        'taxonomy.sections._id': sectionsExcluded,
+                      },
+                    },
+                    {
+                      term: {
+                        'taxonomy.sections._website': website,
+                      },
+                    },
+                  ],
+                },
+              },
             },
           },
         ],
@@ -26,58 +81,68 @@ const resolve = key => {
     },
   }
 
-  if (key.section) {
+  if (section) {
+    const sectionsIncluded = itemsToArray(section)
     body.query.bool.must.push({
-      term: {
-        'taxonomy.sites.path': key.section,
+      nested: {
+        path: 'taxonomy.sections',
+        query: {
+          bool: {
+            must: [
+              {
+                terms: {
+                  'taxonomy.sections._id': sectionsIncluded,
+                },
+              },
+              {
+                term: {
+                  'taxonomy.sections._website': website,
+                },
+              },
+            ],
+          },
+        },
       },
     })
   }
 
-  const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${
-    key.website
-  }&body=${JSON.stringify(body)}${sizeFilter}`
+  const encodedBody = encodeURI(JSON.stringify(body))
 
-  return requestUri
+  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${newsNumber ||
+    10}&from=${feedOffset || 0}&sort=publish_date:desc`
+}
+
+const resolve = key => {
+  return pattern(key)
 }
 
 const transform = data => {
-  if (data.content_elements.length === 0) return data
+  if (!auxKey.includeSections) return data
+  const sectionsIncluded = itemsToArray(auxKey.includeSections)
+  if (data.content_elements.length === 0 || sectionsIncluded.length > 1)
+    return data
   const {
-    content_elements: [{
-      taxonomy: {
-        sections
+    content_elements: [
+      {
+        taxonomy: { sections },
       },
-    }, ],
+    ],
   } = data
-  const realSection = sections.find(item => params.section === item._id)
+  const realSection = sections.find(item => sectionsIncluded[0] === item._id)
   const sectionName = {
     section_name: realSection.name,
   }
   return {
     ...data,
-    ...sectionName
+    ...sectionName,
   }
 }
 
-export default {
+const source = {
   resolve,
   transform,
-  schemaName: 'stories',
-  params: [{
-      name: 'website',
-      displayName: 'Sitio web',
-      type: 'text',
-    },
-    {
-      name: 'section',
-      displayName: 'Sección',
-      type: 'text',
-    },
-    {
-      name: 'news_number',
-      displayName: 'Cantidad de noticias',
-      type: 'number',
-    }
-  ]
+  schemaName,
+  params,
 }
+
+export default source
