@@ -152,6 +152,7 @@ export default `
     credits: Credits
     website: String!
     website_url: String!
+    websites: Websites!
     created_date: String
     publish_date: String
     display_date: String
