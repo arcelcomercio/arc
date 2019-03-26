@@ -65,7 +65,7 @@ class Tabloide extends Component {
 
         if (response.content_elements.length > 0) {
           const prueba = new DataStory(response.content_elements[0], arcSite)
-          debugger
+          
           this.setState({
             data: prueba,
           })
@@ -112,7 +112,6 @@ class Tabloide extends Component {
       data: { link, multimedia, title, date, section },
     } = this.state
 
-    debugger
     const nameDate = this.nameDate(date)
 
     return (
