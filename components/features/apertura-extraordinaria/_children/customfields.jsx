@@ -2,9 +2,6 @@ import PropTypes from 'prop-types'
 
 // TODO: Verify why can't use customfield in default.jsx with export default customFields
 const customFields = {
-  link: PropTypes.string.isRequired.tag({
-    name: 'Link de nota interna',
-  }),
   section: PropTypes.string.tag({
     name: 'Sección',
     description: 'Dejar vacío para tomar el valor original de la noticia.',

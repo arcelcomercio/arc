@@ -1,3 +1,11 @@
+const params = [
+  {
+    name: 'website_url',
+    displayName: 'Path de la nota',
+    type: 'text'
+  }
+]
+
 const resolve = (key = {}) => {
   const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
   if (!hasWebsiteUrl)
@@ -11,7 +19,5 @@ const resolve = (key = {}) => {
 export default {
   resolve,
   schemaName: 'stories',
-  params: {
-    website_url: 'text',
-  },
+  params,
 }
