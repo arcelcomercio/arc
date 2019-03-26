@@ -99,11 +99,6 @@ export default {
   schemaName: 'stories',
   params: [
     {
-      name: 'website',
-      displayName: 'Sitio web',
-      type: 'text',
-    },
-    {
       name: 'page',
       displayName: 'Página (Buscar)',
       type: 'text',
