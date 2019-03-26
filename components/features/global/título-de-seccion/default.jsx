@@ -9,8 +9,10 @@ class ListTitle extends Component {
   render() {
     const {
       isAdmin,
-      globalContent: { section_name: sectionName },
+      globalContent: { section_name: sectionName = '' } = {},
     } = this.props
+
+    console.log(this.props)
 
     return (
       <h1 className={classes.title}>
