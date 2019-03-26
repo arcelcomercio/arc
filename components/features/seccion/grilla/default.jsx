@@ -22,21 +22,22 @@ const elements = [
 class OrderedNews extends Component {
   renderGrilla = () => {
     const {
-      customFields,
+      customFields = {},
       arcSite,
-      globalContent: { content_elements: stories },
+      globalContent: { content_elements: stories = [] } = {},
     } = this.props
-    let { initialStory: storyNumber } = customFields
+    let { initialStory: storyNumber = 1 } = customFields
 
     /**
      *      Resta uno al storyNumber. Para el editor 0 = 1
      */
-    storyNumber = storyNumber || 1
+
     storyNumber -= 1
 
     return elements.map((element, idx) => {
       if (element.type === 'destaque') {
-        const story = new DataStory(stories[storyNumber + idx], arcSite)
+        const story =
+          stories && new DataStory(stories[storyNumber + idx], arcSite)
         return (
           <Destaque
             story={story}
@@ -59,6 +60,7 @@ class OrderedNews extends Component {
           />
         )
       }
+      return {}
     })
   }
 
