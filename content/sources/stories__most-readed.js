@@ -1,8 +1,8 @@
 // TODO: ACTUALIZAR NOMBRE Y HOMOLOGAR, AGREGAR CASOS DE ERRORES
 // TODO: HOMOLOGAR ESQUEMA LIST CON STORIES
 const resolve = key => {
-  const sizeFilter = key.num_notes ? `&from=0&size=${key.num_notes}` : ''
-
+  const website = `${key['arc-site'] || 'elcomercio'}`
+  const sizeFilter = key.num_notes ? `${key.num_notes}` : ''
   const body = {
     query: {
       bool: {
@@ -24,15 +24,31 @@ const resolve = key => {
 
   if (key.section) {
     body.query.bool.must.push({
-      term: {
-        'taxonomy.sites.path': `${key.section}`,
+      nested: {
+        path: 'taxonomy.sections',
+        query: {
+          bool: {
+            must: [
+              {
+                terms: {
+                  'taxonomy.sections._id': [`/${key.section}`],
+                },
+              },
+              {
+                term: {
+                  'taxonomy.sections._website': website,
+                },
+              },
+            ],
+          },
+        },
       },
     })
   }
 
-  const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${
-    key.website
-  }&body=${JSON.stringify(body)}${sizeFilter}`
+  const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${website}&body=${JSON.stringify(
+    body
+  )}&from=0&size=${sizeFilter}`
 
   return requestUri
 }
@@ -42,7 +58,6 @@ export default {
   schemaName: 'stories',
   params: {
     section: 'text',
-    website: 'text',
     num_notes: 'number',
   },
 }

@@ -1,4 +1,4 @@
-import DataStory from '../../../../../resources/components/utils/data-story'
+import DataStory from '../../../../resources/components/utils/data-story'
 
 class Data extends DataStory {
   constructor(customFields, data, website) {
