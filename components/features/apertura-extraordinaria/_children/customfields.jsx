@@ -1,14 +1,7 @@
 import PropTypes from 'prop-types'
 
 // TODO: Verify why can't use customfield in default.jsx with export default customFields
-// eslint-disable-next-line import/prefer-default-export
-const customFields = PropTypes.shape({
-  content: PropTypes.label.tag({
-    name: 'Contenido',
-  }),
-  link: PropTypes.string.isRequired.tag({
-    name: 'Link de nota interna',
-  }),
+const customFields = {
   section: PropTypes.string.tag({
     name: 'Sección',
     description: 'Dejar vacío para tomar el valor original de la noticia.',
@@ -22,7 +15,7 @@ const customFields = PropTypes.shape({
     description: 'Dejar vacío para tomar el valor original de la noticia.',
   }),
   orientation: PropTypes.label.tag({
-    name: 'Posición del contenido',
+    name: 'Orientación del contenido',
   }),
   multimediaOrientation: PropTypes.oneOf([
     'top',
@@ -65,5 +58,6 @@ const customFields = PropTypes.shape({
     name: 'Código de video',
     group: 'Video',
   }),
-})
+}
+
 export default customFields
