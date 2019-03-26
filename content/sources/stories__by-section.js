@@ -122,7 +122,7 @@ const resolve = key => {
 }
 
 const transform = data => {
-  if (auxKey.section) return data
+  if (!auxKey.section) return data
   const sectionsIncluded = itemsToArray(auxKey.section)
   if (data.content_elements.length === 0 || sectionsIncluded.length > 1)
     return data
