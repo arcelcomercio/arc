@@ -4,18 +4,48 @@ import {
 
 let globalParams = {}
 
-const resolve = key => {
-  if (!key.website) {
-    throw new Error('This content source requires a website')
-  }
+const schemaName = 'stories'
 
-  const params = {
-    page: key.page && key.page,
-    section: key.section ? key.section : 'todas',
-    date: key.date ? key.date : getActualDate(),
+const params = [{
+    name: 'page',
+    displayName: 'Página (archivo)',
+    type: 'text',
+  },
+  {
+    name: 'section',
+    displayName: 'Sección',
+    type: 'text',
+  },
+  {
+    name: 'date',
+    displayName: 'Fecha',
+    type: 'text',
   }
+]
+
+const transform = data => {
+  const aux = {
+    ...data,
+    params: {
+      ...globalParams
+    },
+  }
+  return aux
+}
+
+const pattern = (key = {}) => {
+  const website = key["arc-site"] || "Arc Site is not defined";
+  const {
+    page,
+    section,
+    date
+  } = key
+
+  /** Para enviar params a transform luego */
   globalParams = {
-    ...params
+    page: page && page,
+    section: section || 'todas',
+    date: date || getActualDate(),
   }
 
   const body = {
@@ -29,8 +59,8 @@ const resolve = key => {
           {
             range: {
               publish_date: {
-                gte: `${params.date}T00:00:00-05:00`, // 2019-03-05T00:00:00-05:00
-                lte: `${params.date}T23:59:59-05:00`, // 2019-03-06T00:00:00-05:00
+                gte: `${globalParams.date}T00:00:00-05:00`, // 2019-03-05T00:00:00-05:00
+                lte: `${globalParams.date}T23:59:59-05:00`, // 2019-03-06T00:00:00-05:00
               },
             },
           },
@@ -39,44 +69,52 @@ const resolve = key => {
               'revision.published': 'true',
             },
           },
+          {
+            term: {
+              'canonical_website': website,
+            },
+          },
         ],
       },
     },
   }
 
-  if (params.section !== 'todas') {
+  /** Filtra por sección sólo cuando sea lo que se busca */
+  if (globalParams.section !== 'todas') {
     body.query.bool.must.push({
-      term: {
-        'taxonomy.sites.path': `/${params.section}`,
+      nested: {
+        path: 'taxonomy.sections',
+        query: {
+          bool: {
+            must: [{
+                terms: {
+                  'taxonomy.sections._id': [section],
+                },
+              },
+              {
+                term: {
+                  'taxonomy.sections._website': website,
+                },
+              },
+            ],
+          },
+        },
       },
     })
   }
 
-  const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${
-    key.website
-  }&body=${JSON.stringify(body)}`
+  const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${website}&body=${JSON.stringify(body)}`
 
   return requestUri
 }
 
-const transform = data => {
-  const aux = {
-    ...data,
-    params: {
-      ...globalParams
-    },
-  }
-  return aux
+const resolve = key => pattern(key)
+
+const source = {
+  resolve,
+  schemaName,
+  transform,
+  params
 }
 
-export default {
-  resolve,
-  schemaName: 'stories',
-  transform,
-  params: {
-    website: 'text',
-    page: 'text',
-    section: 'text',
-    date: 'text',
-  },
-}
+export default source
