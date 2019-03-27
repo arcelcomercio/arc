@@ -36,7 +36,7 @@ class Nav extends Component {
     // ------ Checks the display to set the initial device state
     this.state = {
       device: setDevice(),
-      services: [],
+      services: {},
       statusSidebar: false,
       statusSearch: false,
       scrolled: false,
@@ -198,7 +198,7 @@ class Nav extends Component {
   render() {
     const {
       device,
-      services: { children: sections },
+      services: { children: sections = [] } = {},
       statusSidebar,
       scrolled,
     } = this.state

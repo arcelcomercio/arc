@@ -4,6 +4,11 @@ import CardNotice from '../../../../resources/components/listado-noticias'
 import Ads from '../../../../resources/components/ads'
 import ListadoLeidas from '../../../../resources/components/listado-leidas'
 
+/**
+ *  TODO: Al momento de separar este feature, las clases deben ser preparadas
+ *  correctamente
+ */
+
 const classes = {
   col1: 'col-1',
   col2: 'col-2',
@@ -17,7 +22,6 @@ const classes = {
   flexJustifyCenter: 'flex--justify-center',
   marginTop: 'margin-top',
 }
-// eslint-disable-next-line react/require-render-return
 @Consumer
 class Default extends Component {
   render() {
@@ -25,12 +29,13 @@ class Default extends Component {
       globalContent: { content_elements: contentElements = [] } = {},
       arcSite,
       contextPath,
-      globalContentConfig: { query: { sectionName = '', section = '' } = {} } = {},
+      globalContentConfig: {
+        query: { sectionName = '', section = '' } = {},
+      } = {},
     } = this.props
 
-
     const params = {
-      data: contentElements || [],
+      data: contentElements,
       arcSite,
     }
 
