@@ -31,7 +31,7 @@ const resolve = key => {
             must: [
               {
                 terms: {
-                  'taxonomy.sections._id': [`/${key.section}`],
+                  'taxonomy.sections._id': [`${key.section}`],
                 },
               },
               {

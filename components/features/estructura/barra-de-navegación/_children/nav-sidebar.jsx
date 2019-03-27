@@ -34,8 +34,8 @@ class NavSidebar extends Component {
     return (
       sections &&
       sections.map(({ name = '', _id: id = '', children }) => (
-        <Fragment>
-          <li key={id} className="nav-sidebar__item">
+        <Fragment key={id}>
+          <li className="nav-sidebar__item">
             <a href={id} className="nav-sidebar__link">
               {name}
             </a>

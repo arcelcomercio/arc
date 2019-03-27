@@ -3,6 +3,12 @@ import Consumer from 'fusion:consumer'
 import CardNotice from '../../../../resources/components/listado-noticias'
 import Ads from '../../../../resources/components/ads'
 import ListadoLeidas from '../../../../resources/components/listado-leidas'
+import filterSchema from '../../global/mas-leidas/_children/filterSchema'
+import {
+  setDataTest,
+  castingData,
+} from '../../global/mas-leidas/_children/castingData'
+import configFetch from '../../global/mas-leidas/_children/configFetch'
 
 /**
  *  TODO: Al momento de separar este feature, las clases deben ser preparadas
@@ -24,10 +30,52 @@ const classes = {
 }
 @Consumer
 class Default extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      news: [],
+      totalElements: 5,
+    }
+  }
+
+  componentDidMount() {
+    this.getMoreReads()
+  }
+
+  getMoreReads() {
+    const { source, params } = configFetch(this.props)
+    const { fetched } = this.getContent(source, params, filterSchema())
+    const { totalElements } = this.state
+
+    fetched
+      .then(response => {
+        if (
+          response &&
+          response.content_elements &&
+          response.content_elements.length > 0
+        ) {
+          this.setState({
+            news: castingData(response.content_elements, this.props),
+          })
+        } else {
+          this.setState({
+            news: setDataTest(totalElements),
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        this.setState({
+          news: setDataTest(totalElements),
+        })
+      })
+  }
+
   render() {
     const {
       globalContent: { content_elements: contentElements = [] } = {},
       arcSite,
+      requestUri,
       contextPath,
       globalContentConfig: {
         query: { sectionName = '', section = '' } = {},
@@ -37,6 +85,16 @@ class Default extends Component {
     const params = {
       data: contentElements,
       arcSite,
+    }
+
+    const { news } = this.state
+
+    const paramsMasLeidas = {
+      viewImage: true,
+      numNotes: 5,
+      arcSite,
+      requestUri,
+      news,
     }
 
     return (
@@ -70,7 +128,7 @@ class Default extends Component {
             <Ads adElement="isright1" isDesktop isMobile />
           </div>
           <div className={classes.col3}>
-            <ListadoLeidas numNotes={5} viewImage />
+            <ListadoLeidas {...paramsMasLeidas} />
           </div>
         </div>
       </Fragment>
