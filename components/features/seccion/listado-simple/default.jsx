@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-import CardNotice from '../../../resources/components/listado-noticias'
-import Ads from '../../../resources/components/ads'
-import ListadoLeidas from '../../../resources/components/listado-leidas'
+import CardNotice from '../../../../resources/components/listado-noticias'
+import Ads from '../../../../resources/components/ads'
+import ListadoLeidas from '../../../../resources/components/listado-leidas'
 
 const classes = {
   col1: 'col-1',
