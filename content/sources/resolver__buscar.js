@@ -23,8 +23,7 @@ const resolve = key => {
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -69,8 +68,7 @@ const resolve = key => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': [`/${key.section}`],
                 },
@@ -97,8 +95,7 @@ const resolve = key => {
 export default {
   resolve,
   schemaName: 'stories',
-  params: [
-    {
+  params: [{
       name: 'page',
       displayName: 'Página (Buscar)',
       type: 'text',
