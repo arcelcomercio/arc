@@ -7,7 +7,7 @@ export default props => {
     } = {},
   } = props
 
-  const sec = _id !== undefined ? _id : section
+  const sec = _id || section
 
   return {
     source: 'stories__most-readed',
