@@ -28,12 +28,13 @@ class DestaqueAutomatico extends Component {
 
   fetch() {
     const { customFields, arcSite } = this.props
-    const { section, imageSize, size } = customFields
+    const { section, imageSize, size, storyNumber } = customFields
 
     const source = 'stories__by-section'
     const params = {
       website: arcSite,
       section,
+      feedOffset: storyNumber || 0,
       news_number: 1,
     }
     const schema = `{ 
@@ -110,7 +111,6 @@ class DestaqueAutomatico extends Component {
           }
         }
       }
-      console.log(this.state)
     })
   }
 
@@ -135,9 +135,17 @@ class DestaqueAutomatico extends Component {
 
 DestaqueAutomatico.propTypes = {
   customFields: PropTypes.shape({
-    section: PropTypes.string.isRequired.tag({
+    section: PropTypes.string.tag({
       name: 'Path de la sección',
-      description: 'Ejemplo: /deporte-total',
+      description:
+        'Si no se coloca el path de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
+    }),
+    storyNumber: PropTypes.number.tag({
+      name: 'Número de la historia',
+      description:
+        'Si no se completa el campo, el número de la historia será 0 (la última historia publicada)',
+      group: 'Elgir el número de la historia',
+      min: 0,
     }),
     imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
       name: 'Posición de la imagen',
