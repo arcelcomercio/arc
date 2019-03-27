@@ -29,9 +29,8 @@ class ContentArticleBody extends Component {
         publish_date: date,
         credits: author,
         taxonomy,
-      },
+      } = {},
     } = this.props
-    console.log(contentElements)
 
     return (
       <Fragment>
@@ -42,7 +41,6 @@ class ContentArticleBody extends Component {
             <ArticleBody
               data={contentElements}
               elementClasses={elementClasses}
-              // eslint-disable-next-line consistent-return
               renderElement={element => {
                 const { type } = element
                 if (type === 'image') {
@@ -73,6 +71,7 @@ class ContentArticleBody extends Component {
                 if (type === 'oembed_response') {
                   return ''
                 }
+                return ''
               }}
             />
           )}

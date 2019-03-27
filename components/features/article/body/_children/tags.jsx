@@ -1,9 +1,8 @@
 /* eslint-disable prefer-template */
-/* eslint-disable react/destructuring-assignment */
 import React, { Fragment } from 'react'
 
-const TagsCons = props => {
-  const { tags: data } = props.data
+export default props => {
+  const { data: { tags: data = [] } = {} } = props
   const classes = {
     tagsName: 'tags',
     titulo: 'tags__title',
@@ -25,4 +24,3 @@ const TagsCons = props => {
     </Fragment>
   )
 }
-export default TagsCons

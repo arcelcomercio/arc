@@ -23,8 +23,8 @@ const classes = {
 class ListadoDestacado extends Component {
   render() {
     const {
-      globalContent,
-      globalContentConfig,
+      globalContent: { content_elements: contentElements = [] } = {},
+      globalContentConfig: { query: { section = '' } = {} } = {},
       arcSite,
       requestUri,
       contextPath,
@@ -37,12 +37,9 @@ class ListadoDestacado extends Component {
       requestUri,
     }
 
-    const { query } = globalContentConfig && globalContentConfig
-    const { section } = query !== undefined ? query : '/'
-
-    const data = globalContent.content_elements || []
-    const dataApertura = new DataStory(data[0], arcSite)
-    const dataList = data.slice(1)
+    const data = contentElements
+    const dataApertura = new DataStory(data[0], arcSite) || {}
+    const dataList = data.slice(1) || []
 
     const paramsApertura = {
       data: dataApertura,

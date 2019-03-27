@@ -13,7 +13,11 @@ const classes = {
 class ImageConent extends Component {
   render() {
     const {
-      data: { resized_urls: resizedUrls, subtitle, caption },
+      data: {
+        resized_urls: resizedUrls = '',
+        subtitle = '',
+        caption = '',
+      } = {},
     } = this.props
 
     return (

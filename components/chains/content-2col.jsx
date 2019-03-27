@@ -1,27 +1,16 @@
-import React, { Fragment, Component } from 'react'
-import { FormatClassName } from '../../resources/utilsJs/utilities'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-const classes = FormatClassName([
-  //'content--1col',
-  //'content--2col',
-  'content-grid-base',
-  'col-2',
-])
+const classes = 'content-grid-base col-2'
 
-class Content2Col extends Component {
-  render() {
-    const {
-      children,
-      customFields: { staticHeight },
-    } = this.props
+export default function Content2Col(props) {
+  const { children = {}, customFields: { staticHeight } = {} } = props
 
-    return (
-      <section className={`${classes} ${staticHeight && 'row-1'}`}>
-        {children}
-      </section>
-    )
-  }
+  return (
+    <section className={`${classes} ${staticHeight && 'row-1'}`}>
+      {children}
+    </section>
+  )
 }
 
 Content2Col.propTypes = {
@@ -31,5 +20,3 @@ Content2Col.propTypes = {
     }),
   }),
 }
-
-export default Content2Col

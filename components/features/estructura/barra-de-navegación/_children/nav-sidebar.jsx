@@ -33,7 +33,7 @@ class NavSidebar extends Component {
   renderSections = sections => {
     return (
       sections &&
-      sections.map(({ name, _id: id, children }) => (
+      sections.map(({ name = '', _id: id = '', children }) => (
         <Fragment>
           <li key={id} className="nav-sidebar__item">
             <a href={id} className="nav-sidebar__link">
@@ -47,15 +47,14 @@ class NavSidebar extends Component {
   }
 
   render() {
-    const { sections, showSidebar } = this.props
+    const { sections = [], showSidebar } = this.props
 
     return (
       <div className={`${classes.navSidebar} ${showSidebar ? 'active' : ''}`}>
         <div
           className={`${classes.navSidebarContent} ${
             showSidebar ? 'active' : ''
-          }`}
-        >
+          }`}>
           <div className="nav-sidebar__top">
             <div className="nav-sidebar__header">
               <div className="nav-sidebar__box-btn">
@@ -72,8 +71,7 @@ class NavSidebar extends Component {
                 onSubmit={e => {
                   e.preventDefault()
                   this.submitSearch()
-                }}
-              >
+                }}>
                 <input
                   ref={this.inputSearchMovil}
                   type="search"
