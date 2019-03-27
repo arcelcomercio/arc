@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-import CardNotice from './../../../resources/components/listado-noticias'
-
-import Ads from './../../../resources/components/ads'
-import ListadoLeidas from './../../../resources/components/listado-leidas'
+import CardNotice from '../../../../resources/components/listado-noticias'
+import Ads from '../../../../resources/components/ads'
+import ListadoLeidas from '../../../../resources/components/listado-leidas'
 
 const classes = {
   col1: 'col-1',
@@ -21,23 +20,14 @@ const classes = {
 // eslint-disable-next-line react/require-render-return
 @Consumer
 class Default extends Component {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const {
-      globalContent: { content_elements: contentElements },
+      globalContent: { content_elements: contentElements = [] } = {},
       arcSite,
       contextPath,
-      globalContentConfig,
+      globalContentConfig: { query: { sectionName = '', section = '' } = {} } = {},
     } = this.props
 
-    const sec = globalContentConfig.query
-      ? globalContentConfig.query.section
-      : ''
-    const sectionName = sec.slice(1)
 
     const params = {
       data: contentElements || [],
@@ -65,17 +55,17 @@ class Default extends Component {
             className={`${classes.flex} ${classes.flexJustifyCenter} ${
               classes.marginTop
             }`}>
-            <a href={`${contextPath}/archivo${sec}?_website=${arcSite}`}>
+            <a href={`${contextPath}/archivo${section}?_website=${arcSite}`}>
               Ver más
             </a>
           </div>
         </div>
         <div className={`${classes.col1} ${classes.contentRight}`}>
           <div className={classes.col3}>
-            <Ads adElement="isright1" isDesktop={true} isMobile={true} />
+            <Ads adElement="isright1" isDesktop isMobile />
           </div>
           <div className={classes.col3}>
-            <ListadoLeidas numNotes={5} viewImage={true} />
+            <ListadoLeidas numNotes={5} viewImage />
           </div>
         </div>
       </Fragment>
