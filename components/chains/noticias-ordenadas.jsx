@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+/* **************** SIN USO ****************** */
+
 export default function OrderedNews({ children, customFields }) {
   let { initialStory: storyNumber } = customFields
   storyNumber = storyNumber || 1
@@ -37,7 +39,7 @@ OrderedNews.propTypes = {
       name: 'Iniciar desde la noticia:',
       defaultValue: 1,
       description:
-        'Indique el número de la noticia desde la que quiere empezar a imprimir. La primera noticia corresponde al número 0',
+        'Indique el número de la noticia desde la que quiere empezar a imprimir. La primera noticia corresponde al número 1',
     }),
   }),
 }

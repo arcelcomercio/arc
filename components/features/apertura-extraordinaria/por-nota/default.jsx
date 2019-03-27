@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import customFields from './_children/customfields'
-import filterSchema from './_children/filterschema'
-import Data from './_children/data'
-// import AperturaExtraordinariaChildren from './_children/apertura-extraordinaria'
+import filterSchema from '../_children/filterschema'
+import Data from '../_children/data'
 import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
 
 const API_URL = 'story__by-websiteurl'
 @Consumer
-class AperturaExtraordinaria extends Component {
+class AperturaExtraordinariaStory extends Component {
   constructor(props) {
     super(props)
     this.state = { data: {} }
@@ -51,8 +50,8 @@ class AperturaExtraordinaria extends Component {
   }
 }
 
-AperturaExtraordinaria.propTypes = {
+AperturaExtraordinariaStory.propTypes = {
   customFields,
 }
 
-export default AperturaExtraordinaria
+export default AperturaExtraordinariaStory

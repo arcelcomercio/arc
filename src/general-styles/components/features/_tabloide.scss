@@ -1,0 +1,53 @@
+.tabloide {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 8fr;
+  background-color: #c5e2f7;
+  &__header {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: #26567f;
+    align-items: center;
+    margin-top: 20px;
+    & a {
+      text-decoration: none;
+      color: #fff;
+    }
+    & a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+    & h4 {
+      margin: 0 auto;
+    }
+  }
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px auto;
+    
+    align-items: center;
+    & h3 {
+      margin: 0 auto;
+      & a {
+        text-decoration: none;
+        color: #000;
+      }
+      & a:hover {
+        text-decoration: underline;
+        color: #000;
+      }
+    }
+  }
+  &__imgContent{
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      margin: 0 auto;
+
+  }
+  &__imgPortada {
+    height: 322px;
+    width: 242px;
+  }
+}

@@ -1,0 +1,112 @@
+.card-autor{
+	padding: 5px;
+	// border-bottom: solid 1px #333;
+	// &:nth-child(even){
+	// 	border-right: solid 1px #333;
+	// }
+	&__wrapper{
+		display: flex;
+		background-color: gold;
+		position: relative;
+		@media (--tablet){
+			flex-direction: row-reverse;
+			height: 340px;
+			//max-width: 310px;
+		}
+		@media (--desktop){
+			height: 380px;
+		}
+	}
+	&__box-image{
+		display: flex;
+		align-items: flex-start;
+		position: relative;
+		padding: 15px 12px;
+		@media (--tablet){
+			padding: 0;
+			width: 140px;
+			height: 250px;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+	}
+	&__box-detail{
+		padding: 15px 12px;
+		padding-left: 22px;
+		width: 100%;
+	}
+	&__image{
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		object-fit: cover;
+		object-position: top;
+		background-color: #fff;
+		@media (--tablet){
+			width: 100%;
+			height: 100%;
+			border-radius: 0;
+			background-color: transparent;
+			object-fit: contain;
+			object-position: bottom;
+		}
+	}
+	&__name{
+		display: block;
+    font-size: 26px;
+    line-height: 1.2;
+    font-family: "Georgia";
+		font-weight: 700;
+		margin-bottom: 15px;
+		color: #333;
+		&:hover{
+			text-decoration: underline;
+		}
+		@media (--tablet){
+			max-height: inherit;
+		}
+	}
+	&__grupo{
+		font-weight: 300;
+		font-size: 11px;
+		margin-bottom: 5px;
+		text-transform: uppercase;
+	}
+	&__title{
+		display: block;
+		color: #333;
+		width: 90%;
+    // max-height: 57.6px;
+    font-size: 20px;
+    line-height: 1.2;
+		// overflow: hidden;
+		font-family: "Georgia";
+		font-weight: 700;
+		text-transform: uppercase;
+		&:hover{
+			text-decoration: underline;
+		}
+		@media (--tablet){
+			font-size: 18px;
+			width: 70%;
+		}
+	}
+	&__social{
+		display: none;
+		@media (--tablet){
+			display: flex;
+			align-items: center;
+			margin-top: 15px;
+		}
+	}
+	&__icono{
+		display: flex;
+		font-size: 14px;
+		color: #333;
+		margin-right: 20px;
+		&:nth-last-child(1){
+			margin-right: 0;
+		}
+	}
+}

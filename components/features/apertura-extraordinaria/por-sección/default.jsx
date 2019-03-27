@@ -2,31 +2,31 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import customFields from './_children/customfields'
 import filterSchema from './_children/filterschema'
-import Data from './_children/data'
-// import AperturaExtraordinariaChildren from './_children/apertura-extraordinaria'
+import Data from '../_children/data'
 import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
 
-const API_URL = 'story__by-websiteurl'
+const API_URL = 'stories__by-section'
+const API_SIZE_DATA = 1
 @Consumer
-class AperturaExtraordinaria extends Component {
+class AperturaExtraordinariaSection extends Component {
   constructor(props) {
     super(props)
     this.state = { data: {} }
-    this.renderCount = 0
     this.fetch()
   }
 
   fetch() {
     const {
-      customFields: { link },
+      customFields: { sectionName, positionData },
       arcSite,
     } = this.props
-    if (link) {
+    if (sectionName) {
       const { fetched } = this.getContent(
         API_URL,
         {
-          website_url: link,
-          website: arcSite,
+          section: sectionName,
+          feedOffset: positionData || 0,
+          news_number: API_SIZE_DATA,
         },
         filterSchema(arcSite)
       )
@@ -39,20 +39,20 @@ class AperturaExtraordinaria extends Component {
   render() {
     // eslint-disable-next-line no-shadow
     const { customFields, arcSite } = this.props
-    const { data } = this.state
-    const formattedData = new Data(customFields, data, arcSite)
+    const { data: {content_elements: contentElements} } = this.state
+    const dataElement = contentElements && contentElements.length > 0 ? contentElements[0]: {}
+    const formattedData = new Data(customFields, dataElement, arcSite)
     const params = {
       data: formattedData,
       multimediaOrientation: formattedData.multimediaOrientation,
       contentOrientation: formattedData.contentOrientation,
     }
-
     return <AperturaExtraordinariaChildren {...params} />
   }
 }
 
-AperturaExtraordinaria.propTypes = {
+AperturaExtraordinariaSection.propTypes = {
   customFields,
 }
 
-export default AperturaExtraordinaria
+export default AperturaExtraordinariaSection

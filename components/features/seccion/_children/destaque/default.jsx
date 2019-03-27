@@ -2,9 +2,11 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import Destaque from '../../../../resources/components/destaque'
-import { addResizedUrlItem } from '../../../../resources/utilsJs/thumbs'
-import DataStory from '../../../../resources/components/utils/data-story'
+import Destaque from '../../../../../resources/components/destaque'
+import { addResizedUrlItem } from '../../../../../resources/utilsJs/thumbs'
+import DataStory from '../../../../../resources/components/utils/data-story'
+
+/* **************** SIN USO ****************** */
 
 @Consumer
 class GrillaDestaque extends Component {
