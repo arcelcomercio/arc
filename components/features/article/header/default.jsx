@@ -16,15 +16,15 @@ class ArticleHeader extends Component {
   render() {
     const {
       globalContent: {
-        website_url: baseUrl,
-        headlines: title,
-        promo_items: galleryItems,
-      },
+        website_url: baseUrl = '',
+        headlines: title = '',
+        promo_items: galleryItems = {},
+      } = {},
     } = this.props
-    const { content_elements: galleryElements } =
-      galleryItems && typeof galleryItems.basic_gallery !== 'undefined'
-        ? galleryItems.basic_gallery
-        : ''
+
+    const {
+      content_elements: galleryElements = '',
+    } = galleryItems.basic_gallery
 
     return (
       <Fragment>

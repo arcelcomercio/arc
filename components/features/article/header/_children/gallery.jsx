@@ -11,10 +11,8 @@ const classes = {
     'slider__slide__details__foto-description openSansRegular4',
 }
 
-const Gallery = props => {
-  const {
-    data: { content_elements: elements },
-  } = props
+export default props => {
+  const { data: { content_elements: elements = [] } = {} } = props
 
   return (
     <Fragment>
@@ -47,5 +45,3 @@ const Gallery = props => {
     </Fragment>
   )
 }
-
-export default Gallery

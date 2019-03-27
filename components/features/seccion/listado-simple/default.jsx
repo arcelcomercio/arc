@@ -10,6 +10,11 @@ import {
 } from '../../global/mas-leidas/_children/castingData'
 import configFetch from '../../global/mas-leidas/_children/configFetch'
 
+/**
+ *  TODO: Al momento de separar este feature, las clases deben ser preparadas
+ *  correctamente
+ */
+
 const classes = {
   col1: 'col-1',
   col2: 'col-2',
@@ -23,7 +28,6 @@ const classes = {
   flexJustifyCenter: 'flex--justify-center',
   marginTop: 'margin-top',
 }
-// eslint-disable-next-line react/require-render-return
 @Consumer
 class Default extends Component {
   constructor(props) {
@@ -79,7 +83,7 @@ class Default extends Component {
     } = this.props
 
     const params = {
-      data: contentElements || [],
+      data: contentElements,
       arcSite,
     }
 
