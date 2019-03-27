@@ -12,8 +12,6 @@ class ListTitle extends Component {
       globalContent: { section_name: sectionName = '' } = {},
     } = this.props
 
-    console.log(this.props)
-
     return (
       <h1 className={classes.title}>
         {isAdmin
