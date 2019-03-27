@@ -7,7 +7,7 @@ import Ads from '../../../../resources/components/ads'
 import CardNotice from '../../../../resources/components/listado-noticias'
 import TitleSection from '../../global/título-de-seccion/default'
 
-import MasLeidas from '../../../../resources/components/listado-leidas'
+import ListadoLeidas from '../../../../resources/components/listado-leidas'
 import filterSchema from '../../global/mas-leidas/_children/filterSchema'
 import {
   setDataTest,
@@ -123,7 +123,7 @@ class ListadoDestacado extends Component {
           </div>
           <aside className={classes.sidebar}>
             <Ads adElement="right1" isDesktop="true" />
-            <MasLeidas {...paramsMasLeidas} />
+            <ListadoLeidas {...paramsMasLeidas} />
             <Ads adElement="right2" isDesktop="true" />
           </aside>
         </div>
