@@ -1,19 +1,23 @@
-const resolve = key => {
-  const requestUri = `/content/v4/stories/?website_url=${key.website_url}&website=${key.website}`;
+const params = [
+  {
+    name: 'website_url',
+    displayName: 'Path de la nota',
+    type: 'text'
+  }
+]
 
-  const hasWebsite = Object.prototype.hasOwnProperty.call(key, 'website')
+const resolve = (key = {}) => {
   const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
-
-  if (hasWebsiteUrl && hasWebsite)
-    return requestUri;
-  throw new Error("The content source requires a website and url");
+  if (!hasWebsiteUrl)
+    throw new Error('The content source requires a website and url')
+  const site = key['arc-site'] || key.website
+  const { website_url: websiteUrl } = key
+  const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${site}`
+  return requestUri
 }
 
 export default {
   resolve,
-  schemaName: "stories",
-  params: {
-    website_url: "text",
-    website: "text"
-  }
+  schemaName: 'stories',
+  params,
 }

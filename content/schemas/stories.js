@@ -152,6 +152,7 @@ export default `
     credits: Credits
     website: String!
     website_url: String!
+    websites: Websites!
     created_date: String
     publish_date: String
     display_date: String
@@ -175,7 +176,7 @@ export default `
     last_updated_date: String
     taxonomy: Taxonomy
     websites: Websites!
-
+    section_name: String
     
     content_elements: [ContentElements]
     count: Int

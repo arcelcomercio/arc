@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 const filterSchema = arcSite => `{
     headlines {
         basic
