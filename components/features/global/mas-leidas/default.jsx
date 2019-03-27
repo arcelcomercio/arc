@@ -15,6 +15,9 @@ class MasLeidas extends Component {
       news: [],
       totalElements: numNotes,
     }
+  }
+
+  componentDidMount() {
     this.fetch()
   }
 
@@ -23,7 +26,6 @@ class MasLeidas extends Component {
     const { fetched } = this.getContent(source, params, filterSchema())
     const { totalElements } = this.state
 
-    let data = {}
     fetched
       .then(response => {
         if (
@@ -31,17 +33,21 @@ class MasLeidas extends Component {
           response.content_elements &&
           response.content_elements.length > 0
         ) {
-          data = castingData(response.content_elements, this.props)
-        } else data = setDataTest(totalElements)
+          this.setState({
+            news: castingData(response.content_elements, this.props),
+          })
+        } else {
+          this.setState({
+            news: setDataTest(totalElements),
+          })
+        }
       })
       .catch(error => {
         console.log(error)
-        data = setDataTest(totalElements)
+        this.setState({
+          news: setDataTest(totalElements),
+        })
       })
-
-    this.setState({
-      news: data,
-    })
   }
 
   render() {

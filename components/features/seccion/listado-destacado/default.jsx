@@ -42,7 +42,6 @@ class ListadoDestacado extends Component {
 
   getMoreReads() {
     const { source, params } = configFetch(this.props)
-    console.log(this.props)
     const { fetched } = this.getContent(source, params, filterSchema())
     const { totalElements } = this.state
 
