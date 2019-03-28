@@ -12,20 +12,20 @@ const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
       {listNews.map(
         (
           {
-            display_date: displayDate,
+            publish_date: publishDate,
             headlines: { basic },
             canonical_url: canonicalUrl,
             promo_items: promoItems,
           },
           index
         ) => {
-          const fechaPublicacion = new Date(displayDate)
+          const fechaPublicacion = new Date(publishDate)
           let time = ''
 
           const fechapresente = new Date().getTime()
 
           if (
-            (fechapresente - new Date(displayDate).getTime()) /
+            (fechapresente - new Date(publishDate).getTime()) /
               1000 /
               60 /
               60 >=
@@ -47,7 +47,7 @@ const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
                 : fechaPublicacion.getMinutes()
             }-`
           }
-          
+
           return (
             <ItemNews
               key={canonicalUrl}

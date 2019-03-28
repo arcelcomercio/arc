@@ -9,7 +9,7 @@ class DataStory {
 
   static IMAGE = 'basic'
 
-  constructor(data, website) {
+  constructor(data = {}, website = '') {
     this._data = data
     this._website = website
   }
@@ -28,6 +28,10 @@ class DataStory {
 
   set __website(val) {
     this._website = val
+  }
+
+  get id() {
+    return (this._data && this._data._id) || ''
   }
 
   get title() {
@@ -107,9 +111,12 @@ class DataStory {
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
-    return addResizedUrlItem(this.__website, this.multimedia, [
-      `${ratio}|${resolution}`,
-    ]).resized_urls[ratio]
+    if (this.multimedia) {
+      return addResizedUrlItem(this.__website, this.multimedia, [
+        `${ratio}|${resolution}`,
+      ]).resized_urls[ratio]
+    }
+    return this.multimedia
   }
 
   static getDataSection(data, website) {

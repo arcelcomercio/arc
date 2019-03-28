@@ -7,8 +7,6 @@ import { getActualDate } from '../../../../resources/utilsJs/helpers'
 
 @Consumer
 class Archivo extends Component {
-  static SECTION_DEFAULT = 'todas'
-
   constructor(props) {
     super(props)
     this.renderCount = 0
@@ -17,29 +15,33 @@ class Archivo extends Component {
   render() {
     // console.log('props')
     // console.dir(this.props)
+
     const {
-      globalContent: { content_elements: contentElements },
+      globalContent: { content_elements: contentElements } = {},
       arcSite,
-      globalContentConfig,
+      globalContentConfig: {
+        query: { section = 'todas', date = getActualDate() } = {},
+      } = {},
     } = this.props
-    const { query } = globalContentConfig || {}
-    const { section, date } = query || {}
+
     const params = {
       data: contentElements || [],
       arcSite,
     }
-    const sectionPag =
-      section === undefined || section === '' ? this.SECTION_DEFAULT : section
-    const datePag = date === undefined || date === '' ? getActualDate() : date
 
     return (
       <Fragment>
         <div>
           {params.data.map((el, index) => (
-            <CardNotice key={index} formato="row" data={el} arcSite={params.arcSite} />
+            <CardNotice
+              key={index}
+              formato="row"
+              data={el}
+              arcSite={params.arcSite}
+            />
           ))}
         </div>
-        <RenderPagination section={sectionPag} date={datePag} />
+        <RenderPagination section={section} date={date} />
       </Fragment>
     )
   }

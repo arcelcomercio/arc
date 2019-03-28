@@ -1,24 +1,12 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import { customFields } from './children/customfields'
+import DataStory from '../../../../resources/components/utils/data-story'
+import OpinionItem from '../../../../resources/components/opinionItem'
 
-// 01 evaluar las clases
 const classes = {
   separator: 'separator__opinion',
-  headerHtml: 'separator__headerHtml',
-  title: 'separator__headerTitle',
-  body: 'separator__body',
-  item: 'separator__item',
-  detail: 'separator__detail',
-  separatorTitle: 'separator__title',
-  mvideo: 'separator--video',
-  separadorTitleOpinion: 'separador__headerTitle-opinion',
-  opinionItem: 'separator__opinion--item',
-  opinionItemImage: 'separator__opinion--item-image',
   opinionBody: 'separator__opinion--body',
-  itemDetailAuthor: 'separator__opinion--item',
-  opinionSection: 'separator__opinion--section', //
-  opinionItemDetails: 'separator__opinion--item-details',
   opinionTitle: 'separator__opinion-title',
 }
 
@@ -35,45 +23,14 @@ const HeaderHTML = ({ htmlCode }) => {
   )
 }
 
-const OpinionItem = ({
-  author,
-  basic,
-  websiteUrl,
-  sectionUrl,
-  authorUrl,
-  section,
-  imagen,
-}) => {
-  return (
-    <article className={classes.opinionItem}>
-      <div className={classes.opinionItemDetails}>
-        <h3>
-          <a href={sectionUrl}>{section}</a>
-        </h3>
-        <h5>
-          <a href={authorUrl}>{author}</a>
-        </h5>
-        <p>
-          <a href={websiteUrl}>{basic}</a>
-        </p>
-      </div>
-      <figure className={classes.opinionItemImage}>
-        {/* <a href={imagenUrl}> */}
-        <img src={imagen} alt="default" />
-        {/* </a> */}
-      </figure>
-    </article>
-  )
-}
-
 @Consumer
 class SeparadorOpinion extends Component {
   constructor(props) {
     super(props)
 
     const {
-      customFields: { section, titleSection, htmlCode },
-    } = this.props || {}
+      customFields: { section = '', titleSection = '', htmlCode = '' } = {},
+    } = props
 
     this.state = {
       device: this.setDevice(),
@@ -114,24 +71,24 @@ class SeparadorOpinion extends Component {
       },
       this.filterSchema()
     )
-    fetched.then(response => {
-      if (!response) {
-        // eslint-disable-next-line no-param-reassign
-        response = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
+    fetched.then(({ content_elements: contentElements = [] } = {}) => {
+      const newDatos = []
+      const nObj = {}
+      for (let i = 0; i < newsNumber; i++) {
+        const dh = new DataStory(contentElements[i], arcSite)
 
-      if (!response.content_elements) {
-        response.content_elements = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
+        nObj.id = dh.id
+        nObj.author = dh.author
+        nObj.authorUrl = dh.authorLink
+        nObj.titulo = dh.title
+        nObj.seccion = dh.section
+        nObj.seccionUrl = dh.sectionLink
+        nObj.websiteUrl = dh.link
+        nObj.imageUrl = dh.authorImage
+        newDatos.push({ ...nObj })
       }
-
       this.setState({
-        data: response.content_elements,
+        data: newDatos,
       })
     })
   }
@@ -196,59 +153,9 @@ class SeparadorOpinion extends Component {
     `
   }
 
-  imagenAuthor = data => {
-    const { by } = data.credits
-
-    if (Object.keys(by).length !== 0) {
-      const imageData = data.credits.by[0]
-
-      if (imageData.image && imageData.image.url) {
-        return imageData.image.url
-      }
-      return 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg'
-    }
-    return 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg'
-  }
-
-  urlAuthor = data => {
-    const { by } = data.credits
-
-    if (Object.keys(by).length !== 0) {
-      const authorData = data.credits.by[0]
-
-      if (authorData.url) {
-        return authorData.url
-      }
-      return 'default'
-    }
-    return 'default'
-  }
-
   listado = () => {
     const { data } = this.state
-
-    const listOpinion = data.map(story => {
-      return (
-        <OpinionItem
-          key={story._id}
-          author={
-            story.credits.by.length !== 0
-              ? story.credits.by[0].name
-              : 'Editorial Peru 21'
-          }
-          basic={story.headlines.basic}
-          section={
-            story.taxonomy.sections.some(alias => alias.type === 'section') &&
-            story.taxonomy.sections[0].name
-          }
-          imagen={this.imagenAuthor(story)}
-          websiteUrl={story.website_url}
-          authorUrl={this.urlAuthor(story)}
-          sectionUrl={story.taxonomy.sections[0].path}
-        />
-      )
-    })
-    return listOpinion
+    return data.map(info => <OpinionItem key={info.id} data={info} />)
   }
 
   render() {
@@ -268,6 +175,7 @@ class SeparadorOpinion extends Component {
 }
 
 SeparadorOpinion.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
   customFields,
 }
 

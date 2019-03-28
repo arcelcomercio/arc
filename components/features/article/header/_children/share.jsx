@@ -6,7 +6,7 @@ import {
   GooglePlusShareButton,
   LinkedinShareButton,
   TwitterShareButton,
-  PinterestShareButton,
+  // PinterestShareButton,
   EmailShareButton,
 } from 'react-share'
 
@@ -52,12 +52,12 @@ class Share extends Component {
   }
 
   render() {
-    const { url, title } = this.props
+    const { url = '', title = '' } = this.props
     // console.log(url);     debugger;
     const inUrl = 'http://www.linkedin.com/shareArticle?url=' + url
     const twUrl = url + title
     const fbUrl = 'http://www.facebook.com/sharer.php?u=' + url
-    const waUrl = 'whatsapp://send?text=' + title ? 'title.basic' : '' + url
+    // const waUrl = 'whatsapp://send?text=' + title ? 'title.basic' : '' + url
     const gpUrl = 'https://plus.google.com/share?url=' + url
     const { shareMas } = this.state
     return (
@@ -73,23 +73,20 @@ class Share extends Component {
             </TwitterShareButton>
             <LinkedinShareButton
               url={inUrl}
-              className={classes.shareItemLinkedIn}
-            >
+              className={classes.shareItemLinkedIn}>
               <i className="icon-in" />
               <span>Compartir </span>
             </LinkedinShareButton>
             <div className={classes.shareItemOtherItems + shareMas}>
               <GooglePlusShareButton
                 url={gpUrl}
-                className={classes.shareItemLinkedIn}
-              >
+                className={classes.shareItemLinkedIn}>
                 <i className="icon-in" />
                 <span>Compartir </span>
               </GooglePlusShareButton>
               <EmailShareButton
                 url={inUrl}
-                className={classes.shareItemLinkedIn}
-              >
+                className={classes.shareItemLinkedIn}>
                 <i className="icon-in" />
                 <span>Compartir </span>
               </EmailShareButton>
@@ -100,8 +97,7 @@ class Share extends Component {
                 onClick={this.handleOnclickMas}
                 role="button"
                 onKeyPress={this.handleOnclickMas}
-                tabIndex={0}
-              >
+                tabIndex={0}>
                 +
               </span>
               <span
@@ -109,8 +105,7 @@ class Share extends Component {
                 onClick={this.handleOnclickckClose}
                 role="button"
                 onKeyPress={this.handleOnclickckClose}
-                tabIndex={-1}
-              >
+                tabIndex={-1}>
                 -{' '}
               </span>
             </div>

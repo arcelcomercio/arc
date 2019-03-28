@@ -36,7 +36,7 @@ class Nav extends Component {
     // ------ Checks the display to set the initial device state
     this.state = {
       device: setDevice(),
-      services: [],
+      services: {},
       statusSidebar: false,
       statusSearch: false,
       scrolled: false,
@@ -198,7 +198,7 @@ class Nav extends Component {
   render() {
     const {
       device,
-      services: { children: sections },
+      services: { children: sections = [] } = {},
       statusSidebar,
       scrolled,
     } = this.state
@@ -264,12 +264,12 @@ class Nav extends Component {
             <div className={classes.navBtnContainer}>
               <Ads
                 adElement="zocaloNav1"
-                isDesktop="true"
+                isDesktop
                 classes={{ desktop: classes.navAds }}
               />
               <Ads
                 adElement="zocaloNav2"
-                isDesktop="true"
+                isDesktop
                 classes={{ desktop: classes.navAds }}
               />
             </div>

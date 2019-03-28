@@ -12,15 +12,15 @@ class OpinionAutomatica extends Component {
   }
 
   render() {
-		const {
-			globalContent: { content_elements: contentElements },
-			arcSite,
-		} = this.props
+    const {
+      globalContent: { content_elements: contentElements },
+      arcSite,
+    } = this.props
 
-		const params = {
-			data: contentElements || [],
-			arcSite,
-		}
+    const params = {
+      data: contentElements || [],
+      arcSite,
+    }
     return (
       <div>
         <div className="grid-opinion--title">
@@ -28,30 +28,27 @@ class OpinionAutomatica extends Component {
         </div>
         <div className="grid-opinion">
           {params.data.slice(0, 12).map((el, index) => {
+            /** TODO: La sección principal ya viene de taxonomy.sections.primary_section */
             const section = el.websites[
               arcSite
             ].website_section.name.toUpperCase()
             return section && section === 'EDITORIAL' ? (
-              <CardEditorial
-                key={index}
-                data={el}
-                arcSite={params.arcSite}
-              />
+              <CardEditorial key={index} data={el} arcSite={params.arcSite} />
             ) : (
               <CardAutor key={index} data={el} arcSite={params.arcSite} />
             )
           })}
         </div>
-				<div className="grid-opinion--list">
-					<div className="grid-opinion__box-title">
-						<p className="grid-opinion__title">Ultimas Noticias</p>
-					</div>
+        <div className="grid-opinion--list">
+          <div className="grid-opinion__box-title">
+            <p className="grid-opinion__title">ÚLTIMAS NOTICIAS</p>
+          </div>
           {params.data.slice(12).map((el, index) => (
             <BarraAutor key={index} data={el} arcSite={params.arcSite} />
-					))}
-					<div className="grid-opinion__box-more">
-						<a href={`/archivo/opinion`}>Ver Mas</a>
-					</div>
+          ))}
+          <div className="grid-opinion__box-more">
+            <a href={`/archivo/opinion`}>Ver Mas</a>
+          </div>
         </div>
       </div>
     )

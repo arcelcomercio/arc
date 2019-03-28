@@ -5,9 +5,7 @@ import PropTypes from 'prop-types'
 @Consumer
 class Heading extends Component {
   render() {
-    const {
-      globalContent: { headlines: titleElements },
-    } = this.props
+    const { globalContent: { headlines: titleElements = {} } = {} } = this.props
     return (
       <Fragment>
         {titleElements && (
@@ -19,6 +17,7 @@ class Heading extends Component {
 }
 
 Heading.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   globalContent: PropTypes.object,
 }
 

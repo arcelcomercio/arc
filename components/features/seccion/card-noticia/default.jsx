@@ -13,25 +13,25 @@ class GrillaListadoNoticia extends Component {
 
   render() {
     const {
-      globalContent: { content_elements: contentElements },
+      globalContent: { content_elements: contentElements = [] } = {},
       arcSite,
-      customFields: { initialStory, storiesQty },
-      globalContentConfig: {
-        query: { section },
-      },
+      customFields: { initialStory = 1, storiesQty = 50 } = {},
+      globalContentConfig: { query: { section = '' } = {} } = {},
       contextPath,
     } = this.props
+
     const params = {
-      data: contentElements || [],
+      data: contentElements,
       arcSite,
     }
 
+    /** TODO: Debería estar tomando el display name de la sección */
     const element = new DataStory(contentElements[0], arcSite)
     const title = element.section
 
     return (
       <Fragment>
-        <h1 className="full-width text-center margin-top">{`ÚLTIMAS DE ${title.toUpperCase()}`}</h1>
+        <h1 className="full-width text-center margin-top text-uppercase">{`ÚLTIMAS DE ${title}`}</h1>
         <div>
           {params.data
             .slice(initialStory - 1, initialStory - 1 + storiesQty)

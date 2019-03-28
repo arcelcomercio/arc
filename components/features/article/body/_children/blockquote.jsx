@@ -1,18 +1,22 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Fragment } from 'react'
 import renderHTML from 'react-render-html'
 
-const styles = {
+const classes = {
   blockquote: 'pquote',
   pull: 'pquote pquote__pull',
 }
 
-const Blockquote = props => {
-  const { citation, content_elements: elementos, subtype } = props.data
+export default props => {
+  const {
+    data: { citation = {}, content_elements: elementos = [], subtype } = {},
+  } = props
+
   return (
     <Fragment>
       <blockquote
-        className={subtype === 'blockquote' ? styles.blockquote : styles.pull}>
+        className={
+          subtype === 'blockquote' ? classes.blockquote : classes.pull
+        }>
         <p>
           {elementos && elementos[0] && renderHTML(elementos[0].content)}
           <br />
@@ -22,5 +26,3 @@ const Blockquote = props => {
     </Fragment>
   )
 }
-
-export default Blockquote

@@ -11,27 +11,28 @@ class Buscar extends Component {
   }
 
   render() {
-    const { globalContent, globalContentConfig, arcSite } = this.props
+    const {
+      globalContent: { content_elements: contentElements = [], count = 0 } = {},
+      globalContentConfig: { query: { size = 0, from = 1 } = {} } = {},
+      arcSite,
+    } = this.props
 
     const params = {
-      data: globalContent.content_elements || [],
+      data: contentElements,
       arcSite,
     }
+
     return (
       <Fragment>
         <div>
-          {params.data.map((el, index) => (<CardNotice key={index} data={el} arcSite={params.arcSite} />))}
+          {params.data.map((el, index) => (
+            <CardNotice key={index} data={el} arcSite={params.arcSite} />
+          ))}
         </div>
         <Paginacion
-          totalElements={globalContent.count || 0}
-          totalViews={
-            (globalContentConfig.query && globalContentConfig.query.size) ||
-            0
-          }
-          currentPage={
-            (globalContentConfig.query && globalContentConfig.query.from) ||
-            1
-          }
+          totalElements={count}
+          totalViews={size}
+          currentPage={from}
         />
       </Fragment>
     )

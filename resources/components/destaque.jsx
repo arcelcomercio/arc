@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import DataStory from './utils/data-story'
 
 const classes = {
   destaque: 'destaque padding-normal flex flex--column row-1',
   gradient: 'destaque__gradient full-width block',
   detail: 'destaque__detail flex flex--column flex--justify-between',
   image: 'destaque__image',
+  multimediaIconContainer: 'destaque__multimedia-icon',
+  multimediaIconSpan: 'destaque__multimedia-icon-span',
 
   category: 'destaque__category',
   title: 'destaque__title',
@@ -23,6 +26,9 @@ const classes = {
   headbandLink: 'destaque__headband-link',
 
   live: 'destaque--live',
+
+  playIcon: 'destaque__play-icon',
+  galleryIcon: 'destaque__gallery-icon',
 }
 
 export default class Destaque extends Component {
@@ -38,6 +44,7 @@ export default class Destaque extends Component {
       editableField, // OPCIONAL, o pasar la función editableField de los props
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
+      multimediaType,
     } = this.props
 
     const getImageSizeClass = () => {
@@ -58,11 +65,30 @@ export default class Destaque extends Component {
       return ''
     }
 
-    const getEditafleField = element => {
+    const getEditableField = element => {
       if (editableField) {
         return editableField(element)
       }
       return null
+    }
+
+    const getMultimediaIcon = () => {
+      let icon
+      switch (multimediaType) {
+        case DataStory.VIDEO:
+          icon = classes.playIcon
+          break
+        case DataStory.GALLERY:
+          icon = classes.galleryIcon
+          break
+        default:
+          return ''
+      }
+      return (
+        <span className={classes.multimediaIconContainer}>
+          <i className={`${classes.multimediaIconSpan} ${icon}`} />
+        </span>
+      )
     }
 
     return (
@@ -79,7 +105,7 @@ export default class Destaque extends Component {
               <a
                 className={classes.link}
                 href={category.url}
-                {...getEditafleField('categoryField')}
+                {...getEditableField('categoryField')}
                 suppressContentEditableWarning>
                 {categoryField || category.name}
               </a>
@@ -97,7 +123,7 @@ export default class Destaque extends Component {
             <a
               className={classes.link}
               href={title.url}
-              {...getEditafleField('titleField')}
+              {...getEditableField('titleField')}
               suppressContentEditableWarning>
               {titleField || title.name}
             </a>
@@ -112,6 +138,7 @@ export default class Destaque extends Component {
         <figure className={classes.image}>
           <a className={classes.imageLink} href={title.url}>
             <img src={image} alt="" />
+            {getMultimediaIcon()}
           </a>
         </figure>
       </article>
@@ -139,4 +166,10 @@ Destaque.propTypes = {
   editableField: PropTypes.func,
   titleField: PropTypes.string,
   categoryField: PropTypes.string,
+  multimediaType: PropTypes.oneOf([
+    DataStory.IMAGE,
+    DataStory.VIDEO,
+    DataStory.GALLERY,
+    DataStory.HTML,
+  ]),
 }

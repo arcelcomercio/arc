@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import CustomFieldsImport from './_children/customFields'
 import filterSchema from './_children/filterSchema'
-import DataStory from './../../../resources/components/utils/data-story'
+import DataStory from '../../../../resources/components/utils/data-story'
 
 const classes = {
   tabloide: 'tabloide',
@@ -17,8 +17,8 @@ class Tabloide extends Component {
     super(props)
 
     const {
-      customFields: { seccion, secctionName },
-    } = this.props || {}
+      customFields: { seccion = '', secctionName = '' } = {},
+    } = this.props
 
     this.state = {
       seccion,
@@ -65,12 +65,13 @@ class Tabloide extends Component {
 
         if (response.content_elements.length > 0) {
           const prueba = new DataStory(response.content_elements[0], arcSite)
-          
+
           this.setState({
             data: prueba,
           })
         }
       })
+      .catch(e => console.log(e))
     }
   }
 
@@ -98,8 +99,8 @@ class Tabloide extends Component {
       'Noviembre',
       'Diciembre',
     ]
-    let date = new Date(datestring)
-    let name = `${dias[date.getDay()]} ${date.getDate()} de ${
+    const date = new Date(datestring)
+    const name = `${dias[date.getDay()]} ${date.getDate()} de ${
       meses[date.getMonth()]
     } de ${date.getFullYear()}`
 
@@ -118,7 +119,7 @@ class Tabloide extends Component {
       <div className={classes.tabloide}>
         <div className={classes.header}>
           <h4>
-            <a href={link}>{secctionName ? secctionName : section}</a>
+            <a href={link}>{secctionName || section}</a>
           </h4>
         </div>
         <div className={classes.body}>

@@ -1,40 +1,39 @@
-const filterSchema = () => {
+export default () => {
   return `
     {
-      content_elements{
+      content_elements {
         canonical_url
         website_url
-        publish_date
-        promo_items{
-          basic_video {
+        display_date
+        _id
+        headlines {
+          basic
+        }
+        promo_items {
+          basic {
+            url
             type
+            caption
+          }
+          basic_video {
             promo_items {
               basic {
-                type 
                 url
+                type
+                caption
               }
             }
           }
           basic_gallery {
-            type 
             promo_items {
               basic {
-                type 
                 url
+                type
+                caption
               }
             }
           }
-          basic {
-            type 
-            url
-          }
-        }
-        headlines{
-          basic
         }
       }
-    }
-    `
+    }`
 }
-
-export default filterSchema

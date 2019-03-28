@@ -4,9 +4,16 @@ import Consumer from 'fusion:consumer'
 import DataStory from '../../../../resources/components/utils/data-story'
 import AperturaExtraordinaria from '../../../../resources/components/apertura-extraordinaria'
 import Ads from '../../../../resources/components/ads'
-import MasLeidas from '../../../../resources/components/listado-leidas'
 import CardNotice from '../../../../resources/components/listado-noticias'
 import TitleSection from '../../global/título-de-seccion/default'
+
+import ListadoLeidas from '../../../../resources/components/listado-leidas'
+import filterSchema from '../../global/mas-leidas/_children/filterSchema'
+import {
+  setDataTest,
+  castingData,
+} from '../../global/mas-leidas/_children/castingData'
+import configFetch from '../../global/mas-leidas/_children/configFetch'
 
 const classes = {
   nameSection:
@@ -21,26 +28,67 @@ const classes = {
 }
 @Consumer
 class ListadoDestacado extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      news: [],
+      totalElements: 5,
+    }
+  }
+
+  componentDidMount() {
+    this.getMoreReads()
+  }
+
+  getMoreReads() {
+    const { source, params } = configFetch(this.props)
+    const { fetched } = this.getContent(source, params, filterSchema())
+    const { totalElements } = this.state
+
+    fetched
+      .then(response => {
+        if (
+          response &&
+          response.content_elements &&
+          response.content_elements.length > 0
+        ) {
+          this.setState({
+            news: castingData(response.content_elements, this.props),
+          })
+        } else {
+          this.setState({
+            news: setDataTest(totalElements),
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        this.setState({
+          news: setDataTest(totalElements),
+        })
+      })
+  }
+
   render() {
     const {
-      globalContent,
-      globalContentConfig,
+      globalContent: { content_elements: contentElements = [] } = {},
+      globalContentConfig: { query: { section = '' } = {} } = {},
       arcSite,
       requestUri,
       contextPath,
     } = this.props
+
+    const { news } = this.state
 
     const paramsMasLeidas = {
       viewImage: true,
       numNotes: 5,
       arcSite,
       requestUri,
+      news,
     }
 
-    const { query } = globalContentConfig && globalContentConfig
-    const { section } = query !== undefined ? query : '/'
-
-    const data = globalContent.content_elements || []
+    const data = contentElements
     const dataApertura = new DataStory(data[0], arcSite)
     const dataList = data.slice(1)
 
@@ -63,7 +111,7 @@ class ListadoDestacado extends Component {
             <h4 className={classes.titleListado}>Ultimas Noticias</h4>
             {dataList &&
               dataList.map(el => {
-                const paramsItem = { key: el.id, data: el, arcSite }
+                const paramsItem = { key: el._id, data: el, arcSite }
                 return <CardNotice {...paramsItem} />
               })}
             <a href={urlSeeMore} className={classes.btnSeeMore}>
@@ -71,9 +119,9 @@ class ListadoDestacado extends Component {
             </a>
           </div>
           <aside className={classes.sidebar}>
-            <Ads adElement="right1" isDesktop="true" />
-            <MasLeidas {...paramsMasLeidas} />
-            <Ads adElement="right2" isDesktop="true" />
+            <Ads adElement="right1" isDesktop />
+            <ListadoLeidas {...paramsMasLeidas} />
+            <Ads adElement="right2" isDesktop />
           </aside>
         </div>
       </Fragment>
