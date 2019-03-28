@@ -71,6 +71,7 @@ class Tabloide extends Component {
           })
         }
       })
+      .catch(e => console.log(e))
     }
   }
 
@@ -98,8 +99,8 @@ class Tabloide extends Component {
       'Noviembre',
       'Diciembre',
     ]
-    let date = new Date(datestring)
-    let name = `${dias[date.getDay()]} ${date.getDate()} de ${
+    const date = new Date(datestring)
+    const name = `${dias[date.getDay()]} ${date.getDate()} de ${
       meses[date.getMonth()]
     } de ${date.getFullYear()}`
 
@@ -112,14 +113,13 @@ class Tabloide extends Component {
       data: { link, multimedia, title, date, section },
     } = this.state
 
-    debugger
     const nameDate = this.nameDate(date)
 
     return (
       <div className={classes.tabloide}>
         <div className={classes.header}>
           <h4>
-            <a href={link}>{secctionName ? secctionName : section}</a>
+            <a href={link}>{secctionName || section}</a>
           </h4>
         </div>
         <div className={classes.body}>
