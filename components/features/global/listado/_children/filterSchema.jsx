@@ -4,7 +4,7 @@ const filterSchema = () => {
       content_elements{
         canonical_url
         website_url
-        display_date
+        publish_date
         promo_items{
           basic_video {
             type

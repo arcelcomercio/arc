@@ -2,7 +2,14 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import filterSchema from './_children/filterSchema'
 import customFieldsImport from './_children/CustomFieldsImport'
-import SeparatorList from './_children/separadorList'
+import SeparatorListItem from './_children/separadorLista'
+
+const classes = {
+  separator: 'separator margin-top',
+  headerHtml: 'separator__headerHtml',
+  title: 'separator__headerTitle text-uppercase',
+  body: 'separator__body',
+}
 
 /** TODO: Agregar editableField() al título del separador */
 
@@ -10,6 +17,33 @@ import SeparatorList from './_children/separadorList'
 class Separador extends Component {
   constructor(props) {
     super(props)
+
+    /*     const { customFields, apliFields } = this.props || {}
+    const { titleSeparator, titleLink, section, htmlCode } = apliFields || {}
+
+    let tituloSeparador = titleSeparator
+    let tituloLink = titleLink
+    let seccion = section
+    let htmlCodigo = htmlCode
+
+    if (customFields) {
+      const { titleSeparator, titleLink, section, htmlCode } =
+        customFields || {}
+
+      tituloSeparador = titleSeparator
+      tituloLink = titleLink
+      seccion = section
+      htmlCodigo = htmlCode
+    }
+
+    this.state = {
+      device: this.setDevice(),
+      titleSeparator: tituloSeparador,
+      titleLink: tituloLink,
+      section: seccion,
+      htmlCode: htmlCodigo,
+      data: [],
+    } */
 
     const {
       customFields: {
@@ -26,7 +60,7 @@ class Separador extends Component {
       titleLink,
       section,
       htmlCode,
-      items: [],
+      data: [],
     }
   }
 
@@ -59,7 +93,7 @@ class Separador extends Component {
           section_name: sectionName = '',
         }) => {
           this.setState({
-            items: contentElements,
+            data: contentElements,
             titleSeparator: titleSeparator || sectionName,
           })
         }
@@ -111,23 +145,31 @@ class Separador extends Component {
   }
 
   render() {
-    const { titleSeparator, titleLink, htmlCode, items } = this.state
+    const { titleSeparator, titleLink, htmlCode, data } = this.state
+
     return (
-      <SeparatorList data={{ titleSeparator, titleLink, htmlCode, items }} />
+      <div className={classes.separator}>
+        {titleSeparator ? (
+          <h1 className={classes.title}>
+            <a href={titleLink}>{titleSeparator}</a>
+          </h1>
+        ) : (
+          <div
+            className={classes.title}
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={this.createMarkup(htmlCode)}
+          />
+        )}
+
+        <div className={classes.body}>
+          <SeparatorListItem data={data} />
+        </div>
+      </div>
     )
-    /**
-     *    data: {
-     *      titleSeparator,
-     *      titleLink,
-     *      htmlCode,
-     *      items,
-     *     }
-     */
   }
 }
 
 Separador.propTypes = {
   customFields: customFieldsImport,
 }
-
 export default Separador
