@@ -119,9 +119,9 @@ class ListadoDestacado extends Component {
             </a>
           </div>
           <aside className={classes.sidebar}>
-            <Ads adElement="right1" isDesktop="true" />
+            <Ads adElement="right1" isDesktop />
             <ListadoLeidas {...paramsMasLeidas} />
-            <Ads adElement="right2" isDesktop="true" />
+            <Ads adElement="right2" isDesktop />
           </aside>
         </div>
       </Fragment>

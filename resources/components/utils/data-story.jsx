@@ -30,6 +30,10 @@ class DataStory {
     this._website = val
   }
 
+  get id() {
+    return (this._data && this._data._id) || ''
+  }
+
   get title() {
     return (
       (this._data && this._data.headlines && this._data.headlines.basic) || ''
