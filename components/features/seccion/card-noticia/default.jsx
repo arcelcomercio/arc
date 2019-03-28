@@ -31,7 +31,7 @@ class GrillaListadoNoticia extends Component {
 
     return (
       <Fragment>
-        <h1 className="full-width text-center margin-top">{`ÚLTIMAS DE ${title.toUpperCase()}`}</h1>
+        <h1 className="full-width text-center margin-top text-uppercase">{`ÚLTIMAS DE ${title}`}</h1>
         <div>
           {params.data
             .slice(initialStory - 1, initialStory - 1 + storiesQty)

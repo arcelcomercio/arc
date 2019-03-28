@@ -3,8 +3,6 @@ $text-secondary: #979797;
 
 $image-height: 157px;
 
-// TODO: Adaptar al minmax de las clumnas de la grilla
-
 .destaque {
   background-color: $color-white;
 
@@ -68,6 +66,34 @@ $image-height: 157px;
   &__headband-link {
     color: $color-white;
     font-weight: bold;
+  }
+  &__multimedia-icon {
+    height: 55px;
+    width: 55px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #444;
+  }
+  &__multimedia-icon-span {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 49px;
+  }
+  &__play-icon {
+    &:before {
+      content: '\2023';
+    }
+  }
+  &__gallery-icon {
+    &:before {
+      content: '\1F4F7';
+    }
   }
 
   &--img-complete {

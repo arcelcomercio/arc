@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 const classes = {
-  title: 'full-width text-left margin-top',
+  title: 'full-width text-left margin-top text-uppercase',
 }
 
 @Consumer
@@ -15,53 +15,47 @@ class ListTitle extends Component {
   }
 
   componentDidMount() {
-    const { isAdmin } = this.props
-    if (isAdmin) {
-      this.setState({
-        title: 'EL TÍTULO SÓLO SE MOSTRARÁ EN LA PÁGINA PUBLICADA',
-      })
-    } else {
-      const {
-        globalContentConfig: {
-          query: { page },
-        },
-      } = this.props
-      switch (page) {
-        case 'archivo': {
-          this.setState({
-            title: this.setArchivoTitle(),
-          })
-          break
-        }
-        case 'noticias': {
-          this.setState({
-            title: this.setTagTitle(),
-          })
-          break
-        }
-        case 'autor': {
-          this.setState({
-            title: this.setAuthorTitle(),
-          })
-          break
-        }
-        case 'buscar': {
-          this.setState({
-            title: this.setSearchTitle(),
-          })
-          break
-        }
-        default:
-          break
+    const {
+      globalContentConfig: { query: { page = '' } = {} } = {},
+    } = this.props
+
+    switch (page) {
+      case 'archivo': {
+        this.setState({
+          title: this.setArchivoTitle(),
+        })
+        break
+      }
+      case 'noticias': {
+        this.setState({
+          title: this.setTagTitle(),
+        })
+        break
+      }
+      case 'autor': {
+        this.setState({
+          title: this.setAuthorTitle(),
+        })
+        break
+      }
+      case 'buscar': {
+        this.setState({
+          title: this.setSearchTitle(),
+        })
+        break
+      }
+      default: {
+        this.setState({
+          title: 'TÍTULO',
+        })
+        break
       }
     }
   }
 
   setArchivoTitle = () => {
     const {
-      globalContentConfig: {
-        query: { date },
-      },
+      globalContentConfig: { query: { date = '' } = {} } = {},
     } = this.props
 
     if (!date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
@@ -94,30 +88,23 @@ class ListTitle extends Component {
       'Diciembre',
     ]
 
-    return `ARCHIVO, ${days[
-      dateObj.getUTCDay()
-    ].toUpperCase()} ${dateObj.getUTCDate()} DE ${months[
-      dateObj.getUTCMonth()
-    ].toUpperCase()} DEL ${dateObj.getUTCFullYear()}`
+    return `ARCHIVO, ${days[dateObj.getUTCDay()]} ${dateObj.getUTCDate()} DE ${
+      months[dateObj.getUTCMonth()]
+    } DEL ${dateObj.getUTCFullYear()}`
   }
 
   setTagTitle = () => {
     const {
       globalContent: {
-        content_elements: [
-          {
-            taxonomy: { tags },
-          },
-        ],
-      },
-      globalContentConfig: {
-        query: { name: tag },
-      },
+        content_elements: [{ taxonomy: { tags = [] } = {} }] = [],
+      } = {},
+      globalContentConfig: { query: { name: tag = '' } = {} } = {},
     } = this.props
 
-    let title
-    tags.forEach(({ slug, text }) => {
-      if (tag === slug) title = text ? text.toUpperCase() : ''
+    let title = ''
+
+    tags.forEach(({ slug = '/', text = '' }) => {
+      if (tag === slug) title = text
     })
 
     return title
@@ -126,38 +113,27 @@ class ListTitle extends Component {
   setAuthorTitle = () => {
     const {
       globalContent: {
-        content_elements: [
-          {
-            credits: { by },
-          },
-        ],
-      },
+        content_elements: [{ credits: { by = [] } = {} }] = [],
+      } = {},
     } = this.props
 
     let author
     by.forEach(authorData => {
-      if (authorData && authorData.type && authorData.type === 'author')
-        author = authorData
+      if (authorData.type === 'author') author = authorData
     })
-    return `${author.name ? author.name.toUpperCase() : ''}${
-      author.org ? `, ${author.org.toUpperCase()}` : ''
-    }`
+    return `${author.name || ''}${author.org ? `, ${author.org}` : ''}`
   }
 
   setSearchTitle = () => {
     const {
-      globalContentConfig: {
-        query: { query },
-      },
-      globalContent: { count },
+      globalContentConfig: { query: { query = '' } = {} } = {},
+      globalContent: { count = 0 } = {},
     } = this.props
 
-    const search = query && query !== '' && query.replace('+', ' ')
-    let title
-    if (search && search !== '')
-      title = `SE ENCONTRARON ${count} RESULTADOS PARA: ${search &&
-        search.toUpperCase()}`
-    else title = `ÚLTIMAS NOTICIAS`
+    const search = query && query.replace('+', ' ')
+    const title = search
+      ? `SE ENCONTRARON ${count} RESULTADOS PARA: ${search}`
+      : `ÚLTIMAS NOTICIAS`
     return title
   }
 
