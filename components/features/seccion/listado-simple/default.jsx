@@ -16,7 +16,7 @@ const classes = {
   base: 'content-grid-base',
   container: 'container1',
   contentRight: 'content__right',
-  title: 'container1__title',
+  title: 'container1__title text-uppercase',
   listCard: 'container1__listCardNotice',
   flex: 'flex',
   flexJustifyCenter: 'flex--justify-center',
@@ -30,7 +30,10 @@ class Default extends Component {
       arcSite,
       contextPath,
       globalContentConfig: {
-        query: { sectionName = '', section = '' } = {},
+        query: {
+          section_name: sectionName = 'Nombre de Sección',
+          section = '',
+        } = {},
       } = {},
     } = this.props
 
@@ -43,9 +46,7 @@ class Default extends Component {
       <Fragment>
         <div
           className={`${classes.container}  ${classes.base} ${classes.col2}`}>
-          <h1 className={classes.title}>
-            {sectionName || 'Nombre de Sección'}
-          </h1>
+          <h1 className={classes.title}>{sectionName}</h1>
           <div>
             {params.data.map((el, index) => (
               <CardNotice

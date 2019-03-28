@@ -58,7 +58,7 @@ export default class Destaque extends Component {
       return ''
     }
 
-    const getEditafleField = element => {
+    const getEditableField = element => {
       if (editableField) {
         return editableField(element)
       }
@@ -79,7 +79,7 @@ export default class Destaque extends Component {
               <a
                 className={classes.link}
                 href={category.url}
-                {...getEditafleField('categoryField')}
+                {...getEditableField('categoryField')}
                 suppressContentEditableWarning>
                 {categoryField || category.name}
               </a>
@@ -97,7 +97,7 @@ export default class Destaque extends Component {
             <a
               className={classes.link}
               href={title.url}
-              {...getEditafleField('titleField')}
+              {...getEditableField('titleField')}
               suppressContentEditableWarning>
               {titleField || title.name}
             </a>

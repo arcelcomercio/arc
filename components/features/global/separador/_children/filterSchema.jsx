@@ -1,5 +1,5 @@
 const filterSchema = () => {
-    return `
+  return `
     {
       content_elements{
         canonical_url
@@ -31,9 +31,10 @@ const filterSchema = () => {
         headlines{
           basic
         }
-      }
+      } 
+      section_name
     }
     `
-  }
+}
 
-  export default filterSchema;
+export default filterSchema

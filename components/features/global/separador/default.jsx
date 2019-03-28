@@ -1,22 +1,24 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import filterSchema from './_children/filterSchema'
-import customFieldsimp from './_children/CustomFieldsImport'
+import customFieldsImport from './_children/CustomFieldsImport'
 import SeparatorListItem from './_children/separadorLista'
 
 const classes = {
-  separator: 'separator',
+  separator: 'separator margin-top',
   headerHtml: 'separator__headerHtml',
-  title: 'separator__headerTitle',
+  title: 'separator__headerTitle text-uppercase',
   body: 'separator__body',
 }
+
+/** TODO: Agregar editableField() al título del separador */
 
 @Consumer
 class Separador extends Component {
   constructor(props) {
     super(props)
 
-    const { customFields, apliFields } = this.props || {}
+    /*     const { customFields, apliFields } = this.props || {}
     const { titleSeparator, titleLink, section, htmlCode } = apliFields || {}
 
     let tituloSeparador = titleSeparator
@@ -41,6 +43,24 @@ class Separador extends Component {
       section: seccion,
       htmlCode: htmlCodigo,
       data: [],
+    } */
+
+    const {
+      customFields: {
+        titleSeparator = '',
+        titleLink = '/',
+        section = '',
+        htmlCode = '',
+      } = {},
+    } = props
+
+    this.state = {
+      device: this.setDevice(),
+      titleSeparator,
+      titleLink,
+      section,
+      htmlCode,
+      data: [],
     }
   }
 
@@ -51,13 +71,11 @@ class Separador extends Component {
 
   getContentApi = () => {
     let newsNumber = 4
-    const { device } = this.state
+    const { device, section, titleSeparator } = this.state
+    const { arcSite } = this.props
 
     if (device === 'mobile') newsNumber = 1
-    if (device === 'desktop' || device === 'tablet') newsNumber = 4
-
-    const { arcSite } = this.props
-    const { section } = this.state
+    else if (device === 'desktop' || device === 'tablet') newsNumber = 4
 
     const { fetched } = this.getContent(
       'stories__by-section',
@@ -69,28 +87,19 @@ class Separador extends Component {
       filterSchema()
     )
     fetched
-      .then(response => {
-        if (!response) {
-          // eslint-disable-next-line no-param-reassign
-          response = []
-          console.log(
-            'No hay respuesta del servicio para obtener el listado de noticias'
-          )
+      .then(
+        ({
+          content_elements: contentElements = [],
+          section_name: sectionName = '',
+        }) => {
+          this.setState({
+            data: contentElements,
+            titleSeparator: titleSeparator || sectionName,
+          })
         }
-
-        if (!response.content_elements) {
-          response.content_elements = []
-          console.log(
-            'No hay respuesta del servicio para obtener el listado de noticias'
-          )
-        }
-
-        this.setState({
-          data: response.content_elements,
-        })
-      })
-      .catch(result => {
-        console.log(result)
+      )
+      .catch(error => {
+        console.log(error)
       })
   }
 
@@ -161,6 +170,6 @@ class Separador extends Component {
 }
 
 Separador.propTypes = {
-  customFields: customFieldsimp,
+  customFields: customFieldsImport,
 }
 export default Separador

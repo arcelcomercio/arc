@@ -36,6 +36,7 @@ class OrderedNews extends Component {
 
     return elements.map((element, idx) => {
       if (element.type === 'destaque') {
+        /** TODO: Optimizar para no crear instancia cada paso del map */
         const story =
           stories && new DataStory(stories[storyNumber + idx], arcSite)
         return (

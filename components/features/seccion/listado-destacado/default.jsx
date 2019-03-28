@@ -38,8 +38,8 @@ class ListadoDestacado extends Component {
     }
 
     const data = contentElements
-    const dataApertura = new DataStory(data[0], arcSite) || {}
-    const dataList = data.slice(1) || []
+    const dataApertura = new DataStory(data[0], arcSite)
+    const dataList = data.slice(1)
 
     const paramsApertura = {
       data: dataApertura,

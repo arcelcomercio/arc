@@ -13,42 +13,44 @@ const SeparatorItem = ({
   urlImage,
   website_url: websiteUrl,
   medio,
-}) => {
-  return (
-    <article className={classes.item}>
-      {medio === 'video' && <span>&#8227;</span>}
-      {medio === 'gallery' && <span>G</span>}
-      <div className={classes.detail}>
-        <h2 className={classes.separatorTitle}>
-          <a href={websiteUrl}>{headlines}</a>
-        </h2>
-      </div>
-      <figure>
-        {websiteUrl && (
-          <a href={websiteUrl}>
-            <img src={urlImage} alt="" />
-          </a>
-        )}
-      </figure>
-    </article>
-  )
-}
+}) => (
+  <article className={classes.item}>
+    {medio === 'video' && <span>&#8227;</span>}
+    {medio === 'gallery' && <span>G</span>}
+    <div className={classes.detail}>
+      <h2 className={classes.separatorTitle}>
+        <a href={websiteUrl}>{headlines}</a>
+      </h2>
+    </div>
+    <figure>
+      {websiteUrl && (
+        <a href={websiteUrl}>
+          <img src={urlImage} alt={headlines} />
+        </a>
+      )}
+    </figure>
+  </article>
+)
 
-const SeparatorListItem = ({ data }) => {
+const SeparatorListItem = ({ data = [] }) => {
   const result = data.map(
-    ({ promo_items: promoItems, website_url: websiteUrl, headlines }) => {
-      let multimedia = null
+    ({
+      promo_items: promoItems = {},
+      website_url: websiteUrl = '/',
+      headlines = {},
+    }) => {
+      let multimedia = {}
 
-      if (promoItems !== null) {
+      if (promoItems) {
         multimedia = GetMultimediaContent(promoItems)
       }
 
-      const { url, medio } = multimedia
+      const { url = '/', medio = '' } = multimedia
 
       return (
         <SeparatorItem
           key={websiteUrl}
-          headlines={headlines.basic}
+          headlines={headlines.basic || ''}
           urlImage={url}
           website_url={websiteUrl}
           medio={medio}

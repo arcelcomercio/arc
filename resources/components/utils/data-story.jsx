@@ -9,7 +9,7 @@ class DataStory {
 
   static IMAGE = 'basic'
 
-  constructor(data, website) {
+  constructor(data = {}, website = '') {
     this._data = data
     this._website = website
   }
