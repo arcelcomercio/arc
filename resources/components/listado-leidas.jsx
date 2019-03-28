@@ -70,7 +70,7 @@ class ListReads extends Component {
       content_elements {
         canonical_url
         website_url
-        display_date
+        publish_date
         _id
         headlines {
           basic
