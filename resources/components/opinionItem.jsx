@@ -18,14 +18,16 @@ const classes = {
 
 const OpinionItem = props => {
   const {
-    author,
-    authorUrl,
-    titulo,
-    seccion,
-    seccionUrl,
-    websiteUrl,
-    imageUrl,
-  } = props.data
+    data: {
+      author,
+      authorUrl,
+      titulo,
+      seccion,
+      seccionUrl,
+      websiteUrl,
+      imageUrl,
+    } = {},
+  } = props
   return (
     <article className={classes.opinionItem}>
       <div className={classes.opinionItemDetails}>
