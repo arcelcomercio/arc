@@ -264,12 +264,12 @@ class Nav extends Component {
             <div className={classes.navBtnContainer}>
               <Ads
                 adElement="zocaloNav1"
-                isDesktop="true"
+                isDesktop
                 classes={{ desktop: classes.navAds }}
               />
               <Ads
                 adElement="zocaloNav2"
-                isDesktop="true"
+                isDesktop
                 classes={{ desktop: classes.navAds }}
               />
             </div>
