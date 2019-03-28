@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import { customFields } from './children/customfields'
 import DataStory from '../../../../resources/components/utils/data-story'
-import OpinionItem from '../../../../resources/components/opinionItem'
+import OpinionItem from '../../../../resources/components/opinion-item'
 
 const classes = {
   separator: 'separator__opinion',

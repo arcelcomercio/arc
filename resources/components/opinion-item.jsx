@@ -1,19 +1,9 @@
 import React from 'react'
 
 const classes = {
-  headerHtml: 'separator__headerHtml',
-  title: 'separator__headerTitle',
-  body: 'separator__body',
-  item: 'separator__item',
-  detail: 'separator__detail',
-  separatorTitle: 'separator__title',
-  mvideo: 'separator--video',
-  separadorTitleOpinion: 'separador__headerTitle-opinion',
   opinionItem: 'separator__opinion--item',
-  opinionItemImage: 'separator__opinion--item-image',
-  itemDetailAuthor: 'separator__opinion--item',
-  opinionSection: 'separator__opinion--section', //
   opinionItemDetails: 'separator__opinion--item-details',
+  opinionItemImage: 'separator__opinion--item-image',
 }
 
 const OpinionItem = props => {
