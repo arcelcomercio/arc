@@ -179,6 +179,7 @@ export default `
     section_name: String
     
     content_elements: [ContentElements]
+    section_name: String
     count: Int
   }
 `

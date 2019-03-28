@@ -3,32 +3,23 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 import Destaque from '../../../../resources/components/destaque'
-import { addResizedUrlItem } from '../../../../resources/utilsJs/thumbs'
-import DataStory from '../../../../resources/components/utils/data-story'
+
+import DestaqueFormater from '../../../../resources/components/utils/destaque-formater'
 
 @Consumer
 class DestaqueAutomatico extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      category: {},
-      title: {},
-      author: {},
-      image: '',
-    }
+    this.DestaqueFormater = new DestaqueFormater(props.arcSite)
+    this.state = this.DestaqueFormater.initialState
     this.fetch()
-  }
-
-  getImgResized(imgUrl, ratio, resolution) {
-    const { arcSite } = this.props
-
-    return addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
-      .resized_urls[ratio]
   }
 
   fetch() {
     const { customFields, arcSite } = this.props
     const { section, imageSize, size, storyNumber } = customFields
+
+    const { schema } = this.DestaqueFormater
 
     const source = 'stories__by-section'
     const params = {
@@ -37,85 +28,20 @@ class DestaqueAutomatico extends Component {
       feedOffset: storyNumber || 0,
       news_number: 1,
     }
-    const schema = `{ 
-      headlines { basic }
-      credits {
-        by { name url type }
-      }
-      website_url
-      promo_items {
-        basic { url type }
-        basic_video {
-          promo_items {
-            basic { url type }
-          }
-        }
-        basic_gallery {
-          promo_items {
-            basic { url type }
-          }
-        }
-      }
-      websites {
-        ${arcSite} {
-          website_section {
-            name
-            path
-          }
-        }
-      }
-    }`
 
     const { fetched } = this.getContent(source, params, schema)
-
     fetched.then(response => {
-      const element = new DataStory(response.content_elements[0], arcSite)
-      this.setState({
-        category: {
-          name: element.section,
-          url: element.sectionLink,
-        },
-        title: {
-          name: element.title,
-          url: element.link,
-        },
-        author: {
-          name: element.author,
-          url: element.authorLink,
-        },
-      })
-      const imgUrl = element.multimedia
-      this.setState({
-        image: this.getImgResized(imgUrl, '3:4', '288x157'),
-      })
-      if (imgUrl) {
-        if (size === 'twoCol') {
-          this.setState({
-            image: this.getImgResized(imgUrl, '3:4', '676x374'),
-          })
-        } else {
-          switch (imageSize) {
-            case 'parcialBot':
-            case 'parcialTop':
-              this.setState({
-                image: this.getImgResized(imgUrl, '3:4', '288x157'),
-              })
-              break
-            case 'complete':
-              this.setState({
-                image: this.getImgResized(imgUrl, '9:16', '328x374'),
-              })
-              break
-            default:
-              break
-          }
-        }
-      }
+      const newState = this.DestaqueFormater.formatStory(
+        response.content_elements[0],
+        size,
+        imageSize
+      )
+      this.setState(newState)
     })
   }
 
   render() {
-    const { category, title, author, image } = this.state
+    const { category, title, author, image, multimediaType } = this.state
     const { customFields, editableField } = this.props
     const { imageSize, size, titleField, categoryField } = customFields
     const params = {
@@ -128,6 +54,7 @@ class DestaqueAutomatico extends Component {
       editableField,
       titleField,
       categoryField,
+      multimediaType,
     }
     return <Destaque {...params} />
   }
