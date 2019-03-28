@@ -13,6 +13,7 @@ class DestaqueGrillaAuto extends Component {
       title: {},
       author: {},
       image: '',
+      multimediaType: '',
     }
   }
 
@@ -32,6 +33,7 @@ class DestaqueGrillaAuto extends Component {
         name: story.author,
         url: story.authorLink,
       },
+      multimediaType: story.multimediaType,
     })
 
     const imgUrl = story.multimedia
@@ -68,7 +70,7 @@ class DestaqueGrillaAuto extends Component {
   }
 
   render() {
-    const { category, title, author, image } = this.state
+    const { category, title, author, image, multimediaType } = this.state
 
     const {
       imageSize,
@@ -88,6 +90,7 @@ class DestaqueGrillaAuto extends Component {
       editableField,
       titleField,
       categoryField,
+      multimediaType,
     }
     return <Destaque {...params} />
   }

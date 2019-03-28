@@ -15,6 +15,7 @@ class DestaqueAutomatico extends Component {
       title: {},
       author: {},
       image: '',
+      multimediaType: '',
     }
     this.fetch()
   }
@@ -83,6 +84,7 @@ class DestaqueAutomatico extends Component {
           name: element.author,
           url: element.authorLink,
         },
+        multimediaType: element.multimediaType,
       })
       const imgUrl = element.multimedia
       this.setState({
@@ -115,7 +117,7 @@ class DestaqueAutomatico extends Component {
   }
 
   render() {
-    const { category, title, author, image } = this.state
+    const { category, title, author, image, multimediaType } = this.state
     const { customFields, editableField } = this.props
     const { imageSize, size, titleField, categoryField } = customFields
     const params = {
@@ -128,6 +130,7 @@ class DestaqueAutomatico extends Component {
       editableField,
       titleField,
       categoryField,
+      multimediaType,
     }
     return <Destaque {...params} />
   }

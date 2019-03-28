@@ -15,6 +15,7 @@ class DestaqueManual extends Component {
       title: {},
       author: {},
       image: '',
+      multimediaType: '',
     }
     this.fetch()
   }
@@ -80,6 +81,7 @@ class DestaqueManual extends Component {
           name: element.author,
           url: element.authorLink,
         },
+        multimediaType: element.multimediaType,
       })
       const imgUrl = element.multimedia
       this.setState({
@@ -113,7 +115,7 @@ class DestaqueManual extends Component {
 
   render() {
     const { customFields, editableField } = this.props
-    const { category, title, author, image } = this.state
+    const { category, title, author, image, multimediaType } = this.state
     const {
       imageSize,
       headband,
@@ -132,6 +134,7 @@ class DestaqueManual extends Component {
       editableField,
       titleField,
       categoryField,
+      multimediaType,
     }
     return <Destaque {...params} />
   }
