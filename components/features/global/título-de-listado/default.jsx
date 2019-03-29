@@ -58,7 +58,7 @@ class ListTitle extends Component {
       globalContentConfig: { query: { date = '' } = {} } = {},
     } = this.props
 
-    if (!date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
+    if (date === '' || !date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
       return 'ÚLTIMO MINUTO'
     }
 
