@@ -33,12 +33,7 @@ class Archivo extends Component {
       <Fragment>
         <div>
           {params.data.map((el, index) => (
-            <CardNotice
-              key={index}
-              formato="row"
-              data={el}
-              arcSite={params.arcSite}
-            />
+            <CardNotice key={index} data={el} arcSite={params.arcSite} />
           ))}
         </div>
         <RenderPagination section={section} date={date} />
