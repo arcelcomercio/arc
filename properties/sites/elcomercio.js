@@ -6,9 +6,6 @@ export default {
   resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
 
   metaSitio: {
-    favicon: 'https://sitio.pe/favicon.ico',
-    appleIcon: 'https://sitio.pe/apple-touch-icon.png',
-    canonical: 'https://sitio.pe/url-canonical-de-la-pagina',
     ldjson: `{
         "@context" : "http://schema.org",
         "@type" : "Organization",
@@ -32,8 +29,7 @@ export default {
       'Grupo El Comercio - Todos los derechos reservados',
     ],
 
-    socialNetworks: [
-      {
+    socialNetworks: [{
         name: 'facebook',
         url: 'https://www.facebook.com/elcomercio.pe',
       },
