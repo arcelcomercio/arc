@@ -85,7 +85,7 @@ class Header extends Component {
   fetch = () => {
     const { arcSite } = this.props
 
-    const source = 'navigation__by-hierarchy'
+    const source = 'navegacion-por-jerarquia'
     const params = {
       website: arcSite,
       hierarchy: 'navegacion-cabecera-tema-del-dia',

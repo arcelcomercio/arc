@@ -37,7 +37,7 @@ class Tabloide extends Component {
       const { arcSite } = this.props
 
       const { fetched } = this.getContent(
-        'stories__by-section',
+        'historias-por-seccion',
         {
           website: arcSite,
           section: seccion,
@@ -47,31 +47,32 @@ class Tabloide extends Component {
         filterSchema(arcSite)
       )
 
-      fetched.then(response => {
-        if (!response) {
-          // eslint-disable-next-line no-param-reassign
-          response = []
-          console.log(
-            'No hay respuesta del servicio para obtener la ultima noticia'
-          )
-        }
+      fetched
+        .then(response => {
+          if (!response) {
+            // eslint-disable-next-line no-param-reassign
+            response = []
+            console.log(
+              'No hay respuesta del servicio para obtener la ultima historia.'
+            )
+          }
 
-        if (!response.content_elements) {
-          response.content_elements = []
-          console.log(
-            'No hay respuesta del servicio para obtener la ultima noticia'
-          )
-        }
+          if (!response.content_elements) {
+            response.content_elements = []
+            console.log(
+              'No hay respuesta del servicio para obtener la ultima historia.'
+            )
+          }
 
-        if (response.content_elements.length > 0) {
-          const prueba = new DataStory(response.content_elements[0], arcSite)
+          if (response.content_elements.length > 0) {
+            const prueba = new DataStory(response.content_elements[0], arcSite)
 
-          this.setState({
-            data: prueba,
-          })
-        }
-      })
-      .catch(e => console.log(e))
+            this.setState({
+              data: prueba,
+            })
+          }
+        })
+        .catch(e => console.log(e))
     }
   }
 

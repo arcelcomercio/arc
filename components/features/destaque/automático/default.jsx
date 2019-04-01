@@ -21,7 +21,7 @@ class DestaqueAutomatico extends Component {
 
     const { schema } = this.DestaqueFormater
 
-    const source = 'stories__by-section'
+    const source = 'historias-por-seccion'
     const params = {
       website: arcSite,
       section,
@@ -94,12 +94,12 @@ DestaqueAutomatico.propTypes = {
     categoryField: PropTypes.string.tag({
       name: 'Sección',
       group: 'Editar texto',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
+      description: 'Dejar vacío para tomar el valor original de la historia.',
     }),
     titleField: PropTypes.string.tag({
       name: 'Título',
       group: 'Editar texto',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
+      description: 'Dejar vacío para tomar el valor original de la historia.',
     }),
   }),
 }

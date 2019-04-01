@@ -10,10 +10,10 @@ export default props => {
   const sec = _id || section
 
   return {
-    source: 'stories__most-readed',
+    source: 'historias-por-vistas',
     params: {
       section: sec,
-      num_notes: numNotes || 5,
+      size: numNotes || 5,
     },
   }
 }

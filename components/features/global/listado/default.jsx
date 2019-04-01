@@ -48,7 +48,7 @@ class Lista extends Component {
     const { section, newsNumber } = this.state
     const { arcSite: website } = this.props
     const { fetched } = this.getContent(
-      'stories__by-section',
+      'historias-por-seccion',
       {
         website,
         section,
@@ -61,14 +61,14 @@ class Lista extends Component {
         // eslint-disable-next-line no-param-reassign
         response = []
         console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
+          'No hay respuesta del servicio para obtener el listado de historias.'
         )
       }
 
       if (!response.content_elements) {
         response.content_elements = []
         console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
+          'No hay respuesta del servicio para obtener el listado de historias.'
         )
       }
 

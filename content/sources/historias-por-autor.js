@@ -1,14 +1,8 @@
 const schemaName = 'historias'
 
-const params = [
-  {
-    name: 'page',
-    displayName: 'Página (autor o tag)',
-    type: 'text',
-  },
-  {
+const params = [{
     name: 'name',
-    displayName: 'Slug del autor/tag',
+    displayName: 'Slug del autor',
     type: 'text',
   },
   {
@@ -25,16 +19,14 @@ const params = [
 
 const pattern = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site is not defined'
-  const { page, name, currentNumPage, amountStories } = key
+  const {
+    name,
+    currentNumPage,
+    amountStories
+  } = key
 
   if (!name) {
-    throw new Error('This content source requires a name')
-  }
-  if (!page) {
-    throw new Error('This content source requires a page')
-  }
-  if (!amountStories) {
-    throw new Error('This content source requires an stories amount')
+    throw new Error('Esta fuente de contenido necesita el Slug del autor')
   }
 
   const validateFrom = () => {
@@ -48,12 +40,8 @@ const pattern = (key = {}) => {
   /** TODO: Cambiar publish_date por display_name en los patterns???? */
   /** TODO: Manejar comportamiento cuando no se obtiene data */
 
-  const getType = () =>
-    page === 'autor'
-      ? `credits.by.url:"/autor/${name}"`
-      : `taxonomy.tags.slug:${name}`
-
-  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+${getType()}+AND+type:story+AND+revision.published:true&size=${amountStories}&from=${validateFrom()}&sort=publish_date:desc&website=${website}`
+  const requestUri =
+    `/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"/autor/${name}"+AND+type:story+AND+revision.published:true&size=${amountStories || 50}&from=${validateFrom()}&sort=publish_date:desc&website=${website}`
 
   return requestUri
 }

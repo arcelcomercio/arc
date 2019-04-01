@@ -1,4 +1,36 @@
-const resolve = key => {
+const schemaName = 'historias'
+
+const params = [
+  {
+    name: 'sort',
+    displayName: 'Orden',
+    type: 'text',
+  },
+  {
+    name: 'from',
+    displayName: 'Página de inicio',
+    type: 'number',
+  },
+  {
+    name: 'section',
+    displayName: 'Sección / Categoría',
+    type: 'text',
+  },
+  {
+    name: 'size',
+    displayName: 'Cantidad a mostrar',
+    type: 'number',
+  },
+  {
+    name: 'query',
+    displayName: 'Búsqueda',
+    type: 'text',
+  },
+  // date_from: 'text',
+  // date_to: 'text',
+]
+
+const pattern = key => {
   // if (!key.website) {
   // 	throw new Error('This content source requires a website')
   // }
@@ -23,7 +55,8 @@ const resolve = key => {
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               type: 'story',
             },
@@ -68,7 +101,8 @@ const resolve = key => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': [`/${key.section}`],
                 },
@@ -92,40 +126,12 @@ const resolve = key => {
   return requestUri
 }
 
-export default {
+const resolve = key => pattern(key)
+
+const source = {
   resolve,
-  schemaName: 'stories',
-  params: [{
-      name: 'page',
-      displayName: 'Página (Buscar)',
-      type: 'text',
-    },
-    {
-      name: 'sort',
-      displayName: 'Orden',
-      type: 'text',
-    },
-    {
-      name: 'from',
-      displayName: 'Página de inicio',
-      type: 'number',
-    },
-    {
-      name: 'section',
-      displayName: 'Sección / Categoría',
-      type: 'text',
-    },
-    {
-      name: 'size',
-      displayName: 'Cantidad a mostrar',
-      type: 'number',
-    },
-    {
-      name: 'query',
-      displayName: 'Búsqueda',
-      type: 'text',
-    },
-    // date_from: 'text',
-    // date_to: 'text',
-  ],
+  schemaName,
+  params,
 }
+
+export default source

@@ -118,12 +118,12 @@ GrillaDestaque.propTypes = {
     categoryField: PropTypes.string.tag({
       name: 'Sección',
       group: 'Editar texto',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
+      description: 'Dejar vacío para tomar el valor original de la historias.',
     }),
     titleField: PropTypes.string.tag({
       name: 'Título',
       group: 'Editar texto',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
+      description: 'Dejar vacío para tomar el valor original de la historias.',
     }),
   }),
 }

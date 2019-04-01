@@ -6,7 +6,7 @@ import customFields from './_children/customfields'
 import filterSchema from './_children/filterschema'
 import TripleteChildren from './_children/triplete'
 
-const API_URL = 'story__by-websiteurl'
+const API_URL = 'historia-por-URI'
 @Consumer
 class Triplete extends Component {
   constructor(props) {

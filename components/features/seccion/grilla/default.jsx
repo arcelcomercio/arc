@@ -77,10 +77,10 @@ class OrderedNews extends Component {
 OrderedNews.propTypes = {
   customFields: PropTypes.shape({
     initialStory: PropTypes.number.tag({
-      name: 'Iniciar desde la noticia:',
+      name: 'Iniciar desde la historia:',
       defaultValue: 1,
       description:
-        'Indique el número de la noticia desde la que quiere empezar a imprimir. La primera noticia corresponde al número 1',
+        'Indique el número de la historia desde la que quiere empezar a imprimir. La primera historia corresponde al número 1',
     }),
     /**
      *      CustomFields de publicidad

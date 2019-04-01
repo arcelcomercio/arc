@@ -97,7 +97,11 @@ export default `
     description: String
     slug: String
   }
+  type PrimarySection {
+    name: String
+  }
   type Taxonomy {
+    primary_section: PrimarySection
     sections: [Sections]
     tags: [Tags]
     seo_keywords: [String]

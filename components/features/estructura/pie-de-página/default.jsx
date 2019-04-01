@@ -51,7 +51,7 @@ class PieDePagina extends Component {
   fetchByHierarchy(hierarchy) {
     const { arcSite } = this.props
 
-    const source = 'navigation__by-hierarchy'
+    const source = 'navegacion-por-jerarquia'
     const params = {
       website: arcSite,
       hierarchy,

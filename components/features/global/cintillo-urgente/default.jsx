@@ -62,7 +62,7 @@ class CintilloUrgente extends Component {
       (isExternalLink === undefined || isExternalLink === false)
     ) {
       const { fetched } = this.getContent(
-        'story__by-websiteurl',
+        'historia-por-URI',
         { website_url: storyLink, website: arcSite },
         filterSchema
       )
@@ -100,8 +100,7 @@ class CintilloUrgente extends Component {
         className={`cintillo-u ${isVisible ? '' : 'hide'}
           ${backgroundColor} 
           ${classes.breakingnews}
-          `}
-      >
+          `}>
         <span
           className={classes.breakingnewsBtnClose}
           onClick={this.handleOnclickClose}
@@ -109,8 +108,7 @@ class CintilloUrgente extends Component {
           // Needs a role, to be focusable and to have a key event
           onKeyPress={this.handleOnclickClose}
           role="button"
-          tabIndex={0}
-        >
+          tabIndex={0}>
           x
         </span>
         <h2 className={classes.breakingnewsText}>
@@ -123,8 +121,7 @@ class CintilloUrgente extends Component {
               href={objContent.link}
               target="_blank"
               rel="noopener noreferrer"
-              {...editableField('title')}
-            >
+              {...editableField('title')}>
               {objContent.title}
             </a>
           </span>
@@ -167,7 +164,7 @@ CintilloUrgente.propTypes = {
     tags: PropTypes.string.tag({ name: 'Etiqueta' }),
     title: PropTypes.string.tag({
       name: 'Título',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
+      description: 'Dejar vacío para tomar el valor original de la historia.',
     }),
     subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true }),
   }),

@@ -1,13 +1,32 @@
 // TODO: ACTUALIZAR NOMBRE Y HOMOLOGAR, AGREGAR CASOS DE ERRORES
 // TODO: HOMOLOGAR ESQUEMA LIST CON STORIES
-const resolve = key => {
+// TODO: La funcionalidad de esta API no tiene relación con el nombre
+
+const schemaName = 'historias'
+
+const params = [{
+    name: 'section',
+    displayName: 'Sección',
+    type: 'text',
+  },
+  {
+    name: 'size',
+    displayName: 'Cantidad de historias',
+    type: 'number',
+  },
+]
+
+const pattern = key => {
   const website = `${key['arc-site'] || 'elcomercio'}`
-  const sizeFilter = key.num_notes ? `${key.num_notes}` : ''
+  const {
+    section,
+    size
+  } = key
+
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -22,16 +41,15 @@ const resolve = key => {
     },
   }
 
-  if (key.section) {
+  if (section) {
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
-                  'taxonomy.sections._id': [`${key.section}`],
+                  'taxonomy.sections._id': [`${section}`],
                 },
               },
               {
@@ -48,16 +66,17 @@ const resolve = key => {
 
   const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${website}&body=${JSON.stringify(
     body
-  )}&from=0&size=${sizeFilter}`
+  )}&from=0&size=${size || 5}`
 
   return requestUri
 }
 
-export default {
+const resolve = key => pattern(key)
+
+const source = {
   resolve,
-  schemaName: 'stories',
-  params: {
-    section: 'text',
-    num_notes: 'number',
-  },
+  schemaName,
+  params,
 }
+
+export default source

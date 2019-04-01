@@ -4,15 +4,15 @@ import PropTypes from 'prop-types'
 const customFields = {
   section: PropTypes.string.tag({
     name: 'Sección',
-    description: 'Dejar vacío para tomar el valor original de la noticia.',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
   title: PropTypes.string.tag({
     name: 'Título',
-    description: 'Dejar vacío para tomar el valor original de la noticia.',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
   subTitle: PropTypes.string.tag({
     name: 'Bajada',
-    description: 'Dejar vacío para tomar el valor original de la noticia.',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
   orientation: PropTypes.label.tag({
     name: 'Orientación del contenido',

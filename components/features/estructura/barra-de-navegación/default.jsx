@@ -159,7 +159,7 @@ class Nav extends Component {
   fetch() {
     const { arcSite } = this.props
 
-    const source = 'navigation__by-hierarchy'
+    const source = 'navegacion-por-jerarquia'
     const params = {
       website: arcSite,
       hierarchy: 'navbar-header-sections',

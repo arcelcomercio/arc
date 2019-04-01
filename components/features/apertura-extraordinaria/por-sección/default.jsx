@@ -5,7 +5,7 @@ import filterSchema from './_children/filterschema'
 import Data from '../_children/data'
 import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
 
-const API_URL = 'stories__by-section'
+const API_URL = 'historias-por-seccion'
 const API_SIZE_DATA = 1
 @Consumer
 class AperturaExtraordinariaSection extends Component {
@@ -39,8 +39,11 @@ class AperturaExtraordinariaSection extends Component {
   render() {
     // eslint-disable-next-line no-shadow
     const { customFields, arcSite } = this.props
-    const { data: {content_elements: contentElements} } = this.state
-    const dataElement = contentElements && contentElements.length > 0 ? contentElements[0]: {}
+    const {
+      data: { content_elements: contentElements },
+    } = this.state
+    const dataElement =
+      contentElements && contentElements.length > 0 ? contentElements[0] : {}
     const formattedData = new Data(customFields, dataElement, arcSite)
     const params = {
       data: formattedData,

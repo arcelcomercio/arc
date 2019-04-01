@@ -1,4 +1,4 @@
-import envVars from 'fusion:environment'
+// import envVars from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import { addResizedUrls } from '../../resources/utilsJs/thumbs'
 
@@ -26,7 +26,7 @@ const transform = data => {
 
 export default {
   resolve,
-  schemaName: 'stories',
+  schemaName: 'historias',
   transform,
   params: {
     website_url: 'text',

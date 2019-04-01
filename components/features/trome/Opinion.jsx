@@ -44,7 +44,7 @@ class Opinion extends Component {
     if (seccion) {
       const { arcSite } = this.props
       const { fetched } = this.getContent(
-        'stories__by-section',
+        'historias-por-seccion',
         {
           website: arcSite,
           section: seccion,
@@ -59,14 +59,14 @@ class Opinion extends Component {
             // eslint-disable-next-line no-param-reassign
             response = []
             console.log(
-              'No hay respuesta del servicio para obtener la ultima noticia'
+              'No hay respuesta del servicio para obtener la ultima historia.'
             )
           }
 
           if (!response.content_elements) {
             response.content_elements = []
             console.log(
-              'No hay respuesta del servicio para obtener la ultima noticia'
+              'No hay respuesta del servicio para obtener la ultima historia.'
             )
           }
 
