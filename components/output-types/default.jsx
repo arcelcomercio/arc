@@ -21,7 +21,7 @@ export default ({
       <Libs />
       <CssLinks />
       <meta charset="utf-8" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+      <meta httpEquiv="X-UA-C ompatible" content="IE=edge" />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
