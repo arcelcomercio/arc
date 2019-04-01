@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import CustomFieldsImport from './_children/customFields'
 import filterSchema from './_children/filterSchema'
-import DataStory from './../../../resources/components/utils/data-story'
+import DataStory from '../../../resources/components/utils/data-story'
 
 const classes = {
   tabloide: 'tabloide',
@@ -62,10 +62,10 @@ class Tabloide extends Component {
             'No hay respuesta del servicio para obtener la ultima noticia'
           )
         }
-
+        
         if (response.content_elements.length > 0) {
           const prueba = new DataStory(response.content_elements[0], arcSite)
-          debugger
+          
           this.setState({
             data: prueba,
           })
@@ -146,6 +146,7 @@ class Tabloide extends Component {
 }
 
 Tabloide.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
   customFields: CustomFieldsImport,
 }
 export default Tabloide
