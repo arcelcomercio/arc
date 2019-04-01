@@ -7,7 +7,13 @@ export default props => {
     } = {},
   } = props
 
-  const sec = _id || section
+  let sec = _id || section
+
+  if (sec === 'todas') sec = ''
+  else if (sec !== '') {
+    sec = sec.charAt(0) === '/' ? sec : `/${sec}`
+  }
+  console.log(sec)
 
   return {
     source: 'stories__most-readed',
