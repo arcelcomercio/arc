@@ -1,15 +1,6 @@
 import React, { Fragment } from 'react'
 
-export default (props) => {
-
-    const twitterUser = '@elcomercio'
-    const title = ''
-    const siteUrl = 'elcomercio.pe'
-    const arcSite = 'elcomercio'
-    const description = ''
-
-    const article = true
-    const twitterCreator = '@cajotafer'
+export default ({ twitterUser, title, siteUrl, arcSite, description, twitterCreator, article }) => {
 
     return (
         <Fragment>

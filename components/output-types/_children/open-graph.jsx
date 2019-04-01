@@ -1,16 +1,6 @@
 import React, { Fragment } from 'react'
 
-export default (props) => {
-
-    const fbAppId = '1667917060088448'
-    const title = ''
-    const description = ''
-    const siteUrl = 'elcomercio.pe'
-    const arcSite = 'elcomercio'
-    const requestUri = '/cajotafer'
-    const siteName = 'El Comercio'
-
-    const article = true
+export default ({ fbAppId, title, description, siteUrl, arcSite, requestUri, siteName, article }) => {
 
     return (
         <Fragment>
