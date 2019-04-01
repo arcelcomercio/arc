@@ -2,9 +2,9 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import customFields from './_children/customfields'
-// import Api from './_children/api'
 import filterSchema from './_children/filterschema'
-import TripleteChildren from './_children/triplete'
+import Data from './_children/data'
+import { Triplete as TripleteChildren } from '../../../../resources/components/triplete'
 
 const API_URL = 'story__by-websiteurl'
 @Consumer
@@ -12,11 +12,8 @@ class Triplete extends Component {
   constructor(props) {
     super(props)
     this.state = { data1: {}, data2: {}, data3: {} }
-    // this.api = new Api(this.props, this.getContent)
-    // console.log('this.api.state', this.api.state)
     this.renderCount = 0
     this.exec()
-    console.log('el maldito triplete')
   }
 
   exec() {
@@ -42,15 +39,18 @@ class Triplete extends Component {
   }
 
   render() {
-    // console.log('render triplete manual', ++this.renderCount)
-    // console.dir(this.state)
     const { customFields, editableField, arcSite } = this.props
-    const website = arcSite
+    const data = new Data({}, arcSite, customFields)
+    const allDataResponse = this.state
+    const dataFormatted = Object.keys(allDataResponse).map((el, index) => {
+      data.__data = allDataResponse[el]
+      data.__index = index + 1
+      return data.attributesRaw
+    })
     const params = {
-      customFields,
-      state: this.state,
+      data: dataFormatted,
+      multimediaOrientation: customFields.multimediaOrientation,
       editableField,
-      website,
     }
     return <TripleteChildren {...params} />
   }
