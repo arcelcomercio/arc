@@ -90,6 +90,7 @@ class ContentArticleBody extends Component {
       adBar: false,
       adTag: ({ powa, videoData }) => {
         console.log(videoData.additional_properties.advertising.playAds)
+        console.log(this.getParametroPublicidad())
         return videoData.additional_properties.advertising.playAds === true
           ? this.getParametroPublicidad()
           : ''
