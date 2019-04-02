@@ -6,22 +6,6 @@ export default {
   resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
   fbAppId: '1667917060088448',
 
-  metaSitio: {
-    ldjson: `{
-        "@context" : "http://schema.org",
-        "@type" : "Organization",
-        "name" : "Nombre Sitio",
-        "url" : "https://sitio.pe/",
-        "logo": "https://sitio.pe/[ruta_images]/logo-sitio.jpg",
-        "sameAs" : [
-          "https://www.facebook.com/nombresitio",
-          "https://twitter.com/nombresitio",
-          "https://www.youtube.com/user/nombresitio",
-          "https://www.pinterest.es/nombresitio/"
-        ]
-      }`
-  },
-
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
