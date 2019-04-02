@@ -4,6 +4,23 @@ import PropTypes from 'prop-types'
 
 @Consumer
 class Html extends Component {
+
+  componentDidMount(){
+    const { freeHtml } = this.props.customFields
+    if(freeHtml.includes('http://twitter.com')){
+      const scriptCDN = freeHtml.slice(
+        freeHtml.indexOf('<script'),
+        freeHtml.lastIndexOf('</script>') + 9
+      )
+      const rgexpURL = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/
+      const getURL = rgexpURL.exec(scriptCDN)[0]
+      const createScript = document.createElement("script");
+      createScript.src = getURL
+      createScript.async = true
+      document.body.appendChild(createScript)
+    }
+  }
+
   render() {
     const { customFields } = this.props
     const createMarkup = html => {
