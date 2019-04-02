@@ -3,28 +3,30 @@
 'use strict'
 
 import React from 'react'
+import MetaSearch from './_children/meta-search'
 
 export default ({
   children,
   contextPath,
   deployment,
   arcSite,
+  globalContent,
+  globalContentConfig,
   CssLinks,
   Fusion,
   Libs,
   MetaTags,
+  siteProperties,
 }) => (
   <html lang="es">
     <head>
-      <title>Fusion Article</title>
       <MetaTags />
       <Libs />
       <CssLinks />
-      <meta charset="utf-8" />
-      <meta httpEquiv="X-UA-C ompatible" content="IE=edge" />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1"
+      <MetaSearch
+        siteName={siteProperties.siteName}
+        globalContent={globalContent}
+        config={globalContentConfig}
       />
       <link
         rel="icon"

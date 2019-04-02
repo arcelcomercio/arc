@@ -15,6 +15,7 @@ class MasLeidas extends Component {
       news: [],
       totalElements: numNotes,
     }
+    console.log(props)
   }
 
   componentDidMount() {
