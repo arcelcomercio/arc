@@ -4,8 +4,9 @@ export default {
   siteUrl: 'elcomercio.pe',
   resizerUrl: 'http://resizer.shared.arcpublishing.com',
   resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
-  urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  fbAppId: '1667917060088448',
+
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
@@ -14,8 +15,7 @@ export default {
       'Grupo El Comercio - Todos los derechos reservados',
     ],
 
-    socialNetworks: [
-      {
+    socialNetworks: [{
         name: 'facebook',
         url: 'https://www.facebook.com/elcomercio.pe',
       },
@@ -28,5 +28,21 @@ export default {
         url: 'https://plus.google.com/u/0/+elcomerciope',
       },
     ],
+  },
+  social: {
+    facebook: {
+      name: 'facebook',
+      user: '@elcomercio.pe',
+      url: 'https://www.facebook.com/elcomercio.pe',
+    },
+    twitter: {
+      name: 'twitter',
+      user: '@elcomercio_peru',
+      url: 'https://twitter.com/elcomercio_peru',
+    },
+    youtube: {
+      name: 'youtube',
+      url: 'https://plus.google.com/u/0/+elcomerciope',
+    }
   },
 }
