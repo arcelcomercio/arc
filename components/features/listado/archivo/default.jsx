@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import CardNotice from '../../../../resources/components/listado-noticias'
 import RenderPagination from '../../../../resources/components/paginador-fecha'
 import { getActualDate } from '../../../../resources/utilsJs/helpers'
@@ -16,13 +16,10 @@ class Archivo extends Component {
     // console.log('props')
     // console.dir(this.props)
 
-    const {
-      globalContent: { content_elements: contentElements } = {},
-      arcSite,
-      globalContentConfig: {
-        query: { section = 'todas', date = getActualDate() } = {},
-      } = {},
-    } = this.props
+    const { globalContent, arcSite, globalContentConfig } = this.props
+    const { content_elements: contentElements } = globalContent || {}
+    const { query: { section = 'todas', date = getActualDate() } = {} } =
+      globalContentConfig || {}
 
     const params = {
       data: contentElements || [],
@@ -42,8 +39,9 @@ class Archivo extends Component {
   }
 }
 
-/* Archivo.propTypes = {
+Archivo.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   globalContent: PropTypes.object,
-} */
+}
 
 export default Archivo

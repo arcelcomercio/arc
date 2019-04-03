@@ -51,7 +51,7 @@ class Separador extends Component {
     }
 
     const { arcSite, globalContent } = this.props
-    const section = this.getSeccionPrimary(globalContent)
+    const section = this.getSeccionPrimary(globalContent || {})
     const { fetched } = this.getContent(
       'stories__by-section',
       {
@@ -61,7 +61,8 @@ class Separador extends Component {
       },
       filterSchema()
     )
-    fetched.then(response => {
+    fetched.then((response = {}) => {
+      // TODO: Comprobar estas validaciones {} y []
       if (!response) {
         // eslint-disable-next-line no-param-reassign
         response = []

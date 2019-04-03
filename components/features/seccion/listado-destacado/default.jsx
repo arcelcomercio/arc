@@ -71,12 +71,14 @@ class ListadoDestacado extends Component {
 
   render() {
     const {
-      globalContent: { content_elements: contentElements = [] } = {},
-      globalContentConfig: { query: { section = '' } = {} } = {},
+      globalContent,
+      globalContentConfig,
       arcSite,
       requestUri,
       contextPath,
     } = this.props
+    const { content_elements: contentElements } = globalContent || {}
+    const { query: { section = '' } = {} } = globalContentConfig || {}
 
     const { news } = this.state
 
@@ -88,7 +90,7 @@ class ListadoDestacado extends Component {
       news,
     }
 
-    const data = contentElements
+    const data = contentElements || []
     const dataApertura = new DataStory(data[0], arcSite)
     const dataList = data.slice(1)
 

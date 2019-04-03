@@ -73,18 +73,20 @@ class Default extends Component {
 
   render() {
     const {
-      globalContent: {
-        content_elements: contentElements = [],
-        section_name: sectionName = 'Nombre de Sección',
-      } = {},
+      globalContent,
       arcSite,
       requestUri,
       contextPath,
-      globalContentConfig: { query: { section = '' } = {} } = {},
+      globalContentConfig,
     } = this.props
+    const { query: { section = '' } = {} } = globalContentConfig || {}
+    const {
+      content_elements: contentElements,
+      section_name: sectionName = 'Nombre de Sección',
+    } = globalContent || {}
 
     const params = {
-      data: contentElements,
+      data: contentElements || [],
       arcSite,
     }
 

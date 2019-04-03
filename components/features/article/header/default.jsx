@@ -14,13 +14,12 @@ const classes = {
 @Consumer
 class ArticleHeader extends Component {
   render() {
+    const { globalContent } = this.props
     const {
-      globalContent: {
-        website_url: baseUrl = '',
-        headlines: title = '',
-        promo_items: galleryItems = {},
-      } = {},
-    } = this.props
+      website_url: baseUrl = '',
+      headlines: title = '',
+      promo_items: galleryItems = {},
+    } = globalContent || {}
 
     return (
       <Fragment>
