@@ -7,7 +7,8 @@ class Html extends Component {
 
   componentDidMount(){
     const { freeHtml } = this.props.customFields
-    if(freeHtml && freeHtml.includes('http://twitter.com')){
+    const contentTwitter = freeHtml && freeHtml.includes('https://twitter.com')
+    if (contentTwitter){
       const scriptCDN = freeHtml.slice(
         freeHtml.indexOf('<script'),
         freeHtml.lastIndexOf('</script>') + 9
