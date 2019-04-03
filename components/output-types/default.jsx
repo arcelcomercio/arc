@@ -2,7 +2,7 @@ import React from 'react'
 import MetaSite from './_children/MetaSite'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-// import GoogleTagManager from './_children/googleTagManager'
+import GoogleTagManager from './_children/googleTagManager'
 
 export default ({
   children,
@@ -63,24 +63,8 @@ export default ({
           siteName={siteProperties.siteName}
           article // check data origin - Boolean
         />
-        <link
-          rel="canonical"
-          href={`https://${siteProperties.siteUrl}${requestUri}`}
-        />
-        <link
-          rel="icon"
-          type="image/x-icon"
-          href={deployment(
-            `${contextPath}/resources/dist/${arcSite}/favicon.ico`
-          )}
-        />
-        <link
-          rel="stylesheet"
-          href={deployment(
-            `${contextPath}/resources/dist/${arcSite}/css/style.css`
-          )}
-        />
         <title>{metaValue('title') || siteProperties.siteName}</title>
+        <GoogleTagManager />
       </head>
       <body>
         <div id="fusion-app">{children}</div>

@@ -20,5 +20,6 @@ const gtm = () =>
   })(window, document, 'script', 'dataLayer', 'GTM-KKXTKGP')
 
 export default () => {
-  return <script>{gtm()}</script>
+  if (typeof window !== 'undefined') return <script>{gtm()}</script>
+  return ''
 }
