@@ -1,11 +1,13 @@
 export default {
   siteName: 'Depor',
   colorPrimary: '#007c31',
-  siteUrl: 'depor.com',
+  siteDomain: 'depor.com',
+  siteUrl: 'https://depor.com',
   resizerUrl: 'http://resizer.shared.arcpublishing.com',
   resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-KKXTKGPDEEEEEPOR',
+  sfAccountNumber: 99999,
 
   footer: {
     siteLegal: [
