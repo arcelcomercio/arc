@@ -3,6 +3,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import Button from '../../../../resources/components/button'
 import { setDevice } from '../../../../resources/utilsJs/resizer'
+import appendScript from '../../../../resources/utilsJs/appendScript'
 
 const classes = {
   header: 'header full-width',
@@ -33,7 +34,10 @@ class Header extends Component {
   }
 
   componentDidMount() {
+    const { googleTagManagerScript } = this.props.siteProperties
     window.addEventListener('resize', this._handleResize)
+    // TODO: script de Google tag manager agregado, solo descomentar
+    appendScript(googleTagManagerScript, 'head')
   }
 
   _handleResize = () => {
@@ -129,14 +133,16 @@ class Header extends Component {
 
   render() {
     const { temas, device } = this.state
-    const { contextPath, arcSite } = this.props
+    const { contextPath, arcSite, deployment } = this.props
 
     return temas[0] && device === 'desktop' ? (
       <header className={classes.header}>
         <div className={classes.headerMain}>
           <span className={classes.headerDate}>{this.fechaActual()}</span>
           <img
-            src={`${contextPath}/resources/dist/${arcSite}/images/logo.png`}
+            src={deployment(
+              `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+            )}
             alt={`Logo de ${arcSite}`}
             className={classes.headerLogo}
           />
