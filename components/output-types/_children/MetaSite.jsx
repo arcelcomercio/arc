@@ -34,7 +34,6 @@ export default ({
           `${contextPath}/resources/dist/${arcSite}/css/style.css`
         )}
       />
-      <link rel="canonical" href={`https://${siteUrl}${requestUri}`} />
       <link
         rel="icon"
         type="image/x-icon"
