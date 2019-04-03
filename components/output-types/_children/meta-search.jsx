@@ -29,8 +29,8 @@ class MetaSearch extends Component {
   }
 
   render() {
-    const { globalContent, siteProperties, requestUri } = this.props
-    const { next, previous } = globalContent
+    const { globalContent, siteProperties = {}, requestUri = '' } = this.props
+    const { next, previous } = globalContent || {}
 
     const currentPage = requestUri.match('&page=[0-9]+')
       ? parseInt(requestUri.match('&page=[0-9]+')[0].split('=')[1], 10)
