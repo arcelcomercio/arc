@@ -3,6 +3,7 @@
 'use strict'
 
 import React from 'react'
+import Metadatas from '../../resources/components/tag-metas-dinamics'
 
 export default ({
   children,
@@ -22,6 +23,14 @@ export default ({
       <CssLinks />
       <meta charset="utf-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+      <Metadatas
+        arcSite={arcSite}
+        tagName="economia"
+        siteName="el comercio!!!"
+        titlePage="TITULO DE PRUEBA"
+        descriptionPage="soy la descripcion de esta web"
+        urlSite={`http://${arcSite}/SECCION/nombredelapagina`}
+      />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
