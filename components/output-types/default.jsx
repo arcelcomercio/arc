@@ -75,9 +75,7 @@ export default ({
             }`}
             height="0"
             width="0"
-            // TODO: lo que dice abajo
-            // eslint-disable-next-line react/style-prop-object
-            style="display:none;visibility:hidden"
+            style={{ display:'none', visibility:'hidden'} }
           />
         </noscript>
         <div id="fusion-app">{children}</div>
