@@ -37,7 +37,7 @@ class Header extends Component {
     const { googleTagManagerScript } = this.props.siteProperties
     window.addEventListener('resize', this._handleResize)
     // TODO: script de Google tag manager agregado, solo descomentar
-    // appendScript(googleTagManagerScript, 'head')
+    appendScript(googleTagManagerScript, 'head')
   }
 
   _handleResize = () => {
