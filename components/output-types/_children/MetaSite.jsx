@@ -29,6 +29,19 @@ export default ({
   return (
     <Fragment>
       <link
+        rel="stylesheet"
+        href={deployment(
+          `${contextPath}/resources/dist/${arcSite}/css/style.css`
+        )}
+      />
+      <link
+        rel="icon"
+        type="image/x-icon"
+        href={deployment(
+          `${contextPath}/resources/dist/${arcSite}/favicon.ico`
+        )}
+      />
+      <link
         rel="shortcut icon"
         href={deployment(
           `${contextPath}/resources/dist/${arcSite}/favicon.ico`
