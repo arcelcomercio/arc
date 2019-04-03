@@ -1,61 +1,45 @@
-import React, { Fragment, Component } from 'react'
+import React, { Fragment } from 'react'
 
-class MetaSearch extends Component {
-  buildUrlPagination(numpage) {
-    const { siteProperties, requestUri } = this.props
-    const pathOrigin = siteProperties.siteUrl
+export default props => {
+  const { globalContent, siteUrl = '', requestUri = '' } = props
+  const { next, previous } = globalContent || {}
 
-    const url =
-      requestUri.match(/page=[0-9]+/) !== null
-        ? `${pathOrigin}${requestUri.replace(
+  const buildUrlPagination = pageNum => {
+    return requestUri.match(/page=[0-9]+/) !== null
+        ? `${siteUrl}${requestUri.replace(
             /&page=[0-9]+/,
-            `&page=${numpage}`
+            `&page=${pageNum}`
           )}`
-        : `${pathOrigin}${requestUri}&page=${numpage}`
-
-    return url
+        : `${siteUrl}${requestUri}&page=${pageNum}`
   }
 
-  render() {
-    const { globalContent, siteProperties, requestUri } = this.props
-    const { next, previous } = globalContent
+  const currentPage = requestUri.match(/page=[0-9]+/)
+    ? parseInt(requestUri.match(/page=[0-9]+/)[0].split('=')[1], 10)
+    : 1
 
-    const currentPage = requestUri.match('&page=[0-9]+')
-      ? parseInt(requestUri.match('&page=[0-9]+')[0].split('=')[1], 10)
-      : 1
+  const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
+  const prevPage = currentPage - 1
 
-    const pathOrigin = siteProperties.siteUrl
-    const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
-    const prevPage = currentPage - 1
+  const hasNext = next !== undefined
+  const hasPrev = previous !== undefined
+  const urlNextPage = buildUrlPagination(nextPage)
+  const urlPrevPage = buildUrlPagination(prevPage)
 
-    const therePagination = next !== undefined || previous !== undefined
-    const thereNext = next !== undefined
-    const therePrev = previous !== undefined
-    const urlNextPage = requestUri
-      ? this.buildUrlPagination(nextPage)
-      : `${pathOrigin}?page=${nextPage}`
-    const urlPrevPage = requestUri
-      ? this.buildUrlPagination(prevPage)
-      : `${pathOrigin}?page=${prevPage}`
-
-    return (
+  return (
       <Fragment>
         <meta name="robots" content="noindex,follow" />
-        {therePagination && therePrev && (
+        {hasPrev && (
           <Fragment>
             <link rel="prev" href={urlPrevPage} />
             <link rel="prefetch" href={urlPrevPage} />
           </Fragment>
         )}
-        {therePagination && thereNext && (
+        {hasNext && (
           <Fragment>
             <link rel="next" href={urlNextPage} />
             <link rel="prefetch" href={urlNextPage} />
           </Fragment>
         )}
       </Fragment>
-    )
-  }
+  )
 }
-
-export default MetaSearch

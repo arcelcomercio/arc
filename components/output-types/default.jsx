@@ -1,9 +1,8 @@
 import React from 'react'
-import MetaSite from './_children/MetaSite'
+import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import MetaSearch from './_children/meta-search'
-// import GoogleTagManager from './_children/googleTagManager'
 
 export default ({
   children,
@@ -11,7 +10,6 @@ export default ({
   deployment,
   arcSite,
   globalContent,
-  globalContentConfig,
   CssLinks,
   Fusion,
   Libs,
@@ -27,8 +25,9 @@ export default ({
     contextPath,
     deployment,
   }
+  const { siteUrl } = siteProperties
   const dataSearch = {
-    siteProperties,
+    siteUrl,
     globalContent,
     requestUri,
   }
@@ -38,7 +37,10 @@ export default ({
         <MetaTags />
         <Libs />
         <CssLinks />
-        <MetaSearch {...dataSearch} />
+        <MetaSearch
+          {...dataSearch}
+          /** TODO: No sé si es importante pero creo que debería ir debajo del script de chartbeat */
+        />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
