@@ -176,7 +176,7 @@ export default `
     last_updated_date: String
     taxonomy: Taxonomy
     websites: Websites!
-    
+        
     content_elements: [ContentElements]
     section_name: String
     count: Int
