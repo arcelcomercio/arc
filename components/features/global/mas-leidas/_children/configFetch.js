@@ -10,9 +10,10 @@ export default props => {
   let sec = _id || section
 
   if (sec === 'todas') sec = ''
-  else {
+  else if (sec !== '') {
     sec = sec.charAt(0) === '/' ? sec : `/${sec}`
   }
+  console.log(sec)
 
   return {
     source: 'stories__most-readed',
