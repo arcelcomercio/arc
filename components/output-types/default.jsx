@@ -2,13 +2,16 @@ import React from 'react'
 import MetaSite from './_children/MetaSite'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-import GoogleTagManager from './_children/googleTagManager'
+import MetaSearch from './_children/meta-search'
+// import GoogleTagManager from './_children/googleTagManager'
 
 export default ({
   children,
   contextPath,
   deployment,
   arcSite,
+  globalContent,
+  globalContentConfig,
   CssLinks,
   Fusion,
   Libs,
@@ -24,12 +27,18 @@ export default ({
     contextPath,
     deployment,
   }
+  const dataSearch = {
+    siteProperties,
+    globalContent,
+    requestUri,
+  }
   return (
     <html lang="es">
       <head>
         <MetaTags />
         <Libs />
         <CssLinks />
+        <MetaSearch {...dataSearch} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -48,15 +57,15 @@ export default ({
           twitterUser={siteProperties.social.twitter.user}
           siteUrl={siteProperties.siteUrl}
           arcSite={arcSite}
-          title="title" // check data origin
-          description="" // check data origin
+          title={metaValue('title') || siteProperties.siteName}
+          description={metaValue('description') || 'Últimas noticias en Perú'}
           twitterCreator={siteProperties.social.twitter.user}
           article // check data origin - Boolean
         />
         <OpenGraph
           fbAppId={siteProperties.fbAppId}
-          title="" // check data origin
-          description="" // check data origin
+          title={metaValue('title') || siteProperties.siteName}
+          description={metaValue('description') || 'Últimas noticias en Perú'}
           siteUrl={siteProperties.siteUrl}
           arcSite={arcSite}
           requestUri={requestUri}
@@ -64,7 +73,17 @@ export default ({
           article // check data origin - Boolean
         />
         <title>{metaValue('title') || siteProperties.siteName}</title>
-        <GoogleTagManager />
+        <meta
+          name="description"
+          content={metaValue('description') || 'Últimas noticias en Perú'}
+        />
+        <meta
+          name="keywords"
+          content={
+            metaValue('keywords') ||
+            'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
+          }
+        />
       </head>
       <body>
         <noscript>
@@ -75,12 +94,12 @@ export default ({
             }`}
             height="0"
             width="0"
-            // TODO: lo que dice abajo
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
         <div id="fusion-app">{children}</div>
         <script
+          async
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/js/index.js`
           )}

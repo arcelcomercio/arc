@@ -95,11 +95,18 @@ class PieDePagina extends Component {
             break
         }
       })
+      // eslint-disable-next-line no-console
       .catch(e => console.log(e))
   }
 
   render() {
-    const { siteProperties, arcSite, contextPath, requestUri } = this.props
+    const {
+      siteProperties,
+      arcSite,
+      contextPath,
+      requestUri,
+      deployment,
+    } = this.props
     const { device, legalList, sectionsList } = this.state
 
     return (
@@ -110,7 +117,9 @@ class PieDePagina extends Component {
             className={classes.footerLogoContainer}>
             <img
               className={classes.footerLogoImg}
-              src={`${contextPath}/resources/dist/${arcSite}/images/footer-logo.png`}
+              src={deployment(
+                `${contextPath}/resources/dist/${arcSite}/images/footer-logo.png`
+              )}
               alt=""
             />
           </a>

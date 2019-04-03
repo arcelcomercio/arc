@@ -13,7 +13,6 @@ export default props => {
   else if (sec !== '') {
     sec = sec.charAt(0) === '/' ? sec : `/${sec}`
   }
-  console.log(sec)
 
   return {
     source: 'stories__most-readed',
