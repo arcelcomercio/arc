@@ -7,7 +7,7 @@ class Html extends Component {
 
   componentDidMount(){
     const { freeHtml } = this.props.customFields
-    if(freeHtml.includes('http://twitter.com')){
+    if(freeHtml && freeHtml.includes('http://twitter.com')){
       const scriptCDN = freeHtml.slice(
         freeHtml.indexOf('<script'),
         freeHtml.lastIndexOf('</script>') + 9
@@ -19,6 +19,8 @@ class Html extends Component {
       createScript.async = true
       document.body.appendChild(createScript)
     }
+
+    console.log('En Prod')
   }
 
   render() {
