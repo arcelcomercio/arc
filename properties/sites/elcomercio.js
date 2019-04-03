@@ -5,6 +5,7 @@ export default {
   resizerUrl: 'http://resizer.shared.arcpublishing.com',
   resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
   fbAppId: '1667917060088448',
+  googleTagManagerId: 'GTM-KKXTKGP',
 
   footer: {
     siteLegal: [

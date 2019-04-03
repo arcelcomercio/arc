@@ -67,6 +67,19 @@ export default ({
         <GoogleTagManager />
       </head>
       <body>
+        <noscript>
+          <iframe
+            title="Google Tag Manager - No Script"
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
+            height="0"
+            width="0"
+            // TODO: lo que dice abajo
+            // eslint-disable-next-line react/style-prop-object
+            style="display:none;visibility:hidden"
+          />
+        </noscript>
         <div id="fusion-app">{children}</div>
         <script
           src={deployment(
