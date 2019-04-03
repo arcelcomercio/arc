@@ -4,6 +4,8 @@
 
 import React from 'react'
 
+import MetaAutor from './_children/MetaAutor'
+
 export default ({
   children,
   contextPath,
@@ -13,11 +15,14 @@ export default ({
   Fusion,
   Libs,
   MetaTags,
+  metaValue,
+  globalContent
 }) => (
   <html lang="es">
     <head>
-      <title>Fusion Article</title>
+      <title>{metaValue('title') || 'fallback'}</title>
       <MetaTags />
+      <MetaAutor globalContent={globalContent}/>
       <Libs />
       <CssLinks />
       <meta charset="utf-8" />
