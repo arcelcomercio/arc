@@ -1,7 +1,8 @@
 export default {
   siteName: 'El comercio',
   colorPrimary: '#f7c600',
-  siteUrl: 'elcomercio.pe',
+  siteDomain: 'elcomercio.pe',
+  siteUrl: 'https://elcomercio.pe',
   resizerUrl: 'http://resizer.shared.arcpublishing.com',
   resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
   urlPreroll:
@@ -21,6 +22,7 @@ export default {
     f.parentNode.insertBefore(j, f)
   })(window, document, 'script', 'dataLayer', 'GTM-KKXTKGP')`,
   googleTagManagerId: 'GTM-KKXTKGP',
+  sfAccountNumber: 57773,
 
   footer: {
     siteLegal: [

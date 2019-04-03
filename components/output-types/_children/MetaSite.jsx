@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Fragment } from 'react'
 
 export default ({
@@ -7,6 +6,8 @@ export default ({
     siteUrl = '',
     colorPrimary = '',
     social: { facebook = {}, twitter = {}, youtube = {} } = {},
+    sfAccountNumber = '',
+    siteDomain = '',
     requestUri = '',
     arcSite = '',
     contextPath = '',
@@ -17,14 +18,25 @@ export default ({
     "@context" : "http://schema.org",
     "@type" : "Organization",
     "name" : "${siteName}",
-    "url" : "https://${siteUrl}/",
-    "logo": "https://${siteUrl}/resources/dist/${arcSite}/images/logo-sitio.jpg",
+    "url" : "${siteUrl}/",
+    "logo": "${deployment(
+      `${siteUrl}/resources/dist/${arcSite}/images/logo-sitio.jpg`
+    )}",
     "sameAs" : [
       "${facebook.url || ''}",
       "${twitter.url || ''}",
       "${youtube.url || ''}",
     ]
   }`
+
+  const sfAsync = `
+          var _sf_async_config = _sf_async_config || {}
+          /** CONFIGURATION START **/
+          _sf_async_config.uid = ${sfAccountNumber} // ACCOUNT NUMBER
+          _sf_async_config.domain = ${siteDomain} // DOMAIN TRACKED
+          _sf_async_config.useCanonical = true
+          var _sf_startpt = new Date().getTime()
+          /** CONFIGURATION END **/`
 
   return (
     <Fragment>
@@ -88,7 +100,7 @@ export default ({
           `${contextPath}/resources/dist/${arcSite}/apple-touch-icon-180x180.png`
         )}
       />
-      <link rel="canonical" href={`https://${siteUrl}${requestUri}`} />
+      <link rel="canonical" href={`${siteUrl}${requestUri}`} />
       <meta name="theme-color" content={colorPrimary} />
       <meta name="msapplication-TileColor" content={colorPrimary} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
@@ -96,6 +108,10 @@ export default ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}
+      />
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{ __html: sfAsync }}
       />
     </Fragment>
   )
