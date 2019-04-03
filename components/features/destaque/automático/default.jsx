@@ -20,6 +20,7 @@ class DestaqueAutomatico extends Component {
     const { section, imageSize, size, storyNumber } = customFields
 
     const { schema } = this.DestaqueFormater
+    const storiesSchema = `{ content_elements ${schema} }`
 
     const source = 'stories__by-section'
     const params = {
@@ -29,7 +30,7 @@ class DestaqueAutomatico extends Component {
       news_number: 1,
     }
 
-    const { fetched } = this.getContent(source, params, schema)
+    const { fetched } = this.getContent(source, params, storiesSchema)
     fetched.then(response => {
       const newState = this.DestaqueFormater.formatStory(
         response.content_elements[0],
