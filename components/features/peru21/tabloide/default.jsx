@@ -49,23 +49,10 @@ class Tabloide extends Component {
 
       fetched
         .then(response => {
-          if (!response) {
-            // eslint-disable-next-line no-param-reassign
-            response = []
-            console.log(
-              'No hay respuesta del servicio para obtener la ultima noticia'
-            )
-          }
+          const { content_elements: contentElements = [] } = response || {}
 
-          if (!response.content_elements) {
-            response.content_elements = []
-            console.log(
-              'No hay respuesta del servicio para obtener la ultima noticia'
-            )
-          }
-
-          if (response.content_elements.length > 0) {
-            const prueba = new DataStory(response.content_elements[0], arcSite)
+          if (contentElements.length > 0) {
+            const prueba = new DataStory(contentElements[0], arcSite)
             this.setState({
               data: prueba,
             })

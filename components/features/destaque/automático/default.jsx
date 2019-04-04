@@ -31,8 +31,9 @@ class DestaqueAutomatico extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
+      const { content_elements: contentElements = [] } = response || {}
       const newState = this.DestaqueFormater.formatStory(
-        response.content_elements[0],
+        contentElements[0],
         size,
         imageSize
       )
@@ -43,7 +44,7 @@ class DestaqueAutomatico extends Component {
   render() {
     const { category, title, author, image, multimediaType } = this.state
     const { customFields, editableField } = this.props
-    const { imageSize, size, titleField, categoryField } = customFields
+    const { imageSize, size, titleField, categoryField } = customFields || {}
     const params = {
       title,
       category,

@@ -105,6 +105,7 @@ class Header extends Component {
     }`
 
     const { fetched } = this.getContent(source, params, schema)
+    // FIXME
     fetched.then(response => {
       const auxList = response.children.map(el => {
         return {

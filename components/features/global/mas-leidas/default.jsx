@@ -10,12 +10,11 @@ import configFetch from './_children/configFetch'
 class MasLeidas extends Component {
   constructor(props) {
     super(props)
-    const { numNotes } = props
+    const { numNotes = 1 } = props
     this.state = {
       news: [],
       totalElements: numNotes,
     }
-    console.log(props)
   }
 
   componentDidMount() {
@@ -23,19 +22,16 @@ class MasLeidas extends Component {
   }
 
   fetch() {
-    const { source, params } = configFetch(this.props)
+    const { source, params } = configFetch(this.props) // TODO: Revisar si tiene validaciones pertinentes
     const { fetched } = this.getContent(source, params, filterSchema())
     const { totalElements } = this.state
-
+    // FIXME
     fetched
       .then(response => {
-        if (
-          response &&
-          response.content_elements &&
-          response.content_elements.length > 0
-        ) {
+        const { content_elements: contentElements = [] } = response || {}
+        if (contentElements && contentElements.length > 0) {
           this.setState({
-            news: castingData(response.content_elements, this.props),
+            news: castingData(contentElements, this.props),
           })
         } else {
           this.setState({

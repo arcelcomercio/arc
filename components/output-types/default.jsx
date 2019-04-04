@@ -37,10 +37,7 @@ export default ({
         <MetaTags />
         <Libs />
         <CssLinks />
-        <MetaSearch
-          {...dataSearch}
-          /** TODO: No sé si es importante pero creo que debería ir debajo del script de chartbeat */
-        />
+        <MetaSearch {...dataSearch} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta

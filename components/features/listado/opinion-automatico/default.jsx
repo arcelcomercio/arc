@@ -7,15 +7,9 @@ import ListTitle from '../../global/título-de-seccion/default'
 
 @Consumer
 class OpinionAutomatica extends Component {
-  constructor(...props) {
-    super(...props)
-  }
-
   render() {
-    const {
-      globalContent: { content_elements: contentElements },
-      arcSite,
-    } = this.props
+    const { globalContent, arcSite } = this.props
+    const { content_elements: contentElements } = globalContent || {}
 
     const params = {
       data: contentElements || [],
