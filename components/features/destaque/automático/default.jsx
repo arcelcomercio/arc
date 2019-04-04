@@ -17,9 +17,10 @@ class DestaqueAutomatico extends Component {
 
   fetch() {
     const { customFields, arcSite } = this.props
-    const { section, imageSize, size, storyNumber } = customFields
+    const { section, imageSize, size, storyNumber, imgField } = customFields
 
     const { schema } = this.DestaqueFormater
+    const storiesSchema = `{ content_elements ${schema} }`
 
     const source = 'stories__by-section'
     const params = {
@@ -29,13 +30,14 @@ class DestaqueAutomatico extends Component {
       news_number: 1,
     }
 
-    const { fetched } = this.getContent(source, params, schema)
+    const { fetched } = this.getContent(source, params, storiesSchema)
     fetched.then(response => {
       const { content_elements: contentElements = [] } = response || {}
       const newState = this.DestaqueFormater.formatStory(
         contentElements[0],
         size,
-        imageSize
+        imageSize,
+        imgField
       )
       this.setState(newState)
     })
@@ -94,12 +96,17 @@ DestaqueAutomatico.propTypes = {
     }),
     categoryField: PropTypes.string.tag({
       name: 'Sección',
-      group: 'Editar texto',
+      group: 'Editar campos',
       description: 'Dejar vacío para tomar el valor original de la noticia.',
     }),
     titleField: PropTypes.string.tag({
       name: 'Título',
-      group: 'Editar texto',
+      group: 'Editar campos',
+      description: 'Dejar vacío para tomar el valor original de la noticia.',
+    }),
+    imgField: PropTypes.string.tag({
+      name: 'Imagen',
+      group: 'Editar campos',
       description: 'Dejar vacío para tomar el valor original de la noticia.',
     }),
   }),
