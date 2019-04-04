@@ -67,7 +67,7 @@ class DestaqueManual extends Component {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
-      const element = new DataStory(response, arcSite)
+      const element = new DataStory(response || {}, arcSite)
       this.setState({
         category: {
           name: element.section,

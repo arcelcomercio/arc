@@ -189,7 +189,7 @@ class Nav extends Component {
     fetched
       .then(response => {
         this.setState({
-          services: response,
+          services: response || {},
         })
       })
       .catch(e => console.log(e))

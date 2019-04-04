@@ -49,13 +49,10 @@ class Default extends Component {
 
     fetched
       .then(response => {
-        if (
-          response &&
-          response.content_elements &&
-          response.content_elements.length > 0
-        ) {
+        const { content_elements: contentElements = [] } = response || {}
+        if (contentElements && contentElements.length > 0) {
           this.setState({
-            news: castingData(response.content_elements, this.props),
+            news: castingData(contentElements, this.props),
           })
         } else {
           this.setState({

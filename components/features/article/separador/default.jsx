@@ -61,26 +61,13 @@ class Separador extends Component {
       },
       filterSchema()
     )
-    fetched.then((response = {}) => {
-      // TODO: Comprobar estas validaciones {} y []
-      if (!response) {
-        // eslint-disable-next-line no-param-reassign
-        response = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
-
-      if (!response.content_elements) {
-        response.content_elements = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
+    fetched.then(response => {
+      const { content_elements: contentElements } = response || {}
+      const { website_url: websiteUrl = '' } = globalContent || {}
 
       this.setState({
-        data: response.content_elements,
-        excluir: globalContent.website_url,
+        data: contentElements || [],
+        excluir: websiteUrl,
         website: arcSite,
       })
     })

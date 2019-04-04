@@ -125,9 +125,10 @@ class FilterSearch extends Component {
     }`
     const { fetched } = this.getContent(source, params, schema)
     fetched
-      .then((response = {}) => {
-        if (response && response.children.length > 0) {
-          this.setState({ sections: response.children })
+      .then(response => {
+        const { children = [] } = response || {}
+        if (children.length > 0) {
+          this.setState({ sections: children })
         }
       })
       .catch(error => {
