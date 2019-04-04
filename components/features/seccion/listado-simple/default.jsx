@@ -49,13 +49,10 @@ class Default extends Component {
 
     fetched
       .then(response => {
-        if (
-          response &&
-          response.content_elements &&
-          response.content_elements.length > 0
-        ) {
+        const { content_elements: contentElements = [] } = response || {}
+        if (contentElements && contentElements.length > 0) {
           this.setState({
-            news: castingData(response.content_elements, this.props),
+            news: castingData(contentElements, this.props),
           })
         } else {
           this.setState({
@@ -73,18 +70,20 @@ class Default extends Component {
 
   render() {
     const {
-      globalContent: {
-        content_elements: contentElements = [],
-        section_name: sectionName = 'Nombre de Sección',
-      } = {},
+      globalContent,
       arcSite,
       requestUri,
       contextPath,
-      globalContentConfig: { query: { section = '' } = {} } = {},
+      globalContentConfig,
     } = this.props
+    const { query: { section = '' } = {} } = globalContentConfig || {}
+    const {
+      content_elements: contentElements,
+      section_name: sectionName = 'Nombre de Sección',
+    } = globalContent || {}
 
     const params = {
-      data: contentElements,
+      data: contentElements || [],
       arcSite,
     }
 

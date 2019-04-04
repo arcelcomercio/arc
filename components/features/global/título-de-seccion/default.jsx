@@ -10,10 +10,11 @@ const classes = {
 class ListTitle extends PureComponent {
   render() {
     const {
-      globalContent: { section_name: sectionName = 'Sección' } = {},
+      globalContent,
       customFields: { textAlign, customText } = {},
       editableField,
     } = this.props
+    const { section_name: sectionName = 'Sección' } = globalContent || {}
 
     return (
       <h1

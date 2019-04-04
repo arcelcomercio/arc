@@ -16,10 +16,7 @@ class AperturaExtraordinariaStory extends Component {
   }
 
   fetch() {
-    const {
-      customFields: { link },
-      arcSite,
-    } = this.props
+    const { customFields: { link = '' } = {}, arcSite } = this.props
     if (link) {
       const { fetched } = this.getContent(
         API_URL,
@@ -30,7 +27,7 @@ class AperturaExtraordinariaStory extends Component {
         filterSchema(arcSite)
       )
       fetched.then(response => {
-        this.setState({ data: response })
+        this.setState({ data: response || {} })
       })
     }
   }

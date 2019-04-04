@@ -31,7 +31,7 @@ class AperturaExtraordinariaSection extends Component {
         filterSchema(arcSite)
       )
       fetched.then(response => {
-        this.setState({ data: response })
+        this.setState({ data: response || {} })
       })
     }
   }
@@ -39,8 +39,11 @@ class AperturaExtraordinariaSection extends Component {
   render() {
     // eslint-disable-next-line no-shadow
     const { customFields, arcSite } = this.props
-    const { data: {content_elements: contentElements} } = this.state
-    const dataElement = contentElements && contentElements.length > 0 ? contentElements[0]: {}
+    const {
+      data: { content_elements: contentElements },
+    } = this.state
+    const dataElement =
+      contentElements && contentElements.length > 0 ? contentElements[0] : {}
     const formattedData = new Data(customFields, dataElement, arcSite)
     const params = {
       data: formattedData,

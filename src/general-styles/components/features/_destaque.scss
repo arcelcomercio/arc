@@ -5,6 +5,7 @@ $image-height: 157px;
 
 .destaque {
   background-color: $color-white;
+  position: relative;
 
   &__detail {
     height: calc(100% - #{$image-height});
@@ -94,6 +95,9 @@ $image-height: 157px;
     &:before {
       content: '\1F4F7';
     }
+  }
+  &__img-link {
+    position: relative;
   }
 
   &--img-complete {

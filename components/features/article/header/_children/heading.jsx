@@ -5,7 +5,9 @@ import PropTypes from 'prop-types'
 @Consumer
 class Heading extends Component {
   render() {
-    const { globalContent: { headlines: titleElements = {} } = {} } = this.props
+    const { globalContent } = this.props
+    const { headlines: titleElements = {} } = globalContent || {}
+
     return (
       <Fragment>
         {titleElements && (
