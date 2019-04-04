@@ -1,4 +1,4 @@
-const schemaName = 'navegacion'
+const schemaName = 'navigation'
 const params = [{
     name: 'hierarchy',
     displayName: 'Jerarquía',

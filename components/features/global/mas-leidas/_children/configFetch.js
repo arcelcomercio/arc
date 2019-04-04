@@ -1,16 +1,18 @@
 export default props => {
-  const {
-    numNotes,
-    globalContentConfig: { query: { section = '' } = '' } = '',
-    globalContent: {
-      taxonomy: { primary_section: { _id = '' } = '' } = '',
-    } = {},
-  } = props
+  const { numNotes, globalContentConfig, globalContent } = props
+  const { query: { section = '' } = {} } = globalContentConfig || {}
+  const { taxonomy: { primary_section: { _id = '' } = '' } = '' } =
+    globalContent || {}
 
-  const sec = _id || section
+  let sec = _id || section
+
+  if (sec === 'todas') sec = ''
+  else if (sec !== '') {
+    sec = sec.charAt(0) === '/' ? sec : `/${sec}`
+  }
 
   return {
-    source: 'historias-por-vistas',
+    source: 'story-feed-by-views',
     params: {
       section: sec,
       size: numNotes || 5,

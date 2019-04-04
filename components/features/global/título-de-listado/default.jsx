@@ -15,9 +15,8 @@ class ListTitle extends Component {
   }
 
   componentDidMount() {
-    const {
-      globalContentConfig: { query: { page = '' } = {} } = {},
-    } = this.props
+    const { globalContentConfig } = this.props
+    const { query: { page = '' } = {} } = globalContentConfig || {}
 
     switch (page) {
       case 'archivo': {
@@ -54,9 +53,8 @@ class ListTitle extends Component {
   }
 
   setArchivoTitle = () => {
-    const {
-      globalContentConfig: { query: { date = '' } = {} } = {},
-    } = this.props
+    const { globalContentConfig } = this.props
+    const { query: { date = '' } = {} } = globalContentConfig || {}
 
     if (date === '' || !date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
       return 'ÚLTIMO MINUTO'
@@ -94,12 +92,10 @@ class ListTitle extends Component {
   }
 
   setTagTitle = () => {
-    const {
-      globalContent: {
-        content_elements: [{ taxonomy: { tags = [] } = {} }] = [],
-      } = {},
-      globalContentConfig: { query: { name: tag = '' } = {} } = {},
-    } = this.props
+    const { globalContent, globalContentConfig } = this.props
+    const { query: { name: tag = '' } = {} } = globalContentConfig || {}
+    const { content_elements: [{ taxonomy: { tags = [] } = {} }] = [] } =
+      globalContent || {}
 
     let title = ''
 
@@ -111,11 +107,9 @@ class ListTitle extends Component {
   }
 
   setAuthorTitle = () => {
-    const {
-      globalContent: {
-        content_elements: [{ credits: { by = [] } = {} }] = [],
-      } = {},
-    } = this.props
+    const { globalContent } = this.props
+    const { content_elements: [{ credits: { by = [] } = {} }] = [] } =
+      globalContent || {}
 
     let author
     by.forEach(authorData => {
@@ -125,10 +119,9 @@ class ListTitle extends Component {
   }
 
   setSearchTitle = () => {
-    const {
-      globalContentConfig: { query: { query = '' } = {} } = {},
-      globalContent: { count = 0 } = {},
-    } = this.props
+    const { globalContentConfig, globalContent } = this.props
+    const { count = 0 } = globalContent || {}
+    const { query: { query = '' } = {} } = globalContentConfig || {}
 
     const search = query && query.replace('+', ' ')
     const title = search

@@ -1,9 +1,28 @@
 export default {
   siteName: 'El comercio',
   colorPrimary: '#f7c600',
-  siteUrl: 'elcomercio.pe',
+  siteDomain: 'elcomercio.pe',
+  siteUrl: 'https://elcomercio.pe',
   resizerUrl: 'http://resizer.shared.arcpublishing.com',
   resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
+  urlPreroll:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  fbAppId: '1667917060088448',
+  googleTagManagerScript: `(function (w, d, s, l, i) {
+    w[l] = w[l] || []
+    w[l].push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js',
+    })
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : ''
+    j.async = true
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+    f.parentNode.insertBefore(j, f)
+  })(window, document, 'script', 'dataLayer', 'GTM-KKXTKGP')`,
+  googleTagManagerId: 'GTM-KKXTKGP',
+  sfAccountNumber: 57773,
 
   footer: {
     siteLegal: [
@@ -13,7 +32,8 @@ export default {
       'Grupo El Comercio - Todos los derechos reservados',
     ],
 
-    socialNetworks: [{
+    socialNetworks: [
+      {
         name: 'facebook',
         url: 'https://www.facebook.com/elcomercio.pe',
       },
@@ -26,5 +46,21 @@ export default {
         url: 'https://plus.google.com/u/0/+elcomerciope',
       },
     ],
+  },
+  social: {
+    facebook: {
+      name: 'facebook',
+      user: '@elcomercio.pe',
+      url: 'https://www.facebook.com/elcomercio.pe',
+    },
+    twitter: {
+      name: 'twitter',
+      user: '@elcomercio_peru',
+      url: 'https://twitter.com/elcomercio_peru',
+    },
+    youtube: {
+      name: 'youtube',
+      url: 'https://plus.google.com/u/0/+elcomerciope',
+    },
   },
 }

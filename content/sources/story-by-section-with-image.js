@@ -3,7 +3,7 @@
 import getProperties from 'fusion:properties'
 import { addResizedUrls } from '../../resources/utilsJs/thumbs'
 
-const schemaName = 'historias'
+const schemaName = 'stories'
 
 const params = [
   {

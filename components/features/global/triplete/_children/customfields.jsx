@@ -1,6 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 import PropTypes from 'prop-types'
-import filterSchema from './filterschema'
 
 // Maybe work without PropTypes.shape
 const customFields = PropTypes.shape({

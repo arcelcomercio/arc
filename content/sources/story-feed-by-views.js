@@ -2,9 +2,10 @@
 // TODO: HOMOLOGAR ESQUEMA LIST CON STORIES
 // TODO: La funcionalidad de esta API no tiene relación con el nombre
 
-const schemaName = 'historias'
+const schemaName = 'stories'
 
-const params = [{
+const params = [
+  {
     name: 'section',
     displayName: 'Sección',
     type: 'text',
@@ -18,15 +19,13 @@ const params = [{
 
 const pattern = key => {
   const website = `${key['arc-site'] || 'elcomercio'}`
-  const {
-    section,
-    size
-  } = key
+  const { section, size } = key
 
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               type: 'story',
             },
@@ -47,7 +46,8 @@ const pattern = key => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': [`${section}`],
                 },

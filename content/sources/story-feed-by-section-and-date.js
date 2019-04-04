@@ -2,7 +2,7 @@ import { getActualDate } from '../../resources/utilsJs/helpers'
 
 let globalParams = {}
 
-const schemaName = 'historias'
+const schemaName = 'stories'
 
 const params = [
   {

@@ -62,12 +62,12 @@ class CintilloUrgente extends Component {
       (isExternalLink === undefined || isExternalLink === false)
     ) {
       const { fetched } = this.getContent(
-        'historia-por-URI',
+        'story-by-url',
         { website_url: storyLink, website: arcSite },
         filterSchema
       )
       fetched.then(response => {
-        this.setState({ article: response })
+        this.setState({ article: response || {} })
       })
     }
   }

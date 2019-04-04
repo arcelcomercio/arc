@@ -14,33 +14,32 @@ const classes = {
 @Consumer
 class ArticleHeader extends Component {
   render() {
+    const { globalContent } = this.props
     const {
-      globalContent: {
-        website_url: baseUrl = '',
-        headlines: title = '',
-        promo_items: galleryItems = {},
-      } = {},
-    } = this.props
-
-    const {
-      content_elements: galleryElements = '',
-    } = galleryItems.basic_gallery
+      website_url: baseUrl = '',
+      headlines: title = '',
+      promo_items: galleryItems = {},
+    } = globalContent || {}
 
     return (
       <Fragment>
         <div
           className={
-            typeof galleryElements === 'undefined'
-              ? classes.news
-              : classes.gallery
+            galleryItems &&
+            galleryItems.basic_gallery &&
+            typeof galleryItems.basic_gallery.content_elements !== 'undefined'
+              ? classes.gallery
+              : classes.news
           }>
           <Heading />
           <Subheading />
           <Share url={baseUrl} title={title} />
-          {typeof galleryElements === 'undefined' ? (
-            ''
+          {galleryItems &&
+          galleryItems.basic_gallery &&
+          typeof galleryItems.basic_gallery.content_elements !== 'undefined' ? (
+            <Gallery data={galleryItems && galleryItems.basic_gallery} />
           ) : (
-            <Gallery data={galleryItems.basic_gallery} />
+            ''
           )}
         </div>
       </Fragment>

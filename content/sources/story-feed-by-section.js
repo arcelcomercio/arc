@@ -1,6 +1,6 @@
-const schemaName = 'historias'
-
 let auxKey
+
+const schemaName = 'stories'
 
 const params = [{
     name: 'section',

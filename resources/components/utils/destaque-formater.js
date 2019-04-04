@@ -1,7 +1,8 @@
 import DataStory from './data-story'
+import { ResizeImageUrl } from '../../utilsJs/helpers'
 
 class DestaqueFormater {
-  constructor(arcSite) {
+  constructor(arcSite = '') {
     this.arcSite = arcSite
     this.schema = `{ 
       headlines { basic }
@@ -32,38 +33,59 @@ class DestaqueFormater {
       }
     }`
     this.initialState = {
-      category: {},
-      title: {},
-      author: {},
+      category: { name: '', url: '' },
+      title: { name: '', url: '' },
+      author: { name: '', url: '' },
       image: '',
       multimediaType: 'basic',
     }
+    this.dataStoryInstace = new DataStory({}, this.arcSite)
   }
 
-  formatStory(story, size, imageSize) {
-    const element = new DataStory(story, this.arcSite)
-    this.initialState = {
-      category: {
-        name: element.section,
-        url: element.sectionLink,
-      },
-      title: {
-        name: element.title,
-        url: element.link,
-      },
-      author: {
-        name: element.author,
-        url: element.authorLink,
-      },
-      image: '',
-      multimediaType: element.multimediaType,
-    }
-    this.initialState.image = element.getResizedImage('3:4', '288x157')
+  getImgUrl(size = '', imageSize = '', customImage = '') {
+    const imageUrl = customImage || this.dataStoryInstace.multimedia
+
+    this.initialState.image = ResizeImageUrl(
+      this.arcSite,
+      imageUrl,
+      '3:4',
+      '288x157'
+    )
     if (size === 'twoCol') {
-      this.initialState.image = element.getResizedImage('3:4', '676x374')
+      this.initialState.image = ResizeImageUrl(
+        this.arcSite,
+        imageUrl,
+        '3:4',
+        '676x374'
+      )
     } else if (imageSize === 'complete') {
-      this.initialState.image = element.getResizedImage('9:16', '328x374')
+      this.initialState.image = ResizeImageUrl(
+        this.arcSite,
+        imageUrl,
+        '9:16',
+        '328x374'
+      )
     }
+
+    return imageUrl
+  }
+
+  formatStory(story = '', size = '', imageSize = '', imgField = '') {
+    this.dataStoryInstace.__data = story
+
+    const newState = { ...this.initialState }
+
+    newState.category.name = this.dataStoryInstace.section
+    newState.category.url = this.dataStoryInstace.section
+
+    newState.title.name = this.dataStoryInstace.title
+    newState.title.url = this.dataStoryInstace.link
+
+    newState.author.name = this.dataStoryInstace.author
+    newState.author.url = this.dataStoryInstace.authorLink
+
+    newState.image = this.getImgUrl(size, imageSize, imgField)
+    newState.multimediaType = this.dataStoryInstace.multimediaType
 
     return this.initialState
   }

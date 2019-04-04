@@ -44,7 +44,7 @@ class Separador extends Component {
     else if (device === 'desktop' || device === 'tablet') newsNumber = 4
 
     const { fetched } = this.getContent(
-      'historias-por-seccion',
+      'story-feed-by-section',
       {
         website: arcSite,
         section,

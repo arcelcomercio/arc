@@ -63,7 +63,7 @@ class SeparadorOpinion extends Component {
     const { section } = this.state
 
     const { fetched } = this.getContent(
-      'historias-por-seccion',
+      'story-feed-by-section',
       {
         website: arcSite,
         news_number: newsNumber,

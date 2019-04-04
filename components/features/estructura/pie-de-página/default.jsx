@@ -51,7 +51,7 @@ class PieDePagina extends Component {
   fetchByHierarchy(hierarchy) {
     const { arcSite } = this.props
 
-    const source = 'navegacion-por-jerarquia'
+    const source = 'navigation-by-hierarchy'
     const params = {
       website: arcSite,
       hierarchy,
@@ -69,6 +69,7 @@ class PieDePagina extends Component {
     const { fetched } = this.getContent(source, params, schema)
     fetched
       .then(response => {
+        // FIXME
         const auxList = response.children.map(el => {
           if (el.node_type === 'link') {
             return {
@@ -95,11 +96,18 @@ class PieDePagina extends Component {
             break
         }
       })
+      // eslint-disable-next-line no-console
       .catch(e => console.log(e))
   }
 
   render() {
-    const { siteProperties, arcSite, contextPath, requestUri } = this.props
+    const {
+      siteProperties,
+      arcSite,
+      contextPath,
+      requestUri,
+      deployment,
+    } = this.props
     const { device, legalList, sectionsList } = this.state
 
     return (
@@ -110,7 +118,9 @@ class PieDePagina extends Component {
             className={classes.footerLogoContainer}>
             <img
               className={classes.footerLogoImg}
-              src={`${contextPath}/resources/dist/${arcSite}/images/footer-logo.png`}
+              src={deployment(
+                `${contextPath}/resources/dist/${arcSite}/images/footer-logo.png`
+              )}
               alt=""
             />
           </a>

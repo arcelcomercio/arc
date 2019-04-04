@@ -10,7 +10,13 @@ class Opinion extends Component {
     super(props)
 
     const {
-      customFields: { titleOpinion, section1, section2, section3, section4 },
+      customFields: {
+        titleOpinion,
+        section1,
+        section2,
+        section3,
+        section4,
+      } = {},
     } = this.props || {}
 
     this.state = {
@@ -44,7 +50,7 @@ class Opinion extends Component {
     if (seccion) {
       const { arcSite } = this.props
       const { fetched } = this.getContent(
-        'historias-por-seccion',
+        'story-feed-by-section',
         {
           website: arcSite,
           section: seccion,
@@ -55,41 +61,28 @@ class Opinion extends Component {
 
       fetched
         .then(response => {
-          if (!response) {
-            // eslint-disable-next-line no-param-reassign
-            response = []
-            console.log(
-              'No hay respuesta del servicio para obtener la ultima historia.'
-            )
-          }
+          const { content_elements: contentElements = [] } = response || {}
 
-          if (!response.content_elements) {
-            response.content_elements = []
-            console.log(
-              'No hay respuesta del servicio para obtener la ultima historia.'
-            )
-          }
-
-          if (response.content_elements.length > 0) {
+          if (contentElements.length > 0) {
             const {
-              headlines: { basic },
-              taxonomy: { sites, sections },
-              canonical_url,
-            } = response.content_elements[0]
+              headlines: { basic } = {},
+              taxonomy: { sites, sections } = {},
+              canonical_url: canonicalUrl,
+            } = contentElements[0]
             const {
               additional_properties: {
                 original: {
-                  site_topper: { site_logo_image },
-                },
-              },
-            } = sites[0]
+                  site_topper: { site_logo_image: siteLogo } = {},
+                } = {},
+              } = {},
+            } = sites[0] || []
 
-            const { name, path } = sections[0]
+            const { name, path } = sections[0] || []
 
             const contenido = {
               title: basic,
-              urlImg: site_logo_image,
-              urlNew: canonical_url,
+              urlImg: siteLogo,
+              urlNew: canonicalUrl,
               sectionName: name,
               urlSection: path,
             }

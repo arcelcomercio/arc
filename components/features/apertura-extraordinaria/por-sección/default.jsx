@@ -5,7 +5,7 @@ import filterSchema from './_children/filterschema'
 import Data from '../_children/data'
 import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
 
-const API_URL = 'historias-por-seccion'
+const API_URL = 'story-feed-by-section'
 const API_SIZE_DATA = 1
 @Consumer
 class AperturaExtraordinariaSection extends Component {
@@ -31,7 +31,7 @@ class AperturaExtraordinariaSection extends Component {
         filterSchema(arcSite)
       )
       fetched.then(response => {
-        this.setState({ data: response })
+        this.setState({ data: response || {} })
       })
     }
   }

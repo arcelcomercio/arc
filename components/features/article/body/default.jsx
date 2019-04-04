@@ -21,16 +21,16 @@ const elementClasses = {
 }
 @Consumer
 class ContentArticleBody extends Component {
+  // eslint-disable-next-line react/sort-comp
   render() {
+    const { globalContent } = this.props
     const {
-      globalContent: {
-        content_elements: contentElements,
-        promo_items: promoItems,
-        publish_date: date,
-        credits: author,
-        taxonomy,
-      } = {},
-    } = this.props
+      content_elements: contentElements,
+      promo_items: promoItems,
+      publish_date: date,
+      credits: author,
+      taxonomy,
+    } = globalContent || {}
 
     return (
       <Fragment>
@@ -79,6 +79,46 @@ class ContentArticleBody extends Component {
         </div>
       </Fragment>
     )
+  }
+
+  componentDidMount() {
+    window.powaBoot()
+    // window.addEventListener('powaRender', function(event) {       console.warn(event)     })
+    // window.addEventListener('powaError', function(event) {       console.error(event)     })
+    window.PoWaSettings.advertising = {
+      adBar: false,
+      adTag: ({ powa, videoData }) => {
+        console.log(videoData.additional_properties.advertising.playAds)
+        console.log(this.getParametroPublicidad())
+        return videoData.additional_properties.advertising.playAds === true
+          ? this.getParametroPublicidad()
+          : ''
+      },
+    }
+  }
+
+  getParametroPublicidad = () => {
+    const {
+      siteProperties: { urlPreroll },
+      globalContent,
+    } = this.props
+
+    const {
+      taxonomy: {
+        primary_section: {
+          additional_properties: {
+            original: {
+              _admin: { alias_ids: aliasId },
+            },
+          },
+        },
+      },
+    } = globalContent || {}
+
+    if (aliasId && aliasId[1]) {
+      return aliasId[1]
+    }
+    return urlPreroll
   }
 }
 

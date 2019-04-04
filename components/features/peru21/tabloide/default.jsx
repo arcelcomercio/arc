@@ -37,7 +37,7 @@ class Tabloide extends Component {
       const { arcSite } = this.props
 
       const { fetched } = this.getContent(
-        'historias-por-seccion',
+        'story-feed-by-section',
         {
           website: arcSite,
           section: seccion,
@@ -49,24 +49,10 @@ class Tabloide extends Component {
 
       fetched
         .then(response => {
-          if (!response) {
-            // eslint-disable-next-line no-param-reassign
-            response = []
-            console.log(
-              'No hay respuesta del servicio para obtener la ultima historia.'
-            )
-          }
+          const { content_elements: contentElements = [] } = response || {}
 
-          if (!response.content_elements) {
-            response.content_elements = []
-            console.log(
-              'No hay respuesta del servicio para obtener la ultima historia.'
-            )
-          }
-
-          if (response.content_elements.length > 0) {
-            const prueba = new DataStory(response.content_elements[0], arcSite)
-
+          if (contentElements.length > 0) {
+            const prueba = new DataStory(contentElements[0], arcSite)
             this.setState({
               data: prueba,
             })
@@ -77,34 +63,36 @@ class Tabloide extends Component {
   }
 
   nameDate = datestring => {
-    const dias = [
-      'Lunes',
-      'Martes',
-      'Miércoles',
-      'Jueves',
-      'Viernes',
-      'Sábado',
-      'Domingo',
-    ]
-    const meses = [
-      'Enero',
-      'Febrero',
-      'Marzo',
-      'Abril',
-      'Mayo',
-      'Junio',
-      'Julio',
-      'Agosto',
-      'Septiembre',
-      'Octubre',
-      'Noviembre',
-      'Diciembre',
-    ]
-    const date = new Date(datestring)
-    const name = `${dias[date.getDay()]} ${date.getDate()} de ${
-      meses[date.getMonth()]
-    } de ${date.getFullYear()}`
-
+    let name = ''
+    if (datestring) {
+      const dias = [
+        'Lunes',
+        'Martes',
+        'Miércoles',
+        'Jueves',
+        'Viernes',
+        'Sábado',
+        'Domingo',
+      ]
+      const meses = [
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Octubre',
+        'Noviembre',
+        'Diciembre',
+      ]
+      const date = new Date(datestring)
+      name = `${dias[date.getDay()]} ${date.getDate()} de ${
+        meses[date.getMonth()]
+      } de ${date.getFullYear()}`
+    }
     return name
   }
 
@@ -147,6 +135,7 @@ class Tabloide extends Component {
 }
 
 Tabloide.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
   customFields: CustomFieldsImport,
 }
 export default Tabloide
