@@ -4,7 +4,7 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 // import GoogleTagManager from './_children/googleTagManager'
 
-import MetaAutor from './_children/MetaAutor'
+import MetaAuthor from './_children/meta-author'
 
 export default ({
   children,
@@ -33,7 +33,7 @@ export default ({
         <MetaTags/>
         <Libs />
         <CssLinks />
-        <MetaAutor  globalContent ={globalContent} properties ={properties}/>
+        <MetaAuthor  globalContent ={globalContent} properties ={properties}/>
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -47,8 +47,8 @@ export default ({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
-        
-        <MetaAutor  globalContent ={globalContent} properties ={properties}/>
+
+        <MetaAuthor  globalContent ={globalContent} properties ={properties}/>
         <MetaSite data={properties} />
         <TwitterCards
           twitterUser={siteProperties.social.twitter.user}

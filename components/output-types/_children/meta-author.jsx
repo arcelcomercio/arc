@@ -1,16 +1,10 @@
 import React, { Component, Fragment } from 'react'
-// import Consumer from 'fusion:consumer'
-
-// const metaDescription = (value = 'prueba tag') => {
-//   return `Todas las noticias de ${value} en Nombre Sitio`
-// }
 
 // @Consumer
-class MetaAutor extends Component {
+class MetaAuthor extends Component {
   componentDidMount = () => {}
 
   render() {
-    // const description = `Todas las noticias de ${metaDescription()} en Nombre Sitio`
     const {
       globalContent,
       properties: { siteName = '', siteUrl = '' } = {},
@@ -22,16 +16,12 @@ class MetaAutor extends Component {
 
     const { content_elements } = globalContent
 
-
     const {
       url,
       image = {},
       social_links = [],
-      name='',
-      additional_properties: {
-        original: { role = '', bio = '',byline='' } = {},
-        
-      } = {},
+      name = '',
+      additional_properties: { original: { bio = '' } = {} } = {},
     } = credits.by[0]
 
     const imgAutor = image.url
@@ -42,10 +32,8 @@ class MetaAutor extends Component {
     })
 
     const urlAutor = `${siteUrl}${url}`
-    
-    
 
-    let itemNews = content_elements.map((news, index) => {
+    const itemNews = content_elements.map((news, index) => {
       let { canonical_url } = news
 
       return `{
@@ -60,7 +48,7 @@ class MetaAutor extends Component {
       "@context": "http://schema.org/",
       "@type": "Person",
       "name": "${name}",
-      "alternateName": "${name.replace(' ','').replace(' ','')}",
+      "alternateName": "${name.replace(' ', '').replace(' ', '')}",
       "url": "${urlAutor}", 
       "image": "${imgAutor}",
       "sameAs": [
@@ -81,17 +69,12 @@ class MetaAutor extends Component {
       ]
     }`
 
-
-    console.log("<<<>>>>><<<<<<<<<<<<<<<<<<<<<<name")
-    ;
-
     return (
       <Fragment>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: structuredAutor }}
         />
-
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: structuredNews }}
@@ -101,4 +84,4 @@ class MetaAutor extends Component {
   }
 }
 
-export default MetaAutor
+export default MetaAuthor
