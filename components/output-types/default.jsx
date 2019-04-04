@@ -47,6 +47,8 @@ export default ({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
+        
+        <MetaAutor  globalContent ={globalContent} properties ={properties}/>
         <MetaSite data={properties} />
         <TwitterCards
           twitterUser={siteProperties.social.twitter.user}

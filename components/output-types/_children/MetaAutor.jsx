@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
 // import Consumer from 'fusion:consumer'
 
-const metaDescription = (value = 'prueba tag') => {
-  return `Todas las noticias de ${value} en Nombre Sitio`
-}
+// const metaDescription = (value = 'prueba tag') => {
+//   return `Todas las noticias de ${value} en Nombre Sitio`
+// }
 
 // @Consumer
 class MetaAutor extends Component {
@@ -19,6 +19,20 @@ class MetaAutor extends Component {
     const {
       content_elements: [{ credits }],
     } = globalContent
+
+    const { content_elements } = globalContent
+
+    let itemNews = content_elements.map((news, index) => {
+      let { canonical_url } = news
+
+      return `{
+        "@type":"ListItem",
+        "position":${index},
+        "url":"${canonical_url}"
+      }${content_elements.lenght - 1 > index ? ',' : ''}`
+    })
+    console.log('>>>>>>>>>>>>>>>>>itemsssssss>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log(itemNews)
 
     const {
       url,
@@ -37,7 +51,7 @@ class MetaAutor extends Component {
       redes += `"${element.url}", \n`
     })
 
-    const urlAutor =`${siteUrl}${url}`
+    const urlAutor = `${siteUrl}${url}`
     // console.log('>>>>>>>>>>>>>>>>>>>>siteName')
     // console.log( `url Autor ${url}`)
     // console.log(siteName)
@@ -52,7 +66,13 @@ class MetaAutor extends Component {
     // console.log(role)
     // console.log(bio)
 
-    const structuredData = `
+    // {
+    //   "@type":"ListItem",
+    //   "position":1,
+    //   "url":"https://sitio.pe/category/nota-1"
+    // }
+
+    const structuredAutor = `
     {
       "@context": "http://schema.org/",
       "@type": "Person",
@@ -69,12 +89,18 @@ class MetaAutor extends Component {
           "name": "${siteName}"
         }
     }`
-
+    const structuredNews = `{
+      "@context":"http://schema.org",
+      "url":"${urlAutor}",
+      "@type":"ItemList",
+      "itemListElement":[
+        ${itemNews.map(item =>item)}
+      ]
+    }`
     return (
       <Fragment>
-        <script>
-          {structuredData}
-        </script>
+        <script type="application/ld+json">{structuredAutor}</script>
+        <script type="application/ld+json">{structuredNews}</script>
       </Fragment>
     )
   }
