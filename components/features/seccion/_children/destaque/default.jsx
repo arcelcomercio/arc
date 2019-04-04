@@ -27,7 +27,8 @@ class GrillaDestaque extends Component {
       globalContent,
       storyNumber,
     } = this.props
-    const stories = globalContent.content_elements
+    const { content_elements: contentElements } = globalContent || {}
+    const stories = contentElements
 
     const element = new DataStory(stories[storyNumber], arcSite)
     this.setState({

@@ -13,15 +13,17 @@ class GrillaListadoNoticia extends Component {
 
   render() {
     const {
-      globalContent: { content_elements: contentElements = [] } = {},
+      globalContent,
       arcSite,
       customFields: { initialStory = 1, storiesQty = 50 } = {},
-      globalContentConfig: { query: { section = '' } = {} } = {},
+      globalContentConfig,
       contextPath,
     } = this.props
+    const { content_elements: contentElements } = globalContent || {}
+    const { query: { section = '' } = {} } = globalContentConfig || {}
 
     const params = {
-      data: contentElements,
+      data: contentElements || [],
       arcSite,
     }
 

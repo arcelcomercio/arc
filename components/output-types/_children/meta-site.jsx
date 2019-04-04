@@ -33,7 +33,7 @@ export default ({
           var _sf_async_config = _sf_async_config || {}
           /** CONFIGURATION START **/
           _sf_async_config.uid = ${sfAccountNumber} // ACCOUNT NUMBER
-          _sf_async_config.domain = ${siteDomain} // DOMAIN TRACKED
+          _sf_async_config.domain = "${siteDomain}" // DOMAIN TRACKED
           _sf_async_config.useCanonical = true
           var _sf_startpt = new Date().getTime()
           /** CONFIGURATION END **/`

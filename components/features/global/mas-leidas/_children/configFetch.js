@@ -1,11 +1,21 @@
 export default props => {
   const {
     numNotes,
-    globalContentConfig: { query: { section = '' } = '' } = '',
-    globalContent: {
-      taxonomy: { primary_section: { _id = '' } = '' } = '',
-    } = {},
+    globalContentConfig,
+    globalContent,
   } = props
+  const {
+    query: {
+      section = ''
+    } = {}
+  } = globalContentConfig || {}
+  const {
+    taxonomy: {
+      primary_section: {
+        _id = ''
+      } = ''
+    } = '',
+  } = globalContent || {}
 
   let sec = _id || section
 
@@ -13,7 +23,6 @@ export default props => {
   else if (sec !== '') {
     sec = sec.charAt(0) === '/' ? sec : `/${sec}`
   }
-  console.log(sec)
 
   return {
     source: 'stories__most-readed',

@@ -1,13 +1,15 @@
 import React from 'react'
-import MetaSite from './_children/MetaSite'
+import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
+import MetaSearch from './_children/meta-search'
 
 export default ({
   children,
   contextPath,
   deployment,
   arcSite,
+  globalContent,
   CssLinks,
   Fusion,
   Libs,
@@ -23,12 +25,19 @@ export default ({
     contextPath,
     deployment,
   }
+  const { siteUrl } = siteProperties
+  const dataSearch = {
+    siteUrl,
+    globalContent,
+    requestUri,
+  }
   return (
     <html lang="es">
       <head>
         <MetaTags />
         <Libs />
         <CssLinks />
+        <MetaSearch {...dataSearch} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta

@@ -67,7 +67,7 @@ class CintilloUrgente extends Component {
         filterSchema
       )
       fetched.then(response => {
-        this.setState({ article: response })
+        this.setState({ article: response || {} })
       })
     }
   }
@@ -100,8 +100,7 @@ class CintilloUrgente extends Component {
         className={`cintillo-u ${isVisible ? '' : 'hide'}
           ${backgroundColor} 
           ${classes.breakingnews}
-          `}
-      >
+          `}>
         <span
           className={classes.breakingnewsBtnClose}
           onClick={this.handleOnclickClose}
@@ -109,8 +108,7 @@ class CintilloUrgente extends Component {
           // Needs a role, to be focusable and to have a key event
           onKeyPress={this.handleOnclickClose}
           role="button"
-          tabIndex={0}
-        >
+          tabIndex={0}>
           x
         </span>
         <h2 className={classes.breakingnewsText}>
@@ -123,8 +121,7 @@ class CintilloUrgente extends Component {
               href={objContent.link}
               target="_blank"
               rel="noopener noreferrer"
-              {...editableField('title')}
-            >
+              {...editableField('title')}>
               {objContent.title}
             </a>
           </span>
