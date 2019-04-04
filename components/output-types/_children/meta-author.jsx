@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 
-// @Consumer
+
 class MetaAuthor extends Component {
   componentDidMount = () => {}
 
