@@ -11,14 +11,12 @@ class Buscar extends Component {
   }
 
   render() {
-    const {
-      globalContent: { content_elements: contentElements = [], count = 0 } = {},
-      globalContentConfig: { query: { size = 0, from = 1 } = {} } = {},
-      arcSite,
-    } = this.props
+    const { globalContent, globalContentConfig, arcSite } = this.props
+    const { content_elements: contentElements, count = 0 } = globalContent || {}
+    const { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
 
     const params = {
-      data: contentElements,
+      data: contentElements || [],
       arcSite,
     }
 

@@ -1,3 +1,5 @@
+import { addResizedUrlItem } from './thumbs'
+
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
 }
@@ -89,4 +91,10 @@ export const isEmpty = val => {
       test = ''
   }
   return test
+}
+
+// Simplificación de la función addResizedUrlItem, ej: ratio = "16x9" resolution = "400x400"
+export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
+  return addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
+    .resized_urls[ratio]
 }

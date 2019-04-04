@@ -5,7 +5,9 @@ import PropTypes from 'prop-types'
 @Consumer
 class Subheading extends Component {
   render() {
-    const { globalContent: { subheadlines: subtitle = {} } = {} } = this.props
+    const { globalContent } = this.props
+    const { subheadlines: subtitle = {} } = globalContent || {}
+
     return (
       <Fragment>
         {subtitle && subtitle.basic && (
