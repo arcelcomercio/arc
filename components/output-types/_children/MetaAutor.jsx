@@ -27,9 +27,10 @@ class MetaAutor extends Component {
       url,
       image = {},
       social_links = [],
+      name='',
       additional_properties: {
         original: { role = '', bio = '',byline='' } = {},
-        name = '',
+        
       } = {},
     } = credits.by[0]
 
@@ -59,7 +60,7 @@ class MetaAutor extends Component {
       "@context": "http://schema.org/",
       "@type": "Person",
       "name": "${name}",
-      "alternateName": "${byline}",
+      "alternateName": "${name.replace(' ','').replace(' ','')}",
       "url": "${urlAutor}", 
       "image": "${imgAutor}",
       "sameAs": [
@@ -79,6 +80,11 @@ class MetaAutor extends Component {
         ${itemNews.map(item => item)}
       ]
     }`
+
+
+    console.log("<<<>>>>><<<<<<<<<<<<<<<<<<<<<<name")
+    ;
+
     return (
       <Fragment>
         <script
