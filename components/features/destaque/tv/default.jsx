@@ -58,12 +58,12 @@ class DestaqueTv extends Component {
 			const get = new DataStory(element, arcSite)
 			const filterData = {
 				category: {
-					name: get.section,
-					url: get.sectionLink,
+					nameSection: get.section,
+					urlSection: get.sectionLink,
 				},
 				title: {
-					name: get.title,
-					url: get.link,
+					nameTitle: get.title,
+					urlTitle: get.link,
 				},
 				multimedia: {
 					multimediaType: get.multimediaType,

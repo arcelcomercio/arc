@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import DataStory from './utils/data-story'
-import { reduceWord, formatDate } from '../utilsJs/helpers'
+import { reduceWord, formatDate, getIcon } from '../utilsJs/helpers'
 
 const clases = {
   cardNotice: 'card-notice',
@@ -23,16 +23,7 @@ class CardNotice extends Component {
     super(props)
   }
 
-  static getIcon(type) {
-    switch (type) {
-      case 'basic_gallery':
-        return 'G'
-      case 'basic_video':
-        return 'V'
-      default:
-        return ''
-    }
-  }
+
 
   render() {
     const { arcSite, data } = this.props
@@ -76,7 +67,7 @@ class CardNotice extends Component {
                 ''
               ) : (
                 <span className={clases.cardNoticeIcon}>
-                  {CardNotice.getIcon(element.multimediaType)}
+                  {getIcon(element.multimediaType)}
                 </span>
               )}
               <img

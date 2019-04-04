@@ -1,61 +1,62 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { getIcon } from '../../resources/utilsJs/helpers'
 
-class CardDestaqueTv extends Component {
-	constructor(...props){
-		super(...props)
-	}
-	render() {
-		const datos = this.props
-		console.log(datos)
+const CardDestaqueTv = props => {
+		const { 
+		title: { nameTitle, urlTitle },
+		category: { nameSection, urlSection },
+		multimedia: { multimediaImg, multimediaType },
+		tags
+		} = props
 		return (
       <div className="card-destaque-tv">
         <div className="card-destaque-tv__container">
           <div className="card-destaque-tv__box-title">
             <h1>
-              <a href="/" className="card-destaque-tv__title">
-                Berrocal: el miembro de Alianza Lima que decidió no subir al
-                Fokker
+              <a href={urlTitle} className="card-destaque-tv__title">
+                {nameTitle}
               </a>
             </h1>
           </div>
           <div className="card-destaque-tv__box-sub">
             <span>
-							<a href="/" className="card-destaque-tv__section">Política</a>
+              <a href={urlSection} className="card-destaque-tv__section">
+                {nameSection}
+              </a>
             </span>
             {/* <span className="card-destaque-tv__social"></span> */}
           </div>
-          <div className="card-destaque-tv__box-image">
+          <a href={urlTitle} className="card-destaque-tv__box-image">
             <img
               className="card-destaque-tv__img"
-              src="https://img.elcomercio.pe/files/listing_ec_seccion_comerciotv/uploads/2017/12/07/5a296ad17dd05.jpeg"
-              alt="image"
+              src={multimediaImg}
+              alt="foto"
             />
-            <span className="card-destaque-tv__icon">V</span>
-          </div>
-          <div className="card-destaque-tv__tags">
-            <p className="card-destaque-tv__related">Tag Relacionados:</p>
-            <ul className="card-destaque-tv__list">
-              <li className="card-destaque-tv__item">
-                <a className="card-destaque-tv__link" href="/">
-                  Alianza
-                </a>
-              </li>
-              <li className="card-destaque-tv__item">
-                <a className="card-destaque-tv__link" href="/">
-                  Alianza
-                </a>
-              </li>
-              <li className="card-destaque-tv__item">
-                <a className="card-destaque-tv__link" href="/">
-                  Alianza
-                </a>
-              </li>
-            </ul>
-          </div>
+						{ multimediaType === 'basic' || multimediaType === '' && 
+							(<span className="card-destaque-tv__icon">{getIcon(multimediaType)}</span>)
+						}
+          </a>
+          {tags && (
+            <div className="card-destaque-tv__tags">
+              <p className="card-destaque-tv__related">Tag Relacionados:</p>
+              <ul className="card-destaque-tv__list">
+                {tags.map((el, index) => {
+                  return (
+                    <li key={index} className="card-destaque-tv__item">
+                      <a
+                        className="card-destaque-tv__link"
+                        href={`/tag/${el.slug}`}>
+                        {el.description}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     )
-	}
 }
 
 export default CardDestaqueTv;
