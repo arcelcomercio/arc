@@ -22,24 +22,13 @@ class MetaAutor extends Component {
 
     const { content_elements } = globalContent
 
-    let itemNews = content_elements.map((news, index) => {
-      let { canonical_url } = news
-
-      return `{
-        "@type":"ListItem",
-        "position":${index},
-        "url":"${canonical_url}"
-      }${content_elements.lenght - 1 > index ? ',' : ''}`
-    })
-    console.log('>>>>>>>>>>>>>>>>>itemsssssss>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-    console.log(itemNews)
 
     const {
       url,
       image = {},
       social_links = [],
       additional_properties: {
-        original: { role = '', bio = '' } = {},
+        original: { role = '', bio = '',byline='' } = {},
         name = '',
       } = {},
     } = credits.by[0]
@@ -52,32 +41,25 @@ class MetaAutor extends Component {
     })
 
     const urlAutor = `${siteUrl}${url}`
-    // console.log('>>>>>>>>>>>>>>>>>>>>siteName')
-    // console.log( `url Autor ${url}`)
-    // console.log(siteName)
-    // console.log(imgAutor)
-    // console.log(siteUrl)
-    // console.log(url)
-    // console.log(urlAutor)
-    // console.log('>>>>>>>>>>>>>>>>>>>>redes')
-    // console.log(redes)
+    
+    
 
-    // console.log('>>>>>>>>>>>>>>>>>>>>roles')
-    // console.log(role)
-    // console.log(bio)
+    let itemNews = content_elements.map((news, index) => {
+      let { canonical_url } = news
 
-    // {
-    //   "@type":"ListItem",
-    //   "position":1,
-    //   "url":"https://sitio.pe/category/nota-1"
-    // }
+      return `{
+        "@type":"ListItem",
+        "position":${index},
+        "url":"${canonical_url}"
+      }${content_elements.lenght - 1 > index ? ',' : ''}`
+    })
 
     const structuredAutor = `
     {
       "@context": "http://schema.org/",
       "@type": "Person",
       "name": "${name}",
-      "alternateName": "${'algo'}",
+      "alternateName": "${byline}",
       "url": "${urlAutor}", 
       "image": "${imgAutor}",
       "sameAs": [
@@ -94,13 +76,20 @@ class MetaAutor extends Component {
       "url":"${urlAutor}",
       "@type":"ItemList",
       "itemListElement":[
-        ${itemNews.map(item =>item)}
+        ${itemNews.map(item => item)}
       ]
     }`
     return (
       <Fragment>
-        <script type="application/ld+json">{structuredAutor}</script>
-        <script type="application/ld+json">{structuredNews}</script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: structuredAutor }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: structuredNews }}
+        />
       </Fragment>
     )
   }
