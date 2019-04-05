@@ -20,15 +20,15 @@ export default ({
   requestUri,
   metaValue,
 }) => {
-  const properties = {
-    ...siteProperties,
+  const metaSiteData = {
+    siteProperties,
     requestUri,
     arcSite,
     contextPath,
     deployment,
   }
   const { siteUrl } = siteProperties
-  const dataSearch = {
+  const metaSearchData = {
     siteUrl,
     globalContent,
     requestUri,
@@ -36,10 +36,10 @@ export default ({
   return (
     <html lang="es">
       <head>
-        <MetaTags/>
+        <MetaTags />
         <Libs />
         <CssLinks />
-        <MetaSearch {...dataSearch} />
+        <MetaSearch {...metaSearchData} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -53,9 +53,17 @@ export default ({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
+        <MetaAuthor
+          globalContent={globalContent}
+          // properties={metaSiteData}
+          requestUri={requestUri}
+          siteProperties={metaSiteData}
 
-        <MetaAuthor  globalContent ={globalContent} properties ={properties}/>
-        <MetaSite data={properties} />
+          siteName={siteProperties.siteName}
+          siteUrl={siteProperties.siteUrl}
+
+        />
+        <MetaSite {...metaSiteData} />
         <TwitterCards
           twitterUser={siteProperties.social.twitter.user}
           siteUrl={siteProperties.siteUrl}
