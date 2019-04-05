@@ -49,7 +49,7 @@ export default ({
         <Libs />
         <CssLinks />
         <MetaArchive
-          {...dataSearch}
+          {...metaSearchData}
           /** TODO: No sé si es importante pero creo que debería ir debajo del script de chartbeat */
         />
         <MetaAuthor {...metaAuthorData} />

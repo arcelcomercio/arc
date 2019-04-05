@@ -40,9 +40,9 @@ const CardDestaqueTv = props => {
             <div className="card-destaque-tv__tags">
               <p className="card-destaque-tv__related">Tag Relacionados:</p>
               <ul className="card-destaque-tv__list">
-                {tags.map((el, index) => {
+                {tags.map(el => {
                   return (
-                    <li key={index} className="card-destaque-tv__item">
+                    <li key={el.slug} className="card-destaque-tv__item">
                       <a
                         className="card-destaque-tv__link"
                         href={`/tag/${el.slug}`}>
