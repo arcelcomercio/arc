@@ -28,7 +28,7 @@ const getPaginationUrl = url => {
 
 const MetaAuthor = ({ globalContent, siteName, siteUrl, requestUri }) => {
   const { content_elements: contentElements } = globalContent || {}
-  const [{ credits: { by = [] } = {} }] = contentElements || []
+  const [{ credits: { by = [] } = {} } = {}] = contentElements || []
   const {
     url: authorPath = '',
     image: { url: authorImg = '' } = {},
