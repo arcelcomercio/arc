@@ -5,7 +5,7 @@ import filterSchema from './_children/filterschema'
 import Data from '../_children/data'
 import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
 
-const API_URL = 'stories__by-section'
+const API_URL = 'story-feed-by-section'
 const API_SIZE_DATA = 1
 @Consumer
 class AperturaExtraordinariaSection extends Component {

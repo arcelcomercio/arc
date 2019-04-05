@@ -21,7 +21,7 @@ class DestaqueManual extends Component {
 
     const { schema } = this.DestaqueFormater
 
-    const source = 'story__by-websiteurl'
+    const source = 'story-by-url'
     const params = {
       website: arcSite,
       website_url: path,

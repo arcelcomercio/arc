@@ -53,7 +53,7 @@ class Separador extends Component {
     const { arcSite, globalContent } = this.props
     const section = this.getSeccionPrimary(globalContent || {})
     const { fetched } = this.getContent(
-      'stories__by-section',
+      'story-feed-by-section',
       {
         website: arcSite,
         section,

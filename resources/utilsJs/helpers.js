@@ -1,7 +1,7 @@
 import { addResizedUrlItem } from './thumbs'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
-  return word.length > len ? word.slice(0, 145).concat(finalText) : word
+  return word.length > len ? word.slice(0, len).concat(finalText) : word
 }
 
 export const formatDate = date => {
@@ -78,8 +78,25 @@ export const isEmpty = val => {
   return false
 }
 
+ export const getIcon = (type) => {
+  let test = '' 
+  switch (type) {
+    case 'basic_gallery':
+      test = 'G'
+      break
+    case 'basic_video':
+      test = 'V'
+      break
+    default:
+      test = ''
+  }
+  return test
+}
+
 // Simplificación de la función addResizedUrlItem, ej: ratio = "16x9" resolution = "400x400"
 export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
-  return addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
+  const test = addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
     .resized_urls[ratio]
+
+    return test
 }

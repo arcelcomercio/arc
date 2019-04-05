@@ -9,7 +9,7 @@ export default function OrderedNews({ children, customFields }) {
   storyNumber -= 1
   /**
    *    Recorre los hijos para clonarlos agregando como propiedad
-   *    el número de la noticia que le corresponde imprimir.
+   *    el número de la historia que le corresponde imprimir.
    */
   const AutoChildren = React.Children.map(children, child => {
     /**
@@ -36,10 +36,10 @@ export default function OrderedNews({ children, customFields }) {
 OrderedNews.propTypes = {
   customFields: PropTypes.shape({
     initialStory: PropTypes.number.tag({
-      name: 'Iniciar desde la noticia:',
+      name: 'Iniciar desde la historia:',
       defaultValue: 1,
       description:
-        'Indique el número de la noticia desde la que quiere empezar a imprimir. La primera noticia corresponde al número 1',
+        'Indique el número de la historia desde la que quiere empezar a imprimir. La primera historia corresponde al número 1',
     }),
   }),
 }
