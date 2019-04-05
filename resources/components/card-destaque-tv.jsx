@@ -32,7 +32,7 @@ const CardDestaqueTv = props => {
               src={multimediaImg}
               alt="foto"
             />
-						{ multimediaType === 'basic' || multimediaType === '' && 
+						{ multimediaType !== 'basic' && 
 							(<span className="card-destaque-tv__icon">{getIcon(multimediaType)}</span>)
 						}
           </a>
