@@ -27,11 +27,16 @@ export default ({
     contextPath,
     deployment,
   }
-  const { siteUrl } = siteProperties
   const metaSearchData = {
-    siteUrl,
+    siteUrl: siteProperties.siteUrl,
     globalContent,
     requestUri,
+  }
+  const metaAuthorData = {
+    globalContent,
+    requestUri,
+    siteName: siteProperties.siteName,
+    siteUrl: siteProperties.siteUrl,
   }
   function createMarkup(html) {
     return { __html: html }
@@ -44,6 +49,7 @@ export default ({
         <Libs />
         <CssLinks />
         <MetaSearch {...metaSearchData} />
+        <MetaAuthor {...metaAuthorData} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -56,17 +62,6 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
-
-        <MetaAuthor
-          globalContent={globalContent}
-          // properties={metaSiteData}
-          requestUri={requestUri}
-          siteProperties={metaSiteData}
-
-          siteName={siteProperties.siteName}
-          siteUrl={siteProperties.siteUrl}
-
-        />
         <MetaSite {...metaSiteData} />
         <TwitterCards
           twitterUser={siteProperties.social.twitter.user}

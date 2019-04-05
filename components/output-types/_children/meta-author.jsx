@@ -26,16 +26,22 @@ const getPaginationUrl = url => {
   return pages
 }
 
-const MetaAuthor = ({ globalContent, siteName, siteUrl, requestUri }) => {
-  const { content_elements: contentElements } = globalContent || {}
-  const [{ credits: { by = [] } = {} }] = contentElements || []
+const MetaAuthor = ({
+  globalContent,
+  siteName = '',
+  siteUrl = '',
+  requestUri = '',
+}) => {
+  const { content_elements: contentElements = [] } = globalContent || {}
+  const [{ credits: { by = [] } = {} } = {}] = contentElements
+
   const {
     url: authorPath = '',
     image: { url: authorImg = '' } = {},
     social_links: socialLinks = [],
     name = '',
     additional_properties: { original: { bio = '' } = {} } = {},
-  } = by[0]
+  } = by[0] || []
 
   let socialMedia = ''
   socialLinks.forEach(social => {
