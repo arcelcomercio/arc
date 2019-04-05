@@ -45,7 +45,7 @@ class DestaqueTv extends Component {
         }
       }
     }`
-    const source = 'stories__by-section'
+    const source = 'story-feed-by-section'
     const params = {
       section,
       feedOffset: 0,
