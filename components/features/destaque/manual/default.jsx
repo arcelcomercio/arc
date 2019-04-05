@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 
 import Destaque from '../../../../resources/components/destaque'
 
-import DestaqueFormater from '../../../../resources/components/utils/destaque-formater'
+import DestaqueFormater from '../_children/destaque-formater'
 
 @Consumer
 class DestaqueManual extends Component {
