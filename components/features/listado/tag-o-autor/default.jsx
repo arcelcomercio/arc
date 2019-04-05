@@ -8,7 +8,7 @@ class tagAutor extends Component {
   render() {
     const { globalContent, globalContentConfig, arcSite } = this.props
     const { content_elements: contentElements, count = 0 } = globalContent || {}
-    const { query: { amountStories = 0, currentNumPage = 1 } = {} } =
+    const { query: { storiesQty = 0, currentPageNumber = 1 } = {} } =
       globalContentConfig || {}
 
     const params = {
@@ -25,8 +25,8 @@ class tagAutor extends Component {
         </div>
         <Paginacion
           totalElements={count}
-          totalViews={amountStories}
-          currentPage={currentNumPage}
+          totalViews={storiesQty}
+          currentPage={currentPageNumber}
         />
       </Fragment>
     )

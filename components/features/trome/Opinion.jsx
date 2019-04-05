@@ -50,7 +50,7 @@ class Opinion extends Component {
     if (seccion) {
       const { arcSite } = this.props
       const { fetched } = this.getContent(
-        'stories__by-section',
+        'story-feed-by-section',
         {
           website: arcSite,
           section: seccion,

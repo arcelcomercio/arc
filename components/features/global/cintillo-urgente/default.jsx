@@ -62,7 +62,7 @@ class CintilloUrgente extends Component {
       (isExternalLink === undefined || isExternalLink === false)
     ) {
       const { fetched } = this.getContent(
-        'story__by-websiteurl',
+        'story-by-url',
         { website_url: storyLink, website: arcSite },
         filterSchema
       )
@@ -164,7 +164,7 @@ CintilloUrgente.propTypes = {
     tags: PropTypes.string.tag({ name: 'Etiqueta' }),
     title: PropTypes.string.tag({
       name: 'Título',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
+      description: 'Dejar vacío para tomar el valor original de la historia.',
     }),
     subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true }),
   }),
