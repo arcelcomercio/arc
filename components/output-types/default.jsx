@@ -2,7 +2,7 @@ import React from 'react'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-import MetaSearch from './_children/meta-search'
+import MetaArchive from './_children/meta-archive'
 
 export default ({
   children,
@@ -37,7 +37,7 @@ export default ({
         <MetaTags />
         <Libs />
         <CssLinks />
-        <MetaSearch
+        <MetaArchive
           {...dataSearch}
           /** TODO: No sé si es importante pero creo que debería ir debajo del script de chartbeat */
         />
@@ -74,7 +74,10 @@ export default ({
           siteName={siteProperties.siteName}
           article // check data origin - Boolean
         />
-        <title>{metaValue('title') || siteProperties.siteName}</title>
+        <title>
+          {`${metaValue('title')} | ${siteProperties.siteName}` ||
+            siteProperties.siteName}
+        </title>
         <meta
           name="description"
           content={metaValue('description') || 'Últimas noticias en Perú'}
