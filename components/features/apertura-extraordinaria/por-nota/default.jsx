@@ -48,6 +48,11 @@ class AperturaExtraordinariaStory extends Component {
 
     return <AperturaExtraordinariaChildren {...params} />
   }
+
+  // eslint-disable-next-line react/sort-comp
+  componentDidMount() {
+    window.powaBoot()
+  }
 }
 
 AperturaExtraordinariaStory.propTypes = {

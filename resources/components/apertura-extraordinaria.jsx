@@ -20,6 +20,16 @@ const AperturaExtraordinaria = props => {
 
   return (
     <div className={classes.aperturaE}>
+      <div
+        id="powa-26829ba2-370c-4d75-81e2-dcbed324e826"
+        data-env="sandbox"
+        data-api="sandbox"
+        data-org="elcomercio"
+        data-uuid="26829ba2-370c-4d75-81e2-dcbed324e826"
+        data-aspect-ratio="0.562"
+        className="powa">
+        <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
+      </div>
       {!isSection && (
         <div className={classes.aperturaESection}>
           <a href={data.sectionLink}>{data.section}</a>
