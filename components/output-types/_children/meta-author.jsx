@@ -1,23 +1,24 @@
 import React, { Fragment } from 'react'
 
-const getUrlPagination = url => {
-  const getNumberPage = url.match(/\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/)
-  let NumerPage = 0
+const getPaginationUrl = url => {
+  const getPageNumber = url.match(/\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/)
+  let pageNumber = 0
   let prevPage = ''
   let nextPage = ''
-  let pages = []
-  if (getNumberPage) {
-    getNumberPage[0].replace('/', '')
+  const pages = []
 
-    NumerPage = parseInt(getNumberPage[0].replace('/', ''), 10)
+  if (getPageNumber) {
+    getPageNumber[0].replace('/', '')
+
+    pageNumber = parseInt(getPageNumber[0].replace('/', ''), 10)
 
     nextPage = url.replace(
       url.match(/\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/)[0],
-      `/${NumerPage + 1}`
+      `/${pageNumber + 1}`
     )
     prevPage = url.replace(
       url.match(/\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/)[0],
-      `/${NumerPage === 1 ? '' : NumerPage - 1}`
+      `/${pageNumber === 1 ? '' : pageNumber - 1}`
     )
     pages.push(nextPage)
     pages.push(prevPage)
@@ -26,42 +27,39 @@ const getUrlPagination = url => {
 }
 
 const MetaAuthor = ({ globalContent, siteName, siteUrl, requestUri }) => {
+  const { content_elements: contentElements } = globalContent || {}
+  const [{ credits: { by = [] } = {} }] = contentElements || []
   const {
-    content_elements: [{ credits }],
-  } = globalContent
-
-  const { content_elements } = globalContent
-
-  const {
-    url,
+    url: authorPath = '',
     image: { url: authorImg = '' } = {},
     social_links: socialLinks = [],
     name = '',
     additional_properties: { original: { bio = '' } = {} } = {},
-  } = credits.by[0]
+  } = by[0]
 
-  let redes = ''
+  let socialMedia = ''
   socialLinks.forEach(social => {
     //
-    redes += `"${social.url}", \n`
+    socialMedia += `"${social.url}", \n`
   })
 
-  const pagesPagination = getUrlPagination(requestUri)
+  const pagesPagination = getPaginationUrl(requestUri)
   let nextPage = ''
   let prefetch = ''
-  if (getUrlPagination(requestUri).length > 0) {
+
+  if (getPaginationUrl(requestUri).length > 0) {
     nextPage = `${siteUrl}${pagesPagination[0]}`
     prefetch = `${siteUrl}${pagesPagination[1]}`
   }
 
-  const authorUrl = `${siteUrl}${url}`
-  const listItems = content_elements.map(
+  const authorUrl = `${siteUrl}${authorPath}`
+  const listItems = contentElements.map(
     ({ canonical_url: canonicalUrl }, index) => {
       return `{
       "@type":"ListItem",
       "position":${index}, 
       "url":"${canonicalUrl}"
-    }${content_elements.lenght - 1 > index ? ',' : ''}`
+    }${contentElements.lenght - 1 > index ? ',' : ''}`
     }
   )
 
@@ -75,7 +73,7 @@ const MetaAuthor = ({ globalContent, siteName, siteUrl, requestUri }) => {
     "url": "${authorUrl}", 
     "image": "${authorImg}",
     "sameAs": [
-      ${redes}
+      ${socialMedia}
     ],
     "jobTitle": "${bio}",
       "worksFor": {
