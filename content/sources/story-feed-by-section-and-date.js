@@ -28,7 +28,7 @@ const transform = data => {
 }
 
 const pattern = (key = {}) => {
-  const website = key['arc-site'] || 'Arc Site is not defined'
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const { section, date } = key
 
   /** Para enviar params a transform luego */

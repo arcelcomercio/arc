@@ -1,7 +1,6 @@
 const schemaName = 'stories'
 
-const params = [
-  {
+const params = [{
     name: 'sort',
     displayName: 'Orden',
     type: 'text',
@@ -45,8 +44,8 @@ const pattern = key => {
     return '0'
   }
 
-  const website = `${key['arc-site'] || 'elcomercio'}`
-  const sort = `${key.sort || 'desc'}`
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const sort = key.sort || 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 3}`
   // const page = `page=${'1'}`
@@ -55,8 +54,7 @@ const pattern = key => {
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -101,8 +99,7 @@ const pattern = key => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': [`/${key.section}`],
                 },

@@ -4,8 +4,7 @@
 
 const schemaName = 'stories'
 
-const params = [
-  {
+const params = [{
     name: 'section',
     displayName: 'Sección',
     type: 'text',
@@ -18,14 +17,16 @@ const params = [
 ]
 
 const pattern = key => {
-  const website = `${key['arc-site'] || 'elcomercio'}`
-  const { section, size } = key
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const {
+    section,
+    size
+  } = key
 
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -46,8 +47,7 @@ const pattern = key => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': [`${section}`],
                 },

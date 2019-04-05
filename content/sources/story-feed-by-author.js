@@ -2,7 +2,8 @@ let auxKey
 
 const schemaName = 'stories'
 
-const params = [{
+const params = [
+  {
     name: 'name',
     displayName: 'Slug del autor',
     type: 'text',
@@ -22,12 +23,8 @@ const params = [{
 const pattern = (key = {}) => {
   auxKey = key
 
-  const website = key['arc-site'] || 'Arc Site is not defined'
-  const {
-    name,
-    currentPageNumber,
-    storiesQty
-  } = key
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const { name, currentPageNumber, storiesQty } = key
 
   if (!name) {
     throw new Error('Esta fuente de contenido necesita el Slug del autor')
@@ -53,19 +50,11 @@ const pattern = (key = {}) => {
 const resolve = key => pattern(key)
 
 const transform = data => {
-  const {
-    name
-  } = auxKey || {}
+  const { name } = auxKey || {}
 
   if (!name) return data
 
-  const {
-    content_elements: [{
-      credits: {
-        by = []
-      } = {},
-    }] = [],
-  } = data || {}
+  const { content_elements: [{ credits: { by = [] } = {} }] = [] } = data || {}
 
   const realAuthor = by.find(author => `/autor/${name}` === author.url)
   const authorName = {

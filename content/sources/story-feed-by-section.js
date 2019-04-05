@@ -33,7 +33,7 @@ export const itemsToArray = (itemString = '') => {
 const pattern = (key = {}) => {
   auxKey = key
 
-  const website = key['arc-site'] || 'Arc Site is not defined.'
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const {
     section,
     excludeSections,
