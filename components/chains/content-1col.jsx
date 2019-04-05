@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-
 import PropTypes from 'prop-types'
 
-const classes = {
-  section: 'content-grid-base col-1',
-}
+const classes = 'content-grid-base col-1'
 
 class Content1Col extends Component {
   render() {
@@ -14,7 +11,7 @@ class Content1Col extends Component {
     } = this.props
 
     return (
-      <section className={`${classes.section} ${staticHeight && 'row-1'}`}>
+      <section className={`${classes} ${staticHeight && 'row-1'}`}>
         {children}
       </section>
     )
