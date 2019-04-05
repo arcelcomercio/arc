@@ -1,18 +1,16 @@
 import React, { Fragment } from 'react'
 
 export default ({
-  data: {
-    siteName = '',
-    siteUrl = '',
-    colorPrimary = '',
-    social: { facebook = {}, twitter = {}, youtube = {} } = {},
-    sfAccountNumber = '',
-    siteDomain = '',
-    requestUri = '',
-    arcSite = '',
-    contextPath = '',
-    deployment = () => {},
-  },
+  siteName = '',
+  siteUrl = '',
+  colorPrimary = '',
+  social: { facebook = {}, twitter = {}, youtube = {} } = {},
+  sfAccountNumber = '',
+  siteDomain = '',
+  requestUri = '',
+  arcSite = '',
+  contextPath = '',
+  deployment = () => {},
 } = {}) => {
   const structuredData = `{
     "@context" : "http://schema.org",
