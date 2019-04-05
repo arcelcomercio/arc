@@ -25,18 +25,21 @@ class Video extends Component {
   getParametroPublicidad = () => {
     const {
       siteProperties: { urlPreroll },
-      globalContent: {
-        taxonomy: {
-          primary_section: {
-            additional_properties: {
-              original: {
-                _admin: { alias_ids: aliasId = {} },
-              },
+      globalContent,
+    } = this.props
+
+    const {
+      taxonomy: {
+        primary_section: {
+          additional_properties: {
+            original: {
+              _admin: { alias_ids: aliasId },
             },
           },
         },
-      } = {},
-    } = this.props
+      },
+    } = globalContent || {}
+
     if (aliasId && aliasId[0]) {
       return aliasId[0]
     }

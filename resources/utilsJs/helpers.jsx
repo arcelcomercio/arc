@@ -1,3 +1,5 @@
+import { addResizedUrlItem } from './thumbs'
+
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, 145).concat(finalText) : word
 }
@@ -33,4 +35,51 @@ export const getActualDate = () => {
     mm = `0${mm}`
   }
   return `${yyyy}-${mm}-${dd}`
+}
+
+export const isEmpty = val => {
+  // test results
+  //---------------
+  // []        true, empty array
+  // {}        true, empty object
+  // null      true
+  // undefined true
+  // ""        true, empty string
+  // ''        true, empty string
+  // 0         false, number
+  // true      false, boolean
+  // false     false, boolean
+  // Date      false
+  // function  false
+
+  if (val === undefined) return true
+
+  if (
+    typeof val === 'function' ||
+    typeof val === 'number' ||
+    typeof val === 'boolean' ||
+    Object.prototype.toString.call(val) === '[object Date]'
+  )
+    return false
+
+  if (val == null || val.length === 0)
+    // null or 0 length array
+    return true
+
+  if (typeof val === 'object') {
+    // empty object
+    // eslint-disable-next-line no-restricted-syntax
+    for (const f in val) {
+      if (Object.prototype.hasOwnProperty.call(val, f)) return false
+    }
+    return true
+  }
+
+  return false
+}
+
+// Simplificación de la función addResizedUrlItem, ej: ratio = "16x9" resolution = "400x400"
+export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
+  return addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
+    .resized_urls[ratio]
 }

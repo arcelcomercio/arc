@@ -23,15 +23,14 @@ const elementClasses = {
 class ContentArticleBody extends Component {
   // eslint-disable-next-line react/sort-comp
   render() {
+    const { globalContent } = this.props
     const {
-      globalContent: {
-        content_elements: contentElements,
-        promo_items: promoItems,
-        publish_date: date,
-        credits: author,
-        taxonomy,
-      } = {},
-    } = this.props
+      content_elements: contentElements,
+      promo_items: promoItems,
+      publish_date: date,
+      credits: author,
+      taxonomy,
+    } = globalContent || {}
 
     return (
       <Fragment>

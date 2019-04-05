@@ -5,7 +5,7 @@ import filterSchema from '../_children/filterschema'
 import Data from '../_children/data'
 import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
 
-const API_URL = 'story__by-websiteurl'
+const API_URL = 'story-by-url'
 @Consumer
 class AperturaExtraordinariaStory extends Component {
   constructor(props) {
@@ -16,10 +16,7 @@ class AperturaExtraordinariaStory extends Component {
   }
 
   fetch() {
-    const {
-      customFields: { link },
-      arcSite,
-    } = this.props
+    const { customFields: { link = '' } = {}, arcSite } = this.props
     if (link) {
       const { fetched } = this.getContent(
         API_URL,
@@ -30,7 +27,7 @@ class AperturaExtraordinariaStory extends Component {
         filterSchema(arcSite)
       )
       fetched.then(response => {
-        this.setState({ data: response })
+        this.setState({ data: response || {} })
       })
     }
   }

@@ -1,8 +1,15 @@
 const schemaName = 'navigation'
-const params = {
-  hierarchy: 'text',
-  // section: 'text',
-}
+const params = [{
+    name: 'hierarchy',
+    displayName: 'Jerarquía',
+    type: 'text',
+  },
+  /*  {
+     name: 'section',
+     displayName: 'Sección',
+     type: 'text',
+   } */
+]
 
 export const createContentSource = site => {
   const resolve = (key = {}) => {

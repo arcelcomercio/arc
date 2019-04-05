@@ -88,7 +88,7 @@ class DataStory {
 
   get link() {
     return (
-      `${this._data && this._data.website_url}?_website=${this._website}` || '#'
+      `${(this._data && this._data.website_url) || ''}?_website=${this._website}` || '#'
     )
   }
 
@@ -107,6 +107,16 @@ class DataStory {
 
   get firstPublishDate() {
     return (this._data && this._data.first_publish_date) || ''
+  }
+
+  // TODO: Improve raw attribute function (should only be getter's attribute)
+  get attributesRaw() {
+    let attributesObject = {}
+    // eslint-disable-next-line no-restricted-syntax
+    for (const attr of Object.getOwnPropertyNames( DataStory.prototype )) {
+      if( attr !== 'attributesRaw') attributesObject[attr] = this[attr]
+    }
+    return attributesObject
   }
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
