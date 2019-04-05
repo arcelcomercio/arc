@@ -162,6 +162,15 @@
     padding: 0;
     padding: 0;
     position: relative;
+    &::before{
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(50,50,50, .7) 100%);
+    }
 
     & figure {
       padding: 0;
@@ -176,6 +185,8 @@
         & img {
           height: 100%;
           width: 100%;
+          object-fit: cover;
+          object-position: center;
         }
       }
     }
@@ -191,14 +202,15 @@
 
   & span {
     position: absolute;
-    height: 15px;
-    width: 15px;
-    right: 25px;
-    top: 28px;
-    margin: auto;
-    transform: scale(3.5);
+    height: 30px;
+    width: 30px;
+    right: 15px;
+    top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
     z-index: 2;
-    text-align: center;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.5);
     color: #444;

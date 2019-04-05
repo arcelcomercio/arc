@@ -12,7 +12,7 @@ export default props => {
           )}`
         : `${siteUrl}${requestUri}&page=${pageNum}`
   }
-
+  
   const currentPage = requestUri.match(/page=[0-9]+/)
     ? parseInt(requestUri.match(/page=[0-9]+/)[0].split('=')[1], 10)
     : 1

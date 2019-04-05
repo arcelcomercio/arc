@@ -37,7 +37,7 @@ class Tabloide extends Component {
       const { arcSite } = this.props
 
       const { fetched } = this.getContent(
-        'stories__by-section',
+        'story-feed-by-section',
         {
           website: arcSite,
           section: seccion,

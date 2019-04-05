@@ -4,6 +4,8 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import MetaSearch from './_children/meta-search'
 
+import MetaAuthor from './_children/meta-author'
+
 export default ({
   children,
   contextPath,
@@ -18,15 +20,15 @@ export default ({
   requestUri,
   metaValue,
 }) => {
-  const properties = {
-    ...siteProperties,
+  const metaSiteData = {
+    siteProperties,
     requestUri,
     arcSite,
     contextPath,
     deployment,
   }
   const { siteUrl } = siteProperties
-  const dataSearch = {
+  const metaSearchData = {
     siteUrl,
     globalContent,
     requestUri,
@@ -37,7 +39,7 @@ export default ({
         <MetaTags />
         <Libs />
         <CssLinks />
-        <MetaSearch {...dataSearch} />
+        <MetaSearch {...metaSearchData} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -51,7 +53,17 @@ export default ({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
-        <MetaSite data={properties} />
+        <MetaAuthor
+          globalContent={globalContent}
+          // properties={metaSiteData}
+          requestUri={requestUri}
+          siteProperties={metaSiteData}
+
+          siteName={siteProperties.siteName}
+          siteUrl={siteProperties.siteUrl}
+
+        />
+        <MetaSite {...metaSiteData} />
         <TwitterCards
           twitterUser={siteProperties.social.twitter.user}
           siteUrl={siteProperties.siteUrl}

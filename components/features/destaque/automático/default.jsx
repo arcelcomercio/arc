@@ -22,7 +22,7 @@ class DestaqueAutomatico extends Component {
     const { schema } = this.DestaqueFormater
     const storiesSchema = `{ content_elements ${schema} }`
 
-    const source = 'stories__by-section'
+    const source = 'story-feed-by-section'
     const params = {
       website: arcSite,
       section,

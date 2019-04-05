@@ -97,7 +97,11 @@ export default `
     description: String
     slug: String
   }
+  type PrimarySection {
+    name: String
+  }
   type Taxonomy {
+    primary_section: PrimarySection
     sections: [Sections]
     tags: [Tags]
     seo_keywords: [String]
@@ -176,9 +180,11 @@ export default `
     last_updated_date: String
     taxonomy: Taxonomy
     websites: Websites!
-        
+    
     content_elements: [ContentElements]
     section_name: String
+    author_name: String
+    tag_name: String
     count: Int
   }
 `
