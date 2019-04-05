@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-const classes = {} // Falta refactorizar estilos
+const classes = {} // TODO: Falta refactorizar estilos
 
 @Consumer
 class FilterSearch extends Component {
@@ -101,18 +101,18 @@ class FilterSearch extends Component {
     e.preventDefault()
 
     /* Sólo genera la URI si "query" tiene contenido */
-    if (value && value !== '')
+    if (value !== '')
+      // eslint-disable-next-line no-restricted-globals
       location.href = `${location.pathname}?query=${encodeURIComponent(
         value
-      ).replace(/%20/g, '+')}&category=&sort=${sort ||
-        'desc'}&_website=${arcSite}`
+      ).replace(/%20/g, '+')}&category=&sort=${sort}&_website=${arcSite}`
     /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
   }
 
   fetchSections() {
     const { arcSite } = this.props
 
-    const source = 'navigation__by-hierarchy'
+    const source = 'navigation-by-hierarchy'
     const params = {
       website: arcSite,
       hierarchy: 'filter-section',

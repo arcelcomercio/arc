@@ -5,7 +5,7 @@ import filterSchema from '../_children/filterschema'
 import Data from '../_children/data'
 import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
 
-const API_URL = 'story__by-websiteurl'
+const API_URL = 'story-by-url'
 @Consumer
 class AperturaExtraordinariaStory extends Component {
   constructor(props) {

@@ -6,7 +6,7 @@ import filterSchema from './_children/filterschema'
 import Data from './_children/data'
 import { Triplete as TripleteChildren } from '../../../../resources/components/triplete'
 
-const API_URL = 'story__by-websiteurl'
+const API_URL = 'story-by-url'
 @Consumer
 class Triplete extends Component {
   constructor(props) {

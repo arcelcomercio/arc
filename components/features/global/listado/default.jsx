@@ -48,7 +48,7 @@ class Lista extends Component {
     const { section, newsNumber } = this.state
     const { arcSite: website } = this.props
     const { fetched } = this.getContent(
-      'stories__by-section',
+      'story-feed-by-section',
       {
         website,
         section,

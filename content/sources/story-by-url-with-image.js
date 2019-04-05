@@ -1,4 +1,4 @@
-import envVars from 'fusion:environment'
+// import envVars from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import { addResizedUrls } from '../../resources/utilsJs/thumbs'
 
