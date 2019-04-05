@@ -1,5 +1,5 @@
 import React from 'react';
-import { getIcon } from '../../resources/utilsJs/helpers'
+import { getIcon } from "../utilsJs/helpers"
 
 const CardDestaqueTv = props => {
 		const { 

@@ -95,6 +95,8 @@ export const isEmpty = val => {
 
 // Simplificación de la función addResizedUrlItem, ej: ratio = "16x9" resolution = "400x400"
 export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
-  return addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
+  const test = addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
     .resized_urls[ratio]
+
+    return test
 }
