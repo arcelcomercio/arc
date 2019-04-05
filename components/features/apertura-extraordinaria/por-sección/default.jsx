@@ -40,7 +40,7 @@ class AperturaExtraordinariaSection extends Component {
     // eslint-disable-next-line no-shadow
     const { customFields, arcSite } = this.props
     const {
-      data: { content_elements: contentElements },
+      data: { content_elements: contentElements = [] },
     } = this.state
     const dataElement =
       contentElements && contentElements.length > 0 ? contentElements[0] : {}
