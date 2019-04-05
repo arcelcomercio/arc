@@ -51,7 +51,7 @@ class PieDePagina extends Component {
   fetchByHierarchy(hierarchy) {
     const { arcSite } = this.props
 
-    const source = 'navigation__by-hierarchy'
+    const source = 'navigation-by-hierarchy'
     const params = {
       website: arcSite,
       hierarchy,
@@ -69,6 +69,7 @@ class PieDePagina extends Component {
     const { fetched } = this.getContent(source, params, schema)
     fetched
       .then(response => {
+        // FIXME
         const auxList = response.children.map(el => {
           if (el.node_type === 'link') {
             return {

@@ -20,7 +20,7 @@ export default ({
       <meta
         property="og:image"
         content={
-          article // TODO: Img de articulo o logo
+          article // TODO: Falta agregar Img de articulo dinámica
             ? deployment(
                 `${siteUrl}/resources/dist/${arcSite}/images/logo-sitio.jpg`
               )

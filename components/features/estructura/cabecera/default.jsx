@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import Button from '../../../../resources/components/button'
 import { setDevice } from '../../../../resources/utilsJs/resizer'
-import appendScript from '../../../../resources/utilsJs/appendScript'
+// import appendScript from '../../../../resources/utilsJs/appendScript'
 
 const classes = {
   header: 'header full-width',
@@ -34,10 +34,10 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    const { googleTagManagerScript } = this.props.siteProperties
+    // TODO: Si googleTagManager no ejecuta, descomentar.
+    // const { googleTagManagerScript } = this.props.siteProperties
     window.addEventListener('resize', this._handleResize)
-    // TODO: script de Google tag manager agregado, solo descomentar
-    appendScript(googleTagManagerScript, 'head')
+    // appendScript(googleTagManagerScript, 'head')
   }
 
   _handleResize = () => {
@@ -89,7 +89,7 @@ class Header extends Component {
   fetch = () => {
     const { arcSite } = this.props
 
-    const source = 'navigation__by-hierarchy'
+    const source = 'navigation-by-hierarchy'
     const params = {
       website: arcSite,
       hierarchy: 'navegacion-cabecera-tema-del-dia',
@@ -105,6 +105,7 @@ class Header extends Component {
     }`
 
     const { fetched } = this.getContent(source, params, schema)
+    // FIXME
     fetched.then(response => {
       const auxList = response.children.map(el => {
         return {

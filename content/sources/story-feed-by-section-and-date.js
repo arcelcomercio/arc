@@ -1,16 +1,10 @@
-import {
-  getActualDate
-} from '../../resources/utilsJs/helpers'
+import { getActualDate } from '../../resources/utilsJs/helpers'
 
 let globalParams = {}
 
 const schemaName = 'stories'
 
-const params = [{
-    name: 'page',
-    displayName: 'Página (archivo)',
-    type: 'text',
-  },
+const params = [
   {
     name: 'section',
     displayName: 'Sección',
@@ -20,30 +14,25 @@ const params = [{
     name: 'date',
     displayName: 'Fecha',
     type: 'text',
-  }
+  },
 ]
 
 const transform = data => {
   const aux = {
     ...data,
     params: {
-      ...globalParams
+      ...globalParams,
     },
   }
   return aux
 }
 
 const pattern = (key = {}) => {
-  const website = key["arc-site"] || "Arc Site is not defined";
-  const {
-    page,
-    section,
-    date
-  } = key
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const { section, date } = key
 
   /** Para enviar params a transform luego */
   globalParams = {
-    page: page && page,
     section: section || 'todas',
     date: date || getActualDate(),
   }
@@ -51,7 +40,8 @@ const pattern = (key = {}) => {
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               type: 'story',
             },
@@ -71,7 +61,7 @@ const pattern = (key = {}) => {
           },
           {
             term: {
-              'canonical_website': website,
+              canonical_website: website,
             },
           },
         ],
@@ -86,7 +76,8 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': [`/${section}`],
                 },
@@ -103,7 +94,9 @@ const pattern = (key = {}) => {
     })
   }
 
-  const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${website}&body=${JSON.stringify(body)}`
+  const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${website}&body=${JSON.stringify(
+    body
+  )}`
 
   return requestUri
 }
@@ -114,7 +107,7 @@ const source = {
   resolve,
   schemaName,
   transform,
-  params
+  params,
 }
 
 export default source

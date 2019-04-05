@@ -4,6 +4,8 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import MetaArchive from './_children/meta-archive'
 
+import MetaAuthor from './_children/meta-author'
+
 export default ({
   children,
   contextPath,
@@ -18,19 +20,28 @@ export default ({
   requestUri,
   metaValue,
 }) => {
-  const properties = {
-    ...siteProperties,
+  const metaSiteData = {
+    siteProperties,
     requestUri,
     arcSite,
     contextPath,
     deployment,
   }
-  const { siteUrl } = siteProperties
-  const dataSearch = {
-    siteUrl,
+  const metaSearchData = {
+    siteUrl: siteProperties.siteUrl,
     globalContent,
     requestUri,
   }
+  const metaAuthorData = {
+    globalContent,
+    requestUri,
+    siteName: siteProperties.siteName,
+    siteUrl: siteProperties.siteUrl,
+  }
+  function createMarkup(html) {
+    return { __html: html }
+  }
+  const { googleTagManagerScript } = siteProperties
   return (
     <html lang="es">
       <head>
@@ -41,6 +52,7 @@ export default ({
           {...dataSearch}
           /** TODO: No sé si es importante pero creo que debería ir debajo del script de chartbeat */
         />
+        <MetaAuthor {...metaAuthorData} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -53,8 +65,7 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
-
-        <MetaSite data={properties} />
+        <MetaSite {...metaSiteData} />
         <TwitterCards
           twitterUser={siteProperties.social.twitter.user}
           siteUrl={siteProperties.siteUrl}
@@ -88,6 +99,9 @@ export default ({
             metaValue('keywords') ||
             'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
           }
+        />
+        <script
+          dangerouslySetInnerHTML={createMarkup(googleTagManagerScript)}
         />
       </head>
       <body>
