@@ -31,6 +31,10 @@ export default ({
     globalContent,
     requestUri,
   }
+  function createMarkup(html) {
+    return { __html: html }
+  }
+  const { googleTagManagerScript } = siteProperties
   return (
     <html lang="es">
       <head>
@@ -82,6 +86,9 @@ export default ({
             metaValue('keywords') ||
             'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
           }
+        />
+        <script
+          dangerouslySetInnerHTML={createMarkup(googleTagManagerScript)}
         />
       </head>
       <body>
