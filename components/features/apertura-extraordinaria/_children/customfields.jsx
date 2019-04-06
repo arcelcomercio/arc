@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 
-// TODO: Verify why can't use customfield in default.jsx with export default customFields
 const customFields = {
   section: PropTypes.string.tag({
     name: 'Sección',
@@ -12,6 +11,10 @@ const customFields = {
   }),
   subTitle: PropTypes.string.tag({
     name: 'Bajada',
+    description: 'Dejar vacío para tomar el valor original de la noticia.',
+  }),
+  image: PropTypes.string.tag({
+    name: 'Url de imagen',
     description: 'Dejar vacío para tomar el valor original de la noticia.',
   }),
   orientation: PropTypes.label.tag({
@@ -45,14 +48,15 @@ const customFields = {
     name: '¿Colocar un video?',
     group: 'Video',
   }),
-  videoService: PropTypes.oneOf(['goldfish', 'youtube']).tag({
+  multimediaService: PropTypes.oneOf(['automatic', 'goldfish', 'youtube']).tag({
     name: 'Proveedor',
     group: 'Video',
     labels: {
+      automatic: 'automatic',
       goldfish: 'GoldFish',
       youtube: 'Youtube',
     },
-    defaultValue: 'goldfish',
+    defaultValue: 'automatic',
   }),
   videoCode: PropTypes.string.tag({
     name: 'Código de video',

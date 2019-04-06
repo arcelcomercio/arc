@@ -7,6 +7,7 @@ const filterSchema = arcSite => `{
     }
     promo_items {
         basic_video {
+            _id
             type
             promo_items {
                 basic {
@@ -14,6 +15,7 @@ const filterSchema = arcSite => `{
                     url
                 }
             }
+            embed_html
         }
         basic_gallery {
             type 

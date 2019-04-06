@@ -1,4 +1,5 @@
 import React from 'react'
+import renderHTML from 'react-render-html'
 
 const AperturaExtraordinaria = props => {
   const {
@@ -16,6 +17,10 @@ const AperturaExtraordinaria = props => {
     aperturaESubtitle: 'apertura-e__subtitle',
     aperturaEAuthor: 'apertura-e__author',
     aperturaEMultimedia: 'apertura-e__multimedia',
+  }
+
+  function createMarkup(render) {
+    return {__html: render};
   }
 
   return (
@@ -37,10 +42,16 @@ const AperturaExtraordinaria = props => {
         </div>
       </div>
       <div className={classes.aperturaEMultimedia}>
-        <img src={data.multimedia} alt={data.title} />
+        {renderHTML(data.embedMultimedia)}
+        <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
       </div>
     </div>
   )
+}
+
+export const Render = (props) => {
+  console.log('render')
+  return renderHTML(props.video)
 }
 
 export default AperturaExtraordinaria

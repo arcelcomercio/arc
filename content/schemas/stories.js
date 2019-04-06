@@ -50,6 +50,7 @@ export default `
     url: String!
   }
   type BasicVideo {
+    _id: String!
     headlines: Headlines
     subheadlines: Subheadlines
     description: Description
@@ -58,6 +59,7 @@ export default `
     type: String
     promo_items: PromoItems
     promo_image: BasicImage
+    embed_html: String
   }
   type BasicHtml {
     content: String!
