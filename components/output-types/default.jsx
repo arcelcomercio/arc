@@ -3,7 +3,7 @@ import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import MetaArchive from './_children/meta-archive'
-
+import MetaSearch from './_children/meta-search'
 import MetaAuthor from './_children/meta-author'
 
 export default ({
@@ -27,6 +27,11 @@ export default ({
     contextPath,
     deployment,
   }
+  const metaArchiveData = {
+    globalContent,
+    siteUrl: siteProperties.siteUrl,
+    requestUri,
+  }
   const metaSearchData = {
     siteUrl: siteProperties.siteUrl,
     globalContent,
@@ -38,21 +43,30 @@ export default ({
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
   }
-  function createMarkup(html) {
-    return { __html: html }
+  const twitterCardsData = {
+    twitterUser: siteProperties.social.twitter.user,
+    siteUrl: siteProperties.siteUrl,
+    arcSite,
+    title: metaValue('title') || siteProperties.siteName,
+    description: metaValue('description') || 'Últimas noticias en Perú',
+    twitterCreator: siteProperties.social.twitter.user,
+    article: true, // check data origin - Boolean
   }
-  const { googleTagManagerScript } = siteProperties
+  const openGraphData = {
+    twitterUser: siteProperties.social.twitter.user,
+    siteUrl: siteProperties.siteUrl,
+    arcSite,
+    title: metaValue('title') || siteProperties.siteName,
+    description: metaValue('description') || 'Últimas noticias en Perú',
+    twitterCreator: siteProperties.social.twitter.user,
+    article: true, // check data origin - Boolean
+  }
   return (
     <html lang="es">
       <head>
         <MetaTags />
         <Libs />
         <CssLinks />
-        <MetaArchive
-          {...metaSearchData}
-          /** TODO: No sé si es importante pero creo que debería ir debajo del script de chartbeat */
-        />
-        <MetaAuthor {...metaAuthorData} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -65,30 +79,15 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
+        <MetaArchive {...metaArchiveData} />
+        <MetaSearch {...metaSearchData} />
+        <MetaAuthor {...metaAuthorData} />
         <MetaSite {...metaSiteData} />
-        <TwitterCards
-          twitterUser={siteProperties.social.twitter.user}
-          siteUrl={siteProperties.siteUrl}
-          arcSite={arcSite}
-          title={metaValue('title') || siteProperties.siteName}
-          description={metaValue('description') || 'Últimas noticias en Perú'}
-          twitterCreator={siteProperties.social.twitter.user}
-          article // check data origin - Boolean
-        />
-        <OpenGraph
-          fbAppId={siteProperties.fbAppId}
-          title={metaValue('title') || siteProperties.siteName}
-          description={metaValue('description') || 'Últimas noticias en Perú'}
-          siteUrl={siteProperties.siteUrl}
-          arcSite={arcSite}
-          requestUri={requestUri}
-          siteName={siteProperties.siteName}
-          article // check data origin - Boolean
-        />
-        <title>
-          {`${metaValue('title')} | ${siteProperties.siteName}` ||
-            siteProperties.siteName}
-        </title>
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
+
+        <title>{metaValue('title') || siteProperties.siteName}</title>
         <meta
           name="description"
           content={metaValue('description') || 'Últimas noticias en Perú'}
@@ -99,9 +98,6 @@ export default ({
             metaValue('keywords') ||
             'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
           }
-        />
-        <script
-          dangerouslySetInnerHTML={createMarkup(googleTagManagerScript)}
         />
       </head>
       <body>
