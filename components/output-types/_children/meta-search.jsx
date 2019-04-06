@@ -4,10 +4,10 @@ export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
   const { next, previous } = globalContent || {}
 
-  const getPaginationUrl = pageNumber => {
+  const paginationUrl = pageNum => {
     return requestUri.match(/page=[0-9]+/) !== null
-      ? `${siteUrl}${requestUri.replace(/&page=[0-9]+/, `&page=${pageNumber}`)}`
-      : `${siteUrl}${requestUri}&page=${pageNumber}`
+      ? `${siteUrl}${requestUri.replace(/&page=[0-9]+/, `&page=${pageNum}`)}`
+      : `${siteUrl}${requestUri}&page=${pageNum}`
   }
 
   const currentPage = requestUri.match(/page=[0-9]+/)
@@ -19,8 +19,8 @@ export default props => {
 
   const hasNext = next !== undefined
   const hasPrev = previous !== undefined
-  const urlNextPage = getPaginationUrl(nextPage)
-  const urlPrevPage = getPaginationUrl(prevPage)
+  const urlNextPage = paginationUrl(nextPage)
+  const urlPrevPage = paginationUrl(prevPage)
 
   return (
     <Fragment>

@@ -78,7 +78,7 @@ class DestaqueTv extends Component {
   }
 
   render() {
-		const params = this.state.data
+		const { data: params } = this.state
     return (
       <div>
         { params && (<CardDestaqueTv {...params} />)}
