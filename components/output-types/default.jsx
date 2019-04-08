@@ -2,7 +2,7 @@ import React from 'react'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-import renderMetaPage from './_children/renderMetaPage'
+import renderMetaPage from './_children/render-meta-page'
 
 export default ({
   children,
@@ -74,7 +74,9 @@ export default ({
         <title>{metaValue('title') || siteProperties.siteName}</title>
         <meta
           name="description"
-          content={metaValue('description') || 'Últimas noticias en Perú'}
+          content={
+            metaValue('description') || 'Últimas noticias en Perú y el mundo'
+          }
         />
         <meta
           name="keywords"
