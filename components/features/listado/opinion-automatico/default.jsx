@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import CardAutor from '../../../../resources/components/option-autor'
 import CardEditorial from '../../../../resources/components/option-editorial'
 import BarraAutor from '../../../../resources/components/option-mas'
-import ListTitle from '../../global/título-de-seccion/default'
+import CustomTitle from '../../global/custom-title/default'
 
 @Consumer
 class OpinionAutomatica extends Component {
@@ -18,7 +18,7 @@ class OpinionAutomatica extends Component {
     return (
       <div>
         <div className="grid-opinion--title">
-          <ListTitle />
+          <CustomTitle />
         </div>
         <div className="grid-opinion">
           {params.data.slice(0, 12).map((el, index) => {

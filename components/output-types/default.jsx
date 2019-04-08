@@ -2,12 +2,8 @@ import React from 'react'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-<<<<<<< HEAD
-
-=======
 import MetaArchive from './_children/meta-archive'
 import MetaSearch from './_children/meta-search'
->>>>>>> Sprint05
 import MetaAuthor from './_children/meta-author'
 
 export default ({
