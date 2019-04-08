@@ -29,31 +29,22 @@ class AperturaExtraordinariaStory extends Component {
   constructor(props) {
     super(props)
     this.state = this.mainLogic.dataState()
+    this.isVideo = ''
+  }
+
+  componentDidMount() {
     const {
       customFields: { link },
       arcSite,
     } = this.props
     this.mainLogic.fetch(API_URL, link, filterSchema(arcSite)).then(response => {
         this.setState(this.mainLogic.dataState(response))
-        /* if(window !== undefined && window.powaBoot() !== undefined){
-          window.powaBoot()
-          console.log('7777')
-        } */
-        // window.powaBoot()
     })
   }
 
-  componentDidMount() {
-    // debugger
-    /* if(!!window.powaBoot){
-      console.log('powaBoot')
-      window.powaBoot()
-    } */
-  }
-
   componentDidUpdate() {
-    if(!!window.powaBoot){
-      console.log('powaBoot update')
+    // eslint-disable-next-line no-extra-boolean-cast
+    if(!!window.powaBoot && this.isVideo){
       window.powaBoot()
     }
   }
@@ -62,9 +53,8 @@ class AperturaExtraordinariaStory extends Component {
     // eslint-disable-next-line no-shadow
     const { customFields, arcSite } = this.props
     const { data } = this.state
-    console.log('data')
-    console.dir(data)
     const formattedData = new Data(customFields, data, arcSite)
+    this.isVideo = formattedData.isVideo
     const params = {
       data: formattedData,
       multimediaOrientation: formattedData.multimediaOrientation,

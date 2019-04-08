@@ -1,7 +1,16 @@
 import DataStory from '../../../../resources/components/utils/data-story'
 import ConfigParams from '../../../../resources/components/utils/config-params'
+import { ResizeImageUrl } from '../../../../resources/utilsJs/helpers'
 
 class Data extends DataStory {
+  static GOLDFISH = 'goldfish'
+
+  static YOUTUBE = 'youtube'
+
+  static IMAGE = 'image'
+
+  static AUTOMATIC = 'default'
+
   constructor(customFields, data, website) {
     super(data, website)
     this.customFields = customFields
@@ -39,18 +48,32 @@ class Data extends DataStory {
     return this.customFields.multimediaSource || ''
   }
 
+  get isVideo() {
+    let isVideoCustom = false
+    let isVideoApi = false
+    const { multimediaService } = this.customFields
+    if (multimediaService === Data.YOUTUBE || multimediaService === Data.GOLDFISH)
+      isVideoCustom = true
+    if (super.multimediaType === ConfigParams.VIDEO) isVideoApi = true
+    return multimediaService !== Data.AUTOMATIC ? isVideoCustom : isVideoApi
+  }
+
   get embedMultimedia() {
     return (
       Data.multimediaCustomEmbed(
         this.multimediaService,
         this.multimediaSource,
-        this.title
+        this.title,
+        super.__website,
+        this.multimediaOrientation
       ) ||
       Data.multimediaFromApi(
         this.multimediaType,
         this.multimedia,
         this.title,
-        this.video
+        this.video,
+        super.__website,
+        this.multimediaOrientation
       )
     )
   }
@@ -58,27 +81,41 @@ class Data extends DataStory {
   static multimediaCustomEmbed(
     multimediaService,
     multimediaSource,
-    title = ''
+    title = '',
+    website,
+    orientation
   ) {
-    const videoCustom = {
-      default: '',
-      goldfish: this.videoGolfish(multimediaSource),
-      youtube: this.videoYoutube(multimediaSource),
-      image: this.image(multimediaSource, title),
-    }
-    return videoCustom[multimediaService] || ''
+    let multimedia = ''
+    if (multimediaService === Data.GOLDFISH && multimediaSource !== '')
+      multimedia = this.videoGoldfish(multimediaSource)
+    else if (multimediaService === Data.YOUTUBE && multimediaSource !== '')
+      multimedia = this.videoYoutube(multimediaSource)
+    else if (multimediaService === Data.IMAGE && multimediaSource !== '')
+      multimedia = this.image(multimediaSource, title, website, orientation)
+    return multimedia || ''
   }
 
-  static multimediaFromApi(multimediaType, multimedia, title, video) {
+  static multimediaFromApi(
+    multimediaType,
+    multimedia,
+    title,
+    video,
+    website,
+    orientation
+  ) {
     const multimediaFromApi = {
       [ConfigParams.VIDEO]: video,
-      [ConfigParams.GALLERY]: this.image(multimedia, title),
-      [ConfigParams.IMAGE]: this.image(multimedia, title),
+      [ConfigParams.GALLERY]:
+        (multimedia && this.image(multimedia, title, website, orientation)) ||
+        '',
+      [ConfigParams.IMAGE]:
+        (multimedia && this.image(multimedia, title, website, orientation)) ||
+        '',
     }
     return (multimediaType !== '' && multimediaFromApi[multimediaType]) || ''
   }
 
-  static videoGolfish(multimediaSource) {
+  static videoGoldfish(multimediaSource) {
     return `<div
       id="powa-${multimediaSource}"
       data-env="sandbox"
@@ -91,7 +128,6 @@ class Data extends DataStory {
   }
 
   static videoYoutube(url, width = '100%', height = '100%') {
-    // const url = 'https://www.youtube.com/embed/7h2ryr_uUEs'
     const embedHtml = `<iframe 
         width=${width}
         height=${height} 
@@ -102,8 +138,20 @@ class Data extends DataStory {
     return embedHtml
   }
 
-  static image(url, title) {
-    return `<img src="${url}" alt="${title}" />`
+  static image(url, title, website, orientation) {
+    const resize = {
+      top: { ratio: '9:16', size: '700x300' },
+      bottom: { ratio: '9:16', size: '700x300' },
+      left: { ratio: '4:3', size: '500x150' },
+      right: { ratio: '4:3', size: '500x150' },
+    }
+    const urlResize = ResizeImageUrl(
+      website,
+      url,
+      resize[orientation].ratio,
+      resize[orientation].size
+    )
+    return `<img src="${urlResize}" alt="${title}" />`
   }
 }
 

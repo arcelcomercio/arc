@@ -18,7 +18,7 @@ const AperturaExtraordinaria = props => {
     aperturaEAuthor: 'apertura-e__author',
     aperturaEMultimedia: 'apertura-e__multimedia',
   }
-
+  // TODO: Improve goldfish library  call for play the video and change url for production
   return (
     <div className={classes.aperturaE}>
       {!isSection && (
