@@ -13,10 +13,6 @@ const customFields = {
     name: 'Bajada',
     description: 'Dejar vacío para tomar el valor original de la noticia.',
   }),
-  image: PropTypes.string.tag({
-    name: 'Url de imagen',
-    description: 'Dejar vacío para tomar el valor original de la noticia.',
-  }),
   orientation: PropTypes.label.tag({
     name: 'Orientación del contenido',
   }),
@@ -44,23 +40,21 @@ const customFields = {
     },
     defaultValue: 'left',
   }),
-  hasVideo: PropTypes.bool.tag({
-    name: '¿Colocar un video?',
-    group: 'Video',
-  }),
-  multimediaService: PropTypes.oneOf(['automatic', 'goldfish', 'youtube']).tag({
+  multimediaService: PropTypes.oneOf(['default', 'image', 'goldfish', 'youtube']).tag({
     name: 'Proveedor',
-    group: 'Video',
+    group: 'Multimedia',
     labels: {
-      automatic: 'automatic',
+      default: 'Automático',
+      image: 'Imagen',
       goldfish: 'GoldFish',
       youtube: 'Youtube',
     },
-    defaultValue: 'automatic',
+    defaultValue: 'default',
   }),
-  videoCode: PropTypes.string.tag({
-    name: 'Código de video',
-    group: 'Video',
+  multimediaSource: PropTypes.string.tag({
+    name: 'Recurso',
+    group: 'Multimedia',
+    description: 'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: Url del video.',
   }),
 }
 

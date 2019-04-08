@@ -35,14 +35,18 @@ class Data extends DataStory {
     return this.customFields.multimediaService || 'automatic'
   }
 
-  get videoUrlOrCode() {
-    return this.customFields.videoCode || ''
+  get multimediaSource() {
+    return this.customFields.multimediaSource || ''
   }
 
   get embedMultimedia() {
     return (
-      Data.videoCustomEmbed(this.multimediaService, this.videoUrlOrCode) ||
-      Data.videoFromApi(
+      Data.multimediaCustomEmbed(
+        this.multimediaService,
+        this.multimediaSource,
+        this.title
+      ) ||
+      Data.multimediaFromApi(
         this.multimediaType,
         this.multimedia,
         this.title,
@@ -51,16 +55,21 @@ class Data extends DataStory {
     )
   }
 
-  static videoCustomEmbed(multimediaService, videoUrlOrCode) {
+  static multimediaCustomEmbed(
+    multimediaService,
+    multimediaSource,
+    title = ''
+  ) {
     const videoCustom = {
-      automatic: '',
-      goldfish: this.videoGolfish(videoUrlOrCode),
-      youtube: this.videoYoutube(videoUrlOrCode),
+      default: '',
+      goldfish: this.videoGolfish(multimediaSource),
+      youtube: this.videoYoutube(multimediaSource),
+      image: this.image(multimediaSource, title),
     }
     return videoCustom[multimediaService] || ''
   }
 
-  static videoFromApi(multimediaType, multimedia, title, video) {
+  static multimediaFromApi(multimediaType, multimedia, title, video) {
     const multimediaFromApi = {
       [ConfigParams.VIDEO]: video,
       [ConfigParams.GALLERY]: this.image(multimedia, title),
@@ -69,13 +78,13 @@ class Data extends DataStory {
     return (multimediaType !== '' && multimediaFromApi[multimediaType]) || ''
   }
 
-  static videoGolfish(videoUrlOrCode) {
-    return ` <div
-      id="powa-${videoUrlOrCode}"
+  static videoGolfish(multimediaSource) {
+    return `<div
+      id="powa-${multimediaSource}"
       data-env="sandbox"
       data-api="sandbox"
       data-org="elcomercio"
-      data-uuid="${videoUrlOrCode}"
+      data-uuid="${multimediaSource}"
       data-aspect-ratio="0.562"
       className="powa">
     </div>`
@@ -83,7 +92,6 @@ class Data extends DataStory {
 
   static videoYoutube(url, width = '100%', height = '100%') {
     // const url = 'https://www.youtube.com/embed/7h2ryr_uUEs'
-    // eslint-disable-next-line jsx-a11y/iframe-has-title
     const embedHtml = `<iframe 
         width=${width}
         height=${height} 
@@ -95,7 +103,7 @@ class Data extends DataStory {
   }
 
   static image(url, title) {
-    return `<img src=${url} alt=${title} />`
+    return `<img src="${url}" alt="${title}" />`
   }
 }
 

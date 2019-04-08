@@ -19,10 +19,6 @@ const AperturaExtraordinaria = props => {
     aperturaEMultimedia: 'apertura-e__multimedia',
   }
 
-  function createMarkup(render) {
-    return {__html: render};
-  }
-
   return (
     <div className={classes.aperturaE}>
       {!isSection && (
@@ -47,11 +43,6 @@ const AperturaExtraordinaria = props => {
       </div>
     </div>
   )
-}
-
-export const Render = (props) => {
-  console.log('render')
-  return renderHTML(props.video)
 }
 
 export default AperturaExtraordinaria
