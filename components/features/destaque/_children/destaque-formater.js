@@ -87,7 +87,7 @@ class DestaqueFormater {
     newState.image = this.getImgUrl(size, imageSize, imgField)
     newState.multimediaType = this.dataStoryInstace.multimediaType
 
-    return this.initialState
+    return newState
   }
 }
 
