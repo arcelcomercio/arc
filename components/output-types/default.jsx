@@ -2,11 +2,11 @@ import React from 'react'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
+import renderMetaPage from './_children/renderMetaPage'
 import MetaArchive from './_children/meta-archive'
 import MetaSearch from './_children/meta-search'
 import MetaAuthor from './_children/meta-author'
-import MetaTag from './_children/meta-tag'
-import MetaHome from './_children/meta-home'
+import MetaAlternate from './_children/meta-alternate'
 
 export default ({
   children,
@@ -17,7 +17,7 @@ export default ({
   CssLinks,
   Fusion,
   Libs,
-  MetaTags,
+  // MetaTags,
   siteProperties,
   requestUri,
   metaValue,
@@ -34,6 +34,29 @@ export default ({
     arcSite,
     contextPath,
     deployment,
+  }
+
+  const metaArchiveData = {
+    globalContent,
+    siteUrl: siteProperties.siteUrl,
+    requestUri,
+  }
+  const metaSearchData = {
+    siteUrl: siteProperties.siteUrl,
+    globalContent,
+    requestUri,
+  }
+  const metaAuthorData = {
+    globalContent,
+    requestUri,
+    siteName: siteProperties.siteName,
+    siteUrl: siteProperties.siteUrl,
+  }
+  
+  const metaAlternate={
+    siteName: siteProperties.siteName,
+    siteUrl: siteProperties.siteUrl,
+    sectionName:globalContent.section_name||'',
   }
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -56,7 +79,6 @@ export default ({
   return (
     <html lang="es">
       <head>
-        <MetaTags />
         <Libs />
         <CssLinks />
         <meta charset="utf-8" />
@@ -71,10 +93,12 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
-        <MetaHome {...metaPageData} />
-        <MetaArchive {...metaPageData} />
-        <MetaSearch {...metaPageData} />
-        <MetaAuthor {...metaPageData} />
+        {renderMetaPage(metaValue('id'), metaPageData)}
+
+        <MetaArchive {...metaArchiveData} />
+        <MetaSearch {...metaSearchData} />
+        <MetaAuthor {...metaAuthorData} />
+        <MetaAlternate {...metaAlternate} />
         <MetaSite {...metaSiteData} />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />

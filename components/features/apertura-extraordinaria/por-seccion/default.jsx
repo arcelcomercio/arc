@@ -12,7 +12,15 @@ class AperturaExtraordinariaSection extends Component {
   constructor(props) {
     super(props)
     this.state = { data: {} }
+    this.isVideo = false
     this.fetch()
+  }
+
+  componentDidUpdate() {
+    // eslint-disable-next-line no-extra-boolean-cast
+    if(window.powaBoot && this.isVideo){
+      window.powaBoot()
+    }
   }
 
   fetch() {
@@ -45,6 +53,7 @@ class AperturaExtraordinariaSection extends Component {
     const dataElement =
       contentElements && contentElements.length > 0 ? contentElements[0] : {}
     const formattedData = new Data(customFields, dataElement, arcSite)
+    this.isVideo = formattedData.isVideo
     const params = {
       data: formattedData,
       multimediaOrientation: formattedData.multimediaOrientation,
