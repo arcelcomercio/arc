@@ -18,7 +18,7 @@ const params = [{
 const resolve = key => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const requestUri = `/content/v4/search/published?q=taxonomy.sites.path:"/${
-    key.section
+    key.section || ''
   }"&sort=publish_date:desc&from=0&size=1&website=${website}`
   return requestUri
 }

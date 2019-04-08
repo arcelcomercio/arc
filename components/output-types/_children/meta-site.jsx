@@ -5,13 +5,27 @@ export default ({
   siteUrl = '',
   colorPrimary = '',
   social: { facebook = {}, twitter = {}, youtube = {} } = {},
-  sfAccountNumber = '',
+  charbeatAccountNumber = '',
   siteDomain = '',
   requestUri = '',
   arcSite = '',
   contextPath = '',
   deployment = () => {},
 } = {}) => {
+  const googleTagManagerScript = `(function (w, d, s, l, i) {
+    w[l] = w[l] || []
+    w[l].push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js',
+    })
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : ''
+    j.async = true
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+    f.parentNode.insertBefore(j, f)
+  })(window, document, 'script', 'dataLayer', 'GTM-KKXTKGP')`
+
   const structuredData = `{
     "@context" : "http://schema.org",
     "@type" : "Organization",
@@ -27,10 +41,10 @@ export default ({
     ]
   }`
 
-  const sfAsync = `
+  const charbeatScript = `
           var _sf_async_config = _sf_async_config || {}
           /** CONFIGURATION START **/
-          _sf_async_config.uid = ${sfAccountNumber} // ACCOUNT NUMBER
+          _sf_async_config.uid = ${charbeatAccountNumber} // ACCOUNT NUMBER
           _sf_async_config.domain = "${siteDomain}" // DOMAIN TRACKED
           _sf_async_config.useCanonical = true
           var _sf_startpt = new Date().getTime()
@@ -103,13 +117,14 @@ export default ({
       <meta name="msapplication-TileColor" content={colorPrimary} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
       <meta name="application-name" content={siteName} />
+      <script dangerouslySetInnerHTML={{ __html: googleTagManagerScript }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}
       />
       <script
         type="text/javascript"
-        dangerouslySetInnerHTML={{ __html: sfAsync }}
+        dangerouslySetInnerHTML={{ __html: charbeatScript }}
       />
     </Fragment>
   )

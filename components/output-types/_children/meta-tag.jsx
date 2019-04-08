@@ -3,15 +3,16 @@ import React, { Fragment } from 'react'
 export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
   const { next, previous } = globalContent || {}
+  const patternPagination = /\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/
 
   const paginationUrl = pageNumber => {
-    return requestUri.match(/page=[0-9]+/) !== null
-      ? `${siteUrl}${requestUri.replace(/&page=[0-9]+/, `&page=${pageNumber}`)}`
-      : `${siteUrl}${requestUri}&page=${pageNumber}`
+    return requestUri.match(patternPagination) !== null
+      ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}`)}`
+      : `${siteUrl}${requestUri}`
   }
 
-  const currentPage = requestUri.match(/page=[0-9]+/)
-    ? parseInt(requestUri.match(/page=[0-9]+/)[0].split('=')[1], 10)
+  const currentPage = requestUri.match(patternPagination)
+    ? parseInt(requestUri.match(patternPagination)[0].split('/')[1], 10)
     : 1
 
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
@@ -24,7 +25,6 @@ export default props => {
 
   return (
     <Fragment>
-      <meta name="robots" content="noindex,follow" />
       {hasPrev && (
         <Fragment>
           <link rel="prev" href={urlPrevPage} />
