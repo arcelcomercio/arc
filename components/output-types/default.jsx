@@ -2,7 +2,6 @@ import React from 'react'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-import MetaArchive from './_children/meta-archive'
 
 import MetaAuthor from './_children/meta-author'
 
@@ -48,10 +47,6 @@ export default ({
         <MetaTags />
         <Libs />
         <CssLinks />
-        <MetaArchive
-          {...dataSearch}
-          /** TODO: No sé si es importante pero creo que debería ir debajo del script de chartbeat */
-        />
         <MetaAuthor {...metaAuthorData} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
