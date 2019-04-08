@@ -5,7 +5,7 @@ import DataStory from '../../../../resources/components/utils/data-story'
 import AperturaExtraordinaria from '../../../../resources/components/apertura-extraordinaria'
 import Ads from '../../../../resources/components/ads'
 import CardNotice from '../../../../resources/components/listado-noticias'
-import TitleSection from '../../global/título-de-seccion/default'
+import CustomTitle from '../../global/custom-title/default'
 
 import ListadoLeidas from '../../../../resources/components/listado-leidas'
 import filterSchema from '../../global/mas-leidas/_children/filterSchema'
@@ -102,7 +102,7 @@ class ListadoDestacado extends Component {
     return (
       <Fragment>
         <div className={classes.nameSection}>
-          <TitleSection />
+          <CustomTitle />
         </div>
         <AperturaExtraordinaria {...paramsApertura} />
         <div className={classes.mainContent}>

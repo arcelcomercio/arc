@@ -145,6 +145,7 @@ export default `
       peru21: DataWebsites
   }
   type ContentElements {
+    _id: String
     canonical_url: String
     type: String!
     subtype: String!
