@@ -3,21 +3,16 @@ import React, { Fragment } from 'react'
 export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
   const { next, previous } = globalContent || {}
+  const patternPagination = /\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/
 
-  const buildUrlPagination = pageNum => {
-    return requestUri.match(/\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/) !== null
-      ? `${siteUrl}${requestUri.replace(
-          /\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/,
-          `/${pageNum}`
-        )}`
+  const paginationUrl = pageNumber => {
+    return requestUri.match(patternPagination) !== null
+      ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}`)}`
       : `${siteUrl}${requestUri}`
   }
 
-  const currentPage = requestUri.match(/\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/)
-    ? parseInt(
-        requestUri.match(/\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/)[0].split('/')[1],
-        10
-      )
+  const currentPage = requestUri.match(patternPagination)
+    ? parseInt(requestUri.match(patternPagination)[0].split('/')[1], 10)
     : 1
 
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
@@ -25,8 +20,8 @@ export default props => {
 
   const hasNext = next !== undefined
   const hasPrev = previous !== undefined
-  const urlNextPage = buildUrlPagination(nextPage)
-  const urlPrevPage = buildUrlPagination(prevPage)
+  const urlNextPage = paginationUrl(nextPage)
+  const urlPrevPage = paginationUrl(prevPage)
 
   return (
     <Fragment>

@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { addResizedUrlItem } from '../../../../../resources/utilsJs/thumbs'
-import { GetMultimediaContent } from '../../../../../resources/utilsJs/utilities'
+import { GetMultimediaContent } from '../../../../../resources/utilsJs/helpers'
 
 const classes = {
   item: 'separator__item separator__item--nota',

@@ -78,8 +78,8 @@ export const isEmpty = val => {
   return false
 }
 
- export const getIcon = (type) => {
-  let test = '' 
+export const getIcon = type => {
+  let test = ''
   switch (type) {
     case 'basic_gallery':
       test = 'G'
@@ -98,5 +98,35 @@ export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
   const test = addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
     .resized_urls[ratio]
 
-    return test
+  return test
+}
+
+export const GetMultimediaContent = ({ basic_video, basic_gallery, basic }) => {
+  let result = { url: null, medio: null }
+
+  if (
+    basic_video &&
+    basic_video.promo_items &&
+    basic_video.promo_items.basic &&
+    basic_video.promo_items.basic.url
+  ) {
+    result.url = basic_video.promo_items.basic.url
+    return { url: result.url, medio: 'video' }
+  }
+
+  if (
+    basic_gallery &&
+    basic_gallery.promo_items &&
+    basic_gallery.promo_items.basic &&
+    basic_gallery.promo_items.basic.url
+  ) {
+    result.url = basic_gallery.promo_items.basic.url
+    return { url: result.url, medio: 'gallery' }
+  }
+
+  if (basic && basic.url) {
+    result.url = basic.url
+    return { url: result.url, medio: 'image' }
+  }
+  return result
 }
