@@ -1,46 +1,30 @@
 import React, { Fragment } from 'react'
 
-const getPaginationUrl = url => {
-  const getPageNumber = url.match(/\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/)
-  let pageNumber = 0
-  let prevPage = ''
-  let nextPage = ''
-  const pages = []
-
-  if (getPageNumber) {
-    getPageNumber[0].replace('/', '')
-
-    pageNumber = parseInt(getPageNumber[0].replace('/', ''), 10)
-
-    nextPage = url.replace(
-      url.match(/\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/)[0],
-      `/${pageNumber + 1}`
-    )
-    prevPage = url.replace(
-      url.match(/\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/)[0],
-      `/${pageNumber === 1 ? '' : pageNumber - 1}`
-    )
-    pages.push(nextPage)
-    pages.push(prevPage)
-  }
-  return pages
-}
-
-const MetaAuthor = ({
+export default ({
   globalContent,
   siteName = '',
   siteUrl = '',
   requestUri = '',
 }) => {
-  const { content_elements: contentElements = [] } = globalContent || {}
-  const [{ credits: { by = [] } = {} } = {}] = contentElements
+  const { next, previous, content_elements: contentElements = [] } =
+    globalContent || {}
+  const [{ credits: { by = [] } = {} } = {}] = contentElements || {}
+  const patternPagination = /\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/
+
+  const paginationUrl = pageNumber => {
+    return requestUri.match(patternPagination) !== null
+      ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}`)}`
+      : `${siteUrl}${requestUri}/${pageNumber}`
+  }
 
   const {
     url: authorPath = '',
     image: { url: authorImg = '' } = {},
     social_links: socialLinks = [],
     name = '',
-    additional_properties: { original: { bio = '' } = {} } = {},
+    additional_properties: {
+      original: { bio = '', firstName = '', lastName = '' } = {},
+    } = {},
   } = by[0] || []
 
   let socialMedia = ''
@@ -49,14 +33,17 @@ const MetaAuthor = ({
     socialMedia += `"${social.url}", \n`
   })
 
-  const pagesPagination = getPaginationUrl(requestUri)
-  let nextPage = ''
-  let prefetch = ''
+  const currentPage = requestUri.match(patternPagination)
+    ? parseInt(requestUri.match(patternPagination)[0].split('/')[1], 10)
+    : 1
 
-  if (getPaginationUrl(requestUri).length > 0) {
-    nextPage = `${siteUrl}${pagesPagination[0]}`
-    prefetch = `${siteUrl}${pagesPagination[1]}`
-  }
+  const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
+  const prevPage = currentPage - 1
+
+  const hasNext = next !== undefined
+  const hasPrev = previous !== undefined
+  const urlNextPage = paginationUrl(nextPage)
+  const urlPrevPage = paginationUrl(prevPage)
 
   const authorUrl = `${siteUrl}${authorPath}`
   const listItems = contentElements.map(
@@ -75,7 +62,7 @@ const MetaAuthor = ({
     "@context": "http://schema.org/",
     "@type": "Person",
     "name": "${name}",
-    "alternateName": "${name.replace(' ', '').replace(' ', '')}",
+    "alternateName": "${firstName}${lastName}",
     "url": "${authorUrl}", 
     "image": "${authorImg}",
     "sameAs": [
@@ -99,8 +86,18 @@ const MetaAuthor = ({
 
   return (
     <Fragment>
-      <link rel="next" href={nextPage} />
-      <link rel="prefetch" href={prefetch} />
+      {hasPrev && (
+        <Fragment>
+          <link rel="prev" href={urlPrevPage} />
+          <link rel="prefetch" href={urlPrevPage} />
+        </Fragment>
+      )}
+      {hasNext && (
+        <Fragment>
+          <link rel="next" href={urlNextPage} />
+          <link rel="prefetch" href={urlNextPage} />
+        </Fragment>
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredAutor }}
@@ -112,5 +109,3 @@ const MetaAuthor = ({
     </Fragment>
   )
 }
-
-export default MetaAuthor

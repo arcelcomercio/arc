@@ -67,6 +67,7 @@ export default ({
         <MetaTags />
         <Libs />
         <CssLinks />
+        <MetaAuthor {...metaAuthorData} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
