@@ -1,5 +1,5 @@
 import React from 'react'
-import { GetMultimediaContent } from '../../../../../resources/utilsJs/utilities'
+import { GetMultimediaContent } from '../../../../../resources/utilsJs/helpers'
 
 const classes = {
   item: 'separator__item',

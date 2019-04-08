@@ -47,9 +47,9 @@ class CustomTitle extends PureComponent {
 
     return `ARCHIVO, ${days[
       dateObj.getUTCDay()
-    ].toUpperCase()} ${dateObj.getUTCDate()} DE ${
-      months[dateObj.getUTCMonth().toUpperCase()]
-    } DEL ${dateObj.getUTCFullYear()}` // ARCHIVO, LUNES 03 DE FEBRERO DEL 2018
+    ].toUpperCase()} ${dateObj.getUTCDate()} DE ${months[
+      dateObj.getUTCMonth()
+    ].toUpperCase()} DEL ${dateObj.getUTCFullYear()}` // ARCHIVO, LUNES 03 DE FEBRERO DEL 2018
   }
 
   getSearchTitle() {

@@ -1,4 +1,5 @@
 import React from 'react'
+import renderHTML from 'react-render-html'
 
 const AperturaExtraordinaria = props => {
   const {
@@ -17,7 +18,7 @@ const AperturaExtraordinaria = props => {
     aperturaEAuthor: 'apertura-e__author',
     aperturaEMultimedia: 'apertura-e__multimedia',
   }
-
+  // TODO: Improve goldfish library  call for play the video and change url for production
   return (
     <div className={classes.aperturaE}>
       {!isSection && (
@@ -37,7 +38,8 @@ const AperturaExtraordinaria = props => {
         </div>
       </div>
       <div className={classes.aperturaEMultimedia}>
-        <img src={data.multimedia} alt={data.title} />
+        {renderHTML(data.embedMultimedia)}
+        <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
       </div>
     </div>
   )
