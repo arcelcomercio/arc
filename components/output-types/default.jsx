@@ -5,6 +5,7 @@ import OpenGraph from './_children/open-graph'
 import MetaArchive from './_children/meta-archive'
 import MetaSearch from './_children/meta-search'
 import MetaAuthor from './_children/meta-author'
+import MetaAlternate from './_children/meta-alternate'
 
 export default ({
   children,
@@ -43,6 +44,12 @@ export default ({
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
   }
+  
+  const metaAlternate={
+    siteName: siteProperties.siteName,
+    siteUrl: siteProperties.siteUrl,
+    sectionName:globalContent.section_name||'',
+  }
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
     siteUrl: siteProperties.siteUrl,
@@ -67,7 +74,6 @@ export default ({
         <MetaTags />
         <Libs />
         <CssLinks />
-        <MetaAuthor {...metaAuthorData} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -84,6 +90,9 @@ export default ({
         <MetaArchive {...metaArchiveData} />
         <MetaSearch {...metaSearchData} />
         <MetaAuthor {...metaAuthorData} />
+
+        <MetaAlternate {...metaAlternate} />
+
         <MetaSite {...metaSiteData} />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />

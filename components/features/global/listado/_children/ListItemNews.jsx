@@ -7,6 +7,7 @@ const classes = {
 }
 
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
+  debugger
   return (
     <div className={`${classes.listItem} ${classes.scrolY}`}>
       {listNews.map(

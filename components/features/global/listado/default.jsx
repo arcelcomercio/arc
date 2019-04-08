@@ -76,6 +76,8 @@ class Lista extends Component {
       seeImageNews,
       data,
     } = this.state
+
+    debugger
     return (
       <div className={classes.lista}>
         <HeaderList
