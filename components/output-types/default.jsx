@@ -25,30 +25,34 @@ export default ({
     siteUrl: siteProperties.siteUrl,
   }
   const metaSiteData = {
-    siteProperties,
+    ...siteProperties,
     requestUri,
     arcSite,
     contextPath,
     deployment,
   }
-
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
-    siteUrl: siteProperties.siteUrl,
-    arcSite,
     title: metaValue('title') || siteProperties.siteName,
+    siteUrl: siteProperties.siteUrl,
+    contextPath,
+    arcSite,
     description: metaValue('description') || 'Últimas noticias en Perú',
     twitterCreator: siteProperties.social.twitter.user,
     article: true, // check data origin - Boolean
+    deployment,
   }
   const openGraphData = {
-    twitterUser: siteProperties.social.twitter.user,
-    siteUrl: siteProperties.siteUrl,
-    arcSite,
+    fbAppId: siteProperties.fbAppId,
     title: metaValue('title') || siteProperties.siteName,
     description: metaValue('description') || 'Últimas noticias en Perú',
-    twitterCreator: siteProperties.social.twitter.user,
+    siteUrl: siteProperties.siteUrl,
+    contextPath,
+    arcSite,
+    requestUri,
+    siteName: siteProperties.siteName,
     article: true, // check data origin - Boolean
+    deployment,
   }
   return (
     <html lang="es">
@@ -67,10 +71,12 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
         {renderMetaPage(metaValue('id'), metaPageData)}
         <MetaSite {...metaSiteData} />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
+
         <title>{metaValue('title') || siteProperties.siteName}</title>
         <meta
           name="description"

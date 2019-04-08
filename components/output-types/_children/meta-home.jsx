@@ -18,7 +18,7 @@ export default ({ siteName = '', siteUrl = '' }) => {
         rel="alternate"
         type="application/rss+xml"
         title={`${siteName} - Últimas noticias`}
-        href="/feed"
+        href={`${siteUrl}/feed`}
       />
       <script
         type="application/ld+json"
