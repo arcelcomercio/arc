@@ -41,6 +41,10 @@ class DataStory {
     )
   }
 
+  get tags(){
+    return this._data.taxonomy && this._data.taxonomy.tags || []
+  }
+
   get subTitle() {
     return (
       (this._data &&

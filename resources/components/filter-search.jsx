@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-const classes = {} // Falta refactorizar estilos
+const classes = {} // TODO: Falta refactorizar estilos
 
 @Consumer
 class FilterSearch extends Component {
@@ -22,24 +22,17 @@ class FilterSearch extends Component {
 
   // Set the sort state from &sort=
   getOrder() {
-    const {
-      globalContentConfig: {
-        query: { sort },
-      },
-    } = this.props
-
+    const { globalContentConfig } = this.props
+    const { query: { sort = '' } = {} } = globalContentConfig || {}
     return sort
   }
 
   // Set the section state from &category=
   getSection() {
-    const {
-      globalContentConfig: {
-        query: { section },
-      },
-    } = this.props
+    const { globalContentConfig } = this.props
+    const { query: { section = '' } = {} } = globalContentConfig || {}
 
-    return section && section !== '' ? 'section' : ''
+    return section !== '' ? 'section' : ''
   }
 
   // Replace the parameter from the query
@@ -69,9 +62,8 @@ class FilterSearch extends Component {
         generará la URI desde cero usando los parámetros que ya tiene y
         agregando el nuevo parámetro
       */
-      const {
-        globalContentConfig: { query: params },
-      } = this.props
+      const { globalContentConfig } = this.props
+      const { query: params = {} } = globalContentConfig || {}
 
       /* Por defecto "sort" será "desc", no "vacío" */
       const sort = type === 'sort' ? value : 'desc'
@@ -81,6 +73,7 @@ class FilterSearch extends Component {
       */
       const category = type === 'category' ? value : ''
 
+      // TODO: Manejar error con "params.section.slice(1)"
       newUri = `/buscar/?query=${encodeURIComponent(params.query || '').replace(
         /%20/g,
         '+'
@@ -101,29 +94,25 @@ class FilterSearch extends Component {
 
   // Agrega la nueva "query" a la URI
   _handleSearch = e => {
-    const {
-      arcSite,
-      globalContentConfig: {
-        query: { sort },
-      },
-    } = this.props
+    const { arcSite, globalContentConfig } = this.props
+    const { query: { sort } = {} } = globalContentConfig || {}
     const { value } = this.inputSearch.current /* React ref del input */
 
     e.preventDefault()
 
     /* Sólo genera la URI si "query" tiene contenido */
-    if (value && value !== '')
+    if (value !== '')
+      // eslint-disable-next-line no-restricted-globals
       location.href = `${location.pathname}?query=${encodeURIComponent(
         value
-      ).replace(/%20/g, '+')}&category=&sort=${sort ||
-        'desc'}&_website=${arcSite}`
+      ).replace(/%20/g, '+')}&category=&sort=${sort}&_website=${arcSite}`
     /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
   }
 
   fetchSections() {
     const { arcSite } = this.props
 
-    const source = 'navigation__by-hierarchy'
+    const source = 'navigation-by-hierarchy'
     const params = {
       website: arcSite,
       hierarchy: 'filter-section',
@@ -137,8 +126,9 @@ class FilterSearch extends Component {
     const { fetched } = this.getContent(source, params, schema)
     fetched
       .then(response => {
-        if (response && response.children.length > 0) {
-          this.setState({ sections: response.children })
+        const { children = [] } = response || {}
+        if (children.length > 0) {
+          this.setState({ sections: children })
         }
       })
       .catch(error => {

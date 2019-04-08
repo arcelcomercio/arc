@@ -2,20 +2,21 @@
 
 #### La intención de este documento es dar a conocer las bases del sistema de grillas propio que estamos implementando para la construcción de los sitios web con ARC.
 
-La grilla de contenido principal está compuesta de tres columnas. En total esta grilla debe tener un ancho máximo de 1024px y un ancho mínimo de 940px (900px + 20px por cada márgen entre elementos), por otra parte, el alto de esta grilla y de sus filas son dinámicos, por tanto, se creará una nueva fila del mismo alto del elemento que se agregue, cada vez que se agregue un elemento (Si este elemento no cabe en la fila previa). 
+La grilla de contenido principal está compuesta de tres columnas. En total esta grilla debe tener un ancho máximo de 1024px y un ancho mínimo de 940px (900px + 20px por cada márgen entre elementos), por otra parte, el alto de esta grilla y de sus filas son dinámicos, por tanto, se creará una nueva fila del mismo alto del elemento que se agregue, cada vez que se agregue un elemento (Si este elemento no cabe en la fila previa).
 
 ---
 
 ### Flujo de contenido
 
 Toda grilla de contenido se rellenará siempre siguiendo el mismo flujo, de izquierda a derecha y de arriba hacia abajo.
-##### *Ej: Tomando en consideración una grilla de tres columnas, al agregar un elemento de 1x1 aún quedan dos columnas disponibles en la primera fila. Si se agrega un elemento adicional de 2x1, la primera fila estará completamente rellena por esos dos elementos. Al momento de agregar un nuevo elemento que ocupe cualquier cantidad de columnas, este se ubicará en una nueva fila porque ya no tiene espacio en la primera.* 
+
+##### _Ej: Tomando en consideración una grilla de tres columnas, al agregar un elemento de 1x1 aún quedan dos columnas disponibles en la primera fila. Si se agrega un elemento adicional de 2x1, la primera fila estará completamente rellena por esos dos elementos. Al momento de agregar un nuevo elemento que ocupe cualquier cantidad de columnas, este se ubicará en una nueva fila porque ya no tiene espacio en la primera._
 
 ---
 
 ### Establecer tamaños a componentes
 
-La grilla define el la estructura por la que se regirán los elementos que sean agregados dentro de ella. En este sentido, los elementos que se incluirán en las grillas deben tener definido que espacio ocupar dentro de la grilla *(1, 2 o 3 Columnas; 1, 2, 3, 4 o infinitas filas).* Para lograr este cometido se han establecido unas clases que, al ser asignadas a un componente, le asignan el tamaño preciso dentro de la grilla.
+La grilla define el la estructura por la que se regirán los elementos que sean agregados dentro de ella. En este sentido, los elementos que se incluirán en las grillas deben tener definido que espacio ocupar dentro de la grilla _(1, 2 o 3 Columnas; 1, 2, 3, 4 o infinitas filas)._ Para lograr este cometido se han establecido unas clases que, al ser asignadas a un componente, le asignan el tamaño preciso dentro de la grilla.
 
 **Clases disponibles**
 
@@ -50,7 +51,7 @@ Usa las siguientes clases:
     'content--3col',
     'margin-top'
 
-- **Damero, Content-box (Chain):** Esta grilla tiene un espacio completamente definido e inmutable, tres columnas y cuatro filas, cada fila de 374px. Es un Chain, por tanto puede contener otros Features en su interior y esto se puede hacer desde el Page Builder. Esta pensada para ser usada en la Homepage de los sitios para poder delimitar por secciones. 
+- **Damero, Content-box (Chain):** Esta grilla tiene un espacio completamente definido e inmutable, tres columnas y cuatro filas, cada fila de 374px. Es un Chain, por tanto puede contener otros Features en su interior y esto se puede hacer desde el Page Builder. Esta pensada para ser usada en la Homepage de los sitios para poder delimitar por secciones.
 
 Usa las siguientes clases:
 
@@ -72,7 +73,7 @@ Usa las siguientes clases:
     'content--3col',
     'col-3'
 
-- **Grilla de dos columnas, Content-2col (Chain):** Esta grilla tiene dos columnas, cantidad de filas indefinidas y tamaño de filas indefinido. El alto de cada fila estará definido por el alto máximo de los componentes internos. Es un Chain, por tanto puede contener otros Features en su interior y esto se puede hacer desde el Page Builder. Ideal para páginas donde el contenido se acompañará por una Sidebar con otros Features o publicidad, por ejemplo, en el cuerpo de una noticia.
+- **Grilla de dos columnas, Content-2col (Chain):** Esta grilla tiene dos columnas, cantidad de filas indefinidas y tamaño de filas indefinido. El alto de cada fila estará definido por el alto máximo de los componentes internos. Es un Chain, por tanto puede contener otros Features en su interior y esto se puede hacer desde el Page Builder. Ideal para páginas donde el contenido se acompañará por una Sidebar con otros Features o publicidad, por ejemplo, en el cuerpo de una historia.
 
 Usa las siguientes clases:
 
@@ -94,8 +95,8 @@ Usa las siguientes clases:
 ### Breakpoints para grillas
 
 - 1024px : 3 Columnas
-- 768px :   2 Columnas
-- 320px :   1 Columna
+- 768px : 2 Columnas
+- 320px : 1 Columna
 
 **Comportamiento de las clases de grilla con los breakpoints**
 
@@ -110,4 +111,3 @@ Usa las siguientes clases:
 - Pantalla => 1024px
 
 Cada clase de columna adquiere el tamaño definido por defecto correspondiente a su nombre.
-

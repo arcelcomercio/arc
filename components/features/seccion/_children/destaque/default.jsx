@@ -27,7 +27,8 @@ class GrillaDestaque extends Component {
       globalContent,
       storyNumber,
     } = this.props
-    const stories = globalContent.content_elements
+    const { content_elements: contentElements } = globalContent || {}
+    const stories = contentElements
 
     const element = new DataStory(stories[storyNumber], arcSite)
     this.setState({
@@ -118,12 +119,12 @@ GrillaDestaque.propTypes = {
     categoryField: PropTypes.string.tag({
       name: 'Sección',
       group: 'Editar texto',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
+      description: 'Dejar vacío para tomar el valor original de la historias.',
     }),
     titleField: PropTypes.string.tag({
       name: 'Título',
       group: 'Editar texto',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
+      description: 'Dejar vacío para tomar el valor original de la historias.',
     }),
   }),
 }

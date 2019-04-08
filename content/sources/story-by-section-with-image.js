@@ -5,18 +5,31 @@ import {
   addResizedUrls
 } from '../../resources/utilsJs/thumbs'
 
+const schemaName = 'stories'
+
+const params = [{
+  name: 'section',
+  displayName: 'Sección',
+  type: 'text',
+}, ]
+
+// TODO: Cambiar "taxonomy.sites.path" por "taxonomy.sections..."
+
 const resolve = key => {
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const requestUri = `/content/v4/search/published?q=taxonomy.sites.path:"/${
-    key.section
-  }"&sort=publish_date:desc&from=0&size=1&website=${key.website}`
+    key.section || ''
+  }"&sort=publish_date:desc&from=0&size=1&website=${website}`
   return requestUri
 }
 
-const transform = data => {
-  const firstStory = data.content_elements[0]
+const transform = ({
+  content_elements: contentElements = []
+}) => {
   const {
     website
-  } = firstStory
+  } = contentElements[0]
+
   const aspectRatios = ['288:157|288x157', '164:187|328x374', '388:187|676x374']
   const {
     resizerSecretKeyEnvVar,
@@ -24,7 +37,7 @@ const transform = data => {
   } = getProperties(website)
   // const resizerSecretKey = envVars[resizerSecretKeyEnvVar];
   return addResizedUrls(
-    data.content_elements[0],
+    contentElements[0],
     resizerUrl,
     resizerSecretKeyEnvVar,
     aspectRatios
@@ -34,9 +47,6 @@ const transform = data => {
 export default {
   resolve,
   transform,
-  schemaName: 'stories',
-  params: {
-    section: 'text',
-    website: 'text',
-  },
+  schemaName,
+  params,
 }

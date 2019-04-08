@@ -21,12 +21,9 @@ const elements = [
 @Consumer
 class OrderedNews extends Component {
   renderGrilla = () => {
-    const {
-      customFields = {},
-      arcSite,
-      globalContent: { content_elements: stories = [] } = {},
-    } = this.props
-    let { initialStory: storyNumber = 1 } = customFields
+    const { customFields, arcSite, globalContent } = this.props
+    const { content_elements: stories = [] } = globalContent || {}
+    let { initialStory: storyNumber = 1 } = customFields || {}
 
     /**
      *      Resta uno al storyNumber. Para el editor 0 = 1
@@ -77,10 +74,10 @@ class OrderedNews extends Component {
 OrderedNews.propTypes = {
   customFields: PropTypes.shape({
     initialStory: PropTypes.number.tag({
-      name: 'Iniciar desde la noticia:',
+      name: 'Iniciar desde la historia:',
       defaultValue: 1,
       description:
-        'Indique el número de la noticia desde la que quiere empezar a imprimir. La primera noticia corresponde al número 1',
+        'Indique el número de la historia desde la que quiere empezar a imprimir. La primera historia corresponde al número 1',
     }),
     /**
      *      CustomFields de publicidad

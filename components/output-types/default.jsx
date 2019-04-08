@@ -1,14 +1,17 @@
 import React from 'react'
-import MetaSite from './_children/MetaSite'
+import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-import GoogleTagManager from './_children/googleTagManager'
+import MetaArchive from './_children/meta-archive'
+import MetaSearch from './_children/meta-search'
+import MetaAuthor from './_children/meta-author'
 
 export default ({
   children,
   contextPath,
   deployment,
   arcSite,
+  globalContent,
   CssLinks,
   Fusion,
   Libs,
@@ -17,19 +20,55 @@ export default ({
   requestUri,
   metaValue,
 }) => {
-  const properties = {
-    ...siteProperties,
+  const metaSiteData = {
+    siteProperties,
     requestUri,
     arcSite,
     contextPath,
     deployment,
   }
+  const metaArchiveData = {
+    globalContent,
+    siteUrl: siteProperties.siteUrl,
+    requestUri,
+  }
+  const metaSearchData = {
+    siteUrl: siteProperties.siteUrl,
+    globalContent,
+    requestUri,
+  }
+  const metaAuthorData = {
+    globalContent,
+    requestUri,
+    siteName: siteProperties.siteName,
+    siteUrl: siteProperties.siteUrl,
+  }
+  const twitterCardsData = {
+    twitterUser: siteProperties.social.twitter.user,
+    siteUrl: siteProperties.siteUrl,
+    arcSite,
+    title: metaValue('title') || siteProperties.siteName,
+    description: metaValue('description') || 'Últimas noticias en Perú',
+    twitterCreator: siteProperties.social.twitter.user,
+    article: true, // check data origin - Boolean
+  }
+  const openGraphData = {
+    twitterUser: siteProperties.social.twitter.user,
+    siteUrl: siteProperties.siteUrl,
+    arcSite,
+    title: metaValue('title') || siteProperties.siteName,
+    description: metaValue('description') || 'Últimas noticias en Perú',
+    twitterCreator: siteProperties.social.twitter.user,
+    article: true, // check data origin - Boolean
+  }
   return (
     <html lang="es">
       <head>
         <MetaTags />
+        git statis
         <Libs />
         <CssLinks />
+        <MetaAuthor {...metaAuthorData} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -42,29 +81,24 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
-
-        <MetaSite data={properties} />
-        <TwitterCards
-          twitterUser={siteProperties.social.twitter.user}
-          siteUrl={siteProperties.siteUrl}
-          arcSite={arcSite}
-          title="title" // check data origin
-          description="" // check data origin
-          twitterCreator={siteProperties.social.twitter.user}
-          article // check data origin - Boolean
-        />
-        <OpenGraph
-          fbAppId={siteProperties.fbAppId}
-          title="" // check data origin
-          description="" // check data origin
-          siteUrl={siteProperties.siteUrl}
-          arcSite={arcSite}
-          requestUri={requestUri}
-          siteName={siteProperties.siteName}
-          article // check data origin - Boolean
-        />
+        <MetaArchive {...metaArchiveData} />
+        <MetaSearch {...metaSearchData} />
+        <MetaAuthor {...metaAuthorData} />
+        <MetaSite {...metaSiteData} />
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
         <title>{metaValue('title') || siteProperties.siteName}</title>
-        <GoogleTagManager />
+        <meta
+          name="description"
+          content={metaValue('description') || 'Últimas noticias en Perú'}
+        />
+        <meta
+          name="keywords"
+          content={
+            metaValue('keywords') ||
+            'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
+          }
+        />
       </head>
       <body>
         <noscript>
@@ -75,12 +109,12 @@ export default ({
             }`}
             height="0"
             width="0"
-            // TODO: lo que dice abajo
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
         <div id="fusion-app">{children}</div>
         <script
+          async
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/js/index.js`
           )}

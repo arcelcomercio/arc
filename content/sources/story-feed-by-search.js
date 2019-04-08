@@ -1,4 +1,35 @@
-const resolve = key => {
+const schemaName = 'stories'
+
+const params = [{
+    name: 'sort',
+    displayName: 'Orden',
+    type: 'text',
+  },
+  {
+    name: 'from',
+    displayName: 'Página de inicio',
+    type: 'number',
+  },
+  {
+    name: 'section',
+    displayName: 'Sección / Categoría',
+    type: 'text',
+  },
+  {
+    name: 'size',
+    displayName: 'Cantidad a mostrar',
+    type: 'number',
+  },
+  {
+    name: 'query',
+    displayName: 'Búsqueda',
+    type: 'text',
+  },
+  // date_from: 'text',
+  // date_to: 'text',
+]
+
+const pattern = key => {
   // if (!key.website) {
   // 	throw new Error('This content source requires a website')
   // }
@@ -13,8 +44,8 @@ const resolve = key => {
     return '0'
   }
 
-  const website = `${key['arc-site'] || 'elcomercio'}`
-  const sort = `${key.sort || 'desc'}`
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const sort = key.sort || 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 3}`
   // const page = `page=${'1'}`
@@ -92,40 +123,12 @@ const resolve = key => {
   return requestUri
 }
 
-export default {
+const resolve = key => pattern(key)
+
+const source = {
   resolve,
-  schemaName: 'stories',
-  params: [{
-      name: 'page',
-      displayName: 'Página (Buscar)',
-      type: 'text',
-    },
-    {
-      name: 'sort',
-      displayName: 'Orden',
-      type: 'text',
-    },
-    {
-      name: 'from',
-      displayName: 'Página de inicio',
-      type: 'number',
-    },
-    {
-      name: 'section',
-      displayName: 'Sección / Categoría',
-      type: 'text',
-    },
-    {
-      name: 'size',
-      displayName: 'Cantidad a mostrar',
-      type: 'number',
-    },
-    {
-      name: 'query',
-      displayName: 'Búsqueda',
-      type: 'text',
-    },
-    // date_from: 'text',
-    // date_to: 'text',
-  ],
+  schemaName,
+  params,
 }
+
+export default source

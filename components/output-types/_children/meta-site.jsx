@@ -1,30 +1,54 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Fragment } from 'react'
 
 export default ({
-  data: {
-    siteName = '',
-    siteUrl = '',
-    colorPrimary = '',
-    social: { facebook = {}, twitter = {}, youtube = {} } = {},
-    requestUri = '',
-    arcSite = '',
-    contextPath = '',
-    deployment = () => {},
-  },
+  siteName = '',
+  siteUrl = '',
+  colorPrimary = '',
+  social: { facebook = {}, twitter = {}, youtube = {} } = {},
+  charbeatAccountNumber = '',
+  siteDomain = '',
+  requestUri = '',
+  arcSite = '',
+  contextPath = '',
+  deployment = () => {},
 } = {}) => {
+  const googleTagManagerScript = `(function (w, d, s, l, i) {
+    w[l] = w[l] || []
+    w[l].push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js',
+    })
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : ''
+    j.async = true
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+    f.parentNode.insertBefore(j, f)
+  })(window, document, 'script', 'dataLayer', 'GTM-KKXTKGP')`
+
   const structuredData = `{
     "@context" : "http://schema.org",
     "@type" : "Organization",
     "name" : "${siteName}",
-    "url" : "https://${siteUrl}/",
-    "logo": "https://${siteUrl}/resources/dist/${arcSite}/images/logo-sitio.jpg",
+    "url" : "${siteUrl}/",
+    "logo": "${deployment(
+      `${siteUrl}/resources/dist/${arcSite}/images/logo-sitio.jpg`
+    )}",
     "sameAs" : [
       "${facebook.url || ''}",
       "${twitter.url || ''}",
       "${youtube.url || ''}",
     ]
   }`
+
+  const charbeatScript = `
+          var _sf_async_config = _sf_async_config || {}
+          /** CONFIGURATION START **/
+          _sf_async_config.uid = ${charbeatAccountNumber} // ACCOUNT NUMBER
+          _sf_async_config.domain = "${siteDomain}" // DOMAIN TRACKED
+          _sf_async_config.useCanonical = true
+          var _sf_startpt = new Date().getTime()
+          /** CONFIGURATION END **/`
 
   return (
     <Fragment>
@@ -88,14 +112,19 @@ export default ({
           `${contextPath}/resources/dist/${arcSite}/apple-touch-icon-180x180.png`
         )}
       />
-      <link rel="canonical" href={`https://${siteUrl}${requestUri}`} />
+      <link rel="canonical" href={`${siteUrl}${requestUri}`} />
       <meta name="theme-color" content={colorPrimary} />
       <meta name="msapplication-TileColor" content={colorPrimary} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
       <meta name="application-name" content={siteName} />
+      <script dangerouslySetInnerHTML={{ __html: googleTagManagerScript }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}
+      />
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{ __html: charbeatScript }}
       />
     </Fragment>
   )

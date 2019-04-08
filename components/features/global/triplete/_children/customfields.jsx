@@ -11,7 +11,7 @@ const customFields = PropTypes.shape({
   }),
   title1: PropTypes.string.tag({
     name: 'Título 1',
-    description: 'Dejar vacío para tomar el valor original de la noticia.',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
   content2: PropTypes.label.tag({
     name: 'Nota 2',
@@ -21,7 +21,7 @@ const customFields = PropTypes.shape({
   }),
   title2: PropTypes.string.tag({
     name: 'Título 2',
-    description: 'Dejar vacío para tomar el valor original de la noticia.',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
   content3: PropTypes.label.tag({
     name: 'Nota 3',
@@ -31,7 +31,7 @@ const customFields = PropTypes.shape({
   }),
   title3: PropTypes.string.tag({
     name: 'Título 3',
-    description: 'Dejar vacío para tomar el valor original de la noticia.',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
   settings: PropTypes.label.tag({
     name: 'Configuraciones',
