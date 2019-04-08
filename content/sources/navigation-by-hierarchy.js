@@ -11,21 +11,22 @@ const params = [{
    } */
 ]
 
-export const createContentSource = site => {
-  const resolve = (key = {}) => {
-    const serviceSite = key['arc-site'] || site
-    const endpoint = `/site/v3/navigation/${serviceSite}/?hierarchy=${key.hierarchy ||
+const pattern = key => {
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const requestUri = `/site/v3/navigation/${website}/?hierarchy=${key.hierarchy ||
       'default'}`
 
-    // return key.section ? `${endpoint}&_id=${key.section}` : endpoint;
+  // return key.section ? `${endpoint}&_id=${key.section}` : endpoint;
 
-    return endpoint
-  }
-  return {
-    resolve,
-    params,
-    schemaName,
-  }
+  return requestUri
 }
 
-export default createContentSource('Arc Site Is Not Defined')
+const resolve = key => pattern(key)
+
+const source = {
+  resolve,
+  params,
+  schemaName,
+}
+
+export default source

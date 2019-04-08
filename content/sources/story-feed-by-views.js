@@ -1,6 +1,10 @@
 // TODO: ACTUALIZAR NOMBRE Y HOMOLOGAR, AGREGAR CASOS DE ERRORES
 // TODO: HOMOLOGAR ESQUEMA LIST CON STORIES
-// TODO: La funcionalidad de esta API no tiene relación con el nombre
+/**
+ *  Este archivo será modificado en el futuro para que su funcionalidad sea
+ *  la que pregona su nombre "story-feed-by-views". La funcionalidad actual
+ *  es temporal.   
+ */
 
 const schemaName = 'stories'
 

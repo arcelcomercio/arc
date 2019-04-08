@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 
 export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
-  const { params = '' } = globalContent || {}
+  const { params = {} } = globalContent || {}
   const timeCurrent = new Date()
 
   const paginationUrl = newDateFormatted => {
