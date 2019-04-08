@@ -5,6 +5,8 @@ import OpenGraph from './_children/open-graph'
 import MetaArchive from './_children/meta-archive'
 import MetaSearch from './_children/meta-search'
 import MetaAuthor from './_children/meta-author'
+import MetaTag from './_children/meta-tag'
+import MetaHome from './_children/meta-home'
 
 export default ({
   children,
@@ -20,28 +22,18 @@ export default ({
   requestUri,
   metaValue,
 }) => {
+  const metaPageData = {
+    globalContent,
+    requestUri,
+    siteName: siteProperties.siteName,
+    siteUrl: siteProperties.siteUrl,
+  }
   const metaSiteData = {
     siteProperties,
     requestUri,
     arcSite,
     contextPath,
     deployment,
-  }
-  const metaArchiveData = {
-    globalContent,
-    siteUrl: siteProperties.siteUrl,
-    requestUri,
-  }
-  const metaSearchData = {
-    siteUrl: siteProperties.siteUrl,
-    globalContent,
-    requestUri,
-  }
-  const metaAuthorData = {
-    globalContent,
-    requestUri,
-    siteName: siteProperties.siteName,
-    siteUrl: siteProperties.siteUrl,
   }
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -79,9 +71,10 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
-        <MetaArchive {...metaArchiveData} />
-        <MetaSearch {...metaSearchData} />
-        <MetaAuthor {...metaAuthorData} />
+        <MetaHome {...metaPageData} />
+        <MetaArchive {...metaPageData} />
+        <MetaSearch {...metaPageData} />
+        <MetaAuthor {...metaPageData} />
         <MetaSite {...metaSiteData} />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
