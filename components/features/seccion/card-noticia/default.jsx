@@ -13,15 +13,17 @@ class GrillaListadoNoticia extends Component {
 
   render() {
     const {
-      globalContent: { content_elements: contentElements = [] } = {},
+      globalContent,
       arcSite,
       customFields: { initialStory = 1, storiesQty = 50 } = {},
-      globalContentConfig: { query: { section = '' } = {} } = {},
+      globalContentConfig,
       contextPath,
     } = this.props
+    const { content_elements: contentElements } = globalContent || {}
+    const { query: { section = '' } = {} } = globalContentConfig || {}
 
     const params = {
-      data: contentElements,
+      data: contentElements || [],
       arcSite,
     }
 
@@ -57,15 +59,15 @@ class GrillaListadoNoticia extends Component {
 GrillaListadoNoticia.propTypes = {
   customFields: PropTypes.shape({
     initialStory: PropTypes.number.tag({
-      name: 'Iniciar desde la noticia:',
+      name: 'Iniciar desde la historia:',
       defaultValue: 1,
       description:
-        'Indique el número de la noticia desde la que quiere empezar a imprimir. La primera noticia corresponde al número 1',
+        'Indique el número de la historia desde la que quiere empezar a imprimir. La primera historia corresponde al número 1',
     }),
     storiesQty: PropTypes.number.tag({
-      name: 'Cantidad de noticias',
+      name: 'Cantidad de historias',
       defaultValue: 50,
-      description: 'Indique el número de noticias que deben ser listadas.',
+      description: 'Indique el número de historias que deben ser listadas.',
     }),
   }),
 }

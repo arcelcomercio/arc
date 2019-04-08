@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Triplete = props => {
-  const { data, multimediaOrientation = 'bottom'} = props
+  const { data, multimediaOrientation = 'right'} = props
   const classes = {
     triplete: 'triplete',
     tripleteItem: `triplete__item triplete__item--${multimediaOrientation}`,

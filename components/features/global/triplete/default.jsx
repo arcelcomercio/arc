@@ -6,7 +6,7 @@ import filterSchema from './_children/filterschema'
 import Data from './_children/data'
 import { Triplete as TripleteChildren } from '../../../../resources/components/triplete'
 
-const API_URL = 'story__by-websiteurl'
+const API_URL = 'story-by-url'
 @Consumer
 class Triplete extends Component {
   constructor(props) {
@@ -20,7 +20,8 @@ class Triplete extends Component {
     const LINK = 'link'
     const KEY_STATE = 'data'
     const LINK_LENGTH = 3
-    const { customFields, arcSite } = this.props
+    const { customFields = {}, arcSite } = this.props
+
     for (let i = 1; i <= LINK_LENGTH; i++) {
       if (customFields[LINK + i]) {
         const { fetched } = this.getContent(
@@ -30,7 +31,7 @@ class Triplete extends Component {
         )
         const obj = {}
         fetched.then(response => {
-          obj[KEY_STATE + i] = response
+          obj[KEY_STATE + i] = response || {}
           // TODO:- Improve set state for render just only times
           this.setState(obj)
         })
@@ -39,7 +40,7 @@ class Triplete extends Component {
   }
 
   render() {
-    const { customFields, editableField, arcSite } = this.props
+    const { customFields = {}, editableField, arcSite } = this.props
     const data = new Data({}, arcSite, customFields)
     const allDataResponse = this.state
     const dataFormatted = Object.keys(allDataResponse).map((el, index) => {

@@ -15,7 +15,7 @@ const classes = {
   author: 'destaque__author',
 
   link: 'destaque__link',
-  imageLink: 'block',
+  imageLink: 'block destaque__img-link',
 
   imgComplete: 'destaque--img-complete',
   parcialTop: 'flex--column-reverse',

@@ -51,9 +51,9 @@ class Separador extends Component {
     }
 
     const { arcSite, globalContent } = this.props
-    const section = this.getSeccionPrimary(globalContent)
+    const section = this.getSeccionPrimary(globalContent || {})
     const { fetched } = this.getContent(
-      'stories__by-section',
+      'story-feed-by-section',
       {
         website: arcSite,
         section,
@@ -62,24 +62,12 @@ class Separador extends Component {
       filterSchema()
     )
     fetched.then(response => {
-      if (!response) {
-        // eslint-disable-next-line no-param-reassign
-        response = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
-
-      if (!response.content_elements) {
-        response.content_elements = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
+      const { content_elements: contentElements } = response || {}
+      const { website_url: websiteUrl = '' } = globalContent || {}
 
       this.setState({
-        data: response.content_elements,
-        excluir: globalContent.website_url,
+        data: contentElements || [],
+        excluir: websiteUrl,
         website: arcSite,
       })
     })

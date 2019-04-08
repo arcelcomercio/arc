@@ -25,7 +25,6 @@ class Data extends DataStory {
   }
 
   get title() {
-    console.log(`title${this.index}`)
     return this._customFields[`title${this.index}`] || super.title
   }
 

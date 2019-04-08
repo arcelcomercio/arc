@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
-import { FormatClassName } from '../../resources/utilsJs/utilities'
 import PropTypes from 'prop-types'
 
-const classes = FormatClassName([
-  // 'content--1col',
-  'content-grid-base',
-  'col-1',
-])
+const classes = 'content-grid-base col-1'
 
 class Content1Col extends Component {
   render() {
