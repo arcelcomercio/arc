@@ -65,10 +65,9 @@ export default ({
     <html lang="es">
       <head>
         <MetaTags />
-        git statis
         <Libs />
         <CssLinks />
-        <MetaAuthor {...metaAuthorData} />
+
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
