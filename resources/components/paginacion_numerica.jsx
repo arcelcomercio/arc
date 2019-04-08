@@ -8,16 +8,16 @@ const classes = {
 export default class Paginacion extends Component {
   constructor(props) {
     super(props)
-    const { totalElements, totalViews } = props
+    const { totalElements, storiesQty } = props
     this.state = {
       pages: [],
-      totalPages: Math.ceil(totalElements / totalViews),
+      totalPages: Math.ceil(totalElements / (storiesQty || 50)),
     }
   }
 
   componentDidMount() {
     const { currentPage } = this.props
-    const aux = this.createPaginator(currentPage)
+    const aux = this.createPaginator(currentPage || 1)
     this.setState({ pages: aux })
   }
 
@@ -75,7 +75,7 @@ export default class Paginacion extends Component {
 
   render() {
     let { currentPage } = this.props
-    currentPage = parseInt(currentPage, 10)
+    currentPage = parseInt(currentPage || 1, 10)
 
     const { pages, totalPages } = this.state
     let querys = window.location.search
