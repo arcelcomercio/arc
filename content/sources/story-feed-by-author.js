@@ -54,7 +54,8 @@ const transform = data => {
 
   if (!name) return data
 
-  const { content_elements: [{ credits: { by = [] } = {} }] = [] } = data || {}
+  const { content_elements: [{ credits: { by = [] } = {} } = {}] = [] } =
+    data || {}
 
   const realAuthor = by.find(author => `/autor/${name}` === author.url)
   const authorName = {

@@ -58,7 +58,6 @@ class MasLeidas extends Component {
       requestUri,
       news,
     }
-
     return <ListReads {...params} />
   }
 }
