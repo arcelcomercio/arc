@@ -4,10 +4,10 @@ export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
   const { next, previous } = globalContent || {}
 
-  const paginationUrl = pageNum => {
+  const paginationUrl = pageNumber => {
     return requestUri.match(/page=[0-9]+/) !== null
-      ? `${siteUrl}${requestUri.replace(/&page=[0-9]+/, `&page=${pageNum}`)}`
-      : `${siteUrl}${requestUri}&page=${pageNum}`
+      ? `${siteUrl}${requestUri.replace(/&page=[0-9]+/, `&page=${pageNumber}`)}`
+      : `${siteUrl}${requestUri}&page=${pageNumber}`
   }
 
   const currentPage = requestUri.match(/page=[0-9]+/)
