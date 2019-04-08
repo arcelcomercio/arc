@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import customFields from './_children/customfields'
+import customFieldsExtern from './_children/customfields'
 import filterSchema from '../_children/filterschema'
 import Data from '../_children/data'
 import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
@@ -8,7 +8,6 @@ import AperturaExtraordinariaChildren from '../../../../resources/components/ape
 const API_URL = 'story-by-url'
 @Consumer
 class AperturaExtraordinariaStory extends Component {
-
   mainLogic = {
     fetch: (api, url, filter = {}) => {
       if (url) {
@@ -16,13 +15,12 @@ class AperturaExtraordinariaStory extends Component {
         return fetched
       }
       return new Promise((resolve, reject) => {
-        resolve(null)
+        reject(new Error("Url empty"))
       })
     },
 
     dataState: (data = null) => {
-      if (data === null) return { data: {} }
-      return { data }
+      return data === null ? { data: {} } : { data }
     },
   }
 
@@ -37,14 +35,14 @@ class AperturaExtraordinariaStory extends Component {
       customFields: { link },
       arcSite,
     } = this.props
+    
     this.mainLogic.fetch(API_URL, link, filterSchema(arcSite)).then(response => {
         this.setState(this.mainLogic.dataState(response))
-    })
+    }).catch(() => false)
   }
 
   componentDidUpdate() {
-    // eslint-disable-next-line no-extra-boolean-cast
-    if(!!window.powaBoot && this.isVideo){
+    if (window.powaBoot && this.isVideo) {
       window.powaBoot()
     }
   }
@@ -66,7 +64,7 @@ class AperturaExtraordinariaStory extends Component {
 }
 
 AperturaExtraordinariaStory.propTypes = {
-  customFields,
+  customFields: customFieldsExtern,
 }
 
 export default AperturaExtraordinariaStory
