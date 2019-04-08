@@ -48,7 +48,6 @@ class AperturaExtraordinariaStory extends Component {
   }
 
   render() {
-    // eslint-disable-next-line no-shadow
     const { customFields, arcSite } = this.props
     const { data } = this.state
     const formattedData = new Data(customFields, data, arcSite)
