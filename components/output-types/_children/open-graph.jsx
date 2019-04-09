@@ -5,6 +5,7 @@ export default ({
   title,
   description,
   siteUrl,
+  contextPath,
   arcSite,
   requestUri,
   siteName,
@@ -22,10 +23,10 @@ export default ({
         content={
           article // TODO: Falta agregar Img de articulo dinámica
             ? deployment(
-                `${siteUrl}/resources/dist/${arcSite}/images/logo-sitio.jpg`
+                `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-sitio.jpg`
               )
             : deployment(
-                `${siteUrl}/resources/dist/${arcSite}/images/logo-sitio.jpg`
+                `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-sitio.jpg`
               )
         }
       />
