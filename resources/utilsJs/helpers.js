@@ -127,16 +127,17 @@ export const GetMultimediaContent = ({
       medio: 'video'
     }
   }
+  
 
   if (basicGallery) {
     const {
       promo_items: {
         basic: {
-          url: videoGallery = ''
+          url: galleryUrl = ''
         }
       }
-    } = basicVideo
-    result.url = videoGallery
+    } = basicGallery
+    result.url = galleryUrl
     return {
       url: result.url,
       medio: 'gallery'
@@ -187,8 +188,7 @@ export const getMetaPagesPagination = (
         .match(patternPagination)[0]
         .split(`${isQuery ? '=' : '/'}`)[1],
         10
-      ) :
-      1,
+      ) : 1,
     next: false,
     prev: false,
   }
