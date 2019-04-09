@@ -1,4 +1,8 @@
 import React, { Fragment } from 'react'
+import {
+  metaPaginationUrl,
+  getMetaPagesPagination,
+} from '../../../resources/utilsJs/helpers'
 
 export default ({
   globalContent,
@@ -6,16 +10,8 @@ export default ({
   siteUrl = '',
   requestUri = '',
 }) => {
-  const { next, previous, content_elements: contentElements = [] } =
-    globalContent || {}
+  const { content_elements: contentElements = [] } = globalContent || {}
   const [{ credits: { by = [] } = {} } = {}] = contentElements || {}
-  const patternPagination = /\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/
-
-  const paginationUrl = pageNumber => {
-    return requestUri.match(patternPagination) !== null
-      ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}`)}`
-      : `${siteUrl}${requestUri}/${pageNumber}`
-  }
 
   const {
     url: authorPath = '',
@@ -29,21 +25,31 @@ export default ({
 
   let socialMedia = ''
   socialLinks.forEach(social => {
-    //
     socialMedia += `"${social.url}", \n`
   })
 
-  const currentPage = requestUri.match(patternPagination)
-    ? parseInt(requestUri.match(patternPagination)[0].split('/')[1], 10)
-    : 1
+  const patternPagination = /\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/
+  const pages = getMetaPagesPagination(
+    requestUri,
+    false,
+    globalContent,
+    patternPagination
+  )
 
-  const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
-  const prevPage = currentPage - 1
-
-  const hasNext = next !== undefined
-  const hasPrev = previous !== undefined
-  const urlNextPage = paginationUrl(nextPage)
-  const urlPrevPage = paginationUrl(prevPage)
+  const urlNextPage = metaPaginationUrl(
+    pages.next,
+    patternPagination,
+    requestUri,
+    siteUrl,
+    false
+  )
+  const urlPrevPage = metaPaginationUrl(
+    pages.prev,
+    patternPagination,
+    requestUri,
+    siteUrl,
+    false
+  )
 
   const authorUrl = `${siteUrl}${authorPath}`
   const listItems = contentElements.map(
@@ -56,7 +62,6 @@ export default ({
     }
   )
 
-  // TODO: Revisar como se construye alternateName
   const structuredAutor = `
   {
     "@context": "http://schema.org/",
@@ -86,13 +91,13 @@ export default ({
 
   return (
     <Fragment>
-      {hasPrev && (
+      {pages.prev && (
         <Fragment>
           <link rel="prev" href={urlPrevPage} />
           <link rel="prefetch" href={urlPrevPage} />
         </Fragment>
       )}
-      {hasNext && (
+      {pages.next && (
         <Fragment>
           <link rel="next" href={urlNextPage} />
           <link rel="prefetch" href={urlNextPage} />
