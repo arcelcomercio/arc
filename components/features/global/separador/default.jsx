@@ -38,7 +38,6 @@ class Separador extends Component {
   getContentApi = () => {
     let newsNumber = 4
     const { device, section, titleSeparator } = this.state
-    const { arcSite } = this.props
 
     if (device === 'mobile') newsNumber = 1
     else if (device === 'desktop' || device === 'tablet') newsNumber = 4
@@ -46,7 +45,6 @@ class Separador extends Component {
     const { fetched } = this.getContent(
       'story-feed-by-section',
       {
-        website: arcSite,
         section,
         news_number: newsNumber,
       },
@@ -55,12 +53,13 @@ class Separador extends Component {
     fetched
       .then(
         ({
-          content_elements: contentElements = [],
+          content_elements: contentElements,
           section_name: sectionName = '',
         }) => {
+          const NAME = sectionName || 'ULTIMAS NOTICIAS'
           this.setState({
             items: contentElements,
-            titleSeparator: titleSeparator || sectionName,
+            titleSeparator: titleSeparator || NAME,
           })
         }
       )

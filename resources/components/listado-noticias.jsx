@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import DataStory from './utils/data-story'
 import { reduceWord, formatDate, getIcon } from '../utilsJs/helpers'
 
@@ -17,24 +17,15 @@ const clases = {
   cardNoticeFigure: 'card-notice__figure',
 }
 
-class CardNotice extends Component {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props)
-  }
-
-
-
+class CardNotice extends PureComponent {
   render() {
-    const { arcSite, data } = this.props
-    const element = new DataStory({}, arcSite)
-    element.__data = data
+    const { arcSite, data, formato } = this.props
+    const element = new DataStory(data, arcSite)
+
     return (
       <div
         className={`${clases.cardNotice} ${
-          this.props.formato && this.props.formato === 'row'
-            ? 'card-notice--row'
-            : ''
+          formato && formato === 'row' ? 'card-notice--row' : ''
         }`}>
         <div className={clases.cardNoticeTop}>
           <a href={element.sectionLink} className={clases.cardNoticeSection}>

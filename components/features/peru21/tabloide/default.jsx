@@ -33,7 +33,7 @@ class Tabloide extends Component {
   }
 
   getContentApi = seccion => {
-    if (seccion) {
+    // if (seccion) {
       const { arcSite } = this.props
 
       const { fetched } = this.getContent(
@@ -59,7 +59,7 @@ class Tabloide extends Component {
           }
         })
         .catch(e => console.log(e))
-    }
+    // }
   }
 
   nameDate = datestring => {

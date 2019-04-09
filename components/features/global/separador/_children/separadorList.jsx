@@ -13,13 +13,9 @@ const createMarkup = html => {
 }
 
 export default ({
-  data: {
-    titleSeparator = '',
-    titleLink = '/',
-    htmlCode = '',
-    items = [],
-  } = {},
+  data: { titleSeparator = '', titleLink = '/', htmlCode = '', items } = {},
 }) => {
+  console.log(items)
   return (
     <div className={classes.separator}>
       {titleSeparator ? (
@@ -34,22 +30,24 @@ export default ({
         />
       )}
       <div className={classes.body}>
-        {items.map(
-          ({
-            promo_items: promoItems = {},
-            website_url: websiteUrl = '/',
-            headlines = {},
-          }) => {
-            return (
-              <SeparatorItem
-                key={websiteUrl}
-                headlines={headlines.basic || ''}
-                promoItems={promoItems||{}}
-                website_url={websiteUrl}
-              />
-            )
-          }
-        )}
+        {items &&
+          items.map(
+            ({
+              promo_items: promoItems,
+              website_url: websiteUrl,
+              headlines,
+            }) => {
+              const { basic: headlinesBasic } = headlines || {}
+              return (
+                <SeparatorItem
+                  key={websiteUrl || '/'}
+                  headlines={headlinesBasic || ''}
+                  promoItems={promoItems || {}}
+                  website_url={websiteUrl || '/'}
+                />
+              )
+            }
+          )}
       </div>
     </div>
   )

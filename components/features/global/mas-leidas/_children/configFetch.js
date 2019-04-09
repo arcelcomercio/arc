@@ -1,8 +1,17 @@
-export default props => {
-  const { numNotes, globalContentConfig, globalContent } = props
-  const { query: { section = '' } = {} } = globalContentConfig || {}
-  const { taxonomy: { primary_section: { _id = '' } = '' } = '' } =
-    globalContent || {}
+export default (globalContentConfig, globalContent, storiesQty) => {
+  const {
+    query: {
+      section = ''
+    } = {}
+  } = globalContentConfig || {}
+  const {
+    taxonomy: {
+      primary_section: {
+        _id = ''
+      } = {}
+    } = {}
+  } =
+  globalContent || {}
 
   let sec = _id || section
 
@@ -15,7 +24,7 @@ export default props => {
     source: 'story-feed-by-views',
     params: {
       section: sec,
-      size: numNotes || 5,
+      size: storiesQty,
     },
   }
 }

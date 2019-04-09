@@ -1,4 +1,6 @@
-import { addResizedUrlItem } from './thumbs'
+import {
+  addResizedUrlItem
+} from './thumbs'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -16,9 +18,9 @@ export const formatDate = date => {
 
   const fechaEntrante = date.slice(0, 10)
   const fecha =
-    fechaEntrante === fechaGenerada
-      ? date.slice(date.indexOf('T') + 1, 16)
-      : fechaEntrante
+    fechaEntrante === fechaGenerada ?
+    date.slice(date.indexOf('T') + 1, 16) :
+    fechaEntrante
   return fecha
 }
 
@@ -101,33 +103,53 @@ export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
   return test
 }
 
-export const GetMultimediaContent = ({ basic_video='', basic_gallery='', basic='' }) => {
-  let result = { url: null, medio: null }
-  
-  if (
-    basic_video &&
-    basic_video.promo_items &&
-    basic_video.promo_items.basic &&
-    basic_video.promo_items.basic.url
-  ) {
-    result.url = basic_video.promo_items.basic.url
-    return { url: result.url, medio: 'video' }
+export const GetMultimediaContent = ({
+  basic_video: basicVideo,
+  basic_gallery: basicGallery,
+  basic
+}) => {
+  const result = {
+    url: null,
+    medio: null
+  }
+
+  if (basicVideo) {
+    const {
+      promo_items: {
+        basic: {
+          url: videoUrl = ''
+        }
+      }
+    } = basicVideo
+    result.url = videoUrl
+    return {
+      url: result.url,
+      medio: 'video'
+    }
   }
   
 
-  if (
-    basic_gallery &&
-    basic_gallery.promo_items &&
-    basic_gallery.promo_items.basic &&
-    basic_gallery.promo_items.basic.url
-  ) {
-    result.url = basic_gallery.promo_items.basic.url
-    return { url: result.url, medio: 'gallery' }
+  if (basicGallery) {
+    const {
+      promo_items: {
+        basic: {
+          url: videoGallery = ''
+        }
+      }
+    } = basicVideo
+    result.url = videoGallery
+    return {
+      url: result.url,
+      medio: 'gallery'
+    }
   }
 
-  if (basic && basic.url) {
-    result.url = basic.url
-    return { url: result.url, medio: basic.type }
+  if (basic) {
+    result.url = basic.url || ''
+    return {
+      url: result.url,
+      medio: 'image'
+    }
   }
   return result
 }
@@ -139,12 +161,12 @@ export const metaPaginationUrl = (
   siteUrl,
   isQuery
 ) => {
-  return requestUri.match(patternPagination) != null
-    ? `${siteUrl}${requestUri.replace(
+  return requestUri.match(patternPagination) != null ?
+    `${siteUrl}${requestUri.replace(
         patternPagination,
         `${isQuery ? '&page=' : '/'}${pageNumber}`
-      )}`
-    : `${siteUrl}${
+      )}` :
+    `${siteUrl}${
         isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
       }${isQuery ? `&page=${pageNumber}` : `?${requestUri.split('?')[1]}`}`
 }
@@ -155,16 +177,19 @@ export const getMetaPagesPagination = (
   globalContent,
   patternPagination
 ) => {
-  const { next, previous } = globalContent || {}
+  const {
+    next,
+    previous
+  } = globalContent || {}
   const pages = {
-    current: requestUri.match(patternPagination)
-      ? parseInt(
-          requestUri
-            .match(patternPagination)[0]
-            .split(`${isQuery ? '=' : '/'}`)[1],
-          10
-        )
-      : 1,
+    current: requestUri.match(patternPagination) ?
+      parseInt(
+        requestUri
+        .match(patternPagination)[0]
+        .split(`${isQuery ? '=' : '/'}`)[1],
+        10
+      ) :
+      1,
     next: false,
     prev: false,
   }
