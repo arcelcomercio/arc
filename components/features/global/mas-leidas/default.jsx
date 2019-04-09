@@ -10,10 +10,10 @@ import configFetch from './_children/configFetch'
 class MasLeidas extends Component {
   constructor(props) {
     super(props)
-    const { numNotes = 1 } = props
+    const { storiesQty } = props.customFields || {}
     this.state = {
-      news: [],
-      totalElements: numNotes,
+      stories: [],
+      storiesQty: storiesQty || 5,
     }
   }
 
@@ -22,41 +22,48 @@ class MasLeidas extends Component {
   }
 
   fetch() {
-    const { source, params } = configFetch(this.props) // TODO: Revisar si tiene validaciones pertinentes
+    const { globalContent, globalContentConfig } = this.props
+    const { storiesQty } = this.state
+    const { source, params } = configFetch(
+      globalContent,
+      globalContentConfig,
+      storiesQty
+    )
     const { fetched } = this.getContent(source, params, filterSchema())
-    const { totalElements } = this.state
     // FIXME
     fetched
       .then(response => {
-        const { content_elements: contentElements = [] } = response || {}
-        if (contentElements && contentElements.length > 0) {
+        const { content_elements: contentElements } = response || {}
+        const stories = contentElements || []
+
+        if (stories && stories.length > 0) {
           this.setState({
-            news: castingData(contentElements, this.props),
+            stories: castingData(stories, this.props),
           })
         } else {
           this.setState({
-            news: setDataTest(totalElements),
+            stories: setDataTest(storiesQty),
           })
         }
       })
       .catch(error => {
         console.log(error)
         this.setState({
-          news: setDataTest(totalElements),
+          stories: setDataTest(storiesQty),
         })
       })
   }
 
   render() {
     const { customFields, arcSite, requestUri } = this.props
-    const { viewImage, numNotes } = customFields
-    const { news } = this.state
+    const { viewImage, storiesQty } = customFields || {}
+    const { stories } = this.state
     const params = {
       viewImage,
-      numNotes,
+      storiesQty,
       arcSite,
       requestUri,
-      news,
+      stories,
     }
     return <ListReads {...params} />
   }
@@ -67,9 +74,11 @@ MasLeidas.propTypes = {
     viewImage: PropTypes.bool.tag({
       name: 'Imagen Visible',
     }),
-    numNotes: PropTypes.number.tag({
+    storiesQty: PropTypes.number.tag({
       name: 'Número de Noticias',
       min: 1,
+      max: 6,
+      step: 1,
       defaultValue: 5,
     }),
   }),
