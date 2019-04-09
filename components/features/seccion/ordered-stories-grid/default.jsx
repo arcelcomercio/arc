@@ -19,7 +19,7 @@ const elements = [
 ]
 
 @Consumer
-class OrderedNews extends Component {
+class OrderedStoriesGrid extends Component {
   renderGrilla = () => {
     const { customFields, arcSite, globalContent } = this.props
     const { content_elements: stories = [] } = globalContent || {}
@@ -71,10 +71,13 @@ class OrderedNews extends Component {
   }
 }
 
-OrderedNews.propTypes = {
+OrderedStoriesGrid.propTypes = {
   customFields: PropTypes.shape({
     initialStory: PropTypes.number.tag({
       name: 'Iniciar desde la historia:',
+      min: 1,
+      max: 100,
+      step: 1,
       defaultValue: 1,
       description:
         'Indique el número de la historia desde la que quiere empezar a imprimir. La primera historia corresponde al número 1',
@@ -100,4 +103,6 @@ OrderedNews.propTypes = {
   }),
 }
 
-export default OrderedNews
+OrderedStoriesGrid.label = 'Grilla de Historias Ordenadas'
+
+export default OrderedStoriesGrid
