@@ -194,7 +194,6 @@ export const addResizedUrls = (
     }),
     promo_items: mergeObjects(
       Object.keys(promoItems).map(promoItemKey => {
-        console.log(promoItemKey)
         return {
           [promoItemKey]: {
             ...promoItems[promoItemKey],

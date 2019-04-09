@@ -32,7 +32,7 @@ export default ({
     "name" : "${siteName}",
     "url" : "${siteUrl}/",
     "logo": "${deployment(
-      `${siteUrl}/resources/dist/${arcSite}/images/logo-sitio.jpg`
+      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-sitio.jpg`
     )}",
     "sameAs" : [
       "${facebook.url || ''}",

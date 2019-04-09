@@ -2,11 +2,7 @@ import React from 'react'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-import MetaArchive from './_children/meta-archive'
-import MetaSearch from './_children/meta-search'
-import MetaAuthor from './_children/meta-author'
-import MetaTag from './_children/meta-tag'
-import MetaHome from './_children/meta-home'
+import renderMetaPage from './_children/render-meta-page'
 
 export default ({
   children,
@@ -17,7 +13,7 @@ export default ({
   CssLinks,
   Fusion,
   Libs,
-  MetaTags,
+  // MetaTags,
   siteProperties,
   requestUri,
   metaValue,
@@ -29,7 +25,7 @@ export default ({
     siteUrl: siteProperties.siteUrl,
   }
   const metaSiteData = {
-    siteProperties,
+    ...siteProperties,
     requestUri,
     arcSite,
     contextPath,
@@ -37,21 +33,26 @@ export default ({
   }
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
-    siteUrl: siteProperties.siteUrl,
-    arcSite,
     title: metaValue('title') || siteProperties.siteName,
+    siteUrl: siteProperties.siteUrl,
+    contextPath,
+    arcSite,
     description: metaValue('description') || 'Últimas noticias en Perú',
     twitterCreator: siteProperties.social.twitter.user,
     article: true, // check data origin - Boolean
+    deployment,
   }
   const openGraphData = {
-    twitterUser: siteProperties.social.twitter.user,
-    siteUrl: siteProperties.siteUrl,
-    arcSite,
+    fbAppId: siteProperties.fbAppId,
     title: metaValue('title') || siteProperties.siteName,
     description: metaValue('description') || 'Últimas noticias en Perú',
-    twitterCreator: siteProperties.social.twitter.user,
+    siteUrl: siteProperties.siteUrl,
+    contextPath,
+    arcSite,
+    requestUri,
+    siteName: siteProperties.siteName,
     article: true, // check data origin - Boolean
+    deployment,
   }
   return (
     <html lang="es">
@@ -70,14 +71,18 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
-        <MetaTag {...metaPageData} />
+
+        {renderMetaPage(metaValue('id'), metaPageData)}
         <MetaSite {...metaSiteData} />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
+
         <title>{metaValue('title') || siteProperties.siteName}</title>
         <meta
           name="description"
-          content={metaValue('description') || 'Últimas noticias en Perú'}
+          content={
+            metaValue('description') || 'Últimas noticias en Perú y el mundo'
+          }
         />
         <meta
           name="keywords"

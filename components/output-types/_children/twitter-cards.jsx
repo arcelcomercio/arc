@@ -4,6 +4,7 @@ export default ({
   twitterUser,
   title,
   siteUrl,
+  contextPath,
   arcSite,
   description,
   twitterCreator,
@@ -19,7 +20,7 @@ export default ({
       <meta
         name="twitter:image"
         content={deployment(
-          `${siteUrl}/resources/dist/${arcSite}/images/logo-sitio.jpg`
+          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-sitio.jpg`
         )}
       />
       <meta name="twitter:description" content={description} />

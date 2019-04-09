@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import customFields from './_children/customfields'
+import customFieldsExtern from './_children/customfields'
 import filterSchema from './_children/filterschema'
 import Data from '../_children/data'
 import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
@@ -12,7 +12,15 @@ class AperturaExtraordinariaSection extends Component {
   constructor(props) {
     super(props)
     this.state = { data: {} }
+    this.isVideo = false
     this.fetch()
+  }
+
+  componentDidUpdate() {
+    // eslint-disable-next-line no-extra-boolean-cast
+    if(window.powaBoot && this.isVideo){
+      window.powaBoot()
+    }
   }
 
   fetch() {
@@ -37,7 +45,6 @@ class AperturaExtraordinariaSection extends Component {
   }
 
   render() {
-    // eslint-disable-next-line no-shadow
     const { customFields, arcSite } = this.props
     const {
       data: { content_elements: contentElements = [] },
@@ -45,6 +52,7 @@ class AperturaExtraordinariaSection extends Component {
     const dataElement =
       contentElements && contentElements.length > 0 ? contentElements[0] : {}
     const formattedData = new Data(customFields, dataElement, arcSite)
+    this.isVideo = formattedData.isVideo
     const params = {
       data: formattedData,
       multimediaOrientation: formattedData.multimediaOrientation,
@@ -55,7 +63,9 @@ class AperturaExtraordinariaSection extends Component {
 }
 
 AperturaExtraordinariaSection.propTypes = {
-  customFields,
+  customFields: customFieldsExtern,
 }
+
+AperturaExtraordinariaSection.label = 'Apertura extraordinaria por sección'
 
 export default AperturaExtraordinariaSection

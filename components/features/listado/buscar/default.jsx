@@ -29,7 +29,7 @@ class Buscar extends Component {
         </div>
         <Paginacion
           totalElements={count}
-          totalViews={size}
+          storiesQty={size}
           currentPage={from}
         />
       </Fragment>
