@@ -58,9 +58,10 @@ class Separador extends Component {
           content_elements: contentElements = [],
           section_name: sectionName = '',
         }) => {
+          const NAME = sectionName || 'ULTIMAS NOTICIAS'
           this.setState({
             items: contentElements,
-            titleSeparator: titleSeparator || sectionName,
+            titleSeparator: titleSeparator || NAME,
           })
         }
       )
