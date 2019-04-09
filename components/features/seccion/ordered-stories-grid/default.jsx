@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import DataStory from '../../../../resources/components/utils/data-story'
@@ -19,10 +19,11 @@ const elements = [
 ]
 
 @Consumer
-class OrderedStoriesGrid extends Component {
-  renderGrilla = () => {
+class OrderedStoriesGrid extends PureComponent {
+  renderGrilla() {
     const { customFields, arcSite, globalContent } = this.props
-    const { content_elements: stories = [] } = globalContent || {}
+    const { content_elements: contentElements } = globalContent || {}
+    const stories = contentElements || []
     let { initialStory: storyNumber = 1 } = customFields || {}
 
     /**

@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import CardNotice from '../../../../resources/components/listado-noticias'
