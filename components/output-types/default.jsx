@@ -56,7 +56,6 @@ export default ({
   return (
     <html lang="es">
       <head>
-        <MetaTags />
         <Libs />
         <CssLinks />
         <meta charset="utf-8" />
@@ -71,10 +70,7 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
-        <MetaHome {...metaPageData} />
-        <MetaArchive {...metaPageData} />
-        <MetaSearch {...metaPageData} />
-        <MetaAuthor {...metaPageData} />
+        <MetaTag {...metaPageData} />
         <MetaSite {...metaSiteData} />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
