@@ -101,9 +101,9 @@ export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
   return test
 }
 
-export const GetMultimediaContent = ({ basic_video, basic_gallery, basic }) => {
+export const GetMultimediaContent = ({ basic_video='', basic_gallery='', basic='' }) => {
   let result = { url: null, medio: null }
-
+  
   if (
     basic_video &&
     basic_video.promo_items &&
@@ -113,6 +113,7 @@ export const GetMultimediaContent = ({ basic_video, basic_gallery, basic }) => {
     result.url = basic_video.promo_items.basic.url
     return { url: result.url, medio: 'video' }
   }
+  
 
   if (
     basic_gallery &&
@@ -126,7 +127,7 @@ export const GetMultimediaContent = ({ basic_video, basic_gallery, basic }) => {
 
   if (basic && basic.url) {
     result.url = basic.url
-    return { url: result.url, medio: 'image' }
+    return { url: result.url, medio: basic.type }
   }
   return result
 }

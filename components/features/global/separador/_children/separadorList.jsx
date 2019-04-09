@@ -44,7 +44,7 @@ export default ({
               <SeparatorItem
                 key={websiteUrl}
                 headlines={headlines.basic || ''}
-                promoItems={promoItems}
+                promoItems={promoItems||{}}
                 website_url={websiteUrl}
               />
             )
