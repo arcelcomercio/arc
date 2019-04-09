@@ -127,6 +127,7 @@ export const GetMultimediaContent = ({
       medio: 'video'
     }
   }
+  
 
   if (basicGallery) {
     const {
