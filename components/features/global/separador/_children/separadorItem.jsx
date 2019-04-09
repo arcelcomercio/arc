@@ -11,7 +11,7 @@ const classes = {
 export default ({ headlines, promoItems, website_url: websiteUrl }) => {
   /** TODO: Cambiar getMultimediaContent por método en dataStory */
   const { url: imageUrl = '/', medio = '' } =
-    promoItems && GetMultimediaContent(promoItems)
+    GetMultimediaContent(promoItems) || {}
   return (
     <article className={classes.item}>
       {medio === 'video' && <span>&#8227;</span>}

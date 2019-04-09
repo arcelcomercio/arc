@@ -25,11 +25,7 @@ class OrderedStoriesGrid extends PureComponent {
     const { content_elements: contentElements } = globalContent || {}
     const stories = contentElements || []
     let { initialStory: storyNumber = 1 } = customFields || {}
-
-    /**
-     *      Resta uno al storyNumber. Para el editor 0 = 1
-     */
-
+    // Resta uno al storyNumber. Para el editor 0 = 1
     storyNumber -= 1
 
     return elements.map((element, idx) => {
