@@ -5,6 +5,7 @@ import CardEditorial from '../../../../resources/components/option-editorial'
 import BarraAutor from '../../../../resources/components/option-mas'
 import CustomTitle from '../../global/custom-title/default'
 
+// TODO: Refactorizar classes a estándar
 @Consumer
 class OpinionAutomatica extends Component {
   render() {

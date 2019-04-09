@@ -10,12 +10,12 @@ const classes = {
 @Consumer
 class ListReads extends Component {
   render() {
-    const { viewImage, news } = this.props
+    const { viewImage, stories } = this.props
 
     return (
       <div className={classes.masLeidas}>
-        <h4 className={classes.title}>lo más visto</h4>
-        {news.map(item => {
+        <h4 className={classes.title}>Lo más visto</h4>
+        {stories.map(item => {
           const params = { item, viewImage }
           return <ItemNew key={item.id} {...params} />
         })}
