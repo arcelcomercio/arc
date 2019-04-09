@@ -5,12 +5,12 @@ const customFieldsSection = {
   content: PropTypes.label.tag({
     name: 'Contenido',
   }),
-  sectionName: PropTypes.string.isRequired.tag({
+  sectionName: PropTypes.string.tag({
     name: 'Slug de la sección',
     description: 'Agregar un slash(/) antes del nombre de la sección, ejm: /deportes .',
     hidden: false,
   }),
-  positionData: PropTypes.number.isRequired.tag({
+  positionData: PropTypes.number.tag({
     name: 'Posición de la nota de la sección',
     description: 'El primer item es cero(0).',
     min: 0,
