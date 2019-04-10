@@ -159,7 +159,7 @@ class Nav extends Component {
   fetch() {
     const { arcSite } = this.props
 
-    const source = 'navigation__by-hierarchy'
+    const source = 'navigation-by-hierarchy'
     const params = {
       website: arcSite,
       hierarchy: 'navbar-header-sections',
@@ -189,7 +189,7 @@ class Nav extends Component {
     fetched
       .then(response => {
         this.setState({
-          services: response,
+          services: response || {},
         })
       })
       .catch(e => console.log(e))

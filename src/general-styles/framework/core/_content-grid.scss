@@ -1,6 +1,7 @@
 .content-grid-base {
   display: grid;
   gap: $spacingNormal;
+  grid-auto-rows: min-content;
 }
 
 .content-layout {
@@ -44,19 +45,15 @@
 
 .content--2col {
   @media (--tablet) {
-    grid-template-columns: repeat(
-      2,
-      minmax(300px, calc((100vw - #{$gap}) / 2))
-    );
+    grid-template-columns: repeat(2,
+    minmax(300px, calc((100vw - #{$gap}) / 2)));
   }
 }
 
 .content--3col {
   @media (--desktop) {
-    grid-template-columns: repeat(
-      3,
-      minmax(285px, calc((1024px - (#{$gap} * 2)) / 3))
-    );
+    grid-template-columns: repeat(3,
+    minmax(285px, calc((1024px - (#{$gap} * 2)) / 3)));
   }
 }
 

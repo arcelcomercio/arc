@@ -50,6 +50,7 @@ export default `
     url: String!
   }
   type BasicVideo {
+    _id: String!
     headlines: Headlines
     subheadlines: Subheadlines
     description: Description
@@ -58,6 +59,7 @@ export default `
     type: String
     promo_items: PromoItems
     promo_image: BasicImage
+    embed_html: String
   }
   type BasicHtml {
     content: String!
@@ -97,7 +99,11 @@ export default `
     description: String
     slug: String
   }
+  type PrimarySection {
+    name: String
+  }
   type Taxonomy {
+    primary_section: PrimarySection
     sections: [Sections]
     tags: [Tags]
     seo_keywords: [String]
@@ -141,6 +147,7 @@ export default `
       peru21: DataWebsites
   }
   type ContentElements {
+    _id: String
     canonical_url: String
     type: String!
     subtype: String!
@@ -176,10 +183,11 @@ export default `
     last_updated_date: String
     taxonomy: Taxonomy
     websites: Websites!
-    section_name: String
     
     content_elements: [ContentElements]
     section_name: String
+    author_name: String
+    tag_name: String
     count: Int
   }
 `

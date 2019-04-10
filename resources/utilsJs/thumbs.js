@@ -194,7 +194,6 @@ export const addResizedUrls = (
     }),
     promo_items: mergeObjects(
       Object.keys(promoItems).map(promoItemKey => {
-        console.log(promoItemKey)
         return {
           [promoItemKey]: {
             ...promoItems[promoItemKey],
@@ -218,7 +217,7 @@ export const addResizedUrlItem = (website, url, aspectRatios) => {
     promo_items: {
       basic: {
         type: 'image',
-        url: url,
+        url,
         width: 1200,
         height: 400,
         additional_properties: {},

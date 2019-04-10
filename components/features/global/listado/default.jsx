@@ -15,7 +15,7 @@ const classes = {
 class Lista extends Component {
   constructor(props) {
     super(props)
-
+    debugger
     const {
       customFields: {
         titleList,
@@ -29,6 +29,9 @@ class Lista extends Component {
         section,
       },
     } = this.props || {}
+
+
+    console.log(urlTitle)
 
     this.state = {
       titleList,
@@ -47,8 +50,11 @@ class Lista extends Component {
   componentDidMount = () => {
     const { section, newsNumber } = this.state
     const { arcSite: website } = this.props
+
+    debugger
+
     const { fetched } = this.getContent(
-      'stories__by-section',
+      'story-feed-by-section',
       {
         website,
         section,
@@ -57,28 +63,17 @@ class Lista extends Component {
       filterSchema()
     )
     fetched.then(response => {
-      if (!response) {
-        // eslint-disable-next-line no-param-reassign
-        response = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
-
-      if (!response.content_elements) {
-        response.content_elements = []
-        console.log(
-          'No hay respuesta del servicio para obtener el listado de noticias'
-        )
-      }
+      console.log(response)
+      const { content_elements: contentElements } = response || {}
 
       this.setState({
-        data: response.content_elements,
+        data: contentElements || [],
       })
     })
   }
 
   render() {
+    debugger
     const {
       titleList,
       urlTitle,
@@ -89,6 +84,7 @@ class Lista extends Component {
       seeImageNews,
       data,
     } = this.state
+
     return (
       <div className={classes.lista}>
         <HeaderList

@@ -3,19 +3,14 @@ import Consumer from 'fusion:consumer'
 import CardAutor from '../../../../resources/components/option-autor'
 import CardEditorial from '../../../../resources/components/option-editorial'
 import BarraAutor from '../../../../resources/components/option-mas'
-import ListTitle from '../../global/título-de-seccion/default'
+import CustomTitle from '../../global/custom-title/default'
 
+// TODO: Refactorizar classes a estándar
 @Consumer
 class OpinionAutomatica extends Component {
-  constructor(...props) {
-    super(...props)
-  }
-
   render() {
-    const {
-      globalContent: { content_elements: contentElements },
-      arcSite,
-    } = this.props
+    const { globalContent, arcSite } = this.props
+    const { content_elements: contentElements } = globalContent || {}
 
     const params = {
       data: contentElements || [],
@@ -24,7 +19,7 @@ class OpinionAutomatica extends Component {
     return (
       <div>
         <div className="grid-opinion--title">
-          <ListTitle />
+          <CustomTitle />
         </div>
         <div className="grid-opinion">
           {params.data.slice(0, 12).map((el, index) => {

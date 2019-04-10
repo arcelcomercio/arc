@@ -1,13 +1,14 @@
 import { addResizedUrlItem } from '../../utilsJs/thumbs'
+import ConfigParams from './config-params'
 
 class DataStory {
-  static VIDEO = 'basic_video'
+  static VIDEO = ConfigParams.VIDEO
 
-  static GALLERY = 'basic_gallery'
+  static GALLERY = ConfigParams.GALLERY
 
-  static HTML = 'basic_html'
+  static HTML = ConfigParams.HTML
 
-  static IMAGE = 'basic'
+  static IMAGE = ConfigParams.IMAGE
 
   constructor(data = {}, website = '') {
     this._data = data
@@ -38,6 +39,10 @@ class DataStory {
     return (
       (this._data && this._data.headlines && this._data.headlines.basic) || ''
     )
+  }
+
+  get tags(){
+    return this._data.taxonomy && this._data.taxonomy.tags || []
   }
 
   get subTitle() {
@@ -88,7 +93,7 @@ class DataStory {
 
   get link() {
     return (
-      `${this._data && this._data.website_url}?_website=${this._website}` || '#'
+      `${(this._data && this._data.website_url) || ''}?_website=${this._website}` || '#'
     )
   }
 
@@ -107,6 +112,36 @@ class DataStory {
 
   get firstPublishDate() {
     return (this._data && this._data.first_publish_date) || ''
+  }
+
+  static videoId() {
+    return (
+      (this._data &&
+        this._data.promo_items &&
+        this._data.promo_items[ConfigParams.VIDEO] &&
+        this._data.promo_items[ConfigParams.VIDEO]._id) ||
+      ''
+    )
+  }
+
+  get video() {
+    return (
+      (this._data &&
+        this._data.promo_items &&
+        this._data.promo_items[ConfigParams.VIDEO] &&
+        this._data.promo_items[ConfigParams.VIDEO].embed_html) ||
+      ''
+    )
+  }
+
+  // TODO: Improve raw attribute function (should only be getter's attribute)
+  get attributesRaw() {
+    let attributesObject = {}
+    // eslint-disable-next-line no-restricted-syntax
+    for (const attr of Object.getOwnPropertyNames(DataStory.prototype)) {
+      if (attr !== 'attributesRaw') attributesObject[attr] = this[attr]
+    }
+    return attributesObject
   }
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
@@ -179,10 +214,10 @@ class DataStory {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items[this.VIDEO] &&
-        data.promo_items[this.VIDEO].promo_items &&
-        data.promo_items[this.VIDEO].promo_items[this.IMAGE] &&
-        data.promo_items[this.VIDEO].promo_items[this.IMAGE].url) ||
+        data.promo_items[ConfigParams.VIDEO] &&
+        data.promo_items[ConfigParams.VIDEO].promo_items &&
+        data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE] &&
+        data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE].url) ||
       ''
     return thumb
   }
@@ -191,17 +226,17 @@ class DataStory {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items[this.GALLERY] &&
-        data.promo_items[this.GALLERY].promo_items &&
-        data.promo_items[this.GALLERY].promo_items[this.IMAGE] &&
-        data.promo_items[this.GALLERY].promo_items[this.IMAGE].url) ||
+        data.promo_items[ConfigParams.GALLERY] &&
+        data.promo_items[ConfigParams.GALLERY].promo_items &&
+        data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE] &&
+        data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE].url) ||
       ''
     return thumb
   }
 
   static getImage(data) {
     const basicPromoItems =
-      (data && data.promo_items && data.promo_items[this.IMAGE]) || null
+      (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
     const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
     return typePromoItems && typePromoItems === 'image'
       ? basicPromoItems.url
@@ -210,11 +245,11 @@ class DataStory {
 
   static getThumbnail(data, type) {
     let thumb = ''
-    if (type === this.VIDEO) {
+    if (type === ConfigParams.VIDEO) {
       thumb = DataStory.getThumbnailVideo(data)
-    } else if (type === this.GALLERY) {
+    } else if (type === ConfigParams.GALLERY) {
       thumb = DataStory.getThumbnailGallery(data)
-    } else if (type === this.IMAGE) {
+    } else if (type === ConfigParams.IMAGE) {
       thumb = DataStory.getImage(data)
     }
     return thumb

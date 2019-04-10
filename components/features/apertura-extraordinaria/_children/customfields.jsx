@@ -1,18 +1,17 @@
 import PropTypes from 'prop-types'
 
-// TODO: Verify why can't use customfield in default.jsx with export default customFields
 const customFields = {
   section: PropTypes.string.tag({
     name: 'Sección',
-    description: 'Dejar vacío para tomar el valor original de la noticia.',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
   title: PropTypes.string.tag({
     name: 'Título',
-    description: 'Dejar vacío para tomar el valor original de la noticia.',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
   subTitle: PropTypes.string.tag({
     name: 'Bajada',
-    description: 'Dejar vacío para tomar el valor original de la noticia.',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
   orientation: PropTypes.label.tag({
     name: 'Orientación del contenido',
@@ -41,22 +40,21 @@ const customFields = {
     },
     defaultValue: 'left',
   }),
-  hasVideo: PropTypes.bool.tag({
-    name: '¿Colocar un video?',
-    group: 'Video',
-  }),
-  videoService: PropTypes.oneOf(['goldfish', 'youtube']).tag({
+  multimediaService: PropTypes.oneOf(['default', 'image', 'goldfish', 'youtube']).tag({
     name: 'Proveedor',
-    group: 'Video',
+    group: 'Multimedia',
     labels: {
+      default: 'Automático',
+      image: 'Imagen',
       goldfish: 'GoldFish',
       youtube: 'Youtube',
     },
-    defaultValue: 'goldfish',
+    defaultValue: 'default',
   }),
-  videoCode: PropTypes.string.tag({
-    name: 'Código de video',
-    group: 'Video',
+  multimediaSource: PropTypes.string.tag({
+    name: 'Recurso',
+    group: 'Multimedia',
+    description: 'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: Url del video.',
   }),
 }
 

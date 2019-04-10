@@ -6,16 +6,13 @@ import Paginacion from '../../../../resources/components/paginacion_numerica'
 @Consumer
 class tagAutor extends Component {
   render() {
-    const {
-      globalContent: { content_elements: contentElements = [], count = 0 } = {},
-      globalContentConfig: {
-        query: { amountStories = 0, currentNumPage = 1 } = {},
-      } = {},
-      arcSite,
-    } = this.props
+    const { globalContent, globalContentConfig, arcSite } = this.props
+    const { content_elements: contentElements, count = 0 } = globalContent || {}
+    const { query: { storiesQty, currentPageNumber } = {} } =
+      globalContentConfig || {}
 
     const params = {
-      data: contentElements,
+      data: contentElements || [],
       arcSite,
     }
 
@@ -28,8 +25,8 @@ class tagAutor extends Component {
         </div>
         <Paginacion
           totalElements={count}
-          totalViews={amountStories}
-          currentPage={currentNumPage}
+          storiesQty={storiesQty}
+          currentPage={currentPageNumber}
         />
       </Fragment>
     )

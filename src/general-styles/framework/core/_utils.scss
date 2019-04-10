@@ -12,14 +12,16 @@
 }
 
 .no-desktop,
-[id^='ads-m'] {
+[id^='ads-m'],
+[id^='ads_m'] {
   @media (--tablet) {
     display: none;
   }
 }
 
 .no-mobile,
-[id^='ads-d'] {
+[id^='ads-d'],
+[id^='ads_d'] {
   @media screen and (max-width: 639px) {
     display: none;
   }

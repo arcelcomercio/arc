@@ -15,7 +15,8 @@ const classes = {
   author: 'destaque__author',
 
   link: 'destaque__link',
-  imageLink: 'block',
+  imageLink: 'block destaque__img-link',
+  img: 'full-width destaque__img',
 
   imgComplete: 'destaque--img-complete',
   parcialTop: 'flex--column-reverse',
@@ -137,7 +138,7 @@ export default class Destaque extends Component {
         </div>
         <figure className={classes.image}>
           <a className={classes.imageLink} href={title.url}>
-            <img src={image} alt="" />
+            <img src={image} className={classes.img} alt="" />
             {getMultimediaIcon()}
           </a>
         </figure>

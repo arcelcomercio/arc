@@ -1,14 +1,13 @@
 import DataStory from '../../../../../resources/components/utils/data-story'
 
-export const setDataTest = totalElements => {
+export const setDataTest = storiesQty => {
   const item = {
-    title:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore vel repellat quae amet, maxime inventore eos dolores labore velit veniam nesciunt consequuntur, excepturi magnam unde deleniti ea itaque cumque assumenda?',
+    title: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore vel repellat quae amet, maxime inventore eos dolores labore velit veniam nesciunt consequuntur, excepturi magnam unde deleniti ea itaque cumque assumenda?',
     imageUrl: 'https://picsum.photos/100/50',
     websiteUrl: '#',
   }
   const auxTest = []
-  for (let i = 0; i < totalElements; i++) {
+  for (let i = 0; i < storiesQty; i++) {
     auxTest[i] = item
   }
   return auxTest
