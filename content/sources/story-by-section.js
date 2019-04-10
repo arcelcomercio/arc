@@ -1,8 +1,7 @@
-let auxKey
+const schemaName = 'story'
 
-const schemaName = 'stories'
-
-const params = [{
+const params = [
+  {
     name: 'section',
     displayName: 'Sección(es)',
     type: 'text',
@@ -14,12 +13,7 @@ const params = [{
   },
   {
     name: 'feedOffset',
-    displayName: 'Noticia inicial',
-    type: 'number',
-  },
-  {
-    name: 'news_number',
-    displayName: 'Cantidad de historias',
+    displayName: 'Número de la noticia',
     type: 'number',
   },
 ]
@@ -31,22 +25,16 @@ export const itemsToArray = (itemString = '') => {
 }
 
 const pattern = (key = {}) => {
-  auxKey = key
-
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const {
-    section,
-    excludeSections,
-    feedOffset,
-    news_number: newsNumber
-  } = key
+  const { section, excludeSections, feedOffset } = key
 
   const sectionsExcluded = itemsToArray(excludeSections)
 
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               'revision.published': 'true',
             },
@@ -62,26 +50,29 @@ const pattern = (key = {}) => {
             },
           },
         ],
-        must_not: [{
-          nested: {
-            path: 'taxonomy.sections',
-            query: {
-              bool: {
-                must: [{
-                    terms: {
-                      'taxonomy.sections._id': sectionsExcluded,
+        must_not: [
+          {
+            nested: {
+              path: 'taxonomy.sections',
+              query: {
+                bool: {
+                  must: [
+                    {
+                      terms: {
+                        'taxonomy.sections._id': sectionsExcluded,
+                      },
                     },
-                  },
-                  {
-                    term: {
-                      'taxonomy.sections._website': website,
+                    {
+                      term: {
+                        'taxonomy.sections._website': website,
+                      },
                     },
-                  },
-                ],
+                  ],
+                },
               },
             },
           },
-        }, ],
+        ],
       },
     },
   }
@@ -93,7 +84,8 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': sectionsIncluded,
                 },
@@ -112,37 +104,14 @@ const pattern = (key = {}) => {
 
   const encodedBody = encodeURI(JSON.stringify(body))
 
-  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${newsNumber ||
-    10}&from=${feedOffset || 0}&sort=publish_date:desc`
+  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=1&from=${feedOffset ||
+    0}&sort=publish_date:desc&single=true`
 }
 
 const resolve = key => pattern(key)
 
-const transform = data => {
-  if (!auxKey.section || auxKey.section === '/') return data
-  const sectionsIncluded = itemsToArray(auxKey.section)
-  if (data.content_elements.length === 0 || sectionsIncluded.length > 1)
-    return data
-  const {
-    content_elements: [{
-      taxonomy: {
-        sections
-      },
-    }, ],
-  } = data
-  const realSection = sections.find(item => sectionsIncluded[0] === item._id)
-  const sectionName = {
-    section_name: realSection.name,
-  }
-  return {
-    ...data,
-    ...sectionName,
-  }
-}
-
 const source = {
   resolve,
-  transform,
   schemaName,
   params,
 }

@@ -15,6 +15,7 @@ const classes = {
 class Lista extends Component {
   constructor(props) {
     super(props)
+    // debugger
     const {
       customFields: {
         titleList,
@@ -29,7 +30,7 @@ class Lista extends Component {
       },
     } = this.props || {}
 
-    console.log(urlTitle)
+    // console.log(urlTitle)
 
     this.state = {
       titleList,
@@ -49,6 +50,8 @@ class Lista extends Component {
     const { section, newsNumber } = this.state
     const { arcSite: website } = this.props
 
+    // debugger
+
     const { fetched } = this.getContent(
       'story-feed-by-section',
       {
@@ -59,7 +62,7 @@ class Lista extends Component {
       filterSchema()
     )
     fetched.then(response => {
-      console.log(response)
+      // console.log(response)
       const { content_elements: contentElements } = response || {}
 
       this.setState({
@@ -69,6 +72,7 @@ class Lista extends Component {
   }
 
   render() {
+    // debugger
     const {
       titleList,
       urlTitle,

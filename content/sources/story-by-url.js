@@ -1,4 +1,4 @@
-const schemaName = 'stories'
+const schemaName = 'story'
 
 const params = [
   {
