@@ -9,25 +9,23 @@ const classes = {
   aperturaESubtitle: 'apertura-e__subtitle',
   aperturaEAuthor: 'apertura-e__author',
   aperturaEMultimedia: 'apertura-e__multimedia',
-  iconGallery: 'apertura-e__gallery',
+  iconGallery: 'apertura-e__icon-gallery',
   iconVideo: 'apertura-e__video',
 }
 
 const getMultimediaIcon = mediaType => {
+  //return mediaType === 'V' ?
   let icon
   switch (mediaType) {
     case 'G':
       icon = classes.iconGallery
       break
-    case 'V':
-      icon = classes.iconVideo
-      break
     default:
       return ''
   }
   return (
-    <span className={`${icon}`}>
-      <i className={`${icon}`} />
+    <span className={`contenedor-${icon}`}>
+      <i className={`icons-${icon}`}>{mediaType}</i>
     </span>
   )
 }
