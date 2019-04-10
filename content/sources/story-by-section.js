@@ -77,7 +77,7 @@ const pattern = (key = {}) => {
     },
   }
 
-  if (section) {
+  if (section && section !== '/') {
     const sectionsIncluded = itemsToArray(section)
     body.query.bool.must.push({
       nested: {

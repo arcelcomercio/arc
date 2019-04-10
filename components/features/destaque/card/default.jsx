@@ -7,7 +7,7 @@ import Destaque from '../../../../resources/components/destaque'
 import DestaqueFormater from '../_children/destaque-formater'
 
 @Consumer
-class DestaqueTest extends Component {
+class DestaqueCard extends Component {
   constructor(props) {
     super(props)
     this.DestaqueFormater = new DestaqueFormater(props.arcSite)
@@ -69,7 +69,7 @@ class DestaqueTest extends Component {
   }
 }
 
-DestaqueTest.propTypes = {
+DestaqueCard.propTypes = {
   customFields: PropTypes.shape({
     storyConfig: PropTypes.contentConfig('story').isRequired.tag({
       name: 'Configuración del contenido',
@@ -117,6 +117,6 @@ DestaqueTest.propTypes = {
   }),
 }
 
-DestaqueTest.label = 'Destaque unificado'
+DestaqueCard.label = 'Destaque avanzado'
 
-export default DestaqueTest
+export default DestaqueCard
