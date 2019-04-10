@@ -28,7 +28,7 @@ class AperturaExtraordinariaSection extends Component {
       customFields: { sectionName, positionData },
       arcSite,
     } = this.props
-    if (sectionName) {
+    // if (sectionName) {
       const { fetched } = this.getContent(
         API_URL,
         {
@@ -41,7 +41,7 @@ class AperturaExtraordinariaSection extends Component {
       fetched.then(response => {
         this.setState({ data: response || {} })
       })
-    }
+    // }
   }
 
   render() {

@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import DataStory from '../../../../resources/components/utils/data-story'
@@ -19,16 +19,13 @@ const elements = [
 ]
 
 @Consumer
-class OrderedNews extends Component {
-  renderGrilla = () => {
+class OrderedStoriesGrid extends PureComponent {
+  renderGrilla() {
     const { customFields, arcSite, globalContent } = this.props
-    const { content_elements: stories = [] } = globalContent || {}
+    const { content_elements: contentElements } = globalContent || {}
+    const stories = contentElements || []
     let { initialStory: storyNumber = 1 } = customFields || {}
-
-    /**
-     *      Resta uno al storyNumber. Para el editor 0 = 1
-     */
-
+    // Resta uno al storyNumber. Para el editor 0 = 1
     storyNumber -= 1
 
     return elements.map((element, idx) => {
@@ -71,10 +68,13 @@ class OrderedNews extends Component {
   }
 }
 
-OrderedNews.propTypes = {
+OrderedStoriesGrid.propTypes = {
   customFields: PropTypes.shape({
     initialStory: PropTypes.number.tag({
       name: 'Iniciar desde la historia:',
+      min: 1,
+      max: 100,
+      step: 1,
       defaultValue: 1,
       description:
         'Indique el número de la historia desde la que quiere empezar a imprimir. La primera historia corresponde al número 1',
@@ -100,4 +100,6 @@ OrderedNews.propTypes = {
   }),
 }
 
-export default OrderedNews
+OrderedStoriesGrid.label = 'Grilla de Historias Ordenadas'
+
+export default OrderedStoriesGrid

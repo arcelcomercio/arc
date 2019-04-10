@@ -33,7 +33,9 @@ export default ({
   }
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
-    title: metaValue('title') || siteProperties.siteName,
+    title:
+      `${metaValue('title')} | ${siteProperties.siteName}` ||
+      siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
@@ -44,7 +46,9 @@ export default ({
   }
   const openGraphData = {
     fbAppId: siteProperties.fbAppId,
-    title: metaValue('title') || siteProperties.siteName,
+    title:
+      `${metaValue('title')} | ${siteProperties.siteName}` ||
+      siteProperties.siteName,
     description: metaValue('description') || 'Últimas noticias en Perú',
     siteUrl: siteProperties.siteUrl,
     contextPath,
@@ -77,7 +81,10 @@ export default ({
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
 
-        <title>{metaValue('title') || siteProperties.siteName}</title>
+        <title>
+          {`${metaValue('title')} | ${siteProperties.siteName}` ||
+            siteProperties.siteName}
+        </title>
         <meta
           name="description"
           content={
