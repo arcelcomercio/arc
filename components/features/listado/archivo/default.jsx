@@ -18,8 +18,7 @@ class Archivo extends Component {
 
     const { globalContent, arcSite, globalContentConfig } = this.props
     const { content_elements: contentElements } = globalContent || {}
-    const { query: { section = 'todas', date = getActualDate() } = {} } =
-      globalContentConfig || {}
+    const { query: { section, date } = {} } = globalContentConfig || {}
 
     const params = {
       data: contentElements || [],
@@ -29,11 +28,15 @@ class Archivo extends Component {
     return (
       <Fragment>
         <div>
-          {params.data.map((el, index) => (
-            <CardNotice key={index} data={el} arcSite={params.arcSite} />
+          {params.data.map(el => (
+            <CardNotice
+              key={`Archivo_${el._id}`}
+              data={el}
+              arcSite={params.arcSite}
+            />
           ))}
         </div>
-        <RenderPagination section={section} date={date} />
+        <RenderPagination section={section} date={date || getActualDate()} />
       </Fragment>
     )
   }
