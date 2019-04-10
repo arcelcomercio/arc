@@ -34,9 +34,9 @@ class SimpleList extends PureComponent {
           {stories &&
             stories
               .slice(initialStory, initialStory + storiesQty)
-              .map((el, idx) => (
+              .map(el => (
                 <CardNotice
-                  key={idx}
+                  key={`SimpleList${el._id}`}
                   formato="row"
                   data={el}
                   arcSite={arcSite}
