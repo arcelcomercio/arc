@@ -119,7 +119,7 @@ const pattern = (key = {}) => {
 const resolve = key => pattern(key)
 
 const transform = data => {
-  if (!auxKey.section) return data
+  if (!auxKey.section || auxKey.section === '/') return data
   const sectionsIncluded = itemsToArray(auxKey.section)
   if (data.content_elements.length === 0 || sectionsIncluded.length > 1)
     return data
