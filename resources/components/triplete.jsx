@@ -32,7 +32,7 @@ export const Triplete = props => {
                 </span>
               )}
             </a>
-            <Icon iconClass={elem.iconClass} />
+            {/* <Icon iconClass={elem.iconClass} /> */}
           </figure>
           <div className={classes.tripleteAuthor}>
             <a href={elem.authorOrSectionLink}>{elem.authorOrSection}</a>
