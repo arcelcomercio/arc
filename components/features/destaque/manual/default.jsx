@@ -10,8 +10,8 @@ import DestaqueFormater from '../_children/destaque-formater'
 class DestaqueManual extends Component {
   constructor(props) {
     super(props)
-    this.DestaqueFormater = new DestaqueFormater(props.arcSite)
-    this.state = this.DestaqueFormater.initialState
+    this.DestaqueFormater = new DestaqueFormater(props.arcSite) //instancia de destaque fomater recibe el nombre de sitio
+    this.state = this.DestaqueFormater.initialState //el state inicializa con formato importado
     this.fetch()
   }
 
@@ -41,7 +41,7 @@ class DestaqueManual extends Component {
 
   render() {
     const { customFields, editableField } = this.props
-    const { category, title, author, image, multimediaType } = this.state
+    const { category, title, author, image, multimediaType } = this.state //el item viene del state
     const {
       imageSize,
       headband,
@@ -60,9 +60,9 @@ class DestaqueManual extends Component {
       editableField,
       titleField,
       categoryField,
-      multimediaType,
+      multimediaType, // este item nos interesa
     }
-    return <Destaque {...params} />
+    return <Destaque {...params} /> // AQUI INGRESA LA DATA POR PARAM
   }
 }
 
