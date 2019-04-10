@@ -1,4 +1,5 @@
 import React from 'react'
+import renderHTML from 'react-render-html'
 import { getIcon } from '../utilsJs/helpers'
 
 const classes = {
@@ -60,8 +61,8 @@ const AperturaExtraordinaria = props => {
         </div>
       </div>
       <div className={classes.aperturaEMultimedia}>
-        <img src={data.multimedia} alt={data.title} />
-        {getMultimediaIcon(getIcon(multimediaType))}
+        {renderHTML(data.embedMultimedia)}
+        <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
       </div>
     </div>
   )
