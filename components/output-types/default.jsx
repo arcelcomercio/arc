@@ -33,23 +33,27 @@ export default ({
   }
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
-    title:
-      `${metaValue('title')} | ${siteProperties.siteName}` ||
-      siteProperties.siteName,
+    title: metaValue('title')
+      ? `${metaValue('title')} | ${siteProperties.siteName}`
+      : siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
-    description: metaValue('description') || 'Últimas noticias en Perú',
+    description: metaValue('description')
+      ? `${metaValue('description')} en ${siteProperties.siteName}`
+      : 'Últimas noticias en Perú y el mundo',
     twitterCreator: siteProperties.social.twitter.user,
     article: true, // check data origin - Boolean
     deployment,
   }
   const openGraphData = {
     fbAppId: siteProperties.fbAppId,
-    title:
-      `${metaValue('title')} | ${siteProperties.siteName}` ||
-      siteProperties.siteName,
-    description: metaValue('description') || 'Últimas noticias en Perú',
+    title: metaValue('title')
+      ? `${metaValue('title')} | ${siteProperties.siteName}`
+      : siteProperties.siteName,
+    description: metaValue('description')
+      ? `${metaValue('description')} en ${siteProperties.siteName}`
+      : 'Últimas noticias en Perú y el mundo',
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
@@ -82,13 +86,16 @@ export default ({
         <OpenGraph {...openGraphData} />
 
         <title>
-          {`${metaValue('title')} | ${siteProperties.siteName}` ||
-            siteProperties.siteName}
+          {metaValue('title')
+            ? `${metaValue('title')} | ${siteProperties.siteName}`
+            : siteProperties.siteName}
         </title>
         <meta
           name="description"
           content={
-            metaValue('description') || 'Últimas noticias en Perú y el mundo'
+            metaValue('description')
+              ? `${metaValue('description')} en ${siteProperties.siteName}`
+              : 'Últimas noticias en Perú y el mundo'
           }
         />
         <meta
