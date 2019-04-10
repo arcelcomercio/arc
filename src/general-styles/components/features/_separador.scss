@@ -80,6 +80,7 @@
     &--item {
       background: #c5ddf9;
       padding: 24px 18px;
+      position: relative;
 
       &-details {
         h3 {
@@ -162,14 +163,18 @@
     padding: 0;
     padding: 0;
     position: relative;
-    &::before{
-      content: "";
+    &::before {
+      content: '';
       position: absolute;
       width: 100%;
       height: 100%;
       top: 0;
       left: 0;
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(50,50,50, .7) 100%);
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(50, 50, 50, 0.7) 100%
+      );
     }
 
     & figure {
@@ -192,10 +197,13 @@
     }
 
     &--nota {
+      &::before {
+        background: none;
+      }
       & figure {
         height: 80px;
         margin-right: 2%;
-        width: 90%;
+        //width: 90%;
       }
     }
   }
