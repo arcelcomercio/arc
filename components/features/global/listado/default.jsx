@@ -15,7 +15,10 @@ const classes = {
 class Lista extends Component {
   constructor(props) {
     super(props)
+<<<<<<< HEAD
+=======
     // debugger
+>>>>>>> Sprint05
     const {
       customFields: {
         titleList,
@@ -50,7 +53,10 @@ class Lista extends Component {
     const { section, newsNumber } = this.state
     const { arcSite: website } = this.props
 
+<<<<<<< HEAD
+=======
     // debugger
+>>>>>>> Sprint05
 
     const { fetched } = this.getContent(
       'story-feed-by-section',
@@ -72,7 +78,10 @@ class Lista extends Component {
   }
 
   render() {
+<<<<<<< HEAD
+=======
     // debugger
+>>>>>>> Sprint05
     const {
       titleList,
       urlTitle,
