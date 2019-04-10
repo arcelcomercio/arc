@@ -56,7 +56,7 @@ export default ({
     ({ canonical_url: canonicalUrl }, index) => {
       return `{
       "@type":"ListItem",
-      "position":${index}, 
+      "position":${index + 1}, 
       "url":"${canonicalUrl}"
     }${contentElements.lenght - 1 > index ? ',' : ''}`
     }
