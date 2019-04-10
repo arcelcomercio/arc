@@ -53,7 +53,7 @@ const SeparatorListItem = ({ data, excluir, website }) => {
       multimedia = GetMultimediaContent(promoItems)
     }
 
-    if (multimedia.url == null) return
+    if (multimedia.url === null) return
     const { medio } = multimedia
     // eslint-disable-next-line operator-assignment
     key = key + 1
