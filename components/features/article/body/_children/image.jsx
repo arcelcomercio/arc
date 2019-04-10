@@ -1,4 +1,3 @@
-// content/sources/content-api-v4.js
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 
