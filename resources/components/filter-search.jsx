@@ -102,6 +102,8 @@ class FilterSearch extends Component {
 
     /* Sólo genera la URI si "query" tiene contenido */
     if (value !== '')
+      // TODO: location.pathmane por "contextPath y requestUri"
+      // Si me dio tiempo de escribir esto pero no de hacerlo...
       // eslint-disable-next-line no-restricted-globals
       location.href = `${location.pathname}?query=${encodeURIComponent(
         value

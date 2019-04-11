@@ -76,10 +76,11 @@ class Nav extends Component {
 
   // set Query search and location replace
   findSearch = () => {
+    const { contextPath } = this.props
     const { value } = this.inputSearch.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `${location.origin}/pb/buscar?query=${value}&_website=elcomercio`
+      location.href = `${contextPath}/buscar?query=${value}&_website=elcomercio`
     }
   }
 
