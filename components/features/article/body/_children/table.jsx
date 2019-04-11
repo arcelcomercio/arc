@@ -1,7 +1,7 @@
-/* eslint-disable react/destructuring-assignment */
 import React from 'react'
 
 const Tables = props => {
+  // eslint-disable-next-line react/destructuring-assignment
   const { header, rows } = props.data
 
   return (

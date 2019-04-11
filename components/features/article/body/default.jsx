@@ -1,3 +1,4 @@
+// file path: ContentArticleBody.js
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'

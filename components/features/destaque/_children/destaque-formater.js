@@ -44,22 +44,13 @@ class DestaqueFormater {
 
   getImgUrl(size = '', imageSize = '', customImage = '') {
     const imageUrl = customImage || this.dataStoryInstace.multimedia
+    let resizedImageUrl = ''
 
-    this.initialState.image = ResizeImageUrl(
-      this.arcSite,
-      imageUrl,
-      '3:4',
-      '288x157'
-    )
+    resizedImageUrl = ResizeImageUrl(this.arcSite, imageUrl, '3:4', '288x157')
     if (size === 'twoCol') {
-      this.initialState.image = ResizeImageUrl(
-        this.arcSite,
-        imageUrl,
-        '3:4',
-        '676x374'
-      )
+      resizedImageUrl = ResizeImageUrl(this.arcSite, imageUrl, '3:4', '676x374')
     } else if (imageSize === 'complete') {
-      this.initialState.image = ResizeImageUrl(
+      resizedImageUrl = ResizeImageUrl(
         this.arcSite,
         imageUrl,
         '9:16',
@@ -67,7 +58,7 @@ class DestaqueFormater {
       )
     }
 
-    return imageUrl
+    return resizedImageUrl
   }
 
   formatStory(story = '', size = '', imageSize = '', imgField = '') {

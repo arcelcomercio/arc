@@ -85,14 +85,14 @@ class PaginadorFecha extends Component {
   getURL(index) {
     const { section } = this.props
     const { dateIterator } = this.state
-    const printSection = section || 'todas'
+    const printSection = section
     // eslint-disable-next-line no-restricted-globals
     const { origin } = location
     return index || index === 0
       ? // Si viene un indice devuelvo localhost/archivo/seccion/fecha
-        `${origin}/archivo/${printSection}/${dateIterator[index]}`
+        `${origin}/archivo${printSection}/${dateIterator[index]}`
       : // Si no viene index devuelvo localhost/archivo/seccion
-        `${origin}/archivo/${printSection}/`
+        `${origin}/archivo${printSection}/`
   }
 
   // Devuelve el link del <Anterior> en paginacion
