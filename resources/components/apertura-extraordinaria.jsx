@@ -10,8 +10,7 @@ const classes = {
   aperturaESubtitle: 'apertura-e__subtitle',
   aperturaEAuthor: 'apertura-e__author',
   aperturaEMultimedia: 'apertura-e__multimedia',
-  iconGallery: 'apertura-e__gallery',
-  iconVideo: 'apertura-e__video',
+  iconGallery: 'apertura-e__icon-gallery',
 }
 
 const getMultimediaIcon = mediaType => {
@@ -20,15 +19,12 @@ const getMultimediaIcon = mediaType => {
     case 'G':
       icon = classes.iconGallery
       break
-    case 'V':
-      icon = classes.iconVideo
-      break
     default:
       return ''
   }
   return (
-    <span className={`${icon}`}>
-      <i className={`${icon}`} />
+    <span className={`contenedor-${icon}`}>
+      <i className={`icons-${icon}`}>{mediaType}</i>
     </span>
   )
 }
@@ -65,6 +61,7 @@ const AperturaExtraordinaria = props => {
       <div className={classes.aperturaEMultimedia}>
         {renderHTML(data.embedMultimedia)}
         <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
+        {getMultimediaIcon(getIcon(multimediaType))}
       </div>
     </div>
   )
