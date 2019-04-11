@@ -7,8 +7,8 @@ export default ({ siteName = '', siteUrl = '' }) => {
         "url": "${siteUrl}",
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "${siteUrl}/buscar/{search_term}",
-          "query-input": "required name=search_term"
+          "target": "${siteUrl}/buscar/{search_term_string}",
+          "query-input": "required name=search_term_string"
         }
       }`
 
