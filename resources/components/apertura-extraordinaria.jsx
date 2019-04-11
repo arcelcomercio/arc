@@ -11,7 +11,6 @@ const classes = {
   aperturaEAuthor: 'apertura-e__author',
   aperturaEMultimedia: 'apertura-e__multimedia',
   iconGallery: 'apertura-e__icon-gallery',
-  iconVideo: 'apertura-e__video',
 }
 
 const getMultimediaIcon = mediaType => {
