@@ -57,7 +57,7 @@ const transform = data => {
     name
   } = auxKey || {}
 
-  if (!name) return data
+  if (!name || !data) return data
 
   const {
     content_elements: [{
@@ -66,7 +66,7 @@ const transform = data => {
       } = {}
     } = {}] = []
   } =
-  data || {}
+  data
 
   const realAuthor = by.find(author => `/autor/${name}` === author.url)
   const authorName = {

@@ -56,7 +56,7 @@ const transform = data => {
     name
   } = auxKey || {}
 
-  if (!name) return data
+  if (!name || !data) return data
 
   const {
     content_elements: [{
@@ -65,7 +65,7 @@ const transform = data => {
       } = {}
     } = {}] = []
   } =
-  data || {}
+  data
 
   const realTag = tags.find(tag => name === tag.slug)
   const tagName = {
