@@ -158,12 +158,12 @@ Publicidad.propTypes = {
       defaultValue: 'auto',
       group: 'Tamaño de la publicidad',
     }),
-    rows: PropTypes.oneOf(['', 'row-1', 'row-2']).tag({
+    rows: PropTypes.oneOf(['auto', 'oneRow', 'twoRow']).tag({
       name: 'Alto de la publicidad',
       labels: {
-        '': 'auto',
-        'row-1': '1 fila',
-        'row-2': '2 filas',
+        auto: 'auto',
+        oneRow: '1 fila',
+        twoRow: '2 filas',
       },
       /**
        * TODO: Con esto te evitas los métodos de arriba.
