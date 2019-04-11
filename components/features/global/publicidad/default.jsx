@@ -38,7 +38,9 @@ class Publicidad extends PureComponent {
 
     return (
       <div
-        className={`${columns} ${rows === 'empty' ? '' : rows} ${hideClass()}`}>
+        className={`${columns} ${
+          rows === 'empty' ? '' : rows
+        } ${hideClass()} flex-center-vertical flex--column overflow-hidden`}>
         <Ads {...params} />
         {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
       </div>

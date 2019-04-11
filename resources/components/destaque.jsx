@@ -42,7 +42,7 @@ export default class Destaque extends Component {
       imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
       headband, // OPCIONAL, otros valores: "live"
       size, // Se espera "oneCol" o "twoCol"
-      editableField, // OPCIONAL, o pasar la función editableField de los props
+      // editableField, // OPCIONAL, o pasar la función editableField de los props
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
@@ -66,12 +66,12 @@ export default class Destaque extends Component {
       return ''
     }
 
-    const getEditableField = element => {
+    /* const getEditableField = element => {
       if (editableField) {
         return editableField(element)
       }
       return null
-    }
+    } */
 
     const getMultimediaIcon = () => {
       let icon
@@ -106,8 +106,9 @@ export default class Destaque extends Component {
               <a
                 className={classes.link}
                 href={category.url}
-                {...getEditableField('categoryField')}
-                suppressContentEditableWarning>
+                /* {...getEditableField('categoryField')}
+                suppressContentEditableWarning */
+              >
                 {categoryField || category.name}
               </a>
             </h3>
@@ -124,8 +125,9 @@ export default class Destaque extends Component {
             <a
               className={classes.link}
               href={title.url}
-              {...getEditableField('titleField')}
-              suppressContentEditableWarning>
+              /* {...getEditableField('titleField')}
+              suppressContentEditableWarning */
+            >
               {titleField || title.name}
             </a>
           </h2>
@@ -164,7 +166,7 @@ Destaque.propTypes = {
   imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf(['oneCol', 'twoCol']),
-  editableField: PropTypes.func,
+  // editableField: PropTypes.func,
   titleField: PropTypes.string,
   categoryField: PropTypes.string,
   multimediaType: PropTypes.oneOf([

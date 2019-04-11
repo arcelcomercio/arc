@@ -76,6 +76,10 @@
   overflow-x: auto;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 /******* Background-text contrast *******/
 .bg--white {
   background-color: $color-white;

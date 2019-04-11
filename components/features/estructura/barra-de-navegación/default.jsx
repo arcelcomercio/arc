@@ -79,7 +79,7 @@ class Nav extends Component {
     const { value } = this.inputSearch.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `${location.pathname}?query=${value}`
+      location.href = `${location.origin}/pb/buscar?query=${value}&_website=elcomercio`
     }
   }
 
