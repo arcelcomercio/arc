@@ -15,7 +15,6 @@ const classes = {
 }
 
 const getMultimediaIcon = mediaType => {
-  //return mediaType === 'V' ?
   let icon
   switch (mediaType) {
     case 'G':
@@ -63,6 +62,7 @@ const AperturaExtraordinaria = props => {
       <div className={classes.aperturaEMultimedia}>
         {renderHTML(data.embedMultimedia)}
         <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
+        {getMultimediaIcon(getIcon(multimediaType))}
       </div>
     </div>
   )
