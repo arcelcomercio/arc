@@ -11,6 +11,7 @@ const classes = {
   aperturaEAuthor: 'apertura-e__author',
   aperturaEMultimedia: 'apertura-e__multimedia',
   iconGallery: 'apertura-e__icon-gallery',
+  iconGalleryContainer: 'apertura-e__icon-gallery-container',
 }
 
 const getMultimediaIcon = mediaType => {
@@ -23,8 +24,10 @@ const getMultimediaIcon = mediaType => {
       return ''
   }
   return (
-    <span className={`contenedor-${icon}`}>
-      <i className={`icons-${icon}`}>{mediaType}</i>
+    <span className={`${classes.iconGallery}`}>
+      <span className={`${classes.iconGalleryContainer}`}>
+        <i>{mediaType}</i>
+      </span>
     </span>
   )
 }
