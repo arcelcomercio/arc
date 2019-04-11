@@ -2,8 +2,7 @@ let auxKey
 
 const schemaName = 'stories'
 
-const params = [
-  {
+const params = [{
     name: 'name',
     displayName: 'Slug de la etiqueta',
     type: 'text',
@@ -24,7 +23,11 @@ const pattern = (key = {}) => {
   auxKey = key
 
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const { name, currentPageNumber, storiesQty } = key
+  const {
+    name,
+    currentPageNumber,
+    storiesQty
+  } = key
 
   if (!name) {
     throw new Error('Esta fuente de contenido necesita el Slug de la etiqueta')
@@ -49,12 +52,20 @@ const pattern = (key = {}) => {
 const resolve = key => pattern(key)
 
 const transform = data => {
-  const { name } = auxKey || {}
+  const {
+    name
+  } = auxKey || {}
 
-  if (!name) return data
+  if (!name || !data) return data
 
-  const { content_elements: [{ taxonomy: { tags = [] } = {} }] = [] } =
-    data || {}
+  const {
+    content_elements: [{
+      taxonomy: {
+        tags = []
+      } = {}
+    } = {}] = []
+  } =
+  data
 
   const realTag = tags.find(tag => name === tag.slug)
   const tagName = {
