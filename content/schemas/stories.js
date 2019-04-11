@@ -145,6 +145,7 @@ export default `
   type Websites {
       elcomercio: DataWebsites
       peru21: DataWebsites
+      depor: DataWebsites
   }
   type ContentElements {
     _id: String
