@@ -54,6 +54,7 @@ class AperturaExtraordinariaStory extends Component {
     this.isVideo = formattedData.isVideo
     const params = {
       data: formattedData,
+      multimediaType: formattedData.multimediaType,
       multimediaOrientation: formattedData.multimediaOrientation,
       contentOrientation: formattedData.contentOrientation,
     }

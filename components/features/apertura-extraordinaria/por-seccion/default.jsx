@@ -17,7 +17,6 @@ class AperturaExtraordinariaSection extends Component {
   }
 
   componentDidUpdate() {
-    // eslint-disable-next-line no-extra-boolean-cast
     if(window.powaBoot && this.isVideo){
       window.powaBoot()
     }

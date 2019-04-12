@@ -80,6 +80,7 @@
     &--item {
       background: #c5ddf9;
       padding: 24px 18px;
+      position: relative;
 
       &-details {
         h3 {
@@ -195,10 +196,13 @@
     }
 
     &--nota {
+      &::before {
+        background: none;
+      }
       & figure {
         height: 80px;
         margin-right: 2%;
-        width: 90%;
+        //width: 90%;
       }
     }
   }

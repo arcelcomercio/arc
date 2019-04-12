@@ -1,19 +1,15 @@
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Ads from '../../../../resources/components/ads'
 
 @Consumer
-class Publicidad extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
+class Publicidad extends PureComponent {
   render() {
-    const {
-      customFields: { adElement, isDesktop, isMobile, freeHtml } = {},
-    } = this.props
+    const { customFields } = this.props
+
+    const { adElement, isDesktop, isMobile, freeHtml, columns, rows } =
+      customFields || {}
 
     const params = {
       adElement,
@@ -21,15 +17,33 @@ class Publicidad extends Component {
       isMobile,
     }
 
+    /**
+     * TODO: createMarkup se puede poner como un método en helpers,
+     * se usa en varias partes.
+     */
     const createMarkup = html => {
       return { __html: html }
     }
 
+    const hideClass = () => {
+      if (freeHtml) return ''
+      if (isDesktop && !isMobile) {
+        return 'no-mobile'
+      }
+      if (!isDesktop && isMobile) {
+        return 'no-desktop'
+      }
+      return ''
+    }
+
     return (
-      <Fragment>
+      <div
+        className={`${columns} ${
+          rows === 'empty' ? '' : rows
+        } ${hideClass()} flex-center-vertical flex--column overflow-hidden`}>
         <Ads {...params} />
         {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
-      </Fragment>
+      </div>
     )
   }
 }
@@ -39,13 +53,36 @@ Publicidad.propTypes = {
     adElement: PropTypes.string.isRequired.tag({
       name: 'Nombre',
     }),
-    isDesktop: PropTypes.bool.tag({ name: 'Desktop', group: 'Dispositivo' }),
-    isMobile: PropTypes.bool.tag({ name: 'Mobile', group: 'Dispositivo' }),
+    isDesktop: PropTypes.bool.tag({ name: 'Mostrar en "Desktop"' }),
+    isMobile: PropTypes.bool.tag({ name: 'Mostrar en "Mobile"' }),
     freeHtml: PropTypes.richtext.tag({
       name: 'Código HTML',
       group: 'Agregar bloque de html',
     }),
+    columns: PropTypes.oneOf(['full-width', 'col-1', 'col-2', 'col-3']).tag({
+      name: 'Ancho de la publicidad',
+      labels: {
+        'full-width': 'auto',
+        'col-1': '1 columna',
+        'col-2': '2 columnas',
+        'col-3': '3 columnas',
+      },
+      defaultValue: 'full-width',
+      group: 'Tamaño de la publicidad',
+    }),
+    rows: PropTypes.oneOf(['empty', 'row-1', 'row-2']).tag({
+      name: 'Alto de la publicidad',
+      labels: {
+        empty: 'auto',
+        'row-1': '1 fila',
+        'row-2': '2 filas',
+      },
+      defaultValue: 'empty',
+      group: 'Tamaño de la publicidad',
+    }),
   }),
 }
+
+Publicidad.label = 'Publicidad'
 
 export default Publicidad

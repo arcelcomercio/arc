@@ -41,8 +41,8 @@ class DataStory {
     )
   }
 
-  get tags(){
-    return this._data.taxonomy && this._data.taxonomy.tags || []
+  get tags() {
+    return (this._data.taxonomy && this._data.taxonomy.tags) || []
   }
 
   get subTitle() {
@@ -93,7 +93,8 @@ class DataStory {
 
   get link() {
     return (
-      `${(this._data && this._data.website_url) || ''}?_website=${this._website}` || '#'
+      `${(this._data && this._data.websites[`${this._website}`].website_url) ||
+        ''}?_website=${this._website}` || '#'
     )
   }
 
@@ -217,7 +218,8 @@ class DataStory {
         data.promo_items[ConfigParams.VIDEO] &&
         data.promo_items[ConfigParams.VIDEO].promo_items &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE] &&
-        data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE].url) ||
+        data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
+          .url) ||
       ''
     return thumb
   }
@@ -228,8 +230,11 @@ class DataStory {
         data.promo_items &&
         data.promo_items[ConfigParams.GALLERY] &&
         data.promo_items[ConfigParams.GALLERY].promo_items &&
-        data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE] &&
-        data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE].url) ||
+        data.promo_items[ConfigParams.GALLERY].promo_items[
+          ConfigParams.IMAGE
+        ] &&
+        data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
+          .url) ||
       ''
     return thumb
   }

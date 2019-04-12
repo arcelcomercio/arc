@@ -67,8 +67,7 @@ module.exports = env => {
     },
     // devtool: 'source-map',
     module: {
-      rules: [
-        {
+      rules: [{
           test: /\.(js|jsx)$/,
           exclude: /(node_modules)/,
           use: {
@@ -81,8 +80,7 @@ module.exports = env => {
         },
         {
           test: /\.(scss|css)$/,
-          use: [
-            {
+          use: [{
               loader: MiniCssExtractPlugin.loader,
               options: {
                 // you can specify a publicPath here
@@ -128,7 +126,7 @@ module.exports = env => {
           use: {
             loader: 'file-loader',
             options: {
-              publicPath: '/pb/resources/dist/',
+              publicPath: '/pf/resources/dist/',
               name: ';[path];/images/[name].[ext]', // ;[path]; es reemplazado
             },
           },
@@ -138,7 +136,7 @@ module.exports = env => {
           use: {
             loader: 'file-loader',
             options: {
-              publicPath: '/pb/resources/dist/',
+              publicPath: '/pf/resources/dist/',
               name: ';[path];/fonts/[name].[ext]', // ;[path]; es reemplazado
             },
           },

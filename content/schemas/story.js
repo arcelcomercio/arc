@@ -145,7 +145,6 @@ export default `
   type Websites {
       elcomercio: DataWebsites
       peru21: DataWebsites
-      depor: DataWebsites
   }
   type ContentElements {
     _id: String
@@ -184,11 +183,5 @@ export default `
     last_updated_date: String
     taxonomy: Taxonomy
     websites: Websites!
-    
-    content_elements: [ContentElements]
-    section_name: String
-    author_name: String
-    tag_name: String
-    count: Int
   }
 `

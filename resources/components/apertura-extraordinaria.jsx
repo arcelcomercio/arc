@@ -1,26 +1,50 @@
 import React from 'react'
 import renderHTML from 'react-render-html'
+import { getIcon } from '../utilsJs/helpers'
 
+const classes = {
+  aperturaE: `apertura-e padding-normal`,
+  aperturaESection: 'apertura-e__section text-center',
+  aperturaEContent: 'apertura-e__content',
+  aperturaETitle: 'apertura-e__title',
+  aperturaESubtitle: 'apertura-e__subtitle',
+  aperturaEAuthor: 'apertura-e__author',
+  aperturaEMultimedia: 'apertura-e__multimedia',
+  iconGallery: 'apertura-e__icon-gallery',
+  iconGalleryContainer: 'apertura-e__icon-gallery-container',
+}
+
+const getMultimediaIcon = mediaType => {
+  let icon
+  switch (mediaType) {
+    case 'G':
+      icon = classes.iconGallery
+      break
+    default:
+      return ''
+  }
+  return (
+    <span className={`${classes.iconGallery}`}>
+      <span className={`${classes.iconGalleryContainer}`}>
+        <i>{mediaType}</i>
+      </span>
+    </span>
+  )
+}
 const AperturaExtraordinaria = props => {
   const {
     data,
     multimediaOrientation = 'bottom',
     contentOrientation = 'left',
     isSection = false,
+    multimediaType,
   } = props
 
-  const classes = {
-    aperturaE: `apertura-e padding-normal apertura-e--${multimediaOrientation} text-${contentOrientation}`,
-    aperturaESection: 'apertura-e__section text-center',
-    aperturaEContent: 'apertura-e__content',
-    aperturaETitle: 'apertura-e__title',
-    aperturaESubtitle: 'apertura-e__subtitle',
-    aperturaEAuthor: 'apertura-e__author',
-    aperturaEMultimedia: 'apertura-e__multimedia',
-  }
-  // TODO: Improve goldfish library  call for play the video and change url for production
   return (
-    <div className={classes.aperturaE}>
+    <div
+      className={`${
+        classes.aperturaE
+      } apertura-e--${multimediaOrientation} text-${contentOrientation}`}>
       {!isSection && (
         <div className={classes.aperturaESection}>
           <a href={data.sectionLink}>{data.section}</a>
@@ -40,6 +64,7 @@ const AperturaExtraordinaria = props => {
       <div className={classes.aperturaEMultimedia}>
         {renderHTML(data.embedMultimedia)}
         <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
+        {getMultimediaIcon(getIcon(multimediaType))}
       </div>
     </div>
   )

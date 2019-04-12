@@ -33,27 +33,31 @@ export default ({
   }
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
-    title: !metaValue('title').match(/content/)
-      ? `${metaValue('title')} | ${siteProperties.siteName}`
-      : siteProperties.siteName,
+    title:
+      metaValue('title') && !metaValue('title').match(/content/)
+        ? `${metaValue('title')} | ${siteProperties.siteName}`
+        : siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
-    description: !metaValue('description').match(/content/)
-      ? `${metaValue('description')} en ${siteProperties.siteName}`
-      : 'Últimas noticias en Perú y el mundo',
+    description:
+      metaValue('description') && !metaValue('description').match(/content/)
+        ? `${metaValue('description')} en ${siteProperties.siteName}`
+        : 'Últimas noticias en Perú y el mundo',
     twitterCreator: siteProperties.social.twitter.user,
     article: false, // check data origin - Boolean
     deployment,
   }
   const openGraphData = {
     fbAppId: siteProperties.fbAppId,
-    title: !metaValue('title').match(/content/)
-      ? `${metaValue('title')} | ${siteProperties.siteName}`
-      : siteProperties.siteName,
-    description: !metaValue('description').match(/content/)
-      ? `${metaValue('description')} en ${siteProperties.siteName}`
-      : 'Últimas noticias en Perú y el mundo',
+    title:
+      metaValue('title') && !metaValue('title').match(/content/)
+        ? `${metaValue('title')} | ${siteProperties.siteName}`
+        : siteProperties.siteName,
+    description:
+      metaValue('description') && !metaValue('description').match(/content/)
+        ? `${metaValue('description')} en ${siteProperties.siteName}`
+        : 'Últimas noticias en Perú y el mundo',
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
@@ -78,7 +82,7 @@ export default ({
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <script async="" src="//static.chartbeat.com/js/chartbeat_mab.js" />
+        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
         {renderMetaPage(metaValue('id'), metaPageData)}
         <MetaSite {...metaSiteData} />
@@ -86,13 +90,14 @@ export default ({
         <OpenGraph {...openGraphData} />
 
         <title>
-          {!metaValue('title').match(/content/)
+          {metaValue('title') && !metaValue('title').match(/content/)
             ? `${metaValue('title')} | ${siteProperties.siteName}`
             : siteProperties.siteName}
         </title>
         <meta
           name="description"
           content={
+            metaValue('description') &&
             !metaValue('description').match(/content/)
               ? `${metaValue('description')} en ${siteProperties.siteName}`
               : 'Últimas noticias en Perú y el mundo'
@@ -101,7 +106,7 @@ export default ({
         <meta
           name="keywords"
           content={
-            !metaValue('keywords').match(/content/)
+            metaValue('keywords') && !metaValue('keywords').match(/content/)
               ? metaValue('keywords')
               : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
           }
