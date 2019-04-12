@@ -74,6 +74,7 @@ const getResizedUrls = (
   return mergeObjects(
     aspectRatios.map(aspectPreset => {
       const aspectPresetArray = aspectPreset.split('|')
+      // eslint-disable-next-line no-param-reassign
       aspectPreset = aspectPresetArray ? aspectPresetArray[0] : aspectPreset
       const thumbor = new Thumbor(resizerSecretKey, resizerUrl)
       thumbor.setImagePath(urlWithoutScheme)
@@ -169,9 +170,7 @@ export const addResizedUrls = (
   data,
   resizerUrl,
   resizerSecretKey,
-  aspectRatios = aspectPresets,
-  heightpx,
-  widthpx
+  aspectRatios = aspectPresets
 ) => {
   const { content_elements: contentElements, promo_items: promoItems } = data
   return {
@@ -180,15 +179,14 @@ export const addResizedUrls = (
       if (contentElement.type !== 'image') {
         return contentElement
       }
+
       return {
         ...contentElement,
         resized_urls: getResizedUrls(
           contentElement,
           resizerUrl,
           resizerSecretKey,
-          aspectRatios,
-          heightpx,
-          widthpx
+          aspectRatios
         ),
       }
     }),
