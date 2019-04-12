@@ -110,11 +110,14 @@ class PieDePagina extends Component {
     } = this.props
     const { device, legalList, sectionsList } = this.state
 
+    const querys = requestUri.split('?')[1]
+    const queryString = querys !== undefined ? `?${querys}` : ''
+
     return (
       <footer className={classes.footer}>
         <div className={classes.footerInfo}>
           <a
-            href={`${contextPath}${requestUri}`}
+            href={`${contextPath || ''}/${queryString}`}
             className={classes.footerLogoContainer}>
             <img
               className={classes.footerLogoImg}

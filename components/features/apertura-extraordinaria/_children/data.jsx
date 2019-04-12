@@ -52,7 +52,10 @@ class Data extends DataStory {
     let isVideoCustom = false
     let isVideoApi = false
     const { multimediaService } = this.customFields
-    if (multimediaService === Data.YOUTUBE || multimediaService === Data.GOLDFISH)
+    if (
+      multimediaService === Data.YOUTUBE ||
+      multimediaService === Data.GOLDFISH
+    )
       isVideoCustom = true
     if (super.multimediaType === ConfigParams.VIDEO) isVideoApi = true
     return multimediaService !== Data.AUTOMATIC ? isVideoCustom : isVideoApi
@@ -81,9 +84,9 @@ class Data extends DataStory {
   static multimediaCustomEmbed(
     multimediaService,
     multimediaSource,
-    title = '',
     website,
-    orientation
+    orientation,
+    title = ''
   ) {
     let multimedia = ''
     if (multimediaService === Data.GOLDFISH && multimediaSource !== '')
