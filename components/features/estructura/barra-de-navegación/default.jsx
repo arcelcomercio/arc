@@ -206,7 +206,6 @@ class Nav extends Component {
     const { arcSite, contextPath, requestUri } = this.props
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
-
     return (
       <nav className={classes.nav}>
         <div className={classes.navWrapper}>
@@ -292,7 +291,7 @@ class Nav extends Component {
             </div>
           )}
         </div>
-        <NavSidebar sections={sections} showSidebar={statusSidebar} />
+        <NavSidebar sections={sections} showSidebar={statusSidebar} contextPath={contextPath} />
       </nav>
     )
   }
