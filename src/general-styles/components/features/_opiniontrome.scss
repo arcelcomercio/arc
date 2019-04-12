@@ -1,4 +1,5 @@
 .opiniontrome {
+  // FIXME: PLS
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 2fr 10fr;
@@ -12,56 +13,67 @@
     align-content: center;
     border-top: 1px solid #d8d7d4;
   }
+
   &__title {
     text-align: center;
     color: #f15a24;
     font-size: 26px;
   }
+
   &__body {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     // height: 450px;
   }
+
   &__item {
     display: grid;
     grid-template-columns: 8fr 4fr;
     border-top: 1px solid #d8d7d4;
     padding-top: 10px;
   }
+
+  &__nombreseccion {
+    // FIXME: PLS
+    color: #f15a24;
+
+    & a {
+      color: #f15a24;
+      text-decoration: none;
+    }
+
+    & a:hover {
+      color: #f15a24;
+      text-decoration: underline;
+    }
+  }
+
   &__seccion {
     display: grid;
     grid-template-rows: 2fr 8fr;
     grid-template-columns: 1fr;
     align-items: center;
-    & a{
-      color: #000;
-      text-decoration: none;
-    }
-    & a:hover {
-      color: #000;
-      text-decoration: underline;
-    }
-  }
-  &__nombreseccion {
-    color: #f15a24;
 
-    & a{
-      color: #f15a24;
+    & a {
+      color: #000;
       text-decoration: none;
     }
+
     & a:hover {
-      color: #f15a24;
+      color: #000;
       text-decoration: underline;
     }
   }
+
   &__titleNew {
     //text-overflow: ellipsis;
-    
+
     overflow: hidden;
     text-align: left;
-    
+
   }
+
   &__icono {
     display: grid;
     grid-template-rows: 3fr;

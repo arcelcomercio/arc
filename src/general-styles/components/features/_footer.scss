@@ -99,8 +99,6 @@ $desktop-media: 'min-width: 1024px';
     width: 100%;
   }
 
-  &__legal-list {}
-
   &__legal-item {
     font-size: $footer-legal-text-size;
     color: $legal-text-color;
@@ -111,10 +109,6 @@ $desktop-media: 'min-width: 1024px';
   &__list-link {
     color: $footer-list-tex-color;
     text-transform: capitalize;
-  }
-
-  &__list {
-    // padding: 10px;
   }
 
   &__list-item {
