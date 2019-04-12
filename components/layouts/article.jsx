@@ -11,29 +11,25 @@ const classes = {
   sidebar: 'content-grid-base content--1col col-1',
 }
 
-const ArticleLayout = ({ children }) => {
+const ArticleLayout = ({ children = [] }) => {
   return (
     <div className={classes.layout}>
-      <div className={classes.zocalo}>
-        {children[0] && children[0] /* Zocalo izquierda */}
-      </div>
+      <div className={classes.zocalo}>{children[0] /* Zocalo izquierda */}</div>
       <div className={classes.contentContainer}>
         {children[1] /* Nav */}
-        {children[2] && children[2] /* Encabezado adicional */}
+        {children[2] /* Encabezado adicional */}
         {children[3] /* Header */}
-        {children[4] && children[4] /* Encabezado */}
+        {children[4] /* Encabezado */}
         <div className={classes.mainContent}>
           <main className={classes.main}>{children[5] /* Content */}</main>
           <aside className={classes.sidebar}>
             {children[6] /* Sidebar  */}
           </aside>
-          {children[7] && children[7] /* Contenido adicional */}
+          {children[7] /* Contenido adicional */}
         </div>
         {children[8] /* Footer */}
       </div>
-      <div className={classes.zocalo}>
-        {children[9] && children[9] /* Zocalo izquierda */}
-      </div>
+      <div className={classes.zocalo}>{children[9] /* Zocalo izquierda */}</div>
     </div>
   )
 }
