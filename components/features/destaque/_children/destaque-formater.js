@@ -9,7 +9,6 @@ class DestaqueFormater {
       credits {
         by { name url type }
       }
-      website_url
       promo_items {
         basic { url type }
         basic_video {
@@ -29,6 +28,7 @@ class DestaqueFormater {
             name
             path
           }
+          website_url
         }
       }
     }`

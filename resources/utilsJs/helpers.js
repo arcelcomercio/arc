@@ -1,4 +1,6 @@
-import { addResizedUrlItem } from './thumbs'
+import {
+  addResizedUrlItem
+} from './thumbs'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -16,9 +18,9 @@ export const formatDate = date => {
 
   const fechaEntrante = date.slice(0, 10)
   const fecha =
-    fechaEntrante === fechaGenerada
-      ? date.slice(date.indexOf('T') + 1, 16)
-      : fechaEntrante
+    fechaEntrante === fechaGenerada ?
+    date.slice(date.indexOf('T') + 1, 16) :
+    fechaEntrante
   return fecha
 }
 
@@ -110,7 +112,9 @@ export const GetMultimediaContent = ({
   if (basicVideo) {
     const {
       promo_items: {
-        basic: { url: videoUrl = '' },
+        basic: {
+          url: videoUrl = ''
+        },
       },
     } = basicVideo
     result.url = videoUrl
@@ -123,7 +127,9 @@ export const GetMultimediaContent = ({
   if (basicGallery) {
     const {
       promo_items: {
-        basic: { url: galleryUrl = '' },
+        basic: {
+          url: galleryUrl = ''
+        },
       },
     } = basicGallery
     result.url = galleryUrl
@@ -150,12 +156,12 @@ export const metaPaginationUrl = (
   siteUrl,
   isQuery
 ) => {
-  return requestUri.match(patternPagination) != null
-    ? `${siteUrl}${requestUri.replace(
+  return requestUri.match(patternPagination) != null ?
+    `${siteUrl}${requestUri.replace(
         patternPagination,
         `${isQuery ? '&page=' : '/'}${pageNumber}`
-      )}`
-    : `${siteUrl}${
+      )}` :
+    `${siteUrl}${
         isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
       }${isQuery ? `&page=${pageNumber}` : `?${requestUri.split('?')[1]}`}`
 }
@@ -166,16 +172,19 @@ export const getMetaPagesPagination = (
   globalContent,
   patternPagination
 ) => {
-  const { next, previous } = globalContent || {}
+  const {
+    next,
+    previous
+  } = globalContent || {}
   const pages = {
-    current: requestUri.match(patternPagination)
-      ? parseInt(
-          requestUri
-            .match(patternPagination)[0]
-            .split(`${isQuery ? '=' : '/'}`)[1],
-          10
-        )
-      : 1,
+    current: requestUri.match(patternPagination) ?
+      parseInt(
+        requestUri
+        .match(patternPagination)[0]
+        .split(`${isQuery ? '=' : '/'}`)[1],
+        10
+      ) :
+      1,
     next: false,
     prev: false,
   }
