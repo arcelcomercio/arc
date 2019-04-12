@@ -203,7 +203,9 @@ class Nav extends Component {
       statusSidebar,
       scrolled,
     } = this.state
-    const { arcSite } = this.props
+    const { arcSite, contextPath, requestUri } = this.props
+    const querys = requestUri.split('?')[1]
+    const queryString = querys !== undefined ? `?${querys}` : ''
 
     return (
       <nav className={classes.nav}>
@@ -252,13 +254,14 @@ class Nav extends Component {
                 )
               })}
           </ul>
-          <img
-            src="https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png"
-            /* src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} */
-            alt={`Logo de ${arcSite}`}
-            className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
-          />
-
+          <a href={`${contextPath || ''}/${queryString}`}>
+            <img
+              src="https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png"
+              /* src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} */
+              alt={`Logo de ${arcSite}`}
+              className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
+            />
+          </a>
           {/** ************* RIGHT *************** */}
 
           {device === 'desktop' ? (
