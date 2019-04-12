@@ -119,10 +119,6 @@ export const GetMultimediaContent = ({
       medio: 'video',
     }
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> c07b9ddfeebf7213bb44fec473b844dcd0227420
 
   if (basicGallery) {
     const {
