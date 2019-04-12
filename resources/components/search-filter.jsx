@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 class SearchFilter extends Component {
   constructor(props) {
     super(props)
-
+    console.log(props)
     this.state = {
       /* Agrega valor a estos estados fuera del PageBuilder */
       sort: !props.isAdmin && this.getOrder(),
@@ -78,7 +78,7 @@ class SearchFilter extends Component {
         /%20/g,
         '+'
       )}&category=${(params.section && params.section.slice(1)) ||
-        category}&sort=${params.sort || sort}&_website=${arcSite}`
+        category}&sort=${params.sort || sort || 'desc'}&_website=${arcSite}`
       /* El slice(0) es para eliminar el slash de la sección que se agrega para la consulta a la API */
     }
 
@@ -97,7 +97,6 @@ class SearchFilter extends Component {
     const { arcSite, globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
     const { value } = this.inputSearch.current /* React ref del input */
-
     e.preventDefault()
 
     /* Sólo genera la URI si "query" tiene contenido */
@@ -107,7 +106,7 @@ class SearchFilter extends Component {
       // eslint-disable-next-line no-restricted-globals
       location.href = `${location.pathname}?query=${encodeURIComponent(
         value
-      ).replace(/%20/g, '+')}&category=&sort=${sort}&_website=${arcSite}`
+      ).replace(/%20/g, '+')}&category=&sort=${sort || 'desc'}&_website=${arcSite}`
     /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
   }
 
