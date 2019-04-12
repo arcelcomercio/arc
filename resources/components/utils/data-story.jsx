@@ -93,9 +93,8 @@ class DataStory {
 
   get link() {
     return (
-      `${(this._data && this._data.canonical_url) || ''}?_website=${
-        this._website
-      }` || '#'
+      `${(this._data && this._data.websites[`${this._website}`].website_url) ||
+        ''}?_website=${this._website}` || '#'
     )
   }
 
