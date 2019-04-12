@@ -36,7 +36,7 @@ class MasLeidas extends Component {
         const { content_elements: contentElements } = response || {}
         const stories = contentElements || []
 
-        if (stories && stories.length > 0) {
+        if (stories.length > 0) {
           this.setState({
             stories: castingData(stories, this.props),
           })

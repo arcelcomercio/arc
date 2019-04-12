@@ -103,10 +103,11 @@ class Nav extends Component {
       this.setState({
         scrolled: true,
       })
-    } else if (scrolled && scrollTop <= 100)
+    } else if (scrolled && scrollTop <= 100) {
       this.setState({
         scrolled: false,
       })
+    }
   }
 
   // Open - Close Search
