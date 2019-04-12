@@ -113,10 +113,7 @@ class PaginadorFecha extends Component {
   // Si Hay en el path una fecha, la pasa como parametro a la funcion, si no se ejecuta la acutal
   evalDate() {
     const { date } = this.props
-    if (date && date !== '') {
-      return this.getFiveDays(date)
-    }
-    return this.getFiveDays()
+    return date ? this.getFiveDays(date) : this.getFiveDays()
   }
 
   // Remueve el año para imprimirlo en el componente Ej: 2010-01-10 => 10/01
