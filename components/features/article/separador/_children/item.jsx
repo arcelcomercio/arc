@@ -53,7 +53,7 @@ const SeparatorListItem = ({ data, excluir, website }) => {
       multimedia = GetMultimediaContent(promoItems)
     }
 
-    if (multimedia.url === undefined) return false
+    if (multimedia && multimedia.url === undefined) return false
     const { medio } = multimedia
     key += 1
     const aspectRatios = ['3:4|147x80']
