@@ -23,7 +23,7 @@ export default ({
         content={
           article // TODO: Falta agregar Img de articulo dinámica
             ? deployment(
-                `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-sitio.jpg`
+                `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/story-image.jpg`
               )
             : deployment(
                 `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-sitio.jpg`
