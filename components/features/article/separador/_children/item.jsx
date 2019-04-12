@@ -52,15 +52,15 @@ const SeparatorListItem = ({ data, excluir, website }) => {
     if (promoItems !== null) {
       multimedia = GetMultimediaContent(promoItems)
     }
+    const { medio, url } = multimedia
+    if (url === undefined) return false
 
-    if (multimedia.url === null) return false
-    const { medio } = multimedia
     key += 1
     const aspectRatios = ['3:4|147x80']
 
     const { resized_urls: resizedUrls } = addResizedUrlItem(
       website,
-      multimedia.url,
+      url,
       aspectRatios
     )
 
