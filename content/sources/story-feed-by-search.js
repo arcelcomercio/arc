@@ -51,6 +51,9 @@ const pattern = key => {
   // const page = `page=${'1'}`
   const valueQuery = key.query || '*'
 
+  console.log('SOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORT', sort)
+
+
   const body = {
     query: {
       bool: {
