@@ -141,7 +141,7 @@ class Nav extends Component {
       this.setState({
         statusSearch: false,
       })
-    }, 100)
+    }, 1000)
   }
 
   // ------ Sets the new device state when the listener is activated
