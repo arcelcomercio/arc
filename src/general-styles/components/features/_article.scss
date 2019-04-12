@@ -216,6 +216,14 @@ $BGImageOrd: #4aa8fa;
   height: 460px;
   overflow: hidden;
 
+  &__previousButton {
+    left: 20px;
+  }
+
+  &__nextButton {
+    right: 20px;
+  }
+
   &__previusButton,
   &__nextButton {
     font-size: 22px;
@@ -238,14 +246,6 @@ $BGImageOrd: #4aa8fa;
       transform: translateY(-50%) scale(1.25);
       cursor: pointer;
     }
-  }
-
-  &__previousButton {
-    left: 20px;
-  }
-
-  &__nextButton {
-    right: 20px;
   }
 
   &__slide {

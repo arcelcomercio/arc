@@ -1,10 +1,10 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-const classes = {} // TODO: Falta refactorizar estilos
+// TODO: Falta refactorizar estilos
 
 @Consumer
-class FilterSearch extends Component {
+class SearchFilter extends Component {
   constructor(props) {
     super(props)
 
@@ -23,8 +23,8 @@ class FilterSearch extends Component {
   // Set the sort state from &sort=
   getOrder() {
     const { globalContentConfig } = this.props
-    const { query: { sort = '' } = {} } = globalContentConfig || {}
-    return sort
+    const { query: { sort } = {} } = globalContentConfig || {}
+    return sort || 'desc'
   }
 
   // Set the section state from &category=
@@ -263,4 +263,4 @@ class FilterSearch extends Component {
   }
 }
 
-export default FilterSearch
+export default SearchFilter
