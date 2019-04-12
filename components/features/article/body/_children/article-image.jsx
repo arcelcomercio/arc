@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 
 import Image from '@arc-core-components/element_image'
@@ -9,7 +9,7 @@ const classes = {
   description: 'news-media-description',
 }
 @Consumer
-class ImageConent extends Component {
+class ArticleImage extends PureComponent {
   render() {
     const {
       data: {
@@ -40,4 +40,4 @@ class ImageConent extends Component {
     )
   }
 }
-export default ImageConent
+export default ArticleImage
