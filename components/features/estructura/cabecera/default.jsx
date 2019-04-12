@@ -134,19 +134,23 @@ class Header extends Component {
 
   render() {
     const { temas, device } = this.state
-    const { contextPath, arcSite, deployment } = this.props
+    const { contextPath, arcSite, deployment, requestUri } = this.props
+    const querys = requestUri.split('?')[1]
+    const queryString = querys !== undefined ? `?${querys}` : ''
 
     return temas[0] && device === 'desktop' ? (
       <header className={classes.header}>
         <div className={classes.headerMain}>
           <span className={classes.headerDate}>{this.fechaActual()}</span>
-          <img
-            src={deployment(
-              `${contextPath}/resources/dist/${arcSite}/images/logo.png`
-            )}
-            alt={`Logo de ${arcSite}`}
-            className={classes.headerLogo}
-          />
+          <a href={`${contextPath || ''}/${queryString}`}>
+            <img
+              src={deployment(
+                `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+              )}
+              alt={`Logo de ${arcSite}`}
+              className={classes.headerLogo}
+            />
+          </a>
           <div className={classes.headerBtnContainer}>
             <Button
               iconClass={classes.headerBtnIconLogin}
