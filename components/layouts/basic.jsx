@@ -9,7 +9,7 @@ const classes = {
   zocalo: 'zocalo__container',
 }
 
-const BasicLayout = ({ children }) => {
+const BasicLayout = ({ children = [] }) => {
   return (
     <div className={classes.layout}>
       <div className={classes.zocalo}>{children[0] /* Zocalo izquierda */}</div>
