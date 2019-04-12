@@ -77,14 +77,7 @@ class CintilloUrgente extends Component {
     const {
       editableField,
       arcSite,
-      customFields: {
-        backgroundColor,
-        tags,
-        title,
-        subTitle,
-        isExternalLink,
-        storyLink,
-      },
+      customFields: { backgroundColor, tags, title, subTitle, storyLink },
     } = this.props
     const webUrlService =
       storyLink !== '' ? `${storyLink}?_website=${arcSite}` : ''
