@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 /* **************** SIN USO ****************** */
 
-export default function OrderedNews({ children, customFields }) {
+export default function OrderedStories({ children, customFields }) {
   let { initialStory: storyNumber } = customFields
   storyNumber = storyNumber || 1
   storyNumber -= 1
@@ -33,7 +33,7 @@ export default function OrderedNews({ children, customFields }) {
   )
 }
 
-OrderedNews.propTypes = {
+OrderedStories.propTypes = {
   customFields: PropTypes.shape({
     initialStory: PropTypes.number.tag({
       name: 'Iniciar desde la historia:',
@@ -43,3 +43,5 @@ OrderedNews.propTypes = {
     }),
   }),
 }
+
+OrderedStories.label = 'Historias Ordenadas'
