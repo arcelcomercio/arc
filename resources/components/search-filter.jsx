@@ -7,7 +7,6 @@ import React, { Component } from 'react'
 class SearchFilter extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
     this.state = {
       /* Agrega valor a estos estados fuera del PageBuilder */
       sort: !props.isAdmin && this.getOrder(),
@@ -106,7 +105,8 @@ class SearchFilter extends Component {
       // eslint-disable-next-line no-restricted-globals
       location.href = `${location.pathname}?query=${encodeURIComponent(
         value
-      ).replace(/%20/g, '+')}&category=&sort=${sort || 'desc'}&_website=${arcSite}`
+      ).replace(/%20/g, '+')}&category=&sort=${sort ||
+        'desc'}&_website=${arcSite}`
     /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
   }
 
@@ -142,7 +142,7 @@ class SearchFilter extends Component {
     const { isAdmin } = this.props
 
     return (
-      <div className="filter-search full-width margin-top">
+      <div className="search-filter full-width margin-top">
         <div className="filter-search__box-list">
           <button
             className={`filter-search__select ${showList ? 'active' : ''}`}
