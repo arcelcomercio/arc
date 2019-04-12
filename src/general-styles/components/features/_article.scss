@@ -120,15 +120,17 @@ $BGImageOrd: #4aa8fa;
 .tags {
   &__title {
     color: #4aa8fa;
-    font: 700 12px/1 open-sans, arial, sans-serif;
+    font: 700 12px/1 $main-font;
     margin-bottom: 5px;
     text-transform: uppercase;
   }
+
   &__item {
     display: inline-block;
-    font-family: open-sans, arial, sans-serif;
+    font-family: $main-font;
     font-size: 13px;
     margin: 0 10px 5px 0;
+
     & a {
       color: $color-silver;
     }
@@ -165,7 +167,7 @@ $BGImageOrd: #4aa8fa;
   margin-top: 26px;
 }
 
-.news-text-content > p {
+.news-text-content>p {
   font-size: 20px;
   line-height: 1.5;
   margin-bottom: 25px;
@@ -186,7 +188,7 @@ $BGImageOrd: #4aa8fa;
 
 .news-media-description {
   color: $colorTextDescription;
-  font-family: open-sans, arial, sans-serif;
+  font-family: $main-font;
   font-size: 13px;
   margin: 0;
   padding-top: 5px;
@@ -285,7 +287,7 @@ $BGImageOrd: #4aa8fa;
     //.slider-details-container
     &__details {
       background-color: $BGdetail;
-      font-family: Open-sans, arial, sans-serif;
+      font-family: $main-font;
       padding: 15px 35px;
       margin-top: 388px;
       z-index: 9999;
@@ -295,7 +297,7 @@ $BGImageOrd: #4aa8fa;
         color: $colorLinksWhite;
         display: block;
         float: left;
-        font: 700 18px/50px open-sans, arial, sans-serif;
+        font: 700 18px/50px $main-font;
         height: 50px;
         text-align: center;
         width: 95px;
