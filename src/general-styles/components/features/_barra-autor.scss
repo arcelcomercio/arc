@@ -19,10 +19,6 @@
 		}
 	}
 
-	&__icons {
-		display: inline-flex;
-	}
-
 	&__content {
 		display: flex;
 		width: 100%;
@@ -86,6 +82,7 @@
 
 	&__icons {
 		margin-left: 20px;
+		display: inline-flex;
 
 		a {
 			margin-right: 10px;

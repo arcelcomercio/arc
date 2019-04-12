@@ -81,7 +81,7 @@ export const isEmpty = val => {
 }
 
 export const getIcon = type => {
-  let test = ''
+  let test
   switch (type) {
     case 'basic_gallery':
       test = 'G'
@@ -127,7 +127,7 @@ export const GetMultimediaContent = ({
       medio: 'video'
     }
   }
-  
+
 
   if (basicGallery) {
     const {
