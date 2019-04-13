@@ -92,9 +92,10 @@ class DataStory {
   }
 
   get link() {
+    const { websites = {} } = this._data || {}
+    const aux = websites[`${this._website}`] || {}
     return (
-      `${(this._data && this._data.websites[`${this._website}`].website_url) ||
-        ''}?_website=${this._website}` || '#'
+      `${aux.website_url || ''}?_website=${this._website}` || '#'
     )
   }
 
@@ -137,7 +138,7 @@ class DataStory {
 
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
-    let attributesObject = {}
+    const attributesObject = {}
     // eslint-disable-next-line no-restricted-syntax
     for (const attr of Object.getOwnPropertyNames(DataStory.prototype)) {
       if (attr !== 'attributesRaw') attributesObject[attr] = this[attr]
