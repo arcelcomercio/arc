@@ -18,6 +18,18 @@
     font-size: 30px;
     margin: 0;
     /* el componente opinion trome debe mostrar 2 lineas como maximo en el titulo*/
+    
+  }
+  &__oneline{
+    max-height: 30px;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+  }
+  &__twoline{
     max-height: 60px;
     overflow: hidden;
     -webkit-line-clamp: 2;

@@ -4,6 +4,8 @@ const clasess = {
   opinion: 'opiniontrome',
   head: 'opiniontrome__head',
   title: 'opiniontrome__title',
+  oneline: 'opiniontrome__oneline',
+  twoline: 'opiniontrome__twoline',
   body: 'opiniontrome__body',
   item: 'opiniontrome__item',
   seccion: 'opiniontrome__seccion',
@@ -33,14 +35,24 @@ const OpinionItem = ({ titulo, urlImg, urlNew, sectionName, urlSection }) => {
   )
 }
 
-const OpinionComponent = ({ titleOpinion, dataList }) => {
+const OpinionComponent = ({ titleOpinion, dataList, numLineTitle }) => {
+  let numberLine = ''
+  switch (numLineTitle) {
+    case 2:
+      numberLine = clasess.twoline
+      break
+    default:
+      numberLine = clasess.oneline
+      break
+  }
+
   return (
     <div className={clasess.opinion}>
       <div className={clasess.head}>
-        <h3 className={clasess.title}>{titleOpinion}</h3>
+        <h3 className={`${clasess.title} ${numberLine}`}>{titleOpinion}</h3>
       </div>
       <div className={clasess.body}>
-        {dataList.map((data) =>
+        {dataList.map(data =>
           data ? (
             <OpinionItem
               titulo={data.title}

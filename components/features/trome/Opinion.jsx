@@ -12,6 +12,7 @@ class Opinion extends Component {
     const {
       customFields: {
         titleOpinion,
+        numLineTitle,
         section1,
         section2,
         section3,
@@ -21,6 +22,7 @@ class Opinion extends Component {
 
     this.state = {
       titleOpinion,
+      numLineTitle,
       section1,
       section2,
       section3,
@@ -101,9 +103,9 @@ class Opinion extends Component {
   }
 
   render() {
-    const { titleOpinion, listNews } = this.state
+    const { titleOpinion ='',numLineTitle = 1, listNews=[] } = this.state
 
-    return <OpinionComponent titleOpinion={titleOpinion} dataList={listNews} />
+    return <OpinionComponent titleOpinion={titleOpinion} dataList={listNews} numLineTitle={numLineTitle} />
   }
 }
 
