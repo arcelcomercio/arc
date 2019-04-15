@@ -56,11 +56,11 @@
     "webpack-cli": "3.2.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "fusion": "fusion",
-    "start": "fusion start",
-    "prod": "webpack --config ./config/webpack.config.js --env.prod",
     "dev": "webpack --config ./config/webpack.config.js --env.dev",
+    "fusion": "fusion",
+    "prod": "webpack --config ./config/webpack.config.js --env.prod",
+    "start": "fusion start",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --config ./config/webpack.config.js --watch --env.dev"
   },
   "keywords": [],
