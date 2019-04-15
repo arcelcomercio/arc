@@ -94,9 +94,7 @@ class DataStory {
   get link() {
     const { websites = {} } = this._data || {}
     const aux = websites[`${this._website}`] || {}
-    return (
-      `${aux.website_url || ''}?_website=${this._website}` || '#'
-    )
+    return `${aux.website_url || ''}?_website=${this._website}` || '#'
   }
 
   // TODO: Cambiar la fecha a lo que se estandarice
@@ -117,6 +115,7 @@ class DataStory {
   }
 
   static videoId() {
+    // FIXME
     return (
       (this._data &&
         this._data.promo_items &&

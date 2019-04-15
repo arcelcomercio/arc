@@ -12,9 +12,9 @@ const resolve = (key = {}) => {
   const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
   if (!hasWebsiteUrl)
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
-  const site = key['arc-site'] || key.website
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const { website_url: websiteUrl } = key
-  const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${site}`
+  const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}`
   return requestUri
 }
 
