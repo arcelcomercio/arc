@@ -15,7 +15,7 @@ class AperturaExtraordinariaStory extends Component {
         return fetched
       }
       return new Promise((resolve, reject) => {
-        reject(new Error("Url empty"))
+        reject(new Error('Url empty'))
       })
     },
 
@@ -35,10 +35,14 @@ class AperturaExtraordinariaStory extends Component {
       customFields: { link },
       arcSite,
     } = this.props
-    
-    this.mainLogic.fetch(API_URL, link, filterSchema(arcSite)).then(response => {
+
+    this.mainLogic
+      .fetch(API_URL, link, filterSchema(arcSite))
+      .then(response => {
+        console.log(response)
         this.setState(this.mainLogic.dataState(response))
-    }).catch(() => false)
+      })
+      .catch(() => false)
   }
 
   componentDidUpdate() {
