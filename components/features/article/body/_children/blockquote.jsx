@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import renderHTML from 'react-render-html'
 
 const classes = {
@@ -8,21 +8,18 @@ const classes = {
 
 export default props => {
   const {
-    data: { citation = {}, content_elements: elementos = [], subtype } = {},
+    data: { subtype, content_elements: contentElements, citation = {} } = {},
   } = props
+  const [{ content = '' } = {}] = contentElements || []
 
   return (
-    <Fragment>
-      <blockquote
-        className={
-          subtype === 'blockquote' ? classes.blockquote : classes.pull
-        }>
-        <p>
-          {elementos && elementos[0] && renderHTML(elementos[0].content)}
-          <br />
-          {citation && renderHTML(citation.content)}
-        </p>
-      </blockquote>
-    </Fragment>
+    <blockquote
+      className={subtype === 'blockquote' ? classes.blockquote : classes.pull}>
+      <p>
+        {content && renderHTML(content)}
+        <br />
+        {citation && renderHTML(citation.content)}
+      </p>
+    </blockquote>
   )
 }

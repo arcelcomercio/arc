@@ -81,18 +81,14 @@ export const isEmpty = val => {
 }
 
 export const getIcon = type => {
-  let test = ''
   switch (type) {
     case 'basic_gallery':
-      test = 'G'
-      break
+      return 'G'
     case 'basic_video':
-      test = 'V'
-      break
+      return 'V'
     default:
-      test = ''
+      return ''
   }
-  return test
 }
 
 // Simplificación de la función addResizedUrlItem, ej: ratio = "16x9" resolution = "400x400"
@@ -106,11 +102,11 @@ export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
 export const GetMultimediaContent = ({
   basic_video: basicVideo,
   basic_gallery: basicGallery,
-  basic
+  basic,
 }) => {
   const result = {
     url: null,
-    medio: null
+    medio: null,
   }
 
   if (basicVideo) {
@@ -118,29 +114,28 @@ export const GetMultimediaContent = ({
       promo_items: {
         basic: {
           url: videoUrl = ''
-        }
-      }
+        },
+      },
     } = basicVideo
     result.url = videoUrl
     return {
       url: result.url,
-      medio: 'video'
+      medio: 'video',
     }
   }
-  
 
   if (basicGallery) {
     const {
       promo_items: {
         basic: {
           url: galleryUrl = ''
-        }
-      }
+        },
+      },
     } = basicGallery
     result.url = galleryUrl
     return {
       url: result.url,
-      medio: 'gallery'
+      medio: 'gallery',
     }
   }
 
@@ -148,7 +143,7 @@ export const GetMultimediaContent = ({
     result.url = basic.url || ''
     return {
       url: result.url,
-      medio: 'image'
+      medio: 'image',
     }
   }
   return result
@@ -188,7 +183,8 @@ export const getMetaPagesPagination = (
         .match(patternPagination)[0]
         .split(`${isQuery ? '=' : '/'}`)[1],
         10
-      ) : 1,
+      ) :
+      1,
     next: false,
     prev: false,
   }

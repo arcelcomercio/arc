@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 
-import FilterSearch from '../../../../resources/components/filter-search'
+import SearchFilter from '../../../../resources/components/search-filter'
 
 @Consumer
 class ContentFilter extends Component {
@@ -10,8 +10,10 @@ class ContentFilter extends Component {
     const params = {
       website,
     }
-    return <FilterSearch {...params} />
+    return <SearchFilter {...params} />
   }
 }
+
+ContentFilter.label = 'Filtro de búsqueda'
 
 export default ContentFilter

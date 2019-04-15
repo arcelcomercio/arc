@@ -9,6 +9,9 @@ export default {
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-KKXTKGP',
   charbeatAccountNumber: 99999,
+  navLogo: 'logo.png',
+  headerLogo: 'logo.png',
+  footerLogo: 'logo.png',
 
   footer: {
     siteLegal: [

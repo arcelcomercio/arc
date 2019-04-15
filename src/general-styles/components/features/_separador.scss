@@ -7,6 +7,33 @@
   border: 1px solid #d5e1e1;
   padding: 0px 15px 15px;
 
+
+  &__title {
+    display: -webkit-box;
+    max-height: 57.63px;
+    font-size: 17px;
+    line-height: 1.13;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: $secondary-font;
+
+    & a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    & a:hover {
+      text-decoration-line: underline;
+    }
+
+    &--nota {
+      & a {
+        color: #333;
+      }
+    }
+  }
+
   &__headerHtml {
     height: 70px;
     width: 300px;
@@ -140,14 +167,14 @@
 
   &__body {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 3px;
     height: 200px;
     margin-top: 0;
     margin-bottom: 0;
-
-    @media screen and (min-width: 320px) and (max-width: 640px) {
-      grid-template-columns: 1fr;
+    
+    @media (--tablet) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 
     &--items {
@@ -162,6 +189,7 @@
     width: 100%;
     padding: 0;
     position: relative;
+
     &::before {
       content: '';
       position: absolute;
@@ -169,11 +197,9 @@
       height: 100%;
       top: 0;
       left: 0;
-      background: linear-gradient(
-        to bottom,
+      background: linear-gradient(to bottom,
         rgba(255, 255, 255, 0) 50%,
-        rgba(50, 50, 50, 0.7) 100%
-      );
+        rgba(50, 50, 50, 0.7) 100%);
     }
 
     & figure {
@@ -199,6 +225,7 @@
       &::before {
         background: none;
       }
+
       & figure {
         height: 80px;
         margin-right: 2%;
@@ -233,32 +260,6 @@
 
     &--nota {
       bottom: 44px;
-    }
-  }
-
-  &__title {
-    display: -webkit-box;
-    max-height: 57.63px;
-    font-size: 17px;
-    line-height: 1.13;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    font-family: 'ChronicleDisplayBold', Times New Roman, serif;
-
-    & a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    & a:hover {
-      text-decoration-line: underline;
-    }
-
-    &--nota {
-      & a {
-        color: #333;
-      }
     }
   }
 

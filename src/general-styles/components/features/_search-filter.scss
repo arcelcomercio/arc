@@ -1,4 +1,4 @@
-.filter-search {
+.search-filter {
   display: flex;
   background-color: #e8f2f7;
   flex-direction: column-reverse;
@@ -7,6 +7,10 @@
   @media (--desktop) {
     flex-direction: row;
     height: 152px;
+  }
+
+  &__box-list{
+    position: relative;
   }
 
   &__select {

@@ -13,19 +13,15 @@ $desktop-media: 'min-width: 1024px';
   // height: 500px;
   display: grid;
 
-  grid-template:
-    'info'auto 'contact'auto 'sites'auto;
+  grid-template: 'info' auto 'contact' auto 'sites' auto;
 
   @media (--tablet) {
-    grid-template:
-      'info contact'auto 'sites sites 'auto / 1fr 1fr;
+    grid-template: 'info contact' auto 'sites sites ' auto / 1fr 1fr;
   }
 
   @media (--desktop) {
-    grid-template:
-      'info sections contact'auto 'sites sites sites'auto / 1fr 1fr 1fr;
+    grid-template: 'info sections contact' auto 'sites sites sites' auto / 1fr 1fr 1fr;
   }
-
 
   &__footer-background-color {
     background-color: $footer-background;
@@ -99,8 +95,6 @@ $desktop-media: 'min-width: 1024px';
     width: 100%;
   }
 
-  &__legal-list {}
-
   &__legal-item {
     font-size: $footer-legal-text-size;
     color: $legal-text-color;
@@ -113,10 +107,6 @@ $desktop-media: 'min-width: 1024px';
     text-transform: capitalize;
   }
 
-  &__list {
-    // padding: 10px;
-  }
-
   &__list-item {
     font-size: $footer-list-text-size;
     padding: 8px 0;
@@ -126,111 +116,6 @@ $desktop-media: 'min-width: 1024px';
       color: $footer-list-tex-color;
       text-transform: uppercase;
       font-weight: bold;
-    }
-  }
-}
-
-/***************** OLD ******************/
-
-.footer-top {
-  padding: 60px 17px 65px;
-  max-width: 1024px;
-  width: 100%;
-
-  &__col {
-    padding-right: 15px;
-
-    &:nth-child(1) {
-      width: 30%;
-    }
-
-    &:nth-child(2) {
-      width: calc(70% / 3);
-    }
-
-    &:nth-child(3) {
-      width: calc(70% / 3);
-    }
-
-    &:nth-child(4) {
-      width: calc(70% / 3);
-      padding-right: 0;
-    }
-
-    &__ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      align-items: start;
-
-      li {
-        margin-bottom: 3px;
-        font-size: 15px;
-
-        a {
-          color: black;
-          text-transform: capitalize;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
-
-    &__site-logo {
-      margin-bottom: 15px;
-      width: 180px;
-      display: block;
-
-      img {
-        width: 100%;
-      }
-    }
-
-    &__site-legal {
-      li {
-        font-size: 11px;
-      }
-    }
-
-    &__menus {
-      li {
-        margin-bottom: 5px;
-        line-height: 18px;
-      }
-    }
-  }
-}
-
-.footer-bot {
-  padding: 20px 20px 15px;
-
-  ul {
-    flex-wrap: wrap;
-    padding: 0;
-    max-width: 775px;
-    width: 100%;
-
-    li {
-      font-size: 15px;
-      line-height: 1;
-      margin: 0 3px;
-      padding-right: 8px;
-      margin-bottom: 5px;
-      border-right: 1px solid #333;
-
-      &:last-child {
-        border-right: unset;
-      }
-
-      a {
-        color: black;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
     }
   }
 }
