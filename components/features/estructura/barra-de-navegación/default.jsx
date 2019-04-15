@@ -204,7 +204,12 @@ class Nav extends Component {
       statusSidebar,
       scrolled,
     } = this.state
-    const { arcSite, contextPath, requestUri } = this.props
+    const {
+      arcSite,
+      contextPath,
+      requestUri,
+      siteProperties: { navLogo = 'logo.png' },
+    } = this.props
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
     return (
@@ -256,8 +261,7 @@ class Nav extends Component {
           </ul>
           <a href={`${contextPath || ''}/${queryString}`}>
             <img
-              src="https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png"
-              /* src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} */
+              src={`${contextPath}/resources/dist/${arcSite}/images/${navLogo}`}
               alt={`Logo de ${arcSite}`}
               className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
             />
@@ -292,7 +296,11 @@ class Nav extends Component {
             </div>
           )}
         </div>
-        <NavSidebar sections={sections} showSidebar={statusSidebar} contextPath={contextPath} />
+        <NavSidebar
+          sections={sections}
+          showSidebar={statusSidebar}
+          contextPath={contextPath}
+        />
       </nav>
     )
   }

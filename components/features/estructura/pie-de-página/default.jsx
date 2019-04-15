@@ -69,8 +69,8 @@ class PieDePagina extends Component {
     const { fetched } = this.getContent(source, params, schema)
     fetched
       .then(response => {
-        // FIXME
-        const auxList = response.children.map(el => {
+        const { children = [] } = response || {}
+        const auxList = children.map(el => {
           if (el.node_type === 'link') {
             return {
               name: el.display_name,
@@ -102,11 +102,11 @@ class PieDePagina extends Component {
 
   render() {
     const {
-      siteProperties,
       arcSite,
       contextPath,
       requestUri,
       deployment,
+      siteProperties: { footer, gecSites, footerLogo = 'logo.png' },
     } = this.props
     const { device, legalList, sectionsList } = this.state
 
@@ -122,13 +122,13 @@ class PieDePagina extends Component {
             <img
               className={classes.footerLogoImg}
               src={deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/footer-logo.png`
+                `${contextPath}/resources/dist/${arcSite}/images/${footerLogo}`
               )}
               alt=""
             />
           </a>
           <ul className={classes.footerLegalList}>
-            {siteProperties.footer.siteLegal.map(el => (
+            {footer.siteLegal.map(el => (
               <li className={classes.footerLegalItem} key={el}>
                 {el}
               </li>
@@ -170,7 +170,7 @@ class PieDePagina extends Component {
           </ul>
           <ul className={classes.footerList}>
             <li className={classes.footerListTitle}>Síguenos</li>
-            {siteProperties.footer.socialNetworks.map(el => (
+            {footer.socialNetworks.map(el => (
               <li className={classes.footerListItem} key={el.url}>
                 <a className={classes.footerListLink} href={el.url}>
                   {el.name}
@@ -182,7 +182,7 @@ class PieDePagina extends Component {
         <div className={classes.footerSites}>
           <ul className={classes.footerSitesList}>
             <li className={classes.footerSitesListElemnt}>Visite también:</li>
-            {siteProperties.gecSites.map(site => {
+            {gecSites.map(site => {
               if (site.arcSite !== arcSite) {
                 return (
                   <li className={classes.footerSitesListElemnt} key={site.url}>
