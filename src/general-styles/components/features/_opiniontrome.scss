@@ -1,7 +1,7 @@
 .opiniontrome {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 2fr 10fr;
+  grid-template-rows: 60px 10fr;
   padding-right: 10px;
   padding-left: 10px;
   background-color: #fff;
@@ -15,7 +15,16 @@
   &__title {
     text-align: center;
     color: #f15a24;
-    font-size: 26px;
+    font-size: 30px;
+    margin: 0;
+    /* el componente opinion trome debe mostrar 2 lineas como maximo en el titulo*/
+    max-height: 60px;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
   }
   &__body {
     display: grid;
@@ -34,7 +43,7 @@
     grid-template-rows: 2fr 8fr;
     grid-template-columns: 1fr;
     align-items: center;
-    & a{
+    & a {
       color: #000;
       text-decoration: none;
     }
@@ -46,7 +55,7 @@
   &__nombreseccion {
     color: #f15a24;
 
-    & a{
+    & a {
       color: #f15a24;
       text-decoration: none;
     }
@@ -57,10 +66,9 @@
   }
   &__titleNew {
     //text-overflow: ellipsis;
-    
+
     overflow: hidden;
     text-align: left;
-    
   }
   &__icono {
     display: grid;
