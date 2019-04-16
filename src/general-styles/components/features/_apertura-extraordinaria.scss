@@ -87,8 +87,24 @@
   &__title {
     font-size: 3em;
     font-weight: bold;
+    display: -webkit-box;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    overflow: hidden;
   }
-
+  &-oneline {
+    -webkit-line-clamp: 1;
+    max-height: 45;
+  }
+  &-twoline {
+    -webkit-line-clamp: 2;
+    max-height: 95px;
+  }
+  &-threeline {
+    -webkit-line-clamp: 3;
+    max-height: 145px;
+  }
   &__subtitle {
     color: $color-silver;
   }
