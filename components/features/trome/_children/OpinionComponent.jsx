@@ -15,14 +15,14 @@ const clasess = {
   orange: 'text_orange',
 }
 
-const OpinionItem = ({ titulo, urlImg, urlNew, sectionName, urlSection }) => {
+const OpinionItem = ({ titulo, urlImg, urlNew, sectionName, urlSection, numberLine }) => {
   return (
     <div className={clasess.item}>
       <div className={clasess.seccion}>
         <h3 className={clasess.nombreSeccion}>
           <a href={urlSection}>{sectionName}</a>
         </h3>
-        <div className={clasess.titleNew}>
+        <div className={`${clasess.titleNew} ${numberLine}`}>
           <h2>
             <a href={urlNew}>{titulo}</a>
           </h2>
@@ -49,13 +49,14 @@ const OpinionComponent = ({ titleOpinion, dataList, numLineTitle }) => {
   return (
     <div className={clasess.opinion}>
       <div className={clasess.head}>
-        <h3 className={`${clasess.title} ${numberLine}`}>{titleOpinion}</h3>
+        <h3 className={clasess.title}>{titleOpinion}</h3>
       </div>
       <div className={clasess.body}>
         {dataList.map(data =>
           data ? (
             <OpinionItem
               titulo={data.title}
+              numberLine={numberLine}
               urlImg={data.urlImg}
               urlNew={data.urlNew}
               sectionName={data.sectionName}

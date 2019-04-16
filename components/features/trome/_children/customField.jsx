@@ -4,7 +4,7 @@ const customFieldsImp = PropTypes.shape({
   titleOpinion: PropTypes.string.isRequired.tag({ name: 'Título: ' }),
   numLineTitle: PropTypes.oneOf([1, 2]).tag(
     {
-      name: 'Numero de lineas para el título: ',
+      name: 'Numero de lineas para el título del a nota: ',
       labels: {
         1: 'Una inea',
         2: 'Dos ineas',

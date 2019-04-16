@@ -29,13 +29,19 @@ class SeparadorOpinion extends Component {
     super(props)
 
     const {
-      customFields: { section = '', titleSection = '', htmlCode = '' } = {},
+      customFields: {
+        section = '',
+        titleSection = '',
+        htmlCode = '',
+        numLineTitle = 1,
+      } = {},
     } = props
 
     this.state = {
       device: this.setDevice(),
       section,
       titleSection,
+      numLineTitle,
       htmlCode,
       data: [],
     }
@@ -159,7 +165,16 @@ class SeparadorOpinion extends Component {
   }
 
   render() {
-    const { titleSection, htmlCode, data } = this.state
+    const { titleSection, htmlCode, data, numLineTitle } = this.state
+
+    switch (numLineTitle) {
+      case 2:
+        break
+      case 3:
+        break
+      default:
+        break
+    }
 
     return (
       <div className={classes.separator}>
