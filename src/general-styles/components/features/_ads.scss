@@ -3,7 +3,7 @@
     width: 0;
     overflow: hidden;
 
-    @media screen and (min-width: 1024px) {
+    @media (--desktop) {
         display: flex;
         padding: $spacingNormal;
         height: 100vh;

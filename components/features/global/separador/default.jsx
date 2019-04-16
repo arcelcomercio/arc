@@ -42,7 +42,6 @@ class Separador extends Component {
     const { device, section, titleSeparator } = this.state
 
     if (device === 'mobile') newsNumber = 1
-    else if (device === 'desktop' || device === 'tablet') newsNumber = 4
 
     const { fetched } = this.getContent(
       'story-feed-by-section',

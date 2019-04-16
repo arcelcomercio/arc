@@ -1,11 +1,10 @@
-// file path: ContentArticleBody.js
+// file path: ArticleBodyContent.js
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
 import ArticleBody from '@arc-core-components/feature_article-body'
 
 import Video from './_children/video'
-import Imagen from './_children/image'
+import Imagen from './_children/article-image'
 import Gallery from '../header/_children/gallery'
 import Blockquote from './_children/blockquote'
 import Table from './_children/table'
@@ -13,7 +12,7 @@ import Tags from './_children/tags'
 import Autor from './_children/autor'
 import ElePrincipal from './_children/ele-principal'
 
-const elementClasses = {
+const classes = {
   textClasses: 'font--secondary',
   headerClasses: 'font--primary',
   imageClasses: 'visual__image visual__image--cover',
@@ -21,8 +20,7 @@ const elementClasses = {
   newsImage: 'visual__image visual__image--cover',
 }
 @Consumer
-class ContentArticleBody extends Component {
-  // eslint-disable-next-line react/sort-comp
+class ArticleBodyContent extends PureComponent {
   render() {
     const { globalContent } = this.props
     const {
@@ -34,58 +32,46 @@ class ContentArticleBody extends Component {
     } = globalContent || {}
 
     return (
-      <Fragment>
-        <div className={elementClasses.news}>
-          {promoItems && <ElePrincipal data={promoItems} />}
-          {author && <Autor data={author} date={date} />}
-          {contentElements && (
-            <ArticleBody
-              data={contentElements}
-              elementClasses={elementClasses}
-              renderElement={element => {
-                const { type } = element
-                if (type === 'image') {
-                  return (
-                    <Imagen
-                      data={element}
-                      className={elementClasses.newsImage}
-                    />
-                  )
-                }
-                if (type === 'video') {
-                  return (
-                    <Video
-                      data={element.embed_html}
-                      className={elementClasses.newsImage}
-                    />
-                  )
-                }
-                if (type === 'gallery') {
-                  return <Gallery data={element} type={type} />
-                }
-                if (type === 'table') {
-                  return <Table data={element} type={type} />
-                }
-                if (type === 'quote') {
-                  return <Blockquote data={element} />
-                }
-                if (type === 'oembed_response') {
-                  return ''
-                }
+      <div className={classes.news}>
+        {promoItems && <ElePrincipal data={promoItems} />}
+        {author && <Autor data={author} date={date} />}
+        {contentElements && (
+          <ArticleBody
+            data={contentElements}
+            classes={classes}
+            renderElement={element => {
+              const { type } = element
+              if (type === 'image') {
+                return <Imagen data={element} className={classes.newsImage} />
+              }
+              if (type === 'video') {
+                return (
+                  <Video
+                    data={element.embed_html}
+                    className={classes.newsImage}
+                  />
+                )
+              }
+              if (type === 'gallery') {
+                return <Gallery data={element} type={type} />
+              }
+              if (type === 'table') {
+                return <Table data={element} type={type} />
+              }
+              if (type === 'quote') {
+                return <Blockquote data={element} />
+              }
+              if (type === 'oembed_response') {
                 return ''
-              }}
-            />
-          )}
-          {taxonomy && <Tags data={taxonomy} />}
-        </div>
-      </Fragment>
+              }
+              return ''
+            }}
+          />
+        )}
+        {taxonomy && <Tags data={taxonomy} />}
+      </div>
     )
   }
 }
 
-ContentArticleBody.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  globalContent: PropTypes.object,
-}
-
-export default ContentArticleBody
+export default ArticleBodyContent

@@ -92,10 +92,9 @@ class DataStory {
   }
 
   get link() {
-    return (
-      `${(this._data && this._data.websites[`${this._website}`].website_url) ||
-        ''}?_website=${this._website}` || '#'
-    )
+    const { websites = {} } = this._data || {}
+    const aux = websites[`${this._website}`] || {}
+    return `${aux.website_url || ''}?_website=${this._website}` || '#'
   }
 
   // TODO: Cambiar la fecha a lo que se estandarice
@@ -116,6 +115,7 @@ class DataStory {
   }
 
   static videoId() {
+    // FIXME
     return (
       (this._data &&
         this._data.promo_items &&
@@ -137,7 +137,7 @@ class DataStory {
 
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
-    let attributesObject = {}
+    const attributesObject = {}
     // eslint-disable-next-line no-restricted-syntax
     for (const attr of Object.getOwnPropertyNames(DataStory.prototype)) {
       if (attr !== 'attributesRaw') attributesObject[attr] = this[attr]

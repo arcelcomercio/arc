@@ -103,10 +103,11 @@ class Nav extends Component {
       this.setState({
         scrolled: true,
       })
-    } else if (scrolled && scrollTop <= 100)
+    } else if (scrolled && scrollTop <= 100) {
       this.setState({
         scrolled: false,
       })
+    }
   }
 
   // Open - Close Search
@@ -141,7 +142,7 @@ class Nav extends Component {
       this.setState({
         statusSearch: false,
       })
-    }, 100)
+    }, 1000)
   }
 
   // ------ Sets the new device state when the listener is activated
@@ -203,8 +204,14 @@ class Nav extends Component {
       statusSidebar,
       scrolled,
     } = this.state
-    const { arcSite } = this.props
-
+    const {
+      arcSite,
+      contextPath,
+      requestUri,
+      siteProperties: { navLogo = 'logo.png' },
+    } = this.props
+    const querys = requestUri.split('?')[1]
+    const queryString = querys !== undefined ? `?${querys}` : ''
     return (
       <nav className={classes.nav}>
         <div className={classes.navWrapper}>
@@ -252,13 +259,13 @@ class Nav extends Component {
                 )
               })}
           </ul>
-          <img
-            src="https://www.woodwing.com/sites/default/files/assets/cases-new/elcomercio_logo_white_2x-2.png"
-            /* src={`${this.props.contextPath}/resources/dist/${this.props.arcSite}/images/logo.png`} */
-            alt={`Logo de ${arcSite}`}
-            className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
-          />
-
+          <a href={`${contextPath || ''}/${queryString}`}>
+            <img
+              src={`${contextPath}/resources/dist/${arcSite}/images/${navLogo}`}
+              alt={`Logo de ${arcSite}`}
+              className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
+            />
+          </a>
           {/** ************* RIGHT *************** */}
 
           {device === 'desktop' ? (
@@ -289,7 +296,11 @@ class Nav extends Component {
             </div>
           )}
         </div>
-        <NavSidebar sections={sections} showSidebar={statusSidebar} />
+        <NavSidebar
+          sections={sections}
+          showSidebar={statusSidebar}
+          contextPath={contextPath}
+        />
       </nav>
     )
   }

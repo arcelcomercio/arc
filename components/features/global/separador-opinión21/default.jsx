@@ -60,8 +60,6 @@ class SeparadorOpinion extends Component {
       newsNumber = 1
     } else if (device === 'tablet') {
       newsNumber = 3
-    } else if (device === 'desktop') {
-      newsNumber = 5
     }
 
     const { arcSite } = this.props

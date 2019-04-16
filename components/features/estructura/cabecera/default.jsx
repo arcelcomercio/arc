@@ -64,6 +64,7 @@ class Header extends Component {
     }
   }
 
+  // TODO: Homologar con helper de fechas
   fechaActual = () => {
     const ndate = new Date()
     const arrayMeses = [
@@ -86,7 +87,7 @@ class Header extends Component {
     }, ${ndate.getFullYear()}`
   }
 
-  fetch = () => {
+  fetch() {
     const { arcSite } = this.props
 
     const source = 'navigation-by-hierarchy'
@@ -105,72 +106,83 @@ class Header extends Component {
     }`
 
     const { fetched } = this.getContent(source, params, schema)
-    // FIXME
+
     fetched.then(response => {
-      const auxList = response.children.map(el => {
+      const { children = [] } = response || {}
+      const auxList = children.map(el => {
         return {
           name: el.node_type === 'link' ? el.display_name : el.name,
-          // eslint-disable-next-line no-underscore-dangle
           url: el.node_type === 'link' ? el.url : el._id,
           node_type: el.node_type,
         }
       })
       this.setState({
-        temas: auxList,
+        temas: auxList || [],
       })
     })
   }
 
-  lista = () => {
+  renderLista() {
     const { temas } = this.state
-    return temas.map(({ name, url }) => {
-      return (
-        <li className={classes.headerFeaturedItem} key={url}>
-          <a href={url}>{name}</a>
-        </li>
-      )
-    })
+    return temas.map(({ name, url }) => (
+      <li className={classes.headerFeaturedItem} key={url}>
+        <a href={url}>{name}</a>
+      </li>
+    ))
   }
 
   render() {
     const { temas, device } = this.state
-    const { contextPath, arcSite, deployment } = this.props
+    const {
+      contextPath,
+      arcSite,
+      deployment,
+      requestUri,
+      siteProperties: { headerLogo = 'logo.png' },
+    } = this.props
+    const querys = requestUri.split('?')[1]
+    const queryString = querys !== undefined ? `?${querys}` : ''
 
-    return temas[0] && device === 'desktop' ? (
-      <header className={classes.header}>
-        <div className={classes.headerMain}>
-          <span className={classes.headerDate}>{this.fechaActual()}</span>
-          <img
-            src={deployment(
-              `${contextPath}/resources/dist/${arcSite}/images/logo.png`
-            )}
-            alt={`Logo de ${arcSite}`}
-            className={classes.headerLogo}
-          />
-          <div className={classes.headerBtnContainer}>
-            <Button
-              iconClass={classes.headerBtnIconLogin}
-              btnText="Ingresar"
-              btnClass={classes.headerBtnLogin}
-              btnLink="#"
-            />
-            <Button
-              btnText="Suscríbete"
-              btnClass={classes.headerBtnSubscribe}
-              btnLink="#"
-            />
+    return (
+      device === 'desktop' && (
+        <header className={classes.header}>
+          <div className={classes.headerMain}>
+            <span className={classes.headerDate}>{this.fechaActual()}</span>
+            <a href={`${contextPath || ''}/${queryString}`}>
+              <img
+                src={deployment(
+                  `${contextPath}/resources/dist/${arcSite}/images/${headerLogo}`
+                )}
+                alt={`Logo de ${arcSite}`}
+                className={classes.headerLogo}
+              />
+            </a>
+            <div className={classes.headerBtnContainer}>
+              <Button
+                iconClass={classes.headerBtnIconLogin}
+                btnText="Ingresar"
+                btnClass={classes.headerBtnLogin}
+                btnLink="#"
+              />
+              <Button
+                btnText="Suscríbete"
+                btnClass={classes.headerBtnSubscribe}
+                btnLink="#"
+              />
+            </div>
           </div>
-        </div>
-
-        <ul className={classes.headerFeatured}>
-          <li className={classes.headerFeaturedItem}>
-            <i className={classes.headerFeaturedItemIcon} />
-            LOS TEMAS DE HOY
-          </li>
-          {temas[0] && this.lista()}
-        </ul>
-      </header>
-    ) : null
+          {temas[0] && (
+            <ul className={classes.headerFeatured}>
+              <li className={classes.headerFeaturedItem}>
+                <i className={classes.headerFeaturedItemIcon} />
+                LOS TEMAS DE HOY
+              </li>
+              {this.renderLista()}
+            </ul>
+          )}
+        </header>
+      )
+    )
   }
 }
 

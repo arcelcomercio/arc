@@ -23,10 +23,11 @@ class NavSidebar extends Component {
   }
 
   submitSearch = () => {
+    const { contextPath } = this.props
     const { value } = this.inputSearchMovil.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `${location.pathname}?query=${value}`
+      location.href = `${contextPath}/buscar?query=${value}&_website=elcomercio`
     }
   }
 
@@ -48,7 +49,6 @@ class NavSidebar extends Component {
 
   render() {
     const { sections = [], showSidebar } = this.props
-
     return (
       <div className={`${classes.navSidebar} ${showSidebar ? 'active' : ''}`}>
         <div

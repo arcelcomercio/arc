@@ -1,20 +1,18 @@
 // content/sources/content-api-v4.js
-import React, { Component, Fragment } from 'react'
+import { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 import renderHTML from 'react-render-html'
 
 @Consumer
-class Video extends Component {
+class Video extends PureComponent {
   componentDidMount() {
     window.powaBoot()
     // window.addEventListener('powaRender', function(event) {       console.warn(event)     })
     // window.addEventListener('powaError', function(event) {       console.error(event)     })
     window.PoWaSettings.advertising = {
       adBar: false,
-      adTag: ({ powa, videoData }) => {
-        console.log(videoData.additional_properties.advertising.playAds)
-        console.log(this.getParametroPublicidad())
+      adTag: ({ /**  powa, */ videoData }) => {
         return videoData.additional_properties.advertising.playAds === true
           ? this.getParametroPublicidad()
           : ''
@@ -47,9 +45,9 @@ class Video extends Component {
   }
 
   render() {
-    const { data: data = {} } = this.props
+    const { data = {} } = this.props
 
-    return <Fragment>{data && renderHTML(data)}</Fragment>
+    return data && renderHTML(data)
   }
 }
 export default Video

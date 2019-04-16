@@ -15,21 +15,16 @@ const classes = {
 }
 
 const getMultimediaIcon = mediaType => {
-  let icon
-  switch (mediaType) {
-    case 'G':
-      icon = classes.iconGallery
-      break
-    default:
-      return ''
-  }
-  return (
-    <span className={`${classes.iconGallery}`}>
-      <span className={`${classes.iconGalleryContainer}`}>
-        <i>{mediaType}</i>
+  if (mediaType === 'G') {
+    return (
+      <span className={`${classes.iconGallery}-G`}>
+        <span className={`${classes.iconGalleryContainer}-G`}>
+          <i>{mediaType}</i>
+        </span>
       </span>
-    </span>
-  )
+    )
+  }
+  return null
 }
 const AperturaExtraordinaria = props => {
   const {

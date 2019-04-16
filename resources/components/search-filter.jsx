@@ -1,13 +1,12 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-const classes = {} // TODO: Falta refactorizar estilos
+// TODO: Falta refactorizar estilos
 
 @Consumer
-class FilterSearch extends Component {
+class SearchFilter extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       /* Agrega valor a estos estados fuera del PageBuilder */
       sort: !props.isAdmin && this.getOrder(),
@@ -23,8 +22,8 @@ class FilterSearch extends Component {
   // Set the sort state from &sort=
   getOrder() {
     const { globalContentConfig } = this.props
-    const { query: { sort = '' } = {} } = globalContentConfig || {}
-    return sort
+    const { query: { sort } = {} } = globalContentConfig || {}
+    return sort || 'desc'
   }
 
   // Set the section state from &category=
@@ -78,7 +77,7 @@ class FilterSearch extends Component {
         /%20/g,
         '+'
       )}&category=${(params.section && params.section.slice(1)) ||
-        category}&sort=${params.sort || sort}&_website=${arcSite}`
+        category}&sort=${params.sort || sort || 'desc'}&_website=${arcSite}`
       /* El slice(0) es para eliminar el slash de la sección que se agrega para la consulta a la API */
     }
 
@@ -97,7 +96,6 @@ class FilterSearch extends Component {
     const { arcSite, globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
     const { value } = this.inputSearch.current /* React ref del input */
-
     e.preventDefault()
 
     /* Sólo genera la URI si "query" tiene contenido */
@@ -107,7 +105,8 @@ class FilterSearch extends Component {
       // eslint-disable-next-line no-restricted-globals
       location.href = `${location.pathname}?query=${encodeURIComponent(
         value
-      ).replace(/%20/g, '+')}&category=&sort=${sort}&_website=${arcSite}`
+      ).replace(/%20/g, '+')}&category=&sort=${sort ||
+        'desc'}&_website=${arcSite}`
     /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
   }
 
@@ -143,61 +142,61 @@ class FilterSearch extends Component {
     const { isAdmin } = this.props
 
     return (
-      <div className="filter-search full-width margin-top">
-        <div className="filter-search__box-list">
+      <div className="search-filter full-width margin-top">
+        <div className="search-filter__box-list">
           <button
-            className={`filter-search__select ${showList ? 'active' : ''}`}
+            className={`search-filter__select ${showList ? 'active' : ''}`}
             onClick={() => this.setState({ showList: !showList })}
             onKeyDown={() => this.setState({ showList: !showList })}
             type="button">
-            <span className="filter-search__select-name">
+            <span className="search-filter__select-name">
               Seleccione <span className="icon-angle-down">+</span>
             </span>
           </button>
-          <ul className={`filter-search__list ${showList ? 'active' : ''}`}>
+          <ul className={`search-filter__list ${showList ? 'active' : ''}`}>
             <li
-              className={`filter-search__item ${
+              className={`search-filter__item ${
                 sort === 'desc' || !sort ? 'active' : ''
               }`}>
               <a
                 href={!isAdmin && this.getUrl('sort', 'desc')} // (type, value)
-                className="filter-search__link"
+                className="search-filter__link"
                 role="checkbox"
                 aria-checked="true">
                 Más Recientes
               </a>
             </li>
             <li
-              className={`filter-search__item ${
+              className={`search-filter__item ${
                 sort === 'asc' ? 'active' : ''
               }`}>
               <a
                 href={!isAdmin && this.getUrl('sort', 'asc')} // (type, value)
-                className="filter-search__link"
+                className="search-filter__link"
                 role="checkbox"
                 aria-checked="false">
                 Menos Recientes
               </a>
             </li>
             <li
-              className={`filter-search__item ${
+              className={`search-filter__item ${
                 sort === 'rel' ? 'active' : ''
               }`}>
               <a
                 href={!isAdmin && this.getUrl()} // (type, value)
-                className="filter-search__link"
+                className="search-filter__link"
                 role="checkbox"
                 aria-checked="false">
                 Relevancia
               </a>
             </li>
             <li
-              className={`filter-search__item ${
+              className={`search-filter__item ${
                 selected === 'type' ? 'selected' : ''
               }`}>
               <button
                 type="button"
-                className="filter-search__link"
+                className="search-filter__link"
                 onClick={this._handleButton}
                 onKeyDown={this._handleButton}
                 name="type">
@@ -205,12 +204,12 @@ class FilterSearch extends Component {
               </button>
             </li>
             <li
-              className={`filter-search__item ${
+              className={`search-filter__item ${
                 selected === 'section' ? 'selected' : ''
               }`}>
               <button
                 type="button"
-                className="filter-search__link"
+                className="search-filter__link"
                 onClick={this._handleButton}
                 onKeyDown={this._handleButton}
                 name="section">
@@ -218,16 +217,16 @@ class FilterSearch extends Component {
               </button>
               {/* Si el filtro seleccionado es "sección", renderiza la lista de secciones */
               selected === 'section' && sections !== [] && (
-                <ul className="filter-search__sublist active">
+                <ul className="search-filter__sublist active">
                   {sections.map(section => (
-                    <li key={section._id} className="filter-search__subitem">
+                    <li key={section._id} className="search-filter__subitem">
                       <a
                         href={
                           !isAdmin &&
                           this.getUrl('category', section._id.slice(1))
                         } // (type, value)
                         /* El slice(0) es para eliminar el slash inicial de la sección */
-                        className="filter-search__sublink">
+                        className="search-filter__sublink">
                         {section.name}
                       </a>
                     </li>
@@ -236,12 +235,12 @@ class FilterSearch extends Component {
               )}
             </li>
             <li
-              className={`filter-search__item ${
+              className={`search-filter__item ${
                 selected === 'time' ? 'selected' : ''
               }`}>
               <button
                 type="button"
-                className="filter-search__link"
+                className="search-filter__link"
                 onClick={this._handleButton}
                 onKeyDown={this._handleButton}
                 name="time">
@@ -250,8 +249,8 @@ class FilterSearch extends Component {
             </li>
           </ul>
         </div>
-        <div className="filter-search__box-search">
-          <form className="filter-search__search" onSubmit={this._handleSearch}>
+        <div className="search-filter__box-search">
+          <form className="search-filter__search" onSubmit={this._handleSearch}>
             <button className="icon-search" type="submit">
               Q
             </button>
@@ -263,4 +262,4 @@ class FilterSearch extends Component {
   }
 }
 
-export default FilterSearch
+export default SearchFilter
