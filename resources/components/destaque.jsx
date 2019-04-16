@@ -53,9 +53,9 @@ export default class Destaque extends Component {
         case 'complete':
           return classes.imgComplete
         case 'parcialTop':
-          return classes.parcialTop
+          return size !== 'twoCol' ? classes.parcialTop : classes.imgComplete
         default:
-          return ''
+          return size !== 'twoCol' ? '' : classes.imgComplete
       }
     }
 
@@ -99,7 +99,9 @@ export default class Destaque extends Component {
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === 'twoCol' ? classes.twoCol : ''
         }`}>
-        {imageSize === 'complete' && <span className={classes.gradient} />}
+        {(imageSize === 'complete' || size === 'twoCol') && (
+          <span className={classes.gradient} />
+        )}
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
             <h3 className={classes.category}>
