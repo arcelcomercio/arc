@@ -42,9 +42,26 @@ $image-height: 157px;
     }
   }
   &__title {
+    display: -webkit-box;
     margin-bottom: 8px;
     font-size: 21px;
     line-height: 1.2;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    overflow: hidden;
+  }
+  &-oneline {
+    -webkit-line-clamp: 1;
+    max-height: 25px;
+  }
+  &-twoline {
+    -webkit-line-clamp: 2;
+    max-height: 50px;
+  }
+  &-threeline {
+    -webkit-line-clamp: 3;
+    max-height: 75px;
   }
   &__author {
     font-size: 10px;
