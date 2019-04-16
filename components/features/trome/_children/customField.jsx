@@ -6,8 +6,8 @@ const customFieldsImp = PropTypes.shape({
     {
       name: 'Numero de lineas para el título del a nota: ',
       labels: {
-        1: 'Una inea',
-        2: 'Dos ineas',
+        1: 'Una linea',
+        2: 'Dos lineas',
       },
       defaultValue: 1,
     }

@@ -160,21 +160,12 @@ class SeparadorOpinion extends Component {
   }
 
   listado = () => {
-    const { data } = this.state
-    return data.map(info => <OpinionItem key={info.id} data={info} />)
+    const { data, numLineTitle } = this.state
+    return data.map(info => <OpinionItem key={info.id} data={info} numLineTitle={numLineTitle} />)
   }
 
   render() {
-    const { titleSection, htmlCode, data, numLineTitle } = this.state
-
-    switch (numLineTitle) {
-      case 2:
-        break
-      case 3:
-        break
-      default:
-        break
-    }
+    const { titleSection, htmlCode, data } = this.state
 
     return (
       <div className={classes.separator}>

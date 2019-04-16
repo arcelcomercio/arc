@@ -13,9 +13,8 @@
     margin-top: 0;
     margin-bottom: 10px;
   }
-  
+
   &__headerTitle {
-    
     align-content: center;
     margin: 20px 0px;
 
@@ -111,6 +110,12 @@
         }
 
         p {
+          display: -webkit-box;
+          /* autoprefixer: off */
+          -webkit-box-orient: vertical;
+          /* autoprefixer: on */
+          overflow: hidden;
+
           a {
             font-size: 13.5px;
             color: black;
@@ -120,6 +125,18 @@
             text-decoration: underline;
           }
         }
+      }
+      &-oneline {
+        -webkit-line-clamp: 1;
+        max-height: 35.63px;
+      }
+      &-twoline {
+        -webkit-line-clamp: 2;
+        max-height: 35.63px;
+      }
+      &-threeline {
+        -webkit-line-clamp: 3;
+        max-height: 50px;
       }
 
       &-image {
@@ -228,7 +245,6 @@
     padding-right: 12px;
     bottom: 0px;
 
-    
     &--nota {
       bottom: 44px;
     }
@@ -252,9 +268,9 @@
     line-height: 1.13;
     color: white;
 
-     /* autoprefixer: off */
-     -webkit-box-orient: vertical;
-     /* autoprefixer: on */
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
     overflow: hidden;
 
     font-family: 'ChronicleDisplayBold', Times New Roman, serif;

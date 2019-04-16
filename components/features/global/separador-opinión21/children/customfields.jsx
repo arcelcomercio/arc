@@ -19,9 +19,9 @@ export const customFields = PropTypes.shape({
     {
       name: 'Numero de lineas para el título: ',
       labels: {
-        1: 'Una inea',
-        2: 'Dos ineas',
-        3: 'Tres ineas',
+        1: 'Una linea',
+        2: 'Dos lineas',
+        3: 'Tres lineas',
       },
       defaultValue: 1,
     }
