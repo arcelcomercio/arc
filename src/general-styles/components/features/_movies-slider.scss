@@ -1,0 +1,65 @@
+.movies-slider {
+    background-color: $color-gray;
+
+    &__container {
+        max-width: 1024px;
+    }
+
+    &__header {}
+
+    &__title-box {
+        margin-bottom: 20px;
+    }
+
+    &__title {
+        color: $color-white;
+    }
+
+    &__body {}
+
+    &__content {
+        transition: transform .4s ease;
+    }
+
+    &__image {
+        object-fit: contain;
+    }
+
+    .ui-arrows a {
+        display: flex;
+        justify-content: space-between;
+        background-color: #f7c600;
+        display: block;
+        height: 80px;
+        top: 254px;
+        width: 80px;
+        outline: 0;
+        overflow: hidden;
+        position: absolute;
+        text-align: center;
+        z-index: 2;
+
+        & i {
+            line-height: 80px;
+        }
+    }
+
+    &__movie-title {
+        font-size: 48px;
+        margin-bottom: $spacing-small;
+    }
+
+    &__movie-link {
+        color: $color-white;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__movie-description {
+        color: $color-white;
+        font-size: 16px;
+        line-height: 24px;
+    }
+}

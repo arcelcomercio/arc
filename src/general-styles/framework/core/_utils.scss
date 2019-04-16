@@ -1,14 +1,18 @@
 .margin-top {
-  margin-top: $spacingNormal;
+  margin-top: $spacing-normal;
 }
 
 .padding-normal {
-  padding: $spacingNormal;
+  padding: $spacing-normal;
+}
+
+.padding-xlarge {
+  padding: $spacing-xlarge;
 }
 
 .padding-lateral-normal {
-  padding-left: $spacingNormal;
-  padding-right: $spacingNormal;
+  padding-left: $spacing-normal;
+  padding-right: $spacing-normal;
 }
 
 .no-desktop,
@@ -106,3 +110,11 @@
 }
 
 /*-----------------------*/
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
