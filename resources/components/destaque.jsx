@@ -95,13 +95,16 @@ export default class Destaque extends Component {
     const getImageSizeClass = colSize => {
       switch (colSize) {
         case 'oneCol':
-          if (imageSize === 'complete') {
-            return `${classes.imgComplete}`
+          if (imageSize === 'parcialBot') {
+            return ''
           }
           if (imageSize === 'parcialTop') {
             return `${classes.parcialTop}`
           }
-          return `${classes.parcialBot}`
+          if (imageSize === 'complete') {
+            return `${classes.imgComplete}`
+          }
+          break
         default:
           if (imageSize !== 'all') {
             return `${classes.imgComplete}`
@@ -181,7 +184,7 @@ Destaque.propTypes = {
     url: PropTypes.string,
   }),
   image: PropTypes.string,
-  imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']),
+  imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialTop']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf(['oneCol', 'twoCol']),
   // editableField: PropTypes.func,
