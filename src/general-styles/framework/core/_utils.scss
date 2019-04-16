@@ -2,8 +2,16 @@
   margin-top: $spacing-normal;
 }
 
+.padding-small {
+  padding: $spacing-small;
+}
+
 .padding-normal {
   padding: $spacing-normal;
+}
+
+.padding-large {
+  padding: $spacing-large;
 }
 
 .padding-xlarge {
