@@ -1,0 +1,39 @@
+.movies-filter {
+    border: 1px solid $color-silver;
+    padding: 4px;
+
+    & * {
+        font-size: 12px;
+        line-height: 45px;
+        font-weight: 600;
+    }
+
+    &__label {
+        color: $color-soft;
+        padding: 0 8px;
+    }
+
+    &__form {}
+
+    &__options {
+        & select {
+            appearance: none;
+            background-color: $color-soft;
+            background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
+            background-position: right center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            border: 0;
+            margin-right: 1%;
+            padding: 0 32px 0 8px;
+            width: 32.6666%;
+            color: $color-gray;
+        }
+    }
+
+    &__button {
+        background-color: $color-primary;
+        color: $color-gray;
+        width: 100px;
+    }
+}
