@@ -48,16 +48,16 @@ export default class Destaque extends Component {
       multimediaType,
     } = this.props
 
-    const getImageSizeClass = () => {
-      switch (imageSize) {
-        case 'complete':
-          return classes.imgComplete
-        case 'parcialTop':
-          return classes.parcialTop
-        default:
-          return ''
-      }
-    }
+    // const getImageSizeClass = () => {
+    //   switch (imageSize) {
+    //     case 'complete':
+    //       return classes.imgComplete //se ejecuta para mostrar completa
+    //     case 'parcialTop':
+    //       return classes.parcialTop
+    //     default:
+    //       return ''
+    //   }
+    // }
 
     const getHeadBandClass = () => {
       if (headband === 'live') {
@@ -92,14 +92,32 @@ export default class Destaque extends Component {
       )
     }
 
+    const getImageSizeClass = colSize => {
+      switch (colSize) {
+        case 'oneCol':
+          if (imageSize === 'complete') {
+            return `${classes.imgComplete}`
+          }
+          if (imageSize === 'parcialTop') {
+            return `${classes.parcialTop}`
+          }
+          return `${classes.parcialBot}`
+        default:
+          if (imageSize !== 'all') {
+            return `${classes.imgComplete}`
+          }
+      }
+    }
+
     return (
       <article
-        className={`${
-          classes.destaque
-        } ${getImageSizeClass()} ${getHeadBandClass()} ${
-          size === 'twoCol' ? classes.twoCol : ''
-        }`}>
-        {imageSize === 'complete' && <span className={classes.gradient} />}
+        className={`${classes.destaque} ${getImageSizeClass(
+          size
+        )} ${getHeadBandClass()} ${size === 'twoCol' ? classes.twoCol : ''}`}>
+        {(size === 'oneCol' && imageSize === 'complete') ||
+          (size === 'twoCol' && imageSize !== 'incomplete' && (
+            <span className={classes.gradient} />
+          ))}
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
             <h3 className={classes.category}>
