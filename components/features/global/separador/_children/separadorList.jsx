@@ -39,7 +39,7 @@ export default ({
   return (
     <div className={classes.separator}>
       {titleSeparator ? (
-        <h1 className={`${classes.title} ${numLine}`}>
+        <h1 className={`${classes.title}`}>
           <a href={titleLink}>{titleSeparator}</a>
         </h1>
       ) : (
@@ -64,6 +64,7 @@ export default ({
                   headlines={headlinesBasic || ''}
                   promoItems={promoItems || {}}
                   website_url={websiteUrl || '/'}
+                  numLine={numLine}
                 />
               )
             }

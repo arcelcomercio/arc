@@ -4,7 +4,7 @@ const customFieldsImport = PropTypes.shape({
   titleSeparator: PropTypes.string.tag({ name: 'Titulo del separador' }),
   numLineTitle: PropTypes.oneOf([1, 2,3]).tag(
     {
-      name: 'Numero de lineas para el título: ',
+      name: 'Numero de lineas para el título de las noticias: ',
       labels: {
         1: 'Una inea',
         2: 'Dos ineas',

@@ -13,32 +13,11 @@
     margin-top: 0;
     margin-bottom: 10px;
   }
-  &__oneline {
-    margin-bottom: 20px;
-    margin-top: 30px;
-    max-height: 15px;
-    -webkit-line-clamp: 1;
-  }
-  &__twoline {
-    margin-bottom: 20px;
-    margin-top: 30px;
-    max-height: 30px;
-    -webkit-line-clamp: 2;
-  }
-  &__threeline {
-    margin-bottom: 15px;
-    margin-top: 20px;
-    max-height: 45px;
-    -webkit-line-clamp: 3;
-  }
+  
   &__headerTitle {
-    display: -webkit-box;
+    
     align-content: center;
-    width: 400px;
-    /* autoprefixer: off */
-    -webkit-box-orient: vertical;
-    /* autoprefixer: on */
-    overflow: hidden;
+    margin: 20px 0px;
 
     & h1 {
       margin: 0;
@@ -247,21 +226,37 @@
     height: 65px;
     padding-left: 12px;
     padding-right: 12px;
-    bottom: 10px;
+    bottom: 0px;
 
+    
     &--nota {
       bottom: 44px;
     }
   }
+  &__oneline {
+    max-height: 57.63px;
+    -webkit-line-clamp: 1;
+  }
+  &__twoline {
+    max-height: 57.63px;
+    -webkit-line-clamp: 2;
+  }
+  &__threeline {
+    max-height: 60px;
+    -webkit-line-clamp: 3;
+  }
 
   &__title {
     display: -webkit-box;
-    max-height: 57.63px;
     font-size: 17px;
     line-height: 1.13;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    color: white;
+
+     /* autoprefixer: off */
+     -webkit-box-orient: vertical;
+     /* autoprefixer: on */
     overflow: hidden;
+
     font-family: 'ChronicleDisplayBold', Times New Roman, serif;
 
     & a {
