@@ -8,11 +8,11 @@ import filterSchema from './_children/filterschema'
 import SeparatorListItem from './_children/item'
 
 const classes = {
-  separator: 'separator col-3 separator--nota',
-  headerHtml: 'separator__headerHtml',
-  title: 'separator__headerTitle separator__headerTitle--nota',
-  body: 'separator__body separator__body--items',
-  mvideo: 'separator--video',
+  separator: 'articlesep col-3 separator--nota',
+  headerHtml: 'articlesep__headerHtml',
+  title: 'articlesep__headerTitle separator__headerTitle--nota',
+  body: 'articlesep__body separator__body--items',
+  mvideo: 'articlesep--video',
 }
 
 @Consumer
