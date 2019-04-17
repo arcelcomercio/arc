@@ -35,7 +35,7 @@ class Triplete extends Component {
           { website_url: customFields[LINK + i], website: arcSite },
           filterSchema(arcSite)
         )
-        fetched.then(response => this.setData(response, i))
+        fetched.then(response => this.setAuxData(response, i))
       }
     }
     return {...this.auxData}
