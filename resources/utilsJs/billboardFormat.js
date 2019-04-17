@@ -1,28 +1,32 @@
 class FormatoCine {
   constructor(data = {}) {
     this.data = data
-    this.peliculas = this.data.peliculas
-    this.cines = this.data.cines
+    this.peliculas = []
+    this.cines = []
     this._init()
   }
 
   _init() {
-    const {
-      cartelera
-    } = this.data
-    cartelera.map(post => {
-      const cinema = {
-        cine: post.cid,
-        horario: post.horario
-      }
-      const pelicula = post.mid
-      this.pushMovieInCinema({
-        ...cinema
-      }, pelicula)
-      this.pushCinemaInMovie({
-        ...cinema
-      }, pelicula)
-    })
+    if (this.data) {
+      this.peliculas = this.data.peliculas
+      this.cines = this.data.cines
+      const {
+        cartelera = []
+      } = this.data
+      cartelera.forEach(post => {
+        const cinema = {
+          cine: post.cid,
+          horario: post.horario
+        }
+        const pelicula = post.mid
+        this.pushMovieInCinema({
+          ...cinema
+        }, pelicula)
+        this.pushCinemaInMovie({
+          ...cinema
+        }, pelicula)
+      })
+    }
   }
 
   pushCinemaInMovie(cinema, movie) {
@@ -47,7 +51,7 @@ class FormatoCine {
   pushMovieInCinema(cinema, movie) {
     const listadoPeliculas = Object.values(this.peliculas)
     const listadoCines = this.cines
-    listadoCines.find(cine => {
+    listadoCines.forEach(cine => {
       if (cine.cid === cinema.cine) {
         const peli = listadoPeliculas.find(pelicula => {
           return pelicula.mid === movie
@@ -61,6 +65,11 @@ class FormatoCine {
       }
     })
     this.setCinesInMovies = listadoCines
+  }
+
+  set setData(data) {
+    this.data = data
+    this._init()
   }
 
   set setCinesInMovies(cines) {

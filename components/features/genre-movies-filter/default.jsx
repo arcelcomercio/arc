@@ -11,10 +11,10 @@ class GenreMoviesFilter extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      moviesBase: [],
       movies: [],
       genres: [],
     }
+    this.billboardFormat = new BillboardFormat()
   }
 
   componentDidMount() {
@@ -25,59 +25,22 @@ class GenreMoviesFilter extends Component {
     const { fetched } = this.getContent('cinema-billboard', { website: '' })
 
     fetched.then(response => {
-      const { peliculas: moviesList } = response || {}
-      const movies = this.getMoviesList(moviesList)
-      const genres = this.getGenreList(moviesList)
+      this.billboardFormat.setData = response
+      console.log('eeeeeeeeeeeee', this.billboardFormat)
+      const movies = this.billboardFormat.moviesList
+      const genres = this.billboardFormat.genderList
       this.setState({
-        moviesBase: moviesList,
         movies,
         genres,
       })
     })
   }
 
-  getMoviesList = movies => {
-    const moviesList = Object.values(movies)
-    return moviesList.map(movie => ({
-      id: movie.mid,
-      title: movie.title,
-      posters: movie.poster_chico,
-      url: movie.url,
-      genero: movie.genero,
-    }))
-  }
-
-  getGenreList = moviesList => {
-    const movies = Object.values(moviesList)
-    const genres = movies.map(movie => {
-      const { genero: genre = {} } = movie
-      if (!genre.genero || !genre.url) return {}
-      const { genero, url } = genre
-      return {
-        name: genero,
-        url,
-      }
-    })
-    return [...new Set(genres)]
-  }
-
-  getMoviesByGenre = genre => {
-    const { moviesBase: moviesList } = this.state
-    const movies = Object.values(moviesList)
-    if (genre === 'todas' || genre === 'default') {
-      this.setState({ movies })
-      return movies
-    }
-    const filteredMovies = movies.filter(movie => movie.genero.genero === genre)
-    this.setState({ movies: filteredMovies })
-    return filteredMovies
-  }
-
   _changeSelect(e) {
     const from = e.target.id
     const { value } = e.target
     if (from === 'genres') {
-      this.getMoviesByGenre(value)
+      this.billboardFormat.moviesByGender(value)
     }
   }
 
@@ -145,7 +108,7 @@ class GenreMoviesFilter extends Component {
                   <a href={`${contextPath}/cartelera/${movie.url}/cines`}>
                     <figure className="movies-grid__image-box">
                       <img
-                        src={movie.posters.sizes['134x193']}
+                        src={movie.poster_chico.sizes['134x193']}
                         alt={movie.title || ''}
                         className="movies-grid__image"
                       />
