@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
+import BillboardFormat from '../../../resources/utilsJs/billboardFormat'
 
 // "this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);"
 @Consumer
@@ -84,6 +85,7 @@ class GenreMoviesFilter extends Component {
     const { movies, genres } = this.state
     const { customFields, contextPath } = this.props
     const { headline } = customFields || {}
+    console.log(genres)
 
     return (
       <section className="movies-grid margin-top">
