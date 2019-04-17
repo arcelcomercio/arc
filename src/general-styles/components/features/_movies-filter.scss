@@ -1,7 +1,7 @@
 .movies-filter {
     border: 1px solid $color-silver;
     padding: 4px;
-
+    background-color: #333;
     & * {
         font-size: 12px;
         line-height: 45px;
@@ -18,7 +18,7 @@
     &__options {
         & select {
             appearance: none;
-            background-color: $color-soft;
+            background-color: #FFF;
             background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
             background-position: right center;
             background-repeat: no-repeat;
