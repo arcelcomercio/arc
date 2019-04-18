@@ -93,8 +93,11 @@ class FormatoCine {
         genero: 'Otras',
         url: ''
       }
+    }).filter((dato, index, arr) => {
+      return arr.map(mapObj => mapObj['genero']).indexOf(dato['genero']) === index;
     })
-    return [...new Set(generos)]
+    console.log('aaaaaaa', generos)
+    return generos
   }
 
   get moviesList() {
