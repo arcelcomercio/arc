@@ -1,6 +1,6 @@
 .content-grid-base {
   display: grid;
-  gap: $spacingNormal;
+  gap: $spacing-normal;
   grid-auto-rows: min-content;
 }
 
@@ -30,14 +30,14 @@
 
 /* .content--box{
     @media (--desktop) {
-        grid-template-rows: repeat(4, $heightRow);       
+        grid-template-rows: repeat(4, $height-row);       
     }
     
-    grid-auto-rows: $heightRow;    
+    grid-auto-rows: $height-row;    
 } */
 
 /* .content--rows-height {
-    grid-auto-rows: minmax(calc(($heightRow - ($spacingNormal * ($rowParts - 1))) / $rowParts), auto);
+    grid-auto-rows: minmax(calc(($height-row - ($spacing-normal * ($row-parts - 1))) / $row-parts), auto);
 } */
 .content--1col {
   grid-template-columns: minmax(300px, 100vw);
@@ -66,9 +66,9 @@
 
 @for $i from 1 through 4 {
   .row-#{$i} {
-    //grid-row: span $rowParts*$i;
+    //grid-row: span $row-parts*$i;
     grid-row: span $i;
-    height: ($heightRow * $i)+ ($spacingNormal * ($i - 1));
+    height: ($height-row * $i)+ ($spacing-normal * ($i - 1));
   }
 }
 

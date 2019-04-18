@@ -39,9 +39,9 @@ const filterSchema = arcSite => `{
         }
     }
     website
-    website_url
     websites {
         ${arcSite} {
+            website_url
             website_section {
                 name
                 path
