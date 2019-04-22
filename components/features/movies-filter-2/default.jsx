@@ -17,6 +17,7 @@ class MoviesFilter extends Component {
     this.cinema = {}
     this.cines = []
     this.peliculas = []
+    this.instancia = new FormatoCine()
   }
 
   componentDidMount() {
@@ -30,10 +31,16 @@ class MoviesFilter extends Component {
   fetch() {
     const { fetched } = this.getContent('cinema-billboard', { website: '' })
     fetched.then(response => {
-			console.time('test')
-			const instancia = new FormatoCine(response)
-			const hola = instancia.cinemaList
-			console.timeEnd('test')
+      this.instancia.addData = response 
+      const cines = this.instancia.cinemaList
+      const peli = this.instancia.moviesList
+      const generos = this.instancia.genderList
+      const porgen = this.instancia.moviesByGender('Accion')
+
+      console.log(cines, 'peli')
+      console.log(peli, 'peli')
+
+      console.log(generos, 'peli')
 		})
   }
 
