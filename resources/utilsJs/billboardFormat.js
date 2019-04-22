@@ -7,41 +7,52 @@ class FormatoCine {
   }
 
   _init() {
-    if (this.data) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (this.data.hasOwnProperty('cartelera')) {
       this.peliculas = this.data.peliculas
       this.cines = this.data.cines
-      const {
-        cartelera = []
-      } = this.data
+      const { cartelera } = this.data
       cartelera.forEach(post => {
         const cinema = {
           cine: post.cid,
-          horario: post.horario
+          horario: post.horario,
         }
         const pelicula = post.mid
-        this.pushMovieInCinema({
-          ...cinema
-        }, pelicula)
-        this.pushCinemaInMovie({
-          ...cinema
-        }, pelicula)
+        this.pushMovieInCinema(
+          {
+            ...cinema,
+          },
+          pelicula
+        )
+        this.pushCinemaInMovie(
+          {
+            ...cinema,
+          },
+          pelicula
+        )
       })
     }
+  }
+
+  set addData(data) {
+    this.data = data
+    this._init()
   }
 
   pushCinemaInMovie(cinema, movie) {
     const listadoPeliculas = Object.values(this.peliculas)
     const listadoCines = this.cines
-    listadoPeliculas.find(pelicula => {
-      if (pelicula.mid === movie) {
+    listadoPeliculas.forEach(pelicula => {
+      const itemPelicula = pelicula
+      if (itemPelicula.mid === movie) {
         const nuevoCine = listadoCines.find(cine => {
           return cine.cid === cinema.cine
         })
-        if (pelicula.cines) {
-          pelicula.cines.push(nuevoCine)
+        if (itemPelicula.cines) {
+          itemPelicula.cines.push(nuevoCine)
         } else {
-          pelicula.cines = []
-          pelicula.cines.push(nuevoCine)
+          itemPelicula.cines = []
+          itemPelicula.cines.push(nuevoCine)
         }
       }
     })
@@ -52,24 +63,20 @@ class FormatoCine {
     const listadoPeliculas = Object.values(this.peliculas)
     const listadoCines = this.cines
     listadoCines.forEach(cine => {
-      if (cine.cid === cinema.cine) {
+      const itemCine = cine
+      if (itemCine.cid === cinema.cine) {
         const peli = listadoPeliculas.find(pelicula => {
           return pelicula.mid === movie
         })
-        if (cine.peliculas) {
-          cine.peliculas.push(peli)
+        if (itemCine.peliculas) {
+          itemCine.peliculas.push(peli)
         } else {
-          cine.peliculas = []
-          cine.peliculas.push(peli)
+          itemCine.peliculas = []
+          itemCine.peliculas.push(peli)
         }
       }
     })
     this.setCinesInMovies = listadoCines
-  }
-
-  set setData(data) {
-    this.data = data
-    this._init()
   }
 
   set setCinesInMovies(cines) {
@@ -86,18 +93,15 @@ class FormatoCine {
       if (pelicula.genero) {
         return {
           genero: pelicula.genero.genero,
-          url: pelicula.genero.url
+          url: pelicula.genero.url,
         }
       }
       return {
         genero: 'Otras',
-        url: ''
+        url: '',
       }
-    }).filter((dato, index, arr) => {
-      return arr.map(mapObj => mapObj['genero']).indexOf(dato['genero']) === index;
     })
-    console.log('aaaaaaa', generos)
-    return generos
+    return [...new Set(generos)]
   }
 
   get moviesList() {
