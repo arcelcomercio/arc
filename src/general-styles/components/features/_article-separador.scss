@@ -2,48 +2,18 @@
     background-color: #ffffff;
     display: grid;
     grid-template-columns: 1fr;
-    width: calc(100% - 30px);
+    width: calc(100%-30px);
     height: 300px;
     border: 1px solid #d5e1e1;
     padding: 0px 15px 15px;
   
-  
-    &__title {
-      display: -webkit-box;
-      max-height: 57.63px;
-      font-size: 17px;
-      line-height: 1.13;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      font-family: $secondary-font;
-  
-      & a {
-        color: #fff;
-        text-decoration: none;
-      }
-  
-      & a:hover {
-        text-decoration-line: underline;
-      }
-  
-      &--nota {
-        & a {
-          color: #333;
-        }
-      }
-    }
-  
-    &__headerHtml {
-      height: 70px;
-      width: 300px;
+    &__headerTitle {
+      display: grid;
+      grid-template-columns: 1fr;
       margin-top: 0;
       margin-bottom: 10px;
-    }
-  
-    &__headerTitle {
+      height: 70px;
       align-content: center;
-      margin: 20px 0px;
   
       & h1 {
         margin: 0;
@@ -81,7 +51,7 @@
         margin-bottom: 0;
   
         @media (--tablet) {
-          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
           grid-gap: 3px;
         }
   
@@ -103,7 +73,6 @@
       &--item {
         background: #c5ddf9;
         padding: 24px 18px;
-        position: relative;
   
         &-details {
           h3 {
@@ -137,12 +106,6 @@
           }
   
           p {
-            display: -webkit-box;
-            /* autoprefixer: off */
-            -webkit-box-orient: vertical;
-            /* autoprefixer: on */
-            overflow: hidden;
-  
             a {
               font-size: 13.5px;
               color: black;
@@ -152,18 +115,6 @@
               text-decoration: underline;
             }
           }
-        }
-        &-oneline {
-          -webkit-line-clamp: 1;
-          max-height: 35.63px;
-        }
-        &-twoline {
-          -webkit-line-clamp: 2;
-          max-height: 35.63px;
-        }
-        &-threeline {
-          -webkit-line-clamp: 3;
-          max-height: 50px;
         }
   
         &-image {
@@ -181,14 +132,14 @@
   
     &__body {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
       grid-gap: 3px;
       height: 200px;
       margin-top: 0;
       margin-bottom: 0;
-      
-      @media (--tablet) {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+  
+      @media screen and (min-width: 320px) and (max-width: 640px) {
+        grid-template-columns: 1fr;
       }
   
       &--items {
@@ -202,24 +153,13 @@
       height: 100%;
       width: 100%;
       padding: 0;
+      padding: 0;
       position: relative;
-  
-      &::before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background: linear-gradient(to bottom,
-          rgba(255, 255, 255, 0) 50%,
-          rgba(50, 50, 50, 0.7) 100%);
-      }
   
       & figure {
         padding: 0;
         margin: 0;
-        height: 100%;
+        height: 60%;
         width: 100%;
   
         & a {
@@ -229,36 +169,29 @@
           & img {
             height: 100%;
             width: 100%;
-            object-fit: cover;
-            object-position: center;
           }
         }
       }
   
       &--nota {
-        &::before {
-          background: none;
-        }
-  
         & figure {
           height: 80px;
           margin-right: 2%;
-          //width: 90%;
+          width: 90%;
         }
       }
     }
   
     & span {
       position: absolute;
-      height: 30px;
-      width: 30px;
-      right: 15px;
-      top: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
+      height: 15px;
+      width: 15px;
+      right: 25px;
+      top: 28px;
+      margin: auto;
+      transform: scale(3.5);
       z-index: 2;
+      text-align: center;
       border-radius: 50%;
       background-color: rgba(255, 255, 255, 0.5);
       color: #444;
@@ -270,13 +203,43 @@
       height: 65px;
       padding-left: 12px;
       padding-right: 12px;
-      bottom: 0px;
+      bottom: 10px;
   
       &--nota {
         bottom: 44px;
       }
     }
-   
+  
+    &__title {
+      display: -webkit-box;
+      max-height: 57.63px;
+      font-size: 17px;
+      color: #333;
+      line-height: 1.13;
+      -webkit-line-clamp: 3;
+      /* autoprefixer: off */
+      -webkit-box-orient: vertical;
+      /* autoprefixer: on */
+      overflow: hidden;
+      
+      font-family: 'ChronicleDisplayBold', Times New Roman, serif;
+  
+      & a {
+        color: #fff;
+        text-decoration: none;
+      }
+  
+      & a:hover {
+        text-decoration-line: underline;
+      }
+  
+      &--nota {
+        & a {
+          color: #333;
+        }
+      }
+    }
+  
     &--nota {
       height: 254px;
     }
