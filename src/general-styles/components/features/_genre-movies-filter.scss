@@ -25,7 +25,7 @@ $movie-size: 134px;
         margin-bottom: $spacing-small;
     }
 
-    &__nav-title {
+    &__nav-link {
         font-size: 14px;
         transition: 0.5s;
         padding: 8px;
@@ -97,7 +97,7 @@ $movie-size: 134px;
         margin: 0 auto;
         width: $movie-size;
 
-        &:hover .movies-grid__link {
+        &:hover .movies-grid__title {
             text-decoration: underline;
         }
     }
@@ -110,9 +110,6 @@ $movie-size: 134px;
         font-size: 12px;
         line-height: 15px;
         margin-bottom: $spacing-xsmall;
-    }
-
-    &__link {
         color: $color-silver;
     }
 
