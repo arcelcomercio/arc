@@ -8,7 +8,7 @@ const classes = {
   mvideo: 'separator--video',
 }
 
-export default ({ headlines, promoItems, website_url: websiteUrl }) => {
+export default ({ headlines, promoItems, website_url: websiteUrl,numLine }) => {
   /** TODO: Cambiar getMultimediaContent por método en dataStory */
   const { url: imageUrl = '/', medio = '' } =
     GetMultimediaContent(promoItems) || {}
@@ -17,7 +17,7 @@ export default ({ headlines, promoItems, website_url: websiteUrl }) => {
       {medio === 'video' && <span>&#8227;</span>}
       {medio === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
-        <h2 className={classes.separatorTitle}>
+        <h2 className={ `${classes.separatorTitle} ${numLine}`}>
           <a href={websiteUrl}>{headlines}</a>
         </h2>
       </div>

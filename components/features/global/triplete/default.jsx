@@ -10,18 +10,20 @@ const API_URL = 'story-by-url'
 class Triplete extends Component {
   constructor(props) {
     super(props)
-    this.state = { data1: {}, data2: {}, data3: {}}
+    this.state = { data1: {}, data2: {}, data3: {} }
+    this.auxData = { data1: {}, data2: {}, data3: {} }
     this.renderCount = 0
   }
 
   componentDidMount() {
-    this.setState(this.exec())
+    this.exec()
   }
 
-  setAuxData(response, i) {
+  setAuxData(response, i, length) {
     const KEY_STATE = 'data'
     this.auxData[KEY_STATE + i] = response || {}
-    }
+    if (i === length) this.setState(this.auxData)
+  }
 
   exec() {
     const LINK = 'link'
@@ -35,14 +37,17 @@ class Triplete extends Component {
           { website_url: customFields[LINK + i], website: arcSite },
           filterSchema(arcSite)
         )
-        fetched.then(response => this.setAuxData(response, i))
+        fetched.then(response => this.setAuxData(response, i, LINK_LENGTH))
       }
     }
-    return {...this.auxData}
   }
 
   render() {
-    const { customFields = {}, editableField, arcSite } = this.props
+    const {
+      customFields = {},
+      editableField,
+      arcSite,
+    } = this.props
     const data = new Data({}, arcSite, customFields)
     const allDataResponse = this.state
     const dataFormatted = Object.keys(allDataResponse).map((el, index) => {
@@ -50,8 +55,10 @@ class Triplete extends Component {
       data.__index = index + 1
       return data.attributesRaw
     })
+    const { numLineTitle} = customFields
     const params = {
       data: dataFormatted,
+      numLineTitle,
       multimediaOrientation: customFields.multimediaOrientation,
       editableField,
     }

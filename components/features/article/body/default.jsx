@@ -34,7 +34,7 @@ class ArticleBodyContent extends PureComponent {
     return (
       <div className={classes.news}>
         {promoItems && <ElePrincipal data={promoItems} />}
-        {author && <Autor data={author} date={date} />}
+      
         {contentElements && (
           <ArticleBody
             data={contentElements}
