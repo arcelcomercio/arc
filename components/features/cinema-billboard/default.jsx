@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-import PropTypes from 'prop-types'
-import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
-import MoviesSlider from './_children/movies-slider'
+import MoviesContainer from './_children/movies-container'
+import GenreMoviesFilter from './_children/genre-movies-filter'
 
 @Consumer
 class CinemaBillboard extends Component {
@@ -12,7 +11,7 @@ class CinemaBillboard extends Component {
   }
 
   render() {
-    const { globalContentConfig, globalContent } = this.props
+    const { globalContentConfig, globalContent: data } = this.props
     const {
       query: { movie = 'peliculas', cinema = 'cines', genre = '' } = {},
     } = globalContentConfig || {}
@@ -25,6 +24,8 @@ class CinemaBillboard extends Component {
                 tiene solo cine                     => cinema-movies-list
 
           ) */}
+        <MoviesContainer {...data} />
+        <GenreMoviesFilter {...data} />
       </Fragment>
     )
   }

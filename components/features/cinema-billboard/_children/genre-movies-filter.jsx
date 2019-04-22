@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-import PropTypes from 'prop-types'
 import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
 
 // "this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);"
@@ -45,15 +44,14 @@ class GenreMoviesFilter extends Component {
 
   render() {
     const { movies, genres } = this.state
-    const { customFields, contextPath, arcSite } = this.props
-    const { headline } = customFields || {}
+    const { contextPath, arcSite } = this.props
     const WEBSITE_PARAM = `?_website=${arcSite}`
 
     return (
       <section className="movies-grid margin-top">
         <div className="movies-grid__container">
           <h3 className="movies-grid__headline text-uppercase text-center">
-            {headline || `Listín Cinematográfico`}
+            Listín Cinematográfico
           </h3>
           {genres && (
             <Fragment>
@@ -136,15 +134,6 @@ class GenreMoviesFilter extends Component {
       </section>
     )
   }
-}
-
-GenreMoviesFilter.propTypes = {
-  customFields: PropTypes.shape({
-    headline: PropTypes.string.tag({
-      name: 'Texto de cabecera',
-      description: 'Dejar vacío para mostrar - Listín Cinematográfico -.',
-    }),
-  }),
 }
 
 GenreMoviesFilter.label = 'Grilla de Películas'
