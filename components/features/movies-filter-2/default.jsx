@@ -37,10 +37,8 @@ class MoviesFilter extends Component {
       const generos = this.instancia.genderList
       const porgen = this.instancia.moviesByGender('Accion')
 
-      console.log(cines, 'peli')
-      console.log(peli, 'peli')
 
-      console.log(generos, 'peli')
+      console.log(generos, 'genero')
 		})
   }
 

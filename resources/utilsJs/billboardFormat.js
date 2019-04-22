@@ -89,18 +89,22 @@ class FormatoCine {
 
   get genderList() {
     const listadoPeliculas = Object.values(this.peliculas)
-    const generos = listadoPeliculas.map(pelicula => {
-      if (pelicula.genero) {
-        return {
-          genero: pelicula.genero.genero,
-          url: pelicula.genero.url,
+    const generos = listadoPeliculas
+      .map(pelicula => {
+        if (pelicula.genero) {
+          return {
+            genero: pelicula.genero.genero,
+            url: pelicula.genero.url,
+          }
         }
-      }
-      return {
-        genero: 'Otras',
-        url: '',
-      }
-    })
+        return {
+          genero: 'Otras',
+          url: '',
+        }
+      })
+      .filter((dato, index, arr) => {
+        return arr.map(mapObj => mapObj.genero).indexOf(dato.genero) === index
+      })
     return [...new Set(generos)]
   }
 
