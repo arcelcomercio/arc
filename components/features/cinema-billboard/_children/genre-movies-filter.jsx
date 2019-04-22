@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import BillboardFormat from '../../../resources/utilsJs/billboardFormat'
-
-// DISCUTIR SI RESOLVER O NO
+import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
 
 // "this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);"
 @Consumer
@@ -50,7 +48,6 @@ class GenreMoviesFilter extends Component {
     const { customFields, contextPath, arcSite } = this.props
     const { headline } = customFields || {}
     const WEBSITE_PARAM = `?_website=${arcSite}`
-    console.log('eeeee', genres)
 
     return (
       <section className="movies-grid margin-top">

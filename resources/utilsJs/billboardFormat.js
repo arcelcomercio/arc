@@ -96,7 +96,7 @@ class FormatoCine {
     }).filter((dato, index, arr) => {
       return arr.map(mapObj => mapObj['genero']).indexOf(dato['genero']) === index;
     })
-    console.log('aaaaaaa', generos)
+
     return generos
   }
 

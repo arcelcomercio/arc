@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import FormatoCine from './_children/FormatoCine'
+import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
 
+// nuevo
 @Consumer
 class MoviesFilter extends Component {
   classes = {
@@ -23,18 +24,18 @@ class MoviesFilter extends Component {
     this.fetch()
   }
 
-  changeSelect = (e) => {
-		return console.log(e, 'hola')
-	}
+  changeSelect = e => {
+    return console.log(e, 'hola')
+  }
 
   fetch() {
     const { fetched } = this.getContent('cinema-billboard', { website: '' })
     fetched.then(response => {
-			console.time('test')
-			const instancia = new FormatoCine(response)
-			const hola = instancia.cinemaList
-			console.timeEnd('test')
-		})
+      console.time('test')
+      const instancia = new BillboardFormat(response)
+      const hola = instancia.cinemaList
+      console.timeEnd('test')
+    })
   }
 
   render() {
@@ -82,7 +83,5 @@ class MoviesFilter extends Component {
     )
   }
 }
-
-MoviesFilter.label = 'Filtro de Películas 2'
 
 export default MoviesFilter

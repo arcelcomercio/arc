@@ -1,6 +1,9 @@
 .movies-slider {
-    background-color: $color-gray;
-    margin-top: $spacing-normal;
+    max-width: 100vw;
+
+    @media (--desktop) {
+        max-width: 1024px;
+    }
 
     @media (--tablet) {
         margin-top: 0;
@@ -8,23 +11,6 @@
 
     @media (--desktop) {
         margin-top: $spacing-normal;
-    }
-
-    &__main-title {
-        margin-left: $spacing-normal;
-        font-size: 18px;
-
-        @media (--tablet) {
-            display: none;
-        }
-    }
-
-    &__container {
-        max-width: 100vw;
-
-        @media (--desktop) {
-            max-width: 1024px;
-        }
     }
 
     &__header {
