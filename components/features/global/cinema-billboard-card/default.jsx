@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
+import { ResizeImageUrl } from '../../../../resources/utilsJs/helpers'
 
 @Consumer
 class CinemaBillboardCard extends Component {
@@ -19,14 +20,15 @@ class CinemaBillboardCard extends Component {
         cinemasList: [],
       },
     }
-    this.handleMovieSelected = this.handleMovieSelected.bind(this)
-    this.handleCinemaSelected = this.handleCinemaSelected.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount() {
     this.getBillboard()
   }
 
   getBillboard() {
     const { fetched } = this.getContent('cinema-billboard', { website: '' })
+    const { arcSite } = this.props
 
     fetched.then(response => {
       const { peliculas, cines, estrenos } = response
@@ -34,10 +36,16 @@ class CinemaBillboardCard extends Component {
       const moviesList = Object.values(peliculas)
       const cinemasList = cines
 
-      // TODO: Agregar rezise de esta imagen
+      const resizeImg = ResizeImageUrl(
+        arcSite,
+        estrenos[0].poster.filepath,
+        '3:4',
+        '280x186'
+      )
+
       const premiereData = {
         title: estrenos[0].name,
-        img: estrenos[0].poster.sizes.poster,
+        img: resizeImg,
         url: estrenos[0].url,
         alt: estrenos[0].body,
       }
@@ -123,13 +131,13 @@ class CinemaBillboardCard extends Component {
             action="/cartelera/search"
             method="post"
             className="card-cinema__form"
-            onSubmit={this.handleSubmit}>
+            onSubmit={e => this.handleSubmit(e)}>
             <div className="card-cinema__selects-container">
               <select
                 name="movie"
                 className="card-cinema__select"
                 value={movieSelected}
-                onChange={this.handleMovieSelected}>
+                onChange={e => this.handleMovieSelected(e)}>
                 <option
                   value=""
                   defaultValue
@@ -150,7 +158,7 @@ class CinemaBillboardCard extends Component {
                 name="theater"
                 className="card-cinema__select"
                 value={cinemaSelected}
-                onChange={this.handleCinemaSelected}>
+                onChange={e => this.handleCinemaSelected(e)}>
                 <option
                   value=""
                   defaultValue
