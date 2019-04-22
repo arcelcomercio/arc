@@ -43,11 +43,7 @@ class Triplete extends Component {
   }
 
   render() {
-    const {
-      customFields = {},
-      editableField,
-      arcSite,
-    } = this.props
+    const { customFields = {}, editableField, arcSite } = this.props
     const data = new Data({}, arcSite, customFields)
     const allDataResponse = this.state
     const dataFormatted = Object.keys(allDataResponse).map((el, index) => {
@@ -55,7 +51,7 @@ class Triplete extends Component {
       data.__index = index + 1
       return data.attributesRaw
     })
-    const { numLineTitle} = customFields
+    const { numLineTitle } = customFields
     const params = {
       data: dataFormatted,
       numLineTitle,
