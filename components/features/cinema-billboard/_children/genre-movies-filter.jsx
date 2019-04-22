@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
 
 // "this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);"
 @Consumer
-class GenreMoviesFilter extends Component {
+class GenreMoviesFilter extends PureComponent {
   classes = {}
 
   constructor(props) {
@@ -17,20 +17,11 @@ class GenreMoviesFilter extends Component {
   }
 
   componentDidMount() {
-    this.getBillboard()
-  }
-
-  getBillboard() {
-    const { fetched } = this.getContent('cinema-billboard', { website: '' })
-
-    fetched.then(response => {
-      this.billboardFormat.setData = response
-      const movies = this.billboardFormat.moviesList
-      const genres = this.billboardFormat.genderList
-      this.setState({
-        movies,
-        genres,
-      })
+    const { data } = this.props
+    this.billboardFormat.setData = data
+    this.setState({
+      movies: this.billboardFormat.moviesList,
+      genres: this.billboardFormat.genderList,
     })
   }
 

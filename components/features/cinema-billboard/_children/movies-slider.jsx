@@ -1,17 +1,8 @@
-import React, { Component, Fragment } from 'react'
-import Consumer from 'fusion:consumer'
-import MoviesFilter from './movies-filter'
+import React, { PureComponent, Fragment } from 'react'
 
-@Consumer
-class MoviesSlider extends Component {
+class MoviesSlider extends PureComponent {
   classes = {
     moviesSlider: 'movies-slider',
-    header: 'movies-slider__header full-width',
-    titleBox: 'movies-slider__title-box flex flex--justify-between',
-    title: 'movies-slider__title flex-center-vertical position-relative',
-    social: 'movies-slider__social flex',
-    facebook: 'icon icon--facebook icon--margin-right',
-    twitter: 'icon icon--twitter',
     body: 'position-relative overflow-hidden',
     content: 'movies-slider__content flex',
     movie: '',
@@ -70,18 +61,9 @@ class MoviesSlider extends Component {
       width: `${slideWidth}%`,
     }
 
+    // container out
     return (
-      <div className={this.classes.container}>
-        <div className={this.classes.header}>
-          <div className={this.classes.titleBox}>
-            <h2 className={this.classes.title}>Estrenos de la semana</h2>
-            <div className={this.classes.social}>
-              <i className={this.classes.facebook} />
-              <i className={this.classes.twitter} />
-            </div>
-          </div>
-          <MoviesFilter />
-        </div>
+      <div className={this.classes.moviesSlider}>
         <div className={this.classes.body}>
           {premieres && (
             <Fragment>

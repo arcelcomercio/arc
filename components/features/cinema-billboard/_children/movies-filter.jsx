@@ -6,11 +6,17 @@ import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
 @Consumer
 class MoviesFilter extends Component {
   classes = {
-    moviesFilter: 'movies-filter flex flex--justify-between',
-    label: 'movies-filter__label text-uppercase',
+    container: 'movies-filter full-width',
+    titleBox: 'movies-filter__title-box flex flex--justify-between',
+    title: 'movies-filter__title flex-center-vertical position-relative',
+    social: 'movies-filter__social flex',
+    facebook: 'icon icon--facebook icon--margin-right',
+    twitter: 'icon icon--twitter',
+    filter: 'movies-filter__filter-box flex flex--justify-between',
+    label: 'movies-filter__label movies-filter--font-config text-uppercase',
     form: 'movies-filter__form flex ',
-    options: 'movies-filter__options flex',
-    button: 'movies-filter__button text-uppercase',
+    options: 'movies-filter__options movies-filter--font-config flex',
+    button: 'movies-filter__button movies-filter--font-config text-uppercase',
   }
 
   constructor(...props) {
@@ -18,67 +24,77 @@ class MoviesFilter extends Component {
     this.cinema = {}
     this.cines = []
     this.peliculas = []
+    this.billboardFormat = new BillboardFormat()
   }
 
   componentDidMount() {
-    this.fetch()
+    const { data } = this.props
+    this.billboardFormat.setData = data
+    const peliculas = this.billboardFormat.moviesList
+    const cines = this.billboardFormat.cinemaList
+    // ... no se, por ahi va la cosa
+
+    this.setState({
+      cinema: data,
+      peliculas,
+      cines,
+    })
   }
 
   changeSelect = e => {
     return console.log(e, 'hola')
   }
 
-  fetch() {
-    const { fetched } = this.getContent('cinema-billboard', { website: '' })
-    fetched.then(response => {
-      console.time('test')
-      const instancia = new BillboardFormat(response)
-      const hola = instancia.cinemaList
-      console.timeEnd('test')
-    })
-  }
-
   render() {
     return (
-      <div className={this.classes.moviesFilter}>
-        <h4 className={this.classes.label}>Vamos al cine</h4>
-        <form
-          action="/cartelera/search"
-          method="post"
-          className={this.classes.form}>
-          <div className={this.classes.options}>
-            <select
-              name="movie"
-              id="pelicula"
-              onChange={e => this.changeSelect(e)}>
-              <option value="default" selected="" disabled="">
-                PELÍCULAS
-              </option>
-            </select>
-
-            <select
-              name="genre"
-              id="genero"
-              onChange={e => this.changeSelect(e)}>
-              <option value="default" selected="" disabled="">
-                GÉNERO
-              </option>
-              <option value="todas">Todas</option>
-            </select>
-
-            <select
-              name="theater"
-              id="cine"
-              onChange={e => this.changeSelect(e)}>
-              <option value="default" selected="" disabled="">
-                CINES
-              </option>
-            </select>
+      <div className={this.classes.container}>
+        <div className={this.classes.titleBox}>
+          <h2 className={this.classes.title}>Estrenos de la semana</h2>
+          <div className={this.classes.social}>
+            <i className={this.classes.facebook} />
+            <i className={this.classes.twitter} />
           </div>
-          <button type="submit" className={this.classes.button}>
-            Buscar
-          </button>
-        </form>
+        </div>
+        <div className={this.classes.filter}>
+          <h4 className={this.classes.label}>Vamos al cine</h4>
+          <form
+            action="/cartelera/search"
+            method="post"
+            className={this.classes.form}>
+            <div className={this.classes.options}>
+              <select
+                name="movie"
+                id="pelicula"
+                onChange={e => this.changeSelect(e)}>
+                <option value="default" selected="" disabled="">
+                  PELÍCULAS
+                </option>
+              </select>
+
+              <select
+                name="genre"
+                id="genero"
+                onChange={e => this.changeSelect(e)}>
+                <option value="default" selected="" disabled="">
+                  GÉNERO
+                </option>
+                <option value="todas">Todas</option>
+              </select>
+
+              <select
+                name="theater"
+                id="cine"
+                onChange={e => this.changeSelect(e)}>
+                <option value="default" selected="" disabled="">
+                  CINES
+                </option>
+              </select>
+            </div>
+            <button type="submit" className={this.classes.button}>
+              Buscar
+            </button>
+          </form>
+        </div>
       </div>
     )
   }

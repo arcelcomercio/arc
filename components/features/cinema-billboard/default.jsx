@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import MoviesContainer from './_children/movies-container'
 import GenreMoviesFilter from './_children/genre-movies-filter'
 
 @Consumer
-class CinemaBillboard extends Component {
+class CinemaBillboard extends PureComponent {
   classes = {
     mainTitle: 'movies-container__main-title text-uppercase margin-top',
     container: 'movies-container',
@@ -15,6 +15,11 @@ class CinemaBillboard extends Component {
     const {
       query: { movie = 'peliculas', cinema = 'cines', genre = '' } = {},
     } = globalContentConfig || {}
+    const params = {
+      movie,
+      cinema,
+      genre,
+    }
 
     return (
       <Fragment>
@@ -24,8 +29,8 @@ class CinemaBillboard extends Component {
                 tiene solo cine                     => cinema-movies-list
 
           ) */}
-        <MoviesContainer {...data} />
-        <GenreMoviesFilter {...data} />
+        <MoviesContainer data={{ ...data }} params={{ ...params }} />
+        <GenreMoviesFilter data={{ ...data }} genre={genre} />
       </Fragment>
     )
   }

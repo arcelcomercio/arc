@@ -1,12 +1,65 @@
 .movies-filter {
-    border: 1px solid $color-silver;
-    padding: 4px;
-    background-color: #333;
-    & * {
+    padding: $spacing-normal;
+
+    @media (--tablet) {
+        padding: $spacing-xlarge;
+    }
+
+    &--font-config {
         font-size: 12px;
         line-height: 45px;
         font-weight: 600;
     }
+
+    &__filter-box {
+        border: 1px solid $color-silver;
+        padding: 4px;
+        background-color: #333;
+
+    }
+
+    &__title-box {
+        margin-bottom: $spacing-normal;
+        flex-direction: column-reverse;
+
+        @media (--tablet) {
+            flex-direction: initial;
+        }
+    }
+
+    &__title {
+        color: $color-white;
+        line-height: 40px;
+
+        @media (--tablet) {
+            text-transform: uppercase;
+        }
+
+        &::before,
+        &::after {
+            border-bottom: 1px solid #fff;
+            content: "";
+            display: block;
+            height: 1px;
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            width: 25px;
+        }
+
+        &::before {
+            top: 10%;
+        }
+
+        &::after {
+            bottom: 10%;
+        }
+    }
+
+    &__social {
+        margin-bottom: $spacing-normal;
+    }
+
 
     &__label {
         color: $color-soft;

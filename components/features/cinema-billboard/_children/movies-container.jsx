@@ -1,24 +1,22 @@
-import React, { Component, Fragment } from 'react'
-import Consumer from 'fusion:consumer'
-import PropTypes from 'prop-types'
-import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
-import MoviesSlider from './_children/movies-slider'
+import React, { PureComponent, Fragment } from 'react'
+import MoviesSlider from './movies-slider'
+import MoviesFilter from './movies-filter'
 
-@Consumer
-class MoviesContainer extends Component {
+class MoviesContainer extends PureComponent {
   classes = {
     mainTitle: 'movies-container__main-title text-uppercase margin-top',
     container: 'movies-container',
   }
 
   render() {
-    // props = globalContent = data
-    // props = params
+    const { data, params } = this.props // params = movie, cinema, genre
+
     return (
       <Fragment>
         <h2 className={this.classes.mainTitle}>Cartelera</h2>
         <main className={this.classes.container}>
-          <MoviesSlider data={{ ...globalContent }} />
+          <MoviesFilter data={{ ...data }} {...params} />
+          <MoviesSlider data={{ ...data }} />
           {/* if(
               sin parametros || tienes genero   => movies-slider
               tienes pelicula                   => movie

@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
-import Consumer from 'fusion:consumer'
+import React, { PureComponent } from 'react'
 
-@Consumer
-class MoviesFilter extends Component {
+class MoviesFilter extends PureComponent {
   classes = {
     moviesFilter: 'movies-filter flex flex--justify-between',
     label: 'movies-filter__label text-uppercase',
@@ -19,52 +17,59 @@ class MoviesFilter extends Component {
     this.pelicula = ''
     this.genero = ''
     this.cine = ''
+    console.log(props)
   }
 
   componentDidMount() {
-    this.fetch()
+    const { data } = this.props
+    const peliculas = this.listaPeliculas(data.peliculas)
+    const { cines } = data
+
+    this.setState({
+      cinema: data,
+      peliculas,
+      cines,
+    })
   }
 
   cinesPorPelicula = pelicula => {
     const { cinema } = this.state
-    if(pelicula === 'default') {
-      this.setState({cines: cinema.cines})
+    if (pelicula === 'default') {
+      this.setState({ cines: cinema.cines })
       return cinema.cines
     }
     const nuevosCines = cinema.cartelera
       .filter(item => item.mid === pelicula)
-      .map(cine => cinema.cines
-        .find(el => el.cid === cine.cid))
-      this.setState({cines: nuevosCines})
+      .map(cine => cinema.cines.find(el => el.cid === cine.cid))
+    this.setState({ cines: nuevosCines })
     return nuevosCines
   }
 
   peliculasPorGenero = genero => {
     const { cinema } = this.state
     const peliculas = Object.values(cinema.peliculas)
-    if(genero === 'todas' || genero === 'default'){
-      this.setState({ peliculas})
+    if (genero === 'todas' || genero === 'default') {
+      this.setState({ peliculas })
       return peliculas
-    } 
+    }
     const nuevasPeliculas = peliculas.filter(
       pelicula => pelicula.genero.genero === genero
     )
-    this.setState({peliculas: nuevasPeliculas})
+    this.setState({ peliculas: nuevasPeliculas })
     return nuevasPeliculas
   }
 
   peliculasPorCine = cine => {
     const { cinema } = this.state
     const listaPeliculas = Object.values(cinema.peliculas)
-    if(cine === 'default'){
-      this.setState({peliculas: listaPeliculas})
+    if (cine === 'default') {
+      this.setState({ peliculas: listaPeliculas })
       return listaPeliculas
     }
     const nuevasPeliculas = cinema.cartelera
       .filter(item => item.cid === cine)
-      .map(pelicula => listaPeliculas
-        .find(el => el.mid === pelicula.mid))
-    this.setState({peliculas: nuevasPeliculas})
+      .map(pelicula => listaPeliculas.find(el => el.mid === pelicula.mid))
+    this.setState({ peliculas: nuevasPeliculas })
 
     return nuevasPeliculas
   }
@@ -110,25 +115,14 @@ class MoviesFilter extends Component {
     }
   }
 
-  fetch() {
-    const { fetched } = this.getContent('cinema-billboard', { website: '' })
-    fetched.then(response => {
-      const peliculas = this.listaPeliculas(response.peliculas)
-      const { cines } = response
-      this.setState({
-        cinema: response,
-        peliculas,
-        cines,
-      })
-    })
-  }
-
   render() {
-    const stateReady = this.state && this.state.cinema
-    const litadoPeliculas = this.state && this.state.peliculas
-    const listadoCines = this.state && this.state.cines
-    const listadoGenero =
-      stateReady && this.listaGeneros(this.state.cinema.peliculas)
+    const { cinema, peliculas, cines } = this.state
+
+    const stateReady = cinema
+    const litadoPeliculas = peliculas
+    const listadoCines = cines
+    const listadoGenero = stateReady && this.listaGeneros(cinema.peliculas)
+
     return (
       <div className={this.classes.moviesFilter}>
         <h4 className={this.classes.label}>Vamos al cine</h4>
@@ -161,8 +155,8 @@ class MoviesFilter extends Component {
               </option>
               <option value="todas">Todas</option>
               {listadoGenero &&
-                listadoGenero.map((pelicula, id) => (
-                  <option key={id} value={pelicula}>
+                listadoGenero.map((pelicula, idx) => (
+                  <option key={idx} value={pelicula}>
                     {pelicula}
                   </option>
                 ))}
