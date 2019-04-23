@@ -5,10 +5,31 @@ class OficinasConcesionarias extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      mapa: {},
+      allinfo: [],
       zonas: [],
       distritos: [],
-      zonavalue: 'perro',
+      zoneValue: '',
+      districtValue: '',
+      districtDataOf: [],
+      //      google: {},
     }
+  }
+
+  componentWillMount() {
+    this.getGoogleMaps()
+    this.setState({
+      allinfo: Data,
+    })
+  }
+
+  componentDidMount() {
+    this.getGoogleMaps().then(google => {
+      this.iniciarMapa()
+      //this.createMarkers()
+    })
+    const { allinfo } = this.state
+    this.changeSelectZonas(allinfo)
   }
 
   getGoogleMaps() {
@@ -30,26 +51,8 @@ class OficinasConcesionarias extends Component {
     return this.googleMapsPromise
   }
 
-  componentWillMount() {
-    this.getGoogleMaps()
-  }
-
-  componentDidMount() {
-    this.getGoogleMaps().then(google => {
-      this.iniciarMapa()
-    })
-    this.changeSelectZonas(Data)
-  }
-
-  iniciarMapa() {
-    const map = new google.maps.Map(document.getElementById('map'), {
-      center: { lat: -34.397, lng: 150.644 },
-      zoom: 8,
-    })
-  }
-
-  changeSelectZonas = Dat => {
-    const zonas = Object.keys(Dat)
+  changeSelectZonas = data => {
+    const zonas = Object.keys(data)
     this.setState({
       zonas,
     })
@@ -64,17 +67,82 @@ class OficinasConcesionarias extends Component {
     ))
   }
 
-  chargeDistritos = event => {
-    const zona = event.target.value
-    const distritos = Data[`${zona}`].zonaDistritos.map(distrito => {
+  changeDistritos = event => {
+    const zone = event.target.value
+    const distritos = Data[`${zone}`].zonaDistritos.map(distrito => {
       return distrito.nomDistrito
     })
+
     this.setState({
+      districtValue: '',
+      zoneValue: zone,
       distritos,
     })
   }
 
+  chargeListDistritos = () => {
+    const { distritos } = this.state
+    return distritos.map(distrito => (
+      <option key={distrito} value={distrito}>
+        {distrito}
+      </option>
+    ))
+  }
+
+  createMarkers = () => {
+    const { mapa, districtDataOf } = this.state
+    console.log(districtDataOf)
+
+    const res = districtDataOf.oficinas.forEach(alias => {
+      return alias.nomOficina
+      //   const marker = new google.maps.Marker({
+      //     mapa,
+      //     position: { lat: -11.921145144034034, lng: -77.0422911643982 },
+      //   })
+      //   marker.setMap(mapa)
+    })
+    console.log(res)
+    // const marker = new google.maps.Marker({
+    //   mapa,
+    //   position: { lat: -11.921145144034034, lng: -77.0422911643982 },
+    // })
+    // marker.setMap(mapa)
+  }
+
+  changeMarkers = e => {
+    const district = e.target.value
+    const { allinfo, zoneValue } = this.state
+
+    const aDistritos = allinfo[`${zoneValue}`].zonaDistritos
+    console.log(aDistritos)
+    const dataDistrito = aDistritos.find(distrito => {
+      return distrito.nomDistrito === district
+    })
+
+    const aOficinas = dataDistrito.oficinas // array oficinas de un distrito
+
+    //    console.log(`distritos: ${res.oficinas[0].nomOficina}`)
+
+    this.setState({
+      districtValue: district,
+      districtDataOf: aOficinas,
+    })
+
+    this.createMarkers()
+  }
+
+  iniciarMapa = () => {
+    const map = new google.maps.Map(document.getElementById('map1'), {
+      center: { lat: -12.0457627, lng: -76.884137972314 },
+      zoom: 10,
+    })
+    this.setState({
+      mapa: map,
+    })
+  }
+
   render() {
+    const { zoneValue, districtValue } = this.state
     return (
       <Fragment>
         <div className="title-wrapper">
@@ -84,29 +152,32 @@ class OficinasConcesionarias extends Component {
             en el mapa su ubicación
           </h6>
           <div className="concessionaires-selects">
-            <div className="concessionaires_2">
-              Zona
+            <div className="concessionaires-zone">
+              Zona :
               <select
-                name=""
                 id="sel_zonas"
-                value={this.state.zonavalue}
-                onChange={this.chargeDistritos}>
-                <option value="seleccionar">ZONAS</option>
+                value={zoneValue}
+                onChange={this.changeDistritos}>
+                <option value="seleccionar">Seleccionar</option>
                 {this.chargeListZonas()}
               </select>
             </div>
-            <div className="concessionaires_3">
+            <div className="concessionaires-district">
               Distrito
-              <select name="" id="sel_distritos">
-                <option value="seleccionar">DISTRITOS</option>
+              <select
+                id="sel_distritos"
+                value={districtValue}
+                onChange={this.changeMarkers}>
+                <option value="seleccionar">Seleccionar</option>
+                {this.chargeListDistritos()}
               </select>
             </div>
           </div>
         </div>
 
         <div
-          id="map"
-          style={{ width: '400px', height: '400px', backgroundColor: 'red' }}
+          id="map1"
+          style={{ width: '400px', height: '400px', backgroundColor: 'green' }}
         />
       </Fragment>
     )
