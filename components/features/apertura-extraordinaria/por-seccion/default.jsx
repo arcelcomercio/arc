@@ -52,12 +52,11 @@ class AperturaExtraordinariaSection extends Component {
       contentElements && contentElements.length > 0 ? contentElements[0] : {}
     const formattedData = new Data(customFields, dataElement, arcSite)
     this.isVideo = formattedData.isVideo
-    const { numLineTitle } = customFields
     const params = {
       data: formattedData,
       multimediaOrientation: formattedData.multimediaOrientation,
       contentOrientation: formattedData.contentOrientation,
-      numLineTitle,
+      arcSite,
     }
     return <AperturaExtraordinariaChildren {...params} />
   }

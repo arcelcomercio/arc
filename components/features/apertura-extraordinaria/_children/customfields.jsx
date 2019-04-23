@@ -9,18 +9,6 @@ const customFields = {
     name: 'Título',
     description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
-  numLineTitle: PropTypes.oneOf([1, 2,3]).tag(
-    {
-      name: 'Numero de lineas para el título: ',
-      description:'Numero de lineas que mostrara el título',
-      labels: {
-        1: 'Una linea',
-        2: 'Dos lineas',
-        3: 'Tres lineas',
-      },
-      defaultValue: 1,
-    }
-  ),
   subTitle: PropTypes.string.tag({
     name: 'Bajada',
     description: 'Dejar vacío para tomar el valor original de la historia.',
@@ -52,7 +40,12 @@ const customFields = {
     },
     defaultValue: 'left',
   }),
-  multimediaService: PropTypes.oneOf(['default', 'image', 'goldfish', 'youtube']).tag({
+  multimediaService: PropTypes.oneOf([
+    'default',
+    'image',
+    'goldfish',
+    'youtube',
+  ]).tag({
     name: 'Proveedor',
     group: 'Multimedia',
     labels: {
@@ -66,7 +59,8 @@ const customFields = {
   multimediaSource: PropTypes.string.tag({
     name: 'Recurso',
     group: 'Multimedia',
-    description: 'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: Url del video.',
+    description:
+      'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: Url del video.',
   }),
 }
 
