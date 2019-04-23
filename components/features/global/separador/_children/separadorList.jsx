@@ -18,24 +18,25 @@ const createMarkup = html => {
 export default ({
   data: {
     titleSeparator = '',
-    numLineTitle,
+    arcSite,
     titleLink = '/',
     htmlCode = '',
     items,
   } = {},
 }) => {
-  let numLine = ''
-  switch (numLineTitle) {
-    case 2:
-      numLine = classes.twoline
-      break
-    case 3:
-      numLine = classes.threeline
-      break
-    default:
-      numLine = classes.oneline
-      break
-  }
+  debugger
+  let numline = ''
+    switch (arcSite) {
+      case 'elcomercio':
+        numline = classes.threeline
+        break
+      case 'depor':
+        numline = classes.twoline
+        break
+      default:
+        numline = classes.twoline
+        break
+    }
   return (
     <div className={classes.separator}>
       {titleSeparator ? (
@@ -64,7 +65,7 @@ export default ({
                   headlines={headlinesBasic || ''}
                   promoItems={promoItems || {}}
                   website_url={websiteUrl || '/'}
-                  numLine={numLine}
+                  numLine={numline}
                 />
               )
             }
