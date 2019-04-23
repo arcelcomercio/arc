@@ -166,6 +166,7 @@ const storySchemaTypes = `
     type Websites {
       elcomercio: DataWebsites
       peru21: DataWebsites
+      gestion: DataWebsites
     }
   `
 
