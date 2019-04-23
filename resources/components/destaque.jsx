@@ -12,6 +12,9 @@ const classes = {
 
   category: 'destaque__category',
   title: 'destaque__title',
+  oneline:'destaque-oneline ',
+  twoline:'destaque-twoline',
+  threeline:'destaque-threeline',
   author: 'destaque__author',
 
   link: 'destaque__link',
@@ -46,6 +49,7 @@ export default class Destaque extends Component {
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
+      numLineTitle,
     } = this.props
 
     const getImageSizeClass = () => {
@@ -91,7 +95,18 @@ export default class Destaque extends Component {
         </span>
       )
     }
-
+    let numline =''
+    switch(numLineTitle){
+      case 2:
+        numline = classes.twoline
+        break
+      case 3:
+        numline = classes.threeline
+        break
+      default:
+        numline = classes.oneline
+        break
+    }
     return (
       <article
         className={`${
@@ -123,7 +138,7 @@ export default class Destaque extends Component {
               </a>
             </div>
           )}
-          <h2 className={classes.title}>
+          <h2 className={`${classes.title} ${numline}` }>
             <a
               className={classes.link}
               href={title.url}

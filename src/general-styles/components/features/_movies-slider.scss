@@ -1,0 +1,159 @@
+.movies-slider {
+    background-color: $color-gray;
+    margin-top: $spacing-normal;
+
+    @media (--tablet) {
+        margin-top: 0;
+    }
+
+    @media (--desktop) {
+        margin-top: $spacing-normal;
+    }
+
+    &__main-title {
+        margin-left: $spacing-normal;
+        font-size: 18px;
+
+        @media (--tablet) {
+            display: none;
+        }
+    }
+
+    &__container {
+        max-width: 100vw;
+
+        @media (--desktop) {
+            max-width: 1024px;
+        }
+    }
+
+    &__header {
+        padding: $spacing-normal;
+
+        @media (--tablet) {
+            padding: $spacing-xlarge;
+        }
+    }
+
+    &__title-box {
+        margin-bottom: $spacing-normal;
+        flex-direction: column-reverse;
+
+        @media (--tablet) {
+            flex-direction: initial;
+        }
+    }
+
+    &__social {
+        margin-bottom: $spacing-normal;
+    }
+
+    &__title {
+        color: $color-white;
+        line-height: 40px;
+
+        @media (--tablet) {
+            text-transform: uppercase;
+        }
+
+        &::before,
+        &::after {
+            border-bottom: 1px solid #fff;
+            content: "";
+            display: block;
+            height: 1px;
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            width: 25px;
+        }
+
+        &::before {
+            top: 10%;
+        }
+
+        &::after {
+            bottom: 10%;
+        }
+    }
+
+    &__content {
+        transition: transform .4s ease;
+    }
+
+    &__image {
+        object-fit: contain;
+    }
+
+    &__arrows-box {
+        outline: 0;
+        z-index: 2;
+        width: 100%;
+        height: 0;
+        top: 20%;
+
+        @media (--tablet) {
+            top: 30%;
+        }
+    }
+
+    &__arrows {
+        display: block;
+        text-align: center;
+        background-color: #f7c600;
+        background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 48px;
+        height: 48px;
+
+        @media (--tablet) {
+            width: 80px;
+            height: 80px;
+        }
+
+        &--left {
+            transform: rotate(90deg);
+        }
+
+        &--right {
+            transform: rotate(270deg);
+        }
+    }
+
+    &__movie-title {
+        font-size: 24px;
+        margin-bottom: $spacing-small;
+
+        @media (--tablet) {
+            font-size: 48px;
+        }
+    }
+
+    &__movie-link {
+        color: $color-white;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__movie-description {
+        color: $color-white;
+        font-size: 14px;
+        line-height: 20px;
+
+        @media (--tablet) {
+            font-size: 16px;
+            line-height: 24px;
+        }
+    }
+
+    &__details {
+        padding: $spacing-normal;
+
+        @media (--tablet) {
+            padding: $spacing-xlarge;
+        }
+    }
+}

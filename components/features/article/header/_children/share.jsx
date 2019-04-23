@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 
 import {
@@ -61,57 +61,53 @@ class Share extends Component {
     const gpUrl = 'https://plus.google.com/share?url=' + url
     const { shareMas } = this.state
     return (
-      <Fragment>
-        <div className={classes.share + shareMas}>
-          <div className={classes.shareListItem}>
-            <FacebookShareButton className={classes.shareItemFb} url={fbUrl}>
-              <i className="icon-fb" />
-              <span>Compartir </span>
-            </FacebookShareButton>
-            <TwitterShareButton className={classes.shareItemTw} url={twUrl}>
-              <i className="icon-tw" /> <span>Compartir</span>
-            </TwitterShareButton>
-            <LinkedinShareButton
-              url={inUrl}
+      <div className={classes.share + shareMas}>
+        <div className={classes.shareListItem}>
+          <FacebookShareButton className={classes.shareItemFb} url={fbUrl}>
+            <i className="icon-fb" />
+            <span>Compartir </span>
+          </FacebookShareButton>
+          <TwitterShareButton className={classes.shareItemTw} url={twUrl}>
+            <i className="icon-tw" /> <span>Compartir</span>
+          </TwitterShareButton>
+          <LinkedinShareButton
+            url={inUrl}
+            className={classes.shareItemLinkedIn}>
+            <i className="icon-in" />
+            <span>Compartir </span>
+          </LinkedinShareButton>
+          <div className={classes.shareItemOtherItems + shareMas}>
+            <GooglePlusShareButton
+              url={gpUrl}
               className={classes.shareItemLinkedIn}>
               <i className="icon-in" />
               <span>Compartir </span>
-            </LinkedinShareButton>
-            <div className={classes.shareItemOtherItems + shareMas}>
-              <GooglePlusShareButton
-                url={gpUrl}
-                className={classes.shareItemLinkedIn}>
-                <i className="icon-in" />
-                <span>Compartir </span>
-              </GooglePlusShareButton>
-              <EmailShareButton
-                url={inUrl}
-                className={classes.shareItemLinkedIn}>
-                <i className="icon-in" />
-                <span>Compartir </span>
-              </EmailShareButton>
-            </div>
-            <div className={classes.shareItemShowMore}>
-              <span
-                className={classes.shareBtnMore}
-                onClick={this.handleOnclickMas}
-                role="button"
-                onKeyPress={this.handleOnclickMas}
-                tabIndex={0}>
-                +
-              </span>
-              <span
-                className={classes.shareBtnLess}
-                onClick={this.handleOnclickckClose}
-                role="button"
-                onKeyPress={this.handleOnclickckClose}
-                tabIndex={-1}>
-                -{' '}
-              </span>
-            </div>
+            </GooglePlusShareButton>
+            <EmailShareButton url={inUrl} className={classes.shareItemLinkedIn}>
+              <i className="icon-in" />
+              <span>Compartir </span>
+            </EmailShareButton>
+          </div>
+          <div className={classes.shareItemShowMore}>
+            <span
+              className={classes.shareBtnMore}
+              onClick={this.handleOnclickMas}
+              role="button"
+              onKeyPress={this.handleOnclickMas}
+              tabIndex={0}>
+              +
+            </span>
+            <span
+              className={classes.shareBtnLess}
+              onClick={this.handleOnclickckClose}
+              role="button"
+              onKeyPress={this.handleOnclickckClose}
+              tabIndex={-1}>
+              -{' '}
+            </span>
           </div>
         </div>
-      </Fragment>
+      </div>
     )
   }
 }

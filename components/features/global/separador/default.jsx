@@ -15,6 +15,7 @@ class Separador extends Component {
       customFields: {
         titleSeparator = '',
         titleLink = '/',
+        numLineTitle = 1,
         section = '',
         htmlCode = '',
       } = {},
@@ -23,6 +24,7 @@ class Separador extends Component {
     this.state = {
       device: this.setDevice(),
       titleSeparator,
+      numLineTitle,
       titleLink,
       section,
       htmlCode,
@@ -109,9 +111,9 @@ class Separador extends Component {
   }
 
   render() {
-    const { titleSeparator, titleLink, htmlCode, items } = this.state
+    const { titleSeparator, numLineTitle,titleLink, htmlCode, items } = this.state
     return (
-      <SeparatorList data={{ titleSeparator, titleLink, htmlCode, items }} />
+      <SeparatorList data={{ titleSeparator, numLineTitle, titleLink, htmlCode, items }} />
     )
     /**
      *    data: {
