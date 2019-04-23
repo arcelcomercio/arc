@@ -7,7 +7,7 @@ export default function Content3Col(props) {
   const { children = {}, customFields: { staticHeight } = {} } = props
 
   return (
-    <section className={`${classes} ${staticHeight && 'row-1'}`}>
+    <section className={`${classes} ${staticHeight ? 'row-1' : ''}`}>
       {children}
     </section>
   )
