@@ -13,7 +13,7 @@
   }
 
   &__box-suscription {
-    font-family: 'Open Sans', arial, sans serif;
+    font-family: $newsletter-suscription-font;
     width: 430px;
     align-self: center;
   }
@@ -29,7 +29,7 @@
 
   &__description {
     color: #666;
-    font: 20px/1.5 'Georgia', Times New Roman, serif;
+    font: 20px/1.5 $newsletter-description-font;
     margin-block-start: 1em;
     margin-block-end: 1em;
   }
