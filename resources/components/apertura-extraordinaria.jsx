@@ -36,21 +36,21 @@ const AperturaExtraordinaria = props => {
     contentOrientation = 'left',
     isSection = false,
     multimediaType,
-    numLineTitle,
+    arcSite,
   } = props
 
   let numline = ''
-  switch (numLineTitle) {
-    case 2:
-      numline = classes.twoline
-      break
-    case 3:
-      numline = classes.threeline
-      break
-    default:
-      numline = classes.oneline
-      break
-  }
+    switch (arcSite) {
+      case 'elcomercio':
+        numline = classes.threeline
+        break
+      case 'depor':
+        numline = classes.twoline
+        break
+      default:
+        numline = classes.twoline
+        break
+    }
 
   return (
     <div

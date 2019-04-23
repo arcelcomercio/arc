@@ -75,15 +75,20 @@
     /* autoprefixer: on */
   }
   &__oneline {
-    max-height: 30px;
+    max-height: 15px;
     -webkit-line-clamp: 1;
+    line-height: 18px;
   }
   &__twoline {
-    max-height: 60px;
+    max-height: 40px;
     -webkit-line-clamp: 2;
-
+    line-height: 18px;
   }
-
+  &__threeline {
+    max-height: 55px;
+    -webkit-line-clamp: 3;
+    line-height: 18px;
+  }
   &__icono {
     display: grid;
     grid-template-rows: 3fr;
