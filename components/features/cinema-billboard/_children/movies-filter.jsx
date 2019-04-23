@@ -14,8 +14,7 @@ class MoviesFilter extends Component {
     twitter: 'icon icon--twitter',
     filter: 'movies-filter__filter-box flex flex--justify-between',
     label: 'movies-filter__label movies-filter--font-config text-uppercase',
-    form: 'movies-filter__form flex ',
-    options: 'movies-filter__options movies-filter--font-config flex',
+    form: 'movies-filter__form movies-filter--font-config flex',
     button: 'movies-filter__button movies-filter--font-config text-uppercase',
   }
 
@@ -59,7 +58,7 @@ class MoviesFilter extends Component {
     if (id === 'genero') {
       this.movieGenre(idOption)
     }
-    if (id === 'cines') {
+    if (id === 'cine') {
       this.newMovie(idOption)
     }
   }
@@ -78,6 +77,12 @@ class MoviesFilter extends Component {
     this.setState({ peliculas: newMovies })
   }
 
+  newMovie(id){
+    const { cines } = this.state
+    const movie = cines.filter(cine => cine.cid === id)
+    const newMovies = movie[0].peliculas
+    this.setState({ peliculas: newMovies })
+  }
 
   render() {
     const { peliculas, cines, genre } = this.state
@@ -96,73 +101,72 @@ class MoviesFilter extends Component {
             action="/cartelera/search"
             method="post"
             className={this.classes.form}>
-            <div className={this.classes.options}>
-              <select
-                name="movie"
-                id="pelicula"
-                onChange={e => this.changeSelect(e)}>
-                <option value="default" selected="" disabled="">
-                  PELÍCULAS
-                </option>
-                {peliculas &&
-                  peliculas.map(pelicula => {
-                    return (
-                      <option
-                        key={pelicula.mid}
-                        value={pelicula.url}
-                        data-id={pelicula.mid}
-                        selected=""
-                        disabled="">
-                        {pelicula.title}
-                      </option>
-                    )
-                  })}
-              </select>
+            <select
+              name="movie"
+              id="pelicula"
+              onChange={e => this.changeSelect(e)}>
+              <option value="default" selected="" disabled="">
+                PELÍCULAS
+              </option>
+              {peliculas &&
+                peliculas.map(pelicula => {
+                  return (
+                    <option
+                      key={pelicula.mid}
+                      value={pelicula.url}
+                      data-id={pelicula.mid}
+                      selected=""
+                      disabled="">
+                      {pelicula.title}
+                    </option>
+                  )
+                })}
+            </select>
 
-              <select
-                name="genre"
-                id="genero"
-                onChange={e => this.changeSelect(e)}>
-                <option value="default" selected="" disabled="">
-                  GÉNERO
-                </option>
-                <option value="todas">Todas</option>
-                {genre &&
-                  genre.map(gen => {
-                    return (
-                      <option
-                        key={gen.url}
-                        value={gen.url}
-                        data-id={gen.genero}
-                        selected=""
-                        disabled="">
-                        {gen.genero}
-                      </option>
-                    )
-                  })}
-              </select>
+            <select
+              name="genre"
+              id="genero"
+              onChange={e => this.changeSelect(e)}>
+              <option value="default" selected="" disabled="">
+                GÉNERO
+              </option>
+              <option value="todas">Todas</option>
+              {genre &&
+                genre.map(gen => {
+                  return (
+                    <option
+                      key={gen.url}
+                      value={gen.url}
+                      data-id={gen.genero}
+                      selected=""
+                      disabled="">
+                      {gen.genero}
+                    </option>
+                  )
+                })}
+            </select>
 
-              <select
-                name="theater"
-                id="cine"
-                onChange={e => this.changeSelect(e)}>
-                <option value="default" selected="" disabled="">
-                  CINES
-                </option>
-                {cines &&
-                  cines.map(cine => {
-                    return (
-                      <option
-                        key={cine.cid}
-                        value={cine.url}
-                        selected=""
-                        disabled="">
-                        {cine.nombre}
-                      </option>
-                    )
-                  })}
-              </select>
-            </div>
+            <select
+              name="theater"
+              id="cine"
+              onChange={e => this.changeSelect(e)}>
+              <option value="default" selected="" disabled="">
+                CINES
+              </option>
+              {cines &&
+                cines.map(cine => {
+                  return (
+                    <option
+                      key={cine.cid}
+                      value={cine.url}
+                      data-id={cine.cid}
+                      selected=""
+                      disabled="">
+                      {cine.nombre}
+                    </option>
+                  )
+                })}
+            </select>
             <button type="submit" className={this.classes.button}>
               Buscar
             </button>

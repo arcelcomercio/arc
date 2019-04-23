@@ -17,25 +17,22 @@ class GenreMoviesFilter extends PureComponent {
   }
 
   componentDidMount() {
-    const { data } = this.props
+    const { data, genre } = this.props
     this.billboardFormat.setData = data
+
     this.setState({
-      movies: this.billboardFormat.moviesList,
+      movies: this.billboardFormat.moviesByGender(genre),
       genres: this.billboardFormat.genderList,
     })
   }
 
-  _changeSelect(e) {
-    const from = e.target.id
-    const { value } = e.target
-    if (from === 'genres') {
-      this.billboardFormat.moviesByGender(value)
-    }
+  _changeSelect = e => {
+    window.location = e.target.value
   }
 
   render() {
     const { movies, genres } = this.state
-    const { contextPath, arcSite } = this.props
+    const { contextPath, arcSite, genre } = this.props
     const WEBSITE_PARAM = `?_website=${arcSite}`
 
     return (
@@ -51,20 +48,26 @@ class GenreMoviesFilter extends PureComponent {
                   <li className="movies-grid__nav-item">
                     <a
                       href={`${contextPath}/cartelera${WEBSITE_PARAM}`}
-                      className="movies-grid__nav-link text-uppercase movies-grid__nav-link--active">
+                      className={`movies-grid__nav-link text-uppercase ${
+                        !genre ? 'movies-grid__nav-link--active' : ''
+                      }`}>
                       TODAS
                     </a>
                   </li>
                   {genres.map(
-                    genre =>
-                      genre.genero !== 'Otras' && (
-                        <li key={genre.url} className="movies-grid__nav-item">
+                    singleGenre =>
+                      singleGenre.genero !== 'Otras' && (
+                        <li className="movies-grid__nav-item">
                           <a
                             href={`${contextPath}/cartelera/peliculas/cines/${
-                              genre.url
+                              singleGenre.url
                             }${WEBSITE_PARAM}`}
-                            className="movies-grid__nav-link text-uppercase">
-                            {genre.genero}
+                            className={`movies-grid__nav-link text-uppercase ${
+                              genre === singleGenre.url
+                                ? 'movies-grid__nav-link--active'
+                                : ''
+                            }`}>
+                            {singleGenre.genero}
                           </a>
                         </li>
                       )
@@ -80,14 +83,17 @@ class GenreMoviesFilter extends PureComponent {
                   id="genres"
                   className="movies-grid__select"
                   onChange={e => this._changeSelect(e)}>
-                  <option selected="" value="" disabled="">
+                  <option selected="" value="default" disabled="">
                     FILTRAR POR GÉNERO:
                   </option>
                   {genres.map(
-                    genre =>
-                      genre.genero !== 'Otras' && (
-                        <option key={genre.url} value="/cartelera/terror#listing">
-                          {genre.genero}
+                    singleGenre =>
+                      singleGenre.genero !== 'Otras' && (
+                        <option
+                          value={`${contextPath}/cartelera/peliculas/cines/${
+                            singleGenre.url
+                          }${WEBSITE_PARAM}`}>
+                          {singleGenre.genero}
                         </option>
                       )
                   )}

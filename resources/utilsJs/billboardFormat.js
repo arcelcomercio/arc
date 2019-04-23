@@ -11,21 +11,21 @@ class FormatoCine {
     if (this.data.hasOwnProperty('cartelera')) {
       this.peliculas = this.data.peliculas
       this.cines = this.data.cines
-      const { cartelera } = this.data
+      const {
+        cartelera
+      } = this.data
       cartelera.forEach(post => {
         const cinema = {
           cine: post.cid,
           horario: post.horario,
         }
         const pelicula = post.mid
-        this.pushMovieInCinema(
-          {
+        this.pushMovieInCinema({
             ...cinema,
           },
           pelicula
         )
-        this.pushCinemaInMovie(
-          {
+        this.pushCinemaInMovie({
             ...cinema,
           },
           pelicula
@@ -126,11 +126,11 @@ class FormatoCine {
     return this.cines
   }
 
-  moviesByGender(gender) {
+  moviesByGender(genre) {
     const listadoPeliculas = Object.values(this.peliculas)
-    if (gender) {
+    if (genre) {
       const peliculasPorGenero = listadoPeliculas.filter(pelicula => {
-        return pelicula.genero.genero === gender
+        return pelicula.genero.url === genre
       })
       return peliculasPorGenero
     }
