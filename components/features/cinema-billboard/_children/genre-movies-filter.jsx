@@ -104,7 +104,7 @@ class GenreMoviesFilter extends PureComponent {
           {movies && (
             <ul className="movies-grid__grid">
               {movies.map(movie => (
-                <li className="movies-grid__movie">
+                <li key={movie.mid} className="movies-grid__movie">
                   <a
                     href={`${contextPath}/cartelera/${
                       movie.url

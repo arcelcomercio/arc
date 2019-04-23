@@ -39,6 +39,14 @@ class FormatoCine {
     this._init()
   }
 
+  get getData (){
+    return {
+      cines: this.cinemaList,
+      peliculas: this.moviesList,
+      genre: this.genderList
+    }
+  }
+
   pushCinemaInMovie(cinema, movie) {
     const listadoPeliculas = Object.values(this.peliculas)
     const listadoCines = this.cines
@@ -56,6 +64,7 @@ class FormatoCine {
         }
       }
     })
+
     this.setPeliculasInCinema = listadoPeliculas
   }
 

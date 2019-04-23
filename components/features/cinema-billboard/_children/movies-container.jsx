@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import MoviesSlider from './movies-slider'
 import MoviesFilter from './movies-filter'
+import MovieDetail from './movies-detail'
 
 class MoviesContainer extends PureComponent {
   classes = {
@@ -21,6 +22,7 @@ class MoviesContainer extends PureComponent {
               sin parametros || tienes genero   => movies-slider
               tienes pelicula                   => movie
           ) */}
+          <MovieDetail data={{...data}} {...params} />
         </main>
       </Fragment>
     )

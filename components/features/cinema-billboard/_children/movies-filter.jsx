@@ -20,31 +20,72 @@ class MoviesFilter extends Component {
 
   constructor(...props) {
     super(...props)
-    this.cinema = {}
-    this.cines = []
-    this.peliculas = []
+
+    this.state = {
+      cinema: {},
+      cines: [],
+      peliculas: [],
+      genre: [],
+    }
+
     this.billboardFormat = new BillboardFormat()
   }
 
   componentDidMount() {
     const { data } = this.props
+    console.log(data, 'DATOS')
     this.billboardFormat.setData = data
+    const cinema = this.billboardFormat.getData
     const peliculas = this.billboardFormat.moviesList
     const cines = this.billboardFormat.cinemaList
+    const genre = this.billboardFormat.genderList
     // ... no se, por ahi va la cosa
 
     this.setState({
-      cinema: data,
+      cinema,
       peliculas,
       cines,
+      genre,
     })
   }
 
   changeSelect = e => {
-    return console.log(e, 'hola')
+    const { id } = e.target
+    const idOption = e.target.selectedOptions[0].dataset.id
+    if (id === 'pelicula') {
+      this.newCinema(idOption)
+    }
+    if (id === 'genero') {
+      this.movieGenre(idOption)
+    }
+    if (id === 'cine') {
+      this.newMovie(idOption)
+    }
+  }
+
+  newCinema(id) {
+    const { peliculas } = this.state
+    const peli = peliculas.filter(pelicula => pelicula.mid === id)
+    const nuevosCines = peli[0].cines.filter((dato, index, arr) => {
+      return arr.map(mapObj => mapObj.cid).indexOf(dato.cid) === index
+    })
+    this.setState({ cines: nuevosCines })
+  }
+
+  movieGenre(id) {
+    const newMovies = this.billboardFormat.moviesByGender(id)
+    this.setState({ peliculas: newMovies })
+  }
+
+  newMovie(id){
+    const { cines } = this.state
+    const movie = cines.filter(cine => cine.cid === id)
+    const newMovies = movie[0].peliculas
+    this.setState({ peliculas: newMovies })
   }
 
   render() {
+    const { peliculas, cines, genre } = this.state
     return (
       <div className={this.classes.container}>
         <div className={this.classes.titleBox}>
@@ -67,6 +108,19 @@ class MoviesFilter extends Component {
               <option value="default" selected="" disabled="">
                 PELÍCULAS
               </option>
+              {peliculas &&
+                peliculas.map(pelicula => {
+                  return (
+                    <option
+                      key={pelicula.mid}
+                      value={pelicula.url}
+                      data-id={pelicula.mid}
+                      selected=""
+                      disabled="">
+                      {pelicula.title}
+                    </option>
+                  )
+                })}
             </select>
 
             <select
@@ -77,6 +131,19 @@ class MoviesFilter extends Component {
                 GÉNERO
               </option>
               <option value="todas">Todas</option>
+              {genre &&
+                genre.map(gen => {
+                  return (
+                    <option
+                      key={gen.url}
+                      value={gen.url}
+                      data-id={gen.genero}
+                      selected=""
+                      disabled="">
+                      {gen.genero}
+                    </option>
+                  )
+                })}
             </select>
 
             <select
@@ -86,6 +153,19 @@ class MoviesFilter extends Component {
               <option value="default" selected="" disabled="">
                 CINES
               </option>
+              {cines &&
+                cines.map(cine => {
+                  return (
+                    <option
+                      key={cine.cid}
+                      value={cine.url}
+                      data-id={cine.cid}
+                      selected=""
+                      disabled="">
+                      {cine.nombre}
+                    </option>
+                  )
+                })}
             </select>
             <button type="submit" className={this.classes.button}>
               Buscar
