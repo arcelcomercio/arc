@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
 
-// nuevo
 @Consumer
-class MoviesFilter extends Component {
+class MoviesFilter extends PureComponent {
   classes = {
     container: 'movies-filter full-width',
     titleBox: 'movies-filter__title-box flex flex--justify-between',
@@ -18,74 +17,105 @@ class MoviesFilter extends Component {
     button: 'movies-filter__button movies-filter--font-config text-uppercase',
   }
 
-  constructor(...props) {
-    super(...props)
+  constructor(props) {
+    super(props)
 
     this.state = {
-      cinema: {},
-      cines: [],
-      peliculas: [],
-      genre: [],
+      cinemas: [],
+      movies: [],
+      genres: [],
     }
 
     this.billboardFormat = new BillboardFormat()
+
+    const { contextPath, arcSite } = props
+    this.WEBSITE_PARAM = `?_website=${arcSite}`
+    this.URI_BASE = `${contextPath}/cartelera`
+
+    this.movieSelect = React.createRef()
+    this.genreSelect = React.createRef()
+    this.cinemaSelect = React.createRef()
   }
 
   componentDidMount() {
     const { data } = this.props
-    console.log(data, 'DATOS')
     this.billboardFormat.setData = data
-    const cinema = this.billboardFormat.getData
-    const peliculas = this.billboardFormat.moviesList
-    const cines = this.billboardFormat.cinemaList
-    const genre = this.billboardFormat.genderList
-    // ... no se, por ahi va la cosa
+    const movies = this.billboardFormat.moviesList
+    const cinemas = this.billboardFormat.cinemaList
+    const genres = this.billboardFormat.genderList
 
     this.setState({
-      cinema,
-      peliculas,
-      cines,
-      genre,
+      movies,
+      cinemas,
+      genres,
     })
   }
 
-  changeSelect = e => {
-    const { id } = e.target
-    const idOption = e.target.selectedOptions[0].dataset.id
-    if (id === 'pelicula') {
-      this.newCinema(idOption)
+  _handleSelectChange = e => {
+    const { id: selectId } = e.target
+    const optionId = e.target.selectedOptions[0].dataset.id
+
+    if (selectId === 'movie') {
+      this.filterCinemasByMovie(optionId)
     }
-    if (id === 'genero') {
-      this.movieGenre(idOption)
+    if (selectId === 'genre') {
+      this.filterMoviesByGenre(optionId)
     }
-    if (id === 'cine') {
-      this.newMovie(idOption)
+    if (selectId === 'cinema') {
+      this.filterMoviesByCinema(optionId)
     }
   }
 
-  newCinema(id) {
-    const { peliculas } = this.state
-    const peli = peliculas.filter(pelicula => pelicula.mid === id)
-    const nuevosCines = peli[0].cines.filter((dato, index, arr) => {
-      return arr.map(mapObj => mapObj.cid).indexOf(dato.cid) === index
+  _handleSubmit = e => {
+    e.preventDefault()
+    const movieSlug = this.movieSelect.current.value
+    const genreSlug = this.genreSelect.current.value
+    const cinemaSlug = this.cinemaSelect.current.value
+
+    let searchUri
+
+    if (movieSlug === 'peliculas' && genreSlug === '' && cinemaSlug === 'cines')
+      searchUri = this.URI_BASE + this.WEBSITE_PARAM
+    else if (
+      genreSlug !== '' &&
+      movieSlug === 'peliculas' &&
+      cinemaSlug === 'cines'
+    )
+      searchUri = `${this.URI_BASE}/${movieSlug}/${cinemaSlug}/${genreSlug}${
+        this.WEBSITE_PARAM
+      }`
+    else
+      searchUri = `${this.URI_BASE}/${movieSlug}/${cinemaSlug}${
+        this.WEBSITE_PARAM
+      }`
+
+    window.location.href = searchUri
+  }
+
+  filterCinemasByMovie(id) {
+    const { peliculas: movies = [] } = this.billboardFormat.getData
+    const filteredMovies = movies.filter(movie => movie.mid === id)
+    const cinemas = filteredMovies[0].cines.filter((data, index, arr) => {
+      return arr.map(mapObj => mapObj.cid).indexOf(data.cid) === index
     })
-    this.setState({ cines: nuevosCines })
+    this.setState({ cinemas })
   }
 
-  movieGenre(id) {
-    const newMovies = this.billboardFormat.moviesByGender(id)
-    this.setState({ peliculas: newMovies })
+  filterMoviesByGenre(id) {
+    const movies = this.billboardFormat.moviesByGender(id)
+    this.setState({ movies })
   }
 
-  newMovie(id){
-    const { cines } = this.state
-    const movie = cines.filter(cine => cine.cid === id)
-    const newMovies = movie[0].peliculas
-    this.setState({ peliculas: newMovies })
+  filterMoviesByCinema(id) {
+    const { cines: cinemas = [] } = this.billboardFormat.getData
+    const filteredCinemas = cinemas.filter(cinema => cinema.cid === id)
+    const movies = filteredCinemas[0].peliculas
+    this.setState({ movies })
   }
 
   render() {
-    const { peliculas, cines, genre } = this.state
+    const { movies, cinemas, genres } = this.state
+
     return (
       <div className={this.classes.container}>
         <div className={this.classes.titleBox}>
@@ -97,27 +127,25 @@ class MoviesFilter extends Component {
         </div>
         <div className={this.classes.filter}>
           <h4 className={this.classes.label}>Vamos al cine</h4>
-          <form
-            action="/cartelera/search"
-            method="post"
-            className={this.classes.form}>
+          <form action="/" className={this.classes.form}>
             <select
               name="movie"
-              id="pelicula"
-              onChange={e => this.changeSelect(e)}>
-              <option value="default" selected="" disabled="">
+              id="movie"
+              ref={this.movieSelect}
+              onChange={e => this._handleSelectChange(e)}>
+              <option value="peliculas" selected="" disabled="">
                 PELÍCULAS
               </option>
-              {peliculas &&
-                peliculas.map(pelicula => {
+              {movies &&
+                movies.map(movie => {
                   return (
                     <option
-                      key={pelicula.mid}
-                      value={pelicula.url}
-                      data-id={pelicula.mid}
+                      key={`movie-${movie.mid}`}
+                      value={movie.url}
+                      data-id={movie.mid}
                       selected=""
                       disabled="">
-                      {pelicula.title}
+                      {movie.title}
                     </option>
                   )
                 })}
@@ -125,49 +153,54 @@ class MoviesFilter extends Component {
 
             <select
               name="genre"
-              id="genero"
-              onChange={e => this.changeSelect(e)}>
-              <option value="default" selected="" disabled="">
+              id="genre"
+              ref={this.genreSelect}
+              onChange={e => this._handleSelectChange(e)}>
+              <option value="" selected="" disabled="">
                 GÉNERO
               </option>
-              <option value="todas">Todas</option>
-              {genre &&
-                genre.map(gen => {
-                  return (
-                    <option
-                      key={gen.url}
-                      value={gen.url}
-                      data-id={gen.genero}
-                      selected=""
-                      disabled="">
-                      {gen.genero}
-                    </option>
-                  )
-                })}
+              {genres &&
+                genres.map(
+                  genre =>
+                    genre.genero !== 'Otras' && (
+                      <option
+                        key={`genre-${genre.url}`}
+                        value={genre.url}
+                        data-id={genre.url}
+                        selected=""
+                        disabled="">
+                        {genre.genero}
+                      </option>
+                    )
+                )}
             </select>
 
             <select
-              name="theater"
-              id="cine"
-              onChange={e => this.changeSelect(e)}>
-              <option value="default" selected="" disabled="">
+              name="cinema"
+              id="cinema"
+              ref={this.cinemaSelect}
+              onChange={e => this._handleSelectChange(e)}>
+              <option value="cines" selected="" disabled="">
                 CINES
               </option>
-              {cines &&
-                cines.map(cine => {
+              {cinemas &&
+                cinemas.map(cinema => {
                   return (
                     <option
-                      key={cine.cid}
-                      value={cine.url}
-                      data-id={cine.cid}
+                      key={`cinema-${cinema.cid}`}
+                      value={cinema.url}
+                      data-id={cinema.cid}
                       selected=""
                       disabled="">
-                      {cine.nombre}
+                      {cinema.nombre}
                     </option>
                   )
                 })}
             </select>
-            <button type="submit" className={this.classes.button}>
+            <button
+              type="submit"
+              className={this.classes.button}
+              onClick={e => this._handleSubmit(e)}>
               Buscar
             </button>
           </form>

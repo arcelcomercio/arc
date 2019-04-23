@@ -7,8 +7,7 @@ class FormatoCine {
   }
 
   _init() {
-    // eslint-disable-next-line no-prototype-builtins
-    if (this.data.hasOwnProperty('cartelera')) {
+    if (Object.prototype.hasOwnProperty.call(this.data, "cartelera")) {
       this.peliculas = this.data.peliculas
       this.cines = this.data.cines
       const {
@@ -39,7 +38,7 @@ class FormatoCine {
     this._init()
   }
 
-  get getData (){
+  get getData() {
     return {
       cines: this.cinemaList,
       peliculas: this.moviesList,
