@@ -1,0 +1,25 @@
+.movie-list{
+	width: 95%;
+	max-width: 950px;
+	margin: 0 auto;
+	&__top{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 10px 0;
+	}
+	&__cinema{
+		font-family: $main-font;
+		margin-bottom: 7px;
+		font-size: 14px;
+	}
+	&__address{
+		font-size: 13px;
+		font-weight: normal;
+	}
+	&__box{
+		border: solid 1px #d5e1e1;
+		padding: 20px;
+	}
+}

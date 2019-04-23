@@ -58,7 +58,7 @@ class GenreMoviesFilter extends PureComponent {
                   {genres.map(
                     genre =>
                       genre.genero !== 'Otras' && (
-                        <li className="movies-grid__nav-item">
+                        <li key={genre.url} className="movies-grid__nav-item">
                           <a
                             href={`${contextPath}/cartelera/peliculas/cines/${
                               genre.url
@@ -86,7 +86,7 @@ class GenreMoviesFilter extends PureComponent {
                   {genres.map(
                     genre =>
                       genre.genero !== 'Otras' && (
-                        <option value="/cartelera/terror#listing">
+                        <option key={genre.url} value="/cartelera/terror#listing">
                           {genre.genero}
                         </option>
                       )
@@ -98,7 +98,7 @@ class GenreMoviesFilter extends PureComponent {
           {movies && (
             <ul className="movies-grid__grid">
               {movies.map(movie => (
-                <li className="movies-grid__movie">
+                <li key={movie.mid} className="movies-grid__movie">
                   <a
                     href={`${contextPath}/cartelera/${
                       movie.url

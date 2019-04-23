@@ -21,6 +21,7 @@ class MoviesContainer extends PureComponent {
               sin parametros || tienes genero   => movies-slider
               tienes pelicula                   => movie
           ) */}
+          <MovieDetail />
         </main>
       </Fragment>
     )

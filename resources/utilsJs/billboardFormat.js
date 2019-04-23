@@ -34,9 +34,17 @@ class FormatoCine {
     }
   }
 
-  set addData(data) {
+  set setData(data) {
     this.data = data
     this._init()
+  }
+
+  get getData (){
+    return {
+      cines: this.cinemaList,
+      peliculas: this.moviesList,
+      genre: this.genderList
+    }
   }
 
   pushCinemaInMovie(cinema, movie) {
@@ -56,6 +64,7 @@ class FormatoCine {
         }
       }
     })
+
     this.setPeliculasInCinema = listadoPeliculas
   }
 

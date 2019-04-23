@@ -1,7 +1,9 @@
 import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
+
 import MoviesContainer from './_children/movies-container'
 import GenreMoviesFilter from './_children/genre-movies-filter'
+import MoviesList from './_children/movies-list'
 
 @Consumer
 class CinemaBillboard extends PureComponent {
@@ -20,7 +22,6 @@ class CinemaBillboard extends PureComponent {
       cinema,
       genre,
     }
-
     return (
       <Fragment>
         {/* if(
@@ -31,6 +32,10 @@ class CinemaBillboard extends PureComponent {
           ) */}
         <MoviesContainer data={{ ...data }} params={{ ...params }} />
         <GenreMoviesFilter data={{ ...data }} genre={genre} />
+
+        <MoviesList />
+
+
       </Fragment>
     )
   }
