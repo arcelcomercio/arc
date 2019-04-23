@@ -2,6 +2,14 @@
     background-color: $color-gray;
     margin-top: $spacing-normal;
 
+    @media (--tablet) {
+        margin-top: 0;
+    }
+
+    @media (--desktop) {
+        margin-top: $spacing-normal;
+    }
+
     &__main-title {
         margin-left: $spacing-normal;
         font-size: 18px;

@@ -14,8 +14,7 @@ class MoviesFilter extends Component {
     twitter: 'icon icon--twitter',
     filter: 'movies-filter__filter-box flex flex--justify-between',
     label: 'movies-filter__label movies-filter--font-config text-uppercase',
-    form: 'movies-filter__form flex ',
-    options: 'movies-filter__options movies-filter--font-config flex',
+    form: 'movies-filter__form movies-filter--font-config flex',
     button: 'movies-filter__button movies-filter--font-config text-uppercase',
   }
 
@@ -61,35 +60,33 @@ class MoviesFilter extends Component {
             action="/cartelera/search"
             method="post"
             className={this.classes.form}>
-            <div className={this.classes.options}>
-              <select
-                name="movie"
-                id="pelicula"
-                onChange={e => this.changeSelect(e)}>
-                <option value="default" selected="" disabled="">
-                  PELÍCULAS
-                </option>
-              </select>
+            <select
+              name="movie"
+              id="pelicula"
+              onChange={e => this.changeSelect(e)}>
+              <option value="default" selected="" disabled="">
+                PELÍCULAS
+              </option>
+            </select>
 
-              <select
-                name="genre"
-                id="genero"
-                onChange={e => this.changeSelect(e)}>
-                <option value="default" selected="" disabled="">
-                  GÉNERO
-                </option>
-                <option value="todas">Todas</option>
-              </select>
+            <select
+              name="genre"
+              id="genero"
+              onChange={e => this.changeSelect(e)}>
+              <option value="default" selected="" disabled="">
+                GÉNERO
+              </option>
+              <option value="todas">Todas</option>
+            </select>
 
-              <select
-                name="theater"
-                id="cine"
-                onChange={e => this.changeSelect(e)}>
-                <option value="default" selected="" disabled="">
-                  CINES
-                </option>
-              </select>
-            </div>
+            <select
+              name="theater"
+              id="cine"
+              onChange={e => this.changeSelect(e)}>
+              <option value="default" selected="" disabled="">
+                CINES
+              </option>
+            </select>
             <button type="submit" className={this.classes.button}>
               Buscar
             </button>
