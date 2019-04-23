@@ -24,7 +24,7 @@ export default ({
     items,
   } = {},
 }) => {
-  debugger
+  
   let numline = ''
     switch (arcSite) {
       case 'elcomercio':

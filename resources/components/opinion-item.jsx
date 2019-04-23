@@ -11,7 +11,7 @@ const classes = {
 
 const OpinionItem = props => {
   const {
-    numLineTitle,
+    arcSite,
     data: {
       author,
       authorUrl,
@@ -23,19 +23,18 @@ const OpinionItem = props => {
     } = {},
   } = props
 
-  let numlune = ''
-  switch (numLineTitle) {
-    case 2:
-      numlune = classes.opiniontwoline
-      break
-    case 3:
-      numlune = classes.opinionthreeline
-      break
-    default:
-      numlune = classes.opiniononeline
-      break
-  }
-
+  let numline = ''
+    switch (arcSite) {
+      case 'elcomercio':
+        numline = classes.opinionthreeline
+        break
+      case 'depor':
+        numline = classes.opiniontwoline
+        break
+      default:
+        numline = classes.opiniontwoline
+        break
+    }
   return (
     <article className={classes.opinionItem}>
       <div className={classes.opinionItemDetails}>
@@ -45,7 +44,7 @@ const OpinionItem = props => {
         <h5>
           <a href={authorUrl}>{author}</a>
         </h5>
-        <p className={numlune}>
+        <p className={numline}>
           <a href={websiteUrl}>{titulo}</a>
         </p>
       </div>
