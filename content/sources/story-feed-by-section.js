@@ -34,9 +34,6 @@ const pattern = (key = {}) => {
   auxKey = key
 
   const website = key['arc-site'] || 'Arc Site no está definido'
-  console.log('----------------------------------------------------')
-  console.log(website)
-  console.log('----------------------------------------------------')
   const {
     section,
     excludeSections,
@@ -115,12 +112,8 @@ const pattern = (key = {}) => {
 
   const encodedBody = encodeURI(JSON.stringify(body))
 
-  const ada = `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${newsNumber ||
+  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${newsNumber ||
     10}&from=${feedOffset || 0}&sort=publish_date:desc`
-    console.log('----------------------------------------------------')
-    console.log(ada)
-    console.log('----------------------------------------------------')
-  return ada
 }
 
 const resolve = key => pattern(key)
