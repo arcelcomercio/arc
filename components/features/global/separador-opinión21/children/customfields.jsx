@@ -15,6 +15,17 @@ export const customFields = PropTypes.shape({
     description:
       'Este campo puede ser editado manualmente, no es necesario ingresarlo',
   }),
+  numLineTitle: PropTypes.oneOf([1, 2,3]).tag(
+    {
+      name: 'Numero de lineas para el título: ',
+      labels: {
+        1: 'Una linea',
+        2: 'Dos lineas',
+        3: 'Tres lineas',
+      },
+      defaultValue: 1,
+    }
+  ),
   htmlCode: PropTypes.richtext.tag({
     name: 'Código HTML',
   }),

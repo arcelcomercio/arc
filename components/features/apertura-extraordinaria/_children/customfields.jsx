@@ -9,6 +9,18 @@ const customFields = {
     name: 'Título',
     description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
+  numLineTitle: PropTypes.oneOf([1, 2,3]).tag(
+    {
+      name: 'Numero de lineas para el título: ',
+      description:'Numero de lineas que mostrara el título',
+      labels: {
+        1: 'Una linea',
+        2: 'Dos lineas',
+        3: 'Tres lineas',
+      },
+      defaultValue: 1,
+    }
+  ),
   subTitle: PropTypes.string.tag({
     name: 'Bajada',
     description: 'Dejar vacío para tomar el valor original de la historia.',

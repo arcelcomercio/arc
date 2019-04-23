@@ -49,7 +49,23 @@
     grid-area: triplete__title;
     //font-size: 1em;
     font-weight: bold;
+    display: -webkit-box;
     overflow: hidden;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+  }
+  &--oneline{
+    max-height: 15px;
+    -webkit-line-clamp: 1;
+  }
+  &--twoline{
+    max-height: 30px;
+    -webkit-line-clamp: 2;
+  }
+  &--threeline{
+    max-height: 45px;
+    -webkit-line-clamp: 3;
   }
 
   &__multimedia {

@@ -117,7 +117,7 @@ export default ({
       <meta name="msapplication-TileColor" content={colorPrimary} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
       <meta name="application-name" content={siteName} />
-      <script dangerouslySetInnerHTML={{ __html: googleTagManagerScript }} />
+      <script dangerouslySetInnerHTML={{ __html: 'googleTagManagerScript' }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}

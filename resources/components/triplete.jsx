@@ -2,20 +2,37 @@ import React from 'react'
 import { getIcon } from '../utilsJs/helpers'
 
 export const Triplete = props => {
-  const { data, multimediaOrientation = 'right'} = props
+  const { data, multimediaOrientation = 'right', numLineTitle } = props
   const classes = {
     triplete: 'triplete',
     tripleteItem: `triplete__item triplete__item--${multimediaOrientation}`,
     tripleteTitle: 'triplete__title',
+    oneline: 'triplete--oneline',
+    twoline: 'triplete--twoline',
+    threeline: 'triplete--threeline',
     tripleteAuthor: 'triplete__author',
     tripleteMultimedia: 'triplete__multimedia',
-    tripleteIcon: 'triplete__icon'
+    tripleteIcon: 'triplete__icon',
+  }
+
+  let numline = ''
+
+  switch (numLineTitle) {
+    case 2:
+      numline = classes.twoline
+      break
+    case 3:
+      numline = classes.threeline
+      break
+    default:
+      numline = classes.oneline
+      break
   }
   return (
     <div className={classes.triplete}>
       {data.map(elem => (
         <article className={classes.tripleteItem}>
-          <div className={classes.tripleteTitle}>
+          <div className={`${classes.tripleteTitle} ${numline}`}>
             <h2>
               <a href={elem.link}>{elem.title}</a>
             </h2>
@@ -23,8 +40,7 @@ export const Triplete = props => {
           <figure className={classes.tripleteMultimedia}>
             <a href={elem.link}>
               <img src={elem.multimedia} alt={elem.title} />
-              {elem.multimediaType === 'basic' ||
-                elem.multimediaType === '' ? (
+              {elem.multimediaType === 'basic' || elem.multimediaType === '' ? (
                 ''
               ) : (
                 <span className={classes.tripleteIcon}>

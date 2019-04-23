@@ -1,5 +1,4 @@
 .icon {
-
     width: 16px;
     height: 16px;
     background-size: cover;
@@ -18,6 +17,20 @@
 
     &--fire {
         background-image: url('../images/icon-fire.svg');
+    }
+
+    &--facebook {
+        display: block;
+        width: 32px;
+        height: 32px;
+        background-image: url('http://www.sccpre.cat/png/big/101/1016178_facebook-logo-icon-png.jpg');
+    }
+
+    &--twitter {
+        display: block;
+        width: 32px;
+        height: 32px;
+        background-image: url('http://www.stickpng.com/assets/images/58e9196deb97430e819064f6.png');
     }
 
     &--margin-right {

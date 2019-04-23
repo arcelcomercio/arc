@@ -46,7 +46,7 @@ class DestaqueAutomatico extends Component {
   render() {
     const { category, title, author, image, multimediaType } = this.state
     const { customFields, editableField } = this.props
-    const { imageSize, size, titleField, categoryField } = customFields || {}
+    const { imageSize, size, titleField, categoryField, numLineTitle } = customFields || {}
     const params = {
       title,
       category,
@@ -57,6 +57,7 @@ class DestaqueAutomatico extends Component {
       editableField,
       titleField,
       categoryField,
+      numLineTitle,
       multimediaType,
     }
     return <Destaque {...params} />
@@ -104,6 +105,17 @@ DestaqueAutomatico.propTypes = {
       group: 'Editar campos',
       description: 'Dejar vacío para tomar el valor original de la noticia.',
     }),
+    numLineTitle: PropTypes.oneOf([1, 2,3]).tag(
+      {
+        name: 'Numero de lineas para el título: ',
+        labels: {
+          1: 'Una linea',
+          2: 'Dos lineas',
+          3: 'Tres lineas',
+        },
+        defaultValue: 1,
+      }
+    ),
     imgField: PropTypes.string.tag({
       name: 'Imagen',
       group: 'Editar campos',

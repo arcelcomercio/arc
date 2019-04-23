@@ -33,6 +33,15 @@ const customFields = PropTypes.shape({
     name: 'Título 3',
     description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
+  numLineTitle: PropTypes.oneOf([1, 2, 3]).tag({
+    name: 'Numero de lineas para el título de las noticias: ',
+    labels: {
+      1: 'Una linea',
+      2: 'Dos lineas',
+      3: 'Tres lineas',
+    },
+    defaultValue: 1,
+  }),
   settings: PropTypes.label.tag({
     name: 'Configuraciones',
   }),
