@@ -57,7 +57,9 @@ class GenreMoviesFilter extends PureComponent {
                   {genres.map(
                     singleGenre =>
                       singleGenre.genero !== 'Otras' && (
-                        <li className="movies-grid__nav-item">
+                        <li
+                          key={singleGenre.url}
+                          className="movies-grid__nav-item">
                           <a
                             href={`${contextPath}/cartelera/peliculas/cines/${
                               singleGenre.url
@@ -90,6 +92,7 @@ class GenreMoviesFilter extends PureComponent {
                     singleGenre =>
                       singleGenre.genero !== 'Otras' && (
                         <option
+                          key={singleGenre.url}
                           value={`${contextPath}/cartelera/peliculas/cines/${
                             singleGenre.url
                           }${WEBSITE_PARAM}`}>

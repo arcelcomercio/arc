@@ -1,5 +1,7 @@
 .movie-detail{
 	padding: 0 20px;
+	display: flex;
+	flex-direction: column;
 	&__box-img{
 		position: relative;
 		width: 100%;
@@ -36,14 +38,12 @@
 	&__detail{
 		width: 100%;
 		max-width: 800px;
-		margin: 0 auto;
+		margin: 40px auto;
 		display: flex;
-		margin-top: 20px;
 		border: solid 1px #fff;
 		border-top: 0;
 		padding: 20px;
 		padding-top: 0;
-		margin-bottom: 20px;
 
 	}
 	&__left{
@@ -54,11 +54,81 @@
 			flex-flow: 0;
 		}
 	}
+	&__right{
+		padding: 20px;
+	}
 	&__title{
 		font-size: 22px;
 		color: #fff;
+		margin-bottom: 20px;
 		@media (--tablet){
-			font-size: 26px;
+			font-size: 28px;
+			margin-bottom: 30px;
 		}
+	}
+	&__where{
+		color: #fff;
+		font-size: 13px;
+		text-transform: uppercase;
+		margin-bottom: 15px;
+	}
+	&__hours{
+		height: 200px;
+		max-height: 250px;
+		overflow-y: auto;
+		padding-right: 30px;
+		border-right: solid 1px #fff;
+	}
+	&__item{
+		margin-bottom: 20px;
+	}
+	&__cinema{
+		display: block;
+		color: #fff;
+		font-size: 13px;
+		margin-bottom: 3px;
+		font-weight: 600;
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+	&__text{
+		color: rgba(255,255,255, .8);
+		font-size: 12px;
+		font-weight: 300;
+		margin-bottom: 2px;
+	}
+	&__name{
+		font-weight: 600;
+		font-size: 13px;
+		color: #fff;
+		margin-bottom: 15px;
+		line-height: 1.4;
+		&--sinopsis{
+			margin-bottom: 30px;
+		}
+	}
+	&__value{
+		font-weight: normal;
+		color: rgba(255,255,255, .8);
+	}
+	&__more{
+		padding: 15px 30px;
+		max-width: 160px;
+		margin: 0 auto;
+		border: solid 1px rgba(255,255,255, .7);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 20px;
+		transition: all .15s ease;
+		&:hover{
+			background-color: rgba(255,255,255, .2);
+			transition: all .15s ease;
+		}
+	}
+	&__btn{
+		color: #fff;
+		font-size: 14px;
 	}
 }

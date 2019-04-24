@@ -15,7 +15,11 @@ class CinemaBillboard extends PureComponent {
   render() {
     const { globalContentConfig, globalContent: data } = this.props
     const {
-      query: { movie = 'peliculas', cinema = 'cines', genre = '' } = {},
+      query: {
+        movie = 'peliculas',
+        cinema = 'cines',
+        genre = '',
+      } = {},
     } = globalContentConfig || {}
     const params = {
       movie,
@@ -24,17 +28,24 @@ class CinemaBillboard extends PureComponent {
     }
     return (
       <Fragment>
-        {/* if(
-                sin parametros || tienes genero     => movies-container + genre-movies-filter
-                tienes pelicula                     => movies-container + available-cinemas
-                tiene solo cine                     => cinema-movies-list
 
-          ) */}
-        <MoviesContainer data={{ ...data }} params={{ ...params }} />
-        <GenreMoviesFilter data={{ ...data }} genre={genre} />
+        { /* Si no hay pelicula ni cine */ }
+        {movie === 'peliculas' && cinema === 'cines' && 
+          <Fragment>
+            <MoviesContainer type="slider" data={{ ...data }} params={{ ...params }} />
+            <GenreMoviesFilter data={{ ...data }} genre={genre} />
+          </Fragment>
+        }
 
-        <MoviesList />
+        { /* Si Hay pelicula y el cine es opcional */}
+        {movie !== 'peliculas'  &&
+            <MoviesContainer type="banner" data={{ ...data }} params={{ ...params }} />
+        }
 
+        { /* Si solo hay cine */ }
+        {movie === 'peliculas' && cinema !== 'cines' &&
+          <MoviesList data={{ ...data }} params={{...params}} />
+        }
 
       </Fragment>
     )

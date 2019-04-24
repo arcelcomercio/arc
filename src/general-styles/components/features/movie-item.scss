@@ -7,6 +7,7 @@
 	}
 	@media(--tablet){
 		flex-direction: row;
+		padding-bottom: 40px;
 	}
 	&__left{
 		flex-basis: 100%;
@@ -64,5 +65,7 @@
 	&__text-desc{
 		font-weight: normal;
 		color: #646464;
+		display: inline;
+		margin-left: 5px;
 	}
 }

@@ -56,6 +56,7 @@ class FormatoCine {
         const nuevoCine = listadoCines.find(cine => {
           return cine.cid === cinema.cine
         })
+        Object.assign(nuevoCine, { horario:  cinema.horario })
         if (itemPelicula.cines) {
           itemPelicula.cines.push(nuevoCine)
         } else {

@@ -10,19 +10,16 @@ class MoviesContainer extends PureComponent {
   }
 
   render() {
-    const { data, params } = this.props // params = movie, cinema, genre
-
+    const { data, params, type } = this.props // params = movie, cinema, genre
     return (
       <Fragment>
         <h2 className={this.classes.mainTitle}>Cartelera</h2>
         <main className={this.classes.container}>
           <MoviesFilter data={{ ...data }} {...params} />
-          <MoviesSlider data={{ ...data }} />
-          {/* if(
-              sin parametros || tienes genero   => movies-slider
-              tienes pelicula                   => movie
-          ) */}
-          <MovieDetail data={{...data}} {...params} />
+
+          { type === 'slider' && <MoviesSlider data={{ ...data }} /> }
+          { type === 'banner' && <MovieDetail data={{ ...data }} {...params} /> }
+          
         </main>
       </Fragment>
     )
