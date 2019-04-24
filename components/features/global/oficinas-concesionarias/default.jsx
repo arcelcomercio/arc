@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react'
 import Data from './_children/datos.json'
+import { promised } from 'q'
 
 class OficinasConcesionarias extends Component {
   constructor(props) {
@@ -89,24 +90,13 @@ class OficinasConcesionarias extends Component {
     ))
   }
 
-  createMarkers = () => {
-    const { mapa, districtDataOf } = this.state
-    console.log(districtDataOf)
-
-    const res = districtDataOf.oficinas.forEach(alias => {
-      return alias.nomOficina
-      //   const marker = new google.maps.Marker({
-      //     mapa,
-      //     position: { lat: -11.921145144034034, lng: -77.0422911643982 },
-      //   })
-      //   marker.setMap(mapa)
+  marker = (lat, lng) => {
+    const { mapa } = this.state
+    const marker = new google.maps.Marker({
+      mapa,
+      position: { lat, lng },
     })
-    console.log(res)
-    // const marker = new google.maps.Marker({
-    //   mapa,
-    //   position: { lat: -11.921145144034034, lng: -77.0422911643982 },
-    // })
-    // marker.setMap(mapa)
+    marker.setMap(mapa)
   }
 
   changeMarkers = e => {
@@ -114,21 +104,21 @@ class OficinasConcesionarias extends Component {
     const { allinfo, zoneValue } = this.state
 
     const aDistritos = allinfo[`${zoneValue}`].zonaDistritos
-    console.log(aDistritos)
     const dataDistrito = aDistritos.find(distrito => {
       return distrito.nomDistrito === district
     })
 
-    const aOficinas = dataDistrito.oficinas // array oficinas de un distrito
-
-    //    console.log(`distritos: ${res.oficinas[0].nomOficina}`)
+    dataDistrito.oficinas.forEach(datos => {
+      const {
+        center: { lat, lng },
+      } = datos
+      this.marker(lat, lng)
+    })
 
     this.setState({
       districtValue: district,
-      districtDataOf: aOficinas,
+      //districtDataOf: dataDistrito.oficinas,
     })
-
-    this.createMarkers()
   }
 
   iniciarMapa = () => {
@@ -174,7 +164,7 @@ class OficinasConcesionarias extends Component {
             </div>
           </div>
         </div>
-
+        <h5>{districtValue}</h5>
         <div
           id="map1"
           style={{ width: '400px', height: '400px', backgroundColor: 'green' }}
