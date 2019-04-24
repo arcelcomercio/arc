@@ -1,11 +1,12 @@
 import React from 'react'
 
-const clasess = {
+const classes = {
   opinion: 'opiniontrome',
   head: 'opiniontrome__head',
   title: 'opiniontrome__title',
   oneline: 'opiniontrome__oneline',
   twoline: 'opiniontrome__twoline',
+  threeline: 'opiniontrome__threeline',
   body: 'opiniontrome__body',
   item: 'opiniontrome__item',
   seccion: 'opiniontrome__seccion',
@@ -15,43 +16,53 @@ const clasess = {
   orange: 'text_orange',
 }
 
-const OpinionItem = ({ titulo, urlImg, urlNew, sectionName, urlSection, numberLine }) => {
+const OpinionItem = ({
+  titulo,
+  urlImg,
+  urlNew,
+  sectionName,
+  urlSection,
+  numberLine,
+}) => {
   return (
-    <div className={clasess.item}>
-      <div className={clasess.seccion}>
-        <h3 className={clasess.nombreSeccion}>
+    <div className={classes.item}>
+      <div className={classes.seccion}>
+        <h3 className={classes.nombreSeccion}>
           <a href={urlSection}>{sectionName}</a>
         </h3>
-        <div className={`${clasess.titleNew} ${numberLine}`}>
+        <div className={`${classes.titleNew} ${numberLine}`}>
           <h2>
             <a href={urlNew}>{titulo}</a>
           </h2>
         </div>
       </div>
-      <div className={clasess.icono}>
+      <div className={classes.icono}>
         <img data-type="src" src={urlImg} data-src={urlImg} alt="" />
       </div>
     </div>
   )
 }
 
-const OpinionComponent = ({ titleOpinion, dataList, numLineTitle }) => {
+const OpinionComponent = ({ titleOpinion, dataList, arcSite }) => {
   let numberLine = ''
-  switch (numLineTitle) {
-    case 2:
-      numberLine = clasess.twoline
+  switch (arcSite) {
+    case 'elcomercio':
+      numberLine = classes.twoline
+      break
+    case 'depor':
+      numberLine = classes.threeline
       break
     default:
-      numberLine = clasess.oneline
+      numberLine = classes.twoline
       break
   }
 
   return (
-    <div className={clasess.opinion}>
-      <div className={clasess.head}>
-        <h3 className={clasess.title}>{titleOpinion}</h3>
+    <div className={classes.opinion}>
+      <div className={classes.head}>
+        <h3 className={classes.title}>{titleOpinion}</h3>
       </div>
-      <div className={clasess.body}>
+      <div className={classes.body}>
         {dataList.map(data =>
           data ? (
             <OpinionItem

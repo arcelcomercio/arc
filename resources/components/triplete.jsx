@@ -2,7 +2,7 @@ import React from 'react'
 import { getIcon } from '../utilsJs/helpers'
 
 export const Triplete = props => {
-  const { data, multimediaOrientation = 'right', numLineTitle } = props
+  const { data, multimediaOrientation = 'right', arcSite } = props
   const classes = {
     triplete: 'triplete',
     tripleteItem: `triplete__item triplete__item--${multimediaOrientation}`,
@@ -17,15 +17,15 @@ export const Triplete = props => {
 
   let numline = ''
 
-  switch (numLineTitle) {
-    case 2:
-      numline = classes.twoline
-      break
-    case 3:
+  switch (arcSite) {
+    case 'elcomercio':
       numline = classes.threeline
       break
+    case 'depor':
+      numline = classes.twoline
+      break
     default:
-      numline = classes.oneline
+      numline = classes.twoline
       break
   }
   return (

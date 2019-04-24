@@ -28,11 +28,7 @@ class Separador extends Component {
   }
 
   getSeccionPrimary = dataArticle => {
-    return (
-      dataArticle.taxonomy &&
-      dataArticle.taxonomy.primary_section &&
-      dataArticle.taxonomy.primary_section.path
-    )
+    return dataArticle.taxonomy && dataArticle.taxonomy.primary_section
   }
 
   componentDidMount = () => {
@@ -47,7 +43,11 @@ class Separador extends Component {
     if (device === 'mobile') news_number = 0
 
     const { arcSite, globalContent } = this.props
-    const section = this.getSeccionPrimary(globalContent || {})
+    const { name, path: section } = this.getSeccionPrimary(globalContent || {})
+    this.setState({
+      // eslint-disable-next-line react/no-unused-state
+      nameSeccion: name,
+    })
     const { fetched } = this.getContent(
       'story-feed-by-section',
       {
@@ -99,12 +99,13 @@ class Separador extends Component {
   }
 
   render() {
-    const { data, excluir, website, device } = this.state
+    const { data, excluir, website, device, nameSeccion } = this.state
+    console.log(this)
     // eslint-disable-next-line eqeqeq
     if (device == 'mobile') return ''
     return (
       <div className={classes.separator}>
-        <h3 className={classes.title}>Más en Política</h3>
+        <h3 className={classes.title}>Más en {nameSeccion}</h3>
         <div className={classes.body}>
           <SeparatorListItem data={data} excluir={excluir} website={website} />
         </div>
