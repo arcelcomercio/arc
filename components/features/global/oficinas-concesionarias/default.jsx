@@ -1,6 +1,5 @@
 import React, { Fragment, Component } from 'react'
 import Data from './_children/datos.json'
-import { promised } from 'q'
 
 class OficinasConcesionarias extends Component {
   constructor(props) {
@@ -12,8 +11,7 @@ class OficinasConcesionarias extends Component {
       distritos: [],
       zoneValue: '',
       districtValue: '',
-      districtDataOf: [],
-      //      google: {},
+      adataOficinas: [],
     }
   }
 
@@ -27,7 +25,6 @@ class OficinasConcesionarias extends Component {
   componentDidMount() {
     this.getGoogleMaps().then(google => {
       this.iniciarMapa()
-      //this.createMarkers()
     })
     const { allinfo } = this.state
     this.changeSelectZonas(allinfo)
@@ -53,15 +50,16 @@ class OficinasConcesionarias extends Component {
   }
 
   changeSelectZonas = data => {
-    const zonas = Object.keys(data)
+    const zonas = Object.keys(data.lima)
+    //console.log(zonas)
     this.setState({
       zonas,
     })
   }
 
   chargeListZonas = () => {
-    const aZonas = this.state.zonas
-    return aZonas.map(zona => (
+    const { zonas } = this.state
+    return zonas.map(zona => (
       <option key={zona} value={zona}>
         {zona}
       </option>
@@ -70,7 +68,7 @@ class OficinasConcesionarias extends Component {
 
   changeDistritos = event => {
     const zone = event.target.value
-    const distritos = Data[`${zone}`].zonaDistritos.map(distrito => {
+    const distritos = Data.lima[`${zone}`].zonaDistritos.map(distrito => {
       return distrito.nomDistrito
     })
 
@@ -90,34 +88,31 @@ class OficinasConcesionarias extends Component {
     ))
   }
 
-  marker = (lat, lng) => {
+  marker = datos => {
     const { mapa } = this.state
     const marker = new google.maps.Marker({
       mapa,
-      position: { lat, lng },
+      position: datos.center,
+      title: datos.nomOficina,
     })
     marker.setMap(mapa)
   }
 
   changeMarkers = e => {
     const district = e.target.value
-    const { allinfo, zoneValue } = this.state
-
-    const aDistritos = allinfo[`${zoneValue}`].zonaDistritos
-    const dataDistrito = aDistritos.find(distrito => {
-      return distrito.nomDistrito === district
-    })
-
-    dataDistrito.oficinas.forEach(datos => {
-      const {
-        center: { lat, lng },
-      } = datos
-      this.marker(lat, lng)
-    })
-
     this.setState({
       districtValue: district,
-      //districtDataOf: dataDistrito.oficinas,
+    })
+
+    const { allinfo, zoneValue } = this.state
+    const aDistritos = allinfo.lima[`${zoneValue}`].zonaDistritos.find(
+      distrito => {
+        return distrito.nomDistrito === district
+      }
+    )
+
+    aDistritos.oficinas.forEach(datos => {
+      return this.marker(datos)
     })
   }
 
