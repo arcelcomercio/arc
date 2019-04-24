@@ -97,8 +97,10 @@ $movie-size: 134px;
         margin: 0 auto;
         width: $movie-size;
 
-        &:hover .movies-grid__title {
-            text-decoration: underline;
+        &:hover {
+            .movies-grid__title {
+                text-decoration: underline;
+            }
         }
     }
 
@@ -112,6 +114,7 @@ $movie-size: 134px;
         margin-bottom: $spacing-xsmall;
         color: $color-silver;
     }
+
 
     &__tag {
         font-size: 12px;

@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
 
-// "this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);"
 @Consumer
 class GenreMoviesFilter extends PureComponent {
   classes = {}
@@ -14,6 +13,9 @@ class GenreMoviesFilter extends PureComponent {
       genres: [],
     }
     this.billboardFormat = new BillboardFormat()
+
+    const { arcSite } = props
+    this.WEBSITE_PARAM = `?_website=${arcSite}`
   }
 
   componentDidMount() {
@@ -26,14 +28,13 @@ class GenreMoviesFilter extends PureComponent {
     })
   }
 
-  _changeSelect = e => {
-    window.location = e.target.value
+  _handleSelectChange = e => {
+    window.location.href = e.target.value
   }
 
   render() {
     const { movies, genres } = this.state
-    const { contextPath, arcSite, genre } = this.props
-    const WEBSITE_PARAM = `?_website=${arcSite}`
+    const { contextPath, genre } = this.props
 
     return (
       <section className="movies-grid margin-top">
@@ -47,7 +48,7 @@ class GenreMoviesFilter extends PureComponent {
                 <ul className="movies-grid__nav-list flex flex--justify-center">
                   <li className="movies-grid__nav-item">
                     <a
-                      href={`${contextPath}/cartelera${WEBSITE_PARAM}`}
+                      href={`${contextPath}/cartelera${this.WEBSITE_PARAM}`}
                       className={`movies-grid__nav-link text-uppercase ${
                         !genre ? 'movies-grid__nav-link--active' : ''
                       }`}>
@@ -58,12 +59,12 @@ class GenreMoviesFilter extends PureComponent {
                     singleGenre =>
                       singleGenre.genero !== 'Otras' && (
                         <li
-                          key={singleGenre.url}
-                          className="movies-grid__nav-item">
+                          className="movies-grid__nav-item"
+                          key={`nav-${singleGenre.url}`}>
                           <a
                             href={`${contextPath}/cartelera/peliculas/cines/${
                               singleGenre.url
-                            }${WEBSITE_PARAM}`}
+                            }${this.WEBSITE_PARAM}`}
                             className={`movies-grid__nav-link text-uppercase ${
                               genre === singleGenre.url
                                 ? 'movies-grid__nav-link--active'
@@ -84,9 +85,13 @@ class GenreMoviesFilter extends PureComponent {
                   name="genres"
                   id="genres"
                   className="movies-grid__select"
-                  onChange={e => this._changeSelect(e)}>
-                  <option selected="" value="default" disabled="">
+                  onChange={e => this._handleSelectChange(e)}>
+                  <option selected value="default" disabled>
                     FILTRAR POR GÉNERO:
+                  </option>
+                  <option
+                    value={`${contextPath}/cartelera${this.WEBSITE_PARAM}`}>
+                    Todas
                   </option>
                   {genres.map(
                     singleGenre =>
@@ -95,7 +100,8 @@ class GenreMoviesFilter extends PureComponent {
                           key={singleGenre.url}
                           value={`${contextPath}/cartelera/peliculas/cines/${
                             singleGenre.url
-                          }${WEBSITE_PARAM}`}>
+                          }${this.WEBSITE_PARAM}`}
+                          key={`select-${singleGenre.url}`}>
                           {singleGenre.genero}
                         </option>
                       )
@@ -109,9 +115,9 @@ class GenreMoviesFilter extends PureComponent {
               {movies.map(movie => (
                 <li key={movie.mid} className="movies-grid__movie">
                   <a
-                    href={`${contextPath}/cartelera/${
-                      movie.url
-                    }/cines${WEBSITE_PARAM}`}>
+                    href={`${contextPath}/cartelera/${movie.url}/cines${
+                      this.WEBSITE_PARAM
+                    }`}>
                     <figure className="movies-grid__image-box">
                       <img
                         src={movie.poster_chico.sizes['134x193']}
