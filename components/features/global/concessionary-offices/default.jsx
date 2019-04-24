@@ -8,6 +8,8 @@ class ConcessionaryOffices extends Component {
     super(props)
     this.provinceMap = false
     this.capitalMap = false
+    this.currentCapitalMarkers = []
+    this.currentProvinceMarkers = []
     this.state = {
       currentZone: {
         name: '',
@@ -22,8 +24,6 @@ class ConcessionaryOffices extends Component {
         name: '',
         value: '',
       },
-      currentCapitalMarkers: {},
-      currentProvinceMarkers: {},
     }
   }
 
@@ -71,15 +71,8 @@ class ConcessionaryOffices extends Component {
     capitalData.forEach(zone => {
       zone.districts.forEach(dist => {
         Markers[dist.value].forEach(provMarker => {
-          const currentMarker = new google.maps.Marker({
-            position: { lat: provMarker.lat, lng: provMarker.lng },
-            map: this.capitalMap,
-            title: provMarker.title,
-            icon: provMarker.icon,
-          })
-          infowindow = new google.maps.InfoWindow({
-            content: provMarker.infoWindow.content,
-          })
+          const currentMarker = this.generateMarker(provMarker, this.capitalMap)
+          infowindow = this.generateInfoWindow(provMarker)
           currentMarker.addListener('click', () => {
             infowindow.open(this.provinceMap, currentMarker)
           })
@@ -87,10 +80,7 @@ class ConcessionaryOffices extends Component {
         })
       })
     })
-
-    this.setState({
-      currentCapitalMarkers: auxMarkers,
-    })
+    this.currentCapitalMarkers = auxMarkers
   }
 
   initProvinceMap = () => {
@@ -105,31 +95,36 @@ class ConcessionaryOffices extends Component {
     let infowindow = ''
     provinceData.forEach(prov => {
       Markers[prov.value].forEach(provMarker => {
-        const currentMarker = new google.maps.Marker({
-          position: { lat: provMarker.lat, lng: provMarker.lng },
-          map: this.provinceMap,
-          title: provMarker.title,
-          icon: provMarker.icon,
-        })
-        infowindow = new google.maps.InfoWindow({
-          content: provMarker.infoWindow.content,
-        })
+        const currentMarker = this.generateMarker(provMarker, this.provinceMap)
+        infowindow = this.generateInfoWindow(provMarker)
         currentMarker.addListener('click', () => {
           infowindow.open(this.provinceMap, currentMarker)
         })
         auxMarkers.push(currentMarker)
       })
     })
-
-    this.setState({
-      currentProvinceMarkers: auxMarkers,
-    })
+    this.currentProvinceMarkers = auxMarkers
   }
 
   clearMarkers = markers => {
     for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(null)
     }
+  }
+
+  generateMarker = (markerData, map) => {
+    return new google.maps.Marker({
+      position: { lat: markerData.lat, lng: markerData.lng },
+      map,
+      title: markerData.title,
+      icon: markerData.icon,
+    })
+  }
+
+  generateInfoWindow = markerData => {
+    return new google.maps.InfoWindow({
+      content: markerData.infoWindow.content,
+    })
   }
 
   handleZoneChange(e) {
@@ -147,9 +142,7 @@ class ConcessionaryOffices extends Component {
   }
 
   handleDistrictChange(e) {
-    const { currentCapitalMarkers } = this.state
-
-    this.clearMarkers(currentCapitalMarkers)
+    this.clearMarkers(this.currentCapitalMarkers)
 
     const { value } = e.target
     const { currentZone } = this.state
@@ -159,31 +152,21 @@ class ConcessionaryOffices extends Component {
     const auxMarkers = []
     let infowindow = ''
     Markers[value].forEach(provMarker => {
-      const currentMarker = new google.maps.Marker({
-        position: { lat: provMarker.lat, lng: provMarker.lng },
-        map: this.capitalMap,
-        title: provMarker.title,
-        icon: provMarker.icon,
-      })
-      infowindow = new google.maps.InfoWindow({
-        content: provMarker.infoWindow.content,
-      })
+      const currentMarker = this.generateMarker(provMarker, this.capitalMap)
+      infowindow = this.generateInfoWindow(provMarker)
       currentMarker.addListener('click', () => {
         infowindow.open(this.provinceMap, currentMarker)
       })
       auxMarkers.push(currentMarker)
     })
-
+    this.currentCapitalMarkers = auxMarkers
     this.setState({
       currentDistrict: location[0],
-      currentCapitalMarkers: auxMarkers,
     })
   }
 
   handleProvinceChange(e) {
-    const { currentProvinceMarkers } = this.state
-
-    this.clearMarkers(currentProvinceMarkers)
+    this.clearMarkers(this.currentProvinceMarkers)
 
     const { value } = e.target
 
@@ -192,24 +175,16 @@ class ConcessionaryOffices extends Component {
     const auxMarkers = []
     let infowindow = ''
     Markers[value].forEach(provMarker => {
-      const currentMarker = new google.maps.Marker({
-        position: { lat: provMarker.lat, lng: provMarker.lng },
-        map: this.provinceMap,
-        title: provMarker.title,
-        icon: provMarker.icon,
-      })
-      infowindow = new google.maps.InfoWindow({
-        content: provMarker.infoWindow.content,
-      })
+      const currentMarker = this.generateMarker(provMarker, this.provinceMap)
+      infowindow = this.generateInfoWindow(provMarker)
       currentMarker.addListener('click', () => {
         infowindow.open(this.provinceMap, currentMarker)
       })
       auxMarkers.push(currentMarker)
     })
-
+    this.currentProvinceMarkers = auxMarkers
     this.setState({
       currentProvince: province[0],
-      currentProvinceMarkers: auxMarkers,
     })
   }
 
