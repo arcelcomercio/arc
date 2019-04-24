@@ -17,10 +17,7 @@ class Newsletter extends Component {
       }
     },
     suscription: data => {
-      console.log('suscription', data)
-      const url =
-        'http://jab.pe/f/arc/services/newsletter.php?email=prueba2@gmail.com'
-      // eslint-disable-next-line no-undef
+      const url = 'http://jab.pe/f/arc/services/newsletter.php'
       fetch(url, {
         method: 'POST',
         mode: 'cors',
@@ -29,20 +26,17 @@ class Newsletter extends Component {
           'Content-Type': 'application/json',
         },
       })
-        // .then(res => res.json())
-        .catch(error => console.error('Error:', error))
+        .catch(error => error)
         .then(response => {
           let confirmRegister = false
           let formMessage = 'Error'
-          console.log('Success:', response)
           if (response && response.ok) {
             response.json().then(json => {
               confirmRegister = json.success
               formMessage = json.message
-              console.log(json)
+              this.setState({ confirmRegister, formMessage })
             })
-          }
-          this.setState({ confirmRegister, formMessage })
+          } else this.setState({ confirmRegister, formMessage })
         })
     },
     email: event => {
