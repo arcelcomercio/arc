@@ -1,0 +1,54 @@
+/******* Brand colors *******/
+$color-primary: #00854b;
+$color-secondary: #000;
+/*-----------------------*/
+
+/******* Other colors *******/
+$color-link: #524CFF;
+$color-white: #FFFFFF;
+$color-error: #FF0000;
+$color-light-blue:#d5e5ed;
+/*-----------------------*/
+
+/******* Grayscale *******/
+$color-black: #000000;
+$color-dark: #1F1F1F;
+$color-gray: #373737;
+$color-silver: #A5A9A9;
+$color-soft: #E7EBED;
+/*-----------------------*/
+
+/******* Header colors *******/
+$header-bg-color: $color-primary;
+$header-text-color: $color-dark;
+
+/*-----------------------*/
+
+/******* Nav colors *******/
+$nav-color: $color-dark;
+/*-----------------------*/
+
+/******* Background-text contrast *******/
+.bg-color--link {
+    background-color: $color-link;
+    color: $color-white;
+}
+
+.bg-color--white {
+    background-color: $color-white;
+    color: $color-dark;
+}
+
+.bg-color--error {
+    background-color: $color-error;
+    color: $color-white;
+}
+
+.bg-color--dark {
+    background-color: $color-dark;
+    color: $color-white;
+}
+.bg-color--lightblue{
+    background-color: $color-light-blue;
+}
+/*-----------------------*/

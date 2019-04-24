@@ -16,6 +16,11 @@ export default {
       url: 'https://gestion.pe/',
     },
     {
+      name: 'ojo.pe',
+      arcSite: 'ojo',
+      url: 'https://ojo.pe/',
+    },
+    {
       name: 'peru.com',
       arcSite: '',
       url: 'https://peru.com/?ref=ecf',
