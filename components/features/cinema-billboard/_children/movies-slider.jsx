@@ -29,8 +29,9 @@ class MoviesSlider extends PureComponent {
       slideWidth: 100 / estrenos.length,
       position: 0,
     }
-    const { arcSite } = props
+    const { contextPath, arcSite } = props
     this.WEBSITE_PARAM = `?_website=${arcSite}`
+    this.URI_BASE = `${contextPath}/cartelera`
     this.step = 0
   }
 
@@ -54,7 +55,6 @@ class MoviesSlider extends PureComponent {
 
   render() {
     const { premieres, sliderWidth, slideWidth, position } = this.state
-    const { contextPath } = this.props
 
     const sliderStyle = {
       width: `${sliderWidth}%`,
@@ -78,7 +78,7 @@ class MoviesSlider extends PureComponent {
                     className={this.classes.movie}>
                     <figure className={this.classes.imageBox}>
                       <a
-                        href={`${contextPath}/cartelera/${movie.url}/cines${
+                        href={`${this.URI_BASE}/${movie.url}/cines${
                           this.WEBSITE_PARAM
                         }`}
                         className={this.classes.imageLink}>
@@ -105,7 +105,7 @@ class MoviesSlider extends PureComponent {
                         className={this.classes.movieTitle}
                         title={movie.title}>
                         <a
-                          href={`${contextPath}/cartelera/${movie.url}/cines${
+                          href={`${this.URI_BASE}/${movie.url}/cines${
                             this.WEBSITE_PARAM
                           }`}
                           className={this.classes.movieLink}>

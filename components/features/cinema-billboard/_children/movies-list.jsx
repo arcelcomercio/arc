@@ -29,8 +29,9 @@ class MoviesList extends PureComponent {
       cinema: {},
     }
 
-    const { arcSite } = props
+    const { contextPath, arcSite } = props
     this.WEBSITE_PARAM = `?_website=${arcSite}`
+    this.URI_BASE = `${contextPath}/cartelera`
   }
 
   componentDidMount() {
@@ -47,7 +48,6 @@ class MoviesList extends PureComponent {
   }
 
   render() {
-    const { contextPath } = this.props
     const { movies, cinema } = this.state
 
     return (
@@ -75,7 +75,7 @@ class MoviesList extends PureComponent {
                   <div className={this.classes.movieItem}>
                     <div className={this.classes.leftSide}>
                       <a
-                        href={`${contextPath}/cartelera/${url}/${cinema.url}${
+                        href={`${this.URI_BASE}/${url}/${cinema.url}${
                           this.WEBSITE_PARAM
                         }`}
                         className={this.classes.imageBox}>

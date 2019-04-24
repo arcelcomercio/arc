@@ -30,8 +30,9 @@ class GenreMoviesFilter extends PureComponent {
     }
     this.billboardFormat = new BillboardFormat()
 
-    const { arcSite } = props
+    const { contextPath, arcSite } = props
     this.WEBSITE_PARAM = `?_website=${arcSite}`
+    this.URI_BASE = `${contextPath}/cartelera`
   }
 
   componentDidMount() {
@@ -50,7 +51,7 @@ class GenreMoviesFilter extends PureComponent {
 
   render() {
     const { movies, genres } = this.state
-    const { contextPath, genre } = this.props
+    const { genre } = this.props
 
     return (
       <section className={this.classes.moviesGrid}>
@@ -62,7 +63,7 @@ class GenreMoviesFilter extends PureComponent {
                 <ul className={this.classes.navList}>
                   <li className={this.classes.navItem}>
                     <a
-                      href={`${contextPath}/cartelera${this.WEBSITE_PARAM}`}
+                      href={`${this.URI_BASE}${this.WEBSITE_PARAM}`}
                       className={`${this.classes.navLink} text-uppercase ${
                         !genre ? 'movies-grid__nav-link--active' : ''
                       }`}>
@@ -76,7 +77,7 @@ class GenreMoviesFilter extends PureComponent {
                           className={this.classes.navItem}
                           key={`nav-${singleGenre.url}`}>
                           <a
-                            href={`${contextPath}/cartelera/peliculas/cines/${
+                            href={`${this.URI_BASE}/peliculas/cines/${
                               singleGenre.url
                             }${this.WEBSITE_PARAM}`}
                             className={`${
@@ -105,15 +106,14 @@ class GenreMoviesFilter extends PureComponent {
                   <option selected value="default" disabled>
                     FILTRAR POR GÉNERO:
                   </option>
-                  <option
-                    value={`${contextPath}/cartelera${this.WEBSITE_PARAM}`}>
+                  <option value={`${this.URI_BASE}${this.WEBSITE_PARAM}`}>
                     Todas
                   </option>
                   {genres.map(
                     singleGenre =>
                       singleGenre.name !== 'Otras' && (
                         <option
-                          value={`${contextPath}/cartelera/peliculas/cines/${
+                          value={`${this.URI_BASE}/peliculas/cines/${
                             singleGenre.url
                           }${this.WEBSITE_PARAM}`}
                           key={`select-${singleGenre.url}`}>
@@ -130,7 +130,7 @@ class GenreMoviesFilter extends PureComponent {
               {movies.map(movie => (
                 <li key={movie.mid} className={this.classes.movie}>
                   <a
-                    href={`${contextPath}/cartelera/${movie.url}/cines${
+                    href={`${this.URI_BASE}/${movie.url}/cines${
                       this.WEBSITE_PARAM
                     }`}>
                     <figure className={this.classes.imageBox}>

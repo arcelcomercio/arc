@@ -19,7 +19,7 @@ class MoviesDetails extends Component {
     more: 'movie-details__more flex-center',
     button: 'movie-details__btn',
     rightSide: 'movie-details__right',
-    name: 'movie-details__name movie-details__text',
+    name: 'movie-details__name',
     value: 'movie-details__value',
   }
 
@@ -33,8 +33,9 @@ class MoviesDetails extends Component {
       cinemas: [],
     }
 
-    const { arcSite } = props
+    const { contextPath, arcSite } = props
     this.WEBSITE_PARAM = `?_website=${arcSite}`
+    this.URI_BASE = `${contextPath}/cartelera`
   }
 
   componentDidMount() {
@@ -61,7 +62,6 @@ class MoviesDetails extends Component {
   }
 
   render() {
-    const { contextPath } = this.props
     const { cinemas, movie } = this.state
     const {
       title = '',
@@ -99,9 +99,9 @@ class MoviesDetails extends Component {
                     return (
                       <div className={this.classes.item}>
                         <a
-                          href={`${contextPath}/cartelera/peliculas/${
-                            cinema.url
-                          }${this.WEBSITE_PARAM}`}
+                          href={`${this.URI_BASE}/peliculas/${cinema.url}${
+                            this.WEBSITE_PARAM
+                          }`}
                           className={this.classes.cinema}>
                           {cinema.nombre}
                         </a>
@@ -111,7 +111,7 @@ class MoviesDetails extends Component {
                     )
                   })}
               </div>
-              <a href={contextPath} className={this.classes.more}>
+              <a href={this.URI_BASE} className={this.classes.more}>
                 <p className={this.classes.button}>Ver Más</p>
               </a>
             </div>
