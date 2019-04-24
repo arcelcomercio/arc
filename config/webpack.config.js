@@ -21,7 +21,7 @@ const paths = {
 // Placeholder for webpack entries.
 const entries = {}
 // Get site(s) to include from .env in the project root.
-const buildSites = ['elcomercio', 'depor', 'peru21', 'gestion']
+const buildSites = ['elcomercio', 'depor', 'peru21', 'gestion', 'ojo']
 // Render into webpack entry format
 buildSites.forEach(site => {
   entries[site] = `./src/websites/${site}/index.js`

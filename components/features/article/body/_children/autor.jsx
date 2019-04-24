@@ -1,22 +1,23 @@
 import React from 'react'
-import Moment from 'react-moment'
+import { formatDate } from '../../../../../resources/utilsJs/helpers'
 
 /** TODO: Vale la pena usar moment? */
 
 const classes = {
   newsAuthor: 'news-author-date',
 }
+
 export default props => {
-  const { date, by } = props
   const {
-    author: [{ name, slug = '' } = {}],
-  } = by || []
+    date,
+    data: { by: [{ name = {}, url = {} }] = {} },
+  } = props
 
   return (
     (name || date) && (
       <div className={classes.newsAuthor}>
-        {name && <a href={slug && `/${slug}`}>{name} </a>}
-        {date && <Moment format="DD.MM.YYYY / LT " date={date} />}
+        {name && <a href={url && url}>{name} </a>}
+        {date && formatDate(date)}
       </div>
     )
   )
