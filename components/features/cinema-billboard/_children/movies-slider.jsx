@@ -8,7 +8,7 @@ class MoviesSlider extends PureComponent {
     movie: '',
     imageBox: '',
     imageLink: '',
-    image: 'movies-slider__image full-width',
+    image: 'movies-slider__img full-width',
     arrowsBox:
       'movies-slider__arrows-box position-absolute flex flex--justify-between',
     leftArrow: 'movies-slider__arrows movies-slider__arrows--left',

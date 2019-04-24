@@ -14,7 +14,7 @@ class MoviesFilter extends PureComponent {
     filter: 'movies-filter__filter-box flex flex--justify-between',
     label: 'movies-filter__label movies-filter--font-config text-uppercase',
     form: 'movies-filter__form movies-filter--font-config flex',
-    button: 'movies-filter__button movies-filter--font-config text-uppercase',
+    button: 'movies-filter__btn movies-filter--font-config text-uppercase',
   }
 
   constructor(props) {

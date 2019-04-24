@@ -1,5 +1,6 @@
 .movies-filter {
     padding: $spacing-normal;
+    background-color: $color-gray;
 
     @media (--tablet) {
         padding: $spacing-xlarge;
@@ -12,7 +13,10 @@
     }
 
     &__filter-box {
-        @media(--tablet) {
+        flex-direction: column;
+
+        @media(--desktop) {
+            flex-direction: initial;
             border: 1px solid $color-silver;
             padding: 4px;
         }
@@ -22,7 +26,7 @@
         margin-bottom: $spacing-normal;
         flex-direction: column-reverse;
 
-        @media (--tablet) {
+        @media (--desktop) {
             flex-direction: initial;
         }
     }
@@ -75,7 +79,7 @@
         flex-direction: column;
         width: 100%;
 
-        @media (--tablet) {
+        @media (--desktop) {
             flex-direction: initial;
             width: initial;
         }
@@ -94,15 +98,16 @@
             color: $color-dark;
             line-height: 45px;
 
-            @media (--tablet) {
+            @media (--desktop) {
                 margin-bottom: 0;
                 margin-right: 4px;
                 width: fit-content;
+                max-width: 200px;
             }
         }
 
         :nth-child(2) {
-            // NO MUESTRA GENERO EN MOBILE
+            // NO MUESTRA SELECT DE GENERO EN MOBILE
             display: none;
 
             @media (--tablet) {
@@ -111,12 +116,12 @@
         }
     }
 
-    &__button {
+    &__btn {
         background-color: $color-primary;
         color: $color-gray;
         width: 100%;
 
-        @media (--tablet) {
+        @media (--desktop) {
             width: 100px;
         }
     }

@@ -1,10 +1,26 @@
 import React, { PureComponent, Fragment } from 'react'
-import Consumer from 'fusion:consumer'
 import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
 
-@Consumer
 class GenreMoviesFilter extends PureComponent {
-  classes = {}
+  classes = {
+    moviesGrid: 'movies-grid margin-top',
+    container: 'movies-grid__container',
+    headline: 'movies-grid__headline text-uppercase text-center',
+    nav: 'movies-grid__nav',
+    navList: 'movies-grid__nav-list flex flex--justify-center',
+    navItem: 'movies-grid__nav-item',
+    navLink: 'movies-grid__nav-link',
+    form: 'movies-grid__form',
+    info: 'movies-grid__info',
+    select: 'movies-grid__select',
+    grid: 'movies-grid__grid',
+    movie: 'movies-grid__movie',
+    imageBox: 'movies-grid__img-box',
+    image: 'movies-grid__img',
+    details: 'movies-grid__details',
+    title: 'movies-grid__title',
+    tag: 'movies-grid__tag',
+  }
 
   constructor(props) {
     super(props)
@@ -37,19 +53,17 @@ class GenreMoviesFilter extends PureComponent {
     const { contextPath, genre } = this.props
 
     return (
-      <section className="movies-grid margin-top">
-        <div className="movies-grid__container">
-          <h3 className="movies-grid__headline text-uppercase text-center">
-            Listín Cinematográfico
-          </h3>
+      <section className={this.classes.moviesGrid}>
+        <div className={this.classes.container}>
+          <h3 className={this.classes.headline}>Listín Cinematográfico</h3>
           {genres && (
             <Fragment>
-              <nav className="movies-grid__nav">
-                <ul className="movies-grid__nav-list flex flex--justify-center">
-                  <li className="movies-grid__nav-item">
+              <nav className={this.classes.nav}>
+                <ul className={this.classes.navList}>
+                  <li className={this.classes.navItem}>
                     <a
                       href={`${contextPath}/cartelera${this.WEBSITE_PARAM}`}
-                      className={`movies-grid__nav-link text-uppercase ${
+                      className={`${this.classes.navLink} text-uppercase ${
                         !genre ? 'movies-grid__nav-link--active' : ''
                       }`}>
                       TODAS
@@ -59,13 +73,15 @@ class GenreMoviesFilter extends PureComponent {
                     singleGenre =>
                       singleGenre.genero !== 'Otras' && (
                         <li
-                          className="movies-grid__nav-item"
+                          className={this.classes.navItem}
                           key={`nav-${singleGenre.url}`}>
                           <a
                             href={`${contextPath}/cartelera/peliculas/cines/${
                               singleGenre.url
                             }${this.WEBSITE_PARAM}`}
-                            className={`movies-grid__nav-link text-uppercase ${
+                            className={`${
+                              this.classes.navLink
+                            } text-uppercase ${
                               genre === singleGenre.url
                                 ? 'movies-grid__nav-link--active'
                                 : ''
@@ -77,14 +93,14 @@ class GenreMoviesFilter extends PureComponent {
                   )}
                 </ul>
               </nav>
-              <form action="/" className="movies-grid__form">
-                <p className="movies-grid__info">
+              <form action="/" className={this.classes.form}>
+                <p className={this.classes.info}>
                   Utilice los desplegables para seleccionar el film
                 </p>
                 <select
                   name="genres"
                   id="genres"
-                  className="movies-grid__select"
+                  className={this.classes.select}
                   onChange={e => this._handleSelectChange(e)}>
                   <option selected value="default" disabled>
                     FILTRAR POR GÉNERO:
@@ -97,7 +113,6 @@ class GenreMoviesFilter extends PureComponent {
                     singleGenre =>
                       singleGenre.genero !== 'Otras' && (
                         <option
-                          key={singleGenre.url}
                           value={`${contextPath}/cartelera/peliculas/cines/${
                             singleGenre.url
                           }${this.WEBSITE_PARAM}`}
@@ -111,25 +126,25 @@ class GenreMoviesFilter extends PureComponent {
             </Fragment>
           )}
           {movies && (
-            <ul className="movies-grid__grid">
+            <ul className={this.classes.grid}>
               {movies.map(movie => (
-                <li key={movie.mid} className="movies-grid__movie">
+                <li key={movie.mid} className={this.classes.movie}>
                   <a
                     href={`${contextPath}/cartelera/${movie.url}/cines${
                       this.WEBSITE_PARAM
                     }`}>
-                    <figure className="movies-grid__image-box">
+                    <figure className={this.classes.imageBox}>
                       <img
                         src={movie.poster_chico.sizes['134x193']}
                         alt={movie.title || ''}
-                        className="movies-grid__image"
+                        className={this.classes.image}
                       />
                     </figure>
-                    <div className="movies-grid__details">
-                      <h2 className="movies-grid__title">
+                    <div className={this.classes.details}>
+                      <h2 className={this.classes.title}>
                         {movie.title || ''}
                       </h2>
-                      <span className="movies-grid__tag">Estreno</span>
+                      <span className={this.classes.tag}>Estreno</span>
                     </div>
                   </a>
                 </li>

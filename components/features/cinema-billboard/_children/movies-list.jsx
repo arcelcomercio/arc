@@ -1,105 +1,122 @@
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react'
 import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
 
-class MoviesList extends Component {
-	constructor(...props){
-		super(...props)
+class MoviesList extends PureComponent {
+  classes = {
+    movieList: 'movie-list',
+    top: 'movie-list__top flex-center flex--column',
+    cinema: 'movie-list__cinema text-uppercase',
+    address: 'movie-list__address',
+    box: 'movie-list__box',
+    movieItem: 'movie-item flex flex--column',
+    leftSide: 'movie-item__left',
+    imageBox: 'block full-width',
+    image: 'movie-item__img full-width',
+    title: 'movie-item__title',
+    function: 'movie-item__function',
+    rightSide: 'movie-item__right',
+    subtitle: 'movie-item__subtitle',
+    description: 'movie-item__description',
+  }
 
-		this.billboardFormat = new BillboardFormat()
-		
-		this.state = {
-			movies: [],
-			cinema: []
-		}
-	}
+  constructor(props) {
+    super(props)
 
-	componentDidMount(){
-		const { data } = this.props
-		const { params: { cinema } } = this.props
-		this.billboardFormat.setData = data
-		const { cinemaList } = this.billboardFormat
-		const cine = cinemaList.find(itemCine => itemCine.url === cinema)
-		const peliculas = cine
-		
-		this.setState({ 
-			cinema: cine,
-			movies: peliculas
-		 })
+    this.billboardFormat = new BillboardFormat()
 
-	}
+    this.state = {
+      movies: [],
+      cinema: {},
+    }
 
-	render() {
-		const { movies, cinema } = this.state
-		const moviesInCinema = movies && movies.peliculas
-		return (
-			<div className="movie-list">
-				<div className="movie-list__top">
-					<h1 className="movie-list__cinema">
-						{ cinema && cinema.nombre }
-					</h1>
-					<h3 className="movie-list__address">
-						{ cinema && cinema.direccion }
-					</h3>
-				</div>
-				<div className="movie-list__box">
-				{ moviesInCinema && moviesInCinema.map(movie => {
-					return (
-            <div className="movie-item">
-              <div className="movie-item__left">
-								<a href={`/cartelera/${movie.url}/${cinema.url}`} className="movie-item__box-image">
-                  <img
-										src={movie.poster.sizes['620x387']}
-										alt={movie.title}
-                    className="movie-item__img"
-                  />
-                  <h3 className="movie-item__name">
-										{movie.title}
-                  </h3>
-                </a>
-                <p className="movie-item__function">
-                  {cinema.horario}
-                </p>
-              </div>
-              <div className="movie-item__right">
-                <p className="movie-item__text-black principal">
-                  Sinopsis: 
-                  <span className="movie-item__text-desc">
-										{movie.body}
-                  </span>
-                </p>
-                <p className="movie-item__text-black">
-                  País: 
-                  <span className="movie-item__text-desc">
-										{movie.pais}
-                  </span>
-                </p>
-                <p className="movie-item__text-black">
-                  Director: 
-                  <span className="movie-item__text-desc">
-										{movie.director}
-                  </span>
-                </p>
-                <p className="movie-item__text-black">
-                  Actores: 
-                  <span className="movie-item__text-desc">
-										{movie.actores}
-                  </span>
-                </p>
-                <p className="movie-item__text-black">
-                  Calificación: 
-                  <span className="movie-item__text-desc">
-										{movie.calificacion}
-                  </span>
-                </p>
-              </div>
-            </div>
-          )
-				})}
-				</div>
-			</div>
-		);
-	}
+    const { arcSite } = props
+    this.WEBSITE_PARAM = `?_website=${arcSite}`
+  }
+
+  componentDidMount() {
+    const { data, cinema } = this.props
+    this.billboardFormat.setData = data
+    const { cinemaList } = this.billboardFormat
+    const matchedCinema = cinemaList.find(itemCine => itemCine.url === cinema)
+    const movies = matchedCinema.peliculas
+
+    this.setState({
+      movies,
+      cinema: matchedCinema,
+    })
+  }
+
+  render() {
+    const { contextPath } = this.props
+    const { movies, cinema } = this.state
+
+    return (
+      cinema && (
+        <div className={this.classes.movieList}>
+          <div className={this.classes.top}>
+            <h1 className={this.classes.cinema}>{cinema.nombre}</h1>
+            <h3 className={this.classes.address}>{cinema.direccion}</h3>
+          </div>
+          <div className={this.classes.box}>
+            {movies &&
+              movies.map(movie => {
+                return (
+                  <div className={this.classes.movieItem}>
+                    <div className={this.classes.leftSide}>
+                      <a
+                        href={`${contextPath}/cartelera/${movie.url}/${
+                          cinema.url
+                        }${this.WEBSITE_PARAM}`}
+                        className={this.classes.imageBox}>
+                        <img
+                          src={movie.poster.sizes['620x387']}
+                          alt={movie.title}
+                          className={this.classes.image}
+                        />
+                        <h3 className={this.classes.title}>{movie.title}</h3>
+                      </a>
+                      <p className={this.classes.function}>{cinema.horario}</p>
+                    </div>
+                    <div className={this.classes.rightSide}>
+                      <p className={this.classes.subtitle}>
+                        Sinopsis:
+                        <span className={this.classes.description}>
+                          {movie.body}
+                        </span>
+                      </p>
+                      <p className={this.classes.subtitle}>
+                        País:
+                        <span className={this.classes.description}>
+                          {movie.pais}
+                        </span>
+                      </p>
+                      <p className={this.classes.subtitle}>
+                        Director:
+                        <span className={this.classes.description}>
+                          {movie.director}
+                        </span>
+                      </p>
+                      <p className={this.classes.subtitle}>
+                        Actores:
+                        <span className={this.classes.description}>
+                          {movie.actores}
+                        </span>
+                      </p>
+                      <p className={this.classes.subtitle}>
+                        Calificación:
+                        <span className={this.classes.description}>
+                          {movie.calificacion}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                )
+              })}
+          </div>
+        </div>
+      )
+    )
+  }
 }
 
 export default MoviesList
