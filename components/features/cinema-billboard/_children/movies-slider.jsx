@@ -29,6 +29,8 @@ class MoviesSlider extends PureComponent {
       slideWidth: 100 / estrenos.length,
       position: 0,
     }
+    const { arcSite } = props
+    this.WEBSITE_PARAM = `?_website=${arcSite}`
     this.step = 0
   }
 
@@ -52,6 +54,7 @@ class MoviesSlider extends PureComponent {
 
   render() {
     const { premieres, sliderWidth, slideWidth, position } = this.state
+    const { contextPath } = this.props
 
     const sliderStyle = {
       width: `${sliderWidth}%`,
@@ -74,7 +77,11 @@ class MoviesSlider extends PureComponent {
                     style={slideStyle}
                     className={this.classes.movie}>
                     <figure className={this.classes.imageBox}>
-                      <a href="/" className={this.classes.imageLink}>
+                      <a
+                        href={`${contextPath}/cartelera/${movie.url}/cines${
+                          this.WEBSITE_PARAM
+                        }`}
+                        className={this.classes.imageLink}>
                         <picture>
                           <source
                             srcSet={movie.poster.sizes['367x176']}
@@ -97,7 +104,11 @@ class MoviesSlider extends PureComponent {
                       <h2
                         className={this.classes.movieTitle}
                         title={movie.title}>
-                        <a href="/" className={this.classes.movieLink}>
+                        <a
+                          href={`${contextPath}/cartelera/${movie.url}/cines${
+                            this.WEBSITE_PARAM
+                          }`}
+                          className={this.classes.movieLink}>
                           {movie.title}
                         </a>
                       </h2>
@@ -111,12 +122,20 @@ class MoviesSlider extends PureComponent {
                 ))}
               </ul>
               <div className={this.classes.arrowsBox}>
-                <a href="#prev" onClick={this._handlePrev}>
-                  <i className={this.classes.leftArrow} />
-                </a>
-                <a href="#next" onClick={this._handleNext}>
-                  <i className={this.classes.rightArrow} />
-                </a>
+                <i
+                  role="button"
+                  tabIndex="0"
+                  className={this.classes.leftArrow}
+                  onClick={this._handlePrev}
+                  onKeyDown={this._handlePrev}
+                />
+                <i
+                  role="button"
+                  tabIndex="0"
+                  className={this.classes.rightArrow}
+                  onClick={this._handleNext}
+                  onKeyDown={this._handleNext}
+                />
               </div>
             </Fragment>
           )}

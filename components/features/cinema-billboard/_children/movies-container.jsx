@@ -17,7 +17,13 @@ class MoviesContainer extends PureComponent {
         <main className={this.classes.container}>
           <MoviesFilter data={{ ...data }} {...params} />
 
-          {type === 'slider' && <MoviesSlider data={{ ...data }} />}
+          {type === 'slider' && (
+            <MoviesSlider
+              data={{ ...data }}
+              contextPath={contextPath}
+              arcSite={arcSite}
+            />
+          )}
           {type === 'banner' && (
             <MovieDetails
               data={{ ...data }}
