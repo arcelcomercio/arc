@@ -30,7 +30,7 @@ class MoviesDetails extends Component {
 
     this.state = {
       movie: {},
-      cinema: [],
+      cinemas: [],
     }
 
     const { arcSite } = props
@@ -42,17 +42,17 @@ class MoviesDetails extends Component {
     this.billboardFormat.setData = data
     const { moviesList } = this.billboardFormat
     const matchedMovie =
-      moviesList.find(itemMovie => itemMovie.url === movie) || {}
+      moviesList.find(singleMovie => singleMovie.url === movie) || {}
 
     if (cinema === 'cines') {
-      this.setState({ cinema: matchedMovie.cines })
+      this.setState({ cinemas: matchedMovie.cines })
     } else {
       const filteredCinemas = matchedMovie.cines.find(
         itemCine => itemCine.url === cinema
       )
       const orderedCinemas = [{ ...filteredCinemas }]
 
-      this.setState({ cinema: orderedCinemas })
+      this.setState({ cinemas: orderedCinemas })
     }
 
     this.setState({
@@ -62,88 +62,92 @@ class MoviesDetails extends Component {
 
   render() {
     const { contextPath } = this.props
-    const { cinema, movie } = this.state
+    const { cinemas, movie } = this.state
     const {
-      poster: { sizes = {} } = {},
-      portada_e: { description = '' } = {},
       title = '',
       body = '',
       pais = '',
       director = '',
       actores = '',
       calificacion = '',
+      poster: { sizes = {} } = {},
+      portada_e: { description = '' } = {},
     } = movie
 
     return (
-      <div className={this.classes.container}>
-        <div className={this.classes.imgBox}>
-          <a target="_BLANK" rel="noopener noreferrer" href={description}>
-            <img
-              src={sizes['620x387']}
-              alt={title}
-              className={this.classes.img}
-            />
-          </a>
-          <div className={this.classes.iconBox}>
-            <span className={this.classes.icon}>V</span>
-          </div>
-        </div>
-        <div className={this.classes.details}>
-          <div className={this.classes.leftSide}>
-            <h2 className={this.classes.title}>{title}</h2>
-            <p className={this.classes.where}>Donde Verla</p>
-            <div className={this.classes.hours}>
-              {cinema &&
-                cinema.map(cine => {
-                  return (
-                    <div className={this.classes.item}>
-                      <a
-                        href={`${contextPath}/cartelera/peliculas/${cine.url}${
-                          this.WEBSITE_PARAM
-                        }`}
-                        className={this.classes.cinema}>
-                        {cine.nombre}
-                      </a>
-                      <p className={this.classes.text}>{cine.direccion}</p>
-                      <p className={this.classes.text}>{cine.horario}</p>
-                    </div>
-                  )
-                })}
-            </div>
-            <a href={contextPath} className={this.classes.more}>
-              <p className={this.classes.button}>Ver Más</p>
+      movie && (
+        <div className={this.classes.container}>
+          <div className={this.classes.imgBox}>
+            <a target="_BLANK" rel="noopener noreferrer" href={description}>
+              <img
+                src={sizes['620x387']}
+                alt={title}
+                className={this.classes.img}
+              />
             </a>
+            <div className={this.classes.iconBox}>
+              <span className={this.classes.icon}>V</span>
+            </div>
           </div>
-          <div className={this.classes.rightSide}>
-            <p
-              className={`${this.classes.name} ${this.classes.name}--sinopsis`}>
-              Sinopsis:
-              <br />
-              <span className={this.classes.value}>{body}</span>
-            </p>
-            <p className={this.classes.name}>
-              Pais:
-              <br />
-              <span className={this.classes.value}>{pais}</span>
-            </p>
-            <p className={this.classes.name}>
-              Director:
-              <br />
-              <span className={this.classes.value}>{director}</span>
-            </p>
-            <p className={this.classes.name}>
-              Actor:
-              <br />
-              <span className={this.classes.value}>{actores}</span>
-            </p>
-            <p className={this.classes.name}>
-              Calificacion:
-              <br />
-              <span className={this.classes.value}>{calificacion}</span>
-            </p>
+          <div className={this.classes.details}>
+            <div className={this.classes.leftSide}>
+              <h2 className={this.classes.title}>{title}</h2>
+              <p className={this.classes.where}>Donde Verla</p>
+              <div className={this.classes.hours}>
+                {cinemas &&
+                  cinemas.map(cinema => {
+                    return (
+                      <div className={this.classes.item}>
+                        <a
+                          href={`${contextPath}/cartelera/peliculas/${
+                            cinema.url
+                          }${this.WEBSITE_PARAM}`}
+                          className={this.classes.cinema}>
+                          {cinema.nombre}
+                        </a>
+                        <p className={this.classes.text}>{cinema.direccion}</p>
+                        <p className={this.classes.text}>{cinema.horario}</p>
+                      </div>
+                    )
+                  })}
+              </div>
+              <a href={contextPath} className={this.classes.more}>
+                <p className={this.classes.button}>Ver Más</p>
+              </a>
+            </div>
+            <div className={this.classes.rightSide}>
+              <p
+                className={`${this.classes.name} ${
+                  this.classes.name
+                }--sinopsis`}>
+                Sinopsis:
+                <br />
+                <span className={this.classes.value}>{body}</span>
+              </p>
+              <p className={this.classes.name}>
+                Pais:
+                <br />
+                <span className={this.classes.value}>{pais}</span>
+              </p>
+              <p className={this.classes.name}>
+                Director:
+                <br />
+                <span className={this.classes.value}>{director}</span>
+              </p>
+              <p className={this.classes.name}>
+                Actor:
+                <br />
+                <span className={this.classes.value}>{actores}</span>
+              </p>
+              <p className={this.classes.name}>
+                Calificacion:
+                <br />
+                <span className={this.classes.value}>{calificacion}</span>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      )
     )
   }
 }

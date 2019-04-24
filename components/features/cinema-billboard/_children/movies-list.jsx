@@ -58,60 +58,72 @@ class MoviesList extends PureComponent {
             <h3 className={this.classes.address}>{cinema.direccion}</h3>
           </div>
           <div className={this.classes.box}>
-            {movies &&
+            {movies ? (
               movies.map(movie => {
+                const {
+                  url = 'peliculas',
+                  title = '',
+                  body = '',
+                  pais = '',
+                  director = '',
+                  actores = '',
+                  calificacion = '',
+                  poster: { sizes = {} } = {},
+                } = movie
+
                 return (
                   <div className={this.classes.movieItem}>
                     <div className={this.classes.leftSide}>
                       <a
-                        href={`${contextPath}/cartelera/${movie.url}/${
-                          cinema.url
-                        }${this.WEBSITE_PARAM}`}
+                        href={`${contextPath}/cartelera/${url}/${cinema.url}${
+                          this.WEBSITE_PARAM
+                        }`}
                         className={this.classes.imageBox}>
                         <img
-                          src={movie.poster.sizes['620x387']}
-                          alt={movie.title}
+                          src={sizes['620x387']}
+                          alt={title}
                           className={this.classes.image}
                         />
-                        <h3 className={this.classes.title}>{movie.title}</h3>
+                        <h3 className={this.classes.title}>{title}</h3>
                       </a>
                       <p className={this.classes.function}>{cinema.horario}</p>
                     </div>
                     <div className={this.classes.rightSide}>
                       <p className={this.classes.subtitle}>
                         Sinopsis:
-                        <span className={this.classes.description}>
-                          {movie.body}
-                        </span>
+                        <span className={this.classes.description}>{body}</span>
                       </p>
                       <p className={this.classes.subtitle}>
                         País:
-                        <span className={this.classes.description}>
-                          {movie.pais}
-                        </span>
+                        <span className={this.classes.description}>{pais}</span>
                       </p>
                       <p className={this.classes.subtitle}>
                         Director:
                         <span className={this.classes.description}>
-                          {movie.director}
+                          {director}
                         </span>
                       </p>
                       <p className={this.classes.subtitle}>
                         Actores:
                         <span className={this.classes.description}>
-                          {movie.actores}
+                          {actores}
                         </span>
                       </p>
                       <p className={this.classes.subtitle}>
                         Calificación:
                         <span className={this.classes.description}>
-                          {movie.calificacion}
+                          {calificacion}
                         </span>
                       </p>
                     </div>
                   </div>
                 )
-              })}
+              })
+            ) : (
+              <p className={`${this.classes.cinema} text-center`}>
+                No hay peliculas disponibles para este cine
+              </p>
+            )}
           </div>
         </div>
       )

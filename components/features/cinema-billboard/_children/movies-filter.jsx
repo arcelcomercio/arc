@@ -42,7 +42,7 @@ class MoviesFilter extends PureComponent {
     this.billboardFormat.setData = data
     const movies = this.billboardFormat.moviesList
     const cinemas = this.billboardFormat.cinemaList
-    const genres = this.billboardFormat.genderList
+    const genres = this.billboardFormat.genreList
 
     this.setState({
       movies,
@@ -93,7 +93,7 @@ class MoviesFilter extends PureComponent {
   }
 
   filterCinemasByMovie(id) {
-    const { peliculas: movies = [] } = this.billboardFormat.getData
+    const { movies = [] } = this.billboardFormat.getData
     const filteredMovies = movies.filter(movie => movie.mid === id)
     const cinemas = filteredMovies[0].cines.filter((data, index, arr) => {
       return arr.map(mapObj => mapObj.cid).indexOf(data.cid) === index
@@ -102,12 +102,12 @@ class MoviesFilter extends PureComponent {
   }
 
   filterMoviesByGenre(id) {
-    const movies = this.billboardFormat.moviesByGender(id)
+    const movies = this.billboardFormat.moviesByGenre(id)
     this.setState({ movies })
   }
 
   filterMoviesByCinema(id) {
-    const { cines: cinemas = [] } = this.billboardFormat.getData
+    const { cinemas = [] } = this.billboardFormat.getData
     const filteredCinemas = cinemas.filter(cinema => cinema.cid === id)
     const movies = filteredCinemas[0].peliculas
     this.setState({ movies })
@@ -162,14 +162,14 @@ class MoviesFilter extends PureComponent {
               {genres &&
                 genres.map(
                   genre =>
-                    genre.genero !== 'Otras' && (
+                    genre.name !== 'Otras' && (
                       <option
                         key={`genre-${genre.url}`}
                         value={genre.url}
                         data-id={genre.url}
                         selected=""
                         disabled="">
-                        {genre.genero}
+                        {genre.name}
                       </option>
                     )
                 )}

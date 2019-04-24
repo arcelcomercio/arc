@@ -39,8 +39,8 @@ class GenreMoviesFilter extends PureComponent {
     this.billboardFormat.setData = data
 
     this.setState({
-      movies: this.billboardFormat.moviesByGender(genre),
-      genres: this.billboardFormat.genderList,
+      movies: this.billboardFormat.moviesByGenre(genre),
+      genres: this.billboardFormat.genreList,
     })
   }
 
@@ -71,7 +71,7 @@ class GenreMoviesFilter extends PureComponent {
                   </li>
                   {genres.map(
                     singleGenre =>
-                      singleGenre.genero !== 'Otras' && (
+                      singleGenre.name !== 'Otras' && (
                         <li
                           className={this.classes.navItem}
                           key={`nav-${singleGenre.url}`}>
@@ -86,7 +86,7 @@ class GenreMoviesFilter extends PureComponent {
                                 ? 'movies-grid__nav-link--active'
                                 : ''
                             }`}>
-                            {singleGenre.genero}
+                            {singleGenre.name}
                           </a>
                         </li>
                       )
@@ -111,13 +111,13 @@ class GenreMoviesFilter extends PureComponent {
                   </option>
                   {genres.map(
                     singleGenre =>
-                      singleGenre.genero !== 'Otras' && (
+                      singleGenre.name !== 'Otras' && (
                         <option
                           value={`${contextPath}/cartelera/peliculas/cines/${
                             singleGenre.url
                           }${this.WEBSITE_PARAM}`}
                           key={`select-${singleGenre.url}`}>
-                          {singleGenre.genero}
+                          {singleGenre.name}
                         </option>
                       )
                   )}
