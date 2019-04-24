@@ -80,6 +80,7 @@
     }
     @media (--desktop) {
       border-left: 1px solid #bababa;
+      width: 100%;
     }
   }
   &__label {
@@ -108,5 +109,11 @@
     @media (--desktop) {
       width: 252px;
     }
+  }
+  &__map-title {
+    color: #333;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 10px 0;
   }
 }
