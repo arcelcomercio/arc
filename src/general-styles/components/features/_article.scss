@@ -167,15 +167,15 @@ $BGImageOrd: #4aa8fa;
   margin-top: 26px;
 }
 
-section > div {
-  font-size: 18px;
-  line-height: 1.5;
-  margin-bottom: 25px;
-  word-wrap: break-word;
-}
-
 .news-text-content img {
   width: 100%;
+
+  section>div {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    word-wrap: break-word;
+  }
 }
 
 .font--secondary {
