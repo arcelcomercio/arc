@@ -27,10 +27,7 @@ class Opinion extends Component {
       section2,
       section3,
       section4,
-      data1: {},
-      data2: {},
-      data3: {},
-      data4: {},
+      
       listNews: [],
     }
   }
@@ -45,14 +42,15 @@ class Opinion extends Component {
       section2,
       section3,
       section4,
-      data1,
-      data2,
-      data3,
-      data4,
+      
     } = this.state
 
     const listaSecciones = [section1, section2, section3, section4]
-    const listNews = [data1, data2, data3, data4]
+    const listNews={}
+    listNews.data1={}
+    listNews.data2={}
+    listNews.data3={}
+    listNews.data4={}
 
     listaSecciones.forEach((element, index) => {
       this.getContentApi(element, result => {
