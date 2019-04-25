@@ -208,6 +208,7 @@ class Nav extends Component {
       arcSite,
       contextPath,
       requestUri,
+      deployment,
       siteProperties: { navLogo = 'logo.png' },
     } = this.props
     const querys = requestUri.split('?')[1]
@@ -261,7 +262,9 @@ class Nav extends Component {
           </ul>
           <a href={`${contextPath || ''}/${queryString}`}>
             <img
-              src={`${contextPath}/resources/dist/${arcSite}/images/${navLogo}`}
+              src={deployment(
+                `${contextPath}/resources/dist/${arcSite}/images/${navLogo}`
+              )}
               alt={`Logo de ${arcSite}`}
               className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
             />
