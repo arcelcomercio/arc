@@ -78,12 +78,10 @@ class BillboardFormat {
         const matchedMovie = moviesList.find(movie => {
           return movie.mid === movieId
         })
-        if (auxCinema.peliculas) {
-          auxCinema.peliculas.push(matchedMovie)
-        } else {
+        if (!auxCinema.peliculas)
           auxCinema.peliculas = []
-          auxCinema.peliculas.push(matchedMovie)
-        }
+        auxCinema.peliculas.push(matchedMovie)
+
       }
     })
     this.setCinemasByMovies = cinemasList
