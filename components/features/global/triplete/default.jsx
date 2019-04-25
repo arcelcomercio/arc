@@ -16,13 +16,57 @@ class Triplete extends Component {
   }
 
   componentDidMount() {
-    this.exec()
+    // this.exec()
+    const {
+      customFields: { link1 = '', link2 = '', link3 = '' },
+    } = this.props
+    const listLinks = [link1, link2, link3]
+    const listNews = []
+    listLinks.forEach((element, index) => {
+      this.getContentApi(element, result => {
+        
+        console.log(index)
+        listNews.push(result !== null ? result : {})
+        console.log(listNews)
+      })
+    })
+    
   }
 
   setAuxData(response, i, length) {
+    debugger
     const KEY_STATE = 'data'
     this.auxData[KEY_STATE + i] = response || {}
     if (i === length) this.setState(this.auxData)
+  }
+
+  setAuxData2(response, i, length) {
+    const KEY_STATE = 'data'
+    this.auxData[KEY_STATE + i] = response || {}
+    if (i === length) this.setState(this.auxData)
+  }
+
+  getContentApi(link, callback) {
+    debugger
+    if (link !== '') {
+      const { arcSite } = this.props
+
+      const { fetched } = this.getContent(
+        API_URL,
+        { website_url: link, website: arcSite },
+        filterSchema(arcSite)
+      )
+      fetched
+        .then(response => {
+          callback(response)
+        })
+        .catch(err => {
+          console.log(err)
+          callback(null)
+        })
+    } else {
+      callback(null)
+    }
   }
 
   exec() {
@@ -37,7 +81,10 @@ class Triplete extends Component {
           { website_url: customFields[LINK + i], website: arcSite },
           filterSchema(arcSite)
         )
+
         fetched.then(response => this.setAuxData(response, i, LINK_LENGTH))
+      } else {
+        this.setAuxData({}, i, LINK_LENGTH)
       }
     }
   }
@@ -51,7 +98,7 @@ class Triplete extends Component {
       data.__index = index + 1
       return data.attributesRaw
     })
-    
+    //debugger
     const params = {
       data: dataFormatted,
       arcSite,
