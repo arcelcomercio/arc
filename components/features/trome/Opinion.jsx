@@ -27,19 +27,37 @@ class Opinion extends Component {
       section2,
       section3,
       section4,
+      data1: {},
+      data2: {},
+      data3: {},
+      data4: {},
       listNews: [],
     }
   }
 
   componentDidMount = () => {
-    const { section1, section2, section3, section4 } = this.state
+    this.init()
+  }
+
+  init = () => {
+    const {
+      section1,
+      section2,
+      section3,
+      section4,
+      data1,
+      data2,
+      data3,
+      data4,
+    } = this.state
 
     const listaSecciones = [section1, section2, section3, section4]
-    const listNews = []
-    listaSecciones.forEach(element => {
+    const listNews = [data1, data2, data3, data4]
+
+    listaSecciones.forEach((element, index) => {
       this.getContentApi(element, result => {
-        listNews.push(result)
-        if (listNews.length === 4) {
+        listNews[`data${index + 1}`] = result
+        if (listNews[`data${index + 1}`] !== {}) {
           this.setState({
             listNews,
           })
@@ -82,7 +100,7 @@ class Opinion extends Component {
             const { name, path } = sections[0] || []
 
             const contenido = {
-              title: basic,
+              title: `${basic}`,
               urlImg: siteLogo,
               urlNew: canonicalUrl,
               sectionName: name,
@@ -103,9 +121,15 @@ class Opinion extends Component {
   }
 
   render() {
-    const { titleOpinion ='',arcSite, listNews=[] } = this.state
+    const { titleOpinion = '', arcSite, listNews = [] } = this.state
 
-    return <OpinionComponent titleOpinion={titleOpinion} dataList={listNews} arcSite={arcSite} />
+    return (
+      <OpinionComponent
+        titleOpinion={titleOpinion}
+        dataList={listNews}
+        arcSite={arcSite}
+      />
+    )
   }
 }
 
