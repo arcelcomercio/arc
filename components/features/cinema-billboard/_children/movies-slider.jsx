@@ -121,7 +121,7 @@ class MoviesSlider extends PureComponent {
                   </li>
                 ))}
               </ul>
-              <div className={this.classes.arrowsBox}>
+              {premieres && premieres.length > 1 && (<div className={this.classes.arrowsBox}>
                 <i
                   role="button"
                   tabIndex="0"
@@ -136,7 +136,7 @@ class MoviesSlider extends PureComponent {
                   onClick={this._handleNext}
                   onKeyDown={this._handleNext}
                 />
-              </div>
+              </div>) }
             </Fragment>
           )}
         </div>
