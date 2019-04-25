@@ -6,5 +6,8 @@ export default {
   resolve,
   params: {
     website: 'text',
+    movie: 'text',
+    cinema: 'text',
+    genre: 'text'
   },
 }

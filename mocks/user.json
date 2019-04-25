@@ -2,7 +2,14 @@
   "displayName": "Local Fusion Developer",
   "permissions": {
     "PageBuilder": {
-      "global": ["W", "D", "P", "VRP", "ERP", "DT"]
+      "global": [
+        "W",
+        "D",
+        "P",
+        "VRP",
+        "ERP",
+        "DT"
+      ]
     }
   }
 }

@@ -8,19 +8,6 @@
 		text-align: center
 	}
 
-	&__link {
-		padding: 6px 4px;
-		color: #7d7d7d;
-		text-transform: uppercase;
-		font-size: 10px;
-		font-weight: 600;
-
-		@media (--desktop) {
-			padding: 6px 12px;
-			font-size: 14px;
-		}
-	}
-
 	&__item {
 		margin: 0 5px;
 		display: inline-block;
@@ -39,6 +26,19 @@
 				color: #FFF;
 				text-decoration: none;
 			}
+		}
+	}
+
+	&__link {
+		padding: 6px 4px;
+		color: #7d7d7d;
+		text-transform: uppercase;
+		font-size: 10px;
+		font-weight: 600;
+
+		@media (--desktop) {
+			padding: 6px 12px;
+			font-size: 14px;
 		}
 	}
 
