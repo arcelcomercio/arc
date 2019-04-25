@@ -106,6 +106,7 @@
         }
 
         p {
+          
           a {
             font-size: 13.5px;
             color: black;
@@ -116,6 +117,7 @@
           }
         }
       }
+      
 
       &-image {
         right: 21px;
@@ -216,11 +218,10 @@
     font-size: 17px;
     color: #333;
     line-height: 1.13;
-    -webkit-line-clamp: 2;
+    
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
-    
 
     font-family: 'ChronicleDisplayBold', Times New Roman, serif;
 
@@ -239,7 +240,18 @@
       }
     }
   }
-
+  &-oneline {
+    -webkit-line-clamp: 1;
+    // max-height: 35.63px;
+  }
+  &-twoline {
+    -webkit-line-clamp: 2;
+    // max-height: 35.63px;
+  }
+  &-threeline {
+    -webkit-line-clamp: 3;
+    // max-height: 57.63px;
+  }
   &--nota {
     height: 254px;
   }

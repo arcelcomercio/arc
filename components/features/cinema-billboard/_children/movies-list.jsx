@@ -39,7 +39,11 @@ class MoviesList extends PureComponent {
     this.billboardFormat.setData = data
     const { cinemaList } = this.billboardFormat
     const matchedCinema = cinemaList.find(itemCine => itemCine.url === cinema)
-    const movies = matchedCinema.peliculas
+    const movies = matchedCinema.peliculas.filter((data, index, arr) => {
+      return arr.map(mapObj => mapObj.mid).indexOf(data.mid) === index
+    })
+
+    console.log(movies)
 
     this.setState({
       movies,
