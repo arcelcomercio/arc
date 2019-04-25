@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 
 export default ({
+  deployment,
   siteName = '',
   siteUrl = '',
   colorPrimary = '',
@@ -10,9 +11,9 @@ export default ({
   requestUri = '',
   arcSite = '',
   contextPath = '',
-  deployment = () => {},
 } = {}) => {
-  const googleTagManagerScript = `(function (w, d, s, l, i) {
+  // TODO: Activar googleTagManagerScript de nuevo
+  /* const googleTagManagerScript = `(function (w, d, s, l, i) {
     w[l] = w[l] || []
     w[l].push({
       'gtm.start': new Date().getTime(),
@@ -24,7 +25,7 @@ export default ({
     j.async = true
     j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
     f.parentNode.insertBefore(j, f)
-  })(window, document, 'script', 'dataLayer', 'GTM-KKXTKGP')`
+  })(window, document, 'script', 'dataLayer', 'GTM-KKXTKGP')` */
 
   const structuredData = `{
     "@context" : "http://schema.org",
@@ -117,7 +118,7 @@ export default ({
       <meta name="msapplication-TileColor" content={colorPrimary} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
       <meta name="application-name" content={siteName} />
-      <script dangerouslySetInnerHTML={{ __html: 'googleTagManagerScript' }} />
+      {/* <script dangerouslySetInnerHTML={{ __html: googleTagManagerScript }} /> */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}

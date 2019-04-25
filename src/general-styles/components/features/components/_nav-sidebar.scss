@@ -81,17 +81,13 @@
 	}
 
 	&__item {
-		padding: 0 15px;
 		transition: all 0.15s ease;
 		position: relative;
 
 		&:hover {
 			transition: all 0.15s ease;
 			background-color: rgba(0, 0, 0, 0.96);
-
-			.nav-sidebar__link {
-				padding-left: 10px;
-			}
+			padding-left: 10px;
 		}
 	}
 
@@ -99,7 +95,7 @@
 		font-size: 14px;
 		color: #fff;
 		display: block; // .block
-		padding: 15px 0;
+		padding: 15px;
 		transition: all 0.15s ease;
 	}
 

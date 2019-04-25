@@ -4,10 +4,10 @@ import React, { Component } from 'react'
 import { getActualDate } from '../utilsJs/helpers'
 
 const classes = {
-  paginationFile: 'pagination-file',
+  paginationFile: 'pagination-file full-width',
   paginationFileList: 'pagination-file__list',
   paginationFileItem: 'pagination-file__item',
-  paginationFileLink: 'flex-center pagination-file__link',
+  paginationFileLink: 'text-uppercase flex-center pagination-file__link',
 }
 class PaginadorFecha extends Component {
   constructor(props) {
@@ -145,11 +145,12 @@ class PaginadorFecha extends Component {
               <li
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
-                className={`${classes.paginationFileItem} ${
-                  index === dateIterator.length - 1 ? 'active' : ''
-                }`}>
+                className={classes.paginationFileItem}>
                 {index === dateIterator.length - 1 ? (
-                  <p className={classes.paginationFileLink}>
+                  <p
+                    className={`${classes.paginationFileLink} ${
+                      index === dateIterator.length - 1 ? 'active' : ''
+                    }`}>
                     {this.clearDate(el)}
                   </p>
                 ) : (
