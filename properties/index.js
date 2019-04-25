@@ -12,8 +12,13 @@ export default {
     },
     {
       name: 'gestion.pe',
-      arcSite: '',
+      arcSite: 'gestion',
       url: 'https://gestion.pe/',
+    },
+    {
+      name: 'ojo.pe',
+      arcSite: 'ojo',
+      url: 'https://ojo.pe/',
     },
     {
       name: 'peru.com',

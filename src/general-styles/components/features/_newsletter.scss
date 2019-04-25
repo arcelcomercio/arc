@@ -1,0 +1,129 @@
+// Newsletter
+.newsletter {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  @media (--desktop) {
+    background-color: #f4f4f4;
+    max-width: 1274px;
+    padding: 0px 60px;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: inherit;
+  }
+
+  &__box-suscription {
+    font-family: $newsletter-suscription-font;
+    width: 430px;
+    align-self: center;
+  }
+
+  &__button {
+    background-color: #333;
+    color: #fff;
+    border: 0;
+    font-weight: 700;
+    height: 50px;
+    width: 100%;
+  }
+
+  &__description {
+    color: #666;
+    font: 20px/1.5 $newsletter-description-font;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+  }
+
+  &__email {
+    border: 1px solid #e0e0e0;
+    font-size: 14px;
+    height: 50px;
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  &__error-message {
+    color: #d80000;
+    display: block;
+    font-size: 12px;
+    padding-top: 5px;
+
+    &--font-medium {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__image {
+    background-color: #fff;
+    border-bottom: 2px solid #dadada;
+    overflow: hidden;
+    height: 370px;
+    text-align: center;
+
+    img {
+      width: 60%;
+    }
+
+    @media (--desktop) {
+      width: 380px;
+      background-color: inherit;
+      overflow: inherit;
+      border-bottom: inherit;
+      height: inherit;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  &__row {
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    color: #666;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    padding-bottom: 15px;
+    position: relative;
+
+    &::after {
+      background-color: #f7c600;
+      bottom: 0;
+      content: '';
+      height: 5px;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 115px;
+    }
+
+    span {
+      color: #333;
+      display: block;
+      font-size: 70px;
+      font-weight: 800;
+    }
+  }
+
+  &__tos {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+
+    a {
+      text-decoration: underline;
+      color: #333;
+    }
+
+    input[type='checkbox'] {
+      float: left;
+      margin: 0;
+      margin-right: 10px;
+      margin-top: 1px;
+    }
+  }
+}
