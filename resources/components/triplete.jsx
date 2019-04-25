@@ -28,6 +28,7 @@ export const Triplete = props => {
       numline = classes.twoline
       break
   }
+  
   return (
     <div className={classes.triplete}>
       {data.map(elem => (
