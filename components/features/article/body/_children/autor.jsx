@@ -16,7 +16,7 @@ export default props => {
   return (
     (name || date) && (
       <div className={classes.newsAuthor}>
-        {name && <a href={url && url}>{name} </a>}
+        {name && <a href={url}>{name} </a>}
         {date && formatDate(date)}
       </div>
     )

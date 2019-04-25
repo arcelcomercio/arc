@@ -12,10 +12,23 @@
     align-items: inherit;
   }
 
+  &__banner-image {
+    width: 100%;
+
+    @media (--desktop) {
+      width: inherit;
+    }
+  }
+
   &__box-suscription {
     font-family: $newsletter-suscription-font;
-    width: 430px;
+    padding: 0px 40px;
     align-self: center;
+
+    @media (--desktop) {
+      max-width: 450px;
+      padding: 0px 15px;
+    }
   }
 
   &__button {
@@ -104,8 +117,12 @@
     span {
       color: #333;
       display: block;
-      font-size: 70px;
+      font-size: 55px;
       font-weight: 800;
+
+      @media (--desktop) {
+        font-size: 70px;
+      }
     }
   }
 

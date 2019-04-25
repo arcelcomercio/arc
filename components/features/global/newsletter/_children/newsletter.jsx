@@ -21,7 +21,7 @@ export const Newsletter = props => {
         )}
         {hasBanner && (
           <div className="newsletter__banner">
-            <img src={banner} alt="banner" />
+            <img src={banner} alt="banner" className="newsletter__banner newsletter__banner-image" />
           </div>
         )}
         {formHtml}
