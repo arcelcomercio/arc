@@ -59,12 +59,10 @@ class BillboardFormat {
         Object.assign(matchedCinema, {
           horario: cinemaObj.horario
         })
-        if (auxMovie.cines) {
-          auxMovie.cines.push(matchedCinema)
-        } else {
+        if (!auxMovie.cines)
           auxMovie.cines = []
-          auxMovie.cines.push(matchedCinema)
-        }
+        auxMovie.cines.push(matchedCinema)
+
       }
     })
 
