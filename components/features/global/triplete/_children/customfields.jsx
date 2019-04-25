@@ -6,7 +6,7 @@ const customFields = PropTypes.shape({
   content1: PropTypes.label.tag({
     name: 'Nota 1',
   }),
-  link1: PropTypes.string.isRequired.tag({
+  data1: PropTypes.string.isRequired.tag({
     name: 'Link de nota interna 1',
   }),
   title1: PropTypes.string.tag({
@@ -16,7 +16,7 @@ const customFields = PropTypes.shape({
   content2: PropTypes.label.tag({
     name: 'Nota 2',
   }),
-  link2: PropTypes.string.isRequired.tag({
+  data2: PropTypes.string.isRequired.tag({
     name: 'Link de nota interna 2',
   }),
   title2: PropTypes.string.tag({
@@ -26,7 +26,7 @@ const customFields = PropTypes.shape({
   content3: PropTypes.label.tag({
     name: 'Nota 3',
   }),
-  link3: PropTypes.string.isRequired.tag({
+  data3: PropTypes.string.isRequired.tag({
     name: 'Link de nota interna 3',
   }),
   title3: PropTypes.string.tag({
