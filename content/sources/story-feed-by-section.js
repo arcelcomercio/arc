@@ -56,11 +56,6 @@ const pattern = (key = {}) => {
               type: 'story',
             },
           },
-          {
-            term: {
-              canonical_website: website,
-            },
-          },
         ],
         must_not: [{
           nested: {
