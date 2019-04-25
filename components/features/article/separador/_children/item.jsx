@@ -6,21 +6,37 @@ const classes = {
   item: 'articlesep__item separator__item--nota',
   detail: 'articlesep__detail',
   separatorTitle: 'articlesep__title articlesep__title--nota',
+  oneline: 'articlesep-oneline',
+  twoline: 'articlesep-twoline',
+  threeline: 'articlesep-threeline',
 }
 
-const SeparatorListItem = ({ data, excluir, website }) => {
+const SeparatorListItem = ({ data, excluir, website, arcSite }) => {
   const SeparatorItem = ({
     headlines,
     urlImage,
     website_url: websiteUrl,
     medio,
   }) => {
+    let numline = ''
+    switch (arcSite) {
+      case 'elcomercio':
+        numline = classes.threeline
+        break
+      case 'depor':
+        numline = classes.twoline
+        break
+      default:
+        numline = classes.twoline
+        break
+    }
+
     return (
       <article className={classes.item}>
         {medio === 'video' && <span>&#8227;</span>}
         {medio === 'gallery' && <span>G</span>}
         <div className={classes.detail}>
-          <h2 className={classes.separatorTitle}>
+          <h2 className={`${classes.separatorTitle} ${numline}` }>
             <a href={websiteUrl}>{headlines}</a>
           </h2>
         </div>
