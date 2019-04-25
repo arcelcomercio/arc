@@ -28,7 +28,10 @@ class Separador extends Component {
   }
 
   getSeccionPrimary = dataArticle => {
-    return dataArticle.taxonomy && dataArticle.taxonomy.primary_section
+    
+    return dataArticle.taxonomy
+      ? dataArticle.taxonomy.primary_section
+      : { name: '', section: '' }
   }
 
   componentDidMount = () => {
@@ -100,7 +103,7 @@ class Separador extends Component {
 
   render() {
     const { data, excluir, website, device, nameSeccion } = this.state
-    console.log(this)
+    
     // eslint-disable-next-line eqeqeq
     if (device == 'mobile') return ''
     return (

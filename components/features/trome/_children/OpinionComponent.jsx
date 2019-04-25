@@ -56,16 +56,19 @@ const OpinionComponent = ({ titleOpinion, dataList, arcSite }) => {
       numberLine = classes.twoline
       break
   }
-
+  
+  const keysList = ['item001', 'item0023', 'item043', 'item061','item254','item346',]
+  const arrayprint = [dataList.data1,dataList.data2,dataList.data3,dataList.data4 ]
   return (
     <div className={classes.opinion}>
       <div className={classes.head}>
         <h3 className={classes.title}>{titleOpinion}</h3>
       </div>
       <div className={classes.body}>
-        {dataList.map(data =>
+        {arrayprint.map((data, index) =>
           data ? (
             <OpinionItem
+              key={keysList[index]}
               titulo={data.title}
               numberLine={numberLine}
               urlImg={data.urlImg}

@@ -1,9 +1,9 @@
 import React from 'react'
 
 const classes = {
-  tagsName: 'tags',
-  titulo: 'tags__title',
-  item: 'tags__item',
+  tagsName: 'article-body__tags',
+  titulo: 'article-body__tag-title',
+  item: 'article-body__tag-item',
 }
 export default props => {
   const { data: { tags: data = [] } = {} } = props

@@ -211,6 +211,7 @@
 
   &__title {
     display: -webkit-box;
+    overflow: hidden;
     max-height: 57.63px;
     font-size: 17px;
     color: #333;
@@ -219,7 +220,7 @@
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
-    overflow: hidden;
+    
 
     font-family: 'ChronicleDisplayBold', Times New Roman, serif;
 
