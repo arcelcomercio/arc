@@ -13,11 +13,9 @@ import Autor from './_children/autor'
 import ElePrincipal from './_children/ele-principal'
 
 const classes = {
-  textClasses: 'font--secondary',
-  headerClasses: 'font--primary',
-  imageClasses: 'visual__image visual__image--cover',
-  news: 'news-text-content col-2 padding-normal bg-color--white',
-  newsImage: 'visual__image visual__image--cover',
+  news: 'article-body news-text-content col-2 padding-normal bg-color--white',
+  textClasses: 'article-body__font--secondary',
+  newsImage: 'article-body__image article-body__image--cover',
 }
 @Consumer
 class ArticleBodyContent extends PureComponent {

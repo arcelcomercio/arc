@@ -17,7 +17,7 @@ class Newsletter extends Component {
       }
     },
     suscription: data => {
-      const url = 'http://jab.pe/f/arc/services/newsletter.php'
+      const url = 'https://jab.pe/f/arc/services/newsletter.php'
       fetch(url, {
         method: 'POST',
         mode: 'cors',
