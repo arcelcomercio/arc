@@ -10,6 +10,7 @@ class Opinion extends Component {
     super(props)
 
     const {
+      arcSite,
       customFields: {
         titleOpinion,
         section1,
@@ -21,6 +22,7 @@ class Opinion extends Component {
 
     this.state = {
       titleOpinion,
+      arcSite,
       section1,
       section2,
       section3,
@@ -101,9 +103,9 @@ class Opinion extends Component {
   }
 
   render() {
-    const { titleOpinion, listNews } = this.state
+    const { titleOpinion ='',arcSite, listNews=[] } = this.state
 
-    return <OpinionComponent titleOpinion={titleOpinion} dataList={listNews} />
+    return <OpinionComponent titleOpinion={titleOpinion} dataList={listNews} arcSite={arcSite} />
   }
 }
 

@@ -40,7 +40,12 @@ const customFields = {
     },
     defaultValue: 'left',
   }),
-  multimediaService: PropTypes.oneOf(['default', 'image', 'goldfish', 'youtube']).tag({
+  multimediaService: PropTypes.oneOf([
+    'default',
+    'image',
+    'goldfish',
+    'youtube',
+  ]).tag({
     name: 'Proveedor',
     group: 'Multimedia',
     labels: {
@@ -54,7 +59,8 @@ const customFields = {
   multimediaSource: PropTypes.string.tag({
     name: 'Recurso',
     group: 'Multimedia',
-    description: 'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: Url del video.',
+    description:
+      'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: Url del video.',
   }),
 }
 

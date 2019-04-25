@@ -4,10 +4,14 @@ const classes = {
   opinionItem: 'separator__opinion--item',
   opinionItemDetails: 'separator__opinion--item-details',
   opinionItemImage: 'separator__opinion--item-image',
+  opiniononeline: 'separator__opinion--item-oneline',
+  opiniontwoline: 'separator__opinion--item-twoline',
+  opinionthreeline: 'separator__opinion--item-threeline',
 }
 
 const OpinionItem = props => {
   const {
+    arcSite,
     data: {
       author,
       authorUrl,
@@ -18,6 +22,19 @@ const OpinionItem = props => {
       imageUrl,
     } = {},
   } = props
+
+  let numline = ''
+    switch (arcSite) {
+      case 'elcomercio':
+        numline = classes.opinionthreeline
+        break
+      case 'depor':
+        numline = classes.opiniontwoline
+        break
+      default:
+        numline = classes.opiniontwoline
+        break
+    }
   return (
     <article className={classes.opinionItem}>
       <div className={classes.opinionItemDetails}>
@@ -27,7 +44,7 @@ const OpinionItem = props => {
         <h5>
           <a href={authorUrl}>{author}</a>
         </h5>
-        <p>
+        <p className={numline}>
           <a href={websiteUrl}>{titulo}</a>
         </p>
       </div>

@@ -13,34 +13,43 @@ class AperturaExtraordinariaSection extends Component {
     super(props)
     this.state = { data: {} }
     this.isVideo = false
-    this.fetch()
+  }
+
+  componentDidMount() {
+    const {
+      globalContent,
+      customFields: { sectionName },
+    } = this.props
+    const { section_name: hasSection } = globalContent || {}
+
+    if (hasSection && (sectionName === '/' || sectionName === '')) {
+      this.setState({ data: globalContent || {} })
+    } else this.fetch()
   }
 
   componentDidUpdate() {
-    if(window.powaBoot && this.isVideo){
+    if (window.powaBoot && this.isVideo) {
       window.powaBoot()
     }
   }
 
   fetch() {
     const {
-      customFields: { sectionName, positionData },
       arcSite,
+      customFields: { sectionName, positionData },
     } = this.props
-    // if (sectionName) {
-      const { fetched } = this.getContent(
-        API_URL,
-        {
-          section: sectionName,
-          feedOffset: positionData || 0,
-          news_number: API_SIZE_DATA,
-        },
-        filterSchema(arcSite)
-      )
-      fetched.then(response => {
-        this.setState({ data: response || {} })
-      })
-    // }
+    const { fetched } = this.getContent(
+      API_URL,
+      {
+        section: sectionName,
+        feedOffset: positionData || 0,
+        news_number: API_SIZE_DATA,
+      },
+      filterSchema(arcSite)
+    )
+    fetched.then(response => {
+      this.setState({ data: response || {} })
+    })
   }
 
   render() {
@@ -56,6 +65,7 @@ class AperturaExtraordinariaSection extends Component {
       data: formattedData,
       multimediaOrientation: formattedData.multimediaOrientation,
       contentOrientation: formattedData.contentOrientation,
+      arcSite,
     }
     return <AperturaExtraordinariaChildren {...params} />
   }

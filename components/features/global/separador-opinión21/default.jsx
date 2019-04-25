@@ -29,13 +29,19 @@ class SeparadorOpinion extends Component {
     super(props)
 
     const {
-      customFields: { section = '', titleSection = '', htmlCode = '' } = {},
+      arcSite,
+      customFields: {
+        section = '',
+        titleSection = '',
+        htmlCode = '',
+      } = {},
     } = props
 
     this.state = {
       device: this.setDevice(),
       section,
       titleSection,
+      arcSite,
       htmlCode,
       data: [],
     }
@@ -152,8 +158,8 @@ class SeparadorOpinion extends Component {
   }
 
   listado = () => {
-    const { data } = this.state
-    return data.map(info => <OpinionItem key={info.id} data={info} />)
+    const { data, arcSite } = this.state
+    return data.map(info => <OpinionItem key={info.id} data={info} arcSite={arcSite} />)
   }
 
   render() {

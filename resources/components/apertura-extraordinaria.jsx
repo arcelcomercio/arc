@@ -7,6 +7,9 @@ const classes = {
   aperturaESection: 'apertura-e__section text-center',
   aperturaEContent: 'apertura-e__content',
   aperturaETitle: 'apertura-e__title',
+  oneline: 'apertura-e-oneline',
+  twoline: 'apertura-e-twoline',
+  threeline: 'apertura-e-threeline',
   aperturaESubtitle: 'apertura-e__subtitle',
   aperturaEAuthor: 'apertura-e__author',
   aperturaEMultimedia: 'apertura-e__multimedia',
@@ -33,7 +36,21 @@ const AperturaExtraordinaria = props => {
     contentOrientation = 'left',
     isSection = false,
     multimediaType,
+    arcSite,
   } = props
+
+  let numline = ''
+    switch (arcSite) {
+      case 'elcomercio':
+        numline = classes.threeline
+        break
+      case 'depor':
+        numline = classes.twoline
+        break
+      default:
+        numline = classes.twoline
+        break
+    }
 
   return (
     <div
@@ -46,7 +63,7 @@ const AperturaExtraordinaria = props => {
         </div>
       )}
       <div className={classes.aperturaEContent}>
-        <div className={classes.aperturaETitle}>
+        <div className={`${classes.aperturaETitle} ${numline}`}>
           <a href={data.link}>{data.title}</a>
         </div>
         <div className={classes.aperturaESubtitle}>

@@ -51,9 +51,10 @@ class Triplete extends Component {
       data.__index = index + 1
       return data.attributesRaw
     })
-
+    
     const params = {
       data: dataFormatted,
+      arcSite,
       multimediaOrientation: customFields.multimediaOrientation,
       editableField,
     }

@@ -5,6 +5,9 @@ const classes = {
   separator: 'separator margin-top',
   headerHtml: 'separator__headerHtml',
   title: 'separator__headerTitle text-uppercase',
+  oneline: 'separator__oneline',
+  twoline: 'separator__twoline',
+  threeline: 'separator__threeline',
   body: 'separator__body',
 }
 
@@ -13,13 +16,31 @@ const createMarkup = html => {
 }
 
 export default ({
-  data: { titleSeparator = '', titleLink = '/', htmlCode = '', items } = {},
+  data: {
+    titleSeparator = '',
+    arcSite,
+    titleLink = '/',
+    htmlCode = '',
+    items,
+  } = {},
 }) => {
-  console.log(items)
+  
+  let numline = ''
+    switch (arcSite) {
+      case 'elcomercio':
+        numline = classes.threeline
+        break
+      case 'depor':
+        numline = classes.twoline
+        break
+      default:
+        numline = classes.twoline
+        break
+    }
   return (
     <div className={classes.separator}>
       {titleSeparator ? (
-        <h1 className={classes.title}>
+        <h1 className={`${classes.title}`}>
           <a href={titleLink}>{titleSeparator}</a>
         </h1>
       ) : (
@@ -44,6 +65,7 @@ export default ({
                   headlines={headlinesBasic || ''}
                   promoItems={promoItems || {}}
                   website_url={websiteUrl || '/'}
+                  numLine={numline}
                 />
               )
             }

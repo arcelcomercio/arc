@@ -3,9 +3,9 @@ import { addResizedUrlItem } from '../../../../../resources/utilsJs/thumbs'
 import { GetMultimediaContent } from '../../../../../resources/utilsJs/helpers'
 
 const classes = {
-  item: 'separator__item separator__item--nota',
-  detail: 'separator__detail',
-  separatorTitle: 'separator__title separator__title--nota',
+  item: 'articlesep__item separator__item--nota',
+  detail: 'articlesep__detail',
+  separatorTitle: 'articlesep__title articlesep__title--nota',
 }
 
 const SeparatorListItem = ({ data, excluir, website }) => {

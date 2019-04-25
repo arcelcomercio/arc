@@ -45,7 +45,7 @@ class DestaqueAutomatico extends Component {
 
   render() {
     const { category, title, author, image, multimediaType } = this.state
-    const { customFields, editableField } = this.props
+    const { customFields, editableField , arcSite} = this.props
     const { imageSize, size, titleField, categoryField } = customFields || {}
     const params = {
       title,
@@ -57,6 +57,7 @@ class DestaqueAutomatico extends Component {
       editableField,
       titleField,
       categoryField,
+      arcSite,
       multimediaType,
     }
     return <Destaque {...params} />

@@ -8,11 +8,11 @@ import filterSchema from './_children/filterschema'
 import SeparatorListItem from './_children/item'
 
 const classes = {
-  separator: 'separator col-3 separator--nota',
-  headerHtml: 'separator__headerHtml',
-  title: 'separator__headerTitle separator__headerTitle--nota',
-  body: 'separator__body separator__body--items',
-  mvideo: 'separator--video',
+  separator: 'articlesep col-3 separator--nota',
+  headerHtml: 'articlesep__headerHtml',
+  title: 'articlesep__headerTitle separator__headerTitle--nota',
+  body: 'articlesep__body separator__body--items',
+  mvideo: 'articlesep--video',
 }
 
 @Consumer
@@ -28,11 +28,7 @@ class Separador extends Component {
   }
 
   getSeccionPrimary = dataArticle => {
-    return (
-      dataArticle.taxonomy &&
-      dataArticle.taxonomy.primary_section &&
-      dataArticle.taxonomy.primary_section.path
-    )
+    return dataArticle.taxonomy && dataArticle.taxonomy.primary_section
   }
 
   componentDidMount = () => {
@@ -47,7 +43,11 @@ class Separador extends Component {
     if (device === 'mobile') news_number = 0
 
     const { arcSite, globalContent } = this.props
-    const section = this.getSeccionPrimary(globalContent || {})
+    const { name, path: section } = this.getSeccionPrimary(globalContent || {})
+    this.setState({
+      // eslint-disable-next-line react/no-unused-state
+      nameSeccion: name,
+    })
     const { fetched } = this.getContent(
       'story-feed-by-section',
       {
@@ -99,12 +99,13 @@ class Separador extends Component {
   }
 
   render() {
-    const { data, excluir, website, device } = this.state
+    const { data, excluir, website, device, nameSeccion } = this.state
+    console.log(this)
     // eslint-disable-next-line eqeqeq
     if (device == 'mobile') return ''
     return (
       <div className={classes.separator}>
-        <h3 className={classes.title}>Más en Política</h3>
+        <h3 className={classes.title}>Más en {nameSeccion}</h3>
         <div className={classes.body}>
           <SeparatorListItem data={data} excluir={excluir} website={website} />
         </div>

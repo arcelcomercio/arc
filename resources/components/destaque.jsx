@@ -12,6 +12,9 @@ const classes = {
 
   category: 'destaque__category',
   title: 'destaque__title',
+  oneline: 'destaque-oneline ',
+  twoline: 'destaque-twoline',
+  threeline: 'destaque-threeline',
   author: 'destaque__author',
 
   link: 'destaque__link',
@@ -46,6 +49,7 @@ export default class Destaque extends Component {
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
+      arcSite,
     } = this.props
 
     const getImageSizeClass = () => {
@@ -53,9 +57,9 @@ export default class Destaque extends Component {
         case 'complete':
           return classes.imgComplete
         case 'parcialTop':
-          return classes.parcialTop
+          return size !== 'twoCol' ? classes.parcialTop : classes.imgComplete
         default:
-          return ''
+          return size !== 'twoCol' ? '' : classes.imgComplete
       }
     }
 
@@ -91,7 +95,19 @@ export default class Destaque extends Component {
         </span>
       )
     }
-
+    
+    let numline = ''
+    switch (arcSite) {
+      case 'elcomercio':
+        numline = classes.threeline
+        break
+      case 'depor':
+        numline = classes.twoline
+        break
+      default:
+        numline = classes.twoline
+        break
+    }
     return (
       <article
         className={`${
@@ -99,7 +115,9 @@ export default class Destaque extends Component {
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === 'twoCol' ? classes.twoCol : ''
         }`}>
-        {imageSize === 'complete' && <span className={classes.gradient} />}
+        {(imageSize === 'complete' || size === 'twoCol') && (
+          <span className={classes.gradient} />
+        )}
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
             <h3 className={classes.category}>
@@ -107,7 +125,7 @@ export default class Destaque extends Component {
                 className={classes.link}
                 href={category.url}
                 /* {...getEditableField('categoryField')}
-                suppressContentEditableWarning */
+              suppressContentEditableWarning */
               >
                 {categoryField || category.name}
               </a>
@@ -121,12 +139,12 @@ export default class Destaque extends Component {
               </a>
             </div>
           )}
-          <h2 className={classes.title}>
+          <h2 className={`${classes.title} ${numline}`}>
             <a
               className={classes.link}
               href={title.url}
               /* {...getEditableField('titleField')}
-              suppressContentEditableWarning */
+            suppressContentEditableWarning */
             >
               {titleField || title.name}
             </a>
@@ -163,7 +181,7 @@ Destaque.propTypes = {
     url: PropTypes.string,
   }),
   image: PropTypes.string,
-  imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']),
+  imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialTop']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf(['oneCol', 'twoCol']),
   // editableField: PropTypes.func,

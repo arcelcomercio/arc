@@ -56,11 +56,13 @@ class AperturaExtraordinariaStory extends Component {
     const { data } = this.state
     const formattedData = new Data(customFields, data, arcSite)
     this.isVideo = formattedData.isVideo
+    
     const params = {
       data: formattedData,
       multimediaType: formattedData.multimediaType,
       multimediaOrientation: formattedData.multimediaOrientation,
       contentOrientation: formattedData.contentOrientation,
+      arcSite,
     }
 
     return <AperturaExtraordinariaChildren {...params} />
