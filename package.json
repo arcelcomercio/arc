@@ -57,12 +57,13 @@
     "webpack-cli": "3.2.1"
   },
   "scripts": {
-    "dev": "webpack --config ./config/webpack.config.js --env.dev",
-    "fusion": "fusion",
-    "prod": "webpack --config ./config/webpack.config.js --env.prod",
-    "start": "fusion start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev"
+    "fusion": "fusion",
+    "start": "fusion start",
+    "dev": "webpack --config ./config/webpack.config.js --env.dev",
+    "prod": "webpack --config ./config/webpack.config.js --env.prod",
+    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev",
+    "zip": "npm run prod && npx fusion zip"
   },
   "keywords": [],
   "author": "",
