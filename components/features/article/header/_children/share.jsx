@@ -11,21 +11,22 @@ import {
 } from 'react-share'
 
 const classes = {
-  share: 'share-news',
+  share: 'article-header__share-news',
   shareListItem: '',
   shareItemFb:
-    'share-news__list-items__item share-news__list-items__item--face',
-  shareItemTw: 'share-news__list-items__item share-news__list-items__item--tw',
+    'article-header__list-items__item article-header__list-items__item--face',
+  shareItemTw:
+    'article-header__list-items__item article-header__list-items__item--tw',
   shareItemLinkedIn:
-    'share-news__list-items__item    share-news__list-items__item--linkedin',
-  shareItemWs: 'share-news__list-items__item hide',
+    'article-header__list-items__item    article-header__list-items__item--linkedin',
+  shareItemWs: 'article-header__list-items__item hide',
   shareItemGplus:
-    'share-news__list-items__item share-news__list-items__item--gplus',
+    'article-header__list-items__item article-header__list-items__item--gplus',
   shareItemOtherItems:
-    'share-news__list-items__item share-news__list-items__item--other-items   hide',
+    'article-header__list-items__item article-header__list-items__item--other-items   hide',
   shareItemShowMore:
-    'share-news__list-items__item share-news__list-items__item--show-more',
-  shareItemLink: 'share-news__list-items__item__link',
+    'article-header__list-items__item article-header__list-items__item--show-more',
+  shareItemLink: 'article-header__list-items__item__link',
   shareBtnLess: 'less',
   shareBtnMore: 'more',
 }
@@ -41,7 +42,7 @@ class Share extends Component {
 
   handleOnclickMas = () => {
     this.setState({
-      shareMas: ' share-news__list-items__item--active',
+      shareMas: ' article-header__list-items__item--active',
     })
   }
 

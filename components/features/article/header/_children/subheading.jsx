@@ -2,6 +2,9 @@ import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
+const classes = {
+  description: 'article-header__news-summary',
+}
 @Consumer
 class Subheading extends Component {
   render() {
@@ -11,7 +14,7 @@ class Subheading extends Component {
     return (
       <Fragment>
         {subtitle && subtitle.basic && (
-          <h2 className="news-summary"> {subtitle.basic}</h2>
+          <h2 className={classes.description}> {subtitle.basic}</h2>
         )}
       </Fragment>
     )

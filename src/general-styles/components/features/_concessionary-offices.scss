@@ -1,0 +1,118 @@
+.concessionaires {
+  background-color: #e8f2f7;
+  width: 100%;
+  position: relative;
+
+  &__arrow {
+    left: 50%;
+    margin-left: -21px;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 24px 21px 0 21px;
+    border-color: #fff transparent transparent transparent;
+  }
+  &__container {
+    padding: 50px 20px 0px 20px;
+    margin: 0 auto;
+    max-width: 954px;
+    width: 100%;
+  }
+  &__title {
+    font-weight: 700;
+    text-align: center;
+    font-size: 20px;
+    @media (--tablet) {
+      font-size: 32px;
+    }
+    color: #333;
+  }
+  &__info {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 10px auto 40px;
+    text-align: center;
+    width: 300px;
+    color: #333;
+  }
+  &__locations {
+    margin-bottom: 50px;
+    border-top: 1px solid #bababa;
+    padding-top: 25px;
+    @media (--desktop) {
+      border-top: none;
+      padding-top: 0;
+    }
+  }
+  &__search {
+    margin-bottom: 20px;
+    flex-direction: column;
+    @media (--desktop) {
+      flex-direction: row;
+    }
+  }
+  &__search-title {
+    font-size: 13px;
+    padding: 14px 20px 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    @media (--tablet) {
+      margin-bottom: 20px;
+    }
+    @media (--desktop) {
+      border-left: 1px solid #bababa;
+      height: 62px;
+      width: 230px;
+      margin-bottom: 0;
+      text-align: left;
+    }
+  }
+  &__controls {
+    margin-right: 15px;
+    flex-direction: column;
+    width: 50%;
+    @media (--tablet) {
+      flex-direction: row;
+    }
+    @media (--desktop) {
+      border-left: 1px solid #bababa;
+      width: 100%;
+    }
+  }
+  &__label {
+    font-size: 13px;
+    line-height: 62px;
+    text-align: center;
+    width: 80px;
+    display: block;
+  }
+  // TODO: Cambiar el background-image por un icono
+  &__select {
+    appearance: none;
+    background-color: #fff;
+    background-image: url(https://elcomercio.pe/img/arrows_select.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    border: 0;
+    cursor: pointer;
+    float: left;
+    height: 62px;
+    padding-left: 15px;
+    @media (--tablet) {
+      max-width: 252px;
+      width: 100%;
+    }
+    @media (--desktop) {
+      width: 252px;
+    }
+  }
+  &__map-title {
+    color: #333;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 10px 0;
+  }
+}

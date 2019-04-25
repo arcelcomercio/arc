@@ -1,7 +1,6 @@
 const schemaName = 'story'
 
-const params = [
-  {
+const params = [{
     name: 'section',
     displayName: 'Sección(es)',
     type: 'text',
@@ -26,15 +25,18 @@ export const itemsToArray = (itemString = '') => {
 
 const pattern = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, excludeSections, feedOffset } = key
+  const {
+    section,
+    excludeSections,
+    feedOffset
+  } = key
 
   const sectionsExcluded = itemsToArray(excludeSections)
 
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               'revision.published': 'true',
             },
@@ -44,35 +46,27 @@ const pattern = (key = {}) => {
               type: 'story',
             },
           },
-          {
-            term: {
-              canonical_website: website,
-            },
-          },
         ],
-        must_not: [
-          {
-            nested: {
-              path: 'taxonomy.sections',
-              query: {
-                bool: {
-                  must: [
-                    {
-                      terms: {
-                        'taxonomy.sections._id': sectionsExcluded,
-                      },
+        must_not: [{
+          nested: {
+            path: 'taxonomy.sections',
+            query: {
+              bool: {
+                must: [{
+                    terms: {
+                      'taxonomy.sections._id': sectionsExcluded,
                     },
-                    {
-                      term: {
-                        'taxonomy.sections._website': website,
-                      },
+                  },
+                  {
+                    term: {
+                      'taxonomy.sections._website': website,
                     },
-                  ],
-                },
+                  },
+                ],
               },
             },
           },
-        ],
+        }, ],
       },
     },
   }
@@ -84,8 +78,7 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': sectionsIncluded,
                 },

@@ -23,7 +23,7 @@
     "@arc-core-components/content-source_content-api-v4": "^1.3.1",
     "@arc-core-components/content-source_story-feed_author-v4": "^1.0.4-beta.0",
     "@arc-core-components/content-source_story-feed_tag-v4": "^1.0.4-beta.0",
-    "@arc-fusion/cli": "^1.0.2",
+    "@arc-fusion/cli": "^1.0.3",
     "@babel/core": "7.2.2",
     "@babel/plugin-transform-runtime": "7.2.0",
     "@babel/preset-env": "7.3.1",
@@ -57,12 +57,13 @@
     "webpack-cli": "3.2.1"
   },
   "scripts": {
-    "dev": "webpack --config ./config/webpack.config.js --env.dev",
-    "fusion": "fusion",
-    "prod": "webpack --config ./config/webpack.config.js --env.prod",
-    "start": "fusion start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev"
+    "fusion": "fusion",
+    "start": "fusion start",
+    "dev": "webpack --config ./config/webpack.config.js --env.dev",
+    "prod": "webpack --config ./config/webpack.config.js --env.prod",
+    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev",
+    "zip": "npm run prod && npx fusion zip"
   },
   "keywords": [],
   "author": "",

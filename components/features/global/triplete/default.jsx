@@ -10,82 +10,35 @@ const API_URL = 'story-by-url'
 class Triplete extends Component {
   constructor(props) {
     super(props)
-    this.state = { data1: {}, data2: {}, data3: {} }
+    this.DATA_KEY = 'data'
+    this.DATA_LENGTH = 3
+    this.dataCounter = 0
     this.auxData = { data1: {}, data2: {}, data3: {} }
-    this.renderCount = 0
+    this.state = { data1: {}, data2: {}, data3: {} }
   }
 
   componentDidMount() {
-    // this.exec()
-    const {
-      customFields: { link1 = '', link2 = '', link3 = '' },
-    } = this.props
-    const listLinks = [link1, link2, link3]
-    const listNews = []
-    listLinks.forEach((element, index) => {
-      this.getContentApi(element, result => {
-        
-        console.log(index)
-        listNews.push(result !== null ? result : {})
-        console.log(listNews)
-      })
-    })
-    
+    this.exec()
   }
 
-  setAuxData(response, i, length) {
-    debugger
-    const KEY_STATE = 'data'
-    this.auxData[KEY_STATE + i] = response || {}
-    if (i === length) this.setState(this.auxData)
-  }
-
-  setAuxData2(response, i, length) {
-    const KEY_STATE = 'data'
-    this.auxData[KEY_STATE + i] = response || {}
-    if (i === length) this.setState(this.auxData)
-  }
-
-  getContentApi(link, callback) {
-    debugger
-    if (link !== '') {
-      const { arcSite } = this.props
-
-      const { fetched } = this.getContent(
-        API_URL,
-        { website_url: link, website: arcSite },
-        filterSchema(arcSite)
-      )
-      fetched
-        .then(response => {
-          callback(response)
-        })
-        .catch(err => {
-          console.log(err)
-          callback(null)
-        })
-    } else {
-      callback(null)
-    }
+  setAuxData(data, i) {
+    this.auxData[this.DATA_KEY + i] = data || {}
+    this.dataCounter += 1
+    if (this.dataCounter === this.DATA_LENGTH) this.setState(this.auxData)
   }
 
   exec() {
-    const LINK = 'link'
-    const LINK_LENGTH = 3
     const { customFields = {}, arcSite } = this.props
 
-    for (let i = 1; i <= LINK_LENGTH; i++) {
-      if (customFields[LINK + i]) {
+    for (let i = 1; i <= this.DATA_LENGTH; i++) {
+      if (customFields[this.DATA_KEY + i]) {
         const { fetched } = this.getContent(
           API_URL,
-          { website_url: customFields[LINK + i], website: arcSite },
+          { website_url: customFields[this.DATA_KEY + i], website: arcSite },
           filterSchema(arcSite)
         )
-
-        fetched.then(response => this.setAuxData(response, i, LINK_LENGTH))
-      } else {
-        this.setAuxData({}, i, LINK_LENGTH)
-      }
+        fetched.then(response => this.setAuxData(response, i))
+      } else this.setAuxData({}, i)
     }
   }
 
@@ -98,7 +51,7 @@ class Triplete extends Component {
       data.__index = index + 1
       return data.attributesRaw
     })
-    //debugger
+
     const params = {
       data: dataFormatted,
       arcSite,
