@@ -44,15 +44,16 @@ class MoviesDetails extends Component {
     const { moviesList } = this.billboardFormat
     const matchedMovie =
       moviesList.find(singleMovie => singleMovie.url === movie) || {}
-
     if (cinema === 'cines') {
-      this.setState({ cinemas: matchedMovie.cines })
+      const cines = matchedMovie.cines.filter((data, index, arr) => {
+        return arr.map(mapObj => mapObj.cid).indexOf(data.cid) === index
+      })
+      this.setState({ cinemas: cines })
     } else {
       const filteredCinemas = matchedMovie.cines.find(
         itemCine => itemCine.url === cinema
       )
       const orderedCinemas = [{ ...filteredCinemas }]
-
       this.setState({ cinemas: orderedCinemas })
     }
 
@@ -69,6 +70,7 @@ class MoviesDetails extends Component {
       pais = '',
       director = '',
       actores = '',
+      duracion = '',
       calificacion = '',
       poster: { sizes = {} } = {},
       portada_e: { description = '' } = {},
@@ -105,14 +107,20 @@ class MoviesDetails extends Component {
                           className={this.classes.cinema}>
                           {cinema.nombre}
                         </a>
-                        <p className={this.classes.text}>{cinema.direccion}</p>
-                        <p className={this.classes.text}>{cinema.horario}</p>
+                        <p className={this.classes.text}>
+                          {cinema.direccion}
+                        </p>
+                        <p className={this.classes.text}>
+                          {cinema.horario}
+                        </p>
                       </div>
                     )
                   })}
               </div>
-              <a href={this.URI_BASE} className={this.classes.more}>
-                <p className={this.classes.button}>Ver Más</p>
+              <a
+                href={`${this.URI_BASE}${this.WEBSITE_PARAM}`}
+                className={this.classes.more}>
+                <p className={this.classes.button}>Regresar</p>
               </a>
             </div>
             <div className={this.classes.rightSide}>
@@ -125,7 +133,7 @@ class MoviesDetails extends Component {
                 <span className={this.classes.value}>{body}</span>
               </p>
               <p className={this.classes.name}>
-                Pais:
+                País:
                 <br />
                 <span className={this.classes.value}>{pais}</span>
               </p>
@@ -135,12 +143,17 @@ class MoviesDetails extends Component {
                 <span className={this.classes.value}>{director}</span>
               </p>
               <p className={this.classes.name}>
-                Actor:
+                Actores:
                 <br />
                 <span className={this.classes.value}>{actores}</span>
               </p>
               <p className={this.classes.name}>
-                Calificacion:
+                Duración:
+                <br />
+                <span className={this.classes.value}>{duracion}</span>
+              </p>
+              <p className={this.classes.name}>
+                Calificación:
                 <br />
                 <span className={this.classes.value}>{calificacion}</span>
               </p>
