@@ -1,66 +1,37 @@
-.List {
+.stories-list-card {
   // FIXME: PLS
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
   height: 100%;
-  //margin: 10px;
 
-  &__Header {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: space-between;
+  &__header {
     width: auto;
-    height: 50px;
-    padding: 0px 20px 0px 10px;
-
-    & a {
-      color: #000;
-      text-decoration: none;
-    }
+    padding: 15px 20px;
   }
 
   &__title {
     height: 100%;
     min-width: 10%;
     max-width: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    color: $color-dark;
   }
 
-  &__morenews {
-    align-self: center;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    width: 90px;
-    height: 25px;
-    display: flex;
+  &__see-more {
+    background-color: $color-white;
+    padding: 5px 10px;
+    color: $color-silver;
 
-    & a {
-      color: #999;
-      text-decoration: none;
-    }
-
-    & a:hover {
+    &:hover {
       text-decoration: underline;
     }
   }
 
-  &__listItems {
-
+  &__list-item {
     max-height: 395px;
   }
 
-  &__itemNews {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
+  &__story {
+    background-color: $color-white;
     width: auto;
-    padding: 10px;
+    padding: $spacing-normal;
     border-bottom: 1px solid #d5e1e1;
 
     & figure {
@@ -89,25 +60,19 @@
   }
 
   &__time {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     font-size: 16px;
     line-height: 19.2px;
-    color: #333;
+    color: $color-dark;
   }
 
-  &__pageLink {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+  &__page-link {
     margin: 2px 0px;
 
     & a {
-      text-decoration: none;
 
       & h3 {
-        font-size: 15px;
+        font-size: 14px;
+        line-height: 1.2;
         color: #4c4c4c;
         margin: 0px;
       }

@@ -2,9 +2,9 @@ import React from 'react'
 import ImageNews from './ImageNews'
 
 const classes = {
-  itemNews: 'List__itemNews',
-  time: 'List__time',
-  pageLink: 'List__pageLink',
+  story: 'stories-list-card__story flex flex--column',
+  time: 'stories-list-card__time flex flex--justify-center flex--column',
+  pageLink: 'stories-list-card__page-link flex flex--column',
   bold: 'bold',
 }
 
@@ -14,11 +14,11 @@ const ItemNews = ({
   time,
   title,
   urlNews,
-  promo_items: promoItems,
+  promoItems,
 }) => {
   return (
-    <article className={classes.itemNews}>
-      {seeImageNews && <ImageNews urlNews={urlNews} promo_items={promoItems} />}
+    <article className={classes.story}>
+      {seeImageNews && <ImageNews urlNews={urlNews} promoItems={promoItems} />}
       {seeHour && <div className={classes.time}>{time}</div>}
       <div className={classes.pageLink}>
         <a href={urlNews}>
