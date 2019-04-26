@@ -1,38 +1,18 @@
 .pagination-file {
-	width: 100%;
 	margin-bottom: 50px;
 
 	&__list {
-		// display: flex;
-		// justify-content: center;
 		text-align: center
 	}
 
 	&__item {
 		margin: 0 5px;
 		display: inline-block;
-
-		&:hover {
-			.pagination-file__link {
-				text-decoration: underline;
-			}
-		}
-
-		&.active {
-			cursor: initial;
-
-			.pagination-file__link {
-				background-color: #383232;
-				color: #FFF;
-				text-decoration: none;
-			}
-		}
 	}
 
 	&__link {
 		padding: 6px 4px;
 		color: #7d7d7d;
-		text-transform: uppercase;
 		font-size: 10px;
 		font-weight: 600;
 
@@ -40,6 +20,16 @@
 			padding: 6px 12px;
 			font-size: 14px;
 		}
-	}
 
+		&:hover {
+			text-decoration: underline;
+		}
+
+		&.active {
+			cursor: initial;
+			background-color: #383232;
+			color: #FFF;
+			text-decoration: none;
+		}
+	}
 }
