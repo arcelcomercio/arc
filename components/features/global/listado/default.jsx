@@ -19,13 +19,13 @@ class Lista extends Component {
       customFields: {
         titleList,
         urlTitle,
-        background = '',
         newsNumber,
         seeMore,
         seeMoreurl,
         seeHour,
         seeImageNews,
         section,
+        background = '',
       },
     } = this.props || {}
 
