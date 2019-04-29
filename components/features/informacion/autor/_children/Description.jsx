@@ -5,15 +5,13 @@ const classes = {
   titleblog: 'infoAutor__titleBlog',
   description: 'infoAutor__description',
 }
-const BlogAutor = ({autorName,inforAutor}) => {
+const Description = ({ autorName, description }) => {
   return (
     <div className={classes.body}>
       <h3 className={classes.titleblog}>{autorName} </h3>
-      <p className={classes.description}>
-        {inforAutor}
-      </p>
+      <p className={classes.description}>{description}</p>
     </div>
   )
 }
 
-export default BlogAutor
+export default Description

@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import TitleInfoAutor from './_children/TitleInfoAutor'
-import BlogAutor from './_children/BlogAutor'
+import Description from './_children/Description'
 
 const classes = {
   infoAutor: 'infoAutor',
@@ -10,11 +10,11 @@ const classes = {
 @Consumer
 class InfoAutor extends Component {
   render() {
-    const { autorName = '', inforAutor = '', title=' SOBRE EL AUTOR' } = this.props
+    const { autorName = '', description = '', title=' SOBRE EL AUTOR' } = this.props
     return (
       <div className={classes.infoAutor}>
         <TitleInfoAutor title ={title} />
-        <BlogAutor autorName={autorName} inforAutor={inforAutor} />
+        <Description autorName={autorName} description={description} />
       </div>
     )
   }
