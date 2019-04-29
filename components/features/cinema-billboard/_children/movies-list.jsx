@@ -4,10 +4,10 @@ import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
 class MoviesList extends PureComponent {
   classes = {
     movieList: 'movie-list',
-    top: 'movie-stories-list-card__top flex-center flex--column',
-    cinema: 'movie-stories-list-card__cinema text-uppercase',
-    address: 'movie-stories-list-card__address',
-    box: 'movie-stories-list-card__box',
+    top: 'movie-list__top flex-center flex--column',
+    cinema: 'movie-list__cinema text-uppercase',
+    address: 'movie-list__address',
+    box: 'movie-list__box',
     movieItem: 'movie-item flex flex--column',
     leftSide: 'movie-item__left',
     imageBox: 'block full-width',
