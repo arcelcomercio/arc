@@ -1,0 +1,32 @@
+.infoAutor{
+    display: block;
+    display: grid;
+    grid-template-rows: 54px;
+    width: 300px;
+    min-height: 400px;
+    &__title{
+        background-color: #8f7a7c;
+        color: #fff;
+        font-size: 14px;
+        font-weight:700;
+        line-height:54px;
+        text-align:center;
+        text-transform:uppercase;
+        margin: 0;
+    }
+    &__blogAutor{
+        padding: 20px 10px 0;
+        background-color: #fff;
+    }
+    &__titleBlog{
+        font-size:14px;
+        font-weight:700;
+        margin-bottom:5px;
+        text-transform:uppercase;
+        margin: 0;
+    }
+    &__description{
+        line-height:1.5;
+        margin: 0;
+    }
+}
