@@ -10,7 +10,7 @@ const classes = {
 @Consumer
 class InfoAutor extends Component {
   render() {
-    const { autorName = '', inforAutor = '', title='SOBRE EL AUTOR' } = this.props
+    const { autorName = '', inforAutor = '', title=' SOBRE EL AUTOR' } = this.props
     return (
       <div className={classes.infoAutor}>
         <TitleInfoAutor title ={title} />
