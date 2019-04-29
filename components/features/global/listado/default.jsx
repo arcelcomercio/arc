@@ -4,11 +4,11 @@ import React, { Component } from 'react'
 import customFields from './_children/customFields'
 import filterSchema from './_children/filterSchema'
 
-import HeaderList from './_children/HeaderList'
+import StoriesListCardHeader from './_children/stories-list-card-header'
 import ListItemNews from './_children/ListItemNews'
 
 const classes = {
-  lista: 'List',
+  lista: 'list flex flex--column overflow-hidden',
 }
 
 @Consumer
@@ -19,17 +19,15 @@ class Lista extends Component {
       customFields: {
         titleList,
         urlTitle,
-        background = '',
         newsNumber,
         seeMore,
         seeMoreurl,
         seeHour,
         seeImageNews,
         section,
+        background = '',
       },
     } = this.props || {}
-
-    // console.log(urlTitle)
 
     this.state = {
       titleList,
@@ -59,7 +57,6 @@ class Lista extends Component {
       filterSchema()
     )
     fetched.then(response => {
-      // console.log(response)
       const { content_elements: contentElements } = response || {}
 
       this.setState({
@@ -82,7 +79,7 @@ class Lista extends Component {
 
     return (
       <div className={classes.lista}>
-        <HeaderList
+        <StoriesListCardHeader
           titleList={titleList}
           urlTitle={urlTitle}
           background={background}

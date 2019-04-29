@@ -1,14 +1,17 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 import SearchFilter from '../../../../resources/components/search-filter'
 
 @Consumer
-class ContentFilter extends Component {
+class ContentFilter extends PureComponent {
   render() {
-    const { arcSite: website } = this.props
+    const { arcSite, requestUri, isAdmin, globalContentConfig } = this.props
     const params = {
-      website,
+      arcSite,
+      requestUri,
+      isAdmin,
+      globalContentConfig,
     }
     return <SearchFilter {...params} />
   }

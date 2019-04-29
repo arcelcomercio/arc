@@ -1,10 +1,8 @@
-import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 // TODO: Falta refactorizar estilos
 
-@Consumer
-class SearchFilter extends Component {
+class SearchFilter extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -91,7 +89,7 @@ class SearchFilter extends Component {
     })
   }
 
-  // Agrega la nueva "query" a la URI
+  // TODO: Agrega la nueva "query" a la URI
   _handleSearch = e => {
     const { arcSite, globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
@@ -133,7 +131,7 @@ class SearchFilter extends Component {
         }
       })
       .catch(error => {
-        console.log(error)
+        throw new Error(error)
       })
   }
 

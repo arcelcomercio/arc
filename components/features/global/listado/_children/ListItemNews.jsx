@@ -2,14 +2,12 @@ import React from 'react'
 import ItemNews from './ItemNews'
 
 const classes = {
-  listItem: 'List__listItems',
-  scrolY: 'scroll-vertical-auto',
+  listItem: 'stories-list-card__list-item scroll-vertical-auto',
 }
 
 const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
-  
   return (
-    <div className={`${classes.listItem} ${classes.scrolY}`}>
+    <div className={classes.listItem}>
       {listNews.map(
         (
           {
@@ -59,7 +57,7 @@ const ListItemNews = ({ seeHour, seeImageNews, listNews }) => {
               time={time}
               title={basic}
               urlNews={canonicalUrl}
-              promo_items={promoItems || ''}
+              promoItems={promoItems || ''}
             />
           )
         }

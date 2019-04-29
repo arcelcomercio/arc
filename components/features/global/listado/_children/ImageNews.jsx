@@ -1,8 +1,9 @@
 import React from 'react'
 import { GetMultimediaContent } from '../../../../../resources/utilsJs/helpers'
 
-const ImageNews = ({ urlNews, promo_items: promoItems }) => {
-  
+// TODO: para que usan estos data-type?
+
+const ImageNews = ({ urlNews, promoItems }) => {
   const imagen = promoItems.basic ? promoItems.basic.url || '' : ''
   const multimedia = GetMultimediaContent(promoItems)
   const { url, medio } = multimedia
