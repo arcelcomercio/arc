@@ -12,10 +12,13 @@ class BlogList extends Component {
 
 	render(){
 		const { globalContent } = this.props
-		const { posts = [] } = globalContent || {}
+		const { posts = [], user = {} } = globalContent || {}
 		const totalPost = posts.length
+		console.log(globalContent)
 		return (
       <div>
+				{/* <Titulo data={user} > */}
+				{/* <Item > */}
         <Paginacion
           totalElements={totalPost}
           storiesQty={2}
