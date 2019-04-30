@@ -1,13 +1,6 @@
 import React from 'react'
 
 const classes = {
-  // opinionItem: 'separator__opinion--item',
-  // opinionItemDetails: 'separator__opinion--item-details',
-  // opinionItemImage: 'separator__opinion--item-image',
-  // opiniononeline: 'separator__opinion--item-oneline',
-  // opiniontwoline: 'separator__opinion--item-twoline',
-  // opinionthreeline: 'separator__opinion--item-threeline',
-
   blogItem: 'item__blog-item',
   blogItemTop: 'item__blog-top',
   blogItemBottom: 'item__blog-bottom',
