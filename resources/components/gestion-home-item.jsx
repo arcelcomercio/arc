@@ -11,10 +11,10 @@ const classes = {
   blogItem: 'item__blog-item',
   blogItemTop: 'item__blog-top',
   blogItemBottom: 'item__blog-bottom',
-  blogItemLeft: 'item__blog-item-left',
-  blogItemRight: 'item__blog-item-right',
-  blogItemDateHour: 'item__blog-item-date-hour',
-  blogItemImage: 'item__blog-item-image',
+  blogItemLeft: 'item__blog-left',
+  blogItemRight: 'item__blog-right',
+  blogItemDateHour: 'item__blog-date-hour',
+  blogItemImage: 'item__blog-image',
 }
 
 const GestionHomeItem = props => {
