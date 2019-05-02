@@ -1,8 +1,8 @@
 .post-item {
   &__container {
-    font-family: secondary-font;
+    font-family: $secondary-font;
     background-color: #eee;
-    padding: 7px;
+    padding: 7px 14px;
     display: flex;
     flex-direction: column-reverse;
     height: auto;
@@ -15,30 +15,32 @@
   &__date {
     font-size: 12px;
     color: #999;
-    padding: 0px 12px;
+    padding: 5px 12px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     @media (--tablet) {
-      justify-content: flex-start;
+      padding: 5px 0px;
     }
   }
   &__content {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: flex-start;
+    justify-content: space-between;
     @media (--tablet) {
       flex-direction: row;
+      justify-content: flex-start;
     }
   }
   &__figure {
     margin: 0;
   }
   &__image {
-    width: 170px;
-    height: 100px;
+    width: 140px;
+    height: 80px;
     object-fit: cover;
     @media (--tablet) {
-      width: 200px;
+      width: 232px;
+      height: 140px;
     }
   }
   &__description {
@@ -52,9 +54,10 @@
     font-size: 18px;
     text-transform: uppercase;
     text-decoration: none;
-    color: #333;
-    font-weight: normal;
-    :hover {
+    color: #444;
+    font-weight: 300;
+    line-height: 24px;
+    &:hover {
       text-decoration: underline;
     }
     @media (--tablet) {
@@ -63,10 +66,16 @@
   }
   &__author {
     margin: 0;
-    font-size: 10px;
+    font-size: 11px;
+    font-weight: 300;
     text-decoration: none;
-    color: #333;
+    color: #999;
+    visibility: hidden;
+    &:hover {
+      text-decoration: underline;
+    }
     @media (--tablet) {
+      visibility: visible;
       font-size: 10px;
     }
   }
