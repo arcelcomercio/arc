@@ -57,15 +57,14 @@ class BlogList extends Component {
     )
 
     const classes = {
-      list: 'blog-list',
-      listTitle: 'blog-list__title',
-      listContainer: 'blog-list__container',
+      list: 'bg--white blog-list',
+      listTitle: 'text-uppercase blog-list__title',
     }
 
     return (
       <div className={classes.list}>
         <h1 className={classes.listTitle}>blogs</h1>
-        <div className={classes.listContainer}>
+        <div>
           {blogs.map((item, index) => {
             const params = this.buildParams(item)
             return <BlogItem key={index} {...params} />
@@ -75,5 +74,8 @@ class BlogList extends Component {
     )
   }
 }
+
+BlogList.label = 'Listado Blogs'
+BlogList.static = true
 
 export default BlogList
