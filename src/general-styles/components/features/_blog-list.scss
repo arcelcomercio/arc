@@ -1,0 +1,9 @@
+.blog-list {
+  background: #fff;
+  padding: 15px;
+  max-width: 636px;
+  &__title {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+}
