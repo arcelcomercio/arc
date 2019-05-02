@@ -11,7 +11,6 @@ class AuthorList extends PureComponent {
 
     const { user: { first_name = '' } = {} } = globalContent
     return (
-      // Iteacion de item
       <div>
         {posts.map(post => {
           return <PostItem key={post.ID} author={first_name} data={post} />
