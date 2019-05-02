@@ -1,0 +1,35 @@
+$post-header-list-color: #eee;
+
+.post-header {
+  &__title {
+    font-family: $main-font;
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 25px;
+    line-height: 1.2;
+  }
+  &__list {
+    height: 45px;
+  }
+  &__item {
+    flex-grow: 1;
+    flex-basis: 0;
+    background-color: $post-header-list-color;
+    margin-right: 2px;
+  }
+  &__more {
+    width: 45px;
+    background-color: #ccc;
+  }
+  &__button {
+    color: #fff;
+    width: 100%;
+    height: 100%;
+  }
+  &__share {
+    display: none;
+    @media (--tablet) {
+      display: inline-block;
+    }
+  }
+}
