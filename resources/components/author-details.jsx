@@ -1,5 +1,4 @@
-import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React from 'react'
 
 const classes = {
   infoAutor: 'author-detail',
@@ -8,24 +7,16 @@ const classes = {
   titleblog: 'author-detail__blog-title',
   description: 'author-detail__description',
 }
-
-@Consumer
-class AuthorDetails extends Component {
-  render() {
-    const {
-      data: { description = '', first_name: firstName = '' } = {},
-    } = this.props
-
-    return (
-      <div className={classes.infoAutor}>
-        <h4 className={classes.title}>SOBRE EL AUTOR</h4>
-        <div className={classes.body}>
-          <h3 className={classes.titleblog}>{firstName} </h3>
-          <p className={classes.description}>{description}</p>
-        </div>
+const AuthorDetails = ({ description, firstName, title }) => {
+  return (
+    <div className={classes.infoAutor}>
+      <h4 className={classes.title}>{title || 'Titulo'}</h4>
+      <div className={classes.body}>
+        <h3 className={classes.titleblog}>{firstName || 'Nombre'} </h3>
+        <p className={classes.description}>{description || 'Descripcion'}</p>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default AuthorDetails

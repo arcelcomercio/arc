@@ -14,7 +14,12 @@ const classes = {
 
 const PostItem = props => {
   const {
-    data: { post_title, post_permalink, post_date, post_thumbnail } = {},
+    data: {
+      post_title: postTitle,
+      post_permalink: postPermaLink,
+      post_date: postDate,
+      post_thumbnail: postThumbnail,
+    } = {},
   } = props
   const { author } = props
   const DEFAULT_IMG =
@@ -23,21 +28,21 @@ const PostItem = props => {
   return (
     <article className={classes.container}>
       <div className={classes.date}>
-        <p>{formatDate(post_date)}</p>
+        <p>{formatDate(postDate)}</p>
       </div>
       <div className={classes.content}>
         <figure className={classes.figure}>
           <img
             className={classes.image}
-            src={post_thumbnail.guid || DEFAULT_IMG}
+            src={postThumbnail.guid || DEFAULT_IMG}
             alt={author || 'Gestion'}
           />
         </figure>
         <div className={classes.description}>
-          <a href={post_permalink}>
-            <h3 className={classes.title}>{post_title}</h3>
+          <a href={postPermaLink}>
+            <h3 className={classes.title}>{postTitle}</h3>
           </a>
-          <a href={post_permalink}>
+          <a href={postPermaLink}>
             <h5 className={classes.author}>{author}</h5>
           </a>
         </div>
