@@ -5,6 +5,13 @@ const resolve = () => {
 export default {
   resolve,
   params: {
+    blog_path: 'text',
+    month: 'text',
+    post_name: 'text',
+    posts_limit: 'text',
+    posts_offset: 'text',
+    token: 'text',
     website: 'text',
+    year: 'text',
   },
 }

@@ -82,6 +82,6 @@ class BlogPostHeader extends PureComponent {
   }
 }
 
-BlogPostHeader.label = 'Cabecera del post'
+BlogPostHeader.label = 'Blog - Cabecera del post'
 
 export default BlogPostHeader
