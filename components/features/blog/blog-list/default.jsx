@@ -34,7 +34,7 @@ class BlogList extends Component {
       } = {},
     } = item
 
-    const { contextPath = '', arcSite = 'elcomercio' } = this.props
+    //const { contextPath = '', arcSite = 'elcomercio' } = this.props
 
     return {
       urlImage: guid,
@@ -42,8 +42,12 @@ class BlogList extends Component {
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
-      urlPost: `${contextPath}/blog/${postLink}?_website=${arcSite}`,
-      urlBlog: `${contextPath}/blog/${path}?_website=${arcSite}`,
+      urlPost: `${this.props.contextPath}/blog/${postLink}?_website=${
+        this.props.arcsite
+      }`,
+      urlBlog: `${this.props.contextPath}/blog/${path}?_website=${
+        this.props.arcSite
+      }`,
     }
   }
 
@@ -72,5 +76,7 @@ class BlogList extends Component {
     )
   }
 }
+
+BlogList.label = 'Listado Blogs'
 
 export default BlogList
