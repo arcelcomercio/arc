@@ -10,7 +10,7 @@ const classes = {
 }
 
 @Consumer
-class InfoAutor extends Component {
+class AuthorDetail extends Component {
   render() {
     const {
       data: {
@@ -33,4 +33,4 @@ class InfoAutor extends Component {
   }
 }
 
-export default InfoAutor
+export default AuthorDetail

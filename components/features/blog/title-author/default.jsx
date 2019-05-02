@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Consumer from 'fusion:consumer'
-import TitleBlogAutor from '../../../../resources/components/author-title';
+import AuthorDetail from '../../../../resources/components/author-title';
 
 @Consumer
 class TitleAuthor extends PureComponent {
@@ -9,7 +9,7 @@ class TitleAuthor extends PureComponent {
 		const { user = [] } = globalContent || {}
 		return (
 			// Componente titulo
-			<TitleBlogAutor data={user} />
+			<AuthorDetail data={user} />
 		)
 	}
 }
