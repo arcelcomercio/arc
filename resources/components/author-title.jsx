@@ -15,7 +15,7 @@ class TitleBlogAutor extends Component {
       data: { first_name: firstName = '', user_avatarb: { guid = '' } = {} },
       globalContent: { blog: { blogname = '' } = {} } = {},
     } = this.props
-    debugger
+    
     return (
       <div className={classes.titleblog}>
         <h1 className={classes.sectiontitle}>

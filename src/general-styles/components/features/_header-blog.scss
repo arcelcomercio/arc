@@ -2,10 +2,12 @@
     background-color: #fff; 
 
     @media (--desktop) {
+      
       padding-top:30px;
     }
 
     @media (--tablet) {
+      
       padding-top:20px;
     }
 
@@ -15,8 +17,7 @@
     border-top: 1px solid #ddd;
     padding: 12px 0;
     position: relative;
-    margin: 0 auto;
-
+  
     @media (--desktop) {
       background-color: #fff;
       color: #333;
@@ -24,6 +25,7 @@
       font-weight: 700;
       line-height: 1;
       width: 954px;
+      margin: 0 auto;
     }
 
     @media (--tablet) {
@@ -33,6 +35,7 @@
       font-weight: 700;
       line-height: 1;
       width: 375px;
+      margin-top: 10px;
     }
   }
   &__url-description {
