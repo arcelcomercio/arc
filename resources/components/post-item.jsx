@@ -12,16 +12,13 @@ const classes = {
   author: 'post-item__author',
 }
 
-const PostItem = props => {
-  const {
-    data: {
-      post_title: postTitle,
-      post_permalink: postPermaLink,
-      post_date: postDate,
-      post_thumbnail: postThumbnail,
-    } = {},
-  } = props
-  const { author } = props
+const PostItem = ({
+  postTitle = '',
+  postPermaLink = '',
+  postDate = '',
+  image = '',
+  author = '',
+}) => {
   const DEFAULT_IMG =
     'https://img.gestion.pe/bundles/appcms/images/gestion/default_blog.jpg'
 
@@ -34,7 +31,7 @@ const PostItem = props => {
         <figure className={classes.figure}>
           <img
             className={classes.image}
-            src={postThumbnail.guid || DEFAULT_IMG}
+            src={image || DEFAULT_IMG}
             alt={author || 'Gestion'}
           />
         </figure>
