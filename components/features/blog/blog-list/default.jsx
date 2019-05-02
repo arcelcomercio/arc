@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import ItemBlogger from './_children/ItemBlogger'
-import Pagination from '../../../../resources/components/paginacion_numerica'
+import BlogItem from './_children/BlogItem'
 
 @Consumer
-class BloggersList extends Component {
+class BlogList extends Component {
   render() {
     const test = [
       {
@@ -47,7 +46,7 @@ class BloggersList extends Component {
         <div className="blog-list__container">
           {test.map((item, index) => {
             const params = item
-            return <ItemBlogger key={index} {...params} />
+            return <BlogItem key={index} {...params} />
           })}
         </div>
       </div>
@@ -55,4 +54,4 @@ class BloggersList extends Component {
   }
 }
 
-export default BloggersList
+export default BlogList
