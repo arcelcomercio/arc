@@ -53,10 +53,16 @@ class BlogList extends Component {
       item => typeof item === 'object'
     )
 
+    const classes = {
+      list: 'blog-list',
+      listTitle: 'blog-list__title',
+      listContainer: 'blog-list__container',
+    }
+
     return (
-      <div className="blog-list">
-        <h1 className="blog-list__title">blogs</h1>
-        <div className="blog-list__container">
+      <div className={classes.list}>
+        <h1 className={classes.listTitle}>blogs</h1>
+        <div className={classes.listContainer}>
           {blogs.map((item, index) => {
             const params = this.buildParams(item)
             return <BlogItem key={index} {...params} />
