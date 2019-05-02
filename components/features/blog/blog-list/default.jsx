@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/BlogItem'
-import { formatDate } from '../../../../resources/utilsJs/helpers'
+import {
+  formatDate,
+  ResizeImageUrl,
+} from '../../../../resources/utilsJs/helpers'
 
 @Consumer
 class BlogList extends Component {
@@ -37,7 +40,7 @@ class BlogList extends Component {
     const { contextPath = '', arcSite = 'elcomercio' } = this.props
 
     return {
-      urlImage: guid,
+      urlImage: ResizeImageUrl(arcSite, guid, '3:4', '126x126'),
       date: this.transformDate(postDate),
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
