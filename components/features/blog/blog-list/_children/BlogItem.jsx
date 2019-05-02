@@ -10,13 +10,13 @@ export default ({
   urlBlog = '',
 }) => {
   const classes = {
-    item: 'blog-item',
+    item: 'flex  blog-item',
     date: 'blog-item__date',
-    container: 'blog-item__container',
+    container: 'flex blog-item__container',
     containerAvatar: 'blog-item__container-avatar',
-    avatar: 'blog-item__avatar',
-    detail: 'blog-item__detail',
-    blogTitle: 'blog-item__blog',
+    avatar: 'full-width',
+    detail: 'flex flex--column blog-item__detail',
+    blogTitle: 'text-uppercase blog-item__blog',
     author: 'blog-item__author',
     post: 'blog-item__post',
   }

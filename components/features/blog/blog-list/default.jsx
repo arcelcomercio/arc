@@ -34,7 +34,7 @@ class BlogList extends Component {
       } = {},
     } = item
 
-    //const { contextPath = '', arcSite = 'elcomercio' } = this.props
+    const { contextPath = '', arcSite = 'elcomercio' } = this.props
 
     return {
       urlImage: guid,
@@ -42,12 +42,8 @@ class BlogList extends Component {
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
-      urlPost: `${this.props.contextPath}/blog/${postLink}?_website=${
-        this.props.arcsite
-      }`,
-      urlBlog: `${this.props.contextPath}/blog/${path}?_website=${
-        this.props.arcSite
-      }`,
+      urlPost: `${contextPath}/blog/${postLink}?_website=${arcSite}`,
+      urlBlog: `${contextPath}/blog/${path}?_website=${arcSite}`,
     }
   }
 
@@ -58,15 +54,14 @@ class BlogList extends Component {
     )
 
     const classes = {
-      list: 'blog-list',
-      listTitle: 'blog-list__title',
-      listContainer: 'blog-list__container',
+      list: 'bg--white blog-list',
+      listTitle: 'text-uppercase blog-list__title',
     }
 
     return (
       <div className={classes.list}>
         <h1 className={classes.listTitle}>blogs</h1>
-        <div className={classes.listContainer}>
+        <div>
           {blogs.map((item, index) => {
             const params = this.buildParams(item)
             return <BlogItem key={index} {...params} />
@@ -78,5 +73,6 @@ class BlogList extends Component {
 }
 
 BlogList.label = 'Listado Blogs'
+BlogList.static = true
 
 export default BlogList
