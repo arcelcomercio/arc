@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import AuthorDetails from '../../../../resources/components/author-details'
+import AuthorDetailsComponent from '../../../../resources/components/author-details'
 
 @Consumer
-class InfoAuthor extends PureComponent {
+class AuthorDetails extends PureComponent {
   render() {
     const { globalContent } = this.props
     const { user: { description = '', first_name: firstName = '' } = {} } =
@@ -13,10 +13,10 @@ class InfoAuthor extends PureComponent {
       firstName,
       title: 'SOBRE EL AUTOR',
     }
-    return <AuthorDetails {...data} />
+    return <AuthorDetailsComponent {...data} />
   }
 }
 
-InfoAuthor.label = 'Información del Autor'
+AuthorDetails.label = 'Información del Autor'
 
-export default InfoAuthor
+export default AuthorDetails

@@ -12,20 +12,16 @@ const classes = {
   author: 'post-item__author',
 }
 
-const PostItem = props => {
-  const {
-    data: {
-      post_title: postTitle,
-      post_permalink: postPermaLink,
-      post_date: postDate,
-      post_thumbnail: postThumbnail,
-    } = {},
-  } = props
-  const { author, arcSite } = props
+const PostItem = ({
+  postTitle = '',
+  postPermaLink = '',
+  postDate = '',
+  image = '',
+  author = '',
+  arcSite = '',
+}) => {
   const DEFAULT_IMG =
     'https://img.gestion.pe/bundles/appcms/images/gestion/default_blog.jpg'
-
-  const { guid } = postThumbnail
 
   return (
     <article className={classes.container}>
@@ -36,7 +32,9 @@ const PostItem = props => {
         <figure className={classes.figure}>
           <img
             className={classes.image}
-            src={ResizeImageUrl(arcSite, guid, '3:4', '232x140') || DEFAULT_IMG}
+            src={
+              ResizeImageUrl(arcSite, image, '3:4', '232x140') || DEFAULT_IMG
+            }
             alt={author || 'Gestion'}
           />
         </figure>

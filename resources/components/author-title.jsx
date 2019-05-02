@@ -7,7 +7,7 @@ const classes = {
   img: 'author-title__img position-absolute',
 }
 
-const AuthorTitleComponent = ({ firstName, guid, blogname }) => {
+const AuthorTitle = ({ firstName, guid, blogname }) => {
   return (
     <div className={classes.authorTitle}>
       <h1 className={classes.section}>
@@ -21,4 +21,4 @@ const AuthorTitleComponent = ({ firstName, guid, blogname }) => {
   )
 }
 
-export default AuthorTitleComponent
+export default AuthorTitle
