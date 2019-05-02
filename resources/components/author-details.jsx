@@ -10,20 +10,15 @@ const classes = {
 }
 
 @Consumer
-class InfoAutor extends Component {
+class AuthorDetails extends Component {
   render() {
     const {
-      data: {
-        description = '',
-        first_name: firstName = '',
-        
-      }={},
+      data: { description = '', first_name: firstName = '' } = {},
     } = this.props
-
 
     return (
       <div className={classes.infoAutor}>
-        <h4 className={classes.title}>{'SOBRE EL AUTOR'}</h4>
+        <h4 className={classes.title}>SOBRE EL AUTOR</h4>
         <div className={classes.body}>
           <h3 className={classes.titleblog}>{firstName} </h3>
           <p className={classes.description}>{description}</p>
@@ -33,4 +28,4 @@ class InfoAutor extends Component {
   }
 }
 
-export default InfoAutor
+export default AuthorDetails
