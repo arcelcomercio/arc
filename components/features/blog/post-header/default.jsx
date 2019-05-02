@@ -54,8 +54,10 @@ class BlogPostHeader extends PureComponent {
         <h1 className="post-header__title">No nos distraigas mucho, Alan...</h1>
         <ul className="post-header__list flex">
           {this.shareButtons[currentList].map((item, i) => (
-            <li className="post-header__item flex-center-vertical flex--justify-center">
-              <a href="/#">
+            <li className="post-header__item">
+              <a
+                className="post-header__link flex-center-vertical flex--justify-center"
+                href="/#">
                 <i>{item.icon}</i>
                 <span className="post-header__share">
                   {i === 2 && currentList === 'secondList'
