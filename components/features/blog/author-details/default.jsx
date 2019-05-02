@@ -6,8 +6,14 @@ import AuthorDetails from '../../../../resources/components/author-details'
 class InfoAuthor extends PureComponent {
   render() {
     const { globalContent } = this.props
-    const { user = [] } = globalContent || {}
-    return <AuthorDetails data={user} />
+    const { user: { description = '', first_name: firstName = '' } = {} } =
+      globalContent || {}
+    const data = {
+      description,
+      firstName,
+      title: 'SOBRE EL AUTOR',
+    }
+    return <AuthorDetails {...data} />
   }
 }
 

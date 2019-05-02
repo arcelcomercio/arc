@@ -1,33 +1,24 @@
-import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React from 'react'
 
 const classes = {
-  titleblog: 'blog-title',
-  sectiontitle: 'blog-title__section-title',
-  urldescription: 'blog-title__url-description',
-  imgdescription: 'blog-title__img-description',
+  authorTitle: 'author-title',
+  section: 'author-title__section position-relative',
+  url: 'author-title__url',
+  img: 'author-title__img position-absolute',
 }
 
-@Consumer
-class TitleBlogAutor extends Component {
-  render() {
-    const {
-      data: { first_name: firstName = '', user_avatarb: { guid = '' } = {} },
-      globalContent: { blog: { blogname = '' } = {} } = {},
-    } = this.props
-    
-    return (
-      <div className={classes.titleblog}>
-        <h1 className={classes.sectiontitle}>
-          <a href={firstName} className={classes.urldescription}>
-            {blogname}
-          </a>
-          {firstName}
-          <img src={guid} alt={firstName} className={classes.imgdescription} />
-        </h1>
-      </div>
-    )
-  }
+const AuthorTitleComponent = ({ firstName, guid, blogname }) => {
+  return (
+    <div className={classes.authorTitle}>
+      <h1 className={classes.section}>
+        <a href={firstName} className={classes.url}>
+          {blogname}
+        </a>
+        {firstName}
+        <img src={guid} alt={firstName} className={classes.img} />
+      </h1>
+    </div>
+  )
 }
 
-export default TitleBlogAutor
+export default AuthorTitleComponent
