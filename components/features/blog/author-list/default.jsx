@@ -5,7 +5,7 @@ import PostItem from '../../../../resources/components/post-item'
 @Consumer
 class AuthorList extends PureComponent {
   render() {
-    const { globalContent } = this.props
+    const { globalContent, arcSite } = this.props
 
     const { posts = [] } = globalContent || {}
 
@@ -14,7 +14,12 @@ class AuthorList extends PureComponent {
       <div>
         {posts.map(post => {
           return (
-            <PostItem key={post.ID} author={firstName} data={post} />
+            <PostItem
+              key={post.ID}
+              author={firstName}
+              data={post}
+              arcSite={arcSite}
+            />
           )
         })}
       </div>

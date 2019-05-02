@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDate } from '../utilsJs/helpers'
+import { formatDate, ResizeImageUrl } from '../utilsJs/helpers'
 
 const classes = {
   container: 'post-item__container',
@@ -21,9 +21,11 @@ const PostItem = props => {
       post_thumbnail: postThumbnail,
     } = {},
   } = props
-  const { author } = props
+  const { author, arcSite } = props
   const DEFAULT_IMG =
     'https://img.gestion.pe/bundles/appcms/images/gestion/default_blog.jpg'
+
+  const { guid } = postThumbnail
 
   return (
     <article className={classes.container}>
@@ -34,7 +36,7 @@ const PostItem = props => {
         <figure className={classes.figure}>
           <img
             className={classes.image}
-            src={postThumbnail.guid || DEFAULT_IMG}
+            src={ResizeImageUrl(arcSite, guid, '3:4', '232x140') || DEFAULT_IMG}
             alt={author || 'Gestion'}
           />
         </figure>
@@ -50,5 +52,7 @@ const PostItem = props => {
     </article>
   )
 }
+
+PostItem.static = true
 
 export default PostItem
