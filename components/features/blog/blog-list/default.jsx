@@ -1,51 +1,64 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/BlogItem'
+import { formatDate } from '../../../../resources/utilsJs/helpers'
 
 @Consumer
 class BlogList extends Component {
+  transformDate = postDate => {
+    const arrayDate = formatDate(postDate).split(' ')
+    if (arrayDate.length > 1)
+      return parseInt(arrayDate[1].split(':')[0], 10) > 12
+        ? `${arrayDate[1]} pm`
+        : `${arrayDate[1]} am`
+    return arrayDate[0]
+      .split('-')
+      .reverse()
+      .join('/')
+  }
+
+  buildParams = item => {
+    const {
+      blog: { blogname = '', path = '#' } = {},
+      posts: [
+        {
+          post_title: postTitle = '',
+          post_permalink: postLink = '',
+          post_date: postDate = '',
+        } = {},
+      ] = [],
+      user: {
+        user_avatarb: { guid = '' } = {},
+        first_name: firstName = '',
+        last_name: lastName = '',
+      } = {},
+    } = item
+
+    const { contextPath = '', arcSite = 'elcomercio' } = this.props
+
+    return {
+      urlImage: guid,
+      date: this.transformDate(postDate),
+      blogTitle: blogname,
+      author: `${firstName} ${lastName}`,
+      postTitle,
+      urlPost: `${contextPath}/blog/${postLink}?_website=${arcSite}`,
+      urlBlog: `${contextPath}/blog/${path}?_website=${arcSite}`,
+    }
+  }
+
   render() {
-    const test = [
-      {
-        urlImage:
-          'https://blogs.gestion.pe/atalayaeconomica/wp-content/uploads/sites/131/2017/11/37-Blog-Atalaya-Económica.jpg',
-        date: '29/04/2019',
-        blogTitle: 'Atalaya Económica ',
-        author: 'Manuel Romero Caro ',
-        postTitle: 'Venganza y esperanza 30.04.19 ',
-        urlPost:
-          '/blog/atalayaeconomica/2019/04/venganza-y-esperanza-30-04-19.html',
-        urlBlog: '/blog/atalayaeconomica',
-      },
-      {
-        urlImage: '',
-        date: '29/04/2019',
-        blogTitle: 'Atalaya Económica ',
-        author: 'Manuel Romero Caro ',
-        postTitle: 'Venganza y esperanza 30.04.19 ',
-        urlPost:
-          '/blog/atalayaeconomica/2019/04/venganza-y-esperanza-30-04-19.html',
-        urlBlog: '/blog/atalayaeconomica',
-      },
-      {
-        urlImage:
-          'https://blogs.gestion.pe/atalayaeconomica/wp-content/uploads/sites/131/2017/11/37-Blog-Atalaya-Económica.jpg',
-        date: '29/04/2019',
-        blogTitle: 'Atalaya Económica ',
-        author: 'Manuel Romero Caro ',
-        postTitle: 'Venganza y esperanza 30.04.19 ',
-        urlPost:
-          '/blog/atalayaeconomica/2019/04/venganza-y-esperanza-30-04-19.html',
-        urlBlog: '/blog/atalayaeconomica',
-      },
-    ]
+    const { globalContent = {} } = this.props
+    const blogs = Object.values(globalContent).filter(
+      item => typeof item === 'object'
+    )
 
     return (
       <div className="blog-list">
         <h1 className="blog-list__title">blogs</h1>
         <div className="blog-list__container">
-          {test.map((item, index) => {
-            const params = item
+          {blogs.map((item, index) => {
+            const params = this.buildParams(item)
             return <BlogItem key={index} {...params} />
           })}
         </div>

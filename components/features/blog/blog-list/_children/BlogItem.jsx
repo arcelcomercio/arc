@@ -1,16 +1,14 @@
 import React from 'react'
 
-export default props => {
-  const {
-    urlImage = '',
-    date = '',
-    blogTitle = '',
-    author = '',
-    postTitle = '',
-    urlPost = '',
-    urlBlog = '',
-  } = props
-
+export default ({
+  urlImage = '',
+  date = '',
+  blogTitle = '',
+  author = '',
+  postTitle = '',
+  urlPost = '',
+  urlBlog = '',
+}) => {
   const classes = {
     item: 'blog-item',
     date: 'blog-item__date',
