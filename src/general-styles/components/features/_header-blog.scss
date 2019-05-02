@@ -1,18 +1,41 @@
-.headerblog {
-    background-color: #fff;
-    padding-top: 30px;
+.blog-title {
+    background-color: #fff; 
 
-  &__sectiontitle {
-    font-size: 24px;
+    @media (--desktop) {
+      padding-top:30px;
+    }
+
+    @media (--tablet) {
+      padding-top:20px;
+    }
+
+  &__section-title {
     padding-left: 10px;
-    width: 954px;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
     padding: 12px 0;
     position: relative;
     margin: 0 auto;
+
+    @media (--desktop) {
+      background-color: #fff;
+      color: #333;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+      width: 954px;
+    }
+
+    @media (--tablet) {
+      background-color: #fff;
+      color: #333;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+      width: 375px;
+    }
   }
-  &__urldescription {
+  &__url-description {
     color: #8f071f;
     display: inline-block;
     margin-right: 15px;
@@ -20,7 +43,7 @@
     font-size: 24px;
     padding-left:10px;
   }
-  &__imgdescription {
+  &__img-description {
     bottom: 0;
     position: absolute;
     width: 72px;

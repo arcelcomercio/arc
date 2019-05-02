@@ -1,4 +1,4 @@
-.infoAutor{
+.author-detail{
     display: block;
     display: grid;
     grid-template-rows: 54px;
@@ -14,11 +14,11 @@
         text-transform:uppercase;
         margin: 0;
     }
-    &__blogAutor{
+    &__blog{
         padding: 20px 10px 0;
         background-color: #fff;
     }
-    &__titleBlog{
+    &__blog-title{
         font-size:14px;
         font-weight:700;
         margin-bottom:5px;
