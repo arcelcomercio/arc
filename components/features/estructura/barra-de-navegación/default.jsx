@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react'
 import Button from '../../../../resources/components/button'
 import NavSidebar from './_children/nav-sidebar'
 import { setDevice } from '../../../utilities/resizer'
-import Ads from '../../../../resources/components/ads'
+import Ads from '../../../global-components/ads'
 
 const classes = {
   nav: 'nav full-width flex flex-center-vertical',

@@ -1,6 +1,6 @@
 import React from 'react'
 import renderHTML from 'react-render-html'
-import { getIcon } from '../../components/utilities/helpers'
+import { getIcon } from '../utilities/helpers'
 
 const classes = {
   aperturaE: `apertura-e padding-normal`,
@@ -29,7 +29,7 @@ const getMultimediaIcon = mediaType => {
   }
   return null
 }
-const AperturaExtraordinaria = props => {
+const FeaturedNews = props => {
   const {
     data,
     multimediaOrientation = 'bottom',
@@ -82,4 +82,4 @@ const AperturaExtraordinaria = props => {
   )
 }
 
-export default AperturaExtraordinaria
+export default FeaturedNews

@@ -3,11 +3,11 @@ import Consumer from 'fusion:consumer'
 import customFieldsExtern from './_children/customfields'
 import filterSchema from '../_children/filterschema'
 import Data from '../_children/data'
-import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
+import FeaturedNews from '../../../global-components/featured-news'
 
 const API_URL = 'story-by-url'
 @Consumer
-class AperturaExtraordinariaStory extends Component {
+class FeaturedNewsStory extends Component {
   mainLogic = {
     fetch: (api, url, filter = {}) => {
       if (url) {
@@ -39,7 +39,6 @@ class AperturaExtraordinariaStory extends Component {
     this.mainLogic
       .fetch(API_URL, link, filterSchema(arcSite))
       .then(response => {
-        console.log(response)
         this.setState(this.mainLogic.dataState(response))
       })
       .catch(() => false)
@@ -65,14 +64,14 @@ class AperturaExtraordinariaStory extends Component {
       arcSite,
     }
 
-    return <AperturaExtraordinariaChildren {...params} />
+    return <FeaturedNews {...params} />
   }
 }
 
-AperturaExtraordinariaStory.propTypes = {
+FeaturedNewsStory.propTypes = {
   customFields: customFieldsExtern,
 }
 
-AperturaExtraordinariaStory.label = 'Apertura extraordinaria por historia'
+FeaturedNewsStory.label = 'Apertura extraordinaria por historia'
 
-export default AperturaExtraordinariaStory
+export default FeaturedNewsStory

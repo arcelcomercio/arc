@@ -3,12 +3,12 @@ import Consumer from 'fusion:consumer'
 import customFieldsExtern from './_children/customfields'
 import filterSchema from './_children/filterschema'
 import Data from '../_children/data'
-import AperturaExtraordinariaChildren from '../../../../resources/components/apertura-extraordinaria'
+import FeaturedNews from '../../../global-components/featured-news'
 
 const API_URL = 'story-feed-by-section'
 const API_SIZE_DATA = 1
 @Consumer
-class AperturaExtraordinariaSection extends Component {
+class FeaturedNewsSection extends Component {
   constructor(props) {
     super(props)
     this.state = { data: {} }
@@ -67,14 +67,14 @@ class AperturaExtraordinariaSection extends Component {
       contentOrientation: formattedData.contentOrientation,
       arcSite,
     }
-    return <AperturaExtraordinariaChildren {...params} />
+    return <FeaturedNews {...params} />
   }
 }
 
-AperturaExtraordinariaSection.propTypes = {
+FeaturedNewsSection.propTypes = {
   customFields: customFieldsExtern,
 }
 
-AperturaExtraordinariaSection.label = 'Apertura extraordinaria por sección'
+FeaturedNewsSection.label = 'Apertura extraordinaria por sección'
 
-export default AperturaExtraordinariaSection
+export default FeaturedNewsSection
