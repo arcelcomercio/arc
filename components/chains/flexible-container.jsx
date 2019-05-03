@@ -6,7 +6,7 @@ import {
   customWidth,
 } from '../utilities/custom-fields'
 
-const classes = 'content-grid-base'
+const classes = 'grid grid--content'
 
 const FlexibleContainer = ({ customFields, children = [] }) => {
   const { ContainerType = 'div', width = 'full-width', height = '' } =

@@ -5,7 +5,7 @@ const classes = {
   layout: 'flex flex--justify-center',
   contentContainer: 'flex flex--column content-layout-container',
   content:
-    'content-grid-base content-layout content--1col content--2col content--3col margin-top',
+    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 margin-top',
   zocalo: 'zocalo__container',
 }
 

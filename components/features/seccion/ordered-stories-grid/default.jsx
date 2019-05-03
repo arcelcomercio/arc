@@ -61,7 +61,7 @@ class OrderedStoriesGrid extends PureComponent {
 
   render() {
     return (
-      <div className="content-grid-base content--3col content--2col content--1col full-width margin-top">
+      <div className="grid grid--content grid--col-3 grid--col-2 grid--col-1 full-width margin-top">
         {this.renderGrilla()}
       </div>
     )

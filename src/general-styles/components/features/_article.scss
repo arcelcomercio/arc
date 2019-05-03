@@ -108,13 +108,13 @@ $BGImageOrd: #4aa8fa;
 .article-body {
   &__tag-title {
     color: #4aa8fa;
-    font: 700 12px/1 $main-font;
+    font: 700 12px/1 $primary-font;
     margin-bottom: 5px;
     text-transform: uppercase;
   }
   &__tag-item {
     display: inline-block;
-    font-family: $main-font;
+    font-family: $primary-font;
     font-size: 13px;
     margin: 0 10px 5px 0;
 
@@ -175,7 +175,7 @@ $BGImageOrd: #4aa8fa;
 
   &__news-media-description {
     color: $colorTextDescription;
-    font-family: $main-font;
+    font-family: $primary-font;
     font-size: 13px;
     margin: 0;
     padding-top: 5px;
@@ -275,7 +275,7 @@ $BGImageOrd: #4aa8fa;
     //.slider-details-container
     &__details {
       background-color: $BGdetail;
-      font-family: $main-font;
+      font-family: $primary-font;
       padding: 15px 35px;
       margin-top: 388px;
       z-index: 9999;
@@ -285,7 +285,7 @@ $BGImageOrd: #4aa8fa;
         color: $colorLinksWhite;
         display: block;
         float: left;
-        font: 700 18px/50px $main-font;
+        font: 700 18px/50px $primary-font;
         height: 50px;
         text-align: center;
         width: 95px;
