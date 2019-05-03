@@ -65,4 +65,5 @@ class Triplete extends Component {
 Triplete.propTypes = {
   customFields: customFieldsConfig,
 }
+
 export default Triplete

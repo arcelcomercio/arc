@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// TODO: WIP
+
 const classes = {
   layout: 'flex flex--justify-center',
   contentContainer: 'flex flex--column content-layout-container',
   zocalo: 'zocalo__container',
 }
 
-const DefaultLayout = ({ children = [] }) => {
+const AmpLayout = ({ children = [] }) => {
   return (
     <div className={classes.layout}>
       <div className={classes.zocalo}>{children[0] /* Zocalo izquierda */}</div>
@@ -25,11 +27,11 @@ const DefaultLayout = ({ children = [] }) => {
   )
 }
 
-DefaultLayout.propTypes = {
+AmpLayout.propTypes = {
   children: PropTypes.node,
 }
 
-DefaultLayout.sections = [
+AmpLayout.sections = [
   'Zocalo izquierda',
   'Publicidad Top',
   'Barra de navegación',
@@ -41,4 +43,4 @@ DefaultLayout.sections = [
   'Zocalo derecha',
 ]
 
-export default DefaultLayout
+export default AmpLayout
