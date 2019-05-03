@@ -50,12 +50,9 @@ export const getActualDate = () => {
   let mm = today.getMonth() + 1 // January is 0!
 
   const yyyy = today.getFullYear()
-  if (dd < 10) {
-    dd = `0${dd}`
-  }
-  if (mm < 10) {
-    mm = `0${mm}`
-  }
+  if (dd < 10) dd = `0${dd}`
+  if (mm < 10) mm = `0${mm}`
+
   return `${yyyy}-${mm}-${dd}`
 }
 
@@ -111,12 +108,15 @@ export const getIcon = type => {
   }
 }
 
-// Simplificación de la función addResizedUrlItem, ej: ratio = "16x9" resolution = "400x400"
+// Simplificación de la función addResizedUrlItem, ej: ratio = "16:9" resolution = "400x400"
 export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
-  const test = addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
-    .resized_urls[ratio]
+  if (imgUrl) {
+    const test = addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
+      .resized_urls[ratio]
 
-  return test
+    return test
+  }
+  return imgUrl
 }
 
 export const GetMultimediaContent = ({
