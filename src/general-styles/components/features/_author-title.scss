@@ -1,0 +1,43 @@
+.author-title {
+    background-color: #fff; 
+    @media (--tablet) {  
+      padding-top:20px;
+    }
+    @media (--desktop) { 
+      padding-top:30px;
+    }
+  &__section {
+    padding-left: 10px;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    padding: 12px 0;
+    @media (--tablet) {
+      background-color: #fff;
+      color: #333;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+      width: 375px;
+      margin-top: 10px;
+    }
+    @media (--desktop) {
+      font-size: 24px;
+      width: 954px;
+      margin: 0 auto;
+    }
+  }
+  &__url {
+    color: #8f071f;
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 24px;
+    padding-left:10px;
+  }
+  &__img {
+    bottom: 0;
+    width: 72px;
+    border: 0;
+    font-size: 24px;
+    right: 0;
+  }
+}
