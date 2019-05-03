@@ -9,11 +9,11 @@ import {
 class BlogPostHeader extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      currentList: 'firstList',
-    }
     this.firstList = 'firstList'
     this.secondList = 'secondList'
+    this.state = {
+      currentList: this.firstList,
+    }
     const { globalContent } = props
     const {
       post: {
