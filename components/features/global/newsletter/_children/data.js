@@ -1,4 +1,4 @@
-// import { ResizeImageUrl } from '../../../../../resources/utilsJs/helpers'
+// import { ResizeImageUrl } from '../../../../utilities/helpers'
 class Data {
   constructor(customFields, arcSite, pathSite) {
     this._customFields = customFields

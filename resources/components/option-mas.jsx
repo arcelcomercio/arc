@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import DataStory from './utils/data-story'
-import { formatDate } from '../utilsJs/helpers'
+import { formatDate } from '../../components/utilities/helpers'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class BarraAutor extends Component {
@@ -9,11 +9,11 @@ class BarraAutor extends Component {
     super(...props)
   }
 
-	render() {
+  render() {
     const { arcSite, data } = this.props
     const element = new DataStory({}, arcSite)
     element.__data = data
-		return (
+    return (
       <div className="barra-autor">
         <div className="barra-autor__wrapper">
           <div className="barra-autor__social">
@@ -50,7 +50,7 @@ class BarraAutor extends Component {
         </div>
       </div>
     )
-	}
+  }
 }
 
-export default BarraAutor;
+export default BarraAutor

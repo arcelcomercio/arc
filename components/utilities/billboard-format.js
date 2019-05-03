@@ -7,12 +7,10 @@ class BillboardFormat {
   }
 
   _init() {
-    if (Object.prototype.hasOwnProperty.call(this.data, "cartelera")) {
+    if (Object.prototype.hasOwnProperty.call(this.data, 'cartelera')) {
       this.movies = this.data.peliculas
       this.cinemas = this.data.cines
-      const {
-        cartelera
-      } = this.data
+      const { cartelera } = this.data
 
       cartelera.forEach(item => {
         const cinema = {
@@ -20,12 +18,14 @@ class BillboardFormat {
           horario: item.horario,
         }
         const movie = item.mid
-        this.pushMovieInCinema({
+        this.pushMovieInCinema(
+          {
             ...cinema,
           },
           movie
         )
-        this.pushCinemaInMovie({
+        this.pushCinemaInMovie(
+          {
             ...cinema,
           },
           movie
@@ -43,7 +43,7 @@ class BillboardFormat {
     return {
       cinemas: this.cinemaList,
       movies: this.moviesList,
-      genres: this.genreList
+      genres: this.genreList,
     }
   }
 
@@ -57,12 +57,10 @@ class BillboardFormat {
           return cinema.cid === cinemaObj.cine
         })
         Object.assign(matchedCinema, {
-          horario: cinemaObj.horario
+          horario: cinemaObj.horario,
         })
-        if (!auxMovie.cines)
-          auxMovie.cines = []
+        if (!auxMovie.cines) auxMovie.cines = []
         auxMovie.cines.push(matchedCinema)
-
       }
     })
 
@@ -78,10 +76,8 @@ class BillboardFormat {
         const matchedMovie = moviesList.find(movie => {
           return movie.mid === movieId
         })
-        if (!auxCinema.peliculas)
-          auxCinema.peliculas = []
+        if (!auxCinema.peliculas) auxCinema.peliculas = []
         auxCinema.peliculas.push(matchedMovie)
-
       }
     })
     this.setCinemasByMovies = cinemasList

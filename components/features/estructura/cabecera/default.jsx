@@ -2,8 +2,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import Button from '../../../../resources/components/button'
-import { setDevice } from '../../../../resources/utilsJs/resizer'
-// import appendScript from '../../../../resources/utilsJs/appendScript'
+import { setDevice } from '../../../utilities/resizer'
 
 const classes = {
   header: 'header full-width',
@@ -37,7 +36,6 @@ class Header extends Component {
     // TODO: Si googleTagManager no ejecuta, descomentar.
     // const { googleTagManagerScript } = this.props.siteProperties
     window.addEventListener('resize', this._handleResize)
-    // appendScript(googleTagManagerScript, 'head')
   }
 
   _handleResize = () => {
