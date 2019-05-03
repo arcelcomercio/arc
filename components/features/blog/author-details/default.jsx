@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import AuthorDetailsComponent from '../../../../resources/components/author-details'
+import AuthorDetailsComponent from './_children/author-details'
 
 @Consumer
 class AuthorDetails extends PureComponent {

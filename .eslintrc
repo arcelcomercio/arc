@@ -2,7 +2,12 @@
   "extends": ["airbnb", "prettier", "prettier/react"],
   "plugins": ["prettier"],
   "rules": {
-    "import/no-unresolved": false,
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ["react", "fusion:consumer"]
+      }
+    ],
     "react/prop-types": [
       "enabled",
       {
