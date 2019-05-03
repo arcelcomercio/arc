@@ -11,13 +11,14 @@ class AuthorTitle extends PureComponent {
         first_name: firstName = '',
         user_avatarb: { guid = '' } = {},
       } = {},
-      blog: { blogname = '' } = {},
+      blog: { blogname = '', path = '' } = {},
     } = globalContent || {}
 
     const data = {
       firstName,
       guid,
       blogname,
+      path,
     }
     return (
       // Componente titulo
