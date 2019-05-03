@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react'
 
-import { getActualDate } from '../utilsJs/helpers'
+import { getActualDate } from '../../components/utilities/helpers'
 
 const classes = {
   paginationFile: 'pagination-file full-width',

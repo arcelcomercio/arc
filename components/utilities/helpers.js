@@ -4,6 +4,14 @@ export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
 }
 
+export const appendScript = (code, position = 'body') => {
+  const script = document.createElement('script')
+  script.type = 'text/javascript'
+  script.textContent = code
+  if (position === 'head') return document.head.append(script)
+  return document.body.append(script)
+}
+
 export const formatDate = date => {
   const actual = new Date()
   const day = actual.getDate()

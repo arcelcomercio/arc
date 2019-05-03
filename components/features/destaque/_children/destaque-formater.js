@@ -1,5 +1,5 @@
 import DataStory from '../../../../resources/components/utils/data-story'
-import { ResizeImageUrl } from '../../../../resources/utilsJs/helpers'
+import { ResizeImageUrl } from '../../../utilities/helpers'
 
 class DestaqueFormater {
   constructor(arcSite = '') {

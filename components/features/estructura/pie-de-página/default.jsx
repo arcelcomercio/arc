@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import { setDevice } from '../../../../resources/utilsJs/resizer'
+import { setDevice } from '../../../utilities/resizer'
 
 const classes = {
   footer: 'footer margin-top full-width',

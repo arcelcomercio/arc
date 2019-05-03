@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 /* **************** SIN USO ****************** */
 
-export default function OrderedStories({ children, customFields }) {
+const OrderedStories = ({ children, customFields }) => {
   let { initialStory: storyNumber } = customFields
   storyNumber = storyNumber || 1
   storyNumber -= 1
@@ -44,4 +44,6 @@ OrderedStories.propTypes = {
   }),
 }
 
-OrderedStories.label = 'Historias Ordenadas'
+OrderedStories.label = 'Grilla de historias ordenadas'
+
+export default OrderedStories

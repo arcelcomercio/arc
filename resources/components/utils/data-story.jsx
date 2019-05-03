@@ -1,4 +1,4 @@
-import { addResizedUrlItem } from '../../utilsJs/thumbs'
+import { addResizedUrlItem } from '../../../components/utilities/thumbs'
 import ConfigParams from './config-params'
 
 class DataStory {

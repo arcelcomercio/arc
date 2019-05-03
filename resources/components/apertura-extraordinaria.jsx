@@ -1,6 +1,6 @@
 import React from 'react'
 import renderHTML from 'react-render-html'
-import { getIcon } from '../utilsJs/helpers'
+import { getIcon } from '../../components/utilities/helpers'
 
 const classes = {
   aperturaE: `apertura-e padding-normal`,
@@ -40,17 +40,17 @@ const AperturaExtraordinaria = props => {
   } = props
 
   let numline = ''
-    switch (arcSite) {
-      case 'elcomercio':
-        numline = classes.threeline
-        break
-      case 'depor':
-        numline = classes.twoline
-        break
-      default:
-        numline = classes.twoline
-        break
-    }
+  switch (arcSite) {
+    case 'elcomercio':
+      numline = classes.threeline
+      break
+    case 'depor':
+      numline = classes.twoline
+      break
+    default:
+      numline = classes.twoline
+      break
+  }
 
   return (
     <div

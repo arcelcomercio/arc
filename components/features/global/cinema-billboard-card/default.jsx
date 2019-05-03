@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import { ResizeImageUrl } from '../../../../resources/utilsJs/helpers'
+import { ResizeImageUrl } from '../../../utilities/helpers'
 
 @Consumer
 class CinemaBillboardCard extends Component {

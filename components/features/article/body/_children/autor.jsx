@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDate } from '../../../../../resources/utilsJs/helpers'
+import { formatDate } from '../../../../utilities/helpers'
 
 /** TODO: Vale la pena usar moment? */
 

@@ -1,6 +1,10 @@
 import React, { PureComponent } from 'react'
 import DataStory from './utils/data-story'
-import { reduceWord, formatDate, getIcon } from '../utilsJs/helpers'
+import {
+  reduceWord,
+  formatDate,
+  getIcon,
+} from '../../components/utilities/helpers'
 
 const clases = {
   cardNotice: 'card-notice',

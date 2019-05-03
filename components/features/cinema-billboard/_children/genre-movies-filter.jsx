@@ -1,7 +1,8 @@
 import React, { PureComponent, Fragment } from 'react'
-import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
+import BillboardFormat from '../../../utilities/billboard-format'
 
 class GenreMoviesFilter extends PureComponent {
+  // TODO: Sacar classes
   classes = {
     moviesGrid: 'movies-grid margin-top',
     container: 'movies-grid__container',

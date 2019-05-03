@@ -5,13 +5,13 @@
 }
 
 .content-layout {
-  @media (--tablet) {
-    min-width: 620px;
-  }
-
   @media (--desktop) {
     min-width: 940px;
     //max-width: 1024px;
+  }
+
+  @media (--tablet) {
+    min-width: 620px;
   }
 
   min-width: 320px;
@@ -50,16 +50,13 @@
   }
 }
 
+// TODO: Creo que el mínimo debería ser 300, no 285
+
 .content--3col {
   @media (--desktop) {
     grid-template-columns: repeat(3,
     minmax(285px, calc((1024px - (#{$gap} * 2)) / 3)));
   }
-}
-
-.q {
-  overflow: hidden;
-  background-color: gray;
 }
 
 /*-------------- Process to create the 1 col classes */

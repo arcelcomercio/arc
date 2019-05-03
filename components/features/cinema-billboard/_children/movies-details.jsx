@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
+import BillboardFormat from '../../../utilities/billboard-format'
 
 class MoviesDetails extends Component {
   classes = {
@@ -45,8 +45,8 @@ class MoviesDetails extends Component {
     const matchedMovie =
       moviesList.find(singleMovie => singleMovie.url === movie) || {}
     if (cinema === 'cines') {
-      const cines = matchedMovie.cines.filter((data, index, arr) => {
-        return arr.map(mapObj => mapObj.cid).indexOf(data.cid) === index
+      const cines = matchedMovie.cines.filter((dato, index, arr) => {
+        return arr.map(mapObj => mapObj.cid).indexOf(dato.cid) === index
       })
       this.setState({ cinemas: cines })
     } else {
@@ -107,12 +107,8 @@ class MoviesDetails extends Component {
                           className={this.classes.cinema}>
                           {cinema.nombre}
                         </a>
-                        <p className={this.classes.text}>
-                          {cinema.direccion}
-                        </p>
-                        <p className={this.classes.text}>
-                          {cinema.horario}
-                        </p>
+                        <p className={this.classes.text}>{cinema.direccion}</p>
+                        <p className={this.classes.text}>{cinema.horario}</p>
                       </div>
                     )
                   })}

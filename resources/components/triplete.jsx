@@ -1,5 +1,5 @@
 import React from 'react'
-import { getIcon } from '../utilsJs/helpers'
+import { getIcon } from '../../components/utilities/helpers'
 
 export const Triplete = props => {
   const { data, multimediaOrientation = 'right', arcSite } = props
@@ -28,7 +28,7 @@ export const Triplete = props => {
       numline = classes.twoline
       break
   }
-  
+
   return (
     <div className={classes.triplete}>
       {data.map(elem => (

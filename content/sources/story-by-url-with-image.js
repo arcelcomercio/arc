@@ -1,6 +1,6 @@
 // import envVars from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { addResizedUrls } from '../../resources/utilsJs/thumbs'
+import { addResizedUrls } from '../../components/utilities/thumbs'
 
 // Está así porque la intención es que acceda por token
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { GetMultimediaContent } from '../../../../../resources/utilsJs/helpers'
+import { GetMultimediaContent } from '../../../../utilities/helpers'
 
 // TODO: para que usan estos data-type?
 

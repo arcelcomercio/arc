@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { customWidth } from '../../../resources/utilsJs/customFields'
+import { customWidth } from '../../utilities/custom-fields'
 
 export default function TextTest(props) {
   const {
