@@ -1,7 +1,7 @@
 import React from 'react'
-import { getIcon } from '../../components/utilities/helpers'
+import { getIcon } from '../../../../utilities/helpers'
 
-export const Triplete = props => {
+export const Triplet = props => {
   const { data, multimediaOrientation = 'right', arcSite } = props
   const classes = {
     triplete: 'triplete',

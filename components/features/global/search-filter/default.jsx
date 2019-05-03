@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
-import SearchFilter from '../../../../resources/components/search-filter'
+import SearchFilter from './_children/search-filter'
 
 @Consumer
 class ContentFilter extends PureComponent {
@@ -13,6 +13,7 @@ class ContentFilter extends PureComponent {
       isAdmin,
       globalContentConfig,
     }
+
     return <SearchFilter {...params} />
   }
 }

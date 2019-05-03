@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react'
+import Consumer from 'fusion:consumer'
 
+// TODO: Refactorizar todo (la data debe venir desde el feature, no hacer fetches aca)
 // TODO: Falta refactorizar estilos
-
+@Consumer
 class SearchFilter extends PureComponent {
   constructor(props) {
     super(props)

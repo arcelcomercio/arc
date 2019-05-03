@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import customFieldsConfig from './_children/customfields'
-import filterSchema from './_children/filterschema'
-import Data from './_children/data'
-import { Triplete as TripleteChildren } from '../../../../resources/components/triplete'
+import customFieldsConfig from './dependencies/customfields'
+import filterSchema from './dependencies/filterschema'
+import Data from './dependencies/data'
+import { Triplet as TripletComponent } from './_children/triplet'
 
 const API_URL = 'story-by-url'
 @Consumer
-class Triplete extends Component {
+class Triplet extends Component {
   constructor(props) {
     super(props)
     this.DATA_KEY = 'data'
@@ -58,12 +58,12 @@ class Triplete extends Component {
       multimediaOrientation: customFields.multimediaOrientation,
       editableField,
     }
-    return <TripleteChildren {...params} />
+    return <TripletComponent {...params} />
   }
 }
 
-Triplete.propTypes = {
+Triplet.propTypes = {
   customFields: customFieldsConfig,
 }
 
-export default Triplete
+export default Triplet
