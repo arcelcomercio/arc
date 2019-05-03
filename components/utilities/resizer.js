@@ -1,5 +1,9 @@
+// TODO: This is a WIP
+
 export const setDevice = () => {
-  const { innerWidth } = window
+  const {
+    innerWidth
+  } = window
 
   if (innerWidth < 640) {
     return 'mobile'
@@ -17,7 +21,10 @@ export const setResizeListener = dispatch => {
 	}) */
   // window.addEventListener('resize', Resizer._handleResize)
   window.addEventListener('resize', () => {
-    const { innerWidth, device } = window
+    const {
+      innerWidth,
+      device
+    } = window
 
     if (innerWidth >= 1024 && device !== 'desktop') {
       window.device = 'desktop'

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
+// TODO: Verificar si este componente está en uso con Tori
+
 const classes = {
   article: 'flex flex--column article',
   articlePrincipal: 'flex flex--row article',
@@ -16,8 +18,7 @@ class Article extends Component {
     } = this.props
     return (
       <article
-        className={isPrincipal ? classes.articlePrincipal : classes.article}
-      >
+        className={isPrincipal ? classes.articlePrincipal : classes.article}>
         <figure className={classes.articleFigure}>
           <img
             className={classes.articleFigureImg}

@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import CardNotice from '../../../../resources/components/listado-noticias'
 import RenderPagination from '../../../../resources/components/paginador-fecha'
-import { getActualDate } from '../../../../resources/utilsJs/helpers'
+import { getActualDate } from '../../../utilities/helpers'
 
 @Consumer
 class ListHomeAuthor extends Component {

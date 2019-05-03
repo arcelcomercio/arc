@@ -1,5 +1,8 @@
 import React from 'react'
-import { ResizeImageUrl, getFullDateIso8601 } from '../utilsJs/helpers'
+import {
+  ResizeImageUrl,
+  getFullDateIso8601,
+} from '../../components/utilities/helpers'
 
 const classes = {
   container: 'post-item__container',

@@ -10,7 +10,7 @@ const classes = {
 export default props => {
   const {
     date,
-    data: { by: [{ name = {}, url = {} }] = {} },
+    data: { by: [{ name = '', url = '' } = {}] = [] },
   } = props
 
   return (

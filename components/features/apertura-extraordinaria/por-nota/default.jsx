@@ -56,7 +56,7 @@ class AperturaExtraordinariaStory extends Component {
     const { data } = this.state
     const formattedData = new Data(customFields, data, arcSite)
     this.isVideo = formattedData.isVideo
-    
+
     const params = {
       data: formattedData,
       multimediaType: formattedData.multimediaType,
@@ -72,5 +72,7 @@ class AperturaExtraordinariaStory extends Component {
 AperturaExtraordinariaStory.propTypes = {
   customFields: customFieldsExtern,
 }
+
+AperturaExtraordinariaStory.label = 'Apertura extraordinaria por historia'
 
 export default AperturaExtraordinariaStory
