@@ -62,9 +62,9 @@ class BlogList extends Component {
       <div className={classes.list}>
         <h1 className={classes.listTitle}>blogs</h1>
         <div>
-          {blogs.map((item, index) => {
+          {blogs.map(item => {
             const params = this.buildParams(item)
-            return <BlogItem key={index} {...params} />
+            return <BlogItem key={params.urlPost} {...params} />
           })}
         </div>
       </div>
