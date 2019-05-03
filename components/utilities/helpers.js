@@ -1,9 +1,15 @@
-import {
-  addResizedUrlItem
-} from './thumbs'
+import { addResizedUrlItem } from './thumbs'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
+}
+
+export const appendScript = (code, position = 'body') => {
+  const script = document.createElement('script')
+  script.type = 'text/javascript'
+  script.textContent = code
+  if (position === 'head') return document.head.append(script)
+  return document.body.append(script)
 }
 
 export const formatDate = date => {
@@ -18,10 +24,32 @@ export const formatDate = date => {
 
   const fechaEntrante = date.slice(0, 10)
   const fecha =
-    fechaEntrante === fechaGenerada ?
-    date.slice(date.indexOf('T') + 1, 16) :
-    fechaEntrante
+    fechaEntrante === fechaGenerada
+      ? date.slice(date.indexOf('T') + 1, 16)
+      : fechaEntrante
   return fecha
+}
+
+// ex: 2019-04-29 22:34:13 or 2019/04/29T22:34:13
+export const getFullDateIso8601 = (
+  fullDate,
+  delimiterFullDate = ' ',
+  separatorDate = '-',
+  separatorTime = ':'
+) => {
+  if (fullDate === '' || fullDate === undefined) return false
+
+  const [date, time] = fullDate.split(delimiterFullDate)
+  const [fullYear, month, day] = date.split(separatorDate)
+  const [hours, minutes, seconds] = time.split(separatorTime)
+  return {
+    day,
+    month,
+    fullYear,
+    hours,
+    minutes,
+    seconds,
+  }
 }
 
 export const getActualDate = () => {
@@ -30,12 +58,9 @@ export const getActualDate = () => {
   let mm = today.getMonth() + 1 // January is 0!
 
   const yyyy = today.getFullYear()
-  if (dd < 10) {
-    dd = `0${dd}`
-  }
-  if (mm < 10) {
-    mm = `0${mm}`
-  }
+  if (dd < 10) dd = `0${dd}`
+  if (mm < 10) mm = `0${mm}`
+
   return `${yyyy}-${mm}-${dd}`
 }
 
@@ -91,12 +116,15 @@ export const getIcon = type => {
   }
 }
 
-// Simplificación de la función addResizedUrlItem, ej: ratio = "16x9" resolution = "400x400"
+// Simplificación de la función addResizedUrlItem, ej: ratio = "16:9" resolution = "400x400"
 export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
-  const test = addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
-    .resized_urls[ratio]
+  if (imgUrl) {
+    const test = addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
+      .resized_urls[ratio]
 
-  return test
+    return test
+  }
+  return imgUrl
 }
 
 export const GetMultimediaContent = ({
@@ -112,9 +140,7 @@ export const GetMultimediaContent = ({
   if (basicVideo) {
     const {
       promo_items: {
-        basic: {
-          url: videoUrl = ''
-        },
+        basic: { url: videoUrl = '' },
       },
     } = basicVideo
     result.url = videoUrl
@@ -127,9 +153,7 @@ export const GetMultimediaContent = ({
   if (basicGallery) {
     const {
       promo_items: {
-        basic: {
-          url: galleryUrl = ''
-        },
+        basic: { url: galleryUrl = '' },
       },
     } = basicGallery
     result.url = galleryUrl
@@ -156,12 +180,12 @@ export const metaPaginationUrl = (
   siteUrl,
   isQuery
 ) => {
-  return requestUri.match(patternPagination) != null ?
-    `${siteUrl}${requestUri.replace(
+  return requestUri.match(patternPagination) != null
+    ? `${siteUrl}${requestUri.replace(
         patternPagination,
         `${isQuery ? '&page=' : '/'}${pageNumber}`
-      )}` :
-    `${siteUrl}${
+      )}`
+    : `${siteUrl}${
         isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
       }${isQuery ? `&page=${pageNumber}` : `?${requestUri.split('?')[1]}`}`
 }
@@ -172,19 +196,16 @@ export const getMetaPagesPagination = (
   globalContent,
   patternPagination
 ) => {
-  const {
-    next,
-    previous
-  } = globalContent || {}
+  const { next, previous } = globalContent || {}
   const pages = {
-    current: requestUri.match(patternPagination) ?
-      parseInt(
-        requestUri
-        .match(patternPagination)[0]
-        .split(`${isQuery ? '=' : '/'}`)[1],
-        10
-      ) :
-      1,
+    current: requestUri.match(patternPagination)
+      ? parseInt(
+          requestUri
+            .match(patternPagination)[0]
+            .split(`${isQuery ? '=' : '/'}`)[1],
+          10
+        )
+      : 1,
     next: false,
     prev: false,
   }
@@ -194,4 +215,27 @@ export const getMetaPagesPagination = (
   if (previous !== undefined) pages.prev = pages.current - 1
 
   return pages
+}
+
+export const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
+}
+
+// TODO: Agregar parámetro para que soporte links variables por marca, así cmo el twitter de la marca
+export const socialMediaUrlShareList = (postPermaLink, postTitle) => {
+  return {
+    facebook: `http://www.facebook.com/sharer.php?u=http://gestion.pe/blog/${postPermaLink}`,
+    twitter: `http://twitter.com/home?status=${encodeURIComponent(
+      postTitle
+    )}+http://gestion.pe/blog/${postPermaLink}+via%20@Gestionpe`,
+    linkedin: `http://www.linkedin.com/shareArticle?url=http://gestion.pe/blog/${postPermaLink}`,
+    pinterest: `https://pinterest.com/pin/create/button/?url=http://gestion.pe/blog/${postPermaLink}`,
+    whatsapp: `whatsapp://send?text=http://gestion.pe/blog/${postPermaLink}`,
+  }
 }

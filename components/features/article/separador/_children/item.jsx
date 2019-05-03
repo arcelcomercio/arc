@@ -1,6 +1,6 @@
 import React from 'react'
-import { addResizedUrlItem } from '../../../../../resources/utilsJs/thumbs'
-import { GetMultimediaContent } from '../../../../../resources/utilsJs/helpers'
+import { addResizedUrlItem } from '../../../../utilities/thumbs'
+import { GetMultimediaContent } from '../../../../utilities/helpers'
 
 const classes = {
   item: 'articlesep__item separator__item--nota',
@@ -36,7 +36,7 @@ const SeparatorListItem = ({ data, excluir, website, arcSite }) => {
         {medio === 'video' && <span>&#8227;</span>}
         {medio === 'gallery' && <span>G</span>}
         <div className={classes.detail}>
-          <h2 className={`${classes.separatorTitle} ${numline}` }>
+          <h2 className={`${classes.separatorTitle} ${numline}`}>
             <a href={websiteUrl}>{headlines}</a>
           </h2>
         </div>

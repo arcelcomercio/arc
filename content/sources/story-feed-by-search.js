@@ -1,6 +1,7 @@
 const schemaName = 'stories'
 
-const params = [{
+const params = [
+  {
     name: 'sort',
     displayName: 'Orden',
     type: 'text',
@@ -51,13 +52,11 @@ const pattern = key => {
   // const page = `page=${'1'}`
   const valueQuery = key.query || '*'
 
-  console.log('SOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORT', sort)
-
-
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               type: 'story',
             },
@@ -102,7 +101,8 @@ const pattern = key => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': [`/${key.section}`],
                 },

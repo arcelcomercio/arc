@@ -1,0 +1,27 @@
+.author-details {
+  display: grid;
+  grid-template-rows: 54px;
+  width: 100%;
+  max-width: 350px;
+  min-height: 400px;
+  &__title {
+    background-color: #8f7a7c;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 54px;
+  }
+  &__body {
+    padding: 20px;
+    background-color: #fff;
+  }
+  &__blog-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  &__description {
+    line-height: 1.5;
+    font-size: 14px;
+  }
+}

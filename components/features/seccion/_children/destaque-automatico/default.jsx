@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 import Destaque from '../../../../../resources/components/destaque'
-import { addResizedUrlItem } from '../../../../../resources/utilsJs/thumbs'
+import { addResizedUrlItem } from '../../../../utilities/thumbs'
 
 @Consumer
 class DestaqueGrillaAuto extends Component {

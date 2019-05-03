@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
+import BillboardFormat from '../../../utilities/billboard-format'
 
 @Consumer
 class MoviesFilter extends PureComponent {
