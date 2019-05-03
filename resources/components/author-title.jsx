@@ -2,21 +2,25 @@ import React from 'react'
 
 const classes = {
   authorTitle: 'author-title',
+  title: 'author-title__box-title',
   section: 'author-title__section position-relative',
   url: 'author-title__url',
+  name: 'author-title__name',
   img: 'author-title__img position-absolute',
 }
 
-const AuthorTitle = ({ firstName, guid, blogname }) => {
+const AuthorTitle = ({ firstName, guid, blogname, path }) => {
   return (
     <div className={classes.authorTitle}>
-      <h1 className={classes.section}>
-        <a href={firstName} className={classes.url}>
+      <div className={classes.title}>
+        <a href={path} className={classes.url}>
           {blogname}
         </a>
-        {firstName}
+        <p className={classes.name}>{firstName}</p>
+      </div>
+      <div className={classes.section}>
         <img src={guid} alt={firstName} className={classes.img} />
-      </h1>
+      </div>
     </div>
   )
 }
