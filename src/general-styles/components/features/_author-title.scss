@@ -1,5 +1,6 @@
 .author-title {
   background-color: #fff;
+  margin-top: 15px;
   @media (--tablet) {
     padding-top: 20px;
   }
@@ -10,18 +11,19 @@
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
     padding: 10px 12px 0 12px;
+    width: 100%;
     @media (--tablet) {
       background-color: #fff;
       color: #333;
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
-      width: 375px;
+      //width: 375px;
       margin-top: 10px;
     }
     @media (--desktop) {
       font-size: 24px;
-      width: 954px;
+      //width: 954px;
       margin: 0 auto;
     }
   }
