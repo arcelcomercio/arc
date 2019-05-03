@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import renderHTML from 'react-render-html'
-import { getFullDateIso8601 } from '../../../../resources/utilsJs/helpers'
+import { getFullDateIso8601 } from '../../../utilities/helpers'
 
 @Consumer
 class BlogPostContent extends PureComponent {
@@ -18,7 +18,7 @@ class BlogPostContent extends PureComponent {
         <div className="bp-content__header">
           <span className="bp-content__author">{firstName}</span>{' '}
           <time className="bp-content__date">
-            {formatDate && (`${day}/${month}/${fullYear} ${hours}:${minutes}`)}
+            {formatDate && `${day}/${month}/${fullYear} ${hours}:${minutes}`}
           </time>
         </div>
         <div className="bp-content__news">

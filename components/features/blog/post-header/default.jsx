@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import {
   popUpWindow,
   socialMediaUrlShareList,
-} from '../../../../resources/utilsJs/helpers'
+} from '../../../utilities/helpers'
 
 @Consumer
 class BlogPostHeader extends PureComponent {

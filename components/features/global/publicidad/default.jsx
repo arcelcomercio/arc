@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Ads from '../../../../resources/components/ads'
+import Ads from '../../../global-components/ads'
 
 @Consumer
 class Publicidad extends PureComponent {

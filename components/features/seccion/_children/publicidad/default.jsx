@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-import Ads from '../../../../../resources/components/ads'
+import Ads from '../../../../global-components/ads'
 
 @Consumer
 class GrillaPublicidad extends Component {

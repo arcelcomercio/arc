@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/BlogItem'
-import { formatDate } from '../../../../resources/utilsJs/helpers'
+import { formatDate } from '../../../utilities/helpers'
 
 @Consumer
 class BlogList extends Component {
