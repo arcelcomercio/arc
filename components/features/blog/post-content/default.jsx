@@ -30,6 +30,6 @@ class BlogPostContent extends PureComponent {
 }
 
 BlogPostContent.label = 'Blog - Contenido del post'
-// BlogPostContent.static = true
+BlogPostContent.static = true
 
 export default BlogPostContent

@@ -1,13 +1,16 @@
 .post-item {
   &__container {
     font-family: $secondary-font;
-    background-color: #eee;
+    background-color: #fff;
     padding: 7px 14px;
     display: flex;
     flex-direction: column-reverse;
     height: auto;
     padding-bottom: 24px;
     border-top: 1px solid #999;
+    &:nth-child(1) {
+      border-top: 0;
+    }
     @media (--tablet) {
       flex-direction: column;
     }
