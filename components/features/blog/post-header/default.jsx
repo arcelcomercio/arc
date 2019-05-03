@@ -1,5 +1,9 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+import {
+  popUpWindow,
+  socialMediaUrlShareList,
+} from '../../../../resources/utilsJs/helpers'
 
 @Consumer
 class BlogPostHeader extends PureComponent {
@@ -8,38 +12,45 @@ class BlogPostHeader extends PureComponent {
     this.state = {
       currentList: 'firstList',
     }
+    this.firstList = 'firstList'
+    this.secondList = 'secondList'
     const { globalContent } = props
-    const { post: { post_permalink: postPermaLink = '' } = {} } =
-      globalContent || {}
+    const {
+      post: {
+        post_permalink: postPermaLink = '',
+        post_title: postTitle = '',
+      } = {},
+    } = globalContent || {}
+    const urlsShareList = socialMediaUrlShareList(postPermaLink, postTitle)
     this.shareButtons = {
-      firstList: [
+      [this.firstList]: [
         {
           icon: 'L',
-          link: `http://www.linkedin.com/shareArticle?url=http://gestion.pe/blog/${postPermaLink}`,
+          link: urlsShareList.linkedin,
         },
         {
           icon: 'F',
-          link: `http://www.facebook.com/sharer.php?u=http://gestion.pe/blog/${postPermaLink}`,
+          link: urlsShareList.facebook,
         },
         {
           icon: 'T',
-          link: `http://twitter.com/home?status=La%20Autoeficacia%20Emprendedora%20II+http://gestion.pe/blog/${postPermaLink}+via%20@Gestionpe`,
+          link: urlsShareList.twitter,
           mobileClass: 'no-mobile',
         },
         {
           icon: 'W',
-          link: `whatsapp://send?text=http://gestion.pe/blog/${postPermaLink}`,
+          link: urlsShareList.whatsapp,
           mobileClass: 'no-desktop',
         },
       ],
-      secondList: [
+      [this.secondList]: [
         {
           icon: 'P',
-          link: `https://pinterest.com/pin/create/button/?url=http://gestion.pe/blog/${postPermaLink}`,
+          link: urlsShareList.pinterest,
         },
         {
           icon: 'T',
-          link: `http://twitter.com/home?status=La%20Autoeficacia%20Emprendedora%20II+http://gestion.pe/blog/${postPermaLink}+via%20@Gestionpe`,
+          link: urlsShareList.twitter,
           mobileClass: 'no-desktop',
         },
         {
@@ -50,26 +61,17 @@ class BlogPostHeader extends PureComponent {
     }
   }
 
-  popUpWindow = (url, title, w, h) => {
-    const left = window.screen.width / 2 - w / 2
-    const top = window.screen.height / 2 - h / 2
-    return window.open(
-      url,
-      title,
-      `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
-    )
-  }
-
   handleMoreButton = () => {
     const { currentList } = this.state
-    const newList = currentList === 'firstList' ? 'secondList' : 'firstList'
+    const newList =
+      currentList === this.firstList ? this.secondList : this.firstList
     this.setState({ currentList: newList })
   }
 
   openLink = (event, item, print) => {
     event.preventDefault()
     if (print) window.print()
-    else this.popUpWindow(item.link, '', 600, 400)
+    else popUpWindow(item.link, '', 600, 400)
   }
 
   render() {
@@ -86,13 +88,12 @@ class BlogPostHeader extends PureComponent {
                 className="post-header__link flex-center-vertical flex--justify-center"
                 href={item.link}
                 onClick={event => {
-                  if (i === 2 && currentList === 'secondList')
-                    this.openLink(event, item, true)
-                  else this.openLink(event, item, false)
+                  const isPrint = i === 2 && currentList === this.secondList
+                  this.openLink(event, item, isPrint)
                 }}>
                 <i>{item.icon}</i>
                 <span className="post-header__share">
-                  {i === 2 && currentList === 'secondList'
+                  {i === 2 && currentList === this.secondList
                     ? 'Imprimir'
                     : 'Compartir'}
                 </span>
@@ -105,7 +106,7 @@ class BlogPostHeader extends PureComponent {
               className="post-header__button flex-center-vertical flex--justify-center"
               type="button"
               onClick={e => this.handleMoreButton(e)}>
-              <i>{currentList === 'firstList' ? '+' : '-'}</i>
+              <i>{currentList === this.firstList ? '+' : '-'}</i>
             </button>
           </li>
         </ul>

@@ -16,9 +16,9 @@ export const formatDate = date => {
 
   const fechaEntrante = date.slice(0, 10)
   const fecha =
-    fechaEntrante === fechaGenerada ?
-    date.slice(date.indexOf('T') + 1, 16) :
-    fechaEntrante
+    fechaEntrante === fechaGenerada
+      ? date.slice(date.indexOf('T') + 1, 16)
+      : fechaEntrante
   return fecha
 }
 
@@ -207,4 +207,26 @@ export const getMetaPagesPagination = (
   if (previous !== undefined) pages.prev = pages.current - 1
 
   return pages
+}
+
+export const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
+}
+
+export const socialMediaUrlShareList = (postPermaLink, postTitle) => {
+  return {
+    facebook: `http://www.facebook.com/sharer.php?u=http://gestion.pe/blog/${postPermaLink}`,
+    twitter: `http://twitter.com/home?status=${encodeURIComponent(
+      postTitle
+    )}+http://gestion.pe/blog/${postPermaLink}+via%20@Gestionpe`,
+    linkedin: `http://www.linkedin.com/shareArticle?url=http://gestion.pe/blog/${postPermaLink}`,
+    pinterest: `https://pinterest.com/pin/create/button/?url=http://gestion.pe/blog/${postPermaLink}`,
+    whatsapp: `whatsapp://send?text=http://gestion.pe/blog/${postPermaLink}`,
+  }
 }
