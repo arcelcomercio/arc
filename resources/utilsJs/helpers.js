@@ -22,6 +22,28 @@ export const formatDate = date => {
   return fecha
 }
 
+// ex: 2019-04-29 22:34:13 or 2019/04/29T22:34:13
+export const getFullDateIso8601 = (
+  fullDate,
+  delimiterFullDate = ' ',
+  separatorDate = '-',
+  separatorTime = ':'
+) => {
+  if (fullDate === '' || fullDate === undefined) return false
+
+  const [date, time] = fullDate.split(delimiterFullDate)
+  const [fullYear, month, day] = date.split(separatorDate)
+  const [hours, minutes, seconds] = time.split(separatorTime)
+  return {
+    day,
+    month,
+    fullYear,
+    hours,
+    minutes,
+    seconds,
+  }
+}
+
 export const getActualDate = () => {
   const today = new Date()
   let dd = today.getDate()

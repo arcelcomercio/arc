@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDate, ResizeImageUrl } from '../utilsJs/helpers'
+import { ResizeImageUrl, getFullDateIso8601 } from '../utilsJs/helpers'
 
 const classes = {
   container: 'post-item__container',
@@ -20,13 +20,15 @@ const PostItem = ({
   author = '',
   arcSite = '',
 }) => {
+  const { day, month, fullYear } = getFullDateIso8601(postDate)
+  const postFormatDate = `${day}/${month}/${fullYear}`
   const DEFAULT_IMG =
     'https://img.gestion.pe/bundles/appcms/images/gestion/default_blog.jpg'
 
   return (
     <article className={classes.container}>
       <div className={classes.date}>
-        <p>{formatDate(postDate)}</p>
+        <p>{postFormatDate}</p>
       </div>
       <div className={classes.content}>
         <figure className={classes.figure}>
