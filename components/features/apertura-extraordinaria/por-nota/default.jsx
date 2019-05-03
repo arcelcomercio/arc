@@ -72,6 +72,6 @@ FeaturedNewsStory.propTypes = {
   customFields: customFieldsExtern,
 }
 
-FeaturedNewsStory.label = 'Apertura extraordinaria por nota'
+FeaturedNewsStory.label = 'Apertura extraordinaria por historia'
 
 export default FeaturedNewsStory

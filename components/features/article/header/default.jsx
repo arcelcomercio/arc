@@ -9,7 +9,7 @@ import Share from './_children/share'
 
 const classes = {
   news: 'col-3 padding-normal bg-color--white',
-  gallery: 'col-3 _gallery--cover',
+  gallery: 'col-3 _gallery--cover', // FIXME
 }
 @Consumer
 class ArticleHeader extends Component {

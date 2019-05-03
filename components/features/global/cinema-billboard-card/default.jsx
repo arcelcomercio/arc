@@ -2,6 +2,8 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import { ResizeImageUrl } from '../../../utilities/helpers'
 
+// TODO: Fix classes
+
 @Consumer
 class CinemaBillboardCard extends Component {
   constructor(props) {

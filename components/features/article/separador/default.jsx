@@ -28,7 +28,6 @@ class Separador extends Component {
   }
 
   getSeccionPrimary = dataArticle => {
-    
     return dataArticle.taxonomy
       ? dataArticle.taxonomy.primary_section
       : { name: '', section: '' }
@@ -103,14 +102,19 @@ class Separador extends Component {
 
   render() {
     const { data, excluir, website, device, nameSeccion } = this.state
-    const {arcSite} = this.props
-    // eslint-disable-next-line eqeqeq
-    if (device == 'mobile') return ''
+    const { arcSite } = this.props
+
+    if (device === 'mobile') return ''
     return (
       <div className={classes.separator}>
         <h3 className={classes.title}>Más en {nameSeccion}</h3>
         <div className={classes.body}>
-          <SeparatorListItem data={data} excluir={excluir} website={website} arcSite={arcSite} />
+          <SeparatorListItem
+            data={data}
+            excluir={excluir}
+            website={website}
+            arcSite={arcSite}
+          />
         </div>
       </div>
     )
