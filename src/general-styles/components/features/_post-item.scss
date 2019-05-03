@@ -8,6 +8,9 @@
     height: auto;
     padding-bottom: 24px;
     border-top: 1px solid #999;
+    &:nth-child(1) {
+      border-top: 0;
+    }
     @media (--tablet) {
       flex-direction: column;
     }
