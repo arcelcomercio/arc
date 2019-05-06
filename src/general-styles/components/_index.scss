@@ -1,5 +1,6 @@
 /******* Components *******/
 @import './features/nav';
+@import './features/nav-sidebar';
 @import './features/header';
 @import './features/footer';
 @import './features/ads';
@@ -41,7 +42,6 @@
 
 @import './features/components/button';
 @import './features/components/icons';
-@import './features/components/nav-sidebar';
 @import './features/components/item-new';
 @import './features/components/pagination';
 /*---------------------*/
