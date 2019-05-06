@@ -1,8 +1,8 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import FeaturedStory from '../../../../global-components/featured-story'
-import { addResizedUrlItem } from '../../../../utilities/thumbs'
+import FeaturedStory from '../../../../../global-components/featured-story'
+import { addResizedUrlItem } from '../../../../../utilities/thumbs'
 
 @Consumer
 class AutomaticGridFeaturedStories extends Component {

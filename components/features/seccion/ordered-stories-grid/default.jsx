@@ -3,8 +3,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import DataStory from '../../../../resources/components/utils/data-story'
-import Destaque from '../_children/destaque-automatico/default'
-import Publicidad from '../_children/publicidad/default'
+import Destaque from './_children/destaque-automatico/default'
+import Publicidad from './_children/publicidad/default'
 
 const elements = [
   { col: 2, row: 1, type: 'destaque' },

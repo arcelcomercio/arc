@@ -8,8 +8,7 @@ class tagAutor extends Component {
   render() {
     const { globalContent, globalContentConfig, arcSite } = this.props
     const { content_elements: contentElements, count = 0 } = globalContent || {}
-    const { query: { storiesQty, currentPageNumber } = {} } =
-      globalContentConfig || {}
+    const { query: { size, from } = {} } = globalContentConfig || {}
 
     const params = {
       data: contentElements || [],
@@ -25,8 +24,8 @@ class tagAutor extends Component {
         </div>
         <Pagination
           totalElements={count}
-          storiesQty={storiesQty}
-          currentPage={currentPageNumber}
+          storiesQty={size}
+          currentPage={from}
         />
       </Fragment>
     )

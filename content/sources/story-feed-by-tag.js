@@ -8,13 +8,13 @@ const params = [{
     type: 'text',
   },
   {
-    name: 'currentPageNumber',
-    displayName: 'Número de página actual',
+    name: 'from',
+    displayName: 'Página de inicio',
     type: 'number',
   },
   {
-    name: 'storiesQty',
-    displayName: 'Número de historias por página',
+    name: 'size',
+    displayName: 'Cantidad a mostrar',
     type: 'number',
   },
 ]
@@ -25,8 +25,8 @@ const pattern = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const {
     name,
-    currentPageNumber,
-    storiesQty
+    from,
+    size
   } = key
 
   if (!name) {
@@ -34,8 +34,8 @@ const pattern = (key = {}) => {
   }
 
   const validateFrom = () => {
-    if (currentPageNumber !== '1' && currentPageNumber) {
-      return (currentPageNumber - 1) * storiesQty
+    if (from !== '1' && from) {
+      return (from - 1) * size
     }
     return '0'
   }
@@ -43,7 +43,7 @@ const pattern = (key = {}) => {
   /** TODO: Cambiar publish_date por display_name en los patterns???? */
   /** TODO: Manejar comportamiento cuando no se obtiene data */
 
-  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${name}+AND+type:story+AND+revision.published:true&size=${storiesQty ||
+  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${name}+AND+type:story+AND+revision.published:true&size=${size ||
     50}&from=${validateFrom()}&sort=publish_date:desc&website=${website}`
 
   return requestUri

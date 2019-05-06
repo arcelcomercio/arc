@@ -3,6 +3,11 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Ads from '../../../global-components/ads'
 
+const classes = {
+  flexCenterVertical: 'flex-center-vertical',
+  flexColumn: 'flex--column',
+  overflowHidden: 'overflow-hidden',
+}
 @Consumer
 class Publicidad extends PureComponent {
   render() {
@@ -38,9 +43,9 @@ class Publicidad extends PureComponent {
 
     return (
       <div
-        className={`${columns} ${
-          rows === 'empty' ? '' : rows
-        } ${hideClass()} flex-center-vertical flex--column overflow-hidden`}>
+        className={`${columns} ${rows === 'empty' ? '' : rows} ${hideClass()} ${
+          classes.flexCenterVertical
+        } ${classes.flexColumn} ${classes.overflowHidden}`}>
         <Ads {...params} />
         {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
       </div>
