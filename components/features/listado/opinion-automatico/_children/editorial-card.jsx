@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import DataStory from './utils/data-story'
+import React, { Component } from 'react'
+import DataStory from '../../../../../resources/components/utils/data-story'
 
 // eslint-disable-next-line react/prefer-stateless-function
-class CardEditorial extends Component {
+class EditorialCard extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(...props) {
     super(...props)
   }
 
-	render() {
+  render() {
     const { arcSite, data } = this.props
     const element = new DataStory({}, arcSite)
     element.__data = data
@@ -46,9 +46,7 @@ class CardEditorial extends Component {
         </div>
       </div>
     )
-	}
+  }
 }
 
-
-
-export default CardEditorial
+export default EditorialCard

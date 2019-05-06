@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import DataStory from './utils/data-story'
+import DataStory from '../../resources/components/utils/data-story'
 
 const classes = {
   destaque: 'destaque padding-normal flex flex--column row-1',
@@ -35,7 +35,7 @@ const classes = {
   galleryIcon: 'destaque__gallery-icon',
 }
 
-export default class Destaque extends Component {
+export default class FeaturedStory extends Component {
   render() {
     const {
       category, // Se espera un objeto {name: '', url: ''}
@@ -95,7 +95,7 @@ export default class Destaque extends Component {
         </span>
       )
     }
-    
+
     let numline = ''
     switch (arcSite) {
       case 'elcomercio':
@@ -167,7 +167,7 @@ export default class Destaque extends Component {
   }
 }
 
-Destaque.propTypes = {
+FeaturedStory.propTypes = {
   category: PropTypes.shape({
     name: PropTypes.string,
     url: PropTypes.string,

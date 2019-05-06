@@ -1,7 +1,7 @@
 import React from 'react'
-import { getIcon } from '../../components/utilities/helpers'
+import { getIcon } from '../../../../utilities/helpers'
 
-const CardDestaqueTv = props => {
+const TVHighlightComponent = props => {
   const {
     title: { nameTitle, urlTitle },
     category: { nameSection, urlSection },
@@ -61,4 +61,4 @@ const CardDestaqueTv = props => {
   )
 }
 
-export default CardDestaqueTv
+export default TVHighlightComponent

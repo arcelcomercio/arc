@@ -2,14 +2,14 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import Destaque from '../../../../../resources/components/destaque'
+import FeaturedStory from '../../../../global-components/featured-story'
 import { addResizedUrlItem } from '../../../../utilities/thumbs'
 import DataStory from '../../../../../resources/components/utils/data-story'
 
 /* **************** SIN USO ****************** */
 
 @Consumer
-class GrillaDestaque extends Component {
+class GridFeaturedStories extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -93,11 +93,11 @@ class GrillaDestaque extends Component {
       titleField,
       categoryField,
     }
-    return <Destaque {...params} />
+    return <FeaturedStory {...params} />
   }
 }
 
-GrillaDestaque.propTypes = {
+GridFeaturedStories.propTypes = {
   customFields: PropTypes.shape({
     imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
       name: 'Posición de la imagen',
@@ -129,4 +129,4 @@ GrillaDestaque.propTypes = {
   }),
 }
 
-export default GrillaDestaque
+export default GridFeaturedStories

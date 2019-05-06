@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import DataStory from './utils/data-story'
+import React, { Component } from 'react'
+import DataStory from '../../../../../resources/components/utils/data-story'
 
 // eslint-disable-next-line react/prefer-stateless-function
-class CardAutor extends Component {
+class AuthorCard extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(...props) {
     super(...props)
@@ -49,4 +49,4 @@ class CardAutor extends Component {
   }
 }
 
-export default CardAutor
+export default AuthorCard

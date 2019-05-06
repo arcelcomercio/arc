@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import CardNotice from '../../../../resources/components/listado-noticias'
+import CardNotice from '../../../global-components/stories-list'
 
 const classes = {
   listado: 'full-width',

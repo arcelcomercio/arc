@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-import CardNotice from '../../../../resources/components/listado-noticias'
-import Paginacion from '../../../../resources/components/paginacion_numerica'
+import CardNotice from '../../../global-components/stories-list'
+import Pagination from '../../../global-components/pagination'
 
 @Consumer
 class Buscar extends Component {
@@ -27,7 +27,7 @@ class Buscar extends Component {
             <CardNotice key={index} data={el} arcSite={params.arcSite} />
           ))}
         </div>
-        <Paginacion
+        <Pagination
           totalElements={count}
           storiesQty={size}
           currentPage={from}

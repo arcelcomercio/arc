@@ -5,7 +5,7 @@ const classes = {
   page: 'paginacion__page',
 }
 
-export default class Paginacion extends Component {
+export default class Pagination extends Component {
   constructor(props) {
     super(props)
     const { totalElements, storiesQty } = props

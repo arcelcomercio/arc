@@ -2,12 +2,12 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import Destaque from '../../../../resources/components/destaque'
+import FeaturedStory from '../../../global-components/featured-story'
 
 import DestaqueFormater from '../_children/destaque-formater'
 
 @Consumer
-class DestaqueAutomatico extends Component {
+class AutomaticFeaturedStory extends Component {
   constructor(props) {
     super(props)
     this.DestaqueFormater = new DestaqueFormater(props.arcSite)
@@ -45,7 +45,7 @@ class DestaqueAutomatico extends Component {
 
   render() {
     const { category, title, author, image, multimediaType } = this.state
-    const { customFields, editableField , arcSite} = this.props
+    const { customFields, editableField, arcSite } = this.props
     const { imageSize, size, titleField, categoryField } = customFields || {}
     const params = {
       title,
@@ -60,11 +60,11 @@ class DestaqueAutomatico extends Component {
       arcSite,
       multimediaType,
     }
-    return <Destaque {...params} />
+    return <FeaturedStory {...params} />
   }
 }
 
-DestaqueAutomatico.propTypes = {
+AutomaticFeaturedStory.propTypes = {
   customFields: PropTypes.shape({
     section: PropTypes.string.tag({
       name: 'Path de la sección',
@@ -113,4 +113,4 @@ DestaqueAutomatico.propTypes = {
   }),
 }
 
-export default DestaqueAutomatico
+export default AutomaticFeaturedStory

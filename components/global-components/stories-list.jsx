@@ -1,10 +1,6 @@
 import React, { PureComponent } from 'react'
-import DataStory from './utils/data-story'
-import {
-  reduceWord,
-  formatDate,
-  getIcon,
-} from '../../components/utilities/helpers'
+import DataStory from '../../resources/components/utils/data-story'
+import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
 
 const clases = {
   cardNotice: 'card-notice',
@@ -21,7 +17,7 @@ const clases = {
   cardNoticeFigure: 'card-notice__figure',
 }
 
-class CardNotice extends PureComponent {
+class StoriesList extends PureComponent {
   render() {
     const { arcSite, data, formato } = this.props
     const element = new DataStory(data, arcSite)
@@ -78,4 +74,4 @@ class CardNotice extends PureComponent {
   }
 }
 
-export default CardNotice
+export default StoriesList

@@ -2,7 +2,7 @@ import React from 'react'
 import {
   ResizeImageUrl,
   getFullDateIso8601,
-} from '../../components/utilities/helpers'
+} from '../../../../utilities/helpers'
 
 const classes = {
   container: 'post-item__container',

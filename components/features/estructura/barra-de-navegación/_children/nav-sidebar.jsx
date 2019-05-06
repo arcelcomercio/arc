@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import Button from '../../../../../resources/components/button'
+import Button from '../../../../global-components/button'
 
 const classes = {
   navSidebar: `

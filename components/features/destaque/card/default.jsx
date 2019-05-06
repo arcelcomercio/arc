@@ -2,12 +2,12 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import Destaque from '../../../../resources/components/destaque'
+import FeaturedStory from '../../../global-components/featured-story'
 
 import DestaqueFormater from '../_children/destaque-formater'
 
 @Consumer
-class DestaqueCard extends Component {
+class CardFeaturedStory extends Component {
   constructor(props) {
     super(props)
     this.DestaqueFormater = new DestaqueFormater(props.arcSite)
@@ -65,11 +65,11 @@ class DestaqueCard extends Component {
       categoryField,
       multimediaType,
     }
-    return <Destaque {...params} />
+    return <FeaturedStory {...params} />
   }
 }
 
-DestaqueCard.propTypes = {
+CardFeaturedStory.propTypes = {
   customFields: PropTypes.shape({
     storyConfig: PropTypes.contentConfig('story').isRequired.tag({
       name: 'Configuración del contenido',
@@ -117,6 +117,6 @@ DestaqueCard.propTypes = {
   }),
 }
 
-DestaqueCard.label = 'Destaque avanzado'
+CardFeaturedStory.label = 'Destaque avanzado'
 
-export default DestaqueCard
+export default CardFeaturedStory

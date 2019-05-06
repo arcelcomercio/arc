@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import { customFields } from './children/customfields'
+import { customFields } from './_dependencies/custom-fields'
 import DataStory from '../../../../resources/components/utils/data-story'
-import OpinionItem from '../../../../resources/components/opinion-item'
+import OpinionItem from './_children/author-card'
 
 const classes = {
   separator: 'separator__opinion',
@@ -30,11 +30,7 @@ class SeparadorOpinion extends Component {
 
     const {
       arcSite,
-      customFields: {
-        section = '',
-        titleSection = '',
-        htmlCode = '',
-      } = {},
+      customFields: { section = '', titleSection = '', htmlCode = '' } = {},
     } = props
 
     this.state = {
@@ -159,7 +155,9 @@ class SeparadorOpinion extends Component {
 
   listado = () => {
     const { data, arcSite } = this.state
-    return data.map(info => <OpinionItem key={info.id} data={info} arcSite={arcSite} />)
+    return data.map(info => (
+      <OpinionItem key={info.id} data={info} arcSite={arcSite} />
+    ))
   }
 
   render() {
