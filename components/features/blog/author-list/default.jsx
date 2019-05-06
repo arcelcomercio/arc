@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import PostItem from '../../../../resources/components/post-item'
+import PostItem from './_children/post-item'
 
 @Consumer
 class AuthorList extends PureComponent {

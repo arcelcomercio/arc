@@ -9,7 +9,7 @@ const classes = {
   opinionthreeline: 'separator__opinion--item-threeline',
 }
 
-const OpinionItem = props => {
+const AuthorCard = props => {
   const {
     arcSite,
     data: {
@@ -24,17 +24,17 @@ const OpinionItem = props => {
   } = props
 
   let numline = ''
-    switch (arcSite) {
-      case 'elcomercio':
-        numline = classes.opinionthreeline
-        break
-      case 'depor':
-        numline = classes.opiniontwoline
-        break
-      default:
-        numline = classes.opiniontwoline
-        break
-    }
+  switch (arcSite) {
+    case 'elcomercio':
+      numline = classes.opinionthreeline
+      break
+    case 'depor':
+      numline = classes.opiniontwoline
+      break
+    default:
+      numline = classes.opiniontwoline
+      break
+  }
   return (
     <article className={classes.opinionItem}>
       <div className={classes.opinionItemDetails}>
@@ -55,4 +55,4 @@ const OpinionItem = props => {
   )
 }
 
-export default OpinionItem
+export default AuthorCard

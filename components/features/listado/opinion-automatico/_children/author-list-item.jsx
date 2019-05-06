@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import DataStory from './utils/data-story'
-import { formatDate } from '../../components/utilities/helpers'
+import DataStory from '../../../../../resources/components/utils/data-story'
+import { formatDate } from '../../../../utilities/helpers'
 
 // eslint-disable-next-line react/prefer-stateless-function
-class BarraAutor extends Component {
+class AuthorListItem extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(...props) {
     super(...props)
@@ -53,4 +53,4 @@ class BarraAutor extends Component {
   }
 }
 
-export default BarraAutor
+export default AuthorListItem

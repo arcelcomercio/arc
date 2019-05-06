@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import CardAutor from '../../../../resources/components/option-autor'
-import CardEditorial from '../../../../resources/components/option-editorial'
-import BarraAutor from '../../../../resources/components/option-mas'
+import CardAutor from './_children/author-card'
+import EditorialCard from './_children/editorial-card'
+import AuthorListItem from './_children/author-list-item'
 import CustomTitle from '../../global/custom-title/default'
 
 // TODO: Refactorizar classes a estándar
@@ -28,7 +28,7 @@ class OpinionAutomatica extends Component {
               arcSite
             ].website_section.name.toUpperCase()
             return section && section === 'EDITORIAL' ? (
-              <CardEditorial key={index} data={el} arcSite={params.arcSite} />
+              <EditorialCard key={index} data={el} arcSite={params.arcSite} />
             ) : (
               <CardAutor key={index} data={el} arcSite={params.arcSite} />
             )
@@ -39,10 +39,10 @@ class OpinionAutomatica extends Component {
             <p className="grid-opinion__title">ÚLTIMAS NOTICIAS</p>
           </div>
           {params.data.slice(12).map((el, index) => (
-            <BarraAutor key={index} data={el} arcSite={params.arcSite} />
+            <AuthorListItem key={index} data={el} arcSite={params.arcSite} />
           ))}
           <div className="grid-opinion__box-more">
-            <a href={`/archivo/opinion`}>Ver Mas</a>
+            <a href="/archivo/opinion">Ver Mas</a>
           </div>
         </div>
       </div>

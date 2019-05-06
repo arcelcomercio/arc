@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import CardNotice from '../../../../resources/components/listado-noticias'
-import RenderPagination from '../../../../resources/components/paginador-fecha'
+import CardNotice from '../../../global-components/stories-list'
+import RenderPagination from '../../../global-components/pagination-by-date'
 import { getActualDate } from '../../../utilities/helpers'
 
 @Consumer
