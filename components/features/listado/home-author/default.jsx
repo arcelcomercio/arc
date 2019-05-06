@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import CardNotice from '../../../global-components/stories-list'
+import StoryItem from '../../../global-components/story-item'
 import RenderPagination from '../../../global-components/pagination-by-date'
 import { getActualDate } from '../../../utilities/helpers'
 
@@ -29,7 +29,7 @@ class ListHomeAuthor extends Component {
       <Fragment>
         <div>
           {params.data.map(el => (
-            <CardNotice
+            <StoryItem
               key={`Archivo_${el._id}`}
               data={el}
               arcSite={params.arcSite}

@@ -3,36 +3,36 @@ import PropTypes from 'prop-types'
 import DataStory from '../../resources/components/utils/data-story'
 
 const classes = {
-  destaque: 'destaque padding-normal flex flex--column row-1',
-  gradient: 'destaque__gradient full-width block',
-  detail: 'destaque__detail flex flex--column flex--justify-between',
-  image: 'destaque__image',
-  multimediaIconContainer: 'destaque__multimedia-icon',
-  multimediaIconSpan: 'destaque__multimedia-icon-span',
+  featuredStory: 'featured-story padding-normal flex flex--column row-1',
+  gradient: 'featured-story__gradient full-width block',
+  detail: 'featured-story__detail flex flex--column flex--justify-between',
+  image: 'featured-story__image',
+  multimediaIconContainer: 'featured-story__multimedia-icon',
+  multimediaIconSpan: 'featured-story__multimedia-icon-span',
 
-  category: 'destaque__category',
-  title: 'destaque__title',
-  oneline: 'destaque-oneline ',
-  twoline: 'destaque-twoline',
-  threeline: 'destaque-threeline',
-  author: 'destaque__author',
+  category: 'featured-story__category',
+  title: 'featured-story__title',
+  oneline: 'featured-story-oneline ',
+  twoline: 'featured-story-twoline',
+  threeline: 'featured-story-threeline',
+  author: 'featured-story__author',
 
-  link: 'destaque__link',
-  imageLink: 'block destaque__img-link',
-  img: 'full-width destaque__img',
+  link: 'featured-story__link',
+  imageLink: 'block featured-story__img-link',
+  img: 'full-width featured-story__img',
 
-  imgComplete: 'destaque--img-complete',
+  imgComplete: 'featured-story--img-complete',
   parcialTop: 'flex--column-reverse',
 
   twoCol: 'col-2',
   // Headbands
-  headband: 'destaque__headband',
-  headbandLink: 'destaque__headband-link',
+  headband: 'featured-story__headband',
+  headbandLink: 'featured-story__headband-link',
 
-  live: 'destaque--live',
+  live: 'featured-story--live',
 
-  playIcon: 'destaque__play-icon',
-  galleryIcon: 'destaque__gallery-icon',
+  playIcon: 'featured-story__play-icon',
+  galleryIcon: 'featured-story__gallery-icon',
 }
 
 export default class FeaturedStory extends Component {
@@ -111,7 +111,7 @@ export default class FeaturedStory extends Component {
     return (
       <article
         className={`${
-          classes.destaque
+          classes.featuredStory
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === 'twoCol' ? classes.twoCol : ''
         }`}>
@@ -181,7 +181,7 @@ FeaturedStory.propTypes = {
     url: PropTypes.string,
   }),
   image: PropTypes.string,
-  imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialTop']),
+  imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialBot']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf(['oneCol', 'twoCol']),
   // editableField: PropTypes.func,

@@ -9,45 +9,39 @@ const TVHighlightComponent = props => {
     tags,
   } = props
   return (
-    <div className="card-destaque-tv">
-      <div className="card-destaque-tv__container">
-        <div className="card-destaque-tv__box-title">
+    <div className="tv-highlight">
+      <div className="tv-highlight__container">
+        <div className="tv-highlight__box-title">
           <h1>
-            <a href={urlTitle} className="card-destaque-tv__title">
+            <a href={urlTitle} className="tv-highlight__title">
               {nameTitle}
             </a>
           </h1>
         </div>
-        <div className="card-destaque-tv__box-sub">
+        <div className="tv-highlight__box-sub">
           <span>
-            <a href={urlSection} className="card-destaque-tv__section">
+            <a href={urlSection} className="tv-highlight__section">
               {nameSection}
             </a>
           </span>
-          {/* <span className="card-destaque-tv__social"></span> */}
+          {/* <span className="tv-highlight__social"></span> */}
         </div>
-        <a href={urlTitle} className="card-destaque-tv__box-image">
-          <img
-            className="card-destaque-tv__img"
-            src={multimediaImg}
-            alt="foto"
-          />
+        <a href={urlTitle} className="tv-highlight__box-image">
+          <img className="tv-highlight__img" src={multimediaImg} alt="foto" />
           {multimediaType !== 'basic' && (
-            <span className="card-destaque-tv__icon">
+            <span className="tv-highlight__icon">
               {getIcon(multimediaType)}
             </span>
           )}
         </a>
         {tags && (
-          <div className="card-destaque-tv__tags">
-            <p className="card-destaque-tv__related">Tag Relacionados:</p>
-            <ul className="card-destaque-tv__list">
+          <div className="tv-highlight__tags">
+            <p className="tv-highlight__related">Tag Relacionados:</p>
+            <ul className="tv-highlight__list">
               {tags.map(el => {
                 return (
-                  <li key={el.slug} className="card-destaque-tv__item">
-                    <a
-                      className="card-destaque-tv__link"
-                      href={`/tag/${el.slug}`}>
+                  <li key={el.slug} className="tv-highlight__item">
+                    <a className="tv-highlight__link" href={`/tag/${el.slug}`}>
                       {el.description}
                     </a>
                   </li>
