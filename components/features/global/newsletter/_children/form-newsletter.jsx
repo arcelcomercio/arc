@@ -1,5 +1,16 @@
 import React, { Fragment } from 'react'
 
+const classes={
+  title:'newsletter__title',
+  descripcion:'newsletter__description',
+  row:'newsletter__row',
+  email:'newsletter__email',
+  errorMessage:'newsletter__error-message',
+  textCenter:'text-center',
+  button:'newsletter__button',
+  tos:'newsletter__tos'
+}
+
 const FormNewsletter = props => {
   const {
     description,
@@ -12,14 +23,14 @@ const FormNewsletter = props => {
 
   return (
     <Fragment>
-      <h3 className="newsletter__title">
+      <h3 className={classes.title} >
         Registrate en nuestro <span>Newsletter</span>
       </h3>
-      <p className="newsletter__description">{description}</p>
+      <p className={classes.descripcion} >{description}</p>
       <form action="">
-        <div className="newsletter__row">
+        <div className={classes.row}>
           <input
-            className="newsletter__email"
+            className={classes.email}
             type="text"
             name="email"
             placeholder="Correo electrónico*"
@@ -27,21 +38,21 @@ const FormNewsletter = props => {
             onChange={features.email}
           />
           {validation.email.hasError() && submitForm && (
-            <div className="newsletter__error-message">
+            <div className={classes.errorMessage}>
               {validation.email.message()}
             </div>
           )}
         </div>
-        <div className="newsletter__row text-center">
+        <div className={`${classes.row} ${classes.textCenter}`} >
           <button
-            className="newsletter__button"
+            className={classes.button}
             type="submit"
             onClick={features.save}>
             Enviar
           </button>
         </div>
-        <div className="newsletter__row">
-          <label className="newsletter__tos" htmlFor="tos">
+        <div className={classes.row}>
+          <label className={classes.tos} htmlFor="tos">
             <input
               type="checkbox"
               id="tos"
@@ -63,7 +74,7 @@ const FormNewsletter = props => {
             </a>
           </label>
           {validation.tos.hasError() && submitForm && (
-            <div className="newsletter__error-message">
+            <div className= {classes.errorMessage}>
               {validation.tos.message()}
             </div>
           )}
