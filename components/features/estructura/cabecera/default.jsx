@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import Button from '../../../../resources/components/button'
+import Button from '../../../global-components/button'
 import { setDevice } from '../../../utilities/resizer'
 
 const classes = {

@@ -2,12 +2,12 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import Destaque from '../../../../resources/components/destaque'
+import FeaturedStory from '../../../global-components/featured-story'
 
 import DestaqueFormater from '../_children/destaque-formater'
 
 @Consumer
-class DestaqueManual extends Component {
+class ManualFeaturedStory extends Component {
   constructor(props) {
     super(props)
     this.DestaqueFormater = new DestaqueFormater(props.arcSite)
@@ -62,11 +62,11 @@ class DestaqueManual extends Component {
       categoryField,
       multimediaType,
     }
-    return <Destaque {...params} />
+    return <FeaturedStory {...params} />
   }
 }
 
-DestaqueManual.propTypes = {
+ManualFeaturedStory.propTypes = {
   customFields: PropTypes.shape({
     path: PropTypes.string.isRequired.tag({
       name: 'Path',
@@ -114,4 +114,4 @@ DestaqueManual.propTypes = {
   }),
 }
 
-export default DestaqueManual
+export default ManualFeaturedStory

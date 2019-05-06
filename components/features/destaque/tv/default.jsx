@@ -1,23 +1,23 @@
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import CardDestaqueTv from '../../../../resources/components/card-destaque-tv'
-import DataStory from '../../../../resources/components/utils/data-story';
+import TVHighlightComponent from './_children/tv-highlight'
+import DataStory from '../../../../resources/components/utils/data-story'
 
 @Consumer
-class DestaqueTv extends Component {
+class TVHighlight extends Component {
   constructor(...props) {
-		super(...props)
-		this.state = {
-			data: ''
-		}
+    super(...props)
+    this.state = {
+      data: '',
+    }
     this.fetch()
   }
 
   fetch() {
-		const { customFields, arcSite } = this.props
-		const { section } = customFields
-		const schema = `{ 
+    const { customFields, arcSite } = this.props
+    const { section } = customFields
+    const schema = `{ 
       headlines { basic }
       credits {
         by { name url type }
@@ -52,49 +52,45 @@ class DestaqueTv extends Component {
       news_number: 1,
     }
 
-		const { fetched } = this.getContent(source, params, schema)
-		fetched.then(response => {
-			const element = response.content_elements[0]
-			const get = new DataStory(element, arcSite)
-			const filterData = {
-				category: {
-					nameSection: get.section,
-					urlSection: get.sectionLink,
-				},
-				title: {
-					nameTitle: get.title,
-					urlTitle: get.link,
-				},
-				multimedia: {
-					multimediaType: get.multimediaType,
-					multimediaImg: get.multimedia
-				},
-				tags: get.tags
-			}
-			this.setState({
-        data: filterData
+    const { fetched } = this.getContent(source, params, schema)
+    fetched.then(response => {
+      const element = response.content_elements[0]
+      const get = new DataStory(element, arcSite)
+      const filterData = {
+        category: {
+          nameSection: get.section,
+          urlSection: get.sectionLink,
+        },
+        title: {
+          nameTitle: get.title,
+          urlTitle: get.link,
+        },
+        multimedia: {
+          multimediaType: get.multimediaType,
+          multimediaImg: get.multimedia,
+        },
+        tags: get.tags,
+      }
+      this.setState({
+        data: filterData,
       })
-		})
+    })
   }
 
   render() {
-		const { data: params } = this.state
-    return (
-      <div>
-        { params && (<CardDestaqueTv {...params} />)}
-      </div>
-    )
+    const { data: params } = this.state
+    return <div>{params && <TVHighlightComponent {...params} />}</div>
   }
 }
 
-DestaqueTv.propTypes = {
-	customFields: PropTypes.shape({
-		section: PropTypes.string.tag({
-			name: 'Path de la sección',
-			description:
-				'Si no se coloca el path de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
-		})
-	})
+TVHighlight.propTypes = {
+  customFields: PropTypes.shape({
+    section: PropTypes.string.tag({
+      name: 'Path de la sección',
+      description:
+        'Si no se coloca el path de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
+    }),
+  }),
 }
 
-export default DestaqueTv
+export default TVHighlight

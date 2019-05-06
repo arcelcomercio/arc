@@ -1,11 +1,11 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import Destaque from '../../../../../resources/components/destaque'
+import FeaturedStory from '../../../../global-components/featured-story'
 import { addResizedUrlItem } from '../../../../utilities/thumbs'
 
 @Consumer
-class DestaqueGrillaAuto extends Component {
+class AutomaticGridFeaturedStories extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -92,8 +92,8 @@ class DestaqueGrillaAuto extends Component {
       categoryField,
       multimediaType,
     }
-    return <Destaque {...params} />
+    return <FeaturedStory {...params} />
   }
 }
 
-export default DestaqueGrillaAuto
+export default AutomaticGridFeaturedStories

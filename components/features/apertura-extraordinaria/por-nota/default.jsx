@@ -3,11 +3,11 @@ import Consumer from 'fusion:consumer'
 import customFieldsExtern from './_children/customfields'
 import filterSchema from '../_children/filterschema'
 import Data from '../_children/data'
-import FeaturedNews from '../../../global-components/featured-news'
+import ExtraordinaryStory from '../../../global-components/extraordinary-story'
 
 const API_URL = 'story-by-url'
 @Consumer
-class FeaturedNewsStory extends Component {
+class ExtraordinaryStoryByUrl extends Component {
   mainLogic = {
     fetch: (api, url, filter = {}) => {
       if (url) {
@@ -64,14 +64,14 @@ class FeaturedNewsStory extends Component {
       arcSite,
     }
 
-    return <FeaturedNews {...params} />
+    return <ExtraordinaryStory {...params} />
   }
 }
 
-FeaturedNewsStory.propTypes = {
+ExtraordinaryStoryByUrl.propTypes = {
   customFields: customFieldsExtern,
 }
 
-FeaturedNewsStory.label = 'Apertura extraordinaria por historia'
+ExtraordinaryStoryByUrl.label = 'Apertura extraordinaria por historia'
 
-export default FeaturedNewsStory
+export default ExtraordinaryStoryByUrl

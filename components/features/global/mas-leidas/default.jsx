@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import ListReads from '../../../../resources/components/listado-leidas'
-import filterSchema from './_children/filterSchema'
-import { setDataTest, castingData } from './_children/castingData'
-import configFetch from './_children/configFetch'
+import MoreReadComponent from './_children/more-read'
+import filterSchema from './_dependencies/filterSchema'
+import { setDataTest, castingData } from './_dependencies/castingData'
+import configFetch from './_dependencies/configFetch'
 
 @Consumer
-class MasLeidas extends Component {
+class MoreRead extends Component {
   constructor(props) {
     super(props)
     const { storiesQty } = props.customFields || {}
@@ -65,11 +65,11 @@ class MasLeidas extends Component {
       requestUri,
       stories,
     }
-    return <ListReads {...params} />
+    return <MoreReadComponent {...params} />
   }
 }
 
-MasLeidas.propTypes = {
+MoreRead.propTypes = {
   customFields: PropTypes.shape({
     viewImage: PropTypes.bool.tag({
       name: 'Imagen Visible',
@@ -84,4 +84,4 @@ MasLeidas.propTypes = {
   }),
 }
 
-export default MasLeidas
+export default MoreRead

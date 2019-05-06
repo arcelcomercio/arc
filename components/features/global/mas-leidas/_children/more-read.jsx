@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import ItemNew from './item-new-read'
+import MoreReadItem from './more-read-item'
 
 const classes = {
   masLeidas: 'flex flex--column mas-leidas',
@@ -8,7 +8,7 @@ const classes = {
 }
 
 @Consumer
-class ListReads extends Component {
+class MoreReadComponent extends Component {
   render() {
     const { viewImage, stories } = this.props
 
@@ -17,10 +17,10 @@ class ListReads extends Component {
         <h4 className={classes.title}>Lo más visto</h4>
         {stories.map(item => {
           const params = { item, viewImage }
-          return <ItemNew key={item.id} {...params} />
+          return <MoreReadItem key={item.id} {...params} />
         })}
       </div>
     )
   }
 }
-export default ListReads
+export default MoreReadComponent

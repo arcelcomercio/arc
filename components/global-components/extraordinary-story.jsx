@@ -29,7 +29,7 @@ const getMultimediaIcon = mediaType => {
   }
   return null
 }
-const FeaturedNews = props => {
+const ExtraordinaryStory = props => {
   const {
     data,
     multimediaOrientation = 'bottom',
@@ -82,4 +82,4 @@ const FeaturedNews = props => {
   )
 }
 
-export default FeaturedNews
+export default ExtraordinaryStory

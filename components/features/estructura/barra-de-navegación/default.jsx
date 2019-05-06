@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
-import Button from '../../../../resources/components/button'
+import Button from '../../../global-components/button'
 import NavSidebar from './_children/nav-sidebar'
 import { setDevice } from '../../../utilities/resizer'
 import Ads from '../../../global-components/ads'
