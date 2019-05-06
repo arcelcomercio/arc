@@ -22,13 +22,13 @@ const BlogSeparator = ({
   arcSite,
   contextPath,
 }) => {
-  const LAST_PATH = `?_website=${arcSite}`
+  const WEBSITE = `?_website=${arcSite}`
   return (
     <div className={classes.separator}>
       <div className={classes.boxTitle}>
         <h1 className={classes.title}>
           <a
-            href={`${contextPath}/${postLink}${LAST_PATH}`}
+            href={`${contextPath}/${postLink}${WEBSITE}`}
             className={classes.link}>
             {postTitle}
           </a>
@@ -36,18 +36,18 @@ const BlogSeparator = ({
       </div>
       <div className={classes.middle}>
         <a
-          href={`${contextPath}/${blogUrl}${LAST_PATH}`}
+          href={`${contextPath}/${blogUrl}${WEBSITE}`}
           className={classes.section}>
           {blogName}
         </a>
         <a
-          href={`${contextPath}/${blogUrl}${LAST_PATH}`}
+          href={`${contextPath}/${blogUrl}${WEBSITE}`}
           className={classes.author}>
           {authorName}
         </a>
       </div>
       <div className={classes.boxImg}>
-        <a href={`${contextPath}/${postLink}${LAST_PATH}`}>
+        <a href={`${contextPath}/${postLink}${WEBSITE}`}>
           <img src={authorImg} alt="" className={classes.img} />
         </a>
       </div>
