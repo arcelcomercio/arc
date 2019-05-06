@@ -76,6 +76,7 @@ class BlogSeparator extends Component {
 
   render() {
     const { listPost } = this.state
+    const { arcSite, contextPath } = this.props
     return (
       <div>
         <div className="blog-separator__box-blog">
@@ -103,6 +104,8 @@ class BlogSeparator extends Component {
                 blogName,
                 postLink,
                 postTitle,
+                arcSite,
+                contextPath,
               }
               return <BlogSeparatorComponent key={blogUrl} {...data} />
             })}
