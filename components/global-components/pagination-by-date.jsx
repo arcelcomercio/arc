@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react'
 
-import { getActualDate } from '../../components/utilities/helpers'
+import { getActualDate } from '../utilities/helpers'
 
 const classes = {
   paginationFile: 'pagination-file full-width',
@@ -9,7 +9,7 @@ const classes = {
   paginationFileItem: 'pagination-file__item',
   paginationFileLink: 'text-uppercase flex-center pagination-file__link',
 }
-class PaginadorFecha extends Component {
+class PaginationByDate extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -182,4 +182,4 @@ class PaginadorFecha extends Component {
   }
 }
 
-export default PaginadorFecha
+export default PaginationByDate
