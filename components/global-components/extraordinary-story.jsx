@@ -3,18 +3,18 @@ import renderHTML from 'react-render-html'
 import { getIcon } from '../utilities/helpers'
 
 const classes = {
-  aperturaE: `apertura-e padding-normal`,
-  aperturaESection: 'apertura-e__section text-center',
-  aperturaEContent: 'apertura-e__content',
-  aperturaETitle: 'apertura-e__title',
-  oneline: 'apertura-e-oneline',
-  twoline: 'apertura-e-twoline',
-  threeline: 'apertura-e-threeline',
-  aperturaESubtitle: 'apertura-e__subtitle',
-  aperturaEAuthor: 'apertura-e__author',
-  aperturaEMultimedia: 'apertura-e__multimedia',
-  iconGallery: 'apertura-e__icon-gallery',
-  iconGalleryContainer: 'apertura-e__icon-gallery-container',
+  extraordinaryStory: `extraordinary-story padding-normal`,
+  extraordinaryStorySection: 'extraordinary-story__section text-center',
+  extraordinaryStoryContent: 'extraordinary-story__content',
+  extraordinaryStoryTitle: 'extraordinary-story__title',
+  oneline: 'extraordinary-story-oneline',
+  twoline: 'extraordinary-story-twoline',
+  threeline: 'extraordinary-story-threeline',
+  extraordinaryStorySubtitle: 'extraordinary-story__subtitle',
+  extraordinaryStoryAuthor: 'extraordinary-story__author',
+  extraordinaryStoryMultimedia: 'extraordinary-story__multimedia',
+  iconGallery: 'extraordinary-story__icon-gallery',
+  iconGalleryContainer: 'extraordinary-story__icon-gallery-container',
 }
 
 const getMultimediaIcon = mediaType => {
@@ -55,25 +55,25 @@ const ExtraordinaryStory = props => {
   return (
     <div
       className={`${
-        classes.aperturaE
-      } apertura-e--${multimediaOrientation} text-${contentOrientation}`}>
+        classes.extraordinaryStory
+      } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
       {!isSection && (
-        <div className={classes.aperturaESection}>
+        <div className={classes.extraordinaryStorySection}>
           <a href={data.sectionLink}>{data.section}</a>
         </div>
       )}
-      <div className={classes.aperturaEContent}>
-        <div className={`${classes.aperturaETitle} ${numline}`}>
+      <div className={classes.extraordinaryStoryContent}>
+        <div className={`${classes.extraordinaryStoryTitle} ${numline}`}>
           <a href={data.link}>{data.title}</a>
         </div>
-        <div className={classes.aperturaESubtitle}>
+        <div className={classes.extraordinaryStorySubtitle}>
           <a href={data.link}>{data.subTitle}</a>
         </div>
-        <div className={classes.aperturaEAuthor}>
+        <div className={classes.extraordinaryStoryAuthor}>
           <a href={data.authorLink}>{data.author}</a>
         </div>
       </div>
-      <div className={classes.aperturaEMultimedia}>
+      <div className={classes.extraordinaryStoryMultimedia}>
         {renderHTML(data.embedMultimedia)}
         <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
         {getMultimediaIcon(getIcon(multimediaType))}

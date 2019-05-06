@@ -9,14 +9,14 @@ export default props => {
   if (typeNote === 'basic_video') type = 'video'
 
   const classes = {
-    new: 'flex new',
-    figure: `new__figure new__figure--icon new__figure--${type}`,
-    img: 'new__img',
-    detail: 'new__detail',
+    moreReadItem: 'flex more-read-item',
+    figure: `more-read-item__figure more-read-item__figure--icon more-read-item__figure--${type}`,
+    img: 'more-read-item__img',
+    detail: 'more-read-item__detail',
   }
 
   return (
-    <div className={classes.new}>
+    <div className={classes.moreReadItem}>
       {viewImage && (
         <a href={websiteUrl}>
           <figure className={classes.figure}>

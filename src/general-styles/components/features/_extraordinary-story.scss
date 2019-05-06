@@ -1,18 +1,18 @@
 // apertura-extraordinaria
 @mixin topMultimedia() {
   grid-template-areas:
-    'apertura-e-multimedia apertura-e-multimedia'
-    'apertura-e-section apertura-e-section'
-    'apertura-e-content apertura-e-content';
+    'extraordinary-story-multimedia extraordinary-story-multimedia'
+    'extraordinary-story-section extraordinary-story-section'
+    'extraordinary-story-content extraordinary-story-content';
 }
 
 @mixin bottomMultimedia() {
   grid-template-areas:
-    'apertura-e-section apertura-e-section'
-    'apertura-e-content apertura-e-content'
-    'apertura-e-multimedia apertura-e-multimedia';
+    'extraordinary-story-section extraordinary-story-section'
+    'extraordinary-story-content extraordinary-story-content'
+    'extraordinary-story-multimedia extraordinary-story-multimedia';
 }
-.apertura-e {
+.extraordinary-story {
   //border-style: solid;
   //border-width: 5px 7px;
   background-color: $color-white;
@@ -37,8 +37,8 @@
     @include topMultimedia();
     @media (--desktop) {
       grid-template-areas:
-        'apertura-e-multimedia apertura-e-section'
-        'apertura-e-multimedia apertura-e-content';
+        'extraordinary-story-multimedia extraordinary-story-section'
+        'extraordinary-story-multimedia extraordinary-story-content';
       grid-template-rows: auto 1fr;
     }
 
@@ -51,8 +51,8 @@
     @include bottomMultimedia();
     @media (--desktop) {
       grid-template-areas:
-        'apertura-e-section apertura-e-multimedia'
-        'apertura-e-content apertura-e-multimedia';
+        'extraordinary-story-section extraordinary-story-multimedia'
+        'extraordinary-story-content extraordinary-story-multimedia';
       grid-template-rows: auto 1fr;
     }
 
@@ -67,13 +67,13 @@
     text-transform: uppercase;
     font-weight: bold;
     padding: 8px;
-    grid-area: apertura-e-section;
+    grid-area: extraordinary-story-section;
     //height: 15px;
   }
 
   &__content {
     padding: 20px 20px 0px 20px;
-    grid-area: apertura-e-content;
+    grid-area: extraordinary-story-content;
     //vertical center
     display: inline-grid;
     align-content: space-evenly;
@@ -116,7 +116,7 @@
   }
 
   &__multimedia {
-    grid-area: apertura-e-multimedia;
+    grid-area: extraordinary-story-multimedia;
     display: flex;
     background-color: #000;
     align-items: center;

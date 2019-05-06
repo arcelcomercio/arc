@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-import CardNotice from '../../../global-components/stories-list'
+import StoryItem from '../../../global-components/story-item'
 import Pagination from '../../../global-components/pagination'
 
 @Consumer
@@ -8,8 +8,7 @@ class tagAutor extends Component {
   render() {
     const { globalContent, globalContentConfig, arcSite } = this.props
     const { content_elements: contentElements, count = 0 } = globalContent || {}
-    const { query: { storiesQty, currentPageNumber } = {} } =
-      globalContentConfig || {}
+    const { query: { size, from } = {} } = globalContentConfig || {}
 
     const params = {
       data: contentElements || [],
@@ -20,13 +19,13 @@ class tagAutor extends Component {
       <Fragment>
         <div>
           {params.data.map((el, index) => (
-            <CardNotice key={index} data={el} arcSite={params.arcSite} />
+            <StoryItem key={index} data={el} arcSite={params.arcSite} />
           ))}
         </div>
         <Pagination
           totalElements={count}
-          storiesQty={storiesQty}
-          currentPage={currentPageNumber}
+          storiesQty={size}
+          currentPage={from}
         />
       </Fragment>
     )

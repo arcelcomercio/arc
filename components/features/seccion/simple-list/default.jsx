@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import CardNotice from '../../../global-components/stories-list'
+import StoryItem from '../../../global-components/story-item'
 
 const classes = {
   listado: 'full-width',
@@ -35,7 +35,7 @@ class SimpleList extends PureComponent {
             stories
               .slice(initialStory, initialStory + storiesQty)
               .map(el => (
-                <CardNotice
+                <StoryItem
                   key={`SimpleList${el._id}`}
                   formato="row"
                   data={el}
@@ -44,7 +44,7 @@ class SimpleList extends PureComponent {
               ))}
         </div>
         <div className={classes.listadoSeeMore}>
-          <a href={seeMorePath} tabIndex="0">
+          <a href={seeMorePath} tabIndex="0" role="button">
             Ver más
           </a>
         </div>
@@ -76,5 +76,6 @@ SimpleList.propTypes = {
 }
 
 SimpleList.label = 'Listado de Sección'
+SimpleList.static = true
 
 export default SimpleList

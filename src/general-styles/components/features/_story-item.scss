@@ -1,4 +1,4 @@
-.card-notice {
+.story-item {
   width: 100%;
   height: 125px;
   padding: 0 20px;
@@ -165,7 +165,7 @@
       align-items: flex-start;
     }
 
-    .card-notice__top {
+    .story-item__top {
       flex-direction: row;
       margin-top: 10px;
       flex-basis: 110px;
@@ -173,19 +173,19 @@
       flex-shrink: 0;
     }
 
-    .card-notice__section {
+    .story-item__section {
       display: none;
     }
 
-    .card-notice__date {
+    .story-item__date {
       margin-top: 0;
     }
 
-    .card-notice__bottom {
+    .story-item__bottom {
       flex-direction: row-reverse;
     }
 
-    .card-notice__left {
+    .story-item__left {
       padding-right: 0;
       padding-left: 10px;
     }

@@ -32,7 +32,7 @@ class ExtraordinaryStoryByUrl extends Component {
 
   componentDidMount() {
     const {
-      customFields: { link },
+      customFields: { link = '' },
       arcSite,
     } = this.props
 
