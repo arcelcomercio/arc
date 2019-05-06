@@ -44,7 +44,7 @@ class SimpleList extends PureComponent {
               ))}
         </div>
         <div className={classes.listadoSeeMore}>
-          <a href={seeMorePath} tabIndex="0">
+          <a href={seeMorePath} tabIndex="0" role="button">
             Ver más
           </a>
         </div>
@@ -76,5 +76,6 @@ SimpleList.propTypes = {
 }
 
 SimpleList.label = 'Listado de Sección'
+SimpleList.static = true
 
 export default SimpleList
