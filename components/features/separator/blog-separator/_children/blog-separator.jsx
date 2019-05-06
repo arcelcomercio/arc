@@ -1,5 +1,17 @@
 import React from 'react'
 
+const classes = {
+  separator: 'blog-separator',
+  boxTitle: 'blog-separator__box-title',
+  title: 'blog-separator__title',
+  link: 'blog-separator__link',
+  middle: 'blog-separator__box-middle',
+  section: 'blog-separator__section',
+  author: 'blog-separator__author',
+  boxImg: 'blog-separator__box-img',
+  img: 'blog-separator__img',
+}
+
 const BlogSeparator = ({
   authorName,
   authorImg,
@@ -12,31 +24,31 @@ const BlogSeparator = ({
 }) => {
   const LAST_PATH = `?_website=${arcSite}`
   return (
-    <div className="blog-separator">
-      <div className="blog-separator__box-title">
-        <h1 className="blog-separator__title">
+    <div className={classes.separator}>
+      <div className={classes.boxTitle}>
+        <h1 className={classes.title}>
           <a
             href={`${contextPath}/${postLink}${LAST_PATH}`}
-            className="blog-separator__link">
+            className={classes.link}>
             {postTitle}
           </a>
         </h1>
       </div>
-      <div className="blog-separator__box-middle">
+      <div className={classes.middle}>
         <a
           href={`${contextPath}/${blogUrl}${LAST_PATH}`}
-          className="blog-separator__section">
+          className={classes.section}>
           {blogName}
         </a>
         <a
           href={`${contextPath}/${blogUrl}${LAST_PATH}`}
-          className="blog-separator__author">
+          className={classes.author}>
           {authorName}
         </a>
       </div>
-      <div className="blog-separator__box-img">
+      <div className={classes.boxImg}>
         <a href={`${contextPath}/${postLink}${LAST_PATH}`}>
-          <img src={authorImg} alt="" className="blog-separator__img" />
+          <img src={authorImg} alt="" className={classes.img} />
         </a>
       </div>
     </div>
