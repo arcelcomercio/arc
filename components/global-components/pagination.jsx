@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
 const classes = {
-  paginacion: 'flex paginacion',
-  page: 'paginacion__page',
+  pagination: 'flex paginacion',
+  page: 'pagination__page',
 }
 
 export default class Pagination extends Component {
@@ -113,7 +113,7 @@ export default class Pagination extends Component {
     }
 
     return (
-      <div className={classes.paginacion}>
+      <div className={classes.pagination}>
         <a
           className={`${classes.page} ${
             currentPage === 1 || currentPage === 0

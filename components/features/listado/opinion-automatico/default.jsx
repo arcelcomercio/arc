@@ -16,6 +16,7 @@ class OpinionAutomatica extends Component {
       data: contentElements || [],
       arcSite,
     }
+    console.log('testttt', this.props)
     return (
       <div>
         <div className="grid-opinion--title">
@@ -23,10 +24,9 @@ class OpinionAutomatica extends Component {
         </div>
         <div className="grid-opinion">
           {params.data.slice(0, 12).map((el, index) => {
-            /** TODO: La sección principal ya viene de taxonomy.sections.primary_section */
-            const section = el.websites[
-              arcSite
-            ].website_section.name.toUpperCase()
+            const { taxonomy: { primary_section: { name } = '' } = {} } =
+              el || {}
+            const section = name ? name.toUpperCase() : ''
             return section && section === 'EDITORIAL' ? (
               <EditorialCard key={index} data={el} arcSite={params.arcSite} />
             ) : (
