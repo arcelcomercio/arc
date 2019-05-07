@@ -7,7 +7,7 @@ const resolve = key => {
   const postsOffset = key.posts_offset || 0
 
   const url = `https://dev-svc-blogs.gestion.pe/service/apiblogs.php?json=get_user_blog_and_posts&blog_limit=${blogLimit}&blog_offset=${blogOffset}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${process
-    .env.BLOG_TOKEN || BLOG_TOKEN}`
+    .env.TOKEN_BLOG || BLOG_TOKEN}`
 
   return url
 }
