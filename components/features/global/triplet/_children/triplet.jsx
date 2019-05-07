@@ -4,15 +4,15 @@ import { getIcon } from '../../../../utilities/helpers'
 export const Triplet = props => {
   const { data, multimediaOrientation = 'right', arcSite } = props
   const classes = {
-    triplete: 'triplete',
-    tripleteItem: `triplete__item triplete__item--${multimediaOrientation}`,
-    tripleteTitle: 'triplete__title',
-    oneline: 'triplete--oneline',
-    twoline: 'triplete--twoline',
-    threeline: 'triplete--threeline',
-    tripleteAuthor: 'triplete__author',
-    tripleteMultimedia: 'triplete__multimedia',
-    tripleteIcon: 'triplete__icon',
+    triplet: 'triplet',
+    tripletItem: `triplet__item triplet__item--${multimediaOrientation}`,
+    tripletTitle: 'triplet__title',
+    oneline: 'triplet--oneline',
+    twoline: 'triplet--twoline',
+    threeline: 'triplet--threeline',
+    tripletAuthor: 'triplet__author',
+    tripletMultimedia: 'triplet__multimedia',
+    tripletIcon: 'triplet__icon',
   }
 
   let numline = ''
@@ -30,28 +30,28 @@ export const Triplet = props => {
   }
 
   return (
-    <div className={classes.triplete}>
+    <div className={classes.triplet}>
       {data.map(elem => (
-        <article className={classes.tripleteItem}>
-          <div className={`${classes.tripleteTitle} ${numline}`}>
+        <article className={classes.tripletItem}>
+          <div className={`${classes.tripletTitle} ${numline}`}>
             <h2>
               <a href={elem.link}>{elem.title}</a>
             </h2>
           </div>
-          <figure className={classes.tripleteMultimedia}>
+          <figure className={classes.tripletMultimedia}>
             <a href={elem.link}>
               <img src={elem.multimedia} alt={elem.title} />
               {elem.multimediaType === 'basic' || elem.multimediaType === '' ? (
                 ''
               ) : (
-                <span className={classes.tripleteIcon}>
+                <span className={classes.tripletIcon}>
                   {getIcon(elem.multimediaType)}
                 </span>
               )}
             </a>
             {/* <Icon iconClass={elem.iconClass} /> */}
           </figure>
-          <div className={classes.tripleteAuthor}>
+          <div className={classes.tripletAuthor}>
             <a href={elem.authorOrSectionLink}>{elem.authorOrSection}</a>
           </div>
         </article>
@@ -62,13 +62,13 @@ export const Triplet = props => {
 
 export const Icon = props => {
   const classes = {
-    tripleteBoxIcon: 'triplete__box-icon',
-    tripleteIcon: 'triplete__icon',
+    tripletBoxIcon: 'triplet__box-icon',
+    tripletIcon: 'triplet__icon',
   }
   const html = (
-    <span className={`${classes.tripleteBoxIcon}`}>
+    <span className={`${classes.tripletBoxIcon}`}>
       <i
-        className={`${classes.tripleteIcon} ${classes.tripleteIcon}--${
+        className={`${classes.tripletIcon} ${classes.tripletIcon}--${
           props.iconClass
         }`}
       />

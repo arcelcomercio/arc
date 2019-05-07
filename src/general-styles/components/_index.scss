@@ -6,23 +6,24 @@
 @import './features/ads';
 @import './features/article';
 @import './features/cintillo-urgente';
-@import './features/apertura-extraordinaria';
-@import './features/destaque';
+@import './features/extraordinary-story';
+@import './features/featured-story';
 @import './features/list';
-@import './features/triplete';
+@import './features/triplet';
 @import './features/separador';
 @import './features/article-separador';
 @import './features/opiniontrome';
-@import './features/mas-leidas';
-@import './features/card-notice';
-@import './features/pagination-file';
-@import './features/card-autor';
-@import './features/card-editorial';
-@import './features/barra-autor';
+@import './features/more-read';
+@import './features/more-read-item';
+@import './features/story-item';
+@import './features/pagination-date';
+@import './features/author-card';
+@import './features/editorial-card';
+@import './features/author-list-item';
 @import './features/search-filter';
 @import './features/grid-opinion';
 @import './features/tabloide';
-@import './features/card-destaque-tv';
+@import './features/tv-highlight';
 @import './features/movies-container';
 @import './features/movies-slider';
 @import './features/movies-filter';
@@ -40,8 +41,6 @@
 @import './features/blog-item';
 @import './features/blog-list';
 
-@import './features/components/button';
 @import './features/components/icons';
-@import './features/components/item-new';
 @import './features/components/pagination';
 /*---------------------*/

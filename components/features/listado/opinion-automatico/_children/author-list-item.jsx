@@ -14,34 +14,34 @@ class AuthorListItem extends Component {
     const element = new DataStory({}, arcSite)
     element.__data = data
     return (
-      <div className="barra-autor">
-        <div className="barra-autor__wrapper">
-          <div className="barra-autor__social">
-            <span className="barra-autor__fecha movil">
+      <div className="author-item">
+        <div className="author-item__wrapper">
+          <div className="author-item__social">
+            <span className="author-item__fecha movil">
               {formatDate(element.date)}
             </span>
-            {/* <div className="barra-autor__icons">
+            {/* <div className="author-item__icons">
               <a href="/">t</a>
               <a href="/">f</a>
             </div> */}
           </div>
-          <div className="barra-autor__content">
-            <div className="barra-autor__box-image">
-              <a href={element.link} className="barra-autor__image">
+          <div className="author-item__content">
+            <div className="author-item__box-image">
+              <a href={element.link} className="author-item__image">
                 <img src={element.authorImage} alt={element.author} />
               </a>
             </div>
-            <div className="barra-autor__box-desc">
-              <span className="barra-autor__fecha">
+            <div className="author-item__box-desc">
+              <span className="author-item__fecha">
                 {formatDate(element.date)}
               </span>
               <h2>
-                <a href={element.authorLink} className="barra-autor__name">
+                <a href={element.authorLink} className="author-item__name">
                   {element.author}
                 </a>
               </h2>
               <p>
-                <a href={element.link} className="barra-autor__subtitle">
+                <a href={element.link} className="author-item__subtitle">
                   {element.title}
                 </a>
               </p>

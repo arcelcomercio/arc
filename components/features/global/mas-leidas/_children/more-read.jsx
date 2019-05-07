@@ -3,8 +3,8 @@ import Consumer from 'fusion:consumer'
 import MoreReadItem from './more-read-item'
 
 const classes = {
-  masLeidas: 'flex flex--column mas-leidas',
-  title: 'mas-leidas__title',
+  moreRead: 'flex flex--column more-read',
+  title: 'more-read__title',
 }
 
 @Consumer
@@ -13,7 +13,7 @@ class MoreReadComponent extends Component {
     const { viewImage, stories } = this.props
 
     return (
-      <div className={classes.masLeidas}>
+      <div className={classes.moreRead}>
         <h4 className={classes.title}>Lo más visto</h4>
         {stories.map(item => {
           const params = { item, viewImage }

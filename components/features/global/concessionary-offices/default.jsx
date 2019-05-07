@@ -3,6 +3,24 @@ import React, { Component } from 'react'
 import { capitalData, provinceData } from './_children/locations'
 import Markers from './_children/markers'
 
+const classes = {
+  concessionaires: 'concessionaires',
+  arrow: 'concessionaires__arrow',
+  container: 'concessionaires__container',
+  title: 'concessionaires__title',
+  info: 'concessionaires__info',
+  locations: 'concessionaires__locations',
+  search: 'concessionaires__search flex',
+  searchTitle: 'concessionaires__search-title',
+  form: 'flex',
+  zona: 'concessionaires__controls flex',
+  label: 'concessionaires__label',
+  select: 'concessionaires__select',
+  district: 'concessionaires__controls flex',
+  districtLabel: 'concessionaires__label',
+  mapTitle: 'concessionaires__map-title',
+}
+
 class ConcessionaryOffices extends Component {
   constructor(props) {
     super(props)
@@ -188,24 +206,6 @@ class ConcessionaryOffices extends Component {
     })
   }
 
-  const classes = {
-    concessionaires: 'concessionaires',
-    arrow: 'concessionaires__arrow',
-    container: 'concessionaires__container',
-    title: 'concessionaires__title',
-    info: 'concessionaires__info',
-    locations: 'concessionaires__locations',
-    search: 'concessionaires__search flex',
-    searchTitle: 'concessionaires__search-title',
-    form:'flex',
-    zona: 'concessionaires__controls flex',
-    zonaLabel:'concessionaires__label',
-    select: 'concessionaires__select',
-    district: 'concessionaires__controls flex',
-    districtLabel: 'concessionaires__label',
-    mapTitle:'concessionaires__map-title'
-   }
-
   render() {
     const { currentZone, currentDistrict, currentProvince } = this.state
     return (
@@ -224,7 +224,7 @@ class ConcessionaryOffices extends Component {
               </h3>
               <form className={classes.form} action="">
                 <div className={classes.zona}>
-                  <span className={classes.zonaLabel}>Zona</span>
+                  <span className={classes.label}>Zona</span>
                   <select
                     value={currentZone.value}
                     className={classes.select}
@@ -270,16 +270,16 @@ class ConcessionaryOffices extends Component {
             />
           </div>
           <div className={classes.locations}>
-            <div className="concessionaires__search flex">
-              <h3 className="concessionaires__search-title">
+            <div className={classes.search}>
+              <h3 className={classes.searchTitle}>
                 Oficinas concesionarias en provincias
               </h3>
-              <form className="flex" action="">
-                <div className="concessionaires__controls flex">
-                  <span className="concessionaires__label">Provincia</span>
+              <form className={classes.form} action="">
+                <div className={classes.zona}>
+                  <span className={classes.label}>Provincia</span>
                   <select
                     value={currentProvince.value}
-                    className="concessionaires__select"
+                    className={classes.select}
                     onChange={e => this.handleProvinceChange(e)}>
                     <option disabled value="">
                       Seleccionar
@@ -294,7 +294,7 @@ class ConcessionaryOffices extends Component {
               </form>
             </div>
             {currentProvince.name && (
-              <h2 className="concessionaires__map-title">{`Provincia - ${
+              <h2 className={classes.mapTitle}>{`Provincia - ${
                 currentProvince.name
               }`}</h2>
             )}

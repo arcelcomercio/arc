@@ -6,7 +6,7 @@ import RenderPagination from '../../../global-components/pagination-by-date'
 import { getActualDate } from '../../../utilities/helpers'
 
 @Consumer
-class Archivo extends Component {
+class ListHomeAuthor extends Component {
   constructor(props) {
     super(props)
     this.renderCount = 0
@@ -42,9 +42,9 @@ class Archivo extends Component {
   }
 }
 
-Archivo.propTypes = {
+ListHomeAuthor.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   globalContent: PropTypes.object,
 }
 
-export default Archivo
+export default ListHomeAuthor

@@ -3,7 +3,7 @@ $text-secondary: #979797;
 
 $image-height: 157px;
 
-.destaque {
+.featured-story {
   background-color: $color-white;
   position: relative;
 
@@ -127,28 +127,28 @@ $image-height: 157px;
     padding: 0;
     overflow: hidden;
     justify-content: flex-end;
-    .destaque__image {
+    .featured-story__image {
       position: absolute;
       height: 100%;
     }
-    .destaque__detail {
+    .featured-story__detail {
       z-index: 10;
       padding: $spacing-normal;
     }
-    .destaque__link {
+    .featured-story__link {
       color: $color-white;
     }
-    .destaque__category {
+    .featured-story__category {
       &::after {
         border-bottom: 1px solid $color-white;
       }
     }
-    .destaque__author {
+    .featured-story__author {
       margin-bottom: 0;
     }
   }
   &--live {
-    .destaque__headband-link {
+    .featured-story__headband-link {
       padding: 6px;
       background-color: red;
       display: inline-block;

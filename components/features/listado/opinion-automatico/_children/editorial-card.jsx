@@ -13,26 +13,26 @@ class EditorialCard extends Component {
     const element = new DataStory({}, arcSite)
     element.__data = data
     return (
-      <div className="card-editorial">
-        <div className="card-editorial__wrapper">
-          <h4 className="card-editorial__grupo">{element.section}</h4>
+      <div className="editorial-card">
+        <div className="editorial-card__wrapper">
+          <h4 className="editorial-card__grupo">{element.section}</h4>
           <h2>
-            <a className="card-editorial__name" href={element.link}>
+            <a className="editorial-card__name" href={element.link}>
               {element.title}
             </a>
           </h2>
-          <div className="card-editorial__description">
-            <div className="card-editorial__box-image">
+          <div className="editorial-card__description">
+            <div className="editorial-card__box-image">
               <a href={element.link}>
                 <img
-                  className="card-editorial__image"
+                  className="editorial-card__image"
                   src={element.authorImage}
                   alt={element.author}
                 />
               </a>
             </div>
-            <div className="card-editorial__box-detail">
-              <p className="card-editorial__title">{element.subTitle}</p>
+            <div className="editorial-card__box-detail">
+              <p className="editorial-card__title">{element.subTitle}</p>
             </div>
           </div>
           {/* <div className="card-editorial__social">

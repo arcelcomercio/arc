@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 import customFields from './_children/customFields'
 import filterSchema from './_children/filterSchema'
@@ -12,7 +12,7 @@ const classes = {
 }
 
 @Consumer
-class Lista extends Component {
+class Lista extends PureComponent {
   constructor(props) {
     super(props)
     const {

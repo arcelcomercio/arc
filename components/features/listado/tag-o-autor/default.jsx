@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-import CardNotice from '../../../global-components/stories-list'
+import StoryItem from '../../../global-components/story-item'
 import Pagination from '../../../global-components/pagination'
 
 @Consumer
@@ -19,7 +19,7 @@ class tagAutor extends Component {
       <Fragment>
         <div>
           {params.data.map((el, index) => (
-            <CardNotice key={index} data={el} arcSite={params.arcSite} />
+            <StoryItem key={index} data={el} arcSite={params.arcSite} />
           ))}
         </div>
         <Pagination

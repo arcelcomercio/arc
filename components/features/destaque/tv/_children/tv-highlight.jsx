@@ -2,20 +2,20 @@ import React from 'react'
 import { getIcon } from '../../../../utilities/helpers'
 
 const classes = {
-  cardDestaque: 'card-destaque-tv',
-  container: 'card-destaque-tv__container',
-  titleBox: 'card-destaque-tv__box-title',
-  title: 'card-destaque-tv__title',
-  subtitleBox: 'card-destaque-tv__box-sub',
-  subtitle: 'card-destaque-tv__section',
-  imgBox: 'card-destaque-tv__box-image',
-  image: 'card-destaque-tv__img',
-  imgIcon: 'card-destaque-tv__icon',
-  tagContainer: 'card-destaque-tv__tags',
-  tagTitle: 'card-destaque-tv__related',
-  list: 'card-destaque-tv__list',
-  listItem: 'card-destaque-tv__item',
-  listItemLink: 'card-destaque-tv__link',
+  cardDestaque: 'tv-highlight',
+  container: 'tv-highlight__container',
+  titleBox: 'tv-highlight__box-title',
+  title: 'tv-highlight__title',
+  subtitleBox: 'tv-highlight__box-sub',
+  subtitle: 'tv-highlight__section',
+  imgBox: 'tv-highlight__box-image',
+  image: 'tv-highlight__img',
+  imgIcon: 'tv-highlight__icon',
+  tagContainer: 'tv-highlight__tags',
+  tagTitle: 'tv-highlight__related',
+  list: 'tv-highlight__list',
+  listItem: 'tv-highlight__item',
+  listItemLink: 'tv-highlight__link',
 }
 
 const TVHighlightComponent = props => {
@@ -41,7 +41,7 @@ const TVHighlightComponent = props => {
               {nameSection}
             </a>
           </span>
-          {/* <span className="card-destaque-tv__social"></span> */}
+          {/* <span className="tv-highlight__social"></span> */}
         </div>
         <a href={urlTitle} className={classes.imgBox}>
           <img className={classes.image} src={multimediaImg} alt="foto" />
