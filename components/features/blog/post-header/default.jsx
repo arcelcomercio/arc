@@ -5,6 +5,17 @@ import {
   socialMediaUrlShareList,
 } from '../../../utilities/helpers'
 
+const classes = {
+  container: 'post-header padding-normal',
+  title: 'post-header__title',
+  list: 'post-header__list flex',
+  item: 'post-header__item',
+  link: 'post-header__link flex-center-vertical flex--justify-center',
+  share: 'post-header__share',
+  more: 'post-header__more',
+  button: 'post-header__button flex-center-vertical flex--justify-center',
+}
+
 @Consumer
 class BlogPostHeader extends PureComponent {
   constructor(props) {
@@ -79,20 +90,20 @@ class BlogPostHeader extends PureComponent {
     const { globalContent } = this.props
     const { post: { post_title: postTitle } = {} } = globalContent || {}
     return (
-      <div className="post-header padding-normal">
-        <h1 className="post-header__title">{postTitle}</h1>
-        <ul className="post-header__list flex">
+      <div className={classes.container}>
+        <h1 className={classes.title}>{postTitle}</h1>
+        <ul className={classes.list}>
           {this.shareButtons[currentList].map((item, i) => (
-            <li className={`post-header__item ${item.mobileClass}`}>
+            <li className={`${classes.item} ${item.mobileClass}`}>
               <a
-                className="post-header__link flex-center-vertical flex--justify-center"
+                className={classes.link}
                 href={item.link}
                 onClick={event => {
                   const isPrint = i === 2 && currentList === this.secondList
                   this.openLink(event, item, isPrint)
                 }}>
                 <i>{item.icon}</i>
-                <span className="post-header__share">
+                <span className={classes.share}>
                   {i === 2 && currentList === this.secondList
                     ? 'Imprimir'
                     : 'Compartir'}
@@ -101,9 +112,9 @@ class BlogPostHeader extends PureComponent {
             </li>
           ))}
 
-          <li className="post-header__more">
+          <li className={classes.more}>
             <button
-              className="post-header__button flex-center-vertical flex--justify-center"
+              className={classes.button}
               type="button"
               onClick={e => this.handleMoreButton(e)}>
               <i>{currentList === this.firstList ? '+' : '-'}</i>

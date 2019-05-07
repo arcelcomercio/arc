@@ -188,28 +188,46 @@ class ConcessionaryOffices extends Component {
     })
   }
 
+  const classes = {
+    concessionaires: 'concessionaires',
+    arrow: 'concessionaires__arrow',
+    container: 'concessionaires__container',
+    title: 'concessionaires__title',
+    info: 'concessionaires__info',
+    locations: 'concessionaires__locations',
+    search: 'concessionaires__search flex',
+    searchTitle: 'concessionaires__search-title',
+    form:'flex',
+    zona: 'concessionaires__controls flex',
+    zonaLabel:'concessionaires__label',
+    select: 'concessionaires__select',
+    district: 'concessionaires__controls flex',
+    districtLabel: 'concessionaires__label',
+    mapTitle:'concessionaires__map-title'
+   }
+
   render() {
     const { currentZone, currentDistrict, currentProvince } = this.state
     return (
-      <div className="concessionaires">
-        <span className="concessionaires__arrow" />
-        <div className="concessionaires__container">
-          <h1 className="concessionaires__title">Oficinas Concesionarias</h1>
-          <p className="concessionaires__info">
+      <div className={classes.concessionaires}>
+        <span className={classes.arrow} />
+        <div className={classes.container}>
+          <h1 className={classes.title}>Oficinas Concesionarias</h1>
+          <p className={classes.info}>
             Para conocer el listado de oficinas concesionarias seleccione en el
             mapa su ubicación
           </p>
-          <div className="concessionaires__locations">
-            <div className="concessionaires__search flex">
-              <h3 className="concessionaires__search-title">
+          <div className={classes.locations}>
+            <div className={classes.search}>
+              <h3 className={classes.searchTitle}>
                 Oficinas concesionarias de la capital
               </h3>
-              <form className="flex" action="">
-                <div className="concessionaires__controls flex">
-                  <span className="concessionaires__label">Zona</span>
+              <form className={classes.form} action="">
+                <div className={classes.zona}>
+                  <span className={classes.zonaLabel}>Zona</span>
                   <select
                     value={currentZone.value}
-                    className="concessionaires__select"
+                    className={classes.select}
                     onChange={e => this.handleZoneChange(e)}>
                     <option disabled value="">
                       Seleccionar
@@ -223,11 +241,11 @@ class ConcessionaryOffices extends Component {
                     ))}
                   </select>
                 </div>
-                <div className="concessionaires__controls flex">
-                  <span className="concessionaires__label">Distrito</span>
+                <div className={classes.district}>
+                  <span className={classes.districtLabel}>Distrito</span>
                   <select
                     value={currentDistrict.value}
-                    className="concessionaires__select"
+                    className={classes.select}
                     onChange={e => this.handleDistrictChange(e)}>
                     <option disabled value="">
                       Seleccionar
@@ -242,7 +260,7 @@ class ConcessionaryOffices extends Component {
               </form>
             </div>
             {currentDistrict.name && (
-              <h2 className="concessionaires__map-title">{`${
+              <h2 className={classes.mapTitle}>{`${
                 currentZone.name
               }${currentZone.name && ' - '}${currentDistrict.name}`}</h2>
             )}
@@ -251,7 +269,7 @@ class ConcessionaryOffices extends Component {
               style={{ width: '100%', height: '355px' }}
             />
           </div>
-          <div className="concessionaires__locations">
+          <div className={classes.locations}>
             <div className="concessionaires__search flex">
               <h3 className="concessionaires__search-title">
                 Oficinas concesionarias en provincias

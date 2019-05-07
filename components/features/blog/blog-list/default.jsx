@@ -3,6 +3,11 @@ import Consumer from 'fusion:consumer'
 import BlogItem from './_children/BlogItem'
 import { formatDate } from '../../../utilities/helpers'
 
+const classes = {
+  list: 'bg--white blog-list',
+  listTitle: 'text-uppercase blog-list__title',
+}
+
 @Consumer
 class BlogList extends Component {
   transformDate = postDate => {
@@ -52,11 +57,6 @@ class BlogList extends Component {
     const blogs = Object.values(globalContent).filter(
       item => typeof item === 'object'
     )
-
-    const classes = {
-      list: 'bg--white blog-list',
-      listTitle: 'text-uppercase blog-list__title',
-    }
 
     return (
       <div className={classes.list}>
