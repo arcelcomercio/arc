@@ -1,10 +1,10 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import BlogSeparatorComponent from './_children/blog-separator'
+import SeparatorBlogChildrenItem from './_children/item'
 import { setDevice } from '../../../../resources/utilsJs/resizer'
 
 @Consumer
-class BlogSeparator extends Component {
+class SeparatorBlog extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -110,7 +110,7 @@ class BlogSeparator extends Component {
                 arcSite,
                 contextPath,
               }
-              return <BlogSeparatorComponent key={blogUrl} {...data} />
+              return <SeparatorBlogChildrenItem key={blogUrl} {...data} />
             })}
         </div>
       </div>
@@ -118,5 +118,5 @@ class BlogSeparator extends Component {
   }
 }
 
-BlogSeparator.label = 'Separador de Blog'
-export default BlogSeparator
+SeparatorBlog.label = 'Separador de Blog'
+export default SeparatorBlog

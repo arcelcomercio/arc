@@ -12,7 +12,7 @@ const classes = {
   img: 'blog-separator__img',
 }
 
-const BlogSeparator = ({
+const SeparatorBlogChildrenItem = ({
   authorName,
   authorImg,
   blogUrl,
@@ -25,7 +25,7 @@ const BlogSeparator = ({
   const WEBSITE = `?_website=${arcSite}`
   const DEFAULT_IMG =
     'https://img.gestion.pe/bundles/appcms/images/gestion/logo_gestion.png?1556552656'
-  const IMG = authorImg ? authorImg : DEFAULT_IMG
+  const IMG = authorImg || DEFAULT_IMG
   return (
     <div className={classes.separator}>
       <div className={classes.boxTitle}>
@@ -57,4 +57,4 @@ const BlogSeparator = ({
     </div>
   )
 }
-export default BlogSeparator
+export default SeparatorBlogChildrenItem
