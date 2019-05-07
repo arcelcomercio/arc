@@ -23,6 +23,9 @@ const BlogSeparator = ({
   contextPath,
 }) => {
   const WEBSITE = `?_website=${arcSite}`
+  const DEFAULT_IMG =
+    'https://img.gestion.pe/bundles/appcms/images/gestion/logo_gestion.png?1556552656'
+  const IMG = authorImg ? authorImg : DEFAULT_IMG
   return (
     <div className={classes.separator}>
       <div className={classes.boxTitle}>
@@ -48,7 +51,7 @@ const BlogSeparator = ({
       </div>
       <div className={classes.boxImg}>
         <a href={`${contextPath}/${postLink}${WEBSITE}`}>
-          <img src={authorImg} alt="" className={classes.img} />
+          <img src={IMG} alt="" className={classes.img} />
         </a>
       </div>
     </div>

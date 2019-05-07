@@ -64,7 +64,7 @@ class BlogSeparator extends Component {
     const { fetched } = this.getContent(source, params)
     fetched
       .then(response => {
-        const items = Object.values(response).slice(0, 5)
+        const items = Object.values(response)
         this.setState({
           listPost: items,
           dataPost: items,
@@ -94,7 +94,10 @@ class BlogSeparator extends Component {
                 } = {},
                 blog: { path: blogUrl = '', blogname: blogName = '' } = {},
                 posts: [
-                  { post_permalink: postLink = '', post_title: postTitle = '' },
+                  {
+                    post_permalink: postLink = '',
+                    post_title: postTitle = '',
+                  } = {},
                 ] = [],
               } = post
               const data = {
