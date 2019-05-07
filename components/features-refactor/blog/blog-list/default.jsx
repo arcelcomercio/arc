@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import BlogItem from './_children/blog-Item'
+import BlogItem from './_children/Item'
 import { formatDate } from '../../../utilities/helpers'
 
 @Consumer
