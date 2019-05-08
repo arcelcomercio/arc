@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import PostItem from '../../../../resources/components/post-item'
+import AuthorListChildrenPostItem from './_children/authorListChildrenPostItem'
 import Paginacion from '../../../../resources/components/paginacion_numerica'
 
 @Consumer
@@ -10,6 +10,7 @@ class AuthorList extends PureComponent {
       globalContent = {},
       globalContentConfig = {},
       arcSite = '',
+      contextPath,
     } = this.props
 
     const {
@@ -42,8 +43,9 @@ class AuthorList extends PureComponent {
             image,
             author,
             arcSite,
+            contextPath,
           }
-          return <PostItem key={post.ID} {...data} />
+          return <AuthorListChildrenPostItem key={post.ID} {...data} />
         })}
         <Paginacion
           totalElements={countPosts}
