@@ -29,6 +29,9 @@ const classes = {
   shareItemLink: 'article-header__list-items__item__link',
   shareBtnLess: 'less',
   shareBtnMore: 'more',
+  iconSharefb: 'icon-fb',
+  iconSharetw: 'icon-tw',
+  iconSharein: 'icon-in',
 }
 
 @Consumer
@@ -65,27 +68,27 @@ class Share extends Component {
       <div className={classes.share + shareMas}>
         <div className={classes.shareListItem}>
           <FacebookShareButton className={classes.shareItemFb} url={fbUrl}>
-            <i className="icon-fb" />
+            <i className={classes.iconSharefb} />
             <span>Compartir </span>
           </FacebookShareButton>
           <TwitterShareButton className={classes.shareItemTw} url={twUrl}>
-            <i className="icon-tw" /> <span>Compartir</span>
+            <i className={classes.iconSharetw} /> <span>Compartir</span>
           </TwitterShareButton>
           <LinkedinShareButton
             url={inUrl}
             className={classes.shareItemLinkedIn}>
-            <i className="icon-in" />
+            <i className={classes.iconSharein} />
             <span>Compartir </span>
           </LinkedinShareButton>
           <div className={classes.shareItemOtherItems + shareMas}>
             <GooglePlusShareButton
               url={gpUrl}
               className={classes.shareItemLinkedIn}>
-              <i className="icon-in" />
+              <i className={classes.iconSharein} />
               <span>Compartir </span>
             </GooglePlusShareButton>
             <EmailShareButton url={inUrl} className={classes.shareItemLinkedIn}>
-              <i className="icon-in" />
+              <i className={classes.iconSharein} />
               <span>Compartir </span>
             </EmailShareButton>
           </div>

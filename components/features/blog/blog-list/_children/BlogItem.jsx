@@ -1,5 +1,17 @@
 import React from 'react'
 
+const classes = {
+  item: 'flex  blog-item',
+  date: 'blog-item__date',
+  container: 'flex blog-item__container',
+  containerAvatar: 'blog-item__container-avatar',
+  avatar: 'full-width',
+  detail: 'flex flex--column blog-item__detail',
+  blogTitle: 'text-uppercase blog-item__blog',
+  author: 'blog-item__author',
+  post: 'blog-item__post',
+}
+
 export default ({
   urlImage = '',
   date = '',
@@ -9,18 +21,6 @@ export default ({
   urlPost = '',
   urlBlog = '',
 }) => {
-  const classes = {
-    item: 'flex  blog-item',
-    date: 'blog-item__date',
-    container: 'flex blog-item__container',
-    containerAvatar: 'blog-item__container-avatar',
-    avatar: 'full-width',
-    detail: 'flex flex--column blog-item__detail',
-    blogTitle: 'text-uppercase blog-item__blog',
-    author: 'blog-item__author',
-    post: 'blog-item__post',
-  }
-
   const image =
     urlImage !== ''
       ? urlImage

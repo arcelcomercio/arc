@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import React, { Component } from 'react'
-import { capitalData, provinceData } from './_children/locations'
-import Markers from './_children/markers'
+import React, { PureComponent } from 'react'
+import { capitalData, provinceData } from './_dependencies/locations'
+import Markers from './_dependencies/markers'
 
 const classes = {
   concessionaires: 'concessionaires',
@@ -21,7 +21,7 @@ const classes = {
   mapTitle: 'concessionaires__map-title',
 }
 
-class ConcessionaryOffices extends Component {
+class StaticConcessionaryOffices extends PureComponent {
   constructor(props) {
     super(props)
     this.provinceMap = false
@@ -309,6 +309,6 @@ class ConcessionaryOffices extends Component {
   }
 }
 
-ConcessionaryOffices.label = 'Oficinas concesionarias'
+StaticConcessionaryOffices.label = 'Oficinas Concesionarias'
 
-export default ConcessionaryOffices
+export default StaticConcessionaryOffices

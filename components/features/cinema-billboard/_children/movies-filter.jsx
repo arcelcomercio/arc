@@ -2,21 +2,20 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import BillboardFormat from '../../../utilities/billboard-format'
 
+const classes = {
+  container: 'movies-filter full-width',
+  titleBox: 'movies-filter__title-box flex flex--justify-between',
+  title: 'movies-filter__title flex-center-vertical position-relative',
+  social: 'movies-filter__social flex',
+  facebook: 'icon icon--facebook icon--margin-right',
+  twitter: 'icon icon--twitter',
+  filter: 'movies-filter__filter-box flex flex--justify-between',
+  label: 'movies-filter__label movies-filter--font-config text-uppercase',
+  form: 'movies-filter__form movies-filter--font-config flex',
+  button: 'movies-filter__btn movies-filter--font-config text-uppercase',
+}
 @Consumer
 class MoviesFilter extends PureComponent {
-  classes = {
-    container: 'movies-filter full-width',
-    titleBox: 'movies-filter__title-box flex flex--justify-between',
-    title: 'movies-filter__title flex-center-vertical position-relative',
-    social: 'movies-filter__social flex',
-    facebook: 'icon icon--facebook icon--margin-right',
-    twitter: 'icon icon--twitter',
-    filter: 'movies-filter__filter-box flex flex--justify-between',
-    label: 'movies-filter__label movies-filter--font-config text-uppercase',
-    form: 'movies-filter__form movies-filter--font-config flex',
-    button: 'movies-filter__btn movies-filter--font-config text-uppercase',
-  }
-
   constructor(props) {
     super(props)
 
@@ -117,17 +116,17 @@ class MoviesFilter extends PureComponent {
     const { movies, cinemas, genres } = this.state
 
     return (
-      <div className={this.classes.container}>
-        <div className={this.classes.titleBox}>
-          <h2 className={this.classes.title}>Estrenos de la semana</h2>
-          <div className={this.classes.social}>
-            <i className={this.classes.facebook} />
-            <i className={this.classes.twitter} />
+      <div className={classes.container}>
+        <div className={classes.titleBox}>
+          <h2 className={classes.title}>Estrenos de la semana</h2>
+          <div className={classes.social}>
+            <i className={classes.facebook} />
+            <i className={classes.twitter} />
           </div>
         </div>
-        <div className={this.classes.filter}>
-          <h4 className={this.classes.label}>Vamos al cine</h4>
-          <form action="/" className={this.classes.form}>
+        <div className={classes.filter}>
+          <h4 className={classes.label}>Vamos al cine</h4>
+          <form action="/" className={classes.form}>
             <select
               name="movie"
               id="movie"
@@ -199,7 +198,7 @@ class MoviesFilter extends PureComponent {
             </select>
             <button
               type="submit"
-              className={this.classes.button}
+              className={classes.button}
               onClick={e => this._handleSubmit(e)}>
               Buscar
             </button>

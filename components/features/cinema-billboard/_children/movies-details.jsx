@@ -1,28 +1,27 @@
 import React, { Component } from 'react'
 import BillboardFormat from '../../../utilities/billboard-format'
 
+const classes = {
+  container: 'movie-details flex flex--column',
+  imgBox: 'movie-details__box-img position-relative full-width',
+  img: 'movie-details__img full-width',
+  iconBox: 'movie-details__box-icon position-absolute flex-center',
+  icon: 'movie-details__icon',
+  details: 'movie-details__detail full-width flex flex--column',
+  leftSide: 'movie-details__left full-width',
+  title: 'movie-details__title',
+  where: 'movie-details__where text-uppercase',
+  hours: 'movie-details__hours scroll-vertical-auto',
+  item: 'movie-details__item',
+  cinema: 'movie-details__cinema block',
+  text: 'movie-details__text',
+  more: 'movie-details__more flex-center',
+  button: 'movie-details__btn',
+  rightSide: 'movie-details__right',
+  name: 'movie-details__name',
+  value: 'movie-details__value',
+}
 class MoviesDetails extends Component {
-  classes = {
-    container: 'movie-details flex flex--column',
-    imgBox: 'movie-details__box-img position-relative full-width',
-    img: 'movie-details__img full-width',
-    iconBox: 'movie-details__box-icon position-absolute flex-center',
-    icon: 'movie-details__icon',
-    details: 'movie-details__detail full-width flex flex--column',
-    leftSide: 'movie-details__left full-width',
-    title: 'movie-details__title',
-    where: 'movie-details__where text-uppercase',
-    hours: 'movie-details__hours scroll-vertical-auto',
-    item: 'movie-details__item',
-    cinema: 'movie-details__cinema block',
-    text: 'movie-details__text',
-    more: 'movie-details__more flex-center',
-    button: 'movie-details__btn',
-    rightSide: 'movie-details__right',
-    name: 'movie-details__name',
-    value: 'movie-details__value',
-  }
-
   constructor(props) {
     super(props)
 
@@ -78,80 +77,73 @@ class MoviesDetails extends Component {
 
     return (
       movie && (
-        <div className={this.classes.container}>
-          <div className={this.classes.imgBox}>
+        <div className={classes.container}>
+          <div className={classes.imgBox}>
             <a target="_BLANK" rel="noopener noreferrer" href={description}>
-              <img
-                src={sizes['620x387']}
-                alt={title}
-                className={this.classes.img}
-              />
+              <img src={sizes['620x387']} alt={title} className={classes.img} />
             </a>
-            <div className={this.classes.iconBox}>
-              <span className={this.classes.icon}>V</span>
+            <div className={classes.iconBox}>
+              <span className={classes.icon}>V</span>
             </div>
           </div>
-          <div className={this.classes.details}>
-            <div className={this.classes.leftSide}>
-              <h2 className={this.classes.title}>{title}</h2>
-              <p className={this.classes.where}>Donde Verla</p>
-              <div className={this.classes.hours}>
+          <div className={classes.details}>
+            <div className={classes.leftSide}>
+              <h2 className={classes.title}>{title}</h2>
+              <p className={classes.where}>Donde Verla</p>
+              <div className={classes.hours}>
                 {cinemas &&
                   cinemas.map(cinema => {
                     return (
-                      <div className={this.classes.item}>
+                      <div className={classes.item}>
                         <a
                           href={`${this.URI_BASE}/peliculas/${cinema.url}${
                             this.WEBSITE_PARAM
                           }`}
-                          className={this.classes.cinema}>
+                          className={classes.cinema}>
                           {cinema.nombre}
                         </a>
-                        <p className={this.classes.text}>{cinema.direccion}</p>
-                        <p className={this.classes.text}>{cinema.horario}</p>
+                        <p className={classes.text}>{cinema.direccion}</p>
+                        <p className={classes.text}>{cinema.horario}</p>
                       </div>
                     )
                   })}
               </div>
               <a
                 href={`${this.URI_BASE}${this.WEBSITE_PARAM}`}
-                className={this.classes.more}>
-                <p className={this.classes.button}>Regresar</p>
+                className={classes.more}>
+                <p className={classes.button}>Regresar</p>
               </a>
             </div>
-            <div className={this.classes.rightSide}>
-              <p
-                className={`${this.classes.name} ${
-                  this.classes.name
-                }--sinopsis`}>
+            <div className={classes.rightSide}>
+              <p className={`${classes.name} ${classes.name}--sinopsis`}>
                 Sinopsis:
                 <br />
-                <span className={this.classes.value}>{body}</span>
+                <span className={classes.value}>{body}</span>
               </p>
-              <p className={this.classes.name}>
+              <p className={classes.name}>
                 País:
                 <br />
-                <span className={this.classes.value}>{pais}</span>
+                <span className={classes.value}>{pais}</span>
               </p>
-              <p className={this.classes.name}>
+              <p className={classes.name}>
                 Director:
                 <br />
-                <span className={this.classes.value}>{director}</span>
+                <span className={classes.value}>{director}</span>
               </p>
-              <p className={this.classes.name}>
+              <p className={classes.name}>
                 Actores:
                 <br />
-                <span className={this.classes.value}>{actores}</span>
+                <span className={classes.value}>{actores}</span>
               </p>
-              <p className={this.classes.name}>
+              <p className={classes.name}>
                 Duración:
                 <br />
-                <span className={this.classes.value}>{duracion}</span>
+                <span className={classes.value}>{duracion}</span>
               </p>
-              <p className={this.classes.name}>
+              <p className={classes.name}>
                 Calificación:
                 <br />
-                <span className={this.classes.value}>{calificacion}</span>
+                <span className={classes.value}>{calificacion}</span>
               </p>
             </div>
           </div>

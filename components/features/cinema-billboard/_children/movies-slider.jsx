@@ -1,24 +1,23 @@
 import React, { PureComponent, Fragment } from 'react'
 
+const classes = {
+  moviesSlider: 'movies-slider',
+  body: 'position-relative overflow-hidden',
+  content: 'movies-slider__content flex',
+  movie: '',
+  imageBox: '',
+  imageLink: '',
+  image: 'movies-slider__img full-width',
+  arrowsBox:
+    'movies-slider__arrows-box position-absolute flex flex--justify-between',
+  leftArrow: 'movies-slider__arrows movies-slider__arrows--left',
+  rightArrow: 'movies-slider__arrows movies-slider__arrows--right',
+  details: 'movies-slider__details',
+  movieTitle: 'movies-slider__movie-title',
+  movieLink: 'movies-slider__movie-link',
+  movieDescription: 'movies-slider__movie-description',
+}
 class MoviesSlider extends PureComponent {
-  classes = {
-    moviesSlider: 'movies-slider',
-    body: 'position-relative overflow-hidden',
-    content: 'movies-slider__content flex',
-    movie: '',
-    imageBox: '',
-    imageLink: '',
-    image: 'movies-slider__img full-width',
-    arrowsBox:
-      'movies-slider__arrows-box position-absolute flex flex--justify-between',
-    leftArrow: 'movies-slider__arrows movies-slider__arrows--left',
-    rightArrow: 'movies-slider__arrows movies-slider__arrows--right',
-    details: 'movies-slider__details',
-    movieTitle: 'movies-slider__movie-title',
-    movieLink: 'movies-slider__movie-link',
-    movieDescription: 'movies-slider__movie-description',
-  }
-
   constructor(props) {
     super(props)
     const { estrenos = [] } = props.data || {}
@@ -66,22 +65,22 @@ class MoviesSlider extends PureComponent {
 
     // container out
     return (
-      <div className={this.classes.moviesSlider}>
-        <div className={this.classes.body}>
+      <div className={classes.moviesSlider}>
+        <div className={classes.body}>
           {premieres && (
             <Fragment>
-              <ul style={sliderStyle} className={this.classes.content}>
+              <ul style={sliderStyle} className={classes.content}>
                 {premieres.map(movie => (
                   <li
                     key={movie.mid}
                     style={slideStyle}
-                    className={this.classes.movie}>
-                    <figure className={this.classes.imageBox}>
+                    className={classes.movie}>
+                    <figure className={classes.imageBox}>
                       <a
                         href={`${this.URI_BASE}/${movie.url}/cines${
                           this.WEBSITE_PARAM
                         }`}
-                        className={this.classes.imageLink}>
+                        className={classes.imageLink}>
                         <picture>
                           <source
                             srcSet={movie.poster.sizes['367x176']}
@@ -92,7 +91,7 @@ class MoviesSlider extends PureComponent {
                             media="(max-width: 620px)"
                           />
                           <img
-                            className={this.classes.image}
+                            className={classes.image}
                             src={movie.poster.sizes.estreno}
                             alt={movie.title}
                             title={movie.title}
@@ -100,20 +99,18 @@ class MoviesSlider extends PureComponent {
                         </picture>
                       </a>
                     </figure>
-                    <div className={this.classes.details}>
-                      <h2
-                        className={this.classes.movieTitle}
-                        title={movie.title}>
+                    <div className={classes.details}>
+                      <h2 className={classes.movieTitle} title={movie.title}>
                         <a
                           href={`${this.URI_BASE}/${movie.url}/cines${
                             this.WEBSITE_PARAM
                           }`}
-                          className={this.classes.movieLink}>
+                          className={classes.movieLink}>
                           {movie.title}
                         </a>
                       </h2>
                       <p
-                        className={this.classes.movieDescription}
+                        className={classes.movieDescription}
                         title={movie.body}>
                         {movie.body}
                       </p>
@@ -121,22 +118,24 @@ class MoviesSlider extends PureComponent {
                   </li>
                 ))}
               </ul>
-              {premieres && premieres.length > 1 && (<div className={this.classes.arrowsBox}>
-                <i
-                  role="button"
-                  tabIndex="0"
-                  className={this.classes.leftArrow}
-                  onClick={this._handlePrev}
-                  onKeyDown={this._handlePrev}
-                />
-                <i
-                  role="button"
-                  tabIndex="0"
-                  className={this.classes.rightArrow}
-                  onClick={this._handleNext}
-                  onKeyDown={this._handleNext}
-                />
-              </div>) }
+              {premieres && premieres.length > 1 && (
+                <div className={classes.arrowsBox}>
+                  <i
+                    role="button"
+                    tabIndex="0"
+                    className={classes.leftArrow}
+                    onClick={this._handlePrev}
+                    onKeyDown={this._handlePrev}
+                  />
+                  <i
+                    role="button"
+                    tabIndex="0"
+                    className={classes.rightArrow}
+                    onClick={this._handleNext}
+                    onKeyDown={this._handleNext}
+                  />
+                </div>
+              )}
             </Fragment>
           )}
         </div>
