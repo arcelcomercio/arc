@@ -88,13 +88,11 @@ class BlogList extends Component {
     const blogs = Object.values(globalContent).filter(
       item => typeof item === 'object'
     )
-    console.log(totalPost)
 
     const classes = {
       list: 'bg--white blog-list',
       listTitle: 'text-uppercase blog-list__title',
     }
-    console.log(this.props)
 
     return (
       <Fragment>
