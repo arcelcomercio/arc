@@ -6,7 +6,7 @@ import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 
 @Consumer
-class CardFeaturedStoryAuto extends PureComponent {
+class CardFeaturedStoryAdvanced extends PureComponent {
   constructor(props) {
     super(props)
     this.storyFormatter = new StoryFormatter(props.arcSite)
@@ -15,25 +15,24 @@ class CardFeaturedStoryAuto extends PureComponent {
   }
 
   fetch() {
-    const { customFields, arcSite } = this.props
-    const { section, imageSize, size, storyNumber, imgField } = customFields
+    const { customFields } = this.props
+    const {
+      imageSize,
+      size,
+      imgField,
+      storyConfig: { contentService = '', contentConfigValues = {} } = {},
+    } = customFields
 
     const { schema } = this.storyFormatter
-    const storiesSchema = `{ content_elements ${schema} }`
 
-    const source = 'story-feed-by-section'
-    const params = {
-      website: arcSite,
-      section,
-      feedOffset: storyNumber || 0,
-      news_number: 1,
-    }
-
-    const { fetched } = this.getContent(source, params, storiesSchema)
+    const { fetched } = this.getContent(
+      contentService,
+      contentConfigValues,
+      schema
+    )
     fetched.then(response => {
-      const { content_elements: contentElements = [] } = response || {}
       const newState = this.storyFormatter.formatStory(
-        contentElements[0],
+        response,
         size,
         imageSize,
         imgField
@@ -43,39 +42,36 @@ class CardFeaturedStoryAuto extends PureComponent {
   }
 
   render() {
+    const { customFields, editableField } = this.props
     const { category, title, author, image, multimediaType } = this.state
-    const { customFields, editableField, arcSite } = this.props
-    const { imageSize, size, titleField, categoryField } = customFields || {}
+    const {
+      imageSize,
+      headband,
+      size,
+      titleField,
+      categoryField,
+    } = customFields
     const params = {
       title,
       category,
       author,
       image,
       imageSize,
+      headband,
       size,
       editableField,
       titleField,
       categoryField,
-      arcSite,
       multimediaType,
     }
     return <FeaturedStory {...params} />
   }
 }
 
-CardFeaturedStoryAuto.propTypes = {
+CardFeaturedStoryAdvanced.propTypes = {
   customFields: PropTypes.shape({
-    section: PropTypes.string.tag({
-      name: 'Path de la sección',
-      description:
-        'Si no se coloca el path de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
-    }),
-    storyNumber: PropTypes.number.tag({
-      name: 'Número de la historia',
-      description:
-        'Si no se completa el campo, el número de la historia será 0 (la última historia publicada)',
-      group: 'Elgir el número de la historia',
-      min: 0,
+    storyConfig: PropTypes.contentConfig('story').isRequired.tag({
+      name: 'Configuración del contenido',
     }),
     imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
       name: 'Posición de la imagen',
@@ -86,11 +82,19 @@ CardFeaturedStoryAuto.propTypes = {
       },
       defaultValue: 'parcialBot',
     }),
+    headband: PropTypes.oneOf(['normal', 'live']).tag({
+      name: 'Cintillo',
+      labels: {
+        normal: 'Normal',
+        live: 'En vivo',
+      },
+      defaultValue: 'normal',
+    }),
     size: PropTypes.oneOf(['oneCol', 'twoCol']).tag({
       name: 'Tamaño del destaque',
       labels: {
-        oneCol: '1 columna',
-        twoCol: '2 columnas',
+        oneCol: '1 fila, 1 columna',
+        twoCol: '1 fila, 2 columnas',
       },
       defaultValue: 'oneCol',
     }),
@@ -112,6 +116,6 @@ CardFeaturedStoryAuto.propTypes = {
   }),
 }
 
-CardFeaturedStoryAuto.label = 'Destaque por Sección'
+CardFeaturedStoryAdvanced.label = 'Destaque Avanzado'
 
-export default CardFeaturedStoryAuto
+export default CardFeaturedStoryAdvanced
