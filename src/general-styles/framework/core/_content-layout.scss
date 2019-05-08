@@ -1,11 +1,10 @@
 .content-layout {
+  @media (--tablet) {
+    min-width: 620px;
+  }
   @media (--desktop) {
     min-width: 940px;
     //max-width: 1024px;
-  }
-
-  @media (--tablet) {
-    min-width: 620px;
   }
 
   min-width: 320px;

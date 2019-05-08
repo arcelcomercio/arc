@@ -7,7 +7,6 @@
   border: 1px solid $color-soft;
   padding: 0px 15px 15px;
 
-
   &__title {
     display: -webkit-box;
     max-height: 57.63px;
@@ -80,13 +79,12 @@
       margin-top: 0;
       margin-bottom: 0;
 
-      @media (--tablet) {
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 3px;
-      }
-
       @media (--desktop) {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-gap: 3px;
+      }
+      @media (--tablet) {
+        grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 3px;
       }
     }
@@ -211,9 +209,11 @@
       height: 100%;
       top: 0;
       left: 0;
-      background: linear-gradient(to bottom,
+      background: linear-gradient(
+        to bottom,
         rgba(255, 255, 255, 0) 50%,
-        rgba(50, 50, 50, 0.7) 100%);
+        rgba(50, 50, 50, 0.7) 100%
+      );
     }
 
     & figure {
