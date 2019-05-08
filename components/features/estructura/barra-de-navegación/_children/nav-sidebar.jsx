@@ -14,6 +14,18 @@ const classes = {
     flex-center 
     btn bg-color--white 
     nav-sidebar__btn`,
+  renderItem: 'nav-sidebar__item',
+  renderItemLink: 'nav-sidebar__link',
+  navSidebarTop: 'nav-sidebar__top',
+  navHeader: 'nav-sidebar__header',
+  navBox: 'nav-sidebar__box-btn',
+  navSearch: 'nav-sidebar__search',
+  navForm: 'nav-sidebar__box-search',
+  navFormInput: 'nav-sidebar__input',
+  navSidebarBody: 'nav-sidebar__body',
+  navList: 'nav- sidebar__list',
+  navFooter: 'nav-sidebar__footer',
+  navText: 'nav-sidebar__text',
 }
 
 class NavSidebar extends Component {
@@ -36,8 +48,8 @@ class NavSidebar extends Component {
       sections &&
       sections.map(({ name = '', _id: id = '', children }) => (
         <Fragment key={id}>
-          <li className="nav-sidebar__item">
-            <a href={id} className="nav-sidebar__link">
+          <li className={classes.renderItem}>
+            <a href={id} className={classes.renderItemLink}>
               {name}
             </a>
           </li>
@@ -55,9 +67,9 @@ class NavSidebar extends Component {
           className={`${classes.navSidebarContent} ${
             showSidebar ? 'active' : ''
           }`}>
-          <div className="nav-sidebar__top">
-            <div className="nav-sidebar__header">
-              <div className="nav-sidebar__box-btn">
+          <div className={classes.navSidebarTop}>
+            <div className={classes.navHeader}>
+              <div className={classes.navBox}>
                 <Button
                   btnClass={classes.navBarBtn}
                   btnLink="#"
@@ -65,9 +77,9 @@ class NavSidebar extends Component {
                 />
               </div>
             </div>
-            <div className="nav-sidebar__search">
+            <div className={classes.navSearch}>
               <form
-                className="nav-sidebar__box-search"
+                className={classes.navForm}
                 onSubmit={e => {
                   e.preventDefault()
                   this.submitSearch()
@@ -77,36 +89,36 @@ class NavSidebar extends Component {
                   type="search"
                   // onBlur={this.handleCloseSectionsSearch}
                   placeholder="Buscar"
-                  className="nav-sidebar__input"
+                  className={classes.navFormInput}
                 />
               </form>
             </div>
-            <div className="nav-sidebar__body">
-              <ul className="nav-sidebar__list">
+            <div className={classes.navSidebarBody}>
+              <ul className={classes.navList}>
                 {sections && this.renderSections(sections)}
               </ul>
             </div>
           </div>
-          <div className="nav-sidebar__footer">
-            <a href="/" className="nav-sidebar__text">
+          <div className={classes.navFooter}>
+            <a href="/" className={classes.navText}>
               elcomercio.pe
             </a>
-            <a href="/" className="nav-sidebar__text">
+            <a href="/" className={classes.navText}>
               1984-2019 Grupo El Comercio
             </a>
-            <a href="/" className="nav-sidebar__text">
+            <a href="/" className={classes.navText}>
               Términos de Servicio
             </a>
-            <a href="/" className="nav-sidebar__text">
+            <a href="/" className={classes.navText}>
               Políticas de Privacidad
             </a>
-            <a href="/" className="nav-sidebar__text">
+            <a href="/" className={classes.navText}>
               Políticas de Discusión
             </a>
-            <a href="/" className="nav-sidebar__text">
+            <a href="/" className={classes.navText}>
               RSS Términos de Servicio
             </a>
-            <a href="/" className="nav-sidebar__text">
+            <a href="/" className={classes.navText}>
               Preferencias de Publicidad
             </a>
           </div>

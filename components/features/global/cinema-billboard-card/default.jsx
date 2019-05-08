@@ -8,7 +8,6 @@ const classes = {
   cinemaCardPos: 'position-relative',
   cinemaCardGrad: 'card-cinema__gradient full-width',
   cinemaCardTitle: 'card-cinema__category',
-  cinemaCardTitleLink: 'card-cinema__category',
   cinemaCardFigure: 'card-cinema__figure',
   cinemaCardImg: 'full-width card-cinema__img',
   cinemaCardDetail: 'card-cinema__detail full-width',
@@ -117,7 +116,7 @@ class CinemaBillboardCard extends Component {
           <span className={classes.cinemaCardGrad} />
           <h3 className={classes.cinemaCardTitle}>
             <a
-              className={classes.cinemaCardTitleLink}
+              className={classes.cinemaCardTitle}
               href={`${contextPath}/cartelera?_website=${arcSite}`}>
               Cartelera
             </a>
