@@ -10,7 +10,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 @Consumer
-class SkeletonAMPArticleBody extends Component {
+class ArticleAMPArticleBody extends Component {
   render() {
     const {
       globalContent: { content_elements: contentElements },
@@ -62,9 +62,9 @@ class SkeletonAMPArticleBody extends Component {
   }
 }
 
-SkeletonAMPArticleBody.propTypes = {
+ArticleAMPArticleBody.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   globalContent: PropTypes.object,
 }
 
-export default SkeletonAMPArticleBody
+export default ArticleAMPArticleBody
