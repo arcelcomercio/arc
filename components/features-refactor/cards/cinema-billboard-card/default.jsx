@@ -28,7 +28,7 @@ const classes = {
 }
 
 @Consumer
-class CinemaBillboardCard extends PureComponent {
+class CardCinemaBillboard extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -214,6 +214,6 @@ class CinemaBillboardCard extends PureComponent {
   }
 }
 
-CinemaBillboardCard.label = 'Cartelera'
+CardCinemaBillboard.label = 'Cartelera'
 
-export default CinemaBillboardCard
+export default CardCinemaBillboard
