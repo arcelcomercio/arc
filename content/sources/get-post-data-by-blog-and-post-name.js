@@ -49,23 +49,18 @@ const params = [
   {
     name: 'posts_limit',
     displayName: 'Limite de publicación relacionados',
-    type: 'text',
+    type: 'number',
   },
   {
     name: 'posts_offset',
     displayName: 'Offset de la publicación',
-    type: 'text',
+    type: 'number',
   },
   {
     name: 'token',
     displayName: 'Token para la solicitud de la API',
     type: 'text',
-  },
-  {
-    name: 'website',
-    displayName: 'Website',
-    type: 'text',
-  },
+  }
 ]
 
 export default {

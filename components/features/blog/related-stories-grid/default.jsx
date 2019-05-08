@@ -1,9 +1,9 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import BlogMayInterestYouChildCard from './_children/card'
+import BlogRelatedStoriesGridChildCard from './_children/card'
 
 @Consumer
-class BlogMayInterestYou extends PureComponent {
+class BlogRelatedStoriesGrid extends PureComponent {
   buildParams = (itemRelatedPost, blog, rootPath, website) => {
     const urlBlog = `${rootPath}/blog/`
     const link = urlBlog + itemRelatedPost.post_permalink
@@ -25,9 +25,9 @@ class BlogMayInterestYou extends PureComponent {
       arcSite,
     } = this.props || {}
     const classes = {
-      bmInterestYou: 'bm-interest-you clearfix',
-      titleGeneral: 'bm-interest-you__title--general',
-      containerList: 'bm-interest-you__container--list clearfix',
+      bmInterestYou: 'br-stories-grid clearfix',
+      titleGeneral: 'br-stories-grid__title--general',
+      containerList: 'br-stories-grid__container--list clearfix',
     }
     return (
       <div className={classes.bmInterestYou}>
@@ -35,7 +35,7 @@ class BlogMayInterestYou extends PureComponent {
         <div className={classes.containerList}>
           {relatedPosts.map(item => {
             const params = this.buildParams(item, blog, contextPath, arcSite)
-            return <BlogMayInterestYouChildCard key={params.link} {...params} />
+            return <BlogRelatedStoriesGridChildCard key={params.link} {...params} />
           })}
         </div>
       </div>
@@ -43,7 +43,7 @@ class BlogMayInterestYou extends PureComponent {
   }
 }
 
-BlogMayInterestYou.label = 'Blog - Te puede interesar'
-BlogMayInterestYou.static = true
+BlogRelatedStoriesGrid.label = 'Blog - Te puede interesar'
+BlogRelatedStoriesGrid.static = true
 
-export default BlogMayInterestYou
+export default BlogRelatedStoriesGrid

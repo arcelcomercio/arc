@@ -1,20 +1,20 @@
 import React from 'react'
 
 const classes = {
-  containerCard: 'bm-interest-you__container--card',
-  image: 'bm-interest-you__image',
-  detail: 'bm-interest-you__detail',
-  category: 'bm-interest-you__category',
-  titleDetail: 'bm-interest-you__title--detail',
+  containerCard: 'br-stories-grid__container--card',
+  image: 'br-stories-grid__image',
+  detail: 'br-stories-grid__detail',
+  category: 'br-stories-grid__category',
+  titleDetail: 'br-stories-grid__title--detail',
 }
-const BlogMayInterestYouChildCard = props => {
+const BlogRelatedStoriesGridChildCard = props => {
   const { title, image, sectionName, link, linkSection } = props
   return (
     <article className={classes.containerCard}>
       <figure className={classes.image}>
         <a href={link}>
           <picture>
-            <source srcset={image} media="(max-width: 640px)" />
+            <source srcSet={image} media="(max-width: 640px)" />
             <img src={image} alt={title} />
           </picture>
         </a>
@@ -35,4 +35,4 @@ const BlogMayInterestYouChildCard = props => {
   )
 }
 
-export default BlogMayInterestYouChildCard
+export default BlogRelatedStoriesGridChildCard
