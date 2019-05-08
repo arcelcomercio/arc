@@ -1,6 +1,6 @@
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
 
 const classes = {
   title: 'full-width margin-top',
@@ -136,5 +136,6 @@ CustomTitle.propTypes = {
 }
 
 CustomTitle.label = 'Título Personalizable'
+CustomTitle.static = true
 
 export default CustomTitle
