@@ -23,6 +23,7 @@ class StaticCinemaBillboard extends PureComponent {
       cinema,
       genre,
     }
+
     return (
       <Fragment>
         {/* Si no hay pelicula ni cine */}

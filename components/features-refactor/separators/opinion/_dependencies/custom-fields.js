@@ -12,8 +12,7 @@ export const customFields = PropTypes.shape({
   }),
   titleSection: PropTypes.string.tag({
     name: 'Título de la sección',
-    description:
-      'Este campo puede ser editado manualmente, no es necesario ingresarlo',
+    description: 'Este campo puede ser editado manualmente, no es necesario ingresarlo',
   }),
   htmlCode: PropTypes.richtext.tag({
     name: 'Código HTML',

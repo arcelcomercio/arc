@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+
 import { customFields } from './_dependencies/custom-fields'
 import DataStory from '../../../../resources/components/utils/data-story'
-import SeparatorsChildAuthorCard from './_children/author-card'
+import AuthorCard from './_children/author-card'
 
 const classes = {
   separator: 'separator__opinion',
@@ -23,8 +24,37 @@ const HeaderHTML = ({ htmlCode }) => {
   )
 }
 
+const schemaFilter = `
+{
+  content_elements{
+    _id
+    website_url
+    taxonomy{
+      sections{
+        type
+        path
+        name
+      }
+    }
+    credits{
+      by{
+        type
+        name
+        url
+        image{
+          url
+        }
+      }
+    }
+    headlines{
+      basic
+    }
+  }
+}
+`
+
 @Consumer
-class SeparatorOpinion extends Component {
+class SeparatorOpinion extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -69,7 +99,7 @@ class SeparatorOpinion extends Component {
         news_number: newsNumber,
         section,
       },
-      this.filterSchema()
+      schemaFilter
     )
     fetched.then(({ content_elements: contentElements = [] } = {}) => {
       const newDatos = []
@@ -122,41 +152,10 @@ class SeparatorOpinion extends Component {
     return 'desktop'
   }
 
-  filterSchema = () => {
-    return `
-    {
-      content_elements{
-        _id
-        website_url
-        taxonomy{
-          sections{
-            type
-            path
-            name
-          }
-        }
-        credits{
-          by{
-            type
-            name
-            url
-            image{
-              url
-            }
-          }
-        }
-        headlines{
-          basic
-        }
-      }
-    }
-    `
-  }
-
   listado = () => {
     const { data, arcSite } = this.state
     return data.map(info => (
-      <SeparatorsChildAuthorCard key={info.id} data={info} arcSite={arcSite} />
+      <AuthorCard key={info.id} data={info} arcSite={arcSite} />
     ))
   }
 
@@ -180,6 +179,6 @@ SeparatorOpinion.propTypes = {
   customFields,
 }
 
-SeparatorOpinion.label = 'Separador - opinión 21'
+SeparatorOpinion.label = 'Separador - Opinión'
 
 export default SeparatorOpinion

@@ -1,17 +1,16 @@
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
 
 import FeaturedStory from '../../../global-components/featured-story'
-
-import DestaqueFormater from '../_children/destaque-formater'
+import StoryFormatter from '../../../utilities/featured-story-formatter'
 
 @Consumer
-class CardFeaturedStoryAuto extends Component {
+class FeaturedStoryAuto extends PureComponent {
   constructor(props) {
     super(props)
-    this.DestaqueFormater = new DestaqueFormater(props.arcSite)
-    this.state = this.DestaqueFormater.initialState
+    this.storyFormatter = new StoryFormatter(props.arcSite)
+    this.state = this.storyFormatter.initialState
     this.fetch()
   }
 
@@ -19,7 +18,7 @@ class CardFeaturedStoryAuto extends Component {
     const { customFields, arcSite } = this.props
     const { section, imageSize, size, storyNumber, imgField } = customFields
 
-    const { schema } = this.DestaqueFormater
+    const { schema } = this.storyFormatter
     const storiesSchema = `{ content_elements ${schema} }`
 
     const source = 'story-feed-by-section'
@@ -33,7 +32,7 @@ class CardFeaturedStoryAuto extends Component {
     const { fetched } = this.getContent(source, params, storiesSchema)
     fetched.then(response => {
       const { content_elements: contentElements = [] } = response || {}
-      const newState = this.DestaqueFormater.formatStory(
+      const newState = this.storyFormatter.formatStory(
         contentElements[0],
         size,
         imageSize,
@@ -64,7 +63,7 @@ class CardFeaturedStoryAuto extends Component {
   }
 }
 
-CardFeaturedStoryAuto.propTypes = {
+FeaturedStoryAuto.propTypes = {
   customFields: PropTypes.shape({
     section: PropTypes.string.tag({
       name: 'Path de la sección',
@@ -112,5 +111,7 @@ CardFeaturedStoryAuto.propTypes = {
     }),
   }),
 }
-CardFeaturedStoryAuto.label="Destaque automatico"
-export default CardFeaturedStoryAuto
+
+FeaturedStoryAuto.label = 'Destaque Automático'
+
+export default FeaturedStoryAuto

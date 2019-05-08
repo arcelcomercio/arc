@@ -1,7 +1,9 @@
-import DataStory from '../../../../resources/components/utils/data-story'
-import { ResizeImageUrl } from '../../../utilities/helpers'
+import StoryData from '../../resources/components/utils/data-story'
+import {
+  ResizeImageUrl
+} from './helpers'
 
-class DestaqueFormater {
+class FeaturedStoryFormatter {
   constructor(arcSite = '') {
     this.arcSite = arcSite
     this.schema = `{ 
@@ -33,17 +35,26 @@ class DestaqueFormater {
       }
     }`
     this.initialState = {
-      category: { name: '', url: '' },
-      title: { name: '', url: '' },
-      author: { name: '', url: '' },
+      category: {
+        name: '',
+        url: ''
+      },
+      title: {
+        name: '',
+        url: ''
+      },
+      author: {
+        name: '',
+        url: ''
+      },
       image: '',
       multimediaType: 'basic',
     }
-    this.dataStoryInstace = new DataStory({}, this.arcSite)
+    this.storyDataInstace = new StoryData({}, this.arcSite)
   }
 
   getImgUrl(size = '', imageSize = '', customImage = '') {
-    const imageUrl = customImage || this.dataStoryInstace.multimedia
+    const imageUrl = customImage || this.storyDataInstace.multimedia
     let resizedImageUrl = ''
 
     resizedImageUrl = ResizeImageUrl(this.arcSite, imageUrl, '3:4', '288x157')
@@ -62,24 +73,26 @@ class DestaqueFormater {
   }
 
   formatStory(story = '', size = '', imageSize = '', imgField = '') {
-    this.dataStoryInstace.__data = story
+    this.storyDataInstace.__data = story
 
-    const newState = { ...this.initialState }
+    const newState = {
+      ...this.initialState
+    }
 
-    newState.category.name = this.dataStoryInstace.section
-    newState.category.url = this.dataStoryInstace.section
+    newState.category.name = this.storyDataInstace.section
+    newState.category.url = this.storyDataInstace.section
 
-    newState.title.name = this.dataStoryInstace.title
-    newState.title.url = this.dataStoryInstace.link
+    newState.title.name = this.storyDataInstace.title
+    newState.title.url = this.storyDataInstace.link
 
-    newState.author.name = this.dataStoryInstace.author
-    newState.author.url = this.dataStoryInstace.authorLink
+    newState.author.name = this.storyDataInstace.author
+    newState.author.url = this.storyDataInstace.authorLink
 
     newState.image = this.getImgUrl(size, imageSize, imgField)
-    newState.multimediaType = this.dataStoryInstace.multimediaType
+    newState.multimediaType = this.storyDataInstace.multimediaType
 
     return newState
   }
 }
 
-export default DestaqueFormater
+export default FeaturedStoryFormatter
