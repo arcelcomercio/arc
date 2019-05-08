@@ -5,11 +5,6 @@ import Pagination from '../../../global-components/pagination'
 
 @Consumer
 class Buscar extends Component {
-  constructor(props) {
-    super(props)
-    this.renderCount = 0
-  }
-
   render() {
     const { globalContent, globalContentConfig, arcSite } = this.props
     const { content_elements: contentElements, count = 0 } = globalContent || {}

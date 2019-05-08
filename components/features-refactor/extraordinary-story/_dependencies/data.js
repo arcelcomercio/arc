@@ -1,8 +1,8 @@
-import DataStory from '../../../../resources/components/utils/data-story'
+import StoryData from '../../../../resources/components/utils/data-story'
 import ConfigParams from '../../../../resources/components/utils/config-params'
 import { ResizeImageUrl } from '../../../utilities/helpers'
 
-class Data extends DataStory {
+class Data extends StoryData {
   static GOLDFISH = 'goldfish'
 
   static YOUTUBE = 'youtube'

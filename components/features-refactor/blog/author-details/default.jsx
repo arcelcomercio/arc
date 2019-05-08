@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import AuthorDetailsChildAuthorDetails from './_children/author-details'
+import AuthorDetails from './_children/author-details'
 
 @Consumer
 class BlogAuthorDetails extends PureComponent {
@@ -13,12 +13,11 @@ class BlogAuthorDetails extends PureComponent {
       firstName,
       title: 'SOBRE EL AUTOR',
     }
-    return <AuthorDetailsChildAuthorDetails {...data} />
+    return <AuthorDetails {...data} />
   }
 }
 
-BlogAuthorDetails.label = 'Información del Autor'
-
+BlogAuthorDetails.label = 'Blog - Detalles del autor'
 BlogAuthorDetails.static = true
 
 export default BlogAuthorDetails

@@ -154,6 +154,4 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
   }
 }
 
-StaticCinemaBillboardChildMoviesDetails.label = "Detalle de la película"
-
 export default StaticCinemaBillboardChildMoviesDetails

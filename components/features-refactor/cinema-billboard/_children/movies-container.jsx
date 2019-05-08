@@ -37,7 +37,5 @@ class StaticCinemaBillboardChildMoviesContainer extends PureComponent {
     )
   }
 }
-StaticCinemaBillboardChildMoviesContainer.static = true
-StaticCinemaBillboardChildMoviesContainer.label = 'Cartelera de Cine'
 
 export default StaticCinemaBillboardChildMoviesContainer

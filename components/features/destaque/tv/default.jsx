@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import TVHighlightComponent from './_children/tv-highlight'
-import DataStory from '../../../../resources/components/utils/data-story'
+import StoryData from '../../../../resources/components/utils/data-story'
 
 @Consumer
 class TVHighlight extends Component {
@@ -55,7 +55,7 @@ class TVHighlight extends Component {
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
       const element = response.content_elements[0]
-      const get = new DataStory(element, arcSite)
+      const get = new StoryData(element, arcSite)
       const filterData = {
         category: {
           nameSection: get.section,

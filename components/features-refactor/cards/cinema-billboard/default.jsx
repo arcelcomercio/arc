@@ -1,30 +1,26 @@
-import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+import Consumer from 'fusion:consumer'
 import { ResizeImageUrl } from '../../../utilities/helpers'
 
-// TODO: Fix classes
 const classes = {
-  cardcinema: 'card-cinema',
-  pdnnormal: 'padding-normal',
-  rown1: 'row-1',
-  positionrelative: 'position-relative',
-  cinemagradient: 'card-cinema__gradient',
-  fullwith: 'full-width',
-  cinemacategory: 'card-cinema__category',
-  cinemalink: 'card-cinema__link',
-  cinemafigure: 'card-cinema__figure',
-  cinemaimg: 'card-cinema__img',
-  cinemadetail: 'card-cinema__detail',
-  cinemapremiere: 'card-cinema__premiere',
-  cinemaptitle: 'card-cinema__p-title',
-  movielist: 'card-cinema__movies-list',
-  title: 'card-cinema__title',
-  plink: 'card-cinema__p-link',
-  cinemaform: 'card-cinema__form',
-  selectcontainer: 'card-cinema__selects-container',
-  select: 'card-cinema__select',
-  option: 'card-cinema__option',
-  button: 'card-cinema__button',
+  cinemaCard: 'cinema-card padding-normal row-1',
+  container: 'position-relative',
+  gradient: 'cinema-card__gradient full-width',
+  category: 'cinema-card__category',
+  link: 'cinema-card__link',
+  figure: 'cinema-card__figure',
+  image: 'full-width cinema-card__img',
+  detail: 'cinema-card__detail full-width',
+  premiere: 'cinema-card__premiere',
+  movieTitle: 'cinema-card__p-title',
+  movieLink: 'cinema-card__p-link',
+  moviesList: 'cinema-card__movies-list',
+  title: 'cinema-card__title',
+  form: 'cinema-card__form',
+  selectsContainer: 'cinema-card__selects-container',
+  select: 'cinema-card__select',
+  option: 'cinema-card__option',
+  button: 'cinema-card__button',
 }
 
 @Consumer
@@ -115,20 +111,17 @@ class CardCinemaBillboard extends PureComponent {
     const { contextPath, arcSite } = this.props
 
     return (
-      <div
-        className={`${classes.cardcinema} ${classes.pdnnormal} ${
-          classes.rown1
-        }`}>
-        <article className={classes.positionrelative}>
-          <span className={`${classes.cinemagradient} ${classes.fullwith}`} />
-          <h3 className={classes.cinemacategory}>
+      <div className={classes.cinemaCard}>
+        <article className={classes.container}>
+          <span className={classes.gradient} />
+          <h3 className={classes.category}>
             <a
-              className={classes.cinemalink}
+              className={classes.link}
               href={`${contextPath}/cartelera?_website=${arcSite}`}>
               Cartelera
             </a>
           </h3>
-          <figure className={classes.cinemafigure}>
+          <figure className={classes.figure}>
             <a
               href={`${contextPath}/cartelera/peliculas/${
                 premiereData.url
@@ -136,15 +129,15 @@ class CardCinemaBillboard extends PureComponent {
               <img
                 src={premiereData.img}
                 alt={premiereData.alt}
-                className={`${classes.fullwith} ${classes.cinemaimg}`}
+                className={classes.image}
               />
             </a>
           </figure>
-          <div className={`${classes.cinemadetail} ${classes.fullwith}`}>
-            <span className={classes.cinemapremiere}>Estreno</span>
-            <h2 className={classes.cinemaptitle}>
+          <div className={classes.detail}>
+            <span className={classes.premiere}>Estreno</span>
+            <h2 className={classes.movieTitle}>
               <a
-                className={classes.plink}
+                className={classes.movieLink}
                 href={`${contextPath}/cartelera/peliculas/${
                   premiereData.url
                 }?_website=${arcSite}`}>
@@ -153,14 +146,14 @@ class CardCinemaBillboard extends PureComponent {
             </h2>
           </div>
         </article>
-        <div className={classes.movielist}>
+        <div className={classes.moviesList}>
           <h4 className={classes.title}>Vamos al cine</h4>
           <form
             action="/cartelera/search"
             method="post"
-            className={classes.cinemaform}
+            className={classes.form}
             onSubmit={e => this.handleSubmit(e)}>
-            <div className={classes.selectcontainer}>
+            <div className={classes.selectsContainer}>
               <select
                 name="movie"
                 className={classes.select}
@@ -214,6 +207,6 @@ class CardCinemaBillboard extends PureComponent {
   }
 }
 
-CardCinemaBillboard.label = 'Cartelera'
+CardCinemaBillboard.label = 'Mini-Cartelera'
 
 export default CardCinemaBillboard

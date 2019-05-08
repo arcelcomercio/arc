@@ -1,4 +1,4 @@
-import DataStory from '../../../../../resources/components/utils/data-story'
+import StoryData from '../../../../../resources/components/utils/data-story'
 
 export const setDataTest = storiesQty => {
   const item = {
@@ -15,7 +15,7 @@ export const setDataTest = storiesQty => {
 
 export const castingData = (data, props) => {
   const aux = []
-  const element = new DataStory({}, props.arcSite)
+  const element = new StoryData({}, props.arcSite)
 
   data.forEach(el => {
     element.__data = el

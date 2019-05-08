@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import DataStory from '../../../../resources/components/utils/data-story'
+import StoryData from '../../../../resources/components/utils/data-story'
 import Destaque from './_children/destaque-automatico/default'
 import Publicidad from './_children/publicidad/default'
 
@@ -32,7 +32,7 @@ class OrderedStoriesGrid extends PureComponent {
       if (element.type === 'destaque') {
         /** TODO: Optimizar para no crear instancia cada paso del map */
         const story =
-          stories && new DataStory(stories[storyNumber + idx], arcSite)
+          stories && new StoryData(stories[storyNumber + idx], arcSite)
         return (
           <Destaque
             story={story}

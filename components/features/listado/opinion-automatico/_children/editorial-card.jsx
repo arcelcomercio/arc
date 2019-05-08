@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import DataStory from '../../../../../resources/components/utils/data-story'
+import StoryData from '../../../../../resources/components/utils/data-story'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class EditorialCard extends Component {
@@ -10,7 +10,7 @@ class EditorialCard extends Component {
 
   render() {
     const { arcSite, data } = this.props
-    const element = new DataStory({}, arcSite)
+    const element = new StoryData({}, arcSite)
     element.__data = data
     return (
       <div className="editorial-card">

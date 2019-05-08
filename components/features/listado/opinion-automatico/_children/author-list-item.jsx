@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import DataStory from '../../../../../resources/components/utils/data-story'
+import StoryData from '../../../../../resources/components/utils/data-story'
 import { formatDate } from '../../../../utilities/helpers'
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -11,7 +11,7 @@ class AuthorListItem extends Component {
 
   render() {
     const { arcSite, data } = this.props
-    const element = new DataStory({}, arcSite)
+    const element = new StoryData({}, arcSite)
     element.__data = data
     return (
       <div className="author-item">

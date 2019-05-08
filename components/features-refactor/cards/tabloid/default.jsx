@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import CustomFieldsImport from './_dependencies/custom-fields'
 import filterSchema from './_dependencies/schema-filter'
-import DataStory from '../../../../resources/components/utils/data-story'
+import StoryData from '../../../../resources/components/utils/data-story'
 
 const classes = {
   tabloide: 'tabloide',
@@ -52,7 +52,7 @@ class CardTabloid extends PureComponent {
         const { content_elements: contentElements = [] } = response || {}
 
         if (contentElements.length > 0) {
-          const prueba = new DataStory(contentElements[0], arcSite)
+          const prueba = new StoryData(contentElements[0], arcSite)
           this.setState({
             data: prueba,
           })

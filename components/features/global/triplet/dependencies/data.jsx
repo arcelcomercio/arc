@@ -1,6 +1,6 @@
-import DataStory from '../../../../../resources/components/utils/data-story'
+import StoryData from '../../../../../resources/components/utils/data-story'
 
-class Data extends DataStory {
+class Data extends StoryData {
   static AUTHOR = 'author'
 
   constructor(data, website, customFields, index = 0) {
@@ -46,14 +46,16 @@ class Data extends DataStory {
       [Data.IMAGE]: '',
       [Data.GALLERY]: 'gallery',
     }
-    return super.multimediaType !== '' ? baseTypeThumb[super.multimediaType] : ''
+    return super.multimediaType !== ''
+      ? baseTypeThumb[super.multimediaType]
+      : ''
   }
 
   get attributesRaw() {
-    let attributesObject = super.attributesRaw;
+    let attributesObject = super.attributesRaw
     // eslint-disable-next-line no-restricted-syntax
-    for (const attr of Object.getOwnPropertyNames( Data.prototype )) {
-      if( attr !== 'attributesRaw') attributesObject[attr] = this[attr]
+    for (const attr of Object.getOwnPropertyNames(Data.prototype)) {
+      if (attr !== 'attributesRaw') attributesObject[attr] = this[attr]
     }
     return attributesObject
   }

@@ -6,18 +6,14 @@ import {
 } from '../../../utilities/helpers'
 
 const classes = {
-  header: 'post-header',
-  pdnormal: 'padding-normal',
-  headertitle: 'post-header__title',
-  headerlist: 'post-header__list',
-  flex: 'flex',
-  headerlink: 'post-header__link',
-  flexcentervertical: 'flex-center-vertical',
-  flexjustifycenter: 'flex--justify-center',
-  headeritem: 'post-header__item',
-  headershare: 'post-header__share',
-  headermore: 'post-header__more',
-  headerbutton: 'post-header__button',
+  header: 'post-header padding-normal',
+  headerTitle: 'post-header__title',
+  headerList: 'post-header__list flex',
+  headerLink: 'post-header__link flex-center',
+  headerItem: 'post-header__item',
+  headerShare: 'post-header__share',
+  headerMore: 'post-header__more',
+  headerButton: 'post-header__button flex-center',
 }
 @Consumer
 class BlogPostHeader extends PureComponent {
@@ -93,22 +89,20 @@ class BlogPostHeader extends PureComponent {
     const { globalContent } = this.props
     const { post: { post_title: postTitle } = {} } = globalContent || {}
     return (
-      <div className={`${classes.header} ${classes.pdnormal}`}>
-        <h1 className={classes.headertitle}>{postTitle}</h1>
-        <ul className={`${classes.headerlist} ${classes.flex}`}>
+      <div className={classes.header}>
+        <h1 className={classes.headerTitle}>{postTitle}</h1>
+        <ul className={classes.headerList}>
           {this.shareButtons[currentList].map((item, i) => (
-            <li className={`${classes.headeritem} ${item.mobileClass}`}>
+            <li className={`${classes.headerItem} ${item.mobileClass || ''}`}>
               <a
-                className={`${classes.headerlink} ${
-                  classes.flexcentervertical
-                } ${classes.flexjustifycenter}`}
+                className={classes.headerLink}
                 href={item.link}
                 onClick={event => {
                   const isPrint = i === 2 && currentList === this.secondList
                   this.openLink(event, item, isPrint)
                 }}>
                 <i>{item.icon}</i>
-                <span className={classes.headershare}>
+                <span className={classes.headerShare}>
                   {i === 2 && currentList === this.secondList
                     ? 'Imprimir'
                     : 'Compartir'}
@@ -117,11 +111,9 @@ class BlogPostHeader extends PureComponent {
             </li>
           ))}
 
-          <li className={classes.headermore}>
+          <li className={classes.headerMore}>
             <button
-              className={`${classes.headerbutton} ${
-                classes.flexcentervertical
-              } ${classes.flexjustifycenter}`}
+              className={classes.headerButton}
               type="button"
               onClick={e => this.handleMoreButton(e)}>
               <i>{currentList === this.firstList ? '+' : '-'}</i>

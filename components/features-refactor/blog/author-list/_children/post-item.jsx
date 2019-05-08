@@ -56,6 +56,4 @@ const BlogAuthorListChildPostItem = ({
   )
 }
 
-BlogAuthorListChildPostItem.static = true
-
 export default BlogAuthorListChildPostItem

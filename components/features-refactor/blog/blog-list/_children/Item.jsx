@@ -12,7 +12,7 @@ const classes = {
   post: 'blog-item__post',
 }
 
-const BlogListChildBlogItem = ({
+const BlogListChildItem = ({
   urlImage = '',
   date = '',
   blogTitle = '',
@@ -51,4 +51,4 @@ const BlogListChildBlogItem = ({
   )
 }
 
-export default BlogListChildBlogItem
+export default BlogListChildItem

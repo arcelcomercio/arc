@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import CustomFieldsImport from './_children/customFields'
 import filterSchema from './_children/filterSchema'
-import DataStory from '../../../../resources/components/utils/data-story'
+import StoryData from '../../../../resources/components/utils/data-story'
 
 const classes = {
   tabloide: 'tabloide',
@@ -34,31 +34,31 @@ class Tabloide extends Component {
 
   getContentApi = seccion => {
     // if (seccion) {
-      const { arcSite } = this.props
+    const { arcSite } = this.props
 
-      const { fetched } = this.getContent(
-        'story-feed-by-section',
-        {
-          website: arcSite,
-          section: seccion,
-          news_number: 1,
-        },
+    const { fetched } = this.getContent(
+      'story-feed-by-section',
+      {
+        website: arcSite,
+        section: seccion,
+        news_number: 1,
+      },
 
-        filterSchema(arcSite)
-      )
+      filterSchema(arcSite)
+    )
 
-      fetched
-        .then(response => {
-          const { content_elements: contentElements = [] } = response || {}
+    fetched
+      .then(response => {
+        const { content_elements: contentElements = [] } = response || {}
 
-          if (contentElements.length > 0) {
-            const prueba = new DataStory(contentElements[0], arcSite)
-            this.setState({
-              data: prueba,
-            })
-          }
-        })
-        .catch(e => console.log(e))
+        if (contentElements.length > 0) {
+          const prueba = new StoryData(contentElements[0], arcSite)
+          this.setState({
+            data: prueba,
+          })
+        }
+      })
+      .catch(e => console.log(e))
     // }
   }
 

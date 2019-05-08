@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import DataStory from '../../resources/components/utils/data-story'
+import StoryData from '../../resources/components/utils/data-story'
 
 const classes = {
   featuredStory: 'featured-story padding-normal flex flex--column row-1',
@@ -80,10 +80,10 @@ export default class FeaturedStory extends Component {
     const getMultimediaIcon = () => {
       let icon
       switch (multimediaType) {
-        case DataStory.VIDEO:
+        case StoryData.VIDEO:
           icon = classes.playIcon
           break
-        case DataStory.GALLERY:
+        case StoryData.GALLERY:
           icon = classes.galleryIcon
           break
         default:
@@ -188,9 +188,9 @@ FeaturedStory.propTypes = {
   titleField: PropTypes.string,
   categoryField: PropTypes.string,
   multimediaType: PropTypes.oneOf([
-    DataStory.IMAGE,
-    DataStory.VIDEO,
-    DataStory.GALLERY,
-    DataStory.HTML,
+    StoryData.IMAGE,
+    StoryData.VIDEO,
+    StoryData.GALLERY,
+    StoryData.HTML,
   ]),
 }

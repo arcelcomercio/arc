@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import AuthorTitleComponent from './_children/author-title'
+import AuthorTitle from './_children/author-title'
 
 @Consumer
 class BlogAuthorTitle extends PureComponent {
@@ -19,14 +19,11 @@ class BlogAuthorTitle extends PureComponent {
       guid,
       blogname,
     }
-    return (
-      // Componente titulo
-      <AuthorTitleComponent {...data} />
-    )
+    return <AuthorTitle {...data} />
   }
 }
 
-BlogAuthorTitle.label = 'Titulo autor'
+BlogAuthorTitle.label = 'Blog - Título del autor'
 BlogAuthorTitle.static = true
 
 export default BlogAuthorTitle

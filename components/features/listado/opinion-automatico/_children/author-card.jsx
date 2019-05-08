@@ -1,9 +1,9 @@
 import React from 'react'
-import DataStory from '../../../../../resources/components/utils/data-story'
+import StoryData from '../../../../../resources/components/utils/data-story'
 
 const AuthorCard = props => {
   const { arcSite, data } = props
-  const element = new DataStory({}, arcSite)
+  const element = new StoryData({}, arcSite)
   element.__data = data
   return (
     <div className="author-card">
