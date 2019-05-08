@@ -1,4 +1,4 @@
-import DataStory from '../../../../resources/components/utils/data-story'
+import StoryData from '../../../../resources/components/utils/data-story'
 import { ResizeImageUrl } from '../../../utilities/helpers'
 
 class DestaqueFormater {
@@ -39,7 +39,7 @@ class DestaqueFormater {
       image: '',
       multimediaType: 'basic',
     }
-    this.dataStoryInstace = new DataStory({}, this.arcSite)
+    this.dataStoryInstace = new StoryData({}, this.arcSite)
   }
 
   getImgUrl(size = '', imageSize = '', customImage = '') {

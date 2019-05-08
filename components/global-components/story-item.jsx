@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import DataStory from '../../resources/components/utils/data-story'
+import StoryData from '../../resources/components/utils/data-story'
 import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
 
 const clases = {
@@ -21,7 +21,7 @@ const clases = {
 class StoriesList extends PureComponent {
   render() {
     const { arcSite, data, formato } = this.props
-    const element = new DataStory(data, arcSite)
+    const element = new StoryData(data, arcSite)
 
     return (
       <div

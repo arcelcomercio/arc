@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 import { customFields } from './_dependencies/custom-fields'
-import DataStory from '../../../../resources/components/utils/data-story'
+import StoryData from '../../../../resources/components/utils/data-story'
 import AuthorCard from './_children/author-card'
 
 const classes = {
@@ -105,7 +105,7 @@ class SeparatorOpinion extends PureComponent {
       const newDatos = []
       const nObj = {}
       for (let i = 0; i < newsNumber; i++) {
-        const dh = new DataStory(contentElements[i], arcSite)
+        const dh = new StoryData(contentElements[i], arcSite)
 
         nObj.id = dh.id
         nObj.author = dh.author

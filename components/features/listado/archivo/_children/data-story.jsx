@@ -1,6 +1,6 @@
-import DataStory from '../../../../../resources/components/utils/data-story'
+import StoryData from '../../../../../resources/components/utils/data-story'
 
-class DataStoryArchivo extends DataStory {
+class DataStoryArchivo extends StoryData {
   constructor(data, website) {
     super(data, website)
     this._data = data
