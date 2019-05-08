@@ -1,8 +1,10 @@
 /* eslint-disable react/destructuring-assignment */
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
 import Button from '../../../global-components/button'
 import { setDevice } from '../../../utilities/resizer'
+
+// TODO: Separar Feature de Componente.
 
 const classes = {
   header: 'header full-width',
@@ -21,7 +23,7 @@ const classes = {
 }
 
 @Consumer
-class Header extends Component {
+class LayoutHeader extends PureComponent {
   constructor(props) {
     super(props)
     // ------ Checks if you are in desktop or not
@@ -120,7 +122,7 @@ class Header extends Component {
     })
   }
 
-  renderLista() {
+  renderList() {
     const { temas } = this.state
     return temas.map(({ name, url }) => (
       <li className={classes.headerFeaturedItem} key={url}>
@@ -175,7 +177,7 @@ class Header extends Component {
                 <i className={classes.headerFeaturedItemIcon} />
                 LOS TEMAS DE HOY
               </li>
-              {this.renderLista()}
+              {this.renderList()}
             </ul>
           )}
         </header>
@@ -184,6 +186,6 @@ class Header extends Component {
   }
 }
 
-//  Header.static = true
+LayoutHeader.label = 'Cabecera de Página'
 
-export default Header
+export default LayoutHeader

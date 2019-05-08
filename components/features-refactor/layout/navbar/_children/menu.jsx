@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import Button from '../../../../global-components/button'
 
 const classes = {
@@ -28,7 +28,7 @@ const classes = {
   navText: 'nav-sidebar__text',
 }
 
-class NavbarChildLayoutNavbar extends Component {
+class NavbarChildMenu extends PureComponent {
   constructor(props) {
     super(props)
     this.inputSearchMovil = React.createRef()
@@ -128,4 +128,4 @@ class NavbarChildLayoutNavbar extends Component {
   }
 }
 
-export default NavbarChildLayoutNavbar
+export default NavbarChildMenu
