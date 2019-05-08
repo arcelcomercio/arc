@@ -1,3 +1,5 @@
+import { BLOG_TOKEN } from 'fusion:environment'
+
 const resolve = (key = {}) => {
   const hasBlogPath = Object.prototype.hasOwnProperty.call(key, 'blog_path')
   if (!hasBlogPath)
@@ -9,8 +11,6 @@ const resolve = (key = {}) => {
   const hasPostName = Object.prototype.hasOwnProperty.call(key, 'post_name')
   if (!hasPostName)
     throw new Error('Esta fuente de contenido requiere un post name')
-  const hasToken = Object.prototype.hasOwnProperty.call(key, 'token')
-  if (!hasToken) throw new Error('Esta fuente de contenido requiere un token')
   const {
     blog_path: blogPath,
     year,
@@ -18,9 +18,9 @@ const resolve = (key = {}) => {
     post_name: postName,
     posts_limit: postsLimit = 6,
     posts_offset: postsOffset = 0,
-    token,
   } = key
   const json = 'get_post_data_by_blog_and_post_name'
+  const token = BLOG_TOKEN
   const url = `https://dev-svc-blogs.gestion.pe/service/apiblogs.php?json=${json}&blog_path=${blogPath}&year=${year}&month=${month}&post_name=${postName}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${token}`
   return url
 }
@@ -56,11 +56,6 @@ const params = [
     displayName: 'Offset de la publicación',
     type: 'number',
   },
-  {
-    name: 'token',
-    displayName: 'Token para la solicitud de la API',
-    type: 'text',
-  }
 ]
 
 export default {

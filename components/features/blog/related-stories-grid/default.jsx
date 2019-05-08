@@ -33,10 +33,16 @@ class BlogRelatedStoriesGrid extends PureComponent {
       <div className={classes.bmInterestYou}>
         <h4 className={classes.titleGeneral}>Te puede interesar</h4>
         <div className={classes.containerList}>
-          {relatedPosts.map(item => {
-            const params = this.buildParams(item, blog, contextPath, arcSite)
-            return <BlogRelatedStoriesGridChildCard key={params.link} {...params} />
-          })}
+          {relatedPosts &&
+            relatedPosts.map(item => {
+              const params = this.buildParams(item, blog, contextPath, arcSite)
+              return (
+                <BlogRelatedStoriesGridChildCard
+                  key={params.link}
+                  {...params}
+                />
+              )
+            })}
         </div>
       </div>
     )
