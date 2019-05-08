@@ -7,8 +7,6 @@
   }
 
   &__wrapper {
-    display: flex;
-    flex-direction: column;
     background-color: gold;
     padding: 15px 12px 15px 22px;
 
@@ -22,17 +20,7 @@
     }
   }
 
-  &__description {
-    display: flex;
-  }
-
-  &__box-image {
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-  }
-
-  &__box-detail {
+  &__box-details {
     padding: 0 5px 0 10px;
   }
 
@@ -46,14 +34,12 @@
   }
 
   &__name {
-    display: block;
     font-size: 20px;
     line-height: 1.2;
     font-family: $secondary-font;
     font-weight: 700;
     margin-bottom: 15px;
     color: #333;
-    text-transform: uppercase;
 
     &:hover {
       text-decoration: underline;
@@ -64,15 +50,13 @@
     }
   }
 
-  &__grupo {
+  &__group {
     font-weight: 300;
     font-size: 11px;
     margin-bottom: 5px;
-    text-transform: uppercase;
   }
 
   &__title {
-    display: block;
     color: #333;
     width: 90%;
     font-size: 14px;
@@ -92,17 +76,6 @@
       display: flex;
       align-items: center;
       margin-top: 15px;
-    }
-  }
-
-  &__icono {
-    display: flex;
-    font-size: 14px;
-    color: #333;
-    margin-right: 20px;
-
-    &:nth-last-child(1) {
-      margin-right: 0;
     }
   }
 }

@@ -6,9 +6,7 @@
   // 	border-right: solid 1px #333;
   // }
   &__wrapper {
-    display: flex;
     background-color: gold;
-    position: relative;
 
     @media (--tablet) {
       flex-direction: row-reverse;
@@ -22,9 +20,6 @@
   }
 
   &__box-image {
-    display: flex;
-    align-items: flex-start;
-    position: relative;
     padding: 15px 12px;
 
     @media (--tablet) {
@@ -37,10 +32,9 @@
     }
   }
 
-  &__box-detail {
+  &__box-details {
     padding: 15px 12px;
     padding-left: 22px;
-    width: 100%;
   }
 
   &__image {
@@ -62,7 +56,6 @@
   }
 
   &__name {
-    display: block;
     font-size: 26px;
     line-height: 1.2;
     font-family: $secondary-font;
@@ -79,24 +72,19 @@
     }
   }
 
-  &__grupo {
+  &__group {
     font-weight: 300;
     font-size: 11px;
     margin-bottom: 5px;
-    text-transform: uppercase;
   }
 
   &__title {
-    display: block;
     color: #333;
     width: 90%;
-    // max-height: 57.6px;
     font-size: 20px;
     line-height: 1.2;
-    // overflow: hidden;
     font-family: $secondary-font;
     font-weight: 700;
-    text-transform: uppercase;
 
     &:hover {
       text-decoration: underline;
@@ -115,17 +103,6 @@
       display: flex;
       align-items: center;
       margin-top: 15px;
-    }
-  }
-
-  &__icono {
-    display: flex;
-    font-size: 14px;
-    color: #333;
-    margin-right: 20px;
-
-    &:nth-last-child(1) {
-      margin-right: 0;
     }
   }
 }

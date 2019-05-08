@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+
 import DataStory from '../../resources/components/utils/data-story'
 import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
 

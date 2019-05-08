@@ -1,25 +1,16 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-import PropTypes from 'prop-types'
+
 import StoryItem from '../../../global-components/story-item'
 import RenderPagination from '../../../global-components/pagination-by-date'
 import { getActualDate } from '../../../utilities/helpers'
 
 @Consumer
-class ListHomeAuthor extends Component {
-  constructor(props) {
-    super(props)
-    this.renderCount = 0
-  }
-
+class StoriesListArchive extends PureComponent {
   render() {
-    // console.log('props')
-    // console.dir(this.props)
-
     const { globalContent, arcSite, globalContentConfig } = this.props
     const { content_elements: contentElements } = globalContent || {}
     const { query: { section, date } = {} } = globalContentConfig || {}
-
     const params = {
       data: contentElements || [],
       arcSite,
@@ -28,10 +19,10 @@ class ListHomeAuthor extends Component {
     return (
       <Fragment>
         <div>
-          {params.data.map(el => (
+          {params.data.map(story => (
             <StoryItem
-              key={`Archivo_${el._id}`}
-              data={el}
+              key={`Archivo-${story._id}`}
+              data={story}
               arcSite={params.arcSite}
             />
           ))}
@@ -42,9 +33,7 @@ class ListHomeAuthor extends Component {
   }
 }
 
-ListHomeAuthor.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  globalContent: PropTypes.object,
-}
+StoriesListArchive.label = 'Listado de Archivo'
+StoriesListArchive.static = true
 
-export default ListHomeAuthor
+export default StoriesListArchive
