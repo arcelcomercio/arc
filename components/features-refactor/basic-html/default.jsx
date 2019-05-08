@@ -1,6 +1,7 @@
-import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
+import { createMarkup } from '../../utilities/helpers'
 
 @Consumer
 class BasicHtml extends PureComponent {
@@ -25,7 +26,7 @@ class BasicHtml extends PureComponent {
 
   render() {
     const { customFields } = this.props
-    return <div dangerouslySetInnerHTML={{ __html: customFields.freeHtml }} />
+    return <div dangerouslySetInnerHTML={createMarkup(customFields.freeHtml)} />
   }
 }
 

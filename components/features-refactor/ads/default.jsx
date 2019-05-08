@@ -1,6 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { createMarkup } from '../../utilities/helpers'
 import AdsChild from '../../global-components/ads'
 
 const classes = {
@@ -43,7 +44,7 @@ class Ads extends PureComponent {
           classes.flexCenterVertical
         } ${classes.flexColumn} ${classes.overflowHidden}`}>
         <AdsChild {...params} />
-        {freeHtml && <div dangerouslySetInnerHTML={{ __html: freeHtml }} />}
+        {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
       </div>
     )
   }

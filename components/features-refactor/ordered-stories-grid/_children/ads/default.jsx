@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import { createMarkup } from '../../../../utilities/helpers'
 import Ads from '../../../../global-components/ads'
 
 const OrderedStoriesGridAds = props => {
@@ -17,9 +18,6 @@ const OrderedStoriesGridAds = props => {
 
     if (colCLass || rowClass) return `${colCLass} ${rowClass}`
     return ''
-  }
-  const createMarkup = html => {
-    return { __html: html }
   }
 
   const params = {

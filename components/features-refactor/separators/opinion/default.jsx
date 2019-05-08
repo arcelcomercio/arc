@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 import { customFields } from './_dependencies/custom-fields'
+import { createMarkup } from '../../../utilities/helpers'
 import StoryData from '../../../../resources/components/utils/data-story'
 import AuthorCard from './_children/author-card'
 
@@ -9,10 +10,6 @@ const classes = {
   separator: 'separator__opinion',
   opinionBody: 'separator__opinion--body',
   opinionTitle: 'separator__opinion-title',
-}
-
-const createMarkup = html => {
-  return { __html: html }
 }
 
 const HeaderHTML = ({ htmlCode }) => {

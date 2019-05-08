@@ -1,4 +1,5 @@
 import React from 'react'
+import { createMarkup } from '../../../../utilities/helpers'
 import SeparatorItem from './item'
 
 const classes = {
@@ -42,7 +43,7 @@ const SeparatorsBasicChildSeparator = props => {
       ) : (
         <div
           className={classes.title}
-          dangerouslySetInnerHTML={{ __html: htmlCode }}
+          dangerouslySetInnerHTML={createMarkup(htmlCode)}
         />
       )}
       <div className={classes.body}>

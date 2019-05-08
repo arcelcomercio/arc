@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
+import { createMarkup } from '../../../utilities/helpers'
 import cookiesText from './_dependencies/cookies-tpl'
 
 const classes = {
@@ -19,7 +20,7 @@ class StaticCookiePolicies extends PureComponent {
         <span className={classes.arrow} />
         <section
           className={classes.textEditor}
-          dangerouslySetInnerHTML={{ __html: contentEditor || cookiesText }}
+          dangerouslySetInnerHTML={createMarkup(contentEditor || cookiesText)}
         />
       </div>
     )
