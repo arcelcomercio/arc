@@ -1,0 +1,23 @@
+/******* Framework Variables*******/
+@import '../../../general-styles/framework/variables/index';
+/*---------------------*/
+
+/******* Site Variables *******/
+@import './variables/colors';
+@import './variables/dimensions';
+
+@import './partials/import-fonts';
+@import './variables/fonts';
+/*---------------------*/
+
+/******* Framework Core *******/
+@import '../../../general-styles/framework/core/flex';
+@import '../../../general-styles/framework/core/reset';
+
+/******* Partials *******/
+@import './partials/base-amp';
+/*---------------------*/
+
+/******* Components *******/
+@import '../../../general-styles/components/amp';
+/*---------------------*/
