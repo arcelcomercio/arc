@@ -1,4 +1,4 @@
-const filterSchema = () => `
+const schemaFilter = () => `
     {
       content_elements{
         canonical_url
@@ -33,4 +33,4 @@ const filterSchema = () => `
       }
     }
     `
-export default filterSchema
+export default schemaFilter

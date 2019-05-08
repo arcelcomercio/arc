@@ -1,5 +1,4 @@
-export default () => {
-  return `
+export default `
     {
       content_elements{
         canonical_url
@@ -35,4 +34,3 @@ export default () => {
       }
     }
     `
-}

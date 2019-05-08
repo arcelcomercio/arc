@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import filterSchema from './_children/filterschema'
+import schemaFilter from './_children/filterschema'
 
 const classes = {
   breakingnews: 'padding-normal',
@@ -64,7 +64,7 @@ class CintilloUrgente extends Component {
       const { fetched } = this.getContent(
         'story-by-url',
         { website_url: storyLink, website: arcSite },
-        filterSchema
+        schemaFilter
       )
       fetched.then(response => {
         this.setState({ article: response || {} })

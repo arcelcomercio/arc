@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import customFieldsConfig from './dependencies/customfields'
-import filterSchema from './dependencies/filterschema'
+import schemaFilter from './dependencies/filterschema'
 import Data from './dependencies/data'
 import { Triplet as TripletComponent } from './_children/triplet'
 
@@ -35,7 +35,7 @@ class Triplet extends Component {
         const { fetched } = this.getContent(
           API_URL,
           { website_url: customFields[this.DATA_KEY + i], website: arcSite },
-          filterSchema(arcSite)
+          schemaFilter(arcSite)
         )
         fetched.then(response => this.setAuxData(response, i))
       } else this.setAuxData({}, i)

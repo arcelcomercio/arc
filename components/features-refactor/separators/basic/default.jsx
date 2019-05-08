@@ -49,7 +49,7 @@ class SeparatorBasic extends PureComponent {
         section,
         news_number: newsNumber,
       },
-      schemaFilter()
+      schemaFilter
     )
     fetched
       .then(

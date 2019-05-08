@@ -1,4 +1,4 @@
-const filterSchema = () => {
+const schemaFilter = () => {
   return `
     {
       content_elements{
@@ -37,4 +37,4 @@ const filterSchema = () => {
     `
 }
 
-export default filterSchema
+export default schemaFilter

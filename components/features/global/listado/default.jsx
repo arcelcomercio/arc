@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 import customFields from './_children/customFields'
-import filterSchema from './_children/filterSchema'
+import schemaFilter from './_children/schemaFilter'
 
 import StoriesListCardHeader from './_children/stories-list-card-header'
 import ListItemNews from './_children/ListItemNews'
@@ -54,7 +54,7 @@ class Lista extends PureComponent {
         section,
         news_number: newsNumber,
       },
-      filterSchema()
+      schemaFilter()
     )
     fetched.then(response => {
       const { content_elements: contentElements } = response || {}

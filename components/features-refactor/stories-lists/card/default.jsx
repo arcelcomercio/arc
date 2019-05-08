@@ -54,7 +54,7 @@ class StoriesListCard extends PureComponent {
         section,
         news_number: newsNumber,
       },
-      schemaFilter()
+      schemaFilter
     )
     fetched.then(response => {
       const { content_elements: contentElements } = response || {}

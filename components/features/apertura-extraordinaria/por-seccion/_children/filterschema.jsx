@@ -1,7 +1,7 @@
-import filterSchemaParent from '../../_children/filterschema'
+import schemaFilterParent from '../../_children/filterschema'
 
-const filterSchema = arcSite => `{
+const schemaFilter = arcSite => `{
     content_elements 
-        ${filterSchemaParent(arcSite)}
+        ${schemaFilterParent(arcSite)}
 }`
-export default filterSchema
+export default schemaFilter

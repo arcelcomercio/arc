@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import customFieldsExtern from './_children/customfields'
-import filterSchema from './_children/filterschema'
+import schemaFilter from './_children/filterschema'
 import Data from '../_children/data'
 import ExtraordinaryStory from '../../../global-components/extraordinary-story'
 
@@ -45,7 +45,7 @@ class ExtraordinaryStoryBySection extends Component {
         feedOffset: positionData || 0,
         news_number: API_SIZE_DATA,
       },
-      filterSchema(arcSite)
+      schemaFilter(arcSite)
     )
     fetched.then(response => {
       this.setState({ data: response || {} })

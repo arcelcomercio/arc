@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import CustomFieldsImport from './_dependencies/custom-fields'
-import filterSchema from './_dependencies/schema-filter'
+import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../../resources/components/utils/data-story'
 
 const classes = {
@@ -44,7 +44,7 @@ class CardTabloid extends PureComponent {
         news_number: 1,
       },
 
-      filterSchema(arcSite)
+      schemaFilter(arcSite)
     )
 
     fetched

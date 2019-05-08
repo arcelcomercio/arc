@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import OpinionComponent from './_children/OpinionComponent'
-import filterSchema from './_children/filterSchema'
+import schemaFilter from './_children/schemaFilter'
 import customFieldsImp from './_children/customField'
 
 @Consumer
@@ -27,7 +27,7 @@ class Opinion extends Component {
       section2,
       section3,
       section4,
-      
+
       listNews: [],
     }
   }
@@ -37,20 +37,14 @@ class Opinion extends Component {
   }
 
   init = () => {
-    const {
-      section1,
-      section2,
-      section3,
-      section4,
-      
-    } = this.state
+    const { section1, section2, section3, section4 } = this.state
 
     const listaSecciones = [section1, section2, section3, section4]
-    const listNews={}
-    listNews.data1={}
-    listNews.data2={}
-    listNews.data3={}
-    listNews.data4={}
+    const listNews = {}
+    listNews.data1 = {}
+    listNews.data2 = {}
+    listNews.data3 = {}
+    listNews.data4 = {}
 
     listaSecciones.forEach((element, index) => {
       this.getContentApi(element, result => {
@@ -74,7 +68,7 @@ class Opinion extends Component {
           section: seccion,
         },
 
-        filterSchema()
+        schemaFilter()
       )
 
       fetched

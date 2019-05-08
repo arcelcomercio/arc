@@ -1,4 +1,4 @@
-const filterSchema = arcSite => `{
+const schemaFilter = arcSite => `{
     headlines {
         basic
     }
@@ -49,4 +49,4 @@ const filterSchema = arcSite => `{
         }
     }
 }`
-export default filterSchema
+export default schemaFilter

@@ -1,5 +1,4 @@
-const filterSchema = arcSite => {
-  return `
+export default (arcSite) => `
     {
       content_elements{
         canonical_url
@@ -42,6 +41,3 @@ const filterSchema = arcSite => {
       }
     }
     `
-}
-
-export default filterSchema

@@ -4,7 +4,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import filterSchema from './_children/filterschema'
+import schemaFilter from './_children/filterschema'
 import SeparatorListItem from './_children/item'
 
 const classes = {
@@ -57,7 +57,7 @@ class Separador extends Component {
         section,
         news_number,
       },
-      filterSchema()
+      schemaFilter()
     )
     fetched.then(response => {
       const { content_elements: contentElements } = response || {}

@@ -1,6 +1,6 @@
 import StoryData from '../../../../../resources/components/utils/data-story'
 
-class DataStoryArchivo extends StoryData {
+class ArchiveStoryData extends StoryData {
   constructor(data, website) {
     super(data, website)
     this._data = data
@@ -12,4 +12,4 @@ class DataStoryArchivo extends StoryData {
     return `${authorLink}?website=${this._website}`
   }
 }
-export default DataStoryArchivo
+export default ArchiveStoryData

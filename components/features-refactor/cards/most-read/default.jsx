@@ -31,7 +31,7 @@ class CardMostRead extends PureComponent {
       globalContentConfig,
       storiesQty
     )
-    const { fetched } = this.getContent(source, params, schemaFilter())
+    const { fetched } = this.getContent(source, params, schemaFilter)
     // FIXME
     fetched
       .then(response => {
@@ -48,8 +48,7 @@ class CardMostRead extends PureComponent {
           })
         }
       })
-      .catch(error => {
-        console.log(error)
+      .catch(() => {
         this.setState({
           stories: setDataTest(storiesQty),
         })

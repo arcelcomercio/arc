@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import CustomFieldsImport from './_children/customFields'
-import filterSchema from './_children/filterSchema'
+import schemaFilter from './_children/schemaFilter'
 import StoryData from '../../../../resources/components/utils/data-story'
 
 const classes = {
@@ -44,7 +44,7 @@ class Tabloide extends Component {
         news_number: 1,
       },
 
-      filterSchema(arcSite)
+      schemaFilter(arcSite)
     )
 
     fetched

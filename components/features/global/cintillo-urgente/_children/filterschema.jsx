@@ -1,4 +1,4 @@
-const filterSchema = `{
+const schemaFilter = `{
     headlines {
         basic
     }
@@ -8,4 +8,4 @@ const filterSchema = `{
     website
     website_url
 }`
-export default filterSchema
+export default schemaFilter

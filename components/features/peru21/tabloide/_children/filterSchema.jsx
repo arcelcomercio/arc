@@ -1,4 +1,4 @@
-const filterSchema = arcSite => {
+const schemaFilter = arcSite => {
   return `
     {
       content_elements{
@@ -44,4 +44,4 @@ const filterSchema = arcSite => {
     `
 }
 
-export default filterSchema
+export default schemaFilter

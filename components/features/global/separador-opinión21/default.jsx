@@ -69,7 +69,7 @@ class SeparadorOpinion extends Component {
         news_number: newsNumber,
         section,
       },
-      this.filterSchema()
+      this.schemaFilter()
     )
     fetched.then(({ content_elements: contentElements = [] } = {}) => {
       const newDatos = []
@@ -122,7 +122,7 @@ class SeparadorOpinion extends Component {
     return 'desktop'
   }
 
-  filterSchema = () => {
+  schemaFilter = () => {
     return `
     {
       content_elements{

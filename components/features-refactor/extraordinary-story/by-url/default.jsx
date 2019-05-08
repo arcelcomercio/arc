@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import customFieldsExtern from './_dependencies/custom-fields'
-import filterSchema from '../_dependencies/schema-filter'
+import schemaFilter from '../_dependencies/schema-filter'
 import Data from '../_dependencies/data'
 import ExtraordinaryStory from '../../../global-components/extraordinary-story'
 
@@ -37,7 +37,7 @@ class ExtraordinaryStoryByUrl extends Component {
     } = this.props
 
     this.mainLogic
-      .fetch(API_URL, link, filterSchema(arcSite))
+      .fetch(API_URL, link, schemaFilter(arcSite))
       .then(response => {
         this.setState(this.mainLogic.dataState(response))
       })

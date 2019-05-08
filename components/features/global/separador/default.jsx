@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import filterSchema from './_children/filterSchema'
+import schemaFilter from './_children/schemaFilter'
 import customFieldsImport from './_children/CustomFieldsImport'
 import SeparatorList from './_children/separadorList'
 
@@ -49,7 +49,7 @@ class Separador extends Component {
         section,
         news_number: newsNumber,
       },
-      filterSchema()
+      schemaFilter()
     )
     fetched
       .then(
@@ -111,9 +111,11 @@ class Separador extends Component {
   }
 
   render() {
-    const { titleSeparator, arcSite,titleLink, htmlCode, items } = this.state
+    const { titleSeparator, arcSite, titleLink, htmlCode, items } = this.state
     return (
-      <SeparatorList data={{ titleSeparator, arcSite, titleLink, htmlCode, items }} />
+      <SeparatorList
+        data={{ titleSeparator, arcSite, titleLink, htmlCode, items }}
+      />
     )
     /**
      *    data: {

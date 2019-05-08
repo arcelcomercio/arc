@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import MoreReadComponent from './_children/more-read'
-import filterSchema from './_dependencies/filterSchema'
+import schemaFilter from './_dependencies/schemaFilter'
 import { setDataTest, castingData } from './_dependencies/castingData'
 import configFetch from './_dependencies/configFetch'
 
@@ -29,7 +29,7 @@ class MoreRead extends Component {
       globalContentConfig,
       storiesQty
     )
-    const { fetched } = this.getContent(source, params, filterSchema())
+    const { fetched } = this.getContent(source, params, schemaFilter())
     // FIXME
     fetched
       .then(response => {

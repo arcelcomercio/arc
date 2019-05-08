@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-const filterSchema = arcSite => `{
+const schemaFilter = arcSite => `{
     headlines {
         basic
     }
@@ -55,4 +55,4 @@ const filterSchema = arcSite => `{
     }
 }`
 // TODO: improve the data of promo_items nodes
-export default filterSchema
+export default schemaFilter
