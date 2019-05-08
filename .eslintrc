@@ -27,7 +27,8 @@
   "globals": {
     "document": true,
     "window": true,
-    "location": true
+    "location": true,
+    "fetch": false
   },
   "parser": "babel-eslint"
 }
