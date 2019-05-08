@@ -6,7 +6,7 @@ import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 
 @Consumer
-class FeaturedStoryAuto extends PureComponent {
+class CardFeaturedStoryAuto extends PureComponent {
   constructor(props) {
     super(props)
     this.storyFormatter = new StoryFormatter(props.arcSite)
@@ -63,7 +63,7 @@ class FeaturedStoryAuto extends PureComponent {
   }
 }
 
-FeaturedStoryAuto.propTypes = {
+CardFeaturedStoryAuto.propTypes = {
   customFields: PropTypes.shape({
     section: PropTypes.string.tag({
       name: 'Path de la sección',
@@ -112,6 +112,6 @@ FeaturedStoryAuto.propTypes = {
   }),
 }
 
-FeaturedStoryAuto.label = 'Destaque Automático'
+CardFeaturedStoryAuto.label = 'Destaque Automático'
 
-export default FeaturedStoryAuto
+export default CardFeaturedStoryAuto
