@@ -153,6 +153,4 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
   }
 }
 
-StaticCinemaBillboardChildGenreMoviesFilter.label = 'Grilla de Películas'
-
 export default StaticCinemaBillboardChildGenreMoviesFilter

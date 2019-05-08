@@ -1,11 +1,30 @@
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
 import { ResizeImageUrl } from '../../../utilities/helpers'
 
-// TODO: Fix classes
+const classes = {
+  cinemaCard: 'cinema-card padding-normal row-1',
+  container: 'position-relative',
+  gradient: 'cinema-card__gradient full-width',
+  category: 'cinema-card__category',
+  link: 'cinema-card__link',
+  figure: 'cinema-card__figure',
+  image: 'full-width cinema-card__img',
+  detail: 'cinema-card__detail full-width',
+  premiere: 'cinema-card__premiere',
+  movieTitle: 'cinema-card__p-title',
+  movieLink: 'cinema-card__p-link',
+  moviesList: 'cinema-card__movies-list',
+  title: 'cinema-card__title',
+  form: 'cinema-card__form',
+  selectsContainer: 'cinema-card__selects-container',
+  select: 'cinema-card__select',
+  option: 'cinema-card__option',
+  button: 'cinema-card__button',
+}
 
 @Consumer
-class CinemaBillboardCard extends Component {
+class CardCinemaBillboard extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -92,17 +111,17 @@ class CinemaBillboardCard extends Component {
     const { contextPath, arcSite } = this.props
 
     return (
-      <div className="cinema-card padding-normal row-1">
-        <article className="position-relative">
-          <span className="cinema-card__gradient full-width" />
-          <h3 className="cinema-card__category">
+      <div className={classes.cinemaCard}>
+        <article className={classes.container}>
+          <span className={classes.gradient} />
+          <h3 className={classes.category}>
             <a
-              className="cinema-card__link"
+              className={classes.link}
               href={`${contextPath}/cartelera?_website=${arcSite}`}>
               Cartelera
             </a>
           </h3>
-          <figure className="cinema-card__figure">
+          <figure className={classes.figure}>
             <a
               href={`${contextPath}/cartelera/peliculas/${
                 premiereData.url
@@ -110,15 +129,15 @@ class CinemaBillboardCard extends Component {
               <img
                 src={premiereData.img}
                 alt={premiereData.alt}
-                className="full-width cinema-card__img"
+                className={classes.image}
               />
             </a>
           </figure>
-          <div className="cinema-card__detail full-width">
-            <span className="cinema-card__premiere">Estreno</span>
-            <h2 className="cinema-card__p-title">
+          <div className={classes.detail}>
+            <span className={classes.premiere}>Estreno</span>
+            <h2 className={classes.movieTitle}>
               <a
-                className="cinema-card__p-link"
+                className={classes.movieLink}
                 href={`${contextPath}/cartelera/peliculas/${
                   premiereData.url
                 }?_website=${arcSite}`}>
@@ -127,30 +146,30 @@ class CinemaBillboardCard extends Component {
             </h2>
           </div>
         </article>
-        <div className="cinema-card__movies-list">
-          <h4 className="cinema-card__title">Vamos al cine</h4>
+        <div className={classes.moviesList}>
+          <h4 className={classes.title}>Vamos al cine</h4>
           <form
             action="/cartelera/search"
             method="post"
-            className="cinema-card__form"
+            className={classes.form}
             onSubmit={e => this.handleSubmit(e)}>
-            <div className="cinema-card__selects-container">
+            <div className={classes.selectsContainer}>
               <select
                 name="movie"
-                className="cinema-card__select"
+                className={classes.select}
                 value={movieSelected}
                 onChange={e => this.handleMovieSelected(e)}>
                 <option
                   value=""
                   defaultValue
                   disabled
-                  className="cinema-card__option">
+                  className={classes.option}>
                   PELÍCULAS
                 </option>
                 {billboardData.moviesList.map(movie => (
                   <option
                     value={movie.url}
-                    className="cinema-card__option"
+                    className={classes.option}
                     key={movie.mid}>
                     {movie.title}
                   </option>
@@ -158,27 +177,27 @@ class CinemaBillboardCard extends Component {
               </select>
               <select
                 name="theater"
-                className="cinema-card__select"
+                className={classes.select}
                 value={cinemaSelected}
                 onChange={e => this.handleCinemaSelected(e)}>
                 <option
                   value=""
                   defaultValue
                   disabled
-                  className="cinema-card__option">
+                  className={classes.option}>
                   CINES
                 </option>
                 {billboardData.cinemasList.map(cinema => (
                   <option
                     value={cinema.url}
-                    className="cinema-card__option"
+                    className={classes.option}
                     key={cinema.cid}>
                     {cinema.nombre}
                   </option>
                 ))}
               </select>
             </div>
-            <button type="submit" className="cinema-card__button">
+            <button type="submit" className={classes.button}>
               Buscar
             </button>
           </form>
@@ -188,6 +207,6 @@ class CinemaBillboardCard extends Component {
   }
 }
 
-CinemaBillboardCard.label = 'Cartelera'
+CardCinemaBillboard.label = 'Mini-Cartelera'
 
-export default CinemaBillboardCard
+export default CardCinemaBillboard

@@ -3,13 +3,12 @@ import React, { PureComponent } from 'react'
 import renderHTML from 'react-render-html'
 import { getFullDateIso8601 } from '../../../utilities/helpers'
 
-const classes ={
-  bpcontent:'bp-content',
-  pdnormal:'padding-normal',
-  bpcontentheader:'bp-content__header',
-  bpcontentauthor:'bp-content__author',
-  bpcontentdate:'bp-content__date',
-  bpcontentnews:'bp-content__news',
+const classes = {
+  content: 'bp-content padding-normal',
+  header: 'bp-content__header',
+  author: 'bp-content__author',
+  date: 'bp-content__date',
+  news: 'bp-content__news',
 }
 
 @Consumer
@@ -22,15 +21,16 @@ class BlogPostContent extends PureComponent {
     const { first_name: firstName } = user || {}
     const formatDate = getFullDateIso8601(postDate)
     const { day, month, fullYear, hours, minutes } = formatDate || {}
+
     return (
-      <div className={`${classes.bpcontent} ${classes.pdnormal}`} >
-        <div className= {classes.bpcontentheader}>
-          <span className={classes.bpcontentauthor}>{firstName}</span>{' '}
-          <time className={classes.bpcontentdate}>
+      <div className={classes.content}>
+        <div className={classes.header}>
+          <span className={classes.author}>{firstName}</span>{' '}
+          <time className={classes.date}>
             {formatDate && `${day}/${month}/${fullYear} ${hours}:${minutes}`}
           </time>
         </div>
-        <div className={classes.bpcontentnews}>
+        <div className={classes.news}>
           {postContent && renderHTML(postContent)}
         </div>
       </div>

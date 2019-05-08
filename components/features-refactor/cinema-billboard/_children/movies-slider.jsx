@@ -145,5 +145,4 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
   }
 }
 
-StaticCinemaBillboardChildMoviesSlider.label = 'Slider de Película'
 export default StaticCinemaBillboardChildMoviesSlider

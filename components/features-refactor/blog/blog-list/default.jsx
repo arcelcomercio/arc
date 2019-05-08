@@ -3,6 +3,11 @@ import Consumer from 'fusion:consumer'
 import BlogItem from './_children/Item'
 import { formatDate } from '../../../utilities/helpers'
 
+const classes = {
+  list: 'bg--white blog-list',
+  listTitle: 'text-uppercase blog-list__title',
+}
+
 @Consumer
 class BlogList extends PureComponent {
   transformDate = postDate => {
@@ -17,7 +22,7 @@ class BlogList extends PureComponent {
       .join('/')
   }
 
-  buildParams = item => {
+  buildParams = blog => {
     const {
       blog: { blogname = '', path = '#' } = {},
       posts: [
@@ -32,7 +37,7 @@ class BlogList extends PureComponent {
         first_name: firstName = '',
         last_name: lastName = '',
       } = {},
-    } = item
+    } = blog
 
     const { contextPath = '', arcSite = 'elcomercio' } = this.props
 
@@ -53,17 +58,12 @@ class BlogList extends PureComponent {
       item => typeof item === 'object'
     )
 
-    const classes = {
-      list: 'bg--white blog-list',
-      listTitle: 'text-uppercase blog-list__title',
-    }
-
     return (
       <div className={classes.list}>
         <h1 className={classes.listTitle}>blogs</h1>
         <div>
-          {blogs.map(item => {
-            const params = this.buildParams(item)
+          {blogs.map(blog => {
+            const params = this.buildParams(blog)
             return <BlogItem key={params.urlPost} {...params} />
           })}
         </div>
@@ -72,7 +72,7 @@ class BlogList extends PureComponent {
   }
 }
 
-BlogList.label = 'Listado Blogs'
+BlogList.label = 'Blog - Listado blogs'
 BlogList.static = true
 
 export default BlogList

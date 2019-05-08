@@ -39,11 +39,9 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
     this.billboardFormat.setData = data
     const { cinemaList } = this.billboardFormat
     const matchedCinema = cinemaList.find(itemCine => itemCine.url === cinema)
-    const movies = matchedCinema.peliculas.filter((data, index, arr) => {
-      return arr.map(mapObj => mapObj.mid).indexOf(data.mid) === index
+    const movies = matchedCinema.peliculas.filter((movie, index, arr) => {
+      return arr.map(mapObj => mapObj.mid).indexOf(movie.mid) === index
     })
-
-    console.log(movies)
 
     this.setState({
       movies,
@@ -103,15 +101,11 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
                       </p>
                       <p className={classes.subtitle}>
                         Director:
-                        <span className={classes.description}>
-                          {director}
-                        </span>
+                        <span className={classes.description}>{director}</span>
                       </p>
                       <p className={classes.subtitle}>
                         Actores:
-                        <span className={classes.description}>
-                          {actores}
-                        </span>
+                        <span className={classes.description}>{actores}</span>
                       </p>
                       <p className={classes.subtitle}>
                         Calificación:
