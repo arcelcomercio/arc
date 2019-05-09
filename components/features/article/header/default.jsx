@@ -1,7 +1,5 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
-
 import ArticleHeaderChildHeading from './_children/heading'
 import ArticleHeaderChildShareSubheading from './_children/subheading'
 import ArticleHeaderChildGallery from './_children/gallery'
@@ -47,11 +45,6 @@ class ArticleHeader extends Component {
       </Fragment>
     )
   }
-}
-
-ArticleHeader.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  globalContent: PropTypes.object,
 }
 
 ArticleHeader.static = true
