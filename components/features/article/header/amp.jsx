@@ -1,11 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent, Fragment } from 'react'
-import PropTypes from 'prop-types'
-
-import Heading from './_children/heading'
-import Subheading from './_children/subheading'
+import getProperties from 'fusion:properties'
 import Gallery from './_children/gallery'
-import Share from './_children/share'
 import {
   popUpWindow,
   socialMediaUrlShareList,
@@ -19,6 +15,8 @@ const classes = {
   share: 'amp-header__share',
   breadcrumb: 'amp-header__breadcrumb',
   item: 'amp-header--item',
+  link: 'amp-header__link flex-center-vertical flex--justify-center',
+  list: 'amp-header__list flex',
   gallery: 'col-3',
 }
 @Consumer
@@ -30,13 +28,12 @@ class ArticleHeader extends PureComponent {
     this.state = {
       currentList: this.firstList,
     }
-    const { globalContent } = props
     const {
-      post: {
-        post_permalink: postPermaLink = 'd',
-        post_title: postTitle = 'd',
-      } = {},
-    } = globalContent || {}
+      globalContent: {
+        website_url: postPermaLink,
+        headlines: { basic: postTitle } = {},
+      },
+    } = props
     const urlsShareList = socialMediaUrlShareList(postPermaLink, postTitle)
     this.shareButtons = {
       [this.firstList]: [
@@ -69,6 +66,12 @@ class ArticleHeader extends PureComponent {
     }
   }
 
+  getSeccionPrimary = dataArticle => {
+    return dataArticle.taxonomy
+      ? dataArticle.taxonomy.primary_section
+      : { name: '', section: '' }
+  }
+
   handleMoreButton = () => {
     const { currentList } = this.state
     const newList =
@@ -84,15 +87,16 @@ class ArticleHeader extends PureComponent {
 
   render() {
     const { currentList } = this.state
-    const { globalContent } = this.props
     const {
-      website_url: baseUrl = '',
-      headlines: titleElements = '',
-      publish_date: date,
-      subheadlines: subtitle = '',
-      promo_items: galleryItems = {},
-    } = globalContent || {}
-
+      arcSite,
+      globalContent: {
+        subheadlines: subtitle = '',
+        headlines: titleElements = '',
+        publish_date: date,
+        promo_items: galleryItems = {},
+      } = {},
+    } = this.props
+    const { siteName } = getProperties(arcSite)
     return (
       <Fragment>
         <div
@@ -105,7 +109,7 @@ class ArticleHeader extends PureComponent {
           }>
           <ul className={classes.breadcrumb}>
             <li className={classes.item}>
-              <a href="http://elcomercio.pe/elcomercio">El Comercio</a>
+              <a href="/">{siteName}</a>
             </li>
             <li className={classes.item}>
               <a href="http://elcomercio.pe/politica">Política</a>
@@ -115,9 +119,7 @@ class ArticleHeader extends PureComponent {
             {titleElements && (
               <h1 className={classes.titleAmp}> {titleElements.basic}</h1>
             )}
-            <time
-              datetime="2019-05-07T20:11:26-05:00"
-              className={classes.datetime}>
+            <time datetime={date} className={classes.datetime}>
               {formatDayMonthYear(date)}
             </time>
           </header>
@@ -125,11 +127,11 @@ class ArticleHeader extends PureComponent {
           {subtitle && subtitle.basic && (
             <div className={classes.description}> {subtitle.basic}</div>
           )}
-          <ul className="amp-header__list flex">
+          <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (
               <li className={`amp-header__item ${item.mobileClass}`}>
                 <a
-                  className="amp-header__link flex-center-vertical flex--justify-center"
+                  className={classes.link}
                   href={item.link}
                   onClick={event => {
                     const isPrint = i === 2 && currentList === this.secondList

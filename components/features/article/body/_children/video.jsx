@@ -1,8 +1,7 @@
 // content/sources/content-api-v4.js
 import { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
-
 import renderHTML from 'react-render-html'
+import Consumer from 'fusion:consumer'
 
 @Consumer
 class ArticleBodyChildVideo extends PureComponent {

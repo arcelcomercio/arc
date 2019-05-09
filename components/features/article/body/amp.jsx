@@ -4,7 +4,6 @@ import ArticleBody, {
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
 import ElePrincipal from './_children/amp-ele-principal'
 
 @Consumer
@@ -17,7 +16,7 @@ class ArticleAMPArticleBody extends Component {
       },
     } = this.props
     const elementClasses = {
-      textClasses: 'article-body news-text-content',
+      textClasses: 'amp-body__news-text',
       headerClasses: 'font--primary',
       imageClasses: 'visual__image visual__image--cover',
     }
@@ -62,11 +61,6 @@ class ArticleAMPArticleBody extends Component {
       </Fragment>
     )
   }
-}
-
-ArticleAMPArticleBody.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  globalContent: PropTypes.object,
 }
 
 export default ArticleAMPArticleBody
