@@ -1,7 +1,15 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import renderHTML from 'react-render-html'
-import { getFullDateIso8601 } from '../../../../resources/utilsJs/helpers'
+import { getFullDateIso8601 } from '../../../utilities/helpers'
+
+const classes = {
+  content: 'bp-content padding-normal',
+  header: 'bp-content__header',
+  author: 'bp-content__author',
+  date: 'bp-content__date',
+  news: 'bp-content__news',
+}
 
 @Consumer
 class BlogPostContent extends PureComponent {
@@ -13,15 +21,16 @@ class BlogPostContent extends PureComponent {
     const { first_name: firstName } = user || {}
     const formatDate = getFullDateIso8601(postDate)
     const { day, month, fullYear, hours, minutes } = formatDate || {}
+
     return (
-      <div className="bp-content padding-normal">
-        <div className="bp-content__header">
-          <span className="bp-content__author">{firstName}</span>{' '}
-          <time className="bp-content__date">
-            {formatDate && (`${day}/${month}/${fullYear} ${hours}:${minutes}`)}
+      <div className={classes.content}>
+        <div className={classes.header}>
+          <span className={classes.author}>{firstName}</span>{' '}
+          <time className={classes.date}>
+            {formatDate && `${day}/${month}/${fullYear} ${hours}:${minutes}`}
           </time>
         </div>
-        <div className="bp-content__news">
+        <div className={classes.news}>
           {postContent && renderHTML(postContent)}
         </div>
       </div>

@@ -1,3 +1,3 @@
-import { storySchema } from '../../resources/utilsJs/schemas'
+import { storySchema } from '../../components/utilities/schemas'
 
 export default storySchema

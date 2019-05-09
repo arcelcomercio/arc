@@ -7,7 +7,7 @@ import MoviesList from './_children/movies-list'
 import MoviesFilter from './_children/movies-filter'
 
 @Consumer
-class CinemaBillboard extends PureComponent {
+class StaticCinemaBillboard extends PureComponent {
   render() {
     const {
       globalContentConfig,
@@ -23,6 +23,7 @@ class CinemaBillboard extends PureComponent {
       cinema,
       genre,
     }
+
     return (
       <Fragment>
         {/* Si no hay pelicula ni cine */}
@@ -72,6 +73,6 @@ class CinemaBillboard extends PureComponent {
   }
 }
 
-CinemaBillboard.label = 'Cartelera de Cine'
+StaticCinemaBillboard.label = 'Cartelera de Cine'
 
-export default CinemaBillboard
+export default StaticCinemaBillboard

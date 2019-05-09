@@ -2,7 +2,17 @@
   "extends": ["airbnb", "prettier", "prettier/react"],
   "plugins": ["prettier"],
   "rules": {
-    "import/no-unresolved": false,
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": true,
+      "optionalDependencies": false,
+      "peerDependencies": false
+    }],
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ["react", "fusion:consumer"]
+      }
+    ],
     "react/prop-types": [
       "enabled",
       {
@@ -22,7 +32,8 @@
   "globals": {
     "document": true,
     "window": true,
-    "location": true
+    "location": true,
+    "fetch": false
   },
   "parser": "babel-eslint"
 }

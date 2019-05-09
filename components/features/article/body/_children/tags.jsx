@@ -5,7 +5,7 @@ const classes = {
   titulo: 'article-body__tag-title',
   item: 'article-body__tag-item',
 }
-export default props => {
+const ArticleBodyChildTags = props => {
   const { data: { tags: data = [] } = {} } = props
   return (
     data && (
@@ -24,3 +24,5 @@ export default props => {
     )
   )
 }
+
+export default ArticleBodyChildTags

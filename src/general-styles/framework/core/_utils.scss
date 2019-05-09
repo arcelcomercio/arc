@@ -1,3 +1,13 @@
+/******** DIMENSIONS **********/
+
+.full-width {
+  width: 100%;
+}
+
+.height-inherit {
+  height: inherit;
+}
+
 .margin-top {
   margin-top: $spacing-normal;
 }
@@ -23,6 +33,18 @@
   padding-right: $spacing-normal;
 }
 
+/******************************************/
+
+/******** DISPLAYS **********/
+
+.block {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
 .no-desktop,
 [id^='ads-m'],
 [id^='ads_m'] {
@@ -39,21 +61,7 @@
   }
 }
 
-.block {
-  display: block;
-}
-
-.hide {
-  display: none;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.height-inherit {
-  height: inherit;
-}
+/******************************************/
 
 /******** TEXT **********/
 .text-center {
@@ -71,6 +79,10 @@
 .text-uppercase {
   text-transform: uppercase;
 }
+
+/******************************************/
+
+/******** OVERFLOW **********/
 
 .scroll-vertical {
   overflow-y: scroll;
@@ -91,6 +103,8 @@
 .overflow-hidden {
   overflow: hidden;
 }
+
+/******************************************/
 
 /******* Background-text contrast *******/
 .bg--white {
@@ -117,7 +131,9 @@
   color: $color-white;
 }
 
-/*-----------------------*/
+/******************************************/
+
+/******** POSITION **********/
 
 .position-relative {
   position: relative;
@@ -126,3 +142,24 @@
 .position-absolute {
   position: absolute;
 }
+
+/*-----------------------*/
+.clearfix {
+  display: table;
+  content: '';
+}
+
+/******************************************/
+
+// TODO: Revisar ubicacion de esto
+/********** BUTTON ***********/
+
+.btn {
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 0 4px;
+  line-height: 16px;
+  cursor: pointer;
+}
+
+/*****************************************/

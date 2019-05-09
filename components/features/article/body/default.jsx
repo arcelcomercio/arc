@@ -1,16 +1,16 @@
 // file path: ArticleBodyContent.js
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import ArticleBody from '@arc-core-components/feature_article-body'
+import ArcArticleBody from '@arc-core-components/feature_article-body'
 
-import Video from './_children/video'
-import Imagen from './_children/article-image'
-import Gallery from '../header/_children/gallery'
-import Blockquote from './_children/blockquote'
-import Table from './_children/table'
-import Tags from './_children/tags'
-import Autor from './_children/autor'
-import ElePrincipal from './_children/ele-principal'
+import ArticleBodyChildVideo from './_children/video'
+import ArticleBodyChildArticleImage from './_children/image'
+import ArticleHeaderChildGallery from '../header/_children/gallery'
+import ArticleBodyChildBlockQuote from './_children/blockquote'
+import ArticleBodyChildTable from './_children/table'
+import ArticleBodyChildTags from './_children/tags'
+import ArticleBodyChildAuthor from './_children/author'
+import ArticleBodyChildMultimedia from './_children/multimedia'
 
 const classes = {
   news: 'article-body news-text-content col-2 padding-normal bg-color--white',
@@ -18,7 +18,7 @@ const classes = {
   newsImage: 'article-body__image article-body__image--cover',
 }
 @Consumer
-class ArticleBodyContent extends PureComponent {
+class ArticleBody extends PureComponent {
   render() {
     const { globalContent } = this.props
     const {
@@ -31,33 +31,38 @@ class ArticleBodyContent extends PureComponent {
 
     return (
       <div className={classes.news}>
-        {promoItems && <ElePrincipal data={promoItems} />}
-        {author && <Autor data={author} date={date} />}
+        {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
+        {author && <ArticleBodyChildAuthor data={author} date={date} />}
         {contentElements && (
-          <ArticleBody
+          <ArcArticleBody
             data={contentElements}
             classes={classes}
             renderElement={element => {
               const { type } = element
               if (type === 'image') {
-                return <Imagen data={element} className={classes.newsImage} />
+                return (
+                  <ArticleBodyChildArticleImage
+                    data={element}
+                    className={classes.newsImage}
+                  />
+                )
               }
               if (type === 'video') {
                 return (
-                  <Video
+                  <ArticleBodyChildVideo
                     data={element.embed_html}
                     className={classes.newsImage}
                   />
                 )
               }
               if (type === 'gallery') {
-                return <Gallery data={element} type={type} />
+                return <ArticleHeaderChildGallery data={element} type={type} />
               }
               if (type === 'table') {
-                return <Table data={element} type={type} />
+                return <ArticleBodyChildTable data={element} type={type} />
               }
               if (type === 'quote') {
-                return <Blockquote data={element} />
+                return <ArticleBodyChildBlockQuote data={element} />
               }
               if (type === 'oembed_response') {
                 return ''
@@ -66,10 +71,13 @@ class ArticleBodyContent extends PureComponent {
             }}
           />
         )}
-        {taxonomy && <Tags data={taxonomy} />}
+        {taxonomy && <ArticleBodyChildTags data={taxonomy} />}
       </div>
     )
   }
 }
 
-export default ArticleBodyContent
+ArticleBody.label = 'Artículo - contenido'
+ArticleBody.static = true
+
+export default ArticleBody

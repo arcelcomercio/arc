@@ -1,24 +1,24 @@
 import React, { PureComponent } from 'react'
-import BillboardFormat from '../../../../resources/utilsJs/billboardFormat'
+import BillboardFormat from '../../../utilities/billboard-format'
 
-class MoviesList extends PureComponent {
-  classes = {
-    movieList: 'movie-list',
-    top: 'movie-list__top flex-center flex--column',
-    cinema: 'movie-list__cinema text-uppercase',
-    address: 'movie-list__address',
-    box: 'movie-list__box',
-    movieItem: 'movie-item flex flex--column',
-    leftSide: 'movie-item__left',
-    imageBox: 'block full-width',
-    image: 'movie-item__img full-width',
-    title: 'movie-item__title',
-    function: 'movie-item__function',
-    rightSide: 'movie-item__right',
-    subtitle: 'movie-item__subtitle',
-    description: 'movie-item__description',
-  }
+const classes = {
+  movieList: 'movie-list',
+  top: 'movie-list__top flex-center flex--column',
+  cinema: 'movie-list__cinema text-uppercase',
+  address: 'movie-list__address',
+  box: 'movie-list__box',
+  movieItem: 'movie-item flex flex--column',
+  leftSide: 'movie-item__left',
+  imageBox: 'block full-width',
+  image: 'movie-item__img full-width',
+  title: 'movie-item__title',
+  function: 'movie-item__function',
+  rightSide: 'movie-item__right',
+  subtitle: 'movie-item__subtitle',
+  description: 'movie-item__description',
+}
 
+class StaticCinemaBillboardChildMoviesList extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -39,11 +39,9 @@ class MoviesList extends PureComponent {
     this.billboardFormat.setData = data
     const { cinemaList } = this.billboardFormat
     const matchedCinema = cinemaList.find(itemCine => itemCine.url === cinema)
-    const movies = matchedCinema.peliculas.filter((data, index, arr) => {
-      return arr.map(mapObj => mapObj.mid).indexOf(data.mid) === index
+    const movies = matchedCinema.peliculas.filter((movie, index, arr) => {
+      return arr.map(mapObj => mapObj.mid).indexOf(movie.mid) === index
     })
-
-    console.log(movies)
 
     this.setState({
       movies,
@@ -56,12 +54,12 @@ class MoviesList extends PureComponent {
 
     return (
       cinema && (
-        <div className={this.classes.movieList}>
-          <div className={this.classes.top}>
-            <h1 className={this.classes.cinema}>{cinema.nombre}</h1>
-            <h3 className={this.classes.address}>{cinema.direccion}</h3>
+        <div className={classes.movieList}>
+          <div className={classes.top}>
+            <h1 className={classes.cinema}>{cinema.nombre}</h1>
+            <h3 className={classes.address}>{cinema.direccion}</h3>
           </div>
-          <div className={this.classes.box}>
+          <div className={classes.box}>
             {movies ? (
               movies.map(movie => {
                 const {
@@ -76,46 +74,42 @@ class MoviesList extends PureComponent {
                 } = movie
 
                 return (
-                  <div className={this.classes.movieItem}>
-                    <div className={this.classes.leftSide}>
+                  <div className={classes.movieItem}>
+                    <div className={classes.leftSide}>
                       <a
                         href={`${this.URI_BASE}/${url}/${cinema.url}${
                           this.WEBSITE_PARAM
                         }`}
-                        className={this.classes.imageBox}>
+                        className={classes.imageBox}>
                         <img
                           src={sizes['620x387']}
                           alt={title}
-                          className={this.classes.image}
+                          className={classes.image}
                         />
-                        <h3 className={this.classes.title}>{title}</h3>
+                        <h3 className={classes.title}>{title}</h3>
                       </a>
-                      <p className={this.classes.function}>{cinema.horario}</p>
+                      <p className={classes.function}>{cinema.horario}</p>
                     </div>
-                    <div className={this.classes.rightSide}>
-                      <p className={this.classes.subtitle}>
+                    <div className={classes.rightSide}>
+                      <p className={classes.subtitle}>
                         Sinopsis:
-                        <span className={this.classes.description}>{body}</span>
+                        <span className={classes.description}>{body}</span>
                       </p>
-                      <p className={this.classes.subtitle}>
+                      <p className={classes.subtitle}>
                         País:
-                        <span className={this.classes.description}>{pais}</span>
+                        <span className={classes.description}>{pais}</span>
                       </p>
-                      <p className={this.classes.subtitle}>
+                      <p className={classes.subtitle}>
                         Director:
-                        <span className={this.classes.description}>
-                          {director}
-                        </span>
+                        <span className={classes.description}>{director}</span>
                       </p>
-                      <p className={this.classes.subtitle}>
+                      <p className={classes.subtitle}>
                         Actores:
-                        <span className={this.classes.description}>
-                          {actores}
-                        </span>
+                        <span className={classes.description}>{actores}</span>
                       </p>
-                      <p className={this.classes.subtitle}>
+                      <p className={classes.subtitle}>
                         Calificación:
-                        <span className={this.classes.description}>
+                        <span className={classes.description}>
                           {calificacion}
                         </span>
                       </p>
@@ -124,7 +118,7 @@ class MoviesList extends PureComponent {
                 )
               })
             ) : (
-              <p className={`${this.classes.cinema} text-center`}>
+              <p className={`${classes.cinema} text-center`}>
                 No hay peliculas disponibles para este cine
               </p>
             )}
@@ -135,4 +129,4 @@ class MoviesList extends PureComponent {
   }
 }
 
-export default MoviesList
+export default StaticCinemaBillboardChildMoviesList
