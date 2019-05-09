@@ -10,13 +10,13 @@ const classes = {
 export default props => {
   const {
     date,
-    data: { by: [{ name = {}, url = {} }] = {} },
+    data: { by },
   } = props
 
   return (
-    (name || date) && (
+    (by || date) && (
       <div className={classes.newsAuthor}>
-        {name && <a href={url}>{name} </a>}
+        {by.name && <a href={by.url}>{by.name} </a>}
         {date && formatDate(date)}
       </div>
     )

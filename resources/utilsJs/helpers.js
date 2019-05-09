@@ -22,6 +22,36 @@ export const formatDate = date => {
   return fecha
 }
 
+export const formatDayMonthYear = date => {
+  const fecha = new Date(date)
+  const arrayMeses = [
+    'enero',
+    'febrero',
+    'marzo',
+    'abril',
+    'mayo',
+    'junio',
+    'julio',
+    'agosto',
+    'septiembre',
+    'octubre',
+    'noviembre',
+    'diciembre',
+  ]
+  const arrayDay = [
+    'Lunes',
+    'Martes',
+    'Miércoles',
+    'Jueves',
+    'Viernes',
+    'Sabado',
+    'Domingo',
+  ]
+  return `${arrayDay[fecha.getDay()]} ${fecha.getDate()} de ${
+    arrayMeses[fecha.getMonth()]
+  } del ${fecha.getFullYear()}, ${fecha.getHours()}:${fecha.getMinutes()}`
+}
+
 // ex: 2019-04-29 22:34:13 or 2019/04/29T22:34:13
 export const getFullDateIso8601 = (
   fullDate,
