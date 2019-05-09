@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
+import { setCookieSurvey, getCookie } from '../../../utilities/helpers'
 import CardSurveyChildSurvey from './_children/survey'
 
 @Consumer
@@ -24,6 +25,9 @@ class CardSurvey extends PureComponent {
         },
       },
     }
+
+    this.currentSurveyId = 674
+    this.hasVote = getCookie(`idpoll${this.currentSurveyId}`) || false
   }
 
   componentDidMount() {
@@ -33,7 +37,7 @@ class CardSurvey extends PureComponent {
   gestQuiz = () => {
     const service = 'quiz-by-id'
     const params = {
-      id: 675,
+      id: this.currentSurveyId,
     }
     const { fetched } = this.getContent(service, params)
     fetched.then(response => {
@@ -41,10 +45,10 @@ class CardSurvey extends PureComponent {
     })
   }
 
-  sendQuiz = () => {
+  sendQuiz = optionSelected => {
     const body = {
-      id: 673,
-      option: 'Si',
+      id: this.currentSurveyId,
+      option: optionSelected,
       website: 'peru21',
     }
     const url = 'http://jab.pe/f/arc/services/encuesta.php'
@@ -59,6 +63,13 @@ class CardSurvey extends PureComponent {
       .catch(error => error)
       .then(response => {
         console.log('post request', response)
+        if (response.status === 200) {
+          const {
+            quizData: { slug },
+          } = this.state
+          setCookieSurvey(body.id, 1)
+          window.location.href = `/encuesta/${slug}`
+        }
       })
   }
 
@@ -66,7 +77,8 @@ class CardSurvey extends PureComponent {
     const { quizData } = this.state
     const params = {
       quiz: quizData,
-      hasVote: true,
+      hasVote: this.hasVote,
+      sendQuiz: this.sendQuiz,
     }
 
     return (

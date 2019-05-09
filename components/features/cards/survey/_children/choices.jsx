@@ -1,16 +1,8 @@
 import React, { Fragment, PureComponent } from 'react'
 
 class CardSurveyChildSurveyOptions extends PureComponent {
-  sendAnswer = answer => {
-    console.log(answer)
-  }
-
-  _handleChange = evt => {
-    console.log(evt)
-  }
-
   render() {
-    const { choices } = this.props
+    const { choices, onChange } = this.props
     return (
       <Fragment>
         {choices.map((choice, index) => {
@@ -26,9 +18,7 @@ class CardSurveyChildSurveyOptions extends PureComponent {
                   type="radio"
                   name="survey"
                   value={choice.option}
-                  onChange={evt => {
-                    this._handleChange(evt)
-                  }}
+                  onChange={onChange}
                 />
                 <span className="card-survey__question__check" />
                 <span>{choice.option}</span>
