@@ -1,7 +1,7 @@
-import { addResizedUrlItem } from '../../utilsJs/thumbs'
+import { addResizedUrlItem } from '../../../components/utilities/thumbs'
 import ConfigParams from './config-params'
 
-class DataStory {
+class StoryData {
   static VIDEO = ConfigParams.VIDEO
 
   static GALLERY = ConfigParams.GALLERY
@@ -55,39 +55,39 @@ class DataStory {
   }
 
   get author() {
-    return DataStory.getDataAuthor(this._data).nameAuthor
+    return StoryData.getDataAuthor(this._data).nameAuthor
   }
 
   get authorLink() {
-    return DataStory.getDataAuthor(this._data).urlAuthor
+    return StoryData.getDataAuthor(this._data).urlAuthor
   }
 
   get authorSlug() {
-    return DataStory.getDataAuthor(this._data).slugAuthor
+    return StoryData.getDataAuthor(this._data).slugAuthor
   }
 
   get authorImage() {
-    return DataStory.getDataAuthor(this._data).imageAuthor
+    return StoryData.getDataAuthor(this._data).imageAuthor
   }
 
   get multimedia() {
-    return DataStory.getThumbnail(
+    return StoryData.getThumbnail(
       this._data,
-      DataStory.getTypeMultimedia(this._data)
+      StoryData.getTypeMultimedia(this._data)
     )
   }
 
   get multimediaType() {
-    return DataStory.getTypeMultimedia(this._data)
+    return StoryData.getTypeMultimedia(this._data)
   }
 
   get section() {
-    return DataStory.getDataSection(this._data, this._website).name
+    return StoryData.getDataSection(this._data, this._website).name
   }
 
   get sectionLink() {
     return `${
-      DataStory.getDataSection(this._data, this._website).path
+      StoryData.getDataSection(this._data, this._website).path
     }?_website=${this._website}`
   }
 
@@ -139,7 +139,7 @@ class DataStory {
   get attributesRaw() {
     const attributesObject = {}
     // eslint-disable-next-line no-restricted-syntax
-    for (const attr of Object.getOwnPropertyNames(DataStory.prototype)) {
+    for (const attr of Object.getOwnPropertyNames(StoryData.prototype)) {
       if (attr !== 'attributesRaw') attributesObject[attr] = this[attr]
     }
     return attributesObject
@@ -251,14 +251,14 @@ class DataStory {
   static getThumbnail(data, type) {
     let thumb = ''
     if (type === ConfigParams.VIDEO) {
-      thumb = DataStory.getThumbnailVideo(data)
+      thumb = StoryData.getThumbnailVideo(data)
     } else if (type === ConfigParams.GALLERY) {
-      thumb = DataStory.getThumbnailGallery(data)
+      thumb = StoryData.getThumbnailGallery(data)
     } else if (type === ConfigParams.IMAGE) {
-      thumb = DataStory.getImage(data)
+      thumb = StoryData.getImage(data)
     }
     return thumb
   }
 }
 
-export default DataStory
+export default StoryData

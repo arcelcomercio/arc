@@ -1,11 +1,9 @@
-import React, { Component } from "react";
+import React from 'react'
 
-export default class SidebarBox extends Component {
-    render() {
-        return (
-            <sidebar className="col-1">
-                { this.props.children }
-            </sidebar>
-        );
-    }
-}
+const SidebarBox = ({ children = [] }) => (
+  <sidebar className="col-1">{children}</sidebar>
+)
+
+SidebarBox.label = 'Barra lateral'
+
+export default SidebarBox

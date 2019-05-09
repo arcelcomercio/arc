@@ -1,11 +1,15 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
-import BlogItem from './_children/BlogItem'
-import Paginacion from '../../../../resources/components/paginacion_numerica'
-import { formatDate } from '../../../../resources/utilsJs/helpers'
+import BlogItem from './_children/item'
+import Paginacion from '../../../global-components/pagination'
+import { formatDate } from '../../../utilities/helpers'
 
+const classes = {
+  list: 'bg--white blog-list',
+  listTitle: 'text-uppercase blog-list__title',
+}
 @Consumer
-class BlogList extends Component {
+class BlogList extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -29,7 +33,7 @@ class BlogList extends Component {
       .join('/')
   }
 
-  buildParams = item => {
+  buildParams = blog => {
     const {
       blog: { blogname = '', path = '#' } = {},
       posts: [
@@ -44,7 +48,7 @@ class BlogList extends Component {
         first_name: firstName = '',
         last_name: lastName = '',
       } = {},
-    } = item
+    } = blog
 
     const { contextPath = '', arcSite = 'elcomercio' } = this.props
 
@@ -89,11 +93,6 @@ class BlogList extends Component {
       item => typeof item === 'object'
     )
 
-    const classes = {
-      list: 'bg--white blog-list',
-      listTitle: 'text-uppercase blog-list__title',
-    }
-
     return (
       <Fragment>
         <div className={classes.list}>
@@ -117,6 +116,7 @@ class BlogList extends Component {
   }
 }
 
-BlogList.label = 'Listado Blogs'
+BlogList.label = 'Blog - Listado blogs'
+BlogList.static = true
 
 export default BlogList

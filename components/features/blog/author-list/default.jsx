@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import AuthorListChildrenPostItem from './_children/authorListChildrenPostItem'
-import Paginacion from '../../../../resources/components/paginacion_numerica'
+import PostItem from './_children/post-item'
+import Pagination from '../../../global-components/pagination'
 
 @Consumer
-class AuthorList extends PureComponent {
+class BlogAuthorList extends PureComponent {
   render() {
     const {
+      contextPath,
       globalContent = {},
       globalContentConfig = {},
       arcSite = '',
-      contextPath,
     } = this.props
 
     const {
@@ -26,7 +26,6 @@ class AuthorList extends PureComponent {
       } = {},
     } = globalContentConfig
 
-    console.log(this.props)
     return (
       <div>
         {posts.map(post => {
@@ -45,9 +44,9 @@ class AuthorList extends PureComponent {
             arcSite,
             contextPath,
           }
-          return <AuthorListChildrenPostItem key={post.ID} {...data} />
+          return <PostItem key={post.ID} {...data} />
         })}
-        <Paginacion
+        <Pagination
           totalElements={countPosts}
           storiesQty={postsLimit}
           currentPage={postsOffset || 1}
@@ -57,6 +56,7 @@ class AuthorList extends PureComponent {
   }
 }
 
-AuthorList.label = 'Listado de Post por autor'
+BlogAuthorList.label = 'Blog - Posts por autor'
+BlogAuthorList.static = true
 
-export default AuthorList
+export default BlogAuthorList

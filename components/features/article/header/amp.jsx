@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import Heading from './_children/heading'
@@ -10,7 +10,7 @@ import {
   popUpWindow,
   socialMediaUrlShareList,
   formatDayMonthYear,
-} from '../../../../resources/utilsJs/helpers'
+} from '../../../utilities/helpers'
 
 const classes = {
   titleAmp: 'amp-header__title',
@@ -19,10 +19,10 @@ const classes = {
   share: 'amp-header__share',
   breadcrumb: 'amp-header__breadcrumb',
   item: 'amp-header--item',
-  gallery: 'col-3 _gallery--cover',
+  gallery: 'col-3',
 }
 @Consumer
-class ArticleHeader extends Component {
+class ArticleHeader extends PureComponent {
   constructor(props) {
     super(props)
     this.firstList = 'firstList'
@@ -156,11 +156,6 @@ class ArticleHeader extends Component {
       </Fragment>
     )
   }
-}
-
-ArticleHeader.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  globalContent: PropTypes.object,
 }
 
 export default ArticleHeader

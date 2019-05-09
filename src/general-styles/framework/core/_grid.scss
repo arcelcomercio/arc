@@ -1,0 +1,81 @@
+.grid {
+    display: grid;
+
+    &--content {
+        gap: $spacing-normal;
+        grid-auto-rows: min-content;
+    }
+
+    /* .grid--box{
+        @media (--desktop) {
+            grid-template-rows: repeat(4, $height-row);       
+        }
+        
+        grid-auto-rows: $height-row;    
+    } */
+
+    /* .grid--rows-height {
+        grid-auto-rows: minmax(calc(($height-row - ($spacing-normal * ($row-parts - 1))) / $row-parts), auto);
+    } */
+
+    &--col-1 {
+        grid-template-columns: minmax(300px, 100vw);
+    }
+
+    &--col-2 {
+        @media (--tablet) {
+            grid-template-columns: repeat(2,
+            minmax(300px, calc((100vw - #{$gap}) / 2)));
+        }
+    }
+
+    // TODO: Creo que el mínimo debería ser 300, no 285
+
+    &--col-3 {
+        @media (--desktop) {
+            grid-template-columns: repeat(3,
+            minmax(285px, calc((1024px - (#{$gap} * 2)) / 3)));
+        }
+    }
+}
+
+/*-------------- Process to create the 1 col classes */
+
+@for $i from 1 through 4 {
+    .row-#{$i} {
+        //grid-row: span $row-parts*$i;
+        grid-row: span $i;
+        height: ($height-row * $i)+ ($spacing-normal * ($i - 1));
+    }
+}
+
+.col-1,
+.col-2,
+.col-3 {
+    grid-column: span 1;
+}
+
+/*-------------- Process to create the 2 col classes */
+
+@media (--tablet) {
+    .col-1 {
+        grid-column: span 1;
+    }
+
+    .col-2,
+    .col-3 {
+        grid-column: span 2;
+    }
+}
+
+/*-------------- Process to create the 3 col classes */
+
+@media (--desktop) {
+    @for $i from 1 through 3 {
+        .col-#{$i} {
+            grid-column: span $i;
+        }
+    }
+}
+
+/****************************************************/

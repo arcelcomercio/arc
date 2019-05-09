@@ -2,14 +2,14 @@ import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-import Heading from './_children/heading'
-import Subheading from './_children/subheading'
-import Gallery from './_children/gallery'
-import Share from './_children/share'
+import ArticleHeaderChildHeading from './_children/heading'
+import ArticleHeaderChildShareSubheading from './_children/subheading'
+import ArticleHeaderChildGallery from './_children/gallery'
+import ArticleHeaderChildSocial from './_children/social'
 
 const classes = {
   news: 'col-3 padding-normal bg-color--white',
-  gallery: 'col-3 _gallery--cover',
+  gallery: 'col-3',
 }
 @Consumer
 class ArticleHeader extends Component {
@@ -31,13 +31,15 @@ class ArticleHeader extends Component {
               ? classes.gallery
               : classes.news
           }>
-          <Heading />
-          <Subheading />
-          <Share url={baseUrl} title={title} />
+          <ArticleHeaderChildHeading />
+          <ArticleHeaderChildShareSubheading />
+          <ArticleHeaderChildSocial url={baseUrl} title={title} />
           {galleryItems &&
           galleryItems.basic_gallery &&
           typeof galleryItems.basic_gallery.content_elements !== 'undefined' ? (
-            <Gallery data={galleryItems && galleryItems.basic_gallery} />
+            <ArticleHeaderChildGallery
+              data={galleryItems && galleryItems.basic_gallery}
+            />
           ) : (
             ''
           )}
@@ -51,5 +53,9 @@ ArticleHeader.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   globalContent: PropTypes.object,
 }
+
+ArticleHeader.static = true
+
+ArticleHeader.label = 'Artículo - cabecera'
 
 export default ArticleHeader
