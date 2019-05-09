@@ -1,0 +1,83 @@
+$color-light-blue: #c5e2f7;
+$color-marine-blue: #26567f;
+$color-text-question: #333;
+$color-button: #0e6dc1;
+.card-survey {
+  background: $color-light-blue;
+  padding-top: 14px;
+  &__header {
+    background-color: $color-marine-blue;
+    color: $color-white;
+    padding: 18px 0;
+    font-weight: bold;
+  }
+  &__question {
+    padding: 15px 20px 10px;
+    &-title {
+      font-size: 18px;
+      line-height: 1.2;
+      color: $color-text-question;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    &-choices {
+      margin-bottom: 10px;
+      &-item {
+        color: #4c4c4c;
+        padding: 10px 20px 10px 0;
+      }
+    }
+    &-radio {
+      cursor: pointer;
+      overflow: hidden;
+    }
+    &-input:checked + .card-survey__question-check::after {
+      background-color: #494949;
+      border-radius: 50%;
+      content: '';
+      display: block;
+      height: 14px;
+      left: 50%;
+      margin: -7px 0 0 -7px;
+      position: absolute;
+      top: 50%;
+      width: 14px;
+    }
+    &-check {
+      background-color: $color-white;
+      border-radius: 13px;
+      float: left;
+      height: 26px;
+      margin-right: 8px;
+      position: relative;
+      vertical-align: middle;
+      width: 26px;
+      &:before {
+        border-radius: 13px;
+        bottom: 0;
+        content: '';
+        left: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+  &__buttons {
+    &-results {
+      color: $color-text-question;
+      font-size: 12px;
+      letter-spacing: 1px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &-submit {
+      background: $color-button;
+      color: $color-white;
+      font-size: 11px;
+      padding: 8px 40px;
+    }
+  }
+}
