@@ -31,7 +31,7 @@ const SeparatorBlogChildrenItem = ({
       <div className={classes.boxTitle}>
         <h1 className={classes.title}>
           <a
-            href={`${contextPath}/${postLink}${WEBSITE}`}
+            href={`${contextPath}/blog/${postLink}${WEBSITE}`}
             className={classes.link}>
             {postTitle}
           </a>
@@ -39,18 +39,18 @@ const SeparatorBlogChildrenItem = ({
       </div>
       <div className={classes.middle}>
         <a
-          href={`${contextPath}/${blogUrl}${WEBSITE}`}
+          href={`${contextPath}/blog/${blogUrl}${WEBSITE}`}
           className={classes.section}>
           {blogName}
         </a>
         <a
-          href={`${contextPath}/${blogUrl}${WEBSITE}`}
+          href={`${contextPath}/blog/${blogUrl}${WEBSITE}`}
           className={classes.author}>
           {authorName}
         </a>
       </div>
       <div className={classes.boxImg}>
-        <a href={`${contextPath}/${postLink}${WEBSITE}`}>
+        <a href={`${contextPath}/blog/${postLink}${WEBSITE}`}>
           <img src={IMG} alt="" className={classes.img} />
         </a>
       </div>

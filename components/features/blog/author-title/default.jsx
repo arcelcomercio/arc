@@ -5,7 +5,7 @@ import AuthorTitleComponent from '../../../../resources/components/author-title'
 @Consumer
 class AuthorTitle extends PureComponent {
   render() {
-    const { globalContent } = this.props
+    const { globalContent, arcSite, contextPath } = this.props
     const {
       user: {
         first_name: firstName = '',
@@ -19,6 +19,8 @@ class AuthorTitle extends PureComponent {
       guid,
       blogname,
       path,
+      arcSite,
+      contextPath,
     }
     return (
       // Componente titulo
