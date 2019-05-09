@@ -1,19 +1,20 @@
 import ArticleBody, {
   AmpOembed,
 } from '@arc-core-components/feature_article-body'
-
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
-import { AmpImage } from '@arc-core-components/element_image'
-
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+import ElePrincipal from './_children/amp-ele-principal'
 
 @Consumer
 class ArticleAMPArticleBody extends Component {
   render() {
     const {
-      globalContent: { content_elements: contentElements },
+      globalContent: {
+        content_elements: contentElements,
+        promo_items: promoItems,
+      },
     } = this.props
     const elementClasses = {
       textClasses: 'article-body news-text-content',
@@ -23,7 +24,8 @@ class ArticleAMPArticleBody extends Component {
 
     return (
       <Fragment>
-        <header />
+        {promoItems && <ElePrincipal data={promoItems} />}
+
         {contentElements && (
           <ArticleBody
             data={contentElements}
