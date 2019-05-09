@@ -1,13 +1,29 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
-import QuizChildProgressBar from './_children/progress-bar'
+import CardsSurveyChildResult from './_children/result'
 
 @Consumer
-class CardQuiz extends PureComponent {
+class CardSurvey extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      quizData: {
+        title: '',
+        slug: '',
+        dateStart: '',
+        dateEnd: '',
+        choices: [],
+        slugNext: {
+          id: 0,
+          slug: '',
+        },
+        slugPrev: {
+          id: 0,
+          slug: '',
+        },
+      },
+    }
   }
 
   componentDidMount() {
@@ -21,7 +37,7 @@ class CardQuiz extends PureComponent {
     }
     const { fetched } = this.getContent(service, params)
     fetched.then(response => {
-      console.log('get request', response)
+      this.setState({ quizData: response })
     })
   }
 
@@ -47,17 +63,15 @@ class CardQuiz extends PureComponent {
   }
 
   render() {
+    const { quizData } = this.state
     return (
       <div>
-        <button type="button" onClick={e => this.sendQuiz(e)}>
-          POSTTTT
-        </button>
-        <QuizChildProgressBar percentage="60" />
+        <CardsSurveyChildResult choices={quizData.choices} />
       </div>
     )
   }
 }
 
-CardQuiz.label = 'Encuesta - peru21'
+CardSurvey.label = 'Encuesta - peru21'
 
-export default CardQuiz
+export default CardSurvey
