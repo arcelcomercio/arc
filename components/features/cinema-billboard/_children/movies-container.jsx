@@ -7,7 +7,8 @@ const classes = {
   title: 'movies-container__title text-uppercase margin-top',
   container: 'movies-container',
 }
-class MoviesContainer extends PureComponent {
+
+class StaticCinemaBillboardChildMoviesContainer extends PureComponent {
   render() {
     const { data, params, type, contextPath, arcSite } = this.props // params = movie, cinema, genre
     return (
@@ -37,6 +38,4 @@ class MoviesContainer extends PureComponent {
   }
 }
 
-MoviesContainer.label = 'Cartelera de Cine'
-
-export default MoviesContainer
+export default StaticCinemaBillboardChildMoviesContainer

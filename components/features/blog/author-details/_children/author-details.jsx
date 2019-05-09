@@ -7,7 +7,7 @@ const classes = {
   blogTitle: 'author-details__blog-title text-uppercase',
   description: 'author-details__description',
 }
-const AuthorDetailsComponent = ({ description, firstName, title }) => {
+const AuthorDetailsChildAuthorDetails = ({ description, firstName, title }) => {
   return (
     <div className={classes.authorDetails}>
       <h4 className={classes.title}>{title || 'Título'}</h4>
@@ -19,4 +19,4 @@ const AuthorDetailsComponent = ({ description, firstName, title }) => {
   )
 }
 
-export default AuthorDetailsComponent
+export default AuthorDetailsChildAuthorDetails

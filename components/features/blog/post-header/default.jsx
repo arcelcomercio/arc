@@ -6,16 +6,15 @@ import {
 } from '../../../utilities/helpers'
 
 const classes = {
-  container: 'post-header padding-normal',
-  title: 'post-header__title',
-  list: 'post-header__list flex',
-  item: 'post-header__item',
-  link: 'post-header__link flex-center-vertical flex--justify-center',
-  share: 'post-header__share',
-  more: 'post-header__more',
-  button: 'post-header__button flex-center-vertical flex--justify-center',
+  header: 'post-header padding-normal',
+  headerTitle: 'post-header__title',
+  headerList: 'post-header__list flex',
+  headerLink: 'post-header__link flex-center',
+  headerItem: 'post-header__item',
+  headerShare: 'post-header__share',
+  headerMore: 'post-header__more',
+  headerButton: 'post-header__button flex-center',
 }
-
 @Consumer
 class BlogPostHeader extends PureComponent {
   constructor(props) {
@@ -90,20 +89,20 @@ class BlogPostHeader extends PureComponent {
     const { globalContent } = this.props
     const { post: { post_title: postTitle } = {} } = globalContent || {}
     return (
-      <div className={classes.container}>
-        <h1 className={classes.title}>{postTitle}</h1>
-        <ul className={classes.list}>
+      <div className={classes.header}>
+        <h1 className={classes.headerTitle}>{postTitle}</h1>
+        <ul className={classes.headerList}>
           {this.shareButtons[currentList].map((item, i) => (
-            <li className={`${classes.item} ${item.mobileClass}`}>
+            <li className={`${classes.headerItem} ${item.mobileClass || ''}`}>
               <a
-                className={classes.link}
+                className={classes.headerLink}
                 href={item.link}
                 onClick={event => {
                   const isPrint = i === 2 && currentList === this.secondList
                   this.openLink(event, item, isPrint)
                 }}>
                 <i>{item.icon}</i>
-                <span className={classes.share}>
+                <span className={classes.headerShare}>
                   {i === 2 && currentList === this.secondList
                     ? 'Imprimir'
                     : 'Compartir'}
@@ -112,9 +111,9 @@ class BlogPostHeader extends PureComponent {
             </li>
           ))}
 
-          <li className={classes.more}>
+          <li className={classes.headerMore}>
             <button
-              className={classes.button}
+              className={classes.headerButton}
               type="button"
               onClick={e => this.handleMoreButton(e)}>
               <i>{currentList === this.firstList ? '+' : '-'}</i>

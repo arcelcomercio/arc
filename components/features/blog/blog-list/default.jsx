@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import BlogItem from './_children/BlogItem'
+import BlogItem from './_children/Item'
 import { formatDate } from '../../../utilities/helpers'
 
 const classes = {
@@ -9,7 +9,7 @@ const classes = {
 }
 
 @Consumer
-class BlogList extends Component {
+class BlogList extends PureComponent {
   transformDate = postDate => {
     const arrayDate = formatDate(postDate).split(' ')
     if (arrayDate.length > 1)
@@ -22,7 +22,7 @@ class BlogList extends Component {
       .join('/')
   }
 
-  buildParams = item => {
+  buildParams = blog => {
     const {
       blog: { blogname = '', path = '#' } = {},
       posts: [
@@ -37,7 +37,7 @@ class BlogList extends Component {
         first_name: firstName = '',
         last_name: lastName = '',
       } = {},
-    } = item
+    } = blog
 
     const { contextPath = '', arcSite = 'elcomercio' } = this.props
 
@@ -62,8 +62,8 @@ class BlogList extends Component {
       <div className={classes.list}>
         <h1 className={classes.listTitle}>blogs</h1>
         <div>
-          {blogs.map(item => {
-            const params = this.buildParams(item)
+          {blogs.map(blog => {
+            const params = this.buildParams(blog)
             return <BlogItem key={params.urlPost} {...params} />
           })}
         </div>
@@ -72,7 +72,7 @@ class BlogList extends Component {
   }
 }
 
-BlogList.label = 'Listado Blogs'
+BlogList.label = 'Blog - Listado blogs'
 BlogList.static = true
 
 export default BlogList

@@ -15,7 +15,7 @@ const classes = {
   author: 'post-item__author',
 }
 
-const PostItem = ({
+const BlogAuthorListChildPostItem = ({
   postTitle = '',
   postPermaLink = '',
   postDate = '',
@@ -56,6 +56,4 @@ const PostItem = ({
   )
 }
 
-PostItem.static = true
-
-export default PostItem
+export default BlogAuthorListChildPostItem

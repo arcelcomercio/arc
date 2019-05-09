@@ -17,7 +17,8 @@ const classes = {
   movieLink: 'movies-slider__movie-link',
   movieDescription: 'movies-slider__movie-description',
 }
-class MoviesSlider extends PureComponent {
+
+class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
   constructor(props) {
     super(props)
     const { estrenos = [] } = props.data || {}
@@ -144,4 +145,4 @@ class MoviesSlider extends PureComponent {
   }
 }
 
-export default MoviesSlider
+export default StaticCinemaBillboardChildMoviesSlider

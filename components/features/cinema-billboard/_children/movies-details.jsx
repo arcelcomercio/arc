@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import BillboardFormat from '../../../utilities/billboard-format'
 
 const classes = {
@@ -21,7 +21,8 @@ const classes = {
   name: 'movie-details__name',
   value: 'movie-details__value',
 }
-class MoviesDetails extends Component {
+
+class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -153,4 +154,4 @@ class MoviesDetails extends Component {
   }
 }
 
-export default MoviesDetails
+export default StaticCinemaBillboardChildMoviesDetails

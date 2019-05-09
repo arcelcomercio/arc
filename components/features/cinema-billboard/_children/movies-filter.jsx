@@ -14,6 +14,7 @@ const classes = {
   form: 'movies-filter__form movies-filter--font-config flex',
   button: 'movies-filter__btn movies-filter--font-config text-uppercase',
 }
+
 @Consumer
 class MoviesFilter extends PureComponent {
   constructor(props) {

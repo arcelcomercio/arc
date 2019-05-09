@@ -17,7 +17,8 @@ const classes = {
   subtitle: 'movie-item__subtitle',
   description: 'movie-item__description',
 }
-class MoviesList extends PureComponent {
+
+class StaticCinemaBillboardChildMoviesList extends PureComponent {
   constructor(props) {
     super(props)
 
@@ -38,11 +39,9 @@ class MoviesList extends PureComponent {
     this.billboardFormat.setData = data
     const { cinemaList } = this.billboardFormat
     const matchedCinema = cinemaList.find(itemCine => itemCine.url === cinema)
-    const movies = matchedCinema.peliculas.filter((data, index, arr) => {
-      return arr.map(mapObj => mapObj.mid).indexOf(data.mid) === index
+    const movies = matchedCinema.peliculas.filter((movie, index, arr) => {
+      return arr.map(mapObj => mapObj.mid).indexOf(movie.mid) === index
     })
-
-    console.log(movies)
 
     this.setState({
       movies,
@@ -130,4 +129,4 @@ class MoviesList extends PureComponent {
   }
 }
 
-export default MoviesList
+export default StaticCinemaBillboardChildMoviesList

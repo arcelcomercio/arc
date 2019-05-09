@@ -3,37 +3,38 @@ import Consumer from 'fusion:consumer'
 import PostItem from './_children/post-item'
 
 @Consumer
-class AuthorList extends PureComponent {
+class BlogAuthorList extends PureComponent {
   render() {
     const { globalContent, arcSite } = this.props
+    const { posts = [], user: { first_name: author = '' } = {} } =
+      globalContent || {}
 
-    const { posts = [] } = globalContent || {}
-
-    const { user: { first_name: author = '' } = {} } = globalContent
     return (
       <div>
-        {posts.map(post => {
-          const {
-            post_title: postTitle,
-            post_permalink: postPermaLink,
-            post_date: postDate,
-            post_thumbnail: { guid: image = '' } = {},
-          } = post
-          const data = {
-            postTitle,
-            postPermaLink,
-            postDate,
-            image,
-            author,
-            arcSite,
-          }
-          return <PostItem key={post.ID} {...data} />
-        })}
+        {posts &&
+          posts.map(post => {
+            const {
+              post_title: postTitle,
+              post_permalink: postPermaLink,
+              post_date: postDate,
+              post_thumbnail: { guid: image = '' } = {},
+            } = post
+            const data = {
+              postTitle,
+              postPermaLink,
+              postDate,
+              image,
+              author,
+              arcSite,
+            }
+            return <PostItem key={post.ID} {...data} />
+          })}
       </div>
     )
   }
 }
 
-AuthorList.label = 'Listado de Post por autor'
+BlogAuthorList.label = 'Blog - Posts por autor'
+BlogAuthorList.static = true
 
-export default AuthorList
+export default BlogAuthorList

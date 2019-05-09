@@ -8,7 +8,7 @@ const classes = {
   nav: 'movies-grid__nav',
   navList: 'movies-grid__nav-list flex flex--justify-center',
   navItem: 'movies-grid__nav-item',
-  navLink: 'movies-grid__nav-link text-uppercase',
+  navLink: 'movies-grid__nav-link',
   form: 'movies-grid__form',
   info: 'movies-grid__info',
   select: 'movies-grid__select',
@@ -21,9 +21,7 @@ const classes = {
   tag: 'movies-grid__tag',
 }
 
-class GenreMoviesFilter extends PureComponent {
-  // TODO: Sacar classes
-
+class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -66,7 +64,7 @@ class GenreMoviesFilter extends PureComponent {
                   <li className={classes.navItem}>
                     <a
                       href={`${this.URI_BASE}${this.WEBSITE_PARAM}`}
-                      className={`${classes.navLink} ${
+                      className={`${classes.navLink} text-uppercase ${
                         !genre ? 'movies-grid__nav-link--active' : ''
                       }`}>
                       TODAS
@@ -82,7 +80,7 @@ class GenreMoviesFilter extends PureComponent {
                             href={`${this.URI_BASE}/peliculas/cines/${
                               singleGenre.url
                             }${this.WEBSITE_PARAM}`}
-                            className={`${classes.navLink} ${
+                            className={`${classes.navLink} text-uppercase ${
                               genre === singleGenre.url
                                 ? 'movies-grid__nav-link--active'
                                 : ''
@@ -155,6 +153,4 @@ class GenreMoviesFilter extends PureComponent {
   }
 }
 
-GenreMoviesFilter.label = 'Grilla de Películas'
-
-export default GenreMoviesFilter
+export default StaticCinemaBillboardChildGenreMoviesFilter
