@@ -1,0 +1,23 @@
+.progress-bar {
+  position: relative;
+  height: 4px;
+  width: 100%;
+  border-radius: 50px;
+  background-color: #f4f4f4;
+  &__filler {
+    background-color: #0e6dc1;
+    height: 100%;
+    border-radius: inherit;
+  }
+}
+
+.quiz-result {
+  &__list {
+  }
+  &__item {
+    color: #0e6dc1;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: $main-font;
+  }
+}
