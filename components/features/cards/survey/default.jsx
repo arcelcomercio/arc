@@ -66,7 +66,7 @@ class CardSurvey extends PureComponent {
     const { quizData } = this.state
     const params = {
       quiz: quizData,
-      hasVote: false,
+      hasVote: true,
     }
 
     return (

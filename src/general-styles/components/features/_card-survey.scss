@@ -89,22 +89,36 @@ $color-button: #0e6dc1;
     }
   }
   &__result {
+    &__list {
+      padding: 5px 0;
+    }
     &__item {
-      color: $color-button;
-      font-weight: 500;
+      color: #4c4c4c;
       font-size: 14px;
+      line-height: 1.2;
       font-family: $main-font;
+    }
+    &__highlight {
+      color: #0e6dc1;
+    }
+    &__mb {
+      margin-bottom: 5px;
     }
   }
 }
 
 .progress-bar {
+  position: relative;
   height: 4px;
+  width: 100%;
   border-radius: 50px;
   background-color: #f4f4f4;
   &__filler {
-    background-color: $color-button;
+    background-color: #bababa;
     height: 100%;
     border-radius: inherit;
+  }
+  &__highlight {
+    background-color: #0e6dc1;
   }
 }

@@ -10,27 +10,49 @@ const CardsSurveyChildResult = props => {
     0
   )
 
-  /*const indexOfBiggest = a => {
-    return a.reduce((prev, next, index) => {
-      return next > a[prev] ? index : next
+  const getIndexBiggestOf = (a = []) => {
+    let indexOfBiggest = 0
+    a.reduce((prev, current, index) => {
+      const auxCurrent = current ? current.votes : 0
+      if (auxCurrent > prev) {
+        indexOfBiggest = index
+        return auxCurrent
+      }
+      return prev
     }, 0)
-  }*/
+    return indexOfBiggest
+  }
 
-  // console.log(indexOfBiggest(choices))
+  const indexOfTheHighlight = getIndexBiggestOf(choices)
 
   return (
     <ul className="card-survey__result">
-      {choices.map(result => (
-        <li key={result.option} className="card-survey__result__list">
-          <span className="card-survey__result__item">{result.option}</span>
-          <span className="card-survey__result__item">{`${Math.round(
-            (result.votes / totalVotes) * 100
-          )}%`}</span>
-          <CardsSurveyChildProgressBar
-            percentage={(result.votes / totalVotes) * 100}
-          />
-        </li>
-      ))}
+      {choices.map((result, i) => {
+        const isBiggestValue = i === indexOfTheHighlight
+        const textHighightClass = isBiggestValue
+          ? 'card-survey__result__highlight'
+          : ''
+        return (
+          <li
+            key={result.option}
+            className="card-survey__result__list card-survey__result__mb">
+            <div className="flex flex--justify-between card-survey__result__mb">
+              <span
+                className={`card-survey__result__item ${textHighightClass}`}>
+                {result.option}
+              </span>
+              <span
+                className={`card-survey__result__item ${textHighightClass}`}>{`${Math.round(
+                (result.votes / totalVotes) * 100
+              )}%`}</span>
+            </div>
+            <CardsSurveyChildProgressBar
+              percentage={(result.votes / totalVotes) * 100}
+              isHighlight={isBiggestValue}
+            />
+          </li>
+        )
+      })}
     </ul>
   )
 }
