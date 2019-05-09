@@ -25,7 +25,7 @@ class BlogAuthorList extends PureComponent {
         posts_offset: postsOffset = '',
       } = {},
     } = globalContentConfig
-
+    console.log(countPosts)
     return (
       <div>
         {posts.map(post => {
@@ -57,6 +57,5 @@ class BlogAuthorList extends PureComponent {
 }
 
 BlogAuthorList.label = 'Blog - Posts por autor'
-BlogAuthorList.static = true
 
 export default BlogAuthorList
