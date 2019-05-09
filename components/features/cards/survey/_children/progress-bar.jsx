@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 const CardsSurveyChildProgressBar = props => {
   const { percentage, isHighlight } = props
-  const highLightBarClass = isHighlight ? 'progress-bar__highlight' : ''
+  const highLightBarClass = isHighlight ? 'survey-bar__highlight' : ''
   return (
-    <div className="progress-bar position-relative full-width">
+    <div className="survey-bar position-relative full-width">
       <div
-        className={`progress-bar__filler ${highLightBarClass}`}
+        className={`survey-bar__filler ${highLightBarClass}`}
         style={{ width: `${percentage || 0}%` }}
       />
     </div>
