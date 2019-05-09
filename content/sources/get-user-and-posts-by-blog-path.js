@@ -6,9 +6,8 @@ const resolve = key => {
   const postsOffset = key.posts_offset || 0
   const pagination = postsOffset > 0 ? postsLimit * (postsOffset - 1) : 0
 
-  if (!blogPath) {
+  if (blogPath === null || blogPath === undefined)
     throw new Error('El Blog esta vacio, o no existe')
-  }
 
   const url = `https://dev-svc-blogs.gestion.pe/service/apiblogs.php?json=get_user_and_posts_by_blog_path&blog_path=${blogPath}&posts_limit=${postsLimit}&posts_offset=${pagination}&token=${process
     .env.TOKEN_BLOG || BLOG_TOKEN}`
