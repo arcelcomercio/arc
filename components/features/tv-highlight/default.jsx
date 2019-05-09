@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
 import TVHighlightChild from './_children/tv-highlight'
-import StoryData from '../../../resources/components/utils/data-story'
+import StoryData from '../../utilities/story-data'
 
 @Consumer
 class TVHighlight extends PureComponent {

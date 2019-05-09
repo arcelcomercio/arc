@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import CustomFieldsImport from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import StoryData from '../../../../resources/components/utils/data-story'
+import StoryData from '../../../utilities/story-data'
 
 const classes = {
   tabloide: 'tabloide',

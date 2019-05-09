@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
 const path = require('path')
 const webpack = require('webpack')
@@ -67,8 +68,7 @@ module.exports = env => {
     },
     // devtool: 'source-map',
     module: {
-      rules: [
-        {
+      rules: [{
           test: /\.(js|jsx)$/,
           exclude: /(node_modules)/,
           use: {
@@ -81,8 +81,7 @@ module.exports = env => {
         },
         {
           test: /\.(scss|css)$/,
-          use: [
-            {
+          use: [{
               loader: MiniCssExtractPlugin.loader,
               options: {
                 // you can specify a publicPath here

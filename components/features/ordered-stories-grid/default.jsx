@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import StoryData from '../../../resources/components/utils/data-story'
+import StoryData from '../../utilities/story-data'
 import FeaturedStory from './_children/featured-story/default'
 import Ads from './_children/ads/default'
 

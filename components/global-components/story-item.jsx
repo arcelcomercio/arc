@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import StoryData from '../../resources/components/utils/data-story'
+import StoryData from '../utilities/story-data'
 import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
 
 const clases = {

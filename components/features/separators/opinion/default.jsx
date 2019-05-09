@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 
 import { customFields } from './_dependencies/custom-fields'
 import { createMarkup } from '../../../utilities/helpers'
-import StoryData from '../../../../resources/components/utils/data-story'
+import StoryData from '../../../utilities/story-data'
 import AuthorCard from './_children/author-card'
 
 const classes = {
