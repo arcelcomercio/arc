@@ -88,26 +88,26 @@ $color-button: #0e6dc1;
       padding: 8px 40px;
     }
   }
-  &__result {
-    &__list {
-      padding: 5px 0;
-    }
-    &__item {
-      color: #4c4c4c;
-      font-size: 14px;
-      line-height: 1.2;
-      font-family: $main-font;
-    }
-    &__highlight {
-      color: #0e6dc1;
-    }
-    &__mb {
-      margin-bottom: 5px;
-    }
-  }
 }
 
-.progress-bar {
+.survey-result {
+  &__list {
+    padding: 5px 0;
+  }
+  &__item {
+    color: #4c4c4c;
+    font-size: 14px;
+    line-height: 1.2;
+    font-family: $main-font;
+  }
+  &__highlight {
+    color: #0e6dc1;
+  }
+  &__mb {
+    margin-bottom: 5px;
+  }
+}
+.survey-bar {
   position: relative;
   height: 4px;
   width: 100%;

@@ -30,19 +30,18 @@ const CardsSurveyChildResult = props => {
       {choices.map((result, i) => {
         const isBiggestValue = i === indexOfTheHighlight
         const textHighightClass = isBiggestValue
-          ? 'card-survey__result__highlight'
+          ? 'survey-result__highlight'
           : ''
         return (
           <li
             key={result.option}
-            className="card-survey__result__list card-survey__result__mb">
-            <div className="flex flex--justify-between card-survey__result__mb">
-              <span
-                className={`card-survey__result__item ${textHighightClass}`}>
+            className="survey-result__list survey-result__mb">
+            <div className="flex flex--justify-between survey-result__mb">
+              <span className={`survey-result__item ${textHighightClass}`}>
                 {result.option}
               </span>
               <span
-                className={`card-survey__result__item ${textHighightClass}`}>{`${Math.round(
+                className={`survey-result__item ${textHighightClass}`}>{`${Math.round(
                 (result.votes / totalVotes) * 100
               )}%`}</span>
             </div>
