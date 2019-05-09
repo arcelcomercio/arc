@@ -1,15 +1,23 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
+import Item from './_child/item'
+import ItemShare from './_child/item-share'
+import ItemInput from './_child/item-input';
 
 const classes = {
   InternalSurvey: 'internal-survey',
   detail: 'internal-survey__detail',
-  result: 'internal-survey_result',
+  result: 'internal-survey__result',
   date: 'internal-survey__date',
   title: 'internal-survey__title',
   buttons: 'internal-survey__buttons',
   buttonpool: 'internal-survey__button-pool',
   viewresult: 'internal-survey__view-result',
+  resultgraphic: 'internal-survey__result-graphic',
+  resulttitle: 'internal-survey__result-title',
+  resultcount: 'internal-survey__result-count',
+  poolitems: 'internal-survey__result-pool-items',
+  share: 'internal-survey__result-share',
 }
 @Consumer
 class SurveyInternal extends Component {
@@ -23,6 +31,11 @@ class SurveyInternal extends Component {
             Richard Acuña?
           </h1>
           <form action="">
+            <ul >
+
+              <ItemInput value="si"/>
+              <ItemInput value="no"/>
+            </ul>
             <div className={classes.buttons}>
               <button type="button" className={classes.buttonpool}>
                 Votar
@@ -33,7 +46,20 @@ class SurveyInternal extends Component {
             </div>
           </form>
         </div>
-        <div className={classes.result}>asdadad</div>
+        <div className={classes.result}>
+          <div className={classes.resultgraphic}>
+            <h4 className={classes.resulttitle}>Resultados</h4>
+            <p className={classes.resultcount}>sobre un total de 3410 votos.</p>
+            <ul className={classes.poolitems}>
+              <Item result="Si" percent="50" />
+              <Item result="No" percent="50" top={false} />
+            </ul>
+            <ul className={classes.share}>
+              <ItemShare socialnetwork="F" url="facebook.com" />
+              <ItemShare socialnetwork="T" url="twitter.com" />
+            </ul>
+          </div>
+        </div>
       </div>
     )
   }
