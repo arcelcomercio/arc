@@ -2,17 +2,17 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 const classes = {
-  InternalSurvey: 'InternalSurvey',
-  detail: 'InternalSurvey__detail',
-  result: 'InternalSurvey__result',
-  date: 'InternalSurvey__date',
-  title: 'InternalSurvey__title',
-  buttons: 'InternalSurvey__buttons',
-  buttonpool: 'InternalSurvey__button-pool',
-  viewresult: 'InternalSurvey__view-result',
+  InternalSurvey: 'internal-survey',
+  detail: 'internal-survey__detail',
+  result: 'internal-survey_result',
+  date: 'internal-survey__date',
+  title: 'internal-survey__title',
+  buttons: 'internal-survey__buttons',
+  buttonpool: 'internal-survey__button-pool',
+  viewresult: 'internal-survey__view-result',
 }
 @Consumer
-class InternalSurvey extends Component {
+class SurveyInternal extends Component {
   render() {
     return (
       <div className={classes.InternalSurvey}>
@@ -39,4 +39,4 @@ class InternalSurvey extends Component {
   }
 }
 
-export default InternalSurvey
+export default SurveyInternal

@@ -1,4 +1,4 @@
-.InternalSurvey {
+.internal-survey {
   display: grid;
   grid-template-columns: 576px 300px;
   border: 2px solid black;
@@ -27,11 +27,15 @@
     font-weight: 700;
   }
   &__buttons {
+    display: grid;
+    grid-template-columns: 116px 120px;
     font-family: 'Lato';
     font-weight: 700;
     overflow: hidden;
   }
+  
   &__button-pool {
+    
     background-color: #4aa8fa;
     border: 0;
     color: #fff;
