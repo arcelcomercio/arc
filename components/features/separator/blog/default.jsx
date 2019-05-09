@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import SeparatorBlogChildrenItem from './_children/item'
 import { setDevice } from '../../../../resources/utilsJs/resizer'
 
@@ -54,11 +55,12 @@ class SeparatorBlog extends Component {
   }
 
   fetch() {
-    const { arcSite } = this.props
-
+    const { customFields, arcSite } = this.props
+    const { blog_limit: blogLimit } = customFields
     const source = 'get-user-blog-and-posts'
     const params = {
       website: arcSite,
+      blogLimit,
     }
 
     const { fetched } = this.getContent(source, params)
@@ -77,10 +79,13 @@ class SeparatorBlog extends Component {
   render() {
     const { listPost } = this.state
     const { arcSite, contextPath } = this.props
+    const WEBSITE = `?_website=${arcSite}`
     return (
       <div>
         <div className="blog-separator__box-blog">
-          <a className="blog-separator__blog" href="/">
+          <a
+            className="blog-separator__blog"
+            href={`${contextPath}/blog${WEBSITE}`}>
             Blogs
           </a>
         </div>
@@ -116,6 +121,15 @@ class SeparatorBlog extends Component {
       </div>
     )
   }
+}
+
+SeparatorBlog.propTypes = {
+  customFields: PropTypes.shape({
+    blog_limit: PropTypes.string.tag({
+      name: 'Posts a mostrar',
+      description: 'Por defecto mostrará 5 posts',
+    }),
+  }),
 }
 
 SeparatorBlog.label = 'Separador de Blog'

@@ -126,3 +126,9 @@
 .position-absolute {
   position: absolute;
 }
+
+/*-----------------------*/
+.clearfix {
+  display: table;
+  content: '';
+}

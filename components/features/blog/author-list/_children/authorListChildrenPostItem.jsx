@@ -1,5 +1,8 @@
 import React from 'react'
-import { ResizeImageUrl, getFullDateIso8601 } from '../utilsJs/helpers'
+import {
+  ResizeImageUrl,
+  getFullDateIso8601,
+} from '../../../../../resources/utilsJs/helpers'
 
 const classes = {
   container: 'post-item__container',
@@ -12,19 +15,20 @@ const classes = {
   author: 'post-item__author',
 }
 
-const PostItem = ({
+const AuthorListChildrenPostItem = ({
   postTitle = '',
   postPermaLink = '',
   postDate = '',
   image = '',
   author = '',
   arcSite = '',
+  contextPath = '',
 }) => {
   const { day, month, fullYear } = getFullDateIso8601(postDate)
   const postFormatDate = `${day}/${month}/${fullYear}`
+  const WEBSITE = `?_website=${arcSite}`
   const DEFAULT_IMG =
     'https://img.gestion.pe/bundles/appcms/images/gestion/default_blog.jpg'
-
   return (
     <article className={classes.container}>
       <div className={classes.date}>
@@ -41,10 +45,10 @@ const PostItem = ({
           />
         </figure>
         <div className={classes.description}>
-          <a href={postPermaLink}>
+          <a href={`${contextPath}/blog/${postPermaLink}${WEBSITE}`}>
             <h3 className={classes.title}>{postTitle}</h3>
           </a>
-          <a href={postPermaLink}>
+          <a href={`${contextPath}/blog/${postPermaLink}${WEBSITE}`}>
             <h5 className={classes.author}>{author}</h5>
           </a>
         </div>
@@ -53,6 +57,6 @@ const PostItem = ({
   )
 }
 
-PostItem.static = true
+AuthorListChildrenPostItem.static = true
 
-export default PostItem
+export default AuthorListChildrenPostItem
