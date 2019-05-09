@@ -15,7 +15,7 @@ $color-button: #0e6dc1;
     padding: 15px 0 10px;
     min-height: 280px;
     max-height: 280px;
-    &-title {
+    &__title {
       font-size: 18px;
       line-height: 1.2;
       color: $color-text-question;
@@ -23,20 +23,20 @@ $color-button: #0e6dc1;
       margin-bottom: 15px;
       padding: 0 20px;
     }
-    &-choices {
+    &__choices {
       margin-bottom: 10px;
       padding: 0 20px;
-      &-item {
+      &__item {
         color: #4c4c4c;
         padding: 5px 20px 5px 0;
         margin-bottom: 5px;
       }
     }
-    &-radio {
+    &__radio {
       cursor: pointer;
       overflow: hidden;
     }
-    &-input:checked + .card-survey__question-check::after {
+    &__input:checked + .card-survey__question__check::after {
       background-color: #494949;
       border-radius: 50%;
       content: '';
@@ -48,7 +48,7 @@ $color-button: #0e6dc1;
       top: 50%;
       width: 14px;
     }
-    &-check {
+    &__check {
       background-color: $color-white;
       border-radius: 13px;
       float: left;
@@ -72,7 +72,7 @@ $color-button: #0e6dc1;
   &__buttons {
     bottom: 0;
     padding: 0 20px 15px;
-    &-results {
+    &__results {
       color: $color-text-question;
       font-size: 12px;
       letter-spacing: 1px;
@@ -81,11 +81,30 @@ $color-button: #0e6dc1;
         text-decoration: underline;
       }
     }
-    &-submit {
+    &__submit {
       background: $color-button;
       color: $color-white;
       font-size: 11px;
       padding: 8px 40px;
     }
+  }
+  &__result {
+    &__item {
+      color: $color-button;
+      font-weight: 500;
+      font-size: 14px;
+      font-family: $main-font;
+    }
+  }
+}
+
+.progress-bar {
+  height: 4px;
+  border-radius: 50px;
+  background-color: #f4f4f4;
+  &__filler {
+    background-color: $color-button;
+    height: 100%;
+    border-radius: inherit;
   }
 }

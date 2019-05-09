@@ -10,20 +10,20 @@ const CardsSurveyChildResult = props => {
     0
   )
 
-  const indexOfBiggest = a => {
+  /*const indexOfBiggest = a => {
     return a.reduce((prev, next, index) => {
       return next > a[prev] ? index : next
     }, 0)
-  }
+  }*/
 
   // console.log(indexOfBiggest(choices))
 
   return (
-    <ul className="quiz-result">
+    <ul className="card-survey__result">
       {choices.map(result => (
-        <li key={result.option} className="quiz-result__list">
-          <span className="quiz-result__item">{result.option}</span>
-          <span className="quiz-result__item">{`${Math.round(
+        <li key={result.option} className="card-survey__result__list">
+          <span className="card-survey__result__item">{result.option}</span>
+          <span className="card-survey__result__item">{`${Math.round(
             (result.votes / totalVotes) * 100
           )}%`}</span>
           <CardsSurveyChildProgressBar

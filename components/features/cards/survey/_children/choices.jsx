@@ -10,19 +10,19 @@ class CardSurveyChildSurveyOptions extends PureComponent {
   }
 
   render() {
-    const { listChoices } = this.props
+    const { choices } = this.props
     return (
       <Fragment>
-        {listChoices.map((choice, index) => {
+        {choices.map((choice, index) => {
           const idChoice = `radio${index}`
           return (
-            <div className="card-survey__question-choices-item">
+            <div className="card-survey__question__choices__item">
               <label
                 htmlFor={idChoice}
-                className="card-survey__question-radio flex-center-vertical">
+                className="card-survey__question__radio flex-center-vertical">
                 <input
                   id={idChoice}
-                  className="card-survey__question-input hide"
+                  className="card-survey__question__input hide"
                   type="radio"
                   name="survey"
                   value={choice.option}
@@ -30,10 +30,8 @@ class CardSurveyChildSurveyOptions extends PureComponent {
                     this._handleChange(evt)
                   }}
                 />
-                <span className="card-survey__question-check" />
-                <span className="card-survey__question-text-option">
-                  {choice.option}
-                </span>
+                <span className="card-survey__question__check" />
+                <span>{choice.option}</span>
               </label>
             </div>
           )
