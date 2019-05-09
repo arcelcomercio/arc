@@ -1,10 +1,22 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/BlogItem'
+import Paginacion from '../../../../resources/components/paginacion_numerica'
 import { formatDate } from '../../../../resources/utilsJs/helpers'
 
 @Consumer
 class BlogList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      totalPost: null,
+    }
+  }
+
+  componentDidMount() {
+    this.fetch()
+  }
+
   transformDate = postDate => {
     const arrayDate = formatDate(postDate).split(' ')
     if (arrayDate.length > 1)
@@ -47,8 +59,32 @@ class BlogList extends Component {
     }
   }
 
+  fetch() {
+    const { arcSite } = this.props
+    const source = 'get-count-all-blogs'
+    const params = {
+      website: arcSite,
+    }
+
+    const { fetched } = this.getContent(source, params)
+    fetched
+      .then(response => {
+        this.setState({
+          totalPost: response.total,
+        })
+      })
+      .catch(e => console.log('Error: ', e))
+  }
+
   render() {
-    const { globalContent = {} } = this.props
+    const { globalContent = {}, globalContentConfig = {} } = this.props
+    const {
+      query: {
+        posts_limit: postsLimit = '',
+        blog_offset: blogOffset = '',
+      } = {},
+    } = globalContentConfig
+    const { totalPost } = this.state
     const blogs = Object.values(globalContent).filter(
       item => typeof item === 'object'
     )
@@ -59,20 +95,28 @@ class BlogList extends Component {
     }
 
     return (
-      <div className={classes.list}>
-        <h1 className={classes.listTitle}>blogs</h1>
-        <div>
-          {blogs.map(item => {
-            const params = this.buildParams(item)
-            return <BlogItem key={params.urlPost} {...params} />
-          })}
+      <Fragment>
+        <div className={classes.list}>
+          <h1 className={classes.listTitle}>blogs</h1>
+          <div>
+            {blogs.map(item => {
+              const params = this.buildParams(item)
+              return <BlogItem key={params.urlPost} {...params} />
+            })}
+          </div>
         </div>
-      </div>
+        {totalPost && (
+          <Paginacion
+            totalElements={totalPost}
+            storiesQty={postsLimit}
+            currentPage={blogOffset || 1}
+          />
+        )}
+      </Fragment>
     )
   }
 }
 
 BlogList.label = 'Listado Blogs'
-BlogList.static = true
 
 export default BlogList

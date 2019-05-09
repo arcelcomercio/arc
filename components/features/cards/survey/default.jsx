@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 import CardsSurveyChildResult from './_children/result'
+import CardSurveyChild from './_children/survey'
 
 @Consumer
 class CardSurvey extends PureComponent {
@@ -64,8 +65,25 @@ class CardSurvey extends PureComponent {
 
   render() {
     const { quizData } = this.state
+
+    const listChoices = [
+      {
+        option: 'Si',
+        votes: 107,
+      },
+      {
+        option: 'No',
+        votes: 268,
+      },
+    ]
+
+    const params = {
+      listChoices,
+    }
+
     return (
       <div>
+        <CardSurveyChild {...params} />
         <CardsSurveyChildResult choices={quizData.choices} />
       </div>
     )

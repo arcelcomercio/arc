@@ -9,11 +9,21 @@ const classes = {
   img: 'author-title__img position-absolute',
 }
 
-const AuthorTitle = ({ firstName, guid, blogname, path }) => {
+const AuthorTitle = ({
+  firstName,
+  guid,
+  blogname,
+  path,
+  arcSite,
+  contextPath,
+}) => {
+  const WEBSITE = `?_website=${arcSite}`
   return (
     <div className={classes.authorTitle}>
       <div className={classes.title}>
-        <a href={path} className={classes.url}>
+        <a
+          href={`${contextPath}/blog/${path}${WEBSITE}`}
+          className={classes.url}>
           {blogname}
         </a>
         <p className={classes.name}>{firstName}</p>
