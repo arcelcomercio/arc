@@ -1,5 +1,5 @@
 import React from 'react'
-import StoryData from '../../../../../resources/components/utils/data-story'
+import StoryData from '../../../../utilities/story-data'
 import { formatDate } from '../../../../utilities/helpers'
 
 const classes = {

@@ -1,5 +1,5 @@
 import React from 'react'
-import StoryData from '../../../../../resources/components/utils/data-story'
+import StoryData from '../../../../utilities/story-data'
 
 const classes = {
   card: 'author-card',
