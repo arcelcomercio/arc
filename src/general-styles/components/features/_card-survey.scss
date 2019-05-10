@@ -100,7 +100,7 @@ $color-button: #0e6dc1;
     line-height: 1.2;
     font-family: $main-font;
   }
-  &__highlight {
+  &.active {
     color: #0e6dc1;
   }
   &__mb {
