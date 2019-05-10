@@ -24,7 +24,7 @@ class StoriesListCard extends PureComponent {
         seeMoreurl,
         seeHour,
         seeImageNews,
-        section,
+        section, // cambiará
         background = '',
       },
     } = props || {}
@@ -38,7 +38,7 @@ class StoriesListCard extends PureComponent {
       seeMoreurl,
       seeHour,
       seeImageNews,
-      section,
+      section, // cambiará
       data: [],
     }
   }

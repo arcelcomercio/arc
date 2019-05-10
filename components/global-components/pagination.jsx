@@ -78,7 +78,7 @@ export default class Pagination extends Component {
     currentPage = parseInt(currentPage || 1, 10)
 
     const { pages, totalPages } = this.state
-    let querys = window.location.search
+    const querys = window.location.search
 
     let pathOrigin = window.location.pathname.match(/\D+/)
     pathOrigin =
@@ -136,11 +136,11 @@ export default class Pagination extends Component {
             } else urlPage = `${pathOrigin}?page=${page}`
           else urlPage = `${pathOrigin}/${page}${querys}`
 
-          if (page != '...') {
+          if (page !== '...') {
             tag = (
               <a
                 className={`${classes.page} ${
-                  currentPage == page || (currentPage === 0 && page == 1)
+                  currentPage === page || (currentPage === 0 && page === 1)
                     ? 'paginacion__page--current'
                     : ''
                 }`}
@@ -153,7 +153,7 @@ export default class Pagination extends Component {
         })}
         <a
           className={`${classes.page} ${
-            currentPage == totalPages ? 'paginacion__page--disabled' : ''
+            currentPage === totalPages ? 'paginacion__page--disabled' : ''
           }`}
           href={urlNextPage}>
           siguiente

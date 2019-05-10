@@ -73,15 +73,16 @@ class CustomTitle extends PureComponent {
   render() {
     const {
       globalContent,
+      globalContentConfig,
+      editableField,
       customFields: {
-        TextType = 'h1',
-        textAlign = 'left',
         isUppercase,
         customText,
+        TextType = 'h1',
+        textAlign = 'left',
       } = {},
-      editableField,
     } = this.props
-
+    const { query: { section } = {} } = globalContentConfig || {}
     const {
       section_name: sectionName,
       tag_name: tagName,
@@ -100,6 +101,7 @@ class CustomTitle extends PureComponent {
           authorName ||
           this.getSearchTitle() ||
           this.getArchivoTitle() ||
+          section ||
           'Título'}
       </TextType>
     )

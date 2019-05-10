@@ -73,6 +73,7 @@ class BlogList extends PureComponent {
     const { fetched } = this.getContent(source, params)
     fetched
       .then(response => {
+        console.log(response.total, 'total post')
         this.setState({
           totalPost: response.total,
         })
@@ -83,10 +84,7 @@ class BlogList extends PureComponent {
   render() {
     const { globalContent = {}, globalContentConfig = {} } = this.props
     const {
-      query: {
-        posts_limit: postsLimit = '',
-        blog_offset: blogOffset = '',
-      } = {},
+      query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
     } = globalContentConfig
     const { totalPost } = this.state
     const blogs = Object.values(globalContent).filter(
@@ -107,7 +105,7 @@ class BlogList extends PureComponent {
         {totalPost && (
           <Paginacion
             totalElements={totalPost}
-            storiesQty={postsLimit}
+            storiesQty={blogLimit}
             currentPage={blogOffset || 1}
           />
         )}
@@ -117,6 +115,5 @@ class BlogList extends PureComponent {
 }
 
 BlogList.label = 'Blog - Listado blogs'
-BlogList.static = true
 
 export default BlogList
