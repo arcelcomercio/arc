@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import SurveyChoices from './choices'
 import SurveyResults from './result'
 
@@ -35,8 +36,7 @@ class CardSurveyChildSurvey extends PureComponent {
   }
 
   render() {
-    const { quiz, hasVote } = this.props
-    const { choices, slug } = quiz
+    const { choices = [], slug = '', hasVote = false } = this.props
     const paramsOptions = {
       choices,
       setChoiceSelected: this.setChoiceSelected,
@@ -51,13 +51,14 @@ class CardSurveyChildSurvey extends PureComponent {
             Corte suprema?
           </p>
           <div className={classes.surveyChoices}>
-            {!hasVote && (
+            {!hasVote ? (
               <SurveyChoices
                 {...paramsOptions}
                 onChange={evt => this.setChoiceSelected(evt)}
               />
+            ) : (
+              <SurveyResults choices={choices} />
             )}
-            {hasVote && <SurveyResults choices={quiz.choices} />}
           </div>
           {!hasVote && (
             <div className={classes.surveyButtons}>
@@ -76,6 +77,17 @@ class CardSurveyChildSurvey extends PureComponent {
       </div>
     )
   }
+}
+
+CardSurveyChildSurvey.propTypes = {
+  choices: PropTypes.arrayOf(
+    PropTypes.shape({
+      option: PropTypes.string,
+      votes: PropTypes.number,
+    })
+  ),
+  slug: PropTypes.string,
+  hasVote: PropTypes.bool,
 }
 
 export default CardSurveyChildSurvey

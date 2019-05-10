@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
-import { setCookieSurvey, getCookie } from '../../../utilities/helpers'
+import { setSurveyCookie, getCookie } from '../../../utilities/helpers'
 import CardSurveyChildSurvey from './_children/survey'
 
 @Consumer
@@ -51,8 +51,9 @@ class CardSurvey extends PureComponent {
       option: optionSelected,
       website: 'peru21',
     }
-    const url = 'http://jab.pe/f/arc/services/encuesta.php'
-    fetch(url, {
+    const URL = 'http://jab.pe/f/arc/services/encuesta.php'
+    const { contextPath } = this.props
+    fetch(URL, {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify(body),
@@ -63,31 +64,28 @@ class CardSurvey extends PureComponent {
       .catch(error => error)
       .then(response => {
         if (response.status === 200) {
-          const {
-            quizData: { slug },
-          } = this.state
-          setCookieSurvey(body.id, 1)
-          window.location.href = `/encuesta/${slug}`
+          const { quizData: { slug = '' } = {} } = this.state
+          setSurveyCookie(body.id, 1)
+          window.location.href = `${contextPath}/encuesta/${slug}`
         }
       })
   }
 
   render() {
-    const { quizData } = this.state
+    const {
+      quizData: { slug = '', choices = [] },
+    } = this.state
     const params = {
-      quiz: quizData,
+      slug,
+      choices,
       hasVote: this.hasVote,
       sendQuiz: this.sendQuiz,
     }
 
-    return (
-      <div>
-        <CardSurveyChildSurvey {...params} />
-      </div>
-    )
+    return <CardSurveyChildSurvey {...params} />
   }
 }
 
-CardSurvey.label = 'Encuesta - peru21'
+CardSurvey.label = 'Encuesta'
 
 export default CardSurvey
