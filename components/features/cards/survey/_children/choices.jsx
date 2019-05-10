@@ -12,7 +12,7 @@ const CardSurveyChildSurveyOptions = ({ choices, onChange }) => {
   return choices.map((choice, index) => {
     const idChoice = `radio${index}`
     return (
-      <div className={classes.surveyChoicesItem}>
+      <div key={choice.option} className={classes.surveyChoicesItem}>
         <label htmlFor={idChoice} className={classes.surveyRadio}>
           <input
             id={idChoice}

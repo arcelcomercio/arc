@@ -10,8 +10,7 @@ const classes = {
   item: 'survey-result__item',
 }
 
-const CardsSurveyChildResult = props => {
-  const { choices } = props
+const CardsSurveyChildResult = ({ choices = [] }) => {
   const totalVotes = choices.reduce(
     (prev, current) => prev + (current.votes || 0),
     0

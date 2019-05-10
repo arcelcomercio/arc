@@ -72,10 +72,12 @@ class CardSurvey extends PureComponent {
   }
 
   render() {
+    const { contextPath } = this.props
     const {
       quizData: { slug = '', choices = [] },
     } = this.state
     const params = {
+      contextPath,
       slug,
       choices,
       hasVote: this.hasVote,

@@ -36,7 +36,7 @@ class CardSurveyChildSurvey extends PureComponent {
   }
 
   render() {
-    const { choices = [], slug = '', hasVote = false } = this.props
+    const { contextPath, choices = [], slug = '', hasVote = false } = this.props
     const paramsOptions = {
       choices,
       setChoiceSelected: this.setChoiceSelected,
@@ -62,7 +62,9 @@ class CardSurveyChildSurvey extends PureComponent {
           </div>
           {!hasVote && (
             <div className={classes.surveyButtons}>
-              <a href={`/encuesta/${slug}`} className={classes.surveyResults}>
+              <a
+                href={`${contextPath}/encuesta/${slug}`}
+                className={classes.surveyResults}>
                 Ver Resultados
               </a>
               <button

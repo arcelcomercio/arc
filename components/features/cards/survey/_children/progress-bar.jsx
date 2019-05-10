@@ -6,8 +6,7 @@ const classes = {
   filler: 'survey-bar__filler',
 }
 
-const CardsSurveyChildProgressBar = props => {
-  const { percentage, isHighlight } = props
+const CardsSurveyChildProgressBar = ({ percentage, isHighlight }) => {
   const highLightBarClass = isHighlight ? 'active' : ''
   return (
     <div className={classes.bar}>
