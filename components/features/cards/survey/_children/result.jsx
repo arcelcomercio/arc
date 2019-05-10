@@ -17,25 +17,17 @@ const CardsSurveyChildResult = props => {
     0
   )
 
-  const getIndexBiggestOf = (a = []) => {
-    let indexOfBiggest = 0
-    a.reduce((prev, current, index) => {
-      const auxCurrent = current ? current.votes : 0
-      if (auxCurrent > prev) {
-        indexOfBiggest = index
-        return auxCurrent
-      }
-      return prev
-    }, 0)
-    return indexOfBiggest
+  const getHighestValue = (array = []) => {
+    return array.map(item => item.votes).sort((a, b) => b - a)[0]
   }
 
-  const indexOfTheHighlight = getIndexBiggestOf(choices)
+  const highestValue = getHighestValue(choices)
 
   return (
     <ul className={classes.surveyResult}>
-      {choices.map((result, i) => {
-        const isBiggestValue = i === indexOfTheHighlight
+      {choices.map(result => {
+        const isBiggestValue = result.votes === highestValue
+        console.log(result.votes, highestValue, isBiggestValue)
         const textHighightClass = isBiggestValue ? 'active' : ''
         return (
           <li key={result.option} className={classes.list}>

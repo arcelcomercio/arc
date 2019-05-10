@@ -3,20 +3,24 @@ $color-marine-blue: #26567f;
 $color-text-question: #333;
 $color-button: #0e6dc1;
 $color-check-selected: #494949;
+
 .card-survey {
   background: $color-light-blue;
   padding-top: 14px;
 }
+
 .survey-header {
   background-color: $color-marine-blue;
   color: $color-white;
   padding: 18px 0;
   font-weight: bold;
 }
+
 .survey-question {
   padding: 15px 0 10px;
   min-height: 280px;
   max-height: 280px;
+
   &__title {
     font-size: 18px;
     line-height: 1.2;
@@ -25,10 +29,12 @@ $color-check-selected: #494949;
     margin-bottom: 15px;
     padding: 0 20px;
   }
+
   &__radio {
     cursor: pointer;
   }
-  &__input:checked + .survey-question__check::after {
+
+  &__input:checked+.survey-question__check::after {
     background-color: $color-check-selected;
     border-radius: 50%;
     content: '';
@@ -40,6 +46,7 @@ $color-check-selected: #494949;
     top: 50%;
     width: 14px;
   }
+
   &__check {
     background-color: $color-white;
     border-radius: 13px;
@@ -48,6 +55,7 @@ $color-check-selected: #494949;
     margin-right: 8px;
     vertical-align: middle;
     width: 26px;
+
     &:before {
       border-radius: 13px;
       bottom: 0;
@@ -60,9 +68,11 @@ $color-check-selected: #494949;
     }
   }
 }
+
 .survey-choices {
   margin-bottom: 10px;
   padding: 0 20px;
+
   &__item {
     color: #4c4c4c;
     padding: 5px 20px 5px 0;
@@ -73,15 +83,18 @@ $color-check-selected: #494949;
 .survey-buttons {
   bottom: 0;
   padding: 0 20px 15px;
+
   &__results {
     color: $color-text-question;
     font-size: 12px;
     letter-spacing: 1px;
     font-weight: bold;
+
     &:hover {
       text-decoration: underline;
     }
   }
+
   &__submit {
     background: $color-button;
     color: $color-white;
@@ -94,31 +107,37 @@ $color-check-selected: #494949;
   &__list {
     padding: 5px 0;
   }
+
   &__item {
     color: #4c4c4c;
     font-size: 14px;
     line-height: 1.2;
     font-family: $primary-font;
+
+    &.active {
+      color: #0e6dc1;
+    }
   }
-  &.active {
-    color: #0e6dc1;
-  }
+
   &__mb {
     margin-bottom: 5px;
   }
 }
+
 .survey-bar {
   position: relative;
   height: 4px;
   width: 100%;
   border-radius: 50px;
   background-color: #f4f4f4;
+
   &__filler {
     background-color: #bababa;
     height: 100%;
     border-radius: inherit;
-  }
-  &__highlight {
-    background-color: #0e6dc1;
+
+    &.active {
+      background-color: #0e6dc1;
+    }
   }
 }
