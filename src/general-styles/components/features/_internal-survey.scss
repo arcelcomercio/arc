@@ -3,7 +3,7 @@
   grid-template-columns: 576px 300px;
   border: 2px solid black;
   background-color: #ebebeb;
-  font-family: $main-font;
+  font-family: $primary-font;
   padding: 30px;
   margin-bottom: 30px;
 
@@ -29,7 +29,7 @@
   &__buttons {
     display: grid;
     grid-template-columns: 116px 120px;
-    font-family: $main-font;
+    font-family: $primary-font;
     font-weight: 700;
     overflow: hidden;
   }
