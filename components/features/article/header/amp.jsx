@@ -92,6 +92,7 @@ class ArticleHeader extends PureComponent {
       globalContent: {
         subheadlines: subtitle = '',
         headlines: titleElements = '',
+        taxonomy: { primary_section },
         publish_date: date,
         promo_items: galleryItems = {},
       } = {},
@@ -112,7 +113,7 @@ class ArticleHeader extends PureComponent {
               <a href="/">{siteName}</a>
             </li>
             <li className={classes.item}>
-              <a href="http://elcomercio.pe/politica">Política</a>
+              <a href={primary_section.path}>{primary_section.name}</a>
             </li>
           </ul>
           <header>
