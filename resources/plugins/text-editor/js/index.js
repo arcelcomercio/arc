@@ -4,14 +4,13 @@ window.pluginOptions = {
   maxHeight: '700px',
 }
 
-// eslint-disable-next-line no-unused-vars
 function main({
-  field,
   initVal,
   onClose,
   onSave
 }) {
-  var editor = new Quill('#editor', {
+  // eslint-disable-next-line no-undef
+  const editor = new Quill('#editor', {
     modules: {
       toolbar: [
         [{
