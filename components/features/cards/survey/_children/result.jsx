@@ -27,7 +27,6 @@ const CardsSurveyChildResult = props => {
     <ul className={classes.surveyResult}>
       {choices.map(result => {
         const isBiggestValue = result.votes === highestValue
-        console.log(result.votes, highestValue, isBiggestValue)
         const textHighightClass = isBiggestValue ? 'active' : ''
         return (
           <li key={result.option} className={classes.list}>
