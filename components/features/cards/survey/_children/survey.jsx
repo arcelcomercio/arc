@@ -7,7 +7,7 @@ const classes = {
   cardSurvey: 'card-survey full-width',
   surveyHeader: 'survey-header text-uppercase text-center',
   surveyQuestion: 'survey-question position-relative',
-  surveyTitle: 'survey-question__title',
+  surveyTitle: 'survey-question__title overflow-hidden',
   surveyChoices: 'survey-choices',
   surveyButtons:
     'survey-buttons full-width position-absolute flex-center-vertical flex--justify-between',
