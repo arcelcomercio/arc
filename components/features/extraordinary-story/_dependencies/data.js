@@ -1,5 +1,5 @@
 import StoryData from '../../../utilities/story-data'
-import ConfigParams from '../../../../resources/components/utils/config-params'
+import ConfigParams from '../../../utilities/config-params'
 import {
   ResizeImageUrl
 } from '../../../utilities/helpers'
