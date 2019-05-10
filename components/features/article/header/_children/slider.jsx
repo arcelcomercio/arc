@@ -33,8 +33,7 @@ function Arrow({ direction = 'right' }) {
       xmlns="http://www.w3.org/2000/svg"
       width="20"
       height="30"
-      viewBox="0 0 20 30"
-    >
+      viewBox="0 0 20 30">
       <polygon
         fill="#000"
         points="20 15 4.228 0 0 3.626 11.954 15 0 26.374 4.228 30"
@@ -44,7 +43,7 @@ function Arrow({ direction = 'right' }) {
   )
 }
 
-class Slider extends React.PureComponent {
+class ArticleHeaderChildSlider extends React.PureComponent {
   constructor(props) {
     super(props)
     const { slideIndex = 0, direction = HORIZONTAL, children } = props
@@ -334,8 +333,7 @@ class Slider extends React.PureComponent {
         {...autoplay && {
           onMouseOver: this.handleMouseOver,
           onMouseOut: this.handleMouseOut,
-        }}
-      >
+        }}>
         <a // ESLinter pide usar button en lugar de "a"
           onClick={this.previous}
           role="button"
@@ -345,8 +343,7 @@ class Slider extends React.PureComponent {
             isDisabled || !this.canGoPrevious()
               ? ` ${classNames.buttonDisabled}`
               : ''
-          }`}
-        >
+          }`}>
           {previousButton}
         </a>
         <a // ESLinter pide usar button en lugar de "a"
@@ -358,8 +355,7 @@ class Slider extends React.PureComponent {
             isDisabled || !this.canGoNext()
               ? ` ${classNames.buttonDisabled}`
               : ''
-          }`}
-        >
+          }`}>
           {nextButton}
         </a>
         <div className={classNames.track}>
@@ -380,4 +376,4 @@ class Slider extends React.PureComponent {
     )
   }
 }
-export default Slider
+export default ArticleHeaderChildSlider

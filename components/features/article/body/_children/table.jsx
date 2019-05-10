@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default props => {
+const ArticleBodyChildTable = props => {
   const { data: { header = [], rows = [] } = {} } = props
 
   return (
@@ -22,3 +22,5 @@ export default props => {
     </table>
   )
 }
+
+export default ArticleBodyChildTable

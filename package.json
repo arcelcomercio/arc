@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "@arc-core-components/amp-document-boilerplate": "^0.2.6-beta.1",
     "@arc-core-components/content-schema_ans-feed-v0.6.2": "^0.1.6-beta.0",
     "@arc-core-components/content-source_story-feed_sections-v4": "^1.0.4-beta.0",
     "@arc-core-components/element_image": "^0.3.1",
     "@arc-core-components/feature_article-body": "^0.2.0",
+    "@arc-core-components/feature_global-amp-gallery": "^0.3.2-beta.1",
     "@babel/polyfill": "^7.4.0",
     "@babel/runtime": "7.3.1",
     "normalize-scss": "^7.0.1",
@@ -16,6 +18,9 @@
     "react-render-html": "^0.6.0",
     "react-share": "^2.4.0",
     "thumbor": "^0.1.5"
+  },
+  "peerDependencies": {
+    "react": "^16.6.3"
   },
   "devDependencies": {
     "@arc-core-components/content-source_content-api-v4": "^1.3.1",
@@ -58,9 +63,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "fusion": "fusion",
     "start": "fusion start",
-    "dev": "webpack --config ./config/webpack.config.js --env.dev",
-    "prod": "webpack --config ./config/webpack.config.js --env.prod",
-    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev",
+    "dev": "webpack --config ./config/webpack.config.js --env.dev webpack --config ./config/webpack.config-amp.js --env.dev",
+    "prod": "webpack --config ./config/webpack.config.js --env.prod webpack --config ./config/webpack.config-amp.js --env.prod",
+    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev ebpack --config ./config/webpack.config-amp.js --watch --env.dev",
     "zip": "npm run prod && npx fusion zip"
   },
   "keywords": [],

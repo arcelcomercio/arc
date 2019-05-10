@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import AuthorTitleComponent from '../../../../resources/components/author-title'
+import AuthorTitle from './_children/author-title'
 
 @Consumer
-class AuthorTitle extends PureComponent {
+class BlogAuthorTitle extends PureComponent {
   render() {
     const { globalContent, arcSite, contextPath } = this.props
     const {
@@ -22,14 +22,11 @@ class AuthorTitle extends PureComponent {
       arcSite,
       contextPath,
     }
-    return (
-      // Componente titulo
-      <AuthorTitleComponent {...data} />
-    )
+    return <AuthorTitle {...data} />
   }
 }
 
-AuthorTitle.label = 'Titulo autor'
-AuthorTitle.static = true
+BlogAuthorTitle.label = 'Blog - Título del autor'
+BlogAuthorTitle.static = true
 
-export default AuthorTitle
+export default BlogAuthorTitle
