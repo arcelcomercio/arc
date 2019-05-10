@@ -1,11 +1,10 @@
 // content/sources/content-api-v4.js
 import { PureComponent } from 'react'
+import renderHTML from 'react-render-html'
 import Consumer from 'fusion:consumer'
 
-import renderHTML from 'react-render-html'
-
 @Consumer
-class Video extends PureComponent {
+class ArticleBodyChildVideo extends PureComponent {
   componentDidMount() {
     window.powaBoot()
     // window.addEventListener('powaRender', function(event) {       console.warn(event)     })
@@ -50,4 +49,4 @@ class Video extends PureComponent {
     return data && renderHTML(data)
   }
 }
-export default Video
+export default ArticleBodyChildVideo

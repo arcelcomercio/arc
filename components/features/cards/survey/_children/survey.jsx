@@ -50,7 +50,7 @@ class CardSurveyChildSurvey extends PureComponent {
             ¿El congreso volvera a blindar a Donayre pese al ultimo fallo de la
             Corte suprema?
           </p>
-          <div className={classes.SurveyChoices}>
+          <div className={classes.surveyChoices}>
             {!hasVote && (
               <SurveyChoices
                 {...paramsOptions}

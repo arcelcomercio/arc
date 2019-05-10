@@ -1,12 +1,11 @@
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
 
 const classes = {
   description: 'article-header__news-summary',
 }
 @Consumer
-class Subheading extends Component {
+class ArticleHeaderChildShareSubheading extends Component {
   render() {
     const { globalContent } = this.props
     const { subheadlines: subtitle = {} } = globalContent || {}
@@ -21,9 +20,4 @@ class Subheading extends Component {
   }
 }
 
-Subheading.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  globalContent: PropTypes.object,
-}
-
-export default Subheading
+export default ArticleHeaderChildShareSubheading

@@ -1,0 +1,65 @@
+.internal-survey {
+  display: grid;
+  grid-template-columns: 576px 300px;
+  border: 2px solid black;
+  background-color: #ebebeb;
+  font-family: $primary-font;
+  padding: 30px;
+  margin-bottom: 30px;
+
+  &__detail {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #ffffff;
+    // width: 576px;
+  }
+  &__date {
+    display: block;
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+
+  &__title {
+    display: inline;
+    font-size: 40px;
+    font-weight: 700;
+  }
+  &__buttons {
+    display: grid;
+    grid-template-columns: 116px 120px;
+    font-family: $primary-font;
+    font-weight: 700;
+    overflow: hidden;
+  }
+
+  &__button-pool {
+    background-color: #4aa8fa;
+    border: 0;
+    color: #fff;
+    float: left;
+    font-weight: 700;
+    height: 45px;
+    text-transform: uppercase;
+    width: 116px;
+  }
+  &__view-result {
+    color: #333;
+    display: block;
+    float: left;
+    font-size: 12px;
+    letter-spacing: 1px;
+    width: 120px;
+    border: 1px solid #646464;
+    text-align: center;
+    height: 45px;
+    line-height: 43px;
+  }
+
+  &__result {
+    background-color: #fcee21;
+    padding: 30px 20px 0;
+    position: relative;
+  }
+}

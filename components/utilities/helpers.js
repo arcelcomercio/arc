@@ -1,7 +1,15 @@
-import { addResizedUrlItem } from '../../resources/utilsJs/thumbs'
+import { addResizedUrlItem } from './thumbs'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
+}
+
+export const appendScript = (code, position = 'body') => {
+  const script = document.createElement('script')
+  script.type = 'text/javascript'
+  script.textContent = code
+  if (position === 'head') return document.head.append(script)
+  return document.body.append(script)
 }
 
 export const formatDate = date => {
@@ -20,6 +28,36 @@ export const formatDate = date => {
       ? date.slice(date.indexOf('T') + 1, 16)
       : fechaEntrante
   return fecha
+}
+
+export const formatDayMonthYear = date => {
+  const fecha = new Date(date)
+  const arrayMeses = [
+    'enero',
+    'febrero',
+    'marzo',
+    'abril',
+    'mayo',
+    'junio',
+    'julio',
+    'agosto',
+    'septiembre',
+    'octubre',
+    'noviembre',
+    'diciembre',
+  ]
+  const arrayDay = [
+    'Lunes',
+    'Martes',
+    'Miércoles',
+    'Jueves',
+    'Viernes',
+    'Sabado',
+    'Domingo',
+  ]
+  return `${arrayDay[fecha.getDay()]} ${fecha.getDate()} de ${
+    arrayMeses[fecha.getMonth()]
+  } del ${fecha.getFullYear()}, ${fecha.getHours()}:${fecha.getMinutes()}`
 }
 
 // ex: 2019-04-29 22:34:13 or 2019/04/29T22:34:13
@@ -229,6 +267,12 @@ export const socialMediaUrlShareList = (postPermaLink, postTitle) => {
     linkedin: `http://www.linkedin.com/shareArticle?url=http://gestion.pe/blog/${postPermaLink}`,
     pinterest: `https://pinterest.com/pin/create/button/?url=http://gestion.pe/blog/${postPermaLink}`,
     whatsapp: `whatsapp://send?text=http://gestion.pe/blog/${postPermaLink}`,
+  }
+}
+
+export const createMarkup = html => {
+  return {
+    __html: html,
   }
 }
 
