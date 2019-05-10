@@ -2,6 +2,18 @@ import React, { PureComponent } from 'react'
 import SurveyChoices from './choices'
 import SurveyResults from './result'
 
+const classes = {
+  cardSurvey: 'card-survey full-width',
+  surveyHeader: 'survey-header text-uppercase text-center',
+  surveyQuestion: 'survey-question position-relative',
+  surveyTitle: 'survey-question__title',
+  surveyChoices: 'survey-choices',
+  surveyButtons:
+    'survey-buttons full-width position-absolute flex-center-vertical flex--justify-between',
+  surveyResults: 'survey-buttons__results',
+  surveySubmit: 'survey-buttons__submit text-uppercase',
+}
+
 class CardSurveyChildSurvey extends PureComponent {
   constructor(props) {
     super(props)
@@ -31,16 +43,14 @@ class CardSurveyChildSurvey extends PureComponent {
     }
 
     return (
-      <div className="card-survey full-width">
-        <h3 className="card-survey__header text-uppercase text-center">
-          encuesta
-        </h3>
-        <form className="card-survey__question position-relative">
-          <p className="card-survey__question__title">
+      <div className={classes.cardSurvey}>
+        <h3 className={classes.surveyHeader}>encuesta</h3>
+        <form className={classes.surveyQuestion}>
+          <p className={classes.surveyTitle}>
             ¿El congreso volvera a blindar a Donayre pese al ultimo fallo de la
             Corte suprema?
           </p>
-          <div className="card-survey__question__choices">
+          <div className={classes.SurveyChoices}>
             {!hasVote && (
               <SurveyChoices
                 {...paramsOptions}
@@ -50,15 +60,13 @@ class CardSurveyChildSurvey extends PureComponent {
             {hasVote && <SurveyResults choices={quiz.choices} />}
           </div>
           {!hasVote && (
-            <div className="card-survey__buttons full-width position-absolute flex-center-vertical flex--justify-between">
-              <a
-                href={`/encuesta/${slug}`}
-                className="card-survey__buttons__results">
+            <div className={classes.surveyButtons}>
+              <a href={`/encuesta/${slug}`} className={classes.surveyResults}>
                 Ver Resultados
               </a>
               <button
                 type="button"
-                className="card-survey__buttons__submit text-uppercase"
+                className={classes.surveySubmit}
                 onClick={() => this.sendOption()}>
                 votar
               </button>

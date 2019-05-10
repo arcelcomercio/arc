@@ -62,7 +62,6 @@ class CardSurvey extends PureComponent {
     })
       .catch(error => error)
       .then(response => {
-        console.log('post request', response)
         if (response.status === 200) {
           const {
             quizData: { slug },

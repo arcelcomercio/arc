@@ -2,91 +2,91 @@ $color-light-blue: #c5e2f7;
 $color-marine-blue: #26567f;
 $color-text-question: #333;
 $color-button: #0e6dc1;
+$color-check-selected: #494949;
 .card-survey {
   background: $color-light-blue;
   padding-top: 14px;
-  &__header {
-    background-color: $color-marine-blue;
-    color: $color-white;
-    padding: 18px 0;
+}
+.survey-header {
+  background-color: $color-marine-blue;
+  color: $color-white;
+  padding: 18px 0;
+  font-weight: bold;
+}
+.survey-question {
+  padding: 15px 0 10px;
+  min-height: 280px;
+  max-height: 280px;
+  &__title {
+    font-size: 18px;
+    line-height: 1.2;
+    color: $color-text-question;
     font-weight: bold;
+    margin-bottom: 15px;
+    padding: 0 20px;
   }
-  &__question {
-    padding: 15px 0 10px;
-    min-height: 280px;
-    max-height: 280px;
-    &__title {
-      font-size: 18px;
-      line-height: 1.2;
-      color: $color-text-question;
-      font-weight: bold;
-      margin-bottom: 15px;
-      padding: 0 20px;
-    }
-    &__choices {
-      margin-bottom: 10px;
-      padding: 0 20px;
-      &__item {
-        color: #4c4c4c;
-        padding: 5px 20px 5px 0;
-        margin-bottom: 5px;
-      }
-    }
-    &__radio {
-      cursor: pointer;
-      overflow: hidden;
-    }
-    &__input:checked + .card-survey__question__check::after {
-      background-color: #494949;
-      border-radius: 50%;
-      content: '';
-      display: block;
-      height: 14px;
-      left: 50%;
-      margin: -7px 0 0 -7px;
-      position: absolute;
-      top: 50%;
-      width: 14px;
-    }
-    &__check {
-      background-color: $color-white;
+  &__radio {
+    cursor: pointer;
+  }
+  &__input:checked + .survey-question__check::after {
+    background-color: $color-check-selected;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 14px;
+    left: 50%;
+    margin: -7px 0 0 -7px;
+    position: absolute;
+    top: 50%;
+    width: 14px;
+  }
+  &__check {
+    background-color: $color-white;
+    border-radius: 13px;
+    float: left;
+    height: 26px;
+    margin-right: 8px;
+    vertical-align: middle;
+    width: 26px;
+    &:before {
       border-radius: 13px;
-      float: left;
-      height: 26px;
-      margin-right: 8px;
-      position: relative;
-      vertical-align: middle;
-      width: 26px;
-      &:before {
-        border-radius: 13px;
-        bottom: 0;
-        content: '';
-        left: 0;
-        pointer-events: none;
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
+      bottom: 0;
+      content: '';
+      left: 0;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
     }
   }
-  &__buttons {
-    bottom: 0;
-    padding: 0 20px 15px;
-    &__results {
-      color: $color-text-question;
-      font-size: 12px;
-      letter-spacing: 1px;
-      font-weight: bold;
-      &:hover {
-        text-decoration: underline;
-      }
+}
+.survey-choices {
+  margin-bottom: 10px;
+  padding: 0 20px;
+  &__item {
+    color: #4c4c4c;
+    padding: 5px 20px 5px 0;
+    margin-bottom: 5px;
+  }
+}
+
+.survey-buttons {
+  bottom: 0;
+  padding: 0 20px 15px;
+  &__results {
+    color: $color-text-question;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    &:hover {
+      text-decoration: underline;
     }
-    &__submit {
-      background: $color-button;
-      color: $color-white;
-      font-size: 11px;
-      padding: 8px 40px;
-    }
+  }
+  &__submit {
+    background: $color-button;
+    color: $color-white;
+    font-size: 11px;
+    padding: 8px 40px;
   }
 }
 

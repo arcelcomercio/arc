@@ -1,5 +1,11 @@
 import React, { Fragment, PureComponent } from 'react'
 
+const classes = {
+  surveyChoicesItem: 'survey-choices__item',
+  surveyRadio: 'survey-question__radio overflow-hidden flex-center-vertical',
+  surveyInput: 'survey-question__input hide',
+  surveyCheck: 'survey-question__check position-relative',
+}
 class CardSurveyChildSurveyOptions extends PureComponent {
   render() {
     const { choices, onChange } = this.props
@@ -8,19 +14,17 @@ class CardSurveyChildSurveyOptions extends PureComponent {
         {choices.map((choice, index) => {
           const idChoice = `radio${index}`
           return (
-            <div className="card-survey__question__choices__item">
-              <label
-                htmlFor={idChoice}
-                className="card-survey__question__radio flex-center-vertical">
+            <div className={classes.surveyChoicesItem}>
+              <label htmlFor={idChoice} className={classes.surveyRadio}>
                 <input
                   id={idChoice}
-                  className="card-survey__question__input hide"
+                  className={classes.surveyInput}
                   type="radio"
                   name="survey"
                   value={choice.option}
                   onChange={onChange}
                 />
-                <span className="card-survey__question__check" />
+                <span className={classes.surveyCheck} />
                 <span>{choice.option}</span>
               </label>
             </div>
