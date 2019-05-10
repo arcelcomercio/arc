@@ -1,0 +1,14 @@
+.amp-content {
+  background-color: $color-white;
+
+  &__news-text {
+    font-size: 16px;
+    line-height: 1.42857143;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    margin: 13px 0;
+  }
+  &__author {
+    margin: 13px 0;
+  }
+}
