@@ -20,7 +20,6 @@ class StoriesListArchive extends PureComponent {
       data: contentElements || [],
       arcSite,
     }
-    console.log(section, date, params.data)
 
     return (
       <Fragment>
