@@ -1,6 +1,7 @@
+// eslint-disable-next-line import/no-unresolved
+import getProperties from 'fusion:properties'
 import Consumer from 'fusion:consumer'
 import React, { PureComponent, Fragment } from 'react'
-import getProperties from 'fusion:properties'
 import Gallery from './_children/gallery'
 import {
   popUpWindow,
@@ -9,18 +10,18 @@ import {
 } from '../../../utilities/helpers'
 
 const classes = {
-  titleAmp: 'amp-header__title',
-  datetime: 'amp-header__datetime',
-  description: 'amp-header__description',
-  share: 'amp-header__share',
-  breadcrumb: 'amp-header__breadcrumb',
-  item: 'amp-header--item',
-  link: 'amp-header__link flex-center-vertical flex--justify-center',
-  list: 'amp-header__list flex',
+  titleAmp: 'article-amp-header__title',
+  datetime: 'article-amp-header__datetime',
+  description: 'article-amp-header__description',
+  share: 'article-amp-header__share',
+  breadcrumb: 'article-amp-header__breadcrumb',
+  item: 'article-amp-header--item',
+  link: 'article-amp-header__link flex-center-vertical flex--justify-center',
+  list: 'article-amp-header__list flex',
   gallery: 'col-3',
 }
 @Consumer
-class ArticleHeader extends PureComponent {
+class ArticleAmpHeader extends PureComponent {
   constructor(props) {
     super(props)
     this.firstList = 'firstList'
@@ -92,6 +93,7 @@ class ArticleHeader extends PureComponent {
       globalContent: {
         subheadlines: subtitle = '',
         headlines: titleElements = '',
+        // eslint-disable-next-line camelcase
         taxonomy: { primary_section },
         publish_date: date,
         promo_items: galleryItems = {},
@@ -120,7 +122,7 @@ class ArticleHeader extends PureComponent {
             {titleElements && (
               <h1 className={classes.titleAmp}> {titleElements.basic}</h1>
             )}
-            <time datetime={date} className={classes.datetime}>
+            <time dateTime={date} className={classes.datetime}>
               {formatDayMonthYear(date)}
             </time>
           </header>
@@ -130,7 +132,7 @@ class ArticleHeader extends PureComponent {
           )}
           <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (
-              <li className={`amp-header__item ${item.mobileClass}`}>
+              <li className={`article-amp-header__item ${item.mobileClass}`}>
                 <a
                   className={classes.link}
                   href={item.link}
@@ -161,4 +163,4 @@ class ArticleHeader extends PureComponent {
   }
 }
 
-export default ArticleHeader
+export default ArticleAmpHeader
