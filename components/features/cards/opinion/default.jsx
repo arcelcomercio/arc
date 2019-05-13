@@ -109,7 +109,6 @@ class CardOpinion extends PureComponent {
 }
 
 CardOpinion.label = 'Listado de Opinión + ícono'
-CardOpinion.static = true
 
 CardOpinion.propTypes = {
   customFields: PropTypes.shape({

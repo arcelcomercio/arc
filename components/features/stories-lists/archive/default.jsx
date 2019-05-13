@@ -8,13 +8,19 @@ import { getActualDate } from '../../../utilities/helpers'
 @Consumer
 class StoriesListArchive extends PureComponent {
   render() {
-    const { globalContent, arcSite, globalContentConfig } = this.props
-    const { content_elements: contentElements } = globalContent || {}
-    const { query: { section, date } = {} } = globalContentConfig || {}
+    const { globalContent, arcSite } = this.props
+    const {
+      content_elements: contentElements,
+      params: { section, date },
+    } = globalContent || {}
+
     const params = {
+      section,
+      date,
       data: contentElements || [],
       arcSite,
     }
+    console.log(section, date, params.data)
 
     return (
       <Fragment>
@@ -34,6 +40,5 @@ class StoriesListArchive extends PureComponent {
 }
 
 StoriesListArchive.label = 'Listado de Archivo'
-StoriesListArchive.static = true
 
 export default StoriesListArchive
