@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/item'
-import Paginacion from '../../../global-components/pagination'
+import Pagination from '../../../global-components/pagination'
 import { formatDate } from '../../../utilities/helpers'
 
 const classes = {
@@ -73,7 +73,6 @@ class BlogList extends PureComponent {
     const { fetched } = this.getContent(source, params)
     fetched
       .then(response => {
-        console.log(response.total, 'total post')
         this.setState({
           totalPost: response.total,
         })
@@ -103,7 +102,7 @@ class BlogList extends PureComponent {
           </div>
         </div>
         {totalPost && (
-          <Paginacion
+          <Pagination
             totalElements={totalPost}
             storiesQty={blogLimit}
             currentPage={blogOffset || 1}

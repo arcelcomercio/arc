@@ -6,7 +6,7 @@ import MetaHome from './meta-home'
 import MetaTag from './meta-tag'
 import MetaSection from './meta-section'
 // import MetaStory from './meta-story'
-
+// TODO: Hará falta un "meta_blog" para las páginas de blog?
 const renderMetaPage = (page, params) => {
   const options = {
     // meta_story: 	<MetaStory {...params} />,

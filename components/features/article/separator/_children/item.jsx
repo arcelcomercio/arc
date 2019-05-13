@@ -65,10 +65,10 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
 
     if (websiteUrl === excluir) return false
 
-    if (promoItems !== null) {
+    if (promoItems) {
       multimedia = GetMultimediaContent(promoItems)
     }
-    const { medio, url } = multimedia
+    const { medio, url } = multimedia || {}
     if (url === undefined) return false
 
     key += 1

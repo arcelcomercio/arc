@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 import { getActualDate } from '../utilities/helpers'
 
@@ -9,7 +9,7 @@ const classes = {
   paginationDateItem: 'pagination-date__item',
   paginationDateLink: 'text-uppercase flex-center pagination-date__link',
 }
-class PaginationByDate extends Component {
+class PaginationByDate extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -95,7 +95,7 @@ class PaginationByDate extends Component {
         `${origin}/archivo${printSection}/`
   }
 
-  // Devuelve el link del <Anterior> en paginacion
+  // Devuelve el link del <Anterior> en pagination
   getLastDay() {
     const { dateIterator } = this.state
     return dateIterator[dateIterator.length - 2]
@@ -105,7 +105,7 @@ class PaginationByDate extends Component {
     return window.location.search
   }
 
-  // Devuelve el link del <Siguiente> en paginacion
+  // Devuelve el link del <Siguiente> en pagination
   getnextDay() {
     return this.evalDate().nextDay
   }
