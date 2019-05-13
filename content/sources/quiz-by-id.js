@@ -1,7 +1,7 @@
 const resolve = key => {
-  if (!key.id)
-    throw new Error('Esta fuente de contenido requiere el id de la encuesta')
-
+  if (!key.id) {
+    return `http://jab.pe/f/arc/services/encuesta.php?id=673`
+  }
   return `http://jab.pe/f/arc/services/encuesta.php?id=${key.id}`
 }
 
