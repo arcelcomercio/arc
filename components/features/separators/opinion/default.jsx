@@ -27,10 +27,9 @@ const schemaFilter = `
     _id
     website_url
     taxonomy{
-      sections{
-        type
-        path
+      primary_section{
         name
+        path
       }
     }
     credits{
@@ -85,7 +84,7 @@ class SeparatorOpinion extends PureComponent {
       newsNumber = 3
     }
 
-    const { arcSite } = this.props
+    const { arcSite, contextPath } = this.props
 
     const { section } = this.state
 
@@ -106,11 +105,11 @@ class SeparatorOpinion extends PureComponent {
 
         nObj.id = dh.id
         nObj.author = dh.author
-        nObj.authorUrl = dh.authorLink
+        nObj.authorUrl = `${contextPath}${dh.authorLink}`
         nObj.titulo = dh.title
-        nObj.seccion = dh.section
-        nObj.seccionUrl = dh.sectionLink
-        nObj.websiteUrl = dh.link
+        nObj.section = dh.primarySection
+        nObj.sectionUrl = `${contextPath}${dh.primarySectionLink}`
+        nObj.websiteUrl = `${contextPath}${dh.link}`
         nObj.imageUrl = dh.authorImage
         newDatos.push({ ...nObj })
       }

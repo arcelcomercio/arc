@@ -16,8 +16,8 @@ const SeparatorsChildAuthorCard = props => {
       author,
       authorUrl,
       titulo,
-      seccion,
-      seccionUrl,
+      section,
+      sectionUrl,
       websiteUrl,
       imageUrl,
     } = {},
@@ -39,7 +39,7 @@ const SeparatorsChildAuthorCard = props => {
     <article className={classes.opinionItem}>
       <div className={classes.opinionItemDetails}>
         <h3>
-          <a href={seccionUrl}>{seccion}</a>
+          <a href={sectionUrl}>{section}</a>
         </h3>
         <h5>
           <a href={authorUrl}>{author}</a>

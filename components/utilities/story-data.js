@@ -83,22 +83,27 @@ class StoryData {
     return StoryData.getTypeMultimedia(this._data)
   }
 
-  get section() {
+  get section() { // FIXME: deprecated
     return StoryData.getDataSection(this._data, this._website).name
   }
 
-  get sectionLink() {
-    return `${
-      StoryData.getDataSection(this._data, this._website).path
-    }?_website=${this._website}`
+  get sectionLink() { // FIXME: deprecated
+    return StoryData.getDataSection(this._data, this._website).path
+  }
+
+  get primarySection() {
+    return StoryData.getPrimarySection(this._data).name
+  }
+
+  get primarySectionLink() {
+    return StoryData.getPrimarySection(this._data).path
   }
 
   get link() {
     const {
-      websites = {}
+      website_url: url = ''
     } = this._data || {}
-    const aux = websites[`${this._website}`] || {}
-    return `${aux.website_url || ''}?_website=${this._website}` || '#'
+    return url
   }
 
   // TODO: Cambiar la fecha a lo que se estandarice
@@ -159,12 +164,29 @@ class StoryData {
     return this.multimedia
   }
 
+  static getPrimarySection(data) {
+    const {
+      taxonomy: {
+        primary_section: {
+          name = '',
+          path = ''
+        } = {}
+      } = {}
+    } = data
+
+    return {
+      name,
+      path
+    }
+  }
+
   static getDataSection(data, website) {
     const sectionData =
       (data &&
         data.websites &&
         data.websites[website] &&
         data.websites[website].website_section) || {}
+
     const section = sectionData.name || ''
     const path = sectionData.path || ''
     return {
