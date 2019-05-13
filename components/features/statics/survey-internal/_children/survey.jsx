@@ -1,8 +1,8 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import Item from './_child/item'
-import ItemShare from './_child/item-share'
-import ItemInput from './_child/item-input'
+import Item from './item'
+import ItemShare from './item-share'
+import ItemInput from './item-input'
 
 const classes = {
   InternalSurvey: 'internal-survey',
@@ -20,7 +20,7 @@ const classes = {
   share: 'internal-survey__result-share',
 }
 @Consumer
-class SurveyInternal extends Component {
+class SurveyInternalChildSurvey extends Component {
   render() {
     return (
       <div className={classes.InternalSurvey}>
@@ -64,4 +64,4 @@ class SurveyInternal extends Component {
   }
 }
 
-export default SurveyInternal
+export default SurveyInternalChildSurvey
