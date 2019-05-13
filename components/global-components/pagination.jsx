@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 const classes = {
-  pagination: 'flex paginacion',
+  pagination: 'flex pagination',
   page: 'pagination__page',
 }
 
-export default class Pagination extends Component {
+export default class Pagination extends PureComponent {
   constructor(props) {
     super(props)
     const { totalElements, storiesQty } = props
@@ -117,7 +117,7 @@ export default class Pagination extends Component {
         <a
           className={`${classes.page} ${
             currentPage === 1 || currentPage === 0
-              ? 'paginacion__page--disabled'
+              ? 'pagination__page--disabled'
               : ''
           }`}
           href={urlPrevPage}>
@@ -141,7 +141,7 @@ export default class Pagination extends Component {
               <a
                 className={`${classes.page} ${
                   currentPage === page || (currentPage === 0 && page === 1)
-                    ? 'paginacion__page--current'
+                    ? 'pagination__page--current'
                     : ''
                 }`}
                 href={urlPage}>
@@ -153,7 +153,7 @@ export default class Pagination extends Component {
         })}
         <a
           className={`${classes.page} ${
-            currentPage === totalPages ? 'paginacion__page--disabled' : ''
+            currentPage === totalPages ? 'pagination__page--disabled' : ''
           }`}
           href={urlNextPage}>
           siguiente

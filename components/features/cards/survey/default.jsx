@@ -27,7 +27,7 @@ class CardSurvey extends PureComponent {
     }
 
     this.currentSurveyId = 674
-    this.hasVote = getCookie(`idpoll${this.currentSurveyId}`) || false
+    this.hasVote = getCookie(`idpoll${this.currentSurveyId}`) === '1'
   }
 
   componentDidMount() {
