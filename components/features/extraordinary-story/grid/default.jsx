@@ -4,6 +4,7 @@ import customFieldsExtern from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import Data from '../_dependencies/data'
 import ExtraordinaryStory from '../../../global-components/extraordinary-story'
+import EmbedMultimedia from '../../../global-components/embed-multimedia'
 
 const API_URL = 'story-feed-by-section'
 const API_SIZE_DATA = 1
@@ -67,7 +68,13 @@ class ExtraordinaryStoryGrid extends Component {
       contentOrientation: formattedData.contentOrientation,
       arcSite,
     }
-    return <ExtraordinaryStory {...params} />
+    // return <ExtraordinaryStory {...params} />
+    return (
+      <EmbedMultimedia
+        type="image"
+        source="http://resizer.shared.arcpublishing.com/NHM-72hdnyWwaCgLPbm23WBaXJA=/500x400/smart/arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/LH2OSHSE2RG3LCPS5HBSALKC3U.jpeg"
+      />
+    )
   }
 }
 
@@ -75,6 +82,6 @@ ExtraordinaryStoryGrid.propTypes = {
   customFields: customFieldsExtern,
 }
 
-ExtraordinaryStoryGrid.label = 'Apertura extraordinaria por sección'
+ExtraordinaryStoryGrid.label = 'Apertura extraordinaria con grilla'
 
 export default ExtraordinaryStoryGrid
