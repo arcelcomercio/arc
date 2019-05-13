@@ -17,7 +17,8 @@
     padding-left: 30px;
     padding-right: 30px;
     background-color: #ffffff;
-    // width: 576px;
+    position: relative;
+    
   }
   &__date {
     display: block;
@@ -220,5 +221,45 @@
       right: 0;
       top: 0;
     }
+  }
+
+  &__confirm{
+    background-color: #fcee21;
+    height: 100%;
+    left: 0;
+    padding: 80px 20px 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+  }
+
+  &__confirm-message{
+    font-size: 22px;
+    font-weight: 700;
+    color: #646464;
+    margin: 5px 0 40px;
+  }
+  &__confirm-botton-view-result{
+    
+    color: #646464;
+    border: 1px solid #646464;
+    display: inline-block;
+    font-size: 12px;
+    height: 45px;
+    line-height: 43px;
+    text-align: center;
+    width: 116px;
+  }
+  &__disable{
+    background-color: rgba(255,255,255,0.7);
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
   }
 }
