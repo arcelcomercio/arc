@@ -39,6 +39,5 @@ BasicHtml.propTypes = {
 }
 
 BasicHtml.label = 'HTML Básico'
-BasicHtml.static = true
 
 export default BasicHtml

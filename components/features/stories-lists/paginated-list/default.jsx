@@ -37,6 +37,5 @@ class StoriesListPaginatedList extends PureComponent {
 }
 
 StoriesListPaginatedList.label = 'Listado con paginación'
-StoriesListPaginatedList.static = true
 
 export default StoriesListPaginatedList

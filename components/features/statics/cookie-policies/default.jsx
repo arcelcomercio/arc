@@ -5,9 +5,9 @@ import { createMarkup } from '../../../utilities/helpers'
 import cookiesText from './_dependencies/cookies-tpl'
 
 const classes = {
-  container: 'text-editor-container full-width',
+  container: 'text-editor-container full-width position-relative',
   textEditor: `text-editor-container__editor full-width`,
-  arrow: `text-editor-container__arrow`,
+  arrow: `text-editor-container__arrow position-absolute`,
 }
 
 @Consumer
@@ -38,6 +38,5 @@ StaticCookiePolicies.propTypes = {
 }
 
 StaticCookiePolicies.label = 'Política de Cookies'
-StaticCookiePolicies.static = true
 
 export default StaticCookiePolicies
