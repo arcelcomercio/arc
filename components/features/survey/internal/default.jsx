@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import Item from './_child/item'
 import ItemShare from './_child/item-share'
-import ItemInput from './_child/item-input';
+import ItemInput from './_child/item-input'
 
 const classes = {
   InternalSurvey: 'internal-survey',
@@ -31,10 +31,9 @@ class SurveyInternal extends Component {
             Richard Acuña?
           </h1>
           <form action="">
-            <ul >
-
-              <ItemInput value="si"/>
-              <ItemInput value="no"/>
+            <ul>
+              <ItemInput value="si" index="a2" />
+              <ItemInput value="no" index="a1" />
             </ul>
             <div className={classes.buttons}>
               <button type="button" className={classes.buttonpool}>

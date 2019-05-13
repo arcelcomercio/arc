@@ -1,6 +1,6 @@
 .internal-survey {
   display: grid;
-  
+
   background-color: #ebebeb;
   font-family: 'Lato';
   padding: 30px;
@@ -12,7 +12,6 @@
   @media (--tablet) {
     grid-template-columns: 600px;
   }
-  
 
   &__detail {
     padding-left: 30px;
@@ -149,13 +148,72 @@
     background-color: #d5e5ed;
   }
 
-  &__result-share{
+  &__input{
+    display: none;
+    &:checked + .internal-survey__check::after {
+      height: 18px;
+      margin: -9px 0 0 -9px;
+      width: 18px;
+
+      background-color: #494949;
+      border-radius: 50%;
+      content: '';
+      display: block;
+      height: 14px;
+      left: 50%;
+      margin: -7px 0 0 -7px;
+      position: absolute;
+      top: 50%;
+      width: 14px;
+    }
+  }
+  &__result-share {
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  &__result-share-item{
+  &__result-share-item {
     float: left;
     margin-right: 20px;
   }
+
+  &__lblinput{
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+  }
+  &__check {
+    background-color: transparent;
+    border-radius: 16px;
+    height: 28px;
+    margin-right: 15px;
+    width: 28px;
+
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+
+    &::before {
+      border-radius: 50%;
+      bottom: 0;
+      box-shadow: inset 0 0 2px rgba(127, 127, 127, 0.5),
+        inset 0 0 2px rgba(127, 127, 127, 0.5);
+      content: '';
+      left: 0;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      border-radius: 13px;
+      bottom: 0;
+      content: '';
+      left: 0;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
 }
