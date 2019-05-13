@@ -2,11 +2,14 @@
   "extends": ["airbnb", "prettier", "prettier/react"],
   "plugins": ["prettier"],
   "rules": {
-    "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": true,
-      "optionalDependencies": false,
-      "peerDependencies": false
-    }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
     "import/no-unresolved": [
       "error",
       {
@@ -33,7 +36,7 @@
     "document": true,
     "window": true,
     "location": true,
-    "fetch": false
+    "fetch": true
   },
   "parser": "babel-eslint"
 }
