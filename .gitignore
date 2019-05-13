@@ -12,7 +12,4 @@
 !/data/restore/.gitkeep
 package-lock.json
 /resources/dist/
-
 dist/
-#files
-*.css

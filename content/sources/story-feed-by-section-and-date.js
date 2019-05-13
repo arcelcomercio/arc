@@ -1,12 +1,11 @@
-import {
-  getActualDate
-} from '../../resources/utilsJs/helpers'
+import { getActualDate } from '../../components/utilities/helpers'
 
 let globalParams = {}
 
 const schemaName = 'stories'
 
-const params = [{
+const params = [
+  {
     name: 'section',
     displayName: 'Sección',
     type: 'text',
@@ -30,10 +29,7 @@ const transform = data => {
 
 const pattern = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const {
-    section,
-    date
-  } = key
+  const { section, date } = key
 
   /** Para enviar params a transform luego */
   globalParams = {
@@ -44,7 +40,8 @@ const pattern = (key = {}) => {
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               type: 'story',
             },
@@ -74,7 +71,8 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': [`/${section}`],
                 },

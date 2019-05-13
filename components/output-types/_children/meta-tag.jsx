@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import {
   metaPaginationUrl,
   getMetaPagesPagination,
-} from '../../../resources/utilsJs/helpers'
+} from '../../utilities/helpers'
 
 export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props

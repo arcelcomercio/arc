@@ -1,12 +1,11 @@
 .amp-header {
-  background-color: #ffffff;
+  background-color: $color-white;
 
   &__breadcrumb {
     padding: 0;
     overflow: hidden;
-    margin: 15px 0 0;
+    margin: 15px 0px 10px;
     list-style: none;
-
     & a {
       text-transform: uppercase;
       font-size: 12px;
@@ -20,10 +19,24 @@
   &--item {
     display: inline-block;
     font-family: 'Roboto Condensed', sans-serif;
-    margin-right: 10px;
-    padding-right: 10px;
+    margin-right: 13px;
+    padding-right: 9px;
     position: relative;
     line-height: 1;
+    &::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: 4px;
+      width: 5px;
+      height: 9px;
+      background: url('../images/arrow-right.png') 0 0 no-repeat;
+    }
+    &:last-child:after {
+      content: none;
+      margin-right: 0;
+      padding-right: 0;
+    }
   }
 
   &__title {
@@ -31,7 +44,7 @@
     color: #333;
     line-height: 29px;
     font-weight: 700;
-    font-family: $main-font;
+    font-family: $primary-font;
   }
 
   &__datetime {

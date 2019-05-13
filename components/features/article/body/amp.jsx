@@ -2,10 +2,11 @@ import ArticleBody, {
   AmpOembed,
 } from '@arc-core-components/feature_article-body'
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
+import AmpImage from '@arc-core-components/element_image'
 import Consumer from 'fusion:consumer'
 import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
 import ElePrincipal from './_children/amp-ele-principal'
+import ArticleBodyChildVideo from './_children/video'
 
 @Consumer
 class ArticleAMPArticleBody extends Component {
@@ -17,7 +18,8 @@ class ArticleAMPArticleBody extends Component {
       },
     } = this.props
     const elementClasses = {
-      textClasses: 'article-body news-text-content',
+      textClasses: 'amp-content__news-text',
+      author: 'amp-content__author',
       headerClasses: 'font--primary',
       imageClasses: 'visual__image visual__image--cover',
     }
@@ -25,7 +27,7 @@ class ArticleAMPArticleBody extends Component {
     return (
       <Fragment>
         {promoItems && <ElePrincipal data={promoItems} />}
-
+        <p className={elementClasses.author}>Por: Redacción DT</p>
         {contentElements && (
           <ArticleBody
             data={contentElements}
@@ -55,6 +57,9 @@ class ArticleAMPArticleBody extends Component {
               if (type === 'image') {
                 return <AmpImage {...element} layout="responsive" />
               }
+              if (type === 'video') {
+                return <ArticleBodyChildVideo data={element.embed_html} />
+              }
               return undefined
             }}
           />
@@ -62,11 +67,6 @@ class ArticleAMPArticleBody extends Component {
       </Fragment>
     )
   }
-}
-
-ArticleAMPArticleBody.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  globalContent: PropTypes.object,
 }
 
 export default ArticleAMPArticleBody

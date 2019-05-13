@@ -1,5 +1,3 @@
-'use strict'
-
-import List from './generators/list.jsx'
+import List from './generators/list'
 
 export default List('ul')

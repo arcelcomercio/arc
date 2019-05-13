@@ -7,7 +7,7 @@
 }
 
 html {
-  font-family: $main-font;
+  font-family: $primary-font;
 }
 
 html,
@@ -129,6 +129,7 @@ q {
 a {
   cursor: pointer;
   text-decoration: none;
+  color: $color-dark;
 }
 
 blockquote:before,
@@ -153,7 +154,6 @@ input[type='search']::-webkit-search-results-decoration {
 
 button {
   font-family: inherit;
-  // outline-style: none;
   border-style: none;
   cursor: pointer;
   background-color: transparent;

@@ -6,7 +6,7 @@ const classes = {
   pull: 'pquote pquote__pull',
 }
 
-export default props => {
+const ArticleBodyChildBlockQuote = props => {
   const {
     data: { subtype, content_elements: contentElements, citation = {} } = {},
   } = props
@@ -23,3 +23,5 @@ export default props => {
     </blockquote>
   )
 }
+
+export default ArticleBodyChildBlockQuote

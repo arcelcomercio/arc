@@ -34,7 +34,7 @@ El tamaño mínimo de las columnas es de 300px, esto para lograr un buen acoplam
 
 **Tamaños de las filas**
 
-Las filas en la grilla de contenido principal, content--box y content--infinite tendrán un alto de 374px cada una, sin embargo, en chains de contenido como content--1col, content--2col, content--3col el alto de las filas no está definido, cada fila que se genere tendrá el alto del elemento más grande contenido en esa fila.
+Las filas en la grilla de contenido principal, grid--box y content--infinite tendrán un alto de 374px cada una, sin embargo, en chains de contenido como grid--col-1, grid--col-2, grid--col-3 el alto de las filas no está definido, cada fila que se genere tendrá el alto del elemento más grande contenido en esa fila.
 
 ---
 
@@ -46,9 +46,9 @@ Usa las siguientes clases:
 
     'content--grid-base',
     'content-layout',
-    'content--1col',
-    'content--2col',
-    'content--3col',
+    'grid--col-1',
+    'grid--col-2',
+    'grid--col-3',
     'margin-top'
 
 - **Damero, Content-box (Chain):** Esta grilla tiene un espacio completamente definido e inmutable, tres columnas y cuatro filas, cada fila de 374px. Es un Chain, por tanto puede contener otros Features en su interior y esto se puede hacer desde el Page Builder. Esta pensada para ser usada en la Homepage de los sitios para poder delimitar por secciones.
@@ -57,10 +57,10 @@ Usa las siguientes clases:
 
     'content--grid-base',
     'content-layout',
-    'content--box',
-    'content--1col',
-    'content--2col',
-    'content--3col',
+    'grid--box',
+    'grid--col-1',
+    'grid--col-2',
+    'grid--col-3',
     'col-3'
 
 - **Grilla de tres columnas, Content-3col (Chain):** Esta grilla tiene tres columnas, cantidad de filas indefinidas y tamaño de filas indefinido. El alto de cada fila estará definido por el alto máximo de los componentes internos. Es un Chain, por tanto puede contener otros Features en su interior y esto se puede hacer desde el Page Builder. Ideal para agrupar de forma horizontal algunos Features sin que se rompa el orden o como "separador".
@@ -68,9 +68,9 @@ Usa las siguientes clases:
 Usa las siguientes clases:
 
     'content--grid-base',
-    'content--1col',
-    'content--2col',
-    'content--3col',
+    'grid--col-1',
+    'grid--col-2',
+    'grid--col-3',
     'col-3'
 
 - **Grilla de dos columnas, Content-2col (Chain):** Esta grilla tiene dos columnas, cantidad de filas indefinidas y tamaño de filas indefinido. El alto de cada fila estará definido por el alto máximo de los componentes internos. Es un Chain, por tanto puede contener otros Features en su interior y esto se puede hacer desde el Page Builder. Ideal para páginas donde el contenido se acompañará por una Sidebar con otros Features o publicidad, por ejemplo, en el cuerpo de una historia.
@@ -78,8 +78,8 @@ Usa las siguientes clases:
 Usa las siguientes clases:
 
     'content--grid-base',
-    'content--1col',
-    'content--2col',
+    'grid--col-1',
+    'grid--col-2',
     'col-2'
 
 - **Sidebar (Chain):** Esta grilla tiene una columna, cantidad de filas indefinidas y tamaño de filas indefinido. El alto de cada fila estará definido por el alto máximo de los componentes internos. Es un Chain, por tanto puede contener otros Features en su interior y esto se puede hacer desde el Page Builder. Ideal para insertar publicidad e información adicional de interés para el usuario y así acompañar contenido de dos columnas.
@@ -87,7 +87,7 @@ Usa las siguientes clases:
 Usa las siguientes clases:
 
     'content--grid-base',
-    'content--1col',
+    'grid--col-1',
     'col-1'
 
 ---
