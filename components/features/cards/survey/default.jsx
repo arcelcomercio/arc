@@ -51,7 +51,7 @@ class CardSurvey extends PureComponent {
       option: optionSelected,
       website: 'peru21',
     }
-    const URL = 'http://jab.pe/f/arc/services/encuesta.php'
+    const URL = 'https://jab.pe/f/arc/services/encuesta.php'
     const { contextPath } = this.props
     fetch(URL, {
       method: 'POST',
