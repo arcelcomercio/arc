@@ -9,7 +9,7 @@ const classes={
     poolitems: 'internal-survey__result-pool-items',
 }
 
-const ViewResultChildSurvey =() =>{
+const SurveytChildViewResul =() =>{
 
     return (
         <div className={classes.resultgraphic}>
@@ -27,4 +27,4 @@ const ViewResultChildSurvey =() =>{
     )
 }
 
-export default ViewResultChildSurvey
+export default SurveytChildViewResul
