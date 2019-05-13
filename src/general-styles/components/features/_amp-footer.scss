@@ -1,0 +1,25 @@
+.amp-footer {
+  background-color: $footer-background;
+  text-align: center;
+  padding: 20px 0;
+
+  &__info {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  &__logo {
+    background: url('../images/arrow-left-3.png') 0 $footer-logo-background
+        no-repeat,
+      url('../images/letra-c-white.png') $footer-logo-background2 no-repeat;
+    padding: $footer-logo-padding;
+    color: $footer-text-color;
+    font: 700 18px/1.1 'Roboto', sans-serif;
+    height: 47px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    display: inline-block;
+  }
+}
