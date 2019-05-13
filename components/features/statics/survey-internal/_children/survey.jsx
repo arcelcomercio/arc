@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import ItemInput from './item-input'
 import ViewResult from './view-result'
 import ViewSurveyConfirm from './view-confirm'
+import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
   InternalSurvey: 'internal-survey',
@@ -42,22 +43,62 @@ class SurveyInternalChildSurvey extends Component {
     })
   }
 
+  nameDate = datestring => {
+    let name = ''
+    if (datestring) {
+      const dias = [
+        'Lunes',
+        'Martes',
+        'Miércoles',
+        'Jueves',
+        'Viernes',
+        'Sábado',
+        'Domingo',
+      ]
+      const meses = [
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Octubre',
+        'Noviembre',
+        'Diciembre',
+      ]
+      const date = new Date(datestring)
+      name = `${dias[date.getDay()]} ${date.getDate()} de ${
+        meses[date.getMonth()]
+      }, ${date.getFullYear()}`
+    }
+    return name
+  }
+
   render() {
     const { flagViewResult, flagViewSurveyConfirm, flagDisable } = this.state
+    const { contextPath, title, date, choices } = this.props
 
+    console.log(choices)
     return (
       <div className={classes.InternalSurvey}>
         <div className={classes.detail}>
-          <span className={flagDisable && classes.disable} />
-          <time className={classes.date}>Martes 7 de mayo, 2019</time>
-          <h1 className={classes.title}>
-            ¿Está de acuerdo con que la Fiscalía investigue al congresista
-            Richard Acuña?
-          </h1>
+          <span className={flagDisable ? classes.disable : ''} />
+          <time className={classes.date}>{this.nameDate(date)}</time>
+          <h1 className={classes.title}>{title}</h1>
           <form action="">
             <ul>
-              <ItemInput value="si" index="a2" />
-              <ItemInput value="no" index="a1" />
+              {choices.map((choice, index) => (
+                <ItemInput
+                  key={UtilListKey(index)}
+                  value={choice.option}
+                  index={`item${choice.option}${index}`}
+                />
+              ))}
+              {/* <ItemInput value="si" index="a2" />
+              <ItemInput value="no" index="a1" /> */}
             </ul>
             <div className={classes.buttons}>
               <button
@@ -67,7 +108,7 @@ class SurveyInternalChildSurvey extends Component {
                 Votar
               </button>
               <a
-                href="#"
+                href="/"
                 className={classes.viewresult}
                 onClick={this.viewResult}>
                 Ver Resultados

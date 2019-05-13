@@ -14,7 +14,7 @@ const SurveyChildViewSurveyConfirm = ({ handleOnClickViewResult }) => {
       </p>
       <p className={classes.confirmessage}>¡Gracias por votar! </p>
       <a
-        href="#"
+        href="/"
         className={classes.btnviewresult}
         onClick={handleOnClickViewResult}>
         Ver Resultados{' '}
