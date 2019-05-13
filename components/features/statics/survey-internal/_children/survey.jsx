@@ -1,8 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
-import Item from './item'
-import ItemShare from './item-share'
 import ItemInput from './item-input'
+import ViewResult from './view-result'
 
 const classes = {
   InternalSurvey: 'internal-survey',
@@ -13,15 +12,30 @@ const classes = {
   buttons: 'internal-survey__buttons',
   buttonpool: 'internal-survey__button-pool',
   viewresult: 'internal-survey__view-result',
-  resultgraphic: 'internal-survey__result-graphic',
-  resulttitle: 'internal-survey__result-title',
-  resultcount: 'internal-survey__result-count',
-  poolitems: 'internal-survey__result-pool-items',
   share: 'internal-survey__result-share',
 }
 @Consumer
 class SurveyInternalChildSurvey extends Component {
+
+  constructor(){
+    super()
+
+    this.state={
+      viewResult:false,
+    }
+
+  }
+  
+  viewResult = () =>{
+    
+    this.setState({
+      viewResult:true
+    })
+  }
+
   render() {
+    const {viewResult} = this.state
+
     return (
       <div className={classes.InternalSurvey}>
         <div className={classes.detail}>
@@ -39,25 +53,16 @@ class SurveyInternalChildSurvey extends Component {
               <button type="button" className={classes.buttonpool}>
                 Votar
               </button>
-              <a href="#asd" className={classes.viewresult}>
+              <a href="#asd" className={classes.viewresult} onClick={this.viewResult}>
                 Ver Resultados
               </a>
             </div>
           </form>
         </div>
         <div className={classes.result}>
-          <div className={classes.resultgraphic}>
-            <h4 className={classes.resulttitle}>Resultados</h4>
-            <p className={classes.resultcount}>sobre un total de 3410 votos.</p>
-            <ul className={classes.poolitems}>
-              <Item result="Si" percent="50" />
-              <Item result="No" percent="50" top={false} />
-            </ul>
-            <ul className={classes.share}>
-              <ItemShare socialnetwork="F" url="facebook.com" />
-              <ItemShare socialnetwork="T" url="twitter.com" />
-            </ul>
-          </div>
+          {
+            viewResult && <ViewResult />
+          }
         </div>
       </div>
     )

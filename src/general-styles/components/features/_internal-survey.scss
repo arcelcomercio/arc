@@ -35,9 +35,12 @@
   &__buttons {
     display: grid;
     grid-template-columns: 116px 120px;
+    justify-content: space-between;
+    margin: 20px 0px;
     font-family: $primary-font;
     font-weight: 700;
     overflow: hidden;
+
   }
 
   &__button-pool {
@@ -165,6 +168,11 @@
       width: 14px;
     }
   }
+  
+  &__item-input{
+    margin-top: 20px;
+  }
+  
   &__result-share {
     list-style: none;
     margin: 0;
