@@ -1,18 +1,33 @@
-import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
-import OpinionCard from './_children/card'
-import schemaFilter from './_dependencies/schema-filter'
+import OpinionChildCard from './_children/card'
+import filterSchema from './_dependencies/schema-filter'
 
 @Consumer
-class CardOpinion extends PureComponent {
+class CardOpinion extends Component {
   constructor(props) {
     super(props)
-    const { arcSite, customFields } = this.props || {}
-    this.state = {
-      ...customFields,
+
+    const {
       arcSite,
+      customFields: {
+        titleOpinion,
+        section1,
+        section2,
+        section3,
+        section4,
+      } = {},
+    } = this.props || {}
+
+    this.state = {
+      titleOpinion,
+      arcSite,
+      section1,
+      section2,
+      section3,
+      section4,
+
       listNews: [],
     }
   }
@@ -24,15 +39,15 @@ class CardOpinion extends PureComponent {
   init = () => {
     const { section1, section2, section3, section4 } = this.state
 
-    const sections = [section1, section2, section3, section4]
+    const listaSecciones = [section1, section2, section3, section4]
     const listNews = {}
     listNews.data1 = {}
     listNews.data2 = {}
     listNews.data3 = {}
     listNews.data4 = {}
 
-    sections.forEach((section, index) => {
-      this.getContentApi(section, result => {
+    listaSecciones.forEach((element, index) => {
+      this.getContentApi(element, result => {
         listNews[`data${index + 1}`] = result
         if (listNews[`data${index + 1}`] !== {}) {
           this.setState({
@@ -52,7 +67,8 @@ class CardOpinion extends PureComponent {
           website: arcSite,
           section: seccion,
         },
-        schemaFilter
+
+        filterSchema
       )
 
       fetched
@@ -87,7 +103,8 @@ class CardOpinion extends PureComponent {
             callback(null)
           }
         })
-        .catch(() => {
+        .catch(err => {
+          console.log(err)
           callback(null)
         })
     } else {
@@ -99,7 +116,7 @@ class CardOpinion extends PureComponent {
     const { titleOpinion = '', arcSite, listNews = [] } = this.state
 
     return (
-      <OpinionCard
+      <OpinionChildCard
         titleOpinion={titleOpinion}
         dataList={listNews}
         arcSite={arcSite}
