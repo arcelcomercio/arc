@@ -29,7 +29,7 @@ const classes = {
 }
 
 @Consumer
-class LayoutNavbar extends PureComponent {
+class LayoutAmpNavbar extends PureComponent {
   constructor(props) {
     super(props)
     // ------ Checks the display to set the initial device state
@@ -303,6 +303,6 @@ class LayoutNavbar extends PureComponent {
   }
 }
 
-LayoutNavbar.label = 'Barra de navegación'
+LayoutAmpNavbar.label = 'Barra de navegación'
 
-export default LayoutNavbar
+export default LayoutAmpNavbar
