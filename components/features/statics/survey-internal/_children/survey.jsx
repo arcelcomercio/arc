@@ -16,6 +16,11 @@ const classes = {
   viewresult: 'internal-survey__view-result',
   share: 'internal-survey__result-share',
   disable: 'internal-survey__disable',
+  nav: 'internal-survey__nav',
+  navprev: 'internal-survey__nav-prev',
+  navnex: 'internal-survey__nav-next',
+  slug: 'internal-survey__slug',
+  icoprev: 'internal-survey__nav-ico-prev',
 }
 @Consumer
 class SurveyInternalChildSurvey extends Component {
@@ -79,12 +84,40 @@ class SurveyInternalChildSurvey extends Component {
 
   render() {
     const { flagViewResult, flagViewSurveyConfirm, flagDisable } = this.state
-    const { contextPath, title, date, choices } = this.props
+    const {
+      contextPath,
+      title,
+      date,
+      choices,
+      prev,
+      next,
+      arcSite,
+    } = this.props
 
-    console.log(choices)
+    const WEBSITE = `?_website=${arcSite}`
+    let urlNext = ''
+    let urlPrev = ''
+
+    if (next) urlNext = `${contextPath}/encuesta/${next}${WEBSITE}`
+    if (prev) urlPrev = `${contextPath}/encuesta/${prev}${WEBSITE}`
+
     return (
       <div className={classes.InternalSurvey}>
         <div className={classes.detail}>
+          <div className={flagViewSurveyConfirm === false ? classes.nav : ''}>
+            {prev && (
+              <a
+                href={urlPrev}
+                className={`${classes.navprev} ${classes.slug}`}>
+                <i className={classes.icoprev}> prev </i>
+              </a>
+            )}
+            {next  && (
+              <a href={urlNext} className={`${classes.navnex} ${classes.slug}`}>
+                <i className={classes.icoprev}> next </i>
+              </a>
+            )}
+          </div>
           <span className={flagDisable ? classes.disable : ''} />
           <time className={classes.date}>{this.nameDate(date)}</time>
           <h1 className={classes.title}>{title}</h1>
@@ -97,8 +130,6 @@ class SurveyInternalChildSurvey extends Component {
                   index={`item${choice.option}${index}`}
                 />
               ))}
-              {/* <ItemInput value="si" index="a2" />
-              <ItemInput value="no" index="a1" /> */}
             </ul>
             <div className={classes.buttons}>
               <button

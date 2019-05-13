@@ -59,7 +59,7 @@ class SurveyInternal extends PureComponent {
       hasVote: this.hasVote,
       sendQuiz: this.sendQuiz,
     }
-    console.log(globalContent)
+    
     return <SurveyInternalChildSurvey {...params} />
   }
 }
