@@ -30,6 +30,7 @@ class SurveyInternalChildSurvey extends Component {
       flagViewResult: false,
       flagViewSurveyConfirm: false,
       flagDisable: false,
+      flagNavs: false,
       optionSelected: '',
     }
   }
@@ -107,8 +108,25 @@ class SurveyInternalChildSurvey extends Component {
     return name
   }
 
+  handleDisableHover = () => {
+    this.setState({
+      flagNavs: true,
+    })
+  }
+
+  mousesalida = () => {
+    this.setState({
+      flagNavs: false,
+    })
+  }
+
   render() {
-    const { flagViewResult, flagViewSurveyConfirm, flagDisable } = this.state
+    const {
+      flagViewResult,
+      flagViewSurveyConfirm,
+      flagDisable,
+      flagNavs,
+    } = this.state
     const {
       title,
       date,
@@ -129,21 +147,35 @@ class SurveyInternalChildSurvey extends Component {
     return (
       <div className={classes.InternalSurvey}>
         <div className={classes.detail}>
-          <div className={flagViewSurveyConfirm === false ? classes.nav : ''}>
+          <div className={flagNavs === false ? classes.nav : ''}>
             {prev && (
               <a
                 href={urlPrev}
-                className={`${classes.navprev} ${classes.slug}`}>
+                className={`${classes.navprev} ${classes.slug}`}
+                onMouseEnter={this.handleDisableHover}
+                onMouseOut={this.mousesalida}>
                 <i className={classes.icoprev}> prev </i>
               </a>
             )}
             {next && (
-              <a href={urlNext} className={`${classes.navnex} ${classes.slug}`}>
+              <a
+                href={urlNext}
+                className={`${classes.navnex} ${classes.slug}`}
+                onMouseEnter={this.handleDisableHover}
+                onMouseOut={this.mousesalida}>
                 <i className={classes.icoprev}> next </i>
               </a>
             )}
           </div>
-          <span className={flagDisable ? classes.disable : ''} />
+
+          {flagDisable && (
+            <span
+              className={classes.disable}
+              onMouseEnter={this.handleDisableHover}
+              onMouseOut={this.mousesalida}
+            />
+          )}
+
           <time className={classes.date}>{this.nameDate(date)}</time>
           <h1 className={classes.title}>{title}</h1>
           <form action="">
