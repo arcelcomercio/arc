@@ -7,7 +7,7 @@ class ExtraordinaryStoryChildGridStories extends PureComponent {
 
   render() {
     return (
-      <div className="extraordinary-story-grid flex flex--row">
+      <div className="extraordinary-story-grid flex">
         <div className="story-video-box">
           <figure>
             <img

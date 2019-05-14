@@ -1,15 +1,22 @@
 .extraordinary-story-grid {
   background-color: #1f1f1f;
   padding: 10px;
+  flex-direction: column;
+  @media (--desktop) {
+    flex-direction: row;
+  }
 }
 
 .story-video-box {
-  width: 602px;
+  width: 100%;
   background: #2e2e2e;
   padding: 12px;
   border-radius: 5px;
   &__img {
     width: 100%;
+  }
+  @media (--desktop) {
+    width: 602px;
   }
 }
 
