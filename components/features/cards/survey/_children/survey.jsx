@@ -36,7 +36,13 @@ class CardSurveyChildSurvey extends PureComponent {
   }
 
   render() {
-    const { contextPath, choices = [], slug = '', hasVote = false } = this.props
+    const {
+      contextPath,
+      title = '',
+      choices = [],
+      slug = '',
+      hasVote = false,
+    } = this.props
     const paramsOptions = {
       choices,
       setChoiceSelected: this.setChoiceSelected,
@@ -46,10 +52,7 @@ class CardSurveyChildSurvey extends PureComponent {
       <div className={classes.cardSurvey}>
         <h3 className={classes.surveyHeader}>encuesta</h3>
         <form className={classes.surveyQuestion}>
-          <p className={classes.surveyTitle}>
-            ¿El congreso volvera a blindar a Donayre pese al ultimo fallo de la
-            Corte suprema?
-          </p>
+          <p className={classes.surveyTitle}>{title}</p>
           <div className={classes.surveyChoices}>
             {!hasVote ? (
               <SurveyChoices
