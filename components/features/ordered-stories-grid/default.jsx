@@ -102,6 +102,5 @@ OrderedStoriesGrid.propTypes = {
 }
 
 OrderedStoriesGrid.label = 'Grilla de Historias Ordenadas'
-OrderedStoriesGrid.static = true
 
 export default OrderedStoriesGrid

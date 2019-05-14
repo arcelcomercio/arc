@@ -6,7 +6,7 @@ export const customFields = PropTypes.shape({
   content: PropTypes.label.tag({
     name: 'Separador Opinión21',
   }),
-  section: PropTypes.string.isRequired.tag({
+  section: PropTypes.string.tag({
     name: 'URL de la sección',
     description: 'Ingrese el nombre de la sección',
   }),

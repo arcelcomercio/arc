@@ -91,7 +91,7 @@ class CardTabloid extends PureComponent {
       const date = new Date(datestring)
       name = `${dias[date.getDay()]} ${date.getDate()} de ${
         meses[date.getMonth()]
-      } de ${date.getFullYear()}`
+      } del ${date.getFullYear()}`
     }
     return name
   }
