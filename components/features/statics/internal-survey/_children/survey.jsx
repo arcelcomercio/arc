@@ -43,26 +43,15 @@ class SurveyInternalChildSurvey extends Component {
     }
   }
 
-  fetch = () => {
-    const { id } = this.props
-    const source = 'quiz-by-id'
-    const params = {
-      id,
-    }
-    const { fetched } = this.getContent(source, params)
-    fetched
-      .then(response => {
-        this.setState({
-          optionsList: response.choices,
-          flagViewResult: true,
-          flagViewSurveyConfirm: false,
-        })
-      })
-      .catch(e => console.log(e))
-  }
-
   viewResult = () => {
-    this.fetch()
+    const { getResults } = this.props
+    getResults().then(response => {
+      this.setState({
+        optionsList: response.choices,
+        flagViewResult: true,
+        flagViewSurveyConfirm: false,
+      })
+    })
   }
 
   setChoiceSelected = evt => {
