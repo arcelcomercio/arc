@@ -25,6 +25,17 @@ class SurveyInternalChildSurvey extends Component {
       flagViewResult: false,
       flagViewSurveyConfirm: false,
       flagDisable: false,
+      optionSelected: '',
+    }
+  }
+
+  componentDidMount() {
+    const { hasVote } = this.props
+    if (hasVote) {
+      this.setState({
+        flagDisable: true,
+        flagViewSurveyConfirm: true,
+      })
     }
   }
 
@@ -35,12 +46,26 @@ class SurveyInternalChildSurvey extends Component {
     })
   }
 
-  viewConfirm = () => {
+  setChoiceSelected = evt => {
+    const { value } = evt.target
     this.setState({
-      flagViewResult: false,
-      flagViewSurveyConfirm: true,
-      flagDisable: true,
+      optionSelected: value,
     })
+  }
+
+  viewConfirm = e => {
+    e.preventDefault()
+    const { sendQuiz } = this.props
+    const { optionSelected } = this.state
+    if (optionSelected !== '') {
+      sendQuiz(optionSelected).then(() => {
+        this.setState({
+          flagViewResult: false,
+          flagViewSurveyConfirm: true,
+          flagDisable: true,
+        })
+      })
+    }
   }
 
   nameDate = datestring => {
@@ -79,8 +104,7 @@ class SurveyInternalChildSurvey extends Component {
 
   render() {
     const { flagViewResult, flagViewSurveyConfirm, flagDisable } = this.state
-    const { contextPath, title, date, choices } = this.props
-
+    const { title, date, choices, hasVote } = this.props
     console.log(choices)
     return (
       <div className={classes.InternalSurvey}>
@@ -95,6 +119,7 @@ class SurveyInternalChildSurvey extends Component {
                   key={UtilListKey(index)}
                   value={choice.option}
                   index={`item${choice.option}${index}`}
+                  onChange={evt => this.setChoiceSelected(evt)}
                 />
               ))}
               {/* <ItemInput value="si" index="a2" />
@@ -102,22 +127,22 @@ class SurveyInternalChildSurvey extends Component {
             </ul>
             <div className={classes.buttons}>
               <button
-                type="button"
+                type="submit"
                 className={classes.buttonpool}
-                onClick={this.viewConfirm}>
+                onClick={e => this.viewConfirm(e)}>
                 Votar
               </button>
-              <a
-                href="/"
+              <button
+                type="button"
                 className={classes.viewresult}
                 onClick={this.viewResult}>
                 Ver Resultados
-              </a>
+              </button>
             </div>
           </form>
         </div>
         <div className={classes.result}>
-          {flagViewResult && <ViewResult />}
+          {flagViewResult && <ViewResult choices={choices} />}
           {flagViewSurveyConfirm && (
             <ViewSurveyConfirm handleOnClickViewResult={this.viewResult} />
           )}

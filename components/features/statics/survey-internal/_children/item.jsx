@@ -13,8 +13,12 @@ const style = perc => ({
   width: `${perc}%`,
 })
 
-const SurveyInternalChildItem = ({ result = '', percent = '', top = true }) => {
-  const classtop = top === true ? classes.progresstop : ''
+const SurveyInternalChildItem = ({
+  result = '',
+  percent = '',
+  max = false,
+}) => {
+  const classtop = max === true ? classes.progresstop : ''
   return (
     <Fragment>
       <li className={classes.item}>

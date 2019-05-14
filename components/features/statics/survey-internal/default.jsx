@@ -13,29 +13,30 @@ class SurveyInternal extends PureComponent {
   }
 
   sendQuiz = optionSelected => {
-    const body = {
-      id: this.currentSurveyId,
-      option: optionSelected,
-      website: 'peru21',
-    }
-    const URL = 'http://jab.pe/f/arc/services/encuesta.php'
-    const { contextPath } = this.props
-    fetch(URL, {
-      method: 'POST',
-      mode: 'cors',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .catch(error => error)
-      .then(response => {
-        if (response.status === 200) {
-          const { globalContent: { slug = '' } = {} } = this.props
-          setSurveyCookie(body.id, 1)
-          window.location.href = `${contextPath}/encuesta/${slug}`
-        }
+    return new Promise(res => {
+      const body = {
+        id: this.currentSurveyId,
+        option: optionSelected,
+        website: 'peru21',
+      }
+      const URL = 'http://jab.pe/f/arc/services/encuesta.php'
+      fetch(URL, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
+        .catch(error => error)
+        .then(response => {
+          if (response.status === 200) {
+            console.log(response)
+            setSurveyCookie(body.id, 1)
+            res(true)
+          }
+        })
+    })
   }
 
   render() {
@@ -59,7 +60,6 @@ class SurveyInternal extends PureComponent {
       hasVote: this.hasVote,
       sendQuiz: this.sendQuiz,
     }
-    console.log(globalContent)
     return <SurveyInternalChildSurvey {...params} />
   }
 }

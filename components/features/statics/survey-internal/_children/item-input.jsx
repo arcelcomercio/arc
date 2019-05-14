@@ -2,13 +2,13 @@ import React from 'react'
 
 const classes = {
   input: 'internal-survey__input',
-  iteminput:'internal-survey__item-input',
+  iteminput: 'internal-survey__item-input',
   check: 'internal-survey__check',
   inputcheck: 'internal-survey__input-check',
   lblinput: 'internal-survey__lblinput',
 }
 
-const SurveyInternalChildInput = ({ value = '', index = '' }) => {
+const SurveyInternalChildInput = ({ value = '', index = '', onChange }) => {
   return (
     <li className={classes.iteminput}>
       <label htmlFor={index} className={classes.lblinput}>
@@ -18,6 +18,7 @@ const SurveyInternalChildInput = ({ value = '', index = '' }) => {
           value={value}
           name="vote"
           className={classes.input}
+          onChange={onChange}
         />
         <span className={classes.check} />
         <span>{value}</span>
