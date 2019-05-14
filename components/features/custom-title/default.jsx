@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
+import { formatSlugToText } from '../../utilities/helpers'
 
 const classes = {
   title: 'full-width margin-top',
@@ -101,7 +102,7 @@ class CustomTitle extends PureComponent {
           authorName ||
           this.getSearchTitle() ||
           this.getArchivoTitle() ||
-          section ||
+          formatSlugToText(section) ||
           'Título'}
       </TextType>
     )

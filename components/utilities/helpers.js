@@ -243,8 +243,7 @@ export const getMetaPagesPagination = (
         .match(patternPagination)[0]
         .split(`${isQuery ? '=' : '/'}`)[1],
         10
-      ) :
-      1,
+      ) : 1,
     next: false,
     prev: false,
   }
@@ -294,4 +293,8 @@ export const setSurveyCookie = (surveyId, days) => {
 export const getCookie = cookieName => {
   const cookieValue = document.cookie.match(`(^|;) ?${cookieName}=([^;]*)(;|$)`)
   return cookieValue ? cookieValue[2] : null
+}
+
+export const formatSlugToText = text => {
+  return `${text.replace(/-/, ' ').charAt(0).toUpperCase()}${text.slice(1)}`
 }
