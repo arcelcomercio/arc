@@ -261,7 +261,6 @@
   }
   &__nav {
     display: none;
-
   }
   &__nav-prev {
     left: 0;
@@ -269,7 +268,7 @@
   &__nav-next {
     right: 0;
   }
-  &__nav-ico-prev{
+  &__nav-ico-prev {
     display: block;
     font-size: 20px;
     height: 20px;
@@ -282,7 +281,7 @@
   }
 
   &__slug {
-    background-image: url(https://assets.peru21.pe/img/bg_nav_poll.png);
+    background-color: rgba(#6d9bce, 0.5);
     color: #fff;
     height: 100%;
     position: absolute;
