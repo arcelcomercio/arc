@@ -4,7 +4,7 @@ import SurveyInternalChildSurvey from './_children/survey'
 import { setSurveyCookie, getCookie } from '../../../utilities/helpers'
 
 @Consumer
-class SurveyInternal extends PureComponent {
+class StaticInternalSurvey extends PureComponent {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props)
@@ -66,5 +66,5 @@ class SurveyInternal extends PureComponent {
   }
 }
 
-SurveyInternal.label = 'Encuesta Interna'
-export default SurveyInternal
+StaticInternalSurvey.label = 'Encuesta Interna'
+export default StaticInternalSurvey

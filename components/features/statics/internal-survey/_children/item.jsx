@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 const classes = {
   item: 'internal-survey__result-pool-item',
@@ -20,20 +20,18 @@ const SurveyInternalChildItem = ({
 }) => {
   const classtop = max === true ? classes.progresstop : ''
   return (
-    <Fragment>
-      <li className={classes.item}>
-        <span className={classes.text}>
-          {result}
-          <span className={classes.percent}>{percent}%</span>
-        </span>
-        <span className={classes.bar}>
-          <span
-            className={`${classes.progress} ${classtop}`}
-            style={style(percent)}
-          />
-        </span>
-      </li>
-    </Fragment>
+    <li className={classes.item}>
+      <span className={classes.text}>
+        {result}
+        <span className={classes.percent}>{percent}%</span>
+      </span>
+      <span className={classes.bar}>
+        <span
+          className={`${classes.progress} ${classtop}`}
+          style={style(percent)}
+        />
+      </span>
+    </li>
   )
 }
 

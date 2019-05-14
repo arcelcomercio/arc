@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/mouse-events-have-key-events */
-import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import ItemInput from './item-input'
 import ViewResult from './view-result'
@@ -23,7 +21,6 @@ const classes = {
   slug: 'internal-survey__slug',
   icoprev: 'internal-survey__nav-ico-prev',
 }
-@Consumer
 class SurveyInternalChildSurvey extends Component {
   constructor() {
     super()
@@ -52,26 +49,20 @@ class SurveyInternalChildSurvey extends Component {
     const params = {
       id,
     }
-    return new Promise(res => {
-      const { fetched } = this.getContent(source, params)
-      fetched
-        .then(response => {
-          this.setState({
-            optionsList: response.choices,
-          })
-          res(response)
+    const { fetched } = this.getContent(source, params)
+    fetched
+      .then(response => {
+        this.setState({
+          optionsList: response.choices,
+          flagViewResult: true,
+          flagViewSurveyConfirm: false,
         })
-        .catch(e => console.log(e))
-    })
+      })
+      .catch(e => console.log(e))
   }
 
   viewResult = () => {
-    this.fetch().then(() => {
-      this.setState({
-        flagViewResult: true,
-        flagViewSurveyConfirm: false,
-      })
-    })
+    this.fetch()
   }
 
   setChoiceSelected = evt => {
