@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import customFieldsExtern from './_dependencies/custom-fields'
-import schemaFilter from './_dependencies/schema-filter'
-import Data from '../_dependencies/data'
-import ExtraordinaryStory from '../../../global-components/extraordinary-story'
+import ExtraordinaryStoryGridChild from './_children/extraordinary-grid-stories'
 
 const API_URL = 'story-feed-by-section'
 const API_SIZE_DATA = 1
@@ -24,7 +21,7 @@ class ExtraordinaryStoryGrid extends Component {
 
     if (hasSection && (sectionName === '/' || sectionName === '')) {
       this.setState({ data: globalContent || {} })
-    } else this.fetch()
+    } //else this.fetch()
   }
 
   componentDidUpdate() {
@@ -33,7 +30,7 @@ class ExtraordinaryStoryGrid extends Component {
     }
   }
 
-  fetch() {
+  /*fetch() {
     const {
       arcSite,
       customFields: { sectionName, positionData },
@@ -45,36 +42,24 @@ class ExtraordinaryStoryGrid extends Component {
         feedOffset: positionData || 0,
         news_number: API_SIZE_DATA,
       },
-      schemaFilter(arcSite)
     )
     fetched.then(response => {
       this.setState({ data: response || {} })
     })
-  }
+  }*/
 
   render() {
-    const { customFields, arcSite } = this.props
+    const { arcSite } = this.props
     const {
       data: { content_elements: contentElements = [] },
     } = this.state
-    const dataElement =
-      contentElements && contentElements.length > 0 ? contentElements[0] : {}
-    const formattedData = new Data(customFields, dataElement, arcSite)
-    this.isVideo = formattedData.isVideo
     const params = {
-      data: formattedData,
-      multimediaOrientation: formattedData.multimediaOrientation,
-      contentOrientation: formattedData.contentOrientation,
       arcSite,
     }
-    return <ExtraordinaryStory {...params} />
+    return <ExtraordinaryStoryGridChild {...params} />
   }
 }
 
-ExtraordinaryStoryGrid.propTypes = {
-  customFields: customFieldsExtern,
-}
-
-ExtraordinaryStoryGrid.label = 'Apertura extraordinaria por sección'
+ExtraordinaryStoryGrid.label = 'Apertura extraordinaria Grilla'
 
 export default ExtraordinaryStoryGrid
