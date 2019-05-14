@@ -42,6 +42,7 @@ class SurveyInternal extends PureComponent {
   render() {
     const { globalContent, arcSite, contextPath } = this.props
     const {
+      id = '',
       title = '',
       dateStart: date = '',
       choices = [],
@@ -52,6 +53,7 @@ class SurveyInternal extends PureComponent {
     const params = {
       arcSite,
       contextPath,
+      id,
       title,
       date,
       next,

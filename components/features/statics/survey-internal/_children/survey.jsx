@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import ItemInput from './item-input'
@@ -32,6 +33,7 @@ class SurveyInternalChildSurvey extends Component {
       flagDisable: false,
       flagNavs: false,
       optionSelected: '',
+      optionsList: [],
     }
   }
 
@@ -45,10 +47,31 @@ class SurveyInternalChildSurvey extends Component {
     }
   }
 
+  fetch = () => {
+    const { id } = this.props
+    const source = 'quiz-by-id'
+    const params = {
+      id,
+    }
+    return new Promise(res => {
+      const { fetched } = this.getContent(source, params)
+      fetched
+        .then(response => {
+          this.setState({
+            optionsList: response.choices,
+          })
+          res(response)
+        })
+        .catch(e => console.log(e))
+    })
+  }
+
   viewResult = () => {
-    this.setState({
-      flagViewResult: true,
-      flagViewSurveyConfirm: false,
+    this.fetch().then(() => {
+      this.setState({
+        flagViewResult: true,
+        flagViewSurveyConfirm: false,
+      })
     })
   }
 
@@ -126,6 +149,7 @@ class SurveyInternalChildSurvey extends Component {
       flagViewSurveyConfirm,
       flagDisable,
       flagNavs,
+      optionsList,
     } = this.state
     const {
       title,
@@ -206,7 +230,9 @@ class SurveyInternalChildSurvey extends Component {
           </form>
         </div>
         <div className={classes.result}>
-          {flagViewResult && <ViewResult choices={choices} />}
+          {flagViewResult && optionsList && (
+            <ViewResult choices={optionsList} />
+          )}
           {flagViewSurveyConfirm && (
             <ViewSurveyConfirm handleOnClickViewResult={this.viewResult} />
           )}

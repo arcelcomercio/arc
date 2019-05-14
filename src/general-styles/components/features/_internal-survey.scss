@@ -18,6 +18,11 @@
     padding-right: 30px;
     background-color: #ffffff;
     position: relative;
+    &:hover {
+      .internal-survey__nav.active {
+        display: block;
+      }
+    }
   }
   &__date {
     display: block;
