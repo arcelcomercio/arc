@@ -13,7 +13,7 @@
     "import/no-unresolved": [
       "error",
       {
-        "ignore": ["react", "fusion:consumer"]
+        "ignore": ["react", "fusion:consumer", "fusion:environment"]
       }
     ],
     "react/prop-types": [

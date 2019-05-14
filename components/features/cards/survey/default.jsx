@@ -27,7 +27,7 @@ class CardSurvey extends PureComponent {
     }
 
     this.currentSurveyId = 674
-    this.hasVote = getCookie(`idpoll${this.currentSurveyId}`) || false
+    this.hasVote = getCookie(`idpoll${this.currentSurveyId}`) === '1'
   }
 
   componentDidMount() {
@@ -51,7 +51,7 @@ class CardSurvey extends PureComponent {
       option: optionSelected,
       website: 'peru21',
     }
-    const URL = 'http://jab.pe/f/arc/services/encuesta.php'
+    const URL = 'https://jab.pe/f/arc/services/encuesta.php'
     const { contextPath } = this.props
     fetch(URL, {
       method: 'POST',
@@ -74,10 +74,11 @@ class CardSurvey extends PureComponent {
   render() {
     const { contextPath } = this.props
     const {
-      quizData: { slug = '', choices = [] },
+      quizData: { title = '', slug = '', choices = [] },
     } = this.state
     const params = {
       contextPath,
+      title,
       slug,
       choices,
       hasVote: this.hasVote,

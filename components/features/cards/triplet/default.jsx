@@ -65,7 +65,6 @@ class CardTriplet extends PureComponent {
 }
 
 CardTriplet.label = 'Triplete'
-CardTriplet.static = true
 
 CardTriplet.propTypes = {
   customFields: customFieldsConfig,

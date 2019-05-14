@@ -1,1 +1,1 @@
-import './scss/main.scss'
+import './scss/main-amp.scss'
