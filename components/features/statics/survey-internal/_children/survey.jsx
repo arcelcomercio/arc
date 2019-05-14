@@ -31,7 +31,6 @@ class SurveyInternalChildSurvey extends Component {
       flagViewResult: false,
       flagViewSurveyConfirm: false,
       flagDisable: false,
-      flagNavs: false,
       optionSelected: '',
       optionsList: [],
     }
@@ -131,24 +130,11 @@ class SurveyInternalChildSurvey extends Component {
     return name
   }
 
-  handleDisableHover = () => {
-    this.setState({
-      flagNavs: true,
-    })
-  }
-
-  mousesalida = () => {
-    this.setState({
-      flagNavs: false,
-    })
-  }
-
   render() {
     const {
       flagViewResult,
       flagViewSurveyConfirm,
       flagDisable,
-      flagNavs,
       optionsList,
     } = this.state
     const {
@@ -170,35 +156,21 @@ class SurveyInternalChildSurvey extends Component {
 
     return (
       <div className={classes.InternalSurvey}>
-        <div className={classes.detail}>
-          <div className={flagNavs === false ? classes.nav : ''}>
+        <div className={`${classes.detail} ${flagDisable && 'disable'}`}>
+          <div className={`${classes.nav} ${flagDisable && 'active'}`}>
             {prev && (
               <a
                 href={urlPrev}
-                className={`${classes.navprev} ${classes.slug}`}
-                onMouseEnter={this.handleDisableHover}
-                onMouseOut={this.mousesalida}>
+                className={`${classes.navprev} ${classes.slug}`}>
                 <i className={classes.icoprev}> prev </i>
               </a>
             )}
             {next && (
-              <a
-                href={urlNext}
-                className={`${classes.navnex} ${classes.slug}`}
-                onMouseEnter={this.handleDisableHover}
-                onMouseOut={this.mousesalida}>
+              <a href={urlNext} className={`${classes.navnex} ${classes.slug}`}>
                 <i className={classes.icoprev}> next </i>
               </a>
             )}
           </div>
-
-          {flagDisable && (
-            <span
-              className={classes.disable}
-              onMouseEnter={this.handleDisableHover}
-              onMouseOut={this.mousesalida}
-            />
-          )}
 
           <time className={classes.date}>{this.nameDate(date)}</time>
           <h1 className={classes.title}>{title}</h1>

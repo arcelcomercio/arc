@@ -23,6 +23,18 @@
         display: block;
       }
     }
+    &.disable {
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(255, 255, 255, 0.7);
+        z-index: 1;
+      }
+    }
   }
   &__date {
     display: block;
@@ -253,16 +265,6 @@
     line-height: 43px;
     text-align: center;
     width: 116px;
-  }
-  &__disable {
-    background-color: rgba(255, 255, 255, 0.7);
-    display: block;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 2;
   }
   &__nav {
     display: none;

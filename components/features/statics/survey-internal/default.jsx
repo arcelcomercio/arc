@@ -8,7 +8,8 @@ class SurveyInternal extends PureComponent {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props)
-    this.currentSurveyId = this.props.globalContent.id
+    const { globalContent: { id = '' } = {} } = this.props
+    this.currentSurveyId = id
     this.hasVote = getCookie(`idpoll${this.currentSurveyId}`) || false
   }
 
@@ -31,9 +32,8 @@ class SurveyInternal extends PureComponent {
         .catch(error => error)
         .then(response => {
           if (response.status === 200) {
-            console.log(response)
             setSurveyCookie(body.id, 1)
-            res(true)
+            res(response)
           }
         })
     })
