@@ -93,29 +93,28 @@ class ArticleAmpHeader extends PureComponent {
       globalContent: {
         subheadlines: subtitle = '',
         headlines: titleElements = '',
-        // eslint-disable-next-line camelcase
-        taxonomy: { primary_section },
+        taxonomy: { primary_section: primarySection = '' },
         publish_date: date,
         promo_items: galleryItems = {},
       } = {},
     } = this.props
+
     const { siteName } = getProperties(arcSite)
+
+    const hasValueElements =
+      galleryItems &&
+      galleryItems.basic_gallery &&
+      typeof galleryItems.basic_gallery.content_elements !== 'undefined'
+
     return (
       <Fragment>
-        <div
-          className={
-            galleryItems &&
-            galleryItems.basic_gallery &&
-            typeof galleryItems.basic_gallery.content_elements !== 'undefined'
-              ? classes.gallery
-              : classes.news
-          }>
+        <div className={hasValueElements ? classes.gallery : classes.news}>
           <ul className={classes.breadcrumb}>
             <li className={classes.item}>
               <a href="/">{siteName}</a>
             </li>
             <li className={classes.item}>
-              <a href={primary_section.path}>{primary_section.name}</a>
+              <a href={primarySection.path}>{primarySection.name}</a>
             </li>
           </ul>
           <header>
@@ -150,9 +149,7 @@ class ArticleAmpHeader extends PureComponent {
               </li>
             ))}
           </ul>
-          {galleryItems &&
-          galleryItems.basic_gallery &&
-          typeof galleryItems.basic_gallery.content_elements !== 'undefined' ? (
+          {hasValueElements ? (
             <Gallery data={galleryItems && galleryItems.basic_gallery} />
           ) : (
             ''

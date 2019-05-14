@@ -8,6 +8,13 @@ import React, { Component, Fragment } from 'react'
 import ElePrincipal from './_children/amp-ele-principal'
 import ArticleBodyChildVideo from './_children/video'
 
+const elementClasses = {
+  textClasses: 'amp-content__news-text',
+  author: 'amp-content__author',
+  headerClasses: 'font--primary',
+  imageClasses: 'visual__image visual__image--cover',
+}
+
 @Consumer
 class ArticleAMPArticleBody extends Component {
   render() {
@@ -17,12 +24,6 @@ class ArticleAMPArticleBody extends Component {
         promo_items: promoItems,
       },
     } = this.props
-    const elementClasses = {
-      textClasses: 'amp-content__news-text',
-      author: 'amp-content__author',
-      headerClasses: 'font--primary',
-      imageClasses: 'visual__image visual__image--cover',
-    }
 
     return (
       <Fragment>
