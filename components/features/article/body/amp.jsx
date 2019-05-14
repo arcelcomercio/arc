@@ -4,15 +4,15 @@ import ArticleBody, {
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import AmpImage from '@arc-core-components/element_image'
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import ElePrincipal from './_children/amp-ele-principal'
 import ArticleBodyChildVideo from './_children/video'
 
 const elementClasses = {
+  content: 'amp-content',
   textClasses: 'amp-content__news-text',
   author: 'amp-content__author',
-  headerClasses: 'font--primary',
-  imageClasses: 'visual__image visual__image--cover',
+  imageClasses: 'visual__image',
 }
 
 @Consumer
@@ -26,7 +26,7 @@ class ArticleAMPArticleBody extends Component {
     } = this.props
 
     return (
-      <Fragment>
+      <div className={elementClasses.content}>
         {promoItems && <ElePrincipal data={promoItems} />}
         <p className={elementClasses.author}>Por: Redacción DT</p>
         {contentElements && (
@@ -65,7 +65,7 @@ class ArticleAMPArticleBody extends Component {
             }}
           />
         )}
-      </Fragment>
+      </div>
     )
   }
 }

@@ -1,5 +1,7 @@
 .amp-content {
   background-color: $color-white;
+  padding-left: 20px;
+  padding-right: 20px;
 
   &__news-text {
     font-size: 16px;
@@ -10,5 +12,18 @@
   }
   &__author {
     margin: 13px 0;
+  }
+
+  &__image {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  & img {
+    width: 100%;
+  }
+  .visual__image {
+    margin-left: -20px;
+    margin-right: -20px;
   }
 }
