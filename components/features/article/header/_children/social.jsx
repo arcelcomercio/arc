@@ -9,10 +9,8 @@ const classes = {
   news: 'article-header_share',
   breadcrumb: 'article-header__breadcrumb',
   item: 'article-header--item',
-  icon: 'article-header__icon',
   link: 'article-header__link flex-center-vertical flex--justify-center',
   list: 'article-header__list flex',
-  gallery: 'col-3',
 }
 @Consumer
 class ArticleHeaderChildSocial extends PureComponent {
@@ -101,7 +99,7 @@ class ArticleHeaderChildSocial extends PureComponent {
                     const isPrint = i === 2 && currentList === this.secondList
                     this.openLink(event, item, isPrint)
                   }}>
-                  <span className={classes.icon} d={item.icon} />
+                  <i className={item.icon} />
                 </a>
               </li>
             ))}

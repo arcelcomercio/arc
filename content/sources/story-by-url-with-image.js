@@ -10,7 +10,7 @@ const transform = data => {
     presets: {
       small: { width: 50, height: 50 },
       medium: { width: 480 },
-      large: { width: 320, height: 156 },
+      large: { width: 620, height: 375 },
       amp: { width: 600, height: 375 },
     },
   })

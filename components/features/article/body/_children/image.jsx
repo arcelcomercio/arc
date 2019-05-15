@@ -17,7 +17,7 @@ class ArticleBodyChildArticleImage extends PureComponent {
         <Image
           width="100%"
           className={classes.image}
-          sizePreset="small"
+          sizePreset="large"
           {...data}
         />
         {data && data.caption && (
