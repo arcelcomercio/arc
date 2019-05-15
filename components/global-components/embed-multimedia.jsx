@@ -21,12 +21,12 @@ const videoGoldfish = multimediaSource => {
   )
 }
 
-const videoYoutube = (url, width = '100%', height = '100%') => {
+const videoYoutube = (codeId, width = '100%', height = '100%') => {
   return (
     <iframe
       width={width}
       height={height}
-      src={url}
+      src={codeId}
       frameBorder="0"
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       title="Youtube"

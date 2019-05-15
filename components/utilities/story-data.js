@@ -1,6 +1,4 @@
-import {
-  addResizedUrlItem
-} from './thumbs'
+import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
 
 class StoryData {
@@ -94,9 +92,7 @@ class StoryData {
   }
 
   get link() {
-    const {
-      websites = {}
-    } = this._data || {}
+    const { websites = {} } = this._data || {}
     const aux = websites[`${this._website}`] || {}
     return `${aux.website_url || ''}?_website=${this._website}` || '#'
   }
@@ -118,8 +114,7 @@ class StoryData {
     return (this._data && this._data.first_publish_date) || ''
   }
 
-  static videoId() {
-    // FIXME
+  get videoId() {
     return (
       (this._data &&
         this._data.promo_items &&
@@ -164,12 +159,13 @@ class StoryData {
       (data &&
         data.websites &&
         data.websites[website] &&
-        data.websites[website].website_section) || {}
+        data.websites[website].website_section) ||
+      {}
     const section = sectionData.name || ''
     const path = sectionData.path || ''
     return {
       name: section,
-      path
+      path,
     }
   }
 
@@ -188,9 +184,9 @@ class StoryData {
         urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : ''
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
-          iterator.image && iterator.image.url && iterator.image.url !== '' ?
-          iterator.image.url :
-          imageAuthorDefault
+          iterator.image && iterator.image.url && iterator.image.url !== ''
+            ? iterator.image.url
+            : imageAuthorDefault
         break
       }
     }
@@ -225,7 +221,7 @@ class StoryData {
         data.promo_items[ConfigParams.VIDEO].promo_items &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE] &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
-        .url) ||
+          .url) ||
       ''
     return thumb
   }
@@ -240,7 +236,7 @@ class StoryData {
           ConfigParams.IMAGE
         ] &&
         data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-        .url) ||
+          .url) ||
       ''
     return thumb
   }
@@ -249,9 +245,9 @@ class StoryData {
     const basicPromoItems =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
     const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
-    return typePromoItems && typePromoItems === 'image' ?
-      basicPromoItems.url :
-      ''
+    return typePromoItems && typePromoItems === 'image'
+      ? basicPromoItems.url
+      : ''
   }
 
   static getThumbnail(data, type) {
