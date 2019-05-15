@@ -13,6 +13,22 @@ class StaticInternalSurvey extends PureComponent {
     this.hasVote = getCookie(`idpoll${this.currentSurveyId}`) || false
   }
 
+  getResults = () => {
+    const { globalContent: { id = '' } = {} } = this.props
+    const source = 'quiz-by-id'
+    const params = {
+      id,
+    }
+    return new Promise(res => {
+      const { fetched } = this.getContent(source, params)
+      fetched
+        .then(response => {
+          res(response)
+        })
+        .catch(e => console.log(e))
+    })
+  }
+
   sendQuiz = optionSelected => {
     return new Promise(res => {
       const body = {
@@ -42,7 +58,6 @@ class StaticInternalSurvey extends PureComponent {
   render() {
     const { globalContent, arcSite, contextPath } = this.props
     const {
-      id = '',
       title = '',
       dateStart: date = '',
       choices = [],
@@ -53,7 +68,6 @@ class StaticInternalSurvey extends PureComponent {
     const params = {
       arcSite,
       contextPath,
-      id,
       title,
       date,
       next,
@@ -61,6 +75,7 @@ class StaticInternalSurvey extends PureComponent {
       choices,
       hasVote: this.hasVote,
       sendQuiz: this.sendQuiz,
+      getResults: this.getResults,
     }
     return <SurveyInternalChildSurvey {...params} />
   }
