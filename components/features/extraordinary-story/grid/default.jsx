@@ -68,12 +68,7 @@ class ExtraordinaryStoryGrid extends Component {
     } = this.props
 
     const { website_url: uriStory = '' } = valuesUrlStory
-    if (
-      multimediaService !== '' &&
-      multimediaSource !== '' &&
-      uriStory &&
-      uriStory !== ''
-    ) {
+    if ((multimediaService === '' || multimediaService === 'default') && uriStory && uriStory !== '') {
       const { fetched: fetchStory } = this.fetch(
         serviceUrlStory,
         valuesUrlStory,
@@ -84,7 +79,7 @@ class ExtraordinaryStoryGrid extends Component {
       })
     }
 
-    /*const sections = []
+    /* const sections = []
 
     const { _id: slugSection = '' } = valuesFirstSection
     if (slugSection && slugSection !== '') {
@@ -102,7 +97,7 @@ class ExtraordinaryStoryGrid extends Component {
         valuesFirstSection,
         schemaSection
       )
-    }*/
+    } */
   }
 
   fetch(contentService, contentConfigValues, schema) {
@@ -113,12 +108,17 @@ class ExtraordinaryStoryGrid extends Component {
     const { arcSite, customFields } = this.props
     const { dataStory } = this.state
 
-    const formattedData = new Data(customFields, dataStory, arcSite)
-    this.isVideo = formattedData.isVideo
+    const formattedDataStory = new Data(customFields, dataStory, arcSite)
+    this.isVideo = formattedDataStory.isVideo
 
     const params = {
       arcSite,
+      dataStory: formattedDataStory,
     }
+    console.log('dataStory')
+    console.dir(dataStory)
+    console.log('formattedDataStory')
+    console.dir(formattedDataStory)
     return <ExtraordinaryStoryGridChild {...params} />
   }
 }
