@@ -41,30 +41,24 @@ class ExtraordinaryStoryGrid extends Component {
 
   initFetch = () => {
     const {
-      customFields: { urlStory = {}, multimediaSource = '' },
+      customFields: {
+        urlStory = {},
+        multimediaSource = '',
+        firstSection = {},
+        secondSection = {},
+        thirdSection = {},
+        fourthSection = {},
+      },
     } = this.props
 
     if (multimediaSource === '') {
       this.fetch(urlStory, schemaStory, 'dataStory')
     }
 
-    /*const { _id: slugSection = '' } = valuesFirstSection
-    if (slugSection && slugSection !== '') {
-      const { fetched: fetchFirstSection } = this.fetch(
-        serviceFirstSection,
-        valuesFirstSection,
-        schemaSection
-      )
-    }
-
-    const { _id: slugSection = '' } = valuesFirstSection
-    if (slugSection && slugSection !== '') {
-      const { fetched: fetchFirstSection } = this.fetch(
-        serviceFirstSection,
-        valuesFirstSection,
-        schemaSection
-      )
-    }*/
+    this.fetch(firstSection, schemaSection, 'section1')
+    this.fetch(secondSection, schemaSection, 'section2')
+    this.fetch(thirdSection, schemaSection, 'section3')
+    this.fetch(fourthSection, schemaSection, 'section4')
   }
 
   fetch(
