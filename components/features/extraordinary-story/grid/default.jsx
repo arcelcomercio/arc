@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import ExtraordinaryStoryGridChild from './_children/extraordinary-grid-stories'
 import customFieldsExtern from './_dependencies/custom-fields'
-import schemaFilter from './_dependencies/schema-filter'
+import { schemaStory, schemaSection } from './_dependencies/schemas-filter'
 import Data from '../_dependencies/data'
 //import ExtraordinaryStory from '../../../global-components/extraordinary-story'
 import EmbedMultimedia from '../../../global-components/embed-multimedia'
 
-const API_URL = 'section-by-slug'
 @Consumer
 class ExtraordinaryStoryGrid extends Component {
   constructor(props) {
@@ -45,35 +44,75 @@ class ExtraordinaryStoryGrid extends Component {
   initFetch = () => {
     const {
       customFields: {
-        urlStory = {},
+        urlStory: {
+          contentService: serviceUrlStory = '',
+          contentConfigValues: valuesUrlStory = {},
+        } = {},
         multimediaService = '',
-        firstSection = {},
-        secondSection = {},
-        thirdSection = {},
-        fourthSection = {},
+        multimediaSource = '',
+        firstSection: {
+          contentService: serviceFirstSection = '',
+          contentConfigValues: valuesFirstSection = {},
+        } = {},
+        secondSection: {
+          contentService: serviceSecondSection = '',
+          contentConfigValues: valuesSecondSection = {},
+        } = {},
+        thirdSection: {
+          contentService: serviceThirdSection = '',
+          contentConfigValues: valuesThirdSection = {},
+        } = {},
+        fourthSection: {
+          contentService: serviceFourthSection = '',
+          contentConfigValues: valuesFourthSection = {},
+        } = {},
       },
     } = this.props
 
-    const {
-      contentConfigValues: { website_url: uriStory = '' },
-    } = urlStory
-    if (uriStory && uriStory !== '') {
-      const { fetched: fetchStory } = this.fetch(urlStory)
+    const { website_url: uriStory = '' } = valuesUrlStory
+    if (
+      multimediaService !== '' &&
+      multimediaSource !== '' &&
+      uriStory &&
+      uriStory !== ''
+    ) {
+      const { fetched: fetchStory } = this.fetch(
+        serviceUrlStory,
+        valuesUrlStory,
+        schemaStory
+      )
       fetchStory.then(response => {
         this.setState({ dataStory: response })
       })
     }
+
+    const sections = []
+
+    const { _id: slugSection = '' } = valuesFirstSection
+    if (slugSection && slugSection !== '') {
+      const { fetched: fetchFirstSection } = this.fetch(
+        serviceFirstSection,
+        valuesFirstSection,
+        schemaSection
+      )
+    }
+
+    const { _id: slugSection = '' } = valuesFirstSection
+    if (slugSection && slugSection !== '') {
+      const { fetched: fetchFirstSection } = this.fetch(
+        serviceFirstSection,
+        valuesFirstSection,
+        schemaSection
+      )
+    }
   }
 
-  fetch({ contentService = '', contentConfigValues = {} }, schema) {
+  fetch(contentService, contentConfigValues, schema) {
     return this.getContent(contentService, contentConfigValues, schema)
   }
 
   render() {
     const { arcSite } = this.props
-    const {
-      data: { content_elements: contentElements = [] },
-    } = this.state
     const params = {
       arcSite,
     }

@@ -1,7 +1,10 @@
 import schemaFilterParent from '../../_dependencies/schema-filter'
 
-const schemaFilter = arcSite => `{
+export const schemaStory = arcSite => `{
     content_elements 
         ${schemaFilterParent(arcSite)}
 }`
-export default schemaFilter
+
+export const schemaSection = () => `{
+    
+}`
