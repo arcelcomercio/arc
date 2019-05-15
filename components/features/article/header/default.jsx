@@ -19,19 +19,20 @@ class ArticleHeader extends Component {
       promo_items: galleryItems = {},
     } = globalContent || {}
 
+    const hasValueElements =
+      galleryItems &&
+      galleryItems.basic_gallery &&
+      typeof galleryItems.basic_gallery.content_elements !== 'undefined' &&
+      true
+
     return (
       <Fragment>
-        <div
-          className={
-            galleryItems &&
-            galleryItems.basic_gallery &&
-            typeof galleryItems.basic_gallery.content_elements !== 'undefined'
-              ? classes.gallery
-              : classes.news
-          }>
+        <div className={hasValueElements ? classes.gallery : classes.news}>
+          <ArticleHeaderChildSocial url={baseUrl} title={title} />
+
           <ArticleHeaderChildHeading />
           <ArticleHeaderChildShareSubheading />
-          <ArticleHeaderChildSocial url={baseUrl} title={title} />
+
           {galleryItems &&
           galleryItems.basic_gallery &&
           typeof galleryItems.basic_gallery.content_elements !== 'undefined' ? (
