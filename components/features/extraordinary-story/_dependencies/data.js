@@ -11,13 +11,6 @@ class Data extends StoryData {
 
   static AUTOMATIC = 'default'
 
-  static MULTIMEDIA_TYPE = {
-    [Data.GOLDFISH]: ConfigParams.VIDEO,
-    [Data.YOUTUBE]: ConfigParams.VIDEO,
-    [Data.IMAGE]: ConfigParams.IMAGE,
-    [Data.AUTOMATIC]: null,
-  }
-
   constructor(customFields, data, website) {
     super(data, website)
     this.customFields = customFields
@@ -33,6 +26,10 @@ class Data extends StoryData {
 
   get multimediaOrientation() {
     return this.customFields.multimediaOrientation || 'bottom'
+  }
+
+  set multimediaOrientation(label) {
+    this.customFields.multimediaOrientation = label
   }
 
   get contentOrientation() {
@@ -176,7 +173,14 @@ class Data extends StoryData {
     return `<img src="${urlResize}" alt="${title}" />`
   }
 
-  get dataEmbedMultimedia() {
+  get typeMultimediaGeneral() {
+    return Data.getTypeMultimediaGeneral(
+      this.multimediaService,
+      this.multimediaType
+    )
+  }
+
+  get sourceMultimedia() {
     const {
       // Custom config values
       multimediaService,
@@ -187,14 +191,16 @@ class Data extends StoryData {
       videoId,
       multimedia,
     } = this
-    let multimediaTypeFeature = Data.MULTIMEDIA_TYPE[multimediaService]
+    const multimediaTypeFeature = Data.getTypeMultimediaGeneral(
+      multimediaService,
+      multimediaType
+    )
     let multimediaSourceFeature = multimediaSource
     if (Data.AUTOMATIC === multimediaService) {
-      multimediaTypeFeature = multimediaType
       multimediaSourceFeature =
         multimediaType === ConfigParams.VIDEO ? videoId : multimedia
     }
-    return Data.sourceMultimedia(
+    return Data.getSourceMultimedia(
       multimediaTypeFeature,
       multimediaSourceFeature,
       super.__website,
@@ -202,9 +208,14 @@ class Data extends StoryData {
     )
   }
 
-  static sourceMultimedia(multimediaType, multimedia, website, orientation) {
+  static getSourceMultimedia(multimediaType, multimedia, website, orientation) {
     let multimediaContent = ''
-    if (multimediaType === ConfigParams.VIDEO && multimedia !== '') {
+    if (
+      (multimediaType === ConfigParams.VIDEO ||
+        multimediaType === Data.YOUTUBE ||
+        multimediaType === Data.GOLDFISH) &&
+      multimedia !== ''
+    ) {
       multimediaContent = multimedia
     } else if (multimediaType === ConfigParams.GALLERY && multimedia !== '') {
       multimediaContent = this.resizeImg(multimedia, website, orientation) || ''
@@ -214,7 +225,15 @@ class Data extends StoryData {
     return multimediaContent
   }
 
-  static resizeImg(url, website, orientation = 'top') {
+  static getTypeMultimediaGeneral(multimediaService, multimediaType) {
+    let multimediaTypeFeature = multimediaService
+    if (Data.AUTOMATIC === multimediaService) {
+      multimediaTypeFeature = multimediaType
+    }
+    return multimediaTypeFeature
+  }
+
+  static resizeImg(url, website, orientation = 'original') {
     const resize = {
       top: {
         ratio: '9:16',
@@ -231,6 +250,10 @@ class Data extends StoryData {
       right: {
         ratio: '4:3',
         size: '500x150',
+      },
+      grid: {
+        ratio: '9:16',
+        size: '700x400',
       },
     }
     const urlResize = ResizeImageUrl(
