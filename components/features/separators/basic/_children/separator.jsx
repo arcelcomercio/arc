@@ -4,8 +4,8 @@ import SeparatorItem from './item'
 
 const classes = {
   separator: 'separator margin-top',
-  headerHtml: 'separator__headerHtml',
-  title: 'separator__headerTitle text-uppercase',
+  headerHtml: 'separator__header-html',
+  title: 'separator__header-title text-uppercase',
   oneline: 'separator__oneline',
   twoline: 'separator__twoline',
   threeline: 'separator__threeline',
@@ -36,15 +36,15 @@ const SeparatorsBasicChildSeparator = props => {
   }
   return (
     <div className={classes.separator}>
-      {titleSeparator ? (
-        <h1 className={`${classes.title}`}>
-          <a href={titleLink}>{titleSeparator}</a>
-        </h1>
-      ) : (
+      {htmlCode ? (
         <div
           className={classes.title}
           dangerouslySetInnerHTML={createMarkup(htmlCode)}
         />
+      ) : (
+        <h1 className={`${classes.title}`}>
+          <a href={titleLink}>{titleSeparator}</a>
+        </h1>
       )}
       <div className={classes.body}>
         {items &&

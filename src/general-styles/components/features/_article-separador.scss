@@ -7,7 +7,7 @@
   border: 1px solid #d5e1e1;
   padding: 0px 15px 15px;
 
-  &__headerTitle {
+  &__header-title {
     display: grid;
     grid-template-columns: 1fr;
     margin-top: 0;
@@ -106,7 +106,7 @@
         }
 
         p {
-          
+
           a {
             font-size: 13.5px;
             color: black;
@@ -117,7 +117,7 @@
           }
         }
       }
-      
+
 
       &-image {
         right: 21px;
@@ -218,7 +218,7 @@
     font-size: 17px;
     color: #333;
     line-height: 1.13;
-    
+
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
@@ -240,18 +240,22 @@
       }
     }
   }
+
   &-oneline {
     -webkit-line-clamp: 1;
     // max-height: 35.63px;
   }
+
   &-twoline {
     -webkit-line-clamp: 2;
     // max-height: 35.63px;
   }
+
   &-threeline {
     -webkit-line-clamp: 3;
     // max-height: 57.63px;
   }
+
   &--nota {
     height: 254px;
   }
