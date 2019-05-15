@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import ArticleItem from './article-item'
 
 class ExtraordinaryStoryChildGridStories extends PureComponent {
   build = () => {
@@ -6,6 +7,28 @@ class ExtraordinaryStoryChildGridStories extends PureComponent {
   }
 
   render() {
+    const notes = {
+      note1: {
+        urlNote: '#',
+        urlImage: 'http://peru21.pe/img/p21tv/informe21.jpg?v2',
+        title: 'titulo',
+      },
+      note2: {
+        urlNote: '#',
+        urlImage: 'http://peru21.pe/img/p21tv/lavozdel21.jpg',
+        title: 'titulo',
+      },
+      note3: {
+        urlNote: '#',
+        urlImage: 'http://peru21.pe/img/p21tv/deportes21.jpg?v2',
+        title: 'titulo',
+      },
+      note4: {
+        urlNote: '#',
+        urlImage: 'http://peru21.pe/img/p21tv/21noticias.jpg',
+        title: 'titulo',
+      },
+    }
     return (
       <div className="extraordinary-story-grid flex position-relative">
         <div className="story-video-box flex-center-vertical">
@@ -28,46 +51,10 @@ class ExtraordinaryStoryChildGridStories extends PureComponent {
           </div>
           <h2 className="stories-grid__title">Programas del dia</h2>
           <div className="stories-grid__item-list flex">
-            <div className="stories-grid-item">
-              <a href="#">
-                <img
-                  className="full-width"
-                  src="http://peru21.pe/img/p21tv/21noticias.jpg"
-                  alt=""
-                />
-                <p className="stories-grid-item__title text-left">titulo</p>
-              </a>
-            </div>
-            <div className="stories-grid-item">
-              <a href="#">
-                <img
-                  className="full-width"
-                  src="http://peru21.pe/img/p21tv/lavozdel21.jpg"
-                  alt=""
-                />
-                <p className="stories-grid-item__title text-left">titulo</p>
-              </a>
-            </div>
-            <div className="stories-grid-item">
-              <a href="#">
-                <img
-                  className="full-width"
-                  src="http://peru21.pe/img/p21tv/deportes21.jpg?v2"
-                  alt=""
-                />
-                <p className="stories-grid-item__title text-left">titulo</p>
-              </a>
-            </div>
-            <div className="stories-grid-item">
-              <a href="#">
-                <img
-                  className="full-width"
-                  src="http://peru21.pe/img/p21tv/informe21.jpg?v2"
-                  alt=""
-                />
-                <p className="stories-grid-item__title text-left">titulo</p>
-              </a>
-            </div>
+            <ArticleItem {...notes.note1} />
+            <ArticleItem {...notes.note2} />
+            <ArticleItem {...notes.note3} />
+            <ArticleItem {...notes.note4} />
           </div>
         </div>
       </div>

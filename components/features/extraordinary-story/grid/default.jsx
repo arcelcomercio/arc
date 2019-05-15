@@ -7,13 +7,18 @@ import Data from '../_dependencies/data'
 //import ExtraordinaryStory from '../../../global-components/extraordinary-story'
 import EmbedMultimedia from '../../../global-components/embed-multimedia'
 
-const API_URL = 'story-feed-by-section'
-const API_SIZE_DATA = 1
+const API_URL = 'section-by-slug'
 @Consumer
 class ExtraordinaryStoryGrid extends Component {
   constructor(props) {
     super(props)
-    this.state = { data: {} }
+    this.state = {
+      data: {},
+      section1: {},
+      section2: {},
+      section3: {},
+      section4: {},
+    }
     this.isVideo = false
   }
 

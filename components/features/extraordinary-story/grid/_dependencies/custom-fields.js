@@ -1,29 +1,34 @@
 import PropTypes from 'prop-types'
-import customFieldsParent from '../../_dependencies/custom-fields'
 
 const customFieldsSection = {
-  content: PropTypes.label.tag({
+  firstContent: PropTypes.label.tag({
     name: 'Contenido',
   }),
-  sectionName: PropTypes.string.tag({
-    name: 'Slug de la sección',
-    description:
-      'Agregar un slash(/) antes del nombre de la sección, ejm: /deportes .',
-    hidden: false,
+  link: PropTypes.string.isRequired.tag({
+    name: 'Link de nota a destacar',
   }),
-  positionData: PropTypes.number.tag({
-    name: 'Posición de la nota de la sección',
-    description: 'El primer item es cero(0).',
-    min: 0,
-    max: 100,
-    step: 1,
-    defaultValue: 0,
-    hidden: false,
+  secondContent: PropTypes.label.tag({
+    name: 'Secciones de grilla',
+  }),
+  firstSection: PropTypes.string.tag({
+    name: 'Primera sección',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
+  }),
+  secondSection: PropTypes.string.tag({
+    name: 'Segunda sección',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
+  }),
+  thirdSection: PropTypes.string.tag({
+    name: 'Tercera sección',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
+  }),
+  fourthSection: PropTypes.string.tag({
+    name: 'Cuarta sección',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
 }
 
 const customFields = PropTypes.shape({
   ...customFieldsSection,
-  ...customFieldsParent,
 })
 export default customFields
