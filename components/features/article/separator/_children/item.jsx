@@ -54,7 +54,7 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
   // transform(data, website)
   let key = 0
   return data.map(elements => {
-    if (key === 6) return false
+    if (key === 4) return false
     const {
       promo_items: promoItems,
       website_url: websiteUrl,
