@@ -3,11 +3,13 @@ import ItemInput from './item-input'
 import ViewResult from './view-result'
 import ViewSurveyConfirm from './view-confirm'
 import UtilListKey from '../../../../utilities/list-keys'
+import DateNameFunc from '../../../../utilities/date-name'
 
 const classes = {
   InternalSurvey: 'internal-survey',
   detail: 'internal-survey__detail',
   result: 'internal-survey__result',
+  ocultar: 'internal-survey__ocultar',
   date: 'internal-survey__date',
   title: 'internal-survey__title',
   buttons: 'internal-survey__buttons',
@@ -75,41 +77,7 @@ class SurveyInternalChildSurvey extends Component {
       })
     }
   }
-
-  nameDate = datestring => {
-    let name = ''
-    if (datestring) {
-      const dias = [
-        'Lunes',
-        'Martes',
-        'Miércoles',
-        'Jueves',
-        'Viernes',
-        'Sábado',
-        'Domingo',
-      ]
-      const meses = [
-        'Enero',
-        'Febrero',
-        'Marzo',
-        'Abril',
-        'Mayo',
-        'Junio',
-        'Julio',
-        'Agosto',
-        'Septiembre',
-        'Octubre',
-        'Noviembre',
-        'Diciembre',
-      ]
-      const date = new Date(datestring)
-      name = `${dias[date.getDay()]} ${date.getDate()} de ${
-        meses[date.getMonth()]
-      }, ${date.getFullYear()}`
-    }
-    return name
-  }
-
+  
   render() {
     const {
       flagViewResult,
@@ -152,7 +120,7 @@ class SurveyInternalChildSurvey extends Component {
             )}
           </div>
 
-          <time className={classes.date}>{this.nameDate(date)}</time>
+          <time className={classes.date}>{DateNameFunc(date,',')}</time>
           <h1 className={classes.title}>{title}</h1>
           <form action="">
             <ul>

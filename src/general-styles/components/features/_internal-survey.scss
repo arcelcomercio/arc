@@ -81,17 +81,24 @@
     line-height: 43px;
   }
   //columna de resultados
+  &__ocultar{
+    display: none;
+  }
+
   &__result {
     display: grid;
     grid-template-columns: auto;
     justify-content: center;
     background-color: #fcee21;
-    padding: 30px 20px 0;
     position: relative;
+    @media (--tablet) {
+      // padding: 30px 20px 0;
+    }
   }
   &__result-graphic {
     display: table;
     opacity: 1;
+    padding-top: 30px;
     padding-bottom: 30px;
     z-index: 3;
   }
@@ -225,14 +232,18 @@
 
   &__confirm {
     background-color: #fcee21;
-    height: 100%;
     left: 0;
-    padding: 80px 20px 0;
     position: absolute;
     text-align: center;
+    padding: 40px 20px;
+    height: auto;
     top: 0;
     width: 100%;
     z-index: 2;
+    @media (--desktop) {
+      height: 100%;
+      padding: 80px 20px 0;
+    }
   }
 
   &__confirm-message {
