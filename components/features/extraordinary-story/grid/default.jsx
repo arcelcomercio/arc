@@ -13,16 +13,18 @@ class ExtraordinaryStoryGrid extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: {},
+      dataStory: {},
       section1: {},
       section2: {},
       section3: {},
       section4: {},
     }
     this.isVideo = false
+
+    this.initFetch()
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     const {
       globalContent,
       customFields: { sectionName },
@@ -32,7 +34,7 @@ class ExtraordinaryStoryGrid extends Component {
     if (hasSection && (sectionName === '/' || sectionName === '')) {
       this.setState({ data: globalContent || {} })
     } //else this.fetch()
-  }
+  }*/
 
   componentDidUpdate() {
     if (window.powaBoot && this.isVideo) {
@@ -40,23 +42,32 @@ class ExtraordinaryStoryGrid extends Component {
     }
   }
 
-  /*fetch() {
+  initFetch = () => {
     const {
-      arcSite,
-      customFields: { sectionName, positionData },
-    } = this.props
-    const { fetched } = this.getContent(
-      API_URL,
-      {
-        section: sectionName,
-        feedOffset: positionData || 0,
-        news_number: API_SIZE_DATA,
+      customFields: {
+        urlStory = {},
+        multimediaService = '',
+        firstSection = {},
+        secondSection = {},
+        thirdSection = {},
+        fourthSection = {},
       },
-    )
-    fetched.then(response => {
-      this.setState({ data: response || {} })
-    })
-  }*/
+    } = this.props
+
+    const {
+      contentConfigValues: { website_url: uriStory = '' },
+    } = urlStory
+    if (uriStory && uriStory !== '') {
+      const { fetched: fetchStory } = this.fetch(urlStory)
+      fetchStory.then(response => {
+        this.setState({ dataStory: response })
+      })
+    }
+  }
+
+  fetch({ contentService = '', contentConfigValues = {} }, schema) {
+    return this.getContent(contentService, contentConfigValues, schema)
+  }
 
   render() {
     const { arcSite } = this.props

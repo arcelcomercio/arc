@@ -2,29 +2,42 @@ import PropTypes from 'prop-types'
 
 const customFieldsSection = {
   firstContent: PropTypes.label.tag({
-    name: 'Contenido',
+    name: 'Nota a destacar',
   }),
-  link: PropTypes.string.isRequired.tag({
-    name: 'Link de nota a destacar',
+  urlStory: PropTypes.contentConfig('story').tag({
+    name: 'URL de Nota',
   }),
-  secondContent: PropTypes.label.tag({
-    name: 'Secciones de grilla',
+  multimediaService: PropTypes.oneOf([
+    'default',
+    'image',
+    'goldfish',
+    'youtube',
+  ]).tag({
+    name: 'Proveedor',
+    group: 'Multimedia',
+    labels: {
+      default: 'Automático',
+      image: 'Imagen',
+      goldfish: 'GoldFish',
+      youtube: 'Youtube',
+    },
+    defaultValue: 'default',
   }),
-  firstSection: PropTypes.string.tag({
+  firstSection: PropTypes.contentConfig('section').tag({
     name: 'Primera sección',
-    description: 'Dejar vacío para tomar el valor original de la historia.',
+    group: 'Secciones laterales',
   }),
-  secondSection: PropTypes.string.tag({
+  secondSection: PropTypes.contentConfig('section').tag({
     name: 'Segunda sección',
-    description: 'Dejar vacío para tomar el valor original de la historia.',
+    group: 'Secciones laterales',
   }),
-  thirdSection: PropTypes.string.tag({
+  thirdSection: PropTypes.contentConfig('section').tag({
     name: 'Tercera sección',
-    description: 'Dejar vacío para tomar el valor original de la historia.',
+    group: 'Secciones laterales',
   }),
-  fourthSection: PropTypes.string.tag({
+  fourthSection: PropTypes.contentConfig('section').tag({
     name: 'Cuarta sección',
-    description: 'Dejar vacío para tomar el valor original de la historia.',
+    group: 'Secciones laterales',
   }),
 }
 
