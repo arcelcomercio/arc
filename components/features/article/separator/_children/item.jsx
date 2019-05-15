@@ -3,20 +3,25 @@ import { addResizedUrlItem } from '../../../../utilities/thumbs'
 import { GetMultimediaContent } from '../../../../utilities/helpers'
 
 const classes = {
-  item: 'articlesep__item separator__item--nota',
+  item: 'articlesep__item separator__item--nota flex flex--justify-between',
   detail: 'articlesep__detail',
+  separatorCategory: 'articlesep__category',
   separatorTitle: 'articlesep__title articlesep__title--nota',
   oneline: 'articlesep-oneline',
   twoline: 'articlesep-twoline',
-  threeline: 'articlesep-threeline',
+  threeline: 'articlesep-threeline text-left',
 }
 
 const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
   const SeparatorItem = ({
-    headlines,
-    urlImage,
-    website_url: websiteUrl,
-    medio,
+    dataItem: {
+      promo_items: promoItems,
+      website_url: websiteUrl,
+      headlines,
+      taxonomy: {
+        primary_section: { name, path },
+      },
+    },
   }) => {
     let numline = ''
     switch (arcSite) {
@@ -31,19 +36,37 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
         break
     }
 
+    let multimedia = null
+    if (promoItems) {
+      multimedia = GetMultimediaContent(promoItems)
+    }
+    const { medio, url } = multimedia || {}
+    if (url === undefined) return false
+
+    // transform(data, website)
+    const aspectRatios = ['3:4|60x70']
+    const { resized_urls: resizedUrls } = addResizedUrlItem(
+      website,
+      url,
+      aspectRatios
+    )
+    const WEBSITE = `?_website=${arcSite}`
     return (
       <article className={classes.item}>
         {medio === 'video' && <span>&#8227;</span>}
         {medio === 'gallery' && <span>G</span>}
         <div className={classes.detail}>
-          <h2 className={`${classes.separatorTitle} ${numline}`}>
-            <a href={websiteUrl}>{headlines}</a>
+          <h2 className={classes.separatorCategory}>
+            <a href={`${path}${WEBSITE}`}>{name}</a>{' '}
           </h2>
+          <h3 className={`${classes.separatorTitle} ${numline}`}>
+            <a href={`${websiteUrl}${WEBSITE}`}>{headlines.basic}</a>
+          </h3>
         </div>
         <figure>
           {websiteUrl && (
             <a href={websiteUrl}>
-              <img src={urlImage} alt="" />
+              <img src={resizedUrls['3:4']} alt="" />
             </a>
           )}
         </figure>
@@ -51,44 +74,13 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
     )
   }
 
-  // transform(data, website)
   let key = 0
   return data.map(elements => {
-    if (key === 6) return false
-    const {
-      promo_items: promoItems,
-      website_url: websiteUrl,
-      headlines,
-    } = elements
-
-    let multimedia = null
-
+    if (key === 4) return false
+    const { website_url: websiteUrl } = elements
     if (websiteUrl === excluir) return false
-
-    if (promoItems) {
-      multimedia = GetMultimediaContent(promoItems)
-    }
-    const { medio, url } = multimedia || {}
-    if (url === undefined) return false
-
     key += 1
-    const aspectRatios = ['3:4|147x80']
-
-    const { resized_urls: resizedUrls } = addResizedUrlItem(
-      website,
-      url,
-      aspectRatios
-    )
-
-    return (
-      <SeparatorItem
-        key={websiteUrl}
-        headlines={headlines.basic}
-        urlImage={resizedUrls['3:4']}
-        website_url={websiteUrl}
-        medio={medio}
-      />
-    )
+    return <SeparatorItem dataItem={elements} />
   })
 }
 

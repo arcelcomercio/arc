@@ -41,11 +41,8 @@ class ArticleSeparator extends PureComponent {
     if (device === 'mobile') newsNumber = 0
 
     const { arcSite, globalContent } = this.props
-    const { name, path: section } = this.getSeccionPrimary(globalContent || {})
-    this.setState({
-      // eslint-disable-next-line react/no-unused-state
-      nameSeccion: name,
-    })
+    const { path: section } = this.getSeccionPrimary(globalContent || {})
+
     const { fetched } = this.getContent(
       'story-feed-by-section',
       {
@@ -58,7 +55,6 @@ class ArticleSeparator extends PureComponent {
     fetched.then(response => {
       const { content_elements: contentElements } = response || {}
       const { website_url: websiteUrl = '' } = globalContent || {}
-
       this.setState({
         data: contentElements || [],
         excluir: websiteUrl,
@@ -78,7 +74,8 @@ class ArticleSeparator extends PureComponent {
       })
       this.getContentApi()
       // ------ Set the new state if you change from desktop to mobile
-    } else {
+    }
+    if (wsize < 640) {
       // ------ Set the new state if you change from desktop to mobile
       this.setState({
         device: 'mobile',
@@ -90,7 +87,7 @@ class ArticleSeparator extends PureComponent {
   setDevice = () => {
     const wsize = window.innerWidth
 
-    if (wsize < 640) {
+    if (wsize < 840) {
       return 'mobile'
     }
 
@@ -98,13 +95,12 @@ class ArticleSeparator extends PureComponent {
   }
 
   render() {
-    const { data, excluir, website, device, nameSeccion } = this.state
+    const { data, excluir, website, device } = this.state
     const { arcSite } = this.props
 
     if (device === 'mobile') return ''
     return (
       <div className={classes.separator}>
-        <h3 className={classes.title}>Más en {nameSeccion}</h3>
         <div className={classes.body}>
           <ArticleSeparatorChildItem
             data={data}
