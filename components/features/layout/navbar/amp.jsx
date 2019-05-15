@@ -2,7 +2,6 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent, Fragment } from 'react'
 import Button from '../../../global-components/button'
 import Menu from './_children/menu'
-import { setDevice } from '../../../utilities/resizer'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -30,12 +29,11 @@ const classes = {
 }
 
 @Consumer
-class LayoutNavbar extends PureComponent {
+class LayoutAmpNavbar extends PureComponent {
   constructor(props) {
     super(props)
     // ------ Checks the display to set the initial device state
     this.state = {
-      device: setDevice(),
       services: {},
       statusSidebar: false,
       statusSearch: false,
@@ -46,13 +44,9 @@ class LayoutNavbar extends PureComponent {
   }
 
   componentDidMount() {
-    const { device } = this.state
     this.addEventListener('displayChange', this._handleDevice)
 
     // ------ Sets scroll eventListener if device is desktop
-    if (device === 'desktop')
-      window.addEventListener('scroll', this._handleScroll)
-    this.fetch()
   }
 
   // Add - Remove Class active input and button search
@@ -309,6 +303,6 @@ class LayoutNavbar extends PureComponent {
   }
 }
 
-LayoutNavbar.label = 'Barra de navegación'
+LayoutAmpNavbar.label = 'Barra de navegación'
 
-export default LayoutNavbar
+export default LayoutAmpNavbar

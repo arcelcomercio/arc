@@ -157,44 +157,6 @@ export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
   return imgUrl
 }
 
-// TODO: no importa "from 'fusion:environment'..." en content/sources si se implemento con la ultima actualizacion img
-
-const resizerUrl = 'http://resizer.shared.arcpublishing.com'
-const resizerSecret = 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7'
-
-export const ResizeImageUrls = (
-  arcSite,
-  imgUrl,
-  medidaImg = {
-    small: { width: 50, height: 50 },
-    medium: { width: 480 },
-    large: { width: 600, height: 356 },
-  }
-) => {
-  const dataWithFocalPoint = {
-    content_elements: [],
-    promo_items: {
-      basic: {
-        type: 'image',
-        url: imgUrl,
-        width: 400,
-        height: 1200,
-        additional_properties: {
-          focal_point: {
-            min: [200, 600],
-          },
-        },
-      },
-    },
-  }
-
-  return addResizedUrls(dataWithFocalPoint, {
-    resizerUrl,
-    resizerSecret,
-    presets: medidaImg,
-  })
-}
-
 export const GetMultimediaContent = ({
   basic_video: basicVideo,
   basic_gallery: basicGallery,
@@ -323,4 +285,15 @@ export const setSurveyCookie = (surveyId, days) => {
 export const getCookie = cookieName => {
   const cookieValue = document.cookie.match(`(^|;) ?${cookieName}=([^;]*)(;|$)`)
   return cookieValue ? cookieValue[2] : null
+}
+
+export const formatSlugToText = (text = '') => {
+  if (!text) return null
+  const splitText = text.slice(1).split('/')
+  const lastSection = splitText[splitText.length - 1]
+  return lastSection
+    .charAt(0)
+    .toUpperCase()
+    .concat(lastSection.slice(1))
+    .replace(/-/, ' ')
 }
