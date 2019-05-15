@@ -5,6 +5,7 @@ import { GetMultimediaContent } from '../../../../utilities/helpers'
 const classes = {
   item: 'articlesep__item separator__item--nota',
   detail: 'articlesep__detail',
+  separatorCategory: 'articlesep__category',
   separatorTitle: 'articlesep__title articlesep__title--nota',
   oneline: 'articlesep-oneline',
   twoline: 'articlesep-twoline',
@@ -36,9 +37,10 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
         {medio === 'video' && <span>&#8227;</span>}
         {medio === 'gallery' && <span>G</span>}
         <div className={classes.detail}>
-          <h2 className={`${classes.separatorTitle} ${numline}`}>
+          <h2 className={classes.separatorCategory}>Politica </h2>
+          <h3 className={`${classes.separatorTitle} ${numline}`}>
             <a href={websiteUrl}>{headlines}</a>
-          </h2>
+          </h3>
         </div>
         <figure>
           {websiteUrl && (

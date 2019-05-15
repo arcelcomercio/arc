@@ -105,7 +105,6 @@ class ArticleSeparator extends PureComponent {
     if (device === 'mobile') return ''
     return (
       <div className={classes.separator}>
-        <h3 className={classes.title}>Más en {nameSeccion}</h3>
         <div className={classes.body}>
           <ArticleSeparatorChildItem
             data={data}
