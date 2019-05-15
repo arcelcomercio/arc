@@ -57,10 +57,9 @@ class SeparatorBasic extends PureComponent {
           content_elements: contentElements,
           section_name: sectionName = '',
         }) => {
-          const NAME = sectionName || 'ULTIMAS NOTICIAS'
           this.setState({
             items: contentElements,
-            titleSeparator: titleSeparator || NAME,
+            titleSeparator: titleSeparator || sectionName || 'Últimas noticias',
           })
         }
       )

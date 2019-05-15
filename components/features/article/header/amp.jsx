@@ -10,6 +10,7 @@ import {
 } from '../../../utilities/helpers'
 
 const classes = {
+  news: 'article-amp-header',
   titleAmp: 'article-amp-header__title',
   datetime: 'article-amp-header__datetime',
   description: 'article-amp-header__description',
