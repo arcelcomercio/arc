@@ -3,13 +3,13 @@ import { addResizedUrlItem } from '../../../../utilities/thumbs'
 import { GetMultimediaContent } from '../../../../utilities/helpers'
 
 const classes = {
-  item: 'articlesep__item separator__item--nota',
+  item: 'articlesep__item separator__item--nota flex flex--justify-between',
   detail: 'articlesep__detail',
   separatorCategory: 'articlesep__category',
   separatorTitle: 'articlesep__title articlesep__title--nota',
   oneline: 'articlesep-oneline',
   twoline: 'articlesep-twoline',
-  threeline: 'articlesep-threeline',
+  threeline: 'articlesep-threeline text-left',
 }
 
 const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
