@@ -11,29 +11,20 @@ const classes = {
 @Consumer
 class ArticleBodyChildArticleImage extends PureComponent {
   render() {
-    const {
-      data: {
-        resized_urls: resizedUrls = '',
-        subtitle = '',
-        caption = '',
-      } = {},
-    } = this.props
-
+    const { data } = this.props
+    console.log(data)
+    debugger
     return (
       <Fragment>
         <Image
-          resized_urls={resizedUrls}
-          aspectRatio="2:3"
-          alt={subtitle}
+          width="100%"
           className={classes.image}
-          width=""
-          height=""
-          layout=""
-          url=""
+          sizePreset="small"
+          {...data}
         />
-        {caption && (
+        {data && data.caption && (
           <figcaption className={classes.description}>
-            {renderHTML(caption)}
+            {renderHTML(data.caption)}
           </figcaption>
         )}
       </Fragment>

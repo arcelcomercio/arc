@@ -1,6 +1,9 @@
 import React from 'react'
-import { addResizedUrlItem } from '../../../../utilities/thumbs'
-import { GetMultimediaContent } from '../../../../utilities/helpers'
+import Image from '@arc-core-components/element_image'
+import {
+  ResizeImageUrls,
+  GetMultimediaContent,
+} from '../../../../utilities/helpers'
 
 const classes = {
   item: 'articlesep__item separator__item--nota flex flex--justify-between',
@@ -80,7 +83,23 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
     const { website_url: websiteUrl } = elements
     if (websiteUrl === excluir) return false
     key += 1
-    return <SeparatorItem dataItem={elements} />
+    const aspectRatios = ['3:4|147x80']
+
+    // const { resized_urls: resizedUrls } = addResizedUrlItem(       website,      url,      aspectRatios    )
+
+    const {
+      promo_items: { basic: resizedUrls },
+    } = ResizeImageUrls(website, url)
+
+    return (
+      <SeparatorItem
+        key={websiteUrl}
+        headlines={headlines.basic}
+        urlImage={resizedUrls}
+        website_url={websiteUrl}
+        medio={medio}
+      />
+    )
   })
 }
 
