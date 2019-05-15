@@ -30,6 +30,15 @@ export default `
         headlines{
           basic
         }
+        taxonomy {
+          primary_section {
+              _id 
+              _website 
+              type 
+              name 
+              path
+          }
+        }
       }
     }
     `
