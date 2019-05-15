@@ -23,6 +23,12 @@ const customFieldsSection = {
     },
     defaultValue: 'default',
   }),
+  multimediaSource: PropTypes.string.tag({
+    name: 'Recurso',
+    group: 'Multimedia',
+    description:
+      'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: Url del video.',
+  }),
   firstSection: PropTypes.contentConfig('section').tag({
     name: 'Primera sección',
     group: 'Secciones laterales',
