@@ -22,6 +22,7 @@ class ExtraordinaryStoryChildGridStories extends Component {
             title={dataStory.title}
             source={dataStory.sourceMultimedia}
           />
+          <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
         </div>
         <div className="stories-grid">
           <div className="stories-grid__text flex-center-vertical">

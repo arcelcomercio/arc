@@ -32,7 +32,7 @@ const EmbedMultimedia = props => {
           data-aspect-ratio="0.562"
           className="powa"
         />
-        <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
+        
       </Fragment>
     )
   }
@@ -43,7 +43,7 @@ const EmbedMultimedia = props => {
 
   const getMultimedia = type => {
     console.log('type embed multimedia', type)
-    let fx = () => <div>EMPTY</div>
+    let fx = () => ''
     if (type === GOLDFISH || type === ConfigParams.VIDEO) {
       fx = videoGoldfish
     } else if (type === YOUTUBE) {
