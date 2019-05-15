@@ -41,47 +41,14 @@ class ExtraordinaryStoryGrid extends Component {
 
   initFetch = () => {
     const {
-      customFields: {
-        urlStory: {
-          contentService: serviceUrlStory = '',
-          contentConfigValues: valuesUrlStory = {},
-        } = {},
-        multimediaService = '',
-        multimediaSource = '',
-        firstSection: {
-          contentService: serviceFirstSection = '',
-          contentConfigValues: valuesFirstSection = {},
-        } = {},
-        secondSection: {
-          contentService: serviceSecondSection = '',
-          contentConfigValues: valuesSecondSection = {},
-        } = {},
-        thirdSection: {
-          contentService: serviceThirdSection = '',
-          contentConfigValues: valuesThirdSection = {},
-        } = {},
-        fourthSection: {
-          contentService: serviceFourthSection = '',
-          contentConfigValues: valuesFourthSection = {},
-        } = {},
-      },
+      customFields: { urlStory = {}, multimediaSource = '' },
     } = this.props
 
-    const { website_url: uriStory = '' } = valuesUrlStory
-    if ((multimediaService === '' || multimediaService === 'default') && uriStory && uriStory !== '') {
-      const { fetched: fetchStory } = this.fetch(
-        serviceUrlStory,
-        valuesUrlStory,
-        schemaStory
-      )
-      fetchStory.then(response => {
-        this.setState({ dataStory: response })
-      })
+    if (multimediaSource === '') {
+      this.fetch(urlStory, schemaStory, 'dataStory')
     }
 
-    /* const sections = []
-
-    const { _id: slugSection = '' } = valuesFirstSection
+    /*const { _id: slugSection = '' } = valuesFirstSection
     if (slugSection && slugSection !== '') {
       const { fetched: fetchFirstSection } = this.fetch(
         serviceFirstSection,
@@ -100,8 +67,31 @@ class ExtraordinaryStoryGrid extends Component {
     } */
   }
 
-  fetch(contentService, contentConfigValues, schema) {
-    return this.getContent(contentService, contentConfigValues, schema)
+  fetch(
+    { contentService = '', contentConfigValues = {} },
+    schema,
+    stateProperty
+  ) {
+    const hasSection =
+      Object.prototype.hasOwnProperty.call(contentConfigValues, '_id') &&
+      contentConfigValues._id !== ''
+    const hasStory =
+      Object.prototype.hasOwnProperty.call(
+        contentConfigValues,
+        'website_url'
+      ) && contentConfigValues.website_url !== ''
+
+    if (hasSection || hasStory) {
+      const { fetched } = this.getContent(
+        contentService,
+        contentConfigValues,
+        schema
+      )
+      fetched.then(response => {
+        console.log('RESPONSE !!!!!!!!!!!!', response)
+        this.setState({ [stateProperty]: response })
+      })
+    }
   }
 
   render() {
