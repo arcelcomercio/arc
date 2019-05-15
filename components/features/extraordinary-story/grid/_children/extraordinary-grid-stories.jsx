@@ -1,13 +1,14 @@
-import React, { PureComponent } from 'react'
-import ArticleItem from './article-item'
+import React, { Component } from 'react'
+import SectionItem from './section-item'
 import EmbedMultimedia from '../../../../global-components/embed-multimedia'
 
-class ExtraordinaryStoryChildGridStories extends PureComponent {
+class ExtraordinaryStoryChildGridStories extends Component {
   build = () => {
     console.log('adasd')
   }
 
   render() {
+    const { section1, section2, section3, section4 } = this.props
     const notes = {
       note1: {
         urlNote: '#',
@@ -49,10 +50,10 @@ class ExtraordinaryStoryChildGridStories extends PureComponent {
           </div>
           <h2 className="stories-grid__title">Programas del dia</h2>
           <div className="stories-grid__item-list flex">
-            <ArticleItem {...notes.note1} />
-            <ArticleItem {...notes.note2} />
-            <ArticleItem {...notes.note3} />
-            <ArticleItem {...notes.note4} />
+            <SectionItem {...section1} />
+            <SectionItem {...section2} />
+            <SectionItem {...section3} />
+            <SectionItem {...section4} />
           </div>
         </div>
       </div>

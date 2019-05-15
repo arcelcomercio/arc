@@ -66,4 +66,8 @@
     color: #fff;
     font-size: 13px;
   }
+  &__image-container {
+    max-height: 94px;
+    overflow: hidden;
+  }
 }

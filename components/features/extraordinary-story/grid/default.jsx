@@ -18,20 +18,12 @@ class ExtraordinaryStoryGrid extends Component {
     }
     this.isVideo = false
 
-    this.initFetch()
+    //this.initFetch()
   }
 
-  /*componentDidMount() {
-    const {
-      globalContent,
-      customFields: { sectionName },
-    } = this.props
-    const { section_name: hasSection } = globalContent || {}
-
-    if (hasSection && (sectionName === '/' || sectionName === '')) {
-      this.setState({ data: globalContent || {} })
-    } //else this.fetch()
-  }*/
+  componentDidMount() {
+    this.initFetch()
+  }
 
   componentDidUpdate() {
     if (window.powaBoot && this.isVideo) {
@@ -88,9 +80,11 @@ class ExtraordinaryStoryGrid extends Component {
     }
   }
 
+  'http://localhost/pf/api/v3/content/fetch/section-by-slug?query={"_id":"/redes-sociales"}&filter={}&d=$LATEST&_website=elcomercio'
+
   render() {
     const { arcSite, customFields } = this.props
-    const { dataStory } = this.state
+    const { dataStory, section1, section2, section3, section4 } = this.state
 
     const formattedDataStory = new Data(customFields, dataStory, arcSite)
     this.isVideo = formattedDataStory.isVideo
@@ -98,11 +92,11 @@ class ExtraordinaryStoryGrid extends Component {
     const params = {
       arcSite,
       dataStory: formattedDataStory,
+      section1,
+      section2,
+      section3,
+      section4,
     }
-    console.log('dataStory')
-    console.dir(dataStory)
-    console.log('formattedDataStory')
-    console.dir(formattedDataStory)
     return <ExtraordinaryStoryGridChild {...params} />
   }
 }
