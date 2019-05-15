@@ -6,8 +6,7 @@ import ArticleSeparatorChildItem from './_children/item'
 
 const classes = {
   separator: 'articlesep col-3 separator--nota',
-  headerHtml: 'articlesep__headerHtml',
-  title: 'articlesep__headerTitle separator__headerTitle--nota',
+  title: 'articlesep__header-title separator__header-title--nota',
   body: 'articlesep__body separator__body--items',
   mvideo: 'articlesep--video',
 }

@@ -1,8 +1,6 @@
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
-import {
-  ResizeImageUrl
-} from '../../../utilities/helpers'
+import { ResizeImageUrl } from '../../../utilities/helpers'
 
 class Data extends StoryData {
   static GOLDFISH = 'goldfish'
@@ -53,9 +51,7 @@ class Data extends StoryData {
   get isVideo() {
     let isVideoCustom = false
     let isVideoApi = false
-    const {
-      multimediaService
-    } = this.customFields
+    const { multimediaService } = this.customFields
     if (
       multimediaService === Data.YOUTUBE ||
       multimediaService === Data.GOLDFISH
@@ -88,9 +84,9 @@ class Data extends StoryData {
   static multimediaCustomEmbed(
     multimediaService,
     multimediaSource,
+    title,
     website,
-    orientation,
-    title = ''
+    orientation
   ) {
     let multimedia = ''
     if (multimediaService === Data.GOLDFISH && multimediaSource !== '')
@@ -112,9 +108,11 @@ class Data extends StoryData {
   ) {
     const multimediaFromApi = {
       [ConfigParams.VIDEO]: video,
-      [ConfigParams.GALLERY]: (multimedia && this.image(multimedia, title, website, orientation)) ||
+      [ConfigParams.GALLERY]:
+        (multimedia && this.image(multimedia, title, website, orientation)) ||
         '',
-      [ConfigParams.IMAGE]: (multimedia && this.image(multimedia, title, website, orientation)) ||
+      [ConfigParams.IMAGE]:
+        (multimedia && this.image(multimedia, title, website, orientation)) ||
         '',
     }
     return (multimediaType !== '' && multimediaFromApi[multimediaType]) || ''
@@ -147,19 +145,19 @@ class Data extends StoryData {
     const resize = {
       top: {
         ratio: '9:16',
-        size: '700x300'
+        size: '700x300',
       },
       bottom: {
         ratio: '9:16',
-        size: '700x300'
+        size: '700x300',
       },
       left: {
         ratio: '4:3',
-        size: '500x150'
+        size: '500x150',
       },
       right: {
         ratio: '4:3',
-        size: '500x150'
+        size: '500x150',
       },
     }
     const urlResize = ResizeImageUrl(

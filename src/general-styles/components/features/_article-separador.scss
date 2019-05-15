@@ -7,7 +7,7 @@
   border: 1px solid #d5e1e1;
   padding-bottom: 20px;
 
-  &__headerTitle {
+  &__header-title {
     display: grid;
     grid-template-columns: 1fr;
     margin-top: 0;
@@ -243,18 +243,22 @@
       }
     }
   }
+
   &-oneline {
     -webkit-line-clamp: 1;
     // max-height: 35.63px;
   }
+
   &-twoline {
     -webkit-line-clamp: 2;
     // max-height: 35.63px;
   }
+
   &-threeline {
     -webkit-line-clamp: 3;
     // max-height: 57.63px;
   }
+
   &--nota {
     height: 254px;
   }
