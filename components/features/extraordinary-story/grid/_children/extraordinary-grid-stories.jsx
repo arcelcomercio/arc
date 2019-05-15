@@ -3,11 +3,18 @@ import ArticleItem from './article-item'
 import EmbedMultimedia from '../../../../global-components/embed-multimedia'
 
 class ExtraordinaryStoryChildGridStories extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.lol = ''
+  }
+
   build = () => {
     console.log('adasd')
   }
 
   render() {
+    const { dataStory } = this.props
+
     const notes = {
       note1: {
         urlNote: '#',
@@ -30,12 +37,15 @@ class ExtraordinaryStoryChildGridStories extends PureComponent {
         title: 'titulo',
       },
     }
+    dataStory.multimediaOrientation = 'grid'
+
     return (
       <div className="extraordinary-story-grid flex position-relative">
         <div className="story-video-box flex-center-vertical">
           <EmbedMultimedia
-            type="image"
-            source="http://resizer.shared.arcpublishing.com/NHM-72hdnyWwaCgLPbm23WBaXJA=/500x400/smart/arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/LH2OSHSE2RG3LCPS5HBSALKC3U.jpeg"
+            type={dataStory.typeMultimediaGeneral}
+            title={dataStory.title}
+            source={dataStory.sourceMultimedia}
           />
         </div>
         <div className="stories-grid">

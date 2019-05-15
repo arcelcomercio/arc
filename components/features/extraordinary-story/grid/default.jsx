@@ -99,10 +99,6 @@ class ExtraordinaryStoryGrid extends Component {
       arcSite,
       dataStory: formattedDataStory,
     }
-    console.log('dataStory')
-    console.dir(dataStory)
-    console.log('formattedDataStory')
-    console.dir(formattedDataStory)
     return <ExtraordinaryStoryGridChild {...params} />
   }
 }
