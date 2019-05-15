@@ -12,8 +12,6 @@ const classes = {
 class ArticleBodyChildArticleImage extends PureComponent {
   render() {
     const { data } = this.props
-    console.log(data)
-    debugger
     return (
       <Fragment>
         <Image
