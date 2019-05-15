@@ -76,12 +76,19 @@ class ArticleSeparator extends PureComponent {
       this.getContentApi()
       // ------ Set the new state if you change from desktop to mobile
     }
+    if (wsize < 640) {
+      // ------ Set the new state if you change from desktop to mobile
+      this.setState({
+        device: 'mobile',
+      })
+      this.getContentApi()
+    }
   }
 
   setDevice = () => {
     const wsize = window.innerWidth
 
-    if (wsize < 640) {
+    if (wsize < 840) {
       return 'mobile'
     }
 

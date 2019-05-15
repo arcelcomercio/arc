@@ -44,7 +44,7 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
     if (url === undefined) return false
 
     // transform(data, website)
-    const aspectRatios = ['3:4|147x80']
+    const aspectRatios = ['3:4|60x70']
     const { resized_urls: resizedUrls } = addResizedUrlItem(
       website,
       url,
