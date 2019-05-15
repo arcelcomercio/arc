@@ -4,8 +4,6 @@ import ExtraordinaryStoryGridChild from './_children/extraordinary-grid-stories'
 import customFieldsExtern from './_dependencies/custom-fields'
 import { schemaStory, schemaSection } from './_dependencies/schemas-filter'
 import Data from '../_dependencies/data'
-//import ExtraordinaryStory from '../../../global-components/extraordinary-story'
-import EmbedMultimedia from '../../../global-components/embed-multimedia'
 
 @Consumer
 class ExtraordinaryStoryGrid extends Component {
@@ -86,7 +84,7 @@ class ExtraordinaryStoryGrid extends Component {
       })
     }
 
-    const sections = []
+    /*const sections = []
 
     const { _id: slugSection = '' } = valuesFirstSection
     if (slugSection && slugSection !== '') {
@@ -104,7 +102,7 @@ class ExtraordinaryStoryGrid extends Component {
         valuesFirstSection,
         schemaSection
       )
-    }
+    }*/
   }
 
   fetch(contentService, contentConfigValues, schema) {
@@ -112,18 +110,16 @@ class ExtraordinaryStoryGrid extends Component {
   }
 
   render() {
-    const { arcSite } = this.props
+    const { arcSite, customFields } = this.props
+    const { dataStory } = this.state
+
+    const formattedData = new Data(customFields, dataStory, arcSite)
+    this.isVideo = formattedData.isVideo
+
     const params = {
       arcSite,
     }
-    // return <ExtraordinaryStory {...params} />
     return <ExtraordinaryStoryGridChild {...params} />
-    /*return (
-      <EmbedMultimedia
-        type="image"
-        source="http://resizer.shared.arcpublishing.com/NHM-72hdnyWwaCgLPbm23WBaXJA=/500x400/smart/arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/LH2OSHSE2RG3LCPS5HBSALKC3U.jpeg"
-      />
-    )*/
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import ArticleItem from './article-item'
+import EmbedMultimedia from '../../../../global-components/embed-multimedia'
 
 class ExtraordinaryStoryChildGridStories extends PureComponent {
   build = () => {
@@ -32,13 +33,10 @@ class ExtraordinaryStoryChildGridStories extends PureComponent {
     return (
       <div className="extraordinary-story-grid flex position-relative">
         <div className="story-video-box flex-center-vertical">
-          <figure className="full-width">
-            <img
-              className="full-width"
-              src="https://img.peru21.pe/files/listing_p21_portada_p21tv_v3_destaque/uploads/2019/05/13/5cd994b00a0a8.jpeg"
-              alt=""
-            />
-          </figure>
+          <EmbedMultimedia
+            type="image"
+            source="http://resizer.shared.arcpublishing.com/NHM-72hdnyWwaCgLPbm23WBaXJA=/500x400/smart/arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/LH2OSHSE2RG3LCPS5HBSALKC3U.jpeg"
+          />
         </div>
         <div className="stories-grid">
           <div className="stories-grid__text flex-center-vertical">
