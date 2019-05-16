@@ -1,26 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import Button from '../../../global-components/button'
 import { setDevice } from '../../../utilities/resizer'
 
-// TODO: Separar Feature de Componente.
-
-const classes = {
-  header: 'header full-width',
-  headerMain:
-    'header__main full-width flex-center-vertical flex--justify-between',
-  headerDate: 'flex-1',
-  headerLogo: 'header__logo',
-  headerBtnContainer:
-    'flex-center-vertical flex-1 flex--justify-end height-inherit',
-  headerBtnLogin: 'flex-center-vertical btn bg-color--white',
-  headerBtnSubscribe: 'flex-center-vertical btn bg-color--link',
-  headerBtnIconLogin: 'icon icon--login icon--margin-right',
-  headerFeatured: 'flex-center header__featured full-width bg-color--white',
-  headerFeaturedItem: 'flex-center header__item',
-  headerFeaturedItemIcon: 'icon icon--fire icon--margin-right',
-}
+import HeaderChildElcomercio from './_children/elcomercio'
 
 @Consumer
 class LayoutHeader extends PureComponent {
@@ -29,7 +12,7 @@ class LayoutHeader extends PureComponent {
     // ------ Checks if you are in desktop or not
     this.state = {
       device: setDevice(),
-      temas: [],
+      data: [],
     }
     this.fetch()
   }
@@ -64,29 +47,6 @@ class LayoutHeader extends PureComponent {
     }
   }
 
-  // TODO: Homologar con helper de fechas
-  fechaActual = () => {
-    const ndate = new Date()
-    const arrayMeses = [
-      'enero',
-      'febrero',
-      'marzo',
-      'abril',
-      'mayo',
-      'junio',
-      'julio',
-      'agosto',
-      'septiembre',
-      'octubre',
-      'noviembre',
-      'diciembre',
-    ]
-
-    return `${ndate.getDate()} de ${
-      arrayMeses[ndate.getMonth()]
-    }, ${ndate.getFullYear()}`
-  }
-
   fetch() {
     const { arcSite } = this.props
 
@@ -117,72 +77,22 @@ class LayoutHeader extends PureComponent {
         }
       })
       this.setState({
-        temas: auxList || [],
+        data: auxList || [],
       })
     })
   }
 
-  renderList() {
-    const { temas } = this.state
-    return temas.map(({ name, url }) => (
-      <li className={classes.headerFeaturedItem} key={url}>
-        <a href={url}>{name}</a>
-      </li>
-    ))
-  }
-
   render() {
-    const { temas, device } = this.state
+    const { data, device } = this.state
     const {
       contextPath,
       arcSite,
       deployment,
-      requestUri,
-      siteProperties: { headerLogo = 'logo.png' },
+      siteProperties: { siteDomain },
     } = this.props
-    const querys = requestUri.split('?')[1]
-    const queryString = querys !== undefined ? `?${querys}` : ''
+    const params = { data, siteDomain, deployment, contextPath, arcSite }
 
-    return (
-      device === 'desktop' && (
-        <header className={classes.header}>
-          <div className={classes.headerMain}>
-            <span className={classes.headerDate}>{this.fechaActual()}</span>
-            <a href={`${contextPath || ''}/${queryString}`}>
-              <img
-                src={deployment(
-                  `${contextPath}/resources/dist/${arcSite}/images/${headerLogo}`
-                )}
-                alt={`Logo de ${arcSite}`}
-                className={classes.headerLogo}
-              />
-            </a>
-            <div className={classes.headerBtnContainer}>
-              <Button
-                iconClass={classes.headerBtnIconLogin}
-                btnText="Ingresar"
-                btnClass={classes.headerBtnLogin}
-                btnLink="#"
-              />
-              <Button
-                btnText="Suscríbete"
-                btnClass={classes.headerBtnSubscribe}
-                btnLink="#"
-              />
-            </div>
-          </div>
-          {temas[0] && (
-            <ul className={classes.headerFeatured}>
-              <li className={classes.headerFeaturedItem}>
-                <i className={classes.headerFeaturedItemIcon} />
-                LOS TEMAS DE HOY
-              </li>
-              {this.renderList()}
-            </ul>
-          )}
-        </header>
-      )
-    )
+    return device === 'desktop' && <HeaderChildElcomercio {...params} />
   }
 }
 
