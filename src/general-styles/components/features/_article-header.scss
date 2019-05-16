@@ -15,7 +15,7 @@ $BGImageOrd: #4aa8fa;
   &__news-title {
     clear: both;
     color: $colorTextTitle;
-    font: 48px/1.15 'ChronicleDisplayBold', Times New Roman, serif;
+    font: 48px/1.15 $primary-font;
     margin-bottom: 20px;
     @media (--desktop-max) {
       padding-left: 20px;
