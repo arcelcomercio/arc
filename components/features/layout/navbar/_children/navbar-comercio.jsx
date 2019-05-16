@@ -175,6 +175,7 @@ class NavBarDefault extends PureComponent {
     } = this.props
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
+    const WEBSITE = `?_website=${arcSite}`
     return (
       <nav className={classes.nav}>
         <div className={classes.navWrapper}>
@@ -196,7 +197,9 @@ class NavBarDefault extends PureComponent {
               sections.slice(0, 5).map(({ name, _id: id }) => {
                 return (
                   <li key={id} className={classes.navListItem}>
-                    <a href={id} className={classes.navListLink}>
+                    <a
+                      href={`${contextPath}${id}${WEBSITE}`}
+                      className={classes.navListLink}>
                       {name}
                     </a>
                   </li>
@@ -272,6 +275,7 @@ class NavBarDefault extends PureComponent {
           sections={sections}
           showSidebar={statusSidebar}
           contextPath={contextPath}
+          website={WEBSITE}
         />
       </nav>
     )
