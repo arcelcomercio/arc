@@ -1,13 +1,13 @@
 import React from 'react'
 
-const classes = {
-  itemContainer: 'stories-grid-item',
-  imageContainer: 'stories-grid-item__image-container',
-  image: 'full-width',
-  title: 'stories-grid-item__title text-left',
-}
-
-const ExtraordinayStoryGridSectionItem = ({ data }) => {
+const ExtraordinayStoryGridSectionItem = props => {
+  const classes = {
+    itemContainer: 'sections-grid-item',
+    imageContainer: 'sections-grid-item__image-container',
+    image: 'full-width',
+    title: 'sections-grid-item__title text-left',
+  }
+  const { data } = props
   return (
     <div className={classes.itemContainer}>
       <a href={data.id}>

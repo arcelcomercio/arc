@@ -6,14 +6,14 @@ const classes = {
   extraordinayStoryGridContainer:
     'extraordinary-story-grid flex position-relative',
   videoBox: 'story-video-box flex-center-vertical position-relative',
-  gridContainer: 'stories-grid full-width',
-  gridHeaderText: 'stories-grid__text flex-center-vertical',
-  gridHeaderImage: 'stories-grid__text-image',
-  gridListTitle: 'stories-grid__title',
-  gridListItems: 'stories-grid__item-list flex',
+  gridContainer: 'sections-grid full-width',
+  gridHeaderText: 'sections-grid__text flex-center-vertical',
+  gridHeaderImage: 'sections-grid__text-image',
+  gridListTitle: 'sections-grid__title',
+  gridListItems: 'sections-grid__item-list flex',
 }
 
-const ExtraordinaryStoryChildGridStories = props => {
+const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
   const { section1, section2, section3, section4, storyData } = props
   storyData.multimediaOrientation = 'grid'
 
@@ -47,4 +47,4 @@ const ExtraordinaryStoryChildGridStories = props => {
   )
 }
 
-export default ExtraordinaryStoryChildGridStories
+export default ExtraordinaryStoryGridChildExtraordinaryStoryGrid

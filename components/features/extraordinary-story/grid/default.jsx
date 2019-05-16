@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import ExtraordinaryGridStoryChild from './_children/extraordinary-grid-stories'
-import customFieldsExtern from './_dependencies/custom-fields'
-import { schemaStory, schemaSection } from './_dependencies/schemas-filter'
+import ExtraordinaryStoryGridChild from './_children/extraordinary-story-grid'
+import customFields from './_dependencies/custom-fields'
+import { storySchema, sectionSchema } from './_dependencies/schemas-filter'
 import Data from '../_dependencies/data'
 import SectionData from '../../../utilities/section-data'
 
@@ -36,21 +36,34 @@ class ExtraordinaryStoryGrid extends PureComponent {
         secondSection = {},
         thirdSection = {},
         fourthSection = {},
-      },
+      } = {},
       arcSite = '',
     } = this.props
 
     if (multimediaService === Data.AUTOMATIC) {
-      this.fetch(urlStory, schemaStory(arcSite), 'storyData')
+      const { fetched: fetchStory } = this.fetch(urlStory, storySchema(arcSite))
+      fetchStory.then(response => {
+        this.setState({ storyData: response })
+      })
     }
 
-    this.fetch(firstSection, schemaSection, 'section1')
-    this.fetch(secondSection, schemaSection, 'section2')
-    this.fetch(thirdSection, schemaSection, 'section3')
-    this.fetch(fourthSection, schemaSection, 'section4')
+    Promise.all([
+      this.fetch(firstSection, sectionSchema),
+      this.fetch(secondSection, sectionSchema),
+      this.fetch(thirdSection, sectionSchema),
+      this.fetch(fourthSection, sectionSchema),
+    ]).then(response => {
+      response.forEach((resp, index) => {
+        const { cached: data } = resp
+        if (data) {
+          this.setState({ [`section${index + 1}`]: data })
+          debugger
+        }
+      })
+    })
   }
 
-  fetch(contentConfig, schema, stateProperty) {
+  fetch(contentConfig, schema) {
     const { contentService = '', contentConfigValues = {} } = contentConfig
     const hasSection =
       Object.prototype.hasOwnProperty.call(contentConfigValues, '_id') &&
@@ -62,26 +75,16 @@ class ExtraordinaryStoryGrid extends PureComponent {
       ) && contentConfigValues.website_url !== ''
 
     if (hasSection || hasStory) {
-      const { fetched } = this.getContent(
-        contentService,
-        contentConfigValues,
-        schema
-      )
-      fetched
-        .then(response => {
-          this.setState({ [stateProperty]: response })
-        })
-        .catch(error => {
-          console.error(error)
-        })
+      return this.getContent(contentService, contentConfigValues, schema)
     }
+    return {}
   }
 
   render() {
-    const { arcSite, customFields } = this.props
+    const { arcSite, customFields: customFieldsData } = this.props
     const { storyData, section1, section2, section3, section4 } = this.state
 
-    const formattedStoryData = new Data(customFields, storyData, arcSite)
+    const formattedStoryData = new Data(customFieldsData, storyData, arcSite)
     const formattedSection1 = new SectionData(section1, arcSite)
     const formattedSection2 = new SectionData(section2, arcSite)
     const formattedSection3 = new SectionData(section3, arcSite)
@@ -96,12 +99,12 @@ class ExtraordinaryStoryGrid extends PureComponent {
       section3: formattedSection3,
       section4: formattedSection4,
     }
-    return <ExtraordinaryGridStoryChild {...params} />
+    return <ExtraordinaryStoryGridChild {...params} />
   }
 }
 
 ExtraordinaryStoryGrid.propTypes = {
-  customFields: customFieldsExtern,
+  customFields,
 }
 
 ExtraordinaryStoryGrid.label = 'Apertura extraordinaria con grilla'
