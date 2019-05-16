@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import ExtraordinaryStoryGridChild from './_children/extraordinary-grid-stories'
-import customFieldsExtern from './_dependencies/custom-fields'
-import { schemaStory, schemaSection } from './_dependencies/schemas-filter'
+import ExtraordinaryStoryGridChild from './_children/extraordinary-story-grid'
+import customFields from './_dependencies/custom-fields'
+import { storySchema, sectionSchema } from './_dependencies/schemas-filter'
 import Data from '../_dependencies/data'
 import SectionData from '../../../utilities/section-data'
 
@@ -11,7 +11,7 @@ class ExtraordinaryStoryGrid extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      dataStory: {},
+      storyData: {},
       section1: {},
       section2: {},
       section3: {},
@@ -37,21 +37,33 @@ class ExtraordinaryStoryGrid extends Component {
         secondSection = {},
         thirdSection = {},
         fourthSection = {},
-      },
+      } = {},
       arcSite = '',
     } = this.props
 
     if (multimediaService === Data.AUTOMATIC) {
-      this.fetch(urlStory, schemaStory(arcSite), 'dataStory')
+      const { fetched: fetchStory } = this.fetch(urlStory, storySchema(arcSite))
+      fetchStory.then(response => {
+        this.setState({ storyData: response })
+      })
     }
 
-    this.fetch(firstSection, schemaSection, 'section1')
-    this.fetch(secondSection, schemaSection, 'section2')
-    this.fetch(thirdSection, schemaSection, 'section3')
-    this.fetch(fourthSection, schemaSection, 'section4')
+    Promise.all([
+      this.fetch(firstSection, sectionSchema),
+      this.fetch(secondSection, sectionSchema),
+      this.fetch(thirdSection, sectionSchema),
+      this.fetch(fourthSection, sectionSchema),
+    ]).then(response => {
+      response.forEach((resp, index) => {
+        const { cached: data } = resp
+        if (data) {
+          this.setState({ [`section${index + 1}`]: data })
+        }
+      })
+    })
   }
 
-  fetch(contentConfig, schema, stateProperty) {
+  fetch(contentConfig, schema) {
     const { contentService = '', contentConfigValues = {} } = contentConfig
     const hasSection =
       Object.prototype.hasOwnProperty.call(contentConfigValues, '_id') &&
@@ -63,35 +75,25 @@ class ExtraordinaryStoryGrid extends Component {
       ) && contentConfigValues.website_url !== ''
 
     if (hasSection || hasStory) {
-      const { fetched } = this.getContent(
-        contentService,
-        contentConfigValues,
-        schema
-      )
-      fetched
-        .then(response => {
-          this.setState({ [stateProperty]: response })
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      return this.getContent(contentService, contentConfigValues, schema)
     }
+    return {}
   }
 
   render() {
-    const { arcSite, customFields } = this.props
-    const { dataStory, section1, section2, section3, section4 } = this.state
+    const { arcSite, customFields: customFieldsData } = this.props
+    const { storyData, section1, section2, section3, section4 } = this.state
 
-    const formattedDataStory = new Data(customFields, dataStory, arcSite)
+    const formattedStoryData = new Data(customFieldsData, storyData, arcSite)
     const formattedSection1 = new SectionData(section1, arcSite)
     const formattedSection2 = new SectionData(section2, arcSite)
     const formattedSection3 = new SectionData(section3, arcSite)
     const formattedSection4 = new SectionData(section4, arcSite)
-    this.isVideo = formattedDataStory.isVideo
+    this.isVideo = formattedStoryData.isVideo
 
     const params = {
       arcSite,
-      dataStory: formattedDataStory,
+      storyData: formattedStoryData,
       section1: formattedSection1,
       section2: formattedSection2,
       section3: formattedSection3,
@@ -102,10 +104,9 @@ class ExtraordinaryStoryGrid extends Component {
 }
 
 ExtraordinaryStoryGrid.propTypes = {
-  customFields: customFieldsExtern,
+  customFields,
 }
 
 ExtraordinaryStoryGrid.label = 'Apertura extraordinaria con grilla'
-//ExtraordinaryStoryGrid.static = true
 
 export default ExtraordinaryStoryGrid

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const ExtraordinayStoryGridArticleItem = props => {
+const ExtraordinayStoryGridSectionItem = props => {
   const classes = {
-    itemContainer: 'stories-grid-item',
-    imageContainer: 'stories-grid-item__image-container',
+    itemContainer: 'sections-grid-item',
+    imageContainer: 'sections-grid-item__image-container',
     image: 'full-width',
-    title: 'stories-grid-item__title text-left',
+    title: 'sections-grid-item__title text-left',
   }
   const { data } = props
   return (
@@ -20,4 +20,4 @@ const ExtraordinayStoryGridArticleItem = props => {
   )
 }
 
-export default ExtraordinayStoryGridArticleItem
+export default ExtraordinayStoryGridSectionItem

@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types'
 
 const customFieldsSection = {
-  firstContent: PropTypes.label.tag({
-    name: 'Nota a destacar',
+  firstLabel: PropTypes.label.tag({
+    name: 'Multimedia por nota',
+    group: 'Nota destacada',
   }),
   urlStory: PropTypes.contentConfig('story').tag({
     name: 'URL de Nota',
+    group: 'Nota destacada',
+  }),
+  secondLabel: PropTypes.label.tag({
+    name: 'Multimedia manual',
+    group: 'Nota destacada',
   }),
   multimediaService: PropTypes.oneOf([
     'default',
@@ -14,7 +20,7 @@ const customFieldsSection = {
     'youtube',
   ]).tag({
     name: 'Proveedor',
-    group: 'Multimedia',
+    group: 'Nota destacada',
     labels: {
       default: 'Automático',
       image: 'Imagen',
@@ -25,7 +31,7 @@ const customFieldsSection = {
   }),
   multimediaSource: PropTypes.string.tag({
     name: 'Recurso',
-    group: 'Multimedia',
+    group: 'Nota destacada',
     description:
       'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: Url del video.',
   }),

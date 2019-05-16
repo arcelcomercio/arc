@@ -6,24 +6,24 @@ const classes = {
   extraordinayStoryGridContainer:
     'extraordinary-story-grid flex position-relative',
   videoBox: 'story-video-box flex-center-vertical',
-  gridContainer: 'stories-grid',
-  gridHeaderText: 'stories-grid__text flex-center-vertical',
-  gridHeaderImage: 'stories-grid__text-image',
-  gridListTitle: 'stories-grid__title',
-  gridListItems: 'stories-grid__item-list flex',
+  gridContainer: 'sections-grid',
+  gridHeaderText: 'sections-grid__text flex-center-vertical',
+  gridHeaderImage: 'sections-grid__text-image',
+  gridListTitle: 'sections-grid__title',
+  gridListItems: 'sections-grid__item-list flex',
 }
 
-const ExtraordinaryStoryChildGridStories = props => {
-  const { section1, section2, section3, section4, dataStory } = props
-  dataStory.multimediaOrientation = 'grid'
+const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
+  const { section1, section2, section3, section4, storyData } = props
+  storyData.multimediaOrientation = 'grid'
 
   return (
     <div className={classes.extraordinayStoryGridContainer}>
       <div className={classes.videoBox}>
         <EmbedMultimedia
-          type={dataStory.typeMultimediaGeneral}
-          title={dataStory.title}
-          source={dataStory.sourceMultimedia}
+          type={storyData.typeMultimediaGeneral}
+          title={storyData.title}
+          source={storyData.sourceMultimedia}
         />
       </div>
       <div className={classes.gridContainer}>
@@ -47,4 +47,4 @@ const ExtraordinaryStoryChildGridStories = props => {
   )
 }
 
-export default ExtraordinaryStoryChildGridStories
+export default ExtraordinaryStoryGridChildExtraordinaryStoryGrid

@@ -1,8 +1,8 @@
 import schemaFilterParent from '../../_dependencies/schema-filter'
 
-export const schemaStory = arcSite => schemaFilterParent(arcSite)
+export const storySchema = arcSite => schemaFilterParent(arcSite)
 
-export const schemaSection = `{
+export const sectionSchema = `{
     _id
     name
     site_topper {
