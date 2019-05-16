@@ -9,9 +9,7 @@ const ExtraordinayStoryGridArticleItem = props => {
   }
   const {
     _id: urlNote = '#',
-    site_topper: {
-      site_logo_image: urlImage = '',
-    } = 'http://peru21.pe/img/p21tv/21noticias.jpg',
+    site_topper: { site_logo_image: urlImage = '' } = '',
     name = '',
   } = props
   return (

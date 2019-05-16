@@ -21,14 +21,8 @@ class ExtraordinaryStoryGrid extends Component {
     this.initFetch()
   }
 
-  /* componentDidMount() {
-    this.initFetch()
-  } */
-
   componentDidUpdate() {
-    console.log('this.isVideo', this.isVideo)
     if (window.powaBoot && this.isVideo) {
-      console.log('powaBoot')
       window.powaBoot()
     }
   }
@@ -87,20 +81,21 @@ class ExtraordinaryStoryGrid extends Component {
     const { arcSite, customFields } = this.props
     const { dataStory, section1, section2, section3, section4 } = this.state
 
-    //console.log('dataStory', dataStory)
     const formattedDataStory = new Data(customFields, dataStory, arcSite)
-    //console.log('dataSformattedDataStorytory', formattedDataStory)
+    const formattedSection1 = new DataSection(customFields, section1, arcSite)
+    const formattedSection2 = new DataSection(customFields, section2, arcSite)
+    const formattedSection3 = new DataSection(customFields, section3, arcSite)
+    const formattedSection4 = new DataSection(customFields, section4, arcSite)
     this.isVideo = formattedDataStory.isVideo
 
     const params = {
       arcSite,
       dataStory: formattedDataStory,
-      section1,
-      section2,
-      section3,
-      section4,
+      section1: formattedSection1,
+      section2: formattedSection2,
+      section3: formattedSection3,
+      section4: formattedSection4,
     }
-    console.log('render')
     return <ExtraordinaryStoryGridChild {...params} />
   }
 }
@@ -110,6 +105,6 @@ ExtraordinaryStoryGrid.propTypes = {
 }
 
 ExtraordinaryStoryGrid.label = 'Apertura extraordinaria con grilla'
-// ExtraordinaryStoryGrid.static = true
+ExtraordinaryStoryGrid.static = true
 
 export default ExtraordinaryStoryGrid
