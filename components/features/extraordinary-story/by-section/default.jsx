@@ -76,5 +76,6 @@ ExtraordinaryStoryBySection.propTypes = {
 }
 
 ExtraordinaryStoryBySection.label = 'Apertura extraordinaria por sección'
+ExtraordinaryStoryBySection.static = true
 
 export default ExtraordinaryStoryBySection

@@ -7,18 +7,14 @@ const ExtraordinayStoryGridArticleItem = props => {
     image: 'full-width',
     title: 'stories-grid-item__title text-left',
   }
-  const {
-    _id: urlNote = '#',
-    site_topper: { site_logo_image: urlImage = '' } = '',
-    name = '',
-  } = props
+  const { data } = props
   return (
     <div className={classes.itemContainer}>
-      <a href={urlNote}>
+      <a href={data.id}>
         <figure className={classes.imageContainer}>
-          <img className={classes.image} src={urlImage} alt={name} />
+          <img className={classes.image} src={data.image} alt={data.name} />
         </figure>
-        <p className={classes.title}>{name}</p>
+        <p className={classes.title}>{data.name}</p>
       </a>
     </div>
   )

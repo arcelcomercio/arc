@@ -4,6 +4,7 @@ import ExtraordinaryStoryGridChild from './_children/extraordinary-grid-stories'
 import customFieldsExtern from './_dependencies/custom-fields'
 import { schemaStory, schemaSection } from './_dependencies/schemas-filter'
 import Data from '../_dependencies/data'
+import SectionData from '../../../utilities/section-data'
 
 @Consumer
 class ExtraordinaryStoryGrid extends Component {
@@ -82,10 +83,10 @@ class ExtraordinaryStoryGrid extends Component {
     const { dataStory, section1, section2, section3, section4 } = this.state
 
     const formattedDataStory = new Data(customFields, dataStory, arcSite)
-    const formattedSection1 = new DataSection(customFields, section1, arcSite)
-    const formattedSection2 = new DataSection(customFields, section2, arcSite)
-    const formattedSection3 = new DataSection(customFields, section3, arcSite)
-    const formattedSection4 = new DataSection(customFields, section4, arcSite)
+    const formattedSection1 = new SectionData(section1, arcSite)
+    const formattedSection2 = new SectionData(section2, arcSite)
+    const formattedSection3 = new SectionData(section3, arcSite)
+    const formattedSection4 = new SectionData(section4, arcSite)
     this.isVideo = formattedDataStory.isVideo
 
     const params = {
@@ -105,6 +106,6 @@ ExtraordinaryStoryGrid.propTypes = {
 }
 
 ExtraordinaryStoryGrid.label = 'Apertura extraordinaria con grilla'
-ExtraordinaryStoryGrid.static = true
+// ExtraordinaryStoryGrid.static = true
 
 export default ExtraordinaryStoryGrid

@@ -15,7 +15,6 @@ const classes = {
 
 const ExtraordinaryStoryChildGridStories = props => {
   const { section1, section2, section3, section4, dataStory } = props
-
   dataStory.multimediaOrientation = 'grid'
 
   return (
@@ -38,10 +37,10 @@ const ExtraordinaryStoryChildGridStories = props => {
         </div>
         <h2 className={classes.gridListTitle}>Programas del dia</h2>
         <div className={classes.gridListItems}>
-          {Object.keys(section1).length > 0 && <SectionItem {...section1} />}
-          {Object.keys(section2).length > 0 && <SectionItem {...section2} />}
-          {Object.keys(section3).length > 0 && <SectionItem {...section3} />}
-          {Object.keys(section4).length > 0 && <SectionItem {...section4} />}
+          {section1.id !== '' && <SectionItem data={section1} />}
+          {section2.id !== '' && <SectionItem data={section2} />}
+          {section3.id !== '' && <SectionItem data={section3} />}
+          {section4.id !== '' && <SectionItem data={section4} />}
         </div>
       </div>
     </div>
