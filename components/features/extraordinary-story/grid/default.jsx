@@ -54,12 +54,14 @@ class ExtraordinaryStoryGrid extends Component {
       this.fetch(thirdSection, sectionSchema),
       this.fetch(fourthSection, sectionSchema),
     ]).then(response => {
+      const jsonSections = {}
       response.forEach((resp, index) => {
         const { cached: data } = resp
         if (data) {
-          this.setState({ [`section${index + 1}`]: data })
+          jsonSections[`section${index + 1}`] = data
         }
       })
+      this.setState(jsonSections)
     })
   }
 
