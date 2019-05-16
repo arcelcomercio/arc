@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import { setDevice } from '../../../utilities/resizer'
 
-import HeaderChildElcomercio from './_children/elcomercio'
+import HeaderChildElcomercio from './_children/standard'
 
 @Consumer
 class LayoutHeader extends PureComponent {
