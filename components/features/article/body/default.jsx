@@ -13,7 +13,7 @@ import ArticleBodyChildAuthor from './_children/author'
 import ArticleBodyChildMultimedia from './_children/multimedia'
 
 const classes = {
-  news: 'article-body news-text-content col-2 padding-normal bg-color--white',
+  news: 'article-body news-text-content col-2 bg-color--white',
   textClasses: 'article-body__font--secondary',
   newsImage: 'article-body__image article-body__image--cover',
 }
