@@ -1,4 +1,5 @@
 import React from 'react'
+import { createMarkup } from '../../../../utilities/helpers'
 
 const classes = {
   authorDetails: 'author-details',
@@ -13,7 +14,10 @@ const AuthorDetailsChildAuthorDetails = ({ description, firstName, title }) => {
       <h4 className={classes.title}>{title || 'Título'}</h4>
       <div className={classes.body}>
         <h3 className={classes.blogTitle}>{firstName || 'Nombre'} </h3>
-        <p className={classes.description}>{description || 'Descripción'}</p>
+        <p
+          className={classes.description}
+          dangerouslySetInnerHTML={createMarkup(description)}
+        />
       </div>
     </div>
   )
