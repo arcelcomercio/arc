@@ -111,22 +111,22 @@ $BGImageOrd: #4aa8fa;
       }
     }
   }
-  &__item{
+  &__item {
     width: 30px;
     height: 30px;
     background-color: $colorTextDescription;
     border-radius: 50px;
   }
-  &__link{
+  &__link {
     color: $color-white;
   }
-  &__list{
+  &__list {
     width: 150px;
   }
-  &__category{
+  &__category {
     text-transform: uppercase;
   }
-  &__share{
+  &__share {
     border-bottom: 1px solid $color-silver;
     padding-bottom: 15px;
     margin-bottom: 15px;
@@ -135,127 +135,4 @@ $BGImageOrd: #4aa8fa;
       padding-right: 20px;
     }
   }
-}
-
-
-.slider {
-  width: 100%;
-  height: 460px;
-  overflow: hidden;
-
-  &__previousButton {
-    left: 20px;
-  }
-
-  &__nextButton {
-    right: 20px;
-  }
-
-  &__previusButton,
-  &__nextButton {
-    font-size: 22px;
-    line-height: 0;
-    display: block;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    -webkit-transition: all 0.3s linear;
-    transition: all 0.3s linear;
-    z-index: 1;
-    color: $colorBtnSlider;
-    padding: 10px;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-
-    &:not(.disabled):hover {
-      -webkit-transform: translateY(-50%) scale(1.25);
-      transform: translateY(-50%) scale(1.25);
-      cursor: pointer;
-    }
-  }
-
-  &__slide {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    overflow: hidden;
-
-    & img {
-      width: 100%;
-    }
-
-    &--hidden {
-      visibility: hidden;
-    }
-
-    &--previous {
-      left: -100%;
-    }
-
-    &--current {
-      left: 0;
-    }
-
-    &--next {
-      left: 100%;
-    }
-
-    &--image {
-      height: 400px;
-    }
-
-    &--animateIn,
-    &--animateOut {
-      -webkit-transition: all 2s ease;
-      transition: all 2s ease;
-    }
-
-    //.slider-details-container
-    &__details {
-      background-color: $BGdetail;
-      font-family: $primary-font;
-      padding: 15px 35px;
-      margin-top: 388px;
-      z-index: 9999;
-
-      &__image-ord {
-        background-color: $BGImageOrd;
-        color: $colorLinksWhite;
-        display: block;
-        float: left;
-        font: 700 18px/50px $primary-font;
-        height: 50px;
-        text-align: center;
-        width: 95px;
-      }
-
-      &__foto-description {
-        color: $colorPicDescription;
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 1.5;
-        margin: 0;
-        padding: 0 0 0 110px;
-      }
-
-      & img {
-        width: 100%;
-      }
-    }
-  }
-}
-
-.slider__slide.slider__slide--animateIn.slider__slide--previous,
-.slider__slide.slider__slide--animateIn.slider__slide--next {
-  left: 0;
-  visibility: visible;
-}
-
-.slider__slide.slider__slide--animateOut.slider__slide--previous {
-  left: 100%;
-}
-
-.slider__slide.slider__slide--animateOut.slider__slide--next {
-  left: -100%;
 }
