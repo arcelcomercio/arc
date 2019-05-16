@@ -5,8 +5,8 @@ import EmbedMultimedia from '../../../../global-components/embed-multimedia'
 const classes = {
   extraordinayStoryGridContainer:
     'extraordinary-story-grid flex position-relative',
-  videoBox: 'story-video-box flex-center-vertical',
-  gridContainer: 'sections-grid',
+  videoBox: 'story-video-box flex-center-vertical position-relative',
+  gridContainer: 'sections-grid full-width',
   gridHeaderText: 'sections-grid__text flex-center-vertical',
   gridHeaderImage: 'sections-grid__text-image',
   gridListTitle: 'sections-grid__title',
@@ -28,14 +28,14 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
       </div>
       <div className={classes.gridContainer}>
         <div className={classes.gridHeaderText}>
-          Estas viendo
+          Estás viendo
           <img
             className={classes.gridHeaderImage}
             src="https://assets.peru21.pe/img/p21tv/logo_p21tv.png"
             alt=""
           />
         </div>
-        <h2 className={classes.gridListTitle}>Programas del dia</h2>
+        <h2 className={classes.gridListTitle}>Programas del día</h2>
         <div className={classes.gridListItems}>
           {section1.id !== '' && <SectionItem data={section1} />}
           {section2.id !== '' && <SectionItem data={section2} />}
