@@ -24,9 +24,9 @@ class ArticleSeparator extends PureComponent {
   }
 
   getSeccionPrimary = dataArticle => {
-    return dataArticle.taxonomy
-      ? dataArticle.taxonomy.primary_section
-      : { name: '', section: '' }
+    const splitText = dataArticle.primary_section.path.slice(1).split('/')
+    const lastSection = '/'
+    return lastSection + splitText[0]
   }
 
   componentDidMount = () => {
@@ -41,8 +41,7 @@ class ArticleSeparator extends PureComponent {
     if (device === 'mobile') newsNumber = 0
 
     const { arcSite, globalContent } = this.props
-    const { path: section } = this.getSeccionPrimary(globalContent || {})
-
+    const section = this.getSeccionPrimary(globalContent.taxonomy || {})
     const { fetched } = this.getContent(
       'story-feed-by-section',
       {
