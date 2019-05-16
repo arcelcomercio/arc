@@ -49,7 +49,6 @@ class ArticleHeader extends Component {
 }
 
 ArticleHeader.static = true
-
 ArticleHeader.label = 'Artículo - cabecera'
 
 export default ArticleHeader
