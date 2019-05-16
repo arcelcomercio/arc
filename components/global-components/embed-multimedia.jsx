@@ -6,12 +6,12 @@ const YOUTUBE = 'youtube'
 const IMAGE = 'image'
 
 const EmbedMultimedia = props => {
-  const videoYoutube = (codeId, width = '100%', height = '100%') => {
+  const videoYoutube = (codeId, { width = '100%', height = '100%' }) => {
     return (
       <iframe
         width={width}
         height={height}
-        src={codeId}
+        src={`https://www.youtube.com/embed/${codeId}`}
         frameBorder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         title="Youtube"
@@ -32,17 +32,15 @@ const EmbedMultimedia = props => {
           data-aspect-ratio="0.562"
           className="powa"
         />
-        
       </Fragment>
     )
   }
 
-  const image = (url, title) => {
+  const image = (url, { title = '' }) => {
     return <img src={url} alt={title} />
   }
 
   const getMultimedia = type => {
-    console.log('type embed multimedia', type)
     let fx = () => ''
     if (type === GOLDFISH || type === ConfigParams.VIDEO) {
       fx = videoGoldfish
@@ -59,7 +57,7 @@ const EmbedMultimedia = props => {
   }
 
   const { type, source, title = '' } = props
-  return getMultimedia(type)(source, title)
+  return getMultimedia(type)(source, { title })
 }
 
 export default EmbedMultimedia
