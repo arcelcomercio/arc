@@ -11,6 +11,8 @@ class Data extends StoryData {
 
   static AUTOMATIC = 'default'
 
+  static GOLDFISH_ENV = 'sandbox'
+
   constructor(customFields, data, website) {
     super(data, website)
     this.customFields = customFields
@@ -122,23 +124,23 @@ class Data extends StoryData {
     return (multimediaType !== '' && multimediaFromApi[multimediaType]) || ''
   }
 
-  static videoGoldfish(multimediaSource) {
+  static videoGoldfish(multimediaSource, website = 'elcomercio') {
     return `<div
       id="powa-${multimediaSource}"
-      data-env="sandbox"
-      data-api="sandbox"
-      data-org="elcomercio"
+      data-env=${Data.GOLDFISH_ENV}
+      data-api=${Data.GOLDFISH_ENV}
+      data-org=${website}
       data-uuid="${multimediaSource}"
       data-aspect-ratio="0.562"
       className="powa">
     </div>`
   }
 
-  static videoYoutube(url, width = '100%', height = '100%') {
+  static videoYoutube(codeId, width = '100%', height = '100%') {
     const embedHtml = `<iframe 
         width=${width}
         height=${height} 
-        src=${url}
+        src=${`https://www.youtube.com/embed/${codeId}`}
         frameBorder="0" 
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
         allowFullScreen />`
@@ -146,30 +148,7 @@ class Data extends StoryData {
   }
 
   static image(url, title, website, orientation) {
-    const resize = {
-      top: {
-        ratio: '9:16',
-        size: '700x300',
-      },
-      bottom: {
-        ratio: '9:16',
-        size: '700x300',
-      },
-      left: {
-        ratio: '4:3',
-        size: '500x150',
-      },
-      right: {
-        ratio: '4:3',
-        size: '500x150',
-      },
-    }
-    const urlResize = ResizeImageUrl(
-      website,
-      url,
-      resize[orientation].ratio,
-      resize[orientation].size
-    )
+    const urlResize = this.resizeImg(url, website, orientation)
     return `<img src="${urlResize}" alt="${title}" />`
   }
 

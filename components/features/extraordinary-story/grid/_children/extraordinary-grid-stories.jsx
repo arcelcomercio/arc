@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import renderHTML from 'react-render-html'
 import SectionItem from './section-item'
 import EmbedMultimedia from '../../../../global-components/embed-multimedia'
 
@@ -17,11 +18,7 @@ class ExtraordinaryStoryChildGridStories extends Component {
     return (
       <div className="extraordinary-story-grid flex position-relative">
         <div className="story-video-box flex-center-vertical">
-          <EmbedMultimedia
-            type={dataStory.typeMultimediaGeneral}
-            title={dataStory.title}
-            source={dataStory.sourceMultimedia}
-          />
+          {renderHTML(dataStory.embedMultimedia)}
           <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
         </div>
         <div className="stories-grid">

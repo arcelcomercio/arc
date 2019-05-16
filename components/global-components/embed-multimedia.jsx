@@ -5,6 +5,8 @@ const GOLDFISH = 'goldfish'
 const YOUTUBE = 'youtube'
 const IMAGE = 'image'
 
+const GOLDFISH_ENV = 'sandbox'
+
 const EmbedMultimedia = props => {
   const videoYoutube = (codeId, { width = '100%', height = '100%' }) => {
     return (
@@ -20,19 +22,17 @@ const EmbedMultimedia = props => {
     )
   }
 
-  const videoGoldfish = multimediaSource => {
+  const videoGoldfish = (multimediaSource, { website = 'elcomercio' }) => {
     return (
-      <Fragment>
-        <div
-          id={`powa-${multimediaSource}`}
-          data-env="sandbox"
-          data-api="sandbox"
-          data-org="elcomercio"
-          data-uuid={multimediaSource}
-          data-aspect-ratio="0.562"
-          className="powa"
-        />
-      </Fragment>
+      <div
+        id={`powa-${multimediaSource}`}
+        data-env={GOLDFISH_ENV}
+        data-api={GOLDFISH_ENV}
+        data-org={website}
+        data-uuid={multimediaSource}
+        data-aspect-ratio="0.562"
+        className="powa"
+      />
     )
   }
 
@@ -56,8 +56,8 @@ const EmbedMultimedia = props => {
     return fx
   }
 
-  const { type, source, title = '' } = props
-  return getMultimedia(type)(source, { title })
+  const { type, source, website, title = '' } = props
+  return getMultimedia(type)(source, { title, website })
 }
 
 export default EmbedMultimedia
