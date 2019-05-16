@@ -6,7 +6,7 @@ import ArticleHeaderChildGallery from './_children/gallery'
 import ArticleHeaderChildSocial from './_children/social'
 
 const classes = {
-  news: 'col-3 padding-normal bg-color--white',
+  news: 'col-3 bg-color--white',
   gallery: 'col-3',
 }
 @Consumer
