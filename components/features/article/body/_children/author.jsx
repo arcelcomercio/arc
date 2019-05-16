@@ -4,20 +4,38 @@ import { formatDate } from '../../../../utilities/helpers'
 /** TODO: Vale la pena usar moment? */
 
 const classes = {
-  newsAuthor: 'news-author-date',
+  author: 'article-body__author',
+  authorName: 'article-body__author-nombre',
+  authorDate: 'article-body__author-date',
+  authorEmail: 'article-body__author-email',
 }
 
 const ArticleBodyChildAuthor = props => {
   const {
     date,
-    data: { by },
+    data: {
+      by: [
+        {
+          name: nombre = '',
+          url,
+          additional_properties: {
+            original: { email },
+          },
+        },
+      ],
+    },
   } = props
-
+  console.log(props)
   return (
-    (by || date) && (
-      <div className={classes.newsAuthor}>
-        {by.name && <a href={by.url}>{by.name} </a>}
-        {date && formatDate(date)}
+    nombre && (
+      <div className={classes.author}>
+        <div className={classes.authorName}>
+          {nombre && <a href={url}>{nombre} </a>}
+        </div>
+        <div className={classes.authorEmail}> {email} </div>
+        <div className={classes.authorDate}>
+          Actualizado {date && formatDate(date)}
+        </div>
       </div>
     )
   )

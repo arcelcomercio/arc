@@ -19,11 +19,6 @@ const ArticleBodyChildArticleImage = props => {
         sizePreset="large"
         {...data}
       />
-      {data && data.subtitle && (
-        <figcaption className={classes.description}>
-          {renderHTML(data.subtitle)}
-        </figcaption>
-      )}
     </Fragment>
   )
 }
