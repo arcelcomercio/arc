@@ -5,7 +5,7 @@ import { formatDate } from '../../../../utilities/helpers'
 
 const classes = {
   author: 'article-body__author',
-  authorName: 'article-body__author-nombre',
+  authorName: 'article-body__author-name',
   authorDate: 'article-body__author-date',
   authorEmail: 'article-body__author-email',
 }
