@@ -28,8 +28,7 @@ class ArticleBody extends PureComponent {
       credits: author,
       taxonomy,
     } = globalContent || {}
-    console.log(globalContent)
-    debugger
+
     return (
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
@@ -79,4 +78,6 @@ class ArticleBody extends PureComponent {
 }
 
 ArticleBody.label = 'Artículo - contenido'
+ArticleBody.static = true
+
 export default ArticleBody
