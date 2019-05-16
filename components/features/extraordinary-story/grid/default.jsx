@@ -110,5 +110,6 @@ ExtraordinaryStoryGrid.propTypes = {
 }
 
 ExtraordinaryStoryGrid.label = 'Apertura extraordinaria con grilla'
+// ExtraordinaryStoryGrid.static = true
 
 export default ExtraordinaryStoryGrid
