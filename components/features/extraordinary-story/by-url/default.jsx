@@ -73,6 +73,5 @@ ExtraordinaryStoryByUrl.propTypes = {
 }
 
 ExtraordinaryStoryByUrl.label = 'Apertura extraordinaria por historia'
-ExtraordinaryStoryByUrl.static = true
 
 export default ExtraordinaryStoryByUrl
