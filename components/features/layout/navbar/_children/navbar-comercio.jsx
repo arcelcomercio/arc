@@ -6,7 +6,7 @@ import { setDevice } from '../../../../utilities/resizer'
 import Ads from '../../../../global-components/ads'
 
 const classes = {
-  nav: 'nav full-width flex flex-center-vertical',
+  nav: 'nav nav--comercio full-width flex flex-center-vertical',
   navWrapper:
     'flex-center-vertical flex--justify-between nav__wrapper full-width height-inherit',
   navForm: 'nav__form flex',
@@ -214,7 +214,7 @@ class NavBarDefault extends PureComponent {
           </a>
           {/** ************* RIGHT *************** */}
 
-          {device && device === 'desktop' ? (
+          {device && device === 'desktop' && !scrolled ? (
             <Fragment>
               <div className={classes.headerBtnContainer}>
                 <Button

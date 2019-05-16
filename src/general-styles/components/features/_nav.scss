@@ -6,8 +6,11 @@
   font-family: $secondary-font;
   font-size: $font-sm;
   font-weight: bold;
-  background-color: $nav-color-2;
+  background-color: $nav-color;
   color: $color-white;
+  &--comercio {
+    background-color: $nav-color-2;
+  }
 
   &__wrapper {
     padding: 0 15px;

@@ -40,14 +40,14 @@ class BarraTest extends Component {
       .catch(e => console.log(e))
   }
 
-  renderNavBar = (marca, data) => {
+  renderNavBar = (brand, data) => {
     const NavBarType = {
       default: <NavBarDefault data={data} />,
       comercio: <NavBarComercio data={data} />,
       depor: <NavBarDepor data={data} />,
       trome: <NavBarTrome data={data} />,
     }
-    return NavBarType[marca] || NavBarType.default
+    return NavBarType[brand] || NavBarType.default
   }
 
   render() {
@@ -77,5 +77,5 @@ BarraTest.propTypes = {
   }),
 }
 
-BarraTest.label = 'Barra Test'
+BarraTest.label = 'Barra de Navegacion'
 export default BarraTest
