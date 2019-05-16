@@ -73,12 +73,12 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
   }
 
   let key = 0
-  return data.map(elements => {
+  return data.map((elements, i) => {
     if (key === 4) return false
     const { website_url: websiteUrl } = elements
     if (websiteUrl === excluir) return false
     key += 1
-    return <SeparatorItem dataItem={elements} />
+    return <SeparatorItem dataItem={elements} key="jj" />
   })
 }
 
