@@ -4,6 +4,8 @@ import Image from '@arc-core-components/element_image'
 const classes = {
   gallery: 'article-gallery',
   galleryItem: 'article-gallery__item',
+  galleryNumber:'article-gallery__number flex-center',
+  image:'article-gallery__img',
 }
 
 const ArticleHeaderChildGallery = props => {
@@ -13,7 +15,7 @@ const ArticleHeaderChildGallery = props => {
     <div className={classes.gallery}>
       {elements.map((data, index) => (
         <div className={classes.galleryItem}>
-          <span>{index + 1}</span>
+          <div className={classes.galleryNumber}>{index + 1}</div>
           <Image width="100%" className={classes.image} {...data} />
         </div>
       ))}

@@ -23,10 +23,10 @@ const ArticleBodyChildAuthor = props => {
     <div className={classes.author}>
       <div className={classes.authorName}>
         {name && <a href={url}>{name} </a>}
-      {email && <p className={classes.authorEmail}> {email} </p>}
+        {email && <p className={classes.authorEmail}> {email} </p>}
       </div>
       <div className={classes.authorDate}>
-      <p>Actualizado {date && formatDate(date)}</p>
+        <p>Actualizado {date && formatDate(date)}</p>
       </div>
     </div>
   )
