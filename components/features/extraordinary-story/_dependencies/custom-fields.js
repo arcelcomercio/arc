@@ -60,7 +60,7 @@ const customFields = {
     name: 'Recurso',
     group: 'Multimedia',
     description:
-      'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: Url del video.',
+      'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: ID del video.',
   }),
 }
 

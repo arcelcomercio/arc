@@ -44,12 +44,15 @@ class NavbarChildMenu extends PureComponent {
   }
 
   renderSections = sections => {
+    const { contextPath, website } = this.props
     return (
       sections &&
       sections.map(({ name = '', _id: id = '', children }) => (
         <Fragment key={id}>
           <li className={classes.renderItem}>
-            <a href={id} className={classes.renderItemLink}>
+            <a
+              href={`${contextPath}${id}${website}`}
+              className={classes.renderItemLink}>
               {name}
             </a>
           </li>
