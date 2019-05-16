@@ -1,7 +1,5 @@
-import StoryData from '../utilities/story-data'
-import {
-  ResizeImageUrl
-} from './helpers'
+import StoryData from './story-data'
+import { ResizeImageUrl } from './helpers'
 
 class FeaturedStoryFormatter {
   constructor(arcSite = '') {
@@ -37,15 +35,15 @@ class FeaturedStoryFormatter {
     this.initialState = {
       category: {
         name: '',
-        url: ''
+        url: '',
       },
       title: {
         name: '',
-        url: ''
+        url: '',
       },
       author: {
         name: '',
-        url: ''
+        url: '',
       },
       image: '',
       multimediaType: 'basic',
@@ -76,11 +74,11 @@ class FeaturedStoryFormatter {
     this.storyDataInstace.__data = story
 
     const newState = {
-      ...this.initialState
+      ...this.initialState,
     }
 
     newState.category.name = this.storyDataInstace.section
-    newState.category.url = this.storyDataInstace.section
+    newState.category.url = this.storyDataInstace.sectionLink
 
     newState.title.name = this.storyDataInstace.title
     newState.title.url = this.storyDataInstace.link
