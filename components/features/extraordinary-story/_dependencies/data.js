@@ -174,15 +174,11 @@ class Data extends StoryData {
       multimediaService,
       multimediaType
     )
-
-    console.log('multimediaTypeFeature', multimediaTypeFeature)
     let multimediaSourceFeature = multimediaSource
-    console.log('multimediaSource', multimediaSource)
     if (Data.AUTOMATIC === multimediaService) {
       multimediaSourceFeature =
         multimediaType === ConfigParams.VIDEO ? videoId : multimedia
     }
-    console.log('multimediaSourceFeature', multimediaSourceFeature)
     return Data.getSourceMultimedia(
       multimediaTypeFeature,
       multimediaSourceFeature,
@@ -213,14 +209,6 @@ class Data extends StoryData {
     ) {
       multimediaContent = this.resizeImg(multimedia, website, orientation) || ''
     }
-    console.log(
-      'getSourceMultimedia',
-      multimediaType,
-      multimedia,
-      website,
-      orientation
-    )
-    console.log('multimediaContent', multimediaContent)
     return multimediaContent
   }
 
@@ -229,7 +217,6 @@ class Data extends StoryData {
     if (Data.AUTOMATIC === multimediaService) {
       multimediaTypeFeature = multimediaType
     }
-    console.log('getTypeMultimediaGeneral', multimediaService, multimediaType)
     return multimediaTypeFeature
   }
 
@@ -262,7 +249,6 @@ class Data extends StoryData {
       resize[orientation].ratio,
       resize[orientation].size
     )
-    console.log('resizeImg url', url, website, orientation)
     return urlResize
   }
 }
