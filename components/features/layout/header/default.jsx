@@ -1,5 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import { setDevice } from '../../../utilities/resizer'
 
@@ -9,45 +10,20 @@ import HeaderChildElcomercio from './_children/elcomercio'
 class LayoutHeader extends PureComponent {
   constructor(props) {
     super(props)
-    // ------ Checks if you are in desktop or not
     this.state = {
       device: setDevice(),
-      data: [],
+      sections: [],
     }
-    this.fetch()
   }
 
   componentDidMount() {
     // TODO: Si googleTagManager no ejecuta, descomentar.
     // const { googleTagManagerScript } = this.props.siteProperties
     window.addEventListener('resize', this._handleResize)
+    this.getNavigationSections()
   }
 
-  _handleResize = () => {
-    const wsize = window.innerWidth
-
-    // ------ Set the new state if you change from mobile to desktop
-    if (wsize >= 1024 && this.state.device !== 'desktop') {
-      this.setState({
-        device: 'desktop',
-      })
-      this.dispatchEvent('displayChange', this.state.device)
-      // ------ Set the new state if you change from desktop to mobile
-    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
-      this.setState({
-        device: 'tablet',
-      })
-      this.dispatchEvent('displayChange', this.state.device)
-    } else if (wsize < 640 && this.state.device !== 'mobile') {
-      // ------ Set the new state if you change from desktop to mobile
-      this.setState({
-        device: 'mobile',
-      })
-      this.dispatchEvent('displayChange', this.state.device)
-    }
-  }
-
-  fetch() {
+  getNavigationSections() {
     const { arcSite } = this.props
 
     const source = 'navigation-by-hierarchy'
@@ -77,25 +53,79 @@ class LayoutHeader extends PureComponent {
         }
       })
       this.setState({
-        data: auxList || [],
+        sections: auxList || [],
       })
     })
   }
 
+  _handleResize = () => {
+    const wsize = window.innerWidth
+
+    // ------ Set the new state if you change from mobile to desktop
+    if (wsize >= 1024 && this.state.device !== 'desktop') {
+      this.setState({
+        device: 'desktop',
+      })
+      this.dispatchEvent('displayChange', this.state.device)
+      // ------ Set the new state if you change from desktop to mobile
+    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
+      this.setState({
+        device: 'tablet',
+      })
+      this.dispatchEvent('displayChange', this.state.device)
+    } else if (wsize < 640 && this.state.device !== 'mobile') {
+      // ------ Set the new state if you change from desktop to mobile
+      this.setState({
+        device: 'mobile',
+      })
+      this.dispatchEvent('displayChange', this.state.device)
+    }
+  }
+
+  renderHeader = (brand, params) => {
+    const headerType = {
+      elcomercio: <HeaderChildElcomercio {...params} />,
+      test: <div style={{ backgroundColor: 'red' }}>Prueba de cabecera</div>,
+    }
+    return headerType[brand] || headerType.elcomercio
+  }
+
   render() {
-    const { data, device } = this.state
+    const { sections, device } = this.state
     const {
       contextPath,
       arcSite,
       deployment,
       siteProperties: { siteDomain },
+      customFields: { headerType },
     } = this.props
-    const params = { data, siteDomain, deployment, contextPath, arcSite }
 
-    return device === 'desktop' && <HeaderChildElcomercio {...params} />
+    const params = {
+      sections,
+      siteDomain,
+      deployment,
+      contextPath,
+      arcSite,
+      device,
+    }
+
+    return this.renderHeader(headerType, params)
   }
 }
 
 LayoutHeader.label = 'Cabecera de Página'
+
+LayoutHeader.propTypes = {
+  customFields: PropTypes.shape({
+    headerType: PropTypes.oneOf(['elcomercio', 'test']).tag({
+      name: 'Diseño de la cabecera',
+      labels: {
+        elcomercio: 'Cabecera de "El Comercio"',
+        test: 'test',
+      },
+      defaultValue: 'elcomercio',
+    }),
+  }),
+}
 
 export default LayoutHeader
