@@ -11,9 +11,7 @@ const classes = {
     'flex-center-vertical flex--justify-between nav__wrapper full-width height-inherit',
   navForm: 'nav__form flex',
   navSearch: 'nav__input-search',
-  navBtnContainer:
-    'flex-center-vertical flex--justify-start nav__container-menu',
-  navSearchContainer: 'flex-center-vertical flex--justify-start',
+  navBtnContainer: 'flex-center-vertical flex--justify-start height-inherit',
   navBtnSearch: 'flex-center-vertical btn nav__btn nav__btn--search',
   navBtnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
   navBtnIconSearch: 'icon icon--search',
@@ -26,14 +24,13 @@ const classes = {
   navAds: 'nav__ads',
   headerBtnContainer:
     'flex-center-vertical flex--justify-end header__btn-container',
-  headerBtnLogin: 'flex-center-vertical btn btn--small bg-color--gray',
-  headerBtnSubscribe:
-    'flex-center-vertical btn btn--small bg-color--gray nav__header-sub',
+  headerBtnLogin: 'flex-center-vertical btn bg-color--white nav__header-login',
+  headerBtnSubscribe: 'flex-center-vertical btn bg-color--link nav__header-sub',
   headerBtnIconLogin: 'icon icon--login',
 }
 
 @Consumer
-class NavBarDefault extends PureComponent {
+class NavBarComercio extends PureComponent {
   constructor(props) {
     super(props)
     const { data } = this.props
@@ -181,12 +178,31 @@ class NavBarDefault extends PureComponent {
           {/** ************* LEFT *************** */}
 
           <div className={classes.navBtnContainer}>
-            <Button
-              iconClass={classes.navBtnIconMenu}
-              btnClass={classes.navBtnSection}
-              btnText="Menu"
-              onClick={this._handleToggleSectionsElement('statusSidebar')}
-            />
+            <Fragment>
+              <form
+                className={classes.navForm}
+                onSubmit={e => e.preventDefault()}>
+                <input
+                  ref={this.inputSearch}
+                  type="search"
+                  onBlur={this._handleCloseSectionsSearch}
+                  onKeyUp={this.watchKeys}
+                  placeholder="Buscar"
+                  className={`${classes.navSearch} ${this.activeSearch()}`}
+                />
+                <Button
+                  iconClass={classes.navBtnIconSearch}
+                  btnClass={`${classes.navBtnSearch} ${this.activeSearch()}`}
+                  onClick={this.optionButtonClick()}
+                />
+              </form>
+              <Button
+                iconClass={classes.navBtnIconMenu}
+                btnClass={classes.navBtnSection}
+                btnText="Secciones"
+                onClick={this._handleToggleSectionsElement('statusSidebar')}
+              />
+            </Fragment>
           </div>
 
           {/** ************* MIDDLE *************** */}
@@ -214,55 +230,29 @@ class NavBarDefault extends PureComponent {
           </a>
           {/** ************* RIGHT *************** */}
 
-          {device && device === 'desktop' ? (
-            <Fragment>
-              <div className={classes.headerBtnContainer}>
-                <Button
-                  btnText="Suscríbete"
-                  btnClass={classes.headerBtnSubscribe}
-                  btnLink="#"
-                />
-                <Button
-                  btnText="Iniciar Sesión"
-                  btnClass={classes.headerBtnLogin}
-                  btnLink="#"
-                />
-              </div>
-              <div className={classes.navSearchContainer}>
-                <Ads
-                  adElement="zocaloNav1"
-                  isDesktop
-                  classes={{ desktop: classes.navAds }}
-                />
-                {/* <Ads
-                  adElement="zocaloNav2"
-                  isDesktop
-                  classes={{ desktop: classes.navAds }}
-                /> */}
-                <form
-                  className={classes.navForm}
-                  onSubmit={e => e.preventDefault()}>
-                  <input
-                    ref={this.inputSearch}
-                    type="search"
-                    onBlur={this._handleCloseSectionsSearch}
-                    onKeyUp={this.watchKeys}
-                    placeholder="Buscar"
-                    className={`${classes.navSearch} ${this.activeSearch()}`}
-                  />
-                  <Button
-                    iconClass={classes.navBtnIconSearch}
-                    btnClass={`${classes.navBtnSearch} ${this.activeSearch()}`}
-                    onClick={this.optionButtonClick()}
-                  />
-                </form>
-              </div>
-            </Fragment>
+          {device === 'desktop' ? (
+            <div className={classes.navBtnContainer}>
+              <Ads
+                adElement="zocaloNav1"
+                isDesktop
+                classes={{ desktop: classes.navAds }}
+              />
+              <Ads
+                adElement="zocaloNav2"
+                isDesktop
+                classes={{ desktop: classes.navAds }}
+              />
+            </div>
           ) : (
             <div className={classes.headerBtnContainer}>
               <Button
                 iconClass={classes.headerBtnIconLogin}
                 btnClass={classes.headerBtnLogin}
+                btnLink="#"
+              />
+              <Button
+                btnText="Suscríbete"
+                btnClass={classes.headerBtnSubscribe}
                 btnLink="#"
               />
             </div>
@@ -278,4 +268,4 @@ class NavBarDefault extends PureComponent {
   }
 }
 
-export default NavBarDefault
+export default NavBarComercio
