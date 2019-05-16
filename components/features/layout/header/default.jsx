@@ -4,6 +4,8 @@ import Consumer from 'fusion:consumer'
 import { setDevice } from '../../../utilities/resizer'
 
 import HeaderChildElcomercio from './_children/elcomercio'
+import SomosAsideMenuContent from './_children/somos-aside-menu-content'
+import HeaderSomos from './_children/somos'
 
 @Consumer
 class LayoutHeader extends PureComponent {
@@ -92,9 +94,12 @@ class LayoutHeader extends PureComponent {
     } = this.props
     const params = { data, siteDomain, deployment, contextPath, arcSite }
 
-    return device === 'desktop' && <HeaderChildElcomercio {...params} />
+    return <SomosAsideMenuContent {...params} />
   }
 }
+
+//return <HeaderSomos {...params} />
+//return device === 'desktop' && <HeaderChildElcomercio {...params} />
 
 LayoutHeader.label = 'Cabecera de Página'
 

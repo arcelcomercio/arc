@@ -1,0 +1,77 @@
+.logo-somos {
+  display: grid;
+  grid-template-columns: auto 115px auto;
+  justify-content: space-between;
+  border-top: 1px solid #ababab;
+  border-bottom: 1px solid #ababab;
+  padding: 10px 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+  background-color: #fff;
+
+  &__logo-img {
+    width: 100%;
+    display: block;
+  }
+
+  &__content-menu {
+    background-color: rgba(0, 0, 0, 0.9);
+    display: block;
+    width: 255px;
+    min-height: 100%;
+  }
+  &__header-close {
+    color: #fff;
+    height: 50px;
+    position: relative;
+    text-align: center;
+    padding-left: 50px;
+  }
+  &__btn-close {
+    background-color: transparent;
+    color: #fff;
+    display: block;
+    height: 100%;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    width: 50px;
+  }
+  &__mobile-search{
+    padding: 20px 15px;
+  }
+  &__content-form{
+      display: flex;
+      flex-direction: row;
+  }
+  &__search-text{
+    border-width: 1px 0 1px 1px;
+    font-family: "Open Sans";
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 10px;
+    width: 194px;
+    background-color: transparent;
+    border-color: #fff;
+    border-style: solid;
+    color: #fff;
+    // float: left;
+    height: 32px;
+  }
+  &__search-button{
+    border-width: 1px 1px 1px 0;
+    width: 31px;
+    background-color: transparent;
+    border-color: #fff;
+    border-style: solid;
+    color: #fff;
+    float: left;
+    height: 32px;
+  }
+
+  &__color-tmp{
+      color: #fff;
+  }
+
+}
