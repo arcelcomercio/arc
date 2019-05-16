@@ -32,7 +32,6 @@ const EmbedMultimedia = props => {
           data-aspect-ratio="0.562"
           className="powa"
         />
-        
       </Fragment>
     )
   }
@@ -42,7 +41,7 @@ const EmbedMultimedia = props => {
   }
 
   const getMultimedia = type => {
-    console.log('type embed multimedia', type)
+    //console.log('type embed multimedia', type)
     let fx = () => ''
     if (type === GOLDFISH || type === ConfigParams.VIDEO) {
       fx = videoGoldfish
