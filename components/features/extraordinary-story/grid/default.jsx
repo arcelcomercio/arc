@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import ExtraordinaryStoryGridChild from './_children/extraordinary-grid-stories'
@@ -27,9 +26,9 @@ class ExtraordinaryStoryGrid extends Component {
   } */
 
   componentDidUpdate() {
-    console.log('this.isVideo', this.isVideo)
+    //console.log('this.isVideo', this.isVideo)
     if (window.powaBoot && this.isVideo) {
-      console.log('powaBoot')
+      //console.log('powaBoot')
       window.powaBoot()
     }
   }
@@ -44,10 +43,11 @@ class ExtraordinaryStoryGrid extends Component {
         thirdSection = {},
         fourthSection = {},
       },
+      arcSite = '',
     } = this.props
 
     if (multimediaService === Data.AUTOMATIC) {
-      this.fetch(urlStory, schemaStory, 'dataStory')
+      this.fetch(urlStory, schemaStory(arcSite), 'dataStory')
     }
 
     this.fetch(firstSection, schemaSection, 'section1')
@@ -87,9 +87,9 @@ class ExtraordinaryStoryGrid extends Component {
     const { arcSite, customFields } = this.props
     const { dataStory, section1, section2, section3, section4 } = this.state
 
-    console.log('dataStory', dataStory)
+    //console.log('dataStory', dataStory)
     const formattedDataStory = new Data(customFields, dataStory, arcSite)
-    console.log('dataSformattedDataStorytory', formattedDataStory)
+    //console.log('dataSformattedDataStorytory', formattedDataStory)
     this.isVideo = formattedDataStory.isVideo
 
     const params = {
@@ -100,7 +100,7 @@ class ExtraordinaryStoryGrid extends Component {
       section3,
       section4,
     }
-    console.log('render')
+    //console.log('render')
     return <ExtraordinaryStoryGridChild {...params} />
   }
 }
