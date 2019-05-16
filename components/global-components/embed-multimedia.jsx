@@ -40,7 +40,7 @@ const EmbedMultimedia = props => {
   }
 
   const image = (url, { title = '' }) => {
-    return <img src={url} alt={title} />
+    return <img className="embed-multimedia-image" src={url} alt={title} />
   }
 
   const getMultimedia = type => {
