@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import ExtraordinaryStoryGridChild from './_children/extraordinary-grid-stories'
@@ -55,11 +56,8 @@ class ExtraordinaryStoryGrid extends Component {
     this.fetch(fourthSection, schemaSection, 'section4')
   }
 
-  fetch(
-    { contentService = '', contentConfigValues = {} },
-    schema,
-    stateProperty
-  ) {
+  fetch(contentConfig, schema, stateProperty) {
+    const { contentService = '', contentConfigValues = {} } = contentConfig
     const hasSection =
       Object.prototype.hasOwnProperty.call(contentConfigValues, '_id') &&
       contentConfigValues._id !== ''
@@ -75,14 +73,15 @@ class ExtraordinaryStoryGrid extends Component {
         contentConfigValues,
         schema
       )
-      fetched.then(response => {
-        console.log('RESPONSE !!!!!!!!!!!!', response)
-        this.setState({ [stateProperty]: response })
-      })
+      fetched
+        .then(response => {
+          this.setState({ [stateProperty]: response })
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
-
-  'http://localhost/pf/api/v3/content/fetch/section-by-slug?query={"_id":"/redes-sociales"}&filter={}&d=$LATEST&_website=elcomercio'
 
   render() {
     const { arcSite, customFields } = this.props
