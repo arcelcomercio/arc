@@ -40,9 +40,9 @@ const HeaderChildElcomercio = props => {
               <li className={classes.headerFeaturedItem}>
                 <a href={`${contextPath}/archivo`}>Lo último</a>
               </li>
-              {sections.map(theme => (
-                <li className={classes.headerFeaturedItem} key={theme.url}>
-                  <a href={`${contextPath}${theme.url}`}>{theme.name}</a>
+              {sections.map(section => (
+                <li className={classes.headerFeaturedItem} key={section.url}>
+                  <a href={section.url}>{section.name}</a>
                 </li>
               ))}
             </ul>

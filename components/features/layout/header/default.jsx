@@ -24,7 +24,7 @@ class LayoutHeader extends PureComponent {
   }
 
   getNavigationSections() {
-    const { arcSite } = this.props
+    const { arcSite, contextPath } = this.props
 
     const source = 'navigation-by-hierarchy'
     const params = {
@@ -48,8 +48,7 @@ class LayoutHeader extends PureComponent {
       const auxList = children.map(el => {
         return {
           name: el.node_type === 'link' ? el.display_name : el.name,
-          url: el.node_type === 'link' ? el.url : el._id,
-          node_type: el.node_type,
+          url: el.node_type === 'link' ? el.url : `${contextPath}${el._id}`,
         }
       })
       this.setState({
