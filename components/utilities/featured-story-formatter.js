@@ -1,4 +1,4 @@
-import StoryData from '../utilities/story-data'
+import StoryData from './story-data'
 import {
   ResizeImageUrl
 } from './helpers'
