@@ -2,7 +2,6 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Schema from './_dependencies/schema'
-import NavBarDefault from './_children/navbar-default'
 import NavBarComercio from './_children/navbar-comercio'
 import NavBarDepor from './_children/navbar-depor'
 import NavBarTrome from './_children/navbar-trome'
@@ -42,12 +41,11 @@ class BarraTest extends Component {
 
   renderNavBar = (brand, data) => {
     const NavBarType = {
-      default: <NavBarDefault data={data} />,
       comercio: <NavBarComercio data={data} />,
       depor: <NavBarDepor data={data} />,
       trome: <NavBarTrome data={data} />,
     }
-    return NavBarType[brand] || NavBarType.default
+    return NavBarType[brand] || NavBarType.comercio
   }
 
   render() {
@@ -59,20 +57,14 @@ class BarraTest extends Component {
 
 BarraTest.propTypes = {
   customFields: PropTypes.shape({
-    selectDesing: PropTypes.oneOf([
-      'default',
-      'comercio',
-      'depor',
-      'trome',
-    ]).tag({
+    selectDesing: PropTypes.oneOf(['comercio', 'depor', 'trome']).tag({
       name: 'Modelo de NavBar',
       labels: {
-        default: 'default',
         comercio: 'comercio',
         depor: 'depor',
         trome: 'trome',
       },
-      defaultValue: 'default',
+      defaultValue: 'comercio',
     }),
   }),
 }
