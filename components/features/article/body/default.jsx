@@ -28,7 +28,8 @@ class ArticleBody extends PureComponent {
       credits: author,
       taxonomy,
     } = globalContent || {}
-
+    console.log(globalContent)
+    debugger
     return (
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
