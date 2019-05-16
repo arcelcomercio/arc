@@ -4,9 +4,9 @@ import { formatDate } from '../../../../utilities/helpers'
 /** TODO: Vale la pena usar moment? */
 
 const classes = {
-  author: 'article-body__author',
-  authorName: 'article-body__author-name',
-  authorDate: 'article-body__author-date',
+  author: 'article-body__author flex flex--justify-between',
+  authorName: 'article-body__author-info',
+  authorDate: 'article-body__author-date flex flex--align-center ',
   authorEmail: 'article-body__author-email',
 }
 
@@ -23,10 +23,10 @@ const ArticleBodyChildAuthor = props => {
     <div className={classes.author}>
       <div className={classes.authorName}>
         {name && <a href={url}>{name} </a>}
+      {email && <p className={classes.authorEmail}> {email} </p>}
       </div>
-      {email && <div className={classes.authorEmail}> {email} </div>}
       <div className={classes.authorDate}>
-        Actualizado {date && formatDate(date)}
+      <p>Actualizado {date && formatDate(date)}</p>
       </div>
     </div>
   )

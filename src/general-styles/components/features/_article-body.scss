@@ -111,4 +111,16 @@
       height: 100%;
     }
   }
+
+  /******* Autor *******/
+  &__author {
+    margin-bottom: 20px;
+    padding-top: 30px;
+  }
+  &__author-email{
+    font-size: $font-sm;
+  }
+  &__author-date{
+    font-size: 12px;
+  }
 }
