@@ -18,9 +18,7 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
       promo_items: promoItems,
       website_url: websiteUrl,
       headlines,
-      taxonomy: {
-        primary_section: { name, path },
-      },
+      taxonomy: { primary_section: { name, path } = {} } = {},
     },
   }) => {
     let numline = ''

@@ -79,6 +79,4 @@ class ArticleBody extends PureComponent {
 }
 
 ArticleBody.label = 'Artículo - contenido'
-ArticleBody.static = true
-
 export default ArticleBody

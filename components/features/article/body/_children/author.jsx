@@ -11,33 +11,24 @@ const classes = {
 }
 
 const ArticleBodyChildAuthor = props => {
-  const {
-    date,
-    data: {
-      by: [
-        {
-          name: nombre = '',
-          url,
-          additional_properties: {
-            original: { email },
-          },
-        },
-      ],
-    },
-  } = props
-  console.log(props)
+  const { date, data: { by } = {} } = props
+  const [
+    {
+      name,
+      url,
+      additional_properties: { original: { email = '' } = {} } = {},
+    } = {},
+  ] = by || []
   return (
-    nombre && (
-      <div className={classes.author}>
-        <div className={classes.authorName}>
-          {nombre && <a href={url}>{nombre} </a>}
-        </div>
-        <div className={classes.authorEmail}> {email} </div>
-        <div className={classes.authorDate}>
-          Actualizado {date && formatDate(date)}
-        </div>
+    <div className={classes.author}>
+      <div className={classes.authorName}>
+        {name && <a href={url}>{name} </a>}
       </div>
-    )
+      {email && <div className={classes.authorEmail}> {email} </div>}
+      <div className={classes.authorDate}>
+        Actualizado {date && formatDate(date)}
+      </div>
+    </div>
   )
 }
 
