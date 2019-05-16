@@ -26,9 +26,9 @@ class ExtraordinaryStoryGrid extends Component {
   } */
 
   componentDidUpdate() {
-    //console.log('this.isVideo', this.isVideo)
+    console.log('this.isVideo', this.isVideo)
     if (window.powaBoot && this.isVideo) {
-      //console.log('powaBoot')
+      console.log('powaBoot')
       window.powaBoot()
     }
   }
@@ -100,7 +100,7 @@ class ExtraordinaryStoryGrid extends Component {
       section3,
       section4,
     }
-    //console.log('render')
+    console.log('render')
     return <ExtraordinaryStoryGridChild {...params} />
   }
 }
