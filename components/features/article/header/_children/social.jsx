@@ -6,11 +6,12 @@ import {
 } from '../../../../utilities/helpers'
 
 const classes = {
-  news: 'article-header_share',
+  news: 'article-header__share flex flex--justify-between flex--align-center',
   breadcrumb: 'article-header__breadcrumb',
-  item: 'article-header--item',
+  item: 'article-header__item',
+  category: 'article-header__category',
   link: 'article-header__link flex-center-vertical flex--justify-center',
-  list: 'article-header__list flex',
+  list: 'article-header__list flex flex--justify-between',
 }
 @Consumer
 class ArticleHeaderChildSocial extends PureComponent {
@@ -31,25 +32,25 @@ class ArticleHeaderChildSocial extends PureComponent {
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'fb',
+          icon: 'icon-facebook',
           link: urlsShareList.facebook,
-          mobileClass: 'bg-color--blue',
+          mobileClass: 'flex flex--justify-center',
         },
 
         {
-          icon: 'tw',
+          icon: 'icon-twitter',
           link: urlsShareList.twitter,
-          mobileClass: 'bg-color--lightblue1',
+          mobileClass: 'flex flex--justify-center',
         },
         {
-          icon: 'in',
+          icon: 'icon-linkedin',
           link: urlsShareList.linkedin,
-          mobileClass: 'bg-color--navy-blue',
+          mobileClass: 'flex flex--justify-center',
         },
         {
-          icon: 'icon-pin',
+          icon: 'icon-ribbon',
           link: urlsShareList.pin,
-          mobileClass: 'bg-color--green',
+          mobileClass: 'flex flex--justify-center',
         },
       ],
     }
@@ -88,7 +89,7 @@ class ArticleHeaderChildSocial extends PureComponent {
     return (
       <Fragment>
         <div className={classes.news}>
-          <div className={classes.description}> {name}</div>
+          <div className={classes.category}> {name}</div>
           <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (
               <li className={`article-header__item ${item.mobileClass}`}>

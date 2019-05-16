@@ -103,6 +103,25 @@ $BGImageOrd: #4aa8fa;
       }
     }
   }
+  &__item{
+    width: 30px;
+    height: 30px;
+    background-color: $colorTextDescription;
+    border-radius: 50px;
+  }
+  &__link{
+    color: $color-white;
+  }
+  &__list{
+    width: 150px;
+  }
+  &__category{
+    text-transform: uppercase;
+  }
+  &__share{
+    border-bottom: 1px solid $color-silver;
+    padding-bottom: 15px;
+  }
 }
 
 .article-body {
