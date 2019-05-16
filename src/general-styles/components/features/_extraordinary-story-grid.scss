@@ -12,12 +12,16 @@
   background: #2e2e2e;
   padding: 80px 12px 12px;
   border-radius: 5px;
+  position: relative;
   @media (--tablet) {
     padding: 12px;
     max-width: 60%;
   }
   @media (--desktop) {
     width: 602px;
+  }
+  & .powa {
+    width: 100%;
   }
 }
 
