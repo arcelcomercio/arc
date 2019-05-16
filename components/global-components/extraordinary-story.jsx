@@ -1,5 +1,5 @@
 import React from 'react'
-import renderHTML from 'react-render-html'
+import EmbedMultimedia from './embed-multimedia'
 import { getIcon } from '../utilities/helpers'
 
 const classes = {
@@ -74,8 +74,11 @@ const ExtraordinaryStory = props => {
         </div>
       </div>
       <div className={classes.extraordinaryStoryMultimedia}>
-        {renderHTML(data.embedMultimedia)}
-        <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
+        <EmbedMultimedia
+          type={data.typeMultimediaGeneral}
+          title={data.title}
+          source={data.sourceMultimedia}
+        />
         {getMultimediaIcon(getIcon(multimediaType))}
       </div>
     </div>
