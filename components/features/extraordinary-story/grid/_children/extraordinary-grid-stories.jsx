@@ -5,8 +5,8 @@ import EmbedMultimedia from '../../../../global-components/embed-multimedia'
 const classes = {
   extraordinayStoryGridContainer:
     'extraordinary-story-grid flex position-relative',
-  videoBox: 'story-video-box flex-center-vertical',
-  gridContainer: 'stories-grid',
+  videoBox: 'story-video-box flex-center-vertical position-relative',
+  gridContainer: 'stories-grid full-width',
   gridHeaderText: 'stories-grid__text flex-center-vertical',
   gridHeaderImage: 'stories-grid__text-image',
   gridListTitle: 'stories-grid__title',
@@ -14,28 +14,28 @@ const classes = {
 }
 
 const ExtraordinaryStoryChildGridStories = props => {
-  const { section1, section2, section3, section4, dataStory } = props
-  dataStory.multimediaOrientation = 'grid'
+  const { section1, section2, section3, section4, storyData } = props
+  storyData.multimediaOrientation = 'grid'
 
   return (
     <div className={classes.extraordinayStoryGridContainer}>
       <div className={classes.videoBox}>
         <EmbedMultimedia
-          type={dataStory.typeMultimediaGeneral}
-          title={dataStory.title}
-          source={dataStory.sourceMultimedia}
+          type={storyData.typeMultimediaGeneral}
+          title={storyData.title}
+          source={storyData.sourceMultimedia}
         />
       </div>
       <div className={classes.gridContainer}>
         <div className={classes.gridHeaderText}>
-          Estas viendo
+          Estás viendo
           <img
             className={classes.gridHeaderImage}
             src="https://assets.peru21.pe/img/p21tv/logo_p21tv.png"
             alt=""
           />
         </div>
-        <h2 className={classes.gridListTitle}>Programas del dia</h2>
+        <h2 className={classes.gridListTitle}>Programas del día</h2>
         <div className={classes.gridListItems}>
           {section1.id !== '' && <SectionItem data={section1} />}
           {section2.id !== '' && <SectionItem data={section2} />}

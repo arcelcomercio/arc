@@ -1,24 +1,23 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import ExtraordinaryStoryGridChild from './_children/extraordinary-grid-stories'
+import ExtraordinaryGridStoryChild from './_children/extraordinary-grid-stories'
 import customFieldsExtern from './_dependencies/custom-fields'
 import { schemaStory, schemaSection } from './_dependencies/schemas-filter'
 import Data from '../_dependencies/data'
 import SectionData from '../../../utilities/section-data'
 
 @Consumer
-class ExtraordinaryStoryGrid extends Component {
+class ExtraordinaryStoryGrid extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      dataStory: {},
+      storyData: {},
       section1: {},
       section2: {},
       section3: {},
       section4: {},
     }
     this.isVideo = false
-
     this.initFetch()
   }
 
@@ -42,7 +41,7 @@ class ExtraordinaryStoryGrid extends Component {
     } = this.props
 
     if (multimediaService === Data.AUTOMATIC) {
-      this.fetch(urlStory, schemaStory(arcSite), 'dataStory')
+      this.fetch(urlStory, schemaStory(arcSite), 'storyData')
     }
 
     this.fetch(firstSection, schemaSection, 'section1')
@@ -73,31 +72,31 @@ class ExtraordinaryStoryGrid extends Component {
           this.setState({ [stateProperty]: response })
         })
         .catch(error => {
-          console.log(error)
+          console.error(error)
         })
     }
   }
 
   render() {
     const { arcSite, customFields } = this.props
-    const { dataStory, section1, section2, section3, section4 } = this.state
+    const { storyData, section1, section2, section3, section4 } = this.state
 
-    const formattedDataStory = new Data(customFields, dataStory, arcSite)
+    const formattedStoryData = new Data(customFields, storyData, arcSite)
     const formattedSection1 = new SectionData(section1, arcSite)
     const formattedSection2 = new SectionData(section2, arcSite)
     const formattedSection3 = new SectionData(section3, arcSite)
     const formattedSection4 = new SectionData(section4, arcSite)
-    this.isVideo = formattedDataStory.isVideo
+    this.isVideo = formattedStoryData.isVideo
 
     const params = {
       arcSite,
-      dataStory: formattedDataStory,
+      storyData: formattedStoryData,
       section1: formattedSection1,
       section2: formattedSection2,
       section3: formattedSection3,
       section4: formattedSection4,
     }
-    return <ExtraordinaryStoryGridChild {...params} />
+    return <ExtraordinaryGridStoryChild {...params} />
   }
 }
 
@@ -106,6 +105,5 @@ ExtraordinaryStoryGrid.propTypes = {
 }
 
 ExtraordinaryStoryGrid.label = 'Apertura extraordinaria con grilla'
-//ExtraordinaryStoryGrid.static = true
 
 export default ExtraordinaryStoryGrid

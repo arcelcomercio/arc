@@ -1,13 +1,13 @@
 import React from 'react'
 
-const ExtraordinayStoryGridArticleItem = props => {
-  const classes = {
-    itemContainer: 'stories-grid-item',
-    imageContainer: 'stories-grid-item__image-container',
-    image: 'full-width',
-    title: 'stories-grid-item__title text-left',
-  }
-  const { data } = props
+const classes = {
+  itemContainer: 'stories-grid-item',
+  imageContainer: 'stories-grid-item__image-container',
+  image: 'full-width',
+  title: 'stories-grid-item__title text-left',
+}
+
+const ExtraordinayStoryGridSectionItem = ({ data }) => {
   return (
     <div className={classes.itemContainer}>
       <a href={data.id}>
@@ -20,4 +20,4 @@ const ExtraordinayStoryGridArticleItem = props => {
   )
 }
 
-export default ExtraordinayStoryGridArticleItem
+export default ExtraordinayStoryGridSectionItem
