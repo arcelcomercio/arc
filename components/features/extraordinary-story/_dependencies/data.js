@@ -11,6 +11,8 @@ class Data extends StoryData {
 
   static AUTOMATIC = 'default'
 
+  static GOLDFISH_ENV = 'sandbox'
+
   constructor(customFields, data, website) {
     super(data, website)
     this.customFields = customFields
@@ -26,6 +28,10 @@ class Data extends StoryData {
 
   get multimediaOrientation() {
     return this.customFields.multimediaOrientation || 'bottom'
+  }
+
+  set multimediaOrientation(label) {
+    this.customFields.multimediaOrientation = label
   }
 
   get contentOrientation() {
@@ -61,87 +67,75 @@ class Data extends StoryData {
     return multimediaService !== Data.AUTOMATIC ? isVideoCustom : isVideoApi
   }
 
-  get embedMultimedia() {
-    return (
-      Data.multimediaCustomEmbed(
-        this.multimediaService,
-        this.multimediaSource,
-        this.title,
-        super.__website,
-        this.multimediaOrientation
-      ) ||
-      Data.multimediaFromApi(
-        this.multimediaType,
-        this.multimedia,
-        this.title,
-        this.video,
-        super.__website,
-        this.multimediaOrientation
-      )
+  get typeMultimediaGeneral() {
+    return Data.getTypeMultimediaGeneral(
+      this.multimediaService,
+      this.multimediaType
     )
   }
 
-  static multimediaCustomEmbed(
-    multimediaService,
-    multimediaSource,
-    title,
-    website,
-    orientation
-  ) {
-    let multimedia = ''
-    if (multimediaService === Data.GOLDFISH && multimediaSource !== '')
-      multimedia = this.videoGoldfish(multimediaSource)
-    else if (multimediaService === Data.YOUTUBE && multimediaSource !== '')
-      multimedia = this.videoYoutube(multimediaSource)
-    else if (multimediaService === Data.IMAGE && multimediaSource !== '')
-      multimedia = this.image(multimediaSource, title, website, orientation)
-    return multimedia || ''
-  }
-
-  static multimediaFromApi(
-    multimediaType,
-    multimedia,
-    title,
-    video,
-    website,
-    orientation
-  ) {
-    const multimediaFromApi = {
-      [ConfigParams.VIDEO]: video,
-      [ConfigParams.GALLERY]:
-        (multimedia && this.image(multimedia, title, website, orientation)) ||
-        '',
-      [ConfigParams.IMAGE]:
-        (multimedia && this.image(multimedia, title, website, orientation)) ||
-        '',
+  get sourceMultimedia() {
+    const {
+      // Custom config values
+      multimediaService,
+      multimediaSource,
+      multimediaOrientation,
+      // Story Data values
+      multimediaType,
+      videoId,
+      multimedia,
+    } = this
+    const multimediaTypeFeature = Data.getTypeMultimediaGeneral(
+      multimediaService,
+      multimediaType
+    )
+    let multimediaSourceFeature = multimediaSource
+    if (Data.AUTOMATIC === multimediaService) {
+      multimediaSourceFeature =
+        multimediaType === ConfigParams.VIDEO ? videoId : multimedia
     }
-    return (multimediaType !== '' && multimediaFromApi[multimediaType]) || ''
+    return Data.getSourceMultimedia(
+      multimediaTypeFeature,
+      multimediaSourceFeature,
+      super.__website,
+      multimediaOrientation
+    )
   }
 
-  static videoGoldfish(multimediaSource) {
-    return `<div
-      id="powa-${multimediaSource}"
-      data-env="sandbox"
-      data-api="sandbox"
-      data-org="elcomercio"
-      data-uuid="${multimediaSource}"
-      data-aspect-ratio="0.562"
-      className="powa">
-    </div>`
+  static getSourceMultimedia(multimediaType, multimedia, website, orientation) {
+    let multimediaContent = ''
+    if (
+      (multimediaType === ConfigParams.VIDEO ||
+        multimediaType === Data.YOUTUBE ||
+        multimediaType === Data.GOLDFISH) &&
+      multimedia !== ''
+    ) {
+      multimediaContent = multimedia
+    } else if (
+      (multimediaType === ConfigParams.GALLERY ||
+        multimediaType === Data.IMAGE) &&
+      multimedia !== ''
+    ) {
+      multimediaContent = this.resizeImg(multimedia, website, orientation) || ''
+    } else if (
+      (multimediaType === ConfigParams.IMAGE ||
+        multimediaType === Data.IMAGE) &&
+      multimedia !== ''
+    ) {
+      multimediaContent = this.resizeImg(multimedia, website, orientation) || ''
+    }
+    return multimediaContent
   }
 
-  static videoYoutube(url, width = '100%', height = '100%') {
-    const embedHtml = `<iframe 
-        width=${width}
-        height=${height} 
-        src=${url}
-        frameBorder="0" 
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-        allowFullScreen />`
-    return embedHtml
+  static getTypeMultimediaGeneral(multimediaService, multimediaType) {
+    let multimediaTypeFeature = multimediaService
+    if (Data.AUTOMATIC === multimediaService) {
+      multimediaTypeFeature = multimediaType
+    }
+    return multimediaTypeFeature
   }
 
-  static image(url, title, website, orientation) {
+  static resizeImg(url, website, orientation = 'original') {
     const resize = {
       top: {
         ratio: '9:16',
@@ -159,6 +153,10 @@ class Data extends StoryData {
         ratio: '4:3',
         size: '500x150',
       },
+      grid: {
+        ratio: '9:16',
+        size: '700x400',
+      },
     }
     const urlResize = ResizeImageUrl(
       website,
@@ -166,7 +164,7 @@ class Data extends StoryData {
       resize[orientation].ratio,
       resize[orientation].size
     )
-    return `<img src="${urlResize}" alt="${title}" />`
+    return urlResize
   }
 }
 
