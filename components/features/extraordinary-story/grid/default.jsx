@@ -22,17 +22,7 @@ class ExtraordinaryStoryGrid extends Component {
   }
 
   componentDidMount() {
-    console.log('asdad', this.isVideo)
     if (window.powaBoot && this.isVideo) {
-      console.log('powaa')
-      window.powaBoot()
-    }
-  }
-
-  componentDidUpdate() {
-    console.log('asdad', this.isVideo)
-    if (window.powaBoot && this.isVideo) {
-      console.log('powaa')
       window.powaBoot()
     }
   }
@@ -46,6 +36,7 @@ class ExtraordinaryStoryGrid extends Component {
       contentConfigValues: { website_url: websiteUrl = '' } = {},
     } = urlStory
 
+    // TODO: Validar todo los parametros del request de un customfield contentConfig
     if (
       (multimediaService === Data.AUTOMATIC || multimediaService === '') &&
       websiteUrl !== ''
