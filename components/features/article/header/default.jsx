@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import ArticleHeaderChildHeading from './_children/heading'
 import ArticleHeaderChildShareSubheading from './_children/subheading'
 import ArticleHeaderChildGallery from './_children/gallery'
@@ -10,7 +10,7 @@ const classes = {
   gallery: 'col-3',
 }
 @Consumer
-class ArticleHeader extends Component {
+class ArticleHeader extends PureComponent {
   render() {
     const { globalContent } = this.props
     const {
