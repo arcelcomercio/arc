@@ -15,7 +15,7 @@ class ArticleHeader extends Component {
     const { globalContent } = this.props
     const {
       website_url: baseUrl = '',
-      headlines: title = '',
+      headlines,
       promo_items: galleryItems = {},
     } = globalContent || {}
 
@@ -24,14 +24,13 @@ class ArticleHeader extends Component {
       galleryItems.basic_gallery &&
       typeof galleryItems.basic_gallery.content_elements !== 'undefined' &&
       true
-
     return (
       <Fragment>
         <div className={hasValueElements ? classes.gallery : classes.news}>
-          <ArticleHeaderChildSocial url={baseUrl} title={title} />
+          <ArticleHeaderChildSocial url={baseUrl} title={headlines} />
 
-          <ArticleHeaderChildHeading />
-          <ArticleHeaderChildShareSubheading />
+          <ArticleHeaderChildHeading data={globalContent} />
+          <ArticleHeaderChildShareSubheading data={globalContent} />
 
           {galleryItems &&
           galleryItems.basic_gallery &&
@@ -48,7 +47,7 @@ class ArticleHeader extends Component {
   }
 }
 
-ArticleHeader.static = true
+ArticleHeader.static = false
 ArticleHeader.label = 'Artículo - cabecera'
 
 export default ArticleHeader

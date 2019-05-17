@@ -13,7 +13,6 @@ const elementClasses = {
   content: 'amp-content',
   textClasses: 'amp-content__news-text',
   author: 'amp-content__author',
-  imageClasses: 'visual__image',
 }
 
 @Consumer

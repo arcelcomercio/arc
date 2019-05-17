@@ -4,8 +4,8 @@ import Image from '@arc-core-components/element_image'
 const classes = {
   gallery: 'article-gallery',
   galleryItem: 'article-gallery__item',
-  galleryNumber:'article-gallery__number flex-center',
-  image:'article-gallery__img',
+  galleryNumber: 'article-gallery__number flex-center',
+  image: 'article-gallery__img',
 }
 
 const ArticleHeaderChildGallery = props => {

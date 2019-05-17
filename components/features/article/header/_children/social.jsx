@@ -4,6 +4,7 @@ import {
   popUpWindow,
   socialMediaUrlShareList,
 } from '../../../../utilities/helpers'
+import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
   news: 'article-header__share flex flex--justify-between flex--align-center',
@@ -28,7 +29,12 @@ class ArticleHeaderChildSocial extends PureComponent {
         headlines: { basic: postTitle } = {},
       },
     } = props
-    const urlsShareList = socialMediaUrlShareList(postPermaLink, postTitle)
+    const pathUrl = ''
+    const urlsShareList = socialMediaUrlShareList(
+      postPermaLink,
+      postTitle,
+      pathUrl
+    )
     this.shareButtons = {
       [this.firstList]: [
         {
@@ -78,12 +84,7 @@ class ArticleHeaderChildSocial extends PureComponent {
   render() {
     const { currentList } = this.state
     const {
-      arcSite,
-      globalContent: {
-        taxonomy: {
-          primary_section: { name },
-        },
-      } = {},
+      globalContent: { taxonomy: { primary_section: { name } = {} } } = {},
     } = this.props
 
     return (
@@ -92,7 +93,9 @@ class ArticleHeaderChildSocial extends PureComponent {
           <div className={classes.category}> {name}</div>
           <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (
-              <li className={`article-header__item ${item.mobileClass}`}>
+              <li
+                key={UtilListKey(i)}
+                className={`article-header__item ${item.mobileClass}`}>
                 <a
                   className={classes.link}
                   href={item.link}
