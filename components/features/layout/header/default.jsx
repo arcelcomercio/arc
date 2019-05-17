@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import { setDevice } from '../../../utilities/resizer'
 
-import HeaderChildElcomercio from './_children/standard'
+import HeaderChildStandard from './_children/standard'
 
 @Consumer
 class LayoutHeader extends PureComponent {
@@ -86,10 +86,10 @@ class LayoutHeader extends PureComponent {
 
   renderHeader = (brand, params) => {
     const headerType = {
-      elcomercio: <HeaderChildElcomercio {...params} />,
+      standard: <HeaderChildStandard {...params} />,
       test: <div style={{ backgroundColor: 'red' }}>Prueba de cabecera</div>,
     }
-    return headerType[brand] || headerType.elcomercio
+    return headerType[brand] || headerType.standard
   }
 
   render() {
@@ -119,13 +119,13 @@ LayoutHeader.label = 'Cabecera de Página'
 
 LayoutHeader.propTypes = {
   customFields: PropTypes.shape({
-    headerType: PropTypes.oneOf(['elcomercio', 'test']).tag({
+    headerType: PropTypes.oneOf(['standard', 'test']).tag({
       name: 'Diseño de la cabecera',
       labels: {
-        elcomercio: 'Cabecera de "El Comercio"',
+        standard: 'Cabecera estándar',
         test: 'test',
       },
-      defaultValue: 'elcomercio',
+      defaultValue: 'standard',
     }),
   }),
 }
