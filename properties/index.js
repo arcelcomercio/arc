@@ -27,7 +27,7 @@ export default {
     },
     {
       name: 'depor.com',
-      arcSite: '',
+      arcSite: 'depor',
       url: 'https://depor.com/',
     },
     {
@@ -37,7 +37,7 @@ export default {
     },
     {
       name: 'publimetro.pe',
-      arcSite: '',
+      arcSite: 'publimetro',
       url: 'https://publimetro.pe/',
     },
     {

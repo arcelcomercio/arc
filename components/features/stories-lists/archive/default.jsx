@@ -8,31 +8,29 @@ import { getActualDate } from '../../../utilities/helpers'
 @Consumer
 class StoriesListArchive extends PureComponent {
   render() {
-    const { globalContent, arcSite } = this.props
+    const { globalContent, arcSite, contextPath } = this.props
     const {
       content_elements: contentElements,
-      params: { section, date },
+      params: { section, date } = {},
     } = globalContent || {}
-
-    const params = {
-      section,
-      date,
-      data: contentElements || [],
-      arcSite,
-    }
+    const stories = contentElements || []
 
     return (
       <Fragment>
         <div>
-          {params.data.map(story => (
+          {stories.map(story => (
             <StoryItem
               key={`Archivo-${story._id}`}
               data={story}
-              arcSite={params.arcSite}
+              arcSite={arcSite}
             />
           ))}
         </div>
-        <RenderPagination section={section} date={date || getActualDate()} />
+        <RenderPagination
+          section={section}
+          date={date || getActualDate()}
+          contextPath={contextPath}
+        />
       </Fragment>
     )
   }

@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this */
 import React, { PureComponent } from 'react'
-
 import { getActualDate } from '../utilities/helpers'
 
 const classes = {
@@ -83,16 +82,13 @@ class PaginationByDate extends PureComponent {
 
   // Obtener la fecha del path o devolver vacio
   getURL(index) {
-    const { section } = this.props
-    const { dateIterator } = this.state
-    const printSection = section
-    // eslint-disable-next-line no-restricted-globals
-    const { origin } = location
+    const { contextPath = '', section = 'todas' } = this.props
+    const { dateIterator = '' } = this.state
     return index || index === 0
       ? // Si viene un indice devuelvo localhost/archivo/seccion/fecha
-        `${origin}/archivo${printSection}/${dateIterator[index]}`
+        `${contextPath}/archivo/${section}/${dateIterator[index]}`
       : // Si no viene index devuelvo localhost/archivo/seccion
-        `${origin}/archivo${printSection}/`
+        `${contextPath}/archivo/${section}/`
   }
 
   // Devuelve el link del <Anterior> en pagination

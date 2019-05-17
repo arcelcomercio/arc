@@ -20,7 +20,7 @@ const StoriesListsCardChildMultimedia = ({ urlNews, promoItems }) => {
               srcSet={imagen}
               media="(max-width: 639px)"
             />
-            <img datatype="src" src={url} alt="" />
+            <img datatype="src" className="full-width" src={url} alt="" />
           </picture>
         </a>
       ) : null}
