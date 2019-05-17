@@ -2,7 +2,9 @@ body {
   background: $color-soft;
   overflow-x: hidden;
 }
-
+.article {
+  background: $color-white;
+}
 .amp-mode-mouse .flex--justify-center {
   max-width: 600px;
   margin: 0 auto;
