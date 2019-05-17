@@ -1,56 +1,36 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import { setDevice } from '../../../utilities/resizer'
+
 
 import HeaderChildElcomercio from './_children/elcomercio'
 import SomosAsideMenuContent from './_children/somos-aside-menu-content'
 import HeaderSomos from './_children/somos'
 
+import HeaderChildStandard from './_children/standard'
+
+
 @Consumer
 class LayoutHeader extends PureComponent {
   constructor(props) {
     super(props)
-    // ------ Checks if you are in desktop or not
     this.state = {
       device: setDevice(),
-      data: [],
+      sections: [],
     }
-    this.fetch()
   }
 
   componentDidMount() {
     // TODO: Si googleTagManager no ejecuta, descomentar.
     // const { googleTagManagerScript } = this.props.siteProperties
     window.addEventListener('resize', this._handleResize)
+    this.getNavigationSections()
   }
 
-  _handleResize = () => {
-    const wsize = window.innerWidth
-
-    // ------ Set the new state if you change from mobile to desktop
-    if (wsize >= 1024 && this.state.device !== 'desktop') {
-      this.setState({
-        device: 'desktop',
-      })
-      this.dispatchEvent('displayChange', this.state.device)
-      // ------ Set the new state if you change from desktop to mobile
-    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
-      this.setState({
-        device: 'tablet',
-      })
-      this.dispatchEvent('displayChange', this.state.device)
-    } else if (wsize < 640 && this.state.device !== 'mobile') {
-      // ------ Set the new state if you change from desktop to mobile
-      this.setState({
-        device: 'mobile',
-      })
-      this.dispatchEvent('displayChange', this.state.device)
-    }
-  }
-
-  fetch() {
-    const { arcSite } = this.props
+  getNavigationSections() {
+    const { arcSite, contextPath } = this.props
 
     const source = 'navigation-by-hierarchy'
     const params = {
@@ -66,35 +46,82 @@ class LayoutHeader extends PureComponent {
         node_type
       }
     }`
-
     const { fetched } = this.getContent(source, params, schema)
-
+    const link = 'link'
     fetched.then(response => {
       const { children = [] } = response || {}
       const auxList = children.map(el => {
         return {
-          name: el.node_type === 'link' ? el.display_name : el.name,
-          url: el.node_type === 'link' ? el.url : el._id,
-          node_type: el.node_type,
+          name: el.node_type === link ? el.display_name : el.name,
+          url: el.node_type === link ? el.url : `${contextPath}${el._id}`,
         }
       })
       this.setState({
-        data: auxList || [],
+        sections: auxList || [],
       })
     })
   }
 
+  _handleResize = () => {
+    const wsize = window.innerWidth
+    const mobile = 'mobile'
+    const desktop = 'desktop'
+    const tablet = 'tablet'
+    const displayChangeEvent = 'displayChange'
+
+    // ------ Set the new state if you change from mobile to desktop
+    if (wsize >= 1024 && this.state.device !== desktop) {
+      this.setState({
+        device: desktop,
+      })
+      this.dispatchEvent(displayChangeEvent, this.state.device)
+      // ------ Set the new state if you change from desktop to mobile
+    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== tablet) {
+      this.setState({
+        device: tablet,
+      })
+      this.dispatchEvent(displayChangeEvent, this.state.device)
+    } else if (wsize < 640 && this.state.device !== mobile) {
+      // ------ Set the new state if you change from desktop to mobile
+      this.setState({
+        device: mobile,
+      })
+      this.dispatchEvent(displayChangeEvent, this.state.device)
+    }
+  }
+
+  renderHeader = (brand, params) => {
+    const headerType = {
+      standard: <HeaderChildStandard {...params} />,
+      test: <div style={{ backgroundColor: 'red' }}>Prueba de cabecera</div>,
+    }
+    return headerType[brand] || headerType.standard
+  }
+
   render() {
-    const { data, device } = this.state
+    const { sections, device } = this.state
     const {
       contextPath,
       arcSite,
       deployment,
       siteProperties: { siteDomain },
+      customFields: { headerType },
     } = this.props
-    const params = { data, siteDomain, deployment, contextPath, arcSite }
 
+<<<<<<< HEAD
     return <SomosAsideMenuContent {...params} />
+=======
+    const params = {
+      sections,
+      siteDomain,
+      deployment,
+      contextPath,
+      arcSite,
+      device,
+    }
+
+    return this.renderHeader(headerType, params)
+>>>>>>> Sprint08
   }
 }
 
@@ -102,5 +129,18 @@ class LayoutHeader extends PureComponent {
 //return device === 'desktop' && <HeaderChildElcomercio {...params} />
 
 LayoutHeader.label = 'Cabecera de Página'
+
+LayoutHeader.propTypes = {
+  customFields: PropTypes.shape({
+    headerType: PropTypes.oneOf(['standard', 'test']).tag({
+      name: 'Diseño de la cabecera',
+      labels: {
+        standard: 'Cabecera estándar',
+        test: 'test',
+      },
+      defaultValue: 'standard',
+    }),
+  }),
+}
 
 export default LayoutHeader

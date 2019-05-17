@@ -9,7 +9,7 @@ import StoryFormatter from '../../../utilities/featured-story-formatter'
 class CardFeaturedStoryManual extends PureComponent {
   constructor(props) {
     super(props)
-    this.storyFormatter = new StoryFormatter(props.arcSite)
+    this.storyFormatter = new StoryFormatter(props.arcSite, props.contextPath)
     this.state = this.storyFormatter.initialState
     this.fetch()
   }
