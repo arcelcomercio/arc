@@ -41,10 +41,15 @@ class ExtraordinaryStoryGrid extends PureComponent {
     } = this.props
 
     if (multimediaService === Data.AUTOMATIC) {
-      const { fetched: fetchStory } = this.fetch(urlStory, storySchema(arcSite))
-      fetchStory.then(response => {
-        this.setState({ storyData: response })
-      })
+      const { fetched } = this.fetch(urlStory, storySchema(arcSite))
+      if (fetched)
+        fetched
+          .then(response => {
+            this.setState({ storyData: response })
+          })
+          .catch(err => {
+            throw new Error(err)
+          })
     }
 
     Promise.all([
@@ -52,16 +57,21 @@ class ExtraordinaryStoryGrid extends PureComponent {
       this.fetch(secondSection, sectionSchema),
       this.fetch(thirdSection, sectionSchema),
       this.fetch(fourthSection, sectionSchema),
-    ]).then(response => {
-      const jsonSections = {}
-      response.forEach((resp, index) => {
-        const { cached: data } = resp
-        if (data) {
-          jsonSections[`section${index + 1}`] = data
-        }
+    ])
+      .then(response => {
+        const jsonSections = {}
+        response.forEach((resp, index) => {
+          const { cached: data } = resp
+          // NO TOCAR: BY CARLOS
+          if (data) jsonSections[`section${index + 1}`] = { ...data }
+          else jsonSections[`section${index + 1}`] = {}
+        })
+        this.setState(jsonSections)
+        // AHORA SI PUEDES TOCAR
       })
-      this.setState(jsonSections)
-    })
+      .catch(err => {
+        throw new Error(err)
+      })
   }
 
   fetch(contentConfig, schema) {
