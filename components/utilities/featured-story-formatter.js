@@ -2,8 +2,9 @@ import StoryData from './story-data'
 import { ResizeImageUrl } from './helpers'
 
 class FeaturedStoryFormatter {
-  constructor(arcSite = '') {
+  constructor(arcSite = '', contextPath = '') {
     this.arcSite = arcSite
+    this.contextPath = contextPath
     this.schema = `{ 
       headlines { basic }
       credits {
@@ -31,6 +32,7 @@ class FeaturedStoryFormatter {
           website_url
         }
       }
+      website_url
     }`
     this.initialState = {
       category: {
@@ -78,13 +80,17 @@ class FeaturedStoryFormatter {
     }
 
     newState.category.name = this.storyDataInstace.section
-    newState.category.url = this.storyDataInstace.sectionLink
+    newState.category.url = `${this.contextPath}${
+      this.storyDataInstace.sectionLink
+    }`
 
     newState.title.name = this.storyDataInstace.title
-    newState.title.url = this.storyDataInstace.link
+    newState.title.url = `${this.contextPath}${this.storyDataInstace.link}`
 
     newState.author.name = this.storyDataInstace.author
-    newState.author.url = this.storyDataInstace.authorLink
+    newState.author.url = `${this.contextPath}${
+      this.storyDataInstace.authorLink
+    }`
 
     newState.image = this.getImgUrl(size, imageSize, imgField)
     newState.multimediaType = this.storyDataInstace.multimediaType
