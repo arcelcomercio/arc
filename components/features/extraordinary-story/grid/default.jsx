@@ -25,20 +25,13 @@ class ExtraordinaryStoryGrid extends PureComponent {
     if (window.powaBoot && this.isVideo) {
       window.powaBoot()
     }
+    console.log(this.state)
   }
 
   initFetch = () => {
-    const {
-      customFields: {
-        urlStory = {},
-        multimediaService = '',
-        firstSection = {},
-        secondSection = {},
-        thirdSection = {},
-        fourthSection = {},
-      } = {},
-      arcSite = '',
-    } = this.props
+    const { customFields: customFieldsData = {}, arcSite = '' } = this.props
+
+    const { urlStory = {}, multimediaService = '' } = customFieldsData
 
     if (multimediaService === Data.AUTOMATIC) {
       const { fetched: fetchStory } = this.fetch(urlStory, storySchema(arcSite))
@@ -47,21 +40,42 @@ class ExtraordinaryStoryGrid extends PureComponent {
       })
     }
 
-    Promise.all([
-      this.fetch(firstSection, sectionSchema),
-      this.fetch(secondSection, sectionSchema),
-      this.fetch(thirdSection, sectionSchema),
-      this.fetch(fourthSection, sectionSchema),
-    ]).then(response => {
-      const jsonSections = {}
-      response.forEach((resp, index) => {
-        const { cached: data } = resp
-        if (data) {
-          jsonSections[`section${index + 1}`] = data
-        }
-      })
-      this.setState(jsonSections)
-    })
+    const sections = {}
+    const sectionsFetch = []
+    for (let i = 1; i <= 4; i++) {
+      const { contentConfigValues: { _id = '' } = {} } =
+        customFieldsData[`section${i}`] || {}
+      if (_id !== '') {
+        sections[`section${i}`] = _id
+        sectionsFetch.push(
+          this.fetch(customFieldsData[`section${i}`], sectionSchema)
+        )
+      }
+    }
+
+    if (sectionsFetch.length > 0) {
+      Promise.all(sectionsFetch)
+        .then(response => {
+          console.log('RESPONSE', response)
+          const jsonSections = {}
+          response.forEach(resp => {
+            const { cached: data = {}, fetched } = resp
+            console.log('FETCHED', fetched)
+            const sectionActive = Object.keys(sections)[
+              Object.values(sections).indexOf(data._id)
+            ]
+            // NO TOCAR: BY CARLOS
+            if (data) jsonSections[sectionActive] = { ...data }
+            else jsonSections[sectionActive] = {}
+          })
+
+          this.setState(jsonSections)
+          // AHORA SI PUEDES TOCAR*/
+        })
+        .catch(err => {
+          throw new Error(err)
+        })
+    }
   }
 
   fetch(contentConfig, schema) {
@@ -78,7 +92,9 @@ class ExtraordinaryStoryGrid extends PureComponent {
     if (hasSection || hasStory) {
       return this.getContent(contentService, contentConfigValues, schema)
     }
-    return {}
+    return new Promise((resolve, reject) => {
+      reject(new Error('Url empty'))
+    })
   }
 
   render() {
