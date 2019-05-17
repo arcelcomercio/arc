@@ -2,6 +2,15 @@
   background-color: #e8f2f7;
   padding: 30px;
 
+  ul,
+  ol {
+    list-style: initial;
+  }
+  li {
+    padding: 5px 0;
+    margin-left: 20px;
+  }
+
   &__arrow {
     left: 50%;
     margin-left: -21px;

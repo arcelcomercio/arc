@@ -30,7 +30,3 @@ body {
   cursor: pointer;
   opacity: 0.9;
 }
-ol li::before,
-ul li::before {
-  content: '' !important;
-}
