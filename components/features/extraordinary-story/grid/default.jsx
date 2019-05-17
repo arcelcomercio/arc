@@ -56,21 +56,26 @@ class ExtraordinaryStoryGrid extends PureComponent {
     if (sectionsFetch.length > 0) {
       Promise.all(sectionsFetch)
         .then(response => {
-          console.log('RESPONSE', response)
           const jsonSections = {}
-          response.forEach(resp => {
-            const { cached: data = {}, fetched } = resp
-            console.log('FETCHED', fetched)
-            const sectionActive = Object.keys(sections)[
-              Object.values(sections).indexOf(data._id)
-            ]
-            // NO TOCAR: BY CARLOS
-            if (data) jsonSections[sectionActive] = { ...data }
-            else jsonSections[sectionActive] = {}
-          })
+          response.forEach(prom => {
+            const { fetched } = prom
+            console.log('FETCHED', fetched, prom)
 
-          this.setState(jsonSections)
-          // AHORA SI PUEDES TOCAR*/
+            prom
+              .then(resp => {
+                console.log('RESP THEN', resp)
+                const { _id = '' } = resp
+                const sectionActive = Object.keys(sections)[
+                  Object.values(sections).indexOf(_id)
+                ]
+                jsonSections[sectionActive] = resp
+              })
+              .catch(err => console.log(err))
+          })
+          console.log('JSON', jsonSections)
+
+          this.setState({ ...jsonSections })
+          console.log('STATE', this.state)
         })
         .catch(err => {
           throw new Error(err)
@@ -101,6 +106,7 @@ class ExtraordinaryStoryGrid extends PureComponent {
     const { arcSite, customFields: customFieldsData } = this.props
     const { storyData, section1, section2, section3, section4 } = this.state
 
+    console.log('RENDER', section2)
     const formattedStoryData = new Data(customFieldsData, storyData, arcSite)
     const formattedSection1 = new SectionData(section1, arcSite)
     const formattedSection2 = new SectionData(section2, arcSite)
@@ -108,6 +114,7 @@ class ExtraordinaryStoryGrid extends PureComponent {
     const formattedSection4 = new SectionData(section4, arcSite)
     this.isVideo = formattedStoryData.isVideo
 
+    console.log('RENDER FORMATO', formattedSection2.image)
     const params = {
       arcSite,
       storyData: formattedStoryData,
