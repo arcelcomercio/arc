@@ -32,7 +32,7 @@ class ExtraordinaryStoryGrid extends PureComponent {
 
     const { urlStory = {}, multimediaService = '' } = customFieldsData
 
-    if (multimediaService === Data.AUTOMATIC) {
+    if (multimediaService === Data.AUTOMATIC || multimediaService === '') {
       const { fetched: fetchStory } = this.fetch(urlStory, storySchema(arcSite))
       fetchStory.then(response => {
         this.setState({ storyData: response })
