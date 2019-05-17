@@ -25,7 +25,6 @@ class ExtraordinaryStoryGrid extends PureComponent {
     if (window.powaBoot && this.isVideo) {
       window.powaBoot()
     }
-    console.log(this.state)
   }
 
   initFetch = () => {
@@ -47,35 +46,26 @@ class ExtraordinaryStoryGrid extends PureComponent {
         customFieldsData[`section${i}`] || {}
       if (_id !== '') {
         sections[`section${i}`] = _id
-        sectionsFetch.push(
-          this.fetch(customFieldsData[`section${i}`], sectionSchema)
+        const { fetched } = this.fetch(
+          customFieldsData[`section${i}`],
+          sectionSchema
         )
+        sectionsFetch.push(fetched)
       }
     }
 
     if (sectionsFetch.length > 0) {
       Promise.all(sectionsFetch)
-        .then(response => {
+        .then(results => {
           const jsonSections = {}
-          response.forEach(prom => {
-            const { fetched } = prom
-            console.log('FETCHED', fetched, prom)
-
-            prom
-              .then(resp => {
-                console.log('RESP THEN', resp)
-                const { _id = '' } = resp
-                const sectionActive = Object.keys(sections)[
-                  Object.values(sections).indexOf(_id)
-                ]
-                jsonSections[sectionActive] = resp
-              })
-              .catch(err => console.log(err))
+          results.forEach(res => {
+            const { _id = '' } = res
+            const sectionActive = Object.keys(sections)[
+              Object.values(sections).indexOf(_id)
+            ]
+            jsonSections[sectionActive] = res
           })
-          console.log('JSON', jsonSections)
-
-          this.setState({ ...jsonSections })
-          console.log('STATE', this.state)
+          this.setState(jsonSections)
         })
         .catch(err => {
           throw new Error(err)
@@ -94,19 +84,17 @@ class ExtraordinaryStoryGrid extends PureComponent {
         'website_url'
       ) && contentConfigValues.website_url !== ''
 
-    if (hasSection || hasStory) {
-      return this.getContent(contentService, contentConfigValues, schema)
-    }
-    return new Promise((resolve, reject) => {
-      reject(new Error('Url empty'))
-    })
+    return hasSection || hasStory
+      ? this.getContent(contentService, contentConfigValues, schema)
+      : new Promise((resolve, reject) => {
+          reject(new Error('Url empty'))
+        })
   }
 
   render() {
-    const { arcSite, customFields: customFieldsData } = this.props
+    const { arcSite, contextPath, customFields: customFieldsData } = this.props
     const { storyData, section1, section2, section3, section4 } = this.state
 
-    console.log('RENDER', section2)
     const formattedStoryData = new Data(customFieldsData, storyData, arcSite)
     const formattedSection1 = new SectionData(section1, arcSite)
     const formattedSection2 = new SectionData(section2, arcSite)
@@ -114,9 +102,8 @@ class ExtraordinaryStoryGrid extends PureComponent {
     const formattedSection4 = new SectionData(section4, arcSite)
     this.isVideo = formattedStoryData.isVideo
 
-    console.log('RENDER FORMATO', formattedSection2.image)
     const params = {
-      arcSite,
+      contextPath,
       storyData: formattedStoryData,
       section1: formattedSection1,
       section2: formattedSection2,
