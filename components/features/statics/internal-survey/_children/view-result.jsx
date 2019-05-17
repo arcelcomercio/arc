@@ -10,7 +10,7 @@ const classes = {
 }
 
 const SurveytChildViewResul = props => {
-  const { choices } = props
+  const { choices, sharelinks: { facebook = '', twitter = '' } = {} } = props
   const values = choices.map(el => el.votes)
   const total = values.reduce((acc, curr) => acc + curr)
   const maxValue = values.indexOf(Math.max(...values))
@@ -34,8 +34,8 @@ const SurveytChildViewResul = props => {
           })}
       </ul>
       <ul className={classes.share}>
-        <ItemShare socialnetwork="F" url="facebook.com" />
-        <ItemShare socialnetwork="T" url="twitter.com" />
+        <ItemShare socialnetwork="F" url={facebook} />
+        <ItemShare socialnetwork="T" url={twitter} />
       </ul>
     </div>
   )

@@ -130,6 +130,10 @@
   background-color: $color-dark;
   color: $color-white;
 }
+.bg-color--gray {
+  background-color: $color-gray;
+  color: $color-white;
+}
 
 /******************************************/
 
@@ -159,17 +163,21 @@
   padding: 8px 16px;
   margin: 0 4px;
   line-height: 16px;
+  font-family: $primary-font;
   cursor: pointer;
+  &--small {
+    font-size: 9px;
+    padding: 4px 6px;
+  }
 }
 
 /*****************************************/
-/******************************************/
 
 /******** FONTS **********/
 
-.primary-font{
+.primary-font {
   font-family: $primary-font;
 }
-.secondary-font{
+.secondary-font {
   font-family: $secondary-font;
 }

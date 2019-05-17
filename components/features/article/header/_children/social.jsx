@@ -24,16 +24,17 @@ class ArticleHeaderChildSocial extends PureComponent {
       currentList: this.firstList,
     }
     const {
+      siteUrl,
       globalContent: {
         website_url: postPermaLink,
         headlines: { basic: postTitle } = {},
       },
     } = props
-    const pathUrl = ''
+
     const urlsShareList = socialMediaUrlShareList(
+      siteUrl,
       postPermaLink,
-      postTitle,
-      pathUrl
+      postTitle
     )
     this.shareButtons = {
       [this.firstList]: [

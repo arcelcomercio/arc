@@ -123,8 +123,7 @@ class StoryData {
     return (this._data && this._data.first_publish_date) || ''
   }
 
-  static videoId() {
-    // FIXME
+  get videoId() {
     return (
       (this._data &&
         this._data.promo_items &&
@@ -191,7 +190,7 @@ class StoryData {
     const path = sectionData.path || ''
     return {
       name: section,
-      path
+      path,
     }
   }
 

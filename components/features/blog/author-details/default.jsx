@@ -18,6 +18,6 @@ class BlogAuthorDetails extends PureComponent {
 }
 
 BlogAuthorDetails.label = 'Blog - Detalles del autor'
-BlogAuthorDetails.static = true
+//BlogAuthorDetails.static = true
 
 export default BlogAuthorDetails

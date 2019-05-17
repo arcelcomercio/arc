@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import SurveyInternalChildSurvey from './_children/survey'
-import { setSurveyCookie, getCookie } from '../../../utilities/helpers'
+import {
+  setSurveyCookie,
+  getCookie,
+  socialMediaUrlShareList,
+} from '../../../utilities/helpers'
 
 @Consumer
 class StaticInternalSurvey extends PureComponent {
@@ -11,6 +15,8 @@ class StaticInternalSurvey extends PureComponent {
     const { globalContent: { id = '' } = {} } = this.props
     this.currentSurveyId = id
     this.hasVote = getCookie(`idpoll${this.currentSurveyId}`) || false
+
+    this.sharelinks()
   }
 
   getResults = () => {
@@ -55,6 +61,16 @@ class StaticInternalSurvey extends PureComponent {
     })
   }
 
+  sharelinks = () => {
+    const { siteProperties:{siteUrl =''} ={}, requestUri='', globalContent:{title=''}={} } = this.props
+
+    
+    const { facebook, twitter } = socialMediaUrlShareList(siteUrl,requestUri, title)
+
+    return {facebook, twitter}
+
+  }
+
   render() {
     const { globalContent, arcSite, contextPath } = this.props
     const {
@@ -76,6 +92,7 @@ class StaticInternalSurvey extends PureComponent {
       hasVote: this.hasVote,
       sendQuiz: this.sendQuiz,
       getResults: this.getResults,
+      sharelinks: this.sharelinks()
     }
     return <SurveyInternalChildSurvey {...params} />
   }

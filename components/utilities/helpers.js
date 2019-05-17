@@ -258,19 +258,15 @@ export const popUpWindow = (url, title, w, h) => {
 }
 
 // TODO: Agregar parámetro para que soporte links variables por marca, así cmo el twitter de la marca
-export const socialMediaUrlShareList = (
-  postPermaLink,
-  postTitle,
-  pathUrl = 'http://gestion.pe/blog/'
-) => {
+export const socialMediaUrlShareList = (siteUrl, postPermaLink, postTitle) => {
   return {
-    facebook: `http://www.facebook.com/sharer.php?u=${pathUrl}${postPermaLink}`,
+    facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${postPermaLink}`,
     twitter: `http://twitter.com/home?status=${encodeURIComponent(
       postTitle
-    )}+${pathUrl}${postPermaLink}+via%20@Gestionpe`,
-    linkedin: `http://www.linkedin.com/shareArticle?url=${pathUrl}${postPermaLink}`,
-    pinterest: `https://pinterest.com/pin/create/button/?url=${pathUrl}${postPermaLink}`,
-    whatsapp: `whatsapp://send?text=${pathUrl}${postPermaLink}`,
+    )}+${siteUrl}${postPermaLink}+via%20@Gestionpe`,
+    linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
+    pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
+    whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
   }
 }
 
