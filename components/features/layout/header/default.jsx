@@ -40,15 +40,14 @@ class LayoutHeader extends PureComponent {
         node_type
       }
     }`
-
     const { fetched } = this.getContent(source, params, schema)
-
+    const link = 'link'
     fetched.then(response => {
       const { children = [] } = response || {}
       const auxList = children.map(el => {
         return {
-          name: el.node_type === 'link' ? el.display_name : el.name,
-          url: el.node_type === 'link' ? el.url : `${contextPath}${el._id}`,
+          name: el.node_type === link ? el.display_name : el.name,
+          url: el.node_type === link ? el.url : `${contextPath}${el._id}`,
         }
       })
       this.setState({
@@ -59,25 +58,29 @@ class LayoutHeader extends PureComponent {
 
   _handleResize = () => {
     const wsize = window.innerWidth
+    const mobile = 'mobile'
+    const desktop = 'desktop'
+    const tablet = 'tablet'
+    const displayChangeEvent = 'displayChange'
 
     // ------ Set the new state if you change from mobile to desktop
-    if (wsize >= 1024 && this.state.device !== 'desktop') {
+    if (wsize >= 1024 && this.state.device !== desktop) {
       this.setState({
-        device: 'desktop',
+        device: desktop,
       })
-      this.dispatchEvent('displayChange', this.state.device)
+      this.dispatchEvent(displayChangeEvent, this.state.device)
       // ------ Set the new state if you change from desktop to mobile
-    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== 'tablet') {
+    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== tablet) {
       this.setState({
-        device: 'tablet',
+        device: tablet,
       })
-      this.dispatchEvent('displayChange', this.state.device)
-    } else if (wsize < 640 && this.state.device !== 'mobile') {
+      this.dispatchEvent(displayChangeEvent, this.state.device)
+    } else if (wsize < 640 && this.state.device !== mobile) {
       // ------ Set the new state if you change from desktop to mobile
       this.setState({
-        device: 'mobile',
+        device: mobile,
       })
-      this.dispatchEvent('displayChange', this.state.device)
+      this.dispatchEvent(displayChangeEvent, this.state.device)
     }
   }
 

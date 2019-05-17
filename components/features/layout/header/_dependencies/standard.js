@@ -1,6 +1,6 @@
 export default class StandardHeader {
   constructor() {
-    this.data = 'hola mundo'
+    this.data = 'test'
   }
 
   foo() {
