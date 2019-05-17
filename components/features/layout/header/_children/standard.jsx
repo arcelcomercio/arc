@@ -8,7 +8,7 @@ const classes = {
   headerFeaturedItem: 'flex-center header__item',
 }
 
-const HeaderChildElcomercio = props => {
+const HeaderChildStandard = props => {
   const {
     deployment,
     siteDomain,
@@ -53,7 +53,7 @@ const HeaderChildElcomercio = props => {
   )
 }
 
-HeaderChildElcomercio.propTypes = {
+HeaderChildStandard.propTypes = {
   sections: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -67,4 +67,4 @@ HeaderChildElcomercio.propTypes = {
   isDesktop: PropTypes.bool,
 }
 
-export default HeaderChildElcomercio
+export default HeaderChildStandard
