@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import ExtraordinaryStoryGridChild from './_children/extraordinary-story-grid'
 import customFields from './_dependencies/custom-fields'
@@ -7,7 +7,7 @@ import Data from '../_dependencies/data'
 import SectionData from '../../../utilities/section-data'
 
 @Consumer
-class ExtraordinaryStoryGrid extends PureComponent {
+class ExtraordinaryStoryGrid extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -22,7 +22,9 @@ class ExtraordinaryStoryGrid extends PureComponent {
   }
 
   componentDidUpdate() {
+    console.log('componentDidUpdate')
     if (window.powaBoot && this.isVideo) {
+      console.log('powaa')
       window.powaBoot()
     }
   }
@@ -30,10 +32,20 @@ class ExtraordinaryStoryGrid extends PureComponent {
   initFetch = () => {
     const { customFields: customFieldsData = {}, arcSite = '' } = this.props
 
-    const { urlStory = {}, multimediaService = '' } = customFieldsData
+    const {
+      urlStory = {},
+      multimediaService = '',
+      multimediaSource = '',
+    } = customFieldsData
 
-    if (multimediaService === Data.AUTOMATIC || multimediaService === '') {
-      const { fetched: fetchStory } = this.fetch(urlStory, storySchema(arcSite))
+    if (
+      (multimediaService === Data.AUTOMATIC || multimediaService === '') &&
+      multimediaSource !== ''
+    ) {
+      const { fetched: fetchStory = {} } = this.fetch(
+        urlStory,
+        storySchema(arcSite)
+      )
       fetchStory.then(response => {
         this.setState({ storyData: response })
       })
