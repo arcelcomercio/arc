@@ -4,30 +4,31 @@ window.pluginOptions = {
   maxHeight: '700px',
 }
 
-function main({
-  initVal,
-  onClose,
-  onSave
-}) {
+function main({ initVal, onClose, onSave }) {
   // eslint-disable-next-line no-undef
   const editor = new Quill('#editor', {
     modules: {
       toolbar: [
-        [{
-          header: [1, 2, 3, 4, 5, 6, false]
-        }],
+        [
+          {
+            header: [1, 2, 3, 4, 5, 6, false],
+          },
+        ],
         ['bold', 'italic', 'underline'],
-        [{
-          list: 'ordered'
-        }, {
-          list: 'bullet'
-        }],
+        [
+          {
+            list: 'ordered',
+          },
+          {
+            list: 'bullet',
+          },
+        ],
       ],
     },
     theme: 'snow',
   })
 
-  editor.editor.scroll.domNode.innerHTML = initVal
+  editor.clipboard.dangerouslyPasteHTML(initVal)
 
   document.getElementById('btn_save').addEventListener('click', () => {
     onSave(editor.editor.scroll.domNode.innerHTML)
