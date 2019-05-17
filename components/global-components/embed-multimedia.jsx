@@ -34,7 +34,6 @@ const EmbedMultimedia = props => {
           data-aspect-ratio="0.562"
           className="powa"
         />
-        <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
       </Fragment>
     )
   }

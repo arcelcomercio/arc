@@ -32,6 +32,7 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
           title={storyData.title}
           source={storyData.sourceMultimedia}
         />
+        <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" /> 
       </div>
       <div className={classes.gridContainer}>
         <div className={classes.gridHeaderText}>

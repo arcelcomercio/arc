@@ -21,8 +21,16 @@ class ExtraordinaryStoryGrid extends Component {
     this.initFetch()
   }
 
+  componentDidMount() {
+    console.log('asdad', this.isVideo)
+    if (window.powaBoot && this.isVideo) {
+      console.log('powaa')
+      window.powaBoot()
+    }
+  }
+
   componentDidUpdate() {
-    console.log('componentDidUpdate')
+    console.log('asdad', this.isVideo)
     if (window.powaBoot && this.isVideo) {
       console.log('powaa')
       window.powaBoot()
@@ -32,15 +40,15 @@ class ExtraordinaryStoryGrid extends Component {
   initFetch = () => {
     const { customFields: customFieldsData = {}, arcSite = '' } = this.props
 
+    const { urlStory = {}, multimediaService = '' } = customFieldsData
+
     const {
-      urlStory = {},
-      multimediaService = '',
-      multimediaSource = '',
-    } = customFieldsData
+      contentConfigValues: { website_url: websiteUrl = '' } = {},
+    } = urlStory
 
     if (
       (multimediaService === Data.AUTOMATIC || multimediaService === '') &&
-      multimediaSource !== ''
+      websiteUrl !== ''
     ) {
       const { fetched: fetchStory = {} } = this.fetch(
         urlStory,
