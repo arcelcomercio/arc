@@ -24,14 +24,14 @@ class BlogPostHeader extends PureComponent {
     this.state = {
       currentList: this.firstList,
     }
-    const { globalContent } = props
+    const { globalContent,siteUrl } = props
     const {
       post: {
         post_permalink: postPermaLink = '',
         post_title: postTitle = '',
       } = {},
     } = globalContent || {}
-    const urlsShareList = socialMediaUrlShareList(postPermaLink, postTitle)
+    const urlsShareList = socialMediaUrlShareList(siteUrl,postPermaLink, postTitle)
     this.shareButtons = {
       [this.firstList]: [
         {

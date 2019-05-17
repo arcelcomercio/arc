@@ -93,6 +93,7 @@ class SurveyInternalChildSurvey extends Component {
       next,
       contextPath,
       arcSite,
+      sharelinks,
     } = this.props
 
     const WEBSITE = `?_website=${arcSite}`
@@ -151,7 +152,7 @@ class SurveyInternalChildSurvey extends Component {
         </div>
         <div className={classes.result}>
           {flagViewResult && optionsList && (
-            <ViewResult choices={optionsList} />
+            <ViewResult choices={optionsList}  sharelinks={sharelinks}/>
           )}
           {flagViewSurveyConfirm && (
             <ViewSurveyConfirm handleOnClickViewResult={this.viewResult} />
