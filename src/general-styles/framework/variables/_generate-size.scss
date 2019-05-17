@@ -1,0 +1,25 @@
+/******* Iterar fuentes de parrafo *******/
+@each $text, $value in $map-font {
+  @if $text == 'text' {
+    .#{$text} {
+      font-size: $value;
+    }
+  } @else {
+    .text-#{$text} {
+      font-size: $value;
+    }
+  }
+}
+
+/******* Iterar fuentes de header *******/
+@each $header, $value in $map-headers {
+  @if $header == 'title' {
+    .#{$header} {
+      font-size: $value;
+    }
+  } @else {
+    .title-#{$header} {
+      font-size: $value;
+    }
+  }
+}

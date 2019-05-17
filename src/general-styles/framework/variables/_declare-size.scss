@@ -1,0 +1,23 @@
+/******* Sizes *******/
+$font-xs: 11px;
+$font-sm: 13px;
+$font-md: 14px;
+$font-default: 16px;
+
+/******* Map Sizes *******/
+$map-font: (
+  xs: $font-xs,
+  sm: $font-sm,
+  md: $font-md,
+  text: $font-default,
+);
+
+/******* Headers *******/
+$map-headers: (
+  title: 30px,
+  xl: 25px,
+  lg: 20px,
+  md: 17px,
+  sm: 15px,
+  xs: 13px,
+);
