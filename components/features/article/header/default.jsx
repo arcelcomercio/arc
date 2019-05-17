@@ -1,37 +1,37 @@
 import Consumer from 'fusion:consumer'
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import ArticleHeaderChildHeading from './_children/heading'
 import ArticleHeaderChildShareSubheading from './_children/subheading'
 import ArticleHeaderChildGallery from './_children/gallery'
 import ArticleHeaderChildSocial from './_children/social'
 
 const classes = {
-  news: 'col-3 padding-normal bg-color--white',
+  news: 'col-3 bg-color--white',
   gallery: 'col-3',
 }
 @Consumer
-class ArticleHeader extends Component {
+class ArticleHeader extends PureComponent {
   render() {
     const { globalContent } = this.props
     const {
       website_url: baseUrl = '',
-      headlines: title = '',
+      headlines,
       promo_items: galleryItems = {},
     } = globalContent || {}
 
+    const hasValueElements =
+      galleryItems &&
+      galleryItems.basic_gallery &&
+      typeof galleryItems.basic_gallery.content_elements !== 'undefined' &&
+      true
     return (
       <Fragment>
-        <div
-          className={
-            galleryItems &&
-            galleryItems.basic_gallery &&
-            typeof galleryItems.basic_gallery.content_elements !== 'undefined'
-              ? classes.gallery
-              : classes.news
-          }>
-          <ArticleHeaderChildHeading />
-          <ArticleHeaderChildShareSubheading />
-          <ArticleHeaderChildSocial url={baseUrl} title={title} />
+        <div className={hasValueElements ? classes.gallery : classes.news}>
+          <ArticleHeaderChildSocial url={baseUrl} title={headlines} />
+
+          <ArticleHeaderChildHeading data={globalContent} />
+          <ArticleHeaderChildShareSubheading data={globalContent} />
+
           {galleryItems &&
           galleryItems.basic_gallery &&
           typeof galleryItems.basic_gallery.content_elements !== 'undefined' ? (
@@ -47,8 +47,7 @@ class ArticleHeader extends Component {
   }
 }
 
-ArticleHeader.static = true
-
+ArticleHeader.static = false
 ArticleHeader.label = 'Artículo - cabecera'
 
 export default ArticleHeader

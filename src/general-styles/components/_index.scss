@@ -4,7 +4,7 @@
 @import './features/header';
 @import './features/footer';
 @import './features/ads';
-@import './features/article';
+@import './features/article-header';
 @import './features/cintillo-urgente';
 @import './features/extraordinary-story';
 @import './features/featured-story';
@@ -46,6 +46,8 @@
 @import './features/blog-separator';
 @import './features/card-survey';
 @import './features/internal-survey';
+@import './features/article-body';
+@import './features/article-gallery';
 @import './features/extraordinary-story-grid';
 
 @import './features/components/icons';

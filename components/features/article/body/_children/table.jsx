@@ -1,4 +1,5 @@
 import React from 'react'
+import renderHTML from 'react-render-html'
 
 const ArticleBodyChildTable = props => {
   const { data: { header = [], rows = [] } = {} } = props
@@ -6,7 +7,10 @@ const ArticleBodyChildTable = props => {
   return (
     <table className="tabla">
       <thead>
-        <tr>{header && header.map(item => <th>{item.content || ''}</th>)}</tr>
+        <tr>
+          {header &&
+            header.map(item => <th>{renderHTML(item.content) || ''}</th>)}
+        </tr>
       </thead>
       <tbody>
         {rows &&
@@ -14,7 +18,9 @@ const ArticleBodyChildTable = props => {
             <tr data-editor={rowIndex}>
               {rowItem &&
                 rowItem.map(itemCell => (
-                  <td data-editor={rowIndex}>{itemCell.content || ''}</td>
+                  <td data-editor={rowIndex}>
+                    {renderHTML(itemCell.content) || ''}
+                  </td>
                 ))}
             </tr>
           ))}
