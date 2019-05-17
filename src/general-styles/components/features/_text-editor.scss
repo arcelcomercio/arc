@@ -2,9 +2,11 @@
   background-color: #e8f2f7;
   padding: 30px;
 
-  ul,
-  ol {
+  ul {
     list-style: initial;
+  }
+  ol {
+    list-style: decimal;
   }
   li {
     padding: 5px 0;
