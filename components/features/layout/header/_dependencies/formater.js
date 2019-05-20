@@ -4,17 +4,44 @@ export default class StandardHeader {
     deployment,
     siteDomain = '',
     arcSite = '',
-    data = {}
+    data = {},
+    headerType = 'standard'
   ) {
     this.contextPath = contextPath
     this.deployment = deployment
     this.siteDomain = siteDomain
     this.arcSite = arcSite
     this.data = data
+    this.headerType = headerType
+    this.schema = this.getSchema()
   }
 
-  getParams(headerType) {
-    return this[headerType]()
+  setData(data) {
+    this.data = data
+  }
+
+  getSchema() {
+    switch (this.headerType) {
+      case 'standard':
+      case 'somos':
+        this.schema = `{ 
+            children {
+              name
+              _id
+              display_name
+              url
+              node_type
+            }
+          }`
+        break
+
+      default:
+        break
+    }
+  }
+
+  getParams() {
+    return this[this.headerType]()
   }
 
   standard() {

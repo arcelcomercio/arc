@@ -15,6 +15,22 @@ class LayoutHeader extends PureComponent {
     this.state = {
       device: setDevice(),
     }
+
+    const {
+      contextPath,
+      arcSite,
+      deployment,
+      siteProperties: { siteDomain },
+      customFields: { headerType },
+    } = this.props
+    this.formater = new Formater(
+      contextPath,
+      deployment,
+      siteDomain,
+      arcSite,
+      {},
+      headerType
+    )
   }
 
   componentDidMount() {
@@ -41,15 +57,7 @@ class LayoutHeader extends PureComponent {
           website: arcSite,
           hierarchy: 'navegacion-cabecera-tema-del-dia',
         }
-    const schema = `{ 
-      children {
-        name
-        _id
-        display_name
-        url
-        node_type
-      }
-    }`
+    const { schema } = this.formater
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
       this.setState({
@@ -89,21 +97,11 @@ class LayoutHeader extends PureComponent {
   renderHeader = () => {
     const { device, data } = this.state
     const {
-      contextPath,
-      arcSite,
-      deployment,
-      siteProperties: { siteDomain },
       customFields: { headerType },
     } = this.props
 
-    const instance = new Formater(
-      contextPath,
-      deployment,
-      siteDomain,
-      arcSite,
-      data
-    )
-    const params = { ...instance.getParams(headerType || 'standard'), device }
+    this.formater.setData(data)
+    const params = { ...this.formater.getParams(), device }
 
     const headers = {
       standard: <HeaderChildStandard {...params} />,
