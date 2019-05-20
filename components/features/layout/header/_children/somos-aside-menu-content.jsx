@@ -1,15 +1,15 @@
 import React from 'react'
 
 const classes = {
-  headmenu: 'logo-somos__content-menu',
-  headerclosemenu: 'logo-somos__header-close',
-  closemenu: 'logo-somos__btn-close',
-  mobilesearch: 'logo-somos__mobile-search',
-  searchtext: 'logo-somos__search-text',
-  searchbutton: 'logo-somos__search-button',
-  contentformsearch: 'logo-somos__content-form',
+  headmenu: 'header-somos__content-menu',
+  headerclosemenu: 'header-somos__header-close',
+  closemenu: 'header-somos__btn-close',
+  mobilesearch: 'header-somos__mobile-search',
+  searchtext: 'header-somos__search-text',
+  searchbutton: 'header-somos__search-button',
+  contentformsearch: 'header-somos__content-form',
 
-  colortmp:'logo-somos__color-tmp'
+  colortmp:'header-somos__color-tmp'
 
 }
 

@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
 
 const classses = {
-  logocontent: 'logo-somos',
-  logoimg: 'logo-somos__logo-img',
-  menumovil: 'logo-somos__menu-movil',
-  asidemenu: 'logo-somos__menu-movil',
+  logocontent: 'header-somos',
+  logoimg: 'header-somos__logo-img',
+  menumovil: 'header-somos__menu-movil',
+  asidemenu: 'header-somos__menu-movil',
   asidemenuscroller: '',
   asidemenucontent: '',
 }
@@ -21,61 +21,63 @@ const HeaderChildSomos = () => {
             alt="somos"
           />
         </a>
-        <a href="/">com</a>
+        <a href="/"><img src="/resources/dist/elcomercio/images/letra-c-white.png" alt="logo"/></a>
       </div>
-      
-      <nav className="site-menu">
-        <div className="box-content clearfix">
-          <ul className="home-menu">
-            <li className="link first">
+      <nav className="header-menu">
+      <div className="header-menu__content">
+        <div className="header-menu__search">
+          <input type="text" placeholder="Buscar" className="header-menu__search-input"/>
+        </div>
+          <ul className="header-menu__list">
+            <li className="header-menu__item first">
               <a
                 href="https://elcomercio.pe/somos?ref=somos/test-de-proust&amp;ft=menu"
-                className="active">
-                <i className="icon-home" />
+                className="header-menu__link-icon active">
+                i
               </a>
             </li>
-            <li className="link ">
+            <li className="header-menu__item">
               <a
                 href="https://elcomercio.pe/somos/historias?ref=somos/test-de-proust&amp;ft=menu"
-                className="">
+                className="header-menu__link">
                 Historias
               </a>
             </li>
-            <li className="link ">
+            <li className="header-menu__item">
               <a
                 href="https://elcomercio.pe/somos/firmas?ref=somos/test-de-proust&amp;ft=menu"
-                className="">
+                className="header-menu__link">
                 Firmas
               </a>
             </li>
-            <li className="link ">
+            <li className="header-menu__item">
               <a
                 href="https://elcomercio.pe/somos/test-de-proust?ref=somos/test-de-proust&amp;ft=menu"
-                className="active">
+                className="header-menu__link active">
                 Test de Proust
               </a>
             </li>
-            <li className="link ">
+            <li className="header-menu__item">
               <a
                 href="https://elcomercio.pe/somos/videos?ref=somos/test-de-proust&amp;ft=menu"
-                className="">
+                className="header-menu__link">
                 Videos
               </a>
             </li>
-            <li className="link ">
+            <li className="header-menu__item">
               <a
                 href="https://elcomercio.pe/somos/fotos?ref=somos/test-de-proust&amp;ft=menu"
-                className="">
+                className="header-menu__link">
                 Fotos
               </a>
             </li>
-            <li className="link ">
-              <a href="/somos/orientacion-vocacional" className="">
+            <li className="header-menu__item">
+              <a href="/somos/orientacion-vocacional" className="header-menu__link">
                 Somos OV
               </a>
             </li>
           </ul>
-        </div>
+          </div>
       </nav>
     </Fragment>
   )
