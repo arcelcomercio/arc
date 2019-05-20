@@ -108,9 +108,6 @@ class LayoutHeader extends PureComponent {
       customFields: { headerType },
     } = this.props
 
-<<<<<<< HEAD
-    return <SomosAsideMenuContent {...params} />
-=======
     const params = {
       sections,
       siteDomain,
@@ -120,8 +117,8 @@ class LayoutHeader extends PureComponent {
       device,
     }
 
-    return this.renderHeader(headerType, params)
->>>>>>> Sprint08
+    return <HeaderSomos {...params} />
+    //return this.renderHeader(headerType, params)
   }
 }
 

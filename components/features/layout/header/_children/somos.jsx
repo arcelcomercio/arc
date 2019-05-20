@@ -23,7 +23,59 @@ const HeaderChildSomos = () => {
         </a>
         <a href="/">com</a>
       </div>
-     
+      <nav className="site-menu">
+        <div className="box-content clearfix">
+          <ul className="home-menu">
+            <li className="link first">
+              <a
+                href="https://elcomercio.pe/somos?ref=somos/test-de-proust&amp;ft=menu"
+                className="active">
+                <i className="icon-home" />
+              </a>
+            </li>
+            <li className="link ">
+              <a
+                href="https://elcomercio.pe/somos/historias?ref=somos/test-de-proust&amp;ft=menu"
+                className="">
+                Historias
+              </a>
+            </li>
+            <li className="link ">
+              <a
+                href="https://elcomercio.pe/somos/firmas?ref=somos/test-de-proust&amp;ft=menu"
+                className="">
+                Firmas
+              </a>
+            </li>
+            <li className="link ">
+              <a
+                href="https://elcomercio.pe/somos/test-de-proust?ref=somos/test-de-proust&amp;ft=menu"
+                className="active">
+                Test de Proust
+              </a>
+            </li>
+            <li className="link ">
+              <a
+                href="https://elcomercio.pe/somos/videos?ref=somos/test-de-proust&amp;ft=menu"
+                className="">
+                Videos
+              </a>
+            </li>
+            <li className="link ">
+              <a
+                href="https://elcomercio.pe/somos/fotos?ref=somos/test-de-proust&amp;ft=menu"
+                className="">
+                Fotos
+              </a>
+            </li>
+            <li className="link ">
+              <a href="/somos/orientacion-vocacional" className="">
+                Somos OV
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </Fragment>
   )
 }
