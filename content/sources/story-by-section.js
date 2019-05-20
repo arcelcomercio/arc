@@ -1,3 +1,5 @@
+let auxKey
+
 const schemaName = 'story'
 
 const params = [{
@@ -24,6 +26,7 @@ export const itemsToArray = (itemString = '') => {
 }
 
 const pattern = (key = {}) => {
+  auxKey = key
   const website = key['arc-site'] || 'Arc Site no está definido'
   const {
     section,
@@ -103,8 +106,31 @@ const pattern = (key = {}) => {
 
 const resolve = key => pattern(key)
 
+const transform = data => {
+  if (!auxKey.section || auxKey.section === '/') return data
+  const sectionsIncluded = itemsToArray(auxKey.section)
+  if (data.content_elements.length === 0 || sectionsIncluded.length > 1)
+    return data
+  const {
+    content_elements: [{
+      taxonomy: {
+        sections
+      },
+    }, ],
+  } = data
+  const realSection = sections.find(item => sectionsIncluded[0] === item._id)
+  const sectionName = {
+    section_name: realSection.name,
+  }
+  return {
+    ...data,
+    ...sectionName,
+  }
+}
+
 const source = {
   resolve,
+  transform,
   schemaName,
   params,
 }

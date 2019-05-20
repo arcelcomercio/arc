@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 const customFieldsImport = PropTypes.shape({
-    section: PropTypes.string.isRequired.tag({
+    section: PropTypes.string.tag({
         name: 'Sección'
     }),
     sectionName: PropTypes.string.tag({

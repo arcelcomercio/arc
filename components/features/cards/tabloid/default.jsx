@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+import { defaultImage, formatSlugToText } from '../../../utilities/helpers'
 import CustomFieldsImport from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
@@ -11,7 +12,6 @@ const classes = {
   content: 'flex-center',
   date: 'tabloide__date flex-center',
   face: 'tabloide__face',
-  defaultImage: 'bg-color--gray tabloide__face',
 }
 @Consumer
 class CardTabloid extends PureComponent {
@@ -99,33 +99,14 @@ class CardTabloid extends PureComponent {
     return name
   }
 
-  defaultImage() {
-    const { arcSite, contextPath, deployment } = this.props
-    const defaultImg = true
-    /**
-     *
-     */
-    return defaultImg ? (
-      <img
-        className={classes.face}
-        src={deployment(
-          `${contextPath}/resources/dist/${arcSite}/images/default-sm.png`
-        )}
-        alt="Imagen por defecto"
-      />
-    ) : (
-      <div className={classes.defaultImage} />
-    )
-  }
-
   render() {
     const {
       sectionName,
       data: { link: rawLink, multimedia, title, date, section },
     } = this.state
-    const { contextPath } = this.props
+    const { arcSite, deployment, contextPath } = this.props
     // TODO: Esto debe ser eliminado al agregar contextPath a StoryData
-    const link = `${contextPath}${rawLink}`
+    const link = `${contextPath}${rawLink || ''}`
 
     const nameDate = this.nameDate(date)
 
@@ -133,7 +114,7 @@ class CardTabloid extends PureComponent {
       <div className={classes.tabloide}>
         <div className={classes.header}>
           <h4>
-            <a href={link}>{sectionName || section}</a>
+            <a href={link}>{sectionName || formatSlugToText(section)}</a>
           </h4>
         </div>
         <div className={classes.body}>
@@ -144,15 +125,15 @@ class CardTabloid extends PureComponent {
             <figure>
               <picture>
                 <a href={link}>
-                  {multimedia ? (
-                    <img
-                      className={classes.face}
-                      src={multimedia}
-                      alt={title}
-                    />
-                  ) : (
-                    this.defaultImage()
-                  )}
+                  <img
+                    className={classes.face}
+                    src={
+                      multimedia ||
+                      defaultImage(deployment, contextPath, arcSite, 'sm') ||
+                      ''
+                    }
+                    alt={title}
+                  />
                 </a>
               </picture>
             </figure>
