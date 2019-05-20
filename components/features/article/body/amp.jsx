@@ -8,6 +8,7 @@ import React, { Component } from 'react'
 import ElePrincipal from './_children/amp-ele-principal'
 import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildTable from './_children/table'
+import ArticleBodyChildBlockQuote from './_children/blockquote'
 
 const elementClasses = {
   content: 'amp-content',
@@ -40,8 +41,11 @@ class ArticleAMPArticleBody extends Component {
                 raw_oembed: rawOembed,
                 content_elements: innerContentElements,
               } = element
-              if (type === 'oembed_response') {
+              if (type === 'oembed_respoanse') {
                 return <AmpOembed rawOembed={rawOembed} subtype={subtype} />
+              }
+              if (type === 'quote') {
+                return <ArticleBodyChildBlockQuote data={element} />
               }
               if (type === 'table') {
                 return <ArticleBodyChildTable data={element} type={type} />
@@ -62,7 +66,20 @@ class ArticleAMPArticleBody extends Component {
                 return <AmpImage {...element} layout="responsive" />
               }
               if (type === 'video') {
-                return <ArticleBodyChildVideo data={element.embed_html} />
+                return (
+                  <amp-iframe
+                    class="amphtml-video"
+                    width="897"
+                    height="542"
+                    layout="responsive"
+                    src="https://assets.elcomercio.pe/media/5c7406f8-afe3-4554-9c9b-eaefb85ebc4e?category=Peru&amp;movil=true&amp;autoplay=0&amp;dataUrl=/amp/peru/huaral-motociclista-grave-impactar-camion-chancay-video-noticia-nndc-636894"
+                    i-amphtml-layout="responsive"
+                    frameborder="0">
+                    <i-amphtml-sizer />
+                    <i-amphtml-scroll-container class="amp-active" />
+                    <ArticleBodyChildVideo data={element.embed_html} />
+                  </amp-iframe>
+                )
               }
               return undefined
             }}

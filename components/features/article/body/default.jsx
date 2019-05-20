@@ -1,13 +1,16 @@
 // file path: ArticleBodyContent.js
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import ArcArticleBody from '@arc-core-components/feature_article-body'
+import ArcArticleBody, {
+  Oembed,
+} from '@arc-core-components/feature_article-body'
 
 import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildArticleImage from './_children/image'
 import ArticleHeaderChildGallery from '../header/_children/gallery'
 import ArticleBodyChildBlockQuote from './_children/blockquote'
 import ArticleBodyChildTable from './_children/table'
+import ArticleBodyChildRelated from './_children/related'
 import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildAuthor from './_children/author'
 import ArticleBodyChildMultimedia from './_children/multimedia'
@@ -25,6 +28,7 @@ class ArticleBody extends PureComponent {
       content_elements: contentElements,
       promo_items: promoItems,
       publish_date: date,
+      related_content: relatedContent,
       credits: author,
       taxonomy,
     } = globalContent || {}
@@ -38,7 +42,7 @@ class ArticleBody extends PureComponent {
             data={contentElements}
             classes={classes}
             renderElement={element => {
-              const { type } = element
+              const { type, subtype, raw_oembed: rawOembed } = element
               if (type === 'image') {
                 return (
                   <ArticleBodyChildArticleImage
@@ -65,19 +69,19 @@ class ArticleBody extends PureComponent {
                 return <ArticleBodyChildBlockQuote data={element} />
               }
               if (type === 'oembed_response') {
-                return ''
+                return <Oembed rawOembed={rawOembed} subtype={subtype} />
               }
               return ''
             }}
           />
         )}
         {taxonomy && <ArticleBodyChildTags data={taxonomy} />}
+        <ArticleBodyChildRelated data={relatedContent} />
       </div>
     )
   }
 }
 
 ArticleBody.label = 'Artículo - contenido'
-ArticleBody.static = true
 
 export default ArticleBody

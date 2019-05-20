@@ -27,6 +27,24 @@
     margin-right: -20px;
   }
 
+  .pquote {
+    background: none;
+    color: #030;
+    font-size: 26px;
+    line-height: 0.9;
+    font-style: italic;
+    padding: 13px;
+
+    &__pull {
+      background: url('../images/openquote.svg') top left no-repeat;
+    }
+
+    & p:first-letter {
+      font-size: 39px;
+      font-weight: bold;
+    }
+  }
+
   & table {
     width: 100%;
     height: auto;
