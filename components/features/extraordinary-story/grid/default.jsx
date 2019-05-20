@@ -5,6 +5,7 @@ import customFields from './_dependencies/custom-fields'
 import { storySchema, sectionSchema } from './_dependencies/schemas-filter'
 import Data from '../_dependencies/data'
 import SectionData from '../../../utilities/section-data'
+import { isEmpty } from '../../../utilities/helpers'
 
 @Consumer
 class ExtraordinaryStoryGrid extends Component {
@@ -32,22 +33,15 @@ class ExtraordinaryStoryGrid extends Component {
 
     const { urlStory = {}, multimediaService = '' } = customFieldsData
 
-    const {
-      contentConfigValues: { website_url: websiteUrl = '' } = {},
-    } = urlStory
-
-    // TODO: Validar todo los parametros del request de un customfield contentConfig
-    if (
-      (multimediaService === Data.AUTOMATIC || multimediaService === '') &&
-      websiteUrl !== ''
-    ) {
+    if (multimediaService === Data.AUTOMATIC) {
       const { fetched: fetchStory = {} } = this.fetch(
         urlStory,
         storySchema(arcSite)
       )
-      fetchStory.then(response => {
-        this.setState({ storyData: response })
-      })
+      if (!isEmpty(fetchStory))
+        fetchStory.then(response => {
+          this.setState({ storyData: response })
+        })
     }
 
     const sections = {}
