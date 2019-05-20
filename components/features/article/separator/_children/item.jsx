@@ -18,9 +18,7 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
       promo_items: promoItems,
       website_url: websiteUrl,
       headlines,
-      taxonomy: {
-        primary_section: { name, path },
-      },
+      taxonomy: { primary_section: { name, path } = {} } = {},
     },
   }) => {
     let numline = ''
@@ -40,10 +38,8 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
     if (promoItems) {
       multimedia = GetMultimediaContent(promoItems)
     }
-    const { medio, url } = multimedia || {}
-    if (url === undefined) return false
+    const { medio, url = 'null' } = multimedia || {}
 
-    // transform(data, website)
     const aspectRatios = ['3:4|60x70']
     const { resized_urls: resizedUrls } = addResizedUrlItem(
       website,
@@ -75,12 +71,12 @@ const ArticleSeparatorChildItem = ({ data, excluir, website, arcSite }) => {
   }
 
   let key = 0
-  return data.map(elements => {
+  return data.map((elements, i) => {
     if (key === 4) return false
     const { website_url: websiteUrl } = elements
     if (websiteUrl === excluir) return false
     key += 1
-    return <SeparatorItem dataItem={elements} />
+    return <SeparatorItem key={i} dataItem={elements} />
   })
 }
 
