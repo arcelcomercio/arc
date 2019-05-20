@@ -58,6 +58,12 @@
     -moz-osx-font-smoothing: grayscale;
   }
   
+  .icon-menu:before {
+    content: "\e904";
+  }
+  .icon-comercio:before {
+    content: "\e903";
+  }
   .icon-add:before {
     content: "\e900";
   }
@@ -72,4 +78,16 @@
   }
   .icon-linkedin:before {
     content: "\eaca";
+  }
+  .icon-home:before {
+    content: "\e902";
+  }
+  .icon-user:before {
+    content: "\e971";
+  }
+  .icon-search:before {
+    content: "\e986";
+  }
+  .icon-close:before {
+    content: "\ea0f";
   }
