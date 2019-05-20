@@ -47,7 +47,7 @@ class Data extends StoryData {
   }
 
   get multimediaService() {
-    return this.customFields.multimediaService || 'automatic'
+    return this.customFields.multimediaService || 'default'
   }
 
   get multimediaSource() {
