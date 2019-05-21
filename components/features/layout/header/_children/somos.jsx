@@ -26,6 +26,7 @@ const classes = {
   iconHome: 'icon-home',
   menuItem: 'somos-menu__item',
   menuLink: 'somos-menu__link',
+  menubtn: 'header-somos__btn',
 }
 
 class HeaderChildSomos extends PureComponent {
@@ -47,7 +48,8 @@ class HeaderChildSomos extends PureComponent {
               type="button"
               onClick={() => {
                 this.setState({ isMenuActive: !isMenuActive })
-              }}>
+              }}
+              className={classes.menubtn}>
               <i className={classes.menuicon} />
             </button>
           </div>
