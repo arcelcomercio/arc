@@ -6,6 +6,7 @@ const classses = {
   menuicon: 'icon-menu header-somos__icon',
   logoicon: 'header-somos__logo-wrapper',
   logoimgwrapper: 'header-somos__img-wrapper',
+  logoLink: 'header-somos__img-link',
   logoimg: 'header-somos__img',
 }
 
@@ -41,7 +42,7 @@ class HeaderChildSomos extends Component {
             </button>
           </div>
           <div className={classses.logoimgwrapper}>
-            <a href={logo.link}>
+            <a href={logo.link} className={classses.logoLink}>
               <img className={classses.logoimg} src={logo.src} alt={logo.alt} />
             </a>
           </div>
@@ -53,36 +54,34 @@ class HeaderChildSomos extends Component {
         </div>
 
         <nav
-          className={`header-menu ${
-            isMenuActive ? 'header-menu--active' : ''
-          }`}>
-          <div className="header-menu__content">
-            <div className="header-menu__close">
+          className={`somos-menu ${isMenuActive ? 'somos-menu--active' : ''}`}>
+          <div className="somos-menu__content">
+            <div className="somos-menu__close">
               <button
                 type="button"
                 onClick={() => {
                   this.setState({ isMenuActive: !isMenuActive })
                 }}>
-                <i className="icon-close header-menu__close-icon" />
+                <i className="icon-close somos-menu__close-icon" />
               </button>
             </div>
-            <div className="header-menu__search">
+            <div className="somos-menu__search">
               <input
                 type="text"
                 placeholder="Buscar"
-                className="header-menu__search-input"
+                className="somos-menu__search-input"
               />
-              <i className="icon-search header-menu__search-icon" />
+              <i className="icon-search somos-menu__search-icon" />
             </div>
-            <div className="header-menu__login">
+            <div className="somos-menu__login">
               <a href="/" className="flex flex--justify-center">
-                <i className="icon-user header-menu__login-icon" />
-                <p className="header-menu__login-text">Ingresa a tu cuenta</p>
+                <i className="icon-user somos-menu__login-icon" />
+                <p className="somos-menu__login-text">Ingresa a tu cuenta</p>
               </a>
             </div>
-            <ul className="header-menu__list">
-              <li className="header-menu__item-link">
-                <a href={firstSection.url} className="header-menu__link-icon">
+            <ul className="somos-menu__list">
+              <li className="somos-menu__item-link">
+                <a href={firstSection.url} className="somos-menu__link-icon">
                   <i className="icon-home" />
                 </a>
               </li>
