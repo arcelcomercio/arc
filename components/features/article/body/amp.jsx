@@ -9,8 +9,10 @@ import ElePrincipal from './_children/amp-ele-principal'
 import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildTable from './_children/table'
 import ArticleBodyChildBlockQuote from './_children/blockquote'
+import schemaFilter from './_children/_dependencies/schema-filter'
+import ArticleBodyChildRelated from './_children/related'
 
-const elementClasses = {
+const classes = {
   content: 'amp-content',
   textClasses: 'amp-content__news-text',
   author: 'amp-content__author',
@@ -18,6 +20,35 @@ const elementClasses = {
 
 @Consumer
 class ArticleAMPArticleBody extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      data: [],
+    }
+
+    this.getContentApi()
+  }
+
+  getContentApi = () => {
+    const {
+      arcSite,
+      globalContent: { _id: id },
+    } = this.props
+
+    const { fetched } = this.getContent(
+      'story-by-id',
+      { _id: id, website: arcSite },
+      schemaFilter
+    )
+    fetched.then(response => {
+      const { basic: element } = response
+      this.setState({
+        data: element || [],
+      })
+    })
+  }
+
   render() {
     const {
       globalContent: {
@@ -25,15 +56,16 @@ class ArticleAMPArticleBody extends Component {
         promo_items: promoItems,
       },
     } = this.props
+    const { data } = this.state
 
     return (
-      <div className={elementClasses.content}>
+      <div className={classes.content}>
         {promoItems && <ElePrincipal data={promoItems} />}
-        <p className={elementClasses.author}>Por: Redacción DT</p>
+        <p className={classes.author}>Por: Redacción DT</p>
         {contentElements && (
           <ArticleBody
             data={contentElements}
-            elementClasses={elementClasses}
+            classes={classes}
             renderElement={element => {
               const {
                 type,
@@ -41,8 +73,14 @@ class ArticleAMPArticleBody extends Component {
                 raw_oembed: rawOembed,
                 content_elements: innerContentElements,
               } = element
-              if (type === 'oembed_respoanse') {
-                return <AmpOembed rawOembed={rawOembed} subtype={subtype} />
+              if (type === 'oembed_response') {
+                return (
+                  <AmpOembed
+                    rawOembed={rawOembed}
+                    subtype={subtype}
+                    className={classes}
+                  />
+                )
               }
               if (type === 'quote') {
                 return <ArticleBodyChildBlockQuote data={element} />
@@ -72,7 +110,6 @@ class ArticleAMPArticleBody extends Component {
                     width="897"
                     height="542"
                     layout="responsive"
-                    src="https://assets.elcomercio.pe/media/5c7406f8-afe3-4554-9c9b-eaefb85ebc4e?category=Peru&amp;movil=true&amp;autoplay=0&amp;dataUrl=/amp/peru/huaral-motociclista-grave-impactar-camion-chancay-video-noticia-nndc-636894"
                     i-amphtml-layout="responsive"
                     frameborder="0">
                     <i-amphtml-sizer />
@@ -85,6 +122,7 @@ class ArticleAMPArticleBody extends Component {
             }}
           />
         )}
+        <ArticleBodyChildRelated stories={data} />
       </div>
     )
   }

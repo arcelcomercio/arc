@@ -105,12 +105,12 @@
     }
   }
 
-  //._gallery
-  .gallery {
-    padding: 30px 30px 1px;
-    background-color: #e8f2f7;
-    margin-bottom: 30px;
+  &__embed {
+    .twitter-tweet {
+      width: 100% !important;
+    }
   }
+
   .visual__image {
     img {
       width: 100%;

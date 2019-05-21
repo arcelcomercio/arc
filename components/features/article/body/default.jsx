@@ -20,6 +20,7 @@ const classes = {
   news: 'article-body news-text-content col-2 bg-color--white',
   textClasses: 'article-body__font--secondary',
   newsImage: 'article-body__image article-body__image--cover',
+  newsEmbed: 'article-body__embed',
 }
 @Consumer
 class ArticleBody extends PureComponent {
@@ -99,7 +100,13 @@ class ArticleBody extends PureComponent {
                 return <ArticleBodyChildBlockQuote data={element} />
               }
               if (type === 'oembed_response') {
-                return <Oembed rawOembed={rawOembed} subtype={subtype} />
+                return (
+                  <Oembed
+                    rawOembed={rawOembed}
+                    subtype={subtype}
+                    className={classes.newsEmbed}
+                  />
+                )
               }
               return ''
             }}

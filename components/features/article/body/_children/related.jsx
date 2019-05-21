@@ -62,7 +62,7 @@ class RelatedContent extends Component {
     const { stories: data } = this.props
     return (
       <div className={classes.related}>
-        <div className={classes.relatedTitle}>Relacionadas</div>
+        <div className={classes.relatedTitle}>Relacionadas amp</div>
         {data.map(item => this.renderRelatedContentElement(item))}
       </div>
     )
