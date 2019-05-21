@@ -21,7 +21,7 @@ class CardFeaturedStoryAuto extends PureComponent {
 
   fetch() {
     const { customFields, arcSite } = this.props
-    const { section, imageSize, size, storyNumber, imgField } = customFields
+    const { section, storyNumber, imgField } = customFields
 
     const { schema } = this.storyFormatter
     const storiesSchema = `{ content_elements ${schema} }`

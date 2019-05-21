@@ -21,7 +21,7 @@ class CardFeaturedStoryManual extends PureComponent {
 
   fetch() {
     const { customFields, arcSite } = this.props
-    const { path, imageSize, size, imgField } = customFields
+    const { path, imgField } = customFields
 
     const { schema } = this.storyFormatter
 

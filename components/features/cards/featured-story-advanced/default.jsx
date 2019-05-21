@@ -22,8 +22,6 @@ class CardFeaturedStoryAdvanced extends PureComponent {
   fetch() {
     const { customFields } = this.props
     const {
-      imageSize,
-      size,
       imgField,
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
     } = customFields
@@ -37,7 +35,6 @@ class CardFeaturedStoryAdvanced extends PureComponent {
     )
     fetched.then(response => {
       const newState = this.storyFormatter.formatStory(response, imgField)
-      console.log(newState)
       this.setState(newState)
     })
   }
