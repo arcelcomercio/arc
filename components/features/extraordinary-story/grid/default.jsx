@@ -5,7 +5,6 @@ import customFields from './_dependencies/custom-fields'
 import { storySchema, sectionSchema } from './_dependencies/schemas-filter'
 import Data from '../_dependencies/data'
 import SectionData from '../../../utilities/section-data'
-import { isEmpty } from '../../../utilities/helpers'
 
 @Consumer
 class ExtraordinaryStoryGrid extends Component {
@@ -38,10 +37,9 @@ class ExtraordinaryStoryGrid extends Component {
         urlStory,
         storySchema(arcSite)
       )
-      if (!isEmpty(fetchStory))
-        fetchStory.then(response => {
-          this.setState({ storyData: response })
-        })
+      fetchStory.then(response => {
+        this.setState({ storyData: response })
+      })
     }
 
     const sections = {}
@@ -64,11 +62,11 @@ class ExtraordinaryStoryGrid extends Component {
         .then(results => {
           const jsonSections = {}
           results.forEach(res => {
-            const { _id = '' } = res
+            const { _id = '' } = res || {}
             const sectionActive = Object.keys(sections)[
               Object.values(sections).indexOf(_id)
             ]
-            jsonSections[sectionActive] = res
+            jsonSections[sectionActive] = res || {}
           })
           this.setState(jsonSections)
         })
@@ -80,7 +78,7 @@ class ExtraordinaryStoryGrid extends Component {
 
   fetch(contentConfig, schema) {
     const { contentService = '', contentConfigValues = {} } = contentConfig
-    const hasSection =
+    /* const hasSection =
       Object.prototype.hasOwnProperty.call(contentConfigValues, '_id') &&
       contentConfigValues._id !== ''
     const hasStory =
@@ -94,6 +92,10 @@ class ExtraordinaryStoryGrid extends Component {
       : new Promise((resolve, reject) => {
           reject(new Error('Url empty'))
         })
+
+        */
+
+    return this.getContent(contentService, contentConfigValues, schema)
   }
 
   render() {
