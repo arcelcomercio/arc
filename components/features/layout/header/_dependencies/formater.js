@@ -52,7 +52,7 @@ export default class StandardHeader {
       name: 'Lo último',
       url: `${this.contextPath}/archivo`,
     }
-    const params = {
+    return {
       logo: {
         src:
           this.customLogo ||
@@ -64,12 +64,10 @@ export default class StandardHeader {
       },
       sections: [newest, ...sections],
     }
-    return params
   }
 
   somos() {
-    const sections = this.formatSections()
-    const params = {
+    return {
       logo: {
         src:
           this.customLogo ||
@@ -85,22 +83,20 @@ export default class StandardHeader {
       firstSection: {
         url: `${this.contextPath}/somos`,
       },
-      sections,
+      sections: this.formatSections(),
     }
-    return params
   }
 
   // Función para formatear data de las secciones
   formatSections = () => {
     const link = 'link'
     const { children = [] } = this.data || {}
-    const sections = children.map(el => {
+    return children.map(el => {
       return {
         name: el.node_type === link ? el.display_name : el.name,
         url: el.node_type === link ? el.url : `${this.contextPath}${el._id}`,
       }
     })
-    return sections
   }
   // TODO: Crear función para formatear data de secciones con subsecciones
 }

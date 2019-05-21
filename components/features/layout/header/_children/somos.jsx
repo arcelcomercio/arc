@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 
-const classses = {
+const classes = {
   logocontent: 'header-somos',
   iconmenuwrapper: 'header-somos__icon-wrapper',
   menuicon: 'icon-menu header-somos__icon',
@@ -8,9 +8,27 @@ const classses = {
   logoimgwrapper: 'header-somos__img-wrapper',
   logoLink: 'header-somos__img-link',
   logoimg: 'header-somos__img',
+
+  menu: 'somos-menu',
+  menuContent: 'somos-menu__content',
+  menuClose: 'somos-menu__close',
+  menuCloseIcon: 'icon-close somos-menu__close-icon',
+  menuSearch: 'somos-menu__search',
+  menuSearchInput: 'somos-menu__search-input',
+  menuSearchIcon: 'icon-search somos-menu__search-icon',
+  menuLogin: 'somos-menu__login',
+  menuLoginLink: 'flex flex--justify-center',
+  menuLoginIcon: 'icon-user somos-menu__login-icon',
+  menuLoginLabel: 'somos-menu__login-text',
+  menuList: 'somos-menu__list',
+  menuItemLink: 'somos-menu__item-link',
+  menuLinkIcon: 'somos-menu__link-icon',
+  iconHome: 'icon-home',
+  menuItem: 'somos-menu__item',
+  menuLink: 'somos-menu__link',
 }
 
-class HeaderChildSomos extends Component {
+class HeaderChildSomos extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,25 +39,24 @@ class HeaderChildSomos extends Component {
   render() {
     const { logo, logoIcon, firstSection, sections, device } = this.props
     const { isMenuActive } = this.state
-    console.log(isMenuActive, this.props)
     return (
       <Fragment>
-        <div className={classses.logocontent}>
-          <div className={classses.iconmenuwrapper}>
+        <div className={classes.logocontent}>
+          <div className={classes.iconmenuwrapper}>
             <button
               type="button"
               onClick={() => {
                 this.setState({ isMenuActive: !isMenuActive })
               }}>
-              <i className={classses.menuicon} />
+              <i className={classes.menuicon} />
             </button>
           </div>
-          <div className={classses.logoimgwrapper}>
-            <a href={logo.link} className={classses.logoLink}>
-              <img className={classses.logoimg} src={logo.src} alt={logo.alt} />
+          <div className={classes.logoimgwrapper}>
+            <a href={logo.link} className={classes.logoLink}>
+              <img className={classes.logoimg} src={logo.src} alt={logo.alt} />
             </a>
           </div>
-          <div className={classses.logoicon}>
+          <div className={classes.logoicon}>
             <a href={logoIcon.link}>
               <i className="icon-comercio" />
             </a>
@@ -47,41 +64,43 @@ class HeaderChildSomos extends Component {
         </div>
 
         <nav
-          className={`somos-menu ${isMenuActive ? 'somos-menu--active' : ''}`}>
-          <div className="somos-menu__content">
-            <div className="somos-menu__close">
+          className={`${classes.menu} ${
+            isMenuActive ? 'somos-menu--active' : ''
+          }`}>
+          <div className={classes.menuContent}>
+            <div className={classes.menuClose}>
               <button
                 type="button"
                 onClick={() => {
                   this.setState({ isMenuActive: !isMenuActive })
                 }}>
-                <i className="icon-close somos-menu__close-icon" />
+                <i className={classes.menuCloseIcon} />
               </button>
             </div>
-            <div className="somos-menu__search">
+            <div className={classes.menuSearch}>
               <input
                 type="text"
                 placeholder="Buscar"
-                className="somos-menu__search-input"
+                className={classes.menuSearchInput}
               />
-              <i className="icon-search somos-menu__search-icon" />
+              <i className={classes.menuSearchIcon} />
             </div>
-            <div className="somos-menu__login">
-              <a href="/" className="flex flex--justify-center">
-                <i className="icon-user somos-menu__login-icon" />
-                <p className="somos-menu__login-text">Ingresa a tu cuenta</p>
+            <div className={classes.menuLogin}>
+              <a href="/" className={classes.menuLoginLink}>
+                <i className={classes.menuLoginIcon} />
+                <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
               </a>
             </div>
-            <ul className="somos-menu__list">
-              <li className="somos-menu__item-link">
-                <a href={firstSection.url} className="somos-menu__link-icon">
-                  <i className="icon-home" />
+            <ul className={classes.menuList}>
+              <li className={classes.menuItemLink}>
+                <a href={firstSection.url} className={classes.menuLinkIcon}>
+                  <i className={classes.iconHome} />
                 </a>
               </li>
               {(device === 'desktop' || isMenuActive) &&
                 sections.map(section => (
-                  <li className="somos-menu__item" key={section.url}>
-                    <a href={section.url} className="somos-menu__link">
+                  <li className={classes.menuItem} key={section.url}>
+                    <a href={section.url} className={classes.menuLink}>
                       {section.name}
                     </a>
                   </li>
