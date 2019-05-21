@@ -18,17 +18,10 @@ class HeaderChildSomos extends Component {
     }
   }
 
-  componentDidUpdate() {
-    const { isMenuActive } = this.state
-    if (isMenuActive)
-      document
-        .querySelector('.header-menu')
-        .classList.add('header-menu--active')
-  }
-
   render() {
     const { logo, logoIcon, firstSection, sections, device } = this.props
     const { isMenuActive } = this.state
+    console.log(isMenuActive, this.props)
     return (
       <Fragment>
         <div className={classses.logocontent}>
@@ -87,8 +80,8 @@ class HeaderChildSomos extends Component {
               </li>
               {(device === 'desktop' || isMenuActive) &&
                 sections.map(section => (
-                  <li className="header-menu__item" key={section.url}>
-                    <a href={section.url} className="header-menu__link">
+                  <li className="somos-menu__item" key={section.url}>
+                    <a href={section.url} className="somos-menu__link">
                       {section.name}
                     </a>
                   </li>
