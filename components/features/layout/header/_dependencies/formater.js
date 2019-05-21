@@ -5,7 +5,8 @@ export default class StandardHeader {
     siteDomain = '',
     arcSite = '',
     data = {},
-    headerType = 'standard'
+    headerType = 'standard',
+    customLogo
   ) {
     this.contextPath = contextPath
     this.deployment = deployment
@@ -13,6 +14,7 @@ export default class StandardHeader {
     this.arcSite = arcSite
     this.data = data
     this.headerType = headerType
+    this.customLogo = customLogo
     this.schema = this.getSchema()
   }
 
@@ -45,23 +47,18 @@ export default class StandardHeader {
   }
 
   standard() {
-    const link = 'link'
-    const { children = [] } = this.data || {}
-    const sections = children.map(el => {
-      return {
-        name: el.node_type === link ? el.display_name : el.name,
-        url: el.node_type === link ? el.url : `${this.contextPath}${el._id}`,
-      }
-    })
+    const sections = this.formatSections()
     const newest = {
       name: 'Lo último',
       url: `${this.contextPath}/archivo`,
     }
     const params = {
       logo: {
-        src: this.deployment(
-          `${this.contextPath}/resources/dist/${this.arcSite}/images/logo.png`
-        ),
+        src:
+          this.customLogo ||
+          this.deployment(
+            `${this.contextPath}/resources/dist/${this.arcSite}/images/logo.png`
+          ),
         link: this.contextPath,
         alt: this.siteDomain,
       },
@@ -71,13 +68,39 @@ export default class StandardHeader {
   }
 
   somos() {
+    const sections = this.formatSections()
     const params = {
-      contextPath: this.contextPath,
-      deployment: this.deployment,
-      siteDomain: this.siteDomain,
-      arcSite: this.arcSite,
-      sections: this.sections,
+      logo: {
+        src:
+          this.customLogo ||
+          this.deployment(
+            `${this.contextPath}/resources/dist/${this.arcSite}/images/logo.png`
+          ),
+        link: `${this.contextPath}/somos`,
+        alt: 'Somos',
+      },
+      logoIcon: {
+        link: this.contextPath,
+      },
+      firstSection: {
+        url: `${this.contextPath}/somos`,
+      },
+      sections,
     }
     return params
   }
+
+  // Función para formatear data de las secciones
+  formatSections = () => {
+    const link = 'link'
+    const { children = [] } = this.data || {}
+    const sections = children.map(el => {
+      return {
+        name: el.node_type === link ? el.display_name : el.name,
+        url: el.node_type === link ? el.url : `${this.contextPath}${el._id}`,
+      }
+    })
+    return sections
+  }
+  // TODO: Crear función para formatear data de secciones con subsecciones
 }

@@ -119,7 +119,7 @@
   &__item {
     padding: 15px 0;
   }
-  &__item-link{
+  &__item-link {
     display: none;
     @media (--desktop) {
       display: flex;
@@ -163,32 +163,32 @@
       display: none;
     }
   }
-  &__login-icon{
+  &__login-icon {
     color: $color-primary;
     margin-right: 10px;
   }
-  &__login-text{
+  &__login-text {
     color: $color-white;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 700;
   }
-  &__close{
-   width: 100%;
-   height: 50px;
-   text-align: right;
-   padding: 15px 10px 0;
-   @media (--desktop) {
-    display: none;
+  &__close {
+    width: 100%;
+    height: 50px;
+    text-align: right;
+    padding: 15px 10px 0;
+    @media (--desktop) {
+      display: none;
+    }
   }
-  }
-  &__close-icon{
+  &__close-icon {
     color: $color-white;
     font-size: 15px;
   }
-  &--active{
+  &--active {
     width: 100%;
-    .header-menu__content{
+    .header-menu__content {
       width: 255px;
     }
   }

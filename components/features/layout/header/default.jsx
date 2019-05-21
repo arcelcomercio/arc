@@ -8,6 +8,7 @@ import HeaderChildSomos from './_children/somos'
 import HeaderChildStandard from './_children/standard'
 import Formater from './_dependencies/formater'
 
+const defaultHierarchy = 'navegacion-cabecera-tema-del-dia'
 @Consumer
 class LayoutHeader extends PureComponent {
   constructor(props) {
@@ -15,13 +16,12 @@ class LayoutHeader extends PureComponent {
     this.state = {
       device: setDevice(),
     }
-
     const {
       contextPath,
       arcSite,
       deployment,
       siteProperties: { siteDomain },
-      customFields: { headerType },
+      customFields: { headerType, customLogo },
     } = this.props
     this.formater = new Formater(
       contextPath,
@@ -29,7 +29,8 @@ class LayoutHeader extends PureComponent {
       siteDomain,
       arcSite,
       {},
-      headerType
+      headerType,
+      customLogo
     )
   }
 
@@ -55,7 +56,7 @@ class LayoutHeader extends PureComponent {
       ? contentConfigValues
       : {
           website: arcSite,
-          hierarchy: 'navegacion-cabecera-tema-del-dia',
+          hierarchy: defaultHierarchy,
         }
     const { schema } = this.formater
     const { fetched } = this.getContent(source, params, schema)
@@ -126,6 +127,11 @@ LayoutHeader.propTypes = {
         somos: 'Cabecera somos',
       },
       defaultValue: 'standard',
+      description: `La jerarquía por defecto es "${defaultHierarchy}"`,
+    }),
+    customLogo: PropTypes.string.tag({
+      name: 'Editar logo',
+      description: 'Se debe colocar la url de la imagen',
     }),
     hierarchyConfig: PropTypes.contentConfig('navigation').tag({
       name: 'Editar navegación',
