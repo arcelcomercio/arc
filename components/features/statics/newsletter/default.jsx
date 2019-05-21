@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
-import customFields from './_dependencies/custom-fields'
+import customFieldsExtern from './_dependencies/custom-fields'
 import NewsletterChild from './_children/newsletter'
 import Data from './_dependencies/data'
 
@@ -113,7 +113,7 @@ class Newsletter extends PureComponent {
 
   render() {
     const { submitForm, confirmRegister, formMessage } = this.state
-    const { arcSite, contextPath, deployment } = this.props
+    const { arcSite, contextPath, deployment, customFields } = this.props
     const data = new Data(customFields, arcSite, contextPath)
     const params = {
       description: data.description,
@@ -133,7 +133,7 @@ class Newsletter extends PureComponent {
 }
 
 Newsletter.propTypes = {
-  customFields,
+  customFields: customFieldsExtern,
 }
 
 Newsletter.label = 'Newsletter'

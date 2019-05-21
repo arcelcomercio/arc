@@ -24,9 +24,11 @@ class ArticleSeparator extends PureComponent {
   }
 
   getSeccionPrimary = dataArticle => {
-    const splitText = dataArticle.primary_section.path.slice(1).split('/')
     const lastSection = '/'
-    return lastSection + splitText[0]
+    const splitText = dataArticle.primary_section
+      ? lastSection + dataArticle.primary_section.path.slice(1).split('/')[0]
+      : '/politica'
+    return splitText
   }
 
   componentDidMount = () => {

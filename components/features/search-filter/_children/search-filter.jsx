@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 // TODO: Refactorizar todo (la data debe venir desde el feature, no hacer fetches aca)
+// TODO: Las búsquedas no deben hacerse por parámetros, deben ser por la misma URL
+
 @Consumer
 class SearchFilterChildSearchFilter extends PureComponent {
   constructor(props) {
@@ -35,7 +37,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
 
   // Replace the parameter from the query
   getUrl(type, value) {
-    const { requestUri, arcSite } = this.props
+    const { requestUri, contextPath } = this.props
 
     /* Genera la expresión regular basado en el parámetro que se busca */
     const regex = new RegExp(`(\\?|&)${type}=.*?(?=&)`)
@@ -76,11 +78,11 @@ class SearchFilterChildSearchFilter extends PureComponent {
         /%20/g,
         '+'
       )}&category=${(params.section && params.section.slice(1)) ||
-        category}&sort=${params.sort || sort || 'desc'}&_website=${arcSite}`
+        category}&sort=${params.sort || sort || 'desc'}`
       /* El slice(0) es para eliminar el slash de la sección que se agrega para la consulta a la API */
     }
 
-    return newUri /* Retorna la nueva URI armada */
+    return contextPath + newUri /* Retorna la nueva URI armada */
   }
 
   // Establece el estado "selected" relacionado al filtro seleccionado
@@ -92,20 +94,17 @@ class SearchFilterChildSearchFilter extends PureComponent {
 
   // TODO: Agrega la nueva "query" a la URI
   _handleSearch = e => {
-    const { arcSite, globalContentConfig } = this.props
+    const { globalContentConfig, contextPath, requestUri } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
     const { value } = this.inputSearch.current /* React ref del input */
     e.preventDefault()
 
     /* Sólo genera la URI si "query" tiene contenido */
     if (value !== '')
-      // TODO: location.pathmane por "contextPath y requestUri"
-      // Si me dio tiempo de escribir esto pero no de hacerlo...
       // eslint-disable-next-line no-restricted-globals
-      location.href = `${location.pathname}?query=${encodeURIComponent(
+      location.href = `${contextPath}${requestUri}?query=${encodeURIComponent(
         value
-      ).replace(/%20/g, '+')}&category=&sort=${sort ||
-        'desc'}&_website=${arcSite}`
+      ).replace(/%20/g, '+')}&category=&sort=${sort || 'desc'}`
     /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
   }
 

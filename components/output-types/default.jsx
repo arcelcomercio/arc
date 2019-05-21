@@ -66,6 +66,9 @@ export default ({
     article: false, // check data origin - Boolean
     deployment,
   }
+
+  const articleSlug = requestUri.match(`^(/(.*)/.*-noticia)`)
+
   return (
     <html lang="es">
       <head>
@@ -112,7 +115,7 @@ export default ({
           }
         />
       </head>
-      <body>
+      <body className={articleSlug && 'article'}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"

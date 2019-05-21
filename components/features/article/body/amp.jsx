@@ -7,12 +7,12 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 import ElePrincipal from './_children/amp-ele-principal'
 import ArticleBodyChildVideo from './_children/video'
+import ArticleBodyChildTable from './_children/table'
 
 const elementClasses = {
   content: 'amp-content',
   textClasses: 'amp-content__news-text',
   author: 'amp-content__author',
-  imageClasses: 'visual__image',
 }
 
 @Consumer
@@ -42,6 +42,9 @@ class ArticleAMPArticleBody extends Component {
               } = element
               if (type === 'oembed_response') {
                 return <AmpOembed rawOembed={rawOembed} subtype={subtype} />
+              }
+              if (type === 'table') {
+                return <ArticleBodyChildTable data={element} type={type} />
               }
               if (type === 'raw_html') {
                 return null
