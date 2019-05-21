@@ -4,10 +4,11 @@ const classes = {
   logocontent: 'header-somos',
   iconmenuwrapper: 'header-somos__icon-wrapper',
   menuicon: 'icon-menu header-somos__icon',
-  logoicon: 'header-somos__logo-wrapper',
+  logoWrapper: 'header-somos__logo-wrapper',
   logoimgwrapper: 'header-somos__img-wrapper',
   logoLink: 'header-somos__img-link',
   logoimg: 'header-somos__img',
+  logoIcon: 'icon-comercio',
 
   menu: 'somos-menu',
   menuContent: 'somos-menu__content',
@@ -27,6 +28,8 @@ const classes = {
   menuItem: 'somos-menu__item',
   menuLink: 'somos-menu__link',
   menubtn: 'header-somos__btn',
+
+  menuActive: 'somos-menu--active',
 }
 
 class HeaderChildSomos extends PureComponent {
@@ -58,16 +61,16 @@ class HeaderChildSomos extends PureComponent {
               <img className={classes.logoimg} src={logo.src} alt={logo.alt} />
             </a>
           </div>
-          <div className={classes.logoicon}>
+          <div className={classes.logoWrapper}>
             <a href={logoIcon.link}>
-              <i className="icon-comercio" />
+              <i className={classes.logoIcon} />
             </a>
           </div>
         </div>
 
         <nav
           className={`${classes.menu} ${
-            isMenuActive ? 'somos-menu--active' : ''
+            isMenuActive ? classes.menuActive : ''
           }`}>
           <div className={classes.menuContent}>
             <div className={classes.menuClose}>

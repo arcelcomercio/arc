@@ -6,7 +6,8 @@ export default class StandardHeader {
     arcSite = '',
     data = {},
     headerType = 'standard',
-    customLogo
+    customLogo,
+    customLogoLink
   ) {
     this.contextPath = contextPath
     this.deployment = deployment
@@ -15,6 +16,7 @@ export default class StandardHeader {
     this.data = data
     this.headerType = headerType
     this.customLogo = customLogo
+    this.customLogoLink = customLogoLink
     this.schema = this.getSchema()
   }
 
@@ -59,7 +61,9 @@ export default class StandardHeader {
           this.deployment(
             `${this.contextPath}/resources/dist/${this.arcSite}/images/logo.png`
           ),
-        link: this.contextPath,
+        link: this.customLogoLink
+          ? `${this.contextPath}${this.customLogoLink}`
+          : this.contextPath,
         alt: this.siteDomain,
       },
       sections: [newest, ...sections],
@@ -74,8 +78,10 @@ export default class StandardHeader {
           this.deployment(
             `${this.contextPath}/resources/dist/${this.arcSite}/images/logo.png`
           ),
-        link: `${this.contextPath}/somos`,
-        alt: 'Somos',
+        link: this.customLogoLink
+          ? `${this.contextPath}${this.customLogoLink}`
+          : this.contextPath,
+        alt: this.siteDomain,
       },
       logoIcon: {
         link: this.contextPath,
