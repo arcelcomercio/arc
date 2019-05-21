@@ -53,13 +53,20 @@ class ExtraordinaryStoryBySection extends Component {
   }
 
   render() {
-    const { customFields, arcSite } = this.props
+    const { deployment, contextPath, arcSite, customFields } = this.props
     const {
       data: { content_elements: contentElements = [] },
     } = this.state
-    const dataElement =
+    const data =
       contentElements && contentElements.length > 0 ? contentElements[0] : {}
-    const formattedData = new Data(customFields, dataElement, arcSite)
+    const formattedData = new Data({
+      data,
+      deployment,
+      contextPath,
+      arcSite,
+      customFields,
+      defaultImgSize: 'md',
+    })
     this.isVideo = formattedData.isVideo
     const params = {
       data: formattedData,

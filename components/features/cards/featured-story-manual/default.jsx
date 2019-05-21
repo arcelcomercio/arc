@@ -9,7 +9,12 @@ import StoryFormatter from '../../../utilities/featured-story-formatter'
 class CardFeaturedStoryManual extends PureComponent {
   constructor(props) {
     super(props)
-    this.storyFormatter = new StoryFormatter(props.arcSite, props.contextPath)
+    const { deployment, contextPath, arcSite } = props
+    this.storyFormatter = new StoryFormatter({
+      deployment,
+      contextPath,
+      arcSite,
+    })
     this.state = this.storyFormatter.initialState
     this.fetch()
   }
@@ -28,12 +33,7 @@ class CardFeaturedStoryManual extends PureComponent {
 
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
-      const newState = this.storyFormatter.formatStory(
-        response,
-        size,
-        imageSize,
-        imgField
-      )
+      const newState = this.storyFormatter.formatStory(response, imgField)
       this.setState(newState)
     })
   }

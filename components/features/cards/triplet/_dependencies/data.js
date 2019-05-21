@@ -3,8 +3,22 @@ import StoryData from '../../../../utilities/story-data'
 class Data extends StoryData {
   static AUTHOR = 'author'
 
-  constructor(data, website, customFields, index = 0) {
-    super(data, website)
+  constructor({
+    data,
+    deployment,
+    contextPath,
+    arcSite,
+    defaultImgSize,
+    customFields,
+    index = 0
+  }) {
+    super({
+      data,
+      deployment,
+      contextPath,
+      arcSite,
+      defaultImgSize
+    })
     this._customFields = customFields
     this._index = index
   }

@@ -19,12 +19,9 @@ const classes = {
 @Consumer
 class StaticOpinionGrid extends PureComponent {
   render() {
-    const { globalContent, arcSite } = this.props
+    const { globalContent, deployment, contextPath, arcSite } = this.props
     const { content_elements: contentElements } = globalContent || {}
-    const params = {
-      data: contentElements || [],
-      arcSite,
-    }
+    const stories = contentElements || []
 
     return (
       <div>
@@ -32,7 +29,7 @@ class StaticOpinionGrid extends PureComponent {
           <CustomTitle />
         </div>
         <div className={classes.container}>
-          {params.data.slice(0, 12).map(story => {
+          {stories.slice(0, 12).map(story => {
             const { taxonomy: { primary_section: { name } = '' } = {} } =
               story || {}
             const section = name ? name.toUpperCase() : ''
@@ -40,13 +37,17 @@ class StaticOpinionGrid extends PureComponent {
               <EditorialCard
                 key={`Editorial-card-${story._id}`}
                 data={story}
-                arcSite={params.arcSite}
+                deployment={deployment}
+                contextPath={contextPath}
+                arcSite={arcSite}
               />
             ) : (
               <AuthorCard
                 key={`Author-card-${story._id}`}
                 data={story}
-                arcSite={params.arcSite}
+                deployment={deployment}
+                contextPath={contextPath}
+                arcSite={arcSite}
               />
             )
           })}
@@ -55,11 +56,13 @@ class StaticOpinionGrid extends PureComponent {
           <div className={classes.titleBox}>
             <p className={classes.title}>ÚLTIMAS NOTICIAS</p>
           </div>
-          {params.data.slice(12).map(story => (
+          {stories.slice(12).map(story => (
             <ListItem
               key={`List-item-${story._id}`}
               data={story}
-              arcSite={params.arcSite}
+              deployment={deployment}
+              contextPath={contextPath}
+              arcSite={arcSite}
             />
           ))}
           <div className={classes.moreBox}>

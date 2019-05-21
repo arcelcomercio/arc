@@ -12,8 +12,13 @@ const classes = {
   title: 'author-card__title text-uppercase block',
 }
 
-const OpinionGridAuthorCard = ({ arcSite, data }) => {
-  const story = new StoryData({}, arcSite)
+const OpinionGridAuthorCard = ({ data, deployment, contextPath, arcSite }) => {
+  const story = new StoryData({
+    deployment,
+    contextPath,
+    arcSite,
+    defaultImgSize: 'sm',
+  })
   story.__data = data
 
   return (

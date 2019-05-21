@@ -1,10 +1,13 @@
 import StoryData from './story-data'
-import { ResizeImageUrl } from './helpers'
 
 class FeaturedStoryFormatter {
-  constructor(arcSite = '', contextPath = '') {
-    this.arcSite = arcSite
+  constructor({
+    deployment,
+    contextPath = '',
+    arcSite = ''
+  }) {
     this.contextPath = contextPath
+    this.arcSite = arcSite
     this.schema = `{ 
       headlines { basic }
       credits {
@@ -50,29 +53,34 @@ class FeaturedStoryFormatter {
       image: '',
       multimediaType: 'basic',
     }
-    this.storyDataInstace = new StoryData({}, this.arcSite)
+    this.storyDataInstace = new StoryData({
+      deployment,
+      contextPath: this.contextPath,
+      arcSite: this.arcSite,
+      defaultImgSize: 'sm'
+    })
   }
 
-  getImgUrl(size = '', imageSize = '', customImage = '') {
-    const imageUrl = customImage || this.storyDataInstace.multimedia
-    let resizedImageUrl = ''
+  /*   getImgUrl(size = '', imageSize = '', customImage = '') {
+      const imageUrl = customImage || this.storyDataInstace.multimedia
+      let resizedImageUrl = ''
 
-    resizedImageUrl = ResizeImageUrl(this.arcSite, imageUrl, '3:4', '288x157')
-    if (size === 'twoCol') {
-      resizedImageUrl = ResizeImageUrl(this.arcSite, imageUrl, '3:4', '676x374')
-    } else if (imageSize === 'complete') {
-      resizedImageUrl = ResizeImageUrl(
-        this.arcSite,
-        imageUrl,
-        '9:16',
-        '328x374'
-      )
-    }
+      resizedImageUrl = ResizeImageUrl(this.arcSite, imageUrl, '3:4', '288x157')
+      if (size === 'twoCol') {
+        resizedImageUrl = ResizeImageUrl(this.arcSite, imageUrl, '3:4', '676x374')
+      } else if (imageSize === 'complete') {
+        resizedImageUrl = ResizeImageUrl(
+          this.arcSite,
+          imageUrl,
+          '9:16',
+          '328x374'
+        )
+      }
 
-    return resizedImageUrl
-  }
+      return resizedImageUrl
+    } */
 
-  formatStory(story = '', size = '', imageSize = '', imgField = '') {
+  formatStory(story = '', imgField = '') {
     this.storyDataInstace.__data = story
 
     const newState = {
@@ -92,7 +100,7 @@ class FeaturedStoryFormatter {
       this.storyDataInstace.authorLink
     }`
 
-    newState.image = this.getImgUrl(size, imageSize, imgField)
+    newState.image = imgField || this.storyDataInstace.multimedia
     newState.multimediaType = this.storyDataInstace.multimediaType
 
     return newState

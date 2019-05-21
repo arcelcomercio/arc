@@ -24,7 +24,13 @@ class CardMostRead extends PureComponent {
   }
 
   fetch() {
-    const { globalContent, globalContentConfig } = this.props
+    const {
+      globalContent,
+      globalContentConfig,
+      deployment,
+      contextPath,
+      arcSite,
+    } = this.props
     const { storiesQty } = this.state
     const { source, params } = fetchConfig(
       globalContent,
@@ -32,7 +38,6 @@ class CardMostRead extends PureComponent {
       storiesQty
     )
     const { fetched } = this.getContent(source, params, schemaFilter)
-    // FIXME
     fetched
       .then(response => {
         const { content_elements: contentElements } = response || {}
@@ -40,7 +45,7 @@ class CardMostRead extends PureComponent {
 
         if (stories.length > 0) {
           this.setState({
-            stories: dataCasting(stories, this.props),
+            stories: dataCasting(stories, deployment, contextPath, arcSite),
           })
         } else {
           this.setState({

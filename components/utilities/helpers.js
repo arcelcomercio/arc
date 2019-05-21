@@ -306,7 +306,12 @@ export const formatSlugToText = (text = '') => {
     .replace(/-/, ' ')
 }
 
-export const defaultImage = (deployment, contextPath, arcSite, size = 'lg') => {
+export const defaultImage = ({
+  deployment,
+  contextPath,
+  arcSite,
+  size = 'lg'
+}) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
   return deployment(
     `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`

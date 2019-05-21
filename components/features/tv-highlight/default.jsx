@@ -53,7 +53,13 @@ class TVHighlight extends PureComponent {
     }
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(story => {
-      const get = new StoryData(story, arcSite)
+      const get = new StoryData({
+        data: story,
+        deployment,
+        contextPath,
+        arcSite,
+        defaultImgSize: 'lg',
+      })
       const filterData = {
         category: {
           nameSection: get.section,
@@ -65,10 +71,7 @@ class TVHighlight extends PureComponent {
         },
         multimedia: {
           multimediaType: get.multimediaType,
-          multimediaImg:
-            get.multimedia ||
-            defaultImage(deployment, contextPath, arcSite, 'lg') ||
-            '',
+          multimediaImg: get.multimedia,
         },
         tags: get.tags,
       }

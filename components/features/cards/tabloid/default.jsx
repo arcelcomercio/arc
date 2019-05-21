@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import { defaultImage, formatSlugToText } from '../../../utilities/helpers'
+import { formatSlugToText } from '../../../utilities/helpers'
 import CustomFieldsImport from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
@@ -34,17 +34,17 @@ class CardTabloid extends PureComponent {
 
   getContentApi = section => {
     // if (section) {
-    const { arcSite: website } = this.props
+    const { deployment, contextPath, arcSite } = this.props
 
     const { fetched } = this.getContent(
       'story-feed-by-section',
       {
-        website,
+        website: arcSite,
         section,
         news_number: 1,
       },
 
-      schemaFilter(website)
+      schemaFilter(arcSite)
     )
 
     fetched
@@ -53,7 +53,13 @@ class CardTabloid extends PureComponent {
 
         if (contentElements.length > 0) {
           // TODO: pf
-          const data = new StoryData(contentElements[0], website)
+          const data = new StoryData({
+            data: contentElements[0],
+            deployment,
+            contextPath,
+            arcSite,
+            defaultImgSize: 'sm',
+          })
           this.setState({
             data,
           })
@@ -104,7 +110,7 @@ class CardTabloid extends PureComponent {
       sectionName,
       data: { link: rawLink, multimedia, title, date, section },
     } = this.state
-    const { arcSite, deployment, contextPath } = this.props
+    const { contextPath } = this.props
     // TODO: Esto debe ser eliminado al agregar contextPath a StoryData
     const link = `${contextPath}${rawLink || ''}`
 
@@ -125,15 +131,7 @@ class CardTabloid extends PureComponent {
             <figure>
               <picture>
                 <a href={link}>
-                  <img
-                    className={classes.face}
-                    src={
-                      multimedia ||
-                      defaultImage(deployment, contextPath, arcSite, 'sm') ||
-                      ''
-                    }
-                    alt={title}
-                  />
+                  <img className={classes.face} src={multimedia} alt={title} />
                 </a>
               </picture>
             </figure>
