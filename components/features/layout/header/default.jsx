@@ -4,7 +4,13 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import { setDevice } from '../../../utilities/resizer'
 
+
+import HeaderChildElcomercio from './_children/elcomercio'
+import SomosAsideMenuContent from './_children/somos-aside-menu-content'
+import HeaderSomos from './_children/somos'
+
 import HeaderChildStandard from './_children/standard'
+
 
 @Consumer
 class LayoutHeader extends PureComponent {
@@ -111,9 +117,13 @@ class LayoutHeader extends PureComponent {
       device,
     }
 
-    return this.renderHeader(headerType, params)
+    return <HeaderSomos {...params} />
+    //return this.renderHeader(headerType, params)
   }
 }
+
+//return <HeaderSomos {...params} />
+//return device === 'desktop' && <HeaderChildElcomercio {...params} />
 
 LayoutHeader.label = 'Cabecera de Página'
 

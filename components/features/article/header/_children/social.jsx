@@ -1,115 +1,118 @@
-import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-
+import React, { PureComponent, Fragment } from 'react'
 import {
-  FacebookShareButton,
-  GooglePlusShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-  // PinterestShareButton,
-  EmailShareButton,
-} from 'react-share'
+  popUpWindow,
+  socialMediaUrlShareList,
+} from '../../../../utilities/helpers'
+import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  share: 'article-header__share-news',
-  shareListItem: '',
-  shareItemFb:
-    'article-header__list-items__item article-header__list-items__item--face',
-  shareItemTw:
-    'article-header__list-items__item article-header__list-items__item--tw',
-  shareItemLinkedIn:
-    'article-header__list-items__item    article-header__list-items__item--linkedin',
-  shareItemWs: 'article-header__list-items__item hide',
-  shareItemGplus:
-    'article-header__list-items__item article-header__list-items__item--gplus',
-  shareItemOtherItems:
-    'article-header__list-items__item article-header__list-items__item--other-items   hide',
-  shareItemShowMore:
-    'article-header__list-items__item article-header__list-items__item--show-more',
-  shareItemLink: 'article-header__list-items__item__link',
-  shareBtnLess: 'less',
-  shareBtnMore: 'more',
+  news: 'article-header__share flex flex--justify-between flex--align-center',
+  breadcrumb: 'article-header__breadcrumb',
+  item: 'article-header__item',
+  category: 'article-header__category',
+  link: 'article-header__link flex-center-vertical flex--justify-center',
+  list: 'article-header__list flex flex--justify-between',
 }
-
 @Consumer
-class ArticleHeaderChildSocial extends Component {
+class ArticleHeaderChildSocial extends PureComponent {
   constructor(props) {
     super(props)
+    this.firstList = 'firstList'
+    this.secondList = 'secondList'
     this.state = {
-      shareMas: '',
+      currentList: this.firstList,
+    }
+    const {
+      siteUrl,
+      globalContent: {
+        website_url: postPermaLink,
+        headlines: { basic: postTitle } = {},
+      },
+    } = props
+
+    const urlsShareList = socialMediaUrlShareList(
+      siteUrl,
+      postPermaLink,
+      postTitle
+    )
+    this.shareButtons = {
+      [this.firstList]: [
+        {
+          icon: 'icon-facebook',
+          link: urlsShareList.facebook,
+          mobileClass: 'flex flex--justify-center',
+        },
+
+        {
+          icon: 'icon-twitter',
+          link: urlsShareList.twitter,
+          mobileClass: 'flex flex--justify-center',
+        },
+        {
+          icon: 'icon-linkedin',
+          link: urlsShareList.linkedin,
+          mobileClass: 'flex flex--justify-center',
+        },
+        {
+          icon: 'icon-ribbon',
+          link: urlsShareList.pin,
+          mobileClass: 'flex flex--justify-center',
+        },
+      ],
     }
   }
 
-  handleOnclickMas = () => {
-    this.setState({
-      shareMas: ' article-header__list-items__item--active',
-    })
+  getSeccionPrimary = dataArticle => {
+    return dataArticle.taxonomy
+      ? dataArticle.taxonomy.primary_section
+      : { name: '', section: '' }
   }
 
-  handleOnclickckClose = () => {
-    this.setState({
-      shareMas: '',
-    })
+  handleMoreButton = () => {
+    const { currentList } = this.state
+    const newList =
+      currentList === this.firstList ? this.secondList : this.firstList
+    this.setState({ currentList: newList })
+  }
+
+  openLink = (event, item, print) => {
+    event.preventDefault()
+    if (print) window.print()
+    else popUpWindow(item.link, '', 600, 400)
   }
 
   render() {
-    const { url = '', title = '' } = this.props
-    // console.log(url);     debugger;
-    const inUrl = `http://www.linkedin.com/shareArticle?url=${url}`
-    const twUrl = url + title
-    const fbUrl = `http://www.facebook.com/sharer.php?u=${url}`
-    // const waUrl = 'whatsapp://send?text=' + title ? 'title.basic' : '' + url
-    const gpUrl = `https://plus.google.com/share?url=${url}`
-    const { shareMas } = this.state
+    const { currentList } = this.state
+    const {
+      globalContent: { taxonomy: { primary_section: { name } = {} } } = {},
+    } = this.props
+
     return (
-      <div className={classes.share + shareMas}>
-        <div className={classes.shareListItem}>
-          <FacebookShareButton className={classes.shareItemFb} url={fbUrl}>
-            <i className="icon-fb" />
-            <span>Compartir </span>
-          </FacebookShareButton>
-          <TwitterShareButton className={classes.shareItemTw} url={twUrl}>
-            <i className="icon-tw" /> <span>Compartir</span>
-          </TwitterShareButton>
-          <LinkedinShareButton
-            url={inUrl}
-            className={classes.shareItemLinkedIn}>
-            <i className="icon-in" />
-            <span>Compartir </span>
-          </LinkedinShareButton>
-          <div className={classes.shareItemOtherItems + shareMas}>
-            <GooglePlusShareButton
-              url={gpUrl}
-              className={classes.shareItemLinkedIn}>
-              <i className="icon-in" />
-              <span>Compartir </span>
-            </GooglePlusShareButton>
-            <EmailShareButton url={inUrl} className={classes.shareItemLinkedIn}>
-              <i className="icon-in" />
-              <span>Compartir </span>
-            </EmailShareButton>
-          </div>
-          <div className={classes.shareItemShowMore}>
-            <span
-              className={classes.shareBtnMore}
-              onClick={this.handleOnclickMas}
-              role="button"
-              onKeyPress={this.handleOnclickMas}
-              tabIndex={0}>
-              +
-            </span>
-            <span
-              className={classes.shareBtnLess}
-              onClick={this.handleOnclickckClose}
-              role="button"
-              onKeyPress={this.handleOnclickckClose}
-              tabIndex={-1}>
-              -{' '}
-            </span>
-          </div>
+      <Fragment>
+        <div className={classes.news}>
+          <div className={classes.category}> {name}</div>
+          <ul className={classes.list}>
+            {this.shareButtons[currentList].map((item, i) => (
+              <li
+                key={UtilListKey(i)}
+                className={` ${classes.item} ${item.mobileClass}`}>
+                <a
+                  className={classes.link}
+                  href={item.link}
+                  onClick={event => {
+                    const isPrint = i === 2 && currentList === this.secondList
+                    this.openLink(event, item, isPrint)
+                  }}>
+                  <i className={item.icon} />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+      </Fragment>
     )
   }
 }
+
 export default ArticleHeaderChildSocial

@@ -1,5 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
-import Consumer from 'fusion:consumer'
+import React, { Fragment } from 'react'
 
 import Image from '@arc-core-components/element_image'
 import renderHTML from 'react-render-html'
@@ -8,36 +7,20 @@ const classes = {
   image: 'visual__image visual__image--cover',
   description: 'news-media-description',
 }
-@Consumer
-class ArticleBodyChildArticleImage extends PureComponent {
-  render() {
-    const {
-      data: {
-        resized_urls: resizedUrls = '',
-        subtitle = '',
-        caption = '',
-      } = {},
-    } = this.props
 
-    return (
-      <Fragment>
-        <Image
-          resized_urls={resizedUrls}
-          aspectRatio="2:3"
-          alt={subtitle}
-          className={classes.image}
-          width=""
-          height=""
-          layout=""
-          url=""
-        />
-        {caption && (
-          <figcaption className={classes.description}>
-            {renderHTML(caption)}
-          </figcaption>
-        )}
-      </Fragment>
-    )
-  }
+const ArticleBodyChildArticleImage = props => {
+  const { data } = props
+  console.log(data)
+  return (
+    <Fragment>
+      <Image
+        width="100%"
+        className={classes.image}
+        sizePreset="large"
+        {...data}
+      />
+    </Fragment>
+  )
 }
+
 export default ArticleBodyChildArticleImage
