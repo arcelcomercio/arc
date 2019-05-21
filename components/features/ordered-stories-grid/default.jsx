@@ -46,8 +46,8 @@ class OrderedStoriesGrid extends PureComponent {
     })
     return elements.map((element, idx) => {
       if (element.type === 'destaque') {
-        storyDataElement.__data = stories[storyNumber + idx]
-        const story = storyDataElement.attributesRaw
+        storyDataElement.__data = stories[storyNumber + idx] || {}
+        const story = storyDataElement.attributesRaw || {}
         return (
           <FeaturedStory
             key={story.link}

@@ -13,14 +13,14 @@ const classes = {
 }
 
 const OpinionGridAuthorCard = ({ data, deployment, contextPath, arcSite }) => {
-  const story = new StoryData({
+  const storyDataFormatter = new StoryData({
     deployment,
     contextPath,
     arcSite,
     defaultImgSize: 'sm',
   })
-  story.__data = data
-
+  storyDataFormatter.__data = data
+  const story = storyDataFormatter.attributesRaw
   return (
     <div className={classes.card}>
       <div className={classes.wrapper}>
