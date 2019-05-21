@@ -13,8 +13,9 @@ class StoriesListSectionStories extends PureComponent {
   render() {
     const {
       globalContent,
-      arcSite,
+      deployment,
       contextPath,
+      arcSite,
       globalContentConfig,
       customFields,
     } = this.props
@@ -38,9 +39,11 @@ class StoriesListSectionStories extends PureComponent {
               .map(story => (
                 <StoryItem
                   key={`Section-storie-${story._id}`}
-                  formato="row"
                   data={story}
+                  deployment={deployment}
+                  contextPath={contextPath}
                   arcSite={arcSite}
+                  formato="row"
                 />
               ))}
         </div>

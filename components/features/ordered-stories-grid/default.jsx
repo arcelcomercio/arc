@@ -26,7 +26,13 @@ const classes = {
 @Consumer
 class OrderedStoriesGrid extends PureComponent {
   renderGrilla() {
-    const { customFields, arcSite, globalContent } = this.props
+    const {
+      globalContent,
+      deployment,
+      contextPath,
+      arcSite,
+      customFields,
+    } = this.props
     const { content_elements: contentElements } = globalContent || {}
     const stories = contentElements || []
     let { initialStory: storyNumber = 1 } = customFields || {}
@@ -36,7 +42,14 @@ class OrderedStoriesGrid extends PureComponent {
       if (element.type === 'destaque') {
         /** TODO: Optimizar para no crear instancia cada paso del map */
         const story =
-          stories && new StoryData(stories[storyNumber + idx], arcSite)
+          stories &&
+          new StoryData({
+            data: stories[storyNumber + idx],
+            deployment,
+            contextPath,
+            arcSite,
+            defaultImgSize: 'md',
+          })
         return (
           <FeaturedStory
             arcSite={arcSite}

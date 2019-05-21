@@ -2,6 +2,9 @@ import {
   addResizedUrlItem
 } from './thumbs'
 import ConfigParams from './config-params'
+import {
+  defaultImage
+} from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -12,9 +15,18 @@ class StoryData {
 
   static IMAGE = ConfigParams.IMAGE
 
-  constructor(data = {}, website = '') {
+  constructor({
+    data = {},
+    deployment = () => {},
+    contextPath = '',
+    arcSite = '',
+    defaultImgSize = 'md'
+  }) {
     this._data = data
-    this._website = website
+    this._deployment = deployment
+    this._contextPath = contextPath
+    this._website = arcSite
+    this._defaultImgSize = defaultImgSize
   }
 
   get __data() {
@@ -31,6 +43,14 @@ class StoryData {
 
   set __website(val) {
     this._website = val
+  }
+
+  get __defaultImgSize() {
+    return this._defaultImgSize
+  }
+
+  set __defaultImgSize(val) {
+    this._defaultImgSize = val
   }
 
   get id() {
@@ -76,7 +96,12 @@ class StoryData {
     return StoryData.getThumbnail(
       this._data,
       StoryData.getTypeMultimedia(this._data)
-    )
+    ) || defaultImage({
+      deployment: this._deployment,
+      contextPath: this._contextPath,
+      arcSite: this._website,
+      size: this._defaultImgSize
+    })
   }
 
   get multimediaType() {

@@ -13,8 +13,18 @@ const classes = {
   title: 'editorial-card__title block',
 }
 
-const OpinionGridEditorialCard = ({ arcSite, data }) => {
-  const story = new StoryData({}, arcSite)
+const OpinionGridEditorialCard = ({
+  data,
+  deployment,
+  contextPath,
+  arcSite,
+}) => {
+  const story = new StoryData({
+    deployment,
+    contextPath,
+    arcSite,
+    defaultImgSize: 'sm',
+  })
   story.__data = data
 
   return (

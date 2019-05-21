@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
+import { defaultImage } from '../../utilities/helpers'
 import TVHighlightChild from './_children/tv-highlight'
 import StoryData from '../../utilities/story-data'
 
@@ -16,7 +17,7 @@ class TVHighlight extends PureComponent {
   }
 
   fetch() {
-    const { customFields, arcSite } = this.props
+    const { customFields, deployment, contextPath, arcSite } = this.props
     const { section } = customFields
     const schema = `{ 
       headlines { basic }
@@ -37,26 +38,28 @@ class TVHighlight extends PureComponent {
           }
         }
       }
-      websites {
-        ${arcSite} {
-          website_section {
+      taxonomy {
+        primary_section {
             name
             path
-          }
         }
       }
     }`
-    const source = 'story-feed-by-section'
+    const source = 'story-by-section'
     const params = {
       section,
       feedOffset: 0,
       news_number: 1,
     }
-
     const { fetched } = this.getContent(source, params, schema)
-    fetched.then(response => {
-      const element = response.content_elements[0]
-      const get = new StoryData(element, arcSite)
+    fetched.then(story => {
+      const get = new StoryData({
+        data: story,
+        deployment,
+        contextPath,
+        arcSite,
+        defaultImgSize: 'lg',
+      })
       const filterData = {
         category: {
           nameSection: get.section,

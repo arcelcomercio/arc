@@ -15,8 +15,13 @@ const classes = {
   subtitle: 'author-item__subtitle block',
 }
 
-const OpinionGridListItem = ({ arcSite, data }) => {
-  const story = new StoryData({}, arcSite)
+const OpinionGridListItem = ({ data, deployment, contextPath, arcSite }) => {
+  const story = new StoryData({
+    deployment,
+    contextPath,
+    arcSite,
+    defaultImgSize: 'sm',
+  })
   story.__data = data
 
   return (

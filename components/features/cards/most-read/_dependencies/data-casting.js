@@ -13,9 +13,18 @@ export const setDataTest = storiesQty => {
   return auxTest
 }
 
-export const dataCasting = (data, props) => {
+export const dataCasting = (data, {
+  deployment,
+  contextPath,
+  arcSite
+}) => {
   const aux = []
-  const element = new StoryData({}, props.arcSite)
+  const element = new StoryData({
+    deployment,
+    contextPath,
+    arcSite,
+    defaultImgSize: 'sm'
+  })
 
   data.forEach(el => {
     element.__data = el

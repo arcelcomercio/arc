@@ -1,46 +1,46 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+import { formatSlugToText } from '../../../utilities/helpers'
 import CustomFieldsImport from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
 const classes = {
-  tabloide: 'tabloide',
-  header: 'tabloide__header',
-  body: 'tabloide__body',
-  imgContent: 'tabloide__imgContent',
-  imgPortada: 'tabloide__imgPortada',
+  tabloide: 'tabloide row-1 flex flex--column',
+  header: 'tabloide__header flex-center',
+  body: 'tabloide__body flex-center flex--column',
+  content: 'flex-center',
+  date: 'tabloide__date flex-center',
+  face: 'tabloide__face',
 }
 @Consumer
 class CardTabloid extends PureComponent {
   constructor(props) {
     super(props)
 
-    const {
-      customFields: { seccion = '', secctionName = '' } = {},
-    } = this.props
+    const { customFields: { section = '', sectionName = '' } = {} } = this.props
 
     this.state = {
-      seccion,
-      secctionName,
+      section,
+      sectionName,
       data: {},
     }
   }
 
   componentDidMount = () => {
-    const { seccion } = this.state
-    this.getContentApi(seccion)
+    const { section } = this.state
+    this.getContentApi(section)
   }
 
-  getContentApi = seccion => {
-    // if (seccion) {
-    const { arcSite } = this.props
+  getContentApi = section => {
+    // if (section) {
+    const { deployment, contextPath, arcSite } = this.props
 
     const { fetched } = this.getContent(
       'story-feed-by-section',
       {
         website: arcSite,
-        section: seccion,
+        section,
         news_number: 1,
       },
 
@@ -52,13 +52,22 @@ class CardTabloid extends PureComponent {
         const { content_elements: contentElements = [] } = response || {}
 
         if (contentElements.length > 0) {
-          const prueba = new StoryData(contentElements[0], arcSite)
+          // TODO: pf
+          const data = new StoryData({
+            data: contentElements[0],
+            deployment,
+            contextPath,
+            arcSite,
+            defaultImgSize: 'sm',
+          })
           this.setState({
-            data: prueba,
+            data,
           })
         }
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        throw new Error(e)
+      })
     // }
   }
 
@@ -98,9 +107,12 @@ class CardTabloid extends PureComponent {
 
   render() {
     const {
-      secctionName,
-      data: { link, multimedia, title, date, section },
+      sectionName,
+      data: { link: rawLink, multimedia, title, date, section },
     } = this.state
+    const { contextPath } = this.props
+    // TODO: Esto debe ser eliminado al agregar contextPath a StoryData
+    const link = `${contextPath}${rawLink || ''}`
 
     const nameDate = this.nameDate(date)
 
@@ -108,22 +120,18 @@ class CardTabloid extends PureComponent {
       <div className={classes.tabloide}>
         <div className={classes.header}>
           <h4>
-            <a href={link}>{secctionName || section}</a>
+            <a href={link}>{sectionName || formatSlugToText(section)}</a>
           </h4>
         </div>
         <div className={classes.body}>
-          <h3>
+          <h3 className={classes.date}>
             <a href={link}>{nameDate}</a>
           </h3>
-          <div className={classes.imgContent}>
+          <div className={classes.content}>
             <figure>
               <picture>
                 <a href={link}>
-                  <img
-                    className={classes.imgPortada}
-                    src={multimedia}
-                    alt={title}
-                  />
+                  <img className={classes.face} src={multimedia} alt={title} />
                 </a>
               </picture>
             </figure>
