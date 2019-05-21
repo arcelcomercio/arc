@@ -14,6 +14,7 @@ import ArticleBodyChildRelated from './_children/related'
 import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildAuthor from './_children/author'
 import ArticleBodyChildMultimedia from './_children/multimedia'
+import schemaFilter from './_children/_dependencies/schema-filter'
 
 const classes = {
   news: 'article-body news-text-content col-2 bg-color--white',
@@ -22,13 +23,42 @@ const classes = {
 }
 @Consumer
 class ArticleBody extends PureComponent {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      data: [],
+    }
+
+    this.getContentApi()
+  }
+
+  getContentApi = () => {
+    const {
+      arcSite,
+      globalContent: { _id: id },
+    } = this.props
+
+    const { fetched } = this.getContent(
+      'story-by-id',
+      { _id: id, website: arcSite },
+      schemaFilter
+    )
+    fetched.then(response => {
+      const { basic: element } = response
+      this.setState({
+        data: element || [],
+      })
+    })
+  }
+
   render() {
     const { globalContent } = this.props
+    const { data } = this.state
     const {
       content_elements: contentElements,
       promo_items: promoItems,
       publish_date: date,
-      related_content: relatedContent,
       credits: author,
       taxonomy,
     } = globalContent || {}
@@ -75,8 +105,8 @@ class ArticleBody extends PureComponent {
             }}
           />
         )}
-        {taxonomy && <ArticleBodyChildTags data={taxonomy} />}
-        <ArticleBodyChildRelated data={relatedContent} />
+        {taxonomy && <ArticleBodyChildTags data={data} />}
+        <ArticleBodyChildRelated stories={data} />
       </div>
     )
   }

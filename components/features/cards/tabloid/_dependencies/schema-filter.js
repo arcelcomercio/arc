@@ -1,4 +1,4 @@
-export default (arcSite) => `
+export default arcSite => `
     {
       content_elements{
         canonical_url

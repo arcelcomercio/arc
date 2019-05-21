@@ -1,95 +1,69 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import Image from '@arc-core-components/element_image'
-import schemaFilter from '../../separator/_dependencies/schema-filter'
-
+import { getIcon } from '../../../../utilities/helpers'
+import StoryData from '../../../../utilities/story-data'
 // Basic flex stuff
 const classes = {
-  related: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  wordWrap: 'break-word',
+  related: 'related-content',
+  relatedItem: 'related-content__item',
+  relatedTitleItem: 'related-content__title--item',
+  relatedTitle: 'related-content__title',
+  relatedMultimedia: 'related-content__multimedia',
+  relatedIcon: 'related-content__icon',
+  relatedAuthor: 'related-content__author',
 }
 @Consumer
 class RelatedContent extends Component {
-  constructor(props) {
-    super(props)
-    console.log(props.data.basic)
-    this.state = {
-      basicRelatedContent: props.data.basic,
-    }
-  }
-
-  getContentApi = id => {
-    let newsNumber = 7
-    const { device } = this.state
-
-    if (device === 'mobile') newsNumber = 0
-
+  renderRelatedContentElement = data => {
     const { arcSite } = this.props
-    const { fetched } = this.getContent(
-      'story-by-id',
-      {
-        website: arcSite,
-        id,
-        news_number: newsNumber,
+    const get = new StoryData(data, arcSite)
+    const filterData = {
+      title: {
+        nameTitle: get.title,
+        urlTitle: get.link,
       },
-      schemaFilter
-    )
-    fetched.then(response => {
-      const { content_elements: contentElements } = response || {}
-      return contentElements || []
-    })
-  }
+      author: { nameAuthor: get.author, nameAuthorLink: get.authorLink },
+      multimedia: {
+        multimediaType: get.multimediaType,
+        multimediaImg: get.multimedia,
+      },
+    }
+    const { author, multimedia, title } = filterData
 
-  renderRelatedContentElement(item, index) {
-    const log = this.getContentApi(item.id)
-    console.log(this.getContentApi(item.id))
-    debugger
-    const {
-      credits,
-      headlines = {},
-      canonical_url: url,
-      promo_items = { basic: {} },
-      taxonomy = { primary_section: {} },
-    } = this.getContentApi(item)
-
-    debugger
-
-    const authors = credits.by
-    const { basic: basicHeadline } = headlines
-    const { basic: basicImage } = promo_items
-    const { url: imageUrl } = basicImage
-    const { name: sectionName } = taxonomy.primary_section
-
-    // eslint-disable-next-line consistent-return
     return (
-      <Fragment>
-        <div className={classes.related}>
-          <div>{sectionName}</div>
-          <h3>
-            <a href={url}>{basicHeadline}</a>
-          </h3>
-          <div>
-            <Image url={imageUrl} />
-          </div>
-          <div>
-            {authors.map(author => (
-              <div>{author.name}</div>
-            ))}
-          </div>
-          <div>{date}</div>
+      <article className={classes.relatedItem}>
+        <div className={`${classes.relatedTitleItem}`}>
+          <h2>
+            <a href={title.urlTitle}>{title.nameTitle}</a>
+          </h2>
         </div>
-      </Fragment>
+        <figure className={classes.relatedMultimedia}>
+          <a href={title.urlTitle}>
+            <img src={multimedia.multimediaImg} alt={title.nameTitle} />
+            {multimedia.multimediaType === 'basic' ||
+            multimedia.multimediaType === '' ? (
+              ''
+            ) : (
+              <span className={classes.relatedIcon}>
+                {getIcon(multimedia.multimediaType)}
+              </span>
+            )}
+          </a>
+          {/* <Icon iconClass={story.iconClass} /> */}
+        </figure>
+        <div className={classes.relatedAuthor}>
+          <a href={author.nameAuthorLink}>{author.nameAuthor}</a>
+        </div>
+      </article>
     )
   }
 
   render() {
+    const { stories: data } = this.props
     return (
-      <div>
-        {this.state.basicRelatedContent.map((item, index) =>
-          this.renderRelatedContentElement(item.referent, index)
-        )}
+      <div className={classes.related}>
+        <div className={classes.relatedTitle}>Relacionadas</div>
+        {data.map(item => this.renderRelatedContentElement(item))}
       </div>
     )
   }

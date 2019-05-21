@@ -1,4 +1,4 @@
-const schemaName = 'story'
+const schemaName = 'stories'
 
 const params = [
   {
@@ -14,7 +14,7 @@ const resolve = (key = {}) => {
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { _id: id } = key
-  const requestUri = `/content/v4/stories/?_id=${id}&website=${website}&published:true`
+  const requestUri = `/content/v4/related-content/stories?_id=${id}&website=${website}&published=true`
   return requestUri
 }
 
