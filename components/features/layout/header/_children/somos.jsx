@@ -8,6 +8,7 @@ const classses = {
   logoimgwrapper: 'header-somos__img-wrapper',
   logoLink: 'header-somos__img-link',
   logoimg: 'header-somos__img',
+  menubtn: 'header-somos__btn',
 }
 
 class HeaderChildSomos extends Component {
@@ -30,7 +31,7 @@ class HeaderChildSomos extends Component {
               type="button"
               onClick={() => {
                 this.setState({ isMenuActive: !isMenuActive })
-              }}>
+              }} className={classses.menubtn}>
               <i className={classses.menuicon} />
             </button>
           </div>
