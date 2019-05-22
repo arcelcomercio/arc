@@ -5,7 +5,7 @@ import { getIcon } from '../../../../utilities/helpers'
 
 // Basic flex stuff
 const classes = {
-  related: 'related-interna',
+  related: 'related-interna margin-top',
   relatedItem: 'related-interna__item',
   relatedTitleItem: 'related-interna__title-item',
   relatedTitle: 'related-interna__title',
@@ -30,13 +30,9 @@ const RelartedItem = ({ data, arcSite, styles }) => {
   }
   const { multimedia, title } = filterData
 
-  const style = {
-    top: `1%`,
-  }
-
   return (
     <Fragment>
-      <div className={classes.related} style={style}>
+      <div className={classes.related}>
         <div className={classes.relatedTitle}>Siga Leyendo </div>
         <div className={`${classes.relatedInfo}`}>
           <h2 className={`${classes.relatedTitleItem}`}>
@@ -81,7 +77,7 @@ const ArticleBodyChildRelatedInternal = ({
             key={UtilListKey(index)}
             data={item}
             arcSite={arcSite}
-            style={index}
+            styles={index}
           />
         ) : null
       )}
