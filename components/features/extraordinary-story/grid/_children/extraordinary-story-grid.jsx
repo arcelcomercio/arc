@@ -23,6 +23,7 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
     deployment,
     contextPath,
     arcSite,
+    imgLogo,
   } = props
   storyData.multimediaOrientation = 'grid'
 
@@ -41,18 +42,22 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
       <div className={classes.gridContainer}>
         <div className={classes.gridHeaderText}>
           Estás viendo
-          <img
-            className={classes.gridHeaderImage}
-            src="https://assets.peru21.pe/img/p21tv/logo_p21tv.png"
-            alt=""
-          />
+          <img className={classes.gridHeaderImage} src={imgLogo} alt="" />
         </div>
         <h2 className={classes.gridListTitle}>Programas del día</h2>
         <div className={classes.gridListItems}>
-          {section1.id !== '' && <SectionItem data={section1} />}
-          {section2.id !== '' && <SectionItem data={section2} />}
-          {section3.id !== '' && <SectionItem data={section3} />}
-          {section4.id !== '' && <SectionItem data={section4} />}
+          {section1.id !== '' && (
+            <SectionItem path={contextPath} data={section1} />
+          )}
+          {section2.id !== '' && (
+            <SectionItem path={contextPath} data={section2} />
+          )}
+          {section3.id !== '' && (
+            <SectionItem path={contextPath} data={section3} />
+          )}
+          {section4.id !== '' && (
+            <SectionItem path={contextPath} data={section4} />
+          )}
         </div>
       </div>
     </div>
