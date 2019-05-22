@@ -14,11 +14,18 @@ const StoriesListsCardChildItem = ({
   time,
   title,
   urlNews,
-  promoItems,
+  multimedia,
+  multimediaType,
 }) => {
   return (
     <article className={classes.story}>
-      {seeImageNews && <Multimedia urlNews={urlNews} promoItems={promoItems} />}
+      {seeImageNews && (
+        <Multimedia
+          urlNews={urlNews}
+          multimedia={multimedia}
+          multimediaType={multimediaType}
+        />
+      )}
       {seeHour && <div className={classes.time}>{time}</div>}
       <div className={classes.pageLink}>
         <a href={urlNews}>

@@ -1,30 +1,36 @@
 import React from 'react'
 import StoriesListCardChildItem from './item'
+import StoryData from '../../../../utilities/story-data'
 
 const classes = {
   listItem: 'stories-list-card__list-item scroll-vertical-auto',
 }
 
-const StoriesListsCardChildList = ({ seeHour, seeImageNews, listNews }) => {
+const StoriesListsCardChildList = ({
+  seeHour,
+  seeImageNews,
+  listNews,
+  deployment,
+  arcSite,
+  contextPath,
+}) => {
+  const elementFormatter = new StoryData({ deployment, arcSite, contextPath })
   return (
     <div className={classes.listItem}>
       {listNews.map(
         (
-          {
-            publish_date: publishDate,
-            headlines: { basic },
-            canonical_url: canonicalUrl,
-            promo_items: promoItems,
-          },
+          el,
           index
         ) => {
-          const fechaPublicacion = new Date(publishDate)
+          elementFormatter.__data = el
+          const data = elementFormatter.attributesRaw
+          const fechaPublicacion = new Date(data.date)
           let time = ''
 
           const fechapresente = new Date().getTime()
 
           if (
-            (fechapresente - new Date(publishDate).getTime()) /
+            (fechapresente - new Date(data.date).getTime()) /
               1000 /
               60 /
               60 >=
@@ -49,15 +55,16 @@ const StoriesListsCardChildList = ({ seeHour, seeImageNews, listNews }) => {
 
           return (
             <StoriesListCardChildItem
-              key={canonicalUrl}
+              key={data.link}
               seeHour={seeHour}
               seeImageNews={
                 seeImageNews === true && index === 0 /* ? true : false */
               }
               time={time}
-              title={basic}
-              urlNews={canonicalUrl}
-              promoItems={promoItems || ''}
+              title={data.title}
+              urlNews={data.link}
+              multimedia={data.multimedia}
+              multimediaType={data.multimediaType}
             />
           )
         }
