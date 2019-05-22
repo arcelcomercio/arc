@@ -12,7 +12,7 @@ const classes = {
   relatedMultimedia: 'related-interna__multimedia',
   relatedLink: 'related-interna__multimedia-link',
   relatedImage: 'related-interna__multimedia-img',
-  relatedIcon: 'related-interna__icon icon-',
+  relatedIcon: 'related-interna__multimedia-icon icon-',
   relatedInfo: 'related-interna__information',
 }
 
