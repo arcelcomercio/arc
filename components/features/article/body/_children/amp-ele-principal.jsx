@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import Video from './video'
-import Imagen from './image'
+import Imagen from './amp-image'
 
 export default props => {
   const { data: { basic_video: basicVideo = {}, basic = {} } = {} } = props

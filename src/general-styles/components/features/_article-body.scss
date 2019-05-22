@@ -66,7 +66,7 @@
       padding-right: 20px;
     }
   }
-  section > div {
+  section > p {
     font-size: 18px;
     line-height: 1.5;
     margin-bottom: 25px;
@@ -97,14 +97,20 @@
     & img {
       width: 100%;
     }
+
+    & figcaption {
+      padding: 14px 0px;
+      font-size: 13px;
+      color: #999;
+    }
   }
 
-  //._gallery
-  .gallery {
-    padding: 30px 30px 1px;
-    background-color: #e8f2f7;
-    margin-bottom: 30px;
+  &__embed {
+    .twitter-tweet {
+      width: 100% !important;
+    }
   }
+
   .visual__image {
     img {
       width: 100%;

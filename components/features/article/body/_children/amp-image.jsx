@@ -11,12 +11,19 @@ const ArticleBodyChildArticleImage = props => {
   const { data } = props
   return (
     <Fragment>
-      <Image
-        width="100%"
-        className={classes.image}
-        sizePreset="large"
-        {...data}
-      />
+      <div className="media norowmargin">
+        <figure>
+          <amp-img i-amphtml-layout="responsive">
+            <i-amphtml-sizer />
+            <Image
+              width="100%"
+              className={classes.image}
+              sizePreset="large"
+              {...data}
+            />
+          </amp-img>
+        </figure>
+      </div>
     </Fragment>
   )
 }
