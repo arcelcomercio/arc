@@ -47,7 +47,7 @@ class HeaderChildSomos extends Component {
           </div>
           <div className={classses.logoicon}>
             <a href={logoIcon.link}>
-              <i className="icon-comercio" />
+              <i className="icon-marca" />
             </a>
           </div>
         </div>

@@ -11,7 +11,7 @@ const classes = {
   relatedMultimedia: 'related-content__multimedia',
   relatedLink: 'related-content__multimedia-link',
   relatedImage: 'related-content__multimedia-img',
-  relatedIcon: 'related-content__icon icon-img',
+  relatedIcon: 'related-content__icon icon-video',
   relatedAuthor: 'related-content__author',
   relatedInfo: 'related-content__information',
 }
