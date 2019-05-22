@@ -66,6 +66,8 @@ class StoriesListCard extends PureComponent {
   }
 
   render() {
+    const { deployment, arcSite, contextPath } = this.props
+
     const {
       titleList,
       urlTitle,
@@ -89,6 +91,9 @@ class StoriesListCard extends PureComponent {
       seeHour,
       seeImageNews,
       listNews: data || [],
+      deployment,
+      arcSite,
+      contextPath,
     }
 
     return (
