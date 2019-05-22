@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  item: 'flex  blog-item',
+  item: 'flex  blog-item full-width',
   date: 'blog-item__date',
   container: 'flex blog-item__container',
   containerAvatar: 'blog-item__container-avatar',

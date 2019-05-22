@@ -226,7 +226,7 @@ class StoryData {
 
   static getDataAuthor(data, { contextPath = '' } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
-    const imageAuthorDefault = `${contextPath}/resources/assets/opinion-grid/author.png`
+    const authorImageDefault = `${contextPath}/resources/assets/author-grid/author.png`
 
     let nameAuthor = ''
     let urlAuthor = ''
@@ -241,12 +241,10 @@ class StoryData {
         imageAuthor =
           iterator.image && iterator.image.url && iterator.image.url !== ''
             ? iterator.image.url
-            : imageAuthorDefault
-        console.log('for', imageAuthor)
+            : authorImageDefault
         break
       }
     }
-    console.log('return', imageAuthor)
     return {
       nameAuthor,
       urlAuthor,
