@@ -188,7 +188,9 @@ class LayoutAmpNavbar extends PureComponent {
           services: response || {},
         })
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        throw new Error(e)
+      })
   }
 
   render() {
@@ -198,13 +200,7 @@ class LayoutAmpNavbar extends PureComponent {
       statusSidebar,
       scrolled,
     } = this.state
-    const {
-      arcSite,
-      contextPath,
-      requestUri,
-      deployment,
-      siteProperties: { navLogo = 'logo.png' },
-    } = this.props
+    const { logo, arcSite, contextPath, requestUri } = this.props
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
     return (
@@ -256,9 +252,7 @@ class LayoutAmpNavbar extends PureComponent {
           </ul>
           <a href={`${contextPath || ''}/${queryString}`}>
             <img
-              src={deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/${navLogo}`
-              )}
+              src={logo}
               alt={`Logo de ${arcSite}`}
               className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
             />

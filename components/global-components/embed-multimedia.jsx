@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import ConfigParams from '../utilities/config-params'
 import { defaultImage } from '../utilities/helpers'
 
@@ -68,17 +68,21 @@ const EmbedMultimedia = props => {
     ) {
       fx = image
     }
-    fx = image
     return fx
   }
 
   const { type, source, deployment, contextPath, website, title = '' } = props
-  return getMultimedia(type)(source, {
-    deployment,
-    contextPath,
-    title,
-    website,
-  })
+  return (
+    <Fragment>
+      {getMultimedia(type)(source, {
+        deployment,
+        contextPath,
+        title,
+        website,
+      })}
+      <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
+    </Fragment>
+  )
 }
 
 export default EmbedMultimedia

@@ -78,23 +78,6 @@ class ExtraordinaryStoryGrid extends Component {
 
   fetch(contentConfig, schema) {
     const { contentService = '', contentConfigValues = {} } = contentConfig
-    /* const hasSection =
-      Object.prototype.hasOwnProperty.call(contentConfigValues, '_id') &&
-      contentConfigValues._id !== ''
-    const hasStory =
-      Object.prototype.hasOwnProperty.call(
-        contentConfigValues,
-        'website_url'
-      ) && contentConfigValues.website_url !== ''
-
-    return hasSection || hasStory
-      ? this.getContent(contentService, contentConfigValues, schema)
-      : new Promise((resolve, reject) => {
-          reject(new Error('Url empty'))
-        })
-
-        */
-
     return this.getContent(contentService, contentConfigValues, schema)
   }
 
@@ -106,13 +89,25 @@ class ExtraordinaryStoryGrid extends Component {
       customFields: customFieldsData,
     } = this.props
     const { storyData, section1, section2, section3, section4 } = this.state
-
-    const formattedStoryData = new Data(customFieldsData, storyData, arcSite)
+    const formattedStoryData = new Data({
+      customFields: customFieldsData,
+      data: storyData,
+      arcSite,
+      deployment,
+      contextPath,
+      defaultImgSize: 'sm',
+    })
     const formattedSection1 = new SectionData(section1, arcSite)
     const formattedSection2 = new SectionData(section2, arcSite)
     const formattedSection3 = new SectionData(section3, arcSite)
     const formattedSection4 = new SectionData(section4, arcSite)
     this.isVideo = formattedStoryData.isVideo
+
+    const imgLogo =
+      customFieldsData.logo ||
+      deployment(
+        `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
+      )
 
     const params = {
       storyData: formattedStoryData,
@@ -123,6 +118,7 @@ class ExtraordinaryStoryGrid extends Component {
       deployment,
       contextPath,
       arcSite,
+      imgLogo,
     }
     return <ExtraordinaryStoryGridChild {...params} />
   }

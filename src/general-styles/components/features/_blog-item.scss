@@ -49,10 +49,6 @@
     font-size: 10px;
     margin-bottom: 5px;
 
-    &:hover {
-      text-decoration: underline;
-    }
-
     @media (--tablet) {
       font-size: 11px;
     }
@@ -62,10 +58,6 @@
     color: #777;
     font-size: 12px;
     margin-bottom: 10px;
-
-    &:hover {
-      text-decoration: underline;
-    }
 
     @media (--tablet) {
       font-size: 14px;
@@ -77,10 +69,6 @@
     color: #333;
     font-size: 16px;
     line-height: 1.1;
-
-    &:hover {
-      text-decoration: underline;
-    }
 
     @media (--tablet) {
       font-size: 20px;

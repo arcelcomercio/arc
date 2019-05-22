@@ -1,20 +1,24 @@
 export default class StandardHeader {
   constructor(
-    contextPath = '',
     deployment,
+    contextPath = '',
     siteDomain = '',
+    headerProperties = {},
     arcSite = '',
     data = {},
     headerType = 'standard',
-    customLogo
+    customLogo = '',
+    customLogoLink = ''
   ) {
-    this.contextPath = contextPath
     this.deployment = deployment
+    this.contextPath = contextPath
     this.siteDomain = siteDomain
+    this.headerProperties = headerProperties
     this.arcSite = arcSite
     this.data = data
     this.headerType = headerType
     this.customLogo = customLogo
+    this.customLogoLink = customLogoLink
     this.schema = this.getSchema()
   }
 
@@ -52,32 +56,40 @@ export default class StandardHeader {
       name: 'Lo último',
       url: `${this.contextPath}/archivo`,
     }
-    const params = {
+    const { logo } = this.headerProperties
+    return {
       logo: {
         src:
           this.customLogo ||
           this.deployment(
-            `${this.contextPath}/resources/dist/${this.arcSite}/images/logo.png`
+            `${this.contextPath}/resources/dist/${
+              this.arcSite
+            }/images/${logo}`
           ),
-        link: this.contextPath,
+        link: this.customLogoLink
+          ? `${this.contextPath}${this.customLogoLink}`
+          : this.contextPath,
         alt: this.siteDomain,
       },
       sections: [newest, ...sections],
     }
-    return params
   }
 
   somos() {
-    const sections = this.formatSections()
-    const params = {
+    const { logo } = this.headerProperties
+    return {
       logo: {
         src:
           this.customLogo ||
           this.deployment(
-            `${this.contextPath}/resources/dist/${this.arcSite}/images/logo.png`
+            `${this.contextPath}/resources/dist/${
+              this.arcSite
+            }/images/${logo}`
           ),
-        link: `${this.contextPath}/somos`,
-        alt: 'Somos',
+        link: this.customLogoLink
+          ? `${this.contextPath}${this.customLogoLink}`
+          : this.contextPath,
+        alt: this.siteDomain,
       },
       logoIcon: {
         link: this.contextPath,
@@ -85,22 +97,23 @@ export default class StandardHeader {
       firstSection: {
         url: `${this.contextPath}/somos`,
       },
-      sections,
+      sections: this.formatSections(),
+      searchUrl: query => {
+        window.location.href = `${this.contextPath}/buscar?query=${query}`
+      },
     }
-    return params
   }
 
   // Función para formatear data de las secciones
   formatSections = () => {
     const link = 'link'
     const { children = [] } = this.data || {}
-    const sections = children.map(el => {
+    return children.map(el => {
       return {
         name: el.node_type === link ? el.display_name : el.name,
         url: el.node_type === link ? el.url : `${this.contextPath}${el._id}`,
       }
     })
-    return sections
   }
   // TODO: Crear función para formatear data de secciones con subsecciones
 }

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import SeparatorBlogChildItem from './_children/item'
 import { setDevice } from '../../../utilities/resizer'
+import { defaultImage } from '../../../utilities/helpers'
 
 @Consumer
 class SeparatorBlog extends PureComponent {
@@ -71,19 +72,18 @@ class SeparatorBlog extends PureComponent {
         })
         this._reduceBlog()
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        throw new Error(e)
+      })
   }
 
   render() {
     const { listPost } = this.state
-    const { arcSite, contextPath } = this.props
-    const WEBSITE = `?_website=${arcSite}`
+    const { arcSite, contextPath, deployment } = this.props
     return (
       <div>
         <div className="blog-separator__box-blog">
-          <a
-            className="blog-separator__blog"
-            href={`${contextPath}/blog${WEBSITE}`}>
+          <a className="blog-separator__blog" href={`${contextPath}/blog`}>
             Blogs
           </a>
         </div>
@@ -106,12 +106,18 @@ class SeparatorBlog extends PureComponent {
               const data = {
                 authorName,
                 authorImg,
-                blogUrl,
+                blogUrl: `${contextPath}/blog/${blogUrl}`,
                 blogName,
-                postLink,
+                postLink: `${contextPath}/blog/${postLink}`,
                 postTitle,
                 arcSite,
                 contextPath,
+                defaultImg: defaultImage({
+                  deployment,
+                  contextPath,
+                  arcSite,
+                  size: 'sm',
+                }),
               }
               return <SeparatorBlogChildItem key={blogUrl} {...data} />
             })}

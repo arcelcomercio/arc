@@ -113,9 +113,8 @@ class CardOpinion extends Component {
             callback(null)
           }
         })
-        .catch(err => {
-          console.log(err)
-          callback(null)
+        .catch(e => {
+          throw new Error(e)
         })
     } else {
       callback(null)

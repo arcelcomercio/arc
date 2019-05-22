@@ -15,16 +15,17 @@
   &__img-wrapper {
     flex: 1;
   }
+  &__img-link {
+    display: inline-block;
+  }
   &__img {
     width: 115px;
     display: block;
-    margin: auto;
     @media (--desktop) {
       width: 180px;
     }
   }
   &__icon-wrapper {
-    padding: 0 20px;
     @media (--desktop) {
       display: none;
     }
@@ -50,9 +51,14 @@
       font-size: 34px;
     }
   }
+  &__btn {
+    &:focus {
+      outline: 0;
+    }
+  }
 }
 
-.header-menu {
+.somos-menu {
   position: absolute;
   top: 0;
   left: 0;
@@ -60,19 +66,20 @@
   width: 0%;
   height: 100%;
   z-index: 1;
-  transition: all 250ms;
   @media (--desktop) {
     position: relative;
     background-color: $color-white;
     height: auto;
     width: 100%;
-    transition: all 10ms;
+    transition: all 5ms;
   }
   &__content {
     background-color: rgba(0, 0, 0, 0.9);
-    width: 0;
+    width: 255px;
     height: 100%;
     overflow-y: scroll;
+    transition: all 2ms;
+    transform: translate3d(-100%, 0, 0);
     @media (--desktop) {
       background-color: transparent;
       width: 100%;
@@ -81,6 +88,8 @@
       text-align: center;
       max-width: 720px;
       margin: auto;
+      transition: all 10ms;
+      transform: translate3d(0%, 0, 0);
     }
   }
   &__search {
@@ -103,7 +112,7 @@
   &__search-icon {
     position: absolute;
     right: 17px;
-    top: 25px;
+    top: 21px;
     color: $color-white;
     font-size: 13px;
   }
@@ -188,8 +197,11 @@
   }
   &--active {
     width: 100%;
-    .header-menu__content {
-      width: 255px;
+    position: absolute;
+    z-index: 20;
+    .somos-menu__content {
+      transform: translate3d(0%, 0, 0);
+      transition: all 250ms;
     }
   }
 }

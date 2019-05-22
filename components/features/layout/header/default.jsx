@@ -20,17 +20,22 @@ class LayoutHeader extends PureComponent {
       contextPath,
       arcSite,
       deployment,
-      siteProperties: { siteDomain },
-      customFields: { headerType, customLogo },
+      siteProperties: {
+        siteDomain,
+        assets: { header: headerProperties },
+      },
+      customFields: { headerType, customLogo, customLogoLink },
     } = this.props
     this.formater = new Formater(
-      contextPath,
       deployment,
+      contextPath,
       siteDomain,
+      headerProperties,
       arcSite,
       {},
       headerType,
-      customLogo
+      customLogo,
+      customLogoLink
     )
   }
 
@@ -130,8 +135,14 @@ LayoutHeader.propTypes = {
       description: `La jerarquía por defecto es "${defaultHierarchy}"`,
     }),
     customLogo: PropTypes.string.tag({
-      name: 'Editar logo',
-      description: 'Se debe colocar la url de la imagen',
+      name: 'Url de la imagen',
+      group: 'Editar logo',
+    }),
+    customLogoLink: PropTypes.string.tag({
+      name: 'Path de redireccionamiento',
+      description:
+        'Por defecto la url del logo es "/". Ejemplo de path: "/somos"',
+      group: 'Editar logo',
     }),
     hierarchyConfig: PropTypes.contentConfig('navigation').tag({
       name: 'Editar navegación',
