@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/item'
 import Pagination from '../../../global-components/pagination'
-import { formatDate } from '../../../utilities/helpers'
+import { formatDate, defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   list: 'bg--white blog-list full-width',
@@ -35,7 +35,7 @@ class BlogList extends PureComponent {
 
   buildParams = blog => {
     const {
-      blog: { blogname = '', path = '#' } = {},
+      blog: { blogname = '', path = '' } = {},
       posts: [
         {
           post_title: postTitle = '',
@@ -50,10 +50,14 @@ class BlogList extends PureComponent {
       } = {},
     } = blog
 
-    const { contextPath = '' } = this.props
+    const { deployment, contextPath = '', arcSite = '' } = this.props
+
+    const imageUrl =
+      guid ||
+      defaultImage({ deployment, contextPath, arcSite, defaultImgSize: 'sm' })
 
     return {
-      urlImage: guid,
+      imageUrl,
       date: this.transformDate(postDate),
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,

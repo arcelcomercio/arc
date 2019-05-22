@@ -1,7 +1,7 @@
 export default {
   assets: {
     nav: {
-      navLogo: 'logo.png',
+      logo: 'logo.png',
       ampFooterLogo: 'letra-c-white.png',
     },
     header: {

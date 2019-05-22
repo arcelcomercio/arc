@@ -9,10 +9,23 @@ export default {
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KKXTKGP',
   charbeatAccountNumber: 57773,
-  navLogo: 'white-logo.png',
+  // TODO delete
+  logo: 'white-logo.png',
   headerLogo: 'logo.png',
   footerLogo: 'white-logo.png',
-
+  // --
+  assets: {
+    nav: {
+      logo: 'logo.png',
+      ampFooterLogo: 'letra-c-white.png',
+    },
+    header: {
+      headerLogo: 'logo.png',
+    },
+    footer: {
+      footerLogo: 'logo.png',
+    },
+  },
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',

@@ -63,8 +63,8 @@ class SeparatorBasic extends PureComponent {
           })
         }
       )
-      .catch(error => {
-        console.log(error)
+      .catch(e => {
+        throw new Error(e)
       })
   }
 

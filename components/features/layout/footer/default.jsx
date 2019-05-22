@@ -97,7 +97,9 @@ class LayoutFooter extends PureComponent {
         }
       })
       // eslint-disable-next-line no-console
-      .catch(e => console.log(e))
+      .catch(e => {
+        throw new Error(e)
+      })
   }
 
   render() {

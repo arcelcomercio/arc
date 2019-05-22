@@ -71,7 +71,7 @@ class SeparatorBlog extends PureComponent {
         })
         this._reduceBlog()
       })
-      .catch(e => console.log(e))
+      .catch(e => {throw new Error(e)})
   }
 
   render() {
