@@ -172,6 +172,8 @@
         right: 21px;
         position: absolute;
         bottom: 15px;
+        width: 90px;
+        height: 90px;
 
         img {
           max-width: 90px;
@@ -213,9 +215,11 @@
       height: 100%;
       top: 0;
       left: 0;
-      background: linear-gradient(to bottom,
-          rgba(255, 255, 255, 0) 50%,
-          rgba(50, 50, 50, 0.7) 100%);
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(50, 50, 50, 0.7) 100%
+      );
     }
 
     & figure {
