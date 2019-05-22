@@ -1,16 +1,6 @@
-export default arcSite => `
+export default `
     {
-      content_elements{
-        canonical_url
-        website_url
-        publish_date
-        websites {
-          ${arcSite} {
-            website_section {
-              name
-            }
-          }
-        }
+        basic{
         promo_items{
           basic_video {
             type
@@ -35,8 +25,19 @@ export default arcSite => `
             url
           }
         }
+        canonical_url
+        publish_date
+        website
+        website_url
         headlines{
           basic
+        }
+        credits {
+            by {
+                type 
+                name
+                url
+            }
         }
       }
     }

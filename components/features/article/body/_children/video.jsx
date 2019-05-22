@@ -45,7 +45,7 @@ class ArticleBodyChildVideo extends PureComponent {
 
   render() {
     const { data = {} } = this.props
-
+    console.log(this.props)
     return data && renderHTML(data)
   }
 }

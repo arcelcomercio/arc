@@ -24,17 +24,18 @@ class ArticleHeaderChildSocial extends PureComponent {
       currentList: this.firstList,
     }
     const {
-      siteUrl,
       siteProperties: {
         social: {
           twitter: { user: siteNameRedSocial },
         },
+        siteUrl,
       },
       globalContent: {
         website_url: postPermaLink,
         headlines: { basic: postTitle } = {},
       },
     } = props
+
     const urlsShareList = socialMediaUrlShareList(
       siteUrl,
       postPermaLink,
