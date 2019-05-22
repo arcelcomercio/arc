@@ -7,7 +7,7 @@ import schemaFilter from './_dependencies/schema-filter'
 const classes = {
   breakingnews: 'padding-normal flex',
   breakingnewsBtnClose: 'cintillo-u__btn-close text-center',
-  breakingnewsIcon: 'cintillo-u__btn-icon',
+  breakingnewsIcon: 'cintillo-u__btn-icon icon-close-circle',
   breakingnewsText: 'cintillo-u__text',
   breakingnewsTag: 'cintillo-u__tag',
   breakingnewsLink: 'cintillo-u__link',
