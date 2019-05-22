@@ -231,7 +231,7 @@ class StoryData {
     let nameAuthor = ''
     let urlAuthor = ''
     let slugAuthor = ''
-    let imageAuthor = ''
+    let imageAuthor = authorImageDefault
     for (let i = 0; i < authorData.length; i++) {
       const iterator = authorData[i]
       if (iterator.type === 'author') {
@@ -245,6 +245,7 @@ class StoryData {
         break
       }
     }
+
     return {
       nameAuthor,
       urlAuthor,
