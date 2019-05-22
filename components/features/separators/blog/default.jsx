@@ -72,7 +72,9 @@ class SeparatorBlog extends PureComponent {
         })
         this._reduceBlog()
       })
-      .catch(e => {throw new Error(e)})
+      .catch(e => {
+        throw new Error(e)
+      })
   }
 
   render() {
@@ -91,7 +93,14 @@ class SeparatorBlog extends PureComponent {
               const {
                 user: {
                   first_name: authorName = '',
-                  user_avatarb: { guid: authorImg = '' } = {},
+                  user_avatarb: {
+                    guid: authorImg = defaultImage({
+                      deployment,
+                      contextPath,
+                      arcSite,
+                      size: 'sm',
+                    }),
+                  } = {},
                 } = {},
                 blog: { path: blogUrl = '', blogname: blogName = '' } = {},
                 posts: [
@@ -101,6 +110,7 @@ class SeparatorBlog extends PureComponent {
                   } = {},
                 ] = [],
               } = post
+
               const data = {
                 authorName,
                 authorImg,
@@ -108,14 +118,6 @@ class SeparatorBlog extends PureComponent {
                 blogName,
                 postLink: `${contextPath}/blog/${postLink}`,
                 postTitle,
-                arcSite,
-                contextPath,
-                defaultImg: defaultImage({
-                  deployment,
-                  contextPath,
-                  arcSite,
-                  size: 'md',
-                }),
               }
               return <SeparatorBlogChildItem key={blogUrl} {...data} />
             })}

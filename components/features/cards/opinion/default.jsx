@@ -1,11 +1,11 @@
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import OpinionChildCard from './_children/card'
 import filterSchema from './_dependencies/schema-filter'
 
 @Consumer
-class CardOpinion extends Component {
+class CardOpinion extends PureComponent {
   constructor(props) {
     super(props)
 

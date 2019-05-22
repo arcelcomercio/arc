@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PostItem from './_children/post-item'
 import Pagination from '../../../global-components/pagination'
-import { defaultImage } from '../../../utilities/helpers'
+import { defaultImage, getFullDateIso8601 } from '../../../utilities/helpers'
 
 @Consumer
 class BlogAuthorList extends PureComponent {
@@ -27,26 +27,33 @@ class BlogAuthorList extends PureComponent {
         posts_offset: postsOffset = '',
       } = {},
     } = globalContentConfig
-    
+
     return (
       <div>
-        {posts.map(post => {
+        {posts.map((post, i) => {
+          const key = `post-${i}-${post.ID}`
           const {
             post_title: postTitle,
             post_permalink: postPermaLink,
             post_date: postDate,
-            post_thumbnail: { guid: image = defaultImage({ deployment, contextPath, arcSite, size: 'sm' }) } = {},
+            post_thumbnail: {
+              guid: image = defaultImage({
+                deployment,
+                contextPath,
+                arcSite,
+                size: 'sm',
+              }),
+            } = {},
           } = post
+          const { day, month, fullYear } = getFullDateIso8601(postDate)
           const data = {
             postTitle,
-            postPermaLink,
-            postDate,
+            postPermaLink: `${contextPath}/blog/${postPermaLink}`,
+            postDate: `${day}/${month}/${fullYear}`,
             image,
             author,
-            arcSite,
-            contextPath,
           }
-          return <PostItem key={post.ID} {...data} />
+          return <PostItem key={key} {...data} />
         })}
         <Pagination
           totalElements={countPosts}
@@ -59,5 +66,6 @@ class BlogAuthorList extends PureComponent {
 }
 
 BlogAuthorList.label = 'Blog - Posts por autor'
+// No puede ser static = true porque Pagination maneja estados.
 
 export default BlogAuthorList

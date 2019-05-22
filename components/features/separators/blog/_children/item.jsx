@@ -19,10 +19,7 @@ const SeparatorBlogChildItem = ({
   blogName,
   postLink,
   postTitle,
-  defaultImg,
 }) => {
-  const DEFAULT_IMG = defaultImg
-  const IMG = authorImg || DEFAULT_IMG
   return (
     <div className={classes.separator}>
       <div className={classes.boxTitle}>
@@ -42,7 +39,7 @@ const SeparatorBlogChildItem = ({
       </div>
       <div className={classes.boxImg}>
         <a href={postLink}>
-          <img src={IMG} alt="" className={classes.img} />
+          <img src={authorImg} alt="" className={classes.img} />
         </a>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { getFullDateIso8601 } from '../../../../utilities/helpers'
 
 const classes = {
   container: 'post-item__container',
@@ -18,31 +17,21 @@ const AuthorListChildPostItem = ({
   postDate = '',
   image = '',
   author = '',
-  arcSite = '',
-  contextPath = '',
 }) => {
-  const { day, month, fullYear } = getFullDateIso8601(postDate)
-  const postFormatDate = `${day}/${month}/${fullYear}`
-  const WEBSITE = `?_website=${arcSite}`
-
   return (
     <article className={classes.container}>
       <div className={classes.date}>
-        <p>{postFormatDate}</p>
+        <p>{postDate}</p>
       </div>
       <div className={classes.content}>
         <figure className={classes.figure}>
-          <img
-            className={classes.image}
-            src={image}
-            alt={author}
-          />
+          <img className={classes.image} src={image} alt={author} />
         </figure>
         <div className={classes.description}>
-          <a href={`${contextPath}/blog/${postPermaLink}${WEBSITE}`}>
+          <a href={postPermaLink}>
             <h3 className={classes.title}>{postTitle}</h3>
           </a>
-          <a href={`${contextPath}/blog/${postPermaLink}${WEBSITE}`}>
+          <a href={postPermaLink}>
             <h5 className={classes.author}>{author}</h5>
           </a>
         </div>

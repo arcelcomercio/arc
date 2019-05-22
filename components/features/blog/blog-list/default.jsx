@@ -101,9 +101,10 @@ class BlogList extends PureComponent {
         <div className={classes.list}>
           <h1 className={classes.listTitle}>blogs</h1>
           <div>
-            {blogs.map(item => {
+            {blogs.map((item, i) => {
               const params = this.buildParams(item)
-              return <BlogItem key={params.urlPost} {...params} />
+              const key = `blog-${i}-${params.urlPost}`
+              return <BlogItem key={key} {...params} />
             })}
           </div>
         </div>

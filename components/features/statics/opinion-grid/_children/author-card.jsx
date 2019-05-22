@@ -1,5 +1,4 @@
 import React from 'react'
-import StoryData from '../../../../utilities/story-data'
 
 const classes = {
   card: 'author-card',
@@ -12,15 +11,7 @@ const classes = {
   title: 'author-card__title text-uppercase block',
 }
 
-const OpinionGridAuthorCard = ({ data, deployment, contextPath, arcSite }) => {
-  const storyDataFormatter = new StoryData({
-    deployment,
-    contextPath,
-    arcSite,
-    defaultImgSize: 'sm',
-  })
-  storyDataFormatter.__data = data
-  const story = storyDataFormatter.attributesRaw
+const OpinionGridAuthorCard = ({ data: story }) => {
   return (
     <div className={classes.card}>
       <div className={classes.wrapper}>

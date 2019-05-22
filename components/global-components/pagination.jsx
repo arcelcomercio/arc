@@ -123,9 +123,10 @@ export default class Pagination extends PureComponent {
           href={urlPrevPage}>
           anterior
         </a>
-        {pages.map(page => {
+        {pages.map((page, i) => {
           let tag = null
           let urlPage
+          const key = `pagination-${i}-${page || ''}`
 
           if (isBuscar !== null)
             if (querys) {
@@ -139,6 +140,7 @@ export default class Pagination extends PureComponent {
           if (page !== '...') {
             tag = (
               <a
+                key={key}
                 className={`${classes.page} ${
                   currentPage === page || (currentPage === 0 && page === 1)
                     ? 'pagination__page--current'
@@ -148,7 +150,12 @@ export default class Pagination extends PureComponent {
                 {page}
               </a>
             )
-          } else tag = <span className={classes.page}>{page}</span>
+          } else
+            tag = (
+              <span key={key} className={classes.page}>
+                {page}
+              </span>
+            )
           return tag
         })}
         <a
