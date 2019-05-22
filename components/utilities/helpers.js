@@ -258,12 +258,17 @@ export const popUpWindow = (url, title, w, h) => {
 }
 
 // TODO: Agregar parámetro para que soporte links variables por marca, así cmo el twitter de la marca
-export const socialMediaUrlShareList = (siteUrl, postPermaLink, postTitle) => {
+export const socialMediaUrlShareList = (
+  siteUrl,
+  postPermaLink,
+  postTitle,
+  siteNameRedSocial = 'Gestionpe'
+) => {
   return {
     facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${postPermaLink}`,
     twitter: `http://twitter.com/home?status=${encodeURIComponent(
       postTitle
-    )}+${siteUrl}${postPermaLink}+via%20@Gestionpe`,
+    )}+${siteUrl}${postPermaLink}+via%20${siteNameRedSocial}`,
     linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
     pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
     whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
