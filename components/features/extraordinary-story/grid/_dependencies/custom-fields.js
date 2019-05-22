@@ -51,6 +51,11 @@ const customFieldsSection = {
     name: 'Cuarta sección',
     group: 'Secciones laterales',
   }),
+
+  logo: PropTypes.string.tag({
+    name: 'Logo',
+    group: 'Secciones laterales',
+  }),
 }
 
 const customFields = PropTypes.shape({

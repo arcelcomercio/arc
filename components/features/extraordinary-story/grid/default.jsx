@@ -102,9 +102,12 @@ class ExtraordinaryStoryGrid extends Component {
     const formattedSection3 = new SectionData(section3, arcSite)
     const formattedSection4 = new SectionData(section4, arcSite)
     this.isVideo = formattedStoryData.isVideo
-    const imgLogo = deployment(
-      `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
-    )
+
+    const imgLogo =
+      customFieldsData.logo ||
+      deployment(
+        `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
+      )
 
     const params = {
       storyData: formattedStoryData,
