@@ -7,10 +7,10 @@ const ExtraordinayStoryGridSectionItem = props => {
     image: 'full-width',
     title: 'sections-grid-item__title text-left',
   }
-  const { data } = props
+  const { data, path } = props
   return (
     <div className={classes.itemContainer}>
-      <a href={data.id}>
+      <a href={`${path}${data.id}`}>
         <figure className={classes.imageContainer}>
           <img className={classes.image} src={data.image} alt={data.name} />
         </figure>

@@ -4,16 +4,35 @@ import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import { setDevice } from '../../../utilities/resizer'
 
+import HeaderChildSomos from './_children/somos'
 import HeaderChildStandard from './_children/standard'
+import Formater from './_dependencies/formater'
 
+const defaultHierarchy = 'navegacion-cabecera-tema-del-dia'
 @Consumer
 class LayoutHeader extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
       device: setDevice(),
-      sections: [],
     }
+    const {
+      contextPath,
+      arcSite,
+      deployment,
+      siteProperties: { siteDomain },
+      customFields: { headerType, customLogo, customLogoLink },
+    } = this.props
+    this.formater = new Formater(
+      deployment,
+      contextPath,
+      siteDomain,
+      arcSite,
+      {},
+      headerType,
+      customLogo,
+      customLogoLink
+    )
   }
 
   componentDidMount() {
@@ -24,34 +43,27 @@ class LayoutHeader extends PureComponent {
   }
 
   getNavigationSections() {
-    const { arcSite, contextPath } = this.props
+    const {
+      arcSite,
+      customFields: { hierarchyConfig },
+    } = this.props
 
-    const source = 'navigation-by-hierarchy'
-    const params = {
-      website: arcSite,
-      hierarchy: 'navegacion-cabecera-tema-del-dia',
-    }
-    const schema = `{ 
-      children {
-        name
-        _id
-        display_name
-        url
-        node_type
-      }
-    }`
-    const { fetched } = this.getContent(source, params, schema)
-    const link = 'link'
-    fetched.then(response => {
-      const { children = [] } = response || {}
-      const auxList = children.map(el => {
-        return {
-          name: el.node_type === link ? el.display_name : el.name,
-          url: el.node_type === link ? el.url : `${contextPath}${el._id}`,
+    const { contentService = '', contentConfigValues = {} } =
+      hierarchyConfig || {}
+
+    const isHierarchyReady = !!contentConfigValues.hierarchy
+    const source = isHierarchyReady ? contentService : 'navigation-by-hierarchy'
+    const params = isHierarchyReady
+      ? contentConfigValues
+      : {
+          website: arcSite,
+          hierarchy: defaultHierarchy,
         }
-      })
+    const { schema } = this.formater
+    const { fetched } = this.getContent(source, params, schema)
+    fetched.then(response => {
       this.setState({
-        sections: auxList || [],
+        data: response || [],
       })
     })
   }
@@ -84,34 +96,24 @@ class LayoutHeader extends PureComponent {
     }
   }
 
-  renderHeader = (brand, params) => {
-    const headerType = {
-      standard: <HeaderChildStandard {...params} />,
-      test: <div style={{ backgroundColor: 'red' }}>Prueba de cabecera</div>,
-    }
-    return headerType[brand] || headerType.standard
-  }
-
-  render() {
-    const { sections, device } = this.state
+  renderHeader = () => {
+    const { device, data } = this.state
     const {
-      contextPath,
-      arcSite,
-      deployment,
-      siteProperties: { siteDomain },
       customFields: { headerType },
     } = this.props
 
-    const params = {
-      sections,
-      siteDomain,
-      deployment,
-      contextPath,
-      arcSite,
-      device,
-    }
+    this.formater.setData(data)
+    const params = { ...this.formater.getParams(), device }
 
-    return this.renderHeader(headerType, params)
+    const headers = {
+      standard: <HeaderChildStandard {...params} />,
+      somos: <HeaderChildSomos {...params} />,
+    }
+    return headers[headerType] || headers.standard
+  }
+
+  render() {
+    return this.renderHeader()
   }
 }
 
@@ -119,13 +121,28 @@ LayoutHeader.label = 'Cabecera de Página'
 
 LayoutHeader.propTypes = {
   customFields: PropTypes.shape({
-    headerType: PropTypes.oneOf(['standard', 'test']).tag({
+    headerType: PropTypes.oneOf(['standard', 'somos']).tag({
       name: 'Diseño de la cabecera',
       labels: {
         standard: 'Cabecera estándar',
-        test: 'test',
+        somos: 'Cabecera somos',
       },
       defaultValue: 'standard',
+      description: `La jerarquía por defecto es "${defaultHierarchy}"`,
+    }),
+    customLogo: PropTypes.string.tag({
+      name: 'Url de la imagen',
+      group: 'Editar logo',
+    }),
+    customLogoLink: PropTypes.string.tag({
+      name: 'Path de redireccionamiento',
+      description:
+        'Por defecto la url del logo es "/". Ejemplo de path: "/somos"',
+      group: 'Editar logo',
+    }),
+    hierarchyConfig: PropTypes.contentConfig('navigation').tag({
+      name: 'Editar navegación',
+      group: 'Configuración del contenido',
     }),
   }),
 }

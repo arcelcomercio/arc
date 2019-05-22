@@ -9,14 +9,7 @@ const classes = {
 }
 
 const HeaderChildStandard = props => {
-  const {
-    deployment,
-    siteDomain,
-    contextPath,
-    sections,
-    arcSite,
-    device,
-  } = props
+  const { logo, sections, device } = props
 
   const isDesktop = device === 'desktop'
 
@@ -24,22 +17,13 @@ const HeaderChildStandard = props => {
     isDesktop && (
       <Fragment>
         <header className={classes.header}>
-          <a href={contextPath}>
-            <img
-              src={deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/logo.png`
-              )}
-              alt={siteDomain}
-              className={classes.headerLogo}
-            />
+          <a href={logo.link}>
+            <img src={logo.src} alt={logo.alt} className={classes.headerLogo} />
           </a>
         </header>
         <nav>
           {sections[0] && (
             <ul className={classes.headerFeatured}>
-              <li className={classes.headerFeaturedItem}>
-                <a href={`${contextPath}/archivo`}>Lo último</a>
-              </li>
               {sections.map(section => (
                 <li className={classes.headerFeaturedItem} key={section.url}>
                   <a href={section.url}>{section.name}</a>
@@ -54,17 +38,18 @@ const HeaderChildStandard = props => {
 }
 
 HeaderChildStandard.propTypes = {
+  logo: PropTypes.shape({
+    src: PropTypes.string,
+    link: PropTypes.string,
+    alt: PropTypes.string,
+  }),
   sections: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       url: PropTypes.string,
     })
   ),
-  arcSite: PropTypes.string,
-  contextPath: PropTypes.string,
-  deployment: PropTypes.func,
-  siteDomain: PropTypes.string,
-  isDesktop: PropTypes.bool,
+  device: PropTypes.string,
 }
 
 export default HeaderChildStandard

@@ -101,7 +101,7 @@ class ArticleHeaderChildSocial extends PureComponent {
             {this.shareButtons[currentList].map((item, i) => (
               <li
                 key={UtilListKey(i)}
-                className={`article-header__item ${item.mobileClass}`}>
+                className={` ${classes.item} ${item.mobileClass}`}>
                 <a
                   className={classes.link}
                   href={item.link}
