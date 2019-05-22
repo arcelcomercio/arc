@@ -16,7 +16,7 @@ const classes = {
   menuCloseIcon: 'icon-close somos-menu__close-icon',
   menuSearch: 'somos-menu__search',
   menuSearchInput: 'somos-menu__search-input',
-  menuSearchIcon: 'icon-search somos-menu__search-icon',
+  menuSearchIcon: 'icon-search ',
   menuLogin: 'somos-menu__login',
   menuLoginLink: 'flex flex--justify-center',
   menuLoginIcon: 'icon-user somos-menu__login-icon',
@@ -37,12 +37,24 @@ class HeaderChildSomos extends PureComponent {
     super(props)
     this.state = {
       isMenuActive: false,
+      searchValue: '',
     }
+  }
+
+  handleSubmit(e) {
+    const { searchValue } = this.state
+    const { searchUrl } = this.props
+    searchUrl(searchValue)
+    e.preventDefault()
+  }
+
+  handleSearchInput(e) {
+    this.setState({ searchValue: e.target.value })
   }
 
   render() {
     const { logo, logoIcon, firstSection, sections, device } = this.props
-    const { isMenuActive } = this.state
+    const { isMenuActive, searchValue } = this.state
     return (
       <Fragment>
         <div className={classes.logocontent}>
@@ -83,12 +95,21 @@ class HeaderChildSomos extends PureComponent {
               </button>
             </div>
             <div className={classes.menuSearch}>
-              <input
-                type="text"
-                placeholder="Buscar"
-                className={classes.menuSearchInput}
-              />
-              <i className={classes.menuSearchIcon} />
+              <form action="" onSubmit={e => this.handleSubmit(e)}>
+                <input
+                  type="text"
+                  placeholder="Buscar"
+                  className={classes.menuSearchInput}
+                  value={searchValue}
+                  onChange={e => this.handleSearchInput(e)}
+                />
+                <button
+                  className="somos-menu__search-icon"
+                  type="submit"
+                  onClick={() => {}}>
+                  <i className={classes.menuSearchIcon} />
+                </button>
+              </form>
             </div>
             <div className={classes.menuLogin}>
               <a href="/" className={classes.menuLoginLink}>
