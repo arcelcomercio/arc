@@ -138,9 +138,9 @@ export const isEmpty = val => {
 export const getIcon = type => {
   switch (type) {
     case 'basic_gallery':
-      return 'G'
+      return 'img'
     case 'basic_video':
-      return 'V'
+      return 'video'
     default:
       return ''
   }

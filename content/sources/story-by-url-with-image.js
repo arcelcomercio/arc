@@ -8,9 +8,9 @@ const transform = data => {
     resizerUrl,
     resizerSecret,
     presets: {
-      small: { width: 50, height: 50 },
+      small: { width: 100, height: 200 },
       medium: { width: 480 },
-      large: { width: 620, height: 375 },
+      large: { width: 676, height: 409 },
       amp: { width: 600, height: 375 },
     },
   })
