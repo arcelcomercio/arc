@@ -4,27 +4,29 @@ import ArticleBody, {
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import AmpImage from '@arc-core-components/element_image'
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import schemaFilter from './_children/_dependencies/schema-filter'
 import ElePrincipal from './_children/amp-ele-principal'
 import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildTable from './_children/table'
 import ArticleBodyChildBlockQuote from './_children/blockquote'
-import schemaFilter from './_children/_dependencies/schema-filter'
+import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildRelated from './_children/related'
 
 const classes = {
   content: 'amp-content',
   textClasses: 'amp-content__news-text',
   author: 'amp-content__author',
+  tags: 'amp-content',
 }
 
 @Consumer
-class ArticleAMPArticleBody extends Component {
+class ArticleAMPArticleBody extends PureComponent {
   constructor(props) {
     super(props)
 
     this.state = {
-      data: [],
+      dataRelated: [],
     }
 
     this.getContentApi()
@@ -44,7 +46,7 @@ class ArticleAMPArticleBody extends Component {
     fetched.then(response => {
       const { basic: element } = response
       this.setState({
-        data: element || [],
+        dataRelated: element || [],
       })
     })
   }
@@ -54,9 +56,10 @@ class ArticleAMPArticleBody extends Component {
       globalContent: {
         content_elements: contentElements,
         promo_items: promoItems,
+        taxonomy: { tags = {} },
       },
     } = this.props
-    const { data } = this.state
+    const { dataRelated } = this.state
 
     return (
       <div className={classes.content}>
@@ -122,7 +125,8 @@ class ArticleAMPArticleBody extends Component {
             }}
           />
         )}
-        <ArticleBodyChildRelated stories={data} />
+        {tags && <ArticleBodyChildTags data={tags} className={classes.tags} />}
+        <ArticleBodyChildRelated stories={dataRelated} />
       </div>
     )
   }

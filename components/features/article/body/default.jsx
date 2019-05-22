@@ -21,6 +21,7 @@ const classes = {
   textClasses: 'article-body__font--secondary',
   newsImage: 'article-body__image article-body__image--cover',
   newsEmbed: 'article-body__embed',
+  tags: 'article-body',
 }
 @Consumer
 class ArticleBody extends PureComponent {
@@ -61,7 +62,7 @@ class ArticleBody extends PureComponent {
       promo_items: promoItems,
       publish_date: date,
       credits: author,
-      taxonomy,
+      taxonomy: { tags = {} },
     } = globalContent || {}
 
     return (
@@ -112,7 +113,7 @@ class ArticleBody extends PureComponent {
             }}
           />
         )}
-        {taxonomy && <ArticleBodyChildTags data={data} />}
+        {tags && <ArticleBodyChildTags data={tags} className={classes.tags} />}
         <ArticleBodyChildRelated stories={data} />
       </div>
     )
