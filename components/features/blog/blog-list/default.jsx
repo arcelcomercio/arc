@@ -5,7 +5,7 @@ import Pagination from '../../../global-components/pagination'
 import { formatDate } from '../../../utilities/helpers'
 
 const classes = {
-  list: 'bg--white blog-list',
+  list: 'bg--white blog-list full-width',
   listTitle: 'text-uppercase blog-list__title',
 }
 @Consumer
@@ -50,7 +50,7 @@ class BlogList extends PureComponent {
       } = {},
     } = blog
 
-    const { contextPath = '', arcSite = 'elcomercio' } = this.props
+    const { contextPath = '' } = this.props
 
     return {
       urlImage: guid,
@@ -58,8 +58,8 @@ class BlogList extends PureComponent {
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
-      urlPost: `${contextPath}/blog/${postLink}?_website=${arcSite}`,
-      urlBlog: `${contextPath}/blog/${path}?_website=${arcSite}`,
+      urlPost: `${contextPath}/blog/${postLink}`,
+      urlBlog: `${contextPath}/blog/${path}`,
     }
   }
 
@@ -77,7 +77,9 @@ class BlogList extends PureComponent {
           totalPost: response.total,
         })
       })
-      .catch(e => console.log('Error: ', e))
+      .catch(e => {
+        throw new Error(e)
+      })
   }
 
   render() {
