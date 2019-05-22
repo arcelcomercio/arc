@@ -1,6 +1,10 @@
-import { addResizedUrlItem } from './thumbs'
+import {
+  addResizedUrlItem
+} from './thumbs'
 import ConfigParams from './config-params'
-import { defaultImage } from './helpers'
+import {
+  defaultImage
+} from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -136,7 +140,9 @@ class StoryData {
   }
 
   get link() {
-    const { website_url: url = '' } = this._data || {}
+    const {
+      website_url: url = ''
+    } = this._data || {}
     return url
   }
 
@@ -199,7 +205,12 @@ class StoryData {
 
   static getPrimarySection(data) {
     const {
-      taxonomy: { primary_section: { name = '', path = '' } = {} } = {},
+      taxonomy: {
+        primary_section: {
+          name = '',
+          path = ''
+        } = {}
+      } = {},
     } = data
 
     return {
@@ -223,9 +234,11 @@ class StoryData {
     }
   }
 
-  static getDataAuthor(data, { contextPath = '' } = {}) {
+  static getDataAuthor(data, {
+    contextPath = ''
+  } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
-    const imageAuthorDefault = `${contextPath}/resources/assets/opinion-grid/author.png`
+    const authorImageDefault = `${contextPath}/resources/assets/author-grid/author.png`
 
     let nameAuthor = ''
     let urlAuthor = ''
@@ -240,7 +253,7 @@ class StoryData {
         imageAuthor =
           iterator.image && iterator.image.url && iterator.image.url !== '' ?
           iterator.image.url :
-          imageAuthorDefault
+          authorImageDefault
         break
       }
     }
