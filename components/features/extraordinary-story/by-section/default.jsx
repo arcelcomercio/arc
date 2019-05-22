@@ -72,6 +72,8 @@ class ExtraordinaryStoryBySection extends Component {
       data: formattedData,
       multimediaOrientation: formattedData.multimediaOrientation,
       contentOrientation: formattedData.contentOrientation,
+      deployment,
+      contextPath,
       arcSite,
     }
     return <ExtraordinaryStory {...params} />

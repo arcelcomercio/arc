@@ -68,6 +68,8 @@ class ExtraordinaryStoryByUrl extends Component {
       multimediaType: formattedData.multimediaType,
       multimediaOrientation: formattedData.multimediaOrientation,
       contentOrientation: formattedData.contentOrientation,
+      deployment,
+      contextPath,
       arcSite,
     }
 

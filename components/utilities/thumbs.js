@@ -62,7 +62,9 @@ const getResizedUrls = (
   aspectRatios
 ) => {
   const {
-    additional_properties: { focal_point: focalPoint },
+    additional_properties: {
+      focal_point: focalPoint
+    },
     height,
     url,
     width,
@@ -90,9 +92,9 @@ const getResizedUrls = (
       const newHeight = width / aspectRatio
       const newWidth = aspectRatio * height
 
-      const [newWidthPx, newHeightPx] = aspectPresetArray[1]
-        ? aspectPresetArray[1].split('x')
-        : [Math.floor(newWidth), Math.floor(newHeight)]
+      const [newWidthPx, newHeightPx] = aspectPresetArray[1] ?
+        aspectPresetArray[1].split('x') :
+        [Math.floor(newWidth), Math.floor(newHeight)]
 
       if (aspectRatio > 1) {
         // Try to preserve width
@@ -172,7 +174,10 @@ export const addResizedUrls = (
   resizerSecretKey,
   aspectRatios = aspectPresets
 ) => {
-  const { content_elements: contentElements, promo_items: promoItems } = data
+  const {
+    content_elements: contentElements,
+    promo_items: promoItems
+  } = data
   return {
     ...data,
     content_elements: contentElements.map(contentElement => {
@@ -209,7 +214,10 @@ export const addResizedUrls = (
 }
 
 export const addResizedUrlItem = (website, url, aspectRatios) => {
-  const { resizerSecretKeyEnvVar, resizerUrl } = getProperties(website)
+  const {
+    resizerSecretKeyEnvVar,
+    resizerUrl
+  } = getProperties(website)
   const dataWithFocalPoint = {
     content_elements: [],
     promo_items: {
