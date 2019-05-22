@@ -2,38 +2,24 @@
   color: $color-white;
 
   a {
-    color: $color-dark;
+    color: $color-white;
   }
 
   &--bgcolor-1 {
-    background-color: red;
+    background-color: $color-primary;
   }
 
   &--bgcolor-2 {
-    background-color: green;
-  }
-
-  &--bgcolor-3 {
-    background-color: yellow;
-  }
-
-  &--bgcolor-4 {
-    background-color: gray;
+    background-color: $color-black;
   }
 
   &__btn-close {
-    background-color: $color-black;
-    opacity: 0.3;
-    filter: alpha(opacity=30);
-    width: 15px;
-    //display: inline-block;
-    float: right;
-    height: 17px;
-    z-index: 1;
-
+    width: 50px;
+  }
+  &__btn-icon {
+    color: $color-white;
+    border: 1px solid $color-white;
     &:hover {
-      opacity: 0.5;
-      filter: alpha(opacity=50);
       cursor: pointer;
     }
   }

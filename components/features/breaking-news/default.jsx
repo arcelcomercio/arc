@@ -5,8 +5,9 @@ import PropTypes from 'prop-types'
 import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
-  breakingnews: 'padding-normal',
+  breakingnews: 'padding-normal flex',
   breakingnewsBtnClose: 'cintillo-u__btn-close text-center',
+  breakingnewsIcon: 'cintillo-u__btn-icon',
   breakingnewsText: 'cintillo-u__text',
   breakingnewsTag: 'cintillo-u__tag',
   breakingnewsLink: 'cintillo-u__link',
@@ -93,17 +94,7 @@ class BreakingNews extends Component {
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
-        <span
-          className={classes.breakingnewsBtnClose}
-          onClick={this.handleOnclickClose}
-          // Static HTML elements do not have semantic meaning.
-          // Needs a role, to be focusable and to have a key event
-          onKeyPress={this.handleOnclickClose}
-          role="button"
-          tabIndex={0}>
-          x
-        </span>
-        <h2 className={classes.breakingnewsText}>
+          <h2 className={classes.breakingnewsText}>
           <span className={classes.breakingnewsTag} {...editableField('tags')}>
             {tags}
           </span>
@@ -118,6 +109,17 @@ class BreakingNews extends Component {
             </a>
           </span>
         </h2>
+        <div
+          className={classes.breakingnewsBtnClose}
+          onClick={this.handleOnclickClose}
+          // Static HTML elements do not have semantic meaning.
+          // Needs a role, to be focusable and to have a key event
+          onKeyPress={this.handleOnclickClose}
+          role="button"
+          tabIndex={0}>
+          <i className={classes.breakingnewsIcon}></i>
+        </div>
+     
       </div>
     )
   }
@@ -141,15 +143,11 @@ BreakingNews.propTypes = {
     backgroundColor: PropTypes.oneOf([
       'cintillo-u--bgcolor-1',
       'cintillo-u--bgcolor-2',
-      'cintillo-u--bgcolor-3',
-      'cintillo-u--bgcolor-4',
     ]).tag({
       name: 'Color de fondo',
       labels: {
         'cintillo-u--bgcolor-1': 'Color 1',
         'cintillo-u--bgcolor-2': 'Color 2',
-        'cintillo-u--bgcolor-3': 'Color 3',
-        'cintillo-u--bgcolor-4': 'Color 4',
       },
       defaultValue: 'cintillo-u--bgcolor-1',
     }),
