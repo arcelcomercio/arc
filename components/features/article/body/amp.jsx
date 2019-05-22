@@ -125,7 +125,7 @@ class ArticleAMPArticleBody extends PureComponent {
             }}
           />
         )}
-        {tags && <ArticleBodyChildTags data={tags} className={classes.tags} />}
+        <ArticleBodyChildTags data={tags} className={classes.tags} />
         <ArticleBodyChildRelated stories={dataRelated} />
       </div>
     )
