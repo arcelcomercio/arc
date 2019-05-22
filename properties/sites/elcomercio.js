@@ -9,22 +9,17 @@ export default {
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KKXTKGP',
   charbeatAccountNumber: 57773,
-  // TODO delete
-  logo: 'white-logo.png',
-  headerLogo: 'logo.png',
-  footerLogo: 'white-logo.png',
-  ampFooterLogo: 'letra-c-white.png',
-  // --
+
   assets: {
     nav: {
       logo: 'white-logo.png',
-      ampFooterLogo: 'letra-c-white.png',
+      ampLogo: 'letra-c-white.png',
     },
     header: {
-      headerLogo: 'logo.png',
+      logo: 'logo.png',
     },
     footer: {
-      footerLogo: 'white-logo.png',
+      logo: 'white-logo.png',
     },
   },
 

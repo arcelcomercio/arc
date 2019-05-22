@@ -9,24 +9,7 @@ export default {
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KKXTKGP',
   charbeatAccountNumber: 57773,
-  // TODO delete
-  logo: 'white-logo.png',
-  headerLogo: 'logo.png',
-  footerLogo: 'white-logo.png',
-  ampFooterLogo: 'letra-c-white.png',
-  // --
-  assets: {
-    nav: {
-      logo: 'logo.png',
-      ampFooterLogo: 'letra-c-white.png',
-    },
-    header: {
-      headerLogo: 'logo.png',
-    },
-    footer: {
-      footerLogo: 'logo.png',
-    },
-  },
+
   footer: {
     siteLegal: [
       'Empresa Editora Publimetro',

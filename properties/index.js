@@ -2,13 +2,13 @@ export default {
   assets: {
     nav: {
       logo: 'logo.png',
-      ampFooterLogo: 'letra-c-white.png',
+      ampLogo: 'letra-c-white.png',
     },
     header: {
-      headerLogo: 'logo.png',
+      logo: 'logo.png',
     },
     footer: {
-      footerLogo: 'logo.png',
+      logo: 'logo.png',
     },
   },
   gecSites: [{

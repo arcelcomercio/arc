@@ -80,7 +80,6 @@ class LayoutFooter extends PureComponent {
           }
           return {
             name: el.name,
-            // eslint-disable-next-line no-underscore-dangle
             url: el._id,
             node_type: el.node_type,
           }
@@ -96,7 +95,6 @@ class LayoutFooter extends PureComponent {
             break
         }
       })
-      // eslint-disable-next-line no-console
       .catch(e => {
         throw new Error(e)
       })
@@ -104,12 +102,23 @@ class LayoutFooter extends PureComponent {
 
   render() {
     const {
-      arcSite,
+      deployment,
       contextPath,
       requestUri,
-      deployment,
-      siteProperties: { footer, gecSites, footerLogo = 'logo.png' },
+      arcSite,
+      siteProperties: {
+        gecSites,
+        footer,
+        assets: {
+          footer: { logo },
+        },
+      },
     } = this.props
+
+    const logoUrl =
+      deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) ||
+      ''
+
     const { device, legalList, sectionsList } = this.state
 
     const querys = requestUri.split('?')[1]
@@ -121,13 +130,7 @@ class LayoutFooter extends PureComponent {
           <a
             href={`${contextPath || ''}/${queryString}`}
             className={classes.footerLogoContainer}>
-            <img
-              className={classes.footerLogoImg}
-              src={deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/${footerLogo}`
-              )}
-              alt=""
-            />
+            <img className={classes.footerLogoImg} src={logoUrl} alt="" />
           </a>
           <ul className={classes.footerLegalList}>
             {footer.siteLegal.map(el => (
