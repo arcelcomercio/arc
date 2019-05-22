@@ -11,7 +11,7 @@ const classes = {
   relatedMultimedia: 'related-content__multimedia',
   relatedLink: 'related-content__multimedia-link',
   relatedImage: 'related-content__multimedia-img',
-  relatedIcon: 'related-content__icon icon-img',
+  relatedIcon: 'related-content__icon icon-',
   relatedAuthor: 'related-content__author',
   relatedInfo: 'related-content__information',
 }
@@ -39,23 +39,30 @@ class RelatedContent extends Component {
           <h2 className={`${classes.relatedTitleItem}`}>
             <a href={title.urlTitle}>{title.nameTitle}</a>
           </h2>
-          <a href={author.nameAuthorLink} className={classes.relatedAuthor}>{author.nameAuthor}</a>
+          <a href={author.nameAuthorLink} className={classes.relatedAuthor}>
+            {author.nameAuthor}
+          </a>
         </div>
         <figure className={classes.relatedMultimedia}>
-          <a href={title.urlTitle}  className={classes.relatedLink}>
-            <img src={multimedia.multimediaImg} alt={title.nameTitle}  className={classes.relatedImage}/>
+          <a href={title.urlTitle} className={classes.relatedLink}>
+            <img
+              src={multimedia.multimediaImg}
+              alt={title.nameTitle}
+              className={classes.relatedImage}
+            />
             {multimedia.multimediaType === 'basic' ||
             multimedia.multimediaType === '' ? (
               ''
             ) : (
-              <span className={classes.relatedIcon}>
-                {getIcon(multimedia.multimediaType)}
-              </span>
+              <span
+                className={`${classes.relatedIcon}${getIcon(
+                  multimedia.multimediaType
+                )}`}
+              />
             )}
           </a>
           {/* <Icon iconClass={story.iconClass} /> */}
         </figure>
-      
       </article>
     )
   }
