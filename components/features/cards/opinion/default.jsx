@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import OpinionChildCard from './_children/card'
 import filterSchema from './_dependencies/schema-filter'
+import { defaultImage } from '../../../utilities/helpers'
 
 @Consumer
 class CardOpinion extends PureComponent {
@@ -60,7 +61,7 @@ class CardOpinion extends PureComponent {
 
   getContentApi = (seccion, callback) => {
     if (seccion) {
-      const { arcSite } = this.props
+      const { arcSite, deployment, contextPath } = this.props
       const { fetched } = this.getContent(
         'story-feed-by-section',
         {
@@ -79,7 +80,7 @@ class CardOpinion extends PureComponent {
             const {
               headlines: { basic } = {},
               taxonomy: { sites, sections } = {},
-              canonical_url: canonicalUrl,
+              website_url: websiteUrl,
             } = contentElements[0]
             const {
               additional_properties: {
@@ -91,10 +92,19 @@ class CardOpinion extends PureComponent {
 
             const { name, path } = sections[0] || []
 
+            const urlImg =
+              siteLogo ||
+              defaultImage({
+                deployment,
+                contextPath,
+                arcSite,
+                size: 'sm',
+              })
+
             const contenido = {
               title: `${basic}`,
-              urlImg: siteLogo,
-              urlNew: canonicalUrl,
+              urlImg,
+              urlNew: websiteUrl,
               sectionName: name,
               urlSection: path,
             }

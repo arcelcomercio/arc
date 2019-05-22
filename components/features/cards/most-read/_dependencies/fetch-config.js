@@ -1,17 +1,7 @@
 export default (globalContentConfig, globalContent, storiesQty) => {
-  const {
-    query: {
-      section = ''
-    } = {}
-  } = globalContentConfig || {}
-  const {
-    taxonomy: {
-      primary_section: {
-        _id = ''
-      } = {}
-    } = {}
-  } =
-  globalContent || {}
+  const { query: { section = '' } = {} } = globalContentConfig || {}
+  const { taxonomy: { primary_section: { _id = '' } = {} } = {} } =
+    globalContent || {}
 
   let sec = _id || section
 

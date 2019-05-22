@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import SeparatorList from './_children/separator'
+import StoryData from '../../../utilities/story-data'
 
 /** TODO: Agregar editableField() al título del separador */
 
@@ -40,6 +41,7 @@ class SeparatorBasic extends PureComponent {
   getContentApi = () => {
     let newsNumber = 4
     const { device, section, titleSeparator } = this.state
+    const { arcSite, deployment, contextPath } = this.props
 
     if (device === 'mobile') newsNumber = 1
 
@@ -57,8 +59,19 @@ class SeparatorBasic extends PureComponent {
           content_elements: contentElements,
           section_name: sectionName = '',
         }) => {
+          const listItems = []
+          contentElements.forEach(item => {
+            const formattedItem = new StoryData({
+              data: item,
+              deployment,
+              contextPath,
+              arcSite,
+              defaultImgSize: 'sm',
+            })
+            listItems.push(formattedItem)
+          })
           this.setState({
-            items: contentElements,
+            items: listItems,
             titleSeparator: titleSeparator || sectionName || 'Últimas noticias',
           })
         }
