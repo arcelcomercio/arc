@@ -2,12 +2,14 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PostItem from './_children/post-item'
 import Pagination from '../../../global-components/pagination'
+import { defaultImage } from '../../../utilities/helpers'
 
 @Consumer
 class BlogAuthorList extends PureComponent {
   render() {
     const {
       contextPath,
+      deployment,
       globalContent = {},
       globalContentConfig = {},
       arcSite = '',
@@ -15,7 +17,7 @@ class BlogAuthorList extends PureComponent {
 
     const {
       posts = [],
-      user: { first_name: author = '' } = {},
+      user: { first_name: author = 'Gestion' } = {},
       blog: { count_posts: countPosts = '' } = {},
     } = globalContent || {}
 
@@ -25,7 +27,7 @@ class BlogAuthorList extends PureComponent {
         posts_offset: postsOffset = '',
       } = {},
     } = globalContentConfig
-    console.log(countPosts)
+    
     return (
       <div>
         {posts.map(post => {
@@ -33,7 +35,7 @@ class BlogAuthorList extends PureComponent {
             post_title: postTitle,
             post_permalink: postPermaLink,
             post_date: postDate,
-            post_thumbnail: { guid: image = '' } = {},
+            post_thumbnail: { guid: image = defaultImage({ deployment, contextPath, arcSite, size: 'sm' }) } = {},
           } = post
           const data = {
             postTitle,
