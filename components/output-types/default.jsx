@@ -84,6 +84,7 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap" rel="stylesheet"/>
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
