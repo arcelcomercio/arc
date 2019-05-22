@@ -60,7 +60,7 @@ class StoriesList extends PureComponent {
           </div>
           <div className={clases.storyItemRight}>
             <a href={element.link}>
-              {element.multimediaType === 'basic' ||
+              {element.multimediaType.toLowerCase() === 'basic' ||
               element.multimediaType === '' ? (
                 ''
               ) : (
