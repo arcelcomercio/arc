@@ -24,9 +24,9 @@
     font-style: italic;
     padding: 13px;
 
-    &__pull {
+    /*     &__pull {
       background: url('../images/openquote.svg') top left no-repeat;
-    }
+    } */
 
     & p:first-letter {
       font-size: 39px;
@@ -117,10 +117,10 @@
     margin-bottom: 20px;
     padding-top: 30px;
   }
-  &__author-email{
+  &__author-email {
     font-size: $font-sm;
   }
-  &__author-date{
+  &__author-date {
     font-size: 12px;
   }
 }

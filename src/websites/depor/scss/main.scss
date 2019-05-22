@@ -1,17 +1,16 @@
 /******* Framework Variables*******/
+@import './partials/import-icons';
 @import '../../../general-styles/framework/variables/index';
 /*---------------------*/
 
 /******* Site Variables *******/
 @import './variables/colors';
 @import './variables/dimensions';
-
-@import './partials/import-fonts';
 @import './variables/fonts';
-/*---------------------*/
-
-/******* Framework Core *******/
+@import './variables/icons';
 @import '../../../general-styles/framework/core/index';
+@import './partials/import-fonts';
+@import '../../../general-styles/framework/generators/index';
 /*---------------------*/
 
 /******* Partials *******/

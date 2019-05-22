@@ -1,75 +1,39 @@
 .icon {
-    width: 16px;
-    height: 16px;
-    background-size: cover;
+  width: 16px;
+  height: 16px;
+  background-size: cover;
 
-    &--search {
-        background-image: url('../images/icon-search.svg');
-    }
+  /*   &--search {
+    background-image: url('../images/icon-search.svg');
+  }
 
-    &--menu {
-        background-image: url('../images/icon-menu.svg');
-    }
+  &--menu {
+    background-image: url('../images/icon-menu.svg');
+  }
 
-    &--login {
-        background-image: url('../images/icon-user.svg');
-    }
+  &--login {
+    background-image: url('../images/icon-user.svg');
+  }
 
-    &--fire {
-        background-image: url('../images/icon-fire.svg');
-    }
+  &--fire {
+    background-image: url('../images/icon-fire.svg');
+  } */
 
-    &--facebook {
-        display: block;
-        width: 32px;
-        height: 32px;
-        background-image: url('http://www.sccpre.cat/png/big/101/1016178_facebook-logo-icon-png.jpg');
-    }
+  &--facebook {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url('http://www.sccpre.cat/png/big/101/1016178_facebook-logo-icon-png.jpg');
+  }
 
-    &--twitter {
-        display: block;
-        width: 32px;
-        height: 32px;
-        background-image: url('http://www.stickpng.com/assets/images/58e9196deb97430e819064f6.png');
-    }
+  &--twitter {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url('http://www.stickpng.com/assets/images/58e9196deb97430e819064f6.png');
+  }
 
-    &--margin-right {
-        margin-right: 8px;
-    }
+  &--margin-right {
+    margin-right: 8px;
+  }
 }
-
-
-/* Iconos generados como fuentes */
-
-
-  
-  [class^="icon-"], [class*=" icon-"] {
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'icomoon' !important;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-  
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  .icon-add:before {
-    content: "\e900";
-  }
-  .icon-ribbon:before {
-    content: "\e901";
-  }
-  .icon-facebook:before {
-    content: "\ea90";
-  }
-  .icon-twitter:before {
-    content: "\ea96";
-  }
-  .icon-linkedin:before {
-    content: "\eaca";
-  }

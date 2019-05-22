@@ -1,0 +1,26 @@
+$map-icons: (
+  img: $img,
+  video: $video,
+  menu: $menu,
+  marca: $marca,
+  add: $add,
+  ribbon: $ribbon,
+  facebook: $facebook,
+  twitter: $twitter,
+  linkedin: $linkedin,
+  home: $home,
+  user: $user,
+  search: $search,
+  close: $close,
+) !default;
+
+@mixin generateicons() {
+  @each $name, $value in $map-icons {
+    .icon-#{$name}:before {
+      content: #{'"\\' + #{$value} + '"'};
+    }
+  }
+  @content;
+}
+
+@include generateicons();
