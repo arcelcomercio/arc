@@ -1,6 +1,8 @@
 import React from 'react'
 import EmbedMultimedia from './embed-multimedia'
 import { getIcon } from '../utilities/helpers'
+// import { AsyncResource } from 'async_hooks'
+// FIXME: La línea de arriba no se usa, se puede eliminar?
 
 const classes = {
   extraordinaryStory: `extraordinary-story padding-normal`,
@@ -36,6 +38,8 @@ const ExtraordinaryStory = props => {
     contentOrientation = 'left',
     isSection = false,
     multimediaType,
+    deployment,
+    contextPath,
     arcSite,
   } = props
 
@@ -78,6 +82,9 @@ const ExtraordinaryStory = props => {
           type={data.typeMultimediaGeneral}
           title={data.title}
           source={data.sourceMultimedia}
+          deployment={deployment}
+          contextPath={contextPath}
+          website={arcSite}
         />
         {getMultimediaIcon(getIcon(multimediaType))}
       </div>

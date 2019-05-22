@@ -26,15 +26,9 @@
   & .powa {
     width: 100%;
   }
-
-  & .embed-multimedia-image {
-    width: 100%;
-  }
 }
 
 .sections-grid {
-  width: 100%;
-
   &__text {
     color: #8d8d8d;
     font-size: 16px;
@@ -60,7 +54,6 @@
 
     &:hover {
       cursor: pointer;
-      text-decoration: underline;
     }
   }
 
@@ -83,12 +76,11 @@
   padding: 8px 10px;
 
   &__title {
-    color: #fff;
+    color: $color-white;
     font-size: 13px;
   }
 
   &__image-container {
     max-height: 94px;
-    overflow: hidden;
   }
 }

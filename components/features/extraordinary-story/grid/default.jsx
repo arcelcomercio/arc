@@ -92,7 +92,12 @@ class ExtraordinaryStoryGrid extends PureComponent {
   }
 
   render() {
-    const { arcSite, customFields: customFieldsData } = this.props
+    const {
+      deployment,
+      contextPath,
+      arcSite,
+      customFields: customFieldsData,
+    } = this.props
     const { storyData, section1, section2, section3, section4 } = this.state
 
     const formattedStoryData = new Data(customFieldsData, storyData, arcSite)
@@ -103,12 +108,14 @@ class ExtraordinaryStoryGrid extends PureComponent {
     this.isVideo = formattedStoryData.isVideo
 
     const params = {
-      arcSite,
       storyData: formattedStoryData,
       section1: formattedSection1,
       section2: formattedSection2,
       section3: formattedSection3,
       section4: formattedSection4,
+      deployment,
+      contextPath,
+      arcSite,
     }
     return <ExtraordinaryStoryGridChild {...params} />
   }
