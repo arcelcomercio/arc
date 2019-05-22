@@ -15,6 +15,7 @@ import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildAuthor from './_children/author'
 import ArticleBodyChildMultimedia from './_children/multimedia'
 import schemaFilter from './_children/_dependencies/schema-filter'
+import ArticleBodyChildRelatedInternal from './_children/related-internal'
 
 const classes = {
   news: 'article-body news-text-content col-2 bg-color--white',
@@ -55,7 +56,7 @@ class ArticleBody extends PureComponent {
   }
 
   render() {
-    const { globalContent } = this.props
+    const { globalContent, arcSite } = this.props
     const { data } = this.state
     const {
       content_elements: contentElements,
@@ -106,6 +107,15 @@ class ArticleBody extends PureComponent {
                     rawOembed={rawOembed}
                     subtype={subtype}
                     className={classes.newsEmbed}
+                  />
+                )
+              }
+              if (type === 'story') {
+                return (
+                  <ArticleBodyChildRelatedInternal
+                    data={element}
+                    stories={data}
+                    arcSite={arcSite}
                   />
                 )
               }
