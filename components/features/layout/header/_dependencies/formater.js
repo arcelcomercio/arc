@@ -90,6 +90,9 @@ export default class StandardHeader {
         url: `${this.contextPath}/somos`,
       },
       sections: this.formatSections(),
+      searchUrl: query => {
+        window.location.href = `${this.contextPath}/buscar?query=${query}`
+      },
     }
   }
 
