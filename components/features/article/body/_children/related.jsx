@@ -69,12 +69,13 @@ class RelatedContent extends Component {
 
   render() {
     const { stories: data } = this.props
-    debugger
     return (
-      <div className={classes.related}>
-        <div className={classes.relatedTitle}>Relacionadas </div>
-        {data.map(item => this.renderRelatedContentElement(item))}
-      </div>
+      data.length > 0 && (
+        <div className={classes.related}>
+          <div className={classes.relatedTitle}>Relacionadas </div>
+          {data.map(item => this.renderRelatedContentElement(item))}
+        </div>
+      )
     )
   }
 }
