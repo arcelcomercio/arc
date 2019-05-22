@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import ExtraordinaryStoryGridChild from './_children/extraordinary-story-grid'
 import customFields from './_dependencies/custom-fields'
@@ -7,7 +7,7 @@ import Data from '../_dependencies/data'
 import SectionData from '../../../utilities/section-data'
 
 @Consumer
-class ExtraordinaryStoryGrid extends PureComponent {
+class ExtraordinaryStoryGrid extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,74 +21,64 @@ class ExtraordinaryStoryGrid extends PureComponent {
     this.initFetch()
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     if (window.powaBoot && this.isVideo) {
       window.powaBoot()
     }
   }
 
   initFetch = () => {
-    const {
-      customFields: {
-        urlStory = {},
-        multimediaService = '',
-        firstSection = {},
-        secondSection = {},
-        thirdSection = {},
-        fourthSection = {},
-      } = {},
-      arcSite = '',
-    } = this.props
+    const { customFields: customFieldsData = {}, arcSite = '' } = this.props
+
+    const { urlStory = {}, multimediaService = '' } = customFieldsData
 
     if (multimediaService === Data.AUTOMATIC) {
-      const { fetched } = this.fetch(urlStory, storySchema(arcSite))
-      if (fetched)
-        fetched
-          .then(response => {
-            this.setState({ storyData: response })
-          })
-          .catch(err => {
-            throw new Error(err)
-          })
+      const { fetched: fetchStory = {} } = this.fetch(
+        urlStory,
+        storySchema(arcSite)
+      )
+      fetchStory.then(response => {
+        this.setState({ storyData: response })
+      })
     }
 
-    Promise.all([
-      this.fetch(firstSection, sectionSchema),
-      this.fetch(secondSection, sectionSchema),
-      this.fetch(thirdSection, sectionSchema),
-      this.fetch(fourthSection, sectionSchema),
-    ])
-      .then(response => {
-        const jsonSections = {}
-        response.forEach((resp, index) => {
-          const { cached: data } = resp
-          // NO TOCAR: BY CARLOS
-          if (data) jsonSections[`section${index + 1}`] = { ...data }
-          else jsonSections[`section${index + 1}`] = {}
+    const sections = {}
+    const sectionsFetch = []
+    for (let i = 1; i <= 4; i++) {
+      const { contentConfigValues: { _id = '' } = {} } =
+        customFieldsData[`section${i}`] || {}
+      if (_id !== '') {
+        sections[`section${i}`] = _id
+        const { fetched } = this.fetch(
+          customFieldsData[`section${i}`],
+          sectionSchema
+        )
+        sectionsFetch.push(fetched)
+      }
+    }
+
+    if (sectionsFetch.length > 0) {
+      Promise.all(sectionsFetch)
+        .then(results => {
+          const jsonSections = {}
+          results.forEach(res => {
+            const { _id = '' } = res || {}
+            const sectionActive = Object.keys(sections)[
+              Object.values(sections).indexOf(_id)
+            ]
+            jsonSections[sectionActive] = res || {}
+          })
+          this.setState(jsonSections)
         })
-        this.setState(jsonSections)
-        // AHORA SI PUEDES TOCAR
-      })
-      .catch(err => {
-        throw new Error(err)
-      })
+        .catch(err => {
+          throw new Error(err)
+        })
+    }
   }
 
   fetch(contentConfig, schema) {
     const { contentService = '', contentConfigValues = {} } = contentConfig
-    const hasSection =
-      Object.prototype.hasOwnProperty.call(contentConfigValues, '_id') &&
-      contentConfigValues._id !== ''
-    const hasStory =
-      Object.prototype.hasOwnProperty.call(
-        contentConfigValues,
-        'website_url'
-      ) && contentConfigValues.website_url !== ''
-
-    if (hasSection || hasStory) {
-      return this.getContent(contentService, contentConfigValues, schema)
-    }
-    return {}
+    return this.getContent(contentService, contentConfigValues, schema)
   }
 
   render() {
@@ -99,13 +89,25 @@ class ExtraordinaryStoryGrid extends PureComponent {
       customFields: customFieldsData,
     } = this.props
     const { storyData, section1, section2, section3, section4 } = this.state
-
-    const formattedStoryData = new Data(customFieldsData, storyData, arcSite)
+    const formattedStoryData = new Data({
+      customFields: customFieldsData,
+      data: storyData,
+      arcSite,
+      deployment,
+      contextPath,
+      defaultImgSize: 'sm',
+    })
     const formattedSection1 = new SectionData(section1, arcSite)
     const formattedSection2 = new SectionData(section2, arcSite)
     const formattedSection3 = new SectionData(section3, arcSite)
     const formattedSection4 = new SectionData(section4, arcSite)
     this.isVideo = formattedStoryData.isVideo
+
+    const imgLogo =
+      customFieldsData.logo ||
+      deployment(
+        `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
+      )
 
     const params = {
       storyData: formattedStoryData,
@@ -116,6 +118,7 @@ class ExtraordinaryStoryGrid extends PureComponent {
       deployment,
       contextPath,
       arcSite,
+      imgLogo,
     }
     return <ExtraordinaryStoryGridChild {...params} />
   }

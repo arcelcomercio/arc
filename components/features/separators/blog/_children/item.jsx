@@ -19,38 +19,29 @@ const SeparatorBlogChildItem = ({
   blogName,
   postLink,
   postTitle,
-  arcSite,
-  contextPath,
+  defaultImg,
 }) => {
-  const WEBSITE = `?_website=${arcSite}`
-  const DEFAULT_IMG =
-    'https://img.gestion.pe/bundles/appcms/images/gestion/logo_gestion.png?1556552656'
+  const DEFAULT_IMG = defaultImg
   const IMG = authorImg || DEFAULT_IMG
   return (
     <div className={classes.separator}>
       <div className={classes.boxTitle}>
         <h1 className={classes.title}>
-          <a
-            href={`${contextPath}/blog/${postLink}${WEBSITE}`}
-            className={classes.link}>
+          <a href={postLink} className={classes.link}>
             {postTitle}
           </a>
         </h1>
       </div>
       <div className={classes.middle}>
-        <a
-          href={`${contextPath}/blog/${blogUrl}${WEBSITE}`}
-          className={classes.section}>
+        <a href={blogUrl} className={classes.section}>
           {blogName}
         </a>
-        <a
-          href={`${contextPath}/blog/${blogUrl}${WEBSITE}`}
-          className={classes.author}>
+        <a href={blogUrl} className={classes.author}>
           {authorName}
         </a>
       </div>
       <div className={classes.boxImg}>
-        <a href={`${contextPath}/blog/${postLink}${WEBSITE}`}>
+        <a href={postLink}>
           <img src={IMG} alt="" className={classes.img} />
         </a>
       </div>

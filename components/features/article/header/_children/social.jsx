@@ -24,7 +24,12 @@ class ArticleHeaderChildSocial extends PureComponent {
       currentList: this.firstList,
     }
     const {
-      siteUrl,
+      siteProperties: {
+        social: {
+          twitter: { user: siteNameRedSocial },
+        },
+        siteUrl,
+      },
       globalContent: {
         website_url: postPermaLink,
         headlines: { basic: postTitle } = {},
@@ -34,7 +39,8 @@ class ArticleHeaderChildSocial extends PureComponent {
     const urlsShareList = socialMediaUrlShareList(
       siteUrl,
       postPermaLink,
-      postTitle
+      postTitle,
+      siteNameRedSocial
     )
     this.shareButtons = {
       [this.firstList]: [
@@ -96,7 +102,7 @@ class ArticleHeaderChildSocial extends PureComponent {
             {this.shareButtons[currentList].map((item, i) => (
               <li
                 key={UtilListKey(i)}
-                className={`article-header__item ${item.mobileClass}`}>
+                className={` ${classes.item} ${item.mobileClass}`}>
                 <a
                   className={classes.link}
                   href={item.link}

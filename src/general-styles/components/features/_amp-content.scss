@@ -27,6 +27,24 @@
     margin-right: -20px;
   }
 
+  .pquote {
+    background: none;
+    color: #030;
+    font-size: 26px;
+    line-height: 0.9;
+    font-style: italic;
+    padding: 13px;
+
+    &__pull {
+      background: url('../images/openquote.svg') top left no-repeat;
+    }
+
+    & p:first-letter {
+      font-size: 39px;
+      font-weight: bold;
+    }
+  }
+
   & table {
     width: 100%;
     height: auto;
@@ -46,6 +64,32 @@
 
     & tr:nth-child(even) td {
       background-color: #e6e6e6;
+    }
+  }
+  .i-amphtml-element {
+    width: 100% !important;
+  }
+  section > p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    word-wrap: break-word;
+  }
+
+  &__tag-title {
+    color: #4aa8fa;
+    font: 700 12px/1 $primary-font;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+  }
+  &__tag-item {
+    display: inline-block;
+    font-family: $primary-font;
+    font-size: 13px;
+    margin: 0 10px 5px 0;
+
+    & a {
+      color: $color-silver;
     }
   }
 }

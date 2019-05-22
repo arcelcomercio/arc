@@ -25,18 +25,15 @@ const EmbedMultimedia = props => {
 
   const videoGoldfish = (multimediaSource, { website = 'elcomercio' }) => {
     return (
-      <Fragment>
-        <div
-          id={`powa-${multimediaSource}`}
-          data-env={GOLDFISH_ENV}
-          data-api={GOLDFISH_ENV}
-          data-org={website}
-          data-uuid={multimediaSource}
-          data-aspect-ratio="0.562"
-          className="powa"
-        />
-        <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
-      </Fragment>
+      <div
+        id={`powa-${multimediaSource}`}
+        data-env={GOLDFISH_ENV}
+        data-api={GOLDFISH_ENV}
+        data-org={website}
+        data-uuid={multimediaSource}
+        data-aspect-ratio="0.562"
+        className="powa"
+      />
     )
   }
 
@@ -71,17 +68,21 @@ const EmbedMultimedia = props => {
     ) {
       fx = image
     }
-    fx = image
     return fx
   }
 
   const { type, source, deployment, contextPath, website, title = '' } = props
-  return getMultimedia(type)(source, {
-    deployment,
-    contextPath,
-    title,
-    website,
-  })
+  return (
+    <Fragment>
+      {getMultimedia(type)(source, {
+        deployment,
+        contextPath,
+        title,
+        website,
+      })}
+      <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
+    </Fragment>
+  )
 }
 
 export default EmbedMultimedia

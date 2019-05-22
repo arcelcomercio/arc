@@ -35,20 +35,25 @@ const customFieldsSection = {
     description:
       'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: Url del video.',
   }),
-  firstSection: PropTypes.contentConfig('section').tag({
+  section1: PropTypes.contentConfig('section').tag({
     name: 'Primera sección',
     group: 'Secciones laterales',
   }),
-  secondSection: PropTypes.contentConfig('section').tag({
+  section2: PropTypes.contentConfig('section').tag({
     name: 'Segunda sección',
     group: 'Secciones laterales',
   }),
-  thirdSection: PropTypes.contentConfig('section').tag({
+  section3: PropTypes.contentConfig('section').tag({
     name: 'Tercera sección',
     group: 'Secciones laterales',
   }),
-  fourthSection: PropTypes.contentConfig('section').tag({
+  section4: PropTypes.contentConfig('section').tag({
     name: 'Cuarta sección',
+    group: 'Secciones laterales',
+  }),
+
+  logo: PropTypes.string.tag({
+    name: 'Logo',
     group: 'Secciones laterales',
   }),
 }
