@@ -108,13 +108,7 @@ class ArticleAMPArticleBody extends PureComponent {
               }
               if (type === 'video') {
                 return (
-                  <amp-iframe
-                    class="amphtml-video"
-                    width="897"
-                    height="542"
-                    layout="responsive"
-                    i-amphtml-layout="responsive"
-                    frameborder="0">
+                  <amp-iframe i-amphtml-layout="responsive" frameborder="0">
                     <i-amphtml-sizer />
                     <i-amphtml-scroll-container class="amp-active" />
                     <ArticleBodyChildVideo data={element.embed_html} />
