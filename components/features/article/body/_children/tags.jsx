@@ -7,9 +7,9 @@ const classes = {
   item: '__tag-item',
 }
 const ArticleBodyChildTags = props => {
-  const { data = {}, className: classTags } = props
+  const { data, className: classTags } = props
   return (
-    data && (
+    data.length > 0 && (
       <div className={`${classTags}${classes.tagsName}`}>
         <h4 className={`${classTags}${classes.titulo}`}>Tags Relacionados:</h4>
         {data.map(
