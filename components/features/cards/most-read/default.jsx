@@ -45,7 +45,12 @@ class CardMostRead extends PureComponent {
 
         if (stories.length > 0) {
           this.setState({
-            stories: dataCasting(stories, deployment, contextPath, arcSite),
+            stories: dataCasting({
+              data: stories,
+              deployment,
+              contextPath,
+              arcSite,
+            }),
           })
         } else {
           this.setState({

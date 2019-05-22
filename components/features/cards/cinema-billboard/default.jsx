@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import { ResizeImageUrl } from '../../../utilities/helpers'
+import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   cinemaCard: 'cinema-card padding-normal row-1',
@@ -49,7 +49,7 @@ class CardCinemaBillboard extends PureComponent {
 
   getBillboard() {
     const { fetched } = this.getContent('cinema-billboard', { website: '' })
-    const { arcSite } = this.props
+    const { arcSite, deployment, contextPath } = this.props
 
     fetched.then(response => {
       const { peliculas, cines, estrenos } = response
@@ -57,16 +57,16 @@ class CardCinemaBillboard extends PureComponent {
       const moviesList = Object.values(peliculas)
       const cinemasList = cines
 
-      const resizeImg = ResizeImageUrl(
+      const img = defaultImage({
+        deployment,
+        contextPath,
         arcSite,
-        estrenos[0].poster.filepath,
-        '3:4',
-        '280x186'
-      )
+        size: 'sm',
+      })
 
       const premiereData = {
         title: estrenos[0].name,
-        img: resizeImg,
+        img,
         url: estrenos[0].url,
         alt: estrenos[0].body,
       }

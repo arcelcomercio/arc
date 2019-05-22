@@ -111,7 +111,7 @@ class ExtraordinaryStoryGrid extends Component {
 
     const params = {
       contextPath,
-      storyData: x,
+      storyData: formattedStoryData,
       section1: formattedSection1,
       section2: formattedSection2,
       section3: formattedSection3,

@@ -1,10 +1,6 @@
-import {
-  addResizedUrlItem
-} from './thumbs'
+import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
-import {
-  defaultImage
-} from './helpers'
+import { defaultImage } from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -20,7 +16,7 @@ class StoryData {
     deployment = () => {},
     contextPath = '',
     arcSite = '',
-    defaultImgSize = 'md'
+    defaultImgSize = 'md',
   }) {
     this._data = data
     this._deployment = deployment
@@ -93,26 +89,31 @@ class StoryData {
   }
 
   get multimedia() {
-    return StoryData.getThumbnail(
-      this._data,
-      StoryData.getTypeMultimedia(this._data)
-    ) || defaultImage({
-      deployment: this._deployment,
-      contextPath: this._contextPath,
-      arcSite: this._website,
-      size: this._defaultImgSize
-    })
+    return (
+      StoryData.getThumbnail(
+        this._data,
+        StoryData.getTypeMultimedia(this._data)
+      ) ||
+      defaultImage({
+        deployment: this._deployment,
+        contextPath: this._contextPath,
+        arcSite: this._website,
+        size: this._defaultImgSize,
+      })
+    )
   }
 
   get multimediaType() {
     return StoryData.getTypeMultimedia(this._data)
   }
 
-  get section() { // FIXME: deprecated
+  get section() {
+    // FIXME: deprecated
     return StoryData.getDataSection(this._data, this._website).name
   }
 
-  get sectionLink() { // FIXME: deprecated
+  get sectionLink() {
+    // FIXME: deprecated
     return StoryData.getDataSection(this._data, this._website).path
   }
 
@@ -125,9 +126,7 @@ class StoryData {
   }
 
   get link() {
-    const {
-      website_url: url = ''
-    } = this._data || {}
+    const { website_url: url = '' } = this._data || {}
     return url
   }
 
@@ -190,17 +189,12 @@ class StoryData {
 
   static getPrimarySection(data) {
     const {
-      taxonomy: {
-        primary_section: {
-          name = '',
-          path = ''
-        } = {}
-      } = {}
+      taxonomy: { primary_section: { name = '', path = '' } = {} } = {},
     } = data
 
     return {
       name,
-      path
+      path,
     }
   }
 
@@ -209,7 +203,8 @@ class StoryData {
       (data &&
         data.websites &&
         data.websites[website] &&
-        data.websites[website].website_section) || {}
+        data.websites[website].website_section) ||
+      {}
 
     const section = sectionData.name || ''
     const path = sectionData.path || ''
@@ -234,12 +229,14 @@ class StoryData {
         urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : ''
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
-          iterator.image && iterator.image.url && iterator.image.url !== '' ?
-          iterator.image.url :
-          imageAuthorDefault
+          iterator.image && iterator.image.url && iterator.image.url !== ''
+            ? iterator.image.url
+            : imageAuthorDefault
+        console.log('for', imageAuthor)
         break
       }
     }
+    console.log('return', imageAuthor)
     return {
       nameAuthor,
       urlAuthor,
@@ -271,7 +268,7 @@ class StoryData {
         data.promo_items[ConfigParams.VIDEO].promo_items &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE] &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
-        .url) ||
+          .url) ||
       ''
     return thumb
   }
@@ -286,7 +283,7 @@ class StoryData {
           ConfigParams.IMAGE
         ] &&
         data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-        .url) ||
+          .url) ||
       ''
     return thumb
   }
@@ -295,9 +292,9 @@ class StoryData {
     const basicPromoItems =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
     const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
-    return typePromoItems && typePromoItems === 'image' ?
-      basicPromoItems.url :
-      ''
+    return typePromoItems && typePromoItems === 'image'
+      ? basicPromoItems.url
+      : ''
   }
 
   static getThumbnail(data, type) {
