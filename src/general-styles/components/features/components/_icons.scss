@@ -58,6 +58,12 @@
     -moz-osx-font-smoothing: grayscale;
   }
   
+  .icon-img:before {
+    content: "\e905";
+  }
+  .icon-video:before {
+    content: "\e906";
+  }
   .icon-menu:before {
     content: "\e904";
   }

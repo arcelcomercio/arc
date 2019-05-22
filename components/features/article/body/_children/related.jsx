@@ -6,11 +6,14 @@ import StoryData from '../../../../utilities/story-data'
 const classes = {
   related: 'related-content',
   relatedItem: 'related-content__item',
-  relatedTitleItem: 'related-content__title--item',
+  relatedTitleItem: 'related-content__title-item',
   relatedTitle: 'related-content__title',
   relatedMultimedia: 'related-content__multimedia',
-  relatedIcon: 'related-content__icon',
+  relatedLink: 'related-content__multimedia-link',
+  relatedImage: 'related-content__multimedia-img',
+  relatedIcon: 'related-content__icon icon-img',
   relatedAuthor: 'related-content__author',
+  relatedInfo: 'related-content__information',
 }
 @Consumer
 class RelatedContent extends Component {
@@ -32,14 +35,15 @@ class RelatedContent extends Component {
 
     return (
       <article className={classes.relatedItem}>
-        <div className={`${classes.relatedTitleItem}`}>
-          <h2>
+        <div className={`${classes.relatedInfo}`}>
+          <h2 className={`${classes.relatedTitleItem}`}>
             <a href={title.urlTitle}>{title.nameTitle}</a>
           </h2>
+          <a href={author.nameAuthorLink} className={classes.relatedAuthor}>{author.nameAuthor}</a>
         </div>
         <figure className={classes.relatedMultimedia}>
-          <a href={title.urlTitle}>
-            <img src={multimedia.multimediaImg} alt={title.nameTitle} />
+          <a href={title.urlTitle}  className={classes.relatedLink}>
+            <img src={multimedia.multimediaImg} alt={title.nameTitle}  className={classes.relatedImage}/>
             {multimedia.multimediaType === 'basic' ||
             multimedia.multimediaType === '' ? (
               ''
@@ -51,9 +55,7 @@ class RelatedContent extends Component {
           </a>
           {/* <Icon iconClass={story.iconClass} /> */}
         </figure>
-        <div className={classes.relatedAuthor}>
-          <a href={author.nameAuthorLink}>{author.nameAuthor}</a>
-        </div>
+      
       </article>
     )
   }
