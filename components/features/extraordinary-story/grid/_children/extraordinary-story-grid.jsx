@@ -20,7 +20,9 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
     section3,
     section4,
     storyData,
+    deployment,
     contextPath,
+    arcSite,
   } = props
   storyData.multimediaOrientation = 'grid'
 
@@ -31,6 +33,9 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
           type={storyData.typeMultimediaGeneral}
           title={storyData.title}
           source={storyData.sourceMultimedia}
+          deployment={deployment}
+          contextPath={contextPath}
+          website={arcSite}
         />
       </div>
       <div className={classes.gridContainer}>

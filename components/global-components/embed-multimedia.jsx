@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import ConfigParams from '../utilities/config-params'
+import { defaultImage } from '../utilities/helpers'
 
 const GOLDFISH = 'goldfish'
 const YOUTUBE = 'youtube'
@@ -36,8 +37,22 @@ const EmbedMultimedia = props => {
     )
   }
 
-  const image = (url, { title = '' }) => {
-    return <img className="embed-multimedia-image" src={url} alt={title} />
+  const image = (url, { deployment, contextPath, website, title = '' }) => {
+    return (
+      <img
+        className="embed-multimedia-image full-width"
+        src={
+          url ||
+          defaultImage({
+            deployment,
+            contextPath,
+            arcSite: website,
+            size: 'md',
+          })
+        }
+        alt={title}
+      />
+    )
   }
 
   const getMultimedia = type => {
@@ -53,17 +68,17 @@ const EmbedMultimedia = props => {
     ) {
       fx = image
     }
+    fx = image
     return fx
   }
 
-  const { type, source, website, title = '' } = props
-  // TODO: Cambiar la url de sandbox por sitio de powaboot
-  return (
-    <Fragment>
-      {getMultimedia(type)(source, { title, website })}
-      <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
-    </Fragment>
-  )
+  const { type, source, deployment, contextPath, website, title = '' } = props
+  return getMultimedia(type)(source, {
+    deployment,
+    contextPath,
+    title,
+    website,
+  })
 }
 
 export default EmbedMultimedia

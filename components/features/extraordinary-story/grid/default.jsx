@@ -99,7 +99,12 @@ class ExtraordinaryStoryGrid extends Component {
   }
 
   render() {
-    const { arcSite, contextPath, customFields: customFieldsData } = this.props
+    const {
+      deployment,
+      contextPath,
+      arcSite,
+      customFields: customFieldsData,
+    } = this.props
     const { storyData, section1, section2, section3, section4 } = this.state
 
     const formattedStoryData = new Data(customFieldsData, storyData, arcSite)
@@ -110,12 +115,14 @@ class ExtraordinaryStoryGrid extends Component {
     this.isVideo = formattedStoryData.isVideo
 
     const params = {
-      contextPath,
       storyData: formattedStoryData,
       section1: formattedSection1,
       section2: formattedSection2,
       section3: formattedSection3,
       section4: formattedSection4,
+      deployment,
+      contextPath,
+      arcSite,
     }
     return <ExtraordinaryStoryGridChild {...params} />
   }

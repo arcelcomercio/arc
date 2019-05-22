@@ -1,8 +1,5 @@
 import React from 'react'
-import {
-  ResizeImageUrl,
-  getFullDateIso8601,
-} from '../../../../utilities/helpers'
+import { getFullDateIso8601 } from '../../../../utilities/helpers'
 
 const classes = {
   container: 'post-item__container',
@@ -27,8 +24,7 @@ const AuthorListChildPostItem = ({
   const { day, month, fullYear } = getFullDateIso8601(postDate)
   const postFormatDate = `${day}/${month}/${fullYear}`
   const WEBSITE = `?_website=${arcSite}`
-  const DEFAULT_IMG =
-    'https://img.gestion.pe/bundles/appcms/images/gestion/default_blog.jpg'
+
   return (
     <article className={classes.container}>
       <div className={classes.date}>
@@ -38,10 +34,8 @@ const AuthorListChildPostItem = ({
         <figure className={classes.figure}>
           <img
             className={classes.image}
-            src={
-              ResizeImageUrl(arcSite, image, '3:4', '232x140') || DEFAULT_IMG
-            }
-            alt={author || 'Gestion'}
+            src={image}
+            alt={author}
           />
         </figure>
         <div className={classes.description}>

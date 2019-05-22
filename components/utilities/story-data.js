@@ -85,7 +85,17 @@ class StoryData {
   }
 
   get authorImage() {
-    return StoryData.getDataAuthor(this._data).imageAuthor
+    return (
+      StoryData.getDataAuthor(this._data, {
+        contextPath: this._contextPath,
+      }).imageAuthor ||
+      defaultImage({
+        deployment: this._deployment,
+        contextPath: this._contextPath,
+        arcSite: this._website,
+        size: this._defaultImgSize,
+      })
+    )
   }
 
   get multimedia() {
@@ -214,10 +224,10 @@ class StoryData {
     }
   }
 
-  static getDataAuthor(data) {
+  static getDataAuthor(data, { contextPath = '' } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
-    const imageAuthorDefault =
-      'https://img.elcomercio.pe/files/listing_ec_opinion_destaques/uploads/2019/03/19/5c91731ccceee.png'
+    const imageAuthorDefault = `${contextPath}/resources/assets/opinion-grid/author.png`
+
     let nameAuthor = ''
     let urlAuthor = ''
     let slugAuthor = ''
