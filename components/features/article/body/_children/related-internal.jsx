@@ -16,7 +16,7 @@ const classes = {
   relatedInfo: 'related-interna__information',
 }
 
-const RelartedItem = ({ data, arcSite }) => {
+const RelartedItem = ({ data, arcSite, styles }) => {
   const get = new StoryData(data, arcSite)
   const filterData = {
     title: {
@@ -30,33 +30,40 @@ const RelartedItem = ({ data, arcSite }) => {
   }
   const { multimedia, title } = filterData
 
+  const style = {
+    top: `1%`,
+  }
+
   return (
     <Fragment>
-      <div className={`${classes.relatedInfo}`}>
-        <h2 className={`${classes.relatedTitleItem}`}>
-          <a href={title.urlTitle}>{title.nameTitle}</a>
-        </h2>
-      </div>
-      <figure className={classes.relatedMultimedia}>
-        <a href={title.urlTitle} className={classes.relatedLink}>
-          <img
-            src={multimedia.multimediaImg}
-            alt={title.nameTitle}
-            className={classes.relatedImage}
-          />
-          {multimedia.multimediaType === 'basic' ||
-          multimedia.multimediaType === '' ? (
-            ''
-          ) : (
-            <span
-              className={`${classes.relatedIcon}${getIcon(
-                multimedia.multimediaType
-              )}`}
+      <div className={classes.related} style={style}>
+        <div className={classes.relatedTitle}>Siga Leyendo </div>
+        <div className={`${classes.relatedInfo}`}>
+          <h2 className={`${classes.relatedTitleItem}`}>
+            <a href={title.urlTitle}>{title.nameTitle}</a>
+          </h2>
+        </div>
+        <figure className={classes.relatedMultimedia}>
+          <a href={title.urlTitle} className={classes.relatedLink}>
+            <img
+              src={multimedia.multimediaImg}
+              alt={title.nameTitle}
+              className={classes.relatedImage}
             />
-          )}
-        </a>
-        {/* <Icon iconClass={story.iconClass} /> */}
-      </figure>
+            {multimedia.multimediaType === 'basic' ||
+            multimedia.multimediaType === '' ? (
+              ''
+            ) : (
+              <span
+                className={`${classes.relatedIcon}${getIcon(
+                  multimedia.multimediaType
+                )}`}
+              />
+            )}
+          </a>
+          {/* <Icon iconClass={story.iconClass} /> */}
+        </figure>
+      </div>
     </Fragment>
   )
 }
@@ -67,18 +74,18 @@ const ArticleBodyChildRelatedInternal = ({
   arcSite,
 }) => {
   return (
-    <div className={classes.related}>
-      <div className={classes.relatedTitle}>Siga Leyendo </div>
+    <Fragment>
       {stories.map((item, index) =>
         item._id === id ? (
           <RelartedItem
             key={UtilListKey(index)}
             data={item}
             arcSite={arcSite}
+            style={index}
           />
         ) : null
       )}
-    </div>
+    </Fragment>
   )
 }
 
