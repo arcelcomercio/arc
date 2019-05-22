@@ -4,10 +4,7 @@
 /*---------------------*/
 
 /******* Site Variables *******/
-@import './variables/colors';
-@import './variables/dimensions';
-@import './variables/fonts';
-@import './variables/icons';
+@import './variables/index';
 @import '../../../general-styles/framework/core/index';
 @import './partials/import-fonts';
 @import '../../../general-styles/framework/generators/index';
