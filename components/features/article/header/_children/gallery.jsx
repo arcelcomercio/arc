@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from '@arc-core-components/element_image'
+import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
   gallery: 'article-gallery',
@@ -14,7 +15,7 @@ const ArticleHeaderChildGallery = props => {
   return (
     <div className={classes.gallery}>
       {elements.map((data, index) => (
-        <div className={classes.galleryItem}>
+        <div className={classes.galleryItem} key={UtilListKey(index)}>
           <div className={classes.galleryNumber}>{index + 1}</div>
           <Image width="100%" className={classes.image} {...data} />
         </div>

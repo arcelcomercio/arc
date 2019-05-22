@@ -1,16 +1,16 @@
 export default class StandardHeader {
   constructor(
-    contextPath = '',
     deployment,
+    contextPath = '',
     siteDomain = '',
     arcSite = '',
     data = {},
     headerType = 'standard',
-    customLogo,
-    customLogoLink
+    customLogo = '',
+    customLogoLink = ''
   ) {
-    this.contextPath = contextPath
     this.deployment = deployment
+    this.contextPath = contextPath
     this.siteDomain = siteDomain
     this.arcSite = arcSite
     this.data = data
@@ -90,6 +90,9 @@ export default class StandardHeader {
         url: `${this.contextPath}/somos`,
       },
       sections: this.formatSections(),
+      searchUrl: query => {
+        window.location.href = `${this.contextPath}/buscar?query=${query}`
+      },
     }
   }
 

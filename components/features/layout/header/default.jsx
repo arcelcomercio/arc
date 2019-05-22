@@ -24,8 +24,8 @@ class LayoutHeader extends PureComponent {
       customFields: { headerType, customLogo, customLogoLink },
     } = this.props
     this.formater = new Formater(
-      contextPath,
       deployment,
+      contextPath,
       siteDomain,
       arcSite,
       {},
