@@ -19,6 +19,7 @@ import ArticleBodyChildRelatedInternal from './_children/related-internal'
 
 const classes = {
   news: 'article-body news-text-content col-2 bg-color--white',
+  content: 'article-body__content',
   textClasses: 'article-body__font--secondary',
   newsImage: 'article-body__image article-body__image--cover',
   newsEmbed: 'article-body__embed',
@@ -70,59 +71,64 @@ class ArticleBody extends PureComponent {
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
         {author && <ArticleBodyChildAuthor data={author} date={date} />}
-        {contentElements && (
-          <ArcArticleBody
-            data={contentElements}
-            classes={classes}
-            renderElement={element => {
-              const { type, subtype, raw_oembed: rawOembed } = element
-              if (type === 'image') {
-                return (
-                  <ArticleBodyChildArticleImage
-                    data={element}
-                    className={classes.newsImage}
-                  />
-                )
-              }
-              if (type === 'video') {
-                return (
-                  <ArticleBodyChildVideo
-                    data={element.embed_html}
-                    className={classes.newsImage}
-                  />
-                )
-              }
-              if (type === 'gallery') {
-                return <ArticleHeaderChildGallery data={element} type={type} />
-              }
-              if (type === 'table') {
-                return <ArticleBodyChildTable data={element} type={type} />
-              }
-              if (type === 'quote') {
-                return <ArticleBodyChildBlockQuote data={element} />
-              }
-              if (type === 'oembed_response') {
-                return (
-                  <Oembed
-                    rawOembed={rawOembed}
-                    subtype={subtype}
-                    className={classes.newsEmbed}
-                  />
-                )
-              }
-              if (type === 'story') {
-                return (
-                  <ArticleBodyChildRelatedInternal
-                    data={element}
-                    stories={data}
-                    arcSite={arcSite}
-                  />
-                )
-              }
-              return ''
-            }}
-          />
-        )}
+        <div className={classes.content}>
+          {contentElements && (
+            <ArcArticleBody
+              data={contentElements}
+              elementClasses={classes}
+              renderElement={element => {
+                const { type, subtype, raw_oembed: rawOembed } = element
+                if (type === 'image') {
+                  return (
+                    <ArticleBodyChildArticleImage
+                      data={element}
+                      className={classes.newsImage}
+                    />
+                  )
+                }
+                if (type === 'video') {
+                  return (
+                    <ArticleBodyChildVideo
+                      data={element.embed_html}
+                      className={classes.newsImage}
+                    />
+                  )
+                }
+                if (type === 'gallery') {
+                  return (
+                    <ArticleHeaderChildGallery data={element} type={type} />
+                  )
+                }
+                if (type === 'table') {
+                  return <ArticleBodyChildTable data={element} type={type} />
+                }
+                if (type === 'quote') {
+                  return <ArticleBodyChildBlockQuote data={element} />
+                }
+                if (type === 'oembed_response') {
+                  return (
+                    <Oembed
+                      rawOembed={rawOembed}
+                      subtype={subtype}
+                      className={classes.newsEmbed}
+                    />
+                  )
+                }
+                if (type === 'story') {
+                  return (
+                    <ArticleBodyChildRelatedInternal
+                      data={element}
+                      stories={data}
+                      arcSite={arcSite}
+                    />
+                  )
+                }
+                return ''
+              }}
+            />
+          )}
+        </div>
+
         <ArticleBodyChildTags data={tags} className={classes.tags} />
         <ArticleBodyChildRelated stories={data} />
       </div>
