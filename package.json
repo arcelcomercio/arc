@@ -63,9 +63,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "fusion": "fusion",
     "start": "fusion start",
-    "dev": "webpack --config ./config/webpack.config.js --env.dev",
-    "prod": "webpack --config ./config/webpack.config.js --env.prod",
-    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev",
+    "dev": "webpack --config ./config/webpack.config.js --env.dev webpack --config ./config/webpack.config-amp.js --env.dev",
+    "prod": "webpack --config ./config/webpack.config.js --env.prod webpack --config ./config/webpack.config-amp.js --env.prod",
+    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev webpack --config ./config/webpack.config-amp.js --watch --env.dev",
     "zip": "npm run prod && npx fusion zip"
   },
   "keywords": [],

@@ -20,6 +20,6 @@ module.exports = env => {
     module: {
       rules: rules(mode),
     },
-    plugins: plugins(env),
+    plugins: plugins(),
   }
 }
