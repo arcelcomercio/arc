@@ -31,7 +31,9 @@ class StaticInternalSurvey extends PureComponent {
         .then(response => {
           res(response)
         })
-        .catch(e => console.log(e))
+        .catch(e => {
+          throw new Error(e)
+        })
     })
   }
 
@@ -62,13 +64,19 @@ class StaticInternalSurvey extends PureComponent {
   }
 
   sharelinks = () => {
-    const { siteProperties:{siteUrl =''} ={}, requestUri='', globalContent:{title=''}={} } = this.props
+    const {
+      siteProperties: { siteUrl = '' } = {},
+      requestUri = '',
+      globalContent: { title = '' } = {},
+    } = this.props
 
-    
-    const { facebook, twitter } = socialMediaUrlShareList(siteUrl,requestUri, title)
+    const { facebook, twitter } = socialMediaUrlShareList(
+      siteUrl,
+      requestUri,
+      title
+    )
 
-    return {facebook, twitter}
-
+    return { facebook, twitter }
   }
 
   render() {
@@ -92,7 +100,7 @@ class StaticInternalSurvey extends PureComponent {
       hasVote: this.hasVote,
       sendQuiz: this.sendQuiz,
       getResults: this.getResults,
-      sharelinks: this.sharelinks()
+      sharelinks: this.sharelinks(),
     }
     return <SurveyInternalChildSurvey {...params} />
   }

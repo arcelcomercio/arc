@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import FeaturedStory from '../../../../global-components/featured-story'
-import { addResizedUrlItem } from '../../../../utilities/thumbs'
 
 class OrderedStoriesGridFeaturedStory extends PureComponent {
   constructor(props) {
@@ -37,19 +36,19 @@ class OrderedStoriesGridFeaturedStory extends PureComponent {
     if (imgUrl) {
       if (size === 'twoCol') {
         this.setState({
-          image: this.getImgResized(imgUrl, '3:4', '676x374'),
+          image: imgUrl,
         })
       } else {
         switch (imageSize) {
           case 'parcialBot':
           case 'parcialTop':
             this.setState({
-              image: this.getImgResized(imgUrl, '3:4', '288x157'),
+              image: imgUrl,
             })
             break
           case 'complete':
             this.setState({
-              image: this.getImgResized(imgUrl, '9:16', '328x374'),
+              image: imgUrl,
             })
             break
           default:
@@ -57,13 +56,6 @@ class OrderedStoriesGridFeaturedStory extends PureComponent {
         }
       }
     }
-  }
-
-  getImgResized(imgUrl, ratio, resolution) {
-    const { arcSite } = this.props
-
-    return addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
-      .resized_urls[ratio]
   }
 
   render() {

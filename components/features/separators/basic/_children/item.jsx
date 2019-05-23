@@ -1,5 +1,4 @@
 import React from 'react'
-import { GetMultimediaContent } from '../../../../utilities/helpers'
 
 const classes = {
   item: 'separator__item',
@@ -8,28 +7,20 @@ const classes = {
   mvideo: 'separator--video',
 }
 
-export default ({
-  headlines,
-  promoItems,
-  website_url: websiteUrl,
-  numLine,
-}) => {
-  /** TODO: Cambiar getMultimediaContent por método en dataStory */
-  const { url: imageUrl = '/', medio = '' } =
-    GetMultimediaContent(promoItems) || {}
+export default ({ title, imageUrl, typeNote, link, numline }) => {
   return (
     <article className={classes.item}>
-      {medio === 'video' && <span>&#8227;</span>}
-      {medio === 'gallery' && <span>G</span>}
+      {typeNote === 'video' && <span>&#8227;</span>}
+      {typeNote === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
-        <h2 className={`${classes.separatorTitle} ${numLine}`}>
-          <a href={websiteUrl}>{headlines}</a>
+        <h2 className={`${classes.separatorTitle} ${numline}`}>
+          <a href={link}>{title}</a>
         </h2>
       </div>
       <figure>
-        {websiteUrl && (
-          <a href={websiteUrl}>
-            <img src={imageUrl} alt={headlines} />
+        {link && (
+          <a href={link}>
+            <img src={imageUrl} alt={title} />
           </a>
         )}
       </figure>

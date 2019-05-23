@@ -2,10 +2,10 @@ import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/item'
 import Pagination from '../../../global-components/pagination'
-import { formatDate } from '../../../utilities/helpers'
+import { formatDate, defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  list: 'bg--white blog-list',
+  list: 'bg--white blog-list full-width',
   listTitle: 'text-uppercase blog-list__title',
 }
 @Consumer
@@ -35,7 +35,7 @@ class BlogList extends PureComponent {
 
   buildParams = blog => {
     const {
-      blog: { blogname = '', path = '#' } = {},
+      blog: { blogname = '', path = '' } = {},
       posts: [
         {
           post_title: postTitle = '',
@@ -50,16 +50,20 @@ class BlogList extends PureComponent {
       } = {},
     } = blog
 
-    const { contextPath = '', arcSite = 'elcomercio' } = this.props
+    const { deployment, contextPath = '', arcSite = '' } = this.props
+
+    const imageUrl =
+      guid ||
+      defaultImage({ deployment, contextPath, arcSite, defaultImgSize: 'sm' })
 
     return {
-      urlImage: guid,
+      imageUrl,
       date: this.transformDate(postDate),
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
-      urlPost: `${contextPath}/blog/${postLink}?_website=${arcSite}`,
-      urlBlog: `${contextPath}/blog/${path}?_website=${arcSite}`,
+      urlPost: `${contextPath}/blog/${postLink}`,
+      urlBlog: `${contextPath}/blog/${path}`,
     }
   }
 
@@ -77,7 +81,9 @@ class BlogList extends PureComponent {
           totalPost: response.total,
         })
       })
-      .catch(e => console.log('Error: ', e))
+      .catch(e => {
+        throw new Error(e)
+      })
   }
 
   render() {
@@ -95,9 +101,10 @@ class BlogList extends PureComponent {
         <div className={classes.list}>
           <h1 className={classes.listTitle}>blogs</h1>
           <div>
-            {blogs.map(item => {
+            {blogs.map((item, i) => {
               const params = this.buildParams(item)
-              return <BlogItem key={params.urlPost} {...params} />
+              const key = `blog-${i}-${params.urlPost}`
+              return <BlogItem key={key} {...params} />
             })}
           </div>
         </div>

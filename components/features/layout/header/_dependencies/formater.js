@@ -3,6 +3,7 @@ export default class StandardHeader {
     deployment,
     contextPath = '',
     siteDomain = '',
+    headerProperties = {},
     arcSite = '',
     data = {},
     headerType = 'standard',
@@ -12,6 +13,7 @@ export default class StandardHeader {
     this.deployment = deployment
     this.contextPath = contextPath
     this.siteDomain = siteDomain
+    this.headerProperties = headerProperties
     this.arcSite = arcSite
     this.data = data
     this.headerType = headerType
@@ -54,12 +56,15 @@ export default class StandardHeader {
       name: 'Lo último',
       url: `${this.contextPath}/archivo`,
     }
+    const { logo } = this.headerProperties
     return {
       logo: {
         src:
           this.customLogo ||
           this.deployment(
-            `${this.contextPath}/resources/dist/${this.arcSite}/images/logo.png`
+            `${this.contextPath}/resources/dist/${
+              this.arcSite
+            }/images/${logo}`
           ),
         link: this.customLogoLink
           ? `${this.contextPath}${this.customLogoLink}`
@@ -71,12 +76,15 @@ export default class StandardHeader {
   }
 
   somos() {
+    const { logo } = this.headerProperties
     return {
       logo: {
         src:
           this.customLogo ||
           this.deployment(
-            `${this.contextPath}/resources/dist/${this.arcSite}/images/logo.png`
+            `${this.contextPath}/resources/dist/${
+              this.arcSite
+            }/images/${logo}`
           ),
         link: this.customLogoLink
           ? `${this.contextPath}${this.customLogoLink}`

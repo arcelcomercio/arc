@@ -2,7 +2,8 @@ import StoryData from '../../../../utilities/story-data'
 
 export const setDataTest = storiesQty => {
   const item = {
-    title: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore vel repellat quae amet, maxime inventore eos dolores labore velit veniam nesciunt consequuntur, excepturi magnam unde deleniti ea itaque cumque assumenda?',
+    title:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore vel repellat quae amet, maxime inventore eos dolores labore velit veniam nesciunt consequuntur, excepturi magnam unde deleniti ea itaque cumque assumenda?',
     imageUrl: 'https://picsum.photos/100/50',
     websiteUrl: '#',
   }
@@ -13,9 +14,14 @@ export const setDataTest = storiesQty => {
   return auxTest
 }
 
-export const dataCasting = (data, props) => {
+export const dataCasting = ({ data, deployment, contextPath, arcSite }) => {
   const aux = []
-  const element = new StoryData({}, props.arcSite)
+  const element = new StoryData({
+    deployment,
+    contextPath,
+    arcSite,
+    defaultImgSize: 'sm',
+  })
 
   data.forEach(el => {
     element.__data = el

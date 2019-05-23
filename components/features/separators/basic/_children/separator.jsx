@@ -48,24 +48,16 @@ const SeparatorsBasicChildSeparator = props => {
       )}
       <div className={classes.body}>
         {items &&
-          items.map(
-            ({
-              promo_items: promoItems,
-              website_url: websiteUrl,
-              headlines,
-            }) => {
-              const { basic: headlinesBasic } = headlines || {}
-              return (
-                <SeparatorItem
-                  key={websiteUrl || '/'}
-                  headlines={headlinesBasic || ''}
-                  promoItems={promoItems || {}}
-                  website_url={websiteUrl || '/'}
-                  numLine={numline}
-                />
-              )
+          items.map(el => {
+            const params = {
+              title: el.title,
+              link: el.link,
+              numline,
+              imageUrl: el.multimedia,
+              typeNote: el.multimediaType,
             }
-          )}
+            return <SeparatorItem key={el.link || '/'} {...params} />
+          })}
       </div>
     </div>
   )

@@ -51,9 +51,16 @@ class ExtraordinaryStoryByUrl extends Component {
   }
 
   render() {
-    const { customFields, arcSite } = this.props
+    const { deployment, contextPath, arcSite, customFields } = this.props
     const { data } = this.state
-    const formattedData = new Data(customFields, data, arcSite)
+    const formattedData = new Data({
+      data,
+      deployment,
+      contextPath,
+      arcSite,
+      customFields,
+      defaultImgSize: 'md',
+    })
     this.isVideo = formattedData.isVideo
 
     const params = {
@@ -61,6 +68,8 @@ class ExtraordinaryStoryByUrl extends Component {
       multimediaType: formattedData.multimediaType,
       multimediaOrientation: formattedData.multimediaOrientation,
       contentOrientation: formattedData.contentOrientation,
+      deployment,
+      contextPath,
       arcSite,
     }
 

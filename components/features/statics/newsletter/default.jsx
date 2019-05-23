@@ -52,8 +52,8 @@ class Newsletter extends PureComponent {
       event.preventDefault()
     },
     redirect: () => {
-      const { arcSite, contextPath } = this.props
-      window.location.href = `${contextPath}/?_website=${arcSite}`
+      const { contextPath } = this.props
+      window.location.href = `${contextPath}/`
     },
   }
 

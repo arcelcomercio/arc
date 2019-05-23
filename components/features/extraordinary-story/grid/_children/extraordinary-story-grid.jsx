@@ -20,7 +20,10 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
     section3,
     section4,
     storyData,
+    deployment,
     contextPath,
+    arcSite,
+    imgLogo,
   } = props
   storyData.multimediaOrientation = 'grid'
 
@@ -31,16 +34,15 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
           type={storyData.typeMultimediaGeneral}
           title={storyData.title}
           source={storyData.sourceMultimedia}
+          deployment={deployment}
+          contextPath={contextPath}
+          website={arcSite}
         />
       </div>
       <div className={classes.gridContainer}>
         <div className={classes.gridHeaderText}>
           Estás viendo
-          <img
-            className={classes.gridHeaderImage}
-            src="https://assets.peru21.pe/img/p21tv/logo_p21tv.png"
-            alt=""
-          />
+          <img className={classes.gridHeaderImage} src={imgLogo} alt="" />
         </div>
         <h2 className={classes.gridListTitle}>Programas del día</h2>
         <div className={classes.gridListItems}>

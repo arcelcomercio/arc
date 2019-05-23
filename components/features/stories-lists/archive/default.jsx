@@ -8,7 +8,7 @@ import { getActualDate } from '../../../utilities/helpers'
 @Consumer
 class StoriesListArchive extends PureComponent {
   render() {
-    const { globalContent, arcSite, contextPath } = this.props
+    const { globalContent, deployment, contextPath, arcSite } = this.props
     const {
       content_elements: contentElements,
       params: { section, date } = {},
@@ -22,6 +22,8 @@ class StoriesListArchive extends PureComponent {
             <StoryItem
               key={`Archivo-${story._id}`}
               data={story}
+              deployment={deployment}
+              contextPath={contextPath}
               arcSite={arcSite}
             />
           ))}

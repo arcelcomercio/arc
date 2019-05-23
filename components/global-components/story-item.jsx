@@ -20,8 +20,14 @@ const clases = {
 
 class StoriesList extends PureComponent {
   render() {
-    const { arcSite, data, formato } = this.props
-    const element = new StoryData(data, arcSite)
+    const { data, deployment, contextPath, arcSite, formato } = this.props
+    const element = new StoryData({
+      data,
+      deployment,
+      contextPath,
+      arcSite,
+      defaultImgSize: 'sm',
+    })
 
     return (
       <div
@@ -54,7 +60,7 @@ class StoriesList extends PureComponent {
           </div>
           <div className={clases.storyItemRight}>
             <a href={element.link}>
-              {element.multimediaType === 'basic' ||
+              {element.multimediaType.toLowerCase() === 'basic' ||
               element.multimediaType === '' ? (
                 ''
               ) : (

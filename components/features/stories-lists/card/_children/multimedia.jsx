@@ -1,26 +1,31 @@
 import React from 'react'
-import { GetMultimediaContent } from '../../../../utilities/helpers'
+import ConfigParams from '../../../../utilities/config-params'
 
 // TODO: para que usan estos data-type?
 
-const StoriesListsCardChildMultimedia = ({ urlNews, promoItems }) => {
-  const imagen = promoItems.basic ? promoItems.basic.url || '' : ''
-  const multimedia = GetMultimediaContent(promoItems)
-  const { url, medio } = multimedia
-
+const StoriesListsCardChildMultimedia = ({
+  urlNews,
+  multimedia,
+  multimediaType,
+}) => {
   return (
     <figure>
-      {medio === 'video' && <span>&#8227;</span>}
-      {medio === 'gallery' && <span>G</span>}
-      {url ? (
+      {multimediaType === ConfigParams.VIDEO && <span>&#8227;</span>}
+      {multimediaType === ConfigParams.GALLERY && <span>G</span>}
+      {multimedia ? (
         <a href={urlNews}>
           <picture>
             <source
               data-type="srcset"
-              srcSet={imagen}
+              srcSet={multimedia}
               media="(max-width: 639px)"
             />
-            <img datatype="src" className="full-width" src={url} alt="" />
+            <img
+              datatype="src"
+              className="full-width"
+              src={multimedia}
+              alt=""
+            />
           </picture>
         </a>
       ) : null}

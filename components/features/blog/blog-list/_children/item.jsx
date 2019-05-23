@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  item: 'flex  blog-item',
+  item: 'flex  blog-item full-width',
   date: 'blog-item__date',
   container: 'flex blog-item__container',
   containerAvatar: 'blog-item__container-avatar',
@@ -13,7 +13,7 @@ const classes = {
 }
 
 const BlogListChildItem = ({
-  urlImage = '',
+  imageUrl,
   date = '',
   blogTitle = '',
   author = '',
@@ -21,18 +21,13 @@ const BlogListChildItem = ({
   urlPost = '',
   urlBlog = '',
 }) => {
-  const image =
-    urlImage !== ''
-      ? urlImage
-      : 'https://img.gestion.pe/bundles/appcms/images/gestion/default_blog.jpg'
-
   return (
     <div className={classes.item}>
       <div className={classes.date}>{date}</div>
       <div className={classes.container}>
         <figure className={classes.containerAvatar}>
           <a href={urlBlog}>
-            <img src={image} alt="" className={classes.avatar} />
+            <img src={imageUrl} alt="" className={classes.avatar} />
           </a>
         </figure>
         <div className={classes.detail}>

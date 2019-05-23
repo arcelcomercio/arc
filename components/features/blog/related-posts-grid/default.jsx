@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 import BlogRelatedPostsGridChildCard from './_children/card'
+import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   bmInterestYou: 'br-stories-grid clearfix',
@@ -15,15 +16,18 @@ class BlogRelatedPostsGrid extends PureComponent {
     const blogUrl = `${contextPath}/blog/`
     const postLink = `${blogUrl}${relatedPostItem.post_permalink}`
     const sectionLink = `${blogUrl}${blog.path}`
-    const defaultImage = deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/default-blog.jpg`
-    )
+    const defaultImageSrc = defaultImage({
+      deployment,
+      contextPath,
+      arcSite,
+      size: 'sm',
+    })
     return {
       title: relatedPostItem.post_title || '',
       imageLink:
         (relatedPostItem.post_thumbnail &&
           relatedPostItem.post_thumbnail.guid) ||
-        defaultImage,
+        defaultImageSrc,
       sectionName: blog.blogname,
       postLink: relatedPostItem.post_permalink ? postLink : '',
       sectionLink: blog.path ? sectionLink : '',

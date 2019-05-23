@@ -1,7 +1,6 @@
-import {
-  addResizedUrlItem
-} from './thumbs'
+import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
+import { defaultImage } from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -12,9 +11,18 @@ class StoryData {
 
   static IMAGE = ConfigParams.IMAGE
 
-  constructor(data = {}, website = '') {
+  constructor({
+    data = {},
+    deployment = () => {},
+    contextPath = '',
+    arcSite = '',
+    defaultImgSize = 'md',
+  }) {
     this._data = data
-    this._website = website
+    this._deployment = deployment
+    this._contextPath = contextPath
+    this._website = arcSite
+    this._defaultImgSize = defaultImgSize
   }
 
   get __data() {
@@ -31,6 +39,14 @@ class StoryData {
 
   set __website(val) {
     this._website = val
+  }
+
+  get __defaultImgSize() {
+    return this._defaultImgSize
+  }
+
+  set __defaultImgSize(val) {
+    this._defaultImgSize = val
   }
 
   get id() {
@@ -69,13 +85,31 @@ class StoryData {
   }
 
   get authorImage() {
-    return StoryData.getDataAuthor(this._data).imageAuthor
+    return (
+      StoryData.getDataAuthor(this._data, {
+        contextPath: this._contextPath,
+      }).imageAuthor ||
+      defaultImage({
+        deployment: this._deployment,
+        contextPath: this._contextPath,
+        arcSite: this._website,
+        size: this._defaultImgSize,
+      })
+    )
   }
 
   get multimedia() {
-    return StoryData.getThumbnail(
-      this._data,
-      StoryData.getTypeMultimedia(this._data)
+    return (
+      StoryData.getThumbnail(
+        this._data,
+        StoryData.getTypeMultimedia(this._data)
+      ) ||
+      defaultImage({
+        deployment: this._deployment,
+        contextPath: this._contextPath,
+        arcSite: this._website,
+        size: this._defaultImgSize,
+      })
     )
   }
 
@@ -83,11 +117,13 @@ class StoryData {
     return StoryData.getTypeMultimedia(this._data)
   }
 
-  get section() { // FIXME: deprecated
+  get section() {
+    // FIXME: deprecated
     return StoryData.getDataSection(this._data, this._website).name
   }
 
-  get sectionLink() { // FIXME: deprecated
+  get sectionLink() {
+    // FIXME: deprecated
     return StoryData.getDataSection(this._data, this._website).path
   }
 
@@ -100,9 +136,7 @@ class StoryData {
   }
 
   get link() {
-    const {
-      website_url: url = ''
-    } = this._data || {}
+    const { website_url: url = '' } = this._data || {}
     return url
   }
 
@@ -165,17 +199,12 @@ class StoryData {
 
   static getPrimarySection(data) {
     const {
-      taxonomy: {
-        primary_section: {
-          name = '',
-          path = ''
-        } = {}
-      } = {}
+      taxonomy: { primary_section: { name = '', path = '' } = {} } = {},
     } = data
 
     return {
       name,
-      path
+      path,
     }
   }
 
@@ -184,7 +213,8 @@ class StoryData {
       (data &&
         data.websites &&
         data.websites[website] &&
-        data.websites[website].website_section) || {}
+        data.websites[website].website_section) ||
+      {}
 
     const section = sectionData.name || ''
     const path = sectionData.path || ''
@@ -194,14 +224,14 @@ class StoryData {
     }
   }
 
-  static getDataAuthor(data) {
+  static getDataAuthor(data, { contextPath = '' } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
-    const imageAuthorDefault =
-      'https://img.elcomercio.pe/files/listing_ec_opinion_destaques/uploads/2019/03/19/5c91731ccceee.png'
+    const authorImageDefault = `${contextPath}/resources/assets/author-grid/author.png`
+
     let nameAuthor = ''
     let urlAuthor = ''
     let slugAuthor = ''
-    let imageAuthor = ''
+    let imageAuthor = authorImageDefault
     for (let i = 0; i < authorData.length; i++) {
       const iterator = authorData[i]
       if (iterator.type === 'author') {
@@ -209,12 +239,13 @@ class StoryData {
         urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : ''
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
-          iterator.image && iterator.image.url && iterator.image.url !== '' ?
-          iterator.image.url :
-          imageAuthorDefault
+          iterator.image && iterator.image.url && iterator.image.url !== ''
+            ? iterator.image.url
+            : authorImageDefault
         break
       }
     }
+
     return {
       nameAuthor,
       urlAuthor,
@@ -246,7 +277,7 @@ class StoryData {
         data.promo_items[ConfigParams.VIDEO].promo_items &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE] &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
-        .url) ||
+          .url) ||
       ''
     return thumb
   }
@@ -261,7 +292,7 @@ class StoryData {
           ConfigParams.IMAGE
         ] &&
         data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-        .url) ||
+          .url) ||
       ''
     return thumb
   }
@@ -270,9 +301,9 @@ class StoryData {
     const basicPromoItems =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
     const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
-    return typePromoItems && typePromoItems === 'image' ?
-      basicPromoItems.url :
-      ''
+    return typePromoItems && typePromoItems === 'image'
+      ? basicPromoItems.url
+      : ''
   }
 
   static getThumbnail(data, type) {

@@ -1,15 +1,14 @@
 // import { ResizeImageUrl } from '../../../../utilities/helpers'
+
 class Data {
-  constructor(customFields, arcSite, pathSite) {
+  constructor(customFields, arcSite, contextPath) {
     this._customFields = customFields
     this._arcSite = arcSite
-    this._pathSite = pathSite
+    this._contextPath = contextPath
   }
 
   get image() {
-    const imgDefault = `${this._pathSite}/resources/dist/${
-      this._arcSite
-    }/images/newsletter.png`
+    const imgDefault = `${this._contextPath}/resources/assets/newsletter/phone.png`
     return this._customFields.image || imgDefault
   }
 

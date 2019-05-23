@@ -132,6 +132,10 @@ a {
   color: $color-dark;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 blockquote:before,
 blockquote:after,
 q:before,

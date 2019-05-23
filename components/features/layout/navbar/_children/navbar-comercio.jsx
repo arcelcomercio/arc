@@ -82,7 +82,7 @@ class NavBarDefault extends PureComponent {
     const { value } = this.inputSearch.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `${contextPath}/buscar?query=${value}&_website=elcomercio`
+      location.href = `${contextPath}/buscar?query=${value}`
     }
   }
 
@@ -166,16 +166,9 @@ class NavBarDefault extends PureComponent {
       statusSidebar,
       scrolled,
     } = this.state
-    const {
-      arcSite,
-      contextPath,
-      requestUri,
-      deployment,
-      siteProperties: { navLogo = 'logo.png' },
-    } = this.props
+    const { logo, arcSite, contextPath, requestUri } = this.props
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
-    const WEBSITE = `?_website=${arcSite}`
     return (
       <nav className={classes.nav}>
         <div className={classes.navWrapper}>
@@ -185,7 +178,7 @@ class NavBarDefault extends PureComponent {
             <Button
               iconClass={classes.navBtnIconMenu}
               btnClass={classes.navBtnSection}
-              btnText="Menu"
+              btnText="Menú"
               onClick={this._handleToggleSectionsElement('statusSidebar')}
             />
           </div>
@@ -198,7 +191,7 @@ class NavBarDefault extends PureComponent {
                 return (
                   <li key={id} className={classes.navListItem}>
                     <a
-                      href={`${contextPath}${id}${WEBSITE}`}
+                      href={`${contextPath}${id}`}
                       className={classes.navListLink}>
                       {name}
                     </a>
@@ -206,11 +199,9 @@ class NavBarDefault extends PureComponent {
                 )
               })}
           </ul>
-          <a href={`${contextPath || ''}/${queryString}`}>
+          <a href={`${contextPath}/${queryString}`}>
             <img
-              src={deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/${navLogo}`
-              )}
+              src={logo}
               alt={`Logo de ${arcSite}`}
               className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
             />
@@ -275,7 +266,6 @@ class NavBarDefault extends PureComponent {
           sections={sections}
           showSidebar={statusSidebar}
           contextPath={contextPath}
-          website={WEBSITE}
         />
       </nav>
     )
