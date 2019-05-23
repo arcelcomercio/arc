@@ -75,15 +75,13 @@ class CardOpinion extends PureComponent {
                   size: 'sm',
                 })
 
-              const content = {
+              jsonSections[sectionActive] = {
                 title: basic,
                 urlImg,
                 urlNew: websiteUrl,
                 sectionName: name,
                 urlSection: path,
               }
-
-              jsonSections[sectionActive] = content || {}
             }
           })
           this.setState(jsonSections)
