@@ -14,7 +14,7 @@ import ArticleBodyChildRelated from './_children/related'
 import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildAuthor from './_children/author'
 import ArticleBodyChildMultimedia from './_children/multimedia'
-import schemaFilter from './_children/_dependencies/schema-filter'
+import schemaFilter from './_dependencies/schema-filter'
 import ArticleBodyChildRelatedInternal from './_children/related-internal'
 
 const classes = {
