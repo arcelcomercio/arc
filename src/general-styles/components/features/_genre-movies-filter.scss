@@ -30,7 +30,6 @@ $movie-size: 134px;
         transition: 0.5s;
         padding: 8px;
         color: $color-silver;
-        position: relative;
 
         &--active {
             font-weight: 900;
@@ -98,7 +97,7 @@ $movie-size: 134px;
         width: $movie-size;
     }
 
-    &__img-box {
+    &__img {
         margin-bottom: $spacing-small;
     }
 
@@ -107,15 +106,12 @@ $movie-size: 134px;
         line-height: 15px;
         margin-bottom: $spacing-xsmall;
         color: $color-silver;
-
-        &:hover {
-            text-decoration: underline;
-        }
     }
 
     &__tag {
         font-size: 12px;
         font-weight: 600;
         color: $color-dark;
+        text-decoration: none;
     }
 }

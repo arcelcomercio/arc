@@ -28,8 +28,7 @@ class MoviesFilter extends PureComponent {
 
     this.billboardFormat = new BillboardFormat()
 
-    const { contextPath, arcSite } = props
-    this.WEBSITE_PARAM = `?_website=${arcSite}`
+    const { contextPath } = props
     this.URI_BASE = `${contextPath}/cartelera`
 
     this.movieSelect = React.createRef()
@@ -75,19 +74,14 @@ class MoviesFilter extends PureComponent {
     let searchUri
 
     if (movieSlug === 'peliculas' && genreSlug === '' && cinemaSlug === 'cines')
-      searchUri = this.URI_BASE + this.WEBSITE_PARAM
+      searchUri = this.URI_BASE
     else if (
       genreSlug !== '' &&
       movieSlug === 'peliculas' &&
       cinemaSlug === 'cines'
     )
-      searchUri = `${this.URI_BASE}/${movieSlug}/${cinemaSlug}/${genreSlug}${
-        this.WEBSITE_PARAM
-      }`
-    else
-      searchUri = `${this.URI_BASE}/${movieSlug}/${cinemaSlug}${
-        this.WEBSITE_PARAM
-      }`
+      searchUri = `${this.URI_BASE}/${movieSlug}/${cinemaSlug}/${genreSlug}`
+    else searchUri = `${this.URI_BASE}/${movieSlug}/${cinemaSlug}`
 
     window.location.href = searchUri
   }
@@ -117,7 +111,7 @@ class MoviesFilter extends PureComponent {
     const { movies, cinemas, genres } = this.state
 
     return (
-      <div className={classes.container}>
+      <section className={classes.container}>
         <div className={classes.titleBox}>
           <h2 className={classes.title}>Estrenos de la semana</h2>
           <div className={classes.social}>
@@ -205,7 +199,7 @@ class MoviesFilter extends PureComponent {
             </button>
           </form>
         </div>
-      </div>
+      </section>
     )
   }
 }
