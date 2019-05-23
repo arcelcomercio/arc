@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import { getIcon } from '../../../../utilities/helpers'
 import StoryData from '../../../../utilities/story-data'
+import UtilListKey from '../../../../utilities/list-keys'
+
 // Basic flex stuff
 const classes = {
   related: 'related-content',
@@ -17,7 +19,7 @@ const classes = {
 }
 @Consumer
 class RelatedContent extends Component {
-  renderRelatedContentElement = data => {
+  renderRelatedContentElement = (data, i) => {
     const { arcSite } = this.props
     const get = new StoryData(data, arcSite)
     const filterData = {
@@ -34,7 +36,7 @@ class RelatedContent extends Component {
     const { author, multimedia, title } = filterData
 
     return (
-      <article className={classes.relatedItem}>
+      <article className={classes.relatedItem} key={UtilListKey(i)}>
         <div className={`${classes.relatedInfo}`}>
           <h2 className={`${classes.relatedTitleItem}`}>
             <a href={title.urlTitle}>{title.nameTitle}</a>
@@ -73,7 +75,7 @@ class RelatedContent extends Component {
       data.length > 0 && (
         <div className={classes.related}>
           <div className={classes.relatedTitle}>Relacionadas </div>
-          {data.map(item => this.renderRelatedContentElement(item))}
+          {data.map((item, i) => this.renderRelatedContentElement(item, i))}
         </div>
       )
     )
