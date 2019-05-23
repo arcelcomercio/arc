@@ -174,7 +174,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
     }
 
     return (
-      <div className={classes.searchFilter}>
+      <div role="search" className={classes.searchFilter}>
         <div className={classes.searchFilterContainerList}>
           <button
             className={classes.searchFilterSelect}
@@ -273,7 +273,12 @@ class SearchFilterChildSearchFilter extends PureComponent {
             <button className={classes.searchFilterIconSearch} type="submit">
               Q
             </button>
-            <input ref={this.inputSearch} type="search" placeholder="Buscar" />
+            <input
+              ref={this.inputSearch}
+              type="search"
+              placeholder="Buscar"
+              aria-label="Campo de búsqueda"
+            />
           </form>
         </div>
       </div>

@@ -5,7 +5,7 @@ import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import AmpImage from '@arc-core-components/element_image'
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import schemaFilter from './_children/_dependencies/schema-filter'
+import schemaFilter from './_dependencies/schema-filter'
 import ElePrincipal from './_children/amp-ele-principal'
 import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildTable from './_children/table'
@@ -108,13 +108,7 @@ class ArticleAMPArticleBody extends PureComponent {
               }
               if (type === 'video') {
                 return (
-                  <amp-iframe
-                    class="amphtml-video"
-                    width="897"
-                    height="542"
-                    layout="responsive"
-                    i-amphtml-layout="responsive"
-                    frameborder="0">
+                  <amp-iframe i-amphtml-layout="responsive" frameborder="0">
                     <i-amphtml-sizer />
                     <i-amphtml-scroll-container class="amp-active" />
                     <ArticleBodyChildVideo data={element.embed_html} />
@@ -125,7 +119,7 @@ class ArticleAMPArticleBody extends PureComponent {
             }}
           />
         )}
-        {tags && <ArticleBodyChildTags data={tags} className={classes.tags} />}
+        <ArticleBodyChildTags data={tags} className={classes.tags} />
         <ArticleBodyChildRelated stories={dataRelated} />
       </div>
     )

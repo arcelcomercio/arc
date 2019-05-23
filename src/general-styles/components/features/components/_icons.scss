@@ -3,7 +3,7 @@
   height: 16px;
   background-size: cover;
 
-  &--search {
+  /*   &--search {
     background-image: url('../images/icon-search.svg');
   }
 
@@ -17,8 +17,7 @@
 
   &--fire {
     background-image: url('../images/icon-fire.svg');
-  }
-
+  } */
   &--facebook {
     display: block;
     width: 32px;
@@ -36,70 +35,4 @@
   &--margin-right {
     margin-right: 8px;
   }
-}
-
-/* Iconos generados como fuentes */
-
-[class^='icon-'],
-[class*=' icon-'] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-video:before {
-  content: '\e906';
-}
-.icon-img:before {
-  content: '\e905';
-}
-.icon-menu:before {
-  content: '\e904';
-}
-.icon-marca:before {
-  content: '\e903';
-}
-.icon-add:before {
-  content: '\e900';
-}
-.icon-ribbon:before {
-  content: '\e901';
-}
-.icon-facebook:before {
-  content: '\ea90';
-}
-.icon-twitter:before {
-  content: '\ea96';
-}
-.icon-linkedin:before {
-  content: '\eaca';
-}
-
-.icon-linkedin:before {
-  content: '\eaca';
-}
-
-.icon-home:before {
-  content: '\e902';
-}
-
-.icon-user:before {
-  content: '\e971';
-}
-
-.icon-search:before {
-  content: '\e986';
-}
-
-.icon-close:before {
-  content: '\ea0f';
 }

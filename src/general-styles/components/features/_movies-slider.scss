@@ -10,7 +10,15 @@
     }
 
     &__img {
-        object-fit: contain;
+        max-height: 240px;
+
+        @media (--tablet) {
+            max-height: 400px;
+        }
+
+        @media (--desktop) {
+            max-height: 580px;
+        }
     }
 
     &__arrows-box {

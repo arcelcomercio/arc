@@ -7,9 +7,15 @@
 	}
 
 	&__img {
-		height: 100%;
-		object-fit: cover;
-		object-position: center;
+		max-height: 240px;
+
+		@media (--tablet) {
+			max-height: 400px;
+		}
+
+		@media (--desktop) {
+			max-height: 530px;
+		}
 	}
 
 	&__box-icon {
@@ -94,10 +100,6 @@
 		font-size: 13px;
 		font-weight: 600;
 		line-height: 1.5;
-
-		&:hover {
-			text-decoration: underline;
-		}
 	}
 
 	&__text {
