@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
-import { defaultImage } from '../../utilities/helpers'
 import TVHighlightChild from './_children/tv-highlight'
 import StoryData from '../../utilities/story-data'
 

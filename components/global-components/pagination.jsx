@@ -150,12 +150,13 @@ export default class Pagination extends PureComponent {
                 {page}
               </a>
             )
-          } else
+          } else {
             tag = (
               <span key={key} className={classes.page}>
                 {page}
               </span>
             )
+          }
           return tag
         })}
         <a

@@ -14,7 +14,7 @@ class OrderedStoriesGridFeaturedStory extends PureComponent {
   }
 
   componentDidMount() {
-    const { story, imageSize, size } = this.props
+    const { story /*  imageSize, size */ } = this.props
 
     this.setState({
       category: {
@@ -31,9 +31,12 @@ class OrderedStoriesGridFeaturedStory extends PureComponent {
       },
       multimediaType: story.multimediaType,
     })
-
+    // TODO: Verificar con nuevo resizer, hay que eliminar comentarios.
     const imgUrl = story.multimedia
-    if (imgUrl) {
+    this.setState({
+      image: imgUrl,
+    })
+    /*  if (imgUrl) {
       if (size === 'twoCol') {
         this.setState({
           image: imgUrl,
@@ -55,7 +58,7 @@ class OrderedStoriesGridFeaturedStory extends PureComponent {
             break
         }
       }
-    }
+    } */
   }
 
   render() {
