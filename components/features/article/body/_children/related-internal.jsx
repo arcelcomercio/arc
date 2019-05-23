@@ -16,7 +16,7 @@ const classes = {
   relatedInfo: 'related-interna__information',
 }
 
-const RelartedItem = ({ data, arcSite, styles }) => {
+const RelartedItem = ({ data, arcSite }) => {
   const get = new StoryData(data, arcSite)
   const filterData = {
     title: {
