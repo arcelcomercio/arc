@@ -1,7 +1,11 @@
 [class^='icon-'],
 [class*=' icon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
+<<<<<<< HEAD
   font-family: 'icomoon' !important;
+=======
+  font-family: 'icomoon', sans-serif !important;
+>>>>>>> 529d15b116c972369c25b3cafcb759ad1a8adc8e
   speak: none;
   font-style: normal;
   font-weight: normal;
