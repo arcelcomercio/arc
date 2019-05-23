@@ -10,26 +10,15 @@ class CardOpinion extends PureComponent {
   constructor(props) {
     super(props)
 
-    const {
-      arcSite,
-      customFields: {
-        titleOpinion,
-        section1,
-        section2,
-        section3,
-        section4,
-      } = {},
-    } = this.props || {}
+    const { arcSite, customFields: { titleOpinion } = {} } = this.props || {}
 
     this.state = {
       titleOpinion,
       arcSite,
-      section1,
-      section2,
-      section3,
-      section4,
-
-      listNews: [],
+      section1: {},
+      section2: {},
+      section3: {},
+      section4: {},
     }
   }
 
@@ -38,99 +27,102 @@ class CardOpinion extends PureComponent {
   }
 
   init = () => {
-    const { section1, section2, section3, section4 } = this.state
+    const sections = {}
+    const sectionsFetch = []
+    const { customFields, arcSite, deployment, contextPath } = this.props || {}
+    for (let i = 1; i <= 4; i++) {
+      const sec = customFields[`section${i}`]
+      if (sec !== '') {
+        sections[`section${i}`] = sec
+        const { fetched } = this.getContentApi(sec)
+        sectionsFetch.push(fetched)
+      }
+    }
 
-    const listaSecciones = [section1, section2, section3, section4]
-    const listNews = {}
-    listNews.data1 = {}
-    listNews.data2 = {}
-    listNews.data3 = {}
-    listNews.data4 = {}
+    if (sectionsFetch.length > 0) {
+      Promise.all(sectionsFetch)
+        .then(results => {
+          const jsonSections = {}
+          results.forEach(res => {
+            const { content_elements: contentElements = [] } = res || {}
+            if (contentElements.length > 0) {
+              const {
+                headlines: { basic = '' } = {},
+                taxonomy: { sites = [], sections: secs = [] } = {},
+                website_url: websiteUrl = '',
+              } = contentElements[0] || {}
 
-    listaSecciones.forEach((element, index) => {
-      this.getContentApi(element, result => {
-        listNews[`data${index + 1}`] = result
-        if (listNews[`data${index + 1}`] !== {}) {
-          this.setState({
-            listNews,
-          })
-        }
-      })
-    })
-  }
-
-  getContentApi = (seccion, callback) => {
-    if (seccion) {
-      const { arcSite, deployment, contextPath } = this.props
-      const { fetched } = this.getContent(
-        'story-feed-by-section',
-        {
-          website: arcSite,
-          section: seccion,
-        },
-
-        filterSchema
-      )
-
-      fetched
-        .then(response => {
-          const { content_elements: contentElements = [] } = response || {}
-
-          if (contentElements.length > 0) {
-            const {
-              headlines: { basic } = {},
-              taxonomy: { sites, sections } = {},
-              website_url: websiteUrl,
-            } = contentElements[0]
-            const {
-              additional_properties: {
-                original: {
-                  site_topper: { site_logo_image: siteLogo } = {},
+              const {
+                additional_properties: {
+                  original: {
+                    site_topper: { site_logo_image: siteLogo = '' } = {},
+                  } = {},
                 } = {},
-              } = {},
-            } = sites[0] || []
+              } = sites[0] || {}
 
-            const { name, path } = sections[0] || []
+              const { name = '', path = '' } = secs[0] || {}
 
-            const urlImg =
-              siteLogo ||
-              defaultImage({
-                deployment,
-                contextPath,
-                arcSite,
-                size: 'sm',
-              })
+              const indexSec = Object.values(sections).indexOf(path)
+              const sectionActive = Object.keys(sections)[indexSec]
 
-            const contenido = {
-              title: `${basic}`,
-              urlImg,
-              urlNew: websiteUrl,
-              sectionName: name,
-              urlSection: path,
+              const urlImg =
+                customFields[`uriImageSection${indexSec}`] ||
+                siteLogo ||
+                defaultImage({
+                  deployment,
+                  contextPath,
+                  arcSite,
+                  size: 'sm',
+                })
+
+              const content = {
+                title: basic,
+                urlImg,
+                urlNew: websiteUrl,
+                sectionName: name,
+                urlSection: path,
+              }
+
+              jsonSections[sectionActive] = content || {}
             }
-            callback(contenido)
-          } else {
-            callback(null)
-          }
+          })
+          this.setState(jsonSections)
         })
-        .catch(e => {
-          throw new Error(e)
+        .catch(err => {
+          throw new Error(err)
         })
-    } else {
-      callback(null)
     }
   }
 
-  render() {
-    const { titleOpinion = '', arcSite, listNews = [] } = this.state
-
-    return (
-      <OpinionChildCard
-        titleOpinion={titleOpinion}
-        dataList={listNews}
-        arcSite={arcSite}
-      />
+  getContentApi = section => {
+    const { arcSite } = this.props
+    return this.getContent(
+      'story-feed-by-section',
+      {
+        website: arcSite,
+        section,
+      },
+      filterSchema
     )
+  }
+
+  render() {
+    const {
+      titleOpinion = '',
+      arcSite,
+      section1,
+      section2,
+      section3,
+      section4,
+    } = this.state
+
+    const params = {
+      titleOpinion,
+      arcSite,
+      dataList: [section1, section2, section3, section4],
+    }
+
+    return <OpinionChildCard {...params} />
   }
 }
 
@@ -142,16 +134,36 @@ CardOpinion.propTypes = {
       name: 'Título: ',
     }),
     section1: PropTypes.string.isRequired.tag({
-      name: 'Sección 1:',
+      name: 'Path de sección:',
+      group: 'Seccion 1',
+    }),
+    uriImageSection1: PropTypes.string.tag({
+      name: 'URL de imagen:',
+      group: 'Seccion 1',
     }),
     section2: PropTypes.string.isRequired.tag({
-      name: 'Sección 2:',
+      name: 'Path de sección:',
+      group: 'Seccion 2',
+    }),
+    uriImageSection2: PropTypes.string.tag({
+      name: 'URL de imagen:',
+      group: 'Seccion 2',
     }),
     section3: PropTypes.string.isRequired.tag({
-      name: 'Sección 3:',
+      name: 'Path de sección:',
+      group: 'Seccion 3',
+    }),
+    uriImageSection3: PropTypes.string.tag({
+      name: 'URL de imagen:',
+      group: 'Seccion 3',
     }),
     section4: PropTypes.string.isRequired.tag({
-      name: 'Sección 4:',
+      name: 'Path de sección:',
+      group: 'Seccion 4',
+    }),
+    uriImageSection4: PropTypes.string.tag({
+      name: 'URL de imagen:',
+      group: 'Seccion 4',
     }),
   }),
 }
