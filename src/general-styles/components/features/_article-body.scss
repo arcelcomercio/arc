@@ -1,4 +1,7 @@
 .article-body {
+  &__content{
+    position: relative;
+  }
   &__tag-title {
     color: #4aa8fa;
     font: 700 12px/1 $primary-font;
@@ -24,9 +27,9 @@
     font-style: italic;
     padding: 13px;
 
-    &__pull {
+    /*     &__pull {
       background: url('../images/openquote.svg') top left no-repeat;
-    }
+    } */
 
     & p:first-letter {
       font-size: 39px;
