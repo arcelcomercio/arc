@@ -51,19 +51,16 @@ class CardTabloid extends PureComponent {
       .then(response => {
         const { content_elements: contentElements = [] } = response || {}
 
-        if (contentElements.length > 0) {
-          // TODO: pf
-          const data = new StoryData({
-            data: contentElements[0],
-            deployment,
-            contextPath,
-            arcSite,
-            defaultImgSize: 'sm',
-          })
-          this.setState({
-            data,
-          })
-        }
+        const data = new StoryData({
+          data: contentElements[0],
+          deployment,
+          contextPath,
+          arcSite,
+          defaultImgSize: 'sm',
+        })
+        this.setState({
+          data,
+        })
       })
       .catch(e => {
         throw new Error(e)
@@ -115,6 +112,7 @@ class CardTabloid extends PureComponent {
     const link = `${contextPath}${rawLink || ''}`
 
     const nameDate = this.nameDate(date)
+    console.log(multimedia)
 
     return (
       <div className={classes.tabloide}>
