@@ -1,19 +1,10 @@
 @font-face {
-    font-family: 'open_sansregular';
-    src: url('../fonts/OpenSans-Regular-webfont.eot');
-    src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/OpenSans-Regular-webfont.woff') format('woff'),
-         url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-  font-family: 'icomoon';
-  src:  url('../fonts/icomoon.eot?r5cfd7');
-  src:  url('../fonts/icomoon.eot?r5cfd7#iefix') format('embedded-opentype'),
-    url('../fonts/icomoon.ttf?r5cfd7') format('truetype'),
-    url('../fonts/icomoon.woff?r5cfd7') format('woff'),
-    url('../fonts/icomoon.svg?r5cfd7#icomoon') format('svg');
+  font-family: 'open_sansregular';
+  src: url('../../fonts/OpenSans-Regular-webfont.eot');
+  src: url('../../fonts/OpenSans-Regular-webfont.eot?#iefix')
+      format('embedded-opentype'),
+    url('../../fonts/OpenSans-Regular-webfont.woff') format('woff'),
+    url('../../fonts/OpenSans-Regular-webfont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

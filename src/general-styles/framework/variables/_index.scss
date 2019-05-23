@@ -1,4 +1,6 @@
-/******* Variables *******/
+/******* Import Order *******/
+@import './declare-size';
+@import './declare-icons';
 @import './breakpoints';
 @import './colors';
 @import './dimensions';
