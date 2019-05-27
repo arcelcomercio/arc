@@ -20,7 +20,7 @@ import ArticleBodyChildIcon from './_children/icon-list'
 
 const classes = {
   news: 'article-body news-text-content col-2 bg-color--white',
-  content: 'article-body__content',
+  content: 'article-body__content flex flex--row-reverse',
   textClasses: 'article-body__font--secondary',
   newsImage: 'article-body__image article-body__image--cover',
   newsEmbed: 'article-body__embed',

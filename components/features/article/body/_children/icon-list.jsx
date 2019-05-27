@@ -4,10 +4,10 @@ import { popUpWindow } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  news: 'article-body__icon-list flex flex--justify-between flex--align-center',
-  list: 'article-body__list flex flex--justify-between',
+  news: 'article-body__icon-list',
+  list: 'article-body__list',
   item: 'article-body__item',
-  link: 'article-body__link flex-center-vertical flex--justify-center',
+  link: 'article-body__link',
 }
 @Consumer
 class ArticleBodyChildIcon extends PureComponent {
@@ -22,25 +22,25 @@ class ArticleBodyChildIcon extends PureComponent {
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'icon-print',
+          icon: 'icon-print icon-search',
           link: '',
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: '',
         },
 
         {
-          icon: 'icon-email',
+          icon: 'icon-email icon-search',
           link: '',
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: '',
         },
         {
-          icon: 'icon-link',
+          icon: 'icon-link icon-search',
           link: '',
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: '',
         },
         {
-          icon: 'icon-font',
+          icon: 'icon-font icon-search',
           link: '',
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: '',
         },
       ],
     }
