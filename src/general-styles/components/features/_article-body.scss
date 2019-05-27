@@ -1,5 +1,5 @@
 .article-body {
-  &__content{
+  &__content {
     position: relative;
   }
   &__tag-title {
@@ -97,10 +97,6 @@
     margin: 0px;
     width: 100%;
 
-    & img {
-      width: 100%;
-    }
-
     & figcaption {
       padding: 14px 0px;
       font-size: 13px;
@@ -131,5 +127,8 @@
   }
   &__author-date {
     font-size: 12px;
+  }
+  img {
+    width: 100%;
   }
 }
