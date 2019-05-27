@@ -1,18 +1,12 @@
 .article-body {
-  &__content {
-    position: relative;
-  }
   &__tag-title {
     color: #4aa8fa;
     font: 700 12px/1 $primary-font;
-    margin-bottom: 5px;
-    text-transform: uppercase;
   }
+
   &__tag-item {
     display: inline-block;
     font-family: $primary-font;
-    font-size: 13px;
-    margin: 0 10px 5px 0;
 
     & a {
       color: $color-silver;
@@ -63,13 +57,7 @@
     margin-top: 26px;
   }
 
-  &.news-text-content {
-    @media (--desktop-max) {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-  }
-  section > p {
+  section>p {
     font-size: 18px;
     line-height: 1.5;
     margin-bottom: 25px;
@@ -90,12 +78,10 @@
     font-size: 13px;
     margin: 0;
     padding-top: 5px;
-    text-align: left;
   }
 
   &__image {
     margin: 0px;
-    width: 100%;
 
     & figcaption {
       padding: 14px 0px;
@@ -116,6 +102,7 @@
       height: 100%;
     }
   }
+
 
   /******* Autor *******/
   &__author {

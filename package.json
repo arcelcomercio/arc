@@ -69,8 +69,8 @@
     "dev": "webpack --config ./config/webpack.config.js --env.dev",
     "prod": "webpack --config ./config/webpack.config.js --env.prod",
     "watch": "webpack --config ./config/webpack.config.js --watch --env.dev ",
-    "dev:all": "webpack --config ./config/webpack.config.js --env.dev && webpack --config ./config/webpack.amp.config.js --env.dev --env.amp",
-    "prod:all": "webpack --config ./config/webpack.config.js --env.prod && webpack --config ./config/webpack.amp.config.js --env.prod --env.amp",
+    "dev:all": "webpack --config ./config/webpack.config.js --env.dev && webpack --config ./config/webpack.config.js --env.dev --env.amp",
+    "prod:all": "webpack --config ./config/webpack.config.js --env.prod && webpack --config ./config/webpack.config.js --env.prod --env.amp",
     "zip": "npm run prod && npx fusion zip"
   },
   "keywords": [],
