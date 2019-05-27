@@ -15,6 +15,10 @@ const policiesList = {
   aboutUs: 'Quienes Somos',
 }
 
+const classes = {
+  staticPolicy: 'statics-policies',
+}
+
 @Consumer
 class Policies extends PureComponent {
   constructor(props) {
@@ -64,7 +68,7 @@ class Policies extends PureComponent {
   render() {
     const { contentElements, contentTitle } = this.state
     return (
-      <div className="statics-policies">
+      <div className={classes.staticPolicy}>
         <h1>{contentTitle}</h1>
         <ArcArticleBody
           data={contentElements}
