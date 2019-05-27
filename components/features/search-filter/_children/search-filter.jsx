@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import SearchInput from '../../../global-components/search-input'
 
 // TODO: Refactorizar todo (la data debe venir desde el feature, no hacer fetches aca)
 // TODO: Las búsquedas no deben hacerse por parámetros, deben ser por la misma URL
@@ -17,7 +18,6 @@ class SearchFilterChildSearchFilter extends PureComponent {
     }
 
     this.fetchSections()
-    this.inputSearch = React.createRef() /* React ref del input */
   }
 
   // Set the sort state from &sort=
@@ -92,22 +92,6 @@ class SearchFilterChildSearchFilter extends PureComponent {
     })
   }
 
-  // TODO: Agrega la nueva "query" a la URI
-  _handleSearch = e => {
-    const { globalContentConfig, contextPath, requestUri } = this.props
-    const { query: { sort } = {} } = globalContentConfig || {}
-    const { value } = this.inputSearch.current /* React ref del input */
-    e.preventDefault()
-
-    /* Sólo genera la URI si "query" tiene contenido */
-    if (value !== '')
-      // eslint-disable-next-line no-restricted-globals
-      location.href = `${contextPath}${requestUri}?query=${encodeURIComponent(
-        value
-      ).replace(/%20/g, '+')}&category=&sort=${sort || 'desc'}`
-    /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
-  }
-
   fetchSections() {
     const { arcSite } = this.props
 
@@ -137,97 +121,85 @@ class SearchFilterChildSearchFilter extends PureComponent {
 
   render() {
     const { sections, selected, showList, sort } = this.state
-    const { isAdmin } = this.props
+    const { isAdmin, globalContentConfig, contextPath } = this.props
 
     const classes = {
       searchFilter: 'search-filter full-width margin-top',
-      searchFilterContainerList: 'search-filter__box-list',
-      searchFilterSelect: `search-filter__select ${showList ? 'active' : ''}`,
-      searchFilterSelectName: 'search-filter__select-name',
-      searchFilterIconButton: 'icon-angle-down',
-      searchFilterList: `search-filter__list ${showList ? 'active' : ''}`,
-      searchFilterItemDesc: `search-filter__item ${
+      containerList: 'search-filter__box-list',
+      select: `search-filter__select ${showList ? 'active' : ''}`,
+      selectName: 'search-filter__select-name',
+      iconButton: 'icon-angle-down',
+      list: `search-filter__list ${showList ? 'active' : ''}`,
+      iemDesc: `search-filter__item ${
         sort === 'desc' || !sort ? 'active' : ''
       }`,
-      searchFilterItemAsc: `search-filter__item ${
-        sort === 'asc' ? 'active' : ''
-      }`,
-      searchFilterItemRel: `search-filter__item ${
-        sort === 'rel' ? 'active' : ''
-      }`,
-      searchFilterItemType: `search-filter__item ${
-        selected === 'type' ? 'selected' : ''
-      }`,
-      searchFilterItemSection: `search-filter__item ${
+      itemAsc: `search-filter__item ${sort === 'asc' ? 'active' : ''}`,
+      itemRel: `search-filter__item ${sort === 'rel' ? 'active' : ''}`,
+      itemType: `search-filter__item ${selected === 'type' ? 'selected' : ''}`,
+      itemSection: `search-filter__item ${
         selected === 'section' ? 'selected' : ''
       }`,
-      searchFilterItemTime: `search-filter__item ${
-        selected === 'time' ? 'selected' : ''
-      }`,
-      searchFilterLink: 'search-filter__link',
-      searchFilterSubList: 'search-filter__sublist active',
-      searchFilterSubItem: 'search-filter__subitem',
-      searchFilterSubLink: 'search-filter__sublink',
-      searchFilterContainerSearch: 'search-filter__box-search',
-      searchFilterInputSearch: 'search-filter__search',
-      searchFilterIconSearch: 'icon-search',
+      itemTime: `search-filter__item ${selected === 'time' ? 'selected' : ''}`,
+      link: 'search-filter__link',
+      subList: 'search-filter__sublist active',
+      subItem: 'search-filter__subitem',
+      subLink: 'search-filter__sublink',
     }
 
     return (
       <div role="search" className={classes.searchFilter}>
-        <div className={classes.searchFilterContainerList}>
+        <div className={classes.containerList}>
           <button
-            className={classes.searchFilterSelect}
+            className={classes.select}
             onClick={() => this.setState({ showList: !showList })}
             onKeyDown={() => this.setState({ showList: !showList })}
             type="button">
-            <span className={classes.searchFilterSelectName}>
-              Seleccione{' '}
-              <span className={classes.searchFilterIconButton}>+</span>
+            <span className={classes.selectName}>
+              Seleccione <span className={classes.iconButton}>+</span>
             </span>
           </button>
-          <ul className={classes.searchFilterList}>
-            <li className={classes.searchFilterItemDesc}>
+          <ul className={classes.list}>
+            <li className={classes.iemDesc}>
               <a
                 href={!isAdmin && this.getUrl('sort', 'desc')} // (type, value)
-                className={classes.searchFilterLink}
+                className={classes.link}
                 role="checkbox"
                 aria-checked="true">
                 Más Recientes
               </a>
             </li>
-            <li className={classes.searchFilterItemAsc}>
+            <li className={classes.itemAsc}>
               <a
                 href={!isAdmin && this.getUrl('sort', 'asc')} // (type, value)
-                className={classes.searchFilterLink}
+                className={classes.link}
                 role="checkbox"
                 aria-checked="false">
                 Menos Recientes
               </a>
             </li>
-            <li className={classes.searchFilterItemRel}>
+            <li className={classes.itemRel}>
               <a
                 href={!isAdmin && this.getUrl()} // (type, value)
-                className={classes.searchFilterLink}
+                className={classes.link}
                 role="checkbox"
                 aria-checked="false">
                 Relevancia
               </a>
             </li>
-            <li className={classes.searchFilterItemType}>
+            <li className={classes.itemType}>
               <button
                 type="button"
-                className={classes.searchFilterLink}
+                className={classes.link}
                 onClick={this._handleButton}
                 onKeyDown={this._handleButton}
                 name="type">
                 Tipo de Nota
               </button>
             </li>
-            <li className={classes.searchFilterItemSection}>
+            <li className={classes.itemSection}>
               <button
                 type="button"
-                className={classes.searchFilterLink}
+                className={classes.link}
                 onClick={this._handleButton}
                 onKeyDown={this._handleButton}
                 name="section">
@@ -235,18 +207,16 @@ class SearchFilterChildSearchFilter extends PureComponent {
               </button>
               {/* Si el filtro seleccionado es "sección", renderiza la lista de secciones */
               selected === 'section' && sections !== [] && (
-                <ul className={classes.searchFilterSubList}>
+                <ul className={classes.subList}>
                   {sections.map(section => (
-                    <li
-                      key={section._id}
-                      className={classes.searchFilterSubItem}>
+                    <li key={section._id} className={classes.subItem}>
                       <a
                         href={
                           !isAdmin &&
                           this.getUrl('category', section._id.slice(1))
                         } // (type, value)
                         /* El slice(0) es para eliminar el slash inicial de la sección */
-                        className={classes.searchFilterSubLink}>
+                        className={classes.subLink}>
                         {section.name}
                       </a>
                     </li>
@@ -254,10 +224,10 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 </ul>
               )}
             </li>
-            <li className={classes.searchFilterItemTime}>
+            <li className={classes.itemTime}>
               <button
                 type="button"
-                className={classes.searchFilterLink}
+                className={classes.link}
                 onClick={this._handleButton}
                 onKeyDown={this._handleButton}
                 name="time">
@@ -266,21 +236,10 @@ class SearchFilterChildSearchFilter extends PureComponent {
             </li>
           </ul>
         </div>
-        <div className={classes.searchFilterContainerSearch}>
-          <form
-            className={classes.searchFilterInputSearch}
-            onSubmit={this._handleSearch}>
-            <button className={classes.searchFilterIconSearch} type="submit">
-              Q
-            </button>
-            <input
-              ref={this.inputSearch}
-              type="search"
-              placeholder="Buscar"
-              aria-label="Campo de búsqueda"
-            />
-          </form>
-        </div>
+        <SearchInput
+          globalContentConfig={globalContentConfig}
+          contextPath={contextPath}
+        />
       </div>
     )
   }
