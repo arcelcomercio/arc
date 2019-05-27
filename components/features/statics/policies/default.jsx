@@ -19,7 +19,6 @@ const policiesList = {
 class Policies extends PureComponent {
   constructor(props) {
     super(props)
-    console.log(props)
     this.state = {
       contentElements: [],
       contentTitle: '',
@@ -96,7 +95,15 @@ Policies.propTypes = {
       name: 'Tipo de política',
       labels: policiesList,
       defaultValue: 'termsAndConditions',
+      description:
+        'Este campo usa notas no publicadas de elipsis declaradas en el "site properties"',
     }),
+    /* storyId: PropTypes.string.tag({
+      name: 'ID de historia no publicada',
+      group: 'Editar fuente de contenido',
+      description:
+        'En este campo se debe colocar el ID de una historia no publicada de elpsis',
+    }), */
   }),
 }
 
