@@ -20,7 +20,7 @@ const classes = {
 @Consumer
 class RelatedContent extends Component {
   renderRelatedContentElement = (data, i) => {
-    const { arcSite } = this.props
+    const { arcSite, contextPath } = this.props
     const get = new StoryData(data, arcSite)
     const filterData = {
       title: {
@@ -39,14 +39,16 @@ class RelatedContent extends Component {
       <article className={classes.relatedItem} key={UtilListKey(i)}>
         <div className={`${classes.relatedInfo}`}>
           <h2 className={`${classes.relatedTitleItem}`}>
-            <a href={title.urlTitle}>{title.nameTitle}</a>
+            <a href={`${contextPath}${title.urlTitle}`}>{title.nameTitle}</a>
           </h2>
           <a href={author.nameAuthorLink} className={classes.relatedAuthor}>
             {author.nameAuthor}
           </a>
         </div>
         <figure className={classes.relatedMultimedia}>
-          <a href={title.urlTitle} className={classes.relatedLink}>
+          <a
+            href={`${contextPath}${title.urlTitle}`}
+            className={classes.relatedLink}>
             <img
               src={multimedia.multimediaImg}
               alt={title.nameTitle}

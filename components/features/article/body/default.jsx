@@ -44,7 +44,7 @@ class ArticleBody extends PureComponent {
     } = this.props
 
     const { fetched } = this.getContent(
-      'story-by-id',
+      'story-by-related',
       { _id: id, website: arcSite },
       schemaFilter
     )
