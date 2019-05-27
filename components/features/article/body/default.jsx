@@ -18,10 +18,10 @@ import schemaFilter from './_dependencies/schema-filter'
 import ArticleBodyChildRelatedInternal from './_children/related-internal'
 
 const classes = {
-  news: 'article-body news-text-content col-2 bg-color--white',
-  content: 'article-body__content',
+  news: 'article-body full-width bg-color--white pd-left-20 pd-right-20',
+  content: 'position-relative',
   textClasses: 'article-body__font--secondary',
-  newsImage: 'article-body__image article-body__image--cover',
+  newsImage: 'article-body__image full-width article-body__image--cover',
   newsEmbed: 'article-body__embed',
   tags: 'article-body',
 }
