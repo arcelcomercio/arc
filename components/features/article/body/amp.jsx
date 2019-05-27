@@ -91,9 +91,7 @@ class ArticleAMPArticleBody extends PureComponent {
               if (type === 'table') {
                 return <ArticleBodyChildTable data={element} type={type} />
               }
-              if (type === 'raw_html') {
-                return null
-              }
+
               if (type === 'gallery') {
                 return (
                   <AMPCarousel
