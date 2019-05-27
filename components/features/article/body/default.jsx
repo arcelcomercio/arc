@@ -72,8 +72,8 @@ class ArticleBody extends PureComponent {
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
         {author && <ArticleBodyChildAuthor data={author} date={date} />}
-        <ArticleBodyChildIcon />
         <div className={classes.content}>
+          <ArticleBodyChildIcon />
           {contentElements && (
             <ArcArticleBody
               data={contentElements}
