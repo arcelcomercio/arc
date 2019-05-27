@@ -16,6 +16,7 @@ import ArticleBodyChildAuthor from './_children/author'
 import ArticleBodyChildMultimedia from './_children/multimedia'
 import schemaFilter from './_dependencies/schema-filter'
 import ArticleBodyChildRelatedInternal from './_children/related-internal'
+import ArticleBodyChildIcon from './_children/icon-list'
 
 const classes = {
   news: 'article-body full-width bg-color--white pd-left-20 pd-right-20',
@@ -57,7 +58,7 @@ class ArticleBody extends PureComponent {
   }
 
   render() {
-    const { globalContent, arcSite } = this.props
+    const { globalContent, arcSite, contextPath } = this.props
     const { data } = this.state
     const {
       content_elements: contentElements,
@@ -71,6 +72,7 @@ class ArticleBody extends PureComponent {
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
         {author && <ArticleBodyChildAuthor data={author} date={date} />}
+        <ArticleBodyChildIcon />
         <div className={classes.content}>
           {contentElements && (
             <ArcArticleBody
@@ -129,7 +131,11 @@ class ArticleBody extends PureComponent {
           )}
         </div>
 
-        <ArticleBodyChildTags data={tags} className={classes.tags} />
+        <ArticleBodyChildTags
+          data={tags}
+          className={classes.tags}
+          contextPath={contextPath}
+        />
         <ArticleBodyChildRelated stories={data} />
       </div>
     )

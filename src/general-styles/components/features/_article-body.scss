@@ -1,5 +1,4 @@
 .article-body {
-
   &__tag-title {
     color: #4aa8fa;
     font: 700 12px/1 $primary-font;
@@ -83,10 +82,6 @@
 
   &__image {
     margin: 0px;
-
-    & img {
-      width: 100%;
-    }
 
     & figcaption {
       padding: 14px 0px;

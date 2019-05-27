@@ -6,8 +6,8 @@ import { formatDate } from '../../../../utilities/helpers'
 const classes = {
   author: 'flex flex--justify-between pd-top-30 mg-bottom-20',
   authorName: '',
-  authorDate: 'font-xs flex flex--align-center ',
-  authorEmail: 'font-sm',
+  authorDate: 'text-xs flex flex--align-center ',
+  authorEmail: 'text-sm',
 }
 
 const ArticleBodyChildAuthor = props => {

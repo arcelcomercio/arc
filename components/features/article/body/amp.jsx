@@ -14,8 +14,8 @@ import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildRelated from './_children/related'
 
 const classes = {
-  content: 'amp-content',
-  textClasses: 'amp-content__news-text',
+  content: 'amp-content pd-left-20 pd-right-20',
+  textClasses: 'amp-content__news-text text',
   author: 'amp-content__author',
   tags: 'amp-content',
 }
@@ -91,9 +91,7 @@ class ArticleAMPArticleBody extends PureComponent {
               if (type === 'table') {
                 return <ArticleBodyChildTable data={element} type={type} />
               }
-              if (type === 'raw_html') {
-                return null
-              }
+
               if (type === 'gallery') {
                 return (
                   <AMPCarousel

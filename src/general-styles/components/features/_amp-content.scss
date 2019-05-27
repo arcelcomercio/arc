@@ -1,10 +1,7 @@
 .amp-content {
   background-color: $color-white;
-  padding-left: 20px;
-  padding-right: 20px;
 
   &__news-text {
-    font-size: 16px;
     line-height: 1.42857143;
     color: #333;
     font-family: 'Roboto', sans-serif;
@@ -72,6 +69,11 @@
 
   .i-amphtml-element {
     width: 100% !important;
+  }
+
+  .amp-active,
+  i-amphtml-scroll-container {
+    height: 0%;
   }
 
   section>p {

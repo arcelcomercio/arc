@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import { getIcon } from '../../../../utilities/helpers'
 import StoryData from '../../../../utilities/story-data'
@@ -18,7 +18,7 @@ const classes = {
   relatedInfo: 'related-content__information',
 }
 @Consumer
-class RelatedContent extends Component {
+class RelatedContent extends PureComponent {
   renderRelatedContentElement = (data, i) => {
     const { arcSite, contextPath } = this.props
     const get = new StoryData(data, arcSite)
