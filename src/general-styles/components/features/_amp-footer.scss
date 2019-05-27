@@ -11,9 +11,10 @@
   }
 
   &__logo {
-    background: url('../images/arrow-left-3.png') 0 $footer-logo-background
-        no-repeat,
-      url('../images/letra-c-white.png') $footer-logo-background2 no-repeat;
+    background: url('https://assets.elcomercio.pe/images/elcomercio/arrow-left-3.png')
+        0 $footer-logo-background no-repeat,
+      url('https://assets.elcomercio.pe/images/elcomercio/letra-c-white.png')
+        $footer-logo-background2 no-repeat;
     padding: $footer-logo-padding;
     color: $footer-text-color;
     font: 700 18px/1.1 'Roboto', sans-serif;

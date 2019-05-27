@@ -179,6 +179,7 @@
         width: 90%;
       }
     }
+
     &:last-child {
       border-right: 0;
       padding-right: 0;
@@ -209,9 +210,11 @@
       bottom: 44px;
     }
   }
+
   &__category {
     margin-bottom: 5px;
   }
+
   &__title {
     display: -webkit-box;
     overflow: hidden;
@@ -240,6 +243,11 @@
         color: #333;
       }
     }
+  }
+
+  &__img {
+    object-fit: cover;
+    height: 100%;
   }
 
   &-oneline {

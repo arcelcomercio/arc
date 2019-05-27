@@ -20,13 +20,17 @@ class LayoutHeader extends PureComponent {
       contextPath,
       arcSite,
       deployment,
-      siteProperties: { siteDomain },
+      siteProperties: {
+        siteDomain,
+        assets: { header: headerProperties },
+      },
       customFields: { headerType, customLogo, customLogoLink },
     } = this.props
     this.formater = new Formater(
       deployment,
       contextPath,
       siteDomain,
+      headerProperties,
       arcSite,
       {},
       headerType,

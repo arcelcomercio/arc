@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+.full-height {
+  height: 100%;
+}
+
 .height-inherit {
   height: inherit;
 }
@@ -31,6 +35,10 @@
 .padding-lateral-normal {
   padding-left: $spacing-normal;
   padding-right: $spacing-normal;
+}
+
+.object-fit-cover {
+  object-fit: cover;
 }
 
 /******************************************/

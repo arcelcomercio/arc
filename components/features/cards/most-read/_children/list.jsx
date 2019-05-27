@@ -12,9 +12,10 @@ const CardMostReadChildList = props => {
   return (
     <div className={classes.mostRead}>
       <h4 className={classes.title}>Lo más visto</h4>
-      {stories.map(item => {
+      {stories.map((item, i) => {
+        const key = `most-read-${i}-${item.id}`
         const params = { item, viewImage }
-        return <CardMostReadItem key={item.id} {...params} />
+        return <CardMostReadItem key={key} {...params} />
       })}
     </div>
   )

@@ -10,7 +10,13 @@ const classes = {
 
 class StaticCinemaBillboardChildMoviesContainer extends PureComponent {
   render() {
-    const { data, params, type, contextPath, arcSite } = this.props // params = movie, cinema, genre
+    const { data, params, type, deployment, contextPath, arcSite } = this.props
+    // params = movie, cinema, genre
+    const context = {
+      deployment,
+      contextPath,
+      arcSite,
+    }
     return (
       <Fragment>
         <h2 className={classes.title}>Cartelera</h2>
@@ -18,19 +24,10 @@ class StaticCinemaBillboardChildMoviesContainer extends PureComponent {
           <MoviesFilter data={{ ...data }} {...params} />
 
           {type === 'slider' && (
-            <MoviesSlider
-              data={{ ...data }}
-              contextPath={contextPath}
-              arcSite={arcSite}
-            />
+            <MoviesSlider data={{ ...data }} {...context} />
           )}
           {type === 'banner' && (
-            <MovieDetails
-              data={{ ...data }}
-              contextPath={contextPath}
-              arcSite={arcSite}
-              {...params}
-            />
+            <MovieDetails data={{ ...data }} {...context} {...params} />
           )}
         </main>
       </Fragment>

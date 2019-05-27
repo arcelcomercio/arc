@@ -12,6 +12,7 @@ class StaticCinemaBillboard extends PureComponent {
     const {
       globalContentConfig,
       globalContent: data,
+      deployment,
       contextPath,
       arcSite,
     } = this.props
@@ -23,6 +24,11 @@ class StaticCinemaBillboard extends PureComponent {
       cinema,
       genre,
     }
+    const context = {
+      deployment,
+      contextPath,
+      arcSite,
+    }
 
     return (
       <Fragment>
@@ -33,15 +39,9 @@ class StaticCinemaBillboard extends PureComponent {
               type="slider"
               data={{ ...data }}
               params={{ ...params }}
-              contextPath={contextPath}
-              arcSite={arcSite}
+              {...context}
             />
-            <GenreMoviesFilter
-              data={{ ...data }}
-              genre={genre}
-              contextPath={contextPath}
-              arcSite={arcSite}
-            />
+            <GenreMoviesFilter data={{ ...data }} genre={genre} {...context} />
           </Fragment>
         )}
 
@@ -51,8 +51,7 @@ class StaticCinemaBillboard extends PureComponent {
             type="banner"
             data={{ ...data }}
             params={{ ...params }}
-            contextPath={contextPath}
-            arcSite={arcSite}
+            {...context}
           />
         )}
 
@@ -60,12 +59,7 @@ class StaticCinemaBillboard extends PureComponent {
         {movie === 'peliculas' && cinema !== 'cines' && (
           <Fragment>
             <MoviesFilter data={{ ...data }} {...params} />
-            <MoviesList
-              data={{ ...data }}
-              cinema={cinema}
-              contextPath={contextPath}
-              arcSite={arcSite}
-            />
+            <MoviesList data={{ ...data }} cinema={cinema} {...context} />
           </Fragment>
         )}
       </Fragment>

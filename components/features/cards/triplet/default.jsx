@@ -45,8 +45,20 @@ class CardTriplet extends PureComponent {
   }
 
   render() {
-    const { customFields = {}, editableField, arcSite } = this.props
-    const data = new Data({}, arcSite, customFields)
+    const {
+      deployment,
+      contextPath,
+      arcSite,
+      editableField,
+      customFields = {},
+    } = this.props
+    const data = new Data({
+      deployment,
+      contextPath,
+      arcSite,
+      customFields,
+      defaultImgSize: 'sm',
+    })
     const allDataResponse = this.state
     const dataFormatted = Object.keys(allDataResponse).map((el, index) => {
       data.__data = allDataResponse[el]

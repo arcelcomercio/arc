@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import BillboardFormat from '../../../utilities/billboard-format'
+import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   movieList: 'movie-list',
@@ -10,7 +11,7 @@ const classes = {
   movieItem: 'movie-item flex flex--column',
   leftSide: 'movie-item__left',
   imageBox: 'block full-width',
-  image: 'movie-item__img full-width',
+  image: 'movie-item__img full-width full-height object-fit-cover',
   title: 'movie-item__title',
   function: 'movie-item__function',
   rightSide: 'movie-item__right',
@@ -29,8 +30,7 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
       cinema: {},
     }
 
-    const { contextPath, arcSite } = props
-    this.WEBSITE_PARAM = `?_website=${arcSite}`
+    const { contextPath } = props
     this.URI_BASE = `${contextPath}/cartelera`
   }
 
@@ -51,15 +51,16 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
 
   render() {
     const { movies, cinema } = this.state
+    const { deployment, contextPath, arcSite } = this.props
 
     return (
       cinema && (
-        <div className={classes.movieList}>
-          <div className={classes.top}>
+        <section className={classes.movieList}>
+          <div role="heading" className={classes.top}>
             <h1 className={classes.cinema}>{cinema.nombre}</h1>
-            <h3 className={classes.address}>{cinema.direccion}</h3>
+            <h2 className={classes.address}>{cinema.direccion}</h2>
           </div>
-          <div className={classes.box}>
+          <div role="list" className={classes.box}>
             {movies ? (
               movies.map(movie => {
                 const {
@@ -74,47 +75,53 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
                 } = movie
 
                 return (
-                  <div className={classes.movieItem}>
-                    <div className={classes.leftSide}>
+                  <article role="listitem" className={classes.movieItem}>
+                    <figure className={classes.leftSide}>
                       <a
-                        href={`${this.URI_BASE}/${url}/${cinema.url}${
-                          this.WEBSITE_PARAM
-                        }`}
+                        href={`${this.URI_BASE}/${url}/${cinema.url}`}
                         className={classes.imageBox}>
                         <img
-                          src={sizes['620x387']}
+                          src={
+                            sizes['620x387'] ||
+                            defaultImage({
+                              deployment,
+                              contextPath,
+                              arcSite,
+                              size: 'sm',
+                            })
+                          }
                           alt={title}
                           className={classes.image}
                         />
-                        <h3 className={classes.title}>{title}</h3>
+                        <figcaption>
+                          <h3 className={classes.title}>{title}</h3>
+                          <p className={classes.function}>{cinema.horario}</p>
+                        </figcaption>
                       </a>
-                      <p className={classes.function}>{cinema.horario}</p>
-                    </div>
+                    </figure>
                     <div className={classes.rightSide}>
                       <p className={classes.subtitle}>
                         Sinopsis:
-                        <span className={classes.description}>{body}</span>
+                        <p className={classes.description}>{body}</p>
                       </p>
                       <p className={classes.subtitle}>
                         País:
-                        <span className={classes.description}>{pais}</span>
+                        <p className={classes.description}>{pais}</p>
                       </p>
                       <p className={classes.subtitle}>
                         Director:
-                        <span className={classes.description}>{director}</span>
+                        <p className={classes.description}>{director}</p>
                       </p>
                       <p className={classes.subtitle}>
                         Actores:
-                        <span className={classes.description}>{actores}</span>
+                        <p className={classes.description}>{actores}</p>
                       </p>
                       <p className={classes.subtitle}>
                         Calificación:
-                        <span className={classes.description}>
-                          {calificacion}
-                        </span>
+                        <p className={classes.description}>{calificacion}</p>
                       </p>
                     </div>
-                  </div>
+                  </article>
                 )
               })
             ) : (
@@ -123,7 +130,7 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
               </p>
             )}
           </div>
-        </div>
+        </section>
       )
     )
   }

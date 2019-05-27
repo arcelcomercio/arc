@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react'
 import BillboardFormat from '../../../utilities/billboard-format'
+import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   moviesGrid: 'movies-grid margin-top',
@@ -8,14 +9,14 @@ const classes = {
   nav: 'movies-grid__nav',
   navList: 'movies-grid__nav-list flex flex--justify-center',
   navItem: 'movies-grid__nav-item',
-  navLink: 'movies-grid__nav-link',
+  navLink: 'movies-grid__nav-link position-relative text-uppercase',
   form: 'movies-grid__form',
   info: 'movies-grid__info',
   select: 'movies-grid__select',
   grid: 'movies-grid__grid',
   movie: 'movies-grid__movie',
-  imageBox: 'movies-grid__img-box',
-  image: 'movies-grid__img',
+  imageBox: '',
+  image: 'movies-grid__img full-width',
   details: 'movies-grid__details',
   title: 'movies-grid__title',
   tag: 'movies-grid__tag',
@@ -30,8 +31,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
     }
     this.billboardFormat = new BillboardFormat()
 
-    const { contextPath, arcSite } = props
-    this.WEBSITE_PARAM = `?_website=${arcSite}`
+    const { contextPath } = props
     this.URI_BASE = `${contextPath}/cartelera`
   }
 
@@ -51,7 +51,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
 
   render() {
     const { movies, genres } = this.state
-    const { genre } = this.props
+    const { genre, deployment, contextPath, arcSite } = this.props
 
     return (
       <section className={classes.moviesGrid}>
@@ -63,8 +63,8 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                 <ul className={classes.navList}>
                   <li className={classes.navItem}>
                     <a
-                      href={`${this.URI_BASE}${this.WEBSITE_PARAM}`}
-                      className={`${classes.navLink} text-uppercase ${
+                      href={this.URI_BASE}
+                      className={`${classes.navLink} ${
                         !genre ? 'movies-grid__nav-link--active' : ''
                       }`}>
                       TODAS
@@ -79,8 +79,8 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                           <a
                             href={`${this.URI_BASE}/peliculas/cines/${
                               singleGenre.url
-                            }${this.WEBSITE_PARAM}`}
-                            className={`${classes.navLink} text-uppercase ${
+                            }`}
+                            className={`${classes.navLink} ${
                               genre === singleGenre.url
                                 ? 'movies-grid__nav-link--active'
                                 : ''
@@ -104,16 +104,14 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                   <option selected value="default" disabled>
                     FILTRAR POR GÉNERO:
                   </option>
-                  <option value={`${this.URI_BASE}${this.WEBSITE_PARAM}`}>
-                    Todas
-                  </option>
+                  <option value={`${this.URI_BASE}`}>Todas</option>
                   {genres.map(
                     singleGenre =>
                       singleGenre.name !== 'Otras' && (
                         <option
                           value={`${this.URI_BASE}/peliculas/cines/${
                             singleGenre.url
-                          }${this.WEBSITE_PARAM}`}
+                          }`}
                           key={`select-${singleGenre.url}`}>
                           {singleGenre.name}
                         </option>
@@ -127,21 +125,26 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
             <ul className={classes.grid}>
               {movies.map(movie => (
                 <li key={movie.mid} className={classes.movie}>
-                  <a
-                    href={`${this.URI_BASE}/${movie.url}/cines${
-                      this.WEBSITE_PARAM
-                    }`}>
+                  <a href={`${this.URI_BASE}/${movie.url}/cines`}>
                     <figure className={classes.imageBox}>
                       <img
-                        src={movie.poster_chico.sizes['134x193']}
+                        src={
+                          movie.poster_chico.sizes['134x193'] ||
+                          defaultImage({
+                            deployment,
+                            contextPath,
+                            arcSite,
+                            size: 'sm',
+                          })
+                        }
                         alt={movie.title || ''}
                         className={classes.image}
                       />
+                      <figcaption className={classes.details}>
+                        <h2 className={classes.title}>{movie.title || ''}</h2>
+                        <p className={classes.tag}>Estreno</p>
+                      </figcaption>
                     </figure>
-                    <div className={classes.details}>
-                      <h2 className={classes.title}>{movie.title || ''}</h2>
-                      <span className={classes.tag}>Estreno</span>
-                    </div>
                   </a>
                 </li>
               ))}

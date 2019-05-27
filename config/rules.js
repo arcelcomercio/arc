@@ -1,7 +1,8 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-module.exports = mode => [
-  {
+module.exports = (mode, type = 'index') => {
+
+  const javascript = {
     test: /\.(js|jsx)$/,
     exclude: /(node_modules)/,
     use: {
@@ -11,11 +12,11 @@ module.exports = mode => [
         plugins: ['@babel/plugin-transform-runtime'],
       },
     },
-  },
-  {
+  }
+
+  const styles = {
     test: /\.(scss|css)$/,
-    use: [
-      {
+    use: [{
         loader: MiniCssExtractPlugin.loader,
       },
       {
@@ -53,28 +54,33 @@ module.exports = mode => [
         },
       },
     ],
-  },
-  {
+  }
+
+  const images = {
     test: /\.(jpeg|jpg|png|gif|svg)$/,
     use: {
       loader: 'file-loader',
       options: {
         publicPath: '/pf/resources/dist/',
         name: ';[path];/images/[name].[ext]', // ;[path]; es reemplazado
+        emitFile: type === 'index' && true,
       },
     },
-  },
-  {
+  }
+
+  const fonts = {
     test: /\.(ttf|eot|woff|woff2)$/,
     use: {
       loader: 'file-loader',
       options: {
         publicPath: '/pf/resources/dist/',
         name: ';[path];/fonts/[name].[ext]', // ;[path]; es reemplazado
+        emitFile: type === 'index' && true,
       },
     },
-  },
-  {
+  }
+
+  const ico = {
     test: /\.ico$/,
     use: {
       loader: 'file-loader',
@@ -82,5 +88,18 @@ module.exports = mode => [
         name: ';[path];/[name].[ext]', // ;[path]; es reemplazado
       },
     },
-  },
-]
+  }
+
+  const rules = [
+    styles,
+    images,
+    fonts,
+  ]
+
+  if (type !== 'amp') {
+    rules.unshift(javascript)
+    rules.push(ico)
+  }
+
+  return rules
+}

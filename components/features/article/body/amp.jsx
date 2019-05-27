@@ -39,7 +39,7 @@ class ArticleAMPArticleBody extends PureComponent {
     } = this.props
 
     const { fetched } = this.getContent(
-      'story-by-id',
+      'story-by-related',
       { _id: id, website: arcSite },
       schemaFilter
     )
@@ -91,9 +91,7 @@ class ArticleAMPArticleBody extends PureComponent {
               if (type === 'table') {
                 return <ArticleBodyChildTable data={element} type={type} />
               }
-              if (type === 'raw_html') {
-                return null
-              }
+
               if (type === 'gallery') {
                 return (
                   <AMPCarousel

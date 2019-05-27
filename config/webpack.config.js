@@ -6,20 +6,22 @@ const plugins = require('./plugins')
 
 module.exports = env => {
   const mode = env.dev ? 'development' : 'production'
+  const type = env.amp ? 'amp' : 'index'
+  const ext = env.amp ? 'css' : 'js'
 
   return {
     mode,
     context: paths.base,
-    entry: entries(),
+    entry: entries(type),
     output: {
       path: paths.dist,
       publicPath: paths.dist,
-      filename: '[name]/js/index.js',
+      filename: `[name]/${ext}/${type === 'amp' ? 'dump' : type}.${ext}`,
     },
-    devtool: 'source-map',
+    devtool: (env.dev && type !== 'amp') ? 'source-map' : 'none',
     module: {
-      rules: rules(mode),
+      rules: rules(mode, type),
     },
-    plugins: plugins(env),
+    plugins: plugins(type),
   }
 }

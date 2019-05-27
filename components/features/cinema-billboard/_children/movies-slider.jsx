@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react'
+import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   moviesSlider: 'movies-slider',
@@ -7,7 +8,7 @@ const classes = {
   movie: '',
   imageBox: '',
   imageLink: '',
-  image: 'movies-slider__img full-width',
+  image: 'movies-slider__img full-width object-fit-cover',
   arrowsBox:
     'movies-slider__arrows-box position-absolute flex flex--justify-between',
   leftArrow: 'movies-slider__arrows movies-slider__arrows--left',
@@ -29,10 +30,14 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
       slideWidth: 100 / estrenos.length,
       position: 0,
     }
-    const { contextPath, arcSite } = props
-    this.WEBSITE_PARAM = `?_website=${arcSite}`
+    const { contextPath } = props
     this.URI_BASE = `${contextPath}/cartelera`
     this.step = 0
+  }
+
+  setDefault(size) {
+    const { deployment, contextPath, arcSite } = this.props
+    return defaultImage({ deployment, contextPath, arcSite, size })
   }
 
   _handlePrev = () => {
@@ -66,8 +71,13 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
 
     // container out
     return (
-      <div className={classes.moviesSlider}>
-        <div className={classes.body}>
+      <section className={classes.moviesSlider}>
+        <div
+          role="slider"
+          aria-valuenow={premieres.length}
+          aria-valuemin="1"
+          aria-valuemax="10"
+          className={classes.body}>
           {premieres && (
             <Fragment>
               <ul style={sliderStyle} className={classes.content}>
@@ -78,24 +88,30 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                     className={classes.movie}>
                     <figure className={classes.imageBox}>
                       <a
-                        href={`${this.URI_BASE}/${movie.url}/cines${
-                          this.WEBSITE_PARAM
-                        }`}
+                        href={`${this.URI_BASE}/${movie.url}/cines`}
                         className={classes.imageLink}>
                         <picture>
                           <source
-                            srcSet={movie.poster.sizes['367x176']}
+                            srcSet={
+                              movie.poster.sizes['367x176'] ||
+                              this.setDefault('sm')
+                            }
                             media="(max-width: 367px)"
                           />
                           <source
-                            srcSet={movie.poster.sizes['620x387']}
+                            srcSet={
+                              movie.poster.sizes['620x387'] ||
+                              this.setDefault('md')
+                            }
                             media="(max-width: 620px)"
                           />
                           <img
                             className={classes.image}
-                            src={movie.poster.sizes.estreno}
+                            src={
+                              movie.poster.sizes.estreno ||
+                              this.setDefault('lg')
+                            }
                             alt={movie.title}
-                            title={movie.title}
                           />
                         </picture>
                       </a>
@@ -103,9 +119,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                     <div className={classes.details}>
                       <h2 className={classes.movieTitle} title={movie.title}>
                         <a
-                          href={`${this.URI_BASE}/${movie.url}/cines${
-                            this.WEBSITE_PARAM
-                          }`}
+                          href={`${this.URI_BASE}/${movie.url}/cines`}
                           className={classes.movieLink}>
                           {movie.title}
                         </a>
@@ -120,7 +134,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                 ))}
               </ul>
               {premieres && premieres.length > 1 && (
-                <div className={classes.arrowsBox}>
+                <div role="navigation" className={classes.arrowsBox}>
                   <i
                     role="button"
                     tabIndex="0"
@@ -140,7 +154,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
             </Fragment>
           )}
         </div>
-      </div>
+      </section>
     )
   }
 }

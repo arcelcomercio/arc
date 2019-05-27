@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
 import BillboardFormat from '../../../utilities/billboard-format'
+import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   container: 'movie-details flex flex--column',
   imgBox: 'movie-details__box-img position-relative full-width',
-  img: 'movie-details__img full-width',
+  img: 'movie-details__img full-width full-height object-fit-cover',
   iconBox: 'movie-details__box-icon position-absolute flex-center',
   icon: 'movie-details__icon',
   details: 'movie-details__detail full-width flex flex--column',
@@ -33,8 +34,7 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
       cinemas: [],
     }
 
-    const { contextPath, arcSite } = props
-    this.WEBSITE_PARAM = `?_website=${arcSite}`
+    const { contextPath } = props
     this.URI_BASE = `${contextPath}/cartelera`
   }
 
@@ -62,6 +62,11 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
     })
   }
 
+  setDefault(size) {
+    const { deployment, contextPath, arcSite } = this.props
+    return defaultImage({ deployment, contextPath, arcSite, size })
+  }
+
   render() {
     const { cinemas, movie } = this.state
     const {
@@ -78,40 +83,47 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
 
     return (
       movie && (
-        <div className={classes.container}>
-          <div className={classes.imgBox}>
+        <article className={classes.container}>
+          <figure className={classes.imgBox}>
             <a target="_BLANK" rel="noopener noreferrer" href={description}>
-              <img src={sizes['620x387']} alt={title} className={classes.img} />
+              <picture>
+                <source
+                  srcSet={sizes['367x176'] || this.setDefault('sm')}
+                  media="(max-width: 367px)"
+                />
+                <img
+                  src={sizes['620x387'] || this.setDefault('lg')}
+                  alt={title}
+                  className={classes.img}
+                />
+              </picture>
             </a>
             <div className={classes.iconBox}>
               <span className={classes.icon}>V</span>
             </div>
-          </div>
+          </figure>
           <div className={classes.details}>
             <div className={classes.leftSide}>
               <h2 className={classes.title}>{title}</h2>
-              <p className={classes.where}>Donde Verla</p>
-              <div className={classes.hours}>
+              <p className={classes.where}>Dónde Verla</p>
+              <div role="list" className={classes.hours}>
                 {cinemas &&
                   cinemas.map(cinema => {
                     return (
-                      <div className={classes.item}>
+                      <address role="listitem" className={classes.item}>
                         <a
-                          href={`${this.URI_BASE}/peliculas/${cinema.url}${
-                            this.WEBSITE_PARAM
-                          }`}
+                          href={`${this.URI_BASE}/peliculas/${cinema.url}`}
                           className={classes.cinema}>
                           {cinema.nombre}
                         </a>
                         <p className={classes.text}>{cinema.direccion}</p>
+                        {/* Este <p> debería ser <time> pero cada dato interno debe ser independiente */}
                         <p className={classes.text}>{cinema.horario}</p>
-                      </div>
+                      </address>
                     )
                   })}
               </div>
-              <a
-                href={`${this.URI_BASE}${this.WEBSITE_PARAM}`}
-                className={classes.more}>
+              <a href={this.URI_BASE} className={classes.more}>
                 <p className={classes.button}>Regresar</p>
               </a>
             </div>
@@ -119,36 +131,36 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
               <p className={`${classes.name} ${classes.name}--sinopsis`}>
                 Sinopsis:
                 <br />
-                <span className={classes.value}>{body}</span>
+                <p className={classes.value}>{body}</p>
               </p>
               <p className={classes.name}>
                 País:
                 <br />
-                <span className={classes.value}>{pais}</span>
+                <p className={classes.value}>{pais}</p>
               </p>
               <p className={classes.name}>
                 Director:
                 <br />
-                <span className={classes.value}>{director}</span>
+                <p className={classes.value}>{director}</p>
               </p>
               <p className={classes.name}>
                 Actores:
                 <br />
-                <span className={classes.value}>{actores}</span>
+                <p className={classes.value}>{actores}</p>
               </p>
               <p className={classes.name}>
                 Duración:
                 <br />
-                <span className={classes.value}>{duracion}</span>
+                <p className={classes.value}>{duracion}</p>
               </p>
               <p className={classes.name}>
                 Calificación:
                 <br />
-                <span className={classes.value}>{calificacion}</span>
+                <p className={classes.value}>{calificacion}</p>
               </p>
             </div>
           </div>
-        </div>
+        </article>
       )
     )
   }

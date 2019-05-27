@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import StoryData from '../../../utilities/story-data'
 
 import AuthorCard from './_children/author-card'
 import EditorialCard from './_children/editorial-card'
@@ -19,12 +20,15 @@ const classes = {
 @Consumer
 class StaticOpinionGrid extends PureComponent {
   render() {
-    const { globalContent, arcSite } = this.props
+    const { globalContent, deployment, contextPath, arcSite } = this.props
     const { content_elements: contentElements } = globalContent || {}
-    const params = {
-      data: contentElements || [],
+    const stories = contentElements || []
+    const data = new StoryData({
+      deployment,
+      contextPath,
       arcSite,
-    }
+      defaultImgSize: 'sm',
+    })
 
     return (
       <div>
@@ -32,21 +36,20 @@ class StaticOpinionGrid extends PureComponent {
           <CustomTitle />
         </div>
         <div className={classes.container}>
-          {params.data.slice(0, 12).map(story => {
+          {stories.slice(0, 12).map(story => {
+            data.__data = story
             const { taxonomy: { primary_section: { name } = '' } = {} } =
               story || {}
             const section = name ? name.toUpperCase() : ''
             return section && section === 'EDITORIAL' ? (
               <EditorialCard
                 key={`Editorial-card-${story._id}`}
-                data={story}
-                arcSite={params.arcSite}
+                data={data.attributesRaw}
               />
             ) : (
               <AuthorCard
                 key={`Author-card-${story._id}`}
-                data={story}
-                arcSite={params.arcSite}
+                data={data.attributesRaw}
               />
             )
           })}
@@ -55,13 +58,15 @@ class StaticOpinionGrid extends PureComponent {
           <div className={classes.titleBox}>
             <p className={classes.title}>ÚLTIMAS NOTICIAS</p>
           </div>
-          {params.data.slice(12).map(story => (
-            <ListItem
-              key={`List-item-${story._id}`}
-              data={story}
-              arcSite={params.arcSite}
-            />
-          ))}
+          {stories.slice(12).map(story => {
+            data.__data = story
+            return (
+              <ListItem
+                key={`List-item-${story._id}`}
+                data={data.attributesRaw}
+              />
+            )
+          })}
           <div className={classes.moreBox}>
             <a href="/archivo/opinion" className={classes.more}>
               Ver Más

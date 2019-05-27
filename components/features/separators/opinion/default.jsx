@@ -84,7 +84,7 @@ class SeparatorOpinion extends PureComponent {
       newsNumber = 3
     }
 
-    const { arcSite, contextPath } = this.props
+    const { deployment, contextPath, arcSite } = this.props
 
     const { section } = this.state
 
@@ -101,7 +101,13 @@ class SeparatorOpinion extends PureComponent {
       const newDatos = []
       const nObj = {}
       for (let i = 0; i < newsNumber; i++) {
-        const dh = new StoryData(contentElements[i], arcSite)
+        const dh = new StoryData({
+          data: contentElements[i],
+          deployment,
+          contextPath,
+          arcSite,
+          defaultImgSize: 'sm',
+        })
 
         nObj.id = dh.id
         nObj.author = dh.author

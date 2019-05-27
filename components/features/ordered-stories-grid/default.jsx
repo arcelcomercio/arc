@@ -26,19 +26,31 @@ const classes = {
 @Consumer
 class OrderedStoriesGrid extends PureComponent {
   renderGrilla() {
-    const { customFields, arcSite, globalContent } = this.props
+    const {
+      globalContent,
+      deployment,
+      contextPath,
+      arcSite,
+      customFields,
+    } = this.props
     const { content_elements: contentElements } = globalContent || {}
     const stories = contentElements || []
     let { initialStory: storyNumber = 1 } = customFields || {}
     storyNumber -= 1 // Resta uno al storyNumber. Para el editor 0 = 1
 
+    const storyDataElement = new StoryData({
+      deployment,
+      contextPath,
+      arcSite,
+      defaultImgSize: 'md',
+    })
     return elements.map((element, idx) => {
       if (element.type === 'destaque') {
-        /** TODO: Optimizar para no crear instancia cada paso del map */
-        const story =
-          stories && new StoryData(stories[storyNumber + idx], arcSite)
+        storyDataElement.__data = stories[storyNumber + idx] || {}
+        const story = storyDataElement.attributesRaw || {}
         return (
           <FeaturedStory
+            key={story.link}
             arcSite={arcSite}
             story={story}
             imageSize="complete"

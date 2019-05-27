@@ -1,6 +1,17 @@
 export default {
-  gecSites: [
-    {
+  assets: {
+    nav: {
+      logo: 'logo.png',
+      ampLogo: 'letra-c-white.png',
+    },
+    header: {
+      logo: 'logo.png',
+    },
+    footer: {
+      logo: 'logo.png',
+    },
+  },
+  gecSites: [{
       name: 'elcomercio.pe',
       arcSite: 'elcomercio',
       url: 'https://elcomercio.pe',

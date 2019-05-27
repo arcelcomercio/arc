@@ -14,17 +14,11 @@ const BlogAuthorTitleChildAuthorTitle = ({
   guid,
   blogname,
   path,
-  arcSite,
-  contextPath,
 }) => {
-  const WEBSITE = `?_website=${arcSite}`
-
   return (
     <div className={classes.authorTitle}>
       <div className={classes.title}>
-        <a
-          href={`${contextPath}/blog/${path}${WEBSITE}`}
-          className={classes.url}>
+        <a href={path} className={classes.url}>
           {blogname}
         </a>
         <p className={classes.name}>{firstName}</p>

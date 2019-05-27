@@ -7,7 +7,7 @@ const classes = {
   item: '__tag-item',
 }
 const ArticleBodyChildTags = props => {
-  const { data, className: classTags } = props
+  const { data, className: classTags, contextPath } = props
   return (
     data.length > 0 && (
       <div className={`${classTags}${classes.tagsName}`}>
@@ -19,7 +19,7 @@ const ArticleBodyChildTags = props => {
               <h2
                 key={UtilListKey(idx)}
                 className={`${classTags}${classes.item}`}>
-                <a href={slug && `/noticias/${slug}`}>{text}</a>
+                <a href={slug && `${contextPath}/noticias/${slug}`}>{text}</a>
               </h2>
             )
         )}

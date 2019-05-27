@@ -1,5 +1,4 @@
 import React from 'react'
-import StoryData from '../../../../utilities/story-data'
 import { formatDate } from '../../../../utilities/helpers'
 
 const classes = {
@@ -15,10 +14,7 @@ const classes = {
   subtitle: 'author-item__subtitle block',
 }
 
-const OpinionGridListItem = ({ arcSite, data }) => {
-  const story = new StoryData({}, arcSite)
-  story.__data = data
-
+const OpinionGridListItem = ({ data: story }) => {
   return (
     <div className={classes.authorItem}>
       <div className={classes.wrapper}>

@@ -65,20 +65,15 @@ const OpinionChildCard = ({ titleOpinion, dataList, arcSite }) => {
     'item254',
     'item346',
   ]
-  const arrayprint = [
-    dataList.data1,
-    dataList.data2,
-    dataList.data3,
-    dataList.data4,
-  ]
+
   return (
     <div className={classes.opinion}>
       <div className={classes.head}>
         <h3 className={classes.title}>{titleOpinion}</h3>
       </div>
       <div className={classes.body}>
-        {arrayprint.map((data, index) =>
-          data ? (
+        {dataList.map((data, index) => {
+          return data.urlSection !== '' ? (
             <OpinionItem
               key={keysList[index]}
               title={data.title}
@@ -89,7 +84,7 @@ const OpinionChildCard = ({ titleOpinion, dataList, arcSite }) => {
               urlSection={data.urlSection}
             />
           ) : null
-        )}
+        })}
       </div>
     </div>
   )

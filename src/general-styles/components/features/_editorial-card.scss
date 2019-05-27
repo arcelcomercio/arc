@@ -1,10 +1,5 @@
 .editorial-card {
   padding: 5px;
-  border-bottom: solid 1px #333;
-
-  &:nth-child(odd) {
-    border-right: solid 1px #333;
-  }
 
   &__wrapper {
     background-color: gold;

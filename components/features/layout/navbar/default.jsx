@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Schema from './_dependencies/schema'
 import NavBarComercio from './_children/navbar-comercio'
@@ -7,7 +7,7 @@ import NavBarDepor from './_children/navbar-depor'
 import NavBarTrome from './_children/navbar-trome'
 
 @Consumer
-class BarraTest extends Component {
+class BarraTest extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -36,14 +36,25 @@ class BarraTest extends Component {
           services: response || {},
         })
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        throw new Error(e)
+      })
   }
 
   renderNavBar = (brand, data) => {
+    const { deployment, contextPath, arcSite, siteProperties } = this.props
+    const {
+      assets: {
+        nav: { logo },
+      },
+    } = siteProperties
+    const logoUrl =
+      deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) ||
+      ''
     const NavBarType = {
-      comercio: <NavBarComercio data={data} />,
-      depor: <NavBarDepor data={data} />,
-      trome: <NavBarTrome data={data} />,
+      comercio: <NavBarComercio data={data} logo={logoUrl} />,
+      depor: <NavBarDepor data={data} logo={logoUrl} />,
+      trome: <NavBarTrome data={data} logo={logoUrl} />,
     }
     return NavBarType[brand] || NavBarType.comercio
   }
@@ -58,7 +69,7 @@ class BarraTest extends Component {
 BarraTest.propTypes = {
   customFields: PropTypes.shape({
     selectDesing: PropTypes.oneOf(['comercio', 'depor', 'trome']).tag({
-      name: 'Modelo de NavBar',
+      name: 'Modelo de barra de navegación',
       labels: {
         comercio: 'comercio',
         depor: 'depor',
@@ -69,5 +80,5 @@ BarraTest.propTypes = {
   }),
 }
 
-BarraTest.label = 'Barra de Navegacion'
+BarraTest.label = 'Barra de Navegación'
 export default BarraTest
