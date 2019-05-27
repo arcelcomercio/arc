@@ -3,10 +3,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const webpack = require('webpack')
 const paths = require('./paths')
 
-module.exports = (name = 'style') => {
+module.exports = (type) => {
   const plugins = [
     new MiniCssExtractPlugin({
-      filename: `[name]/css/${name}.css`,
+      filename: `[name]/css/${type === 'amp' ? 'amp' : 'style'}.css`,
     }),
     // Aquí se reemplaza ;[path]; por el nombre del sitio web
     new webpack.LoaderOptionsPlugin({
@@ -18,14 +18,14 @@ module.exports = (name = 'style') => {
     }),
   ]
 
-  // if (env.prod) {
-  plugins.push(
-    new CleanWebpackPlugin([paths.dist], {
-      verbose: true,
-      root: paths.base,
-    })
-  )
-  // }
+  if (type !== 'amp') {
+    plugins.push(
+      new CleanWebpackPlugin([paths.dist], {
+        verbose: true,
+        root: paths.base,
+      })
+    )
+  }
 
   return plugins
 }

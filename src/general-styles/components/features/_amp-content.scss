@@ -71,6 +71,10 @@
   .i-amphtml-element {
     width: 100% !important;
   }
+  .amp-active,
+  i-amphtml-scroll-container {
+    height: 0%;
+  }
   section > p {
     font-size: 18px;
     line-height: 1.5;
