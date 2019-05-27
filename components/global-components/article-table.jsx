@@ -1,6 +1,6 @@
 import React from 'react'
 import renderHTML from 'react-render-html'
-import UtilListKey from '../../../../utilities/list-keys'
+import UtilListKey from '../utilities/list-keys'
 
 const ArticleBodyChildTable = props => {
   const { data: { header = [], rows = [] } = {} } = props
