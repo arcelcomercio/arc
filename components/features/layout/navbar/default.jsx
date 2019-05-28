@@ -2,7 +2,10 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Schema from './_dependencies/schema'
-import NavBarComercio from './_children/navbar-comercio'
+
+import NavBarComercio from './_children/standard'
+import NavbarChildSomos from './_children/somos'
+
 import NavBarDepor from './_children/navbar-depor'
 import NavBarTrome from './_children/navbar-trome'
 
@@ -52,11 +55,12 @@ class BarraTest extends PureComponent {
       deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) ||
       ''
     const NavBarType = {
-      comercio: <NavBarComercio data={data} logo={logoUrl} />,
+      standard: <NavBarComercio data={data} logo={logoUrl} />,
+      somos: <NavbarChildSomos />,
       depor: <NavBarDepor data={data} logo={logoUrl} />,
       trome: <NavBarTrome data={data} logo={logoUrl} />,
     }
-    return NavBarType[brand] || NavBarType.comercio
+    return NavBarType[brand] || NavBarType.standard
   }
 
   render() {
@@ -68,14 +72,15 @@ class BarraTest extends PureComponent {
 
 BarraTest.propTypes = {
   customFields: PropTypes.shape({
-    selectDesing: PropTypes.oneOf(['comercio', 'depor', 'trome']).tag({
+    selectDesing: PropTypes.oneOf(['standard', 'somos', 'depor', 'trome']).tag({
       name: 'Modelo de barra de navegación',
       labels: {
-        comercio: 'comercio',
+        standard: 'Barra de navegación estándar',
+        somos: 'Barra de navegación somos',
         depor: 'depor',
         trome: 'trome',
       },
-      defaultValue: 'comercio',
+      defaultValue: 'standard',
     }),
   }),
 }

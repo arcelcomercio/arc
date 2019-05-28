@@ -1,0 +1,32 @@
+.navbar-somos {
+  background-color: #000;
+  display: flex;
+  height: 45px;
+  padding: 0 10px;
+  justify-content: space-between;
+  align-items: center;
+
+  &__logo-link {
+  }
+  &__logo-img {
+    max-height: 30px;
+  }
+  &__login-button {
+    color: #fff;
+    font-family: $newsletter-suscription-font;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 0 15px;
+    text-transform: uppercase;
+  }
+  &__search-button {
+    color: #fff;
+  }
+  &__icon-user {
+    color: #f8d002;
+    margin-right: 5px;
+  }
+  &__icon-search {
+    font-weight: 700;
+  }
+}
