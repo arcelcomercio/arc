@@ -1,7 +1,7 @@
 <script type="text/javascript">
-  var TIME_START = new Date().getTime(),
-    TIME_REQUESTED = 0,
-    TIME_LOADED = 0
+  const TIME_START = new Date().getTime()
+  const TIME_REQUESTED = 0
+  const TIME_LOADED = 0
 </script>
 <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js"></script>
 <script
@@ -11,6 +11,8 @@
 <script type="text/javascript" src="//acdn.adnxs.com/ast/ast.js" async></script>
 
 <script>
+  const MEMBER_ID = 8484
+
   const adtype = ''
   const atributos = ''
   const spaces = []
@@ -126,19 +128,12 @@
   const adsParams =
     dataDevice &&
     dataDevice.map(el => {
-      if (device === 'd') {
-        return {
-          invCode: `${slot}_${el}`,
-          sizes: space_device.desktop[el],
-          allowedformats: ['video', 'banner'],
-          targetId: `ads_d_${el}`,
-        }
-      }
       return {
-        invCode: `${type_space}_${el}`,
-        sizes: space_device.mobile[el],
+        invCode: `${slot}_${el}`,
+        sizes:
+          device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
         allowedformats: ['video', 'banner'],
-        targetId: `ads_m_${el}`,
+        targetId: `ads_${device}_${el}`,
       }
     })
 
@@ -212,121 +207,90 @@
         timeout: PREBID_TIMEOUT,
       })
     })
-    if (IS_MOBILE) {
-      dataLayer.push({
-        event: 'AST_Mobile_Rqt',
-      })
-    } else {
-      dataLayer.push({
-        event: 'AST_Desktop_Rqt',
-      })
-    }
-    if (IS_DEBUG) console.log('HEADER BIDDING CARGADO')
+    dataLayer.push({
+      event: IS_MOBILE ? 'AST_Mobile_Rqt' : 'AST_Desktop_Rqt',
+    })
+    //if (IS_DEBUG) console.log('HEADER BIDDING CARGADO')
   }
 
   var apntag = apntag || {}
   apntag.anq = apntag.anq || []
 
-  apntag.onEvent('adLoaded', 'ads_m_movil0', function(adObj) {
-    document.body.className += ' bottom-movil-actived'
-  })
-  apntag.onEvent('adLoaded', 'ads_d_vslider', function(adObj) {
-    document.body.className += ' vslider-actived'
-  })
-  apntag.onEvent('adLoaded', 'ads_d_zocalo2', function(adObj) {
+  apntag.onEvent('adLoaded', 'ads_m_movil0', adObj =>
+    document.body.classList.add('bottom-movil-actived')
+  )
+  apntag.onEvent('adLoaded', 'ads_d_vslider', adObj =>
+    document.body.classList.add('vslider-actived')
+  )
+  apntag.onEvent('adLoaded', 'ads_d_zocalo2', adObj => {
     if (adObj.height == 1 && adObj.width == 1) {
-      console.log('zocalo 2 cargado')
-      console.log(adObj)
-      document.body.className += ' vslider-actived'
+      document.body.classList.add('vslider-actived')
     }
   })
-  var reportAppnexus = {}
-  apntag.onEvent('adLoaded', function(adObj) {
-    //console.log('adLoaded => ', adObj)
-    TIME_LOADED = new Date().getTime()
+  const reportAppnexus = {}
+  const setParamsReport = params => {
     reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || []
-    reportAppnexus[adObj.targetId].push({
+    reportAppnexus[adObj.targetId].push(params)
+  }
+  apntag.onEvent('adLoaded', adObj => {
+    TIME_LOADED = new Date().getTime()
+    setParamsReport({
       adLoaded: adObj,
       TIME_LOADED: TIME_LOADED - TIME_START,
     })
   })
-  apntag.onEvent('adAvailable', function(adObj) {
-    //console.log('adAvailable => ', adObj);
-    reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || []
-    reportAppnexus[adObj.targetId].push({
-      adAvailable: adObj,
-    })
+  apntag.onEvent('adAvailable', adObj => {
+    setParamsReport({ adAvailable: adObj })
   })
-  apntag.onEvent('adNoBid', function(adObj) {
-    //console.log('adNoBid => ', adObj)
-    reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || []
-    reportAppnexus[adObj.targetId].push({
-      adNoBid: adObj,
-    })
+  apntag.onEvent('adNoBid', adObj => {
+    setParamsReport({ adNoBid: adObj })
   })
-  apntag.onEvent('adRequestFailure', function(adError) {
-    //console.log('adRequestFailure => ', adError)
-    reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || []
-    reportAppnexus[adObj.targetId].push({
-      adRequestFailure: adError,
-    })
+  apntag.onEvent('adRequestFailure', adError => {
+    setParamsReport({ adRequestFailure: adError })
   })
-  apntag.onEvent('adError', function(adError) {
-    //console.log('adError => ', adError)
-    reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || []
-    reportAppnexus[adObj.targetId].push({
-      adRequestFailure: adError,
-    })
+  apntag.onEvent('adError', adError => {
+    setParamsReport({ adRequestFailure: adError })
   })
 
   //END EVENTS
   apntag.anq.push(function() {
     apntag.setPageOpts({
-      member: 8484,
+      member: MEMBER_ID,
       disablePsa: true,
       keywords: {
         tipo: type_template,
         seccion: section,
         subseccion: subsection,
         categoria: '',
-        tags: tags,
+        tags,
         path_name: pathname,
       },
     })
     adsParams.map(val => apntag.defineTag(val))
-    if (IS_DEBUG) console.log('APP NEXUS CARGADO!!!!')
+    //if (IS_DEBUG) console.log('APP NEXUS CARGADO!!!!')
   })
 
-  function initWithoutHB() {
+  const initWithoutHB = () => {
     apntag.anq.push(function() {
       apntag.loadTags()
-      for (var i = 0; i < spaces.length; i++) {
-        if (IS_MOBILE == true) {
-          apntag.anq.push(function() {
-            apntag.showTag('ads_m_' + spaces[i])
-          })
-        } else apntag.showTag('ads_d_' + spaces[i])
+      adsParams.forEach(el =>
+        apntag.anq.push(() => {
+          apntag.showTag(el.targetId)
+        })
+      )
+      if (!document.location.href.includes('/mag.')) {
+        const tag_inline = getTagInline()
+        inline(tag_inline)
       }
-      if (document.location.href.search('/mag.') == -1) {
-        var inline_tag = getTagInline()
-        inline(inline_tag)
-      }
-
       peruRedShowTag()
-      if (IS_MOBILE) {
-        dataLayer.push({
-          event: 'AST_Mobile_Rqt',
-        })
-      } else {
-        dataLayer.push({
-          event: 'AST_Desktop_Rqt',
-        })
-      }
+      dataLayer.push({
+        event: IS_MOBILE ? 'AST_Mobile_Rqt' : 'AST_Desktop_Rqt',
+      })
     })
   }
 
   if (adUnits.length == 0) {
-    if (IS_DEBUG) console.log(adUnits)
+    //if (IS_DEBUG) console.log(adUnits)
     initWithoutHB()
   }
 
@@ -342,7 +306,7 @@
               apntag.showTag(el.targetId)
             })
           )
-          if (IS_DEBUG) console.log('INITADDSERVER')
+          // if (IS_DEBUG) console.log('INITADDSERVER')
         })
       })
     }
@@ -603,7 +567,7 @@
               ).style.display = 'block'
 
               if (adObj.adType == 'native') {
-                const $ad = document.getElementById(adObj.targetId)
+                const ad = document.getElementById(adObj.targetId)
 
                 const nObj = adObj.native
                 const clickUrl = nObj.clickUrl
@@ -630,7 +594,7 @@
                         </div>
                       </a>`
 
-                $ad.innerHTML = template
+                ad.innerHTML = template
 
                 // collect and fire off the trackers
                 const impTrackers = nObj.impressionTrackers || []
@@ -658,7 +622,7 @@
 
                 // set up handlers for click trackers -
                 // this will only work if you wrap clickable elements in <a> tags
-                const clickable = Array.from($ad.getElementsByTagName('a'))
+                const clickable = Array.from(ad.getElementsByTagName('a'))
 
                 clickable.forEach(node => {
                   node.addEventListener('click', () => {
@@ -671,20 +635,21 @@
             })
           })
         }
-        if (IS_DEBUG) console.log('PERU RED CARGADO!!!!')
+        //if (IS_DEBUG) console.log('PERU RED CARGADO!!!!')
       }
     }
   }
 
-  var fireRequest = function(url) {
-    var request = new XMLHttpRequest()
+  const fireRequest = (url) => {
+    const request = new XMLHttpRequest()
     request.open('GET', url)
     request.send()
   }
-  var parseJsTrackers = function(str) {
-    var urls = [],
-      regex = /(?:<script.+?)(?:src=")(.+?)".*?><\/script>/g,
-      result
+  const parseJsTrackers = (str) => {
+    const urls = []
+    const regex = /(?:<script.+?)(?:src=")(.+?)".*?><\/script>/g
+    const result
+
     while ((result = regex.exec(str)) !== null) {
       urls.push(result[1])
     }
@@ -745,6 +710,6 @@
     }
   }
 
-  if (window.location.pathname == '/mundial/seleccion' && IS_MOBILE == true)
+  if (window.location.pathname == '/mundial/seleccion' && IS_MOBILE)
     document.getElementById('ads-movil-movil_2').style.display = 'block'
 </script>
