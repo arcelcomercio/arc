@@ -14,6 +14,7 @@ const policiesList = {
   cookiesPolicy: 'Políticas de cookies',
   aboutUs: 'Quienes Somos',
 }
+const defaultPolicy = 'termsAndConditions'
 
 const classes = {
   staticPolicy: 'info-pages',
@@ -44,7 +45,7 @@ class InfoPages extends PureComponent {
 
     const contentSource = 'story-by-id'
     const params = {
-      _id: policies[typeOfPolicy],
+      _id: typeOfPolicy ? policies[typeOfPolicy] : policies[defaultPolicy],
       published: 1,
     }
     const { fetched } = this.getContent(contentSource, params)
@@ -52,12 +53,16 @@ class InfoPages extends PureComponent {
       .then(res => {
         this.setState({
           contentElements: res.content_elements,
-          contentTitle: policiesList[typeOfPolicy],
+          contentTitle: typeOfPolicy
+            ? policiesList[typeOfPolicy]
+            : policiesList[defaultPolicy],
         })
       })
       .catch(e => {
         const errorMessage = `No existe el contenido "${
-          policiesList[typeOfPolicy]
+          typeOfPolicy
+            ? policiesList[typeOfPolicy]
+            : policiesList[defaultPolicy]
         }" para "${arcSite}"`
         this.setState({ contentTitle: errorMessage })
         // eslint-disable-next-line no-console
@@ -90,7 +95,7 @@ InfoPages.propTypes = {
     typeOfPolicy: PropTypes.oneOf(Object.keys(policiesList)).tag({
       name: 'Página',
       labels: policiesList,
-      defaultValue: 'termsAndConditions',
+      defaultValue: defaultPolicy,
       description:
         'Este campo usa notas no publicadas de elipsis declaradas en el "site properties"',
     }),
