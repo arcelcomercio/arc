@@ -1,0 +1,2091 @@
+<script type="text/javascript">
+    var TIME_START = new Date().getTime(),
+        TIME_REQUESTED = 0,
+        TIME_LOADED = 0;
+</script>
+<script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js"></script>
+<script src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js" async></script>
+<script type="text/javascript" src="//acdn.adnxs.com/ast/ast.js" async></script>
+
+<script>
+    var sitio = 'eco';
+
+    var agente = navigator.userAgent;
+    if (agente.search("Chrome-Lighthouse") >= 0) var sitio = "psi"; // elcomercio psi
+    else var sitio = "eco"; // elcomercio
+
+    var pathname = window.location.pathname;
+    var elements_path = pathname.split('/').filter(function (item) {
+        if (item.match(/(\w+)/g)) return true;
+    });
+    var body_class = document.querySelector('body').getAttribute('class');
+    var type_template = get_template();
+    var section = get_section();
+    var subsection = get_subsection();
+    //var tags = get_tags();
+    var adtype = '';
+    var atributos = '';
+    var IS_DEBUG = (location.href).search('consoles=true') >= 0 ? true : false;
+    var tags = get_tags2();
+    IS_DEBUG ? console.log(tags) : null;
+
+    var spaces_sizes_desktop = {
+            'auspiciodt': [
+                [625, 368]
+            ],
+            'auspicioluces': [
+                [625, 368]
+            ],
+            'auspiciotop1': [
+                [80, 25],
+                [1, 1]
+            ],
+            'auspiciotop2': [
+                [80, 25],
+                [1, 1]
+            ],
+            'auspiciotop3': [
+                [80, 25],
+                [1, 1]
+            ],
+            'boton1': [
+                [300, 600],
+                [1, 1]
+            ],
+            'boton2': [
+                [300, 250],
+                [1, 1],
+                [300, 350]
+            ],
+            'boton3': [
+                [300, 250],
+                [1, 1],
+                [300, 350]
+            ],
+            'cintillo': [
+                [980, 45],
+                [1, 1]
+            ],
+            'daily': [
+                [624, 368],
+                [300, 350]
+            ],
+            'daily2': [
+                [624, 368],
+                [300, 350]
+            ],
+            'expandible': [
+                [1, 1],
+                [960, 35],
+                [960, 400],
+                [980, 90],
+                [980, 200]
+            ],
+            'fotogaleria1': [
+                [300, 250],
+                [300, 600],
+                [1, 1]
+            ],
+            'fotogaleria1': [
+                [300, 600],
+                [300, 250],
+                [1, 1]
+            ],
+            'fotogaleria2': [
+                [300, 250],
+                [300, 600],
+                [1, 1]
+            ],
+            'fotogaleria3': [
+                [300, 250],
+                [300, 600],
+                [1, 1]
+            ],
+            'inline': [
+                [1, 1],
+                [300, 250]
+            ],
+            'jalador': [
+                [141, 170],
+                [1, 1]
+            ],
+            'left': [
+                [468, 60],
+                [1, 1],
+                [520, 300],
+                [336, 280],
+                [300, 250],
+                [520, 280],
+                [520, 180]
+            ],
+            'middle1': [
+                [980, 330],
+                [970, 250],
+                [970, 90],
+                [728, 90],
+                [1, 1]
+            ],
+            'middle2': [
+                [980, 330],
+                [970, 250],
+                [970, 90],
+                [728, 90],
+                [1, 1]
+            ],
+            'publirreportaje': [
+                [300, 250],
+                [300, 350]
+            ],
+            'recomendador': [
+                [520, 220],
+                [1, 1],
+                [570, 220],
+                [336, 280],
+                [300, 250],
+                [520, 280],
+                [625, 370]
+            ],
+            'right1': [
+                [300, 250],
+                [300, 600],
+                [1, 1],
+                [300, 300]
+            ],
+            'right2': [
+                [300, 250],
+                [300, 600],
+                [1, 1]
+            ],
+            'skin': [
+                [1, 1]
+            ],
+            'ticker': [
+                [1275, 45],
+                [980, 45],
+                [1024, 45],
+                [1, 1]
+            ],
+            'top': [
+                [980, 180],
+                [728, 90],
+                [970, 90],
+                [970, 250],
+                [1, 1],
+                [980, 90],
+                [980, 200]
+            ], // se ha quitado  [980, 400] // 18022019 se agregó 970x250
+            'vslider': [
+                [1, 1]
+            ],
+            'zocalo1': [
+                [160, 600],
+                [120, 600],
+                [150, 600],
+                [1, 1],
+                [150, 601],
+                [2, 1]
+            ],
+            'zocalo2': [
+                [160, 600],
+                [120, 600],
+                [150, 600],
+                [1, 1],
+                [150, 602],
+                [2, 2]
+            ],
+            'wide': [
+                [980, 120],
+                [1, 1]
+            ],
+        },
+        spaces_sizes_mobile = {
+            'cintillo': [
+                [300, 45],
+                [1, 1],
+                [300, 100],
+                [300, 50],
+                [300, 250]
+            ],
+            'movil0': [
+                [1, 1]
+            ],
+            'movil1': [
+                [300, 300],
+                [300, 100],
+                [320, 50],
+                [1, 1],
+                [300, 50]
+            ],
+            'movil2': [
+                [300, 250],
+                [1, 1],
+                [320, 50],
+                [300, 50],
+                [300, 100]
+            ],
+            'movil3': [
+                [300, 250],
+                [1, 1],
+                [320, 50],
+                [300, 50],
+                [300, 100]
+            ],
+            'movil4': [
+                [300, 250],
+                [1, 1],
+                [320, 50],
+                [300, 50],
+                [300, 100]
+            ],
+            'movil5': [
+                [300, 250],
+                [1, 1],
+                [320, 50],
+                [300, 50],
+                [300, 100]
+            ],
+            'publirreportaje': [
+                [300, 250],
+                [300, 350]
+            ],
+            'ticker': [
+                [300, 50],
+                [300, 100],
+                [320, 50],
+                [1, 1]
+            ],
+            'vslider': [
+                [1, 1]
+            ],
+            'wide': [
+                [300, 250],
+                [1, 1]
+            ],
+        };
+    //var IS_MOBILE = (window.innerWidth > 768) ? false : true;
+    var IS_MOBILE = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)|(Windows Phone)/i) ? true :
+        false;
+    var spaces = new Array();
+    var type_space = '';
+    if (IS_MOBILE) { // VERSIÓN MOBILE
+
+        if (pathname == '/') { // home
+
+            spaces = [
+                'cintillo',
+                'movil0',
+                'movil1',
+                'movil2',
+                'movil3',
+                'movil4',
+                'movil5',
+                'publirreportaje',
+                'ticker',
+                'wide'
+            ];
+            type_space = 'port1';
+            if (document.location.href.search('mag') >= 0) {
+                spaces = ['movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+                type_space = 'port29';
+            }
+        } else if (body_class.search('subhome') >= 0) {
+
+            spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+
+            if (body_class.search('SH4-subsecciones') >= 0) {
+                type_space = 'port7';
+                spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            } else if ((section == 'mundo' && subsection == 'europa') ||
+                (section == 'deportetotal' && subsection == 'seleccion') ||
+                (section == 'deportetotal' && subsection == 'running')) {
+                type_space = 'port7';
+                spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            } else if (section == 'viu' && subsection == '' || section == 'wuf' && subsection == '' || section ==
+                'ruedastuercas' && subsection == '' || section == 'casaymas' && subsection == '' || section ==
+                'vamos' &&
+                subsection == '') {
+                type_space = 'port3';
+            } else if (section == 'politica' && subsection == 'gobierno') {
+                type_space = 'port5';
+            } else if (section == 'viu' && subsection == 'moda') {
+                type_space = 'port8';
+            } else if (section == 'deportetotal' && subsection == 'championsleague') {
+                type_space = 'port13';
+            } else if (section == 'lifweek' && subsection == 'disenadores') {
+                type_space = 'port24';
+                spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3'];
+            } else if (section == 'lifweek' &&
+                (subsection == 'desfiles' || subsection == 'backstage' || subsection == 'lomastrendy' || subsection ==
+                    'sociales')) {
+                type_space = 'port23';
+            } else if (section == 'mundial' && subsection == 'videos') {
+                type_space = 'port21';
+            } else if (section == 'mundial' && subsection == 'fotos') {
+                type_space = 'port21';
+            } else if (section == 'mundial' && subsection == 'fixture') {
+                type_space = 'port19';
+            } else if (section == 'mundial' && subsection == 'dtopina') {
+                type_space = 'port20';
+                spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3'];
+            } else if (section == 'mundial' && subsection == 'seleccion') {
+                type_space = 'port18';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2'];
+            } else if (section == 'elcomerciotv') {
+                type_space = 'port4';
+            } else if (section == 'opinion') {
+                type_space = 'port5';
+            } else if (section == 'cartelera') {
+                type_space = 'port6';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3'];
+            } else if (section == 'videos' || section == 'fotogalerias') {
+                type_space = 'port11';
+            } else if (subsection == '' && (section == 'deportetotal' || section == 'tvmas' || section == 'luces' ||
+                    section ==
+                    'eldominical')) {
+                type_space = 'port13';
+            } else if (section == 'politica' && subsection == '') {
+                type_space = 'port2';
+            } else if (section == 'viu' || section == 'wuf' || section == 'ruedastuercas' || section == 'casaymas' ||
+                section ==
+                'vamos') {
+                type_space = 'port8';
+            } else if (section == 'blog' && subsection == '') {
+                type_space = 'port5';
+            } else if (section == 'blog') {
+                type_space = 'port9';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            } else type_space = 'port2';
+
+            if (section == 'publirreportaje') type_space = 'port2';
+            if (window.location.pathname == '/mundial/seleccion/peru') type_space = 'port17';
+            if (window.location.pathname == '/vamos/noticias' || window.location.pathname ==
+                '/wuf/noticias') {
+                type_space = 'port8';
+            }
+
+            if (section == 'deportetotal' && (subsection == 'copaconfederaciones' || subsection == 'running' ||
+                    subsection ==
+                    'seleccion')) {
+                type_space = 'port13';
+            }
+            if (section == 'tecnologia' && subsection == 'tecnologia') {
+                type_space = 'port7';
+            }
+            if (document.location.href.search('mag') >= 0) {
+                spaces = ['movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+                type_space = 'port29';
+            }
+            if (subsection == 'testdeproust') {
+                type_space = 'port32';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+
+            }
+            if (subsection == 'firmas') {
+                type_space = 'port33';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+
+            }
+            if (section == 'papafranciscoperu') {
+                type_space = 'port34';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            }
+            if (document.location.href.search('papa-francisco-peru/la-ruta') >= 0) {
+                type_space = 'port35';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            }
+        } else if (body_class.search('home') >= 0) {
+            spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5', 'wide'];
+
+            if (section == 'lifweek' && subsection == 'programa') {
+                type_space = 'port25';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4'];
+            } else if (section == 'lifweek') {
+                type_space = 'port22';
+            } else if (section == 'mundial') {
+                type_space = 'port16';
+            } else type_space = 'port2';
+
+
+            if (window.location.pathname == '/somos') {
+                type_space = 'port31';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+
+            }
+            if (document.location.href.search('mag') >= 0) {
+                spaces = ['movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+                type_space = 'port29';
+            }
+            if (section == 'dakar' || (section == 'tags' && subsection == 'noticias') || (section == 'dakar' &&
+                    subsection == 'videos')) {
+                type_space = 'port36';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            }
+
+
+        } else if (body_class.search('nota') >= 0 /*  */ ) {
+
+            spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5', 'vslider'];
+
+            var get_tipo_nota = document.querySelector('meta[name=\'typeNota\']');
+            var tipo_nota = (get_tipo_nota == null) ? null : get_tipo_nota.content;
+            if (body_class.search('nota') >= 0 && body_class.search('fotogaleria') >= 0 && section == 'lifweek' &&
+                tipo_nota == null) {
+                type_space = 'nota9';
+                spaces = ['movil0', 'cintillo', 'movil1', 'movil2'];
+            } else if (body_class.search('nota') >= 0 && body_class.search('fotogaleria') >= 0 && section ==
+                'lifweek') {
+                type_space = 'nota8';
+                spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            } else if (body_class.search('nota') >= 0 && body_class.search('fotogaleria') >= 0) {
+                type_space = 'nota2';
+            } else if (body_class.search('nota') >= 0 && body_class.search('caricatura') >= 0) {
+                type_space = 'nota5';
+            } else if (tipo_nota == 'imagen_completa') {
+                type_space = 'nota3';
+            } else if (tipo_nota == 'video' && section == 'elcomerciotv') {
+                type_space = 'nota4';
+            } else if (body_class.search('nota') >= 0 && section == 'publirreportaje') {
+                type_space = 'nota12';
+            } else if (tipo_nota == 'menuperu') {
+                type_space = 'nota6';
+                spaces = ['movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5', 'vslider'];
+            } else if (section == 'lifweek') {
+                type_space = 'nota7';
+                spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            } else if (tipo_nota == 'infografia') {
+                type_space = 'nota3';
+            } else type_space = 'nota1';
+
+            if (document.location.href.search('mag') >= 0) {
+                spaces = ['movil1', 'movil2', 'movil4'];
+                type_space = 'nota11';
+            }
+            if (document.location.href.search('dakar/camiones') >= 0) {
+                type_space = 'port37';
+                spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            }
+
+        } else if (section == 'mercados') {
+            spaces = ['cintillo', 'movil0', 'movil1', 'movil2'];
+            type_space = 'port12';
+        } else if (section == 'archivo' || section == 'autor') {
+            spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            type_space = 'port10';
+        } else if (section == 'blog') {
+            spaces = ['cintillo', 'movil0', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            type_space = 'port9';
+        } else if (section == 'buscar') {
+            spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            type_space = 'port7';
+        } else if (section == 'tags') {
+            spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            type_space = 'port10';
+        } else if (section == 'lasmasleidas') {
+            spaces = ['movil0', 'cintillo', 'movil1', 'movil2', 'movil3', 'movil4', 'movil5'];
+            type_space = 'port7';
+
+        } else {
+            spaces = ['ticker', 'top', 'expandible', 'zocalo1', 'zocalo2', 'right1', 'boton1']; // temporal
+            type_space = 'port1';
+        }
+
+    } else { // VERSIÓN DESKTOP
+
+        if (pathname == '/') { // home
+
+            spaces = [
+                'boton1',
+                'boton2',
+                'boton3',
+                'cintillo',
+                'daily',
+                'daily2',
+                'expandible',
+                'middle1',
+                'middle2',
+                'publirreportaje',
+                'skin',
+                'ticker',
+                'top',
+                'zocalo1',
+                'zocalo2',
+                'wide'
+            ];
+            type_space = 'port1';
+            if (document.location.href.search('mag') >= 0) {
+                spaces = ['zocalo2', 'top', 'boton1', 'boton2', 'middle1', 'middle2'];
+                type_space = 'port29';
+            }
+        } else if (body_class.search('subhome') >= 0) {
+
+            spaces = ['boton1', 'boton2', 'boton3', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1',
+                'zocalo2'
+            ];
+
+            if (body_class.search('SH4-subsecciones') >= 0) {
+                type_space = 'port7';
+                spaces = [
+                    'zocalo1',
+                    'zocalo2',
+                    'top',
+                    'cintillo',
+                    'expandible',
+                    'skin',
+                    'auspiciotop1',
+                    'auspiciotop2',
+                    'auspiciotop3'
+                ];
+            } else if ((section == 'mundo' && subsection == 'europa') ||
+                (section == 'deportetotal' && subsection == 'seleccion') ||
+                (section == 'deportetotal' && subsection == 'running')) {
+                type_space = 'port7';
+                spaces = [
+                    'zocalo1',
+                    'zocalo2',
+                    'top',
+                    'cintillo',
+                    'expandible',
+                    'skin',
+                    'auspiciotop1',
+                    'auspiciotop2',
+                    'auspiciotop3'
+                ];
+            } else if (section == 'viu' && subsection == '' || section == 'wuf' && subsection == '' || section ==
+                'ruedastuercas' && subsection == '' || section == 'casaymas' && subsection == '' || section ==
+                'vamos' &&
+                subsection == '') {
+                type_space = 'port3';
+                spaces = [
+                    'boton1',
+                    'boton2',
+                    'cintillo',
+                    'expandible',
+                    'middle1',
+                    'middle2',
+                    'skin',
+                    'top',
+                    'zocalo1',
+                    'zocalo2'
+                ];
+            } else if (section == 'politica' && subsection == 'gobierno') {
+                type_space = 'port5';
+                spaces = ['cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'viu' && subsection == 'moda') {
+                type_space = 'port8';
+                spaces = ['boton1', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'deportetotal' && subsection == 'championsleague') {
+                type_space = 'port13';
+                spaces = ['boton1', 'boton2', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'lifweek' && subsection == 'disenadores') {
+                type_space = 'port24';
+                spaces = ['cintillo', 'expandible', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'lifweek' &&
+                (subsection == 'desfiles' || subsection == 'backstage' || subsection == 'lomastrendy' || subsection ==
+                    'sociales')) {
+                type_space = 'port23';
+                spaces = ['boton1', 'cintillo', 'expandible', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'mundial' && subsection == 'videos') {
+                type_space = 'port21';
+                spaces = ['boton1', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'mundial' && subsection == 'fotos') {
+                type_space = 'port21';
+                spaces = ['boton1', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'mundial' && subsection == 'fixture') {
+                type_space = 'port19';
+                spaces = ['cintillo', 'expandible', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'mundial' && subsection == 'dtopina') {
+                type_space = 'port20';
+                spaces = ['cintillo', 'expandible', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'mundial' && subsection == 'seleccion') {
+                type_space = 'port18';
+                spaces = ['cintillo', 'expandible', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'elcomerciotv') {
+                type_space = 'port4';
+                spaces = ['cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'opinion') {
+                type_space = 'port5';
+                spaces = ['cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'cartelera') {
+                type_space = 'port6';
+                spaces = ['cintillo', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'videos' || section == 'fotogalerias') {
+                type_space = 'port11';
+                spaces = ['boton1', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (subsection == '' && (section == 'deportetotal' || section == 'tvmas' || section == 'luces' ||
+                    section ==
+                    'eldominical')) {
+                type_space = 'port13';
+                spaces = ['boton1', 'boton2', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'politica' && subsection == '') {
+                type_space = 'port2';
+                spaces = ['boton1', 'boton2', 'boton3', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1',
+                    'zocalo2'
+                ];
+            } else if (section == 'viu' || section == 'wuf' || section == 'ruedastuercas' || section == 'casaymas' ||
+                section ==
+                'vamos') {
+                type_space = 'port8';
+                spaces = ['boton1', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'blog' && subsection == '') {
+                type_space = 'port5';
+                spaces = ['cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'blog') {
+                type_space = 'port9';
+                spaces = [
+                    'auspiciotop1',
+                    'auspiciotop2',
+                    'boton1',
+                    'boton2',
+                    'cintillo',
+                    'expandible',
+                    'skin',
+                    'top',
+                    'zocalo1',
+                    'zocalo2'
+                ];
+            } else type_space = 'port2';
+
+            if (section == 'publirreportaje') type_space = 'port2';
+
+            if (window.location.pathname == '/mundial/seleccion/peru') {
+                type_space = 'port17';
+                spaces = ['zocalo1', 'zocalo2', 'skin', 'boton1', 'middle1'];
+            }
+            if (window.location.pathname == '/vamos/noticias' || window.location.pathname == '/wuf/noticias') {
+                type_space = 'port8';
+                spaces = ['boton1', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            }
+
+            if (section == 'deportetotal' && (subsection == 'copaconfederaciones' || subsection == 'running' ||
+                    subsection ==
+                    'seleccion')) {
+                type_space = 'port13';
+                spaces = ['boton1', 'boton2', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            }
+            if (section == 'tecnologia' && subsection == 'tecnologia') {
+                type_space = 'port7';
+                spaces = [
+                    'zocalo1',
+                    'zocalo2',
+                    'top',
+                    'cintillo',
+                    'expandible',
+                    'skin',
+                    'auspiciotop1',
+                    'auspiciotop2',
+                    'auspiciotop3'
+                ];
+            }
+            if (document.location.href.search('mag') >= 0) {
+                spaces = ['zocalo2', 'top', 'boton1', 'boton2', 'middle1', 'middle2'];
+                type_space = 'port29';
+            }
+            if (subsection == 'testdeproust') {
+                type_space = 'port32';
+                spaces = ['zocalo1', 'zocalo2', 'skin', 'boton1', 'middle1', 'top', 'expandible', 'cintillo'];
+            }
+            if (subsection == 'firmas') {
+                type_space = 'port33';
+                spaces = ['zocalo1', 'zocalo2', 'skin', 'boton1', 'top', 'expandible', 'cintillo'];
+            }
+            if (section == 'papafranciscoperu') {
+                type_space = 'port34';
+                spaces = ['skin', 'top', 'zocalo1', 'zocalo2', 'boton1'];
+            }
+            if (document.location.href.search('papa-francisco-peru/la-ruta') >= 0) {
+                type_space = 'port35';
+                spaces = ['skin', 'top', 'zocalo1', 'zocalo2'];
+            }
+
+        } else if (body_class.search('home') >= 0) {
+
+            spaces = ['boton1', 'boton2', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2',
+                'wide'
+            ];
+
+            if (section == 'lifweek' && subsection == 'programa') {
+                type_space = 'port25';
+                spaces = ['cintillo', 'expandible', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (section == 'lifweek') {
+                type_space = 'port22';
+                spaces = ['boton1', 'boton2', 'boton3', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1',
+                    'zocalo2'
+                ];
+            } else if (section == 'mundial') {
+                type_space = 'port16';
+                spaces = ['boton1', 'boton2', 'cintillo', 'expandible', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (window.location.pathname == '/somos') {
+                type_space = 'port31';
+                spaces = ['zocalo1', 'zocalo2', 'skin', 'boton1', 'middle1', 'top', 'expandible', 'cintillo'];
+
+
+            } else if (body_class.search('mag') >= 0) {
+                spaces = ['zocalo2', 'top', 'boton1', 'boton2', 'middle1', 'middle2'];
+                type_space = 'port29';
+            } else type_space = 'port2';
+            if (section == 'dakar' || (section == 'tags' && subsection == 'noticias') || (section == 'dakar' &&
+                    subsection == 'videos')) {
+                type_space = 'port36';
+                spaces = ['skin', 'top', 'zocalo1', 'zocalo2', 'expandible', 'cintillo', 'boton2', 'boton1', 'middle1',
+                    'boton3'
+                ];
+            }
+
+        } else if (body_class.search('nota') >= 0 /*  */ ) {
+
+            spaces = [
+                'cintillo',
+                'expandible',
+                'inline',
+                'jalador',
+                'left',
+                'recomendador',
+                'right1',
+                'right2',
+                'skin',
+                'top',
+                'vslider',
+                'zocalo1',
+                'zocalo2'
+            ];
+
+            var get_tipo_nota = document.querySelector('meta[name=\'typeNota\']');
+            var tipo_nota = (get_tipo_nota == null) ? null : get_tipo_nota.content;
+
+            if (body_class.search('nota') >= 0 && body_class.search('fotogaleria') >= 0 && section == 'lifweek' &&
+                tipo_nota == null) {
+                type_space = 'nota9';
+                spaces = ['cintillo', 'top', 'zocalo1', 'zocalo2'];
+            } else if (body_class.search('nota') >= 0 && body_class.search('fotogaleria') >= 0 && section ==
+                'lifweek') {
+                type_space = 'nota8';
+                spaces = [
+                    'cintillo',
+                    'fotogaleria1',
+                    'fotogaleria2',
+                    'fotogaleria3',
+                    'inline',
+                    'left',
+                    'recomendador',
+                    'skin',
+                    'top',
+                    'zocalo1',
+                    'zocalo2'
+                ];
+            } else if (body_class.search('nota') >= 0 && body_class.search('fotogaleria') >= 0) {
+                type_space = 'nota2';
+                spaces = [
+                    'cintillo',
+                    'expandible',
+                    'fotogaleria1',
+                    'fotogaleria2',
+                    'fotogaleria3',
+                    'inline',
+                    'left',
+                    'recomendador',
+                    'skin',
+                    'top',
+                    'vslider',
+                    'zocalo1',
+                    'zocalo2'
+                ];
+            } else if (body_class.search('nota') >= 0 && body_class.search('caricatura') >= 0) {
+                type_space = 'nota5';
+                spaces = ['cintillo', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (tipo_nota == 'imagen_completa') {
+                type_space = 'nota3';
+                spaces = [
+                    'cintillo',
+                    'expandible',
+                    'inline',
+                    'jalador',
+                    'left',
+                    'recomendador',
+                    'right1',
+                    'right2',
+                    'skin',
+                    'top',
+                    'vslider',
+                    'zocalo1',
+                    'zocalo2'
+                ];
+            } else if (tipo_nota == 'video' && section == 'elcomerciotv') {
+                type_space = 'nota4';
+                spaces = ['cintillo', 'middle1', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            } else if (tipo_nota == 'menuperu') {
+                type_space = 'nota6';
+                spaces = [
+                    'cintillo',
+                    'expandible',
+                    'inline',
+                    'left',
+                    'recomendador',
+                    'right1',
+                    'right2',
+                    'skin',
+                    'top',
+                    'vslider',
+                    'zocalo1',
+                    'zocalo2'
+                ];
+            } else if (section == 'lifweek') {
+                type_space = 'nota7';
+                spaces = [
+                    'cintillo',
+                    'expandible',
+                    'inline',
+                    'left',
+                    'recomendador',
+                    'right1',
+                    'right2',
+                    'skin',
+                    'top',
+                    'zocalo1',
+                    'zocalo2'
+                ];
+            } else if (tipo_nota == 'infografia') {
+                type_space = 'nota3';
+            } else if (body_class.search('nota') >= 0 && section == 'publirreportaje') {
+                type_space = 'nota12';
+            } else type_space = 'nota1';
+            if (body_class.search('mag') >= 0) {
+                spaces = ['zocalo2', 'top', 'right1', 'recomendador'];
+                type_space = 'nota11';
+            }
+            if (document.location.href.search('dakar/camiones') >= 0 || document.location.href.search(
+                    'dakar/camiones') >= 0 || document.location.href.search('dakar/motos') >= 0 || document.location
+                .href
+                .search('dakar/resultados') >= 0) {
+                type_space = 'port37';
+                spaces = ['skin', 'top', 'zocalo1', 'zocalo2', 'expandible', 'cintillo'];
+            }
+
+        } else if (section == 'mercados') {
+            spaces = ['cintillo', 'expandible', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            type_space = 'port12';
+        } else if (section == 'archivo' || section == 'autor') {
+            spaces = ['boton1', 'boton2', 'cintillo', 'expandible', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            type_space = 'port10';
+        } else if (section == 'blog') {
+            spaces = [
+                'auspiciotop1',
+                'auspiciotop2',
+                'boton1',
+                'boton2',
+                'cintillo',
+                'expandible',
+                'skin',
+                'top',
+                'zocalo1',
+                'zocalo2'
+            ];
+            type_space = 'port9';
+        } else if (section == 'buscar') {
+            spaces = [
+                'zocalo1',
+                'zocalo2',
+                'top',
+                'cintillo',
+                'expandible',
+                'skin',
+                'auspiciotop1',
+                'auspiciotop2',
+                'auspiciotop3'
+            ];
+            type_space = 'port7';
+        } else if (section == 'tags') {
+            spaces = ['boton1', 'boton2', 'cintillo', 'expandible', 'skin', 'top', 'zocalo1', 'zocalo2'];
+            type_space = 'port10';
+        } else if (section == 'lasmasleidas') {
+            spaces = [
+                'zocalo1',
+                'zocalo2',
+                'top',
+                'cintillo',
+                'expandible',
+                'skin',
+                'auspiciotop1',
+                'auspiciotop2',
+                'auspiciotop3'
+            ];
+            type_space = 'port7';
+
+        } else {
+            spaces = ['ticker', 'top', 'expandible', 'zocalo1', 'zocalo2', 'right1', 'boton1']; // temporal
+            type_space = 'port1';
+        }
+    }
+
+    function get_section() {
+        if (elements_path.length) {
+            if (elements_path.indexOf('noticias') != -1) return 'tags';
+            else if (elements_path.indexOf('buscar') != -1) return 'buscar';
+            else return elements_path[0].split('-').join('').toLowerCase();
+        } else return (pathname == '/') ? 'home' : '';
+    }
+
+    function get_subsection() {
+        var limit = (type_template == 'portada') ? 1 : 2;
+        if (section == 'tags') return elements_path[1].split('-').join('').toLowerCase();
+        else if (section == 'archivo') return '';
+        else return (elements_path.length > limit) ? elements_path[1].split('-').join('').toLowerCase() : '';
+    }
+
+    function get_template() {
+        if (pathname == '/' && body_class.search('subhome') >= 0) return 'portada';
+        else if (body_class.search('nota') >= 0 && body_class.search('fotogaleria') >= 0) return 'foto';
+        else if (body_class.search('nota') >= 0) return 'nota';
+        else return 'portada';
+    }
+
+    function get_tags() {
+        var array_tags = new Array();
+        var nota_tags = new String();
+        if (document.querySelectorAll('.tags-item a')) {
+            document.querySelectorAll('.tags-item a').forEach(function (element) {
+                var tag_name = element.text.toLowerCase();
+                tag_name = tag_name.normalize('NFKD').replace(/[\u0300-\u036F]/g, '');
+                tag_name = tag_name.replace(/ /g, '');
+                nota_tags = nota_tags + tag_name + ',';
+            });
+            var n = nota_tags.length;
+            nota_tags = nota_tags.slice(0, n - 1);
+        } else var nota_tags = '';
+        return array_tags = nota_tags.split(',');
+    }
+
+    function get_tags2() {
+        var tags_section = document.querySelector('meta[name=\'etiquetas\']');
+        if (tags_section == null) var tags = document.querySelectorAll('meta[property="article:tag"]');
+        else var tags = document.querySelector('meta[name=\'etiquetas\']').content;
+        var array_tags = new Array();
+        var nota_tags = new String();
+        if (tags.length) {
+            if (tags_section !== null) {
+                nota_tags = tags.replace(/ /g, '');
+                nota_tags = nota_tags.normalize('NFKD').replace(/[\u0300-\u036F]/g, '');
+                nota_tags = nota_tags.toLowerCase();
+            } else {
+                for (var i = 0; i < tags.length; i++) {
+                    nota_tags = tags[i].content;
+                    nota_tags = nota_tags.replace(/ /g, '');
+                }
+            }
+        } else {
+            if (section == 'buscar')
+                array_tags.push(window.location.search.slice(3).split('+').join('').toLowerCase());
+            else if (section == 'tags') array_tags.push(elements_path[1].split('-').join('').toLowerCase());
+            else array_tags;
+        }
+        return array_tags = nota_tags.split(',');
+    }
+</script>
+<script>
+    var ads_d_300x600_size = [
+            [300, 600]
+        ],
+        ads_d_300x250_size = [
+            [300, 250]
+        ],
+        ads_d_160x600_size = [
+            [160, 600]
+        ],
+        ads_d_970x250_size = [
+            [970, 250]
+        ],
+        ads_d_728x90_size = [
+            [728, 90]
+        ],
+        ads_d_970x90_size = [
+            [970, 90]
+        ],
+        ads_m_320x50_size = [
+            [320, 50]
+        ],
+        ads_m_300x250_size = [
+            [300, 250]
+        ];
+
+    var PREBID_TIMEOUT = 3000;
+
+    var pbjs = pbjs || {};
+    pbjs.que = pbjs.que || [];
+
+    var gport = type_space;
+    var adUnits = [];
+    var p_ports = [];
+    var spaces_hb = [];
+
+    for (var i = 1; i < 29; i++) {
+        if (i < 11) {
+            spaces_hb.push('nota' + i);
+            //if (i > 1) {
+            //spaces_hb.push('port' + i);
+            //}
+        } else {
+            //spaces_hb.push('port' + i);
+        }
+    }
+
+    if (IS_MOBILE) { // VERSIÓN MOBILE
+        var medidas = ["nota1", "nota2", "nota3", "nota4", "nota5", "nota6", "nota7", "nota8", "nota9", "nota10",
+            "nota11", "port1", "port2", "port3", "port4", "port5", "port6", "port7", "port8", "port9", "port10",
+            "port11", "port12", "port13", "port14", "port15", "port16", "port17", "port18", "port19", "port20",
+            "port21", "port22", "port23", "port24", "port25", "port26", "port27", "port28", "port29", "port30",
+            "port31", "port32", "port33", "port34", "port35", "port36", "port37"
+        ];
+        p_ports[0] = ['movil1', 'ads_m_movil1', ads_m_320x50_size, '1299261', medidas, 'criteo'];
+        p_ports[1] = ['movil2', 'ads_m_movil2', ads_m_300x250_size, '1299273', medidas, 'criteo'];
+        p_ports[2] = ['movil3', 'ads_m_movil3', ads_m_300x250_size, '1299273', medidas, 'criteo'];
+        p_ports[3] = ['movil4', 'ads_m_movil4', ads_m_300x250_size, '1299273', medidas, 'criteo'];
+        p_ports[4] = ['movil5', 'ads_m_movil5', ads_m_300x250_size, '1299273', medidas, 'criteo'];
+
+        p_ports.push(['movil1', 'ads_m_movil1', ads_m_320x50_size, '1619220@320x50', medidas, 'pubmatic']);
+        p_ports.push(['movil2', 'ads_m_movil2', ads_m_300x250_size, '1619221@300x250', medidas, 'pubmatic']);
+        p_ports.push(['movil3', 'ads_m_movil3', ads_m_300x250_size, '1619221@300x250', medidas, 'pubmatic']);
+        p_ports.push(['movil4', 'ads_m_movil4', ads_m_300x250_size, '1619221@300x250', medidas, 'pubmatic']);
+        p_ports.push(['movil5', 'ads_m_movil5', ads_m_300x250_size, '1619221@300x250', medidas, 'pubmatic']);
+
+        p_ports.push(['movil1', 'ads_m_movil1', ads_m_320x50_size, {
+                zoneId: '1062136',
+                siteId: '215750',
+                accountId: '19186'
+            },
+            medidas, 'rubicon'
+        ]);
+        p_ports.push(['movil3', 'ads_m_movil3', ads_m_300x250_size, {
+                zoneId: '1062136',
+                siteId: '215750',
+                accountId: '19186'
+            },
+            medidas, 'rubicon'
+        ]);
+        p_ports.push(['movil2', 'ads_m_movil2', ads_m_300x250_size, {
+                zoneId: '1062136',
+                siteId: '215750',
+                accountId: '19186'
+            },
+            medidas, 'rubicon'
+        ]);
+        p_ports.push(['movil4', 'ads_m_movil4', ads_m_300x250_size, {
+                zoneId: '1062136',
+                siteId: '215750',
+                accountId: '19186'
+            },
+            medidas, 'rubicon'
+        ]);
+        p_ports.push(['movil5', 'ads_m_movil5', ads_m_300x250_size, {
+                zoneId: '1062136',
+                siteId: '215750',
+                accountId: '19186'
+            },
+            medidas, 'rubicon'
+        ]);
+    } else { // VERSIÓN DESKTOP
+
+        p_ports.push(['boton1', 'ads_d_boton1', [
+                [300, 600]
+            ], '1233567',
+            ["port2", "port3", "port8", "port9", "port10", "port11", "port13", "port15", "port16", "port17",
+                "port21", "port22", "port23", "port26", "port28", "port29", "port30", "port31", "port32",
+                "port33", "port34", "port36"
+            ],
+            'criteo'
+        ]);
+        p_ports.push(['boton2', 'ads_d_boton2', [
+                [300, 250]
+            ], '1233566',
+            ["port2", "port3", "port9", "port10", "port13", "port15", "port16", "port22", "port29", "port36"],
+            'criteo'
+        ]);
+
+        p_ports.push(['zocalo1', 'ads_d_zocalo1', ads_d_160x600_size, '1233570', ["nota1", "nota2", "nota3", "nota4",
+            "nota5", "nota6", "nota7", "nota8", "nota9", "nota10", "nota11", "port2", "port3", "port4",
+            "port5", "port6", "port7", "port8", "port9", "port10", "port11", "port12", "port13", "port14",
+            "port15", "port16", "port17", "port18", "port19", "port20", "port21", "port22", "port23",
+            "port24", "port25", "port26", "port27", "port28", "port29", "port30", "port31", "port32",
+            "port33", "port34", "port35", "port36", "port38"
+        ], 'criteo']);
+        p_ports.push(['top', 'ads_d_top', ads_d_970x90_size, '1233571', ["nota1", "nota2", "nota3", "nota4", "nota5",
+            "nota6", "nota7", "nota8", "nota9", "nota10", "nota11", "port2", "port3", "port4", "port5",
+            "port6", "port7", "port8", "port9", "port10", "port11", "port12", "port13", "port14", "port15",
+            "port16", "port17", "port18", "port19", "port20", "port21", "port22", "port23", "port24",
+            "port25", "port26", "port27", "port28", "port29", "port30", "port31", "port32", "port33",
+            "port34", "port35", "port36", "port37"
+        ], 'criteo']);
+        p_ports.push(['left', 'ads_d_left', ads_d_300x250_size, '1233566',
+            ["nota1", "nota2", "nota3", "nota6", "nota7", "nota8"],
+            'criteo'
+        ]);
+        p_ports.push(['right1', 'ads_d_right1', ads_d_300x600_size, '1233567', 
+        ["nota1", "nota3", "nota6", "nota7", "nota11"],
+        'criteo']);
+        p_ports.push(['right2', 'ads_d_right2', ads_d_300x600_size, '1233567', ["nota1", "nota3", "nota6", "nota7",
+            "nota11"
+        ], 'criteo']);
+        p_ports.push(['fotogaleria2', 'ads_d_fotogaleria2', ads_d_300x600_size, '1233567', ['nota2', 'nota8'],
+            'criteo'
+        ]);
+        p_ports.push(['fotogaleria3', 'ads_d_fotogaleria3', ads_d_300x600_size, '1233567', ['nota2', 'nota8'],
+            'criteo'
+        ]);
+        p_ports.push(['zocalo2', 'ads_d_zocalo2', ads_d_160x600_size, '1233570', ["nota1", "nota2", "nota3", "nota4",
+            "nota5", "nota6", "nota7", "nota8", "nota9", "nota10", "nota11", "port2", "port3", "port4",
+            "port5", "port6", "port7", "port8", "port9", "port10", "port11", "port12", "port13", "port14",
+            "port15", "port16", "port17", "port18", "port19", "port20", "port21", "port22", "port23",
+            "port24", "port25", "port26", "port27", "port28", "port29", "port30", "port31", "port32",
+            "port33", "port34", "port35", "port36", "port39"
+        ], 'criteo']);
+        p_ports.push(['middle1', 'ads_d_middle1', ads_d_970x250_size, '1233572', ["nota4", "nota5", "port1", "port2",
+            "port3", "port4", "port5", "port6", "port8", "port11", "port13", "port14", "port16", "port17",
+            "port21", "port22", "port29", "port31"
+        ], 'criteo']);
+        p_ports.push(['middle2', 'ads_d_middle2', ads_d_970x250_size, '1233572',
+            ["port1", "port3", "port29"],
+            'criteo'
+        ]);
+
+        p_ports.push(['boton1', 'ads_d_boton1', [
+                [300, 600]
+            ], "1619213@300x600",
+            ["port2", "port3", "port8", "port9", "port10", "port11", "port13", "port15", "port16", "port17",
+                "port21", "port22", "port23", "port26", "port28", "port29", "port30", "port31", "port32",
+                "port33", "port34", "port36"
+            ],
+            'pubmatic'
+        ]);
+        p_ports.push(['boton2', 'ads_d_boton2', [
+                [300, 250]
+            ], "1619212@300x250",
+            ["port2", "port3", "port9", "port10", "port13", "port15", "port16", "port22", "port29", "port36"],
+            'pubmatic'
+        ]);
+
+
+        p_ports.push(['zocalo1', 'ads_d_zocalo1', ads_d_160x600_size, '1619210@160x600', ["nota1", "nota2", "nota3",
+            "nota4", "nota5", "nota6", "nota7", "nota8", "nota9", "nota10", "nota11", "port2", "port3",
+            "port4", "port5", "port6", "port7", "port8", "port9", "port10", "port11", "port12", "port13",
+            "port14", "port15", "port16", "port17", "port18", "port19", "port20", "port21", "port22",
+            "port23", "port24", "port25", "port26", "port27", "port28", "port29", "port30", "port31",
+            "port32", "port33", "port34", "port35", "port36", "port38"
+        ], 'pubmatic']);
+        p_ports.push(['zocalo2', 'ads_d_zocalo2', ads_d_160x600_size, '1619210@160x600', ["nota1", "nota2", "nota3",
+            "nota4", "nota5", "nota6", "nota7", "nota8", "nota9", "nota10", "nota11", "port2", "port3",
+            "port4", "port5", "port6", "port7", "port8", "port9", "port10", "port11", "port12", "port13",
+            "port14", "port15", "port16", "port17", "port18", "port19", "port20", "port21", "port22",
+            "port23", "port24", "port25", "port26", "port27", "port28", "port29", "port30", "port31",
+            "port32", "port33", "port34", "port35", "port36", "port39"
+        ], 'pubmatic']);
+        p_ports.push(['left', 'ads_d_left', ads_d_300x250_size, '1619212@300x250', ['nota1', 'nota2', 'nota3', 'nota6',
+            'nota7', 'nota8', ' port8'
+        ], 'pubmatic']);
+        p_ports.push(['right1', 'ads_d_right1', ads_d_300x600_size, '1619213@300x600', ["nota1", "nota3", "nota6",
+            "nota7", "nota11"
+        ], 'pubmatic']);
+        p_ports.push(['right2', 'ads_d_right2', ads_d_300x600_size, '1619213@300x600', ["nota1", "nota3", "nota6",
+            "nota7", "nota11"
+        ], 'pubmatic']);
+        p_ports.push(['fotogaleria2', 'ads_d_fotogaleria2', ads_d_300x600_size, '1619213@300x600', ['nota2', 'nota8'],
+            'pubmatic'
+        ]);
+        p_ports.push(['fotogaleria3', 'ads_d_fotogaleria3', ads_d_300x600_size, '1619213@300x600', ['nota2', 'nota8'],
+            'pubmatic'
+        ]);
+        p_ports.push(['top', 'ads_d_top', ads_d_728x90_size, '1619214@728x90', ["nota1", "nota2", "nota3", "nota4",
+            "nota5", "nota6", "nota7", "nota8", "nota9", "nota10", "nota11", "port2", "port3", "port4",
+            "port5", "port6", "port7", "port8", "port9", "port10", "port11", "port12", "port13", "port14",
+            "port15", "port16", "port17", "port18", "port19", "port20", "port21", "port22", "port23",
+            "port24", "port25", "port26", "port27", "port28", "port29", "port30", "port31", "port32",
+            "port33", "port34", "port35", "port36", "port37"
+        ], 'pubmatic']);
+        p_ports.push(['top', 'ads_d_top', ads_d_970x90_size, '1619216@970x90', ["nota1", "nota2", "nota3", "nota4",
+            "nota5", "nota6", "nota7", "nota8", "nota9", "nota10", "nota11", "port2", "port3", "port4",
+            "port5", "port6", "port7", "port8", "port9", "port10", "port11", "port12", "port13", "port14",
+            "port15", "port16", "port17", "port18", "port19", "port20", "port21", "port22", "port23",
+            "port24", "port25", "port26", "port27", "port28", "port29", "port30", "port31", "port32",
+            "port33", "port34", "port35", "port36", "port37"
+        ], 'pubmatic']);
+        p_ports.push(['middle1', 'ads_d_middle1', ads_d_970x250_size, '1619217@970x250', ["nota4", "nota5", "port1",
+            "port2", "port3", "port4", "port5", "port6", "port8", "port11", "port13", "port14", "port16",
+            "port17", "port21", "port22", "port29", "port31"
+        ], 'pubmatic']);
+        p_ports.push(['middle1', 'ads_d_middle1', ads_d_970x90_size, '1619218@970x90', ["nota4", "nota5", "port1",
+            "port2", "port3", "port4", "port5", "port6", "port8", "port11", "port13", "port14", "port16",
+            "port17", "port21", "port22", "port29", "port31"
+        ], 'pubmatic']);
+        p_ports.push(['middle1', 'ads_d_middle1', ads_d_728x90_size, '1619219@728x90', ["nota4", "nota5", "port1",
+            "port2", "port3", "port4", "port5", "port6", "port8", "port11", "port13", "port14", "port16",
+            "port17", "port21", "port22", "port29", "port31"
+        ], 'pubmatic']);
+        p_ports.push(['middle2', 'ads_d_middle2', ads_d_970x250_size, '1619217@970x250',
+            ["port1", "port3", "port29"],
+            'pubmatic'
+        ]);
+        p_ports.push(['middle2', 'ads_d_middle2', ads_d_970x90_size, '1619218@970x90',
+            ["port1", "port3", "port29"],
+            'pubmatic'
+        ]);
+        p_ports.push(['middle2', 'ads_d_middle2', ads_d_728x90_size, '1619219@728x90',
+            ["port1", "port3", "port29"],
+            'pubmatic'
+        ]);
+
+        p_ports.push(['boton1', 'ads_d_boton1', [
+                [300, 600]
+            ], {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["port2", "port3", "port8", "port9", "port10", "port11", "port13", "port15", "port16", "port17",
+                "port21", "port22", "port23", "port26", "port28", "port29", "port30", "port31", "port32",
+                "port33", "port34", "port36"
+            ],
+            'rubicon'
+        ]);
+        p_ports.push(['boton2', 'ads_d_boton2', [
+                [300, 250]
+            ], {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["port2", "port3", "port9", "port10", "port13", "port15", "port16", "port22", "port29", "port36"],
+            'rubicon'
+        ]);
+
+
+        p_ports.push(['top', 'ads_d_top', ads_d_728x90_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["nota1", "nota2", "nota3", "nota4", "nota5", "nota6", "nota7", "nota8", "nota9", "nota10",
+                "nota11", "port2", "port3", "port4", "port5", "port6", "port7", "port8", "port9", "port10",
+                "port11", "port12", "port13", "port14", "port15", "port16", "port17", "port18", "port19",
+                "port20", "port21", "port22", "port23", "port24", "port25", "port26", "port27", "port28",
+                "port29", "port30", "port31", "port32", "port33", "port34", "port35", "port36", "port37"
+            ],
+            'rubicon'
+        ]);
+
+        p_ports.push(['middle1', 'ads_d_middle1', ads_d_728x90_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["port1", "port2", "port3", "port4", "port5", "port6", "port8", "port11", "port13", "port14",
+                "port16", "port17", "port21", "port22", "port29", "port31"
+            ],
+            'rubicon'
+        ]);
+        p_ports.push(['middle1', 'ads_d_middle1', ads_d_970x250_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["nota4", "nota5", "port1", "port2", "port3", "port4", "port5", "port6", "port8", "port11",
+                "port13", "port14", "port16", "port17", "port21", "port22", "port29", "port31"
+            ],
+            'rubicon'
+        ]);
+        p_ports.push(['middle2', 'ads_d_middle2', ads_d_728x90_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["port1", "port3", "port29"],
+            'rubicon'
+        ]);
+        p_ports.push(['middle2', 'ads_d_middle2', ads_d_970x250_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["port1", "port3", "port29"],
+            'rubicon'
+        ]);
+        p_ports.push(['zocalo1', 'ads_d_zocalo1', ads_d_160x600_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["nota1", "nota2", "nota3", "nota4", "nota5", "nota6", "nota7", "nota8", "nota9", "nota10",
+                "nota11", "port2", "port3", "port4", "port5", "port6", "port7", "port8", "port9", "port10",
+                "port11", "port12", "port13", "port14", "port15", "port16", "port17", "port18", "port19",
+                "port20", "port21", "port22", "port23", "port24", "port25", "port26", "port27", "port28",
+                "port29", "port30", "port31", "port32", "port33", "port34", "port35", "port36", "port38"
+            ], 'rubicon'
+        ]);
+        p_ports.push(['zocalo2', 'ads_d_zocalo2', ads_d_160x600_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["nota1", "nota2", "nota3", "nota4", "nota5", "nota6", "nota7", "nota8", "nota9", "nota10",
+                "nota11", "port2", "port3", "port4", "port5", "port6", "port7", "port8", "port9", "port10",
+                "port11", "port12", "port13", "port14", "port15", "port16", "port17", "port18", "port19",
+                "port20", "port21", "port22", "port23", "port24", "port25", "port26", "port27", "port28",
+                "port29", "port30", "port31", "port32", "port33", "port34", "port35", "port36", "port39"
+            ], 'rubicon'
+        ]);
+        p_ports.push(['left', 'ads_d_left', ads_d_300x250_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ['nota1', 'nota2', 'nota3', 'nota6', 'nota7', 'nota8', ' port8'], 'rubicon'
+        ]);
+        p_ports.push(['right1', 'ads_d_right1', ads_d_300x600_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["nota1", "nota3", "nota6", "nota7", "nota11"], 'rubicon'
+        ]);
+        p_ports.push(['right2', 'ads_d_right2', ads_d_300x600_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ["nota1", "nota3", "nota6", "nota7", "nota11"], 'rubicon'
+        ]);
+        p_ports.push(['fotogaleria2', 'ads_d_fotogaleria2', ads_d_300x600_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ['nota2', 'nota8'], 'rubicon'
+        ]);
+        p_ports.push(['fotogaleria3', 'ads_d_fotogaleria3', ads_d_300x600_size, {
+                zoneId: '1062130',
+                siteId: '215748',
+                accountId: '19186'
+            },
+            ['nota2', 'nota8'], 'rubicon'
+        ]);
+    }
+
+    p_ports.forEach(function (elem, ind, array) {
+        if (elem[4].indexOf(gport) != -1 || elem[4].indexOf('all') == 0) {
+
+            if (elem[5] == 'criteo') {
+                var itemobj = {
+                    code: elem[1],
+                    mediaTypes: {
+                        banner: {
+                            sizes: elem[2]
+                        }
+                    },
+                    bids: [{
+                        bidder: 'criteo',
+                        params: {
+                            zoneId: elem[3]
+                        }
+                    }]
+                };
+            } else if (elem[5] == 'pubmatic') {
+                var itemobj = {
+                    code: elem[1],
+                    mediaTypes: {
+                        banner: {
+                            sizes: elem[2]
+                        }
+                    },
+                    bids: [{
+                        bidder: 'pubmatic',
+                        params: {
+                            publisherId: "157414",
+                            adSlot: elem[3]
+                        }
+                    }]
+                };
+            } else if (elem[5] == 'rubicon') {
+                var itemobj = {
+                    code: elem[1],
+                    mediaTypes: {
+                        banner: {
+                            sizes: elem[2]
+                        }
+                    },
+                    bids: [{
+                        bidder: 'rubicon',
+                        params: {
+                            accountId: elem[3].accountId,
+                            zoneId: elem[3].zoneId,
+                            siteId: elem[3].siteId,
+                        }
+                    }]
+                };
+            }
+            adUnits.push(itemobj);
+        }
+    });
+    if (IS_DEBUG) console.log(adUnits);
+    if (adUnits.length > 0) {
+        pbjs.que.push(function () {
+            pbjs.setConfig({
+                userSync: {
+                    filterSettings: {
+                        iframe: {
+                            bidders: '*', // '*' represents all bidders
+                            filter: 'include'
+                        }
+                    }
+                },
+                priceGranularity: 'dense'
+            });
+
+            pbjs.bidderSettings = {
+                rubicon: {
+                    bidCpmAdjustment: function (bidCpm, bid) {
+                        console.log(bid);
+                        console.log('bidCpm is : ' + bidCpm);
+                        console.log('New bidCpm is : ' + bidCpm * 0.85);
+
+                        return bidCpm * 0.85;
+                    }
+                }
+            };
+
+            pbjs.addAdUnits(adUnits);
+            pbjs.requestBids({
+                bidsBackHandler: function (bidResponses) {
+                    initAdserver();
+                    if (document.location.href.search('/mag.') == -1) {
+                        var tag_inline = getTagInline();
+                        inline(tag_inline);
+                    }
+                    peruRedShowTag();
+                },
+                timeout: PREBID_TIMEOUT,
+            });
+        });
+        if (IS_MOBILE) {
+            dataLayer.push({
+                event: 'AST_Mobile_Rqt'
+            })
+        } else {
+            dataLayer.push({
+                event: 'AST_Desktop_Rqt'
+            })
+        }
+        if (IS_DEBUG) console.log('HEADER BIDDING CARGADO');
+    }
+
+
+    var apntag = apntag || {};
+    apntag.anq = apntag.anq || [];
+    //EVENTS
+    /*apntag.onEvent('adRequested', 'ads_m_movil3', function(){
+      dataLayer.push({
+      'event': 'astAdRequested',
+      });
+    });
+    apntag.onEvent('adLoaded', 'ads_m_movil3', function(adObj){
+      dataLayer.push({
+      'event': 'astAdLoaded',
+      });
+    });
+    apntag.onEvent('adRequested', 'ads_d_top', function(adObj){
+      TIME_REQUESTED = new Date().getTime()
+    });
+    apntag.onEvent('adLoaded', 'ads_d_top', function(adObj){
+      TIME_LOADED = new Date().getTime()
+      dataLayer.push({
+      'event': 'Top_Desktop_Imp',
+      });
+      dataLayer.push({
+      'event': 'TrackTimeTop',
+      'time_elapsed_requested': TIME_REQUESTED - TIME_START,
+      'time_elapsed_loaded': TIME_LOADED - TIME_START,
+      'time_elapsed_req_load': TIME_LOADED - TIME_REQUESTED
+      });
+    });
+    apntag.onEvent('adLoaded', 'ads_m_movil1', function(adObj){
+      dataLayer.push({
+      'event': 'Movil_Mobile_Imp',
+      });
+    });
+      apntag.onEvent('adRequestFailure', 'ads_m_movil3', function(adError){
+      dataLayer.push({
+      'event': 'astAdRequestFailure',
+      'adReqFailMessage': adError.errMessage,
+      'adReqFailTargetId': adError.targetId
+      });
+    });
+      apntag.onEvent('adError', function(adError, adObj){
+      dataLayer.push({
+      'event': 'errorAST',
+      'astErr_mensaje': adError.errMessage,
+      'astErr_targetId': adError.targetId,
+      'astErr_source': adObj.source,
+      'astErr_creativeId': adObj.creativeId,
+      'astErr_buyerMemberId': adObj.buyerMemberId
+      });
+    });
+      
+      */
+    apntag.onEvent('adLoaded', 'ads_m_movil0', function (adObj) {
+        document.body.className += ' bottom-movil-actived';
+    });
+    apntag.onEvent('adLoaded', 'ads_d_vslider', function (adObj) {
+        document.body.className += ' vslider-actived';
+    });
+    apntag.onEvent('adLoaded', 'ads_d_zocalo2', function (adObj) {
+        if (adObj.height == 1 && adObj.width == 1) {
+            console.log("zocalo 2 cargado");
+            console.log(adObj);
+            document.body.className += ' vslider-actived';
+        }
+    });
+    var reportAppnexus = {};
+    apntag.onEvent('adLoaded', function (adObj) {
+        //console.log('adLoaded => ', adObj)
+        TIME_LOADED = new Date().getTime();
+        reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
+        reportAppnexus[adObj.targetId].push({
+            adLoaded: adObj,
+            TIME_LOADED: TIME_LOADED - TIME_START
+        })
+
+    });
+    apntag.onEvent('adAvailable', function (adObj) {
+        //console.log('adAvailable => ', adObj);
+        reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
+        reportAppnexus[adObj.targetId].push({
+            adAvailable: adObj
+        })
+    });
+    apntag.onEvent('adNoBid', function (adObj) {
+        //console.log('adNoBid => ', adObj)
+        reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
+        reportAppnexus[adObj.targetId].push({
+            adNoBid: adObj
+        })
+    });
+    apntag.onEvent('adRequestFailure', function (adError) {
+        //console.log('adRequestFailure => ', adError)
+        reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
+        reportAppnexus[adObj.targetId].push({
+            adRequestFailure: adError
+        })
+    });
+    apntag.onEvent('adError', function (adError) {
+        //console.log('adError => ', adError)
+        reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
+        reportAppnexus[adObj.targetId].push({
+            adRequestFailure: adError
+        })
+    });
+
+    //END EVENTS
+    apntag.anq.push(function () {
+        apntag.setPageOpts({
+            member: 8484,
+            disablePsa: true,
+            keywords: {
+                'tipo': type_template,
+                'seccion': section,
+                'subseccion': subsection,
+                'categoria': '',
+                'tags': tags,
+                'path_name': pathname,
+            },
+        });
+        if (IS_MOBILE) {
+            type_space = sitio + '_m_' + type_space;
+            for (var i = 0; i < spaces.length; i++) {
+                atributos = atributos + 'invCode => ' + type_space + '_' + spaces[i] + ' ;; sizes => ' +
+                    spaces_sizes_mobile[spaces[i]] + ' ;; targetId => ' + 'ads_m_' + spaces[i] + '\n';
+                apntag.defineTag({
+                    invCode: type_space + '_' + spaces[i],
+                    sizes: spaces_sizes_mobile[spaces[i]],
+                    allowedformats: ['video', 'banner'],
+                    targetId: 'ads_m_' + spaces[i],
+                });
+            }
+        } else {
+            type_space = sitio + '_d_' + type_space;
+            for (var i = 0; i < spaces.length; i++) {
+                atributos = atributos + 'invCode => ' + type_space + '_' + spaces[i] + ' ;; sizes => ' +
+                    spaces_sizes_desktop[spaces[i]] + ' ;; targetId => ' + 'ads_d_' + spaces[i] + '\n';
+                apntag.defineTag({
+                    invCode: type_space + '_' + spaces[i],
+                    sizes: spaces_sizes_desktop[spaces[i]],
+                    allowedformats: ['video', 'banner'],
+                    targetId: 'ads_d_' + spaces[i],
+                });
+            }
+        }
+
+        if (IS_DEBUG) console.log('APP NEXUS CARGADO!!!!');
+
+    });
+
+    function initWithoutHB() {
+        apntag.anq.push(function () {
+            apntag.loadTags();
+            for (var i = 0; i < spaces.length; i++) {
+                if (IS_MOBILE == true) {
+                    apntag.anq.push(function () {
+                        apntag.showTag('ads_m_' + spaces[i]);
+                    });
+                } else apntag.showTag('ads_d_' + spaces[i]);
+            }
+            if (document.location.href.search('/mag.') == -1) {
+                var inline_tag = getTagInline();
+                inline(inline_tag);
+            }
+
+            peruRedShowTag();
+            if (IS_MOBILE) {
+                dataLayer.push({
+                    event: 'AST_Mobile_Rqt'
+                })
+            } else {
+                dataLayer.push({
+                    event: 'AST_Desktop_Rqt'
+                })
+            }
+        });
+    }
+
+    if (adUnits.length == 0) {
+        if (IS_DEBUG) console.log(adUnits)
+        initWithoutHB();
+    }
+
+    function initAdserver() {
+        if (pbjs.requestSent) {
+            return;
+        }
+        pbjs.requestSent = true;
+        pbjs.que.push(function () {
+            apntag.anq.push(function () {
+                pbjs.setTargetingForAst();
+                apntag.loadTags();
+                for (var i = 0; i < spaces.length; i++) {
+                    if (IS_MOBILE == true) {
+                        apntag.anq.push(function () {
+                            apntag.showTag('ads_m_' + spaces[i]);
+                        });
+                    } else apntag.showTag('ads_d_' + spaces[i]);
+                }
+                if (IS_DEBUG) console.log('INITADDSERVER');
+            });
+        });
+    }
+
+    function peruRedShowTag() {
+        if (body_class.search('nota') >= 0) {
+            if (IS_MOBILE) {
+                apntag.defineTag({
+                    invCode: 'red_m_eco_perured1',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-m-ad-1',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                apntag.defineTag({
+                    invCode: 'red_m_eco_perured2',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-m-ad-2',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                apntag.defineTag({
+                    invCode: 'red_m_eco_perured3',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-m-ad-3',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                adtype = 'm';
+            } else {
+                apntag.defineTag({
+                    invCode: 'red_d_eco_perured1',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-d-ad-1',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                apntag.defineTag({
+                    invCode: 'red_d_eco_perured2',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-d-ad-2',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                apntag.defineTag({
+                    invCode: 'red_d_eco_perured3',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-d-ad-3',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                adtype = 'd';
+            }
+
+            apntag.loadTags();
+
+            var cntPerured = document.querySelector('#cnt-perured-' + adtype);
+
+            if (cntPerured != undefined) {
+                for (var index = 1; index <= 3; index++) {
+                    var element = index;
+                    var demoad = document.createElement('div');
+                    demoad.id = 'an-' + adtype + '-ad-' + element;
+                    cntPerured.appendChild(demoad);
+                    apntag.anq.push(function () {
+                        apntag.showTag('an-' + adtype + '-ad-' + element);
+                        apntag.onEvent('adAvailable', 'an-' + adtype + '-ad-' + element, function (adObj) {
+                            console.log("Objeto tipo => ", adObj);
+                            document.querySelector('.perured-header-' + adtype).style.display = 'block';
+                            document.querySelector('.perured-footer-' + adtype).style.display = 'block';
+
+                            if (adObj.adType == "native") {
+
+                                var $ad = document.getElementById(adObj.targetId);
+
+                                var nObj = adObj.native;
+                                var clickUrl = nObj.clickUrl;
+                                var title = nObj.title;
+                                var body = nObj.body;
+                                var sponsor = nObj.sponsoredBy;
+                                var imgSrc = nObj.image && nObj.image.url;
+                                var cta = nObj.cta;
+                                cta = (typeof cta == 'undefined') ? 'Leer más' : cta;
+                                sponsor = (typeof sponsor == 'undefined') ? '' : sponsor;
+
+                                $ad.innerHTML = '<a href="' + clickUrl +
+                                    '" target="_blank" style="text-decoration:none;"><img class="an-native-img" src="' +
+                                    imgSrc +
+                                    '" width="300"/><div class="an-native-ad stacked" style="display:block;font-family:Arial, sans-serif;max-width:300px;border-bottom: #084B9E 1px solid;padding:10px 0;margin-bottom: 6px;"><header class="an-native-headline" style="font-weight:bold;font-size:18px;line-height: 17px;color: #3b3b3b;padding: 2px 5px;">' +
+                                    title +
+                                    '</header><div class="an-native-body" style="margin:5px 0;font-size:15px;color: #7b7b7b;padding: 2px 5px;">' +
+                                    body +
+                                    '</div><div class="an-native-sponsor-wrapper" style="padding: 2px 5px;"><span class="an-native-sponsor" style="color: #4C4C4C;font-size: 12px;font-weight: bold;">' +
+                                    sponsor +
+                                    '</span><span class="an-native-cta" style="background-color: #ffffff;border: 1px solid #dcdcdc;cursor: pointer;color: #666666;font-size: 10px;font-weight: bold;padding: 6px 16px;float:right;">' +
+                                    cta + '</span></div></div></a>';
+
+                                // collect and fire off the trackers
+                                var impTrackers = nObj.impressionTrackers || [];
+                                var jsTrackers = parseJsTrackers(nObj.javascriptTrackers) || [];
+                                var clickTrackers = nObj.clickTrackers;
+
+                                // fire imp trackers
+                                for (var i = 0; i < impTrackers.length; i++) {
+                                    fireRequest(impTrackers[i]);
+                                }
+
+                                for (var i = 0; i < jsTrackers.length; i++) {
+                                    // this is where you would filter out tracker that you don't want to fire
+                                    // for example, this will only include moat trackers:
+                                    // if(url.indexOf('//z.moatads.com') > -1) { /* .... */ }
+                                    if (true) {
+                                        var d = document,
+                                            scr = d.createElement('script'),
+                                            tar = d.getElementsByTagName('head')[0];
+                                        scr.type = 'text/javascript';
+                                        scr.async = true;
+                                        scr.src = jsTrackers[i];
+                                        tar.insertBefore(scr, tar.firstChild);
+                                    }
+                                }
+
+                                // set up handlers for click trackers -
+                                // this will only work if you wrap clickable elements in <a> tags
+                                var $clickable = Array.prototype.slice.apply($ad.getElementsByTagName(
+                                    'a'));
+
+                                for (var i = 0; i < $clickable.length; i++) {
+                                    $clickable[i].addEventListener('click', function () {
+                                        for (var j = 0; j < clickTrackers.length; j++) {
+                                            fireRequest(clickTrackers[j]);
+                                        }
+                                    });
+                                }
+
+                            }
+
+                        });
+                    });
+                }
+                if (IS_DEBUG) console.log('PERU RED CARGADO!!!!');
+            }
+        }
+    }
+
+    var fireRequest = function (url) {
+        var request = new XMLHttpRequest();
+        request.open('GET', url);
+        request.send();
+    };
+    var parseJsTrackers = function (str) {
+        var urls = [],
+            regex = /(?:<script.+?)(?:src=")(.+?)".*?><\/script>/g,
+            result;
+        while ((result = regex.exec(str)) !== null) {
+            urls.push(result[1]);
+        }
+        return urls;
+    };
+
+    function inline(data) {
+        if (body_class.search('nota') >= 0) {
+            var spaces = data.spaces;
+            if (spaces && Array.isArray(spaces)) {
+                spaces.forEach(function (space) {
+                    var adPlace = document.getElementById(space.name) || document.createElement('div');
+                    adPlace.id = space.name;
+                    var target = typeof space.target === 'string' ? document.querySelector(space.target) : space
+                        .target;
+
+                    if (target) {
+                        var childs = [].slice.call(target.children || []).filter(function (node) {
+                            return node.nodeName === 'P';
+                        });
+
+                        var numChilds = childs.length;
+                        switch (true) {
+                            case (numChilds == 1):
+                                if (IS_DEBUG) console.log('tiene 1 parrafo');
+                                target.insertBefore(adPlace, childs[0]);
+                                break;
+                            case (numChilds == 2):
+                                if (IS_DEBUG) console.log('tiene 2 parrafos');
+                                target.insertBefore(adPlace, childs[1]);
+                                break;
+                            case (numChilds >= 3):
+                                if (IS_DEBUG) console.log('tiene mas de tres parrafos');
+                                target.insertBefore(adPlace, childs[2]);
+                                break;
+                            default:
+                                if (IS_DEBUG) console.log('default');
+                                target.insertBefore(adPlace, childs[space.position]);
+                        }
+
+                        setTimeout(function () {
+                            apntag.anq.push(function () {
+                                apntag.showTag(space.name);
+                            });
+                        }, 2000);
+
+                    } else {
+                        if (IS_DEBUG) console.log(target);
+                    }
+                });
+
+            }
+            if (IS_DEBUG) console.log('INLINE CARGADO!!!!');
+        }
+    }
+
+    function getTagInline() {
+        var IS_MOBILE2 = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)|(Windows Phone)/i) ?
+            true :
+            false;
+        var nameSpace = IS_MOBILE2 ? 'ads_m_movil3' : 'ads_d_inline';
+        return {
+            'spaces': [{
+                'target': '#contenedor',
+                'name': nameSpace,
+                'position': 0,
+            }],
+        };
+
+
+
+    }
+
+    if (window.location.pathname == '/mundial/seleccion' && IS_MOBILE == true) document.getElementById(
+        'ads-movil-movil_2').style.display = 'block';
+</script>

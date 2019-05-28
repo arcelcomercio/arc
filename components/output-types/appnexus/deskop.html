@@ -1,0 +1,816 @@
+<script type="text/javascript">
+    var TIME_START = new Date().getTime(),
+        TIME_REQUESTED = 0,
+        TIME_LOADED = 0;
+</script>
+<script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js"></script>
+<script src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js" async></script>
+<script type="text/javascript" src="//acdn.adnxs.com/ast/ast.js" async></script>
+
+<script>
+    const adtype = '';
+    const atributos = '';
+    const spaces = []
+    const type_space = '';
+    const sitio = 'eco';
+    const agente = navigator.userAgent;
+    const sitio = agente.search("Chrome-Lighthouse") >= 0 ? "psi" : "eco"
+    const  pathname = window.location.pathname;
+    const elements_path = pathname.split('/').filter(item => item.match(/(\w+)/g));
+    const body_class = document.querySelector('body').getAttribute('class');
+
+    const type_template = getTemplate();
+    const section = getSection();
+    const subsection = getSubsection();
+    const tags = getTags();
+    
+    const IS_DEBUG = location.href.includes('consoles=true')
+          IS_DEBUG ? console.log(tags) : null;
+
+    const IS_MOBILE = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)|(Windows Phone)/i) ? true :
+        false;
+
+ // VERSIÓN DESKTOP
+          if (body_class.includes('nota')) {
+
+            const get_tipo_nota = document.querySelector('meta[name=\'typeNota\']');
+            const tipo_nota = get_tipo_nota.content || null;
+
+            if (body_class.search('nota') >= 0 && body_class.search('fotogaleria') >= 0 && section == 'lifweek' &&
+                tipo_nota == null) {
+                type_space = 'nota9';
+                spaces = ['cintillo'];
+            } else if (body_class.search('nota') >= 0 && body_class.search('fotogaleria') >= 0 && section ==
+                'lifweek') {
+                type_space = 'nota8';
+                spaces = ['cintillo'];
+            } else if (body_class.search('nota') >= 0 && body_class.search('fotogaleria') >= 0) {
+                type_space = 'nota2';
+                spaces = ['cintillo'];
+            } else if (body_class.search('nota') >= 0 && body_class.search('caricatura') >= 0) {
+                type_space = 'nota5';
+                spaces = ['cintillo'];
+            } else if (tipo_nota == 'imagen_completa') {
+                type_space = 'nota3';
+                spaces = ['cintillo'];
+            } else if (tipo_nota == 'video' && section == 'elcomerciotv') {
+                type_space = 'nota4';
+                spaces = ['cintillo'];
+            } else if (tipo_nota == 'menuperu') {
+                type_space = 'nota6';
+                spaces = ['cintillo'];
+            } else if (section == 'lifweek') {
+                type_space = 'nota7';
+                spaces = ['cintillo'];
+            } else if (tipo_nota == 'infografia') {
+                type_space = 'nota3';
+            } else if (body_class.search('nota') >= 0 && section == 'publirreportaje') {
+                type_space = 'nota12';
+            } else type_space = 'nota1';
+            if (body_class.search('mag') >= 0) {
+                spaces = ['zocalo2'];
+                type_space = 'nota11';
+            }
+            if (document.location.href.search('dakar/camiones') >= 0 || document.location.href.search(
+                    'dakar/camiones') >= 0 || document.location.href.search('dakar/motos') >= 0 || document.location
+                .href
+                .search('dakar/resultados') >= 0) {
+                type_space = 'port37';
+                spaces = ['skin'];
+            }
+
+        } else if (section == 'mercados') {
+            spaces = ['cintillo'];
+            type_space = 'port12';
+        } else if (section == 'archivo' || section == 'autor') {
+            spaces = ['boton1'];
+            type_space = 'port10';
+        } else if (section == 'blog') {
+            spaces = ['auspiciotop1'];
+            type_space = 'port9';
+        } else if (section == 'buscar') {
+            spaces = ['zocalo1'];
+            type_space = 'port7';
+        } else if (section == 'tags') {
+            spaces = ['boton1'];
+            type_space = 'port10';
+        } else if (section == 'lasmasleidas') {
+            spaces = ['zocalo1'];
+            type_space = 'port7';
+
+        } else {
+            spaces = ['ticker']; // temporal
+            type_space = 'port1';
+        }
+
+    
+    const getTemplate = () => {
+        if (body_class.includes('nota') && body_class.includes('fotogaleria')) return 'foto';
+        if (body_class.includes('nota')) return 'nota';
+        return 'portada';
+    }
+
+    const getSection = () => {
+        if (elements_path.length) {
+            if (elements_path.includes('noticias')) return 'tags';
+            if (elements_path.includes('buscar')) return 'buscar';
+            return elements_path[0].split('-').join('').toLowerCase();
+        } 
+        return (pathname == '/') ? 'home' : '';
+    }
+
+    const getSubsection = () => {
+        const limit = (type_template === 'portada') ? 1 : 2;
+        if (section === 'tags') return elements_path[1].split('-').join('').toLowerCase();
+        if (section === 'archivo') return '';
+        return (elements_path.length > limit) ? elements_path[1].split('-').join('').toLowerCase() : '';
+    }
+
+    const getTags = () => {
+        // const array_tags = [];
+        const nota_tags = ''
+        const tags_section = document.querySelector('meta[name=\'etiquetas\']');
+        const findTags = document.querySelectorAll('meta[property="article:tag"]')
+        const tags = (tags_section == null) ? findTags : tags_section.content
+       
+        if (tags.length) {
+            if (tags_section !== null) {
+                nota_tags = tags.replace(/ /g, '');
+                nota_tags = nota_tags.normalize('NFKD').replace(/[\u0300-\u036F]/g, '');
+                nota_tags = nota_tags.toLowerCase();
+            } else tags.forEach(el => nota_tags = el.content.replace(/ /g, ''))
+         } 
+         return nota_tags.split(',') || ''
+         // TODO wtf is this
+        // else {
+        //     if (section === 'buscar')
+        //         array_tags.push(window.location.search.slice(3).split('+').join('').toLowerCase());
+        //     else if (section == 'tags') array_tags.push(elements_path[1].split('-').join('').toLowerCase());
+        //     else array_tags;
+        // }
+        // return array_tags = nota_tags.split(',');
+    }
+</script>
+<script>
+
+    var PREBID_TIMEOUT = 3000;
+
+    var pbjs = pbjs || {};
+    pbjs.que = pbjs.que || [];
+
+    var gport = type_space;
+    var adUnits = [];
+    var p_ports = [];
+    var spaces_hb = [];
+
+    for (var i = 1; i < 29; i++) {
+        if (i < 11) {
+            spaces_hb.push('nota' + i);
+            //if (i > 1) {
+            //spaces_hb.push('port' + i);
+            //}
+        } else {
+            //spaces_hb.push('port' + i);
+        }
+    }
+
+    const BIDDER_PERCENTAGE = 0.85
+
+    p_ports.forEach(elem => {
+        if (elem[4].indexOf(gport) != -1 || elem[4].indexOf('all') == 0) {
+            const itemobj = {
+                code: elem[1],
+                mediaTypes: {
+                    banner: {
+                        sizes: elem[2]
+                    }
+                },
+                bids: []
+            };
+            if (elem[5] == 'criteo') {
+                itemobj.bids = [...{
+                    bidder: 'criteo',
+                    params: {
+                        zoneId: elem[3]
+                    }
+                }]
+            } else if (elem[5] == 'pubmatic') {
+                itemobj.bids = [...{
+                    bidder: 'pubmatic',
+                    params: {
+                        publisherId: "157414",
+                        adSlot: elem[3]
+                    }
+                }]
+            } else if (elem[5] == 'rubicon') {
+                itemobj.bids = [...{
+                    bidder: 'rubicon',
+                    params: {
+                        accountId: elem[3].accountId,
+                        zoneId: elem[3].zoneId,
+                        siteId: elem[3].siteId,
+                    }
+                }]
+            }
+            adUnits.push(itemobj);
+        }
+    });
+    if (IS_DEBUG) console.log(adUnits);
+    if (adUnits.length > 0) {
+        pbjs.que.push(() => {
+            pbjs.setConfig({
+                userSync: {
+                    filterSettings: {
+                        iframe: {
+                            bidders: '*', // '*' represents all bidders
+                            filter: 'include'
+                        }
+                    }
+                },
+                priceGranularity: 'dense'
+            });
+
+            pbjs.bidderSettings = {
+                rubicon: {
+                    bidCpmAdjustment: function (bidCpm, bid) {
+                        console.log(bid);
+                        console.log('bidCpm is : ' + bidCpm);
+                        console.log('New bidCpm is : ' + bidCpm * BIDDER_PERCENTAGE);
+
+                        return bidCpm * BIDDER_PERCENTAGE;
+                    }
+                }
+            };
+
+            pbjs.addAdUnits(adUnits);
+            pbjs.requestBids({
+                bidsBackHandler: function (bidResponses) {
+                    initAdserver();
+                    if (document.location.href.search('/mag.') == -1) {
+                        var tag_inline = getTagInline();
+                        inline(tag_inline);
+                    }
+                    peruRedShowTag();
+                },
+                timeout: PREBID_TIMEOUT,
+            });
+        });
+        if (IS_MOBILE) {
+            dataLayer.push({
+                event: 'AST_Mobile_Rqt'
+            })
+        } else {
+            dataLayer.push({
+                event: 'AST_Desktop_Rqt'
+            })
+        }
+        if (IS_DEBUG) console.log('HEADER BIDDING CARGADO');
+    }
+
+
+    var apntag = apntag || {};
+    apntag.anq = apntag.anq || [];
+
+    apntag.onEvent('adLoaded', 'ads_m_movil0', function (adObj) {
+        document.body.className += ' bottom-movil-actived';
+    });
+    apntag.onEvent('adLoaded', 'ads_d_vslider', function (adObj) {
+        document.body.className += ' vslider-actived';
+    });
+    apntag.onEvent('adLoaded', 'ads_d_zocalo2', function (adObj) {
+        if (adObj.height == 1 && adObj.width == 1) {
+            console.log("zocalo 2 cargado");
+            console.log(adObj);
+            document.body.className += ' vslider-actived';
+        }
+    });
+    var reportAppnexus = {};
+    apntag.onEvent('adLoaded', function (adObj) {
+        //console.log('adLoaded => ', adObj)
+        TIME_LOADED = new Date().getTime();
+        reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
+        reportAppnexus[adObj.targetId].push({
+            adLoaded: adObj,
+            TIME_LOADED: TIME_LOADED - TIME_START
+        })
+
+    });
+    apntag.onEvent('adAvailable', function (adObj) {
+        //console.log('adAvailable => ', adObj);
+        reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
+        reportAppnexus[adObj.targetId].push({
+            adAvailable: adObj
+        })
+    });
+    apntag.onEvent('adNoBid', function (adObj) {
+        //console.log('adNoBid => ', adObj)
+        reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
+        reportAppnexus[adObj.targetId].push({
+            adNoBid: adObj
+        })
+    });
+    apntag.onEvent('adRequestFailure', function (adError) {
+        //console.log('adRequestFailure => ', adError)
+        reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
+        reportAppnexus[adObj.targetId].push({
+            adRequestFailure: adError
+        })
+    });
+    apntag.onEvent('adError', function (adError) {
+        //console.log('adError => ', adError)
+        reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
+        reportAppnexus[adObj.targetId].push({
+            adRequestFailure: adError
+        })
+    });
+
+    //END EVENTS
+    apntag.anq.push(function () {
+        apntag.setPageOpts({
+            member: 8484,
+            disablePsa: true,
+            keywords: {
+                'tipo': type_template,
+                'seccion': section,
+                'subseccion': subsection,
+                'categoria': '',
+                'tags': tags,
+                'path_name': pathname,
+            },
+        });
+
+
+                responde.map(el => apntag.defineTag(el))
+
+        
+
+        if (IS_DEBUG) console.log('APP NEXUS CARGADO!!!!');
+
+    });
+
+    function initWithoutHB() {
+        apntag.anq.push(function () {
+            apntag.loadTags();
+            for (var i = 0; i < spaces.length; i++) {
+                if (IS_MOBILE == true) {
+                    apntag.anq.push(function () {
+                        apntag.showTag('ads_m_' + spaces[i]);
+                    });
+                } else apntag.showTag('ads_d_' + spaces[i]);
+            }
+            if (document.location.href.search('/mag.') == -1) {
+                var inline_tag = getTagInline();
+                inline(inline_tag);
+            }
+
+            peruRedShowTag();
+            if (IS_MOBILE) {
+                dataLayer.push({
+                    event: 'AST_Mobile_Rqt'
+                })
+            } else {
+                dataLayer.push({
+                    event: 'AST_Desktop_Rqt'
+                })
+            }
+        });
+    }
+
+    if (adUnits.length == 0) {
+        if (IS_DEBUG) console.log(adUnits)
+        initWithoutHB();
+    }
+
+    function initAdserver() {
+        if (pbjs.requestSent) {
+            return;
+        }
+        pbjs.requestSent = true;
+        pbjs.que.push(function () {
+            apntag.anq.push(function () {
+                pbjs.setTargetingForAst();
+                apntag.loadTags();
+                for (var i = 0; i < spaces.length; i++) {
+                    if (IS_MOBILE == true) {
+                        apntag.anq.push(function () {
+                            apntag.showTag('ads_m_' + spaces[i]);
+                        });
+                    } else apntag.showTag('ads_d_' + spaces[i]);
+                }
+                if (IS_DEBUG) console.log('INITADDSERVER');
+            });
+        });
+    }
+
+    function peruRedShowTag() {
+        if (body_class.search('nota') >= 0) {
+            if (IS_MOBILE) {
+                apntag.defineTag({
+                    invCode: 'red_m_eco_perured1',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-m-ad-1',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                apntag.defineTag({
+                    invCode: 'red_m_eco_perured2',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-m-ad-2',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                apntag.defineTag({
+                    invCode: 'red_m_eco_perured3',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-m-ad-3',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                adtype = 'm';
+            } else {
+                apntag.defineTag({
+                    invCode: 'red_d_eco_perured1',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-d-ad-1',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                apntag.defineTag({
+                    invCode: 'red_d_eco_perured2',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-d-ad-2',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                apntag.defineTag({
+                    invCode: 'red_d_eco_perured3',
+                    sizes: [
+                        [300, 250],
+                        [320, 100],
+                        [320, 50],
+                        [120, 240],
+                        [250, 250],
+                        [200, 200],
+                        [180, 150],
+                        [125, 125]
+                    ],
+                    allowedFormats: ['native', 'banner'],
+                    targetId: 'an-d-ad-3',
+                    native: {
+                        title: {
+                            required: true,
+                            max_length: 60
+                        },
+                        body: {
+                            required: true,
+                            max_length: 130
+                        },
+                        image: {
+                            required: true,
+                            /*sizes: [{width: 300, height: 160}]*/
+                        },
+                        sponsoredBy: {
+                            required: false,
+                            max_length: 25
+                        },
+                        cta: {
+                            required: false,
+                            max_length: 15
+                        }
+                    },
+                });
+
+                adtype = 'd';
+            }
+
+            apntag.loadTags();
+
+            var cntPerured = document.querySelector('#cnt-perured-' + adtype);
+
+            if (cntPerured != undefined) {
+                for (var index = 1; index <= 3; index++) {
+                    var element = index;
+                    var demoad = document.createElement('div');
+                    demoad.id = 'an-' + adtype + '-ad-' + element;
+                    cntPerured.appendChild(demoad);
+                    apntag.anq.push(function () {
+                        apntag.showTag('an-' + adtype + '-ad-' + element);
+                        apntag.onEvent('adAvailable', 'an-' + adtype + '-ad-' + element, function (adObj) {
+                            console.log("Objeto tipo => ", adObj);
+                            document.querySelector('.perured-header-' + adtype).style.display = 'block';
+                            document.querySelector('.perured-footer-' + adtype).style.display = 'block';
+
+                            if (adObj.adType == "native") {
+
+                                var $ad = document.getElementById(adObj.targetId);
+
+                                var nObj = adObj.native;
+                                var clickUrl = nObj.clickUrl;
+                                var title = nObj.title;
+                                var body = nObj.body;
+                                var sponsor = nObj.sponsoredBy;
+                                var imgSrc = nObj.image && nObj.image.url;
+                                var cta = nObj.cta;
+                                cta = (typeof cta == 'undefined') ? 'Leer más' : cta;
+                                sponsor = (typeof sponsor == 'undefined') ? '' : sponsor;
+
+                                $ad.innerHTML = '<a href="' + clickUrl +
+                                    '" target="_blank" style="text-decoration:none;"><img class="an-native-img" src="' +
+                                    imgSrc +
+                                    '" width="300"/><div class="an-native-ad stacked" style="display:block;font-family:Arial, sans-serif;max-width:300px;border-bottom: #084B9E 1px solid;padding:10px 0;margin-bottom: 6px;"><header class="an-native-headline" style="font-weight:bold;font-size:18px;line-height: 17px;color: #3b3b3b;padding: 2px 5px;">' +
+                                    title +
+                                    '</header><div class="an-native-body" style="margin:5px 0;font-size:15px;color: #7b7b7b;padding: 2px 5px;">' +
+                                    body +
+                                    '</div><div class="an-native-sponsor-wrapper" style="padding: 2px 5px;"><span class="an-native-sponsor" style="color: #4C4C4C;font-size: 12px;font-weight: bold;">' +
+                                    sponsor +
+                                    '</span><span class="an-native-cta" style="background-color: #ffffff;border: 1px solid #dcdcdc;cursor: pointer;color: #666666;font-size: 10px;font-weight: bold;padding: 6px 16px;float:right;">' +
+                                    cta + '</span></div></div></a>';
+
+                                // collect and fire off the trackers
+                                var impTrackers = nObj.impressionTrackers || [];
+                                var jsTrackers = parseJsTrackers(nObj.javascriptTrackers) || [];
+                                var clickTrackers = nObj.clickTrackers;
+
+                                // fire imp trackers
+                                for (var i = 0; i < impTrackers.length; i++) {
+                                    fireRequest(impTrackers[i]);
+                                }
+
+                                for (var i = 0; i < jsTrackers.length; i++) {
+                                    // this is where you would filter out tracker that you don't want to fire
+                                    // for example, this will only include moat trackers:
+                                    // if(url.indexOf('//z.moatads.com') > -1) { /* .... */ }
+                                    if (true) {
+                                        var d = document,
+                                            scr = d.createElement('script'),
+                                            tar = d.getElementsByTagName('head')[0];
+                                        scr.type = 'text/javascript';
+                                        scr.async = true;
+                                        scr.src = jsTrackers[i];
+                                        tar.insertBefore(scr, tar.firstChild);
+                                    }
+                                }
+
+                                // set up handlers for click trackers -
+                                // this will only work if you wrap clickable elements in <a> tags
+                                var $clickable = Array.prototype.slice.apply($ad.getElementsByTagName(
+                                    'a'));
+
+                                for (var i = 0; i < $clickable.length; i++) {
+                                    $clickable[i].addEventListener('click', function () {
+                                        for (var j = 0; j < clickTrackers.length; j++) {
+                                            fireRequest(clickTrackers[j]);
+                                        }
+                                    });
+                                }
+
+                            }
+
+                        });
+                    });
+                }
+                if (IS_DEBUG) console.log('PERU RED CARGADO!!!!');
+            }
+        }
+    }
+
+    var fireRequest = function (url) {
+        var request = new XMLHttpRequest();
+        request.open('GET', url);
+        request.send();
+    };
+    var parseJsTrackers = function (str) {
+        var urls = [],
+            regex = /(?:<script.+?)(?:src=")(.+?)".*?><\/script>/g,
+            result;
+        while ((result = regex.exec(str)) !== null) {
+            urls.push(result[1]);
+        }
+        return urls;
+    };
+
+    function inline(data) {
+        if (body_class.search('nota') >= 0) {
+            var spaces = data.spaces;
+            if (spaces && Array.isArray(spaces)) {
+                spaces.forEach(function (space) {
+                    var adPlace = document.getElementById(space.name) || document.createElement('div');
+                    adPlace.id = space.name;
+                    var target = typeof space.target === 'string' ? document.querySelector(space.target) : space
+                        .target;
+
+                    if (target) {
+                        var childs = [].slice.call(target.children || []).filter(function (node) {
+                            return node.nodeName === 'P';
+                        });
+
+                        var numChilds = childs.length;
+                        switch (true) {
+                            case (numChilds == 1):
+                                if (IS_DEBUG) console.log('tiene 1 parrafo');
+                                target.insertBefore(adPlace, childs[0]);
+                                break;
+                            case (numChilds == 2):
+                                if (IS_DEBUG) console.log('tiene 2 parrafos');
+                                target.insertBefore(adPlace, childs[1]);
+                                break;
+                            case (numChilds >= 3):
+                                if (IS_DEBUG) console.log('tiene mas de tres parrafos');
+                                target.insertBefore(adPlace, childs[2]);
+                                break;
+                            default:
+                                if (IS_DEBUG) console.log('default');
+                                target.insertBefore(adPlace, childs[space.position]);
+                        }
+
+                        setTimeout(function () {
+                            apntag.anq.push(function () {
+                                apntag.showTag(space.name);
+                            });
+                        }, 2000);
+
+                    } else {
+                        if (IS_DEBUG) console.log(target);
+                    }
+                });
+
+            }
+            if (IS_DEBUG) console.log('INLINE CARGADO!!!!');
+        }
+    }
+
+    function getTagInline() {
+        var IS_MOBILE2 = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)|(Windows Phone)/i) ?
+            true :
+            false;
+        var nameSpace = IS_MOBILE2 ? 'ads_m_movil3' : 'ads_d_inline';
+        return {
+            'spaces': [{
+                'target': '#contenedor',
+                'name': nameSpace,
+                'position': 0,
+            }],
+        };
+
+
+
+    }
+
+    if (window.location.pathname == '/mundial/seleccion' && IS_MOBILE == true) document.getElementById(
+        'ads-movil-movil_2').style.display = 'block';
+</script>
