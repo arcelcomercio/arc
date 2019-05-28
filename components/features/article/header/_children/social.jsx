@@ -57,7 +57,7 @@ class ArticleHeaderChildSocial extends PureComponent {
           mobileClass: 'flex flex--justify-center',
         },
         {
-          icon: 'icon-linkedin',
+          icon: 'icon-linkedin-circle',
           link: urlsShareList.linkedin,
           mobileClass: 'flex flex--justify-center',
         },

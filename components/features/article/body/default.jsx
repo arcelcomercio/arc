@@ -9,7 +9,7 @@ import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildArticleImage from './_children/image'
 import ArticleHeaderChildGallery from '../header/_children/gallery'
 import ArticleBodyChildBlockQuote from './_children/blockquote'
-import ArticleBodyChildTable from './_children/table'
+import ArticleBodyChildTable from '../../../global-components/article-table'
 import ArticleBodyChildRelated from './_children/related'
 import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildAuthor from './_children/author'
@@ -20,7 +20,7 @@ import ArticleBodyChildIcon from './_children/icon-list'
 
 const classes = {
   news: 'article-body full-width bg-color--white pd-left-20 pd-right-20',
-  content: 'position-relative',
+  content: 'position-relative flex flex--row-reverse',
   textClasses: 'article-body__font--secondary',
   newsImage: 'article-body__image full-width article-body__image--cover',
   newsEmbed: 'article-body__embed',
@@ -72,8 +72,8 @@ class ArticleBody extends PureComponent {
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
         {author && <ArticleBodyChildAuthor data={author} date={date} />}
-        <ArticleBodyChildIcon />
         <div className={classes.content}>
+          <ArticleBodyChildIcon />
           {contentElements && (
             <ArcArticleBody
               data={contentElements}
