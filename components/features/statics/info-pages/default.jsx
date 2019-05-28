@@ -16,11 +16,11 @@ const policiesList = {
 }
 
 const classes = {
-  staticPolicy: 'statics-policies',
+  staticPolicy: 'info-pages',
 }
 
 @Consumer
-class Policies extends PureComponent {
+class InfoPages extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -61,7 +61,7 @@ class Policies extends PureComponent {
         }" para "${arcSite}"`
         this.setState({ contentTitle: errorMessage })
         // eslint-disable-next-line no-console
-        console.log(e)
+        console.error(e)
       })
   }
 
@@ -85,17 +85,9 @@ class Policies extends PureComponent {
   }
 }
 
-Policies.propTypes = {
+InfoPages.propTypes = {
   customFields: PropTypes.shape({
-    typeOfPolicy: PropTypes.oneOf([
-      'termsAndConditions',
-      'guidingPrinciples',
-      'privacyPolicies',
-      'policyIntegratedManagement',
-      'arcoProcedure',
-      'cookiesPolicy',
-      'aboutUs',
-    ]).tag({
+    typeOfPolicy: PropTypes.oneOf(Object.keys(policiesList)).tag({
       name: 'Tipo de política',
       labels: policiesList,
       defaultValue: 'termsAndConditions',
@@ -111,6 +103,6 @@ Policies.propTypes = {
   }),
 }
 
-Policies.label = 'Políticas'
+InfoPages.label = 'Páginas estáticas'
 
-export default Policies
+export default InfoPages
