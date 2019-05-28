@@ -1,5 +1,6 @@
 .error{
-    &-container{
+    &__container{
+        font-family: $secondary-font;
         background: #e8f2f7;
         width: 100%;
         text-align:center;
@@ -7,28 +8,46 @@
         padding: 40px 0 20px;
         margin-bottom:30px
     }
-    &-iconcaretdown{
-        background-color:red;
+    &__icon{
+        left: 50%;
+        margin-left: -21px;
+        margin-top: -30px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 24px 21px 0 21px;
+        border-color: #fff transparent transparent transparent;
     }
-    &-title{
+    &__title{
+        font-family: $primary-font;
         font-size:32px;
         font-weight: 700;
         margin-bottom: 10px;
+        line-height: 2.4rem;
+        padding: 0px 100px;
     }
-    &-content{
+    &__content{
         font-size: 13px;
         display:inline-block;
         line-height: 1.5;
         width:400px;
+        padding: 13px 0px;
     }
-    &-backtohome{
+    &__search-box{
+        min-width: 333px;
+        max-width: 405px;
+        margin: 0 auto;
+        padding: 10px 0 20px;
+    }
+    &__link-box{
         font-size: 13px;
         display: inline-block;
         width:400px;
         line-height:1.5;
         color: black;
+        padding: 13px 0;
     }
-    &-backtohomelink{
+    &__link{
         text-decoration: none;
         font-weight: 700;
         color:#333;
