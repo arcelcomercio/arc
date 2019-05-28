@@ -8,25 +8,34 @@
   font-weight: bold;
   background-color: $nav-color;
   color: $color-white;
-  &--comercio {
-    background-color: $nav-color-2;
-  }
 
   &__wrapper {
-    padding: 0 15px;
+    padding: 0 14px;
+    background-color: $color-primary;
+    @media (--desktop) {
+      background-color: transparent;
+    }
   }
 
   &__container-menu {
-    @media (--tablet) {
+    @media (--desktop) {
       border-right: solid 1px $color-silver;
       padding-right: 10px;
     }
   }
 
   &__btn {
-    background-color: $color-soft;
-    color: $color-silver;
-
+    color: $color-white;
+    font-size: 12px;
+    &:hover {
+      text-decoration: none;
+    }
+    &:focus {
+      outline: 0;
+    }
+    @media (--desktop) {
+      color: $color-primary;
+    }
     &--featured {
       color: $color-primary;
       height: inherit;
@@ -57,7 +66,7 @@
         display: none;
         font-family: $secondary-font;
 
-        @media (--tablet) {
+        @media (--desktop) {
           display: inline;
           margin-left: 8px;
         }
@@ -79,9 +88,12 @@
 
   &__list-link {
     margin: 0 8px;
-    color: $color-silver;
+    color: $color-gray-light;
     transition: 0.3s;
     font-family: $secondary-font;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 400;
 
     &:hover {
       color: $color-gray;
@@ -105,6 +117,7 @@
     // Temporal
     width: 100px;
     height: 30px;
+    display: none;
   }
 
   &__header-sub {
@@ -114,7 +127,9 @@
       display: inline-block;
     }
   }
-
+  &__icon{
+    color: $color-primary;
+  }
   &__form {
     position: relative;
   }
