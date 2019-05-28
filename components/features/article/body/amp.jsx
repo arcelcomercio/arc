@@ -8,14 +8,14 @@ import React, { PureComponent } from 'react'
 import schemaFilter from './_dependencies/schema-filter'
 import ElePrincipal from './_children/amp-ele-principal'
 import ArticleBodyChildVideo from './_children/video'
-import ArticleBodyChildTable from './_children/table'
+import ArticleBodyChildTable from '../../../global-components/article-table'
 import ArticleBodyChildBlockQuote from './_children/blockquote'
 import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildRelated from './_children/related'
 
 const classes = {
-  content: 'amp-content',
-  textClasses: 'amp-content__news-text',
+  content: 'amp-content pd-left-20 pd-right-20',
+  textClasses: 'amp-content__news-text text',
   author: 'amp-content__author',
   tags: 'amp-content',
 }

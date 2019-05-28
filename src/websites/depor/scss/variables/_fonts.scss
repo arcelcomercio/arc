@@ -1,19 +1,10 @@
 /******* Families *******/
-// $primary-font: 'open_sansregular';
+ $primary-font: 'open_sansregular';
+ $secondary-font: 'Roboto', sans-serif;
 /*-----------------------*/
 
 /******* Sizes *******/
 $font-sm: 12px;
 $font-md: 14px;
-$font-lg: 16px;
+$font-default: 16px;
 /*-----------------------*/
-
-/* .font--sm {
-    font-size: $font-sm;
-}
-.font--md {
-    font-size: $font-sm;
-}
-.font--lg {
-    font-size: $font-sm;
-} */

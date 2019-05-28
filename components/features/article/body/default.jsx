@@ -9,7 +9,7 @@ import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildArticleImage from './_children/image'
 import ArticleHeaderChildGallery from '../header/_children/gallery'
 import ArticleBodyChildBlockQuote from './_children/blockquote'
-import ArticleBodyChildTable from './_children/table'
+import ArticleBodyChildTable from '../../../global-components/article-table'
 import ArticleBodyChildRelated from './_children/related'
 import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildAuthor from './_children/author'
@@ -19,10 +19,10 @@ import ArticleBodyChildRelatedInternal from './_children/related-internal'
 import ArticleBodyChildIcon from './_children/icon-list'
 
 const classes = {
-  news: 'article-body news-text-content col-2 bg-color--white',
-  content: 'article-body__content',
+  news: 'article-body full-width bg-color--white pd-left-20 pd-right-20',
+  content: 'position-relative',
   textClasses: 'article-body__font--secondary',
-  newsImage: 'article-body__image article-body__image--cover',
+  newsImage: 'article-body__image full-width article-body__image--cover',
   newsEmbed: 'article-body__embed',
   tags: 'article-body',
 }
