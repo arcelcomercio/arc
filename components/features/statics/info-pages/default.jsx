@@ -88,7 +88,7 @@ class InfoPages extends PureComponent {
 InfoPages.propTypes = {
   customFields: PropTypes.shape({
     typeOfPolicy: PropTypes.oneOf(Object.keys(policiesList)).tag({
-      name: 'Tipo de política',
+      name: 'Página',
       labels: policiesList,
       defaultValue: 'termsAndConditions',
       description:
