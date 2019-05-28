@@ -6,8 +6,7 @@ import Schema from './_dependencies/schema'
 import NavBarComercio from './_children/standard'
 import NavbarChildSomos from './_children/somos'
 
-import NavBarDepor from './_children/navbar-depor'
-import NavBarTrome from './_children/navbar-trome'
+import Formater from './_dependencies/formater'
 
 @Consumer
 class BarraTest extends PureComponent {
@@ -16,6 +15,26 @@ class BarraTest extends PureComponent {
     this.state = {
       services: '',
     }
+    console.log(props)
+    const {
+      contextPath,
+      arcSite,
+      deployment,
+      siteProperties: {
+        siteDomain,
+        assets: { nav },
+      },
+      customFields: { selectDesing },
+    } = this.props
+    this.formater = new Formater(
+      deployment,
+      contextPath,
+      siteDomain,
+      nav,
+      arcSite,
+      {},
+      selectDesing
+    )
   }
 
   componentDidMount() {
@@ -33,19 +52,20 @@ class BarraTest extends PureComponent {
     }
 
     const { fetched } = this.getContent(source, params, Schema)
-    fetched
-      .then(response => {
-        this.setState({
-          services: response || {},
-        })
+    fetched.then(response => {
+      this.setState({
+        services: response || {},
       })
-      .catch(e => {
-        throw new Error(e)
-      })
+    })
   }
 
   renderNavBar = (brand, data) => {
     const { deployment, contextPath, arcSite, siteProperties } = this.props
+    const { services } = this.state
+
+    this.formater.setData(services)
+    console.log(this.formater.getParams())
+
     const {
       assets: {
         nav: { logo },
@@ -57,8 +77,6 @@ class BarraTest extends PureComponent {
     const NavBarType = {
       standard: <NavBarComercio data={data} logo={logoUrl} />,
       somos: <NavbarChildSomos />,
-      depor: <NavBarDepor data={data} logo={logoUrl} />,
-      trome: <NavBarTrome data={data} logo={logoUrl} />,
     }
     return NavBarType[brand] || NavBarType.standard
   }
@@ -72,13 +90,11 @@ class BarraTest extends PureComponent {
 
 BarraTest.propTypes = {
   customFields: PropTypes.shape({
-    selectDesing: PropTypes.oneOf(['standard', 'somos', 'depor', 'trome']).tag({
+    selectDesing: PropTypes.oneOf(['standard', 'somos']).tag({
       name: 'Modelo de barra de navegación',
       labels: {
         standard: 'Barra de navegación estándar',
         somos: 'Barra de navegación somos',
-        depor: 'depor',
-        trome: 'trome',
       },
       defaultValue: 'standard',
     }),

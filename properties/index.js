@@ -3,6 +3,7 @@ export default {
     nav: {
       logo: 'logo.png',
       ampLogo: 'letra-c-white.png',
+      logoSomos: 'white-logo.png',
     },
     header: {
       logo: 'logo.png',
@@ -11,7 +12,8 @@ export default {
       logo: 'logo.png',
     },
   },
-  gecSites: [{
+  gecSites: [
+    {
       name: 'elcomercio.pe',
       arcSite: 'elcomercio',
       url: 'https://elcomercio.pe',

@@ -63,7 +63,7 @@ class LayoutHeader extends PureComponent {
           website: arcSite,
           hierarchy: defaultHierarchy,
         }
-    const { schema } = this.formater
+    const schema = this.formater.getSchema()
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
       this.setState({
