@@ -3,6 +3,7 @@ import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
+import { createMarkup } from '../utilities/helpers'
 
 export default ({
   children,
@@ -31,43 +32,47 @@ export default ({
     contextPath,
     deployment,
   }
+
+  const title =
+    metaValue('title') && !metaValue('title').match(/content/)
+      ? `${metaValue('title')} | ${siteProperties.siteName}`
+      : siteProperties.siteName
+
+  const description =
+    metaValue('description') && !metaValue('description').match(/content/)
+      ? `${metaValue('description')} en ${siteProperties.siteName}`
+      : 'Últimas noticias en Perú y el mundo'
+
+  const keywords =
+    metaValue('keywords') && !metaValue('keywords').match(/content/)
+      ? metaValue('keywords')
+      : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
+
+  const isArticle = requestUri.match(`^(/(.*)/.*-noticia)`)
+
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
-    title:
-      metaValue('title') && !metaValue('title').match(/content/)
-        ? `${metaValue('title')} | ${siteProperties.siteName}`
-        : siteProperties.siteName,
+    title,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
-    description:
-      metaValue('description') && !metaValue('description').match(/content/)
-        ? `${metaValue('description')} en ${siteProperties.siteName}`
-        : 'Últimas noticias en Perú y el mundo',
+    description,
     twitterCreator: siteProperties.social.twitter.user,
-    article: false, // check data origin - Boolean
+    article: isArticle, // check data origin - Boolean
     deployment,
   }
   const openGraphData = {
     fbAppId: siteProperties.fbAppId,
-    title:
-      metaValue('title') && !metaValue('title').match(/content/)
-        ? `${metaValue('title')} | ${siteProperties.siteName}`
-        : siteProperties.siteName,
-    description:
-      metaValue('description') && !metaValue('description').match(/content/)
-        ? `${metaValue('description')} en ${siteProperties.siteName}`
-        : 'Últimas noticias en Perú y el mundo',
+    title,
+    description,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
     requestUri,
     siteName: siteProperties.siteName,
-    article: false, // check data origin - Boolean
+    article: isArticle, // check data origin - Boolean
     deployment,
   }
-
-  const articleSlug = requestUri.match(`^(/(.*)/.*-noticia)`)
 
   return (
     <html lang="es">
@@ -84,7 +89,10 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap" rel="stylesheet"/>
+        <link
+          href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap"
+          rel="stylesheet"
+        />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
@@ -93,30 +101,31 @@ export default ({
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
 
-        <title>
-          {metaValue('title') && !metaValue('title').match(/content/)
-            ? `${metaValue('title')} | ${siteProperties.siteName}`
-            : siteProperties.siteName}
-        </title>
-        <meta
-          name="description"
-          content={
-            metaValue('description') &&
-            !metaValue('description').match(/content/)
-              ? `${metaValue('description')} en ${siteProperties.siteName}`
-              : 'Últimas noticias en Perú y el mundo'
-          }
+        <link
+          rel="stylesheet"
+          href="https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css"
         />
-        <meta
-          name="keywords"
-          content={
-            metaValue('keywords') && !metaValue('keywords').match(/content/)
-              ? metaValue('keywords')
-              : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
-          }
+        <script
+          type="text/javascript"
+          src="https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js"
         />
+        <script
+          dangerouslySetInnerHTML={createMarkup(
+            `
+          var opta_settings={
+            subscription_id: '782834e1fd5a215304e57cddad80b844',
+            language: 'es_CO',
+            timezone: 'America/Lima'
+          };
+          `
+          )}
+        />
+
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content={keywords} />
       </head>
-      <body className={articleSlug && 'article'}>
+      <body className={isArticle && 'article'}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -128,7 +137,9 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        <div id="fusion-app">{children}</div>
+        <div id="fusion-app" role="application">
+          {children}
+        </div>
         <script
           async
           src={deployment(
