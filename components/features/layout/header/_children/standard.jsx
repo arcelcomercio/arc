@@ -9,12 +9,26 @@ const classes = {
 }
 
 const HeaderChildStandard = props => {
-  const { logo, sections, device } = props
+  const { logo, sections, device, deviceList } = props
 
-  const isDesktop = device === 'desktop'
+  const _handleHide = () => {
+    switch (device) {
+      case 'desktop':
+        return deviceList.showInDesktop
+
+      case 'tablet':
+        return deviceList.showInTablet
+
+      case 'mobile':
+        return deviceList.showInMobile
+
+      default:
+        return true
+    }
+  }
 
   return (
-    isDesktop && (
+    _handleHide() && (
       <Fragment>
         <header className={classes.header}>
           <a href={logo.link}>

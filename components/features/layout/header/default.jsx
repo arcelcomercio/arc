@@ -103,15 +103,25 @@ class LayoutHeader extends PureComponent {
   renderHeader = () => {
     const { device, data } = this.state
     const {
-      customFields: { headerType },
+      customFields: { headerType, showInDesktop, showInTablet, showInMobile },
     } = this.props
 
     this.formater.setData(data)
     const params = { ...this.formater.getParams(), device }
 
     const headers = {
-      standard: <HeaderChildStandard {...params} />,
-      somos: <HeaderChildSomos {...params} />,
+      standard: (
+        <HeaderChildStandard
+          {...params}
+          deviceList={{ showInDesktop, showInTablet, showInMobile }}
+        />
+      ),
+      somos: (
+        <HeaderChildSomos
+          {...params}
+          deviceList={{ showInDesktop, showInTablet, showInMobile }}
+        />
+      ),
     }
     return headers[headerType] || headers.standard
   }
@@ -133,6 +143,21 @@ LayoutHeader.propTypes = {
       },
       defaultValue: 'standard',
       description: `La jerarquía por defecto es "${defaultHierarchy}"`,
+    }),
+    showInDesktop: PropTypes.bool.tag({
+      name: 'Mostrar en desktop',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
+    }),
+    showInTablet: PropTypes.bool.tag({
+      name: 'Mostrar en tablet',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
+    }),
+    showInMobile: PropTypes.bool.tag({
+      name: 'Mostrar en móviles ',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
     }),
     customLogo: PropTypes.string.tag({
       name: 'Url de la imagen',
