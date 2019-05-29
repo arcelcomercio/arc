@@ -1,4 +1,4 @@
-const space_device = {
+export const space_device = {
   desktop: {
     auspiciodt: [[625, 368]],
     auspicioluces: [[625, 368]],
@@ -9,7 +9,7 @@ const space_device = {
   },
 }
 
-const available_ports = [
+export const available_ports = [
   {
     name: 'port9',
     desktop_space: [
@@ -261,7 +261,7 @@ const desktop_rubicon = {
   accountId: '19186',
 }
 
-const auction = {
+export const auction = {
   desktop: [
     {
       name: 'criteo',

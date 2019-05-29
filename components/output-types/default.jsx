@@ -4,6 +4,7 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
 import { createMarkup } from '../utilities/helpers'
+import AppNexus from './_children/appnexus'
 
 export default ({
   children,
@@ -120,6 +121,7 @@ export default ({
           `
           )}
         />
+        {/* Scripts de APPNEXUS */}
         <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js" />
         <script
           src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
@@ -130,6 +132,7 @@ export default ({
           src="//acdn.adnxs.com/ast/ast.js"
           async
         />
+        {/* Scripts de APPNEXUS */}
 
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -157,6 +160,7 @@ export default ({
           )}
         />
         <Fusion />
+        <AppNexus arcsite={arcSite} port={metaValue('port')} />
       </body>
     </html>
   )
