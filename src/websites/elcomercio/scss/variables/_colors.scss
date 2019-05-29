@@ -54,20 +54,25 @@ $footer-text-color: $color-white;
   background-color: $color-dark;
   color: $color-white;
 }
+
 .bg-color--lightblue1 {
-  background-color: $color-lightblue1;
+  background-color: $color-lightblue;
 }
+
 .bg-color--red {
-  background-color: $color-red;
+  background-color: $color-error;
 }
+
 .bg-color--blue {
-  background-color: $color-blue;
+  background-color: $color-link;
 }
 
 .bg-color--green {
-  background-color: $color-green;
+  background-color: $color-success;
 }
+
 .bg-color--navy-blue {
   background-color: $color-navy-blue;
 }
+
 /*-----------------------*/
