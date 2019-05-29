@@ -51,9 +51,7 @@ class InfoPages extends PureComponent {
       .then(res => {
         this.setState({
           contentElements: res.content_elements,
-          headlines: typeOfPolicy
-            ? policiesList[typeOfPolicy]
-            : policiesList[defaultPolicy],
+          headlines: res.headlines.basic,
         })
       })
       .catch(e => {
