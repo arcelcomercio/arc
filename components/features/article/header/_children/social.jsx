@@ -7,11 +7,12 @@ import {
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  news: 'article-header__share flex flex--justify-between flex--align-center',
-  breadcrumb: 'article-header__breadcrumb',
+  news:
+    'article-header__share flex-center-vertical flex--justify-between mg-bottom-20',
+  breadcrumb: '',
   item: 'article-header__item',
-  category: 'article-header__category',
-  link: 'article-header__link flex-center-vertical flex--justify-center',
+  category: 'text-uppercase',
+  link: 'article-header__link flex-center',
   list: 'article-header__list flex flex--justify-between',
 }
 @Consumer
@@ -56,7 +57,7 @@ class ArticleHeaderChildSocial extends PureComponent {
           mobileClass: 'flex flex--justify-center',
         },
         {
-          icon: 'icon-linkedin',
+          icon: 'icon-linkedin-circle',
           link: urlsShareList.linkedin,
           mobileClass: 'flex flex--justify-center',
         },

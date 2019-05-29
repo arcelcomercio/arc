@@ -6,7 +6,7 @@ import { setDevice } from '../../../../utilities/resizer'
 import Ads from '../../../../global-components/ads'
 
 const classes = {
-  nav: 'nav nav--comercio full-width flex flex-center-vertical',
+  nav: 'nav full-width flex flex-center-vertical',
   navWrapper:
     'flex-center-vertical flex--justify-between nav__wrapper full-width height-inherit',
   navForm: 'nav__form flex',
@@ -16,19 +16,17 @@ const classes = {
   navSearchContainer: 'flex-center-vertical flex--justify-start',
   navBtnSearch: 'flex-center-vertical btn nav__btn nav__btn--search',
   navBtnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
-  navBtnIconSearch: 'icon icon--search',
-  navBtnIconMenu: 'icon icon--menu',
-  navList:
-    'flex-center-vertical flex--justify-start flex-1 nav__list height-inherit',
-  navListItem: 'height-inherit',
-  navListLink: 'flex-center-vertical nav__list-link height-inherit',
+  navBtnIconSearch: 'nav__icon icon-search',
+  navBtnIconMenu: 'icon icon-hamburguer',
+  navList: 'flex-center-vertical flex--justify-start flex-1 nav__list height-inherit',
+  navListLink: 'nav__list-link',
   navLogo: 'nav__logo',
   navAds: 'nav__ads',
   headerBtnContainer:
     'flex-center-vertical flex--justify-end header__btn-container',
-  headerBtnLogin: 'flex-center-vertical btn btn--small bg-color--gray',
+  headerBtnLogin: 'flex-center-vertical btn btn--outline',
   headerBtnSubscribe:
-    'flex-center-vertical btn btn--small bg-color--gray nav__header-sub',
+    'flex-center-vertical btn btn--outline nav__header-sub',
   headerBtnIconLogin: 'icon icon--login',
 }
 

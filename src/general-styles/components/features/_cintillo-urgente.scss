@@ -1,52 +1,45 @@
 .cintillo-u {
   color: $color-white;
+  padding: 14px;
+  font-family: $secondary-font;
 
   a {
-    color: $color-dark;
+    color: $color-white;
   }
 
   &--bgcolor-1 {
-    background-color: red;
+    background-color: $color-primary;
   }
 
   &--bgcolor-2 {
-    background-color: green;
-  }
-
-  &--bgcolor-3 {
-    background-color: yellow;
-  }
-
-  &--bgcolor-4 {
-    background-color: gray;
+    background-color: $color-black;
   }
 
   &__btn-close {
-    background-color: $color-black;
-    opacity: 0.3;
-    filter: alpha(opacity=30);
-    width: 15px;
-    //display: inline-block;
-    float: right;
-    height: 17px;
-    z-index: 1;
+    width: 60px;
+    & button:focus{
+      outline: 0;
+    }
+  }
+  &__btn-icon {
+    color: $color-white;
+    font-size: 25px;
 
     &:hover {
-      opacity: 0.5;
-      filter: alpha(opacity=50);
       cursor: pointer;
     }
   }
 
   &__text {
     margin: 0;
-    font-size: 1.1em;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 400;
     line-height: 1.2em;
   }
 
   &__tag {
     margin-right: 5px;
+    text-transform: uppercase;
   }
 
   &__link {

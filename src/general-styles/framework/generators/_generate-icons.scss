@@ -12,6 +12,15 @@ $map-icons: (
   user: $user,
   search: $search,
   close: $close,
+  close-circle: $close-circle,
+  add-circle: $add-circle,
+  back: $back,
+  linkedin-circle: $linkedin-circle,
+  hamburguer: $hamburguer,
+  zoom: $zoom,
+  link: $link,
+  message: $message,
+  print: $print,
 ) !default;
 
 @mixin generateicons() {

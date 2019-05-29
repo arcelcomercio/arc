@@ -12,8 +12,14 @@
 
 /******* Partials *******/
 @import './partials/base';
+@import './partials/buttons';
 /*---------------------*/
 
 /******* Components *******/
 @import '../../../general-styles/components/index';
+/*---------------------*/
+
+
+/******* Modificadores *******/
+@import './modificadores.scss';
 /*---------------------*/
