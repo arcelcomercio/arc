@@ -134,6 +134,9 @@
   }
   &__link{
     color: $color-silver;
+    i{
+      font-size: 30px;
+    }
     &:hover{
       text-decoration: none;
     }

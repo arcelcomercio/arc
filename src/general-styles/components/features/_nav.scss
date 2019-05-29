@@ -1,14 +1,16 @@
 .nav {
   position: sticky;
   top: 0;
-  height: $nav-height;
+  height: $nav-height-mobile;
   z-index: 20;
   font-family: $secondary-font;
   font-size: $font-sm;
   font-weight: bold;
   background-color: $nav-color;
   color: $color-white;
-
+  @media (--desktop) {
+    height: $nav-height;
+  }
   &__wrapper {
     padding: 0 14px;
     background-color: $color-primary;
@@ -26,7 +28,7 @@
 
   &__btn {
     color: $color-white;
-    font-size: 12px;
+  
     &:hover {
       text-decoration: none;
     }
@@ -44,6 +46,7 @@
     &--search {
       display: none;
       color: $color-silver;
+      padding: 0 0 0 13px;
       @media (--desktop) {
         display: flex;
       }
@@ -78,6 +81,7 @@
     padding: 0 5px;
     overflow: hidden;
     display: none;
+    justify-content: space-evenly;
 
     @media (--desktop) {
       &.active {
@@ -85,15 +89,18 @@
       }
     }
   }
-
+  &__list-item{
+    text-align: center;
+  }
   &__list-link {
-    margin: 0 8px;
     color: $color-gray-light;
     transition: 0.3s;
     font-family: $secondary-font;
     font-size: 12px;
     text-transform: uppercase;
     font-weight: 400;
+    text-align: center;
+    word-break: break-word;
 
     &:hover {
       color: $color-gray;
@@ -127,8 +134,12 @@
       display: inline-block;
     }
   }
-  &__icon{
+  &__icon-search{
     color: $color-primary;
+    font-size: 20px;
+  }
+  &__icon-menu{
+    font-size: 22px;
   }
   &__form {
     position: relative;
