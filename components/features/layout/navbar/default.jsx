@@ -1,7 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Schema from './_dependencies/schema'
 
 import NavBarComercio from './_children/standard'
 import NavbarChildSomos from './_children/somos'
@@ -12,9 +11,6 @@ import Formater from './_dependencies/formater'
 class BarraTest extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      sections: '',
-    }
     const {
       contextPath,
       arcSite,
@@ -36,55 +32,32 @@ class BarraTest extends PureComponent {
       },
       selectDesing
     )
-  }
-
-  componentDidMount() {
-    console.log(this.formater.main.fetchSections())
-
-    this.fetch()
-  }
-
-  // ------ Fetchs the sections data from site-navigation API
-  fetch() {
-    const { arcSite } = this.props
-
-    const source = 'navigation-by-hierarchy'
-    const params = {
-      website: arcSite,
-      hierarchy: 'navbar-header-sections',
-    }
-
-    const { fetched } = this.getContent(source, params, Schema)
-    fetched.then(response => {
-      this.setState({
-        sections: response || {},
+    if (this.formater.main.fetch !== false) {
+      const { params, source } = this.formater.main.fetch.config
+      this.fetchContent({
+        data: {
+          source,
+          query: params,
+          filter: this.formater.getSchema(),
+        },
       })
-    })
+    } else this.state = { data: {} }
   }
 
-  renderNavBar = (brand, data) => {
-    const { deployment, contextPath, arcSite, siteProperties } = this.props
-    const { sections } = this.state
-
-    const {
-      assets: {
-        nav: { logo },
-      },
-    } = siteProperties
-    const logoUrl =
-      deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) ||
-      ''
+  renderNavBar() {
+    const { customFields: { selectDesing } = {} } = this.props
+    const { data } = this.state
     const NavBarType = {
-      standard: <NavBarComercio data={data} logo={logoUrl} />,
-      somos: <NavbarChildSomos />,
+      standard: (
+        <NavBarComercio data={data} {...this.formater.main.initParams} />
+      ),
+      somos: <NavbarChildSomos {...this.formater.main.initParams} />,
     }
-    return NavBarType[brand] || NavBarType.standard
+    return NavBarType[selectDesing] || NavBarType.standard
   }
 
   render() {
-    const { customFields: { selectDesing } = {} } = this.props
-    const { sections } = this.state
-    return sections && this.renderNavBar(selectDesing, sections)
+    return this.renderNavBar()
   }
 }
 

@@ -21,8 +21,16 @@ class HeaderChildSomos extends PureComponent {
     this.setState({ searchInputText: e.target.value })
   }
 
+  handleSubmit(e) {
+    const { searchInputText } = this.state
+    const { searchUrl } = this.props
+    searchUrl(searchInputText)
+    e.preventDefault()
+  }
+
   render() {
     const { isSearchActive, searchInputText } = this.state
+    const { back: { logo, link, alt } = {} } = this.props
     const initInputs = (
       <>
         <button type="button" className="navbar-somos__login-button">
@@ -41,7 +49,7 @@ class HeaderChildSomos extends PureComponent {
     )
     const searchInputs = (
       <>
-        <form action="">
+        <form onSubmit={e => this.handleSubmit(e)}>
           <input
             type="text"
             placeholder="QUÉ BUSCAS?"
@@ -65,13 +73,9 @@ class HeaderChildSomos extends PureComponent {
 
     return (
       <header className="navbar-somos">
-        <a href="/" className="navbar-somos__logo-link">
+        <a href={link} className="navbar-somos__logo-link">
           <i className="icon-back navbar-somos__icon" />
-          <img
-            className="navbar-somos__logo-img"
-            src="https://img.elcomercio.pe/img/somos/logo_ec_w.png?1558370958"
-            alt=""
-          />
+          <img className="navbar-somos__logo-img" src={logo} alt={alt} />
         </a>
         <div className="navbar-somos__box-right">
           {isSearchActive ? searchInputs : initInputs}

@@ -22,60 +22,72 @@ export default class NavbarFormater {
     this.schema = Schema
   }
 
-  getSchema() {
-    return this.schema
-  }
-
-  setData(data) {
-    this.data = data
-  }
-
   get main() {
     return {
-      fetchSections: this[this.selectDesing].fetchSections,
-      getParams: this[this.selectDesing].getParams,
+      initParams: this[this.selectDesing].initParams(),
+      fetch: this[this.selectDesing].fetch()
+        ? this[this.selectDesing].fetch()
+        : false,
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   get somos() {
+    const { logoSomos } = this.navProperties
     return {
-      fetchSections: () => {
-        return 'fetch'
+      initParams: () => {
+        return {
+          back: {
+            logo: this.deployment(
+              `${this.contextPath}/resources/dist/${
+                this.arcSite
+              }/images/${logoSomos}`
+            ),
+            link: this.contextPath,
+            alt: this.siteDomain,
+          },
+          searchUrl: query => {
+            window.location.href = `${this.contextPath}/buscar?query=${query}`
+          },
+        }
       },
-      getParams: () => {
-        return 'params'
+      fetch: () => {
+        return false
       },
     }
-    /* const { logoSomos } = this.navProperties
-    return {
-      logo: {
-        src: this.deployment(
-          `${this.contextPath}/resources/dist/${
-            this.arcSite
-          }/images/${logoSomos}`
-        ),
-        link: this.contextPath,
-        alt: this.siteDomain,
-      },
-      logoIcon: {
-        link: this.contextPath,
-      },
-      searchUrl: query => {
-        window.location.href = `${this.contextPath}/buscar?query=${query}`
-      },
-    } */
   }
 
-  // eslint-disable-next-line class-methods-use-this
   get standard() {
+    const { logoSomos } = this.navProperties
     return {
-      fetchSections: () => {
-        return 'fetch'
+      initParams: () => {
+        return {
+          logo: this.deployment(
+            `${this.contextPath}/resources/dist/${
+              this.arcSite
+            }/images/${logoSomos}`
+          ),
+        }
       },
-      getParams: () => {
-        return 'params'
+      fetch: () => {
+        const source = 'navigation-by-hierarchy'
+        const params = {
+          hierarchy: 'navbar-header-sections',
+        }
+        return {
+          config: {
+            source,
+            params,
+          },
+          // colocar si se necesita modelar el reponse
+          /* formatResponse: response => {
+            return response
+          }, */
+        }
       },
     }
+  }
+
+  getSchema() {
+    return this.schema
   }
 }

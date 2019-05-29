@@ -36,10 +36,8 @@ const classes = {
 class NavBarDefault extends PureComponent {
   constructor(props) {
     super(props)
-    const { data } = this.props
     this.state = {
       device: setDevice(),
-      services: data,
       statusSidebar: false,
       statusSearch: false,
       scrolled: false,
@@ -160,13 +158,14 @@ class NavBarDefault extends PureComponent {
   }
 
   render() {
+    const { device, statusSidebar, scrolled } = this.state
     const {
-      device,
-      services: { children: sections = [] } = {},
-      statusSidebar,
-      scrolled,
-    } = this.state
-    const { logo, arcSite, contextPath, requestUri } = this.props
+      logo,
+      arcSite,
+      contextPath,
+      requestUri,
+      data: { children: sections = [] } = {},
+    } = this.props
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
     return (
