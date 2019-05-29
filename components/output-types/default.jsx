@@ -120,6 +120,16 @@ export default ({
           `
           )}
         />
+        <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js" />
+        <script
+          src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+          async
+        />
+        <script
+          type="text/javascript"
+          src="//acdn.adnxs.com/ast/ast.js"
+          async
+        />
 
         <title>{title}</title>
         <meta name="description" content={description} />

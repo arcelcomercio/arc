@@ -261,62 +261,65 @@ const desktop_rubicon = {
   accountId: '19186',
 }
 
-const auction = [
-  {
-    name: 'criteo',
-    values: [
-      {
-        space: 'boton1',
-        div_id: 'ads_d_boton1',
-        size: ads_d_300x600_size,
-        params: {
-          zoneId: 1233567,
+const auction = {
+  desktop: [
+    {
+      name: 'criteo',
+      values: [
+        {
+          space: 'boton1',
+          div_id: 'ads_d_boton1',
+          size: ads_d_300x600_size,
+          params: {
+            zoneId: 1233567,
+          },
+          ports: port_boton1,
         },
-        ports: port_boton1,
-      },
-      {
-        space: 'boton2',
-        div_id: 'ads_d_boton2',
-        size: ads_d_300x250_size,
-        params: {
-          zoneId: 1233566,
+        {
+          space: 'boton2',
+          div_id: 'ads_d_boton2',
+          size: ads_d_300x250_size,
+          params: {
+            zoneId: 1233566,
+          },
+          ports: port_boton2,
         },
-        ports: port_boton2,
-      },
-    ],
-  },
-  {
-    name: 'pubmatic',
-    values: [
-      {
-        space: 'zocalo1',
-        div_id: 'ads_d_zocalo1',
-        size: ads_d_160x600_size,
-        params: {
-          publisherId: '157414',
-          adSlot: '1619210@160x600',
+      ],
+    },
+    {
+      name: 'pubmatic',
+      values: [
+        {
+          space: 'zocalo1',
+          div_id: 'ads_d_zocalo1',
+          size: ads_d_160x600_size,
+          params: {
+            publisherId: '157414',
+            adSlot: '1619210@160x600',
+          },
+          ports: port_zocalo2,
         },
-        ports: port_zocalo2,
-      },
-    ],
-  },
-  {
-    name: 'rubicon',
-    values: [
-      {
-        space: 'zocalo1',
-        div_id: 'ads_d_zocalo1',
-        size: ads_d_160x600_size,
-        params: desktop_rubicon,
-        ports: port_zocalo1,
-      },
-      {
-        space: 'zocalo2',
-        div_id: 'ads_d_zocalo2',
-        size: ads_d_160x600_size,
-        params: desktop_rubicon,
-        ports: port_zocalo2,
-      },
-    ],
-  },
-]
+      ],
+    },
+    {
+      name: 'rubicon',
+      values: [
+        {
+          space: 'zocalo1',
+          div_id: 'ads_d_zocalo1',
+          size: ads_d_160x600_size,
+          params: desktop_rubicon,
+          ports: port_zocalo1,
+        },
+        {
+          space: 'zocalo2',
+          div_id: 'ads_d_zocalo2',
+          size: ads_d_160x600_size,
+          params: desktop_rubicon,
+          ports: port_zocalo2,
+        },
+      ],
+    },
+  ],
+  mobile: [{}],
+}
