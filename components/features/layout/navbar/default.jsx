@@ -7,7 +7,7 @@ import { setDevice } from '../../../utilities/resizer'
 import NavBarComercio from './_children/standard'
 import NavbarChildSomos from './_children/somos'
 
-import Formater from './_dependencies/formater'
+import Formatter from './_dependencies/formatter'
 
 @Consumer
 class BarraTest extends PureComponent {
@@ -23,7 +23,7 @@ class BarraTest extends PureComponent {
       },
       customFields,
     } = this.props
-    this.formater = new Formater(
+    this.formater = new Formatter(
       {
         deployment,
         contextPath,
