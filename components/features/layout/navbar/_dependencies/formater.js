@@ -1,21 +1,22 @@
 import Schema from './schema'
 
 export default class NavbarFormater {
-  constructor(
-    deployment,
-    contextPath = '',
-    siteDomain = '',
-    navProperties,
-    arcSite = '',
-    data = {},
-    selectDesing = 'standard'
-  ) {
+  constructor(props, selectDesing = 'standard') {
+    const {
+      deployment,
+      contextPath = '',
+      siteDomain = '',
+      nav,
+      arcSite = '',
+      getContent,
+    } = props
     this.deployment = deployment
     this.contextPath = contextPath
     this.siteDomain = siteDomain
-    this.navProperties = navProperties
+    this.navProperties = nav
     this.arcSite = arcSite
-    this.data = data
+    this.getContent = getContent
+
     this.selectDesing = selectDesing
 
     this.schema = Schema
@@ -29,12 +30,24 @@ export default class NavbarFormater {
     this.data = data
   }
 
-  getParams() {
-    return this[this.selectDesing]()
+  get main() {
+    return {
+      fetchSections: this[this.selectDesing].fetchSections,
+      getParams: this[this.selectDesing].getParams,
+    }
   }
 
-  somos() {
-    const { logoSomos } = this.navProperties
+  // eslint-disable-next-line class-methods-use-this
+  get somos() {
+    return {
+      fetchSections: () => {
+        return 'fetch'
+      },
+      getParams: () => {
+        return 'params'
+      },
+    }
+    /* const { logoSomos } = this.navProperties
     return {
       logo: {
         src: this.deployment(
@@ -51,11 +64,18 @@ export default class NavbarFormater {
       searchUrl: query => {
         window.location.href = `${this.contextPath}/buscar?query=${query}`
       },
-    }
+    } */
   }
 
   // eslint-disable-next-line class-methods-use-this
-  standard() {
-    return ''
+  get standard() {
+    return {
+      fetchSections: () => {
+        return 'fetch'
+      },
+      getParams: () => {
+        return 'params'
+      },
+    }
   }
 }

@@ -13,9 +13,8 @@ class BarraTest extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      services: '',
+      sections: '',
     }
-    console.log(props)
     const {
       contextPath,
       arcSite,
@@ -27,17 +26,21 @@ class BarraTest extends PureComponent {
       customFields: { selectDesing },
     } = this.props
     this.formater = new Formater(
-      deployment,
-      contextPath,
-      siteDomain,
-      nav,
-      arcSite,
-      {},
+      {
+        deployment,
+        contextPath,
+        siteDomain,
+        nav,
+        arcSite,
+        getContent: this.getContent,
+      },
       selectDesing
     )
   }
 
   componentDidMount() {
+    console.log(this.formater.main.fetchSections())
+
     this.fetch()
   }
 
@@ -54,17 +57,14 @@ class BarraTest extends PureComponent {
     const { fetched } = this.getContent(source, params, Schema)
     fetched.then(response => {
       this.setState({
-        services: response || {},
+        sections: response || {},
       })
     })
   }
 
   renderNavBar = (brand, data) => {
     const { deployment, contextPath, arcSite, siteProperties } = this.props
-    const { services } = this.state
-
-    this.formater.setData(services)
-    console.log(this.formater.getParams())
+    const { sections } = this.state
 
     const {
       assets: {
@@ -83,8 +83,8 @@ class BarraTest extends PureComponent {
 
   render() {
     const { customFields: { selectDesing } = {} } = this.props
-    const { services } = this.state
-    return services && this.renderNavBar(selectDesing, services)
+    const { sections } = this.state
+    return sections && this.renderNavBar(selectDesing, sections)
   }
 }
 
