@@ -4,6 +4,11 @@ import React, { PureComponent } from 'react'
 import ArcArticleBody, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
+import {
+  appendToHead,
+  createLink,
+  createScript,
+} from '../../../utilities/helpers'
 
 import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildArticleImage from './_children/image'
@@ -30,12 +35,14 @@ const classes = {
 class ArticleBody extends PureComponent {
   constructor(props) {
     super(props)
-
     this.state = {
       data: [],
     }
-
     this.getContentApi()
+  }
+
+  componentDidMount() {
+    this.handleOptaWidget()
   }
 
   getContentApi = () => {
@@ -55,6 +62,35 @@ class ArticleBody extends PureComponent {
         data: element || [],
       })
     })
+  }
+
+  hasOpta = () => {
+    return document.getElementsByTagName('opta-widget') && true
+  }
+
+  handleOptaWidget = () => {
+    if (this.hasOpta()) {
+      appendToHead(
+        createLink(
+          'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
+        )
+      )
+      appendToHead(
+        createScript({
+          textContent: `var opta_settings={
+            subscription_id: '782834e1fd5a215304e57cddad80b844',
+            language: 'es_CO',
+            timezone: 'America/Lima'
+        };`,
+        })
+      )
+      appendToHead(
+        createScript({
+          src: 'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js',
+          async: true,
+        })
+      )
+    }
   }
 
   render() {

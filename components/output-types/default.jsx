@@ -101,26 +101,6 @@ export default ({
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
 
-        <link
-          rel="stylesheet"
-          href="https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css"
-        />
-        <script
-          type="text/javascript"
-          src="https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js"
-        />
-        <script
-          dangerouslySetInnerHTML={createMarkup(
-            `
-          var opta_settings={
-            subscription_id: '782834e1fd5a215304e57cddad80b844',
-            language: 'es_CO',
-            timezone: 'America/Lima'
-          };
-          `
-          )}
-        />
-
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
