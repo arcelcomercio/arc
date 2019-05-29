@@ -13,7 +13,7 @@ const StaticsNewsletterChildConfirmation = props => {
   return (
     <>
       <h3 className={classes.title}>
-        ¡Muchas gracias por <span>Registrarte!</span>
+        ¡Muchas gracias por <strong>Registrarte!</strong>
       </h3>
       <p className={classes.descripcion}>
         Recibirás diariamente nuestro newsletter

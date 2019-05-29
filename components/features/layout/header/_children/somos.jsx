@@ -94,10 +94,10 @@ class HeaderChildSomos extends PureComponent {
                 <i className={classes.menuCloseIcon} />
               </button>
             </div>
-            <div className={classes.menuSearch}>
+            <div role="search" className={classes.menuSearch}>
               <form action="" onSubmit={e => this.handleSubmit(e)}>
                 <input
-                  type="text"
+                  type="search"
                   placeholder="Buscar"
                   className={classes.menuSearchInput}
                   value={searchValue}

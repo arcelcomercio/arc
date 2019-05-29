@@ -141,8 +141,8 @@ class ArticleBody extends PureComponent {
         />
 
         {relatedContent.length > 0 && (
-          <div className={classes.related}>
-            <div className={classes.relatedTitle}>Relacionadas </div>
+          <div role="list" className={classes.related}>
+            <h4 className={classes.relatedTitle}>Relacionadas </h4>
             {relatedContent.map((item, i) => {
               const { type } = item
               const key = `related-${i}`
@@ -158,6 +158,7 @@ class ArticleBody extends PureComponent {
             })}
           </div>
         )}
+        {this.handleOptaWidget()}
       </div>
     )
   }

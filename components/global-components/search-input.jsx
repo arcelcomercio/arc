@@ -14,7 +14,7 @@ class SearchInput extends PureComponent {
 
   // TODO: Agrega la nueva "query" a la URI
   _handleSearch = e => {
-    const { globalContentConfig, contextPath } = this.props
+    const { contextPath, globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
     const { value } = this.inputSearch.current /* React ref del input */
     e.preventDefault()
