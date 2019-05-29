@@ -1,32 +1,53 @@
 .nav {
   position: sticky;
   top: 0;
-  height: $nav-height;
+  height: $nav-height-mobile;
   z-index: 20;
   font-family: $secondary-font;
   font-size: $font-sm;
   font-weight: bold;
   background-color: $nav-color;
   color: $color-white;
-  &--comercio {
-    background-color: $nav-color-2;
+  &.active{
+    background-color: $color-primary;
+    .nav__btn{
+      color: $color-white;
+    }
+    .btn{
+      border-color: $color-white;
+      color: $color-white;
+    }
   }
-
+  @media (--desktop) {
+    height: $nav-height;
+  }
   &__wrapper {
-    padding: 0 15px;
+    padding: 0 14px;
+    background-color: $color-primary;
+    @media (--desktop) {
+      background-color: transparent;
+    }
   }
 
   &__container-menu {
-    @media (--tablet) {
+    @media (--desktop) {
       border-right: solid 1px $color-silver;
       padding-right: 10px;
     }
   }
 
   &__btn {
-    background-color: $color-soft;
-    color: $color-silver;
-
+    color: $color-white;
+  
+    &:hover {
+      text-decoration: none;
+    }
+    &:focus {
+      outline: 0;
+    }
+    @media (--desktop) {
+      color: $color-primary;
+    }
     &--featured {
       color: $color-primary;
       height: inherit;
@@ -35,6 +56,7 @@
     &--search {
       display: none;
       color: $color-silver;
+      padding: 0 0 0 13px;
       @media (--desktop) {
         display: flex;
       }
@@ -57,7 +79,7 @@
         display: none;
         font-family: $secondary-font;
 
-        @media (--tablet) {
+        @media (--desktop) {
           display: inline;
           margin-left: 8px;
         }
@@ -69,6 +91,7 @@
     padding: 0 5px;
     overflow: hidden;
     display: none;
+    justify-content: space-evenly;
 
     @media (--desktop) {
       &.active {
@@ -76,12 +99,18 @@
       }
     }
   }
-
+  &__list-item{
+    text-align: center;
+  }
   &__list-link {
-    margin: 0 8px;
-    color: $color-silver;
+    color: $color-gray-light;
     transition: 0.3s;
     font-family: $secondary-font;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-align: center;
+    word-break: break-word;
 
     &:hover {
       color: $color-gray;
@@ -105,6 +134,7 @@
     // Temporal
     width: 100px;
     height: 30px;
+    display: none;
   }
 
   &__header-sub {
@@ -114,7 +144,13 @@
       display: inline-block;
     }
   }
-
+  &__icon-search{
+    color: $color-primary;
+    font-size: 20px;
+  }
+  &__icon-menu{
+    font-size: 22px;
+  }
   &__form {
     position: relative;
   }

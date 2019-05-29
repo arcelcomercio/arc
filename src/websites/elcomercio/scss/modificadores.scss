@@ -1,9 +1,39 @@
 /** cintillo urgente**/
 
 .cintillo-u {
-    &--bgcolor-1{
-        background-color: #ED1C24;
+  &--bgcolor-1 {
+    background-color: #ed1c24;
+  }
+}
+/******/
+/** Barra de navegacion**/
+.nav {
+  background-color: $color-light;
+  &__btn {
+    @media (--desktop) {
+      color: $color-gray-light;
     }
+  }
+  &__icon-search {
+    color: $color-gray-light;
+  }
+  &.active {
+    .nav__container-menu {
+      border-color: $color-white;
+    }
+  }
+}
+.btn--outline {
+  border-color: $color-gray-light;
+  color: $color-gray-light;
 }
 
+.header__nav-wrapper {
+  border-color: $color-secondary;
+}
+.header__item {
+  a {
+    color: $color-secondary;
+  }
+}
 /******/

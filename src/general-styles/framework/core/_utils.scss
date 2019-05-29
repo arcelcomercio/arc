@@ -183,6 +183,11 @@
     font-size: 9px;
     padding: 4px 6px;
   }
+  &--outline{
+    border: 1px solid $color-primary;
+    background-color: transparent;
+    color: $color-primary;
+  }
 }
 
 /*****************************************/
