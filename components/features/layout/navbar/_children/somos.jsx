@@ -1,6 +1,20 @@
 import React, { PureComponent } from 'react'
 
-// const classes = {}
+const classes = {
+  navbarSomos: 'navbar-somos',
+  logoLink: 'navbar-somos__logo-link',
+  logoIcon: 'icon-back navbar-somos__icon',
+  logoImg: 'navbar-somos__logo-img',
+  boxRight: 'navbar-somos__box-right',
+  loginButton: 'navbar-somos__login-button',
+  iconUser: 'icon-user navbar-somos__icon-user',
+  searchIcon: 'icon-search navbar-somos__icon',
+  searchInput: 'navbar-somos__search-input',
+  searchButton: 'navbar-somos__search-button',
+  closeButton: 'navbar-somos__close-button',
+  closeIcon: 'icon-close navbar-somos__icon',
+  searchInputIcon: 'icon-search',
+}
 
 class HeaderChildSomos extends PureComponent {
   constructor(props) {
@@ -33,8 +47,8 @@ class HeaderChildSomos extends PureComponent {
     const { back: { logo, link, alt } = {}, device, deviceList } = this.props
     const initInputs = (
       <>
-        <button type="button" className="navbar-somos__login-button">
-          <i className="icon-user navbar-somos__icon-user" />
+        <button type="button" className={classes.loginButton}>
+          <i className={classes.iconUser} />
           <span>Ingresa a tu cuenta</span>
         </button>
         <button
@@ -43,7 +57,7 @@ class HeaderChildSomos extends PureComponent {
             this.toggleSearchInputs()
             setTimeout(() => this.searchInput.current.focus(), 50)
           }}>
-          <i className="icon-search navbar-somos__icon" />
+          <i className={classes.searchIcon} />
         </button>
       </>
     )
@@ -53,20 +67,20 @@ class HeaderChildSomos extends PureComponent {
           <input
             type="text"
             placeholder="QUÉ BUSCAS?"
-            className="navbar-somos__search-input"
+            className={classes.searchInput}
             value={searchInputText}
             onChange={e => this.handleSearchInput(e)}
             ref={this.searchInput}
           />
-          <button type="submit" className="navbar-somos__search-button">
-            <i className="icon-search" />
+          <button type="submit" className={classes.searchButton}>
+            <i className={classes.searchInputIcon} />
           </button>
         </form>
         <button
           type="button"
-          className="navbar-somos__close-button"
+          className={classes.closeButton}
           onClick={() => this.toggleSearchInputs()}>
-          <i className="icon-close navbar-somos__icon" />
+          <i className={classes.closeIcon} />
         </button>
       </>
     )
@@ -88,12 +102,12 @@ class HeaderChildSomos extends PureComponent {
     }
     return (
       _handleHide() && (
-        <header className="navbar-somos">
-          <a href={link} className="navbar-somos__logo-link">
-            <i className="icon-back navbar-somos__icon" />
-            <img className="navbar-somos__logo-img" src={logo} alt={alt} />
+        <header className={classes.navbarSomos}>
+          <a href={link} className={classes.logoLink}>
+            <i className={classes.logoIcon} />
+            <img className={classes.logoImg} src={logo} alt={alt} />
           </a>
-          <div className="navbar-somos__box-right">
+          <div className={classes.boxRight}>
             {isSearchActive ? searchInputs : initInputs}
           </div>
         </header>
