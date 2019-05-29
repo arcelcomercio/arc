@@ -158,7 +158,7 @@ class ArticleBody extends PureComponent {
             })}
           </div>
         )}
-        {this.handleOptaWidget()}
+        {this.handleOptaWidget() /* Si encuentra opta-widget agrega scripts a <head> */}
       </div>
     )
   }

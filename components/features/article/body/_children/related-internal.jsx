@@ -1,6 +1,6 @@
 import React from 'react'
 import UtilListKey from '../../../../utilities/list-keys'
-import StoryData from '../../../../utilities/story-data'
+// import StoryData from '../../../../utilities/story-data'
 import { getIcon } from '../../../../utilities/helpers'
 
 // Basic flex stuff
@@ -16,7 +16,7 @@ const classes = {
   relatedInfo: 'related-interna__information',
 }
 
-const RelartedItem = ({ data }, i) => {
+const RelartedItem = ({ data } /* , i */) => {
   const {
     contextPath,
     headlines: { basic: articleTitle } = {},

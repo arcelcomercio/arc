@@ -50,7 +50,6 @@ class Error404 extends PureComponent {
 }
 
 Error404.label = 'Error 404'
-Error404.static = true
 
 Error404.propTypes = {
   customFields: PropTypes.shape({

@@ -47,9 +47,9 @@ class NavbarChildMenu extends PureComponent {
     const { contextPath } = this.props
     return (
       sections &&
-      sections.map(({ name = '', _id: id = '', children }) => (
-        < key={id}>
-          <li className={classes.renderItem}>
+      sections.map(({ children, name = '', _id: id = '' }) => (
+        <>
+          <li className={classes.renderItem} key={`navbar-menu-${id}`}>
             <a href={`${contextPath}${id}`} className={classes.renderItemLink}>
               {name}
             </a>

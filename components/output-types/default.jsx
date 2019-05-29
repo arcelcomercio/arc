@@ -3,7 +3,6 @@ import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
-import { createMarkup } from '../utilities/helpers'
 
 export default ({
   children,
