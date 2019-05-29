@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import Button from '../../../../global-components/button'
 
 const classes = {
@@ -48,14 +48,14 @@ class NavbarChildMenu extends PureComponent {
     return (
       sections &&
       sections.map(({ name = '', _id: id = '', children }) => (
-        <Fragment key={id}>
+        < key={id}>
           <li className={classes.renderItem}>
             <a href={`${contextPath}${id}`} className={classes.renderItemLink}>
               {name}
             </a>
           </li>
           {children && this.renderSections(children)}
-        </Fragment>
+        </>
       ))
     )
   }

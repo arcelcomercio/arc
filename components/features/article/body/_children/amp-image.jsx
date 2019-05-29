@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import Image from '@arc-core-components/element_image'
 
@@ -10,7 +10,7 @@ const classes = {
 const ArticleBodyChildArticleImage = props => {
   const { data } = props
   return (
-    <Fragment>
+    <>
       <div className="media norowmargin">
         <figure>
           <amp-img i-amphtml-layout="responsive">
@@ -24,7 +24,7 @@ const ArticleBodyChildArticleImage = props => {
           </amp-img>
         </figure>
       </div>
-    </Fragment>
+    </>
   )
 }
 

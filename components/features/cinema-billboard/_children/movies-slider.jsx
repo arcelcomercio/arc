@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
@@ -79,7 +79,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
           aria-valuemax="10"
           className={classes.body}>
           {premieres && (
-            <Fragment>
+            <>
               <ul style={sliderStyle} className={classes.content}>
                 {premieres.map(movie => (
                   <li
@@ -151,7 +151,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                   />
                 </div>
               )}
-            </Fragment>
+            </>
           )}
         </div>
       </section>

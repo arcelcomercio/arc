@@ -1,13 +1,13 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import { popUpWindow } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  news: 'article-body__icon-list flex flex--justify-between flex--align-center',
-  list: 'article-body__list flex flex--justify-between',
+  news: 'article-body__icon-list',
+  list: 'article-body__list',
   item: 'article-body__item',
-  link: 'article-body__link flex-center-vertical flex--justify-center',
+  link: 'article-body__link',
 }
 @Consumer
 class ArticleBodyChildIcon extends PureComponent {
@@ -24,23 +24,23 @@ class ArticleBodyChildIcon extends PureComponent {
         {
           icon: 'icon-print',
           link: '',
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: '',
         },
 
         {
-          icon: 'icon-email',
+          icon: 'icon-message',
           link: '',
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: '',
         },
         {
           icon: 'icon-link',
           link: '',
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: '',
         },
         {
-          icon: 'icon-font',
+          icon: 'icon-zoom',
           link: '',
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: '',
         },
       ],
     }
@@ -56,7 +56,7 @@ class ArticleBodyChildIcon extends PureComponent {
     const { currentList } = this.state
 
     return (
-      <Fragment>
+      <>
         <div className={classes.news}>
           <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (
@@ -76,7 +76,7 @@ class ArticleBodyChildIcon extends PureComponent {
             ))}
           </ul>
         </div>
-      </Fragment>
+      </>
     )
   }
 }

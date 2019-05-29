@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
   header: 'header full-width header__main flex-center',
   headerLogo: 'header__logo',
-  headerFeatured: 'flex-center header__featured full-width bg-color--white',
+  headerFeatured: 'flex flex--justify-between header__featured full-width',
   headerFeaturedItem: 'flex-center header__item',
+  headerNav: 'header__nav-wrapper',
 }
 
 const HeaderChildStandard = props => {
@@ -15,13 +16,13 @@ const HeaderChildStandard = props => {
 
   return (
     isDesktop && (
-      <Fragment>
+      <>
         <header className={classes.header}>
           <a href={logo.link}>
             <img src={logo.src} alt={logo.alt} className={classes.headerLogo} />
           </a>
         </header>
-        <nav>
+        <nav className={classes.headerNav}>
           {sections[0] && (
             <ul className={classes.headerFeatured}>
               {sections.map(section => (
@@ -32,7 +33,7 @@ const HeaderChildStandard = props => {
             </ul>
           )}
         </nav>
-      </Fragment>
+      </>
     )
   )
 }

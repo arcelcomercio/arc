@@ -127,4 +127,40 @@
       height: 100%;
     }
   }
+
+
+  /******* Autor *******/
+  &__author {
+    margin-bottom: 20px;
+    padding-top: 30px;
+  }
+  &__author-email {
+    font-size: $font-sm;
+  }
+  &__author-date {
+    font-size: 12px;
+  }
+  img {
+    width: 100%;
+  }
+  &__icon-list {
+    padding: 20px 0 20px 20px;
+    @media (--desktop) {
+      padding: 20px;
+      position: absolute;
+      right: -50px;
+    }
+  }
+  &__item {
+    margin-bottom: 20px;
+  }
+  &__link{
+    color: $color-silver;
+    i{
+      font-size: 30px;
+    }
+    &:hover{
+      text-decoration: none;
+    }
+  }
 }
