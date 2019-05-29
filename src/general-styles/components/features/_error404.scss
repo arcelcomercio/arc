@@ -1,55 +1,43 @@
-.error{
-    &__container{
+.error {
+    &__container {
         font-family: $secondary-font;
-        background: #e8f2f7;
-        width: 100%;
-        text-align:center;
-        // font-family: "Open-Sans";
-        padding: 40px 0 20px;
-        margin-bottom:30px
+        background: $color-soft-bg;
+        padding: 40px 20px 40px;
     }
-    &__icon{
-        left: 50%;
+
+    &__icon {
         margin-left: -21px;
-        margin-top: -30px;
+        top: 0;
         width: 0;
         height: 0;
         border-style: solid;
         border-width: 24px 21px 0 21px;
-        border-color: #fff transparent transparent transparent;
+        border-color: $color-white transparent transparent transparent;
     }
-    &__title{
+
+    &__title {
         font-family: $primary-font;
-        font-size:32px;
         font-weight: 700;
-        margin-bottom: 10px;
         line-height: 2.4rem;
-        padding: 0px 100px;
+
+        @media (--desktop) {
+            padding: 0 20px;
+        }
     }
-    &__content{
-        font-size: 13px;
-        display:inline-block;
+
+    &__content {
         line-height: 1.5;
-        width:400px;
-        padding: 13px 0px;
+        max-width: 400px;
     }
-    &__search-box{
-        min-width: 333px;
-        max-width: 405px;
+
+    &__search-box {
+        max-width: 400px;
         margin: 0 auto;
-        padding: 10px 0 20px;
     }
-    &__link-box{
-        font-size: 13px;
-        display: inline-block;
-        width:400px;
-        line-height:1.5;
-        color: black;
-        padding: 13px 0;
-    }
-    &__link{
-        text-decoration: none;
+
+    &__link {
+        line-height: 1.5;
         font-weight: 700;
-        color:#333;
+        color: $color-gray;
     }
 }

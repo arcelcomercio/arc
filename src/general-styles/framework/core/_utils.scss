@@ -53,6 +53,10 @@
   display: none;
 }
 
+.inline-b {
+  display: inline-block;
+}
+
 .no-desktop,
 [id^='ads-m'],
 [id^='ads_m'] {
@@ -138,6 +142,7 @@
   background-color: $color-dark;
   color: $color-white;
 }
+
 .bg-color--gray {
   background-color: $color-gray;
   color: $color-white;
@@ -173,6 +178,7 @@
   line-height: 16px;
   font-family: $primary-font;
   cursor: pointer;
+
   &--small {
     font-size: 9px;
     padding: 4px 6px;
@@ -186,6 +192,7 @@
 .primary-font {
   font-family: $primary-font;
 }
+
 .secondary-font {
   font-family: $secondary-font;
 }
