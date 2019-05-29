@@ -7,7 +7,7 @@ import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 
 const classes = {
-  separator: 'articlesep col-3 separator--nota',
+  separator: 'articlesep full-width separator--nota',
   title: 'articlesep__header-title separator__header-title--nota',
   body: 'articlesep__body separator__body--items',
   mvideo: 'articlesep--video',
