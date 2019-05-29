@@ -1,7 +1,7 @@
 import Schema from './schema'
 
 export default class NavbarFormater {
-  constructor(props, selectDesing = 'standard') {
+  constructor(props, customFields) {
     const {
       deployment,
       contextPath = '',
@@ -10,6 +10,7 @@ export default class NavbarFormater {
       arcSite = '',
       getContent,
     } = props
+    const { selectDesing = 'standard' } = customFields
     this.deployment = deployment
     this.contextPath = contextPath
     this.siteDomain = siteDomain
@@ -18,7 +19,7 @@ export default class NavbarFormater {
     this.getContent = getContent
 
     this.selectDesing = selectDesing
-
+    // this.deviceList = { showInDesktop, showInTablet, showInMobile }
     this.schema = Schema
   }
 

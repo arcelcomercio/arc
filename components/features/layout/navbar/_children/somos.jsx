@@ -30,7 +30,7 @@ class HeaderChildSomos extends PureComponent {
 
   render() {
     const { isSearchActive, searchInputText } = this.state
-    const { back: { logo, link, alt } = {} } = this.props
+    const { back: { logo, link, alt } = {}, device, deviceList } = this.props
     const initInputs = (
       <>
         <button type="button" className="navbar-somos__login-button">
@@ -71,16 +71,33 @@ class HeaderChildSomos extends PureComponent {
       </>
     )
 
+    const _handleHide = () => {
+      switch (device) {
+        case 'desktop':
+          return deviceList.showInDesktop
+
+        case 'tablet':
+          return deviceList.showInTablet
+
+        case 'mobile':
+          return deviceList.showInMobile
+
+        default:
+          return true
+      }
+    }
     return (
-      <header className="navbar-somos">
-        <a href={link} className="navbar-somos__logo-link">
-          <i className="icon-back navbar-somos__icon" />
-          <img className="navbar-somos__logo-img" src={logo} alt={alt} />
-        </a>
-        <div className="navbar-somos__box-right">
-          {isSearchActive ? searchInputs : initInputs}
-        </div>
-      </header>
+      _handleHide() && (
+        <header className="navbar-somos">
+          <a href={link} className="navbar-somos__logo-link">
+            <i className="icon-back navbar-somos__icon" />
+            <img className="navbar-somos__logo-img" src={logo} alt={alt} />
+          </a>
+          <div className="navbar-somos__box-right">
+            {isSearchActive ? searchInputs : initInputs}
+          </div>
+        </header>
+      )
     )
   }
 }

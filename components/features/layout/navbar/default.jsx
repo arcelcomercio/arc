@@ -2,6 +2,8 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
+import { setDevice } from '../../../utilities/resizer'
+
 import NavBarComercio from './_children/standard'
 import NavbarChildSomos from './_children/somos'
 
@@ -19,7 +21,7 @@ class BarraTest extends PureComponent {
         siteDomain,
         assets: { nav },
       },
-      customFields: { selectDesing },
+      customFields,
     } = this.props
     this.formater = new Formater(
       {
@@ -30,8 +32,12 @@ class BarraTest extends PureComponent {
         arcSite,
         getContent: this.getContent,
       },
-      selectDesing
+      customFields
     )
+    this.state = {
+      data: {},
+      device: setDevice(),
+    }
     if (this.formater.main.fetch !== false) {
       const { params, source } = this.formater.main.fetch.config
       this.fetchContent({
@@ -41,17 +47,56 @@ class BarraTest extends PureComponent {
           filter: this.formater.getSchema(),
         },
       })
-    } else this.state = { data: {} }
+    }
+  }
+
+  componentDidMount() {
+    const { device } = this.state
+    this.addEventListener('displayChange', this._handleDevice)
+
+    // ------ Sets scroll eventListener if device is desktop
+    if (device === 'desktop')
+      window.addEventListener('scroll', this._handleScroll)
+  }
+
+  // ------ Sets the new device state when the listener is activated
+  _handleDevice = device => {
+    this.setState({
+      device,
+    })
+    this._handleScroll()
+    // ------ Add or remove Scroll eventListener on resize
+    if (device === 'desktop')
+      window.addEventListener('scroll', this._handleScroll)
+    else window.removeEventListener('scroll', this._handleScroll)
   }
 
   renderNavBar() {
-    const { customFields: { selectDesing } = {} } = this.props
-    const { data } = this.state
+    const {
+      customFields: {
+        selectDesing,
+        showInDesktop,
+        showInTablet,
+        showInMobile,
+      } = {},
+    } = this.props
+    const { data, device } = this.state
     const NavBarType = {
       standard: (
-        <NavBarComercio data={data} {...this.formater.main.initParams} />
+        <NavBarComercio
+          deviceList={{ showInDesktop, showInTablet, showInMobile }}
+          device={device}
+          data={data}
+          {...this.formater.main.initParams}
+        />
       ),
-      somos: <NavbarChildSomos {...this.formater.main.initParams} />,
+      somos: (
+        <NavbarChildSomos
+          deviceList={{ showInDesktop, showInTablet, showInMobile }}
+          device={device}
+          {...this.formater.main.initParams}
+        />
+      ),
     }
     return NavBarType[selectDesing] || NavBarType.standard
   }
@@ -70,6 +115,21 @@ BarraTest.propTypes = {
         somos: 'Barra de navegación somos',
       },
       defaultValue: 'standard',
+    }),
+    showInDesktop: PropTypes.bool.tag({
+      name: 'Mostrar en desktop',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
+    }),
+    showInTablet: PropTypes.bool.tag({
+      name: 'Mostrar en tablet',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
+    }),
+    showInMobile: PropTypes.bool.tag({
+      name: 'Mostrar en móviles ',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
     }),
   }),
 }
