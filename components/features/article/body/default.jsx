@@ -14,7 +14,6 @@ import ArticleBodyChildRelated from './_children/related'
 import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildAuthor from './_children/author'
 import ArticleBodyChildMultimedia from './_children/multimedia'
-import schemaFilter from './_dependencies/schema-filter'
 import ArticleBodyChildRelatedInternal from './_children/related-internal'
 import ArticleBodyChildIcon from './_children/icon-list'
 
@@ -28,46 +27,16 @@ const classes = {
 }
 @Consumer
 class ArticleBody extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      data: [],
-    }
-
-    this.getContentApi()
-  }
-
-  getContentApi = () => {
-    const {
-      arcSite,
-      globalContent: { _id: id },
-    } = this.props
-
-    const { fetched } = this.getContent(
-      'story-by-related',
-      { _id: id, website: arcSite },
-      schemaFilter
-    )
-    fetched.then(response => {
-      const { basic: element } = response
-      this.setState({
-        data: element || [],
-      })
-    })
-  }
-
   render() {
-    const { globalContent, arcSite, contextPath } = this.props
-    const { data } = this.state
+    const { globalContent, contextPath } = this.props
     const {
       content_elements: contentElements,
       promo_items: promoItems,
       publish_date: date,
       credits: author,
       taxonomy: { tags = {} },
+      related_content: { basic: relatedContent },
     } = globalContent || {}
-
     return (
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
@@ -79,7 +48,7 @@ class ArticleBody extends PureComponent {
               data={contentElements}
               elementClasses={classes}
               renderElement={element => {
-                const { type, subtype, raw_oembed: rawOembed } = element
+                const { _id, type, subtype, raw_oembed: rawOembed } = element
                 if (type === 'image') {
                   return (
                     <ArticleBodyChildArticleImage
@@ -119,9 +88,9 @@ class ArticleBody extends PureComponent {
                 if (type === 'story') {
                   return (
                     <ArticleBodyChildRelatedInternal
-                      data={element}
-                      stories={data}
-                      arcSite={arcSite}
+                      stories={relatedContent}
+                      contextPath={contextPath}
+                      id={_id}
                     />
                   )
                 }
@@ -136,7 +105,25 @@ class ArticleBody extends PureComponent {
           className={classes.tags}
           contextPath={contextPath}
         />
-        <ArticleBodyChildRelated stories={data} />
+
+        {relatedContent.length > 0 && (
+          <div className={classes.related}>
+            <div className={classes.relatedTitle}>Relacionadas </div>
+            {relatedContent.map((item, i) => {
+              const { type } = item
+              const key = `related-${i}`
+              return type !== 'story' ? (
+                ''
+              ) : (
+                <ArticleBodyChildRelated
+                  key={key}
+                  {...item}
+                  contextPath={contextPath}
+                />
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }

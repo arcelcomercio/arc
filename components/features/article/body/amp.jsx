@@ -5,7 +5,6 @@ import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import AmpImage from '@arc-core-components/element_image'
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import schemaFilter from './_dependencies/schema-filter'
 import ElePrincipal from './_children/amp-ele-principal'
 import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildTable from './_children/table'
@@ -22,45 +21,16 @@ const classes = {
 
 @Consumer
 class ArticleAMPArticleBody extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      dataRelated: [],
-    }
-
-    this.getContentApi()
-  }
-
-  getContentApi = () => {
-    const {
-      arcSite,
-      globalContent: { _id: id },
-    } = this.props
-
-    const { fetched } = this.getContent(
-      'story-by-related',
-      { _id: id, website: arcSite },
-      schemaFilter
-    )
-    fetched.then(response => {
-      const { basic: element } = response
-      this.setState({
-        dataRelated: element || [],
-      })
-    })
-  }
-
   render() {
     const {
       globalContent: {
         content_elements: contentElements,
         promo_items: promoItems,
         taxonomy: { tags = {} },
+        related_content: { basic: relatedContent },
       },
+      contextPath,
     } = this.props
-    const { dataRelated } = this.state
-
     return (
       <div className={classes.content}>
         {promoItems && <ElePrincipal data={promoItems} />}
@@ -118,7 +88,24 @@ class ArticleAMPArticleBody extends PureComponent {
           />
         )}
         <ArticleBodyChildTags data={tags} className={classes.tags} />
-        <ArticleBodyChildRelated stories={dataRelated} />
+        {relatedContent.length > 0 && (
+          <div className={classes.related}>
+            <div className={classes.relatedTitle}>Relacionadas </div>
+            {relatedContent.map((item, i) => {
+              const { type } = item
+              const key = `related-${i}`
+              return type !== 'story' ? (
+                ''
+              ) : (
+                <ArticleBodyChildRelated
+                  key={key}
+                  {...item}
+                  contextPath={contextPath}
+                />
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }
