@@ -8,6 +8,16 @@
   font-weight: bold;
   background-color: $nav-color;
   color: $color-white;
+  &.active{
+    background-color: $color-primary;
+    .nav__btn{
+      color: $color-white;
+    }
+    .btn{
+      border-color: $color-white;
+      color: $color-white;
+    }
+  }
   @media (--desktop) {
     height: $nav-height;
   }

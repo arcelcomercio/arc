@@ -28,7 +28,7 @@ const classes = {
   headerBtnLogin: 'flex-center-vertical btn btn--outline',
   headerBtnSubscribe:
     'flex-center-vertical btn btn--outline nav__header-sub',
-  headerBtnIconLogin: 'icon icon--login',
+  headerBtnIconLogin: 'icon icon-user',
 }
 
 @Consumer
@@ -169,7 +169,7 @@ class NavBarDefault extends PureComponent {
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
     return (
-      <nav className={classes.nav}>
+      <nav className={`${classes.nav} ${scrolled ? 'active' : ''}`}>
         <div className={classes.navWrapper}>
           {/** ************* LEFT *************** */}
 
