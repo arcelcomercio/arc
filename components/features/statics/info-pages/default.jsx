@@ -7,7 +7,7 @@ import ArticleTable from '../../../global-components/article-table'
 
 const policiesList = {
   termsAndConditions: 'Términos y condiciones de uso',
-  guidingPrinciples: 'Principios Rectores de El Comercio',
+  guidingPrinciples: 'Principios Rectores',
   privacyPolicies: 'Política de privacidad',
   policyIntegratedManagement: 'Politica Integrada de Gestión',
   arcoProcedure: 'Derechos ARCO',
@@ -26,10 +26,8 @@ class InfoPages extends PureComponent {
     super(props)
     this.state = {
       contentElements: [],
-      contentTitle: '',
+      headlines: '',
     }
-    policiesList.arcoProcedure =
-      'Procedimiento para garantizar el ejercicio de derechos de acceso, rectificación, cancelación y oposición de datos personales (Derechos ARCO)'
   }
 
   componentDidMount() {
@@ -53,7 +51,7 @@ class InfoPages extends PureComponent {
       .then(res => {
         this.setState({
           contentElements: res.content_elements,
-          contentTitle: typeOfPolicy
+          headlines: typeOfPolicy
             ? policiesList[typeOfPolicy]
             : policiesList[defaultPolicy],
         })
@@ -64,17 +62,17 @@ class InfoPages extends PureComponent {
             ? policiesList[typeOfPolicy]
             : policiesList[defaultPolicy]
         }" para "${arcSite}"`
-        this.setState({ contentTitle: errorMessage })
+        this.setState({ headlines: errorMessage })
         // eslint-disable-next-line no-console
         console.error(e)
       })
   }
 
   render() {
-    const { contentElements, contentTitle } = this.state
+    const { contentElements, headlines } = this.state
     return (
       <div className={classes.staticPolicy}>
-        <h1>{contentTitle}</h1>
+        <h1>{headlines}</h1>
         <ArcArticleBody
           data={contentElements}
           renderElement={element => {
