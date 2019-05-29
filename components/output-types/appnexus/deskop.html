@@ -133,7 +133,8 @@
 
   // Definir auction
   const adUnits = auction.map(el => {
-    return el.values
+    const data = device === 'd' ? el.desktop : el.mobile
+    return data.values
       .filter(item => item.ports.find(val => val === PORT))
       .map(obj => {
         const itemObj = {
