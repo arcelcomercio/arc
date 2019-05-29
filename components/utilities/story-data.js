@@ -1,6 +1,6 @@
 import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
-import { defaultImage } from './helpers'
+import { defaultImage, formatHtmlToText } from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -140,6 +140,53 @@ class StoryData {
     return url
   }
 
+  get relatedContent() {
+    const { related_content: { basic } = {} } = this._data || {}
+    return basic
+  }
+
+  get videoSeo() {
+    const imagesContent = StoryData.getContentElements(
+      this._data && this._data.content_elements && this._data.content_elements,
+      'video'
+    )
+    const promoItemsImage = StoryData.getSeoMultimedia(
+      this._data.promo_items,
+      'video'
+    )
+    return imagesContent
+      .filter(String)
+      .concat(promoItemsImage)
+      .filter(String)
+  }
+
+  get imagesSeo() {
+    const imagesContent = StoryData.getContentElements(
+      this._data && this._data.content_elements && this._data.content_elements,
+      'image'
+    )
+    const galleryContentResul = StoryData.getContentElements(
+      this._data && this._data.content_elements && this._data.content_elements,
+      'gallery'
+    ).filter(String)
+    const galleryContent =
+      (galleryContentResul &&
+        galleryContentResul[0] &&
+        galleryContentResul[0].content_elements) ||
+      []
+
+    const promoItemsImage = StoryData.getSeoMultimedia(
+      this._data.promo_items,
+      'image'
+    )
+    return imagesContent
+      .filter(String)
+      .concat(galleryContent)
+      .filter(String)
+      .concat(promoItemsImage)
+      .filter(String)
+  }
+
   // TODO: Cambiar la fecha a lo que se estandarice
   get date() {
     return this.publishDate
@@ -187,6 +234,17 @@ class StoryData {
     return attributesObject
   }
 
+  get contentElementsText() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsText(
+          this._data.content_elements,
+          'text'
+        )) ||
+      ''
+    )
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -195,6 +253,57 @@ class StoryData {
       ]).resized_urls[ratio]
     }
     return this.multimedia
+  }
+
+  static getSeoMultimedia(
+    { basic_video: basicVideo, basic_gallery: basicGallery, basic },
+    type
+  ) {
+    if (basicVideo && type !== 'image') {
+      const {
+        promo_items: { url: urlImage },
+        streams,
+        headlines: { basic: caption } = {},
+      } = basicVideo
+
+      const dataVideo = streams
+        .map(({ url, stream_type: streamType }) => {
+          return streamType === 'mp4' ? { url, caption, urlImage } : []
+        })
+        .filter(String)
+
+      return [dataVideo[0]]
+    }
+
+    if (basicGallery) {
+      const { content_elements: contentElements } = basicGallery || []
+      return contentElements
+    }
+
+    if (basic) {
+      const {
+        content_element: {
+          basic: { url, caption = '' },
+        },
+      } = basic
+      return {
+        url,
+        subtitle: caption,
+      }
+    }
+    return []
+  }
+
+  static getContentElementsText(data, typeElement) {
+    return data.map(({ content, type }) => {
+      return type === typeElement ? formatHtmlToText(content) : []
+    })
+  }
+
+  static getContentElements(data, typeElement) {
+    return data.map(item => {
+      return item.type === typeElement ? item : []
+    })
   }
 
   static getPrimarySection(data) {
@@ -301,9 +410,10 @@ class StoryData {
     const basicPromoItems =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
     const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
-    return typePromoItems && typePromoItems === 'image'
-      ? basicPromoItems.url
-      : ''
+    return (
+      (typePromoItems && typePromoItems === 'image' && basicPromoItems.url) ||
+      ''
+    )
   }
 
   static getThumbnail(data, type) {

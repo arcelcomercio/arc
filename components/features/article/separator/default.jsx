@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react'
 import schemaFilter from './_dependencies/schema-filter'
 import ArticleSeparatorChildItem from './_children/item'
 import StoryData from '../../../utilities/story-data'
+import UtilListKey from '../../../utilities/list-keys'
 
 const classes = {
   separator: 'articlesep col-3 separator--nota',
@@ -98,7 +99,7 @@ class ArticleSeparator extends PureComponent {
     })
 
     let key = 0
-    return stories.map(story => {
+    return stories.map((story, i) => {
       if (key === 4) return false
       const { website_url: websiteUrl } = story
       if (websiteUrl === excluir) return false
@@ -116,6 +117,7 @@ class ArticleSeparator extends PureComponent {
       return (
         <ArticleSeparatorChildItem
           data={data}
+          key={UtilListKey(i)}
           contextPath={contextPath}
           arcSite={arcSite}
         />

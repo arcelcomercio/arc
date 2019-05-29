@@ -22,6 +22,8 @@ export default ({
   const metaPageData = {
     globalContent,
     requestUri,
+    contextPath,
+    arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
   }
@@ -77,8 +79,6 @@ export default ({
   return (
     <html lang="es">
       <head>
-        <Libs />
-        <CssLinks />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -96,19 +96,6 @@ export default ({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
-        {renderMetaPage(metaValue('id'), metaPageData)}
-        <MetaSite {...metaSiteData} />
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
-
-        <link
-          rel="stylesheet"
-          href="https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css"
-        />
-        <script
-          type="text/javascript"
-          src="https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js"
-        />
         <script
           dangerouslySetInnerHTML={createMarkup(
             `
@@ -124,6 +111,17 @@ export default ({
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
+        <script
+          type="text/javascript"
+          src="https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js"
+        />
+
+        <MetaSite {...metaSiteData} />
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
+        {renderMetaPage(metaValue('id'), metaPageData)}
+        <Libs />
+        <CssLinks />
       </head>
       <body className={isArticle && 'article'}>
         <noscript>
