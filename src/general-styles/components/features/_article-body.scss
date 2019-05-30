@@ -90,15 +90,36 @@
     }
   }
 
+  /* Para arreglar estilos en o-embed */
+
   &__embed {
-    * .twitter-tweet {
+    .twitter-tweet {
       width: 100% !important;
     }
 
-    * .instagram-media {
+    .instagram-media {
       min-width: 0 !important;
     }
+
+    [src*="youtube"] {
+      width: 100% !important;
+    }
+
+    .fb-post {
+      width: 100% !important;
+      max-width: 500px;
+
+      &>span {
+        width: 100% !important;
+
+        &>[src*="facebook"] {
+          width: 100% !important;
+        }
+      }
+    }
   }
+
+  /* --------------------------------*/
 
   .visual__image {
     img {

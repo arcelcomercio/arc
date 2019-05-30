@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import UtilListKey from '../../../../utilities/list-keys'
-import StoryData from '../../../../utilities/story-data'
+// import StoryData from '../../../../utilities/story-data'
 import { getIcon } from '../../../../utilities/helpers'
 
 // Basic flex stuff
@@ -16,7 +16,7 @@ const classes = {
   relatedInfo: 'related-interna__information',
 }
 
-const RelartedItem = ({ data }, i) => {
+const RelartedItem = ({ data } /* , i */) => {
   const {
     contextPath,
     headlines: { basic: articleTitle } = {},
@@ -32,7 +32,7 @@ const RelartedItem = ({ data }, i) => {
   }
 
   return (
-    <Fragment>
+    <>
       <div className={classes.related}>
         <div className={classes.relatedTitle}>Siga Leyendo </div>
         <div className={`${classes.relatedInfo}`}>
@@ -65,13 +65,13 @@ const RelartedItem = ({ data }, i) => {
           {/* <Icon iconClass={story.iconClass} /> */}
         </figure>
       </div>
-    </Fragment>
+    </>
   )
 }
 
 const ArticleBodyChildRelatedInternal = ({ stories, id, contextPath }) => {
   return (
-    <Fragment>
+    <>
       {stories.map((item, index) =>
         item._id === id ? (
           <RelartedItem
@@ -81,7 +81,7 @@ const ArticleBodyChildRelatedInternal = ({ stories, id, contextPath }) => {
           />
         ) : null
       )}
-    </Fragment>
+    </>
   )
 }
 

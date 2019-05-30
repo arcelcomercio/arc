@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import getProperties from 'fusion:properties'
 import Consumer from 'fusion:consumer'
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import Gallery from './_children/gallery'
 import {
   popUpWindow,
@@ -19,7 +19,7 @@ const classes = {
   item: 'article-amp-header--item',
   link: 'article-amp-header__link flex-center-vertical flex--justify-center',
   list: 'article-amp-header__list flex',
-  gallery: 'col-3',
+  gallery: 'full-width',
 }
 @Consumer
 class ArticleAmpHeader extends PureComponent {
@@ -108,7 +108,7 @@ class ArticleAmpHeader extends PureComponent {
       typeof galleryItems.basic_gallery.content_elements !== 'undefined'
 
     return (
-      <Fragment>
+      <>
         <div className={hasValueElements ? classes.gallery : classes.news}>
           <ul className={classes.breadcrumb}>
             <li className={classes.item}>
@@ -156,7 +156,7 @@ class ArticleAmpHeader extends PureComponent {
             ''
           )}
         </div>
-      </Fragment>
+      </>
     )
   }
 }
