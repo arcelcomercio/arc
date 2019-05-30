@@ -31,23 +31,24 @@ const classes = {
   tags: 'article-body',
   section: 'full-width',
 }
+
+const OPTA_CSS_LINK =
+  'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
+const OPTA_JS_LINK =
+  'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js'
 @Consumer
 class ArticleBody extends PureComponent {
   hasOpta = () => {
     return document.getElementsByTagName('opta-widget') && true
   }
 
-  handleOptaWidget = () => {
+  handleOptaWidget = ({ id, css, js }) => {
     if (this.hasOpta()) {
-      appendToHead(
-        createLink(
-          'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
-        )
-      )
+      appendToHead(createLink(css))
       appendToHead(
         createScript({
           textContent: `var opta_settings={
-            subscription_id: '782834e1fd5a215304e57cddad80b844',
+            subscription_id: ${id},
             language: 'es_CO',
             timezone: 'America/Lima'
         };`,
@@ -55,7 +56,7 @@ class ArticleBody extends PureComponent {
       )
       appendToHead(
         createScript({
-          src: 'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js',
+          src: js,
           async: true,
         })
       )
@@ -63,7 +64,13 @@ class ArticleBody extends PureComponent {
   }
 
   render() {
-    const { globalContent, contextPath } = this.props
+    const {
+      globalContent,
+      contextPath,
+      siteProperties: {
+        ids: { opta },
+      },
+    } = this.props
     const {
       content_elements: contentElements,
       promo_items: promoItems,
@@ -72,7 +79,10 @@ class ArticleBody extends PureComponent {
       taxonomy: { tags = {} },
       related_content: { basic: relatedContent },
     } = globalContent || {}
-    this.handleOptaWidget() /* Si encuentra opta-widget agrega scripts a <head> */
+
+    /* Si encuentra opta-widget agrega scripts a <head> */
+    this.handleOptaWidget({ id: opta, css: OPTA_CSS_LINK, js: OPTA_JS_LINK })
+
     return (
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
