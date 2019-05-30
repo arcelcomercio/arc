@@ -40,6 +40,7 @@ class BarraTest extends PureComponent {
     }
     if (this.formater.main.fetch !== false) {
       const { params, source } = this.formater.main.fetch.config
+      /** Solicita la data a la API y setea los resultados en "state.data" */
       this.fetchContent({
         data: {
           source,
@@ -54,7 +55,8 @@ class BarraTest extends PureComponent {
     this.addEventListener('displayChange', this._handleDevice)
   }
 
-  // ------ Sets the new device state when the listener is activated
+  /** Actualiza el "state.device" cuando el listener acciona  */
+
   _handleDevice = device => {
     this.setState({
       device,

@@ -1,34 +1,34 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
+
 import Button from '../../../../global-components/button'
 import Menu from './menu'
 import Ads from '../../../../global-components/ads'
 
 const classes = {
   nav: 'nav nav--comercio full-width flex flex-center-vertical',
-  navWrapper:
+  wrapper:
     'flex-center-vertical flex--justify-between nav__wrapper full-width height-inherit',
-  navForm: 'nav__form flex',
-  navSearch: 'nav__input-search',
+  form: 'nav__form flex',
+  search: 'nav__input-search',
   navBtnContainer:
     'flex-center-vertical flex--justify-start nav__container-menu',
-  navSearchContainer: 'flex-center-vertical flex--justify-start',
-  navBtnSearch: 'flex-center-vertical btn nav__btn nav__btn--search',
-  navBtnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
-  navBtnIconSearch: 'icon icon--search',
-  navBtnIconMenu: 'icon icon--menu',
-  navList:
+  searchContainer: 'flex-center-vertical flex--justify-start',
+  btnSearch: 'flex-center-vertical btn nav__btn nav__btn--search',
+  btnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
+  iconSerch: 'icon icon--search',
+  iconMenu: 'icon icon--menu',
+  list:
     'flex-center-vertical flex--justify-start flex-1 nav__list height-inherit',
-  navListItem: 'height-inherit',
-  navListLink: 'flex-center-vertical nav__list-link height-inherit',
-  navLogo: 'nav__logo',
-  navAds: 'nav__ads',
-  headerBtnContainer:
-    'flex-center-vertical flex--justify-end header__btn-container',
-  headerBtnLogin: 'flex-center-vertical btn btn--small bg-color--gray',
-  headerBtnSubscribe:
+  listItem: 'height-inherit',
+  listLink: 'flex-center-vertical nav__list-link height-inherit',
+  logo: 'nav__logo',
+  ads: 'nav__ads',
+  btnContainer: 'flex-center-vertical flex--justify-end header__btn-container',
+  btnLogin: 'flex-center-vertical btn btn--small bg-color--gray',
+  btnSubscribe:
     'flex-center-vertical btn btn--small bg-color--gray nav__header-sub',
-  headerBtnIconLogin: 'icon icon--login',
+  iconLogin: 'icon icon--login',
 }
 
 @Consumer
@@ -62,7 +62,7 @@ class NavBarDefault extends PureComponent {
     const { statusSearch } = this.state
     return statusSearch
       ? this.findSearch
-      : this._handleToggleSectionsElement('statusSearch')
+      : this._handleToggleSectionElements('statusSearch')
   }
 
   // Open search and automatic focus input
@@ -115,7 +115,7 @@ class NavBarDefault extends PureComponent {
   }
 
   // Open - Close Search
-  _handleToggleSectionsElement = element => {
+  _handleToggleSectionElements = element => {
     // eslint-disable-next-line no-unused-vars
     return e => {
       const { statusSidebar, statusSearch } = this.state
@@ -183,28 +183,28 @@ class NavBarDefault extends PureComponent {
     return (
       _handleHide() && (
         <nav className={classes.nav}>
-          <div className={classes.navWrapper}>
+          <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}
 
             <div className={classes.navBtnContainer}>
               <Button
-                iconClass={classes.navBtnIconMenu}
-                btnClass={classes.navBtnSection}
+                iconClass={classes.iconMenu}
+                btnClass={classes.btnSection}
                 btnText="Menú"
-                onClick={this._handleToggleSectionsElement('statusSidebar')}
+                onClick={this._handleToggleSectionElements('statusSidebar')}
               />
             </div>
 
             {/** ************* MIDDLE *************** */}
 
-            <ul className={`${classes.navList} ${scrolled ? '' : 'active'}`}>
+            <ul className={`${classes.list} ${scrolled ? '' : 'active'}`}>
               {sections &&
                 sections.slice(0, 5).map(({ name, _id: id }) => {
                   return (
-                    <li key={id} className={classes.navListItem}>
+                    <li key={id} className={classes.listItem}>
                       <a
                         href={`${contextPath}${id}`}
-                        className={classes.navListLink}>
+                        className={classes.listLink}>
                         {name}
                       </a>
                     </li>
@@ -215,38 +215,38 @@ class NavBarDefault extends PureComponent {
               <img
                 src={logo}
                 alt={`Logo de ${arcSite}`}
-                className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
+                className={`${classes.logo}  ${scrolled ? 'active' : ''}`}
               />
             </a>
             {/** ************* RIGHT *************** */}
 
             {device && device === 'desktop' && !scrolled ? (
-              <Fragment>
-                <div className={classes.headerBtnContainer}>
+              <>
+                <div className={classes.btnContainer}>
                   <Button
                     btnText="Suscríbete"
-                    btnClass={classes.headerBtnSubscribe}
+                    btnClass={classes.btnSubscribe}
                     btnLink="#"
                   />
                   <Button
                     btnText="Iniciar Sesión"
-                    btnClass={classes.headerBtnLogin}
+                    btnClass={classes.btnLogin}
                     btnLink="#"
                   />
                 </div>
-                <div className={classes.navSearchContainer}>
+                <div className={classes.searchContainer}>
                   <Ads
                     adElement="zocaloNav1"
                     isDesktop
-                    classes={{ desktop: classes.navAds }}
+                    classes={{ desktop: classes.ads }}
                   />
                   {/* <Ads
                   adElement="zocaloNav2"
                   isDesktop
-                  classes={{ desktop: classes.navAds }}
+                  classes={{ desktop: classes.ads }}
                 /> */}
                   <form
-                    className={classes.navForm}
+                    className={classes.form}
                     onSubmit={e => e.preventDefault()}>
                     <input
                       ref={this.inputSearch}
@@ -254,23 +254,21 @@ class NavBarDefault extends PureComponent {
                       onBlur={this._handleCloseSectionsSearch}
                       onKeyUp={this.watchKeys}
                       placeholder="Buscar"
-                      className={`${classes.navSearch} ${this.activeSearch()}`}
+                      className={`${classes.search} ${this.activeSearch()}`}
                     />
                     <Button
-                      iconClass={classes.navBtnIconSearch}
-                      btnClass={`${
-                        classes.navBtnSearch
-                      } ${this.activeSearch()}`}
+                      iconClass={classes.iconSerch}
+                      btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
                       onClick={this.optionButtonClick()}
                     />
                   </form>
                 </div>
-              </Fragment>
+              </>
             ) : (
-              <div className={classes.headerBtnContainer}>
+              <div className={classes.btnContainer}>
                 <Button
-                  iconClass={classes.headerBtnIconLogin}
-                  btnClass={classes.headerBtnLogin}
+                  iconClass={classes.iconLogin}
+                  btnClass={classes.btnLogin}
                   btnLink="#"
                 />
               </div>

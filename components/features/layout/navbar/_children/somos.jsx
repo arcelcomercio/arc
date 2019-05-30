@@ -49,7 +49,7 @@ class HeaderChildSomos extends PureComponent {
       <>
         <button type="button" className={classes.loginButton}>
           <i className={classes.iconUser} />
-          <span>Ingresa a tu cuenta</span>
+          Ingresa a tu cuenta
         </button>
         <button
           type="button"
@@ -65,8 +65,8 @@ class HeaderChildSomos extends PureComponent {
       <>
         <form onSubmit={e => this.handleSubmit(e)}>
           <input
-            type="text"
-            placeholder="QUÉ BUSCAS?"
+            type="search"
+            placeholder="¿QUÉ BUSCAS?"
             className={classes.searchInput}
             value={searchInputText}
             onChange={e => this.handleSearchInput(e)}
@@ -107,7 +107,9 @@ class HeaderChildSomos extends PureComponent {
             <i className={classes.logoIcon} />
             <img className={classes.logoImg} src={logo} alt={alt} />
           </a>
-          <div className={classes.boxRight}>
+          <div
+            className={classes.boxRight}
+            role={isSearchActive ? 'search' : 'section'}>
             {isSearchActive ? searchInputs : initInputs}
           </div>
         </header>

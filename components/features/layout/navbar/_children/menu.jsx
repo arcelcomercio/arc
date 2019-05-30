@@ -2,30 +2,21 @@ import React, { PureComponent, Fragment } from 'react'
 import Button from '../../../../global-components/button'
 
 const classes = {
-  navSidebar: `
-    nav-sidebar 
-    full-width`,
-  navSidebarContent: `
-  	nav-sidebar__content
-    flex
-    flex--column
-    flex--justify-between`,
-  navBarBtn: `
-    flex-center 
-    btn bg-color--white 
-    nav-sidebar__btn`,
-  renderItem: 'nav-sidebar__item',
-  renderItemLink: 'nav-sidebar__link',
-  navSidebarTop: 'nav-sidebar__top',
-  navHeader: 'nav-sidebar__header',
-  navBox: 'nav-sidebar__box-btn',
-  navSearch: 'nav-sidebar__search',
-  navForm: 'nav-sidebar__box-search',
-  navFormInput: 'nav-sidebar__input',
-  navSidebarBody: 'nav-sidebar__body',
-  navList: 'nav- sidebar__list',
-  navFooter: 'nav-sidebar__footer',
-  navText: 'nav-sidebar__text',
+  sidebar: 'nav-sidebar full-width',
+  content: 'nav-sidebar__content flex flex--column flex--justify-between',
+  item: 'nav-sidebar__item',
+  link: 'nav-sidebar__link',
+  top: 'nav-sidebar__top',
+  header: 'nav-sidebar__header',
+  btnBox: 'nav-sidebar__box-btn',
+  btn: 'flex-center btn bg-color--white nav-sidebar__btn',
+  search: 'nav-sidebar__search',
+  from: 'nav-sidebar__box-search',
+  input: 'nav-sidebar__input',
+  body: 'nav-sidebar__body',
+  list: 'nav- sidebar__list',
+  footer: 'nav-sidebar__footer',
+  text: 'nav-sidebar__text',
 }
 
 class NavbarChildMenu extends PureComponent {
@@ -49,8 +40,8 @@ class NavbarChildMenu extends PureComponent {
       sections &&
       sections.map(({ name = '', _id: id = '', children }) => (
         <Fragment key={id}>
-          <li className={classes.renderItem}>
-            <a href={`${contextPath}${id}`} className={classes.renderItemLink}>
+          <li className={classes.item}>
+            <a href={`${contextPath}${id}`} className={classes.link}>
               {name}
             </a>
           </li>
@@ -63,24 +54,21 @@ class NavbarChildMenu extends PureComponent {
   render() {
     const { sections = [], showSidebar } = this.props
     return (
-      <div className={`${classes.navSidebar} ${showSidebar ? 'active' : ''}`}>
-        <div
-          className={`${classes.navSidebarContent} ${
-            showSidebar ? 'active' : ''
-          }`}>
-          <div className={classes.navSidebarTop}>
-            <div className={classes.navHeader}>
-              <div className={classes.navBox}>
+      <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
+        <div className={`${classes.content} ${showSidebar ? 'active' : ''}`}>
+          <div className={classes.top}>
+            <div className={classes.header}>
+              <div className={classes.btnBox}>
                 <Button
-                  btnClass={classes.navBarBtn}
+                  btnClass={classes.btn}
                   btnLink="#"
                   btnText="Suscríbete"
                 />
               </div>
             </div>
-            <div className={classes.navSearch}>
+            <div className={classes.search}>
               <form
-                className={classes.navForm}
+                className={classes.from}
                 onSubmit={e => {
                   e.preventDefault()
                   this.submitSearch()
@@ -90,36 +78,36 @@ class NavbarChildMenu extends PureComponent {
                   type="search"
                   // onBlur={this.handleCloseSectionsSearch}
                   placeholder="Buscar"
-                  className={classes.navFormInput}
+                  className={classes.input}
                 />
               </form>
             </div>
-            <div className={classes.navSidebarBody}>
-              <ul className={classes.navList}>
+            <div className={classes.body}>
+              <ul className={classes.list}>
                 {sections && this.renderSections(sections)}
               </ul>
             </div>
           </div>
-          <div className={classes.navFooter}>
-            <a href="/" className={classes.navText}>
+          <div className={classes.footer}>
+            <a href="/" className={classes.text}>
               elcomercio.pe
             </a>
-            <a href="/" className={classes.navText}>
+            <a href="/" className={classes.text}>
               1984-2019 Grupo El Comercio
             </a>
-            <a href="/" className={classes.navText}>
+            <a href="/" className={classes.text}>
               Términos de Servicio
             </a>
-            <a href="/" className={classes.navText}>
+            <a href="/" className={classes.text}>
               Políticas de Privacidad
             </a>
-            <a href="/" className={classes.navText}>
+            <a href="/" className={classes.text}>
               Políticas de Discusión
             </a>
-            <a href="/" className={classes.navText}>
+            <a href="/" className={classes.text}>
               RSS Términos de Servicio
             </a>
-            <a href="/" className={classes.navText}>
+            <a href="/" className={classes.text}>
               Preferencias de Publicidad
             </a>
           </div>
