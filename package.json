@@ -132,7 +132,8 @@
       "./setupTests.js"
     ],
     "moduleNameMapper": {
-      "fusion:properties": "<rootDir>/jest/fusionProperties.js"
+      "fusion:properties": "<rootDir>/jest/fusionProperties.js",
+      "@components(.*)$": "<rootDir>/components/global-components/$1"
     }
   },
   "keywords": [],
