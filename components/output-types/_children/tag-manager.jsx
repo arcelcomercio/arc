@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default ({ googleTagManagerId }) => {
+  // TODO: se reemplaza el id del tag manager por plroblemas con nota
   const googleTagManagerScript = `(function (w, d, s, l, i) {
     w[l] = w[l] || []
     w[l].push({
@@ -13,7 +14,7 @@ export default ({ googleTagManagerId }) => {
     j.async = true
     j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
     f.parentNode.insertBefore(j, f)
-  })(window, document, 'script', 'dataLayer', '${googleTagManagerId}s')`
+  })(window, document, 'script', 'dataLayer', '${googleTagManagerId}xxx')`
 
   return (
     <>
