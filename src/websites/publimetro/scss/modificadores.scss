@@ -1,5 +1,22 @@
+/******* Cintillo urgente *******/
 .cintillo-u {
-    &--bgcolor-1{
-        background-color: $color-default-1;
-    }
+  &--bgcolor-1 {
+    background-color: $color-default-1;
+  }
 }
+/*-----------------------*/
+
+/******* Apertura extraordinaria *******/
+.extraordinary-story {
+  &__section {
+    background-color: transparent;
+    color: $color-primary;
+    text-align: left;
+}
+&__title{
+    color: $color-primary;
+      
+  }
+}
+
+/*-----------------------*/
