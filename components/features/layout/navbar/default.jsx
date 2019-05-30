@@ -17,11 +17,11 @@ class BarraTest extends PureComponent {
       contextPath,
       arcSite,
       deployment,
+      customFields,
       siteProperties: {
         siteDomain,
         assets: { nav },
       },
-      customFields,
     } = this.props
     this.formater = new Formatter(
       {
@@ -51,12 +51,7 @@ class BarraTest extends PureComponent {
   }
 
   componentDidMount() {
-    const { device } = this.state
     this.addEventListener('displayChange', this._handleDevice)
-
-    // ------ Sets scroll eventListener if device is desktop
-    if (device === 'desktop')
-      window.addEventListener('scroll', this._handleScroll)
   }
 
   // ------ Sets the new device state when the listener is activated
@@ -64,11 +59,6 @@ class BarraTest extends PureComponent {
     this.setState({
       device,
     })
-    this._handleScroll()
-    // ------ Add or remove Scroll eventListener on resize
-    if (device === 'desktop')
-      window.addEventListener('scroll', this._handleScroll)
-    else window.removeEventListener('scroll', this._handleScroll)
   }
 
   renderNavBar() {

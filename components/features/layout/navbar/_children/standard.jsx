@@ -44,6 +44,13 @@ class NavBarDefault extends PureComponent {
     this.inputSearch = React.createRef()
   }
 
+  componentDidMount() {
+    const { device } = this.props
+    // ------ Sets scroll eventListener if device is desktop
+    if (device === 'desktop')
+      window.addEventListener('scroll', this._handleScroll)
+  }
+
   // Add - Remove Class active input and button search
   activeSearch = () => {
     const { statusSearch } = this.state
@@ -80,6 +87,14 @@ class NavBarDefault extends PureComponent {
     if (value !== '' && e.which === 13) {
       this.findSearch()
     }
+  }
+
+  _handleDevice = device => {
+    this._handleScroll()
+    // ------ Add or remove Scroll eventListener on resize
+    if (device === 'desktop')
+      window.addEventListener('scroll', this._handleScroll)
+    else window.removeEventListener('scroll', this._handleScroll)
   }
 
   _handleScroll = () => {
@@ -141,12 +156,14 @@ class NavBarDefault extends PureComponent {
       arcSite,
       contextPath,
       requestUri,
-      data: { children: sections = [] } = {},
       device,
       deviceList,
+      data: { children: sections = [] } = {},
     } = this.props
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
+
+    this._handleDevice(device)
 
     const _handleHide = () => {
       switch (device) {
