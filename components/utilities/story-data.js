@@ -150,10 +150,10 @@ class StoryData {
       this._data && this._data.content_elements && this._data.content_elements,
       'video'
     ).filter(String)
-    const promoItemsVideo = StoryData.getSeoMultimedia(
-      this._data.promo_items,
-      'video'
-    )
+    const promoItemsVideo =
+      this._data &&
+      this._data.promo_items &&
+      StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
     return videosContent
       .filter(String)
@@ -176,10 +176,10 @@ class StoryData {
         galleryContentResul[0].content_elements) ||
       []
 
-    const promoItemsImage = StoryData.getSeoMultimedia(
-      this._data.promo_items,
-      'image'
-    )
+    const promoItemsImage =
+      this._data &&
+      this._data.promo_items &&
+      StoryData.getSeoMultimedia(this._data.promo_items, 'image')
     return imagesContent
       .filter(String)
       .concat(galleryContent)
@@ -257,7 +257,11 @@ class StoryData {
   }
 
   static getSeoMultimedia(
-    { basic_video: basicVideo, basic_gallery: basicGallery, basic },
+    {
+      basic_video: basicVideo,
+      basic_gallery: basicGallery,
+      basic: basicImage = '',
+    } = {},
     type
   ) {
     if (basicVideo && (type === 'video' || type === 'image')) {
@@ -287,12 +291,10 @@ class StoryData {
       return contentElements
     }
 
-    if (basic && type !== 'video') {
+    if (basicImage && type === 'image') {
       const {
-        content_element: {
-          basic: { url, caption = '' },
-        },
-      } = basic
+        content_element: { basic: { url, caption = '' } = {} } = {},
+      } = basicImage
       return {
         url,
         subtitle: caption,

@@ -21,6 +21,7 @@ export default ({
     videoSeo,
     contentElementsText: dataElement,
     relatedContent,
+    primarySectionLink,
   } = new StoryData({ data, arcSite }) || {}
 
   const videoSeoItems = videoSeo.map(({ url, caption, urlImage, date }) => {
@@ -61,7 +62,7 @@ export default ({
     }
   )
 
-  const relatedContentData = relatedContentItem
+  const relatedContentData = relatedContentItem[0]
     ? `{  
       "@context":"https://schema.org",
       "@type":"ItemList",

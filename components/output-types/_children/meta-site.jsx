@@ -24,7 +24,7 @@ export default ({
     "sameAs" : [
       "${facebook.url || ''}",
       "${twitter.url || ''}",
-      "${youtube.url || ''}",
+      "${youtube.url || ''}"
     ]
   }`
 
