@@ -3,9 +3,7 @@ const TIME_START = new Date().getTime()
 const adtype = ''
 const atributos = ''
 const spaces = []
-const type_space = ''
 const agente = navigator.userAgent
-const site = agente.search('Chrome-Lighthouse') >= 0 ? 'psi' : 'eco'
 const pathname = window.location.pathname
 const elements_path = pathname.split('/').filter(item => item.match(/(\w+)/g))
 const body_class = document.querySelector('body').getAttribute('class')
@@ -107,8 +105,7 @@ const BIDDER_PERCENTAGE = 0.85
 let pbjs = pbjs || {}
 pbjs.que = pbjs.que || []
 
-const PORT = 'port9'
-const slot = site + '_' + device + '_' + PORT
+const slot = `${site}_${device}_${PORT}`
 const result = available_ports.find(el => el.name === PORT)
 const dataDevice = device === 'd' ? result.desktop_space : result.mobile_space
 const adsParams =
@@ -119,7 +116,7 @@ const adsParams =
       sizes:
         device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
       allowedformats: ['video', 'banner'],
-      targetId: 'ads_' + device + '_' el,
+      targetId: 'ads_' + device + '_' + el,
     }
   })
 

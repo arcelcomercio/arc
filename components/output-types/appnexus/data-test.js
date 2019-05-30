@@ -1,4 +1,4 @@
-const space_device = {
+var space_device = {
   desktop: {
     top: [
       [980, 180],
@@ -24,7 +24,7 @@ const space_device = {
   },
 }
 
-const available_ports = [
+var available_ports = [
   {
     name: 'port1',
     desktop_space: [
@@ -50,35 +50,35 @@ const available_ports = [
   },
 ]
 
-const ads_d_300x600_size = [300, 600]
-const ads_d_300x250_size = [300, 250]
-const ads_d_160x600_size = [160, 600]
-const ads_d_970x250_size = [970, 250]
-const ads_d_728x90_size = [728, 90]
-const ads_d_970x90_size = [970, 90]
-const ads_m_320x50_size = [320, 50]
-const ads_m_300x250_size = [300, 250]
+var ads_d_300x600_size = [300, 600]
+var ads_d_300x250_size = [300, 250]
+var ads_d_160x600_size = [160, 600]
+var ads_d_970x250_size = [970, 250]
+var ads_d_728x90_size = [728, 90]
+var ads_d_970x90_size = [970, 90]
+var ads_m_320x50_size = [320, 50]
+var ads_m_300x250_size = [300, 250]
 
-const port_boton1 = ['port3']
-const port_zocalo1 = ['nota1', 'port1', 'port3']
-const port_zocalo2 = ['port1', 'port3']
-const port_top = ['nota1', 'port1', 'port3']
-const port_movil = ['nota1', 'port1', 'port3']
-const port_vslider = ['nota1']
+var port_boton1 = ['port3']
+var port_zocalo1 = ['nota1', 'port1', 'port3']
+var port_zocalo2 = ['port1', 'port3']
+var port_top = ['nota1', 'port1', 'port3']
+var port_movil = ['nota1', 'port1', 'port3']
+var port_vslider = ['nota1']
 
-const desktopRubicon = {
+var desktopRubicon = {
   zoneId: '1062130',
   siteId: '215748',
   accountId: '19186',
 }
 
-const mobileRubicon = {
+var mobileRubicon = {
   zoneId: '1062136',
   siteId: '215750',
   accountId: '19186',
 }
 
-const auction = {
+var auction = {
   desktop: [
     {
       name: 'criteo',

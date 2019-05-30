@@ -16,7 +16,6 @@
     "prop-types": "^15.6.2",
     "quill": "^1.3.6",
     "react-device-detect": "^1.6.2",
-    "react-helmet": "^5.2.1",
     "react-render-html": "^0.6.0",
     "react-share": "^2.4.0",
     "thumbor": "^0.1.5"
@@ -67,7 +66,7 @@
     "dev:amp": "webpack --config ./config/webpack.config.js --env.dev --env.amp",
     "prod:amp": "webpack --config ./config/webpack.config.js --env.prod --env.amp",
     "watch:amp": "webpack --config ./config/webpack.config.js --watch --env.dev --env.amp",
-    "dev": "webpack --config ./config/webpack.config.js --env.dev",
+    "dev": "webpack --config ./config/webpack.config.js --env.dev && webpack --config ./config/webpack.config.apn.js --mode development ",
     "prod": "webpack --config ./config/webpack.config.js --env.prod",
     "watch": "webpack --config ./config/webpack.config.js --watch --env.dev ",
     "dev:all": "webpack --config ./config/webpack.config.js --env.dev && webpack --config ./config/webpack.config.js --env.dev --env.amp",

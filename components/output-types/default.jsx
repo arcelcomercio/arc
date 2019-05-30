@@ -80,6 +80,7 @@ export default ({
       <head>
         <Libs />
         <CssLinks />
+        <AppNexus arcSite={arcSite} port={metaValue('port')} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -96,7 +97,7 @@ export default ({
         />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
-
+        <script src="https://jab.pe/f/arc/data_js.js" async />
         {renderMetaPage(metaValue('id'), metaPageData)}
         <MetaSite {...metaSiteData} />
         <TwitterCards {...twitterCardsData} />
@@ -122,7 +123,7 @@ export default ({
           )}
         />
         {/* Scripts de APPNEXUS */}
-        <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js" />
+        {/* <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js" />
         <script
           src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
           async
@@ -131,7 +132,7 @@ export default ({
           type="text/javascript"
           src="//acdn.adnxs.com/ast/ast.js"
           async
-        />
+        /> */}
         {/* Scripts de APPNEXUS */}
 
         <title>{title}</title>
@@ -156,11 +157,16 @@ export default ({
         <script
           async
           src={deployment(
+            `${contextPath}/resources/dist/elcomercio/js/appnexus.js`
+          )}
+        />
+        <script
+          async
+          src={deployment(
             `${contextPath}/resources/dist/${arcSite}/js/index.js`
           )}
         />
         <Fusion />
-        <AppNexus arcsite={arcSite} port={metaValue('port')} />
       </body>
     </html>
   )
