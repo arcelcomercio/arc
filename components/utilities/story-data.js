@@ -146,17 +146,18 @@ class StoryData {
   }
 
   get videoSeo() {
-    const imagesContent = StoryData.getContentElements(
+    const videosContent = StoryData.getVideoContent(
       this._data && this._data.content_elements && this._data.content_elements,
       'video'
-    )
-    const promoItemsImage = StoryData.getSeoMultimedia(
+    ).filter(String)
+    const promoItemsVideo = StoryData.getSeoMultimedia(
       this._data.promo_items,
       'video'
     )
-    return imagesContent
+
+    return videosContent
       .filter(String)
-      .concat(promoItemsImage)
+      .concat(promoItemsVideo)
       .filter(String)
   }
 
@@ -259,28 +260,34 @@ class StoryData {
     { basic_video: basicVideo, basic_gallery: basicGallery, basic },
     type
   ) {
-    if (basicVideo && type !== 'image') {
+    if (basicVideo && (type === 'video' || type === 'image')) {
       const {
-        promo_items: { url: urlImage },
+        promo_image: { url: urlImage },
         streams,
+        publish_date: date,
         headlines: { basic: caption } = {},
       } = basicVideo
+      if (type === 'video') {
+        const dataVideo = streams
+          .map(({ url, stream_type: streamType }) => {
+            return streamType === 'mp4' ? { url, caption, urlImage, date } : []
+          })
+          .filter(String)
+        return [dataVideo[0]]
+      }
 
-      const dataVideo = streams
-        .map(({ url, stream_type: streamType }) => {
-          return streamType === 'mp4' ? { url, caption, urlImage } : []
-        })
-        .filter(String)
-
-      return [dataVideo[0]]
+      return {
+        url: urlImage,
+        subtitle: caption,
+      }
     }
 
-    if (basicGallery) {
+    if (basicGallery && type !== 'video') {
       const { content_elements: contentElements } = basicGallery || []
       return contentElements
     }
 
-    if (basic) {
+    if (basic && type !== 'video') {
       const {
         content_element: {
           basic: { url, caption = '' },
@@ -291,6 +298,7 @@ class StoryData {
         subtitle: caption,
       }
     }
+
     return []
   }
 
@@ -304,6 +312,27 @@ class StoryData {
     return data.map(item => {
       return item.type === typeElement ? item : []
     })
+  }
+
+  static getVideoContent(data) {
+    const dataVideo = StoryData.getContentElements(data, 'video').filter(String)
+
+    return dataVideo.map(
+      ({
+        promo_image: { url: urlImage },
+        streams,
+        publish_date: date,
+        headlines: { basic: caption = 's' } = {},
+      }) => {
+        const resultVideo = streams
+          .map(({ url = '', stream_type: streamType = '' }) => {
+            return streamType === 'mp4' ? { url, caption, urlImage, date } : []
+          })
+          .filter(String)
+
+        return resultVideo[0] || []
+      }
+    )
   }
 
   static getPrimarySection(data) {

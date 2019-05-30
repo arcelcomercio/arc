@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import "~/resources/dist/base/css/style.css";
-
 import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
+
+import TagManager from './_children/tag-manager'
 
 const AmpOutputType = props => {
   return (
     <Html>
       <head>
+        <TagManager {...siteProperties} />
         <BaseMarkup canonicalUrl="/" />
         {/* add additional head elements here */}
         <script
