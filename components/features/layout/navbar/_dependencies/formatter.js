@@ -1,4 +1,4 @@
-import Schema from './schema'
+import schemaFilter from './schema-filter'
 
 export default class NavbarFormater {
   constructor(props, customFields) {
@@ -20,7 +20,7 @@ export default class NavbarFormater {
 
     this.selectDesing = selectDesing
     // this.deviceList = { showInDesktop, showInTablet, showInMobile }
-    this.schema = Schema
+    this.schemaFilter = schemaFilter
   }
 
   get main() {
@@ -89,6 +89,6 @@ export default class NavbarFormater {
   }
 
   getSchema() {
-    return this.schema
+    return this.schemaFilter
   }
 }

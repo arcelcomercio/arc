@@ -6,7 +6,7 @@ import { setDevice } from '../../../utilities/resizer'
 
 import HeaderChildSomos from './_children/somos'
 import HeaderChildStandard from './_children/standard'
-import Formater from './_dependencies/formater'
+import Formatter from './_dependencies/formatter'
 
 const defaultHierarchy = 'navegacion-cabecera-tema-del-dia'
 @Consumer
@@ -26,7 +26,7 @@ class LayoutHeader extends PureComponent {
       },
       customFields: { headerType, customLogo, customLogoLink },
     } = this.props
-    this.formater = new Formater(
+    this.formater = new Formatter(
       deployment,
       contextPath,
       siteDomain,
