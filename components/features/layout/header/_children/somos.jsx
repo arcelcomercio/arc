@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 
 const classes = {
   logocontent: 'header-somos',
@@ -56,7 +56,7 @@ class HeaderChildSomos extends PureComponent {
     const { logo, logoIcon, firstSection, sections, device } = this.props
     const { isMenuActive, searchValue } = this.state
     return (
-      <Fragment>
+      <>
         <div className={classes.logocontent}>
           <div className={classes.iconmenuwrapper}>
             <button
@@ -94,10 +94,10 @@ class HeaderChildSomos extends PureComponent {
                 <i className={classes.menuCloseIcon} />
               </button>
             </div>
-            <div className={classes.menuSearch}>
+            <div role="search" className={classes.menuSearch}>
               <form action="" onSubmit={e => this.handleSubmit(e)}>
                 <input
-                  type="text"
+                  type="search"
                   placeholder="Buscar"
                   className={classes.menuSearchInput}
                   value={searchValue}
@@ -134,7 +134,7 @@ class HeaderChildSomos extends PureComponent {
             </ul>
           </div>
         </nav>
-      </Fragment>
+      </>
     )
   }
 }

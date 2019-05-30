@@ -4,6 +4,11 @@ import React, { PureComponent } from 'react'
 import ArcArticleBody, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
+import {
+  appendToHead,
+  createLink,
+  createScript,
+} from '../../../utilities/helpers'
 
 import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildArticleImage from './_children/image'
@@ -27,6 +32,35 @@ const classes = {
 }
 @Consumer
 class ArticleBody extends PureComponent {
+  hasOpta = () => {
+    return document.getElementsByTagName('opta-widget') && true
+  }
+
+  handleOptaWidget = () => {
+    if (this.hasOpta()) {
+      appendToHead(
+        createLink(
+          'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
+        )
+      )
+      appendToHead(
+        createScript({
+          textContent: `var opta_settings={
+            subscription_id: '782834e1fd5a215304e57cddad80b844',
+            language: 'es_CO',
+            timezone: 'America/Lima'
+        };`,
+        })
+      )
+      appendToHead(
+        createScript({
+          src: 'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js',
+          async: true,
+        })
+      )
+    }
+  }
+
   render() {
     const { globalContent, contextPath } = this.props
     const {
@@ -107,8 +141,8 @@ class ArticleBody extends PureComponent {
         />
 
         {relatedContent.length > 0 && (
-          <div className={classes.related}>
-            <div className={classes.relatedTitle}>Relacionadas </div>
+          <div role="list" className={classes.related}>
+            <h4 className={classes.relatedTitle}>Relacionadas </h4>
             {relatedContent.map((item, i) => {
               const { type } = item
               const key = `related-${i}`
@@ -124,6 +158,7 @@ class ArticleBody extends PureComponent {
             })}
           </div>
         )}
+        {this.handleOptaWidget() /* Si encuentra opta-widget agrega scripts a <head> */}
       </div>
     )
   }

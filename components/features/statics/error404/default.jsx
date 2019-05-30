@@ -21,7 +21,6 @@ class Error404 extends PureComponent {
       customFields,
       editableField,
       siteProperties = {},
-      globalContentConfig = {},
     } = this.props
 
     const { messages: { errorTitle, errorDescription } = {} } = siteProperties
@@ -38,10 +37,7 @@ class Error404 extends PureComponent {
             {description}
           </p>
           <div role="search" className={classes.searchBox}>
-            <SearchInput
-              globalContentConfig={globalContentConfig}
-              contextPath={contextPath}
-            />
+            <SearchInput contextPath={contextPath} />
           </div>
           <a href={contextPath} className={classes.link}>
             Volver a la página principal
@@ -54,7 +50,6 @@ class Error404 extends PureComponent {
 }
 
 Error404.label = 'Error 404'
-Error404.static = true
 
 Error404.propTypes = {
   customFields: PropTypes.shape({

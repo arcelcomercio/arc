@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import MoviesSlider from './movies-slider'
 import MoviesFilter from './movies-filter'
 import MovieDetails from './movies-details'
@@ -18,7 +18,7 @@ class StaticCinemaBillboardChildMoviesContainer extends PureComponent {
       arcSite,
     }
     return (
-      <Fragment>
+      <>
         <h2 className={classes.title}>Cartelera</h2>
         <main className={classes.container}>
           <MoviesFilter data={{ ...data }} {...params} />
@@ -30,7 +30,7 @@ class StaticCinemaBillboardChildMoviesContainer extends PureComponent {
             <MovieDetails data={{ ...data }} {...context} {...params} />
           )}
         </main>
-      </Fragment>
+      </>
     )
   }
 }

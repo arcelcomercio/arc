@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
@@ -16,7 +16,7 @@ const HeaderChildStandard = props => {
 
   return (
     isDesktop && (
-      <Fragment>
+      <>
         <header className={classes.header}>
           <a href={logo.link}>
             <img src={logo.src} alt={logo.alt} className={classes.headerLogo} />
@@ -33,7 +33,7 @@ const HeaderChildStandard = props => {
             </ul>
           )}
         </nav>
-      </Fragment>
+      </>
     )
   )
 }

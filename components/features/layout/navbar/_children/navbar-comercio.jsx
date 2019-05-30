@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import Button from '../../../../global-components/button'
 import Menu from './menu'
 import { setDevice } from '../../../../utilities/resizer'
@@ -18,7 +18,8 @@ const classes = {
   navBtnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
   navBtnIconSearch: 'nav__icon-search icon-search',
   navBtnIconMenu: 'nav__icon-menu icon-hamburguer',
-  navList: 'flex-center-vertical flex--justify-between flex-1 nav__list height-inherit',
+  navList:
+    'flex-center-vertical flex--justify-between flex-1 nav__list height-inherit',
   navListItem: 'nav__list-item',
   navListLink: 'nav__list-link',
   navLogo: 'nav__logo',
@@ -26,8 +27,7 @@ const classes = {
   headerBtnContainer:
     'flex-center-vertical flex--justify-end header__btn-container',
   headerBtnLogin: 'flex-center-vertical btn btn--outline',
-  headerBtnSubscribe:
-    'flex-center-vertical btn btn--outline nav__header-sub',
+  headerBtnSubscribe: 'flex-center-vertical btn btn--outline nav__header-sub',
   headerBtnIconLogin: 'icon icon-user',
 }
 
@@ -188,7 +188,7 @@ class NavBarDefault extends PureComponent {
             {sections &&
               sections.slice(0, 5).map(({ name, _id: id }) => {
                 return (
-                  <li key={id} className={classes.navListItem}>
+                  <li key={`navbar-${id}`} className={classes.navListItem}>
                     <a
                       href={`${contextPath}${id}`}
                       className={classes.navListLink}>
@@ -208,7 +208,7 @@ class NavBarDefault extends PureComponent {
           {/** ************* RIGHT *************** */}
 
           {device && device === 'desktop' && !scrolled ? (
-            <Fragment>
+            <>
               <div className={classes.headerBtnContainer}>
                 <Button
                   btnText="Suscríbete"
@@ -250,7 +250,7 @@ class NavBarDefault extends PureComponent {
                   />
                 </form>
               </div>
-            </Fragment>
+            </>
           ) : (
             <div className={classes.headerBtnContainer}>
               <Button

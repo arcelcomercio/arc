@@ -3,7 +3,6 @@ import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
-import { createMarkup } from '../utilities/helpers'
 
 export default ({
   children,
@@ -96,17 +95,10 @@ export default ({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
-        <script
-          dangerouslySetInnerHTML={createMarkup(
-            `
-          var opta_settings={
-            subscription_id: '782834e1fd5a215304e57cddad80b844',
-            language: 'es_CO',
-            timezone: 'America/Lima'
-          };
-          `
-          )}
-        />
+        {renderMetaPage(metaValue('id'), metaPageData)}
+        <MetaSite {...metaSiteData} />
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
 
         <title>{title}</title>
         <meta name="description" content={description} />

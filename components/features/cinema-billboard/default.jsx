@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 import MoviesContainer from './_children/movies-container'
@@ -31,10 +31,10 @@ class StaticCinemaBillboard extends PureComponent {
     }
 
     return (
-      <Fragment>
+      <>
         {/* Si no hay pelicula ni cine */}
         {movie === 'peliculas' && cinema === 'cines' && (
-          <Fragment>
+          <>
             <MoviesContainer
               type="slider"
               data={{ ...data }}
@@ -42,7 +42,7 @@ class StaticCinemaBillboard extends PureComponent {
               {...context}
             />
             <GenreMoviesFilter data={{ ...data }} genre={genre} {...context} />
-          </Fragment>
+          </>
         )}
 
         {/* Si Hay pelicula y el cine es opcional */}
@@ -57,12 +57,12 @@ class StaticCinemaBillboard extends PureComponent {
 
         {/* Si solo hay cine */}
         {movie === 'peliculas' && cinema !== 'cines' && (
-          <Fragment>
+          <>
             <MoviesFilter data={{ ...data }} {...params} />
             <MoviesList data={{ ...data }} cinema={cinema} {...context} />
-          </Fragment>
+          </>
         )}
-      </Fragment>
+      </>
     )
   }
 }

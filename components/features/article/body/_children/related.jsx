@@ -32,7 +32,10 @@ const RenderRelatedContentElement = (elements, i) => {
   }
 
   return (
-    <article className={classes.relatedItem} key={UtilListKey(i + 12)}>
+    <article
+      role="listitem"
+      className={classes.relatedItem}
+      key={UtilListKey(i + 12)}>
       <div className={classes.relatedInfo}>
         <h2 className={classes.relatedTitleItem}>
           <a href={`${contextPath}${filterData.urlTitle}`}>
