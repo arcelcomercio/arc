@@ -146,43 +146,42 @@ class StoryData {
   }
 
   get videoSeo() {
-    const imagesContent = StoryData.getContentElements(
-      this._data && this._data.content_elements && this._data.content_elements,
+    const videosContent = StoryData.getVideoContent(
+      this._data && this._data.content_elements,
       'video'
     )
-    const promoItemsImage = StoryData.getSeoMultimedia(
-      this._data.promo_items,
-      'video'
-    )
-    return imagesContent
-      .filter(String)
-      .concat(promoItemsImage)
-      .filter(String)
+
+    const promoItemsVideo =
+      this._data &&
+      this._data.promo_items &&
+      StoryData.getSeoMultimedia(this._data.promo_items, 'video')
+
+    return videosContent.concat(promoItemsVideo).filter(String)
   }
 
   get imagesSeo() {
-    const imagesContent = StoryData.getContentElements(
-      this._data && this._data.content_elements && this._data.content_elements,
-      'image'
-    )
-    const galleryContentResul = StoryData.getContentElements(
-      this._data && this._data.content_elements && this._data.content_elements,
-      'gallery'
-    ).filter(String)
-    const galleryContent =
-      (galleryContentResul &&
-        galleryContentResul[0] &&
-        galleryContentResul[0].content_elements) ||
+    const imagesContent =
+      StoryData.getContentElements(
+        this._data && this._data.content_elements,
+        'image'
+      ) || []
+
+    const galleryContentResul =
+      StoryData.getContentElements(
+        this._data && this._data.content_elements,
+        'gallery'
+      ) || []
+
+    const { content_elements: galleryContent } = galleryContentResul[0] || []
+
+    const promoItemsImage =
+      (this._data &&
+        this._data.promo_items &&
+        StoryData.getSeoMultimedia(this._data.promo_items, 'image')) ||
       []
 
-    const promoItemsImage = StoryData.getSeoMultimedia(
-      this._data.promo_items,
-      'image'
-    )
     return imagesContent
-      .filter(String)
       .concat(galleryContent)
-      .filter(String)
       .concat(promoItemsImage)
       .filter(String)
   }
@@ -256,54 +255,103 @@ class StoryData {
   }
 
   static getSeoMultimedia(
-    { basic_video: basicVideo, basic_gallery: basicGallery, basic },
+    {
+      basic_video: basicVideo,
+      basic_gallery: basicGallery,
+      basic: basicImage = '',
+    } = {},
     type
   ) {
-    if (basicVideo && type !== 'image') {
+    if (basicVideo && (type === 'video' || type === 'image')) {
       const {
-        promo_items: { url: urlImage },
+        promo_image: { url: urlImage },
         streams,
+        publish_date: date,
         headlines: { basic: caption } = {},
       } = basicVideo
+      if (type === 'video') {
+        const dataVideo = streams
+          .map(({ url, stream_type: streamType }) => {
+            return streamType === 'mp4' ? { url, caption, urlImage, date } : []
+          })
+          .filter(String)
+        return [dataVideo[0]]
+      }
 
-      const dataVideo = streams
-        .map(({ url, stream_type: streamType }) => {
-          return streamType === 'mp4' ? { url, caption, urlImage } : []
-        })
-        .filter(String)
-
-      return [dataVideo[0]]
+      return {
+        url: urlImage,
+        subtitle: caption,
+      }
     }
 
-    if (basicGallery) {
+    if (basicGallery && type !== 'video') {
       const { content_elements: contentElements } = basicGallery || []
       return contentElements
     }
 
-    if (basic) {
+    if (basicImage && type === 'image') {
       const {
-        content_element: {
-          basic: { url, caption = '' },
-        },
-      } = basic
+        content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
+        url: urlImage,
+        subtitle,
+      } = basicImage
       return {
-        url,
-        subtitle: caption,
+        url: urlImage1 || urlImage,
+        subtitle: caption || subtitle,
       }
     }
+
     return []
   }
 
-  static getContentElementsText(data, typeElement) {
-    return data.map(({ content, type }) => {
-      return type === typeElement ? formatHtmlToText(content) : []
-    })
+  static getContentElementsText(data = [], typeElement = '') {
+    return (
+      data &&
+      data.map(({ content, type }) => {
+        return type === typeElement ? formatHtmlToText(content) : []
+      })
+    )
   }
 
-  static getContentElements(data, typeElement) {
-    return data.map(item => {
-      return item.type === typeElement ? item : []
-    })
+  static getContentElements(data = [], typeElement = '') {
+    return (
+      data &&
+      data
+        .map(item => {
+          return item.type === typeElement ? item : []
+        })
+        .filter(String)
+    )
+  }
+
+  static getVideoContent(data = []) {
+    const dataVideo =
+      StoryData.getContentElements(data, 'video').filter(String) || []
+
+    return (
+      (dataVideo &&
+        dataVideo
+          .map(
+            ({
+              promo_image: { url: urlImage },
+              streams,
+              publish_date: date,
+              headlines: { basic: caption = '' } = {},
+            }) => {
+              const resultVideo = streams
+                .map(({ url = '', stream_type: streamType = '' }) => {
+                  return streamType === 'mp4'
+                    ? { url, caption, urlImage, date }
+                    : []
+                })
+                .filter(String)
+
+              return resultVideo[0] || []
+            }
+          )
+          .filter(String)) ||
+      []
+    )
   }
 
   static getPrimarySection(data) {
