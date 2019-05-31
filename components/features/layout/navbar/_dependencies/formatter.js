@@ -46,6 +46,7 @@ export default class NavbarFormater {
             link: this.contextPath,
             alt: this.siteDomain,
           },
+          // TODO: Reemplazar por la función reutilizable
           searchUrl: query => {
             window.location.href = `${this.contextPath}/buscar?query=${query}`
           },
