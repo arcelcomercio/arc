@@ -72,7 +72,7 @@ const ExtraordinaryStory = props => {
           <a href={data.link}>{data.title}</a>
         </div>
         <div className={classes.extraordinaryStorySubtitle}>
-          <a href={data.link} {classes.extraordinaryStoryLink}>{data.subTitle}</a>
+          <a href={data.link} className={classes.extraordinaryStoryLink}>{data.subTitle}</a>
         </div>
         <div className={classes.extraordinaryStoryAuthor}>
           <a href={data.authorLink}>{data.author}</a>

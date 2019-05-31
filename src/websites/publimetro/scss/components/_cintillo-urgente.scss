@@ -1,5 +1,10 @@
 .cintillo-u {
-    &--bgcolor-1 {
-      background-color: $color-default-1;
-    }
+  &--bgcolor-1 {
+    background-color: $color-default-1;
   }
+  &__text,
+  &__link,
+  &__btn-icon {
+    color: $text-cintillo;
+  }
+}
