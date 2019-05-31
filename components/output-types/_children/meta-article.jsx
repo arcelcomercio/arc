@@ -23,8 +23,9 @@ export default ({
     relatedContent,
   } = new StoryData({ data, arcSite }) || {}
 
-  const videoSeoItems = videoSeo.map(({ url, caption, urlImage, date }) => {
-    return `{ 
+  const videoSeoItems = videoSeo.map(
+    ({ url, caption, urlImage, date } = {}) => {
+      return `{ 
       "@type":"VideoObject",
         "name":"${caption}",
         "thumbnailUrl": "${urlImage}",
@@ -33,9 +34,10 @@ export default ({
         "uploadDate": "${date}"
      }
      `
-  })
+    }
+  )
 
-  const imagesSeoItems = imagesSeo.map(({ url, subtitle }) => {
+  const imagesSeoItems = imagesSeo.map(({ url = '', subtitle } = {}) => {
     return `{ 
          "representativeOfPage":true,
          "@type":"ImageObject",
@@ -52,7 +54,7 @@ export default ({
   })
 
   const relatedContentItem = relatedContent.map(
-    ({ canonical_url: urlItem = '' }, i) => {
+    ({ canonical_url: urlItem = '' } = {}, i) => {
       return `{  
       "@type":"ListItem",
       "position":${i + 1},
