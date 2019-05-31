@@ -309,8 +309,8 @@ class StoryData {
 
     if (basicGallery && type !== 'video') {
       const {
-        content_elements: contentElements
-      } = basicGallery || []
+        content_elements: contentElements = {}
+      } = basicGallery
       return contentElements
     }
 

@@ -21,7 +21,7 @@ export default ({
     videoSeo,
     contentElementsText: dataElement,
     relatedContent,
-  } = new StoryData({ data, arcSite }) || {}
+  } = new StoryData({ data, arcSite })
 
   const videoSeoItems = videoSeo.map(
     ({ url, caption, urlImage, date } = {}) => {
