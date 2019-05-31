@@ -1,0 +1,8 @@
+.separator {
+  border-top: 1px solid $color-primary;
+  &__item {
+    &::before {
+      background: linear-gradient(to bottom, rgba(14, 33, 13, 0.5) 0%, rgba(14, 33, 13, 0.65) 52%, #0e210d 88%);
+    }
+  }
+}

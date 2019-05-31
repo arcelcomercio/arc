@@ -99,8 +99,8 @@ class BreakingNews extends Component {
             {tags}:
           </span>
           <span>
-            <a className={classes.breakingnewsLink}
-              // className={classes.breakingnewsLink}
+            <a 
+              className={classes.breakingnewsLink}
               href={objContent.link}
               target="_blank"
               rel="noopener noreferrer"
