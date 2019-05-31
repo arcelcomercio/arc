@@ -14,10 +14,12 @@ export default ({
   deployment = () => {},
   globalContent: data,
 }) => {
-  const { multimedia, videoSeo } = new StoryData({ data, arcSite }) || {}
-  const image = article && multimedia
-    ? multimedia
-    : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/story-image.jpg`
+  const { multimedia, videoSeo: [{ url = '' } = {}] = [] } =
+    new StoryData({ data, arcSite }) || {}
+  const image =
+    article && multimedia
+      ? multimedia
+      : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/story-image.jpg`
   return (
     <>
       {/* <!-- Facebook OG --> */}
@@ -39,10 +41,10 @@ export default ({
         </>
       )}
 
-      {videoSeo && videoSeo[0] && videoSeo[0].url && (
+      {url && (
         <>
-          <meta property="og:video" content={videoSeo[0].url} />
-          <meta property="og:video:secure_url" content={videoSeo[0].url} />
+          <meta property="og:video" content={url} />
+          <meta property="og:video:secure_url" content={url} />
           <meta property="og:video:width" content="696" />
           <meta property="og:video:height" content="418" />
           <meta property="og:video:stream:content_type" content="video/mp4" />
