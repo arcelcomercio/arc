@@ -5,6 +5,7 @@ import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
 import TagManager from './_children/tag-manager'
 
 const AmpOutputType = props => {
+  const { children, arcSite, siteProperties } = props
   return (
     <Html>
       <head>
@@ -46,7 +47,7 @@ const AmpOutputType = props => {
           custom-element="amp-facebook"
           src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"
         />
-        <props.Resource path={`resources/dist/${props.arcSite}/css/amp.css`}>
+        <props.Resource path={`resources/dist/${arcSite}/css/amp.css`}>
           {({ data }) => {
             return data ? (
               <style
@@ -59,7 +60,7 @@ const AmpOutputType = props => {
           }}
         </props.Resource>
       </head>
-      <body>{props.children}</body>
+      <body>{children}</body>
     </Html>
   )
 }
