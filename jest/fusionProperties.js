@@ -1,5 +1,5 @@
-const properties = require("../properties/index.js");
+const properties = require('../properties/index.js')
 
 module.exports = () => {
-  return properties;
-};
+  return properties
+}
