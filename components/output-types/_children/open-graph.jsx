@@ -15,8 +15,7 @@ export default ({
   globalContent: data,
 }) => {
   const { multimedia, videoSeo } = new StoryData({ data, arcSite }) || {}
-
-  const image = article
+  const image = article && multimedia
     ? multimedia
     : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/story-image.jpg`
   return (
