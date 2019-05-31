@@ -39,7 +39,6 @@ describe('Test EmbedMultimedia - videoGoldfish', () => {
       source: 'https://www.youtube.com',
       deployment: () => {},
       contextPath: 'contextPath',
-      website: 'elcomercio',
       title: 'Titulo',
     }
     const wrapper = mount(<EmbedMultimedia {...props} />)
@@ -53,7 +52,6 @@ describe('Test EmbedMultimedia - videoGoldfish', () => {
       source: 'multimediaSource',
       deployment: () => {},
       contextPath: 'contextPath',
-      website: 'elcomercio',
       title: 'Titulo',
     }
     const wrapper = mount(<EmbedMultimedia {...props} />)
@@ -85,7 +83,6 @@ describe('Test EmbedMultimedia - image', () => {
       deployment: () => {},
       contextPath: 'contextPath',
       website: 'elcomercio',
-      title: 'Titulo',
     }
     const wrapper = mount(<EmbedMultimedia {...props} />)
     expect(wrapper).toBeDefined()
@@ -96,16 +93,16 @@ describe('Test EmbedMultimedia - image', () => {
       source: '',
       deployment: (val) => val,
       contextPath: 'contextPath',
-      website: 'elcomercio',
-      title: 'Titulo',
+      website: 'elcomercio'
     }
-    //multimediaSource
+
     const urlimg = 'contextPath/resources/dist/elcomercio/images/default-md.png'
 
     const wrapper = mount(<EmbedMultimedia {...props} />)
     const src = wrapper.find('img').prop('src')
-    console.log("demo");
-    console.log(src);
+    
+    
     expect(src).toBe(urlimg)
   })
+  
 })
