@@ -1,6 +1,9 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import Enzyme, { shallow, mount } from 'enzyme'
+import EnzymeAdapter  from 'enzyme-adapter-react-15';
 import EmbedMultimedia from '@components/embed-multimedia'
+
+Enzyme.configure({ adapter: new EnzymeAdapter() })
 
 describe('Test EmbedMultimedia', () => {
   it('test renderizado videoYoutube', () => {
