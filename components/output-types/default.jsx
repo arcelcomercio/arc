@@ -3,7 +3,6 @@ import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
-import { createMarkup } from '../utilities/helpers'
 
 export default ({
   children,
@@ -22,6 +21,8 @@ export default ({
   const metaPageData = {
     globalContent,
     requestUri,
+    contextPath,
+    arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
   }
@@ -77,8 +78,6 @@ export default ({
   return (
     <html lang="es">
       <head>
-        <Libs />
-        <CssLinks />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -101,29 +100,20 @@ export default ({
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
 
-        <link
-          rel="stylesheet"
-          href="https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css"
-        />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content={keywords} />
         <script
           type="text/javascript"
           src="https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js"
         />
-        <script
-          dangerouslySetInnerHTML={createMarkup(
-            `
-          var opta_settings={
-            subscription_id: '782834e1fd5a215304e57cddad80b844',
-            language: 'es_CO',
-            timezone: 'America/Lima'
-          };
-          `
-          )}
-        />
 
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
+        <MetaSite {...metaSiteData} />
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
+        {renderMetaPage(metaValue('id'), metaPageData)}
+        <Libs />
+        <CssLinks />
       </head>
       <body className={isArticle && 'article'}>
         <noscript>

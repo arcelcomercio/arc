@@ -12,6 +12,11 @@ export default {
       logo: 'logo.png',
     },
   },
+  messages: {
+    errorTitle: '¡Oops! la pagina no fue encontrada',
+    errorDescription:
+      'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
+  },
   gecSites: [
     {
       name: 'elcomercio.pe',

@@ -90,15 +90,36 @@
     }
   }
 
+  /* Para arreglar estilos en o-embed */
+
   &__embed {
-    * .twitter-tweet {
+    .twitter-tweet {
       width: 100% !important;
     }
 
-    * .instagram-media {
+    .instagram-media {
       min-width: 0 !important;
     }
+
+    [src*="youtube"] {
+      width: 100% !important;
+    }
+
+    .fb-post {
+      width: 100% !important;
+      max-width: 500px;
+
+      &>span {
+        width: 100% !important;
+
+        &>[src*="facebook"] {
+          width: 100% !important;
+        }
+      }
+    }
   }
+
+  /* --------------------------------*/
 
   .visual__image {
     img {
@@ -123,8 +144,9 @@
     width: 100%;
   }
   &__icon-list {
-    padding: 20px;
+    padding: 20px 0 20px 20px;
     @media (--desktop) {
+      padding: 20px;
       position: absolute;
       right: -50px;
     }
@@ -134,6 +156,9 @@
   }
   &__link{
     color: $color-silver;
+    i{
+      font-size: 30px;
+    }
     &:hover{
       text-decoration: none;
     }

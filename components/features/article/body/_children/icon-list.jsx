@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import { popUpWindow } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 
@@ -22,23 +22,23 @@ class ArticleBodyChildIcon extends PureComponent {
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'icon-print icon-search',
+          icon: 'icon-print',
           link: '',
           mobileClass: '',
         },
 
         {
-          icon: 'icon-email icon-search',
+          icon: 'icon-message',
           link: '',
           mobileClass: '',
         },
         {
-          icon: 'icon-link icon-search',
+          icon: 'icon-link',
           link: '',
           mobileClass: '',
         },
         {
-          icon: 'icon-font icon-search',
+          icon: 'icon-zoom',
           link: '',
           mobileClass: '',
         },
@@ -56,7 +56,7 @@ class ArticleBodyChildIcon extends PureComponent {
     const { currentList } = this.state
 
     return (
-      <Fragment>
+      <>
         <div className={classes.news}>
           <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (
@@ -76,7 +76,7 @@ class ArticleBodyChildIcon extends PureComponent {
             ))}
           </ul>
         </div>
-      </Fragment>
+      </>
     )
   }
 }

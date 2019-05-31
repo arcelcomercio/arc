@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import Button from '../../../global-components/button'
 import Menu from './_children/menu'
 import Ads from '../../../global-components/ads'
@@ -209,7 +209,7 @@ class LayoutAmpNavbar extends PureComponent {
           {/** ************* LEFT *************** */}
 
           <div className={classes.navBtnContainer}>
-            <Fragment>
+            <>
               <form
                 className={classes.navForm}
                 onSubmit={e => e.preventDefault()}>
@@ -233,7 +233,7 @@ class LayoutAmpNavbar extends PureComponent {
                 btnText="Secciones"
                 onClick={this._handleToggleSectionsElement('statusSidebar')}
               />
-            </Fragment>
+            </>
           </div>
 
           {/** ************* MIDDLE *************** */}

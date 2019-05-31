@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 const classes = {
   title: 'newsletter__title',
@@ -11,9 +11,9 @@ const classes = {
 const StaticsNewsletterChildConfirmation = props => {
   const { features } = props
   return (
-    <Fragment>
+    <>
       <h3 className={classes.title}>
-        ¡Muchas gracias por <span>Registrarte!</span>
+        ¡Muchas gracias por <strong>Registrarte!</strong>
       </h3>
       <p className={classes.descripcion}>
         Recibirás diariamente nuestro newsletter
@@ -26,7 +26,7 @@ const StaticsNewsletterChildConfirmation = props => {
           Ir a la Portada
         </button>
       </div>
-    </Fragment>
+    </>
   )
 }
 

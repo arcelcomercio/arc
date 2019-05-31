@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/item'
 import Pagination from '../../../global-components/pagination'
@@ -97,7 +97,7 @@ class BlogList extends PureComponent {
     )
 
     return (
-      <Fragment>
+      <>
         <div className={classes.list}>
           <h1 className={classes.listTitle}>blogs</h1>
           <div>
@@ -115,7 +115,7 @@ class BlogList extends PureComponent {
             currentPage={blogOffset || 1}
           />
         )}
-      </Fragment>
+      </>
     )
   }
 }

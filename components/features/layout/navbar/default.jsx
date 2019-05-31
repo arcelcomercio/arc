@@ -56,7 +56,6 @@ class LayoutNavbar extends PureComponent {
   }
 
   /** Actualiza el "state.device" cuando el listener acciona  */
-
   _handleDevice = device => {
     this.setState({
       device,
@@ -125,6 +124,5 @@ LayoutNavbar.propTypes = {
     }),
   }),
 }
-
 LayoutNavbar.label = 'Barra de Navegación'
 export default LayoutNavbar

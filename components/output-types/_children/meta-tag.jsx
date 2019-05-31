@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import {
   metaPaginationUrl,
   getMetaPagesPagination,
@@ -31,19 +31,19 @@ export default props => {
   )
 
   return (
-    <Fragment>
+    <>
       {pages.prev && (
-        <Fragment>
+        <>
           <link rel="prev" href={urlPrevPage} />
           <link rel="prefetch" href={urlPrevPage} />
-        </Fragment>
+        </>
       )}
       {pages.next && (
-        <Fragment>
+        <>
           <link rel="next" href={urlNextPage} />
           <link rel="prefetch" href={urlNextPage} />
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   )
 }

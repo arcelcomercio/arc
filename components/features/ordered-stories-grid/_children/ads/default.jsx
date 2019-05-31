@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { createMarkup } from '../../../../utilities/helpers'
 import Ads from '../../../../global-components/ads'
@@ -28,7 +28,7 @@ const OrderedStoriesGridAds = props => {
 
   // TODO: Corregir el nodo duplicado de html
   return (
-    <Fragment>
+    <>
       <div className={`no-mobile ${getSize()}`}>
         <Ads {...params} />
         {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
@@ -40,7 +40,7 @@ const OrderedStoriesGridAds = props => {
           dangerouslySetInnerHTML={createMarkup(freeHtml)}
         />
       )}
-    </Fragment>
+    </>
   )
 }
 

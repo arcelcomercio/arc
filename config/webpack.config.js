@@ -18,7 +18,7 @@ module.exports = env => {
       publicPath: paths.dist,
       filename: `[name]/${ext}/${type === 'amp' ? 'dump' : type}.${ext}`,
     },
-    devtool: (env.dev && type !== 'amp') ? 'source-map' : 'none',
+    devtool: env.dev && type !== 'amp' ? 'source-map' : 'none',
     module: {
       rules: rules(mode, type),
     },

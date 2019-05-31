@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import {
   popUpWindow,
   socialMediaUrlShareList,
@@ -96,7 +96,7 @@ class ArticleHeaderChildSocial extends PureComponent {
     } = this.props
 
     return (
-      <Fragment>
+      <>
         <div className={classes.news}>
           <div className={classes.category}> {name}</div>
           <ul className={classes.list}>
@@ -117,7 +117,7 @@ class ArticleHeaderChildSocial extends PureComponent {
             ))}
           </ul>
         </div>
-      </Fragment>
+      </>
     )
   }
 }

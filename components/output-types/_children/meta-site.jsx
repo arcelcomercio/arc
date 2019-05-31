@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 export default ({
   deployment,
@@ -52,7 +52,7 @@ export default ({
           /** CONFIGURATION END **/`
 
   return (
-    <Fragment>
+    <>
       <link
         rel="stylesheet"
         href={deployment(
@@ -127,6 +127,6 @@ export default ({
         type="text/javascript"
         dangerouslySetInnerHTML={{ __html: charbeatScript }}
       />
-    </Fragment>
+    </>
   )
 }
