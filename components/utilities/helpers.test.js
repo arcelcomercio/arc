@@ -98,6 +98,18 @@ describe("Funcion isEmpty",()=>{
     it("validacion de la definicion",()=>{
         expect(isEmpty()).toBeDefined();
     })
+    it("debe retornar falso si el parametro es una funcion",()=>{
+        expect(isEmpty(()=>{})).not.toBeTruthy();
+    })
+    it("debe retornar falso si el parametro es una numerico",()=>{
+        expect(isEmpty(2)).not.toBeTruthy();
+    })
+    it("debe retornar falso si el parametro es una bolean",()=>{
+        expect(isEmpty(false)).not.toBeTruthy();
+    })
+    it("debe retornar falso si el parametro es un objeto",()=>{
+        expect(isEmpty(Object)).not.toBeTruthy();
+    })
 })
 
 // Rolly
