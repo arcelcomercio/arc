@@ -165,11 +165,14 @@
       padding: 20px 0 20px 20px;
     }
 
+    /* 
+    Sobresale de su espacio definido en desktop.
+
     @media (--desktop) {
       padding: 20px;
       position: absolute;
       right: -50px;
-    }
+    } */
   }
 
   &__item {
