@@ -92,6 +92,7 @@
     "test":"jest"
   },
   "jest": {
+    "automock": false,
     "verbose": true,
     "testURL": "http://localhost/",
     "transform": {
