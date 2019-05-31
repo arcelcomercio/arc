@@ -36,31 +36,26 @@ const OPTA_CSS_LINK =
   'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
 const OPTA_JS_LINK =
   'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js'
+
 @Consumer
 class ArticleBody extends PureComponent {
-  hasOpta = () => {
-    return document.getElementsByTagName('opta-widget') && true
-  }
-
   handleOptaWidget = ({ id, css, js }) => {
-    if (this.hasOpta()) {
-      appendToHead(createLink(css))
-      appendToHead(
-        createScript({
-          textContent: `var opta_settings={
-            subscription_id: ${id},
+    appendToHead(
+      createScript({
+        textContent: `
+        var opta_settings={
+            subscription_id: '${id}',
             language: 'es_CO',
             timezone: 'America/Lima'
         };`,
-        })
-      )
-      appendToHead(
-        createScript({
-          src: js,
-          async: true,
-        })
-      )
-    }
+      })
+    )
+    appendToHead(
+      createScript({
+        src: js,
+      })
+    )
+    appendToHead(createLink(css))
   }
 
   render() {
@@ -80,9 +75,6 @@ class ArticleBody extends PureComponent {
       related_content: { basic: relatedContent },
     } = globalContent || {}
 
-    /* Si encuentra opta-widget agrega scripts a <head> */
-    this.handleOptaWidget({ id: opta, css: OPTA_CSS_LINK, js: OPTA_JS_LINK })
-
     return (
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
@@ -95,6 +87,16 @@ class ArticleBody extends PureComponent {
               elementClasses={classes}
               renderElement={element => {
                 const { _id, type, subtype, raw_oembed: rawOembed } = element
+                if (type === 'raw_html') {
+                  const { content } = element
+                  /* Si encuentra opta-widget agrega scripts a <head> */
+                  if (content.includes('opta-widget'))
+                    this.handleOptaWidget({
+                      id: opta,
+                      css: OPTA_CSS_LINK,
+                      js: OPTA_JS_LINK,
+                    })
+                }
                 if (type === 'image') {
                   return (
                     <ArticleBodyChildArticleImage

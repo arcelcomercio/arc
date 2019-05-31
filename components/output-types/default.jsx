@@ -10,7 +10,7 @@ export default ({
   deployment,
   arcSite,
   globalContent,
-  CssLinks,
+  // CssLinks,
   Fusion,
   Libs,
   // MetaTags,
@@ -94,26 +94,15 @@ export default ({
         />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
-
-        {renderMetaPage(metaValue('id'), metaPageData)}
-        <MetaSite {...metaSiteData} />
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
-
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
-        <script
-          type="text/javascript"
-          src="https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js"
-        />
 
         <MetaSite {...metaSiteData} />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
         <Libs />
-        <CssLinks />
       </head>
       <body className={isArticle && 'article'}>
         <noscript>
