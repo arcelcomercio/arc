@@ -6,29 +6,28 @@ import Menu from './menu'
 import Ads from '../../../../global-components/ads'
 
 const classes = {
-  nav: 'nav nav--comercio full-width flex flex-center-vertical',
+  nav: 'nav text-sm full-width flex flex-center-vertical',
   wrapper:
     'flex-center-vertical flex--justify-between nav__wrapper full-width height-inherit',
-  form: 'nav__form flex',
-  search: 'nav__input-search',
+  form: 'flex position-relative',
+  search: 'nav__input-search text-md',
   navBtnContainer:
     'flex-center-vertical flex--justify-start nav__container-menu',
   searchContainer: 'flex-center-vertical flex--justify-start',
   btnSearch: 'flex-center-vertical btn nav__btn nav__btn--search',
   btnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
-  iconSerch: 'icon icon--search',
-  iconMenu: 'icon icon--menu',
+  iconSearch: 'nav__icon-search icon-search title-lg',
+  iconMenu: 'nav__icon-menu icon-hamburguer',
   list:
-    'flex-center-vertical flex--justify-start flex-1 nav__list height-inherit',
-  listItem: 'height-inherit',
-  listLink: 'flex-center-vertical nav__list-link height-inherit',
+    'flex-center-vertical flex--justify-evenly flex-1 nav__list height-inherit overflow-hidden pd-right-5 pd-left-5',
+  listItem: 'text-center',
+  listLink: 'nav__list-link text-center text-uppercase',
   logo: 'nav__logo',
   ads: 'nav__ads',
   btnContainer: 'flex-center-vertical flex--justify-end header__btn-container',
-  btnLogin: 'flex-center-vertical btn btn--small bg-color--gray',
-  btnSubscribe:
-    'flex-center-vertical btn btn--small bg-color--gray nav__header-sub',
-  iconLogin: 'icon icon--login',
+  btnLogin: 'flex-center-vertical btn btn--outline',
+  btnSubscribe: 'flex-center-vertical btn btn--outline nav__header-sub',
+  iconLogin: 'icon icon-user',
 }
 
 @Consumer
