@@ -53,15 +53,14 @@ export default ({
     return `"${description}"`
   })
 
-  const relatedContentItem = relatedContent.map(
-    ({ canonical_url: urlItem = '' } = {}, i) => {
-      return `{  
+  const relatedContentItem = relatedContent.map((content, i) => {
+    const { canonical_url: urlItem = '' } = content || {}
+    return `{  
       "@type":"ListItem",
       "position":${i + 1},
       "url":"${contextPath}${urlItem}"
       }`
-    }
-  )
+  })
 
   const relatedContentData = relatedContentItem[0]
     ? `{  
