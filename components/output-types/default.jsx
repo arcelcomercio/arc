@@ -115,7 +115,6 @@ export default ({
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
         <Libs />
-        <CssLinks />
       </head>
       <body className={isArticle && 'article'}>
         <noscript>
