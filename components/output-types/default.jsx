@@ -2,8 +2,8 @@ import React from 'react'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
+import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
-import { createMarkup } from '../utilities/helpers'
 
 export default ({
   children,
@@ -11,7 +11,7 @@ export default ({
   deployment,
   arcSite,
   globalContent,
-  CssLinks,
+  // CssLinks,
   Fusion,
   Libs,
   // MetaTags,
@@ -22,15 +22,23 @@ export default ({
   const metaPageData = {
     globalContent,
     requestUri,
+    contextPath,
+    arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    metaValue,
+    deployment,
   }
+
+  const isArticle = requestUri.match(`^(/(.*)/.*-noticia)`)
+
   const metaSiteData = {
     ...siteProperties,
     requestUri,
     arcSite,
     contextPath,
     deployment,
+    isArticle,
   }
 
   const title =
@@ -47,8 +55,6 @@ export default ({
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
       : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
-
-  const isArticle = requestUri.match(`^(/(.*)/.*-noticia)`)
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -72,58 +78,44 @@ export default ({
     siteName: siteProperties.siteName,
     article: isArticle, // check data origin - Boolean
     deployment,
+    globalContent,
   }
 
   return (
     <html lang="es">
       <head>
-        <Libs />
-        <CssLinks />
+        <TagManager {...siteProperties} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <link rel="dns-prefetch" href="//ecoid.pe" />
+        <title>{title}</title>
+        {/* TODO: Validar con la nueva platilla
+         <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" /> 
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />        
+        */}
+
         <link
           href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap"
           rel="stylesheet"
         />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
-        {renderMetaPage(metaValue('id'), metaPageData)}
         <MetaSite {...metaSiteData} />
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
-
-        <link
-          rel="stylesheet"
-          href="https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css"
-        />
-        <script
-          type="text/javascript"
-          src="https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js"
-        />
-        <script
-          dangerouslySetInnerHTML={createMarkup(
-            `
-          var opta_settings={
-            subscription_id: '782834e1fd5a215304e57cddad80b844',
-            language: 'es_CO',
-            timezone: 'America/Lima'
-          };
-          `
-          )}
-        />
-
-        <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
+        {isArticle && <meta name="news_keywords" content={keywords} />}
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
+        {renderMetaPage(metaValue('id'), metaPageData)}
+
+        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
+        <Libs />
       </head>
       <body className={isArticle && 'article'}>
         <noscript>

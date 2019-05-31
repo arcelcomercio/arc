@@ -197,7 +197,7 @@
   }
   &--active {
     width: 100%;
-    position: absolute;
+    position: fixed;
     z-index: 20;
     .somos-menu__content {
       transform: translate3d(0%, 0, 0);

@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import UtilListKey from '../../../../utilities/list-keys'
-import StoryData from '../../../../utilities/story-data'
+// import StoryData from '../../../../utilities/story-data'
 import { getIcon } from '../../../../utilities/helpers'
 
 // Basic flex stuff
@@ -16,43 +16,48 @@ const classes = {
   relatedInfo: 'related-interna__information',
 }
 
-const RelartedItem = ({ data, arcSite }) => {
-  const get = new StoryData(data, arcSite)
+const RelartedItem = ({ data } /* , i */) => {
+  const {
+    contextPath,
+    headlines: { basic: articleTitle } = {},
+    website_url: articleUrl,
+    promo_items: { basic: imageData = {} } = {},
+  } = data
+
   const filterData = {
-    title: {
-      nameTitle: get.title,
-      urlTitle: get.link,
-    },
-    multimedia: {
-      multimediaType: get.multimediaType,
-      multimediaImg: get.multimedia,
-    },
+    nameTitle: articleTitle,
+    urlTitle: articleUrl,
+    multimediaType: imageData.type,
+    multimediaImg: imageData.url,
   }
-  const { multimedia, title } = filterData
 
   return (
-    <Fragment>
+    <>
       <div className={classes.related}>
         <div className={classes.relatedTitle}>Siga Leyendo </div>
         <div className={`${classes.relatedInfo}`}>
           <h2 className={`${classes.relatedTitleItem}`}>
-            <a href={title.urlTitle}>{title.nameTitle}</a>
+            <a href={`${contextPath}${filterData.urlTitle}`}>
+              {filterData.nameTitle}
+            </a>
           </h2>
         </div>
         <figure className={classes.relatedMultimedia}>
-          <a href={title.urlTitle} className={classes.relatedLink}>
+          <a
+            href={`${contextPath}${filterData.urlTitle}`}
+            className={classes.relatedLink}>
             <img
-              src={multimedia.multimediaImg}
-              alt={title.nameTitle}
+              src={filterData.multimediaImg}
+              alt={filterData.nameTitle}
               className={classes.relatedImage}
             />
-            {multimedia.multimediaType === 'basic' ||
-            multimedia.multimediaType === '' ? (
+            {filterData.multimediaType === 'basic' ||
+            filterData.multimediaType === '' ? (
               ''
             ) : (
               <span
                 className={`${classes.relatedIcon}${getIcon(
-                  multimedia.multimediaType
+                  filterData.multimediaType
                 )}`}
               />
             )}
@@ -60,28 +65,23 @@ const RelartedItem = ({ data, arcSite }) => {
           {/* <Icon iconClass={story.iconClass} /> */}
         </figure>
       </div>
-    </Fragment>
+    </>
   )
 }
 
-const ArticleBodyChildRelatedInternal = ({
-  stories,
-  data: { _id: id },
-  arcSite,
-}) => {
+const ArticleBodyChildRelatedInternal = ({ stories, id, contextPath }) => {
   return (
-    <Fragment>
+    <>
       {stories.map((item, index) =>
         item._id === id ? (
           <RelartedItem
             key={UtilListKey(index)}
             data={item}
-            arcSite={arcSite}
-            styles={index}
+            contextPath={contextPath}
           />
         ) : null
       )}
-    </Fragment>
+    </>
   )
 }
 

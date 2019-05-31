@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import {
   metaPaginationUrl,
   getMetaPagesPagination,
@@ -90,18 +90,18 @@ export default ({
   }`
 
   return (
-    <Fragment>
+    <>
       {pages.prev && (
-        <Fragment>
+        <>
           <link rel="prev" href={urlPrevPage} />
           <link rel="prefetch" href={urlPrevPage} />
-        </Fragment>
+        </>
       )}
       {pages.next && (
-        <Fragment>
+        <>
           <link rel="next" href={urlNextPage} />
           <link rel="prefetch" href={urlNextPage} />
-        </Fragment>
+        </>
       )}
       <script
         type="application/ld+json"
@@ -111,6 +111,6 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredNews }}
       />
-    </Fragment>
+    </>
   )
 }

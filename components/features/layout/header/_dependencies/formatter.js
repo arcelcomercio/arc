@@ -1,3 +1,5 @@
+import schemaFilter from './schema-filter'
+
 export default class StandardHeader {
   constructor(
     deployment,
@@ -19,31 +21,15 @@ export default class StandardHeader {
     this.headerType = headerType
     this.customLogo = customLogo
     this.customLogoLink = customLogoLink
-    this.schema = this.getSchema()
+    this.schema = schemaFilter(headerType)
+  }
+
+  getSchema() {
+    return this.schema
   }
 
   setData(data) {
     this.data = data
-  }
-
-  getSchema() {
-    switch (this.headerType) {
-      case 'standard':
-      case 'somos':
-        this.schema = `{ 
-            children {
-              name
-              _id
-              display_name
-              url
-              node_type
-            }
-          }`
-        break
-
-      default:
-        break
-    }
   }
 
   getParams() {
@@ -62,9 +48,7 @@ export default class StandardHeader {
         src:
           this.customLogo ||
           this.deployment(
-            `${this.contextPath}/resources/dist/${
-              this.arcSite
-            }/images/${logo}`
+            `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
           ),
         link: this.customLogoLink
           ? `${this.contextPath}${this.customLogoLink}`
@@ -82,9 +66,7 @@ export default class StandardHeader {
         src:
           this.customLogo ||
           this.deployment(
-            `${this.contextPath}/resources/dist/${
-              this.arcSite
-            }/images/${logo}`
+            `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
           ),
         link: this.customLogoLink
           ? `${this.contextPath}${this.customLogoLink}`
@@ -98,6 +80,7 @@ export default class StandardHeader {
         url: `${this.contextPath}/somos`,
       },
       sections: this.formatSections(),
+      // TODO: Reemplazar por la función reutilizable
       searchUrl: query => {
         window.location.href = `${this.contextPath}/buscar?query=${query}`
       },

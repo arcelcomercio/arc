@@ -6,13 +6,14 @@ import { getIcon } from '../utilities/helpers'
 
 const classes = {
   extraordinaryStory: `extraordinary-story padding-normal`,
-  extraordinaryStorySection: 'extraordinary-story__section text-center',
+  extraordinaryStorySection: 'extraordinary-story__section text-left',
   extraordinaryStoryContent: 'extraordinary-story__content',
-  extraordinaryStoryTitle: 'extraordinary-story__title',
+  extraordinaryStoryTitle: 'extraordinary-story__title title',
   oneline: 'extraordinary-story-oneline',
   twoline: 'extraordinary-story-twoline',
   threeline: 'extraordinary-story-threeline',
   extraordinaryStorySubtitle: 'extraordinary-story__subtitle',
+  extraordinaryStoryLink: 'extraordinary-story__link',
   extraordinaryStoryAuthor: 'extraordinary-story__author',
   extraordinaryStoryMultimedia: 'extraordinary-story__multimedia',
   iconGallery: 'extraordinary-story__icon-gallery',
@@ -71,7 +72,7 @@ const ExtraordinaryStory = props => {
           <a href={data.link}>{data.title}</a>
         </div>
         <div className={classes.extraordinaryStorySubtitle}>
-          <a href={data.link}>{data.subTitle}</a>
+          <a href={data.link} className={classes.extraordinaryStoryLink}>{data.subTitle}</a>
         </div>
         <div className={classes.extraordinaryStoryAuthor}>
           <a href={data.authorLink}>{data.author}</a>

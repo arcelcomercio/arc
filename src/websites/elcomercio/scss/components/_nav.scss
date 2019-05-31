@@ -1,0 +1,19 @@
+.nav {
+    background-color: $color-light;
+
+    &__btn {
+        @media (--desktop) {
+            color: $color-gray-light;
+        }
+    }
+
+    &__icon-search {
+        color: $color-gray-light;
+    }
+
+    &.active {
+        .nav__container-menu {
+            border-color: $color-white;
+        }
+    }
+}

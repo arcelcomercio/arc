@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 import StoryItem from '../../../global-components/story-item'
@@ -16,7 +16,7 @@ class StoriesListArchive extends PureComponent {
     const stories = contentElements || []
 
     return (
-      <Fragment>
+      <>
         <div>
           {stories.map(story => (
             <StoryItem
@@ -33,7 +33,7 @@ class StoriesListArchive extends PureComponent {
           date={date || getActualDate()}
           contextPath={contextPath}
         />
-      </Fragment>
+      </>
     )
   }
 }

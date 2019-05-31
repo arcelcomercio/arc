@@ -3,6 +3,7 @@ export default {
     nav: {
       logo: 'logo.png',
       ampLogo: 'letra-c-white.png',
+      logoSomos: 'white-logo.png',
     },
     header: {
       logo: 'logo.png',
@@ -14,6 +15,9 @@ export default {
   messages: {
     errorTitle: '¡Oops! la pagina no fue encontrada',
     errorDescription: 'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
+  },
+  ids: {
+    opta: '782834e1fd5a215304e57cddad80b844',
   },
   gecSites: [{
       name: 'elcomercio.pe',

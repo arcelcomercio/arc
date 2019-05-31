@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
@@ -58,15 +58,15 @@ export default props => {
   const urlPrevPage = paginationUrl(prevDate)
 
   return (
-    <Fragment>
+    <>
       <link rel="prev" href={urlPrevPage} />
       <link rel="prefetch" href={urlPrevPage} />
       {hasNext && (
-        <Fragment>
+        <>
           <link rel="next" href={urlNextPage} />
           <link rel="prefetch" href={urlNextPage} />
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   )
 }

@@ -4,6 +4,11 @@ import React, { PureComponent } from 'react'
 import ArcArticleBody, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
+import {
+  appendToHead,
+  createLink,
+  createScript,
+} from '../../../utilities/helpers'
 
 import ArticleBodyChildVideo from './_children/video'
 import ArticleBodyChildArticleImage from './_children/image'
@@ -14,72 +19,84 @@ import ArticleBodyChildRelated from './_children/related'
 import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildAuthor from './_children/author'
 import ArticleBodyChildMultimedia from './_children/multimedia'
-import schemaFilter from './_dependencies/schema-filter'
 import ArticleBodyChildRelatedInternal from './_children/related-internal'
 import ArticleBodyChildIcon from './_children/icon-list'
 
 const classes = {
   news: 'article-body full-width bg-color--white pd-left-20 pd-right-20',
-  content: 'position-relative',
+  content: 'article-body__content position-relative flex flex--row-reverse',
   textClasses: 'article-body__font--secondary',
   newsImage: 'article-body__image full-width article-body__image--cover',
   newsEmbed: 'article-body__embed',
   tags: 'article-body',
+  section: 'full-width',
 }
+
+const OPTA_CSS_LINK =
+  'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
+const OPTA_JS_LINK =
+  'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js'
+
 @Consumer
 class ArticleBody extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      data: [],
-    }
-
-    this.getContentApi()
-  }
-
-  getContentApi = () => {
-    const {
-      arcSite,
-      globalContent: { _id: id },
-    } = this.props
-
-    const { fetched } = this.getContent(
-      'story-by-related',
-      { _id: id, website: arcSite },
-      schemaFilter
-    )
-    fetched.then(response => {
-      const { basic: element } = response
-      this.setState({
-        data: element || [],
+  handleOptaWidget = ({ id, css, js }) => {
+    appendToHead(
+      createScript({
+        textContent: `
+        var opta_settings={
+            subscription_id: '${id}',
+            language: 'es_CO',
+            timezone: 'America/Lima'
+        };`,
       })
-    })
+    )
+    appendToHead(
+      createScript({
+        src: js,
+      })
+    )
+    appendToHead(createLink(css))
   }
 
   render() {
-    const { globalContent, arcSite, contextPath } = this.props
-    const { data } = this.state
+    const {
+      globalContent,
+      contextPath,
+      siteProperties: {
+        ids: { opta },
+      },
+    } = this.props
     const {
       content_elements: contentElements,
       promo_items: promoItems,
       publish_date: date,
       credits: author,
       taxonomy: { tags = {} },
+      related_content: { basic: relatedContent },
     } = globalContent || {}
 
     return (
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
         {author && <ArticleBodyChildAuthor data={author} date={date} />}
-        <ArticleBodyChildIcon />
         <div className={classes.content}>
+          <ArticleBodyChildIcon />
           {contentElements && (
             <ArcArticleBody
               data={contentElements}
               elementClasses={classes}
               renderElement={element => {
-                const { type, subtype, raw_oembed: rawOembed } = element
+                const { _id, type, subtype, raw_oembed: rawOembed } = element
+                if (type === 'raw_html') {
+                  const { content } = element
+                  /* Si encuentra opta-widget agrega scripts a <head> */
+                  if (content.includes('opta-widget'))
+                    this.handleOptaWidget({
+                      id: opta,
+                      css: OPTA_CSS_LINK,
+                      js: OPTA_JS_LINK,
+                    })
+                }
                 if (type === 'image') {
                   return (
                     <ArticleBodyChildArticleImage
@@ -119,9 +136,9 @@ class ArticleBody extends PureComponent {
                 if (type === 'story') {
                   return (
                     <ArticleBodyChildRelatedInternal
-                      data={element}
-                      stories={data}
-                      arcSite={arcSite}
+                      stories={relatedContent}
+                      contextPath={contextPath}
+                      id={_id}
                     />
                   )
                 }
@@ -136,7 +153,25 @@ class ArticleBody extends PureComponent {
           className={classes.tags}
           contextPath={contextPath}
         />
-        <ArticleBodyChildRelated stories={data} />
+
+        {relatedContent.length > 0 && (
+          <div role="list" className={classes.related}>
+            <h4 className={classes.relatedTitle}>Relacionadas </h4>
+            {relatedContent.map((item, i) => {
+              const { type } = item
+              const key = `related-${i}`
+              return type !== 'story' ? (
+                ''
+              ) : (
+                <ArticleBodyChildRelated
+                  key={key}
+                  {...item}
+                  contextPath={contextPath}
+                />
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }

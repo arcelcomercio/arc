@@ -1,5 +1,5 @@
 /******* Brand colors *******/
-$color-primary: #0a4b15;
+$color-primary: #265922;
 $color-secondary: #000;
 /*-----------------------*/
 
@@ -8,6 +8,7 @@ $color-link: #524cff;
 $color-white: #ffffff;
 $color-error: #ff0000;
 $color-light-blue: #d5e5ed;
+
 /*-----------------------*/
 
 /******* Grayscale *******/
@@ -26,12 +27,16 @@ $header-text-color: $color-dark;
 /*-----------------------*/
 
 /******* Nav colors *******/
-$nav-color: $color-dark;
+$nav-color: $color-light;
 /*-----------------------*/
 
 /******* Footer colors *******/
 $footer-background: #333;
 $footer-text-color: $color-white;
+/*-----------------------*/
+
+/******* Nav colors *******/
+$text-cintillo: #0E210D;
 /*-----------------------*/
 
 /******* Background-text contrast *******/
@@ -74,5 +79,10 @@ $footer-text-color: $color-white;
 .bg-color--navy-blue {
   background-color: $color-navy-blue;
 }
+
+/*-----------------------*/
+
+/******* Default colors *******/
+$color-default-1: #F3DA4A;
 
 /*-----------------------*/

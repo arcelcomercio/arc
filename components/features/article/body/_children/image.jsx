@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import Image from '@arc-core-components/element_image'
 
@@ -10,14 +10,14 @@ const classes = {
 const ArticleBodyChildArticleImage = props => {
   const { data } = props
   return (
-    <Fragment>
+    <>
       <Image
         width="100%"
         className={classes.image}
         sizePreset="large"
         {...data}
       />
-    </Fragment>
+    </>
   )
 }
 

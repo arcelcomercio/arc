@@ -1,38 +1,52 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
   header: 'header full-width header__main flex-center',
-  headerLogo: 'header__logo',
-  headerFeatured: 'flex-center header__featured full-width bg-color--white',
-  headerFeaturedItem: 'flex-center header__item',
+  logo: 'header__logo',
+  featured: 'flex flex--justify-between header__featured full-width',
+  item: 'flex-center header__item',
 }
 
 const HeaderChildStandard = props => {
-  const { logo, sections, device } = props
+  const { logo, sections, device, deviceList } = props
 
-  const isDesktop = device === 'desktop'
+  const _handleHide = () => {
+    switch (device) {
+      case 'desktop':
+        return deviceList.showInDesktop
+
+      case 'tablet':
+        return deviceList.showInTablet
+
+      case 'mobile':
+        return deviceList.showInMobile
+
+      default:
+        return true
+    }
+  }
 
   return (
-    isDesktop && (
-      <Fragment>
+    _handleHide() && (
+      <>
         <header className={classes.header}>
           <a href={logo.link}>
-            <img src={logo.src} alt={logo.alt} className={classes.headerLogo} />
+            <img src={logo.src} alt={logo.alt} className={classes.logo} />
           </a>
         </header>
         <nav>
           {sections[0] && (
-            <ul className={classes.headerFeatured}>
+            <ul className={classes.featured}>
               {sections.map(section => (
-                <li className={classes.headerFeaturedItem} key={section.url}>
+                <li className={classes.item} key={section.url}>
                   <a href={section.url}>{section.name}</a>
                 </li>
               ))}
             </ul>
           )}
         </nav>
-      </Fragment>
+      </>
     )
   )
 }
