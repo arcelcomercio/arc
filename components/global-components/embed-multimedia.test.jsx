@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import EmbedMultimedia from '@components/embed-multimedia'
 
-describe('Test EmbedMultimedia - videoYoutube', () => {
+describe('Test EmbedMultimedia', () => {
   it('test renderizado videoYoutube', () => {
     const props = {
       type: 'youtube',
