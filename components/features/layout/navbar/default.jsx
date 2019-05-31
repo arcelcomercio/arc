@@ -10,7 +10,7 @@ import NavbarChildSomos from './_children/somos'
 import Formatter from './_dependencies/formatter'
 
 @Consumer
-class BarraTest extends PureComponent {
+class LayoutNavbar extends PureComponent {
   constructor(props) {
     super(props)
     const {
@@ -98,7 +98,7 @@ class BarraTest extends PureComponent {
   }
 }
 
-BarraTest.propTypes = {
+LayoutNavbar.propTypes = {
   customFields: PropTypes.shape({
     selectDesing: PropTypes.oneOf(['standard', 'somos']).tag({
       name: 'Modelo de barra de navegación',
@@ -126,5 +126,5 @@ BarraTest.propTypes = {
   }),
 }
 
-BarraTest.label = 'Barra de Navegación'
-export default BarraTest
+LayoutNavbar.label = 'Barra de Navegación'
+export default LayoutNavbar

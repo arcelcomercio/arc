@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 
 const classes = {
   logocontent: 'header-somos',
@@ -81,7 +81,7 @@ class HeaderChildSomos extends PureComponent {
 
     return (
       _handleHide() && (
-        <Fragment>
+        <>
           <div className={classes.logocontent}>
             <div className={classes.iconmenuwrapper}>
               <button
@@ -163,7 +163,7 @@ class HeaderChildSomos extends PureComponent {
               </ul>
             </div>
           </nav>
-        </Fragment>
+        </>
       )
     )
   }
