@@ -1,8 +1,8 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+
 import Button from '../../../../global-components/button'
 import Menu from './menu'
-import { setDevice } from '../../../../utilities/resizer'
 import Ads from '../../../../global-components/ads'
 
 const classes = {
@@ -34,10 +34,7 @@ const classes = {
 class NavBarDefault extends PureComponent {
   constructor(props) {
     super(props)
-    const { data } = this.props
     this.state = {
-      device: setDevice(),
-      services: data,
       statusSidebar: false,
       statusSearch: false,
       scrolled: false,
@@ -47,9 +44,7 @@ class NavBarDefault extends PureComponent {
   }
 
   componentDidMount() {
-    const { device } = this.state
-    this.addEventListener('displayChange', this._handleDevice)
-
+    const { device } = this.props
     // ------ Sets scroll eventListener if device is desktop
     if (device === 'desktop')
       window.addEventListener('scroll', this._handleScroll)
@@ -66,7 +61,7 @@ class NavBarDefault extends PureComponent {
     const { statusSearch } = this.state
     return statusSearch
       ? this.findSearch
-      : this._handleToggleSectionsElement('statusSearch')
+      : this._handleToggleSectionElements('statusSearch')
   }
 
   // Open search and automatic focus input
@@ -93,6 +88,14 @@ class NavBarDefault extends PureComponent {
     }
   }
 
+  _handleDevice = device => {
+    this._handleScroll()
+    // ------ Add or remove Scroll eventListener on resize
+    if (device === 'desktop')
+      window.addEventListener('scroll', this._handleScroll)
+    else window.removeEventListener('scroll', this._handleScroll)
+  }
+
   _handleScroll = () => {
     const { scrolled } = this.state
 
@@ -111,7 +114,7 @@ class NavBarDefault extends PureComponent {
   }
 
   // Open - Close Search
-  _handleToggleSectionsElement = element => {
+  _handleToggleSectionElements = element => {
     // eslint-disable-next-line no-unused-vars
     return e => {
       const { statusSidebar, statusSearch } = this.state
@@ -145,127 +148,138 @@ class NavBarDefault extends PureComponent {
     }, 1000)
   }
 
-  // ------ Sets the new device state when the listener is activated
-  _handleDevice = device => {
-    this.setState({
-      device,
-    })
-    this._handleScroll()
-    // ------ Add or remove Scroll eventListener on resize
-    if (device === 'desktop')
-      window.addEventListener('scroll', this._handleScroll)
-    else window.removeEventListener('scroll', this._handleScroll)
-  }
-
   render() {
+    const { statusSidebar, scrolled } = this.state
     const {
+      logo,
+      arcSite,
+      contextPath,
+      requestUri,
       device,
-      services: { children: sections = [] } = {},
-      statusSidebar,
-      scrolled,
-    } = this.state
-    const { logo, arcSite, contextPath, requestUri } = this.props
+      deviceList,
+      data: { children: sections = [] } = {},
+    } = this.props
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
+
+    this._handleDevice(device)
+
+    const _handleHide = () => {
+      switch (device) {
+        case 'desktop':
+          return deviceList.showInDesktop
+
+        case 'tablet':
+          return deviceList.showInTablet
+
+        case 'mobile':
+          return deviceList.showInMobile
+
+        default:
+          return true
+      }
+    }
     return (
-      <nav className={`${classes.nav} ${scrolled ? 'active' : ''}`}>
-        <div className={classes.wrapper}>
-          {/** ************* LEFT *************** */}
+      _handleHide() && (
+        <nav className={classes.nav}>
+          <div className={classes.wrapper}>
+            {/** ************* LEFT *************** */}
 
-          <div className={classes.navBtnContainer}>
-            <Button
-              iconClass={classes.iconMenu}
-              btnClass={classes.btnSection}
-              btnText="Menú"
-              onClick={this._handleToggleSectionsElement('statusSidebar')}
-            />
-          </div>
+            <div className={classes.navBtnContainer}>
+              <Button
+                iconClass={classes.iconMenu}
+                btnClass={classes.btnSection}
+                btnText="Menú"
+                onClick={this._handleToggleSectionElements('statusSidebar')}
+              />
+            </div>
 
-          {/** ************* MIDDLE *************** */}
+            {/** ************* MIDDLE *************** */}
 
-          <ul className={`${classes.list} ${scrolled ? '' : 'active'}`}>
-            {sections &&
-              sections.slice(0, 5).map(({ name, _id: id }) => {
-                return (
-                  <li key={`navbar-${id}`} className={classes.listItem}>
-                    <a
-                      href={`${contextPath}${id}`}
-                      className={classes.listLink}>
-                      {name}
-                    </a>
-                  </li>
-                )
-              })}
-          </ul>
-          <a href={`${contextPath}/${queryString}`}>
-            <img
-              src={logo}
-              alt={`Logo de ${arcSite}`}
-              className={`${classes.logo}  ${scrolled ? 'active' : ''}`}
-            />
-          </a>
-          {/** ************* RIGHT *************** */}
+            <ul className={`${classes.list} ${scrolled ? '' : 'active'}`}>
+              {sections &&
+                sections.slice(0, 5).map(({ name, _id: id }) => {
+                  return (
+                    <li key={id} className={classes.listItem}>
+                      <a
+                        href={`${contextPath}${id}`}
+                        className={classes.listLink}>
+                        {name}
+                      </a>
+                    </li>
+                  )
+                })}
+            </ul>
+            <a href={`${contextPath}/${queryString}`}>
+              <img
+                src={logo}
+                alt={`Logo de ${arcSite}`}
+                className={`${classes.logo}  ${scrolled ? 'active' : ''}`}
+              />
+            </a>
+            {/** ************* RIGHT *************** */}
 
-          {device && device === 'desktop' && !scrolled ? (
-            <>
-              <div className={classes.btnContainer}>
-                <Button
-                  btnText="Suscríbete"
-                  btnClass={classes.btnSubscribe}
-                  btnLink="#"
-                />
-                <Button
-                  btnText="Iniciar Sesión"
-                  btnClass={classes.btnLogin}
-                  btnLink="#"
-                />
-              </div>
-              <div className={classes.searchContainer}>
-                <Ads
-                  adElement="zocaloNav1"
-                  isDesktop
-                  classes={{ desktop: classes.ads }}
-                />
-                {/* <Ads
+            {device && device === 'desktop' && !scrolled ? (
+              <>
+                <div className={classes.btnContainer}>
+                  <Button
+                    btnText="Suscríbete"
+                    btnClass={classes.btnSubscribe}
+                    btnLink="#"
+                  />
+                  <Button
+                    btnText="Iniciar Sesión"
+                    btnClass={classes.btnLogin}
+                    btnLink="#"
+                  />
+                </div>
+                <div className={classes.searchContainer}>
+                  <Ads
+                    adElement="zocaloNav1"
+                    isDesktop
+                    classes={{ desktop: classes.ads }}
+                  />
+                  {/* <Ads
                   adElement="zocaloNav2"
                   isDesktop
                   classes={{ desktop: classes.ads }}
                 /> */}
-                <form
-                  className={classes.form}
-                  onSubmit={e => e.preventDefault()}>
-                  <input
-                    ref={this.inputSearch}
-                    type="search"
-                    onBlur={this._handleCloseSectionsSearch}
-                    onKeyUp={this.watchKeys}
-                    placeholder="Buscar"
-                    className={`${classes.search} ${this.activeSearch()}`}
-                  />
-                  <Button
-                    iconClass={classes.iconSearch}
-                    btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
-                    onClick={this.optionButtonClick()}
-                  />
-                </form>
+                  <form
+                    className={classes.form}
+                    onSubmit={e => e.preventDefault()}>
+                    <input
+                      ref={this.inputSearch}
+                      type="search"
+                      onBlur={this._handleCloseSectionsSearch}
+                      onKeyUp={this.watchKeys}
+                      placeholder="Buscar"
+                      className={`${classes.search} ${this.activeSearch()}`}
+                    />
+                    <Button
+                      iconClass={classes.iconSerch}
+                      btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
+                      onClick={this.optionButtonClick()}
+                    />
+                  </form>
+                </div>
+              </>
+            ) : (
+              <div className={classes.btnContainer}>
+                <Button
+                  iconClass={classes.iconLogin}
+                  btnClass={classes.btnLogin}
+                  btnLink="#"
+                />
               </div>
-            </>
-          ) : (
-            <div className={classes.btnContainer}>
-              <Button
-                iconClass={classes.iconLogin}
-                btnClass={classes.btnLogin}
-                btnLink="#"
-              />
-            </div>
-          )}
-        </div>
-        <Menu
-          sections={sections}
-          showSidebar={statusSidebar}
-          contextPath={contextPath}
-        />
-      </nav>
+            )}
+          </div>
+          <Menu
+            sections={sections}
+            showSidebar={statusSidebar}
+            contextPath={contextPath}
+          />
+        </nav>
+      )
     )
   }
 }
