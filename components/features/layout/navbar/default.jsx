@@ -66,9 +66,9 @@ class LayoutNavbar extends PureComponent {
     const {
       customFields: {
         selectDesing,
-        showInDesktop,
-        showInTablet,
-        showInMobile,
+        showInDesktop = true,
+        showInTablet = true,
+        showInMobile = true,
       } = {},
     } = this.props
     const { data, device } = this.state
@@ -109,17 +109,14 @@ LayoutNavbar.propTypes = {
     }),
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',
-      group: 'Administrar visibilidad',
       defaultValue: true,
     }),
     showInTablet: PropTypes.bool.tag({
       name: 'Mostrar en tablet',
-      group: 'Administrar visibilidad',
       defaultValue: true,
     }),
     showInMobile: PropTypes.bool.tag({
       name: 'Mostrar en móviles ',
-      group: 'Administrar visibilidad',
       defaultValue: true,
     }),
   }),

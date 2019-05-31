@@ -103,7 +103,12 @@ class LayoutHeader extends PureComponent {
   renderHeader = () => {
     const { device, data } = this.state
     const {
-      customFields: { headerType, showInDesktop, showInTablet, showInMobile },
+      customFields: {
+        headerType,
+        showInDesktop = true,
+        showInTablet = true,
+        showInMobile = true,
+      },
     } = this.props
 
     this.formater.setData(data)
@@ -146,17 +151,14 @@ LayoutHeader.propTypes = {
     }),
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',
-      group: 'Administrar visibilidad',
       defaultValue: true,
     }),
     showInTablet: PropTypes.bool.tag({
       name: 'Mostrar en tablet',
-      group: 'Administrar visibilidad',
       defaultValue: true,
     }),
     showInMobile: PropTypes.bool.tag({
       name: 'Mostrar en móviles ',
-      group: 'Administrar visibilidad',
       defaultValue: true,
     }),
     customLogo: PropTypes.string.tag({
