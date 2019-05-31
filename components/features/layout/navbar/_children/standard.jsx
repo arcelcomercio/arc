@@ -6,29 +6,28 @@ import { setDevice } from '../../../../utilities/resizer'
 import Ads from '../../../../global-components/ads'
 
 const classes = {
-  nav: 'nav full-width flex flex-center-vertical',
-  navWrapper:
+  nav: 'nav text-sm full-width flex flex-center-vertical',
+  wrapper:
     'flex-center-vertical flex--justify-between nav__wrapper full-width height-inherit',
-  navForm: 'nav__form flex',
-  navSearch: 'nav__input-search',
+  form: 'flex position-relative',
+  search: 'nav__input-search text-md',
   navBtnContainer:
     'flex-center-vertical flex--justify-start nav__container-menu',
-  navSearchContainer: 'flex-center-vertical flex--justify-start',
-  navBtnSearch: 'flex-center-vertical btn nav__btn nav__btn--search',
-  navBtnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
-  navBtnIconSearch: 'nav__icon-search icon-search',
-  navBtnIconMenu: 'nav__icon-menu icon-hamburguer',
-  navList:
-    'flex-center-vertical flex--justify-between flex-1 nav__list height-inherit',
-  navListItem: 'nav__list-item',
-  navListLink: 'nav__list-link',
-  navLogo: 'nav__logo',
-  navAds: 'nav__ads',
-  headerBtnContainer:
-    'flex-center-vertical flex--justify-end header__btn-container',
-  headerBtnLogin: 'flex-center-vertical btn btn--outline',
-  headerBtnSubscribe: 'flex-center-vertical btn btn--outline nav__header-sub',
-  headerBtnIconLogin: 'icon icon-user',
+  searchContainer: 'flex-center-vertical flex--justify-start',
+  btnSearch: 'flex-center-vertical btn nav__btn nav__btn--search',
+  btnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
+  iconSearch: 'nav__icon-search icon-search title-lg',
+  iconMenu: 'nav__icon-menu icon-hamburguer',
+  list:
+    'flex-center-vertical flex--justify-evenly flex-1 nav__list height-inherit overflow-hidden pd-right-5 pd-left-5',
+  listItem: 'text-center',
+  listLink: 'nav__list-link text-center text-uppercase',
+  logo: 'nav__logo',
+  ads: 'nav__ads',
+  btnContainer: 'flex-center-vertical flex--justify-end header__btn-container',
+  btnLogin: 'flex-center-vertical btn btn--outline',
+  btnSubscribe: 'flex-center-vertical btn btn--outline nav__header-sub',
+  iconLogin: 'icon icon-user',
 }
 
 @Consumer
@@ -170,13 +169,13 @@ class NavBarDefault extends PureComponent {
     const queryString = querys !== undefined ? `?${querys}` : ''
     return (
       <nav className={`${classes.nav} ${scrolled ? 'active' : ''}`}>
-        <div className={classes.navWrapper}>
+        <div className={classes.wrapper}>
           {/** ************* LEFT *************** */}
 
           <div className={classes.navBtnContainer}>
             <Button
-              iconClass={classes.navBtnIconMenu}
-              btnClass={classes.navBtnSection}
+              iconClass={classes.iconMenu}
+              btnClass={classes.btnSection}
               btnText="Menú"
               onClick={this._handleToggleSectionsElement('statusSidebar')}
             />
@@ -184,14 +183,14 @@ class NavBarDefault extends PureComponent {
 
           {/** ************* MIDDLE *************** */}
 
-          <ul className={`${classes.navList} ${scrolled ? '' : 'active'}`}>
+          <ul className={`${classes.list} ${scrolled ? '' : 'active'}`}>
             {sections &&
               sections.slice(0, 5).map(({ name, _id: id }) => {
                 return (
-                  <li key={`navbar-${id}`} className={classes.navListItem}>
+                  <li key={`navbar-${id}`} className={classes.listItem}>
                     <a
                       href={`${contextPath}${id}`}
-                      className={classes.navListLink}>
+                      className={classes.listLink}>
                       {name}
                     </a>
                   </li>
@@ -202,38 +201,38 @@ class NavBarDefault extends PureComponent {
             <img
               src={logo}
               alt={`Logo de ${arcSite}`}
-              className={`${classes.navLogo}  ${scrolled ? 'active' : ''}`}
+              className={`${classes.logo}  ${scrolled ? 'active' : ''}`}
             />
           </a>
           {/** ************* RIGHT *************** */}
 
           {device && device === 'desktop' && !scrolled ? (
             <>
-              <div className={classes.headerBtnContainer}>
+              <div className={classes.btnContainer}>
                 <Button
                   btnText="Suscríbete"
-                  btnClass={classes.headerBtnSubscribe}
+                  btnClass={classes.btnSubscribe}
                   btnLink="#"
                 />
                 <Button
                   btnText="Iniciar Sesión"
-                  btnClass={classes.headerBtnLogin}
+                  btnClass={classes.btnLogin}
                   btnLink="#"
                 />
               </div>
-              <div className={classes.navSearchContainer}>
+              <div className={classes.searchContainer}>
                 <Ads
                   adElement="zocaloNav1"
                   isDesktop
-                  classes={{ desktop: classes.navAds }}
+                  classes={{ desktop: classes.ads }}
                 />
                 {/* <Ads
                   adElement="zocaloNav2"
                   isDesktop
-                  classes={{ desktop: classes.navAds }}
+                  classes={{ desktop: classes.ads }}
                 /> */}
                 <form
-                  className={classes.navForm}
+                  className={classes.form}
                   onSubmit={e => e.preventDefault()}>
                   <input
                     ref={this.inputSearch}
@@ -241,21 +240,21 @@ class NavBarDefault extends PureComponent {
                     onBlur={this._handleCloseSectionsSearch}
                     onKeyUp={this.watchKeys}
                     placeholder="Buscar"
-                    className={`${classes.navSearch} ${this.activeSearch()}`}
+                    className={`${classes.search} ${this.activeSearch()}`}
                   />
                   <Button
-                    iconClass={classes.navBtnIconSearch}
-                    btnClass={`${classes.navBtnSearch} ${this.activeSearch()}`}
+                    iconClass={classes.iconSearch}
+                    btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
                     onClick={this.optionButtonClick()}
                   />
                 </form>
               </div>
             </>
           ) : (
-            <div className={classes.headerBtnContainer}>
+            <div className={classes.btnContainer}>
               <Button
-                iconClass={classes.headerBtnIconLogin}
-                btnClass={classes.headerBtnLogin}
+                iconClass={classes.iconLogin}
+                btnClass={classes.btnLogin}
                 btnLink="#"
               />
             </div>

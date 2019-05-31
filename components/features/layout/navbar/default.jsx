@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Schema from './_dependencies/schema'
-import NavBarComercio from './_children/navbar-comercio'
+import NavBarComercio from './_children/standard'
 import NavBarDepor from './_children/navbar-depor'
 import NavBarTrome from './_children/navbar-trome'
 
