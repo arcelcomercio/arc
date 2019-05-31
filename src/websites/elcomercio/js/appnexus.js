@@ -78,7 +78,6 @@ const getTags = () => {
 	}
 };
 
-
 const type_template = getTemplate();
 const section = getSection();
 const subsection = getSubsection();
@@ -109,7 +108,10 @@ pbjs.que = pbjs.que || [];
 
 const slot = `${site}_${device}_${type_space}`;
 const result = available_ports.find(el => el.name === type_space);
-const dataDevice = device === "d" ? result.desktop_space : result.mobile_space;
+const dataDevice =
+	device === "d" && result !== null
+		? result.desktop_space
+		: result.mobile_space;
 const adsParams =
 	dataDevice &&
 	dataDevice.map(el => {
@@ -123,27 +125,31 @@ const adsParams =
 	});
 
 // Definir auction
-const adUnits = auction.map(el => {
-	const data = device === "d" ? el.desktop : el.mobile;
-	return data.values
-		.filter(item => item.ports.find(val => val === type_space))
-		.map(obj => {
-			const itemObj = {
-				code: obj.div_id,
-				mediaTypes: {
-					banner: {
-						sizes: obj.size
-					}
-				},
-				bids: [
-					{
-						bidder: el.name,
-						params: obj.params
-					}
-				]
-			};
-			return itemObj;
-		});
+const iterableAuction = device === "d" ? auction.desktop : auction.mobile;
+const dataFilter = iterableAuction.map(el =>
+	el.values.filter(item => item.ports.find(val => val === type_space))
+);
+const adUnits = [];
+
+dataFilter.forEach(el => {
+	el.forEach(obj =>
+		adUnits.push({
+			code: obj.div_id,
+
+			mediaTypes: {
+				banner: {
+					sizes: obj.size
+				}
+			},
+			bids: [
+				{
+					bidder: el.name,
+
+					params: obj.params
+				}
+			]
+		})
+	);
 });
 
 // if (IS_DEBUG) console.log(adUnits);
@@ -180,53 +186,12 @@ if (adUnits.length > 0) {
 			timeout: PREBID_TIMEOUT
 		});
 	});
-	// Fuera o dentro?
-	dataLayer.push({
-		event: IS_MOBILE ? "AST_Mobile_Rqt" : "AST_Desktop_Rqt"
-	});
+
 	//if (IS_DEBUG) console.log('HEADER BIDDING CARGADO')
 }
 
-const reportAppnexus = {};
 var apntag = apntag || {};
 apntag.anq = apntag.anq || [];
-
-apntag.onEvent("adLoaded", "ads_m_movil0", adObj =>
-	document.body.classList.add("bottom-movil-actived")
-);
-apntag.onEvent("adLoaded", "ads_d_vslider", adObj =>
-	document.body.classList.add("vslider-actived")
-);
-apntag.onEvent("adLoaded", "ads_d_zocalo2", adObj => {
-	if (adObj.height == 1 && adObj.width == 1) {
-		document.body.classList.add("vslider-actived");
-	}
-});
-
-const setParamsReport = params => {
-	reportAppnexus[adObj.targetId] = reportAppnexus[adObj.targetId] || [];
-	reportAppnexus[adObj.targetId].push(params);
-};
-
-apntag.onEvent("adLoaded", adObj => {
-	const TIME_LOADED = new Date().getTime();
-	setParamsReport({
-		adLoaded: adObj,
-		TIME_LOADED: TIME_LOADED - TIME_START
-	});
-});
-apntag.onEvent("adAvailable", adObj => {
-	setParamsReport({ adAvailable: adObj });
-});
-apntag.onEvent("adNoBid", adObj => {
-	setParamsReport({ adNoBid: adObj });
-});
-apntag.onEvent("adRequestFailure", adError => {
-	setParamsReport({ adRequestFailure: adError });
-});
-apntag.onEvent("adError", adError => {
-	setParamsReport({ adRequestFailure: adError });
-});
 
 //END EVENTS
 apntag.anq.push(() => {
@@ -234,15 +199,15 @@ apntag.anq.push(() => {
 		member: MEMBER_ID,
 		disablePsa: true,
 		keywords: {
-			tipo: type_template,
-			seccion: section,
-			subseccion: subsection,
+			tipo: "portada",
+			seccion: "home",
+			subseccion: "",
 			categoria: "",
-			tags,
-			path_name: pathname
+			tags: [""],
+			path_name: "/"
 		}
 	});
-	adsParams.map(val => apntag.defineTag(val));
+	adsParams.map(val => apntag.defineTag({ ...val }));
 	//if (IS_DEBUG) console.log('APP NEXUS CARGADO!!!!')
 });
 
@@ -259,9 +224,6 @@ const initWithoutHB = () => {
 			inline(tag_inline);
 		}
 		peruRedShowTag();
-		dataLayer.push({
-			event: IS_MOBILE ? "AST_Mobile_Rqt" : "AST_Desktop_Rqt"
-		});
 	});
 };
 

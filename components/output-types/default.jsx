@@ -123,7 +123,7 @@ export default ({
           )}
         />
         {/* Scripts de APPNEXUS */}
-        {/* <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js" />
+        <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js" />
         <script
           src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
           async
@@ -132,14 +132,14 @@ export default ({
           type="text/javascript"
           src="//acdn.adnxs.com/ast/ast.js"
           async
-        /> */}
+        />
         {/* Scripts de APPNEXUS */}
 
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
       </head>
-      <body className={isArticle && 'article'}>
+      <body className="article">
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -162,6 +162,7 @@ export default ({
         />
         <script
           async
+          defer
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/js/index.js`
           )}
