@@ -15,7 +15,7 @@ export default ({
   globalContent: data,
 }) => {
   const { multimedia, videoSeo: [{ url = '' } = {}] = [] } =
-    new StoryData({ data, arcSite }) || {}
+    new StoryData({ data, arcSite }) 
   const image =
     article && multimedia
       ? multimedia
