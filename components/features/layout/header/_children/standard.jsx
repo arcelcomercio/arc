@@ -6,23 +6,36 @@ const classes = {
   headerLogo: 'header__logo',
   headerFeatured: 'flex flex--justify-between header__featured full-width',
   headerFeaturedItem: 'flex-center header__item',
-  headerNav: 'header__nav-wrapper',
 }
 
 const HeaderChildStandard = props => {
-  const { logo, sections, device } = props
+  const { logo, sections, device, deviceList } = props
 
-  const isDesktop = device === 'desktop'
+  const _handleHide = () => {
+    switch (device) {
+      case 'desktop':
+        return deviceList.showInDesktop
+
+      case 'tablet':
+        return deviceList.showInTablet
+
+      case 'mobile':
+        return deviceList.showInMobile
+
+      default:
+        return true
+    }
+  }
 
   return (
-    isDesktop && (
+    _handleHide() && (
       <>
         <header className={classes.header}>
           <a href={logo.link}>
             <img src={logo.src} alt={logo.alt} className={classes.headerLogo} />
           </a>
         </header>
-        <nav className={classes.headerNav}>
+        <nav>
           {sections[0] && (
             <ul className={classes.headerFeatured}>
               {sections.map(section => (
