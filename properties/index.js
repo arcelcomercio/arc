@@ -3,6 +3,7 @@ export default {
     nav: {
       logo: 'logo.png',
       ampLogo: 'letra-c-white.png',
+      logoSomos: 'white-logo.png',
     },
     header: {
       logo: 'logo.png',

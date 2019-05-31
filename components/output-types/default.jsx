@@ -21,6 +21,8 @@ export default ({
   const metaPageData = {
     globalContent,
     requestUri,
+    contextPath,
+    arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
   }
@@ -76,8 +78,6 @@ export default ({
   return (
     <html lang="es">
       <head>
-        <Libs />
-        <CssLinks />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -103,6 +103,17 @@ export default ({
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
+        <script
+          type="text/javascript"
+          src="https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js"
+        />
+
+        <MetaSite {...metaSiteData} />
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
+        {renderMetaPage(metaValue('id'), metaPageData)}
+        <Libs />
+        <CssLinks />
       </head>
       <body className={isArticle && 'article'}>
         <noscript>

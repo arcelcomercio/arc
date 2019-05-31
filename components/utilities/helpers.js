@@ -312,6 +312,14 @@ export const formatSlugToText = (text = '') => {
     .replace(/-/, ' ')
 }
 
+export const formatHtmlToText = (html = '') => {
+  const htmlData = html.toString()
+  return htmlData
+    .replace(/<[^>]*>/g, '')
+    .replace('"', '“')
+    .replace('"', '”')
+}
+
 export const defaultImage = ({
   deployment,
   contextPath,
