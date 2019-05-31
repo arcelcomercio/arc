@@ -135,7 +135,8 @@
     ],
     "moduleNameMapper": {
       "fusion:properties": "<rootDir>/jest/fusionProperties.js",
-      "@components(.*)$": "<rootDir>/components/global-components/$1"
+      "@components(.*)$": "<rootDir>/components/global-components/$1",
+      "@utilities(.*)$": "<rootDir>/components/utilities/$1"
     }
   },
   "keywords": [],

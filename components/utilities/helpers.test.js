@@ -1,7 +1,5 @@
-import React from 'react'
 import { shallow, mount } from 'enzyme'
-import { isTSAnyKeyword } from '@babel/types';
-import {reduceWord} from '@components/helpers'
+import {reduceWord, defaultImage} from '@utilities/helpers'
 
 describe('Test reduceWord', () => {
     it("funcion appendScript",()=>{
@@ -20,3 +18,6 @@ describe('Test reduceWord', () => {
 
 
 //Rolly
+describe('DefaultImage function - Helpers', () =>{
+    test('')
+})
