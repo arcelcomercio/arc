@@ -6,7 +6,7 @@ import { setDevice } from '../../../utilities/resizer'
 
 import HeaderChildSomos from './_children/somos'
 import HeaderChildStandard from './_children/standard'
-import Formater from './_dependencies/formater'
+import Formatter from './_dependencies/formatter'
 
 const defaultHierarchy = 'navegacion-cabecera-tema-del-dia'
 @Consumer
@@ -26,7 +26,7 @@ class LayoutHeader extends PureComponent {
       },
       customFields: { headerType, customLogo, customLogoLink },
     } = this.props
-    this.formater = new Formater(
+    this.formater = new Formatter(
       deployment,
       contextPath,
       siteDomain,
@@ -63,7 +63,7 @@ class LayoutHeader extends PureComponent {
           website: arcSite,
           hierarchy: defaultHierarchy,
         }
-    const { schema } = this.formater
+    const schema = this.formater.getSchema()
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(response => {
       this.setState({
@@ -103,15 +103,25 @@ class LayoutHeader extends PureComponent {
   renderHeader = () => {
     const { device, data } = this.state
     const {
-      customFields: { headerType },
+      customFields: { headerType, showInDesktop, showInTablet, showInMobile },
     } = this.props
 
     this.formater.setData(data)
     const params = { ...this.formater.getParams(), device }
 
     const headers = {
-      standard: <HeaderChildStandard {...params} />,
-      somos: <HeaderChildSomos {...params} />,
+      standard: (
+        <HeaderChildStandard
+          {...params}
+          deviceList={{ showInDesktop, showInTablet, showInMobile }}
+        />
+      ),
+      somos: (
+        <HeaderChildSomos
+          {...params}
+          deviceList={{ showInDesktop, showInTablet, showInMobile }}
+        />
+      ),
     }
     return headers[headerType] || headers.standard
   }
@@ -133,6 +143,21 @@ LayoutHeader.propTypes = {
       },
       defaultValue: 'standard',
       description: `La jerarquía por defecto es "${defaultHierarchy}"`,
+    }),
+    showInDesktop: PropTypes.bool.tag({
+      name: 'Mostrar en desktop',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
+    }),
+    showInTablet: PropTypes.bool.tag({
+      name: 'Mostrar en tablet',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
+    }),
+    showInMobile: PropTypes.bool.tag({
+      name: 'Mostrar en móviles ',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
     }),
     customLogo: PropTypes.string.tag({
       name: 'Url de la imagen',

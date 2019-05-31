@@ -1,84 +1,124 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Schema from './_dependencies/schema'
+import { setDevice } from '../../../utilities/resizer'
 import NavBarComercio from './_children/standard'
-import NavBarDepor from './_children/navbar-depor'
-import NavBarTrome from './_children/navbar-trome'
-
+import NavbarChildSomos from './_children/somos'
+import Formatter from './_dependencies/formatter'
 @Consumer
-class BarraTest extends PureComponent {
+class LayoutNavbar extends PureComponent {
   constructor(props) {
     super(props)
+    const {
+      contextPath,
+      arcSite,
+      deployment,
+      customFields,
+      siteProperties: {
+        siteDomain,
+        assets: { nav },
+      },
+    } = this.props
+    this.formater = new Formatter(
+      {
+        deployment,
+        contextPath,
+        siteDomain,
+        nav,
+        arcSite,
+        getContent: this.getContent,
+      },
+      customFields
+    )
     this.state = {
-      services: '',
+      data: {},
+      device: setDevice(),
+    }
+    if (this.formater.main.fetch !== false) {
+      const { params, source } = this.formater.main.fetch.config
+      /** Solicita la data a la API y setea los resultados en "state.data" */
+      this.fetchContent({
+        data: {
+          source,
+          query: params,
+          filter: this.formater.getSchema(),
+        },
+      })
     }
   }
 
   componentDidMount() {
-    this.fetch()
+    this.addEventListener('displayChange', this._handleDevice)
   }
 
-  // ------ Fetchs the sections data from site-navigation API
-  fetch() {
-    const { arcSite } = this.props
-
-    const source = 'navigation-by-hierarchy'
-    const params = {
-      website: arcSite,
-      hierarchy: 'navbar-header-sections',
-    }
-
-    const { fetched } = this.getContent(source, params, Schema)
-    fetched
-      .then(response => {
-        this.setState({
-          services: response || {},
-        })
-      })
-      .catch(e => {
-        throw new Error(e)
-      })
+  /** Actualiza el "state.device" cuando el listener acciona  */
+  _handleDevice = device => {
+    this.setState({
+      device,
+    })
   }
 
-  renderNavBar = (brand, data) => {
-    const { deployment, contextPath, arcSite, siteProperties } = this.props
+  renderNavBar() {
     const {
-      assets: {
-        nav: { logo },
-      },
-    } = siteProperties
-    const logoUrl =
-      deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) ||
-      ''
+      customFields: {
+        selectDesing,
+        showInDesktop,
+        showInTablet,
+        showInMobile,
+      } = {},
+    } = this.props
+    const { data, device } = this.state
     const NavBarType = {
-      comercio: <NavBarComercio data={data} logo={logoUrl} />,
-      depor: <NavBarDepor data={data} logo={logoUrl} />,
-      trome: <NavBarTrome data={data} logo={logoUrl} />,
+      standard: (
+        <NavBarComercio
+          deviceList={{ showInDesktop, showInTablet, showInMobile }}
+          device={device}
+          data={data}
+          {...this.formater.main.initParams}
+        />
+      ),
+      somos: (
+        <NavbarChildSomos
+          deviceList={{ showInDesktop, showInTablet, showInMobile }}
+          device={device}
+          {...this.formater.main.initParams}
+        />
+      ),
     }
-    return NavBarType[brand] || NavBarType.comercio
+    return NavBarType[selectDesing] || NavBarType.standard
   }
 
   render() {
-    const { customFields: { selectDesing } = {} } = this.props
-    const { services } = this.state
-    return services && this.renderNavBar(selectDesing, services)
+    return this.renderNavBar()
   }
 }
 
-BarraTest.propTypes = {
+LayoutNavbar.propTypes = {
   customFields: PropTypes.shape({
-    selectDesing: PropTypes.oneOf(['comercio', 'depor', 'trome']).tag({
+    selectDesing: PropTypes.oneOf(['standard', 'somos']).tag({
       name: 'Modelo de barra de navegación',
       labels: {
-        comercio: 'comercio',
-        depor: 'depor',
-        trome: 'trome',
+        standard: 'Barra de navegación estándar',
+        somos: 'Barra de navegación somos',
       },
-      defaultValue: 'comercio',
+      defaultValue: 'standard',
+    }),
+    showInDesktop: PropTypes.bool.tag({
+      name: 'Mostrar en desktop',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
+    }),
+    showInTablet: PropTypes.bool.tag({
+      name: 'Mostrar en tablet',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
+    }),
+    showInMobile: PropTypes.bool.tag({
+      name: 'Mostrar en móviles ',
+      group: 'Administrar visibilidad',
+      defaultValue: true,
     }),
   }),
 }
-
-BarraTest.label = 'Barra de Navegación'
-export default BarraTest
+LayoutNavbar.label = 'Barra de Navegación'
+export default LayoutNavbar
