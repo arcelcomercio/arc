@@ -21,6 +21,10 @@ class BreakingNews extends Component {
       article: {},
       isVisible: false,
     }
+    const {
+      customFields: { storyLink = '' },
+    } = this.props
+    this.isExternalLink = storyLink.includes('http')
   }
 
   componentWillMount() {
@@ -54,13 +58,11 @@ class BreakingNews extends Component {
 
   fetch() {
     const {
-      customFields: { storyLink, isExternalLink },
+      customFields: { storyLink },
       arcSite,
     } = this.props
-    if (
-      storyLink &&
-      (isExternalLink === undefined || isExternalLink === false)
-    ) {
+
+    if (!this.isExternalLink) {
       const { fetched } = this.getContent(
         'story-by-url',
         { website_url: storyLink, website: arcSite },
@@ -76,11 +78,12 @@ class BreakingNews extends Component {
     const { article, isVisible } = this.state || {}
     const {
       editableField,
-      arcSite,
       customFields: { backgroundColor, tags, title, subTitle, storyLink },
+      contextPath,
     } = this.props
-    const webUrlService =
-      storyLink !== '' ? `${storyLink}?_website=${arcSite}` : ''
+    const webUrlService = !this.isExternalLink
+      ? `${contextPath}${storyLink}`
+      : storyLink
     const objContent = {
       title: title || (article && article.headlines && article.headlines.basic),
       subTitle:
@@ -94,17 +97,21 @@ class BreakingNews extends Component {
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
-          <h2 className={classes.breakingnewsText}>
-          <span className={classes.breakingnewsTag} {...editableField('tags')}>
+        <h2 className={classes.breakingnewsText}>
+          <span
+            className={classes.breakingnewsTag}
+            {...editableField('tags')}
+            suppressContentEditableWarning>
             {tags}:
           </span>
           <span>
-            <a 
+            <a
               className={classes.breakingnewsLink}
               href={objContent.link}
               target="_blank"
               rel="noopener noreferrer"
-              {...editableField('title')}>
+              {...editableField('title')}
+              suppressContentEditableWarning>
               {objContent.title}
             </a>
           </span>
@@ -117,9 +124,8 @@ class BreakingNews extends Component {
           onKeyPress={this.handleOnclickClose}
           role="button"
           tabIndex={0}>
-          <i className={classes.breakingnewsIcon}></i>
+          <i className={classes.breakingnewsIcon} />
         </div>
-     
       </div>
     )
   }
@@ -127,35 +133,31 @@ class BreakingNews extends Component {
 
 BreakingNews.propTypes = {
   customFields: PropTypes.shape({
-    settingLink: PropTypes.label.tag({
-      name: 'Configuración de link',
-    }),
-    isExternalLink: PropTypes.bool.tag({
+    /* isExternalLink: PropTypes.bool.tag({
       name: '¿Nota externa?',
       defaultValue: false,
-    }),
+    }), */
     storyLink: PropTypes.string.isRequired.tag({
-      name: 'Link de nota interna',
+      name: 'SLUG',
+      description: 'URL sin dominio',
     }),
-    settingContent: PropTypes.label.tag({
-      name: 'Configuración de contenido',
+    title: PropTypes.string.tag({
+      name: 'Título',
+      description: 'Dejar vacío para tomar el valor original de la historia.',
     }),
+    tags: PropTypes.string.tag({ name: 'Etiqueta' }),
     backgroundColor: PropTypes.oneOf([
       'cintillo-u--bgcolor-1',
       'cintillo-u--bgcolor-2',
     ]).tag({
       name: 'Color de fondo',
       labels: {
-        'cintillo-u--bgcolor-1': 'Color 1',
-        'cintillo-u--bgcolor-2': 'Color 2',
+        'cintillo-u--bgcolor-1': 'Principal',
+        'cintillo-u--bgcolor-2': 'Secundario',
       },
       defaultValue: 'cintillo-u--bgcolor-1',
     }),
-    tags: PropTypes.string.tag({ name: 'Etiqueta' }),
-    title: PropTypes.string.tag({
-      name: 'Título',
-      description: 'Dejar vacío para tomar el valor original de la historia.',
-    }),
+
     subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true }),
   }),
 }
