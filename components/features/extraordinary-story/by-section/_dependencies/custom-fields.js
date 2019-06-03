@@ -2,17 +2,13 @@ import PropTypes from 'prop-types'
 import customFieldsParent from '../../_dependencies/custom-fields'
 
 const customFieldsSection = {
-  content: PropTypes.label.tag({
-    name: 'Contenido',
-  }),
   sectionName: PropTypes.string.tag({
-    name: 'Slug de la sección',
-    description:
-      'Agregar un slash(/) antes del nombre de la sección, ejm: /deportes .',
+    name: 'SLUG',
+    description: 'URL sin dominio',
     hidden: false,
   }),
   positionData: PropTypes.number.tag({
-    name: 'Posición de la nota de la sección',
+    name: 'Posición inicial ',
     description: 'El primer item es cero(0).',
     min: 0,
     max: 100,
