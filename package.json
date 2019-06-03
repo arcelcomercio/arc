@@ -89,7 +89,7 @@
     "prod:all": "webpack --config ./config/webpack.config.js --env.prod && webpack --config ./config/webpack.amp.config.js --env.prod --env.amp",
     "zip": "npm run prod && npx fusion zip",
     "test:coverage": "jest --coverage",
-    "test":"jest"
+    "test": "jest"
   },
   "jest": {
     "automock": false,
