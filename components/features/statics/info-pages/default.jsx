@@ -2,14 +2,15 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import ArcArticleBody from '@arc-core-components/feature_article-body'
 import PropTypes from 'prop-types'
+import ENV from 'fusion:environment'
 
 import ArticleTable from '../../../global-components/article-table'
 
-const policiesList = {
+const infoPages = {
   termsAndConditions: 'Términos y condiciones de uso',
   guidingPrinciples: 'Principios Rectores',
   privacyPolicies: 'Política de privacidad',
-  policyIntegratedManagement: 'Politica Integrada de Gestión',
+  integratedManagementPolicy: 'Politica Integrada de Gestión',
   arcoProcedure: 'Derechos ARCO',
   cookiesPolicy: 'Políticas de cookies',
   aboutUs: 'Quienes Somos',
@@ -36,16 +37,23 @@ class InfoPages extends PureComponent {
 
   getPolicyContent() {
     const {
-      siteProperties: { policies = {} } = {},
+      siteProperties: { infoPagesDev = {}, infoPagesProd = {} } = {},
       customFields: { typeOfPolicy } = {},
       arcSite,
     } = this.props || {}
 
+    const infoPagesEnv =
+      ENV.ENVIRONMENT === 'elcomercio' ? infoPagesProd : infoPagesDev
+    const infoPageId = typeOfPolicy
+      ? infoPagesEnv[typeOfPolicy]
+      : infoPagesEnv[defaultPolicy]
+
     const contentSource = 'story-by-id'
     const params = {
-      _id: typeOfPolicy ? policies[typeOfPolicy] : policies[defaultPolicy],
+      _id: infoPageId,
       published: 1,
     }
+
     const { fetched } = this.getContent(contentSource, params)
     fetched
       .then(res => {
@@ -56,9 +64,7 @@ class InfoPages extends PureComponent {
       })
       .catch(e => {
         const errorMessage = `No existe el contenido "${
-          typeOfPolicy
-            ? policiesList[typeOfPolicy]
-            : policiesList[defaultPolicy]
+          typeOfPolicy ? infoPages[typeOfPolicy] : infoPages[defaultPolicy]
         }" para "${arcSite}"`
         this.setState({ headlines: errorMessage })
         // eslint-disable-next-line no-console
@@ -88,9 +94,9 @@ class InfoPages extends PureComponent {
 
 InfoPages.propTypes = {
   customFields: PropTypes.shape({
-    typeOfPolicy: PropTypes.oneOf(Object.keys(policiesList)).tag({
+    typeOfPolicy: PropTypes.oneOf(Object.keys(infoPages)).tag({
       name: 'Página',
-      labels: policiesList,
+      labels: infoPages,
       defaultValue: defaultPolicy,
       description:
         'Este campo usa notas no publicadas de elipsis declaradas en el "site properties"',

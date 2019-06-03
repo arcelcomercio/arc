@@ -4,22 +4,22 @@ import React, { PureComponent } from 'react'
 import { setDevice } from '../../../utilities/resizer'
 
 const classes = {
-  footer: 'footer margin-top full-width',
-  footerInfo: 'footer__info footer__footer-background-color padding-normal',
-  footerSections: 'footer__sections footer__footer-background-color',
-  footerContact: 'footer__contact footer__footer-background-color',
-  footerSites: 'footer__sites flex flex--justify-center',
-  footerSitesList: 'footer__sites-list flex flex--justify-center',
-  footerSitesListElemnt: 'footer__sites-list-element',
-  footerSitesLink: 'footer__link footer__sites-link',
-  footerLegalList: 'footer__legal-list',
-  footerLegalItem: 'footer__legal-item',
-  footerLogoContainer: 'footer__logo footer__logo-container',
-  footerLogoImg: 'footer__logo-img',
-  footerList: 'footer__list padding-normal',
-  footerListItem: 'footer__list-item',
-  footerListTitle: 'footer__list-item footer__list-item--title',
-  footerListLink: 'footer__link footer__list-link',
+  footer: 'footer full-width',
+  info: 'footer__info footer__footer-background-color padding-normal',
+  sections: 'footer__sections footer__footer-background-color',
+  contact: 'footer__contact footer__footer-background-color',
+  sites: 'footer__sites flex flex--justify-center',
+  sitesList: 'footer__sites-list flex flex--justify-center',
+  sitesItem: 'footer__sites-list-element',
+  sitesLink: 'footer__link footer__sites-link',
+  legalList: 'footer__legal-list',
+  legalItem: 'footer__legal-item',
+  logoContainer: 'footer__logo footer__logo-container',
+  logoImg: 'footer__logo-img',
+  list: 'footer__list padding-normal',
+  listItem: 'footer__list-item',
+  listTitle: 'footer__list-item footer__list-item--title',
+  listLink: 'footer__link footer__list-link',
 }
 
 @Consumer
@@ -126,28 +126,28 @@ class LayoutFooter extends PureComponent {
 
     return (
       <footer className={classes.footer}>
-        <div className={classes.footerInfo}>
+        <div className={classes.info}>
           <a
             href={`${contextPath || ''}/${queryString}`}
-            className={classes.footerLogoContainer}>
-            <img className={classes.footerLogoImg} src={logoUrl} alt="" />
+            className={classes.logoContainer}>
+            <img className={classes.logoImg} src={logoUrl} alt="" />
           </a>
-          <ul className={classes.footerLegalList}>
+          <ul className={classes.legalList}>
             {footer.siteLegal.map(el => (
-              <li className={classes.footerLegalItem} key={el}>
+              <li className={classes.legalItem} key={el}>
                 {el}
               </li>
             ))}
           </ul>
         </div>
         {device === 'desktop' && (
-          <div className={classes.footerSections}>
-            <ul className={classes.footerList}>
-              <li className={classes.footerListTitle}>Nuestras secciones</li>
+          <div className={classes.sections}>
+            <ul className={classes.list}>
+              <li className={classes.listTitle}>Nuestras secciones</li>
               {sectionsList.map(el => (
-                <li className={classes.footerListItem} key={el.url}>
+                <li className={classes.listItem} key={el.url}>
                   <a
-                    className={classes.footerListLink}
+                    className={classes.listLink}
                     href={`${contextPath}${el.url}${requestUri}`}>
                     {el.name}
                   </a>
@@ -156,13 +156,13 @@ class LayoutFooter extends PureComponent {
             </ul>
           </div>
         )}
-        <div className={classes.footerContact}>
-          <ul className={classes.footerList}>
-            <li className={classes.footerListTitle}>Contacto</li>
+        <div className={classes.contact}>
+          <ul className={classes.list}>
+            <li className={classes.listTitle}>Contacto</li>
             {legalList.map(el => (
-              <li className={classes.footerListItem} key={el.url}>
+              <li className={classes.listItem} key={el.url}>
                 <a
-                  className={classes.footerListLink}
+                  className={classes.listLink}
                   href={
                     el.node_type === 'link'
                       ? el.url
@@ -173,25 +173,25 @@ class LayoutFooter extends PureComponent {
               </li>
             ))}
           </ul>
-          <ul className={classes.footerList}>
-            <li className={classes.footerListTitle}>Síguenos</li>
+          <ul className={classes.list}>
+            <li className={classes.listTitle}>Síguenos</li>
             {footer.socialNetworks.map(el => (
-              <li className={classes.footerListItem} key={el.url}>
-                <a className={classes.footerListLink} href={el.url}>
+              <li className={classes.listItem} key={el.url}>
+                <a className={classes.listLink} href={el.url}>
                   {el.name}
                 </a>
               </li>
             ))}
           </ul>
         </div>
-        <div className={classes.footerSites}>
-          <ul className={classes.footerSitesList}>
-            <li className={classes.footerSitesListElemnt}>Visite también:</li>
+        <div className={classes.sites}>
+          <ul className={classes.sitesList}>
+            <li className={classes.sitesItem}>Visite también:</li>
             {gecSites.map(site => {
               if (site.arcSite !== arcSite) {
                 return (
-                  <li className={classes.footerSitesListElemnt} key={site.url}>
-                    <a className={classes.footerSitesLink} href={site.url}>
+                  <li className={classes.sitesItem} key={site.url}>
+                    <a className={classes.sitesLink} href={site.url}>
                       {site.name}
                     </a>
                   </li>

@@ -154,7 +154,7 @@ class ArticleBody extends PureComponent {
           contextPath={contextPath}
         />
 
-        {relatedContent.length > 0 && (
+        {relatedContent && relatedContent.length > 0 && (
           <div role="list" className={classes.related}>
             <h4 className={classes.relatedTitle}>Relacionadas </h4>
             {relatedContent.map((item, i) => {
