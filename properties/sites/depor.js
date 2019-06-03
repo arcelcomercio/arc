@@ -11,11 +11,20 @@ export default {
   googleTagManagerId: 'GTM-KKXTKGP',
   charbeatAccountNumber: 99999,
 
-  policies: {
+  infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
     privacyPolicies: '',
-    policyIntegratedManagement: '',
+    integratedManagementPolicy: '',
+    arcoProcedure: '',
+    cookiesPolicy: '',
+    aboutUs: '',
+  },
+  infoPagesProd: {
+    termsAndConditions: '',
+    guidingPrinciples: '',
+    privacyPolicies: '',
+    integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
@@ -23,7 +32,8 @@ export default {
 
   messages: {
     errorTitle: '¡Oops! la pagina no fue encontrada en Depor',
-    errorDescription: 'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
+    errorDescription:
+      'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
   },
 
   footer: {
