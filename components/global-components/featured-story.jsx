@@ -3,30 +3,33 @@ import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 
 const classes = {
-  featuredStory: 'featured-story padding-normal flex flex--column row-1',
-  gradient: 'featured-story__gradient full-width block',
-  detail: 'featured-story__detail flex flex--column flex--justify-between',
-  image: 'featured-story__image',
-  multimediaIconContainer: 'featured-story__multimedia-icon',
-  multimediaIconSpan: 'featured-story__multimedia-icon-span',
+  featuredStory:
+    'featured-story position-relative padding-normal flex flex--column row-1',
+  gradient: 'featured-story__gradient position-absolute full-width block',
+  detail:
+    'featured-story__detail flex flex--column flex--justify-between pd-bottom-10 pd-top-10',
+  image: 'featured-story__image overflow-hidden full-width full-height',
+  multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
+  multimediaIconSpan:
+    'featured-story__multimedia-icon-span flex-center full-width full-height',
 
-  category: 'featured-story__category',
-  title: 'featured-story__title',
+  category: 'featured-story__category pd-bottom-15',
+  title: 'featured-story__title overflow-hidden',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
-  author: 'featured-story__author',
+  author: 'featured-story__author text-uppercase',
 
   link: 'featured-story__link',
-  imageLink: 'block featured-story__img-link',
-  img: 'full-width featured-story__img',
+  imageLink: 'block position-relative full-height',
+  img: 'full-width full-height object-fit-cover',
 
-  imgComplete: 'featured-story--img-complete',
+  imgComplete: 'featured-story--img-complete flex--justify-end overflow-hidden',
   parcialTop: 'flex--column-reverse',
 
   twoCol: 'col-2',
   // Headbands
-  headband: 'featured-story__headband',
+  headband: 'featured-story__headband mg-bottom-5',
   headbandLink: 'featured-story__headband-link',
 
   live: 'featured-story--live',
@@ -45,6 +48,7 @@ export default class FeaturedStory extends Component {
       imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
       headband, // OPCIONAL, otros valores: "live"
       size, // Se espera "oneCol" o "twoCol"
+      hightlightOnMobile,
       // editableField, // OPCIONAL, o pasar la función editableField de los props
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
@@ -184,6 +188,7 @@ FeaturedStory.propTypes = {
   imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialBot']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf(['oneCol', 'twoCol']),
+  hightlightOnMobile: PropTypes.bool,
   // editableField: PropTypes.func,
   titleField: PropTypes.string,
   categoryField: PropTypes.string,
