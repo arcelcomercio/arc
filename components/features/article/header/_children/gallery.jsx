@@ -20,7 +20,7 @@ const ArticleHeaderChildGallery = props => {
           <div className={classes.galleryNumber}>{index + 1}</div>
           <Image
             width="100%"
-            className={classes.image}
+            imgClassName={classes.image}
             captionClassName={classes.caption}
             {...data}
           />
