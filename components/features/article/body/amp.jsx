@@ -27,7 +27,7 @@ class ArticleAMPArticleBody extends PureComponent {
         content_elements: contentElements,
         promo_items: promoItems,
         taxonomy: { tags = {} },
-        related_content: { basic: relatedContent },
+        related_content: { basic: relatedContent } = {},
       },
       contextPath,
     } = this.props

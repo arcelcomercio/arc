@@ -72,7 +72,7 @@ class ArticleBody extends PureComponent {
       publish_date: date,
       credits: author,
       taxonomy: { tags = {} },
-      related_content: { basic: relatedContent },
+      related_content: { basic: relatedContent } = {},
     } = globalContent || {}
 
     return (
