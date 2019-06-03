@@ -1,14 +1,17 @@
 .related-content {
   padding: 20px 0;
+
   &__title {
     border-top: 1px solid #585858;
     padding: 20px 0;
     text-transform: uppercase;
     font-weight: bold;
   }
+
   &__item {
     border-top: 1px solid #a5a9a9;
-   padding: 20px 0;
+    padding: 20px 0;
+
     @media (--tablet) {
       display: flex;
       justify-content: space-between;
@@ -17,37 +20,45 @@
 
   &__information {
     margin-bottom: 20px;
+
     @media (--tablet) {
       max-width: 56%;
       margin-bottom: 0;
     }
   }
-  &__title-item{
+
+  &__title-item {
     font-size: 20px;
     margin-bottom: 10px;
-   
+
   }
-  &__author{
+
+  &__author {
     text-transform: uppercase;
     color: $color-silver;
     font-size: 12px;
   }
+
   &__multimedia {
     position: relative;
+
     @media (--tablet) {
       width: 180px;
     }
   }
-  &__multimedia-link{
+
+  &__multimedia-link {
     display: block;
     width: 100%;
     height: 100%;
   }
-  &__multimedia-img{
+
+  &__multimedia-img {
     width: 100%;
-    height: 100%;;
+    height: 100%;
   }
-  &__icon{
+
+  &__icon {
     position: absolute;
     font-size: 30px;
     top: 50%;

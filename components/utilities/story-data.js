@@ -1,6 +1,6 @@
 import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
-import { defaultImage } from './helpers'
+import { defaultImage, formatHtmlToText } from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -140,6 +140,52 @@ class StoryData {
     return url
   }
 
+  get relatedContent() {
+    const { related_content: { basic = [] } = {} } = this._data || {}
+    return basic
+  }
+
+  get videoSeo() {
+    const videosContent = StoryData.getVideoContent(
+      this._data && this._data.content_elements,
+      'video'
+    )
+
+    const promoItemsVideo =
+      this._data &&
+      this._data.promo_items &&
+      StoryData.getSeoMultimedia(this._data.promo_items, 'video')
+
+    return videosContent.concat(promoItemsVideo).filter(String)
+  }
+
+  get imagesSeo() {
+    const imagesContent =
+      StoryData.getContentElements(
+        this._data && this._data.content_elements,
+        'image'
+      ) || []
+
+    const galleryContentResul =
+      StoryData.getContentElements(
+        this._data && this._data.content_elements,
+        'gallery'
+      ) || []
+
+    const { content_elements: galleryContent } = galleryContentResul[0] || []
+
+    const promoItemsImage =
+      (this._data &&
+        this._data.promo_items &&
+        StoryData.getSeoMultimedia(this._data.promo_items, 'image')) ||
+      []
+
+    return imagesContent
+      .concat(galleryContent)
+      .concat(promoItemsImage)
+      .filter(String)
+  }
+
   // TODO: Cambiar la fecha a lo que se estandarice
   get date() {
     return this.publishDate
@@ -187,6 +233,17 @@ class StoryData {
     return attributesObject
   }
 
+  get contentElementsText() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsText(
+          this._data.content_elements,
+          'text'
+        )) ||
+      ''
+    )
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -195,6 +252,115 @@ class StoryData {
       ]).resized_urls[ratio]
     }
     return this.multimedia
+  }
+
+  static getSeoMultimedia(
+    {
+      basic_video: basicVideo,
+      basic_gallery: basicGallery,
+      basic: basicImage = '',
+    } = {},
+    type = ''
+  ) {
+    if (basicVideo && (type === 'video' || type === 'image')) {
+      const {
+        promo_image: { url: urlImage },
+        streams,
+        publish_date: date,
+        headlines: { basic: caption } = {},
+      } = basicVideo
+      if (type === 'video') {
+        const dataVideo = streams
+          .map(({ url, stream_type: streamType }) => {
+            return streamType === 'mp4'
+              ? {
+                  url,
+                  caption,
+                  urlImage,
+                  date,
+                }
+              : []
+          })
+          .filter(String)
+        return [dataVideo[0]]
+      }
+
+      return {
+        url: urlImage,
+        subtitle: caption,
+      }
+    }
+
+    if (basicGallery && type !== 'video') {
+      const { content_elements: contentElements = {} } = basicGallery
+      return contentElements
+    }
+
+    if (basicImage && type === 'image') {
+      const {
+        content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
+        url: urlImage,
+        subtitle,
+      } = basicImage
+      return {
+        url: urlImage1 || urlImage,
+        subtitle: caption || subtitle,
+      }
+    }
+
+    return []
+  }
+
+  static getContentElementsText(data = [], typeElement = '') {
+    return (
+      data &&
+      data.map(({ content, type }) => {
+        return type === typeElement ? formatHtmlToText(content) : []
+      })
+    )
+  }
+
+  static getContentElements(data = [], typeElement = '') {
+    return (
+      data
+        .map(item => {
+          return item.type === typeElement ? item : []
+        })
+        .filter(String) || []
+    )
+  }
+
+  static getVideoContent(data = []) {
+    const dataVideo =
+      StoryData.getContentElements(data, 'video').filter(String) || []
+
+    return (
+      dataVideo
+        .map(
+          ({
+            promo_image: { url: urlImage },
+            streams,
+            publish_date: date,
+            headlines: { basic: caption = '' } = {},
+          }) => {
+            const resultVideo = streams
+              .map(({ url = '', stream_type: streamType = '' }) => {
+                return streamType === 'mp4'
+                  ? {
+                      url,
+                      caption,
+                      urlImage,
+                      date,
+                    }
+                  : []
+              })
+              .filter(String)
+
+            return resultVideo[0] || []
+          }
+        )
+        .filter(String) || []
+    )
   }
 
   static getPrimarySection(data) {
@@ -301,9 +467,10 @@ class StoryData {
     const basicPromoItems =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
     const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
-    return typePromoItems && typePromoItems === 'image'
-      ? basicPromoItems.url
-      : ''
+    return (
+      (typePromoItems && typePromoItems === 'image' && basicPromoItems.url) ||
+      ''
+    )
   }
 
   static getThumbnail(data, type) {

@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 import StoryItem from '../../../global-components/story-item'
@@ -18,7 +18,7 @@ class StoriesListPaginatedList extends PureComponent {
     const { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
 
     return (
-      <Fragment>
+      <>
         <div>
           {stories.map(story => (
             <StoryItem
@@ -35,7 +35,7 @@ class StoriesListPaginatedList extends PureComponent {
           storiesQty={size}
           currentPage={from}
         />
-      </Fragment>
+      </>
     )
   }
 }

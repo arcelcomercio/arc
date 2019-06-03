@@ -4,8 +4,7 @@
   color: $color-dark;
 
   &__main {
-    // height: 76px;
-    height: 55px;
+    height: 58px;
     padding: 0 15px;
     font-weight: bold;
     background-color: $header-bg-color;
@@ -17,7 +16,6 @@
   }
 
   &__featured {
-    height: 38px;
     font-weight: normal;
   }
 
@@ -26,7 +24,7 @@
     height: inherit;
     a {
       text-decoration: none;
-      color: $color-dark;
+      color: $color-primary;
       font-size: 0.8rem;
       letter-spacing: 0.02rem;
       text-transform: uppercase;
@@ -40,5 +38,17 @@
       color: $color-error;
       font-weight: bold;
     } */
+  }
+  &__nav-wrapper {
+    padding: 5px 20px;
+    border-bottom: 1px solid $color-primary;
+    background-color: $color-light;
+  }
+  &__btn-container {
+    a {
+      &:focus {
+        outline: 0;
+      }
+    }
   }
 }

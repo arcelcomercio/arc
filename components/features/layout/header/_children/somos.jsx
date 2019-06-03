@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 
 const classes = {
   logocontent: 'header-somos',
@@ -8,7 +8,7 @@ const classes = {
   logoimgwrapper: 'header-somos__img-wrapper',
   logoLink: 'header-somos__img-link',
   logoimg: 'header-somos__img',
-  logoIcon: 'icon-comercio',
+  logoIcon: 'icon-marca',
 
   menu: 'somos-menu',
   menuContent: 'somos-menu__content',
@@ -53,88 +53,118 @@ class HeaderChildSomos extends PureComponent {
   }
 
   render() {
-    const { logo, logoIcon, firstSection, sections, device } = this.props
+    const {
+      logo,
+      logoIcon,
+      firstSection,
+      sections,
+      device,
+      deviceList,
+    } = this.props
     const { isMenuActive, searchValue } = this.state
-    return (
-      <Fragment>
-        <div className={classes.logocontent}>
-          <div className={classes.iconmenuwrapper}>
-            <button
-              type="button"
-              onClick={() => {
-                this.setState({ isMenuActive: !isMenuActive })
-              }}
-              className={classes.menubtn}>
-              <i className={classes.menuicon} />
-            </button>
-          </div>
-          <div className={classes.logoimgwrapper}>
-            <a href={logo.link} className={classes.logoLink}>
-              <img className={classes.logoimg} src={logo.src} alt={logo.alt} />
-            </a>
-          </div>
-          <div className={classes.logoWrapper}>
-            <a href={logoIcon.link}>
-              <i className={classes.logoIcon} />
-            </a>
-          </div>
-        </div>
 
-        <nav
-          className={`${classes.menu} ${
-            isMenuActive ? classes.menuActive : ''
-          }`}>
-          <div className={classes.menuContent}>
-            <div className={classes.menuClose}>
+    const _handleHide = () => {
+      switch (device) {
+        case 'desktop':
+          return deviceList.showInDesktop
+
+        case 'tablet':
+          return deviceList.showInTablet
+
+        case 'mobile':
+          return deviceList.showInMobile
+
+        default:
+          return true
+      }
+    }
+
+    return (
+      _handleHide() && (
+        <>
+          <div className={classes.logocontent}>
+            <div className={classes.iconmenuwrapper}>
               <button
                 type="button"
                 onClick={() => {
                   this.setState({ isMenuActive: !isMenuActive })
-                }}>
-                <i className={classes.menuCloseIcon} />
+                }}
+                className={classes.menubtn}>
+                <i className={classes.menuicon} />
               </button>
             </div>
-            <div className={classes.menuSearch}>
-              <form action="" onSubmit={e => this.handleSubmit(e)}>
-                <input
-                  type="text"
-                  placeholder="Buscar"
-                  className={classes.menuSearchInput}
-                  value={searchValue}
-                  onChange={e => this.handleSearchInput(e)}
+            <div className={classes.logoimgwrapper}>
+              <a href={logo.link} className={classes.logoLink}>
+                <img
+                  className={classes.logoimg}
+                  src={logo.src}
+                  alt={logo.alt}
                 />
-                <button
-                  className="somos-menu__search-icon"
-                  type="submit"
-                  onClick={() => {}}>
-                  <i className={classes.menuSearchIcon} />
-                </button>
-              </form>
-            </div>
-            <div className={classes.menuLogin}>
-              <a href="/" className={classes.menuLoginLink}>
-                <i className={classes.menuLoginIcon} />
-                <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
               </a>
             </div>
-            <ul className={classes.menuList}>
-              <li className={classes.menuItemLink}>
-                <a href={firstSection.url} className={classes.menuLinkIcon}>
-                  <i className={classes.iconHome} />
-                </a>
-              </li>
-              {(device === 'desktop' || isMenuActive) &&
-                sections.map(section => (
-                  <li className={classes.menuItem} key={section.url}>
-                    <a href={section.url} className={classes.menuLink}>
-                      {section.name}
-                    </a>
-                  </li>
-                ))}
-            </ul>
+            <div className={classes.logoWrapper}>
+              <a href={logoIcon.link}>
+                <i className={classes.logoIcon} />
+              </a>
+            </div>
           </div>
-        </nav>
-      </Fragment>
+
+          <nav
+            className={`${classes.menu} ${
+              isMenuActive ? classes.menuActive : ''
+            }`}>
+            <div className={classes.menuContent}>
+              <div className={classes.menuClose}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    this.setState({ isMenuActive: !isMenuActive })
+                  }}>
+                  <i className={classes.menuCloseIcon} />
+                </button>
+              </div>
+              <div className={classes.menuSearch}>
+                <form action="" onSubmit={e => this.handleSubmit(e)}>
+                  <input
+                    type="text"
+                    placeholder="Buscar"
+                    className={classes.menuSearchInput}
+                    value={searchValue}
+                    onChange={e => this.handleSearchInput(e)}
+                  />
+                  <button
+                    className="somos-menu__search-icon"
+                    type="submit"
+                    onClick={() => {}}>
+                    <i className={classes.menuSearchIcon} />
+                  </button>
+                </form>
+              </div>
+              <div className={classes.menuLogin}>
+                <a href="/" className={classes.menuLoginLink}>
+                  <i className={classes.menuLoginIcon} />
+                  <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
+                </a>
+              </div>
+              <ul className={classes.menuList}>
+                <li className={classes.menuItemLink}>
+                  <a href={firstSection.url} className={classes.menuLinkIcon}>
+                    <i className={classes.iconHome} />
+                  </a>
+                </li>
+                {(device === 'desktop' || isMenuActive) &&
+                  sections.map(section => (
+                    <li className={classes.menuItem} key={section.url}>
+                      <a href={section.url} className={classes.menuLink}>
+                        {section.name}
+                      </a>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </nav>
+        </>
+      )
     )
   }
 }

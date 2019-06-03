@@ -12,6 +12,7 @@
 
 /******* Partials *******/
 @import './partials/base';
+@import './partials/buttons';
 /*---------------------*/
 
 /******* Components *******/
@@ -20,5 +21,9 @@
 
 
 /******* Modificadores *******/
-@import './modificadores.scss';
+@import './components/cintillo-urgente';
+@import './components/nav';
+@import './components/header';
+@import './components/buttons';
+@import './components/extraordinary-story';
 /*---------------------*/
