@@ -157,51 +157,6 @@ export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
   return imgUrl
 }
 
-export const GetMultimediaContent = ({
-  basic_video: basicVideo,
-  basic_gallery: basicGallery,
-  basic,
-}) => {
-  const result = {
-    url: null,
-    medio: null,
-  }
-
-  if (basicVideo) {
-    const {
-      promo_items: {
-        basic: { url: videoUrl = '' },
-      },
-    } = basicVideo
-    result.url = videoUrl
-    return {
-      url: result.url,
-      medio: 'video',
-    }
-  }
-
-  if (basicGallery) {
-    const {
-      promo_items: {
-        basic: { url: galleryUrl = '' },
-      },
-    } = basicGallery
-    result.url = galleryUrl
-    return {
-      url: result.url,
-      medio: 'gallery',
-    }
-  }
-
-  if (basic) {
-    result.url = basic.url || ''
-    return {
-      url: result.url,
-      medio: 'image',
-    }
-  }
-  return result
-}
 
 export const metaPaginationUrl = (
   pageNumber,
