@@ -21,16 +21,19 @@ $colorTextDescription: #999;
     &:hover {
       text-decoration: none;
     }
-    i {
-      font-size: 30px;
-    }
   }
+
+  &__icon {
+    font-size: 30px;
+  }
+
   &__list {
     width: 150px;
   }
 
   &__share {
     border-bottom: 1px solid $color-silver;
+    border-top: 1px solid $color-silver;
     padding: 20px;
   }
 }
