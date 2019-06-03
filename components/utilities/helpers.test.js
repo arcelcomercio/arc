@@ -9,18 +9,21 @@ import {
   popUpWindow,
   getMetaPagesPagination,
   metaPaginationUrl,
-} from '@utilities/helpers'
-
-import {
   appendScript,
   formatDate,
   formatDayMonthYear,
   getFullDateIso8601,
   getActualDate,
   isEmpty,
+  getIcon,
+  ResizeImageUrl,
 } from '@utilities/helpers'
 
-// import { mount } from 'enzyme'
+import { addResizedUrlItem } from '@utilities/thumbs'
+
+jest.mock('../utilities/thumbs', () => ({
+  addResizedUrlItem: jest.fn(),
+}))
 
 describe('Funcion reduceWord helper', () => {
   it('menor a la longitud deseada', () => {
@@ -148,6 +151,35 @@ describe('Funcion isEmpty', () => {
   })
   it('debe retornar falso si el parametro es un objeto', () => {
     expect(isEmpty(Object)).not.toBeTruthy()
+  })
+})
+
+describe('funcion getIcon', () => {
+  it('debe  validar que la funcion este definida', () => {
+    expect(getIcon()).toBeDefined()
+  })
+
+  it('debe  retornar el nombre de tipo de icono segun el tipo', () => {
+    const type = 'basic_gallery'
+    expect(getIcon(type)).toBe('img')
+  })
+})
+
+describe('Funcion ResizeImageUrl', () => {
+  it('debe  validar que la funcion este definida', () => {
+    expect(ResizeImageUrl).toBeDefined()
+  })
+
+  it('debe  validar que la funcion  retorne el valor del resize', () => {
+    const arcSite = 'elcomercio'
+    const imgUrl = 'https://media.merchantcircle.com/9404942/top_full.jpeg'
+    const ratio = '16:9'
+    const resolution = '400x400'
+
+    addResizedUrlItem.mockImplementationOnce(() => ({
+      resized_urls: { '16:9': 'SDASD' },
+    }))
+    expect(ResizeImageUrl(arcSite, imgUrl, ratio, resolution)).toBe('SDASD')
   })
 })
 
