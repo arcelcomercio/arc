@@ -4,14 +4,16 @@ import PropTypes from 'prop-types'
 const classes = {
   layout: 'flex flex--justify-center',
   contentContainer: 'flex flex--column content-layout-container',
+  separator: 'full-width mg-bottom-20',
+  heading: 'col-3',
   content:
-    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 margin-top mg-bottom-20',
+    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mg-bottom-20 bg-color--white',
   zocalo: 'zocalo__container',
   main: 'grid grid--content grid--col-1 col-2',
   sidebar: 'grid grid--content grid--col-1 col-1',
 }
 
-const SidebarLayout = ({ children = [] }) => {
+const ArticleSidebarLayout = ({ children = [] }) => {
   return (
     <div className={classes.layout}>
       <div role="complementary" className={classes.zocalo}>
@@ -21,32 +23,40 @@ const SidebarLayout = ({ children = [] }) => {
         {children[1] /* Publicidad Top */}
         {children[2] /* Barra de navegación */}
         {children[3] /* Cabecera de página */}
-        {children[4] /* Encabezado */}
-        <div className={classes.content}>
-          <main className={classes.main}>{children[5] /* Contenido */}</main>
+        {children[4] && (
+          <div role="separator" className={classes.separator}>
+            {children[4]}
+          </div>
+        ) /* Separador */}
+        <section className={classes.content}>
+          <div role="banner" className={classes.heading}>
+            {children[5] /* Encabezado */}
+          </div>
+          <main className={classes.main}>{children[6] /* Contenido */}</main>
           <aside className={classes.sidebar}>
-            {children[6] /* Barra lateral */}
+            {children[7] /* Barra lateral */}
           </aside>
-          {children[7] /* Contenido adicional */}
-        </div>
-        {children[8] /* Pie de página */}
+          {children[8] /* Contenido adicional */}
+        </section>
+        {children[9] /* Pie de página */}
       </div>
       <div role="complementary" className={classes.zocalo}>
-        {children[9] /* Zocalo derecha */}
+        {children[10] /* Zocalo derecha */}
       </div>
     </div>
   )
 }
 
-SidebarLayout.propTypes = {
+ArticleSidebarLayout.propTypes = {
   children: PropTypes.node,
 }
 
-SidebarLayout.sections = [
+ArticleSidebarLayout.sections = [
   'Zocalo izquierda',
   'Publicidad Top',
   'Barra de navegación',
   'Cabecera de página',
+  'Separador',
   'Encabezado',
   'Contenido',
   'Barra lateral',
@@ -55,4 +65,4 @@ SidebarLayout.sections = [
   'Zocalo derecha',
 ]
 
-export default SidebarLayout
+export default ArticleSidebarLayout
