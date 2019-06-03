@@ -24,45 +24,48 @@ import ArticleBodyChildIcon from './_children/icon-list'
 
 const classes = {
   news: 'article-body full-width bg-color--white pd-left-20 pd-right-20',
-  content: 'position-relative flex flex--row-reverse',
+  content: 'article-body__content position-relative flex flex--row-reverse',
   textClasses: 'article-body__font--secondary',
   newsImage: 'article-body__image full-width article-body__image--cover',
   newsEmbed: 'article-body__embed',
   tags: 'article-body',
+  section: 'full-width',
 }
+
+const OPTA_CSS_LINK =
+  'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
+const OPTA_JS_LINK =
+  'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js'
+
 @Consumer
 class ArticleBody extends PureComponent {
-  hasOpta = () => {
-    return document.getElementsByTagName('opta-widget') && true
-  }
-
-  handleOptaWidget = () => {
-    if (this.hasOpta()) {
-      appendToHead(
-        createLink(
-          'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
-        )
-      )
-      appendToHead(
-        createScript({
-          textContent: `var opta_settings={
-            subscription_id: '782834e1fd5a215304e57cddad80b844',
+  handleOptaWidget = ({ id, css, js }) => {
+    appendToHead(
+      createScript({
+        textContent: `
+        var opta_settings={
+            subscription_id: '${id}',
             language: 'es_CO',
             timezone: 'America/Lima'
         };`,
-        })
-      )
-      appendToHead(
-        createScript({
-          src: 'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js',
-          async: true,
-        })
-      )
-    }
+      })
+    )
+    appendToHead(
+      createScript({
+        src: js,
+      })
+    )
+    appendToHead(createLink(css))
   }
 
   render() {
-    const { globalContent, contextPath } = this.props
+    const {
+      globalContent,
+      contextPath,
+      siteProperties: {
+        ids: { opta },
+      },
+    } = this.props
     const {
       content_elements: contentElements,
       promo_items: promoItems,
@@ -71,6 +74,7 @@ class ArticleBody extends PureComponent {
       taxonomy: { tags = {} },
       related_content: { basic: relatedContent },
     } = globalContent || {}
+
     return (
       <div className={classes.news}>
         {promoItems && <ArticleBodyChildMultimedia data={promoItems} />}
@@ -83,6 +87,16 @@ class ArticleBody extends PureComponent {
               elementClasses={classes}
               renderElement={element => {
                 const { _id, type, subtype, raw_oembed: rawOembed } = element
+                if (type === 'raw_html') {
+                  const { content } = element
+                  /* Si encuentra opta-widget agrega scripts a <head> */
+                  if (content.includes('opta-widget'))
+                    this.handleOptaWidget({
+                      id: opta,
+                      css: OPTA_CSS_LINK,
+                      js: OPTA_JS_LINK,
+                    })
+                }
                 if (type === 'image') {
                   return (
                     <ArticleBodyChildArticleImage
@@ -140,7 +154,7 @@ class ArticleBody extends PureComponent {
           contextPath={contextPath}
         />
 
-        {relatedContent.length > 0 && (
+        {relatedContent && relatedContent.length > 0 && (
           <div role="list" className={classes.related}>
             <h4 className={classes.relatedTitle}>Relacionadas </h4>
             {relatedContent.map((item, i) => {
@@ -158,7 +172,6 @@ class ArticleBody extends PureComponent {
             })}
           </div>
         )}
-        {this.handleOptaWidget() /* Si encuentra opta-widget agrega scripts a <head> */}
       </div>
     )
   }

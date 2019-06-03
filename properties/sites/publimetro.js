@@ -11,13 +11,22 @@ export default {
   googleTagManagerId: 'GTM-KKXTKGP',
   charbeatAccountNumber: 57773,
 
-  policies: {
+  infoPagesDev: {
     termsAndConditions: 'H64O2THIKJA6XADJ5SZ5H45TNQ',
     guidingPrinciples: '',
     privacyPolicies: 'GIHRVZFK3NCAZCLXDCANNMMFQY',
-    policyIntegratedManagement: '',
+    integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: 'KDOVTQJPQZCYXGUP2FEU6SPBFU',
+    aboutUs: '',
+  },
+  infoPagesProd: {
+    termsAndConditions: '',
+    guidingPrinciples: '',
+    privacyPolicies: '',
+    integratedManagementPolicy: '',
+    arcoProcedure: '',
+    cookiesPolicy: '',
     aboutUs: '',
   },
 

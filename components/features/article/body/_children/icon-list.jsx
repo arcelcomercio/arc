@@ -22,23 +22,23 @@ class ArticleBodyChildIcon extends PureComponent {
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'icon-print',
+          icon: 'icon-print article-body__icon',
           link: '',
           mobileClass: '',
         },
 
         {
-          icon: 'icon-message',
+          icon: 'icon-message article-body__icon',
           link: '',
           mobileClass: '',
         },
         {
-          icon: 'icon-link',
+          icon: 'icon-link article-body__icon',
           link: '',
           mobileClass: '',
         },
         {
-          icon: 'icon-zoom',
+          icon: 'icon-zoom article-body__icon',
           link: '',
           mobileClass: '',
         },

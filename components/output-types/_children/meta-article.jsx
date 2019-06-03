@@ -7,6 +7,7 @@ export default ({
   contextPath,
   siteName = '',
   siteUrl = '',
+  deployment,
 }) => {
   const {
     title,
@@ -16,33 +17,27 @@ export default ({
     subTitle,
     author,
     imagesSeo,
+    section,
     videoSeo,
     contentElementsText: dataElement,
     relatedContent,
-  } = new StoryData({ data, arcSite }) || {}
+  } = new StoryData({ data, arcSite })
 
-  console.log(
-    '====================================================================='
-  )
-  console.log(videoSeo)
-  console.log(
-    '====================================================================='
-  )
-
-  const videoSeoItems = videoSeo.map(({ url, subtitle }) => {
-    return `{ 
-        "VideoObject:true,
-        "name":"ImageObject",
-        "thumbnailUrl": "${url}",
-        "description":"${subtitle}",
-        "contentUrl":,
-        "height":418,
-        "width":696
+  const videoSeoItems = videoSeo.map(
+    ({ url, caption, urlImage, date } = {}) => {
+      return `{ 
+      "@type":"VideoObject",
+        "name":"${caption}",
+        "thumbnailUrl": "${urlImage}",
+        "description":"${caption}",
+        "contentUrl": "${url}",
+        "uploadDate": "${date}"
      }
      `
-  })
+    }
+  )
 
-  const imagesSeoItems = imagesSeo.map(({ url, subtitle }) => {
+  const imagesSeoItems = imagesSeo.map(({ url = '', subtitle } = {}) => {
     return `{ 
          "representativeOfPage":true,
          "@type":"ImageObject",
@@ -58,21 +53,22 @@ export default ({
     return `"${description}"`
   })
 
-  const relatedContentItem = relatedContent.map(
-    ({ canonical_url: link = '' }, i) => {
-      return `{  
+  const relatedContentItem = relatedContent.map((content, i) => {
+    const { canonical_url: urlItem = '' } = content || {}
+    return `{  
       "@type":"ListItem",
       "position":${i + 1},
-      "url":"${contextPath}${link}"
+      "url":"${contextPath}${urlItem}"
       }`
-    }
-  )
+  })
 
-  const relatedContentData = `{  
+  const relatedContentData = relatedContentItem[0]
+    ? `{  
       "@context":"https://schema.org",
       "@type":"ItemList",
       "itemListElement":[${relatedContentItem}]  
    }`
+    : ''
 
   const structuredData = `{  
     "@context":"http://schema.org",
@@ -100,7 +96,9 @@ export default ({
        "name":"${siteName}",
        "logo":{  
           "@type":"ImageObject",
-          "url":"${siteUrl}/resources/dist/${arcSite}/images/logo.png?1558370958",
+          "url":"${deployment(
+            `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo.png`
+          )}",
           "height":60,
           "width":316
        }
@@ -110,6 +108,24 @@ export default ({
 
   return (
     <Fragment>
+      <meta
+        property="article:publisher"
+        content={`http://www.facebook.com/${siteUrl}`}
+      />
+      <meta name="author" content={`Redacción ${siteName}`} />
+
+      <meta name="bi3dPubDate" content={publishDate} />
+      <meta name="bi3dArtId" content="639992" />
+      <meta name="bi3dSection" content={section} />
+      <meta name="bi3dArtTitle" content={title} />
+      <meta name="cXenseParse:per-categories" content={section} />
+
+      <meta property="article:published_time" content={publishDate} />
+      <meta property="article:modified_time" content={publishDate} />
+      <meta property="article:author" content={`Redacción ${siteName}`} />
+      <meta property="article:section" content={section} />
+      <meta property="article:tag" content={listItems.map(item => item)} />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}
