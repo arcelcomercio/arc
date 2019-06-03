@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 
 const classes = {
-  featuredStory:
-    'featured-story position-relative padding-normal flex flex--column row-1',
+  featuredStory: 'featured-story position-relative padding-normal flex',
   gradient: 'featured-story__gradient position-absolute full-width block',
-  detail:
-    'featured-story__detail flex flex--column flex--justify-between pd-bottom-10 pd-top-10',
+  detail: 'featured-story__detail flex flex--column flex--justify-between',
   image: 'featured-story__image overflow-hidden full-width full-height',
   multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
   multimediaIconSpan:
@@ -48,7 +46,7 @@ export default class FeaturedStory extends Component {
       imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
       headband, // OPCIONAL, otros valores: "live"
       size, // Se espera "oneCol" o "twoCol"
-      hightlightOnMobile,
+      // hightlightOnMobile,
       // editableField, // OPCIONAL, o pasar la función editableField de los props
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
@@ -119,6 +117,7 @@ export default class FeaturedStory extends Component {
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === 'twoCol' ? classes.twoCol : ''
         }`}>
+        {/* Aqui colocar la logica del span */}
         {(imageSize === 'complete' || size === 'twoCol') && (
           <span className={classes.gradient} />
         )}
@@ -188,7 +187,7 @@ FeaturedStory.propTypes = {
   imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialBot']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf(['oneCol', 'twoCol']),
-  hightlightOnMobile: PropTypes.bool,
+  // hightlightOnMobile: PropTypes.bool,
   // editableField: PropTypes.func,
   titleField: PropTypes.string,
   categoryField: PropTypes.string,
