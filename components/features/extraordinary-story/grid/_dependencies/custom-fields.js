@@ -2,8 +2,7 @@ import PropTypes from 'prop-types'
 
 const customFieldsSection = {
   urlStory: PropTypes.contentConfig('story').tag({
-    name: 'SLUG',
-    description: 'URL sin dominio',
+    name: 'Origen',
   }),
   multimediaService: PropTypes.oneOf([
     'default',
