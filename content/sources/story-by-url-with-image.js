@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import request from 'request-promise-native'
 import { resizerSecret, resizerUrl, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
@@ -14,12 +15,12 @@ const fetch = key => {
   const websiteUrl = key.website_url
 
   return request({
-    uri: `https://2018-12:1e2d52d4ead4a36107f31f30ad5d2562@api.sandbox.elcomercio.arcpublishing.com/content/v4/?website=${site}&website_url=${websiteUrl}`,
+    uri: `${CONTENT_BASE}content/v4/?website=${site}&website_url=${websiteUrl}`,
     ...options,
   }).then(collectionResp => {
     const resultStory = collectionResp
     return request({
-      uri: `https://2018-12:1e2d52d4ead4a36107f31f30ad5d2562@api.sandbox.elcomercio.arcpublishing.com/content/v4/related-content/stories?_id=${
+      uri: `${CONTENT_BASE}content/v4/related-content/stories?_id=${
         resultStory._id
       }&website=${site}&published=true`,
       ...options,
