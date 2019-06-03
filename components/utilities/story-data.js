@@ -1,11 +1,6 @@
-import {
-  addResizedUrlItem
-} from './thumbs'
+import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
-import {
-  defaultImage,
-  formatHtmlToText
-} from './helpers'
+import { defaultImage, formatHtmlToText } from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -141,18 +136,12 @@ class StoryData {
   }
 
   get link() {
-    const {
-      website_url: url = ''
-    } = this._data || {}
+    const { website_url: url = '' } = this._data || {}
     return url
   }
 
   get relatedContent() {
-    const {
-      related_content: {
-        basic
-      } = {}
-    } = this._data || {}
+    const { related_content: { basic = [] } = {} } = this._data || {}
     return basic
   }
 
@@ -183,14 +172,13 @@ class StoryData {
         'gallery'
       ) || []
 
-    const {
-      content_elements: galleryContent
-    } = galleryContentResul[0] || []
+    const { content_elements: galleryContent } = galleryContentResul[0] || []
 
     const promoItemsImage =
       (this._data &&
         this._data.promo_items &&
-        StoryData.getSeoMultimedia(this._data.promo_items, 'image')) || []
+        StoryData.getSeoMultimedia(this._data.promo_items, 'image')) ||
+      []
 
     return imagesContent
       .concat(galleryContent)
@@ -266,7 +254,8 @@ class StoryData {
     return this.multimedia
   }
 
-  static getSeoMultimedia({
+  static getSeoMultimedia(
+    {
       basic_video: basicVideo,
       basic_gallery: basicGallery,
       basic: basicImage = '',
@@ -275,27 +264,22 @@ class StoryData {
   ) {
     if (basicVideo && (type === 'video' || type === 'image')) {
       const {
-        promo_image: {
-          url: urlImage
-        },
+        promo_image: { url: urlImage },
         streams,
         publish_date: date,
-        headlines: {
-          basic: caption
-        } = {},
+        headlines: { basic: caption } = {},
       } = basicVideo
       if (type === 'video') {
         const dataVideo = streams
-          .map(({
-            url,
-            stream_type: streamType
-          }) => {
-            return streamType === 'mp4' ? {
-              url,
-              caption,
-              urlImage,
-              date
-            } : []
+          .map(({ url, stream_type: streamType }) => {
+            return streamType === 'mp4'
+              ? {
+                  url,
+                  caption,
+                  urlImage,
+                  date,
+                }
+              : []
           })
           .filter(String)
         return [dataVideo[0]]
@@ -308,20 +292,13 @@ class StoryData {
     }
 
     if (basicGallery && type !== 'video') {
-      const {
-        content_elements: contentElements = {}
-      } = basicGallery
+      const { content_elements: contentElements = {} } = basicGallery
       return contentElements
     }
 
     if (basicImage && type === 'image') {
       const {
-        content_element: {
-          basic: {
-            url: urlImage1,
-            caption = ''
-          } = {}
-        } = {},
+        content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
         url: urlImage,
         subtitle,
       } = basicImage
@@ -337,10 +314,7 @@ class StoryData {
   static getContentElementsText(data = [], typeElement = '') {
     return (
       data &&
-      data.map(({
-        content,
-        type
-      }) => {
+      data.map(({ content, type }) => {
         return type === typeElement ? formatHtmlToText(content) : []
       })
     )
@@ -349,10 +323,10 @@ class StoryData {
   static getContentElements(data = [], typeElement = '') {
     return (
       data
-      .map(item => {
-        return item.type === typeElement ? item : []
-      })
-      .filter(String) || []
+        .map(item => {
+          return item.type === typeElement ? item : []
+        })
+        .filter(String) || []
     )
   }
 
@@ -361,48 +335,37 @@ class StoryData {
       StoryData.getContentElements(data, 'video').filter(String) || []
 
     return (
-
       dataVideo
-      .map(
-        ({
-          promo_image: {
-            url: urlImage
-          },
-          streams,
-          publish_date: date,
-          headlines: {
-            basic: caption = ''
-          } = {},
-        }) => {
-          const resultVideo = streams
-            .map(({
-              url = '',
-              stream_type: streamType = ''
-            }) => {
-              return streamType === 'mp4' ? {
-                url,
-                caption,
-                urlImage,
-                date
-              } : []
-            })
-            .filter(String)
+        .map(
+          ({
+            promo_image: { url: urlImage },
+            streams,
+            publish_date: date,
+            headlines: { basic: caption = '' } = {},
+          }) => {
+            const resultVideo = streams
+              .map(({ url = '', stream_type: streamType = '' }) => {
+                return streamType === 'mp4'
+                  ? {
+                      url,
+                      caption,
+                      urlImage,
+                      date,
+                    }
+                  : []
+              })
+              .filter(String)
 
-          return resultVideo[0] || []
-        }
-      )
-      .filter(String)) || []
-
+            return resultVideo[0] || []
+          }
+        )
+        .filter(String) || []
+    )
   }
 
   static getPrimarySection(data) {
     const {
-      taxonomy: {
-        primary_section: {
-          name = '',
-          path = ''
-        } = {}
-      } = {},
+      taxonomy: { primary_section: { name = '', path = '' } = {} } = {},
     } = data
 
     return {
@@ -416,7 +379,8 @@ class StoryData {
       (data &&
         data.websites &&
         data.websites[website] &&
-        data.websites[website].website_section) || {}
+        data.websites[website].website_section) ||
+      {}
 
     const section = sectionData.name || ''
     const path = sectionData.path || ''
@@ -426,9 +390,7 @@ class StoryData {
     }
   }
 
-  static getDataAuthor(data, {
-    contextPath = ''
-  } = {}) {
+  static getDataAuthor(data, { contextPath = '' } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = `${contextPath}/resources/assets/author-grid/author.png`
 
@@ -443,9 +405,9 @@ class StoryData {
         urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : ''
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
-          iterator.image && iterator.image.url && iterator.image.url !== '' ?
-          iterator.image.url :
-          authorImageDefault
+          iterator.image && iterator.image.url && iterator.image.url !== ''
+            ? iterator.image.url
+            : authorImageDefault
         break
       }
     }
@@ -481,7 +443,7 @@ class StoryData {
         data.promo_items[ConfigParams.VIDEO].promo_items &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE] &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
-        .url) ||
+          .url) ||
       ''
     return thumb
   }
@@ -496,7 +458,7 @@ class StoryData {
           ConfigParams.IMAGE
         ] &&
         data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-        .url) ||
+          .url) ||
       ''
     return thumb
   }

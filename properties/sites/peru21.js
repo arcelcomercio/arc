@@ -11,11 +11,20 @@ export default {
   googleTagManagerId: 'GTM-KKXTKGP',
   charbeatAccountNumber: 57773,
 
-  policies: {
+  infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
     privacyPolicies: '',
-    policyIntegratedManagement: '',
+    integratedManagementPolicy: '',
+    arcoProcedure: '',
+    cookiesPolicy: '',
+    aboutUs: '',
+  },
+  infoPagesProd: {
+    termsAndConditions: '',
+    guidingPrinciples: '',
+    privacyPolicies: '',
+    integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
