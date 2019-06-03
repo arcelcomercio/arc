@@ -17,7 +17,7 @@
         {elements.map((data, index) => (
           <div className={classes.galleryItem} key={UtilListKey(index)}>
             <div className={classes.galleryNumber}>{index + 1}</div>
-            <Image width="100%" className={classes.image} {...data} />
+            <Image width="100%" imgClassName={classes.image} {...data} />
           </div>
         ))}
       </div>
