@@ -43,17 +43,32 @@ describe('Funcion reduceWord helper', () => {
       'prueba longitud mayor a la longitud, prueba longitud mayor a la longitud, prueba longitud mayor a la longitud, prueba longitud mayor a la longitu...'
     )
   })
+
+  it('concatenacion pasando parametros a la funcion', () => {
+    const word = 'prueba longitud mayor a la longitud'
+    const len = 10
+    const finalText = '...adios'
+    expect(reduceWord(word, len, finalText)).toBe('prueba lon...adios')
+  })
 })
 
 describe('Funcion appendScript', () => {
   it('Validacion de definicion', () => {
     expect(appendScript).toBeDefined()
   })
-  it('concatenacion pasando parametros a la funcion', () => {
-    const word = 'prueba longitud mayor a la longitud'
-    const len = 10
-    const finalText = '...adios'
-    expect(reduceWord(word, len, finalText)).toBe('prueba lon...adios')
+
+  it('Debe llamar body.append', () => {
+
+    global.document.body.append = jest.fn()
+    appendScript('test')
+    expect(global.document.body.append).toHaveBeenCalled()
+  })
+
+  it('Debe llamar head.append', () => {
+
+    global.document.head.append = jest.fn()
+    appendScript('test', 'head')
+    expect(global.document.head.append).toHaveBeenCalled()
   })
 })
 describe('Funcion formatDayMonthYear', () => {
@@ -135,6 +150,15 @@ describe('Funcion formatDate', () => {
     const datedemo = '2019-05-28T19:54:26Z'
     expect(formatDate(datedemo)).toBe('2019-05-28')
   })
+
+  /* it('El día y mes generado debe ser mayor a 10', () => {
+    const Date = jest.fn()
+    Date.mockImplementation(() => {
+      return { getDate: 12, getMonth: 12, getFullYear: 2019 }
+    })
+    const datedemo = '2019-12-12T19:54:26'
+    expect(formatDate(datedemo)).toBe('2019-12-12')
+  }) */
 })
 describe('Funcion isEmpty', () => {
   it('validacion de la definicion', () => {
@@ -149,8 +173,24 @@ describe('Funcion isEmpty', () => {
   it('debe retornar falso si el parametro es una bolean', () => {
     expect(isEmpty(false)).not.toBeTruthy()
   })
-  it('debe retornar falso si el parametro es un objeto', () => {
-    expect(isEmpty(Object)).not.toBeTruthy()
+  it('debe retornar falso si el parametro es un objeto con atributs', () => {
+    expect(isEmpty({ test: 'prueba' })).toBeFalsy()
+  })
+
+  it('debe retornar true si el parametro es un objeto vacío', () => {
+    expect(isEmpty({})).toBeTruthy()
+  })
+
+  it('debe retornar true si el parametro es null', () => {
+    expect(isEmpty(null)).toBeTruthy()
+  })
+
+  it('debe retornar true si el parametro es []', () => {
+    expect(isEmpty([])).toBeTruthy()
+  })
+
+  it('debe retornar falso si el parametro no coincide con ninguna condicional', () => {
+    expect(isEmpty(String)).toBeFalsy()
   })
 })
 
@@ -163,6 +203,11 @@ describe('funcion getIcon', () => {
     const type = 'basic_gallery'
     expect(getIcon(type)).toBe('img')
   })
+
+  it('debe  retornar "video"', () => {
+    const type = 'basic_video'
+    expect(getIcon(type)).toBe('video')
+  })
 })
 
 describe('Funcion ResizeImageUrl', () => {
@@ -172,14 +217,18 @@ describe('Funcion ResizeImageUrl', () => {
 
   it('debe  validar que la funcion  retorne el valor del resize', () => {
     const arcSite = 'elcomercio'
-    const imgUrl = 'https://media.merchantcircle.com/9404942/top_full.jpeg'
+    let imgUrl = 'https://media.merchantcircle.com/9404942/top_full.jpeg'
     const ratio = '16:9'
     const resolution = '400x400'
 
-    addResizedUrlItem.mockImplementationOnce(() => ({
+    addResizedUrlItem.mockImplementation(() => ({
       resized_urls: { '16:9': 'SDASD' },
     }))
+
     expect(ResizeImageUrl(arcSite, imgUrl, ratio, resolution)).toBe('SDASD')
+    imgUrl = ''
+    expect(ResizeImageUrl(arcSite, imgUrl, ratio, resolution)).toBe(imgUrl)
+    expect.assertions(2)
   })
 })
 
@@ -189,7 +238,6 @@ describe('Función defaultImage - Helpers', () => {
     deployment: jest.fn(),
     contextPath: 'pf',
     arcSite: 'elcomercio',
-    size: 'lg',
   }
   test('La función "defaultImage" existe y/o devuelve algún valor', () => {
     expect(defaultImage).toBeDefined()
@@ -202,9 +250,9 @@ describe('Función defaultImage - Helpers', () => {
 
   test('Debe retornar un path definido', () => {
     params.deployment.mockReturnValueOnce(
-      `${params.contextPath}/resources/dist/${params.arcSite}/images/default-${
-        params.size
-      }.png`
+      `${params.contextPath}/resources/dist/${
+        params.arcSite
+      }/images/default-lg.png`
     )
     expect(defaultImage(params)).toBe(
       'pf/resources/dist/elcomercio/images/default-lg.png'
@@ -213,18 +261,18 @@ describe('Función defaultImage - Helpers', () => {
 
   test('El path contiene "elcomercio"', () => {
     params.deployment.mockReturnValueOnce(
-      `${params.contextPath}/resources/dist/${params.arcSite}/images/default-${
-        params.size
-      }.png`
+      `${params.contextPath}/resources/dist/${
+        params.arcSite
+      }/images/default-lg.png`
     )
     expect(defaultImage(params)).toContain('elcomercio')
   })
 
   test('El path contiene el tamaño "lg"', () => {
     params.deployment.mockReturnValueOnce(
-      `${params.contextPath}/resources/dist/${params.arcSite}/images/default-${
-        params.size
-      }.png`
+      `${params.contextPath}/resources/dist/${
+        params.arcSite
+      }/images/default-lg.png`
     )
     expect(defaultImage(params)).toMatch('lg')
   })
@@ -417,7 +465,7 @@ describe('Función getMetaPagesPagination - Helpers', () => {
   test('Debe contener los atributos "current, next, prev"', () => {
     const requestUri = '/post/alan/'
     const isQuery = true
-    const globalContent = {}
+    const globalContent = { next: '', previous: '' }
     const patternPagination = ''
     const expected = ['current', 'next', 'prev']
     expect(
@@ -430,6 +478,15 @@ describe('Función getMetaPagesPagination - Helpers', () => {
         )
       )
     ).toEqual(expect.arrayContaining(expected))
+    expect(
+      Object.keys(getMetaPagesPagination(requestUri, true, '', null))
+    ).toEqual(expect.arrayContaining(expected))
+    expect(
+      Object.keys(
+        getMetaPagesPagination(requestUri, false, '', patternPagination)
+      )
+    ).toEqual(expect.arrayContaining(expected))
+    expect.assertions(3)
   })
 })
 
@@ -453,5 +510,21 @@ describe('Función metaPaginationUrl - Helpers', () => {
         isQuery
       )
     ).toContain(siteUrl)
+    expect(
+      metaPaginationUrl(pageNumber, null, requestUri, siteUrl, isQuery)
+    ).toContain(siteUrl)
+    expect(
+      metaPaginationUrl(pageNumber, null, requestUri, siteUrl, false)
+    ).toContain(siteUrl)
+    expect(
+      metaPaginationUrl(
+        pageNumber,
+        patternPagination,
+        requestUri,
+        siteUrl,
+        false
+      )
+    ).toContain(siteUrl)
+    expect.assertions(4)
   })
 })

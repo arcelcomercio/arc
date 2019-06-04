@@ -1,9 +1,7 @@
 import React from 'react'
-import Enzyme, { shallow, mount } from 'enzyme'
-import EnzymeAdapter  from 'enzyme-adapter-react-15';
+import Enzyme, { shallow } from 'enzyme'
 import EmbedMultimedia from '@components/embed-multimedia'
 
-Enzyme.configure({ adapter: new EnzymeAdapter() })
 
 describe('Test EmbedMultimedia', () => {
   it('test renderizado videoYoutube', () => {
@@ -15,10 +13,10 @@ describe('Test EmbedMultimedia', () => {
       website: 'elcomercio',
       title: 'Titulo',
     }
-    const wrapper = mount(<EmbedMultimedia {...props} />)
+    const wrapper = shallow(<EmbedMultimedia {...props} />)
 
     expect(wrapper).toBeDefined()
-    //expect(wrapper.find('iframe')).toBeDefined()
+    // expect(wrapper.find('iframe')).toBeDefined()
   })
   it('test iframe valor del src generado', () => {
     const props = {
@@ -29,7 +27,7 @@ describe('Test EmbedMultimedia', () => {
       website: 'elcomercio',
       title: 'Titulo',
     }
-    const wrapper = mount(<EmbedMultimedia {...props} />)
+    const wrapper = shallow(<EmbedMultimedia {...props} />)
     const src = wrapper.find('iframe').prop('src')
 
     expect(src).toBe('https://www.youtube.com/embed/QNLARJrxVa4')
@@ -44,7 +42,7 @@ describe('Test EmbedMultimedia - videoGoldfish', () => {
       contextPath: 'contextPath',
       title: 'Titulo',
     }
-    const wrapper = mount(<EmbedMultimedia {...props} />)
+    const wrapper = shallow(<EmbedMultimedia {...props} />)
 
     expect(wrapper).toBeDefined()
   })
@@ -57,7 +55,7 @@ describe('Test EmbedMultimedia - videoGoldfish', () => {
       contextPath: 'contextPath',
       title: 'Titulo',
     }
-    const wrapper = mount(<EmbedMultimedia {...props} />)
+    const wrapper = shallow(<EmbedMultimedia {...props} />)
     const src = wrapper.find('div').prop('id')
 
     expect(src).toBe('powa-multimediaSource')
@@ -71,7 +69,7 @@ describe('Test EmbedMultimedia - videoGoldfish', () => {
       website: 'elcomercio',
       title: 'Titulo',
     }
-    const wrapper = mount(<EmbedMultimedia {...props} />)
+    const wrapper = shallow(<EmbedMultimedia {...props} />)
     const src = wrapper.find('div').prop('data-env')
 
     expect(src).toBe('sandbox')
@@ -87,7 +85,7 @@ describe('Test EmbedMultimedia - image', () => {
       contextPath: 'contextPath',
       website: 'elcomercio',
     }
-    const wrapper = mount(<EmbedMultimedia {...props} />)
+    const wrapper = shallow(<EmbedMultimedia {...props} />)
     expect(wrapper).toBeDefined()
   })
   it('Test Render image prop src', () => {
@@ -101,7 +99,7 @@ describe('Test EmbedMultimedia - image', () => {
 
     const urlimg = 'contextPath/resources/dist/elcomercio/images/default-md.png'
 
-    const wrapper = mount(<EmbedMultimedia {...props} />)
+    const wrapper = shallow(<EmbedMultimedia {...props} />)
     const src = wrapper.find('img').prop('src')
     
     
