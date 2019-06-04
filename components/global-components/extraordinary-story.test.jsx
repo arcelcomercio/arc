@@ -60,9 +60,4 @@ describe('Extraordinary story - Component', () => {
     wrapper.setProps({ multimediaType: 'basic_video' })
     expect(wrapper.props().multimediaType).toBe('basic_video')
   })
-
-
-  /* test('test icon', () => {
-    expect(getIcon).toEqual('video')
-  }) */
 })
