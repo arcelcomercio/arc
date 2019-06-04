@@ -1,7 +1,6 @@
 import React from 'react'
-import Enzyme, { shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import EmbedMultimedia from '@components/embed-multimedia'
-
 
 describe('Test EmbedMultimedia', () => {
   it('test renderizado videoYoutube', () => {
@@ -16,8 +15,8 @@ describe('Test EmbedMultimedia', () => {
     const wrapper = shallow(<EmbedMultimedia {...props} />)
 
     expect(wrapper).toBeDefined()
-    // expect(wrapper.find('iframe')).toBeDefined()
   })
+  
   it('test iframe valor del src generado', () => {
     const props = {
       type: 'youtube',
@@ -33,6 +32,7 @@ describe('Test EmbedMultimedia', () => {
     expect(src).toBe('https://www.youtube.com/embed/QNLARJrxVa4')
   })
 })
+
 describe('Test EmbedMultimedia - videoGoldfish', () => {
   it('test render videoGoldfish', () => {
     const props = {
@@ -60,6 +60,7 @@ describe('Test EmbedMultimedia - videoGoldfish', () => {
 
     expect(src).toBe('powa-multimediaSource')
   })
+
   it('Test Render goldfish prop data-env', () => {
     const props = {
       type: 'goldfish',
@@ -88,22 +89,19 @@ describe('Test EmbedMultimedia - image', () => {
     const wrapper = shallow(<EmbedMultimedia {...props} />)
     expect(wrapper).toBeDefined()
   })
+
   it('Test Render image prop src', () => {
     const props = {
       type: 'image',
       source: '',
-      deployment: (val) => val,
+      deployment: val => val,
       contextPath: 'contextPath',
-      website: 'elcomercio'
+      website: 'elcomercio',
     }
-
     const urlimg = 'contextPath/resources/dist/elcomercio/images/default-md.png'
-
     const wrapper = shallow(<EmbedMultimedia {...props} />)
     const src = wrapper.find('img').prop('src')
-    
-    
+
     expect(src).toBe(urlimg)
   })
-  
 })
