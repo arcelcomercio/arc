@@ -22,7 +22,7 @@ const classes = {
   img: 'full-width full-height object-fit-cover',
 
   imgComplete: 'img-complete flex--justify-end overflow-hidden',
-  parcialTop: 'flex--column-reverse',
+  parcialTop: 'featured-story--reverse',
 
   twoCol: 'col-2',
   // Headbands
