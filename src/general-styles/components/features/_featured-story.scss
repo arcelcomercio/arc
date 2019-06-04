@@ -3,9 +3,56 @@ $text-secondary: #979797;
 
 $image-height: 157px;
 
+@mixin img-complete() {
+  padding: 0;
+  justify-content: flex-end;
+
+  .featured-story__image {
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 306px;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(68, 68, 68, 0) 20%,
+        rgb(68, 68, 68)
+      );
+    }
+  }
+
+  .featured-story__detail {
+    //z-index: 10;
+    padding: $spacing-normal;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .featured-story__link {
+    color: $color-white;
+  }
+
+  .featured-story__category {
+    &::after {
+      border-bottom: 1px solid $color-white;
+    }
+  }
+
+  .featured-story__author {
+    margin-bottom: 0;
+  }
+  @content;
+}
+
 .featured-story {
   background-color: $color-white;
-
+  position: relative;
   @media (--tablet) {
     flex-direction: column;
     grid-row: span 1;
@@ -15,21 +62,12 @@ $image-height: 157px;
   &__detail {
     height: calc(100% - #{$image-height});
     width: 60%;
+    position: relative;
     @media (--tablet) {
       width: unset;
       padding-top: 10px;
       padding-bottom: 10px;
     }
-  }
-
-  &__gradient {
-    background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
-    bottom: 0;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00444444', endColorstr='#444444', GradientType=0);
-    height: 306px;
-    left: 0;
-    pointer-events: none;
-    z-index: 1;
   }
 
   &__image {
@@ -62,13 +100,9 @@ $image-height: 157px;
   }
 
   &__title {
-    display: -webkit-box;
     margin-bottom: 8px;
     font-size: 21px;
     line-height: 1.2;
-    /* autoprefixer: off */
-    -webkit-box-orient: vertical;
-    /* autoprefixer: on */
   }
 
   &-oneline {
@@ -96,7 +130,11 @@ $image-height: 157px;
   }
 
   &__link {
+    display: -webkit-box;
     color: black;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
   }
 
   &__headband {
@@ -142,7 +180,7 @@ $image-height: 157px;
     }
   }
   // Modificador de la vista mobile
-  &--test {
+  &.expand {
     flex-direction: column;
     grid-row: span 1;
     height: 374px;
@@ -159,33 +197,13 @@ $image-height: 157px;
       display: block;
     }
   }
-  //////////////////////////////////////
-  &--img-complete {
-    padding: 0;
-    justify-content: flex-end;
 
-    .featured-story__image {
-      position: absolute;
-      height: 100%;
+  &.img-complete {
+    @media screen and (--tablet) {
+      @include img-complete();
     }
-
-    .featured-story__detail {
-      z-index: 10;
-      padding: $spacing-normal;
-    }
-
-    .featured-story__link {
-      color: $color-white;
-    }
-
-    .featured-story__category {
-      &::after {
-        border-bottom: 1px solid $color-white;
-      }
-    }
-
-    .featured-story__author {
-      margin-bottom: 0;
+    &--expand {
+      @include img-complete();
     }
   }
 }

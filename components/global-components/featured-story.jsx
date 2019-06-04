@@ -4,7 +4,6 @@ import StoryData from '../utilities/story-data'
 
 const classes = {
   featuredStory: 'featured-story position-relative padding-normal flex',
-  gradient: 'featured-story__gradient position-absolute full-width block',
   detail: 'featured-story__detail flex flex--column flex--justify-between',
   image: 'featured-story__image overflow-hidden full-width full-height',
   multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
@@ -19,10 +18,10 @@ const classes = {
   author: 'featured-story__author text-uppercase',
 
   link: 'featured-story__link',
-  imageLink: 'block position-relative full-height',
+  imageLink: 'block full-height',
   img: 'full-width full-height object-fit-cover',
 
-  imgComplete: 'featured-story--img-complete flex--justify-end overflow-hidden',
+  imgComplete: 'img-complete flex--justify-end overflow-hidden',
   parcialTop: 'flex--column-reverse',
 
   twoCol: 'col-2',
@@ -54,7 +53,13 @@ export default class FeaturedStory extends Component {
       arcSite,
     } = this.props
 
+    const hightlightOnMobile = false
+
     const getImageSizeClass = () => {
+      if (hightlightOnMobile) {
+        classes.imgComplete =
+          'img-complete--expand flex--justify-end overflow-hidden'
+      }
       switch (imageSize) {
         case 'complete':
           return classes.imgComplete
@@ -97,7 +102,7 @@ export default class FeaturedStory extends Component {
         </span>
       )
     }
-
+    // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
     let numline = ''
     switch (arcSite) {
       case 'elcomercio':
@@ -116,11 +121,7 @@ export default class FeaturedStory extends Component {
           classes.featuredStory
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === 'twoCol' ? classes.twoCol : ''
-        }`}>
-        {/* Aqui colocar la logica del span */}
-        {(imageSize === 'complete' || size === 'twoCol') && (
-          <span className={classes.gradient} />
-        )}
+        } ${hightlightOnMobile ? 'expand' : ''}`}>
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
             <h3 className={classes.category}>
@@ -142,9 +143,9 @@ export default class FeaturedStory extends Component {
               </a>
             </div>
           )}
-          <h2 className={`${classes.title} ${numline}`}>
+          <h2 className={classes.title}>
             <a
-              className={classes.link}
+              className={`${classes.link} ${numline}`}
               href={title.url}
               /* {...getEditableField('titleField')}
             suppressContentEditableWarning */
