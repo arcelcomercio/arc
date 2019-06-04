@@ -58,14 +58,12 @@ describe('Funcion appendScript', () => {
   })
 
   it('Debe llamar body.append', () => {
-
     global.document.body.append = jest.fn()
     appendScript('test')
     expect(global.document.body.append).toHaveBeenCalled()
   })
 
   it('Debe llamar head.append', () => {
-
     global.document.head.append = jest.fn()
     appendScript('test', 'head')
     expect(global.document.head.append).toHaveBeenCalled()
@@ -135,9 +133,36 @@ describe('Funcion getActualDate', () => {
   it(' validacion de la definicion', () => {
     expect(getActualDate()).toBeDefined()
   })
-  it('validacion resultado fecha actual {yyyy-mm-dd}', () => {
-    const dataesperada = '2019-06-03'
-    expect(getActualDate()).toBe(dataesperada)
+  it('debe validar que la cadena de texto del la fecha actual contenga el dia actual - getActualDate', () => {
+    const today = new Date()
+    let dia = today.getDate()
+    let mes = today.getMonth() + 1
+    const año = today.getFullYear()
+
+    if (dia < 10) dia = `0${dia}`
+    if (mes < 10) mes = `0${mes}`
+
+    const expression = eval(`/${dia}/`) //converte un string a una expresion
+
+    expect(getActualDate()).toMatch(expression)
+  })
+
+  it('debe validar que la cadena de texto del la fecha actual contenga el mes actual - getActualDate', () => {
+    const today = new Date()
+    let mes = today.getMonth() + 1
+    if (mes < 10) mes = `0${mes}`
+
+    const expression = eval(`/${mes}/`)
+
+    expect(getActualDate()).toMatch(expression)
+  })
+
+  it('debe validar que la cadena de texto del la fecha actual contenga el año actual - getActualDate', () => {
+    const today = new Date()
+    const año = today.getFullYear()
+    const expression = eval(`/${año}/`)
+
+    expect(getActualDate()).toMatch(expression)
   })
 })
 
@@ -150,15 +175,6 @@ describe('Funcion formatDate', () => {
     const datedemo = '2019-05-28T19:54:26Z'
     expect(formatDate(datedemo)).toBe('2019-05-28')
   })
-
-  /* it('El día y mes generado debe ser mayor a 10', () => {
-    const Date = jest.fn()
-    Date.mockImplementation(() => {
-      return { getDate: 12, getMonth: 12, getFullYear: 2019 }
-    })
-    const datedemo = '2019-12-12T19:54:26'
-    expect(formatDate(datedemo)).toBe('2019-12-12')
-  }) */
 })
 describe('Funcion isEmpty', () => {
   it('validacion de la definicion', () => {
