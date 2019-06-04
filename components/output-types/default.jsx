@@ -85,7 +85,6 @@ export default ({
   return (
     <html lang="es">
       <head>
-        <Libs />
         <AppNexus arcSite={arcSite} port={metaValue('port')} />
         <TagManager {...siteProperties} />
         <meta charset="utf-8" />
@@ -155,7 +154,6 @@ export default ({
         />
         <script
           async
-          defer
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/js/index.js`
           )}
