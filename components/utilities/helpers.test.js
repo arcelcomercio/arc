@@ -248,7 +248,6 @@ describe('Funcion ResizeImageUrl', () => {
   })
 })
 
-// Rolly
 describe('Función defaultImage - Helpers', () => {
   const params = {
     deployment: jest.fn(),
@@ -258,6 +257,7 @@ describe('Función defaultImage - Helpers', () => {
   test('La función "defaultImage" existe y/o devuelve algún valor', () => {
     expect(defaultImage).toBeDefined()
   })
+
   test('Debe retornar un string ', () => {
     defaultImage(params)
     // only mock's function
