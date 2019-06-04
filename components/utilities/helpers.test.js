@@ -58,14 +58,12 @@ describe('Funcion appendScript', () => {
   })
 
   it('Debe llamar body.append', () => {
-
     global.document.body.append = jest.fn()
     appendScript('test')
     expect(global.document.body.append).toHaveBeenCalled()
   })
 
   it('Debe llamar head.append', () => {
-
     global.document.head.append = jest.fn()
     appendScript('test', 'head')
     expect(global.document.head.append).toHaveBeenCalled()
@@ -232,7 +230,6 @@ describe('Funcion ResizeImageUrl', () => {
   })
 })
 
-// Rolly
 describe('Función defaultImage - Helpers', () => {
   const params = {
     deployment: jest.fn(),
@@ -242,6 +239,7 @@ describe('Función defaultImage - Helpers', () => {
   test('La función "defaultImage" existe y/o devuelve algún valor', () => {
     expect(defaultImage).toBeDefined()
   })
+
   test('Debe retornar un string ', () => {
     defaultImage(params)
     // only mock's function
