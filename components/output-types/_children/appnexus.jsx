@@ -48,7 +48,7 @@ const getVars = ({ arcSite, isStory, requestUri, port = 'port1' }) => {
   var type_template = '${template}'
   var section = '${section}'
   var subsection = '${subsection}'
-  var path = '${path}'
+  var path_name = '${path}'
 `
 }
 const AppNexus = props => {
