@@ -7,41 +7,6 @@ const elements_path = pathname.split('/').filter(item => item.match(/(\w+)/g))
 const body_class = document.querySelector('body').getAttribute('class')
 if (agente.includes('Google Page Speed Insights')) site = 'psi'
 
-const getTemplate = () => {
-  if (body_class.includes('nota') && body_class.includes('fotogaleria'))
-    return 'foto'
-  if (body_class.includes('nota')) return 'nota'
-  return 'portada'
-}
-
-const getSection = () => {
-  if (elements_path.length) {
-    if (elements_path.includes('noticias')) return 'tags'
-    if (elements_path.includes('buscar')) return 'buscar'
-    return elements_path[0]
-      .split('-')
-      .join('')
-      .toLowerCase()
-  }
-  return pathname == '/' ? 'home' : ''
-}
-
-const getSubsection = () => {
-  const limit = type_template === 'portada' ? 1 : 2
-  if (section === 'tags')
-    return elements_path[1]
-      .split('-')
-      .join('')
-      .toLowerCase()
-  if (section === 'archivo') return ''
-  return elements_path.length > limit
-    ? elements_path[1]
-        .split('-')
-        .join('')
-        .toLowerCase()
-    : ''
-}
-
 const getTags = () => {
   const array_tags = []
   const nota_tags = ''
@@ -76,9 +41,6 @@ const getTags = () => {
   }
 }
 
-const type_template = getTemplate()
-const section = getSection()
-const subsection = getSubsection()
 const tags = getTags()
 
 const IS_DEBUG = location.href.includes('consoles=true')
@@ -237,12 +199,12 @@ apntag.anq.push(() => {
     member: MEMBER_ID,
     disablePsa: true,
     keywords: {
-      tipo: 'portada',
-      seccion: 'home',
-      subseccion: '',
+      tipo: type_template,
+      seccion: section,
+      subseccion: subsection,
       categoria: '',
-      tags: [''],
-      path_name: '/',
+      tags,
+      path_name,
     },
   })
   adsParams.map(val => apntag.defineTag({ ...val }))
