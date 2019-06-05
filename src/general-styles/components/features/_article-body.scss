@@ -124,6 +124,10 @@
 
         &>[src*="facebook"] {
           width: 100% !important;
+
+          &>[data-testid*="newsFeedStream"] {
+            width: 100% !important;
+          }
         }
       }
     }
