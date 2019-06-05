@@ -453,6 +453,3 @@ const getTagInline = () => {
     ],
   }
 }
-
-// if (window.location.pathname == '/mundial/seleccion' && IS_MOBILE)
-//   document.getElementById('ads-movil-movil_2').style.display = 'block'
