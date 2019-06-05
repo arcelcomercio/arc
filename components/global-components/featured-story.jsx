@@ -21,7 +21,7 @@ const classes = {
   imageLink: 'block full-height',
   img: 'full-width full-height object-fit-cover',
 
-  imgComplete: 'img-complete flex--justify-end overflow-hidden',
+  imgComplete: 'img-complete flex--justify-end',
   parcialTop: 'featured-story--reverse',
 
   twoCol: 'col-2',
@@ -45,21 +45,15 @@ export default class FeaturedStory extends Component {
       imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
       headband, // OPCIONAL, otros valores: "live"
       size, // Se espera "oneCol" o "twoCol"
-      // hightlightOnMobile,
-      // editableField, // OPCIONAL, o pasar la función editableField de los props
+      hightlightOnMobile,
+      editableField, // OPCIONAL, o pasar la función editableField de los props
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
       arcSite,
     } = this.props
 
-    const hightlightOnMobile = false
-
     const getImageSizeClass = () => {
-      if (hightlightOnMobile) {
-        classes.imgComplete =
-          'img-complete--expand flex--justify-end overflow-hidden'
-      }
       switch (imageSize) {
         case 'complete':
           return classes.imgComplete
@@ -77,12 +71,12 @@ export default class FeaturedStory extends Component {
       return ''
     }
 
-    /* const getEditableField = element => {
+    const getEditableField = element => {
       if (editableField) {
         return editableField(element)
       }
       return null
-    } */
+    }
 
     const getMultimediaIcon = () => {
       let icon
@@ -128,9 +122,8 @@ export default class FeaturedStory extends Component {
               <a
                 className={classes.link}
                 href={category.url}
-                /* {...getEditableField('categoryField')}
-              suppressContentEditableWarning */
-              >
+                {...getEditableField('categoryField')}
+                suppressContentEditableWarning>
                 {categoryField || category.name}
               </a>
             </h3>
@@ -147,9 +140,8 @@ export default class FeaturedStory extends Component {
             <a
               className={`${classes.link} ${numline}`}
               href={title.url}
-              /* {...getEditableField('titleField')}
-            suppressContentEditableWarning */
-            >
+              {...getEditableField('titleField')}
+              suppressContentEditableWarning>
               {titleField || title.name}
             </a>
           </h2>
@@ -188,8 +180,8 @@ FeaturedStory.propTypes = {
   imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialBot']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf(['oneCol', 'twoCol']),
-  // hightlightOnMobile: PropTypes.bool,
-  // editableField: PropTypes.func,
+  hightlightOnMobile: PropTypes.bool,
+  editableField: PropTypes.func,
   titleField: PropTypes.string,
   categoryField: PropTypes.string,
   multimediaType: PropTypes.oneOf([
