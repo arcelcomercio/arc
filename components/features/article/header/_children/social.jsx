@@ -13,6 +13,7 @@ const classes = {
   item: 'article-header__item',
   category: 'text-uppercase',
   link: 'article-header__link flex-center',
+  icon: 'article-header__icon',
   list: 'article-header__list flex flex--justify-between',
 }
 @Consumer
@@ -111,7 +112,7 @@ class ArticleHeaderChildSocial extends PureComponent {
                     const isPrint = i === 2 && currentList === this.secondList
                     this.openLink(event, item, isPrint)
                   }}>
-                  <i className={item.icon} />
+                  <i className={`${item.icon} ${classes.icon}`} />
                 </a>
               </li>
             ))}

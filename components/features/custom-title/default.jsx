@@ -93,6 +93,7 @@ class CustomTitle extends PureComponent {
     return (
       <TextType
         {...editableField('customText')}
+        suppressContentEditableWarning
         className={`${classes.title} text-${textAlign} ${
           isUppercase ? 'text-uppercase' : ''
         }`}>

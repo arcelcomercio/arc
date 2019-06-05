@@ -243,8 +243,7 @@ export const getMetaPagesPagination = (
         .match(patternPagination)[0]
         .split(`${isQuery ? '=' : '/'}`)[1],
         10
-      ) :
-      1,
+      ) : 1,
     next: false,
     prev: false,
   }
@@ -335,6 +334,7 @@ export const defaultImage = ({
 export const createScript = ({
   src,
   async,
+  defer,
   textContent = ''
 }) => {
   const node = document.createElement('script')
@@ -344,6 +344,9 @@ export const createScript = ({
   }
   if (async) {
     node.async = true
+  }
+  if (defer) {
+    node.defer = true
   }
   node.textContent = textContent
   return node
@@ -356,6 +359,6 @@ export const createLink = url => {
   return node
 }
 
-export const appendToHead = node => {
-  document.head.appendChild(node)
+export const appendToBody = node => {
+  document.body.appendChild(node)
 }

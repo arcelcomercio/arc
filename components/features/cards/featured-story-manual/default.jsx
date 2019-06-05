@@ -45,6 +45,7 @@ class CardFeaturedStoryManual extends PureComponent {
       imageSize,
       headband,
       size,
+      hightlightOnMobile,
       titleField,
       categoryField,
     } = customFields
@@ -56,6 +57,7 @@ class CardFeaturedStoryManual extends PureComponent {
       imageSize,
       headband,
       size,
+      hightlightOnMobile,
       editableField,
       titleField,
       categoryField,
@@ -94,6 +96,10 @@ CardFeaturedStoryManual.propTypes = {
         twoCol: '2 columnas',
       },
       defaultValue: 'oneCol',
+    }),
+    hightlightOnMobile: PropTypes.bool.tag({
+      name: 'Destacar en móvil',
+      defaultValue: false,
     }),
     categoryField: PropTypes.string.tag({
       name: 'Sección',

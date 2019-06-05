@@ -48,7 +48,8 @@ class CardFeaturedStoryAuto extends PureComponent {
   render() {
     const { category, title, author, image, multimediaType } = this.state
     const { customFields, editableField, arcSite } = this.props
-    const { imageSize, size, titleField, categoryField } = customFields || {}
+    const { imageSize, size, hightlightOnMobile, titleField, categoryField } =
+      customFields || {}
     const params = {
       title,
       category,
@@ -56,6 +57,7 @@ class CardFeaturedStoryAuto extends PureComponent {
       image,
       imageSize,
       size,
+      hightlightOnMobile,
       editableField,
       titleField,
       categoryField,
@@ -96,6 +98,10 @@ CardFeaturedStoryAuto.propTypes = {
         twoCol: '2 columnas',
       },
       defaultValue: 'oneCol',
+    }),
+    hightlightOnMobile: PropTypes.bool.tag({
+      name: 'Destacar en móvil',
+      defaultValue: false,
     }),
     categoryField: PropTypes.string.tag({
       name: 'Sección',
