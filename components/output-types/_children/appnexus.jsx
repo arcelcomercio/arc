@@ -23,6 +23,10 @@ const getVars = ({ arcSite, isStory, requestUri, port = 'port1' }) => {
   let section = ''
   let subsection = ''
   if (requestUri) {
+    /**
+     * TODO: modificar esto para que funcione con cualquier sitio o
+     * ELIMINAR porque solo importa que se muestre en CDN.
+     */
     path = requestUri.includes('?_website')
       ? requestUri.slice(0, requestUri.length - 20)
       : requestUri
@@ -33,6 +37,9 @@ const getVars = ({ arcSite, isStory, requestUri, port = 'port1' }) => {
       section =
         sectionList[0] === 'noticia' ? 'tags' : sectionList[0].replace('-', '')
       const hasNew = sectionList[sectionList.length - 1].endsWith('-noticia')
+      // TODO: validar cuando termine en "-noticia/"
+      // TODO: hasNew -> hasStory
+      // TODO: Probar estas condicionales con el ||
       if (hasNew && sectionList.length >= 3) {
         subsection = sectionList[1].replace('-', '')
       }
