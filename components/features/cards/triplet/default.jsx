@@ -16,11 +16,26 @@ class CardTriplet extends PureComponent {
     super(props)
     this.dataCounter = 0
     this.auxData = { data1: {}, data2: {}, data3: {} }
-    this.state = { data1: {}, data2: {}, data3: {} }
+    this.getFieldsStories()
   }
 
   componentDidMount() {
-    this.exec()
+    // this.exec()
+  }
+
+  getFieldsStories() {
+    const { customFields: { data1, data2, data3 } = {} } = this.props
+
+    const fetchData = {}
+
+    if (data1)
+      fetchData.data1 = { source: API_URL, query: { website_url: data1 } }
+    if (data2)
+      fetchData.data2 = { source: API_URL, query: { website_url: data2 } }
+    if (data3)
+      fetchData.data3 = { source: API_URL, query: { website_url: data3 } }
+    console.log(fetchData)
+    if (fetchData !== {}) this.fetchContent(fetchData)
   }
 
   setAuxData(data, i) {
@@ -72,6 +87,7 @@ class CardTriplet extends PureComponent {
       multimediaOrientation: customFields.multimediaOrientation,
       editableField,
     }
+    console.log(this.state, 'asdasdasdasdasd')
     return <Triplet {...params} />
   }
 }
