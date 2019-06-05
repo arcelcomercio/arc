@@ -16,6 +16,7 @@
   &__author-link {
     color: $color-gray-light;
     font-size: 11px;
+    font-family: $font-regular;
   }
   &__image {
     position: relative;
@@ -24,6 +25,7 @@
     position: absolute;
     font-size: 50px;
     color: $color-white;
+    z-index: 1;;
   }
   /* Imagen completa */
   &--img-complete {
@@ -39,4 +41,8 @@
       color: $color-white;
     }
   }
+  &__gradient{
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(14, 33, 13, 0.5) 58%, rgba(14, 33, 13, 0.65) 71%, #0e210d 96%)
+  } 
 }

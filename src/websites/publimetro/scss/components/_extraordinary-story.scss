@@ -1,16 +1,21 @@
 .extraordinary-story {
     &__content{
       display: block;
-      padding-left: 0
+      padding: 10px 20px;
     }
     &__section {
-      padding-left: 0;
       background-color: transparent;
       color: $color-primary;
+      padding: 20px 20px 10px;
       text-transform: capitalize;
   }
   &__title{
-      color: $color-primary;
+      color: $color-green-dark;
       line-height: 34px;
+    }
+    &__link{
+      color: $color-default-2;
+      font-size: 16px;
+      font-family: $font-regular;
     }
   }

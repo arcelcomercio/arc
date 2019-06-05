@@ -3,7 +3,7 @@ import StoriesListCardChildItem from './item'
 import StoryData from '../../../../utilities/story-data'
 
 const classes = {
-  listItem: 'stories-list-card__list-item scroll-vertical-auto',
+  listItem: 'stories-list-card__list-item scroll-vertical-auto pd-top-10 pd-bottom-10 pd-left-20 pd-right-20',
 }
 
 const StoriesListsCardChildList = ({
