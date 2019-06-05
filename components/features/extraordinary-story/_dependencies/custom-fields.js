@@ -3,18 +3,15 @@ import PropTypes from 'prop-types'
 const customFields = {
   section: PropTypes.string.tag({
     name: 'Sección',
-    description: 'Dejar vacío para tomar el valor original de la historia.',
+    description: 'Campo vació tomará el valor por defecto de la historia',
   }),
   title: PropTypes.string.tag({
     name: 'Título',
-    description: 'Dejar vacío para tomar el valor original de la historia.',
+    description: 'Campo vació tomará el valor por defecto de la historia',
   }),
   subTitle: PropTypes.string.tag({
     name: 'Bajada',
-    description: 'Dejar vacío para tomar el valor original de la historia.',
-  }),
-  orientation: PropTypes.label.tag({
-    name: 'Orientación del contenido',
+    description: 'Campo vació tomará el valor por defecto de la historia',
   }),
   multimediaOrientation: PropTypes.oneOf([
     'top',
@@ -22,7 +19,7 @@ const customFields = {
     'left',
     'right',
   ]).tag({
-    name: 'Posición de la imagen o video',
+    name: 'Posición elemento multimedia',
     labels: {
       top: 'Superior',
       bottom: 'Inferior',
@@ -30,15 +27,17 @@ const customFields = {
       right: 'Derecha',
     },
     defaultValue: 'bottom',
+    group: 'Orientación',
   }),
-  contentOrientation: PropTypes.oneOf(['center', 'left', 'right']).tag({
-    name: 'Posición de los textos',
+  contentOrientation: PropTypes.oneOf(['left', 'center', 'right']).tag({
+    name: 'Posición texto',
     labels: {
-      center: 'Centro',
       left: 'Izquierda',
+      center: 'Centro',
       right: 'Derecha',
     },
     defaultValue: 'left',
+    group: 'Orientación',
   }),
   multimediaService: PropTypes.oneOf([
     'default',
@@ -46,7 +45,7 @@ const customFields = {
     'goldfish',
     'youtube',
   ]).tag({
-    name: 'Proveedor',
+    name: 'Servicio',
     group: 'Multimedia',
     labels: {
       default: 'Automático',
@@ -57,7 +56,7 @@ const customFields = {
     defaultValue: 'default',
   }),
   multimediaSource: PropTypes.string.tag({
-    name: 'Recurso',
+    name: 'Identificador de recurso',
     group: 'Multimedia',
     description:
       'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: ID del video.',
