@@ -7,8 +7,6 @@ import Data from './_dependencies/data'
 import { TripletChildTriplet as Triplet } from './_children/triplet'
 
 const API_URL = 'story-by-url'
-const DATA_KEY = 'data'
-const DATA_LENGTH = 3
 
 @Consumer
 class CardTriplet extends PureComponent {
@@ -19,44 +17,22 @@ class CardTriplet extends PureComponent {
     this.getFieldsStories()
   }
 
-  componentDidMount() {
-    // this.exec()
-  }
-
   getFieldsStories() {
-    const { customFields: { data1, data2, data3 } = {} } = this.props
+    const { customFields: { data1, data2, data3 } = {}, arcSite } = this.props
 
+    const fetchDataModel = data => {
+      return {
+        source: API_URL,
+        query: { website_url: data },
+        filter: schemaFilter(arcSite),
+      }
+    }
     const fetchData = {}
 
-    if (data1)
-      fetchData.data1 = { source: API_URL, query: { website_url: data1 } }
-    if (data2)
-      fetchData.data2 = { source: API_URL, query: { website_url: data2 } }
-    if (data3)
-      fetchData.data3 = { source: API_URL, query: { website_url: data3 } }
-    console.log(fetchData)
+    if (data1) fetchData.data1 = fetchDataModel(data1)
+    if (data2) fetchData.data2 = fetchDataModel(data2)
+    if (data3) fetchData.data3 = fetchDataModel(data3)
     if (fetchData !== {}) this.fetchContent(fetchData)
-  }
-
-  setAuxData(data, i) {
-    this.auxData[DATA_KEY + i] = data || {}
-    this.dataCounter += 1
-    if (this.dataCounter === DATA_LENGTH) this.setState(this.auxData)
-  }
-
-  exec() {
-    const { customFields = {}, arcSite } = this.props
-
-    for (let i = 1; i <= DATA_LENGTH; i++) {
-      if (customFields[DATA_KEY + i]) {
-        const { fetched } = this.getContent(
-          API_URL,
-          { website_url: customFields[DATA_KEY + i], website: arcSite },
-          schemaFilter(arcSite)
-        )
-        fetched.then(response => this.setAuxData(response, i))
-      } else this.setAuxData({}, i)
-    }
   }
 
   render() {
@@ -74,20 +50,26 @@ class CardTriplet extends PureComponent {
       customFields,
       defaultImgSize: 'sm',
     })
-    const allDataResponse = this.state
-    const dataFormatted = Object.keys(allDataResponse).map((el, index) => {
-      data.__data = allDataResponse[el]
-      data.__index = index + 1
-      return data.attributesRaw
-    })
 
+    const getInstanceSnap = (el, index) => {
+      data.__data = el
+      data.__index = index
+      return data.attributesRaw
+    }
+
+    const { data1 = {}, data2 = {}, data3 = {} } = this.state || {}
+
+    const dataFormatted = [
+      getInstanceSnap(data1, 1),
+      getInstanceSnap(data2, 2),
+      getInstanceSnap(data3, 3),
+    ]
     const params = {
       data: dataFormatted,
       arcSite,
       multimediaOrientation: customFields.multimediaOrientation,
       editableField,
     }
-    console.log(this.state, 'asdasdasdasdasd')
     return <Triplet {...params} />
   }
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { getIcon } from '../../../../utilities/helpers'
 
 export const TripletChildTriplet = props => {
-  const { data, multimediaOrientation = 'right', arcSite } = props
+  const { data = [], multimediaOrientation = 'right', arcSite } = props
   const classes = {
     triplet: 'triplet',
     tripletItem: `triplet__item triplet__item--${multimediaOrientation}`,
