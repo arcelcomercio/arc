@@ -85,7 +85,12 @@ export default ({
   return (
     <html lang="es">
       <head>
-        <AppNexus arcSite={arcSite} port={metaValue('port')} />
+        <AppNexus
+          arcSite={arcSite}
+          requestUri={requestUri}
+          port={metaValue('port')}
+          isStory={isArticle}
+        />
         <TagManager {...siteProperties} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

@@ -15,12 +15,35 @@ const getSite = site => {
   return sites[site] || sites.elcomercio
 }
 
-const getVars = ({ arcSite, port = 'port1' }) => {
+const getVars = ({ arcSite, isStory, requestUri, port = 'port1' }) => {
   const typeSpace = port
   const site = arcSite
+  const template = isStory ? 'nota' : 'portada'
+  let path = ''
+  let section = ''
+  let subsection = ''
+  if (requestUri) {
+    path = requestUri.includes('?_website')
+      ? requestUri.slice(0, requestUri.length - 20)
+      : requestUri
+    const sectionList = path.split('/').slice(1)
+    section = sectionList[0].replace('-', '')
+    const hasNew = sectionList[sectionList.length - 1].endsWith('-noticia')
+    if (hasNew && sectionList.length >= 3) {
+      subsection = sectionList[1].replace('-', '')
+    }
+    if (!hasNew && sectionList.length >= 2) {
+      subsection = sectionList[1].replace('-', '')
+    }
+  }
+  // const { section, subsection } = globalContent
   return `
   var type_space = '${typeSpace}'
   var site = '${getSite(site)}'
+  var type_template = '${template}'
+  var section = '${section}'
+  var subsection = '${subsection}'
+  var path = '${path}'
 `
 }
 const AppNexus = props => {
