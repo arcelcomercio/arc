@@ -1,41 +1,67 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-undef */
+/* eslint-disable camelcase */
+
 const MEMBER_ID = 8484
 const adtype = ''
-const spaces = []
+const spaces = [] // TODO: no se usa nunca
 const agente = navigator.userAgent
-const pathname = window.location.pathname
+const pathname = window.location.pathname // TODO: destructurar { pathname }
 const elements_path = pathname.split('/').filter(item => item.match(/(\w+)/g))
 const body_class = document.querySelector('body').getAttribute('class')
 if (agente.includes('Google Page Speed Insights')) site = 'psi'
 
 const getTags = () => {
   const array_tags = []
-  const nota_tags = ''
+  const nota_tags = '' // TODO: cambiar a let
   const tags_section = document.querySelector("meta[name='etiquetas']")
   const findTags = document.querySelectorAll('meta[property="article:tag"]')
+  /**
+   * TODO: se debe usar === en lugar de ==
+   * TODO: evaluar si se puede: 
+   * const tags = tags_section ? tags_section.content : findTags
+   */
   const tags = tags_section == null ? findTags : tags_section.content
-
   if (tags.length) {
     if (tags_section !== null) {
       nota_tags = tags.replace(/ /g, '')
       nota_tags = nota_tags.normalize('NFKD').replace(/[\u0300-\u036F]/g, '')
       nota_tags = nota_tags.toLowerCase()
+      /**
+       * TODO: Lo que se quería hacer realmente era asignar siempre el último elemento
+       * de tags a nota_tags o hacer un mapeo de los elementos, reemplazar y asignar?
+       * en el último caso podrían probar 
+       * "nota_tags = tags.map(el => el.content.replace(/ /g, ''))"
+       * en el primer caso, está OK.
+       */
     } else tags.forEach(el => (nota_tags = el.content.replace(/ /g, '')))
+    /**
+     * TODO: el .split(',') debería hacerse dentro del if que está arriba luego
+     * del nota_tags.toLowerCase() porque no es necesario que se ejecute para el producto
+     * del else, ya que es un array.
+     */
     return nota_tags.split(',')
+
+    /**
+     * TODO: Este else es innecesario, si se cumple el if de arriba siempre hará return
+     * y nunca entrará en el else, si no se cumple el if siempre ejecutará lo que 
+     * sigue sin necesidad de ser un else.
+     */
   } else {
     if (section === 'buscar')
       array_tags.push(
         window.location.search
-          .slice(3)
-          .split('+')
-          .join('')
-          .toLowerCase()
+        .slice(3)
+        .split('+')
+        .join('')
+        .toLowerCase()
       )
-    else if (section == 'tags')
+    else if (section == 'tags') // TODO: se debe usar === en lugar de ==
       array_tags.push(
         elements_path[1]
-          .split('-')
-          .join('')
-          .toLowerCase()
+        .split('-')
+        .join('')
+        .toLowerCase()
       )
     return array_tags
   }
@@ -44,13 +70,28 @@ const getTags = () => {
 const tags = getTags()
 
 const IS_DEBUG = location.href.includes('consoles=true')
+
+/**
+ * TODO: Ternario no necesario, el ternario retorna valor
+ * probar con:
+ * if (IS_DEBUG) console.log(tags)
+ */
 IS_DEBUG ? console.log(tags) : null
 
+/**
+ * TODO: ternario no neceario, usar método .test() que devuelve true/false. 
+ * tampoco es necesario crear grupos, paréntesis no necesarios en la Regex.
+ * probar con:
+ * 
+ * const IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)
+ */
+
+RegExp
 const IS_MOBILE = navigator.userAgent.match(
-  /(iPad)|(iPhone)|(iPod)|(android)|(webOS)|(Windows Phone)/i
-)
-  ? true
-  : false
+    /(iPad)|(iPhone)|(iPod)|(android)|(webOS)|(Windows Phone)/i
+  ) ?
+  true :
+  false
 
 const device = IS_MOBILE ? 'm' : 'd'
 
@@ -75,8 +116,7 @@ const adsParams =
   dataDevice.map(el => {
     return {
       invCode: `${slot}_${el}`,
-      sizes:
-        device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
+      sizes: device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
       allowedformats: ['video', 'banner'],
       targetId: `ads_${device}_${el}`,
     }
@@ -102,13 +142,11 @@ dataFilter.forEach(el => {
           sizes: obj.size,
         },
       },
-      bids: [
-        {
-          bidder: el.name,
+      bids: [{
+        bidder: el.name,
 
-          params: obj.params,
-        },
-      ],
+        params: obj.params,
+      }, ],
     })
   )
 })
@@ -154,8 +192,7 @@ if (adUnits.length > 0) {
       }
       if (bd === 'audienceNetwork') {
         bds[bd] = {
-          adserverTargeting: [
-            {
+          adserverTargeting: [{
               key: 'fb_adid',
               val: bidResponse => bidResponse.fb_adid,
             },
@@ -207,12 +244,14 @@ apntag.anq.push(() => {
       path_name,
     },
   })
-  adsParams.map(val => apntag.defineTag({ ...val }))
+  adsParams.map(val => apntag.defineTag({
+    ...val
+  }))
   //if (IS_DEBUG) console.log('APP NEXUS CARGADO!!!!')
 })
 
 const initWithoutHB = () => {
-  apntag.anq.push(function() {
+  apntag.anq.push(function () {
     apntag.loadTags()
     adsParams.forEach(el =>
       apntag.anq.push(() => {
@@ -383,7 +422,7 @@ const peruRedShowTag = () => {
           })
         })
       }
-      //if (IS_DEBUG) console.log('PERU RED CARGADO!!!!')
+      // if (IS_DEBUG) console.log('PERU RED CARGADO!!!!')
     }
   }
 }
@@ -408,9 +447,9 @@ const inline = data => {
         const adPlace =
           document.getElementById(space.name) || createDiv(space.id)
         const target =
-          typeof space.target === 'string'
-            ? document.querySelector(space.target)
-            : space.target
+          typeof space.target === 'string' ?
+          document.querySelector(space.target) :
+          space.target
         if (target) {
           const childs = [...target.children].filter(
             node => node.nodeName === 'P'
@@ -420,9 +459,9 @@ const inline = data => {
           if (numChilds < 3) {
             target.insertBefore(adPlace, childs[numChilds - 1])
           } else {
-            space.position
-              ? target.insertBefore(adPlace, childs[space.position])
-              : target.insertBefore(adPlace, childs[2])
+            space.position ?
+              target.insertBefore(adPlace, childs[space.position]) :
+              target.insertBefore(adPlace, childs[2])
           }
 
           setTimeout(() => {
@@ -444,12 +483,10 @@ const inline = data => {
 const getTagInline = () => {
   const nameSpace = IS_MOBILE ? 'ads_m_movil3' : 'ads_d_inline'
   return {
-    spaces: [
-      {
-        target: '#contenedor',
-        name: nameSpace,
-        position: 0,
-      },
-    ],
+    spaces: [{
+      target: '#contenedor',
+      name: nameSpace,
+      position: 0,
+    }, ],
   }
 }
