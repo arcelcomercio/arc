@@ -58,12 +58,7 @@ class CardTriplet extends PureComponent {
 
   getFormatFieldsStories() {
     const { data1 = {}, data2 = {}, data3 = {} } = this.state || {}
-
-    return [
-      this.getInstanceSnap(data1, 1),
-      this.getInstanceSnap(data2, 2),
-      this.getInstanceSnap(data3, 3),
-    ]
+    return this.getFormatedData(data1, data2, data3)
   }
 
   getFormatWebskedStories() {
@@ -72,6 +67,10 @@ class CardTriplet extends PureComponent {
     const data1 = contentElements[0] || {}
     const data2 = contentElements[1] || {}
     const data3 = contentElements[2] || {}
+    return this.getFormatedData(data1, data2, data3)
+  }
+
+  getFormatedData(data1, data2, data3) {
     return [
       this.getInstanceSnap(data1, 1),
       this.getInstanceSnap(data2, 2),
