@@ -94,17 +94,22 @@ class BreakingNews extends Component {
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
-          <h2 className={classes.breakingnewsText}>
-          <span className={classes.breakingnewsTag} {...editableField('tags')}>
+        <h2 className={classes.breakingnewsText}>
+          <span
+            className={classes.breakingnewsTag}
+            {...editableField('tags')}
+            suppressContentEditableWarning>
             {tags}:
           </span>
           <span>
-            <a className={classes.breakingnewsLink}
+            <a
+              className={classes.breakingnewsLink}
               // className={classes.breakingnewsLink}
               href={objContent.link}
               target="_blank"
               rel="noopener noreferrer"
-              {...editableField('title')}>
+              {...editableField('title')}
+              suppressContentEditableWarning>
               {objContent.title}
             </a>
           </span>
@@ -117,9 +122,8 @@ class BreakingNews extends Component {
           onKeyPress={this.handleOnclickClose}
           role="button"
           tabIndex={0}>
-          <i className={classes.breakingnewsIcon}></i>
+          <i className={classes.breakingnewsIcon} />
         </div>
-     
       </div>
     )
   }

@@ -30,10 +30,16 @@ class Error404 extends PureComponent {
       <>
         <div role="group" className={classes.container}>
           <i className={classes.icon} />
-          <h3 className={classes.title} {...editableField('title')}>
+          <h3
+            className={classes.title}
+            {...editableField('title')}
+            suppressContentEditableWarning>
             {title}
           </h3>
-          <p className={classes.content} {...editableField('description')}>
+          <p
+            className={classes.content}
+            {...editableField('description')}
+            suppressContentEditableWarning>
             {description}
           </p>
           <div role="search" className={classes.searchBox}>
