@@ -1,0 +1,18 @@
+.triplet{
+    background-color: $color-white;
+    border: 0;
+    &__item{
+        padding: 20px 0 10px;
+        border-bottom: 1px solid $color-green-light;
+    }
+    &__title {
+        color: $color-primary;
+    }
+    &__multimedia{
+        background: red;
+    }
+    &__author{
+        color: $color-gray-light;
+        font-size: 11px;
+    }
+}

@@ -1,0 +1,42 @@
+.featured-story {
+  &__link {
+    color: $color-primary;
+    border: 1px solid $color-primary;
+    padding: 7px 11px;
+    display: inline-block;
+  }
+  &__category {
+    &::after {
+      display: none;
+    }
+  }
+  &__title-link {
+    color: $color-green-dark;
+  }
+  &__author-link {
+    color: $color-gray-light;
+    font-size: 11px;
+  }
+  &__image {
+    position: relative;
+  }
+  &__img-icon {
+    position: absolute;
+    font-size: 50px;
+    color: $color-white;
+  }
+  /* Imagen completa */
+  &--img-complete {
+    .featured-story__img-icon {
+      left: 20px;
+      top: 20px;
+    }
+    .featured-story__link {
+      border: 1px solid $color-white;
+    }
+    .featured-story__title-link,
+    .featured-story__author-link {
+      color: $color-white;
+    }
+  }
+}
