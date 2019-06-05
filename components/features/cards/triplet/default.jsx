@@ -12,13 +12,15 @@ const API_URL = 'story-by-url'
 class CardTriplet extends PureComponent {
   constructor(props) {
     super(props)
-    this.dataCounter = 0
-    this.auxData = { data1: {}, data2: {}, data3: {} }
-    this.getFieldsStories()
+    const { customFields: { webskedId } = {} } = props || {}
+    this.initDataInstance()
+    if (webskedId) this.getWebskedStories()
+    else this.getFieldsStories()
   }
 
   getFieldsStories() {
-    const { customFields: { data1, data2, data3 } = {}, arcSite } = this.props
+    const { customFields: { data1, data2, data3 } = {}, arcSite } =
+      this.props || {}
 
     const fetchDataModel = data => {
       return {
@@ -35,35 +37,66 @@ class CardTriplet extends PureComponent {
     if (fetchData !== {}) this.fetchContent(fetchData)
   }
 
-  render() {
-    const {
-      deployment,
-      contextPath,
-      arcSite,
-      editableField,
-      customFields = {},
-    } = this.props
-    const data = new Data({
+  getWebskedStories() {
+    const { customFields: { webskedId } = {}, arcSite } = this.props || {}
+    this.fetchContent({
+      webskedData: {
+        source: 'story-feed-by-collection',
+        query: { id: webskedId },
+        filter: `
+          content_elements ${schemaFilter(arcSite)}
+        `,
+      },
+    })
+  }
+
+  getInstanceSnap(el, index) {
+    this.data.__data = el
+    this.data.__index = index
+    return this.data.attributesRaw
+  }
+
+  getFormatFieldsStories() {
+    const { data1 = {}, data2 = {}, data3 = {} } = this.state || {}
+
+    return [
+      this.getInstanceSnap(data1, 1),
+      this.getInstanceSnap(data2, 2),
+      this.getInstanceSnap(data3, 3),
+    ]
+  }
+
+  getFormatWebskedStories() {
+    const { webskedData: { content_elements: contentElements = [] } = {} } =
+      this.state || {}
+    const data1 = contentElements[0] || {}
+    const data2 = contentElements[1] || {}
+    const data3 = contentElements[2] || {}
+    return [
+      this.getInstanceSnap(data1, 1),
+      this.getInstanceSnap(data2, 2),
+      this.getInstanceSnap(data3, 3),
+    ]
+  }
+
+  initDataInstance() {
+    const { deployment, contextPath, arcSite, customFields = {} } = this.props
+    this.data = new Data({
       deployment,
       contextPath,
       arcSite,
       customFields,
       defaultImgSize: 'sm',
     })
+  }
 
-    const getInstanceSnap = (el, index) => {
-      data.__data = el
-      data.__index = index
-      return data.attributesRaw
-    }
+  render() {
+    const { arcSite, editableField, customFields = {} } = this.props
+    const { webskedId } = customFields
 
-    const { data1 = {}, data2 = {}, data3 = {} } = this.state || {}
-
-    const dataFormatted = [
-      getInstanceSnap(data1, 1),
-      getInstanceSnap(data2, 2),
-      getInstanceSnap(data3, 3),
-    ]
+    const dataFormatted = webskedId
+      ? this.getFormatWebskedStories()
+      : this.getFormatFieldsStories()
     const params = {
       data: dataFormatted,
       arcSite,
