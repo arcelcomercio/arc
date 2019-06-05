@@ -39,7 +39,7 @@ const OPTA_JS_LINK =
 
 @Consumer
 class ArticleBody extends PureComponent {
-  handleOptaWidget = ({ id, css, js }) => {
+  handleOptaWidget = ({ id, css, js, async }) => {
     appendToHead(
       createScript({
         textContent: `
@@ -53,6 +53,7 @@ class ArticleBody extends PureComponent {
     appendToHead(
       createScript({
         src: js,
+        async,
       })
     )
     appendToHead(createLink(css))
@@ -95,6 +96,7 @@ class ArticleBody extends PureComponent {
                       id: opta,
                       css: OPTA_CSS_LINK,
                       js: OPTA_JS_LINK,
+                      async: true,
                     })
                 }
                 if (type === 'image') {
