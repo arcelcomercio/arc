@@ -40,24 +40,37 @@ describe('Extraordinary story - Component', () => {
     expect(wrapper).toBeDefined()
   })
 
-  test('should render get icon gallery', () => {
-    params.arcSite = 'elcomercio'
-    getIcon.mockReturnValueOnce('G')
-    const wrapper = shallow(<ExtraordinaryStory {...params} />)
-    expect(wrapper).toBeDefined()
-  })
-
-  test("should don't render get icon gallery", () => {
-    params.arcSite = 'elcomercio'
-    getIcon.mockImplementation(() => 'video')
-    const wrapper = shallow(<ExtraordinaryStory {...params} />)
-    expect(wrapper).toBeDefined()
-  })
-
   test('allows us to set props', () => {
     params.arcSite = 'elcomercio'
     const wrapper = mount(<ExtraordinaryStory {...params} />)
     wrapper.setProps({ multimediaType: 'basic_video' })
     expect(wrapper.props().multimediaType).toBe('basic_video')
+  })
+
+  describe('getIcon - function', () => {
+    beforeEach(() => {
+      // jest.resetModules()
+      getIcon.mockReset()
+    })
+
+    test('should render icon gallery', () => {
+      params.arcSite = 'elcomercio'
+      getIcon.mockReturnValueOnce('G')
+      const wrapper = shallow(<ExtraordinaryStory {...params} />)
+      expect(wrapper).toBeDefined()
+    })
+
+    test("should don't render icon gallery", () => {
+      params.arcSite = 'elcomercio'
+      getIcon.mockImplementation(() => 'video')
+      const wrapper = shallow(<ExtraordinaryStory {...params} />)
+      expect(wrapper).toBeDefined()
+    })
+
+    test("should call one times 'getIcon()'", () => {
+      params.arcSite = 'elcomercio'
+      shallow(<ExtraordinaryStory {...params} />)
+      expect(getIcon).toHaveBeenCalledTimes(1)
+    })
   })
 })
