@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
 /* eslint-disable camelcase */
@@ -97,13 +98,15 @@ const device = IS_MOBILE ? 'm' : 'd'
 // VERSIÓN DESKTOP
 if (body_class.includes('nota')) {
   const get_tipo_nota = document.querySelector("meta[name='typeNota']")
-  const tipo_nota = get_tipo_nota.content || null
+  const tipo_nota = get_tipo_nota.content || null // TODO: no se usa
 }
 
 const PREBID_TIMEOUT = 3000
 const BIDDER_PERCENTAGE = 0.85
 
-let pbjs = pbjs || {}
+// eslint-disable-next-line no-use-before-define
+let pbjs = pbjs || {} // TODO: cambiar por const en lugar de let
+// pbjs viene de lib
 pbjs.que = pbjs.que || []
 
 const slot = `${site}_${device}_${type_space}`
@@ -211,25 +214,26 @@ if (adUnits.length > 0) {
 
     pbjs.addAdUnits(adUnits)
     pbjs.requestBids({
-      bidsBackHandler: bidResponses => {
-        initAdserver()
+      bidsBackHandler: bidResponses => { // TODO: se recibe esta respuesta pero nunca se usa
+        initAdserver() // TODO: se usa la función antes de ser definida.
         if (!document.location.href.includes('/mag.')) {
-          const tag_inline = getTagInline()
-          inline(tag_inline)
+          const tag_inline = getTagInline() // TODO: se usa la función antes de ser definida.
+          inline(tag_inline) // TODO: se usa la función antes de ser definida.
         }
-        peruRedShowTag()
+        peruRedShowTag() // TODO: se usa la función antes de ser definida.
       },
       timeout: PREBID_TIMEOUT,
     })
   })
 
-  //if (IS_DEBUG) console.log('HEADER BIDDING CARGADO')
+  // if (IS_DEBUG) console.log('HEADER BIDDING CARGADO')
 }
 
+// TODO: si realmente se necesita usar var, ubicar esta declaración en la parte superior de la función
 var apntag = apntag || {}
 apntag.anq = apntag.anq || []
 
-//END EVENTS
+// END EVENTS
 apntag.anq.push(() => {
   apntag.setPageOpts({
     member: MEMBER_ID,
@@ -246,7 +250,7 @@ apntag.anq.push(() => {
   adsParams.map(val => apntag.defineTag({
     ...val
   }))
-  //if (IS_DEBUG) console.log('APP NEXUS CARGADO!!!!')
+  // if (IS_DEBUG) console.log('APP NEXUS CARGADO!!!!')
 })
 
 const initWithoutHB = () => {
@@ -258,15 +262,15 @@ const initWithoutHB = () => {
       })
     )
     if (!document.location.href.includes('/mag.')) {
-      const tag_inline = getTagInline()
-      inline(tag_inline)
+      const tag_inline = getTagInline() // TODO: se usa la función antes de ser definida.
+      inline(tag_inline) // TODO: se usa la función antes de ser definida.
     }
-    peruRedShowTag()
+    peruRedShowTag() // TODO: se usa la función antes de ser definida.
   })
 }
 
-if (adUnits.length == 0) {
-  //if (IS_DEBUG) console.log(adUnits)
+if (adUnits.length == 0) { // TODO: usar === en lugar de ==
+  // if (IS_DEBUG) console.log(adUnits)
   initWithoutHB()
 }
 
@@ -335,11 +339,11 @@ const peruRedShowTag = () => {
         },
       })
     }
-    adtype = device
+    adtype = device // TODO: adtype es una constante en la parte superior, cambiar por let o var
     apntag.loadTags()
     const cntPerured = document.querySelector(`#cnt-perured-${adtype}`)
 
-    if (cntPerured != undefined) {
+    if (cntPerured != undefined) { // TODO: usar !== en lugar de !=
       for (let index = 1; index <= 3; index++) {
         const id = `an-${adtype}-ad-${index}`
         const div = createDiv(id)
@@ -354,17 +358,23 @@ const peruRedShowTag = () => {
             document.querySelector(`.perured-footer-${adtype}`).style.display =
               'block'
 
-            if (adObj.adType == 'native') {
+            if (adObj.adType == 'native') { // TODO: usar === en lugar de ==
               const ad = document.getElementById(adObj.targetId)
 
               const nObj = adObj.native
+              // TODO: destructurar - const { clickUrl, title, body } = nObj
               const clickUrl = nObj.clickUrl
               const title = nObj.title
               const body = nObj.body
               const sponsor =
-                typeof nObj.sponsoredBy == 'undefined' ? '' : nObj.sponsoredBy
+                typeof nObj.sponsoredBy == 'undefined' ? '' : nObj.sponsoredBy // TODO: === no ==
+              /**
+               * TODO: manejar el error de mejor manera
+               * probar con:
+               * const { image: { url: imgSrc } = {} } = nObj
+               */
               const imgSrc = nObj.image && nObj.image.url
-              const cta = typeof nObj.cta == 'undefined' ? 'Leer más' : nObj.cta
+              const cta = typeof nObj.cta == 'undefined' ? 'Leer más' : nObj.cta // TODO: === no ==
 
               const template = `
                       <a href="${clickUrl}" target="_blank" style="text-decoration:none;">
@@ -385,12 +395,14 @@ const peruRedShowTag = () => {
 
               // collect and fire off the trackers
               const impTrackers = nObj.impressionTrackers || []
+              // TODO: se usa la función antes de ser definida.
               const jsTrackers = parseJsTrackers(nObj.javascriptTrackers) || []
+              // TODO: destructurar - const { clickTrackers } = nObj
               const clickTrackers = nObj.clickTrackers
 
               // fire imp trackers
               impTrackers.forEach(el => {
-                fireRequest(el)
+                fireRequest(el) // TODO: se usa la función antes de ser definida.
               })
 
               jsTrackers.forEach(el => {
@@ -413,7 +425,7 @@ const peruRedShowTag = () => {
               clickable.forEach(node => {
                 node.addEventListener('click', () => {
                   clickTrackers.forEach(el => {
-                    fireRequest(el)
+                    fireRequest(el) // TODO: se usa la función antes de ser definida.
                   })
                 })
               })
@@ -440,6 +452,7 @@ const parseJsTrackers = str => {
 
 const inline = data => {
   if (body_class.includes('nota')) {
+    // TODO: desctructurar - const { spaces } = data
     const spaces = data.spaces
     if (spaces && Array.isArray(spaces)) {
       spaces.forEach(space => {
@@ -458,6 +471,7 @@ const inline = data => {
           if (numChilds < 3) {
             target.insertBefore(adPlace, childs[numChilds - 1])
           } else {
+            // TODO: usar else if, no es necesario el ternario (retorna una valor)
             space.position ?
               target.insertBefore(adPlace, childs[space.position]) :
               target.insertBefore(adPlace, childs[2])
