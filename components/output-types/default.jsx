@@ -4,6 +4,7 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
+import AppNexus from './_children/appnexus'
 
 export default ({
   children,
@@ -84,6 +85,12 @@ export default ({
   return (
     <html lang="es">
       <head>
+        <AppNexus
+          arcSite={arcSite}
+          requestUri={requestUri}
+          port={metaValue('port')}
+          isStory={isArticle}
+        />
         <TagManager {...siteProperties} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -104,7 +111,7 @@ export default ({
           href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap"
           rel="stylesheet"
         />
-
+        <script src="https://jab.pe/f/arc/data_js.js" async />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
@@ -113,11 +120,23 @@ export default ({
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
 
+        {/* Scripts de APPNEXUS */}
+        <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js" />
+        <script
+          src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+          async
+        />
+        <script
+          type="text/javascript"
+          src="//acdn.adnxs.com/ast/ast.js"
+          async
+        />
+        {/* Scripts de APPNEXUS */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
         <Libs />
       </head>
-      <body className={isArticle && 'article'}>
+      <body className="article">
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -132,6 +151,12 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
+        <script
+          async
+          src={deployment(
+            `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
+          )}
+        />
         <script
           async
           src={deployment(
