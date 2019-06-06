@@ -228,14 +228,13 @@ export const getMetaPagesPagination = (
 ) => {
   const { next, previous } = globalContent || {}
   const pages = {
-    current: requestUri.match(patternPagination)
-      ? parseInt(
-          requestUri
-            .match(patternPagination)[0]
-            .split(`${isQuery ? '=' : '/'}`)[1],
-          10
-        )
-      : 1,
+    current: requestUri.match(patternPagination) ?
+      parseInt(
+        requestUri
+        .match(patternPagination)[0]
+        .split(`${isQuery ? '=' : '/'}`)[1],
+        10
+      ) : 1,
     next: false,
     prev: false,
   }
@@ -324,7 +323,16 @@ export const defaultImage = ({
   )
 }
 
+<<<<<<< HEAD
 export const createScript = ({ src, async, textContent = '' }) => {
+=======
+export const createScript = ({
+  src,
+  async,
+  defer,
+  textContent = ''
+}) => {
+>>>>>>> 03585aec484fe3399a2c1ec933a5831aaaccf1d4
   const node = document.createElement('script')
   if (src) {
     node.type = 'text/javascript'
@@ -332,6 +340,9 @@ export const createScript = ({ src, async, textContent = '' }) => {
   }
   if (async) {
     node.async = true
+  }
+  if (defer) {
+    node.defer = true
   }
   node.textContent = textContent
   return node
@@ -344,6 +355,12 @@ export const createLink = url => {
   return node
 }
 
+<<<<<<< HEAD
 export const appendToHead = node => {
   document.head.appendChild(node)
 }
+=======
+export const appendToBody = node => {
+  document.body.appendChild(node)
+}
+>>>>>>> 03585aec484fe3399a2c1ec933a5831aaaccf1d4

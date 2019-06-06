@@ -3,30 +3,30 @@ import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 
 const classes = {
-  featuredStory: 'featured-story padding-normal flex flex--column row-1',
-  gradient: 'featured-story__gradient full-width block',
+  featuredStory: 'featured-story position-relative padding-normal flex',
   detail: 'featured-story__detail flex flex--column flex--justify-between',
-  image: 'featured-story__image',
-  multimediaIconContainer: 'featured-story__multimedia-icon',
-  multimediaIconSpan: 'featured-story__multimedia-icon-span',
+  image: 'featured-story__image overflow-hidden full-width full-height',
+  multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
+  multimediaIconSpan:
+    'featured-story__multimedia-icon-span flex-center full-width full-height',
 
-  category: 'featured-story__category',
-  title: 'featured-story__title',
+  category: 'featured-story__category pd-bottom-15',
+  title: 'featured-story__title overflow-hidden',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
-  author: 'featured-story__author',
+  author: 'featured-story__author text-uppercase',
 
   link: 'featured-story__link',
-  imageLink: 'block featured-story__img-link',
-  img: 'full-width featured-story__img',
+  imageLink: 'block full-height',
+  img: 'full-width full-height object-fit-cover',
 
-  imgComplete: 'featured-story--img-complete',
-  parcialTop: 'flex--column-reverse',
+  imgComplete: 'img-complete flex--justify-end',
+  parcialTop: 'featured-story--reverse',
 
   twoCol: 'col-2',
   // Headbands
-  headband: 'featured-story__headband',
+  headband: 'featured-story__headband mg-bottom-5',
   headbandLink: 'featured-story__headband-link',
 
   live: 'featured-story--live',
@@ -45,7 +45,8 @@ export default class FeaturedStory extends Component {
       imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
       headband, // OPCIONAL, otros valores: "live"
       size, // Se espera "oneCol" o "twoCol"
-      // editableField, // OPCIONAL, o pasar la función editableField de los props
+      hightlightOnMobile,
+      editableField, // OPCIONAL, o pasar la función editableField de los props
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
@@ -70,12 +71,12 @@ export default class FeaturedStory extends Component {
       return ''
     }
 
-    /* const getEditableField = element => {
+    const getEditableField = element => {
       if (editableField) {
         return editableField(element)
       }
       return null
-    } */
+    }
 
     const getMultimediaIcon = () => {
       let icon
@@ -95,7 +96,7 @@ export default class FeaturedStory extends Component {
         </span>
       )
     }
-
+    // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
     let numline = ''
     switch (arcSite) {
       case 'elcomercio':
@@ -114,19 +115,15 @@ export default class FeaturedStory extends Component {
           classes.featuredStory
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === 'twoCol' ? classes.twoCol : ''
-        }`}>
-        {(imageSize === 'complete' || size === 'twoCol') && (
-          <span className={classes.gradient} />
-        )}
+        } ${hightlightOnMobile ? 'expand' : ''}`}>
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
             <h3 className={classes.category}>
               <a
                 className={classes.link}
                 href={category.url}
-                /* {...getEditableField('categoryField')}
-              suppressContentEditableWarning */
-              >
+                {...getEditableField('categoryField')}
+                suppressContentEditableWarning>
                 {categoryField || category.name}
               </a>
             </h3>
@@ -139,13 +136,12 @@ export default class FeaturedStory extends Component {
               </a>
             </div>
           )}
-          <h2 className={`${classes.title} ${numline}`}>
+          <h2 className={classes.title}>
             <a
-              className={classes.link}
+              className={`${classes.link} ${numline}`}
               href={title.url}
-              /* {...getEditableField('titleField')}
-            suppressContentEditableWarning */
-            >
+              {...getEditableField('titleField')}
+              suppressContentEditableWarning>
               {titleField || title.name}
             </a>
           </h2>
@@ -184,7 +180,8 @@ FeaturedStory.propTypes = {
   imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialBot']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf(['oneCol', 'twoCol']),
-  // editableField: PropTypes.func,
+  hightlightOnMobile: PropTypes.bool,
+  editableField: PropTypes.func,
   titleField: PropTypes.string,
   categoryField: PropTypes.string,
   multimediaType: PropTypes.oneOf([

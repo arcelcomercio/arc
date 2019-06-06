@@ -5,7 +5,7 @@ import ArcArticleBody, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
 import {
-  appendToHead,
+  appendToBody,
   createLink,
   createScript,
 } from '../../../utilities/helpers'
@@ -39,8 +39,8 @@ const OPTA_JS_LINK =
 
 @Consumer
 class ArticleBody extends PureComponent {
-  handleOptaWidget = ({ id, css, js }) => {
-    appendToHead(
+  handleOptaWidget = ({ id, css, js, defer }) => {
+    appendToBody(
       createScript({
         textContent: `
         var opta_settings={
@@ -50,12 +50,13 @@ class ArticleBody extends PureComponent {
         };`,
       })
     )
-    appendToHead(
+    appendToBody(
       createScript({
         src: js,
+        defer,
       })
     )
-    appendToHead(createLink(css))
+    appendToBody(createLink(css))
   }
 
   render() {
@@ -87,16 +88,6 @@ class ArticleBody extends PureComponent {
               elementClasses={classes}
               renderElement={element => {
                 const { _id, type, subtype, raw_oembed: rawOembed } = element
-                if (type === 'raw_html') {
-                  const { content } = element
-                  /* Si encuentra opta-widget agrega scripts a <head> */
-                  if (content.includes('opta-widget'))
-                    this.handleOptaWidget({
-                      id: opta,
-                      css: OPTA_CSS_LINK,
-                      js: OPTA_JS_LINK,
-                    })
-                }
                 if (type === 'image') {
                   return (
                     <ArticleBodyChildArticleImage
@@ -141,6 +132,17 @@ class ArticleBody extends PureComponent {
                       id={_id}
                     />
                   )
+                }
+                if (type === 'raw_html') {
+                  const { content } = element
+                  /* Si encuentra opta-widget agrega scripts a <head> */
+                  if (content.includes('opta-widget'))
+                    this.handleOptaWidget({
+                      id: opta,
+                      css: OPTA_CSS_LINK,
+                      js: OPTA_JS_LINK,
+                      defer: true,
+                    })
                 }
                 return ''
               }}

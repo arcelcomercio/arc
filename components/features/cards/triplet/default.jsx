@@ -7,65 +7,95 @@ import Data from './_dependencies/data'
 import { TripletChildTriplet as Triplet } from './_children/triplet'
 
 const API_URL = 'story-by-url'
-const DATA_KEY = 'data'
-const DATA_LENGTH = 3
 
 @Consumer
 class CardTriplet extends PureComponent {
   constructor(props) {
     super(props)
-    this.dataCounter = 0
-    this.auxData = { data1: {}, data2: {}, data3: {} }
-    this.state = { data1: {}, data2: {}, data3: {} }
+    const { customFields: { webskedId } = {} } = props || {}
+    this.initDataInstance()
+    if (webskedId) this.getWebskedStories()
+    else this.getFieldsStories()
   }
 
-  componentDidMount() {
-    this.exec()
-  }
+  getFieldsStories() {
+    const { customFields: { data1, data2, data3 } = {}, arcSite } =
+      this.props || {}
 
-  setAuxData(data, i) {
-    this.auxData[DATA_KEY + i] = data || {}
-    this.dataCounter += 1
-    if (this.dataCounter === DATA_LENGTH) this.setState(this.auxData)
-  }
-
-  exec() {
-    const { customFields = {}, arcSite } = this.props
-
-    for (let i = 1; i <= DATA_LENGTH; i++) {
-      if (customFields[DATA_KEY + i]) {
-        const { fetched } = this.getContent(
-          API_URL,
-          { website_url: customFields[DATA_KEY + i], website: arcSite },
-          schemaFilter(arcSite)
-        )
-        fetched.then(response => this.setAuxData(response, i))
-      } else this.setAuxData({}, i)
+    const fetchDataModel = data => {
+      return {
+        source: API_URL,
+        query: { website_url: data },
+        filter: schemaFilter(arcSite),
+      }
     }
+    const fetchData = {}
+
+    if (data1) fetchData.data1 = fetchDataModel(data1)
+    if (data2) fetchData.data2 = fetchDataModel(data2)
+    if (data3) fetchData.data3 = fetchDataModel(data3)
+    if (fetchData !== {}) this.fetchContent(fetchData)
   }
 
-  render() {
-    const {
-      deployment,
-      contextPath,
-      arcSite,
-      editableField,
-      customFields = {},
-    } = this.props
-    const data = new Data({
+  getWebskedStories() {
+    const { customFields: { webskedId } = {}, arcSite } = this.props || {}
+    this.fetchContent({
+      webskedData: {
+        source: 'story-feed-by-collection',
+        query: { id: webskedId },
+        filter: `
+          content_elements ${schemaFilter(arcSite)}
+        `,
+      },
+    })
+  }
+
+  getInstanceSnap(el, index) {
+    this.data.__data = el
+    this.data.__index = index
+    return this.data.attributesRaw
+  }
+
+  getFormatFieldsStories() {
+    const { data1 = {}, data2 = {}, data3 = {} } = this.state || {}
+    return this.getFormatedData(data1, data2, data3)
+  }
+
+  getFormatWebskedStories() {
+    const { webskedData: { content_elements: contentElements = [] } = {} } =
+      this.state || {}
+    const data1 = contentElements[0] || {}
+    const data2 = contentElements[1] || {}
+    const data3 = contentElements[2] || {}
+    return this.getFormatedData(data1, data2, data3)
+  }
+
+  getFormatedData(data1, data2, data3) {
+    return [
+      this.getInstanceSnap(data1, 1),
+      this.getInstanceSnap(data2, 2),
+      this.getInstanceSnap(data3, 3),
+    ]
+  }
+
+  initDataInstance() {
+    const { deployment, contextPath, arcSite, customFields = {} } = this.props
+    this.data = new Data({
       deployment,
       contextPath,
       arcSite,
       customFields,
       defaultImgSize: 'sm',
     })
-    const allDataResponse = this.state
-    const dataFormatted = Object.keys(allDataResponse).map((el, index) => {
-      data.__data = allDataResponse[el]
-      data.__index = index + 1
-      return data.attributesRaw
-    })
+  }
 
+  render() {
+    const { arcSite, editableField, customFields = {} } = this.props
+    const { webskedId } = customFields
+
+    const dataFormatted = webskedId
+      ? this.getFormatWebskedStories()
+      : this.getFormatFieldsStories()
     const params = {
       data: dataFormatted,
       arcSite,
