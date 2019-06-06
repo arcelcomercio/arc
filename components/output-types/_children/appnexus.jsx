@@ -29,9 +29,9 @@ const getVars = ({ arcSite, isStory, requestUri, port = 'port1' }) => {
       const sectionList = path.split('/').slice(1)
       section =
         sectionList[0] === 'noticia' ? 'tags' : sectionList[0].replace('-', '')
-      const slugStory = sectionList[sectionList.length - 1]
+      const storySlug = sectionList[sectionList.length - 1]
       const hasStory =
-        slugStory.endsWith('-noticia') || slugStory.endsWith('-noticia/')
+        storySlug.endsWith('-noticia') || storySlug.endsWith('-noticia/')
       if (
         (hasStory && sectionList.length >= 3) ||
         (!hasStory && sectionList.length >= 2)
