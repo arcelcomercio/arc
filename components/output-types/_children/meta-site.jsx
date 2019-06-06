@@ -12,6 +12,7 @@ export default ({
   arcSite = '',
   contextPath = '',
   isArticle,
+  isAmp,
 } = {}) => {
   const structuredData = `{
     "@context" : "http://schema.org",
@@ -39,12 +40,14 @@ export default ({
 
   return (
     <>
-      <link
-        rel="stylesheet"
-        href={deployment(
-          `${contextPath}/resources/dist/${arcSite}/css/style.css`
-        )}
-      />
+      {isAmp === false && (
+        <link
+          rel="stylesheet"
+          href={deployment(
+            `${contextPath}/resources/dist/${arcSite}/css/style.css`
+          )}
+        />
+      )}
       <link
         rel="icon"
         type="image/x-icon"

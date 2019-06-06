@@ -3,9 +3,9 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 const classes = {
-  footer: 'amp-footer',
+  footer: 'amp-footer flex-center-vertical',
   footerInfo: 'amp-footer__info ',
-  footerLogoContainer: 'amp-footer__logo ',
+  footerLogoContainer: 'amp-footer__text ',
 }
 
 @Consumer
@@ -16,7 +16,11 @@ class LayoutAmpFooter extends PureComponent {
   }
 
   render() {
-    const { contextPath, requestUri } = this.props
+    const {
+      contextPath,
+      requestUri,
+      globalContent: { taxonomy: { primary_section: { name = '' } = {} } } = {},
+    } = this.props
 
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
@@ -27,7 +31,7 @@ class LayoutAmpFooter extends PureComponent {
           <a
             href={`${contextPath || ''}/${queryString}`}
             className={classes.footerLogoContainer}>
-            <span>Ir a portada</span>
+            <span>Ver más de {name}</span>
           </a>
         </div>
       </footer>
