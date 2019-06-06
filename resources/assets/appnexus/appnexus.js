@@ -86,7 +86,6 @@ IS_DEBUG ? console.log(tags) : null
  * const IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)
  */
 
-
 const IS_MOBILE = navigator.userAgent.match(
     /(iPad)|(iPhone)|(iPod)|(android)|(webOS)|(Windows Phone)/i
   ) ?
