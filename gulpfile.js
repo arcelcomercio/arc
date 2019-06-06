@@ -11,7 +11,7 @@ const outputBrands = buildSites.map(brand => `./resources/dist/${brand}/js`)
 
 gulp.task('default', () =>
   gulp
-    .src('./resources/assets/appnexus/*.js')
+    .src('./src/appnexus/*.js')
     .pipe(
       babel({
         presets: ['@babel/env'],

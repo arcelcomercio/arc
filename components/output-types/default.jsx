@@ -154,7 +154,7 @@ export default ({
         <script
           async
           src={deployment(
-            `${contextPath}/resources/dist/elcomercio/js/appnexus.js`
+            `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
           )}
         />
         <script
