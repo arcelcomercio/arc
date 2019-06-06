@@ -80,6 +80,7 @@ StoriesListSectionStories.propTypes = {
 }
 
 StoriesListSectionStories.label = 'Listado de Sección'
-StoriesListSectionStories.static = true
+// Static true no sirve
+// StoriesListSectionStories.static = true
 
 export default StoriesListSectionStories
