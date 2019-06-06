@@ -28,11 +28,10 @@ export const TripletChildTriplet = props => {
       numline = classes.twoline
       break
   }
-
   return (
     <div className={classes.triplet}>
       {data.map(story => (
-        <article className={classes.tripletItem}>
+        <article className={classes.tripletItem} key={`triplet-${story.index}`}>
           <div className={`${classes.tripletTitle} ${numline}`}>
             <h2>
               <a href={story.link}>{story.title}</a>
