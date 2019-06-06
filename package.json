@@ -69,7 +69,7 @@
     "dev:amp": "webpack --config ./config/webpack.config.js --env.dev --env.amp",
     "prod:amp": "webpack --config ./config/webpack.config.js --env.prod --env.amp",
     "watch:amp": "webpack --config ./config/webpack.config.js --watch --env.dev --env.amp",
-    "dev": "webpack --config ./config/webpack.config.js --env.dev && webpack --config ./config/webpack.config.apn.js --mode development && gulp ",
+    "dev": "webpack --config ./config/webpack.config.js --env.dev && gulp ",
     "prod": "webpack --config ./config/webpack.config.js --env.prod && gulp",
     "watch": "webpack --config ./config/webpack.config.js --watch --env.dev ",
     "dev:all": "webpack --config ./config/webpack.config.js --env.dev && webpack --config ./config/webpack.config.js --env.dev --env.amp",
