@@ -1,6 +1,7 @@
 .amp-content {
   background-color: $color-white;
-
+  max-width: 600px;
+  margin: 0 auto;
   &__news-text {
     line-height: 1.42857143;
     color: #333;
@@ -25,6 +26,13 @@
   .visual__image {
     margin-left: -20px;
     margin-right: -20px;
+  }
+
+  &__news-text {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    word-wrap: break-word;
   }
 
   .pquote {
@@ -76,16 +84,13 @@
     height: 0%;
   }
 
-  section > p {
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 25px;
-    word-wrap: break-word;
-  }
-
   &__tag-title {
     color: #4aa8fa;
     font: 700 12px/1 $primary-font;
+  }
+
+  &__tags {
+    margin: 25px 0 20px;
   }
 
   &__tag-item {

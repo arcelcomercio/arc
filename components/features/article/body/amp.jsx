@@ -17,6 +17,7 @@ const classes = {
   textClasses: 'amp-content__news-text text',
   author: 'amp-content__author',
   tags: 'amp-content',
+  image: 'amp-content__image',
 }
 
 @Consumer
@@ -38,7 +39,7 @@ class ArticleAMPArticleBody extends PureComponent {
         {contentElements && (
           <ArticleBody
             data={contentElements}
-            classes={classes}
+            elementClasses={classes}
             renderElement={element => {
               const {
                 type,
@@ -72,7 +73,14 @@ class ArticleAMPArticleBody extends PureComponent {
                 )
               }
               if (type === 'image') {
-                return <AmpImage {...element} layout="responsive" />
+                return (
+                  <AmpImage
+                    {...element}
+                    ImgTag="amp-img"
+                    imgClassName={classes.image}
+                    layout="responsive"
+                  />
+                )
               }
               if (type === 'video') {
                 return (

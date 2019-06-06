@@ -39,6 +39,7 @@ export default ({
     contextPath,
     deployment,
     isArticle,
+    isAmp: false,
   }
 
   const title =

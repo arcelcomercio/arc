@@ -61,7 +61,7 @@ export default {
         url: 'https://twitter.com/elcomercio_peru',
       },
       {
-        name: 'google+',
+        name: 'youtube',
         url: 'https://plus.google.com/u/0/+elcomerciope',
       },
     ],
