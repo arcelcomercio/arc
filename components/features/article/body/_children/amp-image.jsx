@@ -7,7 +7,7 @@ const classes = {
   description: 'news-media-description text-left',
 }
 
-const ArticleBodyChildArticleImage = props => {
+const ArticleBodyChildArticleAmpImage = props => {
   const { data } = props
   return (
     <>
@@ -29,4 +29,4 @@ const ArticleBodyChildArticleImage = props => {
   )
 }
 
-export default ArticleBodyChildArticleImage
+export default ArticleBodyChildArticleAmpImage

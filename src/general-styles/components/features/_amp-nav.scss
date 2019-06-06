@@ -48,9 +48,6 @@
     }
   }
 
-  &__list {
-  }
-
   &__list-link {
     color: $color-gray-light;
     transition: 0.3s;
@@ -61,14 +58,6 @@
 
     &:hover {
       color: $color-gray;
-    }
-  }
-
-  &__header-sub {
-    display: none;
-
-    @media (--tablet) {
-      display: inline-block;
     }
   }
 
