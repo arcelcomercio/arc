@@ -1,26 +1,18 @@
 .amp-footer {
   background-color: $footer-background;
-  text-align: center;
-  padding: 15px 0;
+  padding: 26px 0;
 
   &__info {
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+    margin: 0 auto;
+    background: url(https://assets.elcomercio.pe/images/elcomercio/arrow-right-3.png)
+      100% 0% no-repeat;
   }
 
-  &__logo {
-    background: url('https://assets.elcomercio.pe/images/elcomercio/arrow-left-3.png')
-        0 $footer-logo-background no-repeat,
-      url('https://assets.elcomercio.pe/images/elcomercio/letra-c-white.png')
-        $footer-logo-background2 no-repeat;
-    padding: $footer-logo-padding;
+  &__text {
     color: $footer-text-color;
-    font: 700 18px/1.1 'Roboto', sans-serif;
-    height: 47px;
+    font: 700 18px/1.1 $primary-font;
     text-transform: uppercase;
-    text-decoration: underline;
     display: inline-block;
+    padding-right: 25px;
   }
 }

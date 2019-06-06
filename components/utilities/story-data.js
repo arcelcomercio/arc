@@ -256,18 +256,18 @@ class StoryData {
 
   static getSeoMultimedia(
     {
-      basic_video: basicVideo,
-      basic_gallery: basicGallery,
+      basic_video: basicVideo = {},
+      basic_gallery: basicGallery = {},
       basic: basicImage = '',
     } = {},
     type = ''
   ) {
     if (basicVideo && (type === 'video' || type === 'image')) {
       const {
-        promo_image: { url: urlImage },
-        streams,
-        publish_date: date,
-        headlines: { basic: caption } = {},
+        streams = [],
+        publish_date: date = '',
+        promo_image: { url: urlImage = '' } = {},
+        headlines: { basic: caption = '' } = {},
       } = basicVideo
       if (type === 'video') {
         const dataVideo = streams

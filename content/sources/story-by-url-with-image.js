@@ -15,12 +15,12 @@ const fetch = key => {
   const websiteUrl = key.website_url
 
   return request({
-    uri: `${CONTENT_BASE}content/v4/?website=${site}&website_url=${websiteUrl}`,
+    uri: `${CONTENT_BASE}/content/v4/?website=${site}&website_url=${websiteUrl}`,
     ...options,
   }).then(collectionResp => {
     const resultStory = collectionResp
     return request({
-      uri: `${CONTENT_BASE}content/v4/related-content/stories?_id=${
+      uri: `${CONTENT_BASE}/content/v4/related-content/stories?_id=${
         resultStory._id
       }&website=${site}&published=true`,
       ...options,
