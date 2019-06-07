@@ -1,0 +1,43 @@
+.info-pages {
+  font-family: $secondary-font;
+  line-height: 1.5;
+  font-size: 13px;
+  padding: 3% 6%;
+  background-color: #e7ede9;
+
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+  }
+  & * p {
+    margin: 0 0 20px;
+  }
+  & * ul {
+    list-style: initial;
+    margin: 0 0 20px;
+  }
+  & * ol {
+    list-style: decimal;
+    margin: 0 0 20px;
+  }
+  & * li {
+    padding: 5px 0;
+    margin-left: 20px;
+  }
+  & * table {
+    background-color: #e0e0e0;
+    border-collapse: inherit;
+    border-spacing: 1px;
+    margin-bottom: 30px;
+    table-layout: fixed;
+    width: 100%;
+  }
+  & * td {
+    background-color: #fff;
+    font-size: 13px;
+    padding: 7px 10px;
+    word-wrap: break-word;
+  }
+}

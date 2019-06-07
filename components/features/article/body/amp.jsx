@@ -5,62 +5,33 @@ import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import AmpImage from '@arc-core-components/element_image'
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import schemaFilter from './_dependencies/schema-filter'
 import ElePrincipal from './_children/amp-ele-principal'
 import ArticleBodyChildVideo from './_children/video'
-import ArticleBodyChildTable from './_children/table'
+import ArticleBodyChildTable from '../../../global-components/article-table'
 import ArticleBodyChildBlockQuote from './_children/blockquote'
 import ArticleBodyChildTags from './_children/tags'
 import ArticleBodyChildRelated from './_children/related'
 
 const classes = {
-  content: 'amp-content',
-  textClasses: 'amp-content__news-text',
+  content: 'amp-content pd-left-20 pd-right-20',
+  textClasses: 'amp-content__news-text text',
   author: 'amp-content__author',
   tags: 'amp-content',
+  image: 'amp-content__image',
 }
 
 @Consumer
 class ArticleAMPArticleBody extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      dataRelated: [],
-    }
-
-    this.getContentApi()
-  }
-
-  getContentApi = () => {
-    const {
-      arcSite,
-      globalContent: { _id: id },
-    } = this.props
-
-    const { fetched } = this.getContent(
-      'story-by-related',
-      { _id: id, website: arcSite },
-      schemaFilter
-    )
-    fetched.then(response => {
-      const { basic: element } = response
-      this.setState({
-        dataRelated: element || [],
-      })
-    })
-  }
-
   render() {
     const {
       globalContent: {
         content_elements: contentElements,
         promo_items: promoItems,
         taxonomy: { tags = {} },
+        related_content: { basic: relatedContent } = {},
       },
+      contextPath,
     } = this.props
-    const { dataRelated } = this.state
-
     return (
       <div className={classes.content}>
         {promoItems && <ElePrincipal data={promoItems} />}
@@ -68,7 +39,7 @@ class ArticleAMPArticleBody extends PureComponent {
         {contentElements && (
           <ArticleBody
             data={contentElements}
-            classes={classes}
+            elementClasses={classes}
             renderElement={element => {
               const {
                 type,
@@ -102,7 +73,14 @@ class ArticleAMPArticleBody extends PureComponent {
                 )
               }
               if (type === 'image') {
-                return <AmpImage {...element} layout="responsive" />
+                return (
+                  <AmpImage
+                    {...element}
+                    ImgTag="amp-img"
+                    imgClassName={classes.image}
+                    layout="responsive"
+                  />
+                )
               }
               if (type === 'video') {
                 return (
@@ -118,7 +96,24 @@ class ArticleAMPArticleBody extends PureComponent {
           />
         )}
         <ArticleBodyChildTags data={tags} className={classes.tags} />
-        <ArticleBodyChildRelated stories={dataRelated} />
+        {relatedContent.length > 0 && (
+          <div className={classes.related}>
+            <div className={classes.relatedTitle}>Relacionadas </div>
+            {relatedContent.map((item, i) => {
+              const { type } = item
+              const key = `related-${i}`
+              return type !== 'story' ? (
+                ''
+              ) : (
+                <ArticleBodyChildRelated
+                  key={key}
+                  {...item}
+                  contextPath={contextPath}
+                />
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }

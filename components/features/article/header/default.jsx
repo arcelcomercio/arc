@@ -1,13 +1,13 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import ArticleHeaderChildHeading from './_children/heading'
 import ArticleHeaderChildShareSubheading from './_children/subheading'
 import ArticleHeaderChildGallery from './_children/gallery'
 import ArticleHeaderChildSocial from './_children/social'
 
 const classes = {
-  news: 'col-3 bg-color--white',
-  gallery: 'col-3',
+  news: 'full-width bg-color--white',
+  gallery: 'full-width',
 }
 @Consumer
 class ArticleHeader extends PureComponent {
@@ -25,7 +25,7 @@ class ArticleHeader extends PureComponent {
       typeof galleryItems.basic_gallery.content_elements !== 'undefined' &&
       true
     return (
-      <Fragment>
+      <>
         <div className={hasValueElements ? classes.gallery : classes.news}>
           <ArticleHeaderChildSocial url={baseUrl} title={headlines} />
 
@@ -42,7 +42,7 @@ class ArticleHeader extends PureComponent {
             ''
           )}
         </div>
-      </Fragment>
+      </>
     )
   }
 }

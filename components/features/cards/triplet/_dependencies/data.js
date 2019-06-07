@@ -10,14 +10,14 @@ class Data extends StoryData {
     arcSite,
     defaultImgSize,
     customFields,
-    index = 0
+    index = 0,
   }) {
     super({
       data,
       deployment,
       contextPath,
       arcSite,
-      defaultImgSize
+      defaultImgSize,
     })
     this._customFields = customFields
     this._index = index
@@ -39,19 +39,24 @@ class Data extends StoryData {
   }
 
   get title() {
-    return this._customFields[`title${this.index}`] || super.title
+    const { webskedId = '' } = this._customFields || {}
+
+    const customTitle = webskedId
+      ? ''
+      : this._customFields[`title${this.index}`]
+    return customTitle || super.title
   }
 
   get authorOrSection() {
-    return this.showAuthorOrSection === Data.AUTHOR ?
-      super.author :
-      super.section
+    return this.showAuthorOrSection === Data.AUTHOR
+      ? super.author
+      : super.section
   }
 
   get authorOrSectionLink() {
-    return this.showAuthorOrSection === Data.AUTHOR ?
-      super.authorLink :
-      super.sectionLink
+    return this.showAuthorOrSection === Data.AUTHOR
+      ? super.authorLink
+      : super.sectionLink
   }
 
   get iconClass() {
@@ -60,11 +65,13 @@ class Data extends StoryData {
       [Data.IMAGE]: '',
       [Data.GALLERY]: 'gallery',
     }
-    return super.multimediaType !== '' ? baseTypeThumb[super.multimediaType] : ''
+    return super.multimediaType !== ''
+      ? baseTypeThumb[super.multimediaType]
+      : ''
   }
 
   get attributesRaw() {
-    const attributesObject = super.attributesRaw;
+    const attributesObject = super.attributesRaw
     // eslint-disable-next-line no-restricted-syntax
     for (const attr of Object.getOwnPropertyNames(Data.prototype)) {
       if (attr !== 'attributesRaw') attributesObject[attr] = this[attr]

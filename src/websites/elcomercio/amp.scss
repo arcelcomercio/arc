@@ -3,12 +3,13 @@
 /*---------------------*/
 
 /******* Site Variables *******/
-@import './scss/variables/colors';
+@import './scss/variables/index';
 @import './scss/variables/dimensions';
 
 /******* Framework Core *******/
 @import '../../general-styles/framework/core/flex';
 @import '../../general-styles/framework/core/reset';
+@import '../../general-styles/framework/core/utils';
 
 /******* Partials *******/
 @import './scss/partials/base-amp';

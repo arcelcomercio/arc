@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 export default ({ siteName = '', siteUrl = '' }) => {
   const structuredData = `{
@@ -13,7 +13,7 @@ export default ({ siteName = '', siteUrl = '' }) => {
       }`
 
   return (
-    <Fragment>
+    <>
       <link
         rel="alternate"
         type="application/rss+xml"
@@ -24,6 +24,6 @@ export default ({ siteName = '', siteUrl = '' }) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}
       />
-    </Fragment>
+    </>
   )
 }

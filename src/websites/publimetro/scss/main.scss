@@ -12,8 +12,18 @@
 
 /******* Partials *******/
 @import './partials/base';
+@import './partials/buttons';
 /*---------------------*/
 
 /******* Components *******/
 @import '../../../general-styles/components/index';
+/*---------------------*/
+
+
+/******* Modificadores *******/
+@import './components/cintillo-urgente';
+@import './components/nav';
+@import './components/header';
+@import './components/buttons';
+@import './components/extraordinary-story';
 /*---------------------*/

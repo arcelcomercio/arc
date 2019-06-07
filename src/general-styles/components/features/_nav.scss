@@ -1,31 +1,47 @@
 .nav {
   position: sticky;
   top: 0;
-  height: $nav-height;
+  height: $nav-height-mobile;
   z-index: 20;
   font-family: $secondary-font;
-  font-size: $font-sm;
   font-weight: bold;
   background-color: $nav-color;
   color: $color-white;
-  &--comercio {
-    background-color: $nav-color-2;
+
+  @media (--desktop) {
+    height: $nav-height;
   }
 
   &__wrapper {
-    padding: 0 15px;
+    padding: 0 14px;
+    background-color: $color-primary;
+
+    @media (--desktop) {
+      background-color: transparent;
+    }
   }
 
   &__container-menu {
-    @media (--tablet) {
+    @media (--desktop) {
       border-right: solid 1px $color-silver;
       padding-right: 10px;
     }
   }
 
   &__btn {
-    background-color: $color-soft;
-    color: $color-silver;
+    color: $color-white;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+    @media (--desktop) {
+      color: $color-primary;
+    }
 
     &--featured {
       color: $color-primary;
@@ -35,6 +51,8 @@
     &--search {
       display: none;
       color: $color-silver;
+      padding: 0 0 0 13px;
+
       @media (--desktop) {
         display: flex;
       }
@@ -53,11 +71,12 @@
 
     &--section {
       padding: 4px;
+
       & span {
         display: none;
         font-family: $secondary-font;
 
-        @media (--tablet) {
+        @media (--desktop) {
           display: inline;
           margin-left: 8px;
         }
@@ -66,8 +85,6 @@
   }
 
   &__list {
-    padding: 0 5px;
-    overflow: hidden;
     display: none;
 
     @media (--desktop) {
@@ -78,10 +95,12 @@
   }
 
   &__list-link {
-    margin: 0 8px;
-    color: $color-silver;
+    color: $color-gray-light;
     transition: 0.3s;
     font-family: $secondary-font;
+    font-size: 12px; // TODO: revisar con diseño
+    font-weight: 400;
+    word-break: break-word;
 
     &:hover {
       color: $color-gray;
@@ -102,9 +121,11 @@
 
   &__ads {
     margin: 0 4px;
-    // Temporal
+    // TODO: Temporal
     width: 100px;
     height: 30px;
+    display: none;
+    // --------------
   }
 
   &__header-sub {
@@ -115,15 +136,18 @@
     }
   }
 
-  &__form {
-    position: relative;
+  &__icon-search {
+    color: $color-primary;
+  }
+
+  &__icon-menu {
+    font-size: 22px;
   }
 
   &__input-search {
     border: 0;
     padding: 4px 0;
     outline: none;
-    font-size: 14px;
     height: 32px;
     line-height: 20px;
     text-indent: 0;
@@ -141,6 +165,19 @@
       transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715);
       width: 200px;
       will-change: width;
+    }
+  }
+
+  &.active {
+    background-color: $color-primary;
+
+    .nav__btn {
+      color: $color-white;
+    }
+
+    .btn {
+      border-color: $color-white;
+      color: $color-white;
     }
   }
 }

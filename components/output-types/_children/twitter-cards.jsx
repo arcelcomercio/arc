@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 export default ({
   twitterUser,
@@ -12,7 +12,7 @@ export default ({
   deployment = () => {},
 }) => {
   return (
-    <Fragment>
+    <>
       {/* <!-- Twitter Cards --> */}
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:site" content={twitterUser} />
@@ -20,11 +20,11 @@ export default ({
       <meta
         name="twitter:image"
         content={deployment(
-          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-sitio.jpg`
+          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo.png`
         )}
       />
       <meta name="twitter:description" content={description} />
       {article && <meta name="twitter:creator" content={twitterCreator} />}
-    </Fragment>
+    </>
   )
 }

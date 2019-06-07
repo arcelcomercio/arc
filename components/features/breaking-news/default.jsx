@@ -5,8 +5,9 @@ import PropTypes from 'prop-types'
 import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
-  breakingnews: 'padding-normal',
-  breakingnewsBtnClose: 'cintillo-u__btn-close text-center',
+  breakingnews: 'flex flex--justify-between',
+  breakingnewsBtnClose: 'cintillo-u__btn-close text-right',
+  breakingnewsIcon: 'cintillo-u__btn-icon icon-close-circle',
   breakingnewsText: 'cintillo-u__text',
   breakingnewsTag: 'cintillo-u__tag',
   breakingnewsLink: 'cintillo-u__link',
@@ -93,7 +94,27 @@ class BreakingNews extends Component {
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
-        <span
+        <h2 className={classes.breakingnewsText}>
+          <span
+            className={classes.breakingnewsTag}
+            {...editableField('tags')}
+            suppressContentEditableWarning>
+            {tags}:
+          </span>
+          <span>
+            <a
+              className={classes.breakingnewsLink}
+              // className={classes.breakingnewsLink}
+              href={objContent.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              {...editableField('title')}
+              suppressContentEditableWarning>
+              {objContent.title}
+            </a>
+          </span>
+        </h2>
+        <div
           className={classes.breakingnewsBtnClose}
           onClick={this.handleOnclickClose}
           // Static HTML elements do not have semantic meaning.
@@ -101,23 +122,8 @@ class BreakingNews extends Component {
           onKeyPress={this.handleOnclickClose}
           role="button"
           tabIndex={0}>
-          x
-        </span>
-        <h2 className={classes.breakingnewsText}>
-          <span className={classes.breakingnewsTag} {...editableField('tags')}>
-            {tags}
-          </span>
-          <span>
-            <a
-              // className={classes.breakingnewsLink}
-              href={objContent.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              {...editableField('title')}>
-              {objContent.title}
-            </a>
-          </span>
-        </h2>
+          <i className={classes.breakingnewsIcon} />
+        </div>
       </div>
     )
   }
@@ -141,15 +147,11 @@ BreakingNews.propTypes = {
     backgroundColor: PropTypes.oneOf([
       'cintillo-u--bgcolor-1',
       'cintillo-u--bgcolor-2',
-      'cintillo-u--bgcolor-3',
-      'cintillo-u--bgcolor-4',
     ]).tag({
       name: 'Color de fondo',
       labels: {
         'cintillo-u--bgcolor-1': 'Color 1',
         'cintillo-u--bgcolor-2': 'Color 2',
-        'cintillo-u--bgcolor-3': 'Color 3',
-        'cintillo-u--bgcolor-4': 'Color 4',
       },
       defaultValue: 'cintillo-u--bgcolor-1',
     }),

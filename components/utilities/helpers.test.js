@@ -17,6 +17,7 @@ import {
   isEmpty,
   getIcon,
   ResizeImageUrl,
+  createScript,
 } from '@utilities/helpers'
 
 import { addResizedUrlItem } from '@utilities/thumbs'
@@ -542,5 +543,18 @@ describe('Función metaPaginationUrl - Helpers', () => {
       )
     ).toContain(siteUrl)
     expect.assertions(4)
+  })
+})
+
+describe('Función createScript - Helpers', () => {
+  test('La función existe y/o devuelve un valor', () => {
+    expect(createScript).toBeDefined()
+  })
+
+  test('Debe llamar a "createElement"', () => {
+    global.document.createElement = jest.fn()
+    global.document.createElement.mockReturnValueOnce({})
+    createScript({ src: true, async: true, defer: true })
+    expect(document.createElement).toHaveBeenCalled()
   })
 })

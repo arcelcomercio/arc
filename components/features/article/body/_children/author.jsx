@@ -4,10 +4,10 @@ import { formatDate } from '../../../../utilities/helpers'
 /** TODO: Vale la pena usar moment? */
 
 const classes = {
-  author: 'article-body__author flex flex--justify-between',
-  authorName: 'article-body__author-info',
-  authorDate: 'article-body__author-date flex flex--align-center ',
-  authorEmail: 'article-body__author-email',
+  author: 'flex flex--justify-between pd-top-30 mg-bottom-20',
+  authorName: '',
+  authorDate: 'text-xs flex flex--align-center ',
+  authorEmail: 'text-sm',
 }
 
 const ArticleBodyChildAuthor = props => {

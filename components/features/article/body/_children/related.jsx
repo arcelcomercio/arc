@@ -1,7 +1,5 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
 import { getIcon } from '../../../../utilities/helpers'
-import StoryData from '../../../../utilities/story-data'
 import UtilListKey from '../../../../utilities/list-keys'
 
 // Basic flex stuff
@@ -17,71 +15,61 @@ const classes = {
   relatedAuthor: 'related-content__author',
   relatedInfo: 'related-content__information',
 }
-@Consumer
-class RelatedContent extends PureComponent {
-  renderRelatedContentElement = (data, i) => {
-    const { arcSite, contextPath } = this.props
-    const get = new StoryData(data, arcSite)
-    const filterData = {
-      title: {
-        nameTitle: get.title,
-        urlTitle: get.link,
-      },
-      author: { nameAuthor: get.author, nameAuthorLink: get.authorLink },
-      multimedia: {
-        multimediaType: get.multimediaType,
-        multimediaImg: get.multimedia,
-      },
-    }
-    const { author, multimedia, title } = filterData
 
-    return (
-      <article className={classes.relatedItem} key={UtilListKey(i)}>
-        <div className={`${classes.relatedInfo}`}>
-          <h2 className={`${classes.relatedTitleItem}`}>
-            <a href={`${contextPath}${title.urlTitle}`}>{title.nameTitle}</a>
-          </h2>
-          <a href={author.nameAuthorLink} className={classes.relatedAuthor}>
-            {author.nameAuthor}
+const RenderRelatedContentElement = (elements, i) => {
+  const {
+    contextPath,
+    headlines: { basic: articleTitle } = {},
+    website_url: articleUrl,
+    promo_items: { basic: imageData = {} } = {},
+  } = elements
+
+  const filterData = {
+    nameTitle: articleTitle,
+    urlTitle: articleUrl,
+    multimediaType: imageData.type,
+    multimediaImg: imageData.url,
+  }
+
+  return (
+    <article
+      role="listitem"
+      className={classes.relatedItem}
+      key={UtilListKey(i + 12)}>
+      <div className={classes.relatedInfo}>
+        <h2 className={classes.relatedTitleItem}>
+          <a href={`${contextPath}${filterData.urlTitle}`}>
+            {filterData.nameTitle}
           </a>
-        </div>
-        <figure className={classes.relatedMultimedia}>
-          <a
-            href={`${contextPath}${title.urlTitle}`}
-            className={classes.relatedLink}>
-            <img
-              src={multimedia.multimediaImg}
-              alt={title.nameTitle}
-              className={classes.relatedImage}
+        </h2>
+        <a href={filterData.nameAuthorLink} className={classes.relatedAuthor}>
+          {filterData.nameAuthor}
+        </a>
+      </div>
+      <figure className={classes.relatedMultimedia}>
+        <a
+          href={`${contextPath}${filterData.urlTitle}`}
+          className={classes.relatedLink}>
+          <img
+            src={filterData.multimediaImg}
+            alt={filterData.nameTitle}
+            className={classes.relatedImage}
+          />
+          {filterData.multimediaType === 'basic' ||
+          filterData.multimediaType === '' ? (
+            ''
+          ) : (
+            <span
+              className={`${classes.relatedIcon}${getIcon(
+                filterData.multimediaType
+              )}`}
             />
-            {multimedia.multimediaType === 'basic' ||
-            multimedia.multimediaType === '' ? (
-              ''
-            ) : (
-              <span
-                className={`${classes.relatedIcon}${getIcon(
-                  multimedia.multimediaType
-                )}`}
-              />
-            )}
-          </a>
-          {/* <Icon iconClass={story.iconClass} /> */}
-        </figure>
-      </article>
-    )
-  }
-
-  render() {
-    const { stories: data } = this.props
-    return (
-      data.length > 0 && (
-        <div className={classes.related}>
-          <div className={classes.relatedTitle}>Relacionadas </div>
-          {data.map((item, i) => this.renderRelatedContentElement(item, i))}
-        </div>
-      )
-    )
-  }
+          )}
+        </a>
+        {/* <Icon iconClass={story.iconClass} /> */}
+      </figure>
+    </article>
+  )
 }
 
-export default RelatedContent
+export default RenderRelatedContentElement

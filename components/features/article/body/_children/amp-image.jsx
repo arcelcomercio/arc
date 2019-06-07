@@ -1,16 +1,16 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import Image from '@arc-core-components/element_image'
 
 const classes = {
   image: 'visual__image visual__image--cover',
-  description: 'news-media-description',
+  description: 'news-media-description text-left',
 }
 
-const ArticleBodyChildArticleImage = props => {
+const ArticleBodyChildArticleAmpImage = props => {
   const { data } = props
   return (
-    <Fragment>
+    <>
       <div className="media norowmargin">
         <figure>
           <amp-img i-amphtml-layout="responsive">
@@ -18,14 +18,15 @@ const ArticleBodyChildArticleImage = props => {
             <Image
               width="100%"
               className={classes.image}
+              captionClassName={classes.description}
               sizePreset="large"
               {...data}
             />
           </amp-img>
         </figure>
       </div>
-    </Fragment>
+    </>
   )
 }
 
-export default ArticleBodyChildArticleImage
+export default ArticleBodyChildArticleAmpImage

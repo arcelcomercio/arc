@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import BillboardFormat from '../../../utilities/billboard-format'
 import { defaultImage } from '../../../utilities/helpers'
 
@@ -58,7 +58,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
         <div className={classes.container}>
           <h3 className={classes.headline}>Listín Cinematográfico</h3>
           {genres && (
-            <Fragment>
+            <>
               <nav className={classes.nav}>
                 <ul className={classes.navList}>
                   <li className={classes.navItem}>
@@ -119,7 +119,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                   )}
                 </select>
               </form>
-            </Fragment>
+            </>
           )}
           {movies && (
             <ul className={classes.grid}>

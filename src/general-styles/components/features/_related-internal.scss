@@ -2,13 +2,11 @@
   position: relative;
 
   @media (--tablet) {
-    position: absolute;
-    right: 0;
+    float: right;
     background-color: #f5f5f5;
     padding: 10px 20px;
     width: 200px;
-    margin-bottom: 30px;
-    margin-top: -151px;
+
   }
   &__title {
     text-transform: uppercase;

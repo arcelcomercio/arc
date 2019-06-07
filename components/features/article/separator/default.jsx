@@ -4,10 +4,12 @@ import React, { PureComponent } from 'react'
 import schemaFilter from './_dependencies/schema-filter'
 import ArticleSeparatorChildItem from './_children/item'
 import StoryData from '../../../utilities/story-data'
+import UtilListKey from '../../../utilities/list-keys'
 
 const classes = {
-  separator: 'articlesep col-3 separator--nota',
-  title: 'articlesep__header-title separator__header-title--nota',
+  separator: 'articlesep full-width separator--nota grid',
+  title:
+    'articlesep__header-title separator__header-title--nota grid text-center pd-bottom-20 pd-top-20',
   body: 'articlesep__body separator__body--items',
   mvideo: 'articlesep--video',
 }
@@ -98,7 +100,7 @@ class ArticleSeparator extends PureComponent {
     })
 
     let key = 0
-    return stories.map(story => {
+    return stories.map((story, i) => {
       if (key === 4) return false
       const { website_url: websiteUrl } = story
       if (websiteUrl === excluir) return false
@@ -116,6 +118,7 @@ class ArticleSeparator extends PureComponent {
       return (
         <ArticleSeparatorChildItem
           data={data}
+          key={UtilListKey(i)}
           contextPath={contextPath}
           arcSite={arcSite}
         />

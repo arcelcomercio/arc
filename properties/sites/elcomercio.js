@@ -5,10 +5,30 @@ export default {
   siteUrl: 'https://elcomercio.pe',
   resizerUrl: 'http://resizer.shared.arcpublishing.com',
   resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
-  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KKXTKGP',
   charbeatAccountNumber: 57773,
+
+  infoPagesDev: {
+    termsAndConditions: '',
+    guidingPrinciples: 'EBRJ4RIQHRAODCY4G5ML4IZNUU',
+    privacyPolicies: '',
+    integratedManagementPolicy: 'SWL33JT6F5CDFD6457MFG76J3I',
+    arcoProcedure: 'ZJVJVIL7MJGJBCZMD3YELB7PWA',
+    cookiesPolicy: '',
+    aboutUs: '',
+  },
+  infoPagesProd: {
+    termsAndConditions: '',
+    guidingPrinciples: '',
+    privacyPolicies: '',
+    integratedManagementPolicy: '',
+    arcoProcedure: '',
+    cookiesPolicy: '',
+    aboutUs: '',
+  },
 
   assets: {
     nav: {
@@ -31,7 +51,8 @@ export default {
       'Grupo El Comercio - Todos los derechos reservados',
     ],
 
-    socialNetworks: [{
+    socialNetworks: [
+      {
         name: 'facebook',
         url: 'https://www.facebook.com/elcomercio.pe',
       },
@@ -40,7 +61,7 @@ export default {
         url: 'https://twitter.com/elcomercio_peru',
       },
       {
-        name: 'google+',
+        name: 'youtube',
         url: 'https://plus.google.com/u/0/+elcomerciope',
       },
     ],

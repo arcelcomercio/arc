@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import {
   popUpWindow,
   socialMediaUrlShareList,
@@ -7,11 +7,13 @@ import {
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  news: 'article-header__share flex flex--justify-between flex--align-center',
-  breadcrumb: 'article-header__breadcrumb',
+  news:
+    'article-header__share flex-center-vertical flex--justify-between mg-bottom-20',
+  breadcrumb: '',
   item: 'article-header__item',
-  category: 'article-header__category',
-  link: 'article-header__link flex-center-vertical flex--justify-center',
+  category: 'text-uppercase',
+  link: 'article-header__link flex-center',
+  icon: 'article-header__icon',
   list: 'article-header__list flex flex--justify-between',
 }
 @Consumer
@@ -56,7 +58,7 @@ class ArticleHeaderChildSocial extends PureComponent {
           mobileClass: 'flex flex--justify-center',
         },
         {
-          icon: 'icon-linkedin',
+          icon: 'icon-linkedin-circle',
           link: urlsShareList.linkedin,
           mobileClass: 'flex flex--justify-center',
         },
@@ -95,7 +97,7 @@ class ArticleHeaderChildSocial extends PureComponent {
     } = this.props
 
     return (
-      <Fragment>
+      <>
         <div className={classes.news}>
           <div className={classes.category}> {name}</div>
           <ul className={classes.list}>
@@ -110,13 +112,13 @@ class ArticleHeaderChildSocial extends PureComponent {
                     const isPrint = i === 2 && currentList === this.secondList
                     this.openLink(event, item, isPrint)
                   }}>
-                  <i className={item.icon} />
+                  <i className={`${item.icon} ${classes.icon}`} />
                 </a>
               </li>
             ))}
           </ul>
         </div>
-      </Fragment>
+      </>
     )
   }
 }

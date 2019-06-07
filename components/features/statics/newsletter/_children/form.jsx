@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 const classes = {
   title: 'newsletter__title',
@@ -22,7 +22,7 @@ const StaticsNewsletterChildForm = props => {
   } = props
 
   return (
-    <Fragment>
+    <>
       <h3 className={classes.title}>
         Registrate en nuestro <span>Newsletter</span>
       </h3>
@@ -80,7 +80,7 @@ const StaticsNewsletterChildForm = props => {
           )}
         </div>
       </form>
-    </Fragment>
+    </>
   )
 }
 

@@ -12,6 +12,7 @@
   height: inherit;
 }
 
+// TODO: Mapear para cambiar por lo nuevo - Legacy
 .margin-top {
   margin-top: $spacing-normal;
 }
@@ -37,6 +38,8 @@
   padding-right: $spacing-normal;
 }
 
+// ----------------------------------------------
+
 .object-fit-cover {
   object-fit: cover;
 }
@@ -51,6 +54,10 @@
 
 .hide {
   display: none;
+}
+
+.inline-b {
+  display: inline-block;
 }
 
 .no-desktop,
@@ -138,6 +145,7 @@
   background-color: $color-dark;
   color: $color-white;
 }
+
 .bg-color--gray {
   background-color: $color-gray;
   color: $color-white;
@@ -173,9 +181,16 @@
   line-height: 16px;
   font-family: $primary-font;
   cursor: pointer;
+
   &--small {
     font-size: 9px;
     padding: 4px 6px;
+  }
+
+  &--outline {
+    border: 1px solid $color-primary;
+    background-color: transparent;
+    color: $color-primary;
   }
 }
 
@@ -186,6 +201,7 @@
 .primary-font {
   font-family: $primary-font;
 }
+
 .secondary-font {
   font-family: $secondary-font;
 }

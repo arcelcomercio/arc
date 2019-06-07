@@ -2,7 +2,9 @@ import React from 'react'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
+import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
+import AppNexus from './_children/appnexus'
 
 export default ({
   children,
@@ -10,7 +12,7 @@ export default ({
   deployment,
   arcSite,
   globalContent,
-  CssLinks,
+  // CssLinks,
   Fusion,
   Libs,
   // MetaTags,
@@ -21,102 +23,121 @@ export default ({
   const metaPageData = {
     globalContent,
     requestUri,
+    contextPath,
+    arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    metaValue,
+    deployment,
   }
+
+  const isArticle = requestUri.match(`^(/(.*)/.*-noticia)`)
+
   const metaSiteData = {
     ...siteProperties,
     requestUri,
     arcSite,
     contextPath,
     deployment,
+    isArticle,
+    isAmp: false,
   }
+
+  const title =
+    metaValue('title') && !metaValue('title').match(/content/)
+      ? `${metaValue('title')} | ${siteProperties.siteName}`
+      : siteProperties.siteName
+
+  const description =
+    metaValue('description') && !metaValue('description').match(/content/)
+      ? `${metaValue('description')} en ${siteProperties.siteName}`
+      : 'Últimas noticias en Perú y el mundo'
+
+  const keywords =
+    metaValue('keywords') && !metaValue('keywords').match(/content/)
+      ? metaValue('keywords')
+      : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
+
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
-    title:
-      metaValue('title') && !metaValue('title').match(/content/)
-        ? `${metaValue('title')} | ${siteProperties.siteName}`
-        : siteProperties.siteName,
+    title,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
-    description:
-      metaValue('description') && !metaValue('description').match(/content/)
-        ? `${metaValue('description')} en ${siteProperties.siteName}`
-        : 'Últimas noticias en Perú y el mundo',
+    description,
     twitterCreator: siteProperties.social.twitter.user,
-    article: false, // check data origin - Boolean
+    article: isArticle, // check data origin - Boolean
     deployment,
   }
   const openGraphData = {
     fbAppId: siteProperties.fbAppId,
-    title:
-      metaValue('title') && !metaValue('title').match(/content/)
-        ? `${metaValue('title')} | ${siteProperties.siteName}`
-        : siteProperties.siteName,
-    description:
-      metaValue('description') && !metaValue('description').match(/content/)
-        ? `${metaValue('description')} en ${siteProperties.siteName}`
-        : 'Últimas noticias en Perú y el mundo',
+    title,
+    description,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
     requestUri,
     siteName: siteProperties.siteName,
-    article: false, // check data origin - Boolean
+    article: isArticle, // check data origin - Boolean
     deployment,
+    globalContent,
   }
-
-  const articleSlug = requestUri.match(`^(/(.*)/.*-noticia)`)
 
   return (
     <html lang="es">
       <head>
-        <Libs />
-        <CssLinks />
+        <AppNexus
+          arcSite={arcSite}
+          requestUri={requestUri}
+          port={metaValue('port')}
+          isStory={isArticle}
+        />
+        <TagManager {...siteProperties} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <link rel="dns-prefetch" href="//ecoid.pe" />
+        <title>{title}</title>
+        {/* TODO: Validar con la nueva platilla
+         <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap" rel="stylesheet"/>
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" /> 
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />        
+        */}
 
-        {renderMetaPage(metaValue('id'), metaPageData)}
+        <link
+          href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap"
+          rel="stylesheet"
+        />
+        <script src="https://jab.pe/f/arc/data_js.js" async />
         <MetaSite {...metaSiteData} />
+        <meta name="description" content={description} />
+        <meta name="keywords" content={keywords} />
+        {isArticle && <meta name="news_keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
+        {renderMetaPage(metaValue('id'), metaPageData)}
 
-        <title>
-          {metaValue('title') && !metaValue('title').match(/content/)
-            ? `${metaValue('title')} | ${siteProperties.siteName}`
-            : siteProperties.siteName}
-        </title>
-        <meta
-          name="description"
-          content={
-            metaValue('description') &&
-            !metaValue('description').match(/content/)
-              ? `${metaValue('description')} en ${siteProperties.siteName}`
-              : 'Últimas noticias en Perú y el mundo'
-          }
+        {/* Scripts de APPNEXUS */}
+        <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js" />
+        <script
+          src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+          async
         />
-        <meta
-          name="keywords"
-          content={
-            metaValue('keywords') && !metaValue('keywords').match(/content/)
-              ? metaValue('keywords')
-              : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
-          }
+        <script
+          type="text/javascript"
+          src="//acdn.adnxs.com/ast/ast.js"
+          async
         />
+        {/* Scripts de APPNEXUS */}
+        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
+        <Libs />
       </head>
-      <body className={articleSlug && 'article'}>
+      <body className="article">
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -128,7 +149,15 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        <div id="fusion-app">{children}</div>
+        <div id="fusion-app" role="application">
+          {children}
+        </div>
+        <script
+          async
+          src={deployment(
+            `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
+          )}
+        />
         <script
           async
           src={deployment(

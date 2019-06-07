@@ -1,10 +1,9 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (mode, type = 'index') => {
-
   const javascript = {
     test: /\.(js|jsx)$/,
-    exclude: /(node_modules)/,
+    exclude: /(node_modules|appnexus)/,
     use: {
       loader: 'babel-loader',
       options: {
@@ -16,7 +15,8 @@ module.exports = (mode, type = 'index') => {
 
   const styles = {
     test: /\.(scss|css)$/,
-    use: [{
+    use: [
+      {
         loader: MiniCssExtractPlugin.loader,
       },
       {
@@ -90,11 +90,7 @@ module.exports = (mode, type = 'index') => {
     },
   }
 
-  const rules = [
-    styles,
-    images,
-    fonts,
-  ]
+  const rules = [styles, images, fonts]
 
   if (type !== 'amp') {
     rules.unshift(javascript)

@@ -1,45 +1,38 @@
 .amp-header {
-  background-color: #eaeaea;
-  border-bottom: 1px solid #dadada;
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
-  padding-left: 20px;
-  padding-right: 20px;
+  z-index: 20;
+  position: absolute;
+  width: 100%;
 
-  & a {
-    color: #1e91ca;
-    text-decoration: underline;
-    display: block;
-    height: 44px;
-    padding: 10px;
+  &__wrap {
+    background-color: $color-primary;
+    height: 50px;
+    text-align: center;
   }
 
-  &__noticia {
+  &__logo {
     float: left;
-    width: 50%;
-    font-size: 18px;
-    font-weight: bold;
-    position: relative;
-    &::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 50%;
-      margin-top: -11px;
-      width: 1px;
-      height: 22px;
-      background-color: #999;
-    }
+    margin-left: 18px;
+    margin-top: 9px;
   }
-  &__viral {
-    float: left;
-    width: 50%;
-    font-size: 18px;
-    font-weight: bold;
-    position: relative;
 
+  &__ultimate {
+    float: right;
+    margin-right: 35px;
+    margin-top: 7px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #fff;
+    height: 34px;
+    position: relative;
+    line-height: 34px;
+    font-size: 12px;
+    padding: 0 8px 0 8px;
     & a {
-      color: #ff0000;
+      color: #fff;
     }
   }
+}
+.nav {
+  height: 50px;
 }

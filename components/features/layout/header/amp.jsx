@@ -1,31 +1,48 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import AmpImage from '@arc-core-components/element_image'
 
 // TODO: Separar Feature de Componente.
 
 const classes = {
   header: 'amp-header full-width',
-  noticia: 'amp-header__noticia',
-  viral: 'amp-header__viral',
+  wrap: 'amp-header__wrap',
+  logo: 'amp-header__logo',
+  ultimate: 'amp-header__ultimate',
+  ampImg:
+    'amp-header__amp-img i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',
+  img:
+    'i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',
 }
 
 @Consumer
 class LayoutAmpHeader extends PureComponent {
   render() {
-    const { contextPath, requestUri } = this.props
-    const querys = requestUri.split('?')[1]
-    const queryString = querys !== undefined ? `?${querys}` : ''
-
+    const { contextPath, arcSite, deployment } = this.props
+    const img =
+      deployment(`${contextPath}/resources/dist/${arcSite}/images/logo.png`) ||
+      ''
     return (
-      <header className={classes.header}>
-        <div className={classes.noticia}>
-          <a href={`${contextPath || ''}/archivo${queryString}`}>Noticias</a>
-        </div>
-        <div className={classes.viral}>
-          <a href="https://mag.elcomercio.pe">Viral</a>
-        </div>
-      </header>
+      <>
+        <header className={classes.header}>
+          <section className={classes.wrap}>
+            <div className={classes.logo}>
+              <a href="http://elcomercio.pe">
+                <amp-img
+                  src={img}
+                  alt="elcomercio.pe"
+                  width="156"
+                  height="25"
+                />
+              </a>
+            </div>
+            <div className={classes.ultimate}>
+              <a href={img}>Últimas noticias</a>
+            </div>
+          </section>
+        </header>
+      </>
     )
   }
 }
