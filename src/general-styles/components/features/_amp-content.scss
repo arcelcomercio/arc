@@ -3,10 +3,13 @@
   max-width: 600px;
   margin: 0 auto;
   &__news-text {
-    line-height: 1.42857143;
     color: #333;
     font-family: 'Roboto', sans-serif;
     margin: 13px 0;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    word-wrap: break-word;
   }
 
   &__author {
@@ -26,13 +29,6 @@
   .visual__image {
     margin-left: -20px;
     margin-right: -20px;
-  }
-
-  &__news-text {
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 25px;
-    word-wrap: break-word;
   }
 
   .pquote {
