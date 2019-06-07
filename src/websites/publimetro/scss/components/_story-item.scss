@@ -10,5 +10,14 @@
   &__title{
     color: $color-primary;
   }
+  &__subtitle{
+    font-family: $font-regular;
+    color: $color-default-2;
+    
+  }
+  &__author {
+    font-family: $font-regular;
+
+  }
 
 }
