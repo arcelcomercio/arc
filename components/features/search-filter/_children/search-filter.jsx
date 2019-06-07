@@ -140,7 +140,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
         selected === 'section' ? 'selected' : ''
       }`,
       itemTime: `search-filter__item ${selected === 'time' ? 'selected' : ''}`,
-      link: 'search-filter__link',
+      link: 'search-filter__link text-uppercase title-xs flex',
       subList: 'search-filter__sublist active',
       subItem: 'search-filter__subitem',
       subLink: 'search-filter__sublink',

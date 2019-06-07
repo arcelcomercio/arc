@@ -16,6 +16,7 @@ const clases = {
   storyItemRight: 'story-item__right',
   storyItemIcon: 'story-item__icon',
   storyItemFigure: 'story-item__figure',
+  storyItemLink: 'story-item__link',
 }
 
 class StoriesList extends PureComponent {
@@ -59,7 +60,7 @@ class StoriesList extends PureComponent {
             </div>
           </div>
           <div className={clases.storyItemRight}>
-            <a href={element.link}>
+            <a href={element.link} className={clases.storyItemLink}>
               {element.multimediaType.toLowerCase() === 'basic' ||
               element.multimediaType === '' ? (
                 ''

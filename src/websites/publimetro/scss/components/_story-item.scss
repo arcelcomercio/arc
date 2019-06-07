@@ -1,0 +1,14 @@
+.story-item {
+  &__date{
+    color: $color-default-2;
+    font-family: $font-regular;
+    margin-left: 15px;
+    @media (--tablet) {
+      margin-left: 0;
+    }
+  }
+  &__title{
+    color: $color-primary;
+  }
+
+}
