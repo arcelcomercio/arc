@@ -1,12 +1,12 @@
 /******* Components *******/
-@import './features/amp-nav';
-@import './features/amp-nav-sidebar';
-@import './features/amp-footer';
-@import './features/amp-header';
-@import './features/article-amp-header';
-@import './features/amp-content';
-@import './features/related-content';
-@import './features/article-gallery';
+@import './features/story/amp-nav';
+@import './features/story/amp-nav-sidebar';
+@import './features/story/amp-footer';
+@import './features/story/amp-header';
+@import './features/story/story-header-amp';
+@import './features/story/story-content-amp';
+@import './features/story/related-content';
+@import './features/story/story-gallery';
 @import './features/navbar-somos';
 
 @import './features/components/icons';

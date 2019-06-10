@@ -8,7 +8,7 @@ export default ({
   arcSite,
   description,
   twitterCreator,
-  article,
+  story,
   deployment = () => {},
 }) => {
   return (
@@ -24,7 +24,7 @@ export default ({
         )}
       />
       <meta name="twitter:description" content={description} />
-      {article && <meta name="twitter:creator" content={twitterCreator} />}
+      {story && <meta name="twitter:creator" content={twitterCreator} />}
     </>
   )
 }
