@@ -4,14 +4,14 @@
 @import './features/header';
 @import './features/footer';
 @import './features/ads';
-@import './features/article-header';
+@import './features/story/story-header';
 @import './features/cintillo-urgente';
 @import './features/extraordinary-story';
 @import './features/featured-story';
 @import './features/list';
 @import './features/triplet';
 @import './features/separador';
-@import './features/article-separador';
+@import './features/story/story-separator';
 @import './features/opinion-card';
 @import './features/more-read';
 @import './features/more-read-item';
@@ -47,10 +47,10 @@
 @import './features/card-survey';
 @import './features/internal-survey';
 @import './features/header-somos';
-@import './features/article-body';
-@import './features/article-gallery';
-@import './features/related-content';
-@import './features/related-internal';
+@import './features/story/story-content';
+@import './features/story/story-gallery';
+@import './features/story/related-content';
+@import './features/story/related-internal';
 @import './features/navbar-somos';
 @import './features/info-pages';
 

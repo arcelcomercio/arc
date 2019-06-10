@@ -31,7 +31,7 @@ export default ({
     deployment,
   }
 
-  const isArticle = requestUri.match(`^(/(.*)/.*-noticia)`)
+  const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
 
   const metaSiteData = {
     ...siteProperties,
@@ -39,7 +39,7 @@ export default ({
     arcSite,
     contextPath,
     deployment,
-    isArticle,
+    isStory,
     isAmp: false,
   }
 
@@ -66,7 +66,7 @@ export default ({
     arcSite,
     description,
     twitterCreator: siteProperties.social.twitter.user,
-    article: isArticle, // check data origin - Boolean
+    story: isStory, // check data origin - Boolean
     deployment,
   }
   const openGraphData = {
@@ -78,7 +78,7 @@ export default ({
     arcSite,
     requestUri,
     siteName: siteProperties.siteName,
-    article: isArticle, // check data origin - Boolean
+    story: isStory, // check data origin - Boolean
     deployment,
     globalContent,
   }
@@ -90,7 +90,7 @@ export default ({
           arcSite={arcSite}
           requestUri={requestUri}
           port={metaValue('port')}
-          isStory={isArticle}
+          isStory={isStory}
         />
         <TagManager {...siteProperties} />
         <meta charset="utf-8" />
@@ -116,7 +116,7 @@ export default ({
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
-        {isArticle && <meta name="news_keywords" content={keywords} />}
+        {isStory && <meta name="news_keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
@@ -137,7 +137,7 @@ export default ({
 
         <Libs />
       </head>
-      <body className="article">
+      <body className={isStory ? 'story' : ''}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"

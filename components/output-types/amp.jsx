@@ -29,7 +29,7 @@ const AmpOutputType = ({
     deployment,
   }
 
-  const isArticle = requestUri.match(`^(/(.*)/.*-noticia)`)
+  const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
 
   const metaSiteData = {
     ...siteProperties,
@@ -37,7 +37,7 @@ const AmpOutputType = ({
     arcSite,
     contextPath,
     deployment,
-    isArticle,
+    isStory,
     isAmp: true,
   }
 
@@ -64,7 +64,7 @@ const AmpOutputType = ({
     arcSite,
     description,
     twitterCreator: siteProperties.social.twitter.user,
-    article: isArticle, // check data origin - Boolean
+    story: isStory, // check data origin - Boolean
     deployment,
   }
   const openGraphData = {
@@ -76,7 +76,7 @@ const AmpOutputType = ({
     arcSite,
     requestUri,
     siteName: siteProperties.siteName,
-    article: isArticle, // check data origin - Boolean
+    story: isStory, // check data origin - Boolean
     deployment,
     globalContent,
   }
