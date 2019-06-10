@@ -1,7 +1,5 @@
 .stories-list-card {
   // FIXME: PLS
-  height: 100%;
-
   &__header {
     width: auto;
     padding: 15px 20px;
@@ -18,10 +16,6 @@
     background-color: $color-white;
     padding: 5px 10px;
     color: $color-silver;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   &__list-item {
@@ -50,7 +44,6 @@
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.5);
         color: #444;
-
       }
     }
   }
@@ -69,7 +62,6 @@
     margin: 2px 0px;
 
     & a {
-
       & h3 {
         font-size: 14px;
         line-height: 1.2;
