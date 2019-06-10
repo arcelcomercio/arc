@@ -150,6 +150,18 @@
   font-family: $secondary-font;
 }
 
+.font-thin {
+  font-weight: 200;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
 /******* Background-text contrast *******/
 .bg--white {
   background-color: $color-white;
