@@ -1,0 +1,240 @@
+.story-separator {
+  background-color: #ffffff;
+  grid-template-columns: 1fr;
+  height: auto;
+
+  &__header-title {
+    grid-template-columns: 1fr;
+    margin-top: 0;
+    height: 70px;
+    align-content: center;
+  }
+
+  &__opinion {
+    display: flex;
+    flex-direction: column;
+
+    &--body {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 290px;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      @media (--tablet) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-gap: 3px;
+      }
+
+      @media (--desktop) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-gap: 3px;
+      }
+    }
+
+    &-title {
+      background: #334a81;
+      padding: 36px 28px;
+      text-transform: uppercase;
+      font-size: 26px;
+      letter-spacing: 2px;
+      color: white;
+    }
+
+    &--item {
+      background: #c5ddf9;
+      padding: 24px 18px;
+
+      &-details {
+        h3 {
+          margin-bottom: 12px;
+
+          a {
+            color: #0e6dc1;
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          }
+
+          :hover {
+            text-decoration: underline;
+          }
+        }
+
+        h5 {
+          margin-bottom: 23px;
+
+          a {
+            font-size: 19px;
+            color: #333;
+            font-weight: 500;
+          }
+
+          :hover {
+            text-decoration: underline;
+          }
+        }
+
+        p {
+          a {
+            font-size: 13.5px;
+            color: black;
+          }
+
+          :hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      &-image {
+        right: 21px;
+        position: absolute;
+        bottom: 15px;
+
+        img {
+          max-width: 90px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 3px;
+    height: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 20px 0;
+
+    @media (--tablet) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    &--items {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      height: 169px;
+    }
+  }
+
+  &__item {
+    height: 100%;
+    width: 100%;
+    padding: 0 10px 0 0;
+    position: relative;
+    border-right: 2px solid $color-soft;
+
+    & figure {
+      padding: 0;
+      margin: 0;
+      height: 60px;
+      width: 70px;
+
+      & a {
+        color: #333;
+        text-decoration: none;
+
+        & img {
+          //height: 100%;
+          //width: 100%;
+        }
+      }
+    }
+
+    &--nota {
+      & figure {
+        height: 80px;
+        margin-right: 2%;
+        width: 90%;
+      }
+    }
+
+    &:last-child {
+      border-right: 0;
+      padding-right: 0;
+    }
+  }
+
+  & span {
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    right: 25px;
+    top: 28px;
+    margin: auto;
+    transform: scale(3.5);
+    z-index: 2;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #444;
+  }
+
+  &__detail {
+    padding-left: 8px;
+    padding-right: 10px;
+    width: 100%;
+
+    &--nota {
+      bottom: 44px;
+    }
+  }
+
+  &__category {
+    margin-bottom: 5px;
+  }
+
+  &__title {
+    display: -webkit-box;
+    overflow: hidden;
+    max-height: 57.63px;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.13;
+
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+
+    font-family: 'ChronicleDisplayBold', Times New Roman, serif;
+
+    &--nota {
+      & a {
+        color: #333;
+      }
+    }
+  }
+  &__link {
+    color: $color-white;
+    text-decoration: none;
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
+  &__img {
+    object-fit: cover;
+    height: 100%;
+  }
+
+  &-oneline {
+    -webkit-line-clamp: 1;
+    // max-height: 35.63px;
+  }
+
+  &-twoline {
+    -webkit-line-clamp: 2;
+    // max-height: 35.63px;
+  }
+
+  &-threeline {
+    -webkit-line-clamp: 3;
+    // max-height: 57.63px;
+  }
+
+  &--nota {
+    height: 254px;
+  }
+}

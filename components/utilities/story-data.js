@@ -1,6 +1,6 @@
 import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
-import { defaultImage, formatHtmlToText } from './helpers'
+import { defaultImage, formatHtmlToText, breadcrumbList } from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -221,6 +221,13 @@ class StoryData {
         this._data.promo_items[ConfigParams.VIDEO].embed_html) ||
       ''
     )
+  }
+
+  get breadcrumbList() {
+    const {
+      taxonomy: { primary_section: primarySection = {} } = {},
+    } = this._data
+    return breadcrumbList(primarySection)
   }
 
   // TODO: Improve raw attribute function (should only be getter's attribute)
