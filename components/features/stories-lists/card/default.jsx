@@ -8,7 +8,7 @@ import Header from './_children/header'
 import List from './_children/list'
 
 const classes = {
-  lista: 'list flex flex-col overflow-hidden',
+  lista: 'full-height flex flex-col overflow-hidden',
 }
 
 @Consumer

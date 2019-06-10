@@ -10,14 +10,16 @@ export default ({
   arcSite,
   requestUri,
   siteName,
-  article,
+  story,
   deployment = () => {},
   globalContent: data,
 }) => {
-  const { multimedia, videoSeo: [{ url = '' } = {}] = [] } =
-    new StoryData({ data, arcSite }) 
+  const { multimedia, videoSeo: [{ url = '' } = {}] = [] } = new StoryData({
+    data,
+    arcSite,
+  })
   const image =
-    article && multimedia
+    story && multimedia
       ? multimedia
       : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/story-image.jpg`
   return (
@@ -33,7 +35,7 @@ export default ({
       <meta property="og:image" content={deployment(image)} />
       <meta property="og:image:secure_url" content={deployment(image)} />
 
-      {article && (
+      {story && (
         <>
           <meta property="og:image:width" content="696" />
           <meta property="og:image:height" content="418" />
@@ -53,7 +55,7 @@ export default ({
       )}
 
       <meta property="og:url" content={`${siteUrl}${requestUri}`} />
-      <meta property="og:type" content={article ? 'article' : 'website'} />
+      <meta property="og:type" content={story ? 'story' : 'website'} />
     </>
   )
 }

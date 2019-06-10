@@ -157,7 +157,6 @@ export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
   return imgUrl
 }
 
-
 export const metaPaginationUrl = (
   pageNumber,
   patternPagination,
@@ -304,4 +303,17 @@ export const createLink = url => {
 
 export const appendToBody = node => {
   document.body.appendChild(node)
+}
+
+// TODO: terminar el breadcrumbList data estructurada
+export const breadcrumbList = data => {
+  const dataSeccion = data && data.path && data.path.split('/')
+  const arrayData = []
+  if (data && data.path) {
+    dataSeccion.forEach(function(element) {
+      console.log(element)
+    })
+  }
+
+  return arrayData
 }

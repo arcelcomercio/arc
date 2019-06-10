@@ -4,7 +4,7 @@ import ArcArticleBody from '@arc-core-components/feature_article-body'
 import PropTypes from 'prop-types'
 import ENV from 'fusion:environment'
 
-import ArticleTable from '../../../global-components/article-table'
+import StoryTable from '../../../global-components/story-table'
 
 const infoPages = {
   termsAndConditions: 'Términos y condiciones de uso',
@@ -83,7 +83,7 @@ class InfoPages extends PureComponent {
           renderElement={element => {
             const { type } = element
             if (type === 'table') {
-              return <ArticleTable data={element} type={type} />
+              return <StoryTable data={element} type={type} />
             }
             return ''
           }}
