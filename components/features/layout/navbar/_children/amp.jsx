@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import AmpSocial from '../../../article/header/_children/amp-social'
+import AmpSocial from '../../../story/header/_children/amp-social'
 import Menu from './amp-menu'
 
 const classes = {

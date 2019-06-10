@@ -11,7 +11,7 @@ export default ({
   requestUri = '',
   arcSite = '',
   contextPath = '',
-  isArticle,
+  isStory,
   isAmp,
 } = {}) => {
   const structuredData = `{
@@ -104,7 +104,7 @@ export default ({
       />
       <link rel="canonical" href={`${siteUrl}${requestUri}`} />
 
-      {isArticle && (
+      {isStory && (
         <link rel="amphtml" href={`${siteUrl}${requestUri}&outputType=amp`} />
       )}
       <meta name="theme-color" content={colorPrimary} />
