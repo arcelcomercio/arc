@@ -181,7 +181,7 @@ class NavBarDefault extends PureComponent {
     }
     return (
       _handleHide() && (
-        <nav className={classes.nav}>
+        <nav className={`${classes.nav} ${scrolled ? 'active' : ''}`}>
           <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}
 
