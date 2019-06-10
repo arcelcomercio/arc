@@ -46,7 +46,10 @@ class BlogRelatedPostsGrid extends PureComponent {
 
     return (
       <div className={classes.bmInterestYou}>
-        <h4 className={classes.generalTitle} {...editableField('featureTitle')}>
+        <h4
+          className={classes.generalTitle}
+          {...editableField('featureTitle')}
+          suppressContentEditableWarning>
           {featureTitle || 'Te puede interesar'}
         </h4>
         <div className={classes.container}>

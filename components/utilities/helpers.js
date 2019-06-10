@@ -1,6 +1,4 @@
-import {
-  addResizedUrlItem
-} from './thumbs'
+import { addResizedUrlItem } from './thumbs'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -26,9 +24,9 @@ export const formatDate = date => {
 
   const fechaEntrante = date.slice(0, 10)
   const fecha =
-    fechaEntrante === fechaGenerada ?
-    date.slice(date.indexOf('T') + 1, 16) :
-    fechaEntrante
+    fechaEntrante === fechaGenerada
+      ? date.slice(date.indexOf('T') + 1, 16)
+      : fechaEntrante
   return fecha
 }
 
@@ -159,55 +157,6 @@ export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
   return imgUrl
 }
 
-export const GetMultimediaContent = ({
-  basic_video: basicVideo,
-  basic_gallery: basicGallery,
-  basic,
-}) => {
-  const result = {
-    url: null,
-    medio: null,
-  }
-
-  if (basicVideo) {
-    const {
-      promo_items: {
-        basic: {
-          url: videoUrl = ''
-        },
-      },
-    } = basicVideo
-    result.url = videoUrl
-    return {
-      url: result.url,
-      medio: 'video',
-    }
-  }
-
-  if (basicGallery) {
-    const {
-      promo_items: {
-        basic: {
-          url: galleryUrl = ''
-        },
-      },
-    } = basicGallery
-    result.url = galleryUrl
-    return {
-      url: result.url,
-      medio: 'gallery',
-    }
-  }
-
-  if (basic) {
-    result.url = basic.url || ''
-    return {
-      url: result.url,
-      medio: 'image',
-    }
-  }
-  return result
-}
 
 export const metaPaginationUrl = (
   pageNumber,
@@ -216,12 +165,12 @@ export const metaPaginationUrl = (
   siteUrl,
   isQuery
 ) => {
-  return requestUri.match(patternPagination) != null ?
-    `${siteUrl}${requestUri.replace(
+  return requestUri.match(patternPagination) != null
+    ? `${siteUrl}${requestUri.replace(
         patternPagination,
         `${isQuery ? '&page=' : '/'}${pageNumber}`
-      )}` :
-    `${siteUrl}${
+      )}`
+    : `${siteUrl}${
         isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
       }${isQuery ? `&page=${pageNumber}` : `?${requestUri.split('?')[1]}`}`
 }
@@ -232,19 +181,16 @@ export const getMetaPagesPagination = (
   globalContent,
   patternPagination
 ) => {
-  const {
-    next,
-    previous
-  } = globalContent || {}
+  const { next, previous } = globalContent || {}
   const pages = {
-    current: requestUri.match(patternPagination) ?
-      parseInt(
-        requestUri
-        .match(patternPagination)[0]
-        .split(`${isQuery ? '=' : '/'}`)[1],
-        10
-      ) :
-      1,
+    current: requestUri.match(patternPagination)
+      ? parseInt(
+          requestUri
+            .match(patternPagination)[0]
+            .split(`${isQuery ? '=' : '/'}`)[1],
+          10
+        )
+      : 1,
     next: false,
     prev: false,
   }
@@ -281,6 +227,7 @@ export const socialMediaUrlShareList = (
     linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
     pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
     whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
+    fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
   }
 }
 
@@ -332,11 +279,7 @@ export const defaultImage = ({
   )
 }
 
-export const createScript = ({
-  src,
-  async,
-  textContent = ''
-}) => {
+export const createScript = ({ src, async, defer, textContent = '' }) => {
   const node = document.createElement('script')
   if (src) {
     node.type = 'text/javascript'
@@ -344,6 +287,9 @@ export const createScript = ({
   }
   if (async) {
     node.async = true
+  }
+  if (defer) {
+    node.defer = true
   }
   node.textContent = textContent
   return node
@@ -356,6 +302,6 @@ export const createLink = url => {
   return node
 }
 
-export const appendToHead = node => {
-  document.head.appendChild(node)
+export const appendToBody = node => {
+  document.body.appendChild(node)
 }

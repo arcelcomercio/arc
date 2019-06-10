@@ -2,38 +2,30 @@ import PropTypes from 'prop-types'
 
 // Maybe work without PropTypes.shape
 const customFields = PropTypes.shape({
-  content1: PropTypes.label.tag({
-    name: 'Nota 1',
-  }),
-  data1: PropTypes.string.isRequired.tag({
-    name: 'Link de nota interna 1',
+  data1: PropTypes.string.tag({
+    name: 'Enlace nota 1',
   }),
   title1: PropTypes.string.tag({
-    name: 'Título 1',
-    description: 'Dejar vacío para tomar el valor original de la historia.',
+    name: 'Título nota 1',
+    description: 'Dejar vacío para tomar el título original de la nota.',
   }),
-  content2: PropTypes.label.tag({
-    name: 'Nota 2',
-  }),
-  data2: PropTypes.string.isRequired.tag({
-    name: 'Link de nota interna 2',
+  data2: PropTypes.string.tag({
+    name: 'Enlace nota 2',
   }),
   title2: PropTypes.string.tag({
-    name: 'Título 2',
-    description: 'Dejar vacío para tomar el valor original de la historia.',
+    name: 'Título nota 2',
+    description: 'Dejar vacío para tomar el título original de la nota.',
   }),
-  content3: PropTypes.label.tag({
-    name: 'Nota 3',
-  }),
-  data3: PropTypes.string.isRequired.tag({
-    name: 'Link de nota interna 3',
+  data3: PropTypes.string.tag({
+    name: 'Enlace nota 3',
   }),
   title3: PropTypes.string.tag({
-    name: 'Título 3',
-    description: 'Dejar vacío para tomar el valor original de la historia.',
+    name: 'Título nota 3',
+    description: 'Dejar vacío para tomar el título original de la nota.',
   }),
-  settings: PropTypes.label.tag({
-    name: 'Configuraciones',
+  webskedId: PropTypes.string.tag({
+    name: 'ID',
+    group: 'Colección',
   }),
   showAuthorOrSection: PropTypes.oneOf(['author', 'section']).tag({
     name: 'Mostrar autor o sección',
@@ -42,6 +34,7 @@ const customFields = PropTypes.shape({
       section: 'Sección',
     },
     defaultValue: 'author',
+    group: 'Configuraciones',
   }),
   multimediaOrientation: PropTypes.oneOf(['left', 'right']).tag({
     name: 'Posición de la imagen',
@@ -50,6 +43,7 @@ const customFields = PropTypes.shape({
       right: 'Derecha',
     },
     defaultValue: 'right',
+    group: 'Configuraciones',
   }),
 })
 

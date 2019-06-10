@@ -2,7 +2,7 @@ import React from 'react'
 import { getIcon } from '../../../../utilities/helpers'
 
 export const TripletChildTriplet = props => {
-  const { data, multimediaOrientation = 'right', arcSite } = props
+  const { data = [], multimediaOrientation = 'right', arcSite } = props
   const classes = {
     triplet: 'triplet pd-left-20 pd-right-20',
     tripletItem: `triplet__item triplet__item--${multimediaOrientation}`,
@@ -28,11 +28,10 @@ export const TripletChildTriplet = props => {
       numline = classes.twoline
       break
   }
-
   return (
     <div className={classes.triplet}>
       {data.map(story => (
-        <article className={classes.tripletItem}>
+        <article className={classes.tripletItem} key={`triplet-${story.index}`}>
           <div className={`${classes.tripletTitle} ${numline}`}>
             <h2>
               <a href={story.link}>{story.title}</a>

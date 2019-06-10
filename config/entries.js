@@ -10,6 +10,5 @@ module.exports = (type = 'index') => {
   buildSites.forEach(site => {
     entries[site] = `./src/websites/${site}/${type}.${ext}`
   })
-
   return entries
 }
