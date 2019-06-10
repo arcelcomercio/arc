@@ -19,7 +19,7 @@ const params = [
     type: 'number',
   },
   {
-    name: 'news_number',
+    name: 'stories_qty',
     displayName: 'Cantidad de historias',
     type: 'number',
   },
@@ -35,7 +35,7 @@ const pattern = (key = {}) => {
   auxKey = key
 
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, excludeSections, feedOffset, news_number: newsNumber } = key
+  const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
 
   const sectionsExcluded = itemsToArray(excludeSections)
 
@@ -108,7 +108,7 @@ const pattern = (key = {}) => {
 
   const encodedBody = encodeURI(JSON.stringify(body))
 
-  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${newsNumber ||
+  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
     10}&from=${feedOffset || 0}&sort=publish_date:desc`
 }
 

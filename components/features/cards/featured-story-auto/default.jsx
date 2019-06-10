@@ -31,7 +31,7 @@ class CardFeaturedStoryAuto extends PureComponent {
       website: arcSite,
       section,
       feedOffset: storyNumber || 0,
-      news_number: 1,
+      stories_qty: 1,
     }
 
     const { fetched } = this.getContent(source, params, storiesSchema)

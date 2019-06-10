@@ -19,7 +19,7 @@ class StoriesListCard extends PureComponent {
       customFields: {
         titleList,
         urlTitle,
-        newsNumber,
+        storiesQty,
         seeMore,
         seeMoreurl,
         seeHour,
@@ -33,7 +33,7 @@ class StoriesListCard extends PureComponent {
       titleList,
       urlTitle,
       background,
-      newsNumber,
+      storiesQty,
       seeMore,
       seeMoreurl,
       seeHour,
@@ -44,7 +44,7 @@ class StoriesListCard extends PureComponent {
   }
 
   componentDidMount = () => {
-    const { section, newsNumber } = this.state
+    const { section, storiesQty } = this.state
     const { arcSite: website } = this.props
 
     const { fetched } = this.getContent(
@@ -52,7 +52,7 @@ class StoriesListCard extends PureComponent {
       {
         website,
         section,
-        news_number: newsNumber,
+        stories_qty: storiesQty,
       },
       schemaFilter
     )

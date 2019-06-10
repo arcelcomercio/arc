@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+import withSizes from 'react-sizes'
 
 import schemaFilter from './_dependencies/schema-filter'
 import ArticleSeparatorChildItem from './_children/item'
@@ -13,35 +14,45 @@ const classes = {
   body: 'articlesep__body separator__body--items',
   mvideo: 'articlesep--video',
 }
-
 @Consumer
 class ArticleSeparator extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      device: this.setDevice(), // TODO: en utilities/resizer hay aun setDevice
-      stories: [],
-    }
+    const { arcSite: website, globalContent } = props
+    const { taxonomy: { primary_section: { path: section } = {} } = {} } =
+      globalContent || {}
+
+    this.fetchContent({
+      data: {
+        source: 'story-feed-by-section',
+        query: {
+          website,
+          section,
+          stories_qty: 7,
+        },
+        filter: schemaFilter,
+      },
+    })
   }
 
-  getSeccionPrimary = dataArticle => {
+  /* getSeccionPrimary = dataArticle => {
     const lastSection = '/'
-    const splitText = dataArticle.primary_section
-      ? lastSection + dataArticle.primary_section.path.slice(1).split('/')[0]
+    const splitText = dataArticle
+      ? lastSection + dataArticle.path.slice(1).split('/')[0]
       : '/politica'
     return splitText
-  }
+  } */
 
-  componentDidMount = () => {
+  /*   componentDidMount = () => {
     window.addEventListener('resize', this.handleResize)
     this.getContentApi()
-  }
+  } */
 
-  getContentApi = () => {
-    let newsNumber = 7
+  /*   getContentApi = () => {
+    let storiesQty = 7
     const { device } = this.state
 
-    if (device === 'mobile') newsNumber = 0
+    if (device === 'mobile') storiesQty = 0
 
     const { arcSite, globalContent } = this.props
     const section = this.getSeccionPrimary(globalContent.taxonomy || {})
@@ -50,7 +61,7 @@ class ArticleSeparator extends PureComponent {
       {
         website: arcSite,
         section,
-        news_number: newsNumber,
+        stories_qty: storiesQty,
       },
       schemaFilter
     )
@@ -62,10 +73,10 @@ class ArticleSeparator extends PureComponent {
         excluir: websiteUrl,
       })
     })
-  }
+  } */
 
   // FIXME: Temporal
-  handleResize = () => {
+  /*   handleResize = () => {
     const wsize = window.innerWidth
     const { device, stories } = this.state
 
@@ -88,7 +99,7 @@ class ArticleSeparator extends PureComponent {
       return 'mobile'
     }
     return 'desktop'
-  }
+  } */
 
   renderItems(stories, excluir) {
     const { deployment, contextPath, arcSite } = this.props
@@ -127,10 +138,13 @@ class ArticleSeparator extends PureComponent {
   }
 
   render() {
-    const { stories, excluir, device } = this.state
+    const { data: { content_elements: stories } = {} } = this.state
+    const { globalContent, isMobile } = this.props
+    const { website_url: excluir } = globalContent || {}
 
-    if (device === 'mobile') return ''
-    return (
+    return isMobile ? (
+      ''
+    ) : (
       <div className={classes.separator}>
         <div className={classes.body}>{this.renderItems(stories, excluir)}</div>
       </div>
@@ -138,6 +152,10 @@ class ArticleSeparator extends PureComponent {
   }
 }
 
+const mapSizesToProps = ({ width }) => ({
+  isMobile: width < 640,
+})
+
 ArticleSeparator.label = 'Artículo - separador'
 
-export default ArticleSeparator
+export default withSizes(mapSizesToProps)(ArticleSeparator)

@@ -43,7 +43,7 @@ class ExtraordinaryStoryBySection extends Component {
       {
         section: sectionName,
         feedOffset: positionData || 0,
-        news_number: API_SIZE_DATA,
+        stories_qty: API_SIZE_DATA,
       },
       schemaFilter(arcSite)
     )

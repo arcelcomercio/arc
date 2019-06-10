@@ -13,7 +13,7 @@ const customFields = PropTypes.shape({
     defaultValue: 'bg-color--lightblue',
   }),
 
-  newsNumber: PropTypes.number.tag({
+  storiesQty: PropTypes.number.tag({
     name: 'Número de noticas',
     defaultValue: 5,
   }),

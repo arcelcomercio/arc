@@ -41,7 +41,7 @@ class CardTabloid extends PureComponent {
       {
         website: arcSite,
         section,
-        news_number: 1,
+        stories_qty: 1,
       },
 
       schemaFilter(arcSite)

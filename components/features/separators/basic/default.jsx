@@ -39,17 +39,17 @@ class SeparatorBasic extends PureComponent {
   }
 
   getContentApi = () => {
-    let newsNumber = 4
+    let storiesQty = 4
     const { device, section, titleSeparator } = this.state
     const { arcSite, deployment, contextPath } = this.props
 
-    if (device === 'mobile') newsNumber = 1
+    if (device === 'mobile') storiesQty = 1
 
     const { fetched } = this.getContent(
       'story-feed-by-section',
       {
         section,
-        news_number: newsNumber,
+        stories_qty: storiesQty,
       },
       schemaFilter
     )
