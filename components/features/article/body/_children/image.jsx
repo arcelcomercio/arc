@@ -13,6 +13,7 @@ const ArticleBodyChildArticleImage = props => {
     <>
       <Image
         width="100%"
+        layout=""
         imgClassName={classes.image}
         sizePreset="large"
         {...data}
