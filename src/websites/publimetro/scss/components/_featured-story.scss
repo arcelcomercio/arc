@@ -20,12 +20,23 @@
   }
   &__image {
     position: relative;
+    &::before {
+      @media (--tablet) {
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(14, 33, 13, 0.5) 58%,
+          rgba(14, 33, 13, 0.65) 71%,
+          #0e210d 96%
+        );
+      }
+    }
   }
   &__img-icon {
     position: absolute;
     font-size: 50px;
     color: $color-white;
-    z-index: 1;;
+    z-index: 1;
   }
   /* Imagen completa */
   &--img-complete {
@@ -41,8 +52,4 @@
       color: $color-white;
     }
   }
-  &__gradient{
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(14, 33, 13, 0.5) 58%, rgba(14, 33, 13, 0.65) 71%, #0e210d 96%)
-  } 
 }
