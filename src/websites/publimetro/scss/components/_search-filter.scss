@@ -1,0 +1,67 @@
+.search-filter {
+  background-color: $color-default-3;
+  &__link {
+    font-family: $font-regular;
+    color: $color-default-2;
+    @media (--desktop) {
+      background-color: $color-green-opacity;
+    }
+    &:hover {
+      background-color: $color-primary;
+      color: $color-white;
+      text-decoration: none;
+    }
+  }
+  &__item {
+    @media (--desktop) {
+      position: relative;
+    }
+    &.active {
+      .search-filter__link {
+        color: $color-white;
+        background-color: $color-primary;
+        font-family: $primary-font;
+      }
+    }
+    &.selected {
+      .search-filter__link {
+          outline: 0;
+          background-color: $color-default-1;
+          color: $color-default-2;
+          font-family: $primary-font;
+      }
+      &::before {
+        @media (--desktop) {
+          border-color: $color-default-1 transparent transparent;
+          border-style: solid;
+          border-width: 10px 10px 0 10px;
+          bottom: -10px;
+          content: ' ';
+          height: 0;
+          left: 50%;
+          margin-left: -10px;
+          position: absolute;
+          width: 0;
+        }
+      }
+    }
+  }
+  &__input {
+    color: $color-green-dark;
+    font-family: $primary-font;
+    &::placeholder {
+      color: $color-green-dark;
+    }
+  }
+  &__btn {
+    @media (--desktop) {
+      border-left-color: $color-green-light;
+    }
+    &::before {
+      color: $color-green-dark;
+    }
+  }
+  &__sublink{
+    font-family: $font-regular;;
+  }
+}
