@@ -3,14 +3,13 @@ $backgroundTitle: #5f72a7;
 
 .more-read {
   padding: 0 15px;
+
   &__title {
     color: $colorTitle;
     background-color: $backgroundTitle;
     padding: 15px 10px;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-align: center;
   }
+
   @media (--desktop) {
     padding: 0;
   }
