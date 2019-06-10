@@ -1,0 +1,35 @@
+.survey-confirmation {
+    background-color: #fcee21;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    padding: 40px 20px;
+    height: auto;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+
+    @media (--desktop) {
+        height: 100%;
+        padding: 80px 20px 0;
+    }
+
+
+    &__message {
+        font-size: 22px;
+        font-weight: 700;
+        color: #646464;
+        margin: 5px 0 40px;
+    }
+
+    &__button {
+        color: #646464;
+        border: 1px solid #646464;
+        display: inline-block;
+        font-size: 12px;
+        height: 45px;
+        line-height: 43px;
+        text-align: center;
+        width: 116px;
+    }
+}

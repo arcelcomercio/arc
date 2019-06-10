@@ -11,19 +11,18 @@
   &__list-item {
     float: left;
     width: 33.33%;
-    height: 100%;
-    position: relative;
     line-height: 31px;
     font-size: 20px;
   }
+
   &__list {
     width: 80vw;
     padding: 44px 20px;
     background-color: #ebebeb;
   }
+
   &__item {
     border-bottom: 1px solid #ccc;
-    text-transform: uppercase;
 
     &:hover {
       transition: all 0.15s ease;
@@ -36,7 +35,6 @@
   &__link {
     font-size: 14px;
     color: #000;
-    display: block; // .block
     padding: 15px;
     transition: all 0.15s ease;
   }
@@ -47,11 +45,11 @@
   }
 
   &__close {
-    position: absolute;
     top: 15px;
     right: 15px;
   }
 }
+
 .i-amphtml-sidebar-mask {
   z-index: 1 !important;
 }

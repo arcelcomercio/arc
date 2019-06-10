@@ -1,26 +1,28 @@
 import React, { PureComponent } from 'react'
 
 const classes = {
-  logocontent: 'header-somos',
+  logocontent:
+    'header-somos flex items-center justify-between full-width text-center',
   iconmenuwrapper: 'header-somos__icon-wrapper',
   menuicon: 'icon-menu header-somos__icon',
-  logoWrapper: 'header-somos__logo-wrapper',
-  logoimgwrapper: 'header-somos__img-wrapper',
-  logoLink: 'header-somos__img-link',
-  logoimg: 'header-somos__img',
+  logoWrapper:
+    'header-somos__logo-wrapper flex items-center justify-center text-center',
+  logoimgwrapper: 'flex-1',
+  logoLink: 'inline-b',
+  logoimg: 'header-somos__img block',
   logoIcon: 'icon-marca',
 
-  menu: 'somos-menu',
-  menuContent: 'somos-menu__content',
-  menuClose: 'somos-menu__close',
+  menu: 'somos-menu position-absolute',
+  menuContent: 'somos-menu__content full-height',
+  menuClose: 'somos-menu__close text-right full-width',
   menuCloseIcon: 'icon-close somos-menu__close-icon',
-  menuSearch: 'somos-menu__search',
-  menuSearchInput: 'somos-menu__search-input',
+  menuSearch: 'somos-menu__search position-relative',
+  menuSearchInput: 'somos-menu__search-input full-width font-bold',
   menuSearchIcon: 'icon-search ',
-  menuLogin: 'somos-menu__login',
+  menuLogin: 'somos-menu__login full-width',
   menuLoginLink: 'flex justify-center',
   menuLoginIcon: 'icon-user somos-menu__login-icon',
-  menuLoginLabel: 'somos-menu__login-text',
+  menuLoginLabel: 'somos-menu__login-text uppercase font-bold',
   menuList: 'somos-menu__list',
   menuItemLink: 'somos-menu__item-link',
   menuLinkIcon: 'somos-menu__link-icon',
@@ -133,7 +135,7 @@ class HeaderChildSomos extends PureComponent {
                     onChange={e => this.handleSearchInput(e)}
                   />
                   <button
-                    className="somos-menu__search-icon"
+                    className="somos-menu__search-icon position-absolute"
                     type="submit"
                     onClick={() => {}}>
                     <i className={classes.menuSearchIcon} />

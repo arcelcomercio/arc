@@ -62,8 +62,16 @@
   display: none;
 }
 
+.inline {
+  display: inline;
+}
+
 .inline-b {
   display: inline-block;
+}
+
+.table {
+  display: table;
 }
 
 .no-desktop,
@@ -143,11 +151,11 @@
 /******** FONTS **********/
 
 .primary-font {
-  font-family: $primary-font;
+  font-family: $primary-font !important;
 }
 
 .secondary-font {
-  font-family: $secondary-font;
+  font-family: $secondary-font !important;
 }
 
 .font-thin {
@@ -160,6 +168,10 @@
 
 .font-bold {
   font-weight: 700;
+}
+
+.font-xbold {
+  font-weight: 900;
 }
 
 /******* Background-text contrast *******/

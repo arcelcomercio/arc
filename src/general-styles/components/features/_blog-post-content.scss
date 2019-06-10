@@ -3,7 +3,6 @@
 
   &__author {
     color: #8f071f;
-    font-weight: 700;
     margin-right: 7px;
   }
 
@@ -13,11 +12,11 @@
 
   &__header {
     font-size: 11px;
-    text-transform: uppercase;
     margin-bottom: 25px;
-    display: inline-block;
     vertical-align: middle;
   }
+
+  // Origen de etiquetas externo, se tienen que definir asi los estilos
 
   &__news {
     font: 20px/1.4 $primary-font;

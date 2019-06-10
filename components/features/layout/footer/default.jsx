@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react'
 import { setDevice } from '../../../utilities/resizer'
 
 const classes = {
-  footer: 'footer full-width',
+  footer: 'footer full-width grid',
   info: 'footer__info footer__footer-background-color padding-normal',
   sections: 'footer__sections footer__footer-background-color',
   contact: 'footer__contact footer__footer-background-color',
@@ -14,11 +14,11 @@ const classes = {
   sitesLink: 'footer__sites-link',
   legalList: 'footer__legal-list',
   legalItem: 'footer__legal-item',
-  logoContainer: 'footer__logo footer__logo-container',
+  logoContainer: 'footer__logo footer__logo-container block',
   logoImg: 'full-width',
   list: 'footer__list padding-normal',
   listItem: 'footer__list-item',
-  listTitle: 'footer__list-item footer__list-item--title',
+  listTitle: 'footer__list-item footer__list-item--title uppercase font-bold',
   listLink: 'footer__list-link capitalize',
 }
 
