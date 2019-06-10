@@ -124,7 +124,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
     const { isAdmin, globalContentConfig, contextPath } = this.props
 
     const classes = {
-      searchFilter: 'search-filter full-width margin-top',
+      searchFilter: 'search-filter full-width mg-top-20',
       containerList: 'search-filter__box-list',
       select: `search-filter__select ${showList ? 'active' : ''}`,
       selectName: 'search-filter__select-name',
