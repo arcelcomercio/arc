@@ -19,7 +19,7 @@ const classes = {
 
   link: 'featured-story__link',
   imageLink: 'block full-height',
-  img: 'full-width full-height object-fit-cover',
+  img: 'full-width full-height object-cover',
 
   imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',

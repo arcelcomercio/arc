@@ -20,7 +20,7 @@ const elements = [
 
 const classes = {
   container:
-    'grid grid--content grid--col-3 grid--col-2 grid--col-1 full-width margin-top',
+    'grid grid--content grid--col-3 grid--col-2 grid--col-1 full-width mg-top-20',
 }
 
 @Consumer

@@ -9,7 +9,7 @@ const classes = {
   section: 'blog-separator__section block',
   author: 'blog-separator__author block',
   boxImg: 'blog-separator__box-img flex justify-center',
-  img: 'blog-separator__img',
+  img: 'blog-separator__img object-contain',
 }
 
 const SeparatorBlogChildItem = ({

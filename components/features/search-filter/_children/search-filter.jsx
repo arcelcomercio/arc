@@ -124,12 +124,16 @@ class SearchFilterChildSearchFilter extends PureComponent {
     const { isAdmin, globalContentConfig, contextPath } = this.props
 
     const classes = {
-      searchFilter: 'search-filter full-width margin-top',
-      containerList: 'search-filter__box-list',
-      select: `search-filter__select ${showList ? 'active' : ''}`,
-      selectName: 'search-filter__select-name',
+      searchFilter: 'search-filter flex full-width mg-top-20',
+      containerList: 'position-relative',
+      select: `search-filter__select position-relative full-width flex items-center ${
+        showList ? 'active' : ''
+      }`,
+      selectName: 'search-filter__select-name full-width justify-between',
       iconButton: 'icon-angle-down',
-      list: `search-filter__list ${showList ? 'active' : ''}`,
+      list: `search-filter__list position-absolute full-width flex-col ${
+        showList ? 'active' : ''
+      }`,
       iemDesc: `search-filter__item ${
         sort === 'desc' || !sort ? 'active' : ''
       }`,
@@ -140,10 +144,10 @@ class SearchFilterChildSearchFilter extends PureComponent {
         selected === 'section' ? 'selected' : ''
       }`,
       itemTime: `search-filter__item ${selected === 'time' ? 'selected' : ''}`,
-      link: 'search-filter__link',
-      subList: 'search-filter__sublist active',
-      subItem: 'search-filter__subitem',
-      subLink: 'search-filter__sublink',
+      link: 'search-filter__link flex uppercase',
+      subList: 'search-filter__sublist full-width active',
+      subItem: 'search-filter__subitem flex items-center position-relative',
+      subLink: 'search-filter__sublink capitalize full-width',
     }
 
     return (

@@ -11,7 +11,7 @@ const classes = {
   movieItem: 'movie-item flex flex-col',
   leftSide: 'movie-item__left flex-shrink-0 flex-grow-0',
   imageBox: 'block full-width',
-  image: 'movie-item__img full-width full-height object-fit-cover',
+  image: 'movie-item__img full-width full-height object-cover',
   title: 'movie-item__title',
   function: 'movie-item__function',
   rightSide: 'movie-item__right',

@@ -5,7 +5,7 @@ import { defaultImage } from '../../../utilities/helpers'
 const classes = {
   container: 'movie-details flex flex-col',
   imgBox: 'movie-details__box-img position-relative full-width',
-  img: 'movie-details__img full-width full-height object-fit-cover',
+  img: 'movie-details__img full-width full-height object-cover',
   iconBox:
     'movie-details__box-icon position-absolute flex items-center justify-center',
   icon: 'movie-details__icon',

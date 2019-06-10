@@ -5,7 +5,7 @@ import { getIcon } from '../../../../utilities/helpers'
 
 // Basic flex stuff
 const classes = {
-  related: 'related-interna margin-top',
+  related: 'related-interna mg-top-20',
   relatedItem: 'related-interna__item',
   relatedTitleItem: 'related-interna__title-item',
   relatedTitle: 'related-interna__title',

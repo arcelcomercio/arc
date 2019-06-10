@@ -98,7 +98,7 @@ class NavBarDefault extends PureComponent {
   _handleScroll = () => {
     const { scrolled } = this.state
 
-    // ------ Logic to set state to hide or show logo in navbar
+    // ------ Logic to set state to hidden or show logo in navbar
     const { scrollTop } = document.documentElement
 
     if (!scrolled && scrollTop > 100) {

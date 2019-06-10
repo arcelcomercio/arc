@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 
 const classes = {
-  containerSearch: 'search-filter__box-search',
-  inputSearch: 'search-filter__search',
+  containerSearch: 'search-filter__box-search flex',
+  inputSearch: 'search-filter__search position-relative full-width',
   iconSearch: 'icon-search',
 }
 

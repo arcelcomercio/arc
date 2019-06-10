@@ -3,7 +3,7 @@ import BillboardFormat from '../../../utilities/billboard-format'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  moviesGrid: 'movies-grid margin-top',
+  moviesGrid: 'movies-grid mg-top-20',
   container: 'movies-grid__container',
   headline: 'movies-grid__headline uppercase text-center',
   nav: 'movies-grid__nav',

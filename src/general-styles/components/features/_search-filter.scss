@@ -1,5 +1,4 @@
 .search-filter {
-  display: flex;
   background-color: #e8f2f7;
   flex-direction: column-reverse;
   padding: 15px;
@@ -9,16 +8,8 @@
     height: 152px;
   }
 
-  &__box-list{
-    position: relative;
-  }
-
   &__select {
-    position: relative;
-    width: 100%;
     height: 40px;
-    display: flex;
-    align-items: center;
     background-color: #d5e5ed;
     padding: 0 15px;
 
@@ -34,8 +25,6 @@
 
   &__select-name {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
     font-size: 13px;
 
     @media (--desktop) {
@@ -45,11 +34,8 @@
 
   &__list {
     display: none;
-    position: absolute;
     top: 40px;
     left: 0;
-    width: 100%;
-    flex-direction: column;
     background-color: $color-white;
     z-index: 10;
 
@@ -113,8 +99,6 @@
     padding: 10px 15px;
     color: $color-dark;
     font-size: 13px;
-    text-transform: uppercase;
-    display: flex;
     width: 100%;
 
     @media (--desktop) {
@@ -130,7 +114,6 @@
   }
 
   &__sublist {
-    width: 100%;
     display: none;
     flex-direction: column;
     padding: 0 20px;
@@ -148,10 +131,6 @@
   }
 
   &__subitem {
-    position: relative;
-    display: flex;
-    align-items: center;
-
     @media (--desktop) {
       padding: 0;
       margin-right: 15px;
@@ -174,17 +153,9 @@
     font-size: 11px;
     color: #a1a1a1;
     padding: 7px;
-    cursor: pointer;
-    text-transform: capitalize;
-    width: 100%;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   &__box-search {
-    display: flex;
     align-items: center;
     margin-bottom: 15px;
 
@@ -195,8 +166,6 @@
   }
 
   &__search {
-    position: relative;
-    width: 100%;
 
     & input {
       width: 100%;

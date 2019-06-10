@@ -1,4 +1,7 @@
-/******* Components *******/
+/******* Globals *******/
+@import './global-components/button';
+
+/******* Features *******/
 @import './features/nav';
 @import './features/nav-sidebar';
 @import './features/header';
@@ -59,4 +62,3 @@
 
 @import './features/components/icons';
 @import './features/components/pagination';
-/*---------------------*/

@@ -13,9 +13,6 @@
 }
 
 // TODO: Mapear para cambiar por lo nuevo - Legacy
-.margin-top {
-  margin-top: $spacing-normal;
-}
 
 .padding-small {
   padding: $spacing-small;
@@ -33,18 +30,27 @@
   padding: $spacing-xlarge;
 }
 
-.padding-lateral-normal {
-  padding-left: $spacing-normal;
-  padding-right: $spacing-normal;
-}
-
 // ----------------------------------------------
 
-.object-fit-cover {
+.object-cover {
   object-fit: cover;
 }
 
-/******************************************/
+.object-contain {
+  object-fit: contain;
+}
+
+.object-center {
+  object-position: center;
+}
+
+.object-top {
+  object-position: top;
+}
+
+.object-bottom {
+  object-position: bottom;
+}
 
 /******** DISPLAYS **********/
 
@@ -52,7 +58,7 @@
   display: block;
 }
 
-.hide {
+.hidden {
   display: none;
 }
 
@@ -76,30 +82,10 @@
   }
 }
 
-/******************************************/
-
-/******** TEXT **********/
-.text-center {
-  text-align: center;
+.clearfix {
+  display: table;
+  content: '';
 }
-
-.text-left {
-  text-align: left;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.capitalize {
-  text-transform: capitalize;
-}
-
-/******************************************/
 
 /******** OVERFLOW **********/
 
@@ -123,7 +109,58 @@
   overflow: hidden;
 }
 
-/******************************************/
+/******** POSITION **********/
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+/******** TEXT **********/
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+/******** FONTS **********/
+
+.primary-font {
+  font-family: $primary-font;
+}
+
+.secondary-font {
+  font-family: $secondary-font;
+}
+
+.font-thin {
+  font-weight: 200;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-bold {
+  font-weight: 700;
+}
 
 /******* Background-text contrast *******/
 .bg--white {
@@ -153,59 +190,4 @@
 .bg-color--gray {
   background-color: $color-gray;
   color: $color-white;
-}
-
-/******************************************/
-
-/******** POSITION **********/
-
-.position-relative {
-  position: relative;
-}
-
-.position-absolute {
-  position: absolute;
-}
-
-/*-----------------------*/
-.clearfix {
-  display: table;
-  content: '';
-}
-
-/******************************************/
-
-// TODO: Revisar ubicacion de esto
-/********** BUTTON ***********/
-
-.btn {
-  border-radius: 4px;
-  padding: 8px 16px;
-  margin: 0 4px;
-  line-height: 16px;
-  font-family: $primary-font;
-  cursor: pointer;
-
-  &--small {
-    font-size: 9px;
-    padding: 4px 6px;
-  }
-
-  &--outline {
-    border: 1px solid $color-primary;
-    background-color: transparent;
-    color: $color-primary;
-  }
-}
-
-/*****************************************/
-
-/******** FONTS **********/
-
-.primary-font {
-  font-family: $primary-font;
-}
-
-.secondary-font {
-  font-family: $secondary-font;
 }
