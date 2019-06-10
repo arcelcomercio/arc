@@ -5,7 +5,7 @@ const classes = {
   date: 'post-item__date flex justify-start',
   content: 'post-item__content flex',
   figure: 'post-item__figure',
-  image: 'post-item__image object-fit-cover',
+  image: 'post-item__image object-cover',
   description: 'post-item__description flex flex-col justify-between',
   title: 'post-item__title uppercase',
   author: 'post-item__author',

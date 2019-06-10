@@ -40,7 +40,7 @@ export const TripletChildTriplet = props => {
           <figure className={classes.tripletMultimedia}>
             <a href={story.link}>
               <img
-                className="object-fit-cover full-width full-height"
+                className="object-cover full-width full-height"
                 src={story.multimedia}
                 alt={story.title}
               />

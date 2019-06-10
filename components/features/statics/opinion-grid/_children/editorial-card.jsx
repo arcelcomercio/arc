@@ -7,7 +7,7 @@ const classes = {
   name: 'editorial-card__name block uppercase',
   description: 'flex',
   imageBox: 'flex position-relative items-start',
-  image: 'editorial-card__image',
+  image: 'editorial-card__image object-cover object-top',
   detailsBox: 'editorial-card__box-details',
   title: 'editorial-card__title block',
 }

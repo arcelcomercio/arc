@@ -32,11 +32,25 @@
 
 // ----------------------------------------------
 
-.object-fit-cover {
+.object-cover {
   object-fit: cover;
 }
 
-/******************************************/
+.object-contain {
+  object-fit: contain;
+}
+
+.object-center {
+  object-position: center;
+}
+
+.object-top {
+  object-position: top;
+}
+
+.object-bottom {
+  object-position: bottom;
+}
 
 /******** DISPLAYS **********/
 
@@ -68,30 +82,10 @@
   }
 }
 
-/******************************************/
-
-/******** TEXT **********/
-.text-center {
-  text-align: center;
+.clearfix {
+  display: table;
+  content: '';
 }
-
-.text-left {
-  text-align: left;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.capitalize {
-  text-transform: capitalize;
-}
-
-/******************************************/
 
 /******** OVERFLOW **********/
 
@@ -115,7 +109,46 @@
   overflow: hidden;
 }
 
-/******************************************/
+/******** POSITION **********/
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+/******** TEXT **********/
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+/******** FONTS **********/
+
+.primary-font {
+  font-family: $primary-font;
+}
+
+.secondary-font {
+  font-family: $secondary-font;
+}
 
 /******* Background-text contrast *******/
 .bg--white {
@@ -145,34 +178,4 @@
 .bg-color--gray {
   background-color: $color-gray;
   color: $color-white;
-}
-
-/******************************************/
-
-/******** POSITION **********/
-
-.position-relative {
-  position: relative;
-}
-
-.position-absolute {
-  position: absolute;
-}
-
-/*-----------------------*/
-.clearfix {
-  display: table;
-  content: '';
-}
-
-/******************************************/
-
-/******** FONTS **********/
-
-.primary-font {
-  font-family: $primary-font;
-}
-
-.secondary-font {
-  font-family: $secondary-font;
 }

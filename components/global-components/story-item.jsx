@@ -17,7 +17,7 @@ const classes = {
   right: 'story-item__right position-relative',
   rightLink: 'flex full-height',
   icon: 'story-item__icon position-absolute flex items-center justify-center',
-  figure: 'story-item__figure object-fit-cover full-width full-height',
+  figure: 'story-item__figure object-cover full-width full-height',
 }
 
 class StoriesList extends PureComponent {

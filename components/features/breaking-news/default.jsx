@@ -90,7 +90,7 @@ class BreakingNews extends Component {
     }
     return (
       <div
-        className={`cintillo-u ${isVisible ? '' : 'hidden'}
+        className={`cintillo-u ${isVisible ? '' : 'hide'}
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>

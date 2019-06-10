@@ -23,8 +23,6 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    object-fit: cover;
-    object-position: top;
     background-color: #fff;
   }
 
@@ -35,10 +33,6 @@
     font-weight: 700;
     margin-bottom: 15px;
     color: #333;
-
-    &:hover {
-      text-decoration: underline;
-    }
 
     @media (--tablet) {
       font-size: 18px;

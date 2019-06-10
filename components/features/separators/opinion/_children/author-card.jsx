@@ -4,7 +4,7 @@ const classes = {
   opinionItem: 'separator__opinion--item',
   opinionItemDetails: 'separator__opinion--item-details',
   opinionItemImage: 'separator__opinion--item-image',
-  opinionItemImageImg: 'object-fit-cover full-width full-height',
+  opinionItemImageImg: 'object-cover full-width full-height',
   opiniononeline: 'separator__opinion--item-oneline',
   opiniontwoline: 'separator__opinion--item-twoline',
   opinionthreeline: 'separator__opinion--item-threeline',

@@ -11,7 +11,7 @@ const classes = {
   body: 'tabloide__body flex items-center justify-center flex-col',
   content: 'flex items-center justify-center',
   date: 'tabloide__date flex items-center justify-center',
-  face: 'tabloide__face',
+  face: 'tabloide__face object-contain',
 }
 @Consumer
 class CardTabloid extends PureComponent {

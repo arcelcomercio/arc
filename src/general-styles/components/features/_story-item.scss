@@ -128,11 +128,6 @@
     }
   }
 
-  &__figure {
-    object-position: center;
-    max-height: 160px;
-  }
-
   &--row {
     @media (--tablet) {
       max-width: 800px;

@@ -6,7 +6,8 @@ const classes = {
   section: 'author-title__section position-relative',
   url: 'author-title__url',
   name: 'flex items-center',
-  img: 'author-title__img position-absolute full-height full-width',
+  img:
+    'author-title__img position-absolute full-height full-width object-contain',
 }
 
 const BlogAuthorTitleChildAuthorTitle = ({
@@ -24,7 +25,11 @@ const BlogAuthorTitleChildAuthorTitle = ({
         <p className={classes.name}>{firstName}</p>
       </div>
       <div className={classes.section}>
-        <img src={guid} alt={firstName} className={classes.img} />
+        <img
+          src={guid}
+          alt={`Foto del autor: ${firstName}`}
+          className={classes.img}
+        />
       </div>
     </div>
   )
