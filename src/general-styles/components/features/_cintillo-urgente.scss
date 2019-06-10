@@ -2,7 +2,7 @@
   color: $color-white;
   padding: 14px;
   font-family: $secondary-font;
-  
+
   &--bgcolor-1 {
     background-color: $color-primary;
   }
@@ -10,34 +10,32 @@
   &--bgcolor-2 {
     background-color: $color-black;
   }
-  
+
   &__btn-close {
     width: 60px;
-    & button:focus{
+    & button:focus {
       outline: 0;
     }
   }
   &__btn-icon {
     color: $color-white;
     font-size: 25px;
-    
+
     &:hover {
       cursor: pointer;
     }
   }
-  
+
   &__text {
     margin: 0;
     font-size: 22px;
-    font-weight: 400;
     line-height: 1.2em;
   }
-  
+
   &__tag {
     margin-right: 5px;
-    text-transform: uppercase;
   }
-  
+
   &__link {
     color: $color-white;
     margin-right: 5px;

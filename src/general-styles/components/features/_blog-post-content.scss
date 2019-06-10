@@ -1,9 +1,8 @@
 .bp-content {
-  background-color: #ffffff;
+  background-color: $color-white;
 
   &__author {
     color: #8f071f;
-    font-weight: 700;
     margin-right: 7px;
   }
 
@@ -13,7 +12,6 @@
 
   &__header {
     font-size: 11px;
-    text-transform: uppercase;
     margin-bottom: 25px;
     display: inline-block;
     vertical-align: middle;

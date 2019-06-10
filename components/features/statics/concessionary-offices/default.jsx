@@ -4,21 +4,21 @@ import { capitalData, provinceData } from './_dependencies/locations'
 import Markers from './_dependencies/markers'
 
 const classes = {
-  concessionaires: 'concessionaires',
-  arrow: 'concessionaires__arrow',
-  container: 'concessionaires__container',
-  title: 'concessionaires__title',
-  info: 'concessionaires__info',
+  concessionaires: 'concessionaires full-width position-relative',
+  arrow: 'concessionaires__arrow position-absolute',
+  container: 'concessionaires__container full-width',
+  title: 'concessionaires__title font-bold text-center',
+  info: 'concessionaires__info text-center',
   locations: 'concessionaires__locations',
   search: 'concessionaires__search flex',
-  searchTitle: 'concessionaires__search-title',
+  searchTitle: 'concessionaires__search-title uppercase font-bold',
   form: 'flex',
   zona: 'concessionaires__controls flex',
-  label: 'concessionaires__label',
+  label: 'concessionaires__label text-center block',
   select: 'concessionaires__select',
   district: 'concessionaires__controls flex',
   districtLabel: 'concessionaires__label',
-  mapTitle: 'concessionaires__map-title',
+  mapTitle: 'concessionaires__map-title font-thin',
 }
 
 class StaticConcessionaryOffices extends PureComponent {

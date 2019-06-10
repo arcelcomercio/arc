@@ -8,8 +8,8 @@ const classes = {
   breakingnews: 'flex justify-between',
   breakingnewsBtnClose: 'cintillo-u__btn-close text-right',
   breakingnewsIcon: 'cintillo-u__btn-icon icon-close-circle',
-  breakingnewsText: 'cintillo-u__text',
-  breakingnewsTag: 'cintillo-u__tag',
+  breakingnewsText: 'cintillo-u__text font-normal',
+  breakingnewsTag: 'cintillo-u__tag uppercase',
   breakingnewsLink: 'cintillo-u__link',
 }
 

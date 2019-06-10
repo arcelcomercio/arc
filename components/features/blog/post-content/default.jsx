@@ -5,10 +5,10 @@ import { getFullDateIso8601 } from '../../../utilities/helpers'
 
 const classes = {
   content: 'bp-content padding-normal',
-  header: 'bp-content__header',
-  author: 'bp-content__author',
+  header: 'bp-content__header uppercase',
+  author: 'bp-content__author font-bold',
   date: 'bp-content__date',
-  news: 'bp-content__news',
+  news: 'bp-content__news full',
 }
 
 @Consumer

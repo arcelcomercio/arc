@@ -1,26 +1,29 @@
 import React, { PureComponent } from 'react'
 
 const classes = {
-  logocontent: 'header-somos',
-  iconmenuwrapper: 'header-somos__icon-wrapper',
+  logocontent:
+    'header-somos flex justify-between items-center text-center full-width',
+  iconmenuwrapper: 'flex-1',
   menuicon: 'icon-menu header-somos__icon',
-  logoWrapper: 'header-somos__logo-wrapper',
+  logoWrapper:
+    'header-somos__logo-wrapper text-center flex justify-center items-center',
   logoimgwrapper: 'header-somos__img-wrapper',
-  logoLink: 'header-somos__img-link',
-  logoimg: 'header-somos__img',
+  logoLink: 'inline-b',
+  logoimg: 'header-somos__img block',
   logoIcon: 'icon-marca',
 
   menu: 'somos-menu',
   menuContent: 'somos-menu__content',
-  menuClose: 'somos-menu__close',
+  menuClose: 'somos-menu__close full-width text-right',
   menuCloseIcon: 'icon-close somos-menu__close-icon',
-  menuSearch: 'somos-menu__search',
-  menuSearchInput: 'somos-menu__search-input',
+  menuSearch: 'somos-menu__search position-relative',
+  menuSearchInput: 'somos-menu__search-input full-width font-bold',
   menuSearchIcon: 'icon-search ',
-  menuLogin: 'somos-menu__login',
+  menuButtonSearchIcon: 'somos-menu__search-icon position-absolute',
+  menuLogin: 'somos-menu__login full-width',
   menuLoginLink: 'flex justify-center',
   menuLoginIcon: 'icon-user somos-menu__login-icon',
-  menuLoginLabel: 'somos-menu__login-text',
+  menuLoginLabel: 'somos-menu__login-text uppercase font-bold',
   menuList: 'somos-menu__list',
   menuItemLink: 'somos-menu__item-link',
   menuLinkIcon: 'somos-menu__link-icon',
@@ -29,7 +32,7 @@ const classes = {
   menuLink: 'somos-menu__link',
   menubtn: 'header-somos__btn',
 
-  menuActive: 'somos-menu--active',
+  menuActive: 'somos-menu--active full-width',
 }
 
 class HeaderChildSomos extends PureComponent {
@@ -133,7 +136,7 @@ class HeaderChildSomos extends PureComponent {
                     onChange={e => this.handleSearchInput(e)}
                   />
                   <button
-                    className="somos-menu__search-icon"
+                    className={classes.menuButtonSearchIcon}
                     type="submit"
                     onClick={() => {}}>
                     <i className={classes.menuSearchIcon} />

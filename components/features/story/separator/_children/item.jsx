@@ -6,10 +6,11 @@ const classes = {
   detail: 'story-separator__detail',
   separatorCategory: 'story-separator__category',
   separatorTitle: 'story-separator__title story-separator__title--nota',
-  itemImage: 'story-separator__img full-width',
-  oneline: 'storysep-oneline',
-  twoline: 'storysep-twoline',
-  threeline: 'storysep-threeline text-left',
+  titleLink: '',
+  itemImage: 'full-width full-height object-cover',
+  oneline: 'story-separator-oneline',
+  twoline: 'story-separator-twoline',
+  threeline: 'story-separator-threeline text-left',
 }
 
 const StorySeparatorChildItem = ({ data, contextPath, arcSite }) => {
@@ -22,7 +23,7 @@ const StorySeparatorChildItem = ({ data, contextPath, arcSite }) => {
       numline = classes.twoline
       break
     default:
-      numline = classes.twoline
+      numline = classes.twolinegit
       break
   }
   const { title, link, section, sectionLink, multimedia, multimediaType } = data
@@ -44,7 +45,9 @@ const StorySeparatorChildItem = ({ data, contextPath, arcSite }) => {
           <a href={`${contextPath}${sectionLink}`}>{section}</a>{' '}
         </h2>
         <h3 className={`${classes.separatorTitle} ${numline}`}>
-          <a href={`${contextPath}${link}`}>{title}</a>
+          <a className={classes.titleLink} href={`${contextPath}${link}`}>
+            {title}
+          </a>
         </h3>
       </div>
       <figure>
