@@ -7,13 +7,15 @@ import {
 
 const classes = {
   header: 'post-header padding-normal',
-  headerTitle: 'post-header__title',
-  headerList: 'post-header__list flex',
-  headerLink: 'post-header__link flex-center',
-  headerItem: 'post-header__item',
-  headerShare: 'post-header__share',
-  headerMore: 'post-header__more',
-  headerButton: 'post-header__button flex-center',
+  title: 'post-header__title',
+  list: 'post-header__list flex',
+  link:
+    'post-header__link flex items-center justify-center full-width full-height',
+  item: 'post-header__item flex-grow',
+  share: 'post-header__share',
+  more: 'post-header__more',
+  button:
+    'post-header__button flex items-center justify-center full-width full-height',
 }
 @Consumer
 class BlogPostHeader extends PureComponent {
@@ -24,14 +26,18 @@ class BlogPostHeader extends PureComponent {
     this.state = {
       currentList: this.firstList,
     }
-    const { globalContent,siteUrl } = props
+    const { globalContent, siteUrl } = props
     const {
       post: {
         post_permalink: postPermaLink = '',
         post_title: postTitle = '',
       } = {},
     } = globalContent || {}
-    const urlsShareList = socialMediaUrlShareList(siteUrl,postPermaLink, postTitle)
+    const urlsShareList = socialMediaUrlShareList(
+      siteUrl,
+      postPermaLink,
+      postTitle
+    )
     this.shareButtons = {
       [this.firstList]: [
         {
@@ -90,19 +96,19 @@ class BlogPostHeader extends PureComponent {
     const { post: { post_title: postTitle } = {} } = globalContent || {}
     return (
       <div className={classes.header}>
-        <h1 className={classes.headerTitle}>{postTitle}</h1>
-        <ul className={classes.headerList}>
+        <h1 className={classes.title}>{postTitle}</h1>
+        <ul className={classes.list}>
           {this.shareButtons[currentList].map((item, i) => (
-            <li className={`${classes.headerItem} ${item.mobileClass || ''}`}>
+            <li className={`${classes.item} ${item.mobileClass || ''}`}>
               <a
-                className={classes.headerLink}
+                className={classes.link}
                 href={item.link}
                 onClick={event => {
                   const isPrint = i === 2 && currentList === this.secondList
                   this.openLink(event, item, isPrint)
                 }}>
                 <i>{item.icon}</i>
-                <span className={classes.headerShare}>
+                <span className={classes.share}>
                   {i === 2 && currentList === this.secondList
                     ? 'Imprimir'
                     : 'Compartir'}
@@ -111,9 +117,9 @@ class BlogPostHeader extends PureComponent {
             </li>
           ))}
 
-          <li className={classes.headerMore}>
+          <li className={classes.more}>
             <button
-              className={classes.headerButton}
+              className={classes.button}
               type="button"
               onClick={e => this.handleMoreButton(e)}>
               <i>{currentList === this.firstList ? '+' : '-'}</i>

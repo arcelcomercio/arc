@@ -396,7 +396,7 @@
   max-width: 100%;
 }
 
-.ql-editor .ql-video.ql-align-center {
+.ql-editor .ql-video.ql-items-center {
   margin: 0 auto;
 }
 
@@ -485,7 +485,7 @@
   text-align: inherit;
 }
 
-.ql-editor .ql-align-center {
+.ql-editor .ql-items-center {
   text-align: center;
 }
 

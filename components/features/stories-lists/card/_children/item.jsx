@@ -2,9 +2,9 @@ import React from 'react'
 import Multimedia from './multimedia'
 
 const classes = {
-  story: 'stories-list-card__story flex flex--column',
-  time: 'stories-list-card__time flex flex--justify-center flex--column',
-  pageLink: 'stories-list-card__page-link flex flex--column',
+  story: 'stories-list-card__story flex flex-col',
+  time: 'stories-list-card__time flex justify-center flex-col',
+  pageLink: 'stories-list-card__page-link flex flex-col',
   bold: 'bold',
 }
 

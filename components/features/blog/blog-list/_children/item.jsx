@@ -6,8 +6,8 @@ const classes = {
   container: 'flex blog-item__container',
   containerAvatar: 'blog-item__container-avatar',
   avatar: 'full-width',
-  detail: 'flex flex--column blog-item__detail',
-  blogTitle: 'text-uppercase blog-item__blog',
+  detail: 'flex flex-col blog-item__detail',
+  blogTitle: 'uppercase blog-item__blog',
   author: 'blog-item__author',
   post: 'blog-item__post',
 }

@@ -8,18 +8,18 @@ const classes = {
   info: 'footer__info footer__footer-background-color padding-normal',
   sections: 'footer__sections footer__footer-background-color',
   contact: 'footer__contact footer__footer-background-color',
-  sites: 'footer__sites flex flex--justify-center',
-  sitesList: 'footer__sites-list flex flex--justify-center',
+  sites: 'footer__sites flex justify-center',
+  sitesList: 'footer__sites-list flex justify-center flex-wrap full-width',
   sitesItem: 'footer__sites-list-element',
-  sitesLink: 'footer__link footer__sites-link',
+  sitesLink: 'footer__sites-link',
   legalList: 'footer__legal-list',
   legalItem: 'footer__legal-item',
   logoContainer: 'footer__logo footer__logo-container',
-  logoImg: 'footer__logo-img',
+  logoImg: 'full-width',
   list: 'footer__list padding-normal',
   listItem: 'footer__list-item',
   listTitle: 'footer__list-item footer__list-item--title',
-  listLink: 'footer__link footer__list-link',
+  listLink: 'footer__list-link capitalize',
 }
 
 @Consumer

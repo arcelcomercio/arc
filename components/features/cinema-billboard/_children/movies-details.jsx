@@ -3,20 +3,21 @@ import BillboardFormat from '../../../utilities/billboard-format'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  container: 'movie-details flex flex--column',
+  container: 'movie-details flex flex-col',
   imgBox: 'movie-details__box-img position-relative full-width',
   img: 'movie-details__img full-width full-height object-fit-cover',
-  iconBox: 'movie-details__box-icon position-absolute flex-center',
+  iconBox:
+    'movie-details__box-icon position-absolute flex items-center justify-center',
   icon: 'movie-details__icon',
-  details: 'movie-details__detail full-width flex flex--column',
+  details: 'movie-details__detail full-width flex flex-col',
   leftSide: 'movie-details__left full-width',
   title: 'movie-details__title',
-  where: 'movie-details__where text-uppercase',
+  where: 'movie-details__where uppercase',
   hours: 'movie-details__hours scroll-vertical-auto',
   item: 'movie-details__item',
   cinema: 'movie-details__cinema block',
   text: 'movie-details__text',
-  more: 'movie-details__more flex-center',
+  more: 'movie-details__more flex items-center justify-center',
   button: 'movie-details__btn',
   rightSide: 'movie-details__right',
   name: 'movie-details__name',

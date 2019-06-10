@@ -13,9 +13,9 @@ const classes = {
   externalTitle: 'opinion-grid--title',
   list: 'opinion-grid--list full-width',
   titleBox: 'opinion-grid__box-title full-width',
-  title: 'opinion-grid__title text-uppercase text-center',
-  moreBox: 'opinion-grid__box-more flex flex--justify-center',
-  more: 'opinion-grid__more text-uppercase text-center',
+  title: 'opinion-grid__title uppercase text-center',
+  moreBox: 'opinion-grid__box-more flex justify-center',
+  more: 'opinion-grid__more uppercase text-center',
 }
 @Consumer
 class StaticOpinionGrid extends PureComponent {

@@ -4,15 +4,15 @@ import BillboardFormat from '../../../utilities/billboard-format'
 
 const classes = {
   container: 'movies-filter full-width',
-  titleBox: 'movies-filter__title-box flex flex--justify-between',
-  title: 'movies-filter__title flex-center-vertical position-relative',
+  titleBox: 'movies-filter__title-box flex justify-between',
+  title: 'movies-filter__title flex items-center position-relative',
   social: 'movies-filter__social flex',
   facebook: 'icon icon--facebook icon--margin-right',
   twitter: 'icon icon--twitter',
-  filter: 'movies-filter__filter-box flex flex--justify-between',
-  label: 'movies-filter__label movies-filter--font-config text-uppercase',
+  filter: 'movies-filter__filter-box flex justify-between',
+  label: 'movies-filter__label movies-filter--font-config uppercase',
   form: 'movies-filter__form movies-filter--font-config flex',
-  button: 'movies-filter__btn movies-filter--font-config text-uppercase',
+  button: 'movies-filter__btn movies-filter--font-config uppercase',
 }
 
 @Consumer

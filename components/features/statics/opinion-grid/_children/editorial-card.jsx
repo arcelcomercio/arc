@@ -2,11 +2,11 @@ import React from 'react'
 
 const classes = {
   card: 'editorial-card',
-  wrapper: 'editorial-card__wrapper flex flex--column',
-  group: 'editorial-card__group text-uppercase',
-  name: 'editorial-card__name block text-uppercase',
+  wrapper: 'editorial-card__wrapper flex flex-col',
+  group: 'editorial-card__group uppercase',
+  name: 'editorial-card__name block uppercase',
   description: 'flex',
-  imageBox: 'flex position-relative flex--align-start',
+  imageBox: 'flex position-relative items-start',
   image: 'editorial-card__image',
   detailsBox: 'editorial-card__box-details',
   title: 'editorial-card__title block',

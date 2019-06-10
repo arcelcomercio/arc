@@ -7,14 +7,13 @@ import {
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  news:
-    'article-header__share flex-center-vertical flex--justify-between mg-bottom-20',
+  news: 'article-header__share flex items-center justify-between mg-bottom-20',
   breadcrumb: '',
   item: 'article-header__item',
-  category: 'text-uppercase',
-  link: 'article-header__link flex-center',
+  category: 'uppercase',
+  link: 'article-header__link flex items-center justify-center',
   icon: 'article-header__icon',
-  list: 'article-header__list flex flex--justify-between',
+  list: 'article-header__list flex justify-between',
 }
 @Consumer
 class ArticleHeaderChildSocial extends PureComponent {
@@ -49,23 +48,23 @@ class ArticleHeaderChildSocial extends PureComponent {
         {
           icon: 'icon-facebook',
           link: urlsShareList.facebook,
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: 'flex justify-center',
         },
 
         {
           icon: 'icon-twitter',
           link: urlsShareList.twitter,
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: 'flex justify-center',
         },
         {
           icon: 'icon-linkedin-circle',
           link: urlsShareList.linkedin,
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: 'flex justify-center',
         },
         {
           icon: 'icon-ribbon',
           link: urlsShareList.pin,
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: 'flex justify-center',
         },
       ],
     }

@@ -2,7 +2,7 @@ import React from 'react'
 import CardMostReadItem from './item'
 
 const classes = {
-  mostRead: 'flex flex--column more-read',
+  mostRead: 'flex flex-col more-read',
   title: 'more-read__title',
 }
 

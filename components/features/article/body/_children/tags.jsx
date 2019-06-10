@@ -3,7 +3,7 @@ import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
   tagsName: '__tags',
-  titulo: '__tag-title text-uppercase mg-bottom-5',
+  titulo: '__tag-title uppercase mg-bottom-5',
   item: '__tag-item text-sm mg-right-10 mg-bottom-5',
 }
 const ArticleBodyChildTags = props => {

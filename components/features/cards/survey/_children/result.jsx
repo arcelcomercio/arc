@@ -6,7 +6,7 @@ import CardsSurveyChildProgressBar from './progress-bar'
 const classes = {
   surveyResult: 'survey-result',
   list: 'survey-result__list survey-result__mb',
-  itemContainer: 'flex flex--justify-between survey-result__mb',
+  itemContainer: 'flex justify-between survey-result__mb',
   item: 'survey-result__item',
 }
 

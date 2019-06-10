@@ -51,14 +51,6 @@
     color: #ffc90a;
     font-size: 25px;
     padding: 10px 8px;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  &__item-list {
-    flex-wrap: wrap;
   }
 
   @media (--tablet) {

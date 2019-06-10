@@ -4,24 +4,24 @@ import StoryData from '../utilities/story-data'
 
 const classes = {
   featuredStory: 'featured-story position-relative padding-normal flex',
-  detail: 'featured-story__detail flex flex--column flex--justify-between',
+  detail: 'featured-story__detail flex flex-col justify-between',
   image: 'featured-story__image overflow-hidden full-width full-height',
   multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
   multimediaIconSpan:
-    'featured-story__multimedia-icon-span flex-center full-width full-height',
+    'featured-story__multimedia-icon-span flex items-center justify-center full-width full-height',
 
   category: 'featured-story__category pd-bottom-15',
   title: 'featured-story__title overflow-hidden',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
-  author: 'featured-story__author text-uppercase',
+  author: 'featured-story__author uppercase',
 
   link: 'featured-story__link',
   imageLink: 'block full-height',
   img: 'full-width full-height object-fit-cover',
 
-  imgComplete: 'img-complete flex--justify-end',
+  imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',
 
   twoCol: 'col-2',

@@ -6,27 +6,26 @@ import Menu from './menu'
 import Ads from '../../../../global-components/ads'
 
 const classes = {
-  nav: 'nav text-sm full-width flex flex-center-vertical',
+  nav: 'nav text-sm full-width flex flex items-center',
   wrapper:
-    'flex-center-vertical flex--justify-between nav__wrapper full-width height-inherit',
+    'flex items-center justify-between nav__wrapper full-width height-inherit',
   form: 'flex position-relative',
   search: 'nav__input-search text-md',
-  navBtnContainer:
-    'flex-center-vertical flex--justify-start nav__container-menu',
-  searchContainer: 'flex-center-vertical flex--justify-start',
-  btnSearch: 'flex-center-vertical btn nav__btn nav__btn--search',
-  btnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
+  navBtnContainer: 'flex items-center justify-start nav__container-menu',
+  searchContainer: 'flex items-center justify-start',
+  btnSearch: 'flex items-center btn nav__btn nav__btn--search',
+  btnSection: 'flex items-center btn nav__btn nav__btn--section',
   iconSearch: 'nav__icon-search icon-search title-lg',
   iconMenu: 'nav__icon-menu icon-hamburguer',
   list:
-    'flex-center-vertical flex--justify-evenly flex-1 nav__list height-inherit overflow-hidden pd-right-5 pd-left-5',
+    'flex items-center justify-evenly flex-1 nav__list height-inherit overflow-hidden pd-right-5 pd-left-5',
   listItem: 'text-center',
-  listLink: 'nav__list-link text-center text-uppercase',
+  listLink: 'nav__list-link text-center uppercase',
   logo: 'nav__logo',
   ads: 'nav__ads',
-  btnContainer: 'flex-center-vertical flex--justify-end header__btn-container',
-  btnLogin: 'flex-center-vertical btn btn--outline',
-  btnSubscribe: 'flex-center-vertical btn btn--outline nav__header-sub',
+  btnContainer: 'flex items-center justify-end header__btn-container',
+  btnLogin: 'flex items-center btn btn--outline',
+  btnSubscribe: 'flex items-center btn btn--outline nav__header-sub',
   iconLogin: 'icon icon-user',
 }
 

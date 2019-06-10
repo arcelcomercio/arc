@@ -4,13 +4,12 @@ import AmpSocial from '../../../article/header/_children/amp-social'
 import Menu from './amp-menu'
 
 const classes = {
-  nav: 'amp-nav text-sm full-width flex flex-center-vertical',
+  nav: 'amp-nav text-sm full-width flex flex items-center',
   wrapper:
-    'flex-center-vertical flex--justify-between amp-nav__wrapper full-width height-inherit',
+    'flex items-center justify-between amp-nav__wrapper full-width height-inherit',
   iconMenu: 'amp-nav__hamburguer',
-  navBtnContainer:
-    'flex-center-vertical flex--justify-start nav__container-menu',
-  btnContainer: 'flex-center-vertical flex--justify-end header__btn-container',
+  navBtnContainer: 'flex items-center justify-start nav__container-menu',
+  btnContainer: 'flex items-center justify-end header__btn-container',
 }
 
 @Consumer

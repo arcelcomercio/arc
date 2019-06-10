@@ -3,12 +3,12 @@ import React from 'react'
 const classes = {
   card: 'author-card',
   wrapper: 'author-card__wrapper flex position-relative',
-  imageBox: 'author-card__box-image flex flex--align-start position-relative',
+  imageBox: 'author-card__box-image flex items-start position-relative',
   image: 'author-card__image',
   detailsBox: 'author-card__box-details full-width',
   name: 'author-card__name block',
-  group: 'author-card__group text-uppercase',
-  title: 'author-card__title text-uppercase block',
+  group: 'author-card__group uppercase',
+  title: 'author-card__title uppercase block',
 }
 
 const OpinionGridAuthorCard = ({ data: story }) => {

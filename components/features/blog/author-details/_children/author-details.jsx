@@ -3,9 +3,9 @@ import { createMarkup } from '../../../../utilities/helpers'
 
 const classes = {
   authorDetails: 'author-details',
-  title: 'author-details__title text-center text-uppercase',
+  title: 'author-details__title text-center uppercase',
   body: 'author-details__body',
-  blogTitle: 'author-details__blog-title text-uppercase',
+  blogTitle: 'author-details__blog-title uppercase',
   description: 'author-details__description',
 }
 const AuthorDetailsChildAuthorDetails = ({ description, firstName, title }) => {

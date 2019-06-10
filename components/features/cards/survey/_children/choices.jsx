@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const classes = {
   surveyChoicesItem: 'survey-choices__item',
-  surveyRadio: 'survey-question__radio overflow-hidden flex-center-vertical',
+  surveyRadio: 'survey-question__radio overflow-hidden flex items-center',
   surveyInput: 'survey-question__input hide',
   surveyCheck: 'survey-question__check position-relative',
 }

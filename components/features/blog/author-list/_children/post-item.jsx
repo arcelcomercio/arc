@@ -1,13 +1,13 @@
 import React from 'react'
 
 const classes = {
-  container: 'post-item__container',
-  date: 'post-item__date',
-  content: 'post-item__content',
+  container: 'post-item flex',
+  date: 'post-item__date flex justify-start',
+  content: 'post-item__content flex',
   figure: 'post-item__figure',
-  image: 'post-item__image',
-  description: 'post-item__description',
-  title: 'post-item__title',
+  image: 'post-item__image object-fit-cover',
+  description: 'post-item__description flex flex-col justify-between',
+  title: 'post-item__title uppercase',
   author: 'post-item__author',
 }
 

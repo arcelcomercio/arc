@@ -5,7 +5,7 @@ import UtilListKey from '../../../../utilities/list-keys'
 const classes = {
   gallery: 'article-gallery',
   galleryItem: 'article-gallery__item',
-  galleryNumber: 'article-gallery__number flex-center',
+  galleryNumber: 'article-gallery__number flex items-center justify-center',
   image: 'article-gallery__img',
   caption: 'article-gallery__caption',
 }

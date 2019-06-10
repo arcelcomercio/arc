@@ -2,20 +2,22 @@ import React, { PureComponent } from 'react'
 
 import StoryData from '../utilities/story-data'
 import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
+import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 
-const clases = {
-  storyItem: 'story-item',
-  storyItemTop: 'story-item__top',
-  storyItemSection: 'story-item__section',
-  storyItemDate: 'story-item__date',
-  storyItemBottom: 'story-item__bottom',
-  storyItemLeft: 'story-item__left',
-  storyItemTitle: 'story-item__title',
-  storyItemSubtitle: 'story-item__subtitle',
-  storyItemAuthor: 'story-item__author',
-  storyItemRight: 'story-item__right',
-  storyItemIcon: 'story-item__icon',
-  storyItemFigure: 'story-item__figure',
+const classes = {
+  storyItem: 'story-item full-width',
+  top: 'story-item__top flex',
+  section: 'story-item__section uppercase',
+  date: 'story-item__date',
+  bottom: 'story-item__bottom flex',
+  left: 'story-item__left flex flex-col justify-between',
+  title: 'story-item__title block overflow hidden',
+  subtitle: 'story-item__subtitle',
+  author: 'story-item__author block uppercase',
+  right: 'story-item__right position-relative',
+  rightLink: 'flex full-height',
+  icon: 'story-item__icon position-absolute flex items-center justify-center',
+  figure: 'story-item__figure object-fit-cover full-width full-height',
 }
 
 class StoriesList extends PureComponent {
@@ -31,46 +33,44 @@ class StoriesList extends PureComponent {
 
     return (
       <div
-        className={`${clases.storyItem} ${
+        className={`${classes.storyItem} ${
           formato && formato === 'row' ? 'story-item--row' : ''
         }`}>
-        <div className={clases.storyItemTop}>
-          <a href={element.sectionLink} className={clases.storyItemSection}>
+        <div className={classes.top}>
+          <a href={element.sectionLink} className={classes.section}>
             {element.section}
           </a>
-          <p className={clases.storyItemDate}>{formatDate(element.date)}</p>
+          <p className={classes.date}>{formatDate(element.date)}</p>
         </div>
-        <div className={clases.storyItemBottom}>
-          <div className={clases.storyItemLeft}>
+        <div className={classes.bottom}>
+          <div className={classes.left}>
             <div>
               <h2>
-                <a className={clases.storyItemTitle} href={element.link}>
+                <a className={classes.title} href={element.link}>
                   {element.title}
                 </a>
               </h2>
-              <p className={clases.storyItemSubtitle}>
-                {reduceWord(element.subTitle)}
-              </p>
+              <p className={classes.subtitle}>{reduceWord(element.subTitle)}</p>
             </div>
             <div>
-              <a href={element.authorLink} className={clases.storyItemAuthor}>
+              <a href={element.authorLink} className={classes.author}>
                 {element.author}
               </a>
             </div>
           </div>
-          <div className={clases.storyItemRight}>
-            <a href={element.link}>
+          <div className={classes.right}>
+            <a href={element.link} className={classes.rightLink}>
               {element.multimediaType.toLowerCase() === 'basic' ||
               element.multimediaType === '' ? (
                 ''
               ) : (
-                <span className={clases.storyItemIcon}>
+                <span className={classes.icon}>
                   {getIcon(element.multimediaType)}
                 </span>
               )}
               <img
                 alt={element.title}
-                className={clases.storyItemFigure}
+                className={classes.figure}
                 src={element.multimedia}
               />
             </a>

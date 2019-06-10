@@ -13,14 +13,14 @@ $desktop-media: 'min-width: 1024px';
   // height: 500px;
   display: grid;
 
-  grid-template: 'info' auto 'contact' auto 'sites' auto;
+  grid-template: 'info'auto 'contact'auto 'sites'auto;
 
   @media (--tablet) {
-    grid-template: 'info contact' auto 'sites sites ' auto / 1fr 1fr;
+    grid-template: 'info contact'auto 'sites sites 'auto / 1fr 1fr;
   }
 
   @media (--desktop) {
-    grid-template: 'info sections contact' auto 'sites sites sites' auto / 1fr 1fr 1fr;
+    grid-template: 'info sections contact'auto 'sites sites sites'auto / 1fr 1fr 1fr;
   }
 
   &__footer-background-color {
@@ -48,10 +48,8 @@ $desktop-media: 'min-width: 1024px';
   }
 
   &__sites-list {
-    flex-wrap: wrap;
     padding: 0;
     max-width: 950px;
-    width: 100%;
   }
 
   &__sites-list-element {
@@ -76,23 +74,11 @@ $desktop-media: 'min-width: 1024px';
     color: $sites-link-color;
   }
 
-  &__link {
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
   &__logo-container {
     margin-bottom: 15px;
     display: block;
     width: 95%;
     max-width: 235px;
-  }
-
-  &__logo-img {
-    width: 100%;
   }
 
   &__legal-item {
@@ -104,7 +90,6 @@ $desktop-media: 'min-width: 1024px';
 
   &__list-link {
     color: $footer-list-tex-color;
-    text-transform: capitalize;
   }
 
   &__list-item {

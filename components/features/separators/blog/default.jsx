@@ -83,11 +83,13 @@ class SeparatorBlog extends PureComponent {
     return (
       <div>
         <div className="blog-separator__box-blog">
-          <a className="blog-separator__blog" href={`${contextPath}/blog`}>
+          <a
+            className="blog-separator__blog uppercase"
+            href={`${contextPath}/blog`}>
             Blogs
           </a>
         </div>
-        <div className="blog-separator__content">
+        <div className="flex overflow-hidden">
           {listPost &&
             listPost.map(post => {
               const {

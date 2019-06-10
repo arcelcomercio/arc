@@ -2,7 +2,7 @@ import React from 'react'
 // import { addResizedUrlItem } from '../../../../utilities/thumbs'
 
 const classes = {
-  item: 'articlesep__item separator__item--nota flex flex--justify-between',
+  item: 'articlesep__item separator__item--nota flex justify-between',
   detail: 'articlesep__detail',
   separatorCategory: 'articlesep__category',
   separatorTitle: 'articlesep__title articlesep__title--nota',

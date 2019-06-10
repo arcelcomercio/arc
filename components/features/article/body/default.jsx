@@ -24,7 +24,7 @@ import ArticleBodyChildIcon from './_children/icon-list'
 
 const classes = {
   news: 'article-body full-width bg-color--white pd-left-20 pd-right-20',
-  content: 'article-body__content position-relative flex flex--row-reverse',
+  content: 'article-body__content position-relative flex flex-row-reverse',
   textClasses: 'article-body__font--secondary',
   newsImage: 'article-body__image full-width article-body__image--cover',
   newsEmbed: 'article-body__embed',

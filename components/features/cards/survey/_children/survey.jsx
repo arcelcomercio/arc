@@ -5,14 +5,14 @@ import SurveyResults from './result'
 
 const classes = {
   cardSurvey: 'card-survey full-width',
-  surveyHeader: 'survey-header text-uppercase text-center',
+  surveyHeader: 'survey-header uppercase text-center',
   surveyQuestion: 'survey-question position-relative',
   surveyTitle: 'survey-question__title overflow-hidden',
   surveyChoices: 'survey-choices',
   surveyButtons:
-    'survey-buttons full-width position-absolute flex-center-vertical flex--justify-between',
+    'survey-buttons full-width position-absolute flex items-center justify-between',
   surveyResults: 'survey-buttons__results',
-  surveySubmit: 'survey-buttons__submit text-uppercase',
+  surveySubmit: 'survey-buttons__submit uppercase',
 }
 
 class CardSurveyChildSurvey extends PureComponent {

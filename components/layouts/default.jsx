@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  layout: 'flex flex--justify-center',
-  contentContainer: 'flex flex--column content-layout-container',
+  layout: 'flex justify-center',
+  contentContainer: 'flex flex-col content-layout-container',
   aditional: 'mg-bottom-20',
   zocalo: 'zocalo__container',
 }

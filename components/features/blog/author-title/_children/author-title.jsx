@@ -1,12 +1,12 @@
 import React from 'react'
 
 const classes = {
-  authorTitle: 'author-title',
-  title: 'author-title__box-title',
+  authorTitle: 'author-title flex justify-between',
+  title: 'author-title__box-title flex flex-grow-0 flex-shrink-0',
   section: 'author-title__section position-relative',
   url: 'author-title__url',
-  name: 'author-title__name',
-  img: 'author-title__img position-absolute',
+  name: 'flex items-center',
+  img: 'author-title__img position-absolute full-height full-width',
 }
 
 const BlogAuthorTitleChildAuthorTitle = ({

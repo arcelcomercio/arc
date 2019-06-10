@@ -12,14 +12,10 @@
 
 	&__left {
 		flex-basis: 100%;
-		flex-shrink: 0;
-		flex-grow: 0;
 		margin-bottom: 10px;
 
 		@media (--tablet) {
 			flex-basis: 35%;
-			flex-shrink: 0;
-			flex-grow: 0;
 		}
 	}
 

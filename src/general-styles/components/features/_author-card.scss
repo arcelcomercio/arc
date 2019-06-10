@@ -63,10 +63,6 @@
     margin-bottom: 15px;
     color: #333;
 
-    &:hover {
-      text-decoration: underline;
-    }
-
     @media (--tablet) {
       max-height: inherit;
     }
@@ -85,10 +81,6 @@
     line-height: 1.2;
     font-family: $secondary-font;
     font-weight: 700;
-
-    &:hover {
-      text-decoration: underline;
-    }
 
     @media (--tablet) {
       font-size: 18px;

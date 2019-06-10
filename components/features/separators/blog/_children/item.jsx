@@ -1,14 +1,14 @@
 import React from 'react'
 
 const classes = {
-  separator: 'blog-separator',
-  boxTitle: 'blog-separator__box-title',
+  separator: 'blog-separator flex flex-col flex-no-wrap',
+  boxTitle: 'blog-separator__box-title full-width overflow-hidden',
   title: 'blog-separator__title',
   link: 'blog-separator__link',
-  middle: 'blog-separator__box-middle',
-  section: 'blog-separator__section',
-  author: 'blog-separator__author',
-  boxImg: 'blog-separator__box-img',
+  middle: 'blog-separator__box-middle flex flex-col justify-center',
+  section: 'blog-separator__section block',
+  author: 'blog-separator__author block',
+  boxImg: 'blog-separator__box-img flex justify-center',
   img: 'blog-separator__img',
 }
 

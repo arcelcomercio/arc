@@ -4,12 +4,12 @@ import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   movieList: 'movie-list',
-  top: 'movie-list__top flex-center flex--column',
-  cinema: 'movie-list__cinema text-uppercase',
+  top: 'movie-list__top flex items-center justify-center flex-col',
+  cinema: 'movie-list__cinema uppercase',
   address: 'movie-list__address',
   box: 'movie-list__box',
-  movieItem: 'movie-item flex flex--column',
-  leftSide: 'movie-item__left',
+  movieItem: 'movie-item flex flex-col',
+  leftSide: 'movie-item__left flex-shrink-0 flex-grow-0',
   imageBox: 'block full-width',
   image: 'movie-item__img full-width full-height object-fit-cover',
   title: 'movie-item__title',

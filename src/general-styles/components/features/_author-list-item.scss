@@ -45,14 +45,10 @@
     background: red;
     border-radius: 100%;
     flex-basis: 50px;
-    flex-shrink: 0;
-    flex-grow: 0;
     height: 50px;
 
     @media (--tablet) {
       flex-basis: 60px;
-      flex-shrink: 0;
-      flex-grow: 0;
       height: 75px;
       border-radius: 0;
     }

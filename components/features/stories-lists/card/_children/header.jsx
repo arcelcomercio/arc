@@ -1,9 +1,9 @@
 import React from 'react'
 
 const classes = {
-  header: 'stories-list-card__header flex flex--justify-between',
+  header: 'stories-list-card__header flex justify-between',
   seeMore: 'stories-list-card__see-more',
-  title: 'stories-list-card__title flex-center-vertical',
+  title: 'stories-list-card__title flex items-center',
 }
 const StoriesListsCardChildHeader = ({
   titleList,

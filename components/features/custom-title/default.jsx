@@ -95,7 +95,7 @@ class CustomTitle extends PureComponent {
         {...editableField('customText')}
         suppressContentEditableWarning
         className={`${classes.title} text-${textAlign} ${
-          isUppercase ? 'text-uppercase' : ''
+          isUppercase ? 'uppercase' : ''
         }`}>
         {customText ||
           sectionName ||

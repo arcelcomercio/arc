@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
-  breakingnews: 'flex flex--justify-between',
+  breakingnews: 'flex justify-between',
   breakingnewsBtnClose: 'cintillo-u__btn-close text-right',
   breakingnewsIcon: 'cintillo-u__btn-icon icon-close-circle',
   breakingnewsText: 'cintillo-u__text',

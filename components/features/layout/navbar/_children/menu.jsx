@@ -3,13 +3,13 @@ import Button from '../../../../global-components/button'
 
 const classes = {
   sidebar: 'nav-sidebar full-width',
-  content: 'nav-sidebar__content flex flex--column flex--justify-between',
+  content: 'nav-sidebar__content flex flex-col justify-between',
   item: 'nav-sidebar__item',
   link: 'nav-sidebar__link',
   top: 'nav-sidebar__top',
   header: 'nav-sidebar__header',
   btnBox: 'nav-sidebar__box-btn',
-  btn: 'flex-center btn bg-color--white nav-sidebar__btn',
+  btn: 'flex items-center justify-center btn bg-color--white nav-sidebar__btn',
   search: 'nav-sidebar__search',
   from: 'nav-sidebar__box-search',
   input: 'nav-sidebar__input',

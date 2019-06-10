@@ -18,7 +18,7 @@ const classes = {
   menuSearchInput: 'somos-menu__search-input',
   menuSearchIcon: 'icon-search ',
   menuLogin: 'somos-menu__login',
-  menuLoginLink: 'flex flex--justify-center',
+  menuLoginLink: 'flex justify-center',
   menuLoginIcon: 'icon-user somos-menu__login-icon',
   menuLoginLabel: 'somos-menu__login-text',
   menuList: 'somos-menu__list',

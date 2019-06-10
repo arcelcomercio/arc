@@ -5,8 +5,8 @@ import { createMarkup } from '../../utilities/helpers'
 import AdsChild from '../../global-components/ads'
 
 const classes = {
-  flexCenterVertical: 'flex-center-vertical',
-  flexColumn: 'flex--column',
+  flexCenterVertical: 'flex items-center',
+  flexColumn: 'flex-col',
   overflowHidden: 'overflow-hidden',
 }
 @Consumer

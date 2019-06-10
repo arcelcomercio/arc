@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  header: 'header full-width header__main flex-center',
+  header: 'header full-width header__main flex items-center justify-center',
   logo: 'header__logo',
-  featured: 'flex flex--justify-between header__featured full-width',
-  item: 'flex-center header__item',
+  featured: 'flex justify-between header__featured full-width',
+  item: 'flex items-center justify-center header__item',
 }
 
 const HeaderChildStandard = props => {

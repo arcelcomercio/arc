@@ -9,8 +9,7 @@ const classes = {
   imageBox: '',
   imageLink: '',
   image: 'movies-slider__img full-width object-fit-cover',
-  arrowsBox:
-    'movies-slider__arrows-box position-absolute flex flex--justify-between',
+  arrowsBox: 'movies-slider__arrows-box position-absolute flex justify-between',
   leftArrow: 'movies-slider__arrows movies-slider__arrows--left',
   rightArrow: 'movies-slider__arrows movies-slider__arrows--right',
   details: 'movies-slider__details',

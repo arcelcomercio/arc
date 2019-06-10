@@ -5,12 +5,12 @@ import EmbedMultimedia from '../../../../global-components/embed-multimedia'
 const classes = {
   extraordinayStoryGridContainer:
     'extraordinary-story-grid flex position-relative',
-  videoBox: 'story-video-box flex-center-vertical position-relative',
+  videoBox: 'story-video-box flex items-center position-relative',
   gridContainer: 'sections-grid full-width',
-  gridHeaderText: 'sections-grid__text flex-center-vertical',
+  gridHeaderText: 'sections-grid__text flex items-center',
   gridHeaderImage: 'sections-grid__text-image',
   gridListTitle: 'sections-grid__title',
-  gridListItems: 'sections-grid__item-list flex',
+  gridListItems: 'flex flex-wrap',
 }
 
 const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
