@@ -7,7 +7,7 @@ const classes = {
   separatorCategory: 'story-separator__category',
   separatorTitle: 'story-separator__title story-separator__title--nota',
   titleLink: '',
-  itemImage: 'full-width full-height object-cover',
+  itemImage: 'w-full h-full object-cover',
   oneline: 'story-separator-oneline',
   twoline: 'story-separator-twoline',
   threeline: 'story-separator-threeline text-left',

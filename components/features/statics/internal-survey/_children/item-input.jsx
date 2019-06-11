@@ -1,11 +1,11 @@
 import React from 'react'
 
 const classes = {
-  input: 'internal-survey__input',
+  input: 'hidden',
   iteminput: 'internal-survey__item-input',
-  check: 'internal-survey__check',
+  check: 'internal-survey__check inline-b position-relative',
   inputcheck: 'internal-survey__input-check',
-  lblinput: 'internal-survey__lblinput',
+  lblinput: 'internal-survey__lblinput block overflow-hidden',
 }
 
 const SurveyInternalChildInput = ({ value = '', index = '', onChange }) => {

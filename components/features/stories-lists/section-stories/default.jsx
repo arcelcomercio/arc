@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import StoryItem from '../../../global-components/story-item'
 
 const classes = {
-  listado: 'full-width',
+  listado: 'w-full',
   listadoSeeMore: 'flex justify-center mt-20 uppercase',
 }
 

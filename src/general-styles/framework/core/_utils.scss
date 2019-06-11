@@ -1,14 +1,26 @@
 /******** DIMENSIONS **********/
 
-.full-width {
+.w-full {
   width: 100%;
 }
 
-.full-height {
+.w-auto {
+  width: auto;
+}
+
+.w-inherit {
+  width: inherit;
+}
+
+.h-full {
   height: 100%;
 }
 
-.height-inherit {
+.h-auto {
+  width: auto;
+}
+
+.h-inherit {
   height: inherit;
 }
 

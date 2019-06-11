@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  bar: 'survey-bar position-relative full-width',
+  bar: 'survey-bar position-relative w-full',
   filler: 'survey-bar__filler',
 }
 

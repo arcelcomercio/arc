@@ -3,12 +3,12 @@ import Form from './form'
 import Confirmation from './confirmation'
 
 const classes = {
-  newsletter: 'newsletter',
+  newsletter: 'newsletter flex flex-col-reverse items-center',
   boxSuscripcion: 'newsletter__box-suscription',
-  errorMessage: 'newsletter__error-message',
+  errorMessage: 'newsletter__error-message block',
   errorMessageMedium: 'newsletter__error-message--font-medium',
-  banner: 'newsletter__banner',
-  bannerimage: 'newsletter__banner-image',
+  bannerImage: 'newsletter__banner-image w-full',
+  imageContainer: 'newsletter__image-container overflow-hidden text-center',
   image: 'newsletter__image',
 }
 const Newsletter = props => {
@@ -30,18 +30,14 @@ const Newsletter = props => {
           </h4>
         )}
         {hasBanner && (
-          <div className={classes.banner}>
-            <img
-              src={banner}
-              alt="banner"
-              className={`${classes.banner} ${classes.bannerimage}`}
-            />
+          <div>
+            <img src={banner} alt="banner" className={classes.bannerImage} />
           </div>
         )}
         {formHtml}
       </div>
-      <div className={classes.image}>
-        <img src={image} alt="newsletter" />
+      <div className={classes.imageContainer}>
+        <img className={classes.image} src={image} alt="newsletter" />
       </div>
     </div>
   )

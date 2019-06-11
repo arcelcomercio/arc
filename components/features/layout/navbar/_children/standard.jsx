@@ -6,9 +6,8 @@ import Menu from './menu'
 import Ads from '../../../../global-components/ads'
 
 const classes = {
-  nav: 'nav text-sm full-width flex flex items-center',
-  wrapper:
-    'flex items-center justify-between nav__wrapper full-width height-inherit',
+  nav: 'nav text-sm w-full flex flex items-center',
+  wrapper: 'flex items-center justify-between nav__wrapper w-full h-inherit',
   form: 'flex position-relative',
   search: 'nav__input-search text-md',
   navBtnContainer: 'flex items-center justify-start nav__container-menu',
@@ -18,7 +17,7 @@ const classes = {
   iconSearch: 'nav__icon-search icon-search title-lg',
   iconMenu: 'nav__icon-menu icon-hamburguer',
   list:
-    'flex items-center justify-evenly flex-1 nav__list height-inherit overflow-hidden pr-5 pl-5',
+    'flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5',
   listItem: 'text-center',
   listLink: 'nav__list-link text-center uppercase',
   logo: 'nav__logo',

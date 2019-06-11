@@ -6,7 +6,7 @@ import AmpImage from '@arc-core-components/element_image'
 // TODO: Separar Feature de Componente.
 
 const classes = {
-  header: 'amp-header full-width',
+  header: 'amp-header w-full',
   wrap: 'amp-header__wrap',
   logo: 'amp-header__logo',
   ultimate: 'amp-header__ultimate',

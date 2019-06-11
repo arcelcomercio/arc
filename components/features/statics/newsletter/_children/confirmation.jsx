@@ -1,11 +1,12 @@
 import React from 'react'
 
 const classes = {
-  title: 'newsletter__title',
+  title: 'newsletter__title position-relative font-bold',
   descripcion: 'newsletter__description',
   row: 'newsletter__row',
   textCenter: 'text-center',
-  button: 'newsletter__button',
+  button: 'newsletter__button font-bold w-full',
+  strong: 'newsletter__strong block font-xbold',
 }
 
 const StaticsNewsletterChildConfirmation = props => {
@@ -13,7 +14,8 @@ const StaticsNewsletterChildConfirmation = props => {
   return (
     <>
       <h3 className={classes.title}>
-        ¡Muchas gracias por <strong>Registrarte!</strong>
+        ¡Muchas gracias por{' '}
+        <strong className={classes.strong}>Registrarte!</strong>
       </h3>
       <p className={classes.descripcion}>
         Recibirás diariamente nuestro newsletter

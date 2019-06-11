@@ -13,7 +13,7 @@ export const TripletChildTriplet = props => {
     threeline: 'triplet--threeline',
     author: 'triplet__author uppercase',
     multimedia: 'triplet__multimedia',
-    mLink: 'full-width full-height block position-relative',
+    mLink: 'w-full h-full block position-relative',
     tripletIcon:
       'triplet__icon position-absolute flex items-center justify-center',
   }
@@ -45,7 +45,7 @@ export const TripletChildTriplet = props => {
           <figure className={classes.multimedia}>
             <a className={classes.mLink} href={story.link}>
               <img
-                className="object-cover full-width full-height"
+                className="object-cover w-full h-full"
                 src={story.multimedia}
                 alt={story.title}
               />

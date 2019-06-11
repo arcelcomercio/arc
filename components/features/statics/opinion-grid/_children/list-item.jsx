@@ -3,10 +3,10 @@ import { formatDate } from '../../../../utilities/helpers'
 
 const classes = {
   authorItem: 'author-item',
-  wrapper: 'author-item__wrapper full-width flex justify-center',
+  wrapper: 'author-item__wrapper w-full flex justify-center',
   social: 'author-item__social',
   date: 'author-item__date',
-  content: 'author-item__content flex full-width items-start',
+  content: 'author-item__content flex w-full items-start',
   imageBox: 'author-item__box-image flex flex-grow-0 flex-shrink-0',
   image: 'author-item__image',
   descBox: 'author-item__box-desc',

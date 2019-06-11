@@ -1,14 +1,16 @@
 import React from 'react'
 
 const classes = {
-  title: 'newsletter__title',
+  title: 'newsletter__title position-relative font-bold',
   descripcion: 'newsletter__description',
   row: 'newsletter__row',
-  email: 'newsletter__email',
-  errorMessage: 'newsletter__error-message',
+  email: 'newsletter__email w-full',
+  errorMessage: 'newsletter__error-message block',
   textCenter: 'text-center',
-  button: 'newsletter__button',
-  tos: 'newsletter__tos',
+  button: 'newsletter__button font-bold w-full',
+  policies: 'newsletter__policies font-bold',
+  pageLink: 'newsletter__page-link',
+  inputCheckbox: 'newsletter__input-checkbox',
 }
 
 const StaticsNewsletterChildForm = props => {
@@ -52,21 +54,27 @@ const StaticsNewsletterChildForm = props => {
           </button>
         </div>
         <div className={classes.row}>
-          <label className={classes.tos} htmlFor="tos">
+          <label className={classes.policies} htmlFor="tos">
             <input
               type="checkbox"
               id="tos"
               name="tos"
               required="required"
               value="1"
+              className={classes.inputCheckbox}
               onChange={features.tos}
             />
             Acepto los{' '}
-            <a href={urlTos} target="_blank" rel="noopener noreferrer">
+            <a
+              className={classes.pageLink}
+              href={urlTos}
+              target="_blank"
+              rel="noopener noreferrer">
               Términos y condiciones
             </a>{' '}
             y{' '}
             <a
+              className={classes.pageLink}
               href={urlPrivacyPolicies}
               target="_blank"
               rel="noopener noreferrer">

@@ -8,7 +8,7 @@ import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 
 const classes = {
-  separator: 'story-separator full-width separator--nota grid',
+  separator: 'story-separator w-full separator--nota grid',
   title:
     'story-separator__header-title separator__header-title--nota grid text-center pb-20 pt-20',
   body: 'story-separator__body separator__body--items',

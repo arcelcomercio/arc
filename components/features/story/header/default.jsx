@@ -6,8 +6,8 @@ import StoryHeaderChildGallery from './_children/gallery'
 import StoryHeaderChildSocial from './_children/social'
 
 const classes = {
-  news: 'full-width bg-color--white',
-  gallery: 'full-width',
+  news: 'w-full bg-color--white',
+  gallery: 'w-full',
 }
 @Consumer
 class StoryHeader extends PureComponent {

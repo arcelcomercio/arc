@@ -5,7 +5,7 @@ import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
 import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 
 const classes = {
-  storyItem: 'story-item full-width',
+  storyItem: 'story-item w-full',
   top: 'story-item__top flex',
   section: 'story-item__section uppercase',
   date: 'story-item__date',
@@ -15,9 +15,9 @@ const classes = {
   subtitle: 'story-item__subtitle',
   author: 'story-item__author block uppercase',
   right: 'story-item__right position-relative',
-  rightLink: 'flex full-height',
+  rightLink: 'flex h-full',
   icon: 'story-item__icon position-absolute flex items-center justify-center',
-  figure: 'story-item__figure object-cover full-width full-height',
+  figure: 'story-item__figure object-cover w-full h-full',
 }
 
 class StoriesList extends PureComponent {

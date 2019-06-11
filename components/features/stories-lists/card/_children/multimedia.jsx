@@ -29,12 +29,7 @@ const StoriesListsCardChildMultimedia = ({
               srcSet={multimedia}
               media="(max-width: 639px)"
             />
-            <img
-              data-type="src"
-              className="full-width"
-              src={multimedia}
-              alt=""
-            />
+            <img data-type="src" className="w-full" src={multimedia} alt="" />
           </picture>
         </a>
       ) : null}

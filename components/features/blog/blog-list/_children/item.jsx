@@ -1,11 +1,11 @@
 import React from 'react'
 
 const classes = {
-  item: 'flex  blog-item full-width',
+  item: 'flex  blog-item w-full',
   date: 'blog-item__date',
   container: 'flex blog-item__container',
   containerAvatar: 'blog-item__container-avatar',
-  avatar: 'full-width',
+  avatar: 'w-full',
   detail: 'flex flex-col blog-item__detail',
   blogTitle: 'uppercase blog-item__blog',
   author: 'blog-item__author',

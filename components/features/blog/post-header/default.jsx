@@ -9,13 +9,11 @@ const classes = {
   header: 'post-header padding-normal',
   title: 'post-header__title',
   list: 'post-header__list flex',
-  link:
-    'post-header__link flex items-center justify-center full-width full-height',
+  link: 'post-header__link flex items-center justify-center w-full h-full',
   item: 'post-header__item flex-grow',
   share: 'post-header__share',
   more: 'post-header__more',
-  button:
-    'post-header__button flex items-center justify-center full-width full-height',
+  button: 'post-header__button flex items-center justify-center w-full h-full',
 }
 @Consumer
 class BlogPostHeader extends PureComponent {

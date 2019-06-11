@@ -1,9 +1,9 @@
 import React from 'react'
 
 const classes = {
-  confirm: 'survey-confirmation',
-  message: 'survey-confirmation__message',
-  button: 'survey-confirmation__button',
+  confirm: 'survey-confirmation position-absolute text-center w-full',
+  message: 'survey-confirmation__message font-bold',
+  button: 'survey-confirmation__button text-center inline-b',
 }
 
 const SurveyChildViewSurveyConfirm = ({ handleOnClickViewResult }) => {

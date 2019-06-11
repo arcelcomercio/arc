@@ -9,7 +9,6 @@ const classes = {
   InternalSurvey: 'internal-survey grid primary-font',
   detail: 'internal-survey__detail position-relative',
   result: 'internal-survey__result grid justify-center position-relative',
-  ocultar: 'internal-survey__ocultar',
   date: 'internal-survey__date block',
   title: 'internal-survey__title inline font-bold',
   buttons:
@@ -21,8 +20,8 @@ const classes = {
   nav: 'internal-survey__nav',
   navprev: 'internal-survey__nav-prev',
   navnex: 'internal-survey__nav-next',
-  slug: 'internal-survey__slug',
-  icoprev: 'internal-survey__nav-ico-prev',
+  slug: 'internal-survey__slug h-full position-absolute text-center',
+  icoprev: 'internal-survey__nav-ico-prev block position-absolute w-full',
 }
 class SurveyInternalChildSurvey extends Component {
   constructor() {

@@ -14,7 +14,7 @@
   &__detail {
     padding-left: 30px;
     padding-right: 30px;
-    background-color: #ffffff;
+    background-color: $color-white;
 
     &:hover {
       .internal-survey__nav.active {
@@ -55,7 +55,7 @@
   &__button-pool {
     background-color: #4aa8fa;
     border: 0;
-    color: #fff;
+    color: $color-white;
     float: left;
     height: 45px;
   }
@@ -71,10 +71,6 @@
   }
 
   //columna de resultados
-  &__ocultar {
-    display: none;
-  }
-
   &__result {
     grid-template-columns: auto;
     background-color: #fcee21;
@@ -84,21 +80,17 @@
     }
   }
 
-  &__input {
-    display: none;
-
-    &:checked+.internal-survey__check::after {
-      content: '';
-      background-color: #494949;
-      border-radius: 50%;
-      display: block;
-      height: 14px;
-      left: 50%;
-      margin: -7px 0 0 -7px;
-      position: absolute;
-      top: 50%;
-      width: 14px;
-    }
+  &__input:checked + .internal-survey__check::after {
+    content: '';
+    background-color: #494949;
+    border-radius: 50%;
+    display: block;
+    height: 14px;
+    left: 50%;
+    margin: -7px 0 0 -7px;
+    position: absolute;
+    top: 50%;
+    width: 14px;
   }
 
   &__item-input {
@@ -113,8 +105,6 @@
 
   &__lblinput {
     cursor: pointer;
-    display: block;
-    overflow: hidden;
   }
 
   &__check {
@@ -123,11 +113,7 @@
     height: 28px;
     margin-right: 15px;
     width: 28px;
-
-    display: inline-block;
-    position: relative;
     vertical-align: middle;
-
     &::before {
       border-radius: 50%;
       bottom: 0;
@@ -155,28 +141,19 @@
   }
 
   &__nav-ico-prev {
-    display: block;
     font-size: 20px;
     height: 20px;
     left: 0;
     line-height: 20px;
     margin-top: -10px;
-    position: absolute;
     top: 50%;
-    width: 100%;
   }
 
   &__slug {
     background-color: rgba(#6d9bce, 0.5);
-    color: #fff;
-    height: 100%;
-    position: absolute;
-    text-align: center;
+    color: $color-white;
     top: 0;
     width: 40px;
     z-index: 3;
-
-    cursor: pointer;
-    text-decoration: none;
   }
 }

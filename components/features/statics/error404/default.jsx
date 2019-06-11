@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import SearchInput from '../../../global-components/search-input'
 
 const classes = {
-  container: 'error__container text-center full-width position-relative',
+  container: 'error__container text-center w-full position-relative',
   icon: 'error__icon position-absolute',
   title: 'error__title title mb-10',
   content: 'error__content text-sm pt-15 pb-15 inline-b',
