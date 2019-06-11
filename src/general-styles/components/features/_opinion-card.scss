@@ -1,6 +1,4 @@
 .opinion-card {
-  // FIXME: PLS
-  display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 60px 10fr;
   padding-right: 10px;
@@ -8,14 +6,11 @@
   background-color: $color-white;
 
   &__head {
-    display: grid;
     grid-template-columns: 1fr;
-    align-content: center;
     border-top: 1px solid #d8d7d4;
   }
 
   &__title {
-    text-align: center;
     color: #f15a24;
     font-size: 30px;
     margin: 0;
@@ -23,55 +18,35 @@
   }
 
   &__body {
-    display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     // height: 450px;
   }
 
   &__item {
-    display: grid;
     grid-template-columns: 8fr 4fr;
     border-top: 1px solid #d8d7d4;
     padding-top: 10px;
   }
 
-  &__nombreseccion {
-    // FIXME: PLS
+  &__section-name,
+  &__name-link,
+  &__name-link:hover {
     color: #f15a24;
-
-    & a {
-      color: #f15a24;
-      text-decoration: none;
-    }
-
-    & a:hover {
-      color: #f15a24;
-      text-decoration: underline;
-    }
   }
 
-  &__seccion {
-    display: grid;
+  &__section {
     grid-template-rows: 2fr 8fr;
     grid-template-columns: 1fr;
-    align-items: center;
-
-    & a {
-      color: #000;
-      text-decoration: none;
-    }
-
-    & a:hover {
-      color: #000;
-      text-decoration: underline;
-    }
   }
 
-  &__titleNew {
-    text-align: left;
+  &__title-link,
+  &__title-link:hover {
+    color: #000;
+  }
+
+  &__story-title {
     display: -webkit-box;
-    overflow: hidden;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
@@ -95,16 +70,13 @@
     line-height: 18px;
   }
 
-  &__icono {
-    display: grid;
+  &__image-container {
     grid-template-rows: 3fr;
-    align-items: center;
-    justify-content: center;
+  }
 
-    & img {
-      margin: 0 auto;
-      height: 60px;
-      width: 60px;
-    }
+  &__image {
+    margin: 0 auto;
+    height: 60px;
+    width: 60px;
   }
 }
