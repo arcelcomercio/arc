@@ -108,13 +108,13 @@ export default ({
  }`
 
   const breadcrumbResult = breadcrumbList.map(
-    ({ url = '', name = '' } = {}) => {
+    ({ url = '', name = '' } = {}, i) => {
       return (
         url &&
         `
          {  
             "@type":"ListItem",
-            "position":1,
+            "position":${i + 1},
             "item":{  
                "@id":"${url}",
                "name":"${name}"

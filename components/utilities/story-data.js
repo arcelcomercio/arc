@@ -280,7 +280,7 @@ class StoryData {
     } = {},
     type = ''
   ) {
-    if (basicVideo.url && (type === 'video' || type === 'image')) {
+    if (basicVideo.promo_image && (type === 'video' || type === 'image')) {
       const {
         streams = [],
         publish_date: date = '',
@@ -313,7 +313,7 @@ class StoryData {
       const { content_elements: contentElements = {} } = basicGallery
       return contentElements
     }
-    if (basicImage.url && type === 'image') {
+    if (basicImage && type === 'image') {
       const {
         content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
         url: urlImage,
