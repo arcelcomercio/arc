@@ -8,7 +8,7 @@ const classes = {
   header: 'bp-content__header uppercase inline-b',
   author: 'bp-content__author font-bold',
   date: 'bp-content__date',
-  news: 'bp-content__news',
+  news: 'bp-content__news full',
 }
 
 @Consumer

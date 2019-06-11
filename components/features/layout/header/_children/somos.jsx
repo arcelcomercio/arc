@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react'
 
 const classes = {
   logocontent:
-    'header-somos flex items-center justify-between full-width text-center',
-  iconmenuwrapper: 'header-somos__icon-wrapper',
+    'header-somos flex justify-between items-center text-center full-width',
+  iconmenuwrapper: 'flex-1',
   menuicon: 'icon-menu header-somos__icon',
   logoWrapper:
-    'header-somos__logo-wrapper flex items-center justify-center text-center',
-  logoimgwrapper: 'flex-1',
+    'header-somos__logo-wrapper text-center flex justify-center items-center',
+  logoimgwrapper: 'header-somos__img-wrapper',
   logoLink: 'inline-b',
   logoimg: 'header-somos__img block',
   logoIcon: 'icon-marca',
@@ -19,6 +19,7 @@ const classes = {
   menuSearch: 'somos-menu__search position-relative',
   menuSearchInput: 'somos-menu__search-input full-width font-bold',
   menuSearchIcon: 'icon-search ',
+  menuButtonSearchIcon: 'somos-menu__search-icon position-absolute',
   menuLogin: 'somos-menu__login full-width',
   menuLoginLink: 'flex justify-center',
   menuLoginIcon: 'icon-user somos-menu__login-icon',
@@ -31,7 +32,7 @@ const classes = {
   menuLink: 'somos-menu__link',
   menubtn: 'header-somos__btn',
 
-  menuActive: 'somos-menu--active',
+  menuActive: 'somos-menu--active full-width',
 }
 
 class HeaderChildSomos extends PureComponent {
@@ -135,7 +136,7 @@ class HeaderChildSomos extends PureComponent {
                     onChange={e => this.handleSearchInput(e)}
                   />
                   <button
-                    className="somos-menu__search-icon position-absolute"
+                    className={classes.menuButtonSearchIcon}
                     type="submit"
                     onClick={() => {}}>
                     <i className={classes.menuSearchIcon} />

@@ -1,5 +1,5 @@
 .story-separator {
-  background-color: #ffffff;
+  background-color: $color-white;
   grid-template-columns: 1fr;
   height: auto;
 
@@ -215,11 +215,6 @@
         color: #333;
       }
     }
-  }
-
-  &__img {
-    object-fit: cover;
-    height: 100%;
   }
 
   &-oneline {

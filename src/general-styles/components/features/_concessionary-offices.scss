@@ -18,9 +18,8 @@
   }
 
   &__title {
-    color: #333;
     font-size: 20px;
-
+    color: $color-gray;
     @media (--tablet) {
       font-size: 32px;
     }
@@ -31,7 +30,7 @@
     line-height: 1.5;
     margin: 10px auto 40px;
     width: 300px;
-    color: #333;
+    color: $color-gray;
   }
 
   &__locations {
@@ -57,7 +56,7 @@
   &__search-title {
     font-size: 13px;
     padding: 14px 20px 0;
-    color: #333;
+    color: $color-gray;
     text-align: center;
 
     @media (--tablet) {
@@ -118,7 +117,7 @@
   }
 
   &__map-title {
-    color: #333;
+    color: $color-gray;
     font-size: 20px;
     margin: 10px 0;
   }
