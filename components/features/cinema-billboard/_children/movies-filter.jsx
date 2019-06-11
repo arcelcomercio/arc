@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import BillboardFormat from '../../../utilities/billboard-format'
 
 const classes = {
-  container: 'movies-filter full-width',
+  container: 'movies-filter w-full',
   titleBox: 'movies-filter__title-box flex justify-between',
   title: 'movies-filter__title flex items-center position-relative',
   social: 'movies-filter__social flex',

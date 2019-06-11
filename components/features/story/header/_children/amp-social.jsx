@@ -7,7 +7,7 @@ import {
 
 const classes = {
   share: 'story-header-amp__share',
-  link: 'flex items-center justify-center full-width full-height',
+  link: 'flex items-center justify-center w-full h-full',
   list: 'story-header-amp__list flex',
   item: 'story-header-amp__item',
 }

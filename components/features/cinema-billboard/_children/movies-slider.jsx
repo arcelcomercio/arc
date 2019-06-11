@@ -8,7 +8,7 @@ const classes = {
   movie: '',
   imageBox: '',
   imageLink: '',
-  image: 'movies-slider__img full-width object-cover',
+  image: 'movies-slider__img w-full object-cover',
   arrowsBox: 'movies-slider__arrows-box position-absolute flex justify-between',
   leftArrow: 'movies-slider__arrows movies-slider__arrows--left',
   rightArrow: 'movies-slider__arrows movies-slider__arrows--right',

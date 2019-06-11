@@ -6,8 +6,7 @@ const classes = {
   section: 'author-title__section position-relative',
   url: 'author-title__url',
   name: 'flex items-center',
-  img:
-    'author-title__img position-absolute full-height full-width object-contain',
+  img: 'author-title__img position-absolute h-full w-full object-contain',
 }
 
 const BlogAuthorTitleChildAuthorTitle = ({

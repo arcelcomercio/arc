@@ -9,7 +9,7 @@ const classes = {
   titleAmp: 'story-header-amp__title',
   datetime: 'story-header-amp__datetime',
   description: 'story-header-amp__description',
-  gallery: 'story-header-amp full-width',
+  gallery: 'story-header-amp w-full',
 }
 @Consumer
 class StoryHeaderAmp extends PureComponent {

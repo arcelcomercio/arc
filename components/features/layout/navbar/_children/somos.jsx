@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react'
 
 const classes = {
   navbarSomos: 'navbar-somos flex items-center justify-between',
-  logoLink: 'full-height flex items-center',
+  logoLink: 'h-full flex items-center',
   logoIcon: 'icon-back navbar-somos__icon font-bold',
   logoImg: 'navbar-somos__logo-img',
-  boxRight: 'full-height flex items-center',
+  boxRight: 'h-full flex items-center',
   loginButton:
     'navbar-somos__login-button font-bold uppercase flex items-center',
   iconUser: 'icon-user navbar-somos__icon-user',

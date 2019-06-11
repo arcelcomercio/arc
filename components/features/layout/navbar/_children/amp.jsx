@@ -4,9 +4,9 @@ import AmpSocial from '../../../story/header/_children/amp-social'
 import Menu from './amp-menu'
 
 const classes = {
-  nav: 'amp-nav text-sm full-width flex flex items-center',
+  nav: 'amp-nav text-sm w-full flex flex items-center',
   wrapper:
-    'flex items-center justify-between amp-nav__wrapper full-width height-inherit',
+    'flex items-center justify-between amp-nav__wrapper w-full h-inherit',
   iconMenu: 'amp-nav__hamburguer',
   navBtnContainer: 'flex items-center justify-start nav__container-menu',
   btnContainer: 'flex items-center justify-end header__btn-container',

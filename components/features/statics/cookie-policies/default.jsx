@@ -5,8 +5,8 @@ import { createMarkup } from '../../../utilities/helpers'
 import cookiesText from './_dependencies/cookies-tpl'
 
 const classes = {
-  container: 'text-editor-container full-width position-relative',
-  textEditor: `text-editor-container__editor full-width`,
+  container: 'text-editor-container w-full position-relative',
+  textEditor: `text-editor-container__editor w-full`,
   arrow: `text-editor-container__arrow position-absolute`,
 }
 

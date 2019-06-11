@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 const classes = {
   logocontent:
-    'header-somos flex justify-between items-center text-center full-width',
+    'header-somos flex justify-between items-center text-center w-full',
   iconmenuwrapper: 'flex-1',
   menuicon: 'icon-menu header-somos__icon',
   logoWrapper:
@@ -13,14 +13,14 @@ const classes = {
   logoIcon: 'icon-marca',
 
   menu: 'somos-menu position-absolute',
-  menuContent: 'somos-menu__content full-height',
-  menuClose: 'somos-menu__close text-right full-width',
+  menuContent: 'somos-menu__content h-full',
+  menuClose: 'somos-menu__close text-right w-full',
   menuCloseIcon: 'icon-close somos-menu__close-icon',
   menuSearch: 'somos-menu__search position-relative',
-  menuSearchInput: 'somos-menu__search-input full-width font-bold',
+  menuSearchInput: 'somos-menu__search-input w-full font-bold',
   menuSearchIcon: 'icon-search ',
   menuButtonSearchIcon: 'somos-menu__search-icon position-absolute',
-  menuLogin: 'somos-menu__login full-width',
+  menuLogin: 'somos-menu__login w-full',
   menuLoginLink: 'flex justify-center',
   menuLoginIcon: 'icon-user somos-menu__login-icon',
   menuLoginLabel: 'somos-menu__login-text uppercase font-bold',
@@ -32,7 +32,7 @@ const classes = {
   menuLink: 'somos-menu__link',
   menubtn: 'header-somos__btn',
 
-  menuActive: 'somos-menu--active full-width',
+  menuActive: 'somos-menu--active w-full',
 }
 
 class HeaderChildSomos extends PureComponent {

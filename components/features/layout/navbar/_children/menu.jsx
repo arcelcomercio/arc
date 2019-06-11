@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Button from '../../../../global-components/button'
 
 const classes = {
-  sidebar: 'nav-sidebar full-width',
+  sidebar: 'nav-sidebar w-full',
   content: 'nav-sidebar__content flex flex-col justify-between',
   item: 'nav-sidebar__item',
   link: 'nav-sidebar__link',

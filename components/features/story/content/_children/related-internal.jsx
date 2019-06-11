@@ -10,7 +10,7 @@ const classes = {
   relatedTitle: 'related-internal__title font-bold uppercase',
   relatedMultimedia: 'position-relative',
   relatedLink: 'related-internal__multimedia-link',
-  relatedImage: 'full-width',
+  relatedImage: 'w-full',
   relatedIcon: 'related-internal__multimedia-icon position-absolute',
   relatedInfo: 'related-internal__information',
 }

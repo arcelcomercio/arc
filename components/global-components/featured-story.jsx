@@ -5,10 +5,10 @@ import StoryData from '../utilities/story-data'
 const classes = {
   featuredStory: 'featured-story position-relative padding-normal flex',
   detail: 'featured-story__detail flex flex-col justify-between',
-  image: 'featured-story__image overflow-hidden full-width full-height',
+  image: 'featured-story__image overflow-hidden w-full h-full',
   multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
   multimediaIconSpan:
-    'featured-story__multimedia-icon-span flex items-center justify-center full-width full-height',
+    'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full',
 
   category: 'featured-story__category pb-15',
   title: 'featured-story__title overflow-hidden',
@@ -18,8 +18,8 @@ const classes = {
   author: 'featured-story__author uppercase',
 
   link: 'featured-story__link',
-  imageLink: 'block full-height',
-  img: 'full-width full-height object-cover',
+  imageLink: 'block h-full',
+  img: 'w-full h-full object-cover',
 
   imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',

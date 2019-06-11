@@ -24,13 +24,13 @@ import StoryContentChildRelatedInternal from './_children/related-internal'
 import StoryContentChildIcon from './_children/icon-list'
 
 const classes = {
-  news: 'story-content full-width bg-color--white pl-20 pr-20',
+  news: 'story-content w-full bg-color--white pl-20 pr-20',
   content: 'story-content__content position-relative flex flex--row-reverse',
   textClasses: 'story-content__font--secondary',
-  newsImage: 'story-content__image full-width story-content__image--cover',
+  newsImage: 'story-content__image w-full story-content__image--cover',
   newsEmbed: 'story-content__embed',
   tags: 'story-content',
-  section: 'full-width',
+  section: 'w-full',
   relatedList: 'related-content__list',
   relatedTitle: 'related-content__title font-bold uppercase',
 }

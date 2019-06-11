@@ -9,7 +9,7 @@ const classes = {
   subBox: 'tv-highlight__box-sub flex justify-between',
   section: 'tv-highlight__section flex uppercase position-relative',
   imageBox: 'block position-relative',
-  image: 'full-width full-height object-contain object-center',
+  image: 'w-full h-full object-contain object-center',
   icon: 'tv-highlight__icon position-absolute flex justify-center items-center',
   tags: 'tv-highlight__tags',
   related: 'tv-highlight__related uppercase',

@@ -5,7 +5,7 @@ const classes = {
   wrapper: 'author-card__wrapper flex position-relative',
   imageBox: 'author-card__box-image flex items-start position-relative',
   image: 'author-card__image',
-  detailsBox: 'author-card__box-details full-width',
+  detailsBox: 'author-card__box-details w-full',
   name: 'author-card__name block',
   group: 'author-card__group uppercase',
   title: 'author-card__title uppercase block',

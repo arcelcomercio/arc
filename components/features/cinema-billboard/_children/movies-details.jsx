@@ -4,13 +4,13 @@ import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   container: 'movie-details flex flex-col',
-  imgBox: 'movie-details__box-img position-relative full-width',
-  img: 'movie-details__img full-width full-height object-cover',
+  imgBox: 'movie-details__box-img position-relative w-full',
+  img: 'movie-details__img w-full h-full object-cover',
   iconBox:
     'movie-details__box-icon position-absolute flex items-center justify-center',
   icon: 'movie-details__icon',
-  details: 'movie-details__detail full-width flex flex-col',
-  leftSide: 'movie-details__left full-width',
+  details: 'movie-details__detail w-full flex flex-col',
+  leftSide: 'movie-details__left w-full',
   title: 'movie-details__title',
   where: 'movie-details__where uppercase',
   hours: 'movie-details__hours scroll-vertical-auto',

@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { getActualDate } from '../utilities/helpers'
 
 const classes = {
-  paginationDate: 'pagination-date full-width',
+  paginationDate: 'pagination-date w-full',
   paginationDateList: 'pagination-date__list',
   paginationDateItem: 'pagination-date__item',
   paginationDateLink:

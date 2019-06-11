@@ -4,9 +4,9 @@ import { capitalData, provinceData } from './_dependencies/locations'
 import Markers from './_dependencies/markers'
 
 const classes = {
-  concessionaires: 'concessionaires full-width position-relative',
+  concessionaires: 'concessionaires w-full position-relative',
   arrow: 'concessionaires__arrow position-absolute',
-  container: 'concessionaires__container full-width',
+  container: 'concessionaires__container w-full',
 <<<<<<< HEAD
   title: 'concessionaires__title font-bold text-center',
 =======

@@ -16,7 +16,7 @@ const classes = {
   grid: 'movies-grid__grid',
   movie: 'movies-grid__movie',
   imageBox: '',
-  image: 'movies-grid__img full-width',
+  image: 'movies-grid__img w-full',
   details: 'movies-grid__details',
   title: 'movies-grid__title',
   tag: 'movies-grid__tag',
