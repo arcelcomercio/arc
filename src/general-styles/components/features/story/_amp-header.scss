@@ -1,12 +1,9 @@
 .amp-header {
   z-index: 20;
-  position: absolute;
-  width: 100%;
 
   &__wrap {
     background-color: $color-primary;
     height: 50px;
-    text-align: center;
   }
 
   &__logo {
@@ -15,22 +12,22 @@
     margin-top: 9px;
   }
 
-  &__ultimate {
+  &__link-container {
     float: right;
     margin-right: 35px;
     margin-top: 7px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    border: 1px solid #fff;
+    border: 1px solid $color-white;
     height: 34px;
-    position: relative;
     line-height: 34px;
     font-size: 12px;
     padding: 0 8px 0 8px;
-    & a {
-      color: #fff;
-    }
+  }
+
+  &__link {
+    color: $color-white;
   }
 }
 .nav {

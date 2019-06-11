@@ -1,128 +1,116 @@
 .movies-filter {
-    padding: $spacing-normal;
-    background-color: $color-gray;
+  padding: $spacing-normal;
+  background-color: $color-gray;
+
+  @media (--tablet) {
+    padding: $spacing-xlarge;
+  }
+
+  &--font-config {
+    font-size: 12px;
+    line-height: 45px;
+    font-weight: 600;
+  }
+
+  &__filter-box {
+    @media (--desktop) {
+      flex-direction: initial;
+      border: 1px solid $color-silver;
+      padding: 4px;
+    }
+  }
+
+  &__title-box {
+    margin-bottom: $spacing-normal;
+
+    @media (--desktop) {
+      flex-direction: initial;
+    }
+  }
+
+  &__title {
+    color: $color-white;
+    line-height: 40px;
 
     @media (--tablet) {
-        padding: $spacing-xlarge;
+      text-transform: uppercase;
     }
 
-    &--font-config {
-        font-size: 12px;
-        line-height: 45px;
-        font-weight: 600;
+    &::before,
+    &::after {
+      border-bottom: 1px solid #fff;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 25px;
     }
 
-    &__filter-box {
-        flex-direction: column;
-
-        @media(--desktop) {
-            flex-direction: initial;
-            border: 1px solid $color-silver;
-            padding: 4px;
-        }
+    &::before {
+      top: 10%;
     }
 
-    &__title-box {
-        margin-bottom: $spacing-normal;
-        flex-direction: column-reverse;
+    &::after {
+      bottom: 10%;
+    }
+  }
 
-        @media (--desktop) {
-            flex-direction: initial;
-        }
+  &__social {
+    margin-bottom: $spacing-normal;
+  }
+
+  &__label {
+    @media (--tablet) {
+      color: $color-soft;
+      padding: 0 8px;
+      display: inline-block;
+    }
+  }
+
+  &__form {
+    @media (--desktop) {
+      flex-direction: initial;
+      width: initial;
     }
 
-    &__title {
-        color: $color-white;
-        line-height: 40px;
+    :nth-child(2) {
+      // NO MUESTRA SELECT DE GENERO EN MOBILE
+      display: none;
 
-        @media (--tablet) {
-            text-transform: uppercase;
-        }
-
-        &::before,
-        &::after {
-            border-bottom: 1px solid #fff;
-            content: "";
-            display: block;
-            height: 1px;
-            left: 0;
-            overflow: hidden;
-            position: absolute;
-            width: 25px;
-        }
-
-        &::before {
-            top: 10%;
-        }
-
-        &::after {
-            bottom: 10%;
-        }
+      @media (--tablet) {
+        display: block;
+      }
     }
+  }
+  &__form-select {
+    appearance: none;
+    background-color: $color-white;
+    background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    border: 0;
+    padding: 0 42px 0 16px;
+    margin-bottom: 8px;
+    color: $color-dark;
+    line-height: 45px;
 
-    &__social {
-        margin-bottom: $spacing-normal;
+    @media (--desktop) {
+      margin-bottom: 0;
+      margin-right: 4px;
+      width: fit-content;
+      max-width: 200px;
     }
+  }
 
+  &__btn {
+    background-color: $color-primary;
+    color: $color-gray;
 
-    &__label {
-        display: none;
-
-        @media (--tablet) {
-            color: $color-soft;
-            padding: 0 8px;
-            display: inline-block;
-        }
+    @media (--desktop) {
+      width: 100px;
     }
-
-    &__form {
-        flex-direction: column;
-        width: 100%;
-
-        @media (--desktop) {
-            flex-direction: initial;
-            width: initial;
-        }
-
-        & select {
-            appearance: none;
-            background-color: #FFF;
-            background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
-            background-position: right center;
-            background-repeat: no-repeat;
-            cursor: pointer;
-            border: 0;
-            padding: 0 42px 0 16px;
-            margin-bottom: 8px;
-            width: 100%;
-            color: $color-dark;
-            line-height: 45px;
-
-            @media (--desktop) {
-                margin-bottom: 0;
-                margin-right: 4px;
-                width: fit-content;
-                max-width: 200px;
-            }
-        }
-
-        :nth-child(2) {
-            // NO MUESTRA SELECT DE GENERO EN MOBILE
-            display: none;
-
-            @media (--tablet) {
-                display: block;
-            }
-        }
-    }
-
-    &__btn {
-        background-color: $color-primary;
-        color: $color-gray;
-        width: 100%;
-
-        @media (--desktop) {
-            width: 100px;
-        }
-    }
+  }
 }

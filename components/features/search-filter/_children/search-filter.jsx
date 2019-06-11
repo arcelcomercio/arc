@@ -124,14 +124,14 @@ class SearchFilterChildSearchFilter extends PureComponent {
     const { isAdmin, globalContentConfig, contextPath } = this.props
 
     const classes = {
-      searchFilter: 'search-filter flex w-full mt-20',
+      searchFilter: 'search-filter flex flex-col-reverse w-full mt-20',
       containerList: 'position-relative',
       select: `search-filter__select position-relative w-full flex items-center ${
         showList ? 'active' : ''
       }`,
-      selectName: 'search-filter__select-name w-full justify-between',
+      selectName: 'search-filter__select-name flex w-full justify-between',
       iconButton: 'icon-angle-down',
-      list: `search-filter__list position-absolute w-full flex-col ${
+      list: `search-filter__list hidden position-absolute w-full flex-col ${
         showList ? 'active' : ''
       }`,
       iemDesc: `search-filter__item ${
@@ -144,7 +144,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
         selected === 'section' ? 'selected' : ''
       }`,
       itemTime: `search-filter__item ${selected === 'time' ? 'selected' : ''}`,
-      link: 'search-filter__link flex uppercase',
+      link: 'search-filter__link flex uppercase w-full',
       subList: 'search-filter__sublist w-full active',
       subItem: 'search-filter__subitem flex items-center position-relative',
       subLink: 'search-filter__sublink capitalize w-full',

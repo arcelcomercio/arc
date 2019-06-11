@@ -2,9 +2,9 @@ import React from 'react'
 
 const classes = {
   item: 'opinion-card__item grid',
-  section: 'opinion-card__section grid align-center',
+  section: 'opinion-card__section grid item-center',
   imageContainer:
-    'opinion-card__image-container grid align-center justify-center',
+    'opinion-card__image-container grid item-center justify-center',
   image: 'opinion-card__image',
   name: 'opinion-card__section-name',
   nameLink: 'opinion-card__name-link',

@@ -1,95 +1,88 @@
 .movies-slider {
-    max-width: 100vw;
+  max-width: 100vw;
+
+  @media (--desktop) {
+    max-width: 1024px;
+  }
+
+  &__content {
+    transition: transform 0.4s ease;
+  }
+
+  &__img {
+    max-height: 240px;
+
+    @media (--tablet) {
+      max-height: 400px;
+    }
 
     @media (--desktop) {
-        max-width: 1024px;
+      max-height: 580px;
+    }
+  }
+
+  &__arrows-box {
+    outline: 0;
+    z-index: 2;
+    height: 0;
+    top: 20%;
+
+    @media (--tablet) {
+      top: 30%;
+    }
+  }
+
+  &__arrows {
+    background-color: #f7c600;
+    background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 48px;
+    height: 48px;
+
+    @media (--tablet) {
+      width: 80px;
+      height: 80px;
     }
 
-    &__content {
-        transition: transform .4s ease;
+    &--left {
+      transform: rotate(90deg);
     }
 
-    &__img {
-        max-height: 240px;
-
-        @media (--tablet) {
-            max-height: 400px;
-        }
-
-        @media (--desktop) {
-            max-height: 580px;
-        }
+    &--right {
+      transform: rotate(270deg);
     }
+  }
 
-    &__arrows-box {
-        outline: 0;
-        z-index: 2;
-        width: 100%;
-        height: 0;
-        top: 20%;
+  &__movie-title {
+    font-size: 24px;
+    margin-bottom: $spacing-small;
 
-        @media (--tablet) {
-            top: 30%;
-        }
+    @media (--tablet) {
+      font-size: 48px;
     }
+  }
 
-    &__arrows {
-        display: block;
-        text-align: center;
-        background-color: #f7c600;
-        background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
-        background-position: center;
-        background-repeat: no-repeat;
-        width: 48px;
-        height: 48px;
+  &__movie-link {
+    color: $color-white;
+  }
 
-        @media (--tablet) {
-            width: 80px;
-            height: 80px;
-        }
+  &__movie-description {
+    color: $color-white;
+    font-size: 14px;
+    line-height: 20px;
 
-        &--left {
-            transform: rotate(90deg);
-        }
-
-        &--right {
-            transform: rotate(270deg);
-        }
+    @media (--tablet) {
+      font-size: 16px;
+      line-height: 24px;
     }
+  }
 
-    &__movie-title {
-        font-size: 24px;
-        margin-bottom: $spacing-small;
+  &__details {
+    padding: $spacing-normal;
 
-        @media (--tablet) {
-            font-size: 48px;
-        }
+    @media (--tablet) {
+      padding: $spacing-xlarge;
     }
-
-    &__movie-link {
-        color: $color-white;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
-    &__movie-description {
-        color: $color-white;
-        font-size: 14px;
-        line-height: 20px;
-
-        @media (--tablet) {
-            font-size: 16px;
-            line-height: 24px;
-        }
-    }
-
-    &__details {
-        padding: $spacing-normal;
-
-        @media (--tablet) {
-            padding: $spacing-xlarge;
-        }
-    }
+  }
 }

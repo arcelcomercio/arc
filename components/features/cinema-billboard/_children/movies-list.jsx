@@ -13,10 +13,10 @@ const classes = {
   imageBox: 'block w-full',
   image: 'movie-item__img w-full h-full object-cover',
   title: 'movie-item__title',
-  function: 'movie-item__function',
+  function: 'movie-item__function font-normal',
   rightSide: 'movie-item__right',
-  subtitle: 'movie-item__subtitle',
-  description: 'movie-item__description',
+  subtitle: 'movie-item__subtitle font-bold',
+  description: 'movie-item__description font-normal inline',
 }
 
 class StaticCinemaBillboardChildMoviesList extends PureComponent {

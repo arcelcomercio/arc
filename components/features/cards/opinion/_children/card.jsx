@@ -2,16 +2,16 @@ import React from 'react'
 
 const classes = {
   opinion: 'opinion-card grid',
-  head: 'opinion-card__head grid align-center',
+  head: 'opinion-card__head grid item-center',
   title: 'opinion-card__title text-center',
   oneline: 'opinion-card__oneline',
   twoline: 'opinion-card__twoline',
   threeline: 'opinion-card__threeline',
   body: 'opinion-card__body grid',
   item: 'opinion-card__item',
-  section: 'opinion-card__section grid align-center',
+  section: 'opinion-card__section grid item-center',
   imageContainer:
-    'opinion-card__image-container grid align-center justify-center',
+    'opinion-card__image-container grid item-center justify-center',
   image: 'opinion-card__image',
   name: 'opinion-card__section-name',
   nameLink: 'opinion-card__name-link',

@@ -4,15 +4,16 @@ import BillboardFormat from '../../../utilities/billboard-format'
 
 const classes = {
   container: 'movies-filter w-full',
-  titleBox: 'movies-filter__title-box flex justify-between',
+  titleBox: 'movies-filter__title-box flex justify-between flex-col-reverse',
   title: 'movies-filter__title flex items-center position-relative',
   social: 'movies-filter__social flex',
   facebook: 'icon icon--facebook icon--margin-right',
   twitter: 'icon icon--twitter',
-  filter: 'movies-filter__filter-box flex justify-between',
-  label: 'movies-filter__label movies-filter--font-config uppercase',
-  form: 'movies-filter__form movies-filter--font-config flex',
-  button: 'movies-filter__btn movies-filter--font-config uppercase',
+  filter: 'movies-filter__filter-box flex justify-between flex-col',
+  label: 'movies-filter__label movies-filter--font-config uppercase hidden',
+  form: 'movies-filter__form movies-filter--font-config flex flex-col w-full',
+  select: 'movies-filter__form-select w-full',
+  button: 'movies-filter__btn movies-filter--font-config uppercase w-full',
 }
 
 @Consumer
@@ -123,6 +124,7 @@ class MoviesFilter extends PureComponent {
           <h4 className={classes.label}>Vamos al cine</h4>
           <form action="/" className={classes.form}>
             <select
+              className={classes.select}
               name="movie"
               id="movie"
               ref={this.movieSelect}

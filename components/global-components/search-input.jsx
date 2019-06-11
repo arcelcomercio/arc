@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react'
 
 const classes = {
-  containerSearch: 'search-filter__box-search flex',
-  inputSearch: 'search-filter__search position-relative w-full',
-  iconSearch: 'icon-search',
+  searchContainer: 'search-filter__box-search flex items-center',
+  searchForm: 'position-relative w-full',
+  searchButton:
+    'icon-search search-filter__search-button block position-absolute',
+  searchInput: 'search-filter__search-input w-full',
 }
 
 class SearchInput extends PureComponent {
@@ -30,10 +32,11 @@ class SearchInput extends PureComponent {
 
   render() {
     return (
-      <div className={classes.containerSearch}>
-        <form className={classes.inputSearch} onSubmit={this._handleSearch}>
-          <button className={classes.iconSearch} type="submit" />
+      <div className={classes.searchContainer}>
+        <form className={classes.searchForm} onSubmit={this._handleSearch}>
+          <button className={classes.searchButton} type="submit" />
           <input
+            className={classes.searchInput}
             ref={this.inputSearch}
             type="search"
             placeholder="Buscar"

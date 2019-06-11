@@ -15,13 +15,13 @@ const classes = {
   where: 'movie-details__where uppercase',
   hours: 'movie-details__hours scroll-vertical-auto',
   item: 'movie-details__item',
-  cinema: 'movie-details__cinema block',
-  text: 'movie-details__text',
+  cinema: 'movie-details__cinema block font-bold',
+  text: 'movie-details__text font-normal',
   more: 'movie-details__more flex items-center justify-center',
   button: 'movie-details__btn',
   rightSide: 'movie-details__right',
-  name: 'movie-details__name',
-  value: 'movie-details__value',
+  name: 'movie-details__name font-bold',
+  value: 'movie-details__value font-normal',
 }
 
 class StaticCinemaBillboardChildMoviesDetails extends PureComponent {

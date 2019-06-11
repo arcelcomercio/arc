@@ -1,72 +1,68 @@
 .movie-item {
-	padding-bottom: $spacing-normal;
+  padding-bottom: $spacing-normal;
 
-	&:nth-last-child(1) {
-		padding-bottom: 0;
-	}
+  &:nth-last-child(1) {
+    padding-bottom: 0;
+  }
 
-	@media(--tablet) {
-		flex-direction: initial;
-		padding-bottom: $spacing-xlarge;
-	}
+  @media (--tablet) {
+    flex-direction: initial;
+    padding-bottom: $spacing-xlarge;
+  }
 
-	&__left {
-		flex-basis: 100%;
-		margin-bottom: 10px;
+  &__left {
+    flex-basis: 100%;
+    margin-bottom: 10px;
 
-		@media (--tablet) {
-			flex-basis: 35%;
-		}
-	}
+    @media (--tablet) {
+      flex-basis: 35%;
+    }
+  }
 
-	&__right {
-		margin-top: 5px;
+  &__right {
+    margin-top: 5px;
 
-		@media (--tablet) {
-			margin-top: 0;
-			margin-left: $spacing-normal;
-			padding-left: $spacing-normal;
-			border-left: solid 1px #d5e1e1;
-		}
-	}
+    @media (--tablet) {
+      margin-top: 0;
+      margin-left: $spacing-normal;
+      padding-left: $spacing-normal;
+      border-left: solid 1px #d5e1e1;
+    }
+  }
 
-	&__img {
-		max-height: 240px;
-		border: solid 1px #d5e1e1;
-	}
+  &__img {
+    max-height: 240px;
+    border: solid 1px #d5e1e1;
+  }
 
-	&__title {
-		font-size: 18px;
-		font-family: $primary-font;
-		line-height: 1.8;
-		color: $color-gray;
+  &__title {
+    font-size: 18px;
+    font-family: $primary-font;
+    line-height: 1.8;
+    color: $color-gray;
 
-		&:hover {
-			text-decoration: underline;
-		}
-	}
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
-	&__function {
-		font-size: 13px;
-		font-weight: 300;
-	}
+  &__function {
+    font-size: 13px;
+  }
 
-	&__subtitle {
-		font-size: 13px;
-		font-weight: 600;
-		line-height: 1.4;
-		color: $color-gray;
-		margin-bottom: $spacing-xsmall;
+  &__subtitle {
+    font-size: 13px;
+    line-height: 1.4;
+    color: $color-gray;
+    margin-bottom: $spacing-xsmall;
 
-		&:first-child {
-			margin-bottom: $spacing-normal;
-		}
-	}
+    &:first-child {
+      margin-bottom: $spacing-normal;
+    }
+  }
 
-	&__description {
-		display: inline;
-		font-weight: normal;
-		color: #646464;
-		margin-left: 5px;
-	}
+  &__description {
+    color: #646464;
+    margin-left: 5px;
+  }
 }
