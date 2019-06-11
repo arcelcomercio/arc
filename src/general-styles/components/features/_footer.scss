@@ -40,21 +40,16 @@ $desktop-media: 'min-width: 1024px';
 
   &__sites {
     grid-area: sites;
-    margin-top: 15px;
     // padding: 10px;
   }
 
   &__sites-list {
-    padding: 0;
     max-width: 950px;
   }
 
-  &__sites-list-element {
+  &__sites-item {
     font-size: 15px;
     line-height: 120%;
-    margin: 0 3px;
-    padding-right: 8px;
-    margin-bottom: 5px;
     border-right: 1px solid $sites-link-color;
     color: $sites-link-color;
 
@@ -72,7 +67,6 @@ $desktop-media: 'min-width: 1024px';
   }
 
   &__logo-container {
-    margin-bottom: 15px;
     width: 95%;
     max-width: 235px;
   }
@@ -81,7 +75,6 @@ $desktop-media: 'min-width: 1024px';
     font-size: $footer-legal-text-size;
     color: $legal-text-color;
     line-height: 17px;
-    margin-bottom: 8px;
   }
 
   &__list-link {
@@ -90,7 +83,6 @@ $desktop-media: 'min-width: 1024px';
 
   &__list-item {
     font-size: $footer-list-text-size;
-    padding: 8px 0;
     border-bottom: 1px solid $footer-list-tex-color;
 
     &--title {

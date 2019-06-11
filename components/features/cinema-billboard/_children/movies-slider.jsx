@@ -9,11 +9,13 @@ const classes = {
   imageBox: '',
   imageLink: '',
   image: 'movies-slider__img w-full object-cover',
-  arrowsBox: 'movies-slider__arrows-box position-absolute flex justify-between',
-  leftArrow: 'movies-slider__arrows movies-slider__arrows--left',
+  arrowsBox:
+    'movies-slider__arrows-box w-full position-absolute flex justify-between',
+  leftArrow:
+    'movies-slider__arrows block text-center movies-slider__arrows--left',
   rightArrow: 'movies-slider__arrows movies-slider__arrows--right',
-  details: 'movies-slider__details',
-  movieTitle: 'movies-slider__movie-title',
+  details: 'movies-slider__details p-20',
+  movieTitle: 'movies-slider__movie-title mb-10',
   movieLink: 'movies-slider__movie-link',
   movieDescription: 'movies-slider__movie-description',
 }

@@ -47,10 +47,13 @@
 @import './features/blog-list';
 @import './features/blog-related-stories-grid';
 @import './features/blog-separator';
-@import './features/survey-card';
-@import './features/internal-survey/internal-survey';
-@import './features/internal-survey/survey-confirmation';
-@import './features/internal-survey/survey-result';
+@import './features/cards/survey/card-survey';
+@import './features/cards/survey/card-survey-result';
+@import './features/cards/survey/card-survey-choices';
+@import './features/cards/survey/card-survey-bar';
+@import './features/statics/internal-survey/internal-survey';
+@import './features/statics/internal-survey/survey-confirmation';
+@import './features/statics/internal-survey/survey-result';
 @import './features/header-somos';
 @import './features/story/story-content';
 @import './features/story/story-gallery';

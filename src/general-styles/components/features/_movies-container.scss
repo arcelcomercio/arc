@@ -1,6 +1,5 @@
 .movies-container {
     background-color: $color-gray;
-    margin-top: $spacing-normal;
 
     @media (--tablet) {
         margin-top: 0;
@@ -11,7 +10,6 @@
     }
 
     &__title {
-        margin-left: $spacing-normal;
         font-size: 18px;
 
         @media (--tablet) {

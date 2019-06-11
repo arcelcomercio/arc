@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  container: 'post-item flex',
+  container: 'post-item flex secondary-font flex-col-reverse h-auto', // aqui
   date: 'post-item__date flex justify-start',
   content: 'post-item__content flex',
   figure: 'post-item__figure',

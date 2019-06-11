@@ -1,10 +1,7 @@
 .nav {
   position: sticky;
-  top: 0;
   height: $nav-height-mobile;
   z-index: 20;
-  font-family: $secondary-font;
-  font-weight: bold;
   background-color: $nav-color;
   color: $color-white;
 
@@ -13,7 +10,6 @@
   }
 
   &__wrapper {
-    padding: 0 14px;
     background-color: $color-primary;
 
     @media (--desktop) {
@@ -33,10 +29,6 @@
 
     &:hover {
       text-decoration: none;
-    }
-
-    &:focus {
-      outline: 0;
     }
 
     @media (--desktop) {
@@ -85,8 +77,6 @@
   }
 
   &__list {
-    display: none;
-
     @media (--desktop) {
       &.active {
         display: flex;
@@ -97,9 +87,7 @@
   &__list-link {
     color: $color-gray-light;
     transition: 0.3s;
-    font-family: $secondary-font;
     font-size: 12px; // TODO: revisar con diseño
-    font-weight: 400;
     word-break: break-word;
 
     &:hover {
@@ -120,7 +108,6 @@
   }
 
   &__ads {
-    margin: 0 4px;
     // TODO: Temporal
     width: 100px;
     height: 30px;
@@ -129,8 +116,6 @@
   }
 
   &__header-sub {
-    display: none;
-
     @media (--tablet) {
       display: inline-block;
     }
@@ -146,7 +131,6 @@
 
   &__input-search {
     border: 0;
-    padding: 4px 0;
     outline: none;
     height: 32px;
     line-height: 20px;

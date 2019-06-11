@@ -4,12 +4,12 @@ import EmbedMultimedia from '../../../../global-components/embed-multimedia'
 
 const classes = {
   extraordinayStoryGridContainer:
-    'extraordinary-story-grid flex position-relative',
-  videoBox: 'story-video-box flex items-center position-relative',
-  gridContainer: 'sections-grid w-full',
+    'extraordinary-story-grid flex position-relative p-10 flex-col',
+  videoBox: 'story-video-box flex items-center position-relative w-full',
+  gridContainer: 'sections-grid w-full pl-10 position-absolute',
   gridHeaderText: 'sections-grid__text flex items-center',
-  gridHeaderImage: 'sections-grid__text-image',
-  gridListTitle: 'sections-grid__title',
+  gridHeaderImage: 'sections-grid__text-image ml-10',
+  gridListTitle: 'sections-grid__title p-10',
   gridListItems: 'flex flex-wrap',
 }
 

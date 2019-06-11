@@ -3,25 +3,27 @@ import BillboardFormat from '../../../utilities/billboard-format'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  container: 'movie-details flex flex-col',
-  imgBox: 'movie-details__box-img position-relative w-full',
+  container: 'movie-details flex flex-col pr-20 pl-20',
+  imgBox: 'movie-details__box-img position-relative w-full m-0 mx-auto',
   img: 'movie-details__img w-full h-full object-cover',
   iconBox:
     'movie-details__box-icon position-absolute flex items-center justify-center',
   icon: 'movie-details__icon',
-  details: 'movie-details__detail w-full flex flex-col',
+  details:
+    'movie-details__detail w-full flex flex-col mt-40 mb-40 mx-auto pt-0 pr-20 pb-20 pl-20',
   leftSide: 'movie-details__left w-full',
-  title: 'movie-details__title',
-  where: 'movie-details__where uppercase',
-  hours: 'movie-details__hours scroll-vertical-auto',
-  item: 'movie-details__item',
-  cinema: 'movie-details__cinema block',
-  text: 'movie-details__text',
-  more: 'movie-details__more flex items-center justify-center',
+  title: 'movie-details__title mb-20',
+  where: 'movie-details__where uppercase mb-15',
+  hours: 'movie-details__hours scroll-vertical-auto h-auto pr-30',
+  item: 'mb-20',
+  cinema: 'movie-details__cinema block font-bold',
+  text: 'movie-details__text font-thin',
+  more:
+    'movie-details__more flex items-center justify-center pt-15 pb-15 pr-30 pl-30 mt-20 mx-auto',
   button: 'movie-details__btn',
-  rightSide: 'movie-details__right',
-  name: 'movie-details__name',
-  value: 'movie-details__value',
+  rightSide: 'movie-details__right pt-20 pb-20',
+  name: 'movie-details__name font-bold mb-15',
+  value: 'movie-details__value font-normal',
 }
 
 class StaticCinemaBillboardChildMoviesDetails extends PureComponent {

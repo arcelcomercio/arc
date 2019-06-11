@@ -1,7 +1,5 @@
 .extraordinary-story-grid {
   background-color: #1f1f1f;
-  padding: 10px;
-  flex-direction: column;
 
   @media (--tablet) {
     flex-direction: row;
@@ -9,7 +7,6 @@
 }
 
 .story-video-box {
-  width: 100%;
   background: #2e2e2e;
   padding: 80px 12px 12px;
   border-radius: 5px;
@@ -29,11 +26,18 @@
 }
 
 .sections-grid {
+  @media (--tablet) {
+    padding-left: 30px;
+    max-width: 40%;
+  }
+
+  @media (--desktop) {
+    width: 400px;
+  }
+
   &__text {
     color: #8d8d8d;
     font-size: 16px;
-    padding-left: 10px;
-    position: absolute;
     top: 16px;
 
     @media (--tablet) {
@@ -44,28 +48,17 @@
   &__text-image {
     width: 90px;
     height: 60px;
-    margin-left: 10px;
   }
 
   &__title {
     color: #ffc90a;
     font-size: 25px;
-    padding: 10px 8px;
   }
 
-  @media (--tablet) {
-    padding-left: 30px;
-    max-width: 40%;
-  }
-
-  @media (--desktop) {
-    width: 400px;
-  }
 }
 
 .sections-grid-item {
   width: 50%;
-  padding: 8px 10px;
 
   &__title {
     color: $color-white;
