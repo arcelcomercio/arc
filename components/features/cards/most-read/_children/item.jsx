@@ -12,7 +12,7 @@ const CardMostReadChildItem = props => {
     mostReadItem: 'flex more-read-item',
     figure: `more-read-item__figure more-read-item__figure--icon more-read-item__figure--${type}`,
     img: 'more-read-item__img',
-    detail: 'more-read-item__detail',
+    detail: 'more-read-item__detail title-xs',
   }
 
   return (

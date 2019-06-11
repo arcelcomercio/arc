@@ -16,7 +16,7 @@ const classes = {
   searchContainer: 'flex-center-vertical flex--justify-start',
   btnSearch: 'flex-center-vertical btn nav__btn nav__btn--search',
   btnSection: 'flex-center-vertical btn nav__btn nav__btn--section',
-  iconSearch: 'nav__icon-search icon-search title-lg',
+  iconSerch: 'nav__icon-search icon-search title-lg',
   iconMenu: 'nav__icon-menu icon-hamburguer',
   list:
     'flex-center-vertical flex--justify-evenly flex-1 nav__list height-inherit overflow-hidden pd-right-5 pd-left-5',
@@ -25,7 +25,7 @@ const classes = {
   logo: 'nav__logo',
   ads: 'nav__ads',
   btnContainer: 'flex-center-vertical flex--justify-end header__btn-container',
-  btnLogin: 'flex-center-vertical btn btn--outline',
+  btnLogin: 'flex-center-vertical btn btn--outline btn__login',
   btnSubscribe: 'flex-center-vertical btn btn--outline nav__header-sub',
   iconLogin: 'icon icon-user',
 }
@@ -181,7 +181,7 @@ class NavBarDefault extends PureComponent {
     }
     return (
       _handleHide() && (
-        <nav className={classes.nav}>
+        <nav className={`${classes.nav} ${scrolled ? 'active' : ''}`}>
           <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}
 

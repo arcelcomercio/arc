@@ -14,6 +14,8 @@ const classes = {
   body: 'story-separator__body separator__body--items',
   mvideo: 'story-separator--video',
 }
+
+@withSizes(({ width }) => ({ isMobile: width < 640 }))
 @Consumer
 class StorySeparator extends PureComponent {
   constructor(props) {
@@ -152,10 +154,6 @@ class StorySeparator extends PureComponent {
   }
 }
 
-const mapSizesToProps = ({ width }) => ({
-  isMobile: width < 640,
-})
-
 StorySeparator.label = 'Artículo - separador'
 
-export default withSizes(mapSizesToProps)(StorySeparator)
+export default StorySeparator

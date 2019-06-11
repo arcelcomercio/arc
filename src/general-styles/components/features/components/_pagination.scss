@@ -8,35 +8,30 @@ $color-page: #777;
   margin-bottom: 15px;
   @media (--tablet) {
     width: 60%;
-    justify-content: space-between;
     flex-wrap: nowrap;
     max-height: 20px;
-    padding: 30px 0;
   }
-}
-
-.pagination__page {
-  color: $color-page;
-  padding: 3px 7px;
-  font-size: 14px;
-  text-transform: uppercase;
-  height: 100%;
-}
-
-a.pagination__page:hover {
-  text-decoration: underline;
-}
-
-.pagination__page--current {
-  background: #000;
-  color: #fff;
-  font-weight: bold;
-  &:hover {
-    text-decoration: none;
+  &__page {
+    color: $color-gray;
+    padding: 3px 5px;
+    font-size: 12px;
+    text-transform: uppercase;
+    height: 100%;
+    line-height: 14px;
+    &:hover{
+      text-decoration: underline;
+    }
+    &--current{
+      background: #000;
+      color: #fff;
+      font-weight: bold;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    &--disabled {
+      color: #ddd;
+      pointer-events: none;
+    }
   }
-}
-
-.pagination__page--disabled {
-  color: #ddd;
-  pointer-events: none;
 }

@@ -2,6 +2,10 @@
   font-size: $font-sm;
   font-family: $primary-font;
   color: $color-dark;
+  display: none;
+  @media (--desktop) {
+    display: flex;
+  }
 
   &__main {
     height: 58px;
@@ -17,38 +21,39 @@
 
   &__featured {
     font-weight: normal;
+    display: none;
+    @media (--desktop) {
+      display: flex;
+    }
   }
 
   &__item {
     padding: 8px;
     height: inherit;
-    a {
-      text-decoration: none;
-      color: $color-primary;
-      font-size: 0.8rem;
-      letter-spacing: 0.02rem;
-      text-transform: uppercase;
-    }
+    text-decoration: none;
+    color: $color-primary;
+    font-size: 0.8rem;
+    letter-spacing: 0.02rem;
+    text-transform: uppercase;
+
     :hover {
       color: $color-dark;
       text-decoration: underline;
     }
-
-    /* &:first-child {
-      color: $color-error;
-      font-weight: bold;
-    } */
   }
   &__nav-wrapper {
     padding: 5px 20px;
     border-bottom: 1px solid $color-primary;
     background-color: $color-light;
   }
-  &__btn-container {
-    a {
-      &:focus {
-        outline: 0;
-      }
+
+  &__login {
+    @media (--tablet) {
+      color: $color-white;
+      border-color: $color-white;
+    }
+    &:focus {
+      outline: 0;
     }
   }
 }
