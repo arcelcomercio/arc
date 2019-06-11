@@ -26,6 +26,7 @@ class StoryData {
   }
 
   get __data() {
+    
     return this._data
   }
 
