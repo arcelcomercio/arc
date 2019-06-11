@@ -5,7 +5,7 @@ import StoryItem from '../../../global-components/story-item'
 
 const classes = {
   listado: 'full-width',
-  listadoSeeMore: 'flex justify-center mg-top-20 uppercase',
+  listadoSeeMore: 'flex justify-center mt-20 uppercase',
 }
 
 @Consumer

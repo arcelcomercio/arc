@@ -7,10 +7,10 @@ import SearchInput from '../../../global-components/search-input'
 const classes = {
   container: 'error__container text-center full-width position-relative',
   icon: 'error__icon position-absolute',
-  title: 'error__title title mg-bottom-10',
-  content: 'error__content text-sm pd-top-15 pd-bottom-15 inline-b',
-  link: 'error__link inline-b text-sm pd-top-15 pd-bottom-15',
-  searchBox: 'error__search-box pd-top-10 pd-bottom-20',
+  title: 'error__title title mb-10',
+  content: 'error__content text-sm pt-15 pb-15 inline-b',
+  link: 'error__link inline-b text-sm pt-15 pb-15',
+  searchBox: 'error__search-box pt-10 pb-20',
 }
 
 @Consumer

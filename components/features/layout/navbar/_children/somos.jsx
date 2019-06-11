@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react'
 
 const classes = {
-  navbarSomos: 'navbar-somos',
-  logoLink: 'navbar-somos__logo-link',
-  logoIcon: 'icon-back navbar-somos__icon',
+  navbarSomos: 'navbar-somos flex items-center justify-between',
+  logoLink: 'full-height flex items-center',
+  logoIcon: 'icon-back navbar-somos__icon font-bold',
   logoImg: 'navbar-somos__logo-img',
-  boxRight: 'navbar-somos__box-right',
-  loginButton: 'navbar-somos__login-button',
+  boxRight: 'full-height flex items-center',
+  loginButton:
+    'navbar-somos__login-button font-bold uppercase flex items-center',
   iconUser: 'icon-user navbar-somos__icon-user',
   searchIcon: 'icon-search navbar-somos__icon',
   searchInput: 'navbar-somos__search-input',

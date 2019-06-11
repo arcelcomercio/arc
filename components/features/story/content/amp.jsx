@@ -13,7 +13,7 @@ import StoryContentChildTags from './_children/tags'
 import StoryContentChildRelated from './_children/related'
 
 const classes = {
-  content: 'story-content-amp pd-left-20 pd-right-20',
+  content: 'story-content-amp pl-20 pr-20',
   textClasses: 'story-content-amp__news-text text',
   author: 'story-content-amp__author',
   tags: 'story-content-amp',

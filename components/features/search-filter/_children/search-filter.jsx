@@ -124,7 +124,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
     const { isAdmin, globalContentConfig, contextPath } = this.props
 
     const classes = {
-      searchFilter: 'search-filter flex full-width mg-top-20',
+      searchFilter: 'search-filter flex full-width mt-20',
       containerList: 'position-relative',
       select: `search-filter__select position-relative full-width flex items-center ${
         showList ? 'active' : ''

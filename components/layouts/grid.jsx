@@ -5,8 +5,8 @@ const classes = {
   layout: 'flex justify-center',
   contentContainer: 'flex flex-col content-layout-container',
   content:
-    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mg-top-20 mg-bottom-20',
-  aditional: 'mg-bottom-20',
+    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mt-20 mb-20',
+  aditional: 'mb-20',
   zocalo: 'zocalo__container',
 }
 

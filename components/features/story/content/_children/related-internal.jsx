@@ -4,14 +4,14 @@ import { getIcon } from '../../../../utilities/helpers'
 
 // Basic flex stuff
 const classes = {
-  related: 'related-internal mg-top-20',
+  related: 'related-internal position-relative mt-20',
   relatedItem: 'related-internal__item',
   relatedTitleItem: 'related-internal__title-item',
-  relatedTitle: 'related-internal__title',
-  relatedMultimedia: 'related-internal__multimedia',
+  relatedTitle: 'related-internal__title font-bold uppercase',
+  relatedMultimedia: 'position-relative',
   relatedLink: 'related-internal__multimedia-link',
-  relatedImage: 'related-internal__multimedia-img',
-  relatedIcon: 'related-internal__multimedia-icon icon-',
+  relatedImage: 'full-width',
+  relatedIcon: 'related-internal__multimedia-icon position-absolute',
   relatedInfo: 'related-internal__information',
 }
 
@@ -55,7 +55,7 @@ const RelartedItem = ({ data } /* , i */) => {
               ''
             ) : (
               <span
-                className={`${classes.relatedIcon}${getIcon(
+                className={`${classes.relatedIcon} icon-${getIcon(
                   filterData.multimediaType
                 )}`}
               />

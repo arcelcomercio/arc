@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { formatSlugToText } from '../../utilities/helpers'
 
 const classes = {
-  title: 'full-width mg-top-20',
+  title: 'full-width mt-20',
 }
 
 @Consumer

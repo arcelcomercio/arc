@@ -27,7 +27,7 @@ const OrderedStories = ({ children, customFields }) => {
     return child
   })
   return (
-    <div className="grid grid--content grid--col-3 grid--col-2 grid--col-1 full-width mg-top-20">
+    <div className="grid grid--content grid--col-3 grid--col-2 grid--col-1 full-width mt-20">
       {AutoChildren}
     </div>
   )

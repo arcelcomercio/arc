@@ -24,7 +24,7 @@ import StoryContentChildRelatedInternal from './_children/related-internal'
 import StoryContentChildIcon from './_children/icon-list'
 
 const classes = {
-  news: 'story-content full-width bg-color--white pd-left-20 pd-right-20',
+  news: 'story-content full-width bg-color--white pl-20 pr-20',
   content: 'story-content__content position-relative flex flex--row-reverse',
   textClasses: 'story-content__font--secondary',
   newsImage: 'story-content__image full-width story-content__image--cover',
@@ -32,7 +32,7 @@ const classes = {
   tags: 'story-content',
   section: 'full-width',
   relatedList: 'related-content__list',
-  relatedTitle: 'related-content__title',
+  relatedTitle: 'related-content__title font-bold uppercase',
 }
 
 const OPTA_CSS_LINK =

@@ -6,6 +6,7 @@ $color-page: #777;
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 15px;
+
   @media (--tablet) {
     width: 60%;
     justify-content: space-between;
@@ -13,30 +14,26 @@ $color-page: #777;
     max-height: 20px;
     padding: 30px 0;
   }
-}
 
-.pagination__page {
-  color: $color-page;
-  padding: 3px 7px;
-  font-size: 14px;
-  text-transform: uppercase;
-  height: 100%;
-}
+  &__page {
+    color: $color-page;
+    padding: 3px 7px;
+    font-size: 14px;
+    height: 100%;
 
-a.pagination__page:hover {
-  text-decoration: underline;
-}
+    &--current {
+      background: #000;
+      color: #fff;
+      font-weight: bold;
 
-.pagination__page--current {
-  background: #000;
-  color: #fff;
-  font-weight: bold;
-  &:hover {
-    text-decoration: none;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &--disabled {
+      color: #ddd;
+      pointer-events: none;
+    }
   }
-}
-
-.pagination__page--disabled {
-  color: #ddd;
-  pointer-events: none;
 }

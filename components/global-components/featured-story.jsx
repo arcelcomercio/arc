@@ -10,7 +10,7 @@ const classes = {
   multimediaIconSpan:
     'featured-story__multimedia-icon-span flex items-center justify-center full-width full-height',
 
-  category: 'featured-story__category pd-bottom-15',
+  category: 'featured-story__category pb-15',
   title: 'featured-story__title overflow-hidden',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
@@ -26,7 +26,7 @@ const classes = {
 
   twoCol: 'col-2',
   // Headbands
-  headband: 'featured-story__headband mg-bottom-5',
+  headband: 'featured-story__headband mb-5',
   headbandLink: 'featured-story__headband-link',
 
   live: 'featured-story--live',

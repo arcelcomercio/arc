@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 const classes = {
   pagination: 'flex pagination',
-  page: 'pagination__page',
+  page: 'pagination__page uppercase',
 }
 
 export default class Pagination extends PureComponent {

@@ -1,10 +1,7 @@
 .navbar-somos {
   background-color: #000;
-  display: flex;
   height: 45px;
   padding: 0 10px;
-  justify-content: space-between;
-  align-items: center;
 
   button:focus {
     outline: none;
@@ -17,35 +14,18 @@
 
   &__icon {
     color: #fff;
-    font-weight: 700;
-  }
-
-  &__box-right {
-    height: 100%;
-    display: flex;
-    align-items: center;
   }
 
   &__login-button {
     color: #fff;
     font-family: $newsletter-suscription-font;
-    font-weight: 700;
     font-size: 13px;
     padding: 0 15px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
   }
 
   &__icon-user {
     color: #f8d002;
     margin-right: 5px;
-  }
-
-  &__logo-link {
-    height: 100%;
-    display: flex;
-    align-items: center;
   }
 
   &__search-button {

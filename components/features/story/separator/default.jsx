@@ -10,10 +10,12 @@ import UtilListKey from '../../../utilities/list-keys'
 const classes = {
   separator: 'story-separator full-width separator--nota grid',
   title:
-    'story-separator__header-title separator__header-title--nota grid text-center pd-bottom-20 pd-top-20',
+    'story-separator__header-title separator__header-title--nota grid text-center pb-20 pt-20',
   body: 'story-separator__body separator__body--items',
   mvideo: 'story-separator--video',
 }
+
+@withSizes(({ width }) => ({ isMobile: width < 640 }))
 @Consumer
 class StorySeparator extends PureComponent {
   constructor(props) {
@@ -152,10 +154,6 @@ class StorySeparator extends PureComponent {
   }
 }
 
-const mapSizesToProps = ({ width }) => ({
-  isMobile: width < 640,
-})
-
 StorySeparator.label = 'Artículo - separador'
 
-export default withSizes(mapSizesToProps)(StorySeparator)
+export default StorySeparator

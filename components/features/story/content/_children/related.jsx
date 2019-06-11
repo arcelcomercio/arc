@@ -7,11 +7,11 @@ const classes = {
   related: 'related-content',
   relatedItem: 'related-content__item',
   relatedTitleItem: 'related-content__title-item',
-  relatedMultimedia: 'related-content__multimedia',
-  relatedLink: 'related-content__multimedia-link',
-  relatedImage: 'related-content__multimedia-img',
-  relatedIcon: 'related-content__icon icon-',
-  relatedAuthor: 'related-content__author',
+  relatedMultimedia: 'related-content__multimedia position-relative',
+  relatedLink: 'block full-width full-height',
+  relatedImage: 'full-width full-height',
+  relatedIcon: 'related-content__icon position-absolute',
+  relatedAuthor: 'related-content__author uppercase',
   relatedInfo: 'related-content__information',
 }
 
@@ -59,7 +59,7 @@ const RenderRelatedContentElement = (elements, i) => {
             ''
           ) : (
             <span
-              className={`${classes.relatedIcon}${getIcon(
+              className={`${classes.relatedIcon} icon-${getIcon(
                 filterData.multimediaType
               )}`}
             />

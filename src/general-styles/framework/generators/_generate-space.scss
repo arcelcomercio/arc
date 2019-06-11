@@ -1,19 +1,34 @@
 $limit: 6;
 $interval: 5;
 
-$map-orientation: 'top',
+$map-orientation: '',
+'top',
 'right',
 'bottom',
 'left';
 
-@for $i from 1 through $limit {
+@for $i from 0 through $limit {
   @each $orientation in $map-orientation {
-    .mg-#{$orientation}-#{$i * $interval} {
-      margin-#{$orientation}: unquote($i * $interval + 'px');
+    @if $orientation=='' {
+      .m-#{$i * $interval} {
+        margin: unquote($i * $interval + 'px');
+      }
+
+      .p-#{$i * $interval} {
+        padding: unquote($i * $interval + 'px');
+      }
     }
 
-    .pd-#{$orientation}-#{$i * $interval} {
-      padding-#{$orientation}: unquote($i * $interval + 'px');
+    @else {
+
+      // hacer que orientation sea top, right, bottom, left en margin-[aqui]
+      .m#{str-slice($orientation, 0, 1)}-#{$i * $interval} {
+        margin-#{$orientation}: unquote($i * $interval + 'px');
+      }
+
+      .p#{str-slice($orientation, 0, 1)}-#{$i * $interval} {
+        padding-#{$orientation}: unquote($i * $interval + 'px');
+      }
     }
   }
 }

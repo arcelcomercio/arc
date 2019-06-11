@@ -18,7 +18,7 @@ const classes = {
   iconSearch: 'nav__icon-search icon-search title-lg',
   iconMenu: 'nav__icon-menu icon-hamburguer',
   list:
-    'flex items-center justify-evenly flex-1 nav__list height-inherit overflow-hidden pd-right-5 pd-left-5',
+    'flex items-center justify-evenly flex-1 nav__list height-inherit overflow-hidden pr-5 pl-5',
   listItem: 'text-center',
   listLink: 'nav__list-link text-center uppercase',
   logo: 'nav__logo',
