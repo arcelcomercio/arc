@@ -1,9 +1,7 @@
 .editorial-card {
-  padding: 5px;
 
   &__wrapper {
     background-color: gold;
-    padding: 15px 12px 15px 22px;
 
     @media (--tablet) {
       height: 360px;
@@ -13,10 +11,6 @@
     @media (--desktop) {
       height: 380px;
     }
-  }
-
-  &__box-details {
-    padding: 0 5px 0 10px;
   }
 
   &__image {
@@ -29,9 +23,6 @@
   &__name {
     font-size: 20px;
     line-height: 1.2;
-    font-family: $secondary-font;
-    font-weight: 700;
-    margin-bottom: 15px;
     color: #333;
 
     @media (--tablet) {
@@ -40,9 +31,7 @@
   }
 
   &__group {
-    font-weight: 300;
     font-size: 11px;
-    margin-bottom: 5px;
   }
 
   &__title {
@@ -50,15 +39,14 @@
     width: 90%;
     font-size: 14px;
     line-height: 1.3;
-    font-family: $secondary-font;
-    font-weight: 400;
 
     @media (--tablet) {
       font-size: 16px;
     }
   }
 
-  &__social {
+  // TODO: chequear esto para borrar
+  /* &__social {
     display: none;
 
     @media (--tablet) {
@@ -66,5 +54,5 @@
       align-items: center;
       margin-top: 15px;
     }
-  }
+  } */
 }

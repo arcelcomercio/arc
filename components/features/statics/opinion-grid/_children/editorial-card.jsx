@@ -1,15 +1,15 @@
 import React from 'react'
 
 const classes = {
-  card: 'editorial-card',
-  wrapper: 'editorial-card__wrapper flex flex-col',
-  group: 'editorial-card__group uppercase',
-  name: 'editorial-card__name block uppercase',
+  card: 'p-5',
+  wrapper: 'editorial-card__wrapper flex flex-col pt-15 pr-10 pb-15 pl-20',
+  group: 'editorial-card__group uppercase font-thin mb-5',
+  name: 'editorial-card__name block uppercase primary-font font-bold mb-15',
   description: 'flex',
   imageBox: 'flex position-relative items-start',
   image: 'editorial-card__image object-cover object-top',
-  detailsBox: 'editorial-card__box-details',
-  title: 'editorial-card__title block',
+  detailsBox: 'pr-5 pl-10',
+  title: 'editorial-card__title block font-normal primary-font',
 }
 
 const OpinionGridEditorialCard = ({ data: story }) => {

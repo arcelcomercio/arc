@@ -1,6 +1,5 @@
 .cintillo-u {
   color: $color-white;
-  padding: 14px;
 
   &--bgcolor-1 {
     background-color: $color-primary;
@@ -12,6 +11,7 @@
 
   &__btn-close {
     width: 60px;
+
     & button:focus {
       outline: 0;
     }
@@ -20,10 +20,6 @@
   &__btn-icon {
     color: $color-white;
     font-size: 25px;
-
-    &:hover {
-      cursor: pointer;
-    }
   }
 
   &__text {
@@ -31,12 +27,7 @@
     line-height: 1.2em;
   }
 
-  &__tag {
-    margin-right: 5px;
-  }
-
   &__link {
     color: $color-white;
-    margin-right: 5px;
   }
 }

@@ -12,14 +12,13 @@
   }
 
   &__container {
-    padding: 50px 20px 0px 20px;
-    margin: 0 auto;
     max-width: 954px;
   }
 
   &__title {
     font-size: 20px;
     color: $color-gray;
+
     @media (--tablet) {
       font-size: 32px;
     }
@@ -28,15 +27,12 @@
   &__info {
     font-size: 13px;
     line-height: 1.5;
-    margin: 10px auto 40px;
     width: 300px;
     color: $color-gray;
   }
 
   &__locations {
-    margin-bottom: 50px;
     border-top: 1px solid #bababa;
-    padding-top: 25px;
 
     @media (--desktop) {
       border-top: none;
@@ -45,9 +41,6 @@
   }
 
   &__search {
-    margin-bottom: 20px;
-    flex-direction: column;
-
     @media (--desktop) {
       flex-direction: row;
     }
@@ -55,9 +48,7 @@
 
   &__search-title {
     font-size: 13px;
-    padding: 14px 20px 0;
     color: $color-gray;
-    text-align: center;
 
     @media (--tablet) {
       margin-bottom: 20px;
@@ -73,8 +64,6 @@
   }
 
   &__controls {
-    margin-right: 15px;
-    flex-direction: column;
     width: 50%;
 
     @media (--tablet) {
@@ -95,13 +84,10 @@
 
   // TODO: Cambiar el background-image por un icono
   &__select {
-    appearance: none;
     background-color: #fff;
     background-image: url(https://elcomercio.pe/img/arrows_select.png);
     background-position: right center;
     background-repeat: no-repeat;
-    border: 0;
-    cursor: pointer;
     float: left;
     height: 62px;
     padding-left: 15px;
@@ -119,6 +105,5 @@
   &__map-title {
     color: $color-gray;
     font-size: 20px;
-    margin: 10px 0;
   }
 }

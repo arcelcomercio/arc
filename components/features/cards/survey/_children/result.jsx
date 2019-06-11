@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 import CardsSurveyChildProgressBar from './progress-bar'
 
 const classes = {
-  surveyResult: 'survey-result',
-  list: 'survey-result__list survey-result__mb',
-  itemContainer: 'flex justify-between survey-result__mb',
-  item: 'survey-result__item',
+  results: 'c-survey-result',
+  list: 'mb-5 pt-5 pb-5',
+  itemContainer: 'flex justify-between mb-5',
+  item: 'c-survey-result__item primary-font',
 }
 
 const CardsSurveyChildResult = ({ choices = [] }) => {
@@ -23,12 +23,12 @@ const CardsSurveyChildResult = ({ choices = [] }) => {
   const highestValue = getHighestValue(choices)
 
   return (
-    <ul className={classes.surveyResult}>
+    <ul className={classes.results}>
       {choices.map(result => {
         const isBiggestValue = result.votes === highestValue
         const textHighightClass = isBiggestValue ? 'active' : ''
         return (
-          <li key={result.option} className={classes.list}>
+          <li key={`survey-${result.option}`} className={classes.list}>
             <div className={classes.itemContainer}>
               <span className={`${classes.item} ${textHighightClass}`}>
                 {result.option}

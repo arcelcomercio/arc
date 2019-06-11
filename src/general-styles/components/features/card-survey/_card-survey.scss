@@ -1,0 +1,37 @@
+$color-light-blue: #c5e2f7;
+$color-marine-blue: #26567f;
+$color-text-question: #333;
+$color-button: #0e6dc1;
+
+.survey-card {
+  background: $color-light-blue;
+
+  &__header {
+    background-color: $color-marine-blue;
+    color: $color-white;
+  }
+
+  &__question {
+    min-height: 280px;
+    max-height: 280px;
+  }
+
+  &__title {
+    font-size: 18px;
+    line-height: 1.2;
+    color: $color-text-question;
+    max-height: 127px;
+  }
+
+  &__results {
+    color: $color-text-question;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  &__submit {
+    background: $color-button;
+    color: $color-white;
+    font-size: 11px;
+  }
+}

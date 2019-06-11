@@ -1,13 +1,8 @@
 .error {
-    &__container {
-        font-family: $secondary-font;
-        background: $color-soft-bg;
-        padding: 40px 20px 40px;
-    }
+    background: $color-soft-bg;
 
     &__icon {
         margin-left: -21px;
-        top: 0;
         width: 0;
         height: 0;
         border-style: solid;
@@ -16,8 +11,6 @@
     }
 
     &__title {
-        font-family: $primary-font;
-        font-weight: 700;
         line-height: 2.4rem;
 
         @media (--desktop) {
@@ -30,14 +23,8 @@
         max-width: 400px;
     }
 
-    &__search-box {
-        max-width: 400px;
-        margin: 0 auto;
-    }
-
     &__link {
         line-height: 1.5;
-        font-weight: 700;
         color: $color-gray;
     }
 }
