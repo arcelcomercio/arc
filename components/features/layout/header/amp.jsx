@@ -6,10 +6,11 @@ import AmpImage from '@arc-core-components/element_image'
 // TODO: Separar Feature de Componente.
 
 const classes = {
-  header: 'amp-header w-full',
-  wrap: 'amp-header__wrap',
+  header: 'amp-header w-full position-absolute',
+  wrap: 'amp-header__wrap text-center',
   logo: 'amp-header__logo',
-  ultimate: 'amp-header__ultimate',
+  linkContainer: 'amp-header__link-container position-relative',
+  link: 'amp-header__link',
   ampImg:
     'amp-header__amp-img i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',
   img:
@@ -37,8 +38,10 @@ class LayoutAmpHeader extends PureComponent {
                 />
               </a>
             </div>
-            <div className={classes.ultimate}>
-              <a href={img}>Últimas noticias</a>
+            <div className={classes.linkContainer}>
+              <a className={classes.link} href={img}>
+                Últimas noticias
+              </a>
             </div>
           </section>
         </header>

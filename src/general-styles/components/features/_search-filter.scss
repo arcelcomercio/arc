@@ -1,6 +1,5 @@
 .search-filter {
   background-color: #e8f2f7;
-  flex-direction: column-reverse;
   padding: 15px;
 
   @media (--desktop) {
@@ -24,7 +23,6 @@
   }
 
   &__select-name {
-    display: flex;
     font-size: 13px;
 
     @media (--desktop) {
@@ -33,7 +31,6 @@
   }
 
   &__list {
-    display: none;
     top: 40px;
     left: 0;
     background-color: $color-white;
@@ -99,7 +96,6 @@
     padding: 10px 15px;
     color: $color-dark;
     font-size: 13px;
-    width: 100%;
 
     @media (--desktop) {
       justify-content: center;
@@ -156,7 +152,6 @@
   }
 
   &__box-search {
-    align-items: center;
     margin-bottom: 15px;
 
     @media (--desktop) {
@@ -165,48 +160,42 @@
     }
   }
 
-  &__search {
+  &__search-button {
+    z-index: 1;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
 
-    & input {
-      width: 100%;
-      padding-right: 30px;
-      padding-left: 15px;
-      height: 40px;
-      line-height: 50px;
-      font-size: 13px;
-
-      @media (--desktop) {
-        height: 90px;
-        font-size: 20px;
-        font-weight: 700;
-        line-height: 90px;
-        padding-right: 95px;
-        border: 0;
-      }
+    &:active {
+      background-color: $color-primary;
     }
 
-    & button {
-      z-index: 1;
-      display: block;
-      position: absolute;
-      top: 50%;
-      right: 15px;
-      transform: translateY(-50%);
+    @media (--desktop) {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 90px;
+      right: 0;
+      border-left: solid 1px #e8f2f7;
+      font-size: 24px;
+    }
+  }
 
-      &:active {
-        background-color: $color-primary;
-      }
+  &__search-input {
+    padding-right: 30px;
+    padding-left: 15px;
+    height: 40px;
+    line-height: 50px;
+    font-size: 13px;
 
-      @media (--desktop) {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 90px;
-        right: 0;
-        border-left: solid 1px #e8f2f7;
-        font-size: 24px;
-      }
+    @media (--desktop) {
+      height: 90px;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 90px;
+      padding-right: 95px;
+      border: 0;
     }
   }
 }

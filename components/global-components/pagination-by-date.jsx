@@ -4,10 +4,10 @@ import { getActualDate } from '../utilities/helpers'
 
 const classes = {
   paginationDate: 'pagination-date w-full',
-  paginationDateList: 'pagination-date__list',
-  paginationDateItem: 'pagination-date__item',
+  paginationDateList: 'text-center',
+  paginationDateItem: 'pagination-date__item inline-b',
   paginationDateLink:
-    'uppercase flex items-center justify-center pagination-date__link',
+    'uppercase flex items-center justify-center font-bold pagination-date__link',
 }
 class PaginationByDate extends PureComponent {
   constructor(props) {

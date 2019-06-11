@@ -1,107 +1,88 @@
 .movies-filter {
-    background-color: $color-gray;
+  background-color: $color-gray;
 
-    @media (--tablet) {
-        padding: $spacing-xlarge;
-    }
+  @media (--tablet) {
+    padding: $spacing-xlarge;
+  }
+
+
+  &__title-box {
+    margin-bottom: $spacing-normal;
 
     &--font-config {
-        font-size: 12px;
-        line-height: 45px;
+      font-size: 12px;
+      line-height: 45px;
+    }
+  }
+
+  &__filter-box {
+    @media(--desktop) {
+      flex-direction: initial;
+      border: 1px solid $color-silver;
+      padding: 4px;
+    }
+  }
+
+  &__title-box {
+    @media (--desktop) {
+      flex-direction: initial;
+    }
+  }
+
+  &::before {
+    top: 10%;
+  }
+
+
+  &__label {
+    @media (--tablet) {
+      color: $color-soft;
+      padding: 0 8px;
+      display: inline-block;
+    }
+  }
+
+  &__form {
+    @media (--desktop) {
+      flex-direction: initial;
+      width: initial;
     }
 
-    &__filter-box {
-        @media(--desktop) {
-            flex-direction: initial;
-            border: 1px solid $color-silver;
-            padding: 4px;
-        }
+    :nth-child(2) {
+      // NO MUESTRA SELECT DE GENERO EN MOBILE
+      display: none;
+
+      @media (--tablet) {
+        display: block;
+      }
     }
+  }
 
-    &__title-box {
-        @media (--desktop) {
-            flex-direction: initial;
-        }
+
+  &__select {
+    background-color: #FFF;
+    background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding: 0 42px 0 16px;
+    margin-bottom: 8px;
+    color: $color-dark;
+    line-height: 45px;
+
+    @media (--desktop) {
+      margin-bottom: 0;
+      margin-right: 4px;
+      width: fit-content;
+      max-width: 200px;
     }
+  }
 
-    &__title {
-        color: $color-white;
-        line-height: 40px;
+  &__btn {
+    background-color: $color-primary;
+    color: $color-gray;
 
-        @media (--tablet) {
-            text-transform: uppercase;
-        }
-
-        &::before,
-        &::after {
-            border-bottom: 1px solid #fff;
-            content: "";
-            display: block;
-            height: 1px;
-            left: 0;
-            overflow: hidden;
-            position: absolute;
-            width: 25px;
-        }
-
-        &::before {
-            top: 10%;
-        }
-
-        &::after {
-            bottom: 10%;
-        }
+    @media (--desktop) {
+      width: 100px;
     }
-
-
-    &__label {
-        @media (--tablet) {
-            color: $color-soft;
-            padding: 0 8px;
-            display: inline-block;
-        }
-    }
-
-    &__form {
-        @media (--desktop) {
-            flex-direction: initial;
-            width: initial;
-        }
-
-        :nth-child(2) {
-            // NO MUESTRA SELECT DE GENERO EN MOBILE
-            display: none;
-
-            @media (--tablet) {
-                display: block;
-            }
-        }
-    }
-
-    &__select {
-        background-color: #FFF;
-        background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
-        background-position: right center;
-        background-repeat: no-repeat;
-        padding: 0 42px 0 16px;
-        margin-bottom: 8px;
-        color: $color-dark;
-        line-height: 45px;
-
-        @media (--desktop) {
-            margin-bottom: 0;
-            margin-right: 4px;
-            width: fit-content;
-            max-width: 200px;
-        }
-    }
-
-    &__btn {
-        background-color: $color-primary;
-        color: $color-gray;
-
-        @media (--desktop) {
-            width: 100px;
-        }
-    }
+  }
 }
