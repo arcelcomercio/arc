@@ -1,16 +1,6 @@
 .br-stories-grid {
-  display: none;
 
-  /*
-    TODO: Si el elemento completo se oculta debe ser mejor
-      que no haga render, que solo lo haga en desktop
-      con la funcion de device.
-   */
-
-  @media (--desktop)
-
-  /*, (--tablet) */
-    {
+  @media (--desktop) {
     display: inline-block;
     background-color: #ffffff;
 

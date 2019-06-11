@@ -24,24 +24,6 @@
   height: inherit;
 }
 
-// TODO: Mapear para cambiar por lo nuevo - Legacy
-
-.padding-small {
-  padding: $spacing-small;
-}
-
-.padding-normal {
-  padding: $spacing-normal;
-}
-
-.padding-large {
-  padding: $spacing-large;
-}
-
-.padding-xlarge {
-  padding: $spacing-xlarge;
-}
-
 // ----------------------------------------------
 
 .object-cover {
@@ -186,6 +168,13 @@
   font-weight: 900;
 }
 
+/******* Extra ********/
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// TODO: Clean these styles
 /******* Background-text contrast *******/
 .bg--white {
   background-color: $color-white;

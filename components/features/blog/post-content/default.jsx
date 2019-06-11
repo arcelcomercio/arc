@@ -4,11 +4,11 @@ import renderHTML from 'react-render-html'
 import { getFullDateIso8601 } from '../../../utilities/helpers'
 
 const classes = {
-  content: 'bp-content padding-normal',
-  header: 'bp-content__header uppercase inline-b',
-  author: 'bp-content__author font-bold',
+  content: 'bp-content p-20',
+  header: 'bp-content__header uppercase inline-b mb-25',
+  author: 'bp-content__author font-bold pr-5',
   date: 'bp-content__date',
-  news: 'bp-content__news full',
+  story: 'bp-content__story full primary-font mb-30',
 }
 
 @Consumer
@@ -30,7 +30,7 @@ class BlogPostContent extends PureComponent {
             {formatDate && `${day}/${month}/${fullYear} ${hours}:${minutes}`}
           </time>
         </div>
-        <div className={classes.news}>
+        <div className={classes.story}>
           {postContent && renderHTML(postContent)}
         </div>
       </div>

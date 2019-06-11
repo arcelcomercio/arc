@@ -16,7 +16,7 @@ const BlogRelatedPostsGridChildCard = ({
   sectionLink,
 }) => {
   return (
-    <article className={classes.containerCard}>
+    <article role="listitem" className={classes.containerCard}>
       <figure className={classes.image}>
         <a href={postLink}>
           <picture>

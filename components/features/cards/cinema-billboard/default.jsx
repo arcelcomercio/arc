@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  cinemaCard: 'cinema-card padding-normal row-1',
+  cinemaCard: 'cinema-card p-20 row-1',
   container: 'position-relative',
   gradient: 'cinema-card__gradient w-full position-absolute',
   category: 'cinema-card__category uppercase',

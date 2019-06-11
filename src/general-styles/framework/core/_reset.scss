@@ -126,8 +126,17 @@ q {
   quotes: none;
 }
 
-a {
+a,
+button,
+[type='radio'],
+[type='checkbox'],
+[type='button'],
+[type='submit'],
+[role='button'] {
   cursor: pointer;
+}
+
+a {
   text-decoration: none;
   color: $color-dark;
 }
@@ -159,7 +168,6 @@ input[type='search']::-webkit-search-results-decoration {
 button {
   font-family: inherit;
   border-style: none;
-  cursor: pointer;
   background-color: transparent;
 }
 

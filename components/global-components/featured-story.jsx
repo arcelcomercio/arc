@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 
 const classes = {
-  featuredStory: 'featured-story position-relative padding-normal flex',
+  featuredStory: 'featured-story position-relative p-20 flex',
   detail: 'featured-story__detail flex flex-col justify-between',
   image: 'featured-story__image overflow-hidden w-full h-full',
   multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',

@@ -4,11 +4,12 @@ import SurveyChoices from './choices'
 import SurveyResults from './result'
 
 const classes = {
-  cardSurvey: 'card-survey w-full',
-  surveyHeader: 'survey-header uppercase text-center',
-  surveyQuestion: 'survey-question position-relative',
-  surveyTitle: 'survey-question__title overflow-hidden',
-  surveyChoices: 'survey-choices',
+  cardSurvey: 'survey-card w-full pt-15',
+  surveyHeader:
+    'survey-card__header uppercase text-center font-bold pt-20 pb-20',
+  surveyQuestion: 'survey-card__question position-relative pt-15 pb-10 pl-10',
+  surveyTitle: 'survey-card__title overflow-hidden font-bold mb-15 pr-20 pl-20',
+  surveyChoices: 'mb-10 pr-20 pl-20',
   surveyButtons:
     'survey-buttons w-full position-absolute flex items-center justify-between',
   surveyResults: 'survey-buttons__results',

@@ -1,5 +1,4 @@
 .author-card {
-  padding: 5px;
 
   // border-bottom: solid 1px #333;
   // &:nth-child(even){
@@ -20,7 +19,7 @@
   }
 
   &__box-image {
-    padding: 15px 12px;
+    padding: 15px 10px;
 
     @media (--tablet) {
       padding: 0;
@@ -30,11 +29,6 @@
       bottom: 0;
       right: 0;
     }
-  }
-
-  &__box-details {
-    padding: 15px 12px;
-    padding-left: 22px;
   }
 
   &__image {
@@ -58,9 +52,6 @@
   &__name {
     font-size: 26px;
     line-height: 1.2;
-    font-family: $secondary-font;
-    font-weight: 700;
-    margin-bottom: 15px;
     color: #333;
 
     @media (--tablet) {
@@ -69,9 +60,7 @@
   }
 
   &__group {
-    font-weight: 300;
     font-size: 11px;
-    margin-bottom: 5px;
   }
 
   &__title {
@@ -79,8 +68,6 @@
     width: 90%;
     font-size: 20px;
     line-height: 1.2;
-    font-family: $secondary-font;
-    font-weight: 700;
 
     @media (--tablet) {
       font-size: 18px;

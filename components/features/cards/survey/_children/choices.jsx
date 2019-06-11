@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  surveyChoicesItem: 'survey-choices__item',
-  surveyRadio: 'survey-question__radio overflow-hidden flex items-center',
-  surveyInput: 'survey-question__input hidden',
-  surveyCheck: 'survey-question__check position-relative',
+  surveyItem: 'survey-card__item mb-5 pt-5 pr-20 pb-5',
+  surveyRadio: 'cursor-pointer overflow-hidden flex items-center',
+  surveyInput: 'survey-card__input hidden',
+  surveyCheck: 'survey-card__check position-relative mr-10',
 }
 
 const CardSurveyChildSurveyOptions = ({ choices, onChange }) => {

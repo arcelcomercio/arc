@@ -1,14 +1,10 @@
 .author-item {
   &__wrapper {
     max-width: 700px;
-    margin: 0 auto;
     border-bottom: solid 1px #333;
-    padding: 20px;
   }
 
   &__social {
-    display: none;
-
     @media (--tablet) {
       display: flex;
       padding-top: 10px;
@@ -17,14 +13,12 @@
   }
 
   &__content {
-
     @media (--tablet) {
       width: 65%;
     }
   }
 
   &__date {
-    display: block;
     font-size: 11px;
 
     @media (--tablet) {
@@ -55,21 +49,18 @@
   }
 
   &__image {
-    img {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
 
-      @media (--tablet) {
-        border-radius: 0;
-        width: 100%;
-        height: 100%;
-      }
+    @media (--tablet) {
+      border-radius: 0;
+      width: 100%;
+      height: 100%;
     }
   }
 
-  &__icons {
+  /* &__icons {
     margin-left: 20px;
     display: inline-flex;
 
@@ -80,19 +71,11 @@
         margin-right: 0;
       }
     }
-  }
+  } */
 
   &__name {
     font-size: 20px;
     color: #333;
-    margin-bottom: 10px;
-    padding-top: 5px;
-    font-weight: 700;
-    font-family: $secondary-font;
-
-    &:hover {
-      text-decoration: underline;
-    }
 
     @media (--tablet) {
       font-size: 20px;
@@ -102,18 +85,9 @@
   &__subtitle {
     font-size: 13px;
     color: #333;
-    font-family: $secondary-font;
-
-    &:hover {
-      text-decoration: underline;
-    }
 
     @media (--tablet) {
       //font-size: 17px;
     }
-  }
-
-  &__box-desc {
-    margin-left: 20px;
   }
 }

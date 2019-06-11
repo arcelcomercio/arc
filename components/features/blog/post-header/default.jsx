@@ -6,7 +6,7 @@ import {
 } from '../../../utilities/helpers'
 
 const classes = {
-  header: 'post-header padding-normal',
+  header: 'post-header p-20',
   title: 'post-header__title',
   list: 'post-header__list flex',
   link: 'post-header__link flex items-center justify-center w-full h-full',

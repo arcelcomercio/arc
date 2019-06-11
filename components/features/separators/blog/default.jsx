@@ -82,7 +82,7 @@ class SeparatorBlog extends PureComponent {
     const { arcSite, contextPath, deployment } = this.props
     return (
       <div>
-        <div className="blog-separator__box-blog">
+        <div className="mb-30 pt-30">
           <a
             className="blog-separator__blog uppercase"
             href={`${contextPath}/blog`}>

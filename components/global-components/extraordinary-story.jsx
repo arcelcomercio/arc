@@ -5,7 +5,7 @@ import { getIcon } from '../utilities/helpers'
 // FIXME: La línea de arriba no se usa, se puede eliminar?
 
 const classes = {
-  extraordinaryStory: `extraordinary-story grid padding-normal`,
+  extraordinaryStory: `extraordinary-story grid p-20`,
   extraordinaryStorySection:
     'extraordinary-story__section text-left uppercase font-bold',
   extraordinaryStoryContent: 'extraordinary-story__content block',

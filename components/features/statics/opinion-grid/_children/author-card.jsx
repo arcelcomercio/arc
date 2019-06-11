@@ -1,14 +1,14 @@
 import React from 'react'
 
 const classes = {
-  card: 'author-card',
+  card: 'author-card p-5',
   wrapper: 'author-card__wrapper flex position-relative',
   imageBox: 'author-card__box-image flex items-start position-relative',
   image: 'author-card__image',
-  detailsBox: 'author-card__box-details w-full',
-  name: 'author-card__name block',
-  group: 'author-card__group uppercase',
-  title: 'author-card__title uppercase block',
+  detailsBox: 'w-full pt-15 pr-0 pb-10 pl-20',
+  name: 'author-card__name block mb-15 secondary-font font-bold',
+  group: 'author-card__group uppercase font-thin mb-5',
+  title: 'author-card__title uppercase block secondary-font font-bold',
 }
 
 const OpinionGridAuthorCard = ({ data: story }) => {

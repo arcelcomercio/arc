@@ -5,7 +5,7 @@ import { setDevice } from '../../../utilities/resizer'
 
 const classes = {
   footer: 'footer w-full grid',
-  info: 'footer__info footer__footer-background-color padding-normal',
+  info: 'footer__info footer__footer-background-color p-20',
   sections: 'footer__sections footer__footer-background-color',
   contact: 'footer__contact footer__footer-background-color',
   sites: 'footer__sites flex justify-center',
@@ -16,7 +16,7 @@ const classes = {
   legalItem: 'footer__legal-item',
   logoContainer: 'footer__logo footer__logo-container block',
   logoImg: 'w-full',
-  list: 'footer__list padding-normal',
+  list: 'footer__list p-20',
   listItem: 'footer__list-item',
   listTitle: 'footer__list-item footer__list-item--title uppercase font-bold',
   listLink: 'footer__list-link capitalize',

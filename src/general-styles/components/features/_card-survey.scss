@@ -4,35 +4,24 @@ $color-text-question: #333;
 $color-button: #0e6dc1;
 $color-check-selected: #494949;
 
-.card-survey {
+.survey-card {
   background: $color-light-blue;
-  padding-top: 14px;
-}
 
-.survey-header {
-  background-color: $color-marine-blue;
-  color: $color-white;
-  padding: 18px 0;
-  font-weight: bold;
-}
+  &__header {
+    background-color: $color-marine-blue;
+    color: $color-white;
+  }
 
-.survey-question {
-  padding: 15px 0 10px;
-  min-height: 280px;
-  max-height: 280px;
+  &__question {
+    min-height: 280px;
+    max-height: 280px;
+  }
 
   &__title {
     font-size: 18px;
     line-height: 1.2;
     color: $color-text-question;
-    font-weight: bold;
-    margin-bottom: 15px;
-    padding: 0 20px;
     max-height: 127px;
-  }
-
-  &__radio {
-    cursor: pointer;
   }
 
   &__input:checked+.survey-question__check::after {
@@ -49,11 +38,11 @@ $color-check-selected: #494949;
   }
 
   &__check {
+    // TODO: check float and vertical-align
     background-color: $color-white;
     border-radius: 13px;
     float: left;
     height: 26px;
-    margin-right: 8px;
     vertical-align: middle;
     width: 26px;
 
@@ -68,16 +57,9 @@ $color-check-selected: #494949;
       top: 0;
     }
   }
-}
-
-.survey-choices {
-  margin-bottom: 10px;
-  padding: 0 20px;
 
   &__item {
     color: #4c4c4c;
-    padding: 5px 20px 5px 0;
-    margin-bottom: 5px;
   }
 }
 

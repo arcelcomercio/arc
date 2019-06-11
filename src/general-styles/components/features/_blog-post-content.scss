@@ -3,7 +3,6 @@
 
   &__author {
     color: #8f071f;
-    margin-right: 7px;
   }
 
   &__date {
@@ -12,15 +11,14 @@
 
   &__header {
     font-size: 11px;
-    margin-bottom: 25px;
     vertical-align: middle;
   }
 
   // Origen de etiquetas externo, se tienen que definir asi los estilos
 
-  &__news {
-    font: 20px/1.4 $primary-font;
-    margin-bottom: 30px;
+  &__story {
+    font-size: 20px;
+    line-height: 1.4;
 
     img {
       width: 100%;

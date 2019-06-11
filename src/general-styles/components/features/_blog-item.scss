@@ -1,8 +1,4 @@
 .blog-item {
-  flex-direction: column-reverse;
-  margin: 0 auto 10px auto;
-  padding-top: 10px;
-  //min-width: 375px;
   border-top: 1px solid $color-gray;
 
   @media (--tablet) {
@@ -19,9 +15,6 @@
   }
 
   &__container {
-    flex-direction: row-reverse;
-    justify-content: space-between;
-
     @media (--tablet) {
       flex-direction: row;
       justify-content: start;
@@ -34,7 +27,6 @@
 
   &__detail {
     min-height: 124px;
-    padding-right: 10px;
     width: 65%;
 
     @media (--tablet) {
@@ -47,7 +39,6 @@
   &__blog {
     color: #8f071f;
     font-size: 10px;
-    margin-bottom: 5px;
 
     @media (--tablet) {
       font-size: 11px;
@@ -57,7 +48,6 @@
   &__author {
     color: #777;
     font-size: 12px;
-    margin-bottom: 10px;
 
     @media (--tablet) {
       font-size: 14px;

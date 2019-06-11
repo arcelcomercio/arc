@@ -1,14 +1,10 @@
 .author-title {
   background-color: #fff;
-  padding: 15px 0;
 
   &__box-title {
-    flex-direction: column;
     flex-basis: calc(100% - 90px);
-    height: 100%;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
-    padding: 10px 0px 10px 15px;
 
     @media (--tablet) {
       flex-basis: 100%;
@@ -22,8 +18,6 @@
 
   &__section {
     flex-basis: 90px;
-    flex-shrink: 0;
-    flex-grow: 0;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
 
@@ -36,20 +30,17 @@
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
-      //width: 375px;
       margin-top: 10px;
     }
 
     @media (--desktop) {
       font-size: 20px;
-      //width: 954px;
       margin: 0 auto;
     }
   }
 
   &__url {
     color: #8f071f;
-    margin-right: 15px;
     font-size: 18px;
 
     @media (--tablet) {
@@ -58,10 +49,10 @@
   }
 
   &__img {
+    right: 0;
     bottom: 0;
     border: 0;
     font-size: 24px;
-    right: 0;
 
     @media (--tablet) {
       width: auto;

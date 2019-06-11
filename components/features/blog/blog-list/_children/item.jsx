@@ -1,14 +1,14 @@
 import React from 'react'
 
 const classes = {
-  item: 'flex  blog-item w-full',
+  item: 'blog-item flex w-full flex-col-reverse pt-10 mt-0 mb-10 mx-auto',
   date: 'blog-item__date',
-  container: 'flex blog-item__container',
+  container: 'blog-item__container flex flex-row-reverse justify-between',
   containerAvatar: 'blog-item__container-avatar',
   avatar: 'w-full',
-  detail: 'flex flex-col blog-item__detail',
-  blogTitle: 'uppercase blog-item__blog',
-  author: 'blog-item__author',
+  detail: 'blog-item__detail flex flex-col pr-10',
+  blogTitle: 'blog-item__blog uppercase mb-5',
+  author: 'blog-item__author mb-10',
   post: 'blog-item__post',
 }
 
