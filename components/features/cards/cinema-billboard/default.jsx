@@ -5,22 +5,23 @@ import { defaultImage } from '../../../utilities/helpers'
 const classes = {
   cinemaCard: 'cinema-card p-20 row-1',
   container: 'position-relative',
-  gradient: 'cinema-card__gradient w-full position-absolute',
-  category: 'cinema-card__category uppercase',
+  gradient: 'cinema-card__gradient w-full position-absolute bottom-0 left-0',
+  category: 'cinema-card__category uppercase primary-font mb-0 pb-15',
   link: 'cinema-card__link',
   figure: 'cinema-card__figure overflow-hidden',
   image: 'w-full h-full object-cover',
-  detail: 'cinema-card__detail w-full position-absolute',
+  detail:
+    'cinema-card__detail w-full position-absolute bottom-0 pr-15 pl-15 pb-10',
   premiere: 'cinema-card__premiere',
   movieTitle: 'cinema-card__p-title overflow-hidden',
-  movieLink: 'cinema-card__p-link',
-  moviesList: 'cinema-card__movies-list',
-  title: 'cinema-card__title uppercase',
+  movieLink: 'cinema-card__p-link font-normal',
+  moviesList: 'cinema-card__movies-list p-10',
+  title: 'cinema-card__title uppercase primary-font font-normal mb-10',
   form: 'text-right',
-  selectsContainer: 'cinema-card__selects-container',
-  select: 'cinema-card__select w-full',
+  selectsContainer: 'mb-10',
+  select: 'cinema-card__select w-full primary-font mb-5 pl-10',
   option: 'cinema-card__option',
-  button: 'cinema-card__button inline-b uppercase',
+  button: 'cinema-card__button inline-b uppercase font-bold primary-font',
 }
 
 @Consumer

@@ -1,0 +1,11 @@
+.c-survey-result {
+    &__item {
+        color: #4c4c4c;
+        font-size: 14px;
+        line-height: 1.2;
+
+        &.active {
+            color: #0e6dc1;
+        }
+    }
+}

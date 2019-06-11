@@ -6,27 +6,20 @@ import Markers from './_dependencies/markers'
 const classes = {
   concessionaires: 'concessionaires w-full position-relative',
   arrow: 'concessionaires__arrow position-absolute',
-  container: 'concessionaires__container w-full',
-<<<<<<< HEAD
-  title: 'concessionaires__title font-bold text-center',
-=======
+  container: 'concessionaires__container w-full m-0 mx-auto pt-50 pr-20 pl-20',
   title: 'concessionaires__title text-center font-bold',
->>>>>>> fcebc4f4f9bfd610b9be7a5b0d1a91c0ed03c585
-  info: 'concessionaires__info text-center',
-  locations: 'concessionaires__locations',
-  search: 'concessionaires__search flex',
-  searchTitle: 'concessionaires__search-title uppercase font-bold',
+  info: 'concessionaires__info text-center mt-10 mb-40 mx-auto',
+  locations: 'concessionaires__locations mb-50 pt-25',
+  search: 'concessionaires__search flex mb-20 flex-col',
+  searchTitle:
+    'concessionaires__search-title uppercase font-bold text-center pt-15 pr-20 pl-20',
   form: 'flex',
-  zona: 'concessionaires__controls flex',
-<<<<<<< HEAD
-  label: 'concessionaires__label text-center block',
-=======
+  zona: 'concessionaires__controls flex mr-15 flex-col',
   label: 'concessionaires__label block text-center',
->>>>>>> fcebc4f4f9bfd610b9be7a5b0d1a91c0ed03c585
   select: 'concessionaires__select',
   district: 'concessionaires__controls flex',
   districtLabel: 'concessionaires__label',
-  mapTitle: 'concessionaires__map-title font-thin',
+  mapTitle: 'concessionaires__map-title font-thin mt-10 mb-10',
 }
 
 class StaticConcessionaryOffices extends PureComponent {

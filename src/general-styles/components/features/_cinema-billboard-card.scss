@@ -5,9 +5,8 @@ $cinema-height: 89px;
   background-color: $color-white;
 
   &__category {
-    font: 18px/1 $primary-font;
-    margin-bottom: 0;
-    padding: 0 0 15px;
+    font-size: 18px;
+    line-height: 1;
   }
 
   &__link {
@@ -17,9 +16,7 @@ $cinema-height: 89px;
   &__gradient {
     height: $cinema-height;
     background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
-    bottom: 0;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00444444', endColorstr='#444444', GradientType=0);
-    left: 0;
     pointer-events: none;
     z-index: 1;
   }
@@ -30,8 +27,6 @@ $cinema-height: 89px;
   }
 
   &__detail {
-    bottom: 0;
-    padding: 0 15px 10px 15px;
     z-index: 5;
   }
 
@@ -46,57 +41,42 @@ $cinema-height: 89px;
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 180px;
-    color: #fff;
+    color: $color-white;
   }
 
   &__p-link {
-    color: #fff;
-    font-weight: 400;
+    color: $color-white;
     line-height: 1.1;
   }
 
   &__movies-list {
     background-color: #e8f2f7;
-    padding: 10px;
   }
 
   &__title {
-    font: 14px/1 $primary-font;
-    margin-bottom: 10px;
-    font-weight: 400;
+    font-size: 14px;
+    line-height: 1;
   }
 
   &__select {
-    appearance: none;
     background-color: #d1e6f0;
     // TODO: Cambiar por el icono respectivo
     background-image: url(https://elcomercio.pe/img/arrow_down.png);
     background-position: right 0;
     background-repeat: no-repeat;
-    border: 0;
-    cursor: pointer;
     font-size: 11px;
-    font-family: $primary-font;
     height: 30px;
-    margin-bottom: 4px;
-    padding-left: 8px;
   }
 
   &__option {
-    background-color: #fff;
-  }
-
-  &__selects-container {
-    margin-bottom: 10px;
+    background-color: $color-white;
   }
 
   &__button {
-    background-color: #fff;
+    background-color: $color-white;
     border-radius: 3px;
     border: 0;
-    font-weight: 700;
     font-size: 11px;
-    font-family: $primary-font;
     height: 34px;
     width: 100px;
   }

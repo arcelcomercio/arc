@@ -5,12 +5,12 @@ import PropTypes from 'prop-types'
 import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
-  breakingnews: 'cintillo-u secondary-font flex justify-between',
-  breakingnewsBtnClose: 'cintillo-u__btn-close text-right',
-  breakingnewsIcon: 'cintillo-u__btn-icon icon-close-circle',
-  breakingnewsText: 'cintillo-u__text m-0 font-normal',
-  breakingnewsTag: 'cintillo-u__tag uppercase',
-  breakingnewsLink: 'cintillo-u__link',
+  breakingnews: 'cintillo-u secondary-font flex justify-between p-15',
+  close: 'cintillo-u__btn-close text-right',
+  icon: 'cintillo-u__btn-icon icon-close-circle',
+  text: 'cintillo-u__text m-0 font-normal',
+  tag: 'cintillo-u__tag uppercase mr-5',
+  link: 'cintillo-u__link mr-5',
 }
 
 @Consumer
@@ -94,17 +94,17 @@ class BreakingNews extends Component {
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
-        <h2 className={classes.breakingnewsText}>
+        <h2 className={classes.text}>
           <span
-            className={classes.breakingnewsTag}
+            className={classes.tag}
             {...editableField('tags')}
             suppressContentEditableWarning>
             {tags}:
           </span>
           <span>
             <a
-              className={classes.breakingnewsLink}
-              // className={classes.breakingnewsLink}
+              className={classes.link}
+              // className={classes.link}
               href={objContent.link}
               target="_blank"
               rel="noopener noreferrer"
@@ -115,14 +115,14 @@ class BreakingNews extends Component {
           </span>
         </h2>
         <div
-          className={classes.breakingnewsBtnClose}
+          className={classes.close}
           onClick={this.handleOnclickClose}
           // Static HTML elements do not have semantic meaning.
           // Needs a role, to be focusable and to have a key event
           onKeyPress={this.handleOnclickClose}
           role="button"
           tabIndex={0}>
-          <i className={classes.breakingnewsIcon} />
+          <i className={classes.icon} />
         </div>
       </div>
     )
