@@ -1,7 +1,6 @@
 .cintillo-u {
   color: $color-white;
   padding: 14px;
-  font-family: $secondary-font;
 
   &--bgcolor-1 {
     background-color: $color-primary;
@@ -17,6 +16,7 @@
       outline: 0;
     }
   }
+
   &__btn-icon {
     color: $color-white;
     font-size: 25px;
@@ -27,7 +27,6 @@
   }
 
   &__text {
-    margin: 0;
     font-size: 22px;
     line-height: 1.2em;
   }

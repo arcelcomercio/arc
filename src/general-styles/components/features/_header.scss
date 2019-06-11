@@ -1,12 +1,10 @@
 .header {
   font-size: $font-sm;
-  font-family: $primary-font;
   color: $color-dark;
 
   &__main {
     height: 58px;
     padding: 0 15px;
-    font-weight: bold;
     background-color: $header-bg-color;
     color: $header-text-color;
   }
@@ -15,23 +13,12 @@
     height: $header-logo-height;
   }
 
-  &__featured {
-    font-weight: normal;
-  }
-
   &__item {
     padding: 8px;
     height: inherit;
-    a {
-      text-decoration: none;
-      color: $color-primary;
-      font-size: 0.8rem;
-      letter-spacing: 0.02rem;
-      text-transform: uppercase;
-    }
+
     :hover {
       color: $color-dark;
-      text-decoration: underline;
     }
 
     /* &:first-child {
@@ -39,11 +26,19 @@
       font-weight: bold;
     } */
   }
+
+  &__link {
+    color: $color-primary;
+    font-size: 0.8rem;
+    letter-spacing: 0.02rem;
+  }
+
   &__nav-wrapper {
     padding: 5px 20px;
     border-bottom: 1px solid $color-primary;
     background-color: $color-light;
   }
+
   &__btn-container {
     a {
       &:focus {

@@ -12,9 +12,9 @@ const classes = {
   logoimg: 'header-somos__img block',
   logoIcon: 'icon-marca',
 
-  menu: 'somos-menu',
-  menuContent: 'somos-menu__content',
-  menuClose: 'somos-menu__close full-width text-right',
+  menu: 'somos-menu position-absolute',
+  menuContent: 'somos-menu__content full-height',
+  menuClose: 'somos-menu__close text-right full-width',
   menuCloseIcon: 'icon-close somos-menu__close-icon',
   menuSearch: 'somos-menu__search position-relative',
   menuSearchInput: 'somos-menu__search-input full-width font-bold',

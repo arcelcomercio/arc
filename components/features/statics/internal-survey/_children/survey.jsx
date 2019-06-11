@@ -6,16 +6,17 @@ import UtilListKey from '../../../../utilities/list-keys'
 import DateNameFunc from '../../../../utilities/date-name'
 
 const classes = {
-  InternalSurvey: 'internal-survey',
-  detail: 'internal-survey__detail',
-  result: 'internal-survey__result',
+  InternalSurvey: 'internal-survey grid primary-font',
+  detail: 'internal-survey__detail position-relative',
+  result: 'internal-survey__result grid justify-center position-relative',
   ocultar: 'internal-survey__ocultar',
-  date: 'internal-survey__date',
-  title: 'internal-survey__title',
-  buttons: 'internal-survey__buttons',
-  buttonpool: 'internal-survey__button-pool',
-  viewresult: 'internal-survey__view-result',
-  share: 'internal-survey__result-share',
+  date: 'internal-survey__date block',
+  title: 'internal-survey__title inline font-bold',
+  buttons:
+    'internal-survey__buttons grid justify-between overflow-hidden font-bold primary-font',
+  buttonpool: 'internal-survey__button-pool font-bold uppercase',
+  viewresult: 'internal-survey__view-result block text-center',
+  share: 'internal-survey__share',
   disable: 'internal-survey__disable',
   nav: 'internal-survey__nav',
   navprev: 'internal-survey__nav-prev',
@@ -77,7 +78,7 @@ class SurveyInternalChildSurvey extends Component {
       })
     }
   }
-  
+
   render() {
     const {
       flagViewResult,
@@ -121,7 +122,7 @@ class SurveyInternalChildSurvey extends Component {
             )}
           </div>
 
-          <time className={classes.date}>{DateNameFunc(date,',')}</time>
+          <time className={classes.date}>{DateNameFunc(date, ',')}</time>
           <h1 className={classes.title}>{title}</h1>
           <form action="">
             <ul>
@@ -152,7 +153,7 @@ class SurveyInternalChildSurvey extends Component {
         </div>
         <div className={classes.result}>
           {flagViewResult && optionsList && (
-            <ViewResult choices={optionsList}  sharelinks={sharelinks}/>
+            <ViewResult choices={optionsList} sharelinks={sharelinks} />
           )}
           {flagViewSurveyConfirm && (
             <ViewSurveyConfirm handleOnClickViewResult={this.viewResult} />

@@ -4,15 +4,13 @@
 
   &__info {
     margin: 0 auto;
-    background: url(https://assets.elcomercio.pe/images/elcomercio/arrow-right-3.png)
-      100% 0% no-repeat;
+    background: url(https://assets.elcomercio.pe/images/elcomercio/arrow-right-3.png) 100% 0% no-repeat;
   }
 
   &__text {
     color: $footer-text-color;
-    font: 700 18px/1.1 $primary-font;
-    text-transform: uppercase;
-    display: inline-block;
+    line-height: 1.1;
+    font-size: 18px;
     padding-right: 25px;
   }
 }

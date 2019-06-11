@@ -5,27 +5,30 @@ import { getIcon } from '../utilities/helpers'
 // FIXME: La línea de arriba no se usa, se puede eliminar?
 
 const classes = {
-  extraordinaryStory: `extraordinary-story padding-normal`,
+  extraordinaryStory: `extraordinary-story grid padding-normal`,
   extraordinaryStorySection:
-    'extraordinary-story__section text-left capitalize',
+    'extraordinary-story__section text-left uppercase font-bold',
   extraordinaryStoryContent: 'extraordinary-story__content block',
-  extraordinaryStoryTitle: 'extraordinary-story__title title',
+  extraordinaryStoryTitle:
+    'extraordinary-story__title title overflow-hidden font-bold',
   oneline: 'extraordinary-story-oneline',
   twoline: 'extraordinary-story-twoline',
   threeline: 'extraordinary-story-threeline',
   extraordinaryStorySubtitle: 'extraordinary-story__subtitle',
   extraordinaryStoryLink: 'extraordinary-story__link',
-  extraordinaryStoryAuthor: 'extraordinary-story__author',
-  extraordinaryStoryMultimedia: 'extraordinary-story__multimedia',
-  iconGallery: 'extraordinary-story__icon-gallery',
-  iconGalleryContainer: 'extraordinary-story__icon-gallery-container',
+  extraordinaryStoryAuthor: 'extraordinary-story__author uppercase',
+  extraordinaryStoryMultimedia:
+    'extraordinary-story__multimedia flex items-center justify-center position-relative',
+  iconGallery: 'extraordinary-story__icon-gallery position-absolute',
+  iconGalleryContainer:
+    'extraordinary-story__icon-gallery-container flex items-center justify-center',
 }
 
 const getMultimediaIcon = mediaType => {
   if (mediaType === 'G') {
     return (
-      <span className={`${classes.iconGallery}-G`}>
-        <span className={`${classes.iconGalleryContainer}-G`}>
+      <span className={classes.iconGallery}>
+        <span className={classes.iconGalleryContainer}>
           <i>{mediaType}</i>
         </span>
       </span>

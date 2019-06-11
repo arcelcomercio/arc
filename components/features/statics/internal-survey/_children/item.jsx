@@ -1,12 +1,12 @@
 import React from 'react'
 
 const classes = {
-  item: 'internal-survey__result-pool-item',
-  text: 'internal-survey__result-pool-text',
-  percent: 'internal-survey__result-pool-percent',
-  bar: 'internal-survey__result-pool-bar',
-  progress: 'internal-survey__result-pool-progress',
-  progresstop: 'internal-survey__result-top',
+  item: 'survey-result__item',
+  text: 'survey-result__text',
+  percent: 'survey-result__percent',
+  bar: 'survey-result__bar',
+  progress: 'survey-result__progress',
+  progresstop: 'survey-result__top',
 }
 
 const style = perc => ({

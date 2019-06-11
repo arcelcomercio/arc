@@ -18,7 +18,8 @@ const infoPages = {
 const defaultPolicy = 'termsAndConditions'
 
 const classes = {
-  staticPolicy: 'info-pages',
+  staticPolicy: 'info-pages secondary-font',
+  title: 'info-pages__title font-bold uppercase',
 }
 
 @Consumer
@@ -76,7 +77,7 @@ class InfoPages extends PureComponent {
     const { contentElements, headlines } = this.state
     return (
       <div className={classes.staticPolicy}>
-        <h1>{headlines}</h1>
+        <h1 className={classes.title}>{headlines}</h1>
         <ArcArticleBody
           data={contentElements}
           renderElement={element => {

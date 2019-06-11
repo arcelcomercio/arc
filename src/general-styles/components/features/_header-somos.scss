@@ -3,6 +3,7 @@
   background-color: $color-white;
   border-bottom: 1px solid #ababab;
   border-top: 1px solid #ababab;
+
   @media (--desktop) {
     border-top: none;
     padding: 15px 10px;
@@ -13,28 +14,35 @@
       width: 180px;
     }
   }
+
   &__icon-wrapper {
     @media (--desktop) {
       display: none;
     }
   }
+
   &__icon {
     font-size: 33px;
   }
+
   &__logo-wrapper {
     background-color: $color-black;
     border-radius: 50%;
     height: 50px;
     right: 0;
     width: 50px;
+    // display: flex;
+
     @media (--desktop) {
       display: none;
     }
+
     & i {
       color: $color-white;
       font-size: 34px;
     }
   }
+
   &__btn {
     &:focus {
       outline: 0;
@@ -43,13 +51,14 @@
 }
 
 .somos-menu {
-  position: absolute;
+  // position: absolute;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.7);
   width: 0%;
   height: 100%;
   z-index: 1;
+
   @media (--desktop) {
     position: relative;
     background-color: $color-white;
@@ -57,13 +66,14 @@
     width: 100%;
     transition: all 5ms;
   }
+
   &__content {
     background-color: rgba(0, 0, 0, 0.9);
     width: 255px;
-    height: 100%;
     overflow-y: scroll;
     transition: all 2ms;
     transform: translate3d(-100%, 0, 0);
+
     @media (--desktop) {
       background-color: transparent;
       width: 100%;
@@ -76,12 +86,15 @@
       transform: translate3d(0%, 0, 0);
     }
   }
+
   &__search {
     padding: 15px 10px 0;
+
     @media (--desktop) {
       display: none;
     }
   }
+
   &__search-input {
     background-color: transparent;
     border: 1px solid $color-white;
@@ -90,31 +103,38 @@
     font-size: 13px;
     padding: 0 10px;
   }
+
   &__search-icon {
     right: 17px;
     top: 21px;
     color: $color-white;
     font-size: 13px;
   }
+
   &__list {
     margin: 0;
     display: block;
     padding: 5px 15px;
+
     @media (--desktop) {
       display: flex;
       justify-content: space-between;
     }
   }
+
   &__item {
     padding: 15px 0;
   }
+
   &__item-link {
     display: none;
+
     @media (--desktop) {
       display: flex;
       align-items: center;
     }
   }
+
   &__link {
     color: $color-white;
     font-size: 25px;
@@ -125,8 +145,10 @@
       align-items: center;
       font-size: 18px;
     }
+
     &:before {
       display: none;
+
       @media (--desktop) {
         content: '';
         display: block;
@@ -138,41 +160,52 @@
       }
     }
   }
+
   &__link-icon {
     color: #585858;
     display: none;
+
     @media (--desktop) {
       display: block;
     }
   }
+
   &__login {
     padding: 20px 10px 0;
+
     @media (--desktop) {
       display: none;
     }
   }
+
   &__login-icon {
     color: $color-primary;
     margin-right: 10px;
   }
+
   &__login-text {
     color: $color-white;
     font-size: 14px;
   }
+
   &__close {
     height: 50px;
     padding: 15px 10px 0;
+
     @media (--desktop) {
       display: none;
     }
   }
+
   &__close-icon {
     color: $color-white;
     font-size: 15px;
   }
+
   &--active {
     position: fixed;
     z-index: 20;
+
     .somos-menu__content {
       transform: translate3d(0%, 0, 0);
       transition: all 250ms;

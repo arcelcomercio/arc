@@ -7,14 +7,22 @@ const classes = {
   concessionaires: 'concessionaires full-width position-relative',
   arrow: 'concessionaires__arrow position-absolute',
   container: 'concessionaires__container full-width',
+<<<<<<< HEAD
   title: 'concessionaires__title font-bold text-center',
+=======
+  title: 'concessionaires__title text-center font-bold',
+>>>>>>> fcebc4f4f9bfd610b9be7a5b0d1a91c0ed03c585
   info: 'concessionaires__info text-center',
   locations: 'concessionaires__locations',
   search: 'concessionaires__search flex',
   searchTitle: 'concessionaires__search-title uppercase font-bold',
   form: 'flex',
   zona: 'concessionaires__controls flex',
+<<<<<<< HEAD
   label: 'concessionaires__label text-center block',
+=======
+  label: 'concessionaires__label block text-center',
+>>>>>>> fcebc4f4f9bfd610b9be7a5b0d1a91c0ed03c585
   select: 'concessionaires__select',
   district: 'concessionaires__controls flex',
   districtLabel: 'concessionaires__label',

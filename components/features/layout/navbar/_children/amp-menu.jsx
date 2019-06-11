@@ -2,14 +2,14 @@ import React, { PureComponent } from 'react'
 
 const classes = {
   sidebar: 'amp-nav-sidebar full-width',
-  item: 'amp-nav-sidebar__item',
-  listItem: 'amp-nav-sidebar__list-item',
-  link: 'amp-nav-sidebar__link',
+  item: 'amp-nav-sidebar__item uppercase',
+  listItem: 'amp-nav-sidebar__list-item full-height position-relative',
+  link: 'amp-nav-sidebar__link block',
   body: 'amp-nav-sidebar__body',
   list: 'amp-nav-sidebar__list',
   footer: 'amp-nav-sidebar__footer',
   social: 'amp-nav-sidebar__sidebar-social',
-  close: 'amp-nav-sidebar__close',
+  close: 'amp-nav-sidebar__close position-absolute',
 }
 
 class NavbarChildMenu extends PureComponent {

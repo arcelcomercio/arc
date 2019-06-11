@@ -3,10 +3,10 @@ import Item from './item'
 import ItemShare from './item-share'
 
 const classes = {
-  resultgraphic: 'internal-survey__result-graphic',
-  resulttitle: 'internal-survey__result-title',
-  resultcount: 'internal-survey__result-count',
-  poolitems: 'internal-survey__result-pool-items',
+  resultgraphic: 'survey-result__graphic table',
+  resulttitle: 'survey-result__title text-center font-xbold',
+  resultcount: 'survey-result__count font-bold',
+  poolitems: 'survey-result__list scroll-vertical-auto',
 }
 
 const SurveytChildViewResul = props => {
