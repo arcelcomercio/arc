@@ -75,13 +75,13 @@ class SeparatorOpinion extends PureComponent {
   }
 
   getContentApi = () => {
-    let newsNumber = 5
+    let storiesQty = 5
     const { device } = this.state
 
     if (device === 'mobile') {
-      newsNumber = 1
+      storiesQty = 1
     } else if (device === 'tablet') {
-      newsNumber = 3
+      storiesQty = 3
     }
 
     const { deployment, contextPath, arcSite } = this.props
@@ -92,7 +92,7 @@ class SeparatorOpinion extends PureComponent {
       'story-feed-by-section',
       {
         website: arcSite,
-        news_number: newsNumber,
+        stories_qty: storiesQty,
         section,
       },
       schemaFilter
@@ -100,7 +100,7 @@ class SeparatorOpinion extends PureComponent {
     fetched.then(({ content_elements: contentElements = [] } = {}) => {
       const newDatos = []
       const nObj = {}
-      for (let i = 0; i < newsNumber; i++) {
+      for (let i = 0; i < storiesQty; i++) {
         const dh = new StoryData({
           data: contentElements[i],
           deployment,

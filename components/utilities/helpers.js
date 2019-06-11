@@ -157,7 +157,6 @@ export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
   return imgUrl
 }
 
-
 export const metaPaginationUrl = (
   pageNumber,
   patternPagination,
@@ -261,10 +260,7 @@ export const formatSlugToText = (text = '') => {
 
 export const formatHtmlToText = (html = '') => {
   const htmlData = html.toString()
-  return htmlData
-    .replace(/<[^>]*>/g, '')
-    .replace('"', '“')
-    .replace('"', '”')
+  return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
 }
 
 export const defaultImage = ({
@@ -304,4 +300,24 @@ export const createLink = url => {
 
 export const appendToBody = node => {
   document.body.appendChild(node)
+}
+
+export const breadcrumbList = (url, siteUrl, contextPath) => {
+  const arrayData = []
+  if (url) {
+    const dataSeccion = url.split('/')
+    dataSeccion.forEach((element, i) => {
+      if (i === 1 || (i === 2 && dataSeccion.length === 4)) {
+        const separator = '/'
+        arrayData[i] = {
+          name:
+            element.charAt(0).toUpperCase() +
+            element.slice(1).replace('-', ' '),
+          url: siteUrl + contextPath + separator + element,
+        }
+      }
+    })
+  }
+
+  return arrayData.filter(String)
 }

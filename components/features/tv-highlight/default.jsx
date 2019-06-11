@@ -48,7 +48,7 @@ class TVHighlight extends PureComponent {
     const params = {
       section,
       feedOffset: 0,
-      news_number: 1,
+      stories_qty: 1,
     }
     const { fetched } = this.getContent(source, params, schema)
     fetched.then(story => {

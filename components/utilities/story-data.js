@@ -1,6 +1,6 @@
 import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
-import { defaultImage, formatHtmlToText } from './helpers'
+import { defaultImage, formatHtmlToText, breadcrumbList } from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -17,12 +17,14 @@ class StoryData {
     contextPath = '',
     arcSite = '',
     defaultImgSize = 'md',
+    siteUrl = '',
   }) {
     this._data = data
     this._deployment = deployment
     this._contextPath = contextPath
     this._website = arcSite
     this._defaultImgSize = defaultImgSize
+    this._siteUrl = siteUrl
   }
 
   get __data() {
@@ -74,6 +76,16 @@ class StoryData {
 
   get author() {
     return StoryData.getDataAuthor(this._data).nameAuthor
+  }
+
+  get seoAuthor() {
+    const defaultAuthor = 'Redacción '
+    return (
+      StoryData.getDataAuthor(this._data).nameAuthor ||
+      defaultAuthor +
+        this._website.charAt(0).toUpperCase() +
+        this._website.slice(1)
+    )
   }
 
   get authorLink() {
@@ -172,7 +184,8 @@ class StoryData {
         'gallery'
       ) || []
 
-    const { content_elements: galleryContent } = galleryContentResul[0] || []
+    const { content_elements: galleryContent = [] } =
+      galleryContentResul[0] || []
 
     const promoItemsImage =
       (this._data &&
@@ -223,6 +236,11 @@ class StoryData {
     )
   }
 
+  get breadcrumbList() {
+    const { website_url: url = '' } = this._data || {}
+    return breadcrumbList(url, this._siteUrl, this._contextPath)
+  }
+
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
@@ -258,11 +276,11 @@ class StoryData {
     {
       basic_video: basicVideo = {},
       basic_gallery: basicGallery = {},
-      basic: basicImage = '',
+      basic: basicImage = {},
     } = {},
     type = ''
   ) {
-    if (basicVideo && (type === 'video' || type === 'image')) {
+    if (basicVideo.url && (type === 'video' || type === 'image')) {
       const {
         streams = [],
         publish_date: date = '',
@@ -291,12 +309,11 @@ class StoryData {
       }
     }
 
-    if (basicGallery && type !== 'video') {
+    if (basicGallery.url && type !== 'video') {
       const { content_elements: contentElements = {} } = basicGallery
       return contentElements
     }
-
-    if (basicImage && type === 'image') {
+    if (basicImage.url && type === 'image') {
       const {
         content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
         url: urlImage,
@@ -322,11 +339,9 @@ class StoryData {
 
   static getContentElements(data = [], typeElement = '') {
     return (
-      data
-        .map(item => {
-          return item.type === typeElement ? item : []
-        })
-        .filter(String) || []
+      data.map(item => {
+        return item.type === typeElement ? item : []
+      }) || []
     )
   }
 
