@@ -6,7 +6,6 @@
   }
 
   &__title {
-    height: 100%;
     min-width: 10%;
     max-width: 60%;
     color: $color-dark;
@@ -28,23 +27,17 @@
     padding: $spacing-normal;
     border-bottom: 1px solid #d5e1e1;
 
-    & figure {
-      position: relative;
-
-      & span {
-        position: absolute;
-        height: 15px;
-        width: 15px;
-        right: 25px;
-        top: 28px;
-        margin: auto;
-        transform: scale(3.5);
-        z-index: 2;
-        text-align: center;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.5);
-        color: #444;
-      }
+    & .multimedia__icon {
+      height: 15px;
+      width: 15px;
+      right: 25px;
+      top: 28px;
+      margin: auto;
+      transform: scale(3.5);
+      z-index: 2;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      color: #444;
     }
   }
 

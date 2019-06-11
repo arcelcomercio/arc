@@ -3,15 +3,24 @@ import ConfigParams from '../../../../utilities/config-params'
 
 // TODO: para que usan estos data-type?
 
+const classes = {
+  figure: 'position-relative',
+  icon: 'position-absolute text-center multimedia__icon',
+}
+
 const StoriesListsCardChildMultimedia = ({
   urlNews,
   multimedia,
   multimediaType,
 }) => {
   return (
-    <figure>
-      {multimediaType === ConfigParams.VIDEO && <span>&#8227;</span>}
-      {multimediaType === ConfigParams.GALLERY && <span>G</span>}
+    <figure className={classes.figure}>
+      {multimediaType === ConfigParams.VIDEO && (
+        <span className={classes.icon}>&#8227;</span>
+      )}
+      {multimediaType === ConfigParams.GALLERY && (
+        <span className={classes.icon}>G</span>
+      )}
       {multimedia ? (
         <a href={urlNews}>
           <picture>
@@ -21,7 +30,7 @@ const StoriesListsCardChildMultimedia = ({
               media="(max-width: 639px)"
             />
             <img
-              datatype="src"
+              data-type="src"
               className="full-width"
               src={multimedia}
               alt=""
