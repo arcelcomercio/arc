@@ -15,14 +15,14 @@ export default ({
     link,
     publishDate,
     subTitle,
-    author,
+    seoAuthor,
     imagesSeo,
     section,
     videoSeo,
     contentElementsText: dataElement,
     relatedContent,
     breadcrumbList,
-  } = new StoryData({ data, arcSite })
+  } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const videoSeoItems = videoSeo.map(
     ({ url, caption, urlImage, date } = {}) => {
@@ -90,7 +90,7 @@ export default ({
     ],
     "author":{  
        "@type":"Person",
-       "name":"${author}"
+       "name":"${seoAuthor}"
     },
     "publisher":{  
        "@type":"Organization",
@@ -124,6 +124,12 @@ export default ({
     }
   )
 
+  const structuredBreadcrumb = `{  
+      "@context":"https://schema.org",
+      "@type":"BreadcrumbList",
+      "itemListElement":[${breadcrumbResult}]  
+      }`
+
   return (
     <Fragment>
       <meta
@@ -154,7 +160,7 @@ export default ({
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: breadcrumbResult }}
+        dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
       />
     </Fragment>
   )

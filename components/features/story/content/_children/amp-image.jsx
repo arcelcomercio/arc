@@ -3,8 +3,8 @@ import React from 'react'
 import Image from '@arc-core-components/element_image'
 
 const classes = {
-  image: 'visual__image visual__image--cover',
-  description: 'news-media-description text-left',
+  image: 'story-content__visual--image',
+  description: 'story-content__news-media-description text-left',
 }
 
 const StoryContentChildAmpImage = props => {
