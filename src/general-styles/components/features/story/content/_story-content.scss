@@ -54,7 +54,7 @@
 
   /* Esto es importante definirlo por los scripts de Opta */
   &__content {
-    &>section {
+    & > section {
       width: 100%;
     }
   }
@@ -73,13 +73,9 @@
     color: $colorTextDescription;
     font-family: $primary-font;
     font-size: 13px;
-    margin: 0;
-    padding-top: 5px;
   }
 
   &__image {
-    margin: 0px;
-
     & figcaption {
       padding: 14px 0px;
       font-size: 13px;
@@ -107,13 +103,13 @@
       width: 100% !important;
       max-width: 500px;
 
-      &>span {
+      & > span {
         width: 100% !important;
 
-        &>[src*='facebook'] {
+        & > [src*='facebook'] {
           width: 100% !important;
 
-          &>[data-testid*='newsFeedStream'] {
+          & > [data-testid*='newsFeedStream'] {
             width: 100% !important;
           }
         }

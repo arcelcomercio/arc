@@ -12,7 +12,6 @@
   &__item {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 80px 1fr;
-    padding: 15px;
     border-bottom: 1px solid $color-silver;
 
     &:last-child {
@@ -90,7 +89,6 @@
     grid-area: triplete__author;
     font-size: 0.7em;
     color: $color-silver;
-    padding-top: 10px;
   }
 
   &__box-icon {

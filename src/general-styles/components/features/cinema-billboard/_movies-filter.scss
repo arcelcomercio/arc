@@ -5,7 +5,6 @@
     padding: $spacing-xlarge;
   }
 
-
   &__title-box {
     margin-bottom: $spacing-normal;
 
@@ -16,7 +15,7 @@
   }
 
   &__filter-box {
-    @media(--desktop) {
+    @media (--desktop) {
       flex-direction: initial;
       border: 1px solid $color-silver;
       padding: 4px;
@@ -32,7 +31,6 @@
   &::before {
     top: 10%;
   }
-
 
   &__label {
     @media (--tablet) {
@@ -58,9 +56,8 @@
     }
   }
 
-
   &__select {
-    background-color: #FFF;
+    background-color: $color-white;
     background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
     background-position: right center;
     background-repeat: no-repeat;

@@ -13,11 +13,11 @@
   }
 
   &__icon {
-    color: #fff;
+    color: $color-white;
   }
 
   &__login-button {
-    color: #fff;
+    color: $color-white;
     font-family: $newsletter-suscription-font;
     font-size: 13px;
     padding: 0 15px;
@@ -25,11 +25,10 @@
 
   &__icon-user {
     color: #f8d002;
-    margin-right: 5px;
   }
 
   &__search-button {
-    background-color: #fff;
+    background-color: $color-white;
     width: 35px;
     height: 35px;
     border: 0;

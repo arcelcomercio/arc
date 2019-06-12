@@ -8,7 +8,7 @@ const classes = {
   boxRight: 'h-full flex items-center',
   loginButton:
     'navbar-somos__login-button font-bold uppercase flex items-center',
-  iconUser: 'icon-user navbar-somos__icon-user',
+  iconUser: 'icon-user navbar-somos__icon-user mr-5',
   searchIcon: 'icon-search navbar-somos__icon',
   searchInput: 'navbar-somos__search-input',
   searchButton: 'navbar-somos__search-button',
