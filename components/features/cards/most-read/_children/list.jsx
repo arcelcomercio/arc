@@ -2,8 +2,8 @@ import React from 'react'
 import CardMostReadItem from './item'
 
 const classes = {
-  mostRead: 'flex flex-col more-read',
-  title: 'more-read__title uppercase font-bold text-center',
+  mostRead: 'flex flex-col most-read',
+  title: 'most-read__title uppercase font-bold text-center',
 }
 
 const CardMostReadChildList = props => {

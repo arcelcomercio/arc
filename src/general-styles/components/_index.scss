@@ -1,5 +1,11 @@
 /******* Globals *******/
-@import './global-components/button';
+@import './global-components/extraordinary-story';
+@import './global-components/featured-story';
+@import './global-components/story-item';
+@import './global-components/pagination-date';
+@import './global-components/icons';
+@import './global-components/pagination';
+
 
 /******* Features *******/
 @import './features/layout/navbar/nav';
@@ -9,17 +15,13 @@
 @import './features/ads/ads';
 @import './features/story/header/story-header';
 @import './features/breaking-news/cintillo-urgente';
-@import './global-components/extraordinary-story';
-@import './global-components/featured-story';
 @import './features/stories-lists/card/list';
 @import './features/cards/triplet/triplet';
-@import './features/separator/basic/separador';
+@import './features/separators/basic/separador';
 @import './features/story/separator/story-separator';
 @import './features/cards/opinion/opinion-card';
-@import './features/cards/more-read/more-read';
-@import './features/cards/more-read/more-read-item';
-@import './global-components/story-item';
-@import './global-components/pagination-date';
+@import './features/cards/most-read/most-read';
+@import './features/cards/most-read/most-read-item';
 @import './features/statics/opinion-grid/author-card';
 @import './features/statics/opinion-grid/editorial-card';
 @import './features/statics/opinion-grid/author-list-item';
@@ -46,7 +48,7 @@
 @import './features/blog/blog-list/blog-item';
 @import './features/blog/blog-list/blog-list';
 @import './features/blog/related-posts-grid/blog-related-stories-grid';
-@import './features/separator/blog/blog-separator';
+@import './features/separators/blog/blog-separator';
 @import './features/cards/survey/card-survey';
 @import './features/cards/survey/card-survey-result';
 @import './features/cards/survey/card-survey-choices';
@@ -64,6 +66,3 @@
 
 @import './features/extraordinary-story/grid/extraordinary-story-grid';
 @import './features/statics/error404/error404';
-
-@import './global-components/icons';
-@import './global-components/pagination';
