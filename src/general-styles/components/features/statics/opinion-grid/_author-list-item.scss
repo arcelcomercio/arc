@@ -76,18 +76,10 @@
   &__name {
     font-size: 20px;
     color: #333;
-
-    @media (--tablet) {
-      font-size: 20px;
-    }
   }
 
   &__subtitle {
     font-size: 13px;
     color: #333;
-
-    @media (--tablet) {
-      //font-size: 17px;
-    }
   }
 }
