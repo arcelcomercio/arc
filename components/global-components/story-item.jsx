@@ -11,11 +11,13 @@ const clases = {
   storyItemBottom: 'story-item__bottom',
   storyItemLeft: 'story-item__left',
   storyItemTitle: 'story-item__title',
-  storyItemSubtitle: 'story-item__subtitle',
+  storyItemSubtitle: 'story-item__subtitle title-xs',
   storyItemAuthor: 'story-item__author',
   storyItemRight: 'story-item__right',
   storyItemIcon: 'story-item__icon',
   storyItemFigure: 'story-item__figure',
+  storyItemLink: 'story-item__link flex-center',
+  storyItemIconImg: 'icon-img story-item__icon',
 }
 
 class StoriesList extends PureComponent {
@@ -59,7 +61,7 @@ class StoriesList extends PureComponent {
             </div>
           </div>
           <div className={clases.storyItemRight}>
-            <a href={element.link}>
+            <a href={element.link} className={clases.storyItemLink}>
               {element.multimediaType.toLowerCase() === 'basic' ||
               element.multimediaType === '' ? (
                 ''
@@ -73,6 +75,7 @@ class StoriesList extends PureComponent {
                 className={clases.storyItemFigure}
                 src={element.multimedia}
               />
+              <i className={clases.storyItemIconImg}></i>
             </a>
           </div>
         </div>

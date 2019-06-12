@@ -22,10 +22,6 @@
   //grid-gap: 10px;
   grid-template-columns: 1fr 1fr;
 
-  a {
-    color: inherit;
-  }
-
   &--bottom {
     @include bottomMultimedia();
   }

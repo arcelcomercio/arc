@@ -3,7 +3,8 @@ import React, { PureComponent } from 'react'
 const classes = {
   containerSearch: 'search-filter__box-search',
   inputSearch: 'search-filter__search',
-  iconSearch: 'icon-search',
+  iconSearch: 'search-filter__btn icon-search',
+  searchInput: 'search-filter__input',
 }
 
 class SearchInput extends PureComponent {
@@ -38,7 +39,7 @@ class SearchInput extends PureComponent {
             type="search"
             placeholder="Buscar"
             aria-label="Campo de búsqueda"
-          />
+            className={classes.searchInput}/>
         </form>
       </div>
     )
