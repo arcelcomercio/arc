@@ -2,7 +2,7 @@ import React from 'react'
 import Multimedia from './multimedia'
 
 const classes = {
-  story: 'stories-list-card__story flex flex-col',
+  story: 'stories-list-card__story flex flex-col w-auto',
   time: 'stories-list-card__time flex justify-center flex-col',
   pageLink: 'stories-list-card__page-link-container flex flex-col',
   textLink: 'stories-list-card__text-link bold',

@@ -5,12 +5,11 @@
   }
 
   &__tag-item {
-    display: inline-block;
     font-family: $primary-font;
+  }
 
-    & a {
-      color: $color-silver;
-    }
+  &__tag-link {
+    color: $color-silver;
   }
 
   .pquote {
@@ -25,20 +24,20 @@
       background: url('../images/openquote.svg') top left no-repeat;
     } */
 
-    & p:first-letter {
+    &__text:first-letter {
       font-size: 39px;
       font-weight: bold;
     }
   }
 
-  & table {
+  & .table {
     width: 100%;
     height: auto;
     border: 1px solid #e6e6e6;
     border-collapse: collapse;
     margin: 15px 0;
 
-    & td {
+    & .table__cell {
       border-right: 1px solid #e6e6e6;
       border-bottom: 1px solid #e6e6e6;
       padding: 2px 4px 1px 4px;
@@ -48,7 +47,7 @@
       font-family: sans-serif;
     }
 
-    & tr:nth-child(even) td {
+    & .table__row:nth-child(even) .table__cell {
       background-color: #e6e6e6;
     }
   }
@@ -76,11 +75,6 @@
     font-size: 13px;
     margin: 0;
     padding-top: 5px;
-  }
-
-  &__visual--image {
-    width: 100%;
-    height: 100%;
   }
 
   &__image {

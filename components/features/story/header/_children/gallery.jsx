@@ -4,9 +4,10 @@ import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
   gallery: 'story-gallery',
-  galleryItem: 'story-gallery__item',
-  galleryNumber: 'story-gallery__number flex items-center justify-center',
-  image: 'story-gallery__img',
+  galleryItem: 'story-gallery__item position-relative',
+  galleryNumber:
+    'story-gallery__number flex items-center justify-center position-absolute',
+  image: 'story-gallery__img w-full h-full',
   caption: 'story-gallery__caption',
 }
 

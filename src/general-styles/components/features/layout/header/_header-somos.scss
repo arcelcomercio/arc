@@ -56,7 +56,6 @@
   left: 0;
   background-color: rgba(0, 0, 0, 0.7);
   width: 0%;
-  height: 100%;
   z-index: 1;
 
   @media (--desktop) {
@@ -70,7 +69,6 @@
   &__content {
     background-color: rgba(0, 0, 0, 0.9);
     width: 255px;
-    overflow-y: scroll;
     transition: all 2ms;
     transform: translate3d(-100%, 0, 0);
 
@@ -113,7 +111,6 @@
 
   &__list {
     margin: 0;
-    display: block;
     padding: 5px 15px;
 
     @media (--desktop) {
@@ -127,8 +124,6 @@
   }
 
   &__item-link {
-    display: none;
-
     @media (--desktop) {
       display: flex;
       align-items: center;
@@ -163,8 +158,6 @@
 
   &__link-icon {
     color: #585858;
-    display: none;
-
     @media (--desktop) {
       display: block;
     }

@@ -12,7 +12,7 @@ const classes = {
   image: 'w-full h-full object-contain object-center',
   icon: 'tv-highlight__icon position-absolute flex justify-center items-center',
   tags: 'tv-highlight__tags',
-  related: 'tv-highlight__related uppercase',
+  related: 'tv-highlight__related uppercase font-bold',
   list: 'flex',
   item: 'tv-highlight__item',
   link: 'tv-highlight__link',

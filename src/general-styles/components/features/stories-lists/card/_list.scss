@@ -1,7 +1,6 @@
 .stories-list-card {
   // FIXME: PLS
   &__header {
-    width: auto;
     padding: 15px 20px;
   }
 
@@ -23,7 +22,6 @@
 
   &__story {
     background-color: $color-white;
-    width: auto;
     padding: $spacing-normal;
     border-bottom: 1px solid #d5e1e1;
 

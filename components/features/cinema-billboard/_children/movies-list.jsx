@@ -6,7 +6,7 @@ const classes = {
   movieList: 'movie-list pb-20',
   top: 'movie-list__top flex items-center justify-center flex-col',
   cinema: 'movie-list__cinema uppercase',
-  address: 'movie-list__address',
+  address: 'movie-list__address font-normal',
   box: 'movie-list__box',
   movieItem: 'movie-item flex flex-col',
   leftSide: 'movie-item__left flex-shrink-0 flex-grow-0 mb-10',

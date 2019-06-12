@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  confirm: 'survey-confirmation position-absolute text-center w-full',
+  confirm: 'survey-confirmation position-absolute text-center w-full h-auto',
   message: 'survey-confirmation__message font-bold',
   button: 'survey-confirmation__button text-center inline-b',
 }

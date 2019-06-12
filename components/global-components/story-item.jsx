@@ -6,14 +6,14 @@ import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
 
 const classes = {
   storyItem: 'story-item w-full',
-  top: 'story-item__top flex',
+  top: 'story-item__top flex items-center',
   section: 'story-item__section uppercase',
-  date: 'story-item__date',
+  date: 'story-item__date font-thin',
   bottom: 'story-item__bottom flex',
   left: 'story-item__left flex flex-col justify-between',
   title: 'story-item__title block overflow hidden',
-  subtitle: 'story-item__subtitle',
-  author: 'story-item__author block uppercase',
+  subtitle: 'story-item__subtitle hidden',
+  author: 'story-item__author block uppercase font-thin',
   right: 'story-item__right position-relative',
   rightLink: 'flex h-full',
   icon: 'story-item__icon position-absolute flex items-center justify-center',

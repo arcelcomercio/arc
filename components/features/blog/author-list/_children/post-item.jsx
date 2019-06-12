@@ -3,12 +3,12 @@ import React from 'react'
 const classes = {
   container: 'post-item flex secondary-font flex-col-reverse h-auto', // aqui
   date: 'post-item__date flex justify-start',
-  content: 'post-item__content flex',
+  content: 'post-item__content flex flex-row-reverse justify-between',
   figure: 'post-item__figure',
   image: 'post-item__image object-cover',
   description: 'post-item__description flex flex-col justify-between',
-  title: 'post-item__title uppercase',
-  author: 'post-item__author',
+  title: 'post-item__title uppercase font-normal',
+  author: 'post-item__author font-normal',
 }
 
 const AuthorListChildPostItem = ({

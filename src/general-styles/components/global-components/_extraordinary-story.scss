@@ -78,14 +78,11 @@
     align-content: space-evenly;
     //vertical center
     //align-items: center;
-
-    div {
-      margin-bottom: 15px;
-    }
   }
 
   &__title {
     display: -webkit-box;
+    margin-bottom: 15px;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
@@ -107,27 +104,21 @@
   }
 
   &__subtitle {
+    margin-bottom: 15px;
     color: $color-silver;
   }
 
   &__author {
     font-size: 0.7em;
     color: $color-silver;
+    margin-bottom: 15px;
   }
 
   &__multimedia {
     grid-area: extraordinary-story-multimedia;
     background-color: $color-gray;
 
-    img {
-      width: 100%;
-    }
-
-    div {
-      width: 100%;
-    }
-
-    iframe {
+    .youtube-iframe {
       min-height: 370px;
     }
   }

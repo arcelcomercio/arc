@@ -19,6 +19,7 @@ const EmbedMultimedia = props => {
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         title="Youtube"
         allowFullScreen
+        className="youtube-iframe"
       />
     )
   }
@@ -32,7 +33,7 @@ const EmbedMultimedia = props => {
         data-org={website}
         data-uuid={multimediaSource}
         data-aspect-ratio="0.562"
-        className="powa"
+        className="w-full"
       />
     )
   }

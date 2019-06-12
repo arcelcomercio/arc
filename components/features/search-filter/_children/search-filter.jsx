@@ -145,7 +145,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
       }`,
       itemTime: `search-filter__item ${selected === 'time' ? 'selected' : ''}`,
       link: 'search-filter__link flex uppercase w-full',
-      subList: 'search-filter__sublist w-full active',
+      subList: 'search-filter__sublist hidden w-full flex-col active',
       subItem: 'search-filter__subitem flex items-center position-relative',
       subLink: 'search-filter__sublink capitalize w-full',
     }

@@ -4,7 +4,8 @@ import UtilListKey from '../../../../utilities/list-keys'
 const classes = {
   tagsName: '__tags',
   titulo: '__tag-title uppercase mb-5',
-  item: '__tag-item text-sm mr-10 mb-5',
+  item: '__tag-item text-sm mr-10 mb-5 inline-b',
+  link: '__tag-link',
 }
 const StoryContentChildTags = props => {
   const { data, className: classTags, contextPath } = props
@@ -19,7 +20,11 @@ const StoryContentChildTags = props => {
               <h2
                 key={UtilListKey(idx)}
                 className={`${classTags}${classes.item}`}>
-                <a href={slug && `${contextPath}/noticias/${slug}`}>{text}</a>
+                <a
+                  className={`${classTags}${classes.link}`}
+                  href={slug && `${contextPath}/noticias/${slug}`}>
+                  {text}
+                </a>
               </h2>
             )
         )}
