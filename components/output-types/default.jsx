@@ -100,14 +100,11 @@ export default ({
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
         <title>{title}</title>
-        {/* TODO: Validar con la nueva platilla
-         <link rel="dns-prefetch" href="//ecoid.pe" />
+        <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" /> 
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />        
-        */}
-
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link
           href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap"
           rel="stylesheet"
