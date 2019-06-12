@@ -5,7 +5,7 @@ const classes = {
   item: 'story-separator__item separator__item--nota flex justify-between',
   detail: 'story-separator__detail',
   separatorCategory: 'story-separator__category',
-  separatorTitle: 'story-separator__title story-separator__title--nota',
+  separatorTitle: 'story-separator__title story-separator__title--nota overflow-hidden',
   titleLink: '',
   itemImage: 'w-full h-full object-cover',
   oneline: 'story-separator-oneline',
