@@ -2,10 +2,10 @@ import React from 'react'
 import Multimedia from './multimedia'
 
 const classes = {
-  story: 'stories-list-card__story flex flex--column',
-  time: 'stories-list-card__time flex flex--justify-center flex--column',
-  pageLink: 'stories-list-card__page-link flex flex--column',
-  bold: 'bold',
+  story: 'stories-list-card__story flex pd-top-10 pd-bottom-10',
+  time: 'stories-list-card__time',
+  pageLink: 'stories-list-card__page-link pd-left-15',
+  bold: 'bold stories-list-card__link-title',
 }
 
 const StoriesListsCardChildItem = ({

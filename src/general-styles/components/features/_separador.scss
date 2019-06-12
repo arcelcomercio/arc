@@ -4,26 +4,23 @@
   grid-template-columns: 1fr;
   width: 100%;
   //height: 300px;
-  border: 1px solid $color-soft;
+  border: 2px solid $color-soft;
   padding: 0px 15px 15px;
 
   &__title {
     display: -webkit-box;
     max-height: 57.63px;
-    font-size: 17px;
     line-height: 1.13;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    font-family: $secondary-font;
+    font-family: $primary-font;
+    overflow: hidden;
 
-    & a {
-      color: $color-white;
-      text-decoration: none;
-    }
-
-    & a:hover {
-      text-decoration-line: underline;
+    &--nota {
+      & a {
+        color: #333;
+      }
     }
 
     &--nota {
@@ -32,7 +29,13 @@
       }
     }
   }
-
+  &__link {
+    color: $color-white;
+    text-decoration: none;
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
   &__header-html {
     height: 70px;
     width: 300px;
@@ -195,7 +198,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      top: 0;
+      bottom: 0;
       left: 0;
       background: linear-gradient(to bottom,
           rgba(255, 255, 255, 0) 50%,
@@ -276,35 +279,6 @@
   &__threeline {
     max-height: 60px;
     -webkit-line-clamp: 3;
-  }
-
-  &__title {
-    display: -webkit-box;
-    font-size: 17px;
-    line-height: 1.13;
-    color: white;
-
-    /* autoprefixer: off */
-    -webkit-box-orient: vertical;
-    /* autoprefixer: on */
-    overflow: hidden;
-
-    font-family: 'ChronicleDisplayBold', Times New Roman, serif;
-
-    & a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    & a:hover {
-      text-decoration-line: underline;
-    }
-
-    &--nota {
-      & a {
-        color: #333;
-      }
-    }
   }
 
   &--nota {

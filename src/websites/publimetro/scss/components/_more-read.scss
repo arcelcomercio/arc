@@ -1,0 +1,13 @@
+.more-read {
+  &__title {
+    color: $color-white;
+    background-color: $color-gray-light;
+  }
+  &__icon::before {
+    background-color: $color-primary;
+    color: $color-white;
+    padding: 5px;
+    border-radius: 50px;
+    font-size: 17px;
+  }
+}

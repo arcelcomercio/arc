@@ -3,7 +3,8 @@ import CardMostReadItem from './item'
 
 const classes = {
   mostRead: 'flex flex--column more-read',
-  title: 'more-read__title',
+  title: 'more-read__title flex-center-vertical flex--justify-between',
+  icon: 'more-read__icon icon-',
 }
 
 const CardMostReadChildList = props => {
@@ -11,7 +12,10 @@ const CardMostReadChildList = props => {
 
   return (
     <div className={classes.mostRead}>
-      <h4 className={classes.title}>Lo más visto</h4>
+      <h4 className={classes.title}>
+        Lo más visto <span className={classes.icon} />{' '}
+      </h4>
+
       {stories.map((item, i) => {
         const key = `most-read-${i}-${item.id}`
         const params = { item, viewImage }

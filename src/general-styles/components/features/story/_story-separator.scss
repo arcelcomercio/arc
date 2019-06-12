@@ -201,22 +201,19 @@
 
     font-family: 'ChronicleDisplayBold', Times New Roman, serif;
 
-    & a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    & a:hover {
-      text-decoration-line: underline;
-    }
-
     &--nota {
       & a {
         color: #333;
       }
     }
   }
-
+  &__link {
+    color: $color-white;
+    text-decoration: none;
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
   &__img {
     object-fit: cover;
     height: 100%;

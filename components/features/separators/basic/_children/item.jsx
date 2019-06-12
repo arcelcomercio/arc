@@ -4,6 +4,7 @@ const classes = {
   item: 'separator__item',
   detail: 'separator__detail',
   separatorTitle: 'separator__title',
+  separatorLink: 'separator__link title-xs',
   mvideo: 'separator--video',
 }
 
@@ -14,7 +15,7 @@ export default ({ title, imageUrl, typeNote, link, numline }) => {
       {typeNote === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
         <h2 className={`${classes.separatorTitle} ${numline}`}>
-          <a href={link}>{title}</a>
+          <a className={classes.separatorLink}href={link}>{title}</a>
         </h2>
       </div>
       <figure>

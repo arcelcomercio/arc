@@ -3,23 +3,27 @@ import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 
 const classes = {
-  featuredStory: 'featured-story position-relative padding-normal flex',
-  detail: 'featured-story__detail flex flex--column flex--justify-between',
-  image: 'featured-story__image overflow-hidden full-width full-height',
-  multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
-  multimediaIconSpan:
-    'featured-story__multimedia-icon-span flex-center full-width full-height',
+  featuredStory: 'featured-story position-relative flex',
 
-  category: 'featured-story__category pd-bottom-15',
-  title: 'featured-story__title overflow-hidden',
+  detail:
+    'featured-story__detail padding-normal flex flex--column flex--justify-between',
+  image: 'featured-story__image',
+  multimediaIconContainer: 'featured-story__multimedia-icon',
+  multimediaIconSpan: 'featured-story__multimedia-icon-span',
+
+  category: 'featured-story__category text-capitalize pd-bottom-15',
+  title: 'featured-story__title',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
-  author: 'featured-story__author text-uppercase',
+  author: 'featured-story__author',
+  linkAuthor: 'featured-story__author-link text-uppercase',
 
-  link: 'featured-story__link',
-  imageLink: 'block full-height',
-  img: 'full-width full-height object-fit-cover',
+  link: 'featured-story__link title-xs',
+  linkTitle: 'featured-story__title-link title-lg text-capitalize',
+  imageLink: 'block full-height featured-story__img-link flex-center',
+  img: 'full-width full-height object-fit-cover featured-story__img',
+  imageIcon: 'featured-story__img-icon icon-img',
 
   imgComplete: 'img-complete flex--justify-end',
   parcialTop: 'featured-story--reverse',
@@ -147,7 +151,7 @@ export default class FeaturedStory extends Component {
           </h2>
 
           <span className={classes.author}>
-            <a className={classes.link} href={author.url}>
+            <a className={classes.linkAuthor} href={author.url}>
               {author.name}
             </a>
           </span>
@@ -156,6 +160,7 @@ export default class FeaturedStory extends Component {
           <a className={classes.imageLink} href={title.url}>
             <img src={image} className={classes.img} alt="" />
             {getMultimediaIcon()}
+            <i className={`${classes.imageIcon}`} />
           </a>
         </figure>
       </article>

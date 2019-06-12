@@ -4,13 +4,21 @@ $backgroundTitle: #5f72a7;
 .more-read {
   padding: 0 15px;
   &__title {
-    color: $colorTitle;
+    padding: 10px 20px;
     background-color: $backgroundTitle;
-    padding: 15px 10px;
+    color: $colorTitle;
     text-transform: uppercase;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
   }
+  &__icon::before {
+    content: '\e911';
+    color: $color-white;
+    padding: 5px;
+    border-radius: 50px;
+    font-size: 17px;
+  }
+
   @media (--desktop) {
     padding: 0;
   }
