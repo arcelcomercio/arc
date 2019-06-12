@@ -2,15 +2,18 @@ import React from 'react'
 // import { addResizedUrlItem } from '../../../../utilities/thumbs'
 
 const classes = {
-  item: 'story-separator__item separator__item--nota flex justify-between',
-  detail: 'story-separator__detail',
-  separatorCategory: 'story-separator__category',
-  separatorTitle: 'story-separator__title story-separator__title--nota',
+  item:
+    'story-separator__item separator__item--nota flex justify-between w-full position-relative pt-0 pr-10 pb-0 pl-0',
+  detail: 'story-separator__detail w-full',
+  separatorCategory: 'story-separator__category mb-5',
+  separatorTitle:
+    'story-separator__title story-separator__title--nota overflow-hidden',
   titleLink: '',
   itemImage: 'w-full h-full object-cover',
   oneline: 'story-separator-oneline',
   twoline: 'story-separator-twoline',
   threeline: 'story-separator-threeline text-left',
+  figure: 'story-separator__figure pt-0 pr-0 pb-0 pl-0 mt-0 mr-0 mb-0 ml-0',
 }
 
 const StorySeparatorChildItem = ({ data, contextPath, arcSite }) => {
@@ -50,7 +53,7 @@ const StorySeparatorChildItem = ({ data, contextPath, arcSite }) => {
           </a>
         </h3>
       </div>
-      <figure>
+      <figure className={classes.figure}>
         {link && (
           <a href={`${contextPath}${link}`}>
             <img
