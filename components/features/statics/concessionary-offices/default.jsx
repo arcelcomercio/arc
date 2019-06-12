@@ -6,10 +6,10 @@ import Markers from './_dependencies/markers'
 const classes = {
   concessionaires: 'concessionaires w-full position-relative',
   arrow: 'concessionaires__arrow position-absolute',
-  container: 'concessionaires__container w-full m-0 mx-auto pt-50 pr-20 pl-20',
+  container: 'concessionaires__container w-full m-0 mx-auto pr-20 pl-20',
   title: 'concessionaires__title text-center font-bold',
   info: 'concessionaires__info text-center mt-10 mb-40 mx-auto',
-  locations: 'concessionaires__locations mb-50 pt-25',
+  locations: 'concessionaires__locations pt-25',
   search: 'concessionaires__search flex mb-20 flex-col',
   searchTitle:
     'concessionaires__search-title uppercase font-bold text-center pt-15 pr-20 pl-20',
