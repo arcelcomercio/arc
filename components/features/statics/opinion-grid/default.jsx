@@ -35,7 +35,7 @@ class StaticOpinionGrid extends PureComponent {
         <div className={classes.title}>
           <CustomTitle />
         </div>
-        <div className={classes.container}>
+        <div role="list" className={classes.container}>
           {stories.slice(0, 12).map(story => {
             data.__data = story
             const { taxonomy: { primary_section: { name } = '' } = {} } =
@@ -54,7 +54,7 @@ class StaticOpinionGrid extends PureComponent {
             )
           })}
         </div>
-        <div className={classes.list}>
+        <div role="list" className={classes.list}>
           <div className={classes.titleBox}>
             <p className={classes.title}>ÚLTIMAS NOTICIAS</p>
           </div>

@@ -1,23 +1,25 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 
 const classes = {
-  featuredStory: 'featured-story position-relative p-20 flex',
+  featuredStory:
+    'featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex',
   detail:
-    'featured-story__detail flex flex-col justify-between position-relative',
-  image: 'featured-story__image overflow-hidden w-full h-full',
+    'featured-story__detail flex flex-col justify-between position relative',
+  image: 'featured-story__image overflow-hidden w-full h-full ml-10',
   multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
   multimediaIconSpan:
     'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full',
 
-  category: 'featured-story__category hidden pb-15',
-  title: 'featured-story__title overflow-hidden',
+  category: 'featured-story__category pb-15 hidden',
+  title: 'featured-story__title overflow-hidden mb-10',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
   author: 'featured-story__author uppercase',
-  authorLink: 'featured-story__author-link',
+  authorLink: 'featured-story__link--author',
+
   link: 'featured-story__link',
   imageLink: 'block h-full',
   img: 'w-full h-full object-cover',
@@ -36,7 +38,7 @@ const classes = {
   galleryIcon: 'featured-story__gallery-icon',
 }
 
-export default class FeaturedStory extends Component {
+export default class FeaturedStory extends PureComponent {
   render() {
     const {
       category, // Se espera un objeto {name: '', url: ''}

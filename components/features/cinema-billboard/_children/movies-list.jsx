@@ -3,11 +3,11 @@ import BillboardFormat from '../../../utilities/billboard-format'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  movieList: 'movie-list pb-20',
-  top: 'movie-list__top flex items-center justify-center flex-col',
-  cinema: 'movie-list__cinema uppercase',
+  movieList: 'movie-list pb-20 m-0 mx-auto',
+  top: 'movie-list__top flex items-center justify-center flex-col pt-30 pb-30',
+  cinema: 'movie-list__cinema uppercase primary-font',
   address: 'movie-list__address font-normal',
-  box: 'movie-list__box',
+  box: 'movie-list__box p-20',
   movieItem: 'movie-item flex flex-col',
   leftSide: 'movie-item__left flex-shrink-0 flex-grow-0 mb-10',
   imageBox: 'block w-full',

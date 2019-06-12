@@ -8,13 +8,7 @@
     width: 200px;
   }
 
-  &__title {
-    margin-bottom: 10px;
-  }
-
   &__information {
-    padding: 20px 0px;
-
     @media (--tablet) {
       background-color: $color-soft;
       padding: 20px 10px;
@@ -29,6 +23,5 @@
     margin-left: -15px;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50px;
-    padding: 5px;
   }
 }

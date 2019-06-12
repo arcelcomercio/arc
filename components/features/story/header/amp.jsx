@@ -5,10 +5,10 @@ import { formatDayMonthYear } from '../../../utilities/helpers'
 import StoryHeaderChildAmpSocial from './_children/amp-social'
 
 const classes = {
-  stories: 'story-header-amp',
-  titleAmp: 'story-header-amp__title font-bold',
-  datetime: 'story-header-amp__datetime block',
-  description: 'story-header-amp__description',
+  news: 'story-header-amp pr-20 pl-20 m-5 mx-auto',
+  titleAmp: 'story-header-amp__title font-bold primary-font',
+  datetime: 'story-header-amp__datetime mt-15 mb-15 block secondary-font',
+  description: 'story-header-amp__description mt-0',
   gallery: 'story-header-amp w-full',
 }
 @Consumer

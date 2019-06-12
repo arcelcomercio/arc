@@ -3,10 +3,10 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 const classes = {
-  footer: 'amp-footer flex items-center',
-  footerInfo: 'amp-footer__info ',
+  footer: 'amp-footer flex items-center pt-25 pb-25',
+  footerInfo: 'amp-footer__info m-0 mx-auto',
   footerLogoContainer:
-    'amp-footer__text font-bold uppercase inline-b primary-font',
+    'amp-footer__text font-bold uppercase inline-b primary-font pr-25',
 }
 
 @Consumer

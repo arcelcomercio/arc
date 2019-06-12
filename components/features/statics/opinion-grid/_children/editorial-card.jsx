@@ -14,7 +14,7 @@ const classes = {
 
 const OpinionGridEditorialCard = ({ data: story }) => {
   return (
-    <div className={classes.card}>
+    <div role="listitem" className={classes.card}>
       <div className={classes.wrapper}>
         <h4 className={classes.group}>{story.section}</h4>
         <h2>

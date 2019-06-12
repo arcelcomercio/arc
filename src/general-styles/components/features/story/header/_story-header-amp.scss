@@ -1,26 +1,19 @@
 .story-header-amp {
   background-color: $color-white;
-  padding-left: 20px;
-  padding-right: 20px;
   max-width: 600px;
-  margin: 5px auto;
 
   &__title {
     font-size: 24px;
     color: #333;
     line-height: 29px;
-    font-family: $primary-font;
   }
 
   &__datetime {
     font-size: 16px;
-    margin: 15px 0;
-    font-family: 'Roboto Condensed', sans-serif;
     color: #666;
   }
 
   &__description {
-    margin-top: 0;
     font-size: 15px;
     color: #323232;
   }
@@ -39,7 +32,6 @@
   &__share {
     font-size: 12px;
     fill: $color-white;
-    margin-left: 10px;
   }
 
   .story-gallery {

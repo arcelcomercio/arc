@@ -131,7 +131,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
       }`,
       selectName: 'search-filter__select-name flex w-full justify-between',
       iconButton: 'icon-angle-down',
-      list: `search-filter__list hidden position-absolute w-full flex-col ${
+      list: `search-filter__list left-0 hidden position-absolute w-full flex-col ${
         showList ? 'active' : ''
       }`,
       iemDesc: `search-filter__item ${

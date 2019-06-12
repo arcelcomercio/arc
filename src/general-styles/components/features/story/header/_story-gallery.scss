@@ -1,13 +1,7 @@
 .story-gallery {
-  padding-top: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
   @media (--tablet) {
     padding-left: 0;
     padding-right: 0;
-  }
-  &__item {
-    margin-top: 30px;
   }
   &__number {
     width: 50px;
@@ -16,9 +10,6 @@
     background-color: $color-white;
     top: -25px;
     left: 25px;
-  }
-  &__img {
-    margin-bottom: 10px;
   }
   &__caption {
     font-size: $font-sm;

@@ -52,7 +52,6 @@ $image-height: 157px;
 }
 
 .featured-story {
-  padding: 10px 20px;
   letter-spacing: 0.05em;
 
   &::before,
@@ -103,7 +102,6 @@ $image-height: 157px;
   &__image {
     width: 40%;
     height: 75px;
-    margin-left: 10px;
 
     @media (--tablet) {
       height: $image-height;
@@ -133,7 +131,6 @@ $image-height: 157px;
   }
 
   &__title {
-    margin-bottom: 8px;
     font-size: 21px;
     line-height: 1.2;
   }
@@ -157,11 +154,6 @@ $image-height: 157px;
     margin-top: auto;
   }
 
-  &__author-link {
-    font-size: $font-xs;
-    color: $text-secondary;
-  }
-
   &__link {
     display: -webkit-box;
     font-size: $font-md;
@@ -172,6 +164,11 @@ $image-height: 157px;
 
     @media (--tablet) {
       font-size: $header-md;
+    }
+
+    &--author {
+      font-size: $font-xs;
+      color: $text-secondary;
     }
   }
 

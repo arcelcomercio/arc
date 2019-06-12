@@ -1,9 +1,6 @@
 .story-item {
   height: 125px;
-  padding: 0 20px;
-  padding-bottom: 20px;
   border-bottom: solid 1px #a9a9a9;
-  margin-bottom: 20px;
 
   &:nth-last-child(1) {
     margin-bottom: 0;
@@ -39,7 +36,6 @@
 
   &__date {
     color: #a9a9a9;
-    margin-left: 5px;
     font-size: 10px;
 
     @media (--tablet) {
@@ -49,19 +45,13 @@
     }
   }
 
-  &__bottom {
-    margin-top: 10px;
-  }
-
   &__left {
     flex: 100% 1 1;
-    padding-right: 10px;
   }
 
   &__title {
     color: #000;
     font-size: 14px;
-    font-family: $secondary-font;
     max-height: 42px;
 
     @media (--tablet) {
@@ -76,9 +66,7 @@
   }
 
   &__subtitle {
-    font-family: $secondary-font;
     font-size: 14px;
-    margin-top: 10px;
     line-height: 1.2;
     color: #a9a9a9;
 
@@ -89,7 +77,6 @@
 
   &__author {
     font-size: 11px;
-    margin-top: 10px;
     color: #a9a9a9;
   }
 

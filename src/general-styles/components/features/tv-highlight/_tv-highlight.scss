@@ -1,5 +1,4 @@
 .tv-highlight {
-  padding: 20px 0;
   background-color: #333;
 
   @media (--tablet) {
@@ -9,26 +8,15 @@
   &__container {
     width: 90%;
     max-width: 800px;
-    margin: 0 auto;
-  }
-
-  &__box-title {
-    margin-bottom: 10px;
   }
 
   &__title {
     font-size: 24px;
     color: $color-white;
-    font-family: $secondary-font;
 
     @media (--tablet) {
       font-size: 32px;
     }
-  }
-
-  &__box-sub {
-    padding: 15px 0;
-    margin-bottom: 10px;
   }
 
   &__section {
@@ -73,19 +61,12 @@
     }
   }
 
-  &__tags {
-    margin-top: 15px;
-  }
-
   &__related {
-    margin-bottom: 5px;
     font-size: 12px;
     color: #4aa8fa;
   }
 
   &__item {
-    margin-right: 15px;
-
     &:nth-last-child(1) {
       margin-right: 0;
     }

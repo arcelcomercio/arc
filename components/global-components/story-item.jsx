@@ -5,15 +5,15 @@ import StoryData from '../utilities/story-data'
 import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
 
 const classes = {
-  storyItem: 'story-item w-full',
+  storyItem: 'story-item w-full pr-20 pl-20 pb-20 mb-20',
   top: 'story-item__top flex items-center',
   section: 'story-item__section uppercase',
-  date: 'story-item__date font-thin',
-  bottom: 'story-item__bottom flex',
-  left: 'story-item__left flex flex-col justify-between',
-  title: 'story-item__title block overflow hidden',
-  subtitle: 'story-item__subtitle hidden',
-  author: 'story-item__author block uppercase font-thin',
+  date: 'story-item__date font-thin ml-5',
+  bottom: 'story-item__bottom flex mt-10',
+  left: 'story-item__left flex flex-col justify-between pr-10',
+  title: 'story-item__title block overflow hidden secondary-font',
+  subtitle: 'story-item__subtitle hidden secondary-font mt-10',
+  author: 'story-item__author block uppercase mt-10 font-thin',
   right: 'story-item__right position-relative',
   rightLink: 'flex h-full',
   icon: 'story-item__icon position-absolute flex items-center justify-center',

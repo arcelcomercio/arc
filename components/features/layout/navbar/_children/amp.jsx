@@ -4,7 +4,8 @@ import AmpSocial from '../../../story/header/_children/amp-social'
 import Menu from './amp-menu'
 
 const classes = {
-  nav: 'amp-nav text-sm w-full flex flex items-center font-bold',
+  nav:
+    'amp-nav top-0 text-sm w-full flex flex items-center font-bold font-secondary',
   wrapper:
     'flex items-center justify-between amp-nav__wrapper w-full h-inherit',
   iconMenu: 'amp-nav__hamburguer position-absolute',
