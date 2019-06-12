@@ -4,7 +4,7 @@ import Image from '@arc-core-components/element_image'
 
 const classes = {
   image: 'w-full h-full',
-  description: 'story-content__news-media-description text-left',
+  description: 'story-content__news-media-description text-left m-0 pt-5',
 }
 
 const StoryContentChildImage = ({ data }) => {

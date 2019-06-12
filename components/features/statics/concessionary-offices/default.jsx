@@ -16,7 +16,7 @@ const classes = {
   form: 'flex',
   zona: 'concessionaires__controls flex mr-15 flex-col',
   label: 'concessionaires__label block text-center',
-  select: 'concessionaires__select',
+  select: 'concessionaires__select pl-15',
   district: 'concessionaires__controls flex',
   districtLabel: 'concessionaires__label',
   mapTitle: 'concessionaires__map-title font-thin mt-10 mb-10',
