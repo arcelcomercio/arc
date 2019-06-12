@@ -16,7 +16,7 @@ const classes = {
 
 const OpinionGridListItem = ({ data: story }) => {
   return (
-    <div className={classes.authorItem}>
+    <div role="listitem" className={classes.authorItem}>
       <div className={classes.wrapper}>
         <div className={classes.social}>
           <span className={`${classes.date} mobile`}>

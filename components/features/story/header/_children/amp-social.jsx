@@ -6,7 +6,7 @@ import {
 } from '../../../../utilities/helpers'
 
 const classes = {
-  share: 'story-header-amp__share',
+  share: 'story-header-amp__share ml-10',
   link: 'flex items-center justify-center w-full h-full',
   list: 'story-header-amp__list flex',
   item: 'story-header-amp__item',

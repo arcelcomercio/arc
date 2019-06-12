@@ -1,5 +1,4 @@
 .header-somos {
-  padding: 10px;
   background-color: $color-white;
   border-bottom: 1px solid #ababab;
   border-top: 1px solid #ababab;
@@ -8,8 +7,10 @@
     border-top: none;
     padding: 15px 10px;
   }
+
   &__img {
     width: 115px;
+
     @media (--desktop) {
       width: 180px;
     }
@@ -29,7 +30,6 @@
     background-color: $color-black;
     border-radius: 50%;
     height: 50px;
-    right: 0;
     width: 50px;
     // display: flex;
 
@@ -51,12 +51,8 @@
 }
 
 .somos-menu {
-  // position: absolute;
-  top: 0;
-  left: 0;
   background-color: rgba(0, 0, 0, 0.7);
   width: 0%;
-  height: 100%;
   z-index: 1;
 
   @media (--desktop) {
@@ -70,7 +66,6 @@
   &__content {
     background-color: rgba(0, 0, 0, 0.9);
     width: 255px;
-    overflow-y: scroll;
     transition: all 2ms;
     transform: translate3d(-100%, 0, 0);
 
@@ -88,8 +83,6 @@
   }
 
   &__search {
-    padding: 15px 10px 0;
-
     @media (--desktop) {
       display: none;
     }
@@ -101,7 +94,6 @@
     color: $color-white;
     height: 32px;
     font-size: 13px;
-    padding: 0 10px;
   }
 
   &__search-icon {
@@ -112,23 +104,13 @@
   }
 
   &__list {
-    margin: 0;
-    display: block;
-    padding: 5px 15px;
-
     @media (--desktop) {
       display: flex;
       justify-content: space-between;
     }
   }
 
-  &__item {
-    padding: 15px 0;
-  }
-
   &__item-link {
-    display: none;
-
     @media (--desktop) {
       display: flex;
       align-items: center;
@@ -163,7 +145,6 @@
 
   &__link-icon {
     color: #585858;
-    display: none;
 
     @media (--desktop) {
       display: block;
@@ -171,8 +152,6 @@
   }
 
   &__login {
-    padding: 20px 10px 0;
-
     @media (--desktop) {
       display: none;
     }
@@ -180,7 +159,6 @@
 
   &__login-icon {
     color: $color-primary;
-    margin-right: 10px;
   }
 
   &__login-text {
@@ -190,7 +168,6 @@
 
   &__close {
     height: 50px;
-    padding: 15px 10px 0;
 
     @media (--desktop) {
       display: none;

@@ -1,19 +1,12 @@
 .story-content-amp {
   background-color: $color-white;
   max-width: 600px;
-  margin: 0 auto;
+
   &__news-text {
     color: #333;
-    font-family: 'Roboto', sans-serif;
-    margin: 13px 0;
     font-size: 18px;
     line-height: 1.5;
-    margin-bottom: 25px;
     word-wrap: break-word;
-  }
-
-  &__author {
-    margin: 13px 0;
   }
 
   &__image {
@@ -40,8 +33,7 @@
     padding: 13px;
 
     &__pull {
-      background: url('https://elcomercio.pe/uploads/2019/05/23/5ce70bbecc85c.svg')
-        top left no-repeat;
+      background: url('https://elcomercio.pe/uploads/2019/05/23/5ce70bbecc85c.svg') top left no-repeat;
     }
 
     & p:first-letter {
@@ -78,23 +70,5 @@
 
   .amp-active {
     height: 0%;
-  }
-
-  &__tag-title {
-    color: #4aa8fa;
-    font: 700 12px/1 $primary-font;
-  }
-
-  &__tags {
-    margin: 25px 0 20px;
-  }
-
-  &__tag-item {
-    display: inline-block;
-    font-family: $primary-font;
-
-    & a {
-      color: $color-silver;
-    }
   }
 }

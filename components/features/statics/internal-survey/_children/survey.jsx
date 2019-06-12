@@ -1,29 +1,29 @@
-import React, { Component } from 'react'
-import ItemInput from './item-input'
-import ViewResult from './view-result'
-import ViewSurveyConfirm from './view-confirm'
+import React, { PureComponent } from 'react'
+import InternalSurveyChildInput from './input'
+import InternalSurveyChildResult from './result'
+import InternalSurveyChildConfirmation from './confirmation'
 import UtilListKey from '../../../../utilities/list-keys'
 import DateNameFunc from '../../../../utilities/date-name'
 
 const classes = {
-  InternalSurvey: 'internal-survey grid primary-font',
-  detail: 'internal-survey__detail position-relative',
+  InternalSurvey: 'internal-survey grid primary-font p-30 mb-30',
+  detail: 'internal-survey__detail position-relative pr-30 pl-30',
   result: 'internal-survey__result grid justify-center position-relative',
-  date: 'internal-survey__date block',
+  date: 'internal-survey__date block mt-15 mb-15',
   title: 'internal-survey__title inline font-bold',
   buttons:
-    'internal-survey__buttons grid justify-between overflow-hidden font-bold primary-font',
+    'internal-survey__buttons grid justify-between overflow-hidden font-bold primary-font mt-20 mb-20',
   buttonpool: 'internal-survey__button-pool font-bold uppercase',
   viewresult: 'internal-survey__view-result block text-center',
   share: 'internal-survey__share',
   disable: 'internal-survey__disable',
-  nav: 'internal-survey__nav',
-  navprev: 'internal-survey__nav-prev',
-  navnex: 'internal-survey__nav-next',
-  slug: 'internal-survey__slug h-full position-absolute text-center',
-  icoprev: 'internal-survey__nav-ico-prev block position-absolute w-full',
+  nav: 'internal-survey__nav hidden',
+  navprev: 'internal-survey__nav-prev left-0',
+  navnex: 'internal-survey__nav-next right-0',
+  icon: 'internal-survey__icon block position-absolute w-full left-0',
+  slug: 'internal-survey__slug h-full position-absolute text-center top-0',
 }
-class SurveyInternalChildSurvey extends Component {
+class InternalSurveyChildSurvey extends PureComponent {
   constructor() {
     super()
     this.state = {
@@ -111,12 +111,12 @@ class SurveyInternalChildSurvey extends Component {
               <a
                 href={urlPrev}
                 className={`${classes.navprev} ${classes.slug}`}>
-                <i className={classes.icoprev}> prev </i>
+                <i className={classes.icon}> prev </i>
               </a>
             )}
             {next && (
               <a href={urlNext} className={`${classes.navnex} ${classes.slug}`}>
-                <i className={classes.icoprev}> next </i>
+                <i className={classes.icon}> next </i>
               </a>
             )}
           </div>
@@ -126,7 +126,7 @@ class SurveyInternalChildSurvey extends Component {
           <form action="">
             <ul>
               {choices.map((choice, index) => (
-                <ItemInput
+                <InternalSurveyChildInput
                   key={UtilListKey(index)}
                   value={choice.option}
                   index={`item${choice.option}${index}`}
@@ -152,10 +152,15 @@ class SurveyInternalChildSurvey extends Component {
         </div>
         <div className={classes.result}>
           {flagViewResult && optionsList && (
-            <ViewResult choices={optionsList} sharelinks={sharelinks} />
+            <InternalSurveyChildResult
+              choices={optionsList}
+              sharelinks={sharelinks}
+            />
           )}
           {flagViewSurveyConfirm && (
-            <ViewSurveyConfirm handleOnClickViewResult={this.viewResult} />
+            <InternalSurveyChildConfirmation
+              handleOnClickViewResult={this.viewResult}
+            />
           )}
         </div>
       </div>
@@ -163,4 +168,4 @@ class SurveyInternalChildSurvey extends Component {
   }
 }
 
-export default SurveyInternalChildSurvey
+export default InternalSurveyChildSurvey

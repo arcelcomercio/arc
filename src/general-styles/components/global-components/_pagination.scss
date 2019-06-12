@@ -1,12 +1,6 @@
 $color-page: #777;
 
 .pagination {
-  width: 100%;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 15px;
-
   @media (--tablet) {
     width: 60%;
     justify-content: space-between;
@@ -19,7 +13,6 @@ $color-page: #777;
     color: $color-page;
     padding: 3px 7px;
     font-size: 14px;
-    height: 100%;
 
     &--current {
       background: #000;

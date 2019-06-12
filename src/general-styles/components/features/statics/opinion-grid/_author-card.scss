@@ -19,8 +19,6 @@
   }
 
   &__box-image {
-    padding: 15px 10px;
-
     @media (--tablet) {
       padding: 0;
       width: 140px;
@@ -35,8 +33,6 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    object-fit: cover;
-    object-position: top;
     background-color: #fff;
 
     @media (--tablet) {
@@ -72,16 +68,6 @@
     @media (--tablet) {
       font-size: 18px;
       width: 70%;
-    }
-  }
-
-  &__social {
-    display: none;
-
-    @media (--tablet) {
-      display: flex;
-      align-items: center;
-      margin-top: 15px;
     }
   }
 }

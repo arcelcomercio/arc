@@ -13,10 +13,9 @@ import StoryContentChildTags from './_children/tags'
 import StoryContentChildRelated from './_children/related'
 
 const classes = {
-  content: 'story-content-amp pl-20 pr-20',
-  textClasses: 'story-content-amp__news-text text',
-  author: 'story-content-amp__author',
-  tags: 'story-content-amp',
+  content: 'story-content-amp pl-20 pr-20 m-0 mx-auto',
+  textClasses: 'story-content-amp__news-text text mt-15 mb-25 secondary-font',
+  author: 'story-content-amp__author mt-15 mb-15',
   image: 'story-content-amp__image',
 }
 
@@ -95,7 +94,7 @@ class StoryContentAmp extends PureComponent {
             }}
           />
         )}
-        <StoryContentChildTags data={tags} className={classes.tags} />
+        <StoryContentChildTags data={tags} contextPath={contextPath} />
         {relatedContent.length > 0 && (
           <div className={classes.related}>
             <div className={classes.relatedTitle}>Relacionadas </div>

@@ -31,8 +31,9 @@ const classes = {
   newsEmbed: 'story-content__embed',
   tags: 'story-content',
   section: 'w-full',
-  relatedList: 'related-content__list',
-  relatedTitle: 'related-content__title font-bold uppercase',
+  // Related-content
+  relatedList: 'related-content__list pt-10',
+  relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
 }
 
 const OPTA_CSS_LINK =
