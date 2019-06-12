@@ -1,7 +1,6 @@
 .nav-sidebar {
 	max-width: 330px;
 	top: $nav-height;
-	overflow: hidden;
 	height: calc(100vh - #{$nav-height});
 	background-color: #2a2a2a;
 
