@@ -7,7 +7,7 @@ const classes = {
   layout: 'flex justify-center',
   contentContainer: 'flex flex-col content-layout-container',
   aditional: 'mb-20',
-  zocalo: 'zocalo__container',
+  zocalo: 'zocalo__container overflow-hidden',
 }
 
 const AmpLayout = ({ children = [] }) => {

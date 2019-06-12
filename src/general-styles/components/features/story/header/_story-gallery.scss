@@ -7,7 +7,6 @@
     padding-right: 0;
   }
   &__item {
-    position: relative;
     margin-top: 30px;
   }
   &__number {
@@ -15,7 +14,6 @@
     height: 50px;
     border-radius: 50px;
     background-color: $color-white;
-    position: absolute;
     top: -25px;
     left: 25px;
   }

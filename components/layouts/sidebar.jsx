@@ -6,7 +6,7 @@ const classes = {
   contentContainer: 'flex flex-col content-layout-container',
   content:
     'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mt-20 mb-20',
-  zocalo: 'zocalo__container',
+  zocalo: 'zocalo__container overflow-hidden',
   main: 'grid grid--content grid--col-1 col-2',
   sidebar: 'grid grid--content grid--col-1 col-1',
 }

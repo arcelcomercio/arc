@@ -17,11 +17,11 @@ const classes = {
   viewresult: 'internal-survey__view-result block text-center',
   share: 'internal-survey__share',
   disable: 'internal-survey__disable',
-  nav: 'internal-survey__nav',
-  navprev: 'internal-survey__nav-prev',
-  navnex: 'internal-survey__nav-next',
-  slug: 'internal-survey__slug h-full position-absolute text-center',
-  icoprev: 'internal-survey__nav-ico-prev block position-absolute w-full',
+  nav: 'internal-survey__nav hidden',
+  navprev: 'internal-survey__nav-prev left-0',
+  navnex: 'internal-survey__nav-next right-0',
+  slug: 'internal-survey__slug top-0 h-full position-absolute text-center',
+  icoprev: 'internal-survey__nav-ico-prev left-0 block position-absolute w-full',
 }
 class SurveyInternalChildSurvey extends Component {
   constructor() {

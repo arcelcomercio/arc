@@ -2,10 +2,10 @@ import React from 'react'
 
 const classes = {
   item: 'survey-result__item position-relative font-bold',
-  text: 'survey-result__text position-absolute',
+  text: 'survey-result__text top-0 left-0 position-absolute',
   percent: 'survey-result__percent inline-b',
   bar: 'survey-result__bar block overflow-hidden position-relative w-full',
-  progress: 'survey-result__progress block position-absolute overflow-hidden',
+  progress: 'survey-result__progress top-0 left-0 block position-absolute overflow-hidden',
   progresstop: 'survey-result__top',
 }
 

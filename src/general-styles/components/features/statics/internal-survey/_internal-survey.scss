@@ -128,22 +128,9 @@
     }
   }
 
-  &__nav {
-    display: none;
-  }
-
-  &__nav-prev {
-    left: 0;
-  }
-
-  &__nav-next {
-    right: 0;
-  }
-
   &__nav-ico-prev {
     font-size: 20px;
     height: 20px;
-    left: 0;
     line-height: 20px;
     margin-top: -10px;
     top: 50%;
@@ -152,7 +139,6 @@
   &__slug {
     background-color: rgba(#6d9bce, 0.5);
     color: $color-white;
-    top: 0;
     width: 40px;
     z-index: 3;
   }

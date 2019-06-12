@@ -50,7 +50,6 @@ $image-height: 157px;
 }
 
 .featured-story {
-  position: relative;
   padding: 10px 20px;
   letter-spacing: 0.05em;
 
@@ -91,7 +90,6 @@ $image-height: 157px;
   &__detail {
     height: calc(100% - #{$image-height});
     width: 60%;
-    position: relative;
 
     @media (--tablet) {
       width: unset;

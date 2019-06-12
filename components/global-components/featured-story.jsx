@@ -4,7 +4,7 @@ import StoryData from '../utilities/story-data'
 
 const classes = {
   featuredStory: 'featured-story position-relative p-20 flex',
-  detail: 'featured-story__detail flex flex-col justify-between',
+  detail: 'featured-story__detail position-relative flex flex-col justify-between',
   image: 'featured-story__image overflow-hidden w-full h-full',
   multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
   multimediaIconSpan:

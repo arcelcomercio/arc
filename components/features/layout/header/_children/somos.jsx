@@ -6,13 +6,13 @@ const classes = {
   iconmenuwrapper: 'flex-1',
   menuicon: 'icon-menu header-somos__icon',
   logoWrapper:
-    'header-somos__logo-wrapper text-center flex justify-center items-center',
+    'header-somos__logo-wrapper right-0 text-center flex justify-center items-center',
   logoimgwrapper: 'header-somos__img-wrapper',
   logoLink: 'inline-b',
   logoimg: 'header-somos__img block',
   logoIcon: 'icon-marca',
 
-  menu: 'somos-menu position-absolute',
+  menu: 'somos-menu top-0 left-0 h-full position-absolute',
   menuContent: 'somos-menu__content h-full',
   menuClose: 'somos-menu__close text-right w-full',
   menuCloseIcon: 'icon-close somos-menu__close-icon',

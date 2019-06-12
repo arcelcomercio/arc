@@ -29,7 +29,6 @@
     background-color: $color-black;
     border-radius: 50%;
     height: 50px;
-    right: 0;
     width: 50px;
     // display: flex;
 
@@ -52,11 +51,8 @@
 
 .somos-menu {
   // position: absolute;
-  top: 0;
-  left: 0;
   background-color: rgba(0, 0, 0, 0.7);
   width: 0%;
-  height: 100%;
   z-index: 1;
 
   @media (--desktop) {
