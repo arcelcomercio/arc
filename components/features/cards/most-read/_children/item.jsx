@@ -10,15 +10,16 @@ const CardMostReadChildItem = props => {
 
   const classes = {
     mostReadItem: 'flex most-read-item',
-    figure: `most-read-item__figure most-read-item__figure--icon most-read-item__figure--${type}`,
-    img: 'most-read-item__img',
-    detail: 'most-read-item__detail',
+    figure: `most-read-item__figure position-relative overflow-hidden h-full w-full most-read-item__figure--icon most-read-item__figure--${type}`,
+    img: 'w-full h-full object-cover',
+    detail: 'most-read-item__detail overflow-hidden',
+    link: 'most-read-item__link w-full',
   }
 
   return (
     <div className={classes.mostReadItem}>
       {viewImage && (
-        <a href={websiteUrl}>
+        <a className={classes.link} href={websiteUrl}>
           <figure className={classes.figure}>
             <img className={classes.img} src={imageUrl} alt={title} />
           </figure>
