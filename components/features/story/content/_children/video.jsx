@@ -7,8 +7,7 @@ import Consumer from 'fusion:consumer'
 class StoryContentChildVideo extends PureComponent {
   componentDidMount() {
     window.powaBoot()
-    // window.addEventListener('powaRender', function(event) {       console.warn(event)     })
-    // window.addEventListener('powaError', function(event) {       console.error(event)     })
+
     window.PoWaSettings.advertising = {
       adBar: false,
       adTag: ({ /**  powa, */ videoData }) => {
@@ -17,6 +16,10 @@ class StoryContentChildVideo extends PureComponent {
           : ''
       },
     }
+    window.addEventListener('powaReady', event => {
+      const powa = document.getElementsByClassName('powa')
+      powa[0].setAttribute('data-sticky', 'true')
+    })
   }
 
   getParametroPublicidad = () => {
