@@ -65,13 +65,11 @@
     font-size: 20px;
     line-height: 1.5;
     margin-top: 18px;
-    margin-bottom: 25px;
     word-wrap: break-word;
   }
 
   &__news-media-description {
     color: $colorTextDescription;
-    font-family: $primary-font;
     font-size: 13px;
   }
 
@@ -132,17 +130,12 @@
   }
 
   &__icon-list {
-    display: none;
     margin-right: -49px;
 
     @media (--tablet) {
       display: block;
       padding: 20px 0 20px 20px;
     }
-  }
-
-  &__item {
-    margin-bottom: 20px;
   }
 
   &__link {

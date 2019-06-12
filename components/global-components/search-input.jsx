@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
 const classes = {
-  searchContainer: 'search-filter__box-search flex items-center',
+  searchContainer: 'search-filter__box-search flex items-center mb-15',
   searchForm: 'position-relative w-full',
   searchButton:
     'icon-search search-filter__search-button block position-absolute',
