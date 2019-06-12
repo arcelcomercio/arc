@@ -1,7 +1,8 @@
 import React from 'react'
 
 const classes = {
-  header: 'stories-list-card__header flex justify-between',
+  header:
+    'stories-list-card__header flex justify-between w-auto pt-15 pr-20 pb-15 pl-20',
   seeMore: 'stories-list-card__see-more',
   title: 'stories-list-card__title flex items-center full-height',
 }

@@ -1,5 +1,4 @@
 .tabloide {
-  padding-top: 20px;
   background-color: #c5e2f7;
 
   &__header {
@@ -9,10 +8,6 @@
     & a {
       color: #fff;
     }
-  }
-
-  &__body {
-    height: auto;
   }
 
   &__date {

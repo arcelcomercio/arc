@@ -12,7 +12,7 @@ const classes = {
   logoimg: 'header-somos__img block',
   logoIcon: 'icon-marca',
 
-  menu: 'somos-menu position-absolute',
+  menu: 'somos-menu position-absolute h-full',
   menuContent: 'somos-menu__content h-full',
   menuClose: 'somos-menu__close text-right w-full',
   menuCloseIcon: 'icon-close somos-menu__close-icon',
