@@ -1,8 +1,6 @@
 .nav-sidebar {
-	position: absolute;
 	max-width: 330px;
 	top: $nav-height;
-	bottom: 0;
 	overflow: hidden;
 	height: calc(100vh - #{$nav-height});
 	background-color: #2a2a2a;
@@ -82,7 +80,6 @@
 
 	&__item {
 		transition: all 0.15s ease;
-		position: relative;
 
 		&:hover {
 			transition: all 0.15s ease;

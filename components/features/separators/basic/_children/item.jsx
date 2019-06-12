@@ -1,8 +1,8 @@
 import React from 'react'
 
 const classes = {
-  item: 'separator__item',
-  detail: 'separator__detail',
+  item: 'separator__item w-full h-full position-relative',
+  detail: 'separator__detail position-absolute bottom-0',
   separatorTitle: 'separator__title',
   mvideo: 'separator--video',
 }

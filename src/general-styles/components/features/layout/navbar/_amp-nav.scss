@@ -1,6 +1,5 @@
 .amp-nav {
   position: sticky;
-  top: 0;
   height: $nav-height;
   z-index: 20;
   font-family: $secondary-font;
@@ -9,7 +8,6 @@
   color: $color-white;
 
   &__hamburguer {
-    position: absolute;
     width: 20px;
     height: 4px;
     background-color: #333;
@@ -17,7 +15,6 @@
     right: 20px;
     top: 25px;
     &:before {
-      position: absolute;
       content: '';
       top: -12px;
       width: 100%;
@@ -26,7 +23,6 @@
       left: 0;
     }
     &:after {
-      position: absolute;
       content: '';
       top: -6px;
       width: 100%;

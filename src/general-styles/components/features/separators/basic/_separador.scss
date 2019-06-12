@@ -85,7 +85,6 @@
     &--item {
       background: #c5ddf9;
       padding: 24px 18px;
-      position: relative;
 
       &-details {
         h3 {
@@ -185,10 +184,7 @@
   }
 
   &__item {
-    height: 100%;
-    width: 100%;
     padding: 0;
-    position: relative;
 
     &::before {
       content: '';
@@ -251,12 +247,10 @@
   }
 
   &__detail {
-    position: absolute;
     z-index: 2;
     height: 65px;
     padding-left: 12px;
     padding-right: 12px;
-    bottom: 0px;
 
     &--nota {
       bottom: 44px;

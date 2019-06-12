@@ -8,11 +8,7 @@ $colorTextItem: #000;
   }
 
   &__figure {
-    width: 100%;
     max-height: 75px;
-    overflow: hidden;
-    position: relative;
-    height: 100%;
 
     &--icon::after {
       position: absolute;
@@ -35,19 +31,8 @@ $colorTextItem: #000;
     }
   }
 
-  &__img {
-    width: 100%;
-    object-fit: cover;
-    height: 100%;
-  }
-
-  & a {
-    width: 100%;
-
-    &:hover {
-      text-decoration: underline;
-      color: $colorTextItem;
-    }
+  &__link:hover {
+    color: $colorTextItem;
   }
 
   &__detail {

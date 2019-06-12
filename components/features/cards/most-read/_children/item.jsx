@@ -18,7 +18,7 @@ const CardMostReadChildItem = props => {
   return (
     <div className={classes.mostReadItem}>
       {viewImage && (
-        <a href={websiteUrl}>
+        <a className={classes.link} href={websiteUrl}>
           <figure className={classes.figure}>
             <img className={classes.img} src={imageUrl} alt={title} />
           </figure>

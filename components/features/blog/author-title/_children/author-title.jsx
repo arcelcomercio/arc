@@ -8,7 +8,7 @@ const classes = {
   url: 'author-title__url mr-15',
   name: 'flex items-center',
   img:
-    'author-title__img position-absolute h-full w-full object-contain right-0 bottom-0',
+    'author-title__img bottom-0 right-0 position-absolute h-full w-full object-contain',
 }
 
 const BlogAuthorTitleChildAuthorTitle = ({
