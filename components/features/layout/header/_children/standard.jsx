@@ -6,7 +6,7 @@ const classes = {
     'header primary-font w-full header__main font-bold flex items-center justify-center',
   logo: 'header__logo',
   featured: 'flex justify-between header__featured w-full font-normal',
-  item: 'flex items-center justify-center header__item',
+  item: 'flex items-center justify-center header__item h-inherit',
   link: 'header__link uppercase',
 }
 

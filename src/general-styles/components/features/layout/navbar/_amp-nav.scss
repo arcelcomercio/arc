@@ -44,21 +44,4 @@
       padding-right: 10px;
     }
   }
-
-  &__list-link {
-    color: $color-gray-light;
-    transition: 0.3s;
-    font-family: $secondary-font;
-    font-size: 12px; // TODO: revisar con diseño
-    font-weight: 400;
-    word-break: break-word;
-
-    &:hover {
-      color: $color-gray;
-    }
-  }
-
-  &__icon-menu {
-    font-size: 22px;
-  }
 }

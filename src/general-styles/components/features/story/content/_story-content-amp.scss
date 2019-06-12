@@ -33,23 +33,24 @@
     padding: 13px;
 
     &__pull {
-      background: url('https://elcomercio.pe/uploads/2019/05/23/5ce70bbecc85c.svg') top left no-repeat;
+      background: url('https://elcomercio.pe/uploads/2019/05/23/5ce70bbecc85c.svg')
+        top left no-repeat;
     }
 
-    & p:first-letter {
+    &__text:first-letter {
       font-size: 39px;
       font-weight: bold;
     }
   }
 
-  & table {
+  & .table {
     width: 100%;
     height: auto;
     border: 1px solid #e6e6e6;
     border-collapse: collapse;
     margin: 15px 0;
 
-    & td {
+    & .table__cell {
       border-right: 1px solid #e6e6e6;
       border-bottom: 1px solid #e6e6e6;
       padding: 2px 4px 1px 4px;
@@ -59,7 +60,7 @@
       font-family: sans-serif;
     }
 
-    & tr:nth-child(even) td {
+    & .table__row:nth-child(even) .table__cell {
       background-color: #e6e6e6;
     }
   }

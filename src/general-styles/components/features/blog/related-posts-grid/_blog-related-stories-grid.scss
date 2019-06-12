@@ -1,8 +1,7 @@
 .br-stories-grid {
-
   @media (--desktop) {
     display: inline-block;
-    background-color: #ffffff;
+    background-color: $color-white;
 
     &__title {
       background-color: transparent;
@@ -20,42 +19,36 @@
       height: 236px;
     }
 
-    &__category {
+    &__category-container {
       font-size: 11px;
       letter-spacing: 1px;
       margin-bottom: 5px;
+    }
 
-      a {
-        color: #999;
-      }
+    &__category-link {
+      color: #999;
     }
 
     &__detail {
       padding-top: 10px;
     }
 
-    &__image {
+    &__image-container {
       height: 148px;
+    }
 
-      a {
-        color: #333;
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-      }
+    &__image-link {
+      color: #333;
     }
 
     &__detail-title {
       font-size: 14px;
       line-height: 1.3;
       max-height: 36.4px;
-      font-weight: 700;
+    }
 
-      a {
-        color: #666;
-      }
+    &__detail-title-link {
+      color: #666;
     }
   }
 }

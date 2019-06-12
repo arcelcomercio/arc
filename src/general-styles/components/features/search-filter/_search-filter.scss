@@ -1,6 +1,5 @@
 .search-filter {
   background-color: #e8f2f7;
-  padding: 15px;
 
   @media (--desktop) {
     flex-direction: row;
@@ -109,8 +108,6 @@
   }
 
   &__sublist {
-    display: none;
-    flex-direction: column;
     padding: 0 20px;
 
     &.active {
@@ -182,8 +179,6 @@
   }
 
   &__search-input {
-    padding-right: 30px;
-    padding-left: 15px;
     height: 40px;
     line-height: 50px;
     font-size: 13px;

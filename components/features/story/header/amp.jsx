@@ -27,7 +27,7 @@ class StoryHeaderAmp extends PureComponent {
 
     return (
       <>
-        <div className={galleryItems ? classes.gallery : classes.news}>
+        <div className={galleryItems ? classes.gallery : classes.stories}>
           <header>
             {titleElements && (
               <h1 className={classes.titleAmp}> {titleElements}</h1>

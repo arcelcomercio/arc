@@ -12,7 +12,7 @@
 
   &__title {
     font-size: 24px;
-    color: #fff;
+    color: $color-white;
 
     @media (--tablet) {
       font-size: 32px;
@@ -21,13 +21,13 @@
 
   &__section {
     font-size: 13px;
-    color: #fff;
+    color: $color-white;
 
     &:before {
       content: '';
       width: 30px;
       height: 1px;
-      background-color: #fff;
+      background-color: $color-white;
       position: absolute;
       top: -8px;
       left: 0;
@@ -37,7 +37,7 @@
       content: '';
       width: 30px;
       height: 1px;
-      background-color: #fff;
+      background-color: $color-white;
       position: absolute;
       bottom: -8px;
       left: 0;

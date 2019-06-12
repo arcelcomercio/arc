@@ -11,7 +11,7 @@ const classes = {
   imageBox: 'block position-relative',
   image: 'w-full h-full object-contain object-center',
   icon: 'tv-highlight__icon position-absolute flex justify-center items-center',
-  tags: 'mt-15',
+  tags: 'tv-highlight__tags mt-15',
   related: 'tv-highlight__related uppercase mb-5 font-bold',
   list: 'flex',
   item: 'tv-highlight__item mr-15',

@@ -7,7 +7,7 @@ const classes = {
   galleryItem: 'story-gallery__item position-relative mt-30',
   galleryNumber:
     'story-gallery__number flex items-center justify-center position-absolute',
-  image: 'w-full h-full mb-10',
+  image: 'story-gallery__img w-full h-full mb-10',
   caption: 'story-gallery__caption',
 }
 

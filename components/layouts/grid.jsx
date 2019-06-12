@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const classes = {
   layout: 'flex justify-center',
-  contentContainer: 'flex flex-col content-layout-container',
+  contentContainer: 'flex flex-col content-layout-container w-full',
   content:
     'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mt-20 mb-20',
   aditional: 'mb-20',
