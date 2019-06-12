@@ -7,9 +7,9 @@ import StoryData from '../../../utilities/story-data'
 import AuthorCard from './_children/author-card'
 
 const classes = {
-  separator: 'separator__opinion',
-  opinionBody: 'separator__opinion--body',
-  opinionTitle: 'separator__opinion-title',
+  separator: 'separator__opinion flex flex-col',
+  opinionBody: 'separator__opinion--body mt-0 mb-0',
+  opinionTitle: 'separator__opinion-title uppercase',
 }
 
 const HeaderHTML = ({ htmlCode }) => {
