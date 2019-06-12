@@ -2,21 +2,21 @@ import React, { PureComponent } from 'react'
 import Button from '../../../../global-components/button'
 
 const classes = {
-  sidebar: 'nav-sidebar w-full',
-  content: 'nav-sidebar__content flex flex-col justify-between',
-  item: 'nav-sidebar__item',
-  link: 'nav-sidebar__link',
+  sidebar: 'nav-sidebar w-full position-absolute overflow-hidden bottom-0',
+  content: 'nav-sidebar__content flex flex-col justify-between h-full',
+  item: 'nav-sidebar__item position-relative',
+  link: 'nav-sidebar__link block pt-15 pr-15 pb-15 pl-15',
   top: 'nav-sidebar__top',
-  header: 'nav-sidebar__header',
-  btnBox: 'nav-sidebar__box-btn',
+  header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30',
+  btnBox: 'nav-sidebar__box-btn pb-15',
   btn: 'flex items-center justify-center btn bg-color--white nav-sidebar__btn',
-  search: 'nav-sidebar__search',
-  from: 'nav-sidebar__box-search',
+  search: 'nav-sidebar__search pt-15 pr-30 pb-15 pl-30',
+  from: 'nav-sidebar__box-search pb-15',
   input: 'nav-sidebar__input',
-  body: 'nav-sidebar__body',
+  body: 'nav-sidebar__body pt-15 pr-0 pb-15 pl-15',
   list: 'nav- sidebar__list',
-  footer: 'nav-sidebar__footer',
-  text: 'nav-sidebar__text',
+  footer: 'nav-sidebar__footer pt-30 pr-30 pb-30 pl-30',
+  text: 'nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0',
 }
 
 class NavbarChildMenu extends PureComponent {
