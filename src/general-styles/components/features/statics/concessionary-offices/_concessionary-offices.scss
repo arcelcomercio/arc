@@ -13,6 +13,7 @@
 
   &__container {
     max-width: 954px;
+    padding-top: 50px;
   }
 
   &__title {
@@ -33,6 +34,7 @@
 
   &__locations {
     border-top: 1px solid #bababa;
+    margin-bottom: 50px;
 
     @media (--desktop) {
       border-top: none;

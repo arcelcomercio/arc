@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
+// import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 
 import StoryData from '../utilities/story-data'
 import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
-import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 
 const classes = {
   storyItem: 'story-item w-full',
