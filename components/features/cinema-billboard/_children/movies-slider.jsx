@@ -10,13 +10,12 @@ const classes = {
   imageLink: '',
   image: 'movies-slider__img w-full object-cover',
   arrowsBox:
-    'movies-slider__arrows-box position-absolute flex justify-between w-full',
+    'movies-slider__arrows-box w-full position-absolute flex justify-between',
   leftArrow:
-    'movies-slider__arrows movies-slider__arrows--left block text-center',
-  rightArrow:
-    'movies-slider__arrows movies-slider__arrows--right block text-center',
-  details: 'movies-slider__details',
-  movieTitle: 'movies-slider__movie-title',
+    'movies-slider__arrows block text-center movies-slider__arrows--left',
+  rightArrow: 'movies-slider__arrows movies-slider__arrows--right',
+  details: 'movies-slider__details p-20',
+  movieTitle: 'movies-slider__movie-title mb-10',
   movieLink: 'movies-slider__movie-link',
   movieDescription: 'movies-slider__movie-description',
 }

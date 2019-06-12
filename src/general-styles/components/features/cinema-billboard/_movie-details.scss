@@ -1,9 +1,6 @@
 .movie-details {
-  padding: 0 $spacing-normal;
-
   &__box-img {
     max-width: 850px;
-    margin: 0 auto;
   }
 
   &__img {
@@ -25,7 +22,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, .7);
     pointer-events: none;
 
     @media (--tablet) {
@@ -41,9 +38,6 @@
 
   &__detail {
     max-width: 800px;
-    margin: 40px auto;
-    padding: $spacing-normal;
-    padding-top: 0;
 
     @media (--tablet) {
       flex-direction: initial;
@@ -59,8 +53,6 @@
   }
 
   &__right {
-    padding: $spacing-normal 0;
-
     @media (--tablet) {
       padding: $spacing-normal;
     }
@@ -69,7 +61,6 @@
   &__title {
     font-size: 22px;
     color: $color-white;
-    margin-bottom: $spacing-normal;
 
     @media (--tablet) {
       font-size: 28px;
@@ -81,18 +72,11 @@
     color: $color-white;
     font-size: 13px;
     line-height: 1.5;
-    margin-bottom: 15px;
   }
 
   &__hours {
-    height: auto;
     max-height: 250px;
-    padding-right: $spacing-large;
     border-right: solid 1px $color-white;
-  }
-
-  &__item {
-    margin-bottom: $spacing-normal;
   }
 
   &__cinema {
@@ -102,7 +86,7 @@
   }
 
   &__text {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, .8);
     font-size: 13px;
     line-height: 1.5;
   }
@@ -111,7 +95,6 @@
     color: $color-white;
     font-size: 13px;
     line-height: 1.5;
-    margin-bottom: 15px;
 
     &--sinopsis {
       margin-bottom: $spacing-large;
@@ -119,23 +102,21 @@
   }
 
   &__value {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, .8);
   }
 
   &__more {
-    padding: 15px $spacing-large;
     max-width: 160px;
-    margin: $spacing-normal auto 0;
-    border: solid 1px rgba(255, 255, 255, 0.7);
-    transition: all 0.15s ease;
+    border: solid 1px rgba(255, 255, 255, .7);
+    transition: all .15s ease;
 
     @media (--tablet) {
       margin: $spacing-normal 0 0 0;
     }
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      transition: all 0.15s ease;
+      background-color: rgba(255, 255, 255, .2);
+      transition: all .15s ease;
     }
   }
 

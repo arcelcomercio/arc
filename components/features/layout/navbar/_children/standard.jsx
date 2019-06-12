@@ -6,10 +6,12 @@ import Menu from './menu'
 import Ads from '../../../../global-components/ads'
 
 const classes = {
-  nav: 'nav text-sm w-full flex flex items-center',
-  wrapper: 'flex items-center justify-between nav__wrapper w-full h-inherit',
+  nav:
+    'nav text-sm w-full flex flex items-center top-0 secondary-font font-bold',
+  wrapper:
+    'flex items-center justify-between nav__wrapper w-full h-inherit pr-15 pl-15',
   form: 'flex position-relative',
-  search: 'nav__input-search text-md',
+  search: 'nav__input-search text-md pt-5 pb-5 ',
   navBtnContainer: 'flex items-center justify-start nav__container-menu',
   searchContainer: 'flex items-center justify-start',
   btnSearch: 'flex items-center btn nav__btn nav__btn--search',
@@ -17,14 +19,14 @@ const classes = {
   iconSearch: 'nav__icon-search icon-search title-lg',
   iconMenu: 'nav__icon-menu icon-hamburguer',
   list:
-    'flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5',
+    'flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5 hidden',
   listItem: 'text-center',
-  listLink: 'nav__list-link text-center uppercase',
+  listLink: 'nav__list-link text-center uppercase secondary-font font-normal',
   logo: 'nav__logo',
-  ads: 'nav__ads',
+  ads: 'nav__ads mr-5 ml-5',
   btnContainer: 'flex items-center justify-end header__btn-container',
   btnLogin: 'flex items-center btn btn--outline',
-  btnSubscribe: 'flex items-center btn btn--outline nav__header-sub',
+  btnSubscribe: 'flex items-center btn btn--outline nav__header-sub hidden',
   iconLogin: 'icon icon-user',
 }
 

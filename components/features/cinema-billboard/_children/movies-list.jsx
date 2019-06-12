@@ -3,20 +3,20 @@ import BillboardFormat from '../../../utilities/billboard-format'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  movieList: 'movie-list',
+  movieList: 'movie-list pb-20',
   top: 'movie-list__top flex items-center justify-center flex-col',
   cinema: 'movie-list__cinema uppercase',
   address: 'movie-list__address',
   box: 'movie-list__box',
   movieItem: 'movie-item flex flex-col',
-  leftSide: 'movie-item__left flex-shrink-0 flex-grow-0',
+  leftSide: 'movie-item__left flex-shrink-0 flex-grow-0 mb-10',
   imageBox: 'block w-full',
   image: 'movie-item__img w-full h-full object-cover',
-  title: 'movie-item__title',
-  function: 'movie-item__function font-normal',
-  rightSide: 'movie-item__right',
-  subtitle: 'movie-item__subtitle font-bold',
-  description: 'movie-item__description font-normal inline',
+  title: 'movie-item__title primary-font',
+  function: 'movie-item__function font-thin',
+  rightSide: 'movie-item__right mt-5',
+  subtitle: 'movie-item__subtitle font-bold mb-5',
+  description: 'movie-item__description inline font-normal ml-5',
 }
 
 class StaticCinemaBillboardChildMoviesList extends PureComponent {

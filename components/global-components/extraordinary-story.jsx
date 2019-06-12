@@ -19,7 +19,7 @@ const classes = {
   extraordinaryStoryAuthor: 'extraordinary-story__author uppercase',
   extraordinaryStoryMultimedia:
     'extraordinary-story__multimedia flex items-center justify-center position-relative',
-  iconGallery: 'extraordinary-story__icon-gallery position-absolute',
+  iconGallery: 'position-absolute top-0 right-0 m-10',
   iconGalleryContainer:
     'extraordinary-story__icon-gallery-container flex items-center justify-center',
 }

@@ -3,23 +3,23 @@ import BillboardFormat from '../../../utilities/billboard-format'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  moviesGrid: 'movies-grid mt-20',
+  moviesGrid: 'movies-grid mt-20 p-20',
   container: 'movies-grid__container',
-  headline: 'movies-grid__headline uppercase text-center',
-  nav: 'movies-grid__nav',
-  navList: 'movies-grid__nav-list flex justify-center flex-wrap',
-  navItem: 'movies-grid__nav-item',
-  navLink: 'movies-grid__nav-link position-relative uppercase',
-  form: 'movies-grid__form',
-  info: 'movies-grid__info',
-  select: 'movies-grid__select',
-  grid: 'movies-grid__grid',
-  movie: 'movies-grid__movie',
+  headline: 'uppercase text-center mb-20',
+  nav: 'movies-grid__nav hidden',
+  navList: 'flex justify-center flex-wrap mb-10',
+  navItem: 'mb-10',
+  navLink: 'movies-grid__nav-link p-10 position-relative uppercase',
+  form: 'movies-grid__form mb-20',
+  info: 'movies-grid__info mb-20',
+  select: 'movies-grid__select w-full',
+  grid: 'movies-grid__grid grid',
+  movie: 'movies-grid__movie m-0 mx-auto',
   imageBox: '',
-  image: 'movies-grid__img w-full',
+  image: 'w-full mb-10',
   details: 'movies-grid__details',
-  title: 'movies-grid__title',
-  tag: 'movies-grid__tag',
+  title: 'movies-grid__title mb-5',
+  tag: 'movies-grid__tag font-bold',
 }
 
 class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {

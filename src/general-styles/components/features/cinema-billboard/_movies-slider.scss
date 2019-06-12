@@ -56,7 +56,6 @@
 
   &__movie-title {
     font-size: 24px;
-    margin-bottom: $spacing-small;
 
     @media (--tablet) {
       font-size: 48px;
@@ -79,8 +78,6 @@
   }
 
   &__details {
-    padding: $spacing-normal;
-
     @media (--tablet) {
       padding: $spacing-xlarge;
     }

@@ -1,5 +1,4 @@
 .opinion-grid {
-  margin: 0 auto;
   grid-template-columns: 1fr;
 
   @media (--tablet) {
@@ -25,7 +24,6 @@
 
   &__box-title {
     border-bottom: solid 1px #333;
-    padding: 15px 0;
 
     @media (--tablet) {
       padding: 25px 0;
@@ -34,23 +32,14 @@
 
   &__title {
     font-size: 18px;
-    font-family: $secondary-font;
 
     @media (--tablet) {
       font-size: 20px;
     }
   }
 
-  &__box-more {
-    padding: 25px 0 15px 0;
-  }
-
   &__more {
     font-size: 14px;
     color: #333;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }

@@ -1,18 +1,17 @@
 .movie-item {
-  padding-bottom: $spacing-normal;
-
-  &:nth-last-child(1) {
-    padding-bottom: 0;
-  }
 
   @media (--tablet) {
     flex-direction: initial;
     padding-bottom: $spacing-xlarge;
   }
 
+  &:nth-last-child(1) {
+    padding-bottom: 0;
+  }
+
+
   &__left {
     flex-basis: 100%;
-    margin-bottom: 10px;
 
     @media (--tablet) {
       flex-basis: 35%;
@@ -20,7 +19,6 @@
   }
 
   &__right {
-    margin-top: 5px;
 
     @media (--tablet) {
       margin-top: 0;
@@ -37,13 +35,8 @@
 
   &__title {
     font-size: 18px;
-    font-family: $primary-font;
     line-height: 1.8;
     color: $color-gray;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   &__function {
@@ -54,7 +47,6 @@
     font-size: 13px;
     line-height: 1.4;
     color: $color-gray;
-    margin-bottom: $spacing-xsmall;
 
     &:first-child {
       margin-bottom: $spacing-normal;
@@ -63,6 +55,5 @@
 
   &__description {
     color: #646464;
-    margin-left: 5px;
   }
 }

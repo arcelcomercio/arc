@@ -2,32 +2,16 @@ $movie-size: 134px;
 
 .movies-grid {
     background-color: $color-white;
-    padding: $spacing-normal;
-
-    &__headline {
-        margin-bottom: $spacing-normal;
-    }
 
     &__nav {
-        display: none;
-
         @media (--tablet) {
             display: block;
         }
     }
 
-    &__nav-list {
-        margin-bottom: $spacing-small;
-    }
-
-    &__nav-item {
-        margin-bottom: $spacing-small;
-    }
-
     &__nav-link {
         font-size: 14px;
         transition: 0.5s;
-        padding: 8px;
         color: $color-silver;
 
         &--active {
@@ -48,8 +32,6 @@ $movie-size: 134px;
     }
 
     &__form {
-        margin-bottom: $spacing-normal;
-
         @media (--tablet) {
             display: none;
         }
@@ -58,7 +40,6 @@ $movie-size: 134px;
     &__info {
         color: $color-silver;
         font-size: 11px;
-        margin-bottom: $spacing-normal;
     }
 
     &__select {
@@ -69,13 +50,11 @@ $movie-size: 134px;
         margin-right: 1%;
         padding: 0 32px 0 8px;
         line-height: 45px;
-        width: 100%;
         color: $color-gray;
     }
 
 
     &__grid {
-        display: grid;
         gap: $spacing-normal;
         grid-template-columns: repeat(2, 1fr);
 
@@ -89,24 +68,17 @@ $movie-size: 134px;
     }
 
     &__movie {
-        margin: 0 auto;
         width: $movie-size;
-    }
-
-    &__img {
-        margin-bottom: $spacing-small;
     }
 
     &__title {
         font-size: 12px;
         line-height: 15px;
-        margin-bottom: $spacing-xsmall;
         color: $color-silver;
     }
 
     &__tag {
         font-size: 12px;
-        font-weight: 600;
         color: $color-dark;
         text-decoration: none;
     }

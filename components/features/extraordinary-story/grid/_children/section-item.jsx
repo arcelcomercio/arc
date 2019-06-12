@@ -2,7 +2,7 @@ import React from 'react'
 
 const ExtraordinayStoryGridSectionItem = props => {
   const classes = {
-    itemContainer: 'sections-grid-item',
+    itemContainer: 'sections-grid-item p-10',
     imageContainer: 'sections-grid-item__image-container overflow-hidden',
     image: 'w-full',
     title: 'sections-grid-item__title text-left',

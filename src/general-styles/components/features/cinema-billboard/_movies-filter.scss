@@ -1,19 +1,22 @@
 .movies-filter {
-  padding: $spacing-normal;
   background-color: $color-gray;
 
   @media (--tablet) {
     padding: $spacing-xlarge;
   }
 
-  &--font-config {
-    font-size: 12px;
-    line-height: 45px;
-    font-weight: 600;
+
+  &__title-box {
+    margin-bottom: $spacing-normal;
+
+    &--font-config {
+      font-size: 12px;
+      line-height: 45px;
+    }
   }
 
   &__filter-box {
-    @media (--desktop) {
+    @media(--desktop) {
       flex-direction: initial;
       border: 1px solid $color-silver;
       padding: 4px;
@@ -21,45 +24,15 @@
   }
 
   &__title-box {
-    margin-bottom: $spacing-normal;
-
     @media (--desktop) {
       flex-direction: initial;
     }
   }
 
-  &__title {
-    color: $color-white;
-    line-height: 40px;
-
-    @media (--tablet) {
-      text-transform: uppercase;
-    }
-
-    &::before,
-    &::after {
-      border-bottom: 1px solid #fff;
-      content: '';
-      display: block;
-      height: 1px;
-      left: 0;
-      overflow: hidden;
-      position: absolute;
-      width: 25px;
-    }
-
-    &::before {
-      top: 10%;
-    }
-
-    &::after {
-      bottom: 10%;
-    }
+  &::before {
+    top: 10%;
   }
 
-  &__social {
-    margin-bottom: $spacing-normal;
-  }
 
   &__label {
     @media (--tablet) {
@@ -84,14 +57,13 @@
       }
     }
   }
-  &__form-select {
-    appearance: none;
-    background-color: $color-white;
+
+
+  &__select {
+    background-color: #FFF;
     background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
     background-position: right center;
     background-repeat: no-repeat;
-    cursor: pointer;
-    border: 0;
     padding: 0 42px 0 16px;
     margin-bottom: 8px;
     color: $color-dark;
