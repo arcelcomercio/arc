@@ -114,6 +114,15 @@ section {
 
 body {
   line-height: 1;
+  font-size: 13px;
+
+  @media (--tablet) {
+    font-size: 14px;
+  }
+
+  @media (--desktop) {
+    font-size: 16px;
+  }
 }
 
 ol,

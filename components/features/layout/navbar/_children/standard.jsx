@@ -16,7 +16,7 @@ const classes = {
   searchContainer: 'flex items-center justify-start',
   btnSearch: 'flex items-center btn nav__btn nav__btn--search',
   btnSection: 'flex items-center btn nav__btn nav__btn--section',
-  iconSearch: 'nav__icon-search icon-search title-lg',
+  iconSearch: 'nav__icon-search icon-search title-sm',
   iconMenu: 'nav__icon-menu icon-hamburguer',
   list:
     'flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5 hidden',

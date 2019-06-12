@@ -111,7 +111,7 @@ $image-height: 157px;
   }
 
   &__category {
-    font-size: $font-default;
+    font-size: $font-lg;
 
     @media (--tablet) {
       display: block;
@@ -163,7 +163,7 @@ $image-height: 157px;
     /* autoprefixer: on */
 
     @media (--tablet) {
-      font-size: $header-md;
+      font-size: $header-xs;
     }
 
     &--author {
@@ -244,7 +244,7 @@ $image-height: 157px;
     }
 
     .featured-story__link {
-      font-size: $header-md;
+      font-size: $header-xs;
     }
 
     .featured-story__detail {
@@ -254,7 +254,7 @@ $image-height: 157px;
     }
 
     .featured-story__category {
-      font-size: $font-default;
+      font-size: $font-lg;
       display: block;
     }
 

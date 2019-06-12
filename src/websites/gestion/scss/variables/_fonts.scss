@@ -2,8 +2,19 @@
 // $primary-font: 'open_sansregular';
 /*-----------------------*/
 
-/******* Sizes *******/
-$font-sm: 12px;
-$font-md: 14px;
-$font-default: 16px;
-/*-----------------------*/
+/******* Sizes  Paragraph*******/
+$font-base: 1rem;
+
+// Example px size in desktop -----------v
+$font-xs: $font-base * 0.7 !default; // 11.2
+$font-sm: $font-base * 1.2 !default; // 12.8
+$font-md: $font-base * 0.9 !default; // 14.4
+$font-lg: $font-base * 1 !default; // 16
+$font-xl: $font-base * 1.1 !default; // 17.6
+
+/******* Sizes  Headers *******/
+$header-xs: $font-base * 1.1 !default; // 17.6
+$header-sm: $font-base * 1.3 !default; // 20.8
+$header-md: $font-base * 1.5 !default; // 24
+$header-lg: $font-base * 1.7 !default; // 27.2
+$header-xl: $font-base * 2 !default; // 32
