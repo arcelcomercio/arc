@@ -7,11 +7,7 @@ $colorTextItem: #000;
     padding: 15px 0;
   }
   &__figure {
-    width: 100%;
     max-height: 75px;
-    overflow: hidden;
-    position: relative;
-    height: 100%;
     &--icon::after {
       position: absolute;
       bottom: -5px;
@@ -30,17 +26,8 @@ $colorTextItem: #000;
       content: '\2709';
     }
   }
-  &__img {
-    width: 100%;
-    object-fit: cover;
-    height: 100%;
-  }
-  & a {
-    width: 100%;
-    &:hover {
-      text-decoration: underline;
-      color: $colorTextItem;
-    }
+  &__link:hover {
+    color: $colorTextItem;
   }
   &__detail {
     font-size: 12px;
@@ -48,7 +35,6 @@ $colorTextItem: #000;
     padding-left: 10px;
     height: 60px;
     color: $colorTextItem;
-    overflow: hidden;
     text-overflow: ellipsis;
   }
 }
