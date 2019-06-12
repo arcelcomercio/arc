@@ -241,6 +241,12 @@ class StoryData {
     return breadcrumbList(url, this._siteUrl, this._contextPath)
   }
 
+  get seoKeywords() {
+    const { taxonomy: { seo_keywords: seoKeywords = [] } = {} } =
+      this._data || {}
+    return seoKeywords
+  }
+
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
@@ -309,10 +315,11 @@ class StoryData {
       }
     }
 
-    if (basicGallery.url && type !== 'video') {
+    if (basicGallery.content_elements && type !== 'video') {
       const { content_elements: contentElements = {} } = basicGallery
       return contentElements
     }
+
     if (basicImage && type === 'image') {
       const {
         content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
