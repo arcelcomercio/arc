@@ -256,7 +256,7 @@ class NavBarDefault extends PureComponent {
                       className={`${classes.search} ${this.activeSearch()}`}
                     />
                     <Button
-                      iconClass={classes.iconSerch}
+                      iconClass={classes.iconSearch}
                       btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
                       onClick={this.optionButtonClick()}
                     />

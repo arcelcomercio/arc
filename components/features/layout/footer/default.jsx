@@ -18,7 +18,8 @@ const classes = {
   logoImg: 'w-full',
   list: 'footer__list p-20',
   listItem: 'footer__list-item pt-10 pb-10',
-  listTitle: 'footer__list-item footer__list-item--title uppercase font-bold',
+  listTitle:
+    'footer__list-item footer__list-item--title pt-10 pb-10 uppercase font-bold',
   listLink: 'footer__list-link capitalize',
 }
 
