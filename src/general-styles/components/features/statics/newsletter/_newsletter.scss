@@ -16,7 +16,6 @@
   }
 
   &__box-suscription {
-    font-family: $primary-font;
     align-self: center;
 
     @media (--desktop) {
@@ -34,25 +33,18 @@
 
   &__description {
     color: #666;
-    font: 20px/1.5 $secondary-font;
+    line-height: 1.5;
     margin-block-start: 1em;
     margin-block-end: 1em;
   }
 
   &__email {
     border: 1px solid #e0e0e0;
-    font-size: 14px;
     height: 50px;
   }
 
   &__error-message {
     color: #d80000;
-    font-size: 12px;
-
-    &--font-medium {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
   }
 
   &__image-container {
@@ -79,7 +71,6 @@
 
   &__title {
     color: #666;
-    font-size: 26px;
     line-height: 1;
 
     &::after {
@@ -101,10 +92,6 @@
     @media (--desktop) {
       font-size: 70px;
     }
-  }
-
-  &__policies {
-    font-size: 13px;
   }
 
   &__page-link {

@@ -8,7 +8,6 @@
 
   &__logo-img {
     max-height: 30px;
-    margin-left: 7px;
   }
 
   &__icon {
@@ -17,8 +16,6 @@
 
   &__login-button {
     color: $color-white;
-    font-family: $primary-font;
-    font-size: 13px;
   }
 
   &__icon-user {
@@ -38,7 +35,6 @@
   }
 
   &__search-input {
-    font: 700 14px $primary-font;
     width: 185px;
     height: 35px;
     border: 0;
