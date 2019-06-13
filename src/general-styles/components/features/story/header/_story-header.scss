@@ -6,12 +6,12 @@ $colorTextDescription: #999;
   &__news-title {
     clear: both;
     color: $colorTextTitle;
-    font: 48px/1.15 $primary-font;
+    line-height: 1.15;
   }
 
   &__news-summary {
     color: $colorTextTitle;
-    font: 22px/1.3 $secondary-font;
+    line-height: 1.3;
     word-wrap: break-word;
   }
 
