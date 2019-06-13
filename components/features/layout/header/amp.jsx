@@ -9,7 +9,7 @@ const classes = {
   header: 'amp-header w-full position-absolute',
   wrap: 'amp-header__wrap text-center',
   logo: 'amp-header__logo',
-  linkContainer: 'amp-header__link-container position-relative mr-35',
+  linkContainer: 'amp-header__link-container position-relative mr-35 text-sm',
   link: 'amp-header__link',
   ampImg:
     'amp-header__amp-img i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',

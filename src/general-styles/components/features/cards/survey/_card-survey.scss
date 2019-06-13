@@ -17,7 +17,6 @@ $color-button: #0e6dc1;
   }
 
   &__title {
-    font-size: 18px;
     line-height: 1.2;
     color: $color-text-question;
     max-height: 127px;
@@ -25,13 +24,11 @@ $color-button: #0e6dc1;
 
   &__results {
     color: $color-text-question;
-    font-size: 12px;
     letter-spacing: 1px;
   }
 
   &__submit {
     background: $color-button;
     color: $color-white;
-    font-size: 11px;
   }
 }

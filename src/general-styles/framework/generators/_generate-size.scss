@@ -1,21 +1,22 @@
 /******* Iterar fuentes de parrafo *******/
 /******* Map Sizes *******/
-$map-font: (xs: $font-xs,
+$map-font: (
+  xs: $font-xs,
   sm: $font-sm,
   md: $font-md,
   lg: $font-lg,
   xl: $font-xl,
 ) !default;
 
-@each $text,
-$value in $map-font {
+@each $text, $value in $map-font {
   .text-#{$text} {
     font-size: $value;
   }
 }
 
 /******* Headers *******/
-$map-headers: (xs: $header-xs,
+$map-headers: (
+  xs: $header-xs,
   sm: $header-sm,
   md: $header-md,
   lg: $header-lg,
@@ -23,8 +24,7 @@ $map-headers: (xs: $header-xs,
 ) !default;
 
 /******* Iterar fuentes de header *******/
-@each $header,
-$value in $map-headers {
+@each $header, $value in $map-headers {
   .title-#{$header} {
     font-size: $value;
   }

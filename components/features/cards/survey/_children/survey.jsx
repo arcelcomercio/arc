@@ -6,13 +6,14 @@ import SurveyResults from './result'
 const classes = {
   cardSurvey: 'survey-card w-full pt-15',
   header: 'survey-card__header uppercase text-center font-bold pt-20 pb-20',
-  question: 'survey-card__question position-relative pt-15 pb-10 pl-10',
-  title: 'survey-card__title overflow-hidden font-bold mb-15 pr-20 pl-20',
+  question: 'survey-card__question position-relative pt-15 pb-10 pl-10 ',
+  title:
+    'survey-card__title overflow-hidden font-bold mb-15 pr-20 pl-20 text-xl',
   choices: 'mb-10 pr-20 pl-20',
   buttons:
     'bottom-0 w-full position-absolute flex items-center justify-between pr-20 pl-20 pb-15',
-  results: 'survey-card__results font-bold',
-  submit: 'survey-card__submit uppercase pt-10 pb-10 pr-40 pl-40',
+  results: 'survey-card__results font-bold text-sm',
+  submit: 'survey-card__submit uppercase pt-10 pb-10 pr-40 pl-40 text-xs',
 }
 
 class CardSurveyChildSurvey extends PureComponent {

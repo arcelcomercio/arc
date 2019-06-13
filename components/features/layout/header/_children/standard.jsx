@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 const classes = {
   header:
-    'header primary-font w-full header__main font-bold flex items-center justify-center',
+    'header primary-font w-full header__main font-bold flex items-center justify-center text-sm',
   logo: 'header__logo',
   featured: 'flex justify-between header__featured w-full font-normal',
   item: 'flex items-center justify-center header__item h-inherit',
-  link: 'header__link uppercase',
+  link: 'header__link uppercase text-sm',
 }
 
 const HeaderChildStandard = props => {

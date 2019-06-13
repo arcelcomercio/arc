@@ -22,8 +22,6 @@
   }
 
   &__select-name {
-    font-size: 13px;
-
     @media (--desktop) {
       display: none;
     }
@@ -93,7 +91,6 @@
   &__link {
     padding: 10px 15px;
     color: $color-dark;
-    font-size: 13px;
 
     @media (--desktop) {
       justify-content: center;
@@ -142,7 +139,6 @@
   }
 
   &__sublink {
-    font-size: 11px;
     color: #a1a1a1;
     padding: 7px;
   }
@@ -179,7 +175,6 @@
   &__search-input {
     height: 40px;
     line-height: 50px;
-    font-size: 13px;
 
     @media (--desktop) {
       height: 90px;

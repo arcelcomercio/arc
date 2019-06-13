@@ -17,11 +17,12 @@ const classes = {
   btnSearch: 'flex items-center btn nav__btn nav__btn--search',
   btnSection: 'flex items-center btn nav__btn nav__btn--section',
   iconSearch: 'nav__icon-search icon-search title-sm',
-  iconMenu: 'nav__icon-menu icon-hamburguer',
+  iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
   list:
     'flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5 hidden',
   listItem: 'text-center',
-  listLink: 'nav__list-link text-center uppercase secondary-font font-normal',
+  listLink:
+    'nav__list-link text-center uppercase secondary-font font-normal text-sm',
   logo: 'nav__logo',
   ads: 'nav__ads mr-5 ml-5',
   btnContainer: 'flex items-center justify-end header__btn-container',

@@ -55,8 +55,6 @@
   }
 
   &__movie-title {
-    font-size: 24px;
-
     @media (--tablet) {
       font-size: 48px;
     }
@@ -68,7 +66,6 @@
 
   &__movie-description {
     color: $color-white;
-    font-size: 14px;
     line-height: 20px;
 
     @media (--tablet) {

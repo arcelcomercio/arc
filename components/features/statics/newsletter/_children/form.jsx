@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  title: 'newsletter__title position-relative font-bold pb-15 title-lg',
+  title: 'newsletter__title position-relative font-bold pb-15 title-md',
   descripcion: 'newsletter__description secondary-font',
   row: 'newsletter__row mb-20',
   email: 'newsletter__email w-full pr-15 pl-15 text-md',

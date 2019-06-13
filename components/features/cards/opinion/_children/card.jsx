@@ -3,7 +3,7 @@ import React from 'react'
 const classes = {
   opinion: 'opinion-card grid pr-10 pl-10',
   head: 'opinion-card__head grid item-center',
-  title: 'opinion-card__title text-center m-0',
+  title: 'opinion-card__title text-center m-0 text-xl',
   oneline: 'opinion-card__oneline',
   twoline: 'opinion-card__twoline',
   threeline: 'opinion-card__threeline',

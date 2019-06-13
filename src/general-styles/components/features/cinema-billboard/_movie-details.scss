@@ -22,7 +22,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, .7);
+    background-color: rgba(255, 255, 255, 0.7);
     pointer-events: none;
 
     @media (--tablet) {
@@ -33,7 +33,6 @@
 
   &__icon {
     color: $color-gray;
-    font-size: 20px;
   }
 
   &__detail {
@@ -59,7 +58,6 @@
   }
 
   &__title {
-    font-size: 22px;
     color: $color-white;
 
     @media (--tablet) {
@@ -70,7 +68,6 @@
 
   &__where {
     color: $color-white;
-    font-size: 13px;
     line-height: 1.5;
   }
 
@@ -81,19 +78,16 @@
 
   &__cinema {
     color: $color-white;
-    font-size: 13px;
     line-height: 1.5;
   }
 
   &__text {
-    color: rgba(255, 255, 255, .8);
-    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
     line-height: 1.5;
   }
 
   &__name {
     color: $color-white;
-    font-size: 13px;
     line-height: 1.5;
 
     &--sinopsis {
@@ -102,26 +96,25 @@
   }
 
   &__value {
-    color: rgba(255, 255, 255, .8);
+    color: rgba(255, 255, 255, 0.8);
   }
 
   &__more {
     max-width: 160px;
-    border: solid 1px rgba(255, 255, 255, .7);
-    transition: all .15s ease;
+    border: solid 1px rgba(255, 255, 255, 0.7);
+    transition: all 0.15s ease;
 
     @media (--tablet) {
       margin: 20px 0 0 0;
     }
 
     &:hover {
-      background-color: rgba(255, 255, 255, .2);
-      transition: all .15s ease;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: all 0.15s ease;
     }
   }
 
   &__btn {
     color: $color-white;
-    font-size: 13px;
   }
 }

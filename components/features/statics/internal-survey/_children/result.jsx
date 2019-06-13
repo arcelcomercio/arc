@@ -4,8 +4,8 @@ import InternalSurveyChildShare from './share'
 
 const classes = {
   graphic: 'i-survey-result__graphic table pt-30 pb-30',
-  title: 'i-survey-result__title text-center font-xbold',
-  count: 'i-survey-result__count font-bold mt-5 mb-40',
+  title: 'i-survey-result__title text-center font-xbold title-xl',
+  count: 'i-survey-result__count font-bold mt-5 mb-40 text-xl',
   list: 'scroll-vertical-auto mb-40',
 }
 

@@ -1,19 +1,17 @@
 .movies-container {
-    background-color: $color-gray;
+  background-color: $color-gray;
 
+  @media (--tablet) {
+    margin-top: 0;
+  }
+
+  @media (--desktop) {
+    margin-top: $spacing-normal;
+  }
+
+  &__title {
     @media (--tablet) {
-        margin-top: 0;
+      display: none;
     }
-
-    @media (--desktop) {
-        margin-top: $spacing-normal;
-    }
-
-    &__title {
-        font-size: 18px;
-
-        @media (--tablet) {
-            display: none;
-        }
-    }
+  }
 }

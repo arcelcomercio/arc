@@ -3,8 +3,8 @@ import React from 'react'
 const classes = {
   confirm:
     'i-survey-confirmation position-absolute text-center w-full top-0 left-0 pt-40 pb-40 pr-20 pl-20 h-auto',
-  message: 'i-survey-confirmation__message font-bold mt-5 mb-40',
-  button: 'i-survey-confirmation__button text-center inline-b',
+  message: 'i-survey-confirmation__message font-bold mt-5 mb-40 title-sm',
+  button: 'i-survey-confirmation__button text-center inline-b text-sm',
 }
 
 const InternalSurveyChildConfirmation = ({ handleOnClickViewResult }) => {

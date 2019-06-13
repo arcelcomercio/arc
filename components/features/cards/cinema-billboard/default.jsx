@@ -6,22 +6,23 @@ const classes = {
   cinemaCard: 'cinema-card p-20 row-1',
   container: 'position-relative',
   gradient: 'cinema-card__gradient w-full position-absolute bottom-0 left-0',
-  category: 'cinema-card__category uppercase primary-font mb-0 pb-15',
+  category: 'cinema-card__category uppercase primary-font mb-0 pb-15 text-xl',
   link: 'cinema-card__link',
   figure: 'cinema-card__figure overflow-hidden',
   image: 'w-full h-full object-cover',
   detail:
     'cinema-card__detail w-full position-absolute bottom-0 pr-15 pl-15 pb-10',
-  premiere: 'cinema-card__premiere',
-  movieTitle: 'cinema-card__p-title overflow-hidden',
+  premiere: 'cinema-card__premiere text-xl',
+  movieTitle: 'cinema-card__p-title overflow-hidden text-xl',
   movieLink: 'cinema-card__p-link font-normal',
   moviesList: 'cinema-card__movies-list p-10',
-  title: 'cinema-card__title uppercase primary-font font-normal mb-10',
+  title: 'cinema-card__title uppercase primary-font font-normal mb-10 text-md',
   form: 'text-right',
   selectsContainer: 'mb-10',
-  select: 'cinema-card__select w-full primary-font mb-5 pl-10',
+  select: 'cinema-card__select w-full primary-font mb-5 pl-10 text-xs',
   option: 'cinema-card__option',
-  button: 'cinema-card__button inline-b uppercase font-bold primary-font',
+  button:
+    'cinema-card__button inline-b uppercase font-bold primary-font text-xs',
 }
 
 @Consumer

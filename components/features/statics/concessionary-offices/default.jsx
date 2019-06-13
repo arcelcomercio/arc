@@ -7,19 +7,19 @@ const classes = {
   concessionaires: 'concessionaires w-full position-relative',
   arrow: 'concessionaires__arrow position-absolute',
   container: 'concessionaires__container w-full m-0 mx-auto pr-20 pl-20',
-  title: 'concessionaires__title text-center font-bold',
-  info: 'concessionaires__info text-center mt-10 mb-40 mx-auto',
+  title: 'concessionaires__title text-center font-bold title-sm',
+  info: 'concessionaires__info text-center mt-10 mb-40 mx-auto text-sm',
   locations: 'concessionaires__locations pt-25',
   search: 'concessionaires__search flex mb-20 flex-col',
   searchTitle:
-    'concessionaires__search-title uppercase font-bold text-center pt-15 pr-20 pl-20',
+    'concessionaires__search-title uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm',
   form: 'flex',
   zona: 'concessionaires__controls flex mr-15 flex-col',
-  label: 'concessionaires__label block text-center',
+  label: 'concessionaires__label block text-center text-sm',
   select: 'concessionaires__select pl-15',
   district: 'concessionaires__controls flex',
   districtLabel: 'concessionaires__label',
-  mapTitle: 'concessionaires__map-title font-thin mt-10 mb-10',
+  mapTitle: 'concessionaires__map-title font-thin mt-10 mb-10 title-sm',
 }
 
 class StaticConcessionaryOffices extends PureComponent {

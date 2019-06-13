@@ -1,85 +1,80 @@
 $movie-size: 134px;
 
 .movies-grid {
-    background-color: $color-white;
+  background-color: $color-white;
 
-    &__nav {
-        @media (--tablet) {
-            display: block;
-        }
+  &__nav {
+    @media (--tablet) {
+      display: block;
+    }
+  }
+
+  &__nav-link {
+    transition: 0.5s;
+    color: $color-silver;
+
+    &--active {
+      font-weight: 900;
+      color: $color-gray;
     }
 
-    &__nav-link {
-        font-size: 14px;
-        transition: 0.5s;
-        color: $color-silver;
-
-        &--active {
-            font-weight: 900;
-            color: $color-gray;
-        }
-
-        &:hover {
-            color: $color-gray;
-        }
-
-        &::before {
-            content: "·";
-            font-weight: 900;
-            position: absolute;
-            left: -2px;
-        }
+    &:hover {
+      color: $color-gray;
     }
 
-    &__form {
-        @media (--tablet) {
-            display: none;
-        }
+    &::before {
+      content: '·';
+      font-weight: 900;
+      position: absolute;
+      left: -2px;
+    }
+  }
+
+  &__form {
+    @media (--tablet) {
+      display: none;
+    }
+  }
+
+  &__info {
+    color: $color-silver;
+  }
+
+  &__select {
+    background-color: $color-info;
+    background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    margin-right: 1%;
+    padding: 0 32px 0 8px;
+    line-height: 45px;
+    color: $color-gray;
+  }
+
+  &__grid {
+    gap: $spacing-normal;
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (--tablet) {
+      grid-template-columns: repeat(4, 1fr);
     }
 
-    &__info {
-        color: $color-silver;
-        font-size: 11px;
+    @media (--desktop) {
+      grid-template-columns: repeat(6, 1fr);
     }
+  }
 
-    &__select {
-        background-color: $color-info;
-        background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
-        background-position: right center;
-        background-repeat: no-repeat;
-        margin-right: 1%;
-        padding: 0 32px 0 8px;
-        line-height: 45px;
-        color: $color-gray;
-    }
+  &__movie {
+    width: $movie-size;
+  }
 
+  &__title {
+    line-height: 15px;
+    color: $color-silver;
+  }
 
-    &__grid {
-        gap: $spacing-normal;
-        grid-template-columns: repeat(2, 1fr);
-
-        @media (--tablet) {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        @media (--desktop) {
-            grid-template-columns: repeat(6, 1fr);
-        }
-    }
-
-    &__movie {
-        width: $movie-size;
-    }
-
-    &__title {
-        font-size: 12px;
-        line-height: 15px;
-        color: $color-silver;
-    }
-
-    &__tag {
-        font-size: 12px;
-        color: $color-dark;
-        text-decoration: none;
-    }
+  &__tag {
+    color: $color-dark;
+    text-decoration: none;
+  }
 }

@@ -11,7 +11,7 @@ export const TripletChildTriplet = props => {
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
     threeline: 'triplet--threeline',
-    author: 'triplet__author uppercase pt-10',
+    author: 'triplet__author uppercase pt-10 text-xs',
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
     tripletIcon:
@@ -74,7 +74,7 @@ export const TripletChildTriplet = props => {
 export const Icon = props => {
   const classes = {
     tripletBoxIcon: 'triplet__box-icon position-absolute text-center',
-    tripletIcon: 'triplet__icon',
+    tripletIcon: 'triplet__icon text-xs',
   }
 
   const html = (
