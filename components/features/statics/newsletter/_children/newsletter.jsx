@@ -4,7 +4,7 @@ import Confirmation from './confirmation'
 
 const classes = {
   newsletter: 'newsletter flex flex-col-reverse items-center',
-  boxSuscripcion: 'newsletter__box-suscription pr-40 pl-40',
+  boxSuscripcion: 'newsletter__box-suscription pr-40 pl-40 primary-font',
   errorMessage: 'newsletter__error-message block pt-5',
   errorMessageMedium: 'newsletter__error-message--font-medium',
   bannerImage: 'newsletter__banner-image w-full',

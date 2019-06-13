@@ -2,7 +2,7 @@ import React from 'react'
 
 const classes = {
   title: 'newsletter__title position-relative font-bold pb-15',
-  descripcion: 'newsletter__description',
+  descripcion: 'newsletter__description secondary-font',
   row: 'newsletter__row mb-20',
   textCenter: 'text-center',
   button: 'newsletter__button font-bold w-full',

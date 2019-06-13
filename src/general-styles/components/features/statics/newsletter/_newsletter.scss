@@ -16,7 +16,6 @@
   }
 
   &__box-suscription {
-    font-family: $primary-font;
     align-self: center;
 
     @media (--desktop) {
@@ -34,7 +33,7 @@
 
   &__description {
     color: #666;
-    font: 20px/1.5 $secondary-font;
+    line-height: 1.5;
     margin-block-start: 1em;
     margin-block-end: 1em;
   }
