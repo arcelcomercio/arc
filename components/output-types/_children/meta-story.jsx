@@ -112,11 +112,10 @@ export default ({
     "keywords":[${seoKeywordsItems.map(item => item)}]
  }`
 
-  const breadcrumbResult = breadcrumbList.map(
-    ({ url = '', name = '' } = {}, i) => {
-      return (
-        url &&
-        `
+  const breadcrumbResult = breadcrumbList.map(({ url, name } = {}, i) => {
+    return (
+      url &&
+      `
          {  
             "@type":"ListItem",
             "position":${i + 1},
@@ -125,9 +124,8 @@ export default ({
                "name":"${name}"
             }
          } `
-      )
-    }
-  )
+    )
+  })
 
   const structuredBreadcrumb = `{  
       "@context":"https://schema.org",

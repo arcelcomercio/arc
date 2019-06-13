@@ -29,11 +29,11 @@ class StoryHeader extends PureComponent {
           <StoryHeaderChildHeading {...parameters} />
           <StoryHeaderChildShareSubheading {...parameters} />
 
-          {subtype === ConfigParams.GALLERY_VERTICAL ? (
+          {subtype !== ConfigParams.GALLERY_VERTICAL ? (
             <StoryHeaderChildGallery {...parameters} />
           ) : (
             // TODO falta implementar el Slider #5053
-            <StoryHeaderChildGallery {...parameters} />
+            ''
           )}
         </div>
       </>
