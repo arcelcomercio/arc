@@ -181,7 +181,7 @@ class NavBarDefault extends PureComponent {
     }
     return (
       _handleHide() && (
-        <nav className={classes.nav}>
+        <nav className={`${classes.nav} ${scrolled ? 'active' : ''}`}>
           <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}
 
@@ -196,7 +196,7 @@ class NavBarDefault extends PureComponent {
 
             {/** ************* MIDDLE *************** */}
 
-            <ul className={`${classes.list} ${scrolled ? '' : 'active'}`}>
+            <ul className={classes.list}>
               {sections &&
                 sections.slice(0, 5).map(({ name, _id: id }) => {
                   return (
