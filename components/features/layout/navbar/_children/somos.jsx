@@ -7,10 +7,10 @@ const classes = {
   logoImg: 'navbar-somos__logo-img',
   boxRight: 'h-full flex items-center',
   loginButton:
-    'navbar-somos__login-button font-bold uppercase flex items-center',
+    'navbar-somos__login-button font-bold uppercase flex items-center text-sm',
   iconUser: 'icon-user navbar-somos__icon-user mr-5',
   searchIcon: 'icon-search navbar-somos__icon',
-  searchInput: 'navbar-somos__search-input',
+  searchInput: 'navbar-somos__search-input text-md',
   searchButton: 'navbar-somos__search-button',
   closeButton: 'navbar-somos__close-button',
   closeIcon: 'icon-close navbar-somos__icon',
