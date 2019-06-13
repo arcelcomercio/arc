@@ -1,7 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import AmpImage from '@arc-core-components/element_image'
 
 // TODO: Separar Feature de Componente.
 
