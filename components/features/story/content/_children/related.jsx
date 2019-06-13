@@ -1,6 +1,7 @@
 import React from 'react'
 import { getIcon } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
+import ConfigParams from '../../../../utilities/config-params'
 
 // Basic flex stuff
 const classes = {
@@ -54,7 +55,7 @@ const RenderRelatedContentElement = (elements, i) => {
             alt={filterData.nameTitle}
             className={classes.relatedImage}
           />
-          {filterData.multimediaType === 'basic' ||
+          {filterData.multimediaType === ConfigParams.IMAGE ||
           filterData.multimediaType === '' ? (
             ''
           ) : (

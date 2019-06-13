@@ -241,6 +241,12 @@ class StoryData {
     return breadcrumbList(url, this._siteUrl, this._contextPath)
   }
 
+  get seoKeywords() {
+    const { taxonomy: { seo_keywords: seoKeywords = [] } = {} } =
+      this._data || {}
+    return seoKeywords
+  }
+
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
@@ -258,6 +264,15 @@ class StoryData {
           this._data.content_elements,
           'text'
         )) ||
+      ''
+    )
+  }
+
+  get contentElementGallery() {
+    return (
+      (this._data &&
+        this._data.promo_items &&
+        this._data.promo_items[ConfigParams.GALLERY]) ||
       ''
     )
   }
@@ -280,7 +295,7 @@ class StoryData {
     } = {},
     type = ''
   ) {
-    if (basicVideo.url && (type === 'video' || type === 'image')) {
+    if (basicVideo.promo_image && (type === 'video' || type === 'image')) {
       const {
         streams = [],
         publish_date: date = '',
@@ -309,11 +324,12 @@ class StoryData {
       }
     }
 
-    if (basicGallery.url && type !== 'video') {
+    if (basicGallery.content_elements && type !== 'video') {
       const { content_elements: contentElements = {} } = basicGallery
       return contentElements
     }
-    if (basicImage.url && type === 'image') {
+
+    if (basicImage && type === 'image') {
       const {
         content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
         url: urlImage,

@@ -1,8 +1,6 @@
 import React from 'react'
 import { formatDate } from '../../../../utilities/helpers'
 
-/** TODO: Vale la pena usar moment? */
-
 const classes = {
   author: 'flex flex--justify-between pd-top-30 mg-bottom-20',
   authorName: '',
@@ -26,7 +24,7 @@ const StoryContentChildAuthor = props => {
         {email && <p className={classes.authorEmail}> {email} </p>}
       </div>
       <div className={classes.authorDate}>
-        <p>Actualizado {date && formatDate(date)}</p>
+        <time dateTime={date}>Actualizado {date && formatDate(date)}</time>
       </div>
     </div>
   )

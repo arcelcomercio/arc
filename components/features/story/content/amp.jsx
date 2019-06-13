@@ -11,6 +11,7 @@ import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryContentChildTags from './_children/tags'
 import StoryContentChildRelated from './_children/related'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   content: 'story-content-amp pd-left-20 pd-right-20',
@@ -18,6 +19,8 @@ const classes = {
   author: 'story-content-amp__author',
   tags: 'story-content-amp',
   image: 'story-content-amp__image',
+  video: 'story-content-amp__video amp-active',
+  imgTag: 'story-content-amp_iamge-tag ',
 }
 
 @Consumer
@@ -47,7 +50,7 @@ class StoryContentAmp extends PureComponent {
                 raw_oembed: rawOembed,
                 content_elements: innerContentElements,
               } = element
-              if (type === 'oembed_response') {
+              if (type === ConfigParams.ELEMENT_OEMBED) {
                 return (
                   <AmpOembed
                     rawOembed={rawOembed}
@@ -56,14 +59,14 @@ class StoryContentAmp extends PureComponent {
                   />
                 )
               }
-              if (type === 'quote') {
+              if (type === ConfigParams.ELEMENT_QUOTE) {
                 return <StoryContentChildBlockQuote data={element} />
               }
-              if (type === 'table') {
+              if (type === ConfigParams.ELEMENT_TABLE) {
                 return <StoryContentChildTable data={element} type={type} />
               }
 
-              if (type === 'gallery') {
+              if (type === ConfigParams.ELEMENT_GALLERY) {
                 return (
                   <AMPCarousel
                     data={innerContentElements}
@@ -72,21 +75,21 @@ class StoryContentAmp extends PureComponent {
                   />
                 )
               }
-              if (type === 'image') {
+              if (type === ConfigParams.ELEMENT_IMAGE) {
                 return (
                   <AmpImage
                     {...element}
-                    ImgTag="amp-img"
+                    ImgTag={classes.imgTag}
                     imgClassName={classes.image}
                     layout="responsive"
                   />
                 )
               }
-              if (type === 'video') {
+              if (type === ConfigParams.ELEMENT_VIDEO) {
                 return (
                   <amp-iframe i-amphtml-layout="responsive" frameborder="0">
                     <i-amphtml-sizer />
-                    <i-amphtml-scroll-container class="amp-active" />
+                    <i-amphtml-scroll-container className={classes.video} />
                     <StoryContentChildVideo data={element.embed_html} />
                   </amp-iframe>
                 )
@@ -102,7 +105,7 @@ class StoryContentAmp extends PureComponent {
             {relatedContent.map((item, i) => {
               const { type } = item
               const key = `related-${i}`
-              return type !== 'story' ? (
+              return type !== ConfigParams.ELEMENT_STORY ? (
                 ''
               ) : (
                 <StoryContentChildRelated
