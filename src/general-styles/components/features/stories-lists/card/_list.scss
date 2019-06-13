@@ -2,12 +2,12 @@
   &__title {
     min-width: 10%;
     max-width: 60%;
-    color: $color-dark;
+    color: $color-gray-300;
   }
 
   &__see-more {
     background-color: $color-white;
-    color: $color-silver;
+    color: $color-gray-200;
   }
 
   &__list-item {
@@ -35,7 +35,7 @@
   &__time {
     font-size: 16px;
     line-height: 19.2px;
-    color: $color-dark;
+    color: $color-gray-300;
   }
 
   &__page-link-container {

@@ -36,7 +36,7 @@
   &__title {
     font-size: 18px;
     line-height: 1.8;
-    color: $color-gray;
+    color: $color-gray-300;
   }
 
   &__function {
@@ -46,7 +46,7 @@
   &__subtitle {
     font-size: 13px;
     line-height: 1.4;
-    color: $color-gray;
+    color: $color-gray-300;
 
     &:first-child {
       margin-bottom: $spacing-normal;

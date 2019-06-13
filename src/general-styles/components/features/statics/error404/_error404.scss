@@ -1,5 +1,5 @@
 .error {
-    background: $color-soft-bg;
+    background: $color-gray-100-bg;
 
     &__icon {
         margin-left: -21px;
@@ -25,6 +25,6 @@
 
     &__link {
         line-height: 1.5;
-        color: $color-gray;
+        color: $color-gray-300;
     }
 }

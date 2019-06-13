@@ -18,7 +18,7 @@
 
   &__title {
     font-size: 20px;
-    color: $color-gray;
+    color: $color-gray-300;
 
     @media (--tablet) {
       font-size: 32px;
@@ -29,7 +29,7 @@
     font-size: 13px;
     line-height: 1.5;
     width: 300px;
-    color: $color-gray;
+    color: $color-gray-300;
   }
 
   &__locations {
@@ -50,7 +50,7 @@
 
   &__search-title {
     font-size: 13px;
-    color: $color-gray;
+    color: $color-gray-300;
 
     @media (--tablet) {
       margin-bottom: 20px;
@@ -104,7 +104,7 @@
   }
 
   &__map-title {
-    color: $color-gray;
+    color: $color-gray-300;
     font-size: 20px;
   }
 }

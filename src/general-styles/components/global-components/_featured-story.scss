@@ -19,11 +19,9 @@ $image-height: 157px;
       height: 306px;
       bottom: 0;
       left: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(68, 68, 68, 0) 20%,
-        rgb(68, 68, 68)
-      );
+      background: linear-gradient(to bottom,
+          rgba(68, 68, 68, 0) 20%,
+          rgb(68, 68, 68));
     }
   }
 
@@ -67,12 +65,12 @@ $image-height: 157px;
 
   &::before {
     top: -11px;
-    border-top: 1px solid $color-silver;
+    border-top: 1px solid $color-gray-200;
   }
 
   &::after {
     bottom: -10px;
-    border-bottom: 1px solid $color-silver;
+    border-bottom: 1px solid $color-gray-200;
   }
 
   @media (--tablet) {

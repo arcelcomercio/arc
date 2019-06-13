@@ -1,5 +1,5 @@
 .movies-filter {
-  background-color: $color-gray;
+  background-color: $color-gray-300;
 
   @media (--tablet) {
     padding: $spacing-xlarge;
@@ -17,7 +17,7 @@
   &__filter-box {
     @media (--desktop) {
       flex-direction: initial;
-      border: 1px solid $color-silver;
+      border: 1px solid $color-gray-200;
       padding: 4px;
     }
   }
@@ -34,7 +34,7 @@
 
   &__label {
     @media (--tablet) {
-      color: $color-soft;
+      color: $color-gray-100;
       padding: 0 8px;
       display: inline-block;
     }
@@ -63,7 +63,7 @@
     background-repeat: no-repeat;
     padding: 0 42px 0 16px;
     margin-bottom: 8px;
-    color: $color-dark;
+    color: $color-gray-300;
     line-height: 45px;
 
     @media (--desktop) {
@@ -76,7 +76,7 @@
 
   &__btn {
     background-color: $color-primary;
-    color: $color-gray;
+    color: $color-gray-300;
 
     @media (--desktop) {
       width: 100px;

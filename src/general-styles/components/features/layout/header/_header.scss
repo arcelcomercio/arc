@@ -1,6 +1,6 @@
 .header {
   font-size: $font-sm;
-  color: $color-dark;
+  color: $color-gray-300;
 
   &__main {
     height: 58px;
@@ -17,7 +17,7 @@
     padding: 8px;
 
     :hover {
-      color: $color-dark;
+      color: $color-gray-300;
     }
 
     /* &:first-child {
@@ -35,7 +35,7 @@
   &__nav-wrapper {
     padding: 5px 20px;
     border-bottom: 1px solid $color-primary;
-    background-color: $color-light;
+    background-color: $color-gray-100;
   }
 
   &__btn-container {

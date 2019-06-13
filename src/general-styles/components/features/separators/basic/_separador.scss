@@ -2,7 +2,7 @@
   background-color: $color-white;
   display: grid;
   grid-template-columns: 1fr;
-  border: 1px solid $color-soft;
+  border: 1px solid $color-gray-100;
 
   &__title {
     display: -webkit-box;
@@ -13,16 +13,19 @@
     -webkit-box-orient: vertical;
     font-family: $secondary-font;
     color: $color-white;
+
     &--nota {
       & a {
-        color: $color-gray;
+        color: $color-gray-300;
       }
     }
   }
+
   &__title-link {
     color: $color-white;
     text-decoration: none;
   }
+
   &__header-html {
     height: 70px;
     width: 300px;
@@ -35,7 +38,7 @@
 
     &--nota {
       border-style: solid;
-      border-color: $color-soft;
+      border-color: $color-gray-100;
       border-width: 1px 0;
       height: 46px;
     }
@@ -92,7 +95,7 @@
 
           a {
             font-size: 19px;
-            color: $color-gray;
+            color: $color-gray-300;
             font-weight: 500;
           }
 
@@ -174,11 +177,9 @@
       height: 100%;
       top: 0;
       left: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0) 50%,
-        rgba(50, 50, 50, 0.7) 100%
-      );
+      background: linear-gradient(to bottom,
+          rgba(255, 255, 255, 0) 50%,
+          rgba(50, 50, 50, 0.7) 100%);
     }
 
     & figure {
@@ -188,7 +189,7 @@
       width: 100%;
 
       & a {
-        color: $color-gray;
+        color: $color-gray-300;
         text-decoration: none;
 
         & img {

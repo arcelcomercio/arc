@@ -16,7 +16,7 @@
 .extraordinary-story {
   grid-template-columns: 1fr 1fr;
   background-color: $color-white;
-  border-color: $color-silver;
+  border-color: $color-gray-200;
   //border-style: solid;
   //border-width: 5px 7px;
   //grid-gap: 10px;
@@ -105,18 +105,18 @@
 
   &__subtitle {
     margin-bottom: 15px;
-    color: $color-silver;
+    color: $color-gray-200;
   }
 
   &__author {
     font-size: 0.7em;
-    color: $color-silver;
+    color: $color-gray-200;
     margin-bottom: 15px;
   }
 
   &__multimedia {
     grid-area: extraordinary-story-multimedia;
-    background-color: $color-gray;
+    background-color: $color-gray-300;
 
     .youtube-iframe {
       min-height: 370px;
