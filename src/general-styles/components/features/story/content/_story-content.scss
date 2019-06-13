@@ -30,31 +30,9 @@
     }
   }
 
-  & .table {
-    width: 100%;
-    height: auto;
-    border: 1px solid #e6e6e6;
-    border-collapse: collapse;
-    margin: 15px 0;
-
-    & .table__cell {
-      border-right: 1px solid #e6e6e6;
-      border-bottom: 1px solid #e6e6e6;
-      padding: 2px 4px 1px 4px;
-      font-size: 13px;
-      line-height: 140%;
-      color: #000;
-      font-family: sans-serif;
-    }
-
-    & .table__row:nth-child(even) .table__cell {
-      background-color: #e6e6e6;
-    }
-  }
-
   /* Esto es importante definirlo por los scripts de Opta */
   &__content {
-    & > section {
+    &>section {
       width: 100%;
     }
   }
@@ -101,13 +79,13 @@
       width: 100% !important;
       max-width: 500px;
 
-      & > span {
+      &>span {
         width: 100% !important;
 
-        & > [src*='facebook'] {
+        &>[src*='facebook'] {
           width: 100% !important;
 
-          & > [data-testid*='newsFeedStream'] {
+          &>[data-testid*='newsFeedStream'] {
             width: 100% !important;
           }
         }

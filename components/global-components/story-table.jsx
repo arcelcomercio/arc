@@ -3,9 +3,10 @@ import renderHTML from 'react-render-html'
 import UtilListKey from '../utilities/list-keys'
 
 const classes = {
-  table: 'table',
-  row: 'table__row',
-  cell: 'table__cell',
+  // TODO: Si la clase table rompe algo, quitar con confianza
+  table: 'story-table w-full h-auto mt-15 mb-15 mr-0 ml-0 table',
+  row: 'story-table__row',
+  cell: 'story-table__cell secondary-font',
 }
 
 const StoryCotentChildTable = props => {
