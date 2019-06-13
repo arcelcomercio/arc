@@ -16,9 +16,9 @@ class StoryContentChildVideo extends PureComponent {
           : ''
       },
     }
-    window.addEventListener('powaReady', event => {
-      const powa = document.getElementsByClassName('powa')
-      powa[0].setAttribute('data-sticky', 'true')
+
+    window.addEventListener('powaReady', ({ detail: { element } }) => {
+      element.setAttribute('data-sticky', 'true')
     })
   }
 

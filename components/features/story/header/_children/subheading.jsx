@@ -5,13 +5,9 @@ const classes = {
 }
 
 const StoryHeaderChildShareSubheading = data => {
-  const {
-    data: { subheadlines: description = {} },
-  } = data || {}
+  const { subTitle } = data || {}
 
-  return (
-    description && <h2 className={classes.description}> {description.basic}</h2>
-  )
+  return subTitle && <h2 className={classes.description}> {subTitle}</h2>
 }
 
 export default StoryHeaderChildShareSubheading

@@ -268,6 +268,15 @@ class StoryData {
     )
   }
 
+  get contentElementGallery() {
+    return (
+      (this._data &&
+        this._data.promo_items &&
+        this._data.promo_items[ConfigParams.GALLERY]) ||
+      ''
+    )
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {

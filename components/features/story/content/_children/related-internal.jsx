@@ -1,6 +1,7 @@
 import React from 'react'
 // import StoryData from '../../../../utilities/story-data'
 import { getIcon } from '../../../../utilities/helpers'
+import ConfigParams from '../../../../utilities/config-params'
 
 // Basic flex stuff
 const classes = {
@@ -50,7 +51,7 @@ const RelartedItem = ({ data } /* , i */) => {
               alt={filterData.nameTitle}
               className={classes.relatedImage}
             />
-            {filterData.multimediaType === 'basic' ||
+            {filterData.multimediaType === ConfigParams.IMAGE ||
             filterData.multimediaType === '' ? (
               ''
             ) : (
