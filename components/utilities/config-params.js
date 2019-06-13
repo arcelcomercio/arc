@@ -25,8 +25,7 @@ class ConfigParams {
 
   static ELEMENT_RAW_HTML = 'raw_htmal'
 
-  static ELEMENT_TABLE = 'table'
-  static ELEMENT_TABLE = 'table'
+  static ELEMENT_BLOCKQUOTE = 'blockquote'
 }
 
 export default ConfigParams

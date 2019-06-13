@@ -1,5 +1,6 @@
 import React from 'react'
 import renderHTML from 'react-render-html'
+import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
   blockquote: 'pquote',
@@ -14,7 +15,11 @@ const StoryContentChildBlockQuote = props => {
 
   return (
     <blockquote
-      className={subtype === 'blockquote' ? classes.blockquote : classes.pull}>
+      className={
+        subtype === ConfigParams.ELEMENT_BLOCKQUOTE
+          ? classes.blockquote
+          : classes.pull
+      }>
       <p>
         {content && renderHTML(content)}
         <br />
