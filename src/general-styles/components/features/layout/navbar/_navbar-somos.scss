@@ -1,7 +1,6 @@
 .navbar-somos {
   background-color: #000;
   height: 45px;
-  padding: 0 10px;
 
   button:focus {
     outline: none;
@@ -17,7 +16,6 @@
 
   &__login-button {
     color: $color-white;
-    padding: 0 15px;
   }
 
   &__icon-user {
@@ -37,7 +35,6 @@
   }
 
   &__search-input {
-    padding: 0 10px;
     width: 185px;
     height: 35px;
     border: 0;

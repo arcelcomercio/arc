@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const classes = {
   header:
-    'header primary-font w-full header__main font-bold flex items-center justify-center',
+    'header primary-font w-full header__main font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15',
   logo: 'header__logo',
   featured: 'flex justify-between header__featured w-full font-normal',
   item: 'flex items-center justify-center header__item h-inherit',
