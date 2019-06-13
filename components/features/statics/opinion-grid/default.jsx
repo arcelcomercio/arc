@@ -10,8 +10,8 @@ import CustomTitle from '../../custom-title/default'
 // TODO: author-card y editorial-card pueden evitar código duplicado con un contenedor
 const classes = {
   container: 'opinion-grid grid w-full m-0 mx-auto',
-  externalTitle: 'opinion-grid--title',
-  list: 'opinion-grid--list w-full',
+  externalTitle: 'opinion-grid--title pt-20 pb-20 pl-0 pr-0 m-0 mx-auto',
+  list: 'opinion-grid--list w-full m-0 mx-auto',
   titleBox: 'opinion-grid__box-title w-full pt-15 pb-15',
   title: 'opinion-grid__title uppercase text-center secondary-font',
   moreBox: 'flex justify-center pt-25 pb-15',

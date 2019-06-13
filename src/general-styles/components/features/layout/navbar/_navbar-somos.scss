@@ -1,7 +1,6 @@
 .navbar-somos {
   background-color: #000;
   height: 45px;
-  padding: 0 10px;
 
   button:focus {
     outline: none;
@@ -20,7 +19,6 @@
     color: $color-white;
     font-family: $primary-font;
     font-size: 13px;
-    padding: 0 15px;
   }
 
   &__icon-user {
@@ -41,7 +39,6 @@
 
   &__search-input {
     font: 700 14px $primary-font;
-    padding: 0 10px;
     width: 185px;
     height: 35px;
     border: 0;

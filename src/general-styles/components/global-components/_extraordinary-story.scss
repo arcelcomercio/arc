@@ -72,7 +72,6 @@
   }
 
   &__content {
-    padding: 20px 20px 0px 20px;
     grid-area: extraordinary-story-content;
     display: inline-grid;
     align-content: space-evenly;
@@ -82,7 +81,6 @@
 
   &__title {
     display: -webkit-box;
-    margin-bottom: 15px;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
@@ -104,14 +102,12 @@
   }
 
   &__subtitle {
-    margin-bottom: 15px;
     color: $color-silver;
   }
 
   &__author {
     font-size: 0.7em;
     color: $color-silver;
-    margin-bottom: 15px;
   }
 
   &__multimedia {
