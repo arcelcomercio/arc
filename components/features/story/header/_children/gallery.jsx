@@ -11,7 +11,9 @@ const classes = {
 }
 
 const StoryHeaderChildGallery = props => {
-  const { data: { content_elements: elements = [] } = {} } = props
+  const {
+    contentElementGallery: { content_elements: elements = [] } = {},
+  } = props
   return (
     <div className={classes.gallery}>
       {elements.map((data, index) => (

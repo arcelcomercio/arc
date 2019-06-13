@@ -1,6 +1,7 @@
 import React from 'react'
 import Video from './video'
 import Imagen from './image'
+import ConfigParams from '../../../../utilities/config-params'
 
 const StoryContentChildMultimedia = props => {
   const {
@@ -12,8 +13,8 @@ const StoryContentChildMultimedia = props => {
   const { type: typeImage } = basic || {}
   return (
     <>
-      {typeImage === 'image' && <Imagen data={basic} />}
-      {type === 'video' && <Video data={embedHtml} />}
+      {typeImage === ConfigParams.ELEMENT_IMAGE && <Imagen data={basic} />}
+      {type === ConfigParams.ELEMENT_VIDEO && <Video data={embedHtml} />}
     </>
   )
 }

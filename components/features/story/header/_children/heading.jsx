@@ -5,13 +5,9 @@ const classes = {
 }
 
 const StoryHeaderChildHeading = props => {
-  const {
-    data: { headlines: titleElements = {} },
-  } = props || {}
+  const { title } = props || {}
 
-  return (
-    titleElements && <h1 className={classes.title}> {titleElements.basic}</h1>
-  )
+  return title && <h1 className={classes.title}> {title}</h1>
 }
 
 export default StoryHeaderChildHeading
