@@ -8,7 +8,8 @@ const classes = {
   errorMessage: 'newsletter__error-message block pt-5 text-xs',
   errorMessageMedium: 'text-lg mb-20',
   bannerImage: 'newsletter__banner-image w-full',
-  imageContainer: 'newsletter__image-container overflow-hidden text-center',
+  imageContainer:
+    'newsletter__image-container overflow-hidden text-center border-solid',
   image: 'newsletter__image',
 }
 const Newsletter = props => {

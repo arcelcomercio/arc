@@ -36,7 +36,6 @@
   }
 
   &__input {
-    border: 0;
     outline: none;
     font-size: 14px;
     height: 40px;
@@ -50,7 +49,7 @@
   &__box-btn,
   &__box-search,
   &__footer {
-    border-bottom: solid 1px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   &__btn {

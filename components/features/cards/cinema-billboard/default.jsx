@@ -21,7 +21,8 @@ const classes = {
   selectsContainer: 'mb-10',
   select: 'cinema-card__select w-full primary-font mb-5 pl-10',
   option: 'cinema-card__option',
-  button: 'cinema-card__button inline-b uppercase font-bold primary-font',
+  button:
+    'cinema-card__button inline-b uppercase font-bold primary-font border-0',
 }
 
 @Consumer

@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 const classes = {
   // header
   logocontent:
-    'header-somos flex justify-between items-center text-center w-full p-10',
+    'header-somos flex justify-between items-center text-center w-full p-10 border-t-1 border-b-1 boder-solid',
   iconmenuwrapper: 'header-somos__icon-wrapper flex-1',
   menuicon: 'icon-menu header-somos__icon',
   logoWrapper:
@@ -19,7 +19,8 @@ const classes = {
   menuClose: 'somos-menu__close text-right w-full pt-15 pr-10 pl-10',
   menuCloseIcon: 'icon-close somos-menu__close-icon',
   menuSearch: 'somos-menu__search position-relative pt-15 pr-10 pl-10',
-  menuSearchInput: 'somos-menu__search-input w-full font-bold pr-10 pl-10',
+  menuSearchInput:
+    'somos-menu__search-input w-full font-bold pr-10 pl-10 border-1 border-solid',
   menuSearchIcon: 'icon-search ',
   menuButtonSearchIcon: 'somos-menu__search-icon position-absolute',
   menuLogin: 'somos-menu__login w-full pt-20 pr-10 pl-10',

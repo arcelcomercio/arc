@@ -1,28 +1,27 @@
 .i-survey-item {
-    font-size: 16px;
-    border-bottom: 0;
-    min-height: 28px;
-    color: #4c4c4c;
+  font-size: 16px;
+  min-height: 28px;
+  color: #4c4c4c;
 
-    &__text {
-        color: #999;
-        z-index: 1;
-    }
+  &__text {
+    color: #999;
+    z-index: 1;
+  }
 
-    &__percent {
-        color: #4aa8fa;
-    }
+  &__percent {
+    color: #4aa8fa;
+  }
 
-    &__bar {
-        height: 28px;
-    }
+  &__bar {
+    height: 28px;
+  }
 
-    &__progress {
-        background-color: $color-white;
-        height: 28px;
-    }
+  &__progress {
+    background-color: $color-white;
+    height: 28px;
+  }
 
-    &__top {
-        background-color: #d5e5ed;
-    }
+  &__top {
+    background-color: #d5e5ed;
+  }
 }

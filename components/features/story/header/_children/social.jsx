@@ -7,7 +7,8 @@ import {
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  news: 'story-header__share flex items-center justify-between mb-20 p-20',
+  news:
+    'story-header__share flex items-center justify-between mb-20 p-20 border-b-1 border-t-1 border-solid',
   breadcrumb: '',
   item: 'story-header__item',
   category: 'text-uppercase',

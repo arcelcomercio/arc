@@ -2,13 +2,13 @@ import React from 'react'
 
 const classes = {
   opinion: 'opinion-card grid pr-10 pl-10',
-  head: 'opinion-card__head grid item-center',
+  head: 'opinion-card__head grid item-center border-t-1 border-solid',
   title: 'opinion-card__title text-center m-0',
   oneline: 'opinion-card__oneline',
   twoline: 'opinion-card__twoline',
   threeline: 'opinion-card__threeline',
   body: 'opinion-card__body grid',
-  item: 'opinion-card__item pt-10',
+  item: 'opinion-card__item pt-10 border-t-1 border-solid',
   section: 'opinion-card__section grid item-center',
   imageContainer:
     'opinion-card__image-container grid item-center justify-center',

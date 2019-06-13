@@ -12,8 +12,8 @@ const classes = {
   iconUser: 'icon-user navbar-somos__icon-user mr-5',
   searchIcon: 'icon-search navbar-somos__icon',
   searchInput:
-    'navbar-somos__search-input primary-font font-bold text-md pt-0 pb-0 pr-10 pl-10',
-  searchButton: 'navbar-somos__search-button',
+    'navbar-somos__search-input primary-font font-bold text-md pt-0 pb-0 pr-10 pl-10 border-0',
+  searchButton: 'navbar-somos__search-button border-0',
   closeButton: 'navbar-somos__close-button',
   closeIcon: 'icon-close navbar-somos__icon',
   searchInputIcon: 'icon-search',

@@ -1,11 +1,11 @@
 .related-content {
-
   &__title {
     border-top: 1px solid #585858;
   }
 
   &__item {
-    border-top: 2px solid #eeeeee;
+    border-top-width: 2px;
+    border-color: #eeeeee;
 
     @media (--tablet) {
       display: flex;

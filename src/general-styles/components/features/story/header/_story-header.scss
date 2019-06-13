@@ -32,7 +32,6 @@ $colorTextDescription: #999;
   }
 
   &__share {
-    border-bottom: 1px solid $color-gray-200;
-    border-top: 1px solid $color-gray-200;
+    border-color: $color-gray-200;
   }
 }

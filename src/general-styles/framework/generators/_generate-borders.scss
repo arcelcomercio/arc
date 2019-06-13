@@ -1,26 +1,17 @@
 $limit: 1;
 $interval: 1;
 
-$map-position: '',
-'top',
-'right',
-'bottom',
-'left';
+$map-position: '', 'top', 'right', 'bottom', 'left';
 
-$map-colors: 'white',
-'black',
-'gray';
+$map-colors: 'white', 'black', 'gray';
 
 @for $i from 0 through $limit {
   @each $position in $map-position {
-    @if $position=='' {
+    @if $position== '' {
       .border-#{$i * $interval} {
         border-width: unquote($i * $interval + 'px');
       }
-    }
-
-    @else {
-
+    } @else {
       // hacer que position sea top, right, bottom, left en border-[aqui]-width
       .border-#{str-slice($position, 0, 1)}-#{$i * $interval} {
         border-#{$position}-width: unquote($i * $interval + 'px');
@@ -31,7 +22,7 @@ $map-colors: 'white',
 
 @each $color in $map-colors {
   .border-#{$color} {
-    border-color:
+    border-color: $color-white;
   }
 }
 

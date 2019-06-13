@@ -13,8 +13,9 @@ const classes = {
   title: 'internal-survey__title inline font-bold',
   buttons:
     'internal-survey__buttons grid justify-between overflow-hidden font-bold primary-font mt-20 mb-20',
-  buttonpool: 'internal-survey__button-pool font-bold uppercase',
-  viewresult: 'internal-survey__view-result block text-center',
+  buttonpool: 'internal-survey__button-pool font-bold uppercase border-0',
+  viewresult:
+    'internal-survey__view-result block text-center border-1 border-solid',
   share: 'internal-survey__share',
   disable: 'internal-survey__disable',
   nav: 'internal-survey__nav hidden',
