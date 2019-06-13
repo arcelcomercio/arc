@@ -4,9 +4,9 @@ import { popUpWindow } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  news: 'story-content__icon-list',
+  news: 'story-content__icon-list hidden',
   list: 'story-content__list',
-  item: 'story-content__item',
+  item: 'story-content__item mb-20',
   link: 'story-content__link',
 }
 @Consumer

@@ -2,19 +2,19 @@ import React from 'react'
 import { getIcon } from '../../../utilities/helpers'
 
 const classes = {
-  tv: 'tv-highlight',
-  container: 'tv-highlight__container',
-  titleBox: 'tv-highlight__box-title',
-  title: 'tv-highlight__title',
-  subBox: 'tv-highlight__box-sub flex justify-between',
+  tv: 'tv-highlight pt-20 pb-20',
+  container: 'tv-highlight__container m-0 mx-auto',
+  titleBox: 'mb-10',
+  title: 'tv-highlight__title secondary-font',
+  subBox: 'flex justify-between pt-15 pb-15 mb-10',
   section: 'tv-highlight__section flex uppercase position-relative',
   imageBox: 'block position-relative',
   image: 'w-full h-full object-contain object-center',
   icon: 'tv-highlight__icon position-absolute flex justify-center items-center',
-  tags: 'tv-highlight__tags',
-  related: 'tv-highlight__related uppercase',
+  tags: 'tv-highlight__tags mt-15',
+  related: 'tv-highlight__related uppercase mb-5 font-bold',
   list: 'flex',
-  item: 'tv-highlight__item',
+  item: 'tv-highlight__item mr-15',
   link: 'tv-highlight__link',
 }
 

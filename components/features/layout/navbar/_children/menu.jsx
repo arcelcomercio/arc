@@ -3,14 +3,15 @@ import Button from '../../../../global-components/button'
 
 const classes = {
   sidebar: 'nav-sidebar w-full position-absolute overflow-hidden bottom-0',
-  content: 'nav-sidebar__content flex flex-col justify-between h-full',
+  content:
+    'nav-sidebar__content flex flex-col justify-between h-full scroll-vertical',
   item: 'nav-sidebar__item position-relative',
   link: 'nav-sidebar__link block pt-15 pr-15 pb-15 pl-15',
   top: 'nav-sidebar__top',
   header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30',
   btnBox: 'nav-sidebar__box-btn pb-15',
   btn: 'flex items-center justify-center btn bg-color--white nav-sidebar__btn',
-  search: 'nav-sidebar__search pt-15 pr-30 pb-15 pl-30',
+  search: 'nav-sidebar__search pt-15 pr-30 pb-15 pl-30 block',
   from: 'nav-sidebar__box-search pb-15',
   input: 'nav-sidebar__input w-full pt-10 pr-15 pb-10 pl-15',
   body: 'nav-sidebar__body pt-15 pr-0 pb-15 pl-15',

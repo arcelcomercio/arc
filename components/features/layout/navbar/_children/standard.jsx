@@ -16,7 +16,7 @@ const classes = {
   searchContainer: 'flex items-center justify-start',
   btnSearch: 'flex items-center btn nav__btn nav__btn--search',
   btnSection: 'flex items-center btn nav__btn nav__btn--section',
-  iconSearch: 'nav__icon-search icon-search title-lg',
+  iconSearch: 'nav__icon-search icon-search title-sm',
   iconMenu: 'nav__icon-menu icon-hamburguer',
   list:
     'flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5 hidden',
@@ -181,7 +181,7 @@ class NavBarDefault extends PureComponent {
     }
     return (
       _handleHide() && (
-        <nav className={classes.nav}>
+        <nav className={`${classes.nav} ${scrolled ? 'active' : ''}`}>
           <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}
 
@@ -256,7 +256,7 @@ class NavBarDefault extends PureComponent {
                       className={`${classes.search} ${this.activeSearch()}`}
                     />
                     <Button
-                      iconClass={classes.iconSerch}
+                      iconClass={classes.iconSearch}
                       btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
                       onClick={this.optionButtonClick()}
                     />

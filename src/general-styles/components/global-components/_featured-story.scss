@@ -19,9 +19,11 @@ $image-height: 157px;
       height: 306px;
       bottom: 0;
       left: 0;
-      background: linear-gradient(to bottom,
-          rgba(68, 68, 68, 0) 20%,
-          rgb(68, 68, 68));
+      background: linear-gradient(
+        to bottom,
+        rgba(68, 68, 68, 0) 20%,
+        rgb(68, 68, 68)
+      );
     }
   }
 
@@ -50,13 +52,11 @@ $image-height: 157px;
 }
 
 .featured-story {
-  position: relative;
-  padding: 10px 20px;
   letter-spacing: 0.05em;
 
   &::before,
   &::after {
-    content: "";
+    content: '';
     display: block;
     height: 1px;
     position: absolute;
@@ -91,7 +91,6 @@ $image-height: 157px;
   &__detail {
     height: calc(100% - #{$image-height});
     width: 60%;
-    position: relative;
 
     @media (--tablet) {
       width: unset;
@@ -103,7 +102,6 @@ $image-height: 157px;
   &__image {
     width: 40%;
     height: 75px;
-    margin-left: 10px;
 
     @media (--tablet) {
       height: $image-height;
@@ -113,8 +111,7 @@ $image-height: 157px;
   }
 
   &__category {
-    font-size: $font-default;
-    display: none;
+    font-size: $font-lg;
 
     @media (--tablet) {
       display: block;
@@ -134,7 +131,6 @@ $image-height: 157px;
   }
 
   &__title {
-    margin-bottom: 8px;
     font-size: 21px;
     line-height: 1.2;
   }
@@ -156,11 +152,6 @@ $image-height: 157px;
 
   &__author {
     margin-top: auto;
-
-    a {
-      font-size: $font-xs;
-      color: $text-secondary;
-    }
   }
 
   &__link {
@@ -172,7 +163,12 @@ $image-height: 157px;
     /* autoprefixer: on */
 
     @media (--tablet) {
-      font-size: $header-md;
+      font-size: $header-xs;
+    }
+
+    &--author {
+      font-size: $font-xs;
+      color: $text-secondary;
     }
   }
 
@@ -182,7 +178,6 @@ $image-height: 157px;
 
   &__headband-link {
     color: $color-white;
-    font-weight: bold;
   }
 
   &__multimedia-icon {
@@ -249,7 +244,7 @@ $image-height: 157px;
     }
 
     .featured-story__link {
-      font-size: $header-md;
+      font-size: $header-xs;
     }
 
     .featured-story__detail {
@@ -259,7 +254,7 @@ $image-height: 157px;
     }
 
     .featured-story__category {
-      font-size: $font-default;
+      font-size: $font-lg;
       display: block;
     }
 

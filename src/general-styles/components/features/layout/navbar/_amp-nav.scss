@@ -1,23 +1,19 @@
 .amp-nav {
   position: sticky;
-  top: 0;
   height: $nav-height;
   z-index: 20;
-  font-family: $secondary-font;
-  font-weight: bold;
   background-color: $amp-nav-color;
   color: $color-white;
 
   &__hamburguer {
-    position: absolute;
     width: 20px;
     height: 4px;
     background-color: #333;
     left: 20px;
     right: 20px;
     top: 25px;
+
     &:before {
-      position: absolute;
       content: '';
       top: -12px;
       width: 100%;
@@ -25,8 +21,8 @@
       background-color: #333;
       left: 0;
     }
+
     &:after {
-      position: absolute;
       content: '';
       top: -6px;
       width: 100%;
@@ -47,22 +43,5 @@
       border-right: solid 1px $color-silver;
       padding-right: 10px;
     }
-  }
-
-  &__list-link {
-    color: $color-gray-light;
-    transition: 0.3s;
-    font-family: $secondary-font;
-    font-size: 12px; // TODO: revisar con diseño
-    font-weight: 400;
-    word-break: break-word;
-
-    &:hover {
-      color: $color-gray;
-    }
-  }
-
-  &__icon-menu {
-    font-size: 22px;
   }
 }

@@ -8,6 +8,15 @@
 
 html {
   font-family: $primary-font;
+  font-size: 13px;
+
+  @media (--tablet) {
+    font-size: 14px;
+  }
+
+  @media (--desktop) {
+    font-size: 16px;
+  }
 }
 
 html,
@@ -93,7 +102,6 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   vertical-align: baseline;
 }
 
@@ -157,6 +165,10 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+input[type="search"] {
+  padding: 0;
 }
 
 input[type='search']::-webkit-search-decoration,

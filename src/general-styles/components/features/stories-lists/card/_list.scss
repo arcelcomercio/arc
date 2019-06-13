@@ -1,6 +1,4 @@
 .stories-list-card {
-  // FIXME: PLS
-
   &__title {
     min-width: 10%;
     max-width: 60%;
@@ -9,7 +7,6 @@
 
   &__see-more {
     background-color: $color-white;
-    padding: 5px 10px;
     color: $color-silver;
   }
 
@@ -19,7 +16,6 @@
 
   &__story {
     background-color: $color-white;
-    padding: $spacing-normal;
     border-bottom: 1px solid #d5e1e1;
 
     & .multimedia__icon {
@@ -50,6 +46,5 @@
     font-size: 14px;
     line-height: 1.2;
     color: #4c4c4c;
-    margin: 0px;
   }
 }

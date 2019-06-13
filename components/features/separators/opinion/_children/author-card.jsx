@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  opinionItem: 'separator__opinion--item',
+  opinionItem: 'separator__opinion--item position-relative',
   opinionItemDetails: 'separator__opinion--item-details',
   opinionItemImage: 'separator__opinion--item-image',
   opinionItemImageImg: 'object-cover w-full h-full',

@@ -1,7 +1,5 @@
 .internal-survey {
   background-color: #ebebeb;
-  padding: 30px;
-  margin-bottom: 30px;
 
   @media (--desktop) {
     grid-template-columns: 576px 300px;
@@ -12,8 +10,6 @@
   }
 
   &__detail {
-    padding-left: 30px;
-    padding-right: 30px;
     background-color: $color-white;
 
     &:hover {
@@ -39,8 +35,6 @@
   &__date {
     font-size: 14px;
     line-height: 1;
-    margin-bottom: 15px;
-    margin-top: 15px;
   }
 
   &__title {
@@ -49,7 +43,6 @@
 
   &__buttons {
     grid-template-columns: 116px 120px;
-    margin: 20px 0px;
   }
 
   &__button-pool {
@@ -80,70 +73,9 @@
     }
   }
 
-  &__input:checked + .internal-survey__check::after {
-    content: '';
-    background-color: #494949;
-    border-radius: 50%;
-    display: block;
-    height: 14px;
-    left: 50%;
-    margin: -7px 0 0 -7px;
-    position: absolute;
-    top: 50%;
-    width: 14px;
-  }
-
-  &__item-input {
-    margin-top: 20px;
-  }
-
-  &__share {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  &__lblinput {
-    cursor: pointer;
-  }
-
-  &__check {
-    background-color: transparent;
-    border-radius: 16px;
-    height: 28px;
-    margin-right: 15px;
-    width: 28px;
-    vertical-align: middle;
-    &::before {
-      border-radius: 50%;
-      bottom: 0;
-      box-shadow: inset 0 0 2px rgba(127, 127, 127, 0.5),
-        inset 0 0 2px rgba(127, 127, 127, 0.5);
-      content: '';
-      left: 0;
-      pointer-events: none;
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-  }
-
-  &__nav {
-    display: none;
-  }
-
-  &__nav-prev {
-    left: 0;
-  }
-
-  &__nav-next {
-    right: 0;
-  }
-
-  &__nav-ico-prev {
+  &__icon {
     font-size: 20px;
     height: 20px;
-    left: 0;
     line-height: 20px;
     margin-top: -10px;
     top: 50%;
@@ -152,7 +84,6 @@
   &__slug {
     background-color: rgba(#6d9bce, 0.5);
     color: $color-white;
-    top: 0;
     width: 40px;
     z-index: 3;
   }

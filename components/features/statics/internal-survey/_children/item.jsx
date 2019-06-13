@@ -1,19 +1,20 @@
 import React from 'react'
 
 const classes = {
-  item: 'survey-result__item position-relative font-bold',
-  text: 'survey-result__text position-absolute',
-  percent: 'survey-result__percent inline-b',
-  bar: 'survey-result__bar block overflow-hidden position-relative w-full',
-  progress: 'survey-result__progress block position-absolute overflow-hidden',
-  progresstop: 'survey-result__top',
+  item: 'i-survey-item position-relative font-bold mb-20 p-0',
+  text: 'i-survey-item__text position-absolute left-0 top-0 pt-5 pl-10',
+  percent: 'i-survey-item__percent inline-b pl-10',
+  bar: 'i-survey-item__bar block overflow-hidden position-relative w-full',
+  progress:
+    'i-survey-item__progress block position-absolute overflow-hidden left-0 top-0',
+  progresstop: 'i-survey-item__top',
 }
 
 const style = perc => ({
   width: `${perc}%`,
 })
 
-const SurveyInternalChildItem = ({
+const InternalSurveyChildItem = ({
   result = '',
   percent = '',
   max = false,
@@ -21,11 +22,16 @@ const SurveyInternalChildItem = ({
   const classtop = max === true ? classes.progresstop : ''
   return (
     <li className={classes.item}>
-      <span className={classes.text}>
+      <p className={classes.text}>
         {result}
-        <span className={classes.percent}>{percent}%</span>
-      </span>
-      <span className={classes.bar}>
+        <p className={classes.percent}>{percent}%</p>
+      </p>
+      <span
+        role="progressbar"
+        aria-valuenow={percent || 0}
+        aria-valuemin="0"
+        aria-valuemax="100"
+        className={classes.bar}>
         <span
           className={`${classes.progress} ${classtop}`}
           style={style(percent)}
@@ -35,4 +41,4 @@ const SurveyInternalChildItem = ({
   )
 }
 
-export default SurveyInternalChildItem
+export default InternalSurveyChildItem

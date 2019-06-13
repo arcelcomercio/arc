@@ -1,34 +1,36 @@
 import React, { PureComponent } from 'react'
 
 const classes = {
+  // header
   logocontent:
-    'header-somos flex justify-between items-center text-center w-full',
-  iconmenuwrapper: 'flex-1',
+    'header-somos flex justify-between items-center text-center w-full p-10',
+  iconmenuwrapper: 'header-somos__icon-wrapper flex-1',
   menuicon: 'icon-menu header-somos__icon',
   logoWrapper:
-    'header-somos__logo-wrapper text-center flex justify-center items-center',
+    'header-somos__logo-wrapper right-0 text-center flex justify-center items-center',
   logoimgwrapper: 'header-somos__img-wrapper',
   logoLink: 'inline-b',
   logoimg: 'header-somos__img block',
   logoIcon: 'icon-marca',
 
-  menu: 'somos-menu position-absolute h-full',
-  menuContent: 'somos-menu__content h-full',
-  menuClose: 'somos-menu__close text-right w-full',
+  // menu
+  menu: 'somos-menu position-absolute top-0 left-0 h-full',
+  menuContent: 'somos-menu__content h-full scroll-vertical',
+  menuClose: 'somos-menu__close text-right w-full pt-15 pr-10 pl-10',
   menuCloseIcon: 'icon-close somos-menu__close-icon',
-  menuSearch: 'somos-menu__search position-relative',
-  menuSearchInput: 'somos-menu__search-input w-full font-bold',
+  menuSearch: 'somos-menu__search position-relative pt-15 pr-10 pl-10',
+  menuSearchInput: 'somos-menu__search-input w-full font-bold pr-10 pl-10',
   menuSearchIcon: 'icon-search ',
   menuButtonSearchIcon: 'somos-menu__search-icon position-absolute',
-  menuLogin: 'somos-menu__login w-full',
+  menuLogin: 'somos-menu__login w-full pt-20 pr-10 pl-10',
   menuLoginLink: 'flex justify-center',
-  menuLoginIcon: 'icon-user somos-menu__login-icon',
+  menuLoginIcon: 'icon-user somos-menu__login-icon mr-10',
   menuLoginLabel: 'somos-menu__login-text uppercase font-bold',
-  menuList: 'somos-menu__list',
-  menuItemLink: 'somos-menu__item-link',
-  menuLinkIcon: 'somos-menu__link-icon',
+  menuList: 'somos-menu__list m-0 block pt-5 pb-5 pr-15 pl-15',
+  menuItemLink: 'somos-menu__item-link hidden',
+  menuLinkIcon: 'somos-menu__link-icon hidden',
   iconHome: 'icon-home',
-  menuItem: 'somos-menu__item',
+  menuItem: 'somos-menu__item pt-15 pb-15',
   menuLink: 'somos-menu__link',
   menubtn: 'header-somos__btn',
 

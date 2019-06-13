@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 
 const classes = {
-  searchContainer: 'search-filter__box-search flex items-center',
+  searchContainer: 'search-filter__box-search flex items-center mb-15',
   searchForm: 'position-relative w-full',
   searchButton:
     'icon-search search-filter__search-button block position-absolute',
-  searchInput: 'search-filter__search-input w-full',
+  searchInput: 'search-filter__search-input w-full pl-15 pr-30',
 }
 
 class SearchInput extends PureComponent {

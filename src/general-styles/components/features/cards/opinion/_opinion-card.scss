@@ -1,8 +1,6 @@
 .opinion-card {
   grid-template-columns: 1fr;
   grid-template-rows: 60px 10fr;
-  padding-right: 10px;
-  padding-left: 10px;
   background-color: $color-white;
 
   &__head {
@@ -13,7 +11,6 @@
   &__title {
     color: #f15a24;
     font-size: 30px;
-    margin: 0;
     /* el componente opinion trome debe mostrar 2 lineas como maximo en el titulo*/
   }
 
@@ -26,7 +23,6 @@
   &__item {
     grid-template-columns: 8fr 4fr;
     border-top: 1px solid #d8d7d4;
-    padding-top: 10px;
   }
 
   &__section-name,
@@ -75,7 +71,6 @@
   }
 
   &__image {
-    margin: 0 auto;
     height: 60px;
     width: 60px;
   }

@@ -4,18 +4,18 @@
   &__header {
     background-color: #26567f;
     height: 60px;
+  }
 
-    & a {
-      color: #fff;
-    }
+  &__header-link {
+    color: $color-white;
   }
 
   &__date {
     height: 40px;
+  }
 
-    & a {
-      color: #000;
-    }
+  &__date-link {
+    color: #000;
   }
 
   &__face {

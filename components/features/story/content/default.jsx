@@ -26,13 +26,14 @@ import StoryContentChildIcon from './_children/icon-list'
 const classes = {
   news: 'story-content w-full bg-color--white pl-20 pr-20',
   content: 'story-content__content position-relative flex flex--row-reverse',
-  textClasses: 'story-content__font--secondary',
-  newsImage: 'story-content__image w-full story-content__image--cover',
+  textClasses: 'story-content__font--secondary mb-25',
+  newsImage: 'story-content__image w-full m-0 story-content__image--cover',
   newsEmbed: 'story-content__embed',
   tags: 'story-content',
   section: 'w-full',
-  relatedList: 'related-content__list',
-  relatedTitle: 'related-content__title font-bold uppercase',
+  // Related-content
+  relatedList: 'related-content__list pt-10',
+  relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
 }
 
 const OPTA_CSS_LINK =

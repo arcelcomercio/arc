@@ -6,6 +6,7 @@ $colorTextItem: #000;
     border-top: 1px solid $color-black;
     padding: 15px 0;
   }
+
   &__figure {
     max-height: 75px;
     &--icon::after {
@@ -18,9 +19,11 @@ $colorTextItem: #000;
       color: $colorIconMasLeidas;
       text-shadow: 2px 2px 5px #666;
     }
+
     &--video::after {
       content: '\2023';
     }
+
     &--image::after {
       content: '\2709';
     }

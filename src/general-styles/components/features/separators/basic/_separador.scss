@@ -69,7 +69,6 @@
     &--item {
       background: #c5ddf9;
       padding: 24px 18px;
-      position: relative;
 
       &-details {
         h3 {
@@ -166,6 +165,8 @@
   }
 
   &__item {
+    padding: 0;
+
     &::before {
       content: '';
       position: absolute;
@@ -252,6 +253,34 @@
   &__threeline {
     max-height: 60px;
     -webkit-line-clamp: 3;
+  }
+
+  &__title {
+    display: -webkit-box;
+    font-size: 17px;
+    line-height: 1.13;
+    color: white;
+
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+
+    font-family: 'ChronicleDisplayBold', Times New Roman, serif;
+
+    & a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    & a:hover {
+      text-decoration-line: underline;
+    }
+
+    &--nota {
+      & a {
+        color: #333;
+      }
+    }
   }
 
   &--nota {

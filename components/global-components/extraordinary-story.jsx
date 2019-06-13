@@ -10,7 +10,7 @@ const classes = {
     'extraordinary-story__section text-left uppercase font-bold',
   extraordinaryStoryContent: 'extraordinary-story__content block',
   extraordinaryStoryTitle:
-    'extraordinary-story__title title overflow-hidden font-bold',
+    'extraordinary-story__title title-lx overflow-hidden font-bold',
   oneline: 'extraordinary-story-oneline',
   twoline: 'extraordinary-story-twoline',
   threeline: 'extraordinary-story-threeline',

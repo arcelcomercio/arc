@@ -5,12 +5,11 @@
   }
 
   &__tag-item {
-    display: inline-block;
     font-family: $primary-font;
+  }
 
-    & a {
-      color: $color-silver;
-    }
+  &__tag-link {
+    color: $color-silver;
   }
 
   .pquote {
@@ -21,20 +20,24 @@
     font-style: italic;
     padding: 13px;
 
-    & p:first-letter {
+    /*     &__pull {
+      background: url('../images/openquote.svg') top left no-repeat;
+    } */
+
+    &__text:first-letter {
       font-size: 39px;
       font-weight: bold;
     }
   }
 
-  & table {
+  & .table {
     width: 100%;
     height: auto;
     border: 1px solid #e6e6e6;
     border-collapse: collapse;
     margin: 15px 0;
 
-    & td {
+    & .table__cell {
       border-right: 1px solid #e6e6e6;
       border-bottom: 1px solid #e6e6e6;
       padding: 2px 4px 1px 4px;
@@ -44,7 +47,7 @@
       font-family: sans-serif;
     }
 
-    & tr:nth-child(even) td {
+    & .table__row:nth-child(even) .table__cell {
       background-color: #e6e6e6;
     }
   }
@@ -62,21 +65,15 @@
     font-size: 20px;
     line-height: 1.5;
     margin-top: 18px;
-    margin-bottom: 25px;
     word-wrap: break-word;
   }
 
   &__news-media-description {
     color: $colorTextDescription;
-    font-family: $primary-font;
     font-size: 13px;
-    margin: 0;
-    padding-top: 5px;
   }
 
   &__image {
-    margin: 0px;
-
     & figcaption {
       padding: 14px 0px;
       font-size: 13px;
@@ -133,16 +130,12 @@
   }
 
   &__icon-list {
-    display: none;
     margin-right: -49px;
+
     @media (--tablet) {
       display: block;
       padding: 20px 0 20px 20px;
     }
-  }
-
-  &__item {
-    margin-bottom: 20px;
   }
 
   &__link {

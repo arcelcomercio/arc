@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import SurveyInternalChildSurvey from './_children/survey'
+import InternalSurveyChildSurvey from './_children/survey'
 import {
   setSurveyCookie,
   getCookie,
@@ -102,7 +102,7 @@ class StaticInternalSurvey extends PureComponent {
       getResults: this.getResults,
       sharelinks: this.sharelinks(),
     }
-    return <SurveyInternalChildSurvey {...params} />
+    return <InternalSurveyChildSurvey {...params} />
   }
 }
 

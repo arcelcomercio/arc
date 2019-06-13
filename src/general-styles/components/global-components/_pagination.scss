@@ -1,8 +1,6 @@
 $color-page: #777;
 
 .pagination {
-  margin: 0 auto 15px;
-
   @media (--tablet) {
     width: 60%;
     justify-content: space-between;

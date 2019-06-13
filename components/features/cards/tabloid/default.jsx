@@ -8,9 +8,11 @@ import StoryData from '../../../utilities/story-data'
 const classes = {
   tabloide: 'tabloide row-1 flex flex-col pt-20',
   header: 'tabloide__header flex items-center justify-center',
+  headerLink: 'tabloide__header-link',
   body: 'tabloide__body flex items-center justify-center flex-col h-auto',
   content: 'flex items-center justify-center',
   date: 'tabloide__date flex items-center justify-center',
+  dateLink: 'tabloide__date-link',
   face: 'tabloide__face object-contain',
 }
 @Consumer
@@ -118,12 +120,16 @@ class CardTabloid extends PureComponent {
       <div className={classes.tabloide}>
         <div className={classes.header}>
           <h4>
-            <a href={link}>{sectionName || formatSlugToText(section)}</a>
+            <a className={classes.headerLink} href={link}>
+              {sectionName || formatSlugToText(section)}
+            </a>
           </h4>
         </div>
         <div className={classes.body}>
           <h3 className={classes.date}>
-            <a href={link}>{nameDate}</a>
+            <a className={classes.dateLink} href={link}>
+              {nameDate}
+            </a>
           </h3>
           <div className={classes.content}>
             <figure>
