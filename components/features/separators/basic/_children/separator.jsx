@@ -3,13 +3,14 @@ import { createMarkup } from '../../../../utilities/helpers'
 import SeparatorItem from './item'
 
 const classes = {
-  separator: 'separator mt-20',
-  headerHtml: 'separator__header-html',
+  separator: 'separator mt-20 w-full pt-0 pr-15 pb-15 pl-15',
+  headerHtml: 'separator__header-html mt-0 mb-10',
   title: 'separator__header-title uppercase pb-20 pt-20',
+  titleLink: 'separator__header-link',
   oneline: 'separator__oneline',
   twoline: 'separator__twoline',
   threeline: 'separator__threeline',
-  body: 'separator__body',
+  body: 'separator__body mt-0 mb-0',
 }
 
 const SeparatorsBasicChildSeparator = props => {
@@ -43,7 +44,9 @@ const SeparatorsBasicChildSeparator = props => {
         />
       ) : (
         <h1 className={`${classes.title}`}>
-          <a href={titleLink}>{titleSeparator}</a>
+          <a href={titleLink} className={`${classes.titleLink}`}>
+            {titleSeparator}
+          </a>
         </h1>
       )}
       <div className={classes.body}>
