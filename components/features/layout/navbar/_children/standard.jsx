@@ -196,7 +196,7 @@ class NavBarDefault extends PureComponent {
 
             {/** ************* MIDDLE *************** */}
 
-            <ul className={`${classes.list} ${scrolled ? '' : 'active'}`}>
+            <ul className={classes.list}>
               {sections &&
                 sections.slice(0, 5).map(({ name, _id: id }) => {
                   return (
