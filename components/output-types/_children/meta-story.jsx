@@ -112,7 +112,7 @@ export default ({
     "keywords":[${seoKeywordsItems.map(item => item)}]
  }`
 
-  const breadcrumbResult = breadcrumbList.map(({ url, name } = {}, i) => {
+  const breadcrumbResult = breadcrumbList.map(({ url, name }, i) => {
     return (
       url &&
       `
