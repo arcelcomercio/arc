@@ -1,7 +1,6 @@
 .header-somos {
   background-color: $color-white;
-  border-bottom: 1px solid #ababab;
-  border-top: 1px solid #ababab;
+  border-color: #ababab;
 
   @media (--desktop) {
     border-top: none;
@@ -22,10 +21,6 @@
     }
   }
 
-  &__icon {
-    font-size: 33px;
-  }
-
   &__logo-wrapper {
     background-color: $color-black;
     border-radius: 50%;
@@ -39,7 +34,6 @@
 
     & i {
       color: $color-white;
-      font-size: 34px;
     }
   }
 
@@ -90,17 +84,15 @@
 
   &__search-input {
     background-color: transparent;
-    border: 1px solid $color-white;
+    border-color: $color-white;
     color: $color-white;
     height: 32px;
-    font-size: 13px;
   }
 
   &__search-icon {
     right: 17px;
     top: 21px;
     color: $color-white;
-    font-size: 13px;
   }
 
   &__list {
@@ -119,7 +111,6 @@
 
   &__link {
     color: $color-white;
-    font-size: 25px;
 
     @media (--desktop) {
       color: #585858;
@@ -162,7 +153,6 @@
 
   &__login-text {
     color: $color-white;
-    font-size: 14px;
   }
 
   &__close {
@@ -175,7 +165,6 @@
 
   &__close-icon {
     color: $color-white;
-    font-size: 15px;
   }
 
   &--active {

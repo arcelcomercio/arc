@@ -1,11 +1,11 @@
 import React from 'react'
 
 const classes = {
-  title: 'newsletter__title position-relative font-bold pb-15 title-lg',
+  title: 'newsletter__title position-relative font-bold pb-15 title-md',
   descripcion: 'newsletter__description secondary-font title-sm',
   row: 'newsletter__row mb-20',
   textCenter: 'text-center',
-  button: 'newsletter__button font-bold w-full',
+  button: 'newsletter__button font-bold w-full border-0',
   strong: 'newsletter__strong block font-xbold',
 }
 

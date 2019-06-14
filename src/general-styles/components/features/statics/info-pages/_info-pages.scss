@@ -1,12 +1,7 @@
 .info-pages {
   line-height: 1.5;
-  font-size: 13px;
   padding: 3% 6%;
   background-color: #e7ede9;
-
-  &__title {
-    font-size: 24px;
-  }
 
   & * p {
     margin: 0 0 20px;
@@ -37,7 +32,7 @@
   }
 
   & * td {
-    background-color: #fff;
+    background-color: $color-white;
     font-size: 13px;
     padding: 7px 10px;
     word-wrap: break-word;

@@ -1,7 +1,7 @@
 .author-item {
   &__wrapper {
     max-width: 700px;
-    border-bottom: solid 1px #333;
+    border-color: #333;
   }
 
   &__social {
@@ -19,8 +19,6 @@
   }
 
   &__date {
-    font-size: 11px;
-
     @media (--tablet) {
       display: none;
     }
@@ -74,12 +72,10 @@
   } */
 
   &__name {
-    font-size: 20px;
     color: #333;
   }
 
   &__subtitle {
-    font-size: 13px;
     color: #333;
   }
 }

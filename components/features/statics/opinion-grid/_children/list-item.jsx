@@ -3,15 +3,16 @@ import { formatDate } from '../../../../utilities/helpers'
 
 const classes = {
   authorItem: 'author-item',
-  wrapper: 'author-item__wrapper w-full flex justify-center p-20 m-0 mx-auto',
+  wrapper:
+    'author-item__wrapper w-full flex justify-center p-20 m-0 mx-auto border-b-1 boder-solid',
   social: 'author-item__social hidden',
-  date: 'author-item__date block',
+  date: 'author-item__date block text-xs',
   content: 'author-item__content flex w-full items-start',
   imageBox: 'author-item__box-image flex flex-grow-0 flex-shrink-0',
   image: 'author-item__image object-cover',
   descBox: 'ml-20',
-  name: 'author-item__name block secondary-font font-bold pt-5 mb-10',
-  subtitle: 'author-item__subtitle block secondary-font',
+  name: 'author-item__name block secondary-font font-bold pt-5 mb-10 title-sm',
+  subtitle: 'author-item__subtitle block secondary-font text-xs',
 }
 
 const OpinionGridListItem = ({ data: story }) => {

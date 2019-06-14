@@ -33,7 +33,6 @@
   }
 
   &__date {
-    font-size: 14px;
     line-height: 1;
   }
 
@@ -47,7 +46,6 @@
 
   &__button-pool {
     background-color: #4aa8fa;
-    border: 0;
     color: $color-white;
     float: left;
     height: 45px;
@@ -55,9 +53,8 @@
 
   &__view-result {
     color: #333;
-    border: 1px solid #646464;
+    border-color: #646464;
     float: left;
-    font-size: 12px;
     letter-spacing: 1px;
     height: 45px;
     line-height: 43px;
@@ -74,7 +71,6 @@
   }
 
   &__icon {
-    font-size: 20px;
     height: 20px;
     line-height: 20px;
     margin-top: -10px;

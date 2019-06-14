@@ -4,8 +4,8 @@ $cinema-height: 89px;
 .cinema-card {
   background-color: $color-white;
 
-  &__category {
-    font-size: 18px;
+  &__category,
+  &__title {
     line-height: 1;
   }
 
@@ -32,12 +32,10 @@ $cinema-height: 89px;
 
   &__premiere {
     color: #f7c600;
-    font-size: 17px;
     line-height: 1.2;
   }
 
   &__p-title {
-    font-size: 17px;
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 180px;
@@ -53,18 +51,12 @@ $cinema-height: 89px;
     background-color: #e8f2f7;
   }
 
-  &__title {
-    font-size: 14px;
-    line-height: 1;
-  }
-
   &__select {
     background-color: #d1e6f0;
     // TODO: Cambiar por el icono respectivo
     background-image: url(https://elcomercio.pe/img/arrow_down.png);
     background-position: right 0;
     background-repeat: no-repeat;
-    font-size: 11px;
     height: 30px;
   }
 
@@ -75,8 +67,6 @@ $cinema-height: 89px;
   &__button {
     background-color: $color-white;
     border-radius: 3px;
-    border: 0;
-    font-size: 11px;
     height: 34px;
     width: 100px;
   }

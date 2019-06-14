@@ -4,7 +4,6 @@
   &__title {
     line-height: 1.2;
     color: #333;
-    font-size: 28px;
 
     @media (--tablet) {
       font-size: 40px;
@@ -31,11 +30,10 @@
   }
 
   &__button {
-    color: #fff;
+    color: $color-white;
   }
 
   &__share {
-    font-size: 12px;
     color: #666;
 
     @media (--tablet) {

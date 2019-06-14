@@ -12,10 +12,11 @@ const classes = {
   container: 'opinion-grid grid w-full m-0 mx-auto',
   externalTitle: 'opinion-grid--title pt-20 pb-20 pl-0 pr-0 m-0 mx-auto',
   list: 'opinion-grid--list w-full m-0 mx-auto',
-  titleBox: 'opinion-grid__box-title w-full pt-15 pb-15',
-  title: 'opinion-grid__title uppercase text-center secondary-font',
+  titleBox:
+    'opinion-grid__box-title w-full pt-15 pb-15 border-b-1 border-solid',
+  title: 'opinion-grid__title uppercase text-center secondary-font text-xl',
   moreBox: 'flex justify-center pt-25 pb-15',
-  more: 'opinion-grid__more uppercase text-center',
+  more: 'opinion-grid__more uppercase text-center text-md',
 }
 @Consumer
 class StaticOpinionGrid extends PureComponent {

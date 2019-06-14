@@ -1,5 +1,4 @@
 .movie-item {
-
   @media (--tablet) {
     flex-direction: initial;
     padding-bottom: $spacing-xlarge;
@@ -8,7 +7,6 @@
   &:nth-last-child(1) {
     padding-bottom: 0;
   }
-
 
   &__left {
     flex-basis: 100%;
@@ -19,7 +17,6 @@
   }
 
   &__right {
-
     @media (--tablet) {
       margin-top: 0;
       margin-left: $spacing-normal;
@@ -30,21 +27,15 @@
 
   &__img {
     max-height: 240px;
-    border: solid 1px #d5e1e1;
+    border-color: #d5e1e1;
   }
 
   &__title {
-    font-size: 18px;
     line-height: 1.8;
     color: $color-gray-300;
   }
 
-  &__function {
-    font-size: 13px;
-  }
-
   &__subtitle {
-    font-size: 13px;
     line-height: 1.4;
     color: $color-gray-300;
 

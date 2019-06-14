@@ -9,18 +9,19 @@ const classes = {
   InternalSurvey: 'internal-survey grid primary-font p-30 mb-30',
   detail: 'internal-survey__detail position-relative pr-30 pl-30',
   result: 'internal-survey__result grid justify-center position-relative',
-  date: 'internal-survey__date block mt-15 mb-15',
+  date: 'internal-survey__date block mt-15 mb-15 text-md',
   title: 'internal-survey__title inline font-bold',
   buttons:
     'internal-survey__buttons grid justify-between overflow-hidden font-bold primary-font mt-20 mb-20',
-  buttonpool: 'internal-survey__button-pool font-bold uppercase',
-  viewresult: 'internal-survey__view-result block text-center',
+  buttonpool: 'internal-survey__button-pool font-bold uppercase border-0',
+  viewresult:
+    'internal-survey__view-result block text-center border-1 border-solid text-sm',
   share: 'internal-survey__share',
   disable: 'internal-survey__disable',
   nav: 'internal-survey__nav hidden',
   navprev: 'internal-survey__nav-prev left-0',
   navnex: 'internal-survey__nav-next right-0',
-  icon: 'internal-survey__icon block position-absolute w-full left-0',
+  icon: 'internal-survey__icon block position-absolute w-full left-0 title-sm',
   slug: 'internal-survey__slug h-full position-absolute text-center top-0',
 }
 class InternalSurveyChildSurvey extends PureComponent {

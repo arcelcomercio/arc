@@ -11,17 +11,18 @@ const classes = {
   wrapper:
     'flex items-center justify-between nav__wrapper w-full h-inherit pr-15 pl-15',
   form: 'flex position-relative',
-  search: 'nav__input-search text-md pt-5 pb-5 ',
+  search: 'nav__input-search text-md pt-5 pb-5 border-0',
   navBtnContainer: 'flex items-center justify-start nav__container-menu',
   searchContainer: 'flex items-center justify-start',
   btnSearch: 'flex items-center btn nav__btn nav__btn--search',
   btnSection: 'flex items-center btn nav__btn nav__btn--section',
   iconSearch: 'nav__icon-search icon-search title-sm',
-  iconMenu: 'nav__icon-menu icon-hamburguer',
+  iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
   list:
     'flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5 hidden',
   listItem: 'text-center',
-  listLink: 'nav__list-link text-center uppercase secondary-font font-normal',
+  listLink:
+    'nav__list-link text-center uppercase secondary-font font-normal text-sm',
   logo: 'nav__logo',
   ads: 'nav__ads mr-5 ml-5',
   btnContainer: 'flex items-center justify-end header__btn-container',

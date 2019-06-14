@@ -1,5 +1,4 @@
 .header {
-  font-size: $font-sm;
   color: $color-gray-300;
 
   &__main {
@@ -27,7 +26,6 @@
 
   &__link {
     color: $color-primary;
-    font-size: 0.8rem;
     letter-spacing: 0.02rem;
   }
 

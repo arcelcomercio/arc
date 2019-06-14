@@ -1,7 +1,5 @@
 //Triplete
 .triplet {
-  border-style: solid;
-  border-width: 1px;
   border-color: $color-gray-200;
   //background-color: $color-white;
 
@@ -12,7 +10,7 @@
   &__item {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 80px 1fr;
-    border-bottom: 1px solid $color-gray-200;
+    border-color: $color-gray-200;
 
     &:last-child {
       border-bottom: 0px;
@@ -74,7 +72,6 @@
     height: 20px;
     background-color: rgba(255, 255, 255, 0.6);
     color: #000;
-    font-size: 11px;
     z-index: 1;
     border-radius: 50%;
 
@@ -87,7 +84,6 @@
 
   &__author {
     grid-area: triplete__author;
-    font-size: 0.7em;
     color: $color-gray-200;
   }
 

@@ -18,8 +18,8 @@ const infoPages = {
 const defaultPolicy = 'termsAndConditions'
 
 const classes = {
-  staticPolicy: 'info-pages secondary-font',
-  title: 'info-pages__title font-bold uppercase mb-25',
+  staticPolicy: 'info-pages secondary-font text-sm',
+  title: 'info-pages__title font-bold uppercase mb-25 title-md',
 }
 
 @Consumer

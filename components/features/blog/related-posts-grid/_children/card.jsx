@@ -6,10 +6,10 @@ const classes = {
   imageLink: 'br-stories-grid__image-link',
   image: 'w-full h-full',
   detail: 'br-stories-grid__detail',
-  categoryContainer: 'br-stories-grid__category-container text-center',
+  categoryContainer: 'br-stories-grid__category-container text-center text-xs',
   categoryLink: 'br-stories-grid__category-link',
   detailTitle:
-    'br-stories-grid__detail-title position-relative text-center overflow-hidden font-bold',
+    'br-stories-grid__detail-title position-relative text-center overflow-hidden font-bold text-md',
   detailTitleLink: 'br-stories-grid__detail-title-link',
 }
 const BlogRelatedPostsGridChildCard = ({

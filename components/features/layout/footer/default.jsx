@@ -10,16 +10,17 @@ const classes = {
   contact: 'footer__contact footer__footer-background-color',
   sites: 'footer__sites flex justify-center mt-15',
   sitesList: 'footer__sites-list flex justify-center flex-wrap w-full p-0',
-  sitesItem: 'footer__sites-item mr-5 ml-5 mb-5 pr-10',
+  sitesItem:
+    'footer__sites-item mr-5 ml-5 mb-5 pr-10 border-r-1 border-solid text-md',
   sitesLink: 'footer__sites-link',
   legalList: 'footer__legal-list',
   legalItem: 'footer__legal-item mb-10',
   logoContainer: 'footer__logo footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list p-20',
-  listItem: 'footer__list-item pt-10 pb-10',
+  listItem: 'footer__list-item pt-10 pb-10 border-b-1 border-solid',
   listTitle:
-    'footer__list-item footer__list-item--title pt-10 pb-10 uppercase font-bold',
+    'footer__list-item footer__list-item--title pt-10 pb-10 border-b-1 border-solid uppercase font-bold',
   listLink: 'footer__list-link capitalize',
 }
 

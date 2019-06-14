@@ -9,17 +9,17 @@ const classes = {
   nav: 'movies-grid__nav hidden',
   navList: 'flex justify-center flex-wrap mb-10',
   navItem: 'mb-10',
-  navLink: 'movies-grid__nav-link p-10 position-relative uppercase',
+  navLink: 'movies-grid__nav-link p-10 position-relative uppercase text-md',
   form: 'movies-grid__form mb-20',
-  info: 'movies-grid__info mb-20',
+  info: 'movies-grid__info mb-20 text-xs',
   select: 'movies-grid__select w-full',
   grid: 'movies-grid__grid grid',
   movie: 'movies-grid__movie m-0 mx-auto',
   imageBox: '',
   image: 'w-full mb-10',
   details: 'movies-grid__details',
-  title: 'movies-grid__title mb-5',
-  tag: 'movies-grid__tag font-bold',
+  title: 'movies-grid__title mb-5 text-sm',
+  tag: 'movies-grid__tag font-bold text-sm',
 }
 
 class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {

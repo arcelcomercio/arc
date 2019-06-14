@@ -4,14 +4,14 @@ import { getIcon } from '../../../../utilities/helpers'
 export const TripletChildTriplet = props => {
   const { data = [], multimediaOrientation = 'right', arcSite } = props
   const classes = {
-    triplet: 'triplet',
+    triplet: 'triplet border-solid borde-1',
     link: 'triplet__link',
-    tripletItem: `triplet__item p-15 grid triplet__item--${multimediaOrientation}`,
+    tripletItem: `triplet__item p-15 grid border-b-1 border-solid triplet__item--${multimediaOrientation}`,
     tripletTitle: 'triplet__title overflow-hidden font-bold',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
     threeline: 'triplet--threeline',
-    author: 'triplet__author uppercase pt-10',
+    author: 'triplet__author uppercase pt-10 text-xs',
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
     tripletIcon:
@@ -74,7 +74,7 @@ export const TripletChildTriplet = props => {
 export const Icon = props => {
   const classes = {
     tripletBoxIcon: 'triplet__box-icon position-absolute text-center',
-    tripletIcon: 'triplet__icon',
+    tripletIcon: 'triplet__icon text-xs',
   }
 
   const html = (

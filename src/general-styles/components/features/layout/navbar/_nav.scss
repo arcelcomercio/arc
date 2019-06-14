@@ -87,7 +87,6 @@
   &__list-link {
     color: $color-gray-200;
     transition: 0.3s;
-    font-size: 12px; // TODO: revisar con diseño
     word-break: break-word;
 
     &:hover {
@@ -125,12 +124,7 @@
     color: $color-primary;
   }
 
-  &__icon-menu {
-    font-size: 22px;
-  }
-
   &__input-search {
-    border: 0;
     outline: none;
     height: 32px;
     line-height: 20px;

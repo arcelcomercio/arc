@@ -8,7 +8,6 @@
     float: left;
     width: 33.33%;
     line-height: 31px;
-    font-size: 20px;
   }
 
   &__list {
@@ -18,7 +17,7 @@
   }
 
   &__item {
-    border-bottom: 1px solid #ccc;
+    border-color: #ccc;
 
     &:hover {
       transition: all 0.15s ease;
@@ -29,13 +28,12 @@
   }
 
   &__link {
-    font-size: 14px;
     color: #000;
     transition: all 0.15s ease;
   }
 
   &__footer {
-    border-top: solid 1px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   &__close {
