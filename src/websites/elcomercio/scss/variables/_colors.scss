@@ -1,13 +1,16 @@
 /******* Brand colors *******/
-$color-primary: #f7c600;
-$color-secondary: #000;
+$color-primary: #FECD26;
+$color-secondary: #000000;
+$color-tertiary: #E8F2F7;
+/*-----------------------*/
+$color-base-400: #000000;
+$color-base-300: #333333;
+$color-base-200: #8A8A8A;
+$color-base-100: #E8E8E8;
 /*-----------------------*/
 
 /******* Other colors *******/
-$color-link: #524cff;
-$color-navy-blue: #006097;
-$color-error: #ff0000;
-$color-light-blue: #d5e5ed;
+$color-link: #006097;
 /*-----------------------*/
 
 /******* Grayscale *******/
@@ -25,7 +28,7 @@ $nav-color: $color-gray-300;
 /*-----------------------*/
 
 /******* Footer colors *******/
-$footer-background: #0a00f7;
+$footer-background: $color-gray-300;
 $footer-text-color: $color-white;
 /*-----------------------*/
 
@@ -48,26 +51,6 @@ $footer-text-color: $color-white;
 .bg-color--dark {
   background-color: $color-gray-300;
   color: $color-white;
-}
-
-.bg-color--lightblue1 {
-  background-color: $color-lightblue;
-}
-
-.bg-color--red {
-  background-color: $color-error;
-}
-
-.bg-color--blue {
-  background-color: $color-link;
-}
-
-.bg-color--green {
-  background-color: $color-success;
-}
-
-.bg-color--navy-blue {
-  background-color: $color-navy-blue;
 }
 
 /*-----------------------*/

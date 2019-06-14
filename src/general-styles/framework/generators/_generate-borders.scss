@@ -7,10 +7,6 @@ $map-position: '',
 'bottom',
 'left';
 
-$map-colors: 'white',
-'black',
-'gray';
-
 @for $i from 0 through $limit {
   @each $position in $map-position {
     @if $position=='' {
@@ -26,12 +22,6 @@ $map-colors: 'white',
         border-#{$position}-width: unquote($i * $interval + 'px');
       }
     }
-  }
-}
-
-@each $color in $map-colors {
-  .border-#{$color} {
-    border-color:
   }
 }
 

@@ -4,11 +4,11 @@ const classes = {
   // header
   logocontent:
     'header-somos flex justify-between items-center text-center w-full p-10',
-  iconmenuwrapper: 'header-somos__icon-wrapper flex-1',
+  iconmenuwrapper: 'header-somos__icon-wrapper',
   menuicon: 'icon-menu header-somos__icon',
   logoWrapper:
     'header-somos__logo-wrapper right-0 text-center flex justify-center items-center',
-  logoimgwrapper: 'header-somos__img-wrapper',
+  logoimgwrapper: 'header-somos__img-wrapper flex-1',
   logoLink: 'inline-b',
   logoimg: 'header-somos__img block',
   logoIcon: 'icon-marca',

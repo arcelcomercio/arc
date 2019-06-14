@@ -5,7 +5,7 @@ import Pagination from '../../../global-components/pagination'
 import { formatDate, defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  list: 'bg--white w-full p-15', // blog-list
+  list: 'bg-white w-full p-15', // blog-list
   title: 'uppercase mb-20', // blog-list__title
 }
 @Consumer

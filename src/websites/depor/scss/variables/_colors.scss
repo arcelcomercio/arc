@@ -1,13 +1,16 @@
 /******* Brand colors *******/
-$color-primary: #007c31;
-$color-secondary: #9abf16;
-$color-tertiary: #f15a24;
+$color-primary: #007C31;
+$color-secondary: #D4D63C;
+$color-tertiary: #F35910;
+/*-----------------------*/
+$color-base-400: #016023;
+$color-base-300: #2AA55B;
+$color-base-200: #85DFA9;
+$color-base-100: #C5F6D9;
 /*-----------------------*/
 
 /******* Other colors *******/
-$color-link: #524cff;
-$color-navy-blue: #006097;
-$color-error: #ff0000;
+$color-link: #006097;
 /*-----------------------*/
 
 /******* Grayscale *******/
@@ -24,7 +27,7 @@ $nav-color: $color-gray-300;
 /*-----------------------*/
 
 /******* Footer Amp colors *******/
-$footer-background: #007c31;
+$footer-background: $color-primary;
 $footer-text-color: $color-black;
 /*-----------------------*/
 
@@ -47,26 +50,6 @@ $footer-text-color: $color-black;
 .bg-color--dark {
   background-color: $color-gray-300;
   color: $color-white;
-}
-
-.bg-color--lightblue1 {
-  background-color: $color-lightblue;
-}
-
-.bg-color--red {
-  background-color: $color-error;
-}
-
-.bg-color--blue {
-  background-color: $color-link;
-}
-
-.bg-color--green {
-  background-color: $color-success;
-}
-
-.bg-color--navy-blue {
-  background-color: $color-navy-blue;
 }
 
 /*-----------------------*/

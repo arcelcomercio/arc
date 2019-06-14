@@ -1,12 +1,13 @@
 /******* Brand colors *******/
-$color-primary: #0e6dc1;
-$color-secondary: #000;
+$color-primary: #0C70BF;
+$color-secondary: #E8F2F7;
+$color-tertiary: #EBC12F;
+/*-----------------------*/
+$color-base-200: #A4C2D9;
 /*-----------------------*/
 
 /******* Other colors *******/
 $color-link: #524CFF;
-$color-error: #FF0000;
-$color-light-blue:#d5e5ed;
 /*-----------------------*/
 
 /******* Grayscale *******/
@@ -42,10 +43,6 @@ $nav-color: $color-gray-300;
 .bg-color--dark {
     background-color: $color-gray-300;
     color: $color-white;
-}
-
-.bg-color--lightblue {
-    background-color: $color-light-blue;
 }
 
 /*-----------------------*/
