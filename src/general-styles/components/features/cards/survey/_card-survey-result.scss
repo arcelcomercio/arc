@@ -1,9 +1,5 @@
 .c-survey-result {
-  &__item {
-    color: #4c4c4c;
-
-    &.active {
-      color: #0e6dc1;
-    }
+  &__item.active {
+    color: #0e6dc1;
   }
 }

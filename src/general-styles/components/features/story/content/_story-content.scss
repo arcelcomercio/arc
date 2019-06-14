@@ -1,5 +1,3 @@
-$colorTextDescription: #999;
-
 .story-content {
   &__tag-link {
     color: $color-gray-200;
@@ -39,15 +37,11 @@ $colorTextDescription: #999;
     word-wrap: break-word;
   }
 
-  &__news-media-description {
-    color: $colorTextDescription;
-  }
-
   &__image {
     & figcaption {
       padding: 14px 0px;
       font-size: 13px;
-      color: #999;
+      color: $color-gray-200;
     }
   }
 

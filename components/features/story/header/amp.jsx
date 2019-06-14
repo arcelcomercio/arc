@@ -10,7 +10,7 @@ const classes = {
     'amp-story-header__title font-bold primary-font title-md text-gray-300',
   datetime:
     'amp-story-header__datetime mt-15 mb-15 block secondary-font text-lg',
-  description: 'amp-story-header__description mt-0 text-md',
+  description: 'amp-story-header__description mt-0 text-md text-gray-300',
   gallery: 'amp-story-header w-full',
 }
 @Consumer

@@ -73,7 +73,8 @@ export const TripletChildTriplet = props => {
 
 export const Icon = props => {
   const classes = {
-    tripletBoxIcon: 'triplet__box-icon position-absolute text-center rounded',
+    tripletBoxIcon:
+      'triplet__box-icon position-absolute text-center rounded text-gray-300',
     tripletIcon:
       'triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs',
   }

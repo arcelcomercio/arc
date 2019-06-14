@@ -1,6 +1,4 @@
-$sites-link-color: #999;
 $legal-text-color: #c8c8c8;
-$footer-list-tex-color: #7f7f7f;
 
 $footer-legal-text-size: 12px;
 $footer-list-text-size: 14px;
@@ -47,8 +45,7 @@ $desktop-media: 'min-width: 1024px';
 
   &__sites-item {
     line-height: 120%;
-    border-color: $sites-link-color;
-    color: $sites-link-color;
+    border-color: $color-gray-200;
 
     &:first-child {
       font-weight: bold;
@@ -57,10 +54,6 @@ $desktop-media: 'min-width: 1024px';
     &:last-child {
       border-right: none;
     }
-  }
-
-  &__sites-link {
-    color: $sites-link-color;
   }
 
   &__logo-container {
@@ -74,16 +67,12 @@ $desktop-media: 'min-width: 1024px';
     line-height: 17px;
   }
 
-  &__list-link {
-    color: $footer-list-tex-color;
-  }
-
   &__list-item {
     font-size: $footer-list-text-size;
-    border-color: $footer-list-tex-color;
+    border-color: $color-gray-200;
 
     &--title {
-      color: $footer-list-tex-color;
+      color: $color-gray-200;
     }
   }
 }

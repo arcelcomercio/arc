@@ -7,7 +7,7 @@ const classes = {
   time:
     'stories-list-card__time flex justify-center flex-col text-gray-300 text-lg',
   pageLink: 'stories-list-card__page-link-container flex flex-col',
-  textLink: 'stories-list-card__text-link bold m-0 text-md',
+  textLink: 'stories-list-card__text-link bold m-0 text-md text-gray-300',
 }
 
 const StoriesListsCardChildItem = ({

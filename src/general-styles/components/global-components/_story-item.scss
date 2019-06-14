@@ -32,8 +32,6 @@
   }
 
   &__date {
-    color: #a9a9a9;
-
     @media (--tablet) {
       font-size: 12px;
       margin-top: 3px;
@@ -61,15 +59,10 @@
 
   &__subtitle {
     line-height: 1.2;
-    color: #a9a9a9;
 
     @media (--tablet) {
       display: block;
     }
-  }
-
-  &__author {
-    color: #a9a9a9;
   }
 
   &__right {

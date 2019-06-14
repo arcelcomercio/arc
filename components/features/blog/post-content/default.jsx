@@ -7,7 +7,7 @@ const classes = {
   content: 'bp-content p-20',
   header: 'bp-content__header uppercase inline-b mb-25 text-xs',
   author: 'bp-content__author font-bold pr-5',
-  date: 'bp-content__date',
+  date: 'bp-content__date text-gray-200',
   story: 'bp-content__story full primary-font mb-30 title-sm line-h-sm',
 }
 

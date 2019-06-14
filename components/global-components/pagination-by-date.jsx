@@ -7,7 +7,7 @@ const classes = {
   paginationDateList: 'text-center',
   paginationDateItem: 'pagination-date__item inline-b mr-5 ml-5',
   paginationDateLink:
-    'uppercase flex items-center justify-center font-bold pagination-date__link text-xs',
+    'uppercase flex items-center justify-center font-bold pagination-date__link text-xs text-gray-200',
 }
 class PaginationByDate extends PureComponent {
   constructor(props) {

@@ -150,7 +150,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
       subList:
         'search-filter__sublist hidden w-full flex-col pt-0 pb-0 pl-20 pr-20 active',
       subItem: 'search-filter__subitem flex items-center position-relative',
-      subLink: 'search-filter__sublink capitalize w-full text-xs',
+      subLink: 'search-filter__sublink capitalize w-full text-xs text-gray-200',
     }
 
     return (

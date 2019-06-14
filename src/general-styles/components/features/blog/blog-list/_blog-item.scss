@@ -6,8 +6,6 @@
   }
 
   &__date {
-    color: #999;
-
     @media (--tablet) {
       margin-bottom: 10px;
     }
@@ -40,8 +38,6 @@
   }
 
   &__author {
-    color: #777;
-
     @media (--tablet) {
       font-size: 14px;
       font-weight: bold;

@@ -11,8 +11,6 @@
   }
 
   &__date {
-    color: #999;
-
     @media (--tablet) {
       padding: 5px 0px;
     }
@@ -36,7 +34,6 @@
   }
 
   &__title {
-    color: #444;
     line-height: 24px;
 
     @media (--tablet) {
@@ -45,7 +42,6 @@
   }
 
   &__author {
-    color: #999;
     visibility: hidden;
 
     @media (--tablet) {

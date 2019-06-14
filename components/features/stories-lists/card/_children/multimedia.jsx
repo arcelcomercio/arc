@@ -5,7 +5,8 @@ import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
   figure: 'position-relative',
-  icon: 'position-absolute text-center multimedia__icon mx-auto rounded',
+  icon:
+    'position-absolute text-center multimedia__icon mx-auto rounded text-gray-300',
 }
 
 const StoriesListsCardChildMultimedia = ({

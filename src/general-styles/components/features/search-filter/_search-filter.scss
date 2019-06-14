@@ -126,14 +126,13 @@
         content: '|';
         position: absolute;
         right: -7px;
-        color: #a1a1a1;
+        color: $color-gray-200;
         font-size: 9px;
       }
     }
   }
 
   &__sublink {
-    color: #a1a1a1;
     padding: 7px;
   }
 
