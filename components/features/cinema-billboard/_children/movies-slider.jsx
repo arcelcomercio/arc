@@ -10,7 +10,7 @@ const classes = {
   imageLink: '',
   image: 'movies-slider__img w-full object-cover',
   arrowsBox:
-    'movies-slider__arrows-box w-full position-absolute flex justify-between',
+    'movies-slider__arrows-box w-full position-absolute flex justify-between h-0',
   leftArrow:
     'movies-slider__arrows block text-center movies-slider__arrows--left',
   rightArrow: 'movies-slider__arrows movies-slider__arrows--right',
