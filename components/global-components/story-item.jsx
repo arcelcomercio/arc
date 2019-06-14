@@ -14,7 +14,8 @@ const classes = {
   left: 'story-item__left flex flex-col justify-between pr-10 ',
   title:
     'story-item__title block overflow hidden secondary-font text-black text-md',
-  subtitle: 'story-item__subtitle hidden secondary-font mt-10 text-md',
+  subtitle:
+    'story-item__subtitle hidden secondary-font mt-10 text-md line-h-xs',
   author: 'story-item__author block uppercase mt-10 font-thin text-xs',
   right: 'story-item__right position-relative',
   rightLink: 'flex h-full',

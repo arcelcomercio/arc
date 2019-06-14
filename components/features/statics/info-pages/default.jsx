@@ -18,7 +18,7 @@ const infoPages = {
 const defaultPolicy = 'termsAndConditions'
 
 const classes = {
-  staticPolicy: 'info-pages bg-tertiary secondary-font text-sm',
+  staticPolicy: 'info-pages b g-tertiarysecondary-font text-sm line-h-md',
   title: 'info-pages__title font-bold uppercase mb-25 title-md',
 }
 
