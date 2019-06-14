@@ -4,7 +4,6 @@ import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 
 const AmpOutputType = ({
@@ -80,18 +79,15 @@ const AmpOutputType = ({
     deployment,
     globalContent,
   }
+  const canonicalUrl = siteProperties.siteUrl.concat(
+    globalContent.canonical_url
+  )
 
   return (
     <Html>
       <head>
-        <TagManager {...siteProperties} />
-        <BaseMarkup canonicalUrl="/" />
-        <meta charset="utf-8" />
+        <BaseMarkup canonicalUrl={canonicalUrl} />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-        />
         <title>{title}</title>
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
