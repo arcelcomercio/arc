@@ -26,6 +26,7 @@ class StoryData {
   }
 
   get __data() {
+    
     return this._data
   }
 
@@ -132,7 +133,7 @@ class StoryData {
   }
 
   get primarySectionLink() {
-    return StoryData.getPrimarySection(this._data).path
+    return StoryData.getPrimarySection(this._data).path || ''
   }
 
   get link() {

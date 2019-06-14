@@ -16,13 +16,14 @@ export const setDataTest = storiesQty => {
 
 export const dataCasting = ({ data, deployment, contextPath, arcSite }) => {
   const aux = []
+  
   const element = new StoryData({
     deployment,
     contextPath,
     arcSite,
     defaultImgSize: 'sm',
   })
-
+  debugger
   data.forEach(el => {
     element.__data = el
     aux.push({

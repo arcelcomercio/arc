@@ -44,6 +44,7 @@ class CardMostRead extends PureComponent {
         const stories = contentElements || []
 
         if (stories.length > 0) {
+          debugger
           this.setState({
             stories: dataCasting({
               data: stories,
