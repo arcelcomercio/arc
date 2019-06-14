@@ -10,7 +10,8 @@ const classes = {
   top: 'nav-sidebar__top',
   header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30',
   btnBox: 'nav-sidebar__box-btn pb-15',
-  btn: 'flex items-center justify-center btn bg-color--white nav-sidebar__btn',
+  btn:
+    'flex items-center justify-center btn bg-link text-white nav-sidebar__btn',
   search: 'nav-sidebar__search pt-15 pr-30 pb-15 pl-30 block',
   from: 'nav-sidebar__box-search pb-15',
   input: 'nav-sidebar__input w-full pt-10 pr-15 pb-10 pl-15',

@@ -7,7 +7,7 @@ const classes = {
   separator: 'w-full mb-20',
   heading: 'col-3',
   content:
-    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mb-20 bg-color--white',
+    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mb-20 bg-link text-white',
   zocalo: 'zocalo__container',
   main: 'grid grid--content grid--col-1 col-2',
   sidebar: 'grid grid--content grid--col-1 col-1',

@@ -30,26 +30,3 @@ $nav-color: $color-gray-300;
 $footer-background: $color-primary;
 $footer-text-color: $color-black;
 /*-----------------------*/
-
-/******* Background-text contrast *******/
-.bg-color--link {
-  background-color: $color-link;
-  color: $color-white;
-}
-
-.bg-color--white {
-  background-color: $color-white;
-  color: $color-gray-300;
-}
-
-.bg-color--error {
-  background-color: $color-error;
-  color: $color-white;
-}
-
-.bg-color--dark {
-  background-color: $color-gray-300;
-  color: $color-white;
-}
-
-/*-----------------------*/
