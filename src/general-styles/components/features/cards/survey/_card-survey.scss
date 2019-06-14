@@ -1,6 +1,5 @@
 $color-light-blue: #c5e2f7;
 $color-marine-blue: #26567f;
-$color-text-question: #333;
 $color-button: #0e6dc1;
 
 .survey-card {
@@ -8,7 +7,6 @@ $color-button: #0e6dc1;
 
   &__header {
     background-color: $color-marine-blue;
-    color: $color-white;
   }
 
   &__question {
@@ -18,17 +16,14 @@ $color-button: #0e6dc1;
 
   &__title {
     line-height: 1.2;
-    color: $color-text-question;
     max-height: 127px;
   }
 
   &__results {
-    color: $color-text-question;
     letter-spacing: 1px;
   }
 
   &__submit {
     background: $color-button;
-    color: $color-white;
   }
 }

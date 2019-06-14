@@ -5,8 +5,8 @@ const classes = {
   descripcion: 'newsletter__description secondary-font title-sm',
   row: 'newsletter__row mb-20',
   textCenter: 'text-center',
-  button: 'newsletter__button font-bold w-full border-0',
-  strong: 'newsletter__strong block font-xbold',
+  button: 'newsletter__button font-bold w-full border-0 text-white',
+  strong: 'newsletter__strong block font-xbold text-gray-300',
 }
 
 const StaticsNewsletterChildConfirmation = props => {

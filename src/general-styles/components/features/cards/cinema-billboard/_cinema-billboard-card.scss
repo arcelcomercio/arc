@@ -1,4 +1,3 @@
-$cinema-color-primary: #333;
 $cinema-height: 89px;
 
 .cinema-card {
@@ -7,10 +6,6 @@ $cinema-height: 89px;
   &__category,
   &__title {
     line-height: 1;
-  }
-
-  &__link {
-    color: $cinema-color-primary;
   }
 
   &__gradient {
@@ -39,11 +34,9 @@ $cinema-height: 89px;
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 180px;
-    color: $color-white;
   }
 
   &__p-link {
-    color: $color-white;
     line-height: 1.1;
   }
 

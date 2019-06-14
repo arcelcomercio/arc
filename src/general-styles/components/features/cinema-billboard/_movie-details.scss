@@ -30,10 +30,6 @@
     }
   }
 
-  &__icon {
-    color: $color-gray-300;
-  }
-
   &__detail {
     max-width: 800px;
 
@@ -57,8 +53,6 @@
   }
 
   &__title {
-    color: $color-white;
-
     @media (--tablet) {
       font-size: 28px;
       margin-bottom: 30px;
@@ -66,7 +60,6 @@
   }
 
   &__where {
-    color: $color-white;
     line-height: 1.5;
   }
 
@@ -76,7 +69,6 @@
   }
 
   &__cinema {
-    color: $color-white;
     line-height: 1.5;
   }
 
@@ -86,7 +78,6 @@
   }
 
   &__name {
-    color: $color-white;
     line-height: 1.5;
 
     &--sinopsis {
@@ -111,9 +102,5 @@
       background-color: rgba(255, 255, 255, 0.2);
       transition: all 0.15s ease;
     }
-  }
-
-  &__btn {
-    color: $color-white;
   }
 }

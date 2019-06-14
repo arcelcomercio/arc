@@ -1,5 +1,5 @@
 .tv-highlight {
-  background-color: #333;
+  background-color: $color-gray-300;
 
   @media (--tablet) {
     padding: 40px 0;
@@ -12,7 +12,6 @@
 
   &__title {
     font-size: 24px;
-    color: $color-white;
 
     @media (--tablet) {
       font-size: 32px;
@@ -21,7 +20,6 @@
 
   &__section {
     font-size: 13px;
-    color: $color-white;
 
     &:before {
       content: '';
@@ -45,7 +43,6 @@
   }
 
   &__icon {
-    color: #333;
     width: 35px;
     height: 35px;
     background-color: rgba(255, 255, 255, 0.7);

@@ -10,7 +10,7 @@ const classes = {
   gridContainer: 'sections-grid w-full pl-10 position-absolute',
   gridHeaderText: 'sections-grid__text flex items-center text-lg',
   gridHeaderImage: 'sections-grid__text-image ml-10',
-  gridListTitle: 'sections-grid__title p-10 title-md',
+  gridListTitle: 'sections-grid__title p-10 title-md text-white',
   gridListItems: 'flex flex-wrap',
 }
 

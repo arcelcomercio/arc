@@ -6,7 +6,7 @@ const classes = {
   content:
     'nav-sidebar__content flex flex-col justify-between h-full scroll-vertical',
   item: 'nav-sidebar__item position-relative',
-  link: 'nav-sidebar__link block pt-15 pr-15 pb-15 pl-15 text-md',
+  link: 'nav-sidebar__link block pt-15 pr-15 pb-15 pl-15 text-md text-white',
   top: 'nav-sidebar__top',
   header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30',
   btnBox: 'nav-sidebar__box-btn pb-15 border-b-1 border-solid',
@@ -19,7 +19,8 @@ const classes = {
   body: 'nav-sidebar__body pt-15 pr-0 pb-15 pl-15',
   list: 'nav- sidebar__list',
   footer: 'nav-sidebar__footer pt-30 pr-30 pb-30 pl-30 border-b-1 border-solid',
-  text: 'nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md',
+  text:
+    'nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white',
 }
 
 class NavbarChildMenu extends PureComponent {

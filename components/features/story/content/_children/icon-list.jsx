@@ -7,7 +7,7 @@ const classes = {
   news: 'story-content__icon-list hidden',
   list: 'story-content__list',
   item: 'story-content__item mb-20',
-  link: 'story-content__link',
+  link: 'story-content__link text-gray-200',
 }
 @Consumer
 class StoryContentChildIcon extends PureComponent {

@@ -5,7 +5,7 @@ import Menu from './amp-menu'
 
 const classes = {
   nav:
-    'amp-nav top-0 text-sm w-full flex flex items-center font-bold secondary-font',
+    'amp-nav top-0 text-sm w-full flex flex items-center font-bold secondary-font text-white',
   wrapper:
     'flex items-center justify-between amp-nav__wrapper w-full h-inherit border-b-1 border-solid',
   iconMenu: 'amp-nav__hamburguer position-absolute',

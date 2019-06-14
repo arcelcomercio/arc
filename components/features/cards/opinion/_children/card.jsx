@@ -16,7 +16,7 @@ const classes = {
   name: 'opinion-card__section-name',
   nameLink: 'opinion-card__name-link',
   storyTitle: 'opinion-card__story-title text-left overflow-hidden',
-  titleLink: 'opinion-card__title-link',
+  titleLink: 'opinion-card__title-link text-black',
   orange: 'text_orange',
 }
 

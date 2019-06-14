@@ -7,13 +7,15 @@ import {
 
 const classes = {
   header: 'post-header p-20',
-  title: 'post-header__title primary-font font-thin mb-25 title-md',
+  title:
+    'post-header__title primary-font font-thin mb-25 title-md text-gray-300',
   list: 'post-header__list flex',
   link: 'post-header__link flex items-center justify-center w-full h-full',
   item: 'post-header__item flex-grow',
   share: 'post-header__share hidden ml-10 text-sm',
   more: 'post-header__more',
-  button: 'post-header__button flex items-center justify-center w-full h-full',
+  button:
+    'post-header__button flex items-center justify-center w-full h-full text-white',
 }
 @Consumer
 class BlogPostHeader extends PureComponent {

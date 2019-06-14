@@ -7,9 +7,11 @@ const classes = {
     'author-card__box-image flex items-start position-relative pt-15 pb-15 pr-10 pl-10',
   image: 'author-card__image object-cover object-top rounded',
   detailsBox: 'w-full pt-15 pr-0 pb-10 pl-20',
-  name: 'author-card__name block mb-15 secondary-font font-bold title-md',
+  name:
+    'author-card__name block mb-15 secondary-font font-bold title-md text-gray-300',
   group: 'author-card__group uppercase font-thin mb-5 text-xs',
-  title: 'author-card__title uppercase block secondary-font font-bold title-sm',
+  title:
+    'author-card__title uppercase block secondary-font font-bold title-sm text-gray-300',
 }
 
 const OpinionGridAuthorCard = ({ data: story }) => {

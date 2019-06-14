@@ -13,16 +13,18 @@ const classes = {
   title: 'internal-survey__title inline font-bold',
   buttons:
     'internal-survey__buttons grid justify-between overflow-hidden font-bold primary-font mt-20 mb-20',
-  buttonpool: 'internal-survey__button-pool font-bold uppercase border-0',
+  buttonpool:
+    'internal-survey__button-pool font-bold uppercase border-0 text-white',
   viewresult:
-    'internal-survey__view-result block text-center border-1 border-solid text-sm',
+    'internal-survey__view-result block text-center border-1 border-solid text-sm text-gray-300',
   share: 'internal-survey__share',
   disable: 'internal-survey__disable',
   nav: 'internal-survey__nav hidden',
   navprev: 'internal-survey__nav-prev left-0',
   navnex: 'internal-survey__nav-next right-0',
   icon: 'internal-survey__icon block position-absolute w-full left-0 title-sm',
-  slug: 'internal-survey__slug h-full position-absolute text-center top-0',
+  slug:
+    'internal-survey__slug h-full position-absolute text-center top-0 text-white',
 }
 class InternalSurveyChildSurvey extends PureComponent {
   constructor() {

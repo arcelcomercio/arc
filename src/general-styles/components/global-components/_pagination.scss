@@ -15,7 +15,7 @@ $color-page: #777;
     font-size: 14px;
 
     &--current {
-      background: #000;
+      background: $color-black;
       color: $color-white;
       font-weight: bold;
 

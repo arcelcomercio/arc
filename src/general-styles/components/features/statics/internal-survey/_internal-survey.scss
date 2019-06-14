@@ -46,13 +46,11 @@
 
   &__button-pool {
     background-color: #4aa8fa;
-    color: $color-white;
     float: left;
     height: 45px;
   }
 
   &__view-result {
-    color: #333;
     border-color: #646464;
     float: left;
     letter-spacing: 1px;
@@ -79,7 +77,6 @@
 
   &__slug {
     background-color: rgba(#6d9bce, 0.5);
-    color: $color-white;
     width: 40px;
     z-index: 3;
   }

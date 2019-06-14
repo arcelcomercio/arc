@@ -15,7 +15,7 @@
   }
 
   &__blog {
-    color: #333;
+    color: $color-gray-300;
     font-size: 22px;
   }
 
@@ -28,11 +28,11 @@
   }
 
   &__link {
-    color: #333;
+    color: $color-gray-300;
   }
 
   &__box-middle {
-    border-top: solid 1px #333;
+    border-top: solid 1px $color-gray-300;
     border-bottom: solid 1px #ccc;
     height: 64px;
   }
@@ -43,7 +43,7 @@
   }
 
   &__author {
-    color: #333;
+    color: $color-gray-300;
     font-size: 13px;
   }
 

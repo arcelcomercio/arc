@@ -11,8 +11,9 @@ const classes = {
   imageBox: 'author-item__box-image flex flex-grow-0 flex-shrink-0 rounded',
   image: 'author-item__image object-cover rounded',
   descBox: 'ml-20',
-  name: 'author-item__name block secondary-font font-bold pt-5 mb-10 title-sm',
-  subtitle: 'author-item__subtitle block secondary-font text-xs',
+  name:
+    'author-item__name block secondary-font font-bold pt-5 mb-10 title-sm text-gray-300',
+  subtitle: 'author-item__subtitle block secondary-font text-xs text-gray-300',
 }
 
 const OpinionGridListItem = ({ data: story }) => {

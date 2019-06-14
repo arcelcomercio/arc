@@ -8,11 +8,11 @@ import StoryData from '../../../utilities/story-data'
 const classes = {
   tabloide: 'tabloide row-1 flex flex-col pt-20',
   header: 'tabloide__header flex items-center justify-center',
-  headerLink: 'tabloide__header-link',
+  headerLink: 'tabloide__header-link text-white',
   body: 'tabloide__body flex items-center justify-center flex-col h-auto',
   content: 'flex items-center justify-center',
   date: 'tabloide__date flex items-center justify-center',
-  dateLink: 'tabloide__date-link',
+  dateLink: 'tabloide__date-link text-black',
   face: 'tabloide__face object-contain',
 }
 @Consumer

@@ -1,5 +1,4 @@
 $colorIconMasLeidas: rgba(255, 255, 255, 0.8);
-$colorTextItem: #000;
 
 .most-read-item {
   &:not(:first-child) {
@@ -31,7 +30,6 @@ $colorTextItem: #000;
   &__detail {
     line-height: 1.3;
     height: 60px;
-    color: $colorTextItem;
     text-overflow: ellipsis;
   }
 }

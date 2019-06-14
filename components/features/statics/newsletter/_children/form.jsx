@@ -7,9 +7,9 @@ const classes = {
   email: 'newsletter__email w-full pr-15 pl-15 text-md border-1 border-solid',
   errorMessage: 'newsletter__error-message block pt-5 text-xs',
   textCenter: 'text-center',
-  button: 'newsletter__button font-bold w-full border-0',
+  button: 'newsletter__button font-bold w-full border-0 text-white',
   policies: 'newsletter__policies font-bold cursor-pointer text-sm',
-  pageLink: 'newsletter__page-link',
+  pageLink: 'newsletter__page-link text-gray-300',
   inputCheckbox: 'newsletter__input-checkbox pr-10',
 }
 

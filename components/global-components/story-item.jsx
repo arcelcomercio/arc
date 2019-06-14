@@ -8,17 +8,17 @@ const classes = {
   storyItem:
     'story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid',
   top: 'story-item__top flex items-center',
-  section: 'story-item__section uppercase',
+  section: 'story-item__section uppercase text-black',
   date: 'story-item__date font-thin ml-5',
   bottom: 'story-item__bottom flex mt-10',
   left: 'story-item__left flex flex-col justify-between pr-10 ',
-  title: 'story-item__title block overflow hidden secondary-font',
+  title: 'story-item__title block overflow hidden secondary-font text-black',
   subtitle: 'story-item__subtitle hidden secondary-font mt-10',
   author: 'story-item__author block uppercase mt-10 font-thin',
   right: 'story-item__right position-relative',
   rightLink: 'flex h-full',
   icon:
-    'story-item__icon position-absolute flex items-center justify-center rounded',
+    'story-item__icon position-absolute flex items-center justify-center rounded text-black',
   figure: 'story-item__figure object-cover w-full h-full',
 }
 

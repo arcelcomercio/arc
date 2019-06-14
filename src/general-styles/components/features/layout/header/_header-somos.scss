@@ -26,10 +26,6 @@
     @media (--desktop) {
       display: none;
     }
-
-    & i {
-      color: $color-white;
-    }
   }
 
   &__btn {
@@ -131,7 +127,6 @@
       display: none;
     }
   }
-
 
   &__close {
     height: 50px;
