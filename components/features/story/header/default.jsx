@@ -6,7 +6,7 @@ import StoryHeaderChildGallery from './_children/gallery'
 import StoryHeaderChildSocial from './_children/social'
 
 const classes = {
-  news: 'w-full bg-color--white',
+  news: 'w-full bg-link text-white',
   gallery: 'w-full',
 }
 @Consumer

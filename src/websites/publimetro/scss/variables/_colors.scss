@@ -1,14 +1,16 @@
 /******* Brand colors *******/
 $color-primary: #265922;
-$color-secondary: #000;
+$color-secondary: #000000;
+$color-tertiary: #F3DA4A;
+/*-----------------------*/
+$color-base-400: #0E210D;
+$color-base-300: #193916;
+$color-base-200: #88A486;
+$color-base-100: #C3D1C2;
 /*-----------------------*/
 
 /******* Other colors *******/
-$color-link: #524cff;
-$color-navy-blue: #006097;
-$color-error: #ff0000;
-$color-light-blue: #d5e5ed;
-
+$color-link: #006097;
 /*-----------------------*/
 
 /******* Grayscale *******/
@@ -26,58 +28,10 @@ $nav-color: $color-gray-100;
 /*-----------------------*/
 
 /******* Footer colors *******/
-$footer-background: #333;
+$footer-background: $color-gray-300;
 $footer-text-color: $color-white;
 /*-----------------------*/
 
 /******* Nav colors *******/
 $text-cintillo: #0E210D;
-/*-----------------------*/
-
-/******* Background-text contrast *******/
-.bg-color--link {
-  background-color: $color-link;
-  color: $color-white;
-}
-
-.bg-color--white {
-  background-color: $color-white;
-  color: $color-gray-300;
-}
-
-.bg-color--error {
-  background-color: $color-error;
-  color: $color-white;
-}
-
-.bg-color--dark {
-  background-color: $color-gray-300;
-  color: $color-white;
-}
-
-.bg-color--lightblue1 {
-  background-color: $color-lightblue;
-}
-
-.bg-color--red {
-  background-color: $color-error;
-}
-
-.bg-color--blue {
-  background-color: $color-link;
-}
-
-.bg-color--green {
-  background-color: $color-success;
-}
-
-.bg-color--navy-blue {
-  background-color: $color-navy-blue;
-}
-
-/*-----------------------*/
-
-/******* Default colors *******/
-$color-default-1: #F3DA4A;
-
 /*-----------------------*/

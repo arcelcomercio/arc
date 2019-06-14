@@ -1,0 +1,13 @@
+$map-text-color: (text-white: $color-white,
+    text-black: $color-black,
+    text-gray-300: $color-gray-300,
+    text-gray-200: $color-gray-200,
+    text-gray-100: $color-gray-100,
+) !default;
+
+@each $color-class,
+$value in $map-text-color {
+    .#{$color-class} {
+        color: $value
+    }
+}

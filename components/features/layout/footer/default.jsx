@@ -10,7 +10,8 @@ const classes = {
   contact: 'footer__contact footer__footer-background-color',
   sites: 'footer__sites flex justify-center mt-15',
   sitesList: 'footer__sites-list flex justify-center flex-wrap w-full p-0',
-  sitesItem: 'footer__sites-item mr-5 ml-5 mb-5 pr-10 border-r-1 border-solid',
+  sitesItem:
+    'footer__sites-item mr-5 ml-5 mb-5 pr-10 border-r-1 border-solid text-md',
   sitesLink: 'footer__sites-link',
   legalList: 'footer__legal-list',
   legalItem: 'footer__legal-item mb-10',

@@ -45,7 +45,6 @@
   }
 
   &__name {
-    font-size: 26px;
     line-height: 1.2;
     color: #333;
 
@@ -54,14 +53,9 @@
     }
   }
 
-  &__group {
-    font-size: 11px;
-  }
-
   &__title {
     color: #333;
     width: 90%;
-    font-size: 20px;
     line-height: 1.2;
 
     @media (--tablet) {

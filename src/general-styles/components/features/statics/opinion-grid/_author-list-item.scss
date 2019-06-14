@@ -19,8 +19,6 @@
   }
 
   &__date {
-    font-size: 11px;
-
     @media (--tablet) {
       display: none;
     }
@@ -74,12 +72,10 @@
   } */
 
   &__name {
-    font-size: 20px;
     color: #333;
   }
 
   &__subtitle {
-    font-size: 13px;
     color: #333;
   }
 }

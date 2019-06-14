@@ -32,7 +32,6 @@
 
   &__icon {
     color: $color-gray-300;
-    font-size: 20px;
   }
 
   &__detail {
@@ -58,7 +57,6 @@
   }
 
   &__title {
-    font-size: 22px;
     color: $color-white;
 
     @media (--tablet) {
@@ -69,7 +67,6 @@
 
   &__where {
     color: $color-white;
-    font-size: 13px;
     line-height: 1.5;
   }
 
@@ -80,19 +77,16 @@
 
   &__cinema {
     color: $color-white;
-    font-size: 13px;
     line-height: 1.5;
   }
 
   &__text {
     color: rgba(255, 255, 255, 0.8);
-    font-size: 13px;
     line-height: 1.5;
   }
 
   &__name {
     color: $color-white;
-    font-size: 13px;
     line-height: 1.5;
 
     &--sinopsis {
@@ -121,6 +115,5 @@
 
   &__btn {
     color: $color-white;
-    font-size: 13px;
   }
 }

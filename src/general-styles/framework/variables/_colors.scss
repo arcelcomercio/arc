@@ -1,37 +1,46 @@
 /******* Brand colors *******/
-$color-primary: #f7c600;
-$color-secondary: #000;
+$color-primary: #FECD26 !default;
+$color-secondary: #000000 !default;
+$color-tertiary: #E8F2F7 !default;
+/*-----------------------*/
+$color-base-400: #000000 !default;
+$color-base-300: #333333 !default;
+$color-base-200: #8A8A8A !default;
+$color-base-100: #E8E8E8 !default;
 /*-----------------------*/
 
 /******* Other colors *******/
-$color-link: #45619d;
-$color-error: #dc4e41;
-$color-info: #bbd3e0;
-$color-gray-100-bg: #e8f2f7;
-$color-lightblue: #00acee;
-$color-success: #4dc247;
+$color-attention: #F3DA4A !default;
+$color-link: #45619d !default;
+$color-error: #dc4e41 !default;
+$color-info: #bbd3e0 !default;
+$color-success: #4dc247 !default;
 /*-----------------------*/
 
 /******* Grayscale *******/
-$color-black: #000000;
-$color-gray-300: #333333;
-$color-gray-200: #8A8A8A;
-$color-gray-100: #E8E8E8;
-$color-white: #ffffff;
+$color-black: #000000 !default;
+$color-gray-300: #333333 !default;
+$color-gray-200: #8A8A8A !default;
+$color-gray-100: #E8E8E8 !default;
+$color-white: #ffffff !default;
 /*-----------------------*/
 
+/******* General config *******/
+$text-default-color: $color-gray-300;
+/*-------------------*/
+
 /******* Header colors *******/
-$header-bg-color: $color-primary;
-$header-text-color: $color-gray-300;
+$header-bg-color: $color-primary !default;
+$header-text-color: $color-gray-300 !default;
 /*-----------------------*/
 
 /******* Nav colors *******/
-$nav-color: $color-gray-300;
-$nav-color-2: $color-gray-100;
-$amp-nav-color: $color-gray-300;
+$nav-color: $color-gray-300 !default;
+$nav-color-2: $color-gray-100 !default;
+$amp-nav-color: $color-gray-300 !default;
 /*-----------------------*/
 
 /******* Footer colors *******/
-$footer-background: #333;
-$footer-text-color: $color-white;
+$footer-background: $color-gray-300 !default;
+$footer-text-color: $color-white !default;
 /*-----------------------*/

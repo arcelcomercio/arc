@@ -11,6 +11,10 @@
   width: inherit;
 }
 
+.w-0 {
+  width: 0;
+}
+
 .h-full {
   height: 100%;
 }
@@ -21,6 +25,10 @@
 
 .h-inherit {
   height: inherit;
+}
+
+.h-0 {
+  height: 0;
 }
 
 // ----------------------------------------------
@@ -208,35 +216,4 @@
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-// TODO: Clean these styles
-/******* Background-text contrast *******/
-.bg--white {
-  background-color: $color-white;
-}
-
-.bg-color--link {
-  background-color: $color-link;
-  color: $color-white;
-}
-
-.bg-color--white {
-  background-color: $color-white;
-  color: $color-gray-300;
-}
-
-.bg-color--error {
-  background-color: $color-error;
-  color: $color-white;
-}
-
-.bg-color--dark {
-  background-color: $color-gray-300;
-  color: $color-white;
-}
-
-.bg-color--gray {
-  background-color: $color-gray-300;
-  color: $color-white;
 }

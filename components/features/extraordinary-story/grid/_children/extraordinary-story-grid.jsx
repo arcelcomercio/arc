@@ -8,9 +8,9 @@ const classes = {
   videoBox:
     'story-video-box flex items-center position-relative w-full rounded-sm',
   gridContainer: 'sections-grid w-full pl-10 position-absolute',
-  gridHeaderText: 'sections-grid__text flex items-center',
+  gridHeaderText: 'sections-grid__text flex items-center text-lg',
   gridHeaderImage: 'sections-grid__text-image ml-10',
-  gridListTitle: 'sections-grid__title p-10',
+  gridListTitle: 'sections-grid__title p-10 title-md',
   gridListItems: 'flex flex-wrap',
 }
 

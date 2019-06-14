@@ -1,5 +1,4 @@
 .i-survey-item {
-  font-size: 16px;
   min-height: 28px;
   color: #4c4c4c;
 
@@ -22,6 +21,6 @@
   }
 
   &__top {
-    background-color: #d5e5ed;
+    background-color: $color-base-100;
   }
 }

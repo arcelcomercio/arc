@@ -37,7 +37,6 @@
 
   &__input {
     outline: none;
-    font-size: 14px;
     height: 40px;
     line-height: 20px;
     text-indent: 0;
@@ -67,14 +66,12 @@
   }
 
   &__link {
-    font-size: 14px;
     color: $color-white;
     transition: all 0.15s ease;
   }
 
   &__text {
     color: $color-white;
-    font-size: 14px;
   }
 
   /* 	&__sub-menu {

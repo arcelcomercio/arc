@@ -3,14 +3,14 @@ import React from 'react'
 const classes = {
   item:
     'blog-item flex w-full flex-col-reverse pt-10 mt-0 mb-10 mx-auto border-t-1 border-solid',
-  date: 'blog-item__date',
+  date: 'blog-item__date text-xs',
   container: 'blog-item__container flex flex-row-reverse justify-between',
   containerAvatar: 'blog-item__container-avatar',
   avatar: 'w-full',
   detail: 'blog-item__detail flex flex-col pr-10',
-  blogTitle: 'blog-item__blog uppercase mb-5',
-  author: 'blog-item__author mb-10',
-  post: 'blog-item__post',
+  blogTitle: 'blog-item__blog uppercase mb-5 text-xs',
+  author: 'blog-item__author mb-10 text-sm',
+  post: 'blog-item__post text-lg',
 }
 
 const BlogListChildItem = ({

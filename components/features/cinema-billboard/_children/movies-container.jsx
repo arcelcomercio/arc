@@ -4,7 +4,7 @@ import MoviesFilter from './movies-filter'
 import MovieDetails from './movies-details'
 
 const classes = {
-  title: 'movies-container__title uppercase mt-20 ml-20',
+  title: 'movies-container__title uppercase mt-20 ml-20 text-xl',
   container: 'movies-container mt-20',
 }
 
