@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  bar: 'c-survey-bar position-relative w-full',
-  filler: 'c-survey-bar__filler h-full',
+  bar: 'c-survey-bar position-relative w-full rounded-lg',
+  filler: 'c-survey-bar__filler h-full rounded-lg',
 }
 
 const CardsSurveyChildProgressBar = ({ percentage, isHighlight }) => {

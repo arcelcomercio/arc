@@ -5,7 +5,8 @@ import EmbedMultimedia from '../../../../global-components/embed-multimedia'
 const classes = {
   extraordinayStoryGridContainer:
     'extraordinary-story-grid flex position-relative p-10 flex-col',
-  videoBox: 'story-video-box flex items-center position-relative w-full',
+  videoBox:
+    'story-video-box flex items-center position-relative w-full rounded-sm',
   gridContainer: 'sections-grid w-full pl-10 position-absolute',
   gridHeaderText: 'sections-grid__text flex items-center',
   gridHeaderImage: 'sections-grid__text-image ml-10',

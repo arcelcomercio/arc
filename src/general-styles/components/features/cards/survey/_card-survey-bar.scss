@@ -1,14 +1,12 @@
 .c-survey-bar {
-    height: 4px;
-    border-radius: 50px;
-    background-color: #f4f4f4;
+  height: 4px;
+  background-color: #f4f4f4;
 
-    &__filler {
-        background-color: #bababa;
-        border-radius: inherit;
+  &__filler {
+    background-color: #bababa;
 
-        &.active {
-            background-color: #0e6dc1;
-        }
+    &.active {
+      background-color: #0e6dc1;
     }
+  }
 }

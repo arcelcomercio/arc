@@ -7,7 +7,7 @@ const classes = {
   imgBox: 'movie-details__box-img position-relative w-full m-0 mx-auto',
   img: 'movie-details__img w-full h-full object-cover',
   iconBox:
-    'movie-details__box-icon position-absolute flex items-center justify-center',
+    'movie-details__box-icon position-absolute flex items-center justify-center rounded',
   icon: 'movie-details__icon',
   details:
     'movie-details__detail w-full flex flex-col mt-40 mb-40 mx-auto pt-0 pr-20 pb-20 pl-20',

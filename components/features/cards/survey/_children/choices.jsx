@@ -5,7 +5,7 @@ const classes = {
   item: 'c-survey-choices__item mb-5 pt-5 pr-20 pb-5',
   radio: 'cursor-pointer overflow-hidden flex items-center',
   input: 'c-survey-choices__input hidden',
-  check: 'c-survey-choices__check position-relative mr-10',
+  check: 'c-survey-choices__check position-relative mr-10 rounded-md',
 }
 
 const CardSurveyChildSurveyOptions = ({ choices, onChange }) => {

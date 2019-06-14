@@ -74,7 +74,6 @@
     color: #000;
     font-size: 11px;
     z-index: 1;
-    border-radius: 50%;
 
     @media (--tablet) {
       width: 40px;
@@ -93,7 +92,6 @@
     background-color: $color-white;
     opacity: 0.5;
     filter: alpha(opacity=50);
-    border-radius: 50%;
     color: #444;
     pointer-events: none;
     top: 20px;

@@ -7,7 +7,7 @@ const classes = {
   iconmenuwrapper: 'header-somos__icon-wrapper flex-1',
   menuicon: 'icon-menu header-somos__icon',
   logoWrapper:
-    'header-somos__logo-wrapper right-0 text-center flex justify-center items-center',
+    'header-somos__logo-wrapper right-0 text-center flex justify-center items-center rounded',
   logoimgwrapper: 'header-somos__img-wrapper',
   logoLink: 'inline-b',
   logoimg: 'header-somos__img block',

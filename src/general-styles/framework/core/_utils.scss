@@ -183,6 +183,27 @@
   font-weight: 900;
 }
 
+/******* Radius ********/
+.rounded-none {
+  border-radius: 0;
+}
+
+.rounded-sm {
+  border-radius: 4px;
+}
+
+.rounded-md {
+  border-radius: 16px;
+}
+
+.rounded-lg {
+  border-radius: 50px;
+}
+
+.rounded {
+  border-radius: 50%;
+}
+
 /******* Extra ********/
 
 .cursor-pointer {
