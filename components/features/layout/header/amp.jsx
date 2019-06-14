@@ -11,7 +11,7 @@ const classes = {
   logo: 'amp-header__logo',
   linkContainer:
     'amp-header__link-container position-relative mr-35 border-1 border-solid text-sm rounded-sm',
-  link: 'amp-header__link',
+  link: 'amp-header__link text-white',
   ampImg:
     'amp-header__amp-img i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',
   img:

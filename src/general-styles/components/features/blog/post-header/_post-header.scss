@@ -1,9 +1,7 @@
 .post-header {
-  background-color: #ffffff;
+  background-color: $color-white;
 
   &__title {
-    color: #333;
-
     @media (--tablet) {
       font-size: 40px;
     }
@@ -26,10 +24,6 @@
   &__more {
     width: 45px;
     background-color: #ccc;
-  }
-
-  &__button {
-    color: $color-white;
   }
 
   &__share {

@@ -65,7 +65,6 @@
 
   &__section {
     background-color: $color-error;
-    color: $color-white;
     padding: 8px;
     grid-area: extraordinary-story-section;
     //height: 15px;
@@ -99,14 +98,6 @@
   &-threeline {
     -webkit-line-clamp: 3;
     max-height: 145px;
-  }
-
-  &__subtitle {
-    color: $color-gray-200;
-  }
-
-  &__author {
-    color: $color-gray-200;
   }
 
   &__multimedia {

@@ -17,7 +17,7 @@
   }
 
   &__box-title {
-    border-color: #333;
+    border-color: $color-gray-300;
 
     @media (--tablet) {
       padding: 25px 0;
@@ -28,9 +28,5 @@
     @media (--tablet) {
       font-size: 20px;
     }
-  }
-
-  &__more {
-    color: #333;
   }
 }

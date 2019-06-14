@@ -15,9 +15,9 @@ const classes = {
     'movies-filter__label movies-filter--font-config uppercase font-bold hidden',
   form:
     'movies-filter__form movies-filter--font-config flex font-bold flex-col w-full',
-  select: 'movies-filter__select w-full',
+  select: 'movies-filter__select w-full text-gray-300',
   button:
-    'movies-filter__btn movies-filter--font-config uppercase font-bold w-full',
+    'movies-filter__btn movies-filter--font-config uppercase font-bold w-full text-gray-300',
 }
 
 @Consumer

@@ -16,8 +16,8 @@ const classes = {
   rightArrow: 'movies-slider__arrows movies-slider__arrows--right',
   details: 'movies-slider__details p-20',
   movieTitle: 'movies-slider__movie-title mb-10 title-md',
-  movieLink: 'movies-slider__movie-link',
-  movieDescription: 'movies-slider__movie-description text-md',
+  movieLink: 'movies-slider__movie-link text-white text-white',
+  movieDescription: 'movies-slider__movie-description text-md text-white',
 }
 
 class StaticCinemaBillboardChildMoviesSlider extends PureComponent {

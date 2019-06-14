@@ -1,6 +1,4 @@
 .cintillo-u {
-  color: $color-white;
-
   &--bgcolor-1 {
     background-color: $color-primary;
   }
@@ -17,15 +15,7 @@
     }
   }
 
-  &__btn-icon {
-    color: $color-white;
-  }
-
   &__text {
     line-height: 1.2em;
-  }
-
-  &__link {
-    color: $color-white;
   }
 }

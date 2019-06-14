@@ -30,13 +30,7 @@
     border-color: #d5e1e1;
   }
 
-  &__title {
-    color: $color-gray-300;
-  }
-
   &__subtitle {
-    color: $color-gray-300;
-
     &:first-child {
       margin-bottom: $spacing-md;
     }

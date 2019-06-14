@@ -11,11 +11,11 @@ export const TripletChildTriplet = props => {
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
     threeline: 'triplet--threeline',
-    author: 'triplet__author uppercase pt-10 text-xs',
+    author: 'triplet__author uppercase pt-10 text-xs text-gray-200',
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
     tripletIcon:
-      'triplet__icon position-absolute flex items-center justify-center rounded',
+      'triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs',
   }
 
   let numline = ''
@@ -74,7 +74,8 @@ export const TripletChildTriplet = props => {
 export const Icon = props => {
   const classes = {
     tripletBoxIcon: 'triplet__box-icon position-absolute text-center rounded',
-    tripletIcon: 'triplet__icon text-xs',
+    tripletIcon:
+      'triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs',
   }
 
   const html = (

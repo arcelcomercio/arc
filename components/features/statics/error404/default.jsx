@@ -10,7 +10,7 @@ const classes = {
   icon: 'error__icon position-absolute top-0 border-solid w-0 h-0',
   title: 'error__title text-xl mb-10 primary-font font-bold',
   content: 'error__content text-sm pt-15 pb-15 inline-b',
-  link: 'error__link inline-b text-sm pt-15 pb-15 font-bold',
+  link: 'error__link inline-b text-sm pt-15 pb-15 font-bold text-gray-300',
   searchBox: 'pt-10 pb-20 m-0 mx-auto',
 }
 

@@ -35,9 +35,8 @@
     grid-template-columns: 1fr;
   }
 
-  &__title-link,
   &__title-link:hover {
-    color: #000;
+    color: $color-black;
   }
 
   &__story-title {

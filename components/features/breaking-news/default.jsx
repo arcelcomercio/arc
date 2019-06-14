@@ -5,12 +5,13 @@ import PropTypes from 'prop-types'
 import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
-  breakingnews: 'cintillo-u secondary-font flex justify-between p-15',
+  breakingnews:
+    'cintillo-u secondary-font flex justify-between p-15 text-white',
   close: 'cintillo-u__btn-close text-right',
-  icon: 'cintillo-u__btn-icon icon-close-circle title-sm',
+  icon: 'cintillo-u__btn-icon icon-close-circle title-sm text-white',
   text: 'cintillo-u__text m-0 font-normal title-md',
   tag: 'cintillo-u__tag uppercase mr-5',
-  link: 'cintillo-u__link mr-5',
+  link: 'cintillo-u__link mr-5 text-white',
 }
 
 @Consumer

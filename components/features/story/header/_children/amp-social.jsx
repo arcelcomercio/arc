@@ -6,10 +6,10 @@ import {
 } from '../../../../utilities/helpers'
 
 const classes = {
-  share: 'story-header-amp__share ml-10 text-sm',
+  share: 'amp-story-header__share ml-10 text-sm',
   link: 'flex items-center justify-center w-full h-full',
-  list: 'story-header-amp__list flex',
-  item: 'story-header-amp__item',
+  list: 'amp-story-header__list flex',
+  item: 'amp-story-header__item',
 }
 @Consumer
 class StoryHeaderAmp extends PureComponent {

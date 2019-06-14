@@ -26,8 +26,6 @@
   }
 
   &__section {
-    color: #000;
-
     @media (--tablet) {
       font-size: 13px;
     }
@@ -48,7 +46,6 @@
   }
 
   &__title {
-    color: #000;
     max-height: 42px;
 
     @media (--tablet) {
@@ -93,7 +90,6 @@
     width: 20px;
     height: 20px;
     background-color: rgba(255, 255, 255, 0.6);
-    color: #000;
     z-index: 1;
 
     @media (--tablet) {

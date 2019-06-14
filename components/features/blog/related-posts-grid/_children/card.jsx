@@ -3,7 +3,7 @@ import React from 'react'
 const classes = {
   containerCard: 'br-stories-grid__card',
   imageContainer: 'br-stories-grid__image-container overflow-hidden',
-  imageLink: 'br-stories-grid__image-link',
+  imageLink: 'br-stories-grid__image-link text-gray-300',
   image: 'w-full h-full',
   detail: 'br-stories-grid__detail',
   categoryContainer: 'br-stories-grid__category-container text-center text-xs',

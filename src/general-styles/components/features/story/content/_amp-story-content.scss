@@ -1,9 +1,8 @@
-.story-content-amp {
+.amp-story-content {
   background-color: $color-white;
   max-width: 600px;
 
   &__news-text {
-    color: #333;
     line-height: 1.5;
     word-wrap: break-word;
   }

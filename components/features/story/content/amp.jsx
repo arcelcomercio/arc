@@ -13,11 +13,11 @@ import StoryContentChildTags from './_children/tags'
 import StoryContentChildRelated from './_children/related'
 
 const classes = {
-  content: 'story-content-amp pl-20 pr-20 m-0 mx-auto',
+  content: 'amp-story-content pl-20 pr-20 m-0 mx-auto',
   textClasses:
-    'story-content-amp__news-text text-lg mt-15 mb-25 secondary-font text-xl',
-  author: 'story-content-amp__author mt-15 mb-15',
-  image: 'story-content-amp__image',
+    'amp-story-content__news-text text-lg mt-15 mb-25 secondary-font text-gray-300 text-xl',
+  author: 'amp-story-content__author mt-15 mb-15',
+  image: 'amp-story-content__image',
 }
 
 @Consumer

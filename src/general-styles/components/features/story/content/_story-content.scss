@@ -1,3 +1,5 @@
+$colorTextDescription: #999;
+
 .story-content {
   &__tag-link {
     color: $color-gray-200;
@@ -109,8 +111,6 @@
   }
 
   &__link {
-    color: $color-gray-200;
-
     &:hover {
       text-decoration: none;
     }

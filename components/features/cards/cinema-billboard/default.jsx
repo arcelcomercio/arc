@@ -8,14 +8,14 @@ const classes = {
   gradient: 'cinema-card__gradient w-full position-absolute bottom-0 left-0',
   category:
     'cinema-card__category uppercase primary-font mb-0 pb-15 text-xl line-h-none',
-  link: 'cinema-card__link',
+  link: 'cinema-card__link text-gray-300',
   figure: 'cinema-card__figure overflow-hidden',
   image: 'w-full h-full object-cover',
   detail:
     'cinema-card__detail w-full position-absolute bottom-0 pr-15 pl-15 pb-10',
   premiere: 'cinema-card__premiere text-xl line-h-xs',
-  movieTitle: 'cinema-card__p-title overflow-hidden text-xl',
-  movieLink: 'cinema-card__p-link font-normal line-h-xs',
+  movieTitle: 'cinema-card__p-title overflow-hidden text-xl text-white',
+  movieLink: 'cinema-card__p-link font-normal text-white line-h-xs',
   moviesList: 'cinema-card__movies-list p-10',
   title:
     'cinema-card__title uppercase primary-font font-normal mb-10 text-md line-h-none',

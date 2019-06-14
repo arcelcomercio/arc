@@ -11,7 +11,7 @@ const classes = {
   logoimgwrapper: 'header-somos__img-wrapper flex-1',
   logoLink: 'inline-b',
   logoimg: 'header-somos__img block',
-  logoIcon: 'icon-marca title-xl',
+  logoIcon: 'icon-marca title-xl text-white',
 
   // menu
   menu: 'somos-menu position-absolute bg-gray-300 w-0 top-0 left-0 h-full',

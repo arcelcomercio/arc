@@ -14,7 +14,7 @@ $color-page: #777;
     padding: 3px 7px;
 
     &--current {
-      background: #000;
+      background: $color-black;
       color: $color-white;
       font-weight: bold;
 

@@ -61,7 +61,6 @@
     background-repeat: no-repeat;
     padding: 0 42px 0 16px;
     margin-bottom: 8px;
-    color: $color-gray-300;
     line-height: 45px;
 
     @media (--desktop) {
@@ -74,7 +73,6 @@
 
   &__btn {
     background-color: $color-primary;
-    color: $color-gray-300;
 
     @media (--desktop) {
       width: 100px;
