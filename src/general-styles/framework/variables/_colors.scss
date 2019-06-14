@@ -7,31 +7,28 @@ $color-secondary: #000;
 $color-link: #45619d;
 $color-error: #dc4e41;
 $color-info: #bbd3e0;
-$color-soft-bg: #e8f2f7;
+$color-gray-100-bg: #e8f2f7;
 $color-lightblue: #00acee;
 $color-success: #4dc247;
 /*-----------------------*/
 
 /******* Grayscale *******/
 $color-black: #000000;
-$color-dark: #1f1f1f;
-$color-gray: #333;
-$color-gray-light: #8a8a8a;
-$color-light: #eae9e5;
-$color-silver: #a5a9a9;
-$color-soft: #e7ebed;
+$color-gray-300: #333333;
+$color-gray-200: #8A8A8A;
+$color-gray-100: #E8E8E8;
 $color-white: #ffffff;
 /*-----------------------*/
 
 /******* Header colors *******/
 $header-bg-color: $color-primary;
-$header-text-color: $color-dark;
+$header-text-color: $color-gray-300;
 /*-----------------------*/
 
 /******* Nav colors *******/
-$nav-color: $color-dark;
-$nav-color-2: $color-soft;
-$amp-nav-color: $color-gray;
+$nav-color: $color-gray-300;
+$nav-color-2: $color-gray-100;
+$amp-nav-color: $color-gray-300;
 /*-----------------------*/
 
 /******* Footer colors *******/

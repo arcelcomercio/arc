@@ -19,7 +19,7 @@
 
   &__container-menu {
     @media (--desktop) {
-      border-right: solid 1px $color-silver;
+      border-right: solid 1px $color-gray-200;
       padding-right: 10px;
     }
   }
@@ -42,7 +42,7 @@
 
     &--search {
       display: none;
-      color: $color-silver;
+      color: $color-gray-200;
       padding: 0 0 0 13px;
 
       @media (--desktop) {
@@ -85,12 +85,12 @@
   }
 
   &__list-link {
-    color: $color-gray-light;
+    color: $color-gray-200;
     transition: 0.3s;
     word-break: break-word;
 
     &:hover {
-      color: $color-gray;
+      color: $color-gray-300;
     }
   }
 
@@ -125,7 +125,6 @@
   }
 
   &__input-search {
-    border: 0;
     outline: none;
     height: 32px;
     line-height: 20px;

@@ -12,14 +12,15 @@ const classes = {
   details:
     'movie-details__detail w-full flex flex-col mt-40 mb-40 mx-auto pt-0 pr-20 pb-20 pl-20',
   leftSide: 'movie-details__left w-full',
-  title: 'movie-details__title mb-20 title-sm,',
+  title: 'movie-details__title mb-20 title-sm',
   where: 'movie-details__where uppercase mb-15 text-sm',
-  hours: 'movie-details__hours scroll-vertical-auto h-auto pr-30',
+  hours:
+    'movie-details__hours scroll-vertical-auto h-auto pr-30 border-r-1 border-solid',
   item: 'mb-20',
   cinema: 'movie-details__cinema block font-bold text-sm',
   text: 'movie-details__text font-thin text-sm',
   more:
-    'movie-details__more flex items-center justify-center pt-15 pb-15 pr-30 pl-30 mt-20 mx-auto',
+    'movie-details__more flex items-center justify-center pt-15 pb-15 pr-30 pl-30 mt-20 mx-auto border-1 border-solid',
   button: 'movie-details__btn text-sm',
   rightSide: 'movie-details__right pt-20 pb-20',
   name: 'movie-details__name font-bold mb-15 text-sm',

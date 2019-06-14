@@ -3,7 +3,8 @@ import { formatDate } from '../../../../utilities/helpers'
 
 const classes = {
   authorItem: 'author-item',
-  wrapper: 'author-item__wrapper w-full flex justify-center p-20 m-0 mx-auto',
+  wrapper:
+    'author-item__wrapper w-full flex justify-center p-20 m-0 mx-auto border-b-1 boder-solid',
   social: 'author-item__social hidden',
   date: 'author-item__date block text-xs',
   content: 'author-item__content flex w-full items-start',

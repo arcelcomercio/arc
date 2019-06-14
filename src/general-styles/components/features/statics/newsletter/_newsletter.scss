@@ -27,7 +27,6 @@
   &__button {
     background-color: #333;
     color: $color-white;
-    border: 0;
     height: 50px;
   }
 
@@ -39,7 +38,7 @@
   }
 
   &__email {
-    border: 1px solid #e0e0e0;
+    border-color: #e0e0e0;
     height: 50px;
   }
 
@@ -49,7 +48,8 @@
 
   &__image-container {
     background-color: $color-white;
-    border-bottom: 2px solid #dadada;
+    border-width: 2px;
+    border-color: 2px solid #dadada;
     height: 370px;
 
     @media (--desktop) {

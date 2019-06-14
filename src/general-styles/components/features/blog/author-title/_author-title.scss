@@ -3,8 +3,7 @@
 
   &__box-title {
     flex-basis: calc(100% - 90px);
-    border-bottom: 1px solid #ddd;
-    border-top: 1px solid #ddd;
+    border-color: #ddd;
 
     @media (--tablet) {
       flex-basis: 100%;
@@ -18,14 +17,13 @@
 
   &__section {
     flex-basis: 90px;
-    border-bottom: 1px solid #ddd;
-    border-top: 1px solid #ddd;
+    border-color: #ddd;
 
     @media (--tablet) {
       flex-basis: auto;
       flex-shrink: 1;
       flex-grow: 1;
-      background-color: #fff;
+      background-color: $color-white;
       color: #333;
       font-size: 18px;
       font-weight: 700;
@@ -48,8 +46,6 @@
   }
 
   &__img {
-    border: 0;
-
     @media (--tablet) {
       width: auto;
       height: 48px;

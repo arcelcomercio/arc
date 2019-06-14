@@ -46,7 +46,6 @@
 
   &__button-pool {
     background-color: #4aa8fa;
-    border: 0;
     color: $color-white;
     float: left;
     height: 45px;
@@ -54,7 +53,7 @@
 
   &__view-result {
     color: #333;
-    border: 1px solid #646464;
+    border-color: #646464;
     float: left;
     letter-spacing: 1px;
     height: 45px;

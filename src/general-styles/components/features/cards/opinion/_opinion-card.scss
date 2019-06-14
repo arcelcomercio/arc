@@ -5,7 +5,7 @@
 
   &__head {
     grid-template-columns: 1fr;
-    border-top: 1px solid #d8d7d4;
+    border-color: #d8d7d4;
   }
 
   &__title {
@@ -21,7 +21,7 @@
 
   &__item {
     grid-template-columns: 8fr 4fr;
-    border-top: 1px solid #d8d7d4;
+    border-color: #d8d7d4;
   }
 
   &__section-name,

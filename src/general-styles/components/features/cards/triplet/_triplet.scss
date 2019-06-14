@@ -1,8 +1,6 @@
 //Triplete
 .triplet {
-  border-style: solid;
-  border-width: 1px;
-  border-color: $color-silver;
+  border-color: $color-gray-200;
   //background-color: $color-white;
 
   &__link {
@@ -12,7 +10,7 @@
   &__item {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 80px 1fr;
-    border-bottom: 1px solid $color-silver;
+    border-color: $color-gray-200;
 
     &:last-child {
       border-bottom: 0px;
@@ -86,7 +84,7 @@
 
   &__author {
     grid-area: triplete__author;
-    color: $color-silver;
+    color: $color-gray-200;
   }
 
   &__box-icon {

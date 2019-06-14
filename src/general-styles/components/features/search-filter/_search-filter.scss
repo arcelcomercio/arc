@@ -9,7 +9,6 @@
   &__select {
     height: 40px;
     background-color: #d5e5ed;
-    padding: 0 15px;
 
     &.active {
       background-color: $color-white;
@@ -89,8 +88,7 @@
   }
 
   &__link {
-    padding: 10px 15px;
-    color: $color-dark;
+    color: $color-gray-300;
 
     @media (--desktop) {
       justify-content: center;
@@ -105,8 +103,6 @@
   }
 
   &__sublist {
-    padding: 0 20px;
-
     &.active {
       display: flex;
     }

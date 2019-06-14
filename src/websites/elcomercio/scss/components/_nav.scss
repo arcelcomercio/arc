@@ -1,14 +1,14 @@
 .nav {
-    background-color: $color-light;
+    background-color: $color-gray-100;
 
     &__btn {
         @media (--desktop) {
-            color: $color-gray-light;
+            color: $color-gray-200;
         }
     }
 
     &__icon-search {
-        color: $color-gray-light;
+        color: $color-gray-200;
     }
 
     &.active {

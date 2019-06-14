@@ -11,19 +11,13 @@
     grid-template-columns: repeat(3, 33.3%);
   }
 
-  &--list {
-    max-width: 100%;
-    margin: 0 auto;
-  }
-
+  &--list,
   &--title {
     max-width: 100%;
-    margin: 0 auto;
-    padding: 20px 0;
   }
 
   &__box-title {
-    border-bottom: solid 1px #333;
+    border-color: #333;
 
     @media (--tablet) {
       padding: 25px 0;

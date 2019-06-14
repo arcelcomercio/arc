@@ -1,7 +1,8 @@
 import React from 'react'
 
 const classes = {
-  item: 'blog-item flex w-full flex-col-reverse pt-10 mt-0 mb-10 mx-auto',
+  item:
+    'blog-item flex w-full flex-col-reverse pt-10 mt-0 mb-10 mx-auto border-t-1 border-solid',
   date: 'blog-item__date text-xs',
   container: 'blog-item__container flex flex-row-reverse justify-between',
   containerAvatar: 'blog-item__container-avatar',

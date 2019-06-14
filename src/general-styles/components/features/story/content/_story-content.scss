@@ -1,6 +1,6 @@
 .story-content {
   &__tag-link {
-    color: $color-silver;
+    color: $color-gray-200;
   }
 
   .pquote {
@@ -23,7 +23,7 @@
 
   /* Esto es importante definirlo por los scripts de Opta */
   &__content {
-    & > section {
+    &>section {
       width: 100%;
     }
   }
@@ -70,13 +70,13 @@
       width: 100% !important;
       max-width: 500px;
 
-      & > span {
+      &>span {
         width: 100% !important;
 
-        & > [src*='facebook'] {
+        &>[src*='facebook'] {
           width: 100% !important;
 
-          & > [data-testid*='newsFeedStream'] {
+          &>[data-testid*='newsFeedStream'] {
             width: 100% !important;
           }
         }
@@ -108,7 +108,7 @@
   }
 
   &__link {
-    color: $color-silver;
+    color: $color-gray-200;
 
     &:hover {
       text-decoration: none;

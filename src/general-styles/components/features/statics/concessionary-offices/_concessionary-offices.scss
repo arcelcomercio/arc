@@ -6,7 +6,6 @@
     margin-left: -21px;
     width: 0;
     height: 0;
-    border-style: solid;
     border-width: 24px 21px 0 21px;
     border-color: $color-white transparent transparent transparent;
   }
@@ -17,7 +16,7 @@
   }
 
   &__title {
-    color: $color-gray;
+    color: $color-gray-300;
 
     @media (--tablet) {
       font-size: 32px;
@@ -27,11 +26,11 @@
   &__info {
     line-height: 1.5;
     width: 300px;
-    color: $color-gray;
+    color: $color-gray-300;
   }
 
   &__locations {
-    border-top: 1px solid #bababa;
+    border-color: #bababa;
     margin-bottom: 50px;
 
     @media (--desktop) {
@@ -47,7 +46,7 @@
   }
 
   &__search-title {
-    color: $color-gray;
+    color: $color-gray-300;
 
     @media (--tablet) {
       margin-bottom: 20px;
@@ -100,6 +99,6 @@
   }
 
   &__map-title {
-    color: $color-gray;
+    color: $color-gray-300;
   }
 }

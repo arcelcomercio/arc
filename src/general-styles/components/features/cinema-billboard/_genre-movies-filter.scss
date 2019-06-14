@@ -11,15 +11,15 @@ $movie-size: 134px;
 
   &__nav-link {
     transition: 0.5s;
-    color: $color-silver;
+    color: $color-gray-200;
 
     &--active {
       font-weight: 900;
-      color: $color-gray;
+      color: $color-gray-300;
     }
 
     &:hover {
-      color: $color-gray;
+      color: $color-gray-300;
     }
 
     &::before {
@@ -37,7 +37,7 @@ $movie-size: 134px;
   }
 
   &__info {
-    color: $color-silver;
+    color: $color-gray-200;
   }
 
   &__select {
@@ -48,7 +48,7 @@ $movie-size: 134px;
     margin-right: 1%;
     padding: 0 32px 0 8px;
     line-height: 45px;
-    color: $color-gray;
+    color: $color-gray-300;
   }
 
   &__grid {
@@ -70,11 +70,11 @@ $movie-size: 134px;
 
   &__title {
     line-height: 15px;
-    color: $color-silver;
+    color: $color-gray-200;
   }
 
   &__tag {
-    color: $color-dark;
+    color: $color-gray-300;
     text-decoration: none;
   }
 }

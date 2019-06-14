@@ -35,12 +35,12 @@
   &__wrapper {
     padding: 0 14px;
     background-color: $color-white;
-    border-bottom: 1px solid #dadada;
+    border-color: #dadada;
   }
 
   &__container-menu {
     @media (--desktop) {
-      border-right: solid 1px $color-silver;
+      border-right: solid 1px $color-gray-200;
       padding-right: 10px;
     }
   }

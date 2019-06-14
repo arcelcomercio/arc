@@ -5,11 +5,11 @@ import Markers from './_dependencies/markers'
 
 const classes = {
   concessionaires: 'concessionaires w-full position-relative',
-  arrow: 'concessionaires__arrow position-absolute',
+  arrow: 'concessionaires__arrow position-absolute border-solid',
   container: 'concessionaires__container w-full m-0 mx-auto pr-20 pl-20',
   title: 'concessionaires__title text-center font-bold title-sm',
   info: 'concessionaires__info text-center mt-10 mb-40 mx-auto text-sm',
-  locations: 'concessionaires__locations pt-25',
+  locations: 'concessionaires__locations pt-25 border-t-1 border-solid',
   search: 'concessionaires__search flex mb-20 flex-col',
   searchTitle:
     'concessionaires__search-title uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm',

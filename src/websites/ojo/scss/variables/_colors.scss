@@ -5,27 +5,22 @@ $color-secondary: #000;
 
 /******* Other colors *******/
 $color-link: #524CFF;
-$color-white: #FFFFFF;
 $color-error: #FF0000;
 $color-light-blue:#d5e5ed;
 /*-----------------------*/
 
 /******* Grayscale *******/
-$color-black: #000000;
-$color-dark: #1F1F1F;
-$color-gray: #373737;
-$color-silver: #A5A9A9;
-$color-soft: #FFFFFF;
+
 /*-----------------------*/
 
 /******* Header colors *******/
 $header-bg-color: $color-primary;
-$header-text-color: $color-dark;
+$header-text-color: $color-gray-300;
 
 /*-----------------------*/
 
 /******* Nav colors *******/
-$nav-color: $color-dark;
+$nav-color: $color-gray-300;
 /*-----------------------*/
 
 /******* Background-text contrast *******/
@@ -36,7 +31,7 @@ $nav-color: $color-dark;
 
 .bg-color--white {
     background-color: $color-white;
-    color: $color-dark;
+    color: $color-gray-300;
 }
 
 .bg-color--error {
@@ -45,10 +40,12 @@ $nav-color: $color-dark;
 }
 
 .bg-color--dark {
-    background-color: $color-dark;
+    background-color: $color-gray-300;
     color: $color-white;
 }
-.bg-color--lightblue{
+
+.bg-color--lightblue {
     background-color: $color-light-blue;
 }
+
 /*-----------------------*/
