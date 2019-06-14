@@ -125,10 +125,6 @@ $image-height: 157px;
     }
   }
 
-  &__title {
-    line-height: 1.2;
-  }
-
   &-oneline {
     -webkit-line-clamp: 1;
     max-height: 25px;
@@ -150,7 +146,6 @@ $image-height: 157px;
 
   &__link {
     display: -webkit-box;
-    line-height: 1.3;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */

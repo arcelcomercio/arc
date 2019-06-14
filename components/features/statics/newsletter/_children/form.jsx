@@ -1,8 +1,9 @@
 import React from 'react'
 
 const classes = {
-  title: 'newsletter__title position-relative font-bold pb-15 title-lg',
-  descripcion: 'newsletter__description secondary-font title-sm',
+  title:
+    'newsletter__title position-relative font-bold pb-15 title-lg line-h-none',
+  descripcion: 'newsletter__description secondary-font title-sm line-h-md',
   row: 'newsletter__row mb-20',
   email: 'newsletter__email w-full pr-15 pl-15 text-md border-1 border-solid',
   errorMessage: 'newsletter__error-message block pt-5 text-xs',

@@ -14,14 +14,14 @@ const classes = {
     'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full rounded text-gray-300',
 
   category: 'featured-story__category pb-15 hidden text-lg',
-  title: 'featured-story__title overflow-hidden mb-10 title-sm',
+  title: 'featured-story__title overflow-hidden mb-10 title-sm line-h-xs',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
   author: 'featured-story__author uppercase',
   authorLink: 'featured-story__link--author text-gray-200',
 
-  link: 'featured-story__link text-md',
+  link: 'featured-story__link text-md line-h-sm',
   imageLink: 'block h-full',
   img: 'w-full h-full object-cover',
 

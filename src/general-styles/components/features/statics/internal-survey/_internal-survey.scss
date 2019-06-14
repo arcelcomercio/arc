@@ -1,5 +1,4 @@
 .internal-survey {
-  background-color: #ebebeb;
 
   @media (--desktop) {
     grid-template-columns: 576px 300px;
@@ -32,10 +31,6 @@
     }
   }
 
-  &__date {
-    line-height: 1;
-  }
-
   &__title {
     font-size: 40px;
   }
@@ -61,7 +56,6 @@
   //columna de resultados
   &__result {
     grid-template-columns: auto;
-    background-color: #fcee21;
 
     @media (--tablet) {
       // padding: 30px 20px 0;

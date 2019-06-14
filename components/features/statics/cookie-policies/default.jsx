@@ -6,7 +6,7 @@ import cookiesText from './_dependencies/cookies-tpl'
 
 const classes = {
   container: 'text-editor-container p-30 w-full position-relative',
-  textEditor: `text-editor-container__editor w-full`,
+  textEditor: `text-editor-container__editor w-full line-h-lg`,
   arrow: `text-editor-container__arrow border-solid w-0 h-0 position-absolute`,
 }
 
