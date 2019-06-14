@@ -1,5 +1,6 @@
-$map-icons: (
-  img: $img,
+/******* Icons Map *******/
+
+$map-icons: (img: $img,
   video: $video,
   menu: $menu,
   marca: $marca,
@@ -24,12 +25,18 @@ $map-icons: (
 ) !default;
 
 @mixin generateicons() {
-  @each $name, $value in $map-icons {
+
+  @each $name,
+  $value in $map-icons {
     .icon-#{$name}:before {
-      content: #{'"\\' + #{$value} + '"'};
+      content: #{'"\\' + #{$value}+'"'
     }
+
+    ;
   }
-  @content;
+}
+
+@content;
 }
 
 @include generateicons();
