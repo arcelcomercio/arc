@@ -52,7 +52,7 @@ $movie-size: 134px;
   }
 
   &__grid {
-    gap: $spacing-normal;
+    gap: $spacing-md;
     grid-template-columns: repeat(2, 1fr);
 
     @media (--tablet) {

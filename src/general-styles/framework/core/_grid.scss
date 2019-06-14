@@ -2,7 +2,7 @@
     display: grid;
 
     &--content {
-        gap: $spacing-normal;
+        gap: $spacing-md;
         grid-auto-rows: min-content;
     }
 
@@ -15,7 +15,7 @@
     } */
 
     /* .grid--rows-height {
-        grid-auto-rows: minmax(calc(($height-row - ($spacing-normal * ($row-parts - 1))) / $row-parts), auto);
+        grid-auto-rows: minmax(calc(($height-row - ($spacing-md * ($row-parts - 1))) / $row-parts), auto);
     } */
 
     &--col-1 {
@@ -45,7 +45,7 @@
     .row-#{$i} {
         //grid-row: span $row-parts*$i;
         grid-row: span $i;
-        height: ($height-row * $i)+ ($spacing-normal * ($i - 1));
+        height: ($height-row * $i)+ ($spacing-md * ($i - 1));
     }
 }
 

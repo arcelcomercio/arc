@@ -4,8 +4,6 @@
   &__arrow {
     left: 50%;
     margin-left: -21px;
-    width: 0;
-    height: 0;
     border-width: 24px 21px 0 21px;
     border-color: $color-white transparent transparent transparent;
   }
@@ -26,11 +24,9 @@
   &__info {
     line-height: 1.5;
     width: 300px;
-    color: $color-gray-300;
   }
 
   &__locations {
-    border-color: #bababa;
     margin-bottom: 50px;
 
     @media (--desktop) {
@@ -46,8 +42,6 @@
   }
 
   &__search-title {
-    color: $color-gray-300;
-
     @media (--tablet) {
       margin-bottom: 20px;
     }
@@ -81,7 +75,6 @@
 
   // TODO: Cambiar el background-image por un icono
   &__select {
-    background-color: $color-white;
     background-image: url(https://elcomercio.pe/img/arrows_select.png);
     background-position: right center;
     background-repeat: no-repeat;
@@ -96,9 +89,5 @@
     @media (--desktop) {
       width: 252px;
     }
-  }
-
-  &__map-title {
-    color: $color-gray-300;
   }
 }

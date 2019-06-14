@@ -11,8 +11,8 @@ const classes = {
   multimedia: 'related-content__multimedia position-relative',
   link: 'block w-full h-full',
   image: 'w-full h-full',
-  icon: 'related-content__icon position-absolute p-5 title-xl',
-  author: 'related-content__author uppercase text-sm',
+  icon: 'related-content__icon position-absolute p-5 rounded-lg title-xl',
+  author: 'related-content__author uppercase',
 }
 
 const RenderRelatedContentElement = (elements, i) => {

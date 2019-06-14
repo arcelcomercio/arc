@@ -1,7 +1,4 @@
 .header-somos {
-  background-color: $color-white;
-  border-color: #ababab;
-
   @media (--desktop) {
     border-top: none;
     padding: 15px 10px;
@@ -22,7 +19,6 @@
   }
 
   &__logo-wrapper {
-    background-color: $color-black;
     height: 50px;
     width: 50px;
     // display: flex;
@@ -44,8 +40,6 @@
 }
 
 .somos-menu {
-  background-color: rgba(0, 0, 0, 0.7);
-  width: 0%;
   z-index: 1;
 
   @media (--desktop) {
@@ -57,7 +51,6 @@
   }
 
   &__content {
-    background-color: rgba(0, 0, 0, 0.9);
     width: 255px;
     transition: all 2ms;
     transform: translate3d(-100%, 0, 0);
@@ -82,16 +75,12 @@
   }
 
   &__search-input {
-    background-color: transparent;
-    border-color: $color-white;
-    color: $color-white;
     height: 32px;
   }
 
   &__search-icon {
     right: 17px;
     top: 21px;
-    color: $color-white;
   }
 
   &__list {
@@ -109,8 +98,6 @@
   }
 
   &__link {
-    color: $color-white;
-
     @media (--desktop) {
       color: #585858;
       display: flex;
@@ -134,7 +121,6 @@
   }
 
   &__link-icon {
-    color: #585858;
     @media (--desktop) {
       display: block;
     }
@@ -146,13 +132,6 @@
     }
   }
 
-  &__login-icon {
-    color: $color-primary;
-  }
-
-  &__login-text {
-    color: $color-white;
-  }
 
   &__close {
     height: 50px;
@@ -160,10 +139,6 @@
     @media (--desktop) {
       display: none;
     }
-  }
-
-  &__close-icon {
-    color: $color-white;
   }
 
   &--active {

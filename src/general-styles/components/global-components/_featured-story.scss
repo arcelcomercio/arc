@@ -29,7 +29,7 @@ $image-height: 157px;
 
   .featured-story__detail {
     //z-index: 10;
-    padding: $spacing-normal;
+    padding: $spacing-md;
     position: absolute;
     z-index: 1;
   }
@@ -177,7 +177,6 @@ $image-height: 157px;
     width: 55px;
     top: 20px;
     right: 20px;
-    border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.5);
     color: #444;
   }

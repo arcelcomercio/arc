@@ -10,7 +10,7 @@ const classes = {
   image: 'featured-story__image overflow-hidden w-full h-full ml-10',
   multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
   multimediaIconSpan:
-    'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full',
+    'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full rounded',
 
   category: 'featured-story__category pb-15 hidden text-lg',
   title: 'featured-story__title overflow-hidden mb-10 title-sm',

@@ -10,7 +10,8 @@ const classes = {
   section: 'tv-highlight__section flex uppercase position-relative text-sm',
   imageBox: 'block position-relative',
   image: 'w-full h-full object-contain object-center',
-  icon: 'tv-highlight__icon position-absolute flex justify-center items-center',
+  icon:
+    'tv-highlight__icon position-absolute flex justify-center items-center rounded',
   tags: 'tv-highlight__tags mt-15',
   related: 'tv-highlight__related uppercase mb-5 font-bold text-sm',
   list: 'flex',
