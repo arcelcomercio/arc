@@ -6,9 +6,9 @@ import UtilListKey from '../../../../utilities/list-keys'
 import DateNameFunc from '../../../../utilities/date-name'
 
 const classes = {
-  InternalSurvey: 'internal-survey grid primary-font p-30 mb-30',
+  InternalSurvey: 'internal-survey bg-tertiary grid primary-font p-30 mb-30',
   detail: 'internal-survey__detail position-relative pr-30 pl-30',
-  result: 'internal-survey__result grid justify-center position-relative',
+  result: 'internal-survey__result bg-primary grid justify-center position-relative',
   date: 'internal-survey__date block mt-15 mb-15 text-md',
   title: 'internal-survey__title inline font-bold',
   buttons:
