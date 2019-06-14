@@ -73,16 +73,13 @@ module.exports = type => {
       },
     }),
   ]
-
+  
+  // Genera el _index.scss de todo los estilos de los features a utilizar
   if (type === APP_DEFAULT) {
-    // Genera el _index.scss de todo los estilos de los features a utilizar
     plugins.unshift(
       new CreateFileWebpack(getOptionsIndexStyleWebpack('_index.scss'))
     )
-  }
-
-  if (type === APP_AMP) {
-    // Genera el _index.scss de todo los estilos de los features a utilizar
+  }else if(type === APP_AMP) {
     plugins.unshift(
       new CreateFileWebpack(getOptionsIndexStyleWebpack('_amp.scss'))
     )
