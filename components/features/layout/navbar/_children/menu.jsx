@@ -14,7 +14,8 @@ const classes = {
     'flex items-center justify-center btn bg-link text-white nav-sidebar__btn',
   search: 'nav-sidebar__search pt-15 pr-30 pb-15 pl-30 block',
   from: 'nav-sidebar__box-search pb-15 border-b-1 border-solid',
-  input: 'nav-sidebar__input w-full pt-10 pr-15 pb-10 pl-15 border-0 text-md',
+  input:
+    'nav-sidebar__input w-full pt-10 pr-15 pb-10 pl-15 border-0 text-md rounded-sm',
   body: 'nav-sidebar__body pt-15 pr-0 pb-15 pl-15',
   list: 'nav- sidebar__list',
   footer: 'nav-sidebar__footer pt-30 pr-30 pb-30 pl-30 border-b-1 border-solid',

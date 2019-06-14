@@ -6,8 +6,8 @@ import {
 } from '../../../../utilities/helpers'
 
 const classes = {
-  share: 'amp-story-header__share ml-10',
-  link: 'amp-flex items-center justify-center w-full h-full',
+  share: 'amp-story-header__share ml-10 text-sm',
+  link: 'flex items-center justify-center w-full h-full',
   list: 'amp-story-header__list flex',
   item: 'amp-story-header__item',
 }

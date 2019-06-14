@@ -5,9 +5,9 @@ import { createMarkup } from '../../../utilities/helpers'
 import cookiesText from './_dependencies/cookies-tpl'
 
 const classes = {
-  container: 'text-editor-container w-full position-relative',
+  container: 'text-editor-container p-30 w-full position-relative',
   textEditor: `text-editor-container__editor w-full`,
-  arrow: `text-editor-container__arrow position-absolute`,
+  arrow: `text-editor-container__arrow border-solid w-0 h-0 position-absolute`,
 }
 
 @Consumer

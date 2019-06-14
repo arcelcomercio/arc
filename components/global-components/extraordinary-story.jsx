@@ -16,12 +16,14 @@ const classes = {
   threeline: 'extraordinary-story-threeline',
   extraordinaryStorySubtitle: 'extraordinary-story__subtitle mb-15',
   extraordinaryStoryLink: 'extraordinary-story__link',
-  extraordinaryStoryAuthor: 'extraordinary-story__author uppercase mb-15',
+  extraordinaryStoryAuthor:
+    'extraordinary-story__author uppercase mb-15 text-xs',
   extraordinaryStoryMultimedia:
     'extraordinary-story__multimedia flex items-center justify-center position-relative',
   iconGallery: 'position-absolute top-0 right-0 m-10',
   iconGalleryContainer:
-    'extraordinary-story__icon-gallery-container flex items-center justify-center',
+    'extraordinary-story__icon-gallery-container flex items-center justify-center rounded',
+  icon: 'extraordinary-story__icon-gallery',
 }
 
 const getMultimediaIcon = mediaType => {
@@ -29,7 +31,7 @@ const getMultimediaIcon = mediaType => {
     return (
       <span className={classes.iconGallery}>
         <span className={classes.iconGalleryContainer}>
-          <i>{mediaType}</i>
+          <i className={classes.icon}>{mediaType}</i>
         </span>
       </span>
     )

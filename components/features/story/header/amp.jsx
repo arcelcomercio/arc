@@ -6,9 +6,10 @@ import StoryHeaderChildAmpSocial from './_children/amp-social'
 
 const classes = {
   news: 'amp-story-header pr-20 pl-20 m-5 mx-auto',
-  titleAmp: 'amp-story-header__title font-bold primary-font',
-  datetime: 'amp-story-header__datetime mt-15 mb-15 block secondary-font',
-  description: 'amp-story-header__description mt-0',
+  titleAmp: 'amp-story-header__title font-bold primary-font title-md',
+  datetime:
+    'amp-story-header__datetime mt-15 mb-15 block secondary-font text-lg',
+  description: 'amp-story-header__description mt-0 text-md',
   gallery: 'amp-story-header w-full',
 }
 @Consumer

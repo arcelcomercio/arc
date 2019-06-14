@@ -25,14 +25,12 @@
       top: 28px;
       transform: scale(3.5);
       z-index: 2;
-      border-radius: 50%;
       background-color: rgba(255, 255, 255, 0.5);
       color: #444;
     }
   }
 
   &__time {
-    font-size: 16px;
     line-height: 19.2px;
     color: $color-gray-300;
   }
@@ -42,7 +40,6 @@
   }
 
   &__text-link {
-    font-size: 14px;
     line-height: 1.2;
     color: #4c4c4c;
   }
