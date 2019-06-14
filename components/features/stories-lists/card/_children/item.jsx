@@ -4,9 +4,9 @@ import Multimedia from './multimedia'
 const classes = {
   story:
     'stories-list-card__story flex flex-col w-auto p-20 border-b-1 border-solid',
-  time: 'stories-list-card__time flex justify-center flex-col',
+  time: 'stories-list-card__time flex justify-center flex-col text-lg',
   pageLink: 'stories-list-card__page-link-container flex flex-col',
-  textLink: 'stories-list-card__text-link bold m-0',
+  textLink: 'stories-list-card__text-link bold m-0 text-md',
 }
 
 const StoriesListsCardChildItem = ({

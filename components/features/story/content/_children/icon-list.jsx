@@ -22,23 +22,23 @@ class StoryContentChildIcon extends PureComponent {
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'icon-print story-content__icon',
+          icon: 'icon-print story-content__icon title-xl',
           link: '',
           mobileClass: '',
         },
 
         {
-          icon: 'icon-message story-content__icon',
+          icon: 'icon-message story-content__icon title-xl',
           link: '',
           mobileClass: '',
         },
         {
-          icon: 'icon-link story-content__icon',
+          icon: 'icon-link story-content__icon title-xl',
           link: '',
           mobileClass: '',
         },
         {
-          icon: 'icon-zoom story-content__icon',
+          icon: 'icon-zoom story-content__icon title-xl',
           link: '',
           mobileClass: '',
         },

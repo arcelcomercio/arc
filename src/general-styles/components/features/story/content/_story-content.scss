@@ -23,7 +23,7 @@
 
   /* Esto es importante definirlo por los scripts de Opta */
   &__content {
-    &>section {
+    & > section {
       width: 100%;
     }
   }
@@ -39,7 +39,6 @@
 
   &__news-media-description {
     color: $colorTextDescription;
-    font-size: 13px;
   }
 
   &__image {
@@ -70,13 +69,13 @@
       width: 100% !important;
       max-width: 500px;
 
-      &>span {
+      & > span {
         width: 100% !important;
 
-        &>[src*='facebook'] {
+        & > [src*='facebook'] {
           width: 100% !important;
 
-          &>[data-testid*='newsFeedStream'] {
+          & > [data-testid*='newsFeedStream'] {
             width: 100% !important;
           }
         }
@@ -90,13 +89,15 @@
     padding-top: 30px;
   }
 
-  &__author-email {
+  /*  Verificar si realmente se utilizan estas clases  */
+
+  /*  &__author-email {
     font-size: $font-sm;
   }
 
   &__author-date {
     font-size: 12px;
-  }
+  } */
 
   &__icon-list {
     margin-right: -49px;
@@ -113,9 +114,5 @@
     &:hover {
       text-decoration: none;
     }
-  }
-
-  &__icon {
-    font-size: 30px;
   }
 }

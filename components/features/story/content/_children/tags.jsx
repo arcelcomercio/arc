@@ -3,7 +3,7 @@ import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
   container: 'mt-25 mb-20',
-  title: 'story-tags-amp__title uppercase mb-5 primary-font font-bold',
+  title: 'story-tags-amp__title uppercase mb-5 primary-font font-bold text-sm',
   tag: 'inline-b primary-font text-sm mr-10 mb-5',
   link: 'story-tags-amp__link',
 }
