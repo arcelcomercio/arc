@@ -9,6 +9,10 @@ module.exports = env => {
   const type = env.amp ? 'amp' : 'index'
   const ext = env.amp ? 'css' : 'js'
 
+  console.log('==============================')
+  console.log('test')
+  console.log('==============================')
+
   return {
     mode,
     context: paths.base,
