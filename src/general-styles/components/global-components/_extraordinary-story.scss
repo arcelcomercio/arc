@@ -106,7 +106,6 @@
   }
 
   &__author {
-    font-size: 0.7em;
     color: $color-gray-200;
   }
 
@@ -123,10 +122,9 @@
     width: 80px;
     height: 80px;
     background-color: rgba(255, 255, 255, 0.24);
-    border-radius: 50%;
+  }
 
-    & i {
-      font-size: 33px;
-    }
+  &__icon-gallery {
+    font-size: 33px;
   }
 }

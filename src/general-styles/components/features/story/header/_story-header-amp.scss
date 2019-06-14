@@ -3,18 +3,15 @@
   max-width: 600px;
 
   &__title {
-    font-size: 24px;
     color: #333;
     line-height: 29px;
   }
 
   &__datetime {
-    font-size: 16px;
     color: #666;
   }
 
   &__description {
-    font-size: 15px;
     color: #323232;
   }
 
@@ -30,7 +27,6 @@
   }
 
   &__share {
-    font-size: 12px;
     fill: $color-white;
   }
 
