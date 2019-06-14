@@ -44,8 +44,6 @@
   }
 
   &__name {
-    line-height: 1.2;
-
     @media (--tablet) {
       max-height: inherit;
     }
@@ -53,7 +51,6 @@
 
   &__title {
     width: 90%;
-    line-height: 1.2;
 
     @media (--tablet) {
       font-size: 18px;
