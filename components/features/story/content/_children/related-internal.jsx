@@ -8,7 +8,7 @@ const classes = {
   title: 'related-internal__title font-bold uppercase mb-10',
   multimedia: 'position-relative',
   image: 'w-full',
-  icon: 'related-internal__multimedia-icon position-absolute p-5',
+  icon: 'related-internal__multimedia-icon position-absolute p-5 rounded-lg',
   info: 'related-internal__information pt-20 pb-20',
 }
 

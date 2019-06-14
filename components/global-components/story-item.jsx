@@ -17,7 +17,8 @@ const classes = {
   author: 'story-item__author block uppercase mt-10 font-thin',
   right: 'story-item__right position-relative',
   rightLink: 'flex h-full',
-  icon: 'story-item__icon position-absolute flex items-center justify-center',
+  icon:
+    'story-item__icon position-absolute flex items-center justify-center rounded',
   figure: 'story-item__figure object-cover w-full h-full',
 }
 
