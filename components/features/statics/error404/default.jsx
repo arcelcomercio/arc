@@ -6,7 +6,7 @@ import SearchInput from '../../../global-components/search-input'
 
 const classes = {
   container:
-    'error text-center w-full position-relative secondary-font pt-40 pb-40 pr-20 pl-40',
+    'error bg-gray-100 text-center w-full position-relative secondary-font pt-40 pb-40 pr-20 pl-40',
   icon: 'error__icon position-absolute top-0 border-solid',
   title: 'error__title text-xl mb-10 primary-font font-bold',
   content: 'error__content text-sm pt-15 pb-15 inline-b',
