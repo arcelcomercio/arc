@@ -1,7 +1,7 @@
 .movie-item {
   @media (--tablet) {
     flex-direction: initial;
-    padding-bottom: $spacing-xlarge;
+    padding-bottom: $spacing-xl;
   }
 
   &:nth-last-child(1) {
@@ -19,8 +19,8 @@
   &__right {
     @media (--tablet) {
       margin-top: 0;
-      margin-left: $spacing-normal;
-      padding-left: $spacing-normal;
+      margin-left: $spacing-md;
+      padding-left: $spacing-md;
       border-left: solid 1px #d5e1e1;
     }
   }
@@ -40,7 +40,7 @@
     color: $color-gray-300;
 
     &:first-child {
-      margin-bottom: $spacing-normal;
+      margin-bottom: $spacing-md;
     }
   }
 

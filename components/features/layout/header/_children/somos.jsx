@@ -3,36 +3,38 @@ import React, { PureComponent } from 'react'
 const classes = {
   // header
   logocontent:
-    'header-somos flex justify-between items-center text-center w-full p-10 border-t-1 border-b-1 boder-solid',
+    'header-somos bg-white border-gray-200 flex justify-between items-center text-center w-full p-10 border-t-1 border-b-1 boder-solid',
   iconmenuwrapper: 'header-somos__icon-wrapper',
   menuicon: 'icon-menu header-somos__icon title-xl',
   logoWrapper:
-    'header-somos__logo-wrapper right-0 text-center flex justify-center items-center rounded',
+    'header-somos__logo-wrapper bg-black right-0 text-center flex justify-center items-center rounded',
   logoimgwrapper: 'header-somos__img-wrapper flex-1',
   logoLink: 'inline-b',
   logoimg: 'header-somos__img block',
   logoIcon: 'icon-marca title-xl',
 
   // menu
-  menu: 'somos-menu position-absolute top-0 left-0 h-full',
-  menuContent: 'somos-menu__content h-full scroll-vertical',
+  menu: 'somos-menu position-absolute bg-gray-300 w-0 top-0 left-0 h-full',
+  menuContent: 'somos-menu__content bg-black h-full scroll-vertical',
   menuClose: 'somos-menu__close text-right w-full pt-15 pr-10 pl-10',
-  menuCloseIcon: 'icon-close somos-menu__close-icon text-md',
+  menuCloseIcon: 'icon-close somos-menu__close-icon text-md text-white',
   menuSearch: 'somos-menu__search position-relative pt-15 pr-10 pl-10',
   menuSearchInput:
-    'somos-menu__search-input w-full font-bold pr-10 pl-10 border-1 border-solid text-md',
+    'somos-menu__search-input bg-transparent text-white border-white w-full font-bold pr-10 pl-10 border-1 border-solid text-md',
   menuSearchIcon: 'icon-search ',
-  menuButtonSearchIcon: 'somos-menu__search-icon position-absolute text-md',
+  menuButtonSearchIcon:
+    'somos-menu__search-icon text-white position-absolute text-md',
   menuLogin: 'somos-menu__login w-full pt-20 pr-10 pl-10',
   menuLoginLink: 'flex justify-center',
-  menuLoginIcon: 'icon-user somos-menu__login-icon mr-10',
-  menuLoginLabel: 'somos-menu__login-text uppercase font-bold text-md',
+  menuLoginIcon: 'icon-user somos-menu__login-icon mr-10 text-primary-color',
+  menuLoginLabel:
+    'somos-menu__login-text uppercase font-bold text-md text-white',
   menuList: 'somos-menu__list m-0 block pt-5 pb-5 pr-15 pl-15',
   menuItemLink: 'somos-menu__item-link hidden',
-  menuLinkIcon: 'somos-menu__link-icon hidden',
+  menuLinkIcon: 'somos-menu__link-icon hidden text-gray-300',
   iconHome: 'icon-home',
   menuItem: 'somos-menu__item pt-15 pb-15',
-  menuLink: 'somos-menu__link title-md',
+  menuLink: 'somos-menu__link title-md text-white',
   menubtn: 'header-somos__btn',
 
   menuActive: 'somos-menu--active w-full',
