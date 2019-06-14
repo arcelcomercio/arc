@@ -10,7 +10,7 @@ const classes = {
   detail: 'blog-item__detail flex flex-col pr-10',
   blogTitle: 'blog-item__blog uppercase mb-5 text-xs',
   author: 'blog-item__author mb-10 text-sm',
-  post: 'blog-item__post text-lg',
+  post: 'blog-item__post text-lg line-h-none',
 }
 
 const BlogListChildItem = ({

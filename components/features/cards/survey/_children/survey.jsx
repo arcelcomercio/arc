@@ -8,7 +8,7 @@ const classes = {
   header: 'survey-card__header uppercase text-center font-bold pt-20 pb-20',
   question: 'survey-card__question position-relative pt-15 pb-10 pl-10 ',
   title:
-    'survey-card__title overflow-hidden font-bold mb-15 pr-20 pl-20 text-xl',
+    'survey-card__title overflow-hidden font-bold mb-15 pr-20 pl-20 text-xl line-h-xs',
   choices: 'mb-10 pr-20 pl-20',
   buttons:
     'bottom-0 w-full position-absolute flex items-center justify-between pr-20 pl-20 pb-15',

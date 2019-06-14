@@ -6,17 +6,19 @@ const classes = {
   cinemaCard: 'cinema-card p-20 row-1',
   container: 'position-relative',
   gradient: 'cinema-card__gradient w-full position-absolute bottom-0 left-0',
-  category: 'cinema-card__category uppercase primary-font mb-0 pb-15 text-xl',
+  category:
+    'cinema-card__category uppercase primary-font mb-0 pb-15 text-xl line-h-none',
   link: 'cinema-card__link',
   figure: 'cinema-card__figure overflow-hidden',
   image: 'w-full h-full object-cover',
   detail:
     'cinema-card__detail w-full position-absolute bottom-0 pr-15 pl-15 pb-10',
-  premiere: 'cinema-card__premiere text-xl',
+  premiere: 'cinema-card__premiere text-xl line-h-xs',
   movieTitle: 'cinema-card__p-title overflow-hidden text-xl',
-  movieLink: 'cinema-card__p-link font-normal',
+  movieLink: 'cinema-card__p-link font-normal line-h-xs',
   moviesList: 'cinema-card__movies-list p-10',
-  title: 'cinema-card__title uppercase primary-font font-normal mb-10 text-md',
+  title:
+    'cinema-card__title uppercase primary-font font-normal mb-10 text-md line-h-none',
   form: 'text-right',
   selectsContainer: 'mb-10',
   select: 'cinema-card__select w-full primary-font mb-5 pl-10 text-xs',

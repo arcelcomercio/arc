@@ -4,11 +4,6 @@ $cinema-height: 89px;
 .cinema-card {
   background-color: $color-white;
 
-  &__category,
-  &__title {
-    line-height: 1;
-  }
-
   &__link {
     color: $cinema-color-primary;
   }
@@ -32,7 +27,6 @@ $cinema-height: 89px;
 
   &__premiere {
     color: #f7c600;
-    line-height: 1.2;
   }
 
   &__p-title {
@@ -44,7 +38,6 @@ $cinema-height: 89px;
 
   &__p-link {
     color: $color-white;
-    line-height: 1.1;
   }
 
   &__movies-list {

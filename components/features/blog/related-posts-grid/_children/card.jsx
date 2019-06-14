@@ -10,7 +10,7 @@ const classes = {
   categoryLink: 'br-stories-grid__category-link',
   detailTitle:
     'br-stories-grid__detail-title position-relative text-center overflow-hidden font-bold text-md',
-  detailTitleLink: 'br-stories-grid__detail-title-link',
+  detailTitleLink: 'br-stories-grid__detail-title-link line-h-sm',
 }
 const BlogRelatedPostsGridChildCard = ({
   title,
