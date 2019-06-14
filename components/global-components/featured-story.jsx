@@ -12,15 +12,15 @@ const classes = {
   multimediaIconSpan:
     'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full rounded',
 
-  category: 'featured-story__category pb-15 hidden',
-  title: 'featured-story__title overflow-hidden mb-10',
+  category: 'featured-story__category pb-15 hidden text-lg',
+  title: 'featured-story__title overflow-hidden mb-10 title-sm',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
   author: 'featured-story__author uppercase',
   authorLink: 'featured-story__link--author',
 
-  link: 'featured-story__link',
+  link: 'featured-story__link text-md',
   imageLink: 'block h-full',
   img: 'w-full h-full object-cover',
 
@@ -29,7 +29,7 @@ const classes = {
 
   twoCol: 'col-2',
   // Headbands
-  headband: 'featured-story__headband mb-5',
+  headband: 'featured-story__headband mb-5 text-lg',
   headbandLink: 'featured-story__headband-link font-bold',
 
   live: 'featured-story--live',

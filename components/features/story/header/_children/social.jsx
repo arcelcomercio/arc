@@ -13,7 +13,7 @@ const classes = {
   item: 'story-header__item',
   category: 'text-uppercase',
   link: 'story-header__link flex items-center justify-center text-gray-200',
-  icon: 'story-header__icon',
+  icon: 'story-header__icon title-xl',
   list: 'story-header__list flex justify-between',
 }
 @Consumer

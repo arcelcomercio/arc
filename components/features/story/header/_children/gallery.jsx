@@ -8,7 +8,7 @@ const classes = {
   galleryNumber:
     'story-gallery__number flex items-center justify-center position-absolute rounded-lg',
   image: 'story-gallery__img w-full h-full mb-10',
-  caption: 'story-gallery__caption text-gray-200',
+  caption: 'story-gallery__caption text-gray-200 text-sm',
 }
 
 const StoryHeaderChildGallery = props => {

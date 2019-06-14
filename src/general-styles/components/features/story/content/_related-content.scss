@@ -21,13 +21,11 @@
   }
 
   &__item-title {
-    font-size: 15px;
     line-height: 1.5;
   }
 
   &__author {
     color: $color-gray-200;
-    font-size: 12px;
   }
 
   &__multimedia {
@@ -37,7 +35,6 @@
   }
 
   &__icon {
-    font-size: 30px;
     top: 50%;
     margin-top: -15px;
     left: 50%;

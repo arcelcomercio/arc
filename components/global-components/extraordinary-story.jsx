@@ -18,7 +18,7 @@ const classes = {
     'extraordinary-story__subtitle mb-15 text-gray-200',
   extraordinaryStoryLink: 'extraordinary-story__link',
   extraordinaryStoryAuthor:
-    'extraordinary-story__author uppercase mb-15 text-gray-200',
+    'extraordinary-story__author uppercase mb-15 text-gray-200 text-xs',
   extraordinaryStoryMultimedia:
     'extraordinary-story__multimedia flex items-center justify-center position-relative',
   iconGallery: 'position-absolute top-0 right-0 m-10',

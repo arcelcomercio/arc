@@ -1,3 +1,5 @@
+$colorTextDescription: #999;
+
 .story-content {
   &__tag-link {
     color: $color-gray-200;
@@ -39,7 +41,6 @@
 
   &__news-media-description {
     color: $colorTextDescription;
-    font-size: 13px;
   }
 
   &__image {
@@ -90,13 +91,15 @@
     padding-top: 30px;
   }
 
-  &__author-email {
+  /*  Verificar si realmente se utilizan estas clases  */
+
+  /*  &__author-email {
     font-size: $font-sm;
   }
 
   &__author-date {
     font-size: 12px;
-  }
+  } */
 
   &__icon-list {
     margin-right: -49px;
@@ -111,9 +114,5 @@
     &:hover {
       text-decoration: none;
     }
-  }
-
-  &__icon {
-    font-size: 30px;
   }
 }

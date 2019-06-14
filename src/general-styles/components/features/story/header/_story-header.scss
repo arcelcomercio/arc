@@ -1,6 +1,6 @@
 // Variables
 $colorTextTitle: #444;
-$colorTextDescription: #999;
+
 
 .story-header {
   &__news-title {
@@ -19,10 +19,6 @@ $colorTextDescription: #999;
     &:hover {
       text-decoration: none;
     }
-  }
-
-  &__icon {
-    font-size: 30px;
   }
 
   &__list {
