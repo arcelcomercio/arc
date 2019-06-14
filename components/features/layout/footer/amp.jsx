@@ -1,6 +1,7 @@
 // import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+import { pathToFileURL } from 'url'
 
 const classes = {
   footer: 'amp-footer flex items-center pt-25 pb-25',
@@ -19,18 +20,16 @@ class LayoutAmpFooter extends PureComponent {
   render() {
     const {
       contextPath,
-      requestUri,
-      globalContent: { taxonomy: { primary_section: { name = '' } = {} } } = {},
+      globalContent: {
+        taxonomy: { primary_section: { name = '', path } = {} },
+      } = {},
     } = this.props
-
-    const querys = requestUri.split('?')[1]
-    const queryString = querys !== undefined ? `?${querys}` : ''
 
     return (
       <footer className={classes.footer}>
         <div className={classes.footerInfo}>
           <a
-            href={`${contextPath || ''}/${queryString}`}
+            href={`${contextPath || ''}${path}`}
             className={classes.footerLogoContainer}>
             <span>Ver más de {name}</span>
           </a>

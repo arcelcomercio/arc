@@ -30,7 +30,7 @@ class LayoutAmpHeader extends PureComponent {
         <header className={classes.header}>
           <section className={classes.wrap}>
             <div className={classes.logo}>
-              <a href="http://elcomercio.pe">
+              <a href="/">
                 <amp-img
                   src={img}
                   alt="elcomercio.pe"
@@ -40,9 +40,7 @@ class LayoutAmpHeader extends PureComponent {
               </a>
             </div>
             <div className={classes.linkContainer}>
-              <a className={classes.link} href={img}>
-                Últimas noticias
-              </a>
+              <a href="/archivo">Últimas noticias</a>
             </div>
           </section>
         </header>
