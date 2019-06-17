@@ -3,7 +3,7 @@ import { createMarkup } from '../../../../utilities/helpers'
 import SeparatorItem from './item'
 
 const classes = {
-  separator: 'separator mt-20 w-full pt-0 pr-15 pb-15 pl-15',
+  separator: 'separator bg-white mt-20 w-full pt-0 pr-15 pb-15 pl-15',
   headerHtml: 'separator__header-html mt-0 mb-10',
   title: 'separator__header-title uppercase pb-20 pt-20',
   titleLink: 'separator__header-link',

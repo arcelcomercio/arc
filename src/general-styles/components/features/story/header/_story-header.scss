@@ -6,10 +6,9 @@
   &__news-summary {
     word-wrap: break-word;
   }
-  white &__link {
-    &:hover {
-      text-decoration: none;
-    }
+
+  &__link:hover {
+    text-decoration: none;
   }
 
   &__list {

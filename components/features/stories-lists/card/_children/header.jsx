@@ -3,7 +3,7 @@ import React from 'react'
 const classes = {
   header:
     'stories-list-card__header flex justify-between w-auto pt-15 pb-15 pr-20 pl-20',
-  seeMore: 'stories-list-card__see-more pt-5 pb-5 pr-10 pl-10 text-gray-200',
+  seeMore: 'stories-list-card__see-more bg-white pt-5 pb-5 pr-10 pl-10 text-gray-200',
   title: 'stories-list-card__title flex items-center full-height text-gray-300',
 }
 const StoriesListsCardChildHeader = ({

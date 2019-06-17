@@ -28,10 +28,8 @@
     }
   }
 
-  &__btn {
-    &:focus {
-      outline: 0;
-    }
+  &__btn:focus {
+    outline: 0;
   }
 }
 
@@ -95,7 +93,7 @@
 
   &__link {
     @media (--desktop) {
-      color: #585858;
+      color: $color-base-300;
       display: flex;
       align-items: center;
       font-size: 18px;

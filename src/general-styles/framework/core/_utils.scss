@@ -1,78 +1,64 @@
-/******** DIMENSIONS **********/
-.w-full {
-  width: 100%;
+@function get-fixed-class($value) {
+  @if $value==100% {
+    $value: full
+  }
+
+  @if $value==none {
+    $value: hidden
+  }
+
+  @return $value;
 }
 
-.w-auto {
-  width: auto;
+/** ----------------------------*
+*          DIMENSIONS           *
+*-------------------------------*/
+
+$map-dimens: 100%,
+auto,
+inherit,
+0;
+
+@each $dimen-value in $map-dimens {
+  $dimen-class: get-fixed-class($dimen-value);
+
+  @include build-class(w-#{$dimen-class}, width, $dimen-value);
+  @include build-class(h-#{$dimen-class}, height, $dimen-value);
 }
 
-.w-inherit {
-  width: inherit;
+/** ----------------------------*
+*        OBJECT-FIT & POS       *
+*-------------------------------*/
+
+$map-objects: (cover: object-fit,
+  contain: object-fit,
+  center: object-position,
+  top: object-position,
+  bottom: object-position,
+);
+
+@each $object-val,
+$object-attr in $map-objects {
+  @include build-class(object-#{$object-val}, $object-attr, $object-val);
 }
 
-.w-0 {
-  width: 0;
-}
+/** ----------------------------*
+*           DISPLAYS            *
+*-------------------------------*/
 
-.h-full {
-  height: 100%;
-}
+$map-displays: block,
+none,
+inline,
+inline-block,
+flex,
+grid,
+table;
+// inline-flex
 
-.h-auto {
-  height: auto;
-}
+@each $display in $map-displays {
+  $display-class: get-fixed-class($display);
 
-.h-inherit {
-  height: inherit;
-}
-
-.h-0 {
-  height: 0;
-}
-
-// ----------------------------------------------
-
-.object-cover {
-  object-fit: cover;
-}
-
-.object-contain {
-  object-fit: contain;
-}
-
-.object-center {
-  object-position: center;
-}
-
-.object-top {
-  object-position: top;
-}
-
-.object-bottom {
-  object-position: bottom;
-}
-
-/******** DISPLAYS **********/
-
-.block {
-  display: block;
-}
-
-.hidden {
-  display: none;
-}
-
-.inline {
-  display: inline;
-}
-
-.inline-b {
-  display: inline-block;
-}
-
-.table {
-  display: table;
+  @include build-class($display-class, display, $display);
 }
 
 .no-desktop,
@@ -96,21 +82,23 @@
   content: '';
 }
 
-/******** OVERFLOW **********/
+/** ----------------------------*
+*           OVERFLOW            *
+*-------------------------------*/
 
-.scroll-vertical {
+.overflow-y {
   overflow-y: scroll;
 }
 
-.scroll-vertical-auto {
+.overflow-y-auto {
   overflow-y: auto;
 }
 
-.scroll-horizontal {
+.overflow-x {
   overflow-x: scroll;
 }
 
-.scroll-horizontal-auto {
+.overflow-x-auto {
   overflow-x: auto;
 }
 
@@ -118,7 +106,9 @@
   overflow: hidden;
 }
 
-/******** POSITION **********/
+/** ----------------------------*
+*           POSITION            *
+*-------------------------------*/
 
 .position-relative {
   position: relative;
@@ -128,33 +118,25 @@
   position: absolute;
 }
 
-.top-0 {
-  top: 0;
+$map-pos-0: top,
+right,
+bottom,
+left;
+
+@each $pos-0 in $map-pos-0 {
+  @include build-class(#{$pos-0}-0, $pos-0, 0);
 }
 
-.right-0 {
-  right: 0;
-}
+/** ----------------------------*
+*               TEXT            *
+*-------------------------------*/
 
-.bottom-0 {
-  bottom: 0;
-}
+$map-text-pos: left,
+center,
+right;
 
-.left-0 {
-  left: 0;
-}
-
-/******** TEXT **********/
-.text-center {
-  text-align: center;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.text-right {
-  text-align: right;
+@each $text-pos in $map-text-pos {
+  @include build-class(text-#{$text-pos}, text-align, $text-pos);
 }
 
 .uppercase {
@@ -165,7 +147,9 @@
   text-transform: capitalize;
 }
 
-/******** FONTS **********/
+/** ----------------------------*
+*             FONTS             *
+*-------------------------------*/
 
 .primary-font {
   font-family: $primary-font !important;
@@ -175,41 +159,28 @@
   font-family: $secondary-font !important;
 }
 
-.font-thin {
-  font-weight: 200;
+$map-font-weight: (thin: 200, normal: 400, bold: 700, xbold: 900);
+
+@each $font-weight,
+$font-weight-val in $map-font-weight {
+  @include build-class(font-#{$font-weight}, font-weight, $font-weight-val);
 }
 
-.font-normal {
-  font-weight: 400;
-}
+/** ----------------------------*
+*            RADIUS             *
+*-------------------------------*/
 
-.font-bold {
-  font-weight: 700;
-}
+$map-radius: (none: 0, sm: 4px, md: 16px, lg: 50px, '': 50%);
 
-.font-xbold {
-  font-weight: 900;
-}
+@each $radius-class,
+$radius in $map-radius {
+  @if $radius-class=='' {
+    @include build-class(rounded, border-radius, $radius);
+  }
 
-/******* Radius ********/
-.rounded-none {
-  border-radius: 0;
-}
-
-.rounded-sm {
-  border-radius: 4px;
-}
-
-.rounded-md {
-  border-radius: 16px;
-}
-
-.rounded-lg {
-  border-radius: 50px;
-}
-
-.rounded {
-  border-radius: 50%;
+  @else {
+    @include build-class(rounded-#{$radius-class}, border-radius, $radius);
+  }
 }
 
 /******* Extra ********/

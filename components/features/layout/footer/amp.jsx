@@ -6,7 +6,7 @@ const classes = {
   footer: 'amp-footer flex items-center pt-25 pb-25',
   footerInfo: 'amp-footer__info m-0 mx-auto',
   footerLogoContainer:
-    'amp-footer__text font-bold uppercase inline-b primary-font pr-25 text-xl line-h-xs',
+    'amp-footer__text font-bold uppercase inline-block primary-font pr-25 text-xl line-h-xs',
 }
 
 @Consumer

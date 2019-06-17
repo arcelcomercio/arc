@@ -1,7 +1,6 @@
 $movie-size: 134px;
 
 .movies-grid {
-  background-color: $color-white;
 
   &__nav {
     @media (--tablet) {
@@ -36,7 +35,6 @@ $movie-size: 134px;
   }
 
   &__select {
-    background-color: $color-info;
     background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
     background-position: right center;
     background-repeat: no-repeat;

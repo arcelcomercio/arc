@@ -4,7 +4,7 @@ import Button from '../../../../global-components/button'
 const classes = {
   sidebar: 'nav-sidebar w-full position-absolute overflow-hidden bottom-0',
   content:
-    'nav-sidebar__content flex flex-col justify-between h-full scroll-vertical',
+    'nav-sidebar__content flex flex-col justify-between h-full overflow-y',
   item: 'nav-sidebar__item position-relative',
   link: 'nav-sidebar__link block pt-15 pr-15 pb-15 pl-15 text-md text-white',
   top: 'nav-sidebar__top',

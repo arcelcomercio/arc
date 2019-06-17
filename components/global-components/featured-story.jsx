@@ -31,7 +31,7 @@ const classes = {
   twoCol: 'col-2',
   // Headbands
   headband: 'featured-story__headband mb-5 text-lg',
-  headbandLink: 'featured-story__headband-link font-bold',
+  headbandLink: 'featured-story__headband-link font-bold text-white',
 
   live: 'featured-story--live',
 
