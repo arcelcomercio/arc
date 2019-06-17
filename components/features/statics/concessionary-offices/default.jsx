@@ -7,7 +7,7 @@ const classes = {
   concessionaires: 'concessionaires w-full position-relative',
   arrow: 'concessionaires__arrow w-0 h-0 position-absolute border-solid',
   container: 'concessionaires__container w-full m-0 mx-auto pr-20 pl-20',
-  title: 'concessionaires__title text-center font-bold title-sm text-gray-300',
+  title: 'concessionaires__title text-center font-bold title-lg text-gray-300',
   info:
     'concessionaires__info text-gray-300 text-center mt-10 mb-40 mx-auto text-sm line-h-md ',
   locations:

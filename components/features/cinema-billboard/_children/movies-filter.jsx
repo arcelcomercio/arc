@@ -11,13 +11,11 @@ const classes = {
   facebook: 'icon icon--facebook icon--margin-right',
   twitter: 'icon icon--twitter',
   filter: 'movies-filter__filter-box flex-col flex justify-between',
-  label:
-    'movies-filter__label movies-filter--font-config uppercase font-bold hidden',
-  form:
-    'movies-filter__form movies-filter--font-config flex font-bold flex-col w-full',
+  label: 'movies-filter__label uppercase font-bold hidden text-sm',
+  form: 'movies-filter__form flex font-bold flex-col w-full text-sm',
   select: 'movies-filter__select bg-white w-full text-gray-300',
   button:
-    'movies-filter__btn bg-primary movies-filter--font-config uppercase font-bold w-full text-gray-300',
+    'movies-filter__btn bg-primary uppercase font-bold w-full text-gray-300 text-sm',
 }
 
 @Consumer

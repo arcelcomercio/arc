@@ -5,7 +5,7 @@ const classes = {
   title:
     'author-title__box-title flex flex-grow-0 flex-shrink-0 flex-col h-full pt-10 pb-10 pl-15 border-b-1 border-t-1 border-solid',
   section:
-    'author-title__section position-relative flex-grow-0 flex-shrink-0 border-b-1 border-t-1 border-solid',
+    'author-title__section position-relative flex-grow-0 flex-shrink-0 border-b-1 border-t-1 border-solid title-xs',
   url: 'author-title__url mr-15 title-xs',
   name: 'flex items-center',
   img:

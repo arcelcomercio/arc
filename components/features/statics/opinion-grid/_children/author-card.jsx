@@ -8,10 +8,10 @@ const classes = {
   image: 'author-card__image bg-white object-cover object-top rounded',
   detailsBox: 'w-full pt-15 pr-0 pb-10 pl-20',
   name:
-    'author-card__name block mb-15 secondary-font font-bold title-md text-gray-300 line-h-xs',
+    'author-card__name block mb-15 secondary-font font-bold title-sm text-gray-300 line-h-xs',
   group: 'author-card__group uppercase font-thin mb-5 text-xs',
   title:
-    'author-card__title uppercase block secondary-font font-bold title-sm text-gray-300 line-h-xs',
+    'author-card__title block secondary-font text-lg text-gray-300 line-h-sm',
 }
 
 const OpinionGridAuthorCard = ({ data: story }) => {

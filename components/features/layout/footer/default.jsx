@@ -13,8 +13,8 @@ const classes = {
   sitesItem:
     'footer__sites-item mr-5 ml-5 mb-5 pr-10 border-r-1 border-solid text-md text-gray-200',
   sitesLink: 'footer__sites-link text-gray-200',
-  legalList: 'footer__legal-list',
-  legalItem: 'footer__legal-item mb-10 text-gray-100',
+  legalList: 'footer__legal-list text-md',
+  legalItem: 'footer__legal-item mb-10 text-gray-100 text-sm',
   logoContainer: 'footer__logo footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list p-20',

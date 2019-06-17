@@ -33,8 +33,9 @@ const classes = {
   menuItemLink: 'somos-menu__item-link hidden',
   menuLinkIcon: 'somos-menu__link-icon hidden text-gray-300',
   iconHome: 'icon-home',
-  menuItem: 'somos-menu__item pt-15 pb-15',
-  menuLink: 'somos-menu__link title-md text-white',
+  menuItem: 'somos-menu__item',
+  menuLink:
+    'somos-menu__link text-xl text-white pt-15 pb-15 inline-block w-full',
   menubtn: 'header-somos__btn',
 
   menuActive: 'somos-menu--active w-full',

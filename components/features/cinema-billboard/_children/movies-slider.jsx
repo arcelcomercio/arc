@@ -15,7 +15,7 @@ const classes = {
     'movies-slider__arrows block text-center movies-slider__arrows--left',
   rightArrow: 'movies-slider__arrows movies-slider__arrows--right',
   details: 'movies-slider__details p-20',
-  movieTitle: 'movies-slider__movie-title mb-10 title-md',
+  movieTitle: 'movies-slider__movie-title mb-10 title-lg',
   movieLink: 'movies-slider__movie-link text-white text-white',
   movieDescription: 'movies-slider__movie-description text-md text-white',
 }

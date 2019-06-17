@@ -24,7 +24,7 @@ const classes = {
   iconGallery: 'position-absolute top-0 right-0 m-10',
   iconGalleryContainer:
     'extraordinary-story__icon-gallery-container flex items-center justify-center rounded',
-  icon: 'extraordinary-story__icon-gallery',
+  icon: 'extraordinary-story__icon-gallery title-lg',
 }
 
 const getMultimediaIcon = mediaType => {

@@ -17,18 +17,10 @@
     height: 60px;
   }
 
-  &__name {
-    @media (--tablet) {
-      font-size: 18px;
-    }
-  }
+  /* &__name {} */
 
   &__title {
     width: 90%;
-
-    @media (--tablet) {
-      font-size: 16px;
-    }
   }
 
   // TODO: chequear esto para borrar

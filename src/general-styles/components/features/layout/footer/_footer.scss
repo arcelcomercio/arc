@@ -1,19 +1,12 @@
-//$legal-text-color: #c8c8c8;
-
-$footer-legal-text-size: 12px;
-$footer-list-text-size: 14px;
-
-$desktop-media: 'min-width: 1024px';
-
 .footer {
-  grid-template: 'info' auto 'contact' auto 'sites' auto;
+  grid-template: 'info'auto 'contact'auto 'sites'auto;
 
   @media (--tablet) {
-    grid-template: 'info contact' auto 'sites sites ' auto / 1fr 1fr;
+    grid-template: 'info contact'auto 'sites sites 'auto / 1fr 1fr;
   }
 
   @media (--desktop) {
-    grid-template: 'info sections contact' auto 'sites sites sites' auto / 1fr 1fr 1fr;
+    grid-template: 'info sections contact'auto 'sites sites sites'auto / 1fr 1fr 1fr;
   }
 
   &__footer-background-color {
@@ -62,13 +55,11 @@ $desktop-media: 'min-width: 1024px';
   }
 
   &__legal-item {
-    font-size: $footer-legal-text-size;
     //color: $legal-text-color;
     line-height: 17px;
   }
 
   &__list-item {
-    font-size: $footer-list-text-size;
     border-color: $color-gray-200;
 
     /*&--title {

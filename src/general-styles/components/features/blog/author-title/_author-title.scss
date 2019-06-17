@@ -24,24 +24,18 @@
       flex-grow: 1;
       background-color: $color-white;
       color: $color-gray-300;
-      font-size: 18px;
       font-weight: 700;
       line-height: 1;
       margin-top: 10px;
     }
 
     @media (--desktop) {
-      font-size: 20px;
       margin: 0 auto;
     }
   }
 
   &__url {
     color: #8f071f;
-
-    @media (--tablet) {
-      font-size: 22px;
-    }
   }
 
   &__img {

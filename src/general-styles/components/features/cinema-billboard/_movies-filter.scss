@@ -4,11 +4,6 @@
     padding: $spacing-xl;
   }
 
-  &__title-box--font-config {
-    font-size: 12px;
-    line-height: 45px;
-  }
-
   &__filter-box {
     @media (--desktop) {
       flex-direction: initial;

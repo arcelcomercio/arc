@@ -37,16 +37,7 @@
     color: #8f071f;
   }
 
-  &__author {
-    @media (--tablet) {
-      font-size: 14px;
-      font-weight: bold;
-    }
-  }
+  /* &__author {} */
 
-  &__post {
-    @media (--tablet) {
-      font-size: 20px;
-    }
-  }
+  /* &__post {} */
 }

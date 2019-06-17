@@ -47,12 +47,12 @@ $object-attr in $map-objects {
 *-------------------------------*/
 
 $map-displays: block,
-none,
-inline,
-inline-block,
 flex,
 grid,
-table;
+inline,
+inline-block,
+table,
+none;
 // inline-flex
 
 @each $display in $map-displays {

@@ -15,7 +15,7 @@ export const TripletChildTriplet = props => {
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
     tripletIcon:
-      'triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs',
+      'triplet__icon position-absolute flex items-center justify-center rounded text-black text-sm',
   }
 
   let numline = ''

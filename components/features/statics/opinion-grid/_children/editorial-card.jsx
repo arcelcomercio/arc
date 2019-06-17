@@ -11,7 +11,7 @@ const classes = {
   image: 'editorial-card__image bg-white object-cover object-top rounded',
   detailsBox: 'pr-5 pl-10',
   title:
-    'editorial-card__title block font-normal primary-font text-md text-gray-300 line-h-sm',
+    'editorial-card__title block font-normal primary-font text-lg text-gray-300 line-h-sm',
 }
 
 const OpinionGridEditorialCard = ({ data: story }) => {

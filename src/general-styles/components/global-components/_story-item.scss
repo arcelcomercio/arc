@@ -25,15 +25,10 @@
     }
   }
 
-  &__section {
-    @media (--tablet) {
-      font-size: 13px;
-    }
-  }
+  /* &__section {} */
 
   &__date {
     @media (--tablet) {
-      font-size: 12px;
       margin-top: 3px;
       margin-left: 0;
     }
@@ -47,13 +42,8 @@
     max-height: 42px;
 
     @media (--tablet) {
-      font-size: 16px;
       line-height: 1.1;
       max-height: 69px;
-    }
-
-    @media (--desktop) {
-      font-size: 20px;
     }
   }
 
@@ -86,7 +76,6 @@
     @media (--tablet) {
       width: 40px;
       height: 40px;
-      font-size: 14px;
     }
   }
 

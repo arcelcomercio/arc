@@ -9,11 +9,7 @@
     max-width: 800px;
   }
 
-  &__title {
-    @media (--tablet) {
-      font-size: 32px;
-    }
-  }
+  /* &__title {} */
 
   &__section {
     &:before {

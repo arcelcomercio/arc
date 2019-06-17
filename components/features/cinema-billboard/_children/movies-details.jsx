@@ -12,7 +12,7 @@ const classes = {
   details:
     'movie-details__detail w-full flex flex-col mt-40 mb-40 mx-auto pt-0 pr-20 pb-20 pl-20',
   leftSide: 'movie-details__left w-full',
-  title: 'movie-details__title mb-20 title-sm text-white',
+  title: 'movie-details__title mb-20 title-md text-white',
   where: 'movie-details__where uppercase mb-15 text-sm text-white line-h-md',
   hours:
     'movie-details__hours overflow-y-auto h-auto pr-30 border-r-1 border-solid',

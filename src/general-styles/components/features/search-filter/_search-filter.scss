@@ -159,7 +159,6 @@
       width: 90px;
       right: 0;
       border-left: solid 1px #e8f2f7;
-      font-size: 24px;
     }
   }
 
@@ -168,10 +167,9 @@
     line-height: 50px;
 
     @media (--desktop) {
-      height: 90px;
-      font-size: 20px;
+      height: 76px;
       font-weight: 700;
-      line-height: 90px;
+      line-height: 76px;
       padding-right: 95px;
       border: 0;
     }

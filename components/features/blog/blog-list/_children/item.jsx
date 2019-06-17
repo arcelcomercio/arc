@@ -9,8 +9,8 @@ const classes = {
   avatar: 'w-full',
   detail: 'blog-item__detail flex flex-col pr-10 ',
   blogTitle: 'blog-item__blog uppercase mb-5 text-xs',
-  author: 'blog-item__author mb-10 text-sm text-gray-200',
-  post: 'blog-item__post text-lg text-gray-300 line-h-none',
+  author: 'blog-item__author mb-10 text-sm text-gray-200 md:font-bold',
+  post: 'blog-item__post title-xs text-gray-300 line-h-none',
 }
 
 const BlogListChildItem = ({

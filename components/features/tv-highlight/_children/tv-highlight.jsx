@@ -5,7 +5,7 @@ const classes = {
   tv: 'tv-highlight bg-gray-300 pt-20 pb-20',
   container: 'tv-highlight__container m-0 mx-auto',
   titleBox: 'mb-10',
-  title: 'tv-highlight__title secondary-font text-white title-md',
+  title: 'tv-highlight__title secondary-font text-white title-lg',
   subBox: 'flex justify-between pt-15 pb-15 mb-10',
   section:
     'tv-highlight__section flex uppercase position-relative text-white text-sm',

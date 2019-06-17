@@ -13,11 +13,7 @@
     padding-top: 50px;
   }
 
-  &__title {
-    @media (--tablet) {
-      font-size: 32px;
-    }
-  }
+  /* &__title {} */
 
   &__info {
     width: 300px;
