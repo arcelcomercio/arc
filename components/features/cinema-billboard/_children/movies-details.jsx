@@ -15,7 +15,7 @@ const classes = {
   title: 'movie-details__title mb-20 title-sm',
   where: 'movie-details__where uppercase mb-15 text-sm',
   hours:
-    'movie-details__hours scroll-vertical-auto h-auto pr-30 border-r-1 border-solid',
+    'movie-details__hours overflow-y-auto h-auto pr-30 border-r-1 border-solid',
   item: 'mb-20',
   cinema: 'movie-details__cinema block font-bold text-sm',
   text: 'movie-details__text font-thin text-sm',
