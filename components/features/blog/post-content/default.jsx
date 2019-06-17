@@ -4,7 +4,7 @@ import renderHTML from 'react-render-html'
 import { getFullDateIso8601 } from '../../../utilities/helpers'
 
 const classes = {
-  content: 'bp-content p-20',
+  content: 'bp-content bg-white p-20',
   header: 'bp-content__header uppercase inline-b mb-25 text-xs',
   author: 'bp-content__author font-bold pr-5',
   date: 'bp-content__date text-gray-200',

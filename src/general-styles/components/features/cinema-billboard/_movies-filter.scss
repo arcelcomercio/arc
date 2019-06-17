@@ -1,5 +1,4 @@
 .movies-filter {
-  background-color: $color-gray-300;
 
   @media (--tablet) {
     padding: $spacing-xl;
@@ -55,7 +54,6 @@
   }
 
   &__select {
-    background-color: $color-white;
     background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
     background-position: right center;
     background-repeat: no-repeat;
@@ -72,7 +70,6 @@
   }
 
   &__btn {
-    background-color: $color-primary;
 
     @media (--desktop) {
       width: 100px;

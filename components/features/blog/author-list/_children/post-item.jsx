@@ -2,7 +2,7 @@ import React from 'react'
 
 const classes = {
   container:
-    'post-item flex secondary-font flex-col-reverse h-auto pt-5 pb-5 pr-15 pl-15 border-t-1 border-solid',
+    'post-item bg-white flex secondary-font flex-col-reverse h-auto pt-5 pb-5 pr-15 pl-15 border-t-1 border-solid',
   date:
     'post-item__date flex justify-start pt-5 pb-5 pr-10 pl-10 text-xs text-gray-200',
   content: 'post-item__content flex justify-between flex-row-reverse',

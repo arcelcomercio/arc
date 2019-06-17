@@ -3,7 +3,7 @@ import BillboardFormat from '../../../utilities/billboard-format'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  moviesGrid: 'movies-grid mt-20 p-20',
+  moviesGrid: 'movies-grid bg-white mt-20 p-20',
   container: 'movies-grid__container',
   headline: 'uppercase text-center mb-20',
   nav: 'movies-grid__nav hidden',
@@ -13,7 +13,7 @@ const classes = {
     'movies-grid__nav-link p-10 position-relative uppercase text-md text-gray-200',
   form: 'movies-grid__form mb-20',
   info: 'movies-grid__info mb-20 text-xs text-gray-200',
-  select: 'movies-grid__select w-full text-gray-300',
+  select: 'movies-grid__select bg-info w-full text-gray-300',
   grid: 'movies-grid__grid grid',
   movie: 'movies-grid__movie m-0 mx-auto',
   imageBox: '',

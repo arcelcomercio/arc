@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  opinion: 'opinion-card grid pr-10 pl-10',
+  opinion: 'opinion-card bg-white grid pr-10 pl-10',
   head: 'opinion-card__head grid item-center border-t-1 border-solid',
   title: 'opinion-card__title text-center m-0 text-xl',
   oneline: 'opinion-card__oneline',

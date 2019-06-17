@@ -7,7 +7,7 @@ import Ads from '../../../../global-components/ads'
 
 const classes = {
   nav:
-    'nav text-white text-sm w-full flex flex items-center top-0 secondary-font font-bold',
+    'nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font font-bold',
   wrapper:
     'flex items-center justify-between nav__wrapper bg-primary w-full h-inherit pr-15 pl-15',
   form: 'flex position-relative',

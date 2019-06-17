@@ -1,7 +1,6 @@
 //Triplete
 .triplet {
   border-color: $color-gray-200;
-  //background-color: $color-white;
 
   &__link {
     color: inherit;
@@ -84,7 +83,6 @@
   }
 
   &__box-icon {
-    background-color: $color-white;
     opacity: 0.5;
     filter: alpha(opacity=50);
     pointer-events: none;

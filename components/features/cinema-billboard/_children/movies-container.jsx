@@ -5,7 +5,7 @@ import MovieDetails from './movies-details'
 
 const classes = {
   title: 'movies-container__title uppercase mt-20 ml-20 text-xl',
-  container: 'movies-container mt-20',
+  container: 'movies-container bg-base-300 mt-20',
 }
 
 class StaticCinemaBillboardChildMoviesContainer extends PureComponent {

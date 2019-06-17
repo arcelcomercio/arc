@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  authorTitle: 'author-title flex justify-between pt-15 pb-15',
+  authorTitle: 'author-title bg-white flex justify-between pt-15 pb-15',
   title:
     'author-title__box-title flex flex-grow-0 flex-shrink-0 flex-col h-full pt-10 pb-10 pl-15 border-b-1 border-t-1 border-solid',
   section:
