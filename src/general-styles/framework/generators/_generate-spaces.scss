@@ -1,36 +1,41 @@
 /******* Margins & Paddings *******/
 
-$limit: 8;
-$interval: 5;
+$space-limit: 8;
+$space-interval: 5;
 
-$map-orientation: '',
+$map-space-pos: '',
 'top',
 'right',
 'bottom',
 'left';
 
-@for $i from 0 through $limit {
-  @each $orientation in $map-orientation {
-    @if $orientation=='' {
-      .m-#{$i * $interval} {
-        margin: unquote($i * $interval + 'px');
-      }
+@for $i from 0 through $space-limit {
+  @each $space-pos in $map-space-pos {
+    $space-size: $i * $space-interval;
+    $space-value: unquote($space-size + 'px');
 
-      .p-#{$i * $interval} {
-        padding: unquote($i * $interval + 'px');
-      }
+    @if $space-pos=='' {
+
+      @include build-class(m-#{$space-size},
+        margin,
+        $space-value);
+
+      @include build-class(p-#{$space-size},
+        padding,
+        $space-value);
     }
 
     @else {
+      $space-pos-char: str-slice($space-pos, 0, 1);
 
-      // hacer que orientation sea top, right, bottom, left en margin-[aqui]
-      .m#{str-slice($orientation, 0, 1)}-#{$i * $interval} {
-        margin-#{$orientation}: unquote($i * $interval + 'px');
-      }
+      // hacer que space-pos sea top, right, bottom, left en margin-[aqui]
+      @include build-class(m#{$space-pos-char}-#{$space-size},
+        margin-#{$space-pos},
+        $space-value);
 
-      .p#{str-slice($orientation, 0, 1)}-#{$i * $interval} {
-        padding-#{$orientation}: unquote($i * $interval + 'px');
-      }
+      @include build-class(p#{$space-pos-char}-#{$space-size},
+        padding-#{$space-pos},
+        $space-value);
     }
   }
 }

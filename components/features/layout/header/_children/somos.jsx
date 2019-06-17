@@ -9,13 +9,13 @@ const classes = {
   logoWrapper:
     'header-somos__logo-wrapper bg-black right-0 text-center flex justify-center items-center rounded',
   logoimgwrapper: 'header-somos__img-wrapper flex-1',
-  logoLink: 'inline-b',
+  logoLink: 'inline-block',
   logoimg: 'header-somos__img block',
   logoIcon: 'icon-marca title-xl text-white',
 
   // menu
   menu: 'somos-menu position-absolute bg-gray-300 w-0 top-0 left-0 h-full',
-  menuContent: 'somos-menu__content bg-black h-full scroll-vertical',
+  menuContent: 'somos-menu__content bg-black h-full overflow-y',
   menuClose: 'somos-menu__close text-right w-full pt-15 pr-10 pl-10',
   menuCloseIcon: 'icon-close somos-menu__close-icon text-md text-white',
   menuSearch: 'somos-menu__search position-relative pt-15 pr-10 pl-10',

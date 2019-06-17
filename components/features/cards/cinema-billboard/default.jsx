@@ -24,7 +24,7 @@ const classes = {
   select: 'cinema-card__select w-full primary-font mb-5 pl-10 text-xs',
   option: 'cinema-card__option bg-white',
   button:
-    'cinema-card__button bg-white inline-b uppercase font-bold primary-font border-0 text-xs rounded-sm',
+    'cinema-card__button bg-white inline-block uppercase font-bold primary-font border-0 text-xs rounded-sm',
 }
 
 @Consumer
