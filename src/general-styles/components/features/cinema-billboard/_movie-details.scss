@@ -68,10 +68,8 @@
     color: rgba(255, 255, 255, 0.8);
   }
 
-  &__name {
-    &--sinopsis {
-      margin-bottom: 30px;
-    }
+  &__name--sinopsis {
+    margin-bottom: 30px;
   }
 
   &__value {

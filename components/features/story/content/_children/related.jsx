@@ -12,7 +12,7 @@ const classes = {
   link: 'block w-full h-full',
   image: 'w-full h-full',
   icon: 'related-content__icon position-absolute p-5 rounded-lg title-xl',
-  author: 'related-content__author uppercase',
+  author: 'related-content__author uppercase text-gray-200',
 }
 
 const RenderRelatedContentElement = (elements, i) => {

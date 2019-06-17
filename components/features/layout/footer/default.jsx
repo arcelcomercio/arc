@@ -14,13 +14,13 @@ const classes = {
     'footer__sites-item mr-5 ml-5 mb-5 pr-10 border-r-1 border-solid text-md text-gray-200',
   sitesLink: 'footer__sites-link text-gray-200',
   legalList: 'footer__legal-list',
-  legalItem: 'footer__legal-item mb-10',
+  legalItem: 'footer__legal-item mb-10 text-gray-100',
   logoContainer: 'footer__logo footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list p-20',
   listItem: 'footer__list-item pt-10 pb-10 border-b-1 border-solid',
   listTitle:
-    'footer__list-item footer__list-item--title pt-10 pb-10 border-b-1 border-solid uppercase font-bold',
+    'footer__list-item footer__list-item--title pt-10 pb-10 border-b-1 border-solid uppercase font-bold text-gray-200',
   listLink: 'footer__list-link capitalize text-gray-200',
 }
 

@@ -96,16 +96,12 @@
       vertical-align: middle;
       width: 40px;
 
-      &--play {
-        &:before {
-          content: '\2023';
-        }
+      &--play:before {
+        content: '\2023';
       }
 
-      &--gallery {
-        &:before {
-          content: '\1F4F7';
-        }
+      &--gallery:before {
+        content: '\1F4F7';
       }
     }
   }

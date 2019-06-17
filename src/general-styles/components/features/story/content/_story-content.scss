@@ -22,10 +22,8 @@
   }
 
   /* Esto es importante definirlo por los scripts de Opta */
-  &__content {
-    & > section {
-      width: 100%;
-    }
+  &__content > section {
+    width: 100%;
   }
 
   /* ----------------------------------------------------- */
@@ -104,9 +102,7 @@
     }
   }
 
-  &__link {
-    &:hover {
-      text-decoration: none;
-    }
+  &__link:hover {
+    text-decoration: none;
   }
 }
