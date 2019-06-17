@@ -11,7 +11,8 @@ const classes = {
   image: 'post-item__image object-cover',
   description:
     'post-item__description flex flex-col justify-between pr-10 pl-10',
-  title: 'post-item__title uppercase m-0 font-thin title-sm text-gray-300',
+  title:
+    'post-item__title uppercase m-0 font-thin title-sm text-gray-300 line-h-none',
   author: 'post-item__author m-0 font-thin text-xs text-gray-200',
 }
 

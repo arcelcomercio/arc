@@ -8,7 +8,7 @@ import {
 const classes = {
   share: 'amp-story-header__share ml-10 text-sm',
   link: 'flex items-center justify-center w-full h-full',
-  list: 'amp-story-header__list flex',
+  list: 'amp-story-header__list flex line-h-md',
   item: 'amp-story-header__item',
 }
 @Consumer

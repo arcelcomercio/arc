@@ -165,13 +165,11 @@
 
   &__search-input {
     height: 40px;
-    line-height: 50px;
 
     @media (--desktop) {
       height: 90px;
       font-size: 20px;
       font-weight: 700;
-      line-height: 90px;
       padding-right: 95px;
       border: 0;
     }

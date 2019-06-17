@@ -44,7 +44,6 @@ $desktop-media: 'min-width: 1024px';
   }
 
   &__sites-item {
-    line-height: 120%;
     border-color: $color-gray-200;
 
     &:first-child {
@@ -64,7 +63,6 @@ $desktop-media: 'min-width: 1024px';
   &__legal-item {
     font-size: $footer-legal-text-size;
     //color: $legal-text-color;
-    line-height: 17px;
   }
 
   &__list-item {
