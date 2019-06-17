@@ -5,22 +5,9 @@
     border-top: 0;
   }
 
-  @media (--tablet) {
-    flex-direction: column;
-  }
+  /* &__date {} */
 
-  &__date {
-    @media (--tablet) {
-      padding: 5px 0px;
-    }
-  }
-
-  &__content {
-    @media (--tablet) {
-      flex-direction: row;
-      justify-content: flex-start;
-    }
-  }
+  /* &__content {} */
 
   &__image {
     width: 140px;
@@ -34,10 +21,6 @@
 
   &__title {
     line-height: 24px;
-
-    @media (--tablet) {
-      font-size: 24px;
-    }
   }
 
   &__author {
@@ -45,7 +28,6 @@
 
     @media (--tablet) {
       visibility: visible;
-      font-size: 10px;
     }
   }
 }
