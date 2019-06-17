@@ -8,7 +8,7 @@ const classes = {
     'editorial-card__name block uppercase primary-font font-bold mb-15 title-sm text-gray-300 line-h-xs',
   description: 'flex',
   imageBox: 'flex position-relative items-start',
-  image: 'editorial-card__image object-cover object-top rounded',
+  image: 'editorial-card__image bg-white object-cover object-top rounded',
   detailsBox: 'pr-5 pl-10',
   title:
     'editorial-card__title block font-normal primary-font text-md text-gray-300 line-h-sm',

@@ -8,7 +8,6 @@
 
   &__select {
     height: 40px;
-    background-color: $color-base-100;
 
     &.active {
       background-color: $color-white;
@@ -28,7 +27,6 @@
 
   &__list {
     top: 40px;
-    background-color: $color-white;
     z-index: 10;
 
     &.active {

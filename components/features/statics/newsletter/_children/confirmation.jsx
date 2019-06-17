@@ -6,7 +6,7 @@ const classes = {
   descripcion: 'newsletter__description secondary-font title-sm line-h-md',
   row: 'newsletter__row mb-20',
   textCenter: 'text-center',
-  button: 'newsletter__button font-bold w-full border-0 text-white',
+  button: 'newsletter__button bg-gray-300 font-bold w-full border-0 text-white',
   strong: 'newsletter__strong block font-xbold text-gray-300',
 }
 

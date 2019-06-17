@@ -8,8 +8,8 @@ const classes = {
   percent: 'i-survey-item__percent inline-b pl-10',
   bar: 'i-survey-item__bar block overflow-hidden position-relative w-full',
   progress:
-    'i-survey-item__progress block position-absolute overflow-hidden left-0 top-0',
-  progresstop: 'i-survey-item__top',
+    'i-survey-item__progress bg-white block position-absolute overflow-hidden left-0 top-0',
+  progresstop: 'i-survey-item__top bg-base-100',
 }
 
 const style = perc => ({
