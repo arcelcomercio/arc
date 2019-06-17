@@ -19,7 +19,7 @@ const classes = {
   imageBox: '',
   image: 'w-full mb-10',
   details: 'movies-grid__details',
-  title: 'movies-grid__title mb-5 text-sm text-gray-200',
+  title: 'movies-grid__title mb-5 text-sm text-gray-200 line-h-sm',
   tag: 'movies-grid__tag font-bold text-sm text-gray-300',
 }
 

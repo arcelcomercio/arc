@@ -7,7 +7,7 @@ import StoryHeaderChildAmpSocial from './_children/amp-social'
 const classes = {
   news: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
   titleAmp:
-    'amp-story-header__title font-bold primary-font title-md text-gray-300',
+    'amp-story-header__title font-bold primary-font title-md text-gray-300 line-h-xs',
   datetime:
     'amp-story-header__datetime mt-15 mb-15 block secondary-font text-lg',
   description: 'amp-story-header__description mt-0 text-md text-gray-300',

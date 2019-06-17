@@ -7,7 +7,7 @@ import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   bmInterestYou: 'br-stories-grid clearfix hidden',
-  generalTitle: 'br-stories-grid__title uppercase',
+  generalTitle: 'br-stories-grid__title uppercase line-h-md',
   container: 'br-stories-grid__container grid grid--content',
 }
 

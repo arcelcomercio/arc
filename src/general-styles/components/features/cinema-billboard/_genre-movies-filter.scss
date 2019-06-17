@@ -1,7 +1,6 @@
 $movie-size: 134px;
 
 .movies-grid {
-
   &__nav {
     @media (--tablet) {
       display: block;
@@ -40,7 +39,6 @@ $movie-size: 134px;
     background-repeat: no-repeat;
     margin-right: 1%;
     padding: 0 32px 0 8px;
-    line-height: 45px;
   }
 
   &__grid {
@@ -58,10 +56,6 @@ $movie-size: 134px;
 
   &__movie {
     width: $movie-size;
-  }
-
-  &__title {
-    line-height: 15px;
   }
 
   &__tag {

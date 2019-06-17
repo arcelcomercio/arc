@@ -3,7 +3,8 @@ import React, { PureComponent } from 'react'
 const classes = {
   sidebar: 'amp-nav-sidebar w-full',
   item: 'amp-nav-sidebar__item uppercase border-b-1 border-solid',
-  listItem: 'amp-nav-sidebar__list-item h-full position-relative title-sm',
+  listItem:
+    'amp-nav-sidebar__list-item h-full position-relative title-sm line-h-xs',
   link: 'amp-nav-sidebar__link block p-15 text-md text-black',
   body: 'amp-nav-sidebar__body pt-15 pb-15 pr-0 pl-15',
   list: 'amp-nav-sidebar__list',

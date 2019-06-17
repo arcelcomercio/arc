@@ -11,7 +11,8 @@ const classes = {
   wrapper:
     'flex items-center justify-between nav__wrapper bg-primary w-full h-inherit pr-15 pl-15',
   form: 'flex position-relative',
-  search: 'nav__input-search w-0 text-md pt-5 pb-5 border-0 bg-gray-100 rounded-sm',
+  search:
+    'nav__input-search w-0 text-md pt-5 pb-5 border-0 bg-gray-100 rounded-sm line-h line-h-xs',
   navBtnContainer: 'flex items-center justify-start nav__container-menu',
   searchContainer: 'flex items-center justify-start',
   btnSearch: 'flex items-center btn nav__btn nav__btn--search text-white',

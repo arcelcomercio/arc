@@ -17,7 +17,7 @@ const classes = {
     'concessionaires__search-title text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm',
   form: 'flex',
   zona: 'concessionaires__controls flex mr-15 flex-col',
-  label: 'concessionaires__label block text-center text-sm',
+  label: 'concessionaires__label block text-center text-sm line-h-double',
   select: 'concessionaires__select pl-15 bg-white',
   district: 'concessionaires__controls flex',
   districtLabel: 'concessionaires__label',
