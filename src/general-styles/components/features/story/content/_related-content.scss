@@ -20,14 +20,6 @@
     }
   }
 
-  &__item-title {
-    line-height: 1.5;
-  }
-
-  &__author {
-    color: $color-gray-200;
-  }
-
   &__multimedia {
     @media (--tablet) {
       width: 180px;

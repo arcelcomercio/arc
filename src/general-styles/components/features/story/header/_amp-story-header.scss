@@ -1,18 +1,12 @@
 .amp-story-header {
-  background-color: $color-white;
   max-width: 600px;
 
   &__title {
-    color: #333;
     line-height: 29px;
   }
 
   &__datetime {
     color: #666;
-  }
-
-  &__description {
-    color: #323232;
   }
 
   &__list {

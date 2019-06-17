@@ -8,19 +8,20 @@ const classes = {
   detail:
     'featured-story__detail flex flex-col justify-between position relative',
   image: 'featured-story__image overflow-hidden w-full h-full ml-10',
-  multimediaIconContainer: 'featured-story__multimedia-icon position-absolute',
+  multimediaIconContainer:
+    'featured-story__multimedia-icon position-absolute text-gray-300',
   multimediaIconSpan:
-    'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full rounded',
+    'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full rounded text-gray-300',
 
   category: 'featured-story__category pb-15 hidden text-lg',
-  title: 'featured-story__title overflow-hidden mb-10 title-sm',
+  title: 'featured-story__title overflow-hidden mb-10 title-sm line-h-xs',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
   author: 'featured-story__author uppercase',
-  authorLink: 'featured-story__link--author',
+  authorLink: 'featured-story__link--author text-gray-200',
 
-  link: 'featured-story__link text-md',
+  link: 'featured-story__link text-md line-h-sm',
   imageLink: 'block h-full',
   img: 'w-full h-full object-cover',
 
@@ -30,7 +31,7 @@ const classes = {
   twoCol: 'col-2',
   // Headbands
   headband: 'featured-story__headband mb-5 text-lg',
-  headbandLink: 'featured-story__headband-link font-bold',
+  headbandLink: 'featured-story__headband-link font-bold text-white',
 
   live: 'featured-story--live',
 

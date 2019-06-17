@@ -2,20 +2,20 @@ import React, { PureComponent } from 'react'
 
 const classes = {
   navbarSomos:
-    'navbar-somos flex items-center justify-between pt-0 pb-0 pr-10 pl-10',
+    'navbar-somos bg-black flex items-center justify-between pt-0 pb-0 pr-10 pl-10',
   logoLink: 'h-full flex items-center',
-  logoIcon: 'icon-back navbar-somos__icon font-bold',
+  logoIcon: 'icon-back navbar-somos__icon font-bold text-white',
   logoImg: 'navbar-somos__logo-img ml-10',
   boxRight: 'h-full flex items-center',
   loginButton:
-    'navbar-somos__login-button font-bold uppercase flex items-center primary-font text-sm pt-0 pb-0 pr-15 pl-15',
+    'navbar-somos__login-button font-bold uppercase flex items-center primary-font text-sm pt-0 pb-0 pr-15 pl-15 text-white',
   iconUser: 'icon-user navbar-somos__icon-user mr-5',
-  searchIcon: 'icon-search navbar-somos__icon',
+  searchIcon: 'icon-search navbar-somos__icon font-bold text-white',
   searchInput:
     'navbar-somos__search-input primary-font font-bold text-md pt-0 pb-0 pr-10 pl-10 border-0',
-  searchButton: 'navbar-somos__search-button border-0',
+  searchButton: 'navbar-somos__search-button bg-white border-0',
   closeButton: 'navbar-somos__close-button',
-  closeIcon: 'icon-close navbar-somos__icon',
+  closeIcon: 'icon-close navbar-somos__icon font-bold text-white',
   searchInputIcon: 'icon-search',
 }
 

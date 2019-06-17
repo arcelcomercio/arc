@@ -31,7 +31,6 @@
   &__image {
     width: 60px;
     height: 60px;
-    background-color: $color-white;
 
     @media (--tablet) {
       width: 100%;
@@ -44,18 +43,13 @@
   }
 
   &__name {
-    line-height: 1.2;
-    color: #333;
-
     @media (--tablet) {
       max-height: inherit;
     }
   }
 
   &__title {
-    color: #333;
     width: 90%;
-    line-height: 1.2;
 
     @media (--tablet) {
       font-size: 18px;

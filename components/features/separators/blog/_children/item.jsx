@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  separator: 'blog-separator flex flex-col flex-no-wrap mr-5 w-full',
+  separator: 'blog-separator bg-white flex flex-col flex-no-wrap mr-5 w-full',
   boxTitle: 'blog-separator__box-title w-full overflow-hidden p-20',
   title: 'blog-separator__title font-normal',
   link: 'blog-separator__link',

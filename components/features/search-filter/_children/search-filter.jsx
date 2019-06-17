@@ -126,13 +126,13 @@ class SearchFilterChildSearchFilter extends PureComponent {
     const classes = {
       searchFilter: 'search-filter flex flex-col-reverse w-full mt-20 p-15',
       containerList: 'position-relative',
-      select: `search-filter__select position-relative w-full flex items-center pt-0 pb-0 pl-15 pr-15 ${
+      select: `search-filter__select bg-base-100 position-relative w-full flex items-center pt-0 pb-0 pl-15 pr-15 ${
         showList ? 'active' : ''
       }`,
       selectName:
         'search-filter__select-name flex w-full justify-between text-sm',
       iconButton: 'icon-angle-down',
-      list: `search-filter__list left-0 hidden position-absolute w-full flex-col ${
+      list: `search-filter__list bg-white left-0 hidden position-absolute w-full flex-col ${
         showList ? 'active' : ''
       }`,
       iemDesc: `search-filter__item ${
@@ -146,11 +146,11 @@ class SearchFilterChildSearchFilter extends PureComponent {
       }`,
       itemTime: `search-filter__item ${selected === 'time' ? 'selected' : ''}`,
       link:
-        'search-filter__link flex uppercase w-full pt-10 pb-10 pl-15 pr-15 text-sm',
+        'search-filter__link flex uppercase w-full pt-10 pb-10 pl-15 pr-15 text-sm text-gray-300',
       subList:
         'search-filter__sublist hidden w-full flex-col pt-0 pb-0 pl-20 pr-20 active',
       subItem: 'search-filter__subitem flex items-center position-relative',
-      subLink: 'search-filter__sublink capitalize w-full text-xs',
+      subLink: 'search-filter__sublink capitalize w-full text-xs text-gray-200',
     }
 
     return (

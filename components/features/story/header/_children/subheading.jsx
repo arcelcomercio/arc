@@ -1,7 +1,8 @@
 import React from 'react'
 
 const classes = {
-  description: 'story-header__news-summary pl-20 pr-20 mb-20 secondary-font',
+  description:
+    'story-header__news-summary pl-20 pr-20 mb-20 secondary-font line-h-sm text-gray-300',
 }
 
 const StoryHeaderChildShareSubheading = data => {

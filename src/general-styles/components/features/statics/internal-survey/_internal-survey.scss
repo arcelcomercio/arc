@@ -1,5 +1,4 @@
 .internal-survey {
-  background-color: #ebebeb;
 
   @media (--desktop) {
     grid-template-columns: 576px 300px;
@@ -10,7 +9,6 @@
   }
 
   &__detail {
-    background-color: $color-white;
 
     &:hover {
       .internal-survey__nav.active {
@@ -32,10 +30,6 @@
     }
   }
 
-  &__date {
-    line-height: 1;
-  }
-
   &__title {
     font-size: 40px;
   }
@@ -46,13 +40,11 @@
 
   &__button-pool {
     background-color: #4aa8fa;
-    color: $color-white;
     float: left;
     height: 45px;
   }
 
   &__view-result {
-    color: #333;
     border-color: #646464;
     float: left;
     letter-spacing: 1px;
@@ -63,7 +55,6 @@
   //columna de resultados
   &__result {
     grid-template-columns: auto;
-    background-color: #fcee21;
 
     @media (--tablet) {
       // padding: 30px 20px 0;
@@ -79,7 +70,6 @@
 
   &__slug {
     background-color: rgba(#6d9bce, 0.5);
-    color: $color-white;
     width: 40px;
     z-index: 3;
   }

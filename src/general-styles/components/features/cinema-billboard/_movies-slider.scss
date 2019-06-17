@@ -59,12 +59,7 @@
     }
   }
 
-  &__movie-link {
-    color: $color-white;
-  }
-
   &__movie-description {
-    color: $color-white;
     line-height: 20px;
 
     @media (--tablet) {

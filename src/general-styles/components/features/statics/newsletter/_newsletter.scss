@@ -25,14 +25,11 @@
   }
 
   &__button {
-    background-color: #333;
-    color: $color-white;
     height: 50px;
   }
 
   &__description {
     color: #666;
-    line-height: 1.5;
     margin-block-start: 1em;
     margin-block-end: 1em;
   }
@@ -47,7 +44,6 @@
   }
 
   &__image-container {
-    background-color: $color-white;
     border-width: 2px;
     border-color: 2px solid #dadada;
     height: 370px;
@@ -71,7 +67,6 @@
 
   &__title {
     color: #666;
-    line-height: 1;
 
     &::after {
       background-color: #f7c600;
@@ -86,7 +81,6 @@
   }
 
   &__strong {
-    color: #333;
     font-size: 55px;
 
     @media (--desktop) {
@@ -96,7 +90,6 @@
 
   &__page-link {
     text-decoration: underline;
-    color: #333;
   }
 
   &__input-checkbox {

@@ -1,9 +1,6 @@
 .header {
-  color: $color-gray-300;
-
   &__main {
     height: 58px;
-    background-color: $header-bg-color;
     color: $header-text-color;
   }
 
@@ -35,11 +32,7 @@
     background-color: $color-gray-100;
   }
 
-  &__btn-container {
-    a {
-      &:focus {
-        outline: 0;
-      }
-    }
+  &__btn-container a:focus {
+    outline: 0;
   }
 }

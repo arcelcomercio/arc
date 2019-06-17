@@ -1,5 +1,4 @@
 .navbar-somos {
-  background-color: #000;
   height: 45px;
 
   button:focus {
@@ -10,20 +9,11 @@
     max-height: 30px;
   }
 
-  &__icon {
-    color: $color-white;
-  }
-
-  &__login-button {
-    color: $color-white;
-  }
-
   &__icon-user {
     color: #f8d002;
   }
 
   &__search-button {
-    background-color: $color-white;
     width: 35px;
     height: 35px;
   }

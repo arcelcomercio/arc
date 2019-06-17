@@ -1,12 +1,7 @@
 .bp-content {
-  background-color: $color-white;
 
   &__author {
     color: #8f071f;
-  }
-
-  &__date {
-    color: #999;
   }
 
   &__header {
@@ -16,8 +11,6 @@
   // Origen de etiquetas externo, se tienen que definir asi los estilos
 
   &__story {
-    line-height: 1.4;
-
     img {
       width: 100%;
       height: 100%;

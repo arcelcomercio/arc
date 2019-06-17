@@ -1,4 +1,4 @@
-$color-page: #777;
+//$color-page: #777;
 
 .pagination {
   @media (--tablet) {
@@ -10,11 +10,10 @@ $color-page: #777;
   }
 
   &__page {
-    color: $color-page;
     padding: 3px 7px;
 
     &--current {
-      background: #000;
+      background: $color-black;
       color: $color-white;
       font-weight: bold;
 
@@ -24,7 +23,7 @@ $color-page: #777;
     }
 
     &--disabled {
-      color: #ddd;
+      color: $color-base-100;
       pointer-events: none;
     }
   }

@@ -13,9 +13,9 @@ import StoryContentChildTags from './_children/tags'
 import StoryContentChildRelated from './_children/related'
 
 const classes = {
-  content: 'amp-story-content pl-20 pr-20 m-0 mx-auto',
+  content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
   textClasses:
-    'amp-story-content__news-text text-lg mt-15 mb-25 secondary-font text-xl',
+    'amp-story-content__news-text text-lg mt-15 mb-25 secondary-font text-gray-300 text-xl line-h-md',
   author: 'amp-story-content__author mt-15 mb-15',
   image: 'amp-story-content__image',
 }

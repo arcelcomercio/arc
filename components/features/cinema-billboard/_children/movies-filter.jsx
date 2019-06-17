@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import BillboardFormat from '../../../utilities/billboard-format'
 
 const classes = {
-  container: 'movies-filter w-full p-20',
+  container: 'movies-filter bg-base-300 w-full p-20',
   titleBox:
     'movies-filter__title-box mb-20 flex-col-reverse flex justify-between',
   title: 'movies-filter__title flex items-center position-relative',
@@ -15,9 +15,9 @@ const classes = {
     'movies-filter__label movies-filter--font-config uppercase font-bold hidden',
   form:
     'movies-filter__form movies-filter--font-config flex font-bold flex-col w-full',
-  select: 'movies-filter__select w-full',
+  select: 'movies-filter__select bg-white w-full text-gray-300',
   button:
-    'movies-filter__btn movies-filter--font-config uppercase font-bold w-full',
+    'movies-filter__btn bg-primary movies-filter--font-config uppercase font-bold w-full text-gray-300',
 }
 
 @Consumer

@@ -1,5 +1,4 @@
 .author-title {
-  background-color: $color-white;
 
   &__box-title {
     flex-basis: calc(100% - 90px);
@@ -24,7 +23,7 @@
       flex-shrink: 1;
       flex-grow: 1;
       background-color: $color-white;
-      color: #333;
+      color: $color-gray-300;
       font-size: 18px;
       font-weight: 700;
       line-height: 1;

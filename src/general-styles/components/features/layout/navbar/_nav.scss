@@ -2,7 +2,6 @@
   position: sticky;
   height: $nav-height-mobile;
   z-index: 20;
-  background-color: $nav-color;
 
   @media (--desktop) {
     height: $nav-height;

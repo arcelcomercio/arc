@@ -1,5 +1,4 @@
 .separator {
-  background-color: $color-white;
   display: grid;
   grid-template-columns: 1fr;
   border: 1px solid $color-gray-100;
@@ -14,10 +13,8 @@
     font-family: $secondary-font;
     color: $color-white;
 
-    &--nota {
-      & a {
-        color: $color-gray-300;
-      }
+    &--nota a {
+      color: $color-gray-300;
     }
   }
 
@@ -281,7 +278,7 @@
 
     &--nota {
       & a {
-        color: #333;
+        color: $color-gray-300;
       }
     }
   }

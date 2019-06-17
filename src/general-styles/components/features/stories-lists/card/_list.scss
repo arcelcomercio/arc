@@ -2,20 +2,14 @@
   &__title {
     min-width: 10%;
     max-width: 60%;
-    color: $color-gray-300;
   }
 
-  &__see-more {
-    background-color: $color-white;
-    color: $color-gray-200;
-  }
 
   &__list-item {
     max-height: 395px;
   }
 
   &__story {
-    background-color: $color-white;
     border-color: #d5e1e1;
 
     & .multimedia__icon {
@@ -26,21 +20,14 @@
       transform: scale(3.5);
       z-index: 2;
       background-color: rgba(255, 255, 255, 0.5);
-      color: #444;
     }
   }
 
   &__time {
     line-height: 19.2px;
-    color: $color-gray-300;
   }
 
   &__page-link-container {
     margin: 2px 0px;
-  }
-
-  &__text-link {
-    line-height: 1.2;
-    color: #4c4c4c;
   }
 }

@@ -6,8 +6,6 @@
   }
 
   &__date {
-    color: #999;
-
     @media (--tablet) {
       margin-bottom: 10px;
     }
@@ -40,8 +38,6 @@
   }
 
   &__author {
-    color: #777;
-
     @media (--tablet) {
       font-size: 14px;
       font-weight: bold;
@@ -49,9 +45,6 @@
   }
 
   &__post {
-    color: #333;
-    line-height: 1.1;
-
     @media (--tablet) {
       font-size: 20px;
     }

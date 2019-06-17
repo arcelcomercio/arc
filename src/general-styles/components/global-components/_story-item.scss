@@ -26,16 +26,12 @@
   }
 
   &__section {
-    color: #000;
-
     @media (--tablet) {
       font-size: 13px;
     }
   }
 
   &__date {
-    color: #a9a9a9;
-
     @media (--tablet) {
       font-size: 12px;
       margin-top: 3px;
@@ -48,7 +44,6 @@
   }
 
   &__title {
-    color: #000;
     max-height: 42px;
 
     @media (--tablet) {
@@ -63,16 +58,9 @@
   }
 
   &__subtitle {
-    line-height: 1.2;
-    color: #a9a9a9;
-
     @media (--tablet) {
       display: block;
     }
-  }
-
-  &__author {
-    color: #a9a9a9;
   }
 
   &__right {
@@ -93,7 +81,6 @@
     width: 20px;
     height: 20px;
     background-color: rgba(255, 255, 255, 0.6);
-    color: #000;
     z-index: 1;
 
     @media (--tablet) {

@@ -8,7 +8,6 @@
 
   &__select {
     height: 40px;
-    background-color: $color-base-100;
 
     &.active {
       background-color: $color-white;
@@ -28,7 +27,6 @@
 
   &__list {
     top: 40px;
-    background-color: $color-white;
     z-index: 10;
 
     &.active {
@@ -88,8 +86,6 @@
   }
 
   &__link {
-    color: $color-gray-300;
-
     @media (--desktop) {
       justify-content: center;
       align-items: center;
@@ -128,14 +124,13 @@
         content: '|';
         position: absolute;
         right: -7px;
-        color: #a1a1a1;
+        color: $color-gray-200;
         font-size: 9px;
       }
     }
   }
 
   &__sublink {
-    color: #a1a1a1;
     padding: 7px;
   }
 

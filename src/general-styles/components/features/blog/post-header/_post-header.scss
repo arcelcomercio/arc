@@ -1,10 +1,6 @@
 .post-header {
-  background-color: #ffffff;
 
   &__title {
-    line-height: 1.2;
-    color: #333;
-
     @media (--tablet) {
       font-size: 40px;
     }
@@ -20,17 +16,11 @@
 
   &__item {
     flex-basis: 0;
-    background-color: #eee;
     margin-right: 2px;
   }
 
   &__more {
     width: 45px;
-    background-color: #ccc;
-  }
-
-  &__button {
-    color: $color-white;
   }
 
   &__share {

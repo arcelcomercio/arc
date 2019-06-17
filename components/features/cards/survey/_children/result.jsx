@@ -7,7 +7,7 @@ const classes = {
   results: 'c-survey-result',
   list: 'mb-5 pt-5 pb-5',
   itemContainer: 'flex justify-between mb-5',
-  item: 'c-survey-result__item primary-font text-md',
+  item: 'c-survey-result__item primary-font text-md line-h-xs text-gray-300',
 }
 
 const CardsSurveyChildResult = ({ choices = [] }) => {

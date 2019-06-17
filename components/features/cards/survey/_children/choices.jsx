@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  item: 'c-survey-choices__item mb-5 pt-5 pr-20 pb-5',
+  item: 'c-survey-choices__item mb-5 pt-5 pr-20 pb-5 text-gray-300',
   radio: 'cursor-pointer overflow-hidden flex items-center',
   input: 'c-survey-choices__input hidden',
   check: 'c-survey-choices__check position-relative mr-10 rounded-md',

@@ -31,7 +31,6 @@
   }
 
   &__text {
-    color: #8d8d8d;
     top: 16px;
 
     @media (--tablet) {
@@ -51,10 +50,6 @@
 
 .sections-grid-item {
   width: 50%;
-
-  &__title {
-    color: $color-white;
-  }
 
   &__image-container {
     max-height: 94px;

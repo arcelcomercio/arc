@@ -1,7 +1,7 @@
 .author-item {
   &__wrapper {
     max-width: 700px;
-    border-color: #333;
+    border-color: $color-gray-300;
   }
 
   &__social {
@@ -68,12 +68,4 @@
       }
     }
   } */
-
-  &__name {
-    color: #333;
-  }
-
-  &__subtitle {
-    color: #333;
-  }
 }

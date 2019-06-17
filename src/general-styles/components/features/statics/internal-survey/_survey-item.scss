@@ -1,9 +1,7 @@
 .i-survey-item {
   min-height: 28px;
-  color: #4c4c4c;
 
   &__text {
-    color: #999;
     z-index: 1;
   }
 
@@ -16,11 +14,7 @@
   }
 
   &__progress {
-    background-color: $color-white;
     height: 28px;
   }
 
-  &__top {
-    background-color: $color-base-100;
-  }
 }

@@ -1,15 +1,12 @@
 .movies-filter {
-  background-color: $color-gray-300;
 
   @media (--tablet) {
     padding: $spacing-xl;
   }
 
-  &__title-box {
-    &--font-config {
-      font-size: 12px;
-      line-height: 45px;
-    }
+  &__title-box--font-config {
+    font-size: 12px;
+    line-height: 45px;
   }
 
   &__filter-box {
@@ -55,13 +52,11 @@
   }
 
   &__select {
-    background-color: $color-white;
     background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
     background-position: right center;
     background-repeat: no-repeat;
     padding: 0 42px 0 16px;
     margin-bottom: 8px;
-    color: $color-gray-300;
     line-height: 45px;
 
     @media (--desktop) {
@@ -73,8 +68,6 @@
   }
 
   &__btn {
-    background-color: $color-primary;
-    color: $color-gray-300;
 
     @media (--desktop) {
       width: 100px;
