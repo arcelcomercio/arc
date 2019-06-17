@@ -11,10 +11,10 @@ const classes = {
   sites: 'footer__sites flex justify-center mt-15',
   sitesList: 'footer__sites-list flex justify-center flex-wrap w-full p-0',
   sitesItem:
-    'footer__sites-item mr-5 ml-5 mb-5 pr-10 border-r-1 border-solid text-md text-gray-200',
+    'footer__sites-item mr-5 ml-5 mb-5 pr-10 border-r-1 border-solid text-md text-gray-200 line-h-xs',
   sitesLink: 'footer__sites-link text-gray-200',
-  legalList: 'footer__legal-list text-md',
-  legalItem: 'footer__legal-item mb-10 text-gray-100 text-sm',
+  legalList: 'footer__legal-list  text-md',
+  legalItem: 'footer__legal-item mb-10 text-gray-100 line-h-none text-sm',
   logoContainer: 'footer__logo footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list p-20',

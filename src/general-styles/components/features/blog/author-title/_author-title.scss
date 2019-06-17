@@ -1,5 +1,4 @@
 .author-title {
-
   &__box-title {
     flex-basis: calc(100% - 90px);
     border-color: #ddd;
@@ -7,10 +6,6 @@
     @media (--tablet) {
       flex-basis: 100%;
       height: 50px;
-      flex-direction: row;
-      align-items: center;
-      padding: 0;
-      padding-left: 15px;
     }
   }
 
@@ -20,13 +15,8 @@
 
     @media (--tablet) {
       flex-basis: auto;
-      flex-shrink: 1;
-      flex-grow: 1;
       background-color: $color-white;
       color: $color-gray-300;
-      font-weight: 700;
-      line-height: 1;
-      margin-top: 10px;
     }
 
     @media (--desktop) {
@@ -40,7 +30,6 @@
 
   &__img {
     @media (--tablet) {
-      width: auto;
       height: 48px;
       bottom: 1px;
     }

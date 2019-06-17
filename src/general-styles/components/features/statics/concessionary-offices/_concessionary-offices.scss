@@ -36,7 +36,6 @@
 
   &__search-title {
     @media (--tablet) {
-      margin-bottom: 20px;
     }
 
     @media (--desktop) {
@@ -52,7 +51,6 @@
     width: 50%;
 
     @media (--tablet) {
-      flex-direction: row;
     }
 
     @media (--desktop) {
@@ -62,7 +60,6 @@
   }
 
   &__label {
-    line-height: 62px;
     width: 80px;
   }
 
@@ -76,7 +73,6 @@
 
     @media (--tablet) {
       max-width: 252px;
-      width: 100%;
     }
 
     @media (--desktop) {

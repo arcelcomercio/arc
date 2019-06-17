@@ -1,5 +1,4 @@
 .internal-survey {
-
   @media (--desktop) {
     grid-template-columns: 576px 300px;
   }
@@ -9,7 +8,6 @@
   }
 
   &__detail {
-
     &:hover {
       .internal-survey__nav.active {
         display: block;
@@ -49,7 +47,6 @@
     float: left;
     letter-spacing: 1px;
     height: 45px;
-    line-height: 43px;
   }
 
   //columna de resultados
@@ -63,7 +60,6 @@
 
   &__icon {
     height: 20px;
-    line-height: 20px;
     margin-top: -10px;
     top: 50%;
   }

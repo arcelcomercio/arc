@@ -164,12 +164,10 @@
 
   &__search-input {
     height: 40px;
-    line-height: 50px;
 
     @media (--desktop) {
       height: 76px;
       font-weight: 700;
-      line-height: 76px;
       padding-right: 95px;
       border: 0;
     }

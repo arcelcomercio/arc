@@ -59,13 +59,7 @@
     }
   }
 
-  &__movie-description {
-    line-height: 20px;
-
-    @media (--tablet) {
-      line-height: 24px;
-    }
-  }
+  /* &__movie-description {} */
 
   &__details {
     @media (--tablet) {

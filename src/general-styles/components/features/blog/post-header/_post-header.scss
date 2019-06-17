@@ -26,8 +26,6 @@
   &__share {
     color: #666;
 
-    @media (--tablet) {
-      display: inline-block;
-    }
+    /* @media (--tablet) {} */
   }
 }

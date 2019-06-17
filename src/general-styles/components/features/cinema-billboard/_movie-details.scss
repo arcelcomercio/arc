@@ -41,22 +41,16 @@
   &__left {
     @media (--tablet) {
       flex-basis: 55%;
-      flex-shrink: 0;
       flex-flow: 0;
     }
   }
 
-  &__right {
+  /* &__right {
     @media (--tablet) {
-      padding: 20px;
     }
-  }
+  } */
 
-  &__title {
-    @media (--tablet) {
-      margin-bottom: 30px;
-    }
-  }
+  /* &__title {} */
 
   &__hours {
     max-height: 250px;
@@ -80,9 +74,7 @@
     border-color: rgba(255, 255, 255, 0.7);
     transition: all 0.15s ease;
 
-    @media (--tablet) {
-      margin: 20px 0 0 0;
-    }
+    /* @media (--tablet) {} */
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.2);

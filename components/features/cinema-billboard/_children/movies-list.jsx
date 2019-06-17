@@ -14,7 +14,7 @@ const classes = {
   image: 'movie-item__img w-full h-full object-cover border-1 border-solid',
   title: 'movie-item__title primary-font text-xl text-gray-300 line-h-xl',
   function: 'movie-item__function font-thin text-sm',
-  rightSide: 'movie-item__right mt-5',
+  rightSide: 'movie-item__right md:mt-0 mt-5',
   subtitle:
     'movie-item__subtitle font-bold mb-5 text-sm text-gray-300 line-h-sm',
   description: 'movie-item__description inline font-normal ml-5',

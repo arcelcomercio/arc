@@ -1,19 +1,14 @@
 .blog-item {
   border-color: $color-gray-300;
 
-  @media (--tablet) {
-    flex-direction: column;
-  }
+  /* @media (--tablet) {} */
 
-  &__date {
-    @media (--tablet) {
-      margin-bottom: 10px;
-    }
-  }
+  /* &__date {
+    @media (--tablet) {} 
+  } */
 
   &__container {
     @media (--tablet) {
-      flex-direction: row;
       justify-content: start;
     }
   }
@@ -28,8 +23,6 @@
 
     @media (--tablet) {
       width: initial;
-      padding-right: 0px;
-      padding-left: 10px;
     }
   }
 

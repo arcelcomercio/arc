@@ -1,5 +1,4 @@
 .movies-filter {
-
   @media (--tablet) {
     padding: $spacing-xl;
   }
@@ -26,7 +25,6 @@
     @media (--tablet) {
       color: $color-gray-100;
       padding: 0 8px;
-      display: inline-block;
     }
   }
 
@@ -50,9 +48,6 @@
     background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
     background-position: right center;
     background-repeat: no-repeat;
-    padding: 0 42px 0 16px;
-    margin-bottom: 8px;
-    line-height: 45px;
 
     @media (--desktop) {
       margin-bottom: 0;
@@ -63,7 +58,6 @@
   }
 
   &__btn {
-
     @media (--desktop) {
       width: 100px;
     }

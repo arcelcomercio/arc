@@ -6,12 +6,12 @@ const classes = {
   moviesGrid: 'movies-grid bg-white mt-20 p-20',
   container: 'movies-grid__container',
   headline: 'uppercase text-center mb-20',
-  nav: 'movies-grid__nav hidden',
+  nav: 'movies-grid__nav md:block hidden',
   navList: 'flex justify-center flex-wrap mb-10',
   navItem: 'mb-10',
   navLink:
     'movies-grid__nav-link p-10 position-relative uppercase text-md text-gray-200',
-  form: 'movies-grid__form mb-20',
+  form: 'movies-grid__form md:hidden mb-20',
   info: 'movies-grid__info mb-20 text-xs text-gray-200',
   select: 'movies-grid__select bg-info w-full text-gray-300',
   grid: 'movies-grid__grid grid',
@@ -19,7 +19,7 @@ const classes = {
   imageBox: '',
   image: 'w-full mb-10',
   details: 'movies-grid__details',
-  title: 'movies-grid__title mb-5 text-sm text-gray-200',
+  title: 'movies-grid__title mb-5 text-sm text-gray-200 line-h-sm',
   tag: 'movies-grid__tag font-bold text-sm text-gray-300',
 }
 
