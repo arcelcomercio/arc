@@ -14,12 +14,12 @@ const classes = {
     'concessionaires__locations border-gray-100 pt-25 border-t-1 border-solid',
   search: 'concessionaires__search flex mb-20 flex-col',
   searchTitle:
-    'concessionaires__search-title text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm',
+    'concessionaires__search-title md:mb-20 text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm',
   form: 'flex',
   zona: 'concessionaires__controls flex mr-15 flex-col',
   label: 'concessionaires__label block text-center text-sm line-h-double',
-  select: 'concessionaires__select pl-15 bg-white',
-  district: 'concessionaires__controls flex',
+  select: 'concessionaires__select md:w-full pl-15 bg-white',
+  district: 'concessionaires__controls md:flex-row flex',
   districtLabel: 'concessionaires__label',
   mapTitle:
     'concessionaires__map-title text-gray-300 font-thin mt-10 mb-10 title-sm',

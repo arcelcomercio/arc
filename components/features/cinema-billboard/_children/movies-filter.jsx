@@ -11,7 +11,7 @@ const classes = {
   facebook: 'icon icon--facebook icon--margin-right',
   twitter: 'icon icon--twitter',
   filter: 'movies-filter__filter-box flex-col flex justify-between',
-  label: 'movies-filter__label uppercase font-bold hidden line-h-none',
+  label: 'movies-filter__label md:inline-block uppercase font-bold hidden line-h-none',
   form: 'movies-filter__form flex font-bold flex-col w-full line-h-none',
   select:
     'movies-filter__select bg-white w-full text-gray-300 line-h-none pt-0 pr-40 pb-0 pl-15 mb-10',

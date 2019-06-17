@@ -2,7 +2,6 @@
   background-color: #1f1f1f;
 
   @media (--tablet) {
-    flex-direction: row;
   }
 }
 
@@ -22,7 +21,6 @@
 
 .sections-grid {
   @media (--tablet) {
-    padding-left: 30px;
     max-width: 40%;
   }
 

@@ -1,7 +1,5 @@
 .movies-container {
-
   @media (--tablet) {
-    margin-top: 0;
   }
 
   @media (--desktop) {
@@ -10,7 +8,6 @@
 
   &__title {
     @media (--tablet) {
-      display: none;
     }
   }
 }
