@@ -10,7 +10,6 @@
   }
 
   &__page {
-    color: $color-gray-200;
     padding: 3px 7px;
 
     &--current {
@@ -24,7 +23,7 @@
     }
 
     &--disabled {
-      color: #ddd;
+      color: $color-base-100;
       pointer-events: none;
     }
   }

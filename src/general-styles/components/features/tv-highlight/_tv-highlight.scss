@@ -57,13 +57,7 @@
     color: #4aa8fa;
   }
 
-  &__item {
-    &:nth-last-child(1) {
-      margin-right: 0;
-    }
-  }
-
-  &__link {
-    color: $color-gray-200;
+  &__item:nth-last-child(1) {
+    margin-right: 0;
   }
 }

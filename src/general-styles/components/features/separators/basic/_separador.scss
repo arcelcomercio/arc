@@ -14,10 +14,8 @@
     font-family: $secondary-font;
     color: $color-white;
 
-    &--nota {
-      & a {
-        color: $color-gray-300;
-      }
+    &--nota a {
+      color: $color-gray-300;
     }
   }
 

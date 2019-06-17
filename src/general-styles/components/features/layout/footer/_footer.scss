@@ -1,4 +1,4 @@
-$legal-text-color: #c8c8c8;
+//$legal-text-color: #c8c8c8;
 
 $footer-legal-text-size: 12px;
 $footer-list-text-size: 14px;
@@ -63,7 +63,7 @@ $desktop-media: 'min-width: 1024px';
 
   &__legal-item {
     font-size: $footer-legal-text-size;
-    color: $legal-text-color;
+    //color: $legal-text-color;
     line-height: 17px;
   }
 
@@ -71,8 +71,8 @@ $desktop-media: 'min-width: 1024px';
     font-size: $footer-list-text-size;
     border-color: $color-gray-200;
 
-    &--title {
+    /*&--title {
       color: $color-gray-200;
-    }
+    }*/
   }
 }

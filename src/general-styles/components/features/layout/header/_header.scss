@@ -33,11 +33,7 @@
     background-color: $color-gray-100;
   }
 
-  &__btn-container {
-    a {
-      &:focus {
-        outline: 0;
-      }
-    }
+  &__btn-container a:focus {
+    outline: 0;
   }
 }
