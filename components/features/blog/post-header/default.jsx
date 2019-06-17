@@ -12,7 +12,7 @@ const classes = {
   list: 'post-header__list flex',
   link: 'post-header__link flex items-center justify-center w-full h-full',
   item: 'post-header__item bg-base-100 flex-grow',
-  share: 'post-header__share hidden ml-10 text-sm',
+  share: 'post-header__share md:inline-block hidden ml-10 text-sm',
   more: 'post-header__more bg-base-200',
   button:
     'post-header__button flex items-center justify-center w-full h-full text-white',

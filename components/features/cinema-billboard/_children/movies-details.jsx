@@ -11,8 +11,8 @@ const classes = {
   icon: 'movie-details__icon title-sm text-gray-300',
   details:
     'movie-details__detail w-full flex flex-col mt-40 mb-40 mx-auto pt-0 pr-20 pb-20 pl-20',
-  leftSide: 'movie-details__left w-full',
-  title: 'movie-details__title mb-20 title-sm text-white',
+  leftSide: 'movie-details__left md:flex-shrink-0 w-full',
+  title: 'movie-details__title md:mb-30 mb-20 title-sm text-white',
   where: 'movie-details__where uppercase mb-15 text-sm text-white line-h-md',
   hours:
     'movie-details__hours overflow-y-auto h-auto pr-30 border-r-1 border-solid',
@@ -20,9 +20,9 @@ const classes = {
   cinema: 'movie-details__cinema block font-bold text-sm text-white line-h-md',
   text: 'movie-details__text font-thin text-sm line-h-md',
   more:
-    'movie-details__more flex items-center justify-center pt-15 pb-15 pr-30 pl-30 mt-20 mx-auto border-1 border-solid',
+    'movie-details__more md:mt-20 md:mb-0 md:ml-0 md:mr-0 flex items-center justify-center pt-15 pb-15 pr-30 pl-30 mt-20 mx-auto border-1 border-solid',
   button: 'movie-details__btn text-sm text-white',
-  rightSide: 'movie-details__right pt-20 pb-20',
+  rightSide: 'movie-details__right md:p-20 pt-20 pb-20',
   name: 'movie-details__name font-bold mb-15 text-sm text-white line-h-md',
   value: 'movie-details__value font-normal',
 }
