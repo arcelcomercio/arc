@@ -55,8 +55,8 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     const { steps, slideWidth, dataSlider } = this.state
     this.step += 1
 
-    if (dataSlider.length < this.step) {
-      window.location.href = '/fotos'
+    if (dataSlider.length <= this.step) {
+      window.location.href = '/'
     }
 
     if (this.step >= steps) this.step = 0
