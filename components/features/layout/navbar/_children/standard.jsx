@@ -193,7 +193,7 @@ class NavBarDefault extends PureComponent {
 
             {/** ************* MIDDLE *************** */}
 
-            <ul className={`${classes.list} ${scrolled ? '' : 'active'}`}>
+            <ul className={`${classes.list} ${scrolled ? '' : 'lg:flex'}`}>
               {sections &&
                 sections.slice(0, 5).map(({ name, _id: id }) => {
                   return (
@@ -211,7 +211,7 @@ class NavBarDefault extends PureComponent {
               <img
                 src={logo}
                 alt={`Logo de ${arcSite}`}
-                className={`${classes.logo}  ${scrolled ? 'active' : ''}`}
+                className={`${classes.logo}  ${scrolled ? 'lg:block' : ''}`}
               />
             </a>
             {/** ************* RIGHT *************** */}

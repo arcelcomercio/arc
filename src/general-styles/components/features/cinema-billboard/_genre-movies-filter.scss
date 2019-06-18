@@ -1,11 +1,7 @@
 $movie-size: 134px;
 
 .movies-grid {
-
-  /* &__nav {
-    @media (--tablet) {
-    }
-  } */
+  /* &__nav { } */
 
   &__nav-link {
     transition: 0.5s;
@@ -27,10 +23,7 @@ $movie-size: 134px;
     }
   }
 
-  /* &__form {
-    @media (--tablet) {
-    }
-  } */
+  /* &__form { } */
 
   &__select {
     background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
