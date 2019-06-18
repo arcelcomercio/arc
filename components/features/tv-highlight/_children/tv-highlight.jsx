@@ -2,12 +2,13 @@ import React from 'react'
 import { getIcon } from '../../../utilities/helpers'
 
 const classes = {
-  tv: 'tv-highlight pt-20 pb-20',
+  tv: 'tv-highlight bg-gray-300 pt-20 pb-20 md:pt-40 md:pb-40 md:pr-0 md:pl-0',
   container: 'tv-highlight__container m-0 mx-auto',
   titleBox: 'mb-10',
-  title: 'tv-highlight__title secondary-font text-white title-md',
+  title: 'tv-highlight__title secondary-font text-white title-lg',
   subBox: 'flex justify-between pt-15 pb-15 mb-10',
-  section: 'tv-highlight__section flex uppercase position-relative text-white text-sm',
+  section:
+    'tv-highlight__section flex uppercase position-relative text-white text-sm',
   imageBox: 'block position-relative',
   image: 'w-full h-full object-contain object-center',
   icon:
@@ -16,7 +17,7 @@ const classes = {
   related: 'tv-highlight__related uppercase mb-5 font-bold text-sm',
   list: 'flex',
   item: 'tv-highlight__item mr-15',
-  link: 'tv-highlight__link text-sm',
+  link: 'tv-highlight__link text-sm text-gray-200',
 }
 
 const TVHighlightChild = props => {

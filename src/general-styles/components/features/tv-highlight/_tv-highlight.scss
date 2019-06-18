@@ -1,8 +1,6 @@
 .tv-highlight {
-  background-color: $color-gray-300;
 
   @media (--tablet) {
-    padding: 40px 0;
   }
 
   &__container {
@@ -10,11 +8,7 @@
     max-width: 800px;
   }
 
-  &__title {
-    @media (--tablet) {
-      font-size: 32px;
-    }
-  }
+  /* &__title {} */
 
   &__section {
     &:before {
@@ -57,13 +51,7 @@
     color: #4aa8fa;
   }
 
-  &__item {
-    &:nth-last-child(1) {
-      margin-right: 0;
-    }
-  }
-
-  &__link {
-    color: $color-gray-200;
+  &__item:nth-last-child(1) {
+    margin-right: 0;
   }
 }

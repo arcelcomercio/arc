@@ -4,7 +4,8 @@ const classes = {
   item: 'i-survey-input mt-20',
   input: 'hidden',
   label: 'cursor-pointer block overflow-hidden',
-  check: 'i-survey-input__check inline-b position-relative mr-15 rounded-md',
+  check:
+    'i-survey-input__check inline-block position-relative mr-15 rounded-md',
 }
 
 const InternalSurveyChildInput = ({ value = '', index = '', onChange }) => {

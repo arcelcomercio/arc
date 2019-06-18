@@ -2,7 +2,6 @@
   position: sticky;
   height: $nav-height-mobile;
   z-index: 20;
-  background-color: $nav-color;
 
   @media (--desktop) {
     height: $nav-height;
@@ -110,14 +109,12 @@
 
   &__header-sub {
     @media (--tablet) {
-      display: inline-block;
     }
   }
 
   &__input-search {
     outline: none;
     height: 32px;
-    line-height: 20px;
     text-indent: 0;
     display: initial;
     transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715),

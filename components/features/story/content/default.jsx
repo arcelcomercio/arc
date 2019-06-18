@@ -26,7 +26,7 @@ import StoryContentChildIcon from './_children/icon-list'
 const classes = {
   news: 'story-content w-full pr-20',
   content: 'story-content__content position-relative flex flex--row-reverse',
-  textClasses: 'story-content__font--secondary mb-25',
+  textClasses: 'story-content__font--secondary mb-25 title-xs line-h-md mt-20',
   newsImage: 'story-content__image w-full m-0 story-content__image--cover ',
   newsEmbed: 'story-content__embed',
   tags: 'story-content',

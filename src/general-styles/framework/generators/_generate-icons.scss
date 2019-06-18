@@ -1,4 +1,6 @@
-/******* Icons Map *******/
+/** ----------------------------*
+*             ÍCONOS            *
+*-------------------------------*/
 
 $map-icons: (img: $img,
   video: $video,
@@ -24,12 +26,12 @@ $map-icons: (img: $img,
   print: $print,
 ) !default;
 
-@mixin generateicons() {
+@mixin generate-icons() {
 
-  @each $name,
-  $value in $map-icons {
-    .icon-#{$name}:before {
-      content: #{'"\\' + #{$value}+'"'
+  @each $icon-name,
+  $icon-value in $map-icons {
+    .icon-#{$icon-name}:before {
+      content: #{'"\\' + #{$icon-value}+'"'
     }
 
     ;
@@ -39,4 +41,4 @@ $map-icons: (img: $img,
 @content;
 }
 
-@include generateicons();
+@include generate-icons();

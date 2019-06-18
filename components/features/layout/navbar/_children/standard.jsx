@@ -7,11 +7,12 @@ import Ads from '../../../../global-components/ads'
 
 const classes = {
   nav:
-    'nav text-white text-sm w-full flex flex items-center top-0 secondary-font font-bold',
+    'nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font font-bold',
   wrapper:
     'flex items-center justify-between nav__wrapper bg-primary w-full h-inherit pr-15 pl-15',
   form: 'flex position-relative',
-  search: 'nav__input-search w-0 text-md pt-5 pb-5 border-0 bg-gray-100 rounded-sm',
+  search:
+    'nav__input-search w-0 text-md pt-5 pb-5 border-0 bg-gray-100 rounded-sm line-h line-h-xs',
   navBtnContainer: 'flex items-center justify-start nav__container-menu',
   searchContainer: 'flex items-center justify-start',
   btnSearch: 'flex items-center btn nav__btn nav__btn--search text-white',
@@ -27,7 +28,8 @@ const classes = {
   ads: 'nav__ads mr-5 ml-5',
   btnContainer: 'flex items-center justify-end header__btn-container',
   btnLogin: 'flex items-center btn btn--outline',
-  btnSubscribe: 'flex items-center btn btn--outline nav__header-sub hidden',
+  btnSubscribe:
+    'flex items-center btn btn--outline nav__header-sub hidden md:inline-block',
   iconLogin: 'icon icon-user',
 }
 

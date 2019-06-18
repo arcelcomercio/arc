@@ -16,9 +16,12 @@
     }
   }
 
+  // &__title {}
+  // &__function {}
+  // &__title {}
+
   &__right {
     @media (--tablet) {
-      margin-top: 0;
       margin-left: $spacing-md;
       padding-left: $spacing-md;
       border-left: solid 1px #d5e1e1;
@@ -27,7 +30,6 @@
 
   &__img {
     max-height: 240px;
-    border-color: #d5e1e1;
   }
 
   &__subtitle {

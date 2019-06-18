@@ -8,7 +8,6 @@
 
   &__select {
     height: 40px;
-    background-color: $color-base-100;
 
     &.active {
       background-color: $color-white;
@@ -28,7 +27,6 @@
 
   &__list {
     top: 40px;
-    background-color: $color-white;
     z-index: 10;
 
     &.active {
@@ -161,19 +159,15 @@
       width: 90px;
       right: 0;
       border-left: solid 1px #e8f2f7;
-      font-size: 24px;
     }
   }
 
   &__search-input {
     height: 40px;
-    line-height: 50px;
 
     @media (--desktop) {
-      height: 90px;
-      font-size: 20px;
+      height: 76px;
       font-weight: 700;
-      line-height: 90px;
       padding-right: 95px;
       border: 0;
     }

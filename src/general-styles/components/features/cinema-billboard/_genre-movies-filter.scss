@@ -1,13 +1,11 @@
 $movie-size: 134px;
 
 .movies-grid {
-  background-color: $color-white;
 
-  &__nav {
+  /* &__nav {
     @media (--tablet) {
-      display: block;
     }
-  }
+  } */
 
   &__nav-link {
     transition: 0.5s;
@@ -29,20 +27,17 @@ $movie-size: 134px;
     }
   }
 
-  &__form {
+  /* &__form {
     @media (--tablet) {
-      display: none;
     }
-  }
+  } */
 
   &__select {
-    background-color: $color-info;
     background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
     background-position: right center;
     background-repeat: no-repeat;
     margin-right: 1%;
     padding: 0 32px 0 8px;
-    line-height: 45px;
   }
 
   &__grid {
@@ -60,10 +55,6 @@ $movie-size: 134px;
 
   &__movie {
     width: $movie-size;
-  }
-
-  &__title {
-    line-height: 15px;
   }
 
   &__tag {

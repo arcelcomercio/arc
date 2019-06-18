@@ -1,11 +1,9 @@
 .opinion-card {
   grid-template-columns: 1fr;
   grid-template-rows: 60px 10fr;
-  background-color: $color-white;
 
   &__head {
     grid-template-columns: 1fr;
-    border-color: #d8d7d4;
   }
 
   &__title {
@@ -21,7 +19,6 @@
 
   &__item {
     grid-template-columns: 8fr 4fr;
-    border-color: #d8d7d4;
   }
 
   &__section-name,

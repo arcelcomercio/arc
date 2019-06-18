@@ -1,4 +1,5 @@
 .author-card {
+
   // border-bottom: solid 1px #333;
   // &:nth-child(even){
   // 	border-right: solid 1px #333;
@@ -7,7 +8,6 @@
     background-color: gold;
 
     @media (--tablet) {
-      flex-direction: row-reverse;
       height: 340px;
       //max-width: 310px;
     }
@@ -19,23 +19,17 @@
 
   &__box-image {
     @media (--tablet) {
-      padding: 0;
       width: 140px;
       height: 250px;
       position: absolute;
-      bottom: 0;
-      right: 0;
     }
   }
 
   &__image {
     width: 60px;
     height: 60px;
-    background-color: $color-white;
 
     @media (--tablet) {
-      width: 100%;
-      height: 100%;
       border-radius: 0;
       background-color: transparent;
       object-fit: contain;
@@ -53,7 +47,6 @@
     width: 90%;
 
     @media (--tablet) {
-      font-size: 18px;
       width: 70%;
     }
   }

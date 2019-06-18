@@ -4,24 +4,24 @@ import StoryData from '../utilities/story-data'
 
 const classes = {
   featuredStory:
-    'featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex',
+    'featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-20',
   detail:
-    'featured-story__detail flex flex-col justify-between position relative',
-  image: 'featured-story__image overflow-hidden w-full h-full ml-10',
-  multimediaIconContainer:
-    'featured-story__multimedia-icon position-absolute text-gray-300',
-  multimediaIconSpan:
-    'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full rounded text-gray-300',
+    'featured-story__detail flex flex-col justify-between position relative md:pb-20 md:pt-20',
+  image: 'featured-story__image overflow-hidden w-full h-full ml-10 md:ml-0',
+  iconContainer:
+    'featured-story__multimedia-icon position-absolute text-gray-300 rounded',
+  icon:
+    'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full text-gray-300',
 
-  category: 'featured-story__category pb-15 hidden text-lg',
+  category: 'featured-story__category pb-15 hidden text-lg md:block',
   title: 'featured-story__title overflow-hidden mb-10 title-sm line-h-xs',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
   author: 'featured-story__author uppercase',
-  authorLink: 'featured-story__link--author text-gray-200',
+  authorLink: 'text-sm text-gray-200',
 
-  link: 'featured-story__link text-md line-h-sm',
+  link: 'featured-story__link title-xs line-h-sm',
   imageLink: 'block h-full',
   img: 'w-full h-full object-cover',
 
@@ -31,7 +31,7 @@ const classes = {
   twoCol: 'col-2',
   // Headbands
   headband: 'featured-story__headband mb-5 text-lg',
-  headbandLink: 'featured-story__headband-link font-bold',
+  headbandLink: 'featured-story__headband-link font-bold text-white',
 
   live: 'featured-story--live',
 
@@ -95,8 +95,8 @@ export default class FeaturedStory extends PureComponent {
           return ''
       }
       return (
-        <span className={classes.multimediaIconContainer}>
-          <i className={`${classes.multimediaIconSpan} ${icon}`} />
+        <span className={classes.iconContainer}>
+          <i className={`${classes.icon} ${icon}`} />
         </span>
       )
     }

@@ -7,8 +7,9 @@ import DateNameFunc from '../../../../utilities/date-name'
 
 const classes = {
   InternalSurvey: 'internal-survey bg-tertiary grid primary-font p-30 mb-30',
-  detail: 'internal-survey__detail position-relative pr-30 pl-30',
-  result: 'internal-survey__result bg-primary grid justify-center position-relative',
+  detail: 'internal-survey__detail bg-white position-relative pr-30 pl-30',
+  result:
+    'internal-survey__result bg-primary grid justify-center position-relative',
   date: 'internal-survey__date block mt-15 mb-15 text-md line-h-none',
   title: 'internal-survey__title inline font-bold',
   buttons:
@@ -16,13 +17,14 @@ const classes = {
   buttonpool:
     'internal-survey__button-pool font-bold uppercase border-0 text-white',
   viewresult:
-    'internal-survey__view-result block text-center border-1 border-solid text-sm text-gray-300',
+    'internal-survey__view-result block text-center border-1 border-solid text-sm text-gray-300 line-h-double',
   share: 'internal-survey__share',
   disable: 'internal-survey__disable',
   nav: 'internal-survey__nav hidden',
   navprev: 'internal-survey__nav-prev left-0',
   navnex: 'internal-survey__nav-next right-0',
-  icon: 'internal-survey__icon block position-absolute w-full left-0 title-sm',
+  icon:
+    'internal-survey__icon block position-absolute w-full left-0 title-sm line-h-none',
   slug:
     'internal-survey__slug h-full position-absolute text-center top-0 text-white',
 }

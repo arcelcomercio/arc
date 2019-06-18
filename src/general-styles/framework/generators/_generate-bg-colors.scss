@@ -1,4 +1,6 @@
-/******* Background Colors *******/
+/** ----------------------------*
+*      BACKGROUND COLORS        *
+*-------------------------------*/
 
 $map-bg-color: (bg-primary: $color-primary,
     bg-secondary: $color-secondary,
@@ -20,9 +22,9 @@ $map-bg-color: (bg-primary: $color-primary,
 ) !default;
 
 
-@each $color-class,
-$value in $map-bg-color {
-    .#{$color-class} {
-        background-color: $value
+@each $bg-class,
+$bg-value in $map-bg-color {
+    .#{$bg-class} {
+        background-color: $bg-value
     }
 }

@@ -1,53 +1,34 @@
 .author-title {
-  background-color: $color-white;
-
   &__box-title {
     flex-basis: calc(100% - 90px);
-    border-color: #ddd;
 
     @media (--tablet) {
       flex-basis: 100%;
       height: 50px;
-      flex-direction: row;
-      align-items: center;
-      padding: 0;
-      padding-left: 15px;
     }
   }
 
   &__section {
     flex-basis: 90px;
-    border-color: #ddd;
 
     @media (--tablet) {
       flex-basis: auto;
-      flex-shrink: 1;
-      flex-grow: 1;
       background-color: $color-white;
       color: $color-gray-300;
-      font-size: 18px;
       font-weight: 700;
-      line-height: 1;
-      margin-top: 10px;
     }
 
     @media (--desktop) {
-      font-size: 20px;
       margin: 0 auto;
     }
   }
 
   &__url {
     color: #8f071f;
-
-    @media (--tablet) {
-      font-size: 22px;
-    }
   }
 
   &__img {
     @media (--tablet) {
-      width: auto;
       height: 48px;
       bottom: 1px;
     }

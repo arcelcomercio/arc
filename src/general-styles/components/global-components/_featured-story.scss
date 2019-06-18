@@ -74,8 +74,6 @@ $image-height: 157px;
 
   @media (--tablet) {
     background-color: $color-white;
-    flex-direction: column;
-    padding: 20px;
     grid-row: span 1;
     height: 374px;
 
@@ -91,8 +89,6 @@ $image-height: 157px;
 
     @media (--tablet) {
       width: unset;
-      padding-top: 10px;
-      padding-bottom: 10px;
     }
   }
 
@@ -103,13 +99,11 @@ $image-height: 157px;
     @media (--tablet) {
       height: $image-height;
       width: unset;
-      margin-left: 0;
     }
   }
 
   &__category {
     @media (--tablet) {
-      display: block;
     }
 
     &::after {
@@ -149,18 +143,6 @@ $image-height: 157px;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
-
-    @media (--tablet) {
-      font-size: $header-xs;
-    }
-
-    &--author {
-      font-size: $font-xs;
-    }
-  }
-
-  &__headband-link {
-    color: $color-white;
   }
 
   &__multimedia-icon {

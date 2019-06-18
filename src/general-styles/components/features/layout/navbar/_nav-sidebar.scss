@@ -29,16 +29,9 @@
     }
   }
 
-  &__search {
-    @media (--desktop) {
-      display: none;
-    }
-  }
-
   &__input {
     outline: none;
     height: 40px;
-    line-height: 20px;
     text-indent: 0;
     background-color: #f0f0f0;
     display: initial;

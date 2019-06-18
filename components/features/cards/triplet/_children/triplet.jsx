@@ -4,9 +4,9 @@ import { getIcon } from '../../../../utilities/helpers'
 export const TripletChildTriplet = props => {
   const { data = [], multimediaOrientation = 'right', arcSite } = props
   const classes = {
-    triplet: 'triplet border-solid borde-1',
+    triplet: 'triplet bg-white border-solid border-1 border-gray',
     link: 'triplet__link',
-    tripletItem: `triplet__item p-15 grid border-b-1 border-solid triplet__item--${multimediaOrientation}`,
+    tripletItem: `triplet__item p-15 grid border-b-1 border-solid border-gray triplet__item--${multimediaOrientation}`,
     tripletTitle: 'triplet__title overflow-hidden font-bold',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
@@ -15,7 +15,7 @@ export const TripletChildTriplet = props => {
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
     tripletIcon:
-      'triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs',
+      'triplet__icon position-absolute flex items-center justify-center rounded text-black text-sm',
   }
 
   let numline = ''
@@ -74,7 +74,7 @@ export const TripletChildTriplet = props => {
 export const Icon = props => {
   const classes = {
     tripletBoxIcon:
-      'triplet__box-icon position-absolute text-center rounded text-gray-300',
+      'triplet__box-icon bg-white position-absolute text-center rounded text-gray-300',
     tripletIcon:
       'triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs',
   }

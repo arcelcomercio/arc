@@ -2,7 +2,6 @@
   z-index: 20;
 
   &__wrap {
-    background-color: $color-primary;
     height: 50px;
   }
 
@@ -14,11 +13,8 @@
 
   &__link-container {
     float: right;
-    margin-top: 7px;
     border-color: $color-white;
     height: 34px;
-    line-height: 34px;
-    padding: 0 8px;
   }
 }
 .nav {

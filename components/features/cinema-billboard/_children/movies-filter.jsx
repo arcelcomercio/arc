@@ -3,21 +3,23 @@ import Consumer from 'fusion:consumer'
 import BillboardFormat from '../../../utilities/billboard-format'
 
 const classes = {
-  container: 'movies-filter w-full p-20',
+  container: 'movies-filter bg-base-300 w-full p-20',
   titleBox:
     'movies-filter__title-box mb-20 flex-col-reverse flex justify-between',
   title: 'movies-filter__title flex items-center position-relative',
   social: 'flex mb-20',
   facebook: 'icon icon--facebook icon--margin-right',
   twitter: 'icon icon--twitter',
-  filter: 'movies-filter__filter-box flex-col flex justify-between',
+  filter:
+    'movies-filter__filter-box flex-col flex justify-between lg:pt-5 lg:pb-5 lg:pr-5 lg:pl-5',
   label:
-    'movies-filter__label movies-filter--font-config uppercase font-bold hidden',
+    'movies-filter__label uppercase font-bold hidden line-h-none text-sm md:pt-0 md:pb-0 md:pr-10 md:pl-10 md:inline-block lg:pt-0 lg:pb-0 lg:pr-10 lg:pl-10',
   form:
-    'movies-filter__form movies-filter--font-config flex font-bold flex-col w-full',
-  select: 'movies-filter__select w-full text-gray-300',
+    'movies-filter__form flex font-bold flex-col w-full line-h-none text-sm',
+  select:
+    'movies-filter__select bg-white w-full text-gray-300 line-h-none pt-0 pr-40 pb-0 pl-15 mb-10 lg:mb-0 lg:mr-5',
   button:
-    'movies-filter__btn movies-filter--font-config uppercase font-bold w-full text-gray-300',
+    'movies-filter__btn bg-primary uppercase font-bold w-full text-gray-300 line-h-none text-sm',
 }
 
 @Consumer

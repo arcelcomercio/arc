@@ -5,22 +5,22 @@ import { setDevice } from '../../../utilities/resizer'
 
 const classes = {
   footer: 'footer w-full grid',
-  info: 'footer__info footer__footer-background-color p-20',
-  sections: 'footer__sections footer__footer-background-color',
-  contact: 'footer__contact footer__footer-background-color',
+  info: 'footer__info bg-gray-300 p-20',
+  sections: 'footer__sections bg-gray-300',
+  contact: 'footer__contact bg-gray-300',
   sites: 'footer__sites flex justify-center mt-15',
   sitesList: 'footer__sites-list flex justify-center flex-wrap w-full p-0',
   sitesItem:
-    'footer__sites-item mr-5 ml-5 mb-5 pr-10 border-r-1 border-solid text-md text-gray-200',
+    'footer__sites-item mr-5 ml-5 mb-5 pr-10 border-r-1 border-solid border-gray text-md text-gray-200 line-h-xs',
   sitesLink: 'footer__sites-link text-gray-200',
-  legalList: 'footer__legal-list',
-  legalItem: 'footer__legal-item mb-10',
+  legalList: 'footer__legal-list text-md',
+  legalItem: 'footer__legal-item mb-10 text-gray-100 line-h-none text-sm',
   logoContainer: 'footer__logo footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list p-20',
-  listItem: 'footer__list-item pt-10 pb-10 border-b-1 border-solid',
+  listItem: 'footer__list-item pt-10 pb-10 border-b-1 border-solid border-gray',
   listTitle:
-    'footer__list-item footer__list-item--title pt-10 pb-10 border-b-1 border-solid uppercase font-bold',
+    'footer__list-title pt-10 pb-10 border-b-1 border-solid border-gray uppercase font-bold text-gray-200',
   listLink: 'footer__list-link capitalize text-gray-200',
 }
 

@@ -7,8 +7,9 @@ import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   bmInterestYou: 'br-stories-grid clearfix hidden',
-  generalTitle: 'br-stories-grid__title uppercase',
-  container: 'br-stories-grid__container grid grid--content',
+  generalTitle: 'br-stories-grid__title uppercase line-h-md',
+  container:
+    'br-stories-grid__container grid grid--content lg:pt-0 lg:pb-20 lg:pr-20 lg:pl-20',
 }
 
 @withSizes(({ width }) => ({ isDesktop: width >= 1024 }))

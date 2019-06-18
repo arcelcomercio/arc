@@ -5,9 +5,9 @@ import { getActualDate } from '../utilities/helpers'
 const classes = {
   paginationDate: 'pagination-date w-full',
   paginationDateList: 'text-center',
-  paginationDateItem: 'pagination-date__item inline-b mr-5 ml-5',
+  paginationDateItem: 'pagination-date__item inline-block mr-5 ml-5',
   paginationDateLink:
-    'uppercase flex items-center justify-center font-bold pagination-date__link text-xs text-gray-200',
+    'uppercase flex items-center justify-center font-bold pagination-date__link text-md text-gray-200',
 }
 class PaginationByDate extends PureComponent {
   constructor(props) {

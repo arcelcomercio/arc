@@ -1,5 +1,4 @@
 .post-header {
-  background-color: $color-white;
 
   &__title {
     @media (--tablet) {
@@ -17,20 +16,16 @@
 
   &__item {
     flex-basis: 0;
-    background-color: #eee;
     margin-right: 2px;
   }
 
   &__more {
     width: 45px;
-    background-color: #ccc;
   }
 
   &__share {
     color: #666;
 
-    @media (--tablet) {
-      display: inline-block;
-    }
+    /* @media (--tablet) {} */
   }
 }

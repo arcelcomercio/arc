@@ -1,5 +1,4 @@
 .navbar-somos {
-  background-color: $color-black;
   height: 45px;
 
   button:focus {
@@ -15,7 +14,6 @@
   }
 
   &__search-button {
-    background-color: $color-white;
     width: 35px;
     height: 35px;
   }

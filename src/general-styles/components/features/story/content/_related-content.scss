@@ -8,20 +8,13 @@
     border-color: #eeeeee;
 
     @media (--tablet) {
-      display: flex;
-      justify-content: space-between;
     }
   }
 
   &__information {
     @media (--tablet) {
       max-width: 56%;
-      margin-bottom: 0;
     }
-  }
-
-  &__author {
-    color: $color-gray-200;
   }
 
   &__multimedia {

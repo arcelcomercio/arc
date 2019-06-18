@@ -1,23 +1,12 @@
-$legal-text-color: #c8c8c8;
-
-$footer-legal-text-size: 12px;
-$footer-list-text-size: 14px;
-
-$desktop-media: 'min-width: 1024px';
-
 .footer {
-  grid-template: 'info' auto 'contact' auto 'sites' auto;
+  grid-template: 'info'auto 'contact'auto 'sites'auto;
 
   @media (--tablet) {
-    grid-template: 'info contact' auto 'sites sites ' auto / 1fr 1fr;
+    grid-template: 'info contact'auto 'sites sites 'auto / 1fr 1fr;
   }
 
   @media (--desktop) {
-    grid-template: 'info sections contact' auto 'sites sites sites' auto / 1fr 1fr 1fr;
-  }
-
-  &__footer-background-color {
-    background-color: $color-gray-300;
+    grid-template: 'info sections contact'auto 'sites sites sites'auto / 1fr 1fr 1fr;
   }
 
   &__info {
@@ -44,9 +33,6 @@ $desktop-media: 'min-width: 1024px';
   }
 
   &__sites-item {
-    line-height: 120%;
-    border-color: $color-gray-200;
-
     &:first-child {
       font-weight: bold;
     }
@@ -56,23 +42,17 @@ $desktop-media: 'min-width: 1024px';
     }
   }
 
+  // &__sites-link {}
+
   &__logo-container {
     width: 95%;
     max-width: 235px;
   }
 
-  &__legal-item {
-    font-size: $footer-legal-text-size;
-    color: $legal-text-color;
-    line-height: 17px;
-  }
-
-  &__list-item {
-    font-size: $footer-list-text-size;
-    border-color: $color-gray-200;
-
-    &--title {
-      color: $color-gray-200;
-    }
-  }
+  // &__logo {}
+  // &__legal-list {}
+  // &__legal-item {}
+  // &__list {}
+  // &__list-item {}
+  // &__list-title {}
 }

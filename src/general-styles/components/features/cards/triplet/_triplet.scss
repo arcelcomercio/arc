@@ -1,7 +1,5 @@
 //Triplete
 .triplet {
-  border-color: $color-gray-200;
-  //background-color: $color-white;
 
   &__link {
     color: inherit;
@@ -10,7 +8,6 @@
   &__item {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 80px 1fr;
-    border-color: $color-gray-200;
 
     &:last-child {
       border-bottom: 0px;
@@ -75,7 +72,6 @@
     @media (--tablet) {
       width: 40px;
       height: 40px;
-      font-size: 14px;
     }
   }
 
@@ -84,7 +80,6 @@
   }
 
   &__box-icon {
-    background-color: $color-white;
     opacity: 0.5;
     filter: alpha(opacity=50);
     pointer-events: none;
@@ -98,16 +93,12 @@
       vertical-align: middle;
       width: 40px;
 
-      &--play {
-        &:before {
-          content: '\2023';
-        }
+      &--play:before {
+        content: '\2023';
       }
 
-      &--gallery {
-        &:before {
-          content: '\1F4F7';
-        }
+      &--gallery:before {
+        content: '\1F4F7';
       }
     }
   }

@@ -1,18 +1,14 @@
 .br-stories-grid {
   @media (--desktop) {
-    display: inline-block;
     background-color: $color-white;
 
     &__title {
       background-color: transparent;
       color: #666;
-      line-height: 55px;
-      padding: 0 20px;
     }
 
     &__container {
       grid-template-columns: 1fr 1fr;
-      padding: 0 20px 20px 20px;
     }
 
     &__card {
@@ -21,11 +17,6 @@
 
     &__category-container {
       letter-spacing: 1px;
-      margin-bottom: 5px;
-    }
-
-    &__detail {
-      padding-top: 10px;
     }
 
     &__image-container {

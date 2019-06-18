@@ -1,6 +1,8 @@
-.grid {
-    display: grid;
+/** ----------------------------*
+*          GRID LAYOUT          *
+*-------------------------------*/
 
+.grid {
     &--content {
         gap: $spacing-md;
         grid-auto-rows: min-content;
@@ -25,7 +27,7 @@
     &--col-2 {
         @media (--tablet) {
             grid-template-columns: repeat(2,
-            minmax(300px, calc((100vw - #{$gap}) / 2)));
+                minmax(300px, calc((100vw - #{$gap}) / 2)));
         }
     }
 
@@ -34,7 +36,7 @@
     &--col-3 {
         @media (--desktop) {
             grid-template-columns: repeat(3,
-            minmax(285px, calc((1024px - (#{$gap} * 2)) / 3)));
+                minmax(285px, calc((1024px - (#{$gap} * 2)) / 3)));
         }
     }
 }

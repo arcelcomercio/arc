@@ -7,7 +7,6 @@
   &__hamburguer {
     width: 20px;
     height: 4px;
-    background-color: $color-gray-300;
     left: 20px;
     right: 20px;
     top: 25px;
@@ -33,14 +32,12 @@
 
   &__wrapper {
     padding: 0 14px;
-    background-color: $color-white;
     border-color: #dadada;
   }
 
   &__container-menu {
     @media (--desktop) {
       border-right: solid 1px $color-gray-200;
-      padding-right: 10px;
     }
   }
 }

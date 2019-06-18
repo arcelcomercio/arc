@@ -15,11 +15,10 @@
 
 .extraordinary-story {
   grid-template-columns: 1fr 1fr;
-  background-color: $color-white;
   border-color: $color-gray-200;
-  //border-style: solid;
-  //border-width: 5px 7px;
-  //grid-gap: 10px;
+  // border-style: solid;
+  // border-width: 5px 7px;
+  // grid-gap: 10px;
 
   a {
     color: inherit;
@@ -64,7 +63,6 @@
   }
 
   &__section {
-    background-color: $color-error;
     padding: 8px;
     grid-area: extraordinary-story-section;
     //height: 15px;
@@ -102,7 +100,6 @@
 
   &__multimedia {
     grid-area: extraordinary-story-multimedia;
-    background-color: $color-gray-300;
 
     .youtube-iframe {
       min-height: 370px;
@@ -115,7 +112,5 @@
     background-color: rgba(255, 255, 255, 0.24);
   }
 
-  &__icon-gallery {
-    font-size: 33px;
-  }
+  /* &__icon-gallery {} */
 }

@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react'
 
 const classes = {
   pagination:
-    'pagination flex justify-center w-full flex-wrap mb-15 m-0 mx-auto',
-  page: 'pagination__page uppercase h-full text-md',
+    'pagination flex justify-center w-full flex-wrap mb-15 m-0 mx-auto md:justify-between md:pt-30 md:pb-30 md:pr-0 md:pl-0',
+  page: 'pagination__page uppercase h-full text-md text-gray-200',
 }
 
 export default class Pagination extends PureComponent {
