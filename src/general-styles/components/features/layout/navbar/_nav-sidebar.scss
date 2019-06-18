@@ -29,12 +29,6 @@
     }
   }
 
-  &__search {
-    @media (--desktop) {
-      display: none;
-    }
-  }
-
   &__input {
     outline: none;
     height: 40px;
