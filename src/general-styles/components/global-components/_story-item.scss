@@ -20,7 +20,6 @@
 
   &__top {
     @media (--tablet) {
-      flex-direction: column;
       align-items: flex-start;
     }
   }
@@ -29,8 +28,6 @@
 
   &__date {
     @media (--tablet) {
-      margin-top: 3px;
-      margin-left: 0;
     }
   }
 
@@ -49,7 +46,6 @@
 
   &__subtitle {
     @media (--tablet) {
-      display: block;
     }
   }
 

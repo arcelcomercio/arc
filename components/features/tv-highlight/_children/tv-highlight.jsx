@@ -2,7 +2,7 @@ import React from 'react'
 import { getIcon } from '../../../utilities/helpers'
 
 const classes = {
-  tv: 'tv-highlight bg-gray-300 pt-20 pb-20',
+  tv: 'tv-highlight md:pt-40 md:pb-40 md:pr-0 md:pl-0 bg-gray-300 pt-20 pb-20',
   container: 'tv-highlight__container m-0 mx-auto',
   titleBox: 'mb-10',
   title: 'tv-highlight__title secondary-font text-white title-lg',
