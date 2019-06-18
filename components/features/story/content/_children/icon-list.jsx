@@ -4,7 +4,8 @@ import { popUpWindow } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  news: 'story-content__icon-list md:block md:pt-20 md:pb-0 md:pr-20 md:pl-20 hidden',
+  news:
+    'story-content__icon-list hidden md:block md:pt-20 md:pb-0 md:pr-20 md:pl-20',
   list: 'story-content__list',
   item: 'story-content__item mb-20',
   link: 'story-content__link text-gray-200',

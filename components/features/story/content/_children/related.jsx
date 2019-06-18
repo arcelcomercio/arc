@@ -5,8 +5,9 @@ import UtilListKey from '../../../../utilities/list-keys'
 // Basic flex stuff
 const classes = {
   related: 'related-content pt-20 pb-20',
-  item: 'related-content__item md:justify-between md:flex pt-15 pb-15 border-solid',
-  info: 'related-content__information md:mb-0 mb-20',
+  item:
+    'related-content__item pt-15 pb-15 border-solid md:justify-between md:flex',
+  info: 'related-content__information mb-20 md:mb-0',
   itemTitle: 'related-content__item-title mb-10 text-md line-h-md',
   multimedia: 'related-content__multimedia position-relative',
   link: 'block w-full h-full',

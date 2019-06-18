@@ -4,13 +4,15 @@ import { getIcon } from '../../../../utilities/helpers'
 
 // Basic flex stuff
 const classes = {
-  related: 'related-internal md:pb-10 md:pt-10 md:pr-20 md:pl-20 position-relative mt-20',
+  related:
+    'related-internal position-relative mt-20 md:pb-10 md:pt-10 md:pr-20 md:pl-20',
   title: 'related-internal__title font-bold uppercase mb-10',
   multimedia: 'position-relative',
   image: 'w-full',
   icon:
     'related-internal__multimedia-icon position-absolute p-5 rounded-lg title-xl',
-  info: 'related-internal__information md:pt-20 md:pb-20 md:pr-10 md:pl-10 pt-20 pb-20',
+  info:
+    'related-internal__information pt-20 pb-20 md:pt-20 md:pb-20 md:pr-10 md:pl-10',
 }
 
 const RelartedItem = ({ data } /* , i */) => {
