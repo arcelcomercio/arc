@@ -3,14 +3,13 @@ import Form from './form'
 import Confirmation from './confirmation'
 
 const classes = {
-  newsletter: 'newsletter flex flex-col-reverse items-center',
-  boxSuscripcion: 'newsletter__box-suscription pr-40 pl-40 primary-font',
+  newsletter: `newsletter flex flex-col-reverse items-center lg:justify-between lg:flex-row`,
+  boxSuscripcion: `newsletter__box-suscription pr-40 pl-40 primary-font lg:p-0 lg:pr-15 lg:pl-15`,
   errorMessage: 'newsletter__error-message block pt-5 text-xs',
   errorMessageMedium: 'text-lg mb-20',
-  bannerImage: 'newsletter__banner-image w-full',
-  imageContainer:
-    'newsletter__image-container bg-white overflow-hidden text-center border-solid',
-  image: 'newsletter__image',
+  bannerImage: 'newsletter__banner-image w-full lg:w-inherit',
+  imageContainer: `newsletter__image-container bg-white overflow-hidden text-center border-solid lg:h-inherit`,
+  image: 'newsletter__image lg:w-full',
 }
 const Newsletter = props => {
   const { image, banner, hasBanner, confirmRegister, formMessage } = props

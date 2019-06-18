@@ -8,18 +8,15 @@ const classes = {
   arrow: 'concessionaires__arrow w-0 h-0 position-absolute border-solid',
   container: 'concessionaires__container w-full m-0 mx-auto pr-20 pl-20',
   title: 'concessionaires__title text-center font-bold title-lg text-gray-300',
-  info:
-    'concessionaires__info text-gray-300 text-center mt-10 mb-40 mx-auto text-sm line-h-md ',
-  locations:
-    'concessionaires__locations border-gray-100 pt-25 border-t-1 border-solid',
-  search: 'concessionaires__search flex mb-20 flex-col',
-  searchTitle:
-    'concessionaires__search-title md:mb-20 text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm',
+  info: `concessionaires__info text-gray-300 text-center mt-10 mb-40 mx-auto text-sm line-h-md`,
+  locations: `concessionaires__locations border-gray-100 pt-25 border-t-1 border-solid lg:pt-0`,
+  search: 'concessionaires__search flex mb-20 flex-col lg:flex-row',
+  searchTitle: `concessionaires__search-title md:mb-20 text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm lg:mb-0 lg:text-left`,
   form: 'flex',
-  zona: 'concessionaires__controls flex mr-15 flex-col',
+  zona: 'concessionaires__controls flex mr-15 flex-col lg:w-full',
   label: 'concessionaires__label block text-center text-sm line-h-double',
   select: 'concessionaires__select md:w-full pl-15 bg-white',
-  district: 'concessionaires__controls md:flex-row flex',
+  district: 'concessionaires__controls md:flex-row flex lg:w-full',
   districtLabel: 'concessionaires__label',
   mapTitle:
     'concessionaires__map-title text-gray-300 font-thin mt-10 mb-10 title-sm',

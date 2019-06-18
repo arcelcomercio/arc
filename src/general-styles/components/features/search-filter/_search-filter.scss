@@ -2,42 +2,22 @@
   background-color: #e8f2f7;
 
   @media (--desktop) {
-    flex-direction: row;
     height: 152px;
   }
 
   &__select {
     height: 40px;
-
-    &.active {
-      background-color: $color-white;
-    }
-
-    @media (--desktop) {
-      height: auto;
-      padding: 0;
-    }
   }
 
-  &__select-name {
-    @media (--desktop) {
-      display: none;
-    }
-  }
+  //&__select-name {}
 
   &__list {
     top: 40px;
     z-index: 10;
 
-    &.active {
-      display: flex;
-    }
-
     @media (--desktop) {
       background-color: transparent;
-      display: flex;
       position: relative;
-      flex-direction: row;
       top: initial;
     }
   }
@@ -75,8 +55,7 @@
 
     @media (--desktop) {
       background-color: $color-white;
-      padding: 0;
-      padding-right: 2px;
+      //padding-right: 2px;
       position: initial;
 
       &:nth-last-child(1) {
@@ -87,35 +66,20 @@
 
   &__link {
     @media (--desktop) {
-      justify-content: center;
-      align-items: center;
-      text-align: center;
       width: 110px;
       height: 90px;
-      padding: 10px;
       background-color: $color-base-100;
-      font-weight: 300;
     }
   }
 
   &__sublist {
-    &.active {
-      display: flex;
-    }
-
     @media (--desktop) {
-      flex-direction: row;
       position: absolute;
-      margin-top: 10px;
-      left: 0;
     }
   }
 
   &__subitem {
     @media (--desktop) {
-      padding: 0;
-      margin-right: 15px;
-
       &:nth-last-child(1) {
         margin-right: 0;
       }
@@ -134,12 +98,7 @@
     padding: 7px;
   }
 
-  &__box-search {
-    @media (--desktop) {
-      margin-bottom: 0;
-      align-items: flex-start;
-    }
-  }
+  //&__box-search {}
 
   &__search-button {
     z-index: 1;
@@ -152,12 +111,7 @@
     }
 
     @media (--desktop) {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       width: 90px;
-      right: 0;
       border-left: solid 1px #e8f2f7;
     }
   }
@@ -167,7 +121,6 @@
 
     @media (--desktop) {
       height: 76px;
-      font-weight: 700;
       padding-right: 95px;
       border: 0;
     }

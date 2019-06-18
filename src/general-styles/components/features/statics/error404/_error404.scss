@@ -5,11 +5,7 @@
     border-color: $color-white transparent transparent transparent;
   }
 
-  &__title {
-    @media (--desktop) {
-      padding: 0 20px;
-    }
-  }
+  //&__title { }
 
   &__content {
     max-width: 400px;
