@@ -9,7 +9,7 @@ const classes = {
   errorMessageMedium: 'text-lg mb-20',
   bannerImage: 'newsletter__banner-image w-full',
   imageContainer:
-    'newsletter__image-container bg-white overflow-hidden text-center border-solid',
+    'newsletter__image-container bg-white overflow-hidden text-center border-solid border-gray',
   image: 'newsletter__image',
 }
 const Newsletter = props => {

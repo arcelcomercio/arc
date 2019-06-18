@@ -4,7 +4,7 @@
   z-index: 20;
   background-color: $amp-nav-color;
 
-  &__hamburguer {
+  &__hamburger {
     width: 20px;
     height: 4px;
     left: 20px;
@@ -30,10 +30,7 @@
     }
   }
 
-  &__wrapper {
-    padding: 0 14px;
-    border-color: #dadada;
-  }
+  // &__wrapper {}
 
   &__container-menu {
     @media (--desktop) {

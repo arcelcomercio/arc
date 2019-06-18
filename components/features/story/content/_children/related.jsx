@@ -6,9 +6,10 @@ import UtilListKey from '../../../../utilities/list-keys'
 const classes = {
   related: 'related-content pt-20 pb-20',
   item:
-    'related-content__item pt-15 pb-15 border-solid md:justify-between md:flex',
+    'related-content__item pt-15 pb-15 border-solid border-gray md:justify-between md:flex',
   info: 'related-content__information mb-20 md:mb-0',
-  itemTitle: 'related-content__item-title mb-10 text-md line-h-md',
+  itemTitle:
+    'related-content__item-title mb-10 text-md line-h-md border-t-1 border-solid border-gray',
   multimedia: 'related-content__multimedia position-relative',
   link: 'block w-full h-full',
   image: 'w-full h-full',

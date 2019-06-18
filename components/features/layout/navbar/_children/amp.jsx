@@ -7,8 +7,8 @@ const classes = {
   nav:
     'amp-nav top-0 text-sm w-full flex flex items-center font-bold secondary-font text-white',
   wrapper:
-    'flex items-center justify-between amp-nav__wrapper bg-white w-full h-inherit border-b-1 border-solid',
-  iconMenu: 'amp-nav__hamburguer bg-gray-300 position-absolute',
+    ' amp-nav__wrapper flex items-center justify-between pr-15 pl-15 bg-white w-full h-inherit border-b-1 border-solid border-gray',
+  iconMenu: 'amp-nav__hamburger bg-gray-300 position-absolute',
   navBtnContainer:
     'flex items-center justify-start amp-nav__container-menu lg:pr-10',
   btnContainer: 'flex items-center justify-end header__btn-container',
