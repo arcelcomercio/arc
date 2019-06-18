@@ -4,7 +4,7 @@
 
 .grid {
     &--content {
-        gap: $spacing-md;
+        gap: $gap;
         grid-auto-rows: min-content;
     }
 
@@ -17,7 +17,7 @@
     } */
 
     /* .grid--rows-height {
-        grid-auto-rows: minmax(calc(($height-row - ($spacing-md * ($row-parts - 1))) / $row-parts), auto);
+        grid-auto-rows: minmax(calc(($height-row - (20px * ($row-parts - 1))) / $row-parts), auto);
     } */
 
     &--col-1 {
@@ -47,7 +47,7 @@
     .row-#{$i} {
         //grid-row: span $row-parts*$i;
         grid-row: span $i;
-        height: ($height-row * $i)+ ($spacing-md * ($i - 1));
+        height: ($height-row * $i)+ (20px * ($i - 1));
     }
 }
 
