@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 const classes = {
   // header
   logocontent:
-    'header-somos bg-white border-gray-200 flex justify-between items-center text-center w-full p-10 border-t-1 border-b-1 boder-solid  lg:pt-15 lg:pb-15 lg:pr-10 lg:pl-10',
+    'header-somos bg-white flex justify-between items-center text-center w-full p-10 border-t-1 border-b-1 boder-solid border-gray lg:pt-15 lg:pb-15 lg:pr-10 lg:pl-10',
   iconmenuwrapper: 'header-somos__icon-wrapper lg:hidden',
   menuicon: 'icon-menu header-somos__icon title-xl',
   logoWrapper:

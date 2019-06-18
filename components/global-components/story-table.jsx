@@ -5,9 +5,9 @@ import UtilListKey from '../utilities/list-keys'
 const classes = {
   // TODO: Si la clase table rompe algo, quitar con confianza
   table:
-    'story-table w-full h-auto mt-15 mb-15 mr-0 ml-0 table border-1 border-solid',
+    'story-table w-full h-auto mt-15 mb-15 mr-0 ml-0 table border-1 border-solid border-gray',
   row: 'story-table__row',
-  cell: `story-table__cell secondary-font border-b-1 border-r-1 border-solid text-black text-sm line-h-sm`,
+  cell: `story-table__cell secondary-font border-b-1 border-r-1 border-solid border-gray text-black text-sm line-h-sm`,
 }
 
 const StoryCotentChildTable = props => {

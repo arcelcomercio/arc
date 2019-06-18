@@ -15,10 +15,6 @@
 
 .extraordinary-story {
   grid-template-columns: 1fr 1fr;
-  border-color: $color-gray-200;
-  // border-style: solid;
-  // border-width: 5px 7px;
-  // grid-gap: 10px;
 
   a {
     color: inherit;
@@ -112,5 +108,5 @@
     background-color: rgba(255, 255, 255, 0.24);
   }
 
-  /* &__icon-gallery {} */
+  // &__icon-gallery {}
 }

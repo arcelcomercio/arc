@@ -9,7 +9,7 @@ const classes = {
   container: 'concessionaires__container w-full m-0 mx-auto pr-20 pl-20',
   title: 'concessionaires__title text-center font-bold title-lg text-gray-300',
   info: `concessionaires__info text-gray-300 text-center mt-10 mb-40 mx-auto text-sm line-h-md`,
-  locations: `concessionaires__locations border-gray-100 pt-25 border-t-1 border-solid lg:pt-0`,
+  locations: `concessionaires__locations border-gray pt-25 border-t-1 border-solid lg:pt-0`,
   search: 'concessionaires__search flex mb-20 flex-col lg:flex-row',
   searchTitle: `concessionaires__search-title text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm md:mb-20 lg:mb-0 lg:text-left`,
   form: 'flex',

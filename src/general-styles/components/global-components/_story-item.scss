@@ -1,6 +1,5 @@
 .story-item {
   height: 125px;
-  border-color: #a9a9a9;
 
   &:nth-last-child(1) {
     margin-bottom: 0;
@@ -23,8 +22,7 @@
   /* &__section {} */
 
   &__date {
-    @media (--tablet) {
-    }
+    @media (--tablet) {}
   }
 
   &__left {
@@ -41,8 +39,7 @@
   }
 
   &__subtitle {
-    @media (--tablet) {
-    }
+    @media (--tablet) {}
   }
 
   &__right {

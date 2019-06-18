@@ -28,17 +28,15 @@
   }
 
   &__email {
-    border-color: #e0e0e0;
     height: 50px;
   }
 
   &__error-message {
-    color: #d80000;
+    color: $color-error;
   }
 
   &__image-container {
     border-width: 2px;
-    border-color: 2px solid #dadada;
     height: 370px;
 
     @media (--desktop) {
