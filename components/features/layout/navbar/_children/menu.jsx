@@ -12,7 +12,7 @@ const classes = {
   btnBox: 'nav-sidebar__box-btn pb-15 border-b-1 border-solid',
   btn:
     'flex items-center justify-center btn bg-link text-white nav-sidebar__btn',
-  search: 'nav-sidebar__search pt-15 pr-30 pb-15 pl-30 block',
+  search: 'nav-sidebar__search pt-15 pr-30 pb-15 pl-30 block lg:hidden',
   from: 'nav-sidebar__box-search pb-15 border-b-1 border-solid',
   input:
     'nav-sidebar__input w-full pt-10 pr-15 pb-10 pl-15 border-0 text-md rounded-sm line-h-sm',

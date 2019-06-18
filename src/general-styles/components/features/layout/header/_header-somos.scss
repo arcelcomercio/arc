@@ -1,7 +1,6 @@
 .header-somos {
   @media (--desktop) {
     border-top: none;
-    padding: 15px 10px;
   }
 
   &__img {
@@ -12,20 +11,10 @@
     }
   }
 
-  &__icon-wrapper {
-    @media (--desktop) {
-      display: none;
-    }
-  }
-
   &__logo-wrapper {
     height: 50px;
     width: 50px;
     // display: flex;
-
-    @media (--desktop) {
-      display: none;
-    }
   }
 
   &__btn:focus {
@@ -39,8 +28,6 @@
   @media (--desktop) {
     position: relative;
     background-color: $color-white;
-    height: auto;
-    width: 100%;
     transition: all 5ms;
   }
 
@@ -51,20 +38,11 @@
 
     @media (--desktop) {
       background-color: transparent;
-      width: 100%;
       overflow-y: hidden;
-      padding: 10px;
-      text-align: center;
       max-width: 720px;
       margin: auto;
       transition: all 10ms;
       transform: translate3d(0%, 0, 0);
-    }
-  }
-
-  &__search {
-    @media (--desktop) {
-      display: none;
     }
   }
 
@@ -77,25 +55,9 @@
     top: 21px;
   }
 
-  &__list {
-    @media (--desktop) {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-
-  &__item-link {
-    @media (--desktop) {
-      display: flex;
-      align-items: center;
-    }
-  }
-
   &__link {
     @media (--desktop) {
       color: $color-base-300;
-      display: flex;
-      align-items: center;
     }
 
     &:before {
@@ -112,25 +74,8 @@
       }
     }
   }
-
-  &__link-icon {
-    @media (--desktop) {
-      display: block;
-    }
-  }
-
-  &__login {
-    @media (--desktop) {
-      display: none;
-    }
-  }
-
   &__close {
     height: 50px;
-
-    @media (--desktop) {
-      display: none;
-    }
   }
 
   &--active {
