@@ -1,7 +1,9 @@
-/******* Borders *******/
+/** ----------------------------*
+*            BORDERS            *
+*-------------------------------*/
 
-$pos-limit: 1;
-$pos-interval: 1;
+$border-pos-limit: 1;
+$border-pos-interval: 1;
 
 $map-border-pos: '',
 'top',
@@ -9,19 +11,19 @@ $map-border-pos: '',
 'bottom',
 'left';
 
-@for $i from 0 through $pos-limit {
+@for $i from 0 through $border-pos-limit {
   @each $border-pos in $map-border-pos {
     @if $border-pos=='' {
-      .border-#{$i * $pos-interval} {
-        border-width: unquote($i * $pos-interval + 'px');
+      .border-#{$i * $border-pos-interval} {
+        border-width: unquote($i * $border-pos-interval + 'px');
       }
     }
 
     @else {
 
       // hacer que border-pos sea top, right, bottom, left en border-[aqui]-width
-      .border-#{str-slice($border-pos, 0, 1)}-#{$i * $pos-interval} {
-        border-#{$border-pos}-width: unquote($i * $pos-interval + 'px');
+      .border-#{str-slice($border-pos, 0, 1)}-#{$i * $border-pos-interval} {
+        border-#{$border-pos}-width: unquote($i * $border-pos-interval + 'px');
       }
     }
   }
@@ -29,4 +31,19 @@ $map-border-pos: '',
 
 .border-solid {
   border-style: solid;
+}
+
+/** ----------------------------*
+*         BORDERS COLORS        *
+*-------------------------------*/
+
+$map-border-color: (border-white: $color-white,
+  border-gray: $border-color-gray,
+  border-base: $border-color-base) !default;
+
+@each $border-color,
+$border-color-val in $map-border-color {
+  .#{$border-color} {
+    border-color: $border-color-val;
+  }
 }

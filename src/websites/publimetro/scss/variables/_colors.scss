@@ -13,10 +13,15 @@ $color-base-100: #C3D1C2;
 $color-link: #006097;
 /*-----------------------*/
 
+/** ----------------------------*
+*        GENERAL CONFIG         *
+*-------------------------------*/
+/******** border colors *********/
+$border-color-base: $color-base-100;
+
 /******* Header colors *******/
 $header-bg-color: $color-primary;
 $header-text-color: $color-gray-300;
-
 /*-----------------------*/
 
 /******* Nav colors *******/

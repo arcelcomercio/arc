@@ -4,9 +4,9 @@ import { getIcon } from '../../../../utilities/helpers'
 export const TripletChildTriplet = props => {
   const { data = [], multimediaOrientation = 'right', arcSite } = props
   const classes = {
-    triplet: 'triplet bg-white border-solid borde-1',
+    triplet: 'triplet bg-white border-solid border-1 border-gray',
     link: 'triplet__link',
-    tripletItem: `triplet__item p-15 grid border-b-1 border-solid triplet__item--${multimediaOrientation}`,
+    tripletItem: `triplet__item p-15 grid border-b-1 border-solid border-gray triplet__item--${multimediaOrientation}`,
     tripletTitle: 'triplet__title overflow-hidden font-bold',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',

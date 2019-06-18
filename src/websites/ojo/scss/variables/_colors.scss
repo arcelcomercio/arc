@@ -1,6 +1,6 @@
 /******* Brand colors *******/
-$color-primary: #00854b;
-$color-secondary: #000;
+$color-primary: #007D33;
+$color-secondary: #4CA675;
 $color-tertiary: #f15a24;
 /*-----------------------*/
 $color-base-200: #D0E7D9;
@@ -10,6 +10,12 @@ $color-base-100: #EBEFEA;
 /******* Other colors *******/
 $color-link: #524CFF;
 /*-----------------------*/
+
+/** ----------------------------*
+*        GENERAL CONFIG         *
+*-------------------------------*/
+/******** border colors *********/
+$border-color-base: $color-secondary;
 
 /******* Header colors *******/
 $header-bg-color: $color-primary;

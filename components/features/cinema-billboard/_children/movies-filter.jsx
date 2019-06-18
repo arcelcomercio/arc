@@ -13,7 +13,7 @@ const classes = {
   filter:
     'movies-filter__filter-box flex-col flex justify-between lg:pt-5 lg:pb-5 lg:pr-5 lg:pl-5',
   label:
-    'movies-filter__label md:inline-block uppercase font-bold hidden line-h-none text-sm lg:pt-0 lg:pb-0 lg:pr-10 lg:pl-10',
+    'movies-filter__label uppercase font-bold hidden line-h-none text-sm md:pt-0 md:pb-0 md:pr-10 md:pl-10 md:inline-block lg:pt-0 lg:pb-0 lg:pr-10 lg:pl-10',
   form:
     'movies-filter__form flex font-bold flex-col w-full line-h-none text-sm',
   select:
