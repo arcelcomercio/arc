@@ -6,30 +6,24 @@ import Menu from './menu'
 import Ads from '../../../../global-components/ads'
 
 const classes = {
-  nav:
-    'nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font font-bold',
-  wrapper:
-    'flex items-center justify-between nav__wrapper bg-primary w-full h-inherit pr-15 pl-15',
+  nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font font-bold`,
+  wrapper: `flex items-center justify-between nav__wrapper bg-primary w-full h-inherit pr-15 pl-15`,
   form: 'flex position-relative',
-  search:
-    'nav__input-search w-0 text-md pt-5 pb-5 border-0 bg-gray-100 rounded-sm line-h line-h-xs',
-  navBtnContainer: 'flex items-center justify-start nav__container-menu',
+  search: `nav__input-search w-0 text-md pt-5 pb-5 border-0 bg-gray-100 rounded-sm line-h line-h-xs`,
+  navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10`,
   searchContainer: 'flex items-center justify-start',
-  btnSearch: 'flex items-center btn nav__btn nav__btn--search text-white',
-  btnSection: 'flex items-center btn nav__btn nav__btn--section text-white',
+  btnSearch: `flex items-center btn nav__btn nav__btn--search text-gray-200 hidden p-0 pl-15 lg:flex`,
+  btnSection: 'flex items-center btn nav__btn nav__btn--section p-5',
   iconSearch: 'nav__icon-search text-primary-color icon-search title-sm',
   iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
-  list:
-    'flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5 hidden',
+  list: `flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5 hidden`,
   listItem: 'text-center',
-  listLink:
-    'nav__list-link text-gray-200 text-center uppercase secondary-font font-normal text-sm',
-  logo: 'nav__logo',
-  ads: 'nav__ads mr-5 ml-5',
+  listLink: `nav__list-link text-gray-200 text-center uppercase secondary-font font-normal text-sm`,
+  logo: 'nav__logo lg:hidden',
+  ads: 'nav__ads mr-5 ml-5 hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
   btnLogin: 'flex items-center btn btn--outline',
-  btnSubscribe:
-    'flex items-center btn btn--outline nav__header-sub hidden md:inline-block',
+  btnSubscribe: `flex items-center btn btn--outline nav__header-sub hidden md:inline-block`,
   iconLogin: 'icon icon-user',
 }
 

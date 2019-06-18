@@ -5,7 +5,7 @@ import StoryData from '../utilities/story-data'
 import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
 
 const classes = {
-  storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray`,
+  storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray lg:p-0`,
   top: 'story-item__top flex items-center md:flex-col',
   section: 'story-item__section uppercase text-sm text-black',
   date: 'story-item__date font-thin ml-5 text-xs text-gray-200 md:mt-5 md:ml-0',

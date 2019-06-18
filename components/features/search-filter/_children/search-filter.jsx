@@ -124,32 +124,37 @@ class SearchFilterChildSearchFilter extends PureComponent {
     const { isAdmin, globalContentConfig, contextPath } = this.props
 
     const classes = {
-      searchFilter: 'search-filter flex flex-col-reverse w-full mt-20 p-15',
+      searchFilter: `search-filter flex flex-col-reverse w-full mt-20 p-15 lg:flex-row`,
       containerList: 'position-relative',
-      select: `search-filter__select bg-base-100 position-relative w-full flex items-center pt-0 pb-0 pl-15 pr-15 ${
-        showList ? 'active' : ''
+      select: `search-filter__select position-relative w-full flex items-center pt-0 pb-0 pl-15 pr-15 lg:h-auto p-0 ${
+        showList ? 'bg-white' : 'bg-base-100'
       }`,
-      selectName:
-        'search-filter__select-name flex w-full justify-between text-sm',
+      selectName: `search-filter__select-name flex w-full justify-between text-sm lg:hidden`,
       iconButton: 'icon-angle-down',
-      list: `search-filter__list bg-white left-0 hidden position-absolute w-full flex-col ${
-        showList ? 'active' : ''
-      }`,
+      list: `search-filter__list bg-white left-0 position-absolute w-full flex-col ${
+        showList ? 'flex' : 'hidden'
+      } lg:flex lg:flex-row`,
       iemDesc: `search-filter__item ${
         sort === 'desc' || !sort ? 'active' : ''
-      }`,
-      itemAsc: `search-filter__item ${sort === 'asc' ? 'active' : ''}`,
-      itemRel: `search-filter__item ${sort === 'rel' ? 'active' : ''}`,
-      itemType: `search-filter__item ${selected === 'type' ? 'selected' : ''}`,
+      } lg:p-0 lg-p-5`,
+      itemAsc: `search-filter__item ${
+        sort === 'asc' ? 'active' : ''
+      } lg:p-0 lg-p-5`,
+      itemRel: `search-filter__item ${
+        sort === 'rel' ? 'active' : ''
+      } lg:p-0 lg-p-5`,
+      itemType: `search-filter__item ${
+        selected === 'type' ? 'selected' : ''
+      } lg:p-0 lg-p-5`,
       itemSection: `search-filter__item ${
         selected === 'section' ? 'selected' : ''
-      }`,
-      itemTime: `search-filter__item ${selected === 'time' ? 'selected' : ''}`,
-      link:
-        'search-filter__link flex uppercase w-full pt-10 pb-10 pl-15 pr-15 text-sm text-gray-300',
-      subList:
-        'search-filter__sublist hidden w-full flex-col pt-0 pb-0 pl-20 pr-20 active',
-      subItem: 'search-filter__subitem flex items-center position-relative',
+      } lg:p-0 lg-p-5`,
+      itemTime: `search-filter__item ${
+        selected === 'time' ? 'selected' : ''
+      } lg:p-0 lg-p-5`,
+      link: `search-filter__link flex uppercase w-full pt-10 pb-10 pl-15 pr-15 text-sm text-gray-300 lg:justify-center lg:items-center lg:text-center lg:p-10 lg:font-thin`,
+      subList: `search-filter__sublist flex w-full flex-col pt-0 pb-0 pl-20 pr-20 lg:flex-row lg:mt-10 lg:left-0`,
+      subItem: `search-filter__subitem flex items-center position-relative lg:p-0 lg:mr-15`,
       subLink: 'search-filter__sublink capitalize w-full text-xs text-gray-200',
     }
 

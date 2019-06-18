@@ -13,10 +13,6 @@
     height: 220px;
   }
 
-  @media (--desktop) {
-    padding: 0;
-  }
-
   &__top {
     @media (--tablet) {
       align-items: flex-start;
