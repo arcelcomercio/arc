@@ -24,38 +24,23 @@
 
     @media (--desktop) {
       border-top: none;
-      padding-top: 0;
     }
   }
 
-  &__search {
-    @media (--desktop) {
-      flex-direction: row;
-    }
-  }
+  //&__search {}
 
   &__search-title {
-    @media (--tablet) {
-    }
-
     @media (--desktop) {
       border-left: 1px solid #bababa;
       height: 62px;
       width: 230px;
-      margin-bottom: 0;
-      text-align: left;
     }
   }
 
   &__controls {
     width: 50%;
-
-    @media (--tablet) {
-    }
-
     @media (--desktop) {
       border-left: 1px solid #bababa;
-      width: 100%;
     }
   }
 

@@ -4,20 +4,7 @@
     transform: scaleX(1);
   }
 
-  &__list-item {
-    float: left;
-    width: 33.33%;
-  }
-
-  &__list {
-    width: 80vw;
-    padding: 44px 20px;
-    background-color: #ebebeb;
-  }
-
   &__item {
-    border-color: #ccc;
-
     &:hover {
       transition: all 0.15s ease;
       background-color: rgba(139, 131, 131, 0.96);
@@ -26,13 +13,21 @@
     }
   }
 
+  &__list-item {
+    float: left;
+    width: 33.33%;
+  }
+
+  &__list {
+    width: 80vw;
+    padding: 44px 20px;
+  }
+
   &__link {
     transition: all 0.15s ease;
   }
 
-  &__footer {
-    border-color: rgba(255, 255, 255, 0.2);
-  }
+  // &__footer {}
 
   &__close {
     top: 15px;

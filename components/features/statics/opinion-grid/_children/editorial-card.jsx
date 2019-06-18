@@ -4,14 +4,12 @@ const classes = {
   card: 'p-5',
   wrapper: 'editorial-card__wrapper flex flex-col pt-15 pr-10 pb-15 pl-20',
   group: 'editorial-card__group uppercase font-thin mb-5 text-xs',
-  name:
-    'editorial-card__name block uppercase primary-font font-bold mb-15 title-sm text-gray-300 line-h-xs',
+  name: `editorial-card__name block uppercase primary-font font-bold mb-15 title-sm text-gray-300 line-h-xs`,
   description: 'flex',
   imageBox: 'flex position-relative items-start',
   image: 'editorial-card__image bg-white object-cover object-top rounded',
   detailsBox: 'pr-5 pl-10',
-  title:
-    'editorial-card__title block font-normal primary-font text-lg text-gray-300 line-h-sm',
+  title: `editorial-card__title block font-normal primary-font text-lg text-gray-300 line-h-sm`,
 }
 
 const OpinionGridEditorialCard = ({ data: story }) => {

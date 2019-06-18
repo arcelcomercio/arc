@@ -16,11 +16,11 @@
   &__container-menu {
     @media (--desktop) {
       border-right: solid 1px $color-gray-200;
-      padding-right: 10px;
     }
   }
 
   &__btn {
+    color: $color-white;
     &:hover {
       text-decoration: none;
     }
@@ -35,13 +35,7 @@
     }
 
     &--search {
-      display: none;
-      color: $color-gray-200;
-      padding: 0 0 0 13px;
-
-      @media (--desktop) {
-        display: flex;
-      }
+      //padding: 0 0 0 13px;
 
       //transition: all .002s;
       &.active {
@@ -56,8 +50,7 @@
     }
 
     &--section {
-      padding: 4px;
-
+      //padding: 4px;
       & span {
         display: none;
         font-family: $secondary-font;
@@ -70,13 +63,7 @@
     }
   }
 
-  &__list {
-    @media (--desktop) {
-      &.active {
-        display: flex;
-      }
-    }
-  }
+  //&__list { }
 
   &__list-link {
     transition: 0.3s;
@@ -89,28 +76,16 @@
 
   &__logo {
     height: $nav-height;
-
-    @media (--desktop) {
-      display: none;
-
-      &.active {
-        display: block;
-      }
-    }
   }
 
   &__ads {
     // TODO: Temporal
     width: 100px;
     height: 30px;
-    display: none;
     // --------------
   }
 
-  &__header-sub {
-    @media (--tablet) {
-    }
-  }
+  //&__header-sub {  }
 
   &__input-search {
     outline: none;

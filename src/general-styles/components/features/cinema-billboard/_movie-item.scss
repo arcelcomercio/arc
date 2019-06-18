@@ -1,7 +1,7 @@
 .movie-item {
   @media (--tablet) {
     flex-direction: initial;
-    padding-bottom: $spacing-xl;
+    padding-bottom: 40px;
   }
 
   &:nth-last-child(1) {
@@ -22,8 +22,8 @@
 
   &__right {
     @media (--tablet) {
-      margin-left: $spacing-md;
-      padding-left: $spacing-md;
+      margin-left: 20px;
+      padding-left: 20px;
       border-left: solid 1px #d5e1e1;
     }
   }
@@ -34,7 +34,7 @@
 
   &__subtitle {
     &:first-child {
-      margin-bottom: $spacing-md;
+      margin-bottom: 20px;
     }
   }
 

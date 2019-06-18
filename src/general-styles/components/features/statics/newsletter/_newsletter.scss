@@ -4,23 +4,16 @@
     background-color: #f4f4f4;
     max-width: 1274px;
     padding: 0px 60px;
-    justify-content: space-between;
-    flex-direction: row;
     align-items: inherit;
   }
 
-  &__banner-image {
-    @media (--desktop) {
-      width: inherit;
-    }
-  }
+  //&__banner-image { }
 
   &__box-suscription {
     align-self: center;
 
     @media (--desktop) {
       max-width: 450px;
-      padding: 0px 15px;
     }
   }
 
@@ -35,17 +28,15 @@
   }
 
   &__email {
-    border-color: #e0e0e0;
     height: 50px;
   }
 
   &__error-message {
-    color: #d80000;
+    color: $color-error;
   }
 
   &__image-container {
     border-width: 2px;
-    border-color: 2px solid #dadada;
     height: 370px;
 
     @media (--desktop) {
@@ -53,16 +44,11 @@
       background-color: inherit;
       overflow: inherit;
       border-bottom: inherit;
-      height: inherit;
     }
   }
 
   &__image {
     width: 60%;
-
-    @media (--desktop) {
-      width: 100%;
-    }
   }
 
   &__title {

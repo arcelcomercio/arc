@@ -17,7 +17,7 @@ const classes = {
   buttonpool:
     'internal-survey__button-pool font-bold uppercase border-0 text-white',
   viewresult:
-    'internal-survey__view-result block text-center border-1 border-solid text-sm text-gray-300 line-h-double',
+    'internal-survey__view-result block text-center border-1 border-solid border-gray text-sm text-gray-300 line-h-double',
   share: 'internal-survey__share',
   disable: 'internal-survey__disable',
   nav: 'internal-survey__nav hidden',

@@ -1,12 +1,7 @@
 .blog-item {
-
   /* &__date {} */
 
-  &__container {
-    @media (--tablet) {
-      justify-content: start;
-    }
-  }
+  //&__container { }
 
   &__container-avatar {
     width: 126px;

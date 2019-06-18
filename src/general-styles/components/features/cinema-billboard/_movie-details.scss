@@ -45,10 +45,7 @@
     }
   }
 
-  /* &__right {
-    @media (--tablet) {
-    }
-  } */
+  /* &__right { } */
 
   /* &__title {} */
 
@@ -71,8 +68,6 @@
   &__more {
     max-width: 160px;
     transition: all 0.15s ease;
-
-    /* @media (--tablet) {} */
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.2);

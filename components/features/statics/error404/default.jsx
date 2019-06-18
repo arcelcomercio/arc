@@ -8,7 +8,8 @@ const classes = {
   container:
     'error bg-gray-100 text-center w-full position-relative secondary-font pt-40 pb-40 pr-20 pl-40',
   icon: 'error__icon position-absolute top-0 border-solid w-0 h-0',
-  title: 'error__title text-xl mb-10 primary-font font-bold line-h-md',
+  title:
+    'error__title text-xl mb-10 primary-font font-bold line-h-md lg:p-0 lg:pl-20 lg:pr-20',
   content: 'error__content text-sm pt-15 pb-15 inline-block line-h-md',
   link:
     'error__link inline-block text-sm pt-15 pb-15 font-bold text-gray-300 line-h-md',

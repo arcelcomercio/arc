@@ -22,12 +22,12 @@
 
       @media (--tablet) {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-gap: 3px;
+        gap: 3px;
       }
 
       @media (--desktop) {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-gap: 3px;
+        gap: 3px;
       }
     }
 
@@ -103,7 +103,7 @@
   &__body {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: 3px;
+    gap: 3px;
     height: auto;
     margin-top: 0;
     margin-bottom: 0;
