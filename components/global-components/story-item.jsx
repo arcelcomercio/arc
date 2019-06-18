@@ -5,14 +5,14 @@ import StoryData from '../utilities/story-data'
 import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
 
 const classes = {
-  storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid`,
-  top: 'story-item__top flex items-center',
+  storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid lg:p-0`,
+  top: 'story-item__top flex items-center md:flex-col',
   section: 'story-item__section uppercase text-sm text-black',
-  date: 'story-item__date font-thin ml-5 text-xs text-gray-200',
+  date: 'story-item__date font-thin ml-5 text-xs text-gray-200 md:mt-5 md:ml-0',
   bottom: 'story-item__bottom flex mt-10',
   left: 'story-item__left flex flex-col justify-between pr-10 ',
   title: `story-item__title block overflow hidden secondary-font text-black text-xl`,
-  subtitle: `story-item__subtitle hidden secondary-font mt-10 text-md text-gray-200 line-h-xs`,
+  subtitle: `story-item__subtitle hidden secondary-font mt-10 text-md text-gray-200 line-h-xs md:block`,
   author: `story-item__author block uppercase mt-10 font-thin text-xs text-gray-200`,
   right: 'story-item__right position-relative',
   rightLink: 'flex h-full',

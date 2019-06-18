@@ -5,12 +5,19 @@ $color-tertiary: #D64445;
 /*-----------------------*/
 $color-base-400: #270209;
 $color-base-300: #A98E7C;
-$color-base-200: #F5E9DE;
+$color-base-200: #D0C1B7;
+$color-base-100: #F5E9DE;
 /*-----------------------*/
 
 /******* Other colors *******/
 $color-link: #524CFF;
 /*-----------------------*/
+
+/** ----------------------------*
+*        GENERAL CONFIG         *
+*-------------------------------*/
+/******** border colors *********/
+$border-color-base: $color-base-200;
 
 /******* Header colors *******/
 $header-bg-color: $color-primary;

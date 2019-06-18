@@ -13,7 +13,7 @@ const classes = {
   externalTitle: 'opinion-grid--title pt-20 pb-20 pl-0 pr-0 m-0 mx-auto',
   list: 'opinion-grid--list w-full m-0 mx-auto',
   titleBox:
-    'opinion-grid__box-title w-full pt-15 pb-15 border-b-1 border-solid ',
+    'opinion-grid__box-title w-full pt-15 pb-15 border-b-1 border-solid md:pt-25 md:pb-25 md:pl-0 md:pr-0',
   title: 'opinion-grid__title uppercase text-center secondary-font title-xs',
   moreBox: 'flex justify-center pt-25 pb-15',
   more: 'opinion-grid__more uppercase text-center text-md text-gray-300',

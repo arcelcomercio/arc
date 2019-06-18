@@ -6,8 +6,6 @@
 
   &__social {
     @media (--tablet) {
-      display: flex;
-      padding-top: 10px;
       width: 120px;
     }
   }
@@ -41,7 +39,6 @@
     @media (--tablet) {
       flex-basis: 60px;
       height: 75px;
-      border-radius: 0;
     }
   }
 
@@ -50,9 +47,6 @@
     height: 50px;
 
     @media (--tablet) {
-      border-radius: 0;
-      width: 100%;
-      height: 100%;
     }
   }
 

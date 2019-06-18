@@ -24,7 +24,7 @@ $map-flex-common: ('': $flex-basics,
     grow: $flex-grow,
     shrink: $flex-shrink,
     direction: $flex-direction,
-    wrap: $flex-direction,
+    wrap: $flex-wrap,
 );
 
 @each $flex-group,
@@ -69,12 +69,13 @@ $flex-justify-value in $map-flex-justify {
 *           align-items         *
 *-------------------------------*/
 
-$map-flex-align: start,
-center,
-end;
+$map-flex-align: (start: flex-start,
+    center: center,
+    end: flex-end);
 
-@each $flex-align in $map-flex-align {
+@each $flex-align,
+$flex-align-value in $map-flex-align {
     @include build-class(items-#{$flex-align},
         align-items,
-        $flex-align);
+        $flex-align-value);
 }

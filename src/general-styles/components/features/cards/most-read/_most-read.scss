@@ -4,8 +4,4 @@ $backgroundTitle: #5f72a7;
   &__title {
     background-color: $backgroundTitle;
   }
-
-  @media (--desktop) {
-    padding: 0;
-  }
 }

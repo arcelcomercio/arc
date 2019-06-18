@@ -2,12 +2,6 @@
   margin-bottom: 50px;
 
   &__link {
-    padding: 6px 4px;
-
-    @media (--desktop) {
-      padding: 6px 12px;
-    }
-
     &.active {
       cursor: initial;
       background-color: #383232;

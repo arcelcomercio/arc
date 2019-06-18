@@ -1,15 +1,16 @@
 import React from 'react'
 
 const classes = {
-  containerCard: 'br-stories-grid__card',
+  containerCard: 'br-stories-grid__card lg:inline-block',
   imageContainer: 'br-stories-grid__image-container overflow-hidden',
   imageLink: 'br-stories-grid__image-link text-gray-300',
   image: 'w-full h-full',
-  detail: 'br-stories-grid__detail',
-  categoryContainer: 'br-stories-grid__category-container text-center text-xs',
+  detail: 'br-stories-grid__detail lg:pt-10',
+  categoryContainer:
+    'br-stories-grid__category-container text-center text-xs lg:mb-5 ',
   categoryLink: 'br-stories-grid__category-link text-gray-200',
   detailTitle:
-    'br-stories-grid__detail-title position-relative text-center overflow-hidden font-bold text-md',
+    'br-stories-grid__detail-title position-relative text-center overflow-hidden font-bold text-md lg:pt-0 lg:pb-0 lg:pr-20 lg:pl-20',
   detailTitleLink: 'br-stories-grid__detail-title-link line-h-sm',
 }
 const BlogRelatedPostsGridChildCard = ({

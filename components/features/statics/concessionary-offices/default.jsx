@@ -11,15 +11,14 @@ const classes = {
   info: `concessionaires__info text-gray-300 text-center mt-10 mb-40 mx-auto text-sm line-h-md`,
   locations: `concessionaires__locations border-gray-100 pt-25 border-t-1 border-solid lg:pt-0`,
   search: 'concessionaires__search flex mb-20 flex-col lg:flex-row',
-  searchTitle: `concessionaires__search-title md:mb-20 text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm lg:mb-0 lg:text-left`,
+  searchTitle: `concessionaires__search-title text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm md:mb-20 lg:mb-0 lg:text-left`,
   form: 'flex',
   zona: 'concessionaires__controls flex mr-15 flex-col lg:w-full',
   label: 'concessionaires__label block text-center text-sm line-h-double',
-  select: 'concessionaires__select md:w-full pl-15 bg-white',
-  district: 'concessionaires__controls md:flex-row flex lg:w-full',
+  select: 'concessionaires__select pl-15 bg-white md:w-full',
+  district: 'concessionaires__controls flex md:flex-row lg:w-full',
   districtLabel: 'concessionaires__label',
-  mapTitle:
-    'concessionaires__map-title text-gray-300 font-thin mt-10 mb-10 title-sm',
+  mapTitle: `concessionaires__map-title text-gray-300 font-thin mt-10 mb-10 title-sm`,
 }
 
 class StaticConcessionaryOffices extends PureComponent {
