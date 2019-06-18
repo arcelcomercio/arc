@@ -7,7 +7,6 @@
     @media (--desktop) {
       flex-direction: initial;
       border: 1px solid $color-gray-200;
-      padding: 4px;
     }
   }
 
@@ -24,7 +23,6 @@
   &__label {
     @media (--tablet) {
       color: $color-gray-100;
-      padding: 0 8px;
     }
   }
 
@@ -50,8 +48,6 @@
     background-repeat: no-repeat;
 
     @media (--desktop) {
-      margin-bottom: 0;
-      margin-right: 4px;
       width: fit-content;
       max-width: 200px;
     }

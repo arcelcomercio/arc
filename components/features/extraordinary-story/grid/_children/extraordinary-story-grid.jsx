@@ -6,7 +6,7 @@ const classes = {
   extraordinayStoryGridContainer:
     'extraordinary-story-grid flex position-relative p-10 flex-col md:flex-row',
   videoBox:
-    'story-video-box flex items-center position-relative w-full rounded-sm',
+    'story-video-box flex items-center position-relative w-full rounded-sm md:p-10',
   gridContainer: 'sections-grid w-full pl-10 position-absolute md:pl-30',
   gridHeaderText: 'sections-grid__text flex items-center text-lg text-gray-200',
   gridHeaderImage: 'sections-grid__text-image ml-10',
