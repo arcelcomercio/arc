@@ -7,14 +7,15 @@ const classes = {
   top: 'movie-list__top flex items-center justify-center flex-col pt-30 pb-30',
   cinema: 'movie-list__cinema uppercase primary-font text-lg line-h-lg',
   address: 'movie-list__address font-normal text-sm',
-  box: 'movie-list__box p-20 border-1 border-solid',
+  box: 'movie-list__box p-20 border-1 border-solid border-gray',
   movieItem: 'movie-item flex flex-col',
   leftSide: 'movie-item__left flex-shrink-0 flex-grow-0 mb-10',
   imageBox: 'block w-full',
-  image: 'movie-item__img w-full h-full object-cover border-1 border-solid',
+  image:
+    'movie-item__img w-full h-full object-cover border-1 border-solid border-gray',
   title: 'movie-item__title primary-font text-xl text-gray-300 line-h-xl',
   function: 'movie-item__function font-thin text-sm',
-  rightSide: 'movie-item__right md:mt-0 mt-5',
+  rightSide: 'movie-item__right mt-5 md:mt-0',
   subtitle:
     'movie-item__subtitle font-bold mb-5 text-sm text-gray-300 line-h-sm',
   description: 'movie-item__description inline font-normal ml-5',

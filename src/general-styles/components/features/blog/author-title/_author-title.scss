@@ -1,7 +1,6 @@
 .author-title {
   &__box-title {
     flex-basis: calc(100% - 90px);
-    border-color: #ddd;
 
     @media (--tablet) {
       flex-basis: 100%;
@@ -11,7 +10,6 @@
 
   &__section {
     flex-basis: 90px;
-    border-color: #ddd;
 
     @media (--tablet) {
       flex-basis: auto;

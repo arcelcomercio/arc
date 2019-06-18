@@ -3,12 +3,18 @@ $color-primary: #0C70BF;
 $color-secondary: #E8F2F7;
 $color-tertiary: #EBC12F;
 /*-----------------------*/
-$color-base-200: #A4C2D9;
+$color-base-200: #B2E3FE;
 /*-----------------------*/
 
 /******* Other colors *******/
 $color-link: #524CFF;
 /*-----------------------*/
+
+/** ----------------------------*
+*        GENERAL CONFIG         *
+*-------------------------------*/
+/******** border colors *********/
+$border-color-base: $color-base-200;
 
 /******* Header colors *******/
 $header-bg-color: $color-primary;

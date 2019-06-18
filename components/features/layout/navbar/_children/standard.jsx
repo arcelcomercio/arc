@@ -28,7 +28,8 @@ const classes = {
   ads: 'nav__ads mr-5 ml-5',
   btnContainer: 'flex items-center justify-end header__btn-container',
   btnLogin: 'flex items-center btn btn--outline',
-  btnSubscribe: 'flex items-center btn btn--outline nav__header-sub md:inline-block hidden',
+  btnSubscribe:
+    'flex items-center btn btn--outline nav__header-sub hidden md:inline-block',
   iconLogin: 'icon icon-user',
 }
 

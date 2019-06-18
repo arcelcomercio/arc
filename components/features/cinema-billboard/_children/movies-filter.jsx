@@ -12,7 +12,7 @@ const classes = {
   twitter: 'icon icon--twitter',
   filter: 'movies-filter__filter-box flex-col flex justify-between',
   label:
-    'movies-filter__label md:inline-block uppercase font-bold hidden line-h-none text-sm',
+    'movies-filter__label uppercase font-bold hidden line-h-none text-sm md:inline-block',
   form:
     'movies-filter__form flex font-bold flex-col w-full line-h-none text-sm',
   select:
