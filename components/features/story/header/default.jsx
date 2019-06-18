@@ -2,44 +2,38 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import StoryHeaderChildHeading from './_children/heading'
 import StoryHeaderChildShareSubheading from './_children/subheading'
+import StoryHeaderChildGallerySlider from './_children/gallery-slider'
 import StoryHeaderChildGallery from './_children/gallery'
 import StoryHeaderChildSocial from './_children/social'
+import StoryData from '../../../utilities/story-data'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
-  news: 'w-full bg-link text-white',
+  news: 'w-full text-white',
   gallery: 'w-full',
 }
 @Consumer
 class StoryHeader extends PureComponent {
   render() {
-    const { globalContent } = this.props
-    const {
-      website_url: baseUrl = '',
-      headlines,
-      promo_items: galleryItems = {},
-    } = globalContent || {}
+    const { contextPath, globalContent: data, subtype } = this.props
+    const { contentElementGallery, title, subTitle, link } = new StoryData({
+      data,
+      contextPath,
+    })
 
-    const hasValueElements =
-      galleryItems &&
-      galleryItems.basic_gallery &&
-      typeof galleryItems.basic_gallery.content_elements !== 'undefined' &&
-      true
+    const parameters = { contentElementGallery, title, subTitle, link }
     return (
       <>
-        <div className={hasValueElements ? classes.gallery : classes.news}>
-          <StoryHeaderChildSocial url={baseUrl} title={headlines} />
+        <div className={contentElementGallery ? classes.gallery : classes.news}>
+          <StoryHeaderChildSocial url={link} />
 
-          <StoryHeaderChildHeading data={globalContent} />
-          <StoryHeaderChildShareSubheading data={globalContent} />
+          <StoryHeaderChildHeading {...parameters} />
+          <StoryHeaderChildShareSubheading {...parameters} />
 
-          {galleryItems &&
-          galleryItems.basic_gallery &&
-          typeof galleryItems.basic_gallery.content_elements !== 'undefined' ? (
-            <StoryHeaderChildGallery
-              data={galleryItems && galleryItems.basic_gallery}
-            />
+          {subtype === ConfigParams.GALLERY_VERTICAL ? (
+            <StoryHeaderChildGallery {...parameters} />
           ) : (
-            ''
+            <StoryHeaderChildGallerySlider {...parameters} />
           )}
         </div>
       </>

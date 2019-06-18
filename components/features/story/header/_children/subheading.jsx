@@ -2,17 +2,13 @@ import React from 'react'
 
 const classes = {
   description:
-    'story-header__news-summary pl-20 pr-20 mb-20 secondary-font line-h-sm text-gray-300',
+    'story-header__news-summary pr-20 mb-20 secondary-font line-h-sm text-gray-300',
 }
 
 const StoryHeaderChildShareSubheading = data => {
-  const {
-    data: { subheadlines: description = {} },
-  } = data || {}
+  const { subTitle } = data || {}
 
-  return (
-    description && <h2 className={classes.description}> {description.basic}</h2>
-  )
+  return subTitle && <h2 className={classes.description}> {subTitle}</h2>
 }
 
 export default StoryHeaderChildShareSubheading

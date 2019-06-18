@@ -317,3 +317,17 @@ export const breadcrumbList = data => {
 
   return arrayData
 }
+
+export const getUrlParameter = contentElements => {
+  const loc = window.location.href
+  const getString = loc.split('?')[1]
+  const tmp = getString.split('foto=')
+
+  if (loc.indexOf('?') > 0 && contentElements) {
+    const sWidth = 100 / contentElements.length
+    return tmp[1] && contentElements.length >= tmp[1]
+      ? -sWidth * (tmp[1] - 1)
+      : 0
+  }
+  return parseInt(String, tmp[1]) || 0
+}

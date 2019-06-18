@@ -24,7 +24,7 @@ import StoryContentChildRelatedInternal from './_children/related-internal'
 import StoryContentChildIcon from './_children/icon-list'
 
 const classes = {
-  news: 'story-content w-full bg-link text-white pl-20 pr-20',
+  news: 'story-content w-full pr-20',
   content: 'story-content__content position-relative flex flex--row-reverse',
   textClasses: 'story-content__font--secondary mb-25',
   newsImage: 'story-content__image w-full m-0 story-content__image--cover ',
