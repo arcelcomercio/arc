@@ -3,10 +3,8 @@
 .pagination {
   @media (--tablet) {
     width: 60%;
-    justify-content: space-between;
     flex-wrap: nowrap;
     max-height: 20px;
-    padding: 30px 0;
   }
 
   &__page {

@@ -4,16 +4,16 @@ import StoryData from '../utilities/story-data'
 
 const classes = {
   featuredStory:
-    'featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex',
+    'featured-story md:flex-col md:p-20 position-relative pt-10 pb-10 pr-20 pl-20 flex',
   detail:
-    'featured-story__detail flex flex-col justify-between position relative',
-  image: 'featured-story__image overflow-hidden w-full h-full ml-10',
+    'featured-story__detail md:pb-20 md:pt-20 flex flex-col justify-between position relative',
+  image: 'featured-story__image md:ml-0 overflow-hidden w-full h-full ml-10',
   iconContainer:
     'featured-story__multimedia-icon position-absolute text-gray-300 rounded',
   icon:
     'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full text-gray-300',
 
-  category: 'featured-story__category pb-15 hidden text-lg',
+  category: 'featured-story__category md:block pb-15 hidden text-lg',
   title: 'featured-story__title overflow-hidden mb-10 title-sm line-h-xs',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
