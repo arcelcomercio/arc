@@ -5,7 +5,7 @@ const classes = {
   title:
     'author-title__box-title md:flex-row md:items-center md:pl-15 md:p-0 flex flex-grow-0 flex-shrink-0 flex-col h-full pt-10 pb-10 pl-15 border-b-1 border-t-1 border-solid',
   section:
-    'author-title__section md:flex-shrink md:pt-10 md:mt-10 md:font-bold md:flex-grow position-relative flex-grow-0 flex-shrink-0 border-b-1 border-t-1 border-solid line-h-none title-xs',
+    'author-title__section md:flex-shrink md:flex-grow md:pt-10 md:mt-10 md:font-bold md:flex-grow position-relative flex-grow-0 flex-shrink-0 border-b-1 border-t-1 border-solid line-h-none title-xs',
   url: 'author-title__url mr-15 title-xs',
   name: 'flex items-center',
   img:

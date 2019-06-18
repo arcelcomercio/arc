@@ -8,8 +8,8 @@ const classes = {
   social: 'author-item__social md:flex md:pt-10 hidden',
   date: 'author-item__date text-xs hidden md:block',
   content: 'author-item__content flex w-full items-start',
-  imageBox: 'author-item__box-image flex flex-grow-0 flex-shrink-0 rounded',
-  image: 'author-item__image md:w-full md:h-full object-cover rounded',
+  imageBox: 'author-item__box-image md:rounded-none flex flex-grow-0 flex-shrink-0 rounded',
+  image: 'author-item__image md:rounded-none md:w-full md:h-full object-cover rounded',
   descBox: 'ml-20',
   name:
     'author-item__name block secondary-font font-bold pt-5 mb-10 title-sm text-gray-300',
