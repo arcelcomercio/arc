@@ -2,8 +2,9 @@ import React from 'react'
 import StoriesListCardChildItem from './item'
 import StoryData from '../../../../utilities/story-data'
 
+// TODO: revisar si esto llevaba paddings o no
 const classes = {
-  listItem: 'stories-list-card__list-item overflow-y-auto',
+  listItem: 'stories-list-card__item overflow-y-auto',
 }
 
 const StoriesListsCardChildList = ({

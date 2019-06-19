@@ -3,7 +3,6 @@
 
   &__wrap {
     height: 50px;
-    background-color: $header-bg-color;
   }
 
   &__logo {
@@ -15,6 +14,11 @@
   &__link-container {
     float: right;
     height: 34px;
+  }
+
+  &__link {
+    float: left;
+    margin-top: 8px;
   }
 }
 

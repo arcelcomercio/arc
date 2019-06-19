@@ -247,6 +247,12 @@ class StoryData {
     return StoryData.recentList(contentElements)
   }
 
+  get seoKeywords() {
+    const { taxonomy: { seo_keywords: seoKeywords = [] } = {} } =
+      this._data || {}
+    return seoKeywords
+  }
+
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
@@ -278,11 +284,11 @@ class StoryData {
   }
 
   get contentElements() {
-    return (this._data && this._data.content_elements) || ''
+    return (this._data && this._data.content_elements) || []
   }
 
   get promoItems() {
-    return (this._data && this._data.promo_items) || ''
+    return (this._data && this._data.promo_items) || []
   }
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
@@ -303,7 +309,7 @@ class StoryData {
     } = {},
     type = ''
   ) {
-    if (basicVideo.url && (type === 'video' || type === 'image')) {
+    if (basicVideo.promo_image && (type === 'video' || type === 'image')) {
       const {
         streams = [],
         publish_date: date = '',
@@ -332,7 +338,7 @@ class StoryData {
       }
     }
 
-    if (basicGallery.url && type !== 'video') {
+    if (basicGallery.content_elements && type !== 'video') {
       const { content_elements: contentElements = {} } = basicGallery
       return contentElements
     }

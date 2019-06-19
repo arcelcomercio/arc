@@ -1,10 +1,14 @@
 .stories-list-card {
+  // &__header {}
+
   &__title {
     min-width: 10%;
     max-width: 60%;
   }
 
-  &__list-item {
+  // &__see-more {}
+
+  &__item {
     max-height: 395px;
   }
 
@@ -20,7 +24,11 @@
     }
   }
 
-  &__page-link-container {
+  &__link-box {
     margin: 2px 0px;
   }
+
+  // &__time {}
+  // &__link-box {}
+  // &__link {}
 }

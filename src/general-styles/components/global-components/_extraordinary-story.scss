@@ -16,10 +16,6 @@
 .extraordinary-story {
   grid-template-columns: 1fr 1fr;
 
-  a {
-    color: inherit;
-  }
-
   &--bottom {
     @include bottomMultimedia();
   }

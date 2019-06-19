@@ -11,20 +11,18 @@ const StoryContentChildAmpImage = props => {
   const { data } = props
   return (
     <>
-      <div className="media norowmargin">
-        <figure>
-          <amp-img i-amphtml-layout="responsive">
-            <i-amphtml-sizer />
-            <Image
-              width="100%"
-              className={classes.image}
-              captionClassName={classes.description}
-              sizePreset="large"
-              {...data}
-            />
-          </amp-img>
-        </figure>
-      </div>
+      <figure>
+        <amp-img i-amphtml-layout="responsive">
+          <i-amphtml-sizer />
+          <Image
+            width="100%"
+            className={classes.image}
+            captionClassName={classes.description}
+            sizePreset="large"
+            {...data}
+          />
+        </amp-img>
+      </figure>
     </>
   )
 }

@@ -6,18 +6,19 @@ import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
 
 const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray lg:p-0`,
-  top: 'story-item__top flex items-center md:flex-col',
+  top: 'story-item__top flex items-center md:flex-col md:items-start',
   section: 'story-item__section uppercase text-sm text-black',
   date: 'story-item__date font-thin ml-5 text-xs text-gray-200 md:mt-5 md:ml-0',
   bottom: 'story-item__bottom flex mt-10',
   left: 'story-item__left flex flex-col justify-between pr-10 ',
-  title: `story-item__title block overflow hidden secondary-font text-black text-xl`,
+  title: `story-item__title block overflow hidden secondary-font text-black text-xl line-h-xs`,
   subtitle: `story-item__subtitle hidden secondary-font mt-10 text-md text-gray-200 line-h-xs md:block`,
   author: `story-item__author block uppercase mt-10 font-thin text-xs text-gray-200`,
   right: 'story-item__right position-relative',
-  rightLink: 'flex h-full',
+  rightLink: 'story-item__link flex h-full',
   icon: `story-item__icon position-absolute flex items-center justify-center rounded text-black text-sm`,
-  figure: 'story-item__figure object-cover w-full h-full',
+  image: 'story-item__img object-cover w-full h-full',
+  iconImg: `story-item__icon icon-img`,
 }
 
 class StoriesList extends PureComponent {
@@ -58,23 +59,22 @@ class StoriesList extends PureComponent {
               </a>
             </div>
           </div>
-          <div className={classes.right}>
+          <figure className={classes.right}>
             <a href={element.link} className={classes.rightLink}>
-              {element.multimediaType.toLowerCase() === 'basic' ||
-              element.multimediaType === '' ? (
-                ''
-              ) : (
-                <span className={classes.icon}>
-                  {getIcon(element.multimediaType)}
-                </span>
-              )}
+              {element.multimediaType.toLowerCase() !== 'basic' ||
+                (element.multimediaType !== '' && (
+                  <span className={classes.icon}>
+                    {getIcon(element.multimediaType)}
+                  </span>
+                ))}
               <img
                 alt={element.title}
-                className={classes.figure}
+                className={classes.img}
                 src={element.multimedia}
               />
+              <i className={classes.iconImg} />
             </a>
-          </div>
+          </figure>
         </div>
       </div>
     )

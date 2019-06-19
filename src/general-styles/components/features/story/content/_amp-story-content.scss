@@ -1,12 +1,13 @@
 .amp-story-content {
   max-width: 600px;
-  margin: auto;
 
   &__news-text {
     word-wrap: break-word;
     font-size: 18px;
     line-height: 1.5;
   }
+
+  // &__author {}
 
   &__image {
     margin-left: -20px;

@@ -1,13 +1,13 @@
 $colorIconMasLeidas: rgba(255, 255, 255, 0.8);
 
 .most-read-item {
-  &:not(:first-child) {
-    border-top: 1px solid $color-black;
-    padding: 15px 0;
+  &:last-child {
+    border: none;
   }
 
   &__figure {
     max-height: 75px;
+
     &--icon::after {
       position: absolute;
       bottom: -5px;
@@ -27,8 +27,11 @@ $colorIconMasLeidas: rgba(255, 255, 255, 0.8);
       content: '\2709';
     }
   }
+
+  // &__img {}
+
   &__detail {
-    height: 60px;
+    height: 30px;
     text-overflow: ellipsis;
   }
 }

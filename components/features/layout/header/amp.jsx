@@ -1,7 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import AmpImage from '@arc-core-components/element_image'
 
 // TODO: Separar Feature de Componente.
 
@@ -11,7 +10,7 @@ const classes = {
   logo: 'amp-header__logo',
   linkContainer:
     'amp-header__link-container position-relative mr-35 border-1 border-solid border-white text-sm rounded-sm line-h-xs pt-0 pb-0 pr-10 pl-10 mt-10',
-  link: 'amp-header__link text-white',
+  link: 'amp-header__link i-survey-share',
   ampImg:
     'amp-header__amp-img i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',
   img:
@@ -40,7 +39,9 @@ class LayoutAmpHeader extends PureComponent {
               </a>
             </div>
             <div className={classes.linkContainer}>
-              <a href="/archivo">Últimas noticias</a>
+              <a className={classes.link} href="/archivo">
+                Últimas noticias
+              </a>
             </div>
           </section>
         </header>

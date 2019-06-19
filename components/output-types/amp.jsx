@@ -89,6 +89,11 @@ const AmpOutputType = ({
         <BaseMarkup canonicalUrl={canonicalUrl} />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <title>{title}</title>
+        <link rel="dns-prefetch" href="//ecoid.pe" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//ajax.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
