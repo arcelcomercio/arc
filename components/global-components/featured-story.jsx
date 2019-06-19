@@ -19,11 +19,13 @@ const classes = {
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
   author: 'featured-story__author uppercase',
-  authorLink: 'text-sm text-gray-200',
+  authorLink: 'featured-story__author-link text-sm text-gray-200',
 
   link: 'featured-story__link title-xs line-h-sm',
-  imageLink: 'block h-full',
-  img: 'w-full h-full object-cover',
+  // linkTitle: 'featured-story__title-link title-lg capitalize',
+  imageLink: 'featured-story__img-link block h-full',
+  img: 'featured-story__img w-full h-full object-cover',
+  imageIcon: 'featured-story__img-icon icon-img',
 
   imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',
@@ -162,6 +164,7 @@ export default class FeaturedStory extends PureComponent {
           <a className={classes.imageLink} href={title.url}>
             <img src={image} className={classes.img} alt="" />
             {getMultimediaIcon()}
+            <i className={`${classes.imageIcon}`} />
           </a>
         </figure>
       </article>

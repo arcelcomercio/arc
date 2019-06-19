@@ -9,7 +9,7 @@ const classes = {
     'survey-card__header uppercase text-center font-bold pt-20 pb-20 text-white',
   question: 'survey-card__question position-relative pt-15 pb-10 pl-10 ',
   title:
-    'survey-card__title overflow-hidden font-bold mb-15 pr-20 pl-20 text-xl text-gray-300 line-h-xs',
+    'survey-card__title overflow-hidden font-bold mb-15 pr-20 pl-20 title-xs text-gray-300 line-h-sm',
   choices: 'mb-10 pr-20 pl-20',
   buttons:
     'bottom-0 w-full position-absolute flex items-center justify-between pr-20 pl-20 pb-15',

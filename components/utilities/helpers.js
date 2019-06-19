@@ -260,10 +260,7 @@ export const formatSlugToText = (text = '') => {
 
 export const formatHtmlToText = (html = '') => {
   const htmlData = html.toString()
-  return htmlData
-    .replace(/<[^>]*>/g, '')
-    .replace('"', '“')
-    .replace('"', '”')
+  return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
 }
 
 export const defaultImage = ({
@@ -305,15 +302,22 @@ export const appendToBody = node => {
   document.body.appendChild(node)
 }
 
-// TODO: terminar el breadcrumbList data estructurada
-export const breadcrumbList = data => {
-  const dataSeccion = data && data.path && data.path.split('/')
+export const breadcrumbList = (url, siteUrl, contextPath) => {
   const arrayData = []
-  if (data && data.path) {
-    dataSeccion.forEach(function(element) {
-      console.log(element)
+  if (url) {
+    const dataSeccion = url.split('/')
+    dataSeccion.forEach((element, i) => {
+      if (i === 1 || (i === 2 && dataSeccion.length === 4)) {
+        const separator = '/'
+        arrayData[i] = {
+          name:
+            element.charAt(0).toUpperCase() +
+            element.slice(1).replace('-', ' '),
+          url: siteUrl + contextPath + separator + element,
+        }
+      }
     })
   }
 
-  return arrayData
+  return arrayData.filter(String)
 }

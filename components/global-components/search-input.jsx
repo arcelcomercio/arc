@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 
 const classes = {
-  searchContainer: `search-filter__box-search flex items-center mb-15 lg:mb-0 lg:items-start`,
-  searchForm: 'position-relative w-full',
-  searchButton: `icon-search search-filter__search-button block position-absolute title-sm lg:h-full lg:flex lg:items-center lg:justify-center lg:right-0`,
-  searchInput: `search-filter__search-input w-full pl-15 pr-30 text-lg lg:font-bold`,
+  container: `search-filter__box-search flex items-center mb-15 lg:mb-0 lg:items-start lg:w-full`,
+  form: 'position-relative w-full',
+  button: `search-filter__btn icon-search block position-absolute title-sm bg-white lg:h-full lg:flex lg:items-center lg:justify-center lg:right-0`,
+  input: `search-filter__input w-full pl-15 pr-30 text-lg lg:font-bold lg:pr-0`,
 }
 
 class SearchInput extends PureComponent {
@@ -31,11 +31,11 @@ class SearchInput extends PureComponent {
 
   render() {
     return (
-      <div className={classes.searchContainer}>
-        <form className={classes.searchForm} onSubmit={this._handleSearch}>
-          <button className={classes.searchButton} type="submit" />
+      <div className={classes.container}>
+        <form className={classes.form} onSubmit={this._handleSearch}>
+          <button className={classes.button} type="submit" />
           <input
-            className={classes.searchInput}
+            className={classes.input}
             ref={this.inputSearch}
             type="search"
             placeholder="Buscar"

@@ -15,7 +15,7 @@ export default ({ title, imageUrl, typeNote, link, numline }) => {
       {typeNote === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
         <h2 className={`${classes.separatorTitle} ${numline}`}>
-          <a href={link} className={classes.separatorLink}>
+          <a className={classes.separatorLink} href={link}>
             {title}
           </a>
         </h2>

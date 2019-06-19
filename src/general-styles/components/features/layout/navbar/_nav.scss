@@ -21,6 +21,7 @@
 
   &__btn {
     color: $color-white;
+
     &:hover {
       text-decoration: none;
     }
@@ -50,6 +51,7 @@
     }
 
     &--section {
+
       //padding: 4px;
       & span {
         display: none;
@@ -63,7 +65,7 @@
     }
   }
 
-  //&__list { }
+  // &__list { }
 
   &__list-link {
     transition: 0.3s;
@@ -85,7 +87,9 @@
     // --------------
   }
 
-  //&__header-sub {  }
+  // &__header-sub {  }
+  // &__icon-menu {}
+  // &__icon-search {}
 
   &__input-search {
     outline: none;

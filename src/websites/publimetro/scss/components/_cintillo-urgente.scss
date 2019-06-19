@@ -2,9 +2,10 @@
   &--bgcolor-1 {
     background-color: $color-attention;
   }
+
   &__text,
   &__link,
   &__btn-icon {
-    color: $text-cintillo;
+    color: $color-base-400;
   }
 }

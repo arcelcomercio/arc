@@ -5,6 +5,8 @@
     height: 152px;
   }
 
+  // &__box-list {}
+
   &__select {
     height: 40px;
   }
@@ -98,7 +100,8 @@
     padding: 7px;
   }
 
-  //&__box-search {}
+  // &__box-search {}
+  // &__search {}
 
   &__search-button {
     z-index: 1;
@@ -118,10 +121,12 @@
 
   &__search-input {
     height: 40px;
+    line-height: 50px;
 
     @media (--desktop) {
+      width: calc(100% - 70px);
       height: 76px;
-      padding-right: 95px;
+      line-height: 90px;
       border: 0;
     }
   }

@@ -6,9 +6,8 @@ const classes = {
     'stories-list-card__story bg-white flex flex-col w-auto p-20 border-b-1 border-solid border-gray',
   time:
     'stories-list-card__time flex justify-center flex-col text-gray-300 text-lg line-h-sm',
-  pageLink: 'stories-list-card__page-link-container flex flex-col',
-  textLink:
-    'stories-list-card__text-link bold m-0 text-md text-gray-300 line-h-xs',
+  linkBox: 'stories-list-card__link-box flex flex-col',
+  link: 'stories-list-card__link bold m-0 text-md text-gray-300 line-h-xs',
 }
 
 const StoriesListsCardChildItem = ({
@@ -30,9 +29,9 @@ const StoriesListsCardChildItem = ({
         />
       )}
       {seeHour && <div className={classes.time}>{time}</div>}
-      <div className={classes.pageLink}>
+      <div className={classes.linkBox}>
         <a href={urlNews}>
-          <h3 className={classes.textLink}>{title}</h3>
+          <h3 className={classes.link}>{title}</h3>
         </a>
       </div>
     </article>

@@ -6,8 +6,8 @@ export const TripletChildTriplet = props => {
   const classes = {
     triplet: 'triplet bg-white border-solid border-1 border-gray',
     link: 'triplet__link',
-    tripletItem: `triplet__item p-15 grid border-b-1 border-solid border-gray triplet__item--${multimediaOrientation}`,
-    tripletTitle: 'triplet__title overflow-hidden font-bold',
+    item: `triplet__item p-15 grid border-b-1 border-solid border-gray triplet__item--${multimediaOrientation}`,
+    title: 'triplet__title overflow-hidden font-bold',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
     threeline: 'triplet--threeline',
@@ -34,8 +34,8 @@ export const TripletChildTriplet = props => {
   return (
     <div className={classes.triplet}>
       {data.map(story => (
-        <article className={classes.tripletItem} key={`triplet-${story.index}`}>
-          <div className={`${classes.tripletTitle} ${numline}`}>
+        <article className={classes.item} key={`triplet-${story.index}`}>
+          <div className={`${classes.title} ${numline}`}>
             <h2>
               <a className={classes.link} href={story.link}>
                 {story.title}

@@ -22,6 +22,7 @@ import StoryContentChildAuthor from './_children/author'
 import StoryContentChildMultimedia from './_children/multimedia'
 import StoryContentChildRelatedInternal from './_children/related-internal'
 import StoryContentChildIcon from './_children/icon-list'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   news: 'story-content w-full bg-link text-white pl-20 pr-20',
@@ -92,7 +93,7 @@ class StoryContent extends PureComponent {
               elementClasses={classes}
               renderElement={element => {
                 const { _id, type, subtype, raw_oembed: rawOembed } = element
-                if (type === 'image') {
+                if (type === ConfigParams.ELEMENT_IMAGE) {
                   return (
                     <StoryContentChildImage
                       data={element}
@@ -100,7 +101,7 @@ class StoryContent extends PureComponent {
                     />
                   )
                 }
-                if (type === 'video') {
+                if (type === ConfigParams.ELEMENT_VIDEO) {
                   return (
                     <StoryContentChildVideo
                       data={element.embed_html}
@@ -108,16 +109,21 @@ class StoryContent extends PureComponent {
                     />
                   )
                 }
-                if (type === 'gallery') {
-                  return <StoryHeaderChildGallery data={element} type={type} />
+                if (type === ConfigParams.ELEMENT_GALLERY) {
+                  return (
+                    <StoryHeaderChildGallery
+                      contentElementGallery={element}
+                      type={type}
+                    />
+                  )
                 }
-                if (type === 'table') {
+                if (type === ConfigParams.ELEMENT_TABLE) {
                   return <StoryContentChildTable data={element} type={type} />
                 }
-                if (type === 'quote') {
+                if (type === ConfigParams.ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />
                 }
-                if (type === 'oembed_response') {
+                if (type === ConfigParams.ELEMENT_OEMBED) {
                   return (
                     <Oembed
                       rawOembed={rawOembed}
@@ -126,7 +132,7 @@ class StoryContent extends PureComponent {
                     />
                   )
                 }
-                if (type === 'story') {
+                if (type === ConfigParams.ELEMENT_STORY) {
                   return (
                     <StoryContentChildRelatedInternal
                       stories={relatedContent}
@@ -135,7 +141,7 @@ class StoryContent extends PureComponent {
                     />
                   )
                 }
-                if (type === 'raw_htmal') {
+                if (type === ConfigParams.ELEMENT_RAW_HTML) {
                   const { content } = element
                   /* Si encuentra opta-widget agrega scripts a <head> */
                   if (content.includes('opta-widget'))
@@ -145,7 +151,7 @@ class StoryContent extends PureComponent {
                       js: OPTA_JS_LINK,
                       defer: true,
                     })
-                  return <RawHtml rawHtmlClasses="ss" />
+                  return <RawHtml rawHtmlClasses="" />
                 }
                 return ''
               }}
@@ -165,7 +171,7 @@ class StoryContent extends PureComponent {
             {relatedContent.map((item, i) => {
               const { type } = item
               const key = `related-${i}`
-              return type !== 'story' ? (
+              return type !== ConfigParams.ELEMENT_STORY ? (
                 ''
               ) : (
                 <StoryContentChildRelated

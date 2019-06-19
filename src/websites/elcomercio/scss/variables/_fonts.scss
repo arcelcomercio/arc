@@ -4,19 +4,22 @@ $primary-font: 'Noto Serif',
 serif;
 /*-----------------------*/
 
-/******* Sizes  Paragraph*******/
+/** ----------------------------*
+*            FONT SIZES         *
+*-------------------------------*/
 $font-base: 1rem;
 
+/******* text-[size] *******/
 // Example px size in desktop -----------v
-$font-xs: $font-base * 0.7 !default; // 11.2
-$font-sm: $font-base * 0.8 !default; // 12.8
-$font-md: $font-base * 0.9 !default; // 14.4
-$font-lg: $font-base * 1 !default; // 16
-$font-xl: $font-base * 1.1 !default; // 17.6
+$font-xs: $font-base * 0.7;
+$font-sm: $font-base * 0.8;
+$font-md: $font-base * 0.9;
+$font-lg: $font-base * 1;
+$font-xl: $font-base * 1.1;
 
-/******* Sizes  Headers *******/
-$header-xs: $font-base * 1.1 !default; // 17.6
-$header-sm: $font-base * 1.3 !default; // 20.8
-$header-md: $font-base * 1.5 !default; // 24
-$header-lg: $font-base * 1.7 !default; // 27.2
-$header-xl: $font-base * 2 !default; // 32
+/******* title-[size] *******/
+$header-xs: $font-base * 1.3;
+$header-sm: $font-base * 1.5;
+$header-md: $font-base * 1.7;
+$header-lg: $font-base * 2;
+$header-xl: $font-base * 2.2;

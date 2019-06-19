@@ -2,11 +2,9 @@ import PropTypes from 'prop-types'
 import customFieldsParent from '../../_dependencies/custom-fields'
 
 const customFieldsSection = {
-  content: PropTypes.label.tag({
-    name: 'Contenido',
-  }),
   link: PropTypes.string.isRequired.tag({
-    name: 'Link de nota interna',
+    name: 'SLUG',
+    description: 'URL sin dominio',
   }),
 }
 

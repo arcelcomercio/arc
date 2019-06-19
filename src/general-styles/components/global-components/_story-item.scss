@@ -13,17 +13,9 @@
     height: 220px;
   }
 
-  &__top {
-    @media (--tablet) {
-      align-items: flex-start;
-    }
-  }
-
-  /* &__section {} */
-
-  &__date {
-    @media (--tablet) {}
-  }
+  // &__top {}
+  // &__section {}
+  // &__date {}
 
   &__left {
     flex: 100% 1 1;
@@ -33,16 +25,14 @@
     max-height: 42px;
 
     @media (--tablet) {
-      line-height: 1.1;
       max-height: 69px;
     }
   }
 
-  &__subtitle {
-    @media (--tablet) {}
-  }
+  // &__subtitle {}
+  // &__author {}
 
-  &__right {
+  /* &__right {
     flex: 120px 0 0;
 
     @media (--tablet) {
@@ -52,7 +42,9 @@
     @media (--desktop) {
       flex: 280px 0 0;
     }
-  }
+  } */
+
+  // &__link {}
 
   &__icon {
     top: 10px;
@@ -67,6 +59,8 @@
       height: 40px;
     }
   }
+
+  // &__img {}
 
   &--row {
     @media (--tablet) {
