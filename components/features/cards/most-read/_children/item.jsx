@@ -9,12 +9,10 @@ const CardMostReadChildItem = props => {
   if (typeNote === 'basic_video') type = 'video'
 
   const classes = {
-    item:
-      'flex most-read-item border-solid border-b-1 border-gray pt-15 pb-15 pl-20 pr-20',
+    item: `flex most-read-item border-solid border-b-1 border-gray pt-15 pb-15 pl-20 pr-20`,
     figure: `most-read-item__figure most-read-item__figure--icon most-read-item__figure--${type} w-full h-full position-relative overflow-hidden`,
     img: 'most-read-item__img w-full h-full object-cover',
-    detail:
-      'most-read-item__detail w-full overflow-hidden pl-10 text-sm text-black line-h-sm',
+    detail: `most-read-item__detail w-full overflow-hidden pl-10 text-sm text-black line-h-sm`,
   }
 
   return (
