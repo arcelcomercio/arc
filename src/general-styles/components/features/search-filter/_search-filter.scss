@@ -28,14 +28,14 @@
     &.active {
       background-color: $color-primary;
 
-      .filter-search__link {
+      .search-filter__link {
         font-weight: bold;
       }
 
       @media (--desktop) {
         background-color: $color-white;
 
-        .filter-search__link {
+        .search-filter__link {
           background-color: #bbd3e0;
           font-weight: bold;
         }
@@ -46,7 +46,7 @@
       text-transform: uppercase;
 
       @media (--desktop) {
-        .filter-search__link {
+        .search-filter__link {
           background-color: $color-primary;
           font-weight: bold;
           border: 0;
@@ -76,8 +76,8 @@
 
   &__link {
     @media (--desktop) {
-      width: 110px;
-      height: 90px;
+      width: 91px;
+      height: 76px;
       background-color: $color-base-100;
     }
   }
@@ -122,7 +122,7 @@
     }
 
     @media (--desktop) {
-      width: 90px;
+      width: 70px;
       border-left: solid 1px #e8f2f7;
     }
   }
