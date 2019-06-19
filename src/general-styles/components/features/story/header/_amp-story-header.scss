@@ -1,5 +1,6 @@
 .amp-story-header {
   max-width: 600px;
+  margin: auto;
 
   &__datetime {
     color: #666;
@@ -17,6 +18,12 @@
 
   &__share {
     fill: $color-white;
+  }
+  &__description {
+    margin-top: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #323232;
   }
 
   .story-gallery {

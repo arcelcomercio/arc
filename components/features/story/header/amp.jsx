@@ -5,7 +5,7 @@ import { formatDayMonthYear } from '../../../utilities/helpers'
 import StoryHeaderChildAmpSocial from './_children/amp-social'
 
 const classes = {
-  news: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
+  stories: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
   titleAmp:
     'amp-story-header__title font-bold primary-font title-md text-gray-300 line-h-xs',
   datetime:

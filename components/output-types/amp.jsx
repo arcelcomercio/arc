@@ -93,11 +93,17 @@ const AmpOutputType = ({
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
         <meta name="news_keywords" content={keywords} />
+        <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
 
         {/* add additional head elements here */}
+        <script
+          async
+          custom-element="amp-next-page"
+          src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
+        />
         <script
           async
           custom-element="amp-sidebar"

@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import { pathToFileURL } from 'url'
+import StoryData from '../../../utilities/story-data'
 
 const classes = {
   footer: 'amp-footer flex items-center pt-25 pb-25',
@@ -20,21 +20,30 @@ class LayoutAmpFooter extends PureComponent {
   render() {
     const {
       contextPath,
-      globalContent: {
-        taxonomy: { primary_section: { name = '', path } = {} },
-      } = {},
+      arcSite,
+      siteUrl,
+      globalContent: data = {},
     } = this.props
 
+    const { primarySection, primarySectionLink } = new StoryData({
+      data,
+      arcSite,
+      contextPath,
+      siteUrl,
+    })
+
     return (
-      <footer className={classes.footer}>
-        <div className={classes.footerInfo}>
-          <a
-            href={`${contextPath || ''}${path}`}
-            className={classes.footerLogoContainer}>
-            <span>Ver más de {name}</span>
-          </a>
-        </div>
-      </footer>
+      <>
+        <footer className={classes.footer}>
+          <div className={classes.footerInfo}>
+            <a
+              href={`${contextPath || ''}${primarySectionLink}`}
+              className={classes.footerLogoContainer}>
+              <span>Ver más de {primarySection}</span>
+            </a>
+          </div>
+        </footer>
+      </>
     )
   }
 }

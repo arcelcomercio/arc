@@ -241,6 +241,12 @@ class StoryData {
     return breadcrumbList(url, this._siteUrl, this._contextPath)
   }
 
+  get recentList() {
+    const { recent_stories: { content_elements: contentElements } = {} } =
+      this._data || {}
+    return StoryData.recentList(contentElements)
+  }
+
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
@@ -269,6 +275,14 @@ class StoryData {
         this._data.promo_items[ConfigParams.GALLERY]) ||
       ''
     )
+  }
+
+  get contentElements() {
+    return (this._data && this._data.content_elements) || ''
+  }
+
+  get promoItems() {
+    return (this._data && this._data.promo_items) || ''
   }
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
@@ -507,6 +521,21 @@ class StoryData {
       thumb = StoryData.getImage(data)
     }
     return thumb
+  }
+
+  static recentList(recentElements = []) {
+    return (
+      recentElements.map(data => {
+        const {
+          headlines: { basic } = {},
+          website_url: websiteUrl,
+          _id: StoryId,
+        } = data
+        const type = StoryData.getTypeMultimedia(data)
+        const urlImage = StoryData.getThumbnail(data, type)
+        return { basic, websiteUrl, urlImage, StoryId }
+      }) || {}
+    )
   }
 }
 

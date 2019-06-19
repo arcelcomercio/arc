@@ -11,6 +11,7 @@ import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryContentChildTags from './_children/tags'
 import StoryContentChildRelated from './_children/related'
+import StoryData from '../../../utilities/story-data'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -18,20 +19,53 @@ const classes = {
     'amp-story-content__news-text text-lg mt-15 mb-25 secondary-font text-gray-300 text-xl line-h-md',
   author: 'amp-story-content__author mt-15 mb-15',
   image: 'amp-story-content__image',
+  nextPageSeparator: 'amp-story-content__next-page-separator',
 }
 
 @Consumer
 class StoryContentAmp extends PureComponent {
   render() {
     const {
-      globalContent: {
-        content_elements: contentElements,
-        promo_items: promoItems,
-        taxonomy: { tags = {} },
-        related_content: { basic: relatedContent } = {},
-      },
+      globalContent: data = {},
       contextPath,
+      arcSite,
+      siteUrl,
     } = this.props
+    const {
+      contentElements,
+      relatedContent,
+      promoItems,
+      tags,
+      id,
+      recentList,
+    } = new StoryData({
+      data,
+      arcSite,
+      contextPath,
+      siteUrl,
+    })
+
+    const recentResult = recentList.map(
+      ({ basic, websiteUrl, urlImage, StoryId } = {}) => {
+        return (
+          id !== StoryId &&
+          `{  
+              "image":"${urlImage}",
+              "title":"${basic}",
+              "ampUrl":"${websiteUrl}"
+            }`
+        )
+      }
+    )
+
+    const structuredRecent = `{  
+      "pages": [${recentResult}],
+      "hideSelectors": [
+        ".header",
+        ".footer"
+        ]
+      }`
+
     return (
       <div className={classes.content}>
         {promoItems && <ElePrincipal data={promoItems} />}
@@ -95,7 +129,8 @@ class StoryContentAmp extends PureComponent {
             }}
           />
         )}
-        <StoryContentChildTags data={tags} contextPath={contextPath} />
+        <StoryContentChildTags data={tags} {...contextPath} />
+
         {relatedContent.length > 0 && (
           <div className={classes.related}>
             <div className={classes.relatedTitle}>Relacionadas </div>
@@ -114,6 +149,15 @@ class StoryContentAmp extends PureComponent {
             })}
           </div>
         )}
+        <amp-next-page>
+          <script
+            type="application/json"
+            dangerouslySetInnerHTML={{ __html: structuredRecent }}
+          />
+          <div className={classes.nextPageSeparator} separator>
+            <p>SIGUIENTE ARTÍCULO</p>
+          </div>
+        </amp-next-page>
       </div>
     )
   }
