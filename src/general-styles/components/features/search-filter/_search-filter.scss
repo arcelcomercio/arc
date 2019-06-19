@@ -57,12 +57,8 @@
 
     @media (--desktop) {
       background-color: $color-white;
-      //padding-right: 2px;
+      margin-right: 2px;
       position: initial;
-
-      &:nth-last-child(1) {
-        padding-right: 0;
-      }
     }
 
     &:nth-child(3) {
