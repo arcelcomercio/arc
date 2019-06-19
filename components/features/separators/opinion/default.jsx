@@ -8,8 +8,9 @@ import AuthorCard from './_children/author-card'
 
 const classes = {
   separator: 'separator__opinion',
-  opinionBody: 'separator__opinion--body mt-0 mb-0',
-  opinionTitle: 'separator__opinion-title uppercase',
+  opinionBody: 'separator__opinion--body mt-0 mb-0 ',
+  opinionTitle:
+    'separator__opinion-title uppercase title-md pt-35 pb-35 pr-20 pl-20 text-white',
 }
 
 const HeaderHTML = ({ htmlCode }) => {

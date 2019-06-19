@@ -2,79 +2,24 @@
   &__opinion {
     &-title {
       background: #334a81;
-      padding: 36px 28px;
-      font-size: 26px;
       letter-spacing: 2px;
-      color: $color-white;
     }
     &--body {
       display: grid;
       grid-template-columns: 1fr;
       min-height: 290px;
 
-      @media (--desktop) {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        gap: 3px;
-      }
-
       @media (--tablet) {
         grid-template-columns: 1fr 1fr 1fr;
         gap: 3px;
+      }
+      @media (--desktop) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
       }
     }
 
     &--item {
       background: #c5ddf9;
-      padding: 24px 18px;
-
-      &-details {
-        h3 {
-          margin-bottom: 12px;
-
-          a {
-            color: #0e6dc1;
-            font-weight: 500;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-          }
-
-          :hover {
-            text-decoration: underline;
-          }
-        }
-
-        h5 {
-          margin-bottom: 23px;
-
-          a {
-            font-size: 19px;
-            color: $color-gray-300;
-            font-weight: 500;
-          }
-
-          :hover {
-            text-decoration: underline;
-          }
-        }
-
-        p {
-          display: -webkit-box;
-          /* autoprefixer: off */
-          -webkit-box-orient: vertical;
-          /* autoprefixer: on */
-          overflow: hidden;
-
-          a {
-            font-size: 13.5px;
-            color: black;
-          }
-
-          :hover {
-            text-decoration: underline;
-          }
-        }
-      }
 
       &-oneline {
         -webkit-line-clamp: 1;
@@ -93,16 +38,22 @@
 
       &-image {
         right: 21px;
-        position: absolute;
         bottom: 15px;
         width: 90px;
         height: 90px;
 
         img {
           max-width: 90px;
-          border-radius: 50%;
         }
       }
+    }
+    &-link {
+      color: #0e6dc1;
+      letter-spacing: 1px;
+    }
+    &-description {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
     }
   }
 }
