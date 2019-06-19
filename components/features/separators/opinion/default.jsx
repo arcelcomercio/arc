@@ -7,7 +7,7 @@ import StoryData from '../../../utilities/story-data'
 import AuthorCard from './_children/author-card'
 
 const classes = {
-  separator: 'separator__opinion flex flex-col',
+  separator: 'separator__opinion',
   opinionBody: 'separator__opinion--body mt-0 mb-0',
   opinionTitle: 'separator__opinion-title uppercase',
 }
