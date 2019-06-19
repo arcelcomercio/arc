@@ -4,7 +4,7 @@ import { formatDate } from '../../../../utilities/helpers'
 const classes = {
   authorItem: 'author-item',
   wrapper:
-    'author-item__wrapper w-full flex justify-center p-20 m-0 mx-auto border-b-1 boder-solid border-gray',
+    'author-item__wrapper w-full flex justify-center p-20 m-0 mx-auto border-b-1 border-solid border-gray',
   social: 'author-item__social hidden md:flex md:pt-10',
   date: 'author-item__date text-xs hidden md:block',
   content: 'author-item__content flex w-full items-start',

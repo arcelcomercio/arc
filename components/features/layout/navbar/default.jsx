@@ -23,7 +23,7 @@ class LayoutNavbar extends PureComponent {
         assets: { nav },
       },
     } = this.props
-    this.formater = new Formatter(
+    this.formatter = new Formatter(
       {
         deployment,
         contextPath,
@@ -38,14 +38,14 @@ class LayoutNavbar extends PureComponent {
       data: {},
       device: setDevice(),
     }
-    if (this.formater.main.fetch !== false) {
-      const { params, source } = this.formater.main.fetch.config
+    if (this.formatter.main.fetch !== false) {
+      const { params, source } = this.formatter.main.fetch.config
       /** Solicita la data a la API y setea los resultados en "state.data" */
       this.fetchContent({
         data: {
           source,
           query: params,
-          filter: this.formater.getSchema(),
+          filter: this.formatter.getSchema(),
         },
       })
     }
@@ -78,14 +78,14 @@ class LayoutNavbar extends PureComponent {
           deviceList={{ showInDesktop, showInTablet, showInMobile }}
           device={device}
           data={data}
-          {...this.formater.main.initParams}
+          {...this.formatter.main.initParams}
         />
       ),
       somos: (
         <NavbarChildSomos
           deviceList={{ showInDesktop, showInTablet, showInMobile }}
           device={device}
-          {...this.formater.main.initParams}
+          {...this.formatter.main.initParams}
         />
       ),
     }
