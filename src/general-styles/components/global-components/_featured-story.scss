@@ -16,9 +16,11 @@ $image-height: 157px;
       height: 306px;
       bottom: 0;
       left: 0;
-      background: linear-gradient(to bottom,
-          rgba(68, 68, 68, 0) 20%,
-          rgb(68, 68, 68));
+      background: linear-gradient(
+        to bottom,
+        rgba(68, 68, 68, 0) 20%,
+        rgb(68, 68, 68)
+      );
     }
   }
 
@@ -101,7 +103,8 @@ $image-height: 157px;
   }
 
   &__category {
-    @media (--tablet) {}
+    @media (--tablet) {
+    }
 
     &::after {
       border-bottom: 1px solid $color-gray-300;
@@ -152,18 +155,7 @@ $image-height: 157px;
 
   &__multimedia-icon-span {
     font-size: 49px;
-  }
-
-  &__play-icon {
-    &:before {
-      content: '\2023';
-    }
-  }
-
-  &__gallery-icon {
-    &:before {
-      content: '\1F4F7';
-    }
+    letter-spacing: normal;
   }
 
   // &__img-icon {}

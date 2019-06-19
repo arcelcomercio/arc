@@ -3,15 +3,11 @@ import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 
 const classes = {
-  featuredStory:
-    'featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-20',
-  detail:
-    'featured-story__detail flex flex-col justify-between position relative md:pb-20 md:pt-20',
+  featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-20`,
+  detail: `featured-story__detail flex flex-col justify-between position relative md:pb-20 md:pt-20`,
   image: 'featured-story__image overflow-hidden w-full h-full ml-10 md:ml-0',
-  iconContainer:
-    'featured-story__multimedia-icon position-absolute text-gray-300 rounded',
-  icon:
-    'featured-story__multimedia-icon-span flex items-center justify-center w-full h-full text-gray-300',
+  iconContainer: `featured-story__multimedia-icon position-absolute text-gray-300 rounded`,
+  icon: `featured-story__multimedia-icon-span flex items-center justify-center w-full h-full text-gray-300`,
 
   category: 'featured-story__category pb-15 hidden text-lg md:block',
   title: 'featured-story__title overflow-hidden mb-10 title-sm line-h-xs',
@@ -19,9 +15,9 @@ const classes = {
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
   author: 'featured-story__author uppercase',
-  authorLink: 'featured-story__author-link text-sm text-gray-200',
+  authorLink: 'featured-story__author-link text-sm text-gray-200 text-xs',
 
-  link: 'featured-story__link title-xs line-h-sm',
+  link: 'featured-story__link text-xl line-h-sm',
   // linkTitle: 'featured-story__title-link title-lg capitalize',
   imageLink: 'featured-story__img-link block h-full',
   img: 'featured-story__img w-full h-full object-cover',
@@ -37,8 +33,8 @@ const classes = {
 
   live: 'featured-story--live',
 
-  playIcon: 'featured-story__play-icon',
-  galleryIcon: 'featured-story__gallery-icon',
+  playIcon: 'icon-video',
+  galleryIcon: 'icon-img',
 }
 
 export default class FeaturedStory extends PureComponent {
@@ -153,9 +149,7 @@ export default class FeaturedStory extends PureComponent {
           </h2>
 
           <span className={classes.author}>
-            <a
-              className={`${classes.link} ${classes.authorLink}`}
-              href={author.url}>
+            <a className={classes.authorLink} href={author.url}>
               {author.name}
             </a>
           </span>
@@ -164,7 +158,6 @@ export default class FeaturedStory extends PureComponent {
           <a className={classes.imageLink} href={title.url}>
             <img src={image} className={classes.img} alt="" />
             {getMultimediaIcon()}
-            <i className={`${classes.imageIcon}`} />
           </a>
         </figure>
       </article>
