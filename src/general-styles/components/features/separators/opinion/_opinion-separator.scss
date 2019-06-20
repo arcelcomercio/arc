@@ -1,7 +1,6 @@
 .separator {
   &__opinion {
     &-title {
-      background: #334a81;
       letter-spacing: 2px;
     }
     &--body {
@@ -11,7 +10,7 @@
 
       @media (--tablet) {
         grid-template-columns: 1fr 1fr 1fr;
-        gap: 3px;
+        gap: 6px;
       }
       @media (--desktop) {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -19,7 +18,7 @@
     }
 
     &--item {
-      background: #c5ddf9;
+      /*   background: #c5ddf9; */
 
       &-oneline {
         -webkit-line-clamp: 1;
@@ -37,14 +36,8 @@
       }
 
       &-image {
-        right: 21px;
-        bottom: 15px;
-        width: 90px;
-        height: 90px;
-
-        img {
-          max-width: 90px;
-        }
+        width: 70px;
+        height: 70px;
       }
     }
     &-link {
@@ -54,6 +47,17 @@
     &-description {
       display: -webkit-box;
       -webkit-box-orient: vertical;
+    }
+    &-name {
+      &::before,
+      &::after {
+        content: '';
+        width: 30px;
+        height: 1px;
+        margin: 5px 0;
+        background-color: $color-black;
+        display: block;
+      }
     }
   }
 }
