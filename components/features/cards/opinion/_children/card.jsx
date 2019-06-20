@@ -2,8 +2,7 @@ import React from 'react'
 
 const classes = {
   opinion: 'opinion-card bg-white grid pr-10 pl-10',
-  head:
-    'opinion-card__head grid items-center border-t-1 border-solid border-gray',
+  head: `opinion-card__head grid items-center border-t-1 border-solid border-gray`,
   title: 'opinion-card__title text-center m-0 title-md',
   oneline: 'opinion-card__oneline',
   twoline: 'opinion-card__twoline',
@@ -11,8 +10,7 @@ const classes = {
   body: 'opinion-card__body grid',
   item: 'opinion-card__item grid pt-10 border-t-1 border-solid border-gray',
   section: 'opinion-card__section grid items-center',
-  imageContainer:
-    'opinion-card__image-container grid items-center justify-center',
+  imageContainer: `opinion-card__image-container grid items-center justify-center`,
   image: 'opinion-card__image m-0 mx-auto',
   name: 'opinion-card__section-name',
   nameLink: 'opinion-card__name-link text-xl',

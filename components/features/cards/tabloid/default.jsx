@@ -114,7 +114,7 @@ class CardTabloid extends PureComponent {
     const link = `${contextPath}${rawLink || ''}`
 
     const nameDate = this.nameDate(date)
-    console.log(multimedia)
+    //console.log(multimedia)
 
     return (
       <div className={classes.tabloide}>

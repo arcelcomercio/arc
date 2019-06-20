@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
+import { getMultimediaIcon } from '../utilities/helpers'
 
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-20`,
@@ -32,9 +33,6 @@ const classes = {
   headbandLink: 'featured-story__headband-link font-bold text-white',
 
   live: 'featured-story--live',
-
-  playIcon: 'icon-video',
-  galleryIcon: 'icon-img',
 }
 
 export default class FeaturedStory extends PureComponent {
@@ -78,25 +76,6 @@ export default class FeaturedStory extends PureComponent {
         return editableField(element)
       }
       return null
-    }
-
-    const getMultimediaIcon = () => {
-      let icon
-      switch (multimediaType) {
-        case StoryData.VIDEO:
-          icon = classes.playIcon
-          break
-        case StoryData.GALLERY:
-          icon = classes.galleryIcon
-          break
-        default:
-          return ''
-      }
-      return (
-        <span className={classes.iconContainer}>
-          <i className={`${classes.icon} ${icon}`} />
-        </span>
-      )
     }
     // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
     let numline = ''
@@ -157,7 +136,13 @@ export default class FeaturedStory extends PureComponent {
         <figure className={classes.image}>
           <a className={classes.imageLink} href={title.url}>
             <img src={image} className={classes.img} alt="" />
-            {getMultimediaIcon()}
+            <span className={classes.iconContainer}>
+              <i
+                className={`${getMultimediaIcon(StoryData, multimediaType)} ${
+                  classes.icon
+                }`}
+              />
+            </span>
           </a>
         </figure>
       </article>
