@@ -84,7 +84,7 @@ class SeparatorBlog extends PureComponent {
       <div>
         <div className="mb-30 pt-30">
           <a
-            className="blog-separator__blog uppercase"
+            className="blog-separator__blog uppercase title-sm text-gray-300"
             href={`${contextPath}/blog`}>
             Blogs
           </a>

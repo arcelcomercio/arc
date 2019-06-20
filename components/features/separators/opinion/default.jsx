@@ -9,9 +9,10 @@ import StoryData from '../../../utilities/story-data'
 import AuthorCard from './_children/author-card'
 
 const classes = {
-  separator: 'separator__opinion flex flex-col',
-  opinionBody: 'separator__opinion--body mt-0 mb-0',
-  opinionTitle: 'separator__opinion-title uppercase',
+  separator: 'separator__opinion bg-white pt-10 pb-10 pr-10 pl-10',
+  opinionBody: 'separator__opinion--body mt-0 mb-0 ',
+  opinionTitle:
+    'separator__opinion-title uppercase title-md pt-15 pb-25 pr-20 pl-20 text-black',
 }
 
 const QTY_STORY_DESKTOP = 5

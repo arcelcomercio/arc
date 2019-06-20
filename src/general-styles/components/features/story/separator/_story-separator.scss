@@ -120,13 +120,11 @@
   }
 
   &__item {
-    padding: 0 10px 0 0;
+    padding: 0;
     border-right: 2px solid $color-gray-100;
 
     &--nota {
       & figure {
-        height: 80px;
-        margin-right: 2%;
         width: 90%;
       }
     }
@@ -139,10 +137,13 @@
 
   &__figure {
     height: 60px;
-    width: 70px;
+    width: 70%;
+    @media (--desktop) {
+      width: 70px;
+    }
   }
 
-  & span {
+  /*   & span {
     position: absolute;
     height: 15px;
     width: 15px;
@@ -155,7 +156,7 @@
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.5);
     color: #444;
-  }
+  } */
 
   &__detail {
     padding-left: 8px;
@@ -176,12 +177,6 @@
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
     font-family: $secondary-font;
-
-    &--nota {
-      & a {
-        color: $color-gray-300;
-      }
-    }
   }
 
   &-oneline {
