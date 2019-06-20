@@ -4,7 +4,7 @@ const classes = {
   opinion: 'opinion-card bg-white grid pr-10 pl-10',
   head:
     'opinion-card__head grid items-center border-t-1 border-solid border-gray',
-  title: 'opinion-card__title text-center m-0 text-xl',
+  title: 'opinion-card__title text-center m-0 title-md',
   oneline: 'opinion-card__oneline',
   twoline: 'opinion-card__twoline',
   threeline: 'opinion-card__threeline',
@@ -15,7 +15,7 @@ const classes = {
     'opinion-card__image-container grid items-center justify-center',
   image: 'opinion-card__image m-0 mx-auto',
   name: 'opinion-card__section-name',
-  nameLink: 'opinion-card__name-link',
+  nameLink: 'opinion-card__name-link text-xl',
   storyTitle: 'opinion-card__story-title text-xs text-left overflow-hidden',
   titleLink: 'opinion-card__title-link text-black',
   orange: 'text_orange',
