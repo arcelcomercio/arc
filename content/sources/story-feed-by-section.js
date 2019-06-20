@@ -2,8 +2,7 @@ let auxKey
 
 const schemaName = 'stories'
 
-const params = [
-  {
+const params = [{
     name: 'section',
     displayName: 'Sección(es)',
     type: 'text',
@@ -35,15 +34,19 @@ const pattern = (key = {}) => {
   auxKey = key
 
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
+  const {
+    section,
+    excludeSections,
+    feedOffset,
+    stories_qty: storiesQty
+  } = key
 
   const sectionsExcluded = itemsToArray(excludeSections)
 
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               'revision.published': 'true',
             },
@@ -54,29 +57,26 @@ const pattern = (key = {}) => {
             },
           },
         ],
-        must_not: [
-          {
-            nested: {
-              path: 'taxonomy.sections',
-              query: {
-                bool: {
-                  must: [
-                    {
-                      terms: {
-                        'taxonomy.sections._id': sectionsExcluded,
-                      },
+        must_not: [{
+          nested: {
+            path: 'taxonomy.sections',
+            query: {
+              bool: {
+                must: [{
+                    terms: {
+                      'taxonomy.sections._id': sectionsExcluded,
                     },
-                    {
-                      term: {
-                        'taxonomy.sections._website': website,
-                      },
+                  },
+                  {
+                    term: {
+                      'taxonomy.sections._website': website,
                     },
-                  ],
-                },
+                  },
+                ],
               },
             },
           },
-        ],
+        }, ],
       },
     },
   }
@@ -88,8 +88,7 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': sectionsIncluded,
                 },
@@ -120,11 +119,11 @@ const transform = data => {
   if (data.content_elements.length === 0 || sectionsIncluded.length > 1)
     return data
   const {
-    content_elements: [
-      {
-        taxonomy: { sections },
+    content_elements: [{
+      taxonomy: {
+        sections
       },
-    ],
+    }, ],
   } = data
   const realSection = sections.find(item => sectionsIncluded[0] === item._id)
   const sectionName = {
