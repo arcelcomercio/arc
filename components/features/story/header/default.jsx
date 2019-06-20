@@ -9,7 +9,7 @@ import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
-  news: 'w-full text-white',
+  story: 'w-full text-white',
   gallery: 'w-full',
 }
 @Consumer
@@ -24,7 +24,8 @@ class StoryHeader extends PureComponent {
     const parameters = { contentElementGallery, title, subTitle, link }
     return (
       <>
-        <div className={contentElementGallery ? classes.gallery : classes.news}>
+        <div
+          className={contentElementGallery ? classes.gallery : classes.story}>
           <StoryHeaderChildSocial url={link} />
 
           <StoryHeaderChildHeading {...parameters} />

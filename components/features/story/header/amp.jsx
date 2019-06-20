@@ -11,7 +11,7 @@ const classes = {
   datetime:
     'amp-story-header__datetime mt-15 mb-15 block secondary-font text-lg',
   description: 'amp-story-header__description mt-0 text-md text-gray-300',
-  gallery: 'amp-story-header bg-white w-full',
+  gallery: 'amp-story-header bg-white w-full pr-20 pl-20 m-5 mx-auto',
 }
 @Consumer
 class StoryHeaderAmp extends PureComponent {

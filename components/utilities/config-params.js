@@ -27,6 +27,10 @@ class ConfigParams {
   static ELEMENT_RAW_HTML = 'raw_htmal'
 
   static ELEMENT_BLOCKQUOTE = 'blockquote'
+
+  static ELEMENT_TYPE_CHARBEAT = 'Articulo Nota Simple'
+
+  static COMSCORE_ID = '8429002'
 }
 
 export default ConfigParams

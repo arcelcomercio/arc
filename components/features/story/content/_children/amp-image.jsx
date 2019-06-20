@@ -12,7 +12,7 @@ const StoryContentChildAmpImage = props => {
   return (
     <>
       <figure>
-        <amp-img i-amphtml-layout="responsive">
+        <amp-img>
           <i-amphtml-sizer />
           <Image
             width="100%"

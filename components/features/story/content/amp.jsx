@@ -1,6 +1,7 @@
 import StoryContent, {
   AmpOembed,
 } from '@arc-core-components/feature_article-body'
+import ENV from 'fusion:environment'
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import AmpImage from '@arc-core-components/element_image'
 import Consumer from 'fusion:consumer'
@@ -33,7 +34,7 @@ class StoryContentAmp extends PureComponent {
       globalContent: data = {},
       contextPath,
       arcSite,
-      siteUrl,
+      siteProperties: { siteUrl },
       isAmp,
     } = this.props
     const {
@@ -41,7 +42,6 @@ class StoryContentAmp extends PureComponent {
       relatedContent,
       promoItems,
       tags,
-      id,
       recentList,
     } = new StoryData({
       data,
@@ -50,14 +50,15 @@ class StoryContentAmp extends PureComponent {
       siteUrl,
     })
 
+    const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ''
     const recentResult = recentList.map(
-      ({ basic, websiteUrl, urlImage, StoryId } = {}) => {
+      ({ basic, websiteUrl, urlImage } = {}) => {
         return (
-          id !== StoryId &&
+          urlImage &&
           `{  
               "image":"${urlImage}",
               "title":"${basic}",
-              "ampUrl":"${websiteUrl}"
+              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp"
             }`
         )
       }

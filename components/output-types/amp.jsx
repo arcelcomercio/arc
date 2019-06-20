@@ -5,6 +5,8 @@ import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
+import AmpTagManager from './_children/amp-tag-manager'
+import { createMarkup } from '../utilities/helpers'
 
 const AmpOutputType = ({
   children,
@@ -79,14 +81,18 @@ const AmpOutputType = ({
     deployment,
     globalContent,
   }
-  const canonicalUrl = siteProperties.siteUrl.concat(
-    globalContent.canonical_url
-  )
-
+  const {
+    canonical_url: canonicalUrl,
+    taxonomy: { sections } = {},
+    credits: { by: autors } = {},
+  } = globalContent
+  const parametros = { sections, autors, siteProperties }
   return (
     <Html>
       <head>
-        <BaseMarkup canonicalUrl={canonicalUrl} />
+        <BaseMarkup
+          canonicalUrl={siteProperties.siteUrl.concat(canonicalUrl)}
+        />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <title>{title}</title>
         <link rel="dns-prefetch" href="//ecoid.pe" />
@@ -104,6 +110,12 @@ const AmpOutputType = ({
         {renderMetaPage(metaValue('id'), metaPageData)}
 
         {/* add additional head elements here */}
+
+        <script
+          async
+          custom-element="amp-analytics"
+          src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"
+        />
         <script
           async
           custom-element="amp-next-page"
@@ -153,15 +165,16 @@ const AmpOutputType = ({
             return data ? (
               <style
                 amp-custom="amp-custom"
-                dangerouslySetInnerHTML={{
-                  __html: `${data}`,
-                }}
+                dangerouslySetInnerHTML={createMarkup(data)}
               />
             ) : null
           }}
         </Resource>
       </head>
-      <body>{children}</body>
+      <body className="">
+        <AmpTagManager {...parametros} />
+        {children}
+      </body>
     </Html>
   )
 }

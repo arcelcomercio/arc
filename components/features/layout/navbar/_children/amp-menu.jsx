@@ -48,7 +48,7 @@ class NavbarChildMenu extends PureComponent {
 
     return (
       <amp-sidebar
-        className={classes.sidebar}
+        class={classes.sidebar}
         id="sidebar"
         layout="nodisplay"
         side="left">
@@ -61,11 +61,9 @@ class NavbarChildMenu extends PureComponent {
           class={classes.close}
         />
 
-        <div className={classes.body}>
-          <ul className={classes.list}>
-            {sections && this.renderSections(sections)}
-          </ul>
-        </div>
+        <ul className={classes.list}>
+          {sections && this.renderSections(sections)}
+        </ul>
 
         <ul className={classes.social}>
           {footer.socialNetworks.map(el => (

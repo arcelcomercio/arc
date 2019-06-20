@@ -35,6 +35,8 @@ class LayoutAmpHeader extends PureComponent {
                   alt="elcomercio.pe"
                   width="156"
                   height="25"
+                  tabindex="0"
+                  on="tap:sidebar.close"
                 />
               </a>
             </div>

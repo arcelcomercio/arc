@@ -242,9 +242,9 @@ class StoryData {
   }
 
   get recentList() {
-    const { recent_stories: { content_elements: contentElements } = {} } =
+    const { recent_stories: { content_elements: contentElements } = {}, id } =
       this._data || {}
-    return StoryData.recentList(contentElements)
+    return StoryData.recentList(contentElements, id)
   }
 
   get seoKeywords() {
@@ -529,18 +529,25 @@ class StoryData {
     return thumb
   }
 
-  static recentList(recentElements = []) {
+  static recentList(recentElements = [], id) {
+    let i = 0
     return (
-      recentElements.map(data => {
-        const {
-          headlines: { basic } = {},
-          website_url: websiteUrl,
-          _id: StoryId,
-        } = data
-        const type = StoryData.getTypeMultimedia(data)
-        const urlImage = StoryData.getThumbnail(data, type)
-        return { basic, websiteUrl, urlImage, StoryId }
-      }) || {}
+      recentElements
+        .map(data => {
+          const {
+            headlines: { basic } = {},
+            website_url: websiteUrl,
+            _id: storyId,
+          } = data
+          if (storyId !== id && i < 3) {
+            const type = StoryData.getTypeMultimedia(data)
+            const urlImage = StoryData.getThumbnail(data, type)
+            i += 1
+            return { basic, websiteUrl, urlImage }
+          }
+          return []
+        })
+        .filter(String) || {}
     )
   }
 }
