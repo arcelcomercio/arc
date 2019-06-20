@@ -3,20 +3,20 @@ import React from 'react'
 const classes = {
   opinion: 'opinion-card bg-white grid pr-10 pl-10',
   head:
-    'opinion-card__head grid item-center border-t-1 border-solid border-gray',
+    'opinion-card__head grid items-center border-t-1 border-solid border-gray',
   title: 'opinion-card__title text-center m-0 text-xl',
   oneline: 'opinion-card__oneline',
   twoline: 'opinion-card__twoline',
   threeline: 'opinion-card__threeline',
   body: 'opinion-card__body grid',
-  item: 'opinion-card__item pt-10 border-t-1 border-solid border-gray',
-  section: 'opinion-card__section grid item-center',
+  item: 'opinion-card__item grid pt-10 border-t-1 border-solid border-gray',
+  section: 'opinion-card__section grid items-center',
   imageContainer:
-    'opinion-card__image-container grid item-center justify-center',
+    'opinion-card__image-container grid items-center justify-center',
   image: 'opinion-card__image m-0 mx-auto',
   name: 'opinion-card__section-name',
   nameLink: 'opinion-card__name-link',
-  storyTitle: 'opinion-card__story-title text-left overflow-hidden',
+  storyTitle: 'opinion-card__story-title text-xs text-left overflow-hidden',
   titleLink: 'opinion-card__title-link text-black',
   orange: 'text_orange',
 }
