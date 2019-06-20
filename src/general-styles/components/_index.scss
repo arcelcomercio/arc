@@ -1,4 +1,6 @@
-/******* Globals *******/
+/** ----------------------------*
+*            GLOBALS            *
+*-------------------------------*/
 @import './global-components/extraordinary-story';
 @import './global-components/featured-story';
 @import './global-components/icons';
@@ -6,18 +8,21 @@
 @import './global-components/pagination';
 @import './global-components/story-item';
 @import './global-components/story-table';
-/******* Features *******/
+@import './global-components/search-input';
+/** ----------------------------*
+*            FEATURES           *
+*-------------------------------*/
 @import './features/ads/ads';
 @import './features/blog/author-details/author-details';
 @import './features/blog/author-list/post-item';
 @import './features/blog/author-title/author-title';
 @import './features/blog/blog-list/blog-item';
 @import './features/blog/blog-list/blog-list';
-@import './features/blog/post-content/blog-post-content';
+@import './features/blog/post-content/post-content';
 @import './features/blog/post-header/post-header';
 @import './features/blog/related-posts-grid/blog-related-stories-grid';
 @import './features/breaking-news/breaking-news';
-@import './features/cards/cinema-billboard/cinema-billboard-card';
+@import './features/cards/cinema-billboard/cinema-card';
 @import './features/cards/most-read/most-read-item';
 @import './features/cards/most-read/most-read';
 @import './features/cards/opinion/opinion-card';
@@ -25,7 +30,7 @@
 @import './features/cards/survey/card-survey-choices';
 @import './features/cards/survey/card-survey-result';
 @import './features/cards/survey/card-survey';
-@import './features/cards/tabloid/tabloide';
+@import './features/cards/tabloid/tabloid';
 @import './features/cards/triplet/triplet';
 @import './features/cinema-billboard/genre-movies-filter';
 @import './features/cinema-billboard/movie-details';
@@ -56,10 +61,12 @@
 @import './features/statics/internal-survey/survey-share';
 @import './features/statics/newsletter/newsletter';
 @import './features/statics/opinion-grid/author-card';
-@import './features/statics/opinion-grid/author-list-item';
+@import './features/statics/opinion-grid/author-item';
 @import './features/statics/opinion-grid/editorial-card';
 @import './features/statics/opinion-grid/opinion-grid';
-@import './features/stories-lists/card/list';
+@import './features/stories-lists/card/stories-list-card';
+@import './features/stories-lists/card/stories-list-header';
+@import './features/stories-lists/card/stories-list-item';
 @import './features/story/related-internal';
 @import './features/story/content/related-content';
 @import './features/story/content/related-internal';

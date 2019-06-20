@@ -75,7 +75,7 @@ $image-height: 157px;
   @media (--tablet) {
     background-color: $color-white;
     grid-row: span 1;
-    height: 374px;
+    height: $row-height;
 
     &::before,
     &::after {
@@ -179,7 +179,7 @@ $image-height: 157px;
     background-color: $color-white;
     flex-direction: column;
     grid-row: span 1;
-    height: 374px;
+    height: $row-height;
     padding: 20px;
 
     &::before,

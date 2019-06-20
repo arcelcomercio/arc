@@ -2,7 +2,7 @@ import React from 'react'
 
 const classes = {
   title: `newsletter__title position-relative font-bold pb-15 title-lg line-h-xs`,
-  descripcion: 'newsletter__description secondary-font title-sm line-h-xs',
+  description: 'newsletter__description secondary-font title-sm line-h-xs',
   row: 'newsletter__row mb-20',
   email:
     'newsletter__email w-full pr-15 pl-15 text-md border-1 border-solid border-gray',
@@ -29,7 +29,7 @@ const StaticsNewsletterChildForm = props => {
       <h3 className={classes.title}>
         Registrate en nuestro <span>Newsletter</span>
       </h3>
-      <p className={classes.descripcion}>{description}</p>
+      <p className={classes.description}>{description}</p>
       <form action="">
         <div className={classes.row}>
           <input
