@@ -154,6 +154,6 @@ class StorySeparator extends PureComponent {
   }
 }
 
-StorySeparator.label = 'Artículo - separador'
+StorySeparator.label = 'Separador de artículo'
 
 export default StorySeparator
