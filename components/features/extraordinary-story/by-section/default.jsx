@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import customFieldsExtern from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
@@ -8,7 +8,7 @@ import ExtraordinaryStory from '../../../global-components/extraordinary-story'
 const API_URL = 'story-feed-by-section'
 const API_SIZE_DATA = 1
 @Consumer
-class ExtraordinaryStoryBySection extends Component {
+class ExtraordinaryStoryBySection extends PureComponent {
   constructor(props) {
     super(props)
     this.state = { data: {} }

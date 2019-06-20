@@ -4,7 +4,7 @@ import Confirmation from './confirmation'
 
 const classes = {
   newsletter: `newsletter flex flex-col-reverse items-center lg:justify-between lg:flex-row`,
-  boxSuscripcion: `newsletter__box-suscription pr-40 pl-40 primary-font lg:p-0 lg:pr-15 lg:pl-15`,
+  boxSubscription: `newsletter__box-subscription pr-40 pl-40 primary-font lg:p-0 lg:pr-15 lg:pl-15`,
   errorMessage: 'newsletter__error-message block pt-5 text-xs',
   errorMessageMedium: 'text-lg mb-20',
   bannerImage: 'newsletter__banner-image w-full lg:w-inherit',
@@ -22,7 +22,7 @@ const Newsletter = props => {
 
   return (
     <div className={classes.newsletter}>
-      <div className={classes.boxSuscripcion}>
+      <div className={classes.boxSubscription}>
         {!confirmRegister && (
           <h4
             className={`${classes.errorMessage} ${classes.errorMessageMedium}`}>

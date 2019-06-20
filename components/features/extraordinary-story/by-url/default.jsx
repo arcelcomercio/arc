@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import customFieldsExtern from './_dependencies/custom-fields'
 import schemaFilter from '../_dependencies/schema-filter'
@@ -7,7 +7,7 @@ import ExtraordinaryStory from '../../../global-components/extraordinary-story'
 
 const API_URL = 'story-by-url'
 @Consumer
-class ExtraordinaryStoryByUrl extends Component {
+class ExtraordinaryStoryByUrl extends PureComponent {
   mainLogic = {
     fetch: (api, url, filter = {}) => {
       if (url) {

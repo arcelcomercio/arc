@@ -6,12 +6,12 @@ import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
   breakingnews:
-    'cintillo-u secondary-font flex justify-between p-15 text-white',
-  close: 'cintillo-u__btn-close text-right',
-  icon: 'cintillo-u__btn-icon icon-close-circle title-sm text-white',
-  text: 'cintillo-u__text m-0 font-normal title-md line-h-xs',
-  tag: 'cintillo-u__tag uppercase mr-5',
-  link: 'cintillo-u__link mr-5 text-white',
+    'breaking-news secondary-font flex justify-between p-15 text-white',
+  close: 'breaking-news__btn-close text-right',
+  icon: 'breaking-news__btn-icon icon-close-circle title-sm text-white',
+  text: 'breaking-news__text m-0 font-normal title-xs line-h-xs',
+  tag: 'breaking-news__tag uppercase mr-5',
+  link: 'breaking-news__link mr-5 text-white',
 }
 
 @Consumer
@@ -80,7 +80,13 @@ class BreakingNews extends Component {
     const { article, isVisible } = this.state || {}
     const {
       editableField,
-      customFields: { backgroundColor, tags, title, subTitle, storyLink },
+      customFields: {
+        title,
+        subTitle,
+        storyLink,
+        tags = 'Lo último',
+        backgroundColor = 'breaking-news--bgcolor-1',
+      },
       contextPath,
     } = this.props
     const webUrlService = !this.isExternalLink
@@ -149,15 +155,15 @@ BreakingNews.propTypes = {
     }),
     tags: PropTypes.string.tag({ name: 'Etiqueta' }),
     backgroundColor: PropTypes.oneOf([
-      'cintillo-u--bgcolor-1',
-      'cintillo-u--bgcolor-2',
+      'breaking-news--bgcolor-1',
+      'breaking-news--bgcolor-2',
     ]).tag({
       name: 'Color de fondo',
       labels: {
-        'cintillo-u--bgcolor-1': 'Principal',
-        'cintillo-u--bgcolor-2': 'Secundario',
+        'breaking-news--bgcolor-1': 'Principal',
+        'breaking-news--bgcolor-2': 'Secundario',
       },
-      defaultValue: 'cintillo-u--bgcolor-1',
+      defaultValue: 'breaking-news--bgcolor-1',
     }),
 
     subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true }),

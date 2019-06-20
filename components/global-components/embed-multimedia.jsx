@@ -41,7 +41,7 @@ const EmbedMultimedia = props => {
   const image = (url, { deployment, contextPath, website, title = '' }) => {
     return (
       <img
-        className="embed-multimedia-image w-full"
+        className="embed-multimedia-image w-full object-cover"
         src={
           url ||
           defaultImage({
