@@ -39,7 +39,6 @@
     @media (--desktop) {
       background-color: transparent;
       overflow-y: hidden;
-      max-width: 720px;
       margin: auto;
       transition: all 10ms;
       transform: translate3d(0%, 0, 0);
@@ -74,6 +73,7 @@
       }
     }
   }
+
   &__close {
     height: 50px;
   }

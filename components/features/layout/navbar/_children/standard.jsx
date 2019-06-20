@@ -22,8 +22,8 @@ const classes = {
   logo: 'nav__logo',
   ads: 'nav__ads mr-5 ml-5 hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
-  btnLogin: 'flex items-center btn btn--outline',
-  btnSubscribe: `flex items-center btn btn--outline nav__header-sub hidden md:inline-block`,
+  btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
+  btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'icon icon-user',
 }
 
@@ -220,12 +220,12 @@ class NavBarDefault extends PureComponent {
                 <div className={classes.btnContainer}>
                   <Button
                     btnText="Suscríbete"
-                    btnClass={classes.btnSubscribe}
+                    btnClass={`${classes.btnSubscribe} btn--outline`}
                     btnLink="#"
                   />
                   <Button
                     btnText="Iniciar Sesión"
-                    btnClass={classes.btnLogin}
+                    btnClass={`${classes.btnLogin} btn--outline`}
                     btnLink="#"
                   />
                 </div>
@@ -263,7 +263,9 @@ class NavBarDefault extends PureComponent {
               <div className={classes.btnContainer}>
                 <Button
                   iconClass={classes.iconLogin}
-                  btnClass={classes.btnLogin}
+                  btnClass={`${
+                    classes.btnLogin
+                  } border-1 border-solid border-white`}
                   btnLink="#"
                 />
               </div>
