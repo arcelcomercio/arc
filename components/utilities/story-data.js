@@ -26,7 +26,6 @@ class StoryData {
   }
 
   get __data() {
-    
     return this._data
   }
 
@@ -136,6 +135,15 @@ class StoryData {
     return StoryData.getPrimarySection(this._data).path || ''
   }
 
+  get sections() {
+    // const sections = ['a', 's', 'w']
+    let sections=[]
+    if (this._data.taxonomy && this._data.taxonomy.sections) {
+      sections = this._data.taxonomy.sections.map(sec => sec.name)
+    }
+    return sections
+  }
+
   get link() {
     const { website_url: url = '' } = this._data || {}
     return url
@@ -222,6 +230,16 @@ class StoryData {
         this._data.promo_items[ConfigParams.VIDEO].embed_html) ||
       ''
     )
+  }
+
+  get paragraphsNews() {
+    const { content_elements: contentElements = [] } = this._data
+    const parrafo = contentElements.map(({ content = '' }) =>
+      content !== '' || content !== undefined ? content : null
+    )
+
+    const result = parrafo.filter(x => x !== null)
+    return result
   }
 
   get breadcrumbList() {

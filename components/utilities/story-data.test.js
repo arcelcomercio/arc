@@ -1269,14 +1269,42 @@ describe('Get relatedContent - StoryData', () => {
     const datastring = JSON.stringify(data)
     const datatest = JSON.parse(datastring)
 
-    datatest.related_content = related_content;
+    datatest.related_content = related_content
 
     element.__data = datatest
-    const resultBasic =[{"_id": "RWXERJIMOFBMZNNDPLMC4YZ6O4", "referent": {"id": "RWXERJIMOFBMZNNDPLMC4YZ6O4", "provider": "", "type": "story"}, "type": "reference"}, {"_id": "BDWNOEVFAFDDXPRQU2EAR6J5JU", "referent": {"id": "BDWNOEVFAFDDXPRQU2EAR6J5JU", "provider": "", "type": "story"}, "type": "reference"}, {"_id": "TSAIVBRONNESVBRUIPCW66I7T4", "referent": {"id": "TSAIVBRONNESVBRUIPCW66I7T4", "provider": "", "type": "story"}, "type": "reference"}]
+    const resultBasic = [
+      {
+        _id: 'RWXERJIMOFBMZNNDPLMC4YZ6O4',
+        referent: {
+          id: 'RWXERJIMOFBMZNNDPLMC4YZ6O4',
+          provider: '',
+          type: 'story',
+        },
+        type: 'reference',
+      },
+      {
+        _id: 'BDWNOEVFAFDDXPRQU2EAR6J5JU',
+        referent: {
+          id: 'BDWNOEVFAFDDXPRQU2EAR6J5JU',
+          provider: '',
+          type: 'story',
+        },
+        type: 'reference',
+      },
+      {
+        _id: 'TSAIVBRONNESVBRUIPCW66I7T4',
+        referent: {
+          id: 'TSAIVBRONNESVBRUIPCW66I7T4',
+          provider: '',
+          type: 'story',
+        },
+        type: 'reference',
+      },
+    ]
     expect(element.relatedContent).toEqual(resultBasic)
   })
 
-   it('Debe retornar un arreglo vacio si related_content no esta definido ', () => {
+  it('Debe retornar un arreglo vacio si related_content no esta definido ', () => {
     const element = new StoryData({
       deployment,
       contextPath,
@@ -1286,10 +1314,25 @@ describe('Get relatedContent - StoryData', () => {
     const datastring = JSON.stringify(data)
     const datatest = JSON.parse(datastring)
 
-    // datatest.related_content = related_content;
-
     element.__data = datatest
     // const resultBasic =[{"_id": "RWXERJIMOFBMZNNDPLMC4YZ6O4", "referent": {"id": "RWXERJIMOFBMZNNDPLMC4YZ6O4", "provider": "", "type": "story"}, "type": "reference"}, {"_id": "BDWNOEVFAFDDXPRQU2EAR6J5JU", "referent": {"id": "BDWNOEVFAFDDXPRQU2EAR6J5JU", "provider": "", "type": "story"}, "type": "reference"}, {"_id": "TSAIVBRONNESVBRUIPCW66I7T4", "referent": {"id": "TSAIVBRONNESVBRUIPCW66I7T4", "provider": "", "type": "story"}, "type": "reference"}]
     expect(element.relatedContent).toEqual([])
-  }) 
+  })
+})
+
+describe('Get videoSeo - StoryData', () => {
+  it('', () => {
+    const element = new StoryData({
+      deployment,
+      contextPath,
+      arcSite,
+      defaultImgSize,
+    })
+
+    const datastring = JSON.stringify(data)
+    const datatest = JSON.parse(datastring)
+    element.__data = datatest
+
+    
+  })
 })
