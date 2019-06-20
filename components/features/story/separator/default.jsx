@@ -113,7 +113,7 @@ class StorySeparator extends PureComponent {
     })
 
     let key = 0
-    return stories.map((story, i) => {
+    return stories && stories.map((story, i) => {
       if (key === 4) return false
       const { website_url: websiteUrl } = story
       if (websiteUrl === excluir) return false
