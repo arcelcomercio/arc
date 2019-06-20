@@ -1,12 +1,11 @@
 //Triplete
 .triplet {
-
   &__link {
     color: inherit;
   }
 
   &__item {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     grid-template-rows: 80px 1fr;
 
     &:last-child {
@@ -53,8 +52,11 @@
   }
 
   &--threeline {
-    max-height: 45px;
+    max-height: 60px;
     -webkit-line-clamp: 3;
+    @media (--desktop) {
+      max-height: 76px;
+    }
   }
 
   &__multimedia {
@@ -62,16 +64,16 @@
   }
 
   &__icon {
-    top: 10px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
     background-color: rgba(255, 255, 255, 0.6);
     z-index: 1;
 
     @media (--tablet) {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
     }
   }
 
