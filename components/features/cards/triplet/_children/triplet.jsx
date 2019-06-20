@@ -1,21 +1,23 @@
 import React from 'react'
-import { getIcon } from '../../../../utilities/helpers'
+import StoryData from '../../../../utilities/story-data'
 
 export const TripletChildTriplet = props => {
   const { data = [], multimediaOrientation = 'right', arcSite } = props
   const classes = {
     triplet: 'triplet bg-white border-solid border-1 border-gray',
-    link: 'triplet__link',
+    link: 'triplet__link text-lg',
     item: `triplet__item p-15 grid border-b-1 border-solid border-gray triplet__item--${multimediaOrientation}`,
     title: 'triplet__title overflow-hidden font-bold',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
     threeline: 'triplet--threeline',
     author: 'triplet__author uppercase pt-10 text-xs text-gray-200',
+    authorLink: 'triplet__link',
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
-    tripletIcon:
-      'triplet__icon position-absolute flex items-center justify-center rounded text-black text-sm',
+    tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-sm`,
+    playIcon: 'icon-video title-sm',
+    galleryIcon: 'icon-img title-sm',
   }
 
   let numline = ''
@@ -31,6 +33,26 @@ export const TripletChildTriplet = props => {
       numline = classes.twoline
       break
   }
+
+  const getMultimediaIcon = multimediaType => {
+    let icon
+    switch (multimediaType) {
+      case StoryData.VIDEO:
+        icon = classes.playIcon
+        break
+      case StoryData.GALLERY:
+        icon = classes.galleryIcon
+        break
+      default:
+        return ''
+    }
+    return (
+      <span className={classes.tripletIcon}>
+        <i className={icon} />
+      </span>
+    )
+  }
+
   return (
     <div className={classes.triplet}>
       {data.map(story => (
@@ -49,19 +71,14 @@ export const TripletChildTriplet = props => {
                 src={story.multimedia}
                 alt={story.title}
               />
-              {story.multimediaType === 'basic' ||
-              story.multimediaType === '' ? (
-                ''
-              ) : (
-                <span className={classes.tripletIcon}>
-                  {getIcon(story.multimediaType)}
-                </span>
-              )}
+              {story.multimediaType === 'basic' || story.multimediaType === ''
+                ? ''
+                : getMultimediaIcon(story.multimediaType)}
             </a>
             {/* <Icon iconClass={story.iconClass} /> */}
           </figure>
           <div className={classes.author}>
-            <a className={classes.link} href={story.authorOrSectionLink}>
+            <a className={classes.authorLink} href={story.authorOrSectionLink}>
               {story.authorOrSection}
             </a>
           </div>
