@@ -21,7 +21,7 @@ const classes = {
 class LayoutAmpHeader extends PureComponent {
   render() {
     const { contextPath, arcSite, deployment } = this.props
-    const img =
+    const imgLogo =
       deployment(`${contextPath}/resources/dist/${arcSite}/images/logo.png`) ||
       ''
     return (
@@ -31,12 +31,11 @@ class LayoutAmpHeader extends PureComponent {
             <div className={classes.logo}>
               <a href="/">
                 <amp-img
-                  src={img}
+                  src={imgLogo}
                   alt="elcomercio.pe"
                   width="156"
                   height="25"
                   tabindex="0"
-                  on="tap:sidebar.close"
                 />
               </a>
             </div>

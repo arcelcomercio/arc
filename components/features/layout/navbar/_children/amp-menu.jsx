@@ -56,6 +56,7 @@ class NavbarChildMenu extends PureComponent {
           src={deployment(`${contextPath}/resources/assets/amp/icon-cross.png`)}
           width="25"
           height="25"
+          tabindex="0"
           on="tap:sidebar.close"
           role="button"
           class={classes.close}

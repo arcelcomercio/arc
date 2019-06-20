@@ -51,6 +51,7 @@ class NavBarDefault extends PureComponent {
             <div className={classes.navBtnContainer}>
               <button
                 type="button"
+                // eslint-disable-next-line react/no-unknown-property
                 tabindex="0"
                 on={tapSidebar}
                 className={classes.iconMenu}
