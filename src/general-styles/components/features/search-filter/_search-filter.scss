@@ -28,14 +28,14 @@
     &.active {
       background-color: $color-primary;
 
-      .filter-search__link {
+      .search-filter__link {
         font-weight: bold;
       }
 
       @media (--desktop) {
         background-color: $color-white;
 
-        .filter-search__link {
+        .search-filter__link {
           background-color: #bbd3e0;
           font-weight: bold;
         }
@@ -46,7 +46,7 @@
       text-transform: uppercase;
 
       @media (--desktop) {
-        .filter-search__link {
+        .search-filter__link {
           background-color: $color-primary;
           font-weight: bold;
           border: 0;
@@ -66,6 +66,7 @@
         margin-right: 20px;
       }
     }
+
     &:nth-child(6) {
       @media (--desktop) {
         margin-right: 10px;
@@ -75,8 +76,8 @@
 
   &__link {
     @media (--desktop) {
-      width: 110px;
-      height: 90px;
+      width: 91px;
+      height: 76px;
       background-color: $color-base-100;
     }
   }
@@ -110,7 +111,7 @@
   // &__box-search {}
   // &__search {}
 
-  &__search-button {
+  &__btn {
     z-index: 1;
     top: 50%;
     right: 15px;
@@ -121,12 +122,12 @@
     }
 
     @media (--desktop) {
-      width: 90px;
+      width: 70px;
       border-left: solid 1px #e8f2f7;
     }
   }
 
-  &__search-input {
+  &__input {
     height: 40px;
     line-height: 50px;
 

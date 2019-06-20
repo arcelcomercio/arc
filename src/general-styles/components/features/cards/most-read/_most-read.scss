@@ -5,5 +5,17 @@ $backgroundTitle: #5f72a7;
     background-color: $backgroundTitle;
   }
 
+  @media (--desktop) {
+    padding: 0;
+  }
+
+  &__icon::before {
+    content: '\e911';
+    color: $color-white;
+    padding: 5px;
+    border-radius: 50px;
+    font-size: 17px;
+  }
+
   // &__icon {}
 }

@@ -39,6 +39,7 @@ $map-border-pos: '',
 
 $map-border-color: (border-white: $color-white,
   border-gray: $border-color-gray,
+  border-black: $border-color-black,
   border-base: $border-color-base) !default;
 
 @each $border-color,

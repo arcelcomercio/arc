@@ -19,11 +19,11 @@ const classes = {
   list: `flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5 hidden`,
   listItem: 'text-center',
   listLink: `nav__list-link text-gray-200 text-center uppercase secondary-font font-normal text-sm`,
-  logo: 'nav__logo lg:hidden',
+  logo: 'nav__logo',
   ads: 'nav__ads mr-5 ml-5 hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
-  btnLogin: 'flex items-center btn btn--outline',
-  btnSubscribe: `flex items-center btn btn--outline nav__header-sub hidden md:inline-block`,
+  btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
+  btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'icon icon-user',
 }
 
@@ -151,13 +151,10 @@ class NavBarDefault extends PureComponent {
       logo,
       arcSite,
       contextPath,
-      requestUri,
       device,
       deviceList,
       data: { children: sections = [] } = {},
     } = this.props
-    const querys = requestUri.split('?')[1]
-    const queryString = querys !== undefined ? `?${querys}` : ''
 
     this._handleDevice(device)
 
@@ -207,11 +204,13 @@ class NavBarDefault extends PureComponent {
                   )
                 })}
             </ul>
-            <a href={`${contextPath}/${queryString}`}>
+            <a href={`${contextPath}/`}>
               <img
                 src={logo}
                 alt={`Logo de ${arcSite}`}
-                className={`${classes.logo}  ${scrolled ? 'lg:block' : ''}`}
+                className={`${classes.logo}  ${
+                  scrolled ? 'lg:block' : 'lg:hidden'
+                }`}
               />
             </a>
             {/** ************* RIGHT *************** */}
@@ -221,12 +220,12 @@ class NavBarDefault extends PureComponent {
                 <div className={classes.btnContainer}>
                   <Button
                     btnText="Suscríbete"
-                    btnClass={classes.btnSubscribe}
+                    btnClass={`${classes.btnSubscribe} btn--outline`}
                     btnLink="#"
                   />
                   <Button
                     btnText="Iniciar Sesión"
-                    btnClass={classes.btnLogin}
+                    btnClass={`${classes.btnLogin} btn--outline`}
                     btnLink="#"
                   />
                 </div>
@@ -264,7 +263,9 @@ class NavBarDefault extends PureComponent {
               <div className={classes.btnContainer}>
                 <Button
                   iconClass={classes.iconLogin}
-                  btnClass={classes.btnLogin}
+                  btnClass={`${
+                    classes.btnLogin
+                  } border-1 border-solid border-white`}
                   btnLink="#"
                 />
               </div>

@@ -1,11 +1,7 @@
 .nav {
   position: sticky;
-  height: $nav-height-mobile;
+  height: $nav-height;
   z-index: 20;
-
-  @media (--desktop) {
-    height: $nav-height;
-  }
 
   &__wrapper {
     @media (--desktop) {

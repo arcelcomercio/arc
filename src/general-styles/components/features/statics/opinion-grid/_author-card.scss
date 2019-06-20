@@ -13,14 +13,14 @@
     }
 
     @media (--desktop) {
-      height: 380px;
+      height: 374px;
     }
   }
 
   &__box-image {
     @media (--tablet) {
       width: 140px;
-      height: 250px;
+      height: 140px;
       position: absolute;
     }
   }

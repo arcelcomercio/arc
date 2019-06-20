@@ -1,8 +1,8 @@
 import React from 'react'
 
 const classes = {
-  title: `newsletter__title position-relative font-bold pb-15 title-lg line-h-none`,
-  descripcion: 'newsletter__description secondary-font title-sm line-h-md',
+  title: `newsletter__title position-relative font-bold pb-15 title-lg line-h-xs`,
+  descripcion: 'newsletter__description secondary-font title-sm line-h-xs',
   row: 'newsletter__row mb-20',
   email:
     'newsletter__email w-full pr-15 pl-15 text-md border-1 border-solid border-gray',
@@ -11,7 +11,7 @@ const classes = {
   button: 'newsletter__button bg-gray-300 font-bold w-full border-0 text-white',
   policies: 'newsletter__policies font-bold cursor-pointer text-sm',
   pageLink: 'newsletter__page-link text-gray-300',
-  inputCheckbox: 'newsletter__input-checkbox pr-10',
+  inputCheckbox: 'newsletter__input-checkbox mr-10',
 }
 
 const StaticsNewsletterChildForm = props => {

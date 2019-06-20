@@ -1,7 +1,7 @@
 $color-check-selected: #494949;
 
 .c-survey-choices {
-  &__input:checked + .survey-question__check::after {
+  &__input:checked + .c-survey-choices__check::after {
     background-color: $color-check-selected;
     border-radius: 50%;
     content: '';
@@ -15,14 +15,11 @@ $color-check-selected: #494949;
   }
 
   &__check {
-    // TODO: check float and vertical-align
-    float: left;
     height: 26px;
-    vertical-align: middle;
     width: 26px;
 
     &:before {
-      a: 13px;
+      border-radius: 13px;
       bottom: 0;
       content: '';
       left: 0;

@@ -11,17 +11,18 @@ const classes = {
   sites: 'footer__sites flex justify-center mt-15',
   sitesList: 'footer__sites-list flex justify-center flex-wrap w-full p-0',
   sitesItem:
-    'footer__sites-item mr-5 ml-5 mb-5 pr-10 border-r-1 border-solid border-gray text-md text-gray-200 line-h-xs',
+    'footer__sites-item mb-5 pl-10 pr-10 border-r-1 border-solid border-black text-sm text-gray-200 line-h-xs',
   sitesLink: 'footer__sites-link text-gray-200',
   legalList: 'footer__legal-list text-md',
-  legalItem: 'footer__legal-item mb-10 text-gray-100 line-h-none text-sm',
+  legalItem: 'footer__legal-item mb-10 text-gray-200 line-h-sm text-xs',
   logoContainer: 'footer__logo footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list p-20',
-  listItem: 'footer__list-item pt-10 pb-10 border-b-1 border-solid border-gray',
+  listItem:
+    'footer__list-item pt-10 pb-10 border-b-1 border-solid border-black',
   listTitle:
-    'footer__list-title pt-10 pb-10 border-b-1 border-solid border-gray uppercase font-bold text-gray-200',
-  listLink: 'footer__list-link capitalize text-gray-200',
+    'footer__list-title pt-10 pb-10 border-b-1 border-solid border-black uppercase font-bold text-sm text-gray-200',
+  listLink: 'footer__list-link capitalize text-gray-200 text-sm',
 }
 
 @Consumer
