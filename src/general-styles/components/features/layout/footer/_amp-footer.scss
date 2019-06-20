@@ -9,4 +9,13 @@
   &__text {
     color: $footer-text-color;
   }
+
+  &__next-page-separator {
+    background-color: #eaf2f6;
+    height: 30px;
+  }
+
+  &__next-page-separator-text {
+    line-height: 32px;
+  }
 }

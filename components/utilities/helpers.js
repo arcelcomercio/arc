@@ -324,8 +324,8 @@ export const breadcrumbList = (url, siteUrl, contextPath) => {
 
 export const getUrlParameter = contentElements => {
   const loc = window.location.href
-  const getString = loc.split('?')[1]
-  const tmp = getString.split('foto=')
+  const getString = loc.split('?')[1] || ''
+  const tmp = getString.split('foto=') || []
 
   if (loc.indexOf('?') > 0 && contentElements) {
     const sWidth = 100 / contentElements.length

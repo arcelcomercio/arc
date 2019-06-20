@@ -21,7 +21,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
   constructor(props) {
     super(props)
     const {
-      contentElementGallery: { content_elements: contentElements = {} },
+      contentElementGallery: { content_elements: contentElements = [] },
     } = props || {}
 
     this.state = {
