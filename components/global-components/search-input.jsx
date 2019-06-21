@@ -4,7 +4,7 @@ const classes = {
   container: `search-input__container flex items-center mb-15 lg:mb-0 lg:items-start lg:w-full`,
   form: 'position-relative w-full',
   button: `search-input__btn icon-search block position-absolute title-sm bg-white lg:h-full lg:flex lg:items-center lg:justify-center lg:right-0`,
-  input: `w-full pl-15 pr-30 text-xl lg:font-bold lg:pr-0`,
+  input: `search-input w-full pl-15 pr-30 text-xl lg:font-bold lg:pr-0`,
 }
 
 class SearchInput extends PureComponent {

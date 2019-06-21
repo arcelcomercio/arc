@@ -6,7 +6,7 @@ import { formatDate, defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   list: 'bg-white w-full p-15', // blog-list
-  title: 'uppercase mb-20', // blog-list__title
+  title: 'uppercase mb-20 title-xs', // blog-list__title
 }
 @Consumer
 class BlogList extends PureComponent {
