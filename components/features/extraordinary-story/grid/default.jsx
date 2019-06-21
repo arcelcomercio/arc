@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import ExtraordinaryStoryGridChild from './_children/extraordinary-story-grid'
 import customFields from './_dependencies/custom-fields'
@@ -7,7 +7,7 @@ import Data from '../_dependencies/data'
 import SectionData from '../../../utilities/section-data'
 
 @Consumer
-class ExtraordinaryStoryGrid extends Component {
+class ExtraordinaryStoryGrid extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {

@@ -4,7 +4,7 @@ import StoryData from '../../../../utilities/story-data'
 
 // TODO: revisar si esto llevaba paddings o no
 const classes = {
-  listItem: 'stories-list-card__item overflow-y-auto',
+  list: 'stories-l-card overflow-y-auto',
 }
 
 const StoriesListsCardChildList = ({
@@ -17,7 +17,7 @@ const StoriesListsCardChildList = ({
 }) => {
   const elementFormatter = new StoryData({ deployment, arcSite, contextPath })
   return (
-    <div className={classes.listItem}>
+    <div role="list" className={classes.list}>
       {listNews.map((el, index) => {
         elementFormatter.__data = el
         const data = elementFormatter.attributesRaw

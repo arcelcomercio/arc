@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import Image from '@arc-core-components/element_image'
 import { defaultImage, getUrlParameter } from '../../../../utilities/helpers'
 
 const classes = {
@@ -8,8 +7,9 @@ const classes = {
   content: 'story-gallery-slider__content flex',
   element: '',
   image: 'story-gallery-slider__img w-full object-fit-cover',
-  caption: 'story-gallery-slider__caption p-10',
-  quantity: 'story-gallery-slider__quantity position-absolute p-10',
+  caption: 'story-gallery-slider__caption pt-10 pb-15  mr-5 ',
+  captionImage: 'story-gallery-slider__caption-image pt-10   ',
+  quantity: 'story-gallery-slider__quantity  p-15 mr-5 text-center  ',
   arrowsBox:
     'story-gallery-slider__arrows-box position-absolute flex w-full justify-between',
   leftArrow: 'story-gallery-slider__arrows story-gallery-slider__arrows--left',
@@ -35,9 +35,25 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     this.step = getUrlParameter()
   }
 
+  componentDidMount() {
+    // this._controlKeys()
+  }
+
   setDefault(size) {
     const { deployment, contextPath, arcSite } = this.props
     return defaultImage({ deployment, contextPath, arcSite, size })
+  }
+
+  _controlKeys = e => {
+    if (e.keyCode === 39) {
+      this._handleNext()
+      return false
+    }
+    if (e.keyCode === 37) {
+      this._handlePrev()
+      return false
+    }
+    return ''
   }
 
   _handlePrev = () => {
@@ -85,7 +101,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     }
 
     return (
-      <section className={classes.elementsSlider}>
+      <section className={classes.elementsSlider} id="story-galery">
         <div
           role="slider"
           aria-valuenow={dataSlider.length}
@@ -100,15 +116,21 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     key={element._id}
                     style={slideStyle}
                     className={classes.element}>
-                    <span className={classes.quantity}>
-                      {i + 1}/{dataSlider.length}
-                    </span>
-                    <Image
-                      width="100%"
-                      imgClassName={classes.image}
-                      captionClassName={classes.caption}
-                      {...element}
-                    />
+                    <figure>
+                      <img
+                        src={element.resized_urls ? '' : element.url}
+                        alt={element.subtitle}
+                        className={classes.image}
+                      />
+                      <figcaption className={classes.caption}>
+                        <span className={classes.quantity}>
+                          {i + 1}/{dataSlider.length}
+                        </span>
+                        <p className={classes.captionImage}>
+                          {element.subtitle}
+                        </p>
+                      </figcaption>
+                    </figure>
                   </li>
                 ))}
               </ul>
@@ -119,14 +141,14 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     tabIndex="0"
                     className={classes.leftArrow}
                     onClick={this._handlePrev}
-                    onKeyDown={this._handlePrev}
+                    onKeyDown={this._controlKeys}
                   />
                   <i
                     role="button"
                     tabIndex="0"
                     className={classes.rightArrow}
                     onClick={this._handleNext}
-                    onKeyDown={this._handleNext}
+                    onKeyDown={this._controlKeys}
                   />
                 </div>
               )}

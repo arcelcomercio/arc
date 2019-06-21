@@ -5,17 +5,18 @@ import { getIcon } from '../utilities/helpers'
 // FIXME: La línea de arriba no se usa, se puede eliminar?
 
 const classes = {
-  extraordinaryStory: `extraordinary-story bg-white grid p-20 border-gray`,
+  extraordinaryStory: `extraordinary-story bg-white grid border-gray`,
   extraordinaryStorySection:
     'extraordinary-story__section bg-error text-left uppercase font-bold p-20 pb-0 text-white',
-  extraordinaryStoryContent: 'extraordinary-story__content block',
+  extraordinaryStoryContent:
+    'extraordinary-story__content block pt-20 pr-20 pl-20',
   extraordinaryStoryTitle:
-    'extraordinary-story__title title-lx overflow-hidden font-bold mb-15',
+    'extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-15',
   oneline: 'extraordinary-story-oneline',
   twoline: 'extraordinary-story-twoline',
   threeline: 'extraordinary-story-threeline',
   extraordinaryStorySubtitle:
-    'extraordinary-story__subtitle mb-15 text-gray-200',
+    'extraordinary-story__subtitle mb-15 text-gray-200 line-h-sm',
   extraordinaryStoryLink: 'extraordinary-story__link',
   extraordinaryStoryAuthor:
     'extraordinary-story__author uppercase mb-15 text-gray-200 text-xs',
@@ -42,13 +43,13 @@ const getMultimediaIcon = mediaType => {
 const ExtraordinaryStory = props => {
   const {
     data,
-    multimediaOrientation = 'bottom',
-    contentOrientation = 'left',
-    isSection = false,
     multimediaType,
     deployment,
     contextPath,
     arcSite,
+    multimediaOrientation = 'bottom',
+    contentOrientation = 'left',
+    isSection = false,
   } = props
 
   let numline = ''

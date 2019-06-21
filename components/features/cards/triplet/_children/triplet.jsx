@@ -1,21 +1,23 @@
 import React from 'react'
-import { getIcon } from '../../../../utilities/helpers'
+import StoryData from '../../../../utilities/story-data'
+import { getMultimediaIcon } from '../../../../utilities/helpers'
 
 export const TripletChildTriplet = props => {
   const { data = [], multimediaOrientation = 'right', arcSite } = props
   const classes = {
     triplet: 'triplet bg-white border-solid border-1 border-gray',
-    link: 'triplet__link',
+    link: 'triplet__link text-lg',
     item: `triplet__item p-15 grid border-b-1 border-solid border-gray triplet__item--${multimediaOrientation}`,
     title: 'triplet__title overflow-hidden font-bold',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
     threeline: 'triplet--threeline',
     author: 'triplet__author uppercase pt-10 text-xs text-gray-200',
+    authorLink: 'triplet__link',
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
-    tripletIcon:
-      'triplet__icon position-absolute flex items-center justify-center rounded text-black text-sm',
+    tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-sm`,
+    icon: 'title-sm',
   }
 
   let numline = ''
@@ -31,6 +33,7 @@ export const TripletChildTriplet = props => {
       numline = classes.twoline
       break
   }
+
   return (
     <div className={classes.triplet}>
       {data.map(story => (
@@ -54,14 +57,19 @@ export const TripletChildTriplet = props => {
                 ''
               ) : (
                 <span className={classes.tripletIcon}>
-                  {getIcon(story.multimediaType)}
+                  <i
+                    className={`${getMultimediaIcon(
+                      StoryData,
+                      story.multimediaType
+                    )} ${classes.icon}`}
+                  />
                 </span>
               )}
             </a>
             {/* <Icon iconClass={story.iconClass} /> */}
           </figure>
           <div className={classes.author}>
-            <a className={classes.link} href={story.authorOrSectionLink}>
+            <a className={classes.authorLink} href={story.authorOrSectionLink}>
               {story.authorOrSection}
             </a>
           </div>
@@ -73,10 +81,8 @@ export const TripletChildTriplet = props => {
 
 export const Icon = props => {
   const classes = {
-    tripletBoxIcon:
-      'triplet__box-icon bg-white position-absolute text-center rounded text-gray-300',
-    tripletIcon:
-      'triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs',
+    tripletBoxIcon: `triplet__box-icon bg-white position-absolute text-center rounded text-gray-300`,
+    tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs`,
   }
 
   const html = (

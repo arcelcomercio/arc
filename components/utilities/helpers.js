@@ -249,7 +249,9 @@ export const getCookie = cookieName => {
 
 export const formatSlugToText = (text = '') => {
   if (!text) return null
-  const splitText = text.slice(1).split('/')
+  const splitText = text.slice(1).includes('/')
+    ? text.slice(1).split('/')
+    : text.split('/')
   const lastSection = splitText[splitText.length - 1]
   return lastSection
     .charAt(0)
@@ -322,6 +324,7 @@ export const breadcrumbList = (url, siteUrl, contextPath) => {
   return arrayData.filter(String)
 }
 
+
 export const getUrlParameter = contentElements => {
   const loc = window.location.href
   const getString = loc.split('?')[1] || ''
@@ -334,4 +337,20 @@ export const getUrlParameter = contentElements => {
       : 0
   }
   return parseInt(String, tmp[1]) || 0
+}
+
+export const getMultimediaIcon = (StoryData, multimediaType) => {
+  let icon
+  switch (multimediaType) {
+    case StoryData.VIDEO:
+      icon = 'icon-video'
+      break
+    case StoryData.GALLERY:
+      icon = 'icon-img'
+      break
+    default:
+      return ''
+  }
+  return icon
+
 }

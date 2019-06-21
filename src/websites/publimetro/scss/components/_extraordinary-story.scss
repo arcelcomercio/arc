@@ -13,12 +13,10 @@
 
   &__title {
     color: $color-base-300;
-    line-height: 34px;
+    line-height: 1.1666666667;
   }
 
   &__link {
-    color: $color-gray-300;
-    font-size: 16px;
     font-family: $font-regular;
   }
 }
