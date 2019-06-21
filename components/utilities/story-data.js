@@ -242,8 +242,10 @@ class StoryData {
   }
 
   get recentList() {
-    const { recent_stories: { content_elements: contentElements } = {}, id } =
-      this._data || {}
+    const {
+      recent_stories: { content_elements: contentElements = [] } = {},
+      id,
+    } = this._data || {}
     return StoryData.recentList(contentElements, id)
   }
 
@@ -529,7 +531,7 @@ class StoryData {
     return thumb
   }
 
-  static recentList(recentElements = [], id) {
+  static recentList(recentElements, id) {
     let i = 0
     return (
       recentElements
