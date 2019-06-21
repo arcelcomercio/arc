@@ -8,7 +8,7 @@ const classes = {
   footerInfo: 'amp-footer__info m-0 mx-auto',
   footerLogoContainer:
     'amp-footer__text font-bold uppercase inline-block primary-font pr-25 text-xl line-h-xs',
-  nextPageSeparator: 'amp-footer__next-page-separator mt-25 mx-auto',
+  nextPageSeparator: 'amp-footer__next-page-separator mx-auto',
   nextPageSeparatorText:
     'amp-footer__next-page-separator-text text-center text-xs text-gray-200',
 }
@@ -35,8 +35,7 @@ class LayoutAmpFooter extends PureComponent {
       siteUrl,
     })
 
-    const pathUrl =
-      ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : 'http://localhost'
+    const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ''
     const recentResult = recentList.map(
       ({ basic, websiteUrl, urlImage } = {}) => {
         return (

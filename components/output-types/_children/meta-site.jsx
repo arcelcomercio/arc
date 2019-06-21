@@ -106,7 +106,7 @@ export default ({
         <link rel="canonical" href={`${siteUrl}${requestUri}`} />
       )}
       {isStory && (
-        <link rel="amphtml" href={`${siteUrl}${requestUri}&outputType=amp`} />
+        <link rel="amphtml" href={`${siteUrl}${requestUri}?outputType=amp`} />
       )}
       <meta name="theme-color" content={colorPrimary} />
       <meta name="msapplication-TileColor" content={colorPrimary} />

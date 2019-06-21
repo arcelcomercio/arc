@@ -15,7 +15,7 @@ const classes = {
 
 const StorySidebarLayout = ({ children = [] }) => {
   return (
-    <div className={classes.layout}>
+    <main className={classes.layout}>
       <div role="complementary" className={classes.zocalo}>
         {children[0] /* Zocalo izquierda */}
       </div>
@@ -43,7 +43,7 @@ const StorySidebarLayout = ({ children = [] }) => {
       <div role="complementary" className={classes.zocalo}>
         {children[10] /* Zocalo derecha */}
       </div>
-    </div>
+    </main>
   )
 }
 
