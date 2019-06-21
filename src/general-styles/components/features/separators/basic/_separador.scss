@@ -5,12 +5,12 @@
   &__title {
     display: -webkit-box;
     max-height: 57.63px;
-    line-height: 1.13;
     -webkit-line-clamp: 3;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
     line-height: 0.6;
+
     @media (--desktop) {
       max-height: 55px;
     }

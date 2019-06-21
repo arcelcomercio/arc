@@ -3,6 +3,7 @@
     &-title {
       letter-spacing: 2px;
     }
+
     &--body {
       display: grid;
       grid-template-columns: 1fr;
@@ -12,6 +13,7 @@
         grid-template-columns: 1fr 1fr 1fr;
         gap: 6px;
       }
+
       @media (--desktop) {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
       }
@@ -38,6 +40,7 @@
         height: 70px;
       }
     }
+
     /*    &-link {
       color: #0e6dc1;
       letter-spacing: 1px;
@@ -47,10 +50,11 @@
       /* autoprefixer: off */
       -webkit-box-orient: vertical;
       /* autoprefixer: on */
-      -webkit-box-orient: vertical;
       line-height: 1.2;
     }
+
     &-name {
+
       &::before,
       &::after {
         content: '';
