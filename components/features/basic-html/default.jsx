@@ -25,8 +25,12 @@ class BasicHtml extends PureComponent {
   }
 
   render() {
-    const { customFields } = this.props
-    return <div dangerouslySetInnerHTML={createMarkup(customFields.freeHtml)} />
+    const { customFields, outputType: isAmp } = this.props
+    return isAmp !== 'amp' ? (
+      <div dangerouslySetInnerHTML={createMarkup(customFields.freeHtml)} />
+    ) : (
+      ''
+    )
   }
 }
 

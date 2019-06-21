@@ -9,6 +9,7 @@ export default {
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-KKXTKGP',
+  ampGoogleTagManagerId: 'UA-3055636-8',
   charbeatAccountNumber: 99999,
 
   infoPagesDev: {

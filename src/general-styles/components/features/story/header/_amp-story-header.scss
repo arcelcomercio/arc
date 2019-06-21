@@ -18,6 +18,12 @@
   &__share {
     fill: $color-white;
   }
+  &__description {
+    margin-top: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #323232;
+  }
 
   .story-gallery {
     margin-left: -20px;

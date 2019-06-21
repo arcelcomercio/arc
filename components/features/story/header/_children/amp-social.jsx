@@ -22,7 +22,11 @@ class StoryHeaderAmp extends PureComponent {
     }
     const {
       contextPath,
-      siteProperties: { siteUrl, fbAppId },
+      siteProperties: {
+        siteUrl,
+        fbAppId,
+        social: { twitter: { user: siteNameRedSocial } } = {},
+      },
       globalContent: {
         website_url: postPermaLink,
         headlines: { basic: postTitle } = {},
@@ -30,8 +34,9 @@ class StoryHeaderAmp extends PureComponent {
     } = props
     const urlsShareList = socialMediaUrlShareList(
       siteUrl,
-      contextPath.concat(postPermaLink),
-      postTitle
+      postPermaLink,
+      postTitle,
+      siteNameRedSocial
     )
     this.shareButtons = {
       [this.firstList]: [

@@ -10,7 +10,7 @@ const classes = {
   logo: 'amp-header__logo',
   linkContainer:
     'amp-header__link-container position-relative mr-35 border-1 border-solid border-white text-sm rounded-sm line-h-xs pt-0 pb-0 pr-10 pl-10 mt-10',
-  link: 'amp-header__link text-white',
+  link: 'amp-header__link i-survey-share',
   ampImg:
     'amp-header__amp-img i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',
   img:
@@ -21,7 +21,7 @@ const classes = {
 class LayoutAmpHeader extends PureComponent {
   render() {
     const { contextPath, arcSite, deployment } = this.props
-    const img =
+    const imgLogo =
       deployment(`${contextPath}/resources/dist/${arcSite}/images/logo.png`) ||
       ''
     return (
@@ -29,17 +29,18 @@ class LayoutAmpHeader extends PureComponent {
         <header className={classes.header}>
           <section className={classes.wrap}>
             <div className={classes.logo}>
-              <a href="http://elcomercio.pe">
+              <a href="/">
                 <amp-img
-                  src={img}
+                  src={imgLogo}
                   alt="elcomercio.pe"
                   width="156"
                   height="25"
+                  tabindex="0"
                 />
               </a>
             </div>
             <div className={classes.linkContainer}>
-              <a className={classes.link} href={img}>
+              <a className={classes.link} href="/archivo">
                 Últimas noticias
               </a>
             </div>

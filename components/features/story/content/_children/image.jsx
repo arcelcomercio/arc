@@ -8,12 +8,13 @@ const classes = {
     'story-content__news-media-description text-left m-0 pt-5 primary-font text-sm text-gray-200',
 }
 
-const StoryContentChildImage = ({ data }) => {
+const StoryContentChildImage = ({ data, imgTag }) => {
   return (
     <>
       <Image
         width="100%"
-        layout=""
+        layout="responsive"
+        ImgTag={imgTag}
         imgClassName={classes.image}
         sizePreset="large"
         {...data}

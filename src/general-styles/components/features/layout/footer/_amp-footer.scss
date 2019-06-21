@@ -1,5 +1,5 @@
 .amp-footer {
-  background-color: $footer-background;
+  background-color: $amp-footer-background;
 
   &__info {
     background: url(https://assets.elcomercio.pe/images/elcomercio/arrow-right-3.png)
@@ -8,5 +8,14 @@
 
   &__text {
     color: $footer-text-color;
+  }
+
+  &__next-page-separator {
+    background-color: #eaf2f6;
+    height: 30px;
+  }
+
+  &__next-page-separator-text {
+    line-height: 32px;
   }
 }

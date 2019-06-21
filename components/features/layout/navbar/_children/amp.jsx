@@ -36,25 +36,7 @@ class NavBarDefault extends PureComponent {
 
     const tapSidebar = 'tap:sidebar.toggle'
     return (
-      <nav className={classes.nav}>
-        <div className={classes.wrapper}>
-          {/** ************* LEFT *************** */}
-
-          <div className={classes.navBtnContainer}>
-            <button
-              type="button"
-              on={tapSidebar}
-              className={classes.iconMenu}
-            />
-          </div>
-
-          {/** ************* RIGHT *************** */}
-
-          <div className={classes.btnContainer}>
-            <AmpSocial />
-          </div>
-        </div>
-
+      <>
         <Menu
           sections={sections}
           showSidebar={statusSidebar}
@@ -62,7 +44,28 @@ class NavBarDefault extends PureComponent {
           footer={footer}
           deployment={deployment}
         />
-      </nav>
+        <nav className={classes.nav}>
+          <div className={classes.wrapper}>
+            {/** ************* LEFT *************** */}
+
+            <div className={classes.navBtnContainer}>
+              <button
+                type="button"
+                // eslint-disable-next-line react/no-unknown-property
+                tabindex="0"
+                on={tapSidebar}
+                className={classes.iconMenu}
+              />
+            </div>
+
+            {/** ************* RIGHT *************** */}
+
+            <div className={classes.btnContainer}>
+              <AmpSocial />
+            </div>
+          </div>
+        </nav>
+      </>
     )
   }
 }

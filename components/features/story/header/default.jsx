@@ -2,13 +2,14 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import StoryHeaderChildHeading from './_children/heading'
 import StoryHeaderChildShareSubheading from './_children/subheading'
+import StoryHeaderChildGallerySlider from './_children/gallery-slider'
 import StoryHeaderChildGallery from './_children/gallery'
 import StoryHeaderChildSocial from './_children/social'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
-  news: 'w-full bg-link text-white',
+  story: 'w-full text-white',
   gallery: 'w-full',
 }
 @Consumer
@@ -23,17 +24,17 @@ class StoryHeader extends PureComponent {
     const parameters = { contentElementGallery, title, subTitle, link }
     return (
       <>
-        <div className={contentElementGallery ? classes.gallery : classes.news}>
+        <div
+          className={contentElementGallery ? classes.gallery : classes.story}>
           <StoryHeaderChildSocial url={link} />
 
           <StoryHeaderChildHeading {...parameters} />
           <StoryHeaderChildShareSubheading {...parameters} />
 
-          {subtype !== ConfigParams.GALLERY_VERTICAL ? (
+          {subtype === ConfigParams.GALLERY_VERTICAL ? (
             <StoryHeaderChildGallery {...parameters} />
           ) : (
-            // TODO falta implementar el Slider #5053
-            ''
+            <StoryHeaderChildGallerySlider {...parameters} />
           )}
         </div>
       </>

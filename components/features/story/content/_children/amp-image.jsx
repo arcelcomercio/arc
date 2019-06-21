@@ -11,18 +11,14 @@ const StoryContentChildAmpImage = props => {
   const { data } = props
   return (
     <>
-      <figure>
-        <amp-img i-amphtml-layout="responsive">
-          <i-amphtml-sizer />
-          <Image
-            width="100%"
-            className={classes.image}
-            captionClassName={classes.description}
-            sizePreset="large"
-            {...data}
-          />
-        </amp-img>
-      </figure>
+      <Image
+        width="100%"
+        ImgTag="amp-img"
+        className={classes.image}
+        captionClassName={classes.description}
+        sizePreset="large"
+        {...data}
+      />
     </>
   )
 }

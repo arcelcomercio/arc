@@ -7,7 +7,7 @@ const classes = {
   separator: 'w-full mb-20',
   heading: 'col-3',
   content:
-    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mb-20 bg-link text-white',
+    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mb-20 ',
   zocalo: 'zocalo__container',
   main: 'grid grid--content grid--col-1 col-2',
   sidebar: 'grid grid--content grid--col-1 col-1',
@@ -15,7 +15,7 @@ const classes = {
 
 const StorySidebarLayout = ({ children = [] }) => {
   return (
-    <div className={classes.layout}>
+    <main className={classes.layout}>
       <div role="complementary" className={classes.zocalo}>
         {children[0] /* Zocalo izquierda */}
       </div>
@@ -43,7 +43,7 @@ const StorySidebarLayout = ({ children = [] }) => {
       <div role="complementary" className={classes.zocalo}>
         {children[10] /* Zocalo derecha */}
       </div>
-    </div>
+    </main>
   )
 }
 
