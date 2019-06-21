@@ -82,6 +82,6 @@ class SeparatorBlog extends PureComponent {
 }
 
 SeparatorBlog.label = 'Separador de Blog'
-SeparatorBlog.static = true
+
 
 export default SeparatorBlog

@@ -122,6 +122,6 @@ SeparatorOpinion.propTypes = {
 }
 
 SeparatorOpinion.label = 'Separador - Opinión'
-SeparatorOpinion.static = true
+
 
 export default SeparatorOpinion
