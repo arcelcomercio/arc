@@ -1,0 +1,14 @@
+.stories-l-header {
+    background-color: $color-base-100;
+
+    &__title {
+        color: $color-primary;
+    }
+
+    &__see-more {
+        background-color: $color-primary;
+        color: $color-white;
+        border-radius: 4px;
+    }
+
+}

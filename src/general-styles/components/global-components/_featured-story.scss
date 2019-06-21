@@ -16,16 +16,15 @@ $image-height: 157px;
       height: 306px;
       bottom: 0;
       left: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(68, 68, 68, 0) 20%,
-        rgb(68, 68, 68)
-      );
+      background: linear-gradient(to bottom,
+          rgba(68, 68, 68, 0) 20%,
+          rgb(68, 68, 68));
     }
   }
 
   .featured-story__detail {
     //z-index: 10;
+    margin: 0;
     padding: 20px;
     position: absolute;
     z-index: 1;
@@ -36,6 +35,7 @@ $image-height: 157px;
   }
 
   .featured-story__category {
+
     &::after {
       border-bottom: 1px solid $color-white;
     }
@@ -104,6 +104,7 @@ $image-height: 157px;
 
   &__category {
     @media (--tablet) {
+      width: fit-content;
     }
 
     &::after {
