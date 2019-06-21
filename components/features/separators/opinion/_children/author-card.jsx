@@ -7,7 +7,7 @@ const classes = {
   opinionItemText: 'mb-15',
   opinionItemLink: 'separator__opinion-link uppercase text-sm font-normal',
   opinionItemName: 'separator__opinion-name mb-10',
-  opinionItemNameLink: 'title-xs mb-25 text-gray-300 font-bold',
+  opinionItemNameLink: 'title-xs mb-25 text-gray-300 font-bold line-h-sm',
   opinionItemTitle: 'text-md text-gray-300',
   opinionItemImage: 'separator__opinion--item-image mb-20',
   opinionItemImageImg: 'object-cover w-full h-full rounded',
