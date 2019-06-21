@@ -82,7 +82,6 @@ class StorySeparator extends PureComponent {
     const { dataApi: { content_elements: stories } = {} } = this.state
     const { globalContent, isMobile } = this.props
     const { website_url: excluir } = globalContent || {}
-    console.log('render 3')
     return (
       !isMobile && (
         <div className={classes.separator}>
@@ -96,5 +95,6 @@ class StorySeparator extends PureComponent {
 }
 
 StorySeparator.label = 'Separador de artículo'
+StorySeparator.static = true
 
 export default StorySeparator
