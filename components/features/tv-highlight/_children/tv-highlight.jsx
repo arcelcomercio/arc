@@ -1,5 +1,6 @@
 import React from 'react'
-import { getIcon } from '../../../utilities/helpers'
+import { getMultimediaIcon } from '../../../utilities/helpers'
+import StoryData from '../../../utilities/story-data'
 
 const classes = {
   tv: 'tv-highlight bg-gray-300 pt-20 pb-20 md:pt-40 md:pb-40 md:pr-0 md:pl-0',
@@ -7,12 +8,11 @@ const classes = {
   titleBox: 'mb-10',
   title: 'tv-highlight__title secondary-font text-white title-lg',
   subBox: 'flex justify-between pt-15 pb-15 mb-10',
-  section:
-    'tv-highlight__section flex uppercase position-relative text-white text-sm',
+  section: `tv-highlight__section flex uppercase position-relative text-white text-sm`,
   imageBox: 'block position-relative',
   image: 'w-full h-full object-contain object-center',
-  icon:
-    'tv-highlight__icon position-absolute flex justify-center items-center rounded text-gray-300',
+  iconContainer: `tv-highlight__icon position-absolute flex justify-center items-center rounded text-gray-300`,
+  icon: 'title-xl',
   tags: 'tv-highlight__tags mt-15',
   related: 'tv-highlight__related uppercase mb-5 font-bold text-sm',
   list: 'flex',
@@ -47,7 +47,13 @@ const TVHighlightChild = props => {
         <a href={urlTitle} className={classes.imageBox}>
           <img className={classes.image} src={multimediaImg} alt="foto" />
           {multimediaType !== 'basic' && (
-            <span className={classes.icon}>{getIcon(multimediaType)}</span>
+            <span className={classes.iconContainer}>
+              <i
+                className={`${getMultimediaIcon(StoryData, multimediaType)} ${
+                  classes.icon
+                }`}
+              />
+            </span>
           )}
         </a>
         {tags && (

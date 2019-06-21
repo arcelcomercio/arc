@@ -1,11 +1,14 @@
 import React from 'react'
 
 const classes = {
-  item: 'separator__item w-full h-full pt-0 pr-0 pb-0 pl-0 position-relative',
+  item: 'separator__item w-full h-full p-0  position-relative',
   detail: 'separator__detail position-absolute bottom-0',
-  separatorTitle: 'separator__title overflow-hidden title-xs',
-  separatorLink: 'separator__title-link',
+  separatorTitle: 'separator__title overflow-hidden ',
+  separatorLink:
+    'separator__title-link text-white text-sm line-h-none secondary-font',
   mvideo: 'separator--video',
+  figure: 'p-0 m-0 w-full h-full',
+  figureImg: 'w-full h-full object-cover object-center',
 }
 
 export default ({ title, imageUrl, typeNote, link, numline }) => {
@@ -20,10 +23,10 @@ export default ({ title, imageUrl, typeNote, link, numline }) => {
           </a>
         </h2>
       </div>
-      <figure>
+      <figure className={classes.figure}>
         {link && (
           <a href={link}>
-            <img src={imageUrl} alt={title} />
+            <img src={imageUrl} alt={title} className={classes.figureImg} />
           </a>
         )}
       </figure>

@@ -1,5 +1,6 @@
 import React from 'react'
 import StoryData from '../../../../utilities/story-data'
+import { getMultimediaIcon } from '../../../../utilities/helpers'
 
 export const TripletChildTriplet = props => {
   const { data = [], multimediaOrientation = 'right', arcSite } = props
@@ -16,8 +17,7 @@ export const TripletChildTriplet = props => {
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
     tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-sm`,
-    playIcon: 'icon-video title-sm',
-    galleryIcon: 'icon-img title-sm',
+    icon: 'title-sm',
   }
 
   let numline = ''
@@ -32,25 +32,6 @@ export const TripletChildTriplet = props => {
     default:
       numline = classes.twoline
       break
-  }
-
-  const getMultimediaIcon = multimediaType => {
-    let icon
-    switch (multimediaType) {
-      case StoryData.VIDEO:
-        icon = classes.playIcon
-        break
-      case StoryData.GALLERY:
-        icon = classes.galleryIcon
-        break
-      default:
-        return ''
-    }
-    return (
-      <span className={classes.tripletIcon}>
-        <i className={icon} />
-      </span>
-    )
   }
 
   return (
@@ -71,9 +52,19 @@ export const TripletChildTriplet = props => {
                 src={story.multimedia}
                 alt={story.title}
               />
-              {story.multimediaType === 'basic' || story.multimediaType === ''
-                ? ''
-                : getMultimediaIcon(story.multimediaType)}
+              {story.multimediaType === 'basic' ||
+              story.multimediaType === '' ? (
+                ''
+              ) : (
+                <span className={classes.tripletIcon}>
+                  <i
+                    className={`${getMultimediaIcon(
+                      StoryData,
+                      story.multimediaType
+                    )} ${classes.icon}`}
+                  />
+                </span>
+              )}
             </a>
             {/* <Icon iconClass={story.iconClass} /> */}
           </figure>
@@ -90,10 +81,8 @@ export const TripletChildTriplet = props => {
 
 export const Icon = props => {
   const classes = {
-    tripletBoxIcon:
-      'triplet__box-icon bg-white position-absolute text-center rounded text-gray-300',
-    tripletIcon:
-      'triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs',
+    tripletBoxIcon: `triplet__box-icon bg-white position-absolute text-center rounded text-gray-300`,
+    tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs`,
   }
 
   const html = (
