@@ -1,17 +1,13 @@
-/** ----------------------------*
-*            GLOBALS            *
-*-------------------------------*/
+/******* Globals *******/
 @import './global-components/extraordinary-story';
 @import './global-components/featured-story';
 @import './global-components/icons';
 @import './global-components/pagination-date';
 @import './global-components/pagination';
+@import './global-components/search-input';
 @import './global-components/story-item';
 @import './global-components/story-table';
-@import './global-components/search-input';
-/** ----------------------------*
-*            FEATURES           *
-*-------------------------------*/
+/******* Features *******/
 @import './features/ads/ads';
 @import './features/blog/author-details/author-details';
 @import './features/blog/author-list/post-item';
