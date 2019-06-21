@@ -1,9 +1,8 @@
 import React from 'react'
-import StoryData from '../../../../utilities/story-data'
 import { getMultimediaIcon } from '../../../../utilities/helpers'
 
-export const TripletChildTriplet = props => {
-  const { data = [], multimediaOrientation = 'right', arcSite } = props
+const TripletChildTriplet = props => {
+  const { arcSite, data = [], multimediaOrientation = 'right' } = props
   const classes = {
     triplet: 'triplet bg-white border-solid border-1 border-gray',
     link: 'triplet__link text-lg',
@@ -16,6 +15,7 @@ export const TripletChildTriplet = props => {
     authorLink: 'triplet__link',
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
+    // tripletBoxIcon: `triplet__box-icon bg-white position-absolute text-center rounded text-gray-300`,
     tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-sm`,
     icon: 'title-sm',
   }
@@ -52,16 +52,12 @@ export const TripletChildTriplet = props => {
                 src={story.multimedia}
                 alt={story.title}
               />
-              {story.multimediaType === 'basic' ||
-              story.multimediaType === '' ? (
-                ''
-              ) : (
+              {getMultimediaIcon(story.multimediaType) && (
                 <span className={classes.tripletIcon}>
                   <i
-                    className={`${getMultimediaIcon(
-                      StoryData,
-                      story.multimediaType
-                    )} ${classes.icon}`}
+                    className={`${getMultimediaIcon(story.multimediaType)} ${
+                      classes.icon
+                    }`}
                   />
                 </span>
               )}
@@ -79,7 +75,9 @@ export const TripletChildTriplet = props => {
   )
 }
 
-export const Icon = props => {
+export default TripletChildTriplet
+
+/* export const Icon = props => {
   const classes = {
     tripletBoxIcon: `triplet__box-icon bg-white position-absolute text-center rounded text-gray-300`,
     tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs`,
@@ -96,3 +94,4 @@ export const Icon = props => {
   )
   return props.iconClass ? html : ''
 }
+ */
