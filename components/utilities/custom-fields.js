@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 
-export const customWidth = PropTypes.oneOf(["full-width", "col-1", "col-2", "col-3"]).tag({
+export const customWidth = PropTypes.oneOf(["w-full", "col-1", "col-2", "col-3"]).tag({
     name: "Ancho del contenedor",
     labels: {
-        "full-width": 'Flexible',
+        "w-full": 'Flexible',
         "col-1": "1 Columna",
         "col-2": "2 Columnas",
         "col-3": "3 Columnas"
     },
-    defaultValue: "full-width",
+    defaultValue: "w-full",
     group: 'Dimensiones'
 });
 

@@ -1,0 +1,30 @@
+.navbar-somos {
+  height: 45px;
+
+  button:focus {
+    outline: none;
+  }
+
+  &__logo-img {
+    max-height: 30px;
+  }
+
+  &__icon-user {
+    color: #f8d002;
+  }
+
+  &__search-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  &__close-button {
+    height: 35px;
+    width: 50px;
+  }
+
+  &__search-input {
+    width: 185px;
+    height: 35px;
+  }
+}

@@ -1,0 +1,44 @@
+.movie-item {
+  @media (--tablet) {
+    flex-direction: initial;
+    padding-bottom: 40px;
+  }
+
+  &:nth-last-child(1) {
+    padding-bottom: 0;
+  }
+
+  &__left {
+    flex-basis: 100%;
+
+    @media (--tablet) {
+      flex-basis: 35%;
+    }
+  }
+
+  // &__title {}
+  // &__function {}
+  // &__title {}
+
+  &__right {
+    @media (--tablet) {
+      margin-left: 20px;
+      padding-left: 20px;
+      border-left: solid 1px #d5e1e1;
+    }
+  }
+
+  &__img {
+    max-height: 240px;
+  }
+
+  &__subtitle {
+    &:first-child {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__description {
+    color: #646464;
+  }
+}

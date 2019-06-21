@@ -249,7 +249,9 @@ export const getCookie = cookieName => {
 
 export const formatSlugToText = (text = '') => {
   if (!text) return null
-  const splitText = text.slice(1).split('/')
+  const splitText = text.slice(1).includes('/')
+    ? text.slice(1).split('/')
+    : text.split('/')
   const lastSection = splitText[splitText.length - 1]
   return lastSection
     .charAt(0)
@@ -320,4 +322,35 @@ export const breadcrumbList = (url, siteUrl, contextPath) => {
   }
 
   return arrayData.filter(String)
+}
+
+
+export const getUrlParameter = contentElements => {
+  const loc = window.location.href
+  const getString = loc.split('?')[1] || ''
+  const tmp = getString.split('foto=') || []
+
+  if (loc.indexOf('?') > 0 && contentElements) {
+    const sWidth = 100 / contentElements.length
+    return tmp[1] && contentElements.length >= tmp[1]
+      ? -sWidth * (tmp[1] - 1)
+      : 0
+  }
+  return parseInt(String, tmp[1]) || 0
+}
+
+export const getMultimediaIcon = (StoryData, multimediaType) => {
+  let icon
+  switch (multimediaType) {
+    case StoryData.VIDEO:
+      icon = 'icon-video'
+      break
+    case StoryData.GALLERY:
+      icon = 'icon-img'
+      break
+    default:
+      return ''
+  }
+  return icon
+
 }

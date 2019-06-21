@@ -3,13 +3,13 @@ import Form from './form'
 import Confirmation from './confirmation'
 
 const classes = {
-  newsletter: 'newsletter',
-  boxSuscripcion: 'newsletter__box-suscription',
-  errorMessage: 'newsletter__error-message',
-  errorMessageMedium: 'newsletter__error-message--font-medium',
-  banner: 'newsletter__banner',
-  bannerimage: 'newsletter__banner-image',
-  image: 'newsletter__image',
+  newsletter: `newsletter flex flex-col-reverse items-center lg:justify-between lg:flex-row`,
+  boxSubscription: `newsletter__box-subscription pr-40 pl-40 primary-font lg:p-0 lg:pr-15 lg:pl-15`,
+  errorMessage: 'newsletter__error-message block pt-5 text-xs',
+  errorMessageMedium: 'text-lg mb-20',
+  bannerImage: 'newsletter__banner-image w-full lg:w-inherit',
+  imageContainer: `newsletter__image-container bg-white overflow-hidden text-center border-solid border-gray lg:h-inherit`,
+  image: 'newsletter__image lg:w-full',
 }
 const Newsletter = props => {
   const { image, banner, hasBanner, confirmRegister, formMessage } = props
@@ -22,7 +22,7 @@ const Newsletter = props => {
 
   return (
     <div className={classes.newsletter}>
-      <div className={classes.boxSuscripcion}>
+      <div className={classes.boxSubscription}>
         {!confirmRegister && (
           <h4
             className={`${classes.errorMessage} ${classes.errorMessageMedium}`}>
@@ -30,18 +30,14 @@ const Newsletter = props => {
           </h4>
         )}
         {hasBanner && (
-          <div className={classes.banner}>
-            <img
-              src={banner}
-              alt="banner"
-              className={`${classes.banner} ${classes.bannerimage}`}
-            />
+          <div>
+            <img src={banner} alt="banner" className={classes.bannerImage} />
           </div>
         )}
         {formHtml}
       </div>
-      <div className={classes.image}>
-        <img src={image} alt="newsletter" />
+      <div className={classes.imageContainer}>
+        <img className={classes.image} src={image} alt="newsletter" />
       </div>
     </div>
   )

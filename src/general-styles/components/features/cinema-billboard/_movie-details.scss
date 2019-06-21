@@ -1,0 +1,77 @@
+.movie-details {
+  &__box-img {
+    max-width: 850px;
+  }
+
+  &__img {
+    max-height: 240px;
+
+    @media (--tablet) {
+      max-height: 400px;
+    }
+
+    @media (--desktop) {
+      max-height: 530px;
+    }
+  }
+
+  &__box-icon {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+
+    @media (--tablet) {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  &__detail {
+    max-width: 800px;
+
+    @media (--tablet) {
+      flex-direction: initial;
+    }
+  }
+
+  &__left {
+    @media (--tablet) {
+      flex-basis: 55%;
+      flex-flow: 0;
+    }
+  }
+
+  /* &__right { } */
+
+  /* &__title {} */
+
+  &__hours {
+    max-height: 250px;
+  }
+
+  &__text {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &__name--sinopsis {
+    margin-bottom: 30px;
+  }
+
+  &__value {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &__more {
+    max-width: 160px;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: all 0.15s ease;
+    }
+  }
+}

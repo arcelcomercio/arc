@@ -1,0 +1,27 @@
+.blog-item {
+  /* &__date {} */
+
+  //&__container { }
+
+  &__container-avatar {
+    width: 126px;
+  }
+
+  &__detail {
+    min-height: 124px;
+    width: 65%;
+
+    @media (--tablet) {
+      width: initial;
+      max-width: 475px;
+    }
+  }
+
+  &__blog {
+    color: #8f071f;
+  }
+
+  /* &__author {} */
+
+  /* &__post {} */
+}

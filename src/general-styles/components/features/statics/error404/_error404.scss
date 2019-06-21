@@ -1,0 +1,13 @@
+.error {
+  &__icon {
+    margin-left: -21px;
+    border-width: 24px 21px 0 21px;
+    border-color: $color-white transparent transparent transparent;
+  }
+
+  //&__title { }
+
+  &__content {
+    max-width: 400px;
+  }
+}

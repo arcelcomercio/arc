@@ -1,0 +1,12 @@
+.pagination-date {
+  margin-bottom: 50px;
+
+  &__link {
+    &.active {
+      cursor: initial;
+      background-color: #383232;
+      color: $color-white;
+      text-decoration: none;
+    }
+  }
+}

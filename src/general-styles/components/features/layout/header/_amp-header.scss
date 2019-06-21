@@ -1,0 +1,27 @@
+.amp-header {
+  z-index: 20;
+
+  &__wrap {
+    height: 50px;
+  }
+
+  &__logo {
+    float: left;
+    margin-left: 18px;
+    margin-top: 9px;
+  }
+
+  &__link-container {
+    float: right;
+    height: 34px;
+  }
+
+  &__link {
+    float: left;
+    margin-top: 8px;
+  }
+}
+
+.nav {
+  height: 50px;
+}

@@ -1,23 +1,26 @@
 .story-item {
-  &__date{
-    color: $color-default-2;
+  &__date {
+    color: $color-gray-300;
     font-family: $font-regular;
     margin-left: 15px;
+
     @media (--tablet) {
       margin-left: 0;
     }
   }
-  &__title{
+
+  &__title {
     color: $color-primary;
   }
-  &__subtitle{
+
+  &__subtitle {
     font-family: $font-regular;
-    color: $color-default-2;
-    
+    color: $color-gray-300;
+
   }
+
   &__author {
     font-family: $font-regular;
-
   }
 
 }

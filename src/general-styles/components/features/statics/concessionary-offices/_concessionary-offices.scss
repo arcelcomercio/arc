@@ -1,0 +1,67 @@
+.concessionaires {
+  background-color: #e8f2f7;
+
+  &__arrow {
+    left: 50%;
+    margin-left: -21px;
+    border-width: 24px 21px 0 21px;
+    border-color: $color-white transparent transparent transparent;
+  }
+
+  &__container {
+    max-width: 954px;
+    padding-top: 50px;
+  }
+
+  /* &__title {} */
+
+  &__info {
+    width: 300px;
+  }
+
+  &__locations {
+    margin-bottom: 50px;
+
+    @media (--desktop) {
+      border-top: none;
+    }
+  }
+
+  //&__search {}
+
+  &__search-title {
+    @media (--desktop) {
+      border-left: 1px solid #bababa;
+      height: 62px;
+      width: 230px;
+    }
+  }
+
+  &__controls {
+    width: 50%;
+    @media (--desktop) {
+      border-left: 1px solid #bababa;
+    }
+  }
+
+  &__label {
+    width: 80px;
+  }
+
+  // TODO: Cambiar el background-image por un icono
+  &__select {
+    background-image: url(https://elcomercio.pe/img/arrows_select.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    float: left;
+    height: 62px;
+
+    @media (--tablet) {
+      max-width: 252px;
+    }
+
+    @media (--desktop) {
+      width: 252px;
+    }
+  }
+}

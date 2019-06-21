@@ -241,6 +241,12 @@ class StoryData {
     return breadcrumbList(url, this._siteUrl, this._contextPath)
   }
 
+  get recentList() {
+    const { recent_stories: { content_elements: contentElements } = {}, id } =
+      this._data || {}
+    return StoryData.recentList(contentElements, id)
+  }
+
   get seoKeywords() {
     const { taxonomy: { seo_keywords: seoKeywords = [] } = {} } =
       this._data || {}
@@ -275,6 +281,14 @@ class StoryData {
         this._data.promo_items[ConfigParams.GALLERY]) ||
       ''
     )
+  }
+
+  get contentElements() {
+    return (this._data && this._data.content_elements) || []
+  }
+
+  get promoItems() {
+    return (this._data && this._data.promo_items) || []
   }
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
@@ -328,8 +342,7 @@ class StoryData {
       const { content_elements: contentElements = {} } = basicGallery
       return contentElements
     }
-
-    if (basicImage && type === 'image') {
+    if (basicImage.url && type === 'image') {
       const {
         content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
         url: urlImage,
@@ -514,6 +527,28 @@ class StoryData {
       thumb = StoryData.getImage(data)
     }
     return thumb
+  }
+
+  static recentList(recentElements = [], id) {
+    let i = 0
+    return (
+      recentElements
+        .map(data => {
+          const {
+            headlines: { basic } = {},
+            website_url: websiteUrl,
+            _id: storyId,
+          } = data
+          if (storyId !== id && i < 3) {
+            const type = StoryData.getTypeMultimedia(data)
+            const urlImage = StoryData.getThumbnail(data, type)
+            i += 1
+            return { basic, websiteUrl, urlImage }
+          }
+          return []
+        })
+        .filter(String) || {}
+    )
   }
 }
 

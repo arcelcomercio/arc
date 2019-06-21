@@ -1,29 +1,34 @@
-import React, { Component } from 'react'
-import ItemInput from './item-input'
-import ViewResult from './view-result'
-import ViewSurveyConfirm from './view-confirm'
+import React, { PureComponent } from 'react'
+import InternalSurveyChildInput from './input'
+import InternalSurveyChildResult from './result'
+import InternalSurveyChildConfirmation from './confirmation'
 import UtilListKey from '../../../../utilities/list-keys'
 import DateNameFunc from '../../../../utilities/date-name'
 
 const classes = {
-  InternalSurvey: 'internal-survey',
-  detail: 'internal-survey__detail',
-  result: 'internal-survey__result',
-  ocultar: 'internal-survey__ocultar',
-  date: 'internal-survey__date',
-  title: 'internal-survey__title',
-  buttons: 'internal-survey__buttons',
-  buttonpool: 'internal-survey__button-pool',
-  viewresult: 'internal-survey__view-result',
-  share: 'internal-survey__result-share',
+  InternalSurvey: 'internal-survey bg-tertiary grid primary-font p-30 mb-30',
+  detail: 'internal-survey__detail bg-white position-relative pr-30 pl-30',
+  result:
+    'internal-survey__result bg-primary grid justify-center position-relative',
+  date: 'internal-survey__date block mt-15 mb-15 text-md line-h-none',
+  title: 'internal-survey__title inline font-bold',
+  buttons:
+    'internal-survey__buttons grid justify-between overflow-hidden font-bold primary-font mt-20 mb-20',
+  buttonpool:
+    'internal-survey__button-pool font-bold uppercase border-0 text-white',
+  viewresult:
+    'internal-survey__view-result block text-center border-1 border-solid border-gray text-sm text-gray-300 line-h-double',
+  share: 'internal-survey__share',
   disable: 'internal-survey__disable',
-  nav: 'internal-survey__nav',
-  navprev: 'internal-survey__nav-prev',
-  navnex: 'internal-survey__nav-next',
-  slug: 'internal-survey__slug',
-  icoprev: 'internal-survey__nav-ico-prev',
+  nav: 'internal-survey__nav hidden',
+  navprev: 'internal-survey__nav-prev left-0',
+  navnex: 'internal-survey__nav-next right-0',
+  icon:
+    'internal-survey__icon block position-absolute w-full left-0 title-sm line-h-none',
+  slug:
+    'internal-survey__slug h-full position-absolute text-center top-0 text-white',
 }
-class SurveyInternalChildSurvey extends Component {
+class InternalSurveyChildSurvey extends PureComponent {
   constructor() {
     super()
     this.state = {
@@ -77,7 +82,7 @@ class SurveyInternalChildSurvey extends Component {
       })
     }
   }
-  
+
   render() {
     const {
       flagViewResult,
@@ -111,22 +116,22 @@ class SurveyInternalChildSurvey extends Component {
               <a
                 href={urlPrev}
                 className={`${classes.navprev} ${classes.slug}`}>
-                <i className={classes.icoprev}> prev </i>
+                <i className={classes.icon}> prev </i>
               </a>
             )}
             {next && (
               <a href={urlNext} className={`${classes.navnex} ${classes.slug}`}>
-                <i className={classes.icoprev}> next </i>
+                <i className={classes.icon}> next </i>
               </a>
             )}
           </div>
 
-          <time className={classes.date}>{DateNameFunc(date,',')}</time>
+          <time className={classes.date}>{DateNameFunc(date, ',')}</time>
           <h1 className={classes.title}>{title}</h1>
           <form action="">
             <ul>
               {choices.map((choice, index) => (
-                <ItemInput
+                <InternalSurveyChildInput
                   key={UtilListKey(index)}
                   value={choice.option}
                   index={`item${choice.option}${index}`}
@@ -152,10 +157,15 @@ class SurveyInternalChildSurvey extends Component {
         </div>
         <div className={classes.result}>
           {flagViewResult && optionsList && (
-            <ViewResult choices={optionsList}  sharelinks={sharelinks}/>
+            <InternalSurveyChildResult
+              choices={optionsList}
+              sharelinks={sharelinks}
+            />
           )}
           {flagViewSurveyConfirm && (
-            <ViewSurveyConfirm handleOnClickViewResult={this.viewResult} />
+            <InternalSurveyChildConfirmation
+              handleOnClickViewResult={this.viewResult}
+            />
           )}
         </div>
       </div>
@@ -163,4 +173,4 @@ class SurveyInternalChildSurvey extends Component {
   }
 }
 
-export default SurveyInternalChildSurvey
+export default InternalSurveyChildSurvey

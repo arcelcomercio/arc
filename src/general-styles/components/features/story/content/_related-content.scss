@@ -1,0 +1,27 @@
+.related-content {
+  // &__title {}
+
+  &__item {
+    border-top-width: 2px;
+  }
+
+  &__information {
+    @media (--tablet) {
+      max-width: 56%;
+    }
+  }
+
+  &__multimedia {
+    @media (--tablet) {
+      width: 180px;
+    }
+  }
+
+  &__icon {
+    top: 50%;
+    margin-top: -15px;
+    left: 50%;
+    margin-left: -15px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}

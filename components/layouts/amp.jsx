@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 // TODO: WIP
 
 const classes = {
-  layout: 'flex flex--justify-center',
-  contentContainer: 'flex flex--column content-layout-container',
-  aditional: 'mg-bottom-20',
+  layout: 'flex justify-center',
+  contentContainer: 'flex flex-col content-layout-container w-full',
+  aditional: 'mb-20',
   zocalo: 'zocalo__container',
 }
 

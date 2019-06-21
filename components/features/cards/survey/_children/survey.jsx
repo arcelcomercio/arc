@@ -4,15 +4,14 @@ import SurveyChoices from './choices'
 import SurveyResults from './result'
 
 const classes = {
-  cardSurvey: 'card-survey full-width',
-  surveyHeader: 'survey-header text-uppercase text-center',
-  surveyQuestion: 'survey-question position-relative',
-  surveyTitle: 'survey-question__title overflow-hidden',
-  surveyChoices: 'survey-choices',
-  surveyButtons:
-    'survey-buttons full-width position-absolute flex-center-vertical flex--justify-between',
-  surveyResults: 'survey-buttons__results',
-  surveySubmit: 'survey-buttons__submit text-uppercase',
+  cardSurvey: 'survey-card w-full pt-15',
+  header: `survey-card__header uppercase text-center font-bold pt-20 pb-20 text-white`,
+  question: 'survey-card__question position-relative pt-15 pb-10 pl-10 ',
+  title: `survey-card__title overflow-hidden font-bold mb-15 pr-20 pl-20 text-xl text-gray-300 line-h-sm`,
+  choices: 'mb-10 pr-20 pl-20',
+  buttons: `bottom-0 w-full position-absolute flex items-center justify-between pr-20 pl-20 pb-15`,
+  results: 'survey-card__results font-bold text-sm text-gray-300',
+  submit: `survey-card__submit uppercase pt-10 pb-10 pr-40 pl-40 text-xs text-white`,
 }
 
 class CardSurveyChildSurvey extends PureComponent {
@@ -50,10 +49,10 @@ class CardSurveyChildSurvey extends PureComponent {
 
     return (
       <div className={classes.cardSurvey}>
-        <h3 className={classes.surveyHeader}>encuesta</h3>
-        <form className={classes.surveyQuestion}>
-          <p className={classes.surveyTitle}>{title}</p>
-          <div className={classes.surveyChoices}>
+        <h3 className={classes.header}>encuesta</h3>
+        <form className={classes.question}>
+          <p className={classes.title}>{title}</p>
+          <div className={classes.choices}>
             {!hasVote ? (
               <SurveyChoices
                 {...paramsOptions}
@@ -64,15 +63,15 @@ class CardSurveyChildSurvey extends PureComponent {
             )}
           </div>
           {!hasVote && (
-            <div className={classes.surveyButtons}>
+            <div className={classes.buttons}>
               <a
                 href={`${contextPath}/encuesta/${slug}`}
-                className={classes.surveyResults}>
+                className={classes.results}>
                 Ver Resultados
               </a>
               <button
                 type="button"
-                className={classes.surveySubmit}
+                className={classes.submit}
                 onClick={() => this.sendOption()}>
                 votar
               </button>

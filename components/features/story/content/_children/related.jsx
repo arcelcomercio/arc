@@ -5,15 +5,17 @@ import ConfigParams from '../../../../utilities/config-params'
 
 // Basic flex stuff
 const classes = {
-  related: 'related-content',
-  relatedItem: 'related-content__item',
-  relatedTitleItem: 'related-content__title-item',
-  relatedMultimedia: 'related-content__multimedia',
-  relatedLink: 'related-content__multimedia-link',
-  relatedImage: 'related-content__multimedia-img',
-  relatedIcon: 'related-content__icon icon-',
-  relatedAuthor: 'related-content__author',
-  relatedInfo: 'related-content__information',
+  related: 'related-content pt-20 pb-20',
+  item:
+    'related-content__item pt-15 pb-15 border-solid border-gray md:justify-between md:flex',
+  info: 'related-content__information mb-20 md:mb-0',
+  itemTitle:
+    'related-content__item-title mb-10 text-md line-h-md border-t-1 border-solid border-gray',
+  multimedia: 'related-content__multimedia position-relative',
+  link: 'block w-full h-full',
+  image: 'w-full h-full',
+  icon: 'related-content__icon position-absolute p-5 rounded-lg title-xl',
+  author: 'related-content__author uppercase text-gray-200',
 }
 
 const RenderRelatedContentElement = (elements, i) => {
@@ -32,35 +34,32 @@ const RenderRelatedContentElement = (elements, i) => {
   }
 
   return (
-    <article
-      role="listitem"
-      className={classes.relatedItem}
-      key={UtilListKey(i + 12)}>
-      <div className={classes.relatedInfo}>
-        <h2 className={classes.relatedTitleItem}>
+    <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
+      <div className={classes.info}>
+        <h2 className={classes.itemTitle}>
           <a href={`${contextPath}${filterData.urlTitle}`}>
             {filterData.nameTitle}
           </a>
         </h2>
-        <a href={filterData.nameAuthorLink} className={classes.relatedAuthor}>
+        <a href={filterData.nameAuthorLink} className={classes.author}>
           {filterData.nameAuthor}
         </a>
       </div>
-      <figure className={classes.relatedMultimedia}>
+      <figure className={classes.multimedia}>
         <a
           href={`${contextPath}${filterData.urlTitle}`}
-          className={classes.relatedLink}>
+          className={classes.link}>
           <img
             src={filterData.multimediaImg}
             alt={filterData.nameTitle}
-            className={classes.relatedImage}
+            className={classes.image}
           />
           {filterData.multimediaType === ConfigParams.IMAGE ||
           filterData.multimediaType === '' ? (
             ''
           ) : (
             <span
-              className={`${classes.relatedIcon}${getIcon(
+              className={`${classes.icon} icon-${getIcon(
                 filterData.multimediaType
               )}`}
             />

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { formatSlugToText } from '../../utilities/helpers'
 
 const classes = {
-  title: 'full-width margin-top',
+  title: 'w-full mt-20',
 }
 
 @Consumer
@@ -95,7 +95,7 @@ class CustomTitle extends PureComponent {
         {...editableField('customText')}
         suppressContentEditableWarning
         className={`${classes.title} text-${textAlign} ${
-          isUppercase ? 'text-uppercase' : ''
+          isUppercase ? 'uppercase' : ''
         }`}>
         {customText ||
           sectionName ||

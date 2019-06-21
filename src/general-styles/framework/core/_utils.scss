@@ -1,63 +1,55 @@
-/******** DIMENSIONS **********/
+@function get-fixed-class($value) {
+  @if $value==100% {
+    $value: full;
+  }
 
-.full-width {
-  width: 100%;
+  @if $value==none {
+    $value: hidden;
+  }
+
+  @return $value;
 }
 
-.full-height {
-  height: 100%;
+/** ----------------------------*
+*          DIMENSIONS           *
+*-------------------------------*/
+
+$map-dimens: 100%, auto, inherit, 0;
+
+@each $dimen-value in $map-dimens {
+  $dimen-class: get-fixed-class($dimen-value);
+
+  @include build-class(w-#{$dimen-class}, width, $dimen-value);
+  @include build-class(h-#{$dimen-class}, height, $dimen-value);
 }
 
-.height-inherit {
-  height: inherit;
+/** ----------------------------*
+*        OBJECT-FIT & POS       *
+*-------------------------------*/
+
+$map-objects: (
+  cover: object-fit,
+  contain: object-fit,
+  center: object-position,
+  top: object-position,
+  bottom: object-position,
+);
+
+@each $object-val, $object-attr in $map-objects {
+  @include build-class(object-#{$object-val}, $object-attr, $object-val);
 }
 
-// TODO: Mapear para cambiar por lo nuevo - Legacy
-.margin-top {
-  margin-top: $spacing-normal;
-}
+/** ----------------------------*
+*           DISPLAYS            *
+*-------------------------------*/
 
-.padding-small {
-  padding: $spacing-small;
-}
+$map-displays: block, flex, grid, inline, inline-block, table, none;
+// inline-flex
 
-.padding-normal {
-  padding: $spacing-normal;
-}
+@each $display in $map-displays {
+  $display-class: get-fixed-class($display);
 
-.padding-large {
-  padding: $spacing-large;
-}
-
-.padding-xlarge {
-  padding: $spacing-xlarge;
-}
-
-.padding-lateral-normal {
-  padding-left: $spacing-normal;
-  padding-right: $spacing-normal;
-}
-
-// ----------------------------------------------
-
-.object-fit-cover {
-  object-fit: cover;
-}
-
-/******************************************/
-
-/******** DISPLAYS **********/
-
-.block {
-  display: block;
-}
-
-.hide {
-  display: none;
-}
-
-.inline-b {
-  display: inline-block;
+  @include build-class($display-class, display, $display);
 }
 
 .no-desktop,
@@ -76,45 +68,31 @@
   }
 }
 
-/******************************************/
-
-/******** TEXT **********/
-.text-center {
-  text-align: center;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-uppercase {
-  text-transform: uppercase;
+.clearfix {
+  display: table;
+  content: '';
 }
 .text-capitalize {
   text-transform: capitalize;
 }
 
-/******************************************/
+/** ----------------------------*
+*           OVERFLOW            *
+*-------------------------------*/
 
-/******** OVERFLOW **********/
-
-.scroll-vertical {
+.overflow-y {
   overflow-y: scroll;
 }
 
-.scroll-vertical-auto {
+.overflow-y-auto {
   overflow-y: auto;
 }
 
-.scroll-horizontal {
+.overflow-x {
   overflow-x: scroll;
 }
 
-.scroll-horizontal-auto {
+.overflow-x-auto {
   overflow-x: auto;
 }
 
@@ -122,41 +100,9 @@
   overflow: hidden;
 }
 
-/******************************************/
-
-/******* Background-text contrast *******/
-.bg--white {
-  background-color: $color-white;
-}
-
-.bg-color--link {
-  background-color: $color-link;
-  color: $color-white;
-}
-
-.bg-color--white {
-  background-color: $color-white;
-  color: $color-dark;
-}
-
-.bg-color--error {
-  background-color: $color-error;
-  color: $color-white;
-}
-
-.bg-color--dark {
-  background-color: $color-dark;
-  color: $color-white;
-}
-
-.bg-color--gray {
-  background-color: $color-gray;
-  color: $color-white;
-}
-
-/******************************************/
-
-/******** POSITION **********/
+/** ----------------------------*
+*           POSITION            *
+*-------------------------------*/
 
 .position-relative {
   position: relative;
@@ -166,45 +112,75 @@
   position: absolute;
 }
 
-/*-----------------------*/
-.clearfix {
-  display: table;
-  content: '';
+$map-pos-0: top, right, bottom, left;
+
+@each $pos-0 in $map-pos-0 {
+  @include build-class(#{$pos-0}-0, $pos-0, 0);
 }
 
-/******************************************/
+/** ----------------------------*
+*               TEXT            *
+*-------------------------------*/
 
-// TODO: Revisar ubicacion de esto
-/********** BUTTON ***********/
+$map-text-pos: left, center, right;
 
-.btn {
-  border-radius: 4px;
-  padding: 8px 16px;
-  margin: 0 4px;
-  line-height: 16px;
-  font-family: $primary-font;
-  cursor: pointer;
-
-  &--small {
-    font-size: 9px;
-    padding: 4px 6px;
-  }
-
-  &--outline {
-    border: 1px solid $color-primary;
-    background-color: transparent;
-    color: $color-primary;
-  }
+@each $text-pos in $map-text-pos {
+  @include build-class(text-#{$text-pos}, text-align, $text-pos);
 }
 
-/*****************************************/
+.uppercase {
+  text-transform: uppercase;
+}
 
-/******** FONTS **********/
+.capitalize {
+  text-transform: capitalize;
+}
+
+/** ----------------------------*
+*             FONTS             *
+*-------------------------------*/
 
 .primary-font {
-  font-family: $primary-font;
+  font-family: $primary-font !important;
 }
 
 .secondary-font {
-  font-family: $secondary-font;
+  font-family: $secondary-font !important;
+}
+
+$map-font-weight: (
+  thin: 200,
+  normal: 400,
+  bold: 700,
+  xbold: 900,
+);
+
+@each $font-weight, $font-weight-val in $map-font-weight {
+  @include build-class(font-#{$font-weight}, font-weight, $font-weight-val);
+}
+
+/** ----------------------------*
+*            RADIUS             *
+*-------------------------------*/
+
+$map-radius: (
+  none: 0,
+  sm: 4px,
+  md: 16px,
+  lg: 50px,
+  '': 50%,
+);
+
+@each $radius-class, $radius in $map-radius {
+  @if $radius-class== '' {
+    @include build-class(rounded, border-radius, $radius);
+  } @else {
+    @include build-class(rounded-#{$radius-class}, border-radius, $radius);
+  }
+}
+
+/******* Extra ********/
+
+.cursor-pointer {
+  cursor: pointer;
 }

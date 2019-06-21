@@ -3,13 +3,13 @@
     border: 0;
     &__item{
         padding: 20px 0 10px;
-        border-bottom: 1px solid $color-green-light;
+        border-bottom: 1px solid $color-base-100;
     }
     &__title {
         color: $color-primary;
     }
     &__author{
-        color: $color-gray-light;
+        color: $color-gray-200;
         font-size: 11px;
     }
 }

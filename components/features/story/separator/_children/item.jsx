@@ -3,14 +3,17 @@ import React from 'react'
 
 const classes = {
   item:
-    'story-separator__item separator__item--nota flex flex--justify-between',
-  detail: 'story-separator__detail',
-  separatorCategory: 'story-separator__category',
-  separatorTitle: 'story-separator__title story-separator__title--nota',
-  itemImage: 'story-separator__img full-width',
-  oneline: 'storysep-oneline',
-  twoline: 'storysep-twoline',
-  threeline: 'storysep-threeline text-left',
+    'story-separator__item separator__item--nota flex justify-between w-full position-relative pt-0 pr-10 pb-0 pl-0',
+  detail: 'story-separator__detail w-full pl-10 pr-10',
+  separatorCategory: 'story-separator__category mb-10 text-xl',
+  separatorTitle:
+    'story-separator__title story-separator__title--nota overflow-hidden text-sm text-gray-300 line-h-sm',
+  titleLink: '',
+  itemImage: 'story-separator__img object-cover',
+  oneline: 'story-separator-oneline',
+  twoline: 'story-separator-twoline',
+  threeline: 'story-separator-threeline text-left',
+  figure: 'story-separator__figure pt-0 pr-0 pb-0 pl-0 mt-0 mr-0 mb-0 ml-0',
 }
 
 const StorySeparatorChildItem = ({ data, contextPath, arcSite }) => {
@@ -23,7 +26,7 @@ const StorySeparatorChildItem = ({ data, contextPath, arcSite }) => {
       numline = classes.twoline
       break
     default:
-      numline = classes.twoline
+      numline = classes.twolinegit
       break
   }
   const { title, link, section, sectionLink, multimedia, multimediaType } = data
@@ -45,10 +48,12 @@ const StorySeparatorChildItem = ({ data, contextPath, arcSite }) => {
           <a href={`${contextPath}${sectionLink}`}>{section}</a>{' '}
         </h2>
         <h3 className={`${classes.separatorTitle} ${numline}`}>
-          <a href={`${contextPath}${link}`}>{title}</a>
+          <a className={classes.titleLink} href={`${contextPath}${link}`}>
+            {title}
+          </a>
         </h3>
       </div>
-      <figure>
+      <figure className={classes.figure}>
         {link && (
           <a href={`${contextPath}${link}`}>
             <img

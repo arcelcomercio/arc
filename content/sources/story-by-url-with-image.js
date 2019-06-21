@@ -9,6 +9,57 @@ const options = {
 
 const schemaName = 'stories'
 
+const queryStoryRecent = (seccion, site) => {
+  const body = {
+    query: {
+      bool: {
+        must: [
+          {
+            term: {
+              'revision.published': 'true',
+            },
+          },
+          {
+            term: {
+              type: 'story',
+            },
+          },
+        ],
+        must_not: [
+          {
+            nested: {
+              path: 'taxonomy.sections',
+              query: {
+                bool: {
+                  must: [
+                    {
+                      terms: {
+                        'taxonomy.sections._id': seccion,
+                      },
+                    },
+                    {
+                      term: {
+                        'taxonomy.sections._website': site,
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+  }
+
+  return encodeURI(JSON.stringify(body))
+}
+export const itemsToArray = (itemString = '') => {
+  return itemString.split(',').map(item => {
+    return item.replace(/"/g, '')
+  })
+}
+
 const fetch = key => {
   const site = key['arc-site'] || 'Arc Site no está definido'
 
@@ -18,18 +69,30 @@ const fetch = key => {
     uri: `${CONTENT_BASE}/content/v4/?website=${site}&website_url=${websiteUrl}`,
     ...options,
   }).then(collectionResp => {
-    const resultStory = collectionResp
+    const dataStory = collectionResp
     return request({
       uri: `${CONTENT_BASE}/content/v4/related-content/stories?_id=${
-        resultStory._id
+        dataStory._id
       }&website=${site}&published=true`,
       ...options,
     }).then(idsResp => {
-      resultStory.related_content = idsResp
-      return resultStory
+      dataStory.related_content = idsResp
+      const {
+        taxonomy: { primary_section: { path: section } = {} } = {},
+      } = dataStory
+      const resultSeccion = itemsToArray(section)
+      const encodedBody = queryStoryRecent(resultSeccion, site)
+      return request({
+        uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${site}&size=6&from=0&sort=publish_date:desc`,
+        ...options,
+      }).then(recientesResp => {
+        dataStory.recent_stories = recientesResp
+        return dataStory
+      })
     })
   })
 }
+
 const transform = data => {
   return addResizedUrls(data, {
     resizerUrl,
@@ -53,6 +116,7 @@ const transform = data => {
     },
   })
 }
+
 export default {
   fetch,
   schemaName,

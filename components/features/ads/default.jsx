@@ -5,8 +5,8 @@ import { createMarkup } from '../../utilities/helpers'
 import AdsChild from '../../global-components/ads'
 
 const classes = {
-  flexCenterVertical: 'flex-center-vertical',
-  flexColumn: 'flex--column',
+  flexCenterVertical: 'flex items-center',
+  flexColumn: 'flex-col',
   overflowHidden: 'overflow-hidden',
 }
 @Consumer
@@ -61,15 +61,15 @@ Ads.propTypes = {
       name: 'Código HTML',
       group: 'Agregar bloque de html',
     }),
-    columns: PropTypes.oneOf(['full-width', 'col-1', 'col-2', 'col-3']).tag({
+    columns: PropTypes.oneOf(['w-full', 'col-1', 'col-2', 'col-3']).tag({
       name: 'Ancho de la publicidad',
       labels: {
-        'full-width': 'auto',
+        'w-full': 'auto',
         'col-1': '1 columna',
         'col-2': '2 columnas',
         'col-3': '3 columnas',
       },
-      defaultValue: 'full-width',
+      defaultValue: 'w-full',
       group: 'Tamaño de la publicidad',
     }),
     rows: PropTypes.oneOf(['empty', 'row-1', 'row-2']).tag({

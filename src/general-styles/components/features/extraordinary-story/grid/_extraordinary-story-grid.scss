@@ -1,0 +1,52 @@
+.extraordinary-story-grid {
+  background-color: #1f1f1f;
+}
+
+.story-video-box {
+  background: #2e2e2e;
+  padding: 80px 12px 12px;
+
+  @media (--tablet) {
+    max-width: 60%;
+  }
+
+  @media (--desktop) {
+    width: 602px;
+  }
+}
+
+.sections-grid {
+  @media (--tablet) {
+    max-width: 40%;
+  }
+
+  @media (--desktop) {
+    width: 400px;
+  }
+
+  &__text {
+    top: 16px;
+
+    @media (--tablet) {
+      position: static;
+    }
+  }
+
+  &__text-image {
+    width: 90px;
+    height: 60px;
+  }
+
+  &__title {
+    color: #ffc90a;
+  }
+}
+
+.sections-grid-item {
+  width: 50%;
+
+  &__image-container {
+    max-height: 94px;
+    margin-bottom: 3px;
+  }
+}

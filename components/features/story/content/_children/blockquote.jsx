@@ -5,6 +5,7 @@ import ConfigParams from '../../../../utilities/config-params'
 const classes = {
   blockquote: 'pquote',
   pull: 'pquote pquote__pull',
+  text: 'pquote pquote__text',
 }
 
 const StoryContentChildBlockQuote = props => {
@@ -20,7 +21,7 @@ const StoryContentChildBlockQuote = props => {
           ? classes.blockquote
           : classes.pull
       }>
-      <p>
+      <p className={classes.text}>
         {content && renderHTML(content)}
         <br />
         {citation && renderHTML(citation.content)}

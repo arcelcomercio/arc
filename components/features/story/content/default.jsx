@@ -25,15 +25,16 @@ import StoryContentChildIcon from './_children/icon-list'
 import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
-  news: 'story-content full-width bg-color--white pd-left-20 pd-right-20',
-  content: 'story-content__content position-relative flex flex--row-reverse',
-  textClasses: 'story-content__font--secondary',
-  newsImage: 'story-content__image full-width story-content__image--cover',
+  news: 'story-content w-full pr-20',
+  content: 'story-content__content position-relative flex flex-row-reverse',
+  textClasses: 'story-content__font--secondary mb-25 title-xs line-h-md mt-20',
+  newsImage: 'story-content__image w-full m-0 story-content__image--cover ',
   newsEmbed: 'story-content__embed',
   tags: 'story-content',
-  section: 'full-width',
-  relatedList: 'related-content__list',
-  relatedTitle: 'related-content__title',
+  section: 'w-full',
+  // Related-content
+  relatedList: 'related-content__list pt-10',
+  relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
 }
 
 const OPTA_CSS_LINK =

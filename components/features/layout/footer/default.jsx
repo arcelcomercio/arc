@@ -4,22 +4,25 @@ import React, { PureComponent } from 'react'
 import { setDevice } from '../../../utilities/resizer'
 
 const classes = {
-  footer: 'footer full-width',
-  info: 'footer__info footer__footer-background-color padding-normal',
-  sections: 'footer__sections footer__footer-background-color',
-  contact: 'footer__contact footer__footer-background-color',
-  sites: 'footer__sites flex flex--justify-center',
-  sitesList: 'footer__sites-list flex flex--justify-center',
-  sitesItem: 'footer__sites-list-element',
-  sitesLink: 'footer__link footer__sites-link',
-  legalList: 'footer__legal-list',
-  legalItem: 'footer__legal-item',
-  logoContainer: 'footer__logo footer__logo-container',
-  logoImg: 'footer__logo-img',
-  list: 'footer__list padding-normal',
-  listItem: 'footer__list-item',
-  listTitle: 'footer__list-item footer__list-item--title',
-  listLink: 'footer__link footer__list-link',
+  footer: 'footer w-full grid',
+  info: 'footer__info bg-gray-300 p-20',
+  sections: 'footer__sections bg-gray-300',
+  contact: 'footer__contact bg-gray-300',
+  sites: 'footer__sites flex justify-center mt-15',
+  sitesList: 'footer__sites-list flex justify-center flex-wrap w-full p-0',
+  sitesItem:
+    'footer__sites-item mb-5 pl-10 pr-10 border-r-1 border-solid border-black text-sm text-gray-200 line-h-xs',
+  sitesLink: 'footer__sites-link text-gray-200',
+  legalList: 'footer__legal-list text-md',
+  legalItem: 'footer__legal-item mb-10 text-gray-200 line-h-sm text-xs',
+  logoContainer: 'footer__logo footer__logo-container block mb-15',
+  logoImg: 'w-full',
+  list: 'footer__list p-20',
+  listItem:
+    'footer__list-item pt-10 pb-10 border-b-1 border-solid border-black',
+  listTitle:
+    'footer__list-title pt-10 pb-10 border-b-1 border-solid border-black uppercase font-bold text-sm text-gray-200',
+  listLink: 'footer__list-link capitalize text-gray-200 text-sm',
 }
 
 @Consumer

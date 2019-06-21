@@ -1,16 +1,11 @@
-/******* Grid dimensions *******/
-$height-row: 374px;
-$row-parts: 6;
-$gap: 20px;
-/*-----------------------*/
+/** ----------------------------*
+*          DIMENSIONES          *
+*-------------------------------*/
 
-/******* Spacing *******/
-// Deprecate
-$spacing-xsmall: 5px;
-$spacing-small: 10px;
-$spacing-normal: 20px;
-$spacing-large: 30px;
-$spacing-xlarge: 40px;
+/******* Grid dimensions *******/
+$row-height: 374px;
+// $row-parts: 6;
+$gap: 20px;
 /*-----------------------*/
 
 /******* Nav dimensions *******/

@@ -1,0 +1,58 @@
+.footer {
+  grid-template: 'info'auto 'contact'auto 'sites'auto;
+
+  @media (--tablet) {
+    grid-template: 'info contact'auto 'sites sites 'auto / 1fr 1fr;
+  }
+
+  @media (--desktop) {
+    grid-template: 'info sections contact'auto 'sites sites sites'auto / 1fr 1fr 1fr;
+  }
+
+  &__info {
+    grid-area: info;
+  }
+
+  &__sections {
+    grid-area: sections;
+    // padding: 10px;
+  }
+
+  &__contact {
+    grid-area: contact;
+    // padding: 10px;
+  }
+
+  &__sites {
+    grid-area: sites;
+    // padding: 10px;
+  }
+
+  &__sites-list {
+    max-width: 950px;
+  }
+
+  &__sites-item {
+    &:first-child {
+      font-weight: bold;
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  // &__sites-link {}
+
+  &__logo-container {
+    width: 95%;
+    max-width: 235px;
+  }
+
+  // &__logo {}
+  // &__legal-list {}
+  // &__legal-item {}
+  // &__list {}
+  // &__list-item {}
+  // &__list-title {}
+}

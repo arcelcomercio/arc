@@ -8,15 +8,17 @@ const classes = {
   movie: '',
   imageBox: '',
   imageLink: '',
-  image: 'movies-slider__img full-width object-fit-cover',
+  image: 'movies-slider__img w-full object-cover',
   arrowsBox:
-    'movies-slider__arrows-box position-absolute flex flex--justify-between',
-  leftArrow: 'movies-slider__arrows movies-slider__arrows--left',
+    'movies-slider__arrows-box w-full position-absolute flex justify-between h-0',
+  leftArrow:
+    'movies-slider__arrows block text-center movies-slider__arrows--left',
   rightArrow: 'movies-slider__arrows movies-slider__arrows--right',
-  details: 'movies-slider__details',
-  movieTitle: 'movies-slider__movie-title',
-  movieLink: 'movies-slider__movie-link',
-  movieDescription: 'movies-slider__movie-description',
+  details: 'movies-slider__details p-20',
+  movieTitle: 'movies-slider__movie-title mb-10 title-lg',
+  movieLink: 'movies-slider__movie-link text-white text-white',
+  movieDescription:
+    'movies-slider__movie-description text-md text-white line-h-sm',
 }
 
 class StaticCinemaBillboardChildMoviesSlider extends PureComponent {

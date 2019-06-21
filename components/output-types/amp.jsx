@@ -4,8 +4,9 @@ import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
+import AmpTagManager from './_children/amp-tag-manager'
+import { createMarkup } from '../utilities/helpers'
 
 const AmpOutputType = ({
   children,
@@ -80,18 +81,19 @@ const AmpOutputType = ({
     deployment,
     globalContent,
   }
-
+  const {
+    canonical_url: canonicalUrl,
+    taxonomy: { sections } = {},
+    credits: { by: autors } = {},
+  } = globalContent
+  const parametros = { sections, autors, siteProperties }
   return (
     <Html>
       <head>
-        <TagManager {...siteProperties} />
-        <BaseMarkup canonicalUrl="/" />
-        <meta charset="utf-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
+        <BaseMarkup
+          canonicalUrl={siteProperties.siteUrl.concat(canonicalUrl)}
         />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <title>{title}</title>
         <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -102,11 +104,23 @@ const AmpOutputType = ({
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
         <meta name="news_keywords" content={keywords} />
+        <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
 
         {/* add additional head elements here */}
+
+        <script
+          async
+          custom-element="amp-analytics"
+          src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"
+        />
+        <script
+          async
+          custom-element="amp-next-page"
+          src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
+        />
         <script
           async
           custom-element="amp-sidebar"
@@ -151,15 +165,16 @@ const AmpOutputType = ({
             return data ? (
               <style
                 amp-custom="amp-custom"
-                dangerouslySetInnerHTML={{
-                  __html: `${data}`,
-                }}
+                dangerouslySetInnerHTML={createMarkup(data)}
               />
             ) : null
           }}
         </Resource>
       </head>
-      <body>{children}</body>
+      <body className="">
+        <AmpTagManager {...parametros} />
+        {children}
+      </body>
     </Html>
   )
 }

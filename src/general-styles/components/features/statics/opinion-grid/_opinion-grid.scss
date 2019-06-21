@@ -1,0 +1,21 @@
+.opinion-grid {
+  grid-template-columns: 1fr;
+
+  @media (--tablet) {
+    max-width: 700px;
+    grid-template-columns: repeat(2, 50%);
+  }
+
+  @media (--desktop) {
+    max-width: 100%;
+    grid-template-columns: repeat(3, 33.3%);
+  }
+
+  &--list,
+  &--title {
+    max-width: 100%;
+  }
+
+  // &__box-title {}
+  // &__title {}
+}

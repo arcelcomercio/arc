@@ -1,0 +1,107 @@
+.story-content {
+  &__tag-link {
+    color: $color-gray-200;
+  }
+
+  .pquote {
+    background: none;
+    color: #030;
+    font-size: 26px;
+    line-height: 0.9;
+    font-style: italic;
+    padding: 13px;
+
+    /*     &__pull {
+      background: url('../images/openquote.svg') top left no-repeat;
+    } */
+
+    &__text:first-letter {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+
+  /* Esto es importante definirlo por los scripts de Opta */
+  &__content > section {
+    width: 100%;
+  }
+
+  /* ----------------------------------------------------- */
+
+  &__font--secondary {
+    word-wrap: break-word;
+  }
+
+  &__image {
+    & figcaption {
+      padding: 14px 0px;
+      font-size: 13px;
+      color: $color-gray-200;
+    }
+  }
+
+  /* Para arreglar estilos en o-embed */
+
+  &__embed {
+    .twitter-tweet {
+      width: 100% !important;
+    }
+
+    .instagram-media {
+      min-width: 0 !important;
+      max-width: 500px !important;
+    }
+
+    [src*='youtube'] {
+      width: 100% !important;
+    }
+
+    .fb-post {
+      width: 100% !important;
+      max-width: 500px;
+
+      & > span {
+        width: 100% !important;
+
+        & > [src*='facebook'] {
+          width: 100% !important;
+
+          & > [data-testid*='newsFeedStream'] {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+
+  /******* Autor *******/
+  &__author {
+    margin-bottom: 20px;
+    padding-top: 30px;
+  }
+
+  /*  Verificar si realmente se utilizan estas clases  */
+
+  /*  &__author-email {
+    font-size: $font-sm;
+  }
+
+  &__author-date {
+    font-size: 12px;
+  } */
+
+  &__icon-list {
+    margin-right: -49px;
+  }
+
+  // &__item {}
+  // &__link {}
+
+  &__link:hover {
+    text-decoration: none;
+  }
+
+  &__tags-link {
+    font-size: 14px;
+  }
+}

@@ -1,14 +1,17 @@
 import React from 'react'
 
 const classes = {
-  title: 'newsletter__title',
-  descripcion: 'newsletter__description',
-  row: 'newsletter__row',
-  email: 'newsletter__email',
-  errorMessage: 'newsletter__error-message',
+  title: `newsletter__title position-relative font-bold pb-15 title-lg line-h-xs`,
+  description: 'newsletter__description secondary-font title-sm line-h-xs',
+  row: 'newsletter__row mb-20',
+  email:
+    'newsletter__email w-full pr-15 pl-15 text-md border-1 border-solid border-gray',
+  errorMessage: 'newsletter__error-message block pt-5 text-xs',
   textCenter: 'text-center',
-  button: 'newsletter__button',
-  tos: 'newsletter__tos',
+  button: 'newsletter__button bg-gray-300 font-bold w-full border-0 text-white',
+  policies: 'newsletter__policies font-bold cursor-pointer text-sm',
+  pageLink: 'newsletter__page-link text-gray-300',
+  inputCheckbox: 'newsletter__input-checkbox mr-10',
 }
 
 const StaticsNewsletterChildForm = props => {
@@ -26,7 +29,7 @@ const StaticsNewsletterChildForm = props => {
       <h3 className={classes.title}>
         Registrate en nuestro <span>Newsletter</span>
       </h3>
-      <p className={classes.descripcion}>{description}</p>
+      <p className={classes.description}>{description}</p>
       <form action="">
         <div className={classes.row}>
           <input
@@ -52,21 +55,27 @@ const StaticsNewsletterChildForm = props => {
           </button>
         </div>
         <div className={classes.row}>
-          <label className={classes.tos} htmlFor="tos">
+          <label className={classes.policies} htmlFor="tos">
             <input
               type="checkbox"
               id="tos"
               name="tos"
               required="required"
               value="1"
+              className={classes.inputCheckbox}
               onChange={features.tos}
             />
             Acepto los{' '}
-            <a href={urlTos} target="_blank" rel="noopener noreferrer">
+            <a
+              className={classes.pageLink}
+              href={urlTos}
+              target="_blank"
+              rel="noopener noreferrer">
               Términos y condiciones
             </a>{' '}
             y{' '}
             <a
+              className={classes.pageLink}
               href={urlPrivacyPolicies}
               target="_blank"
               rel="noopener noreferrer">

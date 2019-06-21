@@ -9,7 +9,7 @@ import {
 const classes = 'grid grid--content'
 
 const FlexibleContainer = ({ customFields, children = [] }) => {
-  const { ContainerType = 'div', width = 'full-width', height = '' } =
+  const { ContainerType = 'div', width = 'w-full', height = '' } =
     customFields || {}
 
   return (

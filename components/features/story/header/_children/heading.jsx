@@ -1,7 +1,8 @@
 import React from 'react'
 
 const classes = {
-  title: 'story-header__news-title pd-left-20 pd-right-20 mg-bottom-20',
+  title:
+    'story-header__news-title pr-20 mb-20 primary-font line-h-xs text-gray-300',
 }
 
 const StoryHeaderChildHeading = props => {

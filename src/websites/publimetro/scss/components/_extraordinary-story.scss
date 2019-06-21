@@ -1,21 +1,22 @@
 .extraordinary-story {
-    &__content{
-      display: block;
-      padding: 10px 20px;
-    }
-    &__section {
-      background-color: transparent;
-      color: $color-primary;
-      padding: 20px 20px 10px;
-      text-transform: capitalize;
+  &__content {
+    display: block;
+    padding: 10px 20px;
   }
-  &__title{
-      color: $color-green-dark;
-      line-height: 34px;
-    }
-    &__link{
-      color: $color-default-2;
-      font-size: 16px;
-      font-family: $font-regular;
-    }
+
+  &__section {
+    background-color: transparent;
+    color: $color-primary;
+    padding: 20px 20px 10px;
+    text-transform: capitalize;
   }
+
+  &__title {
+    color: $color-base-300;
+    line-height: 1.1666666667;
+  }
+
+  &__link {
+    font-family: $font-regular;
+  }
+}

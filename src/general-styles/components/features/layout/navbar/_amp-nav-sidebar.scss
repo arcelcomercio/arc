@@ -1,0 +1,36 @@
+.amp-nav-sidebar {
+  &.active {
+    transition: all 0.5s cubic-bezier(0.56, 1.3, 0.76, 0.88);
+    transform: scaleX(1);
+  }
+
+  &__item {
+    &:hover {
+      transition: all 0.15s ease;
+      background-color: rgba(139, 131, 131, 0.96);
+      padding-left: 10px;
+      color: $color-white;
+    }
+  }
+
+  &__list-item {
+    float: left;
+    width: 33.33%;
+  }
+
+  &__list {
+    width: 80vw;
+    padding: 44px 20px;
+  }
+
+  &__link {
+    transition: all 0.15s ease;
+  }
+
+  &__close {
+    top: 15px;
+    right: 15px;
+  }
+}
+
+

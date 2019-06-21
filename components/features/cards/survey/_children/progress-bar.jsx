@@ -2,14 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  bar: 'survey-bar position-relative full-width',
-  filler: 'survey-bar__filler',
+  bar: 'c-survey-bar position-relative w-full rounded-lg',
+  filler: 'c-survey-bar__filler h-full rounded-lg',
 }
 
 const CardsSurveyChildProgressBar = ({ percentage, isHighlight }) => {
   const highLightBarClass = isHighlight ? 'active' : ''
   return (
-    <div className={classes.bar}>
+    <div
+      role="progressbar"
+      aria-valuenow={percentage || 0}
+      aria-valuemin="0"
+      aria-valuemax="100"
+      className={classes.bar}>
       <div
         className={`${classes.filler} ${highLightBarClass}`}
         style={{ width: `${percentage || 0}%` }}

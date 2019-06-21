@@ -1,0 +1,22 @@
+/** ----------------------------*
+*         LINE HEIGHTS          *
+*-------------------------------*/
+$line-base: 1 !default;
+$line-interval: $line-base / 6 !default;
+
+$map-lines: 'none',
+'xs',
+'sm',
+'md',
+'lg',
+'xl',
+'double' !default;
+
+@each $line in $map-lines {
+    $i: index($map-lines, $line) - 1;
+    $line-value: $line-base + ($line-interval * $i);
+
+    .line-h-#{$line} {
+        line-height: $line-value;
+    }
+}

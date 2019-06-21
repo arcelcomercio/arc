@@ -2,9 +2,9 @@ import React from 'react'
 import { formatDate } from '../../../../utilities/helpers'
 
 const classes = {
-  author: 'flex flex--justify-between pd-top-30 mg-bottom-20',
+  author: 'flex justify-between pt-30 mb-20',
   authorName: '',
-  authorDate: 'text-xs flex flex--align-center ',
+  authorDate: 'text-xs flex items-center ',
   authorEmail: 'text-sm',
 }
 

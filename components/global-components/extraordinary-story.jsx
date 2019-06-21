@@ -5,27 +5,35 @@ import { getIcon } from '../utilities/helpers'
 // FIXME: La línea de arriba no se usa, se puede eliminar?
 
 const classes = {
-  extraordinaryStory: `extraordinary-story`,
-  extraordinaryStorySection: 'extraordinary-story__section text-left',
-  extraordinaryStoryContent: 'extraordinary-story__content',
-  extraordinaryStoryTitle: 'extraordinary-story__title title',
+  extraordinaryStory: `extraordinary-story bg-white grid border-gray`,
+  extraordinaryStorySection:
+    'extraordinary-story__section bg-error text-left uppercase font-bold p-20 pb-0 text-white',
+  extraordinaryStoryContent:
+    'extraordinary-story__content block pt-20 pr-20 pl-20',
+  extraordinaryStoryTitle:
+    'extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-15',
   oneline: 'extraordinary-story-oneline',
   twoline: 'extraordinary-story-twoline',
   threeline: 'extraordinary-story-threeline',
-  extraordinaryStorySubtitle: 'extraordinary-story__subtitle',
+  extraordinaryStorySubtitle:
+    'extraordinary-story__subtitle mb-15 text-gray-200 line-h-sm',
   extraordinaryStoryLink: 'extraordinary-story__link',
-  extraordinaryStoryAuthor: 'extraordinary-story__author',
-  extraordinaryStoryMultimedia: 'extraordinary-story__multimedia',
-  iconGallery: 'extraordinary-story__icon-gallery',
-  iconGalleryContainer: 'extraordinary-story__icon-gallery-container',
+  extraordinaryStoryAuthor:
+    'extraordinary-story__author uppercase mb-15 text-gray-200 text-xs',
+  extraordinaryStoryMultimedia:
+    'extraordinary-story__multimedia bg-gray-300 flex items-center justify-center position-relative',
+  iconGallery: 'position-absolute top-0 right-0 m-10',
+  iconGalleryContainer:
+    'extraordinary-story__icon-gallery-container flex items-center justify-center rounded',
+  icon: 'extraordinary-story__icon-gallery title-lg',
 }
 
 const getMultimediaIcon = mediaType => {
   if (mediaType === 'G') {
     return (
-      <span className={`${classes.iconGallery}-G`}>
-        <span className={`${classes.iconGalleryContainer}-G`}>
-          <i>{mediaType}</i>
+      <span className={classes.iconGallery}>
+        <span className={classes.iconGalleryContainer}>
+          <i className={classes.icon}>{mediaType}</i>
         </span>
       </span>
     )
@@ -35,13 +43,13 @@ const getMultimediaIcon = mediaType => {
 const ExtraordinaryStory = props => {
   const {
     data,
-    multimediaOrientation = 'bottom',
-    contentOrientation = 'left',
-    isSection = false,
     multimediaType,
     deployment,
     contextPath,
     arcSite,
+    multimediaOrientation = 'bottom',
+    contentOrientation = 'left',
+    isSection = false,
   } = props
 
   let numline = ''
@@ -72,7 +80,9 @@ const ExtraordinaryStory = props => {
           <a href={data.link}>{data.title}</a>
         </div>
         <div className={classes.extraordinaryStorySubtitle}>
-          <a href={data.link} className={classes.extraordinaryStoryLink}>{data.subTitle}</a>
+          <a href={data.link} className={classes.extraordinaryStoryLink}>
+            {data.subTitle}
+          </a>
         </div>
         <div className={classes.extraordinaryStoryAuthor}>
           <a href={data.authorLink}>{data.author}</a>

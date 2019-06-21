@@ -1,0 +1,33 @@
+/** ----------------------------*
+*           FONT SIZES          *
+*-------------------------------*
+
+//******* text-[size] *******/
+$map-font: (xs: $font-xs,
+  sm: $font-sm,
+  md: $font-md,
+  lg: $font-lg,
+  xl: $font-xl,
+) !default;
+
+@each $font-size,
+$font-value in $map-font {
+  .text-#{$font-size} {
+    font-size: $font-value;
+  }
+}
+
+//******* title-[size] *******/
+$map-headers: (xs: $header-xs,
+  sm: $header-sm,
+  md: $header-md,
+  lg: $header-lg,
+  xl: $header-xl,
+) !default;
+
+@each $header-size,
+$header-value in $map-headers {
+  .title-#{$header-size} {
+    font-size: $header-value;
+  }
+}

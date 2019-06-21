@@ -1,0 +1,11 @@
+.story-table {
+  border-collapse: collapse;
+
+  &__cell {
+    padding: 2px 4px 1px;
+  }
+
+  &__row:nth-child(even) .story-table__cell {
+    background-color: #e6e6e6;
+  }
+}
