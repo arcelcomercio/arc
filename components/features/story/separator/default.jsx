@@ -52,30 +52,33 @@ class StorySeparator extends PureComponent {
     })
 
     let key = 0
-    return stories && stories.map((story, i) => {
-      if (key === 4) return false
-      const { website_url: websiteUrl } = story
-      if (websiteUrl === excluir) return false
-      instance.__data = story
-      key += 1
+    return (
+      stories &&
+      stories.map((story, i) => {
+        if (key === 4) return false
+        const { website_url: websiteUrl } = story
+        if (websiteUrl === excluir) return false
+        instance.__data = story
+        key += 1
 
-      const data = {
-        title: instance.title,
-        link: instance.link,
-        section: instance.primarySection,
-        sectionLink: instance.primarySectionLink,
-        multimedia: instance.multimedia,
-        multimediaType: instance.multimediaType,
-      }
-      return (
-        <StorySeparatorChildItem
-          data={data}
-          key={UtilListKey(i)}
-          contextPath={contextPath}
-          arcSite={arcSite}
-        />
-      )
-    })
+        const data = {
+          title: instance.title,
+          link: instance.link,
+          section: instance.primarySection,
+          sectionLink: instance.primarySectionLink,
+          multimedia: instance.multimedia,
+          multimediaType: instance.multimediaType,
+        }
+        return (
+          <StorySeparatorChildItem
+            data={data}
+            key={UtilListKey(i)}
+            contextPath={contextPath}
+            arcSite={arcSite}
+          />
+        )
+      })
+    )
   }
 
   render() {

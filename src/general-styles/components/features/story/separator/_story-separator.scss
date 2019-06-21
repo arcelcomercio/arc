@@ -2,14 +2,14 @@
   grid-template-columns: 1fr;
   height: auto;
 
-  &__header-title {
+  /*   &__header-title {
     grid-template-columns: 1fr;
     margin-top: 0;
     height: 70px;
     align-content: center;
-  }
+  } */
 
-  &__opinion {
+  /*   &__opinion {
     display: flex;
     flex-direction: column;
 
@@ -98,7 +98,7 @@
         }
       }
     }
-  }
+  } */
 
   &__body {
     display: grid;
