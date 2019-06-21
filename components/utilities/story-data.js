@@ -135,13 +135,14 @@ class StoryData {
     return StoryData.getPrimarySection(this._data).path || ''
   }
 
-  get sections() {
-    // const sections = ['a', 's', 'w']
-    let sections=[]
+  get allSections() {
+    let sections = []
+    let result = []
     if (this._data.taxonomy && this._data.taxonomy.sections) {
       sections = this._data.taxonomy.sections.map(sec => sec.name)
     }
-    return sections
+    result = sections.filter(x => x !== null || x !== undefined || x !== '')
+    return result
   }
 
   get link() {

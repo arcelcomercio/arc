@@ -10,7 +10,8 @@ export default {
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-KKXTKGP',
   charbeatAccountNumber: 99999,
-
+  idGoogleAnalitics:'UA-3055636-11',
+  
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',

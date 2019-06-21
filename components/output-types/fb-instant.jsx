@@ -17,8 +17,9 @@ const NewElement = props => {
   return Element
 }
 
-const AnalyticsScript = props => {
-  const { link } = props
+const AnalyticsScript = scriptAnaliticaProps => {
+  const { link, siteDomain, idGoogleAnalitics } = scriptAnaliticaProps
+
   const scripttemplate = `(function(i, s, o, g, r, a, m) {
     i['GoogleAnalyticsObject'] = r;
     i[r] = i[r] || function() {
@@ -29,7 +30,7 @@ const AnalyticsScript = props => {
     a.src = g;
     m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-3055636-11', 'elcomercio.pe');
+    ga('create', ${idGoogleAnalitics}', '${siteDomain}');
     ga('require', 'displayfeatures');
     ga('set', 'campaignSource', 'm.facebook.com');
     ga('set', 'campaignMedium', 'referral');
@@ -43,21 +44,37 @@ const ScriptHeader = propsScriptHeader => {
   const {
     siteDomain = '',
     title = '',
-    section = '',
     sections = [],
+    tags = [],
     author = '',
+    typeNews,
   } = propsScriptHeader
 
-  // let listSeccion = sections.map((sec, index) => )
+  const listTag = tags.map(tg => ` '${tg.text}'`)
+
+  const listSec = sections.map(seccionName => ` '${seccionName}'`)
+
+  let TipoNota = ''
+
+  switch (typeNews) {
+    case 'basic_video':
+      TipoNota = 'Articulo Nota Video'
+      break
+    case 'basic_gallery':
+      TipoNota = 'Articulo Nota Fotogaleria'
+      break
+    default:
+      TipoNota = 'Articulo Nota Simple'
+  }
 
   const scriptTemplate = `
           var _sf_async_config = {}; /** CONFIGURATION START **/
           _sf_async_config.uid = 57773;
           _sf_async_config.domain = '${siteDomain}';
           _sf_async_config.title = '${title}';
-          _sf_async_config.sections = '${section}' TODO AQUI!!!!;
-          _sf_async_config.authors = '${author}' TODO;
-          _sf_async_config.type = 'Articulo Nota Simple' TODO;
+          _sf_async_config.sections = ${listSec}, ${listTag};
+          _sf_async_config.authors = '${author}';
+          _sf_async_config.type = '${TipoNota}' TODO AQUI;
           _sf_async_config.useCanonical = true; /** CONFIGURATION END **/
           window._sf_endpt = (new Date()).getTime();
           `
@@ -91,6 +108,13 @@ const FbInstantOutputType = ({
   siteProperties,
 }) => {
   const { content_elements: contentElements } = globalContent || []
+  const {
+    siteName = '',
+    siteUrl = '',
+    siteDomain = '',
+    idGoogleAnalitics = '',
+  } = siteProperties
+
   const stories = contentElements
 
   const storydata = new StoryData({
@@ -108,21 +132,24 @@ const FbInstantOutputType = ({
     'xmlns:slash': 'http://purl.org/rss/1.0/modules/slash/',
   }
   const ItemDataXml = {
-    siteName: siteProperties.siteName,
-    siteUrl: siteProperties.siteUrl,
-    siteDomain: siteProperties.siteDomain,
+    siteName,
+    siteUrl,
+    siteDomain,
   }
 
   const propsScriptHeader = {
-    siteDomain: ItemDataXml.siteDomain,
+    siteDomain,
     title: storydata.title,
-    section: storydata.section,
-    sections: storydata.sections,
+    sections: storydata.allSections,
+    tags: storydata.tags,
     author: storydata.author,
+    typeNews: storydata.multimediaType,
   }
 
   const scriptAnaliticaProps = {
     link: storydata.link,
+    siteDomain,
+    idGoogleAnalitics,
   }
 
   const BuildHtml = () => {
@@ -178,22 +205,30 @@ const FbInstantOutputType = ({
         <NewElement nameElement="language">es</NewElement>
         <NewElement nameElement="title">{ItemDataXml.siteName}</NewElement>
         <NewElement nameElement="description">Todas las Noticias</NewElement>
-        <NewElement nameElement="pubDate">
-          {`Mon, 17 Jun 2019 14:28:54 +0000 //TODO`}
+        <NewElement nameElement="lastBuildDate">
+          {new Date().toISOString()}
         </NewElement>
+        <NewElement nameElement="lnktmp">{ItemDataXml.siteUrl}</NewElement>
+
         <NewElement nameElement="item">
           <NewElement nameElement="title">{storydata.title}</NewElement>
           <NewElement nameElement="pubDate">{storydata.date}</NewElement>
-          <NewElement nameElement="lnk">{`${ItemDataXml.siteUrl}${
+          <NewElement nameElement="lnktmp">{`${ItemDataXml.siteUrl}${
             storydata.link
           }`}</NewElement>
           <NewElement nameElement="guid"> {'//TODO'} </NewElement>
           <NewElement nameElement="author"> {storydata.author} </NewElement>
           <NewElement nameElement="content:encoded">{BuildHtml()}</NewElement>
-          <NewElement nameElement="slash:comments">{'//TODO'} </NewElement>
+          <NewElement nameElement="slash:comments">{'0'} </NewElement>
+
           <NewElement nameElement="slash:printss">
             {/* {JSON.stringify(stories[1])} */}
-            {propsScriptHeader.sections.map((seccionName, index) => (index!==propsScriptHeader.sections.lenght? `${seccionName},`: seccionName)}
+
+            {propsScriptHeader.sections.map((seccionName, index) =>
+              index < propsScriptHeader.sections.length - 1
+                ? `${seccionName}, `
+                : `${seccionName}`
+            )}
           </NewElement>
         </NewElement>
       </NewElement>
