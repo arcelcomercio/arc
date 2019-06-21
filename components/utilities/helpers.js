@@ -1,4 +1,7 @@
-import { addResizedUrlItem } from './thumbs'
+import {
+  addResizedUrlItem
+} from './thumbs'
+import ConfigParams from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -24,9 +27,9 @@ export const formatDate = date => {
 
   const fechaEntrante = date.slice(0, 10)
   const fecha =
-    fechaEntrante === fechaGenerada
-      ? date.slice(date.indexOf('T') + 1, 16)
-      : fechaEntrante
+    fechaEntrante === fechaGenerada ?
+    date.slice(date.indexOf('T') + 1, 16) :
+    fechaEntrante
   return fecha
 }
 
@@ -164,12 +167,12 @@ export const metaPaginationUrl = (
   siteUrl,
   isQuery
 ) => {
-  return requestUri.match(patternPagination) != null
-    ? `${siteUrl}${requestUri.replace(
+  return requestUri.match(patternPagination) != null ?
+    `${siteUrl}${requestUri.replace(
         patternPagination,
         `${isQuery ? '&page=' : '/'}${pageNumber}`
-      )}`
-    : `${siteUrl}${
+      )}` :
+    `${siteUrl}${
         isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
       }${isQuery ? `&page=${pageNumber}` : `?${requestUri.split('?')[1]}`}`
 }
@@ -180,16 +183,18 @@ export const getMetaPagesPagination = (
   globalContent,
   patternPagination
 ) => {
-  const { next, previous } = globalContent || {}
+  const {
+    next,
+    previous
+  } = globalContent || {}
   const pages = {
-    current: requestUri.match(patternPagination)
-      ? parseInt(
-          requestUri
-            .match(patternPagination)[0]
-            .split(`${isQuery ? '=' : '/'}`)[1],
-          10
-        )
-      : 1,
+    current: requestUri.match(patternPagination) ?
+      parseInt(
+        requestUri
+        .match(patternPagination)[0]
+        .split(`${isQuery ? '=' : '/'}`)[1],
+        10
+      ) : 1,
     next: false,
     prev: false,
   }
@@ -249,9 +254,9 @@ export const getCookie = cookieName => {
 
 export const formatSlugToText = (text = '') => {
   if (!text) return null
-  const splitText = text.slice(1).includes('/')
-    ? text.slice(1).split('/')
-    : text.split('/')
+  const splitText = text.slice(1).includes('/') ?
+    text.slice(1).split('/') :
+    text.split('/')
   const lastSection = splitText[splitText.length - 1]
   return lastSection
     .charAt(0)
@@ -277,7 +282,12 @@ export const defaultImage = ({
   )
 }
 
-export const createScript = ({ src, async, defer, textContent = '' }) => {
+export const createScript = ({
+  src,
+  async,
+  defer,
+  textContent = ''
+}) => {
   const node = document.createElement('script')
   if (src) {
     node.type = 'text/javascript'
@@ -312,8 +322,7 @@ export const breadcrumbList = (url, siteUrl, contextPath) => {
       if (i === 1 || (i === 2 && dataSeccion.length === 4)) {
         const separator = '/'
         arrayData[i] = {
-          name:
-            element.charAt(0).toUpperCase() +
+          name: element.charAt(0).toUpperCase() +
             element.slice(1).replace('-', ' '),
           url: siteUrl + contextPath + separator + element,
         }
@@ -324,13 +333,13 @@ export const breadcrumbList = (url, siteUrl, contextPath) => {
   return arrayData.filter(String)
 }
 
-export const getMultimediaIcon = (StoryData, multimediaType) => {
-  let icon
+export const getMultimediaIcon = (multimediaType) => {
+  let icon = ''
   switch (multimediaType) {
-    case StoryData.VIDEO:
+    case ConfigParams.VIDEO:
       icon = 'icon-video'
       break
-    case StoryData.GALLERY:
+    case ConfigParams.GALLERY:
       icon = 'icon-img'
       break
     default:

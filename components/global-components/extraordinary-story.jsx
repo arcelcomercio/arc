@@ -28,6 +28,7 @@ const classes = {
   icon: 'extraordinary-story__icon-gallery title-lg',
 }
 
+// TODO: retirar este getMultimediaIcon
 const getMultimediaIcon = mediaType => {
   if (mediaType === 'G') {
     return (

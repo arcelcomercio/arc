@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 import { getMultimediaIcon } from '../utilities/helpers'
+import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-20`,
@@ -141,7 +142,7 @@ export default class FeaturedStory extends PureComponent {
             <img src={image} className={classes.img} alt="" />
             <span className={classes.iconBox}>
               <i
-                className={`${getMultimediaIcon(StoryData, multimediaType)} ${
+                className={`${getMultimediaIcon(multimediaType)} ${
                   classes.icon
                 }`}
               />
