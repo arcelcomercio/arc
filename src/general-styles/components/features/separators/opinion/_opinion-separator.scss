@@ -38,13 +38,15 @@
         height: 70px;
       }
     }
-    &-link {
+    /*    &-link {
       color: #0e6dc1;
       letter-spacing: 1px;
-    }
+    } */
     &-description {
       display: -webkit-box;
+      /* autoprefixer: off */
       -webkit-box-orient: vertical;
+      /* autoprefixer: on */
     }
     &-name {
       &::before,

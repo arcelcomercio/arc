@@ -4,7 +4,9 @@
 
   &__title {
     display: -webkit-box;
+    /* autoprefixer: off */
     -webkit-box-orient: vertical;
+    /* autoprefixer: on */
     line-height: 0.6;
     @media (--desktop) {
       max-height: 55px;
@@ -60,22 +62,6 @@
       }
     }
   }
-
-  /*   & span {
-    position: absolute;
-    height: 30px;
-    width: 30px;
-    right: 15px;
-    top: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    z-index: 2;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
-    color: #444;
-  } */
 
   &__detail {
     z-index: 2;
