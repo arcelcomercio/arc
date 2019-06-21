@@ -33,11 +33,11 @@
     }
   }
 
-  &__figure {
-    height: 60px;
+  &__img {
+    height: 80px;
     width: 70%;
     @media (--desktop) {
-      width: 70px;
+      width: 75px;
     }
   }
 
@@ -49,12 +49,11 @@
 
   &__title {
     display: -webkit-box;
-    max-height: 58px;
-    line-height: 1.12;
+    max-height: 53px;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
-    font-family: $secondary-font;
+    font-family: $primary-font;
   }
 
   &-oneline {

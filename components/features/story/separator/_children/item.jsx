@@ -5,11 +5,11 @@ const classes = {
   item:
     'story-separator__item separator__item--nota flex justify-between w-full position-relative pt-0 pr-10 pb-0 pl-0',
   detail: 'story-separator__detail w-full pl-10 pr-10',
-  separatorCategory: 'story-separator__category mb-5 text-xl',
+  separatorCategory: 'story-separator__category mb-10 text-xl',
   separatorTitle:
-    'story-separator__title story-separator__title--nota overflow-hidden text-md text-gray-300 secondary-font',
+    'story-separator__title story-separator__title--nota overflow-hidden text-sm text-gray-300 line-h-sm',
   titleLink: '',
-  itemImage: 'w-full h-full object-cover',
+  itemImage: 'story-separator__img object-cover',
   oneline: 'story-separator-oneline',
   twoline: 'story-separator-twoline',
   threeline: 'story-separator-threeline text-left',
