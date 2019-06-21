@@ -1,15 +1,19 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import withSizes from 'react-sizes'
 
 import { customFields } from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
+import { getStoriesQty, sizeDevice } from '../_dependencies/functions'
 import { createMarkup } from '../../../utilities/helpers'
 import StoryData from '../../../utilities/story-data'
 import AuthorCard from './_children/author-card'
 
 const classes = {
-  separator: 'separator__opinion flex flex-col',
-  opinionBody: 'separator__opinion--body mt-0 mb-0',
-  opinionTitle: 'separator__opinion-title uppercase',
+  separator: 'separator__opinion bg-white pt-10 pb-10 pr-10 pl-10',
+  opinionBody: 'separator__opinion--body mt-0 mb-0 ',
+  opinionTitle:
+    'separator__opinion-title uppercase title-md pt-15 pb-25 pr-20 pl-20 text-black',
 }
 
 const HeaderHTML = ({ htmlCode }) => {
@@ -21,149 +25,83 @@ const HeaderHTML = ({ htmlCode }) => {
   )
 }
 
-const schemaFilter = `
-{
-  content_elements{
-    _id
-    website_url
-    taxonomy{
-      primary_section{
-        name
-        path
-      }
-    }
-    credits{
-      by{
-        type
-        name
-        url
-        image{
-          url
-        }
-      }
-    }
-    headlines{
-      basic
-    }
-  }
-}
-`
-
+@withSizes(({ width }) => sizeDevice(width))
 @Consumer
 class SeparatorOpinion extends PureComponent {
   constructor(props) {
     super(props)
+    const { isMobile, isTablet } = this.props
+    this.fetchDataApi(getStoriesQty(isMobile, isTablet))
+  }
 
+  listAuthorCard = (data, arcSite) => {
+    return (
+      data &&
+      data.map(info => (
+        <AuthorCard key={info.id} data={info} arcSite={arcSite} />
+      ))
+    )
+  }
+
+  fetchDataApi = storiesQty => {
     const {
       arcSite,
-      customFields: { section = '', titleSection = '', htmlCode = '' } = {},
-    } = props
-
-    this.state = {
-      device: this.setDevice(),
-      section,
-      titleSection,
-      arcSite,
-      htmlCode,
-      data: [],
-    }
-  }
-
-  componentDidMount = () => {
-    window.addEventListener('resize', this.handleResize) // Temporal
-    this.getContentApi()
-  }
-
-  getContentApi = () => {
-    let storiesQty = 5
-    const { device } = this.state
-
-    if (device === 'mobile') {
-      storiesQty = 1
-    } else if (device === 'tablet') {
-      storiesQty = 3
-    }
-
-    const { deployment, contextPath, arcSite } = this.props
-
-    const { section } = this.state
-
-    const { fetched } = this.getContent(
-      'story-feed-by-section',
-      {
-        website: arcSite,
-        stories_qty: storiesQty,
-        section,
+      deployment,
+      contextPath,
+      customFields: { section = '' },
+    } = this.props
+    this.fetchContent({
+      dataApi: {
+        source: 'story-feed-by-section',
+        query: {
+          website: arcSite,
+          stories_qty: storiesQty,
+          section,
+        },
+        filter: schemaFilter(),
+        transform: data => {
+          return this.processDataApi(data, deployment, contextPath, arcSite)
+        },
       },
-      schemaFilter
-    )
-    fetched.then(({ content_elements: contentElements = [] } = {}) => {
-      const newDatos = []
-      const nObj = {}
-      for (let i = 0; i < storiesQty; i++) {
-        const dh = new StoryData({
-          data: contentElements[i],
-          deployment,
-          contextPath,
-          arcSite,
-          defaultImgSize: 'sm',
-        })
-
-        nObj.id = dh.id
-        nObj.author = dh.author
-        nObj.authorUrl = `${contextPath}${dh.authorLink}`
-        nObj.titulo = dh.title
-        nObj.section = dh.primarySection
-        nObj.sectionUrl = `${contextPath}${dh.primarySectionLink}`
-        nObj.websiteUrl = `${contextPath}${dh.link}`
-        nObj.imageUrl = dh.authorImage
-        newDatos.push({ ...nObj })
-      }
-      this.setState({
-        data: newDatos,
-      })
     })
   }
 
-  handleResize = () => {
-    const wsize = window.innerWidth
-    const { device } = this.state
-    if (wsize >= 1024 && device !== 'desktop') {
-      this.setState({
-        device: 'desktop',
-      })
-      this.getContentApi()
-    } else if (wsize >= 640 && wsize < 1024 && device !== 'tablet') {
-      this.setState({
-        device: 'tablet',
-      })
-      this.getContentApi()
-    } else if (wsize < 640 && device !== 'mobile') {
-      this.setState({
-        device: 'mobile',
-      })
-      this.getContentApi()
+  processDataApi = (data, deployment, contextPath, arcSite, numStory) => {
+    const { content_elements: dataElements = [] } = data || {}
+    const dataFormat = new StoryData({
+      deployment,
+      contextPath,
+      arcSite,
+    })
+    const newData = []
+    const dataTemp = {}
+    for (let i = 0; i < dataElements.length; i++) {
+      if (i >= numStory) break
+      dataFormat.__data = dataElements[i]
+      dataTemp.id = dataFormat.id
+      dataTemp.author = dataFormat.author
+      dataTemp.authorUrl = `${contextPath}${dataFormat.authorLink}`
+      dataTemp.titulo = dataFormat.title
+      dataTemp.section = dataFormat.primarySection
+      dataTemp.sectionUrl = `${contextPath}${dataFormat.primarySectionLink}`
+      dataTemp.websiteUrl = `${contextPath}${dataFormat.link}`
+      dataTemp.imageUrl = dataFormat.authorImage
+      newData.push({ ...dataTemp })
     }
-  }
-
-  setDevice = () => {
-    const wsize = window.innerWidth
-
-    if (wsize < 640) return 'mobile'
-    if (wsize >= 640 && wsize < 1024) return 'tablet'
-    return 'desktop'
-  }
-
-  listado = () => {
-    const { data, arcSite } = this.state
-    return data.map(info => (
-      <AuthorCard key={info.id} data={info} arcSite={arcSite} />
-    ))
+    return newData
   }
 
   render() {
-    const { titleSection, htmlCode, data } = this.state
-
+    const { dataApi = {} } = this.state
+    const {
+      arcSite,
+      isMobile,
+      isTablet,
+      customFields: { titleSection, htmlCode },
+    } = this.props
+    let data = Object.values(dataApi)
+    const numStory = getStoriesQty(isMobile, isTablet)
+    data = data.slice(0, numStory)
     return (
       <div className={classes.separator}>
         {titleSection ? (
@@ -171,7 +109,9 @@ class SeparatorOpinion extends PureComponent {
         ) : (
           <HeaderHTML htmlCode={htmlCode} />
         )}
-        <div className={classes.opinionBody}>{data[0] && this.listado()}</div>
+        <div className={classes.opinionBody}>
+          {data && this.listAuthorCard(data, arcSite, numStory)}
+        </div>
       </div>
     )
   }
@@ -182,5 +122,6 @@ SeparatorOpinion.propTypes = {
 }
 
 SeparatorOpinion.label = 'Separador - Opinión'
+
 
 export default SeparatorOpinion

@@ -1,90 +1,42 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import withSizes from 'react-sizes'
+
 import SeparatorBlogChildItem from './_children/item'
-import { setDevice } from '../../../utilities/resizer'
+import { getStoriesQty, sizeDevice } from '../_dependencies/functions'
 import { defaultImage } from '../../../utilities/helpers'
 
+@withSizes(({width}) => sizeDevice(width))
 @Consumer
 class SeparatorBlog extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      device: setDevice(),
-      listPost: [],
-      dataPost: [],
-    }
+    const { arcSite, isMobile, isTablet } = this.props
+    this.fetchDataApi(arcSite, getStoriesQty(isMobile, isTablet))
   }
-
-  componentDidMount() {
-    window.addEventListener('resize', this._handleResize)
-    this.fetch()
-  }
-
-  _reduceBlog = () => {
-    const { dataPost } = this.state
-    const { device } = this.state
-    let limit = 5
-    if (device === 'mobile') limit = 2
-    if (device === 'tablet') limit = 3
-    if (device === 'desktop') limit = 5
-    const newList = dataPost && dataPost.slice(0, limit)
-    this.setState({
-      listPost: newList,
+  
+  fetchDataApi = (arcSite, storiesQty) => {
+    this.fetchContent({
+      dataApi: {
+        source: 'get-user-blog-and-posts',
+        query: {
+          website: arcSite,
+          blog_limit: storiesQty,
+        },
+      },
     })
   }
 
-  _handleResize = () => {
-    const wsize = window.innerWidth
-    const { device } = this.state
-    const tablet = 768
-    const desktop = 1024
-    if (wsize >= desktop && device !== 'desktop') {
-      this.setState({
-        device: 'desktop',
-      })
-    } else if (wsize < desktop && wsize >= tablet && device !== 'tablet') {
-      this.setState({
-        device: 'tablet',
-      })
-    } else if (wsize < tablet && device !== 'mobile') {
-      this.setState({
-        device: 'mobile',
-      })
-    }
-    this._reduceBlog()
-  }
-
-  fetch() {
-    const { arcSite } = this.props
-    const source = 'get-user-blog-and-posts'
-    const params = {
-      website: arcSite,
-      blog_limit: 5,
-    }
-
-    const { fetched } = this.getContent(source, params)
-    fetched
-      .then(response => {
-        const items = Object.values(response)
-        this.setState({
-          listPost: items,
-          dataPost: items,
-        })
-        this._reduceBlog()
-      })
-      .catch(e => {
-        throw new Error(e)
-      })
-  }
-
   render() {
-    const { listPost } = this.state
-    const { arcSite, contextPath, deployment } = this.props
+    const { dataApi = {} } = this.state
+    const { arcSite, contextPath, deployment, isMobile, isTablet } = this.props
+    let listPost = Object.values(dataApi)
+    listPost = listPost.slice(0, getStoriesQty(isMobile, isTablet))
     return (
       <div>
         <div className="mb-30 pt-30">
           <a
-            className="blog-separator__blog uppercase"
+            className="blog-separator__blog uppercase title-sm text-gray-300"
             href={`${contextPath}/blog`}>
             Blogs
           </a>
@@ -130,5 +82,6 @@ class SeparatorBlog extends PureComponent {
 }
 
 SeparatorBlog.label = 'Separador de Blog'
+
 
 export default SeparatorBlog

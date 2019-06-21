@@ -13,37 +13,18 @@
     margin-right: 0;
   }
 
-  &__blog {
-    color: $color-gray-300;
-    font-size: 22px;
-  }
-
   &__box-title {
     height: 130px;
   }
 
-  &__title {
-    font-size: 16px;
-  }
-
-  &__link {
-    color: $color-gray-300;
-  }
-
   &__box-middle {
-    border-top: solid 1px $color-gray-300;
-    border-bottom: solid 1px #ccc;
+    border-top-color: $color-gray-300;
+    border-bottom-color: #ccc;
     height: 64px;
   }
 
   &__section {
     color: #ccc;
-    font-size: 13px;
-  }
-
-  &__author {
-    color: $color-gray-300;
-    font-size: 13px;
   }
 
   &__img {
