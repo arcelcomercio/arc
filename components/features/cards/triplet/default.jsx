@@ -4,7 +4,7 @@ import Consumer from 'fusion:consumer'
 import customFieldsConfig from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import Data from './_dependencies/data'
-import { TripletChildTriplet as Triplet } from './_children/triplet'
+import TripletChildTriplet from './_children/triplet'
 
 const API_URL = 'story-by-url'
 
@@ -102,7 +102,7 @@ class CardTriplet extends PureComponent {
       multimediaOrientation: customFields.multimediaOrientation,
       editableField,
     }
-    return <Triplet {...params} />
+    return <TripletChildTriplet {...params} />
   }
 }
 

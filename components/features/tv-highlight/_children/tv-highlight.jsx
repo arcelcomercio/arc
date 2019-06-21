@@ -49,7 +49,7 @@ const TVHighlightChild = props => {
           {multimediaType !== 'basic' && (
             <span className={classes.iconContainer}>
               <i
-                className={`${getMultimediaIcon(StoryData, multimediaType)} ${
+                className={`${getMultimediaIcon(multimediaType)} ${
                   classes.icon
                 }`}
               />
