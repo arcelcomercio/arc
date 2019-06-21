@@ -6,9 +6,10 @@ import { getMultimediaIcon } from '../utilities/helpers'
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-20`,
   detail: `featured-story__detail flex flex-col justify-between position relative`,
-  image: 'featured-story__image overflow-hidden w-full h-full ml-10 md:ml-0',
-  iconContainer: `featured-story__multimedia-icon position-absolute text-gray-300 rounded`,
-  icon: `featured-story__multimedia-icon-span flex items-center justify-center w-full h-full text-gray-300`,
+  image:
+    'featured-story__image position-relative overflow-hidden w-full h-full ml-10 md:ml-0',
+  iconBox: `featured-story__box-icon position-absolute rounded`,
+  icon: `featured-story__icon flex items-center justify-center w-full h-full text-gray-100`,
 
   category: 'featured-story__category pb-15 hidden text-lg md:inline-block',
   title: 'featured-story__title overflow-hidden mb-10 title-sm line-h-xs',
@@ -22,7 +23,6 @@ const classes = {
   // linkTitle: 'featured-story__title-link title-lg capitalize',
   imageLink: 'featured-story__img-link block h-full',
   img: 'featured-story__img w-full h-full object-cover',
-  imageIcon: 'featured-story__img-icon icon-img',
 
   imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',
@@ -139,7 +139,7 @@ export default class FeaturedStory extends PureComponent {
         <figure className={classes.image}>
           <a className={classes.imageLink} href={title.url}>
             <img src={image} className={classes.img} alt="" />
-            <span className={classes.iconContainer}>
+            <span className={classes.iconBox}>
               <i
                 className={`${getMultimediaIcon(StoryData, multimediaType)} ${
                   classes.icon

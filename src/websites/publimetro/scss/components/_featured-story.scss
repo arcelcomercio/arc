@@ -32,22 +32,10 @@
     }
   }
 
-  &__img-icon {
-    position: absolute;
-    font-size: 50px;
-    color: $color-white;
-    z-index: 1;
-  }
-
   // TODO: revisar si este modificador se usa Maria:
   /* Imagen completa */
   &.img-complete,
   &.expand {
-    .featured-story__img-icon {
-      left: 20px;
-      top: 20px;
-    }
-
     .featured-story__category {
       @media (--tablet) {
         border-color: $color-white;
