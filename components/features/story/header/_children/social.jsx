@@ -8,13 +8,13 @@ import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
   news:
-    'story-header__share flex-center-vertical flex--justify-between mg-bottom-20',
+    'story-header__share flex items-center justify-between mb-20 p-20 border-b-1 border-t-1 border-solid border-gray',
   breadcrumb: '',
   item: 'story-header__item',
   category: 'text-uppercase',
-  link: 'story-header__link flex-center',
-  icon: 'story-header__icon',
-  list: 'story-header__list flex flex--justify-between',
+  link: 'story-header__link flex items-center justify-center text-gray-200',
+  icon: 'story-header__icon title-xl',
+  list: 'story-header__list flex justify-between',
 }
 @Consumer
 class StoryHeaderChildSocial extends PureComponent {
@@ -49,23 +49,23 @@ class StoryHeaderChildSocial extends PureComponent {
         {
           icon: 'icon-facebook',
           link: urlsShareList.facebook,
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: 'flex justify-center',
         },
 
         {
           icon: 'icon-twitter',
           link: urlsShareList.twitter,
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: 'flex justify-center',
         },
         {
           icon: 'icon-linkedin-circle',
           link: urlsShareList.linkedin,
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: 'flex justify-center',
         },
         {
           icon: 'icon-ribbon',
           link: urlsShareList.pin,
-          mobileClass: 'flex flex--justify-center',
+          mobileClass: 'flex justify-center',
         },
       ],
     }

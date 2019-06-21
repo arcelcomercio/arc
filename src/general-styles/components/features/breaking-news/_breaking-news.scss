@@ -1,0 +1,22 @@
+.breaking-news {
+  &--bgcolor-1 {
+    background-color: $color-primary;
+  }
+
+  &--bgcolor-2 {
+    background-color: $color-black;
+  }
+
+  &__btn-close {
+    width: 60px;
+
+    & button:focus {
+      outline: 0;
+    }
+  }
+
+  // &__btn-icon {}
+  // &__text {}
+  // &__tag {}
+  // &__link {}
+}

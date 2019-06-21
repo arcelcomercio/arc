@@ -5,12 +5,15 @@ import PropTypes from 'prop-types'
 import SearchInput from '../../../global-components/search-input'
 
 const classes = {
-  container: 'error__container text-center full-width position-relative',
-  icon: 'error__icon position-absolute',
-  title: 'error__title title mg-bottom-10',
-  content: 'error__content text-sm pd-top-15 pd-bottom-15 inline-b',
-  link: 'error__link inline-b text-sm pd-top-15 pd-bottom-15',
-  searchBox: 'error__search-box pd-top-10 pd-bottom-20',
+  container:
+    'error bg-gray-100 text-center w-full position-relative secondary-font pt-40 pb-40 pr-20 pl-40',
+  icon: 'error__icon position-absolute top-0 border-solid w-0 h-0',
+  title:
+    'error__title text-xl mb-10 primary-font font-bold line-h-md lg:p-0 lg:pl-20 lg:pr-20',
+  content: 'error__content text-sm pt-15 pb-15 inline-block line-h-md',
+  link:
+    'error__link inline-block text-sm pt-15 pb-15 font-bold text-gray-300 line-h-md',
+  searchBox: 'pt-10 pb-20 m-0 mx-auto',
 }
 
 @Consumer

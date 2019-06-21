@@ -3,24 +3,28 @@ import BillboardFormat from '../../../utilities/billboard-format'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  container: 'movie-details flex flex--column',
-  imgBox: 'movie-details__box-img position-relative full-width',
-  img: 'movie-details__img full-width full-height object-fit-cover',
-  iconBox: 'movie-details__box-icon position-absolute flex-center',
-  icon: 'movie-details__icon',
-  details: 'movie-details__detail full-width flex flex--column',
-  leftSide: 'movie-details__left full-width',
-  title: 'movie-details__title',
-  where: 'movie-details__where text-uppercase',
-  hours: 'movie-details__hours scroll-vertical-auto',
-  item: 'movie-details__item',
-  cinema: 'movie-details__cinema block',
-  text: 'movie-details__text',
-  more: 'movie-details__more flex-center',
-  button: 'movie-details__btn',
-  rightSide: 'movie-details__right',
-  name: 'movie-details__name',
-  value: 'movie-details__value',
+  container: 'movie-details flex flex-col pr-20 pl-20',
+  imgBox: 'movie-details__box-img position-relative w-full m-0 mx-auto',
+  img: 'movie-details__img w-full h-full object-cover',
+  iconBox:
+    'movie-details__box-icon position-absolute flex items-center justify-center rounded',
+  icon: 'movie-details__icon title-sm text-gray-300',
+  details:
+    'movie-details__detail w-full flex flex-col mt-40 mb-40 mx-auto pt-0 pr-20 pb-20 pl-20',
+  leftSide: 'movie-details__left w-full md:flex-shrink-0',
+  title: 'movie-details__title mb-20 title-md text-white md:mb-30',
+  where: 'movie-details__where uppercase mb-15 text-sm text-white line-h-md',
+  hours:
+    'movie-details__hours overflow-y-auto h-auto pr-30 border-r-1 border-solid border-white',
+  item: 'mb-20',
+  cinema: 'movie-details__cinema block font-bold text-sm text-white line-h-md',
+  text: 'movie-details__text font-thin text-sm line-h-md',
+  more:
+    'movie-details__more flex items-center justify-center pt-15 pb-15 pr-30 pl-30 mt-20 mx-auto border-1 border-solid border-gray md:mt-20 md:mb-0 md:ml-0 md:mr-0',
+  button: 'movie-details__btn text-sm text-white',
+  rightSide: 'movie-details__right pt-20 pb-20 md:p-20',
+  name: 'movie-details__name font-bold mb-15 text-sm text-white line-h-md',
+  value: 'movie-details__value font-normal',
 }
 
 class StaticCinemaBillboardChildMoviesDetails extends PureComponent {

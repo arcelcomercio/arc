@@ -1,0 +1,84 @@
+// Newsletter
+.newsletter {
+  @media (--desktop) {
+    background-color: #f4f4f4;
+    max-width: 1274px;
+    padding: 0px 60px;
+    align-items: inherit;
+  }
+
+  //&__banner-image { }
+
+  &__box-subscription {
+    align-self: center;
+
+    @media (--desktop) {
+      max-width: 450px;
+    }
+  }
+
+  &__button {
+    height: 50px;
+  }
+
+  &__description {
+    color: #666;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+  }
+
+  &__email {
+    height: 50px;
+  }
+
+  &__error-message {
+    color: $color-error;
+  }
+
+  &__image-container {
+    border-bottom-width: 2px;
+    height: 370px;
+
+    @media (--desktop) {
+      width: 380px;
+      background-color: inherit;
+      overflow: inherit;
+      border-bottom: inherit;
+    }
+  }
+
+  &__image {
+    width: 60%;
+  }
+
+  &__title {
+    color: #666;
+
+    &::after {
+      background-color: #f7c600;
+      bottom: 0;
+      content: '';
+      height: 5px;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 115px;
+    }
+  }
+
+  &__strong {
+    font-size: 55px;
+
+    @media (--desktop) {
+      font-size: 70px;
+    }
+  }
+
+  &__page-link {
+    text-decoration: underline;
+  }
+
+  &__input-checkbox {
+    margin-top: 1px;
+  }
+}

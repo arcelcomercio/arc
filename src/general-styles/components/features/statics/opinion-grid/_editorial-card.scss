@@ -1,0 +1,36 @@
+.editorial-card {
+  &__wrapper {
+    background-color: gold;
+
+    @media (--tablet) {
+      height: 340px;
+      //max-width: 310px;
+    }
+
+    @media (--desktop) {
+      height: $row-height;
+    }
+  }
+
+  &__image {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* &__name {} */
+
+  &__title {
+    width: 90%;
+  }
+
+  // TODO: chequear esto para borrar
+  /* &__social {
+    display: none;
+
+    @media (--tablet) {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+    }
+  } */
+}

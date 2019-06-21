@@ -4,21 +4,21 @@ import { capitalData, provinceData } from './_dependencies/locations'
 import Markers from './_dependencies/markers'
 
 const classes = {
-  concessionaires: 'concessionaires',
-  arrow: 'concessionaires__arrow',
-  container: 'concessionaires__container',
-  title: 'concessionaires__title',
-  info: 'concessionaires__info',
-  locations: 'concessionaires__locations',
-  search: 'concessionaires__search flex',
-  searchTitle: 'concessionaires__search-title',
+  concessionaires: 'concessionaires w-full position-relative',
+  arrow: 'concessionaires__arrow w-0 h-0 position-absolute border-solid',
+  container: 'concessionaires__container w-full m-0 mx-auto pr-20 pl-20',
+  title: 'concessionaires__title text-center font-bold title-lg text-gray-300',
+  info: `concessionaires__info text-gray-300 text-center mt-10 mb-40 mx-auto text-sm line-h-md`,
+  locations: `concessionaires__locations border-gray pt-25 border-t-1 border-solid lg:pt-0`,
+  search: 'concessionaires__search flex mb-20 flex-col lg:flex-row',
+  searchTitle: `concessionaires__search-title text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm md:mb-20 lg:mb-0 lg:text-left`,
   form: 'flex',
-  zona: 'concessionaires__controls flex',
-  label: 'concessionaires__label',
-  select: 'concessionaires__select',
-  district: 'concessionaires__controls flex',
+  zona: 'concessionaires__controls flex mr-15 flex-col lg:w-full',
+  label: 'concessionaires__label block text-center text-sm line-h-double',
+  select: 'concessionaires__select pl-15 bg-white md:w-full',
+  district: 'concessionaires__controls flex md:flex-row lg:w-full',
   districtLabel: 'concessionaires__label',
-  mapTitle: 'concessionaires__map-title',
+  mapTitle: `concessionaires__map-title text-gray-300 font-thin mt-10 mb-10 title-sm`,
 }
 
 class StaticConcessionaryOffices extends PureComponent {

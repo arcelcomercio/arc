@@ -1,0 +1,72 @@
+.opinion-card {
+  grid-template-columns: 1fr;
+  grid-template-rows: 60px 10fr;
+
+  &__head {
+    grid-template-columns: 1fr;
+  }
+
+  &__title {
+    color: #f15a24;
+    /* el componente opinion trome debe mostrar 2 lineas como maximo en el titulo*/
+  }
+
+  &__body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    // height: 450px;
+  }
+
+  &__item {
+    grid-template-columns: 8fr 4fr;
+  }
+
+  &__section-name,
+  &__name-link,
+  &__name-link:hover {
+    color: #f15a24;
+  }
+
+  &__section {
+    grid-template-rows: 2fr 8fr;
+    grid-template-columns: 1fr;
+  }
+
+  &__title-link:hover {
+    color: $color-black;
+  }
+
+  &__story-title {
+    display: -webkit-box;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+  }
+
+  &__oneline {
+    max-height: 15px;
+    -webkit-line-clamp: 1;
+    line-height: 18px;
+  }
+
+  &__twoline {
+    max-height: 40px;
+    -webkit-line-clamp: 2;
+    line-height: 18px;
+  }
+
+  &__threeline {
+    max-height: 55px;
+    -webkit-line-clamp: 3;
+    line-height: 18px;
+  }
+
+  &__image-container {
+    grid-template-rows: 3fr;
+  }
+
+  &__image {
+    height: 60px;
+    width: 60px;
+  }
+}

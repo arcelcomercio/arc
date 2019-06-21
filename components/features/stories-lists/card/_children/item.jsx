@@ -2,10 +2,12 @@ import React from 'react'
 import Multimedia from './multimedia'
 
 const classes = {
-  story: 'stories-list-card__story flex pd-top-10 pd-bottom-10',
-  time: 'stories-list-card__time',
-  pageLink: 'stories-list-card__page-link pd-left-15',
-  bold: 'bold stories-list-card__link-title',
+  story:
+    'stories-l-item flex flex-col w-auto pt-20 pb-20 border-b-1 border-solid border-gray',
+  time:
+    'stories-l-item__time flex justify-center flex-col text-gray-300 text-md line-h-sm',
+  linkBox: 'stories-l-item__link-box flex flex-col',
+  link: 'stories-l-item__link bold m-0 text-md text-gray-300 line-h-sm',
 }
 
 const StoriesListsCardChildItem = ({
@@ -18,7 +20,7 @@ const StoriesListsCardChildItem = ({
   multimediaType,
 }) => {
   return (
-    <article className={classes.story}>
+    <article role="listitem" className={classes.story}>
       {seeImageNews && (
         <Multimedia
           urlNews={urlNews}
@@ -27,9 +29,9 @@ const StoriesListsCardChildItem = ({
         />
       )}
       {seeHour && <div className={classes.time}>{time}</div>}
-      <div className={classes.pageLink}>
+      <div className={classes.linkBox}>
         <a href={urlNews}>
-          <h3 className={classes.bold}>{title}</h3>
+          <h3 className={classes.link}>{title}</h3>
         </a>
       </div>
     </article>

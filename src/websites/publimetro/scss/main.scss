@@ -20,7 +20,7 @@
 /*---------------------*/
 
 /******* Modificadores *******/
-@import './components/cintillo-urgente';
+@import './components/breaking-news';
 @import './components/nav';
 @import './components/header';
 @import './components/buttons';
@@ -28,11 +28,13 @@
 @import './components/separador';
 @import './components/featured-story';
 @import './components/triplet';
-@import './components/list';
+@import './components/stories-list-card';
+@import './components/stories-list-header';
+@import './components/stories-list-item';
 @import './components/search-filter';
 @import './components/story-item';
 @import './components/article-body';
 @import './components/pagination';
-@import './components/more-read';
-@import './components/more-read-item';
+@import './components/most-read';
+@import './components/most-read-item';
 /*---------------------*/

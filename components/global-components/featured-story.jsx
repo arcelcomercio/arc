@@ -1,45 +1,42 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
+import { getMultimediaIcon } from '../utilities/helpers'
+import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
-  featuredStory: 'featured-story position-relative flex',
+  featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-20`,
+  detail: `featured-story__detail flex flex-col justify-between position relative`,
+  image:
+    'featured-story__image position-relative overflow-hidden w-full h-full ml-10 md:ml-0',
+  iconBox: `featured-story__box-icon position-absolute rounded`,
+  icon: `featured-story__icon flex items-center justify-center w-full h-full text-gray-100`,
 
-  detail:
-    'featured-story__detail padding-normal flex flex--column flex--justify-between',
-  image: 'featured-story__image',
-  multimediaIconContainer: 'featured-story__multimedia-icon',
-  multimediaIconSpan: 'featured-story__multimedia-icon-span',
-
-  category: 'featured-story__category text-capitalize pd-bottom-15',
-  title: 'featured-story__title',
+  category: 'featured-story__category pb-15 hidden text-lg md:inline-block',
+  title: 'featured-story__title overflow-hidden mb-10 title-sm line-h-xs',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
-  author: 'featured-story__author',
-  linkAuthor: 'featured-story__author-link text-uppercase',
+  author: 'featured-story__author uppercase',
+  authorLink: 'featured-story__author-link text-sm text-gray-200 text-xs',
 
-  link: 'featured-story__link title-xs',
-  linkTitle: 'featured-story__title-link title-lg text-capitalize',
-  imageLink: 'block full-height featured-story__img-link flex-center',
-  img: 'full-width full-height object-fit-cover featured-story__img',
-  imageIcon: 'featured-story__img-icon icon-img',
+  link: 'featured-story__link text-xl line-h-sm',
+  // linkTitle: 'featured-story__title-link title-lg capitalize',
+  imageLink: 'featured-story__img-link block h-full',
+  img: 'featured-story__img w-full h-full object-cover',
 
-  imgComplete: 'img-complete flex--justify-end',
+  imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',
 
   twoCol: 'col-2',
   // Headbands
-  headband: 'featured-story__headband mg-bottom-5',
-  headbandLink: 'featured-story__headband-link',
+  headband: 'featured-story__headband mb-5 text-lg',
+  headbandLink: 'featured-story__headband-link font-bold text-white',
 
   live: 'featured-story--live',
-
-  playIcon: 'featured-story__play-icon',
-  galleryIcon: 'featured-story__gallery-icon',
 }
 
-export default class FeaturedStory extends Component {
+export default class FeaturedStory extends PureComponent {
   render() {
     const {
       category, // Se espera un objeto {name: '', url: ''}
@@ -81,25 +78,6 @@ export default class FeaturedStory extends Component {
       }
       return null
     }
-
-    const getMultimediaIcon = () => {
-      let icon
-      switch (multimediaType) {
-        case StoryData.VIDEO:
-          icon = classes.playIcon
-          break
-        case StoryData.GALLERY:
-          icon = classes.galleryIcon
-          break
-        default:
-          return ''
-      }
-      return (
-        <span className={classes.multimediaIconContainer}>
-          <i className={`${classes.multimediaIconSpan} ${icon}`} />
-        </span>
-      )
-    }
     // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
     let numline = ''
     switch (arcSite) {
@@ -120,7 +98,10 @@ export default class FeaturedStory extends Component {
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === 'twoCol' ? classes.twoCol : ''
         } ${hightlightOnMobile ? 'expand' : ''}`}>
-        <div className={classes.detail}>
+        <div
+          className={`${classes.detail} ${
+            imageSize === 'parcialBot' ? 'mb-20' : 'mt-20'
+          }`}>
           {headband === 'normal' || !headband ? (
             <h3 className={classes.category}>
               <a
@@ -151,7 +132,7 @@ export default class FeaturedStory extends Component {
           </h2>
 
           <span className={classes.author}>
-            <a className={classes.linkAuthor} href={author.url}>
+            <a className={classes.authorLink} href={author.url}>
               {author.name}
             </a>
           </span>
@@ -159,8 +140,13 @@ export default class FeaturedStory extends Component {
         <figure className={classes.image}>
           <a className={classes.imageLink} href={title.url}>
             <img src={image} className={classes.img} alt="" />
-            {getMultimediaIcon()}
-            <i className={`${classes.imageIcon}`} />
+            <span className={classes.iconBox}>
+              <i
+                className={`${getMultimediaIcon(multimediaType)} ${
+                  classes.icon
+                }`}
+              />
+            </span>
           </a>
         </figure>
       </article>

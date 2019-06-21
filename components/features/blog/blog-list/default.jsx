@@ -5,8 +5,8 @@ import Pagination from '../../../global-components/pagination'
 import { formatDate, defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  list: 'bg--white blog-list full-width',
-  listTitle: 'text-uppercase blog-list__title',
+  list: 'bg-white w-full p-15', // blog-list
+  title: 'uppercase mb-20 title-xs', // blog-list__title
 }
 @Consumer
 class BlogList extends PureComponent {
@@ -99,7 +99,7 @@ class BlogList extends PureComponent {
     return (
       <>
         <div className={classes.list}>
-          <h1 className={classes.listTitle}>blogs</h1>
+          <h1 className={classes.title}>blogs</h1>
           <div>
             {blogs.map((item, i) => {
               const params = this.buildParams(item)

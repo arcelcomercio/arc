@@ -2,27 +2,27 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  surveyChoicesItem: 'survey-choices__item',
-  surveyRadio: 'survey-question__radio overflow-hidden flex-center-vertical',
-  surveyInput: 'survey-question__input hide',
-  surveyCheck: 'survey-question__check position-relative',
+  item: 'c-survey-choices__item mb-5 pt-5 pr-20 pb-5 text-gray-300',
+  radio: 'cursor-pointer overflow-hidden flex items-center',
+  input: 'c-survey-choices__input hidden',
+  check: 'c-survey-choices__check bg-white position-relative mr-10 rounded-md',
 }
 
 const CardSurveyChildSurveyOptions = ({ choices, onChange }) => {
   return choices.map((choice, index) => {
     const idChoice = `radio${index}`
     return (
-      <div key={choice.option} className={classes.surveyChoicesItem}>
-        <label htmlFor={idChoice} className={classes.surveyRadio}>
+      <div key={choice.option} className={classes.item}>
+        <label htmlFor={idChoice} className={classes.radio}>
           <input
             id={idChoice}
-            className={classes.surveyInput}
+            className={classes.input}
             type="radio"
             name="survey"
             value={choice.option}
             onChange={onChange}
           />
-          <span className={classes.surveyCheck} />
+          <span className={classes.check} />
           <span>{choice.option}</span>
         </label>
       </div>

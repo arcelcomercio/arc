@@ -1,20 +1,21 @@
 import React from 'react'
 
 const classes = {
-  card: 'editorial-card',
-  wrapper: 'editorial-card__wrapper flex flex--column',
-  group: 'editorial-card__group text-uppercase',
-  name: 'editorial-card__name block text-uppercase',
+  card: 'editorial-card p-5',
+  wrapper:
+    'editorial-card__wrapper flex flex-col h-full pt-15 pr-10 pb-15 pl-20',
+  group: 'editorial-card__group uppercase font-thin mb-5 text-xs',
+  name: `editorial-card__name block uppercase primary-font font-bold mb-15 title-xs text-gray-300 line-h-xs`,
   description: 'flex',
-  imageBox: 'flex position-relative flex--align-start',
-  image: 'editorial-card__image',
-  detailsBox: 'editorial-card__box-details',
-  title: 'editorial-card__title block',
+  imageBox: 'flex position-relative items-start',
+  image: 'editorial-card__image bg-white object-cover object-top rounded',
+  detailsBox: 'pr-5 pl-10',
+  title: `editorial-card__title block font-normal primary-font text-lg text-gray-300 line-h-sm`,
 }
 
 const OpinionGridEditorialCard = ({ data: story }) => {
   return (
-    <div className={classes.card}>
+    <div role="listitem" className={classes.card}>
       <div className={classes.wrapper}>
         <h4 className={classes.group}>{story.section}</h4>
         <h2>

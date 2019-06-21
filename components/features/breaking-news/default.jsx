@@ -5,12 +5,13 @@ import PropTypes from 'prop-types'
 import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
-  breakingnews: 'flex flex--justify-between',
-  breakingnewsBtnClose: 'cintillo-u__btn-close text-right',
-  breakingnewsIcon: 'cintillo-u__btn-icon icon-close-circle',
-  breakingnewsText: 'cintillo-u__text',
-  breakingnewsTag: 'cintillo-u__tag',
-  breakingnewsLink: 'cintillo-u__link',
+  breakingnews:
+    'breaking-news secondary-font flex justify-between p-15 text-white',
+  close: 'breaking-news__btn-close text-right',
+  icon: 'breaking-news__btn-icon icon-close-circle title-sm text-white',
+  text: 'breaking-news__text m-0 font-normal title-xs line-h-xs',
+  tag: 'breaking-news__tag uppercase mr-5',
+  link: 'breaking-news__link mr-5 text-white',
 }
 
 @Consumer
@@ -41,6 +42,7 @@ class BreakingNews extends Component {
     this.fetch()
   }
 
+  // TODO: revisar si esto es necesario
   shouldComponentUpdate(nextProps, nextState) {
     const { isVisible, article } = this.state
     return isVisible !== nextState.isVisible || article !== nextState.article
@@ -78,7 +80,13 @@ class BreakingNews extends Component {
     const { article, isVisible } = this.state || {}
     const {
       editableField,
-      customFields: { backgroundColor, tags, title, subTitle, storyLink },
+      customFields: {
+        title,
+        subTitle,
+        storyLink,
+        tags = 'Lo último',
+        backgroundColor = 'breaking-news--bgcolor-1',
+      },
       contextPath,
     } = this.props
     const webUrlService = !this.isExternalLink
@@ -93,20 +101,21 @@ class BreakingNews extends Component {
     }
     return (
       <div
-        className={`cintillo-u ${isVisible ? '' : 'hide'}
+        className={`${isVisible ? '' : 'hidden'}
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
-        <h2 className={classes.breakingnewsText}>
+        <h2 className={classes.text}>
           <span
-            className={classes.breakingnewsTag}
+            className={classes.tag}
             {...editableField('tags')}
             suppressContentEditableWarning>
             {tags}:
           </span>
           <span>
             <a
-              className={classes.breakingnewsLink}
+              className={classes.link}
+              // className={classes.link}
               href={objContent.link}
               target="_blank"
               rel="noopener noreferrer"
@@ -117,14 +126,14 @@ class BreakingNews extends Component {
           </span>
         </h2>
         <div
-          className={classes.breakingnewsBtnClose}
+          className={classes.close}
           onClick={this.handleOnclickClose}
           // Static HTML elements do not have semantic meaning.
           // Needs a role, to be focusable and to have a key event
           onKeyPress={this.handleOnclickClose}
           role="button"
           tabIndex={0}>
-          <i className={classes.breakingnewsIcon} />
+          <i className={classes.icon} />
         </div>
       </div>
     )
@@ -146,15 +155,15 @@ BreakingNews.propTypes = {
     }),
     tags: PropTypes.string.tag({ name: 'Etiqueta' }),
     backgroundColor: PropTypes.oneOf([
-      'cintillo-u--bgcolor-1',
-      'cintillo-u--bgcolor-2',
+      'breaking-news--bgcolor-1',
+      'breaking-news--bgcolor-2',
     ]).tag({
       name: 'Color de fondo',
       labels: {
-        'cintillo-u--bgcolor-1': 'Principal',
-        'cintillo-u--bgcolor-2': 'Secundario',
+        'breaking-news--bgcolor-1': 'Principal',
+        'breaking-news--bgcolor-2': 'Secundario',
       },
-      defaultValue: 'cintillo-u--bgcolor-1',
+      defaultValue: 'breaking-news--bgcolor-1',
     }),
 
     subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true }),

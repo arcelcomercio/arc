@@ -6,12 +6,14 @@ import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
 const classes = {
-  tabloide: 'tabloide row-1 flex flex--column',
-  header: 'tabloide__header flex-center',
-  body: 'tabloide__body flex-center flex--column',
-  content: 'flex-center',
-  date: 'tabloide__date flex-center',
-  face: 'tabloide__face',
+  tabloid: 'tabloid row-1 flex flex-col pt-20',
+  header: 'tabloid__header flex items-center justify-center',
+  headerLink: 'tabloid__header-link text-white',
+  body: 'tabloid__body flex items-center justify-center flex-col h-auto',
+  content: 'flex items-center justify-center',
+  date: 'tabloid__date flex items-center justify-center',
+  dateLink: 'tabloid__date-link text-black',
+  face: 'tabloid__face object-contain',
 }
 @Consumer
 class CardTabloid extends PureComponent {
@@ -112,18 +114,22 @@ class CardTabloid extends PureComponent {
     const link = `${contextPath}${rawLink || ''}`
 
     const nameDate = this.nameDate(date)
-    console.log(multimedia)
+    //console.log(multimedia)
 
     return (
-      <div className={classes.tabloide}>
+      <div className={classes.tabloid}>
         <div className={classes.header}>
           <h4>
-            <a href={link}>{sectionName || formatSlugToText(section)}</a>
+            <a className={classes.headerLink} href={link}>
+              {sectionName || formatSlugToText(section)}
+            </a>
           </h4>
         </div>
         <div className={classes.body}>
           <h3 className={classes.date}>
-            <a href={link}>{nameDate}</a>
+            <a className={classes.dateLink} href={link}>
+              {nameDate}
+            </a>
           </h3>
           <div className={classes.content}>
             <figure>

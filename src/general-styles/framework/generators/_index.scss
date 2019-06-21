@@ -1,3 +1,11 @@
-@import './generate-space';
-@import './generate-size';
+/** ----------------------------*
+*           GENERATORS          *
+*-------------------------------*/
+@import './generate-spaces';
+@import './generate-font-sizes';
+@import './generate-line-heights';
 @import './generate-icons';
+@import './generate-borders';
+@import './generate-bg-colors';
+@import './generate-text-colors';
+/*------------------------------*/

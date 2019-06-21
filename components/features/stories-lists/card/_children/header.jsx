@@ -1,9 +1,9 @@
 import React from 'react'
 
 const classes = {
-  header: 'stories-list-card__header flex flex--justify-between flex--align-center pd-top-10 pd-bottom-10 pd-left-20 pd-right-20',
-  seeMore: 'stories-list-card__see-more btn btn--primary',
-  title: 'stories-list-card__title flex-center-vertical text-uppercase',
+  header: `stories-l-header flex justify-between w-auto pt-15 pb-15 pr-20 pl-20`,
+  seeMore: `stories-l-header__see-more bg-white pt-5 pb-5 pr-10 pl-10 text-gray-200 text-sm`,
+  title: 'stories-l-header__title flex items-center full-height text-gray-300',
 }
 const StoriesListsCardChildHeader = ({
   titleList,
@@ -23,7 +23,7 @@ const StoriesListsCardChildHeader = ({
       )}
       {seeMore && (
         <a href={seeMoreurl} className={classes.seeMore}>
-          <h4>ver más</h4>
+          ver más
         </a>
       )}
     </div>

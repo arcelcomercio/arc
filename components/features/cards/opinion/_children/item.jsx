@@ -1,12 +1,16 @@
 import React from 'react'
 
 const classes = {
-  item: 'opinion-card__item',
-  seccion: 'opinion-card__seccion',
-  icono: 'opinion-card__icono',
-  nombreSeccion: 'opinion-card__nombreseccion',
-  titleNew: 'opinion-card__titleNew',
+  item: 'opinion-card__item grid',
+  section: 'opinion-card__section grid item-center',
+  imageContainer:
+    'opinion-card__image-container grid item-center justify-center',
+  image: 'opinion-card__image',
+  name: 'opinion-card__section-name',
+  nameLink: 'opinion-card__name-link',
+  storyTitle: 'opinion-card__story-title text-left overflow-hidden',
   orange: 'text_orange',
+  titleLink: 'opinion-card__title-link',
 }
 
 const OpinionChildItem = ({
@@ -19,18 +23,28 @@ const OpinionChildItem = ({
 }) => {
   return (
     <div className={classes.item}>
-      <div className={classes.seccion}>
-        <h3 className={classes.nombreSeccion}>
-          <a href={urlSection}>{sectionName}</a>
+      <div className={classes.section}>
+        <h3 className={classes.name}>
+          <a className={classes.nameLink} href={urlSection}>
+            {sectionName}
+          </a>
         </h3>
-        <div className={`${classes.titleNew} ${numberLine}`}>
+        <div className={`${classes.storyTitle} ${numberLine}`}>
           <h2>
-            <a href={urlNew}>{titulo}</a>
+            <a className={classes.titleLink} href={urlNew}>
+              {titulo}
+            </a>
           </h2>
         </div>
       </div>
-      <div className={classes.icono}>
-        <img data-type="src" src={urlImg} data-src={urlImg} alt="" />
+      <div className={classes.imageContainer}>
+        <img
+          className={classes.image}
+          data-type="src"
+          src={urlImg}
+          data-src={urlImg}
+          alt=""
+        />
       </div>
     </div>
   )

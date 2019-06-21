@@ -1,0 +1,31 @@
+.post-header {
+
+  &__title {
+    @media (--tablet) {
+      font-size: 40px;
+    }
+
+    @media (--desktop) {
+      font-size: 50px;
+    }
+  }
+
+  &__list {
+    height: 45px;
+  }
+
+  &__item {
+    flex-basis: 0;
+    margin-right: 2px;
+  }
+
+  &__more {
+    width: 45px;
+  }
+
+  &__share {
+    color: #666;
+
+    /* @media (--tablet) {} */
+  }
+}

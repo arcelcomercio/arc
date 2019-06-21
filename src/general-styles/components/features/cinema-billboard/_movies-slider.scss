@@ -1,0 +1,69 @@
+.movies-slider {
+  max-width: 100vw;
+
+  @media (--desktop) {
+    max-width: 1024px;
+  }
+
+  &__content {
+    transition: transform 0.4s ease;
+  }
+
+  &__img {
+    max-height: 240px;
+
+    @media (--tablet) {
+      max-height: 400px;
+    }
+
+    @media (--desktop) {
+      max-height: 580px;
+    }
+  }
+
+  &__arrows-box {
+    outline: 0;
+    z-index: 2;
+    top: 20%;
+
+    @media (--tablet) {
+      top: 30%;
+    }
+  }
+
+  &__arrows {
+    background-color: #f7c600;
+    background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 48px;
+    height: 48px;
+
+    @media (--tablet) {
+      width: 80px;
+      height: 80px;
+    }
+
+    &--left {
+      transform: rotate(90deg);
+    }
+
+    &--right {
+      transform: rotate(270deg);
+    }
+  }
+
+  &__movie-title {
+    @media (--tablet) {
+      font-size: 48px;
+    }
+  }
+
+  /* &__movie-description {} */
+
+  &__details {
+    @media (--tablet) {
+      padding: 40px;
+    }
+  }
+}

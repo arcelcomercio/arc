@@ -1,0 +1,34 @@
+.br-stories-grid {
+  @media (--desktop) {
+    background-color: $color-white;
+
+    &__title {
+      background-color: transparent;
+      color: #666;
+    }
+
+    &__container {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    &__card {
+      height: 236px;
+    }
+
+    &__category-container {
+      letter-spacing: 1px;
+    }
+
+    &__image-container {
+      height: 148px;
+    }
+
+    &__detail-title {
+      max-height: 36.4px;
+    }
+
+    &__detail-title-link {
+      color: #666;
+    }
+  }
+}

@@ -15,14 +15,15 @@ export default ({
     link,
     publishDate,
     subTitle,
-    author,
+    seoAuthor,
     imagesSeo,
     section,
     videoSeo,
     contentElementsText: dataElement,
     relatedContent,
+    seoKeywords,
     breadcrumbList,
-  } = new StoryData({ data, arcSite })
+  } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const videoSeoItems = videoSeo.map(
     ({ url, caption, urlImage, date } = {}) => {
@@ -51,7 +52,11 @@ export default ({
   })
 
   const listItems = tags.map(({ description }) => {
-    return `"${description}"`
+    return `${description}`
+  })
+
+  const seoKeywordsItems = seoKeywords.map(item => {
+    return `"${item}"`
   })
 
   const relatedContentItem = relatedContent.map((content, i) => {
@@ -90,7 +95,7 @@ export default ({
     ],
     "author":{  
        "@type":"Person",
-       "name":"${author}"
+       "name":"${seoAuthor}"
     },
     "publisher":{  
        "@type":"Organization",
@@ -104,25 +109,29 @@ export default ({
           "width":316
        }
     },
-    "keywords":[${listItems.map(item => item)}]
+    "keywords":[${seoKeywordsItems.map(item => item)}]
  }`
 
-  const breadcrumbResult = breadcrumbList.map(
-    ({ url = '', name = '' } = {}) => {
-      return (
-        url &&
-        `
+  const breadcrumbResult = breadcrumbList.map(({ url, name }, i) => {
+    return (
+      url &&
+      `
          {  
             "@type":"ListItem",
-            "position":1,
+            "position":${i + 1},
             "item":{  
                "@id":"${url}",
                "name":"${name}"
             }
          } `
-      )
-    }
-  )
+    )
+  })
+
+  const structuredBreadcrumb = `{  
+      "@context":"https://schema.org",
+      "@type":"BreadcrumbList",
+      "itemListElement":[${breadcrumbResult}]  
+      }`
 
   return (
     <Fragment>
@@ -131,18 +140,21 @@ export default ({
         content={`http://www.facebook.com/${siteUrl}`}
       />
       <meta name="author" content={`Redacción ${siteName}`} />
-
       <meta name="bi3dPubDate" content={publishDate} />
       <meta name="bi3dArtId" content="639992" />
       <meta name="bi3dSection" content={section} />
       <meta name="bi3dArtTitle" content={title} />
       <meta name="cXenseParse:per-categories" content={section} />
+      <meta name="etiquetas" content={listItems.map(item => item)} />
 
       <meta property="article:published_time" content={publishDate} />
       <meta property="article:modified_time" content={publishDate} />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={section} />
-      <meta property="article:tag" content={listItems.map(item => item)} />
+      <meta
+        property="article:tag"
+        content={seoKeywordsItems.map(item => item)}
+      />
 
       <script
         type="application/ld+json"
@@ -154,7 +166,7 @@ export default ({
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: breadcrumbResult }}
+        dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
       />
     </Fragment>
   )

@@ -4,10 +4,11 @@ import { popUpWindow } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  news: 'story-content__icon-list',
+  news:
+    'story-content__icon-list hidden md:block md:pt-20 md:pb-0 md:pr-20 md:pl-20',
   list: 'story-content__list',
-  item: 'story-content__item',
-  link: 'story-content__link',
+  item: 'story-content__item mb-20',
+  link: 'story-content__link text-gray-200',
 }
 @Consumer
 class StoryContentChildIcon extends PureComponent {
@@ -22,23 +23,23 @@ class StoryContentChildIcon extends PureComponent {
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'icon-print story-content__icon',
+          icon: 'icon-print story-content__icon title-xl',
           link: '',
           mobileClass: '',
         },
 
         {
-          icon: 'icon-message story-content__icon',
+          icon: 'icon-message story-content__icon title-xl',
           link: '',
           mobileClass: '',
         },
         {
-          icon: 'icon-link story-content__icon',
+          icon: 'icon-link story-content__icon title-xl',
           link: '',
           mobileClass: '',
         },
         {
-          icon: 'icon-zoom story-content__icon',
+          icon: 'icon-zoom story-content__icon title-xl',
           link: '',
           mobileClass: '',
         },

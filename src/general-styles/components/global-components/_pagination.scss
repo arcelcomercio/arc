@@ -1,0 +1,28 @@
+//$color-page: #777;
+
+.pagination {
+  @media (--tablet) {
+    width: 60%;
+    flex-wrap: nowrap;
+    max-height: 20px;
+  }
+
+  &__page {
+    padding: 3px 7px;
+
+    &--current {
+      background: $color-black;
+      color: $color-white;
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &--disabled {
+      color: $color-base-100;
+      pointer-events: none;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.story-header {
+  &__news-title {
+    clear: both;
+  }
+
+  &__news-summary {
+    word-wrap: break-word;
+  }
+
+  &__link:hover {
+    text-decoration: none;
+  }
+
+  &__list {
+    width: 150px;
+  }
+
+  // &__share {}
+}

@@ -1,5 +1,24 @@
 import React from 'react'
-import { getIcon } from '../../../utilities/helpers'
+import { getMultimediaIcon } from '../../../utilities/helpers'
+import StoryData from '../../../utilities/story-data'
+
+const classes = {
+  tv: 'tv-highlight bg-gray-300 pt-20 pb-20 md:pt-40 md:pb-40 md:pr-0 md:pl-0',
+  container: 'tv-highlight__container m-0 mx-auto',
+  titleBox: 'mb-10',
+  title: 'tv-highlight__title secondary-font text-white title-lg',
+  subBox: 'flex justify-between pt-15 pb-15 mb-10',
+  section: `tv-highlight__section flex uppercase position-relative text-white text-sm`,
+  imageBox: 'block position-relative',
+  image: 'w-full h-full object-contain object-center',
+  iconContainer: `tv-highlight__icon position-absolute flex justify-center items-center rounded text-gray-300`,
+  icon: 'title-xl',
+  tags: 'tv-highlight__tags mt-15',
+  related: 'tv-highlight__related uppercase mb-5 font-bold text-sm',
+  list: 'flex',
+  item: 'tv-highlight__item mr-15',
+  link: 'tv-highlight__link text-sm text-gray-200',
+}
 
 const TVHighlightChild = props => {
   const {
@@ -9,38 +28,42 @@ const TVHighlightChild = props => {
     tags,
   } = props
   return (
-    <div className="tv-highlight">
-      <div className="tv-highlight__container">
-        <div className="tv-highlight__box-title">
+    <div className={classes.tv}>
+      <div className={classes.container}>
+        <div className={classes.titleBox}>
           <h1>
-            <a href={urlTitle} className="tv-highlight__title">
+            <a href={urlTitle} className={classes.title}>
               {nameTitle}
             </a>
           </h1>
         </div>
-        <div className="tv-highlight__box-sub">
+        <div className={classes.subBox}>
           <span>
-            <a href={urlSection} className="tv-highlight__section">
+            <a href={urlSection} className={classes.section}>
               {nameSection}
             </a>
           </span>
         </div>
-        <a href={urlTitle} className="tv-highlight__box-image">
-          <img className="tv-highlight__img" src={multimediaImg} alt="foto" />
+        <a href={urlTitle} className={classes.imageBox}>
+          <img className={classes.image} src={multimediaImg} alt="foto" />
           {multimediaType !== 'basic' && (
-            <span className="tv-highlight__icon">
-              {getIcon(multimediaType)}
+            <span className={classes.iconContainer}>
+              <i
+                className={`${getMultimediaIcon(multimediaType)} ${
+                  classes.icon
+                }`}
+              />
             </span>
           )}
         </a>
         {tags && (
-          <div className="tv-highlight__tags">
-            <p className="tv-highlight__related">Tag Relacionados:</p>
-            <ul className="tv-highlight__list">
+          <div className={classes.tags}>
+            <p className={classes.related}>Tag Relacionados:</p>
+            <ul className={classes.list}>
               {tags.map(el => {
                 return (
-                  <li key={el.slug} className="tv-highlight__item">
-                    <a className="tv-highlight__link" href={`/tag/${el.slug}`}>
+                  <li key={el.slug} className={classes.item}>
+                    <a className={classes.link} href={`/tag/${el.slug}`}>
                       {el.description}
                     </a>
                   </li>

@@ -1,15 +1,16 @@
 import React from 'react'
 
 const classes = {
-  separator: 'blog-separator',
-  boxTitle: 'blog-separator__box-title',
-  title: 'blog-separator__title',
-  link: 'blog-separator__link',
-  middle: 'blog-separator__box-middle',
-  section: 'blog-separator__section',
-  author: 'blog-separator__author',
-  boxImg: 'blog-separator__box-img',
-  img: 'blog-separator__img',
+  separator: 'blog-separator bg-white flex flex-col flex-no-wrap mr-5 w-full',
+  boxTitle: 'blog-separator__box-title w-full overflow-hidden p-20',
+  title: 'blog-separator__title font-normal text-lg',
+  link: 'blog-separator__link text-gray-300',
+  middle:
+    'blog-separator__box-middle flex flex-col justify-center pt-10 pb-10 pr-15 pl-15 border-t-1 border-solid border-b-1',
+  section: 'blog-separator__section block text-sm',
+  author: 'blog-separator__author block mt-5 text-sm text-gray-300',
+  boxImg: 'flex justify-center pt-5',
+  img: 'blog-separator__img object-contain',
 }
 
 const SeparatorBlogChildItem = ({

@@ -1,0 +1,29 @@
+.post-item {
+  border-top-color: #999;
+
+  &:nth-child(1) {
+    border-top: 0;
+  }
+
+  /* &__date {} */
+
+  /* &__content {} */
+
+  &__image {
+    width: 140px;
+    height: 80px;
+
+    @media (--tablet) {
+      width: 232px;
+      height: 140px;
+    }
+  }
+
+  &__author {
+    visibility: hidden;
+
+    @media (--tablet) {
+      visibility: visible;
+    }
+  }
+}

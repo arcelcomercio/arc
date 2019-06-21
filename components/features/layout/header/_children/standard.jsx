@@ -2,10 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  header: 'header full-width header__main flex-center',
+  header:
+    'header bg-primary primary-font w-full header__main font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300',
   logo: 'header__logo',
-  featured: 'flex flex--justify-between header__featured full-width',
-  item: 'flex-center header__item',
+  featured: 'flex justify-evenly header__featured w-full font-normal',
+  item: 'flex items-center justify-center header__item h-inherit',
+  link: 'header__link uppercase text-sm',
 }
 
 const HeaderChildStandard = props => {
@@ -40,7 +42,9 @@ const HeaderChildStandard = props => {
             <ul className={classes.featured}>
               {sections.map(section => (
                 <li className={classes.item} key={section.url}>
-                  <a href={section.url}>{section.name}</a>
+                  <a className={classes.link} href={section.url}>
+                    {section.name}
+                  </a>
                 </li>
               ))}
             </ul>

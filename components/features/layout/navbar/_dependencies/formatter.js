@@ -4,13 +4,15 @@ export default class NavbarFormater {
   constructor(props, customFields) {
     const {
       deployment,
+      nav,
+      getContent,
       contextPath = '',
       siteDomain = '',
-      nav,
       arcSite = '',
-      getContent,
     } = props
-    const { selectDesing = 'standard' } = customFields
+    const {
+      selectDesing = 'standard'
+    } = customFields
     this.deployment = deployment
     this.contextPath = contextPath
     this.siteDomain = siteDomain
@@ -26,14 +28,15 @@ export default class NavbarFormater {
   get main() {
     return {
       initParams: this[this.selectDesing].initParams(),
-      fetch: this[this.selectDesing].fetch()
-        ? this[this.selectDesing].fetch()
-        : false,
+      fetch: this[this.selectDesing].fetch() ?
+        this[this.selectDesing].fetch() : false,
     }
   }
 
   get somos() {
-    const { logoSomos } = this.navProperties
+    const {
+      logoSomos
+    } = this.navProperties
     return {
       initParams: () => {
         return {
@@ -59,14 +62,16 @@ export default class NavbarFormater {
   }
 
   get standard() {
-    const { logoSomos } = this.navProperties
+    const {
+      logo
+    } = this.navProperties
     return {
       initParams: () => {
         return {
           logo: this.deployment(
             `${this.contextPath}/resources/dist/${
               this.arcSite
-            }/images/${logoSomos}`
+            }/images/${logo}`
           ),
         }
       },

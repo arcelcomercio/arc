@@ -17,12 +17,14 @@ class StoryData {
     contextPath = '',
     arcSite = '',
     defaultImgSize = 'md',
+    siteUrl = '',
   }) {
     this._data = data
     this._deployment = deployment
     this._contextPath = contextPath
     this._website = arcSite
     this._defaultImgSize = defaultImgSize
+    this._siteUrl = siteUrl
   }
 
   get __data() {
@@ -74,6 +76,16 @@ class StoryData {
 
   get author() {
     return StoryData.getDataAuthor(this._data).nameAuthor
+  }
+
+  get seoAuthor() {
+    const defaultAuthor = 'Redacción '
+    return (
+      StoryData.getDataAuthor(this._data).nameAuthor ||
+      defaultAuthor +
+        this._website.charAt(0).toUpperCase() +
+        this._website.slice(1)
+    )
   }
 
   get authorLink() {
@@ -182,7 +194,8 @@ class StoryData {
         'gallery'
       ) || []
 
-    const { content_elements: galleryContent } = galleryContentResul[0] || []
+    const { content_elements: galleryContent = [] } =
+      galleryContentResul[0] || []
 
     const promoItemsImage =
       (this._data &&
@@ -244,10 +257,20 @@ class StoryData {
   }
 
   get breadcrumbList() {
-    const {
-      taxonomy: { primary_section: primarySection = {} } = {},
-    } = this._data
-    return breadcrumbList(primarySection)
+    const { website_url: url = '' } = this._data || {}
+    return breadcrumbList(url, this._siteUrl, this._contextPath)
+  }
+
+  get recentList() {
+    const { recent_stories: { content_elements: contentElements } = {}, id } =
+      this._data || {}
+    return StoryData.recentList(contentElements, id)
+  }
+
+  get seoKeywords() {
+    const { taxonomy: { seo_keywords: seoKeywords = [] } = {} } =
+      this._data || {}
+    return seoKeywords
   }
 
   // TODO: Improve raw attribute function (should only be getter's attribute)
@@ -271,6 +294,23 @@ class StoryData {
     )
   }
 
+  get contentElementGallery() {
+    return (
+      (this._data &&
+        this._data.promo_items &&
+        this._data.promo_items[ConfigParams.GALLERY]) ||
+      ''
+    )
+  }
+
+  get contentElements() {
+    return (this._data && this._data.content_elements) || []
+  }
+
+  get promoItems() {
+    return (this._data && this._data.promo_items) || []
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -285,11 +325,11 @@ class StoryData {
     {
       basic_video: basicVideo = {},
       basic_gallery: basicGallery = {},
-      basic: basicImage = '',
+      basic: basicImage = {},
     } = {},
     type = ''
   ) {
-    if (basicVideo && (type === 'video' || type === 'image')) {
+    if (basicVideo.promo_image && (type === 'video' || type === 'image')) {
       const {
         streams = [],
         publish_date: date = '',
@@ -318,12 +358,11 @@ class StoryData {
       }
     }
 
-    if (basicGallery && type !== 'video') {
+    if (basicGallery.content_elements && type !== 'video') {
       const { content_elements: contentElements = {} } = basicGallery
       return contentElements
     }
-
-    if (basicImage && type === 'image') {
+    if (basicImage.url && type === 'image') {
       const {
         content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
         url: urlImage,
@@ -349,11 +388,9 @@ class StoryData {
 
   static getContentElements(data = [], typeElement = '') {
     return (
-      data
-        .map(item => {
-          return item.type === typeElement ? item : []
-        })
-        .filter(String) || []
+      data.map(item => {
+        return item.type === typeElement ? item : []
+      }) || []
     )
   }
 
@@ -510,6 +547,28 @@ class StoryData {
       thumb = StoryData.getImage(data)
     }
     return thumb
+  }
+
+  static recentList(recentElements = [], id) {
+    let i = 0
+    return (
+      recentElements
+        .map(data => {
+          const {
+            headlines: { basic } = {},
+            website_url: websiteUrl,
+            _id: storyId,
+          } = data
+          if (storyId !== id && i < 3) {
+            const type = StoryData.getTypeMultimedia(data)
+            const urlImage = StoryData.getThumbnail(data, type)
+            i += 1
+            return { basic, websiteUrl, urlImage }
+          }
+          return []
+        })
+        .filter(String) || {}
+    )
   }
 }
 

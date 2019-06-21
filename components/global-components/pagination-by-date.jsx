@@ -3,10 +3,11 @@ import React, { PureComponent } from 'react'
 import { getActualDate } from '../utilities/helpers'
 
 const classes = {
-  paginationDate: 'pagination-date full-width',
-  paginationDateList: 'pagination-date__list',
-  paginationDateItem: 'pagination-date__item',
-  paginationDateLink: 'text-uppercase flex-center pagination-date__link',
+  paginationDate: 'pagination-date w-full',
+  paginationDateList: 'text-center',
+  paginationDateItem: 'pagination-date__item inline-block mr-5 ml-5',
+  paginationDateLink:
+    'uppercase flex items-center justify-center font-bold pagination-date__link text-md text-gray-200 pt-5 pb-5 pr-5 pl-5 lg:pr-10 lg:pl-10',
 }
 class PaginationByDate extends PureComponent {
   constructor(props) {

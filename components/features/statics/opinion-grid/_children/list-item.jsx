@@ -3,34 +3,44 @@ import { formatDate } from '../../../../utilities/helpers'
 
 const classes = {
   authorItem: 'author-item',
-  wrapper: 'author-item__wrapper full-width flex flex--justify-center',
-  social: 'author-item__social',
-  date: 'author-item__date',
-  content: 'author-item__content flex full-width flex--align-start',
-  imageBox: 'author-item__box-image flex',
-  image: 'author-item__image',
-  descBox: 'author-item__box-desc',
-  name: 'author-item__name block',
-  subtitle: 'author-item__subtitle block',
+  wrapper:
+    'author-item__wrapper w-full flex justify-center p-20 m-0 mx-auto border-b-1 border-solid border-gray',
+  social: 'author-item__social hidden md:flex md:pt-10',
+  date: 'author-item__date text-xs hidden md:block',
+  content: 'author-item__content flex w-full items-start',
+  imageBox:
+    'author-item__box-image flex flex-grow-0 flex-shrink-0 bg-error rounded md:rounded-none',
+  image:
+    'author-item__image object-cover rounded md:rounded-none md:w-full md:h-full',
+  descBox: 'ml-20',
+  name:
+    'author-item__name block secondary-font font-bold pt-5 mb-10 title-sm text-gray-300',
+  subtitle: 'author-item__subtitle block secondary-font text-xs text-gray-300',
 }
 
 const OpinionGridListItem = ({ data: story }) => {
   return (
-    <div className={classes.authorItem}>
+    <div role="listitem" className={classes.authorItem}>
       <div className={classes.wrapper}>
         <div className={classes.social}>
-          <span className={`${classes.date} mobile`}>
+          <time className={classes.date} dateTime={story.date}>
             {formatDate(story.date)}
-          </span>
+          </time>
         </div>
         <div className={classes.content}>
-          <div className={classes.imageBox}>
-            <a href={story.link} className={classes.image}>
-              <img src={story.authorImage} alt={story.author} />
+          <figure className={classes.imageBox}>
+            <a href={story.link}>
+              <img
+                src={story.authorImage}
+                className={classes.image}
+                alt={story.author}
+              />
             </a>
-          </div>
+          </figure>
           <div className={classes.descBox}>
-            <span className={classes.date}>{formatDate(story.date)}</span>
+            <time className={classes.date} dateTime={story.date}>
+              {formatDate(story.date)}
+            </time>
             <h2>
               <a href={story.authorLink} className={classes.name}>
                 {story.author}

@@ -1,52 +1,47 @@
 .featured-story {
-  &__link {
-    color: $color-primary;
-    border: 1px solid $color-primary;
-    padding: 7px 11px;
-    display: inline-block;
-  }
   &__category {
+    @media (--tablet) {
+      color: $color-primary;
+      border: 1px solid $color-primary;
+      padding: 7px 11px;
+    }
+
     &::after {
       display: none;
     }
   }
+
   &__title-link {
-    color: $color-green-dark;
+    color: $color-base-300;
   }
+
   &__author-link {
-    color: $color-gray-light;
-    font-size: 11px;
+    color: $color-gray-200;
     font-family: $font-regular;
   }
+
   &__image {
-    position: relative;
     &::before {
       @media (--tablet) {
         height: 100%;
-        background: linear-gradient(
-          to bottom,
-          rgba(14, 33, 13, 0.5) 58%,
-          rgba(14, 33, 13, 0.65) 71%,
-          #0e210d 96%
-        );
+        background: linear-gradient(to bottom,
+            rgba(14, 33, 13, 0.5) 58%,
+            rgba(14, 33, 13, 0.65) 71%,
+            #0e210d 96%);
       }
     }
   }
-  &__img-icon {
-    position: absolute;
-    font-size: 50px;
-    color: $color-white;
-    z-index: 1;
-  }
+
+  // TODO: revisar si este modificador se usa Maria:
   /* Imagen completa */
-  &--img-complete {
-    .featured-story__img-icon {
-      left: 20px;
-      top: 20px;
+  &.img-complete,
+  &.expand {
+    .featured-story__category {
+      @media (--tablet) {
+        border-color: $color-white;
+      }
     }
-    .featured-story__link {
-      border: 1px solid $color-white;
-    }
+
     .featured-story__title-link,
     .featured-story__author-link {
       color: $color-white;

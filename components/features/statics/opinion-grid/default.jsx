@@ -9,13 +9,14 @@ import CustomTitle from '../../custom-title/default'
 
 // TODO: author-card y editorial-card pueden evitar código duplicado con un contenedor
 const classes = {
-  container: 'opinion-grid grid full-width',
-  externalTitle: 'opinion-grid--title',
-  list: 'opinion-grid--list full-width',
-  titleBox: 'opinion-grid__box-title full-width',
-  title: 'opinion-grid__title text-uppercase text-center',
-  moreBox: 'opinion-grid__box-more flex flex--justify-center',
-  more: 'opinion-grid__more text-uppercase text-center',
+  container: 'opinion-grid grid w-full m-0 mx-auto',
+  externalTitle: 'opinion-grid--title pt-20 pb-20 pl-0 pr-0 m-0 mx-auto',
+  list: 'opinion-grid--list w-full m-0 mx-auto',
+  titleBox:
+    'opinion-grid__box-title w-full pt-15 pb-15 border-b-1 border-solid border-gray md:pt-25 md:pb-25 md:pl-0 md:pr-0',
+  title: 'opinion-grid__title uppercase text-center secondary-font title-xs',
+  moreBox: 'flex justify-center pt-25 pb-15',
+  more: 'opinion-grid__more uppercase text-center text-md text-gray-300',
 }
 @Consumer
 class StaticOpinionGrid extends PureComponent {
@@ -35,7 +36,7 @@ class StaticOpinionGrid extends PureComponent {
         <div className={classes.title}>
           <CustomTitle />
         </div>
-        <div className={classes.container}>
+        <div role="list" className={classes.container}>
           {stories.slice(0, 12).map(story => {
             data.__data = story
             const { taxonomy: { primary_section: { name } = '' } = {} } =
@@ -54,7 +55,7 @@ class StaticOpinionGrid extends PureComponent {
             )
           })}
         </div>
-        <div className={classes.list}>
+        <div role="list" className={classes.list}>
           <div className={classes.titleBox}>
             <p className={classes.title}>ÚLTIMAS NOTICIAS</p>
           </div>

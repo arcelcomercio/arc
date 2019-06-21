@@ -1,0 +1,43 @@
+.amp-nav {
+  position: sticky;
+  height: $nav-height;
+  z-index: 20;
+  background-color: $amp-nav-color;
+
+  &__hamburger {
+    width: 20px;
+    height: 4px;
+    left: 20px;
+    right: 20px;
+    top: 25px;
+    background-color: $color-gray-300;
+
+    &:before {
+      content: '';
+      top: -12px;
+      width: 100%;
+      height: 4px;
+      background-color: $color-gray-300;
+      left: 0;
+      position: absolute;
+    }
+
+    &:after {
+      content: '';
+      top: -6px;
+      width: 100%;
+      height: 4px;
+      background-color: $color-gray-300;
+      left: 0;
+      position: absolute;
+    }
+  }
+
+  // &__wrapper {   }
+
+  &__container-menu {
+    @media (--desktop) {
+      border-right: solid 1px $color-gray-200;
+    }
+  }
+}

@@ -5,11 +5,13 @@ import { formatDayMonthYear } from '../../../utilities/helpers'
 import StoryHeaderChildAmpSocial from './_children/amp-social'
 
 const classes = {
-  news: 'story-header-amp',
-  titleAmp: 'story-header-amp__title',
-  datetime: 'story-header-amp__datetime',
-  description: 'story-header-amp__description',
-  gallery: 'story-header-amp full-width',
+  stories: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
+  titleAmp:
+    'amp-story-header__title font-bold primary-font title-md text-gray-300 line-h-xs',
+  datetime:
+    'amp-story-header__datetime mt-15 mb-15 block secondary-font text-lg',
+  description: 'amp-story-header__description mt-0 text-md text-gray-300',
+  gallery: 'amp-story-header bg-white w-full pr-20 pl-20 m-5 mx-auto',
 }
 @Consumer
 class StoryHeaderAmp extends PureComponent {
@@ -27,7 +29,7 @@ class StoryHeaderAmp extends PureComponent {
 
     return (
       <>
-        <div className={galleryItems ? classes.gallery : classes.news}>
+        <div className={galleryItems ? classes.gallery : classes.stories}>
           <header>
             {titleElements && (
               <h1 className={classes.titleAmp}> {titleElements}</h1>

@@ -4,13 +4,14 @@ import AmpSocial from '../../../story/header/_children/amp-social'
 import Menu from './amp-menu'
 
 const classes = {
-  nav: 'amp-nav text-sm full-width flex flex-center-vertical',
+  nav:
+    'amp-nav top-0 text-sm w-full flex flex items-center font-bold secondary-font text-white',
   wrapper:
-    'flex-center-vertical flex--justify-between amp-nav__wrapper full-width height-inherit',
-  iconMenu: 'amp-nav__hamburguer',
+    ' amp-nav__wrapper flex items-center justify-between pr-15 pl-15 bg-white w-full h-inherit border-b-1 border-solid border-gray',
+  iconMenu: 'amp-nav__hamburger bg-gray-300 position-absolute',
   navBtnContainer:
-    'flex-center-vertical flex--justify-start nav__container-menu',
-  btnContainer: 'flex-center-vertical flex--justify-end header__btn-container',
+    'flex items-center justify-start amp-nav__container-menu lg:pr-10',
+  btnContainer: 'flex items-center justify-end header__btn-container',
 }
 
 @Consumer
@@ -35,25 +36,7 @@ class NavBarDefault extends PureComponent {
 
     const tapSidebar = 'tap:sidebar.toggle'
     return (
-      <nav className={classes.nav}>
-        <div className={classes.wrapper}>
-          {/** ************* LEFT *************** */}
-
-          <div className={classes.navBtnContainer}>
-            <button
-              type="button"
-              on={tapSidebar}
-              className={classes.iconMenu}
-            />
-          </div>
-
-          {/** ************* RIGHT *************** */}
-
-          <div className={classes.btnContainer}>
-            <AmpSocial />
-          </div>
-        </div>
-
+      <>
         <Menu
           sections={sections}
           showSidebar={statusSidebar}
@@ -61,7 +44,28 @@ class NavBarDefault extends PureComponent {
           footer={footer}
           deployment={deployment}
         />
-      </nav>
+        <nav className={classes.nav}>
+          <div className={classes.wrapper}>
+            {/** ************* LEFT *************** */}
+
+            <div className={classes.navBtnContainer}>
+              <button
+                type="button"
+                // eslint-disable-next-line react/no-unknown-property
+                tabindex="0"
+                on={tapSidebar}
+                className={classes.iconMenu}
+              />
+            </div>
+
+            {/** ************* RIGHT *************** */}
+
+            <div className={classes.btnContainer}>
+              <AmpSocial />
+            </div>
+          </div>
+        </nav>
+      </>
     )
   }
 }

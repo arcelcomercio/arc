@@ -1,0 +1,48 @@
+$cinema-height: 89px;
+
+.cinema-card {
+  &__gradient {
+    height: $cinema-height;
+    background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00444444', endColorstr='#444444', GradientType=0);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &__figure {
+    // Modificar la altura cuando se tenga el diseño definido
+    height: 145px;
+  }
+
+  &__detail {
+    z-index: 5;
+  }
+
+  &__premiere {
+    color: #f7c600;
+  }
+
+  &__p-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 180px;
+  }
+
+  &__movies-list {
+    background-color: #e8f2f7;
+  }
+
+  &__select {
+    background-color: #d1e6f0;
+    // TODO: Cambiar por el icono respectivo
+    background-image: url(https://elcomercio.pe/img/arrow_down.png);
+    background-position: right 0;
+    background-repeat: no-repeat;
+    height: 30px;
+  }
+
+  &__button {
+    height: 34px;
+    width: 100px;
+  }
+}

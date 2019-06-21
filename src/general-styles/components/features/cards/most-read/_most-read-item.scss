@@ -1,0 +1,37 @@
+$colorIconMasLeidas: rgba(255, 255, 255, 0.8);
+
+.most-read-item {
+  &:last-child {
+    border: none;
+  }
+
+  &__figure {
+    max-height: 75px;
+
+    &--icon::after {
+      position: absolute;
+      bottom: -5px;
+      right: 5px;
+      z-index: 1;
+      font-size: 50px;
+      text-align: right;
+      color: $colorIconMasLeidas;
+      text-shadow: 2px 2px 5px #666;
+    }
+
+    &--video::after {
+      content: '\2023';
+    }
+
+    &--image::after {
+      content: '\2709';
+    }
+  }
+
+  // &__img {}
+
+  &__detail {
+    height: 60px;
+    line-height: 1.5;
+  }
+}

@@ -102,10 +102,11 @@ export default ({
           `${siteUrl}${contextPath}/resources/dist/${arcSite}/apple-touch-icon-180x180.png`
         )}
       />
-      <link rel="canonical" href={`${siteUrl}${requestUri}`} />
-
+      {isAmp !== true && (
+        <link rel="canonical" href={`${siteUrl}${requestUri}`} />
+      )}
       {isStory && (
-        <link rel="amphtml" href={`${siteUrl}${requestUri}&outputType=amp`} />
+        <link rel="amphtml" href={`${siteUrl}${requestUri}?outputType=amp`} />
       )}
       <meta name="theme-color" content={colorPrimary} />
       <meta name="msapplication-TileColor" content={colorPrimary} />
@@ -116,10 +117,12 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}
       />
-      <script
-        type="text/javascript"
-        dangerouslySetInnerHTML={{ __html: charbeatScript }}
-      />
+      {isAmp !== true && (
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{ __html: charbeatScript }}
+        />
+      )}
     </>
   )
 }
