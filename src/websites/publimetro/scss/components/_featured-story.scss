@@ -11,8 +11,16 @@
     }
   }
 
+  &__category-link {
+    color: $color-primary;
+  }
+
   &__title-link {
     color: $color-base-300;
+
+    @media (--tablet) {
+      padding-top: 10px;
+    }
   }
 
   &__author-link {
@@ -32,19 +40,28 @@
     }
   }
 
-  // TODO: revisar si este modificador se usa Maria:
-  /* Imagen completa */
-  &.img-complete,
   &.expand {
+    .featured-story__category {
+      color: $color-primary;
+      border: 1px solid $color-primary;
+      padding: 7px 11px;
+    }
+
+    .featured-story__category-link {
+      color: $color-primary;
+    }
+
+    .featured-story__title-link {
+      padding-top: 10px;
+    }
+  }
+
+
+  &.img-complete {
     .featured-story__category {
       @media (--tablet) {
         border-color: $color-white;
       }
-    }
-
-    .featured-story__title-link,
-    .featured-story__author-link {
-      color: $color-white;
     }
   }
 }

@@ -23,7 +23,7 @@ const StoriesListsCardChildHeader = ({
       )}
       {seeMore && (
         <a href={seeMoreurl} className={classes.seeMore}>
-          ver más
+          Ver más
         </a>
       )}
     </div>

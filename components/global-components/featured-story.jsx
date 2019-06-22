@@ -2,18 +2,19 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 import { getMultimediaIcon } from '../utilities/helpers'
-import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
-  featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-20`,
-  detail: `featured-story__detail flex flex-col justify-between position relative`,
+  featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
+  detail: `featured-story__detail flex flex-col justify-between position relative md:p-20`,
   image:
     'featured-story__image position-relative overflow-hidden w-full h-full ml-10 md:ml-0',
   iconBox: `featured-story__box-icon position-absolute rounded`,
   icon: `featured-story__icon flex items-center justify-center w-full h-full text-gray-100`,
 
   category: 'featured-story__category pb-15 hidden text-lg md:inline-block',
-  title: 'featured-story__title overflow-hidden mb-10 title-sm line-h-xs',
+  categoryLink: 'featured-story__category-link',
+  title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
+  titleLink: 'featured-story__title-link title-xs',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
@@ -21,7 +22,7 @@ const classes = {
   authorLink: 'featured-story__author-link text-sm text-gray-200 text-xs',
 
   link: 'featured-story__link text-xl line-h-sm',
-  // linkTitle: 'featured-story__title-link title-lg capitalize',
+
   imageLink: 'featured-story__img-link block h-full',
   img: 'featured-story__img w-full h-full object-cover',
 
@@ -98,12 +99,9 @@ export default class FeaturedStory extends PureComponent {
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === 'twoCol' ? classes.twoCol : ''
         } ${hightlightOnMobile ? 'expand' : ''}`}>
-        <div
-          className={`${classes.detail} ${
-            imageSize === 'parcialBot' ? 'mb-20' : 'mt-20'
-          }`}>
+        <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
-            <h3 className={classes.category}>
+            <h3 className={`${classes.category} ${classes.categoryLink}`}>
               <a
                 className={classes.link}
                 href={category.url}
@@ -123,7 +121,7 @@ export default class FeaturedStory extends PureComponent {
           )}
           <h2 className={classes.title}>
             <a
-              className={`${classes.link} ${numline}`}
+              className={`${classes.link} ${classes.titleLink} ${numline}`}
               href={title.url}
               {...getEditableField('titleField')}
               suppressContentEditableWarning>
@@ -140,13 +138,15 @@ export default class FeaturedStory extends PureComponent {
         <figure className={classes.image}>
           <a className={classes.imageLink} href={title.url}>
             <img src={image} className={classes.img} alt="" />
-            <span className={classes.iconBox}>
-              <i
-                className={`${getMultimediaIcon(multimediaType)} ${
-                  classes.icon
-                }`}
-              />
-            </span>
+            {getMultimediaIcon(multimediaType) && (
+              <span className={classes.iconBox}>
+                <i
+                  className={`${getMultimediaIcon(multimediaType)} ${
+                    classes.icon
+                  }`}
+                />
+              </span>
+            )}
           </a>
         </figure>
       </article>
