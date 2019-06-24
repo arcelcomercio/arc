@@ -5,7 +5,6 @@
   }
 
   &__item {
-    grid-template-columns: 2fr 1fr;
     grid-template-rows: 80px 1fr;
 
     &:last-child {
@@ -13,21 +12,23 @@
     }
 
     &--right {
+      grid-template-columns: 2fr 1fr;
       grid-template-areas:
         'triplete__title triplete__multimedia'
         'triplete__author triplete__author';
 
-      & figure {
+      & .triplet__multimedia {
         margin-left: 10%;
       }
     }
 
     &--left {
+      grid-template-columns: 1fr 2fr;
       grid-template-areas:
         'triplete__multimedia triplete__title'
         'triplete__author triplete__author';
 
-      & figure {
+      & .triplet__multimedia {
         margin-right: 10%;
       }
     }
