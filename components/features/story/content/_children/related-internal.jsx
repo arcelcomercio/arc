@@ -60,7 +60,6 @@ const RelartedItem = ({ data } /* , i */) => {
               />
             )}
           </a>
-          {/* <Icon iconClass={story.iconClass} /> */}
         </figure>
       </div>
     </>
