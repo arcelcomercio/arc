@@ -1,8 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { getMultimediaIcon } from '../../../../utilities/helpers'
 
 const TripletChildTriplet = props => {
-  const { arcSite, data = [], multimediaOrientation = 'right' } = props
+  const {
+    arcSite,
+    editableField,
+    data = [],
+    multimediaOrientation = 'right',
+  } = props
   const classes = {
     triplet: 'triplet bg-white border-solid border-1 border-gray',
     link: 'triplet__link text-lg',
@@ -15,9 +21,8 @@ const TripletChildTriplet = props => {
     authorLink: 'triplet__link',
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
-    // tripletBoxIcon: `triplet__box-icon bg-white position-absolute text-center rounded text-gray-300`,
-    tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-sm`,
-    icon: 'title-sm',
+    image: 'object-cover w-full h-full',
+    icon: `triplet__icon position-absolute flex items-center justify-center rounded title-md text-white`,
   }
 
   let numline = ''
@@ -36,11 +41,15 @@ const TripletChildTriplet = props => {
 
   return (
     <div className={classes.triplet}>
-      {data.map(story => (
+      {data.map((story, index) => (
         <article className={classes.item} key={`triplet-${story.index}`}>
           <div className={`${classes.title} ${numline}`}>
             <h2>
-              <a className={classes.link} href={story.link}>
+              <a
+                className={classes.link}
+                href={story.link}
+                {...editableField(`title${index + 1}`)}
+                suppressContentEditableWarning>
                 {story.title}
               </a>
             </h2>
@@ -48,21 +57,18 @@ const TripletChildTriplet = props => {
           <figure className={classes.multimedia}>
             <a className={classes.mLink} href={story.link}>
               <img
-                className="object-cover w-full h-full"
+                className={classes.image}
                 src={story.multimedia}
                 alt={story.title}
               />
               {getMultimediaIcon(story.multimediaType) && (
-                <span className={classes.tripletIcon}>
-                  <i
-                    className={`${getMultimediaIcon(story.multimediaType)} ${
-                      classes.icon
-                    }`}
-                  />
-                </span>
+                <i
+                  className={`${getMultimediaIcon(story.multimediaType)} ${
+                    classes.icon
+                  }`}
+                />
               )}
             </a>
-            {/* <Icon iconClass={story.iconClass} /> */}
           </figure>
           <div className={classes.author}>
             <a className={classes.authorLink} href={story.authorOrSectionLink}>
@@ -75,23 +81,20 @@ const TripletChildTriplet = props => {
   )
 }
 
-export default TripletChildTriplet
-
-/* export const Icon = props => {
-  const classes = {
-    tripletBoxIcon: `triplet__box-icon bg-white position-absolute text-center rounded text-gray-300`,
-    tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs`,
-  }
-
-  const html = (
-    <span className={`${classes.tripletBoxIcon}`}>
-      <i
-        className={`${classes.tripletIcon} ${classes.tripletIcon}--${
-          props.iconClass
-        }`}
-      />
-    </span>
-  )
-  return props.iconClass ? html : ''
+TripletChildTriplet.propTypes = {
+  arcSite: PropTypes.string,
+  editableField: PropTypes.func,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      link: PropTypes.string,
+      title: PropTypes.string,
+      multimedia: PropTypes.string,
+      multimediaType: PropTypes.string,
+      authorOrSection: PropTypes.string,
+      authorOrSectionLink: PropTypes.string,
+    })
+  ),
+  multimediaOrientation: PropTypes.string,
 }
- */
+
+export default TripletChildTriplet
