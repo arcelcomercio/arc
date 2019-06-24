@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 
 import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
+import customFields from './_dependencies/custom-fields'
 
 @Consumer
 class CardFeaturedStoryManual extends PureComponent {
@@ -20,8 +20,7 @@ class CardFeaturedStoryManual extends PureComponent {
   }
 
   fetch() {
-    const { customFields, arcSite } = this.props
-    const { path, imgField } = customFields
+    const { arcSite, customFields: { path, imgField } = {} } = this.props
 
     const { schema } = this.storyFormatter
 
@@ -39,16 +38,19 @@ class CardFeaturedStoryManual extends PureComponent {
   }
 
   render() {
-    const { customFields, editableField } = this.props
-    const { category, title, author, image, multimediaType } = this.state
     const {
-      imageSize,
-      headband,
-      size,
-      hightlightOnMobile,
-      titleField,
-      categoryField,
-    } = customFields
+      editableField,
+      customFields: {
+        imageSize,
+        headband,
+        size,
+        hightlightOnMobile,
+        titleField,
+        categoryField,
+      } = {},
+    } = this.props
+    const { category, title, author, image, multimediaType } = this.state
+
     const params = {
       title,
       category,
@@ -68,55 +70,7 @@ class CardFeaturedStoryManual extends PureComponent {
 }
 
 CardFeaturedStoryManual.propTypes = {
-  customFields: PropTypes.shape({
-    path: PropTypes.string.isRequired.tag({
-      name: 'Path',
-    }),
-    imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
-      name: 'Posición de la imagen',
-      labels: {
-        parcialBot: 'Parcial inferior',
-        parcialTop: 'Parcial Superior',
-        complete: 'Completa',
-      },
-      defaultValue: 'parcialBot',
-    }),
-    headband: PropTypes.oneOf(['normal', 'live']).tag({
-      name: 'Cintillo',
-      labels: {
-        normal: 'Normal',
-        live: 'En vivo',
-      },
-      defaultValue: 'normal',
-    }),
-    size: PropTypes.oneOf(['oneCol', 'twoCol']).tag({
-      name: 'Tamaño del destaque',
-      labels: {
-        oneCol: '1 columna',
-        twoCol: '2 columnas',
-      },
-      defaultValue: 'oneCol',
-    }),
-    hightlightOnMobile: PropTypes.bool.tag({
-      name: 'Destacar en móvil',
-      defaultValue: false,
-    }),
-    categoryField: PropTypes.string.tag({
-      name: 'Sección',
-      group: 'Editar campos',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
-    }),
-    titleField: PropTypes.string.tag({
-      name: 'Título',
-      group: 'Editar campos',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
-    }),
-    imgField: PropTypes.string.tag({
-      name: 'Imagen',
-      group: 'Editar campos',
-      description: 'Dejar vacío para tomar el valor original de la noticia.',
-    }),
-  }),
+  customFields,
 }
 
 CardFeaturedStoryManual.label = 'Destaque por URL'
