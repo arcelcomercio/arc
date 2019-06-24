@@ -57,10 +57,10 @@ class StoriesListCard extends PureComponent {
     const paramsHeader = {
       titleList,
       editableField,
-      urlTitle: `${contextPath}${urlTitle}`,
+      urlTitle: `${contextPath}${urlTitle || ''}`,
       background,
       seeMore,
-      seeMoreurl: `${contextPath}${seeMoreurl}`,
+      seeMoreurl: `${contextPath}${seeMoreurl || ''}`,
     }
 
     const paramsList = {
