@@ -40,6 +40,14 @@
     }
   }
 
+  &.img-complete {
+    .featured-story__category {
+      @media (--tablet) {
+        border-color: $color-white;
+      }
+    }
+  }
+
   &.expand {
     .featured-story__category {
       color: $color-primary;
@@ -53,15 +61,6 @@
 
     .featured-story__title-link {
       padding-top: 10px;
-    }
-  }
-
-
-  &.img-complete {
-    .featured-story__category {
-      @media (--tablet) {
-        border-color: $color-white;
-      }
     }
   }
 }

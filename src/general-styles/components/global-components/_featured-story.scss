@@ -1,5 +1,9 @@
 $image-height: 157px;
 
+/** ----------------------------*
+*   Mixin que se aplica cuando  *
+*  el diseño es a img completa  *
+*-------------------------------*/
 @mixin img-complete() {
   padding: 0;
   justify-content: flex-end;
@@ -34,14 +38,15 @@ $image-height: 157px;
     z-index: 1;
   }
 
-  .featured-story__link {
-    color: $color-white;
-  }
-
   .featured-story__category {
     &::after {
       border-bottom: 1px solid $color-white;
     }
+  }
+
+  .featured-story__category-link,
+  .featured-story__title-link {
+    color: $color-white;
   }
 
   .featured-story__author {
@@ -51,6 +56,9 @@ $image-height: 157px;
   @content;
 }
 
+/** ----------------------------*
+*          Estilos base         *
+*-------------------------------*/
 .featured-story {
   letter-spacing: 0.05em;
 
@@ -142,7 +150,7 @@ $image-height: 157px;
     margin-top: auto;
   }
 
-  &__link {
+  &__title-link {
     display: -webkit-box;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
@@ -176,7 +184,23 @@ $image-height: 157px;
     }
   }
 
-  // Modificador de la vista mobile
+  /** ----------------------------*
+  * Aplica mixin de img completa  *
+  *-------------------------------*/
+
+  &.img-complete {
+    @media screen and (--tablet) {
+      @include img-complete();
+    }
+
+    &.expand {
+      @include img-complete();
+    }
+  }
+
+  /** ----------------------------*
+  *   Modifica la vista en móvil  *
+  *-------------------------------*/
   &.expand {
     padding: 0;
     background-color: $color-white;
@@ -199,10 +223,6 @@ $image-height: 157px;
       margin-left: 0;
     }
 
-    .featured-story__link {
-      font-size: $header-xs;
-    }
-
     .featured-story__detail {
       padding: 20px;
       width: unset;
@@ -210,22 +230,12 @@ $image-height: 157px;
 
     .featured-story__category {
       font-size: $font-lg;
-      display: block;
+      display: inline-block;
+      width: fit-content;
     }
 
     .featured-story__author-link {
       color: $color-gray-200;
-      font-size: $font-sm;
-    }
-  }
-
-  &.img-complete {
-    @media screen and (--tablet) {
-      @include img-complete();
-    }
-
-    &.expand {
-      @include img-complete();
     }
   }
 }

@@ -2,11 +2,11 @@ import React from 'react'
 
 const CardMostReadChildItem = props => {
   const { item, viewImage } = props
-  const { websiteUrl, imageUrl, title, typeNote } = item
+  const { websiteUrl, imageUrl, title, storyType } = item
   let type = ''
 
-  if (typeNote === 'basic') type = 'image'
-  if (typeNote === 'basic_video') type = 'video'
+  if (storyType === 'basic') type = 'image'
+  if (storyType === 'basic_video') type = 'video'
 
   const classes = {
     item: `flex most-read-item border-solid border-b-1 border-gray pt-15 pb-15 pl-20 pr-20`,

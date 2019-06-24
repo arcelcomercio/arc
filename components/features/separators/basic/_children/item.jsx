@@ -11,11 +11,11 @@ const classes = {
   figureImg: 'w-full h-full object-cover object-center',
 }
 
-export default ({ title, imageUrl, typeNote, link, numline }) => {
+export default ({ title, imageUrl, storyType, link, numline }) => {
   return (
-    <article className={classes.item}>
-      {typeNote === 'video' && <span>&#8227;</span>}
-      {typeNote === 'gallery' && <span>G</span>}
+    <article role="listitem" className={classes.item}>
+      {storyType === 'video' && <span>&#8227;</span>}
+      {storyType === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
         <h2 className={`${classes.separatorTitle} ${numline}`}>
           <a className={classes.separatorLink} href={link}>

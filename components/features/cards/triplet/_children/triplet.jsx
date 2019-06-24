@@ -62,7 +62,6 @@ const TripletChildTriplet = props => {
                 </span>
               )}
             </a>
-            {/* <Icon iconClass={story.iconClass} /> */}
           </figure>
           <div className={classes.author}>
             <a className={classes.authorLink} href={story.authorOrSectionLink}>

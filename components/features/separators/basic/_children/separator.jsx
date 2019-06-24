@@ -14,12 +14,13 @@ const classes = {
 
 const SeparatorsBasicChildSeparator = props => {
   const {
+    editableField,
     data: {
-      titleSeparator = '',
+      items,
       arcSite,
+      titleSeparator = '',
       titleLink = '/',
       htmlCode = '',
-      items,
     } = {},
   } = props
   let numline = ''
@@ -43,12 +44,16 @@ const SeparatorsBasicChildSeparator = props => {
         />
       ) : (
         <h1 className={`${classes.title}`}>
-          <a href={titleLink} className={`${classes.titleLink}`}>
+          <a
+            href={titleLink}
+            className={`${classes.titleLink}`}
+            {...editableField('titleSeparator')}
+            suppressContentEditableWarning>
             {titleSeparator}
           </a>
         </h1>
       )}
-      <div className={classes.body}>
+      <div role="list" className={classes.body}>
         {items &&
           items.map(el => {
             const params = {
@@ -56,7 +61,7 @@ const SeparatorsBasicChildSeparator = props => {
               link: el.link,
               numline,
               imageUrl: el.multimedia,
-              typeNote: el.multimediaType,
+              storyType: el.multimediaType,
             }
             return <SeparatorItem key={el.link || '/'} {...params} />
           })}
