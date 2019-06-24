@@ -2,7 +2,7 @@
 import React from 'react'
 import reactElementToJSXString from 'react-element-to-jsx-string'
 import StoryData from '../utilities/story-data'
-import md5  from 'md5' ;
+import md5 from 'md5'
 
 const NewElement = props => {
   const {
@@ -66,6 +66,7 @@ const ScriptHeader = propsScriptHeader => {
       break
     default:
       TipoNota = 'Articulo Nota Simple'
+      break
   }
 
   const scriptTemplate = `
@@ -101,12 +102,148 @@ const ScriptElement = () => {
   return scriptTemplat
 }
 
+const BuildHtml = BuildHtmlProps => {
+  const {
+    scriptAnaliticaProps,
+    propsScriptHeader,
+    title,
+    subTitle,
+    multimedia,
+    paragraphsNews,
+  } = BuildHtmlProps
+
+  const StringAnalyticsScript = AnalyticsScript(scriptAnaliticaProps)
+  const element = (
+    <html lang="es" prefix="op: http://media.facebook.com/op#">
+      <head>
+        <meta charset="utf-8" />
+        <meta property="op:markup_version" content="v1.0" />
+        <meta property="fb:article_style" content="LogoElcomercio" />
+      </head>
+      <body>
+        <article>
+          <figure class="op-tracker">
+            <iframe>
+              <script>{StringAnalyticsScript}</script>
+              <script type="text/javascript">
+                {ScriptHeader(propsScriptHeader)}
+              </script>
+              <script defer src="//static.chartbeat.com/js/chartbeat_fia.js" />
+              <script>{ScriptElement()}</script>
+            </iframe>
+          </figure>
+        </article>
+        <header>
+          <h1>{title}</h1>
+          <h2>{subTitle}</h2>
+        </header>
+
+        <figure>
+          <img src={multimedia} />
+          <figcaption>{title}</figcaption>
+        </figure>
+        <p>// TODO Por: El Tiempo | GDA</p>
+        <figure class="op-interactive">
+          <iframe frameborder="0" />
+
+          {paragraphsNews.map(parrafo => (
+            <p>{parrafo}</p>
+          ))}
+        </figure>
+      </body>
+    </html>
+  )
+  return reactElementToJSXString(element)
+}
+
+const ListItemNews = (contentElements, buildProps) => {
+  const {
+    deployment = '',
+    contextPath = {},
+    arcSite = '',
+    siteDomain = '',
+    idGoogleAnalitics = '',
+    siteUrl,
+  } = buildProps
+
+  const elements = contentElements.map(story => {
+    const storydata = new StoryData({
+      deployment,
+      contextPath,
+      arcSite,
+      defaultImgSize: 'sm',
+    })
+    storydata.__data = story
+
+    const propsScriptHeader = {
+      siteDomain,
+      title: storydata.title,
+      sections: storydata.allSections,
+      tags: storydata.tags,
+      author: storydata.author,
+      typeNews: storydata.multimediaType,
+    }
+
+    const scriptAnaliticaProps = {
+      link: storydata.link,
+      siteDomain,
+      idGoogleAnalitics,
+    }
+
+    const BuildHtmlProps = {
+      scriptAnaliticaProps,
+      propsScriptHeader,
+      title: storydata.title,
+      subTitle: storydata.subTitle,
+      multimedia: storydata.multimedia,
+      paragraphsNews: storydata.paragraphsNews,
+    }
+
+    const htmlString = BuildHtml(BuildHtmlProps)
+    const codigoGUID = md5(storydata.id)
+
+    const ItemDataXml = {
+      siteUrl,
+      siteDomain,
+      title: storydata.title,
+      date: storydata.date,
+      author: storydata.author,
+      codigoGUID,
+      htmlString,
+    }
+    return (
+      <NewElement nameElement="item">
+        <NewElement nameElement="title">{ItemDataXml.title}</NewElement>
+        <NewElement nameElement="pubDate">{ItemDataXml.date}</NewElement>
+        <NewElement nameElement="lnktmp">{`${ItemDataXml.siteUrl}${
+          storydata.link
+        }`}</NewElement>
+        <NewElement nameElement="guid"> {ItemDataXml.codigoGUID} </NewElement>
+        <NewElement nameElement="author"> {ItemDataXml.author} </NewElement>
+        <NewElement nameElement="content:encoded">
+          {ItemDataXml.htmlString}
+        </NewElement>
+        <NewElement nameElement="slash:comments">{'0'} </NewElement>
+
+        <NewElement nameElement="slash:printss">
+          {propsScriptHeader.sections.map((seccionName, index) =>
+            index < propsScriptHeader.sections.length - 1
+              ? `${seccionName}, `
+              : `${seccionName}`
+          )}
+        </NewElement>
+      </NewElement>
+    )
+  })
+
+  return elements
+}
 const FbInstantOutputType = ({
-  deployment,
-  contextPath,
-  arcSite,
-  globalContent,
-  siteProperties,
+  deployment = {},
+  contextPath = '',
+  arcSite = '',
+  globalContent = [],
+  siteProperties = {},
 }) => {
   const { content_elements: contentElements } = globalContent || []
   const {
@@ -118,123 +255,42 @@ const FbInstantOutputType = ({
 
   const stories = contentElements
 
-  const storydata = new StoryData({
-    deployment,
-    contextPath,
-    arcSite,
-    defaultImgSize: 'sm',
-  })
-  storydata.__data = stories[1]
-
   const propsXml = {
     version: '2.0',
     'xmlns:atom': 'http://www.w3.org/2005/Atom',
     'xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
     'xmlns:slash': 'http://purl.org/rss/1.0/modules/slash/',
   }
-  const ItemDataXml = {
+
+  const chanelProps = {
     siteName,
     siteUrl,
-    siteDomain,
+    fechaIso: new Date().toISOString(),
+    descripcion: 'Todas las Noticias',
   }
 
-  const propsScriptHeader = {
-    siteDomain,
-    title: storydata.title,
-    sections: storydata.allSections,
-    tags: storydata.tags,
-    author: storydata.author,
-    typeNews: storydata.multimediaType,
-  }
-
-  const scriptAnaliticaProps = {
-    link: storydata.link,
+  const buildProps = {
+    siteUrl,
+    deployment,
+    contextPath,
+    arcSite,
     siteDomain,
     idGoogleAnalitics,
   }
-
-  const BuildHtml = () => {
-    const element = (
-      <html lang="es" prefix="op: http://media.facebook.com/op#">
-        <head>
-          <meta charset="utf-8" />
-          <meta property="op:markup_version" content="v1.0" />
-          <meta property="fb:article_style" content="LogoElcomercio" />
-        </head>
-        <body>
-          <article>
-            <figure class="op-tracker">
-              <iframe>
-                <script>{AnalyticsScript(scriptAnaliticaProps)}</script>
-                <script type="text/javascript">
-                  {ScriptHeader(propsScriptHeader)}
-                </script>
-                <script
-                  defer
-                  src="//static.chartbeat.com/js/chartbeat_fia.js"
-                />
-                <script>{ScriptElement()}</script>
-              </iframe>
-            </figure>
-          </article>
-          <header>
-            <h1>{storydata.title}</h1>
-            <h2>{storydata.subTitle}</h2>
-          </header>
-
-          <figure>
-            <img src={storydata.multimedia} />
-            <figcaption>{storydata.title}</figcaption>
-          </figure>
-          <p>// TODO Por: El Tiempo | GDA</p>
-          <figure class="op-interactive">
-            <iframe frameborder="0" />
-
-            {storydata.paragraphsNews.map(parrafo => (
-              <p>{parrafo}</p>
-            ))}
-          </figure>
-        </body>
-      </html>
-    )
-    return reactElementToJSXString(element)
-  }
-  const encriptado = md5(storydata.id)
-
-  
 
   return (
     <NewElement nameElement="rss" propsNewElement={propsXml}>
       <NewElement nameElement="channel">
         <NewElement nameElement="language">es</NewElement>
-        <NewElement nameElement="title">{ItemDataXml.siteName}</NewElement>
-        <NewElement nameElement="description">Todas las Noticias</NewElement>
+        <NewElement nameElement="title">{chanelProps.siteName}</NewElement>
+        <NewElement nameElement="description">
+          {chanelProps.descripcion}
+        </NewElement>
         <NewElement nameElement="lastBuildDate">
-          {new Date().toISOString()}
+          {chanelProps.fechaIso}
         </NewElement>
-        <NewElement nameElement="lnktmp">{ItemDataXml.siteUrl}</NewElement>
-
-        <NewElement nameElement="item">
-          <NewElement nameElement="title">{storydata.title}</NewElement>
-          <NewElement nameElement="pubDate">{storydata.date}</NewElement>
-          <NewElement nameElement="lnktmp">{`${ItemDataXml.siteUrl}${
-            storydata.link
-          }`}</NewElement>
-          <NewElement nameElement="guid"> {encriptado} </NewElement>
-          <NewElement nameElement="author"> {storydata.author} </NewElement>
-          <NewElement nameElement="content:encoded">{BuildHtml()}</NewElement>
-          <NewElement nameElement="slash:comments">{'0'} </NewElement>
-
-          <NewElement nameElement="slash:printss">
-            {/* {JSON.stringify(stories[1])} */}
-
-            {propsScriptHeader.sections.map((seccionName, index) =>
-              index < propsScriptHeader.sections.length - 1
-                ? `${seccionName}, `
-                : `${seccionName}`
-            )}
-          </NewElement>
-        </NewElement>
+        <NewElement nameElement="lnktmp">{chanelProps.siteUrl}</NewElement>
+        {ListItemNews(stories, buildProps)}
       </NewElement>
     </NewElement>
   )
