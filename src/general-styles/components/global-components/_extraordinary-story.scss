@@ -32,6 +32,7 @@
         'extraordinary-story-multimedia extraordinary-story-section'
         'extraordinary-story-multimedia extraordinary-story-content';
       grid-template-rows: auto 1fr;
+      grid-template-columns: 582px auto;
     }
 
     img {
@@ -47,6 +48,7 @@
         'extraordinary-story-section extraordinary-story-multimedia'
         'extraordinary-story-content extraordinary-story-multimedia';
       grid-template-rows: auto 1fr;
+      grid-template-columns: auto 582px;
     }
 
     img {
@@ -92,6 +94,7 @@
 
   &__multimedia {
     grid-area: extraordinary-story-multimedia;
+    height: 355px;
 
     .youtube-iframe {
       min-height: 370px;
