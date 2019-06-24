@@ -5,6 +5,8 @@ import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 
+// TODO: usar fetchContent en lugar de getContent
+
 @Consumer
 class CardFeaturedStoryAdvanced extends PureComponent {
   constructor(props) {
@@ -77,5 +79,6 @@ CardFeaturedStoryAdvanced.propTypes = {
 }
 
 CardFeaturedStoryAdvanced.label = 'Destaque Avanzado'
+CardFeaturedStoryAdvanced.static = true
 
 export default CardFeaturedStoryAdvanced

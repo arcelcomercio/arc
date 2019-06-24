@@ -5,6 +5,8 @@ import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 
+// TODO: usar fetchContent en lugar de getContent
+
 @Consumer
 class CardFeaturedStoryAuto extends PureComponent {
   constructor(props) {
@@ -84,5 +86,6 @@ CardFeaturedStoryAuto.propTypes = {
 }
 
 CardFeaturedStoryAuto.label = 'Destaque por Sección'
+CardFeaturedStoryAuto.satic = true
 
 export default CardFeaturedStoryAuto
