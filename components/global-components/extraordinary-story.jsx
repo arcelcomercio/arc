@@ -8,6 +8,7 @@ const classes = {
   extraordinaryStory: `extraordinary-story bg-white grid border-gray`,
   extraordinaryStorySection:
     'extraordinary-story__section bg-error text-left uppercase font-bold p-20 pb-0 text-white',
+  extraordinaryStorySectionLink: 'extraordinary-story__section-link',
   extraordinaryStoryContent:
     'extraordinary-story__content block pt-20 pr-20 pl-20',
   extraordinaryStoryTitle:
@@ -20,12 +21,14 @@ const classes = {
   extraordinaryStoryLink: 'extraordinary-story__link',
   extraordinaryStoryAuthor:
     'extraordinary-story__author uppercase mb-15 text-gray-200 text-xs',
+  extraordinaryStoryAuthorLink: 'extraordinary-story__author-link',
   extraordinaryStoryMultimedia:
     'extraordinary-story__multimedia bg-gray-300 flex items-center justify-center position-relative',
   iconGallery: 'position-absolute top-0 right-0 m-10',
   iconGalleryContainer:
     'extraordinary-story__icon-gallery-container flex items-center justify-center rounded',
   icon: 'extraordinary-story__icon-gallery title-lg',
+  extraordinaryStoryTitleLink: 'extraordinary-story__title-link',
 }
 
 // TODO: retirar este getMultimediaIcon
@@ -73,12 +76,18 @@ const ExtraordinaryStory = props => {
       } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
       {!isSection && (
         <div className={classes.extraordinaryStorySection}>
-          <a href={data.sectionLink}>{data.section}</a>
+          <a
+            href={data.sectionLink}
+            className={classes.extraordinaryStorySectionLink}>
+            {data.section}
+          </a>
         </div>
       )}
       <div className={classes.extraordinaryStoryContent}>
         <div className={`${classes.extraordinaryStoryTitle} ${numline}`}>
-          <a href={data.link}>{data.title}</a>
+          <a href={data.link} className={classes.extraordinaryStoryTitleLink}>
+            {data.title}
+          </a>
         </div>
         <div className={classes.extraordinaryStorySubtitle}>
           <a href={data.link} className={classes.extraordinaryStoryLink}>
@@ -86,7 +95,11 @@ const ExtraordinaryStory = props => {
           </a>
         </div>
         <div className={classes.extraordinaryStoryAuthor}>
-          <a href={data.authorLink}>{data.author}</a>
+          <a
+            href={data.authorLink}
+            className={classes.extraordinaryStoryAuthorLink}>
+            {data.author}
+          </a>
         </div>
       </div>
       <div className={classes.extraordinaryStoryMultimedia}>
