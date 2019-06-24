@@ -47,6 +47,8 @@
     "css-loader": "^2.1.0",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
+    "docz": "^1.2.0",
+    "docz-theme-default": "^1.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
     "eslint": "^5.13.0",
@@ -96,7 +98,9 @@
     "zip": "npm run prod && npx fusion zip",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
-    "test": "jest"
+    "test": "jest",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   },
   "jest": {
     "automock": false,

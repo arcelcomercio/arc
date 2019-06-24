@@ -1,30 +1,34 @@
 .featured-story {
-  &__link {
-    color: $color-primary;
-    border: 1px solid $color-primary;
-    padding: 7px 11px;
-    display: inline-block;
-  }
-
   &__category {
+    @media (--tablet) {
+      color: $color-primary;
+      border: 1px solid $color-primary;
+      padding: 7px 11px;
+    }
+
     &::after {
       display: none;
     }
   }
 
+  &__category-link {
+    color: $color-primary;
+  }
+
   &__title-link {
     color: $color-base-300;
+
+    @media (--tablet) {
+      padding-top: 10px;
+    }
   }
 
   &__author-link {
     color: $color-gray-200;
-    font-size: 11px;
     font-family: $font-regular;
   }
 
   &__image {
-    position: relative;
-
     &::before {
       @media (--tablet) {
         height: 100%;
@@ -36,28 +40,28 @@
     }
   }
 
-  &__img-icon {
-    position: absolute;
-    font-size: 50px;
-    color: $color-white;
-    z-index: 1;
+  &.expand {
+    .featured-story__category {
+      color: $color-primary;
+      border: 1px solid $color-primary;
+      padding: 7px 11px;
+    }
+
+    .featured-story__category-link {
+      color: $color-primary;
+    }
+
+    .featured-story__title-link {
+      padding-top: 10px;
+    }
   }
 
-  // TODO: revisar si este modificador se usa Maria:
-  /* Imagen completa */
-  &--img-complete {
-    .featured-story__img-icon {
-      left: 20px;
-      top: 20px;
-    }
 
-    .featured-story__link {
-      border: 1px solid $color-white;
-    }
-
-    .featured-story__title-link,
-    .featured-story__author-link {
-      color: $color-white;
+  &.img-complete {
+    .featured-story__category {
+      @media (--tablet) {
+        border-color: $color-white;
+      }
     }
   }
 }

@@ -16,16 +16,19 @@ $image-height: 157px;
       height: 306px;
       bottom: 0;
       left: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(68, 68, 68, 0) 20%,
-        rgb(68, 68, 68)
-      );
+      background: linear-gradient(to bottom,
+          rgba(68, 68, 68, 0) 20%,
+          rgb(68, 68, 68));
     }
   }
 
+  .featured-story__box-icon {
+    top: 20px;
+    left: 20px;
+  }
+
   .featured-story__detail {
-    //z-index: 10;
+    margin: 0;
     padding: 20px;
     position: absolute;
     z-index: 1;
@@ -104,6 +107,7 @@ $image-height: 157px;
 
   &__category {
     @media (--tablet) {
+      width: fit-content;
     }
 
     &::after {
@@ -121,17 +125,17 @@ $image-height: 157px;
 
   &-oneline {
     -webkit-line-clamp: 1;
-    max-height: 25px;
+    max-height: calc($header-xs * 2);
   }
 
   &-twoline {
     -webkit-line-clamp: 2;
-    max-height: 50px;
+    max-height: calc($header-xs * 4);
   }
 
   &-threeline {
     -webkit-line-clamp: 3;
-    max-height: 75px;
+    max-height: calc($header-xs * 6);
   }
 
   &__author {
@@ -145,20 +149,18 @@ $image-height: 157px;
     /* autoprefixer: on */
   }
 
-  &__multimedia-icon {
-    height: 55px;
-    width: 55px;
-    top: 20px;
-    right: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
+  &__box-icon {
+    height: 50px;
+    width: 50px;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+    background-color: rgba(0, 0, 0, 0.3);
   }
 
-  &__multimedia-icon-span {
-    font-size: 49px;
+  &__icon {
+    font-size: 50px;
     letter-spacing: normal;
   }
-
-  // &__img-icon {}
 
   &--reverse {
     @media (--tablet) {
@@ -176,11 +178,11 @@ $image-height: 157px;
 
   // Modificador de la vista mobile
   &.expand {
+    padding: 0;
     background-color: $color-white;
     flex-direction: column;
     grid-row: span 1;
     height: $row-height;
-    padding: 20px;
 
     &::before,
     &::after {
@@ -202,9 +204,8 @@ $image-height: 157px;
     }
 
     .featured-story__detail {
+      padding: 20px;
       width: unset;
-      padding-top: 10px;
-      padding-bottom: 10px;
     }
 
     .featured-story__category {
@@ -212,11 +213,9 @@ $image-height: 157px;
       display: block;
     }
 
-    .featured-story__author {
-      a {
-        color: $color-gray-200;
-        font-size: $font-xs;
-      }
+    .featured-story__author-link {
+      color: $color-gray-200;
+      font-size: $font-sm;
     }
   }
 

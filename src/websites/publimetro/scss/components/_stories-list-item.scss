@@ -1,0 +1,14 @@
+.stories-l-item {
+    background-color: transparent;
+    border-bottom: 1px solid $color-base-100;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    &__time,
+    &__link {
+        color: $color-base-300;
+        font-size: 13px;
+    }
+}

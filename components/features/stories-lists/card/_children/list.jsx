@@ -4,7 +4,7 @@ import StoryData from '../../../../utilities/story-data'
 
 // TODO: revisar si esto llevaba paddings o no
 const classes = {
-  list: 'stories-l-card overflow-y-auto',
+  list: 'stories-l-card__list overflow-y-auto pr-20 pl-20',
 }
 
 const StoriesListsCardChildList = ({

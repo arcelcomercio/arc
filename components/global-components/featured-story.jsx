@@ -4,14 +4,17 @@ import StoryData from '../utilities/story-data'
 import { getMultimediaIcon } from '../utilities/helpers'
 
 const classes = {
-  featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-20`,
-  detail: `featured-story__detail flex flex-col justify-between position relative md:pb-20 md:pt-20`,
-  image: 'featured-story__image overflow-hidden w-full h-full ml-10 md:ml-0',
-  iconContainer: `featured-story__multimedia-icon position-absolute text-gray-300 rounded`,
-  icon: `featured-story__multimedia-icon-span flex items-center justify-center w-full h-full text-gray-300`,
+  featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
+  detail: `featured-story__detail flex flex-col justify-between position relative md:p-20`,
+  image:
+    'featured-story__image position-relative overflow-hidden w-full h-full ml-10 md:ml-0',
+  iconBox: `featured-story__box-icon position-absolute rounded`,
+  icon: `featured-story__icon flex items-center justify-center w-full h-full text-gray-100`,
 
-  category: 'featured-story__category pb-15 hidden text-lg md:block',
-  title: 'featured-story__title overflow-hidden mb-10 title-sm line-h-xs',
+  category: 'featured-story__category pb-15 hidden text-lg md:inline-block',
+  categoryLink: 'featured-story__category-link',
+  title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
+  titleLink: 'featured-story__title-link title-xs',
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
@@ -19,10 +22,9 @@ const classes = {
   authorLink: 'featured-story__author-link text-sm text-gray-200 text-xs',
 
   link: 'featured-story__link text-xl line-h-sm',
-  // linkTitle: 'featured-story__title-link title-lg capitalize',
+
   imageLink: 'featured-story__img-link block h-full',
   img: 'featured-story__img w-full h-full object-cover',
-  imageIcon: 'featured-story__img-icon icon-img',
 
   imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',
@@ -99,7 +101,7 @@ export default class FeaturedStory extends PureComponent {
         } ${hightlightOnMobile ? 'expand' : ''}`}>
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
-            <h3 className={classes.category}>
+            <h3 className={`${classes.category} ${classes.categoryLink}`}>
               <a
                 className={classes.link}
                 href={category.url}
@@ -119,7 +121,7 @@ export default class FeaturedStory extends PureComponent {
           )}
           <h2 className={classes.title}>
             <a
-              className={`${classes.link} ${numline}`}
+              className={`${classes.link} ${classes.titleLink} ${numline}`}
               href={title.url}
               {...getEditableField('titleField')}
               suppressContentEditableWarning>
@@ -136,13 +138,15 @@ export default class FeaturedStory extends PureComponent {
         <figure className={classes.image}>
           <a className={classes.imageLink} href={title.url}>
             <img src={image} className={classes.img} alt="" />
-            <span className={classes.iconContainer}>
-              <i
-                className={`${getMultimediaIcon(StoryData, multimediaType)} ${
-                  classes.icon
-                }`}
-              />
-            </span>
+            {getMultimediaIcon(multimediaType) && (
+              <span className={classes.iconBox}>
+                <i
+                  className={`${getMultimediaIcon(multimediaType)} ${
+                    classes.icon
+                  }`}
+                />
+              </span>
+            )}
           </a>
         </figure>
       </article>

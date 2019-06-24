@@ -4,7 +4,7 @@ import ConfigParams from '../../../../utilities/config-params'
 // TODO: para que usan estos data-type?
 
 const classes = {
-  figure: 'position-relative',
+  figure: 'position-relative mb-10',
   icon:
     'position-absolute text-center multimedia__icon mx-auto rounded text-gray-300',
 }
