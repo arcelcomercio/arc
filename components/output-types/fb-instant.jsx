@@ -76,7 +76,7 @@ const ScriptHeader = propsScriptHeader => {
           _sf_async_config.title = '${title}';
           _sf_async_config.sections = ${listSec}, ${listTag};
           _sf_async_config.authors = '${author}';
-          _sf_async_config.type = '${TipoNota}' TODO AQUI;
+          _sf_async_config.type = '${TipoNota}';
           _sf_async_config.useCanonical = true; /** CONFIGURATION END **/
           window._sf_endpt = (new Date()).getTime();
           `
@@ -118,43 +118,6 @@ const BuildHtml = BuildHtmlProps => {
   const scriptHeader = ScriptHeader(propsScriptHeader)
   const scriptElement = ScriptElement()
 
-  const templateStringHtml = `
-  <html lang="es" prefix="op: http://media.facebook.com/op#">
-      <head>
-        <meta charset="utf-8" />
-        <meta property="op:markup_version" content="v1.0" />
-        <meta property="fb:article_style" content="LogoElcomercio" />
-      </head>
-      <body>
-        <article>
-          <figure class="op-tracker">
-            <iframe>
-              <script>{StringAnalyticsScript}</script>
-              <script type="text/javascript">{scriptHeader}</script>
-              <script defer src="//static.chartbeat.com/js/chartbeat_fia.js" />
-              <script>{scriptElement}</script>
-            </iframe>
-          </figure>
-        </article>
-        <header>
-          <h1>{title}</h1>
-          <h2>{subTitle}</h2>
-        </header>
-
-        <figure>
-          <img src={multimedia} />
-          <figcaption>{title}</figcaption>
-        </figure>
-        <p>{author}</p>
-        <figure class="op-interactive">
-          <iframe frameborder="0" />
-        </figure>
-        {paragraphsNews.map(parrafo => (
-          <p>{parrafo}</p>
-        ))}
-      </body>
-    </html>
-    `
   const element = `
     <html lang="es" prefix="op: http://media.facebook.com/op#">
     <head>
@@ -185,7 +148,7 @@ const BuildHtml = BuildHtmlProps => {
       <figure class="op-interactive">
           <iframe frameborder="0" />
       </figure>
-      ${paragraphsNews.map(parrafo =>`<p>${parrafo}</p>`)}
+      ${paragraphsNews.map(parrafo => `<p>${parrafo}</p>`)}
     </body>
     </html>
     `
@@ -214,7 +177,6 @@ const ListItemNews = (contentElements, buildProps) => {
 
     const propsScriptHeader = {
       siteDomain,
-
       title: storydata.title,
       sections: storydata.allSections,
       tags: storydata.tags,
@@ -252,14 +214,15 @@ const ListItemNews = (contentElements, buildProps) => {
       htmlString,
     }
     return (
-      <NewElement nameElement="item">
-        <NewElement nameElement="title">{ItemDataXml.title}</NewElement>
-        <NewElement nameElement="pubDate">{ItemDataXml.date}</NewElement>
+      <item>
+        <title>{ItemDataXml.title}</title>
+        <pubDate>{ItemDataXml.date}</pubDate>
+
         <NewElement nameElement="lnktmp">{`${ItemDataXml.siteUrl}${
           storydata.link
         }`}</NewElement>
-        <NewElement nameElement="guid"> {ItemDataXml.codigoGUID} </NewElement>
-        <NewElement nameElement="author"> {ItemDataXml.author} </NewElement>
+        <guid>{ItemDataXml.codigoGUID}</guid>
+        <author>{ItemDataXml.author}</author>
         <NewElement nameElement="content:encoded">
           {ItemDataXml.htmlString}
         </NewElement>
@@ -272,7 +235,7 @@ const ListItemNews = (contentElements, buildProps) => {
               : `${seccionName}`
           )}
         </NewElement>
-      </NewElement>
+      </item>
     )
   })
 
@@ -322,18 +285,20 @@ const FbInstantOutputType = ({
 
   return (
     <NewElement nameElement="rss" propsNewElement={propsXml}>
-      <NewElement nameElement="channel">
-        <NewElement nameElement="language">es</NewElement>
-        <NewElement nameElement="title">{chanelProps.siteName}</NewElement>
-        <NewElement nameElement="description">
-          {chanelProps.descripcion}
-        </NewElement>
-        <NewElement nameElement="lastBuildDate">
+      <channel>
+        <language>es</language>
+        <title>{chanelProps.siteName}</title>
+        <description>{chanelProps.descripcion}</description>
+        <lastBuildDate>
           {chanelProps.fechaIso}
+        </lastBuildDate>
+        <NewElement nameElement="lnktmp">
+          {chanelProps.siteUrl}
         </NewElement>
-        <NewElement nameElement="lnktmp">{chanelProps.siteUrl}</NewElement>
         {ListItemNews(stories, buildProps)}
-      </NewElement>
+      </channel>
+
+     
     </NewElement>
   )
 }
