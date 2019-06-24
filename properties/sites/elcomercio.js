@@ -12,7 +12,7 @@ export default {
   ampGoogleTagManagerId: 'UA-3055636-11',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics:'UA-3055636-11',
-  
+  fbArticleStyle:'LogoElcomercio',
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: 'EBRJ4RIQHRAODCY4G5ML4IZNUU',

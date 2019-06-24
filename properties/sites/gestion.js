@@ -12,7 +12,8 @@ export default {
   ampGoogleTagManagerId: 'UA-3055636-3',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics:'UA-3055636-11',
-  
+  fbArticleStyle:'LogoGestion',
+
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',

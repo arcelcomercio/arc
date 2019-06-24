@@ -12,7 +12,7 @@ export default {
   ampGoogleTagManagerId: 'UA-3055636-8',
   charbeatAccountNumber: 99999,
   idGoogleAnalitics:'UA-3055636-11',
-  
+  fbArticleStyle:'LogoDepor',
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',

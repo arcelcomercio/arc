@@ -31,7 +31,7 @@ const AnalyticsScript = scriptAnaliticaProps => {
     a.src = g;
     m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', ${idGoogleAnalitics}', '${siteDomain}');
+    ga('create', '${idGoogleAnalitics}', '${siteDomain}');
     ga('require', 'displayfeatures');
     ga('set', 'campaignSource', 'm.facebook.com');
     ga('set', 'campaignMedium', 'referral');
@@ -109,12 +109,17 @@ const BuildHtml = BuildHtmlProps => {
     title,
     subTitle,
     multimedia,
-    paragraphsNews,
+    paragraphsNews = [],
+    author = '',
+    fbArticleStyle = '',
   } = BuildHtmlProps
 
   const StringAnalyticsScript = AnalyticsScript(scriptAnaliticaProps)
-  const element = (
-    <html lang="es" prefix="op: http://media.facebook.com/op#">
+  const scriptHeader = ScriptHeader(propsScriptHeader)
+  const scriptElement = ScriptElement()
+
+  const templateStringHtml = `
+  <html lang="es" prefix="op: http://media.facebook.com/op#">
       <head>
         <meta charset="utf-8" />
         <meta property="op:markup_version" content="v1.0" />
@@ -125,11 +130,9 @@ const BuildHtml = BuildHtmlProps => {
           <figure class="op-tracker">
             <iframe>
               <script>{StringAnalyticsScript}</script>
-              <script type="text/javascript">
-                {ScriptHeader(propsScriptHeader)}
-              </script>
+              <script type="text/javascript">{scriptHeader}</script>
               <script defer src="//static.chartbeat.com/js/chartbeat_fia.js" />
-              <script>{ScriptElement()}</script>
+              <script>{scriptElement}</script>
             </iframe>
           </figure>
         </article>
@@ -142,18 +145,51 @@ const BuildHtml = BuildHtmlProps => {
           <img src={multimedia} />
           <figcaption>{title}</figcaption>
         </figure>
-        <p>// TODO Por: El Tiempo | GDA</p>
+        <p>{author}</p>
         <figure class="op-interactive">
           <iframe frameborder="0" />
-
-          {paragraphsNews.map(parrafo => (
-            <p>{parrafo}</p>
-          ))}
         </figure>
+        {paragraphsNews.map(parrafo => (
+          <p>{parrafo}</p>
+        ))}
       </body>
     </html>
-  )
-  return reactElementToJSXString(element)
+    `
+  const element = `
+    <html lang="es" prefix="op: http://media.facebook.com/op#">
+    <head>
+        <meta charset="utf-8" />
+        <meta property="op:markup_version" content="v1.0" />
+        <meta property="fb:article_style" content="${fbArticleStyle}" />
+    </head>
+    <body>
+      <article>
+        <figure class="op-tracker">
+          <iframe>
+            <script>${StringAnalyticsScript}</script>
+            <script type="text/javascript">${scriptHeader}</script>
+            <script defer src="//static.chartbeat.com/js/chartbeat_fia.js" />
+            <script>${scriptElement}</script>
+          </iframe>
+        </figure>
+      </article>
+      <header>
+        <h1>${title}</h1>
+        <h2>${subTitle}</h2>
+      </header>
+      <figure>
+          <img src=${multimedia} />
+          <figcaption>${title}</figcaption>
+      </figure>
+      <p>${author}</p>
+      <figure class="op-interactive">
+          <iframe frameborder="0" />
+      </figure>
+      ${paragraphsNews.map(parrafo =>`<p>${parrafo}</p>`)}
+    </body>
+    </html>
+    `
+  return element
 }
 
 const ListItemNews = (contentElements, buildProps) => {
@@ -164,6 +200,7 @@ const ListItemNews = (contentElements, buildProps) => {
     siteDomain = '',
     idGoogleAnalitics = '',
     siteUrl,
+    fbArticleStyle = '',
   } = buildProps
 
   const elements = contentElements.map(story => {
@@ -177,6 +214,7 @@ const ListItemNews = (contentElements, buildProps) => {
 
     const propsScriptHeader = {
       siteDomain,
+
       title: storydata.title,
       sections: storydata.allSections,
       tags: storydata.tags,
@@ -196,7 +234,9 @@ const ListItemNews = (contentElements, buildProps) => {
       title: storydata.title,
       subTitle: storydata.subTitle,
       multimedia: storydata.multimedia,
+      author: storydata.author,
       paragraphsNews: storydata.paragraphsNews,
+      fbArticleStyle,
     }
 
     const htmlString = BuildHtml(BuildHtmlProps)
@@ -251,6 +291,7 @@ const FbInstantOutputType = ({
     siteUrl = '',
     siteDomain = '',
     idGoogleAnalitics = '',
+    fbArticleStyle = '',
   } = siteProperties
 
   const stories = contentElements
@@ -276,6 +317,7 @@ const FbInstantOutputType = ({
     arcSite,
     siteDomain,
     idGoogleAnalitics,
+    fbArticleStyle,
   }
 
   return (
