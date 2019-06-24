@@ -5,24 +5,21 @@ import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 
-// TODO: usar fetchContent en lugar de getContent
-
 @Consumer
 class CardFeaturedStoryManual extends PureComponent {
   constructor(props) {
     super(props)
-    const { deployment, contextPath, arcSite } = props
+    const {
+      arcSite,
+      deployment,
+      contextPath,
+      customFields: { path } = {},
+    } = this.props
     this.storyFormatter = new StoryFormatter({
       deployment,
       contextPath,
       arcSite,
     })
-    this.state = this.storyFormatter.initialState
-    this.fetch()
-  }
-
-  fetch() {
-    const { arcSite, customFields: { path, imgField } = {} } = this.props
 
     const { schema } = this.storyFormatter
 
@@ -31,11 +28,12 @@ class CardFeaturedStoryManual extends PureComponent {
       website: arcSite,
       website_url: path,
     }
-
-    const { fetched } = this.getContent(source, params, schema)
-    fetched.then(response => {
-      const newState = this.storyFormatter.formatStory(response, imgField)
-      this.setState(newState)
+    this.fetchContent({
+      data: {
+        source,
+        query: params,
+        filter: schema,
+      },
     })
   }
 
@@ -49,9 +47,14 @@ class CardFeaturedStoryManual extends PureComponent {
         hightlightOnMobile,
         titleField,
         categoryField,
+        imgField,
       } = {},
     } = this.props
-    const { category, title, author, image, multimediaType } = this.state
+
+    const { data = {} } = this.state || {}
+
+    const formattedData = this.storyFormatter.formatStory(data, imgField)
+    const { category, title, author, image, multimediaType } = formattedData
 
     const params = {
       title,

@@ -5,27 +5,21 @@ import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 
-// TODO: usar fetchContent en lugar de getContent
-
 @Consumer
 class CardFeaturedStoryAuto extends PureComponent {
   constructor(props) {
     super(props)
-    const { deployment, contextPath, arcSite } = props
+    const {
+      arcSite,
+      deployment,
+      contextPath,
+      customFields: { section, storyNumber } = {},
+    } = this.props
     this.storyFormatter = new StoryFormatter({
       deployment,
       contextPath,
       arcSite,
     })
-    this.state = this.storyFormatter.initialState
-    this.fetch()
-  }
-
-  fetch() {
-    const {
-      arcSite,
-      customFields: { section, storyNumber, imgField } = {},
-    } = this.props
 
     const { schema } = this.storyFormatter
     const storiesSchema = `{ content_elements ${schema} }`
@@ -37,20 +31,16 @@ class CardFeaturedStoryAuto extends PureComponent {
       feedOffset: storyNumber || 0,
       stories_qty: 1,
     }
-
-    const { fetched } = this.getContent(source, params, storiesSchema)
-    fetched.then(response => {
-      const { content_elements: contentElements = [] } = response || {}
-      const newState = this.storyFormatter.formatStory(
-        contentElements[0],
-        imgField
-      )
-      this.setState(newState)
+    this.fetchContent({
+      data: {
+        source,
+        query: params,
+        filter: storiesSchema,
+      },
     })
   }
 
   render() {
-    const { category, title, author, image, multimediaType } = this.state
     const {
       editableField,
       arcSite,
@@ -60,8 +50,18 @@ class CardFeaturedStoryAuto extends PureComponent {
         hightlightOnMobile,
         titleField,
         categoryField,
+        imgField,
       } = {},
     } = this.props
+
+    const { data: { content_elements: contentElements = [] } = {} } =
+      this.state || {}
+
+    const formattedData = this.storyFormatter.formatStory(
+      contentElements[0],
+      imgField
+    )
+    const { category, title, author, image, multimediaType } = formattedData
 
     const params = {
       title,
