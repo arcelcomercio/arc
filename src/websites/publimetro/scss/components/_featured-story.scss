@@ -32,26 +32,27 @@
     &::before {
       @media (--tablet) {
         height: 100%;
-        background: linear-gradient(to bottom,
-            rgba(14, 33, 13, 0.5) 58%,
-            rgba(14, 33, 13, 0.65) 71%,
-            #0e210d 96%);
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.01) 58%,
+          rgba(14, 33, 13, 0.65) 87%,
+          #0e210d 100%
+        );
       }
     }
   }
 
-  &.img-complete {
+  /*   &.img-complete {
     .featured-story__category {
-      @media (--tablet) {
-        border-color: $color-white;
-      }
+      border-color: $color-white;
     }
-  }
+  } */
 
   &.expand {
     .featured-story__category {
-      color: $color-primary;
-      border: 1px solid $color-primary;
+      /*     color: $color-primary;
+     */
+      border: 1px solid $color-white;
       padding: 7px 11px;
     }
 

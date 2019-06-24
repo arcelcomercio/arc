@@ -14,7 +14,7 @@ const classes = {
   icon: `featured-story__icon flex items-center justify-center w-full h-full text-gray-100`,
 
   category: 'featured-story__category pb-15 hidden md:inline-block',
-  categoryLink: 'featured-story__category-link text-md',
+  categoryLink: 'featured-story__category-link text-md capitalize',
 
   title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
   titleLink: 'featured-story__title-link title-xs line-h-sm',
