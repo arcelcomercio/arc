@@ -1,10 +1,11 @@
 .stories-l-header {
+  min-height: 35px;
+  &__title {
+    min-width: 10%;
+    max-width: 60%;
+  }
 
-    &__title {
-        min-width: 10%;
-        max-width: 60%;
-    }
-
-    // &__see-more {}
-
+  &__see-more {
+    height: 22px;
+  }
 }

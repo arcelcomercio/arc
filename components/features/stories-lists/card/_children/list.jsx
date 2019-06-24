@@ -44,7 +44,7 @@ const StoriesListsCardChildList = ({
             fechaPublicacion.getMinutes() < 10
               ? `0${fechaPublicacion.getMinutes()}`
               : fechaPublicacion.getMinutes()
-          }-`
+          }`
         }
 
         return (
@@ -55,6 +55,7 @@ const StoriesListsCardChildList = ({
               seeImageNews === true && index === 0 /* ? true : false */
             }
             time={time}
+            rawDate={fechaPublicacion}
             title={data.title}
             urlNews={data.link}
             multimedia={data.multimedia}
