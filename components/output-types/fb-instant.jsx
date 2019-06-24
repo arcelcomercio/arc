@@ -2,6 +2,7 @@
 import React from 'react'
 import reactElementToJSXString from 'react-element-to-jsx-string'
 import StoryData from '../utilities/story-data'
+import md5  from 'md5' ;
 
 const NewElement = props => {
   const {
@@ -198,6 +199,9 @@ const FbInstantOutputType = ({
     )
     return reactElementToJSXString(element)
   }
+  const encriptado = md5(storydata.id)
+
+  
 
   return (
     <NewElement nameElement="rss" propsNewElement={propsXml}>
@@ -216,7 +220,7 @@ const FbInstantOutputType = ({
           <NewElement nameElement="lnktmp">{`${ItemDataXml.siteUrl}${
             storydata.link
           }`}</NewElement>
-          <NewElement nameElement="guid"> {'//TODO'} </NewElement>
+          <NewElement nameElement="guid"> {encriptado} </NewElement>
           <NewElement nameElement="author"> {storydata.author} </NewElement>
           <NewElement nameElement="content:encoded">{BuildHtml()}</NewElement>
           <NewElement nameElement="slash:comments">{'0'} </NewElement>
