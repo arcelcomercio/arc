@@ -3,7 +3,7 @@ import React from 'react'
 
 const classes = {
   item:
-    'story-separator__item separator__item--nota flex justify-between w-full position-relative pt-0 pr-10 pb-0 pl-0',
+    'story-separator__item separator__item--nota flex justify-between w-full position-relative pt-0 pr-5 pb-0 pl-0 border-solid border-gray',
   detail: 'story-separator__detail w-full pl-10 pr-10',
   separatorCategory: 'story-separator__category mb-10 text-xl',
   separatorTitle:

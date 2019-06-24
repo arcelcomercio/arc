@@ -65,7 +65,6 @@ const RenderRelatedContentElement = (elements, i) => {
             />
           )}
         </a>
-        {/* <Icon iconClass={story.iconClass} /> */}
       </figure>
     </article>
   )

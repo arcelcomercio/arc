@@ -3,23 +3,25 @@ import { createMarkup } from '../../../../utilities/helpers'
 import SeparatorItem from './item'
 
 const classes = {
-  separator: 'separator bg-white mt-20 w-full pt-0 pr-15 pb-15 pl-15 grid',
+  separator:
+    'separator bg-white mt-20 w-full pt-0 pr-15 pb-15 pl-15 grid border-1 border-solid border-gray',
   title: 'separator__header-title uppercase pb-20 pt-20 text-left',
   titleLink: 'separator__header-link',
   oneline: 'separator__oneline',
   twoline: 'separator__twoline',
   threeline: 'separator__threeline',
-  body: 'separator__body mt-0 mb-0',
+  body: 'separator__body mt-0 mb-0 grid',
 }
 
 const SeparatorsBasicChildSeparator = props => {
   const {
+    editableField,
     data: {
-      titleSeparator = '',
+      items,
       arcSite,
+      titleSeparator = '',
       titleLink = '/',
       htmlCode = '',
-      items,
     } = {},
   } = props
   let numline = ''
@@ -43,12 +45,16 @@ const SeparatorsBasicChildSeparator = props => {
         />
       ) : (
         <h1 className={`${classes.title}`}>
-          <a href={titleLink} className={`${classes.titleLink}`}>
+          <a
+            href={titleLink}
+            className={`${classes.titleLink}`}
+            {...editableField('titleSeparator')}
+            suppressContentEditableWarning>
             {titleSeparator}
           </a>
         </h1>
       )}
-      <div className={classes.body}>
+      <div role="list" className={classes.body}>
         {items &&
           items.map(el => {
             const params = {
@@ -56,7 +62,7 @@ const SeparatorsBasicChildSeparator = props => {
               link: el.link,
               numline,
               imageUrl: el.multimedia,
-              typeNote: el.multimediaType,
+              storyType: el.multimediaType,
             }
             return <SeparatorItem key={el.link || '/'} {...params} />
           })}
