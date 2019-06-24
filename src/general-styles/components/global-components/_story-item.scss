@@ -26,17 +26,19 @@
   }
 
   &__title {
+    font-size: 14px;
     @media (--tablet) {
       max-height: 69px;
+      font-size: 20px;
     }
   }
 
   &__icon {
     z-index: 1;
-    font-size: 30px;
+    font-size: 40px;
 
     @media (--tablet) {
-      font-size: 50px;
+      font-size: 60px;
     }
     &::before {
       background-color: rgba(0, 0, 0, 0.4);

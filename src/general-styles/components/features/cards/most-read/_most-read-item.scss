@@ -6,32 +6,21 @@ $colorIconMasLeidas: rgba(255, 255, 255, 0.8);
   }
 
   &__figure {
-    max-height: 75px;
+    height: 72px;
+    width: 118px;
 
-    &--icon::after {
+    &--icon::before {
       position: absolute;
-      bottom: -5px;
+      bottom: 5px;
       right: 5px;
       z-index: 1;
-      font-size: 50px;
-      text-align: right;
+      font-size: 25px;
       color: $colorIconMasLeidas;
-      text-shadow: 2px 2px 5px #666;
-    }
-
-    &--video::after {
-      content: '\2023';
-    }
-
-    &--image::after {
-      content: '\2709';
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 
-  // &__img {}
-
   &__detail {
-    height: 60px;
-    line-height: 1.5;
+    max-height: 72px;
   }
 }
