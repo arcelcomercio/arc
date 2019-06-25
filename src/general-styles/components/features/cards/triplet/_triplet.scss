@@ -5,7 +5,6 @@
   }
 
   &__item {
-    grid-template-columns: 2fr 1fr;
     grid-template-rows: 80px 1fr;
 
     &:last-child {
@@ -13,21 +12,23 @@
     }
 
     &--right {
+      grid-template-columns: 2fr 1fr;
       grid-template-areas:
         'triplete__title triplete__multimedia'
         'triplete__author triplete__author';
 
-      & figure {
+      & .triplet__multimedia {
         margin-left: 10%;
       }
     }
 
     &--left {
+      grid-template-columns: 1fr 2fr;
       grid-template-areas:
         'triplete__multimedia triplete__title'
         'triplete__author triplete__author';
 
-      & figure {
+      & .triplet__multimedia {
         margin-right: 10%;
       }
     }
@@ -47,8 +48,11 @@
   }
 
   &--twoline {
-    max-height: 30px;
+    max-height: 43px;
     -webkit-line-clamp: 2;
+    @media (--desktop) {
+      max-height: 47px;
+    }
   }
 
   &--threeline {
@@ -68,40 +72,16 @@
     right: 5px;
     width: 25px;
     height: 25px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 1;
 
     @media (--tablet) {
-      width: 30px;
-      height: 30px;
+      width: 24px;
+      height: 24px;
     }
   }
 
   &__author {
     grid-area: triplete__author;
-  }
-
-  &__box-icon {
-    opacity: 0.5;
-    filter: alpha(opacity=50);
-    pointer-events: none;
-    top: 20px;
-    z-index: 1;
-    right: 5px;
-
-    .triplete__icon {
-      display: table-cell;
-      height: 40px;
-      vertical-align: middle;
-      width: 40px;
-
-      &--play:before {
-        content: '\2023';
-      }
-
-      &--gallery:before {
-        content: '\1F4F7';
-      }
-    }
   }
 }
