@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
@@ -29,7 +28,7 @@ class BreakingNews extends Component {
   }
 
   componentWillMount() {
-    const status = localStorage.link
+    const status = window.localStorage.link
     const {
       customFields: { storyLink },
     } = this.props
@@ -50,7 +49,7 @@ class BreakingNews extends Component {
     const {
       customFields: { storyLink },
     } = this.props
-    localStorage.setItem('link', storyLink)
+    window.localStorage.setItem('link', storyLink)
   }
 
   fetch() {
