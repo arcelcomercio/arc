@@ -1,12 +1,12 @@
 .footer {
-  grid-template: 'info'auto 'contact'auto 'sites'auto;
+  grid-template: 'info' auto 'contact' auto 'sites' auto;
 
   @media (--tablet) {
-    grid-template: 'info contact'auto 'sites sites 'auto / 1fr 1fr;
+    grid-template: 'info contact' auto 'sites sites ' auto / 1fr 1fr;
   }
 
   @media (--desktop) {
-    grid-template: 'info sections contact'auto 'sites sites sites'auto / 1fr 1fr 1fr;
+    grid-template: 'info sections contact' auto 'sites sites sites' auto / 1fr 1fr 1fr;
   }
 
   &__info {
@@ -17,7 +17,22 @@
     grid-area: sections;
     // padding: 10px;
   }
-
+  &__info,
+  &__sections {
+    &::after {
+      display: none;
+      @media (--tablet) {
+        content: '';
+        display: block;
+        width: 1px;
+        height: 78%;
+        position: absolute;
+        right: 0;
+        background-color: $border-color-base;
+        top: 12%;
+      }
+    }
+  }
   &__contact {
     grid-area: contact;
     // padding: 10px;
@@ -31,14 +46,20 @@
   &__sites-list {
     max-width: 950px;
   }
-
   &__sites-item {
-    &:first-child {
-      font-weight: bold;
+    &::after {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 4px;
+      background-color: $color-gray-200;
+      border-radius: 50%;
+      margin-left: 10px;
     }
-
     &:last-child {
-      border-right: none;
+      &::after {
+        display: none;
+      }
     }
   }
 
@@ -48,7 +69,24 @@
     width: 95%;
     max-width: 235px;
   }
-
+  &__social-title {
+    &::after {
+      content: '';
+      display: block;
+      width: 35px;
+      height: 1px;
+      background-color: $border-color-base;
+      margin-top: 10px;
+    }
+  }
+  &__social-link {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &__social-icon {
+    font-size: 22px;
+  }
   // &__logo {}
   // &__legal-list {}
   // &__legal-item {}
