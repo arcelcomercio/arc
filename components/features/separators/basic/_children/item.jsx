@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  item: 'separator__item w-full h-full p-0  position-relative',
+  item: 'separator__item w-full h-full p-0 position-relative',
   detail: 'separator__detail position-absolute bottom-0 pr-10 pl-10',
   separatorTitle: 'separator__title overflow-hidden ',
   separatorLink: 'separator__title-link text-white text-sm line-h-none',
