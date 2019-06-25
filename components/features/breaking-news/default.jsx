@@ -5,8 +5,7 @@ import PropTypes from 'prop-types'
 import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
-  breakingnews:
-    'breaking-news secondary-font flex justify-between p-15 text-white',
+  breakingnews: `breaking-news secondary-font flex justify-between p-15 text-white`,
   close: 'breaking-news__btn-close text-right text-white',
   icon: 'breaking-news__btn-icon icon-close-circle title-sm text-white',
   text: 'breaking-news__text m-0 title-xs line-h-xs',
@@ -26,6 +25,7 @@ class BreakingNews extends Component {
       customFields: { storyLink = '' },
     } = this.props
     this.isExternalLink = storyLink.includes('http')
+    this.fetch()
   }
 
   componentWillMount() {
@@ -38,12 +38,7 @@ class BreakingNews extends Component {
     } else this.setState({ isVisible: true })
   }
 
-  componentDidMount = () => {
-    this.fetch()
-  }
-
-  // TODO: revisar si esto es necesario
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextState) {
     const { isVisible, article } = this.state
     return isVisible !== nextState.isVisible || article !== nextState.article
   }
@@ -64,16 +59,18 @@ class BreakingNews extends Component {
       arcSite,
     } = this.props
 
-    if (!this.isExternalLink) {
-      const { fetched } = this.getContent(
-        'story-by-url',
-        { website_url: storyLink, website: arcSite },
-        schemaFilter
-      )
-      fetched.then(response => {
-        this.setState({ article: response || {} })
-      })
+    const params = {
+      website_url: storyLink,
+      website: arcSite,
     }
+
+    this.fetchContent({
+      article: {
+        source: 'story-by-url',
+        query: params,
+        filter: schemaFilter,
+      },
+    })
   }
 
   render() {
@@ -115,7 +112,6 @@ class BreakingNews extends Component {
           <span>
             <a
               className={classes.link}
-              // className={classes.link}
               href={objContent.link}
               target="_blank"
               rel="noopener noreferrer"
@@ -125,16 +121,14 @@ class BreakingNews extends Component {
             </a>
           </span>
         </h2>
-        <div
+        <button
+          type="button"
           className={classes.close}
           onClick={this.handleOnclickClose}
-          // Static HTML elements do not have semantic meaning.
-          // Needs a role, to be focusable and to have a key event
           onKeyPress={this.handleOnclickClose}
-          role="button"
           tabIndex={0}>
           <i className={classes.icon} />
-        </div>
+        </button>
       </div>
     )
   }
