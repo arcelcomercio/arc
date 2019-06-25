@@ -5,9 +5,7 @@ import { createMarkup } from '../../utilities/helpers'
 import AdsChild from '../../global-components/ads'
 
 const classes = {
-  flexCenterVertical: 'flex items-center',
-  flexColumn: 'flex-col',
-  overflowHidden: 'overflow-hidden',
+  adsBox: 'flex items-center justify-center flex-col overflow-hidden',
 }
 @Consumer
 class Ads extends PureComponent {
@@ -23,26 +21,21 @@ class Ads extends PureComponent {
       isMobile,
     }
 
-    /**
-     * TODO: createMarkup se puede poner como un método en helpers,
-     * se usa en varias partes.
-     */
     const hideClass = () => {
-      if (freeHtml) return ''
-      if (isDesktop && !isMobile) {
-        return 'no-mobile'
-      }
-      if (!isDesktop && isMobile) {
-        return 'no-desktop'
-      }
-      return ''
+      let classDevice = ''
+
+      if (isDesktop && !isMobile) classDevice = 'no-mobile'
+      else if (!isDesktop && isMobile) classDevice = 'no-desktop'
+      if (freeHtml) classDevice = ''
+
+      return classDevice
     }
 
     return (
       <div
         className={`${columns} ${rows === 'empty' ? '' : rows} ${hideClass()} ${
-          classes.flexCenterVertical
-        } ${classes.flexColumn} ${classes.overflowHidden}`}>
+          classes.adsBox
+        }`}>
         <AdsChild {...params} />
         {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
       </div>
@@ -58,8 +51,9 @@ Ads.propTypes = {
     isDesktop: PropTypes.bool.tag({ name: 'Mostrar en "Desktop"' }),
     isMobile: PropTypes.bool.tag({ name: 'Mostrar en "Mobile"' }),
     freeHtml: PropTypes.richtext.tag({
-      name: 'Código HTML',
-      group: 'Agregar bloque de html',
+      name: 'Código HTML Adicional',
+      group:
+        'HTML a renderizar en el espacio disponible junto al módulo de publicidad.',
     }),
     columns: PropTypes.oneOf(['w-full', 'col-1', 'col-2', 'col-3']).tag({
       name: 'Ancho de la publicidad',
