@@ -1,8 +1,7 @@
-// import Consumer from 'fusion:consumer'
 import React from 'react'
-import StoryData from '../utilities/story-data'
-import md5 from 'md5'
-import BuildHtml from './_children/fb-instant-article/template-string-html'
+
+import ElementStringChanel from './_children/fb-instant-article/template-string-chanel'
+import ListItemNews from './_children/fb-instant-article/template-string-item-chanel'
 
 const NewElement = props => {
   const {
@@ -16,103 +15,6 @@ const NewElement = props => {
     childrenElement
   )
   return Element
-}
-
-const StringElement = StringElementProps => {
-  const { name = '', childStringElement = '' } = StringElementProps
-  return childStringElement !== ''
-    ? `<${name}>${childStringElement}</${name}>`
-    : `<${name} />`
-}
-
-const ListItemNews = (contentElements, buildProps) => {
-  const {
-    deployment = '',
-    contextPath = {},
-    arcSite = '',
-    siteDomain = '',
-    idGoogleAnalitics = '',
-    siteUrl,
-    fbArticleStyle = '',
-  } = buildProps
-
-  const elements = contentElements.map(story => {
-    const storydata = new StoryData({
-      deployment,
-      contextPath,
-      arcSite,
-      defaultImgSize: 'sm',
-    })
-    storydata.__data = story
-
-    const propsScriptHeader = {
-      siteDomain,
-      title: storydata.title,
-      sections: storydata.allSections,
-      tags: storydata.tags,
-      author: storydata.author,
-      typeNews: storydata.multimediaType,
-    }
-
-    const scriptAnaliticaProps = {
-      link: storydata.link,
-      siteDomain,
-      idGoogleAnalitics,
-    }
-
-    const BuildHtmlProps = {
-      scriptAnaliticaProps,
-      propsScriptHeader,
-      title: storydata.title,
-      subTitle: storydata.subTitle,
-      multimedia: storydata.multimedia,
-      author: storydata.author,
-      paragraphsNews: storydata.paragraphsNews,
-      fbArticleStyle,
-    }
-
-    const htmlString = BuildHtml(BuildHtmlProps)
-    const codigoGUID = md5(storydata.id)
-
-    const ItemDataXml = {
-      siteUrl,
-      siteDomain,
-      title: storydata.title,
-      date: storydata.date,
-      author: storydata.author,
-      codigoGUID,
-      htmlString,
-    }
-    return (
-      <item>
-        <title>{ItemDataXml.title}</title>
-        <pubDate>{ItemDataXml.date}</pubDate>
-
-        <NewElement nameElement="lnktmp">{`${ItemDataXml.siteUrl}${
-          storydata.link
-        }`}</NewElement>
-        <demo  dangerouslySetInnerHTML={{__html:StringElement({name:'link'}) }}/>
-            
-          
-        <guid>{ItemDataXml.codigoGUID}</guid>
-        <author>{ItemDataXml.author}</author>
-        <NewElement nameElement="content:encoded">
-          {ItemDataXml.htmlString}
-        </NewElement>
-        <NewElement nameElement="slash:comments">{'0'} </NewElement>
-
-        <NewElement nameElement="slash:printss">
-          {propsScriptHeader.sections.map((seccionName, index) =>
-            index < propsScriptHeader.sections.length - 1
-              ? `${seccionName}, `
-              : `${seccionName}`
-          )}
-        </NewElement>
-      </item>
-    )
-  })
-
-  return elements
 }
 
 const FbInstantOutputType = ({
@@ -157,28 +59,14 @@ const FbInstantOutputType = ({
     fbArticleStyle,
   }
 
+  let chanelSctring = ElementStringChanel(chanelProps)
+  const itemsString = ListItemNews(stories, buildProps)
+
+  chanelSctring = chanelSctring.replace('@ListItems', itemsString)
+
   return (
     <NewElement nameElement="rss" propsNewElement={propsXml}>
-      <channel>
-        {/* <demo
-          dangerouslySetInnerHTML={{
-            __html: `<link>
-http://elcomercio.pe/mundo/latinoamerica/colombia-deroga-norma-obligaba-presentar-esposa-amigos-vecinos-noticia-646213
-</link>`,
-          }}
-        />  */}
-
-        {/* <link>
-          {'http://elcomercio.pe/mundo/latinoamerica/colombia-deroga-norma-obligaba-presentar-esposa-amigos-vecinos-noticia-646213'}
-        </link> */}
-
-        <language>es</language>
-        <title>{chanelProps.siteName}</title>
-        <description>{chanelProps.descripcion}</description>
-        <lastBuildDate>{chanelProps.fechaIso}</lastBuildDate>
-        <NewElement nameElement="lnktmp">{chanelProps.siteUrl}</NewElement>
-        {ListItemNews(stories, buildProps)}
-      </channel>
+      <channel dangerouslySetInnerHTML={{ __html: chanelSctring }} />
     </NewElement>
   )
 }
@@ -186,6 +74,20 @@ http://elcomercio.pe/mundo/latinoamerica/colombia-deroga-norma-obligaba-presenta
 FbInstantOutputType.contentType = 'text/xml'
 
 export default FbInstantOutputType
+
+/*
+ <channel 
+      dangerouslySetInnerHTML={{__html: ElementStringChanel(chanelProps)}}  >
+        </channel>
+<channel>
+  <language>es</language>
+  <title>{chanelProps.siteName}</title>
+  <description>{chanelProps.descripcion}</description>
+  <lastBuildDate>{chanelProps.fechaIso}</lastBuildDate>
+  <NewElement nameElement="lnktmp">{chanelProps.siteUrl}</NewElement>
+  {ListItemNews(stories, buildProps)}
+</channel>
+*/
 
 // FbInstantOutputType.contentType = 'application/rss+xml'
 
@@ -216,4 +118,24 @@ export default FbInstantOutputType
   /* <link dangerouslySetInnerHTML={{ __html: `<link>
 http://elcomercio.pe/mundo/latinoamerica/colombia-deroga-norma-obligaba-presentar-esposa-amigos-vecinos-noticia-646213
 </link>` }} /> */
+}
+
+// item
+
+{
+  /* <item>
+<title>{ItemDataXml.title}</title>
+<pubDate>{ItemDataXml.date}</pubDate>
+
+<NewElement nameElement="lnktmp">{`${ItemDataXml.siteUrl}${
+  storydata.link
+}`}</NewElement>
+
+<guid>{ItemDataXml.codigoGUID}</guid>
+<author>{ItemDataXml.author}</author>
+<NewElement nameElement="content:encoded">
+  {ItemDataXml.htmlString}
+</NewElement>
+<NewElement nameElement="slash:comments">{'0'} </NewElement>
+</item> */
 }
