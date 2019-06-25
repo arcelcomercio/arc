@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 
 const classes = {
   header:
-    'header bg-primary primary-font w-full header__main font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300',
+    'header bg-primary primary-font w-full header__main font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden',
   logo: 'header__logo',
   featured: 'flex justify-evenly header__featured w-full font-normal',
   item: 'flex items-center justify-center header__item h-inherit',
   link: 'header__link uppercase text-sm',
+  navWrapper: 'nav__wrapper hidden',
 }
 
 const HeaderChildStandard = props => {
@@ -37,7 +38,7 @@ const HeaderChildStandard = props => {
             <img src={logo.src} alt={logo.alt} className={classes.logo} />
           </a>
         </header>
-        <nav>
+        <nav className={classes.navWrapper}>
           {sections[0] && (
             <ul className={classes.featured}>
               {sections.map(section => (

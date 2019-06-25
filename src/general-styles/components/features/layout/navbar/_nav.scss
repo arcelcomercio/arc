@@ -47,7 +47,6 @@
     }
 
     &--section {
-
       //padding: 4px;
       & span {
         display: none;
@@ -115,6 +114,11 @@
     .btn {
       border-color: $color-white;
       color: $color-white;
+    }
+  }
+  &__wrapper {
+    @media (--desktop) {
+      display: flex;
     }
   }
 }
