@@ -8,10 +8,8 @@ const LIVE_TEXT = 'En vivo'
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
   detail: `featured-story__detail flex flex-col justify-between position relative md:p-20`,
-  image:
-    'featured-story__image position-relative overflow-hidden w-full h-full ml-10 md:ml-0',
-  iconBox: `featured-story__box-icon position-absolute rounded`,
-  icon: `featured-story__icon flex items-center justify-center w-full h-full text-gray-100`,
+  image: `featured-story__image position-relative overflow-hidden w-full h-full ml-10 md:ml-0`,
+  icon: `featured-story__icon position-absolute rounded flex items-center justify-center w-full h-full text-gray-100`,
 
   category: 'featured-story__category pb-15 hidden md:inline-block',
   categoryLink: 'featured-story__category-link text-md capitalize',
@@ -71,6 +69,7 @@ export default class FeaturedStory extends PureComponent {
       }
     }
 
+    // Metodo preparado para indicar otros tipos estilos en base a otros casos que se definan.
     const getHeadBandClass = () => {
       if (headband === 'live') {
         return classes.live
@@ -78,12 +77,9 @@ export default class FeaturedStory extends PureComponent {
       return ''
     }
 
-    const getEditableField = element => {
-      if (editableField) {
-        return editableField(element)
-      }
-      return null
-    }
+    const getEditableField = element =>
+      editableField ? editableField(element) : null
+
     // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
     let numline = ''
     switch (arcSite) {
@@ -142,9 +138,7 @@ export default class FeaturedStory extends PureComponent {
           <a className={classes.imageLink} href={title.url}>
             <img src={image} className={classes.img} alt="" />
             {multimediaIcon && (
-              <span className={classes.iconBox}>
-                <i className={`${multimediaIcon} ${classes.icon}`} />
-              </span>
+              <i className={`${multimediaIcon} ${classes.icon}`} />
             )}
           </a>
         </figure>
