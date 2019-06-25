@@ -17,4 +17,9 @@
   &__link {
     font-family: $font-regular;
   }
+  // TODO: cambio temporal de los números de lineas para publimetro, twocol era el por defecto
+  &--twoline {
+    -webkit-line-clamp: 4;
+    max-height: 145px;
+  }
 }

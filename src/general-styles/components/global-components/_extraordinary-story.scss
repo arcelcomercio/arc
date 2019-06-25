@@ -77,17 +77,17 @@
     /* autoprefixer: on */
     overflow: hidden;
   }
-  &-oneline {
+  &--oneline {
     -webkit-line-clamp: 1;
     max-height: 45px;
   }
 
-  &-twoline {
+  &--twoline {
     -webkit-line-clamp: 2;
     max-height: 77px;
   }
 
-  &-threeline {
+  &--threeline {
     -webkit-line-clamp: 3;
     max-height: 145px;
   }

@@ -10,12 +10,12 @@ const classes = {
     'extraordinary-story__section bg-error text-left uppercase font-bold p-20 pb-0 text-white',
   extraordinaryStorySectionLink: 'extraordinary-story__section-link',
   extraordinaryStoryContent:
-    'extraordinary-story__content block pt-20 pr-20 pl-20 position-relative',
+    'extraordinary-story__content block pt-15 pr-20 pl-20 position-relative',
   extraordinaryStoryTitle:
-    'extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-15',
-  oneline: 'extraordinary-story-oneline',
-  twoline: 'extraordinary-story-twoline',
-  threeline: 'extraordinary-story-threeline',
+    'extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-20',
+  oneline: 'extraordinary-story--oneline',
+  twoline: 'extraordinary-story--twoline',
+  threeline: 'extraordinary-story--threeline',
   extraordinaryStorySubtitle:
     'extraordinary-story__subtitle mb-15 text-gray-200 line-h-sm overflow-hidden',
   extraordinaryStoryLink: 'extraordinary-story__link',
@@ -69,12 +69,10 @@ const ExtraordinaryStory = props => {
       numline = classes.twoline
       break
   }
-
+  // console.log('multiedia ---->', data.sourceMultimedia)
   return (
     <div
-      className={`${
-        classes.extraordinaryStory
-      } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
+      className={`${classes.extraordinaryStory} extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
       {!isSection && (
         <div className={classes.extraordinaryStorySection}>
           <a
