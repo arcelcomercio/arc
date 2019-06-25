@@ -10,18 +10,19 @@ const classes = {
     'extraordinary-story__section bg-error text-left uppercase font-bold p-20 pb-0 text-white',
   extraordinaryStorySectionLink: 'extraordinary-story__section-link',
   extraordinaryStoryContent:
-    'extraordinary-story__content block pt-20 pr-20 pl-20',
+    'extraordinary-story__content block pt-20 pr-20 pl-20 position-relative',
   extraordinaryStoryTitle:
     'extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-15',
   oneline: 'extraordinary-story-oneline',
   twoline: 'extraordinary-story-twoline',
   threeline: 'extraordinary-story-threeline',
   extraordinaryStorySubtitle:
-    'extraordinary-story__subtitle mb-15 text-gray-200 line-h-sm',
+    'extraordinary-story__subtitle mb-15 text-gray-200 line-h-sm overflow-hidden',
   extraordinaryStoryLink: 'extraordinary-story__link',
   extraordinaryStoryAuthor:
-    'extraordinary-story__author uppercase mb-15 text-gray-200 text-xs',
-  extraordinaryStoryAuthorLink: 'extraordinary-story__author-link',
+    'extraordinary-story__author uppercase mb-15  text-xs',
+  extraordinaryStoryAuthorLink:
+    'extraordinary-story__author-link text-gray-200',
   extraordinaryStoryMultimedia:
     'extraordinary-story__multimedia bg-gray-300 flex items-center justify-center position-relative',
   iconGallery: 'position-absolute top-0 right-0 m-10',
