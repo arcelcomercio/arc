@@ -72,7 +72,6 @@ class ExtraordinaryStoryByUrl extends PureComponent {
       contextPath,
       arcSite,
     }
-
     return <ExtraordinaryStory {...params} />
   }
 }
