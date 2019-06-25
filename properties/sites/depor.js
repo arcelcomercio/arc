@@ -11,7 +11,7 @@ export default {
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-8',
   charbeatAccountNumber: 99999,
-  idGoogleAnalitics:'UA-3055636-11',
+  idGoogleAnalitics:'UA-3055636-8',
   fbArticleStyle:'LogoDepor',
   infoPagesDev: {
     termsAndConditions: '',

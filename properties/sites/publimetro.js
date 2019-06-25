@@ -11,8 +11,8 @@ export default {
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-3',
   charbeatAccountNumber: 57773,
-  idGoogleAnalitics:'UA-3055636-11',
-  fbArticleStyle:'',
+  idGoogleAnalitics:'UA-3055636-18',
+  fbArticleStyle:'LogoPublimetro',
   infoPagesDev: {
     termsAndConditions: 'H64O2THIKJA6XADJ5SZ5H45TNQ',
     guidingPrinciples: '',
