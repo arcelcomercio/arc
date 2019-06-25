@@ -1,19 +1,19 @@
-const QTY_STORY_DESKTOP = 5
-const QTY_STORY_TABLET = 3
-const QTY_STORY_MOBILE = 1
+const STORIES_QTY_DESKTOP = 5
+const STORIES_QTY_TABLET = 3
+const STORIES_QTY_MOBILE = 1
 
-const MAX_SIZE_SCREEN_TABLET = 1024
-const MAX_SIZE_SCREEN_MOBILE = 640
+const SCREEN_MAX_SIZE_TABLET = 1023
+const SCREEN_MAX_SIZE_MOBILE = 639
 
 export const getStoriesQty = (isMobile, isTablet) => {
-  let storiesQty = QTY_STORY_DESKTOP
-  if (isMobile) storiesQty = QTY_STORY_MOBILE
-  else if (isTablet) storiesQty = QTY_STORY_TABLET
+  let storiesQty = STORIES_QTY_DESKTOP
+  if (isMobile) storiesQty = STORIES_QTY_MOBILE
+  else if (isTablet) storiesQty = STORIES_QTY_TABLET
   return storiesQty
 }
 
 export const sizeDevice = width => ({
-  isMobile: width < MAX_SIZE_SCREEN_MOBILE,
-  isTablet: width >= MAX_SIZE_SCREEN_MOBILE && width < MAX_SIZE_SCREEN_TABLET,
-  isDesktop: width >= MAX_SIZE_SCREEN_TABLET,
+  isMobile: width < SCREEN_MAX_SIZE_MOBILE,
+  isTablet: width >= SCREEN_MAX_SIZE_MOBILE && width < SCREEN_MAX_SIZE_TABLET,
+  isDesktop: width >= SCREEN_MAX_SIZE_TABLET,
 })

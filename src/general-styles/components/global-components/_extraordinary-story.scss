@@ -14,7 +14,7 @@
 }
 
 .extraordinary-story {
-  grid-template-columns: 1fr 1fr;
+  /*   grid-template-columns: 1fr 1fr; */
 
   &--bottom {
     @include bottomMultimedia();
@@ -32,6 +32,7 @@
         'extraordinary-story-multimedia extraordinary-story-section'
         'extraordinary-story-multimedia extraordinary-story-content';
       grid-template-rows: auto 1fr;
+      grid-template-columns: 582px auto;
     }
 
     img {
@@ -47,6 +48,7 @@
         'extraordinary-story-section extraordinary-story-multimedia'
         'extraordinary-story-content extraordinary-story-multimedia';
       grid-template-rows: auto 1fr;
+      grid-template-columns: auto 582px;
     }
 
     img {
@@ -60,21 +62,21 @@
     //height: 15px;
   }
 
-  &__content {
-    grid-area: extraordinary-story-content;
-    display: inline-grid;
-    align-content: space-evenly;
-    //vertical center
-    //align-items: center;
-  }
-
   &__title {
     display: -webkit-box;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
   }
-
+  &__subtitle {
+    -webkit-line-clamp: 3;
+    max-height: 76px;
+    display: -webkit-box;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    overflow: hidden;
+  }
   &-oneline {
     -webkit-line-clamp: 1;
     max-height: 45px;
@@ -82,7 +84,7 @@
 
   &-twoline {
     -webkit-line-clamp: 2;
-    max-height: 95px;
+    max-height: 77px;
   }
 
   &-threeline {
@@ -92,6 +94,7 @@
 
   &__multimedia {
     grid-area: extraordinary-story-multimedia;
+    height: 355px;
 
     .youtube-iframe {
       min-height: 370px;
@@ -103,6 +106,12 @@
     height: 80px;
     background-color: rgba(255, 255, 255, 0.24);
   }
-
+  &__author {
+    @media (--desktop) {
+      position: absolute;
+      bottom: 0;
+      left: 20px;
+    }
+  }
   // &__icon-gallery {}
 }

@@ -6,7 +6,8 @@ import schemaFilter from './_dependencies/schema-filter'
 import Data from './_dependencies/data'
 import TripletChildTriplet from './_children/triplet'
 
-const API_URL = 'story-by-url'
+const API_STORY_BY_URL = 'story-by-url'
+const API_FEED_BY_COLLECTION = 'story-feed-by-collection'
 
 @Consumer
 class CardTriplet extends PureComponent {
@@ -24,7 +25,7 @@ class CardTriplet extends PureComponent {
 
     const fetchDataModel = data => {
       return {
-        source: API_URL,
+        source: API_STORY_BY_URL,
         query: { website_url: data },
         filter: schemaFilter(arcSite),
       }
@@ -41,7 +42,7 @@ class CardTriplet extends PureComponent {
     const { customFields: { webskedId } = {}, arcSite } = this.props || {}
     this.fetchContent({
       webskedData: {
-        source: 'story-feed-by-collection',
+        source: API_FEED_BY_COLLECTION,
         query: { id: webskedId },
         filter: `
           content_elements ${schemaFilter(arcSite)}
@@ -97,10 +98,10 @@ class CardTriplet extends PureComponent {
       ? this.getFormatWebskedStories()
       : this.getFormatFieldsStories()
     const params = {
-      data: dataFormatted,
       arcSite,
-      multimediaOrientation: customFields.multimediaOrientation,
       editableField,
+      data: dataFormatted,
+      multimediaOrientation: customFields.multimediaOrientation,
     }
     return <TripletChildTriplet {...params} />
   }

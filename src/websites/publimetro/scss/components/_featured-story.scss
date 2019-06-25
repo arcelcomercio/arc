@@ -1,9 +1,9 @@
 .featured-story {
   &__category {
+    padding: 7px 11px;
     @media (--tablet) {
       color: $color-primary;
       border: 1px solid $color-primary;
-      padding: 7px 11px;
     }
 
     &::after {
@@ -11,8 +11,16 @@
     }
   }
 
+  &__category-link {
+    color: $color-primary;
+  }
+
   &__title-link {
     color: $color-base-300;
+
+    @media (--tablet) {
+      padding-top: 10px;
+    }
   }
 
   &__author-link {
@@ -20,31 +28,56 @@
     font-family: $font-regular;
   }
 
-  &__image {
-    &::before {
-      @media (--tablet) {
-        height: 100%;
-        background: linear-gradient(to bottom,
-            rgba(14, 33, 13, 0.5) 58%,
-            rgba(14, 33, 13, 0.65) 71%,
-            #0e210d 96%);
+  &.img-complete {
+    .featured-story__category {
+      border-color: $color-white;
+    }
+
+    @media (--tablet) {
+      .featured-story__image {
+        &::before {
+          height: 100%;
+          background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.01) 58%,
+            rgba(14, 33, 13, 0.65) 87%,
+            #0e210d 100%
+          );
+        }
       }
     }
   }
 
-  // TODO: revisar si este modificador se usa Maria:
-  /* Imagen completa */
-  &.img-complete,
   &.expand {
     .featured-story__category {
-      @media (--tablet) {
-        border-color: $color-white;
-      }
+      // color: $color-primary;
+      border: 1px solid $color-primary;
     }
 
-    .featured-story__title-link,
-    .featured-story__author-link {
-      color: $color-white;
+    .featured-story__category-link {
+      color: $color-primary;
+    }
+
+    .featured-story__title-link {
+      padding-top: 10px;
+    }
+
+    &.img-complete {
+      .featured-story__category {
+        border: 1px solid $color-white;
+      }
+
+      .featured-story__image {
+        &::before {
+          height: 100%;
+          background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.01) 58%,
+            rgba(14, 33, 13, 0.65) 87%,
+            #0e210d 100%
+          );
+        }
+      }
     }
   }
 }

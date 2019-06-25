@@ -8,10 +8,11 @@ import SeparatorList from './_children/separator'
 import { getStoriesQty, sizeDevice } from '../_dependencies/functions'
 import StoryData from '../../../utilities/story-data'
 
-/** TODO: Agregar editableField() al título del separador */
-const QTY_STORY_DESKTOP = 4
-const QTY_STORY_TABLET = 4
-const QTY_STORY_MOBILE = 1
+// TODO: revisar método getStoriesQty se usa aquí y en _dependencies.
+
+const STORIES_QTY_DESKTOP = 4
+const STORIES_QTY_TABLET = 4
+const STORIES_QTY_MOBILE = 1
 
 @withSizes(({ width }) => sizeDevice(width))
 @Consumer
@@ -23,9 +24,9 @@ class SeparatorBasic extends PureComponent {
   }
 
   getStoriesQty = (isMobile, isTablet) => {
-    let storiesQty = QTY_STORY_DESKTOP
-    if (isMobile) storiesQty = QTY_STORY_MOBILE
-    else if (isTablet) storiesQty = QTY_STORY_TABLET
+    let storiesQty = STORIES_QTY_DESKTOP
+    if (isMobile) storiesQty = STORIES_QTY_MOBILE
+    else if (isTablet) storiesQty = STORIES_QTY_TABLET
     return storiesQty
   }
 
@@ -93,7 +94,14 @@ class SeparatorBasic extends PureComponent {
   }
 
   render() {
-    return <SeparatorList data={this.getDataComponent()} />
+    const { editableField } = this.props
+
+    return (
+      <SeparatorList
+        data={this.getDataComponent()}
+        editableField={editableField}
+      />
+    )
   }
 }
 

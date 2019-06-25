@@ -1,6 +1,5 @@
 .story-item {
   &__date {
-    color: $color-gray-300;
     font-family: $font-regular;
     margin-left: 15px;
 
@@ -10,17 +9,15 @@
   }
 
   &__title {
-    color: $color-primary;
+    color: $color-base-300;
   }
 
   &__subtitle {
     font-family: $font-regular;
     color: $color-gray-300;
-
   }
 
   &__author {
     font-family: $font-regular;
   }
-
 }
