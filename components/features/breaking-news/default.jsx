@@ -147,7 +147,7 @@ BreakingNews.propTypes = {
       defaultValue: false,
     }), */
     storyLink: PropTypes.string.isRequired.tag({
-      name: 'SLUG',
+      name: 'URL',
     }),
     title: PropTypes.string.tag({
       name: 'Título',
