@@ -79,7 +79,7 @@ class InfoPages extends PureComponent {
       <div className={classes.staticPolicy}>
         <h1 className={classes.title}>{headlines}</h1>
         <ArcArticleBody
-          data={contentElements} style={color:'cyan'}
+          data={contentElements}
           renderElement={element => {
             const { type } = element
             if (type === 'table') {
