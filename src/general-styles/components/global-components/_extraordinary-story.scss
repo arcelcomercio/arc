@@ -76,7 +76,15 @@
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
   }
-
+  &__subtitle {
+    -webkit-line-clamp: 3;
+    max-height: 76px;
+    display: -webkit-box;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    overflow: hidden;
+  }
   &-oneline {
     -webkit-line-clamp: 1;
     max-height: 45px;
@@ -106,6 +114,12 @@
     height: 80px;
     background-color: rgba(255, 255, 255, 0.24);
   }
-
+  &__author {
+    @media (--desktop) {
+      position: absolute;
+      bottom: 0;
+      left: 20px;
+    }
+  }
   // &__icon-gallery {}
 }
