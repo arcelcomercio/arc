@@ -1,12 +1,10 @@
 import React from 'react'
-import ConfigParams from '../../../../utilities/config-params'
-
-// TODO: para que usan estos data-type?
+import { getMultimediaIcon } from '../../../../utilities/helpers'
 
 const classes = {
   figure: 'position-relative mb-10',
   icon:
-    'position-absolute text-center multimedia__icon mx-auto rounded text-gray-300',
+    'position-absolute text-center multimedia__icon mx-auto rounded text-gray-100',
 }
 
 const StoriesListsCardChildMultimedia = ({
@@ -14,14 +12,13 @@ const StoriesListsCardChildMultimedia = ({
   multimedia,
   multimediaType,
 }) => {
+  // const multimediaType = ConfigParams.VIDEO
   return (
     <figure className={classes.figure}>
-      {multimediaType === ConfigParams.VIDEO && (
-        <span className={classes.icon}>&#8227;</span>
+      {getMultimediaIcon(multimediaType) && (
+        <i className={`${getMultimediaIcon(multimediaType)} ${classes.icon}`} />
       )}
-      {multimediaType === ConfigParams.GALLERY && (
-        <span className={classes.icon}>G</span>
-      )}
+
       {multimedia ? (
         <a href={urlNews}>
           <picture>

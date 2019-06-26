@@ -20,13 +20,15 @@ $image-height: 157px;
       height: 306px;
       bottom: 0;
       left: 0;
-      background: linear-gradient(to bottom,
-          rgba(68, 68, 68, 0) 20%,
-          rgb(68, 68, 68));
+      background: linear-gradient(
+        to bottom,
+        rgba(68, 68, 68, 0) 20%,
+        rgb(68, 68, 68)
+      );
     }
   }
 
-  .featured-story__box-icon {
+  .featured-story__icon {
     top: 20px;
     left: 20px;
   }
@@ -166,17 +168,13 @@ $image-height: 157px;
     font-style: normal;
   }
 
-  &__box-icon {
+  &__icon {
     height: 50px;
     width: 50px;
     top: calc(50% - 25px);
     left: calc(50% - 25px);
     background-color: rgba(0, 0, 0, 0.3);
-  }
-
-  &__icon {
     font-size: 50px;
-    letter-spacing: normal;
   }
 
   &--reverse {
