@@ -1,5 +1,5 @@
 import React from 'react'
-import Video from './video'
+import Video from './amp-video'
 import Imagen from './image'
 import ConfigParams from '../../../../utilities/config-params'
 
@@ -13,7 +13,7 @@ export default props => {
     <>
       {data.type === ConfigParams.ELEMENT_IMAGE && <Imagen {...parameters} />}
       {basicVideo.type === ConfigParams.ELEMENT_VIDEO && (
-        <Video data={basicVideo.embed_html} />
+        <Video data={basicVideo} />
       )}
     </>
   )
