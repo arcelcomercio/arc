@@ -8,26 +8,13 @@ import SeparatorList from './_children/separator'
 import { getStoriesQty, sizeDevice } from '../_dependencies/functions'
 import StoryData from '../../../utilities/story-data'
 
-// TODO: revisar método getStoriesQty se usa aquí y en _dependencies.
-
-const STORIES_QTY_DESKTOP = 4
-const STORIES_QTY_TABLET = 4
-const STORIES_QTY_MOBILE = 1
-
 @withSizes(({ width }) => sizeDevice(width))
 @Consumer
 class SeparatorBasic extends PureComponent {
   constructor(props) {
     super(props)
     const { isMobile, isTablet } = props
-    this.fetchDataApi(this.getStoriesQty(isMobile, isTablet))
-  }
-
-  getStoriesQty = (isMobile, isTablet) => {
-    let storiesQty = STORIES_QTY_DESKTOP
-    if (isMobile) storiesQty = STORIES_QTY_MOBILE
-    else if (isTablet) storiesQty = STORIES_QTY_TABLET
-    return storiesQty
+    this.fetchDataApi(getStoriesQty(isMobile, isTablet, 4, 4, 1))
   }
 
   fetchDataApi = storiesQty => {
@@ -69,10 +56,11 @@ class SeparatorBasic extends PureComponent {
       arcSite,
     })
     const newData = []
-    for (let i = 0; i < dataElements.length; i++) {
-      if (i >= numStory) break
-      dataFormat.__data = dataElements[i]
-      newData.push({ ...dataFormat.attributesRaw })
+    if (dataElements.length > 0) {
+      for (let i = 0; i < numStory; i++) {
+        dataFormat.__data = dataElements[i]
+        newData.push({ ...dataFormat.attributesRaw })
+      }
     }
     return { data: newData, sectionName }
   }
@@ -88,8 +76,8 @@ class SeparatorBasic extends PureComponent {
       customFields: { titleSeparator, titleLink, htmlCode },
     } = this.props
     const title = titleSeparator || sectionName || 'Últimas noticias'
-    let items = Object.values(data)
-    items = data.slice(0, this.getStoriesQty(isMobile, isTablet))
+    const values = Object.values(data)
+    const items = values.slice(0, getStoriesQty(isMobile, isTablet, 4, 4, 1))
     return { titleSeparator: title, arcSite, titleLink, htmlCode, items }
   }
 
