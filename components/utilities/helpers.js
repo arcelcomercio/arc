@@ -375,7 +375,7 @@ export const imageHtml = html => {
 
 export const playerHtml = html => {
   const rplEplayer =
-    '<amp-iframe width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="//player.performgroup.com/eplayer/eplayer.html#/$1"></amp-iframe>'
+    '<amp-iframe width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://player.performgroup.com/eplayer/eplayer.html#/$1"></amp-iframe>'
 
   return html.replace(
     /<script src="\/\/player.performgroup.com\/eplayer.js\#(.*?)" async><\/script>/g,
