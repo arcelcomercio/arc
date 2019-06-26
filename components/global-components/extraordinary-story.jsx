@@ -19,7 +19,7 @@ const classes = {
   // extraordinaryStoryAuthor: 'uppercase mb-15  text-xs',
   authorLink: 'extraordinary-story__author-link text-gray-200',
   multimedia:
-    'extraordinary-story__multimedia h-full bg-gray-300 flex items-center justify-center position-relative',
+    'extraordinary-story__multimedia h-full block bg-gray-300 position-relative',
   iconGallery: 'position-absolute top-0 right-0 m-10',
   iconGalleryContainer:
     'extraordinary-story__icon-gallery-container flex items-center justify-center rounded',
@@ -81,9 +81,7 @@ const ExtraordinaryStory = props => {
   // console.log('multiedia ---->', data.sourceMultimedia)
   return (
     <article
-      className={`${
-        classes.extraordinaryStory
-      } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
+      className={`${classes.extraordinaryStory} extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
       {!isSection && (
         <p className={classes.section}>
           <a href={data.sectionLink} className={classes.sectionLink}>

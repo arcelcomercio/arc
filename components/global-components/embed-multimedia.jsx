@@ -49,11 +49,11 @@ const EmbedMultimedia = props => {
   ) =>
     multimediaSource ? (
       <div
-        id={`powa-${multimediaSource}`}
+        id="powa-454cd408-43dc-41b2-938b-4164c1322080"
         data-env={GOLDFISH_ENV}
         data-api={GOLDFISH_ENV}
         data-org={ORG_ID}
-        data-uuid={multimediaSource}
+        data-uuid="454cd408-43dc-41b2-938b-4164c1322080"
         data-aspect-ratio="0.562"
         className="powa"
       />
