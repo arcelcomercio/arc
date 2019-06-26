@@ -7,6 +7,7 @@ const YOUTUBE = 'youtube'
 const IMAGE = 'image'
 
 const GOLDFISH_ENV = 'sandbox'
+const ORG_ID = 'elcomercio'
 
 const EmbedMultimedia = props => {
   const videoYoutube = (codeId, { width = '100%', height = '100%' }) => {
@@ -24,16 +25,16 @@ const EmbedMultimedia = props => {
     )
   }
 
-  const videoGoldfish = (multimediaSource, { website = 'elcomercio' }) => {
+  const videoGoldfish = multimediaSource => {
     return (
       <div
         id={`powa-${multimediaSource}`}
         data-env={GOLDFISH_ENV}
         data-api={GOLDFISH_ENV}
-        data-org={website}
+        data-org={ORG_ID}
         data-uuid={multimediaSource}
         data-aspect-ratio="0.562"
-        className="w-full"
+        className="powa"
       />
     )
   }
