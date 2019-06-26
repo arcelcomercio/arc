@@ -1,4 +1,5 @@
-// apertura-extraordinaria
+$img-max-height: 355px;
+
 @mixin topMultimedia() {
   grid-template-areas:
     'extraordinary-story-multimedia extraordinary-story-multimedia'
@@ -86,8 +87,12 @@
 
   &__multimedia {
     grid-area: extraordinary-story-multimedia;
-    max-height: 355px;
-    height: 100%;
+    max-height: $img-max-height;
+  }
+
+  .youtube-iframe {
+    height: 50vw;
+    max-height: $img-max-height;
   }
 
   &__icon-gallery-container {
@@ -101,6 +106,10 @@
       position: absolute;
       bottom: 0;
       left: 20px;
+    }
+
+    &-link {
+      font-style: normal;
     }
   }
 
