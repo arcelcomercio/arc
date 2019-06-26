@@ -1,3 +1,4 @@
+import ENV from 'fusion:environment'
 import React from 'react'
 import ConfigParams from '../utilities/config-params'
 import { defaultImage } from '../utilities/helpers'
@@ -6,7 +7,7 @@ const GOLDFISH = 'goldfish'
 const YOUTUBE = 'youtube'
 const IMAGE = 'image'
 
-const GOLDFISH_ENV = 'sandbox'
+const GOLDFISH_ENV = ENV.ENVIROMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const ORG_ID = 'elcomercio'
 
 const EmbedMultimedia = props => {
@@ -60,7 +61,7 @@ const EmbedMultimedia = props => {
         />
         <script
           async
-          src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio"
+          src={`https://d1tqo5nrys2b20.cloudfront.net/${GOLDFISH_ENV}/powaBoot.js?org=elcomercio`}
         />
       </>
     ) : (
