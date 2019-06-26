@@ -25,6 +25,8 @@ $map-icons: (img: $img,
   message: $message,
   print: $print,
   publimetro: $publimetro,
+  left: $left,
+  right: $right,
 ) !default;
 
 @mixin generate-icons() {

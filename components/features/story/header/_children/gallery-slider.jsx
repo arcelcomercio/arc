@@ -2,19 +2,20 @@ import React, { PureComponent } from 'react'
 import { defaultImage, getUrlParameter } from '../../../../utilities/helpers'
 
 const classes = {
-  elementsSlider: 'story-gallery-slider',
+  elementsSlider: 'story-gallery-slider p-20 bg-primary',
   body: 'position-relative overflow-hidden ',
   content: 'story-gallery-slider__content flex',
   element: '',
   image: 'story-gallery-slider__img w-full object-fit-cover',
-  caption: 'story-gallery-slider__caption pt-10 pb-15  mr-5 ',
-  captionImage: 'story-gallery-slider__caption-image pt-10   ',
-  quantity: 'story-gallery-slider__quantity  p-15 mr-5 text-center  ',
+  caption: 'story-gallery-slider__caption pt-20 pb-20 flex',
+  captionImage:
+    'story-gallery-slider__caption-image pt-10 ml-15 text-sm text-white secondary-font',
+  quantity:
+    'story-gallery-slider__quantity mr-5 title-xs flex items-center justify-center',
   arrowsBox:
-    'story-gallery-slider__arrows-box position-absolute flex w-full justify-between',
-  leftArrow: 'story-gallery-slider__arrows story-gallery-slider__arrows--left',
-  rightArrow:
-    'story-gallery-slider__arrows story-gallery-slider__arrows--right',
+    'story-gallery-slider__arrows-box position-absolute top-0 flex w-full items-center justify-between pl-20 pr-20',
+  leftArrow: 'story-gallery-slider__arrows icon-left text-white title-lg',
+  rightArrow: 'story-gallery-slider__arrows icon-right text-white title-lg',
 }
 
 class StoryHeaderChildGallerySlider extends PureComponent {
