@@ -1,81 +1,62 @@
-const ScriptHeader = ({
-  siteDomain = '',
-  title = '',
-  sections = [],
-  tags = [],
-  author = '',
-  typeNews,
-}) => {
-  const listTag = tags.map(tg => ` '${tg.text}'`)
+import ListAdvertisings from './list-advertising'
 
-  const listSec = sections.map(seccionName => ` '${seccionName}'`)
+import {
+  AnalyticsScript,
+  ScriptElement,
+  ScriptHeader,
+} from './template-string-scripts'
 
-  let TipoNota = ''
-
-  switch (typeNews) {
-    case 'basic_video':
-      TipoNota = 'Articulo Nota Video'
-      break
-    case 'basic_gallery':
-      TipoNota = 'Articulo Nota Fotogaleria'
-      break
-    default:
-      TipoNota = 'Articulo Nota Simple'
-      break
-  }
-
-  const scriptTemplate = `
-            var _sf_async_config = {}; /** CONFIGURATION START **/
-            _sf_async_config.uid = 57773;
-            _sf_async_config.domain = '${siteDomain}';
-            _sf_async_config.title = '${title}';
-            _sf_async_config.sections = ${listSec}, ${listTag};
-            _sf_async_config.authors = '${author}';
-            _sf_async_config.type = '${TipoNota}';
-            _sf_async_config.useCanonical = true; /** CONFIGURATION END **/
-            window._sf_endpt = (new Date()).getTime();
-            `
-  return scriptTemplate
+const buildIframeAdvertising = (urlSite, urlAdvertising) => {
+  return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlSite}${urlAdvertising}"></iframe></figure>`
 }
 
-const AnalyticsScript = ({
-  link = '',
-  siteDomain = '',
-  idGoogleAnalitics = '',
-}) => `(function(i, s, o, g, r, a, m) {
-      i['GoogleAnalyticsObject'] = r;
-      i[r] = i[r] || function() {
-          (i[r].q = i[r].q || []).push(arguments)
-      }, i[r].l = 1 * new Date();
-      a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-      a.async = 1;
-      a.src = g;
-      m.parentNode.insertBefore(a, m)
-      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-      ga('create', '${idGoogleAnalitics}', '${siteDomain}');
-      ga('require', 'displayfeatures');
-      ga('set', 'campaignSource', 'm.facebook.com');
-      ga('set', 'campaignMedium', 'referral');
-      ga('set', 'campaignName', 'FbIA');
-      ga('set', 'dimension6', 'FbIA');
-      ga('send', 'pageview', '/instant-articles${link}');`
+const buildParagraph = ({
+  paragraphsNews = [],
+  numwords = 250,
+  arrayadvertising = [],
+  urlSite = '',
+}) => {
+  const newsWithAdd = []
+  let countWords = 0
+  let IndexAdd = 0
+  let resultParagraph =''
 
-const ScriptElement = () =>
-  `var _comscore = _comscore || [];
-    _comscore.push({
-        c1: "2",
-        c2: "8429002",
-        options: {
-            url_append: "comscorekw=fbia"
+  paragraphsNews.forEach((parrrafo, index) => {
+    if (index <= 1) {
+      if (index === 1) {
+        newsWithAdd.push(`<p>${parrrafo.trim()}</p> 
+        ${
+          arrayadvertising[IndexAdd]
+            ? buildIframeAdvertising(urlSite, arrayadvertising[IndexAdd])
+            : ''
+        }`)
+        IndexAdd++
+      } else {
+        newsWithAdd.push(`<p>${parrrafo.trim()}</p>`)
+      }
+    } else {
+      let parrafoConPublicidad = ''
+      parrrafo.split(' ').forEach(palabra => {
+        countWords++
+        if (countWords === numwords) {
+          countWords = 0
+          palabra += ` ${
+            arrayadvertising[IndexAdd]
+              ? buildIframeAdvertising(urlSite, arrayadvertising[IndexAdd])
+              : ''
+          }`
+          IndexAdd++
         }
-    });
-    (function() {
-        var s = document.createElement("script"),
-            el = document.getElementsByTagName("script")[0];
-        s.async = true;
-        s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
-        el.parentNode.insertBefore(s, el);
-    })();`
+        parrafoConPublicidad += `${palabra} `
+      })
+      parrafoConPublicidad = `<p>${parrafoConPublicidad.trim()}</p>`
+      newsWithAdd.push(parrafoConPublicidad)
+    }
+  })
+
+  resultParagraph = newsWithAdd.map(item =>(item)).join("")
+  return resultParagraph
+}
 
 const BuildHtml = BuildHtmlProps => {
   const {
@@ -89,9 +70,17 @@ const BuildHtml = BuildHtmlProps => {
     fbArticleStyle = '',
   } = BuildHtmlProps
 
-  // const StringAnalyticsScript = AnalyticsScript(scriptAnaliticaProps)
-  const scriptHeader = ScriptHeader(propsScriptHeader)
-  const scriptElement = ScriptElement()
+  const numwords = 250
+
+  const urlSite = 'https://img.elcomercio.pe'
+
+  
+  const paramsBuildParagraph = {
+    paragraphsNews,
+    numwords,
+    arrayadvertising: ListAdvertisings(),
+    urlSite,
+  }
 
   const element = `
           <html lang="es" prefix="op: http://media.facebook.com/op#">
@@ -105,9 +94,11 @@ const BuildHtml = BuildHtmlProps => {
               <figure class="op-tracker">
                 <iframe>
                   <script>${AnalyticsScript(scriptAnaliticaProps)}</script>
-                  <script type="text/javascript">${scriptHeader}</script>
+                  <script type="text/javascript">${ScriptHeader(
+                    propsScriptHeader
+                  )}</script>
                   <script defer src="//static.chartbeat.com/js/chartbeat_fia.js" />
-                  <script>${scriptElement}</script>
+                  <script>${ScriptElement()}</script>
                 </iframe>
               </figure>
             </article>
@@ -123,7 +114,7 @@ const BuildHtml = BuildHtmlProps => {
             <figure class="op-interactive">
                 <iframe frameborder="0" />
             </figure>
-            ${paragraphsNews.map(parrafo => `<p>${parrafo}</p>`)}
+            ${buildParagraph(paramsBuildParagraph)}
           </body>
           </html>
           `

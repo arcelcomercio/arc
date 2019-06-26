@@ -2,20 +2,7 @@ import React from 'react'
 
 import ElementStringChanel from './_children/fb-instant-article/template-string-chanel'
 import ListItemNews from './_children/fb-instant-article/template-string-item-chanel'
-
-const NewElement = props => {
-  const {
-    nameElement = 'Element',
-    propsNewElement = {},
-    children: childrenElement = [],
-  } = props
-  const Element = React.createElement(
-    nameElement,
-    propsNewElement,
-    childrenElement
-  )
-  return Element
-}
+import NewElement from './_children/fb-instant-article/new-element'
 
 const FbInstantOutputType = ({
   deployment = {},
@@ -31,6 +18,7 @@ const FbInstantOutputType = ({
     siteDomain = '',
     idGoogleAnalitics = '',
     fbArticleStyle = '',
+    urlAddfbInstantArticle=''
   } = siteProperties
 
   const stories = contentElements
@@ -57,6 +45,7 @@ const FbInstantOutputType = ({
     siteDomain,
     idGoogleAnalitics,
     fbArticleStyle,
+    urlAddfbInstantArticle
   }
 
   let chanelSctring = ElementStringChanel(chanelProps)

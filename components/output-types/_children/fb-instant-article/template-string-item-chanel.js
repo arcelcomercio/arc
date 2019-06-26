@@ -2,19 +2,20 @@ import md5 from 'md5'
 import BuildHtml from './template-string-html'
 import StoryData from '../../../utilities/story-data'
 
-
 const ListItemNews = (contentElements, buildProps) => {
-    const {
-      deployment = '',
-      contextPath = {},
-      arcSite = '',
-      siteDomain = '',
-      idGoogleAnalitics = '',
-      siteUrl,
-      fbArticleStyle = '',
-    } = buildProps
-  
-    const elements = contentElements.map(story => {
+  const {
+    deployment = '',
+    contextPath = {},
+    arcSite = '',
+    siteDomain = '',
+    idGoogleAnalitics = '',
+    siteUrl,
+    fbArticleStyle = '',
+    urlAddfbInstantArticle = '',
+  } = buildProps
+
+  const elements = contentElements
+    .map(story => {
       const storydata = new StoryData({
         deployment,
         contextPath,
@@ -22,7 +23,7 @@ const ListItemNews = (contentElements, buildProps) => {
         defaultImgSize: 'sm',
       })
       storydata.__data = story
-  
+
       const propsScriptHeader = {
         siteDomain,
         title: storydata.title,
@@ -31,13 +32,13 @@ const ListItemNews = (contentElements, buildProps) => {
         author: storydata.author,
         typeNews: storydata.multimediaType,
       }
-  
+
       const scriptAnaliticaProps = {
         link: storydata.link,
         siteDomain,
         idGoogleAnalitics,
       }
-  
+
       const BuildHtmlProps = {
         scriptAnaliticaProps,
         propsScriptHeader,
@@ -48,10 +49,10 @@ const ListItemNews = (contentElements, buildProps) => {
         paragraphsNews: storydata.paragraphsNews,
         fbArticleStyle,
       }
-  
+
       const htmlString = BuildHtml(BuildHtmlProps)
       const codigoGUID = md5(storydata.id)
-  
+
       const ItemDataXml = {
         siteUrl,
         siteDomain,
@@ -61,20 +62,23 @@ const ListItemNews = (contentElements, buildProps) => {
         codigoGUID,
         htmlString,
       }
-      const template =`
+      const template = `
         <item>
           <title>${ItemDataXml.title}</title>
           <pubDate>${ItemDataXml.date}</pubDate>
           <link>${ItemDataXml.siteUrl}${storydata.link}</link>
           <guid>${ItemDataXml.codigoGUID}</guid>
           <author>${ItemDataXml.author}</author>
-          <content:encoded><![CDATA[${ItemDataXml.htmlString}]]></content:encoded>
+          <content:encoded><![CDATA[${
+            ItemDataXml.htmlString
+          }]]></content:encoded>
           <slash:comments>0</slash:comments>
         </item>
       `
       return template
-    }).join('')
-  
-    return elements
-  }
-  export default ListItemNews
+    })
+    .join('')
+
+  return elements
+}
+export default ListItemNews
