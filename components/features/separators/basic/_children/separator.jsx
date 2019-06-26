@@ -31,6 +31,9 @@ const SeparatorsBasicChildSeparator = props => {
     case 'depor':
       numline = classes.twoline
       break
+    case 'publimetro':
+      numline = classes.threeline
+      break
     default:
       numline = classes.twoline
       break
