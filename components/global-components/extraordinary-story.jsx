@@ -21,7 +21,7 @@ const classes = {
   // extraordinaryStoryAuthor: 'uppercase mb-15  text-xs',
   authorLink: 'extraordinary-story__author-link text-gray-200',
   multimedia:
-    'extraordinary-story__multimedia h-full bg-gray-300 flex items-center justify-center position-relative',
+    'extraordinary-story__multimedia h-full block bg-gray-300 position-relative',
 }
 
 const ExtraordinaryStory = props => {
