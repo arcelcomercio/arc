@@ -5,7 +5,6 @@ import { defaultImage } from '../utilities/helpers'
 
 const GOLDFISH = 'goldfish'
 const YOUTUBE = 'youtube'
-const IMAGE = 'image'
 
 const GOLDFISH_ENV = ENV.ENVIROMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const ORG_ID = 'elcomercio'
