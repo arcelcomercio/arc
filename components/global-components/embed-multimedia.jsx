@@ -73,11 +73,7 @@ const EmbedMultimedia = props => {
       fx = videoGoldfish
     } else if (type === YOUTUBE) {
       fx = videoYoutube
-    } else if (
-      type === IMAGE ||
-      type === ConfigParams.GALLERY ||
-      type === ConfigParams.IMAGE
-    ) {
+    } else {
       fx = image
     }
     return fx

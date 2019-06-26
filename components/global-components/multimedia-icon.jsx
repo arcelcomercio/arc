@@ -5,7 +5,7 @@ const classes = {
   icon: `m-icon position-absolute rounded text-white`,
 }
 
-export default ({ iconClass, type }) => {
+export default ({ iconClass = '', type = '' }) => {
   return (
     <i className={`${classes.icon} ${iconClass} ${getMultimediaIcon(type)}`} />
   )
