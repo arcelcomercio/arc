@@ -9,35 +9,6 @@ const IMAGE = 'image'
 const GOLDFISH_ENV = 'sandbox'
 
 const EmbedMultimedia = props => {
-  const videoYoutube = (codeId, { width = '100%', height = '100%' }) => {
-    return (
-      <iframe
-        width={width}
-        height={height}
-        src={`https://www.youtube.com/embed/${codeId}`}
-        frameBorder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        title="Youtube"
-        allowFullScreen
-        className="youtube-iframe"
-      />
-    )
-  }
-
-  const videoGoldfish = (multimediaSource, { website = 'elcomercio' }) => {
-    return (
-      <div
-        id={`powa-${multimediaSource}`}
-        data-env={GOLDFISH_ENV}
-        data-api={GOLDFISH_ENV}
-        data-org={website}
-        data-uuid={multimediaSource}
-        data-aspect-ratio="0.562"
-        className="w-full"
-      />
-    )
-  }
-
   const image = (url, { deployment, contextPath, website, title = '' }) => {
     return (
       <img
@@ -55,6 +26,39 @@ const EmbedMultimedia = props => {
       />
     )
   }
+
+  const videoYoutube = (codeId, { width = '100%', height = '100%' }) => {
+    return (
+      <iframe
+        width={width}
+        height={height}
+        src={`https://www.youtube.com/embed/${codeId}`}
+        frameBorder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        title="Youtube"
+        allowFullScreen
+        className="youtube-iframe"
+      />
+    )
+  }
+
+  const videoGoldfish = (
+    multimediaSource,
+    { deployment, contextPath, website, title = '' }
+  ) =>
+    multimediaSource ? (
+      <div
+        id={`powa-${multimediaSource}`}
+        data-env={GOLDFISH_ENV}
+        data-api={GOLDFISH_ENV}
+        data-org={website}
+        data-uuid={multimediaSource}
+        data-aspect-ratio="0.562"
+        className="w-full h-full"
+      />
+    ) : (
+      image(multimediaSource, { deployment, contextPath, website, title })
+    )
 
   const getMultimedia = type => {
     let fx = () => ''
