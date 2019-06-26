@@ -32,6 +32,7 @@ class ExtraordinaryStoryBySection extends PureComponent {
   }
 
   componentDidUpdate() {
+    console.log('UPDATEEEE ---->', window.powaBoot)
     if (window.powaBoot && this.isVideo) {
       window.powaBoot()
     }

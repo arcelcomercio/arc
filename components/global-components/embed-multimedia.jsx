@@ -51,10 +51,10 @@ const EmbedMultimedia = props => {
         id={`powa-${multimediaSource}`}
         data-env={GOLDFISH_ENV}
         data-api={GOLDFISH_ENV}
-        data-org={website}
+        data-org="elcomercio"
         data-uuid={multimediaSource}
         data-aspect-ratio="0.562"
-        className="w-full h-full"
+        className="powa"
       />
     ) : (
       image(multimediaSource, { deployment, contextPath, website, title })

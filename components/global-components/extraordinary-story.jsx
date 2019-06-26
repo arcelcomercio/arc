@@ -78,7 +78,7 @@ const ExtraordinaryStory = props => {
       numline = classes.twoline
       break
   }
-  // console.log('multiedia ---->', data.sourceMultimedia)
+
   return (
     <article
       className={`${
