@@ -54,6 +54,9 @@
       );
     }
 
+    @media (--tablet) {
+      height: 161px;
+    }
     &--nota {
       &::before {
         background: none;
