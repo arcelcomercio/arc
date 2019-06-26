@@ -12,7 +12,7 @@ class ExtraordinaryStoryBySection extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.isVideo = false
+    // this.isVideo = false
 
     const {
       arcSite,
@@ -31,8 +31,8 @@ class ExtraordinaryStoryBySection extends PureComponent {
     })
   }
 
-  componentDidUpdate() {
-    if (window.powaBoot && this.isVideo) {
+  componentDidMount() {
+    if (window.powaBoot) {
       window.powaBoot()
     }
   }
@@ -50,7 +50,7 @@ class ExtraordinaryStoryBySection extends PureComponent {
       customFields,
       defaultImgSize: 'md',
     })
-    this.isVideo = formattedData.isVideo
+    // this.isVideo = formattedData.isVideo
     const params = {
       data: formattedData,
       multimediaType: formattedData.multimediaType,

@@ -61,7 +61,6 @@ const ExtraordinaryStory = props => {
       numline = classes.twoline
       break
   }
-
   return (
     <article
       className={`${

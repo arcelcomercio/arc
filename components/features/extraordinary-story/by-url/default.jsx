@@ -10,7 +10,7 @@ const API_URL = 'story-by-url'
 class ExtraordinaryStoryByUrl extends PureComponent {
   constructor(props) {
     super(props)
-    this.isVideo = ''
+    // this.isVideo = ''
 
     const {
       customFields: { link = '' },
@@ -25,8 +25,8 @@ class ExtraordinaryStoryByUrl extends PureComponent {
     })
   }
 
-  componentDidUpdate() {
-    if (window.powaBoot && this.isVideo) {
+  componentDidMount() {
+    if (window.powaBoot) {
       window.powaBoot()
     }
   }
@@ -42,7 +42,7 @@ class ExtraordinaryStoryByUrl extends PureComponent {
       customFields,
       defaultImgSize: 'md',
     })
-    this.isVideo = formattedData.isVideo
+    // this.isVideo = formattedData.isVideo
 
     const params = {
       data: formattedData,

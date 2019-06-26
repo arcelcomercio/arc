@@ -48,15 +48,21 @@ const EmbedMultimedia = props => {
     { deployment, contextPath, website, title = '' }
   ) =>
     multimediaSource ? (
-      <div
-        id={`powa-${multimediaSource}`}
-        data-env={GOLDFISH_ENV}
-        data-api={GOLDFISH_ENV}
-        data-org={ORG_ID}
-        data-uuid={multimediaSource}
-        data-aspect-ratio="0.562"
-        className="powa"
-      />
+      <>
+        <div
+          id={`powa-${multimediaSource}`}
+          data-env={GOLDFISH_ENV}
+          data-api={GOLDFISH_ENV}
+          data-org={ORG_ID}
+          data-uuid={multimediaSource}
+          data-aspect-ratio="0.562"
+          className="powa"
+        />
+        <script
+          async
+          src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio"
+        />
+      </>
     ) : (
       image(multimediaSource, { deployment, contextPath, website, title })
     )

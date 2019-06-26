@@ -1,6 +1,8 @@
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
-import { ResizeImageUrl } from '../../../utilities/helpers'
+import {
+  ResizeImageUrl
+} from '../../../utilities/helpers'
 
 class Data extends StoryData {
   static GOLDFISH = 'goldfish'
@@ -67,7 +69,7 @@ class Data extends StoryData {
     return this.customFields.multimediaSource || ''
   }
 
-  get isVideo() {
+  /* get isVideo() {
     let isVideoCustom = false
     let isVideoApi = false
     const { multimediaService } = this.customFields
@@ -78,7 +80,7 @@ class Data extends StoryData {
       isVideoCustom = true
     if (super.multimediaType === ConfigParams.VIDEO) isVideoApi = true
     return multimediaService !== Data.AUTOMATIC ? isVideoCustom : isVideoApi
-  }
+  } */
 
   get typeMultimediaGeneral() {
     return Data.getTypeMultimediaGeneral(
@@ -115,7 +117,7 @@ class Data extends StoryData {
     )
   }
 
-  static getSourceMultimedia(multimediaType, multimedia, website, orientation) {
+  static getSourceMultimedia(multimediaType, multimedia) {
     let multimediaContent = ''
     if (
       (multimediaType === ConfigParams.VIDEO ||
@@ -129,13 +131,13 @@ class Data extends StoryData {
         multimediaType === Data.IMAGE) &&
       multimedia !== ''
     ) {
-      multimediaContent = this.resizeImg(multimedia, website, orientation) || ''
+      multimediaContent = multimedia || ''
     } else if (
       (multimediaType === ConfigParams.IMAGE ||
         multimediaType === Data.IMAGE) &&
       multimedia !== ''
     ) {
-      multimediaContent = this.resizeImg(multimedia, website, orientation) || ''
+      multimediaContent = multimedia || ''
     }
     return multimediaContent
   }
