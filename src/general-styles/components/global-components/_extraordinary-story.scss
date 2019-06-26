@@ -88,6 +88,12 @@ $img-max-height: 355px;
   &__multimedia {
     grid-area: extraordinary-story-multimedia;
     max-height: $img-max-height;
+    & .powa {
+      @media (--tablet) {
+        height: 355px;
+        padding-bottom: 0 !important;
+      }
+    }
   }
 
   .youtube-iframe {

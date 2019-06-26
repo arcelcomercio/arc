@@ -26,9 +26,7 @@ class ExtraordinaryStoryByUrl extends PureComponent {
   }
 
   componentDidUpdate() {
-    if (window.powaBoot && this.isVideo) {
-      window.powaBoot()
-    }
+    window.powaBoot()
   }
 
   render() {

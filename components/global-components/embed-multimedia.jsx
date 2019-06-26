@@ -86,7 +86,10 @@ const EmbedMultimedia = props => {
         title,
         website,
       })}
-      <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
+      <script
+        async
+        src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio"
+      />
     </>
   )
 }
