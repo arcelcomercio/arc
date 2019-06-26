@@ -330,7 +330,7 @@ export const getUrlParameter = contentElements => {
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
 
-  if (loc.indexOf('?') > 0 && contentElements) {
+  if (loc.indexOf('?') >= 0 && contentElements) {
     const sWidth = 100 / contentElements.length
     return tmp[1] && contentElements.length >= tmp[1]
       ? -sWidth * (tmp[1] - 1)

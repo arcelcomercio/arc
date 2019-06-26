@@ -531,7 +531,7 @@ class StoryData {
     return thumb
   }
 
-  static recentList(recentElements = [], id) {
+  static recentList(recentElements, id) {
     let i = 0
     return (
       recentElements
