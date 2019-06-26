@@ -33,7 +33,7 @@ $img-max-height: 355px;
         'extraordinary-story-multimedia extraordinary-story-section'
         'extraordinary-story-multimedia extraordinary-story-content';
       grid-template-rows: auto 1fr;
-      grid-template-columns: 582px auto;
+      grid-template-columns: 1fr 40%;
     }
   }
 
@@ -45,7 +45,7 @@ $img-max-height: 355px;
         'extraordinary-story-section extraordinary-story-multimedia'
         'extraordinary-story-content extraordinary-story-multimedia';
       grid-template-rows: auto 1fr;
-      grid-template-columns: auto 582px;
+      grid-template-columns: 40% 1fr;
     }
   }
 
@@ -88,7 +88,13 @@ $img-max-height: 355px;
   &__multimedia {
     grid-area: extraordinary-story-multimedia;
     max-height: $img-max-height;
-    height: 50vw;
+
+    & .powa {
+      @media (--tablet) {
+        height: $img-max-height;
+        padding-bottom: 0 !important;
+      }
+    }
   }
 
   .youtube-iframe {

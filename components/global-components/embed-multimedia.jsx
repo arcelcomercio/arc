@@ -84,16 +84,12 @@ const EmbedMultimedia = props => {
   }
 
   const { type, source, deployment, contextPath, website, title = '' } = props
-  return (
-    <>
-      {getMultimedia(type)(source, {
-        deployment,
-        contextPath,
-        title,
-        website,
-      })}
-    </>
-  )
+  return getMultimedia(type)(source, {
+    deployment,
+    contextPath,
+    title,
+    website,
+  })
 }
 
 export default EmbedMultimedia
