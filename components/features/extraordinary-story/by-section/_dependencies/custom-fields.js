@@ -3,9 +3,9 @@ import customFieldsParent from '../../_dependencies/custom-fields'
 
 const customFieldsSection = {
   sectionName: PropTypes.string.tag({
-    name: 'SLUG',
-    description: 'seccion o content path',
-    hidden: false,
+    name: 'URL',
+    // description: 'seccion o content path',
+    // hidden: false,
   }),
   positionData: PropTypes.number.tag({
     name: 'Posición inicial ',
