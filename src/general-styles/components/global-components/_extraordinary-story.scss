@@ -34,10 +34,6 @@
       grid-template-rows: auto 1fr;
       grid-template-columns: 582px auto;
     }
-
-    img {
-      height: 100%;
-    }
   }
 
   &--right {
@@ -50,16 +46,10 @@
       grid-template-rows: auto 1fr;
       grid-template-columns: auto 582px;
     }
-
-    img {
-      height: 100%;
-    }
   }
 
   &__section {
-    padding: 8px;
     grid-area: extraordinary-story-section;
-    //height: 15px;
   }
 
   &__title {
@@ -97,6 +87,7 @@
   &__multimedia {
     grid-area: extraordinary-story-multimedia;
     max-height: 355px;
+    height: 100%;
   }
 
   &__icon-gallery-container {
