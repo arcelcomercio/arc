@@ -24,7 +24,7 @@ class ConfigParams {
 
   static ELEMENT_STORY = 'story'
 
-  static ELEMENT_RAW_HTML = 'raw_htmal'
+  static ELEMENT_RAW_HTML = 'raw_html'
 
   static ELEMENT_BLOCKQUOTE = 'blockquote'
 

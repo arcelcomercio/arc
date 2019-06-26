@@ -152,11 +152,11 @@ right;
 *-------------------------------*/
 
 .primary-font {
-  font-family: $primary-font !important;
+  font-family: $primary-font; // TODO: !important retirado por amp
 }
 
 .secondary-font {
-  font-family: $secondary-font !important;
+  font-family: $secondary-font; // TODO: !important retirado por amp
 }
 
 $map-font-weight: (thin: 200,
