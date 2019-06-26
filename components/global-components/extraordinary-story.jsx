@@ -5,10 +5,10 @@ import { getIcon } from '../utilities/helpers'
 const classes = {
   extraordinaryStory: `extraordinary-story bg-white grid border-gray`,
   extraordinaryStorySection:
-    'extraordinary-story__section bg-error text-left uppercase font-bold p-20 pb-0 text-white',
+    'extraordinary-story__section text-left uppercase font-bold pt-20 pr-20 pl-20 pb-10 text-white',
   extraordinaryStorySectionLink: 'extraordinary-story__section-link',
-  // extraordinaryStoryContent:
-  // 'extraordinary-story__content block pt-15 pr-20 pl-20 position-relative',
+  extraordinaryStoryContent:
+    'extraordinary-story__content block pr-20 pl-20 position-relative',
   extraordinaryStoryTitle:
     'extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-20',
   oneline: 'extraordinary-story--oneline',
@@ -21,7 +21,7 @@ const classes = {
   extraordinaryStoryAuthorLink:
     'extraordinary-story__author-link text-gray-200',
   extraordinaryStoryMultimedia:
-    'extraordinary-story__multimedia bg-gray-300 flex items-center justify-center position-relative',
+    'extraordinary-story__multimedia h-full bg-gray-300 flex items-center justify-center position-relative',
   iconGallery: 'position-absolute top-0 right-0 m-10',
   iconGalleryContainer:
     'extraordinary-story__icon-gallery-container flex items-center justify-center rounded',
@@ -56,18 +56,14 @@ const ExtraordinaryStory = props => {
   } = props
 
   // TODO: Mejorar el uso de clases por orientación
-  const extraordinaryStoryContent =
-    'extraordinary-story__content block position-relative pr-20 pl-20'
   const extraordinaryStoryAuthor = 'uppercase mb-15  text-xs'
   const extraordinaryStorySubtitle =
     'extraordinary-story__subtitle text-gray-200 line-h-sm overflow-hidden'
 
   if (multimediaOrientation === 'left' || multimediaOrientation === 'right') {
-    classes.extraordinaryStoryContent = `${extraordinaryStoryContent} pt-15`
     classes.extraordinaryStoryAuthor = `${extraordinaryStoryAuthor} extraordinary-story__author`
     classes.extraordinaryStorySubtitle = `${extraordinaryStorySubtitle} mb-15`
   } else {
-    classes.extraordinaryStoryContent = `${extraordinaryStoryContent} pt-10`
     classes.extraordinaryStoryAuthor = extraordinaryStoryAuthor
     classes.extraordinaryStorySubtitle = `${extraordinaryStorySubtitle} mb-25`
   }
