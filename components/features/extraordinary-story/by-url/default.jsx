@@ -8,40 +8,21 @@ import ExtraordinaryStory from '../../../global-components/extraordinary-story'
 const API_URL = 'story-by-url'
 @Consumer
 class ExtraordinaryStoryByUrl extends PureComponent {
-  mainLogic = {
-    fetch: (api, url, filter = {}) => {
-      if (url) {
-        const { fetched } = this.getContent(api, { website_url: url }, filter)
-        return fetched
-      }
-      return new Promise((resolve, reject) => {
-        reject(new Error('Url empty'))
-      })
-    },
-
-    dataState: (data = null) => {
-      return data === null ? { data: {} } : { data }
-    },
-  }
-
   constructor(props) {
     super(props)
-    this.state = this.mainLogic.dataState()
     this.isVideo = ''
-  }
 
-  componentDidMount() {
     const {
       customFields: { link = '' },
       arcSite,
     } = this.props
-
-    this.mainLogic
-      .fetch(API_URL, link, schemaFilter(arcSite))
-      .then(response => {
-        this.setState(this.mainLogic.dataState(response))
-      })
-      .catch(() => false)
+    this.fetchContent({
+      data: {
+        source: API_URL,
+        query: { website_url: link },
+        filter: schemaFilter(arcSite),
+      },
+    })
   }
 
   componentDidUpdate() {
