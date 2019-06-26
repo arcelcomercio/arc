@@ -23,11 +23,11 @@ Para construir las clases `flex` se han creado tres generadores agrupados por el
 
 ```
 .flex-1 {
-    align-items: flex-start;
+    flex: 1;
 }
 
 .flex-none {
-    align-items: center;
+    flex: 0;
 }
 
 .flex-col-reverse {
@@ -102,6 +102,45 @@ Estas clases siguen la siguiente estructura, donde la primera letra de la clase 
 }
 ```
 
+### Margins y Paddings
+
+Las clases que definen los `margin` y `padding`, son construidas por un generador que puede ser visto en detalle en `framework/generators/_generate-spaces.scss`.
+
+Básicamente se generan `margin` y `padding` desde 0 a 40 en múltiplos de 5 (0,5,10,15,20,25,30,35,40), así ha sido definido por el diseño. Estos `margin` y `padding` estarán disponibles para todo el elemento y para cada lado (top,right,bottom,left), siguiendo la siguiente nomenclatura:
+
+1. margin o padding global: `.[m o p]-[tamaño]`
+2. margin o padding superior (top): `.[m o p]t-[tamaño]`
+3. margin o padding derecho (right): `.[m o p]r-[tamaño]`
+4. margin o padding inferior (bottom): `.[m o p]b-[tamaño]`
+5. margin o padding izquierdo (left): `.[m o p]l-[tamaño]`
+
+Adicionalmente se ha creado la clase `.mx-auto` que asigna `margin auto` a la derecha e izquierda para los casos en los que se usa `margin: 0 auto`, el uso sería una combinación `m-0 mx-auto`.
+
+###### Ej.
+
+```
+.m-0 {
+    margin: 0;
+}
+
+.pt-10 {
+    padding-top: 10px;
+}
+
+.mb-40 {
+    margin-bottom: 0;
+}
+
+.pl-0 {
+    padding-left: 0;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+```
+
 ## Object-fit y Object-position:
 
 Las clases asociadas a los atributos `object-fit` y `object-position` son construidas por un generador que puede ser visto en detalle en `framework/core/_utils.scss`. Las clases base disponibles son:
@@ -150,7 +189,7 @@ Las clases para el atributo `display` son construidas por un generador que puede
 
 ## Overflow:
 
-Las clases para el atributo `display` son construidas por un generador que puede ser visto en detalle en `framework/core/_utils.scss`. Las clases base disponibles son:
+Las clases para los atributos `overflow` son construidas por un generador que puede ser visto en detalle en `framework/core/_utils.scss`. Las clases base disponibles son:
 
 - `overflow-y`
 - `overflow-y-auto`
@@ -160,6 +199,8 @@ Las clases para el atributo `display` son construidas por un generador que puede
 
 ## Posiciones:
 
+Las clases para los atributos relacionados a `position` son construidas por un generador que puede ser visto en detalle en `framework/core/_utils.scss`. Las clases base disponibles son:
+
 - `position-relative`
 - `position-absolute`
 - `top-0`
@@ -167,538 +208,360 @@ Las clases para el atributo `display` son construidas por un generador que puede
 - `bottom-0`
 - `left-0`
 
-  /\*_ ----------------------------_
+###### Ej.
 
--               TEXT            *
-  _-------------------------------_/
-  text-left
-  text-center
-  text-right
-  uppercase
-  capitalize
-  /\*_ ----------------------------_
--             FONTS             *
-  _-------------------------------_/
-  primary-font
-  secondary-font
-  font-thin
-  font-normal
-  font-bold
-  font-xbold
-  /\*_ ----------------------------_
--            RADIUS             *
-  _-------------------------------_/
-  rounded-none
-  rounded-sm
-  rounded-md
-  rounded-lg
-  rounded
-  /**\*\*\*** Extra **\*\*\*\***/
-  cursor-pointer
-  /\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***/
-  /\*_ ----------------------------_
--           GENERATORS          *
+```
+.position-relative {
+    position: relative;
+}
 
-  _-------------------------------_/
+.top-0 {
+    top: 0;
+}
+```
 
-  /\*_ ----------------------------_
+## Textos:
 
--       MARGINS & PADDINGS      *
-  _-------------------------------_/
-  m-0
-  p-0
-  mt-0
-  pt-0
-  mr-0
-  pr-0
-  mb-0
-  pb-0
-  ml-0
-  pl-0
-  m-5
-  p-5
-  mt-5
-  pt-5
-  mr-5
-  pr-5
-  mb-5
-  pb-5
-  ml-5
-  pl-5
-  m-10
-  p-10
-  mt-10
-  pt-10
-  mr-10
-  pr-10
-  mb-10
-  pb-10
-  ml-10
-  pl-10
-  m-15
-  p-15
-  mt-15
-  pt-15
-  mr-15
-  pr-15
-  mb-15
-  pb-15
-  ml-15
-  pl-15
-  m-20
-  p-20
-  mt-20
-  pt-20
-  mr-20
-  pr-20
-  mb-20
-  pb-20
-  ml-20
-  pl-20
-  m-25
-  p-25
-  mt-25
-  pt-25
-  mr-25
-  pr-25
-  mb-25
-  pb-25
-  ml-25
-  pl-25
-  m-30
-  p-30
-  mt-30
-  pt-30
-  mr-30
-  pr-30
-  mb-30
-  pb-30
-  ml-30
-  pl-30
-  m-35
-  p-35
-  mt-35
-  pt-35
-  mr-35
-  pr-35
-  mb-35
-  pb-35
-  ml-35
-  pl-35
-  m-40
-  p-40
-  mt-40
-  pt-40
-  mr-40
-  pr-40
-  mb-40
-  pb-40
-  ml-40
-  pl-40
-  mx-auto
-  /\*_ ----------------------------_
--           FONT SIZES          *
-  _-------------------------------_
+Estas clases hacen referencia a la alineación de textos y las transformaciones más comunes. Son construidas por un generador que puede ser visto en detalle en `framework/core/_utils.scss`. Las clases base disponibles son:
 
-//**\*\*\*** text-[size] **\*\*\***/
-text-xs
-text-sm
-text-md
-text-lg
-text-xl
+- `text-left`
+- `text-center`
+- `text-right`
+- `uppercase`
+- `capitalize`
 
-title-xs
-title-sm
-title-md
-title-lg
-title-xl
-/\*_ ----------------------------_
+###### Ej.
 
--         LINE HEIGHTS          *
-  _-------------------------------_/
-  line-h-none
-  line-h-xs
-  line-h-sm
-  line-h-md
-  line-h-lg
-  line-h-xl
-  line-h-double
-  /\*_ ----------------------------_
--             ÍCONOS            *
-  _-------------------------------_/
-  icon-img:before
-  icon-video:before
-  icon-menu:before
-  icon-marca:before
-  icon-add:before
-  icon-ribbon:before
-  icon-facebook:before
-  icon-twitter:before
-  icon-linkedin:before
-  icon-home:before
-  icon-user:before
-  icon-search:before
-  icon-close:before
-  icon-close-circle:before
-  icon-add-circle:before
-  icon-back:before
-  icon-linkedin-circle:before
-  icon-hamburguer:before
-  icon-zoom:before
-  icon-link:before
-  icon-message:before
-  icon-print:before
-  icon-publimetro:before
-  /\*_ ----------------------------_
--            BORDERS            *
-  _-------------------------------_/
-  border-0
-  border-t-0
-  border-r-0
-  border-b-0
-  border-l-0
-  border-1
-  border-t-1
-  border-r-1
-  border-b-1
-  border-l-1
-  border-solid
-  /\*_ ----------------------------_
--         BORDERS COLORS        *
-  _-------------------------------_/
-  border-white
-  border-gray
-  border-black
-  border-base
-  /\*_ ----------------------------_
--      BACKGROUND COLORS        *
-  _-------------------------------_/
-  bg-primary
-  bg-secondary
-  bg-tertiary
-  bg-base-400
-  bg-base-300
-  bg-base-200
-  bg-base-100
-  bg-attention
-  bg-link
-  bg-error
-  bg-info
-  bg-success
-  bg-white
-  bg-black
-  bg-gray-300
-  bg-gray-200
-  bg-gray-100
-  /\*_ ----------------------------_
--       COLORES DE TEXTO        *
-  _-------------------------------_/
-  text-white
-  text-black
-  text-gray-300
-  text-gray-200
-  text-gray-100
-  text-primary-color
-  /\*_ ----------------------------_
--       TABLET        *
+```
+.text-left {
+    text-align: left;
+}
 
-  _-------------------------------_/
+.uppercase {
+    text-transform: uppercase;
+}
+```
 
-  md\:flex-1
-  md\:flex-none
-  md\:flex-grow
-  md\:flex-grow-0
-  md\:flex-shrink
-  md\:flex-shrink-0
-  md\:flex-col
-  md\:flex-col-reverse
-  md\:flex-row
-  md\:flex-row-reverse
-  md\:flex-wrap
-  md\:flex-no-wrap
-  md\:justify-start
-  md\:justify-center
-  md\:justify-end
-  md\:justify-between
-  md\:justify-evenly
-  md\:items-start
-  md\:items-center
-  md\:items-end
-  md\:w-full
-  md\:h-full
-  md\:w-auto
-  md\:h-auto
-  md\:w-inherit
-  md\:h-inherit
-  md\:w-0
-  md\:h-0
-  md\:object-cover
-  md\:object-contain
-  md\:object-center
-  md\:object-top
-  md\:object-bottom
-  md\:block
-  md\:flex
-  md\:grid
-  md\:inline
-  md\:inline-block
-  md\:table
-  md\:hidden
-  md\:top-0
-  md\:right-0
-  md\:bottom-0
-  md\:left-0
-  md\:text-left
-  md\:text-center
-  md\:text-right
-  md\:font-thin
-  md\:font-normal
-  md\:font-bold
-  md\:font-xbold
-  md\:rounded-none
-  md\:rounded-sm
-  md\:rounded-md
-  md\:rounded-lg
-  md\:rounded
+### Peso de fuentes y familias de fuente base
 
-  md\:m-0
-  md\:p-0
-  md\:mt-0
-  md\:pt-0
-  md\:mr-0
-  md\:pr-0
-  md\:mb-0
-  md\:pb-0
-  md\:ml-0
-  md\:pl-0
-  md\:m-5
-  md\:p-5
-  md\:mt-5
-  md\:pt-5
-  md\:mr-5
-  md\:pr-5
-  md\:mb-5
-  md\:pb-5
-  md\:ml-5
-  md\:pl-5
-  md\:m-10
-  md\:p-10
-  md\:mt-10
-  md\:pt-10
-  md\:mr-10
-  md\:pr-10
-  md\:mb-10
-  md\:pb-10
-  md\:ml-10
-  md\:pl-10
-  md\:m-15
-  md\:p-15
-  md\:mt-15
-  md\:pt-15
-  md\:mr-15
-  md\:pr-15
-  md\:mb-15
-  md\:pb-15
-  md\:ml-15
-  md\:pl-15
-  md\:m-20
-  md\:p-20
-  md\:mt-20
-  md\:pt-20
-  md\:mr-20
-  md\:pr-20
-  md\:mb-20
-  md\:pb-20
-  md\:ml-20
-  md\:pl-20
-  md\:m-25
-  md\:p-25
-  md\:mt-25
-  md\:pt-25
-  md\:mr-25
-  md\:pr-25
-  md\:mb-25
-  md\:pb-25
-  md\:ml-25
-  md\:pl-25
-  md\:m-30
-  md\:p-30
-  md\:mt-30
-  md\:pt-30
-  md\:mr-30
-  md\:pr-30
-  md\:mb-30
-  md\:pb-30
-  md\:ml-30
-  md\:pl-30
-  md\:m-35
-  md\:p-35
-  md\:mt-35
-  md\:pt-35
-  md\:mr-35
-  md\:pr-35
-  md\:mb-35
-  md\:pb-35
-  md\:ml-35
-  md\:pl-35
-  md\:m-40
-  md\:p-40
-  md\:mt-40
-  md\:pt-40
-  md\:mr-40
-  md\:pr-40
-  md\:mb-40
-  md\:pb-40
-  md\:ml-40
-  md\:pl-40
+Las siguientes clases relacionadas a textos definen la familia de fuente (normalmente dos variables que pueden variar por sitio) que se desea asignar y el peso de la fuente.
 
-/\*_ ----------------------------_
+- `primary-font`
+- `secondary-font`
+- `font-thin` = 200
+- `font-normal` = 400
+- `font-bold` = 700
+- `font-xbold` = 900
 
--       DESKTOP                 *
-  _-------------------------------_/
-  lg\:flex-1
-  lg\:flex-none
-  lg\:flex-grow
-  lg\:flex-grow-0
-  lg\:flex-shrink
-  lg\:flex-shrink-0
-  lg\:flex-col
-  lg\:flex-col-reverse
-  lg\:flex-row
-  lg\:flex-row-reverse
-  lg\:flex-wrap
-  lg\:flex-no-wrap
-  lg\:justify-start
-  lg\:justify-center
-  lg\:justify-end
-  lg\:justify-between
-  lg\:justify-evenly
-  lg\:items-start
-  lg\:items-center
-  lg\:items-end
-  lg\:w-full
-  lg\:h-full
-  lg\:w-auto
-  lg\:h-auto
-  lg\:w-inherit
-  lg\:h-inherit
-  lg\:w-0
-  lg\:h-0
-  lg\:object-cover
-  lg\:object-contain
-  lg\:object-center
-  lg\:object-top
-  lg\:object-bottom
-  lg\:block
-  lg\:flex
-  lg\:grid
-  lg\:inline
-  lg\:inline-block
-  lg\:table
-  lg\:hidden
-  lg\:top-0
-  lg\:right-0
-  lg\:bottom-0
-  lg\:left-0
-  lg\:text-left
-  lg\:text-center
-  lg\:text-right
-  lg\:font-thin
-  lg\:font-normal
-  lg\:font-bold
-  lg\:font-xbold
-  lg\:rounded-none
-  lg\:rounded-sm
-  lg\:rounded-md
-  lg\:rounded-lg
-  lg\:rounded
-  lg\:m-0
-  lg\:p-0
-  lg\:mt-0
-  lg\:pt-0
-  lg\:mr-0
-  lg\:pr-0
-  lg\:mb-0
-  lg\:pb-0
-  lg\:ml-0
-  lg\:pl-0
-  lg\:m-5
-  lg\:p-5
-  lg\:mt-5
-  lg\:pt-5
-  lg\:mr-5
-  lg\:pr-5
-  lg\:mb-5
-  lg\:pb-5
-  lg\:ml-5
-  lg\:pl-5
-  lg\:m-10
-  lg\:p-10
-  lg\:mt-10
-  lg\:pt-10
-  lg\:mr-10
-  lg\:pr-10
-  lg\:mb-10
-  lg\:pb-10
-  lg\:ml-10
-  lg\:pl-10
-  lg\:m-15
-  lg\:p-15
-  lg\:mt-15
-  lg\:pt-15
-  lg\:mr-15
-  lg\:pr-15
-  lg\:mb-15
-  lg\:pb-15
-  lg\:ml-15
-  lg\:pl-15
-  lg\:m-20
-  lg\:p-20
-  lg\:mt-20
-  lg\:pt-20
-  lg\:mr-20
-  lg\:pr-20
-  lg\:mb-20
-  lg\:pb-20
-  lg\:ml-20
-  lg\:pl-20
-  lg\:m-25
-  lg\:p-25
-  lg\:mt-25
-  lg\:pt-25
-  lg\:mr-25
-  lg\:pr-25
-  lg\:mb-25
-  lg\:pb-25
-  lg\:ml-25
-  lg\:pl-25
-  lg\:m-30
-  lg\:p-30
-  lg\:mt-30
-  lg\:pt-30
-  lg\:mr-30
-  lg\:pr-30
-  lg\:mb-30
-  lg\:pb-30
-  lg\:ml-30
-  lg\:pl-30
-  lg\:m-35
-  lg\:p-35
-  lg\:mt-35
-  lg\:pt-35
-  lg\:mr-35
-  lg\:pr-35
-  lg\:mb-35
-  lg\:pb-35
-  lg\:ml-35
-  lg\:pl-35
-  lg\:m-40
-  lg\:p-40
-  lg\:mt-40
-  lg\:pt-40
-  lg\:mr-40
-  lg\:pr-40
-  lg\:mb-40
-  lg\:pb-40
-  lg\:ml-40
-  lg\:pl-40
+###### Ej.
+
+```
+.primary-font {
+    font-family: $primary-font;
+}
+
+.font-normal {
+    font-weight: 400;
+}
+```
+
+### Tamaños de fuentes
+
+Las clases para definir tamaños de fuentes `font-size`, son construidas por un generador que puede ser visto en detalle en `framework/generators/_generate-font-sizes.scss`. Además, las variables usadas para definir los tamaños de fuentes están ubicadas en `framework/variables/_declare-sizes.scss`.
+Las clases disponibles son:
+
+- `text-xs` = \$font-xs = 0.7em
+- `text-sm` = \$font-sm = 0.8em
+- `text-md` = \$font-md = 0.9em
+- `text-lg` = \$font-lg = 1em
+- `text-xl` = \$font-xl = 1.1em
+
+- `title-xs` = \$header-xs = 1.3em
+- `title-sm` = \$header-sm = 1.5em
+- `title-md` = \$header-md = 1.7em
+- `title-lg` = \$header-lg = 2em
+- `title-xl` = \$header-xl = 2.2em
+
+###### Ej.
+
+```
+.text-lg {
+    font-size: 1em;
+}
+
+.title-xs {
+    font-size: 1.3em;
+}
+```
+
+> Los tamaños de fuente base por breakpoint están definidos en la etiqueta html.
+> mobile = 1em = 13px
+> tablet = 1em = 14px
+> desktop = 1em = 16px
+
+### Colores de textos
+
+Las clases que definen los colores de texto `color`, son construidas por un generador que puede ser visto en detalle en `framework/generators/_generate-text-colors.scss`.
+
+Se generan únicamente seis colores de fuentes disponibles para todas las marcas, las variables asignadas a estas clases están relacionadas a los colores definidos en el archivo `framework/variables/_colors.scss`. La única clase de color de texto que debería representar un cambio por marca será `text-primary-color`, que tendrá asignada el `$color-primary` de la marca.
+
+- `text-white` = \$color-white
+- `text-black` = \$color-black
+- `text-gray-300` = \$color-gray-300
+- `text-gray-200` = \$color-gray-200
+- `text-gray-100` = \$color-gray-100
+- `text-primary-color` = \$color-primary
+
+```
+.text-white {
+    color: #FFFFFF;
+}
+
+.text-gray-300 {
+    color: #333333;
+}
+```
+
+### Altura de líneas
+
+Las clases para definir la altura de líneas `line-height`, son construidas por un generador que puede ser visto en detalle en `framework/generators/_generate-line-heights.scss`.
+Las clases disponibles son:
+
+- `line-h-none` = 1
+- `line-h-xs` = 1.16
+- `line-h-sm` = 1.33
+- `line-h-md` = 1.5
+- `line-h-lg` = 1.66
+- `line-h-xl` = 1.83
+- `line-h-double` = 2
+
+###### Ej.
+
+```
+.line-h-xs {
+    line-height: 1.166667;
+}
+
+.line-h-double {
+    line-height: 2;
+}
+```
+
+Actualmente 1/6 es el intervalo que se usa para incrementar la altura de línea por cada tramo desde 1 a 2.
+
+## Bordes
+
+### Grosor de bordes
+
+Las clases que definen los `border-width`, son construidas por un generador que puede ser visto en detalle en `framework/generators/_generate-borders.scss`.
+
+Básicamente se generan bordes de dos grosores, 0 y 1, para cinco escenarios:
+
+1. borde global: `.border-[grosor]`
+2. borde superior (top): `.border-t-[grosor]`
+3. borde derecho (right): `.border-r-[grosor]`
+4. borde inferior (bottom): `.border-b-[grosor]`
+5. borde izquierdo (left): `.border-l-[grosor]`
+
+Además, se ha generado una clase `.border-solid`.
+
+Las clases disponibles son:
+
+- `border-0`
+- `border-t-0`
+- `border-r-0`
+- `border-b-0`
+- `border-l-0`
+- `border-1`
+- `border-t-1`
+- `border-r-1`
+- `border-b-1`
+- `border-l-1`
+- `border-solid`
+
+```
+.border-1 {
+    border-width: 1px;
+}
+
+.border-b-1 {
+    border-bottom-width: 1px;
+}
+
+.border-solid {
+    border-style: solid;
+}
+```
+
+### Curvatura de bordes
+
+Las clases para los atributos relacionados a `border-radius` son construidas por un generador que puede ser visto en detalle en `framework/core/_utils.scss`. Las clases base disponibles son:
+
+- `rounded-none` = 0 (ninguna curvatura)
+- `rounded-sm` = 4px
+- `rounded-md` = 16px
+- `rounded-lg` = 50px
+- `rounded` = 50% (curvatura completa)
+
+###### Ej.
+
+```
+.rounded-none {
+    border-radius: 0;
+}
+
+.rounded-md {
+    border-radius: 16px;
+}
+```
+
+### Colores de bordes
+
+Las clases que definen los `border-color`, son construidas por un generador que puede ser visto en detalle en `framework/generators/_generate-borders.scss`.
+
+Se generan únicamente cuatro colores de bordes disponibles para todas las marcas, las variables asignadas a estas clases pueden ser configuradas por marca en el archivo `scss/variables/_colors.scss` que corresponde a la marca, cambiando por ejemplo el `$border-color-base` o `$border-color-gray` por alguna otra intensidad.
+
+- `border-white` = \$border-color-white
+- `border-gray` = \$border-color-gray
+- `border-black`= \$border-color-black
+- `border-base` = \$border-color-base
+
+> Por defecto estas variables en el core:
+> $border-color-gray = $color-gray-100
+> $border-color-base = $color-base-100
+
+cursor-pointer
+
+## Colores de fondo
+
+Las clases que definen los `background-color`, son construidas por un generador que puede ser visto en detalle en `framework/generators/_generate-bg-colors.scss`.
+
+Las clases disponibles obtienen valores de las variables de colores `framework/variables/_colors.scss` y son las siguientes:
+
+- `bg-primary`
+- `bg-secondary`
+- `bg-tertiary`
+- `bg-base-400`
+- `bg-base-300`
+- `bg-base-200`
+- `bg-base-100`
+- `bg-attention`
+- `bg-link`
+- `bg-error`
+- `bg-info`
+- `bg-success`
+- `bg-white`
+- `bg-black`
+- `bg-gray-300`
+- `bg-gray-200`
+- `bg-gray-100`
+
+###### Ej.
+
+```
+.bg-primary {
+    background-color: $color-primary;
+}
+```
+
+## Clases de íconos disponibles
+
+- `icon-img`
+- `icon-video`
+- `icon-menu`
+- `icon-marca`
+- `icon-add`
+- `icon-ribbon`
+- `icon-facebook`
+- `icon-twitter`
+- `icon-linkedin`
+- `icon-home`
+- `icon-user`
+- `icon-search`
+- `icon-close`
+- `icon-close-circle`
+- `icon-add-circle`
+- `icon-back`
+- `icon-linkedin-circle`
+- `icon-hamburguer`
+- `icon-zoom`
+- `icon-link`
+- `icon-message`
+- `icon-print`
+
+## Breakpoints
+
+Los estilos del proyecto están pensados mobile first, para lo cual se han definido dos breakpoints, uno que toma acción desde tablet en adelante y otro desde desktop.
+
+Breakpoints:
+
+1. Para tablet, desde 640px.
+2. Para desktop, desde 1024px.
+
+De todas las clases disponibles sólo algunas tienen la opción de cambiar según los breakpoints, estas son:
+
+1. Todas las clases de `flex`.
+2. Las clases de dimensiones `h-auto, w-0, w-full... etc`.
+3. Las clases de `object-fit` y `object-position`.
+4. Las clases de `display`.
+5. Las clases de orientación para position-absolute `top-0, right-0, bottom-0, left-0`.
+6. Las clases de `text-align` y `font-weight`.
+7. Las clases de `border-radius`.
+8. Todas las clases de `margin` y `padding`.
+
+Las clases responsive deben ser incluidas junto a las clases comunes, estas clases responsive sobreescribirán las clases de tamaño inferior en tiempo de ejecución.
+
+### Tablet
+
+Las clases para tablet son exactamente las mismas comunes pero deben incluir el prefijo `md:`.
+
+###### Ej.
+
+```
+.md:m-0 {
+    @media (--tablet) {
+        margin: 0;
+    }
+}
+
+.md:flex-col {
+    @media (--tablet) {
+        flex-direction: column;
+    }
+}
+```
+
+### Desktop
+
+Las clases para desktop son exactamente las mismas comunes pero deben incluir el prefijo `lg:`.
+
+###### Ej.
+
+```
+.lg:pt-20 {
+    @media (--desktop) {
+        padding-top: 20px;
+    }
+}
+
+.lg:flex-row-reverse {
+    @media (--desktop) {
+        flex-direction: row-reverse;
+    }
+}
+```
+
+## Ejemplo de un objeto de clase completa:
+
+```
+const classes = {
+  container: 'post-item bg-white flex secondary-font flex-col-reverse h-auto pt-5 pb-5 pr-15 pl-15 border-t-1 border-solid md:flex-col',
+  date: 'post-item__date flex justify-start pt-5 pb-5 pr-10 pl-10 text-xs text-gray-200 md:pt-5 md:pb-5 md:pr-0 md:pl-0',
+  content: 'post-item__content flex justify-between flex-row-reverse md:flex-row md:justify-start',
+  figure: 'post-item__figure',
+  image: 'post-item__image object-cover',
+  description: 'post-item__description flex flex-col justify-between pr-10 pl-10',
+  title: 'post-item__title uppercase m-0 font-thin title-sm text-gray-300 line-h-none',
+  author: 'post-item__author m-0 font-thin text-xs text-gray-200 ',
+}
+```

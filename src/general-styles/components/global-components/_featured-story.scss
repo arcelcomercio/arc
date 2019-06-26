@@ -134,17 +134,17 @@ $image-height: 157px;
 
   &-oneline {
     -webkit-line-clamp: 1;
-    max-height: calc($header-xs * 2);
+    max-height: calc(#{$header-xs} * 2);
   }
 
   &-twoline {
     -webkit-line-clamp: 2;
-    max-height: calc($header-xs * 4);
+    max-height: calc(#{$header-xs} * 4);
   }
 
   &-threeline {
     -webkit-line-clamp: 3;
-    max-height: calc($header-xs * 6);
+    max-height: calc(#{$header-xs} * 6);
   }
 
   &__title {
