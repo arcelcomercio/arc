@@ -1,8 +1,6 @@
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
-import {
-  ResizeImageUrl
-} from '../../../utilities/helpers'
+import { ResizeImageUrl } from '../../../utilities/helpers'
 
 class Data extends StoryData {
   static GOLDFISH = 'goldfish'
@@ -21,14 +19,14 @@ class Data extends StoryData {
     contextPath,
     arcSite,
     defaultImgSize,
-    customFields
+    customFields,
   }) {
     super({
       data,
       deployment,
       contextPath,
       arcSite,
-      defaultImgSize
+      defaultImgSize,
     })
     this.customFields = customFields
   }
@@ -72,9 +70,7 @@ class Data extends StoryData {
   get isVideo() {
     let isVideoCustom = false
     let isVideoApi = false
-    const {
-      multimediaService
-    } = this.customFields
+    const { multimediaService } = this.customFields
     if (
       multimediaService === Data.YOUTUBE ||
       multimediaService === Data.GOLDFISH

@@ -10,9 +10,10 @@ const TripletChildTriplet = props => {
     multimediaOrientation = 'right',
   } = props
   const classes = {
-    triplet: 'triplet bg-white border-solid border-1 border-gray pl-20 pr-20',
+    triplet:
+      'triplet bg-white border-solid border-1 border-gray pl-20 pr-20 row-1 pt-10 pb-10',
     link: 'triplet__link text-lg',
-    item: `triplet__item grid border-b-1 border-solid border-gray triplet__item--${multimediaOrientation}`,
+    item: `triplet__item grid border-b-1 border-solid pt-10 pb-10 triplet__item--${multimediaOrientation}`,
     title: 'triplet__title overflow-hidden font-bold',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
