@@ -33,7 +33,7 @@ class ExtraordinaryStoryByUrl extends PureComponent {
 
   render() {
     const { deployment, contextPath, arcSite, customFields } = this.props
-    const { data } = this.state
+    const { data = {} } = this.state
     const formattedData = new Data({
       data,
       deployment,
