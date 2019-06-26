@@ -23,8 +23,8 @@
 
     &.active {
       .search-filter__link {
+        color: $color-white;
         @media (--desktop) {
-          color: $color-white;
           background-color: $color-primary;
           font-family: $primary-font;
         }
@@ -33,9 +33,9 @@
 
     &.selected {
       .search-filter__link {
+        outline: 0;
+        background-color: $color-tertiary;
         @media (--desktop) {
-          outline: 0;
-          background-color: $color-tertiary;
           color: $color-gray-300;
           font-family: $primary-font;
         }

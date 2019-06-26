@@ -2,7 +2,7 @@ import React from 'react'
 import CardMostReadItem from './item'
 
 const classes = {
-  mostRead: 'flex flex-col most-read lg:p-0 bg-white',
+  mostRead: 'flex flex-col most-read bg-white lg:p-0',
   title: `most-read__title flex flex-row items-center uppercase font-bold justify-between text-left pt-15 pb-15 pr-10 pl-10 text-white`,
   icon: 'most-read__icon icon-publimetro',
 }

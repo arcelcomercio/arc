@@ -8,7 +8,7 @@ const classes = {
   footerInfo: 'amp-footer__info m-0 mx-auto',
   footerLogoContainer:
     'amp-footer__text font-bold uppercase inline-block primary-font pr-25 text-xl line-h-xs',
-  nextPageSeparator: 'amp-footer__next-page-separator mx-auto',
+  nextPageSeparator: 'amp-footer__next-page-separator mx-auto w-full',
   nextPageSeparatorText:
     'amp-footer__next-page-separator-text text-center text-xs text-gray-200',
 }
@@ -43,7 +43,7 @@ class LayoutAmpFooter extends PureComponent {
           `{  
               "image":"${urlImage}",
               "title":"${basic}",
-              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp&_website=elcomercio"
+              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp&_website=${arcSite}"
             }`
         )
       }
@@ -54,21 +54,23 @@ class LayoutAmpFooter extends PureComponent {
       "hideSelectors": [
         ".amp-header",
         ".amp-nav__wrapper",
+        ".amp-nav",
         ".footer"
         ]
       }`
 
     return (
       <>
+        <div className={classes.nextPageSeparator} separator>
+          <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
+        </div>
         <amp-next-page>
           <script
             type="application/json"
             dangerouslySetInnerHTML={{ __html: structuredRecent }}
           />
-          <div className={classes.nextPageSeparator} separator>
-            <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
-          </div>
         </amp-next-page>
+
         <footer className={classes.footer}>
           <div className={classes.footerInfo}>
             <a
