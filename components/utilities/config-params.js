@@ -31,6 +31,8 @@ class ConfigParams {
   static ELEMENT_TYPE_CHARBEAT = 'Articulo Nota Simple'
 
   static COMSCORE_ID = '8429002'
+
+  static OPTA_WIDGET = 'https://assets.trome.pe/opta'
 }
 
 export default ConfigParams

@@ -13,7 +13,7 @@ import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryContentChildTags from './_children/tags'
 import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
-import { twitterHtml } from '../../../utilities/helpers'
+import { ampHtml } from '../../../utilities/helpers'
 import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
@@ -21,7 +21,7 @@ const classes = {
   textClasses:
     'amp-story-content__news-text text-lg mt-15 mb-25 secondary-font text-gray-300 text-xl line-h-md',
   author: 'amp-story-content__author mt-15 mb-15',
-  image: 'amp-story-content__image',
+  image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
   video: 'amp-story-content__video amp-active',
 }
@@ -69,6 +69,13 @@ class StoryContentAmp extends PureComponent {
                       subtype={subtype}
                       className={classes}
                     />
+                  )
+                }
+
+                if (type === ConfigParams.ELEMENT_RAW_HTML) {
+                  const { content } = element
+                  return (
+                    <RawHtml content={ampHtml(content)} rawHtmlClasses="" />
                   )
                 }
 
