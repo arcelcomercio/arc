@@ -89,6 +89,10 @@ $img-max-height: 355px;
     grid-area: extraordinary-story-multimedia;
     max-height: $img-max-height;
 
+    @media (--desktop) {
+      height: $img-max-height;
+    }
+
     & .powa {
       @media (--tablet) {
         height: $img-max-height;
