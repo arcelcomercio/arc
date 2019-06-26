@@ -11,45 +11,30 @@ const API_SIZE_DATA = 1
 class ExtraordinaryStoryBySection extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = { data: {} }
+
     this.isVideo = false
-  }
 
-  componentDidMount() {
     const {
-      globalContent,
-      customFields: { sectionName },
+      arcSite,
+      customFields: { sectionName, positionData },
     } = this.props
-    const { section_name: hasSection } = globalContent || {}
-
-    if (hasSection && (sectionName === '/' || sectionName === '')) {
-      this.setState({ data: globalContent || {} })
-    } else this.fetch()
+    this.fetchContent({
+      data: {
+        source: API_URL,
+        query: {
+          section: sectionName,
+          feedOffset: positionData || 0,
+          stories_qty: API_SIZE_DATA,
+        },
+        filter: schemaFilter(arcSite),
+      },
+    })
   }
 
   componentDidUpdate() {
     if (window.powaBoot && this.isVideo) {
       window.powaBoot()
     }
-  }
-
-  fetch() {
-    const {
-      arcSite,
-      customFields: { sectionName, positionData },
-    } = this.props
-    const { fetched } = this.getContent(
-      API_URL,
-      {
-        section: sectionName,
-        feedOffset: positionData || 0,
-        stories_qty: API_SIZE_DATA,
-      },
-      schemaFilter(arcSite)
-    )
-    fetched.then(response => {
-      this.setState({ data: response || {} })
-    })
   }
 
   render() {
