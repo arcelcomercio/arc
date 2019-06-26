@@ -38,9 +38,9 @@ class InfoPages extends PureComponent {
 
   getPolicyContent() {
     const {
+      arcSite,
       siteProperties: { infoPagesDev = {}, infoPagesProd = {} } = {},
       customFields: { typeOfPolicy } = {},
-      arcSite,
     } = this.props || {}
 
     const infoPagesEnv =

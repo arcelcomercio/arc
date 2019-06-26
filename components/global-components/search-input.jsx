@@ -1,3 +1,4 @@
+
 import React, { PureComponent } from 'react'
 
 const classes = {
@@ -16,21 +17,21 @@ class SearchInput extends PureComponent {
   // TODO: Agrega la nueva "query" a la URI
   _handleSearch = e => {
     e.preventDefault()
-    const { contextPath, globalContentConfig } = this.props
+    const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
     const { value } = this.inputSearch.current /* React ref del input */
 
     /* Sólo genera la URI si "query" tiene contenido */
     if (value !== '')
       // eslint-disable-next-line no-restricted-globals
-      location.href = `${contextPath}/buscar?query=${encodeURIComponent(
+      location.href = `/buscar/?query=${encodeURIComponent(
         value
       ).replace(/%20/g, '+')}&category=&sort=${sort || 'desc'}`
     /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
   }
 
   render() {
-    return (
+    return (  
       <div className={classes.container}>
         <form className={classes.form} onSubmit={this._handleSearch}>
           <button className={classes.button} type="submit" />
@@ -48,3 +49,4 @@ class SearchInput extends PureComponent {
 }
 
 export default SearchInput
+
