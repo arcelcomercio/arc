@@ -3,8 +3,8 @@ import customFieldsParent from '../../_dependencies/custom-fields'
 
 const customFieldsSection = {
   link: PropTypes.string.isRequired.tag({
-    name: 'SLUG',
-    description: 'URL sin dominio',
+    name: 'URL',
+    // description: 'URL sin dominio',
   }),
 }
 
