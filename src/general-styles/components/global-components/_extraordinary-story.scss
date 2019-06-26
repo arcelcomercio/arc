@@ -96,12 +96,6 @@ $img-max-height: 355px;
     max-height: $img-max-height;
   }
 
-  &__icon-gallery-container {
-    width: 80px;
-    height: 80px;
-    background-color: rgba(255, 255, 255, 0.24);
-  }
-
   &__author {
     @media (--desktop) {
       position: absolute;
@@ -113,6 +107,4 @@ $img-max-height: 355px;
       font-style: normal;
     }
   }
-
-  // &__icon-gallery {}
 }

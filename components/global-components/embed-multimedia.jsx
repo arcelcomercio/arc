@@ -7,6 +7,7 @@ const YOUTUBE = 'youtube'
 const IMAGE = 'image'
 
 const GOLDFISH_ENV = 'sandbox'
+const ORG_ID = 'elcomercio'
 
 const EmbedMultimedia = props => {
   const image = (url, { deployment, contextPath, website, title = '' }) => {
@@ -51,7 +52,7 @@ const EmbedMultimedia = props => {
         id={`powa-${multimediaSource}`}
         data-env={GOLDFISH_ENV}
         data-api={GOLDFISH_ENV}
-        data-org="elcomercio"
+        data-org={ORG_ID}
         data-uuid={multimediaSource}
         data-aspect-ratio="0.562"
         className="powa"
@@ -85,7 +86,6 @@ const EmbedMultimedia = props => {
         title,
         website,
       })}
-      <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
     </>
   )
 }

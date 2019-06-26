@@ -194,7 +194,8 @@ export const getMetaPagesPagination = (
         .match(patternPagination)[0]
         .split(`${isQuery ? '=' : '/'}`)[1],
         10
-      ) : 1,
+      ) :
+      1,
     next: false,
     prev: false,
   }
@@ -237,7 +238,7 @@ export const socialMediaUrlShareList = (
 
 export const createMarkup = html => {
   return {
-    __html: html,
+    __html: html.replace('@charset "UTF-8";', ''),
   }
 }
 
@@ -333,7 +334,6 @@ export const breadcrumbList = (url, siteUrl, contextPath) => {
   return arrayData.filter(String)
 }
 
-
 export const getUrlParameter = contentElements => {
   const loc = window.location.href
   const getString = loc.split('?')[1] || ''
@@ -348,7 +348,7 @@ export const getUrlParameter = contentElements => {
   return parseInt(String, tmp[1]) || 0
 }
 
-export const getMultimediaIcon = (multimediaType) => {
+export const getMultimediaIcon = multimediaType => {
   let icon = ''
   switch (multimediaType) {
     case ConfigParams.VIDEO:
@@ -361,5 +361,4 @@ export const getMultimediaIcon = (multimediaType) => {
       return ''
   }
   return icon
-
 }

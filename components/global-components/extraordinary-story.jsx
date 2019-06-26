@@ -1,6 +1,7 @@
 import React from 'react'
 import EmbedMultimedia from './embed-multimedia'
-import { getIcon } from '../utilities/helpers'
+import ConfigParams from '../utilities/config-params'
+import Icon from './multimedia-icon'
 
 const classes = {
   extraordinaryStory: `extraordinary-story bg-white grid border-gray`,
@@ -10,6 +11,7 @@ const classes = {
   content: 'extraordinary-story__content block pr-20 pl-20 position-relative',
   title:
     'extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-20',
+  titleLink: 'extraordinary-story__title-link',
   oneline: 'extraordinary-story--oneline',
   twoline: 'extraordinary-story--twoline',
   threeline: 'extraordinary-story--threeline',
@@ -20,25 +22,6 @@ const classes = {
   authorLink: 'extraordinary-story__author-link text-gray-200',
   multimedia:
     'extraordinary-story__multimedia h-full bg-gray-300 flex items-center justify-center position-relative',
-  iconGallery: 'position-absolute top-0 right-0 m-10',
-  iconGalleryContainer:
-    'extraordinary-story__icon-gallery-container flex items-center justify-center rounded',
-  icon: 'extraordinary-story__icon-gallery title-lg',
-  titleLink: 'extraordinary-story__title-link',
-}
-
-// TODO: retirar este getMultimediaIcon
-const getMultimediaIcon = mediaType => {
-  if (mediaType === 'G') {
-    return (
-      <span className={classes.iconGallery}>
-        <span className={classes.iconGalleryContainer}>
-          <i className={classes.icon}>{mediaType}</i>
-        </span>
-      </span>
-    )
-  }
-  return null
 }
 
 const ExtraordinaryStory = props => {
@@ -117,7 +100,9 @@ const ExtraordinaryStory = props => {
           contextPath={contextPath}
           website={arcSite}
         />
-        {getMultimediaIcon(getIcon(multimediaType))}
+        {multimediaType === ConfigParams.GALLERY && (
+          <Icon type={multimediaType} />
+        )}
       </div>
     </article>
   )

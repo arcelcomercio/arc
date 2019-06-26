@@ -32,7 +32,6 @@ class ExtraordinaryStoryBySection extends PureComponent {
   }
 
   componentDidUpdate() {
-    console.log('UPDATEEEE ---->', window.powaBoot)
     if (window.powaBoot && this.isVideo) {
       window.powaBoot()
     }
@@ -54,6 +53,7 @@ class ExtraordinaryStoryBySection extends PureComponent {
     this.isVideo = formattedData.isVideo
     const params = {
       data: formattedData,
+      multimediaType: formattedData.multimediaType,
       multimediaOrientation: formattedData.multimediaOrientation,
       contentOrientation: formattedData.contentOrientation,
       deployment,

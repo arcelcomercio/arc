@@ -242,8 +242,10 @@ class StoryData {
   }
 
   get recentList() {
-    const { recent_stories: { content_elements: contentElements } = {}, id } =
-      this._data || {}
+    const {
+      recent_stories: { content_elements: contentElements } = {},
+      _id: id,
+    } = this._data || {}
     return StoryData.recentList(contentElements, id)
   }
 
@@ -539,7 +541,7 @@ class StoryData {
             website_url: websiteUrl,
             _id: storyId,
           } = data
-          if (storyId !== id && i < 3) {
+          if (storyId !== id && i < 2) {
             const type = StoryData.getTypeMultimedia(data)
             const urlImage = StoryData.getThumbnail(data, type)
             i += 1
