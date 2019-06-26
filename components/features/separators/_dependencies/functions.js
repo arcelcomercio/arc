@@ -5,10 +5,16 @@ const STORIES_QTY_MOBILE = 1
 const SCREEN_MAX_SIZE_TABLET = 1023
 const SCREEN_MAX_SIZE_MOBILE = 639
 
-export const getStoriesQty = (isMobile, isTablet) => {
-  let storiesQty = STORIES_QTY_DESKTOP
-  if (isMobile) storiesQty = STORIES_QTY_MOBILE
-  else if (isTablet) storiesQty = STORIES_QTY_TABLET
+export const getStoriesQty = (
+  isMobile,
+  isTablet,
+  qtyDesktop = STORIES_QTY_DESKTOP,
+  qtyTablet = STORIES_QTY_TABLET,
+  qtyMobile = STORIES_QTY_MOBILE
+) => {
+  let storiesQty = qtyDesktop
+  if (isMobile) storiesQty = qtyMobile
+  else if (isTablet) storiesQty = qtyTablet
   return storiesQty
 }
 

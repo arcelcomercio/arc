@@ -62,7 +62,7 @@ class StoryData {
   }
 
   get tags() {
-    return (this._data.taxonomy && this._data.taxonomy.tags) || []
+    return (this._data && this._data.taxonomy && this._data.taxonomy.tags) || []
   }
 
   get subTitle() {
@@ -410,7 +410,7 @@ class StoryData {
   static getPrimarySection(data) {
     const {
       taxonomy: { primary_section: { name = '', path = '' } = {} } = {},
-    } = data
+    } = data || {}
 
     return {
       name,

@@ -42,6 +42,7 @@ const getMultimediaIcon = mediaType => {
   }
   return null
 }
+
 const ExtraordinaryStory = props => {
   const {
     data,
@@ -86,7 +87,9 @@ const ExtraordinaryStory = props => {
   // console.log('multiedia ---->', data.sourceMultimedia)
   return (
     <div
-      className={`${classes.extraordinaryStory} extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
+      className={`${
+        classes.extraordinaryStory
+      } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
       {!isSection && (
         <div className={classes.extraordinaryStorySection}>
           <a
