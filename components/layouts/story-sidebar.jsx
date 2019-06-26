@@ -15,35 +15,38 @@ const classes = {
 
 const StorySidebarLayout = ({ children = [] }) => {
   return (
-    <main className={classes.layout}>
-      <div role="complementary" className={classes.zocalo}>
-        {children[0] /* Zocalo izquierda */}
-      </div>
-      <div className={classes.contentContainer}>
-        {children[1] /* Publicidad Top */}
-        {children[2] /* Barra de navegación */}
-        {children[3] /* Cabecera de página */}
-        {children[4] && (
-          <div role="separator" className={classes.separator}>
-            {children[4]}
-          </div>
-        ) /* Separador */}
-        <section className={classes.content}>
-          <div role="banner" className={classes.heading}>
-            {children[5] /* Encabezado */}
-          </div>
-          <main className={classes.main}>{children[6] /* Contenido */}</main>
-          <aside className={classes.sidebar}>
-            {children[7] /* Barra lateral */}
-          </aside>
-          {children[8] /* Contenido adicional */}
-        </section>
-        {children[9] /* Pie de página */}
-      </div>
-      <div role="complementary" className={classes.zocalo}>
-        {children[10] /* Zocalo derecha */}
-      </div>
-    </main>
+    <>
+      <main className={classes.layout}>
+        <div role="complementary" className={classes.zocalo}>
+          {children[0] /* Zocalo izquierda */}
+        </div>
+        <div className={classes.contentContainer}>
+          {children[1] /* Publicidad Top */}
+          {children[2] /* Barra de navegación */}
+
+          {children[3] /* Cabecera de página */}
+          {children[4] && (
+            <div role="separator" className={classes.separator}>
+              {children[4]}
+            </div>
+          ) /* Separador */}
+          <section className={classes.content}>
+            <div role="banner" className={classes.heading}>
+              {children[5] /* Encabezado */}
+            </div>
+            <main className={classes.main}>{children[6] /* Contenido */}</main>
+            <aside className={classes.sidebar}>
+              {children[7] /* Barra lateral */}
+            </aside>
+            {children[8] /* Contenido adicional */}
+          </section>
+          {children[9] /* Pie de página */}
+        </div>
+        <div role="complementary" className={classes.zocalo}>
+          {children[10] /* Zocalo derecha */}
+        </div>
+      </main>
+    </>
   )
 }
 
