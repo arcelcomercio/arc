@@ -8,6 +8,7 @@ const classes = {
     'movies-filter__title-box mb-20 flex-col-reverse flex justify-between',
   title: 'movies-filter__title flex items-center position-relative',
   social: 'flex mb-20',
+  // TODO: cambiar forma en la que se llaman íconos con nuevo componente
   facebook: 'icon icon--facebook icon--margin-right',
   twitter: 'icon icon--twitter',
   filter:

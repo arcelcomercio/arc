@@ -1,4 +1,5 @@
-// apertura-extraordinaria
+$img-max-height: 355px;
+
 @mixin topMultimedia() {
   grid-template-areas:
     'extraordinary-story-multimedia extraordinary-story-multimedia'
@@ -32,11 +33,7 @@
         'extraordinary-story-multimedia extraordinary-story-section'
         'extraordinary-story-multimedia extraordinary-story-content';
       grid-template-rows: auto 1fr;
-      grid-template-columns: 582px auto;
-    }
-
-    img {
-      height: 100%;
+      grid-template-columns: 1fr 40%;
     }
   }
 
@@ -48,18 +45,12 @@
         'extraordinary-story-section extraordinary-story-multimedia'
         'extraordinary-story-content extraordinary-story-multimedia';
       grid-template-rows: auto 1fr;
-      grid-template-columns: auto 582px;
-    }
-
-    img {
-      height: 100%;
+      grid-template-columns: 40% 1fr;
     }
   }
 
   &__section {
-    padding: 8px;
     grid-area: extraordinary-story-section;
-    //height: 15px;
   }
 
   &__title {
@@ -68,50 +59,62 @@
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
   }
+
   &__subtitle {
     -webkit-line-clamp: 3;
-    max-height: 76px;
+    max-height: 70px;
     display: -webkit-box;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
     overflow: hidden;
   }
-  &-oneline {
+
+  &--oneline {
     -webkit-line-clamp: 1;
     max-height: 45px;
   }
 
-  &-twoline {
+  &--twoline {
     -webkit-line-clamp: 2;
     max-height: 77px;
   }
 
-  &-threeline {
+  &--threeline {
     -webkit-line-clamp: 3;
     max-height: 145px;
   }
 
   &__multimedia {
     grid-area: extraordinary-story-multimedia;
-    height: 355px;
+    max-height: $img-max-height;
 
-    .youtube-iframe {
-      min-height: 370px;
+    @media (--desktop) {
+      height: $img-max-height;
+    }
+
+    & .powa {
+      @media (--tablet) {
+        height: $img-max-height;
+        padding-bottom: 0 !important;
+      }
     }
   }
 
-  &__icon-gallery-container {
-    width: 80px;
-    height: 80px;
-    background-color: rgba(255, 255, 255, 0.24);
+  .youtube-iframe {
+    height: 50vw;
+    max-height: $img-max-height;
   }
+
   &__author {
     @media (--desktop) {
       position: absolute;
       bottom: 0;
       left: 20px;
     }
+
+    &-link {
+      font-style: normal;
+    }
   }
-  // &__icon-gallery {}
 }

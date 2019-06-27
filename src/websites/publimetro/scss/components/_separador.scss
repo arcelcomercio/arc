@@ -1,5 +1,5 @@
 .separator {
-  border-top: 2px solid $color-primary;
+  border-top-color: $color-primary;
   &__item {
     &::before {
       background: linear-gradient(

@@ -1,27 +1,10 @@
 .icon {
-  width: 16px;
-  height: 16px;
-  background-size: cover;
 
-  /*   &--search {
-    background-image: url('../images/icon-search.svg');
-  }
-
-  &--menu {
-    background-image: url('../images/icon-menu.svg');
-  }
-
-  &--login {
-    background-image: url('../images/icon-user.svg');
-  }
-
-  &--fire {
-    background-image: url('../images/icon-fire.svg');
-  } */
   &--facebook {
     display: block;
     width: 32px;
     height: 32px;
+    background-size: cover;
     background-image: url('http://www.sccpre.cat/png/big/101/1016178_facebook-logo-icon-png.jpg');
   }
 
@@ -29,6 +12,7 @@
     display: block;
     width: 32px;
     height: 32px;
+    background-size: cover;
     background-image: url('http://www.stickpng.com/assets/images/58e9196deb97430e819064f6.png');
   }
 
