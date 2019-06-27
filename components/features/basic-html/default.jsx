@@ -13,6 +13,8 @@ import {
 class BasicHtml extends PureComponent {
   componentDidMount() {
     const { customFields: { freeHtml = '' } = {} } = this.props
+
+    // TODO: separar en funciones puras
     if (freeHtml) {
       const contentTwitter = freeHtml.includes('https://twitter.com')
       if (contentTwitter) {
