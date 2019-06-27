@@ -10,9 +10,10 @@ const TripletChildTriplet = props => {
     multimediaOrientation = 'right',
   } = props
   const classes = {
-    triplet: 'triplet bg-white border-solid border-1 border-gray pl-20 pr-20',
+    triplet:
+      'triplet bg-white border-solid border-1 border-gray pl-20 pr-20 row-1 pt-10 pb-10',
     link: 'triplet__link text-lg',
-    item: `triplet__item grid border-b-1 border-solid border-gray triplet__item--${multimediaOrientation}`,
+    item: `triplet__item grid border-b-1 border-solid pt-10 pb-10 triplet__item--${multimediaOrientation}`,
     title: 'triplet__title overflow-hidden font-bold',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
@@ -40,9 +41,12 @@ const TripletChildTriplet = props => {
   }
 
   return (
-    <div className={classes.triplet}>
+    <div role="list" className={classes.triplet}>
       {data.map((story, index) => (
-        <article className={classes.item} key={`triplet-${story.index}`}>
+        <article
+          className={classes.item}
+          role="listitem"
+          key={`triplet-${story.index}`}>
           <div className={`${classes.title} ${numline}`}>
             <h2>
               <a
@@ -70,11 +74,11 @@ const TripletChildTriplet = props => {
               )}
             </a>
           </figure>
-          <div className={classes.author}>
+          <address className={classes.author}>
             <a className={classes.authorLink} href={story.authorOrSectionLink}>
               {story.authorOrSection}
             </a>
-          </div>
+          </address>
         </article>
       ))}
     </div>

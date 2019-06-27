@@ -3,9 +3,8 @@ import customFieldsParent from '../../_dependencies/custom-fields'
 
 const customFieldsSection = {
   sectionName: PropTypes.string.tag({
-    name: 'SLUG',
-    description: 'seccion o content path',
-    hidden: false,
+    name: 'URL de sección',
+    description: 'Ejemplo: /politica',
   }),
   positionData: PropTypes.number.tag({
     name: 'Posición inicial ',
@@ -14,7 +13,6 @@ const customFieldsSection = {
     max: 100,
     step: 1,
     defaultValue: 0,
-    hidden: false,
   }),
 }
 

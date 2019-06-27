@@ -21,7 +21,6 @@ class StoryHeaderAmp extends PureComponent {
       currentList: this.firstList,
     }
     const {
-      contextPath,
       siteProperties: {
         siteUrl,
         fbAppId,
