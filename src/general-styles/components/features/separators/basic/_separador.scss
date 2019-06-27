@@ -9,10 +9,6 @@
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
     line-height: 0.6;
-
-    @media (--desktop) {
-      max-height: 55px;
-    }
   }
 
   &__header-title {
@@ -47,16 +43,15 @@
       height: 100%;
       bottom: 0;
       left: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0) 50%,
-        rgba(50, 50, 50, 0.7) 100%
-      );
+      background: linear-gradient(to bottom,
+          rgba(255, 255, 255, 0) 50%,
+          rgba(50, 50, 50, 0.7) 100%);
     }
 
     @media (--tablet) {
       height: 161px;
     }
+
     &--nota {
       &::before {
         background: none;
@@ -94,7 +89,7 @@
   }
 
   &__threeline {
-    max-height: 50px;
+    max-height: 57.63px;
     -webkit-line-clamp: 3;
   }
 

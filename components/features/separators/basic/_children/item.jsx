@@ -3,7 +3,7 @@ import React from 'react'
 const classes = {
   item: 'separator__item w-full h-full p-0 position-relative',
   detail: 'separator__detail position-absolute bottom-0 pr-10 pl-10',
-  separatorTitle: 'separator__title overflow-hidden ',
+  separatorTitle: 'separator__title overflow-hidden text-white text-md',
   separatorLink: `separator__title-link text-md line-h-sm text-white`,
   mvideo: 'separator--video',
   figure: 'p-0 m-0 w-full h-full',
