@@ -48,6 +48,7 @@ const ListItemNews = (contentElements, buildProps) => {
         author: storydata.author,
         paragraphsNews: storydata.paragraphsNews,
         fbArticleStyle,
+        urlAddfbInstantArticle
       }
 
       const htmlString = BuildHtml(BuildHtmlProps)

@@ -19,7 +19,7 @@ const buildParagraph = ({
   const newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
-  let resultParagraph =''
+  let resultParagraph = ''
 
   paragraphsNews.forEach((parrrafo, index) => {
     if (index <= 1) {
@@ -30,31 +30,32 @@ const buildParagraph = ({
             ? buildIframeAdvertising(urlSite, arrayadvertising[IndexAdd])
             : ''
         }`)
-        IndexAdd++
+        IndexAdd += 1
       } else {
         newsWithAdd.push(`<p>${parrrafo.trim()}</p>`)
       }
     } else {
       let parrafoConPublicidad = ''
       parrrafo.split(' ').forEach(palabra => {
-        countWords++
+        countWords += 1
+        let wordsTemplate = palabra
         if (countWords === numwords) {
           countWords = 0
-          palabra += ` ${
+          wordsTemplate += ` ${
             arrayadvertising[IndexAdd]
               ? buildIframeAdvertising(urlSite, arrayadvertising[IndexAdd])
               : ''
           }`
-          IndexAdd++
+          IndexAdd += 1
         }
-        parrafoConPublicidad += `${palabra} `
+        parrafoConPublicidad += `${wordsTemplate} `
       })
       parrafoConPublicidad = `<p>${parrafoConPublicidad.trim()}</p>`
       newsWithAdd.push(parrafoConPublicidad)
     }
   })
 
-  resultParagraph = newsWithAdd.map(item =>(item)).join("")
+  resultParagraph = newsWithAdd.map(item => item).join('')
   return resultParagraph
 }
 
@@ -68,18 +69,16 @@ const BuildHtml = BuildHtmlProps => {
     paragraphsNews = [],
     author = '',
     fbArticleStyle = '',
+    urlAddfbInstantArticle = '',
   } = BuildHtmlProps
 
   const numwords = 250
 
-  const urlSite = 'https://img.elcomercio.pe'
-
-  
   const paramsBuildParagraph = {
     paragraphsNews,
     numwords,
     arrayadvertising: ListAdvertisings(),
-    urlSite,
+    urlSite: urlAddfbInstantArticle,
   }
 
   const element = `
