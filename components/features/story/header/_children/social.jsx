@@ -65,7 +65,7 @@ class StoryHeaderChildSocial extends PureComponent {
         {
           icon: 'icon-ribbon',
           link: urlsShareList.pin,
-          mobileClass: 'flex justify-center',
+          mobileClass: 'block md:hidden flex justify-center',
         },
       ],
     }
