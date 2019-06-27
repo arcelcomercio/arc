@@ -91,7 +91,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
   }
 
   render() {
-    const { dataSlider, sliderWidth, slideWidth, position } = this.state
+    const { dataSlider = [], sliderWidth, slideWidth, position } = this.state
 
     const sliderStyle = {
       width: `${sliderWidth}%`,
@@ -100,63 +100,64 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     const slideStyle = {
       width: `${slideWidth}%`,
     }
-
     return (
-      <section className={classes.elementsSlider} id="story-galery">
-        <div
-          role="slider"
-          aria-valuenow={dataSlider.length}
-          aria-valuemin="1"
-          aria-valuemax="10"
-          className={classes.body}>
-          {dataSlider && (
-            <>
-              <ul style={sliderStyle} className={classes.content}>
-                {dataSlider.map((element, i) => (
-                  <li
-                    key={element._id}
-                    style={slideStyle}
-                    className={classes.element}>
-                    <figure>
-                      <img
-                        src={element.resized_urls ? '' : element.url}
-                        alt={element.subtitle}
-                        className={classes.image}
-                      />
-                      <figcaption className={classes.caption}>
-                        <span className={classes.quantity}>
-                          {i + 1}/{dataSlider.length}
-                        </span>
-                        <p className={classes.captionImage}>
-                          {element.subtitle}
-                        </p>
-                      </figcaption>
-                    </figure>
-                  </li>
-                ))}
-              </ul>
-              {dataSlider && dataSlider.length > 1 && (
-                <div role="navigation" className={classes.arrowsBox}>
-                  <i
-                    role="button"
-                    tabIndex="0"
-                    className={classes.leftArrow}
-                    onClick={this._handlePrev}
-                    onKeyDown={this._controlKeys}
-                  />
-                  <i
-                    role="button"
-                    tabIndex="0"
-                    className={classes.rightArrow}
-                    onClick={this._handleNext}
-                    onKeyDown={this._controlKeys}
-                  />
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </section>
+      <>
+        {dataSlider.length > 0 && (
+          <section className={classes.elementsSlider} id="story-galery">
+            <div
+              role="slider"
+              aria-valuenow={dataSlider.length}
+              aria-valuemin="1"
+              aria-valuemax="10"
+              className={classes.body}>
+              <>
+                <ul style={sliderStyle} className={classes.content}>
+                  {dataSlider.map((element, i) => (
+                    <li
+                      key={element._id}
+                      style={slideStyle}
+                      className={classes.element}>
+                      <figure>
+                        <img
+                          src={element.resized_urls ? '' : element.url}
+                          alt={element.subtitle}
+                          className={classes.image}
+                        />
+                        <figcaption className={classes.caption}>
+                          <span className={classes.quantity}>
+                            {i + 1}/{dataSlider.length}
+                          </span>
+                          <p className={classes.captionImage}>
+                            {element.subtitle}
+                          </p>
+                        </figcaption>
+                      </figure>
+                    </li>
+                  ))}
+                </ul>
+                {dataSlider && dataSlider.length > 1 && (
+                  <div role="navigation" className={classes.arrowsBox}>
+                    <i
+                      role="button"
+                      tabIndex="0"
+                      className={classes.leftArrow}
+                      onClick={this._handlePrev}
+                      onKeyDown={this._controlKeys}
+                    />
+                    <i
+                      role="button"
+                      tabIndex="0"
+                      className={classes.rightArrow}
+                      onClick={this._handleNext}
+                      onKeyDown={this._controlKeys}
+                    />
+                  </div>
+                )}
+              </>
+            </div>
+          </section>
+        )}
+      </>
     )
   }
 }

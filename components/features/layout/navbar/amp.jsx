@@ -57,7 +57,7 @@ class LayoutNavbar extends PureComponent {
   }
 
   render() {
-    return this.renderNavBar()
+    return ''
   }
 }
 

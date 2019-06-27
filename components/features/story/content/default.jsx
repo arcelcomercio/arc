@@ -38,11 +38,6 @@ const classes = {
   relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
 }
 
-const OPTA_CSS_LINK =
-  'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
-const OPTA_JS_LINK =
-  'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js'
-
 @Consumer
 class StoryContent extends PureComponent {
   handleOptaWidget = ({ id, css, js, defer }) => {
@@ -82,14 +77,23 @@ class StoryContent extends PureComponent {
       related_content: { basic: relatedContent } = {},
     } = globalContent || {}
 
+    const structuredTaboola = `
+      window._taboola = window._taboola || [];
+      _taboola.push({
+      mode: 'thumbnails-a',
+      container: 'taboola-below-content-thumbnails',
+      placement: 'Below Content Thumbnails',
+      target_type: 'mix'
+      });`
     return (
       <div className={classes.news}>
         {promoItems && <StoryContentChildMultimedia data={promoItems} />}
         {author && <StoryContentChildAuthor data={author} date={date} />}
+        <div id="ads_d_inline" />
+        <div id="ads_m_movil_video" />
+        <div id="ads_m_movil3" />
+        <div id="ads_m_movil2" />
         <div className={classes.content}>
-          <div id="ads_d_inline" />
-          <div id="ads_m_movil_video" />
-          <div id="ads_m_movil3" />
           <StoryContentChildIcon />
           {contentElements && (
             <ArcStoryContent
@@ -151,8 +155,8 @@ class StoryContent extends PureComponent {
                   if (content.includes('opta-widget'))
                     this.handleOptaWidget({
                       id: opta,
-                      css: OPTA_CSS_LINK,
-                      js: OPTA_JS_LINK,
+                      css: ConfigParams.OPTA_CSS_LINK,
+                      js: ConfigParams.OPTA_JS_LINK,
                       defer: true,
                     })
                   return <RawHtml rawHtmlClasses="" />
@@ -162,6 +166,8 @@ class StoryContent extends PureComponent {
             />
           )}
         </div>
+
+        <div id="ads_m_movil4" />
 
         <StoryContentChildTags
           data={tags}
@@ -189,6 +195,12 @@ class StoryContent extends PureComponent {
             })}
           </div>
         )}
+
+        <div id="taboola-below-content-thumbnails" />
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{ __html: structuredTaboola }}
+        />
       </div>
     )
   }
