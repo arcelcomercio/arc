@@ -38,7 +38,7 @@
         margin: 0 0 10px 0;
       }
       &__text {
-        font-family: $newsletter-suscription-font;
+        font-family: $primary-font;
         font-size: 12px;
         font-weight: 700;
       }
@@ -60,7 +60,7 @@
       &__menu-link {
         font-size: 12px;
         display: block;
-        font-family: $newsletter-suscription-font;
+        font-family: $primary-font;
         color: $signwall-text-menu-color-secondary;
         &:hover {
           text-decoration: none;
