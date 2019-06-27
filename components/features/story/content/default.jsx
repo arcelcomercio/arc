@@ -87,6 +87,9 @@ class StoryContent extends PureComponent {
         {promoItems && <StoryContentChildMultimedia data={promoItems} />}
         {author && <StoryContentChildAuthor data={author} date={date} />}
         <div className={classes.content}>
+          <div id="ads_d_inline" />
+          <div id="ads_m_movil_video" />
+          <div id="ads_m_movil3" />
           <StoryContentChildIcon />
           {contentElements && (
             <ArcStoryContent
@@ -165,6 +168,8 @@ class StoryContent extends PureComponent {
           className={classes.tags}
           contextPath={contextPath}
         />
+        <div id="ads_d_left" />
+        <div id="ads_d_recomendador" />
 
         {relatedContent && relatedContent.length > 0 && (
           <div role="list" className={classes.relatedList}>

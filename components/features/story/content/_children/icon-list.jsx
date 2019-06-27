@@ -12,8 +12,10 @@ const classes = {
   list: 'story-content__list',
   item: 'story-content__item mb-20',
   link: 'story-content__link text-gray-200',
-  more: 'story-content__list-more flex hidden',
-  moreList: 'story-content__list ',
+  more: 'story-content__list-more bg-white position-absolute flex hidden',
+  moreList: 'story-content__list  ',
+  moreItem: 'story-content__item mb-10 mt-10 mr-10',
+  icon: 'title-md',
 }
 @Consumer
 class StoryContentChildIcon extends PureComponent {
@@ -153,7 +155,9 @@ class StoryContentChildIcon extends PureComponent {
                     {item.more.map((element, ii) => (
                       <li
                         key={UtilListKey(ii)}
-                        className={` ${classes.item} ${element.mobileClass}`}>
+                        className={` ${classes.moreItem} ${
+                          element.mobileClass
+                        }`}>
                         <a
                           className={classes.moreLink}
                           href={element.link}
