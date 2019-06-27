@@ -18,6 +18,7 @@ const classes = {
   moreItem: 'story-content__item',
   icon: 'title-md',
   moreLink: 'story-content__more-link',
+  mobileClass: 'flex justify-center',
 }
 @Consumer
 class StoryContentChildIcon extends PureComponent {
@@ -72,12 +73,12 @@ class StoryContentChildIcon extends PureComponent {
             {
               icon: 'icon-facebook-circle',
               link: urlsShareList.facebook,
-              mobileClass: 'flex justify-center',
+              mobileClass: classes.mobileClass,
             },
             {
               icon: 'icon-twitter-circle',
               link: urlsShareList.twitter,
-              mobileClass: ' flex justify-center',
+              mobileClass: classes.mobileClass,
             },
           ],
         },

@@ -15,6 +15,7 @@ const classes = {
   link: 'story-header__link flex items-center justify-center text-gray-200',
   icon: 'story-header__icon title-xl',
   list: 'story-header__list flex justify-between',
+  mobileClass: 'flex justify-center',
 }
 @Consumer
 class StoryHeaderChildSocial extends PureComponent {
@@ -49,23 +50,23 @@ class StoryHeaderChildSocial extends PureComponent {
         {
           icon: 'icon-facebook-circle',
           link: urlsShareList.facebook,
-          mobileClass: 'flex justify-center',
+          mobileClass: classes.mobileClass,
         },
 
         {
           icon: 'icon-twitter-circle',
           link: urlsShareList.twitter,
-          mobileClass: 'flex justify-center',
+          mobileClass: classes.mobileClass,
         },
         {
           icon: 'icon-linkedin-circle',
           link: urlsShareList.linkedin,
-          mobileClass: 'flex justify-center',
+          mobileClass: classes.mobileClass,
         },
         {
           icon: 'icon-ribbon',
           link: urlsShareList.pin,
-          mobileClass: 'block md:hidden flex justify-center',
+          mobileClass: `block md:hidden ${classes.mobileClass}`,
         },
       ],
     }
