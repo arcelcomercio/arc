@@ -11,52 +11,35 @@ const API_SIZE_DATA = 1
 class ExtraordinaryStoryBySection extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = { data: {} }
-    this.isVideo = false
-  }
 
-  componentDidMount() {
-    const {
-      globalContent,
-      customFields: { sectionName },
-    } = this.props
-    const { section_name: hasSection } = globalContent || {}
+    // this.isVideo = false
 
-    if (hasSection && (sectionName === '/' || sectionName === '')) {
-      this.setState({ data: globalContent || {} })
-    } else this.fetch()
-  }
-
-  componentDidUpdate() {
-    if (window.powaBoot && this.isVideo) {
-      window.powaBoot()
-    }
-  }
-
-  fetch() {
     const {
       arcSite,
       customFields: { sectionName, positionData },
     } = this.props
-    const { fetched } = this.getContent(
-      API_URL,
-      {
-        section: sectionName,
-        feedOffset: positionData || 0,
-        stories_qty: API_SIZE_DATA,
+    this.fetchContent({
+      data: {
+        source: API_URL,
+        query: {
+          section: sectionName,
+          feedOffset: positionData || 0,
+          stories_qty: API_SIZE_DATA,
+        },
+        filter: schemaFilter(arcSite),
       },
-      schemaFilter(arcSite)
-    )
-    fetched.then(response => {
-      this.setState({ data: response || {} })
     })
+  }
+
+  componentDidMount() {
+    if (window.powaBoot) {
+      window.powaBoot()
+    }
   }
 
   render() {
     const { deployment, contextPath, arcSite, customFields } = this.props
-    const {
-      data: { content_elements: contentElements = [] },
-    } = this.state
+    const { data: { content_elements: contentElements = [] } = {} } = this.state
     const data =
       contentElements && contentElements.length > 0 ? contentElements[0] : {}
     const formattedData = new Data({
@@ -67,9 +50,10 @@ class ExtraordinaryStoryBySection extends PureComponent {
       customFields,
       defaultImgSize: 'md',
     })
-    this.isVideo = formattedData.isVideo
+    // this.isVideo = formattedData.isVideo
     const params = {
       data: formattedData,
+      multimediaType: formattedData.multimediaType,
       multimediaOrientation: formattedData.multimediaOrientation,
       contentOrientation: formattedData.contentOrientation,
       deployment,
