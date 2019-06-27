@@ -3,9 +3,10 @@ import { formatDate } from '../../../../utilities/helpers'
 
 const classes = {
   author: 'flex justify-between pt-30 mb-20',
-  authorName: '',
+  authorName: ' ',
+  authorNameLink: 'secondary-font text-sm text-gray-200 line-h-sm',
   authorDate: 'text-xs flex items-center ',
-  authorEmail: 'text-sm',
+  authorEmail: 'secondary-font text-sm text-gray-200',
 }
 
 const StoryContentChildAuthor = props => {
@@ -20,7 +21,11 @@ const StoryContentChildAuthor = props => {
   return (
     <div className={classes.author}>
       <div className={classes.authorName}>
-        {name && <a href={url}>{name} </a>}
+        {name && (
+          <a href={url} className={classes.authorNameLink}>
+            {name}{' '}
+          </a>
+        )}
         {email && <p className={classes.authorEmail}> {email} </p>}
       </div>
       <div className={classes.authorDate}>
