@@ -1,0 +1,42 @@
+.signwall {
+  * {
+    .footer {
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      bottom: 0;
+      height: 75px;
+      font-family: $secondary-font;
+      color: white;
+      @media #{$tablet} {
+        height: 69px;
+      }
+      @media #{$desktop} {
+        height: 42px;
+        flex-direction: row;
+      }
+      &__text {
+        font-size: 12px;
+        margin: 0 0 12px;
+        @media #{$desktop} {
+          margin: 0 10px 0 0;
+        }
+      }
+      &__logo {
+        display: flex;
+        svg {
+          margin: 0 10px;
+        }
+      }
+      &.right {
+        @media #{$desktop} {
+          justify-content: flex-end;
+          padding-right: 35px;
+        }
+      }
+    }
+  }
+}

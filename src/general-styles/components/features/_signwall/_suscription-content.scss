@@ -1,0 +1,78 @@
+.signwall {
+  * {
+    .suscription-content {
+      background-color: #333333;
+      color: #fff;
+      min-height: 58px;
+      border-radius: 6px;
+      background-size: 100%;
+      padding: 20px;
+      @media #{$tablet} {
+        padding: 22px;
+        text-align: center;
+      }
+      &__detail {
+        display: inline-block;
+        @media #{$tablet} {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+      &__title {
+        text-align: center;
+        @media #{$tablet} {
+          width: 28%;
+        }
+      }
+      &__add {
+        width: 80%;
+        margin: 0 auto;
+        @media #{$tablet} {
+          background: #008eff;
+          -webkit-appearance: none;
+          color: white;
+          text-transform: uppercase;
+          text-align: center;
+          border: 0px;
+          width: 35%;
+          padding: 14px 0px;
+          font-size: 14px;
+          border-radius: 10px;
+          outline: none;
+          cursor: pointer;
+          bottom: 0px;
+        }
+      }
+      &__sub {
+        font-size: 16px;
+        padding-bottom: 8px;
+      }
+      &__price {
+        font-size: 12px;
+      }
+      &__note {
+        padding-top: 20px;
+        font-size: 12px;
+        margin: 0;
+        @media #{$tablet} {
+          padding: 12px 0 0;
+          font-size: 12px;
+          text-align: left;
+        }
+      }
+      &__icon {
+        display: flex;
+        padding: 10px 0;
+        justify-content: center;
+        & .icon-newsletter,
+        & .icon-laptop {
+          width: 30%;
+          @media #{$tablet} {
+            padding: 14px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -9,6 +9,23 @@
 @import './global-components/story-item';
 @import './global-components/story-table';
 /******* Features *******/
+@import './features/signwall/_benefits';
+@import './features/signwall/_button';
+@import './features/signwall/_card-newsletter';
+@import './features/signwall/_check-container';
+@import './features/signwall/_footer';
+@import './features/signwall/_form-desactive';
+@import './features/signwall/_form-grid';
+@import './features/signwall/_form-group';
+@import './features/signwall/_header';
+@import './features/signwall/_message';
+@import './features/signwall/_modal-body';
+@import './features/signwall/_modal';
+@import './features/signwall/_old-utils';
+@import './features/signwall/_password-security';
+@import './features/signwall/_profile-account';
+@import './features/signwall/_row-pass';
+@import './features/signwall/_suscription-content';
 @import './features/ads/ads';
 @import './features/blog/author-details/author-details';
 @import './features/blog/author-list/post-item';
