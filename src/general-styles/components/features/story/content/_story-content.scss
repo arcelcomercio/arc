@@ -74,22 +74,6 @@
     }
   }
 
-  /******* Autor *******/
-  &__author {
-    margin-bottom: 20px;
-    padding-top: 30px;
-  }
-
-  /*  Verificar si realmente se utilizan estas clases  */
-
-  /*  &__author-email {
-    font-size: $font-sm;
-  }
-
-  &__author-date {
-    font-size: 12px;
-  } */
-
   &__icon-list {
     margin-right: -49px;
   }
@@ -102,10 +86,51 @@
   }
 
   &__list-more {
-    margin: -41px 0px 0px -77px;
+    width: 80px;
+    right: 50px;
+    box-shadow: 2px 6px 7px rgba(25, 57, 22, 0.2);
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 0;
+      box-shadow: 4px -1px 3px rgba(25, 57, 22, 0.2);
+      background-color: $color-white;
+      transform: rotate(45deg);
+      z-index: -1;
+      right: -6px;
+      top: calc(50% - 8px);
+    }
   }
 
   &__tags-link {
     font-size: 14px;
+  }
+  &__more-link {
+    &:hover {
+      text-decoration: none;
+    }
+    .icon-facebook-circle {
+      color: #3b5998;
+    }
+    .icon-twitter-circle {
+      color: #00acee;
+    }
+  }
+  .powa-shot-play-icon,
+  .powa-shot-loading-icon {
+    font-family: 'icomoon';
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+  }
+  .powa-shot-play-icon {
+    &::before {
+      content: '\e906';
+    }
+    &:hover {
+      color: $color-white;
+    }
   }
 }

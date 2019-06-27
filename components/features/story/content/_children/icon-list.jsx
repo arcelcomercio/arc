@@ -10,12 +10,14 @@ const classes = {
   news:
     'story-content__icon-list hidden md:block md:pt-20 md:pb-0 md:pr-20 md:pl-20',
   list: 'story-content__list',
-  item: 'story-content__item mb-20',
+  item: 'story-content__item mb-20 position-relative',
   link: 'story-content__link text-gray-200',
-  more: 'story-content__list-more bg-white position-absolute flex hidden',
-  moreList: 'story-content__list  ',
-  moreItem: 'story-content__item mb-10 mt-10 mr-10',
+  more:
+    'story-content__list-more bg-white position-absolute flex hidden top-0 justify-between p-10',
+  moreList: 'story-content__list',
+  moreItem: 'story-content__item',
   icon: 'title-md',
+  moreLink: 'story-content__more-link',
 }
 @Consumer
 class StoryContentChildIcon extends PureComponent {
@@ -68,14 +70,14 @@ class StoryContentChildIcon extends PureComponent {
           mobileClass: '',
           more: [
             {
-              icon: 'icon-facebook',
+              icon: 'icon-facebook-circle',
               link: urlsShareList.facebook,
               mobileClass: 'flex justify-center',
             },
             {
-              icon: 'icon-twitter',
+              icon: 'icon-twitter-circle',
               link: urlsShareList.twitter,
-              mobileClass: 'flex justify-center',
+              mobileClass: ' flex justify-center',
             },
           ],
         },

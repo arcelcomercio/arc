@@ -8,7 +8,7 @@ import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
   news:
-    'story-header__share flex items-center justify-between mb-20 p-20 border-b-1 border-t-1 border-solid border-gray',
+    'story-header__share flex items-center justify-between mb-20 p-20 border-b-1 border-t-1 border-solid border-base',
   breadcrumb: '',
   item: 'story-header__item',
   category: 'text-gray-300 text-xl uppercase',
@@ -47,13 +47,13 @@ class StoryHeaderChildSocial extends PureComponent {
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'icon-facebook',
+          icon: 'icon-facebook-circle',
           link: urlsShareList.facebook,
           mobileClass: 'flex justify-center',
         },
 
         {
-          icon: 'icon-twitter',
+          icon: 'icon-twitter-circle',
           link: urlsShareList.twitter,
           mobileClass: 'flex justify-center',
         },

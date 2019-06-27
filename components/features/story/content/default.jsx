@@ -25,7 +25,7 @@ import StoryContentChildIcon from './_children/icon-list'
 import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
-  news: 'story-content w-full pr-20',
+  news: 'story-content w-full pr-20 pl-20',
   content: 'story-content__content position-relative flex flex-row-reverse',
   textClasses:
     'story-content__font--secondary mb-25 title-xs line-h-md mt-20 secondary-font',
