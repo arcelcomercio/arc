@@ -52,7 +52,8 @@ Ads.propTypes = {
     isMobile: PropTypes.bool.tag({ name: 'Mostrar en "Mobile"' }),
     freeHtml: PropTypes.richtext.tag({
       name: 'Código HTML Adicional',
-      group:
+      group: 'Agregar bloque de HTML',
+      description:
         'HTML a renderizar en el espacio disponible junto al módulo de publicidad.',
     }),
     columns: PropTypes.oneOf(['w-full', 'col-1', 'col-2', 'col-3']).tag({
