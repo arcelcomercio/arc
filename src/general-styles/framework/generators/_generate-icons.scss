@@ -27,6 +27,8 @@ $map-icons: (img: $img,
   publimetro: $publimetro,
   left: $left,
   right: $right,
+  facebook-circle: $facebook-circle,
+  twitter-circle: $twitter-circle,
 ) !default;
 
 @mixin generate-icons() {

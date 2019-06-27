@@ -2,11 +2,12 @@ import React from 'react'
 import { formatDate } from '../../../../utilities/helpers'
 
 const classes = {
-  author: 'flex justify-between pt-30 mb-20',
+  author: 'story-content__author flex justify-between pt-30 mb-20',
   authorName: ' ',
   authorNameLink: 'secondary-font text-sm text-gray-200 line-h-sm',
-  authorDate: 'text-xs flex items-center ',
-  authorEmail: 'secondary-font text-sm text-gray-200',
+  authorDate:
+    'flex items-center secondary-font text-sm text-gray-200 line-h-sm',
+  authorEmail: 'secondary-font text-sm text-gray-200 line-h-sm',
 }
 
 const StoryContentChildAuthor = props => {
