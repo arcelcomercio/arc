@@ -5,7 +5,7 @@
       display: flex;
       flex-direction: column;
       background: white;
-      @media #{$desktop} {
+      @media (--desktop) {
         // height: calc(100vh - 100px);
         flex-direction: row;
       }
@@ -19,12 +19,12 @@
         display: flex;
         justify-content: space-between;
         padding: 14px 25px 0;
-        @media #{$tablet} {
+        @media (--tablet) {
           flex-direction: column-reverse;
           padding: 70px 34px 34px;
           margin: 120px 10px 50px;
         }
-        @media #{$desktop} {
+        @media (--desktop) {
           width: 25%;
           justify-content: flex-end;
           padding-top: 95px;
@@ -45,14 +45,14 @@
       &__menu {
         margin-top: 30px;
         display: flex;
-        @media #{$tablet} {
+        @media (--tablet) {
           flex-direction: column;
           margin-top: 10px;
         }
       }
       &__menu-item {
         margin-right: 16px;
-        @media #{$tablet} {
+        @media (--tablet) {
           padding: 14px 0;
           border-top: 1px solid #e8e8e8;
         }
@@ -72,7 +72,7 @@
           font-size: 14px;
           cursor: pointer;
           padding-bottom: 5px;
-          @media #{$tablet} {
+          @media (--tablet) {
             border-bottom: none;
             border-left: 5px solid $signwall-text-menu-color-primary;
             padding: 4px 0 4px 14px;
@@ -85,7 +85,7 @@
         width: 80px;
         position: absolute;
         right: 25px;
-        @media #{$tablet} {
+        @media (--tablet) {
           width: 150px;
           left: 0;
           right: 0;
@@ -93,7 +93,7 @@
           margin: 0 auto;
           border: 10px solid #f4e0d2;
         }
-        @media #{$desktop} {
+        @media (--desktop) {
           width: 55%;
           max-width: 150px;
         }
@@ -112,7 +112,7 @@
         margin: 40px 10px 10px 10px;
         min-height: auto;
         color: #333333;
-        @media #{$desktop} {
+        @media (--desktop) {
           width: 75%;
         }
         & hr {

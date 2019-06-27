@@ -4,7 +4,7 @@
       padding: 20px 15px;
       font-size: 14px;
       font-family: Open Sans, sans-serif;
-      @media #{$tablet} {
+      @media (--tablet) {
         padding: 15px 0px 10px 0px;
         min-height: auto;
       }
@@ -20,7 +20,7 @@
         &--two {
           .form-group {
             width: 100%;
-            @media #{$desktop} {
+            @media (--desktop) {
               width: 50%;
             }
           }
@@ -28,12 +28,12 @@
         &--three {
           display: flex;
           flex-direction: column;
-          @media #{$desktop} {
+          @media (--desktop) {
             flex-direction: row;
           }
           .form-group {
             width: 100%;
-            @media #{$desktop} {
+            @media (--desktop) {
               width: 33.3%;
             }
           }
@@ -53,7 +53,7 @@
         color: black;
         margin-top: 0px;
         margin-bottom: 20px;
-        @media #{$tablet} {
+        @media (--tablet) {
           margin-bottom: 15px;
           font-weight: 600;
           font-size: 18px;
@@ -64,7 +64,7 @@
         font-size: 0.9em;
         margin-top: 25px;
         font-family: Open Sans, sans-serif;
-        @media #{$tablet} {
+        @media (--tablet) {
           margin: 0;
           margin-bottom: 16px;
         }
@@ -84,12 +84,12 @@
       }
       &__subtitle {
         font-size: 11px;
-        @media #{$tablet} {
+        @media (--tablet) {
           margin-bottom: 10px;
           font-size: 13px;
           line-height: 20px;
         }
-        @media #{$desktop} {
+        @media (--desktop) {
           font-size: 0.9em;
           margin: 10px 0px;
         }
@@ -117,13 +117,13 @@
         font-size: 10px;
         font-weight: 600;
         color: black;
-        @media #{$tablet} {
+        @media (--tablet) {
           font-size: 11px;
         }
       }
       &__icon {
         margin: 20px 0px 0px 0px;
-        @media #{$tablet} {
+        @media (--tablet) {
           margin: 20px 0px 10px 0px;
         }
       }
@@ -148,7 +148,7 @@
         margin-bottom: 10px;
         display: none;
         color: black;
-        @media #{$tablet} {
+        @media (--tablet) {
           display: block;
         }
       }

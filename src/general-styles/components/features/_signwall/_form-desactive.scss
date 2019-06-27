@@ -11,7 +11,7 @@
         line-height: 24px;
         text-align: center;
         width: 100%;
-        @media #{$tablet} {
+        @media (--tablet) {
           width: 100%;
         }
       }
@@ -22,7 +22,7 @@
       & .check-container {
         font-size: 14px;
         color: #333333;
-        @media #{$tablet} {
+        @media (--tablet) {
           margin-bottom: 12px;
         }
       }

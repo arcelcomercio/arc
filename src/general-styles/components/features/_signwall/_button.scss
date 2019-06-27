@@ -14,7 +14,7 @@
       cursor: pointer;
       height: 50px;
       -webkit-appearance: none;
-      @media #{$tablet} {
+      @media (--tablet) {
         padding: 12px 5px;
       }
       &:hover {
@@ -40,7 +40,7 @@
       }
       &-text {
         margin: 0 8px;
-        @media #{$tablet} {
+        @media (--tablet) {
           margin: 0 0px;
         }
       }
@@ -89,7 +89,7 @@
         }
         & .btn__text {
           margin-left: 40px;
-          @media #{$tablet} {
+          @media (--tablet) {
             margin-left: 30px;
           }
         }
@@ -103,7 +103,7 @@
         font-weight: inherit;
         margin-top: 20px;
         margin-bottom: 20px;
-        @media #{$tablet} {
+        @media (--tablet) {
           margin-bottom: 40px;
         }
         &:hover {

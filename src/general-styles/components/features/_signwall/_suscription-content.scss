@@ -7,13 +7,13 @@
       border-radius: 6px;
       background-size: 100%;
       padding: 20px;
-      @media #{$tablet} {
+      @media (--tablet) {
         padding: 22px;
         text-align: center;
       }
       &__detail {
         display: inline-block;
-        @media #{$tablet} {
+        @media (--tablet) {
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -21,14 +21,14 @@
       }
       &__title {
         text-align: center;
-        @media #{$tablet} {
+        @media (--tablet) {
           width: 28%;
         }
       }
       &__add {
         width: 80%;
         margin: 0 auto;
-        @media #{$tablet} {
+        @media (--tablet) {
           background: #008eff;
           -webkit-appearance: none;
           color: white;
@@ -55,7 +55,7 @@
         padding-top: 20px;
         font-size: 12px;
         margin: 0;
-        @media #{$tablet} {
+        @media (--tablet) {
           padding: 12px 0 0;
           font-size: 12px;
           text-align: left;
@@ -68,7 +68,7 @@
         & .icon-newsletter,
         & .icon-laptop {
           width: 30%;
-          @media #{$tablet} {
+          @media (--tablet) {
             padding: 14px;
           }
         }

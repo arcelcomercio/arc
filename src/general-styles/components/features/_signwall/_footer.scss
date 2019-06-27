@@ -11,17 +11,17 @@
       height: 75px;
       font-family: $secondary-font;
       color: white;
-      @media #{$tablet} {
+      @media (--tablet) {
         height: 69px;
       }
-      @media #{$desktop} {
+      @media (--desktop) {
         height: 42px;
         flex-direction: row;
       }
       &__text {
         font-size: 12px;
         margin: 0 0 12px;
-        @media #{$desktop} {
+        @media (--desktop) {
           margin: 0 10px 0 0;
         }
       }
@@ -32,7 +32,7 @@
         }
       }
       &.right {
-        @media #{$desktop} {
+        @media (--desktop) {
           justify-content: flex-end;
           padding-right: 35px;
         }

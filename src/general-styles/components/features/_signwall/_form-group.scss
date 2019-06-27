@@ -5,7 +5,7 @@
       margin-bottom: 18px;
       position: relative;
       display: block;
-      @media #{$tablet} {
+      @media (--tablet) {
         margin: 0px 6px 0px 0px;
         margin-bottom: 12px;
       }
@@ -53,7 +53,7 @@
         flex-basis: 100%;
         flex-grow: 1;
         flex-shrink: 1;
-        @media #{$tablet} {
+        @media (--tablet) {
           height: 50px;
           -moz-appearance: none;
           -webkit-appearance: none;

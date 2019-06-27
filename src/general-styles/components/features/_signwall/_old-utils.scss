@@ -42,7 +42,7 @@
       &__content {
         padding: 0;
         padding-top: 5px;
-        @media #{$tablet} {
+        @media (--tablet) {
           padding: 5px;
           border-right: 1px solid #ebebeb;
         }
@@ -84,7 +84,7 @@
 
     .hidden-tablet {
       display: block;
-      @media #{$tablet} {
+      @media (--tablet) {
         display: none;
       }
     }
