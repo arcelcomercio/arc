@@ -4,6 +4,8 @@ import Consumer from 'fusion:consumer'
 import { setSurveyCookie, getCookie } from '../../../utilities/helpers'
 import CardSurveyChildSurvey from './_children/survey'
 
+const BASE_PATH = '/encuesta'
+
 @Consumer
 class CardSurvey extends PureComponent {
   constructor(props) {
@@ -52,7 +54,6 @@ class CardSurvey extends PureComponent {
       website: 'peru21',
     }
     const URL = 'https://jab.pe/f/arc/services/encuesta.php'
-    const { contextPath } = this.props
     fetch(URL, {
       method: 'POST',
       mode: 'cors',
@@ -66,7 +67,7 @@ class CardSurvey extends PureComponent {
         if (response.status === 200) {
           const { quizData: { slug = '' } = {} } = this.state
           setSurveyCookie(body.id, 1)
-          window.location.href = `${contextPath}/encuesta/${slug}`
+          window.location.href = `${BASE_PATH}/${slug}`
         }
       })
   }
@@ -77,6 +78,7 @@ class CardSurvey extends PureComponent {
       quizData: { title = '', slug = '', choices = [] },
     } = this.state
     const params = {
+      BASE_PATH,
       contextPath,
       title,
       slug,

@@ -30,11 +30,11 @@ const classes = {
 class StoryContentAmp extends PureComponent {
   render() {
     const {
-      globalContent: data = {},
       contextPath,
       arcSite,
-      siteProperties: { siteUrl },
       isAmp,
+      siteProperties: { siteUrl },
+      globalContent: data = {},
     } = this.props
     const { contentElements, relatedContent, promoItems, tags } = new StoryData(
       {
@@ -111,7 +111,7 @@ class StoryContentAmp extends PureComponent {
               }}
             />
           )}
-          <StoryContentChildTags data={tags} {...contextPath} {...isAmp} />
+          <StoryContentChildTags data={tags} {...isAmp} />
 
           {relatedContent.length > 0 && (
             <div className={classes.related}>
@@ -122,11 +122,7 @@ class StoryContentAmp extends PureComponent {
                 return type !== ConfigParams.ELEMENT_STORY ? (
                   ''
                 ) : (
-                  <StoryContentChildRelated
-                    key={key}
-                    {...item}
-                    contextPath={contextPath}
-                  />
+                  <StoryContentChildRelated key={key} {...item} />
                 )
               })}
             </div>

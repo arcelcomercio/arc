@@ -10,7 +10,7 @@ export default class StandardHeader {
     data = {},
     headerType = 'standard',
     customLogo = '',
-    customLogoLink = ''
+    customLogoLink = '/'
   ) {
     this.deployment = deployment
     this.contextPath = contextPath
@@ -40,19 +40,18 @@ export default class StandardHeader {
     const sections = this.formatSections()
     const newest = {
       name: 'Lo último',
-      url: `${this.contextPath}/archivo`,
+      url: '/archivo',
     }
-    const { logo } = this.headerProperties
+    const {
+      logo
+    } = this.headerProperties
     return {
       logo: {
-        src:
-          this.customLogo ||
+        src: this.customLogo ||
           this.deployment(
             `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
           ),
-        link: this.customLogoLink
-          ? `${this.contextPath}${this.customLogoLink}`
-          : this.contextPath,
+        link: this.customLogoLink,
         alt: this.siteDomain,
       },
       sections: [newest, ...sections],
@@ -60,29 +59,28 @@ export default class StandardHeader {
   }
 
   somos() {
-    const { logo } = this.headerProperties
+    const {
+      logo
+    } = this.headerProperties
     return {
       logo: {
-        src:
-          this.customLogo ||
+        src: this.customLogo ||
           this.deployment(
             `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
           ),
-        link: this.customLogoLink
-          ? `${this.contextPath}${this.customLogoLink}`
-          : this.contextPath,
+        link: this.customLogoLink,
         alt: this.siteDomain,
       },
       logoIcon: {
-        link: this.contextPath,
+        link: '/',
       },
       firstSection: {
-        url: `${this.contextPath}/somos`,
+        url: '/somos',
       },
       sections: this.formatSections(),
       // TODO: Reemplazar por la función reutilizable
       searchUrl: query => {
-        window.location.href = `${this.contextPath}/buscar?query=${query}`
+        window.location.href = `/buscar?query=${query}`
       },
     }
   }
@@ -90,11 +88,13 @@ export default class StandardHeader {
   // Función para formatear data de las secciones
   formatSections = () => {
     const link = 'link'
-    const { children = [] } = this.data || {}
+    const {
+      children = []
+    } = this.data || {}
     return children.map(el => {
       return {
         name: el.node_type === link ? el.display_name : el.name,
-        url: el.node_type === link ? el.url : `${this.contextPath}${el._id}`,
+        url: el.node_type === link ? el.url : el._id,
       }
     })
   }

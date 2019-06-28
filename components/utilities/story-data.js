@@ -1,6 +1,12 @@
-import { addResizedUrlItem } from './thumbs'
+import {
+  addResizedUrlItem
+} from './thumbs'
 import ConfigParams from './config-params'
-import { defaultImage, formatHtmlToText, breadcrumbList } from './helpers'
+import {
+  defaultImage,
+  formatHtmlToText,
+  breadcrumbList
+} from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -83,8 +89,8 @@ class StoryData {
     return (
       StoryData.getDataAuthor(this._data).nameAuthor ||
       defaultAuthor +
-        this._website.charAt(0).toUpperCase() +
-        this._website.slice(1)
+      this._website.charAt(0).toUpperCase() +
+      this._website.slice(1)
     )
   }
 
@@ -148,12 +154,18 @@ class StoryData {
   }
 
   get link() {
-    const { website_url: url = '' } = this._data || {}
+    const {
+      website_url: url = ''
+    } = this._data || {}
     return url
   }
 
   get relatedContent() {
-    const { related_content: { basic = [] } = {} } = this._data || {}
+    const {
+      related_content: {
+        basic = []
+      } = {}
+    } = this._data || {}
     return basic
   }
 
@@ -184,14 +196,15 @@ class StoryData {
         'gallery'
       ) || []
 
-    const { content_elements: galleryContent = [] } =
-      galleryContentResul[0] || []
+    const {
+      content_elements: galleryContent = []
+    } =
+    galleryContentResul[0] || []
 
     const promoItemsImage =
       (this._data &&
         this._data.promo_items &&
-        StoryData.getSeoMultimedia(this._data.promo_items, 'image')) ||
-      []
+        StoryData.getSeoMultimedia(this._data.promo_items, 'image')) || []
 
     return imagesContent
       .concat(galleryContent)
@@ -237,21 +250,29 @@ class StoryData {
   }
 
   get breadcrumbList() {
-    const { website_url: url = '' } = this._data || {}
-    return breadcrumbList(url, this._siteUrl, this._contextPath)
+    const {
+      website_url: url = ''
+    } = this._data || {}
+    return breadcrumbList(url, this._siteUrl)
   }
 
   get recentList() {
     const {
-      recent_stories: { content_elements: contentElements = {} } = {},
+      recent_stories: {
+        content_elements: contentElements = []
+      } = {},
       _id: id,
     } = this._data || {}
     return StoryData.recentList(contentElements, id)
   }
 
   get seoKeywords() {
-    const { taxonomy: { seo_keywords: seoKeywords = [] } = {} } =
-      this._data || {}
+    const {
+      taxonomy: {
+        seo_keywords: seoKeywords = []
+      } = {}
+    } =
+    this._data || {}
     return seoKeywords
   }
 
@@ -303,8 +324,7 @@ class StoryData {
     return this.multimedia
   }
 
-  static getSeoMultimedia(
-    {
+  static getSeoMultimedia({
       basic_video: basicVideo = {},
       basic_gallery: basicGallery = {},
       basic: basicImage = {},
@@ -314,21 +334,26 @@ class StoryData {
     if (basicVideo.promo_image && (type === 'video' || type === 'image')) {
       const {
         streams = [],
-        publish_date: date = '',
-        promo_image: { url: urlImage = '' } = {},
-        headlines: { basic: caption = '' } = {},
+          publish_date: date = '',
+          promo_image: {
+            url: urlImage = ''
+          } = {},
+          headlines: {
+            basic: caption = ''
+          } = {},
       } = basicVideo
       if (type === 'video') {
         const dataVideo = streams
-          .map(({ url, stream_type: streamType }) => {
-            return streamType === 'mp4'
-              ? {
-                  url,
-                  caption,
-                  urlImage,
-                  date,
-                }
-              : []
+          .map(({
+            url,
+            stream_type: streamType
+          }) => {
+            return streamType === 'mp4' ? {
+              url,
+              caption,
+              urlImage,
+              date,
+            } : []
           })
           .filter(String)
         return [dataVideo[0]]
@@ -341,12 +366,19 @@ class StoryData {
     }
 
     if (basicGallery.content_elements && type !== 'video') {
-      const { content_elements: contentElements = {} } = basicGallery
+      const {
+        content_elements: contentElements = {}
+      } = basicGallery
       return contentElements
     }
     if (basicImage.url && type === 'image') {
       const {
-        content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
+        content_element: {
+          basic: {
+            url: urlImage1,
+            caption = ''
+          } = {}
+        } = {},
         url: urlImage,
         subtitle,
       } = basicImage
@@ -362,7 +394,10 @@ class StoryData {
   static getContentElementsText(data = [], typeElement = '') {
     return (
       data &&
-      data.map(({ content, type }) => {
+      data.map(({
+        content,
+        type
+      }) => {
         return type === typeElement ? formatHtmlToText(content) : []
       })
     )
@@ -382,36 +417,46 @@ class StoryData {
 
     return (
       dataVideo
-        .map(
-          ({
-            promo_image: { url: urlImage },
-            streams,
-            publish_date: date,
-            headlines: { basic: caption = '' } = {},
-          }) => {
-            const resultVideo = streams
-              .map(({ url = '', stream_type: streamType = '' }) => {
-                return streamType === 'mp4'
-                  ? {
-                      url,
-                      caption,
-                      urlImage,
-                      date,
-                    }
-                  : []
-              })
-              .filter(String)
+      .map(
+        ({
+          promo_image: {
+            url: urlImage
+          },
+          streams,
+          publish_date: date,
+          headlines: {
+            basic: caption = ''
+          } = {},
+        }) => {
+          const resultVideo = streams
+            .map(({
+              url = '',
+              stream_type: streamType = ''
+            }) => {
+              return streamType === 'mp4' ? {
+                url,
+                caption,
+                urlImage,
+                date,
+              } : []
+            })
+            .filter(String)
 
-            return resultVideo[0] || []
-          }
-        )
-        .filter(String) || []
+          return resultVideo[0] || []
+        }
+      )
+      .filter(String) || []
     )
   }
 
   static getPrimarySection(data) {
     const {
-      taxonomy: { primary_section: { name = '', path = '' } = {} } = {},
+      taxonomy: {
+        primary_section: {
+          name = '',
+          path = ''
+        } = {}
+      } = {},
     } = data || {}
 
     return {
@@ -425,8 +470,7 @@ class StoryData {
       (data &&
         data.websites &&
         data.websites[website] &&
-        data.websites[website].website_section) ||
-      {}
+        data.websites[website].website_section) || {}
 
     const section = sectionData.name || ''
     const path = sectionData.path || ''
@@ -436,7 +480,9 @@ class StoryData {
     }
   }
 
-  static getDataAuthor(data, { contextPath = '' } = {}) {
+  static getDataAuthor(data, {
+    contextPath = ''
+  } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = `${contextPath}/resources/assets/author-grid/author.png`
 
@@ -451,9 +497,9 @@ class StoryData {
         urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : ''
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
-          iterator.image && iterator.image.url && iterator.image.url !== ''
-            ? iterator.image.url
-            : authorImageDefault
+          iterator.image && iterator.image.url && iterator.image.url !== '' ?
+          iterator.image.url :
+          authorImageDefault
         break
       }
     }
@@ -489,7 +535,7 @@ class StoryData {
         data.promo_items[ConfigParams.VIDEO].promo_items &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE] &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
-          .url) ||
+        .url) ||
       ''
     return thumb
   }
@@ -504,7 +550,7 @@ class StoryData {
           ConfigParams.IMAGE
         ] &&
         data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-          .url) ||
+        .url) ||
       ''
     return thumb
   }
@@ -535,25 +581,27 @@ class StoryData {
     let i = 0
     return (
       recentElements
-        .map(data => {
-          const {
-            headlines: { basic } = {},
-            website_url: websiteUrl,
-            _id: storyId,
-          } = data
-          if (storyId !== id && i < 2) {
-            const type = StoryData.getTypeMultimedia(data)
-            const urlImage = StoryData.getThumbnail(data, type)
-            i += 1
-            return {
-              basic,
-              websiteUrl,
-              urlImage,
-            }
+      .map(data => {
+        const {
+          headlines: {
+            basic
+          } = {},
+          website_url: websiteUrl,
+          _id: storyId,
+        } = data
+        if (storyId !== id && i < 2) {
+          const type = StoryData.getTypeMultimedia(data)
+          const urlImage = StoryData.getThumbnail(data, type)
+          i += 1
+          return {
+            basic,
+            websiteUrl,
+            urlImage,
           }
-          return []
-        })
-        .filter(String) || {}
+        }
+        return []
+      })
+      .filter(String) || {}
     )
   }
 }

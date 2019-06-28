@@ -28,11 +28,7 @@ class StoriesListArchive extends PureComponent {
             />
           ))}
         </div>
-        <RenderPagination
-          section={section}
-          date={date || getActualDate()}
-          contextPath={contextPath}
-        />
+        <RenderPagination section={section} date={date || getActualDate()} />
       </>
     )
   }

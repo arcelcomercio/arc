@@ -107,14 +107,10 @@ class CardTabloid extends PureComponent {
   render() {
     const {
       sectionName,
-      data: { link: rawLink, multimedia, title, date, section },
+      data: { multimedia, title, date, section, link = '' },
     } = this.state
-    const { contextPath } = this.props
-    // TODO: Esto debe ser eliminado al agregar contextPath a StoryData
-    const link = `${contextPath}${rawLink || ''}`
 
     const nameDate = this.nameDate(date)
-    //console.log(multimedia)
 
     return (
       <div className={classes.tabloid}>
