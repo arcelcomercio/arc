@@ -1,13 +1,19 @@
 import React from 'react'
-import StoryData from '../../../../utilities/story-data'
+import PropTypes from 'prop-types'
 import { getMultimediaIcon } from '../../../../utilities/helpers'
 
-export const TripletChildTriplet = props => {
-  const { data = [], multimediaOrientation = 'right', arcSite } = props
+const TripletChildTriplet = props => {
+  const {
+    arcSite,
+    editableField,
+    data = [],
+    multimediaOrientation = 'right',
+  } = props
   const classes = {
-    triplet: 'triplet bg-white border-solid border-1 border-gray',
+    triplet:
+      'triplet bg-white border-solid border-1 border-gray pl-20 pr-20 row-1 pt-10 pb-10',
     link: 'triplet__link text-lg',
-    item: `triplet__item p-15 grid border-b-1 border-solid border-gray triplet__item--${multimediaOrientation}`,
+    item: `triplet__item grid border-b-1 border-solid pt-10 pb-10 triplet__item--${multimediaOrientation}`,
     title: 'triplet__title overflow-hidden font-bold',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
@@ -16,8 +22,8 @@ export const TripletChildTriplet = props => {
     authorLink: 'triplet__link',
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
-    tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-sm`,
-    icon: 'title-sm',
+    image: 'object-cover w-full h-full',
+    icon: `triplet__icon position-absolute flex items-center justify-center rounded title-md text-white`,
   }
 
   let numline = ''
@@ -35,12 +41,19 @@ export const TripletChildTriplet = props => {
   }
 
   return (
-    <div className={classes.triplet}>
-      {data.map(story => (
-        <article className={classes.item} key={`triplet-${story.index}`}>
+    <div role="list" className={classes.triplet}>
+      {data.map((story, index) => (
+        <article
+          className={classes.item}
+          role="listitem"
+          key={`triplet-${story.index}`}>
           <div className={`${classes.title} ${numline}`}>
             <h2>
-              <a className={classes.link} href={story.link}>
+              <a
+                className={classes.link}
+                href={story.link}
+                {...editableField(`title${index + 1}`)}
+                suppressContentEditableWarning>
                 {story.title}
               </a>
             </h2>
@@ -48,51 +61,44 @@ export const TripletChildTriplet = props => {
           <figure className={classes.multimedia}>
             <a className={classes.mLink} href={story.link}>
               <img
-                className="object-cover w-full h-full"
+                className={classes.image}
                 src={story.multimedia}
                 alt={story.title}
               />
-              {story.multimediaType === 'basic' ||
-              story.multimediaType === '' ? (
-                ''
-              ) : (
-                <span className={classes.tripletIcon}>
-                  <i
-                    className={`${getMultimediaIcon(
-                      StoryData,
-                      story.multimediaType
-                    )} ${classes.icon}`}
-                  />
-                </span>
+              {getMultimediaIcon(story.multimediaType) && (
+                <i
+                  className={`${getMultimediaIcon(story.multimediaType)} ${
+                    classes.icon
+                  }`}
+                />
               )}
             </a>
-            {/* <Icon iconClass={story.iconClass} /> */}
           </figure>
-          <div className={classes.author}>
+          <address className={classes.author}>
             <a className={classes.authorLink} href={story.authorOrSectionLink}>
               {story.authorOrSection}
             </a>
-          </div>
+          </address>
         </article>
       ))}
     </div>
   )
 }
 
-export const Icon = props => {
-  const classes = {
-    tripletBoxIcon: `triplet__box-icon bg-white position-absolute text-center rounded text-gray-300`,
-    tripletIcon: `triplet__icon position-absolute flex items-center justify-center rounded text-black text-xs`,
-  }
-
-  const html = (
-    <span className={`${classes.tripletBoxIcon}`}>
-      <i
-        className={`${classes.tripletIcon} ${classes.tripletIcon}--${
-          props.iconClass
-        }`}
-      />
-    </span>
-  )
-  return props.iconClass ? html : ''
+TripletChildTriplet.propTypes = {
+  arcSite: PropTypes.string,
+  editableField: PropTypes.func,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      link: PropTypes.string,
+      title: PropTypes.string,
+      multimedia: PropTypes.string,
+      multimediaType: PropTypes.string,
+      authorOrSection: PropTypes.string,
+      authorOrSectionLink: PropTypes.string,
+    })
+  ),
+  multimediaOrientation: PropTypes.string,
 }
+
+export default TripletChildTriplet

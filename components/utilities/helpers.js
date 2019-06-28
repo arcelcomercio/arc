@@ -1,4 +1,5 @@
 import { addResizedUrlItem } from './thumbs'
+import ConfigParams from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -232,7 +233,7 @@ export const socialMediaUrlShareList = (
 
 export const createMarkup = html => {
   return {
-    __html: html,
+    __html: html.replace('@charset "UTF-8";', ''),
   }
 }
 
@@ -329,7 +330,7 @@ export const getUrlParameter = contentElements => {
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
 
-  if (loc.indexOf('?') >= 0 && contentElements) {
+  if (loc.includes('?') && contentElements) {
     const sWidth = 100 / contentElements.length
     return tmp[1] && contentElements.length >= tmp[1]
       ? -sWidth * (tmp[1] - 1)
@@ -338,13 +339,13 @@ export const getUrlParameter = contentElements => {
   return parseInt(String, tmp[1]) || 0
 }
 
-export const getMultimediaIcon = (StoryData, multimediaType) => {
-  let icon
+export const getMultimediaIcon = multimediaType => {
+  let icon = ''
   switch (multimediaType) {
-    case StoryData.VIDEO:
+    case ConfigParams.VIDEO:
       icon = 'icon-video'
       break
-    case StoryData.GALLERY:
+    case ConfigParams.GALLERY:
       icon = 'icon-img'
       break
     default:

@@ -5,7 +5,8 @@ const classes = {
   header:
     'header bg-primary primary-font w-full header__main font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300',
   logo: 'header__logo',
-  featured: 'flex justify-between header__featured w-full font-normal',
+  navBar: 'hidden md:block',
+  featured: 'flex justify-evenly header__featured w-full font-normal',
   item: 'flex items-center justify-center header__item h-inherit',
   link: 'header__link uppercase text-sm',
 }
@@ -37,7 +38,7 @@ const HeaderChildStandard = props => {
             <img src={logo.src} alt={logo.alt} className={classes.logo} />
           </a>
         </header>
-        <nav>
+        <nav className={classes.navBar}>
           {sections[0] && (
             <ul className={classes.featured}>
               {sections.map(section => (

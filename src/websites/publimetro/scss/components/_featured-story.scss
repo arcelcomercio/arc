@@ -1,63 +1,74 @@
 .featured-story {
-  &__link {
-    color: $color-primary;
-    border: 1px solid $color-primary;
-    padding: 7px 11px;
-    display: inline-block;
-  }
-
   &__category {
+    padding: 7px 11px;
+
+    @media (--tablet) {
+      color: $color-primary;
+      border: 1px solid $color-primary;
+    }
+
     &::after {
       display: none;
     }
   }
 
+  &__category-link {
+    color: $color-primary;
+  }
+
   &__title-link {
     color: $color-base-300;
+
+    @media (--tablet) {
+      padding-top: 10px;
+    }
   }
 
   &__author-link {
     color: $color-gray-200;
-    font-size: 11px;
     font-family: $font-regular;
   }
 
-  &__image {
-    position: relative;
+  &.img-complete {
+    .featured-story__category {
+      border-color: $color-white;
+    }
 
-    &::before {
-      @media (--tablet) {
-        height: 100%;
-        background: linear-gradient(to bottom,
-            rgba(14, 33, 13, 0.5) 58%,
-            rgba(14, 33, 13, 0.65) 71%,
-            #0e210d 96%);
+    @media (--tablet) {
+      .featured-story__image {
+        &::before {
+          height: 100%;
+          background: linear-gradient(180deg, rgba(14, 33, 13, 0.1) 30%, rgba(14, 33, 13, 0.8) 80%, #0e210d);
+        }
       }
     }
   }
 
-  &__img-icon {
-    position: absolute;
-    font-size: 50px;
-    color: $color-white;
-    z-index: 1;
-  }
-
-  // TODO: revisar si este modificador se usa Maria:
-  /* Imagen completa */
-  &--img-complete {
-    .featured-story__img-icon {
-      left: 20px;
-      top: 20px;
+  &.expand {
+    .featured-story__category {
+      // color: $color-primary;
+      border: 1px solid $color-primary;
     }
 
-    .featured-story__link {
-      border: 1px solid $color-white;
+    .featured-story__category-link {
+      color: $color-primary;
     }
 
-    .featured-story__title-link,
-    .featured-story__author-link {
-      color: $color-white;
+    .featured-story__title-link {
+      padding-top: 10px;
+    }
+
+    &.img-complete {
+      .featured-story__category {
+        border: 1px solid $color-white;
+      }
+
+      .featured-story__image {
+        &::before {
+          height: 100%;
+          background: linear-gradient(180deg, rgba(14, 33, 13, 0.1) 30%, rgba(14, 33, 13, 0.8) 80%, #0e210d);
+        }
+      }
     }
   }
 }

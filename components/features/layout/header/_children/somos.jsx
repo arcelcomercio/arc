@@ -33,7 +33,7 @@ const classes = {
   menuLoginLabel:
     'somos-menu__login-text uppercase font-bold text-md text-white',
   menuList:
-    'somos-menu__list m-0 block pt-5 pb-5 pr-15 pl-15 lg:flex lg:flex lg:justify-between',
+    'somos-menu__list m-0 block pt-5 pb-5 pr-15 pl-15 lg:flex lg:flex lg:justify-evenly',
   menuItemLink: 'somos-menu__item-link hidden lg:flex lg:items-center',
   menuLinkIcon: 'somos-menu__link-icon hidden text-gray-300 lg:block',
   iconHome: 'icon-home',

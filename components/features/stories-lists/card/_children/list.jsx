@@ -2,9 +2,8 @@ import React from 'react'
 import StoriesListCardChildItem from './item'
 import StoryData from '../../../../utilities/story-data'
 
-// TODO: revisar si esto llevaba paddings o no
 const classes = {
-  list: 'stories-l-card overflow-y-auto',
+  list: 'stories-l-card__list overflow-y-auto pr-20 pl-20',
 }
 
 const StoriesListsCardChildList = ({
@@ -44,7 +43,7 @@ const StoriesListsCardChildList = ({
             fechaPublicacion.getMinutes() < 10
               ? `0${fechaPublicacion.getMinutes()}`
               : fechaPublicacion.getMinutes()
-          }-`
+          }`
         }
 
         return (
@@ -55,6 +54,7 @@ const StoriesListsCardChildList = ({
               seeImageNews === true && index === 0 /* ? true : false */
             }
             time={time}
+            rawDate={fechaPublicacion}
             title={data.title}
             urlNews={data.link}
             multimedia={data.multimedia}

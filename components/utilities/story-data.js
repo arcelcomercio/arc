@@ -62,7 +62,7 @@ class StoryData {
   }
 
   get tags() {
-    return (this._data.taxonomy && this._data.taxonomy.tags) || []
+    return (this._data && this._data.taxonomy && this._data.taxonomy.tags) || []
   }
 
   get subTitle() {
@@ -243,8 +243,8 @@ class StoryData {
 
   get recentList() {
     const {
-      recent_stories: { content_elements: contentElements = [] } = {},
-      id,
+      recent_stories: { content_elements: contentElements = {} } = {},
+      _id: id,
     } = this._data || {}
     return StoryData.recentList(contentElements, id)
   }
@@ -412,7 +412,7 @@ class StoryData {
   static getPrimarySection(data) {
     const {
       taxonomy: { primary_section: { name = '', path = '' } = {} } = {},
-    } = data
+    } = data || {}
 
     return {
       name,
@@ -541,11 +541,15 @@ class StoryData {
             website_url: websiteUrl,
             _id: storyId,
           } = data
-          if (storyId !== id && i < 3) {
+          if (storyId !== id && i < 2) {
             const type = StoryData.getTypeMultimedia(data)
             const urlImage = StoryData.getThumbnail(data, type)
             i += 1
-            return { basic, websiteUrl, urlImage }
+            return {
+              basic,
+              websiteUrl,
+              urlImage,
+            }
           }
           return []
         })

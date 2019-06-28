@@ -24,7 +24,7 @@ const classes = {
   btnContainer: 'flex items-center justify-end header__btn-container',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
-  iconLogin: 'icon icon-user',
+  iconLogin: 'nav__icon icon-user',
 }
 
 @Consumer

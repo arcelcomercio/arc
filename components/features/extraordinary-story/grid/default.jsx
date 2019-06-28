@@ -17,12 +17,12 @@ class ExtraordinaryStoryGrid extends PureComponent {
       section3: {},
       section4: {},
     }
-    this.isVideo = false
+    // this.isVideo = false
     this.initFetch()
   }
 
   componentDidMount() {
-    if (window.powaBoot && this.isVideo) {
+    if (window.powaBoot) {
       window.powaBoot()
     }
   }
@@ -101,7 +101,7 @@ class ExtraordinaryStoryGrid extends PureComponent {
     const formattedSection2 = new SectionData(section2, arcSite)
     const formattedSection3 = new SectionData(section3, arcSite)
     const formattedSection4 = new SectionData(section4, arcSite)
-    this.isVideo = formattedStoryData.isVideo
+    // this.isVideo = formattedStoryData.isVideo
 
     const imgLogo =
       customFieldsData.logo ||
