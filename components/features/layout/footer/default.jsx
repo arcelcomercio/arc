@@ -126,7 +126,7 @@ class LayoutFooter extends PureComponent {
       <footer className={classes.footer}>
         <div className={classes.info}>
           <a
-            href={`${contextPath || ''}/${queryString}`}
+            href={`/${queryString}`}
             className={classes.logoContainer}>
             <img className={classes.logoImg} src={logoUrl} alt="" />
           </a>
@@ -146,7 +146,7 @@ class LayoutFooter extends PureComponent {
               <li className={classes.listItem} key={el.url}>
                 <a
                   className={classes.listLink}
-                  href={`${contextPath}${el.url}${requestUri}`}>
+                  href={`${el.url}${requestUri}`}>
                   {el.name}
                 </a>
               </li>
@@ -164,7 +164,7 @@ class LayoutFooter extends PureComponent {
                   href={
                     el.node_type === 'link'
                       ? el.url
-                      : `${contextPath}${el.url}${requestUri}`
+                      : `${el.url}${requestUri}`
                   }>
                   {el.name}
                 </a>
