@@ -23,6 +23,8 @@ const classes = {
     'movies-filter__btn bg-primary uppercase font-bold w-full text-gray-300 line-h-none text-sm',
 }
 
+const URI_BASE = '/cartelera'
+
 @Consumer
 class MoviesFilter extends PureComponent {
   constructor(props) {
@@ -35,9 +37,6 @@ class MoviesFilter extends PureComponent {
     }
 
     this.billboardFormat = new BillboardFormat()
-
-    const { contextPath } = props
-    this.URI_BASE = `${contextPath}/cartelera`
 
     this.movieSelect = React.createRef()
     this.genreSelect = React.createRef()
@@ -82,14 +81,14 @@ class MoviesFilter extends PureComponent {
     let searchUri
 
     if (movieSlug === 'peliculas' && genreSlug === '' && cinemaSlug === 'cines')
-      searchUri = this.URI_BASE
+      searchUri = URI_BASE
     else if (
       genreSlug !== '' &&
       movieSlug === 'peliculas' &&
       cinemaSlug === 'cines'
     )
-      searchUri = `${this.URI_BASE}/${movieSlug}/${cinemaSlug}/${genreSlug}`
-    else searchUri = `${this.URI_BASE}/${movieSlug}/${cinemaSlug}`
+      searchUri = `${URI_BASE}/${movieSlug}/${cinemaSlug}/${genreSlug}`
+    else searchUri = `${URI_BASE}/${movieSlug}/${cinemaSlug}`
 
     window.location.href = searchUri
   }

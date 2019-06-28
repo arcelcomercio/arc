@@ -1,4 +1,7 @@
 .header {
+  @media (--desktop) {
+    display: flex;
+  }
   &__main {
     height: 58px;
     color: $header-text-color;

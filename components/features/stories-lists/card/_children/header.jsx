@@ -8,11 +8,11 @@ const classes = {
 }
 const StoriesListsCardChildHeader = ({
   titleList,
-  urlTitle,
   background,
   seeMore,
-  seeMoreurl,
   editableField,
+  urlTitle = '/',
+  seeMoreurl = '/',
 }) => {
   return (
     <div className={`${classes.header} ${background}`}>

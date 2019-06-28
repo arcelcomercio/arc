@@ -21,6 +21,9 @@ const classes = {
   description: 'movie-item__description inline font-normal ml-5',
 }
 
+const URI_BASE = '/cartelera'
+const MOVIE_IMG_SIZE_MD = '620x387'
+
 class StaticCinemaBillboardChildMoviesList extends PureComponent {
   constructor(props) {
     super(props)
@@ -31,9 +34,6 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
       movies: [],
       cinema: {},
     }
-
-    const { contextPath } = props
-    this.URI_BASE = `${contextPath}/cartelera`
   }
 
   componentDidMount() {
@@ -80,11 +80,11 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
                   <article role="listitem" className={classes.movieItem}>
                     <figure className={classes.leftSide}>
                       <a
-                        href={`${this.URI_BASE}/${url}/${cinema.url}`}
+                        href={`${URI_BASE}/${url}/${cinema.url}`}
                         className={classes.imageBox}>
                         <img
                           src={
-                            sizes['620x387'] ||
+                            sizes[MOVIE_IMG_SIZE_MD] ||
                             defaultImage({
                               deployment,
                               contextPath,

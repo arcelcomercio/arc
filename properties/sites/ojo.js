@@ -31,6 +31,21 @@ export default {
     aboutUs: '',
   },
 
+  legalLinks: [
+    {
+      name: 'Términos y condiciones',
+      url: '/terminos-servicio',
+    },
+    {
+      name: 'Políticas de Privacidad',
+      url: '/politicas-privacidad',
+    },
+    {
+      name: 'Politicas de Cookies',
+      url: '/politicas-cookies',
+    },
+  ],
+
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
@@ -51,6 +66,21 @@ export default {
       {
         name: 'google+',
         url: 'https://plus.google.com/u/0/+elcomerciope',
+      },
+    ],
+
+    contacts: [
+      {
+        position: 'Director Periodístico',
+        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+      },
+      {
+        position: 'Editor Web',
+        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
+      },
+      {
+        position: 'Contacto comercial',
+        name: 'ventaspublimetro@publimetro.pe',
       },
     ],
   },
