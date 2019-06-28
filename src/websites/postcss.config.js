@@ -15,7 +15,7 @@ module.exports = ({
       browsers: [
         "last 2 version",
         "> 1%",
-        "IE 10"
+        // "IE 10"
       ]
     },
     'postcss-flexbugs-fixes': {},
