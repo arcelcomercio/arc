@@ -8,14 +8,14 @@ import Menu from './menu'
 const classes = {
   nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font font-bold`,
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit pr-15 pl-15`,
-  form: 'flex position-relative',
-  search: `nav__input-search w-0 text-md pt-5 pb-5 border-0 bg-gray-100 rounded-sm line-h line-h-xs`,
+  form: 'flex position-relative items-center',
+  search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
   navContainerRight: 'flex position-absolute right-0 bg-gray-100',
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10`,
   searchContainer: 'flex items-center justify-start',
-  btnSearch: `flex items-center btn nav__btn nav__btn--search text-gray-200 hidden p-0 pl-15 lg:flex`,
+  btnSearch: `flex items-center btn nav__btn nav__btn--search text-gray-200 hidden lg:flex`,
   btnSection: 'flex items-center btn nav__btn nav__btn--section p-5',
-  iconSearch: 'nav__icon-search text-primary-color icon-search title-sm',
+  iconSearch: 'nav__icon-search text-primary-color icon-search title-xs',
   iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
   list: `flex items-center nav__list h-inherit overflow-hidden pr-5 pl-5 hidden`,
   listItem: 'nav__list-item text-center pr-10',
@@ -255,7 +255,7 @@ class NavBarDefault extends PureComponent {
                       type="search"
                       onBlur={this._handleCloseSectionsSearch}
                       onKeyUp={this.watchKeys}
-                      placeholder="Buscar"
+                      placeholder="¿Que Buscas?"
                       className={`${classes.search} ${this.activeSearch()}`}
                     />
                     <Button
@@ -270,7 +270,9 @@ class NavBarDefault extends PureComponent {
               <div className={classes.btnContainer}>
                 <Button
                   iconClass={classes.iconLogin}
-                  btnClass={`${classes.btnLogin} border-1 border-solid border-white`}
+                  btnClass={`${
+                    classes.btnLogin
+                  } border-1 border-solid border-white`}
                   btnLink="#"
                 />
               </div>

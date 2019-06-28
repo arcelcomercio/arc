@@ -35,15 +35,11 @@
       //padding: 0 0 0 13px;
 
       //transition: all .002s;
-      &.active {
-        //transition: all .002s;
-        right: 4px;
-        top: 50%;
-        padding: 5px;
-        background: transparent;
-        position: absolute;
-        transform: translateY(-50%);
-      }
+
+      //transition: all .002s;
+
+      position: absolute;
+      right: 0;
     }
 
     &--section {
@@ -100,7 +96,8 @@
 
   &__input-search {
     outline: none;
-    height: 32px;
+    padding-right: 55px;
+    height: 30px;
     text-indent: 0;
     display: initial;
     transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715),
@@ -113,6 +110,7 @@
       transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715);
       width: 200px;
       will-change: width;
+      border: solid 1px $color-primary;
     }
   }
 
