@@ -37,6 +37,21 @@ export default {
       'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
   },
 
+  legalLinks: [
+    {
+      name: 'Términos y condiciones',
+      url: '/terminos-servicio',
+    },
+    {
+      name: 'Políticas de Privacidad',
+      url: '/politicas-privacidad',
+    },
+    {
+      name: 'Politicas de Cookies',
+      url: '/politicas-cookies',
+    },
+  ],
+
   footer: {
     siteLegal: [
       'Empresa Editora Depor',
