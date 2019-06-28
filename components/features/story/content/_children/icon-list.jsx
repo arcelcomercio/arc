@@ -19,6 +19,11 @@ const classes = {
   icon: 'title-md',
   moreLink: 'story-content__more-link',
   mobileClass: 'flex justify-center',
+  iconPrint: 'icon-print story-content__icon title-xl',
+  iconZoom: 'icon-zoom story-content__icon title-xl',
+  iconLink: 'icon-link story-content__icon title-xl',
+  iconTwitter: 'icon-twitter-circle',
+  iconFacebook: 'icon-facebook-circle',
 }
 @Consumer
 class StoryContentChildIcon extends PureComponent {
@@ -54,7 +59,7 @@ class StoryContentChildIcon extends PureComponent {
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'icon-print story-content__icon title-xl',
+          icon: classes.iconPrint,
           link: '',
           mobileClass: '',
         },
@@ -66,24 +71,24 @@ class StoryContentChildIcon extends PureComponent {
           mobileClass: '',
         }, */
         {
-          icon: 'icon-link story-content__icon title-xl',
+          icon: classes.iconLink,
           link: '',
           mobileClass: '',
           more: [
             {
-              icon: 'icon-facebook-circle',
+              icon: classes.iconFacebook,
               link: urlsShareList.facebook,
               mobileClass: classes.mobileClass,
             },
             {
-              icon: 'icon-twitter-circle',
+              icon: classes.iconTwitter,
               link: urlsShareList.twitter,
               mobileClass: classes.mobileClass,
             },
           ],
         },
         {
-          icon: 'icon-zoom story-content__icon title-xl',
+          icon: classes.iconZoom,
           link: '',
           mobileClass: '',
         },

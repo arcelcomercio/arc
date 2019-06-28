@@ -16,6 +16,10 @@ const classes = {
   icon: 'story-header__icon title-xl',
   list: 'story-header__list flex justify-between',
   mobileClass: 'flex justify-center',
+  iconFacebook: 'icon-facebook-circle',
+  iconLinkedin: 'icon-linkedin-circle',
+  iconRibbon: 'icon-ribbon',
+  iconTwitter: 'icon-twitter-circle',
 }
 @Consumer
 class StoryHeaderChildSocial extends PureComponent {
@@ -48,23 +52,23 @@ class StoryHeaderChildSocial extends PureComponent {
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'icon-facebook-circle',
+          icon: classes.facebook,
           link: urlsShareList.facebook,
           mobileClass: classes.mobileClass,
         },
 
         {
-          icon: 'icon-twitter-circle',
+          icon: classes.twitter,
           link: urlsShareList.twitter,
           mobileClass: classes.mobileClass,
         },
         {
-          icon: 'icon-linkedin-circle',
+          icon: classes.linkedin,
           link: urlsShareList.linkedin,
           mobileClass: classes.mobileClass,
         },
         {
-          icon: 'icon-ribbon',
+          icon: classes.iconRibbon,
           link: urlsShareList.pin,
           mobileClass: `block md:hidden ${classes.mobileClass}`,
         },
