@@ -13,7 +13,7 @@ const classes = {
   sections: 'footer__sections  bg-primary position-relative md:pt-20 pb-20',
   contact: 'footer__contact  bg-primary md:pt-20 pb-20',
   sites: 'footer__sites flex flex-col mt-15 pl-30 pr-30 pb-20',
-  sitesList: 'footer__sites-list flex flex-wrap w-full p-0 pt-20 bg-gray-100',
+  sitesList: 'footer__sites-list flex flex-wrap w-full p-0 pt-10 bg-gray-100',
   sitesItem: `footer__sites-item mb-5 pr-10 text-sm text-gray-300 line-h-xs uppercase flex items-center`,
   sitesItemTitle: 'text-sm text-gray-300 line-h-xs uppercase',
   sitesLink: 'footer__sites-link text-gray-200',
@@ -24,8 +24,11 @@ const classes = {
   list: 'footer__list pt-0 pb-20 pr-20 pl-20 md:pl-30',
   listItem: 'footer__list-item pt-10',
   listTitle: 'footer__list-title  pt-10 pb-10 uppercase text-sm text-gray-200',
+  listLinkTitle: 'footer__list-link capitalize text-gray-200 text-sm mb-10',
+  listLinkInfo:
+    'footer__list-link capitalize text-gray-200 text-sm font-bold line-h-md',
   listLink: 'footer__list-link capitalize text-gray-200 text-sm',
-  textContent: 'pt-20 pb-0 pl-20 lg:pl-30',
+  textContent: 'pt-20 pb-0 pl-20 md:pl-30',
   socialTitle: 'footer__social-title mb-20 uppercase text-sm',
   listSocial: 'footer__social flex pl-20 lg:pl-30',
   listSocialItem: 'footer__social-item',
@@ -175,10 +178,13 @@ class LayoutFooter extends PureComponent {
             {contacts.map(el => (
               <li className={classes.listItem} key={el.url}>
                 <span
-                  className={`${classes.listLink} ${classes.contactPosition}`}>
+                  className={`${classes.listLinkTitle} ${
+                    classes.contactPosition
+                  }`}>
                   {el.position}:
                 </span>
-                <span className={`${classes.listLink} ${classes.contactName}`}>
+                <span
+                  className={`${classes.listLinkInfo} ${classes.contactName}`}>
                   {el.name}
                 </span>
               </li>
