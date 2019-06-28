@@ -1,4 +1,6 @@
-module.exports = ({ options }) => ({
+module.exports = ({
+  options
+}) => ({
   plugins: {
     'postcss-import': {},
     'postcss-preset-env': {
@@ -18,6 +20,6 @@ module.exports = ({ options }) => ({
     },
     'postcss-flexbugs-fixes': {},
     'css-mqpacker': {},
-    cssnano: options.env === 'production' ? options.cssnano : false,
+    'cssnano': options.env === 'production' ? options.cssnano : false,
   },
 })
