@@ -315,7 +315,7 @@ export const appendToBody = node => {
   document.body.appendChild(node)
 }
 
-export const breadcrumbList = (url, siteUrl, contextPath) => {
+export const breadcrumbList = (url, siteUrl) => {
   const arrayData = []
   if (url) {
     const dataSeccion = url.split('/')
@@ -325,7 +325,7 @@ export const breadcrumbList = (url, siteUrl, contextPath) => {
         arrayData[i] = {
           name: element.charAt(0).toUpperCase() +
             element.slice(1).replace('-', ' '),
-          url: siteUrl + contextPath + separator + element,
+          url: siteUrl + separator + element,
         }
       }
     })

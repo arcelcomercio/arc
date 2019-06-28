@@ -6,18 +6,11 @@ import ChildSearchFilter from './_children/search-filter'
 @Consumer
 class SearchFilter extends PureComponent {
   render() {
-    const {
-      arcSite,
-      requestUri,
-      isAdmin,
-      globalContentConfig,
-      contextPath,
-    } = this.props
+    const { arcSite, requestUri, isAdmin, globalContentConfig } = this.props
 
     const params = {
       arcSite,
       requestUri,
-      contextPath,
       isAdmin,
       globalContentConfig,
     }

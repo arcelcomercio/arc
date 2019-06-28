@@ -22,12 +22,12 @@ export default {
     aboutUs: '',
   },
   infoPagesProd: {
-    termsAndConditions: '',
+    termsAndConditions: '7LCOBEFUC5ASBM6VZ5AEOMDNEA',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'TTLUI7EEDFGFJOPXCNAT6RVUDU',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: '7IZ6FX7Q6BAZ5OIEA5YVIYL6NQ',
     aboutUs: '',
   },
 

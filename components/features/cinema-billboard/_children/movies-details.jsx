@@ -27,6 +27,11 @@ const classes = {
   value: 'movie-details__value font-normal',
 }
 
+const URI_BASE = '/cartelera'
+const MOVIES_BASE = '/peliculas'
+const MOVIE_IMG_SIZE_SM = '367x176'
+const MOVIE_IMG_SIZE_MD = '620x387'
+
 class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
   constructor(props) {
     super(props)
@@ -37,9 +42,6 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
       movie: {},
       cinemas: [],
     }
-
-    const { contextPath } = props
-    this.URI_BASE = `${contextPath}/cartelera`
   }
 
   componentDidMount() {
@@ -92,11 +94,11 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
             <a target="_BLANK" rel="noopener noreferrer" href={description}>
               <picture>
                 <source
-                  srcSet={sizes['367x176'] || this.setDefault('sm')}
+                  srcSet={sizes[MOVIE_IMG_SIZE_SM] || this.setDefault('sm')}
                   media="(max-width: 367px)"
                 />
                 <img
-                  src={sizes['620x387'] || this.setDefault('lg')}
+                  src={sizes[MOVIE_IMG_SIZE_MD] || this.setDefault('lg')}
                   alt={title}
                   className={classes.img}
                 />
@@ -116,7 +118,7 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
                     return (
                       <address role="listitem" className={classes.item}>
                         <a
-                          href={`${this.URI_BASE}/peliculas/${cinema.url}`}
+                          href={`${URI_BASE}${MOVIES_BASE}/${cinema.url}`}
                           className={classes.cinema}>
                           {cinema.nombre}
                         </a>
@@ -127,7 +129,7 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
                     )
                   })}
               </div>
-              <a href={this.URI_BASE} className={classes.more}>
+              <a href={URI_BASE} className={classes.more}>
                 <p className={classes.button}>Regresar</p>
               </a>
             </div>

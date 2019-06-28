@@ -8,11 +8,11 @@
     height: auto;
 
     @media (--tablet) {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
     }
 
     &--items {
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(6, 1fr);
       height: 169px;
     }
   }

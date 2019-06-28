@@ -28,10 +28,9 @@ class NavBarDefault extends PureComponent {
   render() {
     const { statusSidebar } = this.state
     const {
-      contextPath,
-      data: { children: sections = [] } = {},
-      siteProperties: { footer },
       deployment,
+      siteProperties: { footer },
+      data: { children: sections = [] } = {},
     } = this.props
 
     const tapSidebar = 'tap:sidebar.toggle'
@@ -40,7 +39,6 @@ class NavBarDefault extends PureComponent {
         <Menu
           sections={sections}
           showSidebar={statusSidebar}
-          contextPath={contextPath}
           footer={footer}
           deployment={deployment}
         />

@@ -46,6 +46,7 @@ class CardFeaturedStoryAuto extends PureComponent {
       arcSite,
       customFields: {
         imageSize,
+        headband,
         size,
         hightlightOnMobile,
         titleField,
@@ -69,6 +70,7 @@ class CardFeaturedStoryAuto extends PureComponent {
       author,
       image,
       imageSize,
+      headband,
       size,
       hightlightOnMobile,
       editableField,

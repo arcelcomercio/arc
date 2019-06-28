@@ -20,9 +20,8 @@ const classes = {
 
 const RenderRelatedContentElement = (elements, i) => {
   const {
-    contextPath,
-    headlines: { basic: storyTitle } = {},
     website_url: storyUrl,
+    headlines: { basic: storyTitle } = {},
     promo_items: { basic: imageData = {} } = {},
   } = elements
 
@@ -37,18 +36,14 @@ const RenderRelatedContentElement = (elements, i) => {
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div className={classes.info}>
         <h2 className={classes.itemTitle}>
-          <a href={`${contextPath}${filterData.urlTitle}`}>
-            {filterData.nameTitle}
-          </a>
+          <a href={filterData.urlTitle}>{filterData.nameTitle}</a>
         </h2>
         <a href={filterData.nameAuthorLink} className={classes.author}>
           {filterData.nameAuthor}
         </a>
       </div>
       <figure className={classes.multimedia}>
-        <a
-          href={`${contextPath}${filterData.urlTitle}`}
-          className={classes.link}>
+        <a href={filterData.urlTitle} className={classes.link}>
           <img
             src={filterData.multimediaImg}
             alt={filterData.nameTitle}

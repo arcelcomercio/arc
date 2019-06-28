@@ -18,7 +18,6 @@ const classes = {
 
 const RelartedItem = ({ data } /* , i */) => {
   const {
-    contextPath,
     headlines: { basic: storyTitle } = {},
     website_url: storyUrl,
     promo_items: { basic: imageData = {} } = {},
@@ -37,13 +36,11 @@ const RelartedItem = ({ data } /* , i */) => {
         <div className={classes.title}>Siga Leyendo </div>
         <div className={`${classes.info}`}>
           <h2>
-            <a href={`${contextPath}${filterData.urlTitle}`}>
-              {filterData.nameTitle}
-            </a>
+            <a href={filterData.urlTitle}>{filterData.nameTitle}</a>
           </h2>
         </div>
         <figure className={classes.multimedia}>
-          <a href={`${contextPath}${filterData.urlTitle}`}>
+          <a href={filterData.urlTitle}>
             <img
               src={filterData.multimediaImg}
               alt={filterData.nameTitle}
@@ -66,7 +63,7 @@ const RelartedItem = ({ data } /* , i */) => {
   )
 }
 
-const StoryContentChildRelatedInternal = ({ stories, id, contextPath }) => {
+const StoryContentChildRelatedInternal = ({ stories, id }) => {
   const keyinternal = 'story-related-internal'
 
   return (
@@ -76,7 +73,6 @@ const StoryContentChildRelatedInternal = ({ stories, id, contextPath }) => {
           <RelartedItem
             key={keyinternal.concat(item._id).concat(index)}
             data={item}
-            contextPath={contextPath}
           />
         ) : null
       )}

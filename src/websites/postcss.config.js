@@ -4,13 +4,17 @@ module.exports = ({ options }) => ({
     'postcss-preset-env': {
       stage: 2,
       autoprefixer: {
-        grid: true,
-        flexbox: false,
+        grid: 'autoplace',
       },
       features: {
         'nesting-rules': true,
         'custom-media-queries': true,
       },
+      browsers: [
+        'last 2 version',
+        '> 1%',
+        // "IE 10"
+      ],
     },
     'postcss-flexbugs-fixes': {},
     'css-mqpacker': {},

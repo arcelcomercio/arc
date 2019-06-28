@@ -41,9 +41,12 @@ const TripletChildTriplet = props => {
   }
 
   return (
-    <div className={classes.triplet}>
+    <div role="list" className={classes.triplet}>
       {data.map((story, index) => (
-        <article className={classes.item} key={`triplet-${story.index}`}>
+        <article
+          className={classes.item}
+          role="listitem"
+          key={`triplet-${story.index}`}>
           <div className={`${classes.title} ${numline}`}>
             <h2>
               <a
@@ -71,11 +74,11 @@ const TripletChildTriplet = props => {
               )}
             </a>
           </figure>
-          <div className={classes.author}>
+          <address className={classes.author}>
             <a className={classes.authorLink} href={story.authorOrSectionLink}>
               {story.authorOrSection}
             </a>
-          </div>
+          </address>
         </article>
       ))}
     </div>
