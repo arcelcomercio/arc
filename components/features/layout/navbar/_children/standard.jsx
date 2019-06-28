@@ -46,6 +46,7 @@ class NavBarDefault extends PureComponent {
     // ------ Sets scroll eventListener if device is desktop
     if (device === 'desktop')
       window.addEventListener('scroll', this._handleScroll)
+    else window.removeEventListener('scroll', this._handleScroll)
   }
 
   // Add - Remove Class active input and button search
@@ -85,25 +86,29 @@ class NavBarDefault extends PureComponent {
     }
   }
 
-  _handleDevice = device => {
-    this._handleScroll()
-    // ------ Add or remove Scroll eventListener on resize
-    if (device === 'desktop')
-      window.addEventListener('scroll', this._handleScroll)
-    else window.removeEventListener('scroll', this._handleScroll)
-  }
+  // _handleDevice = device => {
+  //   this._handleScroll()
+  //   // ------ Add or remove Scroll eventListener on resize
+  //   if (device === 'desktop')
+  //     window.addEventListener('scroll', this._handleScroll)
+  //   else window.removeEventListener('scroll', this._handleScroll)
+  // }
 
   _handleScroll = () => {
     const { scrolled } = this.state
-
     // ------ Logic to set state to hidden or show logo in navbar
     const { scrollTop } = document.documentElement
+    const header = Array.from(document.getElementsByTagName('header'))
+    const headerTop = header[0].offsetTop || 100
+    // setTimeout(() => {
+    //   console.log(header[0].offsetTop)
+    // }, 2000)
 
-    if (!scrolled && scrollTop > 100) {
+    if (!scrolled && scrollTop > headerTop) {
       this.setState({
         scrolled: true,
       })
-    } else if (scrolled && scrollTop <= 100) {
+    } else if (scrolled && scrollTop <= headerTop) {
       this.setState({
         scrolled: false,
       })
@@ -156,7 +161,7 @@ class NavBarDefault extends PureComponent {
       data: { children: sections = [] } = {},
     } = this.props
 
-    this._handleDevice(device)
+    // this._handleDevice(device)
 
     const _handleHide = () => {
       switch (device) {
@@ -178,7 +183,9 @@ class NavBarDefault extends PureComponent {
         <nav className={`${classes.nav} ${scrolled ? 'active' : ''}`}>
           <div
             className={`${classes.wrapper} ${
-              device && device === 'mobile' ? 'justify-between' : ''
+              (device && device === 'mobile') || device === 'tablet' || scrolled
+                ? 'justify-between'
+                : ''
             }`}>
             {/** ************* LEFT *************** */}
 
