@@ -153,7 +153,7 @@ class LayoutFooter extends PureComponent {
             <li className={classes.listTitle}>Nuestras secciones</li>
             {sections.map(el => (
               <li className={classes.listItem} key={el.url}>
-                <a className={classes.listLink} href={`${el.url}`}>
+                <a className={classes.listLink} href={el.url}>
                   {el.name}
                 </a>
               </li>
