@@ -38,7 +38,6 @@ class CardMostRead extends PureComponent {
       storiesQty
     )
     const { fetched } = this.getContent(source, params, schemaFilter)
-    console.log('test 2')
     fetched
       .then(response => {
         const { content_elements: contentElements } = response || {}
