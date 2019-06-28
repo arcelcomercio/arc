@@ -99,7 +99,7 @@ class NavBarDefault extends PureComponent {
     // ------ Logic to set state to hidden or show logo in navbar
     const { scrollTop } = document.documentElement
     const header = Array.from(document.getElementsByTagName('header'))
-    const headerTop = header[0].offsetTop || 100
+    const headerTop = (header[0] && header[0].offsetTop) || 100
     // setTimeout(() => {
     //   console.log(header[0].offsetTop)
     // }, 2000)
@@ -158,11 +158,10 @@ class NavBarDefault extends PureComponent {
       contextPath,
       device,
       deviceList,
+      siteProperties,
       data: { children: sections = [] } = {},
     } = this.props
-
     // this._handleDevice(device)
-
     const _handleHide = () => {
       switch (device) {
         case 'desktop':
@@ -283,6 +282,7 @@ class NavBarDefault extends PureComponent {
             sections={sections}
             showSidebar={statusSidebar}
             contextPath={contextPath}
+            siteProperties={siteProperties}
           />
         </nav>
       )
