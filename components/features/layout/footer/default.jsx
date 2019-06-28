@@ -25,13 +25,18 @@ const classes = {
   listItem: 'footer__list-item pt-10',
   listTitle: 'footer__list-title  pt-10 pb-10 uppercase text-sm text-gray-200',
   listLink: 'footer__list-link capitalize text-gray-200 text-sm',
-  textContent: 'pt-20 pb-0 pl-20',
+  textContent: 'pt-20 pb-0 pl-20 lg:pl-30',
   socialTitle: 'footer__social-title mb-20 uppercase text-sm',
-  listSocial: 'footer__social flex pl-20',
+  listSocial: 'footer__social flex pl-20 lg:pl-30',
   listSocialItem: 'footer__social-item',
   listSocialLink: 'footer__social-link',
   facebookIcon: 'footer__social-icon icon-facebook pr-15',
   twitterIcon: 'footer__social-icon icon-twitter',
+
+  legalLinks: 'footer__legal-item line-h-lg text-xs primary-font',
+  legalLinksDivider: 'ml-5 mr-5',
+  contactPosition: 'block',
+  contactName: 'block',
 }
 
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -138,10 +143,13 @@ class LayoutFooter extends PureComponent {
             <li className={classes.legalItem}>
               {legalLinks.map(el => (
                 <>
-                  <a className={classes.listLink} key={el.url} href={el.url}>
+                  <a
+                    className={` ${classes.legalLinks}`}
+                    key={el.url}
+                    href={el.url}>
                     {el.name}
                   </a>
-                  <span>|</span>
+                  <span className={classes.legalLinksDivider}>|</span>
                 </>
               ))}
             </li>
@@ -163,12 +171,16 @@ class LayoutFooter extends PureComponent {
 
         <div className={classes.contact}>
           <ul className={classes.list}>
-            <li className={classes.listTitle}>Contacto</li>
-            {legalLinks.map(el => (
+            {/* <li className={classes.listTitle}>Contacto</li> */}
+            {contacts.map(el => (
               <li className={classes.listItem} key={el.url}>
-                <a className={classes.listLink} href={el.url}>
+                <span
+                  className={`${classes.listLink} ${classes.contactPosition}`}>
+                  {el.position}:
+                </span>
+                <span className={`${classes.listLink} ${classes.contactName}`}>
                   {el.name}
-                </a>
+                </span>
               </li>
             ))}
           </ul>
