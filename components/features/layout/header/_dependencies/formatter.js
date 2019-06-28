@@ -80,7 +80,7 @@ export default class StandardHeader {
         url: `${this.contextPath}/somos`,
       },
       sections: this.formatSections(),
-      // TODO: Reemplazar por la función reutilizable
+      // TODO: Reemplazar por el nuevo formato de url para las busquedas (sin querystrings)
       searchUrl: query => {
         window.location.href = `${this.contextPath}/buscar?query=${query}`
       },
