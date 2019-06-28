@@ -3,21 +3,22 @@ import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
 import Menu from './menu'
-import Ads from '../../../../global-components/ads'
+// import Ads from '../../../../global-components/ads'
 
 const classes = {
   nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font font-bold`,
-  wrapper: `flex items-center justify-between nav__wrapper bg-primary w-full h-inherit pr-15 pl-15`,
+  wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit pr-15 pl-15`,
   form: 'flex position-relative',
   search: `nav__input-search w-0 text-md pt-5 pb-5 border-0 bg-gray-100 rounded-sm line-h line-h-xs`,
+  navContainerRight: 'flex position-absolute right-0 bg-gray-100',
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10`,
   searchContainer: 'flex items-center justify-start',
   btnSearch: `flex items-center btn nav__btn nav__btn--search text-gray-200 hidden p-0 pl-15 lg:flex`,
   btnSection: 'flex items-center btn nav__btn nav__btn--section p-5',
   iconSearch: 'nav__icon-search text-primary-color icon-search title-sm',
   iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
-  list: `flex items-center justify-evenly flex-1 nav__list h-inherit overflow-hidden pr-5 pl-5 hidden`,
-  listItem: 'text-center',
+  list: `flex items-center nav__list h-inherit overflow-hidden pr-5 pl-5 hidden`,
+  listItem: 'nav__list-item text-center pr-10',
   listLink: `nav__list-link text-gray-200 text-center uppercase secondary-font font-normal text-sm`,
   logo: 'nav__logo',
   ads: 'nav__ads mr-5 ml-5 hidden',
@@ -68,11 +69,10 @@ class NavBarDefault extends PureComponent {
 
   // set Query search and location replace
   findSearch = () => {
-    const { contextPath } = this.props
     const { value } = this.inputSearch.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `${contextPath}/buscar?query=${value}`
+      location.href = `/buscar?query=${value}`
     }
   }
 
@@ -176,7 +176,10 @@ class NavBarDefault extends PureComponent {
     return (
       _handleHide() && (
         <nav className={`${classes.nav} ${scrolled ? 'active' : ''}`}>
-          <div className={classes.wrapper}>
+          <div
+            className={`${classes.wrapper} ${
+              device && device === 'mobile' ? 'justify-between' : ''
+            }`}>
             {/** ************* LEFT *************** */}
 
             <div className={classes.navBtnContainer}>
@@ -195,16 +198,14 @@ class NavBarDefault extends PureComponent {
                 sections.slice(0, 5).map(({ name, _id: id }) => {
                   return (
                     <li key={id} className={classes.listItem}>
-                      <a
-                        href={`${contextPath}${id}`}
-                        className={classes.listLink}>
+                      <a href={id} className={classes.listLink}>
                         {name}
                       </a>
                     </li>
                   )
                 })}
             </ul>
-            <a href={`${contextPath}/`}>
+            <a href="/">
               <img
                 src={logo}
                 alt={`Logo de ${arcSite}`}
@@ -216,7 +217,7 @@ class NavBarDefault extends PureComponent {
             {/** ************* RIGHT *************** */}
 
             {device && device === 'desktop' && !scrolled ? (
-              <>
+              <div className={classes.navContainerRight}>
                 <div className={classes.btnContainer}>
                   <Button
                     btnText="Suscríbete"
@@ -230,12 +231,12 @@ class NavBarDefault extends PureComponent {
                   />
                 </div>
                 <div className={classes.searchContainer}>
-                  <Ads
+                  {/* <Ads
                     adElement="zocaloNav1"
                     isDesktop
                     classes={{ desktop: classes.ads }}
                   />
-                  {/* <Ads
+                   <Ads
                   adElement="zocaloNav2"
                   isDesktop
                   classes={{ desktop: classes.ads }}
@@ -258,12 +259,14 @@ class NavBarDefault extends PureComponent {
                     />
                   </form>
                 </div>
-              </>
+              </div>
             ) : (
               <div className={classes.btnContainer}>
                 <Button
                   iconClass={classes.iconLogin}
-                  btnClass={`${classes.btnLogin} border-1 border-solid border-white`}
+                  btnClass={`${
+                    classes.btnLogin
+                  } border-1 border-solid border-white`}
                   btnLink="#"
                 />
               </div>
