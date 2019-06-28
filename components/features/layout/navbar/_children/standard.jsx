@@ -17,9 +17,9 @@ const classes = {
   btnSection: 'flex items-center btn nav__btn nav__btn--section p-5',
   iconSearch: 'nav__icon-search text-primary-color icon-search title-xs',
   iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
-  list: `flex items-center nav__list h-inherit overflow-hidden pr-5 pl-5 hidden`,
-  listItem: 'nav__list-item text-center pr-10',
-  listLink: `nav__list-link text-gray-200 text-center uppercase secondary-font font-normal text-sm`,
+  list: `flex items-center nav__list h-inherit overflow-hidden pl-15 hidden`,
+  listItem: 'nav__list-item text-center pr-15 h-full',
+  listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
   logo: 'nav__logo',
   ads: 'nav__ads mr-5 ml-5 hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
@@ -155,10 +155,10 @@ class NavBarDefault extends PureComponent {
     const {
       logo,
       arcSite,
+      siteProperties,
       contextPath,
       device,
       deviceList,
-      siteProperties,
       data: { children: sections = [] } = {},
     } = this.props
     // this._handleDevice(device)

@@ -86,6 +86,9 @@ export default class FeaturedStory extends PureComponent {
       case 'elcomercio':
         numline = classes.threeline
         break
+      case 'publimetro':
+        numline = classes.threeline
+        break
       case 'depor':
         numline = classes.twoline
         break
@@ -134,14 +137,14 @@ export default class FeaturedStory extends PureComponent {
             </a>
           </address>
         </div>
-        <figure className={classes.image}>
-          <a className={classes.imageLink} href={title.url}>
+        <a className={classes.imageLink} href={title.url}>
+          <figure className={classes.image}>
             <img src={image} className={classes.img} alt="" />
             {multimediaIcon && (
               <i className={`${multimediaIcon} ${classes.icon}`} />
             )}
-          </a>
-        </figure>
+          </figure>
+        </a>
       </article>
     )
   }
