@@ -141,16 +141,15 @@ class LayoutFooter extends PureComponent {
               </li>
             ))}
             <li className={classes.legalItem}>
-              {legalLinks.map(el => (
-                <>
-                  <a
-                    className={` ${classes.legalLinks}`}
-                    key={el.url}
-                    href={el.url}>
+              {legalLinks.map((el, i) => (
+                <React.Fragment key={el.url}>
+                  <a className={` ${classes.legalLinks}`} href={el.url}>
                     {el.name}
                   </a>
-                  <span className={classes.legalLinksDivider}>|</span>
-                </>
+                  {legalLinks.length - 1 > i && (
+                    <span className={classes.legalLinksDivider}>|</span>
+                  )}
+                </React.Fragment>
               ))}
             </li>
           </ul>
@@ -173,7 +172,7 @@ class LayoutFooter extends PureComponent {
           <ul className={classes.list}>
             {/* <li className={classes.listTitle}>Contacto</li> */}
             {contacts.map(el => (
-              <li className={classes.listItem} key={el.url}>
+              <li className={classes.listItem} key={el.name}>
                 <span
                   className={`${classes.listLink} ${classes.contactPosition}`}>
                   {el.position}:

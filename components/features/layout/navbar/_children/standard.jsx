@@ -99,7 +99,7 @@ class NavBarDefault extends PureComponent {
     // ------ Logic to set state to hidden or show logo in navbar
     const { scrollTop } = document.documentElement
     const header = Array.from(document.getElementsByTagName('header'))
-    const headerTop = header[0].offsetTop || 100
+    const headerTop = (header[0] && header[0].offsetTop) || 100
     // setTimeout(() => {
     //   console.log(header[0].offsetTop)
     // }, 2000)
@@ -271,9 +271,7 @@ class NavBarDefault extends PureComponent {
               <div className={classes.btnContainer}>
                 <Button
                   iconClass={classes.iconLogin}
-                  btnClass={`${
-                    classes.btnLogin
-                  } border-1 border-solid border-white`}
+                  btnClass={`${classes.btnLogin} border-1 border-solid border-white`}
                   btnLink="#"
                 />
               </div>
