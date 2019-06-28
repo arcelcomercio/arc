@@ -152,6 +152,7 @@ class StoryData {
   get primarySectionLink() {
     return StoryData.getPrimarySection(this._data).path
   }
+  // TODO: Validar que link regrese la url correcta de la nota
 
   get link() {
     const {

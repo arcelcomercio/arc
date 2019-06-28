@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import CardMostReadList from './_children/list'
 
 import schemaFilter from './_dependencies/schema-filter'
-import { setDataTest, dataCasting } from './_dependencies/data-casting'
+import { getEmptyCard, dataCasting } from './_dependencies/data-casting'
 import fetchConfig from './_dependencies/fetch-config'
 
 @Consumer
@@ -54,13 +54,13 @@ class CardMostRead extends PureComponent {
           })
         } else {
           this.setState({
-            stories: setDataTest(storiesQty),
+            stories: getEmptyCard(),
           })
         }
       })
       .catch(() => {
         this.setState({
-          stories: setDataTest(storiesQty),
+          stories: getEmptyCard(),
         })
       })
   }
