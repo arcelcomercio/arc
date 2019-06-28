@@ -5,6 +5,7 @@ const ElementStringChanel = chanelProps => {
     <description>${descripcion}</description>
     <title>${siteName}</title>
     <image>@StringImageItem</image>
+    @ItemsNews
     `
 }
 

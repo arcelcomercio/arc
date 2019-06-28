@@ -39,6 +39,7 @@ const GoogleNews = ({
     deployment,
     contextPath,
     arcSite,
+    siteUrl,
     stories,
   }
   const ArrayItemString = StringTemplateArrayItem(itemsProps)
