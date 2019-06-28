@@ -91,6 +91,11 @@
   &__social-icon {
     font-size: 22px;
   }
+  &__list-link {
+    &::nth-child(2) {
+      font-weight: bold;
+    }
+  }
   // &__logo {}
   // &__legal-list {}
   // &__legal-item {}
