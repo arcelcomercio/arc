@@ -4,9 +4,9 @@ import ConfigParams from '../utilities/config-params'
 import Icon from './multimedia-icon'
 
 const classes = {
-  extraordinaryStory: `extraordinary-story bg-white grid border-gray`,
+  extraordinaryStory: `extraordinary-story bg-white flex border-gray`,
   section:
-    'extraordinary-story__section text-left uppercase font-bold pt-20 pr-20 pl-20 pb-10 text-white',
+    'extraordinary-story__section uppercase font-bold pt-20 pr-20 pl-20 pb-10 text-white',
   sectionLink: 'extraordinary-story__section-link',
   content: 'extraordinary-story__content block pr-20 pl-20 position-relative',
   title:
