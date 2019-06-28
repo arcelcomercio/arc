@@ -13,6 +13,14 @@ export const setDataTest = storiesQty => {
   return auxTest
 }
 
+export const getEmptyCard = () => {
+  return [{
+    websiteUrl: 'NO HAY ELEMENTOS PARA MOSTRAR',
+    imageUrl: '',
+    title:'#',
+  }]
+}
+
 export const dataCasting = ({
   data,
   deployment,
