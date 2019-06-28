@@ -69,7 +69,7 @@ class LayoutFooter extends PureComponent {
         },
         filter: SCHEMA,
       },
-      contacts: {
+      legalLinks: {
         source: CONTENT_SOURCE,
         query: {
           hierarchy: contactsHierarchy || DEFAULT_CONTACTS_HIERARCHY,
@@ -109,7 +109,7 @@ class LayoutFooter extends PureComponent {
           twitter: { url: twitterUrl } = {},
         } = {},
         gecSites,
-        footer,
+        footer: { contacts = [], siteLegal },
         assets: { footer: { logo } = {} } = {},
       },
     } = this.props
@@ -118,23 +118,33 @@ class LayoutFooter extends PureComponent {
       deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) ||
       ''
 
-    const { sections: rawSections = [], contacts: rawContacts = [] } =
+    const { sections: rawSections = [], legalLinks: rawLegal = [] } =
       this.state || {}
     const sections = this.formatData(rawSections)
-    const contacts = this.formatData(rawContacts)
+    const legalLinks = this.formatData(rawLegal)
 
     return (
       <footer className={classes.footer}>
         <div className={classes.info}>
-          <a href={contextPath} className={classes.logoContainer}>
+          <a href="/" className={classes.logoContainer}>
             <img className={classes.logoImg} src={logoUrl} alt="" />
           </a>
           <ul className={classes.legalList}>
-            {footer.siteLegal.map(el => (
+            {siteLegal.map(el => (
               <li className={classes.legalItem} key={el}>
                 {el}
               </li>
             ))}
+            <li className={classes.legalItem}>
+              {legalLinks.map(el => (
+                <>
+                  <a className={classes.listLink} key={el.url} href={el.url}>
+                    {el.name}
+                  </a>
+                  <span>|</span>
+                </>
+              ))}
+            </li>
           </ul>
         </div>
 
@@ -143,9 +153,7 @@ class LayoutFooter extends PureComponent {
             <li className={classes.listTitle}>Nuestras secciones</li>
             {sections.map(el => (
               <li className={classes.listItem} key={el.url}>
-                <a
-                  className={classes.listLink}
-                  href={`${contextPath}${el.url}`}>
+                <a className={classes.listLink} href={`${el.url}`}>
                   {el.name}
                 </a>
               </li>
@@ -156,13 +164,9 @@ class LayoutFooter extends PureComponent {
         <div className={classes.contact}>
           <ul className={classes.list}>
             <li className={classes.listTitle}>Contacto</li>
-            {contacts.map(el => (
+            {legalLinks.map(el => (
               <li className={classes.listItem} key={el.url}>
-                <a
-                  className={classes.listLink}
-                  href={
-                    el.node_type === 'link' ? el.url : `${contextPath}${el.url}`
-                  }>
+                <a className={classes.listLink} href={el.url}>
                   {el.name}
                 </a>
               </li>

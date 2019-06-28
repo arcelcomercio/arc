@@ -59,6 +59,21 @@ export default {
         url: 'https://plus.google.com/u/0/+deporpe',
       },
     ],
+
+    contacts: [
+      {
+        position: 'Director Periodístico',
+        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+      },
+      {
+        position: 'Editor Web',
+        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
+      },
+      {
+        position: 'Contacto comercial',
+        name: 'ventaspublimetro@publimetro.pe',
+      },
+    ],
   },
   social: {
     facebook: {
