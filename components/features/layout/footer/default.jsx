@@ -2,10 +2,8 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-// import withSizes from 'react-sizes'
 
 const DEFAULT_SECTIONS_HIERARCHY = 'footer-secciones-default'
-const DEFAULT_CONTACTS_HIERARCHY = 'footer-contactos-default'
 
 const classes = {
   footer: 'footer w-full grid',
@@ -63,9 +61,6 @@ class LayoutFooter extends PureComponent {
         sectionsHierarchyConfig: {
           contentConfigValues: { hierarchy: sectionsHierarchy = '' } = {},
         } = {},
-        contactsHierarchyConfig: {
-          contentConfigValues: { hierarchy: contactsHierarchy = '' } = {},
-        } = {},
       } = {},
     } = this.props
 
@@ -74,13 +69,6 @@ class LayoutFooter extends PureComponent {
         source: CONTENT_SOURCE,
         query: {
           hierarchy: sectionsHierarchy || DEFAULT_SECTIONS_HIERARCHY,
-        },
-        filter: SCHEMA,
-      },
-      legalLinks: {
-        source: CONTENT_SOURCE,
-        query: {
-          hierarchy: contactsHierarchy || DEFAULT_CONTACTS_HIERARCHY,
         },
         filter: SCHEMA,
       },
@@ -117,6 +105,7 @@ class LayoutFooter extends PureComponent {
           twitter: { url: twitterUrl } = {},
         } = {},
         gecSites,
+        legalLinks,
         footer: { contacts = [], siteLegal },
         assets: { footer: { logo } = {} } = {},
       },
@@ -126,10 +115,8 @@ class LayoutFooter extends PureComponent {
       deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) ||
       ''
 
-    const { sections: rawSections = [], legalLinks: rawLegal = [] } =
-      this.state || {}
+    const { sections: rawSections = [] } = this.state || {}
     const sections = this.formatData(rawSections)
-    const legalLinks = this.formatData(rawLegal)
 
     return (
       <footer className={classes.footer}>
@@ -177,9 +164,7 @@ class LayoutFooter extends PureComponent {
             {contacts.map(el => (
               <li className={classes.listItem} key={el.name}>
                 <span
-                  className={`${classes.listLinkTitle} ${
-                    classes.contactPosition
-                  }`}>
+                  className={`${classes.listLinkTitle} ${classes.contactPosition}`}>
                   {el.position}:
                 </span>
                 <span
@@ -245,10 +230,6 @@ LayoutFooter.propTypes = {
   customFields: PropTypes.shape({
     sectionsHierarchyConfig: PropTypes.contentConfig('navigation').tag({
       name: 'Editar navegación de "secciones"',
-      group: 'Configuración del contenido',
-    }),
-    contactsHierarchyConfig: PropTypes.contentConfig('navigation').tag({
-      name: 'Editar navegación de "contactos"',
       group: 'Configuración del contenido',
     }),
   }),
