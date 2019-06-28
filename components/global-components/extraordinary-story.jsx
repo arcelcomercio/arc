@@ -58,7 +58,6 @@ const ExtraordinaryStory = props => {
       numline = classes.twoline
       break
   }
-  console.log('link:', data.link)
   return (
     <article
       className={`${
@@ -73,12 +72,14 @@ const ExtraordinaryStory = props => {
       )}
       <div className={classes.content}>
         <h2 className={`${classes.title} ${numline}`}>
-          <a href={data.link} className={classes.titleLink}>
+          <a
+            href={`${data.sectionLink}${data.link}`}
+            className={classes.titleLink}>
             {data.title}
           </a>
         </h2>
         <p className={classes.extraordinaryStorySubtitle}>
-          <a href={data.link} className={classes.link}>
+          <a href={`${data.sectionLink}${data.link}`} className={classes.link}>
             {data.subTitle}
           </a>
         </p>
@@ -89,7 +90,7 @@ const ExtraordinaryStory = props => {
         </address>
       </div>
       <div className={classes.multimedia}>
-        <a href={data.link}>
+        <a href={`${data.sectionLink}${data.link}`}>
           <EmbedMultimedia
             type={data.typeMultimediaGeneral}
             title={data.title}
