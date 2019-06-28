@@ -2,7 +2,7 @@ import React from 'react'
 
 import ElementStringChanel from './_children/fb-instant-article/template-string-chanel'
 import ListItemNews from './_children/fb-instant-article/template-string-item-chanel'
-import NewElement from './_children/fb-instant-article/new-element'
+import NewElement from './../utilities/new-element'
 
 const FbInstantOutputType = ({
   deployment = {},
@@ -18,7 +18,7 @@ const FbInstantOutputType = ({
     siteDomain = '',
     idGoogleAnalitics = '',
     fbArticleStyle = '',
-    urlAddfbInstantArticle=''
+    urlAddfbInstantArticle = '',
   } = siteProperties
 
   const stories = contentElements
@@ -45,7 +45,7 @@ const FbInstantOutputType = ({
     siteDomain,
     idGoogleAnalitics,
     fbArticleStyle,
-    urlAddfbInstantArticle
+    urlAddfbInstantArticle,
   }
 
   let chanelSctring = ElementStringChanel(chanelProps)
@@ -63,68 +63,3 @@ const FbInstantOutputType = ({
 FbInstantOutputType.contentType = 'text/xml'
 
 export default FbInstantOutputType
-
-/*
- <channel 
-      dangerouslySetInnerHTML={{__html: ElementStringChanel(chanelProps)}}  >
-        </channel>
-<channel>
-  <language>es</language>
-  <title>{chanelProps.siteName}</title>
-  <description>{chanelProps.descripcion}</description>
-  <lastBuildDate>{chanelProps.fechaIso}</lastBuildDate>
-  <NewElement nameElement="lnktmp">{chanelProps.siteUrl}</NewElement>
-  {ListItemNews(stories, buildProps)}
-</channel>
-*/
-
-// FbInstantOutputType.contentType = 'application/rss+xml'
-
-// FbInstantOutputType.fallback = ['amp', 'default']
-/* FbInstantOutputType.transform = {
-  arcio({ context, data }) {
-
-    return {
-      contentType: 'application/rss+xml',
-      data: {
-        tree: context.tree,
-        globalContent: context.globalContent,
-        featureContent: data,
-      },
-    }
-  },
-}
- */
-
-{
-  /* {React.createElement('link', { allowInvalidVoidElementChildren: true }, 'https://reactjs.org/blog/')} */
-}
-{
-  /* <link allowInvalidVoidElementChildren={true} dangerouslySetInnerHTML={{ __html: 'https://reactjs.org/blog/' }} /> */
-}
-
-{
-  /* <link dangerouslySetInnerHTML={{ __html: `<link>
-http://elcomercio.pe/mundo/latinoamerica/colombia-deroga-norma-obligaba-presentar-esposa-amigos-vecinos-noticia-646213
-</link>` }} /> */
-}
-
-// item
-
-{
-  /* <item>
-<title>{ItemDataXml.title}</title>
-<pubDate>{ItemDataXml.date}</pubDate>
-
-<NewElement nameElement="lnktmp">{`${ItemDataXml.siteUrl}${
-  storydata.link
-}`}</NewElement>
-
-<guid>{ItemDataXml.codigoGUID}</guid>
-<author>{ItemDataXml.author}</author>
-<NewElement nameElement="content:encoded">
-  {ItemDataXml.htmlString}
-</NewElement>
-<NewElement nameElement="slash:comments">{'0'} </NewElement>
-</item> */
-}
