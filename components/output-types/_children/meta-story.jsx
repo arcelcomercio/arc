@@ -64,7 +64,7 @@ export default ({
     return `{  
       "@type":"ListItem",
       "position":${i + 1},
-      "url":"${contextPath}${urlItem}"
+      "url":"${urlItem}"
       }`
   })
 

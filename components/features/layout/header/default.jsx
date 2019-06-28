@@ -15,6 +15,7 @@ class LayoutHeader extends PureComponent {
     super(props)
     this.state = {
       device: setDevice(),
+      data: {},
     }
     const {
       contextPath,
@@ -37,13 +38,13 @@ class LayoutHeader extends PureComponent {
       customLogo,
       customLogoLink
     )
+    this.getNavigationSections()
   }
 
   componentDidMount() {
     // TODO: Si googleTagManager no ejecuta, descomentar.
     // const { googleTagManagerScript } = this.props.siteProperties
     window.addEventListener('resize', this._handleResize)
-    this.getNavigationSections()
   }
 
   getNavigationSections() {
@@ -63,13 +64,21 @@ class LayoutHeader extends PureComponent {
           website: arcSite,
           hierarchy: defaultHierarchy,
         }
-    const schema = this.formater.getSchema()
-    const { fetched } = this.getContent(source, params, schema)
-    fetched.then(response => {
-      this.setState({
-        data: response || [],
-      })
+    this.fetchContent({
+      data: {
+        source,
+        query: params,
+        filter: this.formater.getSchema(),
+      },
     })
+  }
+
+  changesResize = device => {
+    const displayChangeEvent = 'displayChange'
+    this.setState({
+      device,
+    })
+    this.dispatchEvent(displayChangeEvent, device)
   }
 
   _handleResize = () => {
@@ -77,26 +86,18 @@ class LayoutHeader extends PureComponent {
     const mobile = 'mobile'
     const desktop = 'desktop'
     const tablet = 'tablet'
-    const displayChangeEvent = 'displayChange'
+
+    const { device } = this.state
 
     // ------ Set the new state if you change from mobile to desktop
-    if (wsize >= 1024 && this.state.device !== desktop) {
-      this.setState({
-        device: desktop,
-      })
-      this.dispatchEvent(displayChangeEvent, this.state.device)
+    if (wsize >= 1024 && device !== desktop) {
+      this.changesResize(desktop)
+    } else if (wsize < 1024 && wsize >= 640 && device !== tablet) {
       // ------ Set the new state if you change from desktop to mobile
-    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== tablet) {
-      this.setState({
-        device: tablet,
-      })
-      this.dispatchEvent(displayChangeEvent, this.state.device)
-    } else if (wsize < 640 && this.state.device !== mobile) {
+      this.changesResize(tablet)
+    } else if (wsize < 640 && device !== mobile) {
       // ------ Set the new state if you change from desktop to mobile
-      this.setState({
-        device: mobile,
-      })
-      this.dispatchEvent(displayChangeEvent, this.state.device)
+      this.changesResize(mobile)
     }
   }
 

@@ -19,12 +19,7 @@ const classes = {
 @Consumer
 class Error404 extends PureComponent {
   render() {
-    const {
-      contextPath,
-      customFields,
-      editableField,
-      siteProperties = {},
-    } = this.props
+    const { customFields, editableField, siteProperties = {} } = this.props
 
     const { messages: { errorTitle, errorDescription } = {} } = siteProperties
     const { title = errorTitle, description = errorDescription } = customFields
@@ -46,9 +41,9 @@ class Error404 extends PureComponent {
             {description}
           </p>
           <div role="search" className={classes.searchBox}>
-            <SearchInput contextPath={contextPath} />
+            <SearchInput />
           </div>
-          <a href={contextPath} className={classes.link}>
+          <a href="/" className={classes.link}>
             Volver a la página principal
           </a>
         </div>

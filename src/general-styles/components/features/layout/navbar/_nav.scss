@@ -47,7 +47,6 @@
     }
 
     &--section {
-
       //padding: 4px;
       & span {
         display: none;
@@ -62,6 +61,12 @@
   }
 
   // &__list { }
+
+  &__list-item {
+    &:nth-last-child(1) {
+      padding-right: 0;
+    }
+  }
 
   &__list-link {
     transition: 0.3s;
@@ -121,6 +126,11 @@
     .btn {
       border-color: $color-white;
       color: $color-white;
+    }
+  }
+  &__wrapper {
+    @media (--desktop) {
+      display: flex;
     }
   }
 }

@@ -28,22 +28,20 @@ class NavbarChildMenu extends PureComponent {
   }
 
   submitSearch = () => {
-    const { contextPath } = this.props
     const { value } = this.inputSearchMovil.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `${contextPath}/buscar?query=${value}`
+      location.href = `/buscar?query=${value}`
     }
   }
 
   renderSections = sections => {
-    const { contextPath } = this.props
     return (
       sections &&
       sections.map(({ children, name = '', _id: id = '' }) => (
         <>
           <li className={classes.item} key={`navbar-menu-${id}`}>
-            <a href={`${contextPath}${id}`} className={classes.link}>
+            <a href={id} className={classes.link}>
               {name}
             </a>
           </li>

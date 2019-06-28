@@ -16,7 +16,7 @@ const classes = {
   figure: 'story-separator__figure pt-0 pr-0 pb-0 pl-0 mt-0 mr-0 mb-0 ml-0',
 }
 
-const StorySeparatorChildItem = ({ data, contextPath, arcSite }) => {
+const StorySeparatorChildItem = ({ data, arcSite }) => {
   let numline = ''
   switch (arcSite) {
     case 'elcomercio':
@@ -45,17 +45,17 @@ const StorySeparatorChildItem = ({ data, contextPath, arcSite }) => {
       {multimediaType === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
         <h2 className={classes.separatorCategory}>
-          <a href={`${contextPath}${sectionLink}`}>{section}</a>{' '}
+          <a href={sectionLink}>{section}</a>{' '}
         </h2>
         <h3 className={`${classes.separatorTitle} ${numline}`}>
-          <a className={classes.titleLink} href={`${contextPath}${link}`}>
+          <a className={classes.titleLink} href={link}>
             {title}
           </a>
         </h3>
       </div>
       <figure className={classes.figure}>
         {link && (
-          <a href={`${contextPath}${link}`}>
+          <a href={link}>
             <img
               src={multimedia /* resizedUrls['3:4'] */}
               alt=""
