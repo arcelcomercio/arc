@@ -5,7 +5,7 @@ import Icon from './multimedia-icon'
 
 const classes = {
   extraordinaryStory: `extraordinary-story bg-white grid border-gray`,
-  section: `extraordinary-story__section text-left uppercase font-bold pt-20 pr-20 pl-20 pb-10 text-white`,
+  section: `extraordinary-story__section uppercase font-bold pt-20 pr-20 pl-20 pb-10 text-white`,
   sectionLink: 'extraordinary-story__section-link',
   content: 'extraordinary-story__content block pr-20 pl-20 position-relative',
   title: `extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-20`,

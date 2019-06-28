@@ -33,16 +33,16 @@ export default {
 
   legalLinks: [
     {
-      name: 'Términos y condiciones',
-      url: '/terminos-servicio',
+      name: 'Términos y Condiciones',
+      url: '/terminos-y-condiciones',
     },
     {
-      name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      name: 'Política de Privacidad',
+      url: '/politica-de-privacidad',
     },
     {
-      name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      name: 'Política de Cookies',
+      url: '/politica-de-cookies',
     },
   ],
 
