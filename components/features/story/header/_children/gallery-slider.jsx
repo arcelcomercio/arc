@@ -36,28 +36,19 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     this.step = getUrlParameter()
   }
 
-  componentDidMount() {
-    // this._controlKeys()
-  }
+  componentDidMount() {}
 
   setDefault(size) {
     const { deployment, contextPath, arcSite } = this.props
     return defaultImage({ deployment, contextPath, arcSite, size })
   }
 
-  _controlKeys = e => {
-    if (e.keyCode === 39) {
-      this._handleNext()
-      return false
-    }
-    if (e.keyCode === 37) {
-      this._handlePrev()
-      return false
-    }
-    return ''
+  _controlKeysSlider = e => {
+    if (e.keyCode === 39) this._handleNextSlider()
+    else if (e.keyCode === 37) this._handlePrevSlider()
   }
 
-  _handlePrev = () => {
+  _handlePrevSlider = () => {
     const { steps, slideWidth } = this.state
     this.step -= 1
     if (this.step < 0) this.step = steps - 1
@@ -65,10 +56,10 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       position: -slideWidth * this.step,
     })
 
-    this._urlGalleryImage()
+    window.history.pushState(null, '', this._getUrlGalleryImage())
   }
 
-  _handleNext = () => {
+  _handleNextSlider = () => {
     const { steps, slideWidth, dataSlider } = this.state
     this.step += 1
 
@@ -81,13 +72,13 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       position: -slideWidth * this.step,
     })
 
-    this._urlGalleryImage()
+    window.history.pushState(null, '', this._getUrlGalleryImage())
   }
 
-  _urlGalleryImage = () => {
+  _getUrlGalleryImage = () => {
     const pathFoto = `${window.location.href.split('?')[0]}?foto=${this.step +
       1}`
-    window.history.pushState(null, '', pathFoto)
+    return pathFoto
   }
 
   render() {
@@ -142,14 +133,14 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                       tabIndex="0"
                       className={classes.leftArrow}
                       onClick={this._handlePrev}
-                      onKeyDown={this._controlKeys}
+                      onKeyDown={this._controlKeysSlider}
                     />
                     <i
                       role="button"
                       tabIndex="0"
                       className={classes.rightArrow}
                       onClick={this._handleNext}
-                      onKeyDown={this._controlKeys}
+                      onKeyDown={this._controlKeysSlider}
                     />
                   </div>
                 )}
