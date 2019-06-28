@@ -4,6 +4,9 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 // import withSizes from 'react-sizes'
 
+const DEFAULT_SECTIONS_HIERARCHY = 'footer-secciones-default'
+const DEFAULT_CONTACTS_HIERARCHY = 'footer-contactos-default'
+
 const classes = {
   footer: 'footer w-full grid',
   info: 'footer__info p-20  bg-primary position-relative',
@@ -32,8 +35,7 @@ const classes = {
 }
 
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
-const DEFAULT_SECTIONS_HIERARCHY = 'Navegacion-Pie_de_pagina-secciones'
-const DEFAULT_CONTACTS_HIERARCHY = 'Navegacion-Pie_de_pagina-Contacto'
+
 const SCHEMA = `{ 
   children {
     name
@@ -100,14 +102,15 @@ class LayoutFooter extends PureComponent {
     const {
       deployment,
       contextPath,
-      requestUri,
       arcSite,
       siteProperties: {
+        social: {
+          facebook: { url: facebookUrl } = {},
+          twitter: { url: twitterUrl } = {},
+        } = {},
         gecSites,
         footer,
-        assets: {
-          footer: { logo },
-        },
+        assets: { footer: { logo } = {} } = {},
       },
     } = this.props
 
@@ -120,14 +123,10 @@ class LayoutFooter extends PureComponent {
     const sections = this.formatData(rawSections)
     const contacts = this.formatData(rawContacts)
 
-    const querys = requestUri.split('?')[1]
-    const queryString = querys !== undefined ? `?${querys}` : ''
     return (
       <footer className={classes.footer}>
         <div className={classes.info}>
-          <a
-            href={`/${queryString}`}
-            className={classes.logoContainer}>
+          <a href="/" className={classes.logoContainer}>
             <img className={classes.logoImg} src={logoUrl} alt="" />
           </a>
           <ul className={classes.legalList}>
@@ -144,9 +143,7 @@ class LayoutFooter extends PureComponent {
             <li className={classes.listTitle}>Nuestras secciones</li>
             {sections.map(el => (
               <li className={classes.listItem} key={el.url}>
-                <a
-                  className={classes.listLink}
-                  href={`${el.url}${requestUri}`}>
+                <a className={classes.listLink} href={el.url}>
                   {el.name}
                 </a>
               </li>
@@ -159,13 +156,7 @@ class LayoutFooter extends PureComponent {
             <li className={classes.listTitle}>Contacto</li>
             {contacts.map(el => (
               <li className={classes.listItem} key={el.url}>
-                <a
-                  className={classes.listLink}
-                  href={
-                    el.node_type === 'link'
-                      ? el.url
-                      : `${el.url}${requestUri}`
-                  }>
+                <a className={classes.listLink} href={el.url}>
                   {el.name}
                 </a>
               </li>
@@ -177,14 +168,18 @@ class LayoutFooter extends PureComponent {
           <ul className={classes.listSocial}>
             <li className={classes.listSocialItem}>
               <a
-                href="https://www.facebook.com/elcomercio.pe"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={facebookUrl}
                 className={classes.listSocialLink}>
                 <i className={classes.facebookIcon} />
               </a>
             </li>
             <li className={classes.listSocialItem}>
               <a
-                href="https://twitter.com/elcomercio_peru"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={twitterUrl}
                 className={classes.listSocialLink}>
                 <i className={classes.twitterIcon} />
               </a>
@@ -198,7 +193,11 @@ class LayoutFooter extends PureComponent {
               if (site.arcSite !== arcSite) {
                 return (
                   <li className={classes.sitesItem} key={site.url}>
-                    <a className={classes.sitesLink} href={site.url}>
+                    <a
+                      className={classes.sitesLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={site.url}>
                       {site.name}
                     </a>
                   </li>

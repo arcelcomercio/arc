@@ -58,12 +58,12 @@ export default {
     facebook: {
       name: 'facebook',
       user: '@elcomercio.pe',
-      url: 'https://www.facebook.com/elcomercio.pe',
+      url: 'http://facebook.com/publimetrope',
     },
     twitter: {
       name: 'twitter',
       user: '@elcomercio_peru',
-      url: 'https://twitter.com/elcomercio_peru',
+      url: 'http://twitter.com/publimetrope',
     },
     youtube: {
       name: 'youtube',
