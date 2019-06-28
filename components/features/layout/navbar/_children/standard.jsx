@@ -150,6 +150,7 @@ class NavBarDefault extends PureComponent {
     const {
       logo,
       arcSite,
+      siteProperties,
       contextPath,
       device,
       deviceList,
@@ -275,6 +276,7 @@ class NavBarDefault extends PureComponent {
             sections={sections}
             showSidebar={statusSidebar}
             contextPath={contextPath}
+            siteProperties={siteProperties}
           />
         </nav>
       )

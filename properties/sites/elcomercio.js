@@ -44,6 +44,21 @@ export default {
     },
   },
 
+  legalLinks: [
+    {
+      name: 'Términos y condiciones',
+      url: '/terminos-servicio',
+    },
+    {
+      name: 'Políticas de Privacidad',
+      url: '/politicas-privacidad',
+    },
+    {
+      name: 'Politicas de Cookies',
+      url: '/politicas-cookies',
+    },
+  ],
+
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
