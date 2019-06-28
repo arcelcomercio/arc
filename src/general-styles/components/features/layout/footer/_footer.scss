@@ -15,7 +15,11 @@
 
   &__sections {
     grid-area: sections;
-    // padding: 10px;
+
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
   }
   &__info,
   &__sections {

@@ -1,7 +1,8 @@
 // import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import { setDevice } from '../../../utilities/resizer'
+import PropTypes from 'prop-types'
+// import withSizes from 'react-sizes'
 
 const classes = {
   footer: 'footer w-full grid',
@@ -30,82 +31,69 @@ const classes = {
   twitterIcon: 'footer__social-icon icon-twitter',
 }
 
+const CONTENT_SOURCE = 'navigation-by-hierarchy'
+const DEFAULT_SECTIONS_HIERARCHY = 'Navegacion-Pie_de_pagina-secciones'
+const DEFAULT_CONTACTS_HIERARCHY = 'Navegacion-Pie_de_pagina-Contacto'
+const SCHEMA = `{ 
+  children {
+    name
+    _id
+    display_name
+    url
+    node_type
+  }
+}`
+
 @Consumer
 class LayoutFooter extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      device: setDevice(),
-      legalList: [],
-      sectionsList: [],
-    }
-  }
+    const {
+      customFields: {
+        sectionsHierarchyConfig: {
+          contentConfigValues: { hierarchy: sectionsHierarchy = '' } = {},
+        } = {},
+        contactsHierarchyConfig: {
+          contentConfigValues: { hierarchy: contactsHierarchy = '' } = {},
+        } = {},
+      } = {},
+    } = this.props
 
-  componentDidMount() {
-    this.addEventListener('displayChange', this._handleDevice)
-    this.setState({
-      legalList: [],
+    this.fetchContent({
+      sections: {
+        source: CONTENT_SOURCE,
+        query: {
+          hierarchy: sectionsHierarchy || DEFAULT_SECTIONS_HIERARCHY,
+        },
+        filter: SCHEMA,
+      },
+      contacts: {
+        source: CONTENT_SOURCE,
+        query: {
+          hierarchy: contactsHierarchy || DEFAULT_CONTACTS_HIERARCHY,
+        },
+        filter: SCHEMA,
+      },
     })
-    this.fetchByHierarchy('Navegacion-Pie_de_pagina-Contacto')
-    this.fetchByHierarchy('Navegacion-Pie_de_pagina-secciones')
   }
 
-  _handleDevice = device => {
-    this.setState({
-      device,
-    })
-  }
-
-  fetchByHierarchy(hierarchy) {
-    const { arcSite } = this.props
-
-    const source = 'navigation-by-hierarchy'
-    const params = {
-      website: arcSite,
-      hierarchy,
-    }
-    const schema = `{ 
-      children {
-        name
-        _id
-        display_name
-        url
-        node_type
-      }
-    }`
-
-    const { fetched } = this.getContent(source, params, schema)
-    fetched
-      .then(response => {
-        const { children = [] } = response || {}
-        const auxList = children.map(el => {
-          if (el.node_type === 'link') {
-            return {
-              name: el.display_name,
-              url: el.url,
-              node_type: el.node_type,
-            }
-          }
-          return {
-            name: el.name,
-            url: el._id,
-            node_type: el.node_type,
-          }
-        })
-        switch (hierarchy) {
-          case 'Navegacion-Pie_de_pagina-Contacto':
-            this.setState({ legalList: auxList })
-            break
-          case 'Navegacion-Pie_de_pagina-secciones':
-            this.setState({ sectionsList: auxList })
-            break
-          default:
-            break
+  formatData = res => {
+    const { children = [] } = res || {}
+    const auxList = children.map(el => {
+      if (el.node_type === 'link') {
+        return {
+          name: el.display_name,
+          url: el.url,
+          node_type: el.node_type,
         }
-      })
-      .catch(e => {
-        throw new Error(e)
-      })
+      }
+      return {
+        name: el.name,
+        url: el._id,
+        node_type: el.node_type,
+      }
+    })
+    return auxList
   }
 
   render() {
@@ -127,11 +115,13 @@ class LayoutFooter extends PureComponent {
       deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) ||
       ''
 
-    const { device, legalList, sectionsList } = this.state
+    const { sections: rawSections = [], contacts: rawContacts = [] } =
+      this.state || {}
+    const sections = this.formatData(rawSections)
+    const contacts = this.formatData(rawContacts)
 
     const querys = requestUri.split('?')[1]
     const queryString = querys !== undefined ? `?${querys}` : ''
-
     return (
       <footer className={classes.footer}>
         <div className={classes.info}>
@@ -148,26 +138,26 @@ class LayoutFooter extends PureComponent {
             ))}
           </ul>
         </div>
-        {device === 'desktop' && (
-          <div className={classes.sections}>
-            <ul className={classes.list}>
-              <li className={classes.listTitle}>Nuestras secciones</li>
-              {sectionsList.map(el => (
-                <li className={classes.listItem} key={el.url}>
-                  <a
-                    className={classes.listLink}
-                    href={`${contextPath}${el.url}${requestUri}`}>
-                    {el.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+
+        <div className={classes.sections}>
+          <ul className={classes.list}>
+            <li className={classes.listTitle}>Nuestras secciones</li>
+            {sections.map(el => (
+              <li className={classes.listItem} key={el.url}>
+                <a
+                  className={classes.listLink}
+                  href={`${contextPath}${el.url}${requestUri}`}>
+                  {el.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <div className={classes.contact}>
           <ul className={classes.list}>
             <li className={classes.listTitle}>Contacto</li>
-            {legalList.map(el => (
+            {contacts.map(el => (
               <li className={classes.listItem} key={el.url}>
                 <a
                   className={classes.listLink}
@@ -224,5 +214,18 @@ class LayoutFooter extends PureComponent {
 }
 
 LayoutFooter.label = 'Pie de Página'
+
+LayoutFooter.propTypes = {
+  customFields: PropTypes.shape({
+    sectionsHierarchyConfig: PropTypes.contentConfig('navigation').tag({
+      name: 'Editar navegación de "secciones"',
+      group: 'Configuración del contenido',
+    }),
+    contactsHierarchyConfig: PropTypes.contentConfig('navigation').tag({
+      name: 'Editar navegación de "contactos"',
+      group: 'Configuración del contenido',
+    }),
+  }),
+}
 
 export default LayoutFooter
