@@ -159,7 +159,6 @@ class NavBarDefault extends PureComponent {
       contextPath,
       device,
       deviceList,
-      siteProperties,
       data: { children: sections = [] } = {},
     } = this.props
     // this._handleDevice(device)
@@ -271,7 +270,9 @@ class NavBarDefault extends PureComponent {
               <div className={classes.btnContainer}>
                 <Button
                   iconClass={classes.iconLogin}
-                  btnClass={`${classes.btnLogin} border-1 border-solid border-white`}
+                  btnClass={`${
+                    classes.btnLogin
+                  } border-1 border-solid border-white`}
                   btnLink="#"
                 />
               </div>
