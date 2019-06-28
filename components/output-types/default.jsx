@@ -131,7 +131,10 @@ export default ({
         />
         {/* Scripts de APPNEXUS */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
-
+        <script
+          async
+          src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
+        />
         <Libs />
       </head>
       <body className={isStory ? 'story' : ''}>
