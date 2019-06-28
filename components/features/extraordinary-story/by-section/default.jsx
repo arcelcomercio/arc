@@ -40,6 +40,7 @@ class ExtraordinaryStoryBySection extends PureComponent {
   render() {
     const { deployment, contextPath, arcSite, customFields } = this.props
     const { data: { content_elements: contentElements = [] } = {} } = this.state
+    console.log(contentElements)
     const data =
       contentElements && contentElements.length > 0 ? contentElements[0] : {}
     const formattedData = new Data({
@@ -50,6 +51,7 @@ class ExtraordinaryStoryBySection extends PureComponent {
       customFields,
       defaultImgSize: 'md',
     })
+    console.log('before Formatter: ', data)
     // this.isVideo = formattedData.isVideo
     const params = {
       data: formattedData,
@@ -60,6 +62,7 @@ class ExtraordinaryStoryBySection extends PureComponent {
       contextPath,
       arcSite,
     }
+    console.log('Formatter: ', data)
     return <ExtraordinaryStory {...params} />
   }
 }

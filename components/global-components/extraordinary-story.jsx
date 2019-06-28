@@ -5,12 +5,10 @@ import Icon from './multimedia-icon'
 
 const classes = {
   extraordinaryStory: `extraordinary-story bg-white grid border-gray`,
-  section:
-    'extraordinary-story__section text-left uppercase font-bold pt-20 pr-20 pl-20 pb-10 text-white',
+  section: `extraordinary-story__section text-left uppercase font-bold pt-20 pr-20 pl-20 pb-10 text-white`,
   sectionLink: 'extraordinary-story__section-link',
   content: 'extraordinary-story__content block pr-20 pl-20 position-relative',
-  title:
-    'extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-20',
+  title: `extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-20`,
   titleLink: 'extraordinary-story__title-link',
   oneline: 'extraordinary-story--oneline',
   twoline: 'extraordinary-story--twoline',
@@ -20,8 +18,7 @@ const classes = {
   link: 'extraordinary-story__link',
   // extraordinaryStoryAuthor: 'uppercase mb-15  text-xs',
   authorLink: 'extraordinary-story__author-link text-gray-200',
-  multimedia:
-    'extraordinary-story__multimedia h-full block bg-gray-300 position-relative',
+  multimedia: `extraordinary-story__multimedia h-full block bg-gray-300 position-relative`,
 }
 
 const ExtraordinaryStory = props => {
@@ -61,6 +58,7 @@ const ExtraordinaryStory = props => {
       numline = classes.twoline
       break
   }
+  console.log('link:', data.link)
   return (
     <article
       className={`${
@@ -91,17 +89,19 @@ const ExtraordinaryStory = props => {
         </address>
       </div>
       <div className={classes.multimedia}>
-        <EmbedMultimedia
-          type={data.typeMultimediaGeneral}
-          title={data.title}
-          source={data.sourceMultimedia}
-          deployment={deployment}
-          contextPath={contextPath}
-          website={arcSite}
-        />
-        {multimediaType === ConfigParams.GALLERY && (
-          <Icon type={multimediaType} />
-        )}
+        <a href={data.link}>
+          <EmbedMultimedia
+            type={data.typeMultimediaGeneral}
+            title={data.title}
+            source={data.sourceMultimedia}
+            deployment={deployment}
+            contextPath={contextPath}
+            website={arcSite}
+          />
+          {multimediaType === ConfigParams.GALLERY && (
+            <Icon type={multimediaType} />
+          )}
+        </a>
       </div>
     </article>
   )
