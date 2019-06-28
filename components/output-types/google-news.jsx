@@ -4,8 +4,6 @@ import ElementStringChanel from './_children/google-news/template-string-chanel'
 import StringImageItem from './_children/google-news/template-string-item-image'
 import StringTemplateArrayItem from './_children/google-news/template-string-item-chanel'
 
-const print = prop => `<print>${prop}</print>`
-
 const GoogleNews = ({
   deployment = {},
   contextPath = '',

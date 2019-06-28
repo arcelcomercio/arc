@@ -13,7 +13,7 @@ export default {
   charbeatAccountNumber: 99999,
   idGoogleAnalitics:'UA-3055636-8',
   fbArticleStyle:'LogoDepor',
-  description:'Noticias de Perú y el mundo en Publimetro.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  description:'Noticias de Perú y el mundo en Depor.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage:'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
