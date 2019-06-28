@@ -20,7 +20,7 @@ const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
   textClasses:
     'amp-story-content__news-text text-lg mt-15 mb-25 secondary-font text-gray-300 text-xl line-h-md',
-  author: 'amp-story-content__author mt-15 mb-15',
+  author: 'amp-story-content__author mt-15 mb-15 secondary-font',
   image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
   video: 'amp-story-content__video amp-active',
