@@ -21,16 +21,10 @@ const StringItem = ({
         <pubDate>
           <![CDATA[ ${pubDate} ]]>
         </pubDate>
-        <content>
+        <dc:creator>
           <![CDATA[ ${creator} ]]>
-        </content>
+        </dc:creator>
     </item>`
-}
-
-{
-  /* <dc:creator>
-          <![CDATA[ ${creator} ]]>
-        </dc:creator> */
 }
 
 const StringTemplateArrayItem = ({
@@ -52,13 +46,12 @@ const StringTemplateArrayItem = ({
 
       const itemProps = {
         title: storydata.title,
-        link: `${siteUrl}${storydata.link}` ,
+        link: `${siteUrl}${storydata.link}`,
         description: storydata.subTitle,
         pubDate: storydata.date,
         creator: storydata.author,
       }
       const item = StringItem(itemProps)
-      // const item = JSON.stringify(itemProps)
       return item
     })
     .join('')

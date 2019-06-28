@@ -4,6 +4,8 @@ import ElementStringChanel from './_children/google-news/template-string-chanel'
 import StringImageItem from './_children/google-news/template-string-item-image'
 import StringTemplateArrayItem from './_children/google-news/template-string-item-chanel'
 
+const print = prop => `<print>${prop}</print>`
+
 const GoogleNews = ({
   deployment = {},
   contextPath = '',
@@ -13,22 +15,26 @@ const GoogleNews = ({
 }) => {
   const { content_elements: contentElements } = globalContent || []
 
-  const { siteName = '', siteUrl = '', siteDomain = '' } = siteProperties
+  const {
+    siteName = '',
+    siteUrl = '',
+    siteDomain = '',
+    siteDescription = '',
+    googleNewsImage = '',
+  } = siteProperties
 
   const stories = contentElements
 
   const propsXml = {
     version: '2.0',
-    'xmlns:atom': 'http://www.w3.org/2005/Atom',
-    'xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
-    'xmlns:slash': 'http://purl.org/rss/1.0/modules/slash/',
+    'xmlns:dc':'http://purl.org/dc/elements/1.1/'
   }
 
   const chanelProps = {
     siteName,
     siteUrl,
-    descripcion:
-      'Noticias de Perú y el mundo en Publimetro.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+    siteDescription,
+    googleNewsImage,
   }
   const imageProps = {
     siteDomain,
@@ -43,9 +49,12 @@ const GoogleNews = ({
     stories,
   }
   const ArrayItemString = StringTemplateArrayItem(itemsProps)
-
   let chanelString = ElementStringChanel(chanelProps)
-  chanelString = chanelString.replace('@StringImageItem', StringImageItem(imageProps))
+
+  chanelString = chanelString.replace(
+    '@StringImageItem',
+    StringImageItem(imageProps)
+  )
 
   chanelString = chanelString.replace('@ItemsNews', ArrayItemString)
 
@@ -53,6 +62,9 @@ const GoogleNews = ({
     <NewElement nameElement="rss" propsNewElement={propsXml}>
       <chanel dangerouslySetInnerHTML={{ __html: chanelString }} />
     </NewElement>
+    // <NewElement nameElement="rss" propsNewElement={propsXml}>
+    //   <chanel dangerouslySetInnerHTML={{ __html: print(chanelProps.siteDescription) }} />
+    // </NewElement>
   )
 }
 
