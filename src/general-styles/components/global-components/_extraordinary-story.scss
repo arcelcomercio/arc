@@ -1,56 +1,63 @@
 $img-max-height: 355px;
 
-@mixin topMultimedia() {
-  grid-template-areas:
-    'extraordinary-story-multimedia extraordinary-story-multimedia'
-    'extraordinary-story-section extraordinary-story-section'
-    'extraordinary-story-content extraordinary-story-content';
-}
-
-@mixin bottomMultimedia() {
-  grid-template-areas:
-    'extraordinary-story-section extraordinary-story-section'
-    'extraordinary-story-content extraordinary-story-content'
-    'extraordinary-story-multimedia extraordinary-story-multimedia';
-}
-
 .extraordinary-story {
   /*   grid-template-columns: 1fr 1fr; */
+  flex-direction: column;
 
   &--bottom {
-    @include bottomMultimedia();
+    & .extraordinary-story__section{
+      order: 1;
+    }
+
+    & .extraordinary-story__content{
+      order: 2;
+    }
+
+    & .extraordinary-story__multimedia{
+      order: 3;
+    }
   }
 
   &--top {
-    @include topMultimedia();
+    & .extraordinary-story__multimedia{
+      order: 1;
+    }
+
+    & .extraordinary-story__section{
+      order: 2;
+    }
+
+    & .extraordinary-story__content{
+      order: 3;
+    }
   }
 
   &--left {
-    @include topMultimedia();
+    // @include topMultimedia();
 
-    @media (--desktop) {
+    /* @media (--desktop) {
       grid-template-areas:
         'extraordinary-story-multimedia extraordinary-story-section'
         'extraordinary-story-multimedia extraordinary-story-content';
       grid-template-rows: auto 1fr;
       grid-template-columns: 1fr 40%;
-    }
+    }*/
   }
 
   &--right {
-    @include bottomMultimedia();
+    // @include bottomMultimedia();
 
     @media (--desktop) {
-      grid-template-areas:
+      /*grid-template-areas:
         'extraordinary-story-section extraordinary-story-multimedia'
         'extraordinary-story-content extraordinary-story-multimedia';
       grid-template-rows: auto 1fr;
-      grid-template-columns: 40% 1fr;
+      grid-template-columns: 40% 1fr;*/
     }
   }
 
   &__section {
-    grid-area: extraordinary-story-section;
+    // grid-area: extraordinary-story-section;
   }
 
   &__title {
@@ -86,8 +93,8 @@ $img-max-height: 355px;
   }
 
   &__multimedia {
-    grid-area: extraordinary-story-multimedia;
-    max-height: $img-max-height;
+    /*grid-area: extraordinary-story-multimedia;
+    max-height: $img-max-height;*/
 
     @media (--desktop) {
       height: $img-max-height;
