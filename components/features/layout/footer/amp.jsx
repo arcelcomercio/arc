@@ -6,11 +6,9 @@ import StoryData from '../../../utilities/story-data'
 const classes = {
   footer: 'amp-footer footer flex items-center pt-25 pb-25',
   footerInfo: 'amp-footer__info m-0 mx-auto',
-  footerLogoContainer:
-    'amp-footer__text font-bold uppercase inline-block primary-font pr-25 text-xl line-h-xs',
+  footerLogoContainer: `amp-footer__text font-bold uppercase inline-block primary-font pr-25 text-xl line-h-xs`,
   nextPageSeparator: 'amp-footer__next-page-separator mx-auto w-full',
-  nextPageSeparatorText:
-    'amp-footer__next-page-separator-text text-center text-xs text-gray-200',
+  nextPageSeparatorText: `amp-footer__next-page-separator-text text-center text-xs text-gray-200`,
 }
 
 @Consumer
@@ -74,7 +72,7 @@ class LayoutAmpFooter extends PureComponent {
         <footer className={classes.footer}>
           <div className={classes.footerInfo}>
             <a
-              href={`${contextPath || ''}${primarySectionLink}`}
+              href={primarySectionLink}
               className={classes.footerLogoContainer}>
               <span>Ver más de {primarySection}</span>
             </a>
