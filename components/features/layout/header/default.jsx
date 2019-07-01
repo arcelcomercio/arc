@@ -1,8 +1,7 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
-import { setDevice } from '../../../utilities/resizer'
+// import { setDevice } from '../../../utilities/resizer'
 
 import HeaderChildSomos from './_children/somos'
 import HeaderChildStandard from './_children/standard'
@@ -13,10 +12,10 @@ const defaultHierarchy = 'navegacion-cabecera-tema-del-dia'
 class LayoutHeader extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
+    /* this.state = {
       device: setDevice(),
       data: {},
-    }
+    } */
     const {
       contextPath,
       arcSite,
@@ -41,11 +40,11 @@ class LayoutHeader extends PureComponent {
     this.getNavigationSections()
   }
 
-  componentDidMount() {
+  /* componentDidMount() {
     // TODO: Si googleTagManager no ejecuta, descomentar.
     // const { googleTagManagerScript } = this.props.siteProperties
     window.addEventListener('resize', this._handleResize)
-  }
+  } */
 
   getNavigationSections() {
     const {
@@ -73,7 +72,7 @@ class LayoutHeader extends PureComponent {
     })
   }
 
-  changesResize = device => {
+  /* changesResize = device => {
     const displayChangeEvent = 'displayChange'
     this.setState({
       device,
@@ -99,10 +98,10 @@ class LayoutHeader extends PureComponent {
       // ------ Set the new state if you change from desktop to mobile
       this.changesResize(mobile)
     }
-  }
+  } */
 
   renderHeader = () => {
-    const { device, data } = this.state
+    const { data } = this.state
     const {
       customFields: {
         headerType,
@@ -113,7 +112,7 @@ class LayoutHeader extends PureComponent {
     } = this.props
 
     this.formater.setData(data)
-    const params = { ...this.formater.getParams(), device }
+    const params = { ...this.formater.getParams() }
 
     const headers = {
       standard: (
@@ -148,7 +147,8 @@ LayoutHeader.propTypes = {
         somos: 'Cabecera somos',
       },
       defaultValue: 'standard',
-      description: `La jerarquía por defecto es "${defaultHierarchy}"`,
+      description:
+        'La configuración de visibilidad por dispositivo depende del tipo de cabecera',
     }),
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',
