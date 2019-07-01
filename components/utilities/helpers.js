@@ -359,7 +359,9 @@ export const getResponsiveClasses = ({
   showInTablet = true,
   showInMobile = true,
 }) => {
-  return `${showInDesktop ? '' : 'non-desktop'} ${
-    showInTablet ? '' : 'non-tablet'
-  } ${showInMobile ? '' : 'non-mobile'}`
+  const responsiveClasses = []
+  if (!showInDesktop) responsiveClasses.push('non-desktop')
+  if (!showInTablet) responsiveClasses.push('non-tablet')
+  if (!showInMobile) responsiveClasses.push('non-mobile')
+  return responsiveClasses.join(' ')
 }
