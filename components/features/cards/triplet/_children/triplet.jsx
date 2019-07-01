@@ -11,13 +11,13 @@ const TripletChildTriplet = props => {
   } = props
   const classes = {
     triplet: 'triplet bg-white border-solid border-1 border-gray p-20 row-1',
-    link: 'triplet__title-link text-lg',
-    item: `triplet__item flex justify-between border-b-1 border-solid pt-15 pb-15 triplet__item--${multimediaOrientation}`,
-    title: 'triplet__title overflow-hidden',
+    item: `triplet__item flex justify-between border-b-1 border-solid border-base pt-15 pb-15 triplet__item--${multimediaOrientation}`,
+    title: 'triplet__title overflow-hidden text-lg line-h-sm',
+    titleLink: 'triplet__title-link',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
     threeline: 'triplet--threeline',
-    author: 'triplet__author uppercase text-xs text-gray-200',
+    author: 'triplet__author uppercase text-xs',
     authorLink: 'triplet__link text-gray-200',
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
@@ -36,7 +36,7 @@ const TripletChildTriplet = props => {
       numline = classes.twoline
       break
     default:
-      numline = classes.twoline
+      numline = classes.threeline
       break
   }
 
@@ -48,22 +48,20 @@ const TripletChildTriplet = props => {
           role="listitem"
           key={`triplet-${story.index}`}>
           <div className={classes.information}>
-            <div className={`${classes.title} ${numline}`}>
-              <h2>
-                <a
-                  className={classes.link}
-                  href={story.link}
-                  {...editableField(`title${index + 1}`)}
-                  suppressContentEditableWarning>
-                  {story.title}
-                </a>
-              </h2>
-            </div>
+            <h2 className={`${classes.title} ${numline}`}>
+              <a
+                className={classes.titleLink}
+                href={story.link}
+                {...editableField(`title${index + 1}`)}
+                suppressContentEditableWarning>
+                {story.title}
+              </a>
+            </h2>
             <address className={classes.author}>
               <a
                 className={classes.authorLink}
                 href={story.authorOrSectionLink}>
-                {/*  {story.authorOrSection} */}Aurtor autor
+                {story.authorOrSection}
               </a>
             </address>
           </div>
