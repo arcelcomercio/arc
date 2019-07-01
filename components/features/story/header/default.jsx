@@ -42,7 +42,6 @@ class StoryHeader extends PureComponent {
   }
 }
 
-StoryHeader.static = false
 StoryHeader.label = 'Artículo - cabecera'
 
 export default StoryHeader

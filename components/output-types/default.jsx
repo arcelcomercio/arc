@@ -27,6 +27,7 @@ export default ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    siteAssets: siteProperties.assets,
     metaValue,
     deployment,
   }
