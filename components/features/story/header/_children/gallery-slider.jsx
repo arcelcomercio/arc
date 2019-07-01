@@ -11,7 +11,7 @@ const classes = {
   captionImage:
     'story-gallery-slider__caption-image pt-10 ml-15 text-sm text-white secondary-font',
   quantity:
-    'story-gallery-slider__quantity mr-5 title-xs flex items-center justify-center',
+    'story-gallery-slider__quantity title-xs flex items-center justify-center',
   arrowsBox:
     'story-gallery-slider__arrows-box position-absolute top-0 flex w-full items-center justify-between pl-20 pr-20',
   leftArrow: 'story-gallery-slider__arrows icon-left text-white title-lg',
