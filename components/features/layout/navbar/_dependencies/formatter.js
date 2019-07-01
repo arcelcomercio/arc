@@ -1,5 +1,8 @@
 import schemaFilter from './schema-filter'
 
+const CONTENT_SOURCE = 'navigation-by-hierarchy'
+const DEFAULT_HIERARCHY = 'navbar-default'
+
 export default class NavbarFormater {
   constructor(props, customFields) {
     const {
@@ -10,9 +13,7 @@ export default class NavbarFormater {
       siteDomain = '',
       arcSite = '',
     } = props
-    const {
-      selectDesing = 'standard'
-    } = customFields
+    const { selectDesing = 'standard' } = customFields
     this.deployment = deployment
     this.contextPath = contextPath
     this.siteDomain = siteDomain
@@ -28,23 +29,20 @@ export default class NavbarFormater {
   get main() {
     return {
       initParams: this[this.selectDesing].initParams(),
-      fetch: this[this.selectDesing].fetch() ?
-        this[this.selectDesing].fetch() : false,
+      fetch: this[this.selectDesing].fetch()
+        ? this[this.selectDesing].fetch()
+        : false,
     }
   }
 
   get somos() {
-    const {
-      logoSomos
-    } = this.navProperties
+    const { logoSomos } = this.navProperties
     return {
       initParams: () => {
         return {
           back: {
             logo: this.deployment(
-              `${this.contextPath}/resources/dist/${
-                this.arcSite
-              }/images/${logoSomos}`
+              `${this.contextPath}/resources/dist/${this.arcSite}/images/${logoSomos}`
             ),
             link: '/',
             alt: this.siteDomain,
@@ -62,23 +60,19 @@ export default class NavbarFormater {
   }
 
   get standard() {
-    const {
-      logo
-    } = this.navProperties
+    const { logo } = this.navProperties
     return {
       initParams: () => {
         return {
           logo: this.deployment(
-            `${this.contextPath}/resources/dist/${
-              this.arcSite
-            }/images/${logo}`
+            `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
           ),
         }
       },
       fetch: () => {
-        const source = 'navigation-by-hierarchy'
+        const source = CONTENT_SOURCE
         const params = {
-          hierarchy: 'navbar-header-sections',
+          hierarchy: DEFAULT_HIERARCHY,
         }
         return {
           config: {

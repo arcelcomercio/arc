@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-const DEFAULT_SECTIONS_HIERARCHY = 'footer-secciones-default'
+const DEFAULT_HIERARCHY = 'footer-default'
 
 const classes = {
   footer: 'footer w-full grid',
@@ -68,7 +68,7 @@ class LayoutFooter extends PureComponent {
       sections: {
         source: CONTENT_SOURCE,
         query: {
-          hierarchy: sectionsHierarchy || DEFAULT_SECTIONS_HIERARCHY,
+          hierarchy: sectionsHierarchy || DEFAULT_HIERARCHY,
         },
         filter: SCHEMA,
       },

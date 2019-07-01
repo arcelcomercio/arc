@@ -7,7 +7,7 @@ import HeaderChildSomos from './_children/somos'
 import HeaderChildStandard from './_children/standard'
 import Formatter from './_dependencies/formatter'
 
-const defaultHierarchy = 'navegacion-cabecera-tema-del-dia'
+const DEFAULT_HIERARCHY = 'header-default'
 @Consumer
 class LayoutHeader extends PureComponent {
   constructor(props) {
@@ -61,7 +61,7 @@ class LayoutHeader extends PureComponent {
       ? contentConfigValues
       : {
           website: arcSite,
-          hierarchy: defaultHierarchy,
+          hierarchy: DEFAULT_HIERARCHY,
         }
     this.fetchContent({
       data: {
