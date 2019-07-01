@@ -28,13 +28,14 @@ export const dataCasting = ({
   arcSite
 }) => {
   const aux = []
+  
   const element = new StoryData({
     deployment,
     contextPath,
     arcSite,
     defaultImgSize: 'sm',
   })
-
+  
   data.forEach(el => {
     element.__data = el
     aux.push({
