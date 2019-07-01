@@ -58,9 +58,16 @@ class NavbarChildMenu extends PureComponent {
       showSidebar,
     } = this.props
 
+    const IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+      window.navigator.userAgent
+    )
+
     return (
       <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
-        <div className={`${classes.content} ${showSidebar ? 'active' : ''}`}>
+        <div
+          className={`${classes.content} ${
+            IS_MOBILE ? 'w-full' : 'w-desktop'
+          } ${showSidebar ? 'active' : ''}`}>
           <div className={classes.top}>
             <div className={classes.header}>
               <div className={classes.btnBox}>

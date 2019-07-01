@@ -56,23 +56,26 @@ class CardCinemaBillboard extends PureComponent {
     const { arcSite, deployment, contextPath } = this.props
 
     fetched.then(response => {
-      const { peliculas, cines, estrenos } = response
+      const { peliculas, cines, estrenos = [] } = response
 
       const moviesList = Object.values(peliculas)
       const cinemasList = cines
 
-      const img = defaultImage({
-        deployment,
-        contextPath,
-        arcSite,
-        size: 'sm',
-      })
+      const { poster: { sizes: { poster = '' } = {} } = {}, name, url, body } =
+        estrenos[0] || {}
 
       const premiereData = {
-        title: estrenos[0].name,
-        img,
-        url: estrenos[0].url,
-        alt: estrenos[0].body,
+        title: name,
+        img:
+          poster ||
+          defaultImage({
+            deployment,
+            contextPath,
+            arcSite,
+            size: 'sm',
+          }),
+        url,
+        alt: body,
       }
 
       this.setState({
@@ -108,7 +111,7 @@ class CardCinemaBillboard extends PureComponent {
       movieSelected,
       cinemaSelected,
       billboardData,
-      premiereData,
+      premiereData: { alt, img, title, url },
     } = this.state
 
     return (
@@ -121,12 +124,8 @@ class CardCinemaBillboard extends PureComponent {
             </a>
           </h3>
           <figure className={classes.figure}>
-            <a href={`${BASE_PATH}${MOVIES_BASE_PATH}/${premiereData.url}`}>
-              <img
-                src={premiereData.img}
-                alt={premiereData.alt}
-                className={classes.image}
-              />
+            <a href={`${BASE_PATH}${MOVIES_BASE_PATH}/${url}`}>
+              <img src={img} alt={alt} className={classes.image} />
             </a>
           </figure>
           <div className={classes.detail}>
@@ -134,8 +133,8 @@ class CardCinemaBillboard extends PureComponent {
             <h2 className={classes.movieTitle}>
               <a
                 className={classes.movieLink}
-                href={`${BASE_PATH}${MOVIES_BASE_PATH}/${premiereData.url}`}>
-                Luchando con mi familia
+                href={`${BASE_PATH}${MOVIES_BASE_PATH}/${url}`}>
+                {title}
               </a>
             </h2>
           </div>
