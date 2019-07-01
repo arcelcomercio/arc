@@ -74,7 +74,7 @@ class LayoutAmpFooter extends PureComponent {
         <footer className={classes.footer}>
           <div className={classes.footerInfo}>
             <a
-              href={`${contextPath || ''}${primarySectionLink}`}
+              href={primarySectionLink}
               className={classes.footerLogoContainer}>
               <span>Ver más de {primarySection}</span>
             </a>

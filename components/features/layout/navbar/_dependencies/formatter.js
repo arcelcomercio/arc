@@ -46,12 +46,12 @@ export default class NavbarFormater {
                 this.arcSite
               }/images/${logoSomos}`
             ),
-            link: this.contextPath,
+            link: '/',
             alt: this.siteDomain,
           },
           // TODO: Reemplazar por la función reutilizable
           searchUrl: query => {
-            window.location.href = `${this.contextPath}/buscar?query=${query}`
+            window.location.href = `/buscar?query=${query}`
           },
         }
       },

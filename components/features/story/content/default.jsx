@@ -63,7 +63,6 @@ class StoryContent extends PureComponent {
   render() {
     const {
       globalContent,
-      contextPath,
       siteProperties: {
         ids: { opta },
       },
@@ -144,7 +143,6 @@ class StoryContent extends PureComponent {
                   return (
                     <StoryContentChildRelatedInternal
                       stories={relatedContent}
-                      contextPath={contextPath}
                       id={_id}
                     />
                   )
@@ -169,11 +167,7 @@ class StoryContent extends PureComponent {
 
         <div id="ads_m_movil4" />
 
-        <StoryContentChildTags
-          data={tags}
-          className={classes.tags}
-          contextPath={contextPath}
-        />
+        <StoryContentChildTags data={tags} className={classes.tags} />
         <div id="ads_d_left" />
         <div id="ads_d_recomendador" />
 
@@ -186,11 +180,7 @@ class StoryContent extends PureComponent {
               return type !== ConfigParams.ELEMENT_STORY ? (
                 ''
               ) : (
-                <StoryContentChildRelated
-                  key={key}
-                  {...item}
-                  contextPath={contextPath}
-                />
+                <StoryContentChildRelated key={key} {...item} />
               )
             })}
           </div>

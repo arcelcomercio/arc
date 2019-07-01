@@ -21,6 +21,11 @@ const classes = {
     'movies-slider__movie-description text-md text-white line-h-sm',
 }
 
+const URI_BASE = '/cartelera'
+const TEATHERS_BASE = '/cines'
+const MOVIE_IMG_SIZE_SM = '367x176'
+const MOVIE_IMG_SIZE_MD = '620x387'
+
 class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
   constructor(props) {
     super(props)
@@ -32,8 +37,6 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
       slideWidth: 100 / estrenos.length,
       position: 0,
     }
-    const { contextPath } = props
-    this.URI_BASE = `${contextPath}/cartelera`
     this.step = 0
   }
 
@@ -90,19 +93,19 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                     className={classes.movie}>
                     <figure className={classes.imageBox}>
                       <a
-                        href={`${this.URI_BASE}/${movie.url}/cines`}
+                        href={`${URI_BASE}/${movie.url}${TEATHERS_BASE}`}
                         className={classes.imageLink}>
                         <picture>
                           <source
                             srcSet={
-                              movie.poster.sizes['367x176'] ||
+                              movie.poster.sizes[MOVIE_IMG_SIZE_SM] ||
                               this.setDefault('sm')
                             }
                             media="(max-width: 367px)"
                           />
                           <source
                             srcSet={
-                              movie.poster.sizes['620x387'] ||
+                              movie.poster.sizes[MOVIE_IMG_SIZE_MD] ||
                               this.setDefault('md')
                             }
                             media="(max-width: 620px)"
@@ -121,7 +124,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                     <div className={classes.details}>
                       <h2 className={classes.movieTitle} title={movie.title}>
                         <a
-                          href={`${this.URI_BASE}/${movie.url}/cines`}
+                          href={`${URI_BASE}/${movie.url}${TEATHERS_BASE}`}
                           className={classes.movieLink}>
                           {movie.title}
                         </a>

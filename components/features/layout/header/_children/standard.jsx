@@ -2,32 +2,33 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  header:
-    'header bg-primary primary-font w-full header__main font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300',
+  header: `header bg-primary primary-font w-full header__main font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden lg:flex`,
   logo: 'header__logo',
-  navBar: 'hidden md:block',
   featured: 'flex justify-evenly header__featured w-full font-normal',
   item: 'flex items-center justify-center header__item h-inherit',
   link: 'header__link uppercase text-sm',
+  navWrapper: 'nav__wrapper hidden md:block',
 }
-
+// TODO: Agregar el click afuera del menu
 const HeaderChildStandard = props => {
   const { logo, sections, device, deviceList } = props
 
   const _handleHide = () => {
+    let option = false
     switch (device) {
       case 'desktop':
-        return deviceList.showInDesktop
-
+        option = deviceList.showInDesktop
+        break
       case 'tablet':
-        return deviceList.showInTablet
-
+        option = deviceList.showInTablet
+        break
       case 'mobile':
-        return deviceList.showInMobile
-
+        option = deviceList.showInMobile
+        break
       default:
-        return true
+        option = true
     }
+    return option
   }
 
   return (
@@ -38,7 +39,7 @@ const HeaderChildStandard = props => {
             <img src={logo.src} alt={logo.alt} className={classes.logo} />
           </a>
         </header>
-        <nav className={classes.navBar}>
+        <nav className={classes.navWrapper}>
           {sections[0] && (
             <ul className={classes.featured}>
               {sections.map(section => (

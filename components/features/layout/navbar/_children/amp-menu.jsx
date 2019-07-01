@@ -21,14 +21,12 @@ class NavbarChildMenu extends PureComponent {
   }
 
   renderSections = sections => {
-    const { contextPath } = this.props
-
     return (
       sections &&
       sections.map(({ children, name = '', _id: id = '' }) => (
         <>
           <li className={classes.item} key={`navbar-menu-${id}`}>
-            <a href={`${contextPath}${id}`} className={classes.link}>
+            <a href={id} className={classes.link}>
               {name}
             </a>
           </li>
@@ -39,7 +37,7 @@ class NavbarChildMenu extends PureComponent {
   }
 
   render() {
-    const { deployment, contextPath, sections = [], footer = {} } = this.props
+    const { deployment, sections = [], footer = {} } = this.props
     const icon = {
       facebook:
         'M17.9 14h-3v8H12v-8h-2v-2.9h2V8.7C12 6.8 13.1 5 16 5c1.2 0 2 .1 2 .1v3h-1.8c-1 0-1.2.5-1.2 1.3v1.8h3l-.1 2.8z',
@@ -54,7 +52,7 @@ class NavbarChildMenu extends PureComponent {
         layout="nodisplay"
         side="left">
         <amp-img
-          src={deployment(`${contextPath}/resources/assets/amp/icon-cross.png`)}
+          src={deployment('/resources/assets/amp/icon-cross.png')}
           width="25"
           height="25"
           tabindex="0"

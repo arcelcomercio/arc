@@ -11,6 +11,7 @@ const classes = {
   detailTitle: `br-stories-grid__detail-title position-relative text-center overflow-hidden font-bold text-md lg:pt-0 lg:pb-0 lg:pr-20 lg:pl-20`,
   detailTitleLink: 'br-stories-grid__detail-title-link line-h-sm',
 }
+
 const BlogRelatedPostsGridChildCard = ({
   title,
   imageLink,

@@ -32,22 +32,20 @@ class NavbarChildMenu extends PureComponent {
   }
 
   submitSearch = () => {
-    const { contextPath } = this.props
     const { value } = this.inputSearchMovil.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `${contextPath}/buscar?query=${value}`
+      location.href = `/buscar?query=${value}`
     }
   }
 
   renderSections = sections => {
-    const { contextPath } = this.props
     return (
       sections &&
       sections.map(({ children, name = '', _id: id = '' }) => (
         <>
           <li className={classes.item} key={`navbar-menu-${id}`}>
-            <a href={`${contextPath}${id}`} className={classes.link}>
+            <a href={id} className={classes.link}>
               {name}
             </a>
           </li>
@@ -58,7 +56,9 @@ class NavbarChildMenu extends PureComponent {
   }
 
   render() {
-    const { sections = [], showSidebar } = this.props
+    const { sections = [], showSidebar, siteProperties } = this.props
+    const { siteDomain, siteUrl } = siteProperties
+
     return (
       <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
         <div className={`${classes.content} ${showSidebar ? 'active' : ''}`}>
@@ -95,26 +95,17 @@ class NavbarChildMenu extends PureComponent {
             </div>
           </div>
           <div className={classes.footer}>
-            <a href="/" className={classes.text}>
-              elcomercio.pe
+            <a href={siteUrl} className={classes.text}>
+              {siteDomain}
             </a>
-            <a href="/" className={classes.text}>
-              1984-2019 Grupo El Comercio
+            <a href="/terminos-y-condiciones" className={classes.text}>
+              Términos y condiciones
             </a>
-            <a href="/" className={classes.text}>
-              Términos de Servicio
-            </a>
-            <a href="/" className={classes.text}>
+            <a href="/politicas-de-privacidad" className={classes.text}>
               Políticas de Privacidad
             </a>
-            <a href="/" className={classes.text}>
-              Políticas de Discusión
-            </a>
-            <a href="/" className={classes.text}>
-              RSS Términos de Servicio
-            </a>
-            <a href="/" className={classes.text}>
-              Preferencias de Publicidad
+            <a href="/politicas-de-cookies" className={classes.text}>
+              Políticas de cookies
             </a>
           </div>
         </div>

@@ -83,13 +83,13 @@ class PaginationByDate extends PureComponent {
 
   // Obtener la fecha del path o devolver vacio
   getURL(index) {
-    const { contextPath = '', section = 'todas' } = this.props
+    const { section = 'todas' } = this.props
     const { dateIterator = '' } = this.state
     return index || index === 0
       ? // Si viene un indice devuelvo localhost/archivo/seccion/fecha
-        `${contextPath}/archivo/${section}/${dateIterator[index]}`
+        `/archivo/${section}/${dateIterator[index]}`
       : // Si no viene index devuelvo localhost/archivo/seccion
-        `${contextPath}/archivo/${section}/`
+        `/archivo/${section}/`
   }
 
   // Devuelve el link del <Anterior> en pagination
@@ -160,9 +160,7 @@ class PaginationByDate extends PureComponent {
               </li>
             )
           })}
-          {date === getActualDate() ? (
-            ''
-          ) : (
+          {date !== getActualDate() && (
             <li className={classes.paginationDateItem}>
               <a
                 className={classes.paginationDateLink}
