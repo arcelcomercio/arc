@@ -13,6 +13,14 @@ export const setDataTest = storiesQty => {
   return auxTest
 }
 
+export const getEmptyCard = () => {
+  return [{
+    websiteUrl: 'NO HAY ELEMENTOS PARA MOSTRAR',
+    imageUrl: '',
+    title:'#',
+  }]
+}
+
 export const dataCasting = ({
   data,
   deployment,
@@ -20,13 +28,14 @@ export const dataCasting = ({
   arcSite
 }) => {
   const aux = []
+  
   const element = new StoryData({
     deployment,
     contextPath,
     arcSite,
     defaultImgSize: 'sm',
   })
-
+  
   data.forEach(el => {
     element.__data = el
     aux.push({

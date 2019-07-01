@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
-import customFieldsConfig from './_dependencies/custom-fields'
+import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import Data from './_dependencies/data'
 import TripletChildTriplet from './_children/triplet'
@@ -80,19 +80,27 @@ class CardTriplet extends PureComponent {
   }
 
   initDataInstance() {
-    const { deployment, contextPath, arcSite, customFields = {} } = this.props
+    const {
+      deployment,
+      contextPath,
+      arcSite,
+      customFields: custom = {},
+    } = this.props
     this.data = new Data({
       deployment,
       contextPath,
       arcSite,
-      customFields,
+      customFields: custom,
       defaultImgSize: 'sm',
     })
   }
 
   render() {
-    const { arcSite, editableField, customFields = {} } = this.props
-    const { webskedId } = customFields
+    const {
+      arcSite,
+      editableField,
+      customFields: { webskedId, multimediaOrientation } = {},
+    } = this.props
 
     const dataFormatted = webskedId
       ? this.getFormatWebskedStories()
@@ -101,16 +109,17 @@ class CardTriplet extends PureComponent {
       arcSite,
       editableField,
       data: dataFormatted,
-      multimediaOrientation: customFields.multimediaOrientation,
+      multimediaOrientation,
     }
     return <TripletChildTriplet {...params} />
   }
 }
 
 CardTriplet.label = 'Triplete'
+CardTriplet.static = true
 
 CardTriplet.propTypes = {
-  customFields: customFieldsConfig,
+  customFields,
 }
 
 export default CardTriplet

@@ -8,6 +8,8 @@ export default ({
   siteName = '',
   siteUrl = '',
   deployment,
+  isAmp,
+  siteAssets: { seo },
 }) => {
   const {
     title,
@@ -39,9 +41,10 @@ export default ({
     }
   )
 
-  const imagesSeoItems = imagesSeo.map(({ url = '', subtitle } = {}) => {
+  const imagesSeoItems = imagesSeo.map(({ url = '', subtitle } = {}, i) => {
+    const representativeOfPage = i === 0 ? 'representativeOfPage":true,' : ''
     return `{ 
-         "representativeOfPage":true,
+         ${representativeOfPage}
          "@type":"ImageObject",
          "url": "${url}",
          "description":"${subtitle}",
@@ -64,7 +67,7 @@ export default ({
     return `{  
       "@type":"ListItem",
       "position":${i + 1},
-      "url":"${contextPath}${urlItem}"
+      "url":"${urlItem}"
       }`
   })
 
@@ -86,7 +89,7 @@ export default ({
     "articleBody":"${dataElement}",
     "mainEntityOfPage":{  
        "@type":"WebPage",
-       "@id":"${link}"
+       "@id":"${siteUrl}${link}"
     },
     "image":[  
        ${imagesSeoItems}
@@ -103,10 +106,12 @@ export default ({
        "logo":{  
           "@type":"ImageObject",
           "url":"${deployment(
-            `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo.png`
+            `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/${
+              seo.logoAmp
+            }`
           )}",
-          "height":60,
-          "width":316
+          "height":${seo.height},
+          "width":${seo.width}
        }
     },
     "keywords":[${seoKeywordsItems.map(item => item)}]
@@ -132,6 +137,26 @@ export default ({
       "@type":"BreadcrumbList",
       "itemListElement":[${breadcrumbResult}]  
       }`
+
+  const scriptTaboola = `
+  window._taboola = window._taboola || [];
+    _taboola.push({
+        article: 'auto'
+    });
+    ! function(e, f, u, i) {
+        if (!document.getElementById(i)) {
+            e.async = 1;
+            e.src = u;
+            e.id = i;
+            f.parentNode.insertBefore(e, f);
+        }
+    }(document.createElement('script'),
+        document.getElementsByTagName('script')[0],
+        '//cdn.taboola.com/libtrc/grupoelcomercio-trome/loader.js',
+        'tb_loader_script');
+    if (window.performance && typeof window.performance.mark == 'function') {
+        window.performance.mark('tbl_ic');
+    }`
 
   return (
     <Fragment>
@@ -168,6 +193,12 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
       />
+      {isAmp !== true && (
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{ __html: scriptTaboola }}
+        />
+      )}
     </Fragment>
   )
 }

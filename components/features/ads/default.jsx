@@ -1,21 +1,27 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { createMarkup } from '../../utilities/helpers'
+import customFields from './_dependencies/custom-fields'
 import AdsChild from '../../global-components/ads'
 
 const classes = {
-  flexCenterVertical: 'flex items-center',
-  flexColumn: 'flex-col',
-  overflowHidden: 'overflow-hidden',
+  adsBox: 'flex items-center justify-center flex-col overflow-hidden',
 }
 @Consumer
 class Ads extends PureComponent {
   render() {
-    const { customFields } = this.props
-
-    const { adElement, isDesktop, isMobile, freeHtml, columns, rows } =
-      customFields || {}
+    const {
+      isAdmin,
+      outputType: isAmp,
+      customFields: {
+        adElement,
+        isDesktop,
+        isMobile,
+        freeHtml,
+        columns,
+        rows,
+      } = {},
+    } = this.props
 
     const params = {
       adElement,
@@ -23,66 +29,40 @@ class Ads extends PureComponent {
       isMobile,
     }
 
-    /**
-     * TODO: createMarkup se puede poner como un método en helpers,
-     * se usa en varias partes.
-     */
-    const hideClass = () => {
-      if (freeHtml) return ''
-      if (isDesktop && !isMobile) {
-        return 'no-mobile'
+    const addEmptyBackground = () =>
+      !adElement && isAdmin ? 'bg-base-100' : ''
+
+    const addRowsClass = () => (rows === 'empty' ? '' : rows)
+
+    const hideInDevice = () => {
+      let classDevice = ''
+      if (!freeHtml) {
+        if (isDesktop && !isMobile) classDevice = 'no-mobile'
+        else if (!isDesktop && isMobile) classDevice = 'no-desktop'
       }
-      if (!isDesktop && isMobile) {
-        return 'no-desktop'
-      }
-      return ''
+      return classDevice
     }
 
     return (
-      <div
-        className={`${columns} ${rows === 'empty' ? '' : rows} ${hideClass()} ${
-          classes.flexCenterVertical
-        } ${classes.flexColumn} ${classes.overflowHidden}`}>
-        <AdsChild {...params} />
-        {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
-      </div>
+      <>
+        {isAmp !== 'amp' && (
+          <div
+            className={`${
+              classes.adsBox
+            } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()}`}>
+            <AdsChild {...params} />
+            {freeHtml && (
+              <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
+            )}
+          </div>
+        )}
+      </>
     )
   }
 }
 
 Ads.propTypes = {
-  customFields: PropTypes.shape({
-    adElement: PropTypes.string.isRequired.tag({
-      name: 'Nombre',
-    }),
-    isDesktop: PropTypes.bool.tag({ name: 'Mostrar en "Desktop"' }),
-    isMobile: PropTypes.bool.tag({ name: 'Mostrar en "Mobile"' }),
-    freeHtml: PropTypes.richtext.tag({
-      name: 'Código HTML',
-      group: 'Agregar bloque de html',
-    }),
-    columns: PropTypes.oneOf(['w-full', 'col-1', 'col-2', 'col-3']).tag({
-      name: 'Ancho de la publicidad',
-      labels: {
-        'w-full': 'auto',
-        'col-1': '1 columna',
-        'col-2': '2 columnas',
-        'col-3': '3 columnas',
-      },
-      defaultValue: 'w-full',
-      group: 'Tamaño de la publicidad',
-    }),
-    rows: PropTypes.oneOf(['empty', 'row-1', 'row-2']).tag({
-      name: 'Alto de la publicidad',
-      labels: {
-        empty: 'auto',
-        'row-1': '1 fila',
-        'row-2': '2 filas',
-      },
-      defaultValue: 'empty',
-      group: 'Tamaño de la publicidad',
-    }),
-  }),
+  customFields,
 }
 
 Ads.label = 'Publicidad'

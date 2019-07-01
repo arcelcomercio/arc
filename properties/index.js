@@ -11,15 +11,22 @@ export default {
     footer: {
       logo: 'logo.png',
     },
+    seo: {
+      logoAmp: 'logo-publimetro-258x60.png',
+      width: 258,
+      height: 60,
+    },
   },
   messages: {
     errorTitle: '¡Oops! la pagina no fue encontrada',
-    errorDescription: 'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
+    errorDescription:
+      'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
   },
   ids: {
     opta: '782834e1fd5a215304e57cddad80b844',
   },
-  gecSites: [{
+  gecSites: [
+    {
       name: 'elcomercio.pe',
       arcSite: 'elcomercio',
       url: 'https://elcomercio.pe',
@@ -125,4 +132,5 @@ export default {
       url: 'https://comercioxpress.com/',
     },
   ],
+  urlAddfbInstantArticle: "https://img.elcomercio.pe"
 }

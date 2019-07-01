@@ -5,6 +5,7 @@
 
   &__wrapper {
     @media (--desktop) {
+      display: flex;
       background-color: transparent;
     }
   }
@@ -35,15 +36,11 @@
       //padding: 0 0 0 13px;
 
       //transition: all .002s;
-      &.active {
-        //transition: all .002s;
-        right: 4px;
-        top: 50%;
-        padding: 5px;
-        background: transparent;
-        position: absolute;
-        transform: translateY(-50%);
-      }
+
+      //transition: all .002s;
+
+      position: absolute;
+      right: 0;
     }
 
     &--section {
@@ -62,6 +59,12 @@
   }
 
   // &__list { }
+
+  &__list-item {
+    &:nth-last-child(1) {
+      padding-right: 0;
+    }
+  }
 
   &__list-link {
     transition: 0.3s;
@@ -84,12 +87,19 @@
   }
 
   // &__header-sub {  }
+  &__icon {
+    width: 16px;
+    height: 16px;
+    background-size: cover;
+  }
+
   // &__icon-menu {}
   // &__icon-search {}
 
   &__input-search {
     outline: none;
-    height: 32px;
+    padding-right: 55px;
+    height: 30px;
     text-indent: 0;
     display: initial;
     transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715),
@@ -102,6 +112,7 @@
       transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715);
       width: 200px;
       will-change: width;
+      border: solid 1px $color-primary;
     }
   }
 

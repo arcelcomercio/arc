@@ -26,7 +26,9 @@ const AmpOutputType = ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    siteAssets: siteProperties.assets,
     metaValue,
+    isAmp: true,
     deployment,
   }
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)

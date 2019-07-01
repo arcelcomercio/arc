@@ -3,9 +3,8 @@ import { createMarkup } from '../../../../utilities/helpers'
 import SeparatorItem from './item'
 
 const classes = {
-  separator:
-    'separator bg-white mt-20 w-full pt-0 pr-15 pb-15 pl-15 grid border-1 border-solid border-gray',
-  title: 'separator__header-title capitalize pb-20 pt-20 text-left text-sm',
+  separator: `separator bg-white mt-20 w-full pt-0 pr-15 pb-15 pl-15 grid border-t-1 border-solid`,
+  title: 'separator__header-title capitalize pb-20 pt-20 text-left text-md',
   titleLink: 'separator__header-link',
   oneline: 'separator__oneline',
   twoline: 'separator__twoline',
@@ -32,6 +31,9 @@ const SeparatorsBasicChildSeparator = props => {
     case 'depor':
       numline = classes.twoline
       break
+    case 'publimetro':
+      numline = classes.threeline
+      break
     default:
       numline = classes.twoline
       break
@@ -44,7 +46,7 @@ const SeparatorsBasicChildSeparator = props => {
           dangerouslySetInnerHTML={createMarkup(htmlCode)}
         />
       ) : (
-        <h1 className={`${classes.title}`}>
+        <h2 className={`${classes.title}`}>
           <a
             href={titleLink}
             className={`${classes.titleLink}`}
@@ -52,7 +54,7 @@ const SeparatorsBasicChildSeparator = props => {
             suppressContentEditableWarning>
             {titleSeparator}
           </a>
-        </h1>
+        </h2>
       )}
       <div role="list" className={classes.body}>
         {items &&
@@ -62,7 +64,7 @@ const SeparatorsBasicChildSeparator = props => {
               link: el.link,
               numline,
               imageUrl: el.multimedia,
-              storyType: el.multimediaType,
+              mediaIcon: el.multimediaType,
             }
             return <SeparatorItem key={el.link || '/'} {...params} />
           })}

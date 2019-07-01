@@ -1,12 +1,10 @@
-/* eslint-disable no-undef */
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import PropTypes from 'prop-types'
 import schemaFilter from './_dependencies/schema-filter'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  breakingnews:
-    'breaking-news secondary-font flex justify-between p-15 text-white',
+  breakingnews: `breaking-news secondary-font flex justify-between p-15 text-white`,
   close: 'breaking-news__btn-close text-right text-white',
   icon: 'breaking-news__btn-icon icon-close-circle title-sm text-white',
   text: 'breaking-news__text m-0 title-xs line-h-xs',
@@ -26,10 +24,11 @@ class BreakingNews extends Component {
       customFields: { storyLink = '' },
     } = this.props
     this.isExternalLink = storyLink.includes('http')
+    this.fetch()
   }
 
   componentWillMount() {
-    const status = localStorage.link
+    const status = window.localStorage.link
     const {
       customFields: { storyLink },
     } = this.props
@@ -38,12 +37,7 @@ class BreakingNews extends Component {
     } else this.setState({ isVisible: true })
   }
 
-  componentDidMount = () => {
-    this.fetch()
-  }
-
-  // TODO: revisar si esto es necesario
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextState) {
     const { isVisible, article } = this.state
     return isVisible !== nextState.isVisible || article !== nextState.article
   }
@@ -55,7 +49,7 @@ class BreakingNews extends Component {
     const {
       customFields: { storyLink },
     } = this.props
-    localStorage.setItem('link', storyLink)
+    window.localStorage.setItem('link', storyLink)
   }
 
   fetch() {
@@ -64,16 +58,18 @@ class BreakingNews extends Component {
       arcSite,
     } = this.props
 
-    if (!this.isExternalLink) {
-      const { fetched } = this.getContent(
-        'story-by-url',
-        { website_url: storyLink, website: arcSite },
-        schemaFilter
-      )
-      fetched.then(response => {
-        this.setState({ article: response || {} })
-      })
+    const params = {
+      website_url: storyLink,
+      website: arcSite,
     }
+
+    this.fetchContent({
+      article: {
+        source: 'story-by-url',
+        query: params,
+        filter: schemaFilter,
+      },
+    })
   }
 
   render() {
@@ -87,17 +83,14 @@ class BreakingNews extends Component {
         tags = 'Lo último',
         backgroundColor = 'breaking-news--bgcolor-1',
       },
-      contextPath,
     } = this.props
-    const webUrlService = !this.isExternalLink
-      ? `${contextPath}${storyLink}`
-      : storyLink
+
     const objContent = {
       title: title || (article && article.headlines && article.headlines.basic),
       subTitle:
         subTitle ||
         (article && article.subheadlines && article.subheadlines.basic),
-      link: webUrlService,
+      link: storyLink,
     }
     return (
       <div
@@ -115,7 +108,6 @@ class BreakingNews extends Component {
           <span>
             <a
               className={classes.link}
-              // className={classes.link}
               href={objContent.link}
               target="_blank"
               rel="noopener noreferrer"
@@ -125,49 +117,21 @@ class BreakingNews extends Component {
             </a>
           </span>
         </h2>
-        <div
+        <button
+          type="button"
           className={classes.close}
           onClick={this.handleOnclickClose}
-          // Static HTML elements do not have semantic meaning.
-          // Needs a role, to be focusable and to have a key event
           onKeyPress={this.handleOnclickClose}
-          role="button"
           tabIndex={0}>
           <i className={classes.icon} />
-        </div>
+        </button>
       </div>
     )
   }
 }
 
 BreakingNews.propTypes = {
-  customFields: PropTypes.shape({
-    /* isExternalLink: PropTypes.bool.tag({
-      name: '¿Nota externa?',
-      defaultValue: false,
-    }), */
-    storyLink: PropTypes.string.isRequired.tag({
-      name: 'URL',
-    }),
-    title: PropTypes.string.tag({
-      name: 'Título',
-      description: 'Dejar vacío para tomar el valor original de la historia.',
-    }),
-    tags: PropTypes.string.tag({ name: 'Etiqueta' }),
-    backgroundColor: PropTypes.oneOf([
-      'breaking-news--bgcolor-1',
-      'breaking-news--bgcolor-2',
-    ]).tag({
-      name: 'Color de fondo',
-      labels: {
-        'breaking-news--bgcolor-1': 'Principal',
-        'breaking-news--bgcolor-2': 'Secundario',
-      },
-      defaultValue: 'breaking-news--bgcolor-1',
-    }),
-
-    subTitle: PropTypes.string.tag({ name: 'Descripción', hidden: true }),
-  }),
+  customFields,
 }
 
 BreakingNews.label = 'Cintillo Urgente'
