@@ -62,8 +62,8 @@ class BlogList extends PureComponent {
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
-      urlPost: `${contextPath}/blog/${postLink}`,
-      urlBlog: `${contextPath}/blog/${path}`,
+      urlPost: `/blog/${postLink}`,
+      urlBlog: `/blog/${path}`,
     }
   }
 

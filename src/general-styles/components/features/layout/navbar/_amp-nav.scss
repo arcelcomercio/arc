@@ -7,10 +7,6 @@
   &__hamburger {
     width: 20px;
     height: 4px;
-    left: 20px;
-    right: 20px;
-    top: 25px;
-    background-color: $color-gray-300;
 
     &:before {
       content: '';
@@ -33,11 +29,15 @@
     }
   }
 
-  // &__wrapper {   }
+  &__wrapper {
+    @media (--desktop) {
+      max-width: 940px;
+    }
+  }
 
-  &__container-menu {
+  /*   &__container-menu {
     @media (--desktop) {
       border-right: solid 1px $color-gray-200;
     }
-  }
+  } */
 }

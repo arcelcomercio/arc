@@ -8,7 +8,6 @@ const LIVE_TEXT = 'En vivo'
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
   detail: `featured-story__detail flex flex-col justify-between position relative md:p-20`,
-  image: `featured-story__image position-relative overflow-hidden w-full h-full ml-10 md:ml-0`,
   icon: `featured-story__icon position-absolute rounded flex items-center justify-center w-full h-full text-gray-100`,
 
   category: 'featured-story__category pb-15 hidden md:inline-block',
@@ -24,8 +23,9 @@ const classes = {
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
 
-  imageLink: 'featured-story__img-link block h-full',
-  img: 'featured-story__img w-full h-full object-cover',
+  imageLink: 'featured-story__img-link block h-full ml-10 md:ml-0',
+  imageBox: `featured-story__img-box position-relative overflow-hidden w-full h-full`,
+  image: 'featured-story__img w-full h-full object-cover',
 
   imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',
@@ -86,6 +86,9 @@ export default class FeaturedStory extends PureComponent {
       case 'elcomercio':
         numline = classes.threeline
         break
+      case 'publimetro':
+        numline = classes.threeline
+        break
       case 'depor':
         numline = classes.twoline
         break
@@ -134,14 +137,14 @@ export default class FeaturedStory extends PureComponent {
             </a>
           </address>
         </div>
-        <figure className={classes.image}>
-          <a className={classes.imageLink} href={title.url}>
-            <img src={image} className={classes.img} alt="" />
+        <a className={classes.imageLink} href={title.url}>
+          <figure className={classes.imageBox}>
+            <img src={image} className={classes.image} alt="" />
             {multimediaIcon && (
               <i className={`${multimediaIcon} ${classes.icon}`} />
             )}
-          </a>
-        </figure>
+          </figure>
+        </a>
       </article>
     )
   }

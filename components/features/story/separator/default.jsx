@@ -74,7 +74,6 @@ class StorySeparator extends PureComponent {
           <StorySeparatorChildItem
             data={data}
             key={UtilListKey(i)}
-            contextPath={contextPath}
             arcSite={arcSite}
           />
         )

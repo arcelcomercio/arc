@@ -23,6 +23,11 @@ const classes = {
   tag: 'movies-grid__tag font-bold text-sm text-gray-300',
 }
 
+const URI_BASE = '/cartelera'
+const MOVIES_BASE = '/peliculas'
+const TEATHERS_BASE = '/cines'
+const MOVIE_IMG_SIZE = '134x193'
+
 class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
   constructor(props) {
     super(props)
@@ -31,9 +36,6 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
       genres: [],
     }
     this.billboardFormat = new BillboardFormat()
-
-    const { contextPath } = props
-    this.URI_BASE = `${contextPath}/cartelera`
   }
 
   componentDidMount() {
@@ -64,7 +66,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                 <ul className={classes.navList}>
                   <li className={classes.navItem}>
                     <a
-                      href={this.URI_BASE}
+                      href={URI_BASE}
                       className={`${classes.navLink} ${
                         !genre ? 'movies-grid__nav-link--active' : ''
                       }`}>
@@ -78,7 +80,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                           className={classes.navItem}
                           key={`nav-${singleGenre.url}`}>
                           <a
-                            href={`${this.URI_BASE}/peliculas/cines/${
+                            href={`${URI_BASE}${MOVIES_BASE}${TEATHERS_BASE}/${
                               singleGenre.url
                             }`}
                             className={`${classes.navLink} ${
@@ -105,12 +107,12 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                   <option selected value="default" disabled>
                     FILTRAR POR GÉNERO:
                   </option>
-                  <option value={`${this.URI_BASE}`}>Todas</option>
+                  <option value={`${URI_BASE}`}>Todas</option>
                   {genres.map(
                     singleGenre =>
                       singleGenre.name !== 'Otras' && (
                         <option
-                          value={`${this.URI_BASE}/peliculas/cines/${
+                          value={`${URI_BASE}${MOVIES_BASE}${TEATHERS_BASE}/${
                             singleGenre.url
                           }`}
                           key={`select-${singleGenre.url}`}>
@@ -126,11 +128,11 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
             <ul className={classes.grid}>
               {movies.map(movie => (
                 <li key={movie.mid} className={classes.movie}>
-                  <a href={`${this.URI_BASE}/${movie.url}/cines`}>
+                  <a href={`${URI_BASE}/${movie.url}${TEATHERS_BASE}`}>
                     <figure className={classes.imageBox}>
                       <img
                         src={
-                          movie.poster_chico.sizes['134x193'] ||
+                          movie.poster_chico.sizes[MOVIE_IMG_SIZE] ||
                           defaultImage({
                             deployment,
                             contextPath,

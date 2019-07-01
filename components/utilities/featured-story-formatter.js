@@ -88,17 +88,15 @@ class FeaturedStoryFormatter {
     }
 
     newState.category.name = this.storyDataInstace.section
-    newState.category.url = `${this.contextPath}${
-      this.storyDataInstace.sectionLink
-    }`
+    newState.category.url = this.storyDataInstace.sectionLink
+
 
     newState.title.name = this.storyDataInstace.title
-    newState.title.url = `${this.contextPath}${this.storyDataInstace.link}`
+    newState.title.url = this.storyDataInstace.link
 
     newState.author.name = this.storyDataInstace.author
-    newState.author.url = `${this.contextPath}${
-      this.storyDataInstace.authorLink
-    }`
+    newState.author.url = this.storyDataInstace.authorLink
+
 
     newState.image = imgField || this.storyDataInstace.multimedia
     newState.multimediaType = this.storyDataInstace.multimediaType

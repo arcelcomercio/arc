@@ -5,12 +5,13 @@ import Consumer from 'fusion:consumer'
 // TODO: Separar Feature de Componente.
 
 const classes = {
-  header: 'amp-header w-full position-absolute',
-  wrap: 'amp-header__wrap bg-primary text-center',
+  header: 'amp-header w-full position-absolute mx-auto',
+  wrap:
+    'amp-header__wrap bg-primary mx-auto flex items-center justify-between pl-20 pr-20',
   logo: 'amp-header__logo',
   linkContainer:
-    'amp-header__link-container position-relative mr-35 border-1 border-solid border-white text-sm rounded-sm line-h-xs pt-0 pb-0 pr-10 pl-10 mt-10',
-  link: 'amp-header__link i-survey-share',
+    'amp-header__link-container border-1 border-solid border-white text-sm rounded-sm line-h-xs flex items-center justify-center p-10',
+  link: 'amp-header__link i-survey-share secondary-font',
   ampImg:
     'amp-header__amp-img i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',
   img:

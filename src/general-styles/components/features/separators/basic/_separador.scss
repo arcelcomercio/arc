@@ -8,7 +8,6 @@
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
-    line-height: 0.6;
   }
 
   &__header-title {
@@ -25,12 +24,12 @@
     gap: 3px;
 
     @media (--tablet) {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
       height: 161px;
     }
 
     &--items {
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(6, 1fr);
       height: 169px;
     }
   }
@@ -64,18 +63,29 @@
   }
 
   &__icon {
-    top: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 25px;
+    width: 25px;
+    height: 25px;
+    top: 15px;
+    right: 15px;
+    left: initial;
   }
 
   &__detail {
     z-index: 2;
-    height: 65px;
+    height: 60px;
+
+    @media (--desktop) {
+      height: 70px;
+    }
 
     &--nota {
       bottom: 44px;
     }
+  }
+
+  &__img {
+    max-height: 220px;
   }
 
   &__oneline {
