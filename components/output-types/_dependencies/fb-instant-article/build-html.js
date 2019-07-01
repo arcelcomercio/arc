@@ -4,7 +4,7 @@ import {
   AnalyticsScript,
   ScriptElement,
   ScriptHeader,
-} from './template-string-scripts'
+} from './scripts'
 
 const buildIframeAdvertising = (urlSite, urlAdvertising) => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlSite}${urlAdvertising}"></iframe></figure>`

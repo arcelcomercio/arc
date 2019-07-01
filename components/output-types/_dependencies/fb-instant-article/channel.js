@@ -1,5 +1,9 @@
-const ElementStringChanel = chanelProps => {
-  const { siteName, siteUrl, fechaIso = '', descripcion = '' } = chanelProps
+const Channel = ({
+  siteName,
+  siteUrl,
+  fechaIso = '',
+  descripcion = '',
+}) => {
   return `
         <language>es</language>
         <title>${siteName}</title>
@@ -10,4 +14,4 @@ const ElementStringChanel = chanelProps => {
   `
 }
 
-export default ElementStringChanel
+export default Channel

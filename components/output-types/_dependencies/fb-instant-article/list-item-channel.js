@@ -1,5 +1,5 @@
 import md5 from 'md5'
-import BuildHtml from './template-string-html'
+import BuildHtml from './build-html'
 import StoryData from '../../../utilities/story-data'
 
 const ListItemNews = (contentElements, buildProps) => {
@@ -14,14 +14,15 @@ const ListItemNews = (contentElements, buildProps) => {
     urlAddfbInstantArticle = '',
   } = buildProps
 
+  const storydata = new StoryData({
+    deployment,
+    contextPath,
+    arcSite,
+    defaultImgSize: 'sm',
+  })
+
   const elements = contentElements
     .map(story => {
-      const storydata = new StoryData({
-        deployment,
-        contextPath,
-        arcSite,
-        defaultImgSize: 'sm',
-      })
       storydata.__data = story
 
       const propsScriptHeader = {
@@ -48,7 +49,7 @@ const ListItemNews = (contentElements, buildProps) => {
         author: storydata.author,
         paragraphsNews: storydata.paragraphsNews,
         fbArticleStyle,
-        urlAddfbInstantArticle
+        urlAddfbInstantArticle,
       }
 
       const htmlString = BuildHtml(BuildHtmlProps)

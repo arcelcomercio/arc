@@ -1,8 +1,8 @@
 import React from 'react'
 import NewElement from '../global-components/new-element'
-import Channel from './_children/google-news/channel'
-import ItemImage from './_children/google-news/item-image'
-import ListItemChannel from './_children/google-news/list-item-channel'
+import Channel from './_dependencies/google-news/channel'
+import ItemImage from './_dependencies/google-news/item-image'
+import ListItemChannel from './_dependencies/google-news/list-item-channel'
 
 const GoogleNews = ({
   deployment = {},

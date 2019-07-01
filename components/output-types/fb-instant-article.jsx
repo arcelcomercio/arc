@@ -1,7 +1,7 @@
 import React from 'react'
 
-import ElementStringChanel from './_children/fb-instant-article/template-string-chanel'
-import ListItemNews from './_children/fb-instant-article/template-string-item-chanel'
+import Channel from './_dependencies/fb-instant-article/channel'
+import ListItemNews from './_dependencies/fb-instant-article/list-item-channel'
 import NewElement from '../global-components/new-element'
 
 const FbInstantOutputType = ({
@@ -48,7 +48,7 @@ const FbInstantOutputType = ({
     urlAddfbInstantArticle,
   }
 
-  let chanelSctring = ElementStringChanel(chanelProps)
+  let chanelSctring = Channel(chanelProps)
   const itemsString = ListItemNews(stories, buildProps)
 
   chanelSctring = chanelSctring.replace('@ListItems', itemsString)
