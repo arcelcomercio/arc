@@ -99,7 +99,7 @@ class SeparatorOpinion extends PureComponent {
       isTablet,
       customFields: { titleSection, htmlCode },
     } = this.props
-    let data = Object.values(dataApi)
+    let data = dataApi && Object.values(dataApi)
     const numStory = getStoriesQty(isMobile, isTablet)
     data = data.slice(0, numStory)
     return (
@@ -122,6 +122,5 @@ SeparatorOpinion.propTypes = {
 }
 
 SeparatorOpinion.label = 'Separador - Opinión'
-
 
 export default SeparatorOpinion

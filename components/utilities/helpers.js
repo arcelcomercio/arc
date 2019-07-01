@@ -194,8 +194,7 @@ export const getMetaPagesPagination = (
         .match(patternPagination)[0]
         .split(`${isQuery ? '=' : '/'}`)[1],
         10
-      ) :
-      1,
+      ) : 1,
     next: false,
     prev: false,
   }
@@ -238,7 +237,7 @@ export const socialMediaUrlShareList = (
 
 export const createMarkup = html => {
   return {
-    __html: html.replace('@charset "UTF-8";', ''),
+    __html: html,
   }
 }
 
