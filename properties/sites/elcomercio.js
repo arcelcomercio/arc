@@ -41,6 +41,11 @@ export default {
     footer: {
       logo: 'logo.png',
     },
+    seo: {
+      logoAmp: 'logo-elcomercio-316x60.png',
+      width: 316,
+      height: 60,
+    },
   },
 
   legalLinks: [{
