@@ -3,7 +3,7 @@ import Button from '../../../../global-components/button'
 
 const classes = {
   sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300`,
-  content: `nav-sidebar__content flex flex-col justify-between w-full h-full overflow-y`,
+  content: `nav-sidebar__content flex flex-col justify-between h-full overflow-y`,
   item: 'nav-sidebar__item position-relative',
   link: 'nav-sidebar__link block pt-15 pr-15 pb-15 pl-15 text-md text-white',
   top: 'nav-sidebar__top',
@@ -58,9 +58,16 @@ class NavbarChildMenu extends PureComponent {
       showSidebar,
     } = this.props
 
+    const IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+      window.navigator.userAgent
+    )
+
     return (
       <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
-        <div className={`${classes.content} ${showSidebar ? 'active' : ''}`}>
+        <div
+          className={`${classes.content} ${
+            IS_MOBILE ? 'w-full' : 'w-desktop'
+          } ${showSidebar ? 'active' : ''}`}>
           <div className={classes.top}>
             <div className={classes.header}>
               <div className={classes.btnBox}>
