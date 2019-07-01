@@ -1,11 +1,14 @@
 .triplet {
   background-color: $color-white;
   border: 0;
-  &__title {
-    color: $color-primary;
+  &__title-link {
+    color: $color-base-300;
   }
   &__author {
     color: $color-gray-200;
     font-size: 11px;
+  }
+  &__link {
+    font-family: $font-regular;
   }
 }

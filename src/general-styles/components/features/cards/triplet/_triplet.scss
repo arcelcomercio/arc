@@ -1,42 +1,30 @@
 //Triplete
 .triplet {
-  &__link {
-    color: inherit;
-  }
-
   &__item {
-    grid-template-rows: 80px 1fr;
+    /*    grid-template-rows: 80px 1fr; */
     border-color: $border-color-base;
 
+    &:first-child {
+      padding-top: 0;
+    }
     &:last-child {
       border-bottom: 0px;
+      padding-bottom: 0;
     }
-
     &--right {
-      grid-template-columns: 2fr 1fr;
-      grid-template-areas:
-        'triplete__title triplete__multimedia'
-        'triplete__author triplete__author';
-
-      & .triplet__multimedia {
-        margin-left: 10%;
+      .triplet__information {
+        padding-right: 10px;
       }
     }
-
     &--left {
-      grid-template-columns: 1fr 2fr;
-      grid-template-areas:
-        'triplete__multimedia triplete__title'
-        'triplete__author triplete__author';
-
-      & .triplet__multimedia {
-        margin-right: 10%;
+      flex-direction: row-reverse;
+      .triplet__information {
+        padding-left: 10px;
       }
     }
   }
 
   &__title {
-    grid-area: triplete__title;
     display: -webkit-box;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
@@ -65,7 +53,8 @@
   }
 
   &__multimedia {
-    grid-area: triplete__multimedia;
+    width: 75px;
+    height: 90px;
   }
 
   &__icon {
@@ -81,8 +70,7 @@
       height: 24px;
     }
   }
-
-  &__author {
-    grid-area: triplete__author;
+  &__information {
+    max-width: calc(100% - 75px);
   }
 }
