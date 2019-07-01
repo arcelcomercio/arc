@@ -326,7 +326,7 @@ export const breadcrumbList = (url, siteUrl) => {
 }
 
 export const getUrlParameter = contentElements => {
-  const loc = window.location.href
+  const { location: { href: loc } = {} } = window || {}
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
 
