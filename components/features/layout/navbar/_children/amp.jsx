@@ -1,7 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import AmpSocial from '../../../story/header/_children/amp-social'
-import Menu from './amp-menu'
 
 const classes = {
   nav:
@@ -15,34 +14,10 @@ const classes = {
 
 @Consumer
 class NavBarDefault extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      statusSidebar: false,
-    }
-    // Resizer.setResizeListener()
-    this.inputSearch = React.createRef()
-  }
-
   render() {
-    const { statusSidebar } = this.state
-    const {
-      contextPath,
-      data: { children: sections = [] } = {},
-      siteProperties: { footer },
-      deployment,
-    } = this.props
-
     const tapSidebar = 'tap:sidebar.toggle'
     return (
       <>
-        <Menu
-          sections={sections}
-          showSidebar={statusSidebar}
-          contextPath={contextPath}
-          footer={footer}
-          deployment={deployment}
-        />
         <nav className={classes.nav}>
           <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}

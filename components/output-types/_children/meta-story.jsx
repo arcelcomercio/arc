@@ -8,6 +8,8 @@ export default ({
   siteName = '',
   siteUrl = '',
   deployment,
+  isAmp,
+  siteAssets: { seo },
 }) => {
   const {
     title,
@@ -39,9 +41,10 @@ export default ({
     }
   )
 
-  const imagesSeoItems = imagesSeo.map(({ url = '', subtitle } = {}) => {
+  const imagesSeoItems = imagesSeo.map(({ url = '', subtitle } = {}, i) => {
+    const representativeOfPage = i === 0 ? 'representativeOfPage":true,' : ''
     return `{ 
-         "representativeOfPage":true,
+         ${representativeOfPage}
          "@type":"ImageObject",
          "url": "${url}",
          "description":"${subtitle}",
@@ -86,7 +89,7 @@ export default ({
     "articleBody":"${dataElement}",
     "mainEntityOfPage":{  
        "@type":"WebPage",
-       "@id":"${link}"
+       "@id":"${siteUrl}${link}"
     },
     "image":[  
        ${imagesSeoItems}
@@ -103,10 +106,12 @@ export default ({
        "logo":{  
           "@type":"ImageObject",
           "url":"${deployment(
-            `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo.png`
+            `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/${
+              seo.logoAmp
+            }`
           )}",
-          "height":60,
-          "width":316
+          "height":${seo.height},
+          "width":${seo.width}
        }
     },
     "keywords":[${seoKeywordsItems.map(item => item)}]
@@ -188,10 +193,12 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
       />
-      <script
-        type="text/javascript"
-        dangerouslySetInnerHTML={{ __html: scriptTaboola }}
-      />
+      {isAmp !== true && (
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{ __html: scriptTaboola }}
+        />
+      )}
     </Fragment>
   )
 }

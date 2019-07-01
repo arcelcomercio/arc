@@ -207,5 +207,4 @@ class StoryContent extends PureComponent {
 }
 
 StoryContent.label = 'Artículo - contenido'
-
 export default StoryContent

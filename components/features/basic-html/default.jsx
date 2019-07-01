@@ -30,12 +30,26 @@ class BasicHtml extends PureComponent {
   }
 
   render() {
-    const { outputType, customFields: { freeHtml = '' } = {} } = this.props
+    const {
+      outputType,
+      isAdmin,
+      customFields: { freeHtml = '' } = {},
+    } = this.props
+
+    const addEmptyBackground = () => (!freeHtml && isAdmin ? 'bg-gray-200' : '')
+
     return (
-      freeHtml &&
-      outputType !== 'amp' && (
-        <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
-      )
+      <>
+        {freeHtml && outputType !== 'amp' && (
+          <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
+        )}
+        {!freeHtml && isAdmin && (
+          <div
+            dangerouslySetInnerHTML={createMarkup(freeHtml)}
+            className={addEmptyBackground()}
+          />
+        )}
+      </>
     )
   }
 }

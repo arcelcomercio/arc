@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
-import { formatDayMonthYear } from '../../../utilities/helpers'
+import { formatDayMonthYear, publicidadAmp } from '../../../utilities/helpers'
 import StoryHeaderChildAmpSocial from './_children/amp-social'
 
 const classes = {
@@ -18,6 +18,7 @@ const classes = {
 class StoryHeaderAmp extends PureComponent {
   render() {
     const {
+      arcSite,
       globalContent: {
         subheadlines: { basic: subtitle = '' } = {},
         headlines: { basic: titleElements = '' } = {},
@@ -27,7 +28,11 @@ class StoryHeaderAmp extends PureComponent {
         } = {},
       } = {},
     } = this.props
-
+    const dataSlot = `/28253241/${arcSite}-amp-320x50-top-movil1`
+    const placementId = 15011772
+    const width = '320'
+    const height = '50'
+    const parameters = { dataSlot, placementId, width, height }
     return (
       <>
         <div className={galleryItems ? classes.gallery : classes.stories}>
@@ -39,6 +44,7 @@ class StoryHeaderAmp extends PureComponent {
               {formatDayMonthYear(date)}
             </time>
           </header>
+          <div dangerouslySetInnerHTML={publicidadAmp(parameters)} />
 
           {subtitle && <div className={classes.description}> {subtitle}</div>}
           <StoryHeaderChildAmpSocial />
@@ -51,4 +57,5 @@ class StoryHeaderAmp extends PureComponent {
   }
 }
 
+StoryHeaderAmp.static = true
 export default StoryHeaderAmp

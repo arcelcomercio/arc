@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react'
 import StoryData from '../../../utilities/story-data'
 
 const classes = {
-  footer: 'amp-footer footer flex items-center pt-25 pb-25',
+  footer: 'amp-footer footer flex items-center pt-25 pb-25 mx-auto w-full',
   footerInfo: 'amp-footer__info m-0 mx-auto',
   footerLogoContainer:
     'amp-footer__text font-bold uppercase secondary-font pr-25 text-xl line-h-xs',

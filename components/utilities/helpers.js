@@ -396,18 +396,14 @@ export const twitterHtml = html => {
 }
 
 export const facebookHtml = html => {
-  const strFacebook = '#<iframe src="(.*?)&width=500"></iframe>#i'
+  const strFacebook = '/<iframe src="(.*?)&width=500"></iframe>/g'
   const rplFacebook =
     '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
-  const strFacebook2 = '#<iframe src="(.*?)&width=500"></iframe>#i'
+  const strFacebook2 = '/<iframe src="(.*?)&width=500"></iframe>/g'
   const rplFacebook2 =
     '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
-
-  const strFacebook3 =
-    '#<iframe src="https://www.facebook.com/plugins/post.php[?]href=(.*?)"></iframe>#i'
-
-  const strFacebook4 =
-    '#<iframe(.*?)src="https://www.facebook.com/plugins/video.php[?]href=(.*?)"></iframe>#i'
+  const rplFacebook3 =
+    '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$2"></amp-facebook>'
 
   const strFacebookPage =
     '/<div class="fb-page" data-href="(.*?)" data-width="(.*?)" data-small-header="(.*?)" data-adapt-container-width="(.*?)" data-hide-cover="(.*?)" data-show-facepile="(.*?)" data-show-posts="(.*?)"><div class="fb-xfbml-parse-ignore"><blockquote cite="(.*?)"><a href="(.*?)">(.*?)</a></blockquote></div></div>/g'
@@ -419,8 +415,10 @@ export const facebookHtml = html => {
     .replace(strFacebookRoot, '')
     .replace(strFacebook, rplFacebook)
     .replace(strFacebook2, rplFacebook2)
-    .replace(strFacebook3, '$1')
-    .replace(strFacebook4, '$2')
+    .replace(
+      /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/g,
+      rplFacebook3
+    )
 }
 
 export const youtubeHtml = html => {
@@ -453,13 +451,23 @@ export const ampHtml = (html = '') => {
   resultData = twitterHtml(resultData)
 
   // facebook
-  resultData = facebookHtml(resultData)
+  resultData = facebookHtml(decodeURIComponent(resultData))
 
   // Youtube
   resultData = youtubeHtml(resultData)
 
   // HTML Free
   resultData = freeHtml(resultData)
+
+  return resultData
+}
+
+export const publicidadAmp = ({ dataSlot, placementId, width, height }) => {
+  const resultData = createMarkup(`
+  <amp-ad width="${width}" height="${height}" type="doubleclick"
+  data-slot="${dataSlot}"
+  rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
+  "timeoutMillis": 1000}'></amp-ad>`)
 
   return resultData
 }

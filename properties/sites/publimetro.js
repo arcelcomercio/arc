@@ -30,6 +30,24 @@ export default {
     cookiesPolicy: '7IZ6FX7Q6BAZ5OIEA5YVIYL6NQ',
     aboutUs: '',
   },
+  assets: {
+    nav: {
+      logo: 'logo.png',
+      ampLogo: 'letra-c-white.png',
+      logoSomos: 'white-logo.png',
+    },
+    header: {
+      logo: 'logo.png',
+    },
+    footer: {
+      logo: 'logo.png',
+    },
+    seo: {
+      logoAmp: 'logo-publimetro-258x60.png',
+      width: 258,
+      height: 60,
+    },
+  },
 
   footer: {
     siteLegal: [

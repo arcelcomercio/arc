@@ -13,7 +13,8 @@ import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryContentChildTags from './_children/tags'
 import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
-import { ampHtml } from '../../../utilities/helpers'
+import { ampHtml, publicidadAmp } from '../../../utilities/helpers'
+
 import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
@@ -44,12 +45,34 @@ class StoryContentAmp extends PureComponent {
         siteUrl,
       }
     )
-
+    const dataSlot = `/28253241/${arcSite}-amp-300x250-boton-movil2`
     const imgTag = 'amp-img'
+    const placementId = 15011773
+    const width = '300'
+    const height = '250'
+    const parameters = { dataSlot, placementId, width, height }
+    const dataSlotMovil4 = `/28253241/${arcSite}-amp-300x250-middle-movil4`
+    const placementIdMovil4 = 15011773
+    const parametersMovil4 = {
+      dataSlot: dataSlotMovil4,
+      placementId: placementIdMovil4,
+      width,
+      height,
+    }
+    const dataSlotMovil5 = `/28253241/${arcSite}-amp-300x250-inferior-movil5`
+    const placementIdMovil5 = 15011776
+    const parametersMovil5 = {
+      dataSlot: dataSlotMovil5,
+      placementId: placementIdMovil5,
+      width,
+      height,
+    }
+
     return (
       <>
         <div className={classes.content}>
           {promoItems && <ElePrincipal data={promoItems} />}
+          <div dangerouslySetInnerHTML={publicidadAmp(parameters)} />
           <p className={classes.author}>Por: Redacción DT</p>
           {contentElements && (
             <StoryContent
@@ -119,6 +142,7 @@ class StoryContentAmp extends PureComponent {
             />
           )}
           <StoryContentChildTags data={tags} {...contextPath} {...isAmp} />
+          <div dangerouslySetInnerHTML={publicidadAmp(parametersMovil4)} />
 
           {relatedContent.length > 0 && (
             <div className={classes.related}>
@@ -138,10 +162,26 @@ class StoryContentAmp extends PureComponent {
               })}
             </div>
           )}
+          <amp-embed // TODO: publicidad taboola x definir de parte del cliente
+            width="100"
+            height="100"
+            type="taboola"
+            layout="responsive"
+            heights="(min-width:1862px) 213%, (min-width:1293px) 218%, (min-width:909px) 226%, (min-width:647px) 236%, (min-width:500px) 252%, (min-width:397px) 272%, 297%"
+            data-publisher="grupoelcomercio-elcomercio"
+            data-mode="thumbnails-a-amp"
+            data-placement="Mobile Below Article Thumbnails AMP"
+            data-target_type="mix"
+            data-article="auto"
+            data-url=""
+          />
         </div>
+
+        <div dangerouslySetInnerHTML={publicidadAmp(parametersMovil5)} />
       </>
     )
   }
 }
 
+StoryContentAmp.static = true
 export default StoryContentAmp
