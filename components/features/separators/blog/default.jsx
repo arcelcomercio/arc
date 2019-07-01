@@ -6,7 +6,9 @@ import SeparatorBlogChildItem from './_children/item'
 import { getStoriesQty, sizeDevice } from '../_dependencies/functions'
 import { defaultImage } from '../../../utilities/helpers'
 
-@withSizes(({width}) => sizeDevice(width))
+const BLOG_BASE = '/blog'
+
+@withSizes(({ width }) => sizeDevice(width))
 @Consumer
 class SeparatorBlog extends PureComponent {
   constructor(props) {
@@ -14,7 +16,7 @@ class SeparatorBlog extends PureComponent {
     const { arcSite, isMobile, isTablet } = this.props
     this.fetchDataApi(arcSite, getStoriesQty(isMobile, isTablet))
   }
-  
+
   fetchDataApi = (arcSite, storiesQty) => {
     this.fetchContent({
       dataApi: {
@@ -37,7 +39,7 @@ class SeparatorBlog extends PureComponent {
         <div className="mb-30 pt-30">
           <a
             className="blog-separator__blog uppercase title-sm text-gray-300"
-            href={`${contextPath}/blog`}>
+            href={BLOG_BASE}>
             Blogs
           </a>
         </div>
@@ -68,9 +70,9 @@ class SeparatorBlog extends PureComponent {
               const data = {
                 authorName,
                 authorImg,
-                blogUrl: `${contextPath}/blog/${blogUrl}`,
+                blogUrl: `${BLOG_BASE}/${blogUrl}`,
                 blogName,
-                postLink: `${contextPath}/blog/${postLink}`,
+                postLink: `${BLOG_BASE}/${postLink}`,
                 postTitle,
               }
               return <SeparatorBlogChildItem key={blogUrl} {...data} />
@@ -82,6 +84,5 @@ class SeparatorBlog extends PureComponent {
 }
 
 SeparatorBlog.label = 'Separador de Blog'
-
 
 export default SeparatorBlog

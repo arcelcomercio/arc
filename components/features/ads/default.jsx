@@ -12,6 +12,7 @@ class Ads extends PureComponent {
   render() {
     const {
       isAdmin,
+      outputType: isAmp,
       customFields: {
         adElement,
         isDesktop,
@@ -33,14 +34,29 @@ class Ads extends PureComponent {
 
     const addRowsClass = () => (rows === 'empty' ? '' : rows)
 
+    const hideInDevice = () => {
+      let classDevice = ''
+      if (!freeHtml) {
+        if (isDesktop && !isMobile) classDevice = 'no-mobile'
+        else if (!isDesktop && isMobile) classDevice = 'no-desktop'
+      }
+      return classDevice
+    }
+
     return (
-      <div
-        className={`${
-          classes.adsBox
-        } ${columns} ${addRowsClass()} ${addEmptyBackground()}`}>
-        <AdsChild {...params} />
-        {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
-      </div>
+      <>
+        {isAmp !== 'amp' && (
+          <div
+            className={`${
+              classes.adsBox
+            } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()}`}>
+            <AdsChild {...params} />
+            {freeHtml && (
+              <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
+            )}
+          </div>
+        )}
+      </>
     )
   }
 }

@@ -27,6 +27,7 @@ export default ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    siteAssets: siteProperties.assets,
     metaValue,
     deployment,
   }
@@ -82,6 +83,10 @@ export default ({
     deployment,
     globalContent,
   }
+
+  const structuredTaboola = ` 
+    window._taboola = window._taboola || [];
+    _taboola.push({flush: true});`
 
   return (
     <html lang="es">
@@ -146,6 +151,8 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
+        {isStory && <div id="ads_m_movil0" />}
+        {isStory && <div id="ads_d_skin" />}
         <div id="fusion-app" role="application">
           {children}
         </div>
@@ -162,6 +169,12 @@ export default ({
           )}
         />
         <Fusion />
+        {isStory && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{ __html: structuredTaboola }}
+          />
+        )}
       </body>
     </html>
   )

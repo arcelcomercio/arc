@@ -65,10 +65,11 @@ class StaticInternalSurvey extends PureComponent {
 
   sharelinks = () => {
     const {
+      globalContent,
       siteProperties: { siteUrl = '' } = {},
       requestUri = '',
-      globalContent: { title = '' } = {},
     } = this.props
+    const { title = '' } = globalContent || {}
 
     const { facebook, twitter } = socialMediaUrlShareList(
       siteUrl,
@@ -80,7 +81,7 @@ class StaticInternalSurvey extends PureComponent {
   }
 
   render() {
-    const { globalContent, arcSite, contextPath } = this.props
+    const { globalContent } = this.props
     const {
       title = '',
       dateStart: date = '',
@@ -90,8 +91,6 @@ class StaticInternalSurvey extends PureComponent {
     } = globalContent || {}
 
     const params = {
-      arcSite,
-      contextPath,
       title,
       date,
       next,

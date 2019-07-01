@@ -11,13 +11,14 @@ const classes = {
   container: `br-stories-grid__container grid grid--content lg:pt-0 lg:pb-20 lg:pr-20 lg:pl-20`,
 }
 
+const BLOG_URL = `/blog/`
+
 @withSizes(({ width }) => ({ isDesktop: width >= 1024 }))
 @Consumer
 class BlogRelatedPostsGrid extends PureComponent {
   buildParams = (relatedPostItem, blog, contextPath, arcSite, deployment) => {
-    const blogUrl = `${contextPath}/blog/`
-    const postLink = `${blogUrl}${relatedPostItem.post_permalink}`
-    const sectionLink = `${blogUrl}${blog.path}`
+    const postLink = `${BLOG_URL}${relatedPostItem.post_permalink}`
+    const sectionLink = `${BLOG_URL}${blog.path}`
     const defaultImageSrc = defaultImage({
       deployment,
       contextPath,

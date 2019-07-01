@@ -37,7 +37,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
 
   // Replace the parameter from the query
   getUrl(type, value) {
-    const { requestUri, contextPath } = this.props
+    const { requestUri } = this.props
 
     /* Genera la expresión regular basado en el parámetro que se busca */
     const regex = new RegExp(`(\\?|&)${type}=.*?(?=&)`)
@@ -82,7 +82,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
       /* El slice(0) es para eliminar el slash de la sección que se agrega para la consulta a la API */
     }
 
-    return contextPath + newUri /* Retorna la nueva URI armada */
+    return newUri /* Retorna la nueva URI armada */
   }
 
   // Establece el estado "selected" relacionado al filtro seleccionado
@@ -121,7 +121,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
 
   render() {
     const { sections, selected, showList, sort } = this.state
-    const { isAdmin, globalContentConfig, contextPath } = this.props
+    const { isAdmin, globalContentConfig } = this.props
 
     const classes = {
       searchFilter: `search-filter flex flex-col-reverse w-full mt-20 p-15 lg:flex-row`,
@@ -248,10 +248,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
             </li>
           </ul>
         </div>
-        <SearchInput
-          globalContentConfig={globalContentConfig}
-          contextPath={contextPath}
-        />
+        <SearchInput globalContentConfig={globalContentConfig} />
       </div>
     )
   }

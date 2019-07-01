@@ -23,6 +23,10 @@ const classes = {
   button: `cinema-card__button bg-white inline-block uppercase font-bold primary-font border-0 text-xs rounded-sm`,
 }
 
+const BASE_PATH = '/cartelera'
+const MOVIES_BASE_PATH = '/peliculas'
+const FORM_ACTION = `${BASE_PATH}/search`
+
 @Consumer
 class CardCinemaBillboard extends PureComponent {
   constructor(props) {
@@ -87,7 +91,6 @@ class CardCinemaBillboard extends PureComponent {
   }
 
   handleSubmit(event) {
-    const { contextPath, arcSite } = this.props
     const { movieSelected, cinemaSelected } = this.state
 
     const moviePath = movieSelected || 'peliculas'
@@ -96,7 +99,7 @@ class CardCinemaBillboard extends PureComponent {
     const fullPath =
       !movieSelected && !cinemaSelected ? '' : `${moviePath}/${cinemaPath}`
 
-    window.location.href = `${contextPath}/cartelera/${fullPath}?_website=${arcSite}`
+    window.location.href = `${BASE_PATH}/${fullPath}`
     event.preventDefault()
   }
 
@@ -108,24 +111,17 @@ class CardCinemaBillboard extends PureComponent {
       premiereData,
     } = this.state
 
-    const { contextPath, arcSite } = this.props
-
     return (
       <div className={classes.cinemaCard}>
         <article className={classes.container}>
           <span className={classes.gradient} />
           <h3 className={classes.category}>
-            <a
-              className={classes.link}
-              href={`${contextPath}/cartelera?_website=${arcSite}`}>
+            <a className={classes.link} href={BASE_PATH}>
               Cartelera
             </a>
           </h3>
           <figure className={classes.figure}>
-            <a
-              href={`${contextPath}/cartelera/peliculas/${
-                premiereData.url
-              }?_website=${arcSite}`}>
+            <a href={`${BASE_PATH}${MOVIES_BASE_PATH}/${premiereData.url}`}>
               <img
                 src={premiereData.img}
                 alt={premiereData.alt}
@@ -134,13 +130,11 @@ class CardCinemaBillboard extends PureComponent {
             </a>
           </figure>
           <div className={classes.detail}>
-            <span className={classes.premiere}>Estreno</span>
+            <p className={classes.premiere}>Estreno</p>
             <h2 className={classes.movieTitle}>
               <a
                 className={classes.movieLink}
-                href={`${contextPath}/cartelera/peliculas/${
-                  premiereData.url
-                }?_website=${arcSite}`}>
+                href={`${BASE_PATH}${MOVIES_BASE_PATH}/${premiereData.url}`}>
                 Luchando con mi familia
               </a>
             </h2>
@@ -149,7 +143,7 @@ class CardCinemaBillboard extends PureComponent {
         <div className={classes.moviesList}>
           <h4 className={classes.title}>Vamos al cine</h4>
           <form
-            action="/cartelera/search"
+            action={FORM_ACTION}
             method="post"
             className={classes.form}
             onSubmit={e => this.handleSubmit(e)}>

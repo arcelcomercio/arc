@@ -6,6 +6,9 @@ import GenreMoviesFilter from './_children/genre-movies-filter'
 import MoviesList from './_children/movies-list'
 import MoviesFilter from './_children/movies-filter'
 
+const MOVIES = 'peliculas'
+const CINEMAS = 'cines'
+
 @Consumer
 class StaticCinemaBillboard extends PureComponent {
   render() {
@@ -16,9 +19,8 @@ class StaticCinemaBillboard extends PureComponent {
       contextPath,
       arcSite,
     } = this.props
-    const {
-      query: { movie = 'peliculas', cinema = 'cines', genre = '' } = {},
-    } = globalContentConfig || {}
+    const { query: { movie = MOVIES, cinema = CINEMAS, genre = '' } = {} } =
+      globalContentConfig || {}
     const params = {
       movie,
       cinema,
@@ -33,7 +35,7 @@ class StaticCinemaBillboard extends PureComponent {
     return (
       <>
         {/* Si no hay pelicula ni cine */}
-        {movie === 'peliculas' && cinema === 'cines' && (
+        {movie === MOVIES && cinema === CINEMAS && (
           <>
             <MoviesContainer
               type="slider"
@@ -46,7 +48,7 @@ class StaticCinemaBillboard extends PureComponent {
         )}
 
         {/* Si Hay pelicula y el cine es opcional */}
-        {movie !== 'peliculas' && (
+        {movie !== MOVIES && (
           <MoviesContainer
             type="banner"
             data={{ ...data }}
@@ -56,7 +58,7 @@ class StaticCinemaBillboard extends PureComponent {
         )}
 
         {/* Si solo hay cine */}
-        {movie === 'peliculas' && cinema !== 'cines' && (
+        {movie === MOVIES && cinema !== CINEMAS && (
           <>
             <MoviesFilter data={{ ...data }} {...params} />
             <MoviesList data={{ ...data }} cinema={cinema} {...context} />

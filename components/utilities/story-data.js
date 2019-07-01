@@ -152,6 +152,7 @@ class StoryData {
   get primarySectionLink() {
     return StoryData.getPrimarySection(this._data).path
   }
+  // TODO: Validar que link regrese la url correcta de la nota
 
   get link() {
     const {
@@ -253,13 +254,13 @@ class StoryData {
     const {
       website_url: url = ''
     } = this._data || {}
-    return breadcrumbList(url, this._siteUrl, this._contextPath)
+    return breadcrumbList(url, this._siteUrl)
   }
 
   get recentList() {
     const {
       recent_stories: {
-        content_elements: contentElements
+        content_elements: contentElements = []
       } = {},
       _id: id,
     } = this._data || {}
@@ -577,7 +578,7 @@ class StoryData {
     return thumb
   }
 
-  static recentList(recentElements = [], id = '') {
+  static recentList(recentElements, id) {
     let i = 0
     return (
       recentElements
@@ -596,7 +597,7 @@ class StoryData {
           return {
             basic,
             websiteUrl,
-            urlImage
+            urlImage,
           }
         }
         return []

@@ -9,7 +9,7 @@ const classes = {
   link: 'story-tags__link text-gray-200',
 }
 const StoryContentChildTags = props => {
-  const { data, contextPath, isAmp } = props
+  const { data, isAmp } = props
   return (
     data.length > 0 && (
       <div className={classes.container}>
@@ -23,7 +23,7 @@ const StoryContentChildTags = props => {
               <h2 key={UtilListKey(idx)} className={classes.tag}>
                 <a
                   className={isAmp ? classes.link : `amp-${classes.link}`}
-                  href={slug && `${contextPath}/noticias/${slug}`}>
+                  href={slug && `/noticias/${slug}`}>
                   {text}
                 </a>
               </h2>

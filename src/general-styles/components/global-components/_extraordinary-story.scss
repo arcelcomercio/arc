@@ -1,21 +1,27 @@
 $img-max-height: 355px;
 
 @mixin topMultimedia() {
-  grid-template-areas:
-    'extraordinary-story-multimedia extraordinary-story-multimedia'
-    'extraordinary-story-section extraordinary-story-section'
-    'extraordinary-story-content extraordinary-story-content';
+  & .extraordinary-story__group-content {
+    order: 2;
+  }
+
+  & .extraordinary-story__multimedia {
+    order: 1;
+  }
 }
 
 @mixin bottomMultimedia() {
-  grid-template-areas:
-    'extraordinary-story-section extraordinary-story-section'
-    'extraordinary-story-content extraordinary-story-content'
-    'extraordinary-story-multimedia extraordinary-story-multimedia';
+  & .extraordinary-story__group-content {
+    order: 1;
+  }
+
+  & .extraordinary-story__multimedia {
+    order: 2;
+  }
 }
 
 .extraordinary-story {
-  /*   grid-template-columns: 1fr 1fr; */
+  flex-direction: column;
 
   &--bottom {
     @include bottomMultimedia();
@@ -26,32 +32,32 @@ $img-max-height: 355px;
   }
 
   &--left {
-    @include topMultimedia();
-
     @media (--desktop) {
-      grid-template-areas:
-        'extraordinary-story-multimedia extraordinary-story-section'
-        'extraordinary-story-multimedia extraordinary-story-content';
-      grid-template-rows: auto 1fr;
-      grid-template-columns: 1fr 40%;
+      & .extraordinary-story__group-content {
+        min-width: 60%;
+        width: 60%;
+      }
+      flex-direction: row;
     }
+    @include topMultimedia();
   }
 
   &--right {
-    @include bottomMultimedia();
-
     @media (--desktop) {
-      grid-template-areas:
-        'extraordinary-story-section extraordinary-story-multimedia'
-        'extraordinary-story-content extraordinary-story-multimedia';
-      grid-template-rows: auto 1fr;
-      grid-template-columns: 40% 1fr;
+      & .extraordinary-story__group-content {
+        min-width: 60%;
+        width: 60%;
+      }
+      flex-direction: row;
     }
+    @include bottomMultimedia();
+  }
+
+  /* &__group-content {
   }
 
   &__section {
-    grid-area: extraordinary-story-section;
-  }
+  } */
 
   &__title {
     display: -webkit-box;
@@ -86,7 +92,6 @@ $img-max-height: 355px;
   }
 
   &__multimedia {
-    grid-area: extraordinary-story-multimedia;
     max-height: $img-max-height;
 
     @media (--desktop) {
@@ -108,9 +113,6 @@ $img-max-height: 355px;
 
   &__author {
     @media (--desktop) {
-      position: absolute;
-      bottom: 0;
-      left: 20px;
     }
   }
 }

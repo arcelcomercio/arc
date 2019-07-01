@@ -21,48 +21,18 @@
     }
   }
 
-  &__arrows-box {
-    outline: 0;
-    z-index: 2;
-    top: 20%;
-
-    @media (--tablet) {
-      top: 30%;
-    }
-  }
   // &__caption {  }
 
   &__quantity {
     background-color: $color-primary;
-    float: left;
-    width: 100px;
-    height: 50px;
-
-    @media (--desktop) {
-      //  margin-top: -48px;
-    }
+    width: 102px;
+    height: 43px;
+    letter-spacing: 8px;
+  }
+  &__arrows-box {
+    height: calc(100% - 83px);
   }
   &__arrows {
-    background-color: #f7c600;
-    opacity: 0.133;
-    background-image: url(https://assets.elcomercio.pe/img/arrow_down.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 48px;
-    height: 48px;
-
-    @media (--tablet) {
-      width: 80px;
-      height: 80px;
-    }
-
-    &--left {
-      transform: rotate(90deg);
-      border-top: solid 1px #fff;
-    }
-
-    &--right {
-      transform: rotate(270deg);
-    }
+    outline: 0;
   }
 }
