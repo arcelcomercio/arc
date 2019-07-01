@@ -25,7 +25,7 @@ const classes = {
 
   imageLink: 'featured-story__img-link block h-full ml-10 md:ml-0',
   imageBox: `featured-story__img-box position-relative overflow-hidden w-full h-full`,
-  iamge: 'featured-story__img w-full h-full object-cover',
+  image: 'featured-story__img w-full h-full object-cover',
 
   imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',
