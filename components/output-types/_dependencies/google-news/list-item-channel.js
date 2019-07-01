@@ -27,7 +27,7 @@ const Item = ({
     </item>`
 }
 
-const ListChannelItem = ({
+const ListItemChannel = ({
   deployment,
   contextPath,
   arcSite,
@@ -60,4 +60,4 @@ const ListChannelItem = ({
   return items
 }
 
-export default ListChannelItem
+export default ListItemChannel
