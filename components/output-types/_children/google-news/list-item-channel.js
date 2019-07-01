@@ -1,6 +1,6 @@
 import StoryData from '../../../utilities/story-data'
 
-const StringItem = ({
+const Item = ({
   title = '',
   link = '',
   description = '',
@@ -27,21 +27,22 @@ const StringItem = ({
     </item>`
 }
 
-const StringTemplateArrayItem = ({
+const ListChannelItem = ({
   deployment,
   contextPath,
   arcSite,
   siteUrl,
   stories,
 }) => {
+  const storydata = new StoryData({
+    deployment,
+    contextPath,
+    arcSite,
+    defaultImgSize: 'sm',
+  })
+  
   const items = stories
     .map(story => {
-      const storydata = new StoryData({
-        deployment,
-        contextPath,
-        arcSite,
-        defaultImgSize: 'sm',
-      })
       storydata.__data = story
 
       const itemProps = {
@@ -51,7 +52,7 @@ const StringTemplateArrayItem = ({
         pubDate: storydata.date,
         creator: storydata.author,
       }
-      const item = StringItem(itemProps)
+      const item = Item(itemProps)
       return item
     })
     .join('')
@@ -59,4 +60,4 @@ const StringTemplateArrayItem = ({
   return items
 }
 
-export default StringTemplateArrayItem
+export default ListChannelItem

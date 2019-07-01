@@ -2,7 +2,7 @@ import React from 'react'
 
 import ElementStringChanel from './_children/fb-instant-article/template-string-chanel'
 import ListItemNews from './_children/fb-instant-article/template-string-item-chanel'
-import NewElement from './../utilities/new-element'
+import NewElement from '../global-components/new-element'
 
 const FbInstantOutputType = ({
   deployment = {},

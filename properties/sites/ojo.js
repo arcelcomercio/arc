@@ -11,10 +11,11 @@ export default {
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-3',
   charbeatAccountNumber: 57773,
-  idGoogleAnalitics:'UA-3055636-11',
-  fbArticleStyle:'',
-  description:'Noticias de Perú y el mundo en ojo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
-  googleNewsImage:'https://publimetro.pe/f/i/pub_40.png',
+  idGoogleAnalitics: 'UA-3055636-11',
+  fbArticleStyle: '',
+  siteDescription:
+    'Noticias de Perú y el mundo en ojo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',

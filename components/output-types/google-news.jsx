@@ -1,8 +1,8 @@
 import React from 'react'
-import NewElement from './../utilities/new-element'
-import ElementStringChanel from './_children/google-news/template-string-chanel'
-import StringImageItem from './_children/google-news/template-string-item-image'
-import StringTemplateArrayItem from './_children/google-news/template-string-item-chanel'
+import NewElement from '../global-components/new-element'
+import Channel from './_children/google-news/channel'
+import ItemImage from './_children/google-news/item-image'
+import ListItemChannel from './_children/google-news/list-item-channel'
 
 const GoogleNews = ({
   deployment = {},
@@ -28,15 +28,16 @@ const GoogleNews = ({
     'xmlns:dc':'http://purl.org/dc/elements/1.1/'
   }
 
-  const chanelProps = {
+  const channelProps = {
     siteName,
     siteUrl,
     siteDescription,
-    googleNewsImage,
+    
   }
   const imageProps = {
     siteDomain,
     siteUrl,
+    googleNewsImage,
   }
 
   const itemsProps = {
@@ -46,23 +47,20 @@ const GoogleNews = ({
     siteUrl,
     stories,
   }
-  const ArrayItemString = StringTemplateArrayItem(itemsProps)
-  let chanelString = ElementStringChanel(chanelProps)
+  const ArrayItemString = ListItemChannel(itemsProps)
+  let channelString = Channel(channelProps)
 
-  chanelString = chanelString.replace(
+  channelString = channelString.replace(
     '@StringImageItem',
-    StringImageItem(imageProps)
+    ItemImage(imageProps)
   )
 
-  chanelString = chanelString.replace('@ItemsNews', ArrayItemString)
+  channelString = channelString.replace('@ItemsNews', ArrayItemString)
 
   return (
     <NewElement nameElement="rss" propsNewElement={propsXml}>
-      <chanel dangerouslySetInnerHTML={{ __html: chanelString }} />
+      <channel dangerouslySetInnerHTML={{ __html: channelString }} />
     </NewElement>
-    // <NewElement nameElement="rss" propsNewElement={propsXml}>
-    //   <chanel dangerouslySetInnerHTML={{ __html: print(chanelProps.siteDescription) }} />
-    // </NewElement>
   )
 }
 

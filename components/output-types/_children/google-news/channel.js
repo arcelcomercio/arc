@@ -1,12 +1,10 @@
-const ElementStringChanel = chanelProps => {
+const Channel = channelProps => {
   const {
     siteName = '',
     siteUrl = '',
     siteDescription = '',
-    googleNewsImage = '',
-  } = chanelProps
+  } = channelProps
   return `
-    <url>${googleNewsImage}</url>
     <link>${siteUrl}</link>
     <description>${siteDescription}</description>
     <title>${siteName}</title>
@@ -15,4 +13,4 @@ const ElementStringChanel = chanelProps => {
     `
 }
 
-export default ElementStringChanel
+export default Channel
