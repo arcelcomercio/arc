@@ -16,13 +16,13 @@ const classes = {
 const StorySidebarLayout = ({ children = [] }) => {
   return (
     <>
+      {children[0] /* Barra de navegación */}
       <main className={classes.layout}>
         <div role="complementary" className={classes.zocalo}>
-          {children[0] /* Zocalo izquierda */}
+          {children[1] /* Zocalo izquierda */}
         </div>
         <div className={classes.contentContainer}>
-          {children[1] /* Publicidad Top */}
-          {children[2] /* Barra de navegación */}
+          {children[2] /* Publicidad Top */}
 
           {children[3] /* Cabecera de página */}
           {children[4] && (
@@ -55,6 +55,7 @@ StorySidebarLayout.propTypes = {
 }
 
 StorySidebarLayout.sections = [
+  'Sidebar Amp',
   'Zocalo izquierda',
   'Publicidad Top',
   'Barra de navegación',

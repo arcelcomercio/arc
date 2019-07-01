@@ -32,6 +32,8 @@ class ConfigParams {
 
   static COMSCORE_ID = '8429002'
 
+  static OPTA_WIDGET = 'https://assets.trome.pe/opta'
+
   // opta
   static OPTA_CSS_LINK =
     'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'

@@ -1,6 +1,4 @@
-import {
-  addResizedUrlItem
-} from './thumbs'
+import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
@@ -27,9 +25,9 @@ export const formatDate = date => {
 
   const fechaEntrante = date.slice(0, 10)
   const fecha =
-    fechaEntrante === fechaGenerada ?
-    date.slice(date.indexOf('T') + 1, 16) :
-    fechaEntrante
+    fechaEntrante === fechaGenerada
+      ? date.slice(date.indexOf('T') + 1, 16)
+      : fechaEntrante
   return fecha
 }
 
@@ -167,12 +165,12 @@ export const metaPaginationUrl = (
   siteUrl,
   isQuery
 ) => {
-  return requestUri.match(patternPagination) != null ?
-    `${siteUrl}${requestUri.replace(
+  return requestUri.match(patternPagination) != null
+    ? `${siteUrl}${requestUri.replace(
         patternPagination,
         `${isQuery ? '&page=' : '/'}${pageNumber}`
-      )}` :
-    `${siteUrl}${
+      )}`
+    : `${siteUrl}${
         isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
       }${isQuery ? `&page=${pageNumber}` : `?${requestUri.split('?')[1]}`}`
 }
@@ -183,19 +181,16 @@ export const getMetaPagesPagination = (
   globalContent,
   patternPagination
 ) => {
-  const {
-    next,
-    previous
-  } = globalContent || {}
+  const { next, previous } = globalContent || {}
   const pages = {
-    current: requestUri.match(patternPagination) ?
-      parseInt(
-        requestUri
-        .match(patternPagination)[0]
-        .split(`${isQuery ? '=' : '/'}`)[1],
-        10
-      ) :
-      1,
+    current: requestUri.match(patternPagination)
+      ? parseInt(
+          requestUri
+            .match(patternPagination)[0]
+            .split(`${isQuery ? '=' : '/'}`)[1],
+          10
+        )
+      : 1,
     next: false,
     prev: false,
   }
@@ -255,9 +250,9 @@ export const getCookie = cookieName => {
 
 export const formatSlugToText = (text = '') => {
   if (!text) return null
-  const splitText = text.slice(1).includes('/') ?
-    text.slice(1).split('/') :
-    text.split('/')
+  const splitText = text.slice(1).includes('/')
+    ? text.slice(1).split('/')
+    : text.split('/')
   const lastSection = splitText[splitText.length - 1]
   return lastSection
     .charAt(0)
@@ -283,12 +278,7 @@ export const defaultImage = ({
   )
 }
 
-export const createScript = ({
-  src,
-  async,
-  defer,
-  textContent = ''
-}) => {
+export const createScript = ({ src, async, defer, textContent = '' }) => {
   const node = document.createElement('script')
   if (src) {
     node.type = 'text/javascript'
@@ -323,7 +313,8 @@ export const breadcrumbList = (url, siteUrl) => {
       if (i === 1 || (i === 2 && dataSeccion.length === 4)) {
         const separator = '/'
         arrayData[i] = {
-          name: element.charAt(0).toUpperCase() +
+          name:
+            element.charAt(0).toUpperCase() +
             element.slice(1).replace('-', ' '),
           url: siteUrl + separator + element,
         }
@@ -341,9 +332,9 @@ export const getUrlParameter = contentElements => {
 
   if (loc.includes('?') && contentElements) {
     const sWidth = 100 / contentElements.length
-    return tmp[1] && contentElements.length >= tmp[1] ?
-      -sWidth * (tmp[1] - 1) :
-      0
+    return tmp[1] && contentElements.length >= tmp[1]
+      ? -sWidth * (tmp[1] - 1)
+      : 0
   }
   return parseInt(String, tmp[1]) || 0
 }
@@ -361,4 +352,122 @@ export const getMultimediaIcon = multimediaType => {
       return ''
   }
   return icon
+}
+
+export const optaWidgetHtml = html => {
+  const matches = html.match(/<opta-widget(.*?)><\/opta-widget>/)
+  const matchesResult = matches
+    ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
+    : ''
+
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
+    ConfigParams.OPTA_WIDGET
+  }/optawidget?${matchesResult} ></amp-iframe>`
+  return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
+}
+
+export const imageHtml = html => {
+  const strImageCde = '/<img (.*)src="http://cde(.*?)" (.*)>/g'
+  const rplImageCde =
+    '<amp-img class="media" src="http://cde$2" layout="responsive" width="1" height="1"></amp-img>'
+  return html.replace(strImageCde, rplImageCde)
+}
+
+export const playerHtml = html => {
+  const rplEplayer =
+    '<amp-iframe width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://player.performgroup.com/eplayer/eplayer.html#/$1"></amp-iframe>'
+
+  return html.replace(
+    /<script src="\/\/player.performgroup.com\/eplayer.js\#(.*?)" async><\/script>/g,
+    rplEplayer
+  )
+}
+
+export const twitterHtml = html => {
+  const rplTwitter =
+    '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$3" ></amp-twitter>'
+
+  const htmlDataTwitter = html.replace(
+    /<blockquote class="twitter-tweet"(.*)<a href="https:\/\/twitter.com\/(.*)\/status\/(.*)">(.*)<\/blockquote>/g,
+    rplTwitter
+  )
+
+  return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
+}
+
+export const facebookHtml = html => {
+  const strFacebook = '/<iframe src="(.*?)&width=500"></iframe>/g'
+  const rplFacebook =
+    '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
+  const strFacebook2 = '/<iframe src="(.*?)&width=500"></iframe>/g'
+  const rplFacebook2 =
+    '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
+  const rplFacebook3 =
+    '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$2"></amp-facebook>'
+
+  const strFacebookPage =
+    '/<div class="fb-page" data-href="(.*?)" data-width="(.*?)" data-small-header="(.*?)" data-adapt-container-width="(.*?)" data-hide-cover="(.*?)" data-show-facepile="(.*?)" data-show-posts="(.*?)"><div class="fb-xfbml-parse-ignore"><blockquote cite="(.*?)"><a href="(.*?)">(.*?)</a></blockquote></div></div>/g'
+  const rplFacebookPage =
+    '<amp-facebook-page width="340" height="130" layout="fixed" data-hide-cover="$5" data-href="$1"></amp-facebook-page>'
+  const strFacebookRoot = '/<div id="fb-root"></div>/g'
+  return html
+    .replace(strFacebookPage, rplFacebookPage)
+    .replace(strFacebookRoot, '')
+    .replace(strFacebook, rplFacebook)
+    .replace(strFacebook2, rplFacebook2)
+    .replace(
+      /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/g,
+      rplFacebook3
+    )
+}
+
+export const youtubeHtml = html => {
+  const strYoutube =
+    '/<iframe width="(.*?)" height="(.*?)" src="https://www.youtube.com/embed/(.*?)"></iframe>/g'
+  const rplYoutube =
+    '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="$1" height="$2"></amp-youtube>'
+
+  return html.replace(strYoutube, rplYoutube)
+}
+
+export const freeHtml = html => {
+  const strHtmlFree = '/<html_free>(.*?)</html_free>/g'
+  return html.replace(strHtmlFree, '$1')
+}
+
+export const ampHtml = (html = '') => {
+  let resultData = ''
+
+  // Opta Widget
+  resultData = optaWidgetHtml(html)
+
+  // imagenes
+  resultData = imageHtml(resultData)
+
+  // Player
+  resultData = playerHtml(resultData)
+
+  // twitter
+  resultData = twitterHtml(resultData)
+
+  // facebook
+  resultData = facebookHtml(decodeURIComponent(resultData))
+
+  // Youtube
+  resultData = youtubeHtml(resultData)
+
+  // HTML Free
+  resultData = freeHtml(resultData)
+
+  return resultData
+}
+
+export const publicidadAmp = ({ dataSlot, placementId, width, height }) => {
+  const resultData = createMarkup(`
+  <amp-ad width="${width}" height="${height}" type="doubleclick"
+  data-slot="${dataSlot}"
+  rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
+  "timeoutMillis": 1000}'></amp-ad>`)
+
+  return resultData
 }
