@@ -430,6 +430,15 @@ export const youtubeHtml = html => {
   return html.replace(strYoutube, rplYoutube)
 }
 
+export const instagramHtml = html => {
+  const rplInstagram =
+    '<amp-instagram data-shortcode="$3" width="1" height="1" layout="responsive"></amp-instagram>'
+
+  return html.replace(
+    /<blockquote (.*)class="instagram-media"(.*)data-instgrm-permalink="https:\/\/www.instagram.com\/p\/(.*?)\/(.*?)<\/blockquote>/g,
+    rplInstagram
+  )
+}
 export const freeHtml = html => {
   const strHtmlFree = '/<html_free>(.*?)</html_free>/g'
   return html.replace(strHtmlFree, '$1')
@@ -449,6 +458,9 @@ export const ampHtml = (html = '') => {
 
   // twitter
   resultData = twitterHtml(resultData)
+
+  // instagram
+  resultData = instagramHtml(resultData)
 
   // facebook
   resultData = facebookHtml(decodeURIComponent(resultData))
