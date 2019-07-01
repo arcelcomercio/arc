@@ -35,7 +35,7 @@
     }
 
     @media (--tablet) {
-      .featured-story__image {
+      .featured-story__img-box {
         &::before {
           height: 100%;
           background: linear-gradient(180deg, rgba(14, 33, 13, 0.1) 30%, rgba(14, 33, 13, 0.8) 80%, #0e210d);
@@ -63,7 +63,7 @@
         border: 1px solid $color-white;
       }
 
-      .featured-story__image {
+      .featured-story__img-box {
         &::before {
           height: 100%;
           background: linear-gradient(180deg, rgba(14, 33, 13, 0.1) 30%, rgba(14, 33, 13, 0.8) 80%, #0e210d);
