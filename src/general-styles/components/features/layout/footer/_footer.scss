@@ -98,7 +98,12 @@
   }
   // &__logo {}
   // &__legal-list {}
-  // &__legal-item {}
+  &__legal-item {
+    &:nth-child(4) {
+      padding-right: 10px;
+      line-height: 1.5;
+    }
+  }
   // &__list {}
   // &__list-item {}
   // &__list-title {}

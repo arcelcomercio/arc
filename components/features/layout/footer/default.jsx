@@ -10,8 +10,8 @@ const classes = {
   info: 'footer__info p-20  bg-primary position-relative',
   sections: 'footer__sections  bg-primary position-relative md:pt-20 pb-20',
   contact: 'footer__contact  bg-primary md:pt-20 pb-20',
-  sites: 'footer__sites flex flex-col mt-15 pl-20 md:pl-30 pr-30 pb-20',
-  sitesList: 'footer__sites-list flex flex-wrap w-full p-0 pt-10 bg-gray-100',
+  sites: 'footer__sites flex flex-col p-20 bg-gray-100',
+  sitesList: 'footer__sites-list flex flex-wrap w-full p-0',
   sitesItem: `footer__sites-item mb-5 pr-10 text-sm text-gray-300 line-h-xs uppercase flex items-center`,
   sitesItemTitle: 'text-sm text-gray-300 line-h-xs uppercase',
   sitesLink: 'footer__sites-link text-gray-300',
@@ -20,9 +20,9 @@ const classes = {
   logoContainer: 'footer__logo footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list pt-0 pb-20 pr-20 pl-20 md:pl-30',
-  listItem: 'footer__list-item pt-10',
+  listItem: 'footer__list-item pt-10 pb-10',
   listTitle: 'footer__list-title  pt-10 pb-10 uppercase text-sm text-gray-200',
-  listLinkTitle: 'footer__list-link capitalize text-gray-300 text-sm mb-10',
+  listLinkTitle: 'footer__list-link capitalize text-gray-300 text-sm font-bold',
   listLinkInfo:
     'footer__list-link capitalize text-gray-300 text-sm font-bold line-h-md',
   listLink: 'footer__list-link capitalize text-gray-300 text-sm',
@@ -34,7 +34,8 @@ const classes = {
   facebookIcon: 'footer__social-icon icon-facebook pr-15',
   twitterIcon: 'footer__social-icon icon-twitter',
 
-  legalLinks: 'footer__legal-item line-h-lg text-xs primary-font',
+  legalLinksWrapper: 'pt-20 text-white',
+  legalLinks: 'footer__legal-links line-h-lg text-xs text-white',
   legalLinksDivider: 'ml-5 mr-5',
   contactPosition: 'block',
   contactName: 'block',
@@ -130,7 +131,7 @@ class LayoutFooter extends PureComponent {
                 {el}
               </li>
             ))}
-            <li className={classes.legalItem}>
+            <li className={classes.legalLinksWrapper}>
               {legalLinks.map((el, i) => (
                 <React.Fragment key={el.url}>
                   <a className={` ${classes.legalLinks}`} href={el.url}>
@@ -164,7 +165,9 @@ class LayoutFooter extends PureComponent {
             {contacts.map(el => (
               <li className={classes.listItem} key={el.name}>
                 <span
-                  className={`${classes.listLinkTitle} ${classes.contactPosition}`}>
+                  className={`${classes.listLinkTitle} ${
+                    classes.contactPosition
+                  }`}>
                   {el.position}:
                 </span>
                 <span
