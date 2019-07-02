@@ -62,6 +62,7 @@ class NavBarDefault extends PureComponent {
   optionButtonClick = () => {
     const { statusSearch } = this.state
     if (statusSearch) this.findSearch()
+    else this.focusInputSearch()
     this.setState({ statusSearch: !statusSearch })
   }
 
