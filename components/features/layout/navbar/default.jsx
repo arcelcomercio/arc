@@ -2,8 +2,6 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { setDevice } from '../../../utilities/resizer'
-
 import NavBarComercio from './_children/standard'
 import NavbarChildSomos from './_children/somos'
 
@@ -36,7 +34,6 @@ class LayoutNavbar extends PureComponent {
     )
     this.state = {
       data: {},
-      device: setDevice(),
     }
     if (this.formatter.main.fetch !== false) {
       const { params, source } = this.formatter.main.fetch.config
@@ -51,17 +48,6 @@ class LayoutNavbar extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    this.addEventListener('displayChange', this._handleDevice)
-  }
-
-  /** Actualiza el "state.device" cuando el listener acciona  */
-  _handleDevice = device => {
-    this.setState({
-      device,
-    })
-  }
-
   renderNavBar() {
     const {
       customFields: {
@@ -71,12 +57,11 @@ class LayoutNavbar extends PureComponent {
         showInMobile = true,
       } = {},
     } = this.props
-    const { data, device } = this.state
+    const { data } = this.state
     const NavBarType = {
       standard: (
         <NavBarComercio
           deviceList={{ showInDesktop, showInTablet, showInMobile }}
-          device={device}
           data={data}
           {...this.formatter.main.initParams}
         />
@@ -84,7 +69,6 @@ class LayoutNavbar extends PureComponent {
       somos: (
         <NavbarChildSomos
           deviceList={{ showInDesktop, showInTablet, showInMobile }}
-          device={device}
           {...this.formatter.main.initParams}
         />
       ),

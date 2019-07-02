@@ -1,7 +1,7 @@
 export default {
   siteName: 'Perú21',
   colorPrimary: '#f7c600',
-  siteDomain: 'elcomercio.pe',
+  siteDomain: 'peru21.pe',
   siteUrl: 'https://peru21.pe',
   resizerUrl: 'http://resizer.shared.arcpublishing.com',
   resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
@@ -11,7 +11,11 @@ export default {
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-3',
   charbeatAccountNumber: 57773,
-
+  idGoogleAnalitics: 'UA-3055636-4',
+  fbArticleStyle: 'LogoPeru21',
+  siteDescription:
+    'Noticias de Perú y el mundo en Peru21.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
@@ -30,6 +34,21 @@ export default {
     cookiesPolicy: '',
     aboutUs: '',
   },
+
+  legalLinks: [
+    {
+      name: 'Términos y condiciones',
+      url: '/terminos-servicio',
+    },
+    {
+      name: 'Políticas de Privacidad',
+      url: '/politicas-privacidad',
+    },
+    {
+      name: 'Politicas de Cookies',
+      url: '/politicas-cookies',
+    },
+  ],
 
   footer: {
     siteLegal: [

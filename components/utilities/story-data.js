@@ -150,7 +150,17 @@ class StoryData {
   }
 
   get primarySectionLink() {
-    return StoryData.getPrimarySection(this._data).path
+    return StoryData.getPrimarySection(this._data).path || ''
+  }
+
+  get allSections() {
+    let sections = []
+    let result = []
+    if (this._data.taxonomy && this._data.taxonomy.sections) {
+      sections = this._data.taxonomy.sections.map(sec => sec.name)
+    }
+    result = sections.filter(x => x !== null || x !== undefined || x !== '')
+    return result
   }
   // TODO: Validar que link regrese la url correcta de la nota
 
@@ -248,6 +258,16 @@ class StoryData {
         this._data.promo_items[ConfigParams.VIDEO].embed_html) ||
       ''
     )
+  }
+
+  get paragraphsNews() {
+    const { content_elements: contentElements = [] } = this._data
+    const parrafo = contentElements.map(({ content = '' }) =>
+      content !== '' || content !== undefined ? content : null
+    )
+
+    const result = parrafo.filter(x => x !== null)
+    return result
   }
 
   get breadcrumbList() {

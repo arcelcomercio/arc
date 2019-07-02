@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 
+import { getResponsiveClasses } from '../../../../utilities/helpers'
+
 const classes = {
   // header
   logocontent: `header-somos bg-white flex justify-between items-center text-center w-full p-10 border-t-1 border-b-1 border-solid border-gray lg:pt-15 lg:pb-15 lg:pr-10 lg:pl-10`,
@@ -56,120 +58,90 @@ class HeaderChildSomos extends PureComponent {
   }
 
   render() {
-    const {
-      logo,
-      logoIcon,
-      firstSection,
-      sections,
-      device,
-      deviceList,
-    } = this.props
+    const { logo, logoIcon, firstSection, sections, deviceList } = this.props
     const { isMenuActive, searchValue } = this.state
-
-    const _handleHide = () => {
-      let option = true
-      switch (device) {
-        case 'desktop':
-          option = deviceList.showInDesktop
-          break
-        case 'tablet':
-          option = deviceList.showInTablet
-          break
-        case 'mobile':
-          option = deviceList.showInMobile
-          break
-        default:
-          break
-      }
-      return option
-    }
-
     return (
-      _handleHide() && (
-        <>
-          <div className={classes.logocontent}>
-            <div className={classes.iconmenuwrapper}>
+      <>
+        <div
+          className={`${classes.logocontent} ${getResponsiveClasses(
+            deviceList
+          )}`}>
+          <div className={classes.iconmenuwrapper}>
+            <button
+              type="button"
+              onClick={() => {
+                this.setState({ isMenuActive: !isMenuActive })
+              }}
+              className={classes.menubtn}>
+              <i className={classes.menuicon} />
+            </button>
+          </div>
+          <div className={classes.logoimgwrapper}>
+            <a href={logo.link} className={classes.logoLink}>
+              <img className={classes.logoimg} src={logo.src} alt={logo.alt} />
+            </a>
+          </div>
+          <div className={classes.logoWrapper}>
+            <a href={logoIcon.link}>
+              <i className={classes.logoIcon} />
+            </a>
+          </div>
+        </div>
+
+        <nav
+          className={`${classes.menu} ${
+            isMenuActive ? classes.menuActive : ''
+          } ${getResponsiveClasses(deviceList)}`}>
+          <div className={classes.menuContent}>
+            <div className={classes.menuClose}>
               <button
                 type="button"
                 onClick={() => {
                   this.setState({ isMenuActive: !isMenuActive })
-                }}
-                className={classes.menubtn}>
-                <i className={classes.menuicon} />
+                }}>
+                <i className={classes.menuCloseIcon} />
               </button>
             </div>
-            <div className={classes.logoimgwrapper}>
-              <a href={logo.link} className={classes.logoLink}>
-                <img
-                  className={classes.logoimg}
-                  src={logo.src}
-                  alt={logo.alt}
+            <div className={classes.menuSearch}>
+              <form action="" onSubmit={e => this.handleSubmit(e)}>
+                <input
+                  type="text"
+                  placeholder="Buscar"
+                  className={classes.menuSearchInput}
+                  value={searchValue}
+                  onChange={e => this.handleSearchInput(e)}
                 />
-              </a>
-            </div>
-            <div className={classes.logoWrapper}>
-              <a href={logoIcon.link}>
-                <i className={classes.logoIcon} />
-              </a>
-            </div>
-          </div>
-
-          <nav
-            className={`${classes.menu} ${
-              isMenuActive ? classes.menuActive : ''
-            }`}>
-            <div className={classes.menuContent}>
-              <div className={classes.menuClose}>
                 <button
-                  type="button"
-                  onClick={() => {
-                    this.setState({ isMenuActive: !isMenuActive })
-                  }}>
-                  <i className={classes.menuCloseIcon} />
+                  className={classes.menuButtonSearchIcon}
+                  type="submit"
+                  onClick={() => {}}>
+                  <i className={classes.menuSearchIcon} />
                 </button>
-              </div>
-              <div className={classes.menuSearch}>
-                <form action="" onSubmit={e => this.handleSubmit(e)}>
-                  <input
-                    type="text"
-                    placeholder="Buscar"
-                    className={classes.menuSearchInput}
-                    value={searchValue}
-                    onChange={e => this.handleSearchInput(e)}
-                  />
-                  <button
-                    className={classes.menuButtonSearchIcon}
-                    type="submit"
-                    onClick={() => {}}>
-                    <i className={classes.menuSearchIcon} />
-                  </button>
-                </form>
-              </div>
-              <div className={classes.menuLogin}>
-                <a href="/" className={classes.menuLoginLink}>
-                  <i className={classes.menuLoginIcon} />
-                  <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
+              </form>
+            </div>
+            <div className={classes.menuLogin}>
+              <a href="/" className={classes.menuLoginLink}>
+                <i className={classes.menuLoginIcon} />
+                <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
+              </a>
+            </div>
+            <ul className={classes.menuList}>
+              <li className={classes.menuItemLink}>
+                <a href={firstSection.url} className={classes.menuLinkIcon}>
+                  <i className={classes.iconHome} />
                 </a>
-              </div>
-              <ul className={classes.menuList}>
-                <li className={classes.menuItemLink}>
-                  <a href={firstSection.url} className={classes.menuLinkIcon}>
-                    <i className={classes.iconHome} />
+              </li>
+              {sections.map(section => (
+                <li className={classes.menuItem} key={section.url}>
+                  <a href={section.url} className={classes.menuLink}>
+                    {section.name}
                   </a>
                 </li>
-                {(device === 'desktop' || isMenuActive) &&
-                  sections.map(section => (
-                    <li className={classes.menuItem} key={section.url}>
-                      <a href={section.url} className={classes.menuLink}>
-                        {section.name}
-                      </a>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          </nav>
-        </>
-      )
+              ))}
+            </ul>
+          </div>
+        </nav>
+      </>
     )
   }
 }

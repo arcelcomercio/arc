@@ -11,7 +11,11 @@ export default {
   googleTagManagerId: 'GTM-KHF8BD_',
   ampGoogleTagManagerId: 'UA-3055636-3',
   charbeatAccountNumber: 57773,
-
+  idGoogleAnalitics: 'UA-3055636-18',
+  fbArticleStyle: 'LogoPublimetro',
+  siteDescription:
+    'Noticias de Perú y el mundo en Publimetro.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: 'H64O2THIKJA6XADJ5SZ5H45TNQ',
     guidingPrinciples: '',
@@ -48,6 +52,21 @@ export default {
       height: 60,
     },
   },
+
+  legalLinks: [
+    {
+      name: 'Términos y Condiciones',
+      url: '/terminos-y-condiciones',
+    },
+    {
+      name: 'Política de Privacidad',
+      url: '/politica-de-privacidad',
+    },
+    {
+      name: 'Política de Cookies',
+      url: '/politica-de-cookies',
+    },
+  ],
 
   footer: {
     siteLegal: [

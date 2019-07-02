@@ -4,7 +4,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  breakingnews: `breaking-news secondary-font flex justify-between p-15 text-white`,
+  breakingnews: `breaking-news secondary-font flex justify-between pt-15 pb-15 pl-20 pr-20 text-white`,
   close: 'breaking-news__btn-close text-right text-white',
   icon: 'breaking-news__btn-icon icon-close-circle title-sm text-white',
   text: 'breaking-news__text m-0 title-xs line-h-xs',

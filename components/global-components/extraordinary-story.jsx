@@ -4,10 +4,11 @@ import ConfigParams from '../utilities/config-params'
 import Icon from './multimedia-icon'
 
 const classes = {
-  extraordinaryStory: `extraordinary-story bg-white grid border-gray`,
-  section: `extraordinary-story__section text-left uppercase font-bold pt-20 pr-20 pl-20 pb-10 text-white`,
+  extraordinaryStory: `extraordinary-story bg-white flex border-gray`,
+  section: `extraordinary-story__section uppercase font-bold pt-20 pr-20 pl-20 pb-10 text-white`,
   sectionLink: 'extraordinary-story__section-link',
   content: 'extraordinary-story__content block pr-20 pl-20 position-relative',
+  groupContent: 'extraordinary-story__group-content w-full',
   title: `extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-20`,
   titleLink: 'extraordinary-story__title-link',
   oneline: 'extraordinary-story--oneline',
@@ -18,7 +19,7 @@ const classes = {
   link: 'extraordinary-story__link',
   // extraordinaryStoryAuthor: 'uppercase mb-15  text-xs',
   authorLink: 'extraordinary-story__author-link text-gray-200',
-  multimedia: `extraordinary-story__multimedia h-full block bg-gray-300 position-relative`,
+  multimedia: `extraordinary-story__multimedia w-full h-full block bg-gray-300 position-relative`,
 }
 
 const ExtraordinaryStory = props => {
@@ -63,31 +64,32 @@ const ExtraordinaryStory = props => {
       className={`${
         classes.extraordinaryStory
       } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
-      {!isSection && (
-        <p className={classes.section}>
-          <a href={data.sectionLink} className={classes.sectionLink}>
-            {data.section}
-          </a>
-        </p>
-      )}
-      <div className={classes.content}>
-        <h2 className={`${classes.title} ${numline}`}>
-          <a
-            href={`${data.sectionLink}${data.link}`}
-            className={classes.titleLink}>
-            {data.title}
-          </a>
-        </h2>
-        <p className={classes.extraordinaryStorySubtitle}>
-          <a href={`${data.sectionLink}${data.link}`} className={classes.link}>
-            {data.subTitle}
-          </a>
-        </p>
-        <address className={classes.extraordinaryStoryAuthor}>
-          <a href={data.authorLink} className={classes.authorLink}>
-            {data.author}
-          </a>
-        </address>
+      <div className={classes.groupContent}>
+        {!isSection && (
+          <p className={classes.section}>
+            <a href={data.sectionLink} className={classes.sectionLink}>
+              {data.section}
+            </a>
+          </p>
+        )}
+        <div className={classes.content}>
+          <h2 className={`${classes.title} ${numline}`}>
+            <a
+              href={data.link} className={classes.titleLink}>
+              {data.title}
+            </a>
+          </h2>
+          <p className={classes.extraordinaryStorySubtitle}>
+            <a href={data.link} className={classes.link}>
+              {data.subTitle}
+            </a>
+          </p>
+          <address className={classes.extraordinaryStoryAuthor}>
+            <a href={data.authorLink} className={classes.authorLink}>
+              {data.author}
+            </a>
+          </address>
+        </div>
       </div>
       <div className={classes.multimedia}>
         <a href={`${data.sectionLink}${data.link}`}>

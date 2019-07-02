@@ -52,6 +52,7 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
   @include build-class($display-class, display, $display);
 }
 
+// TODO:_Homologar las clases de no-<device>
 .no-desktop,
 [id^='ads-m'],
 [id^='ads_m'] {
@@ -61,9 +62,21 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 }
 
 .no-mobile,
+.non-mobile,
 [id^='ads-d'],
 [id^='ads_d'] {
   @media screen and (max-width: 639px) {
+    display: none;
+  }
+}
+
+.non-tablet {
+  @media screen and (min-width: 640px) and (max-width: 1023px) {
+    display: none;
+  }
+}
+.non-desktop {
+  @media screen and (min-width: 1024px) {
     display: none;
   }
 }

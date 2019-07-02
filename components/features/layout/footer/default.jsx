@@ -2,10 +2,8 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-// import withSizes from 'react-sizes'
 
-const DEFAULT_SECTIONS_HIERARCHY = 'footer-secciones-default'
-const DEFAULT_CONTACTS_HIERARCHY = 'footer-contactos-default'
+const DEFAULT_HIERARCHY = 'footer-default'
 
 const classes = {
   footer: 'footer w-full grid',
@@ -16,18 +14,18 @@ const classes = {
   sitesList: 'footer__sites-list flex flex-wrap w-full p-0 pt-10 bg-gray-100',
   sitesItem: `footer__sites-item mb-5 pr-10 text-sm text-gray-300 line-h-xs uppercase flex items-center`,
   sitesItemTitle: 'text-sm text-gray-300 line-h-xs uppercase',
-  sitesLink: 'footer__sites-link text-gray-200',
+  sitesLink: 'footer__sites-link text-gray-300',
   legalList: 'footer__legal-list text-md',
-  legalItem: `footer__legal-item mb-10 text-gray-200 line-h-none text-xs primary-font`,
+  legalItem: `footer__legal-item mb-10 text-gray-300 line-h-none text-xs primary-font`,
   logoContainer: 'footer__logo footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list pt-0 pb-20 pr-20 pl-20 md:pl-30',
   listItem: 'footer__list-item pt-10',
   listTitle: 'footer__list-title  pt-10 pb-10 uppercase text-sm text-gray-200',
-  listLinkTitle: 'footer__list-link capitalize text-gray-200 text-sm mb-10',
+  listLinkTitle: 'footer__list-link capitalize text-gray-300 text-sm mb-10',
   listLinkInfo:
-    'footer__list-link capitalize text-gray-200 text-sm font-bold line-h-md',
-  listLink: 'footer__list-link capitalize text-gray-200 text-sm',
+    'footer__list-link capitalize text-gray-300 text-sm font-bold line-h-md',
+  listLink: 'footer__list-link capitalize text-gray-300 text-sm',
   textContent: 'pt-20 pb-0 pl-20 md:pl-30',
   socialTitle: 'footer__social-title mb-20 uppercase text-sm',
   listSocial: 'footer__social flex pl-20 lg:pl-30',
@@ -63,9 +61,6 @@ class LayoutFooter extends PureComponent {
         sectionsHierarchyConfig: {
           contentConfigValues: { hierarchy: sectionsHierarchy = '' } = {},
         } = {},
-        contactsHierarchyConfig: {
-          contentConfigValues: { hierarchy: contactsHierarchy = '' } = {},
-        } = {},
       } = {},
     } = this.props
 
@@ -73,14 +68,7 @@ class LayoutFooter extends PureComponent {
       sections: {
         source: CONTENT_SOURCE,
         query: {
-          hierarchy: sectionsHierarchy || DEFAULT_SECTIONS_HIERARCHY,
-        },
-        filter: SCHEMA,
-      },
-      legalLinks: {
-        source: CONTENT_SOURCE,
-        query: {
-          hierarchy: contactsHierarchy || DEFAULT_CONTACTS_HIERARCHY,
+          hierarchy: sectionsHierarchy || DEFAULT_HIERARCHY,
         },
         filter: SCHEMA,
       },
@@ -117,6 +105,7 @@ class LayoutFooter extends PureComponent {
           twitter: { url: twitterUrl } = {},
         } = {},
         gecSites,
+        legalLinks,
         footer: { contacts = [], siteLegal },
         assets: { footer: { logo } = {} } = {},
       },
@@ -126,10 +115,8 @@ class LayoutFooter extends PureComponent {
       deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) ||
       ''
 
-    const { sections: rawSections = [], legalLinks: rawLegal = [] } =
-      this.state || {}
+    const { sections: rawSections = [] } = this.state || {}
     const sections = this.formatData(rawSections)
-    const legalLinks = this.formatData(rawLegal)
 
     return (
       <footer className={classes.footer}>
@@ -177,9 +164,7 @@ class LayoutFooter extends PureComponent {
             {contacts.map(el => (
               <li className={classes.listItem} key={el.name}>
                 <span
-                  className={`${classes.listLinkTitle} ${
-                    classes.contactPosition
-                  }`}>
+                  className={`${classes.listLinkTitle} ${classes.contactPosition}`}>
                   {el.position}:
                 </span>
                 <span
@@ -245,10 +230,6 @@ LayoutFooter.propTypes = {
   customFields: PropTypes.shape({
     sectionsHierarchyConfig: PropTypes.contentConfig('navigation').tag({
       name: 'Editar navegación de "secciones"',
-      group: 'Configuración del contenido',
-    }),
-    contactsHierarchyConfig: PropTypes.contentConfig('navigation').tag({
-      name: 'Editar navegación de "contactos"',
       group: 'Configuración del contenido',
     }),
   }),

@@ -12,11 +12,6 @@ module.exports = ({
         'nesting-rules': true,
         'custom-media-queries': true,
       },
-      browsers: [
-        'last 2 version',
-        '> 1%',
-        // "IE 10"
-      ],
     },
     'postcss-flexbugs-fixes': {},
     'css-mqpacker': {},

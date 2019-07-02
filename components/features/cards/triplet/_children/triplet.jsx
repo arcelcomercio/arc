@@ -10,20 +10,20 @@ const TripletChildTriplet = props => {
     multimediaOrientation = 'right',
   } = props
   const classes = {
-    triplet:
-      'triplet bg-white border-solid border-1 border-gray pl-20 pr-20 row-1 pt-10 pb-10',
-    link: 'triplet__link text-lg',
-    item: `triplet__item grid border-b-1 border-solid pt-10 pb-10 triplet__item--${multimediaOrientation}`,
-    title: 'triplet__title overflow-hidden font-bold',
+    triplet: 'triplet bg-white border-solid border-1 border-gray p-20 row-1',
+    item: `triplet__item flex justify-between border-b-1 border-solid border-base pt-15 pb-15 triplet__item--${multimediaOrientation}`,
+    title: 'triplet__title overflow-hidden text-lg line-h-sm',
+    titleLink: 'triplet__title-link',
     oneline: 'triplet--oneline',
     twoline: 'triplet--twoline',
     threeline: 'triplet--threeline',
-    author: 'triplet__author uppercase pt-10 text-xs text-gray-200',
-    authorLink: 'triplet__link',
+    author: 'triplet__author uppercase text-xs',
+    authorLink: 'triplet__link text-gray-200',
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
     image: 'object-cover w-full h-full',
     icon: `triplet__icon position-absolute flex items-center justify-center rounded title-md text-white`,
+    information: `triplet__information flex justify-between flex-col`,
   }
 
   let numline = ''
@@ -36,7 +36,7 @@ const TripletChildTriplet = props => {
       numline = classes.twoline
       break
     default:
-      numline = classes.twoline
+      numline = classes.threeline
       break
   }
 
@@ -47,16 +47,23 @@ const TripletChildTriplet = props => {
           className={classes.item}
           role="listitem"
           key={`triplet-${story.index}`}>
-          <div className={`${classes.title} ${numline}`}>
-            <h2>
+          <div className={classes.information}>
+            <h2 className={`${classes.title} ${numline}`}>
               <a
-                className={classes.link}
+                className={classes.titleLink}
                 href={story.link}
                 {...editableField(`title${index + 1}`)}
                 suppressContentEditableWarning>
                 {story.title}
               </a>
             </h2>
+            <address className={classes.author}>
+              <a
+                className={classes.authorLink}
+                href={story.authorOrSectionLink}>
+                {story.authorOrSection}
+              </a>
+            </address>
           </div>
           <figure className={classes.multimedia}>
             <a className={classes.mLink} href={story.link}>
@@ -74,11 +81,6 @@ const TripletChildTriplet = props => {
               )}
             </a>
           </figure>
-          <address className={classes.author}>
-            <a className={classes.authorLink} href={story.authorOrSectionLink}>
-              {story.authorOrSection}
-            </a>
-          </address>
         </article>
       ))}
     </div>
