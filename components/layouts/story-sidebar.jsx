@@ -17,7 +17,7 @@ const StorySidebarLayout = ({ children = [] }) => {
   return (
     <>
       {children[0] /* Barra de navegación Amp */}
-      <main className={classes.layout}>
+      <div className={classes.layout}>
         <div role="complementary" className={classes.zocalo}>
           {children[1] /* Zocalo izquierda */}
         </div>
@@ -46,7 +46,7 @@ const StorySidebarLayout = ({ children = [] }) => {
         <div role="complementary" className={classes.zocalo}>
           {children[11] /* Zocalo derecha */}
         </div>
-      </main>
+      </div>
     </>
   )
 }
