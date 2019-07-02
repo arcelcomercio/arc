@@ -98,7 +98,28 @@
   }
   // &__logo {}
   // &__legal-list {}
-  // &__legal-item {}
+  &__legal-item {
+    &:nth-child(4) {
+      padding-right: 10px;
+      line-height: 1.5;
+    }
+  }
+  &__legal-links {
+    &:last-child {
+      padding-right: 0;
+      &:after {
+        display: none;
+      }
+    }
+    &:after {
+      content: '';
+      display: block;
+      background-color: $color-white;
+      width: 1px;
+      height: 13px;
+      margin: 0 5px;
+    }
+  }
   // &__list {}
   // &__list-item {}
   // &__list-title {}
