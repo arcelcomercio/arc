@@ -44,7 +44,6 @@
     }
 
     &--section {
-
       //padding: 4px;
       & span {
         display: none;
@@ -117,15 +116,31 @@
   }
 
   &.active {
-    background-color: $color-primary;
+    @media (--desktop) {
+      background-color: $color-primary;
 
-    .nav__btn {
-      color: $color-white;
-    }
+      .nav__btn {
+        color: $color-white;
+      }
 
-    .btn {
-      border-color: $color-white;
-      color: $color-white;
+      .btn {
+        border-color: $color-white;
+        color: $color-white;
+      }
+
+      .nav__wrapper {
+        justify-content: space-between;
+      }
+
+      .nav__list,
+      .nav__container-right {
+        display: none;
+      }
+
+      .nav__logo,
+      .nav__mobile-container {
+        display: block;
+      }
     }
   }
 }

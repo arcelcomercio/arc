@@ -35,25 +35,25 @@ $triplet-icon-size: 25px;
   }
 
   &--oneline {
-    max-height: 15px;
+    max-height: 21px;
     -webkit-line-clamp: 1;
   }
 
   &--twoline {
-    max-height: 43px;
+    max-height: 35px;
     -webkit-line-clamp: 2;
 
     @media (--desktop) {
-      max-height: 47px;
+      max-height: 42px;
     }
   }
 
   &--threeline {
-    max-height: 60px;
+    max-height: 53px;
     -webkit-line-clamp: 3;
 
     @media (--desktop) {
-      max-height: 76px;
+      max-height: 63px;
     }
   }
 
