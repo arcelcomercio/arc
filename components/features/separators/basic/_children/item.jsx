@@ -8,7 +8,7 @@ const classes = {
   mvideo: 'separator--video',
   imgBox: 'p-0 m-0 w-full h-full',
   img: 'separator__img w-full h-full object-cover object-center',
-  icon: `separator__icon title-sm`,
+  icon: `separator__icon`,
 }
 
 export default ({ title, imageUrl, mediaIcon, link, numline }) => {

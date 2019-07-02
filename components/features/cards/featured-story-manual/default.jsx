@@ -40,6 +40,7 @@ class CardFeaturedStoryManual extends PureComponent {
   render() {
     const {
       editableField,
+      arcSite,
       customFields: {
         imageSize,
         headband,
@@ -68,6 +69,7 @@ class CardFeaturedStoryManual extends PureComponent {
       editableField,
       titleField,
       categoryField,
+      arcSite,
       multimediaType,
     }
     return <FeaturedStory {...params} />
