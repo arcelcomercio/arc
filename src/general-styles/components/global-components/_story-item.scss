@@ -1,4 +1,6 @@
 .story-item {
+  min-width: 375px;
+
   &:nth-last-child(1) {
     margin-bottom: 0;
   }

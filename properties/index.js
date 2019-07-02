@@ -11,6 +11,11 @@ export default {
     footer: {
       logo: 'logo.png',
     },
+    seo: {
+      logoAmp: 'logo-publimetro-258x60.png',
+      width: 258,
+      height: 60,
+    },
   },
   messages: {
     errorTitle: '¡Oops! la pagina no fue encontrada',
@@ -140,4 +145,5 @@ export default {
       url: 'https://comercioxpress.com/',
     },
   ],
+  urlAddfbInstantArticle: 'https://img.elcomercio.pe',
 }

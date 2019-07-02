@@ -6,9 +6,8 @@ const classes = {
 }
 
 export default ({ iconClass = '', type = '' }) => {
-  return (
-    <i className={`${classes.icon} ${iconClass} ${getMultimediaIcon(type)}`} />
-  )
+  const icon = getMultimediaIcon(type)
+  return icon && <i className={`${classes.icon} ${iconClass} ${icon}`} />
 }
 
 /**

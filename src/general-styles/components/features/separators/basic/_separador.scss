@@ -8,7 +8,6 @@
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
-    line-height: 0.6;
   }
 
   &__header-title {
@@ -64,18 +63,29 @@
   }
 
   &__icon {
-    top: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 25px;
+    width: 23px;
+    height: 23px;
+    top: 15px;
+    right: 15px;
+    left: initial;
   }
 
   &__detail {
     z-index: 2;
-    height: 65px;
+    height: 60px;
+
+    @media (--desktop) {
+      height: 70px;
+    }
 
     &--nota {
       bottom: 44px;
     }
+  }
+
+  &__img {
+    max-height: 220px;
   }
 
   &__oneline {

@@ -8,13 +8,18 @@ import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
   news:
-    'story-header__share flex items-center justify-between mb-20 p-20 border-b-1 border-t-1 border-solid border-gray',
+    'story-header__share flex items-center justify-between mb-20 p-20 border-b-1 border-t-1 border-solid border-base',
   breadcrumb: '',
   item: 'story-header__item',
-  category: 'text-uppercase',
+  category: 'text-gray-300 text-xl uppercase',
   link: 'story-header__link flex items-center justify-center text-gray-200',
   icon: 'story-header__icon title-xl',
   list: 'story-header__list flex justify-between',
+  mobileClass: 'flex justify-center',
+  iconFacebook: 'icon-facebook-circle',
+  iconLinkedin: 'icon-linkedin-circle',
+  iconRibbon: 'icon-ribbon',
+  iconTwitter: 'icon-twitter-circle',
 }
 @Consumer
 class StoryHeaderChildSocial extends PureComponent {
@@ -47,25 +52,25 @@ class StoryHeaderChildSocial extends PureComponent {
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'icon-facebook',
+          icon: classes.iconFacebook,
           link: urlsShareList.facebook,
-          mobileClass: 'flex justify-center',
+          mobileClass: classes.mobileClass,
         },
 
         {
-          icon: 'icon-twitter',
+          icon: classes.iconTwitter,
           link: urlsShareList.twitter,
-          mobileClass: 'flex justify-center',
+          mobileClass: classes.mobileClass,
         },
         {
-          icon: 'icon-linkedin-circle',
+          icon: classes.iconLinkedin,
           link: urlsShareList.linkedin,
-          mobileClass: 'flex justify-center',
+          mobileClass: classes.mobileClass,
         },
         {
-          icon: 'icon-ribbon',
+          icon: classes.iconRibbon,
           link: urlsShareList.pin,
-          mobileClass: 'flex justify-center',
+          mobileClass: `block md:hidden ${classes.mobileClass}`,
         },
       ],
     }
