@@ -9,7 +9,7 @@ const classes = {
   image: 'story-gallery-slider__img w-full object-fit-cover',
   caption: 'story-gallery-slider__caption pt-20 pb-20 flex',
   captionImage:
-    'story-gallery-slider__caption-image pt-10 ml-15 text-sm text-white secondary-font',
+    'story-gallery-slider__caption-image pt-10 pl-15 text-sm text-white secondary-font line-h-sm',
   quantity:
     'story-gallery-slider__quantity title-xs flex items-center justify-center',
   arrowsBox:
