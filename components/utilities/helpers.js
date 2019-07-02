@@ -194,8 +194,7 @@ export const getMetaPagesPagination = (
         .match(patternPagination)[0]
         .split(`${isQuery ? '=' : '/'}`)[1],
         10
-      ) :
-      1,
+      ) : 1,
     next: false,
     prev: false,
   }
@@ -238,7 +237,7 @@ export const socialMediaUrlShareList = (
 
 export const createMarkup = html => {
   return {
-    __html: html.replace('@charset "UTF-8";', ''),
+    __html: html,
   }
 }
 
@@ -335,7 +334,7 @@ export const breadcrumbList = (url, siteUrl) => {
 }
 
 export const getUrlParameter = contentElements => {
-  const loc = window.location.href
+  const { location: { href: loc } = {} } = window || {}
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
 
@@ -387,7 +386,7 @@ export const playerHtml = html => {
     '<amp-iframe width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://player.performgroup.com/eplayer/eplayer.html#/$1"></amp-iframe>'
 
   return html.replace(
-    /<script src="\/\/player.performgroup.com\/eplayer.js\#(.*?)" async><\/script>/g,
+    /<script src="\/\/player.performgroup.com\/eplayer.js#(.*?)" async><\/script>/g,
     rplEplayer
   )
 }
@@ -439,6 +438,15 @@ export const youtubeHtml = html => {
   return html.replace(strYoutube, rplYoutube)
 }
 
+export const instagramHtml = html => {
+  const rplInstagram =
+    '<amp-instagram data-shortcode="$3" width="1" height="1" layout="responsive"></amp-instagram>'
+
+  return html.replace(
+    /<blockquote (.*)class="instagram-media"(.*)data-instgrm-permalink="https:\/\/www.instagram.com\/p\/(.*?)\/(.*?)<\/blockquote>/g,
+    rplInstagram
+  )
+}
 export const freeHtml = html => {
   const strHtmlFree = '/<html_free>(.*?)</html_free>/g'
   return html.replace(strHtmlFree, '$1')
@@ -458,6 +466,9 @@ export const ampHtml = (html = '') => {
 
   // twitter
   resultData = twitterHtml(resultData)
+
+  // instagram
+  resultData = instagramHtml(resultData)
 
   // facebook
   resultData = facebookHtml(decodeURIComponent(resultData))

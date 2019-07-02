@@ -58,6 +58,10 @@ export default class FeaturedStory extends PureComponent {
 
     const multimediaIcon = getMultimediaIcon(multimediaType)
 
+    const noExpandedClass = !hightlightOnMobile
+      ? 'featured-story--no-expanded'
+      : ''
+
     const getImageSizeClass = () => {
       switch (imageSize) {
         case 'complete':
@@ -102,7 +106,7 @@ export default class FeaturedStory extends PureComponent {
           classes.featuredStory
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === 'twoCol' ? classes.twoCol : ''
-        } ${hightlightOnMobile ? 'expand' : ''}`}>
+        } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
             <h3 className={classes.category}>
