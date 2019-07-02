@@ -31,6 +31,10 @@ const classes = {
   iconLogin: 'nav__icon icon-user',
 }
 
+// left: 37, up: 38, right: 39, down: 40,
+// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+var keys = { 37: 1, 38: 1, 39: 1, 40: 1 }
+
 @Consumer
 class NavBarDefault extends PureComponent {
   constructor(props) {
@@ -97,6 +101,15 @@ class NavBarDefault extends PureComponent {
   //   else window.removeEventListener('scroll', this._handleScroll)
   // }
 
+  toggleBodyOverflow = () => {
+    if (typeof window !== 'undefined') {
+      if (document.body.classList.contains('overflow-hidden'))
+        document.body.classList.remove('overflow-hidden')
+      else if (window.innerWidth < 640)
+        document.body.classList.add('overflow-hidden')
+    }
+  }
+
   _handleScroll = () => {
     const { scrolled } = this.state
     // ------ Logic to set state to hidden or show logo in navbar
@@ -124,10 +137,12 @@ class NavBarDefault extends PureComponent {
     return e => {
       const { statusSidebar, statusSearch } = this.state
       if (element === 'statusSearch') {
-        if (statusSidebar)
+        if (statusSidebar) {
+          this.toggleBodyOverflow()
           this.setState({
             statusSidebar: !statusSidebar,
           })
+        }
         this.setState({
           statusSearch: !statusSearch,
         })
@@ -137,6 +152,7 @@ class NavBarDefault extends PureComponent {
           this.setState({
             statusSearch: !statusSidebar,
           })
+        this.toggleBodyOverflow()
         this.setState({
           statusSidebar: !statusSidebar,
         })
@@ -266,14 +282,10 @@ class NavBarDefault extends PureComponent {
             </div>
           </div>
           <div
-            className={`${classes.btnContainer} ${
-              classes.navContainerMobile
-            } ${responsiveClass}`}>
+            className={`${classes.btnContainer} ${classes.navContainerMobile} ${responsiveClass}`}>
             <Button
               iconClass={classes.iconLogin}
-              btnClass={`${
-                classes.btnLogin
-              } border-1 border-solid border-white`}
+              btnClass={`${classes.btnLogin} border-1 border-solid border-white`}
               btnLink="#"
             />
           </div>
