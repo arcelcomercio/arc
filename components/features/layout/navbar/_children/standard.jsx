@@ -61,9 +61,8 @@ class NavBarDefault extends PureComponent {
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
     const { statusSearch } = this.state
-    return statusSearch
-      ? this.findSearch
-      : this._handleToggleSectionElements('statusSearch')
+    if (statusSearch) this.findSearch()
+    this.setState({ statusSearch: !statusSearch })
   }
 
   // Open search and automatic focus input
@@ -119,39 +118,21 @@ class NavBarDefault extends PureComponent {
   }
 
   // Open - Close Search
-  _handleToggleSectionElements = element => {
-    // eslint-disable-next-line no-unused-vars
-    return e => {
-      const { statusSidebar, statusSearch } = this.state
-      if (element === 'statusSearch') {
-        if (statusSidebar)
-          this.setState({
-            statusSidebar: !statusSidebar,
-          })
-        this.setState({
-          statusSearch: !statusSearch,
-        })
-        this.focusInputSearch()
-      } else if (element === 'statusSidebar') {
-        if (statusSearch)
-          this.setState({
-            statusSearch: !statusSidebar,
-          })
-        this.setState({
-          statusSidebar: !statusSidebar,
-        })
-      }
-    }
+  _handleToggleSectionElements = () => {
+    const { statusSidebar } = this.state
+    this.setState({
+      statusSidebar: !statusSidebar,
+    })
   }
 
   // Close Search
-  _handleCloseSectionsSearch = () => {
+  /* _handleCloseSectionsSearch = () => {
     setTimeout(() => {
       this.setState({
         statusSearch: false,
       })
     }, 250)
-  }
+  } */
 
   render() {
     const { statusSidebar, scrolled } = this.state
@@ -195,7 +176,7 @@ class NavBarDefault extends PureComponent {
               iconClass={classes.iconMenu}
               btnClass={classes.btnSection}
               btnText="Menú"
-              onClick={this._handleToggleSectionElements('statusSidebar')}
+              onClick={this._handleToggleSectionElements}
             />
           </div>
 
@@ -203,7 +184,7 @@ class NavBarDefault extends PureComponent {
 
           <ul className={`${classes.list} ${scrolled ? '' : 'lg:flex'}`}>
             {sections &&
-              sections.slice(0, 5).map(({ name, _id: id }) => {
+              sections.slice(0, 4).map(({ name, _id: id }) => {
                 return (
                   <li key={id} className={classes.listItem}>
                     <a href={id} className={classes.listLink}>
@@ -252,7 +233,7 @@ class NavBarDefault extends PureComponent {
                 <input
                   ref={this.inputSearch}
                   type="search"
-                  onBlur={this._handleCloseSectionsSearch}
+                  /* onBlur={this._handleCloseSectionsSearch} */
                   onKeyUp={this.watchKeys}
                   placeholder="¿Que Buscas?"
                   className={`${classes.search} ${this.activeSearch()}`}
@@ -260,20 +241,16 @@ class NavBarDefault extends PureComponent {
                 <Button
                   iconClass={classes.iconSearch}
                   btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
-                  onClick={this.optionButtonClick()}
+                  onClick={this.optionButtonClick}
                 />
               </form>
             </div>
           </div>
           <div
-            className={`${classes.btnContainer} ${
-              classes.navContainerMobile
-            } ${responsiveClass}`}>
+            className={`${classes.btnContainer} ${classes.navContainerMobile} ${responsiveClass}`}>
             <Button
               iconClass={classes.iconLogin}
-              btnClass={`${
-                classes.btnLogin
-              } border-1 border-solid border-white`}
+              btnClass={`${classes.btnLogin} border-1 border-solid border-white`}
               btnLink="#"
             />
           </div>
