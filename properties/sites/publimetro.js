@@ -79,11 +79,11 @@ export default {
     socialNetworks: [
       {
         name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
+        url: 'https://www.facebook.com/publimetrope',
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
+        url: 'https://twitter.com/publimetrope',
       },
       {
         name: 'google+',
@@ -109,17 +109,17 @@ export default {
   social: {
     facebook: {
       name: 'facebook',
-      user: '@elcomercio.pe',
+      user: '@publimetrope',
       url: 'http://facebook.com/publimetrope',
     },
     twitter: {
       name: 'twitter',
-      user: '@elcomercio_peru',
+      user: '@publimetrope',
       url: 'http://twitter.com/publimetrope',
     },
     youtube: {
       name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
+      url: 'https://plus.google.com/u/0/+Publimetropuntope',
     },
   },
 }
