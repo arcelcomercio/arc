@@ -23,11 +23,9 @@ $image-height: 157px;
       height: 306px;
       bottom: 0;
       left: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(68, 68, 68, 0) 20%,
-        rgb(68, 68, 68)
-      );
+      background: linear-gradient(to bottom,
+          rgba(68, 68, 68, 0) 20%,
+          rgb(68, 68, 68));
     }
   }
 
@@ -118,17 +116,17 @@ $image-height: 157px;
 
   &-oneline {
     -webkit-line-clamp: 1;
-    max-height: calc(#{$header-xs} * 2);
+    max-height: calc(#{$header-xs} * 1.5 * 1);
   }
 
   &-twoline {
     -webkit-line-clamp: 2;
-    max-height: calc(#{$header-xs} * 4);
+    max-height: calc(#{$header-xs} * 1.5 * 2);
   }
 
   &-threeline {
     -webkit-line-clamp: 3;
-    max-height: calc(#{$header-xs} * 6);
+    max-height: calc(#{$header-xs} * 1.5 * 3);
   }
 
   &__title {
@@ -230,19 +228,23 @@ $image-height: 157px;
       height: 115px;
       padding: 0;
       justify-content: space-between;
+
       .featured-story__detail {
         height: 100%;
         padding: 12px 5px 12px 20px;
         width: 100%;
       }
+
       .featured-story__img-link {
         height: 100%;
         min-width: 151px;
       }
+
       // font-xs
       .featured-story__title-link {
         font-size: 13px;
       }
+
       .featured-story__title {
         max-width: 100%;
       }
