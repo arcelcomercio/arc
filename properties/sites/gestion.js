@@ -31,6 +31,16 @@ export default {
     aboutUs: '',
   },
 
+  assets: {
+    path: `/resources/dist/gestion/`,
+    logos: {
+      paywall() {
+        return `${this.assets.path}${this.assets.logos.logo}`
+      },
+      logo: `images/logo.png`,
+    },
+  },
+
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',

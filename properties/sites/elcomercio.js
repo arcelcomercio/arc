@@ -32,6 +32,13 @@ export default {
   },
 
   assets: {
+    path: `/resources/dist/elcomercio/`,
+    logos: {
+      paywall() {
+        return `${this.assets.path}${this.assets.logos.aniversario}`
+      },
+      aniversario: `images/aniversario.svg`,
+    },
     nav: {
       logo: 'white-logo.png',
       ampLogo: 'letra-c-white.png',
