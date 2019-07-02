@@ -1,7 +1,7 @@
-// eslint-disable-next-line import/no-unresolved
 import request from 'request-promise-native'
-import { resizerSecret, resizerUrl, CONTENT_BASE } from 'fusion:environment'
+import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import getProperties from 'fusion:properties'
 
 const options = {
   json: true,
@@ -97,6 +97,8 @@ const fetch = key => {
 }
 
 const transform = data => {
+  const { resizerUrl } = getProperties(data.website)
+
   return addResizedUrls(data, {
     resizerUrl,
     resizerSecret,

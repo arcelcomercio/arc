@@ -2,38 +2,35 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
+import Signwall from '../../../signwall/default'
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
 
 import { getResponsiveClasses } from '../../../../utilities/helpers'
 
 const classes = {
-  nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font font-bold`,
+  nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font`,
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit pr-15 pl-15 justify-between lg:justify-start`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
-  navContainerRight: `position-absolute right-0 bg-gray-100 hidden lg:flex`,
+  navContainerRight: `nav__container-right position-absolute right-0 bg-gray-100 hidden lg:flex`,
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10`,
   searchContainer: 'flex items-center justify-start',
   btnSearch: `flex items-center btn nav__btn nav__btn--search text-gray-200 hidden lg:flex`,
   btnSection: 'flex items-center btn nav__btn nav__btn--section p-5',
   iconSearch: 'nav__icon-search text-primary-color icon-search title-xs',
   iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
-  list: `flex items-center nav__list h-inherit overflow-hidden pl-15 hidden`,
+  list: `items-center nav__list h-inherit overflow-hidden hidden lg:flex pl-15`,
   listItem: 'nav__list-item text-center pr-15 h-full',
   listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
-  logo: 'nav__logo',
+  logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
-  navContainerMobile: 'lg:hidden',
+  navMobileContainer: 'nav__mobile-container lg:hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
 }
-
-// left: 37, up: 38, right: 39, down: 40,
-// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-var keys = { 37: 1, 38: 1, 39: 1, 40: 1 }
 
 @Consumer
 class NavBarDefault extends PureComponent {
@@ -49,11 +46,8 @@ class NavBarDefault extends PureComponent {
   }
 
   componentDidMount() {
-    const { device } = this.props
     // ------ Sets scroll eventListener if device is desktop
-    if (device === 'desktop')
-      window.addEventListener('scroll', this._handleScroll)
-    else window.removeEventListener('scroll', this._handleScroll)
+    window.addEventListener('scroll', this._handleScroll)
   }
 
   // Add - Remove Class active input and button search
@@ -65,9 +59,9 @@ class NavBarDefault extends PureComponent {
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
     const { statusSearch } = this.state
-    return statusSearch
-      ? this.findSearch
-      : this._handleToggleSectionElements('statusSearch')
+    if (statusSearch) this.findSearch()
+    else this.focusInputSearch()
+    this.setState({ statusSearch: !statusSearch })
   }
 
   // Open search and automatic focus input
@@ -119,7 +113,6 @@ class NavBarDefault extends PureComponent {
     // setTimeout(() => {
     //   console.log(header[0].offsetTop)
     // }, 2000)
-
     if (!scrolled && scrollTop > headerTop) {
       this.setState({
         scrolled: true,
@@ -132,42 +125,22 @@ class NavBarDefault extends PureComponent {
   }
 
   // Open - Close Search
-  _handleToggleSectionElements = element => {
-    // eslint-disable-next-line no-unused-vars
-    return e => {
-      const { statusSidebar, statusSearch } = this.state
-      if (element === 'statusSearch') {
-        if (statusSidebar) {
-          this.toggleBodyOverflow()
-          this.setState({
-            statusSidebar: !statusSidebar,
-          })
-        }
-        this.setState({
-          statusSearch: !statusSearch,
-        })
-        this.focusInputSearch()
-      } else if (element === 'statusSidebar') {
-        if (statusSearch)
-          this.setState({
-            statusSearch: !statusSidebar,
-          })
-        this.toggleBodyOverflow()
-        this.setState({
-          statusSidebar: !statusSidebar,
-        })
-      }
-    }
+  _handleToggleSectionElements = () => {
+    const { statusSidebar } = this.state
+    this.toggleBodyOverflow()
+    this.setState({
+      statusSidebar: !statusSidebar,
+    })
   }
 
   // Close Search
-  _handleCloseSectionsSearch = () => {
+  /* _handleCloseSectionsSearch = () => {
     setTimeout(() => {
       this.setState({
         statusSearch: false,
       })
     }, 250)
-  }
+  } */
 
   render() {
     const { statusSidebar, scrolled } = this.state
@@ -202,8 +175,7 @@ class NavBarDefault extends PureComponent {
         className={`${classes.nav} ${
           scrolled ? 'active' : ''
         } ${responsiveClass}`}>
-        <div
-          className={`${classes.wrapper} ${scrolled ? 'justify-between' : ''}`}>
+        <div className={classes.wrapper}>
           {/** ************* LEFT *************** */}
 
           <div className={classes.navBtnContainer}>
@@ -211,15 +183,15 @@ class NavBarDefault extends PureComponent {
               iconClass={classes.iconMenu}
               btnClass={classes.btnSection}
               btnText="Menú"
-              onClick={this._handleToggleSectionElements('statusSidebar')}
+              onClick={this._handleToggleSectionElements}
             />
           </div>
 
           {/** ************* MIDDLE *************** */}
 
-          <ul className={`${classes.list} ${scrolled ? '' : 'lg:flex'}`}>
+          <ul className={classes.list}>
             {sections &&
-              sections.slice(0, 5).map(({ name, _id: id }) => {
+              sections.slice(0, 4).map(({ name, _id: id }) => {
                 return (
                   <li key={id} className={classes.listItem}>
                     <a href={id} className={classes.listLink}>
@@ -233,9 +205,7 @@ class NavBarDefault extends PureComponent {
             <img
               src={logo}
               alt={`Logo de ${arcSite}`}
-              className={`${classes.logo}  ${
-                scrolled ? 'lg:block' : 'lg:hidden'
-              }`}
+              className={classes.logo}
             />
           </a>
           {/** ************* RIGHT *************** */}
@@ -247,11 +217,12 @@ class NavBarDefault extends PureComponent {
                 btnClass={`${classes.btnSubscribe} btn--outline`}
                 btnLink="#"
               />
-              <Button
+              <Signwall />
+              {/* <Button
                 btnText="Iniciar Sesión"
                 btnClass={`${classes.btnLogin} btn--outline`}
                 btnLink="#"
-              />
+              /> */}
             </div>
             <div className={classes.searchContainer}>
               {/* <Ads
@@ -268,7 +239,7 @@ class NavBarDefault extends PureComponent {
                 <input
                   ref={this.inputSearch}
                   type="search"
-                  onBlur={this._handleCloseSectionsSearch}
+                  /* onBlur={this._handleCloseSectionsSearch} */
                   onKeyUp={this.watchKeys}
                   placeholder="¿Que Buscas?"
                   className={`${classes.search} ${this.activeSearch()}`}
@@ -276,7 +247,7 @@ class NavBarDefault extends PureComponent {
                 <Button
                   iconClass={classes.iconSearch}
                   btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
-                  onClick={this.optionButtonClick()}
+                  onClick={this.optionButtonClick}
                 />
               </form>
             </div>

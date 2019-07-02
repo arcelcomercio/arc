@@ -1,0 +1,122 @@
+.signwall {
+  * {
+    @media (max-width: 47.938em) {
+      //hasta 767
+      .hide-line-break-sm {
+        display: none;
+      }
+      #ads-movil-movil_1 #ads_m_movil1 {
+        z-index: 0;
+      }
+    }
+
+    .link-color {
+      color: $signwall-color-link;
+    }
+
+    .btn-bg {
+      border: 1px solid $signwall-color-link;
+      background: $signwall-color-link;
+    }
+
+    .bg-icon {
+      background: $signwall-icon-background;
+    }
+
+    .icon-color {
+      color: $color-primary;
+    }
+
+    .input-button-brand {
+      border: 1px solid $signwall-color-link;
+      color: $signwall-color-link;
+      &:hover {
+        background: $signwall-color-link !important;
+      }
+      &[disabled] {
+        background: $signwall-color-link !important;
+      }
+    }
+
+    .link-identity {
+      &__content {
+        padding: 0;
+        padding-top: 5px;
+        @media (--tablet) {
+          padding: 5px;
+          border-right: 1px solid #ebebeb;
+        }
+      }
+      &__link {
+        text-decoration: none;
+        font-family: Open Sans, sans-serif;
+        font-weight: bold;
+        color: gray;
+        font-size: 12px;
+        text-transform: uppercase;
+        display: block;
+        text-align: center;
+      }
+      &__text {
+        vertical-align: middle;
+        display: inline-block;
+        margin-left: 5px;
+        color: $signwall-home-link-color;
+      }
+      &__icon {
+        vertical-align: middle;
+        display: inline-block;
+        margin-left: 5px;
+        padding: 5px 0px;
+        border-radius: 50%;
+        margin: 0px;
+        min-height: 25px;
+        min-width: 25px;
+        &--user {
+          font-style: normal;
+          font-family: Open Sans, sans-serif !important;
+          font-weight: bold;
+          text-transform: uppercase;
+          line-height: 16px;
+        }
+      }
+    }
+
+    .hidden-tablet {
+      display: block;
+      @media (--tablet) {
+        display: none;
+      }
+    }
+
+    .header-fixed {
+      position: relative;
+      z-index: 10;
+    }
+
+    .overlay {
+      overflow: hidden;
+    }
+
+    .mt-20 {
+      margin-top: 20px;
+    }
+
+    .none {
+      display: none;
+    }
+
+    .text-capital {
+      text-transform: capitalize;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .text-left {
+      text-align: left;
+    }
+    .text-right {
+      text-align: right;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.signwall {
+  * {
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100% - 125px);
+      @media (--tablet) {
+        height: auto;
+      }
+      @media (--desktop) {
+        flex-direction: row;
+      }
+
+      &__left {
+        display: none;
+        @media (--desktop) {
+          width: 58%;
+          display: block;
+          background-color: #f4f4f4;
+        }
+      }
+      &__right {
+        background-color: $color-white;
+        min-height: 480px;
+        @media (--desktop) {
+          width: 42%;
+        }
+      }
+      &__wrapper {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        @media (--desktop) {
+          width: 75%;
+        }
+      }
+    }
+  }
+}
