@@ -22,7 +22,8 @@ const classes = {
   list: 'footer__list pt-0 pb-20 pr-20 pl-20 md:pl-30',
   listItem: 'footer__list-item pt-10 pb-10',
   listTitle: 'footer__list-title  pt-10 pb-10 uppercase text-sm text-gray-200',
-  listLinkTitle: 'footer__list-link capitalize text-gray-300 text-sm font-bold',
+  listLinkTitle:
+    'footer__list-link capitalize text-gray-300 text-sm font-bold line-h-md',
   listLinkInfo:
     'footer__list-link capitalize text-gray-300 text-sm font-bold line-h-md',
   listLink: 'footer__list-link capitalize text-gray-300 text-sm',
