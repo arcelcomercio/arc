@@ -2,6 +2,10 @@
   grid-template-columns: 1fr;
   height: auto;
 
+  @media print {
+    display: none;
+  }
+
   &__body {
     grid-template-columns: 1fr;
     gap: 3px;

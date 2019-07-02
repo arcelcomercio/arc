@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getMultimediaIcon } from '../../../../utilities/helpers'
+import Icon from '../../../../global-components/multimedia-icon'
 
 const TripletChildTriplet = props => {
   const {
@@ -22,7 +22,7 @@ const TripletChildTriplet = props => {
     multimedia: 'triplet__multimedia',
     mLink: 'w-full h-full block position-relative',
     image: 'object-cover w-full h-full',
-    icon: `triplet__icon position-absolute flex items-center justify-center rounded title-md text-white`,
+    icon: `triplet__icon`,
     information: `triplet__information flex justify-between flex-col`,
   }
 
@@ -72,13 +72,7 @@ const TripletChildTriplet = props => {
                 src={story.multimedia}
                 alt={story.title}
               />
-              {getMultimediaIcon(story.multimediaType) && (
-                <i
-                  className={`${getMultimediaIcon(story.multimediaType)} ${
-                    classes.icon
-                  }`}
-                />
-              )}
+              <Icon type={story.multimediaType} iconClass={classes.icon} />
             </a>
           </figure>
         </article>

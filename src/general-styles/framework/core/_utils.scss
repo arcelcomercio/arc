@@ -194,3 +194,11 @@ $map-radius: (
 .cursor-pointer {
   cursor: pointer;
 }
+
+/******** Print *******/
+
+[id^='ads_d'] {
+  @media print {
+    display: none;
+  }
+}

@@ -139,7 +139,7 @@ export default ({
 
         <Libs />
       </head>
-      <body className={isStory ? 'story' : ''}>
+      <body className={isStory ? 'story nota' : ''}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"

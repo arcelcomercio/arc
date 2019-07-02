@@ -157,7 +157,7 @@ class StoryContent extends PureComponent {
                       js: ConfigParams.OPTA_JS_LINK,
                       defer: true,
                     })
-                  return <RawHtml rawHtmlClasses="" />
+                  return <RawHtml content={content} rawHtmlClasses="" />
                 }
                 return ''
               }}
