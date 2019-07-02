@@ -63,6 +63,7 @@
         color: black;
         font-size: 0.9em;
         margin-top: 25px;
+        font-weight: 300;
         font-family: Open Sans, sans-serif;
         @media (--tablet) {
           margin: 0;
@@ -84,13 +85,14 @@
       }
       &__subtitle {
         font-size: 11px;
+        color: #807878;
+        font-weight: 300;
         @media (--tablet) {
           margin-bottom: 10px;
-          font-size: 13px;
+          font-size: 12px;
           line-height: 20px;
         }
         @media (--desktop) {
-          font-size: 0.9em;
           margin: 10px 0px;
         }
         &--fb {

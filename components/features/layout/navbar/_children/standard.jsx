@@ -2,13 +2,14 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
+import Signwall from '../../../signwall/default'
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
 
 import { getResponsiveClasses } from '../../../../utilities/helpers'
 
 const classes = {
-  nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font font-bold`,
+  nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font`,
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit pr-15 pl-15 justify-between lg:justify-start`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
@@ -206,11 +207,12 @@ class NavBarDefault extends PureComponent {
                 btnClass={`${classes.btnSubscribe} btn--outline`}
                 btnLink="#"
               />
-              <Button
+              <Signwall />
+              {/* <Button
                 btnText="Iniciar Sesión"
                 btnClass={`${classes.btnLogin} btn--outline`}
                 btnLink="#"
-              />
+              /> */}
             </div>
             <div className={classes.searchContainer}>
               {/* <Ads

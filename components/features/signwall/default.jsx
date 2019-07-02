@@ -161,8 +161,8 @@ class Signwall extends Component {
               type="button"
               onClick={() => this.togglePopupPanel()}
               id="web_link_ingresaperfil"
-              className="link-identity__link">
-              <i
+              className="nav__btn flex items-center btn-signwall btn--outline">
+              {/* <i
                 className={
                   initialUser
                     ? `link-identity__icon link-identity__icon--text  bg-icon icon-color`
@@ -173,19 +173,19 @@ class Signwall extends Component {
                     color={Brand === 'elcomercio' ? '#fcc913' : '#ffffff'}
                   />
                 )}
-              </i>
-              <span className="link-identity__text">{nameUser}</span>
+              </i> */}
+              Mi Cuenta
             </button>
           ) : (
             <button
               type="button"
               onClick={() => this.togglePopupLogin()}
               id="web_link_ingresacuenta"
-              className="link-identity__link">
-              <i className="link-identity__icon bg-icon">
+              className="nav__btn flex items-center btn-signwall btn--outline">
+              {/* <i className="link-identity__icon bg-icon">
                 <User color={Brand === 'elcomercio' ? '#fcc913' : '#ffffff'} />
-              </i>
-              <span className="link-identity__text">Ingresa a tu Cuenta</span>
+              </i> */}
+              Iniciar Sesión
             </button>
           )}
 
