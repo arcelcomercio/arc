@@ -9,9 +9,9 @@ const classes = {
   image: 'story-gallery-slider__img w-full object-fit-cover',
   caption: 'story-gallery-slider__caption pt-20 pb-20 flex',
   captionImage:
-    'story-gallery-slider__caption-image pt-10 ml-15 text-sm text-white secondary-font',
+    'story-gallery-slider__caption-image pt-10 pl-15 text-sm text-white secondary-font line-h-sm',
   quantity:
-    'story-gallery-slider__quantity mr-5 title-xs flex items-center justify-center',
+    'story-gallery-slider__quantity title-xs flex items-center justify-center',
   arrowsBox:
     'story-gallery-slider__arrows-box position-absolute top-0 flex w-full items-center justify-between pl-20 pr-20',
   leftArrow: 'story-gallery-slider__arrows icon-left text-white title-lg',
@@ -132,14 +132,14 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                       role="button"
                       tabIndex="0"
                       className={classes.leftArrow}
-                      onClick={this._handlePrev}
+                      onClick={this._handlePrevSlider}
                       onKeyDown={this._controlKeysSlider}
                     />
                     <i
                       role="button"
                       tabIndex="0"
                       className={classes.rightArrow}
-                      onClick={this._handleNext}
+                      onClick={this._handleNextSlider}
                       onKeyDown={this._controlKeysSlider}
                     />
                   </div>
