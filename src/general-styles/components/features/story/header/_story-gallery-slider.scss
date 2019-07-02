@@ -35,4 +35,7 @@
   &__arrows {
     outline: 0;
   }
+  &__caption-image {
+    max-width: calc(100% - 102px);
+  }
 }

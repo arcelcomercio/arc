@@ -16,34 +16,35 @@ const classes = {
 const StorySidebarLayout = ({ children = [] }) => {
   return (
     <>
-      {children[0] /* Barra de navegación */}
+      {children[0] /* Barra de navegación Amp */}
       <main className={classes.layout}>
         <div role="complementary" className={classes.zocalo}>
           {children[1] /* Zocalo izquierda */}
         </div>
         <div className={classes.contentContainer}>
           {children[2] /* Publicidad Top */}
+          {children[3] /*  Barra de navegación */}
 
-          {children[3] /* Cabecera de página */}
-          {children[4] && (
+          {children[4] /* Cabecera de página */}
+          {children[5] && (
             <div role="separator" className={classes.separator}>
-              {children[4]}
+              {children[5]}
             </div>
           ) /* Separador */}
           <section className={classes.content}>
             <div role="banner" className={classes.heading}>
-              {children[5] /* Encabezado */}
+              {children[6] /* Encabezado */}
             </div>
-            <main className={classes.main}>{children[6] /* Contenido */}</main>
+            <main className={classes.main}>{children[7] /* Contenido */}</main>
             <aside className={classes.sidebar}>
-              {children[7] /* Barra lateral */}
+              {children[8] /* Barra lateral */}
             </aside>
-            {children[8] /* Contenido adicional */}
+            {children[9] /* Contenido adicional */}
           </section>
-          {children[9] /* Pie de página */}
+          {children[10] /* Pie de página */}
         </div>
         <div role="complementary" className={classes.zocalo}>
-          {children[10] /* Zocalo derecha */}
+          {children[11] /* Zocalo derecha */}
         </div>
       </main>
     </>
