@@ -97,7 +97,7 @@ export default class FeaturedStory extends PureComponent {
         numline = classes.twoline
         break
       default:
-        numline = classes.twoline
+        numline = classes.threeline
         break
     }
     return (

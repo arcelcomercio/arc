@@ -35,6 +35,7 @@ class CardFeaturedStoryAdvanced extends PureComponent {
   render() {
     const {
       editableField,
+      arcSite,
       customFields: {
         imageSize,
         headband,
@@ -61,6 +62,7 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       editableField,
       titleField,
       categoryField,
+      arcSite,
       multimediaType,
     }
     return <FeaturedStory {...params} />
