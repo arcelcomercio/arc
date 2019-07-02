@@ -52,11 +52,12 @@
 
   &__title {
     display: -webkit-box;
-    max-height: 53px;
+    max-height: 48.5px;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
     font-family: $primary-font;
+    -webkit-line-clamp: 3;
   }
 
   &-oneline {
