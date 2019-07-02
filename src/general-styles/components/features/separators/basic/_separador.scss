@@ -89,18 +89,30 @@
   }
 
   &__oneline {
-    max-height: 57.63px;
     -webkit-line-clamp: 1;
+    max-height: 16px;
+
+    @media (--desktop) {
+      max-height: 18px;
+    }
   }
 
   &__twoline {
-    max-height: 57.63px;
     -webkit-line-clamp: 2;
+    max-height: 32px;
+
+    @media (--desktop) {
+      max-height: 36px;
+    }
   }
 
   &__threeline {
-    max-height: 57.63px;
     -webkit-line-clamp: 3;
+    max-height: 48px;
+
+    @media (--desktop) {
+      max-height: 56px;
+    }
   }
 
   &--nota {
