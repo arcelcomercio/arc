@@ -1,0 +1,25 @@
+.signwall {
+  * {
+    .message {
+      margin: 0px;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: right;
+      transition: all 0.5s ease-in-out;
+      &--success {
+        color: #03d213;
+      }
+      &--error {
+        color: #ff2b2b;
+      }
+      &__error {
+        color: #ff2b2b;
+        font-family: Open Sans, sans-serif;
+        font-size: 12px;
+        line-height: 16px;
+        display: block;
+        padding-top: 5px;
+      }
+    }
+  }
+}

@@ -92,7 +92,7 @@ const ExtraordinaryStory = props => {
         </div>
       </div>
       <div className={classes.multimedia}>
-        <a href={`${data.sectionLink}${data.link}`}>
+        <a href={data.link}>
           <EmbedMultimedia
             type={data.typeMultimediaGeneral}
             title={data.title}
