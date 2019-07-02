@@ -279,7 +279,7 @@ class FormLogin extends Component {
                 </h1>
 
                 <div className="form-grid__group">
-                  <div className="form-group">
+                  <div className="form-group form-group--unique">
                     <AuthFacebook
                       closePopup={closePopup}
                       id="facebook-sign-in-button"
@@ -393,7 +393,7 @@ class FormLogin extends Component {
               </div>
 
               <div className="form-grid__group">
-                <p className="grid-form__link text-center">
+                <p className="form-grid__link text-center">
                   ¿Aún no tienes una cuenta?{' '}
                   <button
                     type="button"

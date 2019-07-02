@@ -2,6 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
+import Signwall from '../../../signwall/default'
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
 
@@ -206,11 +207,12 @@ class NavBarDefault extends PureComponent {
                 btnClass={`${classes.btnSubscribe} btn--outline`}
                 btnLink="#"
               />
-              <Button
+              <Signwall />
+              {/* <Button
                 btnText="Iniciar Sesión"
                 btnClass={`${classes.btnLogin} btn--outline`}
                 btnLink="#"
-              />
+              /> */}
             </div>
             <div className={classes.searchContainer}>
               {/* <Ads
