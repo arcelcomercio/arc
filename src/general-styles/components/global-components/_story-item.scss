@@ -1,5 +1,4 @@
 .story-item {
-  min-width: 375px;
 
   &:nth-last-child(1) {
     margin-bottom: 0;
@@ -56,9 +55,10 @@
   }
   &__right {
     max-height: 170px;
+    margin-left: 5px;
   }
   &__img {
-    width: 160px;
+    width: 115px;
     height: 100%;
     object-fit: cover;
     object-position: center;
