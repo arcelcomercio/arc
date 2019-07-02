@@ -515,7 +515,7 @@ class StoryData {
       const iterator = authorData[i]
       if (iterator.type === 'author') {
         nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
-        urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : ''
+        urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : '#'
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
           iterator.image && iterator.image.url && iterator.image.url !== '' ?

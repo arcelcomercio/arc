@@ -5,11 +5,11 @@ import Icon from './multimedia-icon'
 
 const classes = {
   extraordinaryStory: `extraordinary-story bg-white flex border-gray`,
-  section: `extraordinary-story__section uppercase font-bold pt-20 pr-20 pl-20 pb-10 text-white`,
+  section: `extraordinary-story__section uppercase pt-20 pr-20 pl-20 pb-10 text-white`,
   sectionLink: 'extraordinary-story__section-link',
   content: 'extraordinary-story__content block pr-20 pl-20 position-relative',
   groupContent: 'extraordinary-story__group-content w-full',
-  title: `extraordinary-story__title title-lg overflow-hidden font-bold line-h-sm mb-20`,
+  title: `extraordinary-story__title title-lg overflow-hidden line-h-sm mb-20`,
   titleLink: 'extraordinary-story__title-link',
   oneline: 'extraordinary-story--oneline',
   twoline: 'extraordinary-story--twoline',
@@ -74,8 +74,7 @@ const ExtraordinaryStory = props => {
         )}
         <div className={classes.content}>
           <h2 className={`${classes.title} ${numline}`}>
-            <a
-              href={data.link} className={classes.titleLink}>
+            <a href={data.link} className={classes.titleLink}>
               {data.title}
             </a>
           </h2>
@@ -92,7 +91,7 @@ const ExtraordinaryStory = props => {
         </div>
       </div>
       <div className={classes.multimedia}>
-        <a href={`${data.sectionLink}${data.link}`}>
+        <a href={data.link}>
           <EmbedMultimedia
             type={data.typeMultimediaGeneral}
             title={data.title}
