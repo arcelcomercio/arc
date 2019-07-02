@@ -26,7 +26,9 @@ const classes = {
   listLinkInfo:
     'footer__list-link capitalize text-gray-300 text-sm font-bold line-h-md',
   listLink: 'footer__list-link capitalize text-gray-300 text-sm',
-  textContent: 'pt-20 pb-0 pl-20 md:pl-30',
+  listLinkSection:
+    'footer__list-link capitalize text-gray-300 text-sm pb-10 pt-10',
+  textContent: 'pt-10 pb-0 pl-20 md:pl-30',
   socialTitle: 'footer__social-title mb-20 uppercase text-sm',
   listSocial: 'footer__social flex pl-20 lg:pl-30',
   listSocialItem: 'footer__social-item',
@@ -34,9 +36,10 @@ const classes = {
   facebookIcon: 'footer__social-icon icon-facebook pr-15',
   twitterIcon: 'footer__social-icon icon-twitter',
 
-  legalLinksWrapper: 'pt-20 text-white',
-  legalLinks: 'footer__legal-links line-h-lg text-xs text-white',
-  legalLinksDivider: 'ml-5 mr-5',
+  legalLinksWrapper: 'flex pt-20 text-white flex-wrap',
+  legalLinks:
+    'footer__legal-links line-h-lg text-xs text-white flex items-center justify-between w-auto',
+  legalLinksDivider: 'footer__legal-divider ml-5 mr-5',
   contactPosition: 'block',
   contactName: 'block',
 }
@@ -131,16 +134,15 @@ class LayoutFooter extends PureComponent {
                 {el}
               </li>
             ))}
+
             <li className={classes.legalLinksWrapper}>
-              {legalLinks.map((el, i) => (
-                <React.Fragment key={el.url}>
-                  <a className={` ${classes.legalLinks}`} href={el.url}>
-                    {el.name}
-                  </a>
-                  {legalLinks.length - 1 > i && (
-                    <span className={classes.legalLinksDivider}>|</span>
-                  )}
-                </React.Fragment>
+              {legalLinks.map(el => (
+                <a
+                  className={` ${classes.legalLinks}`}
+                  href={el.url}
+                  key={el.url}>
+                  {el.name}
+                </a>
               ))}
             </li>
           </ul>
@@ -150,7 +152,7 @@ class LayoutFooter extends PureComponent {
           <ul className={classes.list}>
             <li className={classes.listTitle}>Nuestras secciones</li>
             {sections.map(el => (
-              <li className={classes.listItem} key={el.url}>
+              <li className={classes.listLinkSection} key={el.url}>
                 <a className={classes.listLink} href={el.url}>
                   {el.name}
                 </a>
