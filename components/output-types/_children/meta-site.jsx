@@ -5,7 +5,7 @@ export default ({
   siteName = '',
   siteUrl = '',
   colorPrimary = '',
-  social: { facebook = {}, twitter = {}, youtube = {} } = {},
+  social: { facebook = {}, twitter = {} } = {},
   charbeatAccountNumber = '',
   siteDomain = '',
   requestUri = '',
@@ -20,12 +20,11 @@ export default ({
     "name" : "${siteName}",
     "url" : "${siteUrl}/",
     "logo": "${deployment(
-      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-sitio.jpg`
+      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
     )}",
     "sameAs" : [
       "${facebook.url || ''}",
-      "${twitter.url || ''}",
-      "${youtube.url || ''}"
+      "${twitter.url || ''}"
     ]
   }`
 

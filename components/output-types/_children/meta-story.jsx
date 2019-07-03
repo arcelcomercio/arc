@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import ENV from 'fusion:environment'
 import StoryData from '../../utilities/story-data'
 import { formatHtmlToText } from '../../utilities/helpers'
 
@@ -7,6 +8,7 @@ export default ({
   arcSite,
   contextPath,
   siteName = '',
+  socialName,
   siteUrl = '',
   deployment,
   isAmp,
@@ -65,10 +67,11 @@ export default ({
 
   const relatedContentItem = relatedContent.map((content, i) => {
     const { canonical_url: urlItem = '' } = content || {}
+    const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ''
     return `{  
       "@type":"ListItem",
       "position":${i + 1},
-      "url":"${urlItem}"
+      "url":"${pathUrl}${urlItem}"
       }`
   })
 
@@ -106,11 +109,9 @@ export default ({
        "name":"${siteName}",
        "logo":{  
           "@type":"ImageObject",
-          "url":"${deployment(
-            `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/${
-              seo.logoAmp
-            }`
-          )}",
+          "url":"${siteUrl}${deployment(
+    `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
+  )}",
           "height":${seo.height},
           "width":${seo.width}
        }
@@ -161,10 +162,7 @@ export default ({
 
   return (
     <Fragment>
-      <meta
-        property="article:publisher"
-        content={`http://www.facebook.com/${siteUrl}`}
-      />
+      <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
       <meta name="bi3dArtId" content="639992" />
