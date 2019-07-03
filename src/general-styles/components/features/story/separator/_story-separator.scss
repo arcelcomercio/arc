@@ -2,6 +2,10 @@
   grid-template-columns: 1fr;
   height: auto;
 
+  @media print {
+    display: none;
+  }
+
   &__body {
     grid-template-columns: 1fr;
     gap: 3px;
@@ -34,8 +38,7 @@
 
   &__img {
     height: 80px;
-    width: 50px;
-
+    width: 45px;
     @media (--desktop) {
       width: 75px;
     }
@@ -49,11 +52,12 @@
 
   &__title {
     display: -webkit-box;
-    max-height: 53px;
+    max-height: 48.7px;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
     font-family: $primary-font;
+    -webkit-line-clamp: 3;
   }
 
   &-oneline {

@@ -36,7 +36,7 @@ class CardSurveyChildSurvey extends PureComponent {
 
   render() {
     const {
-      contextPath,
+      BASE_PATH,
       title = '',
       choices = [],
       slug = '',
@@ -64,9 +64,7 @@ class CardSurveyChildSurvey extends PureComponent {
           </div>
           {!hasVote && (
             <div className={classes.buttons}>
-              <a
-                href={`${contextPath}/encuesta/${slug}`}
-                className={classes.results}>
+              <a href={`${BASE_PATH}/${slug}`} className={classes.results}>
                 Ver Resultados
               </a>
               <button

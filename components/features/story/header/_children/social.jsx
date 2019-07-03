@@ -49,21 +49,22 @@ class StoryHeaderChildSocial extends PureComponent {
       postTitle,
       siteNameRedSocial
     )
+    
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: classes.facebook,
+          icon: classes.iconFacebook,
           link: urlsShareList.facebook,
           mobileClass: classes.mobileClass,
         },
 
         {
-          icon: classes.twitter,
+          icon: classes.iconTwitter,
           link: urlsShareList.twitter,
           mobileClass: classes.mobileClass,
         },
         {
-          icon: classes.linkedin,
+          icon: classes.iconLinkedin,
           link: urlsShareList.linkedin,
           mobileClass: classes.mobileClass,
         },
@@ -101,6 +102,7 @@ class StoryHeaderChildSocial extends PureComponent {
       globalContent: { taxonomy: { primary_section: { name } = {} } } = {},
     } = this.props
 
+    
     return (
       <>
         <div className={classes.news}>

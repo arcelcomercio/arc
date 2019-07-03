@@ -5,13 +5,14 @@ import customFields from './_dependencies/custom-fields'
 import AdsChild from '../../global-components/ads'
 
 const classes = {
-  adsBox: 'flex items-center justify-center flex-col overflow-hidden',
+  adsBox: 'flex items-center justify-center flex-col',
 }
 @Consumer
 class Ads extends PureComponent {
   render() {
     const {
       isAdmin,
+      outputType: isAmp,
       customFields: {
         adElement,
         isDesktop,
@@ -43,13 +44,19 @@ class Ads extends PureComponent {
     }
 
     return (
-      <div
-        className={`${
-          classes.adsBox
-        } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()}`}>
-        <AdsChild {...params} />
-        {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
-      </div>
+      <>
+        {isAmp !== 'amp' && (
+          <div
+            className={`${
+              classes.adsBox
+            } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()}`}>
+            <AdsChild {...params} />
+            {freeHtml && (
+              <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
+            )}
+          </div>
+        )}
+      </>
     )
   }
 }

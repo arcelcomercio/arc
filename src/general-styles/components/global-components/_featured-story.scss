@@ -8,10 +8,13 @@ $image-height: 157px;
   padding: 0;
   justify-content: flex-end;
 
-  .featured-story__image {
-    position: relative;
+  .featured-story__img-link {
     height: 100%;
     width: 100%;
+  }
+
+  .featured-story__img-box {
+    position: relative;
 
     &::before {
       content: '';
@@ -63,27 +66,6 @@ $image-height: 157px;
 .featured-story {
   letter-spacing: 0.05em;
 
-  &::before,
-  &::after {
-    content: '';
-    display: block;
-    height: 1px;
-    position: absolute;
-    left: 0;
-    overflow: hidden;
-    width: 100%;
-  }
-
-  &::before {
-    top: -11px;
-    border-top: 1px solid $color-gray-200;
-  }
-
-  &::after {
-    bottom: -10px;
-    border-bottom: 1px solid $color-gray-200;
-  }
-
   @media (--tablet) {
     background-color: $color-white;
     grid-row: span 1;
@@ -104,13 +86,13 @@ $image-height: 157px;
     }
   }
 
-  &__image {
+  &__img-link {
     width: 40%;
     height: 75px;
 
     @media (--tablet) {
-      height: $image-height;
       width: unset;
+      height: $image-height;
     }
   }
 
@@ -134,17 +116,17 @@ $image-height: 157px;
 
   &-oneline {
     -webkit-line-clamp: 1;
-    max-height: calc(#{$header-xs} * 2);
+    max-height: calc(#{$header-xs} * 1.5 * 1);
   }
 
   &-twoline {
     -webkit-line-clamp: 2;
-    max-height: calc(#{$header-xs} * 4);
+    max-height: calc(#{$header-xs} * 1.5 * 2);
   }
 
   &-threeline {
     -webkit-line-clamp: 3;
-    max-height: calc(#{$header-xs} * 6);
+    max-height: calc(#{$header-xs} * 1.5 * 3);
   }
 
   &__title {
@@ -160,15 +142,6 @@ $image-height: 157px;
 
   &__author {
     margin-top: auto;
-  }
-
-  &__icon {
-    height: 50px;
-    width: 50px;
-    top: calc(50% - 25px);
-    left: calc(50% - 25px);
-    background-color: rgba(0, 0, 0, 0.3);
-    font-size: 50px;
   }
 
   &--reverse {
@@ -218,7 +191,7 @@ $image-height: 157px;
       flex-direction: column-reverse;
     }
 
-    .featured-story__image {
+    .featured-story__img-link {
       height: $image-height;
       width: unset;
       margin-left: 0;
@@ -237,6 +210,35 @@ $image-height: 157px;
 
     .featured-story__author-link {
       color: $color-gray-200;
+    }
+  }
+
+  &--no-expanded {
+    @media (--only-mobile) {
+      background-color: $color-white;
+      height: 115px;
+      padding: 0;
+      justify-content: space-between;
+
+      .featured-story__detail {
+        height: 100%;
+        padding: 12px 5px 12px 20px;
+        width: 100%;
+      }
+
+      .featured-story__img-link {
+        height: 100%;
+        min-width: 151px;
+      }
+
+      // font-xs
+      .featured-story__title-link {
+        font-size: 13px;
+      }
+
+      .featured-story__title {
+        max-width: 100%;
+      }
     }
   }
 }

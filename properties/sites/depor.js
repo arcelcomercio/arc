@@ -3,15 +3,19 @@ export default {
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',
   siteUrl: 'https://depor.com',
-  resizerUrl: 'http://resizer.shared.arcpublishing.com',
-  resizerSecretKeyEnvVar: 'Fmkgru2rZ2uPZ5wXs7B2HbVDHS2SZuA7',
+  resizerUrl: 'https://elcomercio-depor-prod.cdn.arcpublishing.com/resizer',
+  resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-8',
   charbeatAccountNumber: 99999,
-
+  idGoogleAnalitics: 'UA-3055636-8',
+  fbArticleStyle: 'LogoDepor',
+  siteDescription:
+    'Noticias de Perú y el mundo en Depor.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
@@ -37,6 +41,21 @@ export default {
       'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
   },
 
+  legalLinks: [
+    {
+      name: 'Términos y condiciones',
+      url: '/terminos-servicio',
+    },
+    {
+      name: 'Políticas de Privacidad',
+      url: '/politicas-privacidad',
+    },
+    {
+      name: 'Politicas de Cookies',
+      url: '/politicas-cookies',
+    },
+  ],
+
   footer: {
     siteLegal: [
       'Empresa Editora Depor',
@@ -57,6 +76,21 @@ export default {
       {
         name: 'google+',
         url: 'https://plus.google.com/u/0/+deporpe',
+      },
+    ],
+
+    contacts: [
+      {
+        position: 'Director Periodístico',
+        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+      },
+      {
+        position: 'Editor Web',
+        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
+      },
+      {
+        position: 'Contacto comercial',
+        name: 'ventaspublimetro@publimetro.pe',
       },
     ],
   },

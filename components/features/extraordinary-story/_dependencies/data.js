@@ -1,8 +1,6 @@
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
-import {
-  ResizeImageUrl
-} from '../../../utilities/helpers'
+import { ResizeImageUrl } from '../../../utilities/helpers'
 
 class Data extends StoryData {
   static GOLDFISH = 'goldfish'
@@ -30,6 +28,7 @@ class Data extends StoryData {
       arcSite,
       defaultImgSize,
     })
+    this.arcSite = arcSite
     this.customFields = customFields
   }
 
@@ -67,6 +66,12 @@ class Data extends StoryData {
 
   get multimediaSource() {
     return this.customFields.multimediaSource || ''
+  }
+
+  get link() {
+    const { websites = {} } = this._data || {}
+    const { website_url: url = '' } = websites[`${this.arcSite}`] || {}
+    return url
   }
 
   /* get isVideo() {

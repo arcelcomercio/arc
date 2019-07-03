@@ -1,0 +1,11 @@
+<svg id="plus-button" xmlns="http://www.w3.org/2000/svg" width="30" height="30.001" viewBox="0 0 30 30.001">
+  <g id="Grupo_269" data-name="Grupo 269">
+    <path id="Trazado_393" data-name="Trazado 393" d="M15,30A15,15,0,1,1,30,15,15.017,15.017,0,0,1,15,30ZM15,1.714A13.286,13.286,0,1,0,28.285,15,13.3,13.3,0,0,0,15,1.714Z" fill="#818181"/>
+  </g>
+  <g id="Grupo_270" data-name="Grupo 270" transform="translate(7.989 14.112)">
+    <path id="Trazado_394" data-name="Trazado 394" d="M21.652,16.416H9.406a.887.887,0,1,1,0-1.775H21.652a.887.887,0,0,1,0,1.775Z" transform="translate(-8.518 -14.641)" fill="#818181"/>
+  </g>
+  <g id="Grupo_271" data-name="Grupo 271" transform="translate(14.112 7.989)">
+    <path id="Trazado_395" data-name="Trazado 395" d="M15.529,22.539a.888.888,0,0,1-.888-.887V9.406a.887.887,0,1,1,1.775,0V21.652A.886.886,0,0,1,15.529,22.539Z" transform="translate(-14.641 -8.518)" fill="#818181"/>
+  </g>
+</svg>

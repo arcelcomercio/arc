@@ -1,0 +1,74 @@
+import React from 'react'
+
+// class BodyEnd extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.el = document.createElement('div')
+//     this.el.id = 'main-content-arc'
+//     this.el.classList.add('signwall')
+//   }
+
+//   componentDidMount() {
+//     document.getElementById('fusion-app').appendChild(this.el)
+//   }
+
+//   componentWillUnmount() {
+//     document.getElementById('fusion-app').removeChild(this.el)
+//   }
+
+//   render() {
+//     return ReactDOM.createPortal(this.props.children, this.el)
+//   }
+// }
+
+class Modal extends React.Component {
+  constructor(props) {
+    super(props)
+    this.isSafari = ''
+  }
+
+  componentDidMount = () => {
+    // TODO: Verificar clases de ios, si no se usan borrar estos métodos
+    this.isSafari =
+      window.navigator.vendor &&
+      window.navigator.vendor.indexOf('Apple') > -1 &&
+      window.navigator.userAgent &&
+      window.navigator.userAgent.indexOf('CriOS') === -1 &&
+      window.navigator.userAgent.indexOf('FxiOS') === -1
+    if (this.isSafari) {
+      document.querySelector('html').classList.add('signwall-ios')
+      document.querySelector('body').classList.add('signwall-ios')
+    }
+    document.querySelector('html').classList.add('overlay')
+    document.querySelector('body').classList.add('overlay', 'modal--open')
+  }
+
+  componentWillUnmount = () => {
+    // TODO: Verificar clases de ios, si no se usan borrar estos métodos
+    if (this.isSafari) {
+      document.querySelector('html').classList.remove('signwall-ios')
+      document.querySelector('body').classList.remove('signwall-ios')
+    }
+    document.querySelector('html').classList.remove('overlay')
+    document.querySelector('body').classList.remove('overlay', 'modal--open')
+  }
+
+  render() {
+    const { bg, position, size, name, color, id, children } = this.props
+    return (
+      <v-modal class={`modal ${bg === 'white' ? 'modal--white' : ''}`}>
+        <v-dialog
+          class={`modal__wrapper modal__position-${position} modal__size-${size}`}
+          heading={name}
+          size={size}
+          style={{ backgroundColor: color }}
+          id={id}
+          name={name}>
+          {children}
+        </v-dialog>
+      </v-modal>
+    )
+  }
+}
+
+export default Modal

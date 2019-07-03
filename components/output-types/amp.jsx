@@ -26,7 +26,9 @@ const AmpOutputType = ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    siteAssets: siteProperties.assets,
     metaValue,
+    isAmp: true,
     deployment,
   }
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
@@ -115,7 +117,9 @@ const AmpOutputType = ({
             return data ? (
               <style
                 amp-custom="amp-custom"
-                dangerouslySetInnerHTML={createMarkup(data)}
+                dangerouslySetInnerHTML={createMarkup(
+                  data.replace('@charset "UTF-8";', '')
+                )}
               />
             ) : null
           }}

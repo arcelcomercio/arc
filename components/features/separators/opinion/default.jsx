@@ -80,11 +80,11 @@ class SeparatorOpinion extends PureComponent {
       dataFormat.__data = dataElements[i]
       dataTemp.id = dataFormat.id
       dataTemp.author = dataFormat.author
-      dataTemp.authorUrl = `${contextPath}${dataFormat.authorLink}`
+      dataTemp.authorUrl = dataFormat.authorLink
       dataTemp.titulo = dataFormat.title
       dataTemp.section = dataFormat.primarySection
-      dataTemp.sectionUrl = `${contextPath}${dataFormat.primarySectionLink}`
-      dataTemp.websiteUrl = `${contextPath}${dataFormat.link}`
+      dataTemp.sectionUrl = dataFormat.primarySectionLink
+      dataTemp.websiteUrl = dataFormat.link
       dataTemp.imageUrl = dataFormat.authorImage
       newData.push({ ...dataTemp })
     }
@@ -99,7 +99,7 @@ class SeparatorOpinion extends PureComponent {
       isTablet,
       customFields: { titleSection, htmlCode },
     } = this.props
-    let data = Object.values(dataApi)
+    let data = dataApi && Object.values(dataApi)
     const numStory = getStoriesQty(isMobile, isTablet)
     data = data.slice(0, numStory)
     return (
@@ -122,6 +122,5 @@ SeparatorOpinion.propTypes = {
 }
 
 SeparatorOpinion.label = 'Separador - Opinión'
-
 
 export default SeparatorOpinion

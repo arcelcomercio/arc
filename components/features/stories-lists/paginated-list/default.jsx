@@ -14,7 +14,7 @@ class StoriesListPaginatedList extends PureComponent {
       contextPath,
       arcSite,
     } = this.props
-    const { content_elements: stories, count = 0 } = globalContent || {}
+    const { content_elements: stories = [], count = 0 } = globalContent || {}
     const { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
 
     return (

@@ -1,0 +1,26 @@
+.signwall {
+  * {
+    .card-newsletter {
+      &__btn {
+        background: white;
+        border: 2px gray outset;
+        border-style: dashed;
+        min-height: 120px;
+        width: 200px;
+        outline: none;
+        cursor: pointer;
+      }
+      & svg {
+        text-align: center;
+        margin-left: 40%;
+        margin-bottom: 12px;
+        display: block;
+      }
+      &__text {
+        font-size: 16px;
+        color: gray;
+        text-align: center;
+      }
+    }
+  }
+}

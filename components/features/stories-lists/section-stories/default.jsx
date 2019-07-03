@@ -28,7 +28,7 @@ class StoriesListSectionStories extends PureComponent {
     const { content_elements: contentElements } = globalContent || {}
     const stories = contentElements || []
 
-    const seeMorePath = `${contextPath}/archivo${section}?_website=${arcSite}`
+    const seeMorePath = `/archivo${section}?_website=${arcSite}`
 
     return (
       <div className={classes.listado}>
