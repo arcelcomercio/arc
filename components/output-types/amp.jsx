@@ -117,7 +117,9 @@ const AmpOutputType = ({
             return data ? (
               <style
                 amp-custom="amp-custom"
-                dangerouslySetInnerHTML={createMarkup(data)}
+                dangerouslySetInnerHTML={createMarkup(
+                  data.replace('@charset "UTF-8";', '')
+                )}
               />
             ) : null
           }}
