@@ -39,8 +39,9 @@ class Modal extends React.Component {
       document.querySelector('html').classList.add('signwall-ios')
       document.querySelector('body').classList.add('signwall-ios')
     }
-    document.querySelector('html').classList.add('overlay')
-    document.querySelector('body').classList.add('overlay', 'modal--open')
+    document
+      .querySelector('body')
+      .classList.add('overflow-hidden', 'modal--open')
   }
 
   componentWillUnmount = () => {
@@ -49,8 +50,9 @@ class Modal extends React.Component {
       document.querySelector('html').classList.remove('signwall-ios')
       document.querySelector('body').classList.remove('signwall-ios')
     }
-    document.querySelector('html').classList.remove('overlay')
-    document.querySelector('body').classList.remove('overlay', 'modal--open')
+    document
+      .querySelector('body')
+      .classList.remove('overflow-hidden', 'modal--open')
   }
 
   render() {
