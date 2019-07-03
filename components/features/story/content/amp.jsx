@@ -25,6 +25,8 @@ const classes = {
   image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
   video: 'amp-story-content__video amp-active',
+  relatedTitle:
+    'related-content__title font-bold uppercase pt-20 pb-20 secondary-font',
 }
 
 @Consumer
