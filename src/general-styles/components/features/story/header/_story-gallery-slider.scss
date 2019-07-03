@@ -27,13 +27,28 @@
     background-color: $color-primary;
     width: 102px;
     height: 43px;
-    letter-spacing: 8px;
+    letter-spacing: 3px;
   }
   &__arrows-box {
-    height: calc(100% - 83px);
+    height: calc(100% - 86px);
   }
   &__arrows {
     outline: 0;
+    width: 52px;
+    &:first-child {
+      background: linear-gradient(
+        270deg,
+        rgba(14, 33, 13, 0) 0%,
+        rgba(14, 33, 13, 0.4) 100%
+      );
+    }
+    &:last-child {
+      background: linear-gradient(
+        90deg,
+        rgba(14, 33, 13, 0) 0%,
+        rgba(14, 33, 13, 0.4) 100%
+      );
+    }
   }
   &__caption-image {
     max-width: calc(100% - 102px);

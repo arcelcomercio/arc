@@ -3,6 +3,10 @@
   height: $nav-height;
   z-index: 20;
 
+  @media print {
+    display: none;
+  }
+
   &__wrapper {
     @media (--desktop) {
       display: flex;

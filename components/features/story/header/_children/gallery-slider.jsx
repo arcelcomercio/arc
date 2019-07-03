@@ -13,9 +13,11 @@ const classes = {
   quantity:
     'story-gallery-slider__quantity title-xs flex items-center justify-center',
   arrowsBox:
-    'story-gallery-slider__arrows-box position-absolute top-0 flex w-full items-center justify-between pl-20 pr-20',
-  leftArrow: 'story-gallery-slider__arrows icon-left text-white title-lg',
-  rightArrow: 'story-gallery-slider__arrows icon-right text-white title-lg',
+    'story-gallery-slider__arrows-box position-absolute top-0 flex w-full items-center justify-between',
+  leftArrow:
+    'story-gallery-slider__arrows icon-left text-white title-lg flex items-center justify-center h-full',
+  rightArrow:
+    'story-gallery-slider__arrows icon-right text-white title-lg flex items-center justify-center h-full',
 }
 
 class StoryHeaderChildGallerySlider extends PureComponent {
@@ -36,7 +38,11 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     this.step = getUrlParameter()
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    document.addEventListener('keydown', event => {
+      this._controlKeysSlider(event)
+    })
+  }
 
   setDefault(size) {
     const { deployment, contextPath, arcSite } = this.props
@@ -138,6 +144,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     <i
                       role="button"
                       tabIndex="0"
+                      id="icon-right"
                       className={classes.rightArrow}
                       onClick={this._handleNextSlider}
                       onKeyDown={this._controlKeysSlider}

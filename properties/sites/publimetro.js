@@ -120,7 +120,7 @@ export default {
     },
     youtube: {
       name: 'youtube',
-      url: 'https://plus.google.com/u/0/+Publimetropuntope',
+      url: '/',
     },
   },
 }

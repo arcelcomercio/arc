@@ -1,5 +1,8 @@
-.amp-story-tags {
+.story-tags {
   &__title {
     color: #4aa8fa;
+  }
+  @media print {
+    display: none;
   }
 }

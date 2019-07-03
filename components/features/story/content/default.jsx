@@ -176,11 +176,11 @@ class StoryContent extends PureComponent {
             <h4 className={classes.relatedTitle}>Relacionadas </h4>
             {relatedContent.map((item, i) => {
               const { type } = item
-              const key = `related-${i}`
-              return type !== ConfigParams.ELEMENT_STORY ? (
-                ''
-              ) : (
+              const key = `related-content-${i}`
+              return type === ConfigParams.ELEMENT_STORY ? (
                 <StoryContentChildRelated key={key} {...item} />
+              ) : (
+                ''
               )
             })}
           </div>

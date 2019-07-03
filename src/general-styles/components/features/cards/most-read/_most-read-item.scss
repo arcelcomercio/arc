@@ -1,26 +1,26 @@
-$colorIconMasLeidas: rgba(255, 255, 255, 0.8);
-
 .most-read-item {
   &:last-child {
-    border: none;
+    border-width: 0;
   }
 
-  &__figure {
-    height: 72px;
-    width: 118px;
+  // &__article {}
 
-    &--icon::before {
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      z-index: 1;
-      font-size: 25px;
-      color: $colorIconMasLeidas;
-      background-color: rgba(0, 0, 0, 0.1);
-    }
+  &__figure {
+    max-height: 72px;
+    max-width: 118px;
+  }
+
+  &__icon {
+    top: initial;
+    left: initial;
+    bottom: 5px;
+    right: 5px;
+    font-size: 25px;
+    width: 23px;
+    height: 23px;
   }
 
   &__detail {
-    max-height: 72px;
+    max-height: $font-sm * 1.5 * 4;
   }
 }
