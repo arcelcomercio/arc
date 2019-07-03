@@ -1,6 +1,10 @@
 .most-read {
   // &__title {}
 
+  @media print {
+    display: none;
+  }
+
   &__icon::before {
     background-color: $color-primary;
     color: $color-white;

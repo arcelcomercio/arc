@@ -2,7 +2,7 @@ import React from 'react'
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  container: 'mt-25 mb-20',
+  container: 'story-tags mt-25 mb-20',
   title:
     'story-tags__title uppercase mb-5 primary-font font-bold text-sm line-h-none',
   tag: 'inline-block primary-font text-sm mr-10 mb-5',
