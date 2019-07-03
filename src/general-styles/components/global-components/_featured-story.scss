@@ -144,15 +144,6 @@ $image-height: 157px;
     margin-top: auto;
   }
 
-  &__icon {
-    height: 50px;
-    width: 50px;
-    top: calc(50% - 25px);
-    left: calc(50% - 25px);
-    background-color: rgba(0, 0, 0, 0.3);
-    font-size: 50px;
-  }
-
   &--reverse {
     @media (--tablet) {
       flex-direction: column-reverse;

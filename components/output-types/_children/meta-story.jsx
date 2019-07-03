@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import StoryData from '../../utilities/story-data'
+import { formatHtmlToText } from '../../utilities/helpers'
 
 export default ({
   globalContent: data,
@@ -42,7 +43,7 @@ export default ({
   )
 
   const imagesSeoItems = imagesSeo.map(({ url = '', subtitle } = {}, i) => {
-    const representativeOfPage = i === 0 ? 'representativeOfPage":true,' : ''
+    const representativeOfPage = i === 0 ? '"representativeOfPage":true,' : ''
     return `{ 
          ${representativeOfPage}
          "@type":"ImageObject",
@@ -84,8 +85,8 @@ export default ({
     "@type":"NewsArticle",
     "datePublished":"${publishDate}",
     "dateModified":"${publishDate}",
-    "headline":"${title}",
-    "description":"${subTitle}",
+    "headline":"${formatHtmlToText(title)}",
+    "description":"${formatHtmlToText(subTitle)}",
     "articleBody":"${dataElement}",
     "mainEntityOfPage":{  
        "@type":"WebPage",

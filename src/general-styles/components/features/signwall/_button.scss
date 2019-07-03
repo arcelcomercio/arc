@@ -114,10 +114,19 @@
         & svg {
           display: inline-block;
           vertical-align: middle;
+          margin-right: 10px;
         }
       }
       &-md {
         width: 75%;
+      }
+      &-signwall {
+        padding: 6px 10px;
+        font-family: 'corpidbold';
+        font-size: 14px;
+        border-radius: 4px;
+        margin: 0 4px;
+        line-height: 16px;
       }
     }
   }

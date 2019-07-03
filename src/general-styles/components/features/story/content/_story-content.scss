@@ -3,6 +3,12 @@
     color: $color-gray-200;
   }
 
+  &__visual--image {
+    @media print {
+      width: 815px;
+    }
+  }
+
   .pquote {
     background: none;
     color: #030;

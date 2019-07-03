@@ -5,25 +5,18 @@ import Fingerprint2 from 'fingerprintjs2'
 import LoginRegister from './_main/signwall/index'
 import Panel from './_main/user-dashboard/index'
 import addScriptAsync from './_main/utils/script-async'
-import GetProfile from './_main/utils/get-profile'
-import { User } from './_main/common/iconos'
 import Cookie from './_main/utils/cookie'
-
-const Brand = 'gestion'
 
 const Cookies = new Cookie()
 
 @Consumer
 class Signwall extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       showLogin: false,
       showPanel: false,
-      nameUser: new GetProfile().username,
-      initialUser: new GetProfile().initname,
       sessUser: false,
-      accessPanel: false,
     }
 
     Fingerprint2.getV18({}, result => {
@@ -94,23 +87,25 @@ class Signwall extends Component {
     if (this.checkSesion() && !sessUser) {
       this.setState({
         sessUser: true,
-        nameUser: new GetProfile().username,
-        initialUser: new GetProfile().initname,
       })
-    } else if (this.checkSesion() === false && sessUser)
+      this.togglePopupPanel()
+    } else if (this.checkSesion() === false && sessUser) {
       this.setState({
         sessUser: false,
       })
+      this.togglePopupLogin()
+    }
   }
 
   componentDidMount = () => {
     const { sessUser } = this.state
-    if (this.checkSesion() === true && !sessUser) {
+    if (this.checkSesion() && !sessUser) {
       this.setState({
         sessUser: true,
-        nameUser: new GetProfile().username,
-        initialUser: new GetProfile().initname,
       })
+      this.togglePopupPanel()
+    } else {
+      this.togglePopupLogin()
     }
   }
 
@@ -125,70 +120,27 @@ class Signwall extends Component {
 
   togglePopupLogin() {
     const { showLogin } = this.state
+    const { closeSignwall } = this.props
     this.setState({
       showLogin: !showLogin,
     })
+    if (showLogin) closeSignwall()
   }
 
   togglePopupPanel() {
     const { showPanel } = this.state
+    const { closeSignwall } = this.props
     this.setState({
       showPanel: !showPanel,
     })
-
-    // const hasOverlay = document.documentElement.classList.contains('overlay')
-    // const removeOverlay = document.documentElement.classList.remove('overlay')
-    // const addOverlay = document.documentElement.classList.add('overlay')
-
-    // // eslint-disable-next-line no-unused-expressions
-    // hasOverlay ? removeOverlay : addOverlay
+    if (showPanel) closeSignwall()
   }
 
   render() {
-    const {
-      sessUser,
-      accessPanel,
-      initialUser,
-      nameUser,
-      showLogin,
-      showPanel,
-    } = this.state
+    const { showLogin, showPanel } = this.state
     return (
       <div className="signwall">
         <div className="link-identity__content">
-          {sessUser || accessPanel ? (
-            <button
-              type="button"
-              onClick={() => this.togglePopupPanel()}
-              id="web_link_ingresaperfil"
-              className="link-identity__link">
-              <i
-                className={
-                  initialUser
-                    ? `link-identity__icon link-identity__icon--text  bg-icon icon-color`
-                    : `link-identity__icon bg-icon`
-                }>
-                {initialUser || (
-                  <User
-                    color={Brand === 'elcomercio' ? '#fcc913' : '#ffffff'}
-                  />
-                )}
-              </i>
-              <span className="link-identity__text">{nameUser}</span>
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => this.togglePopupLogin()}
-              id="web_link_ingresacuenta"
-              className="link-identity__link">
-              <i className="link-identity__icon bg-icon">
-                <User color={Brand === 'elcomercio' ? '#fcc913' : '#ffffff'} />
-              </i>
-              <span className="link-identity__text">Ingresa a tu Cuenta</span>
-            </button>
-          )}
-
           {showLogin && (
             <LoginRegister closePopup={() => this.togglePopupLogin()} />
           )}

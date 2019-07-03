@@ -5,7 +5,7 @@ const classes = {
   layout: 'flex justify-center',
   contentContainer: 'flex flex-col content-layout-container w-full',
   aditional: 'mb-20',
-  zocalo: 'zocalo__container',
+  zocalo: 'ads__zocalo',
 }
 
 const DefaultLayout = ({ children = [] }) => {
