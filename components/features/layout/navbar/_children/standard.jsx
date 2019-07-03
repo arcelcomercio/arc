@@ -40,6 +40,7 @@ class NavBarDefault extends PureComponent {
       statusSidebar: false,
       statusSearch: false,
       scrolled: false,
+      isActive: false,
     }
     // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
@@ -87,6 +88,16 @@ class NavBarDefault extends PureComponent {
     }
   }
 
+  // Saber si hay sesion inicada
+  checkSesion = () => {
+    const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
+    const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
+    if (profileStorage) {
+      return !(profileStorage === 'null' || sesionStorage === '{}') || false
+    }
+    return false
+  }
+
   // _handleDevice = device => {
   //   this._handleScroll()
   //   // ------ Add or remove Scroll eventListener on resize
@@ -123,6 +134,10 @@ class NavBarDefault extends PureComponent {
     })
   }
 
+  closeSignwall() {
+    this.setState({ isActive: false })
+  }
+
   // Close Search
   /* _handleCloseSectionsSearch = () => {
     setTimeout(() => {
@@ -133,7 +148,7 @@ class NavBarDefault extends PureComponent {
   } */
 
   render() {
-    const { statusSidebar, scrolled } = this.state
+    const { statusSidebar, scrolled, isActive } = this.state
     const {
       logo,
       arcSite,
@@ -161,107 +176,113 @@ class NavBarDefault extends PureComponent {
       }
     } */
     return (
-      <nav
-        className={`${classes.nav} ${
-          scrolled ? 'active' : ''
-        } ${responsiveClass}`}>
-        <div className={classes.wrapper}>
-          {/** ************* LEFT *************** */}
+      <>
+        <nav
+          className={`${classes.nav} ${
+            scrolled ? 'active' : ''
+          } ${responsiveClass}`}>
+          <div className={classes.wrapper}>
+            {/** ************* LEFT *************** */}
 
-          <div className={classes.navBtnContainer}>
-            <Button
-              iconClass={classes.iconMenu}
-              btnClass={classes.btnSection}
-              btnText="Menú"
-              onClick={this._handleToggleSectionElements}
-            />
-          </div>
-
-          {/** ************* MIDDLE *************** */}
-
-          <ul className={classes.list}>
-            {sections &&
-              sections.slice(0, 4).map(({ name, _id: id }) => {
-                return (
-                  <li key={id} className={classes.listItem}>
-                    <a href={id} className={classes.listLink}>
-                      {name}
-                    </a>
-                  </li>
-                )
-              })}
-          </ul>
-          <a href="/">
-            <img
-              src={logo}
-              alt={`Logo de ${arcSite}`}
-              className={classes.logo}
-            />
-          </a>
-          {/** ************* RIGHT *************** */}
-
-          <div className={`${classes.navContainerRight} ${responsiveClass}`}>
-            <div className={classes.btnContainer}>
+            <div className={classes.navBtnContainer}>
               <Button
-                btnText="Suscríbete"
-                btnClass={`${classes.btnSubscribe} btn--outline`}
-                btnLink="#"
+                iconClass={classes.iconMenu}
+                btnClass={classes.btnSection}
+                btnText="Menú"
+                onClick={this._handleToggleSectionElements}
               />
-              <Signwall />
-              {/* <Button
-                btnText="Iniciar Sesión"
-                btnClass={`${classes.btnLogin} btn--outline`}
-                btnLink="#"
-              /> */}
             </div>
-            <div className={classes.searchContainer}>
-              {/* <Ads
-                  adElement="zocaloNav1"
+
+            {/** ************* MIDDLE *************** */}
+
+            <ul className={classes.list}>
+              {sections &&
+                sections.slice(0, 4).map(({ name, _id: id }) => {
+                  return (
+                    <li key={id} className={classes.listItem}>
+                      <a href={id} className={classes.listLink}>
+                        {name}
+                      </a>
+                    </li>
+                  )
+                })}
+            </ul>
+            <a href="/">
+              <img
+                src={logo}
+                alt={`Logo de ${arcSite}`}
+                className={classes.logo}
+              />
+            </a>
+            {/** ************* RIGHT *************** */}
+
+            <div className={`${classes.navContainerRight} ${responsiveClass}`}>
+              <div className={classes.btnContainer}>
+                <Button
+                  btnText="Suscríbete"
+                  btnClass={`${classes.btnSubscribe} btn--outline`}
+                  btnLink="#"
+                />
+                <button
+                  type="button"
+                  className={`${classes.btnLogin} btn--outline`}
+                  onClick={() => this.setState({ isActive: true })}>
+                  {this.checkSesion() ? 'Mi Cuenta' : 'Iniciar Sesión'}
+                </button>
+              </div>
+              <div className={classes.searchContainer}>
+                {/* <Ads
+                    adElement="zocaloNav1"
+                    isDesktop
+                    classes={{ desktop: classes.ads }}
+                  />
+                    <Ads
+                  adElement="zocaloNav2"
                   isDesktop
                   classes={{ desktop: classes.ads }}
-                />
-                  <Ads
-                adElement="zocaloNav2"
-                isDesktop
-                classes={{ desktop: classes.ads }}
-              /> */}
-              <form className={classes.form} onSubmit={e => e.preventDefault()}>
-                <input
-                  ref={this.inputSearch}
-                  type="search"
-                  /* onBlur={this._handleCloseSectionsSearch} */
-                  onKeyUp={this.watchKeys}
-                  placeholder="¿Que Buscas?"
-                  className={`${classes.search} ${this.activeSearch()}`}
-                />
-                <Button
-                  iconClass={classes.iconSearch}
-                  btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
-                  onClick={this.optionButtonClick}
-                />
-              </form>
+                /> */}
+                <form
+                  className={classes.form}
+                  onSubmit={e => e.preventDefault()}>
+                  <input
+                    ref={this.inputSearch}
+                    type="search"
+                    /* onBlur={this._handleCloseSectionsSearch} */
+                    onKeyUp={this.watchKeys}
+                    placeholder="¿Que Buscas?"
+                    className={`${classes.search} ${this.activeSearch()}`}
+                  />
+                  <Button
+                    iconClass={classes.iconSearch}
+                    btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
+                    onClick={this.optionButtonClick}
+                  />
+                </form>
+              </div>
+            </div>
+            <div
+              className={`${classes.btnContainer} ${
+                classes.navMobileContainer
+              } ${responsiveClass}`}>
+              <button
+                type="button"
+                className={`${
+                  classes.btnLogin
+                } border-1 border-solid border-white`}
+                onClick={() => this.setState({ isActive: true })}>
+                <i className={classes.iconLogin} />
+              </button>
             </div>
           </div>
-          <div
-            className={`${classes.btnContainer} ${
-              classes.navMobileContainer
-            } ${responsiveClass}`}>
-            <Button
-              iconClass={classes.iconLogin}
-              btnClass={`${
-                classes.btnLogin
-              } border-1 border-solid border-white`}
-              btnLink="#"
-            />
-          </div>
-        </div>
-        <Menu
-          sections={sections}
-          showSidebar={statusSidebar}
-          contextPath={contextPath}
-          siteProperties={siteProperties}
-        />
-      </nav>
+          <Menu
+            sections={sections}
+            showSidebar={statusSidebar}
+            contextPath={contextPath}
+            siteProperties={siteProperties}
+          />
+        </nav>
+        {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
+      </>
     )
   }
 }
