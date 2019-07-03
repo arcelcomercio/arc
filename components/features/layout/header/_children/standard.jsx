@@ -6,7 +6,7 @@ import { getResponsiveClasses } from '../../../../utilities/helpers'
 const classes = {
   header: `header bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden lg:flex`,
   logo: 'header__logo',
-  featured: 'header__featured flex justify-evenly w-full font-normal',
+  featured: 'header__featured flex justify-around w-full font-normal',
   item: 'header__item flex items-center justify-center h-inherit',
   link: 'header__link uppercase text-sm p-10',
   navWrapper: 'nav__wrapper hidden md:block',
