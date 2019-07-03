@@ -43,7 +43,7 @@ export default ({
   )
 
   const imagesSeoItems = imagesSeo.map(({ url = '', subtitle } = {}, i) => {
-    const representativeOfPage = i === 0 ? 'representativeOfPage":true,' : ''
+    const representativeOfPage = i === 0 ? '"representativeOfPage":true,' : ''
     return `{ 
          ${representativeOfPage}
          "@type":"ImageObject",

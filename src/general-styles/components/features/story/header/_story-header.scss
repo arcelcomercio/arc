@@ -1,6 +1,10 @@
 .story-header {
   &__news-title {
     clear: both;
+
+    @media print {
+      font-size: 35px;
+    }
   }
 
   &__news-summary {
