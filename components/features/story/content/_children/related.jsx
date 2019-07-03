@@ -10,7 +10,7 @@ const classes = {
     'related-content__item pt-15 pb-15 border-t-1 border-solid border-base md:justify-between md:flex',
   info: 'related-content__information mb-20 md:mb-0',
   itemTitle: 'related-content__item-title mb-10 text-md line-h-md',
-  itemTitleLink: 'related-content__link',
+  itemTitleLink: 'related-content__link font-bold',
   multimedia: 'related-content__multimedia position-relative',
   link: 'block w-full h-full',
   image: 'w-full h-full',
