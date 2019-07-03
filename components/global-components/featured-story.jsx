@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
-import { getMultimediaIcon } from '../utilities/helpers'
+import Icon from './multimedia-icon'
 
 const LIVE_TEXT = 'En vivo'
 
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
   detail: `featured-story__detail flex flex-col justify-between position relative md:p-20`,
-  icon: `featured-story__icon position-absolute rounded flex items-center justify-center w-full h-full text-gray-100`,
 
   category: 'featured-story__category pb-15 hidden md:inline-block',
   categoryLink: 'featured-story__category-link text-md capitalize',
@@ -36,6 +35,7 @@ const classes = {
   headbandLink: 'featured-story__headband-link font-bold text-white',
 
   live: 'featured-story--live',
+  icon: `featured-story__icon`,
 }
 
 export default class FeaturedStory extends PureComponent {
@@ -55,8 +55,6 @@ export default class FeaturedStory extends PureComponent {
       multimediaType,
       arcSite,
     } = this.props
-
-    const multimediaIcon = getMultimediaIcon(multimediaType)
 
     const noExpandedClass = !hightlightOnMobile
       ? 'featured-story--no-expanded'
@@ -144,9 +142,7 @@ export default class FeaturedStory extends PureComponent {
         <a className={classes.imageLink} href={title.url}>
           <figure className={classes.imageBox}>
             <img src={image} className={classes.image} alt="" />
-            {multimediaIcon && (
-              <i className={`${multimediaIcon} ${classes.icon}`} />
-            )}
+            <Icon type={multimediaType} iconClass={classes.icon} />
           </figure>
         </a>
       </article>
