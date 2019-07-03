@@ -256,10 +256,14 @@ class NavBarDefault extends PureComponent {
             </div>
           </div>
           <div
-            className={`${classes.btnContainer} ${classes.navContainerMobile} ${responsiveClass}`}>
+            className={`${classes.btnContainer} ${
+              classes.navMobileContainer
+            } ${responsiveClass}`}>
             <Button
               iconClass={classes.iconLogin}
-              btnClass={`${classes.btnLogin} border-1 border-solid border-white`}
+              btnClass={`${
+                classes.btnLogin
+              } border-1 border-solid border-white`}
               btnLink="#"
             />
           </div>
