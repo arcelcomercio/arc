@@ -334,7 +334,11 @@ export const breadcrumbList = (url, siteUrl) => {
 }
 
 export const getUrlParameter = contentElements => {
-  const { location: { href: loc } = {} } = window || {}
+  const {
+    location: {
+      href: loc
+    } = {}
+  } = window || {}
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
 
@@ -507,4 +511,10 @@ export const getResponsiveClasses = ({
   if (!showInTablet) responsiveClasses.push('non-tablet')
   if (!showInMobile) responsiveClasses.push('non-mobile')
   return responsiveClasses.join(' ')
+}
+
+export const preventDefault = e => {
+  const event = e || window.event
+  if (event.preventDefault) event.preventDefault()
+  event.returnValue = false
 }

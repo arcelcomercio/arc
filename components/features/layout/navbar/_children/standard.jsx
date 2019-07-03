@@ -94,6 +94,15 @@ class NavBarDefault extends PureComponent {
   //   else window.removeEventListener('scroll', this._handleScroll)
   // }
 
+  toggleBodyOverflow = () => {
+    if (typeof window !== 'undefined') {
+      if (document.body.classList.contains('overflow-hidden'))
+        document.body.classList.remove('overflow-hidden')
+      else if (window.innerWidth < 640)
+        document.body.classList.add('overflow-hidden')
+    }
+  }
+
   _handleScroll = () => {
     const { scrolled } = this.state
     // ------ Logic to set state to hidden or show logo in navbar
@@ -121,6 +130,7 @@ class NavBarDefault extends PureComponent {
   // Open - Close Search
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
+    this.toggleBodyOverflow()
     this.setState({
       statusSidebar: !statusSidebar,
     })
@@ -246,14 +256,10 @@ class NavBarDefault extends PureComponent {
             </div>
           </div>
           <div
-            className={`${classes.btnContainer} ${
-              classes.navMobileContainer
-            } ${responsiveClass}`}>
+            className={`${classes.btnContainer} ${classes.navContainerMobile} ${responsiveClass}`}>
             <Button
               iconClass={classes.iconLogin}
-              btnClass={`${
-                classes.btnLogin
-              } border-1 border-solid border-white`}
+              btnClass={`${classes.btnLogin} border-1 border-solid border-white`}
               btnLink="#"
             />
           </div>
