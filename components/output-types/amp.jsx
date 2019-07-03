@@ -26,6 +26,7 @@ const AmpOutputType = ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    socialName: siteProperties.social.facebook,
     siteAssets: siteProperties.assets,
     metaValue,
     isAmp: true,

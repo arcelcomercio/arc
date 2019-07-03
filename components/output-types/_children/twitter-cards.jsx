@@ -14,7 +14,10 @@ export default ({
   return (
     <>
       {/* <!-- Twitter Cards --> */}
-      <meta name="twitter:card" content="summary" />
+      <meta
+        name="twitter:card"
+        content={story ? 'summary_large_image' : 'summary'}
+      />
       <meta name="twitter:site" content={twitterUser} />
       <meta name="twitter:title" content={title} />
       <meta
