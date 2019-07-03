@@ -2,6 +2,7 @@ const storySchemaBase = `
     _id: String
     canonical_url: String
     type: String!
+    content: String
     subtype: String!
     version: String!
     description: Description
