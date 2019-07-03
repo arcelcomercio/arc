@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import ENV from 'fusion:environment'
 import ArcArticleBody from '@arc-core-components/feature_article-body'
 import PropTypes from 'prop-types'
-import ENV from 'fusion:environment'
 
 import StoryTable from '../../../global-components/story-table'
 
@@ -15,66 +15,64 @@ const infoPages = {
   cookiesPolicy: 'Políticas de cookies',
   aboutUs: 'Quienes Somos',
 }
-const defaultPolicy = 'termsAndConditions'
+const DEFAULT_POLICY = 'termsAndConditions'
+const CONTENT_SOURCE = 'story-by-id'
 
 const classes = {
-  staticPolicy: 'info-pages bg-gray-100 secondary-font text-sm line-h-md',
-  title: 'info-pages__title font-bold uppercase mb-25 title-md',
+  staticPolicy:
+    'info-pages bg-gray-100 secondary-font text-md line-h-lg p-20 lg:p-40',
+  title: 'info-pages__title font-bold uppercase mb-25 title-md line-h-sm',
 }
 
 @Consumer
 class InfoPages extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      contentElements: [],
-      headlines: '',
-    }
+
+    this.fetchContent({
+      data: {
+        source: CONTENT_SOURCE,
+        query: { ...this.getPolicyId() },
+        // Agregar schema aquí perjudica más de lo que ayuda
+        transform: ({
+          content_elements: contentElements = [],
+          headlines = {},
+        } = {}) => {
+          const filteredData = {
+            contentElements,
+            headlines: headlines.basic,
+          }
+          return { ...filteredData }
+        },
+      },
+    })
   }
 
-  componentDidMount() {
-    this.getPolicyContent()
-  }
-
-  getPolicyContent() {
+  getPolicyId() {
     const {
-      arcSite,
       siteProperties: { infoPagesDev = {}, infoPagesProd = {} } = {},
       customFields: { typeOfPolicy } = {},
-    } = this.props || {}
-
+    } = this.props
     const infoPagesEnv =
       ENV.ENVIRONMENT === 'elcomercio' ? infoPagesProd : infoPagesDev
     const infoPageId = typeOfPolicy
       ? infoPagesEnv[typeOfPolicy]
-      : infoPagesEnv[defaultPolicy]
-
-    const contentSource = 'story-by-id'
+      : infoPagesEnv[DEFAULT_POLICY]
     const params = {
       _id: infoPageId,
       published: 1,
     }
 
-    const { fetched } = this.getContent(contentSource, params)
-    fetched
-      .then(res => {
-        this.setState({
-          contentElements: res.content_elements,
-          headlines: res.headlines.basic,
-        })
-      })
-      .catch(e => {
-        const errorMessage = `No existe el contenido "${
-          typeOfPolicy ? infoPages[typeOfPolicy] : infoPages[defaultPolicy]
-        }" para "${arcSite}"`
-        this.setState({ headlines: errorMessage })
-        // eslint-disable-next-line no-console
-        console.error(e)
-      })
+    return params
   }
 
   render() {
-    const { contentElements, headlines } = this.state
+    const {
+      data: {
+        contentElements = [],
+        headlines = 'No existe contenido para la página seleccionada.',
+      } = {},
+    } = this.state
     return (
       <div className={classes.staticPolicy}>
         <h1 className={classes.title}>{headlines}</h1>
@@ -98,19 +96,14 @@ InfoPages.propTypes = {
     typeOfPolicy: PropTypes.oneOf(Object.keys(infoPages)).tag({
       name: 'Página',
       labels: infoPages,
-      defaultValue: defaultPolicy,
+      defaultValue: DEFAULT_POLICY,
       description:
         'Este campo usa notas no publicadas de elipsis declaradas en el "site properties"',
     }),
-    /* storyId: PropTypes.string.tag({
-      name: 'ID de historia no publicada',
-      group: 'Editar fuente de contenido',
-      description:
-        'En este campo se debe colocar el ID de una historia no publicada de elpsis',
-    }), */
   }),
 }
 
 InfoPages.label = 'Páginas estáticas'
+InfoPages.static = true
 
 export default InfoPages

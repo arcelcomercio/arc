@@ -47,7 +47,6 @@ class NavBarDefault extends PureComponent {
   }
 
   componentDidMount() {
-    // ------ Sets scroll eventListener if device is desktop
     window.addEventListener('scroll', this._handleScroll)
   }
 
@@ -106,20 +105,33 @@ class NavBarDefault extends PureComponent {
   //   else window.removeEventListener('scroll', this._handleScroll)
   // }
 
+  toggleBodyOverflow = () => {
+    if (typeof window !== 'undefined') {
+      if (document.body.classList.contains('overflow-hidden'))
+        document.body.classList.remove('overflow-hidden')
+      else if (window.innerWidth < 640)
+        document.body.classList.add('overflow-hidden')
+    }
+  }
+
   _handleScroll = () => {
     const { scrolled } = this.state
     // ------ Logic to set state to hidden or show logo in navbar
-    const { scrollTop } = document.documentElement
+    const { body = {}, documentElement = {} } = document
+    const { scrollTop: scrollBody = 0 } = body
+    const { scrollTop: scrollElement = 0 } = documentElement
+    const scroll = scrollBody || scrollElement
+
     const header = Array.from(document.getElementsByTagName('header'))
     const headerTop = (header[0] && header[0].offsetTop) || 100
     // setTimeout(() => {
     //   console.log(header[0].offsetTop)
     // }, 2000)
-    if (!scrolled && scrollTop > headerTop) {
+    if (!scrolled && scroll > headerTop) {
       this.setState({
         scrolled: true,
       })
-    } else if (scrolled && scrollTop <= headerTop) {
+    } else if (scrolled && scroll <= headerTop) {
       this.setState({
         scrolled: false,
       })
@@ -129,6 +141,7 @@ class NavBarDefault extends PureComponent {
   // Open - Close Search
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
+    this.toggleBodyOverflow()
     this.setState({
       statusSidebar: !statusSidebar,
     })
