@@ -54,7 +54,7 @@ export default ({
       )}
 
       <meta property="og:url" content={`${siteUrl}${requestUri}`} />
-      <meta property="og:type" content={story ? 'story' : 'website'} />
+      <meta property="og:type" content={story ? 'article' : 'website'} />
     </>
   )
 }
