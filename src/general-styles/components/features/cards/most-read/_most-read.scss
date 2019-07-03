@@ -9,6 +9,10 @@ $backgroundTitle: #5f72a7;
     padding: 0;
   }
 
+  @media print {
+    display: none;
+  }
+
   &__icon::before {
     background-color: $color-primary;
     color: $color-white;
