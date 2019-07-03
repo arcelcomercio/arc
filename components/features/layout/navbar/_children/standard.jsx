@@ -46,7 +46,6 @@ class NavBarDefault extends PureComponent {
   }
 
   componentDidMount() {
-    // ------ Sets scroll eventListener if device is desktop
     window.addEventListener('scroll', this._handleScroll)
   }
 
@@ -107,17 +106,21 @@ class NavBarDefault extends PureComponent {
   _handleScroll = () => {
     const { scrolled } = this.state
     // ------ Logic to set state to hidden or show logo in navbar
-    const { scrollTop } = document.documentElement
+    const { body = {}, documentElement = {} } = document
+    const { scrollTop: scrollBody = 0 } = body
+    const { scrollTop: scrollElement = 0 } = documentElement
+    const scroll = scrollBody || scrollElement
+
     const header = Array.from(document.getElementsByTagName('header'))
     const headerTop = (header[0] && header[0].offsetTop) || 100
     // setTimeout(() => {
     //   console.log(header[0].offsetTop)
     // }, 2000)
-    if (!scrolled && scrollTop > headerTop) {
+    if (!scrolled && scroll > headerTop) {
       this.setState({
         scrolled: true,
       })
-    } else if (scrolled && scrollTop <= headerTop) {
+    } else if (scrolled && scroll <= headerTop) {
       this.setState({
         scrolled: false,
       })
