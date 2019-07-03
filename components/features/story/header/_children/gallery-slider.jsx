@@ -38,7 +38,11 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     this.step = getUrlParameter()
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    document.addEventListener('keydown', event => {
+      this._controlKeysSlider(event)
+    })
+  }
 
   setDefault(size) {
     const { deployment, contextPath, arcSite } = this.props
@@ -140,6 +144,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     <i
                       role="button"
                       tabIndex="0"
+                      id="icon-right"
                       className={classes.rightArrow}
                       onClick={this._handleNextSlider}
                       onKeyDown={this._controlKeysSlider}

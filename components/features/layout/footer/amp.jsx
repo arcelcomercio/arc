@@ -24,7 +24,7 @@ class LayoutAmpFooter extends PureComponent {
     const {
       contextPath,
       arcSite,
-      siteUrl,
+      siteProperties: { siteUrl },
       globalContent: data = {},
     } = this.props
 
@@ -43,7 +43,7 @@ class LayoutAmpFooter extends PureComponent {
           `{  
               "image":"${urlImage}",
               "title":"${basic}",
-              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp&_website=${arcSite}"
+              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp"
             }`
         )
       }

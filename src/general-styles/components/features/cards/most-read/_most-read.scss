@@ -1,13 +1,5 @@
-$backgroundTitle: #5f72a7;
-
 .most-read {
-  &__title {
-    background-color: $backgroundTitle;
-  }
-
-  @media (--desktop) {
-    padding: 0;
-  }
+  // &__title {}
 
   @media print {
     display: none;
