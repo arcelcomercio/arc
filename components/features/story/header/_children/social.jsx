@@ -71,7 +71,7 @@ class StoryHeaderChildSocial extends PureComponent {
         },
         {
           icon: classes.iconWhatsapp,
-          link: urlsShareList.pin,
+          link: urlsShareList.whatsapp,
           mobileClass: `block md:hidden ${classes.mobileClass}`,
         },
       ],
