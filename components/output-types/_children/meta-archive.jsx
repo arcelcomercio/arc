@@ -11,7 +11,7 @@ export default props => {
           /\/[0-9]{4}-[0-9]{2}-[0-9]{2}?(?=$|\/|\?)/,
           `/${newDateFormatted}`
         )}`
-      : `${siteUrl}${requestUri}/${newDateFormatted}`
+      : `${siteUrl}${requestUri}${newDateFormatted}`
   }
 
   const calcDate = (option, date) => {

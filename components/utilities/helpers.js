@@ -171,7 +171,7 @@ export const metaPaginationUrl = (
         `${isQuery ? '&page=' : '/'}${pageNumber}`
       )}`
     : `${siteUrl}${
-        isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
+        isQuery ? requestUri : `${requestUri.split('?')[0]}${pageNumber}`
       }${
         isQuery
           ? `&page=${pageNumber}`
