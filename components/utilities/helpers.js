@@ -518,3 +518,7 @@ export const formatDateStory = date => {
   const horaAm = parseInt(String, tiempo) < 12 ? 'AM' : 'PM'
   return `${fecha} / ${hora} ${horaAm}`
 }
+
+export const replaceHtmlMigracion = html => {
+  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
+}

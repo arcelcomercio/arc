@@ -11,6 +11,7 @@ import {
   createLink,
   createScript,
   replaceTags,
+  replaceHtmlMigracion,
 } from '../../../utilities/helpers'
 
 import StoryContentChildVideo from './_children/video'
@@ -173,7 +174,12 @@ class StoryContent extends PureComponent {
                       js: ConfigParams.OPTA_JS_LINK,
                       defer: true,
                     })
-                  return <RawHtml content={content} rawHtmlClasses="" />
+                  return (
+                    <RawHtml
+                      content={replaceHtmlMigracion(content)}
+                      rawHtmlClasses=""
+                    />
+                  )
                 }
                 return ''
               }}
