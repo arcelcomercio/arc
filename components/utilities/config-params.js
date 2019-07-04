@@ -26,6 +26,8 @@ class ConfigParams {
 
   static ELEMENT_RAW_HTML = 'raw_html'
 
+  static ELEMENT_TEXT = 'text'
+
   static ELEMENT_BLOCKQUOTE = 'blockquote'
 
   static ELEMENT_TYPE_CHARBEAT = 'Articulo Nota Simple'
