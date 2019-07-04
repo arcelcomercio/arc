@@ -8,13 +8,13 @@ import SeparatorList from './_children/separator'
 import { getStoriesQty, sizeDevice } from '../_dependencies/functions'
 import StoryData from '../../../utilities/story-data'
 
+const STORIES_QTY_DEFAULT = 4
 @withSizes(({ width }) => sizeDevice(width))
 @Consumer
 class SeparatorBasic extends PureComponent {
   constructor(props) {
     super(props)
-    const { isMobile, isTablet } = props
-    this.fetchDataApi(getStoriesQty(isMobile, isTablet, 4, 4, 1))
+    this.fetchDataApi(STORIES_QTY_DEFAULT)
   }
 
   fetchDataApi = storiesQty => {

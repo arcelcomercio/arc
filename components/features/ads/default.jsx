@@ -12,7 +12,7 @@ class Ads extends PureComponent {
   render() {
     const {
       isAdmin,
-      outputType: isAmp,
+      outputType,
       customFields: {
         adElement,
         isDesktop,
@@ -45,7 +45,7 @@ class Ads extends PureComponent {
 
     return (
       <>
-        {isAmp !== 'amp' && (
+        {outputType !== 'amp' && (
           <div
             className={`${
               classes.adsBox

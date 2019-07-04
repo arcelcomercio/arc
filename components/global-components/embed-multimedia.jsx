@@ -68,15 +68,13 @@ const EmbedMultimedia = props => {
     )
 
   const getMultimedia = type => {
-    let fx = () => ''
     if (type === GOLDFISH || type === ConfigParams.VIDEO) {
-      fx = videoGoldfish
-    } else if (type === YOUTUBE) {
-      fx = videoYoutube
-    } else {
-      fx = image
+      return videoGoldfish
     }
-    return fx
+    if (type === YOUTUBE) {
+      return videoYoutube
+    }
+    return image
   }
 
   const { type, source, deployment, contextPath, website, title = '' } = props

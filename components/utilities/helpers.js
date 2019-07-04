@@ -171,8 +171,12 @@ export const metaPaginationUrl = (
         `${isQuery ? '&page=' : '/'}${pageNumber}`
       )}`
     : `${siteUrl}${
-        isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
-      }${isQuery ? `&page=${pageNumber}` : `?${requestUri.split('?')[1]}`}`
+        isQuery ? requestUri : `${requestUri.split('?')[0]}${pageNumber}`
+      }${
+        isQuery
+          ? `&page=${pageNumber}`
+          : `${requestUri.split('?')[1] ? requestUri.split('?')[1] : ''}`
+      }`
 }
 
 export const getMetaPagesPagination = (
@@ -504,4 +508,17 @@ export const preventDefault = e => {
 
 export const replaceTags = text => {
   return text.replace(/<p><br \/>(\s\w)=.(.*?)<\/p>/, '$2')
+}
+
+export const formatDateStory = date => {
+  const fecha = date.slice(0, 10).replace(/-/g, '.')
+  const hora = date.slice(date.indexOf('T') + 1, 16)
+  const tiempo = date.slice(date.indexOf('T') + 1, 13)
+
+  const horaAm = parseInt(String, tiempo) < 12 ? 'am' : 'pm'
+  return `${fecha} / ${hora} ${horaAm}`
+}
+
+export const replaceHtmlMigracion = html => {
+  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }

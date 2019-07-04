@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 import {
   reduceWord,
   defaultImage,
@@ -20,7 +21,9 @@ import {
   createScript,
 } from '@utilities/helpers'
 
-import { addResizedUrlItem } from '@utilities/thumbs'
+import {
+  addResizedUrlItem
+} from '@utilities/thumbs'
 
 jest.mock('../utilities/thumbs', () => ({
   addResizedUrlItem: jest.fn(),
@@ -138,12 +141,11 @@ describe('Funcion getActualDate', () => {
     const today = new Date()
     let dia = today.getDate()
     let mes = today.getMonth() + 1
-    const año = today.getFullYear()
 
     if (dia < 10) dia = `0${dia}`
     if (mes < 10) mes = `0${mes}`
 
-    const expression = eval(`/${dia}/`) //converte un string a una expresion
+    const expression = eval(`/${dia}/`) // converte un string a una expresion
 
     expect(getActualDate()).toMatch(expression)
   })
@@ -191,7 +193,9 @@ describe('Funcion isEmpty', () => {
     expect(isEmpty(false)).not.toBeTruthy()
   })
   it('debe retornar falso si el parametro es un objeto con atributs', () => {
-    expect(isEmpty({ test: 'prueba' })).toBeFalsy()
+    expect(isEmpty({
+      test: 'prueba'
+    })).toBeFalsy()
   })
 
   it('debe retornar true si el parametro es un objeto vacío', () => {
@@ -239,7 +243,9 @@ describe('Funcion ResizeImageUrl', () => {
     const resolution = '400x400'
 
     addResizedUrlItem.mockImplementation(() => ({
-      resized_urls: { '16:9': 'SDASD' },
+      resized_urls: {
+        '16:9': 'SDASD'
+      },
     }))
 
     expect(ResizeImageUrl(arcSite, imgUrl, ratio, resolution)).toBe('SDASD')
@@ -482,7 +488,10 @@ describe('Función getMetaPagesPagination - Helpers', () => {
   test('Debe contener los atributos "current, next, prev"', () => {
     const requestUri = '/post/alan/'
     const isQuery = true
-    const globalContent = { next: '', previous: '' }
+    const globalContent = {
+      next: '',
+      previous: ''
+    }
     const patternPagination = ''
     const expected = ['current', 'next', 'prev']
     expect(
@@ -554,7 +563,11 @@ describe('Función createScript - Helpers', () => {
   test('Debe llamar a "createElement"', () => {
     global.document.createElement = jest.fn()
     global.document.createElement.mockReturnValueOnce({})
-    createScript({ src: true, async: true, defer: true })
+    createScript({
+      src: true,
+      async: true,
+      defer: true
+    })
     expect(document.createElement).toHaveBeenCalled()
   })
 })

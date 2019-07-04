@@ -6,6 +6,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
       &__back {
         position: absolute;
         display: flex;
@@ -15,25 +16,38 @@
         cursor: pointer;
         font-family: $primary-font;
       }
+
       &__text {
         margin-left: 20px;
         color: $signwall-header-text-color;
         display: none;
         text-decoration: underline;
         font-size: 14px;
+
         @media (--desktop) {
           display: inline-block;
         }
       }
+
       &__close {
         position: absolute;
         right: 20px;
         top: 16px;
       }
+
       &__img {
         max-width: 200px;
         height: 40px;
         object-fit: contain;
+      }
+
+      &.logo-header-large {
+        width: 159px;
+        height: 24px;
+      }
+
+      .logo-header {
+        width: 170px;
       }
     }
 
@@ -42,15 +56,6 @@
         .logo-header {
           width: 170px;
         }
-      }
-    }
-    .modal-header .logo-header-large {
-      width: 159px;
-      height: 24px;
-    }
-    .modal-header {
-      .logo-header {
-        width: 170px;
       }
     }
   }

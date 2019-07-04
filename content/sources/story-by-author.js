@@ -1,9 +1,8 @@
 const schemaName = 'story'
 
-const params = [
-  {
+const params = [{
     name: 'name',
-    displayName: 'Slug del autor',
+    displayName: 'ID del autor',
     type: 'text',
   },
   {
@@ -15,7 +14,10 @@ const params = [
 
 const pattern = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const { name, feedOffset } = key
+  const {
+    name,
+    feedOffset
+  } = key
 
   const slugSearch = name ? `AND+credits.by.url:"/autor/${name}"+` : ''
 
