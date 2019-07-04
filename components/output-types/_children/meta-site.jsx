@@ -2,6 +2,8 @@ import React from 'react'
 
 export default ({
   deployment,
+  isStory,
+  isAmp,
   siteName = '',
   siteUrl = '',
   colorPrimary = '',
@@ -11,8 +13,6 @@ export default ({
   requestUri = '',
   arcSite = '',
   contextPath = '',
-  isStory,
-  isAmp,
 } = {}) => {
   const structuredData = `{
     "@context" : "http://schema.org",

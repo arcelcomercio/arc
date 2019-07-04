@@ -509,3 +509,16 @@ export const preventDefault = e => {
 export const replaceTags = text => {
   return text.replace(/<p><br \/>(\s\w)=.(.*?)<\/p>/, '$2')
 }
+
+export const formatDateStory = date => {
+  const fecha = date.slice(0, 10).replace(/-/g, '.')
+  const hora = date.slice(date.indexOf('T') + 1, 16)
+  const tiempo = date.slice(date.indexOf('T') + 1, 13)
+
+  const horaAm = parseInt(String, tiempo) < 12 ? 'AM' : 'PM'
+  return `${fecha} / ${hora} ${horaAm}`
+}
+
+export const replaceHtmlMigracion = html => {
+  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
+}

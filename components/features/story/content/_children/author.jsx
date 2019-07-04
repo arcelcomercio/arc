@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDate } from '../../../../utilities/helpers'
+import { formatDateStory } from '../../../../utilities/helpers'
 
 const classes = {
   author: 'story-content__author flex justify-between pt-30 mb-20',
@@ -11,12 +11,12 @@ const classes = {
 }
 
 const StoryContentChildAuthor = props => {
-  const { date, data: { by } = {} } = props
+  const { date, by = [] } = props
   const [
     {
       name,
       url,
-      additional_properties: { original: { email = '' } = {} } = {},
+      additional_properties: { original: { email } = {} } = {},
     } = {},
   ] = by || []
   return (
@@ -24,13 +24,14 @@ const StoryContentChildAuthor = props => {
       <div className={classes.authorName}>
         {name && (
           <a href={url} className={classes.authorNameLink}>
-            {name}{' '}
+            {name}
           </a>
         )}
-        {email && <p className={classes.authorEmail}> {email} </p>}
+        {/* TODO: se Retira por cambio de diseño, pendiente de definicion en los demas sitios */}
+        {/* email && true && <p className={classes.authorEmail}> {email} </p> */}
       </div>
       <div className={classes.authorDate}>
-        <time dateTime={date}>Actualizado {date && formatDate(date)}</time>
+        <time dateTime={date}> {date && formatDateStory(date)}</time>
       </div>
     </div>
   )
