@@ -2,7 +2,7 @@
 
 #### La intención de este documento es dar a conocer las bases del sistema de grillas propio que estamos implementando para la construcción de los sitios web con ARC.
 
-La grilla de contenido principal está compuesta de tres columnas. En total esta grilla debe tener un ancho máximo de 1024px y un ancho mínimo de 940px (900px + 20px por cada márgen entre elementos), por otra parte, el alto de esta grilla y de sus filas son dinámicos, por tanto, se creará una nueva fila del mismo alto del elemento que se agregue, cada vez que se agregue un elemento (Si este elemento no cabe en la fila previa).
+La grilla de contenido principal está compuesta de tres columnas. En total esta grilla debe tener un ancho máximo de 1024px y un ancho mínimo de 980px (900px + 20px por cada márgen entre elementos), por otra parte, el alto de esta grilla y de sus filas son dinámicos, por tanto, se creará una nueva fila del mismo alto del elemento que se agregue, cada vez que se agregue un elemento (Si este elemento no cabe en la fila previa).
 
 ---
 

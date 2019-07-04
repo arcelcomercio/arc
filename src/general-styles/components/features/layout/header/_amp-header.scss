@@ -3,8 +3,9 @@
 
   &__wrap {
     height: 50px;
+
     @media (--desktop) {
-      max-width: 940px;
+      max-width: 980px;
     }
   }
 
