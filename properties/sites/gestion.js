@@ -33,12 +33,10 @@ export default {
 
   assets: {
     path: `/resources/dist/gestion/`,
-    logos: {
-      paywall() {
-        return `${this.assets.path}${this.assets.logos.logo}`
-      },
-      logo: `images/logo.png`,
+    paywall() {
+      return `${this.path}${this.logo}`
     },
+    logo: `images/logo.svg`,
   },
 
   footer: {

@@ -10,8 +10,6 @@ class Head extends React.PureComponent {
 
     const { assets } = getProperties(arcSite)
 
-    console.log(assets.logos.paywall())
-
     return (
       <div className="__wrapHead">
         <div className="__backHead">
@@ -20,7 +18,7 @@ class Head extends React.PureComponent {
         </div>
         <div className="__head">
           <img
-            src={`${contextPath}${assets.logo.paywall()}`}
+            src={`${contextPath}${assets.paywall()}`}
             alt="Logo el comercio"
           />
           <div className="__wrapLogin">

@@ -1,25 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import MetaSite from './_children/meta-site'
+import * as Meta from './_children/meta'
+import './paywall.css'
 
 const Paywall = props => {
   const {
     metaValue,
-    deployment,
     contextPath,
     children,
     arcSite,
     siteProperties,
-    requestUri,
-  } = props
-  const metaSiteData = {
-    ...siteProperties,
-    requestUri,
-    arcSite,
-    contextPath,
     deployment,
-    isAmp: false,
-  }
+  } = props
+  const { colorPrimary, siteName, assets } = siteProperties
 
   return (
     <html lang="es" className={arcSite}>
@@ -34,15 +27,21 @@ const Paywall = props => {
         <props.MetaTags />
         <props.Libs />
         <props.CssLinks />
+        <Meta.Theme {...colorPrimary} {...siteName} />
+        <Meta.Icon {...contextPath} assets={assets} />
         <link
-          rel="icon"
-          type="image/x-icon"
-          href={deployment(`${contextPath}/resources/img/favicon.ico`)}
+          rel="stylesheet"
+          href={deployment(
+            `${contextPath}/resources/dist/${arcSite}/css/paywall.css`
+          )}
+        />
+        <link
+          href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap"
+          rel="stylesheet"
         />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <MetaSite {...metaSiteData} />
       </head>
       <body>
         <div id="fusion-app" role="application" className="layout-paywall">

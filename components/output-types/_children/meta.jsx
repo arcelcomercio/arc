@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export function Icon({ contextPath, assets }) {
+function Icon({ contextPath, assets }) {
   const { path } = assets
   return (
     <>
@@ -46,7 +47,7 @@ export function Icon({ contextPath, assets }) {
   )
 }
 
-export function Theme({ colorPrimary, siteName }) {
+function Theme({ colorPrimary, siteName }) {
   return (
     <>
       <meta name="theme-color" content={colorPrimary} />
@@ -56,3 +57,10 @@ export function Theme({ colorPrimary, siteName }) {
     </>
   )
 }
+
+Theme.PropType = {
+  colorPrimary: PropTypes.string,
+  siteName: PropTypes.oneOf(['gestion', 'elcomercio']),
+}
+
+export { Theme, Icon }

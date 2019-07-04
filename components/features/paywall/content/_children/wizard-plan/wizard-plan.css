@@ -1,0 +1,23 @@
+.wizard-plan{
+    display: flex;
+    justify-content: center;
+}
+
+.wizard-plan__wrap{
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    max-width: 930px;
+    height: 360px;
+}
+
+.wizard-plan__wrap-plan{
+    display: flex;
+    flex-direction: column;
+}
+
+.wizard-plan__plans{
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
