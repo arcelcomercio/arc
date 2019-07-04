@@ -90,23 +90,13 @@ class InternalSurveyChildSurvey extends PureComponent {
       flagDisable,
       optionsList,
     } = this.state
-    const {
-      title,
-      date,
-      choices,
-      prev,
-      next,
-      contextPath,
-      arcSite,
-      sharelinks,
-    } = this.props
+    const { title, date, choices, prev, next, sharelinks } = this.props
 
-    const WEBSITE = `?_website=${arcSite}`
     let urlNext = ''
     let urlPrev = ''
 
-    if (next) urlNext = `${contextPath}/encuesta/${next}${WEBSITE}`
-    if (prev) urlPrev = `${contextPath}/encuesta/${prev}${WEBSITE}`
+    if (next) urlNext = `/encuesta/${next}`
+    if (prev) urlPrev = `/encuesta/${prev}`
 
     return (
       <div className={classes.InternalSurvey}>

@@ -4,13 +4,13 @@ import React, { PureComponent } from 'react'
 import StoryData from '../../../utilities/story-data'
 
 const classes = {
-  footer: 'amp-footer footer flex items-center pt-25 pb-25',
+  footer: 'amp-footer footer flex items-center pt-25 pb-25 mx-auto w-full',
   footerInfo: 'amp-footer__info m-0 mx-auto',
   footerLogoContainer:
-    'amp-footer__text font-bold uppercase inline-block primary-font pr-25 text-xl line-h-xs',
-  nextPageSeparator: 'amp-footer__next-page-separator mx-auto',
+    'amp-footer__text font-bold uppercase secondary-font pr-25 text-xl line-h-xs',
+  nextPageSeparator: 'amp-footer__next-page-separator mx-auto w-full',
   nextPageSeparatorText:
-    'amp-footer__next-page-separator-text text-center text-xs text-gray-200',
+    'amp-footer__next-page-separator-text text-center text-xs text-gray-200 secondary-font',
 }
 
 @Consumer
@@ -24,7 +24,7 @@ class LayoutAmpFooter extends PureComponent {
     const {
       contextPath,
       arcSite,
-      siteUrl,
+      siteProperties: { siteUrl },
       globalContent: data = {},
     } = this.props
 
@@ -43,7 +43,7 @@ class LayoutAmpFooter extends PureComponent {
           `{  
               "image":"${urlImage}",
               "title":"${basic}",
-              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp&_website=elcomercio"
+              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp"
             }`
         )
       }
@@ -54,25 +54,27 @@ class LayoutAmpFooter extends PureComponent {
       "hideSelectors": [
         ".amp-header",
         ".amp-nav__wrapper",
+        ".amp-nav",
         ".footer"
         ]
       }`
 
     return (
       <>
+        <div className={classes.nextPageSeparator} separator>
+          <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
+        </div>
         <amp-next-page>
           <script
             type="application/json"
             dangerouslySetInnerHTML={{ __html: structuredRecent }}
           />
-          <div className={classes.nextPageSeparator} separator>
-            <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
-          </div>
         </amp-next-page>
+
         <footer className={classes.footer}>
           <div className={classes.footerInfo}>
             <a
-              href={`${contextPath || ''}${primarySectionLink}`}
+              href={primarySectionLink}
               className={classes.footerLogoContainer}>
               <span>Ver más de {primarySection}</span>
             </a>

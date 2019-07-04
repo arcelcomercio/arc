@@ -23,6 +23,10 @@ const classes = {
   button: `cinema-card__button bg-white inline-block uppercase font-bold primary-font border-0 text-xs rounded-sm`,
 }
 
+const BASE_PATH = '/cartelera'
+const MOVIES_BASE_PATH = '/peliculas'
+const FORM_ACTION = `${BASE_PATH}/search`
+
 @Consumer
 class CardCinemaBillboard extends PureComponent {
   constructor(props) {
@@ -52,23 +56,26 @@ class CardCinemaBillboard extends PureComponent {
     const { arcSite, deployment, contextPath } = this.props
 
     fetched.then(response => {
-      const { peliculas, cines, estrenos } = response
+      const { peliculas, cines, estrenos = [] } = response
 
       const moviesList = Object.values(peliculas)
       const cinemasList = cines
 
-      const img = defaultImage({
-        deployment,
-        contextPath,
-        arcSite,
-        size: 'sm',
-      })
+      const { poster: { sizes: { poster = '' } = {} } = {}, name, url, body } =
+        estrenos[0] || {}
 
       const premiereData = {
-        title: estrenos[0].name,
-        img,
-        url: estrenos[0].url,
-        alt: estrenos[0].body,
+        title: name,
+        img:
+          poster ||
+          defaultImage({
+            deployment,
+            contextPath,
+            arcSite,
+            size: 'sm',
+          }),
+        url,
+        alt: body,
       }
 
       this.setState({
@@ -87,7 +94,6 @@ class CardCinemaBillboard extends PureComponent {
   }
 
   handleSubmit(event) {
-    const { contextPath, arcSite } = this.props
     const { movieSelected, cinemaSelected } = this.state
 
     const moviePath = movieSelected || 'peliculas'
@@ -96,7 +102,7 @@ class CardCinemaBillboard extends PureComponent {
     const fullPath =
       !movieSelected && !cinemaSelected ? '' : `${moviePath}/${cinemaPath}`
 
-    window.location.href = `${contextPath}/cartelera/${fullPath}?_website=${arcSite}`
+    window.location.href = `${BASE_PATH}/${fullPath}`
     event.preventDefault()
   }
 
@@ -105,43 +111,30 @@ class CardCinemaBillboard extends PureComponent {
       movieSelected,
       cinemaSelected,
       billboardData,
-      premiereData,
+      premiereData: { alt, img, title, url },
     } = this.state
-
-    const { contextPath, arcSite } = this.props
 
     return (
       <div className={classes.cinemaCard}>
         <article className={classes.container}>
           <span className={classes.gradient} />
           <h3 className={classes.category}>
-            <a
-              className={classes.link}
-              href={`${contextPath}/cartelera?_website=${arcSite}`}>
+            <a className={classes.link} href={BASE_PATH}>
               Cartelera
             </a>
           </h3>
           <figure className={classes.figure}>
-            <a
-              href={`${contextPath}/cartelera/peliculas/${
-                premiereData.url
-              }?_website=${arcSite}`}>
-              <img
-                src={premiereData.img}
-                alt={premiereData.alt}
-                className={classes.image}
-              />
+            <a href={`${BASE_PATH}${MOVIES_BASE_PATH}/${url}`}>
+              <img src={img} alt={alt} className={classes.image} />
             </a>
           </figure>
           <div className={classes.detail}>
-            <span className={classes.premiere}>Estreno</span>
+            <p className={classes.premiere}>Estreno</p>
             <h2 className={classes.movieTitle}>
               <a
                 className={classes.movieLink}
-                href={`${contextPath}/cartelera/peliculas/${
-                  premiereData.url
-                }?_website=${arcSite}`}>
-                Luchando con mi familia
+                href={`${BASE_PATH}${MOVIES_BASE_PATH}/${url}`}>
+                {title}
               </a>
             </h2>
           </div>
@@ -149,7 +142,7 @@ class CardCinemaBillboard extends PureComponent {
         <div className={classes.moviesList}>
           <h4 className={classes.title}>Vamos al cine</h4>
           <form
-            action="/cartelera/search"
+            action={FORM_ACTION}
             method="post"
             className={classes.form}
             onSubmit={e => this.handleSubmit(e)}>

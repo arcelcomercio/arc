@@ -1,30 +1,37 @@
 import React from 'react'
-import { formatDate } from '../../../../utilities/helpers'
+import { formatDateStory } from '../../../../utilities/helpers'
 
 const classes = {
-  author: 'flex justify-between pt-30 mb-20',
-  authorName: '',
-  authorDate: 'text-xs flex items-center ',
-  authorEmail: 'text-sm',
+  author: 'story-content__author flex justify-between pt-30 mb-20',
+  authorName: ' ',
+  authorNameLink: 'secondary-font text-sm text-gray-200 line-h-sm',
+  authorDate:
+    'flex items-center secondary-font text-sm text-gray-200 line-h-sm',
+  authorEmail: 'secondary-font text-sm text-gray-200 line-h-sm',
 }
 
 const StoryContentChildAuthor = props => {
-  const { date, data: { by } = {} } = props
+  const { date, by = [] } = props
   const [
     {
       name,
       url,
-      additional_properties: { original: { email = '' } = {} } = {},
+      additional_properties: { original: { email } = {} } = {},
     } = {},
   ] = by || []
   return (
     <div className={classes.author}>
       <div className={classes.authorName}>
-        {name && <a href={url}>{name} </a>}
-        {email && <p className={classes.authorEmail}> {email} </p>}
+        {name && (
+          <a href={url} className={classes.authorNameLink}>
+            {name}
+          </a>
+        )}
+        {/* TODO: se Retira por cambio de diseño, pendiente de definicion en los demas sitios */}
+        {/* email && true && <p className={classes.authorEmail}> {email} </p> */}
       </div>
       <div className={classes.authorDate}>
-        <time dateTime={date}>Actualizado {date && formatDate(date)}</time>
+        <time dateTime={date}> {date && formatDateStory(date)}</time>
       </div>
     </div>
   )

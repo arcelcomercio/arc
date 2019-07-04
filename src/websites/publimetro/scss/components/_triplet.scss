@@ -1,15 +1,13 @@
-.triplet{
-    background-color: $color-white;
-    border: 0;
-    &__item{
-        padding: 20px 0 10px;
-        border-bottom: 1px solid $color-base-100;
-    }
-    &__title {
-        color: $color-primary;
-    }
-    &__author{
-        color: $color-gray-200;
-        font-size: 11px;
-    }
+.triplet {
+  border-width: 0;
+  border-top-width: 1px;
+  border-top-color: $color-primary;
+
+  &__title-link {
+    color: $color-base-300;
+  }
+
+  &__link {
+    font-family: $font-regular;
+  }
 }

@@ -6,7 +6,7 @@
     color: $color-gray-300;
 
     @media (--desktop) {
-      background-color: $color-base-100;
+      background-color: $color-gray-100;
     }
 
     &:hover {
@@ -24,8 +24,10 @@
     &.active {
       .search-filter__link {
         color: $color-white;
-        background-color: $color-primary;
-        font-family: $primary-font;
+        @media (--desktop) {
+          background-color: $color-primary;
+          font-family: $primary-font;
+        }
       }
     }
 
@@ -33,8 +35,10 @@
       .search-filter__link {
         outline: 0;
         background-color: $color-tertiary;
-        color: $color-gray-300;
-        font-family: $primary-font;
+        @media (--desktop) {
+          color: $color-gray-300;
+          font-family: $primary-font;
+        }
       }
 
       &::before {
@@ -75,6 +79,5 @@
 
   &__sublink {
     font-family: $font-regular;
-    ;
   }
 }

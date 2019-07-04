@@ -1,0 +1,149 @@
+.signwall {
+  * {
+    .profile {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      background: white;
+
+      @media (--desktop) {
+        // height: calc(100vh - 100px);
+        flex-direction: row;
+      }
+
+      &__card {
+        border-radius: 4px;
+        box-shadow: 0 0 0.3rem #dadada;
+        background: #fff;
+      }
+
+      &__left {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        padding: 14px 25px 0;
+
+        @media (--tablet) {
+          flex-direction: column-reverse;
+          padding: 70px 34px 34px;
+          margin: 120px 10px 50px;
+        }
+
+        @media (--desktop) {
+          width: 25%;
+          justify-content: flex-end;
+          padding-top: 95px;
+          margin-left: 20px;
+        }
+      }
+
+      &__title {
+        font: 20px/0.8 $primary-font;
+        text-transform: capitalize;
+        line-height: 24px;
+        margin: 0 0 10px 0;
+      }
+
+      &__text {
+        font-family: $primary-font;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      &__menu {
+        margin-top: 30px;
+        display: flex;
+
+        @media (--tablet) {
+          flex-direction: column;
+          margin-top: 10px;
+        }
+      }
+
+      &__menu-item {
+        margin-right: 16px;
+
+        @media (--tablet) {
+          padding: 14px 0;
+          border-top: 1px solid #e8e8e8;
+        }
+      }
+
+      &__menu-link {
+        font-size: 12px;
+        display: block;
+        font-family: $primary-font;
+        color: $signwall-text-menu-color-secondary;
+
+        &:hover {
+          text-decoration: none;
+        }
+
+        &.active {
+          color: $signwall-text-menu-color-primary;
+          border-bottom: 5px solid $signwall-text-menu-color-primary;
+          font-weight: 700;
+          font-size: 14px;
+          cursor: pointer;
+          padding-bottom: 5px;
+
+          @media (--tablet) {
+            border-bottom: none;
+            border-left: 5px solid $signwall-text-menu-color-primary;
+            padding: 4px 0 4px 14px;
+          }
+        }
+      }
+
+      &__avatar {
+        border: 6px solid #d1e6f0;
+        border-radius: 50%;
+        width: 80px;
+        position: absolute;
+        right: 25px;
+
+        @media (--tablet) {
+          width: 150px;
+          left: 0;
+          right: 0;
+          top: -75px;
+          margin: 0 auto;
+          border: 10px solid #f4e0d2;
+        }
+
+        @media (--desktop) {
+          width: 55%;
+          max-width: 150px;
+        }
+
+        img {
+          width: 100%;
+          border-radius: 50%;
+        }
+      }
+
+      &__right {
+        width: 100%;
+        border-radius: 4px;
+        background: white;
+        // min-height: 300px;
+        font-family: Open Sans, sans-serif;
+        padding: 30px 25px 30px 25px;
+        margin: 40px 10px 10px 10px;
+        min-height: auto;
+        color: #333333;
+
+        @media (--desktop) {
+          width: 75%;
+        }
+
+        & hr {
+          border: 0px;
+          background: #d0d0d0;
+          height: 1px;
+          margin: 20px 0px;
+        }
+      }
+    }
+  }
+}

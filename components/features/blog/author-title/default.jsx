@@ -26,7 +26,7 @@ class BlogAuthorTitle extends PureComponent {
       firstName,
       guid,
       blogname,
-      path: `${contextPath}/blog/${path}`,
+      path: `/blog/${path}`,
     }
     return <AuthorTitle {...data} />
   }

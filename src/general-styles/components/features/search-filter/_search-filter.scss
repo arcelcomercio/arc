@@ -45,13 +45,11 @@
     &.selected {
       text-transform: uppercase;
 
-      @media (--desktop) {
-        .search-filter__link {
-          background-color: $color-primary;
-          font-weight: bold;
-          border: 0;
-          outline: 0;
-        }
+      .search-filter__link {
+        background-color: $color-primary;
+        font-weight: bold;
+        border: 0;
+        outline: 0;
       }
     }
 

@@ -1,6 +1,5 @@
 .separator {
   grid-template-columns: 1fr;
-  border: 1px solid $color-gray-100;
 
   &__title {
     display: -webkit-box;
@@ -9,11 +8,6 @@
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
     /* autoprefixer: on */
-    line-height: 0.6;
-
-    @media (--desktop) {
-      max-height: 55px;
-    }
   }
 
   &__header-title {
@@ -26,16 +20,16 @@
   }
 
   &__body {
-    display: grid;
     grid-template-columns: 1fr;
     gap: 3px;
 
     @media (--tablet) {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
+      height: 161px;
     }
 
     &--items {
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(6, 1fr);
       height: 169px;
     }
   }
@@ -53,6 +47,10 @@
           rgba(50, 50, 50, 0.7) 100%);
     }
 
+    @media (--tablet) {
+      height: 161px;
+    }
+
     &--nota {
       &::before {
         background: none;
@@ -64,30 +62,57 @@
     }
   }
 
+  &__icon {
+    font-size: 25px;
+    width: 23px;
+    height: 23px;
+    top: 15px;
+    right: 15px;
+    left: initial;
+  }
+
   &__detail {
     z-index: 2;
-    height: 65px;
-    padding-left: 12px;
-    padding-right: 12px;
+    height: 60px;
+
+    @media (--desktop) {
+      height: 70px;
+    }
 
     &--nota {
       bottom: 44px;
     }
   }
 
+  &__img {
+    max-height: 220px;
+  }
+
   &__oneline {
-    max-height: 57.63px;
     -webkit-line-clamp: 1;
+    max-height: 16px;
+
+    @media (--desktop) {
+      max-height: 18px;
+    }
   }
 
   &__twoline {
-    max-height: 57.63px;
     -webkit-line-clamp: 2;
+    max-height: 32px;
+
+    @media (--desktop) {
+      max-height: 36px;
+    }
   }
 
   &__threeline {
-    max-height: 50px;
     -webkit-line-clamp: 3;
+    max-height: 48px;
+
+    @media (--desktop) {
+      max-height: 56px;
+    }
   }
 
   &--nota {

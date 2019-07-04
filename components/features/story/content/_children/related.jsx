@@ -7,10 +7,10 @@ import ConfigParams from '../../../../utilities/config-params'
 const classes = {
   related: 'related-content pt-20 pb-20',
   item:
-    'related-content__item pt-15 pb-15 border-solid border-gray md:justify-between md:flex',
+    'related-content__item pt-15 pb-15 border-t-1 border-solid border-base md:justify-between md:flex',
   info: 'related-content__information mb-20 md:mb-0',
-  itemTitle:
-    'related-content__item-title mb-10 text-md line-h-md border-t-1 border-solid border-gray',
+  itemTitle: 'related-content__item-title mb-10 text-md line-h-md',
+  itemTitleLink: 'related-content__link font-bold',
   multimedia: 'related-content__multimedia position-relative',
   link: 'block w-full h-full',
   image: 'w-full h-full',
@@ -20,9 +20,8 @@ const classes = {
 
 const RenderRelatedContentElement = (elements, i) => {
   const {
-    contextPath,
-    headlines: { basic: storyTitle } = {},
     website_url: storyUrl,
+    headlines: { basic: storyTitle } = {},
     promo_items: { basic: imageData = {} } = {},
   } = elements
 
@@ -37,7 +36,7 @@ const RenderRelatedContentElement = (elements, i) => {
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div className={classes.info}>
         <h2 className={classes.itemTitle}>
-          <a href={`${contextPath}${filterData.urlTitle}`}>
+          <a href={filterData.urlTitle} className={classes.itemTitleLink}>
             {filterData.nameTitle}
           </a>
         </h2>
@@ -46,9 +45,7 @@ const RenderRelatedContentElement = (elements, i) => {
         </a>
       </div>
       <figure className={classes.multimedia}>
-        <a
-          href={`${contextPath}${filterData.urlTitle}`}
-          className={classes.link}>
+        <a href={filterData.urlTitle} className={classes.link}>
           <img
             src={filterData.multimediaImg}
             alt={filterData.nameTitle}
@@ -65,7 +62,6 @@ const RenderRelatedContentElement = (elements, i) => {
             />
           )}
         </a>
-        {/* <Icon iconClass={story.iconClass} /> */}
       </figure>
     </article>
   )

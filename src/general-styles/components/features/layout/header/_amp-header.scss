@@ -3,22 +3,14 @@
 
   &__wrap {
     height: 50px;
-  }
 
-  &__logo {
-    float: left;
-    margin-left: 18px;
-    margin-top: 9px;
+    @media (--desktop) {
+      max-width: 980px;
+    }
   }
 
   &__link-container {
-    float: right;
     height: 34px;
-  }
-
-  &__link {
-    float: left;
-    margin-top: 8px;
   }
 }
 

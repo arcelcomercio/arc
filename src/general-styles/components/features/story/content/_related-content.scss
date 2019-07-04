@@ -1,10 +1,6 @@
 .related-content {
   // &__title {}
 
-  &__item {
-    border-top-width: 2px;
-  }
-
   &__information {
     @media (--tablet) {
       max-width: 56%;

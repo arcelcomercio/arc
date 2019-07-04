@@ -1,7 +1,7 @@
-// eslint-disable-next-line import/no-unresolved
 import request from 'request-promise-native'
-import { resizerSecret, resizerUrl, CONTENT_BASE } from 'fusion:environment'
+import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import getProperties from 'fusion:properties'
 
 const options = {
   json: true,
@@ -9,7 +9,12 @@ const options = {
 
 const schemaName = 'stories'
 
-const queryStoryRecent = (seccion, site) => {
+export const itemsToArray = (itemString = '') => {
+  return itemString.split(',').map(item => {
+    return item.replace(/"/g, '')
+  })
+}
+const queryStoryRecent = (section, site) => {
   const body = {
     query: {
       bool: {
@@ -25,39 +30,36 @@ const queryStoryRecent = (seccion, site) => {
             },
           },
         ],
-        must_not: [
-          {
-            nested: {
-              path: 'taxonomy.sections',
-              query: {
-                bool: {
-                  must: [
-                    {
-                      terms: {
-                        'taxonomy.sections._id': seccion,
-                      },
-                    },
-                    {
-                      term: {
-                        'taxonomy.sections._website': site,
-                      },
-                    },
-                  ],
-                },
-              },
-            },
-          },
-        ],
       },
     },
   }
 
+  if (section && section !== '/') {
+    const sectionsIncluded = itemsToArray(section)
+    body.query.bool.must.push({
+      nested: {
+        path: 'taxonomy.sections',
+        query: {
+          bool: {
+            must: [
+              {
+                terms: {
+                  'taxonomy.sections._id': sectionsIncluded,
+                },
+              },
+              {
+                term: {
+                  'taxonomy.sections._website': site,
+                },
+              },
+            ],
+          },
+        },
+      },
+    })
+  }
+
   return encodeURI(JSON.stringify(body))
-}
-export const itemsToArray = (itemString = '') => {
-  return itemString.split(',').map(item => {
-    return item.replace(/"/g, '')
-  })
 }
 
 const fetch = key => {
@@ -70,23 +72,24 @@ const fetch = key => {
     ...options,
   }).then(collectionResp => {
     const dataStory = collectionResp
+
+    const {
+      taxonomy: { primary_section: { path: section } = {} } = {},
+    } = dataStory
+
+    const encodedBody = queryStoryRecent(section, site)
     return request({
-      uri: `${CONTENT_BASE}/content/v4/related-content/stories?_id=${
-        dataStory._id
-      }&website=${site}&published=true`,
+      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${site}&size=4&from=0&sort=publish_date:desc`,
       ...options,
-    }).then(idsResp => {
-      dataStory.related_content = idsResp
-      const {
-        taxonomy: { primary_section: { path: section } = {} } = {},
-      } = dataStory
-      const resultSeccion = itemsToArray(section)
-      const encodedBody = queryStoryRecent(resultSeccion, site)
+    }).then(recientesResp => {
+      dataStory.recent_stories = recientesResp
       return request({
-        uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${site}&size=6&from=0&sort=publish_date:desc`,
+        uri: `${CONTENT_BASE}/content/v4/related-content/stories?_id=${
+          dataStory._id
+        }&website=${site}&published=true`,
         ...options,
-      }).then(recientesResp => {
-        dataStory.recent_stories = recientesResp
+      }).then(idsResp => {
+        dataStory.related_content = idsResp
         return dataStory
       })
     })
@@ -94,6 +97,8 @@ const fetch = key => {
 }
 
 const transform = data => {
+  const { resizerUrl } = getProperties(data.website)
+
   return addResizedUrls(data, {
     resizerUrl,
     resizerSecret,

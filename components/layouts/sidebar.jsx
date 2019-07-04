@@ -6,7 +6,7 @@ const classes = {
   contentContainer: 'flex flex-col content-layout-container w-full',
   content:
     'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mt-20 mb-20',
-  zocalo: 'zocalo__container',
+  zocalo: 'ads__zocalo',
   main: 'grid grid--content grid--col-1 col-2',
   sidebar: 'grid grid--content grid--col-1 col-1',
 }
@@ -14,16 +14,16 @@ const classes = {
 const SidebarLayout = ({ children = [] }) => {
   return (
     <div className={classes.layout}>
-      <div role="complementary" className={classes.zocalo}>
-        {children[0] /* Zocalo izquierda */}
-      </div>
+      <div className={classes.zocalo}>{children[0] /* Zocalo izquierda */}</div>
       <div className={classes.contentContainer}>
         {children[1] /* Publicidad Top */}
         {children[2] /* Barra de navegación */}
         {children[3] /* Cabecera de página */}
         {children[4] /* Encabezado */}
         <div className={classes.content}>
-          <main className={classes.main}>{children[5] /* Contenido */}</main>
+          <div role="main" className={classes.main}>
+            {children[5] /* Contenido */}
+          </div>
           <aside className={classes.sidebar}>
             {children[6] /* Barra lateral */}
           </aside>
@@ -31,9 +31,7 @@ const SidebarLayout = ({ children = [] }) => {
         </div>
         {children[8] /* Pie de página */}
       </div>
-      <div role="complementary" className={classes.zocalo}>
-        {children[9] /* Zocalo derecha */}
-      </div>
+      <div className={classes.zocalo}>{children[9] /* Zocalo derecha */}</div>
     </div>
   )
 }

@@ -1,40 +1,33 @@
-//Triplete
-.triplet {
-  &__link {
-    color: inherit;
-  }
+$triplet-img-width: 75px;
+$triplet-icon-size: 25px;
 
+.triplet {
   &__item {
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 80px 1fr;
+    &:first-child {
+      padding-top: 0;
+    }
 
     &:last-child {
       border-bottom: 0px;
+      padding-bottom: 0;
     }
 
     &--right {
-      grid-template-areas:
-        'triplete__title triplete__multimedia'
-        'triplete__author triplete__author';
-
-      & figure {
-        margin-left: 10%;
+      .triplet__information {
+        padding-right: 10px;
       }
     }
 
     &--left {
-      grid-template-areas:
-        'triplete__multimedia triplete__title'
-        'triplete__author triplete__author';
+      flex-direction: row-reverse;
 
-      & figure {
-        margin-right: 10%;
+      .triplet__information {
+        padding-left: 10px;
       }
     }
   }
 
   &__title {
-    grid-area: triplete__title;
     display: -webkit-box;
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
@@ -42,66 +35,42 @@
   }
 
   &--oneline {
-    max-height: 15px;
+    max-height: 21px;
     -webkit-line-clamp: 1;
   }
 
   &--twoline {
-    max-height: 30px;
+    max-height: 35px;
     -webkit-line-clamp: 2;
+
+    @media (--desktop) {
+      max-height: 42px;
+    }
   }
 
   &--threeline {
-    max-height: 60px;
+    max-height: 53px;
     -webkit-line-clamp: 3;
+
     @media (--desktop) {
-      max-height: 76px;
+      max-height: 63px;
     }
   }
 
   &__multimedia {
-    grid-area: triplete__multimedia;
+    width: $triplet-img-width;
+    height: 90px;
   }
 
   &__icon {
-    top: 5px;
-    right: 5px;
-    width: 25px;
-    height: 25px;
-    background-color: rgba(255, 255, 255, 0.6);
-    z-index: 1;
-
-    @media (--tablet) {
-      width: 30px;
-      height: 30px;
-    }
+    font-size: $triplet-icon-size;
+    width: calc(#{$triplet-icon-size} - 2px);
+    height: calc(#{$triplet-icon-size} - 2px);
+    top: calc(50% - calc(#{$triplet-icon-size} / 2));
+    left: calc(50% - calc(#{$triplet-icon-size} / 2));
   }
 
-  &__author {
-    grid-area: triplete__author;
-  }
-
-  &__box-icon {
-    opacity: 0.5;
-    filter: alpha(opacity=50);
-    pointer-events: none;
-    top: 20px;
-    z-index: 1;
-    right: 5px;
-
-    .triplete__icon {
-      display: table-cell;
-      height: 40px;
-      vertical-align: middle;
-      width: 40px;
-
-      &--play:before {
-        content: '\2023';
-      }
-
-      &--gallery:before {
-        content: '\1F4F7';
-      }
-    }
+  &__information {
+    max-width: calc(100% - #{$triplet-img-width});
   }
 }

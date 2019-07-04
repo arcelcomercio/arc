@@ -1,13 +1,18 @@
 import React, { Fragment } from 'react'
+import ENV from 'fusion:environment'
 import StoryData from '../../utilities/story-data'
+import { formatHtmlToText } from '../../utilities/helpers'
 
 export default ({
   globalContent: data,
   arcSite,
   contextPath,
   siteName = '',
+  socialName,
   siteUrl = '',
   deployment,
+  isAmp,
+  siteAssets: { seo },
 }) => {
   const {
     title,
@@ -39,9 +44,11 @@ export default ({
     }
   )
 
-  const imagesSeoItems = imagesSeo.map(({ url = '', subtitle } = {}) => {
+  const imagesSeoItems = imagesSeo.map((image, i) => {
+    const { subtitle, url = '' } = image || {}
+    const representativeOfPage = i === 0 ? '"representativeOfPage":true,' : ''
     return `{ 
-         "representativeOfPage":true,
+         ${representativeOfPage}
          "@type":"ImageObject",
          "url": "${url}",
          "description":"${subtitle}",
@@ -61,10 +68,11 @@ export default ({
 
   const relatedContentItem = relatedContent.map((content, i) => {
     const { canonical_url: urlItem = '' } = content || {}
+    const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ''
     return `{  
       "@type":"ListItem",
       "position":${i + 1},
-      "url":"${contextPath}${urlItem}"
+      "url":"${pathUrl}${urlItem}"
       }`
   })
 
@@ -81,12 +89,12 @@ export default ({
     "@type":"NewsArticle",
     "datePublished":"${publishDate}",
     "dateModified":"${publishDate}",
-    "headline":"${title}",
-    "description":"${subTitle}",
+    "headline":"${formatHtmlToText(title)}",
+    "description":"${formatHtmlToText(subTitle)}",
     "articleBody":"${dataElement}",
     "mainEntityOfPage":{  
        "@type":"WebPage",
-       "@id":"${link}"
+       "@id":"${siteUrl}${link}"
     },
     "image":[  
        ${imagesSeoItems}
@@ -102,11 +110,11 @@ export default ({
        "name":"${siteName}",
        "logo":{  
           "@type":"ImageObject",
-          "url":"${deployment(
-            `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo.png`
-          )}",
-          "height":60,
-          "width":316
+          "url":"${siteUrl}${deployment(
+    `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
+  )}",
+          "height":${seo.height},
+          "width":${seo.width}
        }
     },
     "keywords":[${seoKeywordsItems.map(item => item)}]
@@ -133,12 +141,29 @@ export default ({
       "itemListElement":[${breadcrumbResult}]  
       }`
 
+  const scriptTaboola = `
+  window._taboola = window._taboola || [];
+    _taboola.push({
+        article: 'auto'
+    });
+    ! function(e, f, u, i) {
+        if (!document.getElementById(i)) {
+            e.async = 1;
+            e.src = u;
+            e.id = i;
+            f.parentNode.insertBefore(e, f);
+        }
+    }(document.createElement('script'),
+        document.getElementsByTagName('script')[0],
+        '//cdn.taboola.com/libtrc/grupoelcomercio-trome/loader.js',
+        'tb_loader_script');
+    if (window.performance && typeof window.performance.mark == 'function') {
+        window.performance.mark('tbl_ic');
+    }`
+
   return (
     <Fragment>
-      <meta
-        property="article:publisher"
-        content={`http://www.facebook.com/${siteUrl}`}
-      />
+      <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
       <meta name="bi3dArtId" content="639992" />
@@ -168,6 +193,12 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
       />
+      {isAmp !== true && (
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{ __html: scriptTaboola }}
+        />
+      )}
     </Fragment>
   )
 }

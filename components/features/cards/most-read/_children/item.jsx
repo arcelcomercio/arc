@@ -1,33 +1,31 @@
 import React from 'react'
+import Icon from '../../../../global-components/multimedia-icon'
 
 const CardMostReadChildItem = props => {
   const { item, viewImage } = props
-  const { websiteUrl, imageUrl, title, typeNote } = item
-  let type = ''
-
-  if (typeNote === 'basic') type = 'image'
-  if (typeNote === 'basic_video') type = 'video'
+  const { websiteUrl, imageUrl, title, storyType } = item
 
   const classes = {
-    item: `flex most-read-item border-solid border-b-1 border-gray pt-15 pb-15 pl-20 pr-20`,
-    figure: `most-read-item__figure most-read-item__figure--icon most-read-item__figure--${type} w-full h-full position-relative overflow-hidden`,
-    img: 'most-read-item__img w-full h-full object-cover',
-    detail: `most-read-item__detail w-full overflow-hidden pl-10 text-sm text-black line-h-sm`,
+    item: `most-read-item block border-solid border-b-1 border-base mr-20 ml-20`,
+    article: `most-read-item__article flex pt-15 pb-15`,
+    figure: `most-read-item__figure flex justify-center items-center w-full h-full overflow-hidden position-relative mr-15`,
+    img: 'most-read-item__img w-inherit h-inherit object-cover object-center',
+    icon: 'most-read-item__icon',
+    title: `most-read-item__detail w-full overflow-hidden text-gray-300 line-h-sm`,
   }
 
   return (
-    <div role="listitem" className={classes.item}>
-      {viewImage && (
-        <a href={websiteUrl} className={classes.detail}>
+    <a href={websiteUrl} className={classes.item}>
+      <article role="listitem" className={classes.article}>
+        {viewImage && (
           <figure className={classes.figure}>
             <img className={classes.img} src={imageUrl} alt={title} />
+            <Icon type={storyType} iconClass={classes.icon} />
           </figure>
-        </a>
-      )}
-      <a className={classes.detail} href={websiteUrl}>
-        {title}
-      </a>
-    </div>
+        )}
+        <h4 className={classes.title}>{title}</h4>
+      </article>
+    </a>
   )
 }
 

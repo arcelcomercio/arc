@@ -1,6 +1,10 @@
 .story-header {
   &__news-title {
     clear: both;
+
+    @media print {
+      font-size: 35px;
+    }
   }
 
   &__news-summary {
@@ -12,7 +16,7 @@
   }
 
   &__list {
-    width: 150px;
+    width: 140px;
   }
 
   // &__share {}

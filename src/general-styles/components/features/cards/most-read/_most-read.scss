@@ -1,21 +1,15 @@
-$backgroundTitle: #5f72a7;
-
 .most-read {
-  &__title {
-    background-color: $backgroundTitle;
-  }
+  // &__title {}
 
-  @media (--desktop) {
-    padding: 0;
+  @media print {
+    display: none;
   }
 
   &__icon::before {
-    content: '\e911';
+    background-color: $color-primary;
     color: $color-white;
     padding: 5px;
     border-radius: 50px;
     font-size: 17px;
   }
-
-  // &__icon {}
 }

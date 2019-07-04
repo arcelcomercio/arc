@@ -2,12 +2,10 @@ import React from 'react'
 import Multimedia from './multimedia'
 
 const classes = {
-  story:
-    'stories-l-item bg-white flex flex-col w-auto p-20 border-b-1 border-solid border-gray',
-  time:
-    'stories-l-item__time flex justify-center flex-col text-gray-300 text-lg line-h-sm',
-  linkBox: 'stories-l-item__link-box flex flex-col',
-  link: 'stories-l-item__link bold m-0 text-md text-gray-300 line-h-xs',
+  story: `stories-l-item flex flex-col w-auto pt-10 pb-10 border-b-1 border-solid border-gray`,
+  time: 'stories-l-item__time text-md line-h-sm mr-5',
+  linkBox: 'stories-l-item__link-box flex flex-col text-gray-300',
+  link: 'stories-l-item__link bold m-0 text-md text-gray-300 line-h-sm',
 }
 
 const StoriesListsCardChildItem = ({
@@ -18,6 +16,7 @@ const StoriesListsCardChildItem = ({
   urlNews,
   multimedia,
   multimediaType,
+  rawDate,
 }) => {
   return (
     <article role="listitem" className={classes.story}>
@@ -28,10 +27,17 @@ const StoriesListsCardChildItem = ({
           multimediaType={multimediaType}
         />
       )}
-      {seeHour && <div className={classes.time}>{time}</div>}
+
       <div className={classes.linkBox}>
         <a href={urlNews}>
-          <h3 className={classes.link}>{title}</h3>
+          <h3 className={classes.link}>
+            {seeHour && (
+              <time dateTime={rawDate} className={classes.time}>
+                {time}
+              </time>
+            )}{' '}
+            {title}
+          </h3>
         </a>
       </div>
     </article>

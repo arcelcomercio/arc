@@ -1,8 +1,10 @@
 .info-pages {
-  padding: 3% 6%;
+
+  // &__title {}
 
   & * p {
     margin: 0 0 20px;
+    color: $color-gray-300;
   }
 
   & * ul {

@@ -3,23 +3,24 @@ import { createMarkup } from '../../../../utilities/helpers'
 import SeparatorItem from './item'
 
 const classes = {
-  separator: 'separator bg-white mt-20 w-full pt-0 pr-15 pb-15 pl-15 grid',
-  title: 'separator__header-title uppercase pb-20 pt-20 text-left',
+  separator: `separator bg-white mt-20 w-full pt-0 pr-15 pb-15 pl-15 grid border-t-1 border-solid`,
+  title: 'separator__header-title capitalize pb-20 pt-20 text-left text-lg',
   titleLink: 'separator__header-link',
   oneline: 'separator__oneline',
   twoline: 'separator__twoline',
   threeline: 'separator__threeline',
-  body: 'separator__body mt-0 mb-0',
+  body: 'separator__body mt-0 mb-0 grid',
 }
 
 const SeparatorsBasicChildSeparator = props => {
   const {
+    editableField,
     data: {
-      titleSeparator = '',
+      items,
       arcSite,
+      titleSeparator = '',
       titleLink = '/',
       htmlCode = '',
-      items,
     } = {},
   } = props
   let numline = ''
@@ -29,6 +30,9 @@ const SeparatorsBasicChildSeparator = props => {
       break
     case 'depor':
       numline = classes.twoline
+      break
+    case 'publimetro':
+      numline = classes.threeline
       break
     default:
       numline = classes.twoline
@@ -42,13 +46,17 @@ const SeparatorsBasicChildSeparator = props => {
           dangerouslySetInnerHTML={createMarkup(htmlCode)}
         />
       ) : (
-        <h1 className={`${classes.title}`}>
-          <a href={titleLink} className={`${classes.titleLink}`}>
+        <h2 className={`${classes.title}`}>
+          <a
+            href={titleLink}
+            className={`${classes.titleLink}`}
+            {...editableField('titleSeparator')}
+            suppressContentEditableWarning>
             {titleSeparator}
           </a>
-        </h1>
+        </h2>
       )}
-      <div className={classes.body}>
+      <div role="list" className={classes.body}>
         {items &&
           items.map(el => {
             const params = {
@@ -56,7 +64,7 @@ const SeparatorsBasicChildSeparator = props => {
               link: el.link,
               numline,
               imageUrl: el.multimedia,
-              typeNote: el.multimediaType,
+              mediaIcon: el.multimediaType,
             }
             return <SeparatorItem key={el.link || '/'} {...params} />
           })}

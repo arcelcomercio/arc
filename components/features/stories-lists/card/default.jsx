@@ -8,7 +8,7 @@ import Header from './_children/header'
 import List from './_children/list'
 
 const classes = {
-  lista: 'h-full flex flex-col overflow-hidden',
+  lista: 'stories-l-card bg-white h-full flex flex-col overflow-hidden',
 }
 
 @Consumer
@@ -16,71 +16,47 @@ class StoriesListCard extends PureComponent {
   constructor(props) {
     super(props)
     const {
-      customFields: {
-        titleList,
-        urlTitle,
-        storiesQty,
-        seeMore,
-        seeMoreurl,
-        seeHour,
-        seeImageNews,
-        section, // cambiará
-        background = '',
-      },
-    } = props || {}
+      arcSite: website,
+      customFields: { section, storiesQty },
+    } = this.props
 
-    this.state = {
-      titleList,
-      urlTitle,
-      background,
-      storiesQty,
-      seeMore,
-      seeMoreurl,
-      seeHour,
-      seeImageNews,
-      section, // cambiará
-      data: [],
+    const params = {
+      website,
+      section,
+      stories_qty: storiesQty,
     }
-  }
 
-  componentDidMount = () => {
-    const { section, storiesQty } = this.state
-    const { arcSite: website } = this.props
-
-    const { fetched } = this.getContent(
-      'story-feed-by-section',
-      {
-        website,
-        section,
-        stories_qty: storiesQty,
+    this.fetchContent({
+      data: {
+        source: 'story-feed-by-section',
+        query: params,
+        filter: schemaFilter,
       },
-      schemaFilter
-    )
-    fetched.then(response => {
-      const { content_elements: contentElements } = response || {}
-
-      this.setState({
-        data: contentElements || [],
-      })
     })
   }
 
   render() {
-    const { deployment, arcSite, contextPath } = this.props
-
     const {
-      titleList,
-      urlTitle,
-      background,
-      seeMore,
-      seeMoreurl,
-      seeHour,
-      seeImageNews,
-      data,
-    } = this.state
+      deployment,
+      arcSite,
+      contextPath,
+      editableField,
+      customFields: {
+        titleList,
+        urlTitle,
+        background,
+        seeMore,
+        seeMoreurl,
+        seeHour,
+        seeImageNews,
+      },
+    } = this.props
+
+    const { data: { content_elements: data = [] } = {} } = this.state || {}
 
     const paramsHeader = {
       titleList,
+      editableField,
       urlTitle,
       background,
       seeMore,
@@ -90,10 +66,10 @@ class StoriesListCard extends PureComponent {
     const paramsList = {
       seeHour,
       seeImageNews,
-      listNews: data || [],
       deployment,
       arcSite,
       contextPath,
+      listNews: data || [],
     }
 
     return (
@@ -109,6 +85,6 @@ StoriesListCard.propTypes = {
   customFields,
 }
 
-StoriesListCard.label = 'Lista de noticias'
+StoriesListCard.label = 'Último minuto'
 
 export default StoriesListCard

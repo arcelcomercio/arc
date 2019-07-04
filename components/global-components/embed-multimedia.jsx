@@ -1,14 +1,33 @@
+import ENV from 'fusion:environment'
 import React from 'react'
 import ConfigParams from '../utilities/config-params'
 import { defaultImage } from '../utilities/helpers'
 
 const GOLDFISH = 'goldfish'
 const YOUTUBE = 'youtube'
-const IMAGE = 'image'
 
-const GOLDFISH_ENV = 'sandbox'
+const GOLDFISH_ENV = ENV.ENVIROMENT === 'elcomercio' ? 'prod' : 'sandbox'
+const ORG_ID = 'elcomercio'
 
 const EmbedMultimedia = props => {
+  const image = (url, { deployment, contextPath, website, title = '' }) => {
+    return (
+      <img
+        className="embed-multimedia-image w-full h-full object-cover"
+        src={
+          url ||
+          defaultImage({
+            deployment,
+            contextPath,
+            arcSite: website,
+            size: 'md',
+          })
+        }
+        alt={title}
+      />
+    )
+  }
+
   const videoYoutube = (codeId, { width = '100%', height = '100%' }) => {
     return (
       <iframe
@@ -24,66 +43,47 @@ const EmbedMultimedia = props => {
     )
   }
 
-  const videoGoldfish = (multimediaSource, { website = 'elcomercio' }) => {
-    return (
-      <div
-        id={`powa-${multimediaSource}`}
-        data-env={GOLDFISH_ENV}
-        data-api={GOLDFISH_ENV}
-        data-org={website}
-        data-uuid={multimediaSource}
-        data-aspect-ratio="0.562"
-        className="w-full"
-      />
+  const videoGoldfish = (
+    multimediaSource,
+    { deployment, contextPath, website, title = '' }
+  ) =>
+    multimediaSource ? (
+      <>
+        <div
+          id={`powa-${multimediaSource}`}
+          data-env={GOLDFISH_ENV}
+          data-api={GOLDFISH_ENV}
+          data-org={ORG_ID}
+          data-uuid={multimediaSource}
+          data-aspect-ratio="0.562"
+          className="powa"
+        />
+        <script
+          async
+          src={`https://d1tqo5nrys2b20.cloudfront.net/${GOLDFISH_ENV}/powaBoot.js?org=elcomercio`}
+        />
+      </>
+    ) : (
+      image(multimediaSource, { deployment, contextPath, website, title })
     )
-  }
-
-  const image = (url, { deployment, contextPath, website, title = '' }) => {
-    return (
-      <img
-        className="embed-multimedia-image w-full object-cover"
-        src={
-          url ||
-          defaultImage({
-            deployment,
-            contextPath,
-            arcSite: website,
-            size: 'md',
-          })
-        }
-        alt={title}
-      />
-    )
-  }
 
   const getMultimedia = type => {
-    let fx = () => ''
     if (type === GOLDFISH || type === ConfigParams.VIDEO) {
-      fx = videoGoldfish
-    } else if (type === YOUTUBE) {
-      fx = videoYoutube
-    } else if (
-      type === IMAGE ||
-      type === ConfigParams.GALLERY ||
-      type === ConfigParams.IMAGE
-    ) {
-      fx = image
+      return videoGoldfish
     }
-    return fx
+    if (type === YOUTUBE) {
+      return videoYoutube
+    }
+    return image
   }
 
   const { type, source, deployment, contextPath, website, title = '' } = props
-  return (
-    <>
-      {getMultimedia(type)(source, {
-        deployment,
-        contextPath,
-        title,
-        website,
-      })}
-      <script src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaBoot.js?org=elcomercio" />
-    </>
-  )
+  return getMultimedia(type)(source, {
+    deployment,
+    contextPath,
+    title,
+    website,
+  })
 }
 
 export default EmbedMultimedia

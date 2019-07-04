@@ -27,6 +27,8 @@ export default ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    socialName: siteProperties.social.facebook,
+    siteAssets: siteProperties.assets,
     metaValue,
     deployment,
   }
@@ -56,7 +58,7 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
+      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -82,6 +84,10 @@ export default ({
     deployment,
     globalContent,
   }
+
+  const structuredTaboola = ` 
+    window._taboola = window._taboola || [];
+    _taboola.push({flush: true});`
 
   return (
     <html lang="es">
@@ -113,7 +119,6 @@ export default ({
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
-        {isStory && <meta name="news_keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
@@ -131,10 +136,13 @@ export default ({
         />
         {/* Scripts de APPNEXUS */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
-
+        {/* <script
+          async
+          src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
+        /> */}
         <Libs />
       </head>
-      <body className={isStory ? 'story' : ''}>
+      <body className={isStory ? 'story nota' : ''}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -146,6 +154,8 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
+        {isStory && <div id="ads_m_movil0" />}
+        {isStory && <div id="ads_d_skin" />}
         <div id="fusion-app" role="application">
           {children}
         </div>
@@ -162,6 +172,12 @@ export default ({
           )}
         />
         <Fusion />
+        {isStory && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{ __html: structuredTaboola }}
+          />
+        )}
       </body>
     </html>
   )

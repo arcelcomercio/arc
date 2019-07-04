@@ -25,6 +25,12 @@ $map-icons: (img: $img,
   message: $message,
   print: $print,
   publimetro: $publimetro,
+  left: $left,
+  right: $right,
+  facebook-circle: $facebook-circle,
+  twitter-circle: $twitter-circle,
+  whatsapp: $whatsapp,
+  loading: $loading,
 ) !default;
 
 @mixin generate-icons() {

@@ -2,7 +2,7 @@ import React from 'react'
 
 const classes = {
   description:
-    'story-header__news-summary pr-20 mb-20 secondary-font line-h-sm text-gray-300',
+    'story-header__news-summary pr-20 pl-20 mb-20 secondary-font line-h-sm text-gray-300 text-xl font-normal',
 }
 
 const StoryHeaderChildShareSubheading = data => {

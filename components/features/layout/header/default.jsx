@@ -1,21 +1,21 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
-import { setDevice } from '../../../utilities/resizer'
+// import { setDevice } from '../../../utilities/resizer'
 
 import HeaderChildSomos from './_children/somos'
 import HeaderChildStandard from './_children/standard'
 import Formatter from './_dependencies/formatter'
 
-const defaultHierarchy = 'navegacion-cabecera-tema-del-dia'
+const DEFAULT_HIERARCHY = 'header-default'
 @Consumer
 class LayoutHeader extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
+    /* this.state = {
       device: setDevice(),
-    }
+      data: {},
+    } */
     const {
       contextPath,
       arcSite,
@@ -37,14 +37,14 @@ class LayoutHeader extends PureComponent {
       customLogo,
       customLogoLink
     )
+    this.getNavigationSections()
   }
 
-  componentDidMount() {
+  /* componentDidMount() {
     // TODO: Si googleTagManager no ejecuta, descomentar.
     // const { googleTagManagerScript } = this.props.siteProperties
     window.addEventListener('resize', this._handleResize)
-    this.getNavigationSections()
-  }
+  } */
 
   getNavigationSections() {
     const {
@@ -61,15 +61,23 @@ class LayoutHeader extends PureComponent {
       ? contentConfigValues
       : {
           website: arcSite,
-          hierarchy: defaultHierarchy,
+          hierarchy: DEFAULT_HIERARCHY,
         }
-    const schema = this.formater.getSchema()
-    const { fetched } = this.getContent(source, params, schema)
-    fetched.then(response => {
-      this.setState({
-        data: response || [],
-      })
+    this.fetchContent({
+      data: {
+        source,
+        query: params,
+        filter: this.formater.getSchema(),
+      },
     })
+  }
+
+  /* changesResize = device => {
+    const displayChangeEvent = 'displayChange'
+    this.setState({
+      device,
+    })
+    this.dispatchEvent(displayChangeEvent, device)
   }
 
   _handleResize = () => {
@@ -77,31 +85,23 @@ class LayoutHeader extends PureComponent {
     const mobile = 'mobile'
     const desktop = 'desktop'
     const tablet = 'tablet'
-    const displayChangeEvent = 'displayChange'
+
+    const { device } = this.state
 
     // ------ Set the new state if you change from mobile to desktop
-    if (wsize >= 1024 && this.state.device !== desktop) {
-      this.setState({
-        device: desktop,
-      })
-      this.dispatchEvent(displayChangeEvent, this.state.device)
+    if (wsize >= 1024 && device !== desktop) {
+      this.changesResize(desktop)
+    } else if (wsize < 1024 && wsize >= 640 && device !== tablet) {
       // ------ Set the new state if you change from desktop to mobile
-    } else if (wsize < 1024 && wsize >= 640 && this.state.device !== tablet) {
-      this.setState({
-        device: tablet,
-      })
-      this.dispatchEvent(displayChangeEvent, this.state.device)
-    } else if (wsize < 640 && this.state.device !== mobile) {
+      this.changesResize(tablet)
+    } else if (wsize < 640 && device !== mobile) {
       // ------ Set the new state if you change from desktop to mobile
-      this.setState({
-        device: mobile,
-      })
-      this.dispatchEvent(displayChangeEvent, this.state.device)
+      this.changesResize(mobile)
     }
-  }
+  } */
 
   renderHeader = () => {
-    const { device, data } = this.state
+    const { data } = this.state
     const {
       customFields: {
         headerType,
@@ -112,7 +112,7 @@ class LayoutHeader extends PureComponent {
     } = this.props
 
     this.formater.setData(data)
-    const params = { ...this.formater.getParams(), device }
+    const params = { ...this.formater.getParams() }
 
     const headers = {
       standard: (
@@ -147,7 +147,8 @@ LayoutHeader.propTypes = {
         somos: 'Cabecera somos',
       },
       defaultValue: 'standard',
-      description: `La jerarquía por defecto es "${defaultHierarchy}"`,
+      description:
+        'La configuración de visibilidad por dispositivo depende del tipo de cabecera',
     }),
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',

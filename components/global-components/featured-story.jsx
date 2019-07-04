@@ -1,28 +1,30 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
-import { getMultimediaIcon } from '../utilities/helpers'
+import Icon from './multimedia-icon'
+
+const LIVE_TEXT = 'En vivo'
 
 const classes = {
-  featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-20`,
-  detail: `featured-story__detail flex flex-col justify-between position relative md:pb-20 md:pt-20`,
-  image: 'featured-story__image overflow-hidden w-full h-full ml-10 md:ml-0',
-  iconContainer: `featured-story__multimedia-icon position-absolute text-gray-300 rounded`,
-  icon: `featured-story__multimedia-icon-span flex items-center justify-center w-full h-full text-gray-300`,
+  featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
+  detail: `featured-story__detail flex flex-col justify-between position relative md:p-20`,
 
-  category: 'featured-story__category pb-15 hidden text-lg md:block',
-  title: 'featured-story__title overflow-hidden mb-10 title-sm line-h-xs',
+  category: 'featured-story__category pb-15 hidden md:inline-block',
+  categoryLink: 'featured-story__category-link text-md capitalize',
+
+  title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
+  titleLink: 'featured-story__title-link title-xs line-h-sm',
+
+  author: 'featured-story__author uppercase',
+  authorLink: 'featured-story__author-link text-gray-200 text-xs',
+
   oneline: 'featured-story-oneline ',
   twoline: 'featured-story-twoline',
   threeline: 'featured-story-threeline',
-  author: 'featured-story__author uppercase',
-  authorLink: 'featured-story__author-link text-sm text-gray-200 text-xs',
 
-  link: 'featured-story__link text-xl line-h-sm',
-  // linkTitle: 'featured-story__title-link title-lg capitalize',
-  imageLink: 'featured-story__img-link block h-full',
-  img: 'featured-story__img w-full h-full object-cover',
-  imageIcon: 'featured-story__img-icon icon-img',
+  imageLink: 'featured-story__img-link block h-full ml-10 md:ml-0',
+  imageBox: `featured-story__img-box position-relative overflow-hidden w-full h-full`,
+  image: 'featured-story__img w-full h-full object-cover',
 
   imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',
@@ -33,6 +35,7 @@ const classes = {
   headbandLink: 'featured-story__headband-link font-bold text-white',
 
   live: 'featured-story--live',
+  icon: `featured-story__icon`,
 }
 
 export default class FeaturedStory extends PureComponent {
@@ -53,6 +56,10 @@ export default class FeaturedStory extends PureComponent {
       arcSite,
     } = this.props
 
+    const noExpandedClass = !hightlightOnMobile
+      ? 'featured-story--no-expanded'
+      : ''
+
     const getImageSizeClass = () => {
       switch (imageSize) {
         case 'complete':
@@ -64,6 +71,7 @@ export default class FeaturedStory extends PureComponent {
       }
     }
 
+    // Metodo preparado para indicar otros tipos estilos en base a otros casos que se definan.
     const getHeadBandClass = () => {
       if (headband === 'live') {
         return classes.live
@@ -71,23 +79,23 @@ export default class FeaturedStory extends PureComponent {
       return ''
     }
 
-    const getEditableField = element => {
-      if (editableField) {
-        return editableField(element)
-      }
-      return null
-    }
+    const getEditableField = element =>
+      editableField ? editableField(element) : null
+
     // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
     let numline = ''
     switch (arcSite) {
       case 'elcomercio':
         numline = classes.threeline
         break
+      case 'publimetro':
+        numline = classes.threeline
+        break
       case 'depor':
         numline = classes.twoline
         break
       default:
-        numline = classes.twoline
+        numline = classes.threeline
         break
     }
     return (
@@ -96,12 +104,12 @@ export default class FeaturedStory extends PureComponent {
           classes.featuredStory
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === 'twoCol' ? classes.twoCol : ''
-        } ${hightlightOnMobile ? 'expand' : ''}`}>
+        } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
             <h3 className={classes.category}>
               <a
-                className={classes.link}
+                className={classes.categoryLink}
                 href={category.url}
                 {...getEditableField('categoryField')}
                 suppressContentEditableWarning>
@@ -110,16 +118,14 @@ export default class FeaturedStory extends PureComponent {
             </h3>
           ) : (
             <div className={classes.headband}>
-              <a
-                href={category.url}
-                className={`${classes.link} ${classes.headbandLink}`}>
-                {headband === 'live' ? 'En vivo' : ''}
+              <a href={category.url} className={classes.headbandLink}>
+                {headband === 'live' ? LIVE_TEXT : ''}
               </a>
             </div>
           )}
           <h2 className={classes.title}>
             <a
-              className={`${classes.link} ${numline}`}
+              className={`${classes.titleLink} ${numline}`}
               href={title.url}
               {...getEditableField('titleField')}
               suppressContentEditableWarning>
@@ -127,24 +133,18 @@ export default class FeaturedStory extends PureComponent {
             </a>
           </h2>
 
-          <span className={classes.author}>
+          <address className={classes.author}>
             <a className={classes.authorLink} href={author.url}>
               {author.name}
             </a>
-          </span>
+          </address>
         </div>
-        <figure className={classes.image}>
-          <a className={classes.imageLink} href={title.url}>
-            <img src={image} className={classes.img} alt="" />
-            <span className={classes.iconContainer}>
-              <i
-                className={`${getMultimediaIcon(StoryData, multimediaType)} ${
-                  classes.icon
-                }`}
-              />
-            </span>
-          </a>
-        </figure>
+        <a className={classes.imageLink} href={title.url}>
+          <figure className={classes.imageBox}>
+            <img src={image} className={classes.image} alt="" />
+            <Icon type={multimediaType} iconClass={classes.icon} />
+          </figure>
+        </a>
       </article>
     )
   }

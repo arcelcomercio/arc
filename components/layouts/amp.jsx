@@ -7,15 +7,13 @@ const classes = {
   layout: 'flex justify-center',
   contentContainer: 'flex flex-col content-layout-container w-full',
   aditional: 'mb-20',
-  zocalo: 'zocalo__container',
+  zocalo: 'ads__zocalo',
 }
 
 const AmpLayout = ({ children = [] }) => {
   return (
     <div className={classes.layout}>
-      <div role="complementary" className={classes.zocalo}>
-        {children[0] /* Zocalo izquierda */}
-      </div>
+      <div className={classes.zocalo}>{children[0] /* Zocalo izquierda */}</div>
       <div className={classes.contentContainer}>
         {children[1] /* Publicidad Top */}
         {children[2] /* Barra de navegación */}
@@ -23,15 +21,13 @@ const AmpLayout = ({ children = [] }) => {
         {children[4] && (
           <section className={classes.aditional}>{children[4]}</section>
         ) /* Contenido adicional */}
-        <main>{children[5] /* Contenido */}</main>
+        <div role="main">{children[5] /* Contenido */}</div>
         {children[6] && (
           <section className={classes.aditional}>{children[6]}</section>
         ) /* Contenido adicional */}
         {children[7] /* Pie de página */}
       </div>
-      <div role="complementary" className={classes.zocalo}>
-        {children[8] /* Zocalo derecha */}
-      </div>
+      <div className={classes.zocalo}>{children[8] /* Zocalo derecha */}</div>
     </div>
   )
 }

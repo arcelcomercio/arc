@@ -5,70 +5,50 @@ import PropTypes from 'prop-types'
 import CardMostReadList from './_children/list'
 
 import schemaFilter from './_dependencies/schema-filter'
-import { setDataTest, dataCasting } from './_dependencies/data-casting'
-import fetchConfig from './_dependencies/fetch-config'
+import { getQuery, getStories } from './_dependencies/functions'
+
+const CONTENT_SOURCE = 'story-feed-by-views'
 
 @Consumer
 class CardMostRead extends PureComponent {
   constructor(props) {
     super(props)
-    const { storiesQty } = props.customFields || {}
-    this.state = {
-      stories: [],
-      storiesQty: storiesQty || 5,
-    }
-  }
-
-  componentDidMount() {
-    this.fetch()
-  }
-
-  fetch() {
     const {
       globalContent,
       globalContentConfig,
       deployment,
       contextPath,
       arcSite,
-    } = this.props
-    const { storiesQty } = this.state
-    const { source, params } = fetchConfig(
-      globalContent,
-      globalContentConfig,
-      storiesQty
-    )
-    const { fetched } = this.getContent(source, params, schemaFilter)
-    fetched
-      .then(response => {
-        const { content_elements: contentElements } = response || {}
-        const stories = contentElements || []
-
-        if (stories.length > 0) {
-          this.setState({
-            stories: dataCasting({
-              data: stories,
-              deployment,
-              contextPath,
-              arcSite,
-            }),
-          })
-        } else {
-          this.setState({
-            stories: setDataTest(storiesQty),
-          })
-        }
-      })
-      .catch(() => {
-        this.setState({
-          stories: setDataTest(storiesQty),
-        })
-      })
+      customFields: { storiesQty = 5 } = {},
+    } = props
+    this.fetchContent({
+      data: {
+        source: CONTENT_SOURCE,
+        query: {
+          ...getQuery({ globalContent, globalContentConfig, storiesQty }),
+        },
+        filter: schemaFilter,
+        transform: ({ content_elements: contentElements = [] } = {}) => {
+          const data = {
+            stories: [
+              ...getStories({
+                data: contentElements,
+                deployment,
+                contextPath,
+                arcSite,
+              }),
+            ],
+          }
+          return data
+        },
+      },
+    })
   }
 
   render() {
     const { customFields, arcSite, requestUri } = this.props
-    const { viewImage, storiesQty } = customFields || {}
-    const { stories } = this.state
+    const { viewImage = false, storiesQty = 5 } = customFields || {}
+    const { data: { stories } = {} } = this.state
     const params = {
       viewImage,
       storiesQty,
@@ -96,5 +76,6 @@ CardMostRead.propTypes = {
 }
 
 CardMostRead.label = 'Noticias Más Leídas'
+CardMostRead.static = true
 
 export default CardMostRead
