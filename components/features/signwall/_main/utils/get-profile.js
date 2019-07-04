@@ -48,35 +48,34 @@ class GetProfile {
       switch (true) {
         case (profileLS.firstName !== 'undefined' ||
           profileLS.firstName != null) &&
-          (profileLS.lastName === 'undefined' || profileLS.lastName == null):
+        (profileLS.lastName === 'undefined' || profileLS.lastName == null):
           if (profileLS.firstName === 'undefined') {
             nameUser = 'Bienvenido Usuario'
-            inituser = false
           } else {
             nameUser =
-              profileLS.firstName.length >= 15
-                ? `${profileLS.firstName.slice(0, 15)}...`
-                : profileLS.firstName
+              profileLS.firstName.length >= 15 ?
+              `${profileLS.firstName.slice(0, 15)}...` :
+              profileLS.firstName
             inituser = profileLS.firstName.slice(0, 2)
           }
           break
         case (profileLS.firstName !== 'undefined' ||
           profileLS.firstName != null) &&
-          (profileLS.lastName !== 'undefined' || profileLS.lastName != null):
+        (profileLS.lastName !== 'undefined' || profileLS.lastName != null):
           if (profileLS.firstName === 'undefined') {
             nameUser =
-              profileLS.lastName.length >= 15
-                ? `${profileLS.lastName.slice(0, 15)}...`
-                : profileLS.lastName
+              profileLS.lastName.length >= 15 ?
+              `${profileLS.lastName.slice(0, 15)}...` :
+              profileLS.lastName
             inituser = profileLS.lastName.slice(0, 2)
           } else {
             nameUser =
-              `${profileLS.firstName} ${profileLS.lastName}`.length >= 15
-                ? `${`${profileLS.firstName} ${profileLS.lastName}`.slice(
+              `${profileLS.firstName} ${profileLS.lastName}`.length >= 15 ?
+              `${`${profileLS.firstName} ${profileLS.lastName}`.slice(
                     0,
                     15
-                  )}...`
-                : `${profileLS.firstName} ${profileLS.lastName}`
+                  )}...` :
+              `${profileLS.firstName} ${profileLS.lastName}`
             inituser =
               profileLS.firstName.slice(0, 1) + profileLS.lastName.slice(0, 1)
           }
@@ -85,7 +84,10 @@ class GetProfile {
           return null
       }
     }
-    return { inituser, nameUser }
+    return {
+      inituser,
+      nameUser
+    }
   }
 }
 

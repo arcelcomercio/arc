@@ -87,9 +87,9 @@ class PaginationByDate extends PureComponent {
     const { dateIterator = '' } = this.state
     return index || index === 0
       ? // Si viene un indice devuelvo localhost/archivo/seccion/fecha
-        `/archivo/${section}/${dateIterator[index]}`
+        `/archivo/${section.replace('/', '')}/${dateIterator[index]}`
       : // Si no viene index devuelvo localhost/archivo/seccion
-        `/archivo/${section}/`
+        `/archivo/${section.replace('/', '')}/`
   }
 
   // Devuelve el link del <Anterior> en pagination
