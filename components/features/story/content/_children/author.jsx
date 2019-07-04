@@ -11,7 +11,7 @@ const classes = {
 }
 
 const StoryContentChildAuthor = props => {
-  const { date, data: { by } = {} } = props
+  const { date, by = [] } = props
   const [
     {
       name,

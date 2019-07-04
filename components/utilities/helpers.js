@@ -171,7 +171,7 @@ export const metaPaginationUrl = (
         `${isQuery ? '&page=' : '/'}${pageNumber}`
       )}`
     : `${siteUrl}${
-        isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
+        isQuery ? requestUri : `${requestUri.split('?')[0]}${pageNumber}`
       }${
         isQuery
           ? `&page=${pageNumber}`
@@ -515,6 +515,10 @@ export const formatDateStory = date => {
   const hora = date.slice(date.indexOf('T') + 1, 16)
   const tiempo = date.slice(date.indexOf('T') + 1, 13)
 
-  const horaAm = parseInt(String, tiempo) < 12 ? 'AM' : 'PM'
+  const horaAm = parseInt(String, tiempo) < 12 ? 'am' : 'pm'
   return `${fecha} / ${hora} ${horaAm}`
+}
+
+export const replaceHtmlMigracion = html => {
+  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }
