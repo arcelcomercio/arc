@@ -77,7 +77,6 @@ class StoryContent extends PureComponent {
       taxonomy: { tags = {} },
       related_content: { basic: relatedContent } = {},
     } = globalContent || {}
-
     const structuredTaboola = `
       window._taboola = window._taboola || [];
       _taboola.push({
