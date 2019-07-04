@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 
 import StoryData from '../utilities/story-data'
-import { reduceWord, formatDate, getIcon } from '../utilities/helpers'
+import { reduceWord, formatDate } from '../utilities/helpers'
 
 const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray lg:p-0`,
@@ -18,7 +18,8 @@ const classes = {
   author: `story-item__author block uppercase mt-10 font-thin text-xs text-gray-200`,
   right: 'story-item__right position-relative',
   rightLink: 'story-item__link  h-full',
-  icon: `story-item__icon icon-img position-absolute flex items-center justify-center text-white w-full h-full`,
+  iconGallery: `story-item__icon icon-img position-absolute flex items-center justify-center text-white w-full h-full`,
+  iconVideo: `story-item__icon icon-video position-absolute flex items-center justify-center text-white w-full h-full`,
   img: 'story-item__img object-cover w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
 }
@@ -33,6 +34,7 @@ class StoriesList extends PureComponent {
       arcSite,
       defaultImgSize: 'sm',
     })
+    console.log('en donde estamos?!')
 
     return (
       <div
@@ -63,18 +65,18 @@ class StoriesList extends PureComponent {
           </div>
           <figure className={classes.right}>
             <a href={element.link} className={classes.rightLink}>
-              {element.multimediaType.toLowerCase() !== 'basic' ||
-                (element.multimediaType !== '' && (
-                  <span className={classes.icon}>
-                    {getIcon(element.multimediaType)}
-                  </span>
-                ))}
+              {element.multimediaType.toLowerCase() === 'basic_gallery' && (
+                <span className={classes.iconGallery} />
+              )}
+
+              {element.multimediaType.toLowerCase() === 'basic_video' && (
+                <span className={classes.iconVideo} />
+              )}
               <img
                 alt={element.title}
                 className={classes.img}
                 src={element.multimedia}
               />
-              {/*  <i className={classes.iconImg} /> */}
             </a>
           </figure>
         </div>
