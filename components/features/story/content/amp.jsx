@@ -1,6 +1,7 @@
 import StoryContent, {
   AmpOembed,
   RawHtml,
+  Text,
 } from '@arc-core-components/feature_article-body'
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import AmpImage from '@arc-core-components/element_image'
@@ -13,7 +14,7 @@ import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryContentChildTags from './_children/tags'
 import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
-import { ampHtml, publicidadAmp } from '../../../utilities/helpers'
+import { ampHtml, publicidadAmp, replaceTags } from '../../../utilities/helpers'
 
 import ConfigParams from '../../../utilities/config-params'
 
@@ -86,6 +87,7 @@ class StoryContentAmp extends PureComponent {
                   subtype,
                   raw_oembed: rawOembed,
                   content_elements: innerContentElements,
+                  content,
                 } = element
                 if (type === ConfigParams.ELEMENT_OEMBED) {
                   return (
@@ -130,6 +132,16 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
+
+                if (type === ConfigParams.ELEMENT_TEXT) {
+                  return (
+                    <Text
+                      content={replaceTags(content)}
+                      className={classes.textClasses}
+                    />
+                  )
+                }
+
                 if (type === ConfigParams.ELEMENT_VIDEO) {
                   return (
                     <amp-iframe i-amphtml-layout="responsive" frameborder="0">
