@@ -230,7 +230,7 @@ export const socialMediaUrlShareList = (
     )}+${siteUrl}${postPermaLink}+via%20${siteNameRedSocial}`,
     linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
     pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
-    whatsapp: `whatsapp://send?text=${postPermaLink}`,
+    whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
     fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
   }
 }
