@@ -9,8 +9,8 @@ import Menu from './menu'
 import { getResponsiveClasses } from '../../../../utilities/helpers'
 
 const classes = {
-  nav: `nav bg-gray-100 text-white text-sm w-full pl-15 pr-15 flex flex items-center top-0 secondary-font`,
-  wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start`,
+  nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font`,
+  wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
   navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden lg:flex`,
