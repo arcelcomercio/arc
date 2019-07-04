@@ -20,8 +20,9 @@ const CONTENT_SOURCE = 'story-by-id'
 
 const classes = {
   staticPolicy:
-    'info-pages bg-gray-100 secondary-font text-md line-h-lg p-20 lg:p-40',
-  title: 'info-pages__title font-bold uppercase mb-25 title-md line-h-sm',
+    'info-pages bg-white secondary-font text-md line-h-lg p-20 lg:p-40',
+  title:
+    'info-pages__title font-bold uppercase mb-25 title-md line-h-sm primary-font',
 }
 
 @Consumer
