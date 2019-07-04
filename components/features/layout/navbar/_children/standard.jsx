@@ -10,10 +10,10 @@ import { getResponsiveClasses } from '../../../../utilities/helpers'
 
 const classes = {
   nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font`,
-  wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit pr-15 pl-15 justify-between lg:justify-start`,
+  wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
-  navContainerRight: `nav__container-right position-absolute right-0 bg-gray-100 hidden lg:flex`,
+  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden lg:flex`,
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10`,
   searchContainer: 'flex items-center justify-start',
   btnSearch: `flex items-center btn nav__btn nav__btn--search text-gray-200 hidden lg:flex`,
@@ -22,6 +22,7 @@ const classes = {
   iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
   list: `items-center nav__list h-inherit overflow-hidden hidden lg:flex pl-15`,
   listItem: 'nav__list-item text-center pr-15 h-full',
+  mobileLogo: 'nav__mobile-logo position-absolute',
   listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
   logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
@@ -220,7 +221,7 @@ class NavBarDefault extends PureComponent {
                   )
                 })}
             </ul>
-            <a href="/">
+            <a href="/" className={classes.mobileLogo}>
               <img
                 src={logo}
                 alt={`Logo de ${arcSite}`}
@@ -262,7 +263,7 @@ class NavBarDefault extends PureComponent {
                     type="search"
                     /* onBlur={this._handleCloseSectionsSearch} */
                     onKeyUp={this.watchKeys}
-                    placeholder="¿Que Buscas?"
+                    placeholder="¿Qué Buscas?"
                     className={`${classes.search} ${this.activeSearch()}`}
                   />
                   <Button
