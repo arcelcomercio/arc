@@ -1,0 +1,8 @@
+.info-pages {
+  &__title {
+    color: $color-base-300;
+  }
+  & * p {
+    color: $color-gray-200;
+  }
+}
