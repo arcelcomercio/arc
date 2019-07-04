@@ -5,7 +5,7 @@ import customFields from './_dependencies/custom-fields'
 import AdsChild from '../../global-components/ads'
 
 const classes = {
-  adsBox: 'flex items-center justify-center flex-col',
+  adsBox: 'flex items-center flex-col',
 }
 @Consumer
 class Ads extends PureComponent {
