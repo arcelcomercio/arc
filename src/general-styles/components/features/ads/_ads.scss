@@ -8,8 +8,9 @@
         @media (--desktop) {
             display: flex;
             overflow: initial;
-            padding: 20px;
-            height: 100vh;
+            margin: 0 20px;
+            padding: 20px 0;
+            height: fit-content;
             width: 160px;
             position: sticky;
             top: 0;

@@ -1,15 +1,16 @@
 .content-layout {
+
+  min-width: 320px;
+  max-width: 100%;
+
   @media (--tablet) {
     min-width: 620px;
   }
 
   @media (--desktop) {
-    min-width: 940px;
+    min-width: 980px;
     //max-width: 1024px;
   }
-
-  min-width: 320px;
-  max-width: 100%;
 
   &-container {
     @media (--tablet) {
@@ -17,7 +18,7 @@
     }
 
     @media (--desktop) {
-      width: 940px;
+      width: 980px;
     }
   }
 }
