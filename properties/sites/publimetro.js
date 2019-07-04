@@ -1,6 +1,6 @@
 export default {
   siteName: 'Publimetro',
-  colorPrimary: '#f7c600',
+  colorPrimary: '#265922',
   siteDomain: 'publimetro.pe',
   siteUrl: 'https://publimetro.pe',
   resizerUrl:
@@ -8,7 +8,7 @@ export default {
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
-  fbAppId: '1667917060088448',
+  fbAppId: '189362231408765',
   googleTagManagerId: 'GTM-KHF8BD_',
   ampGoogleTagManagerId: 'UA-3055636-3',
   charbeatAccountNumber: 57773,
