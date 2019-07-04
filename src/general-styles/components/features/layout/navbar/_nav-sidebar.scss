@@ -2,7 +2,7 @@
   max-width: 330px;
   top: $nav-height;
   height: calc(100vh - #{$nav-height});
-
+  left: 0;
   transform: scaleX(0);
   transform-origin: left;
   transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);

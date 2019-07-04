@@ -20,6 +20,7 @@ const classes = {
   iconLinkedin: 'icon-linkedin-circle',
   iconRibbon: 'icon-ribbon',
   iconTwitter: 'icon-twitter-circle',
+  iconWhatsapp:'icon-whatsapp',
 }
 @Consumer
 class StoryHeaderChildSocial extends PureComponent {
@@ -69,8 +70,8 @@ class StoryHeaderChildSocial extends PureComponent {
           mobileClass: classes.mobileClass,
         },
         {
-          icon: classes.iconRibbon,
-          link: urlsShareList.pin,
+          icon: classes.iconWhatsapp,
+          link: urlsShareList.whatsapp,
           mobileClass: `block md:hidden ${classes.mobileClass}`,
         },
       ],
