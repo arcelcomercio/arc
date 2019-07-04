@@ -172,7 +172,11 @@ export const metaPaginationUrl = (
       )}`
     : `${siteUrl}${
         isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
-      }${isQuery ? `&page=${pageNumber}` : `?${requestUri.split('?')[1]}`}`
+      }${
+        isQuery
+          ? `&page=${pageNumber}`
+          : `${requestUri.split('?')[1] ? requestUri.split('?')[1] : ''}`
+      }`
 }
 
 export const getMetaPagesPagination = (
