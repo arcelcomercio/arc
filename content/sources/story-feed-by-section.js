@@ -26,9 +26,14 @@ const params = [
 ]
 
 export const itemsToArray = (itemString = '') => {
-  return itemString.split(',').map(item => {
-    return item.replace(/"/g, '')
-  })
+  return itemString.split(',').map(item => item.replace(/"/g, ''))
+}
+
+const formatSection = section => {
+  if (section === '/') return section
+  return section && section.endsWith('/')
+    ? section.slice(0, section.length - 1)
+    : section
 }
 
 const pattern = (key = {}) => {
@@ -36,6 +41,7 @@ const pattern = (key = {}) => {
 
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
+  const newSection = formatSection(section)
 
   const sectionsExcluded = itemsToArray(excludeSections)
 
@@ -81,8 +87,8 @@ const pattern = (key = {}) => {
     },
   }
 
-  if (section && section !== '/') {
-    const sectionsIncluded = itemsToArray(section)
+  if (newSection && newSection !== '/') {
+    const sectionsIncluded = itemsToArray(newSection)
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
@@ -115,8 +121,9 @@ const pattern = (key = {}) => {
 const resolve = key => pattern(key)
 
 const transform = data => {
-  if (!auxKey.section || auxKey.section === '/') return data
-  const sectionsIncluded = itemsToArray(auxKey.section)
+  const newSection = formatSection(auxKey.section)
+  if (!newSection || newSection === '/') return data
+  const sectionsIncluded = itemsToArray(newSection)
   if (data.content_elements.length === 0 || sectionsIncluded.length > 1)
     return data
   const {
