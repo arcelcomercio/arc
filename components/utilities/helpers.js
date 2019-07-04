@@ -171,8 +171,12 @@ export const metaPaginationUrl = (
         `${isQuery ? '&page=' : '/'}${pageNumber}`
       )}`
     : `${siteUrl}${
-        isQuery ? requestUri : `${requestUri.split('?')[0]}/${pageNumber}`
-      }${isQuery ? `&page=${pageNumber}` : `?${requestUri.split('?')[1]}`}`
+        isQuery ? requestUri : `${requestUri.split('?')[0]}${pageNumber}`
+      }${
+        isQuery
+          ? `&page=${pageNumber}`
+          : `${requestUri.split('?')[1] ? requestUri.split('?')[1] : ''}`
+      }`
 }
 
 export const getMetaPagesPagination = (
@@ -507,10 +511,17 @@ export const replaceTags = text => {
 }
 
 export const formatDateStory = date => {
-  const fecha = date.slice(0, 10).replace(/-/g, '.')
-  const hora = date.slice(date.indexOf('T') + 1, 16)
-  const tiempo = date.slice(date.indexOf('T') + 1, 13)
+  const year = date.slice(0, 4)
+  const month = date.slice(5, 7)
+  const day = date.slice(8, 10)
 
-  const horaAm = parseInt(String, tiempo) < 12 ? 'AM' : 'PM'
-  return `${fecha} / ${hora} ${horaAm}`
+  const hours = date.slice(date.indexOf('T') + 1, 16)
+  const minutes = date.slice(date.indexOf('T') + 1, 13)
+
+  const minutesTime = parseInt(String, minutes) < 12 ? 'am' : 'pm'
+  return `${day}.${month}.${year} / ${hours} ${minutesTime}`
+}
+
+export const replaceHtmlMigracion = html => {
+  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }

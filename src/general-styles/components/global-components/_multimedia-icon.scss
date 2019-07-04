@@ -2,8 +2,8 @@ $base-icon-size: 50px;
 
 .m-icon {
     font-size: $base-icon-size;
-    width: calc(#{$base-icon-size} - 2px);
-    height: calc(#{$base-icon-size} - 2px);
+    width: $base-icon-size;
+    height: $base-icon-size;
     top: calc(50% - calc(#{$base-icon-size} / 2));
     left: calc(50% - calc(#{$base-icon-size} / 2));
     background-color: rgba(0, 0, 0, 0.4);

@@ -16,11 +16,12 @@
     bottom: 5px;
     right: 5px;
     font-size: 25px;
-    width: 23px;
-    height: 23px;
+    width: 25px;
+    height: 25px;
   }
 
   &__detail {
-    max-height: $font-sm * 1.5 * 4;
+    font-size: 12px;
+    max-height: calc(12px * 1.33 * 4);
   }
 }
