@@ -100,7 +100,6 @@ class StoryContentAmp extends PureComponent {
                 }
 
                 if (type === ConfigParams.ELEMENT_RAW_HTML) {
-                  const { content } = element
                   return (
                     <RawHtml content={ampHtml(content)} rawHtmlClasses="" />
                   )
