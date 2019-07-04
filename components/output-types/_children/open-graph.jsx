@@ -29,7 +29,6 @@ export default ({
       <meta property="og:locale" content="es_PE" />
 
       <meta property="fb:app_id" content={fbAppId} />
-      <meta property="fb:app_id" content={fbAppId} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={deployment(image)} />
@@ -55,7 +54,7 @@ export default ({
       )}
 
       <meta property="og:url" content={`${siteUrl}${requestUri}`} />
-      <meta property="og:type" content={story ? 'story' : 'website'} />
+      <meta property="og:type" content={story ? 'article' : 'website'} />
     </>
   )
 }

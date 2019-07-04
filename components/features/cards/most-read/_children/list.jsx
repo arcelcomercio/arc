@@ -16,11 +16,12 @@ const CardMostReadChildList = props => {
         Lo más visto <i className={classes.icon} />{' '}
       </h4>
 
-      {stories.map((item, i) => {
-        const key = `most-read-${i}-${item.id}`
-        const params = { item, viewImage }
-        return <CardMostReadItem key={key} {...params} />
-      })}
+      {stories &&
+        stories.map((item, i) => {
+          const key = `most-read-${i}-${item.id}`
+          const params = { item, viewImage }
+          return <CardMostReadItem key={key} {...params} />
+        })}
     </div>
   )
 }
