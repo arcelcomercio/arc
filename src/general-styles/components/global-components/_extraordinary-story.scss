@@ -37,8 +37,10 @@ $img-max-height: 355px;
         min-width: 60%;
         width: 60%;
       }
+
       flex-direction: row;
     }
+
     @include topMultimedia();
   }
 
@@ -48,8 +50,10 @@ $img-max-height: 355px;
         min-width: 60%;
         width: 60%;
       }
+
       flex-direction: row;
     }
+
     @include bottomMultimedia();
   }
 
@@ -102,6 +106,7 @@ $img-max-height: 355px;
         padding-bottom: 0 !important;
       }
     }
+
     & .embed-multimedia-image {
       max-height: $img-max-height;
     }
@@ -112,8 +117,5 @@ $img-max-height: 355px;
     max-height: $img-max-height;
   }
 
-  &__author {
-    @media (--desktop) {
-    }
-  }
+  // &__author {}
 }

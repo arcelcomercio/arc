@@ -5,7 +5,9 @@
 
 const MEMBER_ID = 8484
 const agente = navigator.userAgent
-const { pathname } = window.location
+const {
+  pathname
+} = window.location
 const elements_path = pathname.split('/').filter(item => item.match(/(\w+)/g))
 const body_class = document.querySelector('body').getAttribute('class')
 
@@ -37,8 +39,7 @@ const adsParams =
   dataDevice.map(el => {
     return {
       invCode: `${slot}_${el}`,
-      sizes:
-        device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
+      sizes: device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
       allowedformats: ['video', 'banner'],
       targetId: `ads_${device}_${el}`,
     }
@@ -65,17 +66,17 @@ const getTags = () => {
   if (section === 'buscar')
     array_tags.push(
       window.location.search
-        .slice(3)
-        .split('+')
-        .join('')
-        .toLowerCase()
+      .slice(3)
+      .split('+')
+      .join('')
+      .toLowerCase()
     )
   else if (section === 'tags')
     array_tags.push(
       elements_path[1]
-        .split('-')
-        .join('')
-        .toLowerCase()
+      .split('-')
+      .join('')
+      .toLowerCase()
     )
   return array_tags
 }
@@ -166,7 +167,9 @@ const peruRedShowTag = () => {
 
               const nObj = adObj.native
               const {
-                image: { url: imgSrc } = {},
+                image: {
+                  url: imgSrc
+                } = {},
                 clickUrl = '',
                 title = '',
                 body = '',
@@ -254,15 +257,17 @@ const initAdserver = () => {
 
 const inline = data => {
   if (body_class.includes('story')) {
-    const { spaces } = data
+    const {
+      spaces
+    } = data
     if (spaces && Array.isArray(spaces)) {
       spaces.forEach(space => {
         const adPlace =
           document.getElementById(space.name) || createDiv(space.id)
         const target =
-          typeof space.target === 'string'
-            ? document.querySelector(space.target)
-            : space.target
+          typeof space.target === 'string' ?
+          document.querySelector(space.target) :
+          space.target
         if (target) {
           const childs = [...target.children].filter(
             node => node.nodeName === 'P'
@@ -296,13 +301,11 @@ const inline = data => {
 const getTagInline = () => {
   const nameSpace = IS_MOBILE ? 'ads_m_movil3' : 'ads_d_inline'
   return {
-    spaces: [
-      {
-        target: '#contenedor',
-        name: nameSpace,
-        position: 0,
-      },
-    ],
+    spaces: [{
+      target: '#contenedor',
+      name: nameSpace,
+      position: 0,
+    }, ],
   }
 }
 
@@ -326,13 +329,11 @@ dataFilter.forEach(el => {
           sizes: obj.size,
         },
       },
-      bids: [
-        {
-          bidder: el.name,
+      bids: [{
+        bidder: el.name,
 
-          params: obj.params,
-        },
-      ],
+        params: obj.params,
+      }, ],
     })
   )
 })
@@ -378,8 +379,7 @@ if (adUnits.length > 0) {
       }
       if (bd === 'audienceNetwork') {
         bds[bd] = {
-          adserverTargeting: [
-            {
+          adserverTargeting: [{
               key: 'fb_adid',
               val: bidResponse => bidResponse.fb_adid,
             },
@@ -437,7 +437,7 @@ apntag.anq.push(() => {
 })
 
 const initWithoutHB = () => {
-  apntag.anq.push(function() {
+  apntag.anq.push(function () {
     apntag.loadTags()
     adsParams.forEach(el =>
       apntag.anq.push(() => {
