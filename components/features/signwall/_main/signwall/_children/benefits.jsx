@@ -31,40 +31,29 @@ const getTitle = (typeMessage, nameMPP) => {
   if (typeMessage === 'relogin') {
     title = (
       <Title
-        content={`¡Hola ${nameMPP}! Para mejorar tu experiencia de navegación, inicia
-    sesión nuevamente`}
+        content={`¡Hola ${nameMPP}! Para mejorar tu experiencia de navegación, inicia sesión nuevamente`}
       />
     )
   } else if (typeMessage === 'organic') {
     if (Brand === 'elcomercio') {
       title = (
-        <Title
-          content="Accede y mantente siempre informado con las noticias más relevantes
-        del Perú y el mundo."
-        />
+        <Title content="Accede y mantente siempre informado con las noticias más relevantes del Perú y el mundo." />
       )
     } else {
       title = (
-        <Title
-          content="Accede y continúa informándote con lo más completo de economía,
-          finanzas y negocios."
-        />
+        <Title content="Accede y continúa informándote con lo más completo de economía, finanzas y negocios." />
       )
     }
   } else if (typeMessage === 'hard') {
     if (Brand === 'elcomercio') {
       title = (
-        <Title
-          content="Regístrate gratis para continuar leyendo y estar siempre informado con
-          las noticias más relevantes."
-        />
+        <Title content="Regístrate gratis para continuar leyendo y estar siempre informado con las noticias más relevantes." />
       )
     } else {
       title = (
         <Title
           content="¿TE GUSTA LO QUE ESTÁS LEYENDO?"
-          subTitle="Regístrate y continúa informándote con lo más completo en economía,
-          negocios y finanzas."
+          subTitle="Regístrate y continúa informándote con lo más completo en economía, negocios y finanzas."
         />
       )
     }

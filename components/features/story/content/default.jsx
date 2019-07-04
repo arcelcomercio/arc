@@ -4,11 +4,13 @@ import React, { PureComponent } from 'react'
 import ArcStoryContent, {
   Oembed,
   RawHtml,
+  Text,
 } from '@arc-core-components/feature_article-body'
 import {
   appendToBody,
   createLink,
   createScript,
+  replaceTags,
 } from '../../../utilities/helpers'
 
 import StoryContentChildVideo from './_children/video'
@@ -87,7 +89,7 @@ class StoryContent extends PureComponent {
     return (
       <div className={classes.news}>
         {promoItems && <StoryContentChildMultimedia data={promoItems} />}
-        {author && <StoryContentChildAuthor data={author} date={date} />}
+        {author && <StoryContentChildAuthor {...author} date={date} />}
         <div id="ads_d_inline" />
         <div id="ads_m_movil_video" />
         <div id="ads_m_movil3" />
@@ -99,7 +101,13 @@ class StoryContent extends PureComponent {
               data={contentElements}
               elementClasses={classes}
               renderElement={element => {
-                const { _id, type, subtype, raw_oembed: rawOembed } = element
+                const {
+                  _id,
+                  type,
+                  subtype,
+                  raw_oembed: rawOembed,
+                  content,
+                } = element
                 if (type === ConfigParams.ELEMENT_IMAGE) {
                   return (
                     <StoryContentChildImage
@@ -147,8 +155,17 @@ class StoryContent extends PureComponent {
                     />
                   )
                 }
+
+                if (type === ConfigParams.ELEMENT_TEXT) {
+                  return (
+                    <Text
+                      content={replaceTags(content)}
+                      className={classes.textClasses}
+                    />
+                  )
+                }
+
                 if (type === ConfigParams.ELEMENT_RAW_HTML) {
-                  const { content } = element
                   /* Si encuentra opta-widget agrega scripts a <head> */
                   if (content.includes('opta-widget'))
                     this.handleOptaWidget({

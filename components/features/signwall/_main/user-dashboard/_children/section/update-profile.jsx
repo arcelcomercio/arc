@@ -293,12 +293,6 @@ class UpdateProfile extends Component {
         })
         break
       case 'CEX':
-        this.setState({
-          typeDocLenghtMin: '5',
-          typeDocLenghtMax: '15',
-          typeDoc: 'text',
-        })
-        break
       case 'CDI':
         this.setState({
           typeDocLenghtMin: '5',
