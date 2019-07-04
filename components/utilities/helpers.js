@@ -515,7 +515,7 @@ export const formatDateStory = date => {
   const hora = date.slice(date.indexOf('T') + 1, 16)
   const tiempo = date.slice(date.indexOf('T') + 1, 13)
 
-  const horaAm = parseInt(String, tiempo) < 12 ? 'AM' : 'PM'
+  const horaAm = parseInt(String, tiempo) < 12 ? 'am' : 'pm'
   return `${fecha} / ${hora} ${horaAm}`
 }
 
