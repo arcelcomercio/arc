@@ -1,5 +1,10 @@
 .nav {
-    &__logo {
-        padding: 10px 0;
+  &__btn {
+    &--section {
+      padding-left: 0;
     }
+  }
+  &__logo {
+    padding: 10px 0;
+  }
 }
