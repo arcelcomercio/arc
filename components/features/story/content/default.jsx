@@ -77,7 +77,6 @@ class StoryContent extends PureComponent {
       taxonomy: { tags = {} },
       related_content: { basic: relatedContent } = {},
     } = globalContent || {}
-
     const structuredTaboola = `
       window._taboola = window._taboola || [];
       _taboola.push({
@@ -89,7 +88,7 @@ class StoryContent extends PureComponent {
     return (
       <div className={classes.news}>
         {promoItems && <StoryContentChildMultimedia data={promoItems} />}
-        {author && <StoryContentChildAuthor data={author} date={date} />}
+        {author && <StoryContentChildAuthor {...author} date={date} />}
         <div id="ads_d_inline" />
         <div id="ads_m_movil_video" />
         <div id="ads_m_movil3" />
