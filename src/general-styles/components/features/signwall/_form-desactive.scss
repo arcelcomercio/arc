@@ -2,26 +2,29 @@
   * {
     .form-desactive {
       &__title {
-        font-size: 22px !important;
         padding: 0px;
-        font: 26px/0.8 'Noto Serif', serif;
+        font: 22px/0.8 'Noto Serif', serif;
         margin: 0px;
         margin-bottom: 10px;
         text-transform: capitalize;
         line-height: 24px;
         text-align: center;
         width: 100%;
+
         @media (--tablet) {
           width: 100%;
         }
       }
+
       &__text {
         text-align: center;
         font-size: 14px;
       }
+
       & .check-container {
         font-size: 14px;
         color: #333333;
+
         @media (--tablet) {
           margin-bottom: 12px;
         }
