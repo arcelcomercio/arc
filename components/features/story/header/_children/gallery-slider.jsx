@@ -5,19 +5,19 @@ const classes = {
   elementsSlider: 'story-gallery-slider p-20 bg-primary',
   body: 'position-relative overflow-hidden ',
   content: 'story-gallery-slider__content flex',
-  element: '',
+  figure: 'story-gallery-slider__figure position-relative',
   image: 'story-gallery-slider__img w-full object-fit-cover',
   caption: 'story-gallery-slider__caption pt-20 pb-20 flex',
   captionImage:
     'story-gallery-slider__caption-image pt-10 pl-15 text-sm text-white secondary-font line-h-sm',
   quantity:
     'story-gallery-slider__quantity title-xs flex items-center justify-center',
-  arrowsBox:
-    'story-gallery-slider__arrows-box position-absolute top-0 flex w-full items-center justify-between',
+  /*   arrowsBox:
+    'story-gallery-slider__arrows-box position-absolute top-0 flex w-full items-center justify-between', */
   leftArrow:
-    'story-gallery-slider__arrows icon-left text-white title-lg flex items-center justify-center h-full',
+    'story-gallery-slider__arrows story-gallery-slider__arrows--left icon-left text-white title-lg flex items-center justify-center h-full position-absolute top-0',
   rightArrow:
-    'story-gallery-slider__arrows icon-right text-white title-lg flex items-center justify-center h-full',
+    'story-gallery-slider__arrows story-gallery-slider__arrows--right icon-right text-white title-lg flex items-center justify-center h-full position-absolute top-0',
 }
 
 class StoryHeaderChildGallerySlider extends PureComponent {
@@ -114,43 +114,45 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                       key={element._id}
                       style={slideStyle}
                       className={classes.element}>
-                      <figure>
-                        <img
-                          src={element.resized_urls ? '' : element.url}
-                          alt={element.subtitle}
-                          className={classes.image}
-                        />
-                        <figcaption className={classes.caption}>
-                          <span className={classes.quantity}>
-                            {i + 1}/{dataSlider.length}
-                          </span>
-                          <p className={classes.captionImage}>
-                            {element.subtitle}
-                          </p>
-                        </figcaption>
-                      </figure>
+                      <div className={classes.figure}>
+                        <figure>
+                          <img
+                            src={element.resized_urls ? '' : element.url}
+                            alt={element.subtitle}
+                            className={classes.image}
+                          />
+                        </figure>
+                      </div>
+                      <figcaption className={classes.caption}>
+                        <span className={classes.quantity}>
+                          {i + 1}/{dataSlider.length}
+                        </span>
+                        <p className={classes.captionImage}>
+                          {element.subtitle}
+                        </p>
+                      </figcaption>
                     </li>
                   ))}
                 </ul>
-                {dataSlider && dataSlider.length > 1 && (
-                  <div role="navigation" className={classes.arrowsBox}>
-                    <i
-                      role="button"
-                      tabIndex="0"
-                      className={classes.leftArrow}
-                      onClick={this._handlePrevSlider}
-                      onKeyDown={this._controlKeysSlider}
-                    />
-                    <i
-                      role="button"
-                      tabIndex="0"
-                      id="icon-right"
-                      className={classes.rightArrow}
-                      onClick={this._handleNextSlider}
-                      onKeyDown={this._controlKeysSlider}
-                    />
-                  </div>
-                )}
+                {/*          {dataSlider && dataSlider.length > 1 && (
+                  <div role="navigation" className={classes.arrowsBox}> */}
+                <i
+                  role="button"
+                  tabIndex="0"
+                  className={classes.leftArrow}
+                  onClick={this._handlePrevSlider}
+                  onKeyDown={this._controlKeysSlider}
+                />
+                <i
+                  role="button"
+                  tabIndex="0"
+                  id="icon-right"
+                  className={classes.rightArrow}
+                  onClick={this._handleNextSlider}
+                  onKeyDown={this._controlKeysSlider}
+                />
+                {/*      </div>
+                )} */}
               </>
             </div>
           </section>
