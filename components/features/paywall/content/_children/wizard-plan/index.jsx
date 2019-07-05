@@ -11,14 +11,10 @@ function WizardPlan() {
           test
         </Panel>
         <div className="wizard-plan__wrap-plan">
-          <div className="wizard-plan__title">Title</div>
+          <div className="wizard-plan__title">Selecciona un plan de pago:</div>
           <div className="wizard-plan__plans">
-            <Panel type="card-price">
-              <CardPrice amount="29" billingFrequency="month" />
-            </Panel>
-            <Panel type="card-price">
-              <CardPrice amount="350" billingFrequency="year" />
-            </Panel>
+            <CardPrice amount="29" billingFrequency="month" />
+            <CardPrice amount="350" billingFrequency="year" />
           </div>
         </div>
       </div>

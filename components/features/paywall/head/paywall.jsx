@@ -29,10 +29,5 @@ class Head extends React.PureComponent {
     )
   }
 }
-// function Head(props) {
-//   return (
-
-//   )
-// }
 
 export default Head
