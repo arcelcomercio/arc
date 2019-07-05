@@ -12,8 +12,6 @@ const classes = {
     'story-gallery-slider__caption-image pt-10 pl-15 text-sm text-white secondary-font line-h-sm',
   quantity:
     'story-gallery-slider__quantity title-xs flex items-center justify-center',
-  /*   arrowsBox:
-    'story-gallery-slider__arrows-box position-absolute top-0 flex w-full items-center justify-between', */
   leftArrow:
     'story-gallery-slider__arrows story-gallery-slider__arrows--left icon-left text-white title-lg flex items-center justify-center h-full position-absolute top-0',
   rightArrow:
