@@ -2,8 +2,8 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import StoryData from '../../utilities/story-data'
-import FeaturedStory from './_children/featured-story/default'
+import DataStory from '../../utilities/story-data'
+import FeaturedStory from '../../global-components/featured-story'
 import Ads from './_children/ads/default'
 
 const elements = [
@@ -33,33 +33,44 @@ class OrderedStoriesGrid extends PureComponent {
       arcSite,
       customFields,
     } = this.props
-    const { content_elements: contentElements } = globalContent || {}
-    const stories = contentElements || []
-    let { initialStory: storyNumber = 1 } = customFields || {}
-    storyNumber -= 1 // Resta uno al storyNumber. Para el editor 0 = 1
+    const { content_elements: contentElements = [] } = globalContent || {}
 
-    const storyDataElement = new StoryData({
+    const dataStory = new DataStory({
       deployment,
       contextPath,
       arcSite,
       defaultImgSize: 'md',
     })
-    return elements.map((element, idx) => {
+    let storyNumber = 0
+
+    return elements.map(element => {
       if (element.type === 'destaque') {
-        storyDataElement.__data = stories[storyNumber + idx] || {}
-        const story = storyDataElement.attributesRaw || {}
-        return (
-          <FeaturedStory
-            key={story.link}
-            arcSite={arcSite}
-            story={story}
-            imageSize="complete"
-            size={element.col === 2 ? 'twoCol' : 'oneCol'}
-          />
-        )
+        dataStory.__data = contentElements[storyNumber]
+        const params = {
+          title: {
+            name: dataStory.title,
+            url: dataStory.link,
+          },
+          category: {
+            name: dataStory.section,
+            url: dataStory.sectionLink,
+          },
+          author: {
+            name: dataStory.author,
+            url: dataStory.authorLink,
+          },
+          image: dataStory.multimedia,
+          imageSize: 'complete',
+          headband: 'normal',
+          size: element.col === 1 ? 'oneCol' : 'twoCol',
+          hightlightOnMobile: true,
+          arcSite,
+          multimediaType: dataStory.multimediaType,
+        }
+        storyNumber += 1
+        return <FeaturedStory key={dataStory.id} {...params} />
       }
       if (element.type === 'publicidad') {
-        storyNumber -= 1
         const { adElement, isDesktop, isMobile, freeHtml } = customFields || {}
         return (
           <Ads
@@ -95,7 +106,7 @@ OrderedStoriesGrid.propTypes = {
     /**
      *      CustomFields de publicidad
      */
-    adElement: PropTypes.string.isRequired.tag({
+    adElement: PropTypes.string.tag({
       name: 'Identificador de publicidad',
     }),
     isDesktop: PropTypes.bool.tag({
