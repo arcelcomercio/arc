@@ -1,7 +1,6 @@
 const schemaName = 'stories'
 
-const params = [
-  {
+const params = [{
     name: 'sort',
     displayName: 'Orden',
     type: 'text',
@@ -34,7 +33,7 @@ const pattern = key => {
   // if (!key.website) {
   // 	throw new Error('This content source requires a website')
   // }
-  // if (!key.startDate || !key.finalDate) {
+  // if (!key.startDate || !key.finalDate) {c
   // 	throw new Error('This content source requires a start date and final date')
   // }
 
@@ -46,7 +45,7 @@ const pattern = key => {
   }
 
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const sort = key.sort || 'desc'
+  const sort = key.sort || 'descendiente'
   const from = `${validateFrom()}`
   const size = `${key.size || 3}`
   // const page = `page=${'1'}`
@@ -55,8 +54,7 @@ const pattern = key => {
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -95,14 +93,13 @@ const pattern = key => {
     })
 	} */
 
-  if (key.section) {
+  if (key.section !== 'todas') {
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': [`/${key.section}`],
                 },
