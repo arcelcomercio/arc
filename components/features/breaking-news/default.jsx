@@ -103,7 +103,7 @@ class BreakingNews extends Component {
             className={classes.tag}
             {...editableField('tags')}
             suppressContentEditableWarning>
-            {tags}:
+            {tags}
           </span>
           <span>
             <a
