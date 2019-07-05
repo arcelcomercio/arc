@@ -26,7 +26,7 @@ class SearchInput extends PureComponent {
       location.href = `/buscar/${encodeURIComponent(value).replace(
         /%20/g,
         '+'
-      )}/todas/${sort || 'descendiente'}`
+      )}/todas/${sort || 'descendiente'}/`
     /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
   }
 

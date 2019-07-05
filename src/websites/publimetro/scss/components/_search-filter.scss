@@ -1,79 +1,29 @@
 .search-filter {
-  background-color: $color-base-100;
-
   &__link {
     font-family: $font-regular;
-    color: $color-gray-300;
-
-    @media (--desktop) {
-      background-color: $color-gray-100;
-    }
-
-    &:hover {
-      background-color: $color-primary;
-      color: $color-white;
-      text-decoration: none;
-    }
   }
 
   &__item {
-    @media (--desktop) {
-      position: relative;
+    &.selected {
+      .search-filter__link {
+        background-color: $color-tertiary;
+
+        @media (--desktop) {
+          font-family: $primary-font;
+        }
+      }
+
+      &:before {
+        @media (--desktop) {
+          border-color: $color-tertiary transparent transparent;
+        }
+      }
     }
 
     &.active {
       .search-filter__link {
         color: $color-white;
-        @media (--desktop) {
-          background-color: $color-primary;
-          font-family: $primary-font;
-        }
       }
-    }
-
-    &.selected {
-      .search-filter__link {
-        outline: 0;
-        background-color: $color-tertiary;
-        @media (--desktop) {
-          color: $color-gray-300;
-          font-family: $primary-font;
-        }
-      }
-
-      &::before {
-        @media (--desktop) {
-          border-color: $color-tertiary transparent transparent;
-          border-style: solid;
-          border-width: 10px 10px 0 10px;
-          bottom: -10px;
-          content: ' ';
-          height: 0;
-          left: 50%;
-          margin-left: -10px;
-          position: absolute;
-          width: 0;
-        }
-      }
-    }
-  }
-
-  &__input {
-    color: $color-base-300;
-    font-family: $primary-font;
-
-    &::placeholder {
-      color: $color-base-300;
-    }
-  }
-
-  &__btn {
-    @media (--desktop) {
-      border-left-color: $color-base-100;
-    }
-
-    &::before {
-      color: $color-base-300;
     }
   }
 

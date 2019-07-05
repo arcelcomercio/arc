@@ -4,9 +4,13 @@ import SearchInput from '../../../global-components/search-input'
 import schemaFilter from '../_dependencies/schema-filter'
 
 // TODO: Refactorizar todo (la data debe venir desde el feature, no hacer fetches aca)
+/**
+ * INFO:
+ * Las estructuras comentadas serán habilitadas luego, por favor, no eliminar.
+ */
 
 const classes = {
-  searchFilter: `search-filter flex flex-col-reverse w-full mt-20 p-15 lg:flex-row`,
+  searchFilter: `search-filter flex flex-col-reverse bg-base-100 w-full mt-20 p-15 lg:flex-row`,
   containerList: 'position-relative',
   select: `search-filter__select position-relative w-full flex items-center pt-0 pb-0 pl-15 pr-15 lg:h-auto p-0`,
   selectName: `search-filter__select-name flex w-full justify-between text-sm lg:hidden`,
@@ -19,6 +23,11 @@ const classes = {
   subLink: 'search-filter__sublink capitalize w-full text-xs text-gray-200',
 }
 
+const DESC = 'descendiente'
+const ASC = 'ascendente'
+const SORT = 'sort'
+const SECTION = 'section'
+const BASE_PATH = '/buscar'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 const HIERARCHY = 'filter-section'
 
@@ -52,7 +61,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
   getOrder() {
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
-    return sort || 'descendiente'
+    return sort || DESC
   }
 
   // Verifica si el filtro "sección" está seleccionado previamente.
@@ -60,28 +69,23 @@ class SearchFilterChildSearchFilter extends PureComponent {
     const { globalContentConfig } = this.props
     const { query: { section = '' } = {} } = globalContentConfig || {}
 
-    return section !== '' ? 'section' : ''
+    return section !== '' ? SECTION : ''
   }
 
   getUrl(type, value) {
     const { globalContentConfig } = this.props
     const {
-      query: {
-        uri = '',
-        query = '',
-        section = 'todas',
-        sort = 'descendiente',
-      } = {},
+      query: { uri = '', query = '', section = 'todas', sort = DESC } = {},
     } = globalContentConfig || {}
 
     // if (query) ->
     let newUri = uri
     switch (type) {
-      case 'sort':
-        newUri = `/buscar/${query}/${section}/${value}`
+      case SORT:
+        newUri = `${BASE_PATH}/${query}/${section}/${value}/`
         break
-      case 'section':
-        newUri = `/buscar/${query}/${value}/${sort}`
+      case SECTION:
+        newUri = `${BASE_PATH}/${query}/${value}/${sort}/`
         break
       default:
     }
@@ -120,42 +124,6 @@ class SearchFilterChildSearchFilter extends PureComponent {
             </span>
           </button>
           <ul className={`${classes.list} ${showList ? 'flex' : 'hidden'}`}>
-            <li
-              className={`${classes.item} ${
-                sort === 'descendiente' || !sort ? 'active' : ''
-              }`}>
-              <a
-                href={!isAdmin && this.getUrl('sort', 'descendiente')} // (type, value)
-                className={classes.link}
-                role="checkbox"
-                aria-checked="true">
-                Más Recientes
-              </a>
-            </li>
-            <li
-              className={`${classes.item} ${
-                sort === 'ascendente' || !sort ? 'active' : ''
-              }`}>
-              <a
-                href={!isAdmin && this.getUrl('sort', 'ascendente')} // (type, value)
-                className={classes.link}
-                role="checkbox"
-                aria-checked="false">
-                Menos Recientes
-              </a>
-            </li>
-            {/* <li
-              className={`${classes.item} ${
-                sort === 'relacionados' || !sort ? 'active' : ''
-              }`}>
-              <a
-                href={!isAdmin && this.getUrl()} // (type, value)
-                className={classes.link}
-                role="checkbox"
-                aria-checked="false">
-                Relevancia
-              </a>
-            </li> */}
             {/* <li
               className={`${classes.item} ${
                 selected === 'type' ? 'selected' : ''
@@ -171,7 +139,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
             </li> */}
             <li
               className={`${classes.item} ${
-                selected === 'section' ? 'selected' : ''
+                selected === SECTION ? 'selected' : ''
               }`}>
               <button
                 type="button"
@@ -182,14 +150,13 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 Sección
               </button>
               {/* Si el filtro seleccionado es "sección", renderiza la lista de secciones */
-              selected === 'section' && sections !== [] && (
+              selected === SECTION && sections !== [] && (
                 <ul className={classes.subList}>
                   {sections.map(section => (
                     <li key={section._id} className={classes.subItem}>
                       <a
                         href={
-                          !isAdmin &&
-                          this.getUrl('section', section._id.slice(1))
+                          !isAdmin && this.getUrl(SECTION, section._id.slice(1))
                         } // (type, value)
                         /* El slice(0) es para eliminar el slash inicial de la sección */
                         className={classes.subLink}>
@@ -212,6 +179,42 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 name="time">
                 Período de tiempo
               </button>
+            </li> */}
+            <li
+              className={`${classes.item} ${
+                sort === DESC || !sort ? 'active' : ''
+              }`}>
+              <a
+                href={!isAdmin && this.getUrl(SORT, DESC)} // (type, value)
+                className={classes.link}
+                role="checkbox"
+                aria-checked="true">
+                Más Recientes
+              </a>
+            </li>
+            <li
+              className={`${classes.item} ${
+                sort === ASC || !sort ? 'active' : ''
+              }`}>
+              <a
+                href={!isAdmin && this.getUrl(SORT, ASC)} // (type, value)
+                className={classes.link}
+                role="checkbox"
+                aria-checked="false">
+                Menos Recientes
+              </a>
+            </li>
+            {/* <li
+              className={`${classes.item} ${
+                sort === 'relacionados' || !sort ? 'active' : ''
+              }`}>
+              <a
+                href={!isAdmin && this.getUrl()} // (type, value)
+                className={classes.link}
+                role="checkbox"
+                aria-checked="false">
+                Relevancia
+              </a>
             </li> */}
           </ul>
         </div>

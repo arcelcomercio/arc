@@ -15,8 +15,6 @@ class SearchFilter extends PureComponent {
       globalContentConfig,
     }
 
-    console.log(globalContentConfig)
-
     return <ChildSearchFilter {...params} />
   }
 }
