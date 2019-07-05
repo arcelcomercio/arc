@@ -2,6 +2,10 @@
   grid-template-columns: 1fr;
   height: auto;
 
+  @media (--tablet) {
+    display: none;
+  }
+
   @media print {
     display: none;
   }
