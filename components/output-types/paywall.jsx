@@ -36,7 +36,7 @@ const Paywall = props => {
           )}
         />
         <link
-          href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap"
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,700&display=swap"
           rel="stylesheet"
         />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />

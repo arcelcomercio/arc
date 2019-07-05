@@ -34,7 +34,6 @@ export default {
     FACEBOOK_APPID: '287130908774061',
     GOOGLE_CLIENTID:
       '1038751133917-m10doi4gb3tl4u01s4uaje60vbukh2bs.apps.googleusercontent.com',
-
   },
   ids: {
     opta: '782834e1fd5a215304e57cddad80b844',
@@ -146,8 +145,5 @@ export default {
       url: 'https://comercioxpress.com/',
     },
   ],
-<<<<<<< HEAD
-=======
   urlAddfbInstantArticle: 'https://img.elcomercio.pe',
->>>>>>> Sprint11
 }

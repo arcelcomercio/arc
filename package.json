@@ -97,17 +97,10 @@
     "watch:amp": "webpack --config ./config/webpack.config.js --watch --env.dev --env.amp",
     "dev": "webpack --config ./config/webpack.config.js --env.dev && gulp ",
     "prod": "webpack --config ./config/webpack.config.js --env.prod && gulp",
-<<<<<<< HEAD
     "watch": "webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='index, amp:css, paywall:css' ",
     "dev:all": "webpack --config ./config/webpack.config.js --env.dev --env.outputs='index, amp:css, paywall:css' && gulp",
     "prod:all": "webpack --config ./config/webpack.config.js --env.prod --env.outputs='index, amp:css, paywall:css' && gulp",
-    "zip": "npm run prod && npx fusion zip",
-=======
-    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev ",
-    "dev:all": "webpack --config ./config/webpack.config.js --env.dev && webpack --config ./config/webpack.config.js --env.dev --env.amp && gulp",
-    "prod:all": "webpack --config ./config/webpack.config.js --env.prod && webpack --config ./config/webpack.config.js --env.prod --env.amp && gulp",
     "zip": "npm run prod:all && npx fusion zip",
->>>>>>> Sprint11
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "test": "jest"
