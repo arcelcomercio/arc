@@ -11,7 +11,7 @@ const CardMostReadChildItem = props => {
     figure: `most-read-item__figure flex justify-center items-center w-full h-full overflow-hidden position-relative mr-15`,
     img: 'most-read-item__img w-inherit h-inherit object-cover object-center',
     icon: 'most-read-item__icon',
-    title: `most-read-item__detail w-full overflow-hidden text-gray-300 line-h-sm`,
+    title: `most-read-item__detail w-full overflow-hidden text-gray-300 line-h-sm text-sm`,
   }
 
   return (
