@@ -5,10 +5,10 @@ const classes = {
   author: 'story-content__author flex justify-between pt-30 mb-20',
   authorName: ' ',
   authorNameLink:
-    'secondary-font font-bold header__link text-sm text-gray-200 line-h-sm',
+    'secondary-font font-bold header__link text-lg text-gray-200 line-h-sm',
   authorDate:
     'flex items-center secondary-font text-xs text-gray-200 line-h-sm',
-  authorEmail: 'secondary-font text-xs text-gray-200 line-h-sm',
+  authorEmail: 'secondary-font text-sm text-gray-200 line-h-sm',
 }
 
 const StoryContentChildAuthor = props => {
