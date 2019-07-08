@@ -6,15 +6,16 @@ import { getResponsiveClasses } from '../../../../utilities/helpers'
 const classes = {
   header: `header bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden lg:flex`,
   logo: 'header__logo',
-  featured: 'header__featured flex justify-around w-full font-normal',
+  featured: 'header__featured flex justify-around w-full font-normal overflow-hidden',
   item: 'header__item flex items-center justify-center h-inherit',
   link: 'header__link uppercase text-sm p-10',
-  navWrapper: 'nav__wrapper hidden md:block',
+  navWrapper: 'nav__wrapper hidden md:block justify-between',
+  tags: 'header__tags justify-center mr-5',
+  date: 'header__date justify-center ml-5'
 }
 // TODO: Agregar el click afuera del menu
 const HeaderChildStandard = props => {
-  const { logo, sections, deviceList } = props
-
+  const { logo, sections, deviceList, tags, date } = props
   return (
     <>
       <header
@@ -26,6 +27,7 @@ const HeaderChildStandard = props => {
       <nav
         className={`${deviceList.showInDesktop &&
           classes.navWrapper} ${getResponsiveClasses(deviceList)}`}>
+        {tags !== '' && (<div className={classes.tags}>{tags}</div>)}
         {sections[0] && (
           <ul className={classes.featured}>
             {sections.map(section => (
@@ -37,6 +39,7 @@ const HeaderChildStandard = props => {
             ))}
           </ul>
         )}
+        {date.isShow && (<div className={classes.date}>{date.value}</div>)}
       </nav>
     </>
   )

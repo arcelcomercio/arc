@@ -1,4 +1,5 @@
 import schemaFilter from './schema-filter'
+import {formatDayMonthYear} from '../../../../utilities/helpers'
 
 export default class StandardHeader {
   constructor(
@@ -10,7 +11,9 @@ export default class StandardHeader {
     data = {},
     headerType = 'standard',
     customLogo = '',
-    customLogoLink = '/'
+    customLogoLink = '/',
+    tags = '',
+    showDate = false,
   ) {
     this.deployment = deployment
     this.contextPath = contextPath
@@ -22,6 +25,8 @@ export default class StandardHeader {
     this.customLogo = customLogo
     this.customLogoLink = customLogoLink
     this.schema = schemaFilter(headerType)
+    this.tags = tags
+    this.showDate = showDate
   }
 
   getSchema() {
@@ -55,6 +60,11 @@ export default class StandardHeader {
         alt: this.siteDomain,
       },
       sections: [newest, ...sections],
+      date: {
+        isShow: this.showDate,
+        value: this.getDate()
+      },
+      tags: this.tags,
     }
   }
 
@@ -78,6 +88,11 @@ export default class StandardHeader {
         url: '/somos',
       },
       sections: this.formatSections(),
+      date: {
+        isShow: this.showDate,
+        value: this.getDate()
+      },
+      tags: this.tags,
       // TODO: Reemplazar por el nuevo formato de url para las busquedas (sin querystrings)
       searchUrl: query => {
         window.location.href = `/buscar?query=${query}`
@@ -97,6 +112,10 @@ export default class StandardHeader {
         url: el.node_type === link ? el.url : el._id,
       }
     })
+  }
+
+  getDate = () => {
+    return formatDayMonthYear(new Date(), false)
   }
   // TODO: Crear función para formatear data de secciones con subsecciones
 }
