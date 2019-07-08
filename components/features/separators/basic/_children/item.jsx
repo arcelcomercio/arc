@@ -13,7 +13,7 @@ const classes = {
 
 export default ({ title, imageUrl, mediaIcon, link, numline }) => {
   return (
-    <a href={link} rel="noopener noreferrer">
+    <a href={link} target="_BLANK" rel="noopener noreferrer">
       <article role="listitem" className={classes.item}>
         <Icon type={mediaIcon} iconClass={classes.icon} />
         <div className={classes.detail}>
