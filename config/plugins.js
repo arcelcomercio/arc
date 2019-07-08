@@ -48,8 +48,12 @@ module.exports = type => {
 
   const getOptionsIndexStyleWebpack = nameFile => {
     const cssBase = addCssBase()
-    const styleGlobalComponent = getListStyleComponents('global-components').concat(cssBase.globalComponent)
-    const styleFeatures = getListStyleComponents('features').concat(cssBase.feature)
+    const styleGlobalComponent = getListStyleComponents(
+      'global-components'
+    ).concat(cssBase.globalComponent)
+    const styleFeatures = getListStyleComponents('features').concat(
+      cssBase.feature
+    )
     const cssGlobalComponents = writeImportCss(styleGlobalComponent)
     const cssFeatures = writeImportCss(styleFeatures)
     const importListCss = `/******* Globals *******/\r\n${cssGlobalComponents}\r\n/******* Features *******/\r\n${cssFeatures}`
@@ -62,7 +66,7 @@ module.exports = type => {
 
   const plugins = [
     new MiniCssExtractPlugin({
-      filename: `[name]/css/${type === 'amp' ? 'amp' : 'style'}.css`,
+      filename: `[name]/css/${type === 'index' ? 'style' : type}.css`,
     }),
     // Aquí se reemplaza ;[path]; por el nombre del sitio web
     new webpack.LoaderOptionsPlugin({
@@ -73,13 +77,13 @@ module.exports = type => {
       },
     }),
   ]
-  
+
   // Genera el _index.scss de todo los estilos de los features a utilizar
   if (type === APP_DEFAULT) {
     plugins.unshift(
       new CreateFileWebpack(getOptionsIndexStyleWebpack('_index.scss'))
     )
-  }else if(type === APP_AMP) {
+  } else if (type === APP_AMP) {
     plugins.unshift(
       new CreateFileWebpack(getOptionsIndexStyleWebpack('_amp.scss'))
     )

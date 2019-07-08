@@ -35,6 +35,13 @@ export default {
     aboutUs: '',
   },
 
+  assets: {
+    path: `/resources/dist/gestion/`,
+    paywall() {
+      return `${this.path}${this.logo}`
+    },
+    logo: `images/logo.svg`,
+  },
   legalLinks: [
     {
       name: 'Términos y condiciones',

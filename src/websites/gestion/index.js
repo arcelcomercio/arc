@@ -1,6 +1,7 @@
 import './scss/main.scss'
 import './favicon.ico'
 import './images/logo.png'
+import './images/logo.svg'
 import './images/white-logo.png'
 import './images/default-blog.jpg'
 import './images/default-sm.png'

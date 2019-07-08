@@ -1,0 +1,8 @@
+.gestion{
+    .wizard-nav__step{
+        background-color: #f4f4f4
+    }
+    .wizard-nav__content--active .wizard-nav__step{    
+        background-color: $color-primary
+    }
+}
