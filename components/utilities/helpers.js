@@ -515,11 +515,9 @@ export const formatDateStory = date => {
   const month = date.slice(5, 7)
   const day = date.slice(8, 10)
 
-  const hours = date.slice(date.indexOf('T') + 1, 16)
-  const minutes = date.slice(date.indexOf('T') + 1, 13)
-
-  const minutesTime = parseInt(String, minutes) < 12 ? 'am' : 'pm'
-  return `${day}.${month}.${year} / ${hours} ${minutesTime}`
+  const hours = date.slice(date.indexOf('T') + 1, 13)
+  const minutes = date.slice(date.indexOf('T') + 4, 16)
+  return `Actualizado en ${day}/${month}/${year} a las ${hours}h${minutes}`
 }
 
 export const replaceHtmlMigracion = html => {
