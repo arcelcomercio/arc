@@ -12,7 +12,10 @@ const CardMostReadChildItem = props => {
     img: 'most-read-item__img w-inherit h-inherit object-cover object-center',
     icon: 'most-read-item__icon',
     title: `most-read-item__detail w-full overflow-hidden text-gray-300 line-h-sm`,
+    numLines: 'three-lines',
   }
+
+  if (viewImage) classes.numLines = 'four-lines'
 
   return (
     <a href={websiteUrl} className={classes.item}>
@@ -23,7 +26,7 @@ const CardMostReadChildItem = props => {
             <Icon type={storyType} iconClass={classes.icon} />
           </figure>
         )}
-        <h4 className={classes.title}>{title}</h4>
+        <h4 className={`${classes.title} ${classes.numLines}`}>{title}</h4>
       </article>
     </a>
   )
