@@ -34,7 +34,6 @@ class StoriesList extends PureComponent {
       arcSite,
       defaultImgSize: 'sm',
     })
-    console.log('en donde estamos?!')
 
     return (
       <div
