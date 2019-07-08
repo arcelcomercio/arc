@@ -19,7 +19,7 @@ class SearchInput extends PureComponent {
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
     const { value } = this.inputSearch.current /* React ref del input */
-
+    console.log(globalContentConfig)
     /* Sólo genera la URI si "query" tiene contenido */
     if (value !== '')
       // eslint-disable-next-line no-restricted-globals

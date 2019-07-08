@@ -36,6 +36,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
   constructor(props) {
     super(props)
     const { arcSite, isAdmin } = props
+    console.log(typeof isAdmin)
     this.state = {
       sort: !isAdmin && this.getOrder(),
       selected: !isAdmin && this.getSection(),
