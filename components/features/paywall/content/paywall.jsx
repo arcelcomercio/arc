@@ -3,6 +3,7 @@ import Wizard from 'react-step-wizard'
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
+import * as S from './styled'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
@@ -14,12 +15,12 @@ class Content extends React.PureComponent {
   render() {
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ width: 1120 }}>
+        <S.Content>
           <Wizard nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-            <WizardPlan />
             <WizardUserProfile />
+            <WizardPlan />
           </Wizard>
-        </div>
+        </S.Content>
       </div>
     )
   }

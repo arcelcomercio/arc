@@ -1,12 +1,12 @@
 import React from 'react'
-import './summary.css'
+import * as S from './styled'
 
 const Summary = () => {
   return (
-    <div className="__summary">
+    <S.Summary>
       <Content />
       <Footer />
-    </div>
+    </S.Summary>
   )
 }
 
@@ -25,40 +25,40 @@ const offers = [
 
 const Content = () => {
   return (
-    <div className="__content">
-      <div className="t2 __title">
+    <div>
+      <S.Title>
         ACCEDE A UN DESCUENTO POR SER <strong>SUSCRIPTOR DEL IMPRESO</strong>
-      </div>
-      <div className="__wrapDetails">
+      </S.Title>
+      <S.Wrap>
         {offers.map(({ name, price, detail }) => (
           <ul className="__ul __offer" key={name}>
             <li className="t2">
-              <div className="__expand">
+              <S.Expand>
                 <span>{name}</span>
                 <strong>
                   <span>{price}</span>
                 </strong>
-              </div>
+              </S.Expand>
             </li>
             <li style={{ listStyle: 'none' }}>
               <div className="t1 __details">{detail}</div>
             </li>
           </ul>
         ))}
-      </div>
+      </S.Wrap>
     </div>
   )
 }
 
 const Footer = () => {
   return (
-    <div className="__footer">
+    <S.Footer>
       <div className="t1">DETALLE DE COMPRA</div>
       <div className="t5">Plan Digital</div>
       <ul className="t2 __details __ul">
         <li>Acceso ilimitado elcomercio.pe en todos tus dispositivos</li>
       </ul>
-    </div>
+    </S.Footer>
   )
 }
 

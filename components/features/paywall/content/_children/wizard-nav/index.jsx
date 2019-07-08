@@ -1,31 +1,29 @@
 import React from 'react'
-import './wizard-nav.css'
+import * as S from './styled'
 import c from '../../../_dependencies/tools'
 
 function Nav({ totalSteps, stepsNames, currentStep, right = () => {} }) {
   const steps = new Array(totalSteps).fill(0)
   return (
-    <div className="wizard-nav">
-      <div className="wizard-nav__wrap">
+    <S.WizardNav>
+      <S.GlobalStyle />
+      <S.Wrap>
         {steps.map((item, index) => {
           const step = index + 1
           return (
-            <div
+            <S.Content
               key={step}
-              className={c([
-                'wizard-nav__content',
-                ['wizard-nav__content--active', step === currentStep],
-              ])}>
-              <div className="wizard-nav__step">
-                <span className="wizard-nav__number">{step}</span>
-              </div>
-              <span className="wizard-nav__step-name">{stepsNames[index]}</span>
-            </div>
+              className={c([['nav-step-active', step === currentStep]])}>
+              <S.StepCircle className="nav-circle">
+                <S.StepNumber className="nav-number">{step}</S.StepNumber>
+              </S.StepCircle>
+              <S.StepName>{stepsNames[index]}</S.StepName>
+            </S.Content>
           )
         })}
-      </div>
-      <div className="wizard-nav__right">{right}</div>
-    </div>
+      </S.Wrap>
+      <S.Right>{right}</S.Right>
+    </S.WizardNav>
   )
 }
 

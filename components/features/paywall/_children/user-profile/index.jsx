@@ -2,7 +2,7 @@ import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import InputFormik from '../input'
-import './user-perfil.css'
+import * as S from './styled'
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -24,11 +24,11 @@ const SignupSchema = Yup.object().shape({
 })
 
 const Select = () => (
-  <select className="__select">
+  <S.Select>
     <option>DNI</option>
     <option>CEX</option>
     <option>CDI</option>
-  </select>
+  </S.Select>
 )
 
 const UserProfile = ({ title = '' }) => (
@@ -44,7 +44,7 @@ const UserProfile = ({ title = '' }) => (
     render={() => (
       <Form className="__field">
         {title}
-        <div className="__field">
+        <S.Wrap>
           <Field name="name" placeholder="Nombre" component={InputFormik} />
           <Field
             name="firstname"
@@ -68,10 +68,8 @@ const UserProfile = ({ title = '' }) => (
             placeholder="Correo Electrónico"
             component={InputFormik}
           />
-        </div>
-        <button type="submit" className="__submit">
-          CONTINUAR
-        </button>
+        </S.Wrap>
+        <S.Button type="submit">CONTINUAR</S.Button>
       </Form>
     )}
   />
