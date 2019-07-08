@@ -1,0 +1,9 @@
+.most-read {
+  background-color: $color-secondary;
+  &__title {
+    background-color: $color-base-300;
+  }
+  &__icon {
+    display: none;
+  }
+}
