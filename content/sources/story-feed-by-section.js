@@ -42,11 +42,6 @@ const pattern = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
   const newSection = formatSection(section)
-  console.log(
-    'Seccioooooooooooooon PATTERN',
-    newSection,
-    'Seccioooooooooooooooon PATTERN'
-  )
   const sectionsExcluded = itemsToArray(excludeSections)
   const body = {
     query: {
