@@ -17,8 +17,8 @@ class Content extends React.PureComponent {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <S.Content>
           <Wizard nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-            <WizardUserProfile />
             <WizardPlan />
+            <WizardUserProfile />
           </Wizard>
         </S.Content>
       </div>
