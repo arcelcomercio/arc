@@ -17,13 +17,13 @@ class SearchInput extends PureComponent {
   _handleSearch = e => {
     e.preventDefault()
     const { globalContentConfig } = this.props
-    const { query: { sort } = {},section: { section } = {} } = globalContentConfig || {}
+    const { query: { sort } = {} } = globalContentConfig || {}
     const { value } = this.inputSearch.current /* React ref del input */
+    console.log(globalContentConfig)
     /* Sólo genera la URI si "query" tiene contenido */
-    console.log(`Section ---> ${section}`)
     if (value !== '')
       // eslint-disable-next-line no-restricted-globals
-      location.href = `/${section}/${encodeURIComponent(value).replace(
+      location.href = `/buscar/${encodeURIComponent(value).replace(
         /%20/g,
         '+'
       )}/todas/${sort || 'descendiente'}/`
