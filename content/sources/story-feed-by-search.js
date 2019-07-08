@@ -49,7 +49,7 @@ const pattern = key => {
   const from = `${validateFrom()}`
   const size = `${key.size || 3}`
   // const page = `page=${'1'}`
-  const valueQuery = key.query || '*'
+  const valueQuery = encodeURIComponent(key.query).replace(/-/g, '+') || '*'
 
   const body = {
     query: {
