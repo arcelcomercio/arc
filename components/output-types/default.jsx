@@ -58,7 +58,9 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -154,8 +156,7 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        {isStory && <div id="ads_m_movil0" />}
-        {isStory && <div id="ads_d_skin" />}
+
         <div id="fusion-app" role="application">
           {children}
         </div>
