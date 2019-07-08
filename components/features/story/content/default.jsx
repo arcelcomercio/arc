@@ -177,7 +177,7 @@ class StoryContent extends PureComponent {
                   return (
                     <RawHtml
                       content={replaceHtmlMigracion(content)}
-                      rawHtmlClasses=""
+                      className={classes.newsEmbed}
                     />
                   )
                 }

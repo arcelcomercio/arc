@@ -142,6 +142,18 @@ export default ({
           async
           src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
         /> */}
+
+        {/* Rubicon BlueKai - Inicio */}
+        <script
+          type="text/javascript"
+          src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
+        />
+        <script
+          type="text/javascript"
+          src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
+        />
+        {/* <!-- Rubicon BlueKai - Fin --> */}
+
         <Libs />
       </head>
       <body className={isStory ? 'story nota' : ''}>

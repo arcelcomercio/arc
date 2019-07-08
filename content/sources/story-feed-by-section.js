@@ -6,7 +6,7 @@ let sectionName = ''
 const params = [
   {
     name: 'section',
-    displayName: 'Sección(es)',
+    displayName: 'Section(es)',
     type: 'text',
   },
   {
@@ -41,7 +41,11 @@ const formatSection = section => {
 const pattern = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
-  const newSection = formatSection(section)
+  const clearSection = formatSection(section)
+  const newSection =
+    clearSection === '' || clearSection === undefined || clearSection === null
+      ? '/'
+      : clearSection
   const sectionsExcluded = itemsToArray(excludeSections)
   const body = {
     query: {
@@ -120,7 +124,7 @@ const pattern = (key = {}) => {
       throw new Error('Sección no encontrada')
     sectionName = resp.name
     return request({
-      url: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
+      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
         10}&from=${feedOffset || 0}&sort=publish_date:desc`,
       ...options,
     }).then(data => {
