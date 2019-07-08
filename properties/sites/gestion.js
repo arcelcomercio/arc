@@ -1,5 +1,8 @@
 export default {
   siteName: 'Gestion',
+
+  googleFonts: 'Judson|Roboto',
+
   colorPrimary: '#f7c600',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',

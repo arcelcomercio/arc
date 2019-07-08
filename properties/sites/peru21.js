@@ -1,5 +1,8 @@
 export default {
   siteName: 'Perú21',
+
+  googleFonts: 'Roboto', // open_sansregular
+
   colorPrimary: '#f7c600',
   siteDomain: 'peru21.pe',
   siteUrl: 'https://peru21.pe',

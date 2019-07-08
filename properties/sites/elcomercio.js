@@ -1,5 +1,8 @@
 export default {
   siteName: 'El comercio',
+
+  googleFonts: 'Noto+Serif|Exo',
+
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://elcomercio.pe',

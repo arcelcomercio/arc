@@ -1,5 +1,8 @@
 export default {
   siteName: 'Depor',
+
+  googleFonts: 'Roboto', // open_sansregular
+
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',
   siteUrl: 'https://depor.com',
