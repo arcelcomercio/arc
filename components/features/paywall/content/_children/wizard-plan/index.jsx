@@ -3,7 +3,7 @@ import Panel from '../../../_children/panel'
 import CardPrice from '../card-price'
 import './wizard-plan.css'
 
-function WizardPlan() {
+function WizardPlan({ plans }) {
   return (
     <div className="wizard-plan">
       <div className="wizard-plan__wrap">
@@ -13,8 +13,14 @@ function WizardPlan() {
         <div className="wizard-plan__wrap-plan">
           <div className="wizard-plan__title">Selecciona un plan de pago:</div>
           <div className="wizard-plan__plans">
-            <CardPrice amount="29" billingFrequency="month" />
-            <CardPrice amount="350" billingFrequency="year" />
+            {plans.map(plan => {
+              ;<Panel type="card-price">
+                <CardPrice
+                  amount={plan.rates[0].amount}
+                  billingFrequency={plan.rates[0].billingFrequency}
+                />
+              </Panel>
+            })}
           </div>
         </div>
       </div>
