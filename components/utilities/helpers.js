@@ -270,6 +270,11 @@ export const formatHtmlToText = (html = '') => {
   return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
 }
 
+export const removeLastSlash = url => {
+  if (url === '/' || !url.endsWith('/')) return url
+  return url && url.endsWith('/') ? url.slice(0, url.length - 1) : url
+}
+
 export const defaultImage = ({
   deployment,
   contextPath,
@@ -507,7 +512,7 @@ export const preventDefault = e => {
 }
 
 export const replaceTags = text => {
-  return text.replace(/<p><br \/>(\s\w)=.(.*?)<\/p>/, '$2')
+  return text.replace(/(\s\w)=.(.*?)/g, '$2')
 }
 
 export const formatDateStory = date => {

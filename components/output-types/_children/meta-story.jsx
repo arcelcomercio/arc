@@ -176,10 +176,12 @@ export default ({
       <meta property="article:modified_time" content={publishDate} />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={section} />
-      <meta
-        property="article:tag"
-        content={seoKeywordsItems.map(item => item)}
-      />
+
+      {listItems.map(item => {
+        return <meta property="article:tag" content={item} />
+      })}
+
+      <meta property="article:tag" content="noticias" />
 
       <script
         type="application/ld+json"
