@@ -1,5 +1,5 @@
 .separator {
-  grid-template-columns: 1fr;
+  /*  grid-template-columns: 1fr; */
 
   &__title {
     display: -webkit-box;
@@ -20,7 +20,7 @@
   }
 
   &__body {
-    grid-template-columns: 1fr;
+    /*     grid-template-columns: 1fr;
     gap: 3px;
 
     @media (--tablet) {
@@ -31,7 +31,7 @@
     &--items {
       grid-template-columns: repeat(6, 1fr);
       height: 169px;
-    }
+    } */
   }
 
   &__item {
@@ -42,13 +42,16 @@
       height: 100%;
       bottom: 0;
       left: 0;
-      background: linear-gradient(to bottom,
-          rgba(255, 255, 255, 0) 50%,
-          rgba(50, 50, 50, 0.7) 100%);
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(50, 50, 50, 0.7) 100%
+      );
     }
 
     @media (--tablet) {
       height: 161px;
+      flex-basis: 24.8%;
     }
 
     &--nota {
