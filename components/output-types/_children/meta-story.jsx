@@ -19,6 +19,7 @@ export default ({
     tags,
     link,
     publishDate,
+    lastPublishDate,
     subTitle,
     seoAuthor,
     imagesSeo,
@@ -88,7 +89,7 @@ export default ({
     "@context":"http://schema.org",
     "@type":"NewsArticle",
     "datePublished":"${publishDate}",
-    "dateModified":"${publishDate}",
+    "dateModified":"${lastPublishDate}",
     "headline":"${formatHtmlToText(title)}",
     "description":"${formatHtmlToText(subTitle)}",
     "articleBody":"${dataElement}",
@@ -173,13 +174,15 @@ export default ({
       <meta name="etiquetas" content={listItems.map(item => item)} />
 
       <meta property="article:published_time" content={publishDate} />
-      <meta property="article:modified_time" content={publishDate} />
+      <meta property="article:modified_time" content={lastPublishDate} />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={section} />
-      <meta
-        property="article:tag"
-        content={seoKeywordsItems.map(item => item)}
-      />
+
+      {listItems.map(item => {
+        return <meta property="article:tag" content={item} />
+      })}
+
+      <meta property="article:tag" content="noticias" />
 
       <script
         type="application/ld+json"

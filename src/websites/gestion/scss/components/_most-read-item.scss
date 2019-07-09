@@ -1,0 +1,9 @@
+.most-read-item {
+  &__detail {
+    max-height: calc(13px * 1.33 * 3);
+    font-weight: 700;
+  }
+  &__icon {
+    color: $color-base-200;
+  }
+}

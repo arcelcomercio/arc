@@ -83,6 +83,12 @@ export default ({
     globalContent,
   }
 
+  const structuredTaboola = ` 
+    window._taboola = window._taboola || [];
+    _taboola.push({flush: true});`
+
+  const { googleFonts = '' } = siteProperties || {}
+
   return (
     <html lang="es">
       <head>
@@ -106,7 +112,7 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link
-          href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap"
+          href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
           rel="stylesheet"
         />
         <script src="https://jab.pe/f/arc/data_js.js" async />
@@ -131,6 +137,22 @@ export default ({
         />
         {/* Scripts de APPNEXUS */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
+        {/* <script
+          async
+          src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
+        /> */}
+
+        {/* Rubicon BlueKai - Inicio */}
+        <script
+          type="text/javascript"
+          src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
+        />
+        <script
+          type="text/javascript"
+          src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
+        />
+        {/* <!-- Rubicon BlueKai - Fin --> */}
 
         <Libs />
       </head>

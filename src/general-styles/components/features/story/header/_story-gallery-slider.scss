@@ -9,6 +9,15 @@
     transition: transform 0.4s ease;
   }
 
+  &__item {
+    width: 280px;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
   &__img {
     max-height: 240px;
 
