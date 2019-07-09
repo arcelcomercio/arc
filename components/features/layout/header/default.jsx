@@ -24,7 +24,7 @@ class LayoutHeader extends PureComponent {
         siteDomain,
         assets: { header: headerProperties },
       },
-      customFields: { headerType, customLogo, customLogoLink },
+      customFields: { headerType, customLogo, customLogoLink, tags, showDate },
     } = this.props
     this.formater = new Formatter(
       deployment,
@@ -35,7 +35,9 @@ class LayoutHeader extends PureComponent {
       {},
       headerType,
       customLogo,
-      customLogoLink
+      customLogoLink,
+      tags,
+      showDate,
     )
     this.getNavigationSections()
   }
@@ -161,6 +163,13 @@ LayoutHeader.propTypes = {
     showInMobile: PropTypes.bool.tag({
       name: 'Mostrar en móviles ',
       defaultValue: true,
+    }),
+    showDate: PropTypes.bool.tag({
+      name: 'Mostrar fecha',
+      defaultValue: false,
+    }),
+    tags: PropTypes.string.tag({
+      name: 'Etiqueta'
     }),
     customLogo: PropTypes.string.tag({
       name: 'Url de la imagen',
