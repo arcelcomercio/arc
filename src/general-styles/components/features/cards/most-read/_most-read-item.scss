@@ -2,14 +2,11 @@
   &:last-child {
     border-width: 0;
   }
-
   // &__article {}
-
   &__figure {
     max-height: 72px;
     max-width: 118px;
   }
-
   &__icon {
     top: initial;
     left: initial;
@@ -19,9 +16,18 @@
     width: 25px;
     height: 25px;
   }
-
   &__detail {
-    font-size: 12px;
-    max-height: calc(12px * 1.33 * 4);
+    font-size: 13px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+
+  .three-lines {
+    max-height: calc(13px * 1.33 * 3);
+    -webkit-line-clamp: 3;
+  }
+  .four-lines {
+    max-height: calc(13px * 1.33 * 4);
+    -webkit-line-clamp: 4;
   }
 }

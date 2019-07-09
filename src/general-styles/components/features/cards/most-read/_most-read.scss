@@ -5,11 +5,11 @@
     display: none;
   }
 
-  &__icon::before {
-    background-color: $color-primary;
-    color: $color-white;
-    padding: 5px;
-    border-radius: 50px;
-    font-size: 17px;
+  &__icon {
+    font-size: 18px;
+  }
+  &__title {
+    height: 35px;
+    font-size: 15px;
   }
 }

@@ -1,11 +1,12 @@
-let auxKey
+import request from 'request-promise-native'
+import { CONTENT_BASE } from 'fusion:environment'
 
-const schemaName = 'stories'
-
+const SCHEMA_NAME = 'stories'
+let sectionName = ''
 const params = [
   {
     name: 'section',
-    displayName: 'Sección(es)',
+    displayName: 'Section(es)',
     type: 'text',
   },
   {
@@ -24,8 +25,9 @@ const params = [
     type: 'number',
   },
 ]
+const options = { json: true }
 
-export const itemsToArray = (itemString = '') => {
+const itemsToArray = (itemString = '') => {
   return itemString.split(',').map(item => item.replace(/"/g, ''))
 }
 
@@ -37,14 +39,14 @@ const formatSection = section => {
 }
 
 const pattern = (key = {}) => {
-  auxKey = key
-
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
-  const newSection = formatSection(section)
-
+  const clearSection = formatSection(section)
+  const newSection =
+    clearSection === '' || clearSection === undefined || clearSection === null
+      ? '/'
+      : clearSection
   const sectionsExcluded = itemsToArray(excludeSections)
-
   const body = {
     query: {
       bool: {
@@ -114,40 +116,36 @@ const pattern = (key = {}) => {
 
   const encodedBody = encodeURI(JSON.stringify(body))
 
-  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
-    10}&from=${feedOffset || 0}&sort=publish_date:desc`
+  return request({
+    uri: `${CONTENT_BASE}/site/v3/website/publimetro/section?_id=${newSection}`,
+    ...options,
+  }).then(resp => {
+    if (Object.prototype.hasOwnProperty.call(resp, 'status'))
+      throw new Error('Sección no encontrada')
+    sectionName = resp.name
+    return request({
+      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
+        10}&from=${feedOffset || 0}&sort=publish_date:desc`,
+      ...options,
+    }).then(data => {
+      return data
+    })
+  })
 }
 
-const resolve = key => pattern(key)
+const fetch = key => pattern(key)
 
 const transform = data => {
-  const newSection = formatSection(auxKey.section)
-  if (!newSection || newSection === '/') return data
-  const sectionsIncluded = itemsToArray(newSection)
-  if (data.content_elements.length === 0 || sectionsIncluded.length > 1)
-    return data
-  const {
-    content_elements: [
-      {
-        taxonomy: { sections },
-      },
-    ],
-  } = data
-  const realSection = sections.find(item => sectionsIncluded[0] === item._id)
-  const sectionName = {
-    section_name: realSection.name,
-  }
-
   return {
     ...data,
-    ...sectionName,
+    section_name: sectionName,
   }
 }
 
 const source = {
-  resolve,
+  fetch,
   transform,
-  schemaName,
+  schemaName: SCHEMA_NAME,
   params,
 }
 
