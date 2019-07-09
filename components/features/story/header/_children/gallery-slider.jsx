@@ -130,15 +130,21 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       this.currentSlider = nextSlide
       window.history.pushState(null, '', this._getUrlGalleryImage(nextSlide))
       this._moveSlide()
-    } else window.location.href = '/'
+    }
   }
 
   _drag(direction, posX) {
+    const { totalSlides } = this.state
     this.distDrag =
       direction === 'right'
         ? posX - this.initPointDrag
         : -(this.initPointDrag - posX)
-    this._setListPosition(this.listPositionPx + this.distDrag, 'px')
+    if (
+      (direction === 'right' && this.currentSlider < totalSlides - 1) ||
+      (direction === 'left' && this.currentSlider > 0)
+    ) {
+      this._setListPosition(this.listPositionPx + this.distDrag, 'px')
+    }
     if (Math.abs(this.distDrag) > this.limitDrag) {
       if (direction === 'right') this._handleNextSlider()
       else this._handlePrevSlider()
