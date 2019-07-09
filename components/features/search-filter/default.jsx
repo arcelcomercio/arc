@@ -15,7 +15,6 @@ class SearchFilter extends PureComponent {
       isAdmin,
       globalContentConfig,
     }
-    console.log(requestUri)
     return <ChildSearchFilter {...params} />
   }
 }

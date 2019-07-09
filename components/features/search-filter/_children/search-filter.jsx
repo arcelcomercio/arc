@@ -59,13 +59,18 @@ class SearchFilterChildSearchFilter extends PureComponent {
     }) // va devolver data de acuerdo al contentsource navigation-by-hierarchy
   }
 
-
+  // _changeList = () => {
+  //   this.setState({
+  //     showList: !this.state.showList
+  //   })
+  // }
 
   // Verifica si el filtro "orden" está seleccionado previamente.
   getOrder() {
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
-    return sort || DESC
+    //console.log(sort)
+    return sort || DESC //trae el sort de valor descendiente
   }
 
   // Verifica si el filtro "sección" está seleccionado previamente.
@@ -73,8 +78,10 @@ class SearchFilterChildSearchFilter extends PureComponent {
     const { globalContentConfig } = this.props
     const { query: { section = '' } = {} } = globalContentConfig || {}
 
-    return section !== '' ? SECTION : ''
-  }
+    return section !== '' ? SECTION : '' // section trae todas pero como es diferente de nada
+    // entonces trae el valor de SECTION que es ... section 
+
+  } 
 
   getUrl(type, value) {
     const { globalContentConfig } = this.props
@@ -103,6 +110,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
       selected: event.target.name,
     })
   }
+
 
   render() {
     const {
@@ -207,7 +215,8 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 href={!isAdmin && this.getUrl(SORT, ASC)} // (type, value)
                 className={classes.link}
                 role="checkbox"
-                aria-checked="false">
+                aria-checked="false"
+                >
                 Menos Recientes
               </a>
             </li>
