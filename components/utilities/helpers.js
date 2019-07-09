@@ -516,13 +516,12 @@ export const replaceTags = text => {
 }
 
 export const formatDateStory = date => {
-  const year = date.slice(0, 4)
-  const month = date.slice(5, 7)
-  const day = date.slice(8, 10)
-
-  const hours = date.slice(date.indexOf('T') + 1, 13)
-  const minutes = date.slice(date.indexOf('T') + 4, 16)
-  return `Actualizado en ${day}/${month}/${year} a las ${hours}h${minutes}`
+  const fecha = new Date(date)
+  const day = fecha.getDate()
+  const month = fecha.getMonth() + 1
+  const formatDay = day < 10 ? `0${day}` : day
+  const formatMonth = month < 10 ? `0${month}` : month
+  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
 }
 
 export const replaceHtmlMigracion = html => {
