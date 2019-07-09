@@ -47,7 +47,7 @@ const pattern = key => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const sort = key.sort === 'ascedente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
-  const size = `${key.size || 3}`
+  const size = `${key.size || 15}`
 
   // const page = `page=${'1'}`
   const valueQuery = encodeURIComponent(key.query).replace(/-/g, '+') || '*'
