@@ -130,7 +130,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       this.currentSlider = nextSlide
       window.history.pushState(null, '', this._getUrlGalleryImage(nextSlide))
       this._moveSlide()
-    }
+    } else window.location.href = '/'
   }
 
   _drag(direction, posX) {
