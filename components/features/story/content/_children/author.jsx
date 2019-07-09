@@ -12,7 +12,7 @@ const classes = {
 }
 
 const StoryContentChildAuthor = props => {
-  const { date, by = [] } = props
+  const { date, by = [], updatedDate } = props
   const [
     {
       name,
@@ -31,7 +31,10 @@ const StoryContentChildAuthor = props => {
         {email && true && <p className={classes.authorEmail}> {email} </p>}
       </div>
       <div className={classes.authorDate}>
-        <time dateTime={date}> {date && formatDateStory(date)}</time>
+        <time dateTime={date}>
+          {' '}
+          {updatedDate && formatDateStory(updatedDate)}
+        </time>
       </div>
     </div>
   )
