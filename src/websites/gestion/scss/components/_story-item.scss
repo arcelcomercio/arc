@@ -1,4 +1,5 @@
 .story-item {
+  border-bottom: 1px solid $color-base-200;
   &__section {
     color: $color-gray-300;
     font-weight: 700;
@@ -21,10 +22,5 @@
   }
   &__icon {
     color: $color-base-200;
-  }
-
-  &__right {
-  }
-  &__img {
   }
 }
