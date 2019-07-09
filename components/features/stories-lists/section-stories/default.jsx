@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import PropTypes from 'prop-types'
+
+import customFields from './_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
 
 const classes = {
@@ -17,18 +18,15 @@ class StoriesListSectionStories extends PureComponent {
       contextPath,
       arcSite,
       globalContentConfig,
-      customFields,
+      customFields: { storiesQty = 50, initialStory = 0 } = {},
     } = this.props
-
-    const { storiesQty = 50 } = customFields || {}
-    let { initialStory = 1 } = customFields || {}
-    initialStory -= 1 // Resta uno al initialStory. Para el editor 0 = 1
 
     const { query: { section = '' } = {} } = globalContentConfig || {}
     const { content_elements: contentElements } = globalContent || {}
     const stories = contentElements || []
 
-    const seeMorePath = `/archivo${section}?_website=${arcSite}`
+    // Archivo sólo está disponible para secciones principales, no subsecciones.
+    const seeMorePath = `/archivo/${section.split('/')[1]}`
 
     return (
       <div className={classes.listado}>
@@ -58,29 +56,10 @@ class StoriesListSectionStories extends PureComponent {
 }
 
 StoriesListSectionStories.propTypes = {
-  customFields: PropTypes.shape({
-    initialStory: PropTypes.number.tag({
-      name: 'Iniciar desde la historia:',
-      min: 1,
-      max: 100,
-      step: 1,
-      defaultValue: 1,
-      description:
-        'Indique el número de la historia desde la que quiere empezar a imprimir. La primera historia corresponde al número 1',
-    }),
-    storiesQty: PropTypes.number.tag({
-      name: 'Cantidad de historias',
-      min: 1,
-      max: 100,
-      step: 1,
-      defaultValue: 50,
-      description: 'Indique el número de historias que deben ser listadas.',
-    }),
-  }),
+  customFields,
 }
 
 StoriesListSectionStories.label = 'Listado de Sección'
-// Static true no sirve
-// StoriesListSectionStories.static = true
+StoriesListSectionStories.static = true
 
 export default StoriesListSectionStories
