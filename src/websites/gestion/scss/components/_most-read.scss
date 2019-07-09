@@ -3,6 +3,14 @@
     background-color: $color-base-300;
   }
   &__icon {
-    // display: none;
+    color: $color-primary;
+    background-color: $color-secondary;
+    font-size: 12px;
+    height: 21px;
+    width: 21px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
