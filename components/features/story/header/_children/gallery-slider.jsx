@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
-import { defaultImage, getUrlParameter } from '../../../../utilities/helpers'
+import { getUrlParameter } from '../../../../utilities/helpers'
 
 const classes = {
   elementsSlider: 'story-gallery-slider p-20 bg-primary',
+  element: 'story-gallery-slider__item',
   body: 'position-relative overflow-hidden ',
   content: 'story-gallery-slider__content flex',
   figure: 'story-gallery-slider__figure position-relative',
@@ -21,28 +22,49 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       contentElementGallery: { content_elements: contentElements = [] },
     } = props || {}
 
-    this.containerSliders = document.querySelector('[role="slider"]')
-
-    this.state = {
-      listSlider: contentElements,
-      totalSlides: contentElements.length,
-      sliderWidth: contentElements.length * 100,
-      slideWidth: 100 / contentElements.length,
-      currentSlide: getUrlParameter(contentElements),
-    }
+    const totalSlides = contentElements.length
 
     this.currentSlider = getUrlParameter()
+    this.dragFlag = false
+    this.initPointDrag = 0
+    this.initPositionList = 0
+    this.distDrag = 0
+    this.limitDrag = 40
+
+    this.state = {
+      sliders: contentElements,
+      totalSlides,
+      sliderWidth: totalSlides * 100,
+      slideWidth: 100 / totalSlides,
+      positionSlide: 0,
+    }
   }
 
   componentDidMount() {
-    document.addEventListener('keydown', event => {
+    /* document.addEventListener('keydown', event => {
       this._controlKeysSlider(event)
-    })
+    }) */
+    this.list = document.querySelector('.story-gallery-slider__content')
+    this.list.addEventListener('mousedown', this._initDrag)
+    this.list.addEventListener('mouseup', this._endDrag)
+    this.list.addEventListener('mousemove', this._moveDrag)
+
+    this.list.addEventListener('touchstart', this._initDrag)
+    this.list.addEventListener('touchend', this._endDrag)
+    this.list.addEventListener('touchmove', this._moveDrag)
+
+    this._moveSlide()
   }
 
-  setDefault(size) {
-    const { deployment, contextPath, arcSite } = this.props
-    return defaultImage({ deployment, contextPath, arcSite, size })
+  _getUrlGalleryImage = slide => {
+    const { origin, pathname, search } = window.location
+    let querys = ''
+    if (search !== '') {
+      querys = search.includes('foto')
+        ? search.replace(/foto=[0-9]+/, `foto=${slide}`)
+        : `${search}&foto=${slide}`
+    } else querys = `?foto=${slide}`
+    return `${origin}${pathname}${querys}`
   }
 
   _controlKeysSlider = e => {
@@ -50,63 +72,116 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     else if (e.keyCode === 37) this._handlePrevSlider()
   }
 
-  _handlePrevSlider = () => {
-    const { totalSlides, slideWidth } = this.state
-    this.step -= 1
-    if (this.step < 0) this.step = totalSlides - 1
-    this.setState({
-      currentSlide: -slideWidth * this.step,
-    })
+  _initDrag = evt => {
+    this.dragFlag = true
+    this.initPointDrag = evt.offsetX || evt.changedTouches[0].clientX
+    const listWidth = this.list.getBoundingClientRect().width
+    const matchP = this.list.style.transform.match(/\((-?)(\d+)%\)/)
+    const percentPosition = matchP[1] !== '' ? -matchP[2] : matchP[2]
+    this.listPositionPx = (listWidth * percentPosition) / 100
+    this.list.style.transform = `translateX(${this.listPositionPx}px)`
+  }
 
-    window.history.pushState(null, '', this._getUrlGalleryImage())
+  _endDrag = () => {
+    const { totalSlides } = this.state
+    this.dragFlag = false
+    if (
+      this.distDrag < this.limitDrag ||
+      this.currentSlide === 0 ||
+      this.currentSlide === totalSlides
+    ) {
+      this._moveSlide()
+    }
+    this._setListPosition(this._getNewPosition(), '%')
+    this.distDrag = 0
+  }
+
+  _moveDrag = evt => {
+    if (this.dragFlag) {
+      const { offsetX, movementX, changedTouches } = evt
+
+      let dir = ''
+      if (movementX) {
+        dir = movementX > 0 ? 'left' : 'right'
+      }
+      if (changedTouches && changedTouches[0]) {
+        dir =
+          changedTouches[0].clientX - this.initPointDrag > 0 ? 'left' : 'right'
+      }
+
+      const posX = offsetX || changedTouches[0].clientX
+      this._drag(dir, posX)
+    }
+  }
+
+  _handlePrevSlider = () => {
+    const prevSlide = this.currentSlider - 1
+    if (prevSlide >= 0) {
+      this.currentSlider = prevSlide
+      window.history.pushState(null, '', this._getUrlGalleryImage(prevSlide))
+      this._moveSlide()
+    }
   }
 
   _handleNextSlider = () => {
-    const { totalSlides, slideWidth, listSlider } = this.state
-    this.step += 1
-
-    if (listSlider.length <= this.step) {
-      window.location.href = '/'
-    }
-
-    if (this.step >= totalSlides) this.step = 0
-    this.setState({
-      currentSlide: -slideWidth * this.step,
-    })
-
-    window.history.pushState(null, '', this._getUrlGalleryImage())
+    const { totalSlides } = this.state
+    const nextSlide = this.currentSlider + 1
+    if (nextSlide < totalSlides) {
+      this.currentSlider = nextSlide
+      window.history.pushState(null, '', this._getUrlGalleryImage(nextSlide))
+      this._moveSlide()
+    } else window.location.href = '/'
   }
 
-  _getUrlGalleryImage = () =>
-    `${window.location.href.split('?')[0]}?foto=${this.step + 1}`
+  _drag(direction, posX) {
+    this.distDrag =
+      direction === 'right'
+        ? posX - this.initPointDrag
+        : -(this.initPointDrag - posX)
+    this._setListPosition(this.listPositionPx + this.distDrag, 'px')
+    if (Math.abs(this.distDrag) > this.limitDrag) {
+      if (direction === 'right') this._handleNextSlider()
+      else this._handlePrevSlider()
+      this._endDrag()
+    }
+  }
+
+  _setListPosition(pos, unit) {
+    this.list.style.transform = `translateX(${pos}${unit})`
+  }
+
+  _getNewPosition() {
+    const { slideWidth } = this.state
+    return this.currentSlider * -slideWidth
+  }
+
+  _moveSlide() {
+    this.setState({
+      positionSlide: this._getNewPosition(),
+    })
+  }
 
   render() {
-    const {
-      listSlider = [],
-      sliderWidth,
-      slideWidth,
-      currentSlide,
-    } = this.state
-
+    const { sliders = [], sliderWidth, slideWidth, positionSlide } = this.state
     const sliderStyle = {
       width: `${sliderWidth}%`,
-      transform: `translateX(${currentSlide}%)`,
+      transform: `translateX(${positionSlide}%)`,
     }
     const slideStyle = {
       width: `${slideWidth}%`,
     }
     return (
       <>
-        {listSlider.length > 0 && (
+        {sliders.length > 0 && (
           <section className={classes.elementsSlider} id="story-galery">
             <div
               role="slider"
-              aria-valuenow={listSlider.length}
+              aria-valuenow={sliders.length}
               aria-valuemin="1"
               aria-valuemax="10"
               className={classes.body}>
               <ul style={sliderStyle} className={classes.content}>
-                {listSlider.map((element, i) => (
+                {sliders.map((element, i) => (
                   <li
                     key={element._id}
                     style={slideStyle}
@@ -122,7 +197,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     </div>
                     <figcaption className={classes.caption}>
                       <span className={classes.quantity}>
-                        {i + 1}/{listSlider.length}
+                        {i + 1}/{sliders.length}
                       </span>
                       <p className={classes.captionImage}>{element.subtitle}</p>
                     </figcaption>
