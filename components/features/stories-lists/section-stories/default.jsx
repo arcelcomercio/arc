@@ -26,7 +26,7 @@ class StoriesListSectionStories extends PureComponent {
     const stories = contentElements || []
 
     // Archivo sólo está disponible para secciones principales, no subsecciones.
-    const seeMorePath = `/archivo/${section.split('/')[1]}`
+    const seeMorePath = `/archivo/${section.split('/')[1]}/`
 
     return (
       <div className={classes.listado}>
