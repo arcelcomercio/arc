@@ -5,6 +5,7 @@
 .grid {
   display: flex;
   flex-wrap: wrap;
+
   @supports (display: grid) {
     display: grid;
   }
@@ -26,24 +27,11 @@
     } */
 
   &--col-1 {
-    flex-basis: 300px;
-    flex-grow: 1;
-    flex-shrink: 0;
-  }
-  @supports (display: grid) {
-    &--col-1 {
-      grid-template-columns: minmax(300px, 100vw);
-    }
+    grid-template-columns: minmax(300px, 100vw);
   }
 
   &--col-2 {
     @media (--tablet) {
-      min-width: 300px;
-      max-width: calc(100% - #{$gap} / 2);
-    }
-  }
-  @supports (display: grid) {
-    &--col-2 {
       grid-template-columns: repeat(
         2,
         minmax(300px, calc((100vw - #{$gap}) / 2))
