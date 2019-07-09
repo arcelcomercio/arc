@@ -115,7 +115,7 @@ export default class Pagination extends PureComponent {
         urlNextPage = `${pathOrigin}?page=${nextPage}`
       }
     } else {
-      urlPrevPage = `${pathOrigin}/${prevPage}${querys}` // no entiendo bien
+      urlPrevPage = `${pathOrigin}/${prevPage}${querys}` // en caso de?
       urlNextPage = `${pathOrigin}/${nextPage}${querys}`
     }
 
