@@ -10,15 +10,14 @@ const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 const Right = () => {
   return <div>Hola2</div>
 }
-
 class Content extends React.PureComponent {
   render() {
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <S.Content>
           <Wizard nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-            <WizardPlan />
             <WizardUserProfile />
+            <WizardPlan />
           </Wizard>
         </S.Content>
       </div>

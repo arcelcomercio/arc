@@ -1,6 +1,7 @@
 export default {
   siteName: 'Gestion',
-  colorPrimary: '#f7c600',
+  colorPrimary: '#8F071F',
+  colorSecondary: '#F4E0D2',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
   resizerUrl: 'https://elcomercio-gestion-prod.cdn.arcpublishing.com/resizer',

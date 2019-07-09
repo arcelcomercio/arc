@@ -7,7 +7,8 @@ const Select = styled.select`
 `
 const Button = styled.button`
   flex: 1;
-  background-color: #008eff;
+  min-width: 300px;
+  background-color: #0179af;
   color: #fff;
   border-radius: 5px;
   font-size: 14px;
@@ -27,4 +28,26 @@ const Wrap = styled.div`
   }
 `
 
-export { Select, Button, Wrap }
+const Title = styled.span`
+  line-height: 16px;
+  font-size: 16px;
+  font-weight: 700;
+`
+
+const WrapTitle = styled.div`
+  display: flex;
+  flex: 1;
+  margin-bottom: 30px;
+  justify-content: flex-start;
+  width: 100%;
+`
+
+const Form = Component => {
+  return styled(Component)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `
+}
+
+export { Select, Button, Wrap, Form, Title, WrapTitle }

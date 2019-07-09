@@ -105,10 +105,13 @@
     "watch": "webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='index, amp:css, paywall:css' ",
     "dev:all": "webpack --config ./config/webpack.config.js --env.dev --env.outputs='index, amp:css, paywall:css' && gulp",
     "prod:all": "webpack --config ./config/webpack.config.js --env.prod --env.outputs='index, amp:css, paywall:css' && gulp",
-    "zip": "npm run prod:all && npx fusion zip",
+    "zip": "pw:clean && npm run prod:all && npx fusion zip",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
-    "test": "jest"
+    "test": "jest",
+
+    "pw:clean" : "rm -rf components/features/paywall/dist",
+    "pw:mv" : "npm run dev:all && cp -a resources/dist components/features/paywall"
   },
   "jest": {
     "automock": false,

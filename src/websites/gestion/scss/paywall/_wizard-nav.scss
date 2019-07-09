@@ -1,8 +1,11 @@
 .gestion{
-    .wizard-nav__step{
-        background-color: #f4f4f4
+    .nav-step-active{
+        .nav-circle{
+            background-color: $color-primary;
+          }
+          .nav-number{
+            color: #FFF
+          }
     }
-    .wizard-nav__content--active .wizard-nav__step{    
-        background-color: $color-primary
-    }
+
 }

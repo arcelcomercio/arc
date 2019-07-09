@@ -37,6 +37,8 @@ const StepCircle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f4f4f4;
+  color: #bbb;
 `
 
 const StepNumber = styled.span`
@@ -49,12 +51,6 @@ const GlobalStyle = createGlobalStyle`
   .nav-step-active{
     font-weight: 700;
   }
-  .nav-step-active .nav-circle{
-    background-color: #8f071f;
-  }
-  .nav-step-active .nav-number{
-    color: #FFF
-  }
 `
 export {
   WizardNav,
@@ -66,16 +62,3 @@ export {
   StepNumber,
   GlobalStyle,
 }
-
-// .wizard-nav__content--active .wizard-nav__step{
-//     background-color: #CCC
-// }
-
-// .wizard-nav__content.wizard-nav__content--active .wizard-nav__step-name{
-//     color: #000;
-//     font-weight: 700;
-// }
-
-// .wizard-nav__content .wizard-nav__step-name{
-//     color: #818181;
-// }

@@ -23,19 +23,8 @@ const WrapFeature = styled.div`
   margin-top: 10px;
 `
 
-const Feature = styled.div`
-  display: flex;
-  font-weight: 300;
-  margin-bottom: 20px;
-`
-
-const WrapIcon = styled.div`
-  margin-right: 15px;
-  padding: 5px 0;
-`
-
 const WrapTitle = styled.div`
-  font-family: 'Noto Serif', serif;
+  font-family: var(--font-primary);
   font-weight: 700;
   display: flex;
   flex: 1;
@@ -50,14 +39,4 @@ const NamePlan = styled.span`
 const SummaryTitle = styled.span`
   font-size: 16px;
 `
-export {
-  Head,
-  Wrap,
-  Separate,
-  WrapFeature,
-  Feature,
-  WrapIcon,
-  WrapTitle,
-  NamePlan,
-  SummaryTitle,
-}
+export { Head, Wrap, Separate, WrapFeature, WrapTitle, NamePlan, SummaryTitle }

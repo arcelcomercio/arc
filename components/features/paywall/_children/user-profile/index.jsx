@@ -31,6 +31,8 @@ const Select = () => (
   </S.Select>
 )
 
+const FormStyled = S.Form(Form)
+
 const UserProfile = ({ title = '' }) => (
   <Formik
     initialValues={{ name: 'jared', firstname: 'first' }}
@@ -42,8 +44,10 @@ const UserProfile = ({ title = '' }) => (
       }, 1000)
     }}
     render={() => (
-      <Form className="__field">
-        {title}
+      <FormStyled>
+        <S.WrapTitle>
+          <S.Title>{title}</S.Title>
+        </S.WrapTitle>
         <S.Wrap>
           <Field name="name" placeholder="Nombre" component={InputFormik} />
           <Field
@@ -70,7 +74,7 @@ const UserProfile = ({ title = '' }) => (
           />
         </S.Wrap>
         <S.Button type="submit">CONTINUAR</S.Button>
-      </Form>
+      </FormStyled>
     )}
   />
 )

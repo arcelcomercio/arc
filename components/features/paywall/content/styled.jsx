@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { devices } from '../_dependencies/devices'
 
 const Content = styled.div`
@@ -7,4 +7,4 @@ const Content = styled.div`
     width: calc(100% - 40px);
   }
 `
-export { Content }
+export { Content, ThemeProvider }
