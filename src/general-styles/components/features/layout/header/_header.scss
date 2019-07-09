@@ -3,8 +3,9 @@
   color: $header-text-color;
 
   &__date {
-    min-width: 190px;
     align-self: center;
+    font-size: 9px;
+    white-space: nowrap;
   }
 
   &__logo {
@@ -12,6 +13,7 @@
   }
 
   &__item {
+    white-space: nowrap;
 
     :hover {
       color: $color-gray-300;
@@ -21,9 +23,6 @@
       color: $color-error;
       font-weight: bold;
     } */
-    &:not(:last-child):after {
-      content: " \B7 "
-    }
   }
 
   &__link {
@@ -33,5 +32,8 @@
 
   &__tags {
     align-self: center;
+    font-size: 9px;
+    white-space: nowrap;
+    font-weight: 700;
   }
 }
