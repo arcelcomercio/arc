@@ -1,0 +1,9 @@
+.gestion body{
+    background: #eeeeee;
+    font-family: $font-primary;
+    font-size: 12px;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}

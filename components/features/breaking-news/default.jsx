@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
-import removeLastSlash from '../../utilities/helpers'
+import { removeLastSlash } from '../../utilities/helpers'
 
 const classes = {
   breakingnews: `breaking-news secondary-font flex justify-between pt-15 pb-15 pl-20 pr-20 text-white`,
@@ -25,7 +25,7 @@ class BreakingNews extends Component {
       customFields: { storyLink = '' },
     } = this.props
     this.isExternalLink = storyLink.includes('http')
-    this.fetch()
+    if (!this.isExternalLink && storyLink) this.fetch()
   }
 
   componentWillMount() {
@@ -55,7 +55,7 @@ class BreakingNews extends Component {
 
   fetch() {
     const {
-      customFields: { storyLink },
+      customFields: { storyLink = '' },
       arcSite,
     } = this.props
 
@@ -104,13 +104,12 @@ class BreakingNews extends Component {
             className={classes.tag}
             {...editableField('tags')}
             suppressContentEditableWarning>
-            {tags}:
+            {tags}
           </span>
           <span>
             <a
               className={classes.link}
               href={objContent.link}
-              target="_blank"
               rel="noopener noreferrer"
               {...editableField('title')}
               suppressContentEditableWarning>

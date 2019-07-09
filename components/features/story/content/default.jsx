@@ -97,14 +97,13 @@ class StoryContent extends PureComponent {
             updatedDate={updatedDate}
           />
         )}
-
+        <div id="ads_m_movil2" />
         <div className={classes.content} id="contenedor">
           <StoryContentChildIcon />
 
           <div id="ads_d_inline" />
           <div id="ads_m_movil_video" />
           <div id="ads_m_movil3" />
-          <div id="ads_m_movil2" />
           {contentElements && (
             <ArcStoryContent
               data={contentElements}
