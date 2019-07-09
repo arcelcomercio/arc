@@ -505,19 +505,16 @@ export const preventDefault = e => {
 }
 
 export const replaceTags = text => {
-  return text.replace(/<p><br \/>(\s\w)=.(.*?)<\/p>/, '$2')
+  return text.replace(/(\s\w)=.(.*?)/g, '$2')
 }
 
 export const formatDateStory = date => {
-  const year = date.slice(0, 4)
-  const month = date.slice(5, 7)
-  const day = date.slice(8, 10)
-
-  const hours = date.slice(date.indexOf('T') + 1, 16)
-  const minutes = date.slice(date.indexOf('T') + 1, 13)
-
-  const minutesTime = parseInt(String, minutes) < 12 ? 'am' : 'pm'
-  return `${day}.${month}.${year} / ${hours} ${minutesTime}`
+  const fecha = new Date(date)
+  const day = fecha.getDate()
+  const month = fecha.getMonth() + 1
+  const formatDay = day < 10 ? `0${day}` : day
+  const formatMonth = month < 10 ? `0${month}` : month
+  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
 }
 
 export const replaceHtmlMigracion = html => {

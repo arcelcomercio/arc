@@ -74,6 +74,7 @@ class StoryContent extends PureComponent {
       content_elements: contentElements,
       promo_items: promoItems,
       publish_date: date,
+      last_updated_date: updatedDate,
       credits: author,
       taxonomy: { tags = {} },
       related_content: { basic: relatedContent } = {},
@@ -89,13 +90,20 @@ class StoryContent extends PureComponent {
     return (
       <div className={classes.news}>
         {promoItems && <StoryContentChildMultimedia data={promoItems} />}
-        {author && <StoryContentChildAuthor {...author} date={date} />}
-        <div id="ads_d_inline" />
-        <div id="ads_m_movil_video" />
-        <div id="ads_m_movil3" />
+        {author && (
+          <StoryContentChildAuthor
+            {...author}
+            date={date}
+            updatedDate={updatedDate}
+          />
+        )}
         <div id="ads_m_movil2" />
-        <div className={classes.content}>
+        <div className={classes.content} id="contenedor">
           <StoryContentChildIcon />
+
+          <div id="ads_d_inline" />
+          <div id="ads_m_movil_video" />
+          <div id="ads_m_movil3" />
           {contentElements && (
             <ArcStoryContent
               data={contentElements}
@@ -177,7 +185,7 @@ class StoryContent extends PureComponent {
                   return (
                     <RawHtml
                       content={replaceHtmlMigracion(content)}
-                      rawHtmlClasses=""
+                      className={classes.newsEmbed}
                     />
                   )
                 }

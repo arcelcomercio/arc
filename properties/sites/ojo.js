@@ -1,5 +1,8 @@
 export default {
   siteName: 'Ojo',
+
+  googleFonts: 'Roboto',
+
   colorPrimary: '#f7c600',
   siteDomain: 'ojo.pe',
   siteUrl: 'https://ojo.pe',

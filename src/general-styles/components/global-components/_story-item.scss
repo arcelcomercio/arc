@@ -1,5 +1,4 @@
 .story-item {
-
   &:nth-last-child(1) {
     margin-bottom: 0;
   }
@@ -26,18 +25,25 @@
     flex: 100% 1 1;
   }
 
-  &__conent-title {
+  &__title {
+    font-size: 14px;
+    max-height: calc(14px * 1.166 * 3);
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    max-height: 97px;
+    @media (--tablet) {
+      max-height: calc(20px * 1.166 * 2);
+      -webkit-line-clamp: 2;
+      font-size: 20px;
+    }
   }
 
-  &__title {
-    font-size: 14px;
+  &__subtitle {
     @media (--tablet) {
-      max-height: 69px;
-      font-size: 20px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      max-height: calc(0.9rem * 1.166 * 3);
     }
   }
 

@@ -7,9 +7,10 @@
     }
   }
   &__caption {
-    color: $color-base-200;
+    color: $color-primary;
   }
+
   &__author {
-    display: block;
+    font-family: $font-regular;
   }
 }
