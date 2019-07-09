@@ -40,6 +40,11 @@ export default {
   },
 
   assets: {
+    path: `/resources/dist/elcomercio/`,
+    paywall() {
+      return `${this.path}${this.aniversario}`
+    },
+    aniversario: `images/aniversario.svg`,
     nav: {
       logo: 'white-logo.png',
       ampLogo: 'letra-c-white.png',

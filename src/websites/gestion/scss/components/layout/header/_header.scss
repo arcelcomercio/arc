@@ -1,0 +1,17 @@
+.header {
+  &__featured {
+    justify-content: flex-start;
+  }
+
+  &__item {
+    &:not(:last-child):after {
+      content: " \B7 "
+    }
+  }
+
+  &__link {
+    font-size: 1rem;
+    color: $color-gray-300;
+    text-transform: capitalize;
+  }
+}

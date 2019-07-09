@@ -27,8 +27,6 @@ export default ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
-    socialName: siteProperties.social.facebook,
-    siteAssets: siteProperties.assets,
     metaValue,
     deployment,
   }
@@ -58,7 +56,7 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -121,6 +119,7 @@ export default ({
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
+        {isStory && <meta name="news_keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
@@ -138,6 +137,7 @@ export default ({
         />
         {/* Scripts de APPNEXUS */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
         {/* <script
           async
           src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
@@ -156,7 +156,7 @@ export default ({
 
         <Libs />
       </head>
-      <body className={isStory ? 'story nota' : ''}>
+      <body className={isStory ? 'story' : ''}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -183,12 +183,6 @@ export default ({
           )}
         />
         <Fusion />
-        {isStory && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: structuredTaboola }}
-          />
-        )}
       </body>
     </html>
   )
