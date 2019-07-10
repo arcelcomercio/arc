@@ -45,7 +45,11 @@ const storySchemaTypes = `
     type Credits {
       by: [By]
     }
-    scalar ResizedUrls
+    type ResizedUrls {
+      small: String!
+      medium: String!
+      large: String!
+    }
     type AdditionalPropertiesImage {
       mime_type: String
       originalName: String

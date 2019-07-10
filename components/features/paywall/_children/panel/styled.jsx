@@ -9,11 +9,12 @@ const Panel = styled.div`
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
   border-radius: 5px;
   flex: 1;
+  margin: ${({ margin }) => margin || 'initial'};
   ${({ valing }) =>
     valing &&
     css`
       justify-content: center;
-    `}
+    `};
   ${({ type }) => {
     switch (type) {
       case 'content':
@@ -24,7 +25,8 @@ const Panel = styled.div`
         return css`
           max-width: 360px;
           @media (${devices.mobile}) {
-            max-width: initial;
+            max-width: calc(100% - 40px);
+            align-items: center;
           }
         `
       case 'card-price':
@@ -37,6 +39,6 @@ const Panel = styled.div`
       default:
         return css``
     }
-  }}
+  }};
 `
 export { Panel }

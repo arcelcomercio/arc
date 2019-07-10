@@ -1,7 +1,10 @@
 // Este Source debe devolver la úlitima historia publicada, filtrada por sección y con la imágen redimensionada
 
+import { resizerSecret } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrls } from '../../components/utilities/thumbs'
+
+let website = ''
 
 const schemaName = 'stories'
 
@@ -16,24 +19,51 @@ const params = [
 // TODO: Cambiar "taxonomy.sites.path" por "taxonomy.sections..."
 
 const resolve = key => {
-  const website = key['arc-site'] || 'Arc Site no está definido'
+  website = key['arc-site'] || 'Arc Site no está definido'
   const requestUri = `/content/v4/search/published?q=taxonomy.sites.path:"/${key.section ||
     ''}"&sort=publish_date:desc&from=0&size=1&website=${website}`
   return requestUri
 }
+const itemsToArrayImge = data => {
+  const { resizerUrl } = getProperties(website)
 
-const transform = ({ content_elements: contentElements = [] }) => {
-  const { website } = contentElements[0]
-
-  const aspectRatios = ['288:157|288x157', '164:187|328x374', '388:187|676x374']
-  const { resizerSecretKeyEnvVar, resizerUrl } = getProperties(website)
-  // const resizerSecretKey = envVars[resizerSecretKeyEnvVar];
-  return addResizedUrls(
-    contentElements[0],
+  return addResizedUrls(data, {
     resizerUrl,
-    resizerSecretKeyEnvVar,
-    aspectRatios
-  )
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+const transform = data => {
+  const dataStory = data
+
+  const {
+    promo_items: { basic_gallery: contentElements },
+  } = data
+  const contentElementsData = contentElements || data
+
+  const image = itemsToArrayImge(contentElementsData)
+
+  if (contentElements) {
+    dataStory.promo_items.basic_gallery = image
+  }
+
+  return itemsToArrayImge(data)
 }
 
 export default {

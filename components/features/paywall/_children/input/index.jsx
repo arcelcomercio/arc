@@ -24,24 +24,23 @@ const InputFormik = ({
   }
 
   const hasError = touched[field.name] && errors[field.name]
-
+  if (hasError) placeholder = errors[field.name]
   return (
     <S.FormGroup>
-      <S.Label focus={hasText} prefix={prefix}>
+      <S.Label hasError={hasError} focus={hasText} prefix={prefix}>
         {placeholder}
       </S.Label>
-      <S.Wrap>
+      <S.Wrap hasError={hasError}>
         {prefix ? [prefix, <Divider key="divider" />] : false}
         <S.Input
           type="text"
-          value={value}
+          defaultValue={value}
           onFocus={focus}
           onBlur={blur}
           {...rest}
           {...props}
         />
       </S.Wrap>
-      {hasError && errors[field.name]}
     </S.FormGroup>
   )
 }

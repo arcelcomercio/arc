@@ -1,7 +1,7 @@
 // TODO se debe llamar al servicio y obtener el txt y reenviar por este metodo
 // 'https://d34fzxxwb5p53o.cloudfront.net/output/assets/rugles/ads/ads.txt'
 
-const Ads = () =>
+const AdsContent = () =>
   `  33across.com, 0010b00001u65jvAAA, RESELLER, bbea06d9c4d2853c
   33across.com, 0013300001qjCkpAAE, RESELLER, bbea06d9c4d2853c
   33across.com, 0013300001r0t9mAAA, RESELLER
@@ -652,6 +652,5 @@ const Ads = () =>
   x.fidelity-media.com, 6521, RESELLER
   yume.com, VallesProfundos, RESELLER`
 
-Ads.contentType = 'text/plain'
 
-export default Ads
+export default AdsContent

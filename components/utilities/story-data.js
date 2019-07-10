@@ -535,13 +535,10 @@ class StoryData {
   }
 
   static getImage(data) {
-    const basicPromoItems =
+    const { url, resized_urls: { large } = {}, type = null } =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
-    const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
-    return (
-      (typePromoItems && typePromoItems === 'image' && basicPromoItems.url) ||
-      ''
-    )
+
+    return (type === 'image' && large ? large : url) || ''
   }
 
   static getThumbnail(data, type) {
