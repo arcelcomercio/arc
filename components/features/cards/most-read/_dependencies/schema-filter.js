@@ -13,6 +13,11 @@ export default `
             url
             type
             caption
+            resized_urls { 
+              small
+              medium
+              large
+            }
           }
           basic_video {
             promo_items {
@@ -20,6 +25,11 @@ export default `
                 url
                 type
                 caption
+                resized_urls { 
+                  small
+                  medium
+                  large
+                }
               }
             }
           }
@@ -29,6 +39,11 @@ export default `
                 url
                 type
                 caption
+                resized_urls { 
+                  small
+                  medium
+                  large
+                }
               }
             }
           }

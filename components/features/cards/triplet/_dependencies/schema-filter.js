@@ -1,4 +1,4 @@
-export default (arcSite) => `{
+export default arcSite => `{
     headlines {
         basic
     }
@@ -9,6 +9,11 @@ export default (arcSite) => `{
                 basic {
                     type 
                     url
+                    resized_urls { 
+                        small
+                        medium
+                        large
+                    }
                 }
             }
         }
@@ -18,12 +23,22 @@ export default (arcSite) => `{
                 basic {
                     type 
                     url
+                    resized_urls { 
+                        small
+                        medium
+                        large
+                    }
                 }
             }
         }
         basic {
             type 
             url
+            resized_urls { 
+                small
+                medium
+                large
+            }
         }
     }
     credits {

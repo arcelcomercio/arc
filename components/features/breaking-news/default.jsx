@@ -110,7 +110,6 @@ class BreakingNews extends Component {
             <a
               className={classes.link}
               href={objContent.link}
-              target="_blank"
               rel="noopener noreferrer"
               {...editableField('title')}
               suppressContentEditableWarning>
