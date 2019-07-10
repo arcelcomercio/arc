@@ -48,8 +48,6 @@ const pattern = key => {
   const sort = key.sort === 'ascedente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 15}`
-  console.log('----------------------->>>>>>>>>>', key)
-  console.log('----------------------->>>>>>>>>>', from)
 
   // const page = `page=${'1'}`
   const valueQuery = encodeURIComponent(key.query).replace(/-/g, '+') || '*'

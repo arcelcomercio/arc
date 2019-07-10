@@ -35,12 +35,12 @@ const HIERARCHY = 'filter-section'
 class SearchFilterChildSearchFilter extends PureComponent {
   constructor(props) {
     super(props)
-    const { arcSite, isAdmin } = props // trae arcsite o nombre de marca y el booleano isAdmin
+    const { arcSite, isAdmin } = props 
 
     this.state = {
-      sort: !isAdmin && this.getOrder(), // si no ingresaste order en el admin ejecuta metodo getOrder
-      selected: !isAdmin && this.getSection(), // si no ingresaste seccion entonces ejecuta metodo getSection
-      showList: false, // show list booleano es falso por defecto
+      sort: !isAdmin && this.getOrder(),
+      selected: !isAdmin && this.getSection(),
+      showList: false,
     }
 
     this.fetchContent({
@@ -52,11 +52,11 @@ class SearchFilterChildSearchFilter extends PureComponent {
         },
         filter: schemaFilter,
         transform: ({ children = [] } = {}) => {
-          const data = { sections: children }  //  -----------> de donde trae data ????
+          const data = { sections: children }
           return { ...data }
         },
       },
-    }) // va devolver data de acuerdo al contentsource navigation-by-hierarchy
+    }) 
   }
 
   // _changeList = () => {
@@ -65,21 +65,18 @@ class SearchFilterChildSearchFilter extends PureComponent {
   //   })
   // }
 
-  // Verifica si el filtro "orden" está seleccionado previamente.
   getOrder() {
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
-    //console.log(sort)
-    return sort || DESC //trae el sort de valor descendiente
+
+    return sort || DESC 
   }
 
-  // Verifica si el filtro "sección" está seleccionado previamente.
   getSection() {
     const { globalContentConfig } = this.props
     const { query: { section = '' } = {} } = globalContentConfig || {}
 
-    return section !== '' ? SECTION : '' // section trae todas pero como es diferente de nada
-    // entonces trae el valor de SECTION que es ... section 
+    return section !== '' ? SECTION : ''
 
   } 
 
@@ -119,8 +116,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
       sort,
       data: { sections = [] } = {},
     } = this.state 
-    // trae, selected = resultado de getSection, showList como falso, sort como desc si no se ingreso los contrario
-    // data puede venir o como que no, deberia venir del resultado de fetchContent
+
 
     const { isAdmin, globalContentConfig } = this.props
 
@@ -129,7 +125,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
         <div className={classes.containerList}>
           <button
             className={`${classes.select} ${
-              showList ? 'bg-white' : 'bg-base-100' // muestra bg-base-100 xq showList esta en false
+              showList ? 'bg-white' : 'bg-base-100'
             }`}
             onClick={() => this.setState({ showList: !showList })}
             onKeyDown={() => this.setState({ showList: !showList })}
