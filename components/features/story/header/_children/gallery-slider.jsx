@@ -115,7 +115,11 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                       <div className={classes.figure}>
                         <figure>
                           <img
-                            src={element.resized_urls ? '' : element.url}
+                            src={
+                              element.resized_urls
+                                ? element.resized_urls.large
+                                : element.url
+                            }
                             alt={element.subtitle}
                             className={classes.image}
                           />
