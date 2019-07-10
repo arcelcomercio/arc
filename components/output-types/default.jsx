@@ -124,7 +124,6 @@ export default ({
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
-        {isStory && <meta name="news_keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}

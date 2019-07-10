@@ -31,7 +31,7 @@ export const formatDate = date => {
   return fecha
 }
 
-export const formatDayMonthYear = (date, showHour=true) => {
+export const formatDayMonthYear = (date, showHour = true) => {
   const fecha = new Date(date)
   const arrayMeses = [
     'enero',
@@ -57,8 +57,14 @@ export const formatDayMonthYear = (date, showHour=true) => {
     'Sábado',
   ]
 
-  const dateFormatter = `${arrayDay[fecha.getUTCDay()]} ${fecha.getUTCDate()} de ${arrayMeses[fecha.getUTCMonth()]} del ${fecha.getUTCFullYear()}`
-  return showHour ? `${dateFormatter}, ${fecha.getHours()}:${fecha.getMinutes()}`: dateFormatter
+  const dateFormatter = `${
+    arrayDay[fecha.getUTCDay()]
+  } ${fecha.getUTCDate()} de ${
+    arrayMeses[fecha.getUTCMonth()]
+  } del ${fecha.getUTCFullYear()}`
+  return showHour
+    ? `${dateFormatter}, ${fecha.getHours()}:${fecha.getMinutes()}`
+    : dateFormatter
 }
 
 // ex: 2019-04-29 22:34:13 or 2019/04/29T22:34:13
