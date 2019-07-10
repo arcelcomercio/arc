@@ -1,57 +1,162 @@
 /** ----------------------------*
 *          GRID LAYOUT          *
 *-------------------------------*/
-
 .grid {
-  display: flex;
-  flex-wrap: wrap;
-
-  @supports (display: grid) {
-    display: grid;
-  }
   &--content {
-    gap: $gap;
-    grid-auto-rows: min-content;
-  }
-
-  /* .grid--box{
-        @media (--desktop) {
-            grid-template-rows: repeat(4, $row-height);       
-        }
-        
-        grid-auto-rows: $row-height;    
-    } */
-
-  /* .grid--rows-height {
-        grid-auto-rows: minmax(calc(($row-height - (20px * ($row-parts - 1))) / $row-parts), auto);
-    } */
-
-  &--col-1 {
-    grid-template-columns: minmax(300px, 100vw);
-  }
-
-  &--col-2 {
-    @media (--tablet) {
-      grid-template-columns: repeat(
-        2,
-        minmax(300px, calc((100vw - #{$gap}) / 2))
-      );
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 100%;
+    max-width: 100%;
+    & .grid.grid--content {
+      & > div,
+      > article,
+      > section,
+      > aside {
+        width: 100%;
+        max-width: 100%;
+        flex-basis: auto;
+        flex-grow: 0;
+        flex-shrink: 1;
+        margin-bottom: 10px;
+      }
     }
-  }
-
-  // TODO: Creo que el mínimo debería ser 300, no 285
-
-  &--col-3 {
-    @media (--desktop) {
-      grid-template-columns: repeat(
-        3,
-        minmax(285px, calc((1024px - (#{$gap} * 2)) / 3))
-      );
+    & > div,
+    > article,
+    > section,
+    > aside {
+      width: 100%;
+      max-width: 100%;
+      flex-basis: auto;
+      flex-grow: 0;
+      flex-shrink: 1;
+      margin-bottom: 10px;
+      @media (--tablet) {
+        width: calc((100% / 2) - 20px);
+        max-width: calc((100% / 2) - 20px);
+        margin-right: 10px;
+      }
+      @media (--tablet) {
+        width: calc((100% / 3) - 20px);
+        max-width: calc((100% / 3) - 20px);
+      }
+    }
+    &.col-1,
+    .col-1 {
+      @media (--desktop) {
+        width: calc((100% / 3) - 20px);
+        max-width: calc((100% / 3) - 20px);
+        flex-basis: auto;
+        flex-grow: 0;
+        flex-shrink: 1;
+      }
+    }
+    &.col-2,
+    .col-2 {
+      @media (--desktop) {
+        width: calc((100% / 3) * 2 - 20px);
+        max-width: calc((100% / 3) * 2 - 20px);
+        flex-basis: auto;
+        flex-grow: 0;
+        flex-shrink: 0;
+      }
+    }
+    &.col-3,
+    .col-3 {
+      width: 100%;
+      max-width: 100%;
+      flex-basis: auto;
+      flex-grow: 0;
+      flex-shrink: 1;
     }
   }
 }
 
-/*-------------- Process to create the 1 col classes */
+@supports (display: grid) {
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+
+    @supports (display: grid) {
+      display: grid;
+    }
+    &--content {
+      gap: $gap;
+      grid-auto-rows: min-content;
+      & .grid.grid--content {
+        & > div,
+        > article,
+        > section,
+        > aside {
+          width: initial;
+          max-width: initial;
+        }
+      }
+      & > div,
+      > article,
+      > section,
+      > aside {
+        @media (--tablet) {
+          width: initial;
+          max-width: initial;
+        }
+        @media (--desktop) {
+          width: initial;
+          max-width: initial;
+        }
+      }
+      &.col-1,
+      &.col-2,
+      &.col-3,
+      .col-1,
+      .col-2,
+      .col-3 {
+        @media (--desktop) {
+          width: initial;
+          max-width: initial;
+        }
+      }
+    }
+
+    /* .grid--box{
+        @media (--desktop) {
+            grid-template-rows: repeat(4, $row-height);
+        }
+
+        grid-auto-rows: $row-height;
+    } */
+
+    /* .grid--rows-height {
+        grid-auto-rows: minmax(calc(($row-height - (20px * ($row-parts - 1))) / $row-parts), auto);
+    } */
+
+    &--col-1 {
+      grid-template-columns: minmax(300px, 100vw);
+    }
+
+    &--col-2 {
+      @media (--tablet) {
+        grid-template-columns: repeat(
+          2,
+          minmax(300px, calc((100vw - #{$gap}) / 2))
+        );
+      }
+    }
+
+    // TODO: Creo que el mínimo debería ser 300, no 285
+
+    &--col-3 {
+      @media (--desktop) {
+        grid-template-columns: repeat(
+          3,
+          minmax(285px, calc((1024px - (#{$gap} * 2)) / 3))
+        );
+      }
+    }
+  }
+}
+
+// /*-------------- Process to create the 1 col classes */
 
 @for $i from 1 through 4 {
   .row-#{$i} {
