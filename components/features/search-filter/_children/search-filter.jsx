@@ -35,12 +35,14 @@ const HIERARCHY = 'filter-section'
 class SearchFilterChildSearchFilter extends PureComponent {
   constructor(props) {
     super(props)
-    const { arcSite, isAdmin } = props
+    const { arcSite, isAdmin } = props // trae arcsite o nombre de marca y el booleano isAdmin
+
     this.state = {
-      sort: !isAdmin && this.getOrder(),
-      selected: !isAdmin && this.getSection(),
-      showList: false,
+      sort: !isAdmin && this.getOrder(), // si no ingresaste order en el admin ejecuta metodo getOrder
+      selected: !isAdmin && this.getSection(), // si no ingresaste seccion entonces ejecuta metodo getSection
+      showList: false, // show list booleano es falso por defecto
     }
+
     this.fetchContent({
       data: {
         source: CONTENT_SOURCE,
@@ -50,18 +52,25 @@ class SearchFilterChildSearchFilter extends PureComponent {
         },
         filter: schemaFilter,
         transform: ({ children = [] } = {}) => {
-          const data = { sections: children }
+          const data = { sections: children }  //  -----------> de donde trae data ????
           return { ...data }
         },
       },
-    })
+    }) // va devolver data de acuerdo al contentsource navigation-by-hierarchy
   }
+
+  // _changeList = () => {
+  //   this.setState({
+  //     showList: !this.state.showList
+  //   })
+  // }
 
   // Verifica si el filtro "orden" está seleccionado previamente.
   getOrder() {
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
-    return sort || DESC
+    //console.log(sort)
+    return sort || DESC //trae el sort de valor descendiente
   }
 
   // Verifica si el filtro "sección" está seleccionado previamente.
@@ -69,8 +78,10 @@ class SearchFilterChildSearchFilter extends PureComponent {
     const { globalContentConfig } = this.props
     const { query: { section = '' } = {} } = globalContentConfig || {}
 
-    return section !== '' ? SECTION : ''
-  }
+    return section !== '' ? SECTION : '' // section trae todas pero como es diferente de nada
+    // entonces trae el valor de SECTION que es ... section 
+
+  } 
 
   getUrl(type, value) {
     const { globalContentConfig } = this.props
@@ -100,13 +111,17 @@ class SearchFilterChildSearchFilter extends PureComponent {
     })
   }
 
+
   render() {
     const {
       selected,
       showList,
       sort,
       data: { sections = [] } = {},
-    } = this.state
+    } = this.state 
+    // trae, selected = resultado de getSection, showList como falso, sort como desc si no se ingreso los contrario
+    // data puede venir o como que no, deberia venir del resultado de fetchContent
+
     const { isAdmin, globalContentConfig } = this.props
 
     return (
@@ -114,7 +129,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
         <div className={classes.containerList}>
           <button
             className={`${classes.select} ${
-              showList ? 'bg-white' : 'bg-base-100'
+              showList ? 'bg-white' : 'bg-base-100' // muestra bg-base-100 xq showList esta en false
             }`}
             onClick={() => this.setState({ showList: !showList })}
             onKeyDown={() => this.setState({ showList: !showList })}
@@ -200,7 +215,8 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 href={!isAdmin && this.getUrl(SORT, ASC)} // (type, value)
                 className={classes.link}
                 role="checkbox"
-                aria-checked="false">
+                aria-checked="false"
+                >
                 Menos Recientes
               </a>
             </li>
