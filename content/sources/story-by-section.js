@@ -1,3 +1,8 @@
+import { resizerSecret } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import getProperties from 'fusion:properties'
+
+let website = ''
 const schemaName = 'story'
 
 const params = [
@@ -25,7 +30,7 @@ export const itemsToArray = (itemString = '') => {
 }
 
 const pattern = (key = {}) => {
-  const website = key['arc-site'] || 'Arc Site no está definido'
+  website = key['arc-site'] || 'Arc Site no está definido'
   const { section, excludeSections, feedOffset } = key
 
   const sectionsExcluded = itemsToArray(excludeSections)
@@ -123,9 +128,53 @@ const resolve = key => pattern(key)
   }
 } */
 
+const itemsToArrayImge = data => {
+  const { resizerUrl } = getProperties(website)
+
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+
+const transform = data => {
+  const dataStory = data
+
+  const { promo_items: { basic_gallery: contentElements = null } = {} } = data
+  const contentElementsData = contentElements || data
+
+  const image = itemsToArrayImge(contentElementsData)
+
+  if (contentElements) {
+    dataStory.promo_items.basic_gallery = image
+  }
+  console.log('xxxxxxxx')
+
+  console.log(data)
+  console.log('dddddddd')
+  return itemsToArrayImge(data)
+}
+
 const source = {
   resolve,
-  // transform,
+  transform,
   schemaName,
   params,
 }

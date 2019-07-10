@@ -1,8 +1,12 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import { CONTENT_BASE } from 'fusion:environment'
+import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import getProperties from 'fusion:properties'
 
 const SCHEMA_NAME = 'stories'
 let sectionName = ''
+let website = ''
 const params = [
   {
     name: 'section',
@@ -38,8 +42,35 @@ const formatSection = section => {
     : section
 }
 
+const itemsToArrayImge = (data, websiteResizer) => {
+  const { resizerUrl } = getProperties(websiteResizer)
+
+  return data.map(item => {
+    return addResizedUrls(item, {
+      resizerUrl,
+      resizerSecret,
+      presets: {
+        small: {
+          width: 100,
+          height: 200,
+        },
+        medium: {
+          width: 480,
+        },
+        large: {
+          width: 940,
+          height: 569,
+        },
+        amp: {
+          width: 600,
+          height: 375,
+        },
+      },
+    })
+  })
+}
 const pattern = (key = {}) => {
-  const website = key['arc-site'] || 'Arc Site no está definido'
+  website = key['arc-site'] || 'Arc Site no está definido'
   const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
   const clearSection = formatSection(section)
   const newSection =
@@ -122,29 +153,24 @@ const pattern = (key = {}) => {
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
       throw new Error('Sección no encontrada')
-    sectionName = resp.name
     return request({
       uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
         10}&from=${feedOffset || 0}&sort=publish_date:desc`,
       ...options,
     }).then(data => {
-      return data
+      data.content_elements = itemsToArrayImge(data.content_elements, website)
+      return {
+        ...data,
+        section_name: resp.name,
+      }
     })
   })
 }
 
 const fetch = key => pattern(key)
 
-const transform = data => {
-  return {
-    ...data,
-    section_name: sectionName,
-  }
-}
-
 const source = {
   fetch,
-  transform,
   schemaName: SCHEMA_NAME,
   params,
 }

@@ -1,7 +1,6 @@
 .signwall {
   * {
     @media (max-width: 47.938em) {
-
       //hasta 767
       .hide-line-break-sm {
         display: none;
@@ -32,6 +31,7 @@
     .input-button-brand {
       border: 1px solid $signwall-color-link;
       color: $signwall-color-link;
+      font-family: $primary-font;
 
       &:hover {
         background: $signwall-color-link !important;
@@ -55,7 +55,7 @@
 
       &__link {
         text-decoration: none;
-        font-family: Open Sans, sans-serif;
+        font-family: $secondary-font;
         font-weight: bold;
         color: gray;
         font-size: 12px;
@@ -82,7 +82,7 @@
 
         &--user {
           font-style: normal;
-          font-family: Open Sans, sans-serif !important;
+          font-family: $secondary-font !important;
           font-weight: bold;
           text-transform: uppercase;
           line-height: 16px;

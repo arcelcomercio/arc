@@ -1,0 +1,45 @@
+.featured-story {
+  &__author {
+    order: 2;
+    border-bottom: 1px solid #F5E9DE;
+    padding-bottom: 10px;
+    text-transform: capitalize;
+  }
+
+  &__category {
+    order: 3;
+    padding: 10px 0px;
+    border: 0px;
+
+    &::after {
+      border: 0px;
+      width: 0px;
+      height: 0px;
+    }
+  }
+
+  &__category-link {
+    text-transform: uppercase;
+    color: #AD8D76;
+  }
+
+  &__detail {
+    padding-bottom: 0px !important;
+  }
+
+  &__title {
+    order: 1;
+  }
+
+  &-threeline {
+    -webkit-line-clamp: 4;
+    max-height: calc(#{$header-xs} * 1.5 * 4);
+  }
+
+  &.img-complete {
+    .featured-story__detail {
+      padding-bottom: 20px !important;
+    }
+  }
+
+}

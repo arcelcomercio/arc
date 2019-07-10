@@ -1,5 +1,5 @@
-import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+import Consumer from 'fusion:consumer'
 import StoryHeaderChildHeading from './_children/heading'
 import StoryHeaderChildShareSubheading from './_children/subheading'
 import StoryHeaderChildGallerySlider from './_children/gallery-slider'
