@@ -32,6 +32,7 @@ const AmpOutputType = ({
     isAmp: true,
     deployment,
   }
+
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
 
   const metaSiteData = {
@@ -105,11 +106,12 @@ const AmpOutputType = ({
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
-        <meta name="news_keywords" content={keywords} />
         <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
+
+        {/* add additional head elements here */}
 
         {/* add additional head elements here */}
 

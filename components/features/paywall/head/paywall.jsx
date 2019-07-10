@@ -1,31 +1,33 @@
 import React from 'react'
 import Consumer from 'fusion:consumer'
 import ENV from 'fusion:environment'
-import './paywall.css'
+import * as S from './styled'
 
 @Consumer
 class Head extends React.PureComponent {
   render() {
-    const { arcSite, getProperties, contextPath } = this.props
+    const { siteProperties, contextPath, deployment } = this.props
 
-    const { assets } = getProperties(arcSite)
+    const { assets, colorPrimary } = siteProperties
 
     return (
-      <div className="__wrapHead">
-        <div className="__backHead">
-          <div className="__left"></div>
-          <div className="__right"></div>
-        </div>
-        <div className="__head">
-          <img
-            src={`${contextPath}${assets.paywall()}`}
-            alt="Logo el comercio"
-          />
-          <div className="__wrapLogin">
-            <span className="__username">Hola Jorge</span>
-          </div>
-        </div>
-      </div>
+      <S.ThemeProvider theme={{ colorPrimary }}>
+        <S.Head>
+          <S.Background>
+            <S.Left></S.Left>
+            <S.Right></S.Right>
+          </S.Background>
+          <S.Content>
+            <img
+              src={deployment(`${contextPath}${assets.paywall()}`)}
+              alt="Logo el comercio"
+            />
+            <S.WrapLogin>
+              <S.Username>Hola Jorge</S.Username>
+            </S.WrapLogin>
+          </S.Content>
+        </S.Head>
+      </S.ThemeProvider>
     )
   }
 }

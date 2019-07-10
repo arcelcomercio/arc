@@ -1,5 +1,8 @@
 export default {
   siteName: 'Publimetro',
+
+  googleFonts: 'Roboto', // corpidbold, corpidregular
+
   colorPrimary: '#265922',
   siteDomain: 'publimetro.pe',
   siteUrl: 'https://publimetro.pe',

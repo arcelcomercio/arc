@@ -2,7 +2,6 @@ import React from 'react'
 
 export default props => {
   const { adElement, isDesktop, isMobile, classes } = props
-
   return (
     <>
       {adElement && isMobile && (

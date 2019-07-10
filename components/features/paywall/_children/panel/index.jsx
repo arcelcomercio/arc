@@ -1,23 +1,11 @@
 import React from 'react'
-import './panel.css'
-import c from '../../_dependencies/tools'
+import * as S from './styled'
 
-const Panel = ({
-  className = '',
-  children,
-  type = 'content',
-  valing = null,
-}) => {
+const Panel = ({ children, type = 'content', ...props }) => {
   return (
-    <div
-      className={c([
-        'panel',
-        `panel--${type}`,
-        valing,
-        [className, className !== ''],
-      ])}>
+    <S.Panel type={type} {...props}>
       {children}
-    </div>
+    </S.Panel>
   )
 }
 

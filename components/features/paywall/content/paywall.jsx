@@ -4,6 +4,7 @@ import Consumer from 'fusion:consumer'
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
+import * as S from './styled'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 const PRODUCT_SKU = '02072019'
@@ -12,8 +13,6 @@ const CAMPAIGN = 'gestion-20190703'
 const Right = () => {
   return <div>Hola2</div>
 }
-
-@Consumer
 class Content extends React.PureComponent {
   state = {
     plans: [],
@@ -59,12 +58,14 @@ class Content extends React.PureComponent {
   render() {
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ width: 1120 }}>
-          <Wizard nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-            <WizardPlan plans={this.state.plans} />
+        <S.Content>
+          <Wizard
+            isHashEnabled
+            nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
+            <WizardPlan />
             <WizardUserProfile />
           </Wizard>
-        </div>
+        </S.Content>
       </div>
     )
   }

@@ -97,7 +97,39 @@ const fetch = key => {
 }
 
 const transform = data => {
+  const dataStory = data
+
   const { resizerUrl } = getProperties(data.website)
+  const {
+    promo_items: { basic_gallery: contentElements },
+  } = data
+  const contentElementsData = contentElements || data
+
+  const image = addResizedUrls(contentElementsData, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+
+  if (contentElements) {
+    dataStory.promo_items.basic_gallery = image
+  }
 
   return addResizedUrls(data, {
     resizerUrl,

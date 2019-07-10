@@ -2,39 +2,62 @@ import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import InputFormik from '../input'
-import './user-perfil.css'
+import * as S from './styled'
+import schema from '../../_dependencies/schema'
 
-const SignupSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'Too Short!')
-    .required('Required'),
-  firstName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  lastname: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  phone: Yup.string(),
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
-  documentId: Yup.string().required('Required'),
+const MESSAGE = {
+  MIN: 'Longitud inválida, mínimo 3 caracteres.',
+  MAX: 'Longitud inválida, Máximo 50 caracteres.',
+  REQUIRED: 'Este campo es requerido',
+  CELULAR: 'Longitud inválida, entre 9 y 12 caracteres',
+  DNI: 'Longitud inválida, requiere 8 dígitos',
+  EMAIL: 'Correo inválido',
+}
+
+const RegisterSchema = schema({
+  name: value => {
+    value
+      .required(MESSAGE.REQUIRED)
+      .min(3, MESSAGE.MIN)
+      .max(50, MESSAGE.MAX)
+  },
+  firstname: value => {
+    value
+      .required(MESSAGE.REQUIRED)
+      .min(3, MESSAGE.MIN)
+      .max(50, MESSAGE.MAX)
+  },
+  lastname: value => {
+    value.min(3, MESSAGE.MIN).max(50, MESSAGE.MAX)
+  },
+  documentId: value => {
+    value.required(MESSAGE.REQUIRED).length(8, MESSAGE.DNI)
+  },
+  phone: value => {
+    value.min(9, MESSAGE.CELULAR).max(12, MESSAGE.CELULAR)
+  },
+  email: value => {
+    value.required(MESSAGE.REQUIRED)
+    value.email(MESSAGE.EMAIL)
+  },
 })
 
 const Select = () => (
-  <select className="__select">
+  <S.Select>
     <option>DNI</option>
     <option>CEX</option>
     <option>CDI</option>
-  </select>
+  </S.Select>
 )
+
+const FormStyled = S.Form(Form)
 
 const UserProfile = ({ title = '' }) => (
   <Formik
-    initialValues={{ name: 'jared', firstname: 'first' }}
-    validationSchema={SignupSchema}
+    initialValues={{ firstname: 'first' }}
+    validate={values => {
+      return RegisterSchema(values)
+    }}
     onSubmit={(values, actions) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2))
@@ -42,10 +65,12 @@ const UserProfile = ({ title = '' }) => (
       }, 1000)
     }}
     render={() => (
-      <Form className="__field">
-        {title}
-        <div className="__field">
-          <Field name="name" placeholder="Nombre" component={InputFormik} />
+      <FormStyled>
+        <S.WrapTitle>
+          <S.Title>{title}</S.Title>
+        </S.WrapTitle>
+        <S.Wrap>
+          <Field name="name" placeholder="Nombres" component={InputFormik} />
           <Field
             name="firstname"
             placeholder="Apellido Paterno"
@@ -59,20 +84,24 @@ const UserProfile = ({ title = '' }) => (
           <Field
             name="documentId"
             placeholder="Tipo de documento"
+            type="number"
             prefix={<Select key="select" />}
             component={InputFormik}
           />
-          <Field name="phone" placeholder="Teléfono" component={InputFormik} />
+          <Field
+            name="phone"
+            placeholder="Número de Celular"
+            type="number"
+            component={InputFormik}
+          />
           <Field
             name="email"
             placeholder="Correo Electrónico"
             component={InputFormik}
           />
-        </div>
-        <button type="submit" className="__submit">
-          CONTINUAR
-        </button>
-      </Form>
+        </S.Wrap>
+        <S.Button type="submit">CONTINUAR</S.Button>
+      </FormStyled>
     )}
   />
 )

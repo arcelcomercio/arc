@@ -1,6 +1,8 @@
 export default {
   siteName: "Gestion",
-  colorPrimary: "#f7c600",
+  colorPrimary: "#8F071F",
+  colorSecondary: "#F4E0D2",
+  googleFonts: "Judson:400,700|Roboto",
   siteDomain: "gestion.pe",
   siteUrl: "https://gestion.pe",
   resizerUrl: "https://elcomercio-gestion-prod.cdn.arcpublishing.com/resizer",
@@ -8,7 +10,7 @@ export default {
   urlPreroll:
     "https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1",
   fbAppId: "1667917060088448",
-  googleTagManagerId: "GTM-KKXTKGP",
+  googleTagManagerId: "GTM-WGPJNC",
   ampGoogleTagManagerId: "UA-3055636-3",
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: "UA-3055636-3",

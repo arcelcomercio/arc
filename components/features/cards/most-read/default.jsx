@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
@@ -10,7 +10,7 @@ import { getQuery, getStories } from './_dependencies/functions'
 const CONTENT_SOURCE = 'story-feed-by-views'
 
 @Consumer
-class CardMostRead extends PureComponent {
+class CardMostRead extends Component {
   constructor(props) {
     super(props)
     const {

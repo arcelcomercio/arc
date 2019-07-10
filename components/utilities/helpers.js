@@ -31,7 +31,37 @@ export const formatDate = date => {
   return fecha
 }
 
-export const formatDayMonthYear = date => {
+export const formatDateLocalTimeZone = publishDateString => {
+  const publishDate = new Date(publishDateString)
+  const today = new Date()
+  let formatHour = ''
+  const diff = parseFloat(
+    (Math.abs(today - publishDate) / (1000 * 60 * 60)).toFixed(1)
+  )
+
+  if (diff >= 24) {
+    const day = today.getDate()
+    const month = today.getMonth() + 1
+    const year = today.getFullYear()
+
+    const formatDay = day < 10 ? `0${day}` : day
+    const formatMonth = month < 10 ? `0${month}` : month
+    formatHour = `${year}-${formatMonth}-${formatDay}`
+  } else {
+    const hora =
+      publishDate.getHours() < 10
+        ? `0${publishDate.getHours()}`
+        : `${publishDate.getHours()}`
+    const minuts =
+      publishDate.getMinutes() < 10
+        ? `0${publishDate.getMinutes()}`
+        : `${publishDate.getMinutes()}`
+    formatHour = `${hora}:${minuts}`
+  }
+  return formatHour
+}
+
+export const formatDayMonthYear = (date, showHour = true) => {
   const fecha = new Date(date)
   const arrayMeses = [
     'enero',
@@ -48,17 +78,23 @@ export const formatDayMonthYear = date => {
     'diciembre',
   ]
   const arrayDay = [
+    'Domingo',
     'Lunes',
     'Martes',
     'Miércoles',
     'Jueves',
     'Viernes',
-    'Sabado',
-    'Domingo',
+    'Sábado',
   ]
-  return `${arrayDay[fecha.getDay()]} ${fecha.getDate()} de ${
-    arrayMeses[fecha.getMonth()]
-  } del ${fecha.getFullYear()}, ${fecha.getHours()}:${fecha.getMinutes()}`
+
+  const dateFormatter = `${
+    arrayDay[fecha.getUTCDay()]
+  } ${fecha.getUTCDate()} de ${
+    arrayMeses[fecha.getUTCMonth()]
+  } del ${fecha.getUTCFullYear()}`
+  return showHour
+    ? `${dateFormatter}, ${fecha.getHours()}:${fecha.getMinutes()}`
+    : dateFormatter
 }
 
 // ex: 2019-04-29 22:34:13 or 2019/04/29T22:34:13
@@ -334,18 +370,11 @@ export const breadcrumbList = (url, siteUrl) => {
   return arrayData.filter(String)
 }
 
-export const getUrlParameter = contentElements => {
+export const getUrlParameter = () => {
   const { location: { href: loc } = {} } = window || {}
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
-
-  if (loc.includes('?') && contentElements) {
-    const sWidth = 100 / contentElements.length
-    return tmp[1] && contentElements.length >= tmp[1]
-      ? -sWidth * (tmp[1] - 1)
-      : 0
-  }
-  return parseInt(String, tmp[1]) || 0
+  return parseInt(tmp[1], 0) || 0
 }
 
 export const getMultimediaIcon = multimediaType => {
@@ -516,12 +545,12 @@ export const replaceTags = text => {
 }
 
 export const formatDateStory = date => {
-  const fecha = date.slice(0, 10).replace(/-/g, '.')
-  const hora = date.slice(date.indexOf('T') + 1, 16)
-  const tiempo = date.slice(date.indexOf('T') + 1, 13)
-
-  const horaAm = parseInt(String, tiempo) < 12 ? 'am' : 'pm'
-  return `${fecha} / ${hora} ${horaAm}`
+  const fecha = new Date(date)
+  const day = fecha.getDate()
+  const month = fecha.getMonth() + 1
+  const formatDay = day < 10 ? `0${day}` : day
+  const formatMonth = month < 10 ? `0${month}` : month
+  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
 }
 
 export const replaceHtmlMigracion = html => {

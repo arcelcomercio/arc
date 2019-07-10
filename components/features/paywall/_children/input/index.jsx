@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Divider from '../divider'
-import c from '../../_dependencies/tools'
-import './input.css'
+import * as S from './styled'
 
 const InputFormik = ({
   field, // { name, value, onChange, onBlur }
@@ -25,28 +24,24 @@ const InputFormik = ({
   }
 
   const hasError = touched[field.name] && errors[field.name]
-
+  if (hasError) placeholder = errors[field.name]
   return (
-    <div className="__formGroup">
-      <label
-        htmlFor="Hola"
-        className={c(['__label', ['__focus', hasText], ['__prefix', prefix]])}>
+    <S.FormGroup>
+      <S.Label hasError={hasError} focus={hasText} prefix={prefix}>
         {placeholder}
-      </label>
-      <div className="__wrapInput">
+      </S.Label>
+      <S.Wrap hasError={hasError}>
         {prefix ? [prefix, <Divider key="divider" />] : false}
-        <input
+        <S.Input
           type="text"
-          value={value}
+          defaultValue={value}
           onFocus={focus}
           onBlur={blur}
-          className="__input"
           {...rest}
           {...props}
         />
-      </div>
-      {hasError && errors[field.name]}
-    </div>
+      </S.Wrap>
+    </S.FormGroup>
   )
 }
 export default InputFormik

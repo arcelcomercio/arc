@@ -1,8 +1,8 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
 import { CONTENT_BASE } from 'fusion:environment'
 
 const SCHEMA_NAME = 'stories'
-let sectionName = ''
 const params = [
   {
     name: 'section',
@@ -122,29 +122,23 @@ const pattern = (key = {}) => {
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
       throw new Error('Sección no encontrada')
-    sectionName = resp.name
     return request({
       uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
         10}&from=${feedOffset || 0}&sort=publish_date:desc`,
       ...options,
     }).then(data => {
-      return data
+      return {
+        ...data,
+        section_name: resp.name,
+      }
     })
   })
 }
 
 const fetch = key => pattern(key)
 
-const transform = data => {
-  return {
-    ...data,
-    section_name: sectionName,
-  }
-}
-
 const source = {
   fetch,
-  transform,
   schemaName: SCHEMA_NAME,
   params,
 }

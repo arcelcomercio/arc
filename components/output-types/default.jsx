@@ -5,6 +5,7 @@ import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
+import ChartbeatBody from './_children/chartbeat-body'
 
 export default ({
   children,
@@ -91,6 +92,8 @@ export default ({
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
 
+  const { googleFonts = '' } = siteProperties || {}
+
   return (
     <html lang="es">
       <head>
@@ -114,7 +117,7 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link
-          href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap"
+          href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
           rel="stylesheet"
         />
         <script src="https://jab.pe/f/arc/data_js.js" async />
@@ -138,6 +141,7 @@ export default ({
         />
         {/* Scripts de APPNEXUS */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
         {/* <script
           async
           src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
@@ -156,7 +160,7 @@ export default ({
 
         <Libs />
       </head>
-      <body className={isStory ? 'story nota' : ''}>
+      <body className={isStory ? 'story' : ''}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -191,6 +195,7 @@ export default ({
             dangerouslySetInnerHTML={{ __html: structuredTaboola }}
           />
         )}
+        <ChartbeatBody story={isStory} {...metaPageData} />
       </body>
     </html>
   )
