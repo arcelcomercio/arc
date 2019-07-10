@@ -31,6 +31,36 @@ export const formatDate = date => {
   return fecha
 }
 
+export const formatDateLocalTimeZone = publishDateString => {
+  const publishDate = new Date(publishDateString)
+  const today = new Date()
+  let formatHour = ''
+  const diff = parseFloat(
+    (Math.abs(today - publishDate) / (1000 * 60 * 60)).toFixed(1)
+  )
+
+  if (diff >= 24) {
+    const day = today.getDate()
+    const month = today.getMonth() + 1
+    const year = today.getFullYear()
+
+    const formatDay = day < 10 ? `0${day}` : day
+    const formatMonth = month < 10 ? `0${month}` : month
+    formatHour = `${year}-${formatMonth}-${formatDay}`
+  } else {
+    const hora =
+      publishDate.getHours() < 10
+        ? `0${publishDate.getHours()}`
+        : `${publishDate.getHours()}`
+    const minuts =
+      publishDate.getMinutes() < 10
+        ? `0${publishDate.getMinutes()}`
+        : `${publishDate.getMinutes()}`
+    formatHour = `${hora}:${minuts}`
+  }
+  return formatHour
+}
+
 export const formatDayMonthYear = (date, showHour = true) => {
   const fecha = new Date(date)
   const arrayMeses = [
