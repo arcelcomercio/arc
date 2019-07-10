@@ -6,6 +6,7 @@ const WizardUserProfile = styled.div`
   justify-content: space-between;
   @media (${devices.mobile}) {
     flex-direction: column-reverse;
+    align-items: center;
   }
 `
 export { WizardUserProfile }
