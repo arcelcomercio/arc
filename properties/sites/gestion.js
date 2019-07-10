@@ -28,7 +28,7 @@ export default {
   infoPagesProd: {
     termsAndConditions: '',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'YK7SFEAX3VD4HOYGEPH3Y6ZYNQ',
     integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: '',
