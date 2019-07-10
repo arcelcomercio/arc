@@ -306,7 +306,7 @@ class updatePassword extends Component {
                   onSubmit={e => this.submitConfirmPassword(e)}>
                   <div className="row-grid">
                     <div className="col-12 col-center">
-                      <p className="form-grid__label form-grid__information">
+                      <p className="form-grid__label form-grid__label--information">
                         Para confirmar el cambio, por favor ingresa tu
                         contraseña actual
                       </p>
