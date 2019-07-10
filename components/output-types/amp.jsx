@@ -26,7 +26,10 @@ const AmpOutputType = ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    socialName: siteProperties.social.facebook,
+    siteAssets: siteProperties.assets,
     metaValue,
+    isAmp: true,
     deployment,
   }
 
@@ -103,13 +106,27 @@ const AmpOutputType = ({
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
-        <meta name="news_keywords" content={keywords} />
         <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
 
         {/* add additional head elements here */}
+
+        {/* add additional head elements here */}
+
+        <Resource path={`resources/dist/${arcSite}/css/amp.css`}>
+          {({ data }) => {
+            return data ? (
+              <style
+                amp-custom="amp-custom"
+                dangerouslySetInnerHTML={createMarkup(
+                  data.replace('@charset "UTF-8";', '')
+                )}
+              />
+            ) : null
+          }}
+        </Resource>
 
         <script
           async
@@ -118,14 +135,35 @@ const AmpOutputType = ({
         />
         <script
           async
-          custom-element="amp-next-page"
-          src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
-        />
-        <script
-          async
           custom-element="amp-sidebar"
           src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
         />
+        <script
+          async
+          custom-element="amp-iframe"
+          src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
+        />
+        <script
+          async
+          custom-element="amp-sticky-ad"
+          src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"
+        />
+        <script
+          async
+          custom-element="amp-ad"
+          src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
+        />
+        <script
+          async
+          custom-element="amp-bind"
+          src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
+        />
+        <script
+          async
+          custom-element="amp-next-page"
+          src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
+        />
+
         <script
           async
           custom-element="amp-youtube"
@@ -136,11 +174,7 @@ const AmpOutputType = ({
           custom-element="amp-carousel"
           src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"
         />
-        <script
-          async
-          custom-element="amp-iframe"
-          src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
-        />
+
         <script
           async
           custom-element="amp-twitter"
@@ -156,20 +190,11 @@ const AmpOutputType = ({
           custom-element="amp-facebook"
           src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"
         />
-        <link
-          href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap"
-          rel="stylesheet"
+        <script
+          async
+          custom-element="amp-video"
+          src="https://cdn.ampproject.org/v0/amp-video-0.1.js"
         />
-        <Resource path={`resources/dist/${arcSite}/css/amp.css`}>
-          {({ data }) => {
-            return data ? (
-              <style
-                amp-custom="amp-custom"
-                dangerouslySetInnerHTML={createMarkup(data)}
-              />
-            ) : null
-          }}
-        </Resource>
       </head>
       <body className="">
         <AmpTagManager {...parametros} />
@@ -185,6 +210,7 @@ AmpOutputType.fallback = false
 AmpOutputType.propTypes = {
   children: PropTypes.node,
   arcSite: PropTypes.string,
+  isAmp: PropTypes.bool,
 }
 
 export default AmpOutputType

@@ -5,6 +5,7 @@ import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
+import ChartbeatBody from './_children/chartbeat-body'
 
 export default ({
   children,
@@ -27,6 +28,8 @@ export default ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    socialName: siteProperties.social.facebook,
+    siteAssets: siteProperties.assets,
     metaValue,
     deployment,
   }
@@ -56,7 +59,9 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
+      : `Noticias, ${
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -119,7 +124,6 @@ export default ({
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
-        {isStory && <meta name="news_keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
@@ -160,7 +164,9 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -183,6 +189,13 @@ export default ({
           )}
         />
         <Fusion />
+        {isStory && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{ __html: structuredTaboola }}
+          />
+        )}
+        <ChartbeatBody story={isStory} {...metaPageData} />
       </body>
     </html>
   )
