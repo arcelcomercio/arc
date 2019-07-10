@@ -26,7 +26,10 @@ const AmpOutputType = ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    socialName: siteProperties.social.facebook,
+    siteAssets: siteProperties.assets,
     metaValue,
+    isAmp: true,
     deployment,
   }
 
@@ -185,6 +188,7 @@ AmpOutputType.fallback = false
 AmpOutputType.propTypes = {
   children: PropTypes.node,
   arcSite: PropTypes.string,
+  isAmp: PropTypes.bool,
 }
 
 export default AmpOutputType

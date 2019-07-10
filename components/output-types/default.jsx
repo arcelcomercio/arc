@@ -28,6 +28,8 @@ export default ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
+    socialName: siteProperties.social.facebook,
+    siteAssets: siteProperties.assets,
     metaValue,
     deployment,
   }
