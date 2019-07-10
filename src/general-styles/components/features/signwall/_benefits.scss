@@ -17,7 +17,7 @@
       }
       &__title {
         font-size: 22px;
-        line-height: 34px;
+        line-height: 28px;
       }
 
       .text-panel {
@@ -34,11 +34,13 @@
       }
 
       &__item-title {
+        font-family: $secondary-font;
         color: $signwall-text-color;
         font-weight: 400;
         font-size: 16px;
       }
       &__item-text {
+        font-family: $secondary-font;
         font-weight: 400;
         font-size: 14px;
         margin: 8px 0px;

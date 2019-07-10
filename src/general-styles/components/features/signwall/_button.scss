@@ -1,12 +1,12 @@
 .signwall {
   * {
     .btn {
-      font-family: Open Sans, sans-serif;
+      font-family: $primary-font;
       font-size: 14px;
       border-radius: 0.4rem;
       padding: 12px 20px;
       width: 100%;
-      background-color: white;
+      background-color: $color-white;
       text-transform: uppercase;
       font-weight: bold;
       box-sizing: border-box;
@@ -47,7 +47,7 @@
 
       &-text {
         margin: 0 8px;
-
+        font-family: $secondary-font;
         @media (--tablet) {
           margin: 0 0px;
         }

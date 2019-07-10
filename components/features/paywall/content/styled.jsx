@@ -4,7 +4,7 @@ import { devices } from '../_dependencies/devices'
 const Content = styled.div`
   width: 1120px;
   @media (${devices.mobile}) {
-    width: calc(100% - 40px);
+    width: 100%;
   }
 `
 export { Content, ThemeProvider }

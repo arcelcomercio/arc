@@ -25,6 +25,11 @@ const Wrap = styled.div`
   flex: 1;
   width: 250px;
   box-sizing: border-box;
+  ${({ hasError }) =>
+    hasError &&
+    css`
+      border-color: #db0000;
+    `}
   @media (${devices.mobile}) {
     width: 100%;
   }
@@ -40,6 +45,11 @@ const Label = styled.label`
   padding: 5px;
   will-change: transform, font-size;
   transition: transform 250ms, font-size 250ms, left 250ms;
+  ${({ hasError }) =>
+    hasError &&
+    css`
+      color: #db0000;
+    `}
   ${({ prefix }) =>
     prefix &&
     css`

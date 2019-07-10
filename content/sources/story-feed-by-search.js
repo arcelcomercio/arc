@@ -1,6 +1,11 @@
-const schemaName = 'stories'
+import { resizerSecret } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import getProperties from 'fusion:properties'
 
-const params = [{
+const schemaName = 'stories'
+let website = ''
+const params = [
+  {
     name: 'sort',
     displayName: 'Orden',
     type: 'text',
@@ -44,7 +49,7 @@ const pattern = key => {
     return '0'
   }
 
-  const website = key['arc-site'] || 'Arc Site no está definido'
+  website = key['arc-site'] || 'Arc Site no está definido'
   const sort = key.sort || 'descendiente'
   const from = `${validateFrom()}`
   const size = `${key.size || 3}`
@@ -54,7 +59,8 @@ const pattern = key => {
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               type: 'story',
             },
@@ -99,7 +105,8 @@ const pattern = key => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': [`/${key.section}`],
                 },
@@ -125,8 +132,44 @@ const pattern = key => {
 
 const resolve = key => pattern(key)
 
+const itemsToArrayImge = data => {
+  const { resizerUrl } = getProperties(website)
+
+  return data.map(item => {
+    return addResizedUrls(item, {
+      resizerUrl,
+      resizerSecret,
+      presets: {
+        small: {
+          width: 100,
+          height: 200,
+        },
+        medium: {
+          width: 480,
+        },
+        large: {
+          width: 940,
+          height: 569,
+        },
+        amp: {
+          width: 600,
+          height: 375,
+        },
+      },
+    })
+  })
+}
+
+const transform = data => {
+  const dataStories = data
+  dataStories.content_elements = itemsToArrayImge(dataStories.content_elements)
+
+  return { ...dataStories }
+}
+
 const source = {
   resolve,
+  transform,
   schemaName,
   params,
 }
