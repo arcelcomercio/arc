@@ -1,5 +1,5 @@
 .story-separator {
-  grid-template-columns: 1fr;
+  /*   grid-template-columns: 1fr; */
   height: auto;
 
   @media print {
@@ -7,16 +7,17 @@
   }
 
   &__body {
-    grid-template-columns: 1fr;
-    gap: 3px;
     height: auto;
+    /*   grid-template-columns: 1fr;
+    gap: 3px;
+
 
     @media (--tablet) {
       grid-template-columns: repeat(4, 1fr);
-    }
+    } */
 
     &--items {
-      grid-template-columns: repeat(6, 1fr);
+      /*       grid-template-columns: repeat(6, 1fr); */
       height: 169px;
     }
   }

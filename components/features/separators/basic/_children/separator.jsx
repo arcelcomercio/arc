@@ -3,13 +3,13 @@ import { createMarkup } from '../../../../utilities/helpers'
 import SeparatorItem from './item'
 
 const classes = {
-  separator: `separator bg-white mt-20 w-full pt-0 pr-20 pb-15 pl-20 grid border-t-1 border-solid`,
+  separator: `separator bg-white mt-20 w-full pt-0 pr-20 pb-15 pl-20 border-t-1 border-solid`,
   title: 'separator__header-title capitalize pb-20 pt-20 text-left text-lg',
   titleLink: 'separator__header-link',
   oneline: 'separator__oneline',
   twoline: 'separator__twoline',
   threeline: 'separator__threeline',
-  body: 'separator__body mt-0 mb-0 grid',
+  body: 'separator__body mt-0 mb-0 flex justify-between',
 }
 
 const SeparatorsBasicChildSeparator = props => {

@@ -24,9 +24,9 @@ const resolve = key => {
     ''}"&sort=publish_date:desc&from=0&size=1&website=${website}`
   return requestUri
 }
-
-const transform = data => {
+const itemsToArrayImge = data => {
   const { resizerUrl } = getProperties(website)
+
   return addResizedUrls(data, {
     resizerUrl,
     resizerSecret,
@@ -48,6 +48,22 @@ const transform = data => {
       },
     },
   })
+}
+const transform = data => {
+  const dataStory = data
+
+  const {
+    promo_items: { basic_gallery: contentElements },
+  } = data
+  const contentElementsData = contentElements || data
+
+  const image = itemsToArrayImge(contentElementsData)
+
+  if (contentElements) {
+    dataStory.promo_items.basic_gallery = image
+  }
+
+  return itemsToArrayImge(data)
 }
 
 export default {
