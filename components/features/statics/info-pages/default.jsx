@@ -22,7 +22,7 @@ const classes = {
   staticPolicy:
     'info-pages bg-white secondary-font text-md line-h-lg p-20 lg:p-40',
   title:
-    'info-pages__title font-bold uppercase mb-25 title-md line-h-sm primary-font',
+    'info-pages__title font-bold uppercase mb-25 title-md line-h-sm primary-font border-b-1 border-solid border-base pb-20',
 }
 
 @Consumer
