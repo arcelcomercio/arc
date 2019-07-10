@@ -1,11 +1,7 @@
 import StoryData from './story-data'
 
 class FeaturedStoryFormatter {
-  constructor({
-    deployment,
-    contextPath = '',
-    arcSite = ''
-  }) {
+  constructor({ deployment, contextPath = '', arcSite = '' }) {
     this.contextPath = contextPath
     this.arcSite = arcSite
     this.schema = `{ 
@@ -14,15 +10,15 @@ class FeaturedStoryFormatter {
         by { name url type }
       }
       promo_items {
-        basic { url type }
+        basic { url type resized_urls { small medium large} }
         basic_video {
           promo_items {
-            basic { url type }
+            basic { url type resized_urls { small medium large} }
           }
         }
         basic_gallery {
           promo_items {
-            basic { url type }
+            basic { url type resized_urls { small medium large} }
           }
         }
       }
@@ -57,7 +53,7 @@ class FeaturedStoryFormatter {
       deployment,
       contextPath: this.contextPath,
       arcSite: this.arcSite,
-      defaultImgSize: 'sm'
+      defaultImgSize: 'sm',
     })
   }
 
@@ -90,13 +86,11 @@ class FeaturedStoryFormatter {
     newState.category.name = this.storyDataInstace.section
     newState.category.url = this.storyDataInstace.sectionLink
 
-
     newState.title.name = this.storyDataInstace.title
     newState.title.url = this.storyDataInstace.link
 
     newState.author.name = this.storyDataInstace.author
     newState.author.url = this.storyDataInstace.authorLink
-
 
     newState.image = imgField || this.storyDataInstace.multimedia
     newState.multimediaType = this.storyDataInstace.multimediaType
