@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
@@ -152,31 +153,24 @@ const pattern = (key = {}) => {
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
       throw new Error('Sección no encontrada')
-    sectionName = resp.name
     return request({
       uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
         10}&from=${feedOffset || 0}&sort=publish_date:desc`,
       ...options,
     }).then(data => {
       data.content_elements = itemsToArrayImge(data.content_elements, website)
-      return data
+      return {
+        ...data,
+        section_name: resp.name,
+      }
     })
   })
 }
 
 const fetch = key => pattern(key)
 
-const transform = data => {
-  return {
-    ...data,
-    section_name: sectionName,
-    website,
-  }
-}
-
 const source = {
   fetch,
-  transform,
   schemaName: SCHEMA_NAME,
   params,
 }

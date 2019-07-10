@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 
 import StoryData from '../utilities/story-data'
-import { reduceWord, formatDate } from '../utilities/helpers'
+import { reduceWord, formatDateLocalTimeZone } from '../utilities/helpers'
 
 const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray lg:p-0`,
@@ -46,7 +46,9 @@ class StoriesList extends PureComponent {
               <a href={element.sectionLink} className={classes.section}>
                 {element.section}
               </a>
-              <p className={classes.date}>{formatDate(element.date)}</p>
+              <p className={classes.date}>
+                {formatDateLocalTimeZone(element.date)}
+              </p>
             </div>
             <div>
               <h2 className={classes.contentTitle}>
