@@ -7,7 +7,7 @@ import * as S from './styled'
 function WizardUserProfile() {
   return (
     <S.WizardUserProfile>
-      <Panel type="content" valing="jc-center">
+      <Panel type="content" valing="jc-center" margin="30px 0 0 0">
         <UserPerfil title="Ingrese sus datos" />
       </Panel>
       <Summary />
