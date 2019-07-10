@@ -35,12 +35,14 @@ const HIERARCHY = 'filter-section'
 class SearchFilterChildSearchFilter extends PureComponent {
   constructor(props) {
     super(props)
-    const { arcSite, isAdmin } = props
+    const { arcSite, isAdmin } = props 
+
     this.state = {
       sort: !isAdmin && this.getOrder(),
       selected: !isAdmin && this.getSection(),
       showList: false,
     }
+
     this.fetchContent({
       data: {
         source: CONTENT_SOURCE,
@@ -54,23 +56,29 @@ class SearchFilterChildSearchFilter extends PureComponent {
           return { ...data }
         },
       },
-    })
+    }) 
   }
 
-  // Verifica si el filtro "orden" está seleccionado previamente.
+  // _changeList = () => {
+  //   this.setState({
+  //     showList: !this.state.showList
+  //   })
+  // }
+
   getOrder() {
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
-    return sort || DESC
+
+    return sort || DESC 
   }
 
-  // Verifica si el filtro "sección" está seleccionado previamente.
   getSection() {
     const { globalContentConfig } = this.props
     const { query: { section = '' } = {} } = globalContentConfig || {}
 
     return section !== '' ? SECTION : ''
-  }
+
+  } 
 
   getUrl(type, value) {
     const { globalContentConfig } = this.props
@@ -100,13 +108,16 @@ class SearchFilterChildSearchFilter extends PureComponent {
     })
   }
 
+
   render() {
     const {
       selected,
       showList,
       sort,
       data: { sections = [] } = {},
-    } = this.state
+    } = this.state 
+
+
     const { isAdmin, globalContentConfig } = this.props
 
     return (
@@ -200,7 +211,8 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 href={!isAdmin && this.getUrl(SORT, ASC)} // (type, value)
                 className={classes.link}
                 role="checkbox"
-                aria-checked="false">
+                aria-checked="false"
+                >
                 Menos Recientes
               </a>
             </li>

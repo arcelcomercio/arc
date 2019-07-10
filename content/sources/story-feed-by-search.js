@@ -49,10 +49,11 @@ const pattern = key => {
     return '0'
   }
 
-  website = key['arc-site'] || 'Arc Site no está definido'
-  const sort = key.sort || 'descendiente'
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const sort = key.sort === 'ascedente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
-  const size = `${key.size || 3}`
+  const size = `${key.size || 15}`
+
   // const page = `page=${'1'}`
   const valueQuery = encodeURIComponent(key.query).replace(/-/g, '+') || '*'
 
@@ -99,7 +100,8 @@ const pattern = key => {
     })
 	} */
 
-  if (key.section !== 'todas') {
+  //  ''
+  if (key.section !== 'todas' || typeof key.section !== 'undefined' ) {
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
