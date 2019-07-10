@@ -56,7 +56,6 @@
     }
 
     &--section {
-
       //padding: 4px;
       & span {
         display: none;
@@ -158,8 +157,7 @@
         display: none;
       }
 
-      .nav__logo,
-      .nav__mobile-container {
+      .nav__logo {
         display: block;
       }
     }
