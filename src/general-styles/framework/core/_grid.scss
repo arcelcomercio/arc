@@ -90,12 +90,16 @@
         > aside {
           width: initial;
           max-width: initial;
+          margin-bottom: initial;
         }
       }
       & > div,
       > article,
       > section,
       > aside {
+        width: initial;
+        max-width: initial;
+        margin-bottom: initial;
         @media (--tablet) {
           width: initial;
           max-width: initial;
