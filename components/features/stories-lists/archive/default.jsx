@@ -35,5 +35,6 @@ class StoriesListArchive extends PureComponent {
 }
 
 StoriesListArchive.label = 'Listado de Archivo'
+StoriesListArchive.static = true
 
 export default StoriesListArchive

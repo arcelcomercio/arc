@@ -78,7 +78,7 @@ export default class Pagination extends PureComponent {
     const urlNextPage = `${pathOrigin}/${nextPage}`
 
     return (
-      <div className={classes.pagination}>
+      <div role="navigation" className={classes.pagination}>
         <a
           className={`${classes.page} ${
             currentPage === 1 || currentPage === 0
