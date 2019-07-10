@@ -3,7 +3,7 @@
     .form-grid {
       padding: 20px 15px;
       font-size: 14px;
-      font-family: Open Sans, sans-serif;
+      font-family: $secondary-font;
       @media (--tablet) {
         padding: 15px 0px 10px 0px;
         min-height: auto;
@@ -49,12 +49,14 @@
         font-weight: bold;
       }
       &__title-login {
-        font: 20px/1.5 'ChronicleDisplayBold', Times New Roman, serif;
+        font-size: 18px;
+        line-height: 1.5;
+        font-family: $primary-font;
         color: black;
         margin-top: 0px;
         margin-bottom: 20px;
         @media (--tablet) {
-          margin-bottom: 15px;
+          font-size: 20px;
           font-weight: 600;
           font-size: 18px;
         }
@@ -64,10 +66,10 @@
         font-size: 0.9em;
         margin-top: 25px;
         font-weight: 300;
-        font-family: Open Sans, sans-serif;
+        font-family: $secondary-font;
         @media (--tablet) {
           margin: 0;
-          margin-bottom: 16px;
+          margin-bottom: 25px;
         }
       }
       &__anchor {
@@ -84,16 +86,14 @@
         }
       }
       &__subtitle {
-        font-size: 11px;
+        font-size: 12px;
         color: #807878;
         font-weight: 300;
+        margin: 10px 0px;
         @media (--tablet) {
           margin-bottom: 10px;
-          font-size: 12px;
+          font-size: 13px;
           line-height: 20px;
-        }
-        @media (--desktop) {
-          margin: 10px 0px;
         }
         &--fb {
           font-size: 0.8em;
@@ -106,7 +106,7 @@
         color: black;
         font-size: 0.9em;
         margin: 10px 0px 30px 0px;
-        font-family: Open Sans, sans-serif;
+        font-family: $secondary-font;
       }
       &__pass {
         font-size: 0.888em;
@@ -131,20 +131,25 @@
       }
 
       &__info {
-        font: 28px/1.5 'ChronicleDisplayBold', Times New Roman, serif;
+        font-size: 28px;
+        line-height: 1.5;
+        font-family: $primary-font;
         color: black;
         line-height: 36px;
+        margin-bottom: 15px;
       }
 
       &__info-sub {
-        font-family: Open Sans, sans-serif;
+        font-family: $secondary-font;
         font-size: 14px;
         line-height: 22px;
         color: gray;
         margin-bottom: 20px;
       }
       &__title-big {
-        font: 18px/1.5 'Noto Serif', serif;
+        font-size: 20px;
+        line-height: 1.5;
+        font-family: $primary-font;
         line-height: 34px;
         font-weight: 900;
         margin-bottom: 10px;
@@ -166,9 +171,11 @@
       & .link-blue {
         text-decoration: underline;
         font-weight: bold;
+        font-family: $secondary-font;
       }
       & .link-gray {
         color: #585858;
+        font-weight: bold;
         text-decoration: underline;
         margin: 0 5px;
       }
@@ -176,7 +183,7 @@
         color: #000000;
         text-decoration: none;
         margin: 10px 0px;
-        font-family: Open Sans, sans-serif;
+        font-family: $secondary-font;
         font-size: 14px;
         span,
         svg {
@@ -190,7 +197,7 @@
       &--error {
         background: #ff2b2b;
         color: white;
-        font-family: Open Sans, sans-serif;
+        font-family: $secondary-font;
         font-size: 12px;
         padding: 10px 20px;
         border-radius: 5px;
@@ -200,6 +207,9 @@
         &.active {
           display: block;
         }
+      }
+      &__label--information {
+        font-size: 15px;
       }
     }
 

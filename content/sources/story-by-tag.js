@@ -1,3 +1,8 @@
+import { resizerSecret } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import getProperties from 'fusion:properties'
+
+let website = ''
 const schemaName = 'story'
 
 const params = [
@@ -14,7 +19,7 @@ const params = [
 ]
 
 const pattern = (key = {}) => {
-  const website = key['arc-site'] || 'Arc Site no está definido'
+  website = key['arc-site'] || 'Arc Site no está definido'
   const { name, feedOffset } = key
 
   const slugSearch = name ? `AND+taxonomy.tags.slug:${name}+` : ''
@@ -29,8 +34,34 @@ const pattern = (key = {}) => {
 
 const resolve = key => pattern(key)
 
+const transform = data => {
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+
 const source = {
   resolve,
+  transform,
   schemaName,
   params,
 }
