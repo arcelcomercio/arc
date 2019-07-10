@@ -5,6 +5,7 @@ import Button from '../../../../global-components/button'
 import Signwall from '../../../signwall/default'
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
+import GetProfile from '../../../signwall/_main/utils/get-profile'
 
 import { getResponsiveClasses } from '../../../../utilities/helpers'
 
@@ -42,6 +43,8 @@ class NavBarDefault extends PureComponent {
       statusSearch: false,
       scrolled: false,
       isActive: false,
+      nameUser: new GetProfile().username,
+      initialUser: new GetProfile().initname,
     }
     // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
@@ -49,6 +52,15 @@ class NavBarDefault extends PureComponent {
 
   componentDidMount() {
     window.addEventListener('scroll', this._handleScroll)
+  }
+
+  componentDidUpdate(){
+    if(this.checkSesion()){
+      this.setState({
+        nameUser: new GetProfile().username,
+        initialUser: new GetProfile().initname,
+      });
+    }
   }
 
   // Add - Remove Class active input and button search
@@ -162,7 +174,7 @@ class NavBarDefault extends PureComponent {
   } */
 
   render() {
-    const { statusSidebar, scrolled, isActive } = this.state
+    const { statusSidebar, scrolled, isActive, nameUser } = this.state
     const {
       logo,
       arcSite,
@@ -240,8 +252,9 @@ class NavBarDefault extends PureComponent {
                 <button
                   type="button"
                   className={`${classes.btnLogin} btn--outline`}
+                  style={{textTransform: "capitalize"}}
                   onClick={() => this.setState({ isActive: true })}>
-                  {this.checkSesion() ? 'Mi Cuenta' : 'Iniciar Sesión'}
+                  {this.checkSesion() ?  nameUser : 'Iniciar Sesión'}
                 </button>
               </div>
               <div className={classes.searchContainer}>

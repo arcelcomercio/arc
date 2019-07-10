@@ -7,7 +7,7 @@ import { sha256 } from 'js-sha256'
 import FormValid from '../../utils/form-valid'
 import * as Icon from '../../common/iconos'
 import ListBenefits from './benefits'
-import AuthGoogle from './social-auths/auth-google'
+//import AuthGoogle from './social-auths/auth-google'
 import AuthFacebook from './social-auths/auth-facebook'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
@@ -288,14 +288,14 @@ class FormLogin extends Component {
                     />
                   </div>
 
-                  <div className="form-group">
+                  {/*<div className="form-group">
                     <AuthGoogle
                       closePopup={closePopup}
                       id="google-sign-in-button"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
                     />
-                  </div>
+                  </div>*/}
                 </div>
 
                 <div className="form-grid__group" hidden={!hiddendiv}>

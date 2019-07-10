@@ -1,6 +1,6 @@
 import React from 'react'
 import Context from 'fusion:context'
-import { Back, Close } from './iconos'
+import { Back, Close, Gestion } from './iconos'
 
 const Brand = 'gestion'
 
@@ -10,15 +10,16 @@ const Header = props => {
   if (type === 'large') {
     typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
       <>
-        <img
+        {arcSite === 'gestion' ? <Gestion /> : <img
           className="modal-header__img"
           alt=""
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/images/${
-              siteProperties.assets.header.logo
+            siteProperties.assets.header.logo
             }`
           )}
-        />
+        />}
+       
         <button
           type="button"
           className="modal-header__back"
@@ -31,15 +32,16 @@ const Header = props => {
   } else if (refirectHome === true) {
     typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
       <>
-        <img
+        {arcSite === 'gestion' ? <Gestion /> : <img
           className="modal-header__img"
           alt=""
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/images/${
-              siteProperties.assets.header.logo
+            siteProperties.assets.header.logo
             }`
           )}
-        />
+        />}
+
         <button
           type="button"
           className="modal-header__close"
@@ -53,15 +55,16 @@ const Header = props => {
   } else {
     typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
       <>
-        <img
+        {arcSite === 'gestion' ? <Gestion /> : <img
           className="modal-header__img"
           alt=""
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/images/${
-              siteProperties.assets.header.logo
+            siteProperties.assets.header.logo
             }`
           )}
-        />
+        />}
+
         <button
           type="button"
           className="modal-header__close"

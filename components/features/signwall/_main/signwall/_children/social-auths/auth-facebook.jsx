@@ -1,117 +1,273 @@
 import React from 'react'
+import Consumer from 'fusion:consumer'
 import { sha256 } from 'js-sha256'
 import { Facebook } from '../../../common/iconos'
 import GetProfile from '../../../utils/get-profile'
 import Cookie from '../../../utils/cookie'
+//import WhatDevice from '../../../utils/whatDevice';
+import getDevice from '../../../utils/get-device'
+import Services from '../../../utils/services';
 
 const Cookies = new Cookie()
+const services = new Services()
 
+@Consumer
 class AuthFacebook extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      sendingFb: true,
+      loadedFB: true,
+      sendingFbText: 'Facebook',
     }
 
-    if (!window.onFacebookSignOn) {
-      window.onFacebookSignOn = () => {
-        window.Identity.facebookSignOn()
-          .then(() => {
-            window.Identity.getUserProfile()
-              .then(res => {
-                if (res.email != null) {
-                  Cookies.setCookie('arc_e_id', sha256(res.email), 365)
-                }
-                window.sessUser.setState({ accessPanel: true })
-                window.nameUser.setState({
-                  nameUser: new GetProfile().username,
-                })
-                window.initialUser.setState({
-                  initialUser: new GetProfile().initname,
-                })
-              })
-              .catch(err => {
-                console.log(err)
-              })
-          })
-          .catch(e => {
-            console.log('error', e)
-          })
-      }
-    }
+    let { typePopUp = '', typeForm = '' } = props;
+    this.tipCat = typePopUp;
+    this.tipAct = typePopUp ? 'web_sw' + typePopUp.slice(0, 1) : '';
+    this.tipForm = typeForm;
+    //log(this.tipCat, this.tipAct, this.tipForm);
+
+    window.removeEventListener('message', this.OAuthFacebook);
+    window.removeEventListener('onmessage', this.OAuthFacebook);
   }
 
   componentDidMount = () => {
-    const waitForGlobal = (key, callback) => {
-      if (window[key]) {
-        callback()
-      } else {
-        setTimeout(() => {
-          waitForGlobal(key, callback)
-        }, 100)
-      }
+    const {
+      siteProperties: {
+        signwall: { ORIGIN_API } = {},
+      } = {},
+    } = this.props;
+  
+    if (window.Identity && window.Identity.apiOrigin === '') {
+      window.Identity.apiOrigin = ORIGIN_API
     }
 
-    waitForGlobal('Identity', () => {
-      // process.env FACEBOOK_APPID
-      window.Identity.initFacebookLogin('287130908774061')
-    })
+    var eventMethod = window.addEventListener
+      ? 'addEventListener'
+      : 'attachEvent';
+    var eventer = window[eventMethod];
+    var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
+    eventer(messageEvent, this.OAuthFacebook);
   }
 
-  handleFacebookLogin() {
-    const { typePopUp, typeForm, closePopup } = this.props
-    const tipCat = typePopUp || ''
-    const tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    const tipForm = typeForm || ''
-    console.log(tipCat, tipAct, tipForm)
+  componentWillUnmount = () => {
+    window.removeEventListener('message', this.OAuthFacebook);
+    window.removeEventListener('onmessage', this.OAuthFacebook);
+  };
 
+  clickLoginFacebookEcoID = () => {
+    const {
+      siteProperties: {
+        signwall: { ORIGIN_ECOID } = {},
+      } = {},
+    } = this.props;
+
+    const width = 780,
+      height = 640;
+    const left = window.screen.width / 2 - 800 / 2;
+    const top = window.screen.height / 2 - 600 / 2;
+    const url = ORIGIN_ECOID + `/mpp/facebook/login/`;
+    return window.open(
+      url,
+      '',
+      `toolbar=no, location=no, directories=no, status=no, menubar=no, 
+      scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
+      height=${height}, top=${top}, left=${left}`,
+    );
+  };
+
+  OAuthFacebook = data => {
+
+    const {
+      siteProperties: {
+        signwall: { ORIGIN_API, ORIGIN_ECOID } = {},
+      } = {},
+    } = this.props;
+
+
+    if (data.origin !== ORIGIN_ECOID) {
+      return;
+    }
     this.setState({
-      sendingFb: false,
-    })
+      loadedFB: false,
+      sendingFbText: 'Cargando...',
+    });
 
-    // SET WINDOWS CALLBACK
-    window.FB.login(
-      response => {
-        if (response.authResponse) {
-          window.onFacebookSignOn()
-          closePopup()
-          // -- test de tageo
-          if (tipCat === 'organico' || tipCat === 'hard') {
-            window.dataLayer = window.dataLayer || []
-            window.dataLayer.push({
-              event: `${tipForm}_fb_success`,
-              eventCategory: `Web_Sign_Wall_${tipCat}`,
-              eventAction: `${tipAct}_${tipForm}_success_facebook`,
-            })
-          }
-          // -- test de tageo
-        } else {
+    if (window.Identity && window.Identity.apiOrigin === '') {
+      window.Identity.apiOrigin = ORIGIN_API
+    }
+
+    services
+      .loginFBeco('', data.data.accessToken, 'facebook')
+      .then(resLoginFb => {
+        if (resLoginFb.accessToken) {
           this.setState({
-            sendingFb: true,
-          })
+            sendingFbText: 'Ingresando...',
+          });
 
-          // -- test de tageo
-          if (tipCat === 'organico' || tipCat === 'hard') {
-            window.dataLayer = window.dataLayer || []
-            window.dataLayer.push({
-              event: `${tipForm}_fb_error`,
-              eventCategory: `Web_Sign_Wall_${tipCat}`,
-              eventAction: `${tipAct}_${tipForm}_error_facebook`,
+          window.localStorage.setItem(
+            'ArcId.USER_INFO',
+            JSON.stringify(resLoginFb),
+          );
+
+          window.Identity.userIdentity = resLoginFb;
+
+          window.Identity.getUserProfile()
+            .then(resFbProfile => {
+              this.setState({
+                sendingFbText: 'Cargando perfil...',
+              });
+
+              window.localStorage.setItem(
+                'ArcId.USER_PROFILE',
+                JSON.stringify(resFbProfile),
+              );
+
+              const EmailUserProfile = resFbProfile.email
+                ? resFbProfile.email
+                : resFbProfile.identities[0].userName + '@facebook.com';
+
+              if (resFbProfile.displayName === null) {
+
+                const newProfileFB = {
+                  firstName: resFbProfile.firstName.replace(/\./g, ''),
+                  lastName: resFbProfile.lastName.replace(/\./g, ''),
+                  displayName: EmailUserProfile,
+                  email: EmailUserProfile,
+                  attributes: [
+                    {
+                      name: 'originDomain',
+                      value: window.location.hostname,
+                      type: 'String',
+                    },
+                    {
+                      name: 'originReferer',
+                      value: window.location.href,
+                      type: 'String',
+                    },
+                    {
+                      name: 'originMethod',
+                      value: '2',
+                      type: 'String',
+                    },
+                    {
+                      name: 'originDevice',
+                      value: getDevice(window),
+                      type: 'String',
+                    },
+                    {
+                      name: 'originAction',
+                      value: document.querySelector('#arc-popup-signwallhard')
+                        ? 1
+                        : this.tipForm === 'relogin'
+                        ? 'relogin'
+                        : 0,
+                      type: 'String',
+                    },
+                  ],
+                };
+
+                window.Identity.userProfile = newProfileFB;
+                window.Identity.updateUserProfile(newProfileFB); // update profile add attibutes
+
+                if (EmailUserProfile) {
+                  Cookies.setCookie('arc_e_id', sha256(EmailUserProfile), 365);
+                }
+
+                this.taggeoSuccess(); //-- test de tageo success REGISTRO
+                this.enterProfilePanel();
+                
+              } else {
+
+                if (EmailUserProfile) {
+                  Cookies.setCookie('arc_e_id', sha256(EmailUserProfile), 365);
+                }
+
+                this.taggeoSuccess(); //-- test de tageo  success LOGIN
+                this.enterProfilePanel();
+               
+              }
             })
-          }
-          // -- test de tageo
+            .catch(errFbProfile => {
+              console.error(errFbProfile);
+              this.taggeoError(); //-- test de tageo error
+            });
+        } else {
+          console.error(resLoginFb);
+          this.taggeoError(); //-- test de tageo error
+          this.props.closePopup();
         }
-      },
-      {
-        scope: 'email,public_profile',
-        return_scopes: true,
-      }
-    )
-  }
+      })
+      .catch(errLoginFb => {
+        console.error(errLoginFb);
+        this.taggeoError(); //-- test de tageo error
+      });
+  };
+
+  taggeoSuccess = () => {
+    switch (this.tipCat) {
+      case 'organico':
+      case 'hard':
+        window.dataLayer.push({
+          event: this.tipForm + '_fb_success',
+          eventCategory: 'Web_Sign_Wall_' + this.tipCat,
+          eventAction: this.tipAct + '_' + this.tipForm + '_success_facebook',
+        });
+        break;
+      case 'relogin':
+        window.dataLayer.push({
+          event: 'relogin_fb_success',
+        });
+        break;
+      case 'relogemail':
+        if (this.tipForm === 'login') {
+          window.dataLayer.push({
+            event: 'relogin_email_fb_success',
+          });
+        } else if (this.tipForm === 'register') {
+          window.dataLayer.push({
+            event: 'relogin_email_registro_fb_success',
+          });
+        }
+        break;
+      default:
+        return null //log('No tiene categoria.');
+    }
+  };
+
+  taggeoError = () => {
+    switch (this.tipCat) {
+      case 'organico':
+      case 'hard':
+        window.dataLayer.push({
+          event: this.tipForm + '_fb_error',
+          eventCategory: 'Web_Sign_Wall_' + this.tipCat,
+          eventAction: this.tipAct + '_' + this.tipForm + '_error_facebook',
+        });
+        break;
+      case 'relogin':
+        window.dataLayer.push({
+          event: 'relogin_fb_error',
+        });
+        break;
+      case 'relogemail':
+        if (this.tipForm === 'login') {
+          window.dataLayer.push({
+            event: 'relogin_email_fb_error',
+          });
+        } else if (this.tipForm === 'register') {
+          window.dataLayer.push({
+            event: 'relogin_email_registro_fb_error',
+          });
+        }
+        break;
+      default:
+        return null; //log('No tiene categoria.');
+    }
+  };
 
   render = () => {
     const { id, align } = this.props
-    const { sendingFb } = this.state
+    let { sendingFb, loadedFB , sendingFbText} = this.state
 
     return (
       <>
@@ -120,16 +276,27 @@ class AuthFacebook extends React.Component {
           name="facebook"
           id={id}
           className={`btn btn-facebook ${align}`}
-          onClick={() => this.handleFacebookLogin()}
-          disabled={!sendingFb}>
+          onClick={this.clickLoginFacebookEcoID}
+          disabled={sendingFb || !loadedFB}>
           <Facebook />
-          <span className="btn-text">
-            {!sendingFb ? 'Ingresando...' : 'Facebook'}
-          </span>
+          <span>{sendingFbText}</span>
         </button>
       </>
     )
   }
+
+  enterProfilePanel = () => {
+    const { closePopup } = this.props;
+    console.log('enter profile ok');
+    Cookies.deleteCookie('mpp_sess'); // borra session MPP
+    setTimeout(() => {
+      window.sessUser.setState({ accessPanel: true });
+      window.nameUser.setState({ nameUser: new GetProfile().username });
+      window.initialUser.setState({ initialUser: new GetProfile().initname,});
+    }, 500);
+   closePopup();
+  };
+
 }
 
 export default AuthFacebook

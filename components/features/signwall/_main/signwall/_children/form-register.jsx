@@ -10,7 +10,7 @@ import {
   strongRegularExp,
   mediumRegularExp,
 } from '../../utils/regex'
-import AuthGoogle from './social-auths/auth-google'
+//import AuthGoogle from './social-auths/auth-google'
 import AuthFacebook from './social-auths/auth-facebook'
 import getDevice from '../../utils/get-device'
 import Cookie from '../../utils/cookie'
@@ -256,19 +256,19 @@ class FormRegister extends Component {
                 <div className="form-grid__group">
                   <div className="form-grid__row form-grid__row--two">
                     <AuthFacebook
-                      align="middle"
+                      //align="middle"
                       closePopup={closePopup}
                       id="registro_boton_facebook"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
                     />
-                    <AuthGoogle
+                    {/*<AuthGoogle
                       align="middle"
                       closePopup={closePopup}
                       id="registro_boton_google"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
-                    />
+                    />*/}
                   </div>
                   <p className="form-grid__subtitle text-center">
                     o completa tus datos para registrarte
