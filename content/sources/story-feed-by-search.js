@@ -45,7 +45,7 @@ const pattern = key => {
   }
 
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const sort = key.sort || 'descendiente'
+  const sort = key.sort === 'ascedente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 3}`
   // const page = `page=${'1'}`
