@@ -9,22 +9,13 @@ const classes = {
 export default class Pagination extends PureComponent {
   constructor(props) {
     super(props)
-    const { totalElements, storiesQty } = props
-    this.state = {
-      pages: [],
-      totalPages: Math.ceil(totalElements / (storiesQty || 50)),
-    }
+    const { totalElements, storiesQty, currentPage } = props
+    this.totalPages = Math.ceil(totalElements / (storiesQty || 50))
+    this.pages = this.createPaginator(currentPage || 1, this.totalPages)
   }
 
-  componentDidMount() {
-    const { currentPage } = this.props
-    const aux = this.createPaginator(currentPage || 1)
-    this.setState({ pages: aux })
-  }
-
-  createPaginator(currentPage) {
+  createPaginator = (currentPage, totalPages) => {
     const listPages = []
-    const { totalPages } = this.state
     const initPage = 1
 
     // eslint-disable-next-line no-param-reassign
@@ -78,40 +69,13 @@ export default class Pagination extends PureComponent {
     let { currentPage } = this.props
     currentPage = parseInt(currentPage || 1, 10)
 
-    const { pages, totalPages } = this.state
-    const querys = window.location.search
+    const pathOrigin = window.location.pathname.replace(/\/[0-9]*?\/?$/, '')
 
-    let pathOrigin = window.location.pathname.match(/\D+/)
-    pathOrigin =
-      pathOrigin[0].charAt(pathOrigin[0].length - 1) === '/'
-        ? pathOrigin[0].slice(0, -1)
-        : pathOrigin[0]
-
-    const isBuscar = window.location.pathname.match(/buscar/)
     const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
     const prevPage = currentPage - 1
 
-    let urlPrevPage
-    let urlNextPage
-
-    if (isBuscar !== null) {
-      if (querys) {
-        urlPrevPage =
-          querys.match(/page=[0-9]+/) !== null
-            ? querys.replace(/&page=[0-9]+/, `&page=${prevPage}`)
-            : `${pathOrigin}${querys}&page=${prevPage}`
-        urlNextPage =
-          querys.match(/page=[0-9]+/) !== null
-            ? querys.replace(/&page=[0-9]+/, `&page=${nextPage}`)
-            : `${pathOrigin}${querys}&page=${nextPage}`
-      } else {
-        urlPrevPage = `${pathOrigin}?page=${prevPage}`
-        urlNextPage = `${pathOrigin}?page=${nextPage}`
-      }
-    } else {
-      urlPrevPage = `${pathOrigin}/${prevPage}${querys}`
-      urlNextPage = `${pathOrigin}/${nextPage}${querys}`
-    }
+    const urlPrevPage = `${pathOrigin}/${prevPage}`
+    const urlNextPage = `${pathOrigin}/${nextPage}`
 
     return (
       <div className={classes.pagination}>
@@ -124,19 +88,10 @@ export default class Pagination extends PureComponent {
           href={urlPrevPage}>
           anterior
         </a>
-        {pages.map((page, i) => {
+        {this.pages.map((page, i) => {
           let tag = null
-          let urlPage
           const key = `pagination-${i}-${page || ''}`
-
-          if (isBuscar !== null)
-            if (querys) {
-              urlPage =
-                querys.match(/page=[0-9]+/) !== null
-                  ? querys.replace(/&page=[0-9]+/, `&page=${page}`)
-                  : `${pathOrigin}${querys}&page=${page}`
-            } else urlPage = `${pathOrigin}?page=${page}`
-          else urlPage = `${pathOrigin}/${page}${querys}`
+          const urlPage = `${pathOrigin}/${page}`
 
           if (page !== '...') {
             tag = (
@@ -162,7 +117,7 @@ export default class Pagination extends PureComponent {
         })}
         <a
           className={`${classes.page} ${
-            currentPage === totalPages ? 'pagination__page--disabled' : ''
+            currentPage === this.totalPages ? 'pagination__page--disabled' : ''
           }`}
           href={urlNextPage}>
           siguiente
