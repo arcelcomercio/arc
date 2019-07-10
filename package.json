@@ -22,8 +22,7 @@
     "react-render-html": "^0.6.0",
     "react-share": "^2.4.0",
     "react-sizes": "^2.0.0",
-    "thumbor": "^0.1.5",
-    "xmlhttprequest": "^1.8.0"
+    "thumbor": "^0.1.5" 
   },
   "peerDependencies": {
     "react": "^16.6.3"
