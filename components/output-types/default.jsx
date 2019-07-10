@@ -5,6 +5,7 @@ import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
+import ChartbeatBody from './_children/chartbeat-body'
 
 export default ({
   children,
@@ -140,6 +141,7 @@ export default ({
         />
         {/* Scripts de APPNEXUS */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
         {/* <script
           async
           src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
@@ -158,7 +160,7 @@ export default ({
 
         <Libs />
       </head>
-      <body className={isStory ? 'story nota' : ''}>
+      <body className={isStory ? 'story' : ''}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -193,6 +195,7 @@ export default ({
             dangerouslySetInnerHTML={{ __html: structuredTaboola }}
           />
         )}
+        <ChartbeatBody story={isStory} {...metaPageData} />
       </body>
     </html>
   )

@@ -1,8 +1,9 @@
 const fs = require('fs')
 const paths = require('./paths')
 
-module.exports = (type = 'index') => {
-  const ext = type === 'amp' ? 'scss' : 'js'
+module.exports = (type = 'index', _ext = 'js') => {
+  const ext = _ext === 'css' ? 'scss' : _ext
+  // const ext = type === 'amp' ? 'scss' : 'js'
   const entries = {}
   const buildSites = fs
     .readdirSync(paths.src)
