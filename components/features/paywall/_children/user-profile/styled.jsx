@@ -16,6 +16,10 @@ const Button = styled.button`
   border: 0;
   font-weight: 700;
   outline: 0;
+  cursor: pointer;
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `
 
 const Wrap = styled.div`
@@ -47,6 +51,9 @@ const Form = Component => {
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media (${devices.mobile}) {
+      padding: 30px;
+    }
   `
 }
 

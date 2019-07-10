@@ -15,6 +15,7 @@ export const Wrap = styled.div`
   @media (${devices.mobile}) {
     flex-direction: column;
     height: auto;
+    align-items: center;
   }
 `
 
@@ -25,6 +26,7 @@ export const WrapPlan = styled.div`
   margin-left: 20px;
   @media (${devices.mobile}) {
     margin: 0;
+    max-width: calc(100% - 40px);
   }
 `
 
