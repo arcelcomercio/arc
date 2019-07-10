@@ -25,15 +25,15 @@ class TVHighlight extends PureComponent {
       }
       website_url
       promo_items {
-        basic { url type }
+        basic { url type resized_urls { small medium large} }
         basic_video {
           promo_items {
-            basic { url type }
+            basic { url type resized_urls { small medium large} }
           }
         }
         basic_gallery {
           promo_items {
-            basic { url type }
+            basic { url type resized_urls { small medium large} }
           }
         }
       }

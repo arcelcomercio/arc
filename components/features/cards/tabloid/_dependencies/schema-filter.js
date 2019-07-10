@@ -18,6 +18,11 @@ export default arcSite => `
               basic {
                 type 
                 url
+                resized_urls { 
+                  small
+                  medium
+                  large
+                }
               }
             }
           }
@@ -27,12 +32,22 @@ export default arcSite => `
               basic {
                 type 
                 url
+                resized_urls { 
+                  small
+                  medium
+                  large
+                }
               }
             }
           }
           basic {
             type 
             url
+            resized_urls { 
+              small
+              medium
+              large
+            }
           }
         }
         headlines{

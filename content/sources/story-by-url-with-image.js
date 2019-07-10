@@ -62,6 +62,49 @@ const queryStoryRecent = (section, site) => {
   return encodeURI(JSON.stringify(body))
 }
 
+const itemsToArrayImge = (data, website) => {
+  const { resizerUrl } = getProperties(website)
+
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+
+const transformImg = data => {
+  const dataStory = data
+
+  const {
+    promo_items: { basic_gallery: contentElements },
+  } = data
+  const contentElementsData = contentElements || data
+
+  const image = itemsToArrayImge(contentElementsData, data.website)
+
+  if (contentElements) {
+    dataStory.promo_items.basic_gallery = image
+  }
+
+  return itemsToArrayImge(data, data.website)
+}
+
 const fetch = key => {
   const site = key['arc-site'] || 'Arc Site no está definido'
 
@@ -90,74 +133,16 @@ const fetch = key => {
         ...options,
       }).then(idsResp => {
         dataStory.related_content = idsResp
-        return dataStory
+        const result = transformImg(dataStory)
+        return result
       })
     })
-  })
-}
-
-const transform = data => {
-  const dataStory = data
-
-  const { resizerUrl } = getProperties(data.website)
-  const {
-    promo_items: { basic_gallery: contentElements },
-  } = data
-  const contentElementsData = contentElements || data
-
-  const image = addResizedUrls(contentElementsData, {
-    resizerUrl,
-    resizerSecret,
-    presets: {
-      small: {
-        width: 100,
-        height: 200,
-      },
-      medium: {
-        width: 480,
-      },
-      large: {
-        width: 940,
-        height: 569,
-      },
-      amp: {
-        width: 600,
-        height: 375,
-      },
-    },
-  })
-
-  if (contentElements) {
-    dataStory.promo_items.basic_gallery = image
-  }
-
-  return addResizedUrls(data, {
-    resizerUrl,
-    resizerSecret,
-    presets: {
-      small: {
-        width: 100,
-        height: 200,
-      },
-      medium: {
-        width: 480,
-      },
-      large: {
-        width: 676,
-        height: 409,
-      },
-      amp: {
-        width: 600,
-        height: 375,
-      },
-    },
   })
 }
 
 export default {
   fetch,
   schemaName,
-  transform,
   params: {
     website_url: 'text',
   },
