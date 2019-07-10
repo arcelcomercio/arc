@@ -188,7 +188,6 @@ export default ({
           )}
         />
         <Fusion />
-<<<<<<< HEAD
         {isStory && (
           <script
             type="text/javascript"
@@ -196,8 +195,6 @@ export default ({
           />
         )}
         <ChartbeatBody story={isStory} {...metaPageData} />
-=======
->>>>>>> Sprint12
       </body>
     </html>
   )
