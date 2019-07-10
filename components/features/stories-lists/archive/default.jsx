@@ -8,7 +8,7 @@ import Ads from '../../../global-components/ads'
 import { getActualDate } from '../../../utilities/helpers'
 
 const classes = {
-  adsBox: 'flex items-center flex-col no-desktop',
+  adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
 @Consumer

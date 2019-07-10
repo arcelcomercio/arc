@@ -7,7 +7,7 @@ import Pagination from '../../../global-components/pagination'
 import Ads from '../../../global-components/ads'
 
 const classes = {
-  adsBox: 'flex items-center flex-col no-desktop',
+  adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
 @Consumer

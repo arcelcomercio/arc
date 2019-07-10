@@ -120,6 +120,7 @@ export default ({
           href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
           rel="stylesheet"
         />
+        {/* <script src={`https://jab.pe/f/arc/${arcSite}-ads-config.js`} async /> */}
         <script src="https://jab.pe/f/arc/data_js.js" async />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
