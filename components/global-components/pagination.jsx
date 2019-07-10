@@ -9,7 +9,7 @@ const classes = {
 export default class Pagination extends PureComponent {
   constructor(props) {
     super(props)
-    const { totalElements, storiesQty } = props // retorna cantidad de noticias a mostrar y total de noticias relacionadas
+    const { totalElements, storiesQty } = props
     this.state = {
       pages: [],
       totalPages: Math.ceil(totalElements / (storiesQty || 50)),
@@ -75,33 +75,30 @@ export default class Pagination extends PureComponent {
   }
 
   render() {
-    let { currentPage } = this.props // contiene la pagina actual normalmente es 1 en cadena
-    currentPage = parseInt(currentPage || 1, 10) // transforma en entero y en base 10 el valor de currentpage
+    let { currentPage } = this.props
+    currentPage = parseInt(currentPage || 1, 10)
 
-    const { pages, totalPages } = this.state //toma los valores de pages(array vacio al inicio) y total entradas
-    const querys = window.location.search // captura ->  /?page=1 
+    const { pages, totalPages } = this.state 
+    const querys = window.location.search
 
-    let pathOrigin = window.location.pathname.match(/\D+/) //devuelve -> un arreglo de pathname 
+    let pathOrigin = window.location.pathname.match(/\D+/)
     pathOrigin =
-      pathOrigin[0].charAt(pathOrigin[0].length - 1) === '/' // compara el ultimo caracter con /
+      pathOrigin[0].charAt(pathOrigin[0].length - 1) === '/'
         ? pathOrigin[0].slice(0, -1)
-        : pathOrigin[0] // elimina el / si es verdadero
+        : pathOrigin[0]
 
-    const isBuscar = window.location.pathname.match(/buscar/) // devuelve buscar como elemento 0 de un array
+    const isBuscar = window.location.pathname.match(/buscar/)
     
     const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
-    // si current vale 0 entonces la sgte pagina sera 2
-    // si current es diferente de 0 entonces sumale 1
     const prevPage = currentPage - 1
-    // la pagina previa tendra un valor de menos uno segun donde este
 
     let urlPrevPage
     let urlNextPage
 
 
-    //preguntar en que casos debe aplicarse estos cambios de url
-    if (isBuscar !== null) { // si existe buscar ... true
-      if (querys) { // si ?page=1 existe  
+    
+    if (isBuscar !== null) {
+      if (querys) {
         urlPrevPage =
           querys.match(/page=[0-9]+/) !== null
             ? querys.replace(/&page=[0-9]+/, `&page=${prevPage}`)
@@ -115,7 +112,7 @@ export default class Pagination extends PureComponent {
         urlNextPage = `${pathOrigin}?page=${nextPage}`
       }
     } else {
-      urlPrevPage = `${pathOrigin}/${prevPage}${querys}` // en caso de?
+      urlPrevPage = `${pathOrigin}/${prevPage}${querys}`
       urlNextPage = `${pathOrigin}/${nextPage}${querys}`
     }
 
