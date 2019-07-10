@@ -23,7 +23,7 @@ const getSectionList = (sections, type) => {
 
 const infoStory = data => {
   const getAuthor = () => {
-    return data.credits.by[0].name || 'Publimetro'
+    return (data.credits.by[0] && data.credits.by[0].name) || 'Publimetro'
   }
 
   const getTagList = () => {
