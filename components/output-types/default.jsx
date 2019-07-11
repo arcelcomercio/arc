@@ -134,7 +134,7 @@ export default ({
         <script src="https://jab.pe/f/arc/data_js.js" async />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
+        {isStory ? '' : <meta name="keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}

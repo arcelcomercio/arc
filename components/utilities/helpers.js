@@ -556,3 +556,7 @@ export const formatDateStory = date => {
 export const replaceHtmlMigracion = html => {
   return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }
+
+export const seoTags = html => {
+  return key
+}

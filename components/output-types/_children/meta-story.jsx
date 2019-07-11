@@ -176,7 +176,14 @@ export default ({
       <meta name="bi3dArtTitle" content={title} />
       <meta name="cXenseParse:per-categories" content={section} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
-
+      <meta
+        name="keywords"
+        content={
+          seoKeywordsItems[0]
+            ? seoKeywordsItems.map(item => item)
+            : listItems.map(item => item)
+        }
+      />
       <meta property="article:published_time" content={publishDate} />
       <meta property="article:modified_time" content={lastPublishDate} />
       <meta property="article:author" content={`Redacción ${siteName}`} />
