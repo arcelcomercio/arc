@@ -60,7 +60,7 @@ class NavBarDefault extends PureComponent {
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
     const { statusSearch } = this.state
-    if (statusSearch) this.findSearch()
+    if (statusSearch) this._handleSearch()
     else this.focusInputSearch()
     this.setState({ statusSearch: !statusSearch })
   }
@@ -71,20 +71,23 @@ class NavBarDefault extends PureComponent {
   }
 
   // set Query search and location replace
-  findSearch = () => {
+  _handleSearch = () => {
     const { value } = this.inputSearch.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `/buscar?query=${value}`
+      location.href = `/buscar/${encodeURIComponent(value).replace(
+        /%20/g,
+        '+'
+      )}/`
     }
   }
 
   // Active find with enter key
-  watchKeys = e => {
+  _handleKeyDown = e => {
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
-      this.findSearch()
+      this._handleSearch()
     }
   }
 
@@ -262,7 +265,7 @@ class NavBarDefault extends PureComponent {
                     ref={this.inputSearch}
                     type="search"
                     /* onBlur={this._handleCloseSectionsSearch} */
-                    onKeyUp={this.watchKeys}
+                    onKeyUp={this._handleKeyDown}
                     placeholder="¿Qué Buscas?"
                     className={`${classes.search} ${this.activeSearch()}`}
                   />
@@ -275,14 +278,10 @@ class NavBarDefault extends PureComponent {
               </div>
             </div>
             <div
-              className={`${classes.btnContainer} ${
-                classes.navMobileContainer
-              } ${responsiveClass}`}>
+              className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
               <button
                 type="button"
-                className={`${
-                  classes.btnLogin
-                } border-1 border-solid border-white`}
+                className={`${classes.btnLogin} border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
                 <i className={classes.iconLogin} />
               </button>

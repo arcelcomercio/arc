@@ -1,11 +1,16 @@
-import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import {
+  resizerSecret
+} from 'fusion:environment'
+import {
+  addResizedUrls
+} from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 
 const schemaName = 'stories'
-let website = ''
-const params = [
-  {
+
+let website = '' // Variable se usa en método fuera del fetch
+
+const params = [{
     name: 'sort',
     displayName: 'Orden',
     type: 'text',
@@ -49,7 +54,7 @@ const pattern = key => {
     return '0'
   }
 
-  const website = key['arc-site'] || 'Arc Site no está definido'
+  website = key['arc-site'] || 'Arc Site no está definido'
   const sort = key.sort === 'ascedente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 15}`
@@ -60,8 +65,7 @@ const pattern = key => {
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -101,14 +105,13 @@ const pattern = key => {
 	} */
 
   //  ''
-  if (key.section !== 'todas' || typeof key.section !== 'undefined' ) {
+  if (key.section !== 'todas' || typeof key.section !== 'undefined') {
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': [`/${key.section}`],
                 },
@@ -135,7 +138,9 @@ const pattern = key => {
 const resolve = key => pattern(key)
 
 const itemsToArrayImge = data => {
-  const { resizerUrl } = getProperties(website)
+  const {
+    resizerUrl
+  } = getProperties(website)
 
   return data.map(item => {
     return addResizedUrls(item, {
@@ -166,7 +171,9 @@ const transform = data => {
   const dataStories = data
   dataStories.content_elements = itemsToArrayImge(dataStories.content_elements)
 
-  return { ...dataStories }
+  return {
+    ...dataStories
+  }
 }
 
 const source = {
