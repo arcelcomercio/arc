@@ -68,16 +68,18 @@ class StoryContent extends PureComponent {
       globalContent,
       siteProperties: {
         ids: { opta },
+        siteUrl,
       },
     } = this.props
     const {
       content_elements: contentElements,
       promo_items: promoItems,
       publish_date: date,
-      last_updated_date: updatedDate,
+      display_date: updatedDate,
       credits: author,
       taxonomy: { tags = {} },
       related_content: { basic: relatedContent } = {},
+      website_url: websiteUrl,
     } = globalContent || {}
     const structuredTaboola = `
       window._taboola = window._taboola || [];
@@ -220,6 +222,11 @@ class StoryContent extends PureComponent {
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{ __html: structuredTaboola }}
+        />
+        <div
+          className="fb-comments"
+          data-href={`${siteUrl}${websiteUrl}`}
+          data-numposts="5"
         />
       </div>
     )
