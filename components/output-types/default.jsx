@@ -92,6 +92,17 @@ export default ({
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
 
+  const structuredFacebook = `
+    (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id))
+        return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.4&appId=1626271884277579";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));`
+
   const { googleFonts = '' } = siteProperties || {}
 
   return (
@@ -172,7 +183,12 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-
+        {isStory && ( // TODO: pediente por definir comentarios por cada sitio
+          <>
+            <div id="fb-root" />
+            <script dangerouslySetInnerHTML={{ __html: structuredFacebook }} />
+          </>
+        )}
         <div id="fusion-app" role="application">
           {children}
         </div>

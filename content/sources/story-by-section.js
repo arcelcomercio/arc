@@ -165,11 +165,8 @@ const transform = data => {
   if (contentElements) {
     dataStory.promo_items.basic_gallery = image
   }
-  console.log('xxxxxxxx')
 
-  console.log(data)
-  console.log('dddddddd')
-  return itemsToArrayImge(data)
+  return itemsToArrayImge(dataStory)
 }
 
 const source = {
