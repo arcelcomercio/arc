@@ -9,6 +9,7 @@ import getProperties from 'fusion:properties'
 const schemaName = 'stories'
 
 let website = '' // Variable se usa en método fuera del fetch
+let queryValue = ''
 
 const params = [{
     name: 'sort',
@@ -55,6 +56,7 @@ const pattern = key => {
   }
 
   website = key['arc-site'] || 'Arc Site no está definido'
+  queryValue = key.query
   const sort = key.sort === 'ascedente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 15}`
@@ -191,9 +193,9 @@ const itemsToArrayImge = data => {
 const transform = data => {
   const dataStories = data
   dataStories.content_elements = itemsToArrayImge(dataStories.content_elements)
-
   return {
     ...dataStories,
+    query: queryValue
   }
 }
 

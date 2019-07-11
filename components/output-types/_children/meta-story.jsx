@@ -118,7 +118,11 @@ export default ({
           "width":${seo.width}
        }
     },
-    "keywords":[${seoKeywordsItems.map(item => item)}]
+    "keywords":[${
+      seoKeywordsItems[0]
+        ? seoKeywordsItems.map(item => item)
+        : listItems.map(item => item)
+    }]
  }`
 
   const breadcrumbResult = breadcrumbList.map(({ url, name }, i) => {
@@ -172,7 +176,14 @@ export default ({
       <meta name="bi3dArtTitle" content={title} />
       <meta name="cXenseParse:per-categories" content={section} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
-
+      <meta
+        name="keywords"
+        content={
+          seoKeywordsItems[0]
+            ? seoKeywordsItems.map(item => item)
+            : listItems.map(item => item)
+        }
+      />
       <meta property="article:published_time" content={publishDate} />
       <meta property="article:modified_time" content={lastPublishDate} />
       <meta property="article:author" content={`Redacción ${siteName}`} />
@@ -181,8 +192,6 @@ export default ({
       {listItems.map(item => {
         return <meta property="article:tag" content={item} />
       })}
-
-      <meta property="article:tag" content="noticias" />
 
       <script
         type="application/ld+json"

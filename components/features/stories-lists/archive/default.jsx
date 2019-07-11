@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react'
+// El fragment se usa para poder agregar "key"
 import Consumer from 'fusion:consumer'
 
 import { customFields } from '../_dependencies/custom-fields'
@@ -8,7 +9,7 @@ import Ads from '../../../global-components/ads'
 import { getActualDate } from '../../../utilities/helpers'
 
 const classes = {
-  adsBox: 'flex items-center flex-col no-desktop',
+  adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
 @Consumer
@@ -74,6 +75,6 @@ StoriesListArchive.propTypes = {
 }
 
 StoriesListArchive.label = 'Listado de Archivo'
-// StoriesListArchive.static = true
+StoriesListArchive.static = true
 
 export default StoriesListArchive

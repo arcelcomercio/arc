@@ -50,22 +50,3 @@ function shape(value) {
   }
 
   export default struct;
-
-  
-//   const SignupSchema = struct({
-//     email: value =>
-//       value.required('Este campo es requerido').email('Correo inválido'),
-//     password: value =>
-//       value
-//         .required('Este campo es requerido')
-//         .min(8, 'Mínimo 8 caracteres')
-//         .filled('No se permiten espacios vacíos'),
-//     terminos: value => value.required('Es necesario aceptar los términos'),
-//   });
-  
-//   export const SignupValidation = values => {
-//     console.time('validity');
-//     const errors = SignupSchema(values);
-//     console.timeEnd('validity');
-//     return errors;
-//   };

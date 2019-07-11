@@ -1,5 +1,5 @@
 export default {
-  siteName: 'Publimetro',
+  siteName: 'Publimetro Peru',
 
   googleFonts: 'Roboto', // corpidbold, corpidregular
 
@@ -87,7 +87,7 @@ export default {
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/publimetrope',
+        url: 'https://twitter.com/Publimetrope',
       },
       {
         name: 'google+',
