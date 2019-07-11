@@ -106,7 +106,7 @@ const BuildHtml = BuildHtmlProps => {
               <h2>${subTitle}</h2>
             </header>
             <figure>
-                <img src=${multimedia} />
+                <img src="${multimedia}" />
                 <figcaption>${title}</figcaption>
             </figure>
             <p>${author}</p>

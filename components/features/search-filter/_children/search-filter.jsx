@@ -29,7 +29,7 @@ const SORT = 'sort'
 const SECTION = 'section'
 const BASE_PATH = '/buscar'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
-const HIERARCHY = 'filter-section'
+const HIERARCHY = 'search-filter-default'
 
 @Consumer
 class SearchFilterChildSearchFilter extends PureComponent {
