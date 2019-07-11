@@ -1,5 +1,5 @@
 export default {
-  siteName: 'Publimetro',
+  siteName: 'Publimetro Peru',
 
   googleFonts: 'Roboto', // corpidbold, corpidregular
 
