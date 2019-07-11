@@ -74,12 +74,7 @@
 
 @supports (display: grid) {
   .grid {
-    display: flex;
-    flex-wrap: wrap;
-
-    @supports (display: grid) {
-      display: grid;
-    }
+    display: grid;
     &--content {
       gap: $gap;
       grid-auto-rows: min-content;
@@ -91,6 +86,12 @@
           width: initial;
           max-width: initial;
           margin-bottom: initial;
+          @media (--tablet) {
+            margin-right: initial;
+          }
+          @media (--desktop) {
+            margin-right: initial;
+          }
         }
       }
       & > div,
@@ -103,10 +104,12 @@
         @media (--tablet) {
           width: initial;
           max-width: initial;
+          margin-right: initial;
         }
         @media (--desktop) {
           width: initial;
           max-width: initial;
+          margin-right: initial;
         }
       }
       &.col-1,
@@ -115,9 +118,10 @@
       .col-1,
       .col-2,
       .col-3 {
-        @media (--desktop) {
+        @media (--tablet) {
           width: initial;
           max-width: initial;
+          margin-right: initial;
         }
       }
     }

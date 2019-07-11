@@ -58,6 +58,9 @@ const pattern = key => {
   const sort = key.sort === 'ascedente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 15}`
+  const section = key.section || 'todas'
+
+
 
   // const page = `page=${'1'}`
   const valueQuery = encodeURIComponent(key.query).replace(/-/g, '+') || '*'
@@ -105,7 +108,8 @@ const pattern = key => {
 	} */
 
   //  ''
-  if (key.section !== 'todas' || typeof key.section !== 'undefined') {
+  let encodedBody = ''
+  if (section !== 'todas') {
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
@@ -128,42 +132,59 @@ const pattern = key => {
     })
   }
 
-  const requestUri = `/content/v4/search/published?sort=publish_date:${sort}&from=${from}&size=${size}&website=${website}&body=${JSON.stringify(
-    body
-  )}`
+  encodedBody = encodeURI(JSON.stringify(body))
+
+  const requestUri = `/content/v4/search/published?sort=publish_date:${sort}&from=${from}&size=${size}&website=${website}&body=${encodedBody}`
 
   return requestUri
 }
 
 const resolve = key => pattern(key)
 
+const addResizedUrlsStory = (data, resizerUrl) => {
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+
 const itemsToArrayImge = data => {
   const {
     resizerUrl
   } = getProperties(website)
 
-  return data.map(item => {
-    return addResizedUrls(item, {
-      resizerUrl,
-      resizerSecret,
-      presets: {
-        small: {
-          width: 100,
-          height: 200,
-        },
-        medium: {
-          width: 480,
-        },
-        large: {
-          width: 940,
-          height: 569,
-        },
-        amp: {
-          width: 600,
-          height: 375,
-        },
-      },
-    })
+  return data && data.map(item => {
+    const dataStory = item
+
+    const {
+      promo_items: {
+        basic_gallery: contentElements = null
+      } = {}
+    } = item || {}
+    const contentElementsData = contentElements || item
+    if (contentElements) {
+      const image = addResizedUrlsStory(contentElementsData, resizerUrl)
+      dataStory.promo_items.basic_gallery = image
+    }
+
+    return addResizedUrlsStory(dataStory, resizerUrl)
   })
 }
 
@@ -172,7 +193,7 @@ const transform = data => {
   dataStories.content_elements = itemsToArrayImge(dataStories.content_elements)
 
   return {
-    ...dataStories
+    ...dataStories,
   }
 }
 

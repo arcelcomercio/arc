@@ -25,19 +25,35 @@ const params = [{
 
 const getActualDate = () => {
   const today = new Date()
-  // TODO: fix and remove this temporal ugly fix
 
-  if (today.getHours() >= 19)
+  if (today.getHours() <= 5)
     today.setDate(today.getDate() - 1)
 
-  let dd = today.getDate()
-  let mm = today.getMonth() + 1 // January is 0!
+  return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+}
 
-  const yyyy = today.getFullYear()
-  if (dd < 10) dd = `0${dd}`
-  if (mm < 10) mm = `0${mm}`
-
-  return `${yyyy}-${mm}-${dd}`
+const addResizedUrlsStory = (data, resizerUrl) => {
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
 }
 
 const itemsToArrayImge = data => {
@@ -46,27 +62,20 @@ const itemsToArrayImge = data => {
   } = getProperties(website)
 
   return data.map(item => {
-    return addResizedUrls(item, {
-      resizerUrl,
-      resizerSecret,
-      presets: {
-        small: {
-          width: 100,
-          height: 200,
-        },
-        medium: {
-          width: 480,
-        },
-        large: {
-          width: 940,
-          height: 569,
-        },
-        amp: {
-          width: 600,
-          height: 375,
-        },
-      },
-    })
+    const dataStory = item
+
+    const {
+      promo_items: {
+        basic_gallery: contentElements = null
+      } = {}
+    } = item
+    const contentElementsData = contentElements || item
+    if (contentElements) {
+      const image = addResizedUrlsStory(contentElementsData, resizerUrl)
+      dataStory.promo_items.basic_gallery = image
+    }
+
+    return addResizedUrlsStory(dataStory, resizerUrl)
   })
 }
 
@@ -92,7 +101,7 @@ const pattern = (key = {}) => {
   /** Para enviar params a transform luego */
   globalParams = {
     section: section || 'todas',
-    date,
+    date: date || getActualDate(),
   }
 
   const body = {
@@ -106,8 +115,8 @@ const pattern = (key = {}) => {
           {
             range: {
               publish_date: {
-                gte: `${date || getActualDate()}T00:00:00`, // 2019-03-05T00:00:00-05:00
-                lte: `${date || getActualDate()}T23:59:59`, // 2019-03-06T00:00:00-05:00
+                gte: `${globalParams.date}T00:00:00`, // 2019-03-05T00:00:00-05:00
+                lte: `${globalParams.date}T23:59:59`, // 2019-03-06T00:00:00-05:00
               },
             },
           },

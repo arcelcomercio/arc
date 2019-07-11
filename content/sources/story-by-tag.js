@@ -63,9 +63,7 @@ const itemsToArrayImge = data => {
 const transform = data => {
   const dataStory = data
 
-  const {
-    promo_items: { basic_gallery: contentElements },
-  } = data
+  const { promo_items: { basic_gallery: contentElements = null } = {} } = data
   const contentElementsData = contentElements || data
 
   const image = itemsToArrayImge(contentElementsData)
@@ -74,7 +72,7 @@ const transform = data => {
     dataStory.promo_items.basic_gallery = image
   }
 
-  return itemsToArrayImge(data)
+  return itemsToArrayImge(dataStory)
 }
 
 const source = {
