@@ -33,9 +33,9 @@ const pattern = (key = {}) => {
 
   website = key['arc-site'] || 'Arc Site no está definido'
   const {
-    name,
-    size
+    name
   } = key
+  const size = key.size || 50
 
   if (!name) {
     throw new Error('Esta fuente de contenido necesita el Slug de la etiqueta')
@@ -54,8 +54,7 @@ const pattern = (key = {}) => {
   /** TODO: Cambiar publish_date por display_name en los patterns???? */
   /** TODO: Manejar comportamiento cuando no se obtiene data */
 
-  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${name}+AND+type:story+AND+revision.published:true&size=${size ||
-    50}&from=${from}&sort=publish_date:desc&website=${website}`
+  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${name}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=publish_date:desc&website=${website}`
 
   return requestUri
 }

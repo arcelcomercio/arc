@@ -116,8 +116,6 @@ class PaginationByDate extends PureComponent {
 
   render() {
     const { date } = this.props
-    console.log('--------------->', date)
-    console.log('--------------->', getActualDate())
 
     return (
       <div className={classes.paginationDate}>

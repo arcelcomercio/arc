@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react'
+// El fragment se usa para poder agregar "key"
 import Consumer from 'fusion:consumer'
 
 import { customFields } from '../_dependencies/custom-fields'

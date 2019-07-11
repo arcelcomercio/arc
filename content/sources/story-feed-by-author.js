@@ -30,15 +30,16 @@ const params = [{
 
 const pattern = (key = {}) => {
   const {
-    size,
     name
   } = key
   auxKey = key
   website = key['arc-site'] || 'Arc Site no está definido'
+  const size = key.size || 50
 
   if (!name) {
     throw new Error('Esta fuente de contenido necesita el Slug del autor')
   }
+
 
   const validateFrom = () => {
     if (key.from !== '1' && key.from) {
@@ -54,8 +55,7 @@ const pattern = (key = {}) => {
   /** TODO: Cambiar publish_date por display_name en los patterns???? */
   /** TODO: Manejar comportamiento cuando no se obtiene data */
 
-  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"/autor/${name}"+AND+type:story+AND+revision.published:true&size=${size ||
-    50}&from=${from}&sort=publish_date:desc&website=${website}`
+  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"/autor/${name}"+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=publish_date:desc&website=${website}`
 
   return requestUri
 }
