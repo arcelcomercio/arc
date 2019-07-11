@@ -58,6 +58,9 @@ const pattern = key => {
   const sort = key.sort === 'ascedente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 15}`
+  const section = key.section || 'todas'
+
+
 
   // const page = `page=${'1'}`
   const valueQuery = encodeURIComponent(key.query).replace(/-/g, '+') || '*'
@@ -105,7 +108,8 @@ const pattern = key => {
 	} */
 
   //  ''
-  if (key.section !== 'todas' || typeof key.section !== 'undefined') {
+  let encodedBody = ''
+  if (section !== 'todas') {
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
@@ -128,9 +132,9 @@ const pattern = key => {
     })
   }
 
-  const requestUri = `/content/v4/search/published?sort=publish_date:${sort}&from=${from}&size=${size}&website=${website}&body=${JSON.stringify(
-    body
-  )}`
+  encodedBody = encodeURI(JSON.stringify(body))
+
+  const requestUri = `/content/v4/search/published?sort=publish_date:${sort}&from=${from}&size=${size}&website=${website}&body=${encodedBody}`
 
   return requestUri
 }
@@ -142,7 +146,7 @@ const itemsToArrayImge = data => {
     resizerUrl
   } = getProperties(website)
 
-  return data.map(item => {
+  return data && data.map(item => {
     return addResizedUrls(item, {
       resizerUrl,
       resizerSecret,

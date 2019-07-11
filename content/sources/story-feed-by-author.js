@@ -1,14 +1,17 @@
-import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import {
+  resizerSecret
+} from 'fusion:environment'
+import {
+  addResizedUrls
+} from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 
 let auxKey
-
-const schemaName = 'stories'
 let website = ''
 
-const params = [
-  {
+const schemaName = 'stories'
+
+const params = [{
     name: 'name',
     displayName: 'Slug del autor',
     type: 'text',
@@ -29,7 +32,11 @@ const pattern = (key = {}) => {
   auxKey = key
 
   website = key['arc-site'] || 'Arc Site no está definido'
-  const { name, from, size } = key
+  const {
+    name,
+    from,
+    size
+  } = key
 
   if (!name) {
     throw new Error('Esta fuente de contenido necesita el Slug del autor')
@@ -53,7 +60,9 @@ const pattern = (key = {}) => {
 }
 
 const itemsToArrayImge = data => {
-  const { resizerUrl } = getProperties(website)
+  const {
+    resizerUrl
+  } = getProperties(website)
 
   return data.map(item => {
     return addResizedUrls(item, {
@@ -85,12 +94,18 @@ const resolve = key => pattern(key)
 const transform = data => {
   const dataStories = data
   dataStories.content_elements = itemsToArrayImge(dataStories.content_elements)
-  const { name } = auxKey || {}
+  const {
+    name
+  } = auxKey || {}
 
   if (!name || !dataStories) return dataStories
 
   const {
-    content_elements: [{ credits: { by = [] } = {} } = {}] = [],
+    content_elements: [{
+      credits: {
+        by = []
+      } = {}
+    } = {}] = [],
   } = dataStories
 
   if (by.length === 0) return dataStories
