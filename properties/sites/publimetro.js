@@ -87,7 +87,7 @@ export default {
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/publimetrope',
+        url: 'https://twitter.com/Publimetrope',
       },
       {
         name: 'google+',
