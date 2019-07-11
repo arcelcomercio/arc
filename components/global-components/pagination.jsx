@@ -58,14 +58,14 @@ const createPaginator = (currentPage, totalPages) => {
 }
 
 const Pagination = props => {
-  const { totalElements, storiesQty } = props
+  const { totalElements, storiesQty, requestUri } = props
   let { currentPage } = props
 
   const totalPages = Math.ceil(totalElements / (storiesQty || 50))
   const pages = createPaginator(currentPage || 1, totalPages)
   currentPage = parseInt(currentPage || 1, 10)
 
-  const pathOrigin = window.location.pathname.replace(/\/[0-9]*?\/?$/, '')
+  const pathOrigin = requestUri.replace(/\/[0-9]*?\/?$/, '')
 
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
   const prevPage = currentPage - 1
