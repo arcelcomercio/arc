@@ -1,11 +1,15 @@
-let auxKey
+// eslint-disable-next-line import/no-extraneous-dependencies
+import request from 'request-promise-native'
+import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import getProperties from 'fusion:properties'
 
-const schemaName = 'stories'
-
+const SCHEMA_NAME = 'stories'
+let website = ''
 const params = [
   {
     name: 'section',
-    displayName: 'Sección(es)',
+    displayName: 'Section(es)',
     type: 'text',
   },
   {
@@ -24,8 +28,9 @@ const params = [
     type: 'number',
   },
 ]
+const options = { json: true }
 
-export const itemsToArray = (itemString = '') => {
+const itemsToArray = (itemString = '') => {
   return itemString.split(',').map(item => item.replace(/"/g, ''))
 }
 
@@ -36,15 +41,57 @@ const formatSection = section => {
     : section
 }
 
+const addResizedUrlsStory = (data, resizerUrl) => {
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+
+const itemsToArrayImge = (data, websiteResizer) => {
+  const { resizerUrl } = getProperties(websiteResizer)
+
+  return data.map(item => {
+    const dataStory = item
+
+    const { promo_items: { basic_gallery: contentElements = null } = {} } = item
+    const contentElementsData = contentElements || item
+
+    if (contentElements) {
+      const image = addResizedUrlsStory(contentElementsData, resizerUrl)
+      dataStory.promo_items.basic_gallery = image
+    }
+
+    return addResizedUrlsStory(dataStory, resizerUrl)
+  })
+}
+
 const pattern = (key = {}) => {
-  auxKey = key
-
-  const website = key['arc-site'] || 'Arc Site no está definido'
+  website = key['arc-site'] || 'Arc Site no está definido'
   const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
-  const newSection = formatSection(section)
-
+  const clearSection = formatSection(section)
+  const newSection =
+    clearSection === '' || clearSection === undefined || clearSection === null
+      ? '/'
+      : clearSection
   const sectionsExcluded = itemsToArray(excludeSections)
-
   const body = {
     query: {
       bool: {
@@ -114,40 +161,35 @@ const pattern = (key = {}) => {
 
   const encodedBody = encodeURI(JSON.stringify(body))
 
-  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
-    10}&from=${feedOffset || 0}&sort=publish_date:desc`
+  return request({
+    uri: `${CONTENT_BASE}/site/v3/website/publimetro/section?_id=${newSection}`,
+    ...options,
+  }).then(resp => {
+    if (Object.prototype.hasOwnProperty.call(resp, 'status'))
+      throw new Error('Sección no encontrada')
+    return request({
+      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
+        10}&from=${feedOffset || 0}&sort=publish_date:desc`,
+      ...options,
+    }).then(data => {
+      const dataStory = data
+      dataStory.content_elements = itemsToArrayImge(
+        data.content_elements,
+        website
+      )
+      return {
+        ...dataStory,
+        section_name: resp.name,
+      }
+    })
+  })
 }
 
-const resolve = key => pattern(key)
-
-const transform = data => {
-  const newSection = formatSection(auxKey.section)
-  if (!newSection || newSection === '/') return data
-  const sectionsIncluded = itemsToArray(newSection)
-  if (data.content_elements.length === 0 || sectionsIncluded.length > 1)
-    return data
-  const {
-    content_elements: [
-      {
-        taxonomy: { sections },
-      },
-    ],
-  } = data
-  const realSection = sections.find(item => sectionsIncluded[0] === item._id)
-  const sectionName = {
-    section_name: realSection.name,
-  }
-
-  return {
-    ...data,
-    ...sectionName,
-  }
-}
+const fetch = key => pattern(key)
 
 const source = {
-  resolve,
-  transform,
-  schemaName,
+  fetch,
+  schemaName: SCHEMA_NAME,
   params,
 }
 

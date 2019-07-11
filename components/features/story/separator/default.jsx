@@ -9,11 +9,12 @@ import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 
 const classes = {
-  separator: 'story-separator bg-white w-full h-auto separator--nota grid',
+  separator:
+    'story-separator bg-white block non-tablet w-full h-auto separator--nota grid',
   /*   title:
     'story-separator__header-title separator__header-title--nota grid text-center pb-20 pt-20', */
   body:
-    'story-separator__body separator__body--items grid mt-0 mb-0 pt-20 pb-20 pr-0 pl-0',
+    'story-separator__body separator__body--items flex mt-0 mb-0 pt-20 pb-20 pr-0 pl-0',
   mvideo: 'story-separator--video',
 }
 

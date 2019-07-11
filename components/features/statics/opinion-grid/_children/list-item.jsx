@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDate } from '../../../../utilities/helpers'
+import { formatDateLocalTimeZone } from '../../../../utilities/helpers'
 
 const classes = {
   authorItem: 'author-item',
@@ -24,7 +24,7 @@ const OpinionGridListItem = ({ data: story }) => {
       <div className={classes.wrapper}>
         <div className={classes.social}>
           <time className={classes.date} dateTime={story.date}>
-            {formatDate(story.date)}
+            {formatDateLocalTimeZone(story.date)}
           </time>
         </div>
         <div className={classes.content}>
@@ -39,7 +39,7 @@ const OpinionGridListItem = ({ data: story }) => {
           </figure>
           <div className={classes.descBox}>
             <time className={classes.date} dateTime={story.date}>
-              {formatDate(story.date)}
+              {formatDateLocalTimeZone(story.date)}
             </time>
             <h2>
               <a href={story.authorLink} className={classes.name}>

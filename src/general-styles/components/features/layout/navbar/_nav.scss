@@ -29,7 +29,7 @@
 
   &__btn {
     color: $color-white;
-
+    outline: 0;
     &:hover {
       text-decoration: none;
     }
@@ -56,9 +56,9 @@
     }
 
     &--section {
-
       //padding: 4px;
       & span {
+        font-weight: bold;
         display: none;
         font-family: $secondary-font;
 
@@ -158,8 +158,7 @@
         display: none;
       }
 
-      .nav__logo,
-      .nav__mobile-container {
+      .nav__logo {
         display: block;
       }
     }

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 
 import StoryData from '../utilities/story-data'
-import { reduceWord, formatDate } from '../utilities/helpers'
+import { reduceWord, formatDateLocalTimeZone } from '../utilities/helpers'
 
 const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray lg:p-0`,
@@ -13,7 +13,7 @@ const classes = {
   left: 'story-item__left flex flex-col justify-between pr-10 ',
   contentTitle: 'story-item__content-title overflow-hidden',
   title: `story-item__title block overflow primary-font line-h-xs mt-10`,
-  subtitle: `story-item__subtitle hidden mt-10 mb-10 text-md text-gray-200 line-h-xs md:block`,
+  subtitle: `story-item__subtitle overflow-hidden hidden mt-10 mb-10 text-md text-gray-200 line-h-xs`,
   contenetAuthor: 'hidden',
   author: `story-item__author block uppercase mt-10 font-thin text-xs text-gray-200`,
   right: 'story-item__right position-relative',
@@ -34,7 +34,6 @@ class StoriesList extends PureComponent {
       arcSite,
       defaultImgSize: 'sm',
     })
-    console.log('en donde estamos?!')
 
     return (
       <div
@@ -47,7 +46,9 @@ class StoriesList extends PureComponent {
               <a href={element.sectionLink} className={classes.section}>
                 {element.section}
               </a>
-              <p className={classes.date}>{formatDate(element.date)}</p>
+              <p className={classes.date}>
+                {formatDateLocalTimeZone(element.date)}
+              </p>
             </div>
             <div>
               <h2 className={classes.contentTitle}>

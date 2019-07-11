@@ -23,9 +23,11 @@ $image-height: 157px;
       height: 306px;
       bottom: 0;
       left: 0;
-      background: linear-gradient(to bottom,
-          rgba(68, 68, 68, 0) 20%,
-          rgb(68, 68, 68));
+      background: linear-gradient(
+        to bottom,
+        rgba(68, 68, 68, 0) 20%,
+        rgb(68, 68, 68)
+      );
     }
   }
 
@@ -39,6 +41,7 @@ $image-height: 157px;
     padding: 20px;
     position: absolute;
     z-index: 1;
+    bottom: 0;
   }
 
   .featured-story__category {
@@ -64,8 +67,6 @@ $image-height: 157px;
 *          Estilos base         *
 *-------------------------------*/
 .featured-story {
-  letter-spacing: 0.05em;
-
   @media (--tablet) {
     background-color: $color-white;
     grid-row: span 1;
@@ -82,7 +83,7 @@ $image-height: 157px;
     width: 60%;
 
     @media (--tablet) {
-      width: unset;
+      width: auto;
     }
   }
 
@@ -91,7 +92,7 @@ $image-height: 157px;
     height: 75px;
 
     @media (--tablet) {
-      width: unset;
+      width: auto;
       height: $image-height;
     }
   }
@@ -193,13 +194,13 @@ $image-height: 157px;
 
     .featured-story__img-link {
       height: $image-height;
-      width: unset;
+      width: auto;
       margin-left: 0;
     }
 
     .featured-story__detail {
       padding: 20px;
-      width: unset;
+      width: auto;
     }
 
     .featured-story__category {

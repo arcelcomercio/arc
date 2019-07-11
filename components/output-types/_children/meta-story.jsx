@@ -18,7 +18,8 @@ export default ({
     title,
     tags,
     link,
-    publishDate,
+    displayDate: publishDate,
+    publishDate: lastPublishDate,
     subTitle,
     seoAuthor,
     imagesSeo,
@@ -45,12 +46,12 @@ export default ({
   )
 
   const imagesSeoItems = imagesSeo.map((image, i) => {
-    const { subtitle, url = '' } = image || {}
+    const { subtitle, url = '', resized_urls: { large } = {} } = image || {}
     const representativeOfPage = i === 0 ? '"representativeOfPage":true,' : ''
     return `{ 
          ${representativeOfPage}
          "@type":"ImageObject",
-         "url": "${url}",
+         "url": "${large || url}",
          "description":"${subtitle}",
          "height":418,
          "width":696
@@ -88,7 +89,7 @@ export default ({
     "@context":"http://schema.org",
     "@type":"NewsArticle",
     "datePublished":"${publishDate}",
-    "dateModified":"${publishDate}",
+    "dateModified":"${lastPublishDate}",
     "headline":"${formatHtmlToText(title)}",
     "description":"${formatHtmlToText(subTitle)}",
     "articleBody":"${dataElement}",
@@ -173,13 +174,15 @@ export default ({
       <meta name="etiquetas" content={listItems.map(item => item)} />
 
       <meta property="article:published_time" content={publishDate} />
-      <meta property="article:modified_time" content={publishDate} />
+      <meta property="article:modified_time" content={lastPublishDate} />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={section} />
-      <meta
-        property="article:tag"
-        content={seoKeywordsItems.map(item => item)}
-      />
+
+      {listItems.map(item => {
+        return <meta property="article:tag" content={item} />
+      })}
+
+      <meta property="article:tag" content="noticias" />
 
       <script
         type="application/ld+json"

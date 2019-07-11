@@ -387,7 +387,7 @@ class FormRegister extends Component {
                   )}
                 </div>
                 <div className="form-grid__group">
-                  <p className="form-grid__required text-center">
+                  <p className="form-grid__required mt-25 mb-25">
                     * TODOS LOS CAMPOS SON OBLIGATORIOS
                   </p>
                   <div className="form-group form-group--center mt-20 ">
