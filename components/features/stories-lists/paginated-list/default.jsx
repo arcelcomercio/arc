@@ -7,7 +7,7 @@ import Pagination from '../../../global-components/pagination'
 import Ads from '../../../global-components/ads'
 
 const classes = {
-  adsBox: 'flex items-center flex-col no-desktop',
+  adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
 @Consumer
@@ -60,11 +60,13 @@ class StoriesListPaginatedList extends PureComponent {
             )
           })}
         </div>
-        <Pagination
-          totalElements={count}
-          storiesQty={size}
-          currentPage={from}
-        />
+        {count !== 0 && (
+          <Pagination
+            totalElements={count}
+            storiesQty={size}
+            currentPage={from}
+          />
+        )}
       </>
     )
   }
@@ -75,5 +77,6 @@ StoriesListPaginatedList.propTypes = {
 }
 
 StoriesListPaginatedList.label = 'Listado con paginación'
+// StoriesListPaginatedList.static = true
 
 export default StoriesListPaginatedList

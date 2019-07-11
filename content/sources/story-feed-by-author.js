@@ -1,14 +1,17 @@
-import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import {
+  resizerSecret
+} from 'fusion:environment'
+import {
+  addResizedUrls
+} from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 
 let auxKey
-
-const schemaName = 'stories'
 let website = ''
 
-const params = [
-  {
+const schemaName = 'stories'
+
+const params = [{
     name: 'name',
     displayName: 'Slug del autor',
     type: 'text',
@@ -26,71 +29,101 @@ const params = [
 ]
 
 const pattern = (key = {}) => {
+  const {
+    name
+  } = key
   auxKey = key
-
   website = key['arc-site'] || 'Arc Site no está definido'
-  const { name, from, size } = key
+  const size = key.size || 50
 
   if (!name) {
     throw new Error('Esta fuente de contenido necesita el Slug del autor')
   }
 
+
   const validateFrom = () => {
-    if (from !== '1' && from) {
-      return (from - 1) * size
+    if (key.from !== '1' && key.from) {
+      return (key.from - 1) * size
     }
     return '0'
   }
+
+  const from = `${validateFrom()}`
+
 
   /** TODO: La consulta se debe hacer por SLUG, no por URL del autor */
   /** TODO: Cambiar publish_date por display_name en los patterns???? */
   /** TODO: Manejar comportamiento cuando no se obtiene data */
 
-  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"/autor/${name}"+AND+type:story+AND+revision.published:true&size=${size ||
-    50}&from=${validateFrom()}&sort=publish_date:desc&website=${website}`
+  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"/autor/${name}"+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=publish_date:desc&website=${website}`
 
   return requestUri
 }
 
-const itemsToArrayImge = data => {
-  const { resizerUrl } = getProperties(website)
-
-  return data.map(item => {
-    return addResizedUrls(item, {
-      resizerUrl,
-      resizerSecret,
-      presets: {
-        small: {
-          width: 100,
-          height: 200,
-        },
-        medium: {
-          width: 480,
-        },
-        large: {
-          width: 940,
-          height: 569,
-        },
-        amp: {
-          width: 600,
-          height: 375,
-        },
+const addResizedUrlsStory = (data, resizerUrl) => {
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
       },
-    })
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+
+const itemsToArrayImge = data => {
+  const {
+    resizerUrl
+  } = getProperties(website)
+
+  return data && data.map((item = {}) => {
+    const dataStory = item
+
+    const {
+      promo_items: {
+        basic_gallery: contentElements = null
+      } = {}
+    } = item
+    const contentElementsData = contentElements || item
+    if (contentElements) {
+      const image = addResizedUrlsStory(contentElementsData, resizerUrl)
+      dataStory.promo_items.basic_gallery = image
+    }
+
+    return addResizedUrlsStory(dataStory, resizerUrl)
   })
 }
 
 const resolve = key => pattern(key)
 
 const transform = data => {
-  const dataStories = data
+  const dataStories = data || {}
   dataStories.content_elements = itemsToArrayImge(dataStories.content_elements)
-  const { name } = auxKey || {}
+  const {
+    name
+  } = auxKey || {}
 
   if (!name || !dataStories) return dataStories
 
   const {
-    content_elements: [{ credits: { by = [] } = {} } = {}] = [],
+    content_elements: [{
+      credits: {
+        by = []
+      } = {}
+    } = {}] = [],
   } = dataStories
 
   if (by.length === 0) return dataStories

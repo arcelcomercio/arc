@@ -1,15 +1,17 @@
-import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import {
+  resizerSecret
+} from 'fusion:environment'
+import {
+  addResizedUrls
+} from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { getActualDate } from '../../components/utilities/helpers'
 
 let globalParams = {}
 
 const schemaName = 'stories'
 let website = ''
 
-const params = [
-  {
+const params = [{
     name: 'section',
     displayName: 'Sección',
     type: 'text',
@@ -21,31 +23,59 @@ const params = [
   },
 ]
 
+const getActualDate = () => {
+  const today = new Date()
+
+  if (today.getHours() <= 5)
+    today.setDate(today.getDate() - 1)
+
+  return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+}
+
+const addResizedUrlsStory = (data, resizerUrl) => {
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+
 const itemsToArrayImge = data => {
-  const { resizerUrl } = getProperties(website)
+  const {
+    resizerUrl
+  } = getProperties(website)
 
   return data.map(item => {
-    return addResizedUrls(item, {
-      resizerUrl,
-      resizerSecret,
-      presets: {
-        small: {
-          width: 100,
-          height: 200,
-        },
-        medium: {
-          width: 480,
-        },
-        large: {
-          width: 940,
-          height: 569,
-        },
-        amp: {
-          width: 600,
-          height: 375,
-        },
-      },
-    })
+    const dataStory = item
+
+    const {
+      promo_items: {
+        basic_gallery: contentElements = null
+      } = {}
+    } = item
+    const contentElementsData = contentElements || item
+    if (contentElements) {
+      const image = addResizedUrlsStory(contentElementsData, resizerUrl)
+      dataStory.promo_items.basic_gallery = image
+    }
+
+    return addResizedUrlsStory(dataStory, resizerUrl)
   })
 }
 
@@ -63,7 +93,10 @@ const transform = data => {
 
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, date } = key
+  const {
+    section,
+    date
+  } = key
 
   /** Para enviar params a transform luego */
   globalParams = {
@@ -74,8 +107,7 @@ const pattern = (key = {}) => {
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -83,8 +115,8 @@ const pattern = (key = {}) => {
           {
             range: {
               publish_date: {
-                gte: `${globalParams.date}T00:00:00-05:00`, // 2019-03-05T00:00:00-05:00
-                lte: `${globalParams.date}T23:59:59-05:00`, // 2019-03-06T00:00:00-05:00
+                gte: `${globalParams.date}T00:00:00`, // 2019-03-05T00:00:00-05:00
+                lte: `${globalParams.date}T23:59:59`, // 2019-03-06T00:00:00-05:00
               },
             },
           },
@@ -105,8 +137,7 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': [`/${section}`],
                 },

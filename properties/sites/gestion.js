@@ -28,13 +28,13 @@ export default {
     aboutUs: "AH524OO2XFEE3CZBDR3VZTXN6A"
   },
   infoPagesProd: {
-    termsAndConditions: "",
-    guidingPrinciples: "",
-    privacyPolicies: "",
-    integratedManagementPolicy: "",
-    arcoProcedure: "",
-    cookiesPolicy: "",
-    aboutUs: ""
+    termsAndConditions: '',
+    guidingPrinciples: '',
+    privacyPolicies: 'YK7SFEAX3VD4HOYGEPH3Y6ZYNQ',
+    integratedManagementPolicy: '',
+    arcoProcedure: '',
+    cookiesPolicy: '',
+    aboutUs: '',
   },
 
   assets: {

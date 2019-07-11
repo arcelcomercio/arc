@@ -1,4 +1,5 @@
 .footer {
+  display: grid;
   grid-template: 'info' auto 'contact' auto 'sites' auto;
 
   @media (--tablet) {

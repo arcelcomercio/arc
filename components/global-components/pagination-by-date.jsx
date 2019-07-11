@@ -12,9 +12,7 @@ const classes = {
 class PaginationByDate extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      dateIterator: this.evalDate().fiveDays,
-    }
+    this.dateIterator = this.evalDate().fiveDays
   }
 
   // Devuelve un array con 5 fechas anterioes a el Dia actual o a la fecha pasada como parametro
@@ -23,16 +21,15 @@ class PaginationByDate extends PureComponent {
     if (comingDate) {
       const inputDate = new Date(comingDate)
       const today = new Date()
-      if (inputDate > today) {
+      if (inputDate > today)
         // Si la fecha en el parametro es mayor a HOY, devuelve HOY
         fecha = null
-      } else {
+      else {
         // Si la fecha es menor, se formatea y se pasa como parametro al new Date
         const arrDate = comingDate.split('-')
         fecha = arrDate.map((el, index) => {
-          if (el.startsWith('0')) {
+          if (el.startsWith('0'))
             return index === 1 ? Number(el.slice(1)) - 1 : Number(el.slice(1))
-          }
           return Number(el)
         })
       }
@@ -83,27 +80,22 @@ class PaginationByDate extends PureComponent {
 
   // Obtener la fecha del path o devolver vacio
   getURL(index) {
-    const { section = 'todas' } = this.props
-    const { dateIterator = '' } = this.state
+    let { section = 'todas' } = this.props
+    section = section !== 'todas' ? section.replace('/', '') : 'todas'
     return index || index === 0
       ? // Si viene un indice devuelvo localhost/archivo/seccion/fecha
-        `/archivo/${section.replace('/', '')}/${dateIterator[index]}`
+        `/archivo/${section}/${this.dateIterator[index]}`
       : // Si no viene index devuelvo localhost/archivo/seccion
-        `/archivo/${section.replace('/', '')}/`
+        `/archivo/${section}/`
   }
 
   // Devuelve el link del <Anterior> en pagination
   getLastDay() {
-    const { dateIterator } = this.state
-    return dateIterator[dateIterator.length - 2]
-  }
-
-  getQueryURL() {
-    return window.location.search
+    return this.dateIterator[this.dateIterator.length - 2]
   }
 
   // Devuelve el link del <Siguiente> en pagination
-  getnextDay() {
+  getNextDay() {
     return this.evalDate().nextDay
   }
 
@@ -123,37 +115,35 @@ class PaginationByDate extends PureComponent {
   }
 
   render() {
-    const { dateIterator } = this.state
     const { date } = this.props
+
     return (
       <div className={classes.paginationDate}>
         <ul className={classes.paginationDateList}>
           <li className={classes.paginationDateItem}>
             <a
               className={classes.paginationDateLink}
-              href={`${this.getURL()}${this.getLastDay().concat(
-                this.getQueryURL()
-              )}`}>
+              href={`${this.getURL()}${this.getLastDay()}`}>
               Anterior
             </a>
           </li>
-          {dateIterator.map((el, index) => {
+          {this.dateIterator.map((el, index) => {
             return (
               <li
                 // eslint-disable-next-line react/no-array-index-key
-                key={index}
+                key={`pag-by-date-${index}`}
                 className={classes.paginationDateItem}>
-                {index === dateIterator.length - 1 ? (
+                {index === this.dateIterator.length - 1 ? (
                   <p
                     className={`${classes.paginationDateLink} ${
-                      index === dateIterator.length - 1 ? 'active' : ''
+                      index === this.dateIterator.length - 1 ? 'active' : ''
                     }`}>
                     {this.clearDate(el)}
                   </p>
                 ) : (
                   <a
                     className={classes.paginationDateLink}
-                    href={`${this.getURL(index).concat(this.getQueryURL())}`}>
+                    href={`${this.getURL(index)}`}>
                     {this.clearDate(el)}
                   </a>
                 )}
@@ -164,9 +154,7 @@ class PaginationByDate extends PureComponent {
             <li className={classes.paginationDateItem}>
               <a
                 className={classes.paginationDateLink}
-                href={`${this.getURL()}${this.getnextDay().concat(
-                  this.getQueryURL()
-                )}`}>
+                href={`${this.getURL()}${this.getNextDay()}`}>
                 Siguiente
               </a>
             </li>
