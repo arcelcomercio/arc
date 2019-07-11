@@ -5,7 +5,6 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 
 const SCHEMA_NAME = 'stories'
-let sectionName = ''
 let website = ''
 const params = [
   {
@@ -42,33 +41,48 @@ const formatSection = section => {
     : section
 }
 
+const addResizedUrlsStory = (data, resizerUrl) => {
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+
 const itemsToArrayImge = (data, websiteResizer) => {
   const { resizerUrl } = getProperties(websiteResizer)
 
   return data.map(item => {
-    return addResizedUrls(item, {
-      resizerUrl,
-      resizerSecret,
-      presets: {
-        small: {
-          width: 100,
-          height: 200,
-        },
-        medium: {
-          width: 480,
-        },
-        large: {
-          width: 940,
-          height: 569,
-        },
-        amp: {
-          width: 600,
-          height: 375,
-        },
-      },
-    })
+    const dataStory = item
+
+    const { promo_items: { basic_gallery: contentElements = null } = {} } = item
+    const contentElementsData = contentElements || item
+
+    if (contentElements) {
+      const image = addResizedUrlsStory(contentElementsData, resizerUrl)
+      dataStory.promo_items.basic_gallery = image
+    }
+
+    return addResizedUrlsStory(dataStory, resizerUrl)
   })
 }
+
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
   const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
@@ -158,9 +172,13 @@ const pattern = (key = {}) => {
         10}&from=${feedOffset || 0}&sort=publish_date:desc`,
       ...options,
     }).then(data => {
-      data.content_elements = itemsToArrayImge(data.content_elements, website)
+      const dataStory = data
+      dataStory.content_elements = itemsToArrayImge(
+        data.content_elements,
+        website
+      )
       return {
-        ...data,
+        ...dataStory,
         section_name: resp.name,
       }
     })
