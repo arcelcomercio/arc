@@ -81,7 +81,7 @@ class PaginationByDate extends PureComponent {
   // Obtener la fecha del path o devolver vacio
   getURL(index) {
     let { section = 'todas' } = this.props
-    section = section !== 'todas' && section.replace('/', '')
+    section = section !== 'todas' ? section.replace('/', '') : 'todas'
     return index || index === 0
       ? // Si viene un indice devuelvo localhost/archivo/seccion/fecha
         `/archivo/${section}/${this.dateIterator[index]}`
