@@ -35,11 +35,11 @@ const HIERARCHY = 'filter-section'
 class SearchFilterChildSearchFilter extends PureComponent {
   constructor(props) {
     super(props)
-    const { arcSite, isAdmin } = props 
+    const { arcSite, isAdmin } = props
 
     this.state = {
-      sort: !isAdmin && this.getOrder(),
-      selected: !isAdmin && this.getSection(),
+      sort: !isAdmin && this.getSortFilter(),
+      selected: !isAdmin && this.getSectionFilter(),
       showList: false,
     }
 
@@ -56,31 +56,27 @@ class SearchFilterChildSearchFilter extends PureComponent {
           return { ...data }
         },
       },
-    }) 
+    })
   }
 
-  // _changeList = () => {
-  //   this.setState({
-  //     showList: !this.state.showList
-  //   })
-  // }
-
-  getOrder() {
+  getSortFilter() {
+    // Verifica si hay "sort" en la URL o establece valor por defecto
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
 
-    return sort || DESC 
+    return sort || DESC
   }
 
-  getSection() {
+  getSectionFilter() {
+    // Verifica si hay "section" en la URL o establece valor por defecto
     const { globalContentConfig } = this.props
     const { query: { section = '' } = {} } = globalContentConfig || {}
 
     return section !== '' ? SECTION : ''
-
-  } 
+  }
 
   getUrl(type, value) {
+    // Construye la URL para los botones del filtro
     const { globalContentConfig } = this.props
     const {
       query: { uri = '', query = '', section = 'todas', sort = DESC } = {},
@@ -108,15 +104,13 @@ class SearchFilterChildSearchFilter extends PureComponent {
     })
   }
 
-
   render() {
     const {
       selected,
       showList,
       sort,
       data: { sections = [] } = {},
-    } = this.state 
-
+    } = this.state
 
     const { isAdmin, globalContentConfig } = this.props
 
@@ -211,8 +205,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 href={!isAdmin && this.getUrl(SORT, ASC)} // (type, value)
                 className={classes.link}
                 role="checkbox"
-                aria-checked="false"
-                >
+                aria-checked="false">
                 Menos Recientes
               </a>
             </li>
