@@ -68,6 +68,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    z-index: -1;
     @media (--tablet) {
       width: 230px;
     }
