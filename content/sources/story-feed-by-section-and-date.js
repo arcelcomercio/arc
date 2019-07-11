@@ -1,9 +1,5 @@
-import {
-  resizerSecret
-} from 'fusion:environment'
-import {
-  addResizedUrls
-} from '@arc-core-components/content-source_content-api-v4'
+import { resizerSecret } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 
 let globalParams = {}
@@ -11,7 +7,8 @@ let globalParams = {}
 const schemaName = 'stories'
 let website = ''
 
-const params = [{
+const params = [
+  {
     name: 'section',
     displayName: 'Sección',
     type: 'text',
@@ -27,8 +24,7 @@ const getActualDate = () => {
   const today = new Date()
   // TODO: fix and remove this temporal ugly fix
 
-  if (today.getHours() >= 19)
-    today.setDate(today.getDate() - 1)
+  if (today.getHours() >= 19) today.setDate(today.getDate() - 1)
 
   let dd = today.getDate()
   let mm = today.getMonth() + 1 // January is 0!
@@ -40,33 +36,44 @@ const getActualDate = () => {
   return `${yyyy}-${mm}-${dd}`
 }
 
+const addResizedUrlsStory = (data, resizerUrl) => {
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+
 const itemsToArrayImge = data => {
-  const {
-    resizerUrl
-  } = getProperties(website)
+  const { resizerUrl } = getProperties(website)
 
   return data.map(item => {
-    return addResizedUrls(item, {
-      resizerUrl,
-      resizerSecret,
-      presets: {
-        small: {
-          width: 100,
-          height: 200,
-        },
-        medium: {
-          width: 480,
-        },
-        large: {
-          width: 940,
-          height: 569,
-        },
-        amp: {
-          width: 600,
-          height: 375,
-        },
-      },
-    })
+    const dataStory = item
+
+    const { promo_items: { basic_gallery: contentElements = null } = {} } = item
+    const contentElementsData = contentElements || item
+    if (contentElements) {
+      const image = addResizedUrlsStory(contentElementsData, resizerUrl)
+      dataStory.promo_items.basic_gallery = image
+    }
+
+    return addResizedUrlsStory(dataStory, resizerUrl)
   })
 }
 
@@ -84,10 +91,7 @@ const transform = data => {
 
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
-  const {
-    section,
-    date
-  } = key
+  const { section, date } = key
 
   /** Para enviar params a transform luego */
   globalParams = {
@@ -98,7 +102,8 @@ const pattern = (key = {}) => {
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               type: 'story',
             },
@@ -128,7 +133,8 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': [`/${section}`],
                 },

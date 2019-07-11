@@ -21,7 +21,7 @@ export default ({
   const image =
     story && multimedia
       ? multimedia
-      : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/story-image.jpg`
+      : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_fb.jpg`
   return (
     <>
       {/* <!-- Facebook OG --> */}
