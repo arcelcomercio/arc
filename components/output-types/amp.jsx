@@ -52,7 +52,7 @@ const AmpOutputType = ({
 
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
-      ? `${metaValue('description')} en ${siteProperties.siteName}`
+      ? `${metaValue('description')} `
       : 'Últimas noticias en Perú y el mundo'
 
   const keywords =
