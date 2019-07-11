@@ -77,6 +77,6 @@ StoriesListPaginatedList.propTypes = {
 }
 
 StoriesListPaginatedList.label = 'Listado con paginación'
-// StoriesListPaginatedList.static = true
+StoriesListPaginatedList.static = true
 
 export default StoriesListPaginatedList
