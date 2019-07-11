@@ -23,9 +23,8 @@ export default ({
     } = {},
   } = by[0] || []
 
-  let socialMedia = ''
-  socialLinks.forEach(social => {
-    socialMedia += `"${social.url}", \n`
+  const socialMedia = socialLinks.map(({ url }) => {
+    return `${url}`
   })
 
   const patternPagination = /\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/
