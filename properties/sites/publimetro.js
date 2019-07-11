@@ -13,7 +13,7 @@ export default {
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Publimetro_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '189362231408765',
   googleTagManagerId: 'GTM-NSWLD37',
-  ampGoogleTagManagerId: 'UA-3055636-3',
+  ampGoogleTagManagerId: 'UA-3055636-18',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-18',
   fbArticleStyle: 'LogoPublimetro',
