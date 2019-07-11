@@ -118,7 +118,11 @@ export default ({
           "width":${seo.width}
        }
     },
-    "keywords":[${seoKeywordsItems.map(item => item)}]
+    "keywords":[${
+      seoKeywordsItems[0]
+        ? seoKeywordsItems.map(item => item)
+        : listItems.map(item => item)
+    }]
  }`
 
   const breadcrumbResult = breadcrumbList.map(({ url, name }, i) => {
@@ -181,8 +185,6 @@ export default ({
       {listItems.map(item => {
         return <meta property="article:tag" content={item} />
       })}
-
-      <meta property="article:tag" content="noticias" />
 
       <script
         type="application/ld+json"

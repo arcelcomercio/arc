@@ -48,12 +48,12 @@ export default ({
 
   const title =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? `${metaValue('title')} | ${siteProperties.siteName}`
+      ? `${metaValue('title')}`
       : siteProperties.siteName
 
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
-      ? `${metaValue('description')} en ${siteProperties.siteName}`
+      ? `${metaValue('description')}`
       : 'Últimas noticias en Perú y el mundo'
 
   const keywords =
@@ -131,7 +131,10 @@ export default ({
           href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
           rel="stylesheet"
         />
-        <script src="https://jab.pe/f/arc/data_js.js" async />
+        <script
+          src={`https://d1r08wok4169a5.cloudfront.net/ads-publimetro/data_${arcSite}.js`}
+          async
+        />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
