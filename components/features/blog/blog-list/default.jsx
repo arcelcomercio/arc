@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/item'
 import Pagination from '../../../global-components/pagination'
-import { formatDate, defaultImage } from '../../../utilities/helpers'
+import { formatDateLocalTimeZone, defaultImage } from '../../../utilities/helpers'
 
 const classes = {
   list: 'bg-white w-full p-15', // blog-list
@@ -22,7 +22,7 @@ class BlogList extends PureComponent {
   }
 
   transformDate = postDate => {
-    const arrayDate = formatDate(postDate).split(' ')
+    const arrayDate = formatDateLocalTimeZone(postDate).split(' ')
     if (arrayDate.length > 1)
       return parseInt(arrayDate[1].split(':')[0], 10) > 12
         ? `${arrayDate[1]} pm`
