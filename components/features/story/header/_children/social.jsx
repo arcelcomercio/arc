@@ -100,7 +100,7 @@ class StoryHeaderChildSocial extends PureComponent {
   render() {
     const { currentList } = this.state
     const {
-      globalContent: { taxonomy: { primary_section: { name } = {} } } = {},
+      globalContent: { taxonomy: { primary_section: { name = ''} = {} } = {} } = {},
     } = this.props
 
     

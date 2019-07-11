@@ -45,13 +45,16 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       this._controlKeysSlider(event)
     }) */
     this.list = document.querySelector('.story-gallery-slider__content')
-    this.list.addEventListener('mousedown', this._initDrag)
-    this.list.addEventListener('mouseup', this._endDrag)
-    this.list.addEventListener('mousemove', this._moveDrag)
-
-    this.list.addEventListener('touchstart', this._initDrag)
-    this.list.addEventListener('touchend', this._endDrag)
-    this.list.addEventListener('touchmove', this._moveDrag)
+    
+    if(this.list !== null){
+      this.list.addEventListener('mousedown', this._initDrag)
+      this.list.addEventListener('mouseup', this._endDrag)
+      this.list.addEventListener('mousemove', this._moveDrag)
+  
+      this.list.addEventListener('touchstart', this._initDrag)
+      this.list.addEventListener('touchend', this._endDrag)
+      this.list.addEventListener('touchmove', this._moveDrag)
+    }
 
     this._moveSlide()
   }

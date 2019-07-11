@@ -9,26 +9,40 @@ import SearchInput from '../../../global-components/search-input'
 class SearchFilterChildSearchFilter extends PureComponent {
   constructor(props) {
     super(props)
+    const { arcSite, isAdmin } = props
+
     this.state = {
-      /* Agrega valor a estos estados fuera del PageBuilder */
-      sort: !props.isAdmin && this.getOrder(),
-      selected: !props.isAdmin && this.getSection(),
-      sections: [],
+      sort: !isAdmin && this.getSortFilter(),
+      selected: !isAdmin && this.getSectionFilter(),
       showList: false,
     }
 
-    this.fetchSections()
+    this.fetchContent({
+      data: {
+        source: CONTENT_SOURCE,
+        query: {
+          website: arcSite,
+          hierarchy: HIERARCHY,
+        },
+        filter: schemaFilter,
+        transform: ({ children = [] } = {}) => {
+          const data = { sections: children }
+          return { ...data }
+        },
+      },
+    })
   }
 
-  // Set the sort state from &sort=
-  getOrder() {
+  getSortFilter() {
+    // Verifica si hay "sort" en la URL o establece valor por defecto
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
-    return sort || 'desc'
+
+    return sort || DESC
   }
 
-  // Set the section state from &category=
-  getSection() {
+  getSectionFilter() {
+    // Verifica si hay "section" en la URL o establece valor por defecto
     const { globalContentConfig } = this.props
     const { query: { section = '' } = {} } = globalContentConfig || {}
 
@@ -37,49 +51,22 @@ class SearchFilterChildSearchFilter extends PureComponent {
 
   // Replace the parameter from the query
   getUrl(type, value) {
-    const { requestUri } = this.props
+    // Construye la URL para los botones del filtro
+    const { globalContentConfig } = this.props
+    const {
+      query: { uri = '', query = '', section = 'todas', sort = DESC } = {},
+    } = globalContentConfig || {}
 
-    /* Genera la expresión regular basado en el parámetro que se busca */
-    const regex = new RegExp(`(\\?|&)${type}=.*?(?=&)`)
-    let newUri
-
-    /* Si la URI actual tiene el parámetro que se quiere reemplazar, lo reemplaza */
-    if (requestUri.includes(type)) {
-      /* Si el parámetro es "query", agrega el "?" al inicio, sino el "&" */
-      newUri = requestUri.replace(
-        regex,
-        `${type === 'query' ? '?' : '&'}${type}=${
-          type === 'query'
-            ? encodeURIComponent(value).replace(/%20/g, '+')
-            : value
-        }`
-      )
-      /* Luego de agregar un parámetro resetea la paginación */
-      newUri = newUri.replace(/&page=.*?(?=&|$)/, '')
-    } else {
-      /*
-        Si el parámetro que se quiere reemplazar no está en la URI actual 
-        generará la URI desde cero usando los parámetros que ya tiene y
-        agregando el nuevo parámetro
-      */
-      const { globalContentConfig } = this.props
-      const { query: params = {} } = globalContentConfig || {}
-
-      /* Por defecto "sort" será "desc", no "vacío" */
-      const sort = type === 'sort' ? value : 'desc'
-      /*
-        Es necesario hacer esto para poder agregar el parámetro "category" 
-        aún cuando no está presente en la URI actual
-      */
-      const category = type === 'category' ? value : ''
-
-      // TODO: Manejar error con "params.section.slice(1)"
-      newUri = `/buscar/?query=${encodeURIComponent(params.query || '').replace(
-        /%20/g,
-        '+'
-      )}&category=${(params.section && params.section.slice(1)) ||
-        category}&sort=${params.sort || sort || 'desc'}`
-      /* El slice(0) es para eliminar el slash de la sección que se agrega para la consulta a la API */
+    // if (query) ->
+    let newUri = uri
+    switch (type) {
+      case SORT:
+        newUri = `${BASE_PATH}/${query}/${section}/${value}/`
+        break
+      case SECTION:
+        newUri = `${BASE_PATH}/${query}/${value}/${sort}/`
+        break
+      default:
     }
 
     return newUri /* Retorna la nueva URI armada */
@@ -120,7 +107,13 @@ class SearchFilterChildSearchFilter extends PureComponent {
   }
 
   render() {
-    const { sections, selected, showList, sort } = this.state
+    const {
+      selected,
+      showList,
+      sort,
+      data: { sections = [] } = {},
+    } = this.state
+
     const { isAdmin, globalContentConfig } = this.props
 
     const classes = {

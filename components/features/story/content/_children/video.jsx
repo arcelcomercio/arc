@@ -10,7 +10,7 @@ class StoryContentChildVideo extends PureComponent {
 
     window.PoWaSettings.advertising = {
       adBar: false,
-      adTag: ({ /**  powa, */ videoData }) => {
+      adTag: ({ videoData }) => {
         return videoData.additional_properties.advertising.playAds === true
           ? this.getParametroPublicidad()
           : ''
@@ -32,11 +32,9 @@ class StoryContentChildVideo extends PureComponent {
       taxonomy: {
         primary_section: {
           additional_properties: {
-            original: {
-              _admin: { alias_ids: aliasId },
-            },
-          },
-        },
+            original: { _admin: { alias_ids: aliasId = [] } = {} },
+          } = {},
+        } = {},
       },
     } = globalContent || {}
 

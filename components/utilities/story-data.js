@@ -528,8 +528,12 @@ class StoryData {
         data.promo_items[ConfigParams.GALLERY].promo_items[
           ConfigParams.IMAGE
         ] &&
-        data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-          .url) ||
+        ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
+          .resized_urls &&
+          data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
+            .resized_urls.large) ||
+          data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
+            .url)) ||
       ''
     return thumb
   }

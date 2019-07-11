@@ -13,7 +13,7 @@ const classes = {
   /*   title:
     'story-separator__header-title separator__header-title--nota grid text-center pb-20 pt-20', */
   body:
-    'story-separator__body separator__body--items grid mt-0 mb-0 pt-20 pb-20 pr-0 pl-0',
+    'story-separator__body separator__body--items flex mt-0 mb-0 pt-20 pb-20 pr-0 pl-0',
   mvideo: 'story-separator--video',
 }
 
