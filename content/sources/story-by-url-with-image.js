@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
@@ -91,14 +92,11 @@ const itemsToArrayImge = (data, website) => {
 const transformImg = data => {
   const dataStory = data
 
-  const {
-    promo_items: { basic_gallery: contentElements },
-  } = data
+  const { promo_items: { basic_gallery: contentElements = null } = {} } = data
   const contentElementsData = contentElements || data
 
-  const image = itemsToArrayImge(contentElementsData, data.website)
-
   if (contentElements) {
+    const image = itemsToArrayImge(contentElementsData, data.website)
     dataStory.promo_items.basic_gallery = image
   }
 

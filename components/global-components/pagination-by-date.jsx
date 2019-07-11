@@ -116,6 +116,9 @@ class PaginationByDate extends PureComponent {
 
   render() {
     const { date } = this.props
+    console.log('--------------->', date)
+    console.log('--------------->', getActualDate())
+
     return (
       <div className={classes.paginationDate}>
         <ul className={classes.paginationDateList}>
@@ -130,7 +133,7 @@ class PaginationByDate extends PureComponent {
             return (
               <li
                 // eslint-disable-next-line react/no-array-index-key
-                key={index}
+                key={`pag-by-date-${index}`}
                 className={classes.paginationDateItem}>
                 {index === this.dateIterator.length - 1 ? (
                   <p
