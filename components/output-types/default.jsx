@@ -131,8 +131,10 @@ export default ({
           href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
           rel="stylesheet"
         />
-        {/* <script src={`https://jab.pe/f/arc/${arcSite}-ads-config.js`} async /> */}
-        <script src="https://jab.pe/f/arc/data_js.js" async />
+        <script
+          src={`https://d1r08wok4169a5.cloudfront.net/ads-publimetro/data_${arcSite}.js`}
+          async
+        />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
