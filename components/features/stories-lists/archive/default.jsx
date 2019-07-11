@@ -74,6 +74,6 @@ StoriesListArchive.propTypes = {
 }
 
 StoriesListArchive.label = 'Listado de Archivo'
-// StoriesListArchive.static = true
+StoriesListArchive.static = true
 
 export default StoriesListArchive
