@@ -60,18 +60,13 @@ class StoriesListPaginatedList extends PureComponent {
             )
           })}
         </div>
-        {count !== 0 ? (
+        {count !== 0 && (
           <Pagination
             totalElements={count}
             storiesQty={size}
             currentPage={from}
           />
-        ) : null}
-        {/* <Pagination
-          totalElements={count}
-          storiesQty={size}
-          currentPage={from}
-        /> */}
+        )}
       </>
     )
   }

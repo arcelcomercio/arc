@@ -123,6 +123,11 @@
           max-width: initial;
           margin-right: initial;
         }
+        @media (--desktop) {
+          width: initial;
+          max-width: initial;
+          margin-right: initial;
+        }
       }
     }
 
