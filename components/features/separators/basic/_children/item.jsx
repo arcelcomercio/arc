@@ -9,12 +9,13 @@ const classes = {
   imgBox: 'p-0 m-0 w-full h-full',
   img: 'separator__img w-full h-full object-cover object-center',
   icon: `separator__icon`,
+  article: `h-full`,
 }
 
 export default ({ title, imageUrl, mediaIcon, link, numline }) => {
   return (
-    <a href={link} rel="noopener noreferrer">
-      <article role="listitem" className={classes.item}>
+    <a href={link} rel="noopener noreferrer" className={classes.item}>
+      <article role="listitem" className={classes.article}>
         <Icon type={mediaIcon} iconClass={classes.icon} />
         <div className={classes.detail}>
           <h3 className={`${classes.text} ${numline}`}>{title}</h3>
