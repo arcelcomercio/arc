@@ -27,11 +27,14 @@ class NavbarChildMenu extends PureComponent {
     this.inputSearchMovil = React.createRef()
   }
 
-  submitSearch = () => {
+  _handleSearch = () => {
     const { value } = this.inputSearchMovil.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `/buscar?query=${value}`
+      location.href = `/buscar/${encodeURIComponent(value).replace(
+        /%20/g,
+        '+'
+      )}/todas/descendiente/`
     }
   }
 
@@ -83,7 +86,7 @@ class NavbarChildMenu extends PureComponent {
                 className={classes.from}
                 onSubmit={e => {
                   e.preventDefault()
-                  this.submitSearch()
+                  this._handleSearch()
                 }}>
                 <input
                   ref={this.inputSearchMovil}
