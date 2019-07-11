@@ -55,7 +55,7 @@ class Signwall extends Component {
       .then(() => {
 
         window.ArcP.run({
-          paywallFunction: () => alert('Paywall!'),
+          paywallFunction: (campaignURL) => alert('Paywall!', campaignURL),
           // customPageData: () => ({
           //   c: 'story',
           //   s: 'business',
