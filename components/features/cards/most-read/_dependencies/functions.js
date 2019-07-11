@@ -1,11 +1,7 @@
 import StoryData from '../../../../utilities/story-data'
+import { removeLastSlash } from '../../../../utilities/helpers'
 
-const formatStories = ({
-  data,
-  deployment,
-  contextPath,
-  arcSite
-}) => {
+const formatStories = ({ data, deployment, contextPath, arcSite }) => {
   const aux = []
 
   const element = new StoryData({
@@ -31,41 +27,26 @@ const formatStories = ({
 export const getQuery = ({
   globalContentConfig,
   globalContent,
-  storiesQty
+  storiesQty,
 }) => {
-  const {
-    query: {
-      section = ''
-    } = {}
-  } = globalContentConfig || {}
-  const {
-    taxonomy: {
-      primary_section: {
-        _id = ''
-      } = {}
-    } = {}
-  } =
-  globalContent || {}
+  const { query: { section = '' } = {} } = globalContentConfig || {}
+  const { taxonomy: { primary_section: { _id = '' } = {} } = {} } =
+    globalContent || {}
 
   let sec = _id || section
 
-  if (sec === 'todas') sec = ''
+  if (sec === 'todas' || sec === null || sec === 'undefined') sec = ''
   else if (sec !== '') {
     sec = sec.charAt(0) === '/' ? sec : `/${sec}`
   }
 
   return {
-    section: sec,
+    section: removeLastSlash(sec),
     size: storiesQty,
   }
 }
 
-export const getStories = ({
-  data,
-  deployment,
-  contextPath,
-  arcSite
-}) => {
+export const getStories = ({ data, deployment, contextPath, arcSite }) => {
   let stories = []
 
   if (data.length > 0) {

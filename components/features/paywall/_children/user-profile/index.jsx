@@ -1,6 +1,5 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
-import * as Yup from 'yup'
 import InputFormik from '../input'
 import * as S from './styled'
 import schema from '../../_dependencies/schema'

@@ -308,6 +308,11 @@ export const removeLastSlash = url => {
   return url && url.endsWith('/') ? url.slice(0, url.length - 1) : url
 }
 
+export const addSlashToEnd = url => {
+  if (url && url.trim() === '/' ) return url
+  return url && !url.endsWith('/') ? `${url}/` : url
+}
+
 export const defaultImage = ({
   deployment,
   contextPath,
