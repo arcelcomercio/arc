@@ -67,8 +67,6 @@ $image-height: 157px;
 *          Estilos base         *
 *-------------------------------*/
 .featured-story {
-  letter-spacing: 0.05em;
-
   @media (--tablet) {
     background-color: $color-white;
     grid-row: span 1;
