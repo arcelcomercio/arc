@@ -51,9 +51,9 @@ const Select = () => (
 
 const FormStyled = S.Form(Form)
 
-const UserProfile = ({ title = '' }) => (
+const UserProfile = ({ title = '', profile }) => (
   <Formik
-    initialValues={{ firstname: 'first' }}
+    initialValues={profile}
     validate={values => {
       return RegisterSchema(values)
     }}
@@ -69,14 +69,14 @@ const UserProfile = ({ title = '' }) => (
           <S.Title>{title}</S.Title>
         </S.WrapTitle>
         <S.Wrap>
-          <Field name="name" placeholder="Nombres" component={InputFormik} />
+          <Field name="firstName" placeholder="Nombres" component={InputFormik} />
           <Field
-            name="firstname"
+            name="lastName"
             placeholder="Apellido Paterno"
             component={InputFormik}
           />
           <Field
-            name="lastname"
+            name="secondLastName"
             placeholder="Apellido Materno"
             component={InputFormik}
           />

@@ -4,11 +4,11 @@ import Panel from '../../../_children/panel'
 import Summary from './_children/summary'
 import * as S from './styled'
 
-function WizardUserProfile() {
+function WizardUserProfile({ profile }) {
   return (
     <S.WizardUserProfile>
       <Panel type="content" valing="jc-center" margin="30px 0 0 0">
-        <UserPerfil title="Ingrese sus datos" />
+        {profile && <UserPerfil profile={profile} title="Ingrese sus datos" />}
       </Panel>
       <Summary />
     </S.WizardUserProfile>
