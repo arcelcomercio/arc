@@ -6,7 +6,11 @@ import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
 import Loading from '../_children/loading'
 import * as S from './styled'
-import { AddIdentity, userProfile } from '../_dependencies/Identity'
+import {
+  AddIdentity,
+  userProfile,
+  attrToObject,
+} from '../_dependencies/Identity'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
@@ -16,38 +20,39 @@ const Right = () => {
 
 @Consumer
 class Content extends React.PureComponent {
-
   constructor(props) {
     super(props)
     this.state = {
       data: {},
-      profile: ''
+      profile: '',
     }
     this.fetch = this.fetch.bind(this)
-    this.fetch();
+    this.fetch()
   }
 
+  // eslint-disable-next-line react/sort-comp
   fetch() {
     this.fetchContent({
       data: {
         source: 'paywall-campaing',
         query: { campaing: 'paywall-gestion-sandbox' },
-      }
+      },
     })
   }
 
   componentDidMount() {
     AddIdentity(this.props).then(() => {
-      userProfile().then((profile) => {
-        console.log(profile);
-        this.setState({ profile })
-      })
+      userProfile(['documentNumber', 'mobilePhone', 'documentType']).then(
+        profile => {
+          this.setState({ profile })
+        }
+      )
     })
   }
 
   render() {
     const { spinning, data, profile } = this.state
-    const { summary, plans } = data;
+    const { summary, plans } = data
     return (
       <Loading spinning={false}>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -55,7 +60,7 @@ class Content extends React.PureComponent {
             <Wizard
               isHashEnabled
               nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-              <WizardUserProfile profile={profile} />
+              <WizardUserProfile profile={profile} summary={summary} />
               <WizardPlan plans={plans} summary={summary} />
             </Wizard>
           </S.Content>
