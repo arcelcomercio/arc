@@ -1,6 +1,4 @@
-import {
-  addResizedUrlItem
-} from './thumbs'
+import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
@@ -27,9 +25,9 @@ export const formatDate = date => {
 
   const fechaEntrante = date.slice(0, 10)
   const fecha =
-    fechaEntrante === fechaGenerada ?
-    date.slice(date.indexOf('T') + 1, 16) :
-    fechaEntrante
+    fechaEntrante === fechaGenerada
+      ? date.slice(date.indexOf('T') + 1, 16)
+      : fechaEntrante
   return fecha
 }
 
@@ -50,13 +48,13 @@ export const formatDateLocalTimeZone = publishDateString => {
     formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
   } else {
     const hora =
-      publishDate.getHours() < 10 ?
-      `0${publishDate.getHours()}` :
-      `${publishDate.getHours()}`
+      publishDate.getHours() < 10
+        ? `0${publishDate.getHours()}`
+        : `${publishDate.getHours()}`
     const minutes =
-      publishDate.getMinutes() < 10 ?
-      `0${publishDate.getMinutes()}` :
-      `${publishDate.getMinutes()}`
+      publishDate.getMinutes() < 10
+        ? `0${publishDate.getMinutes()}`
+        : `${publishDate.getMinutes()}`
     formattedDate = `${hora}:${minutes}`
   }
   return formattedDate
@@ -93,9 +91,9 @@ export const formatDayMonthYear = (date, showHour = true) => {
   } ${fecha.getUTCDate()} de ${
     arrayMeses[fecha.getUTCMonth()]
   } del ${fecha.getUTCFullYear()}`
-  return showHour ?
-    `${dateFormatter}, ${fecha.getHours()}:${fecha.getMinutes()}` :
-    dateFormatter
+  return showHour
+    ? `${dateFormatter}, ${fecha.getHours()}:${fecha.getMinutes()}`
+    : dateFormatter
 }
 
 // ex: 2019-04-29 22:34:13 or 2019/04/29T22:34:13
@@ -203,12 +201,12 @@ export const metaPaginationUrl = (
   siteUrl,
   isQuery
 ) => {
-  return requestUri.match(patternPagination) != null ?
-    `${siteUrl}${requestUri.replace(
+  return requestUri.match(patternPagination) != null
+    ? `${siteUrl}${requestUri.replace(
         patternPagination,
         `${isQuery ? '&page=' : '/'}${pageNumber}`
-      )}` :
-    `${siteUrl}${
+      )}`
+    : `${siteUrl}${
         isQuery ? requestUri : `${requestUri.split('?')[0]}${pageNumber}`
       }${
         isQuery
@@ -223,18 +221,16 @@ export const getMetaPagesPagination = (
   globalContent,
   patternPagination
 ) => {
-  const {
-    next,
-    previous
-  } = globalContent || {}
+  const { next, previous } = globalContent || {}
   const pages = {
-    current: requestUri.match(patternPagination) ?
-      parseInt(
-        requestUri
-        .match(patternPagination)[0]
-        .split(`${isQuery ? '=' : '/'}`)[1],
-        10
-      ) : 1,
+    current: requestUri.match(patternPagination)
+      ? parseInt(
+          requestUri
+            .match(patternPagination)[0]
+            .split(`${isQuery ? '=' : '/'}`)[1],
+          10
+        )
+      : 1,
     next: false,
     prev: false,
   }
@@ -294,9 +290,9 @@ export const getCookie = cookieName => {
 
 export const formatSlugToText = (text = '') => {
   if (!text) return null
-  const splitText = text.slice(1).includes('/') ?
-    text.slice(1).split('/') :
-    text.split('/')
+  const splitText = text.slice(1).includes('/')
+    ? text.slice(1).split('/')
+    : text.split('/')
   const lastSection = splitText[splitText.length - 1]
   return lastSection
     .charAt(0)
@@ -332,12 +328,7 @@ export const defaultImage = ({
   )
 }
 
-export const createScript = ({
-  src,
-  async,
-  defer,
-  textContent = ''
-}) => {
+export const createScript = ({ src, async, defer, textContent = '' }) => {
   const node = document.createElement('script')
   if (src) {
     node.type = 'text/javascript'
@@ -372,7 +363,8 @@ export const breadcrumbList = (url, siteUrl) => {
       if (i === 1 || (i === 2 && dataSeccion.length === 4)) {
         const separator = '/'
         arrayData[i] = {
-          name: element.charAt(0).toUpperCase() +
+          name:
+            element.charAt(0).toUpperCase() +
             element.slice(1).replace('-', ' '),
           url: siteUrl + separator + element,
         }
@@ -384,11 +376,7 @@ export const breadcrumbList = (url, siteUrl) => {
 }
 
 export const getUrlParameter = () => {
-  const {
-    location: {
-      href: loc
-    } = {}
-  } = window || {}
+  const { location: { href: loc } = {} } = window || {}
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
   return parseInt(tmp[1], 0) || 0
@@ -411,9 +399,9 @@ export const getMultimediaIcon = multimediaType => {
 
 export const optaWidgetHtml = html => {
   const matches = html.match(/<opta-widget(.*?)><\/opta-widget>/)
-  const matchesResult = matches ?
-    matches[1].replace(/="/g, '=').replace(/" /g, '&') :
-    ''
+  const matchesResult = matches
+    ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
+    : ''
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
@@ -471,16 +459,16 @@ export const facebookHtml = html => {
     .replace(strFacebook2, rplFacebook2)
     .replace(
       /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/g,
-      rplFacebook3
+      decodeURIComponent(rplFacebook3)
     )
 }
 
 export const youtubeHtml = html => {
   const rplYoutube =
-    '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="$1" height="$2"></amp-youtube>'
+    '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="$2"></amp-youtube>'
 
   return html.replace(
-    /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/,
+    /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
     rplYoutube
   )
 }
@@ -503,8 +491,7 @@ export const freeHtml = html => {
 }
 
 export const ampHtml = (html = '') => {
-  let resultData = ''
-
+  let resultData = html
   // Opta Widget
   resultData = replaceHtmlMigracion(html)
 
@@ -524,7 +511,7 @@ export const ampHtml = (html = '') => {
   resultData = instagramHtml(resultData)
 
   // facebook
-  resultData = facebookHtml(decodeURIComponent(resultData))
+  resultData = facebookHtml(resultData)
 
   // Youtube
   resultData = youtubeHtml(resultData)
@@ -535,12 +522,7 @@ export const ampHtml = (html = '') => {
   return resultData
 }
 
-export const publicidadAmp = ({
-  dataSlot,
-  placementId,
-  width,
-  height
-}) => {
+export const publicidadAmp = ({ dataSlot, placementId, width, height }) => {
   const resultData = createMarkup(`
   <amp-ad width="${width}" height="${height}" type="doubleclick"
   data-slot="${dataSlot}"
