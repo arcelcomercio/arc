@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
+import { isIE } from '../utilities/helpers'
+
 const classes = {
   layout: 'flex justify-center',
   contentContainer: 'flex flex-col content-layout-container w-full',
@@ -13,22 +15,7 @@ const classes = {
 const GridLayout = ({ children = [] }) => {
   const [gridClass, setGridClass] = useState('grid')
   useEffect(() => {
-    const detectIE = () => {
-      const ua = window.navigator.userAgent
-      const msie = ua.indexOf('MSIE ')
-      if (msie > 0) {
-        // IE 10 or older => return version number
-        return true
-      }
-      const trident = ua.indexOf('Trident/')
-      if (trident > 0) {
-        // IE 11 => return version number
-        return true
-      }
-      // other browser
-      return false
-    }
-    if (detectIE()) setGridClass('ie-flex')
+    if (isIE()) setGridClass('ie-flex')
   })
   return (
     <div className={classes.layout}>
