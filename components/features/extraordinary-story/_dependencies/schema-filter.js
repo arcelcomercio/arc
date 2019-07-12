@@ -13,6 +13,11 @@ const schemaFilter = arcSite => `{
                 basic {
                     type 
                     url
+                    resized_urls { 
+                        small
+                        medium
+                        large
+                    }
                 }
             }
             embed_html
@@ -23,12 +28,22 @@ const schemaFilter = arcSite => `{
                 basic {
                     type 
                     url
+                    resized_urls { 
+                        small
+                        medium
+                        large
+                    }
                 }
             }
         }
         basic {
             type 
             url
+            resized_urls { 
+                small
+                medium
+                large
+            }
         }
     }
     credits {

@@ -29,18 +29,20 @@ const SORT = 'sort'
 const SECTION = 'section'
 const BASE_PATH = '/buscar'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
-const HIERARCHY = 'filter-section'
+const HIERARCHY = 'search-filter-default'
 
 @Consumer
 class SearchFilterChildSearchFilter extends PureComponent {
   constructor(props) {
     super(props)
     const { arcSite, isAdmin } = props
+
     this.state = {
-      sort: !isAdmin && this.getOrder(),
-      selected: !isAdmin && this.getSection(),
+      sort: !isAdmin && this.getSortFilter(),
+      selected: !isAdmin && this.getSectionFilter(),
       showList: false,
     }
+
     this.fetchContent({
       data: {
         source: CONTENT_SOURCE,
@@ -57,15 +59,16 @@ class SearchFilterChildSearchFilter extends PureComponent {
     })
   }
 
-  // Verifica si el filtro "orden" está seleccionado previamente.
-  getOrder() {
+  getSortFilter() {
+    // Verifica si hay "sort" en la URL o establece valor por defecto
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
+
     return sort || DESC
   }
 
-  // Verifica si el filtro "sección" está seleccionado previamente.
-  getSection() {
+  getSectionFilter() {
+    // Verifica si hay "section" en la URL o establece valor por defecto
     const { globalContentConfig } = this.props
     const { query: { section = '' } = {} } = globalContentConfig || {}
 
@@ -73,6 +76,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
   }
 
   getUrl(type, value) {
+    // Construye la URL para los botones del filtro
     const { globalContentConfig } = this.props
     const {
       query: { uri = '', query = '', section = 'todas', sort = DESC } = {},
@@ -107,6 +111,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
       sort,
       data: { sections = [] } = {},
     } = this.state
+
     const { isAdmin, globalContentConfig } = this.props
 
     return (

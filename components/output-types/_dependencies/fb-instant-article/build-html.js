@@ -1,10 +1,6 @@
 import ListAdvertisings from './list-advertising'
 
-import {
-  AnalyticsScript,
-  ScriptElement,
-  ScriptHeader,
-} from './scripts'
+import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 
 const buildIframeAdvertising = (urlSite, urlAdvertising) => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlSite}${urlAdvertising}"></iframe></figure>`
@@ -100,13 +96,13 @@ const BuildHtml = BuildHtmlProps => {
                   <script>${ScriptElement()}</script>
                 </iframe>
               </figure>
-            </article>
+            
             <header>
               <h1>${title}</h1>
               <h2>${subTitle}</h2>
             </header>
             <figure>
-                <img src=${multimedia} />
+                <img src="${multimedia}" />
                 <figcaption>${title}</figcaption>
             </figure>
             <p>${author}</p>
@@ -114,6 +110,7 @@ const BuildHtml = BuildHtmlProps => {
                 <iframe frameborder="0" />
             </figure>
             ${buildParagraph(paramsBuildParagraph)}
+            </article>
           </body>
           </html>
           `

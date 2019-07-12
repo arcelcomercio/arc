@@ -10,7 +10,7 @@ class StoryContentChildVideo extends PureComponent {
 
     window.PoWaSettings.advertising = {
       adBar: false,
-      adTag: ({ /**  powa, */ videoData }) => {
+      adTag: ({ videoData }) => {
         return videoData.additional_properties.advertising.playAds === true
           ? this.getParametroPublicidad()
           : ''
@@ -27,16 +27,13 @@ class StoryContentChildVideo extends PureComponent {
       siteProperties: { urlPreroll },
       globalContent,
     } = this.props
-
     const {
       taxonomy: {
         primary_section: {
           additional_properties: {
-            original: {
-              _admin: { alias_ids: aliasId },
-            },
-          },
-        },
+            original: { _admin: { alias_ids: aliasId = [] } = {} },
+          } = {},
+        } = {},
       },
     } = globalContent || {}
 
@@ -48,7 +45,7 @@ class StoryContentChildVideo extends PureComponent {
 
   render() {
     const { data = {} } = this.props
-    return data && renderHTML(data)
+    return data && renderHTML(data.replace('[goldfish_publicidad]', ''))
   }
 }
 export default StoryContentChildVideo

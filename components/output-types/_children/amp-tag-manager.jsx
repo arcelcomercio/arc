@@ -4,21 +4,16 @@ import ConfigParams from '../../utilities/config-params'
 
 export default ({ autors, sections, siteProperties }) => {
   /* eslint-disable no-template-curly-in-string */
-  const ampAnalytics = `{
-    "requests": {
-            "pageviewWithCd6": "${unescape('${pageview}&cd6=${cd6}')}"
-    },
+  const ampAnalytics = `
+  {
     "vars": {
-        "account": "${siteProperties.ampGoogleTagManagerId}"
+      "account": "${siteProperties.ampGoogleTagManagerId}"
     },
     "triggers": {
-        "trackPageviewWithCustom": {
-            "on": "visible",
-            "request": "pageviewWithCd6",
-            "vars": {
-                "cd6": "AMP"
-            }
-        }
+      "trackPageview": {
+        "on": "visible",
+        "request": "pageview"
+      }
     }
   }`
 
@@ -48,7 +43,9 @@ export default ({ autors, sections, siteProperties }) => {
 
   return (
     <>
-      <amp-analytics type="googleanalytics" id="analytics-elcomercio">
+      <amp-analytics
+        type="googleanalytics"
+        id={`analytics-${siteProperties.ampGoogleTagManagerName}`}>
         <script
           type="application/json"
           dangerouslySetInnerHTML={createMarkup(ampAnalytics)}

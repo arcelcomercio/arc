@@ -1,6 +1,6 @@
 import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
-import { defaultImage, formatHtmlToText, breadcrumbList } from './helpers'
+import { defaultImage, formatHtmlToText, breadcrumbList, addSlashToEnd } from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -89,7 +89,7 @@ class StoryData {
   }
 
   get authorLink() {
-    return StoryData.getDataAuthor(this._data).urlAuthor
+    return addSlashToEnd(StoryData.getDataAuthor(this._data).urlAuthor)
   }
 
   get authorSlug() {
@@ -136,7 +136,7 @@ class StoryData {
 
   get sectionLink() {
     // FIXME: deprecated
-    return StoryData.getDataSection(this._data, this._website).path
+    return addSlashToEnd(StoryData.getDataSection(this._data, this._website).path)
   }
 
   get primarySection() {
@@ -144,7 +144,7 @@ class StoryData {
   }
 
   get primarySectionLink() {
-    return StoryData.getPrimarySection(this._data).path || ''
+    return addSlashToEnd(StoryData.getPrimarySection(this._data).path) || ''
   }
 
   get allSections() {
@@ -160,7 +160,7 @@ class StoryData {
 
   get link() {
     const { website_url: url = '' } = this._data || {}
-    return url
+    return addSlashToEnd(url)
   }
 
   get relatedContent() {
@@ -528,20 +528,21 @@ class StoryData {
         data.promo_items[ConfigParams.GALLERY].promo_items[
           ConfigParams.IMAGE
         ] &&
-        data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-          .url) ||
+        ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
+          .resized_urls &&
+          data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
+            .resized_urls.large) ||
+          data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
+            .url)) ||
       ''
     return thumb
   }
 
   static getImage(data) {
-    const basicPromoItems =
+    const { url, resized_urls: { large } = {}, type = null } =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
-    const typePromoItems = (basicPromoItems && basicPromoItems.type) || null
-    return (
-      (typePromoItems && typePromoItems === 'image' && basicPromoItems.url) ||
-      ''
-    )
+
+    return (type === 'image' && large ? large : url) || ''
   }
 
   static getThumbnail(data, type) {

@@ -1,10 +1,17 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import { CONTENT_BASE } from 'fusion:environment'
+import {
+  resizerSecret,
+  CONTENT_BASE
+} from 'fusion:environment'
+import {
+  addResizedUrls
+} from '@arc-core-components/content-source_content-api-v4'
+import getProperties from 'fusion:properties'
 
 const SCHEMA_NAME = 'stories'
-let sectionName = ''
-const params = [
-  {
+let website = ''
+const params = [{
     name: 'section',
     displayName: 'Section(es)',
     type: 'text',
@@ -25,7 +32,9 @@ const params = [
     type: 'number',
   },
 ]
-const options = { json: true }
+const options = {
+  json: true
+}
 
 const itemsToArray = (itemString = '') => {
   return itemString.split(',').map(item => item.replace(/"/g, ''))
@@ -33,25 +42,77 @@ const itemsToArray = (itemString = '') => {
 
 const formatSection = section => {
   if (section === '/') return section
-  return section && section.endsWith('/')
-    ? section.slice(0, section.length - 1)
-    : section
+  return section && section.endsWith('/') ?
+    section.slice(0, section.length - 1) :
+    section
+}
+
+const addResizedUrlsStory = (data, resizerUrl) => {
+  return addResizedUrls(data, {
+    resizerUrl,
+    resizerSecret,
+    presets: {
+      small: {
+        width: 100,
+        height: 200,
+      },
+      medium: {
+        width: 480,
+      },
+      large: {
+        width: 940,
+        height: 569,
+      },
+      amp: {
+        width: 600,
+        height: 375,
+      },
+    },
+  })
+}
+
+const itemsToArrayImge = (data, websiteResizer) => {
+  const {
+    resizerUrl
+  } = getProperties(websiteResizer)
+
+  return data && data.map(item => {
+    const dataStory = item
+
+    const {
+      promo_items: {
+        basic_gallery: contentElements = null
+      } = {}
+    } = item
+    const contentElementsData = contentElements || item
+
+    if (contentElements) {
+      const image = addResizedUrlsStory(contentElementsData, resizerUrl)
+      dataStory.promo_items.basic_gallery = image
+    }
+
+    return addResizedUrlsStory(dataStory, resizerUrl)
+  })
 }
 
 const pattern = (key = {}) => {
-  const website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
+  website = key['arc-site'] || 'Arc Site no está definido'
+  const {
+    section,
+    excludeSections,
+    feedOffset,
+    stories_qty: storiesQty
+  } = key
   const clearSection = formatSection(section)
   const newSection =
-    clearSection === '' || clearSection === undefined || clearSection === null
-      ? '/'
-      : clearSection
+    clearSection === '' || clearSection === undefined || clearSection === null ?
+    '/' :
+    clearSection
   const sectionsExcluded = itemsToArray(excludeSections)
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               'revision.published': 'true',
             },
@@ -62,29 +123,26 @@ const pattern = (key = {}) => {
             },
           },
         ],
-        must_not: [
-          {
-            nested: {
-              path: 'taxonomy.sections',
-              query: {
-                bool: {
-                  must: [
-                    {
-                      terms: {
-                        'taxonomy.sections._id': sectionsExcluded,
-                      },
+        must_not: [{
+          nested: {
+            path: 'taxonomy.sections',
+            query: {
+              bool: {
+                must: [{
+                    terms: {
+                      'taxonomy.sections._id': sectionsExcluded,
                     },
-                    {
-                      term: {
-                        'taxonomy.sections._website': website,
-                      },
+                  },
+                  {
+                    term: {
+                      'taxonomy.sections._website': website,
                     },
-                  ],
-                },
+                  },
+                ],
               },
             },
           },
-        ],
+        }, ],
       },
     },
   }
@@ -96,8 +154,7 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': sectionsIncluded,
                 },
@@ -122,29 +179,28 @@ const pattern = (key = {}) => {
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
       throw new Error('Sección no encontrada')
-    sectionName = resp.name
     return request({
       uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
         10}&from=${feedOffset || 0}&sort=publish_date:desc`,
       ...options,
     }).then(data => {
-      return data
+      const dataStory = data
+      dataStory.content_elements = itemsToArrayImge(
+        data.content_elements,
+        website
+      )
+      return {
+        ...dataStory,
+        section_name: resp.name,
+      }
     })
   })
 }
 
 const fetch = key => pattern(key)
 
-const transform = data => {
-  return {
-    ...data,
-    section_name: sectionName,
-  }
-}
-
 const source = {
   fetch,
-  transform,
   schemaName: SCHEMA_NAME,
   params,
 }

@@ -27,7 +27,7 @@ const classes = {
   logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
-  btnContainer: 'flex items-center justify-end header__btn-container',
+  btnContainer: 'flex items-center justify-end header__btn-container hidden',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
@@ -60,7 +60,7 @@ class NavBarDefault extends PureComponent {
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
     const { statusSearch } = this.state
-    if (statusSearch) this.findSearch()
+    if (statusSearch) this._handleSearch()
     else this.focusInputSearch()
     this.setState({ statusSearch: !statusSearch })
   }
@@ -70,21 +70,24 @@ class NavBarDefault extends PureComponent {
     this.inputSearch.current.focus()
   }
 
-  // set Query search and location replace
-  findSearch = () => {
+  // TODO: abstraer este método, se usa por 3 componentes
+  _handleSearch = () => {
     const { value } = this.inputSearch.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `/buscar?query=${value}`
+      location.href = `/buscar/${encodeURIComponent(value).replace(
+        /%20/g,
+        '+'
+      )}/todas/descendiente/`
     }
   }
 
   // Active find with enter key
-  watchKeys = e => {
+  _handleKeyDown = e => {
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
-      this.findSearch()
+      this._handleSearch()
     }
   }
 
@@ -124,7 +127,7 @@ class NavBarDefault extends PureComponent {
     const scroll = scrollBody || scrollElement
 
     const header = Array.from(document.getElementsByTagName('header'))
-    const headerTop = (header[0] && header[0].offsetTop) || 100
+    const headerTop = (header[0] && header[0].offsetTop) || 0
     // setTimeout(() => {
     //   console.log(header[0].offsetTop)
     // }, 2000)
@@ -262,7 +265,7 @@ class NavBarDefault extends PureComponent {
                     ref={this.inputSearch}
                     type="search"
                     /* onBlur={this._handleCloseSectionsSearch} */
-                    onKeyUp={this.watchKeys}
+                    onKeyUp={this._handleKeyDown}
                     placeholder="¿Qué Buscas?"
                     className={`${classes.search} ${this.activeSearch()}`}
                   />

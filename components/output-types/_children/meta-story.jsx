@@ -18,8 +18,8 @@ export default ({
     title,
     tags,
     link,
-    publishDate,
-    lastPublishDate,
+    displayDate: publishDate,
+    publishDate: lastPublishDate,
     subTitle,
     seoAuthor,
     imagesSeo,
@@ -46,12 +46,12 @@ export default ({
   )
 
   const imagesSeoItems = imagesSeo.map((image, i) => {
-    const { subtitle, url = '' } = image || {}
+    const { subtitle, url = '', resized_urls: { large } = {} } = image || {}
     const representativeOfPage = i === 0 ? '"representativeOfPage":true,' : ''
     return `{ 
          ${representativeOfPage}
          "@type":"ImageObject",
-         "url": "${url}",
+         "url": "${large || url}",
          "description":"${subtitle}",
          "height":418,
          "width":696
@@ -118,7 +118,11 @@ export default ({
           "width":${seo.width}
        }
     },
-    "keywords":[${seoKeywordsItems.map(item => item)}]
+    "keywords":[${
+      seoKeywordsItems[0]
+        ? seoKeywordsItems.map(item => item)
+        : listItems.map(item => item)
+    }]
  }`
 
   const breadcrumbResult = breadcrumbList.map(({ url, name }, i) => {
@@ -163,7 +167,10 @@ export default ({
     }`
 
   return (
-    <Fragment>
+    <>
+      {!isAmp && (
+        <link rel="amphtml" href={`${siteUrl}${link}?outputType=amp`} />
+      )}
       <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
@@ -172,7 +179,14 @@ export default ({
       <meta name="bi3dArtTitle" content={title} />
       <meta name="cXenseParse:per-categories" content={section} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
-
+      <meta
+        name="keywords"
+        content={
+          seoKeywordsItems[0]
+            ? seoKeywordsItems.map(item => item)
+            : listItems.map(item => item)
+        }
+      />
       <meta property="article:published_time" content={publishDate} />
       <meta property="article:modified_time" content={lastPublishDate} />
       <meta property="article:author" content={`Redacción ${siteName}`} />
@@ -181,8 +195,6 @@ export default ({
       {listItems.map(item => {
         return <meta property="article:tag" content={item} />
       })}
-
-      <meta property="article:tag" content="noticias" />
 
       <script
         type="application/ld+json"
@@ -202,6 +214,6 @@ export default ({
           dangerouslySetInnerHTML={{ __html: scriptTaboola }}
         />
       )}
-    </Fragment>
+    </>
   )
 }

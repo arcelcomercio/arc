@@ -14,6 +14,7 @@ export default {
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KKXTKGP_',
   ampGoogleTagManagerId: 'UA-3055636-11',
+  ampGoogleTagManagerName: 'elcomercio',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-11',
   fbArticleStyle: 'LogoElcomercio',
