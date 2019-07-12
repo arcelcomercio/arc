@@ -412,10 +412,9 @@ export const optaWidgetHtml = html => {
 }
 
 export const imageHtml = html => {
-  const strImageCde = '/<img (.*)src="http://cde(.*?)" (.*)>/g'
   const rplImageCde =
-    '<amp-img class="media" src="http://cde$2" layout="responsive" width="1" height="1"></amp-img>'
-  return html.replace(strImageCde, rplImageCde)
+    '<amp-img class="media" src="https://$2" layout="responsive" width="1" height="1"></amp-img>'
+  return html.replace(/<img (.*)src="https:\/\/(.*?)" (.*)>/g, rplImageCde)
 }
 
 export const playerHtml = html => {
