@@ -57,6 +57,22 @@ const createPaginator = (currentPage, totalPages) => {
   return listPages
 }
 
+const testSearchPath = path => {
+  let newPath = path
+  const regex = /^\/buscar\/[^/]+\/[^/]+\/[^/]+\/?$/g
+  if (!regex.test(path)) {
+    const splittedPath = path.split('/')
+    if (splittedPath.length === 2)
+      // /buscar/query
+      newPath = `${path}/todas/descendiente`
+    else if (splittedPath.length === 3)
+      // /buscar/query/section
+      newPath = `${path}/descendiente`
+  }
+
+  return newPath
+}
+
 const Pagination = props => {
   const { totalElements, storiesQty, requestUri } = props
   let { currentPage } = props
@@ -65,13 +81,14 @@ const Pagination = props => {
   const pages = createPaginator(currentPage || 1, totalPages)
   currentPage = parseInt(currentPage || 1, 10)
 
-  const pathOrigin = requestUri.replace(/\/[0-9]*?\/?$/, '')
+  let pathOrigin = requestUri.replace(/\/[0-9]*?\/?$/, '')
+  pathOrigin = testSearchPath(pathOrigin)
 
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
   const prevPage = currentPage - 1
 
-  const urlPrevPage = `${pathOrigin}/${prevPage}`
-  const urlNextPage = `${pathOrigin}/${nextPage}`
+  const urlPrevPage = `${pathOrigin}/${prevPage}/`
+  const urlNextPage = `${pathOrigin}/${nextPage}/`
 
   return (
     <div role="navigation" className={classes.pagination}>
@@ -87,7 +104,7 @@ const Pagination = props => {
       {pages.map((page, i) => {
         let tag = null
         const key = `pagination-${i}-${page || ''}`
-        const urlPage = `${pathOrigin}/${page}`
+        const urlPage = `${pathOrigin}/${page}/`
 
         if (page !== '...') {
           tag = (
