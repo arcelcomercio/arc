@@ -167,7 +167,10 @@ export default ({
     }`
 
   return (
-    <Fragment>
+    <>
+      {!isAmp && (
+        <link rel="amphtml" href={`${siteUrl}${link}?outputType=amp`} />
+      )}
       <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
@@ -211,6 +214,6 @@ export default ({
           dangerouslySetInnerHTML={{ __html: scriptTaboola }}
         />
       )}
-    </Fragment>
+    </>
   )
 }

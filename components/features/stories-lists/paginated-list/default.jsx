@@ -21,6 +21,7 @@ class StoriesListPaginatedList extends PureComponent {
       deployment,
       contextPath,
       arcSite,
+      requestUri,
       customFields: customFieldsProps = {},
     } = this.props
     const { content_elements: stories = [], count = 0 } = globalContent || {}
@@ -65,6 +66,7 @@ class StoriesListPaginatedList extends PureComponent {
             totalElements={count}
             storiesQty={size}
             currentPage={from}
+            requestUri={requestUri}
           />
         )}
       </>
