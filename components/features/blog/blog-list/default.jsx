@@ -7,6 +7,8 @@ import {
   defaultImage,
 } from '../../../utilities/helpers'
 
+// TODO: mover fetch
+
 const classes = {
   list: 'bg-white w-full p-15', // blog-list
   title: 'uppercase mb-20 title-xs', // blog-list__title
@@ -129,5 +131,6 @@ class BlogList extends PureComponent {
 }
 
 BlogList.label = 'Blog - Listado blogs'
+// BlogList.static = true
 
 export default BlogList
