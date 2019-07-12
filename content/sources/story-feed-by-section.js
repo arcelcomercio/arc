@@ -8,6 +8,9 @@ import {
   addResizedUrls
 } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
+import {
+  removeLastSlash
+} from '../../components/utilities/helpers'
 
 const SCHEMA_NAME = 'stories'
 let website = ''
@@ -38,13 +41,6 @@ const options = {
 
 const itemsToArray = (itemString = '') => {
   return itemString.split(',').map(item => item.replace(/"/g, ''))
-}
-
-const formatSection = section => {
-  if (section === '/') return section
-  return section && section.endsWith('/') ?
-    section.slice(0, section.length - 1) :
-    section
 }
 
 const addResizedUrlsStory = (data, resizerUrl) => {
@@ -103,11 +99,12 @@ const pattern = (key = {}) => {
     feedOffset,
     stories_qty: storiesQty
   } = key
-  const clearSection = formatSection(section)
+  const clearSection = removeLastSlash(section)
   const newSection =
     clearSection === '' || clearSection === undefined || clearSection === null ?
     '/' :
     clearSection
+  // TODO: itemsToArray debe ejecutarse antes que removeLastSlash
   const sectionsExcluded = itemsToArray(excludeSections)
   const body = {
     query: {
