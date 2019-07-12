@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import ENV from 'fusion:environment'
 import StoryData from '../../utilities/story-data'
 import { formatHtmlToText } from '../../utilities/helpers'
@@ -135,10 +135,8 @@ export default ({
          {  
             "@type":"ListItem",
             "position":${i + 1},
-            "item":{  
-               "@id":"${url}",
-               "name":"${name}"
-            }
+            "name":"${name},
+            "item":"${url}"
          } `
     )
   })
