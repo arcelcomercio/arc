@@ -60,8 +60,8 @@ class Content extends React.PureComponent {
             <Wizard
               isHashEnabled
               nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-              <WizardUserProfile profile={profile} summary={summary} />
               <WizardPlan plans={plans} summary={summary} />
+              <WizardUserProfile profile={profile} summary={summary} />
             </Wizard>
           </S.Content>
         </div>
