@@ -46,8 +46,9 @@ class CardMostRead extends Component {
   }
 
   render() {
-    const { customFields, arcSite, requestUri } = this.props
-    const { viewImage = false, storiesQty = 5 } = customFields || {}
+    const { customFields, arcSite, requestUri, editableField } = this.props
+    const { viewImage = false, storiesQty = 5, customTitle = '' } =
+      customFields || {}
     const { data: { stories } = {} } = this.state
     const params = {
       viewImage,
@@ -55,6 +56,8 @@ class CardMostRead extends Component {
       arcSite,
       requestUri,
       stories,
+      customTitle,
+      editableField,
     }
     return <CardMostReadList {...params} />
   }
@@ -64,6 +67,9 @@ CardMostRead.propTypes = {
   customFields: PropTypes.shape({
     viewImage: PropTypes.bool.tag({
       name: 'Imagen Visible',
+    }),
+    customTitle: PropTypes.string.tag({
+      name: 'Editar Título',
     }),
     storiesQty: PropTypes.number.tag({
       name: 'Número de Noticias',

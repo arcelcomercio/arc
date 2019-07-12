@@ -10,6 +10,7 @@ class BlogAuthorList extends PureComponent {
     const {
       contextPath,
       deployment,
+      requestUri,
       globalContent = {},
       globalContentConfig = {},
       arcSite = '',
@@ -59,6 +60,7 @@ class BlogAuthorList extends PureComponent {
           totalElements={countPosts}
           storiesQty={postsLimit}
           currentPage={postsOffset || 1}
+          requestUri={requestUri}
         />
       </div>
     )
@@ -66,6 +68,6 @@ class BlogAuthorList extends PureComponent {
 }
 
 BlogAuthorList.label = 'Blog - Posts por autor'
-// No puede ser static = true porque Pagination maneja estados.
+BlogAuthorList.static = true
 
 export default BlogAuthorList

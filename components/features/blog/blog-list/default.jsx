@@ -2,7 +2,12 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/item'
 import Pagination from '../../../global-components/pagination'
-import { formatDateLocalTimeZone, defaultImage } from '../../../utilities/helpers'
+import {
+  formatDateLocalTimeZone,
+  defaultImage,
+} from '../../../utilities/helpers'
+
+// TODO: mover fetch
 
 const classes = {
   list: 'bg-white w-full p-15', // blog-list
@@ -87,7 +92,11 @@ class BlogList extends PureComponent {
   }
 
   render() {
-    const { globalContent = {}, globalContentConfig = {} } = this.props
+    const {
+      requestUri,
+      globalContent = {},
+      globalContentConfig = {},
+    } = this.props
     const {
       query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
     } = globalContentConfig
@@ -113,6 +122,7 @@ class BlogList extends PureComponent {
             totalElements={totalPost}
             storiesQty={blogLimit}
             currentPage={blogOffset || 1}
+            requestUri={requestUri}
           />
         )}
       </>
@@ -121,5 +131,6 @@ class BlogList extends PureComponent {
 }
 
 BlogList.label = 'Blog - Listado blogs'
+// BlogList.static = true
 
 export default BlogList
