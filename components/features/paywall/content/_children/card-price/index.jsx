@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Panel from '../../../_children/panel'
 import * as S from './styled'
 
-function CardPrice({ amount, billingFrequency, nextStep }) {
+function CardPrice({ amount, billingFrequency, description, nextStep }) {
   const frequency = {
     month: 'Mensual',
     year: 'Anual',
@@ -30,13 +30,13 @@ function CardPrice({ amount, billingFrequency, nextStep }) {
         onFocus={onFocus}
         onMouseOver={onFocus}>
         <S.Content>
-          <S.Frecuency>{frequency[billingFrequency]}</S.Frecuency>
+          <S.Frecuency>{frequency[billingFrequency.toLowerCase()]}</S.Frecuency>
           <S.Amount>
             <S.Currency>S/</S.Currency>
             <span>{amount}</span>
           </S.Amount>
           <S.Description>
-            / AL MES POR 6 MESES LUEGO S/ 20 CADA MES
+            {description.description}
           </S.Description>
         </S.Content>
         <S.Footer>

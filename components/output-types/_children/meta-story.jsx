@@ -63,6 +63,9 @@ export default ({
     return `${description}`
   })
 
+  const listItemsTagsKeywords = tags.map(({ description }) => {
+    return `"${description}"`
+  })
   const seoKeywordsItems = seoKeywords.map(item => {
     return `"${item}"`
   })
@@ -121,7 +124,7 @@ export default ({
     "keywords":[${
       seoKeywordsItems[0]
         ? seoKeywordsItems.map(item => item)
-        : listItems.map(item => item)
+        : listItemsTagsKeywords.map(item => item)
     }]
  }`
 
