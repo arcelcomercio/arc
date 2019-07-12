@@ -70,7 +70,7 @@ class NavBarDefault extends PureComponent {
     this.inputSearch.current.focus()
   }
 
-  // set Query search and location replace
+  // TODO: abstraer este método, se usa por 3 componentes
   _handleSearch = () => {
     const { value } = this.inputSearch.current
     if (value !== '') {
@@ -78,7 +78,7 @@ class NavBarDefault extends PureComponent {
       location.href = `/buscar/${encodeURIComponent(value).replace(
         /%20/g,
         '+'
-      )}/`
+      )}/todas/descendiente/`
     }
   }
 
@@ -127,7 +127,7 @@ class NavBarDefault extends PureComponent {
     const scroll = scrollBody || scrollElement
 
     const header = Array.from(document.getElementsByTagName('header'))
-    const headerTop = (header[0] && header[0].offsetTop) || 100
+    const headerTop = (header[0] && header[0].offsetTop) || 0
     // setTimeout(() => {
     //   console.log(header[0].offsetTop)
     // }, 2000)
@@ -278,10 +278,14 @@ class NavBarDefault extends PureComponent {
               </div>
             </div>
             <div
-              className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+              className={`${classes.btnContainer} ${
+                classes.navMobileContainer
+              } ${responsiveClass}`}>
               <button
                 type="button"
-                className={`${classes.btnLogin} border-1 border-solid border-white`}
+                className={`${
+                  classes.btnLogin
+                } border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
                 <i className={classes.iconLogin} />
               </button>

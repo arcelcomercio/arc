@@ -35,7 +35,7 @@ export const getQuery = ({
 
   let sec = _id || section
 
-  if (sec === 'todas') sec = ''
+  if (sec === 'todas' || sec === null || sec === 'undefined') sec = ''
   else if (sec !== '') {
     sec = sec.charAt(0) === '/' ? sec : `/${sec}`
   }

@@ -184,7 +184,13 @@ class StoryContent extends PureComponent {
                       js: ConfigParams.OPTA_JS_LINK,
                       defer: true,
                     })
-                  return (
+
+                  return content.includes('id="powa-') ? (
+                    <StoryContentChildVideo
+                      data={content}
+                      className={classes.newsImage}
+                    />
+                  ) : (
                     <RawHtml
                       content={replaceHtmlMigracion(content)}
                       className={classes.newsEmbed}

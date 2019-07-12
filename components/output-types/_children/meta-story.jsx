@@ -63,6 +63,9 @@ export default ({
     return `${description}`
   })
 
+  const listItemsTagsKeywords = tags.map(({ description }) => {
+    return `"${description}"`
+  })
   const seoKeywordsItems = seoKeywords.map(item => {
     return `"${item}"`
   })
@@ -121,7 +124,7 @@ export default ({
     "keywords":[${
       seoKeywordsItems[0]
         ? seoKeywordsItems.map(item => item)
-        : listItems.map(item => item)
+        : listItemsTagsKeywords.map(item => item)
     }]
  }`
 
@@ -167,7 +170,10 @@ export default ({
     }`
 
   return (
-    <Fragment>
+    <>
+      {!isAmp && (
+        <link rel="amphtml" href={`${siteUrl}${link}?outputType=amp`} />
+      )}
       <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
@@ -211,6 +217,6 @@ export default ({
           dangerouslySetInnerHTML={{ __html: scriptTaboola }}
         />
       )}
-    </Fragment>
+    </>
   )
 }
