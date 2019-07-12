@@ -104,9 +104,7 @@ export default ({
       {isAmp !== true && (
         <link rel="canonical" href={`${siteUrl}${requestUri}`} />
       )}
-      {isStory && (
-        <link rel="amphtml" href={`${siteUrl}${requestUri}?outputType=amp`} />
-      )}
+
       <meta name="theme-color" content={colorPrimary} />
       <meta name="msapplication-TileColor" content={colorPrimary} />
       <meta name="apple-mobile-web-app-title" content={siteName} />

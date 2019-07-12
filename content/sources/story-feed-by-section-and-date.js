@@ -1,5 +1,9 @@
-import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import {
+  resizerSecret
+} from 'fusion:environment'
+import {
+  addResizedUrls
+} from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 
 let globalParams = {}
@@ -7,8 +11,7 @@ let globalParams = {}
 const schemaName = 'stories'
 let website = ''
 
-const params = [
-  {
+const params = [{
     name: 'section',
     displayName: 'Sección',
     type: 'text',
@@ -22,18 +25,11 @@ const params = [
 
 const getActualDate = () => {
   const today = new Date()
-  // TODO: fix and remove this temporal ugly fix
 
-  if (today.getHours() >= 19) today.setDate(today.getDate() - 1)
+  if (today.getHours() <= 5)
+    today.setDate(today.getDate() - 1)
 
-  let dd = today.getDate()
-  let mm = today.getMonth() + 1 // January is 0!
-
-  const yyyy = today.getFullYear()
-  if (dd < 10) dd = `0${dd}`
-  if (mm < 10) mm = `0${mm}`
-
-  return `${yyyy}-${mm}-${dd}`
+  return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 }
 
 const addResizedUrlsStory = (data, resizerUrl) => {
@@ -61,12 +57,18 @@ const addResizedUrlsStory = (data, resizerUrl) => {
 }
 
 const itemsToArrayImge = data => {
-  const { resizerUrl } = getProperties(website)
+  const {
+    resizerUrl
+  } = getProperties(website)
 
   return data.map(item => {
     const dataStory = item
 
-    const { promo_items: { basic_gallery: contentElements = null } = {} } = item
+    const {
+      promo_items: {
+        basic_gallery: contentElements = null
+      } = {}
+    } = item
     const contentElementsData = contentElements || item
     if (contentElements) {
       const image = addResizedUrlsStory(contentElementsData, resizerUrl)
@@ -91,19 +93,21 @@ const transform = data => {
 
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, date } = key
+  const {
+    section,
+    date
+  } = key
 
   /** Para enviar params a transform luego */
   globalParams = {
     section: section || 'todas',
-    date,
+    date: date || getActualDate(),
   }
 
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -111,8 +115,8 @@ const pattern = (key = {}) => {
           {
             range: {
               publish_date: {
-                gte: `${date || getActualDate()}T00:00:00`, // 2019-03-05T00:00:00-05:00
-                lte: `${date || getActualDate()}T23:59:59`, // 2019-03-06T00:00:00-05:00
+                gte: `${globalParams.date}T00:00:00`, // 2019-03-05T00:00:00-05:00
+                lte: `${globalParams.date}T23:59:59`, // 2019-03-06T00:00:00-05:00
               },
             },
           },
@@ -133,8 +137,7 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': [`/${section}`],
                 },

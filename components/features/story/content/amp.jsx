@@ -100,7 +100,12 @@ class StoryContentAmp extends PureComponent {
                 }
 
                 if (type === ConfigParams.ELEMENT_RAW_HTML) {
-                  return (
+                  return content.includes('id="powa-') ? (
+                    <StoryContentChildVideo
+                      data={content}
+                      className={classes.newsImage}
+                    />
+                  ) : (
                     <RawHtml content={ampHtml(content)} rawHtmlClasses="" />
                   )
                 }

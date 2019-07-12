@@ -2,9 +2,16 @@ import React from 'react'
 import Consumer from 'fusion:consumer'
 import ENV from 'fusion:environment'
 import * as S from './styled'
+import { AddIdentity } from '../_dependencies/Identity'
 
 @Consumer
 class Head extends React.PureComponent {
+  componentDidMount() {
+    AddIdentity(this.props).then(() => {
+      console.log('cargo head')
+    })
+  }
+
   render() {
     const { siteProperties, contextPath, deployment } = this.props
 

@@ -31,6 +31,12 @@ class FeaturedStoryFormatter {
           website_url
         }
       }
+      taxonomy { 
+        primary_section { 
+          name
+          path 
+        }
+      }
       website_url
     }`
     this.initialState = {
@@ -82,9 +88,9 @@ class FeaturedStoryFormatter {
     const newState = {
       ...this.initialState,
     }
-
-    newState.category.name = this.storyDataInstace.section
-    newState.category.url = this.storyDataInstace.sectionLink
+    
+    newState.category.name = this.storyDataInstace.primarySection
+    newState.category.url = this.storyDataInstace.primarySectionLink
 
     newState.title.name = this.storyDataInstace.title
     newState.title.url = this.storyDataInstace.link
