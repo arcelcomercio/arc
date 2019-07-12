@@ -110,8 +110,8 @@ const BuildHtml = BuildHtmlProps => {
                 <iframe frameborder="0" />
             </figure>
             ${buildParagraph(paramsBuildParagraph)}
-            </article>
           </body>
+          </article>
           </html>
           `
   return element
