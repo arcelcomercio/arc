@@ -123,12 +123,11 @@ export const getActualDate = () => {
   const today = new Date()
 
   /**
-   * TODO: temporal. Esto esta funcionando porque su gemelo en 
+   * TODO: temporal. Esto esta funcionando porque su gemelo en
    * story-feed-by-section-and-date funciona desde server y ahora este tambien
    * cuando el componente tiene static true y la fecha es distinta en local, eso creemos.
    */
-  if (today.getHours() <= 5)
-    today.setDate(today.getDate() - 1)
+  if (today.getHours() <= 5) today.setDate(today.getDate() - 1)
 
   return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 }
@@ -474,6 +473,9 @@ export const youtubeHtml = html => {
     rplYoutube
   )
 }
+export const replaceHtmlMigracion = html => {
+  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
+}
 
 export const instagramHtml = html => {
   const rplInstagram =
@@ -493,7 +495,10 @@ export const ampHtml = (html = '') => {
   let resultData = ''
 
   // Opta Widget
-  resultData = optaWidgetHtml(html)
+  resultData = replaceHtmlMigracion(html)
+
+  // Opta Widget
+  resultData = optaWidgetHtml(resultData)
 
   // imagenes
   resultData = imageHtml(resultData)
@@ -558,8 +563,4 @@ export const formatDateStory = date => {
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
   return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
-}
-
-export const replaceHtmlMigracion = html => {
-  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }
