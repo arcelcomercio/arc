@@ -34,15 +34,12 @@ export const formatDate = date => {
 }
 
 export const formatDateLocalTimeZone = publishDateString => {
-  let publishDate = new Date(publishDateString)
-  publishDate = publishDate.setHours(publishDate.getHours() - 5)
-  // publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+  const publishDate = new Date(publishDateString)
+  publishDate.setHours(publishDate.getHours() - 5)
 
-  let today = new Date()
-  today = today.setHours(today.getHours() - 5)
+  const today = new Date()
+  today.setHours(today.getHours() - 5)
 
-  /*   const publishDate = new Date(publishDateString)
-    const today = new Date() */
   let formattedDate = ''
   const diff = parseFloat(
     (Math.abs(today - publishDate) / (1000 * 60 * 60)).toFixed(1)

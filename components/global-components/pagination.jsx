@@ -59,17 +59,19 @@ const createPaginator = (currentPage, totalPages) => {
 
 const testSearchPath = path => {
   let newPath = path
-  const regex = /^\/buscar\/[^/]+\/[^/]+\/[^/]+\/?$/g
-  if (!regex.test(path)) {
-    const splittedPath = path.split('/')
-    if (splittedPath.length === 2)
-      // /buscar/query
-      newPath = `${path}/todas/descendiente`
-    else if (splittedPath.length === 3)
-      // /buscar/query/section
-      newPath = `${path}/descendiente`
+  let regex = /^\/buscar\/.+$/g
+  if (regex.test(path)) {
+    regex = /^\/buscar\/[^/]+\/[^/]+\/[^/]+\/?$/g
+    if (!regex.test(path)) {
+      const splittedPath = path.split('/')
+      if (splittedPath.length === 2)
+        // /buscar/query
+        newPath = `${path}/todas/descendiente`
+      else if (splittedPath.length === 3)
+        // /buscar/query/section
+        newPath = `${path}/descendiente`
+    }
   }
-
   return newPath
 }
 
