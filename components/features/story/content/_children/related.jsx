@@ -2,6 +2,7 @@ import React from 'react'
 import { getIcon } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 import ConfigParams from '../../../../utilities/config-params'
+import DataStory from '../../../../utilities/story-data'
 
 // Basic flex stuff
 const classes = {
@@ -19,17 +20,14 @@ const classes = {
 }
 
 const RenderRelatedContentElement = (elements, i) => {
-  const {
-    website_url: storyUrl,
-    headlines: { basic: storyTitle } = {},
-    promo_items: { basic: imageData = {} } = {},
-  } = elements
-
+  const get = new DataStory({
+    data: elements,
+  })
   const filterData = {
-    nameTitle: storyTitle,
-    urlTitle: storyUrl,
-    multimediaType: imageData.type,
-    multimediaImg: imageData.url,
+    nameTitle: get.title,
+    urlTitle: get.link,
+    multimediaType: get.multimediaType,
+    multimediaImg: get.multimedia,
   }
 
   return (

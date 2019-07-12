@@ -1,34 +1,49 @@
 import addScriptAsync from '../../../utilities/script-async'
 
-const AddIdentity = (props) => {
-    const { siteProperties } = props;
-    const {
-      signwall: { ORIGIN_IDENTITY_SDK, ORIGIN_API },
-    } = siteProperties
+export const attrToObject = (attributes = [], getAttributes = []) => {
+  return getAttributes.reduce((prev, name) => {
+    const attrs = attributes.find(attr => attr.name === name)
 
-    return addScriptAsync({
-      name: 'sdkIndetityARC',
-      url: ORIGIN_IDENTITY_SDK,
-    })
-      .then((added) => {
-        if(added){
-          window.Identity.apiOrigin = ORIGIN_API
-        }
-        return window.Identity;
-      });
+    if (attrs) {
+      prev[name] = attrs.value
+    }
+    return prev
+  }, {})
 }
 
-const userProfile = () => {
-  if(!window.hasOwnProperty('Identity')){
-    throw 'not found Identity'
-  }
-  
-  if(window.Identity.userProfile){
-    return Promise.resolve(window.Identity.userProfile)
-  }else{
-    return window.Identity.getUserProfile()
-  }
+const AddIdentity = props => {
+  const { siteProperties } = props
+  const {
+    signwall: { ORIGIN_IDENTITY_SDK, ORIGIN_API },
+  } = siteProperties
+
+  return addScriptAsync({
+    name: 'sdkIndetityARC',
+    url: ORIGIN_IDENTITY_SDK,
+  }).then(added => {
+    if (added) {
+      window.Identity.apiOrigin = ORIGIN_API
+    }
+    return window.Identity
+  })
 }
 
+const userProfile = (getAttr = []) => {
+  const hasIdentity = Object.prototype.hasOwnProperty.call(window, 'Identity')
+  let promiseProfile = null
+  if (!hasIdentity) {
+    throw new Error('not found Identity')
+  }
 
-export {AddIdentity, userProfile};
+  if (window.Identity.userProfile) {
+    promiseProfile = Promise.resolve(window.Identity.userProfile)
+  } else {
+    promiseProfile = window.Identity.getUserProfile()
+  }
+  return promiseProfile.then(userPorfile => {
+    const { attributes, ...restProfile } = userPorfile
+    return Object.assign({}, restProfile, attrToObject(attributes, getAttr))
+  })
+}
+
+export { AddIdentity, userProfile }
