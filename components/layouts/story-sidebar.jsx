@@ -11,8 +11,8 @@ const classes = {
   content:
     'grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mb-20 ',
   zocalo: 'ads__zocalo',
-  main: 'grid--content grid--col-1 col-2',
-  sidebar: 'grid--content grid--col-1 col-1',
+  main: 'grid grid--content grid--col-1 col-2',
+  sidebar: 'grid grid--content grid--col-1 col-1',
 }
 
 const StorySidebarLayout = ({ children = [] }) => {
@@ -40,10 +40,10 @@ const StorySidebarLayout = ({ children = [] }) => {
             <div role="banner" className={classes.heading}>
               {children[6] /* Encabezado */}
             </div>
-            <div role="main" className={`${gridClass} ${classes.main}`}>
+            <div role="main" className={classes.main}>
               {children[7] /* Contenido */}
             </div>
-            <aside className={`${gridClass} ${classes.sidebar}`}>
+            <aside className={classes.sidebar}>
               {children[8] /* Barra lateral */}
             </aside>
             {children[9] /* Contenido adicional */}
