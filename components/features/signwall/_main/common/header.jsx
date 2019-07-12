@@ -1,79 +1,46 @@
 import React from 'react'
 import Context from 'fusion:context'
-import { Back, Close, Gestion } from './iconos'
-
-const Brand = 'gestion'
+import { Back, Close, Gestion, Comercio } from './iconos'
 
 const Header = props => {
   const { type, closePopup, refirectHome } = props
-  let typeHeader
-  if (type === 'large') {
-    typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
-      <>
-        {arcSite === 'gestion' ? <Gestion /> : <img
+
+  const typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
+    <>
+      {{ elcomercio: <Comercio color="black" width="159" height="24" size="1" />, gestion: <Gestion color="white"  width="138" height="30" size="1"/> }[arcSite] || (
+        <img
           className="modal-header__img"
           alt=""
           src={deployment(
-            `${contextPath}/resources/dist/${arcSite}/images/${
-            siteProperties.assets.header.logo
-            }`
+            `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
           )}
-        />}
-       
+        />
+      )}
+
+      {type === 'large' ? (
         <button
           type="button"
           className="modal-header__back"
           onClick={closePopup}>
-          <Back color={Brand === 'elcomercio' ? 'black' : 'white'} />
+          <Back color={arcSite === 'elcomercio' ? 'black' : 'white'} />
           <span className="modal-header__text">Volver a la Portada</span>
         </button>
-      </>
-    )
-  } else if (refirectHome === true) {
-    typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
-      <>
-        {arcSite === 'gestion' ? <Gestion /> : <img
-          className="modal-header__img"
-          alt=""
-          src={deployment(
-            `${contextPath}/resources/dist/${arcSite}/images/${
-            siteProperties.assets.header.logo
-            }`
-          )}
-        />}
-
+      ) : (
         <button
           type="button"
           className="modal-header__close"
-          onClick={() => {
-            window.location.href = '/'
-          }}>
-          <Close color={Brand === 'elcomercio' ? 'black' : 'white'} />
+          onClick={
+            refirectHome === true
+              ? () => {
+                  window.location.href = '/'
+                }
+              : closePopup
+          }>
+          <Close color={arcSite === 'elcomercio' ? 'black' : 'white'} />
         </button>
-      </>
-    )
-  } else {
-    typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
-      <>
-        {arcSite === 'gestion' ? <Gestion /> : <img
-          className="modal-header__img"
-          alt=""
-          src={deployment(
-            `${contextPath}/resources/dist/${arcSite}/images/${
-            siteProperties.assets.header.logo
-            }`
-          )}
-        />}
-
-        <button
-          type="button"
-          className="modal-header__close"
-          onClick={closePopup}>
-          <Close color={Brand === 'elcomercio' ? 'black' : 'white'} />
-        </button>
-      </>
-    )
-  }
+      )}
+    </>
+  )
 
   return (
     <Context>

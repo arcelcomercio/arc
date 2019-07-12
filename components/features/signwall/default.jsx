@@ -127,11 +127,12 @@ class Signwall extends Component {
 
   render() {
     const { showLogin, showPanel } = this.state
+    const { arcSite } = this.props
     return (
       <div className="signwall">
         <div className="link-identity__content">
           {showLogin && (
-            <LoginRegister closePopup={() => this.togglePopupLogin()} />
+            <LoginRegister closePopup={() => this.togglePopupLogin()} brandModal={arcSite}/>
           )}
 
           {showPanel && <Panel closePopup={() => this.togglePopupPanel()} />}

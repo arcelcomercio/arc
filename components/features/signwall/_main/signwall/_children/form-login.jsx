@@ -373,7 +373,7 @@ class FormLogin extends Component {
                       type="submit"
                       name="ingresar"
                       id="login_boton_ingresar"
-                      className="btn input-button-brand"
+                      className="btn input-button"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                       disabled={!sending}
                     />
@@ -405,8 +405,7 @@ class FormLogin extends Component {
                   </button>
                 </p>
                 <p className="form-grid__subtitle form-grid__subtitle--fb text-center">
-                  Con tus datos mejoraremos tu experiencia de navegación y nunca
-                  publicaremos sin tu permiso
+                Al registrarte, nos ayudarás a mejorar tu experiencia de navegación. Tus datos no se publicarán sin tu autorización.
                 </p>
               </div>
 

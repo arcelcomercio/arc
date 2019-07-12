@@ -18,7 +18,6 @@ import GetProfile from '../../utils/get-profile'
 import FormValid from '../../utils/form-valid'
 import { ModalConsumer } from '../context'
 
-const Brand = 'gestion'
 const Cookies = new Cookie()
 
 class FormRegister extends Component {
@@ -231,7 +230,7 @@ class FormRegister extends Component {
       checked,
       sending,
     } = this.state
-    const { closePopup, typePopUp, typeForm } = this.props
+    const { closePopup, typePopUp, typeForm, brandCurrent } = this.props
 
     return (
       <ModalConsumer>
@@ -350,7 +349,7 @@ class FormRegister extends Component {
                     Al crear la cuenta acepto los{' '}
                     <a
                       href={`https://ecoid.pe/terminos_y_condiciones/${
-                        Brand === 'elcomercio'
+                        brandCurrent === 'elcomercio'
                           ? `a94a8fe5ccb19ba61c4c0873d391e987982fbbd3`
                           : `108f85a3d8e750a325ced951af6cd758a90e73a34`
                       }`}
@@ -362,7 +361,7 @@ class FormRegister extends Component {
                     y{' '}
                     <a
                       href={`https://ecoid.pe/politica_privacidad/${
-                        Brand === 'elcomercio'
+                        brandCurrent === 'elcomercio'
                           ? `a94a8fe5ccb19ba61c4c0873d391e987982fbbd3`
                           : `108f85a3d8e750a325ced951af6cd758a90e73a34`
                       }`}
@@ -394,7 +393,7 @@ class FormRegister extends Component {
                     <input
                       type="submit"
                       id="registro_boton_registrarme"
-                      className="btn btn-md input-button-brand"
+                      className="btn btn-md input-button"
                       value={!sending ? 'Registrando...' : 'Registrarme'}
                       disabled={!sending}
                     />
@@ -406,7 +405,7 @@ class FormRegister extends Component {
                 <div className="form-grid__group form-group--center">
                   <Icon.MsgRegister
                     className="form-grid__icon text-center"
-                    bgcolor={Brand === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+                    bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
                   />
                 </div>
                 <div className="form-grid__group">

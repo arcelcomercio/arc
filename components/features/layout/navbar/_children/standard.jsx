@@ -29,6 +29,7 @@ const classes = {
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
   btnContainer: 'flex items-center justify-end header__btn-container', // agregar hidden ocultar signwall
+  hidden: 'hidden',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
@@ -44,7 +45,7 @@ class NavBarDefault extends PureComponent {
       scrolled: false,
       isActive: false,
       nameUser: new GetProfile().username,
-      initialUser: new GetProfile().initname,
+      // initialUser: new GetProfile().initname,
     }
     // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
@@ -58,7 +59,7 @@ class NavBarDefault extends PureComponent {
     if(this.checkSesion()){
       this.setState({
         nameUser: new GetProfile().username,
-        initialUser: new GetProfile().initname,
+        // initialUser: new GetProfile().initname,
       });
     }
   }
@@ -246,7 +247,7 @@ class NavBarDefault extends PureComponent {
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
-              <div className={classes.btnContainer}>
+              <div className={`${classes.btnContainer}  ${arcSite !== 'gestion' ? classes.hidden : '' }`}>
                 <Button
                   btnText="Suscríbete"
                   btnClass={`${classes.btnSubscribe} btn--outline`}
@@ -291,7 +292,7 @@ class NavBarDefault extends PureComponent {
               </div>
             </div>
             <div
-              className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+              className={`${classes.btnContainer}  ${classes.navMobileContainer} ${responsiveClass} ${arcSite !== 'gestion' ? classes.hidden : '' }`}>
               <button
                 type="button"
                 className={`${classes.btnLogin} border-1 border-solid border-white`}
