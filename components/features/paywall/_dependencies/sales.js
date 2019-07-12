@@ -1,14 +1,14 @@
 import addScriptAsync from '../../../utilities/script-async'
 
-const AddIdentity = (props) => {
+const addSales = (props) => {
     const { siteProperties } = props;
     const {
-      signwall: { ORIGIN_IDENTITY_SDK, ORIGIN_API },
+      signwall: { ORIGIN_SALES_SDK, ORIGIN_API },
     } = siteProperties
 
     return addScriptAsync({
-      name: 'sdkIndetityARC',
-      url: ORIGIN_IDENTITY_SDK,
+      name: 'sdkSalesARC',
+      url: ORIGIN_SALES_SDK,
     })
       .then((added) => {
         if(added){

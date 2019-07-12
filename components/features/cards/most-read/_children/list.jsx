@@ -8,12 +8,15 @@ const classes = {
 }
 
 const CardMostReadChildList = props => {
-  const { viewImage, stories } = props
+  const { viewImage, stories, customTitle, editableField } = props
 
   return (
     <div role="list" className={classes.mostRead}>
       <h4 className={classes.title}>
-        Lo más visto <i className={classes.icon} />{' '}
+        <span {...editableField('customTitle')}>
+          {customTitle || 'Lo más visto'}
+        </span>{' '}
+        <i className={classes.icon} />{' '}
       </h4>
 
       {stories &&
