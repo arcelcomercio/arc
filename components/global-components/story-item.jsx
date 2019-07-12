@@ -20,7 +20,7 @@ const classes = {
   rightLink: 'story-item__link  h-full',
   iconGallery: `story-item__icon icon-img position-absolute flex items-center justify-center text-white w-full h-full`,
   iconVideo: `story-item__icon icon-video position-absolute flex items-center justify-center text-white w-full h-full`,
-  img: 'story-item__img object-cover w-full h-full position-relative',
+  img: 'story-item__img object-cover w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
 }
 

@@ -121,6 +121,14 @@ export const getFullDateIso8601 = (
 
 export const getActualDate = () => {
   const today = new Date()
+
+  /**
+   * TODO: temporal. Esto esta funcionando porque su gemelo en
+   * story-feed-by-section-and-date funciona desde server y ahora este tambien
+   * cuando el componente tiene static true y la fecha es distinta en local, eso creemos.
+   */
+  if (today.getHours() <= 5) today.setDate(today.getDate() - 1)
+
   return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 }
 

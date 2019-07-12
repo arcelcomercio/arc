@@ -83,20 +83,20 @@ class PaginationByDate extends PureComponent {
     let { section = 'todas' } = this.props
     section = section !== 'todas' ? section.replace('/', '') : 'todas'
     return index || index === 0
-      ? // Si viene un indice devuelvo localhost/archivo/seccion/fecha
-        `/archivo/${section}/${this.dateIterator[index]}`
-      : // Si no viene index devuelvo localhost/archivo/seccion
+      ? // Si viene un indice devuelvo /archivo/seccion/fecha/
+        `/archivo/${section}/${this.dateIterator[index]}/`
+      : // Si no viene index devuelvo /archivo/seccion/
         `/archivo/${section}/`
   }
 
   // Devuelve el link del <Anterior> en pagination
   getLastDay() {
-    return this.dateIterator[this.dateIterator.length - 2]
+    return `${this.dateIterator[this.dateIterator.length - 2]}/`
   }
 
   // Devuelve el link del <Siguiente> en pagination
   getNextDay() {
-    return this.evalDate().nextDay
+    return `${this.evalDate().nextDay}/`
   }
 
   // Si Hay en el path una fecha, la pasa como parametro a la funcion, si no se ejecuta la acutal
