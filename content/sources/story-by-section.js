@@ -1,6 +1,7 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
+import { sizeImg } from '../../components/utilities/config-params'
 
 let website = ''
 const schemaName = 'story'
@@ -134,23 +135,7 @@ const itemsToArrayImge = data => {
   return addResizedUrls(data, {
     resizerUrl,
     resizerSecret,
-    presets: {
-      small: {
-        width: 100,
-        height: 200,
-      },
-      medium: {
-        width: 480,
-      },
-      large: {
-        width: 940,
-        height: 569,
-      },
-      amp: {
-        width: 600,
-        height: 375,
-      },
-    },
+    presets: sizeImg(),
   })
 }
 
