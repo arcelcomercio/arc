@@ -74,7 +74,7 @@ CardMostRead.propTypes = {
     }),
   }),
 }
-
+// TODO: Cambiar nombre a Noticias mas leidas
 CardMostRead.label = 'Últimas Noticias'
 CardMostRead.static = true
 

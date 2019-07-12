@@ -113,6 +113,7 @@ export default ({
           requestUri={requestUri}
           port={metaValue('port')}
           isStory={isStory}
+          globalContent={globalContent}
         />
         <TagManager {...siteProperties} />
         <meta charset="utf-8" />
