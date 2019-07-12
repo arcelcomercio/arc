@@ -35,32 +35,31 @@ export const formatDate = date => {
 
 export const formatDateLocalTimeZone = publishDateString => {
   const publishDate = new Date(publishDateString)
+  publishDate.setHours(publishDate.getHours() - 5)
+
   const today = new Date()
-  let formatHour = ''
+  today.setHours(today.getHours() - 5)
+
+  let formattedDate = ''
   const diff = parseFloat(
     (Math.abs(today - publishDate) / (1000 * 60 * 60)).toFixed(1)
   )
 
   if (diff >= 24) {
-    const day = today.getDate()
-    const month = today.getMonth() + 1
-    const year = today.getFullYear()
-
-    const formatDay = day < 10 ? `0${day}` : day
-    const formatMonth = month < 10 ? `0${month}` : month
-    formatHour = `${year}-${formatMonth}-${formatDay}`
+    // eslint-disable-next-line prefer-destructuring
+    formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
   } else {
     const hora =
       publishDate.getHours() < 10 ?
       `0${publishDate.getHours()}` :
       `${publishDate.getHours()}`
-    const minuts =
+    const minutes =
       publishDate.getMinutes() < 10 ?
       `0${publishDate.getMinutes()}` :
       `${publishDate.getMinutes()}`
-    formatHour = `${hora}:${minuts}`
+    formattedDate = `${hora}:${minutes}`
   }
-  return formatHour
+  return formattedDate
 }
 
 export const formatDayMonthYear = (date, showHour = true) => {
@@ -123,6 +122,14 @@ export const getFullDateIso8601 = (
 
 export const getActualDate = () => {
   const today = new Date()
+
+  /**
+   * TODO: temporal. Esto esta funcionando porque su gemelo en
+   * story-feed-by-section-and-date funciona desde server y ahora este tambien
+   * cuando el componente tiene static true y la fecha es distinta en local, eso creemos.
+   */
+  if (today.getHours() <= 5) today.setDate(today.getDate() - 1)
+
   return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 }
 
@@ -309,7 +316,7 @@ export const removeLastSlash = url => {
 }
 
 export const addSlashToEnd = url => {
-  if (url && url.trim() === '/' ) return url
+  if (url && url.trim() === '/') return url
   return url && !url.endsWith('/') ? `${url}/` : url
 }
 
@@ -415,10 +422,9 @@ export const optaWidgetHtml = html => {
 }
 
 export const imageHtml = html => {
-  const strImageCde = '/<img (.*)src="http://cde(.*?)" (.*)>/g'
   const rplImageCde =
-    '<amp-img class="media" src="http://cde$2" layout="responsive" width="1" height="1"></amp-img>'
-  return html.replace(strImageCde, rplImageCde)
+    '<amp-img class="media" src="https://$2" layout="responsive" width="1" height="1"></amp-img>'
+  return html.replace(/<img (.*)src="https:\/\/(.*?)" (.*)>/g, rplImageCde)
 }
 
 export const playerHtml = html => {
@@ -470,12 +476,16 @@ export const facebookHtml = html => {
 }
 
 export const youtubeHtml = html => {
-  const strYoutube =
-    '/<iframe width="(.*?)" height="(.*?)" src="https://www.youtube.com/embed/(.*?)"></iframe>/g'
   const rplYoutube =
     '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="$1" height="$2"></amp-youtube>'
 
-  return html.replace(strYoutube, rplYoutube)
+  return html.replace(
+    /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/,
+    rplYoutube
+  )
+}
+export const replaceHtmlMigracion = html => {
+  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }
 
 export const instagramHtml = html => {
@@ -496,7 +506,10 @@ export const ampHtml = (html = '') => {
   let resultData = ''
 
   // Opta Widget
-  resultData = optaWidgetHtml(html)
+  resultData = replaceHtmlMigracion(html)
+
+  // Opta Widget
+  resultData = optaWidgetHtml(resultData)
 
   // imagenes
   resultData = imageHtml(resultData)
@@ -566,8 +579,4 @@ export const formatDateStory = date => {
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
   return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
-}
-
-export const replaceHtmlMigracion = html => {
-  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }
