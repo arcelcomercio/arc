@@ -465,6 +465,9 @@ export const youtubeHtml = html => {
     rplYoutube
   )
 }
+export const replaceHtmlMigracion = html => {
+  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
+}
 
 export const instagramHtml = html => {
   const rplInstagram =
@@ -484,7 +487,10 @@ export const ampHtml = (html = '') => {
   let resultData = ''
 
   // Opta Widget
-  resultData = optaWidgetHtml(html)
+  resultData = replaceHtmlMigracion(html)
+
+  // Opta Widget
+  resultData = optaWidgetHtml(resultData)
 
   // imagenes
   resultData = imageHtml(resultData)
@@ -549,8 +555,4 @@ export const formatDateStory = date => {
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
   return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
-}
-
-export const replaceHtmlMigracion = html => {
-  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }
