@@ -8,7 +8,7 @@ import Ads from '../../../global-components/ads'
 const classes = {
   listado: 'w-full',
   listadoSeeMore: 'flex justify-center mt-20 uppercase',
-  adsBox: 'flex items-center flex-col no-desktop',
+  adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
 @Consumer
@@ -91,6 +91,6 @@ StoriesListSectionStories.propTypes = {
 }
 
 StoriesListSectionStories.label = 'Listado de Sección'
-//StoriesListSectionStories.static = true
+StoriesListSectionStories.static = true
 
 export default StoriesListSectionStories

@@ -75,7 +75,7 @@ CardMostRead.propTypes = {
   }),
 }
 
-CardMostRead.label = 'Noticias Más Leídas'
+CardMostRead.label = 'Últimas Noticias'
 CardMostRead.static = true
 
 export default CardMostRead

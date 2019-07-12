@@ -3,7 +3,32 @@ import Consumer from 'fusion:consumer'
 import SearchInput from '../../../global-components/search-input'
 
 // TODO: Refactorizar todo (la data debe venir desde el feature, no hacer fetches aca)
-// TODO: Las búsquedas no deben hacerse por parámetros, deben ser por la misma URL
+/**
+ * INFO:
+ * Las estructuras comentadas serán habilitadas luego, por favor, no eliminar.
+ */
+
+const classes = {
+  searchFilter: `search-filter flex flex-col-reverse bg-base-100 w-full mt-20 p-15 lg:flex-row`,
+  containerList: 'position-relative',
+  select: `search-filter__select position-relative w-full flex items-center pt-0 pb-0 pl-15 pr-15 lg:h-auto p-0`,
+  selectName: `search-filter__select-name flex w-full justify-between text-sm lg:hidden`,
+  iconButton: 'icon-angle-down',
+  list: `search-filter__list bg-white left-0 position-absolute w-full flex-col lg:flex lg:flex-row`,
+  item: `search-filter__item lg:p-0 lg-p-5`,
+  link: `search-filter__link flex uppercase w-full pt-10 pb-10 pl-15 pr-15 text-sm text-gray-300 lg:justify-center lg:items-center lg:text-center lg:p-10 lg:font-thin`,
+  subList: `search-filter__sublist flex w-full flex-col pt-0 pb-0 pl-20 pr-20 lg:flex-row lg:mt-10 lg:left-0`,
+  subItem: `search-filter__subitem flex items-center position-relative lg:p-0 lg:mr-15`,
+  subLink: 'search-filter__sublink capitalize w-full text-xs text-gray-200',
+}
+
+const DESC = 'descendiente'
+const ASC = 'ascendente'
+const SORT = 'sort'
+const SECTION = 'section'
+const BASE_PATH = '/buscar'
+const CONTENT_SOURCE = 'navigation-by-hierarchy'
+const HIERARCHY = 'search-filter-default'
 
 @Consumer
 class SearchFilterChildSearchFilter extends PureComponent {

@@ -48,12 +48,12 @@ export default ({
 
   const title =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? `${metaValue('title')} | ${siteProperties.siteName}`
+      ? `${metaValue('title')}`
       : siteProperties.siteName
 
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
-      ? `${metaValue('description')} en ${siteProperties.siteName}`
+      ? `${metaValue('description')}`
       : 'Últimas noticias en Perú y el mundo'
 
   const keywords =
@@ -92,6 +92,17 @@ export default ({
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
 
+  const structuredFacebook = `
+    (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id))
+        return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.4&appId=1626271884277579";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));`
+
   const { googleFonts = '' } = siteProperties || {}
 
   return (
@@ -120,10 +131,13 @@ export default ({
           href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
           rel="stylesheet"
         />
-        <script src="https://jab.pe/f/arc/data_js.js" async />
+        <script
+          src={`https://d1r08wok4169a5.cloudfront.net/ads-publimetro/data_${arcSite}.js`}
+          async
+        />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
+        {isStory ? '' : <meta name="keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
@@ -172,7 +186,12 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-
+        {isStory && ( // TODO: pediente por definir comentarios por cada sitio
+          <>
+            <div id="fb-root" />
+            <script dangerouslySetInnerHTML={{ __html: structuredFacebook }} />
+          </>
+        )}
         <div id="fusion-app" role="application">
           {children}
         </div>

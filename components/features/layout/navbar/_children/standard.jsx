@@ -83,7 +83,7 @@ class NavBarDefault extends PureComponent {
     this.inputSearch.current.focus()
   }
 
-  // set Query search and location replace
+  // TODO: abstraer este método, se usa por 3 componentes
   _handleSearch = () => {
     const { value } = this.inputSearch.current
     if (value !== '') {
@@ -91,7 +91,7 @@ class NavBarDefault extends PureComponent {
       location.href = `/buscar/${encodeURIComponent(value).replace(
         /%20/g,
         '+'
-      )}/`
+      )}/todas/descendiente/`
     }
   }
 

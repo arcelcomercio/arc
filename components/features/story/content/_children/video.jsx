@@ -27,7 +27,6 @@ class StoryContentChildVideo extends PureComponent {
       siteProperties: { urlPreroll },
       globalContent,
     } = this.props
-
     const {
       taxonomy: {
         primary_section: {
@@ -46,7 +45,7 @@ class StoryContentChildVideo extends PureComponent {
 
   render() {
     const { data = {} } = this.props
-    return data && renderHTML(data)
+    return data && renderHTML(data.replace('[goldfish_publicidad]', ''))
   }
 }
 export default StoryContentChildVideo
