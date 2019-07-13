@@ -27,6 +27,7 @@ class BlogAuthorTitle extends PureComponent {
       guid,
       blogname,
       path: `/blog/${path}`,
+      // TODO:CARLOS: Verificar si estas urls general / al final. Sino, agregar
     }
     return <AuthorTitle {...data} />
   }

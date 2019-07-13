@@ -11,8 +11,8 @@ class BlogAuthorList extends PureComponent {
       contextPath,
       deployment,
       requestUri,
-      globalContent = {},
-      globalContentConfig = {},
+      globalContent,
+      globalContentConfig,
       arcSite = '',
     } = this.props
 
@@ -27,7 +27,7 @@ class BlogAuthorList extends PureComponent {
         posts_limit: postsLimit = '',
         posts_offset: postsOffset = '',
       } = {},
-    } = globalContentConfig
+    } = globalContentConfig || {}
 
     return (
       <div>
@@ -50,6 +50,7 @@ class BlogAuthorList extends PureComponent {
           const data = {
             postTitle,
             postPermaLink: `/blog/${postPermaLink}`,
+            // TODO:CARLOS: Verificar si estas urls general / al final. Sino, agregar
             postDate: `${day}/${month}/${fullYear}`,
             image,
             author,

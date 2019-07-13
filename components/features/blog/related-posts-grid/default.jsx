@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import withSizes from 'react-sizes'
+// TODO:CARLOS: eliminar 'temporalmente' el uso de la lib withSizes
 import PropTypes from 'prop-types'
 import BlogRelatedPostsGridChildCard from './_children/card'
 import { defaultImage } from '../../../utilities/helpers'
@@ -19,6 +20,8 @@ class BlogRelatedPostsGrid extends PureComponent {
   buildParams = (relatedPostItem, blog, contextPath, arcSite, deployment) => {
     const postLink = `${BLOG_URL}${relatedPostItem.post_permalink}`
     const sectionLink = `${BLOG_URL}${blog.path}`
+    // TODO:CARLOS: Verificar si estas urls general / al final. Sino, agregar
+
     const defaultImageSrc = defaultImage({
       deployment,
       contextPath,
