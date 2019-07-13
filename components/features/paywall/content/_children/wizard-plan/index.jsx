@@ -3,20 +3,19 @@ import CardPrice from '../card-price'
 import Summary from './_children/summary'
 import * as S from './styled'
 
-function WizardPlan({ nextStep }) {
+function WizardPlan({ nextStep, summary, plans }) {
   return (
     <S.WizardPlan>
       <S.Wrap>
-        <Summary />
+        <Summary {...summary} />
         <S.WrapPlan>
           <S.PlanTitle>Selecciona un plan de pago:</S.PlanTitle>
           <S.Plans>
-            <CardPrice
-              amount="29"
-              billingFrequency="month"
-              nextStep={nextStep}
-            />
-            <CardPrice amount="350" billingFrequency="year" />
+            {plans.map(plan => {
+              return (
+                <CardPrice key={plan.priceCode} {...plan} nextStep={nextStep} />
+              )
+            })}
           </S.Plans>
         </S.WrapPlan>
       </S.Wrap>

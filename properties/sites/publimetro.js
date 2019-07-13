@@ -13,6 +13,7 @@ export default {
   fbAppId: '189362231408765',
   googleTagManagerId: 'GTM-NSWLD37',
   ampGoogleTagManagerId: 'UA-3055636-18',
+  ampGoogleTagManagerName: 'publimetro',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-18',
   fbArticleStyle: 'LogoPublimetro',

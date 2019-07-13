@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import ENV from 'fusion:environment'
 import StoryData from '../../utilities/story-data'
 import { formatHtmlToText } from '../../utilities/helpers'
@@ -63,6 +63,9 @@ export default ({
     return `${description}`
   })
 
+  const listItemsTagsKeywords = tags.map(({ description }) => {
+    return `"${description}"`
+  })
   const seoKeywordsItems = seoKeywords.map(item => {
     return `"${item}"`
   })
@@ -121,7 +124,7 @@ export default ({
     "keywords":[${
       seoKeywordsItems[0]
         ? seoKeywordsItems.map(item => item)
-        : listItems.map(item => item)
+        : listItemsTagsKeywords.map(item => item)
     }]
  }`
 
@@ -132,10 +135,8 @@ export default ({
          {  
             "@type":"ListItem",
             "position":${i + 1},
-            "item":{  
-               "@id":"${url}",
-               "name":"${name}"
-            }
+            "name":"${name},
+            "item":"${url}"
          } `
     )
   })

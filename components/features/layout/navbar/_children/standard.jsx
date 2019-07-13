@@ -154,7 +154,7 @@ class NavBarDefault extends PureComponent {
     const scroll = scrollBody || scrollElement
 
     const header = Array.from(document.getElementsByTagName('header'))
-    const headerTop = (header[0] && header[0].offsetTop) || 100
+    const headerTop = (header[0] && header[0].offsetTop) || 0
     // setTimeout(() => {
     //   console.log(header[0].offsetTop)
     // }, 2000)
@@ -263,7 +263,7 @@ class NavBarDefault extends PureComponent {
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
               <div
                 className={`${classes.btnContainer}  ${
-                  arcSite !== 'gestion' ? classes.hidden : ''
+                  (arcSite !== 'gestion') ? classes.hidden : ''
                 }`}>
                 <Button
                   btnText="Suscríbete"
@@ -309,14 +309,16 @@ class NavBarDefault extends PureComponent {
               </div>
             </div>
             <div
-              className={`${classes.btnContainer}  ${
+              className={`${classes.btnContainer} ${
                 classes.navMobileContainer
               } ${responsiveClass} ${
-                arcSite !== 'gestion' ? classes.hidden : ''
+                (arcSite !== 'gestion') ? classes.hidden : ''
               }`}>
               <button
                 type="button"
-                className={`${classes.btnLogin} border-1 border-solid border-white`}
+                className={`${
+                  classes.btnLogin
+                } border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
                 <i className={classes.iconLogin} />
               </button>

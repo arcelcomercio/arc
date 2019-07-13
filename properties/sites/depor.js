@@ -13,6 +13,7 @@ export default {
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-8',
+  ampGoogleTagManagerName: 'depor',
   charbeatAccountNumber: 99999,
   idGoogleAnalitics: 'UA-3055636-8',
   fbArticleStyle: 'LogoDepor',

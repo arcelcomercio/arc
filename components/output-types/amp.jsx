@@ -47,7 +47,7 @@ const AmpOutputType = ({
 
   const title =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? `${metaValue('title')} | ${siteProperties.siteName}`
+      ? `${metaValue('title')} `
       : siteProperties.siteName
 
   const description =
@@ -94,7 +94,7 @@ const AmpOutputType = ({
     <Html>
       <head>
         <BaseMarkup
-          canonicalUrl={siteProperties.siteUrl.concat(canonicalUrl)}
+          canonicalUrl={`${siteProperties.siteUrl}${canonicalUrl}/`}
         />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <title>{title}</title>

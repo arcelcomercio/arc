@@ -14,25 +14,25 @@ const MESSAGE = {
 }
 
 const RegisterSchema = schema({
-  name: value => {
+  firstName: value => {
     value
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
   },
-  firstname: value => {
+  lastName: value => {
     value
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
   },
-  lastname: value => {
+  secondLastName: value => {
     value.min(3, MESSAGE.MIN).max(50, MESSAGE.MAX)
   },
-  documentId: value => {
+  documentNumber: value => {
     value.required(MESSAGE.REQUIRED).length(8, MESSAGE.DNI)
   },
-  phone: value => {
+  mobilePhone: value => {
     value.min(9, MESSAGE.CELULAR).max(12, MESSAGE.CELULAR)
   },
   email: value => {
@@ -51,9 +51,9 @@ const Select = () => (
 
 const FormStyled = S.Form(Form)
 
-const UserProfile = ({ title = '' }) => (
+const UserProfile = ({ title = '', profile }) => (
   <Formik
-    initialValues={{ firstname: 'first' }}
+    initialValues={profile}
     validate={values => {
       return RegisterSchema(values)
     }}
@@ -69,26 +69,30 @@ const UserProfile = ({ title = '' }) => (
           <S.Title>{title}</S.Title>
         </S.WrapTitle>
         <S.Wrap>
-          <Field name="name" placeholder="Nombres" component={InputFormik} />
           <Field
-            name="firstname"
+            name="firstName"
+            placeholder="Nombres"
+            component={InputFormik}
+          />
+          <Field
+            name="lastName"
             placeholder="Apellido Paterno"
             component={InputFormik}
           />
           <Field
-            name="lastname"
+            name="secondLastName"
             placeholder="Apellido Materno"
             component={InputFormik}
           />
           <Field
-            name="documentId"
+            name="documentNumber"
             placeholder="Tipo de documento"
             type="number"
             prefix={<Select key="select" />}
             component={InputFormik}
           />
           <Field
-            name="phone"
+            name="mobilePhone"
             placeholder="Número de Celular"
             type="number"
             component={InputFormik}
