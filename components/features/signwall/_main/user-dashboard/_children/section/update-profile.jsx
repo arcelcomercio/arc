@@ -60,9 +60,6 @@ class UpdateProfile extends Component {
             ? profileLS.secondLastName
             : '',
 
-        // secondLastName: getAtributeHeader('secondLastName')
-        //   ? getAtributeHeader('secondLastName')
-        //   : '',
         documentType: getAtributeHeader('documentType')
           ? getAtributeHeader('documentType')
           : '',

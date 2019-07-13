@@ -3,6 +3,7 @@ import Consumer from 'fusion:consumer'
 import Fingerprint2 from 'fingerprintjs2'
 
 import LoginRegister from './_main/signwall/index'
+
 import Panel from './_main/user-dashboard/index'
 import addScriptAsync from './_main/utils/script-async'
 import Cookie from './_main/utils/cookie'
@@ -126,7 +127,7 @@ class Signwall extends Component {
   }
 
   render() {
-    const { showLogin, showPanel } = this.state
+    const { showLogin, showPanel} = this.state
     const { arcSite } = this.props
     return (
       <div className="signwall">

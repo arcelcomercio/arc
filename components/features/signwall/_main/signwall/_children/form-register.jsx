@@ -10,7 +10,7 @@ import {
   strongRegularExp,
   mediumRegularExp,
 } from '../../utils/regex'
-//import AuthGoogle from './social-auths/auth-google'
+// import AuthGoogle from './social-auths/auth-google'
 import AuthFacebook from './social-auths/auth-facebook'
 import getDevice from '../../utils/get-device'
 import Cookie from '../../utils/cookie'
@@ -46,7 +46,7 @@ class FormRegister extends Component {
 
     const tipCat = typePopUp || ''
     const tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    console.log(tipCat, tipAct)
+    // console.log(tipCat, tipAct)
 
     if (FormValid(this.state) && checked !== false) {
       this.setState({ sending: false })
@@ -98,13 +98,13 @@ class FormRegister extends Component {
             sending: true,
           })
 
-          window.Identity.requestVerifyEmail(EmailUserNew)
-            .then(res => {
-              console.log(res)
-            })
-            .catch(err => {
-              console.log(err)
-            })
+          // window.Identity.requestVerifyEmail(EmailUserNew)
+          //   .then(res => {
+          //     console.log(res)
+          //   })
+          //   .catch(err => {
+          //     console.log(err)
+          //   })
 
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
           window.sessUser.setState({ accessPanel: true })
@@ -125,7 +125,7 @@ class FormRegister extends Component {
           // -- test de tageo
         })
         .catch(err => {
-          console.log(err)
+          // console.log(err)
           this.setState({
             messageError:
               err.code === '300031' || err.code === '300039'
@@ -214,7 +214,7 @@ class FormRegister extends Component {
             : 'Para ser parte de nuestra comunidad es necesario aceptar los términos y condiciones'
         break
       default:
-        console.log('default')
+        return null
     }
 
     // this.setState({ formErrors, [name]: value }, () => console.log(this.state));
@@ -255,19 +255,19 @@ class FormRegister extends Component {
                 <div className="form-grid__group">
                   <div className="form-grid__row form-grid__row--two">
                     <AuthFacebook
-                      //align="middle"
+                      // align="middle"
                       closePopup={closePopup}
                       id="registro_boton_facebook"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
                     />
-                    {/*<AuthGoogle
+                    {/* <AuthGoogle
                       align="middle"
                       closePopup={closePopup}
                       id="registro_boton_google"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
-                    />*/}
+                    /> */}
                   </div>
                   <p className="form-grid__subtitle text-center">
                     o completa tus datos para registrarte

@@ -1,6 +1,6 @@
 import React from 'react'
 import Context from 'fusion:context'
-import { Back, Close, Gestion, Comercio } from './iconos'
+import { Back, Close, Gestion, Comercio}  from './iconos'
 
 const Header = props => {
   const { type, closePopup, refirectHome } = props

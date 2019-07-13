@@ -4,7 +4,6 @@ import { sha256 } from 'js-sha256'
 import { Facebook } from '../../../common/iconos'
 import GetProfile from '../../../utils/get-profile'
 import Cookie from '../../../utils/cookie'
-//import WhatDevice from '../../../utils/whatDevice';
 import getDevice from '../../../utils/get-device'
 import Services from '../../../utils/services';
 
@@ -20,11 +19,11 @@ class AuthFacebook extends React.Component {
       sendingFbText: 'Facebook',
     }
 
-    let { typePopUp = '', typeForm = '' } = props;
+    const { typePopUp = '', typeForm = '' } = props;
     this.tipCat = typePopUp;
-    this.tipAct = typePopUp ? 'web_sw' + typePopUp.slice(0, 1) : '';
+    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : '';
     this.tipForm = typeForm;
-    //log(this.tipCat, this.tipAct, this.tipForm);
+    // log(this.tipCat, this.tipAct, this.tipForm);
 
     window.removeEventListener('message', this.OAuthFacebook);
     window.removeEventListener('onmessage', this.OAuthFacebook);
@@ -41,11 +40,11 @@ class AuthFacebook extends React.Component {
       window.Identity.apiOrigin = ORIGIN_API
     }
 
-    var eventMethod = window.addEventListener
+    const eventMethod = window.addEventListener
       ? 'addEventListener'
       : 'attachEvent';
-    var eventer = window[eventMethod];
-    var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
+    const eventer = window[eventMethod];
+    const messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
     eventer(messageEvent, this.OAuthFacebook);
   }
 
@@ -61,11 +60,11 @@ class AuthFacebook extends React.Component {
       } = {},
     } = this.props;
 
-    const width = 780,
-      height = 640;
+    const width = 780;
+    const height = 640;
     const left = window.screen.width / 2 - 800 / 2;
     const top = window.screen.height / 2 - 600 / 2;
-    const url = ORIGIN_ECOID + `/mpp/facebook/login/`;
+    const url = `${ORIGIN_ECOID}/mpp/facebook/login/`;
     return window.open(
       url,
       '',
@@ -124,9 +123,15 @@ class AuthFacebook extends React.Component {
 
               const EmailUserProfile = resFbProfile.email
                 ? resFbProfile.email
-                : resFbProfile.identities[0].userName + '@facebook.com';
+                : `${resFbProfile.identities[0].userName}@facebook.com`;
 
               if (resFbProfile.displayName === null) {
+
+                const originAction = document.querySelector('#arc-popup-signwallhard')
+                ? 1
+                : this.tipForm === 'relogin'
+                ? 'relogin'
+                : 0;
 
                 const newProfileFB = {
                   firstName: resFbProfile.firstName.replace(/\./g, ''),
@@ -156,11 +161,7 @@ class AuthFacebook extends React.Component {
                     },
                     {
                       name: 'originAction',
-                      value: document.querySelector('#arc-popup-signwallhard')
-                        ? 1
-                        : this.tipForm === 'relogin'
-                        ? 'relogin'
-                        : 0,
+                      value: originAction,
                       type: 'String',
                     },
                   ],
@@ -173,7 +174,7 @@ class AuthFacebook extends React.Component {
                   Cookies.setCookie('arc_e_id', sha256(EmailUserProfile), 365);
                 }
 
-                this.taggeoSuccess(); //-- test de tageo success REGISTRO
+                this.taggeoSuccess(); // -- test de tageo success REGISTRO
                 this.enterProfilePanel();
                 
               } else {
@@ -182,24 +183,24 @@ class AuthFacebook extends React.Component {
                   Cookies.setCookie('arc_e_id', sha256(EmailUserProfile), 365);
                 }
 
-                this.taggeoSuccess(); //-- test de tageo  success LOGIN
+                this.taggeoSuccess(); // -- test de tageo  success LOGIN
                 this.enterProfilePanel();
                
               }
             })
             .catch(errFbProfile => {
               console.error(errFbProfile);
-              this.taggeoError(); //-- test de tageo error
+              this.taggeoError(); // -- test de tageo error
             });
         } else {
           console.error(resLoginFb);
-          this.taggeoError(); //-- test de tageo error
+          this.taggeoError(); // -- test de tageo error
           this.props.closePopup();
         }
       })
       .catch(errLoginFb => {
         console.error(errLoginFb);
-        this.taggeoError(); //-- test de tageo error
+        this.taggeoError(); // -- test de tageo error
       });
   };
 
@@ -208,9 +209,9 @@ class AuthFacebook extends React.Component {
       case 'organico':
       case 'hard':
         window.dataLayer.push({
-          event: this.tipForm + '_fb_success',
-          eventCategory: 'Web_Sign_Wall_' + this.tipCat,
-          eventAction: this.tipAct + '_' + this.tipForm + '_success_facebook',
+          event: `${this.tipForm}_fb_success`,
+          eventCategory: `Web_Sign_Wall_${this.tipCat}`,
+          eventAction: `${this.tipAct}_${this.tipForm}_success_facebook`,
         });
         break;
       case 'relogin':
@@ -230,18 +231,18 @@ class AuthFacebook extends React.Component {
         }
         break;
       default:
-        return null //log('No tiene categoria.');
+        return null
     }
   };
 
   taggeoError = () => {
-    switch (this.tipCat) {
+     switch (this.tipCat) {
       case 'organico':
       case 'hard':
         window.dataLayer.push({
-          event: this.tipForm + '_fb_error',
-          eventCategory: 'Web_Sign_Wall_' + this.tipCat,
-          eventAction: this.tipAct + '_' + this.tipForm + '_error_facebook',
+          event: `${this.tipForm}_fb_error`,
+          eventCategory: `Web_Sign_Wall_${this.tipCat}`,
+          eventAction: `${this.tipAct}_${this.tipForm}_error_facebook`,
         });
         break;
       case 'relogin':
@@ -261,13 +262,13 @@ class AuthFacebook extends React.Component {
         }
         break;
       default:
-        return null; //log('No tiene categoria.');
+        return null;
     }
   };
 
   render = () => {
     const { id, align } = this.props
-    let { sendingFb, loadedFB , sendingFbText} = this.state
+    const { sendingFb, loadedFB , sendingFbText} = this.state
 
     return (
       <>
@@ -287,7 +288,6 @@ class AuthFacebook extends React.Component {
 
   enterProfilePanel = () => {
     const { closePopup } = this.props;
-    console.log('enter profile ok');
     Cookies.deleteCookie('mpp_sess'); // borra session MPP
     setTimeout(() => {
       window.sessUser.setState({ accessPanel: true });

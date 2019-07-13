@@ -3,6 +3,8 @@ import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
 import Signwall from '../../../signwall/default'
+import SignWallHard from '../../../signwall/_main/signwall/hard'
+
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
 import GetProfile from '../../../signwall/_main/utils/get-profile'
@@ -44,6 +46,7 @@ class NavBarDefault extends PureComponent {
       statusSearch: false,
       scrolled: false,
       isActive: false,
+      showHard : false,
       nameUser: new GetProfile().username,
       // initialUser: new GetProfile().initname,
     }
@@ -55,12 +58,12 @@ class NavBarDefault extends PureComponent {
     window.addEventListener('scroll', this._handleScroll)
   }
 
-  componentDidUpdate(){
-    if(this.checkSesion()){
+  componentDidUpdate() {
+    if (this.checkSesion()) {
       this.setState({
         nameUser: new GetProfile().username,
         // initialUser: new GetProfile().initname,
-      });
+      })
     }
   }
 
@@ -114,6 +117,17 @@ class NavBarDefault extends PureComponent {
     return false
   }
 
+  // If return value Parameter
+  getUrlParam = (name) => {
+    const vars = {}
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+      vars[key] = value
+    })
+
+    if(vars[name]) this.setState({ showHard: true })
+
+    return vars[name]
+  }
   // _handleDevice = device => {
   //   this._handleScroll()
   //   // ------ Add or remove Scroll eventListener on resize
@@ -178,7 +192,7 @@ class NavBarDefault extends PureComponent {
   } */
 
   render() {
-    const { statusSidebar, scrolled, isActive, nameUser } = this.state
+    const { statusSidebar, scrolled, isActive, nameUser, showHard } = this.state
     const {
       logo,
       arcSite,
@@ -247,7 +261,10 @@ class NavBarDefault extends PureComponent {
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
-              <div className={`${classes.btnContainer}  ${arcSite !== 'gestion' ? classes.hidden : '' }`}>
+              <div
+                className={`${classes.btnContainer}  ${
+                  arcSite !== 'gestion' ? classes.hidden : ''
+                }`}>
                 <Button
                   btnText="Suscríbete"
                   btnClass={`${classes.btnSubscribe} btn--outline`}
@@ -256,9 +273,9 @@ class NavBarDefault extends PureComponent {
                 <button
                   type="button"
                   className={`${classes.btnLogin} btn--outline`}
-                  style={{textTransform: "capitalize"}}
+                  style={{ textTransform: 'capitalize' }}
                   onClick={() => this.setState({ isActive: true })}>
-                  {this.checkSesion() ?  nameUser : 'Iniciar Sesión'}
+                  {this.checkSesion() ? nameUser : 'Iniciar Sesión'}
                 </button>
               </div>
               <div className={classes.searchContainer}>
@@ -292,7 +309,11 @@ class NavBarDefault extends PureComponent {
               </div>
             </div>
             <div
-              className={`${classes.btnContainer}  ${classes.navMobileContainer} ${responsiveClass} ${arcSite !== 'gestion' ? classes.hidden : '' }`}>
+              className={`${classes.btnContainer}  ${
+                classes.navMobileContainer
+              } ${responsiveClass} ${
+                arcSite !== 'gestion' ? classes.hidden : ''
+              }`}>
               <button
                 type="button"
                 className={`${classes.btnLogin} border-1 border-solid border-white`}
@@ -309,6 +330,13 @@ class NavBarDefault extends PureComponent {
           />
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
+
+        {this.getUrlParam('sigwalHard') && showHard ? (
+          <SignWallHard
+            closePopup={() => this.setState({ showHard: false })}
+            brandModal={arcSite}
+          />
+        ) : null}
       </>
     )
   }

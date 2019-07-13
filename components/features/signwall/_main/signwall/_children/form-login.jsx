@@ -288,14 +288,14 @@ class FormLogin extends Component {
                     />
                   </div>
 
-                  {/*<div className="form-group">
+                  {/* <div className="form-group">
                     <AuthGoogle
                       closePopup={closePopup}
                       id="google-sign-in-button"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
                     />
-                  </div>*/}
+                  </div> */}
                 </div>
 
                 <div className="form-grid__group" hidden={!hiddendiv}>
