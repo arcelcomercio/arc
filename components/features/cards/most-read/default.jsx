@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
@@ -10,7 +10,7 @@ import { getQuery, getStories } from './_dependencies/functions'
 const CONTENT_SOURCE = 'story-feed-by-views'
 
 @Consumer
-class CardMostRead extends PureComponent {
+class CardMostRead extends Component {
   constructor(props) {
     super(props)
     const {
@@ -46,8 +46,9 @@ class CardMostRead extends PureComponent {
   }
 
   render() {
-    const { customFields, arcSite, requestUri } = this.props
-    const { viewImage = false, storiesQty = 5 } = customFields || {}
+    const { customFields, arcSite, requestUri, editableField } = this.props
+    const { viewImage = false, storiesQty = 5, customTitle = '' } =
+      customFields || {}
     const { data: { stories } = {} } = this.state
     const params = {
       viewImage,
@@ -55,6 +56,8 @@ class CardMostRead extends PureComponent {
       arcSite,
       requestUri,
       stories,
+      customTitle,
+      editableField,
     }
     return <CardMostReadList {...params} />
   }
@@ -64,6 +67,9 @@ CardMostRead.propTypes = {
   customFields: PropTypes.shape({
     viewImage: PropTypes.bool.tag({
       name: 'Imagen Visible',
+    }),
+    customTitle: PropTypes.string.tag({
+      name: 'Editar Título',
     }),
     storiesQty: PropTypes.number.tag({
       name: 'Número de Noticias',
@@ -75,7 +81,7 @@ CardMostRead.propTypes = {
   }),
 }
 
-CardMostRead.label = 'Noticias Más Leídas'
+CardMostRead.label = 'Últimas Noticias'
 CardMostRead.static = true
 
 export default CardMostRead

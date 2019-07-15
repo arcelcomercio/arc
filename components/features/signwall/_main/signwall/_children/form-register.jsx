@@ -10,7 +10,7 @@ import {
   strongRegularExp,
   mediumRegularExp,
 } from '../../utils/regex'
-import AuthGoogle from './social-auths/auth-google'
+// import AuthGoogle from './social-auths/auth-google'
 import AuthFacebook from './social-auths/auth-facebook'
 import getDevice from '../../utils/get-device'
 import Cookie from '../../utils/cookie'
@@ -18,7 +18,6 @@ import GetProfile from '../../utils/get-profile'
 import FormValid from '../../utils/form-valid'
 import { ModalConsumer } from '../context'
 
-const Brand = 'gestion'
 const Cookies = new Cookie()
 
 class FormRegister extends Component {
@@ -47,7 +46,7 @@ class FormRegister extends Component {
 
     const tipCat = typePopUp || ''
     const tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    console.log(tipCat, tipAct)
+    // console.log(tipCat, tipAct)
 
     if (FormValid(this.state) && checked !== false) {
       this.setState({ sending: false })
@@ -99,13 +98,13 @@ class FormRegister extends Component {
             sending: true,
           })
 
-          window.Identity.requestVerifyEmail(EmailUserNew)
-            .then(res => {
-              console.log(res)
-            })
-            .catch(err => {
-              console.log(err)
-            })
+          // window.Identity.requestVerifyEmail(EmailUserNew)
+          //   .then(res => {
+          //     console.log(res)
+          //   })
+          //   .catch(err => {
+          //     console.log(err)
+          //   })
 
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
           window.sessUser.setState({ accessPanel: true })
@@ -126,7 +125,7 @@ class FormRegister extends Component {
           // -- test de tageo
         })
         .catch(err => {
-          console.log(err)
+          // console.log(err)
           this.setState({
             messageError:
               err.code === '300031' || err.code === '300039'
@@ -215,7 +214,7 @@ class FormRegister extends Component {
             : 'Para ser parte de nuestra comunidad es necesario aceptar los términos y condiciones'
         break
       default:
-        console.log('default')
+        return null
     }
 
     // this.setState({ formErrors, [name]: value }, () => console.log(this.state));
@@ -231,7 +230,7 @@ class FormRegister extends Component {
       checked,
       sending,
     } = this.state
-    const { closePopup, typePopUp, typeForm } = this.props
+    const { closePopup, typePopUp, typeForm, brandCurrent } = this.props
 
     return (
       <ModalConsumer>
@@ -256,19 +255,19 @@ class FormRegister extends Component {
                 <div className="form-grid__group">
                   <div className="form-grid__row form-grid__row--two">
                     <AuthFacebook
-                      align="middle"
+                      // align="middle"
                       closePopup={closePopup}
                       id="registro_boton_facebook"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
                     />
-                    <AuthGoogle
+                    {/* <AuthGoogle
                       align="middle"
                       closePopup={closePopup}
                       id="registro_boton_google"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
-                    />
+                    /> */}
                   </div>
                   <p className="form-grid__subtitle text-center">
                     o completa tus datos para registrarte
@@ -350,7 +349,7 @@ class FormRegister extends Component {
                     Al crear la cuenta acepto los{' '}
                     <a
                       href={`https://ecoid.pe/terminos_y_condiciones/${
-                        Brand === 'elcomercio'
+                        brandCurrent === 'elcomercio'
                           ? `a94a8fe5ccb19ba61c4c0873d391e987982fbbd3`
                           : `108f85a3d8e750a325ced951af6cd758a90e73a34`
                       }`}
@@ -362,7 +361,7 @@ class FormRegister extends Component {
                     y{' '}
                     <a
                       href={`https://ecoid.pe/politica_privacidad/${
-                        Brand === 'elcomercio'
+                        brandCurrent === 'elcomercio'
                           ? `a94a8fe5ccb19ba61c4c0873d391e987982fbbd3`
                           : `108f85a3d8e750a325ced951af6cd758a90e73a34`
                       }`}
@@ -387,14 +386,14 @@ class FormRegister extends Component {
                   )}
                 </div>
                 <div className="form-grid__group">
-                  <p className="form-grid__required text-center">
+                  <p className="form-grid__required mt-25 mb-25">
                     * TODOS LOS CAMPOS SON OBLIGATORIOS
                   </p>
                   <div className="form-group form-group--center mt-20 ">
                     <input
                       type="submit"
                       id="registro_boton_registrarme"
-                      className="btn btn-md input-button-brand"
+                      className="btn btn-md input-button"
                       value={!sending ? 'Registrando...' : 'Registrarme'}
                       disabled={!sending}
                     />
@@ -406,7 +405,7 @@ class FormRegister extends Component {
                 <div className="form-grid__group form-group--center">
                   <Icon.MsgRegister
                     className="form-grid__icon text-center"
-                    bgcolor={Brand === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+                    bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
                   />
                 </div>
                 <div className="form-grid__group">

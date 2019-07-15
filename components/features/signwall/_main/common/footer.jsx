@@ -1,4 +1,5 @@
 import React from 'react'
+import { Gestion, Comercio } from './iconos'
 
 const Footer = props => {
   const { position } = props // center || right
@@ -9,7 +10,7 @@ const Footer = props => {
         Con tu registro puedes navegar en los siguientes sitios:
       </p>
       <div className="footer__logo">
-        <img src="" alt="" />|
+        <Comercio color="white" width="100" height="18" size="2"/> | <Gestion color="white" width="100" height="18" size="2"/>
       </div>
     </div>
   )

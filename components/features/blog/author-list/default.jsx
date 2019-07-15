@@ -10,8 +10,9 @@ class BlogAuthorList extends PureComponent {
     const {
       contextPath,
       deployment,
-      globalContent = {},
-      globalContentConfig = {},
+      requestUri,
+      globalContent,
+      globalContentConfig,
       arcSite = '',
     } = this.props
 
@@ -26,7 +27,7 @@ class BlogAuthorList extends PureComponent {
         posts_limit: postsLimit = '',
         posts_offset: postsOffset = '',
       } = {},
-    } = globalContentConfig
+    } = globalContentConfig || {}
 
     return (
       <div>
@@ -48,7 +49,8 @@ class BlogAuthorList extends PureComponent {
           const { day, month, fullYear } = getFullDateIso8601(postDate)
           const data = {
             postTitle,
-            postPermaLink: `/blog/${postPermaLink}`,
+            // TODO:CARLOS: Verificar si estas urls general / al final. Sino, agregar
+            postPermaLink: `/blog/${postPermaLink}/`,
             postDate: `${day}/${month}/${fullYear}`,
             image,
             author,
@@ -59,6 +61,7 @@ class BlogAuthorList extends PureComponent {
           totalElements={countPosts}
           storiesQty={postsLimit}
           currentPage={postsOffset || 1}
+          requestUri={requestUri}
         />
       </div>
     )
@@ -66,6 +69,6 @@ class BlogAuthorList extends PureComponent {
 }
 
 BlogAuthorList.label = 'Blog - Posts por autor'
-// No puede ser static = true porque Pagination maneja estados.
+BlogAuthorList.static = true
 
 export default BlogAuthorList

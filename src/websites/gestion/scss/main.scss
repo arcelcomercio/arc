@@ -17,3 +17,15 @@
 /******* Components *******/
 @import '../../../general-styles/components/index';
 /*---------------------*/
+
+/******* Modificadores *******/
+@import './components/most-read';
+@import './components/most-read-item';
+@import './components/story-item';
+@import './components/layout/header/header';
+@import './components/featured-story';
+@import './components/stories-list-header';
+@import './components/stories-list-card';
+@import './components/stories-list-item';
+@import './components/tabloid';
+/*---------------------*/

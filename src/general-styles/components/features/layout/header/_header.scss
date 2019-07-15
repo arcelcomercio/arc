@@ -2,11 +2,18 @@
   height: 58px;
   color: $header-text-color;
 
+  &__date {
+    align-self: center;
+    font-size: 9px;
+    white-space: nowrap;
+  }
+
   &__logo {
     height: $header-logo-height;
   }
 
   &__item {
+    white-space: nowrap;
 
     :hover {
       color: $color-gray-300;
@@ -21,5 +28,12 @@
   &__link {
     color: $color-primary;
     letter-spacing: 0.02rem;
+  }
+
+  &__tags {
+    align-self: center;
+    font-size: 9px;
+    white-space: nowrap;
+    font-weight: 700;
   }
 }

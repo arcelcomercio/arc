@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import ENV from 'fusion:environment'
 import StoryData from '../../utilities/story-data'
 import { formatHtmlToText } from '../../utilities/helpers'
@@ -15,10 +15,11 @@ export default ({
   siteAssets: { seo },
 }) => {
   const {
-    title,
+    seoTitle: title,
     tags,
     link,
-    publishDate,
+    displayDate: publishDate,
+    publishDate: lastPublishDate,
     subTitle,
     seoAuthor,
     imagesSeo,
@@ -45,12 +46,12 @@ export default ({
   )
 
   const imagesSeoItems = imagesSeo.map((image, i) => {
-    const { subtitle, url = '' } = image || {}
+    const { subtitle, url = '', resized_urls: { large } = {} } = image || {}
     const representativeOfPage = i === 0 ? '"representativeOfPage":true,' : ''
     return `{ 
          ${representativeOfPage}
          "@type":"ImageObject",
-         "url": "${url}",
+         "url": "${large || url}",
          "description":"${subtitle}",
          "height":418,
          "width":696
@@ -62,6 +63,9 @@ export default ({
     return `${description}`
   })
 
+  const listItemsTagsKeywords = tags.map(({ description }) => {
+    return `"${description}"`
+  })
   const seoKeywordsItems = seoKeywords.map(item => {
     return `"${item}"`
   })
@@ -88,7 +92,7 @@ export default ({
     "@context":"http://schema.org",
     "@type":"NewsArticle",
     "datePublished":"${publishDate}",
-    "dateModified":"${publishDate}",
+    "dateModified":"${lastPublishDate}",
     "headline":"${formatHtmlToText(title)}",
     "description":"${formatHtmlToText(subTitle)}",
     "articleBody":"${dataElement}",
@@ -117,7 +121,11 @@ export default ({
           "width":${seo.width}
        }
     },
-    "keywords":[${seoKeywordsItems.map(item => item)}]
+    "keywords":[${
+      seoKeywordsItems[0]
+        ? seoKeywordsItems.map(item => item)
+        : listItemsTagsKeywords.map(item => item)
+    }]
  }`
 
   const breadcrumbResult = breadcrumbList.map(({ url, name }, i) => {
@@ -127,10 +135,8 @@ export default ({
          {  
             "@type":"ListItem",
             "position":${i + 1},
-            "item":{  
-               "@id":"${url}",
-               "name":"${name}"
-            }
+            "name":"${name},
+            "item":"${url}"
          } `
     )
   })
@@ -162,7 +168,10 @@ export default ({
     }`
 
   return (
-    <Fragment>
+    <>
+      {!isAmp && (
+        <link rel="amphtml" href={`${siteUrl}${link}?outputType=amp`} />
+      )}
       <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
@@ -171,15 +180,22 @@ export default ({
       <meta name="bi3dArtTitle" content={title} />
       <meta name="cXenseParse:per-categories" content={section} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
-
+      <meta
+        name="keywords"
+        content={
+          seoKeywordsItems[0]
+            ? seoKeywordsItems.map(item => item)
+            : listItems.map(item => item)
+        }
+      />
       <meta property="article:published_time" content={publishDate} />
-      <meta property="article:modified_time" content={publishDate} />
+      <meta property="article:modified_time" content={lastPublishDate} />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={section} />
-      <meta
-        property="article:tag"
-        content={seoKeywordsItems.map(item => item)}
-      />
+
+      {listItems.map(item => {
+        return <meta property="article:tag" content={item} />
+      })}
 
       <script
         type="application/ld+json"
@@ -199,6 +215,6 @@ export default ({
           dangerouslySetInnerHTML={{ __html: scriptTaboola }}
         />
       )}
-    </Fragment>
+    </>
   )
 }

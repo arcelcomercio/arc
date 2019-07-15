@@ -15,6 +15,11 @@
     margin: 24px 0 8px 0;
 }
 
+.card-price__content,
+.card-price__footer{
+    pointer-events: none;
+}
+
 .card-price__amount{
     font-size: 60px;
     justify-content: center;
@@ -49,19 +54,22 @@
     background-color: #e8e8e8;
     color: #bbbbbb;
     font-weight: 300;
+    transition: color 300ms, background-color 300ms;
 }
 
-.card-price:hover{
-    color: #444444;
+.card-price--active{
+    color: #444444;   
+    transition: color 300ms;
 }
 
-.card-price:hover .card-price__buy{
+.card-price--active .card-price__buy{
     background-color: #0179af;
     color: #FFF;
     font-weight: 700;
     cursor: pointer;
+    
 }
 
-.card-price:hover .card-price__buy:hover{
+.card-price--active .card-price__buy:hover{
     background-color: #0071a5;
 }

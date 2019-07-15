@@ -3,8 +3,11 @@ import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
 import Signwall from '../../../signwall/default'
+import SignWallHard from '../../../signwall/_main/signwall/hard'
+
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
+import GetProfile from '../../../signwall/_main/utils/get-profile'
 
 import { getResponsiveClasses } from '../../../../utilities/helpers'
 
@@ -27,11 +30,16 @@ const classes = {
   logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
-  btnContainer: 'flex items-center justify-end header__btn-container',
+  btnContainer: 'flex items-center justify-end header__btn-container', // agregar hidden ocultar signwall
+  hidden: 'hidden',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
+  iconSignwall: 'nav__icon rounded position-absolute uppercase',
+  btnSignwall: 'nav__btn--login'
 }
+
+const activeSignwall = ['elcomercio', 'gestion']
 
 @Consumer
 class NavBarDefault extends PureComponent {
@@ -42,6 +50,9 @@ class NavBarDefault extends PureComponent {
       statusSearch: false,
       scrolled: false,
       isActive: false,
+      showHard : false,
+      nameUser: new GetProfile().username,
+      initialUser: new GetProfile().initname,
     }
     // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
@@ -49,6 +60,15 @@ class NavBarDefault extends PureComponent {
 
   componentDidMount() {
     window.addEventListener('scroll', this._handleScroll)
+  }
+
+  componentDidUpdate() {
+    if (this.checkSesion()) {
+      this.setState({
+        nameUser: new GetProfile().username,
+        initialUser: new GetProfile().initname,
+      })
+    }
   }
 
   // Add - Remove Class active input and button search
@@ -60,7 +80,7 @@ class NavBarDefault extends PureComponent {
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
     const { statusSearch } = this.state
-    if (statusSearch) this.findSearch()
+    if (statusSearch) this._handleSearch()
     else this.focusInputSearch()
     this.setState({ statusSearch: !statusSearch })
   }
@@ -70,21 +90,24 @@ class NavBarDefault extends PureComponent {
     this.inputSearch.current.focus()
   }
 
-  // set Query search and location replace
-  findSearch = () => {
+  // TODO: abstraer este método, se usa por 3 componentes
+  _handleSearch = () => {
     const { value } = this.inputSearch.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `/buscar?query=${value}`
+      location.href = `/buscar/${encodeURIComponent(value).replace(
+        /%20/g,
+        '+'
+      )}/todas/descendiente/`
     }
   }
 
   // Active find with enter key
-  watchKeys = e => {
+  _handleKeyDown = e => {
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
-      this.findSearch()
+      this._handleSearch()
     }
   }
 
@@ -96,6 +119,18 @@ class NavBarDefault extends PureComponent {
       return !(profileStorage === 'null' || sesionStorage === '{}') || false
     }
     return false
+  }
+
+  // If return value Parameter
+  getUrlParam = (name) => {
+    const vars = {}
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+      vars[key] = value
+    })
+
+    if(vars[name] && name === 'sigwalHard') this.setState({ showHard: true })
+
+    return vars[name]
   }
 
   // _handleDevice = device => {
@@ -124,7 +159,7 @@ class NavBarDefault extends PureComponent {
     const scroll = scrollBody || scrollElement
 
     const header = Array.from(document.getElementsByTagName('header'))
-    const headerTop = (header[0] && header[0].offsetTop) || 100
+    const headerTop = (header[0] && header[0].offsetTop) || 0
     // setTimeout(() => {
     //   console.log(header[0].offsetTop)
     // }, 2000)
@@ -162,7 +197,7 @@ class NavBarDefault extends PureComponent {
   } */
 
   render() {
-    const { statusSidebar, scrolled, isActive } = this.state
+    const { statusSidebar, scrolled, isActive, nameUser, initialUser, showHard } = this.state
     const {
       logo,
       arcSite,
@@ -231,7 +266,10 @@ class NavBarDefault extends PureComponent {
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
-              <div className={classes.btnContainer}>
+              <div
+                className={`${classes.btnContainer}  ${activeSignwall.indexOf(
+                  arcSite
+                ) < 0 && classes.hidden}`}>
                 <Button
                   btnText="Suscríbete"
                   btnClass={`${classes.btnSubscribe} btn--outline`}
@@ -239,9 +277,17 @@ class NavBarDefault extends PureComponent {
                 />
                 <button
                   type="button"
-                  className={`${classes.btnLogin} btn--outline`}
+                  className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
                   onClick={() => this.setState({ isActive: true })}>
-                  {this.checkSesion() ? 'Mi Cuenta' : 'Iniciar Sesión'}
+                  <i
+                    className={
+                      initialUser ? `${classes.iconSignwall} text-user text-xs` : `${classes.iconLogin} ${classes.iconSignwall} icon-user` 
+                    }>
+                    { initialUser }
+                  </i>
+                  <span className="capitalize">
+                    {this.checkSesion() ? nameUser : 'Ingresa a tu cuenta'}
+                  </span>
                 </button>
               </div>
               <div className={classes.searchContainer}>
@@ -262,7 +308,7 @@ class NavBarDefault extends PureComponent {
                     ref={this.inputSearch}
                     type="search"
                     /* onBlur={this._handleCloseSectionsSearch} */
-                    onKeyUp={this.watchKeys}
+                    onKeyUp={this._handleKeyDown}
                     placeholder="¿Qué Buscas?"
                     className={`${classes.search} ${this.activeSearch()}`}
                   />
@@ -277,12 +323,11 @@ class NavBarDefault extends PureComponent {
             <div
               className={`${classes.btnContainer} ${
                 classes.navMobileContainer
-              } ${responsiveClass}`}>
+              } ${responsiveClass} ${activeSignwall.indexOf(arcSite) < 0 &&
+                classes.hidden}`}>
               <button
                 type="button"
-                className={`${
-                  classes.btnLogin
-                } border-1 border-solid border-white`}
+                className={`${classes.btnLogin} border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
                 <i className={classes.iconLogin} />
               </button>
@@ -296,6 +341,13 @@ class NavBarDefault extends PureComponent {
           />
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
+
+        {this.getUrlParam('sigwalHard') && !this.checkSesion() && showHard ? (
+          <SignWallHard
+            closePopup={() => this.setState({ showHard: false })}
+            brandModal={arcSite}
+          />
+        ) : null}
       </>
     )
   }

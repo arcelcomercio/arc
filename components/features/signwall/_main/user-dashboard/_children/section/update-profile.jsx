@@ -60,9 +60,6 @@ class UpdateProfile extends Component {
             ? profileLS.secondLastName
             : '',
 
-        // secondLastName: getAtributeHeader('secondLastName')
-        //   ? getAtributeHeader('secondLastName')
-        //   : '',
         documentType: getAtributeHeader('documentType')
           ? getAtributeHeader('documentType')
           : '',
@@ -465,7 +462,7 @@ class UpdateProfile extends Component {
     return (
       <form className="form-grid" onSubmit={e => this.handleUpdateProfile(e)}>
         <div className="form-grid__row form-grid__row--btw">
-          <h3 className="form-grid__title">Tus Datos</h3>
+          <h3 className="form-grid__title">Tus datos</h3>
           <div className="message" hidden={!hiddenSuccessPass}>
             <p className="message--success">TUS DATOS HAN SIDO ACTUALIZADOS</p>
           </div>

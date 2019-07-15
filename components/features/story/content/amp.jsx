@@ -100,7 +100,12 @@ class StoryContentAmp extends PureComponent {
                 }
 
                 if (type === ConfigParams.ELEMENT_RAW_HTML) {
-                  return (
+                  return content.includes('id="powa-') ? (
+                    <StoryContentChildVideo
+                      data={content}
+                      className={classes.newsImage}
+                    />
+                  ) : (
                     <RawHtml content={ampHtml(content)} rawHtmlClasses="" />
                   )
                 }
@@ -177,7 +182,8 @@ class StoryContentAmp extends PureComponent {
             type="taboola"
             layout="responsive"
             heights="(min-width:1862px) 213%, (min-width:1293px) 218%, (min-width:909px) 226%, (min-width:647px) 236%, (min-width:500px) 252%, (min-width:397px) 272%, 297%"
-            data-publisher="grupoelcomercio-elcomercio"
+            data-publisher={`grupoelcomercio-${arcSite === 'publimetro' &&
+              'peru21'}`}
             data-mode="thumbnails-a-amp"
             data-placement="Mobile Below Article Thumbnails AMP"
             data-target_type="mix"

@@ -1,4 +1,6 @@
-import { addResizedUrlItem } from './thumbs'
+import {
+  addResizedUrlItem
+} from './thumbs'
 import ConfigParams from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
@@ -25,40 +27,77 @@ export const formatDate = date => {
 
   const fechaEntrante = date.slice(0, 10)
   const fecha =
-    fechaEntrante === fechaGenerada
-      ? date.slice(date.indexOf('T') + 1, 16)
-      : fechaEntrante
+    fechaEntrante === fechaGenerada ?
+    date.slice(date.indexOf('T') + 1, 16) :
+    fechaEntrante
   return fecha
 }
 
-export const formatDayMonthYear = date => {
+export const formatDateLocalTimeZone = publishDateString => {
+  const publishDate = new Date(publishDateString)
+  publishDate.setHours(publishDate.getHours() - 5)
+
+  const today = new Date()
+  today.setHours(today.getHours() - 5)
+
+  let formattedDate = ''
+  const diff = parseFloat(
+    (Math.abs(today - publishDate) / (1000 * 60 * 60)).toFixed(1)
+  )
+
+  if (diff >= 24) {
+    // eslint-disable-next-line prefer-destructuring
+    formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+  } else {
+    const hora =
+      publishDate.getHours() < 10 ?
+      `0${publishDate.getHours()}` :
+      `${publishDate.getHours()}`
+    const minutes =
+      publishDate.getMinutes() < 10 ?
+      `0${publishDate.getMinutes()}` :
+      `${publishDate.getMinutes()}`
+    formattedDate = `${hora}:${minutes}`
+  }
+  return formattedDate
+}
+
+export const arrayMonths = [
+  'enero',
+  'febrero',
+  'marzo',
+  'abril',
+  'mayo',
+  'junio',
+  'julio',
+  'agosto',
+  'septiembre',
+  'octubre',
+  'noviembre',
+  'diciembre',
+]
+
+export const arrayDays = [
+  'Domingo',
+  'Lunes',
+  'Martes',
+  'Miércoles',
+  'Jueves',
+  'Viernes',
+  'Sábado',
+]
+
+export const formatDayMonthYear = (date, showHour = true) => {
   const fecha = new Date(date)
-  const arrayMeses = [
-    'enero',
-    'febrero',
-    'marzo',
-    'abril',
-    'mayo',
-    'junio',
-    'julio',
-    'agosto',
-    'septiembre',
-    'octubre',
-    'noviembre',
-    'diciembre',
-  ]
-  const arrayDay = [
-    'Lunes',
-    'Martes',
-    'Miércoles',
-    'Jueves',
-    'Viernes',
-    'Sabado',
-    'Domingo',
-  ]
-  return `${arrayDay[fecha.getDay()]} ${fecha.getDate()} de ${
-    arrayMeses[fecha.getMonth()]
-  } del ${fecha.getFullYear()}, ${fecha.getHours()}:${fecha.getMinutes()}`
+
+  const dateFormatter = `${
+    arrayDays[fecha.getUTCDay()]
+  } ${fecha.getUTCDate()} de ${
+    arrayMonths[fecha.getUTCMonth()]
+  } del ${fecha.getUTCFullYear()}`
+  return showHour ?
+    `${dateFormatter}, ${fecha.getHours()}:${fecha.getMinutes()}` :
+    dateFormatter
 }
 
 // ex: 2019-04-29 22:34:13 or 2019/04/29T22:34:13
@@ -85,14 +124,15 @@ export const getFullDateIso8601 = (
 
 export const getActualDate = () => {
   const today = new Date()
-  let dd = today.getDate()
-  let mm = today.getMonth() + 1 // January is 0!
 
-  const yyyy = today.getFullYear()
-  if (dd < 10) dd = `0${dd}`
-  if (mm < 10) mm = `0${mm}`
+  /**
+   * TODO: temporal. Esto esta funcionando porque su gemelo en
+   * story-feed-by-section-and-date funciona desde server y ahora este tambien
+   * cuando el componente tiene static true y la fecha es distinta en local, eso creemos.
+   */
+  if (today.getHours() <= 5) today.setDate(today.getDate() - 1)
 
-  return `${yyyy}-${mm}-${dd}`
+  return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 }
 
 export const isEmpty = val => {
@@ -165,12 +205,12 @@ export const metaPaginationUrl = (
   siteUrl,
   isQuery
 ) => {
-  return requestUri.match(patternPagination) != null
-    ? `${siteUrl}${requestUri.replace(
+  return requestUri.match(patternPagination) != null ?
+    `${siteUrl}${requestUri.replace(
         patternPagination,
         `${isQuery ? '&page=' : '/'}${pageNumber}`
-      )}`
-    : `${siteUrl}${
+      )}` :
+    `${siteUrl}${
         isQuery ? requestUri : `${requestUri.split('?')[0]}${pageNumber}`
       }${
         isQuery
@@ -185,16 +225,18 @@ export const getMetaPagesPagination = (
   globalContent,
   patternPagination
 ) => {
-  const { next, previous } = globalContent || {}
+  const {
+    next,
+    previous
+  } = globalContent || {}
   const pages = {
-    current: requestUri.match(patternPagination)
-      ? parseInt(
-          requestUri
-            .match(patternPagination)[0]
-            .split(`${isQuery ? '=' : '/'}`)[1],
-          10
-        )
-      : 1,
+    current: requestUri.match(patternPagination) ?
+      parseInt(
+        requestUri
+        .match(patternPagination)[0]
+        .split(`${isQuery ? '=' : '/'}`)[1],
+        10
+      ) : 1,
     next: false,
     prev: false,
   }
@@ -254,9 +296,9 @@ export const getCookie = cookieName => {
 
 export const formatSlugToText = (text = '') => {
   if (!text) return null
-  const splitText = text.slice(1).includes('/')
-    ? text.slice(1).split('/')
-    : text.split('/')
+  const splitText = text.slice(1).includes('/') ?
+    text.slice(1).split('/') :
+    text.split('/')
   const lastSection = splitText[splitText.length - 1]
   return lastSection
     .charAt(0)
@@ -268,6 +310,16 @@ export const formatSlugToText = (text = '') => {
 export const formatHtmlToText = (html = '') => {
   const htmlData = html.toString()
   return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
+}
+
+export const removeLastSlash = url => {
+  if (url === '/' || !url.endsWith('/')) return url
+  return url && url.endsWith('/') ? url.slice(0, url.length - 1) : url
+}
+
+export const addSlashToEnd = url => {
+  if (url && url.trim() === '/') return url
+  return url && !url.endsWith('/') ? `${url}/` : url
 }
 
 export const defaultImage = ({
@@ -282,7 +334,12 @@ export const defaultImage = ({
   )
 }
 
-export const createScript = ({ src, async, defer, textContent = '' }) => {
+export const createScript = ({
+  src,
+  async,
+  defer,
+  textContent = ''
+}) => {
   const node = document.createElement('script')
   if (src) {
     node.type = 'text/javascript'
@@ -317,8 +374,7 @@ export const breadcrumbList = (url, siteUrl) => {
       if (i === 1 || (i === 2 && dataSeccion.length === 4)) {
         const separator = '/'
         arrayData[i] = {
-          name:
-            element.charAt(0).toUpperCase() +
+          name: element.charAt(0).toUpperCase() +
             element.slice(1).replace('-', ' '),
           url: siteUrl + separator + element,
         }
@@ -329,18 +385,15 @@ export const breadcrumbList = (url, siteUrl) => {
   return arrayData.filter(String)
 }
 
-export const getUrlParameter = contentElements => {
-  const { location: { href: loc } = {} } = window || {}
+export const getUrlParameter = () => {
+  const {
+    location: {
+      href: loc
+    } = {}
+  } = window || {}
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
-
-  if (loc.includes('?') && contentElements) {
-    const sWidth = 100 / contentElements.length
-    return tmp[1] && contentElements.length >= tmp[1]
-      ? -sWidth * (tmp[1] - 1)
-      : 0
-  }
-  return parseInt(String, tmp[1]) || 0
+  return parseInt(tmp[1], 0) || 0
 }
 
 export const getMultimediaIcon = multimediaType => {
@@ -360,21 +413,18 @@ export const getMultimediaIcon = multimediaType => {
 
 export const optaWidgetHtml = html => {
   const matches = html.match(/<opta-widget(.*?)><\/opta-widget>/)
-  const matchesResult = matches
-    ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
-    : ''
+  const matchesResult = matches ?
+    matches[1].replace(/="/g, '=').replace(/" /g, '&') :
+    ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
 }
 
 export const imageHtml = html => {
-  const strImageCde = '/<img (.*)src="http://cde(.*?)" (.*)>/g'
   const rplImageCde =
-    '<amp-img class="media" src="http://cde$2" layout="responsive" width="1" height="1"></amp-img>'
-  return html.replace(strImageCde, rplImageCde)
+    '<amp-img class="media" src="https://$2" layout="responsive" width="1" height="1"></amp-img>'
+  return html.replace(/<img (.*)src="https:\/\/(.*?)" (.*)>/g, rplImageCde)
 }
 
 export const playerHtml = html => {
@@ -393,6 +443,17 @@ export const twitterHtml = html => {
 
   const htmlDataTwitter = html.replace(
     /<blockquote class="twitter-tweet"(.*)<a href="https:\/\/twitter.com\/(.*)\/status\/(.*)">(.*)<\/blockquote>/g,
+    rplTwitter
+  )
+
+  return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
+}
+
+export const iframeHtml = html => {
+  const rplTwitter =
+    '<amp-iframe class="media" src="http$2"  height="400"  width="600"    title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
+  const htmlDataTwitter = html.replace(
+    /<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g,
     rplTwitter
   )
 
@@ -421,17 +482,21 @@ export const facebookHtml = html => {
     .replace(strFacebook2, rplFacebook2)
     .replace(
       /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/g,
-      rplFacebook3
+      decodeURIComponent(rplFacebook3)
     )
 }
 
 export const youtubeHtml = html => {
-  const strYoutube =
-    '/<iframe width="(.*?)" height="(.*?)" src="https://www.youtube.com/embed/(.*?)"></iframe>/g'
   const rplYoutube =
-    '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="$1" height="$2"></amp-youtube>'
+    '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="$2"></amp-youtube>'
 
-  return html.replace(strYoutube, rplYoutube)
+  return html.replace(
+    /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
+    rplYoutube
+  )
+}
+export const replaceHtmlMigracion = html => {
+  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }
 
 export const instagramHtml = html => {
@@ -449,10 +514,12 @@ export const freeHtml = html => {
 }
 
 export const ampHtml = (html = '') => {
-  let resultData = ''
+  let resultData = html
+  // Opta Widget
+  resultData = replaceHtmlMigracion(html)
 
   // Opta Widget
-  resultData = optaWidgetHtml(html)
+  resultData = optaWidgetHtml(resultData)
 
   // imagenes
   resultData = imageHtml(resultData)
@@ -467,7 +534,7 @@ export const ampHtml = (html = '') => {
   resultData = instagramHtml(resultData)
 
   // facebook
-  resultData = facebookHtml(decodeURIComponent(resultData))
+  resultData = facebookHtml(resultData)
 
   // Youtube
   resultData = youtubeHtml(resultData)
@@ -475,10 +542,18 @@ export const ampHtml = (html = '') => {
   // HTML Free
   resultData = freeHtml(resultData)
 
+  // HTML Iframe
+  resultData = iframeHtml(resultData)
+
   return resultData
 }
 
-export const publicidadAmp = ({ dataSlot, placementId, width, height }) => {
+export const publicidadAmp = ({
+  dataSlot,
+  placementId,
+  width,
+  height
+}) => {
   const resultData = createMarkup(`
   <amp-ad width="${width}" height="${height}" type="doubleclick"
   data-slot="${dataSlot}"
@@ -507,18 +582,28 @@ export const preventDefault = e => {
 }
 
 export const replaceTags = text => {
-  return text.replace(/<p><br \/>(\s\w)=.(.*?)<\/p>/, '$2')
+  return text.replace(/(\s\w)=.(.*?)/g, '$2')
 }
 
 export const formatDateStory = date => {
-  const fecha = date.slice(0, 10).replace(/-/g, '.')
-  const hora = date.slice(date.indexOf('T') + 1, 16)
-  const tiempo = date.slice(date.indexOf('T') + 1, 13)
-
-  const horaAm = parseInt(String, tiempo) < 12 ? 'am' : 'pm'
-  return `${fecha} / ${hora} ${horaAm}`
+  const fecha = new Date(date)
+  const day = fecha.getDate()
+  const month = fecha.getMonth() + 1
+  const formatDay = day < 10 ? `0${day}` : day
+  const formatMonth = month < 10 ? `0${month}` : month
+  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
 }
 
-export const replaceHtmlMigracion = html => {
-  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
+export const deleteQueryString = url => {
+  return url.split('?')[0]
+}
+
+export const isIE = () => {
+  const ua = window.navigator.userAgent
+  const msie = ua.indexOf('MSIE ')
+  const trident = ua.indexOf('Trident/')
+  if (msie > 0 || trident > 0) {
+    return true
+  }
+  return false
 }

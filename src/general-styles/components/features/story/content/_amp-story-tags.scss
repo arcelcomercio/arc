@@ -1,20 +1,23 @@
 .amp-story-tags {
   &__title {
-    color: #4aa8fa;
     font-family: $secondary-font;
   }
+
   &__link {
     font-family: $secondary-font;
   }
 }
+
 /* Clases exclusivas de amp */
 .amp-next-page-link {
   display: flex;
   align-items: center;
 }
+
 .amp-next-page-image {
   float: none;
 }
+
 .amp-next-page-text {
   font-family: $secondary-font;
 }

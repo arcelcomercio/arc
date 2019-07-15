@@ -1,8 +1,8 @@
 import React from 'react'
-import './divider.css'
+import * as S from './styled'
 
 const Divider = () => {
-  return <div className="__divider"></div>
+  return <S.Divider></S.Divider>
 }
 
 export default Divider

@@ -1,5 +1,8 @@
 export default {
   siteName: 'Depor',
+
+  googleFonts: 'Noticia+Text|Roboto', // open_sansregular
+
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',
   siteUrl: 'https://depor.com',
@@ -10,6 +13,7 @@ export default {
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-8',
+  ampGoogleTagManagerName: 'depor',
   charbeatAccountNumber: 99999,
   idGoogleAnalitics: 'UA-3055636-8',
   fbArticleStyle: 'LogoDepor',

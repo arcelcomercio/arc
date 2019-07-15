@@ -1,12 +1,13 @@
 .footer {
-  grid-template: 'info'auto 'contact'auto 'sites'auto;
+  display: grid;
+  grid-template: 'info' auto 'contact' auto 'sites' auto;
 
   @media (--tablet) {
-    grid-template: 'info contact'auto 'sites sites 'auto / 1fr 1fr;
+    grid-template: 'info contact' auto 'sites sites ' auto / 1fr 1fr;
   }
 
   @media (--desktop) {
-    grid-template: 'info sections contact'auto 'sites sites sites'auto / 1fr 1fr 1fr;
+    grid-template: 'info sections contact' auto 'sites sites sites' auto / 1fr 1fr 1fr;
   }
 
   &__info {
@@ -101,11 +102,11 @@
     font-size: 22px;
   }
 
-  &__list-link {
+  /* &__list-link {
     &:nth-child(2) {
       font-weight: bold;
     }
-  }
+  } */
 
   // &__logo {}
   // &__legal-list {}

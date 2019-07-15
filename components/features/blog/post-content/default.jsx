@@ -14,11 +14,11 @@ const classes = {
 @Consumer
 class BlogPostContent extends PureComponent {
   render() {
+    const { globalContent } = this.props
     const {
-      globalContent: { post, user },
-    } = this.props || {}
-    const { post_content: postContent, post_date: postDate } = post || {}
-    const { first_name: firstName } = user || {}
+      post: { post_content: postContent, post_date: postDate },
+      user: { first_name: firstName },
+    } = globalContent || {}
     const formatDate = getFullDateIso8601(postDate)
     const { day, month, fullYear, hours, minutes } = formatDate || {}
 

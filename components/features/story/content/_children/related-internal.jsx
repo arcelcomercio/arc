@@ -2,6 +2,7 @@ import React from 'react'
 // import StoryData from '../../../../utilities/story-data'
 import { getIcon } from '../../../../utilities/helpers'
 import ConfigParams from '../../../../utilities/config-params'
+import DataStory from '../../../../utilities/story-data'
 
 // Basic flex stuff
 const classes = {
@@ -17,17 +18,15 @@ const classes = {
 }
 
 const RelartedItem = ({ data } /* , i */) => {
-  const {
-    headlines: { basic: storyTitle } = {},
-    website_url: storyUrl,
-    promo_items: { basic: imageData = {} } = {},
-  } = data
+  const get = new DataStory({
+    data,
+  })
 
   const filterData = {
-    nameTitle: storyTitle,
-    urlTitle: storyUrl,
-    multimediaType: imageData.type,
-    multimediaImg: imageData.url,
+    nameTitle: get.title,
+    urlTitle: get.link,
+    multimediaType: get.multimediaType,
+    multimediaImg: get.multimedia,
   }
 
   return (

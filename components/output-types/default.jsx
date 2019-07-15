@@ -5,6 +5,7 @@ import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
+import ChartbeatBody from './_children/chartbeat-body'
 
 export default ({
   children,
@@ -47,18 +48,22 @@ export default ({
 
   const title =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? `${metaValue('title')} | ${siteProperties.siteName}`
+      ? (!metaValue('meta_title').match(/content/) &&
+          metaValue('meta_title')) ||
+        metaValue('title')
       : siteProperties.siteName
 
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
-      ? `${metaValue('description')} en ${siteProperties.siteName}`
+      ? `${metaValue('description')}`
       : 'Últimas noticias en Perú y el mundo'
 
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -89,6 +94,19 @@ export default ({
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
 
+  const structuredFacebook = `
+    (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id))
+        return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.4&appId=1626271884277579";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));`
+
+  const { googleFonts = '' } = siteProperties || {}
+
   return (
     <html lang="es">
       <head>
@@ -112,13 +130,16 @@ export default ({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link
-          href="https://fonts.googleapis.com/css?family=Exo|Judson|Lato|Noticia+Text|Noto+Serif|Roboto&display=swap"
+          href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
           rel="stylesheet"
         />
-        <script src="https://jab.pe/f/arc/data_js.js" async />
+        <script
+          src={`https://d1r08wok4169a5.cloudfront.net/ads-publimetro/data_${arcSite}.js`}
+          async
+        />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
+        {isStory ? '' : <meta name="keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
@@ -136,16 +157,29 @@ export default ({
         />
         {/* Scripts de APPNEXUS */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
         {/* <script
           async
           src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
         /> */}
+
+        {/* Rubicon BlueKai - Inicio */}
+        <script
+          type="text/javascript"
+          src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
+        />
+        <script
+          type="text/javascript"
+          src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
+        />
+        {/* <!-- Rubicon BlueKai - Fin --> */}
+
         <Libs />
         {/* Scripts Identity & Sales */}
         <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-sales.min.js" />
         <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js" />
       </head>
-      <body className={isStory ? 'story nota' : ''}>
+      <body className={isStory ? 'story' : ''}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -157,8 +191,12 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        {isStory && <div id="ads_m_movil0" />}
-        {isStory && <div id="ads_d_skin" />}
+        {isStory && ( // TODO: pediente por definir comentarios por cada sitio
+          <>
+            <div id="fb-root" />
+            <script dangerouslySetInnerHTML={{ __html: structuredFacebook }} />
+          </>
+        )}
         <div id="fusion-app" role="application">
           {children}
         </div>
@@ -181,6 +219,7 @@ export default ({
             dangerouslySetInnerHTML={{ __html: structuredTaboola }}
           />
         )}
+        <ChartbeatBody story={isStory} {...metaPageData} />
       </body>
     </html>
   )

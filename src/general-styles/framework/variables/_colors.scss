@@ -64,15 +64,15 @@ $footer-text-color: $color-white !default;
 
 /*-------------SIGNWALL----------------*/
 $signwall-background: $color-primary;
-$signwall-text-color: #008eff;
-$signwall-color-link: #0f8bf7;
 $signwall-border-color: #d1e6f0;
 $signwall-icon-background: $color-black;
 $signwall-icon-color: $signwall-background;
 $signwall-home-link-color: #9e9e9e;
 $signwall-header-text-color: #ffffff !default;
+$signwall-color-item-title:#008eff;
+$signwall-color-link: #0f8bf7;
 
 // Globals
-$signwall-text-menu-color-primary: $signwall-text-color;
+$signwall-text-menu-color-primary: #008eff;
 $signwall-text-menu-color-secondary: #818181;
 /*-------------SIGNWALL----------------*/

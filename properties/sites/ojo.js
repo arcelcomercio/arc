@@ -1,5 +1,8 @@
 export default {
   siteName: 'Ojo',
+
+  googleFonts: 'Roboto',
+
   colorPrimary: '#f7c600',
   siteDomain: 'ojo.pe',
   siteUrl: 'https://ojo.pe',
@@ -10,6 +13,7 @@ export default {
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-3',
+  ampGoogleTagManagerName: 'ojo',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-11',
   fbArticleStyle: '',

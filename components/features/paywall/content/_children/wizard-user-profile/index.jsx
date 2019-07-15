@@ -1,19 +1,17 @@
 import React from 'react'
 import UserPerfil from '../../../_children/user-profile'
 import Panel from '../../../_children/panel'
-import Summary from '../../../_children/summary'
-import './wizard-user-profile.css'
+import Summary from './_children/summary'
+import * as S from './styled'
 
-function WizardUserProfile() {
+function WizardUserProfile({ profile, summary }) {
   return (
-    <div className="wizard-user-profile">
-      <Panel type="content" valing="jc-center">
-        <UserPerfil />
+    <S.WizardUserProfile>
+      <Panel type="content" valing="jc-center" margin="30px 0 0 0">
+        {profile && <UserPerfil profile={profile} title="Ingrese sus datos" />}
       </Panel>
-      <Panel type="summary">
-        <Summary />
-      </Panel>
-    </div>
+      <Summary summary={summary} />
+    </S.WizardUserProfile>
   )
 }
 

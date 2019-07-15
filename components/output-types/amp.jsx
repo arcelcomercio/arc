@@ -32,6 +32,7 @@ const AmpOutputType = ({
     isAmp: true,
     deployment,
   }
+
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
 
   const metaSiteData = {
@@ -46,12 +47,14 @@ const AmpOutputType = ({
 
   const title =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? `${metaValue('title')} | ${siteProperties.siteName}`
+      ? (!metaValue('meta_title').match(/content/) &&
+          metaValue('meta_title')) ||
+        metaValue('title')
       : siteProperties.siteName
 
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
-      ? `${metaValue('description')} en ${siteProperties.siteName}`
+      ? `${metaValue('description')} `
       : 'Últimas noticias en Perú y el mundo'
 
   const keywords =
@@ -93,7 +96,7 @@ const AmpOutputType = ({
     <Html>
       <head>
         <BaseMarkup
-          canonicalUrl={siteProperties.siteUrl.concat(canonicalUrl)}
+          canonicalUrl={`${siteProperties.siteUrl}${canonicalUrl}/`}
         />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <title>{title}</title>
@@ -105,11 +108,12 @@ const AmpOutputType = ({
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
-        <meta name="news_keywords" content={keywords} />
         <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
+
+        {/* add additional head elements here */}
 
         {/* add additional head elements here */}
 

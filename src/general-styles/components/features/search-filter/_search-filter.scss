@@ -1,6 +1,4 @@
 .search-filter {
-  background-color: #e8f2f7;
-
   @media (--desktop) {
     height: 152px;
   }
@@ -15,7 +13,7 @@
 
   &__list {
     top: 40px;
-    z-index: 10;
+    z-index: 1;
 
     @media (--desktop) {
       background-color: transparent;
@@ -25,21 +23,10 @@
   }
 
   &__item {
-    &.active {
-      background-color: $color-primary;
-
-      .search-filter__link {
-        font-weight: bold;
-      }
-
-      @media (--desktop) {
-        background-color: $color-white;
-
-        .search-filter__link {
-          background-color: #bbd3e0;
-          font-weight: bold;
-        }
-      }
+    @media (--desktop) {
+      background-color: $color-white;
+      margin-right: 2px;
+      position: relative;
     }
 
     &.selected {
@@ -49,14 +36,35 @@
         background-color: $color-primary;
         font-weight: bold;
         border: 0;
-        outline: 0;
+      }
+
+      &:before {
+        @media (--desktop) {
+          border-color: $color-primary transparent transparent;
+          border-style: solid;
+          border-width: 10px 10px 0 10px;
+          bottom: -10px;
+          content: ' ';
+          height: 0;
+          left: 50%;
+          margin-left: -10px;
+          position: absolute;
+          width: 0;
+        }
       }
     }
 
-    @media (--desktop) {
-      background-color: $color-white;
-      margin-right: 2px;
-      position: initial;
+    &.active {
+      background-color: $color-primary;
+
+      .search-filter__link {
+        font-weight: bold;
+
+        @media (--desktop) {
+          background-color: $color-primary;
+          font-family: $primary-font;
+        }
+      }
     }
 
     &:nth-child(3) {
@@ -65,7 +73,7 @@
       }
     }
 
-    &:nth-child(6) {
+    &:last-child {
       @media (--desktop) {
         margin-right: 10px;
       }
@@ -74,9 +82,15 @@
 
   &__link {
     @media (--desktop) {
-      width: 91px;
+      width: 200px;
       height: 76px;
-      background-color: $color-base-100;
+      background-color: $color-gray-100;
+    }
+
+    &:hover {
+      background-color: $color-primary;
+      color: $color-white;
+      text-decoration: none;
     }
   }
 

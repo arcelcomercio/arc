@@ -7,7 +7,7 @@ import { sha256 } from 'js-sha256'
 import FormValid from '../../utils/form-valid'
 import * as Icon from '../../common/iconos'
 import ListBenefits from './benefits'
-import AuthGoogle from './social-auths/auth-google'
+//import AuthGoogle from './social-auths/auth-google'
 import AuthFacebook from './social-auths/auth-facebook'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
@@ -288,14 +288,14 @@ class FormLogin extends Component {
                     />
                   </div>
 
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <AuthGoogle
                       closePopup={closePopup}
                       id="google-sign-in-button"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
                     />
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="form-grid__group" hidden={!hiddendiv}>
@@ -373,7 +373,7 @@ class FormLogin extends Component {
                       type="submit"
                       name="ingresar"
                       id="login_boton_ingresar"
-                      className="btn input-button-brand"
+                      className="btn input-button"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                       disabled={!sending}
                     />
@@ -405,8 +405,7 @@ class FormLogin extends Component {
                   </button>
                 </p>
                 <p className="form-grid__subtitle form-grid__subtitle--fb text-center">
-                  Con tus datos mejoraremos tu experiencia de navegación y nunca
-                  publicaremos sin tu permiso
+                Al registrarte, nos ayudarás a mejorar tu experiencia de navegación. Tus datos no se publicarán sin tu autorización.
                 </p>
               </div>
 

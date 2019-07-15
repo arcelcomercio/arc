@@ -3,6 +3,7 @@ import Consumer from 'fusion:consumer'
 import Fingerprint2 from 'fingerprintjs2'
 
 import LoginRegister from './_main/signwall/index'
+
 import Panel from './_main/user-dashboard/index'
 import addScriptAsync from './_main/utils/script-async'
 import Cookie from './_main/utils/cookie'
@@ -27,7 +28,7 @@ class Signwall extends Component {
   componentWillMount() {
     const {
       siteProperties: {
-        signwall: { ORIGIN_IDENTITY_SDK, ORIGIN_API, ORIGIN_SALES_SDK } = {},
+        signwall: { ORIGIN_IDENTITY_SDK, ORIGIN_API, ORIGIN_PAYWALL } = {},
       } = {},
     } = this.props
 
@@ -49,37 +50,26 @@ class Signwall extends Component {
       })
 
     addScriptAsync({
-      name: 'sdkSalesARC',
-      url: `${ORIGIN_SALES_SDK}?v=${queryStringDate}`,
+      name: 'Paywall',
+      url: `${ORIGIN_PAYWALL}?v=${queryStringDate}`,
     })
       .then(() => {
-        window.Sales.apiOrigin = ORIGIN_API
+
+        window.ArcP.run({
+          paywallFunction: (campaignURL) => alert('Paywall!', campaignURL),
+          // customPageData: () => ({
+          //   c: 'story',
+          //   s: 'business',
+          //   ci: 'https://www.your.domain.com/canonical/url'
+          // })
+        }).then(results => console.log('Results from running paywall script: ', results))
+          .catch(err = () => console.error(err));
+        
       })
-      .catch(errSales => {
-        console.log('Error', errSales)
+      .catch(errPaywall => {
+        console.log('Error', errPaywall)
       })
 
-    // --Script Waldo--//
-    /* addScriptAsync({
-      name: 'sdkTalk',
-      type: 'module',
-      url: `https://s3-sa-east-1.amazonaws.com/pic.resize2/module.talk.min.js?v=${queryStringDate}`,
-    })
-      .then(() => {
-        window.TalkInit({
-          talk: 'http://52.71.25.247/',
-          arc_token: window.Identity.userIdentity.accessToken,
-          target: document.getElementById('coral_talk_stream'),
-          debug: false,
-          openSignIn: () => {
-            window.openLoginOrganic()
-          },
-        })
-      })
-      .catch(errTalk => {
-        console.log('Error', errTalk)
-      }) */
-    // --Script Waldo--//
   }
 
   componentDidUpdate = () => {
@@ -137,12 +127,13 @@ class Signwall extends Component {
   }
 
   render() {
-    const { showLogin, showPanel } = this.state
+    const { showLogin, showPanel} = this.state
+    const { arcSite } = this.props
     return (
       <div className="signwall">
         <div className="link-identity__content">
           {showLogin && (
-            <LoginRegister closePopup={() => this.togglePopupLogin()} />
+            <LoginRegister closePopup={() => this.togglePopupLogin()} brandModal={arcSite}/>
           )}
 
           {showPanel && <Panel closePopup={() => this.togglePopupPanel()} />}

@@ -1,3 +1,11 @@
-.elcomercio .wizard-nav__step{
-    background-color: $color-primary
+.elcomercio{
+    .nav-step-active{
+        .nav-circle{
+            background-color: $color-primary;
+          }
+          .nav-number{
+            color: #FFF
+          }
+    }
+
 }

@@ -24,7 +24,7 @@ const Paywall = props => {
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
         <title>{metaValue('title') || 'Default Title'}</title>
-        <props.MetaTags />
+
         <props.Libs />
         <props.CssLinks />
         <Meta.Theme {...colorPrimary} {...siteName} />
@@ -39,6 +39,7 @@ const Paywall = props => {
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,700&display=swap"
           rel="stylesheet"
         />
+        <props.MetaTags />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />

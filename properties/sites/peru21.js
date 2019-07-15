@@ -1,5 +1,8 @@
 export default {
   siteName: 'Perú21',
+
+  googleFonts: 'Lato', // open_sansregular
+
   colorPrimary: '#f7c600',
   siteDomain: 'peru21.pe',
   siteUrl: 'https://peru21.pe',
@@ -10,6 +13,7 @@ export default {
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-3',
+  ampGoogleTagManagerName: 'publimetro',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-4',
   fbArticleStyle: 'LogoPeru21',

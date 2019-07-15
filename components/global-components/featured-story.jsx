@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 import Icon from './multimedia-icon'
 
-const LIVE_TEXT = 'En vivo'
+const SIZE_ONE_COL = 'oneCol'
+const SIZE_TWO_COL = 'twoCol'
 
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
@@ -29,7 +30,7 @@ const classes = {
   imgComplete: 'img-complete justify-end',
   parcialTop: 'featured-story--reverse',
 
-  twoCol: 'col-2',
+  [SIZE_TWO_COL]: 'col-2',
   // Headbands
   headband: 'featured-story__headband mb-5 text-lg',
   headbandLink: 'featured-story__headband-link font-bold text-white',
@@ -65,15 +66,20 @@ export default class FeaturedStory extends PureComponent {
         case 'complete':
           return classes.imgComplete
         case 'parcialTop':
-          return size !== 'twoCol' ? classes.parcialTop : classes.imgComplete
+          return size !== SIZE_TWO_COL
+            ? classes.parcialTop
+            : classes.imgComplete
         default:
-          return size !== 'twoCol' ? '' : classes.imgComplete
+          return size !== SIZE_TWO_COL ? '' : classes.imgComplete
       }
     }
 
     // Metodo preparado para indicar otros tipos estilos en base a otros casos que se definan.
     const getHeadBandClass = () => {
       if (headband === 'live') {
+        return classes.live
+      }
+      if (headband === 'gestionTv') {
         return classes.live
       }
       return ''
@@ -98,12 +104,17 @@ export default class FeaturedStory extends PureComponent {
         numline = classes.threeline
         break
     }
+
+    let headbandText = ''
+    if (headband === 'live') headbandText = 'En vivo'
+    else if (headband === 'gestionTv') headbandText = 'Gestión TV'
+
     return (
       <article
         className={`${
           classes.featuredStory
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
-          size === 'twoCol' ? classes.twoCol : ''
+          size === SIZE_TWO_COL ? classes.twoCol : ''
         } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
@@ -119,7 +130,7 @@ export default class FeaturedStory extends PureComponent {
           ) : (
             <div className={classes.headband}>
               <a href={category.url} className={classes.headbandLink}>
-                {headband === 'live' ? LIVE_TEXT : ''}
+                {headbandText}
               </a>
             </div>
           )}
@@ -166,7 +177,7 @@ FeaturedStory.propTypes = {
   image: PropTypes.string,
   imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialBot']),
   headband: PropTypes.oneOf(['normal', 'live']),
-  size: PropTypes.oneOf(['oneCol', 'twoCol']),
+  size: PropTypes.oneOf([SIZE_ONE_COL, SIZE_TWO_COL]),
   hightlightOnMobile: PropTypes.bool,
   editableField: PropTypes.func,
   titleField: PropTypes.string,

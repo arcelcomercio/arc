@@ -1,9 +1,17 @@
+import Consumer from 'fusion:consumer'
 import React from 'react'
 import Wizard from 'react-step-wizard'
 import Consumer from 'fusion:consumer'
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
+import Loading from '../_children/loading'
+import * as S from './styled'
+import {
+  AddIdentity,
+  userProfile,
+  attrToObject,
+} from '../_dependencies/Identity'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 const PRODUCT_SKU = '02072019'
@@ -15,57 +23,52 @@ const Right = () => {
 
 @Consumer
 class Content extends React.PureComponent {
-  state = {
-    plans: [],
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: {},
+      profile: '',
+    }
+    this.fetch = this.fetch.bind(this)
+    this.fetch()
   }
 
-  fetch = () => {
+  // eslint-disable-next-line react/sort-comp
+  fetch() {
     this.fetchContent({
-      plans: {
-        source: 'retail-campaign',
-        query: { campaign: CAMPAIGN },
-        transform: campaign => {
-          if (!campaign) throw new Error(`La campaña ${campaign} no existe`)
-          const products = campaign.products || []
-          const prod = products.find(p => p.sku === PRODUCT_SKU)
-          if (!prod)
-            throw new Error(
-              `No existe el producto con SKU ${PRODUCT_SKU} en la campaña ${campaign}`
-            )
-          return (prod.pricingStrategies || []).map(strat => {
-            try {
-              strat = Object.assign({}, strat, {
-                description: JSON.parse(strat.description),
-              })
-            } catch (e) {}
-            if (!strat.rates || strat.rates.lenght === 0)
-              throw new Error(`El plan ${strat.name}, no tiene precio inicial`)
-
-            return {
-              name: strat.name,
-              priceCode: strat.priceCode,
-              description: strat.description,
-              summary: strat.summary,
-              rates: strat.rates || [],
-            }
-          })
-        },
+      data: {
+        source: 'paywall-campaing',
+        query: { campaing: 'paywall-gestion-sandbox' },
       },
     })
   }
+
   componentDidMount() {
-    this.fetch()
+    AddIdentity(this.props).then(() => {
+      userProfile(['documentNumber', 'mobilePhone', 'documentType']).then(
+        profile => {
+          this.setState({ profile })
+        }
+      )
+    })
   }
+
   render() {
+    const { spinning, data, profile } = this.state
+    const { summary, plans } = data
     return (
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ width: 1120 }}>
-          <Wizard nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-            <WizardPlan plans={this.state.plans} />
-            <WizardUserProfile />
-          </Wizard>
+      <Loading spinning={false}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <S.Content>
+            <Wizard
+              isHashEnabled
+              nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
+              <WizardPlan plans={plans} summary={summary} />
+              <WizardUserProfile profile={profile} summary={summary} />
+            </Wizard>
+          </S.Content>
         </div>
-      </div>
+      </Loading>
     )
   }
 }

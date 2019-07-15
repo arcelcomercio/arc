@@ -1,30 +1,25 @@
 import React from 'react'
-import Panel from '../../../_children/panel'
 import CardPrice from '../card-price'
-import './wizard-plan.css'
+import Summary from './_children/summary'
+import * as S from './styled'
 
-function WizardPlan({ plans }) {
+function WizardPlan({ nextStep, summary, plans }) {
   return (
-    <div className="wizard-plan">
-      <div className="wizard-plan__wrap">
-        <Panel type="summary" valing="jc-center">
-          test
-        </Panel>
-        <div className="wizard-plan__wrap-plan">
-          <div className="wizard-plan__title">Selecciona un plan de pago:</div>
-          <div className="wizard-plan__plans">
+    <S.WizardPlan>
+      <S.Wrap>
+        <Summary {...summary} />
+        <S.WrapPlan>
+          <S.PlanTitle>Selecciona un plan de pago:</S.PlanTitle>
+          <S.Plans>
             {plans.map(plan => {
-              ;<Panel type="card-price">
-                <CardPrice
-                  amount={plan.rates[0].amount}
-                  billingFrequency={plan.rates[0].billingFrequency}
-                />
-              </Panel>
+              return (
+                <CardPrice key={plan.priceCode} {...plan} nextStep={nextStep} />
+              )
             })}
-          </div>
-        </div>
-      </div>
-    </div>
+          </S.Plans>
+        </S.WrapPlan>
+      </S.Wrap>
+    </S.WizardPlan>
   )
 }
 

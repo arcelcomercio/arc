@@ -2,12 +2,140 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
 /* eslint-disable camelcase */
+if (!Array.prototype.includes) {
+  Object.defineProperty(Array.prototype, 'includes', {
+    value: function(searchElement, fromIndex) {
+      if (this == null) {
+        throw new TypeError('"this" es null o no está definido')
+      }
+
+      // 1. Dejar que O sea ? ToObject(this value).
+      var o = Object(this)
+
+      // 2. Dejar que len sea ? ToLength(? Get(O, "length")).
+      var len = o.length >>> 0
+
+      // 3. Si len es 0, devuelve false.
+      if (len === 0) {
+        return false
+      }
+
+      // 4. Dejar que n sea ? ToInteger(fromIndex).
+      //    (Si fromIndex no está definido, este paso produce el valor 0.)
+      var n = fromIndex | 0
+
+      // 5. Si n ≥ 0, entonces
+      //  a. Dejar que k sea n.
+      // 6. Else n < 0,
+      //  a. Dejar que k sea len + n.
+      //  b. Si k < 0, Dejar que k sea 0.
+      var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0)
+
+      function sameValueZero(x, y) {
+        return (
+          x === y ||
+          (typeof x === 'number' &&
+            typeof y === 'number' &&
+            isNaN(x) &&
+            isNaN(y))
+        )
+      }
+
+      // 7. Repite, mientras k < len
+      while (k < len) {
+        // a. Dejar que elementK sea el resultado de ? Get(O, ! ToString(k)).
+        // b. Si SameValueZero(searchElement, elementK) es true, devuelve true.
+        if (sameValueZero(o[k], searchElement)) {
+          return true
+        }
+        // c. Incrementa k por 1.
+        k++
+      }
+
+      // 8. Devuelve false
+      return false
+    },
+  })
+}
+if (!Array.prototype.find) {
+  Object.defineProperty(Array.prototype, 'find', {
+    value: function(predicate) {
+      // 1. Let O be ? ToObject(this value).
+      if (this == null) {
+        throw new TypeError('"this" is null or not defined')
+      }
+
+      var o = Object(this)
+
+      // 2. Let len be ? ToLength(? Get(O, "length")).
+      var len = o.length >>> 0
+
+      // 3. If IsCallable(predicate) is false, throw a TypeError exception.
+      if (typeof predicate !== 'function') {
+        throw new TypeError('predicate must be a function')
+      }
+
+      // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
+      var thisArg = arguments[1]
+
+      // 5. Let k be 0.
+      var k = 0
+
+      // 6. Repeat, while k < len
+      while (k < len) {
+        // a. Let Pk be ! ToString(k).
+        // b. Let kValue be ? Get(O, Pk).
+        // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
+        // d. If testResult is true, return kValue.
+        var kValue = o[k]
+        if (predicate.call(thisArg, kValue, k, o)) {
+          return kValue
+        }
+        // e. Increase k by 1.
+        k++
+      }
+
+      // 7. Return undefined.
+      return undefined
+    },
+    configurable: true,
+    writable: true,
+  })
+}
+if (!String.prototype.includes) {
+  String.prototype.includes = function(search, start) {
+    'use strict'
+    if (typeof start !== 'number') {
+      start = 0
+    }
+
+    if (start + search.length > this.length) {
+      return false
+    } else {
+      return this.indexOf(search, start) !== -1
+    }
+  }
+}
+if (!String.prototype.endsWith) {
+  String.prototype.endsWith = function(searchString, position) {
+    var subjectString = this.toString()
+    if (
+      typeof position !== 'number' ||
+      !isFinite(position) ||
+      Math.floor(position) !== position ||
+      position > subjectString.length
+    ) {
+      position = subjectString.length
+    }
+    position -= searchString.length
+    var lastIndex = subjectString.indexOf(searchString, position)
+    return lastIndex !== -1 && lastIndex === position
+  }
+}
 
 const MEMBER_ID = 8484
 const agente = navigator.userAgent
-const {
-  pathname
-} = window.location
+const { pathname } = window.location
 const elements_path = pathname.split('/').filter(item => item.match(/(\w+)/g))
 const body_class = document.querySelector('body').getAttribute('class')
 
@@ -39,7 +167,8 @@ const adsParams =
   dataDevice.map(el => {
     return {
       invCode: `${slot}_${el}`,
-      sizes: device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
+      sizes:
+        device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
       allowedformats: ['video', 'banner'],
       targetId: `ads_${device}_${el}`,
     }
@@ -66,17 +195,17 @@ const getTags = () => {
   if (section === 'buscar')
     array_tags.push(
       window.location.search
-      .slice(3)
-      .split('+')
-      .join('')
-      .toLowerCase()
+        .slice(3)
+        .split('+')
+        .join('')
+        .toLowerCase()
     )
   else if (section === 'tags')
     array_tags.push(
       elements_path[1]
-      .split('-')
-      .join('')
-      .toLowerCase()
+        .split('-')
+        .join('')
+        .toLowerCase()
     )
   return array_tags
 }
@@ -167,9 +296,7 @@ const peruRedShowTag = () => {
 
               const nObj = adObj.native
               const {
-                image: {
-                  url: imgSrc
-                } = {},
+                image: { url: imgSrc } = {},
                 clickUrl = '',
                 title = '',
                 body = '',
@@ -257,17 +384,15 @@ const initAdserver = () => {
 
 const inline = data => {
   if (body_class.includes('story')) {
-    const {
-      spaces
-    } = data
+    const { spaces } = data
     if (spaces && Array.isArray(spaces)) {
       spaces.forEach(space => {
         const adPlace =
           document.getElementById(space.name) || createDiv(space.id)
         const target =
-          typeof space.target === 'string' ?
-          document.querySelector(space.target) :
-          space.target
+          typeof space.target === 'string'
+            ? document.querySelector(`${space.target} > section`)
+            : space.target
         if (target) {
           const childs = [...target.children].filter(
             node => node.nodeName === 'P'
@@ -300,12 +425,20 @@ const inline = data => {
 
 const getTagInline = () => {
   const nameSpace = IS_MOBILE ? 'ads_m_movil3' : 'ads_d_inline'
+  const nameSpaceVideo = IS_MOBILE ? 'ads_m_movil_video' : ''
   return {
-    spaces: [{
-      target: '#contenedor',
-      name: nameSpace,
-      position: 0,
-    }, ],
+    spaces: [
+      {
+        target: '#contenedor',
+        name: nameSpace,
+        position: 0,
+      },
+      {
+        target: '#contenedor',
+        name: nameSpaceVideo,
+        position: 1,
+      },
+    ],
   }
 }
 
@@ -329,11 +462,13 @@ dataFilter.forEach(el => {
           sizes: obj.size,
         },
       },
-      bids: [{
-        bidder: el.name,
+      bids: [
+        {
+          bidder: el.name,
 
-        params: obj.params,
-      }, ],
+          params: obj.params,
+        },
+      ],
     })
   )
 })
@@ -379,7 +514,8 @@ if (adUnits.length > 0) {
       }
       if (bd === 'audienceNetwork') {
         bds[bd] = {
-          adserverTargeting: [{
+          adserverTargeting: [
+            {
               key: 'fb_adid',
               val: bidResponse => bidResponse.fb_adid,
             },
@@ -437,7 +573,7 @@ apntag.anq.push(() => {
 })
 
 const initWithoutHB = () => {
-  apntag.anq.push(function () {
+  apntag.anq.push(function() {
     apntag.loadTags()
     adsParams.forEach(el =>
       apntag.anq.push(() => {

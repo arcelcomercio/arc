@@ -7,7 +7,7 @@ const classes = {
   item: 'nav-sidebar__item position-relative',
   link: 'nav-sidebar__link block pt-15 pr-15 pb-15 pl-15 text-md text-white',
   top: 'nav-sidebar__top',
-  header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30',
+  header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30 hidden',
   btnBox: 'nav-sidebar__box-btn pb-15 border-b-1 border-solid border-gray',
   btn: `flex items-center justify-center btn bg-link text-white nav-sidebar__btn pt-10 pb-10 pr-15 pl-15`,
   search: 'nav-sidebar__search pt-15 pr-30 pb-15 pl-30 block lg:hidden',
@@ -27,11 +27,14 @@ class NavbarChildMenu extends PureComponent {
     this.inputSearchMovil = React.createRef()
   }
 
-  submitSearch = () => {
+  _handleSearch = () => {
     const { value } = this.inputSearchMovil.current
     if (value !== '') {
       // eslint-disable-next-line no-restricted-globals
-      location.href = `/buscar?query=${value}`
+      location.href = `/buscar/${encodeURIComponent(value).replace(
+        /%20/g,
+        '+'
+      )}/todas/descendiente/`
     }
   }
 
@@ -83,7 +86,7 @@ class NavbarChildMenu extends PureComponent {
                 className={classes.from}
                 onSubmit={e => {
                   e.preventDefault()
-                  this.submitSearch()
+                  this._handleSearch()
                 }}>
                 <input
                   ref={this.inputSearchMovil}
