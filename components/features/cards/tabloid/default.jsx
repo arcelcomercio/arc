@@ -6,7 +6,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
 const classes = {
-  tabloid: 'tabloid row-1 flex flex-col pt-20',
+  tabloid: 'tabloid row-1 flex flex-col',
   header: 'tabloid__header flex items-center justify-center',
   headerLink: 'tabloid__header-link text-white',
   body: 'tabloid__body flex items-center justify-center flex-col h-auto',
