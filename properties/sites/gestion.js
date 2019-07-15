@@ -5,7 +5,8 @@ export default {
   googleFonts: 'Judson:400,700|Roboto',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
-  resizerUrl: 'https://elcomercio-gestion-prod.cdn.arcpublishing.com/resizer',
+  resizerUrl:
+    'https://elcomercio-publimetro-sandbox.cdn.arcpublishing.com/resizer', // Temporal hasta que activen el resizer para gestión
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
