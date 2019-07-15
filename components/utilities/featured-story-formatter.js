@@ -38,6 +38,7 @@ class FeaturedStoryFormatter {
         }
       }
       website_url
+      publish_date
     }`
     this.initialState = {
       category: {
@@ -88,7 +89,7 @@ class FeaturedStoryFormatter {
     const newState = {
       ...this.initialState,
     }
-    
+
     newState.category.name = this.storyDataInstace.primarySection
     newState.category.url = this.storyDataInstace.primarySectionLink
 
