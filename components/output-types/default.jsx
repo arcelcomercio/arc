@@ -141,6 +141,9 @@ export default ({
           src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
         /> */}
         <Libs />
+        {/* Scripts Identity & Sales */}
+        <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-sales.min.js" />
+        <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js" />
       </head>
       <body className={isStory ? 'story nota' : ''}>
         <noscript>
