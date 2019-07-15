@@ -449,6 +449,17 @@ export const twitterHtml = html => {
   return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
 }
 
+export const iframeHtml = html => {
+  const rplTwitter =
+    '<amp-iframe class="media" src="http$2"  height="400"  width="600"    title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
+  const htmlDataTwitter = html.replace(
+    /<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g,
+    rplTwitter
+  )
+
+  return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
+}
+
 export const facebookHtml = html => {
   const strFacebook = '/<iframe src="(.*?)&width=500"></iframe>/g'
   const rplFacebook =
@@ -531,6 +542,9 @@ export const ampHtml = (html = '') => {
   // HTML Free
   resultData = freeHtml(resultData)
 
+  // HTML Iframe
+  resultData = iframeHtml(resultData)
+
   return resultData
 }
 
@@ -578,6 +592,10 @@ export const formatDateStory = date => {
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
   return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
+}
+
+export const deleteQueryString = url => {
+  return url.split('?')[0]
 }
 
 export const isIE = () => {

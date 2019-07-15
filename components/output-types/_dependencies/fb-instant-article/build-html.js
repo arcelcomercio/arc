@@ -2,58 +2,62 @@ import ListAdvertisings from './list-advertising'
 
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 
-const buildIframeAdvertising = (urlSite, urlAdvertising) => {
-  return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlSite}${urlAdvertising}"></iframe></figure>`
+const buildIframeAdvertising = (urlAdvertising) => {
+  return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
 
 const buildParagraph = ({
   paragraphsNews = [],
   numwords = 250,
   arrayadvertising = [],
-  urlSite = ""
+  
 }) => {
   const newsWithAdd = [];
   let countWords = 0;
   let IndexAdd = 0;
   let resultParagraph = "";
 
-  paragraphsNews.forEach((parrrafoItem, index) => {
-    const parrrafo = parrrafoItem.replace(/<\/?br[^<>]+>/, "").trim();
-    
+  paragraphsNews.forEach((paragraphItem, index) => {
+    let paragraph = paragraphItem.trim();
+    paragraph = paragraph.replace(/<\/?br[^<>]+>/, "");
     // el primer script de publicidad se inserta despues del segundo parrafo
+
     if (index <= 1) {
       if (index === 1) {
-        newsWithAdd.push(`<p>${parrrafo}</p> 
-          ${
-            arrayadvertising[IndexAdd]
-              ? buildIframeAdvertising(urlSite, arrayadvertising[IndexAdd])
-              : ""
-          }`);
+        newsWithAdd.push(`<p>${paragraph}</p> 
+            ${
+              arrayadvertising[IndexAdd]
+                ? buildIframeAdvertising( arrayadvertising[IndexAdd])
+                : ""
+            }`);
         IndexAdd += 1;
       } else {
-        newsWithAdd.push(`<p>${parrrafo}</p>`);
+        newsWithAdd.push(`<p>${paragraph}</p>`);
       }
     } else {
-        // al segundo parrafo se inserta cada 250 palabras (numwords)
-      let parrafoConPublicidad = "";
-      parrrafo.split(" ").forEach(palabra => {
-        countWords += 1;
-        let wordsTemplate = palabra;
-        if (countWords === numwords) {
-          countWords = 0;
-          wordsTemplate += ` ${
-            arrayadvertising[IndexAdd]
-              ? buildIframeAdvertising(urlSite, arrayadvertising[IndexAdd])
-              : ""
-          }`;
-          IndexAdd += 1;
-        }
-        parrafoConPublicidad += `${wordsTemplate} `;
-      });
-      newsWithAdd.push(`<p>${parrafoConPublicidad.trim()}</p>`);
+      // al segundo parrafo se inserta cada 250 palabras (numwords)
+      let paragraphwithAdd = paragraph;
+      paragraph = paragraph.replace(/(<([^>]+)>)/gi, "");
+
+      const arrayWords = paragraph.split(" ");
+      if (arrayWords.length <= numwords) {
+        countWords += arrayWords.length;
+      }
+
+      if (countWords >= numwords) {
+        countWords = 0;
+        paragraphwithAdd = `<p>${paragraphwithAdd}</p> ${
+          arrayadvertising[IndexAdd]
+            ? buildIframeAdvertising(arrayadvertising[IndexAdd])
+            : ""
+        }`;
+        IndexAdd += 1;
+      } else {
+        paragraphwithAdd = `<p>${paragraphwithAdd}</p>`;
+      }
+      newsWithAdd.push(`${paragraphwithAdd.trim()}`);
     }
   });
-
   resultParagraph = newsWithAdd.map(item => item).join("");
   return resultParagraph;
 };
@@ -68,7 +72,7 @@ const BuildHtml = BuildHtmlProps => {
     paragraphsNews = [],
     author = '',
     fbArticleStyle = '',
-    urlAddfbInstantArticle = '',
+    
   } = BuildHtmlProps
 
   const numwords = 250
@@ -77,7 +81,7 @@ const BuildHtml = BuildHtmlProps => {
     paragraphsNews,
     numwords,
     arrayadvertising: ListAdvertisings(),
-    urlSite: urlAddfbInstantArticle,
+    
   }
 
   const element = `
@@ -95,7 +99,7 @@ const BuildHtml = BuildHtmlProps => {
                   <script type="text/javascript">${ScriptHeader(
                     propsScriptHeader
                   )}</script>
-                  <script defer src="//static.chartbeat.com/js/chartbeat_fia.js" />
+                  <script defer src="//static.chartbeat.com/js/chartbeat_fia.js"></script>
                   <script>${ScriptElement()}</script>
                 </iframe>
               </figure>
