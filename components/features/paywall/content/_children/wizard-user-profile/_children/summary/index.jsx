@@ -4,11 +4,11 @@ import Bullet from '../../../bullet-point'
 import Icon from '../../../../../_children/icon'
 import * as S from './styled'
 
-const Summary = () => {
+const Summary = ({ summary }) => {
   return (
     <Panel type="summary">
       <S.Summary>
-        <Footer />
+        <Footer {...summary} />
         <Content />
       </S.Summary>
     </Panel>
@@ -55,20 +55,16 @@ const Content = () => {
   )
 }
 
-const Footer = () => {
+const Footer = ({ title, feature }) => {
   return (
     <S.Footer>
       <S.WrapTitle>
         <S.SummaryTitle>DETALLE DE COMPRA</S.SummaryTitle>
-        <S.NamePlan>Plan Digital</S.NamePlan>
+        <S.NamePlan>Plan {title}</S.NamePlan>
       </S.WrapTitle>
-      <Bullet icon={<Icon type="check" fill="#FFF" />}>
-        Lee ilimitadamente en gestion.pe, desde todos tus dispositivos.
-      </Bullet>
-      <Bullet icon={<Icon type="check" fill="#FFF" />}>
-        Accede a contenido exclusivo en la web (disponible únicamente para
-        suscriptores digitales).
-      </Bullet>
+      {feature.map(text => (
+        <Bullet icon={<Icon type="check" fill="#FFF" />}>{text}</Bullet>
+      ))}
     </S.Footer>
   )
 }

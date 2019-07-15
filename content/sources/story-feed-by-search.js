@@ -1,9 +1,5 @@
-import {
-  resizerSecret
-} from 'fusion:environment'
-import {
-  addResizedUrls
-} from '@arc-core-components/content-source_content-api-v4'
+import { resizerSecret } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 
 const schemaName = 'stories'
@@ -11,7 +7,8 @@ const schemaName = 'stories'
 let website = '' // Variable se usa en método fuera del fetch
 let queryValue = ''
 
-const params = [{
+const params = [
+  {
     name: 'sort',
     displayName: 'Orden',
     type: 'text',
@@ -62,15 +59,14 @@ const pattern = key => {
   const size = `${key.size || 15}`
   const section = key.section || 'todas'
 
-
-
   // const page = `page=${'1'}`
   const valueQuery = encodeURIComponent(key.query).replace(/-/g, '+') || '*'
 
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               type: 'story',
             },
@@ -117,7 +113,8 @@ const pattern = key => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': [`/${key.section}`],
                 },
@@ -168,26 +165,24 @@ const addResizedUrlsStory = (data, resizerUrl) => {
 }
 
 const itemsToArrayImge = data => {
-  const {
-    resizerUrl
-  } = getProperties(website)
+  const { resizerUrl } = getProperties(website)
 
-  return data && data.map(item => {
-    const dataStory = item
+  return (
+    data &&
+    data.map(item => {
+      const dataStory = item
 
-    const {
-      promo_items: {
-        basic_gallery: contentElements = null
-      } = {}
-    } = item || {}
-    const contentElementsData = contentElements || item
-    if (contentElements) {
-      const image = addResizedUrlsStory(contentElementsData, resizerUrl)
-      dataStory.promo_items.basic_gallery = image
-    }
+      const { promo_items: { basic_gallery: contentElements = null } = {} } =
+        item || {}
+      const contentElementsData = contentElements || item
+      if (contentElements) {
+        const image = addResizedUrlsStory(contentElementsData, resizerUrl)
+        dataStory.promo_items.basic_gallery = image
+      }
 
-    return addResizedUrlsStory(dataStory, resizerUrl)
-  })
+      return addResizedUrlsStory(dataStory, resizerUrl)
+    })
+  )
 }
 
 const transform = data => {
@@ -195,7 +190,7 @@ const transform = data => {
   dataStories.content_elements = itemsToArrayImge(dataStories.content_elements)
   return {
     ...dataStories,
-    query: queryValue
+    query: queryValue,
   }
 }
 
