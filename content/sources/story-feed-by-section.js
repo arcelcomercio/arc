@@ -3,14 +3,9 @@ import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-<<<<<<< HEAD
 import {
-  removeLastSlash, addResizedUrlsToStory
+  /* removeLastSlash, */ addResizedUrlsToStory
 } from '../../components/utilities/helpers'
-=======
-/* import {
-  removeLastSlash
-} from '../../components/utilities/helpers' */
 
 // Fix temporal
 const removeLastSlash = section => {
@@ -19,7 +14,6 @@ const removeLastSlash = section => {
     ? section.slice(0, section.length - 1)
     : section
 }
->>>>>>> 7515843939c11ecd0157964735eed1565a377965
 
 const SCHEMA_NAME = 'stories'
 let website = ''
