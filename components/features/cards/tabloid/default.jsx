@@ -9,12 +9,13 @@ import StoryData from '../../../utilities/story-data'
 
 const classes = {
   tabloid: 'tabloid row-1 flex flex-col',
-  header: 'tabloid__header flex items-center justify-center',
+  header: 'tabloid__header flex items-center justify-center bg-gray-200',
   headerLink:
     'tabloid__header-link text-white uppercase font-bold text-xl primary-font',
   body:
-    'tabloid__body flex items-center justify-center h-full position-relative pt-30 pb-20 pr-30 pl-30',
-  date: 'tabloid__date flex items-center justify-center position-absolute p-20',
+    'tabloid__body flex items-center justify-center h-full position-relative pt-30 pb-20 pr-30 pl-30 bg-base-200',
+  date:
+    'tabloid__date flex items-center justify-center position-absolute p-20 bg-base-200',
   dateLink: 'tabloid__date-link text-sm text-gray-300 font-bold',
   face: 'tabloid__face object-contain',
 }
