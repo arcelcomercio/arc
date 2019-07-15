@@ -1,6 +1,8 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+
 import { formatSlugToText } from '../../../utilities/helpers'
+import getLatinDate from '../../../utilities/date-name'
 import CustomFieldsImport from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
@@ -16,102 +18,58 @@ const classes = {
   dateLink: 'tabloid__date-link text-sm text-gray-300 font-bold',
   face: 'tabloid__face object-contain',
 }
+
+const CONTENT_SOURCE = 'story-feed-by-section'
+
 @Consumer
 class CardTabloid extends PureComponent {
   constructor(props) {
     super(props)
 
-    const { customFields: { section = '', sectionName = '' } = {} } = this.props
+    const {
+      arcSite,
+      deployment,
+      contextPath,
+      customFields: { section = '' } = {},
+    } = this.props
 
-    this.state = {
-      section,
-      sectionName,
-      data: {},
-    }
-  }
-
-  componentDidMount = () => {
-    const { section } = this.state
-    this.getContentApi(section)
-  }
-
-  getContentApi = section => {
-    // if (section) {
-    const { deployment, contextPath, arcSite } = this.props
-
-    const { fetched } = this.getContent(
-      'story-feed-by-section',
-      {
-        website: arcSite,
-        section,
-        stories_qty: 1,
+    this.fetchContent({
+      data: {
+        source: CONTENT_SOURCE,
+        query: {
+          website: arcSite,
+          section,
+          stories_qty: 1,
+        },
+        filter: schemaFilter(arcSite),
+        tramsform: ({ content_elements: contentElements = [] } = {}) => {
+          const data = new StoryData({
+            data: contentElements[0],
+            deployment,
+            contextPath,
+            arcSite,
+            defaultImgSize: 'sm',
+          })
+          return data
+        },
       },
-
-      schemaFilter(arcSite)
-    )
-
-    fetched
-      .then(response => {
-        const { content_elements: contentElements = [] } = response || {}
-
-        const data = new StoryData({
-          data: contentElements[0],
-          deployment,
-          contextPath,
-          arcSite,
-          defaultImgSize: 'sm',
-        })
-        this.setState({
-          data,
-        })
-      })
-      .catch(e => {
-        throw new Error(e)
-      })
-    // }
-  }
-
-  nameDate = datestring => {
-    let name = ''
-    if (datestring) {
-      const dias = [
-        'Lunes',
-        'Martes',
-        'Miércoles',
-        'Jueves',
-        'Viernes',
-        'Sábado',
-        'Domingo',
-      ]
-      const meses = [
-        'Enero',
-        'Febrero',
-        'Marzo',
-        'Abril',
-        'Mayo',
-        'Junio',
-        'Julio',
-        'Agosto',
-        'Septiembre',
-        'Octubre',
-        'Noviembre',
-        'Diciembre',
-      ]
-      const date = new Date(datestring)
-      name = `${dias[date.getDay()]} ${date.getDate()} de ${
-        meses[date.getMonth()]
-      } del ${date.getFullYear()}`
-    }
-    return name
+    })
   }
 
   render() {
     const {
-      sectionName,
-      data: { multimedia, title, date, section, link = '' },
+      data: {
+        multimedia = '',
+        title = '',
+        date = '',
+        section = '',
+        link = '',
+      } = {},
     } = this.state
 
-    const nameDate = this.nameDate(date)
+    const { customFields: { sectionName = '' } = {} } = this.props
+
+    const nameDate = getLatinDate(date, ' del')
 
     return (
       <div className={classes.tabloid}>
@@ -142,6 +100,7 @@ class CardTabloid extends PureComponent {
 }
 
 CardTabloid.label = 'Tabloide'
+CardTabloid.static = true
 
 CardTabloid.propTypes = {
   customFields: CustomFieldsImport,
