@@ -1,5 +1,5 @@
 export default {
-  siteName: 'Gestion',
+  siteName: 'Gestión',
   colorPrimary: '#8F071F',
   colorSecondary: '#F4E0D2',
   googleFonts: 'Judson:400,700|Roboto',

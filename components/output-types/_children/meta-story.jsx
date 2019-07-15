@@ -15,7 +15,7 @@ export default ({
   siteAssets: { seo },
 }) => {
   const {
-    title,
+    seoTitle: title,
     tags,
     link,
     displayDate: publishDate,
