@@ -10,15 +10,15 @@ class FeaturedStoryFormatter {
         by { name url type }
       }
       promo_items {
-        basic { url type resized_urls { small medium large} }
+        basic { url type resized_urls { small medium large landscape_xs} }
         basic_video {
           promo_items {
-            basic { url type resized_urls { small medium large} }
+            basic { url type resized_urls { small medium large landscape_xs} }
           }
         }
         basic_gallery {
           promo_items {
-            basic { url type resized_urls { small medium large} }
+            basic { url type resized_urls { small medium large landscape_xs} }
           }
         }
       }

@@ -1,7 +1,7 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { sizeImg } from '../../components/utilities/config-params'
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let website = ''
 const schemaName = 'story'
@@ -129,29 +129,10 @@ const resolve = key => pattern(key)
   }
 } */
 
-const itemsToArrayImge = data => {
-  const { resizerUrl } = getProperties(website)
-
-  return addResizedUrls(data, {
-    resizerUrl,
-    resizerSecret,
-    presets: sizeImg(),
-  })
-}
-
 const transform = data => {
   const dataStory = data
-
-  const { promo_items: { basic_gallery: contentElements = null } = {} } = data
-  const contentElementsData = contentElements || data
-
-  const image = itemsToArrayImge(contentElementsData)
-
-  if (contentElements) {
-    dataStory.promo_items.basic_gallery = image
-  }
-
-  return itemsToArrayImge(dataStory)
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrlsToStory([dataStory], resizerUrl, resizerSecret, addResizedUrls)[0] || null
 }
 
 const source = {
