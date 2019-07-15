@@ -44,4 +44,44 @@ class ConfigParams {
     'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js'
 }
 
+export const sizeImg = () => {
+  return {
+    landscape_xl: {
+      width: 900,
+      height: 528,
+    },
+    landscape_l: {
+      width: 620,
+      height: 374,
+    },
+    landscape_md: {
+      width: 300,
+      height: 157,
+    },    
+    landscape_s: {
+      width: 220,
+      height: 161,
+    },    
+    landscape_xs: {
+      width: 118,
+      height: 72,
+    },    
+    small: {
+      width: 100,
+      height: 200,
+    },
+    medium: {
+      width: 480,
+    },
+    large: {
+      width: 940,
+      height: 569,
+    },
+    amp: {
+      width: 600,
+      height: 375,
+    },
+  }
+}
+
 export default ConfigParams
