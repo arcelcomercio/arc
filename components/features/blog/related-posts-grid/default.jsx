@@ -18,8 +18,8 @@ const BLOG_URL = `/blog/`
 @Consumer
 class BlogRelatedPostsGrid extends PureComponent {
   buildParams = (relatedPostItem, blog, contextPath, arcSite, deployment) => {
-    const postLink = `${BLOG_URL}${relatedPostItem.post_permalink}`
-    const sectionLink = `${BLOG_URL}${blog.path}`
+    const postLink = `${BLOG_URL}${relatedPostItem.post_permalink}/`
+    const sectionLink = `${BLOG_URL}${blog.path}/`
     // TODO:CARLOS: Verificar si estas urls general / al final. Sino, agregar
 
     const defaultImageSrc = defaultImage({
