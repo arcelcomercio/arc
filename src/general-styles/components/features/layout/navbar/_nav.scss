@@ -68,6 +68,20 @@
         }
       }
     }
+
+    &--login{
+      position: relative;
+      padding-left: 40px;
+      .text-user,
+      .icon-user{
+        background:$color-secondary;
+        color: $color-primary;
+        height: 24px;
+        width: 24px;
+        line-height: 24px;
+        left: 10px;
+      }
+    }
   }
 
   // &__list { }

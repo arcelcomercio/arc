@@ -35,7 +35,11 @@ const classes = {
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
+  iconSignwall: 'nav__icon rounded position-absolute uppercase',
+  btnSignwall: 'nav__btn--login'
 }
+
+const activeSignwall = ['elcomercio', 'gestion']
 
 @Consumer
 class NavBarDefault extends PureComponent {
@@ -48,7 +52,7 @@ class NavBarDefault extends PureComponent {
       isActive: false,
       showHard : false,
       nameUser: new GetProfile().username,
-      // initialUser: new GetProfile().initname,
+      initialUser: new GetProfile().initname,
     }
     // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
@@ -62,7 +66,7 @@ class NavBarDefault extends PureComponent {
     if (this.checkSesion()) {
       this.setState({
         nameUser: new GetProfile().username,
-        // initialUser: new GetProfile().initname,
+        initialUser: new GetProfile().initname,
       })
     }
   }
@@ -124,10 +128,11 @@ class NavBarDefault extends PureComponent {
       vars[key] = value
     })
 
-    if(vars[name]) this.setState({ showHard: true })
+    if(vars[name] && name === 'sigwalHard') this.setState({ showHard: true })
 
     return vars[name]
   }
+
   // _handleDevice = device => {
   //   this._handleScroll()
   //   // ------ Add or remove Scroll eventListener on resize
@@ -192,7 +197,7 @@ class NavBarDefault extends PureComponent {
   } */
 
   render() {
-    const { statusSidebar, scrolled, isActive, nameUser, showHard } = this.state
+    const { statusSidebar, scrolled, isActive, nameUser, initialUser, showHard } = this.state
     const {
       logo,
       arcSite,
@@ -262,9 +267,9 @@ class NavBarDefault extends PureComponent {
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
               <div
-                className={`${classes.btnContainer}  ${
-                  (arcSite !== 'gestion') ? classes.hidden : ''
-                }`}>
+                className={`${classes.btnContainer}  ${activeSignwall.indexOf(
+                  arcSite
+                ) < 0 && classes.hidden}`}>
                 <Button
                   btnText="Suscríbete"
                   btnClass={`${classes.btnSubscribe} btn--outline`}
@@ -272,10 +277,17 @@ class NavBarDefault extends PureComponent {
                 />
                 <button
                   type="button"
-                  className={`${classes.btnLogin} btn--outline`}
-                  style={{ textTransform: 'capitalize' }}
+                  className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
                   onClick={() => this.setState({ isActive: true })}>
-                  {this.checkSesion() ? nameUser : 'Iniciar Sesión'}
+                  <i
+                    className={
+                      initialUser ? `${classes.iconSignwall} text-user text-xs` : `${classes.iconLogin} ${classes.iconSignwall} icon-user` 
+                    }>
+                    { initialUser }
+                  </i>
+                  <span className="capitalize">
+                    {this.checkSesion() ? nameUser : 'Ingresa a tu cuenta'}
+                  </span>
                 </button>
               </div>
               <div className={classes.searchContainer}>
@@ -311,14 +323,11 @@ class NavBarDefault extends PureComponent {
             <div
               className={`${classes.btnContainer} ${
                 classes.navMobileContainer
-              } ${responsiveClass} ${
-                (arcSite !== 'gestion') ? classes.hidden : ''
-              }`}>
+              } ${responsiveClass} ${activeSignwall.indexOf(arcSite) < 0 &&
+                classes.hidden}`}>
               <button
                 type="button"
-                className={`${
-                  classes.btnLogin
-                } border-1 border-solid border-white`}
+                className={`${classes.btnLogin} border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
                 <i className={classes.iconLogin} />
               </button>
@@ -333,7 +342,7 @@ class NavBarDefault extends PureComponent {
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
-        {this.getUrlParam('sigwalHard') && showHard ? (
+        {this.getUrlParam('sigwalHard') && !this.checkSesion() && showHard ? (
           <SignWallHard
             closePopup={() => this.setState({ showHard: false })}
             brandModal={arcSite}
