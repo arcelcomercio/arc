@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 
 import { formatSlugToText } from '../../../utilities/helpers'
 import getLatinDate from '../../../utilities/date-name'
-import CustomFieldsImport from './_dependencies/custom-fields'
+import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
@@ -25,12 +25,7 @@ class CardTabloid extends PureComponent {
   constructor(props) {
     super(props)
 
-    const {
-      arcSite,
-      deployment,
-      contextPath,
-      customFields: { section = '' } = {},
-    } = this.props
+    const { arcSite, customFields: { section = '' } = {} } = this.props
 
     this.fetchContent({
       data: {
@@ -41,40 +36,44 @@ class CardTabloid extends PureComponent {
           stories_qty: 1,
         },
         filter: schemaFilter(arcSite),
-        tramsform: ({ content_elements: contentElements = [] } = {}) => {
-          const data = new StoryData({
-            data: contentElements[0],
-            deployment,
-            contextPath,
-            arcSite,
-            defaultImgSize: 'sm',
-          })
-          return data
-        },
       },
     })
   }
 
   render() {
     const {
-      data: {
-        multimedia = '',
-        title = '',
-        date = '',
-        section = '',
-        link = '',
-      } = {},
-    } = this.state
+      deployment,
+      contextPath,
+      arcSite,
+      editableField,
+      customFields: { sectionName = '' } = {},
+    } = this.props
+    const { data: { content_elements: contentElements = [] } = {} } = this.state
+    const {
+      multimedia = '',
+      title = '',
+      date = '',
+      section = '',
+      link = '',
+    } = new StoryData({
+      data: contentElements[0],
+      deployment,
+      contextPath,
+      arcSite,
+      defaultImgSize: 'sm',
+    })
 
-    const { customFields: { sectionName = '' } = {} } = this.props
-
-    const nameDate = getLatinDate(date, ' del')
+    const nameDate = getLatinDate(date, ' del', true)
 
     return (
       <div className={classes.tabloid}>
         <div className={classes.header}>
           <h4>
-            <a className={classes.headerLink} href={link}>
+            <a
+              className={classes.headerLink}
+              href={link}
+              {...editableField('sectionName')}
+              suppressContentEditableWarning>
               {sectionName || formatSlugToText(section)}
             </a>
           </h4>
@@ -104,7 +103,7 @@ CardTabloid.label = 'Tabloide'
 CardTabloid.static = true
 
 CardTabloid.propTypes = {
-  customFields: CustomFieldsImport,
+  customFields,
 }
 
 export default CardTabloid
