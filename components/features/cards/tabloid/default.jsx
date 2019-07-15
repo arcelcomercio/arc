@@ -1,11 +1,8 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
-import {
-  formatSlugToText,
-  arrayMonths,
-  arrayDays,
-} from '../../../utilities/helpers'
+import { formatSlugToText } from '../../../utilities/helpers'
+import getLatinDate from '../../../utilities/date-name'
 import CustomFieldsImport from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
@@ -58,24 +55,20 @@ class CardTabloid extends PureComponent {
     })
   }
 
-  nameDate = datestring => {
-    let name = ''
-    if (datestring) {
-      const date = new Date(datestring)
-      name = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
-        arrayMonths[date.getMonth()]
-      } del ${date.getFullYear()}`
-    }
-    return name
-  }
-
   render() {
     const {
-      sectionName,
-      data: { multimedia, title, date, section, link = '' },
+      data: {
+        multimedia = '',
+        title = '',
+        date = '',
+        section = '',
+        link = '',
+      } = {},
     } = this.state
 
-    const nameDate = this.nameDate(date)
+    const { customFields: { sectionName = '' } = {} } = this.props
+
+    const nameDate = getLatinDate(date, ' del')
 
     return (
       <div className={classes.tabloid}>
@@ -108,6 +101,7 @@ class CardTabloid extends PureComponent {
 }
 
 CardTabloid.label = 'Tabloide'
+CardTabloid.static = true
 
 CardTabloid.propTypes = {
   customFields: CustomFieldsImport,

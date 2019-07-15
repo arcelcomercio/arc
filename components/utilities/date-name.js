@@ -3,11 +3,10 @@ import {
   arrayDays
 } from './helpers'
 
-const dateName = (datestring, yearSeparator) => {
+const getLatinDate = (dateString, yearSeparator) => {
   let name = ''
-  if (datestring) {
-
-    const date = new Date(datestring)
+  if (dateString) {
+    const date = new Date(dateString)
     name = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
       arrayMonths[date.getMonth()]
     }${yearSeparator} ${date.getFullYear()}`
@@ -15,4 +14,4 @@ const dateName = (datestring, yearSeparator) => {
   return name
 }
 
-export default dateName
+export default getLatinDate
