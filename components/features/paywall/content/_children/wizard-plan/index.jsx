@@ -11,12 +11,10 @@ function WizardPlan({ nextStep, summary, plans }) {
         <S.WrapPlan>
           <S.PlanTitle>Selecciona un plan de pago:</S.PlanTitle>
           <S.Plans>
-            {plans.map((plan, index) => {
-              return <CardPrice
-                key={plan.priceCode}
-                {...plan}
-                nextStep={nextStep}
-              />
+            {plans.map(plan => {
+              return (
+                <CardPrice key={plan.priceCode} {...plan} nextStep={nextStep} />
+              )
             })}
           </S.Plans>
         </S.WrapPlan>

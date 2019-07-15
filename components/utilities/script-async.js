@@ -10,10 +10,11 @@ const loadScriptAsync = () => {
     return
   }
   isLoading = true
-  const current = index++;
   // eslint-disable-next-line no-plusplus
+  const current = index++
+
   const { url, resolve, reject, type } = scriptsAsync[current]
-  scriptsAsync[current].status = LOADING;
+  scriptsAsync[current].status = LOADING
   const script = document.createElement('script')
   script.async = true
   script.src = url
@@ -22,7 +23,7 @@ const loadScriptAsync = () => {
   }
   script.onerror = () => {
     isLoading = false
-    
+
     reject()
     if (scriptsAsync.length > index) {
       loadScriptAsync()
@@ -40,7 +41,9 @@ const loadScriptAsync = () => {
 }
 
 const addScriptAsync = props => {
-  const isScriptRepeat = scriptsAsync.some(({name, status}) => name === props.name && status === LOADED )
+  const isScriptRepeat = scriptsAsync.some(
+    ({ name, status }) => name === props.name && status === LOADED
+  )
   if (!isScriptRepeat) {
     return new Promise((resolve, reject) => {
       scriptsAsync.push({ ...props, resolve, reject, status: PENDING })
