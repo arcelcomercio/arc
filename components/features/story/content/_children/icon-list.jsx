@@ -8,7 +8,7 @@ import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
   news:
-    'story-content__icon-list no-mobile non-tablet md:pt-20 md:pb-0 md:pr-20 md:pl-20',
+    'story-content__icon-list no-mobile non-tablet md:pt-20 md:pb-0 md:pr-20',
   list: 'story-content__list',
   item: 'story-content__item mb-20 position-relative',
   link: 'story-content__link text-gray-200',

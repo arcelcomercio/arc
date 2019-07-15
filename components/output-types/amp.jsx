@@ -94,7 +94,7 @@ const AmpOutputType = ({
     <Html>
       <head>
         <BaseMarkup
-          canonicalUrl={siteProperties.siteUrl.concat(canonicalUrl)}
+          canonicalUrl={`${siteProperties.siteUrl}${canonicalUrl}/`}
         />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <title>{title}</title>
