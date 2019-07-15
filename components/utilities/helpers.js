@@ -403,9 +403,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
 }
 
@@ -579,4 +577,14 @@ export const formatDateStory = date => {
 
 export const deleteQueryString = url => {
   return url.split('?')[0]
+}
+
+export const isIE = () => {
+  const ua = window.navigator.userAgent
+  const msie = ua.indexOf('MSIE ')
+  const trident = ua.indexOf('Trident/')
+  if (msie > 0 || trident > 0) {
+    return true
+  }
+  return false
 }
