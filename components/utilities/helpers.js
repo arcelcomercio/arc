@@ -403,9 +403,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
 }
 
@@ -561,4 +559,14 @@ export const formatDateStory = date => {
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
   return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
+}
+
+export const isIE = () => {
+  const ua = window.navigator.userAgent
+  const msie = ua.indexOf('MSIE ')
+  const trident = ua.indexOf('Trident/')
+  if (msie > 0 || trident > 0) {
+    return true
+  }
+  return false
 }
