@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+
+import { isIE } from '../utilities/helpers'
 
 const classes = {
   layout: 'flex justify-center',
@@ -7,13 +9,18 @@ const classes = {
   separator: 'w-full mb-20',
   heading: 'col-3',
   content:
-    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mb-20 ',
+    'grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mb-20 ',
   zocalo: 'ads__zocalo',
   main: 'grid grid--content grid--col-1 col-2',
   sidebar: 'grid grid--content grid--col-1 col-1',
 }
 
 const StorySidebarLayout = ({ children = [] }) => {
+  const [gridClass, setGridClass] = useState('grid')
+  useEffect(() => {
+    if (isIE()) setGridClass('ie-flex')
+  })
+
   return (
     <>
       {children[0] /* Barra de navegación Amp */}
@@ -29,7 +36,7 @@ const StorySidebarLayout = ({ children = [] }) => {
           {children[5] && (
             <div className={classes.separator}>{children[5]}</div>
           ) /* Separador */}
-          <section className={classes.content}>
+          <section className={`${gridClass} ${classes.content}`}>
             <div role="banner" className={classes.heading}>
               {children[6] /* Encabezado */}
             </div>
