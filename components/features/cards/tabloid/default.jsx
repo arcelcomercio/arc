@@ -8,11 +8,12 @@ import StoryData from '../../../utilities/story-data'
 const classes = {
   tabloid: 'tabloid row-1 flex flex-col',
   header: 'tabloid__header flex items-center justify-center',
-  headerLink: 'tabloid__header-link text-white',
-  body: 'tabloid__body flex items-center justify-center flex-col h-auto',
-  content: 'flex items-center justify-center',
-  date: 'tabloid__date flex items-center justify-center',
-  dateLink: 'tabloid__date-link text-black',
+  headerLink:
+    'tabloid__header-link text-white uppercase font-bold text-xl primary-font',
+  body:
+    'tabloid__body flex items-center justify-center h-full position-relative pt-30 pb-20 pr-30 pl-30',
+  date: 'tabloid__date flex items-center justify-center position-absolute p-20',
+  dateLink: 'tabloid__date-link text-sm text-gray-300 font-bold',
   face: 'tabloid__face object-contain',
 }
 @Consumer
@@ -122,20 +123,18 @@ class CardTabloid extends PureComponent {
           </h4>
         </div>
         <div className={classes.body}>
+          <figure>
+            <picture>
+              <a href={link}>
+                <img className={classes.face} src={multimedia} alt={title} />
+              </a>
+            </picture>
+          </figure>
           <h3 className={classes.date}>
             <a className={classes.dateLink} href={link}>
               {nameDate}
             </a>
           </h3>
-          <div className={classes.content}>
-            <figure>
-              <picture>
-                <a href={link}>
-                  <img className={classes.face} src={multimedia} alt={title} />
-                </a>
-              </picture>
-            </figure>
-          </div>
         </div>
       </div>
     )
