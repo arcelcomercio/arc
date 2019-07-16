@@ -24,40 +24,36 @@ class Ads extends PureComponent {
 
     const addEmptyBackground = () => (isAdmin ? 'bg-base-100' : '')
 
-    const hideInDevice = () => {
-      let classDevice = ''
-      if (isDesktop && !isMobile) classDevice = 'no-mobile'
-      else if (!isDesktop && isMobile) classDevice = 'no-desktop'
-      return classDevice
+    const getHtml = device => {
+      return (
+        <div
+          className={`${classes.adsContainer} ${addEmptyBackground()} ${
+            device === 'd' ? 'no-mobile' : 'no-desktop'
+          }`}>
+          <div className={`${classes.header} perured-header-${device}`}>
+            <p className={classes.title}>Anuncios de interés</p>
+          </div>
+          <div id={`cnt-perured-${device}`} className={classes.adsBox} />
+          <div className={`${classes.footer} perured-footer-${device}`}>
+            <div className={classes.iconContainer}>
+              <img
+                src="https://cdn.perured.pe/static/desktop/i/logo_perured.png?pr"
+                alt=""
+                className={classes.icon}
+              />
+            </div>
+            <div className={classes.footerTextContainer}>
+              <p className={classes.footerText}>Recomendado por:</p>
+            </div>
+          </div>
+        </div>
+      )
     }
-
-    const device = isDesktop ? 'd' : 'm'
 
     return (
       <>
-        {outputType !== 'amp' && (isDesktop || isMobile) && (
-          <div
-            className={`${
-              classes.adsContainer
-            } ${addEmptyBackground()} ${hideInDevice()}`}>
-            <div className={`${classes.header} perured-header-${device}`}>
-              <p className={classes.title}>Anuncios de interés</p>
-            </div>
-            <div id={`cnt-perured-${device}`} className={classes.adsBox} />
-            <div className={`${classes.footer} perured-footer-${device}`}>
-              <div className={classes.iconContainer}>
-                <img
-                  src="https://cdn.perured.pe/static/desktop/i/logo_perured.png?pr"
-                  alt=""
-                  className={classes.icon}
-                />
-              </div>
-              <div className={classes.footerTextContainer}>
-                <p className={classes.footerText}>Recomendado por:</p>
-              </div>
-            </div>
-          </div>
-        )}
+        {outputType !== 'amp' && isDesktop && getHtml('d')}
+        {outputType !== 'amp' && isMobile && getHtml('m')}
       </>
     )
   }
