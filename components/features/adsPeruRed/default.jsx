@@ -24,21 +24,12 @@ class Ads extends PureComponent {
 
     const addEmptyBackground = () => (isAdmin ? 'bg-base-100' : '')
 
-    const hideInDevice = () => {
-      let classDevice = ''
-      if (isDesktop && !isMobile) classDevice = 'no-mobile'
-      else if (!isDesktop && isMobile) classDevice = 'no-desktop'
-      return classDevice
-    }
-
-    //const device = isDesktop ? 'd' : 'm'
-
     const getHtml = device => {
       return (
         <div
-          className={`${
-            classes.adsContainer
-          } ${addEmptyBackground()} ${hideInDevice()}`}>
+          className={`${classes.adsContainer} ${addEmptyBackground()} ${
+            device === 'd' ? 'no-mobile' : 'no-desktop'
+          }`}>
           <div className={`${classes.header} perured-header-${device}`}>
             <p className={classes.title}>Anuncios de interés</p>
           </div>
