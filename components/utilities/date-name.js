@@ -1,35 +1,21 @@
-const dateName = (datestring, yearSeparator) => {
+import {
+  arrayMonths,
+  arrayDays
+} from './helpers'
+
+const getLatinDate = (dateString, yearSeparator, isStatic = false) => {
   let name = ''
-  if (datestring) {
-    const dias = [
-      'Lunes',
-      'Martes',
-      'Miércoles',
-      'Jueves',
-      'Viernes',
-      'Sábado',
-      'Domingo',
-    ]
-    const meses = [
-      'Enero',
-      'Febrero',
-      'Marzo',
-      'Abril',
-      'Mayo',
-      'Junio',
-      'Julio',
-      'Agosto',
-      'Septiembre',
-      'Octubre',
-      'Noviembre',
-      'Diciembre',
-    ]
-    const date = new Date(datestring)
-    name = `${dias[date.getDay()]} ${date.getDate()} de ${
-      meses[date.getMonth()]
+  if (dateString) {
+    const date = new Date(dateString)
+
+    if (isStatic)
+      if (date.getHours() <= 5) date.setDate(date.getDate() - 1)
+
+    name = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
+      arrayMonths[date.getMonth()]
     }${yearSeparator} ${date.getFullYear()}`
   }
   return name
 }
 
-export default dateName
+export default getLatinDate

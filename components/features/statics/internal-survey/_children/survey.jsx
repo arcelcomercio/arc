@@ -3,7 +3,7 @@ import InternalSurveyChildInput from './input'
 import InternalSurveyChildResult from './result'
 import InternalSurveyChildConfirmation from './confirmation'
 import UtilListKey from '../../../../utilities/list-keys'
-import DateNameFunc from '../../../../utilities/date-name'
+import getLatinDate from '../../../../utilities/date-name'
 
 const classes = {
   InternalSurvey: 'internal-survey bg-tertiary grid primary-font p-30 mb-30',
@@ -116,7 +116,7 @@ class InternalSurveyChildSurvey extends PureComponent {
             )}
           </div>
 
-          <time className={classes.date}>{DateNameFunc(date, ',')}</time>
+          <time className={classes.date}>{getLatinDate(date, ',')}</time>
           <h1 className={classes.title}>{title}</h1>
           <form action="">
             <ul>

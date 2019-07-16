@@ -1,6 +1,11 @@
 import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
-import { defaultImage, formatHtmlToText, breadcrumbList, addSlashToEnd } from './helpers'
+import {
+  defaultImage,
+  formatHtmlToText,
+  breadcrumbList,
+  addSlashToEnd,
+} from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -136,7 +141,9 @@ class StoryData {
 
   get sectionLink() {
     // FIXME: deprecated
-    return addSlashToEnd(StoryData.getDataSection(this._data, this._website).path)
+    return addSlashToEnd(
+      StoryData.getDataSection(this._data, this._website).path
+    )
   }
 
   get primarySection() {
@@ -180,6 +187,14 @@ class StoryData {
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
     return videosContent.concat(promoItemsVideo).filter(String)
+  }
+
+  get seoTitle() {
+    return (
+      (this._data && this._data.headlines && this._data.headlines.meta_title) ||
+      this._data.headlines.basic ||
+      ''
+    )
   }
 
   get imagesSeo() {
