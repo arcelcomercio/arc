@@ -251,8 +251,10 @@ $image-height: 157px;
       }
     }
     @media (--tablet) {
-      &.featured-story {
-        padding-top: 40px;
+      &.featured-story--live {
+        &.featured-story {
+          padding-top: 40px;
+        }
       }
     }
   }
