@@ -65,6 +65,6 @@ Ads.propTypes = {
   customFields,
 }
 
-Ads.label = 'Publicidad'
+Ads.label = 'Publicidad AppNexus'
 
 export default Ads
