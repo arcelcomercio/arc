@@ -1,4 +1,5 @@
 import React from 'react'
+import { deleteQueryString } from '../../utilities/helpers'
 
 export default ({
   deployment,
@@ -36,6 +37,8 @@ export default ({
           _sf_async_config.useCanonical = true
           var _sf_startpt = new Date().getTime()
           /** CONFIGURATION END **/`
+
+  const urlCanonical = deleteQueryString(requestUri)
 
   return (
     <>
@@ -102,7 +105,11 @@ export default ({
         )}
       />
       {isAmp !== true && (
-        <link rel="canonical" href={`${siteUrl}${requestUri}`} />
+        <link
+          rel="canonical"
+          href={`${siteUrl}${(urlCanonical !== '/homepage' && urlCanonical) ||
+            '/'}`}
+        />
       )}
 
       <meta name="theme-color" content={colorPrimary} />
