@@ -66,5 +66,6 @@ Ads.propTypes = {
 }
 
 Ads.label = 'Publicidad'
+// TODO:CARLOS: probar con static true
 
 export default Ads
