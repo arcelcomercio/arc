@@ -44,6 +44,8 @@ class ConfigParams {
     'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js'
 
   // Image Size 
+  static IMAGE_ORIGINAL = 'original'
+
   static LANDSCAPE_XL = 'landscape_xl'
 
   static LANDSCAPE_L = 'landscape_l'
