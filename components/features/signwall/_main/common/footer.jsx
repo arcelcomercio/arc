@@ -10,7 +10,9 @@ const Footer = props => {
         Con tu registro puedes navegar en los siguientes sitios:
       </p>
       <div className="footer__logo">
-        <Comercio color="white" width="100" height="18" size="2"/> | <Gestion color="white" width="100" height="18" size="2"/>
+        <Comercio color="white" width="80" height="16" size="2"/>
+        |
+        <Gestion color="white" width="80" height="16" size="2"/>
       </div>
     </div>
   )

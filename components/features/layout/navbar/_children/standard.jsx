@@ -64,6 +64,7 @@ class NavBarDefault extends PureComponent {
 
   componentDidUpdate() {
     if (this.checkSesion()) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         nameUser: new GetProfile().username,
         initialUser: new GetProfile().initname,
@@ -286,7 +287,7 @@ class NavBarDefault extends PureComponent {
                     { initialUser }
                   </i>
                   <span className="capitalize">
-                    {this.checkSesion() ? nameUser : 'Ingresa a tu cuenta'}
+                    {this.checkSesion() ? nameUser : 'Iniciar Sesión'}
                   </span>
                 </button>
               </div>

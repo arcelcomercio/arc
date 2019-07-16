@@ -63,72 +63,76 @@ class ProfileAccount extends Component {
         id="arc-popup-profile">
         <Header closePopup={closePopup} type="large" />
 
-        <div className="profile">
-          <div className="profile__left profile__card">
-            <div>
-              <h1 className="profile__title">
-                Hola{' '}
-                {() => {
-                  if (
-                    profileLS &&
-                    profileLS.firstName &&
-                    profileLS.firstName !== 'undefined'
-                  ) {
-                    return profileLS.firstName
-                  }
-                  return 'Usuario'
-                }}
-              </h1>
-              <span className="profile__text">Bienvenido a tu perfil</span>
-
-              <ul className="profile__menu">
-                <li className="profile__menu-item">
-                  <a
-                    href="/"
-                    to="/panel/profile"
-                    activeClassName="selected"
-                    className="profile__menu-link active">
-                    Mis Datos
-                  </a>
-                </li>
-                <li className="profile__menu-item">
-                  <button
-                    type="button"
-                    id="web_link_cerrarsesion"
-                    className="profile__menu-link"
-                    onClick={() => this.closeSession()}>
-                    Cerrar Sesión
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <div className="profile__avatar">
-              <picture>
-                {typeLogin === 'Facebook' ? (
-                  <img
-                    src={`https://graph.facebook.com/${
-                      profileLS.identities[0].userName
-                    }/picture?type=large&redirect=true&width=500&height=500`}
-                    alt="facebook"
-                  />
-                ) : (
-                  <Gravatar
-                    email={() => {
-                      if (profileLS) {
-                        if (profileLS.email) {
-                          return profileLS.email
-                        }
-                        return 'admin@gmail.com'
+        <div className="bg_white">
+          <div className="container">
+            <div className="profile">  
+              <div className="profile__left profile__card">
+                <div>
+                  <h1 className="profile__title">
+                    Hola{' '}
+                    {() => {
+                      if (
+                        profileLS &&
+                        profileLS.firstName &&
+                        profileLS.firstName !== 'undefined'
+                      ) {
+                        return profileLS.firstName
                       }
-                      return 'admin@gmail.com'
+                      return 'Usuario'
                     }}
-                  />
-                )}
-              </picture>
+                  </h1>
+                  <span className="profile__text">Bienvenido a tu perfil</span>
+
+                  <ul className="profile__menu">
+                    <li className="profile__menu-item">
+                      <a
+                        href="/"
+                        to="/panel/profile"
+                        activeClassName="selected"
+                        className="profile__menu-link active">
+                        Mis Datos
+                      </a>
+                    </li>
+                    <li className="profile__menu-item">
+                      <button
+                        type="button"
+                        id="web_link_cerrarsesion"
+                        className="profile__menu-link"
+                        onClick={() => this.closeSession()}>
+                        Cerrar Sesión
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+                <div className="profile__avatar">
+                  <picture>
+                    {typeLogin === 'Facebook' ? (
+                      <img
+                        src={`https://graph.facebook.com/${
+                          profileLS.identities[0].userName
+                        }/picture?type=large&redirect=true&width=500&height=500`}
+                        alt="facebook"
+                      />
+                    ) : (
+                      <Gravatar
+                        email={() => {
+                          if (profileLS) {
+                            if (profileLS.email) {
+                              return profileLS.email
+                            }
+                            return 'admin@gmail.com'
+                          }
+                          return 'admin@gmail.com'
+                        }}
+                      />
+                    )}
+                  </picture>
+                </div>
+              </div>
+              <div className="profile__right profile__card">
+                <FormProfile />
+              </div>
             </div>
-          </div>
-          <div className="profile__right profile__card">
-            <FormProfile />
           </div>
         </div>
 

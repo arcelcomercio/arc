@@ -751,8 +751,8 @@ const User = props => {
 const Gestion = props => {
 	const { color, width, height, size } = props
 	return (
-		<svg width={width} height={height} viewBox={`0 0 ${width} ${parseInt(height, 10) * parseInt(size, 10)}`}>
-
+		// <svg width={width} height={height} viewBox={`0 0 ${width} ${parseInt(height, 10) * parseInt(size, 10)}`}>
+        <svg width={width} height={height} viewBox={`0 0 ${parseInt(width, 10) * parseInt(size, 10) } ${parseInt(height, 10) * parseInt(size, 10)}`}>
 		<path
 			d="M25.04,16.83H15.961A4,4,0,0,1,17.2,18.182c.2.363.321.577.347.643a3.037,3.037,0,0,1,.169,1.113v5.721l-.279.1H15.234A6.089,6.089,0,0,1,9.9,22.534a13.848,13.848,0,0,1-1.894-7.477,10.848,10.848,0,0,1,1.336-5.7C10.584,7.341,12.63,6.211,15.5,5.964h.448a9.878,9.878,0,0,1,2.824.495,8.06,8.06,0,0,1,2,.824l1.615.956V2.551a22.006,22.006,0,0,0-6.619-.841A16.455,16.455,0,0,0,4.7,5.75,12.765,12.765,0,0,0,0,15.8,12.942,12.942,0,0,0,4.852,26.368,16.814,16.814,0,0,0,15.859,30.02a35.363,35.363,0,0,0,5.309-.47,25.9,25.9,0,0,0,3.872-.775Z"
 			transform="translate(0 -0.3)"
