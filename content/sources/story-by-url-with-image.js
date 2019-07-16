@@ -1,9 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import ENV, { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addSlashToDateEnd } from '../../components/utilities/helpers'
 
 const options = {
   json: true,
@@ -106,10 +105,7 @@ const transformImg = data => {
 
 const fetch = key => {
   const site = key['arc-site'] || 'Arc Site no está definido'
-  const websiteUrl =
-    ENV.ENVIROMENT === 'elcomercio'
-      ? addSlashToDateEnd(key.website_url)
-      : key.website_url
+  const websiteUrl = key.website_url
   return request({
     uri: `${CONTENT_BASE}/content/v4/?website=${site}&website_url=${websiteUrl}`,
     ...options,
