@@ -580,3 +580,14 @@ export const formatDateStory = date => {
 export const deleteQueryString = url => {
   return url.split('?')[0]
 }
+
+export const addSlashToDateEnd = url => {
+  let urlSlash = url
+  const fecha = new Date('2019-07-16T21:00:00')
+  const hoy = new Date()
+  if (fecha < hoy) {
+    urlSlash = addSlashToEnd(url)
+  }
+
+  return urlSlash
+}
