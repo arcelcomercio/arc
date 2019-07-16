@@ -48,7 +48,9 @@ export default ({
 
   const title =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? `${metaValue('title')}`
+      ? (!metaValue('meta_title').match(/content/) &&
+          metaValue('meta_title')) ||
+        metaValue('title')
       : siteProperties.siteName
 
   const description =
@@ -113,6 +115,7 @@ export default ({
           requestUri={requestUri}
           port={metaValue('port')}
           isStory={isStory}
+          globalContent={globalContent}
         />
         <TagManager {...siteProperties} />
         <meta charset="utf-8" />

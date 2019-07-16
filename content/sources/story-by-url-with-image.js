@@ -3,6 +3,7 @@ import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 const options = {
   json: true,
@@ -63,44 +64,10 @@ const queryStoryRecent = (section, site) => {
   return encodeURI(JSON.stringify(body))
 }
 
-const itemsToArrayImge = (data, website) => {
-  const { resizerUrl } = getProperties(website)
-
-  return addResizedUrls(data, {
-    resizerUrl,
-    resizerSecret,
-    presets: {
-      small: {
-        width: 100,
-        height: 200,
-      },
-      medium: {
-        width: 480,
-      },
-      large: {
-        width: 940,
-        height: 569,
-      },
-      amp: {
-        width: 600,
-        height: 375,
-      },
-    },
-  })
-}
-
 const transformImg = data => {
   const dataStory = data
-
-  const { promo_items: { basic_gallery: contentElements = null } = {} } = data
-  const contentElementsData = contentElements || data
-
-  if (contentElements) {
-    const image = itemsToArrayImge(contentElementsData, data.website)
-    dataStory.promo_items.basic_gallery = image
-  }
-
-  return itemsToArrayImge(data, data.website)
+  const { resizerUrl } = getProperties(data.website)
+  return addResizedUrlsToStory([dataStory], resizerUrl, resizerSecret, addResizedUrls)[0] || null
 }
 
 const fetch = key => {
