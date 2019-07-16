@@ -119,13 +119,7 @@ class StoryData {
   }
 
   get multimedia() {
-    return (
-      StoryData.getThumbnail(
-        this._data,
-        StoryData.getTypeMultimedia(this._data)
-      ) ||
-      this.defaultImg
-    )
+    return this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
   }
 
   get multimediaLandScapeXL() {
@@ -603,34 +597,13 @@ class StoryData {
     return thumb
   }
 
-  static getThumbnailGallery(data) {
+  static getThumbnailGalleryBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
     const thumb =
       (data &&
         data.promo_items &&
         data.promo_items[ConfigParams.GALLERY] &&
         data.promo_items[ConfigParams.GALLERY].promo_items &&
-        data.promo_items[ConfigParams.GALLERY].promo_items[
-          ConfigParams.IMAGE
-        ] &&
-        ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-          .resized_urls &&
-          data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-            .resized_urls.original) ||
-          data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-            .url)) ||
-      ''
-    return thumb
-  }
-
-  static getThumbnailGalleryBySize(data, size = ConfigParams.LANDSCAPE_XL) {
-    const thumb =
-      (data &&
-        data.promo_items &&
-        data.promo_items[ConfigParams.GALLERY] &&
-        data.promo_items[ConfigParams.GALLERY].promo_items &&
-        data.promo_items[ConfigParams.GALLERY].promo_items[
-          ConfigParams.IMAGE
-        ] &&
+        data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE] &&
         ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
           .resized_urls &&
           data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
@@ -641,30 +614,11 @@ class StoryData {
     return thumb
   }
 
-  static getImage(data) {
-    const { url, resized_urls: { original } = {}, type = null } =
+  static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
+    const { url = '', resized_urls: resizeUrls = {}, type = null } =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
-
-    return (type === 'image' && original ? original : url) || ''
-  }
-
-  static getImageBySize(data, size = ConfigParams.LANDSCAPE_XL) {
-    const { url, resized_urls: resizeUrls = {}, type = null } =
-      (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
-
+    if (size === ConfigParams.IMAGE_ORIGINAL) return url
     return (type === ConfigParams.ELEMENT_IMAGE && resizeUrls[size] ? resizeUrls[size] : url) || ''
-  }
-
-  static getThumbnail(data, type) {
-    let thumb = ''
-    if (type === ConfigParams.VIDEO) {
-      thumb = StoryData.getThumbnailVideo(data)
-    } else if (type === ConfigParams.GALLERY) {
-      thumb = StoryData.getThumbnailGallery(data)
-    } else if (type === ConfigParams.IMAGE) {
-      thumb = StoryData.getImage(data)
-    }
-    return thumb
   }
 
   static getThumbnailBySize(data, type, size) {
