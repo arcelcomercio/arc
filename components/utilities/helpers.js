@@ -1,7 +1,5 @@
-import {
-  addResizedUrlItem
-} from './thumbs'
-import ConfigParams from './config-params'
+import { addResizedUrlItem } from './thumbs'
+import ConfigParams, { sizeImg } from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -592,6 +590,27 @@ export const formatDateStory = date => {
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
   return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
+}
+
+export const addResizedUrlsToStory = (data, resizerUrl, resizerSecret, addResizedUrls) => {
+
+  return data && data.map(item => {
+    const dataStory = item
+
+    const {
+      promo_items: {
+        basic_gallery: contentElements = null
+      } = {}
+    } = item
+    const contentElementsData = contentElements || item
+
+    if (contentElements) {
+      const image = addResizedUrls(contentElementsData, {resizerUrl, resizerSecret, presets: sizeImg()})
+      dataStory.promo_items.basic_gallery = image
+    }
+
+    return addResizedUrls(contentElementsData, {resizerUrl, resizerSecret, presets: sizeImg()})
+  })
 }
 
 export const deleteQueryString = url => {
