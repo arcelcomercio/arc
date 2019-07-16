@@ -15,6 +15,7 @@ class CardFeaturedStoryManual extends PureComponent {
       contextPath,
       customFields: { path, note1, date1, note2, date2, note3, date3 } = {},
     } = this.props
+    /* console.log('note3', note3) */
     this.storyFormatter = new StoryFormatter({
       deployment,
       contextPath,
@@ -25,23 +26,45 @@ class CardFeaturedStoryManual extends PureComponent {
 
     const source = 'story-by-url'
 
-    const fetchDataModel = data => {
-      return {
+    const actualDate = new Date().getTime()
+
+    const scheduledNotes = [
+      {
+        path: note1,
+        date: date1,
+      },
+      {
+        path: note2,
+        date: date2,
+      },
+      {
+        path: note3,
+        date: date3,
+      },
+    ]
+      .filter(el => actualDate > el.date)
+      .sort((a, b) => (b.date > a.date ? 1 : -1))
+
+    /* console.log(
+      scheduledNotes.map(el => {
+        return new Date(el.date)
+      })
+    ) */
+
+    const currentNotePath =
+      scheduledNotes.length > 0 ? scheduledNotes[0].path : path
+
+    /* console.log('currentNotePath', currentNotePath) */
+
+    this.fetchContent({
+      data: {
         source,
         query: {
-          website: arcSite,
-          website_url: data,
+          website_url: currentNotePath,
         },
         filter: schema,
-      }
-    }
-
-    const fetchData = {}
-    if (path) fetchData.data = fetchDataModel(path)
-    if (note1) fetchData.nota1 = fetchDataModel(note1)
-    if (note2) fetchData.nota2 = fetchDataModel(note2)
-    if (note3) fetchData.nota3 = fetchDataModel(note3)
-    if (fetchData !== {}) this.fetchContent(fetchData)
+      },
+    })
   }
 
   render() {
@@ -59,31 +82,7 @@ class CardFeaturedStoryManual extends PureComponent {
       } = {},
     } = this.props
 
-    const { data = {}, note1 = {}, note2 = {}, note3 = {} } = this.state || {}
-
-    const datePublishDefault = new Date(`${data.publish_date}`)
-    const datePublishNote1 = new Date(`${note1.publish_date}`)
-    const datePublishNote2 = new Date(`${note2.publish_date}`)
-    const datePublishNote3 = new Date(`${note3.publish_date}`)
-
-    const arrDate = [
-      {
-        date: datePublishDefault,
-        note: data,
-      },
-      {
-        date: datePublishNote1,
-        note: note1,
-      },
-      {
-        date: datePublishNote2,
-        note: note2,
-      },
-      {
-        date: datePublishNote3,
-        note: note3,
-      },
-    ]
+    const { data = {} } = this.state || {}
 
     // const printNote = arrDate.reduce((prev, acc, arr) => {
     //   return prev.date > acc.date ? prev.note : arr[0].note
