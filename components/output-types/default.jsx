@@ -48,9 +48,7 @@ export default ({
 
   const title =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? (!metaValue('meta_title').match(/content/) &&
-          metaValue('meta_title')) ||
-        metaValue('title')
+      ? (isStory && metaValue('meta_title')) || metaValue('title')
       : siteProperties.siteName
 
   const description =
