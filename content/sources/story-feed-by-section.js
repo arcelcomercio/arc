@@ -3,9 +3,9 @@ import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-/* import {
-  removeLastSlash
-} from '../../components/utilities/helpers' */
+import {
+  /* removeLastSlash, */ addResizedUrlsToStory
+} from '../../components/utilities/helpers'
 
 // Fix temporal
 const removeLastSlash = section => {
@@ -47,52 +47,6 @@ const itemsToArray = (itemString = '') => {
   return itemString.split(',').map(item => item.replace(/"/g, ''))
 }
 
-const addResizedUrlsStory = (data, resizerUrl) => {
-  return addResizedUrls(data, {
-    resizerUrl,
-    resizerSecret,
-    presets: {
-      small: {
-        width: 100,
-        height: 200,
-      },
-      medium: {
-        width: 480,
-      },
-      large: {
-        width: 940,
-        height: 569,
-      },
-      amp: {
-        width: 600,
-        height: 375,
-      },
-    },
-  })
-}
-
-const itemsToArrayImge = (data, websiteResizer) => {
-  const { resizerUrl } = getProperties(websiteResizer)
-
-  return (
-    data &&
-    data.map(item => {
-      const dataStory = item
-
-      const {
-        promo_items: { basic_gallery: contentElements = null } = {},
-      } = item
-      const contentElementsData = contentElements || item
-
-      if (contentElements) {
-        const image = addResizedUrlsStory(contentElementsData, resizerUrl)
-        dataStory.promo_items.basic_gallery = image
-      }
-
-      return addResizedUrlsStory(dataStory, resizerUrl)
-    })
-  )
-}
 
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
@@ -185,10 +139,8 @@ const pattern = (key = {}) => {
       ...options,
     }).then(data => {
       const dataStory = data
-      dataStory.content_elements = itemsToArrayImge(
-        data.content_elements,
-        website
-      )
+      const { resizerUrl } = getProperties(website)
+      dataStory.content_elements = addResizedUrlsToStory(dataStory.content_elements, resizerUrl, resizerSecret, addResizedUrls)
       return {
         ...dataStory,
         section_name: resp.name,
