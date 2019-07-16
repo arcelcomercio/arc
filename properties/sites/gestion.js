@@ -40,10 +40,16 @@ export default {
 
   assets: {
     path: `/resources/dist/gestion/`,
-    paywall() {
-      return `${this.path}${this.logo}`
+    paywall: {
+      logo: `images/logo.svg`,
+      confirmation: `images/adult-attire-blazer-173125.jpg`,
     },
-    logo: `images/logo.svg`,
+    fullAssets(contextPath) {
+      return image => `${contextPath}${this.pwAssets(image)}`
+    },
+    pwAssets(image = 'logo') {
+      return `${this.path}${this.paywall[image]}`
+    },
   },
   legalLinks: [
     {

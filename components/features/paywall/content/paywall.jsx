@@ -11,6 +11,7 @@ import {
   userProfile,
   attrToObject,
 } from '../_dependencies/Identity'
+import WizardConfirmation from './_children/wizard-confirmation'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
@@ -52,7 +53,13 @@ class Content extends React.PureComponent {
 
   render() {
     const { spinning, data, profile } = this.state
-    const { summary, plans } = data
+    const { summary = {}, plans } = data
+    console.log({ summary })
+    const {
+      contextPath,
+      siteProperties: { assets },
+    } = this.props
+
     return (
       <Loading spinning={false}>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -62,6 +69,9 @@ class Content extends React.PureComponent {
               nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
               <WizardPlan plans={plans} summary={summary} />
               <WizardUserProfile profile={profile} summary={summary} />
+              <WizardConfirmation
+                assets={assets.fullAssets.call(assets, contextPath)}
+              />
             </Wizard>
           </S.Content>
         </div>

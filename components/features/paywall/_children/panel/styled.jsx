@@ -4,8 +4,18 @@ import { devices } from '../../_dependencies/devices'
 const Panel = styled.div`
   background-color: #fff;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  ${({ maxWidth }) =>
+    maxWidth &&
+    css`
+      max-width: ${maxWidth};
+    `}
+  ${({ direction }) =>
+    direction &&
+    css`
+      align-items: flex-start;
+      flex-direction: direction || column;
+    `}
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
   border-radius: 5px;
   flex: 1;
