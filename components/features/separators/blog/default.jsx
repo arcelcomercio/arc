@@ -8,6 +8,14 @@ import { defaultImage } from '../../../utilities/helpers'
 
 const BLOG_BASE = '/blog'
 
+const classes = {
+  header: 'flex flex-row justify-center mb-30 pt-30 position-relative items-center  ',
+  
+  titleSeparator:
+    'blog-separator__blog uppercase title-sm text-gray-300 blog-separator__title-header flex flex-row justify-left items-center',
+  seeMoreText: 'blog-separator__see-more-text pt-10 pb-10 pr-10 pl-10 position-absolute right-0',
+}
+
 @withSizes(({ width }) => sizeDevice(width))
 @Consumer
 class SeparatorBlog extends PureComponent {
@@ -36,12 +44,11 @@ class SeparatorBlog extends PureComponent {
     listPost = listPost.slice(0, getStoriesQty(isMobile, isTablet))
     return (
       <div>
-        <div className="mb-30 pt-30">
-          <a
-            className="blog-separator__blog uppercase title-sm text-gray-300"
-            href={BLOG_BASE}>
-            Blogs
+        <div className={classes.header}>
+          <a className={classes.titleSeparator} href={BLOG_BASE}>
+            FIRMAS
           </a>
+          <a href="www.google.com.pe" className={classes.seeMoreText}>ver mas</a>
         </div>
         <div className="flex overflow-hidden">
           {listPost &&
