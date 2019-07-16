@@ -286,10 +286,10 @@ const peruRedShowTag = () => {
           apntag.showTag(id)
           apntag.onEvent('adAvailable', id, adObj => {
             // console.log("Objeto tipo => ", adObj);
-            document.querySelector(`.perured-header-${device}`).style.display =
+            /* document.querySelector(`.perured-header-${device}`).style.display =
               'block'
             document.querySelector(`.perured-footer-${device}`).style.display =
-              'block'
+              'block' */
 
             if (adObj.adType === 'native') {
               const ad = document.getElementById(adObj.targetId)
