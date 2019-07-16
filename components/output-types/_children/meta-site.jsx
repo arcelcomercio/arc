@@ -1,5 +1,5 @@
 import React from 'react'
-import { deleteQueryString } from '../../utilities/helpers'
+import { deleteQueryString, addSlashToEnd } from '../../utilities/helpers'
 
 export default ({
   deployment,
@@ -107,7 +107,8 @@ export default ({
       {isAmp !== true && (
         <link
           rel="canonical"
-          href={`${siteUrl}${(urlCanonical !== '/homepage' && urlCanonical) ||
+          href={`${siteUrl}${(urlCanonical !== '/homepage' &&
+            addSlashToEnd(urlCanonical)) ||
             '/'}`}
         />
       )}
