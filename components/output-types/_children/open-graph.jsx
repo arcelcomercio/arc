@@ -8,13 +8,16 @@ export default ({
   siteUrl,
   contextPath,
   arcSite,
-  requestUri,
   siteName,
   story,
   deployment = () => {},
   globalContent: data,
 }) => {
-  const { multimedia, videoSeo: [{ url = '' } = {}] = [] } = new StoryData({
+  const {
+    link,
+    multimedia,
+    videoSeo: [{ url = '' } = {}] = [],
+  } = new StoryData({
     data,
     arcSite,
   })
@@ -53,7 +56,7 @@ export default ({
         </>
       )}
 
-      <meta property="og:url" content={`${siteUrl}${requestUri}`} />
+      <meta property="og:url" content={`${siteUrl}${link}`} />
       <meta property="og:type" content={story ? 'article' : 'website'} />
     </>
   )
