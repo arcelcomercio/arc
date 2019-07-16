@@ -250,11 +250,9 @@ $image-height: 157px;
         max-width: 100%;
       }
     }
-    @media (--tablet) {
-      &.featured-story--live {
-        &.featured-story {
-          padding-top: 40px;
-        }
+    &.featured-story--live {
+      &.featured-story {
+        padding-top: 40px;
       }
     }
   }

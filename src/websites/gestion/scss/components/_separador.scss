@@ -1,0 +1,18 @@
+.separator {
+  border-top-color: $color-primary;
+
+  &__item {
+    &::before {
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.1) 30%,
+        rgba(0, 0, 0, 0.8) 80%,
+        #000000
+      );
+    }
+  }
+
+  &__header-link {
+    color: $color-primary;
+  }
+}
