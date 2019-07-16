@@ -3,6 +3,7 @@ import * as S from './styled'
 import { Panel } from '../../../_children/panel/styled'
 import Button from '../../../_children/button'
 import Icon from '../../../_children/icon'
+import { devices } from '../../../_dependencies/devices'
 
 const Item = ({ label, children }) => {
   return (
@@ -18,7 +19,16 @@ const WizardConfirmation = props => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Panel maxWidth="1060px" direction="row">
-        <S.Image src={assets('confirmation')} alt="Bar" />
+        {/* iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII= */}
+        <picture>
+          <source media="(min-width: 640px)" srcSet={assets('confirmation')} />
+          <source
+            media={`(${devices.mobile})`}
+            srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+          />
+          <S.Image src={assets('confirmation')} alt="Bar" />
+        </picture>
+
         <S.Content>
           <S.Title>¡Bienvenido Armando!</S.Title>
           <S.Subtitle>
@@ -34,31 +44,33 @@ const WizardConfirmation = props => {
               LA SUSCRIPCIÓN SE RENOVARÁ AUTOMÁTICAMENTE DE ACUERDO A TU PLAN.
             </S.Small>
           </S.CardSummary>
-          <span>
+          <S.Span>
             Enviaremos la boleta de compra de la suscripción al correo:
             <strong>jberaunn@gmail.com</strong>
-          </span>
+          </S.Span>
           <S.WrapButton>
             <Button>SIGUE NAVEGANDO</Button>
           </S.WrapButton>
           <S.Detail>
-            <span>Recuerda que con tu suscripción tienes Acceso a:</span>
+            <S.Span>Recuerda que con tu suscripción tienes Acceso a:</S.Span>
             <S.ContentBenefice>
               <S.WrapIcon>
                 <Icon width="71" height="17" fill="#FFF" type="mundog" />
               </S.WrapIcon>
               <S.WrapText>
-                <span>Conoce los beneficios de Mundo G</span>
+                <S.Span>Conoce los beneficios de Mundo G</S.Span>
               </S.WrapText>
             </S.ContentBenefice>
 
             <S.ContentBenefice>
               <S.WrapIcon>logo</S.WrapIcon>
               <S.WrapText>
-                <span>
+                <S.Span>
                   Conoce los beneficios de mantener la versión impresa en PDF.
-                </span>
-                <span>Descarga la aplicación en Google Play o App Store</span>
+                </S.Span>
+                <S.Span>
+                  Descarga la aplicación en Google Play o App Store
+                </S.Span>
               </S.WrapText>
             </S.ContentBenefice>
           </S.Detail>

@@ -43,6 +43,7 @@ export default {
     paywall: {
       logo: `images/logo.svg`,
       confirmation: `images/adult-attire-blazer-173125.jpg`,
+      confirmationx2: `images/adult-attire-blazer-173125@2x.jpg`,
     },
     fullAssets(contextPath) {
       return image => `${contextPath}${this.pwAssets(image)}`

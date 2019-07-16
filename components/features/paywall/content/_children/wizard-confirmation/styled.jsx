@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { devices } from '../../../_dependencies/devices'
 
 export const Title = styled.div`
   font-size: 30px;
@@ -14,12 +15,18 @@ export const Subtitle = styled.span`
   max-width: 480px;
   line-height: 1.71;
   color: #444;
+  @media (${devices.mobile}) {
+    padding: 0;
+  }
 `
 
 export const Image = styled.img`
   width: 360px;
   object-fit: cover;
   height: 100%;
+  @media (${devices.mobile}) {
+    display: none;
+  }
 `
 
 export const Content = styled.div`
@@ -29,6 +36,9 @@ export const Content = styled.div`
   padding: 40px 100px;
   align-items: center;
   flex: 1;
+  @media (${devices.mobile}) {
+    padding: 30px;
+  }
 `
 
 export const CardSummary = styled.div`
@@ -66,6 +76,10 @@ export const WrapIcon = styled.div`
 export const ContentBenefice = styled.div`
   display: flex;
   margin: 10px 0;
+  @media (${devices.mobile}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export const WrapText = styled.div`
@@ -75,10 +89,19 @@ export const WrapText = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: flex-start;
+  @media (${devices.mobile}) {
+    margin: 25px 20px;
+  }
 `
 
 export const Detail = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+`
+
+export const Span = styled.span`
+  @media (${devices.mobile}) {
+    text-align: center;
+  }
 `
