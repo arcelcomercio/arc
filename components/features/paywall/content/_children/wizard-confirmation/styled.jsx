@@ -105,3 +105,7 @@ export const Span = styled.span`
     text-align: center;
   }
 `
+
+export const Picture = styled.picture`
+  height: 100%;
+`

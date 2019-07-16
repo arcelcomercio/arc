@@ -19,15 +19,14 @@ const WizardConfirmation = props => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Panel maxWidth="1060px" direction="row">
-        {/* iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII= */}
-        <picture>
+        <S.Picture>
           <source media="(min-width: 640px)" srcSet={assets('confirmation')} />
           <source
             media={`(${devices.mobile})`}
             srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
           />
           <S.Image src={assets('confirmation')} alt="Bar" />
-        </picture>
+        </S.Picture>
 
         <S.Content>
           <S.Title>¡Bienvenido Armando!</S.Title>
