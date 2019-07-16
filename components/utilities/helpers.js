@@ -583,9 +583,8 @@ export const deleteQueryString = url => {
 
 export const addSlashToDateEnd = url => {
   let urlSlash = url
-  const fecha = new Date('2019-07-16T20:00:00')
+  const fecha = new Date('2019-07-16T21:00:00')
   const hoy = new Date()
-  console.log()
   if (fecha < hoy) {
     urlSlash = addSlashToEnd(url)
   }

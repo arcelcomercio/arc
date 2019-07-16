@@ -107,7 +107,9 @@ const transformImg = data => {
 const fetch = key => {
   const site = key['arc-site'] || 'Arc Site no está definido'
   const websiteUrl =
-    ENV.ENVIROMENT === 'elcomercio' || addSlashToDateEnd(key.website_url)
+    ENV.ENVIROMENT === 'elcomercio'
+      ? addSlashToDateEnd(key.website_url)
+      : key.website_url
   return request({
     uri: `${CONTENT_BASE}/content/v4/?website=${site}&website_url=${websiteUrl}`,
     ...options,
