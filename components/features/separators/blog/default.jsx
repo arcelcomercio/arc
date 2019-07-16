@@ -9,7 +9,7 @@ import { defaultImage } from '../../../utilities/helpers'
 const BLOG_BASE = '/blog'
 
 const classes = {
-  header: 'flex flex-row justify-center mb-30 pt-30 position-relative items-center  ',
+  header: 'blog-separator__header flex flex-row justify-center mb-30 pt-30 position-relative items-center  ',
   
   titleSeparator:
     'blog-separator__blog uppercase title-sm text-gray-300 blog-separator__title-header flex flex-row justify-left items-center',

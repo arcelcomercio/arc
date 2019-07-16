@@ -13,21 +13,27 @@
     margin-right: 0;
   }
 
-  &__title-header {
+  &__header{
+    
     @media (--desktop) {
-      width: auto;
+      border-top: 1px dashed #8A8A8A;
     }
   }
-  &__see-more {
-    @media (--desktop) {
-      width: auto;
-    }
-  }
+  // &__title-header {
+  //   @media (--desktop) {
+  //     width: auto;
+  //   }
+  // }
+  // &__see-more {
+  //   @media (--desktop) {
+  //     width: auto;
+  //   }
+  // }
   &__see-more-text {
     @media (--desktop) {
       background: white;
       font-size: 14px;
-      
+
     }
     
   }
