@@ -19,9 +19,10 @@ function Summary({ title, feature }) {
         <S.Separate />
 
         <S.WrapFeature>
-          {feature.map((text) => {
+          {feature.map((text, index) => {
+            const key = `${text}-${index}`
             return (
-              <Bullet key={text} icon={<Icon type="check" />}>
+              <Bullet key={key} icon={<Icon type="check" />}>
                 {text}
               </Bullet>
             )

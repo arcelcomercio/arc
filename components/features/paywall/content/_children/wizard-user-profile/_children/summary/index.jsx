@@ -62,9 +62,14 @@ const Footer = ({ title, feature }) => {
         <S.SummaryTitle>DETALLE DE COMPRA</S.SummaryTitle>
         <S.NamePlan>Plan {title}</S.NamePlan>
       </S.WrapTitle>
-      {feature.map(text => (
-        <Bullet icon={<Icon type="check" fill="#FFF" />}>{text}</Bullet>
-      ))}
+      {feature.map((text, index) => {
+        const key = index
+        return (
+          <Bullet key={key} icon={<Icon type="check" fill="#FFF" />}>
+            {text}
+          </Bullet>
+        )
+      })}
     </S.Footer>
   )
 }

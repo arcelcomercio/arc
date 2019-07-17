@@ -35,20 +35,24 @@ export default class Services {
         },
       }).then(() => resolve(true))
     })
-
     return response
   }
 
-  getUserProfile(nonce) {
+  loginFBeco(username, accessToken, type) {
     const response = new Promise(resolve => {
-      fetch(`${REACT_APP_ORIGIN_API}/identity/public/v1/profile`, {
-        method: 'GET',
+      fetch(`${REACT_APP_ORIGIN_API}/identity/public/v1/auth/token`, {
+        method: 'POST',
+        body: JSON.stringify({
+          userName: username,
+          credentials: accessToken,
+          grantType: type,
+        }),
         headers: {
-          Authorization: nonce,
+          'Content-Type': 'application/json',
         },
-      }).then(() => resolve(true))
-    })
-    return response
+      }).then(res => resolve(res.json()))
+    });
+    return response;
   }
 
   getUbigeo(item) {
