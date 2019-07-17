@@ -135,7 +135,7 @@ export default ({
          {  
             "@type":"ListItem",
             "position":${i + 1},
-            "name":"${name},
+            "name":"${name}",
             "item":"${url}"
          } `
     )

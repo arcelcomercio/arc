@@ -5,22 +5,6 @@ const Select = styled.select`
   background-color: #fff;
   border: 0;
 `
-const Button = styled.button`
-  flex: 1;
-  min-width: 300px;
-  background-color: #0179af;
-  color: #fff;
-  border-radius: 5px;
-  font-size: 14px;
-  line-height: 46px;
-  border: 0;
-  font-weight: 700;
-  outline: 0;
-  cursor: pointer;
-  @media (${devices.mobile}) {
-    width: 100%;
-  }
-`
 
 const Wrap = styled.div`
   flex-wrap: wrap;
@@ -57,4 +41,4 @@ const Form = Component => {
   `
 }
 
-export { Select, Button, Wrap, Form, Title, WrapTitle }
+export { Select, Wrap, Form, Title, WrapTitle }

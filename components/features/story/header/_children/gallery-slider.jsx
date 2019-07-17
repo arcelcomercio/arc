@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
 import { getUrlParameter } from '../../../../utilities/helpers'
+import AdsFotogaleria from '../../../../global-components/ads'
 
 const classes = {
-  elementsSlider: 'story-gallery-slider p-20 bg-primary',
+  elementsSlider: 'story-gallery-slider p-20 bg-primary flex',
   element: 'story-gallery-slider__item',
-  body: 'position-relative overflow-hidden ',
+  body: 'position-relative overflow-hidden w-full',
   content: 'story-gallery-slider__content flex',
   element: '',
   image: 'story-gallery-slider__img w-full object-fit-cover',
@@ -45,12 +46,12 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       this._controlKeysSlider(event)
     }) */
     this.list = document.querySelector('.story-gallery-slider__content')
-    
-    if(this.list !== null){
+
+    if (this.list !== null) {
       this.list.addEventListener('mousedown', this._initDrag)
       this.list.addEventListener('mouseup', this._endDrag)
       this.list.addEventListener('mousemove', this._moveDrag)
-  
+
       this.list.addEventListener('touchstart', this._initDrag)
       this.list.addEventListener('touchend', this._endDrag)
       this.list.addEventListener('touchmove', this._moveDrag)
@@ -237,6 +238,11 @@ class StoryHeaderChildGallerySlider extends PureComponent {
               {/*      </div>
               )} */}
             </div>
+            <AdsFotogaleria
+              adElement="fotogaleria1"
+              isDesktop
+              isMobile={false}
+            />
           </section>
         )}
       </>
