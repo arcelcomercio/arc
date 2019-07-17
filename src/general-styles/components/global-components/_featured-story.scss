@@ -180,6 +180,13 @@ $image-height: 157px;
     .featured-story__section {
       display: none;
     }
+    /*    &.featured-story--live {
+      &.featured-story--no-expanded {
+        &.featured-story {
+          padding-top: 40px;
+        }
+      }
+    } */
   }
 
   /** ----------------------------*
@@ -250,10 +257,8 @@ $image-height: 157px;
         max-width: 100%;
       }
     }
-    &.featured-story--live {
-      &.featured-story {
-        padding-top: 40px;
-      }
+    &.featured-story {
+      padding-top: 40px;
     }
   }
   /** ----------------------------*
