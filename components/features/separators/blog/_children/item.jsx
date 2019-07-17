@@ -31,9 +31,6 @@ const SeparatorBlogChildItem = ({
       </div>
       <div>
         <div className={classes.middle}>
-          {/* <a href={blogUrl} className={classes.section}>
-          {blogName}
-        </a> */}
           <a href={blogUrl} className={classes.author}>
             {authorName}
           </a>

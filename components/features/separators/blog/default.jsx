@@ -16,7 +16,7 @@ const classes = {
     'blog-separator__blog uppercase title-sm text-gray-300 blog-separator__title-header flex flex-row justify-left items-center',
   seeMoreText: 'blog-separator__see-more-text pt-10 pb-10 pr-10 pl-10 position-absolute right-0',
 }
-
+const PATH_BLOG = '/blog'
 @withSizes(({ width }) => sizeDevice(width))
 @Consumer
 class SeparatorBlog extends PureComponent {
@@ -44,7 +44,7 @@ class SeparatorBlog extends PureComponent {
     let listPost = Object.values(dataApi)
     listPost = listPost.slice(0, 5)
     
-    const urlVerMas = `${siteUrl}/blog`
+    const urlVerMas = `${siteUrl}${PATH_BLOG}`
 
     return (
       <div>
@@ -78,6 +78,8 @@ class SeparatorBlog extends PureComponent {
                   } = {},
                 ] = [],
               } = post
+              
+              debugger
 
               const data = {
                 authorName,
