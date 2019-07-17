@@ -78,3 +78,5 @@ class Content extends React.PureComponent {
     )
   }
 }
+
+export default Content
