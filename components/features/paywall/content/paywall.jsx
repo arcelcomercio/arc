@@ -38,7 +38,7 @@ class Content extends React.PureComponent {
   }
 
   componentDidMount() {
-    AddIdentity(this.props).then(() => {
+    AddIdentity(this.props.siteProperties).then(() => {
       userProfile(['documentNumber', 'mobilePhone', 'documentType']).then(
         profile => {
           this.setState({ profile })
