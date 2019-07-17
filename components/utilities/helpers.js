@@ -1,5 +1,9 @@
-import { addResizedUrlItem } from './thumbs'
-import ConfigParams, { sizeImg } from './config-params'
+import {
+  addResizedUrlItem
+} from './thumbs'
+import ConfigParams, {
+  sizeImg
+} from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -602,14 +606,21 @@ export const addResizedUrlsToStory = (data, resizerUrl, resizerSecret, addResize
         basic_gallery: contentElements = null
       } = {}
     } = item
-    const contentElementsData = contentElements || item
 
-    if (contentElements) {
-      const image = addResizedUrls(contentElementsData, {resizerUrl, resizerSecret, presets: sizeImg()})
+    if (contentElements && contentElements.promo_items) {
+      const image = addResizedUrls(contentElements, {
+        resizerUrl,
+        resizerSecret,
+        presets: sizeImg()
+      })
       dataStory.promo_items.basic_gallery = image
     }
 
-    return addResizedUrls(contentElementsData, {resizerUrl, resizerSecret, presets: sizeImg()})
+    return addResizedUrls(dataStory, {
+      resizerUrl,
+      resizerSecret,
+      presets: sizeImg()
+    })
   })
 }
 
@@ -625,4 +636,14 @@ export const isIE = () => {
     return true
   }
   return false
+}
+export const addSlashToDateEnd = url => {
+  let urlSlash = url
+  const fecha = new Date('2019-07-16T22:30:00')
+  const hoy = new Date()
+  if (fecha < hoy) {
+    urlSlash = addSlashToEnd(url)
+  }
+
+  return urlSlash
 }
