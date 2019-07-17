@@ -242,11 +242,9 @@ class StoryData {
   }
 
   get seoTitle() {
-    return (
-      (this._data && this._data.headlines && this._data.headlines.meta_title) ||
-      this._data.headlines.basic ||
-      ''
-    )
+    const { headlines: { meta_title: metaTitle = '', basic = '' } = {} } =
+      this._data || {}
+    return metaTitle || basic
   }
 
   get imagesSeo() {
