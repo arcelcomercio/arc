@@ -70,8 +70,7 @@ class updatePassword extends Component {
       this.setState({ sending: false })
 
       window.Identity.updatePassword(oldPassword, newPassword)
-        .then(res => {
-          console.log(res)
+        .then(() => {
           this.setState({
             newPassword: null,
             repeatPassword: null,
@@ -80,7 +79,9 @@ class updatePassword extends Component {
             hiddenSuccessPass: true,
             sending: true,
           })
+          // eslint-disable-next-line react/no-string-refs
           this.refs.newPassword.value = ''
+          // eslint-disable-next-line react/no-string-refs
           this.refs.repeatPassword.value = ''
           setTimeout(() => {
             this.setState({
@@ -306,7 +307,7 @@ class updatePassword extends Component {
                   onSubmit={e => this.submitConfirmPassword(e)}>
                   <div className="row-grid">
                     <div className="col-12 col-center">
-                      <p className="form-grid__label form-grid__label--information">
+                      <p className="form-grid__label form-grid__label--information text-center">
                         Para confirmar el cambio, por favor ingresa tu
                         contraseña actual
                       </p>
