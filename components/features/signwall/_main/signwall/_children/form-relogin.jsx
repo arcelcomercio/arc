@@ -1,36 +1,31 @@
+/* eslint-disable react/button-has-type */
+// TODO: Modificar estilos para colocar el input dentro del label y retirar excepciones del eslint
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-// TODO Agregar excepcion a eslint
 import React, { Component } from 'react'
 import { sha256 } from 'js-sha256'
-
-import FormValid from '../../utils/form-valid'
 import * as Icon from '../../common/iconos'
-import ListBenefits from './benefits'
-// import AuthGoogle from './social-auths/auth-google'
+
 import AuthFacebook from './social-auths/auth-facebook'
+
+import ListBenefits from './benefits'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
 import GetProfile from '../../utils/get-profile'
-
+import FormValid from '../../utils/form-valid'
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
 const services = new Services()
 
-const errorMessage = error => {
-  const listError = {
-    130051: 'El Correo electrónico no ha sido verificado.',
-    300014: 'Tu cuenta ha sido bloqueada debido a demasiados intentos fallidos. Por favor inténtalo más tarde.',
-    default: error.message || '',
-  }
-  return listError[error] || listError.default
-}
-
-class FormLogin extends Component {
+class FormReLogin extends Component {
   constructor(props) {
     super(props)
+
+    const getProfileMPP = window.localStorage.getItem('profileMPP')
+    const profileMPP = JSON.parse(getProfileMPP)
+
     this.state = {
       hiddendiv: false,
       hiddenListBenefits: true,
@@ -40,26 +35,37 @@ class FormLogin extends Component {
       showSocialButtons: false,
       linkListBenefits: false,
       hidden: true,
-      email: null,
+      email: profileMPP ? profileMPP.email : null,
       password: null,
       formErrors: {
         email: '',
         password: '',
       },
+      nameMPP: profileMPP ? profileMPP.firstName : 'Lector',
       messageError: false,
       sending: true,
       sendingFb: true,
     }
+
+    const { typePopUp = '', typeForm = '' } = props
+    this.tipCat = typePopUp
+    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
+    this.tipForm = typeForm
+    // log(this.tipCat, this.tipAct, this.tipForm);
+
+    this.handlePasswordChange = this.handlePasswordChange.bind(this)
+    this.toggleShow = this.toggleShow.bind(this)
+    this.handleLoginClick = this.handleLoginClick.bind(this)
   }
 
   handleFormSubmit = e => {
     e.preventDefault()
-    const { typePopUp } = this.props
+
     const { email, password } = this.state
-    const tipCat = typePopUp || ''
-    const tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
+
     if (FormValid(this.state)) {
       this.setState({ sending: false })
+
       window.Identity.login(email, password, {
         rememberMe: true,
         cookie: true,
@@ -67,65 +73,98 @@ class FormLogin extends Component {
         .then(() => {
           this.setState({ sending: true })
           this.handleGetProfile()
-          Cookies.deleteCookie('mpp_sess')
-          // -- test de tageo
-          window.dataLayer = window.dataLayer || []
-          window.dataLayer.push({
-            event: 'login_success',
-            eventCategory: `Web_Sign_Wall_${tipCat}`,
-            eventAction: `${tipAct}_login_success_ingresar`,
-          })
-          // -- test de tageo
         })
         .catch(errLogin => {
           let messageES = ''
-          if (errLogin.code === '300040' || errLogin.code === '300037') {
-            services
-              .reloginEcoID(email, password, 'organico', window)
-              .then(resEco => {
-                if (resEco.retry) {
-                  window.Identity.login(email, password, {
-                    rememberMe: true,
-                    cookie: true,
-                  })
-                    .then(() => {
-                      this.setState({ sending: true })
-                      this.handleGetProfile()
-                      // delete cookie mpp_sess
-                      Cookies.deleteCookie('mpp_sess')
+          switch (errLogin.code) {
+            case '300040':
+            case '300037':
+              // aqui va el api de Guido:
+              services
+                .reloginEcoID(
+                  email,
+                  password,
+                  this.tipCat === 'relogin' ? 'relogin' : 'reloginemail'
+                )
+                .then(resEco => {
+                  if (resEco.retry === true) {
+                    setTimeout(() => {
+                      window.Identity.login(email, password, {
+                        rememberMe: true,
+                        cookie: true,
+                      })
+                        .then(() => {
+                          this.handleGetProfile()
+                        })
+                        .catch(errReLogin => {
+                          this.setState({
+                            messageError: errReLogin,
+                            sending: true,
+                          })
+                        })
+                    }, 500)
+
+                    // -- test tageo success
+                    window.dataLayer.push({
+                      event:
+                        this.tipCat === 'relogin'
+                          ? 'relogin_success'
+                          : 'relogin_email_success',
                     })
-                    .catch(errReLogin => {
-                      messageES = errReLogin
+                    // -- test tageo success
+                  } else {
+                    this.setState({
+                      messageError:
+                        'Correo electrónico y/o  contraseña incorrecta.',
+                      sending: true,
                     })
-                } else {
-                  this.setState({
-                    messageError:
-                      'Correo electrónico y/o  contraseña incorrecta.',
-                    sending: true,
+
+                    // -- test tageo error
+                    window.dataLayer.push({
+                      event:
+                        this.tipCat === 'relogin'
+                          ? 'relogin_error'
+                          : 'relogin_email_error',
+                    })
+                    // -- test tageo error
+                  }
+                })
+                .catch(() => {
+                  // -- test tageo error
+                  window.dataLayer.push({
+                    event:
+                      this.tipCat === 'relogin'
+                        ? 'relogin_error'
+                        : 'relogin_email_error',
                   })
-                }
-              })
-              .catch(errEco => {
-                console.log(errEco)
-              })
-          } else {
-            messageES = errorMessage(errLogin.code)
+                  // -- test tageo error
+                })
+              // aqui va el api de Guido:
+              return
+
+            case '130051`':
+              messageES = 'El Correo electrónico no ha sido verificado.'
+              break
+            case '300014':
+              messageES =
+                'Tu cuenta ha sido bloqueada debido a demasiados intentos fallidos. Por favor inténtalo más tarde.'
+              break
+            default:
+              messageES = errLogin.message
           }
+
           this.setState({
-            messageError: messageES,
+            messageError:
+              messageES === 'Failed to fetch'
+                ? 'Oops. Ocurrió un error inesperado.'
+                : messageES,
             sending: true,
           })
-          // -- test de tageo
-          window.dataLayer = window.dataLayer || []
-          window.dataLayer.push({
-            event: 'login_error',
-            eventCategory: `Web_Sign_Wall_${tipCat}`,
-            eventAction: `${tipAct}_login_error_ingresar`,
-          })
-          // -- test de tageo
         })
     } else {
+      // console.error('FORM INVALID', this.state.formErrors);
       const { formErrors } = this.state
+
       if (email === null) {
         formErrors.email = 'Este campo es requerido'
         this.setState({ formErrors, email: '' })
@@ -139,12 +178,15 @@ class FormLogin extends Component {
 
   handleGetProfile = () => {
     const { closePopup } = this.props
-    window.Identity.getUserProfile().then(resProfile => {
+    window.Identity.getUserProfile().then(resGetProfile => {
       closePopup()
-      Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
+      Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
+      Cookies.deleteCookie('mpp_sess')
       window.sessUser.setState({ accessPanel: true })
       window.nameUser.setState({ nameUser: new GetProfile().username })
-      window.initialUser.setState({ initialUser: new GetProfile().initname })
+      window.initialUser.setState({
+        initialUser: new GetProfile().initname,
+      })
     })
   }
 
@@ -156,11 +198,9 @@ class FormLogin extends Component {
     })
 
     if (window.innerWidth <= 768) {
-      this.setState({
-        showSocialButtons: true,
-        hiddenSocialButtons: false,
-        hiddenTitleBenefits: false,
-      })
+      this.setState({ showSocialButtons: true })
+      this.setState({ hiddenSocialButtons: false })
+      this.setState({ hiddenTitleBenefits: false })
     }
   }
 
@@ -173,6 +213,10 @@ class FormLogin extends Component {
       hiddenTitleBenefits: true,
       linkListBenefits: false,
     })
+  }
+
+  handlePasswordChange = e => {
+    this.setState({ password: e.target.value })
   }
 
   toggleShow = () => {
@@ -189,32 +233,47 @@ class FormLogin extends Component {
 
   handleChangeValidation = e => {
     e.preventDefault()
+
+    this.setState({ messageError: false })
+
     const { name, value } = e.target
     const { formErrors } = this.state
 
-    if (name === 'email') {
-      const isValidEmail = emailRegex.test(value)
-        ? ''
-        : 'Correo Electrónico Inválido'
-      formErrors.email =
-        value.length === 0 ? 'Este campo es requerido' : isValidEmail
-    } else if (name === 'password') {
-      const trimSpace = value.includes(' ')
-        ? 'Contraseña inválida, no se permite espacios'
-        : ''
-      const isValidPass = value.length < 8 ? 'Mínimo 8 caracteres' : trimSpace
-      formErrors.password =
-        value.length === 0 ? 'Este campo es requerido' : isValidPass
+    switch (name) {
+      case 'email':
+        if (value.length === 0) {
+          formErrors.email = 'Este campo es requerido'
+        } else if (emailRegex.test(value)) {
+          formErrors.email = ''
+        } else {
+          formErrors.email = 'Correo Electrónico Inválido'
+        }
+        break
+      case 'password':
+        if (value.length === 0) {
+          formErrors.password = 'Este campo es requerido'
+        } else if (value.length < 8) {
+          formErrors.password = 'Mínimo 8 caracteres'
+        } else if (value.indexOf(' ') >= 0) {
+          formErrors.password = 'Contraseña inválida, no se permite espacios'
+        } else {
+          formErrors.password = ''
+        }
+        break
+      default:
+        break
     }
-    this.setState({
-      messageError: false,
-      formErrors,
-      [name]: value,
-    })
+
+    // this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+    this.setState({ formErrors, [name]: value })
   }
 
   hanbleShowListBenefits = () => {
     const { hiddenListBenefits, linkListBenefits } = this.state
+    const modalRelogEmail = document.querySelector('#arc-popup-relogin-email')
+    const modalRelog = document.querySelector('#arc-popup-relogin')
+    if (modalRelogEmail) modalRelogEmail.scrollTop = '0px'
+    if (modalRelog) modalRelog.scrollTop = '0px'
     this.setState({
       hiddenListBenefits: !hiddenListBenefits,
       linkListBenefits: !linkListBenefits,
@@ -225,14 +284,18 @@ class FormLogin extends Component {
     const {
       formErrors,
       showSocialButtons,
+      nameMPP,
       hiddenListBenefits,
-      hiddendiv,
+      hiddenTitleBenefits,
+      linkListBenefits,
       messageError,
+      email,
       hidden,
       sending,
-      hiddenbutton,
+      hiddenSocialButtons,
     } = this.state
     const { closePopup, typePopUp, typeForm } = this.props
+
     return (
       <ModalConsumer>
         {value => (
@@ -243,7 +306,6 @@ class FormLogin extends Component {
               onSubmit={e => this.handleFormSubmit(e)}>
               <div className="form-grid__back" hidden={!showSocialButtons}>
                 <button
-                  type="button"
                   onClick={e => this.handleLoginBackSocial(e)}
                   className="link-back">
                   <Icon.Back />
@@ -265,27 +327,18 @@ class FormLogin extends Component {
               </div>
 
               <div className="form-grid__group" hidden={!hiddenListBenefits}>
-                <h1 className="form-grid__title-big text-center hidden-tablet">
-                  Regístrate y mantente siempre informado con las noticias más
-                  relevantes del Perú y el mundo
-                </h1>
+                <div hidden={!hiddenTitleBenefits}>
+                  <h1 className="form-grid__title-big text-center hidden-tablet">
+                    ¡Hola {nameMPP || 'Lector'}! Para mejorar tu experiencia de
+                    navegación, inicia sesión nuevamente.
+                  </h1>
+                </div>
 
                 <h1 className="form-grid__title-login text-center">
-                  Ingresa con tu cuenta de:
+                  Ingresa con
                 </h1>
 
                 <div className="form-grid__group">
-                  <div className="form-group form-group--unique">
-                    <AuthFacebook
-                      closePopup={closePopup}
-                      id="facebook-sign-in-button"
-                      typePopUp={typePopUp}
-                      typeForm={typeForm}
-                    />
-                  </div>
-                </div>
-
-                <div className="form-grid__group" hidden={!hiddendiv}>
                   <div
                     className={`form-grid--error ${messageError && 'active'}`}>
                     {messageError}
@@ -303,6 +356,9 @@ class FormLogin extends Component {
                       placeholder="Correo Electrónico"
                       noValidate
                       onChange={this.handleChangeValidation}
+                      // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+                      tabIndex="1"
+                      value={email || ''}
                     />
                     <label htmlFor="email" className="form-group__label">
                       Correo Electrónico
@@ -314,9 +370,15 @@ class FormLogin extends Component {
 
                   <div className="form-group row-pass">
                     <input
+                      type="button"
+                      onClick={this.toggleShow}
+                      className={
+                        hidden ? 'row-pass__btn row-pass--hide' : 'row-pass__btn row-pass--show'
+                      }
+                    />
+                    <input
                       type={hidden ? 'password' : 'text'}
                       name="password"
-                      id="password"
                       className={
                         formErrors.password.length > 0
                           ? 'form-group__input form-group__input--error'
@@ -325,22 +387,16 @@ class FormLogin extends Component {
                       placeholder="Contraseña"
                       noValidate
                       onChange={this.handleChangeValidation}
+                      // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+                      tabIndex="2"
                     />
-                    <input
-                      type="button"
-                      onClick={e => this.toggleShow(e)}
-                      className={
-                        hidden
-                          ? 'row-pass__btn row-pass--hide'
-                          : 'row-pass__btn row-pass--show'
-                      }
-                    />
+
                     <label htmlFor="password" className="form-group__label">
                       Contraseña
                     </label>
 
                     {formErrors.password.length > 0 && (
-                      <span className="message__error">
+                      <span className="error-message">
                         {formErrors.password}
                       </span>
                     )}
@@ -355,7 +411,7 @@ class FormLogin extends Component {
                     </p>
                   </div>
 
-                  <div className="form-group">
+                  <div className="row-grid form-group">
                     <input
                       type="submit"
                       name="ingresar"
@@ -363,22 +419,31 @@ class FormLogin extends Component {
                       className="btn input-button"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                       disabled={!sending}
+                      // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+                      tabIndex="3"
                     />
                   </div>
                 </div>
 
-                <div className="form-grid__group" hidden={!hiddenbutton}>
-                  <button
-                    onClick={e => this.handleLoginClick(e)}
-                    type="button"
-                    name="enterDates"
-                    className="btn btn-email">
-                    <Icon.Mail />
-                    <span className="btn-text">Ingresa con tu usuario</span>
-                  </button>
+                <div className="row-grid form-group col-center">
+                  <p className="text-login-link text-center">ó ingresa con tu cuenta de:</p>
+                </div>
+
+                <div hidden={!hiddenSocialButtons}>
+                  <div className="form-grid__group">
+                    <div className="form-group form-group--unique">
+                      <AuthFacebook
+                        closePopup={closePopup}
+                        id="facebook-sign-in-button"
+                        typePopUp={typePopUp}
+                        typeForm={typeForm}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
 
+            
               <div className="form-grid__group">
                 <p className="form-grid__link text-center">
                   ¿Aún no tienes una cuenta?{' '}
@@ -387,17 +452,16 @@ class FormLogin extends Component {
                     onClick={() => {
                       value.changeTemplate('register')
                     }}
+                    id="login_boton_registrate"
                     className="link-blue link-color">
                     Regístrate
                   </button>
-                </p>
-                <p className="form-grid__subtitle form-grid__subtitle--fb text-center">
-                  Al registrarte, nos ayudarás a mejorar tu experiencia de
-                  navegación. Tus datos no se publicarán sin tu autorización.
+
                 </p>
               </div>
+             
 
-              <div className="form-grid__group">
+              <div className="form-grid__group" hidden={linkListBenefits}>
                 <p className="form-grid__subtitle text-center form-group--center">
                   <button
                     type="button"
@@ -415,4 +479,4 @@ class FormLogin extends Component {
   }
 }
 
-export default FormLogin
+export default FormReLogin

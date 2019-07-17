@@ -167,7 +167,7 @@ class FormRegister extends Component {
 
   handleForcePassword = e => {
     const valueInput = e.target.value
-
+    
     if (strongRegularExp.test(valueInput)) {
       this.setState({ checkpwdStrength: '40px' })
     } else if (mediumRegularExp.test(valueInput)) {

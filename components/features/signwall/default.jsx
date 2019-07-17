@@ -67,7 +67,7 @@ class Signwall extends Component {
         
       })
       .catch(errPaywall => {
-        console.log('Error', errPaywall)
+        console.error('Error', errPaywall)
       })
 
   }
@@ -75,11 +75,13 @@ class Signwall extends Component {
   componentDidUpdate = () => {
     const { sessUser } = this.state
     if (this.checkSesion() && !sessUser) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: true,
       })
       this.togglePopupPanel()
     } else if (this.checkSesion() === false && sessUser) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: false,
       })
