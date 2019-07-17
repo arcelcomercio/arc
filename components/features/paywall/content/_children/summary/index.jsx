@@ -1,7 +1,7 @@
 import React from 'react'
-import Panel from '../../../../../_children/panel'
-import Bullet from '../../../bullet-point'
-import Icon from '../../../../../_children/icon'
+import Panel from '../../../_children/panel'
+import Bullet from '../bullet-point'
+import Icon from '../../../_children/icon'
 import * as S from './styled'
 
 const Summary = ({ summary }) => {
