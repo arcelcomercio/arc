@@ -90,7 +90,7 @@ class SeparatorBlog extends PureComponent {
               return <SeparatorBlogChildItem key={blogUrl} {...data} />
             })}
         </div>
-        {isMobile || isTablet && (<a href={urlVerMas} className={classes.seeMoreText}>ver mas</a>)}
+        {isMobile || isTablet ? (<a href={urlVerMas} className={classes.seeMoreText}>ver mas</a>):null}
 
       </div>
     )
