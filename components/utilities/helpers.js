@@ -238,7 +238,8 @@ export const getMetaPagesPagination = (
         .match(patternPagination)[0]
         .split(`${isQuery ? '=' : '/'}`)[1],
         10
-      ) : 1,
+      ) :
+      1,
     next: false,
     prev: false,
   }
@@ -419,7 +420,9 @@ export const optaWidgetHtml = html => {
     matches[1].replace(/="/g, '=').replace(/" /g, '&') :
     ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
+    ConfigParams.OPTA_WIDGET
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
 }
 
@@ -639,6 +642,17 @@ export const isIE = () => {
     return true
   }
   return false
+}
+
+export const addSlashToDateEnd = url => {
+  let urlSlash = url
+  const fecha = new Date('2019-07-16T22:30:00')
+  const hoy = new Date()
+  if (fecha < hoy) {
+    urlSlash = addSlashToEnd(url)
+  }
+
+  return urlSlash
 }
 
 export const addSlashToDateEnd = url => {

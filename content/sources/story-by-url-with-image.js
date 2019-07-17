@@ -3,7 +3,10 @@ import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import {
+  addResizedUrlsToStory,
+  addSlashToEnd,
+} from '../../components/utilities/helpers'
 
 const options = {
   json: true,
@@ -67,12 +70,22 @@ const queryStoryRecent = (section, site) => {
 const transformImg = data => {
   const dataStory = data
   const { resizerUrl } = getProperties(data.website)
-  return addResizedUrlsToStory([dataStory], resizerUrl, resizerSecret, addResizedUrls)[0] || null
+  return (
+    addResizedUrlsToStory(
+      [dataStory],
+      resizerUrl,
+      resizerSecret,
+      addResizedUrls
+    )[0] || null
+  )
 }
 
 const fetch = key => {
   const site = key['arc-site'] || 'Arc Site no está definido'
-  const websiteUrl = key.website_url
+
+  const websiteUrl =
+    site !== 'publimetro' ? addSlashToEnd(key.website_url) : key.website_url
+
   return request({
     uri: `${CONTENT_BASE}/content/v4/?website=${site}&website_url=${websiteUrl}`,
     ...options,
