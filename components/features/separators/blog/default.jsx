@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import withSizes from 'react-sizes'
 
 import SeparatorBlogChildItem from './_children/item'
-import { getStoriesQty, sizeDevice } from '../_dependencies/functions'
+import {  sizeDevice } from '../_dependencies/functions'
 import { defaultImage } from '../../../utilities/helpers'
 
 const BLOG_BASE = '/blog'
@@ -22,7 +22,7 @@ const classes = {
 class SeparatorBlog extends PureComponent {
   constructor(props) {
     super(props)
-    const { arcSite, isMobile, isTablet } = this.props
+    const { arcSite } = this.props
     this.fetchDataApi(arcSite, 5)
   }
 
@@ -50,10 +50,12 @@ class SeparatorBlog extends PureComponent {
           <a className={classes.titleSeparator} href={BLOG_BASE}>
             FIRMAS
           </a>
-          {!isMobile && (<a href="www.google.com.pe" className={classes.seeMoreText}>ver mas</a>) }
+          {/* {!isMobile && (<a href="www.google.com.pe" className={classes.seeMoreText}>ver mas</a>) }
+          {!isTablet && (<a href="www.google.com.pe" className={classes.seeMoreText}>ver mas</a>) } */}
           
+          {!isMobile || !isTablet && (<a href="www.google.com.pe" className={classes.seeMoreText}>ver mas</a>)}
         </div>
-        <div className={isMobile? classes.contentItemMovil : classes.contentItem}>
+        <div className={isMobile || isTablet? classes.contentItemMovil : classes.contentItem}>
           {listPost &&
             listPost.map(post => {
               const {
@@ -88,6 +90,8 @@ class SeparatorBlog extends PureComponent {
               return <SeparatorBlogChildItem key={blogUrl} {...data} />
             })}
         </div>
+        {isMobile || isTablet && (<a href="www.google.com.pe" className={classes.seeMoreText}>ver mas</a>)}
+
       </div>
     )
   }

@@ -2,7 +2,7 @@ import React from 'react'
 
 const classes = {
   separator: 'blog-separator bg-white flex-no-wrap w-full',
-  // separator: 'blog-separator bg-white flex flex-col flex-no-wrap w-full',
+  // separator: 'blog-separator bg-white flex flex-col flex-no-wrap w-full',  
   boxTitle: 'blog-separator__box-title w-full overflow-hidden p-15',
   title: 'blog-separator__title font-normal text-lg',
   link: 'blog-separator__link text-gray-300',

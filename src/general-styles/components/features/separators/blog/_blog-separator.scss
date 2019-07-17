@@ -10,18 +10,21 @@
     flex-direction: column;
     width: 20%;
     margin-right: 0px;
-    
-    &:nth-last-child(1) {
-      margin-right: 0;
-    }
   }
 
   @media (--tablet) {
-    width: 33%;
-    
+    // width: auto;
+    // display: flex;
+    // flex-direction: column;
+    // margin-right: 0px;
+
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
   }
-
-
 
   &__header {
     @media (--desktop) {
