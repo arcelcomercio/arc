@@ -9,4 +9,4 @@ const WizardUserProfile = styled.div`
     align-items: center;
   }
 `
-export { WizardUserProfile }
+export { WizardUserProfile, styled }

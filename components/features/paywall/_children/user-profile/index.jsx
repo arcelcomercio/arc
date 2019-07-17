@@ -2,6 +2,7 @@ import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import InputFormik from '../input'
 import * as S from './styled'
+import Button from '../button'
 import schema from '../../_dependencies/schema'
 
 const MESSAGE = {
@@ -103,7 +104,7 @@ const UserProfile = ({ title = '', profile }) => (
             component={InputFormik}
           />
         </S.Wrap>
-        <S.Button type="submit">CONTINUAR</S.Button>
+        <Button type="submit">CONTINUAR 2</Button>
       </FormStyled>
     )}
   />

@@ -6,17 +6,15 @@ import { AddIdentity, userProfile } from '../_dependencies/Identity'
 
 @Consumer
 class Head extends React.PureComponent {
-
   state = {
-    firstName: 'cargando..'
+    firstName: 'cargando..',
   }
 
   componentDidMount() {
-    AddIdentity(this.props).then((Identity) => {
-      userProfile()
-        .then(({ firstName }) => {
-          this.setState({ firstName })
-        })
+    AddIdentity(this.props).then(Identity => {
+      userProfile().then(({ firstName }) => {
+        this.setState({ firstName })
+      })
     })
   }
 
@@ -24,7 +22,7 @@ class Head extends React.PureComponent {
     const { siteProperties, contextPath, deployment } = this.props
 
     const { assets, colorPrimary } = siteProperties
-    const { firstName } = this.state;
+    const { firstName } = this.state
 
     return (
       <S.ThemeProvider theme={{ colorPrimary }}>
@@ -35,7 +33,7 @@ class Head extends React.PureComponent {
           </S.Background>
           <S.Content>
             <img
-              src={deployment(`${contextPath}${assets.paywall()}`)}
+              src={deployment(`${contextPath}${assets.pwAssets()}`)}
               alt="Logo el comercio"
             />
             <S.WrapLogin>

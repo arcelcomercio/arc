@@ -1,9 +1,10 @@
-import styled, { css, createGlobalStyle } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { devices } from '../../../_dependencies/devices'
 
 const CardPrice = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
   flex: 1 1;
   justify-content: space-between;
   width: 100%;
