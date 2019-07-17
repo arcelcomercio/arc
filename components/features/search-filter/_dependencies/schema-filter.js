@@ -1,6 +1,6 @@
 export default `{
-  children {
-    _id
-    name
-  }
-}`
+    children {
+      _id
+      name
+    }
+  }`

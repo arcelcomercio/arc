@@ -30,7 +30,7 @@ class SearchInput extends PureComponent {
   }
 
   render() {
-    return (  
+    return (
       <div className={classes.container}>
         <form className={classes.form} onSubmit={this._handleSearch}>
           <button className={classes.button} type="submit" />

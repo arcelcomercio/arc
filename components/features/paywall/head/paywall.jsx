@@ -11,7 +11,7 @@ class Head extends React.PureComponent {
   }
 
   componentDidMount() {
-    AddIdentity(this.props).then(Identity => {
+    AddIdentity(this.props.siteProperties).then(Identity => {
       userProfile().then(({ firstName }) => {
         this.setState({ firstName })
       })
