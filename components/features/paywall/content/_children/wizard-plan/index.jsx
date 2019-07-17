@@ -12,7 +12,6 @@ function WizardPlan({ nextStep, summary, plans }) {
   const [errors, setErrors] = useState([])
 
   const siteProperties = fusionContext.siteProperties
-  const { signwall: { ORIGIN_API } = {} } = siteProperties
   const Sales = addSales(siteProperties)
 
   function subscribePlanHandler(e, plan) {

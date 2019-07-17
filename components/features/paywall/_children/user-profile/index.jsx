@@ -14,6 +14,16 @@ const MESSAGE = {
   EMAIL: 'Correo inválido',
 }
 
+// TODO: Falta obtener esta info que es obligatoria para crear una orden
+const FAKE_BILLING_ADDRESS = {
+  line1: 'Jr Francisco Arana 2018',
+  line2: 'Por la fabrica Donofrio',
+  locality: 'Lima',
+  region: 'LI',
+  country: 'PE',
+  postal: '01',
+}
+
 const RegisterSchema = schema({
   firstName: value => {
     value
@@ -52,17 +62,15 @@ const Select = () => (
 
 const FormStyled = S.Form(Form)
 
-const UserProfile = ({ title = '', profile }) => (
+const UserProfile = ({ title = '', profile, onSubmit }) => (
   <Formik
     initialValues={profile}
     validate={values => {
       return RegisterSchema(values)
     }}
-    onSubmit={(values, actions) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2))
-        actions.setSubmitting(false)
-      }, 1000)
+    onSubmit={values => {
+      // TODO: Crear un servicio desde el que se pueda obtener billing address
+      onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS })
     }}
     render={() => (
       <FormStyled>
@@ -70,39 +78,51 @@ const UserProfile = ({ title = '', profile }) => (
           <S.Title>{title}</S.Title>
         </S.WrapTitle>
         <S.Wrap>
-          <Field
-            name="firstName"
-            placeholder="Nombres"
-            component={InputFormik}
-          />
-          <Field
-            name="lastName"
-            placeholder="Apellido Paterno"
-            component={InputFormik}
-          />
-          <Field
-            name="secondLastName"
-            placeholder="Apellido Materno"
-            component={InputFormik}
-          />
-          <Field
-            name="documentNumber"
-            placeholder="Tipo de documento"
-            type="number"
-            prefix={<Select key="select" />}
-            component={InputFormik}
-          />
-          <Field
-            name="mobilePhone"
-            placeholder="Número de Celular"
-            type="number"
-            component={InputFormik}
-          />
-          <Field
-            name="email"
-            placeholder="Correo Electrónico"
-            component={InputFormik}
-          />
+          <S.WrapField>
+            <Field
+              name="firstName"
+              placeholder="Nombres"
+              component={InputFormik}
+            />
+          </S.WrapField>
+          <S.WrapField>
+            <Field
+              name="lastName"
+              placeholder="Apellido Paterno"
+              component={InputFormik}
+            />
+          </S.WrapField>
+          <S.WrapField>
+            <Field
+              name="secondLastName"
+              placeholder="Apellido Materno"
+              component={InputFormik}
+            />
+          </S.WrapField>
+          <S.WrapField>
+            <Field
+              name="documentNumber"
+              placeholder="Tipo de documento"
+              type="number"
+              prefix={<Select key="select" />}
+              component={InputFormik}
+            />
+          </S.WrapField>
+          <S.WrapField>
+            <Field
+              name="phone"
+              placeholder="Número de Celular"
+              type="number"
+              component={InputFormik}
+            />
+          </S.WrapField>
+          <S.WrapField>
+            <Field
+              name="email"
+              placeholder="Correo Electrónico"
+              component={InputFormik}
+            />
+          </S.WrapField>
         </S.Wrap>
         <Button type="submit">CONTINUAR 2</Button>
       </FormStyled>
