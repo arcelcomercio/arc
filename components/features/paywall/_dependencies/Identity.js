@@ -11,8 +11,7 @@ export const attrToObject = (attributes = [], getAttributes = []) => {
   }, {})
 }
 
-const AddIdentity = props => {
-  const { siteProperties } = props
+const AddIdentity = siteProperties => {
   const {
     signwall: { ORIGIN_IDENTITY_SDK, ORIGIN_API },
   } = siteProperties
