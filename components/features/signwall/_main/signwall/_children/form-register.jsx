@@ -107,13 +107,13 @@ class FormRegister extends Component {
           //   })
 
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
-          window.sessUser.setState({ accessPanel: true })
-          window.nameUser.setState({
-            nameUser: new GetProfile().username,
-          })
-          window.initialUser.setState({
-            initialUser: new GetProfile().initname,
-          })
+          // window.sessUser.setState({ accessPanel: true })
+          // window.nameUser.setState({
+          //   nameUser: new GetProfile().username,
+          // })
+          // window.initialUser.setState({
+          //   initialUser: new GetProfile().initname,
+          // })
 
           // -- test 6 tageo
           window.dataLayer = window.dataLayer || []

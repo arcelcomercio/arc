@@ -289,11 +289,11 @@ class AuthFacebook extends React.Component {
   enterProfilePanel = () => {
     const { closePopup } = this.props;
     Cookies.deleteCookie('mpp_sess'); // borra session MPP
-    setTimeout(() => {
-      window.sessUser.setState({ accessPanel: true });
-      window.nameUser.setState({ nameUser: new GetProfile().username });
-      window.initialUser.setState({ initialUser: new GetProfile().initname,});
-    }, 500);
+    // setTimeout(() => {
+    //   window.sessUser.setState({ accessPanel: true });
+    //   window.nameUser.setState({ nameUser: new GetProfile().username });
+    //   window.initialUser.setState({ initialUser: new GetProfile().initname,});
+    // }, 500);
    closePopup();
   };
 
