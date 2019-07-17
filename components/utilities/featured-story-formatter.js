@@ -10,15 +10,15 @@ class FeaturedStoryFormatter {
         by { name url type }
       }
       promo_items {
-        basic { url type resized_urls { landscape_md } }
+        basic { url type resized_urls { landscape_l } }
         basic_video {
           promo_items {
-            basic { url type resized_urls { landscape_md } }
+            basic { url type resized_urls { landscape_l } }
           }
         }
         basic_gallery {
           promo_items {
-            basic { url type resized_urls { landscape_md } }
+            basic { url type resized_urls { landscape_l } }
           }
         }
       }
@@ -88,7 +88,7 @@ class FeaturedStoryFormatter {
     const newState = {
       ...this.initialState,
     }
-    
+
     newState.category.name = this.storyDataInstace.primarySection
     newState.category.url = this.storyDataInstace.primarySectionLink
 
@@ -97,8 +97,8 @@ class FeaturedStoryFormatter {
 
     newState.author.name = this.storyDataInstace.author
     newState.author.url = this.storyDataInstace.authorLink
-    
-    newState.image = imgField || this.storyDataInstace.multimediaLandscapeMD
+
+    newState.image = imgField || this.storyDataInstace.multimediaLandscapeL
     newState.multimediaType = this.storyDataInstace.multimediaType
 
     return newState
