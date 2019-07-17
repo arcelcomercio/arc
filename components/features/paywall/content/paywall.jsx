@@ -8,6 +8,7 @@ import Loading from '../_children/loading'
 import * as S from './styled'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
+import WizardPayment from './_children/wizard-payment'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 const PRODUCT_SKU = '02072019'
@@ -70,6 +71,7 @@ class Content extends React.PureComponent {
               nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
               <WizardPlan plans={plans} summary={summary} />
               <WizardUserProfile profile={profile} summary={summary} />
+              <WizardPayment summary={summary} />
               <WizardConfirmation assets={fullAssets} />
             </Wizard>
           </S.Content>
