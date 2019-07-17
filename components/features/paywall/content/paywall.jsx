@@ -1,7 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { Suspense } from 'react'
 import Wizard from 'react-step-wizard'
-import Consumer from 'fusion:consumer'
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
@@ -9,10 +8,9 @@ import Loading from '../_children/loading'
 import * as S from './styled'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
+import WizardPayment from './_children/wizard-payment'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
-const PRODUCT_SKU = '02072019'
-const CAMPAIGN = 'gestion-20190703'
 
 const Right = () => {
   return <div>Hola2</div>
@@ -41,7 +39,7 @@ class Content extends React.PureComponent {
   }
 
   componentDidMount() {
-    AddIdentity(this.props).then(() => {
+    AddIdentity(this.props.siteProperties).then(() => {
       userProfile(['documentNumber', 'mobilePhone', 'documentType']).then(
         profile => {
           this.setState({ profile })
@@ -71,6 +69,7 @@ class Content extends React.PureComponent {
               nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
               <WizardPlan plans={plans} summary={summary} />
               <WizardUserProfile profile={profile} summary={summary} />
+              <WizardPayment summary={summary} />
               <WizardConfirmation assets={fullAssets} />
             </Wizard>
           </S.Content>
@@ -79,3 +78,5 @@ class Content extends React.PureComponent {
     )
   }
 }
+
+export default Content

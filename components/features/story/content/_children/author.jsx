@@ -16,7 +16,7 @@ const StoryContentChildAuthor = props => {
     {
       name,
       url,
-      additional_properties: { original: { email } = {} } = {},
+      /* additional_properties: { original: { email } = {} } = {}, COMENTARIO ABAJO */
     } = {},
   ] = by || []
   return (

@@ -41,4 +41,8 @@ const Form = Component => {
   `
 }
 
+export const WrapField = styled.div`
+  min-width: 250px;
+`
+
 export { Select, Wrap, Form, Title, WrapTitle }

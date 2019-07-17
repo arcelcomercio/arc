@@ -60,7 +60,7 @@ class BreakingNews extends Component {
     } = this.props
 
     const params = {
-      website_url: storyLink,
+      website_url: removeLastSlash(storyLink),
       website: arcSite,
     }
 

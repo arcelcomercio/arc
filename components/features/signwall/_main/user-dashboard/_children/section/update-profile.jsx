@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react'
-import { setTimeout } from 'timers'
 import Services from '../../../utils/services'
 import {
   namesRegex,
@@ -207,8 +206,14 @@ class UpdateProfile extends Component {
           })
         }, 5000)
 
-        window.sessUser.setState({ nameUser: new GetProfile().username })
-        window.initialUser.setState({ initialUser: new GetProfile().initname })
+        setTimeout(() => {
+          window.nameUser.setState({
+            nameUser: new GetProfile().username,
+          })
+          window.initialUser.setState({
+            initialUser: new GetProfile().initname,
+          })
+        }, 500)
 
         const modalConfirmPass = document.querySelector('#arc-popup-profile')
         if (modalConfirmPass) {
@@ -217,7 +222,7 @@ class UpdateProfile extends Component {
       })
       .catch(() => {
         this.setState({
-          showMsgError: true,
+          showMsgError: false,
           loading: false,
           textSubmit: 'Guardar cambios',
         })
@@ -449,10 +454,13 @@ class UpdateProfile extends Component {
         <div className="form-grid__row form-grid__row--btw">
           <h3 className="form-grid__title">Tus datos</h3>
           <div className="message">
-            <p className="message--success" hidden={!showMsgSuccess}>
+            <p
+              className={`message--success ${showMsgSuccess &&
+                'message--active'}`}>
               TUS DATOS HAN SIDO ACTUALIZADOS
             </p>
-            <p className="message--error" hidden={!showMsgError}>
+            <p
+              className={`message--error ${showMsgError && 'message--active'}`}>
               HA OCURRIDO UN ERROR. VERIFICA TUS DATOS
             </p>
           </div>
@@ -577,9 +585,7 @@ class UpdateProfile extends Component {
               <label htmlFor="statusCivil" className="form-group__label">
                 Tipo Doc.
               </label>
-              {formErrors.typeDocument.length > 0 && (
-                <span className="error-message">{formErrors.typeDocument}</span>
-              )}
+
               <input
                 type="text"
                 name="documentNumber"
@@ -605,7 +611,12 @@ class UpdateProfile extends Component {
               />
             </div>
             {formErrors.documentNumber.length > 0 && (
-              <span className="error-message">{formErrors.documentNumber}</span>
+              <span className="message__error">
+                {formErrors.documentNumber}
+              </span>
+            )}
+            {formErrors.typeDocument.length > 0 && (
+              <span className="message__error">{formErrors.typeDocument}</span>
             )}
           </div>
           <div className="form-group">
