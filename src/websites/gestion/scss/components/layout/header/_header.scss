@@ -5,7 +5,7 @@
 
   &__item {
     &:not(:last-child):after {
-      content: " \B7 "
+      content: ' \B7 ';
     }
   }
 
@@ -13,5 +13,16 @@
     font-size: 1rem;
     color: $color-gray-300;
     text-transform: capitalize;
+    font-weight: 700;
+  }
+  &__tags {
+    font-weight: 700;
+  }
+  &__date {
+    font-weight: 500;
+  }
+  &__date,
+  &__tags {
+    font-family: $tertiary-font;
   }
 }

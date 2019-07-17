@@ -2,7 +2,7 @@ export default {
   siteName: 'Gestión',
   colorPrimary: '#8F071F',
   colorSecondary: '#F4E0D2',
-  googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:400,700',
+  googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
   resizerUrl: 'https://publimetro.pe/resizer', // Temporal hasta que activen el resizer para gestión

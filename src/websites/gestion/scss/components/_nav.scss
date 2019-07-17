@@ -1,0 +1,32 @@
+.nav {
+  background-color: $color-base-400;
+  &__btn,
+  &__icon-search {
+    @media (--desktop) {
+      color: $color-white;
+    }
+    &--section {
+      padding-left: 0;
+    }
+  }
+  &__logo {
+    padding: 10px 0;
+  }
+  &__container-right {
+    background-color: transparent;
+  }
+  .btn--outline {
+    background-color: $color-white;
+    color: #555;
+    border-color: transparent;
+  }
+  &__input-search {
+    background-color: transparent;
+    &::placeholder {
+      color: $color-white;
+    }
+    &.active {
+      border-color: $color-white;
+    }
+  }
+}
