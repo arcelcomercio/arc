@@ -35,13 +35,11 @@ function CardPrice({ amount, billingFrequency, description, nextStep }) {
             <S.Currency>S/</S.Currency>
             <span>{amount}</span>
           </S.Amount>
-          <S.Description>
-            {description.description}
-          </S.Description>
+          <S.Description>{description.description}</S.Description>
         </S.Content>
         <S.Footer>
           <S.Button active={active} onClick={onBuy} type="button">
-            PAGAR
+            SUSCRIBIRME
           </S.Button>
         </S.Footer>
       </S.CardPrice>
