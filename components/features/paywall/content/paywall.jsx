@@ -10,8 +10,6 @@ import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
-const PRODUCT_SKU = '02072019'
-const CAMPAIGN = 'gestion-20190703'
 
 const Right = () => {
   return <div>Hola2</div>
