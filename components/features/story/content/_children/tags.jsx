@@ -4,10 +4,9 @@ import UtilListKey from '../../../../utilities/list-keys'
 const classes = {
   container: 'story-tags mt-25 mb-20',
   title:
-    'story-tags__title uppercase mb-10 primary-font font-bold text-md line-h-none',
-  tag: 'inline-block primary-font text-md mr-5 mb-5',
-  link:
-    'story-tags__link block bg-gray-100 text-gray-200 pt-5 pb-5 pr-10 pl-10',
+    'story-tags__title uppercase mb-5 primary-font font-bold text-md line-h-none',
+  tag: 'inline-block primary-font text-md',
+  link: 'story-tags__link text-gray-200 p-5',
 }
 const StoryContentChildTags = props => {
   const { data, isAmp } = props

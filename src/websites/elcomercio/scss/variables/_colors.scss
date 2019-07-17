@@ -31,5 +31,10 @@ $footer-background: $color-gray-300;
 $footer-text-color: $color-white;
 /*-----------------------*/
 
-/******* Footer colors *******/
-$signwall-header-text-color: #000000;
+/******* Signwall colors *******/
+$signwall-header-text-color: $color-secondary;
+$signwall-color-item-title: #008eff;
+$signwall-color-link: #0f8bf7;
+$signwall-login-text: $color-primary;
+$signwall-login-bg: $color-secondary;
+/*----------------------------*/
