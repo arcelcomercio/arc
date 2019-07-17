@@ -1,7 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { Suspense } from 'react'
 import Wizard from 'react-step-wizard'
-import Consumer from 'fusion:consumer'
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
