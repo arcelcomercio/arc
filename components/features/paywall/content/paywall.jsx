@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React from 'react'
+import React, { Suspense } from 'react'
 import Wizard from 'react-step-wizard'
 import Consumer from 'fusion:consumer'
 import WizardUserProfile from './_children/wizard-user-profile'
@@ -7,11 +7,7 @@ import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
 import Loading from '../_children/loading'
 import * as S from './styled'
-import {
-  AddIdentity,
-  userProfile,
-  attrToObject,
-} from '../_dependencies/Identity'
+import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
@@ -68,6 +64,7 @@ class Content extends React.PureComponent {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <S.Content>
             <Wizard
+              isLazyMount
               isHashEnabled
               nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
               <WizardPlan plans={plans} summary={summary} />
