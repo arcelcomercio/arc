@@ -50,11 +50,13 @@ class Content extends React.PureComponent {
   render() {
     const { spinning, data, profile } = this.state
     const { summary = {}, plans } = data
-    console.log({ summary })
+
     const {
       contextPath,
+      deployment,
       siteProperties: { assets },
     } = this.props
+    const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
     return (
       <Loading spinning={false}>
@@ -66,9 +68,7 @@ class Content extends React.PureComponent {
               nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
               <WizardPlan plans={plans} summary={summary} />
               <WizardUserProfile profile={profile} summary={summary} />
-              <WizardConfirmation
-                assets={assets.fullAssets.call(assets, contextPath)}
-              />
+              <WizardConfirmation assets={fullAssets} />
             </Wizard>
           </S.Content>
         </div>

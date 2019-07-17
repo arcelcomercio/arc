@@ -45,8 +45,8 @@ export default {
       confirmation: `images/adult-attire-blazer-173125.jpg`,
       confirmationx2: `images/adult-attire-blazer-173125@2x.jpg`,
     },
-    fullAssets(contextPath) {
-      return image => `${contextPath}${this.pwAssets(image)}`
+    fullAssets(contextPath, deployment = path => path) {
+      return image => deployment(`${contextPath}${this.pwAssets(image)}`)
     },
     pwAssets(image = 'logo') {
       return `${this.path}${this.paywall[image]}`
