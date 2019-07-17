@@ -597,7 +597,10 @@ export const formatDateStory = date => {
 }
 
 export const addResizedUrlsToStory = (data, resizerUrl, resizerSecret, addResizedUrls) => {
-
+  /* const {
+    resizerUrl
+  } = getProperties(websiteResizer) */
+  
   return data && data.map(item => {
     const dataStory = item
 
@@ -637,6 +640,7 @@ export const isIE = () => {
   }
   return false
 }
+
 export const addSlashToDateEnd = url => {
   let urlSlash = url
   const fecha = new Date('2019-07-16T22:30:00')
