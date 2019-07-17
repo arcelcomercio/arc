@@ -68,6 +68,23 @@
         }
       }
     }
+
+    &--login{
+      position: relative;
+      padding-left: 40px;
+      .text-user,
+      .icon-user{
+        background: $signwall-login-bg;
+        color: $signwall-login-text;
+        height: 24px;
+        width: 24px;
+        line-height: 24px;
+        left: 10px;
+      }
+      .text-user{
+        font-size: 10px;
+      }
+    }
   }
 
   // &__list { }
