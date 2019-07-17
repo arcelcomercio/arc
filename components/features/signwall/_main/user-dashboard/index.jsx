@@ -54,6 +54,8 @@ class ProfileAccount extends Component {
 
     const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
     const profileLS = JSON.parse(localProfile)
+    const nameUser = profileLS ? profileLS.firstName : 'Usuario'
+
     return (
       <Modal
         size="full"
@@ -65,21 +67,11 @@ class ProfileAccount extends Component {
 
         <div className="bg_white">
           <div className="container">
-            <div className="profile">  
+            <div className="profile">
               <div className="profile__left profile__card">
                 <div>
                   <h1 className="profile__title">
-                    Hola{' '}
-                    {() => {
-                      if (
-                        profileLS &&
-                        profileLS.firstName &&
-                        profileLS.firstName !== 'undefined'
-                      ) {
-                        return profileLS.firstName
-                      }
-                      return 'Usuario'
-                    }}
+                    Hola {nameUser !== 'undefined' ? nameUser : 'Usuario'}
                   </h1>
                   <span className="profile__text">Bienvenido a tu perfil</span>
 
@@ -108,9 +100,7 @@ class ProfileAccount extends Component {
                   <picture>
                     {typeLogin === 'Facebook' ? (
                       <img
-                        src={`https://graph.facebook.com/${
-                          profileLS.identities[0].userName
-                        }/picture?type=large&redirect=true&width=500&height=500`}
+                        src={`https://graph.facebook.com/${profileLS.identities[0].userName}/picture?type=large&redirect=true&width=500&height=500`}
                         alt="facebook"
                       />
                     ) : (
