@@ -597,6 +597,9 @@ export const formatDateStory = date => {
 }
 
 export const addResizedUrlsToStory = (data, resizerUrl, resizerSecret, addResizedUrls) => {
+  /* const {
+    resizerUrl
+  } = getProperties(websiteResizer) */
 
   return data && data.map(item => {
     const dataStory = item
@@ -606,10 +609,9 @@ export const addResizedUrlsToStory = (data, resizerUrl, resizerSecret, addResize
         basic_gallery: contentElements = null
       } = {}
     } = item
-    const contentElementsData = contentElements || item
 
-    if (contentElements) {
-      const image = addResizedUrls(contentElementsData, {
+    if (contentElements && contentElements.promo_items) {
+      const image = addResizedUrls(contentElements, {
         resizerUrl,
         resizerSecret,
         presets: sizeImg()
@@ -617,7 +619,7 @@ export const addResizedUrlsToStory = (data, resizerUrl, resizerSecret, addResize
       dataStory.promo_items.basic_gallery = image
     }
 
-    return addResizedUrls(contentElementsData, {
+    return addResizedUrls(dataStory, {
       resizerUrl,
       resizerSecret,
       presets: sizeImg()
