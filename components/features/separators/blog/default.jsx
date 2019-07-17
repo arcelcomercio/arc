@@ -40,9 +40,11 @@ class SeparatorBlog extends PureComponent {
 
   render() {
     const { dataApi = {} } = this.state
-    const { arcSite, contextPath, deployment, isMobile, isTablet } = this.props
+    const { arcSite, contextPath, deployment, isMobile, isTablet,siteProperties:{siteUrl}={} } = this.props
     let listPost = Object.values(dataApi)
     listPost = listPost.slice(0, 5)
+    
+    const urlVerMas = `${siteUrl}/blog`
 
     return (
       <div>
@@ -50,10 +52,8 @@ class SeparatorBlog extends PureComponent {
           <a className={classes.titleSeparator} href={BLOG_BASE}>
             FIRMAS
           </a>
-          {/* {!isMobile && (<a href="www.google.com.pe" className={classes.seeMoreText}>ver mas</a>) }
-          {!isTablet && (<a href="www.google.com.pe" className={classes.seeMoreText}>ver mas</a>) } */}
           
-          {!isMobile || !isTablet && (<a href="www.google.com.pe" className={classes.seeMoreText}>ver mas</a>)}
+          {isMobile || isTablet ? null: (<a href={urlVerMas} className={classes.seeMoreText}>ver mas</a>)}
         </div>
         <div className={isMobile || isTablet? classes.contentItemMovil : classes.contentItem}>
           {listPost &&
@@ -90,7 +90,7 @@ class SeparatorBlog extends PureComponent {
               return <SeparatorBlogChildItem key={blogUrl} {...data} />
             })}
         </div>
-        {isMobile || isTablet && (<a href="www.google.com.pe" className={classes.seeMoreText}>ver mas</a>)}
+        {isMobile || isTablet && (<a href={urlVerMas} className={classes.seeMoreText}>ver mas</a>)}
 
       </div>
     )
