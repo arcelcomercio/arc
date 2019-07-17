@@ -37,7 +37,7 @@ class LoginRegister extends Component {
       ),
       forgot: <FormForgotPass closePopup={closePopup} brandCurrent={brandModal} />,
     }
-    return templates[template] || template.login
+    return templates[template] || templates.login
   }
 
   render() {

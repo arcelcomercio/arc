@@ -1,5 +1,12 @@
 .signwall {
   * {
+    .bg_white{
+      background: white;
+    }
+    .container{
+      max-width: 1200px;
+      margin: 0px auto;
+    }
     .profile {
       width: 100%;
       display: flex;

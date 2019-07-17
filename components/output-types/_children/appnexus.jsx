@@ -15,8 +15,17 @@ const getSite = site => {
   return sites[site] || sites.elcomercio
 }
 
-const getVars = ({ arcSite, isStory, requestUri, port = 'port1' }) => {
-  const typeSpace = port
+const getTypeStory = data => {
+  const type = data.promo_items
+  const arrType = Object.keys(type)
+  return arrType[0] === 'basic_gallery'
+}
+
+const getVars = (
+  { arcSite, isStory, requestUri, port = 'port1' },
+  isGallery
+) => {
+  const typeSpace = isGallery ? 'nota2' : port
   const site = arcSite
   const template = isStory ? 'nota' : 'portada'
   const path = requestUri.split('?')[0]
@@ -51,7 +60,9 @@ const getVars = ({ arcSite, isStory, requestUri, port = 'port1' }) => {
 `
 }
 const AppNexus = props => {
-  const data = getVars(props)
+  const { isStory, globalContent } = props
+  const isGallery = isStory && getTypeStory(globalContent)
+  const data = getVars(props, isGallery)
   return (
     <script type="text/javascript" dangerouslySetInnerHTML={{ __html: data }} />
   )

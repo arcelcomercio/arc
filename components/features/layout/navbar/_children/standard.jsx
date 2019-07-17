@@ -5,6 +5,10 @@ import Button from '../../../../global-components/button'
 import Signwall from '../../../signwall/default'
 import SignWallHard from '../../../signwall/_main/signwall/hard'
 
+import SignWallVerify from '../../../signwall/_main/signwall/verify'
+import SignWallReset from '../../../signwall/_main/signwall/reset'
+import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
+
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
 import GetProfile from '../../../signwall/_main/utils/get-profile'
@@ -36,7 +40,7 @@ const classes = {
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
-  btnSignwall: 'nav__btn--login'
+  btnSignwall: 'nav__btn--login',
 }
 
 const activeSignwall = ['elcomercio', 'gestion']
@@ -50,7 +54,10 @@ class NavBarDefault extends PureComponent {
       statusSearch: false,
       scrolled: false,
       isActive: false,
-      showHard : false,
+      showHard: false,
+      showVerify: false,
+      showReset: false,
+      showRelogin: false,
       nameUser: new GetProfile().username,
       initialUser: new GetProfile().initname,
     }
@@ -64,6 +71,7 @@ class NavBarDefault extends PureComponent {
 
   componentDidUpdate() {
     if (this.checkSesion()) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         nameUser: new GetProfile().username,
         initialUser: new GetProfile().initname,
@@ -122,13 +130,30 @@ class NavBarDefault extends PureComponent {
   }
 
   // If return value Parameter
-  getUrlParam = (name) => {
+  getUrlParam = name => {
     const vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
       vars[key] = value
     })
 
-    if(vars[name] && name === 'sigwalHard') this.setState({ showHard: true })
+    if (vars[name]) {
+      switch (name) {
+        case 'sigwallHard':
+          this.setState({ showHard: true })
+          break
+        case 'tokenVerify':
+          this.setState({ showVerify: true })
+          break
+        case 'tokenReset':
+          this.setState({ showReset: true })
+          break
+        case 'reloginEmail':
+          this.setState({ showRelogin: true })
+          break
+        default:
+          return vars[name]
+      }
+    }
 
     return vars[name]
   }
@@ -197,7 +222,17 @@ class NavBarDefault extends PureComponent {
   } */
 
   render() {
-    const { statusSidebar, scrolled, isActive, nameUser, initialUser, showHard } = this.state
+    const {
+      statusSidebar,
+      scrolled,
+      isActive,
+      nameUser,
+      initialUser,
+      showHard,
+      showVerify,
+      showReset,
+      showRelogin,
+    } = this.state
     const {
       logo,
       arcSite,
@@ -281,12 +316,14 @@ class NavBarDefault extends PureComponent {
                   onClick={() => this.setState({ isActive: true })}>
                   <i
                     className={
-                      initialUser ? `${classes.iconSignwall} text-user text-xs` : `${classes.iconLogin} ${classes.iconSignwall} icon-user` 
+                      initialUser
+                        ? `${classes.iconSignwall} text-user text-xs`
+                        : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
                     }>
-                    { initialUser }
+                    {initialUser}
                   </i>
                   <span className="capitalize">
-                    {this.checkSesion() ? nameUser : 'Ingresa a tu cuenta'}
+                    {this.checkSesion() ? nameUser : 'Iniciar Sesión'}
                   </span>
                 </button>
               </div>
@@ -342,9 +379,37 @@ class NavBarDefault extends PureComponent {
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
-        {this.getUrlParam('sigwalHard') && !this.checkSesion() && showHard ? (
+        {this.getUrlParam('sigwallHard') && !this.checkSesion() && showHard ? (
           <SignWallHard
             closePopup={() => this.setState({ showHard: false })}
+            brandModal={arcSite}
+          />
+        ) : null}
+
+        {this.getUrlParam('tokenVerify') && showVerify ? (
+          <SignWallVerify
+            closePopup={() => this.setState({ showVerify: false })}
+            brandModal={arcSite}
+          />
+        ) : null}
+
+        {this.getUrlParam('tokenReset') && showReset ? (
+          <SignWallReset
+            closePopup={() => this.setState({ showReset: false })}
+            brandModal={arcSite}
+          />
+        ) : null}
+
+        {/* {this.getUrlParam('reloginEmail') && !this.checkSesion() && showRelogin ? (
+          <SignWallRelogin
+            closePopup={() => this.setState({ showRelogin: false })}
+            brandModal={arcSite}
+          />
+        ) : null} */}
+
+        {!this.checkSesion() ? (
+          <SignWallRelogin
+            closePopup={() => this.setState({ showRelogin: false })}
             brandModal={arcSite}
           />
         ) : null}
