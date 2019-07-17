@@ -6,7 +6,7 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
 import AmpTagManager from './_children/amp-tag-manager'
-import { createMarkup } from '../utilities/helpers'
+import { createMarkup, addSlashToEnd } from '../utilities/helpers'
 
 const AmpOutputType = ({
   children,
@@ -47,7 +47,9 @@ const AmpOutputType = ({
 
   const title =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? (!metaValue('meta_title').match(/content/) &&
+      ? (isStory &&
+          metaValue('meta_title') &&
+          !metaValue('meta_title').match(/content/) &&
           metaValue('meta_title')) ||
         metaValue('title')
       : siteProperties.siteName
@@ -96,7 +98,9 @@ const AmpOutputType = ({
     <Html>
       <head>
         <BaseMarkup
-          canonicalUrl={`${siteProperties.siteUrl}${canonicalUrl}/`}
+          canonicalUrl={`${siteProperties.siteUrl}${addSlashToEnd(
+            canonicalUrl
+          )}`}
         />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <title>{title}</title>

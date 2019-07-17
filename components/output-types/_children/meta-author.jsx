@@ -24,7 +24,7 @@ export default ({
   } = by[0] || []
 
   const socialMedia = socialLinks.map(({ url }) => {
-    return `${url}`
+    return `"${url}"`
   })
 
   const patternPagination = /\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/

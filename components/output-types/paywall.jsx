@@ -48,7 +48,6 @@ const Paywall = props => {
         <script src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-sales.min.js" />
         <script src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js" />
         <script src="https://gateway.payulatam.com/ppp-web-gateway/javascript/PayU.js"></script>
-
       </head>
       <body>
         <div id="fusion-app" role="application" className="layout-paywall">
