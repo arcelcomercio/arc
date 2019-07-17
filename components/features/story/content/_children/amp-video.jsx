@@ -24,10 +24,13 @@ const StoryContentChildVideo = ({ data }) => {
   const [{ url, urlImage }] = dataVideo
   return (
     <>
-      <amp-video width="640" height="360" layout="responsive" poster={urlImage}>
-        <source src={url} type="video/mp4" />
-        <div fallback />
-      </amp-video>
+      <amp-video
+        width="640"
+        height="360"
+        layout="responsive"
+        poster={urlImage}
+        src={url}
+      />
     </>
   )
 }

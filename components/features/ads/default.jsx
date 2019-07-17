@@ -66,6 +66,5 @@ Ads.propTypes = {
 }
 
 Ads.label = 'Publicidad AppNexus'
-// TODO:CARLOS: probar con static true
 
 export default Ads

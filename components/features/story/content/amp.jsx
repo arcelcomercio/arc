@@ -8,7 +8,7 @@ import AmpImage from '@arc-core-components/element_image'
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import ElePrincipal from './_children/amp-ele-principal'
-import StoryContentChildVideo from './_children/video'
+import StoryContentChildVideo from './_children/amp-video'
 import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryContentChildTags from './_children/tags'
@@ -25,7 +25,6 @@ const classes = {
   author: 'amp-story-content__author mt-15 mb-15 secondary-font',
   image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
-  video: 'amp-story-content__video amp-active',
   relatedTitle:
     'related-content__title font-bold uppercase pt-20 pb-20 secondary-font',
 }
@@ -147,13 +146,7 @@ class StoryContentAmp extends PureComponent {
                 }
 
                 if (type === ConfigParams.ELEMENT_VIDEO) {
-                  return (
-                    <amp-iframe i-amphtml-layout="responsive" frameborder="0">
-                      <i-amphtml-sizer />
-                      <i-amphtml-scroll-container className={classes.video} />
-                      <StoryContentChildVideo data={element.embed_html} />
-                    </amp-iframe>
-                  )
+                  return <StoryContentChildVideo data={element} />
                 }
                 return undefined
               }}
