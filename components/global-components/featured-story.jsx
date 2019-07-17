@@ -37,8 +37,6 @@ const classes = {
 
   live: 'featured-story--live',
   icon: `featured-story__icon`,
-  section: `featured-story__section w-full position-absolute top-0 left-0 bg-gray-200 flex items-center justify-center`,
-  sectionText: `featured-story__section-text uppercase primary-font font-bold text-lg`,
 }
 
 export default class FeaturedStory extends PureComponent {
@@ -118,11 +116,6 @@ export default class FeaturedStory extends PureComponent {
         } ${getImageSizeClass()} ${getHeadBandClass()} ${
           size === SIZE_TWO_COL ? classes.twoCol : ''
         } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
-        <div className={classes.section}>
-          <a className={classes.sectionLink} href={category.url}>
-            <p className={classes.sectionText}>Gestion Tv</p>
-          </a>
-        </div>
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
             <h3 className={classes.category}>

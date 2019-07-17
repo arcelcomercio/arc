@@ -153,10 +153,10 @@ $image-height: 157px;
 
   &--live {
     .featured-story__headband-link {
-      background-color: $color-gray-200;
+      background-color: red;
       display: inline-block;
       position: relative;
-      left: -20px;
+      left: 0;
       width: 145px;
       height: 28px;
       display: flex;
@@ -177,16 +177,6 @@ $image-height: 157px;
     &.expand {
       @include img-complete();
     }
-    .featured-story__section {
-      display: none;
-    }
-    /*    &.featured-story--live {
-      &.featured-story--no-expanded {
-        &.featured-story {
-          padding-top: 40px;
-        }
-      }
-    } */
   }
 
   /** ----------------------------*
@@ -239,7 +229,7 @@ $image-height: 157px;
 
       .featured-story__detail {
         height: 100%;
-        padding: 52px 5px 12px 20px;
+        padding: 12px 5px 12px 20px;
         width: 100%;
       }
 
@@ -257,18 +247,5 @@ $image-height: 157px;
         max-width: 100%;
       }
     }
-    &.featured-story {
-      padding-top: 40px;
-    }
-  }
-  /** ----------------------------*
-  *   Estilos Cintillo Gestion Tv  *
-  *-------------------------------*/
-  &__section {
-    height: 40px;
-    z-index: 1;
-  }
-  &__section-text {
-    color: $color-base-100;
   }
 }
