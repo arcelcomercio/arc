@@ -10,15 +10,15 @@ class FeaturedStoryFormatter {
         by { name url type }
       }
       promo_items {
-        basic { url type resized_urls { small medium large} }
+        basic { url type resized_urls { landscape_l } }
         basic_video {
           promo_items {
-            basic { url type resized_urls { small medium large} }
+            basic { url type resized_urls { landscape_l } }
           }
         }
         basic_gallery {
           promo_items {
-            basic { url type resized_urls { small medium large} }
+            basic { url type resized_urls { landscape_l } }
           }
         }
       }
@@ -97,8 +97,8 @@ class FeaturedStoryFormatter {
 
     newState.author.name = this.storyDataInstace.author
     newState.author.url = this.storyDataInstace.authorLink
-
-    newState.image = imgField || this.storyDataInstace.multimedia
+    
+    newState.image = imgField || this.storyDataInstace.multimediaLandscapeL
     newState.multimediaType = this.storyDataInstace.multimediaType
 
     return newState
