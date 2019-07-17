@@ -1,10 +1,17 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
+import styled from 'styled-components'
+
 import RadioButton from '../../../radio-button'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
+import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import schema from '../../../../../_dependencies/schema'
+
+const FieldDate = styled(Field)`
+  max-width: 150px;
+`
 
 const RegisterSchema = schema({})
 
@@ -56,7 +63,19 @@ const FormPay = ({ profile }) => (
             />
           </S.Cards>
         </S.WrapCards>
-
+        <S.WrapInputs>
+          <Field
+            component={Input}
+            name="card"
+            placeholder="Número de tarjeta"
+          />
+          <FieldDate
+            component={Input}
+            name="card"
+            placeholder="F. de Vencimiento"
+          />
+          <Field component={Input} name="card" placeholder="CVV" />
+        </S.WrapInputs>
         <Button type="submit">CONTINUAR</Button>
       </Form>
     )}

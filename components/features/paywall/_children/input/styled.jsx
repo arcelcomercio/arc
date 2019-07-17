@@ -4,6 +4,7 @@ import { devices } from '../../_dependencies/devices'
 const FormGroup = styled.div`
   position: relative;
   margin-bottom: 29px;
+  width: 100%;
   @media (${devices.mobile}) {
     width: 100%;
   }
@@ -23,7 +24,8 @@ const Wrap = styled.div`
   border-radius: 4px;
   border: 1px solid #aaaaaa;
   flex: 1;
-  width: 250px;
+  width: 100%;
+  /* width: ${({ width }) => width || '250px'}; */
   box-sizing: border-box;
   ${({ hasError }) =>
     hasError &&

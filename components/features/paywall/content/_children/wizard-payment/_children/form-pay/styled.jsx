@@ -20,4 +20,12 @@ export const WrapCards = styled.div`
   align-items: center;
 `
 
-export const TextCard = styled.div``
+export const TextCard = styled.div`
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 20px;
+`
+
+export const WrapInputs = styled.div`
+  display: flex;
+`
