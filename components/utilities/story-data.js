@@ -123,23 +123,23 @@ class StoryData {
     )
   }
 
-  get multimediaLandScapeXL() {
+  get multimediaLandscapeXL() {
     return this.getMultimediaBySize(ConfigParams.LANDSCAPE_XL)
   }
 
-  get multimediaLandScapeL() {
+  get multimediaLandscapeL() {
     return this.getMultimediaBySize(ConfigParams.LANDSCAPE_L)
   }
 
-  get multimediaLandScapeMD() {
+  get multimediaLandscapeMD() {
     return this.getMultimediaBySize(ConfigParams.LANDSCAPE_MD)
   }
 
-  get multimediaLandScapeS() {
+  get multimediaLandscapeS() {
     return this.getMultimediaBySize(ConfigParams.LANDSCAPE_S)
   }
 
-  get multimediaLandScapeXS() {
+  get multimediaLandscapeXS() {
     return this.getMultimediaBySize(ConfigParams.LANDSCAPE_XS)
   }
 
