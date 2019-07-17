@@ -79,8 +79,6 @@ class SeparatorBlog extends PureComponent {
                 ] = [],
               } = post
               
-              debugger
-
               const data = {
                 authorName,
                 authorImg,
