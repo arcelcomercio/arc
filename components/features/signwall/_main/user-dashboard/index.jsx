@@ -88,7 +88,7 @@ class ProfileAccount extends Component {
                       <a
                         href="/"
                         to="/panel/profile"
-                        activeClassName="selected"
+                        // activeClassName="selected"
                         className="profile__menu-link active">
                         Mis Datos
                       </a>

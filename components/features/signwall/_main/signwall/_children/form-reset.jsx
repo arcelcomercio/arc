@@ -2,13 +2,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 // TODO Agregar excepcion a eslint
 import React, { Component } from 'react'
+import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
 import { strongRegularExp, mediumRegularExp } from '../../utils/regex'
 import FormValid from '../../utils/form-valid'
-// import { ModalConsumer } from '../context'
 
-const myParam = '23423ew24refqejhaut78r687ydfuiay87r'
-
+@Consumer
 class FormResetPass extends Component {
   constructor(props) {
     super(props)
@@ -16,7 +15,6 @@ class FormResetPass extends Component {
       newPassword: null,
       repeatPassword: null,
       checkpwdStrength: '0px',
-      tokenPassword: myParam, // token resetes
       showMessage: false,
       formErrors: {
         newPassword: '',
@@ -27,11 +25,19 @@ class FormResetPass extends Component {
   }
 
   handleFormSubmit = e => {
-    const { tokenPassword, newPassword, repeatPassword } = this.state
+    const {
+      tokenReset,
+      siteProperties: {
+        signwall: { ORIGIN_API },
+      },
+    } = this.props
+
+    const { newPassword, repeatPassword } = this.state
 
     e.preventDefault()
     if (FormValid(this.state)) {
-      window.Identity.resetPassword(tokenPassword, newPassword)
+      window.Identity.apiOrigin = ORIGIN_API
+      window.Identity.resetPassword(tokenReset, newPassword)
         .then(() => {
           this.setState({
             showMessage: true,
@@ -139,88 +145,86 @@ class FormResetPass extends Component {
             className="form-grid"
             noValidate
             onSubmit={e => this.handleFormSubmit(e)}>
-            <div className="row-grid col-center">
+            <div className="form-grid__reset-pass">
               <Icon.ResetPass
-                className="icon-message"
+                className="form-grid__icon"
                 bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
               />
             </div>
 
-            <div className="row-grid col-center">
-              <h1 className="title-message">Cambiar contraseña</h1>
-              <p className="text-message">
-                Ingresa una nueva contraseña para tu cuenta
-              </p>
-            </div>
+            <h1 className="form-grid__info text-center">Cambiar contraseña</h1>
+            <p className="form-grid__info-sub text-center">
+              Ingresa una nueva contraseña para tu cuenta
+            </p>
 
-            <div className="grid-clear-20" />
-
-            <div className="div-error" hidden={!messageError}>
-              {messageError === 'Error: Invalid username or password'
-                ? 'Correo Electrónico o Contraseña incorrecto'
-                : messageError}
-            </div>
-
-            <div className="row-grid form-group">
-              <input
-                type="password"
-                name="newPassword"
-                className={
-                  formErrors.newPassword.length > 0
-                    ? 'input-text error'
-                    : 'input-text'
-                }
-                placeholder="Nueva contraseña"
-                noValidate
-                onChange={e => {
-                  this.handleChangeValidation(e)
-                  this.handleForcePassword(e)
-                }}
-              />
-              <label htmlFor="newPassword" className="input-label">
-                Nueva contraseña
-              </label>
-
-              {formErrors.newPassword.length > 0 && (
-                <span className="error-message">{formErrors.newPassword}</span>
-              )}
-
-              <div className="cont-stripe">
-                <div className="stripe-back" />
-                <div
-                  className="stripe-front"
-                  style={{ width: checkpwdStrength }}
-                />
+            <div className="form-grid__group">
+              <div className={`form-grid--error ${messageError && 'active'}`}>
+                {messageError === 'Error: Invalid username or password'
+                  ? 'Correo Electrónico o Contraseña incorrecto'
+                  : messageError}
               </div>
-            </div>
 
-            <div className="row-grid form-group">
-              <input
-                type="password"
-                name="repeatPassword"
-                className={
-                  formErrors.repeatPassword.length > 0
-                    ? 'input-text error'
-                    : 'input-text'
-                }
-                placeholder="Confirmar contraseña"
-                noValidate
-                onChange={e => {
-                  this.handleChangeValidation(e)
-                }}
-              />
-              <label htmlFor="repeatPassword" className="input-label">
-                Confirmar contraseña
-              </label>
-              {formErrors.repeatPassword.length > 0 && (
-                <span className="error-message">
-                  {formErrors.repeatPassword}
-                </span>
-              )}
-            </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  name="newPassword"
+                  className={
+                    formErrors.newPassword.length > 0
+                      ? 'form-group__input form-group__input--error'
+                      : 'form-group__input'
+                  }
+                  placeholder="Nueva contraseña"
+                  noValidate
+                  onChange={e => {
+                    this.handleChangeValidation(e)
+                    this.handleForcePassword(e)
+                  }}
+                />
+                <label htmlFor="newPassword" className="form-group__label">
+                  Nueva contraseña
+                </label>
 
-            <div className="row-grid">
-              <div className="col-12 form-group">
+                {formErrors.newPassword.length > 0 && (
+                  <span className="message__error">
+                    {formErrors.newPassword}
+                  </span>
+                )}
+
+                <div className="password-security">
+                  <div className="password-security__back" />
+                  <div
+                    className="password-security__front"
+                    style={{ width: checkpwdStrength }}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <input
+                  type="password"
+                  name="repeatPassword"
+                  className={
+                    formErrors.repeatPassword.length > 0
+                      ? 'form-group__input form-group__input--error'
+                      : 'form-group__input'
+                  }
+                  placeholder="Confirmar contraseña"
+                  noValidate
+                  onChange={e => {
+                    this.handleChangeValidation(e)
+                  }}
+                />
+                <label htmlFor="repeatPassword" className="form-group__label">
+                  Confirmar contraseña
+                </label>
+                {formErrors.repeatPassword.length > 0 && (
+                  <span className="message__error">
+                    {formErrors.repeatPassword}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-group">
                 <input
                   type="submit"
                   id="resetpass_boton_aceptar"
@@ -232,23 +236,19 @@ class FormResetPass extends Component {
           </form>
         ) : (
           <form className="form-grid">
-            <div className="row-grid col-center">
+            <div className="form-grid__forgot-pass">
               <Icon.MsgResetPass
                 className="icon-message"
                 bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
               />
             </div>
 
-            <div className="row-grid col-center">
-              <h1 className="title-message">
-                Tu contraseña ha sido actualizada
-              </h1>
-            </div>
+            <h1 className="form-grid__info text-center pt-40 pb-20">
+              Tu contraseña ha sido actualizada
+            </h1>
 
-            <div className="grid-clear-30" />
-
-            <div className="row-grid">
-              <div className="col-12 form-group">
+            <div className="form-grid__group">
+              <div className="form-group">
                 <input
                   type="button"
                   className="btn btn--blue btn-bg"

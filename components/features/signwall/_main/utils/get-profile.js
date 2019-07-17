@@ -16,7 +16,7 @@ class GetProfile {
   constructor() {
     const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
     this.profile = JSON.parse(localProfile);
-    this.public_profile = this._getComplete();
+    this.publicProfile = this._getComplete();
     this.username = this._getUserName().nameUser
     this.initname = this._getUserName().inituser
   }
@@ -35,12 +35,13 @@ class GetProfile {
   cleanProfile(profile = {}, mapFn) {
     if (profile === null) return;
 
+    // eslint-disable-next-line consistent-return
     return Object.keys(profile).reduce((prev, attr) => {
       if (fieldsWhite.includes(attr)) {
         switch (attr) {
           case 'attributes':
             prev[attr] = (profile[attr] || []).map(item => {
-              let { value } = item;
+              const { value } = item;
               item.value = this.cleanAttribute(value);
               return item;
             });

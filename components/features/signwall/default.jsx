@@ -28,48 +28,33 @@ class Signwall extends Component {
   componentWillMount() {
     const {
       siteProperties: {
-        signwall: { ORIGIN_IDENTITY_SDK, ORIGIN_API, ORIGIN_PAYWALL } = {},
+        signwall: { ORIGIN_API, ORIGIN_PAYWALL } = {},
       } = {},
     } = this.props
 
-    const today = new Date()
-    const dd = String(today.getDate())
-    const mm = String(today.getMonth() + 1)
-    const yyyy = today.getFullYear()
-    const queryStringDate = dd + mm + yyyy
-
-    addScriptAsync({
-      name: 'sdkIndetityARC',
-      url: `${ORIGIN_IDENTITY_SDK}?v=${queryStringDate}`,
-    })
-      .then(() => {
-        window.Identity.apiOrigin = ORIGIN_API
-      })
-      .catch(errIdentity => {
-        console.log('Error', errIdentity)
-      })
+    window.Identity.apiOrigin = ORIGIN_API
 
     addScriptAsync({
       name: 'Paywall',
-      url: `${ORIGIN_PAYWALL}?v=${queryStringDate}`,
+      url: `${ORIGIN_PAYWALL}?v=${new Date().toISOString().slice(0, 10)}`,
     })
       .then(() => {
-
         window.ArcP.run({
-          paywallFunction: (campaignURL) => alert('Paywall!', campaignURL),
+          paywallFunction: campaignURL => window.alert('Paywall!', campaignURL),
           // customPageData: () => ({
           //   c: 'story',
           //   s: 'business',
           //   ci: 'https://www.your.domain.com/canonical/url'
           // })
-        }).then(results => console.log('Results from running paywall script: ', results))
-          .catch(err = () => console.error(err));
-        
+        })
+          .then(results =>
+            console.log('Results from running paywall script: ', results)
+          )
+          .catch(() => console.error())
       })
       .catch(errPaywall => {
         console.error('Error', errPaywall)
       })
-
   }
 
   componentDidUpdate = () => {
@@ -129,13 +114,16 @@ class Signwall extends Component {
   }
 
   render() {
-    const { showLogin, showPanel} = this.state
+    const { showLogin, showPanel } = this.state
     const { arcSite } = this.props
     return (
       <div className="signwall">
         <div className="link-identity__content">
           {showLogin && (
-            <LoginRegister closePopup={() => this.togglePopupLogin()} brandModal={arcSite}/>
+            <LoginRegister
+              closePopup={() => this.togglePopupLogin()}
+              brandModal={arcSite}
+            />
           )}
 
           {showPanel && <Panel closePopup={() => this.togglePopupPanel()} />}

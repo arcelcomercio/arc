@@ -1,82 +1,49 @@
 import React, { Component } from 'react'
+import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
 
-const myParam = '23423ew24refqejhaut78r687ydfuiay87r'
-
+@Consumer
 class FormVerify extends Component {
   constructor(props) {
     super(props)
-    if (myParam) {
-      this.state = {
-        showPopupVerify: false,
-        tokenEmail: myParam,
-      }
-      this.validateToken()
-    } else {
-      this.state = {
-        showPopupVerify: false,
-      }
-    }
-  }
-
-  togglePopupVerify = () => {
-    const { showPopupVerify } = this.state
-    this.setState({
-      showPopupVerify: !showPopupVerify,
-    })
-  }
-
-  validateToken = () => {
-    const { tokenEmail } = this.state
-    window.Identity.verifyEmail(tokenEmail).then(() => {
-      this.setState({
-        showPopupVerify: true,
-      })
-    })
+    this.state = {}
   }
 
   render() {
-    const { showPopupVerify } = this.state
-    const { brandCurrent } = this.props
+    const { brandCurrent, closePopup } = this.props
     return (
       <div className="modal-body__wrapper">
-        {showPopupVerify ? (
-          <form className="form-grid">
-            <div className="row-grid col-center">
-              <Icon.ResetPass
-                className="icon-message"
-                bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+        <form className="form-grid">
+          <div className="form-grid__verify-account">
+            <Icon.ResetPass
+              className="icon-message"
+              bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+            />
+          </div>
+
+          <h1 className="form-grid__info text-center  pt-40 ">
+            ¡Bienvenido Usuario!
+          </h1>
+
+          <p className="form-grid__info-sub text-center">
+            Tu correo electrónico ha sido validado
+            <br />
+            disfruta nuestro contenido sin límites
+          </p>
+
+          <div className="form-grid__group">
+            <div className="form-group">
+              <input
+                type="button"
+                className="btn btn--blue btn-bg"
+                value="Continuar Navegando"
+                onClick={() => {
+                  closePopup()
+                }}
               />
             </div>
-
-            <div className="grid-clear-20" />
-
-            <div className="row-grid col-center">
-              <h1 className="title-message">¡Bienvenido Usuario!</h1>
-              <p className="text-login">
-                Tu correo electrónico ha sido validado
-                <br />
-                disfruta nuestro contenido sin límites
-              </p>
-            </div>
-
-            <div className="grid-clear-10" />
-
-            <div className="row-grid col-center">
-              <div className="col-12 form-group">
-                <input
-                  type="button"
-                  className="btn btn--blue btn-bg"
-                  value="Continuar Navegando"
-                  onClick={e => {
-                    this.togglePopupVerify(e)
-                  }}
-                />
-              </div>
-              <div className="grid-clear-30" />
-            </div>
-          </form>
-        ) : null}
+          </div>
+        </form>
       </div>
     )
   }

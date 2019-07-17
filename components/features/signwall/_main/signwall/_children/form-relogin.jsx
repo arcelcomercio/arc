@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react'
 import { sha256 } from 'js-sha256'
+import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
 
 import AuthFacebook from './social-auths/auth-facebook'
@@ -19,6 +20,7 @@ import { ModalConsumer } from '../context'
 const Cookies = new Cookie()
 const services = new Services()
 
+@Consumer
 class FormReLogin extends Component {
   constructor(props) {
     super(props)
@@ -61,11 +63,18 @@ class FormReLogin extends Component {
   handleFormSubmit = e => {
     e.preventDefault()
 
+    const {
+      siteProperties: {
+        signwall: { ORIGIN_API },
+      },
+    } = this.props
+
     const { email, password } = this.state
 
     if (FormValid(this.state)) {
       this.setState({ sending: false })
 
+      window.Identity.apiOrigin = ORIGIN_API
       window.Identity.login(email, password, {
         rememberMe: true,
         cookie: true,
@@ -89,6 +98,7 @@ class FormReLogin extends Component {
                 .then(resEco => {
                   if (resEco.retry === true) {
                     setTimeout(() => {
+                      window.Identity.apiOrigin = ORIGIN_API
                       window.Identity.login(email, password, {
                         rememberMe: true,
                         cookie: true,
@@ -177,7 +187,14 @@ class FormReLogin extends Component {
   }
 
   handleGetProfile = () => {
-    const { closePopup } = this.props
+    const {
+      closePopup,
+      siteProperties: {
+        signwall: { ORIGIN_API },
+      },
+    } = this.props
+
+    window.Identity.apiOrigin = ORIGIN_API
     window.Identity.getUserProfile().then(resGetProfile => {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
@@ -373,7 +390,9 @@ class FormReLogin extends Component {
                       type="button"
                       onClick={this.toggleShow}
                       className={
-                        hidden ? 'row-pass__btn row-pass--hide' : 'row-pass__btn row-pass--show'
+                        hidden
+                          ? 'row-pass__btn row-pass--hide'
+                          : 'row-pass__btn row-pass--show'
                       }
                     />
                     <input
@@ -416,7 +435,7 @@ class FormReLogin extends Component {
                       type="submit"
                       name="ingresar"
                       id="login_boton_ingresar"
-                      className="btn input-button"
+                      className="btn btn--blue btn-bg"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                       disabled={!sending}
                       // eslint-disable-next-line jsx-a11y/tabindex-no-positive
@@ -426,7 +445,9 @@ class FormReLogin extends Component {
                 </div>
 
                 <div className="row-grid form-group col-center">
-                  <p className="text-login-link text-center">ó ingresa con tu cuenta de:</p>
+                  <p className="text-center mt-20 mb-20">
+                    ó ingresa con tu cuenta de:
+                  </p>
                 </div>
 
                 <div hidden={!hiddenSocialButtons}>
@@ -443,10 +464,9 @@ class FormReLogin extends Component {
                 </div>
               </div>
 
-            
               <div className="form-grid__group">
-                <p className="form-grid__link text-center">
-                  ¿Aún no tienes una cuenta?{' '}
+                <p className="form-grid__link text-center pt-40 ">
+                  ¿Aún no tienes una cuenta?
                   <button
                     type="button"
                     onClick={() => {
@@ -456,10 +476,8 @@ class FormReLogin extends Component {
                     className="link-blue link-color">
                     Regístrate
                   </button>
-
                 </p>
               </div>
-             
 
               <div className="form-grid__group" hidden={linkListBenefits}>
                 <p className="form-grid__subtitle text-center form-group--center">

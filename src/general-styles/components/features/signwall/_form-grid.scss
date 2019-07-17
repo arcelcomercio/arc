@@ -163,7 +163,9 @@
       &__back {
         margin-bottom: 20px;
       }
-      &__forgot-pass {
+      &__forgot-pass,
+      &__reset-pass,
+      &__verify-account {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -211,6 +213,7 @@
       }
       &__label--information {
         font-size: 15px;
+        line-height: 24px;
       }
     }
 

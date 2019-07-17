@@ -121,12 +121,14 @@ class FormForgotPass extends Component {
             className="form-grid__icon"
             bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
           />
+
           <h1 className="form-grid__info">Olvidé mi contraseña</h1>
           <p className="form-grid__info-sub text-center">
             Ingresa tu correo electrónico para cambiar tu contraseña
           </p>
+
           <div className="form-grid__group">
-            <div className="form-grid--error" hidden={!messageError}>
+            <div className={`form-grid--error ${messageError && 'active'}`}>
               {messageError}
             </div>
             <div className="form-group">
@@ -180,7 +182,7 @@ class FormForgotPass extends Component {
         </div>
         <div className="form-grid__forgot-pass">
           <Icon.MsgForgotPass
-            className="form-grid__icon"
+            className="icon-message"
             bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
           />
           <h1 className="form-grid__info">Correo enviado</h1>

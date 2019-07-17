@@ -390,6 +390,7 @@ class NavBarDefault extends PureComponent {
           <SignWallVerify
             closePopup={() => this.setState({ showVerify: false })}
             brandModal={arcSite}
+            tokenVerify={this.getUrlParam('tokenVerify')}
           />
         ) : null}
 
@@ -397,17 +398,13 @@ class NavBarDefault extends PureComponent {
           <SignWallReset
             closePopup={() => this.setState({ showReset: false })}
             brandModal={arcSite}
+            tokenReset={this.getUrlParam('tokenReset')}
           />
         ) : null}
 
-        {/* {this.getUrlParam('reloginEmail') && !this.checkSesion() && showRelogin ? (
-          <SignWallRelogin
-            closePopup={() => this.setState({ showRelogin: false })}
-            brandModal={arcSite}
-          />
-        ) : null} */}
-
-        {!this.checkSesion() ? (
+        {this.getUrlParam('reloginEmail') &&
+        !this.checkSesion() &&
+        showRelogin ? (
           <SignWallRelogin
             closePopup={() => this.setState({ showRelogin: false })}
             brandModal={arcSite}

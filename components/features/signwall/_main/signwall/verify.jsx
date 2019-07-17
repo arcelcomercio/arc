@@ -12,7 +12,27 @@ import { ModalProvider, ModalConsumer } from './context'
 class SignWallVerify extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      showVerify: false,
+    }
+    this.validateToken()
+  }
+
+  validateToken = () => {
+    const {
+      tokenVerify,
+      siteProperties: {
+        signwall: { ORIGIN_API },
+      },
+    } = this.props
+
+    window.Identity.apiOrigin = ORIGIN_API
+    window.Identity.verifyEmail(tokenVerify)
+      .then(() => {
+        this.setState({
+          showVerify: true,
+        })
+      })
   }
 
   renderTemplate(template) {
@@ -25,43 +45,48 @@ class SignWallVerify extends Component {
           typeForm="verify"
           brandCurrent={brandModal}
         />
-      )
+      ),
     }
-    return templates[template] || template.verify
+    return templates[template] || templates.verify
   }
 
   render() {
+    const { showVerify } = this.state
     const { closePopup, brandModal } = this.props
     return (
-      <div className="signwall">
-        <div className="link-identity__content">
-          <ModalProvider>
-            <ModalConsumer>
-              {value => (
-                <Modal
-                  size="large"
-                  position="middle"
-                  name="arc-popup-verifyaccount"
-                  id="arc-popup-verifyaccount">
-                  <Header closePopup={closePopup} />
-                  <div className="modal-body">
-                    <div className="modal-body__left">
-                      <ListBenefits
-                        typeMessage="organic"
-                        brandCurrent={brandModal}
-                      />
-                    </div>
-                    <div className="modal-body__right">
-                      {this.renderTemplate(value.selectedTemplate)}
-                    </div>
-                  </div>
-                  <Footer position="right" />
-                </Modal>
-              )}
-            </ModalConsumer>
-          </ModalProvider>
-        </div>
-      </div>
+      <>
+        {showVerify ? (
+          <div className="signwall">
+            <div className="link-identity__content">
+              <ModalProvider>
+                <ModalConsumer>
+                  {value => (
+                    <Modal
+                      size="large"
+                      position="middle"
+                      name="arc-popup-verifyaccount"
+                      id="arc-popup-verifyaccount">
+                      <Header closePopup={closePopup} />
+                      <div className="modal-body">
+                        <div className="modal-body__left">
+                          <ListBenefits
+                            typeMessage="organic"
+                            brandCurrent={brandModal}
+                          />
+                        </div>
+                        <div className="modal-body__right">
+                          {this.renderTemplate(value.selectedTemplate)}
+                        </div>
+                      </div>
+                      <Footer position="right" />
+                    </Modal>
+                  )}
+                </ModalConsumer>
+              </ModalProvider>
+            </div>
+          </div>
+        ) : null}
+      </>
     )
   }
 }

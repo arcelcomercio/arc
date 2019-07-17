@@ -4,7 +4,7 @@ import Modal from '../common/modal'
 import Header from '../common/header'
 import Footer from '../common/footer'
 
-import FormReset from './_children/form-login'
+import FormReset from './_children/form-reset'
 
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
@@ -16,7 +16,7 @@ class SignWallReset extends Component {
   }
 
   renderTemplate(template) {
-    const { closePopup, brandModal } = this.props
+    const { closePopup, brandModal, tokenReset } = this.props
     const templates = {
       reset: (
         <FormReset
@@ -24,10 +24,11 @@ class SignWallReset extends Component {
           typePopUp="resetpass"
           typeForm="resetpass"
           brandCurrent={brandModal}
+          tokenReset={tokenReset}
         />
       )
     }
-    return templates[template] || template.reset
+    return templates[template] || templates.reset
   }
 
   render() {

@@ -8,7 +8,6 @@ import FormRelogin from './_children/form-relogin'
 import FormForgotPass from './_children/form-forgot-pass'
 import FormRegister from './_children/form-register'
 
-
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
@@ -16,9 +15,11 @@ class SignWallRelogin extends Component {
   constructor(props) {
     const getProfileMPP = window.localStorage.getItem('profileMPP')
     const profileMPP = JSON.parse(getProfileMPP)
+    const nameUser = profileMPP ? profileMPP.firstName : 'lector'
+
     super(props)
     this.state = {
-      nameMPP: profileMPP ? profileMPP.firstName : 'lector',
+      nameMPP: nameUser !== 'undefined' ? nameUser : 'lector',
     }
   }
 
@@ -41,7 +42,9 @@ class SignWallRelogin extends Component {
           brandCurrent={brandModal}
         />
       ),
-      forgot: <FormForgotPass closePopup={closePopup} brandCurrent={brandModal} />,
+      forgot: (
+        <FormForgotPass closePopup={closePopup} brandCurrent={brandModal} />
+      ),
     }
     return templates[template] || templates.relogin
   }
