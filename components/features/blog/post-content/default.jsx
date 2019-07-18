@@ -16,8 +16,8 @@ class BlogPostContent extends PureComponent {
   render() {
     const { globalContent } = this.props
     const {
-      post: { post_content: postContent, post_date: postDate },
-      user: { first_name: firstName },
+      post: { post_content: postContent, post_date: postDate } = {},
+      user: { first_name: firstName } = {},
     } = globalContent || {}
     const formatDate = getFullDateIso8601(postDate)
     const { day, month, fullYear, hours, minutes } = formatDate || {}

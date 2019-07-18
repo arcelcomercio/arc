@@ -1,17 +1,15 @@
 .tabloid {
-  background-color: #c5e2f7;
-
   &__header {
-    background-color: #26567f;
-    height: 60px;
+    height: 40px;
   }
 
   &__date {
     height: 40px;
+    bottom: 25px;
   }
 
   &__face {
-    height: 242px;
-    width: 242px;
+    height: 266px;
+    width: 246px;
   }
 }

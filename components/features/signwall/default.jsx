@@ -3,6 +3,7 @@ import Consumer from 'fusion:consumer'
 import Fingerprint2 from 'fingerprintjs2'
 
 import LoginRegister from './_main/signwall/index'
+
 import Panel from './_main/user-dashboard/index'
 import addScriptAsync from './_main/utils/script-async'
 import Cookie from './_main/utils/cookie'
@@ -27,69 +28,45 @@ class Signwall extends Component {
   componentWillMount() {
     const {
       siteProperties: {
-        signwall: { ORIGIN_IDENTITY_SDK, ORIGIN_API, ORIGIN_SALES_SDK } = {},
+        signwall: { ORIGIN_API, ORIGIN_PAYWALL } = {},
       } = {},
     } = this.props
 
-    const today = new Date()
-    const dd = String(today.getDate())
-    const mm = String(today.getMonth() + 1)
-    const yyyy = today.getFullYear()
-    const queryStringDate = dd + mm + yyyy
+    window.Identity.apiOrigin = ORIGIN_API
 
     addScriptAsync({
-      name: 'sdkIndetityARC',
-      url: `${ORIGIN_IDENTITY_SDK}?v=${queryStringDate}`,
+      name: 'Paywall',
+      url: `${ORIGIN_PAYWALL}?v=${new Date().toISOString().slice(0, 10)}`,
     })
       .then(() => {
-        window.Identity.apiOrigin = ORIGIN_API
-      })
-      .catch(errIdentity => {
-        console.log('Error', errIdentity)
-      })
-
-    addScriptAsync({
-      name: 'sdkSalesARC',
-      url: `${ORIGIN_SALES_SDK}?v=${queryStringDate}`,
-    })
-      .then(() => {
-        window.Sales.apiOrigin = ORIGIN_API
-      })
-      .catch(errSales => {
-        console.log('Error', errSales)
-      })
-
-    // --Script Waldo--//
-    /* addScriptAsync({
-      name: 'sdkTalk',
-      type: 'module',
-      url: `https://s3-sa-east-1.amazonaws.com/pic.resize2/module.talk.min.js?v=${queryStringDate}`,
-    })
-      .then(() => {
-        window.TalkInit({
-          talk: 'http://52.71.25.247/',
-          arc_token: window.Identity.userIdentity.accessToken,
-          target: document.getElementById('coral_talk_stream'),
-          debug: false,
-          openSignIn: () => {
-            window.openLoginOrganic()
-          },
+        window.ArcP.run({
+          paywallFunction: campaignURL => console.log('Paywall!', campaignURL),
+          // customPageData: () => ({
+          //   c: 'story',
+          //   s: 'business',
+          //   ci: 'https://www.your.domain.com/canonical/url'
+          // })
         })
+          .then(results =>
+            console.log('Results from running paywall script: ', results)
+          )
+          .catch(() => console.error())
       })
-      .catch(errTalk => {
-        console.log('Error', errTalk)
-      }) */
-    // --Script Waldo--//
+      .catch(errPaywall => {
+        console.error('Error', errPaywall)
+      })
   }
 
   componentDidUpdate = () => {
     const { sessUser } = this.state
     if (this.checkSesion() && !sessUser) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: true,
       })
       this.togglePopupPanel()
     } else if (this.checkSesion() === false && sessUser) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: false,
       })
@@ -138,11 +115,15 @@ class Signwall extends Component {
 
   render() {
     const { showLogin, showPanel } = this.state
+    const { arcSite } = this.props
     return (
       <div className="signwall">
         <div className="link-identity__content">
           {showLogin && (
-            <LoginRegister closePopup={() => this.togglePopupLogin()} />
+            <LoginRegister
+              closePopup={() => this.togglePopupLogin()}
+              brandModal={arcSite}
+            />
           )}
 
           {showPanel && <Panel closePopup={() => this.togglePopupPanel()} />}

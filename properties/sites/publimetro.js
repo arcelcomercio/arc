@@ -1,5 +1,5 @@
 export default {
-  siteName: 'Publimetro Peru',
+  siteName: 'Publimetro Perú',
 
   googleFonts: 'Roboto', // corpidbold, corpidregular
 
@@ -125,5 +125,13 @@ export default {
       name: 'youtube',
       url: '/',
     },
+  },
+  adsAmp: {
+    dataSlot: 28253241,
+    movil1: 15011772,
+    movil2: 15011773,
+    movil3: 15011774,
+    movil4: 15011775,
+    movil5: 15011776,
   },
 }
