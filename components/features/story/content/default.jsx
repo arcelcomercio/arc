@@ -69,6 +69,7 @@ class StoryContent extends PureComponent {
       siteProperties: {
         ids: { opta },
         siteUrl,
+        nameStoryRelated,
       },
     } = this.props
     const {
@@ -211,7 +212,7 @@ class StoryContent extends PureComponent {
 
         {relatedContent && relatedContent.length > 0 && (
           <div role="list" className={classes.relatedList}>
-            <h4 className={classes.relatedTitle}>Relacionadas </h4>
+            <h4 className={classes.relatedTitle}>{nameStoryRelated} </h4>
             {relatedContent.map((item, i) => {
               const { type } = item
               const key = `related-content-${i}`
