@@ -39,6 +39,7 @@ const classes = {
   // Related-content
   relatedList: 'related-content__list pt-10',
   relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
+  taboola: 'story-content__taboola',
 }
 
 @Consumer
