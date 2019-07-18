@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { devices } from '../../_dependencies/devices'
+import { devices } from '../../../../../_dependencies/devices'
 
 const Select = styled.select`
   background-color: #fff;

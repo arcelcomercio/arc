@@ -1,9 +1,10 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
-import InputFormik from '../input'
+import InputFormik from '../../../../../_children/input'
 import * as S from './styled'
-import Button from '../button'
-import schema from '../../_dependencies/schema'
+import Button from '../../../../../_children/button'
+import schema from '../../../../../_dependencies/schema'
+import { tsPropertySignature } from '@babel/types'
 
 const MESSAGE = {
   MIN: 'Longitud inválida, mínimo 3 caracteres.',

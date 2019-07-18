@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 
-import UserProfile from '../../../_children/user-profile'
+import UserProfile from './_children/user-profile'
 import Panel from '../../../_children/panel'
 import Summary from '../summary'
 import * as S from './styled'
