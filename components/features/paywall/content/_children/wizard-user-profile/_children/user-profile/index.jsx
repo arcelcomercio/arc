@@ -1,9 +1,10 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
-import InputFormik from '../input'
+import InputFormik from '../../../../../_children/input'
 import * as S from './styled'
-import Button from '../button'
-import schema from '../../_dependencies/schema'
+import Button from '../../../../../_children/button'
+import schema from '../../../../../_dependencies/schema'
+import { tsPropertySignature } from '@babel/types'
 
 const MESSAGE = {
   MIN: 'Longitud inválida, mínimo 3 caracteres.',
@@ -12,6 +13,16 @@ const MESSAGE = {
   CELULAR: 'Longitud inválida, entre 9 y 12 caracteres',
   DNI: 'Longitud inválida, requiere 8 dígitos',
   EMAIL: 'Correo inválido',
+}
+
+// TODO: Falta obtener esta info que es obligatoria para crear una orden
+const FAKE_BILLING_ADDRESS = {
+  line1: 'Jr Francisco Arana 2018',
+  line2: 'Por la fabrica Donofrio',
+  locality: 'Lima',
+  region: 'LI',
+  country: 'PE',
+  postal: '01',
 }
 
 const RegisterSchema = schema({
@@ -52,14 +63,15 @@ const Select = () => (
 
 const FormStyled = S.Form(Form)
 
-const UserProfile = ({ title = '', profile, onClick = () => {} }) => (
+const UserProfile = ({ title = '', profile, onSubmit }) => (
   <Formik
     initialValues={profile}
     validate={values => {
       return RegisterSchema(values)
     }}
     onSubmit={(values, actions) => {
-      onClick()
+      // TODO: Crear un servicio desde el que se pueda obtener billing address
+      onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
     }}
     render={() => (
       <FormStyled>
@@ -99,7 +111,7 @@ const UserProfile = ({ title = '', profile, onClick = () => {} }) => (
           </S.WrapField>
           <S.WrapField>
             <Field
-              name="mobilePhone"
+              name="phone"
               placeholder="Número de Celular"
               type="number"
               component={InputFormik}
@@ -113,9 +125,7 @@ const UserProfile = ({ title = '', profile, onClick = () => {} }) => (
             />
           </S.WrapField>
         </S.Wrap>
-        <Button type="submit" onClick={onClick}>
-          CONTINUAR
-        </Button>
+        <Button type="submit">CONTINUAR</Button>
       </FormStyled>
     )}
   />

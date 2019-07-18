@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { useFusionContext } from 'fusion:context'
 
-import CardPrice from '../card-price'
+import CardPrice from './_children/card-price'
 import Summary from './_children/summary'
 import * as S from './styled'
 import { addSales } from '../../../_dependencies/sales'
@@ -12,7 +12,6 @@ function WizardPlan({ nextStep, summary, plans }) {
   const [errors, setErrors] = useState([])
 
   const siteProperties = fusionContext.siteProperties
-  const { signwall: { ORIGIN_API } = {} } = siteProperties
   const Sales = addSales(siteProperties)
 
   function subscribePlanHandler(e, plan) {
@@ -43,8 +42,7 @@ function WizardPlan({ nextStep, summary, plans }) {
                 <CardPrice
                   key={plan.priceCode}
                   plan={plan}
-                  // onClick={subscribePlanHandler}
-                  onClick={nextStep}
+                  onClick={subscribePlanHandler}
                   loading={loading}
                 />
               )
