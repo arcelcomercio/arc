@@ -16,6 +16,7 @@
   }
 
   &__container-menu {
+    height: 20px;
     @media (--desktop) {
       border-right: solid 1px $color-gray-200;
     }

@@ -7,6 +7,9 @@
     }
     &--section {
       padding-left: 0;
+      span {
+        font-family: $tertiary-font;
+      }
     }
   }
   &__logo {
@@ -22,10 +25,16 @@
   }
   &__input-search {
     background-color: transparent;
+    color: $color-white;
     &::placeholder {
       color: $color-white;
     }
     &.active {
+      border-color: $color-white;
+    }
+  }
+  &__container-menu {
+    @media (--desktop) {
       border-color: $color-white;
     }
   }
