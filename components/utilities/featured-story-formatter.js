@@ -97,7 +97,6 @@ class FeaturedStoryFormatter {
 
     newState.author.name = this.storyDataInstace.author
     newState.author.url = this.storyDataInstace.authorLink
-
     newState.image = imgField || this.storyDataInstace.multimediaLandscapeL
     newState.multimediaType = this.storyDataInstace.multimediaType
 

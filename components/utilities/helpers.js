@@ -621,6 +621,7 @@ export const isIE = () => {
   if (msie > 0 || trident > 0) {
     return true
   }
+  return false
 }
 
 export const addSlashToDateEnd = url => {

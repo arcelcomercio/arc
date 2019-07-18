@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
 
-@Consumer
 class FormVerify extends Component {
   constructor(props) {
     super(props)

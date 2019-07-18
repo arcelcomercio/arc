@@ -77,6 +77,12 @@ class NavBarDefault extends PureComponent {
         nameUser: new GetProfile().username,
         initialUser: new GetProfile().initname,
       })
+    }else{
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        nameUser: new GetProfile().username,
+        initialUser: new GetProfile().initname,
+      })
     }
   }
 
@@ -139,7 +145,7 @@ class NavBarDefault extends PureComponent {
 
     if (vars[name]) {
       switch (name) {
-        case 'sigwallHard':
+        case 'signwallHard':
           this.setState({ showHard: true })
           break
         case 'tokenVerify':
@@ -385,7 +391,7 @@ class NavBarDefault extends PureComponent {
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
-        {this.getUrlParam('sigwallHard') && !this.checkSesion() && showHard ? (
+        {this.getUrlParam('signwallHard') && !this.checkSesion() && showHard ? (
           <SignWallHard
             closePopup={() => this.setState({ showHard: false })}
             brandModal={arcSite}

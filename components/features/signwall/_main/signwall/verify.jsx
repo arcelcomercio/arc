@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import Consumer from 'fusion:consumer'
 import Modal from '../common/modal'
 import Header from '../common/header'
 import Footer from '../common/footer'
@@ -9,6 +10,7 @@ import FormVerify from './_children/form-verify'
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
+@Consumer
 class SignWallVerify extends Component {
   constructor(props) {
     super(props)
