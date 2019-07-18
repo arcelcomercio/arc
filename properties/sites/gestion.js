@@ -29,12 +29,12 @@ export default {
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
   },
   infoPagesProd: {
-    termsAndConditions: '',
+    termsAndConditions: 'VD45IRL65ZGCDBGLHL4O6WVCJE',
     guidingPrinciples: '',
     privacyPolicies: 'YK7SFEAX3VD4HOYGEPH3Y6ZYNQ',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
     aboutUs: '',
   },
 
