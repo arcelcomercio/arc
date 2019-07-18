@@ -142,9 +142,9 @@ class FormLogin extends Component {
     window.Identity.getUserProfile().then(resProfile => {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
-      window.sessUser.setState({ accessPanel: true })
-      window.nameUser.setState({ nameUser: new GetProfile().username })
-      window.initialUser.setState({ initialUser: new GetProfile().initname })
+      // window.sessUser.setState({ accessPanel: true })
+      // window.nameUser.setState({ nameUser: new GetProfile().username })
+      // window.initialUser.setState({ initialUser: new GetProfile().initname })
     })
   }
 
@@ -285,7 +285,7 @@ class FormLogin extends Component {
                   </div>
                 </div>
 
-                <div className="form-grid__group" hidden={!hiddendiv}>
+                <div className="form-grid__group mt-30" hidden={!hiddendiv}>
                   <div
                     className={`form-grid--error ${messageError && 'active'}`}>
                     {messageError}

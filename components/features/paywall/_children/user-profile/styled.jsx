@@ -41,4 +41,11 @@ const Form = Component => {
   `
 }
 
+export const WrapField = styled.div`
+  min-width: 250px;
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
+`
+
 export { Select, Wrap, Form, Title, WrapTitle }

@@ -7,7 +7,7 @@ const classes = {
   element: 'story-gallery-slider__item',
   body: 'position-relative overflow-hidden w-full',
   content: 'story-gallery-slider__content flex',
-  element: '',
+  figure: 'story-gallery-slider__figure position-relative',
   image: 'story-gallery-slider__img w-full object-fit-cover',
   caption: 'story-gallery-slider__caption pt-20 pb-20 flex',
   captionImage: `story-gallery-slider__caption-image pt-10 pl-15 text-sm text-white secondary-font line-h-sm`,

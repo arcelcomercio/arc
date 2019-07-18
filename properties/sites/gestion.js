@@ -10,7 +10,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-WGPJNC',
+  googleTagManagerId: 'GTM-KFQK83S',
   ampGoogleTagManagerId: 'UA-3055636-3',
   ampGoogleTagManagerName: 'gestion',
   charbeatAccountNumber: 57773,
@@ -29,12 +29,12 @@ export default {
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
   },
   infoPagesProd: {
-    termsAndConditions: '',
+    termsAndConditions: 'VD45IRL65ZGCDBGLHL4O6WVCJE',
     guidingPrinciples: '',
     privacyPolicies: 'YK7SFEAX3VD4HOYGEPH3Y6ZYNQ',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
     aboutUs: '',
   },
 
@@ -120,5 +120,13 @@ export default {
       name: 'youtube',
       url: 'https://plus.google.com/u/0/+elcomerciope',
     },
+  },
+  adsAmp: {
+    dataSlot: 28253241,
+    movil1: 14971944,
+    movil2: 14971945,
+    movil3: 14971947,
+    movil4: 14971953,
+    movil5: 14971957,
   },
 }
