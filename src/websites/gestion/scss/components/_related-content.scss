@@ -1,0 +1,31 @@
+.related-content {
+  &__item {
+    @media (--tablet) {
+      justify-content: end;
+    }
+  }
+  &__information {
+    margin-left: 30px;
+  }
+  &__title {
+    color: $color-primary;
+    font-weight: 700;
+    font-size: 11px;
+    @media (--tablet) {
+      font-size: 19px;
+    }
+  }
+  &__link {
+    @media (--tablet) {
+      font-size: 20px;
+      line-height: 1;
+    }
+  }
+  &__multimedia {
+    order: -1;
+    @media (--tablet) {
+      width: 75px;
+      height: 90px;
+    }
+  }
+}
