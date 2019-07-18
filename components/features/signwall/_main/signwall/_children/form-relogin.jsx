@@ -465,7 +465,7 @@ class FormReLogin extends Component {
               </div>
 
               <div className="form-grid__group">
-                <p className="form-grid__link text-center pt-40 ">
+                <p className="form-grid__link text-center pt-40">
                   ¿Aún no tienes una cuenta?
                   <button
                     type="button"

@@ -76,6 +76,12 @@ class NavBarDefault extends PureComponent {
         nameUser: new GetProfile().username,
         initialUser: new GetProfile().initname,
       })
+    }else{
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        nameUser: new GetProfile().username,
+        initialUser: new GetProfile().initname,
+      })
     }
   }
 

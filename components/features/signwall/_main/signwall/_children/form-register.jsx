@@ -14,7 +14,7 @@ import {
 import AuthFacebook from './social-auths/auth-facebook'
 import getDevice from '../../utils/get-device'
 import Cookie from '../../utils/cookie'
-import GetProfile from '../../utils/get-profile'
+// import GetProfile from '../../utils/get-profile'
 import FormValid from '../../utils/form-valid'
 import { ModalConsumer } from '../context'
 
@@ -35,6 +35,7 @@ class FormRegister extends Component {
       },
       messageError: false,
       showMessage: false,
+      showMessageResetPass: false,
       sending: true,
     }
   }
@@ -46,7 +47,17 @@ class FormRegister extends Component {
 
     const tipCat = typePopUp || ''
     const tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    // console.log(tipCat, tipAct)
+
+    const originAction = tipcat => {
+      const isHard = document.querySelector('#arc-popup-signwallhard')
+      if (isHard) {
+        return 1
+      }
+      if (tipcat === 'relogemail') {
+        return 'reloginemail'
+      }
+      return 0
+    }
 
     if (FormValid(this.state) && checked !== false) {
       this.setState({ sending: false })
@@ -63,28 +74,28 @@ class FormRegister extends Component {
           email: this.usernamereg.value,
           attributes: [
             {
-              name: 'domain',
+              name: 'originDomain',
               value: window.location.hostname,
               type: 'String',
             },
             {
-              name: 'referer',
+              name: 'originReferer',
               value: window.location.href,
               type: 'String',
             },
             {
-              name: 'accessType',
+              name: 'originMethod',
               value: '1',
               type: 'String',
             },
             {
-              name: 'device',
+              name: 'originDevice',
               value: getDevice(window),
               type: 'String',
             },
             {
-              name: 'typeRegister',
-              value: document.querySelector('#arc-popup-signwallhard') ? 1 : 0,
+              name: 'originAction',
+              value: originAction(tipCat),
               type: 'String',
             },
           ],
@@ -115,14 +126,22 @@ class FormRegister extends Component {
           //   initialUser: new GetProfile().initname,
           // })
 
-          // -- test 6 tageo
-          window.dataLayer = window.dataLayer || []
-          window.dataLayer.push({
-            event: 'registro_success',
-            eventCategory: `Web_Sign_Wall_${tipCat}`,
-            eventAction: `${tipAct}_registro_success_registrarme`,
-          })
-          // -- test de tageo
+          // -- test de tageo success
+          if (tipCat === 'relogemail') {
+            window.dataLayer.push({
+              event: 'relogin_email_registro_success',
+            })
+          } else {
+            window.dataLayer.push({
+              event: 'registro_success',
+              eventCategory: `Web_Sign_Wall_${tipCat}`,
+              eventAction: `${tipAct}_registro_success_registrarme`,
+              userId: window.Identity
+                ? window.Identity.userIdentity.uuid
+                : null,
+            })
+          }
+          // -- test de tageo success
         })
         .catch(err => {
           // console.log(err)
@@ -134,14 +153,19 @@ class FormRegister extends Component {
             sending: true,
           })
 
-          // -- test de tageo
-          window.dataLayer = window.dataLayer || []
-          window.dataLayer.push({
-            event: 'registro_error',
-            eventCategory: `Web_Sign_Wall_${tipCat}`,
-            eventAction: `${tipAct}_registro_error_registrarme`,
-          })
-          // -- test de tageo
+          // -- test de tageo error
+          if (tipCat === 'relogemail') {
+            window.dataLayer.push({
+              event: 'relogin_email_registro_error',
+            })
+          } else {
+            window.dataLayer.push({
+              event: 'registro_error',
+              eventCategory: `Web_Sign_Wall_${tipCat}`,
+              eventAction: `${tipAct}_registro_error_registrarme`,
+            })
+          }
+          // -- test de tageo error
         })
     } else {
       // console.error('FORM INVALID', this.state.formErrors);
@@ -167,7 +191,7 @@ class FormRegister extends Component {
 
   handleForcePassword = e => {
     const valueInput = e.target.value
-    
+
     if (strongRegularExp.test(valueInput)) {
       this.setState({ checkpwdStrength: '40px' })
     } else if (mediumRegularExp.test(valueInput)) {
@@ -405,7 +429,9 @@ class FormRegister extends Component {
                 <div className="form-grid__group form-group--center">
                   <Icon.MsgRegister
                     className="form-grid__icon text-center"
-                    bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+                    bgcolor={
+                      brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'
+                    }
                   />
                 </div>
                 <div className="form-grid__group">
