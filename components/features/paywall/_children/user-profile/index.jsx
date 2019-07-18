@@ -68,9 +68,9 @@ const UserProfile = ({ title = '', profile, onSubmit }) => (
     validate={values => {
       return RegisterSchema(values)
     }}
-    onSubmit={values => {
+    onSubmit={(values, actions) => {
       // TODO: Crear un servicio desde el que se pueda obtener billing address
-      onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS })
+      onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
     }}
     render={() => (
       <FormStyled>
@@ -124,7 +124,7 @@ const UserProfile = ({ title = '', profile, onSubmit }) => (
             />
           </S.WrapField>
         </S.Wrap>
-        <Button type="submit">CONTINUAR 2</Button>
+        <Button type="submit">CONTINUAR</Button>
       </FormStyled>
     )}
   />

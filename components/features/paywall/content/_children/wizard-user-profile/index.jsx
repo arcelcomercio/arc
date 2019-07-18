@@ -3,7 +3,7 @@ import { useFusionContext } from 'fusion:context'
 
 import UserProfile from '../../../_children/user-profile'
 import Panel from '../../../_children/panel'
-import Summary from './_children/summary'
+import Summary from '../summary'
 import * as S from './styled'
 import { devices } from '../../../_dependencies/devices'
 import { addSales } from '../../../_dependencies/sales'
