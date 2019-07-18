@@ -108,4 +108,12 @@ export default {
       url: 'https://plus.google.com/u/0/+elcomerciope',
     },
   },
+  adsAmp: {
+    dataSlot: 28253241,
+    movil1: 15011772,
+    movil2: 15011773,
+    movil3: 15011774,
+    movil4: 15011775,
+    movil5: 15011776,
+  },
 }

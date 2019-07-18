@@ -119,13 +119,7 @@ class StoryData {
   }
 
   get multimedia() {
-    return (
-      StoryData.getThumbnail(
-        this._data,
-        StoryData.getTypeMultimedia(this._data)
-      ) ||
-      this.defaultImg
-    )
+    return this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
   }
 
   get multimediaLandscapeXL() {
@@ -385,6 +379,27 @@ class StoryData {
     return (this._data && this._data.content_elements) || []
   }
 
+  get contentPosicionPublicidadAmp() {
+    let i = 0
+    const { content_elements: contentElements = null } = this._data
+    return (
+      contentElements &&
+      contentElements.map(dataContent => {
+        let dataElements = {}
+        const { type: typeElement } = dataContent
+        dataElements = dataContent
+        if (i === 1) {
+          dataElements.publicidad = true
+          i += 1
+        }
+        if (typeElement === ConfigParams.ELEMENT_TEXT) {
+          i += 1
+        }
+        return dataElements
+      })
+    )
+  }
+
   get promoItems() {
     return (this._data && this._data.promo_items) || []
   }
@@ -405,8 +420,7 @@ class StoryData {
         this._data,
         StoryData.getTypeMultimedia(this._data),
         size
-      ) ||
-      this.defaultImg
+      ) || this.defaultImg
     )
   }
 
@@ -518,8 +532,22 @@ class StoryData {
 
   static getPrimarySection(data) {
     const {
-      taxonomy: { primary_section: { name = '', path = '' } = {} } = {},
+      taxonomy: {
+        primary_section: { name = '', path = '' } = {},
+        sections = [],
+      } = {},
     } = data || {}
+
+    // En caso de que el primary section no devuelva "path" ni "name"
+    const { name: auxName, path: auxPath } = sections[0] || {}
+
+    if (!name && !path) {
+      return {
+        name: auxName,
+        path: auxPath,
+      }
+    }
+    // //////////////////////////////////
 
     return {
       name,
@@ -601,26 +629,7 @@ class StoryData {
     return thumb
   }
 
-  static getThumbnailGallery(data) {
-    const thumb =
-      (data &&
-        data.promo_items &&
-        data.promo_items[ConfigParams.GALLERY] &&
-        data.promo_items[ConfigParams.GALLERY].promo_items &&
-        data.promo_items[ConfigParams.GALLERY].promo_items[
-          ConfigParams.IMAGE
-        ] &&
-        ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-          .resized_urls &&
-          data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-            .resized_urls.original) ||
-          data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-            .url)) ||
-      ''
-    return thumb
-  }
-
-  static getThumbnailGalleryBySize(data, size = ConfigParams.LANDSCAPE_XL) {
+  static getThumbnailGalleryBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
     const thumb =
       (data &&
         data.promo_items &&
@@ -639,30 +648,15 @@ class StoryData {
     return thumb
   }
 
-  static getImage(data) {
-    const { url, resized_urls: { original } = {}, type = null } =
+  static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
+    const { url = '', resized_urls: resizeUrls = {}, type = null } =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
-
-    return (type === 'image' && original ? original : url) || ''
-  }
-
-  static getImageBySize(data, size = ConfigParams.LANDSCAPE_XL) {
-    const { url, resized_urls: resizeUrls = {}, type = null } =
-      (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
-
-    return (type === ConfigParams.ELEMENT_IMAGE && resizeUrls[size] ? resizeUrls[size] : url) || ''
-  }
-
-  static getThumbnail(data, type) {
-    let thumb = ''
-    if (type === ConfigParams.VIDEO) {
-      thumb = StoryData.getThumbnailVideo(data)
-    } else if (type === ConfigParams.GALLERY) {
-      thumb = StoryData.getThumbnailGallery(data)
-    } else if (type === ConfigParams.IMAGE) {
-      thumb = StoryData.getImage(data)
-    }
-    return thumb
+    if (size === ConfigParams.IMAGE_ORIGINAL) return url
+    return (
+      (type === ConfigParams.ELEMENT_IMAGE && resizeUrls[size]
+        ? resizeUrls[size]
+        : url) || ''
+    )
   }
 
   static getThumbnailBySize(data, type, size) {

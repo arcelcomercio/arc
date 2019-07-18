@@ -46,6 +46,7 @@ const storySchemaTypes = `
       by: [By]
     }
     type ResizedUrls {
+      original: String
       landscape_xl: String
       landscape_l: String
       landscape_md: String

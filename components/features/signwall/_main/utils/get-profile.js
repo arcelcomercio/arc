@@ -1,43 +1,65 @@
+/* eslint-disable class-methods-use-this */
+
+const skipValues = ['null', 'undefined'];
+const fieldsWhite = [
+  'firstName',
+  'lastName',
+  'secondLastName',
+  'displayName',
+  'email',
+  'attributes',
+  'identities',
+  'contacts',
+];
+
 class GetProfile {
   constructor() {
     const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
-    this.profileJson = JSON.parse(localProfile)
-    this.profile = this._getComplete()
+    this.profile = JSON.parse(localProfile);
+    this.publicProfile = this._getComplete();
     this.username = this._getUserName().nameUser
     this.initname = this._getUserName().inituser
   }
 
   _getComplete = () => {
-    return this.objectMap(this.profileJson, value => {
-      if (value !== null) {
-        return value
-      }
-      return null
-    })
-  }
+    return this.cleanProfile(this.profile);
+  };
 
-  objectMap = (object, mapFn) => {
-    if (object != null) {
-      return Object.keys(object).reduce((result, key) => {
-        const auxResult = result
-        if (
-          key === 'firstName' ||
-          key === 'lastName' ||
-          key === 'secondLastName' ||
-          key === 'displayName' ||
-          key === 'email' ||
-          key === 'attributes'
-        ) {
-          auxResult[key] = mapFn(object[key])
+  cleanAttribute(attrValue) {
+    attrValue =
+      typeof attrValue === 'string' ? attrValue.toLowerCase() : attrValue;
+
+    return skipValues.includes(attrValue) ? null : attrValue;
+  }
+ 
+  cleanProfile(profile = {}, mapFn) {
+    if (profile === null) return;
+
+    // eslint-disable-next-line consistent-return
+    return Object.keys(profile).reduce((prev, attr) => {
+      if (fieldsWhite.includes(attr)) {
+        switch (attr) {
+          case 'attributes':
+            prev[attr] = (profile[attr] || []).map(item => {
+              const { value } = item;
+              item.value = this.cleanAttribute(value);
+              return item;
+            });
+            break;
+          case 'contacts':
+            prev[attr] = profile[attr] === null ? [] : profile[attr];
+            break;
+          default:
+            prev[attr] = this.cleanAttribute(profile[attr]);
+            break;
         }
-        return auxResult
-      }, {})
-    }
-    return null
+      }
+      return prev;
+    }, {});
   }
 
   _getUserName = () => {
-    const profileLS = this.profileJson
+    const profileLS = this.profile;
     let nameUser = 'Bienvenido Usuario'
     let inituser = false
 

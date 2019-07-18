@@ -10,15 +10,14 @@ import {
   strongRegularExp,
   mediumRegularExp,
 } from '../../utils/regex'
-import AuthGoogle from './social-auths/auth-google'
+// import AuthGoogle from './social-auths/auth-google'
 import AuthFacebook from './social-auths/auth-facebook'
 import getDevice from '../../utils/get-device'
 import Cookie from '../../utils/cookie'
-import GetProfile from '../../utils/get-profile'
+// import GetProfile from '../../utils/get-profile'
 import FormValid from '../../utils/form-valid'
 import { ModalConsumer } from '../context'
 
-const Brand = 'gestion'
 const Cookies = new Cookie()
 
 class FormRegister extends Component {
@@ -36,6 +35,7 @@ class FormRegister extends Component {
       },
       messageError: false,
       showMessage: false,
+      showMessageResetPass: false,
       sending: true,
     }
   }
@@ -47,7 +47,17 @@ class FormRegister extends Component {
 
     const tipCat = typePopUp || ''
     const tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    console.log(tipCat, tipAct)
+
+    const originAction = tipcat => {
+      const isHard = document.querySelector('#arc-popup-signwallhard')
+      if (isHard) {
+        return 1
+      }
+      if (tipcat === 'relogemail') {
+        return 'reloginemail'
+      }
+      return 0
+    }
 
     if (FormValid(this.state) && checked !== false) {
       this.setState({ sending: false })
@@ -64,28 +74,28 @@ class FormRegister extends Component {
           email: this.usernamereg.value,
           attributes: [
             {
-              name: 'domain',
+              name: 'originDomain',
               value: window.location.hostname,
               type: 'String',
             },
             {
-              name: 'referer',
+              name: 'originReferer',
               value: window.location.href,
               type: 'String',
             },
             {
-              name: 'accessType',
+              name: 'originMethod',
               value: '1',
               type: 'String',
             },
             {
-              name: 'device',
+              name: 'originDevice',
               value: getDevice(window),
               type: 'String',
             },
             {
-              name: 'typeRegister',
-              value: document.querySelector('#arc-popup-signwallhard') ? 1 : 0,
+              name: 'originAction',
+              value: originAction(tipCat),
               type: 'String',
             },
           ],
@@ -99,34 +109,42 @@ class FormRegister extends Component {
             sending: true,
           })
 
-          window.Identity.requestVerifyEmail(EmailUserNew)
-            .then(res => {
-              console.log(res)
-            })
-            .catch(err => {
-              console.log(err)
-            })
+          // window.Identity.requestVerifyEmail(EmailUserNew)
+          //   .then(res => {
+          //     console.log(res)
+          //   })
+          //   .catch(err => {
+          //     console.log(err)
+          //   })
 
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
-          window.sessUser.setState({ accessPanel: true })
-          window.nameUser.setState({
-            nameUser: new GetProfile().username,
-          })
-          window.initialUser.setState({
-            initialUser: new GetProfile().initname,
-          })
+          // window.sessUser.setState({ accessPanel: true })
+          // window.nameUser.setState({
+          //   nameUser: new GetProfile().username,
+          // })
+          // window.initialUser.setState({
+          //   initialUser: new GetProfile().initname,
+          // })
 
-          // -- test 6 tageo
-          window.dataLayer = window.dataLayer || []
-          window.dataLayer.push({
-            event: 'registro_success',
-            eventCategory: `Web_Sign_Wall_${tipCat}`,
-            eventAction: `${tipAct}_registro_success_registrarme`,
-          })
-          // -- test de tageo
+          // -- test de tageo success
+          if (tipCat === 'relogemail') {
+            window.dataLayer.push({
+              event: 'relogin_email_registro_success',
+            })
+          } else {
+            window.dataLayer.push({
+              event: 'registro_success',
+              eventCategory: `Web_Sign_Wall_${tipCat}`,
+              eventAction: `${tipAct}_registro_success_registrarme`,
+              userId: window.Identity
+                ? window.Identity.userIdentity.uuid
+                : null,
+            })
+          }
+          // -- test de tageo success
         })
         .catch(err => {
-          console.log(err)
+          // console.log(err)
           this.setState({
             messageError:
               err.code === '300031' || err.code === '300039'
@@ -135,14 +153,19 @@ class FormRegister extends Component {
             sending: true,
           })
 
-          // -- test de tageo
-          window.dataLayer = window.dataLayer || []
-          window.dataLayer.push({
-            event: 'registro_error',
-            eventCategory: `Web_Sign_Wall_${tipCat}`,
-            eventAction: `${tipAct}_registro_error_registrarme`,
-          })
-          // -- test de tageo
+          // -- test de tageo error
+          if (tipCat === 'relogemail') {
+            window.dataLayer.push({
+              event: 'relogin_email_registro_error',
+            })
+          } else {
+            window.dataLayer.push({
+              event: 'registro_error',
+              eventCategory: `Web_Sign_Wall_${tipCat}`,
+              eventAction: `${tipAct}_registro_error_registrarme`,
+            })
+          }
+          // -- test de tageo error
         })
     } else {
       // console.error('FORM INVALID', this.state.formErrors);
@@ -215,7 +238,7 @@ class FormRegister extends Component {
             : 'Para ser parte de nuestra comunidad es necesario aceptar los términos y condiciones'
         break
       default:
-        console.log('default')
+        return null
     }
 
     // this.setState({ formErrors, [name]: value }, () => console.log(this.state));
@@ -231,7 +254,7 @@ class FormRegister extends Component {
       checked,
       sending,
     } = this.state
-    const { closePopup, typePopUp, typeForm } = this.props
+    const { closePopup, typePopUp, typeForm, brandCurrent } = this.props
 
     return (
       <ModalConsumer>
@@ -256,19 +279,19 @@ class FormRegister extends Component {
                 <div className="form-grid__group">
                   <div className="form-grid__row form-grid__row--two">
                     <AuthFacebook
-                      align="middle"
+                      // align="middle"
                       closePopup={closePopup}
                       id="registro_boton_facebook"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
                     />
-                    <AuthGoogle
+                    {/* <AuthGoogle
                       align="middle"
                       closePopup={closePopup}
                       id="registro_boton_google"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
-                    />
+                    /> */}
                   </div>
                   <p className="form-grid__subtitle text-center">
                     o completa tus datos para registrarte
@@ -350,7 +373,7 @@ class FormRegister extends Component {
                     Al crear la cuenta acepto los{' '}
                     <a
                       href={`https://ecoid.pe/terminos_y_condiciones/${
-                        Brand === 'elcomercio'
+                        brandCurrent === 'elcomercio'
                           ? `a94a8fe5ccb19ba61c4c0873d391e987982fbbd3`
                           : `108f85a3d8e750a325ced951af6cd758a90e73a34`
                       }`}
@@ -362,7 +385,7 @@ class FormRegister extends Component {
                     y{' '}
                     <a
                       href={`https://ecoid.pe/politica_privacidad/${
-                        Brand === 'elcomercio'
+                        brandCurrent === 'elcomercio'
                           ? `a94a8fe5ccb19ba61c4c0873d391e987982fbbd3`
                           : `108f85a3d8e750a325ced951af6cd758a90e73a34`
                       }`}
@@ -394,7 +417,7 @@ class FormRegister extends Component {
                     <input
                       type="submit"
                       id="registro_boton_registrarme"
-                      className="btn btn-md input-button-brand"
+                      className="btn btn-md input-button"
                       value={!sending ? 'Registrando...' : 'Registrarme'}
                       disabled={!sending}
                     />
@@ -406,7 +429,9 @@ class FormRegister extends Component {
                 <div className="form-grid__group form-group--center">
                   <Icon.MsgRegister
                     className="form-grid__icon text-center"
-                    bgcolor={Brand === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+                    bgcolor={
+                      brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'
+                    }
                   />
                 </div>
                 <div className="form-grid__group">

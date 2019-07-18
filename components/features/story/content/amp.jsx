@@ -36,36 +36,41 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       arcSite,
       isAmp,
-      siteProperties: { siteUrl },
+      siteProperties: { siteUrl, adsAmp },
       globalContent: data = {},
     } = this.props
-    const { contentElements, relatedContent, promoItems, tags } = new StoryData(
-      {
-        data,
-        arcSite,
-        contextPath,
-        siteUrl,
-      }
-    )
-    const dataSlot = `/28253241/${arcSite}-amp-300x250-boton-movil2`
+    const {
+      contentPosicionPublicidadAmp,
+      relatedContent,
+      promoItems,
+      tags,
+    } = new StoryData({
+      data,
+      arcSite,
+      contextPath,
+      siteUrl,
+    })
+    const dataSlot = `/${adsAmp.dataSlot}/${arcSite}-amp-300x250-boton-movil2`
     const imgTag = 'amp-img'
-    const placementId = 15011773
+    const placementId = adsAmp.movil2
     const width = '300'
     const height = '250'
     const parameters = { dataSlot, placementId, width, height }
-    const dataSlotMovil4 = `/28253241/${arcSite}-amp-300x250-middle-movil4`
-    const placementIdMovil4 = 15011773
     const parametersMovil4 = {
-      dataSlot: dataSlotMovil4,
-      placementId: placementIdMovil4,
+      dataSlot: `/${adsAmp.dataSlot}/${arcSite}-amp-300x250-middle-movil4`,
+      placementId: adsAmp.movil4,
       width,
       height,
     }
-    const dataSlotMovil5 = `/28253241/${arcSite}-amp-300x250-inferior-movil5`
-    const placementIdMovil5 = 15011776
     const parametersMovil5 = {
-      dataSlot: dataSlotMovil5,
-      placementId: placementIdMovil5,
+      dataSlot: `/${adsAmp.dataSlot}/${arcSite}-amp-300x250-inferior-movil5`,
+      placementId: adsAmp.movil5,
+      width,
+      height,
+    }
+    const parametersMovil3 = {
+      dataSlot: `/${adsAmp.dataSlot}/${arcSite}-amp-300x250-inferior-movil3`,
+      placementId: adsAmp.movil3,
       width,
       height,
     }
@@ -76,9 +81,9 @@ class StoryContentAmp extends PureComponent {
           {promoItems && <ElePrincipal data={promoItems} />}
           <div dangerouslySetInnerHTML={publicidadAmp(parameters)} />
           <p className={classes.author}>Por: Redacción DT</p>
-          {contentElements && (
+          {contentPosicionPublicidadAmp && (
             <StoryContent
-              data={contentElements}
+              data={contentPosicionPublicidadAmp}
               elementClasses={classes}
               renderElement={element => {
                 const {
@@ -87,6 +92,7 @@ class StoryContentAmp extends PureComponent {
                   raw_oembed: rawOembed,
                   content_elements: innerContentElements,
                   content,
+                  publicidad = false,
                 } = element
                 if (type === ConfigParams.ELEMENT_OEMBED) {
                   return (
@@ -97,7 +103,6 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-
                 if (type === ConfigParams.ELEMENT_RAW_HTML) {
                   return content.includes('id="powa-') ? (
                     <StoryContentChildVideo
@@ -135,13 +140,21 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-
                 if (type === ConfigParams.ELEMENT_TEXT) {
                   return (
-                    <Text
-                      content={replaceTags(content)}
-                      className={classes.textClasses}
-                    />
+                    <>
+                      <Text
+                        content={replaceTags(content)}
+                        className={classes.textClasses}
+                      />
+                      {publicidad && (
+                        <div
+                          dangerouslySetInnerHTML={publicidadAmp(
+                            parametersMovil3
+                          )}
+                        />
+                      )}
+                    </>
                   )
                 }
 

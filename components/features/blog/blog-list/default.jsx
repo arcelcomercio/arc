@@ -7,23 +7,27 @@ import {
   defaultImage,
 } from '../../../utilities/helpers'
 
-// TODO: mover fetch
-
 const classes = {
   list: 'bg-white w-full p-15', // blog-list
   title: 'uppercase mb-20 title-xs', // blog-list__title
 }
+
+const CONTENT_SOURCE = 'get-count-all-blogs'
+
 @Consumer
 class BlogList extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      totalPost: null,
-    }
-  }
+    const { arcSite } = this.props
 
-  componentDidMount() {
-    this.fetch()
+    this.fetchContent({
+      totalPosts: {
+        source: CONTENT_SOURCE,
+        query: {
+          website: arcSite,
+        },
+      },
+    })
   }
 
   transformDate = postDate => {
@@ -67,28 +71,10 @@ class BlogList extends PureComponent {
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
-      urlPost: `/blog/${postLink}`,
-      urlBlog: `/blog/${path}`,
+      urlPost: `/blog/${postLink}/`,
+      urlBlog: `/blog/${path}/`,
+      // TODO:CARLOS: Verificar si estas urls general / al final. Sino, agregar
     }
-  }
-
-  fetch() {
-    const { arcSite } = this.props
-    const source = 'get-count-all-blogs'
-    const params = {
-      website: arcSite,
-    }
-
-    const { fetched } = this.getContent(source, params)
-    fetched
-      .then(response => {
-        this.setState({
-          totalPost: response.total,
-        })
-      })
-      .catch(e => {
-        throw new Error(e)
-      })
   }
 
   render() {
@@ -100,7 +86,8 @@ class BlogList extends PureComponent {
     const {
       query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
     } = globalContentConfig
-    const { totalPost } = this.state
+    const { totalPosts } = this.state
+    const { total: totalItems = null } = totalPosts
     const blogs = Object.values(globalContent).filter(
       item => typeof item === 'object'
     )
@@ -110,16 +97,16 @@ class BlogList extends PureComponent {
         <div className={classes.list}>
           <h1 className={classes.title}>blogs</h1>
           <div>
-            {blogs.map((item, i) => {
-              const params = this.buildParams(item)
+            {blogs.map((blog, i) => {
+              const params = this.buildParams(blog)
               const key = `blog-${i}-${params.urlPost}`
               return <BlogItem key={key} {...params} />
             })}
           </div>
         </div>
-        {totalPost && (
+        {totalItems && (
           <Pagination
-            totalElements={totalPost}
+            totalElements={totalItems}
             storiesQty={blogLimit}
             currentPage={blogOffset || 1}
             requestUri={requestUri}
@@ -131,6 +118,6 @@ class BlogList extends PureComponent {
 }
 
 BlogList.label = 'Blog - Listado blogs'
-// BlogList.static = true
+BlogList.static = true // TODO:CARLOS: verificar si funciona asi
 
 export default BlogList

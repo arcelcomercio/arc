@@ -1,21 +1,19 @@
 import Consumer from 'fusion:consumer'
-import React from 'react'
+import React, { Suspense } from 'react'
 import Wizard from 'react-step-wizard'
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
 import Loading from '../_children/loading'
 import * as S from './styled'
-import {
-  AddIdentity,
-  userProfile,
-  attrToObject,
-} from '../_dependencies/Identity'
+import { AddIdentity, userProfile } from '../_dependencies/Identity'
+import WizardConfirmation from './_children/wizard-confirmation'
+import WizardPayment from './_children/wizard-payment'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
 const Right = () => {
-  return <div>Hola2</div>
+  return <div>Ayuda</div>
 }
 
 @Consumer
@@ -41,7 +39,7 @@ class Content extends React.PureComponent {
   }
 
   componentDidMount() {
-    AddIdentity(this.props).then(() => {
+    AddIdentity(this.props.siteProperties).then(() => {
       userProfile(['documentNumber', 'mobilePhone', 'documentType']).then(
         profile => {
           this.setState({ profile })
@@ -52,16 +50,27 @@ class Content extends React.PureComponent {
 
   render() {
     const { spinning, data, profile } = this.state
-    const { summary, plans } = data
+    const { summary = {}, plans } = data
+
+    const {
+      contextPath,
+      deployment,
+      siteProperties: { assets },
+    } = this.props
+    const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
+
     return (
       <Loading spinning={false}>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <S.Content>
             <Wizard
+              isLazyMount
               isHashEnabled
               nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
               <WizardPlan plans={plans} summary={summary} />
               <WizardUserProfile profile={profile} summary={summary} />
+              <WizardPayment summary={summary} />
+              <WizardConfirmation assets={fullAssets} />
             </Wizard>
           </S.Content>
         </div>
