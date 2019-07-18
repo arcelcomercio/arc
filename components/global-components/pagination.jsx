@@ -65,12 +65,16 @@ const testSearchPath = path => {
     regex = /^\/buscar\/[^/]+\/[^/]+\/[^/]+\/?$/g
     if (!regex.test(path)) {
       const splittedPath = path.split('/')
+      /**
+       * Las URLs se arman correctamente en el CDN de prod o sandbox,
+       * cuando la URL no contiene /pf/
+       */
       if (splittedPath.length === 2)
         // /buscar/query
-        newPath = `${path}/todas/descendiente`
+        newPath = addParamToEndPath(path, 'todas/descendiente')
       else if (splittedPath.length === 3)
         // /buscar/query/section
-        newPath = `${path}/descendiente`
+        newPath = addParamToEndPath(path, 'descendiente')
     }
   }
   return newPath
@@ -90,8 +94,8 @@ const Pagination = props => {
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
   const prevPage = currentPage - 1
 
-  const urlPrevPage =  addParamToEndPath(pathOrigin, prevPage) // `${pathOrigin}/${prevPage}/`
-  const urlNextPage =  addParamToEndPath(pathOrigin, nextPage) // `${pathOrigin}/${nextPage}/`
+  const urlPrevPage = addParamToEndPath(pathOrigin, prevPage) // `${pathOrigin}/${prevPage}/`
+  const urlNextPage = addParamToEndPath(pathOrigin, nextPage) // `${pathOrigin}/${nextPage}/`
 
   return (
     <div role="navigation" className={classes.pagination}>
