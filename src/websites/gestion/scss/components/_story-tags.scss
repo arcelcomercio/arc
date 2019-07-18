@@ -1,0 +1,10 @@
+.story-tags {
+  &__title {
+    color: $color-primary;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  &__link {
+    background-color: transparent;
+  }
+}
