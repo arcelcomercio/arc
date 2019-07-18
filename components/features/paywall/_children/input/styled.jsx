@@ -15,6 +15,7 @@ const Input = styled.input`
   font-size: 14px;
   line-height: 22px;
   border: 0;
+  width: 100%;
 `
 
 const Wrap = styled.div`

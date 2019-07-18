@@ -21,7 +21,7 @@ const RadioButton = ({
         {...props}
       />
       <S.StyledCheckbox checked={valueCheck === value}>
-        <S.Svg viewBox="0 0 24 24">
+        <S.Svg width="18" height="18" viewBox="0 0 24 24">
           <polyline points="20 6 9 17 4 12" />
         </S.Svg>
       </S.StyledCheckbox>
