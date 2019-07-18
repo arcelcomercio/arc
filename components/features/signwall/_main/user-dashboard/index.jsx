@@ -20,13 +20,13 @@ class ProfileAccount extends Component {
   closeSession = () => {
     const { closePopup } = this.props
     window.Identity.clearSession()
-    closePopup()
     // window.sessUser.setState({
     //   accessPanel: false,
     //   nameUser: 'Ingresa a tu cuenta',
     // })
     Cookies.deleteCookie('arc_e_id')
     Cookies.deleteCookie('mpp_sess')
+    closePopup()
   }
 
   componentDidMount = () => {
@@ -90,7 +90,7 @@ class ProfileAccount extends Component {
                         type="button"
                         id="web_link_cerrarsesion"
                         className="profile__menu-link"
-                        onClick={() => this.closeSession()}>
+                        onClick={e => this.closeSession(e)}>
                         Cerrar Sesión
                       </button>
                     </li>

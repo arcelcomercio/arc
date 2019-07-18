@@ -199,11 +199,11 @@ class FormReLogin extends Component {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
-      window.sessUser.setState({ accessPanel: true })
-      window.nameUser.setState({ nameUser: new GetProfile().username })
-      window.initialUser.setState({
-        initialUser: new GetProfile().initname,
-      })
+      // window.sessUser.setState({ accessPanel: true })
+      // window.nameUser.setState({ nameUser: new GetProfile().username })
+      // window.initialUser.setState({
+      //   initialUser: new GetProfile().initname,
+      // })
     })
   }
 
@@ -465,7 +465,7 @@ class FormReLogin extends Component {
               </div>
 
               <div className="form-grid__group">
-                <p className="form-grid__link text-center pt-40 ">
+                <p className="form-grid__link text-center pt-40">
                   ¿Aún no tienes una cuenta?
                   <button
                     type="button"
