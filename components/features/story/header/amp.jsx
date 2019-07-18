@@ -19,6 +19,7 @@ class StoryHeaderAmp extends PureComponent {
   render() {
     const {
       arcSite,
+      siteProperties: { adsAmp },
       globalContent: {
         subheadlines: { basic: subtitle = '' } = {},
         headlines: { basic: titleElements = '' } = {},
@@ -28,8 +29,8 @@ class StoryHeaderAmp extends PureComponent {
         } = {},
       } = {},
     } = this.props
-    const dataSlot = `/28253241/${arcSite}-amp-320x50-top-movil1`
-    const placementId = 15011772
+    const dataSlot = `/${adsAmp.dataSlot}/${arcSite}-amp-320x50-top-movil1`
+    const placementId = adsAmp.movil1
     const width = '320'
     const height = '50'
     const parameters = { dataSlot, placementId, width, height }
