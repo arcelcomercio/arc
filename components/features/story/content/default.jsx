@@ -225,7 +225,10 @@ class StoryContent extends PureComponent {
           </div>
         )}
 
-        <div id="taboola-below-content-thumbnails" />
+        <div
+          className={classes.taboola}
+          id="taboola-below-content-thumbnails"
+        />
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{ __html: structuredTaboola }}
