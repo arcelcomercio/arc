@@ -1,357 +1,316 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react'
-import { setTimeout } from 'timers'
 import Services from '../../../utils/services'
-import { namesRegex, numberRegex, docRegex } from '../../../utils/regex'
+import {
+  namesRegex,
+  numberRegex,
+  docRegex,
+  emailRegex,
+  phoneRegex,
+} from '../../../utils/regex'
+import { clean } from '../../../utils/object'
 import GetProfile from '../../../utils/get-profile'
 
 const services = new Services()
 
+const SET_ATTRIBUTES_PROFILE = [
+  'documentType',
+  'documentNumber',
+  'civilStatus',
+  'country',
+  'department',
+  'province',
+  'district',
+]
+const GET_ATTRIBUTES_PROFILE = ['mobilePhone', ...SET_ATTRIBUTES_PROFILE]
+
 class UpdateProfile extends Component {
   constructor(props) {
     super(props)
+    const sociales = ['facebook', 'google']
+    const { publicProfile } = new GetProfile()
+    const { attributes = [] } = publicProfile
+    const _attrib = this.attributeToObject(attributes)
 
-    const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
-    const profileLS = new GetProfile().profile
+    this._backup_attributes = Array.isArray(attributes)
+      ? attributes.filter(({ name }) => !GET_ATTRIBUTES_PROFILE.includes(name))
+      : []
 
-    const getAtributeHeader = atribute => {
-      const attributesLS =
-        localProfile !== 'null' && JSON.parse(localProfile).attributes
-          ? JSON.parse(localProfile).attributes
-          : []
+    const { identities = [] } = publicProfile
+    const [identitie = { type: 'Password' }] = identities || []
 
-      let valueItem
-
-      attributesLS.forEach(item => {
-        if (item.name === atribute && item.value !== 'undefined') {
-          valueItem = item.value
-        }
-      })
-      return valueItem
-    }
-
-    this.data = []
     this.state = {
-      hiddenSuccessPass: false,
-      hiddenSuccessError: false,
-      dataDepartaments: [],
-      dataProvince: [],
-      dataDistric: [],
-      attributes: {
-        userName: localProfile !== 'null' ? profileLS.displayName : '',
-        userEmail: localProfile !== 'null' ? profileLS.email : '',
-        firstName:
-          localProfile !== 'null' &&
-          profileLS.firstName &&
-          profileLS.firstName !== 'undefined'
-            ? profileLS.firstName
-            : '',
-        lastName:
-          localProfile !== 'null' &&
-          profileLS.lastName &&
-          profileLS.lastName !== 'undefined'
-            ? profileLS.lastName
-            : '',
-        secondLastName:
-          localProfile !== 'null' &&
-          profileLS.secondLastName &&
-          profileLS.secondLastName !== 'undefined'
-            ? profileLS.secondLastName
-            : '',
-
-        // secondLastName: getAtributeHeader('secondLastName')
-        //   ? getAtributeHeader('secondLastName')
-        //   : '',
-        documentType: getAtributeHeader('documentType')
-          ? getAtributeHeader('documentType')
-          : '',
-        documentNumber: getAtributeHeader('documentNumber')
-          ? getAtributeHeader('documentNumber')
-          : '',
-        civilStatus: getAtributeHeader('civilStatus')
-          ? getAtributeHeader('civilStatus')
-          : '',
-        mobilePhone: getAtributeHeader('mobilePhone')
-          ? getAtributeHeader('mobilePhone')
-          : '',
-        country: getAtributeHeader('country')
-          ? getAtributeHeader('country')
-          : '',
-        department: getAtributeHeader('department')
-          ? getAtributeHeader('department')
-          : '',
-        province: getAtributeHeader('province')
-          ? getAtributeHeader('province')
-          : '',
-        district: getAtributeHeader('district')
-          ? getAtributeHeader('district')
-          : '',
-      },
-      disabledSocial:
-        profileLS.identities != null
-          ? profileLS.identities[0].type !== 'Password'
-          : false,
-      formErrors: {
-        firstName: '',
-        lastName: '',
-        secondLastName: '',
-        mobilePhone: '',
-        documentNumber: '',
-        typeDocument: '',
-      },
-      sending: false,
-      textSubmit: 'Guardar Cambios',
-      typeDocLenghtMax: '8',
-      typeDocLenghtMin: '8',
-      typeDoc: 'numeric',
-      // profile: new GetProfile().profile,
+      showMsgSuccess: false,
+      showMsgError: false,
     }
+    this.state = Object.assign(
+      {},
+      {
+        data_departments: [],
+        data_provinces: [],
+        data_districts: [],
+        disableNames: sociales.includes(identitie.type.toLowerCase()),
+        formErrors: {
+          firstName: '',
+          lastName: '',
+          secondLastName: '',
+          mobilePhone: '',
+          documentNumber: '',
+          typeDocument: '',
+          userEmail: '',
+        },
+        loading: false,
+        hasChange: false,
+        textSubmit: 'Guardar Cambios',
+        typeDocLenghtMax: _attrib.documentType !== 'dni' ? '15' : '8',
+        typeDocLenghtMin: _attrib.documentType !== 'dni' ? '5' : '8',
+        typeDoc: _attrib.documentType !== 'dni' ? 'text' : 'numeric',
+      },
+      publicProfile,
+      _attrib
+    )
+  }
+
+  attributeToObject = (attributes = []) => {
+    if (attributes === null) return {}
+
+    const clearObject = []
+    for (let i = 0; i < attributes.length; i++) {
+      if (attributes[i].value !== null) {
+        clearObject.push(attributes[i])
+      }
+    }
+
+    // return attributes.reduce((prev, { name, value }) => {
+    return clearObject.reduce((prev, { name, value }) => {
+      switch (name) {
+        case 'mobilePhone':
+          prev['contacts'] = [{ type: 'PRIMARY', phone: value }]
+          break
+        default:
+          prev[name] = value
+          break
+      }
+      return prev
+    }, {})
   }
 
   componentDidMount = () => {
-    const { attributes } = this.state
-    if (attributes.country) {
-      this.changeCountry(attributes.country)
+    const { country, department, province } = this.state
+
+    if (country) {
+      this._getUbigeo(country, 'department')
     }
 
-    if (attributes.department) {
-      this.changeDepartament(attributes.department)
+    if (department) {
+      this._getUbigeo(department, 'province')
     }
 
-    if (attributes.province) {
-      this.changeProvince(attributes.province)
+    if (province) {
+      this._getUbigeo(province, 'district')
     }
   }
 
-  changeCountry = e => {
-    const itemCountry = e.target ? e.target.value : e
-    const result = services.getUbigeo(itemCountry)
-    result
-      .then(res => {
-        this.setState({ dataDepartaments: [...res] })
-      })
-      .catch(err => {
-        console.log(err.message)
-      })
-  }
-
-  changeDepartament = e => {
-    const itemDepartament = e.target ? e.target.value : e
-    const result = services.getUbigeo(itemDepartament)
-    result
-      .then(res => {
-        this.setState({ dataProvince: [...res] })
-      })
-      .catch(err => {
-        console.log(err.message)
-      })
-  }
-
-  changeProvince = e => {
-    const itemProvince = e.target ? e.target.value : e
-    const result = services.getUbigeo(itemProvince)
-    result
-      .then(res => {
-        this.setState({ dataDistric: [...res] })
-      })
-      .catch(err => {
-        console.log(err.message)
-      })
-  }
-
-  getAtribute = atribute => {
-    const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
-    const attributesLS = JSON.parse(localProfile).attributes
-      ? JSON.parse(localProfile).attributes
-      : []
-    let valueItem
-
-    attributesLS.forEach(item => {
-      if (item.name === atribute) {
-        valueItem = item.value
+  _getUbigeo = (input, geo) => {
+    const state = {}
+    let value = input
+    // eslint-disable-next-line no-prototype-builtins
+    const hasTarget = input.hasOwnProperty('target')
+    if (hasTarget) {
+      // eslint-disable-next-line prefer-destructuring
+      value = input.target.value
+      switch (geo) {
+        case 'departament':
+          state['departament'] = 'default'
+          state['province'] = 'default'
+          state['district'] = 'default'
+          break
+        case 'province':
+          state['province'] = 'default'
+          state['district'] = 'default'
+          break
+        default:
+          console.log('default')
       }
-    })
+    }
+    const result = services.getUbigeo(value)
 
-    return valueItem
+    result
+      .then(geoData => {
+        Object.assign(state, {
+          [`data_${geo}s`]: geoData,
+        })
+        this.setState(state)
+      })
+      .catch(() => {
+        console.error()
+      })
+  }
+
+  getAtributes = (state, list = []) => {
+    return list.reduce((prev, item, index) => {
+      // eslint-disable-next-line no-prototype-builtins
+      if (state.hasOwnProperty(item) && state[item] !== '') {
+        prev.push({
+          name: item,
+          value: state[item],
+          type: 'String',
+        })
+      }
+      return prev
+    }, [])
   }
 
   handleUpdateProfile = e => {
     e.preventDefault()
-    const { attributes } = this.state
 
-    const dataComplete = {
-      firstName: attributes.firstName ? attributes.firstName : 'undefined',
-      lastName: attributes.lastName ? attributes.lastName : 'undefined',
-      secondLastName: attributes.secondLastName
-        ? attributes.secondLastName
-        : 'undefined',
-      displayName: attributes.userName
-        ? attributes.userName
-        : attributes.userEmail.split('@')[0],
-      email: attributes.userEmail ? attributes.userEmail : 'undefined',
+    const {
+      firstName,
+      lastName,
+      secondLastName,
+      displayName,
+      email,
+      contacts,
+      ...restState
+    } = this.state
+
+    const profile = {
+      firstName,
+      lastName,
+      secondLastName,
+      displayName,
+      email,
+      contacts,
       attributes: [
-        {
-          name: 'mobilePhone',
-          value: attributes.mobilePhone ? attributes.mobilePhone : 'undefined',
-          type: 'String',
-        },
-        {
-          name: 'documentType',
-          value: attributes.documentType
-            ? attributes.documentType
-            : 'undefined',
-          type: 'String',
-        },
-        {
-          name: 'documentNumber',
-          value: attributes.documentNumber
-            ? attributes.documentNumber
-            : 'undefined',
-          type: 'String',
-        },
-        {
-          name: 'civilStatus',
-          value: attributes.civilStatus ? attributes.civilStatus : 'undefined',
-          type: 'String',
-        },
-        {
-          name: 'country',
-          value: attributes.country ? attributes.country : 'undefined',
-          type: 'String',
-        },
-        {
-          name: 'department',
-          value: attributes.department ? attributes.department : 'undefined',
-          type: 'String',
-        },
-        {
-          name: 'province',
-          value: attributes.province ? attributes.province : 'undefined',
-          type: 'String',
-        },
-        {
-          name: 'district',
-          value: attributes.district ? attributes.district : 'undefined',
-          type: 'String',
-        },
+        ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
+        ...this._backup_attributes,
       ],
     }
+    clean(profile)
 
-    this.setState({ sending: false, textSubmit: 'Guardando...' })
+    this.setState({ loading: true, textSubmit: 'Guardando...' })
 
-    window.Identity.updateUserProfile(dataComplete)
+    window.Identity.updateUserProfile(profile)
       .then(() => {
         this.setState({
-          hiddenSuccessPass: true,
-          sending: true,
+          showMsgSuccess: true,
+          loading: false,
+          hasChange: false,
+          textSubmit: 'Guardar cambios',
+        })
+
+        setTimeout(() => {
+          this.setState({
+            showMsgSuccess: false,
+          })
+        }, 5000)
+
+        // setTimeout(() => {
+        //   window.nameUser.setState({
+        //     nameUser: new GetProfile().username,
+        //   })
+        //   window.initialUser.setState({
+        //     initialUser: new GetProfile().initname,
+        //   })
+        // }, 500)
+
+        const modalConfirmPass = document.querySelector('#arc-popup-profile')
+        if (modalConfirmPass) {
+          modalConfirmPass.scrollIntoView()
+        }
+      })
+      .catch(() => {
+        this.setState({
+          showMsgError: false,
+          loading: false,
           textSubmit: 'Guardar cambios',
         })
         setTimeout(() => {
           this.setState({
-            hiddenSuccessPass: false,
-            sending: true,
-            textSubmit: 'Guardar cambios',
+            showMsgError: false,
           })
         }, 5000)
-
-        window.sessUser.setState({ nameUser: new GetProfile().username })
-        window.initialUser.setState({ initialUser: new GetProfile().initname })
-      })
-      .catch(err => {
-        console.log(err)
-        this.setState({
-          hiddenSuccessError: true,
-          sending: true,
-          textSubmit: 'Guardar cambios',
-        })
       })
   }
 
   handleOnChange = e => {
-    this.setState({
-      hiddenSuccessPass: false,
-      hiddenSuccessError: false,
-      sending: true,
-    })
-    const { attributes } = this.state
-    const nextForm = attributes
-    nextForm[e.target.name] = e.target.value
-
-    // const attributesProfile = { ...profile.attributes }
+    if (e.target.name === 'mobilePhone') {
+      this.setState({
+        contacts: [{ type: 'PRIMARY', phone: e.target.value }],
+        hasChange: true,
+      })
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+        hasChange: true,
+      })
+    }
   }
 
   handleTypeDocument = e => {
     e.preventDefault()
     const { value } = e.target
+    let state = {}
     switch (value) {
       case 'DNI':
-        this.setState({
+        state = {
           typeDocLenghtMax: '8',
           typeDocLenghtMin: '8',
           typeDoc: 'numeric',
-        })
+        }
         break
-      case 'CEX':
       case 'CDI':
-        this.setState({
+      case 'CEX':
+        state = {
           typeDocLenghtMin: '5',
           typeDocLenghtMax: '15',
           typeDoc: 'text',
-        })
+        }
         break
       default:
         console.log('default')
     }
 
-    setTimeout(() => {
+    this.setState(state, () => {
+      let { documentNumber } = this.state
+      documentNumber = documentNumber !== undefined ? documentNumber : ''
+      // let { typeDocLenghtMin, typeDoc, documentNumber } = state;
+      const { typeDocLenghtMin, typeDoc } = state
+      const minLenghtInput = typeDocLenghtMin
       const { formErrors } = this.state
-      const minLenghtInput = this.myinput.getAttribute('minlength')
-      const typeDoc = this.myinput.getAttribute('typedoc')
-      const nextFormyeah = formErrors
 
       if (typeDoc === 'numeric') {
-        if (this.myinput.value.length < minLenghtInput) {
-          nextFormyeah.documentNumber = `Longitud inválida, mínimo ${minLenghtInput} dígitos`
-        } else if (numberRegex.test(this.myinput.value)) {
-          nextFormyeah.documentNumber = ''
+        if (
+          documentNumber.length < minLenghtInput ||
+          documentNumber.length > minLenghtInput
+        ) {
+          formErrors.documentNumber = `Longitud inválida, requiere ${minLenghtInput} dígitos`
+        } else if (numberRegex.test(documentNumber)) {
+          formErrors.documentNumber = ''
         } else {
-          nextFormyeah.documentNumber = 'Formato inválido. Solo números'
+          formErrors.documentNumber = 'Formato inválido. Solo números'
         }
       } else if (typeDoc === 'text') {
-        if (this.myinput.value.length < minLenghtInput) {
-          nextFormyeah.documentNumber = `Longitud inválida, mínimo ${minLenghtInput} dígitos`
-        } else if (docRegex.test(this.myinput.value)) {
-          nextFormyeah.documentNumber = ''
+        if (documentNumber.length < minLenghtInput) {
+          formErrors.documentNumber = `Longitud inválida, mínimo ${minLenghtInput} dígitos`
+        } else if (docRegex.test(documentNumber)) {
+          formErrors.documentNumber = ''
         } else {
-          nextFormyeah.documentNumber = 'Formato inválido.'
+          formErrors.documentNumber = 'Formato inválido.'
         }
       }
 
       this.setState({
-        // eslint-disable-next-line react/no-unused-state
-        nextFormyeah,
+        formErrors,
       })
-
-      if (nextFormyeah.documentNumber.length > 0) {
-        this.setState({
-          sending: false,
-        })
-      } else {
-        this.setState({
-          sending: true,
-        })
-      }
-    }, 500)
+    })
   }
 
   handleValidation = e => {
     const { name, value } = e.target
-
-    const { formErrors, attributes } = this.state
-
-    const minLenghtInput = e.target.getAttribute('minlength')
-    const typeDoc = e.target.getAttribute('typedoc')
+    const { formErrors } = this.state
+    const { documentType } = this.state
 
     switch (name) {
       case 'firstName':
@@ -382,22 +341,26 @@ class UpdateProfile extends Component {
         }
         break
       case 'mobilePhone':
-        if (value.length < 7) {
-          formErrors.mobilePhone = 'Longitud inválida, mínimo 7 caracteres'
-        } else if (numberRegex.test(value)) {
+        if (value.length < 9 || value.length > 12) {
+          formErrors.mobilePhone = 'Longitud inválida, entre 9  y 12 caracteres'
+        } else if (phoneRegex.test(value)) {
           formErrors.mobilePhone = ''
         } else {
-          formErrors.mobilePhone = 'Formato inválido, solo números'
+          formErrors.mobilePhone = 'Formato inválido. Solo números y guiones'
         }
         break
       case 'documentNumber':
+        // eslint-disable-next-line no-case-declarations
+        const minLenghtInput = e.target.getAttribute('minlength')
+        // eslint-disable-next-line no-case-declarations
+        const typeDoc = e.target.getAttribute('typedoc')
         if (typeDoc === 'numeric') {
-          if (value.length < minLenghtInput) {
-            formErrors.documentNumber = `Longitud inválida, mínimo ${minLenghtInput} dígitos`
+          if (value.length < minLenghtInput || value.length > minLenghtInput) {
+            formErrors.documentNumber = `Longitud inválida, requiere ${minLenghtInput} dígitos`
           } else if (numberRegex.test(value)) {
             formErrors.documentNumber = ''
           } else {
-            formErrors.documentNumber = 'Formato inválido, solo números'
+            formErrors.documentNumber = 'Formato inválido. Solo números'
           }
         } else if (typeDoc === 'text') {
           if (value.length < minLenghtInput) {
@@ -408,19 +371,28 @@ class UpdateProfile extends Component {
             formErrors.documentNumber = 'Formato inválido.'
           }
         }
-        if (!attributes.documentType) {
+        if (documentType === undefined || documentType === null) {
           formErrors.typeDocument = 'Ingresar tipo documento'
         }
         break
 
       case 'documentType':
-        if (value) {
+        if (value !== '') {
           formErrors.typeDocument = ''
         } else {
           formErrors.typeDocument = 'Ingresar tipo documento'
         }
         break
 
+      case 'email':
+        if (value.length === 0) {
+          formErrors.userEmail = 'Este campo es requerido'
+        } else if (emailRegex.test(value)) {
+          formErrors.userEmail = ''
+        } else {
+          formErrors.userEmail = 'Correo Electrónico Inválido'
+        }
+        break
       default:
         console.log('default')
     }
@@ -435,11 +407,11 @@ class UpdateProfile extends Component {
         formErrors.typeDocument.length > 0
       ) {
         this.setState({
-          sending: false,
+          hasError: true,
         })
       } else {
         this.setState({
-          sending: true,
+          hasError: false,
         })
       }
     })
@@ -448,29 +420,47 @@ class UpdateProfile extends Component {
   render() {
     const {
       formErrors,
-      hiddenSuccessPass,
-      hiddenSuccessError,
-      attributes,
-      disabledSocial,
+      firstName,
+      lastName,
+      secondLastName,
+      documentType,
+      province,
+      documentNumber,
+      civilStatus,
+      contacts,
+      country,
+      department,
+      district,
+      email,
+      hasChange,
+      loading,
+      hasError,
+      showMsgSuccess,
+      showMsgError,
       typeDocLenghtMin,
       typeDocLenghtMax,
       typeDoc,
-      dataDepartaments,
-      dataProvince,
-      dataDistric,
+      data_departments,
+      data_provinces,
+      data_districts,
       textSubmit,
-      sending,
     } = this.state
+
+    const [primaryPhone = { phone: null }] = contacts
+    const { phone } = primaryPhone
 
     return (
       <form className="form-grid" onSubmit={e => this.handleUpdateProfile(e)}>
         <div className="form-grid__row form-grid__row--btw">
           <h3 className="form-grid__title">Tus datos</h3>
-          <div className="message" hidden={!hiddenSuccessPass}>
-            <p className="message--success">TUS DATOS HAN SIDO ACTUALIZADOS</p>
-          </div>
-          <div className="message" hidden={!hiddenSuccessError}>
-            <p className="message--error">
+          <div className="message">
+            <p
+              className={`message--success ${showMsgSuccess &&
+                'message--active'}`}>
+              TUS DATOS HAN SIDO ACTUALIZADOS
+            </p>
+            <p
+              className={`message--error ${showMsgError && 'message--active'}`}>
               HA OCURRIDO UN ERROR. VERIFICA TUS DATOS
             </p>
           </div>
@@ -492,13 +482,10 @@ class UpdateProfile extends Component {
                 this.handleOnChange(e)
                 this.handleValidation(e)
               }}
-              value={
-                attributes.firstName || attributes.firstName !== 'udnefined'
-                  ? attributes.firstName
-                  : ''
-              }
-              tabIndex="0"
-              disabled={disabledSocial}
+              defaultValue={firstName}
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="1"
+              disabled={!email}
             />
             <label htmlFor="name" className="form-group__label">
               Nombres
@@ -523,13 +510,10 @@ class UpdateProfile extends Component {
                 this.handleValidation(e)
                 this.handleOnChange(e)
               }}
-              value={
-                attributes.lastName || attributes.lastName !== 'undefined'
-                  ? attributes.lastName
-                  : ''
-              }
-              tabIndex="0"
-              disabled={disabledSocial}
+              defaultValue={lastName}
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="2"
+              disabled={!email}
             />
             <label htmlFor="lastnameP" className="form-group__label">
               Apellido Paterno
@@ -554,8 +538,10 @@ class UpdateProfile extends Component {
                 this.handleValidation(e)
                 this.handleOnChange(e)
               }}
-              value={attributes.secondLastName ? attributes.secondLastName : ''}
-              tabIndex="0"
+              defaultValue={secondLastName}
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="3"
+              disabled={!email}
             />
             <label htmlFor="secondLastName" className="form-group__label">
               Apellido Materno
@@ -579,14 +565,16 @@ class UpdateProfile extends Component {
                     : 'form-group__input form-group__input--minimal'
                 }
                 defaultValue={
-                  attributes.documentType ? attributes.documentType : 'default'
+                  documentType ? documentType.toUpperCase() : 'default'
                 }
                 onChange={e => {
                   this.handleOnChange(e)
                   this.handleTypeDocument(e)
                   this.handleValidation(e)
                 }}
-                tabIndex="0">
+                // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+                tabIndex="4"
+                disabled={!email}>
                 <option disabled="disabled" value="default">
                   Seleccione
                 </option>
@@ -597,6 +585,7 @@ class UpdateProfile extends Component {
               <label htmlFor="statusCivil" className="form-group__label">
                 Tipo Doc.
               </label>
+
               <input
                 type="text"
                 name="documentNumber"
@@ -615,32 +604,33 @@ class UpdateProfile extends Component {
                   this.handleValidation(e)
                 }}
                 onBlur={e => this.handleValidation(e)}
-                value={attributes.documentNumber}
-                tabIndex="0"
-                // eslint-disable-next-line no-return-assign
-                ref={input => (this.myinput = input)}
+                defaultValue={documentNumber}
+                // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+                tabIndex="5"
+                disabled={!email}
               />
             </div>
             {formErrors.documentNumber.length > 0 && (
               <span className="message__error">
-                {formErrors.typeDocument.length > 0
-                  ? formErrors.typeDocument
-                  : formErrors.documentNumber}
+                {formErrors.documentNumber}
               </span>
+            )}
+            {formErrors.typeDocument.length > 0 && (
+              <span className="message__error">{formErrors.typeDocument}</span>
             )}
           </div>
           <div className="form-group">
             <select
               name="civilStatus"
               className="form-group__input form-group__input--minimal"
-              defaultValue={
-                attributes.civilStatus ? attributes.civilStatus : 'default'
-              }
+              value={civilStatus ? civilStatus.toUpperCase() : 'default'}
               onChange={e => {
                 this.handleOnChange(e)
                 this.handleValidation(e)
               }}
-              tabIndex="0">
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="6"
+              disabled={!email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
@@ -664,13 +654,16 @@ class UpdateProfile extends Component {
               }
               placeholder="Número de Celular"
               noValidate
-              maxLength="30"
+              maxLength="12"
               onChange={e => {
                 this.handleOnChange(e)
                 this.handleValidation(e)
               }}
-              value={attributes.mobilePhone}
-              tabIndex="0"
+              defaultValue={phone}
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="7"
+              disabled={!email}
+              autoComplete="off"
             />
             <label htmlFor="mobilePhone" className="form-group__label">
               Número de Celular
@@ -686,13 +679,15 @@ class UpdateProfile extends Component {
             <select
               name="country"
               className="form-group__input form-group__input--minimal"
-              defaultValue={attributes.country ? attributes.country : 'default'}
+              value={country || 'default'}
               onChange={e => {
                 this.handleOnChange(e)
-                this.changeCountry(e)
+                this._getUbigeo(e, 'department')
                 this.handleValidation(e)
               }}
-              tabIndex="0">
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="8"
+              disabled={!email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
@@ -706,24 +701,21 @@ class UpdateProfile extends Component {
             <select
               name="department"
               className="form-group__input form-group__input--minimal"
-              defaultValue={
-                attributes.department ? attributes.department : 'default'
-              }
+              value={department || 'default'}
               onChange={e => {
                 this.handleOnChange(e)
-                this.changeDepartament(e)
+                this._getUbigeo(e, 'province')
                 this.handleValidation(e)
               }}
-              tabIndex="0">
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="9"
+              disabled={!email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
-              {dataDepartaments.map(departs => (
-                <option
-                  selected={departs[0].toString() === attributes.department}
-                  key={departs[0]}
-                  value={departs[0]}>
-                  {departs[1]}
+              {data_departments.map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
                 </option>
               ))}
             </select>
@@ -736,24 +728,21 @@ class UpdateProfile extends Component {
             <select
               name="province"
               className="form-group__input form-group__input--minimal"
-              defaultValue={
-                attributes.province ? attributes.province : 'default'
-              }
+              value={province || 'default'}
               onChange={e => {
                 this.handleOnChange(e)
-                this.changeProvince(e)
+                this._getUbigeo(e, 'district')
                 this.handleValidation(e)
               }}
-              tabIndex="0">
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="10"
+              disabled={!email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
-              {dataProvince.map(provin => (
-                <option
-                  selected={provin[0].toString() === attributes.province}
-                  key={provin[0]}
-                  value={provin[0]}>
-                  {provin[1]}
+              {data_provinces.map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
                 </option>
               ))}
             </select>
@@ -768,23 +757,20 @@ class UpdateProfile extends Component {
             <select
               name="district"
               className="form-group__input form-group__input--minimal"
-              defaultValue={
-                attributes.district ? attributes.district : 'default'
-              }
+              value={district || 'default'}
               onChange={e => {
                 this.handleValidation(e)
                 this.handleOnChange(e)
               }}
-              tabIndex="0">
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="11"
+              disabled={!email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
-              {dataDistric.map(distri => (
-                <option
-                  selected={distri[0].toString() === attributes.district}
-                  key={distri[0]}
-                  value={distri[0]}>
-                  {distri[1]}
+              {data_districts.map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
                 </option>
               ))}
             </select>
@@ -796,25 +782,38 @@ class UpdateProfile extends Component {
             <input
               type="text"
               name="email"
-              className="form-group__input"
+              className={
+                formErrors.userEmail.length > 0
+                  ? 'form-group__input form-group__input--error'
+                  : 'form-group__input'
+              }
               placeholder="Correo electrónico"
               noValidate
               maxLength="30"
-              value={attributes.userEmail}
-              tabIndex="0"
-              disabled
+              defaultValue={email}
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="12"
+              disabled={email !== null}
+              onChange={e => {
+                this.handleValidation(e)
+                this.handleOnChange(e)
+              }}
             />
             <label htmlFor="email" className="form-group__label">
               Correo electrónico
             </label>
+            {formErrors.userEmail.length > 0 && (
+              <span className="message__error">{formErrors.userEmail}</span>
+            )}
           </div>
           <div className="form-group">
             <input
               type="submit"
               className="btn btn--blue btn-bg"
               value={textSubmit}
-              disabled={!sending}
-              tabIndex="0"
+              disabled={!hasChange || loading || hasError}
+              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+              tabIndex="13"
             />
           </div>
         </div>

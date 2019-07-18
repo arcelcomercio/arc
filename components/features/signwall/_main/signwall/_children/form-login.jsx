@@ -7,7 +7,7 @@ import { sha256 } from 'js-sha256'
 import FormValid from '../../utils/form-valid'
 import * as Icon from '../../common/iconos'
 import ListBenefits from './benefits'
-import AuthGoogle from './social-auths/auth-google'
+// import AuthGoogle from './social-auths/auth-google'
 import AuthFacebook from './social-auths/auth-facebook'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
@@ -139,17 +139,13 @@ class FormLogin extends Component {
 
   handleGetProfile = () => {
     const { closePopup } = this.props
-    window.Identity.getUserProfile()
-      .then(resProfile => {
-        closePopup()
-        Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
-        window.sessUser.setState({ accessPanel: true })
-        window.nameUser.setState({ nameUser: new GetProfile().username })
-        window.initialUser.setState({ initialUser: new GetProfile().initname })
-      })
-      .catch(errProfile => {
-        console.log(errProfile)
-      })
+    window.Identity.getUserProfile().then(resProfile => {
+      closePopup()
+      Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
+      // window.sessUser.setState({ accessPanel: true })
+      // window.nameUser.setState({ nameUser: new GetProfile().username })
+      // window.initialUser.setState({ initialUser: new GetProfile().initname })
+    })
   }
 
   handleLoginClick = () => {
@@ -275,7 +271,7 @@ class FormLogin extends Component {
                 </h1>
 
                 <h1 className="form-grid__title-login text-center">
-                  Ingresa con tu cuenta de:{' '}
+                  Ingresa con tu cuenta de:
                 </h1>
 
                 <div className="form-grid__group">
@@ -287,18 +283,9 @@ class FormLogin extends Component {
                       typeForm={typeForm}
                     />
                   </div>
-
-                  <div className="form-group">
-                    <AuthGoogle
-                      closePopup={closePopup}
-                      id="google-sign-in-button"
-                      typePopUp={typePopUp}
-                      typeForm={typeForm}
-                    />
-                  </div>
                 </div>
 
-                <div className="form-grid__group" hidden={!hiddendiv}>
+                <div className="form-grid__group mt-30" hidden={!hiddendiv}>
                   <div
                     className={`form-grid--error ${messageError && 'active'}`}>
                     {messageError}
@@ -373,7 +360,7 @@ class FormLogin extends Component {
                       type="submit"
                       name="ingresar"
                       id="login_boton_ingresar"
-                      className="btn input-button-brand"
+                      className="btn input-button"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                       disabled={!sending}
                     />
@@ -405,8 +392,8 @@ class FormLogin extends Component {
                   </button>
                 </p>
                 <p className="form-grid__subtitle form-grid__subtitle--fb text-center">
-                  Con tus datos mejoraremos tu experiencia de navegación y nunca
-                  publicaremos sin tu permiso
+                  Al registrarte, nos ayudarás a mejorar tu experiencia de
+                  navegación. Tus datos no se publicarán sin tu autorización.
                 </p>
               </div>
 

@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import { formatSlugToText } from '../../utilities/helpers'
+import {
+  formatSlugToText,
+  arrayMonths,
+  arrayDays,
+} from '../../utilities/helpers'
 
 const classes = {
   title: 'w-full mt-20 custom-title',
@@ -22,33 +26,10 @@ class CustomTitle extends PureComponent {
 
     // TODO: Usar librería como "moment" o "luxon"
     const dateObj = new Date(date)
-    const days = [
-      'Domingo',
-      'Lunes',
-      'Martes',
-      'Miércoles',
-      'Jueves',
-      'Viernes',
-      'Sábado',
-    ]
-    const months = [
-      'Enero',
-      'Febrero',
-      'Marzo',
-      'Abril',
-      'Mayo',
-      'Junio',
-      'Julio',
-      'Agosto',
-      'Septiembre',
-      'Octubre',
-      'Noviembre',
-      'Diciembre',
-    ]
 
-    return `ARCHIVO, ${days[
+    return `ARCHIVO, ${arrayDays[
       dateObj.getUTCDay()
-    ].toUpperCase()} ${dateObj.getUTCDate()} DE ${months[
+    ].toUpperCase()} ${dateObj.getUTCDate()} DE ${arrayMonths[
       dateObj.getUTCMonth()
     ].toUpperCase()} DEL ${dateObj.getUTCFullYear()}` // ARCHIVO, LUNES 03 DE FEBRERO DEL 2018
   }
@@ -63,7 +44,8 @@ class CustomTitle extends PureComponent {
     const { globalContent } = this.props
     const { count = 0 } = globalContent || {}
 
-    const search = query && query.replace('+', ' ')
+    let search = query && query.replace('+', ' ')
+    search = decodeURIComponent(search)
     const title = search
       ? `SE ENCONTRARON ${count} RESULTADOS PARA: ${search.toUpperCase()}` // SE ENCONTRARON 99 RESULTADOS PARA: MADURO
       : `ÚLTIMAS NOTICIAS`

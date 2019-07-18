@@ -1,20 +1,12 @@
 const scriptsAsync = []
-const PENDING = 'pending'
-const LOADED = 'loaded'
-const LOADING = 'loading'
 let isLoading = false
 let index = 0
 
 const loadScriptAsync = () => {
-  if (isLoading) {
-    return
-  }
+  if (isLoading) return
   isLoading = true
-  // eslint-disable-next-line no-plusplus
-  const current = index++
-
-  const { url, resolve, reject, type } = scriptsAsync[current]
-  scriptsAsync[current].status = LOADING
+  // eslint-disable-next-line
+  const { url, resolve, reject, type } = scriptsAsync[index++]
   const script = document.createElement('script')
   script.async = true
   script.src = url
@@ -23,7 +15,6 @@ const loadScriptAsync = () => {
   }
   script.onerror = () => {
     isLoading = false
-
     reject()
     if (scriptsAsync.length > index) {
       loadScriptAsync()
@@ -31,7 +22,6 @@ const loadScriptAsync = () => {
   }
   script.onload = () => {
     isLoading = false
-    scriptsAsync[current].status = LOADED
     resolve(true)
     if (scriptsAsync.length > index) {
       loadScriptAsync()
@@ -41,16 +31,19 @@ const loadScriptAsync = () => {
 }
 
 const addScriptAsync = props => {
-  const isScriptRepeat = scriptsAsync.some(
-    ({ name, status }) => name === props.name && status === LOADED
-  )
-  if (!isScriptRepeat) {
-    return new Promise((resolve, reject) => {
-      scriptsAsync.push({ ...props, resolve, reject, status: PENDING })
-      loadScriptAsync()
+  const script = scriptsAsync.find(elm => elm.name === props.name)
+  if (!script) {
+    const newScript = { ...props }
+    const promise = new Promise((resolve, reject) => {
+      newScript.resolve = resolve
+      newScript.reject = reject
     })
+    newScript.promise = promise
+    scriptsAsync.push(newScript)
+    loadScriptAsync()
+    return promise
   }
-  return new Promise(resolve => resolve(false))
+  return script.promise
 }
 
 export default addScriptAsync

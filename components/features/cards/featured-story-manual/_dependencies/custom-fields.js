@@ -54,6 +54,30 @@ const customFields = PropTypes.shape({
     group: 'Editar campos',
     description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
+  note1: PropTypes.string.tag({
+    name: 'Nota 1',
+    group: 'Programar Notas',
+  }),
+  date1: PropTypes.dateTime.tag({
+    name: 'Fecha de publicación',
+    group: 'Programar Notas',
+  }),
+  note2: PropTypes.string.tag({
+    name: 'Nota 2',
+    group: 'Programar Notas',
+  }),
+  date2: PropTypes.dateTime.tag({
+    name: 'Fecha de publicación',
+    group: 'Programar Notas',
+  }),
+  note3: PropTypes.string.tag({
+    name: 'Nota 3',
+    group: 'Programar Notas',
+  }),
+  date3: PropTypes.dateTime.tag({
+    name: 'Fecha de publicación',
+    group: 'Programar Notas',
+  }),
 })
 
 export default customFields

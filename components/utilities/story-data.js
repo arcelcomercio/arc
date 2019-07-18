@@ -1,6 +1,11 @@
 import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
-import { defaultImage, formatHtmlToText, breadcrumbList, addSlashToEnd } from './helpers'
+import {
+  defaultImage,
+  formatHtmlToText,
+  breadcrumbList,
+  addSlashToEnd,
+} from './helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -96,33 +101,85 @@ class StoryData {
     return StoryData.getDataAuthor(this._data).slugAuthor
   }
 
+  get defaultImg() {
+    return defaultImage({
+      deployment: this._deployment,
+      contextPath: this._contextPath,
+      arcSite: this._website,
+      size: this._defaultImgSize,
+    })
+  }
+
   get authorImage() {
     return (
       StoryData.getDataAuthor(this._data, {
         contextPath: this._contextPath,
-      }).imageAuthor ||
-      defaultImage({
-        deployment: this._deployment,
-        contextPath: this._contextPath,
-        arcSite: this._website,
-        size: this._defaultImgSize,
-      })
+      }).imageAuthor || this.defaultImg
     )
   }
 
   get multimedia() {
-    return (
-      StoryData.getThumbnail(
-        this._data,
-        StoryData.getTypeMultimedia(this._data)
-      ) ||
-      defaultImage({
-        deployment: this._deployment,
-        contextPath: this._contextPath,
-        arcSite: this._website,
-        size: this._defaultImgSize,
-      })
-    )
+    return this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
+  }
+
+  get multimediaLandscapeXL() {
+    return this.getMultimediaBySize(ConfigParams.LANDSCAPE_XL)
+  }
+
+  get multimediaLandscapeL() {
+    return this.getMultimediaBySize(ConfigParams.LANDSCAPE_L)
+  }
+
+  get multimediaLandscapeMD() {
+    return this.getMultimediaBySize(ConfigParams.LANDSCAPE_MD)
+  }
+
+  get multimediaLandscapeS() {
+    return this.getMultimediaBySize(ConfigParams.LANDSCAPE_S)
+  }
+
+  get multimediaLandscapeXS() {
+    return this.getMultimediaBySize(ConfigParams.LANDSCAPE_XS)
+  }
+
+  get multimediaPortraitXL() {
+    return this.getMultimediaBySize(ConfigParams.PORTRAIT_XL)
+  }
+
+  get multimediaPortraitL() {
+    return this.getMultimediaBySize(ConfigParams.PORTRAIT_L)
+  }
+
+  get multimediaPortraitMD() {
+    return this.getMultimediaBySize(ConfigParams.PORTRAIT_MD)
+  }
+
+  get multimediaPortraitS() {
+    return this.getMultimediaBySize(ConfigParams.PORTRAIT_S)
+  }
+
+  get multimediaPortraitXS() {
+    return this.getMultimediaBySize(ConfigParams.PORTRAIT_XS)
+  }
+
+  get multimediaSquareXL() {
+    return this.getMultimediaBySize(ConfigParams.SQUARE_XL)
+  }
+
+  get multimediaSquareL() {
+    return this.getMultimediaBySize(ConfigParams.SQUARE_L)
+  }
+
+  get multimediaSquareMD() {
+    return this.getMultimediaBySize(ConfigParams.SQUARE_MD)
+  }
+
+  get multimediaSquareS() {
+    return this.getMultimediaBySize(ConfigParams.SQUARE_S)
+  }
+
+  get multimediaSquareXS() {
+    return this.getMultimediaBySize(ConfigParams.SQUARE_XS)
   }
 
   get multimediaType() {
@@ -136,7 +193,9 @@ class StoryData {
 
   get sectionLink() {
     // FIXME: deprecated
-    return addSlashToEnd(StoryData.getDataSection(this._data, this._website).path)
+    return addSlashToEnd(
+      StoryData.getDataSection(this._data, this._website).path
+    )
   }
 
   get primarySection() {
@@ -180,6 +239,12 @@ class StoryData {
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
     return videosContent.concat(promoItemsVideo).filter(String)
+  }
+
+  get seoTitle() {
+    const { headlines: { meta_title: metaTitle = '', basic = '' } = {} } =
+      this._data || {}
+    return metaTitle || basic
   }
 
   get imagesSeo() {
@@ -314,6 +379,27 @@ class StoryData {
     return (this._data && this._data.content_elements) || []
   }
 
+  get contentPosicionPublicidadAmp() {
+    let i = 0
+    const { content_elements: contentElements = null } = this._data
+    return (
+      contentElements &&
+      contentElements.map(dataContent => {
+        let dataElements = {}
+        const { type: typeElement } = dataContent
+        dataElements = dataContent
+        if (i === 1) {
+          dataElements.publicidad = true
+          i += 1
+        }
+        if (typeElement === ConfigParams.ELEMENT_TEXT) {
+          i += 1
+        }
+        return dataElements
+      })
+    )
+  }
+
   get promoItems() {
     return (this._data && this._data.promo_items) || []
   }
@@ -326,6 +412,16 @@ class StoryData {
       ]).resized_urls[ratio]
     }
     return this.multimedia
+  }
+
+  getMultimediaBySize(size) {
+    return (
+      StoryData.getThumbnailBySize(
+        this._data,
+        StoryData.getTypeMultimedia(this._data),
+        size
+      ) || this.defaultImg
+    )
   }
 
   static getSeoMultimedia(
@@ -519,7 +615,7 @@ class StoryData {
     return thumb
   }
 
-  static getThumbnailGallery(data) {
+  static getThumbnailGalleryBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
     const thumb =
       (data &&
         data.promo_items &&
@@ -531,28 +627,32 @@ class StoryData {
         ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
           .resized_urls &&
           data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-            .resized_urls.large) ||
+            .resized_urls[size]) ||
           data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
             .url)) ||
       ''
     return thumb
   }
 
-  static getImage(data) {
-    const { url, resized_urls: { large } = {}, type = null } =
+  static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
+    const { url = '', resized_urls: resizeUrls = {}, type = null } =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
-
-    return (type === 'image' && large ? large : url) || ''
+    if (size === ConfigParams.IMAGE_ORIGINAL) return url
+    return (
+      (type === ConfigParams.ELEMENT_IMAGE && resizeUrls[size]
+        ? resizeUrls[size]
+        : url) || ''
+    )
   }
 
-  static getThumbnail(data, type) {
+  static getThumbnailBySize(data, type, size) {
     let thumb = ''
     if (type === ConfigParams.VIDEO) {
       thumb = StoryData.getThumbnailVideo(data)
     } else if (type === ConfigParams.GALLERY) {
-      thumb = StoryData.getThumbnailGallery(data)
+      thumb = StoryData.getThumbnailGalleryBySize(data, size)
     } else if (type === ConfigParams.IMAGE) {
-      thumb = StoryData.getImage(data)
+      thumb = StoryData.getImageBySize(data, size)
     }
     return thumb
   }

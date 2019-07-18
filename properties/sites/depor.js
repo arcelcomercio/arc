@@ -114,4 +114,12 @@ export default {
       url: 'https://plus.google.com/u/0/+deporcom',
     },
   },
+  adsAmp: {
+    dataSlot: 28253241,
+    movil1: 15011765,
+    movil2: 15011768,
+    movil3: 15011769,
+    movil4: 15011770,
+    movil5: 15011771,
+  },
 }
