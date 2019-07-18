@@ -1,9 +1,16 @@
 .featured-story {
   &__author {
     order: 2;
-    border-bottom: 1px solid #f5e9de;
+    border-top: 1px solid #f5e9de;
     padding-bottom: 10px;
     text-transform: capitalize;
+    &::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 20px;
+      background-color: #f5e9de;
+    }
   }
 
   &__category {
