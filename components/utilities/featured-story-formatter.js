@@ -36,6 +36,10 @@ class FeaturedStoryFormatter {
           name
           path 
         }
+        sections {
+          name
+          path 
+        }
       }
       website_url
       publish_date
