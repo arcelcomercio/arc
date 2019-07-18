@@ -42,8 +42,7 @@ function WizardPlan({ nextStep, summary, plans }) {
                 <CardPrice
                   key={plan.priceCode}
                   plan={plan}
-                  // onClick={subscribePlanHandler}
-                  onClick={nextStep}
+                  onClick={subscribePlanHandler}
                   loading={loading}
                 />
               )
