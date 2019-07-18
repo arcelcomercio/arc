@@ -3,8 +3,8 @@ import { formatDateStory } from '../../../../utilities/helpers'
 
 const classes = {
   author: 'story-content__author flex justify-between pt-30 mb-20',
-  authorName: ' ',
-  authorNameLink: 'secondary-font text-sm text-gray-200 line-h-sm',
+  authorNameLink:
+    'secondary-font font-bold header__link text-lg text-gray-200 line-h-sm',
   authorDate:
     'flex items-center secondary-font text-md text-gray-200 line-h-sm',
   authorEmail: 'secondary-font text-md text-gray-200 line-h-sm',
@@ -21,7 +21,8 @@ const StoryContentChildAuthor = props => {
   ] = by || []
   return (
     <div className={classes.author}>
-      <div className={classes.authorName}>
+      {/* // TODO: Cambiar este div por <address> */}
+      <div>
         {name && (
           <a href={url} className={classes.authorNameLink}>
             {name}
