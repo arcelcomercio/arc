@@ -314,8 +314,34 @@ export const removeLastSlash = url => {
 }
 
 export const addSlashToEnd = url => {
-  if (url && url.trim() === '/') return url
-  return url && !url.endsWith('/') ? `${url}/` : url
+  const urlString = `${url}`
+  if (url && urlString.trim() === '/') return url
+  return url && !urlString.endsWith('/') ? `${url}/` : url
+}
+
+export const addParamToEndPath = (path, param) => {
+  const getPathAndString = (pathData, symbol = '?') => {
+    const index = pathData.indexOf(symbol)
+    let onlyPath = pathData
+    let queryString = ''
+    let haveQueryString = false 
+    if (index !==-1) {
+      onlyPath = pathData.substr(0, index)
+      queryString = pathData.substr(index)
+      haveQueryString = true
+    }
+    return {onlyPath, queryString, haveQueryString}
+  }
+  const addParam = (onlyPath, variable, queryString = '') => {
+    return `${addSlashToEnd(onlyPath)}${addSlashToEnd(variable)}${queryString}`
+  }
+  let data = getPathAndString(path)
+  if(data.haveQueryString) return addParam(data.onlyPath, param, data.queryString)
+  data = getPathAndString(path, '#')
+  if(data.haveQueryString) return addParam(data.onlyPath, param, data.queryString)
+  data = getPathAndString(path, '&')
+  if(data.haveQueryString) return addParam(data.onlyPath, param, data.queryString)
+  return addParam(path, param)
 }
 
 export const defaultImage = ({

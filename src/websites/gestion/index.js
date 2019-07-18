@@ -1,5 +1,5 @@
 import './scss/main.scss'
-import './favicon.ico'
+import './images/favicon.png'
 import './images/apple-touch-icon.png'
 import './images/apple-touch-icon-76x76.png'
 import './images/apple-touch-icon-120x120.png'
