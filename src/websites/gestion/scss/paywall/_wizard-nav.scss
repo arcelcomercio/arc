@@ -12,6 +12,9 @@
       .nav-step-name{
         display: none;
       }
+      .nav-step-active .nav-step-name{
+        display: block;
+      }
     }
 
 }
