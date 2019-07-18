@@ -532,8 +532,20 @@ class StoryData {
 
   static getPrimarySection(data) {
     const {
-      taxonomy: { primary_section: { name = '', path = '' } = {} } = {},
+      taxonomy: {
+        primary_section: { name = '', path = '' } = {},
+        sections = [],
+      } = {},
     } = data || {}
+
+    const { name: auxName, path: auxPath } = sections[0] || {}
+
+    if (!name && !path) {
+      return {
+        name: auxName,
+        path: auxPath,
+      }
+    }
 
     return {
       name,
