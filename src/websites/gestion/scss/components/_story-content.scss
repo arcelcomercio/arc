@@ -10,9 +10,6 @@
       font-size: 19px;
     }
   }
-  &__author-email {
-    color: $color-gray-300;
-  }
   &__author-link,
   &__author-email {
     font-weight: 700;
@@ -20,5 +17,8 @@
   }
   &__date {
     font-family: $tertiary-font;
+    @media (--desktop) {
+      font-size: 11px;
+    }
   }
 }

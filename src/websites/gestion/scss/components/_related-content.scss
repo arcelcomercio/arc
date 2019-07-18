@@ -1,11 +1,18 @@
 .related-content {
   &__item {
+    display: flex;
     @media (--tablet) {
       justify-content: end;
+    }
+    border-bottom: 1px dashed $color-gray-200;
+    border-top: 0;
+    &:last-child {
+      border-bottom: 0;
     }
   }
   &__information {
     margin-left: 30px;
+    width: calc(100% - 105px);
   }
   &__title {
     color: $color-primary;
@@ -15,17 +22,25 @@
       font-size: 19px;
     }
   }
-  &__link {
+  /*   &__link {
     @media (--tablet) {
       font-size: 20px;
-      line-height: 1;
     }
-  }
+  } */
   &__multimedia {
     order: -1;
+
+    width: 75px;
+    height: 90px;
+  }
+  &__item-title {
+    line-height: 1.3;
+    font-size: 16px;
     @media (--tablet) {
-      width: 75px;
-      height: 90px;
+      font-size: 19px;
+    }
+    @media (--desktop) {
+      font-size: 22px;
     }
   }
 }
