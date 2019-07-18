@@ -1,29 +1,25 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import {
-  resizerSecret,
-  CONTENT_BASE
-} from 'fusion:environment'
-import {
-  addResizedUrls
-} from '@arc-core-components/content-source_content-api-v4'
+import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import {
   /* removeLastSlash, */
-  addResizedUrlsToStory
+  addResizedUrlsToStory,
 } from '../../components/utilities/helpers'
 
 // Fix temporal
 const removeLastSlash = section => {
   if (section === '/') return section
-  return section && section.endsWith('/') ?
-    section.slice(0, section.length - 1) :
-    section
+  return section && section.endsWith('/')
+    ? section.slice(0, section.length - 1)
+    : section
 }
 
 const SCHEMA_NAME = 'stories'
 let website = ''
-const params = [{
+const params = [
+  {
     name: 'section',
     displayName: 'Section(es)',
     type: 'text',
@@ -52,26 +48,21 @@ const itemsToArray = (itemString = '') => {
   return itemString.split(',').map(item => item.replace(/"/g, ''))
 }
 
-
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
-  const {
-    section,
-    excludeSections,
-    feedOffset,
-    stories_qty: storiesQty
-  } = key
+  const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
   const clearSection = removeLastSlash(section)
   const newSection =
-    clearSection === '' || clearSection === undefined || clearSection === null ?
-    '/' :
-    clearSection
+    clearSection === '' || clearSection === undefined || clearSection === null
+      ? '/'
+      : clearSection
   // TODO: itemsToArray debe ejecutarse antes que removeLastSlash
   const sectionsExcluded = itemsToArray(excludeSections)
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               'revision.published': 'true',
             },
@@ -82,26 +73,29 @@ const pattern = (key = {}) => {
             },
           },
         ],
-        must_not: [{
-          nested: {
-            path: 'taxonomy.sections',
-            query: {
-              bool: {
-                must: [{
-                    terms: {
-                      'taxonomy.sections._id': sectionsExcluded,
+        must_not: [
+          {
+            nested: {
+              path: 'taxonomy.sections',
+              query: {
+                bool: {
+                  must: [
+                    {
+                      terms: {
+                        'taxonomy.sections._id': sectionsExcluded,
+                      },
                     },
-                  },
-                  {
-                    term: {
-                      'taxonomy.sections._website': website,
+                    {
+                      term: {
+                        'taxonomy.sections._website': website,
+                      },
                     },
-                  },
-                ],
+                  ],
+                },
               },
             },
           },
-        }, ],
+        ],
       },
     },
   }
@@ -113,7 +107,8 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': sectionsIncluded,
                 },
@@ -133,7 +128,7 @@ const pattern = (key = {}) => {
   const encodedBody = encodeURI(JSON.stringify(body))
 
   return request({
-    uri: `${CONTENT_BASE}/site/v3/website/publimetro/section?_id=${newSection}`,
+    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${newSection}`,
     ...options,
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
@@ -144,10 +139,13 @@ const pattern = (key = {}) => {
       ...options,
     }).then(data => {
       const dataStory = data
-      const {
-        resizerUrl
-      } = getProperties(website)
-      dataStory.content_elements = addResizedUrlsToStory(dataStory.content_elements, resizerUrl, resizerSecret, addResizedUrls)
+      const { resizerUrl } = getProperties(website)
+      dataStory.content_elements = addResizedUrlsToStory(
+        dataStory.content_elements,
+        resizerUrl,
+        resizerSecret,
+        addResizedUrls
+      )
       return {
         ...dataStory,
         section_name: resp.name,
