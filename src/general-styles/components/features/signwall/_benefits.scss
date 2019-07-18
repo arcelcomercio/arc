@@ -16,8 +16,9 @@
         }
       }
       &__title {
-        font-size: 22px;
-        line-height: 28px;
+        font-size: $signwall-header-title;
+        line-height: 30px;
+        font-weight: bold;
       }
 
       .text-panel {
@@ -35,7 +36,7 @@
 
       &__item-title {
         font-family: $secondary-font;
-        color: $signwall-text-color;
+        color: $signwall-color-item-title;
         font-weight: 400;
         font-size: 16px;
       }

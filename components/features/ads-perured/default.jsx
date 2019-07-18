@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import customFields from './_dependencies/custom-field'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   adsContainer: 'wrap-perured bg-white p-0 pt-10 m-0 mt-10 mb-10',

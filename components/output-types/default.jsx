@@ -48,7 +48,9 @@ export default ({
 
   const title =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? (!metaValue('meta_title').match(/content/) &&
+      ? (isStory &&
+          metaValue('meta_title') &&
+          !metaValue('meta_title').match(/content/) &&
           metaValue('meta_title')) ||
         metaValue('title')
       : siteProperties.siteName
@@ -176,6 +178,9 @@ export default ({
         {/* <!-- Rubicon BlueKai - Fin --> */}
 
         <Libs />
+        {/* Scripts Identity & Sales */}
+        <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-sales.min.js" />
+        <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js" />
       </head>
       <body className={isStory ? 'story' : ''}>
         <noscript>

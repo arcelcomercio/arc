@@ -4,7 +4,8 @@ import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import {
-  /* removeLastSlash, */ addResizedUrlsToStory
+  /* removeLastSlash, */
+  addResizedUrlsToStory,
 } from '../../components/utilities/helpers'
 
 // Fix temporal
@@ -46,7 +47,6 @@ const options = {
 const itemsToArray = (itemString = '') => {
   return itemString.split(',').map(item => item.replace(/"/g, ''))
 }
-
 
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
@@ -128,7 +128,7 @@ const pattern = (key = {}) => {
   const encodedBody = encodeURI(JSON.stringify(body))
 
   return request({
-    uri: `${CONTENT_BASE}/site/v3/website/publimetro/section?_id=${newSection}`,
+    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${newSection}`,
     ...options,
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
@@ -140,7 +140,12 @@ const pattern = (key = {}) => {
     }).then(data => {
       const dataStory = data
       const { resizerUrl } = getProperties(website)
-      dataStory.content_elements = addResizedUrlsToStory(dataStory.content_elements, resizerUrl, resizerSecret, addResizedUrls)
+      dataStory.content_elements = addResizedUrlsToStory(
+        dataStory.content_elements,
+        resizerUrl,
+        resizerSecret,
+        addResizedUrls
+      )
       return {
         ...dataStory,
         section_name: resp.name,

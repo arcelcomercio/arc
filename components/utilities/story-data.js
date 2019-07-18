@@ -122,23 +122,23 @@ class StoryData {
     return this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
   }
 
-  get multimediaLandScapeXL() {
+  get multimediaLandscapeXL() {
     return this.getMultimediaBySize(ConfigParams.LANDSCAPE_XL)
   }
 
-  get multimediaLandScapeL() {
+  get multimediaLandscapeL() {
     return this.getMultimediaBySize(ConfigParams.LANDSCAPE_L)
   }
 
-  get multimediaLandScapeMD() {
+  get multimediaLandscapeMD() {
     return this.getMultimediaBySize(ConfigParams.LANDSCAPE_MD)
   }
 
-  get multimediaLandScapeS() {
+  get multimediaLandscapeS() {
     return this.getMultimediaBySize(ConfigParams.LANDSCAPE_S)
   }
 
-  get multimediaLandScapeXS() {
+  get multimediaLandscapeXS() {
     return this.getMultimediaBySize(ConfigParams.LANDSCAPE_XS)
   }
 
@@ -242,11 +242,9 @@ class StoryData {
   }
 
   get seoTitle() {
-    return (
-      (this._data && this._data.headlines && this._data.headlines.meta_title) ||
-      this._data.headlines.basic ||
-      ''
-    )
+    const { headlines: { meta_title: metaTitle = '', basic = '' } = {} } =
+      this._data || {}
+    return metaTitle || basic
   }
 
   get imagesSeo() {
@@ -381,6 +379,27 @@ class StoryData {
     return (this._data && this._data.content_elements) || []
   }
 
+  get contentPosicionPublicidadAmp() {
+    let i = 0
+    const { content_elements: contentElements = null } = this._data
+    return (
+      contentElements &&
+      contentElements.map(dataContent => {
+        let dataElements = {}
+        const { type: typeElement } = dataContent
+        dataElements = dataContent
+        if (i === 1) {
+          dataElements.publicidad = true
+          i += 1
+        }
+        if (typeElement === ConfigParams.ELEMENT_TEXT) {
+          i += 1
+        }
+        return dataElements
+      })
+    )
+  }
+
   get promoItems() {
     return (this._data && this._data.promo_items) || []
   }
@@ -401,8 +420,7 @@ class StoryData {
         this._data,
         StoryData.getTypeMultimedia(this._data),
         size
-      ) ||
-      this.defaultImg
+      ) || this.defaultImg
     )
   }
 
@@ -603,7 +621,9 @@ class StoryData {
         data.promo_items &&
         data.promo_items[ConfigParams.GALLERY] &&
         data.promo_items[ConfigParams.GALLERY].promo_items &&
-        data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE] &&
+        data.promo_items[ConfigParams.GALLERY].promo_items[
+          ConfigParams.IMAGE
+        ] &&
         ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
           .resized_urls &&
           data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
@@ -618,7 +638,11 @@ class StoryData {
     const { url = '', resized_urls: resizeUrls = {}, type = null } =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
     if (size === ConfigParams.IMAGE_ORIGINAL) return url
-    return (type === ConfigParams.ELEMENT_IMAGE && resizeUrls[size] ? resizeUrls[size] : url) || ''
+    return (
+      (type === ConfigParams.ELEMENT_IMAGE && resizeUrls[size]
+        ? resizeUrls[size]
+        : url) || ''
+    )
   }
 
   static getThumbnailBySize(data, type, size) {

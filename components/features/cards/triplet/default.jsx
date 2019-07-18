@@ -54,6 +54,7 @@ class CardTriplet extends PureComponent {
   getInstanceSnap(el, index) {
     this.data.__data = el
     this.data.__index = index
+    // TODO: Este feature no debería usar attributesRaw, consume muchos recursos
     return this.data.attributesRaw
   }
 
@@ -116,7 +117,6 @@ class CardTriplet extends PureComponent {
 }
 
 CardTriplet.label = 'Triplete'
-CardTriplet.static = true
 
 CardTriplet.propTypes = {
   customFields,
