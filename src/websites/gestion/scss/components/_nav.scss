@@ -26,6 +26,8 @@
   &__input-search {
     background-color: transparent;
     color: $color-white;
+    font-family: $tertiary-font;
+    font-weight: 700;
     &::placeholder {
       color: $color-white;
     }

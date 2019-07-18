@@ -1,4 +1,5 @@
 .most-read-item {
+  border-color: $color-gray-300;
   &__detail {
     max-height: calc(13px * 1.33 * 3);
     font-weight: 700;
