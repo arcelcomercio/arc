@@ -1,4 +1,5 @@
 import React from 'react'
+import { addParamToEndPath } from '../utilities/helpers'
 
 const classes = {
   pagination:
@@ -89,8 +90,8 @@ const Pagination = props => {
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
   const prevPage = currentPage - 1
 
-  const urlPrevPage = `${pathOrigin}/${prevPage}/`
-  const urlNextPage = `${pathOrigin}/${nextPage}/`
+  const urlPrevPage =  addParamToEndPath(pathOrigin, prevPage) // `${pathOrigin}/${prevPage}/`
+  const urlNextPage =  addParamToEndPath(pathOrigin, nextPage) // `${pathOrigin}/${nextPage}/`
 
   return (
     <div role="navigation" className={classes.pagination}>
@@ -106,9 +107,9 @@ const Pagination = props => {
       {pages.map((page, i) => {
         let tag = null
         const key = `pagination-${i}-${page || ''}`
-        const urlPage = `${pathOrigin}/${page}/`
 
         if (page !== '...') {
+          const urlPage = addParamToEndPath(pathOrigin, page) // `${pathOrigin}/${page}/`
           tag = (
             <a
               key={key}
