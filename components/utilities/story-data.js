@@ -381,9 +381,10 @@ class StoryData {
 
   get contentPosicionPublicidadAmp() {
     let i = 0
+    const { content_elements: contentElements = null } = this._data
     return (
-      this._data &&
-      this._data.content_elements.map(dataContent => {
+      contentElements &&
+      contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
         dataElements = dataContent
