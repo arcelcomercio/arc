@@ -16,7 +16,7 @@ const StoryContentChildAuthor = props => {
     {
       name,
       url,
-      /* additional_properties: { original: { email } = {} } = {}, COMENTARIO ABAJO */
+      additional_properties: { original: { email } = {} } = {},
     } = {},
   ] = by || []
   return (
@@ -28,8 +28,7 @@ const StoryContentChildAuthor = props => {
             {name}
           </a>
         )}
-        {/* TODO: se Retira por cambio de diseño, pendiente de definicion en los demas sitios */}
-        {/* email && true && <p className={classes.authorEmail}> {email} </p> */}
+        {email && true && <p className={classes.authorEmail}> {email} </p>}
       </div>
       <div className={classes.authorDate}>
         <time dateTime={date}>
