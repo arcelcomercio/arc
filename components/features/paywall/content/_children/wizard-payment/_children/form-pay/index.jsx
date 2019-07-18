@@ -1,23 +1,26 @@
 import React from 'react'
-import { Formik, Form, Field } from 'formik'
 import styled from 'styled-components'
-
+import { Formik, Form, Field } from 'formik'
 import RadioButton from '../../../radio-button'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
 import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import schema from '../../../../../_dependencies/schema'
+import { devices } from '../../../../../_dependencies/devices'
 
-const FieldDate = styled(Field)`
-  max-width: 150px;
+const RadioCondition = styled(RadioButton)`
+  @media (${devices.mobile}) {
+    flex-direction: row;
+    margin: 0;
+  }
 `
 
 const RegisterSchema = schema({})
 
-const FormPay = ({ profile }) => (
+const FormPay = ({ nextStep }) => (
   <Formik
-    initialValues={profile}
+    initialValues={{}}
     validate={values => {
       return RegisterSchema(values)
     }}
@@ -47,36 +50,63 @@ const FormPay = ({ profile }) => (
               component={RadioButton}
               label={<Icon type="mcard" />}
               name="card"
-              valueCheck="visa"
+              valueCheck="mcard"
             />
             <Field
               component={RadioButton}
               label={<Icon type="amex" />}
               name="card"
-              valueCheck="visa"
+              valueCheck="amex"
             />
             <Field
               component={RadioButton}
               label={<Icon type="diners" />}
               name="card"
-              valueCheck="visa"
+              valueCheck="diners"
             />
           </S.Cards>
         </S.WrapCards>
         <S.WrapInputs>
-          <Field
-            component={Input}
-            name="card"
-            placeholder="Número de tarjeta"
-          />
-          <FieldDate
-            component={Input}
-            name="card"
-            placeholder="F. de Vencimiento"
-          />
-          <Field component={Input} name="card" placeholder="CVV" />
+          <S.WrapInput min-width="310px">
+            <Field
+              component={Input}
+              name="card"
+              placeholder="Número de tarjeta"
+            />
+          </S.WrapInput>
+
+          <S.WrapInput max-width="150px">
+            <Field
+              component={Input}
+              name="card"
+              placeholder="F. de Vencimiento"
+            />
+          </S.WrapInput>
+          <S.WrapInput max-width="135px">
+            <Field component={Input} name="card" placeholder="CVV" />
+          </S.WrapInput>
         </S.WrapInputs>
-        <Button type="submit">CONTINUAR</Button>
+
+        <Field
+          component={RadioCondition}
+          label={
+            <span>
+              Acepto las condiciones de servicio, política de privacidad y estoy
+              de acuerdo con la información.
+            </span>
+          }
+          name="term"
+          valueCheck="amex"
+        />
+
+        <S.Span>
+          Acepto las condiciones de servicio, política de privacidad y estoy de
+          acuerdo con la información.
+        </S.Span>
+
+        <Button type="submit" onClick={nextStep}>
+          CONTINUAR
+        </Button>
       </Form>
     )}
   />

@@ -29,16 +29,16 @@ class SignWallRelogin extends Component {
       relogin: (
         <FormRelogin
           closePopup={closePopup}
-          typePopUp="relogin"
-          typeForm="relogin"
+          typePopUp="relogemail"
+          typeForm="relogemail"
           brandCurrent={brandModal}
         />
       ),
       register: (
         <FormRegister
           closePopup={closePopup}
-          typePopUp="relogin"
-          typeForm="relogin"
+          typePopUp="relogemail"
+          typeForm="relogemail"
           brandCurrent={brandModal}
         />
       ),

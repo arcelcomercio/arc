@@ -52,17 +52,14 @@ const Select = () => (
 
 const FormStyled = S.Form(Form)
 
-const UserProfile = ({ title = '', profile }) => (
+const UserProfile = ({ title = '', profile, onClick = () => {} }) => (
   <Formik
     initialValues={profile}
     validate={values => {
       return RegisterSchema(values)
     }}
     onSubmit={(values, actions) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2))
-        actions.setSubmitting(false)
-      }, 1000)
+      onClick()
     }}
     render={() => (
       <FormStyled>
@@ -116,7 +113,9 @@ const UserProfile = ({ title = '', profile }) => (
             />
           </S.WrapField>
         </S.Wrap>
-        <Button type="submit">CONTINUAR 2</Button>
+        <Button type="submit" onClick={onClick}>
+          CONTINUAR
+        </Button>
       </FormStyled>
     )}
   />
