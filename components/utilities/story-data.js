@@ -683,7 +683,7 @@ class StoryData {
           } = data
           if (storyId !== id && i < 2) {
             const type = StoryData.getTypeMultimedia(data)
-            const urlImage = StoryData.getThumbnail(data, type)
+            const urlImage = StoryData.getThumbnailBySize(data, type)
             i += 1
             return {
               basic,
