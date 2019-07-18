@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from '@arc-core-components/element_image'
 import { getIcon } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 import ConfigParams from '../../../../utilities/config-params'
@@ -44,10 +45,12 @@ const RenderRelatedContentElement = (elements, i) => {
       </div>
       <figure className={classes.multimedia}>
         <a href={filterData.urlTitle} className={classes.link}>
-          <img
-            src={filterData.multimediaImg}
-            alt={filterData.nameTitle}
-            className={classes.image}
+          <Image
+            width="100%"
+            layout="responsive"
+            imgClassName={classes.image}
+            captionClassName={classes.caption}
+            {...get.promoItems}
           />
           {filterData.multimediaType === ConfigParams.IMAGE ||
           filterData.multimediaType === '' ? (

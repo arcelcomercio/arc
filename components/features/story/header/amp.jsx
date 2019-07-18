@@ -13,6 +13,7 @@ const classes = {
   description:
     'amp-story-header__description mt-0 text-md text-gray-300 secondary-font',
   gallery: 'amp-story-header bg-white w-full pr-20 pl-20 m-5 mx-auto',
+  adsAmp: 'text-center',
 }
 @Consumer
 class StoryHeaderAmp extends PureComponent {
@@ -45,7 +46,10 @@ class StoryHeaderAmp extends PureComponent {
               {formatDayMonthYear(date)}
             </time>
           </header>
-          <div dangerouslySetInnerHTML={publicidadAmp(parameters)} />
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmp(parameters)}
+          />
 
           {subtitle && <div className={classes.description}> {subtitle}</div>}
           <StoryHeaderChildAmpSocial />

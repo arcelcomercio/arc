@@ -39,6 +39,7 @@ const classes = {
   // Related-content
   relatedList: 'related-content__list pt-10',
   relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
+  taboola: 'story-content__taboola',
 }
 
 @Consumer
@@ -225,7 +226,10 @@ class StoryContent extends PureComponent {
           </div>
         )}
 
-        <div id="taboola-below-content-thumbnails" />
+        <div
+          className={classes.taboola}
+          id="taboola-below-content-thumbnails"
+        />
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{ __html: structuredTaboola }}
