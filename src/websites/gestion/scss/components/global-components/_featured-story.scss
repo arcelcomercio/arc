@@ -1,7 +1,7 @@
 .featured-story {
   &__author {
     order: 2;
-    border-bottom: 1px solid #F5E9DE;
+    border-bottom: 1px solid #f5e9de;
     padding-bottom: 10px;
     text-transform: capitalize;
   }
@@ -20,7 +20,7 @@
 
   &__category-link {
     text-transform: uppercase;
-    color: #AD8D76;
+    color: #ad8d76;
   }
 
   &__detail {
@@ -40,6 +40,15 @@
     .featured-story__detail {
       padding-bottom: 20px !important;
     }
+    .featured-story__category {
+      order: 1;
+      background-color: $color-gray-300;
+      padding: 8px 20px;
+      margin-bottom: 5px;
+      margin-left: -20px;
+    }
+    .featured-story__author {
+      border-bottom: 0;
+    }
   }
-
 }
