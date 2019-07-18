@@ -51,16 +51,10 @@ export default ({
         />
       )}
       <link
-        rel="icon"
-        type="image/x-icon"
-        href={deployment(
-          `${siteUrl}${contextPath}/resources/dist/${arcSite}/favicon.ico`
-        )}
-      />
-      <link
         rel="shortcut icon"
+        type="image/png"
         href={deployment(
-          `${siteUrl}${contextPath}/resources/dist/${arcSite}/favicon.ico`
+          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/favicon.png`
         )}
       />
       <link
