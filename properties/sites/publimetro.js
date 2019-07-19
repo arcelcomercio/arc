@@ -21,6 +21,17 @@ export default {
   siteDescription:
     'Noticias de Perú y el mundo en Publimetro.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
+  imagenNewsLetter: {
+    "thumbnail_max": "https://img.elcomercio.pe/files/servicio_newsletter_648x364/uploads/2017/05/16/591b34b2c9508.jpeg",
+    "thumbnail_min": "https://img.elcomercio.pe/files/servicio_newsletter_214x135/uploads/2017/05/16/591b34b2c9508.jpeg",
+    "thumbnail_250x366": "https://img.elcomercio.pe/files/servicio_newsletter_250x366/uploads/2017/05/16/591b34b2c9508.jpeg",
+    "thumbnail_148x83": "https://img.elcomercio.pe/files/servicio_newsletter_148x83/uploads/2017/05/16/591b34b2c9508.jpeg",
+    "thumbnail_210x118": "https://img.elcomercio.pe/files/servicio_newsletter_210x118/uploads/2017/05/16/591b34b2c9508.jpeg",
+    "thumbnail_403x227": "https://img.elcomercio.pe/files/servicio_newsletter_403x227/uploads/2017/05/16/591b34b2c9508.jpeg",
+    "thumbnail_241x136": "https://img.elcomercio.pe/files/servicio_newsletter_241x136/uploads/2017/05/16/591b34b2c9508.jpeg",
+    "thumbnail_grande": "https://img.elcomercio.pe/files/ec_content_newslatter_grande/uploads/2017/05/16/591b34b2c9508.jpeg",
+    "thumbnail_flujo": "https://img.elcomercio.pe/files/ec_content_newslatter_flujo/uploads/2017/05/16/591b34b2c9508.jpeg"
+  },
   infoPagesDev: {
     termsAndConditions: 'H64O2THIKJA6XADJ5SZ5H45TNQ',
     guidingPrinciples: '',
