@@ -10,9 +10,7 @@ export default arcSite => `{
                     type 
                     url
                     resized_urls { 
-                        small
-                        medium
-                        large
+                        portrait_xs
                     }
                 }
             }
@@ -24,9 +22,7 @@ export default arcSite => `{
                     type 
                     url
                     resized_urls { 
-                        small
-                        medium
-                        large
+                        portrait_xs
                     }
                 }
             }
@@ -35,9 +31,7 @@ export default arcSite => `{
             type 
             url
             resized_urls { 
-                small
-                medium
-                large
+                portrait_xs
             }
         }
     }

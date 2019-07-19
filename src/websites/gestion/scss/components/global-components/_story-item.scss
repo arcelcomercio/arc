@@ -5,8 +5,10 @@
     font-weight: 700;
     border: 0;
     padding: 0;
+    font-size: 14px;
     @media (--tablet) {
       margin: 0;
+      font-size: 15px;
     }
   }
   &__left {
@@ -24,13 +26,19 @@
   &__date {
     font-weight: 700;
     color: $color-base-300;
+    font-size: 11px;
     @media (--tablet) {
       margin: 0;
+      font-size: 12px;
     }
   }
   &__title {
     font-weight: 700;
+    font-size: 16px;
+    max-height: calc(16px * 1.166 * 3);
     @media (--tablet) {
+      max-height: calc(20px * 1.166 * 3);
+      font-size: 24px;
       margin-top: 0;
     }
   }
@@ -38,6 +46,11 @@
     color: $color-gray-300;
     font-weight: 700;
     font-size: $font-sm;
+    @media (--tablet) {
+      font-weight: 300;
+      font-size: 15px;
+      max-height: calc(0.9rem * 1.333 * 3);
+    }
   }
   &__icon {
     color: $color-base-200;

@@ -39,6 +39,7 @@ const classes = {
   // Related-content
   relatedList: 'related-content__list pt-10',
   relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
+  taboola: 'story-content__taboola',
 }
 
 @Consumer
@@ -69,6 +70,7 @@ class StoryContent extends PureComponent {
       siteProperties: {
         ids: { opta },
         siteUrl,
+        nameStoryRelated,
       },
     } = this.props
     const {
@@ -211,7 +213,7 @@ class StoryContent extends PureComponent {
 
         {relatedContent && relatedContent.length > 0 && (
           <div role="list" className={classes.relatedList}>
-            <h4 className={classes.relatedTitle}>Relacionadas </h4>
+            <h4 className={classes.relatedTitle}>{nameStoryRelated} </h4>
             {relatedContent.map((item, i) => {
               const { type } = item
               const key = `related-content-${i}`
@@ -224,7 +226,10 @@ class StoryContent extends PureComponent {
           </div>
         )}
 
-        <div id="taboola-below-content-thumbnails" />
+        <div
+          className={classes.taboola}
+          id="taboola-below-content-thumbnails"
+        />
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{ __html: structuredTaboola }}

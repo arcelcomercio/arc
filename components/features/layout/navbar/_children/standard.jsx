@@ -76,7 +76,7 @@ class NavBarDefault extends PureComponent {
         nameUser: new GetProfile().username,
         initialUser: new GetProfile().initname,
       })
-    }else{
+    } else {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         nameUser: new GetProfile().username,
@@ -135,32 +135,32 @@ class NavBarDefault extends PureComponent {
     return false
   }
 
-  // If return value Parameter
+  // check Url string popup
   getUrlParam = name => {
     const vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
       vars[key] = value
     })
-
     if (vars[name]) {
-      switch (name) {
-        case 'signwallHard':
-          this.setState({ showHard: true })
-          break
-        case 'tokenVerify':
-          this.setState({ showVerify: true })
-          break
-        case 'tokenReset':
-          this.setState({ showReset: true })
-          break
-        case 'reloginEmail':
-          this.setState({ showRelogin: true })
-          break
-        default:
-          return vars[name]
-      }
+      setTimeout(() => {
+        switch (name) {
+          case 'signwallHard':
+            this.setState({ showHard: true })
+            break
+          case 'tokenVerify':
+            this.setState({ showVerify: true })
+            break
+          case 'tokenReset':
+            this.setState({ showReset: true })
+            break
+          case 'reloginEmail':
+            this.setState({ showRelogin: true })
+            break
+          default:
+          // return false
+        }
+      }, 500)
     }
-
     return vars[name]
   }
 
@@ -216,6 +216,27 @@ class NavBarDefault extends PureComponent {
 
   closeSignwall() {
     this.setState({ isActive: false })
+  }
+
+  closePopUp(name) {
+    switch (name) {
+      case 'signwallHard':
+        this.setState({ showHard: false })
+        break
+      case 'tokenVerify':
+        this.setState({ showVerify: false })
+        break
+      case 'tokenReset':
+        this.setState({ showReset: false })
+        break
+      case 'reloginEmail':
+        this.setState({ showRelogin: false })
+        break
+      default:
+        return null
+    }
+    window.history.pushState({}, document.title, '/')
+    return null
   }
 
   // Close Search
@@ -387,14 +408,14 @@ class NavBarDefault extends PureComponent {
 
         {this.getUrlParam('signwallHard') && !this.checkSesion() && showHard ? (
           <SignWallHard
-            closePopup={() => this.setState({ showHard: false })}
+            closePopup={() => this.closePopUp('signwallHard')}
             brandModal={arcSite}
           />
         ) : null}
 
         {this.getUrlParam('tokenVerify') && showVerify ? (
           <SignWallVerify
-            closePopup={() => this.setState({ showVerify: false })}
+            closePopup={() => this.closePopUp('tokenVerify')}
             brandModal={arcSite}
             tokenVerify={this.getUrlParam('tokenVerify')}
           />
@@ -402,7 +423,7 @@ class NavBarDefault extends PureComponent {
 
         {this.getUrlParam('tokenReset') && showReset ? (
           <SignWallReset
-            closePopup={() => this.setState({ showReset: false })}
+            closePopup={() => this.closePopUp('tokenReset')}
             brandModal={arcSite}
             tokenReset={this.getUrlParam('tokenReset')}
           />
@@ -412,7 +433,7 @@ class NavBarDefault extends PureComponent {
         !this.checkSesion() &&
         showRelogin ? (
           <SignWallRelogin
-            closePopup={() => this.setState({ showRelogin: false })}
+            closePopup={() => this.closePopUp('reloginEmail')}
             brandModal={arcSite}
           />
         ) : null}
