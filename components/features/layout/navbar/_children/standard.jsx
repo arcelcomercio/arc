@@ -96,7 +96,7 @@ class NavBarDefault extends PureComponent {
   }
 
   componentDidUpdate() {
-    if (this.checkSesion()) {
+    if (this.checkSession()) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         nameUser: new GetProfile().username,
@@ -518,7 +518,9 @@ class NavBarDefault extends PureComponent {
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
-        {this.getUrlParam('signwallHard') && !this.checkSesion() && showHard ? (
+        {this.getUrlParam('signwallHard') &&
+        !this.checkSession() &&
+        showHard ? (
           <SignWallHard
             closePopup={() => this.closePopUp('signwallHard')}
             brandModal={arcSite}
@@ -542,7 +544,7 @@ class NavBarDefault extends PureComponent {
         ) : null}
 
         {this.getUrlParam('reloginEmail') &&
-        !this.checkSesion() &&
+        !this.checkSession() &&
         showRelogin ? (
           <SignWallRelogin
             closePopup={() => this.closePopUp('reloginEmail')}
