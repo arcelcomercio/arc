@@ -44,7 +44,7 @@ const Description = styled.div`
   justify-content: center;
   display: flex;
   font-weight: 300;
-  padding: 8px 60px;
+  padding: 10px 60px 20px;
   text-align: center;
   @media (${devices.mobile}) {
     padding: 8px 15px;

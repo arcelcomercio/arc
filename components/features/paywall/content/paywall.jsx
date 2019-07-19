@@ -66,7 +66,7 @@ class Content extends React.PureComponent {
             isLazyMount
             isHashEnabled
             nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-            <WizardPlan plans={plans} summary={summary} />
+            <WizardPlan plans={plans} summary={summary} assets={fullAssets} />
             <WizardUserProfile profile={profile} summary={summary} />
             <WizardPayment summary={summary} />
             <WizardConfirmation assets={fullAssets} />
