@@ -75,6 +75,8 @@ class ConfigParams {
   static SQUARE_S = 'square_s'
   
   static SQUARE_XS = 'square_xs'
+
+  static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 }
 
 export const sizeImg = () => {
