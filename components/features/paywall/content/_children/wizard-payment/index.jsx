@@ -32,6 +32,8 @@ function WizardPayment(props) {
 
   const getPayUToken = ({
     baseUrl,
+    publicKey,
+    accountId,
     cardNumber,
     expiryMonth,
     expiryYear,
@@ -41,7 +43,7 @@ function WizardPayment(props) {
     cardMethod,
   }) => {
     return new Promise((resolve, reject) => {
-      const url = `${baseUrl}.token?callback=jQuery19107734719643549919_1563491566646&public_key=PKaC6H4cEDJD919n705L544kSU&account_id=512323&list_id=mylistID&_card%5Bnumber%5D=${cardNumber}&_card%5Bexp_month%5D=${expiryMonth}&_card%5Bexp_year%5D=${expiryYear}&_card%5Bdocument%5D=${cardDocument}&_card%5Bpayer_id%5D=10&_card%5Bname_card%5D=${ownerName}&_card%5Bcvc%5D=${cvv}&_card%5Bmethod%5D=${cardMethod}&_=1563491566648`
+      const url = `${baseUrl}.token?callback=jQuery19107734719643549919_1563491566646&public_key=${publicKey}&account_id=${accountId}&list_id=mylistID&_card%5Bnumber%5D=${cardNumber}&_card%5Bexp_month%5D=${expiryMonth}&_card%5Bexp_year%5D=${expiryYear}&_card%5Bdocument%5D=${cardDocument}&_card%5Bpayer_id%5D=10&_card%5Bname_card%5D=${ownerName}&_card%5Bcvc%5D=${cvv}&_card%5Bmethod%5D=${cardMethod}&_=1563491566648`
       var xhttp = new XMLHttpRequest()
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4) {
@@ -146,22 +148,32 @@ function WizardPayment(props) {
           const { paymentMethodType, paymentMethodID } = payUPaymentMethod
           return Sales.initializePayment(orderNumber, paymentMethodID)
         })
-        .then(({ orderNumber: orderNumber2, parameter3: payuBaseUrl }) => {
-          const ownerName = `${firstName} ${lastName} ${secondLastName}`.trim()
-          const expiryMonth = expiryDate.split('/')[0]
-          const expiryYear = expiryDate.split('/')[1]
+        .then(
+          ({
+            parameter1: publicKey,
+            parameter2: accountId,
+            parameter3: payuBaseUrl,
+            parameter4: deviceSessionId, // TODO: Verificar si api envia este parametro
+          }) => {
+            const ownerName = `${firstName} ${lastName} ${secondLastName}`.trim()
+            const expiryMonth = expiryDate.split('/')[0]
+            const expiryYear = expiryDate.split('/')[1]
 
-          return getPayUToken(
-            payuBaseUrl,
-            cardNumber,
-            expiryMonth,
-            expiryYear,
-            documentNumber,
-            ownerName,
-            cvv,
-            cardMethod.toUpperCase()
-          )
-        })
+            return getPayUToken({
+              payuBaseUrl,
+              publicKey,
+              accountId,
+              deviceSessionId,
+              cardNumber,
+              expiryMonth,
+              expiryYear,
+              documentNumber,
+              ownerName,
+              cvv,
+              cardMethod: cardMethod.toUpperCase(),
+            })
+          }
+        )
         .then(({ token }) => {
           return apiPaymentRegister({
             baseUrl,
