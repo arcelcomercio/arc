@@ -8,12 +8,19 @@ import { addSales } from '../../../_dependencies/sales'
 import { devices } from '../../../_dependencies/devices'
 import Icon from '../../../_children/icon'
 
-function WizardPlan({ nextStep, summary, plans, assets }) {
+function WizardPlan(props) {
+  const {
+    assets,
+    summary,
+    plans,
+    onBeforeNextStep = (res, goNextStep) => goNextStep(),
+  } = props
+
   const fusionContext = useFusionContext()
   const [loading, setLoading] = useState()
   const [errors, setErrors] = useState([])
 
-  const siteProperties = fusionContext.siteProperties
+  const { siteProperties } = fusionContext
   const Sales = addSales(siteProperties)
 
   function subscribePlanHandler(e, plan) {
@@ -23,7 +30,7 @@ function WizardPlan({ nextStep, summary, plans, assets }) {
         .addItemToCart(plan.sku, plan.priceCode, 1)
         .then(res => {
           setLoading(false)
-          nextStep()
+          onBeforeNextStep(plan, props)
         })
         .catch(e => {
           setLoading(false)

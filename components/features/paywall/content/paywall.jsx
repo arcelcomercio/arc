@@ -16,9 +16,10 @@ const Right = () => {
 }
 
 @Consumer
-class Content extends React.PureComponent {
+class Content extends React.Component {
   constructor(props) {
     super(props)
+    this.memo = {}
     this.state = {
       data: {},
       profile: '',
@@ -48,6 +49,11 @@ class Content extends React.PureComponent {
     })
   }
 
+  onBeforeNextStepHandler = (response, { currentStep, nextStep }) => {
+    this.memo = Object.assign({}, this.memo, response)
+    nextStep()
+  }
+
   render() {
     const { data, profile } = this.state
     const { summary = {}, plans } = data
@@ -66,10 +72,29 @@ class Content extends React.PureComponent {
             isLazyMount
             isHashEnabled
             nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-            <WizardPlan plans={plans} summary={summary} assets={fullAssets} />
-            <WizardUserProfile profile={profile} summary={summary} />
-            <WizardPayment summary={summary} />
-            <WizardConfirmation assets={fullAssets} />
+            <WizardPlan
+              memo={this.memo}
+              plans={plans}
+              summary={summary}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+              assets={fullAssets}
+            />
+            <WizardUserProfile
+              memo={this.memo}
+              profile={profile}
+              summary={summary}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+            />
+            <WizardPayment
+              memo={this.memo}
+              summary={summary}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+            />
+            <WizardConfirmation
+              memo={this.memo}
+              assets={fullAssets}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+            />
           </Wizard>
         </S.Content>
       </div>

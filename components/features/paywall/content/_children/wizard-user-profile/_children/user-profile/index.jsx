@@ -4,7 +4,6 @@ import InputFormik from '../../../../../_children/input'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
 import schema from '../../../../../_dependencies/schema'
-import { tsPropertySignature } from '@babel/types'
 
 const MESSAGE = {
   MIN: 'Longitud inválida, mínimo 3 caracteres.',
@@ -63,16 +62,19 @@ const Select = () => (
 
 const FormStyled = S.Form(Form)
 
-const UserProfile = ({ title = '', profile, onSubmit }) => (
+const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => (
   <Formik
     initialValues={profile}
     validate={values => {
-      return RegisterSchema(values)
+      //FIXME: Implementar errores correctamente
+      //return RegisterSchema(values)
+      return true
     }}
     onSubmit={(values, actions) => {
       // TODO: Crear un servicio desde el que se pueda obtener billing address
       onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
     }}
+    onReset={onReset}
     render={() => (
       <FormStyled>
         <S.WrapTitle>
@@ -125,6 +127,7 @@ const UserProfile = ({ title = '', profile, onSubmit }) => (
             />
           </S.WrapField>
         </S.Wrap>
+        {error && <S.Error mb="20px" message={error} />}
         <Button type="submit">CONTINUAR</Button>
       </FormStyled>
     )}

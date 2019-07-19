@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import { devices } from '../../../../../_dependencies/devices'
 
@@ -47,5 +48,37 @@ export const WrapField = styled.div`
     width: 100%;
   }
 `
+const WrapError = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  border-radius: 4px;
+  background-color: lightsalmon;
+`
 
-export { Select, Wrap, Form, Title, WrapTitle }
+const ErrorMessage = styled.span`
+  width: 100%;
+  font-family: OpenSans;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  text-align: center;
+  line-height: 1.83;
+  letter-spacing: normal;
+  color: #db0000;
+`
+
+const Error = styled(({ message, children, style, className }) => {
+  return (
+    <WrapError style={style} className={className}>
+      <ErrorMessage>{message || children}</ErrorMessage>
+    </WrapError>
+  )
+})`
+  margin-bottom: ${props => props.marginBottom || props.mb};
+`
+
+export { Select, Wrap, Form, Title, WrapTitle, Error }

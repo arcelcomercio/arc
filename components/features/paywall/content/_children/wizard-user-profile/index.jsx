@@ -16,33 +16,49 @@ const PanelUserProfile = styled(Panel)`
   }
 `
 
-function WizardUserProfile({ profile, summary }) {
+function WizardUserProfile(props) {
+  const {
+    memo,
+    profile,
+    summary,
+    onBeforeNextStep = (res, goNextStep) => goNextStep(),
+    nextStep,
+  } = props
+
   const fusionContext = useFusionContext()
   const [loading, setLoading] = useState()
-  const [errors, setErrors] = useState([])
+  const [error, setError] = useState()
 
-  const siteProperties = fusionContext.siteProperties
+  const { siteProperties } = fusionContext
   const Sales = addSales(siteProperties)
 
   function onSubmitHandler(
     { email, phone, billingAddress },
     { setSubmitting }
   ) {
+    setError(false)
     setLoading(true)
     Sales.then(sales =>
       sales
         .createOrder(email, phone, billingAddress)
         .then(res => {
+          // TODO: validar respuesta y mostrar errores de API
           setLoading(false)
-          setSubmitting(loading)
-          nextStep()
+          setSubmitting(false)
+          onBeforeNextStep(res, props)
         })
         .catch(e => {
           setLoading(false)
-          setSubmitting(loading)
-          setErrors([...errors, e])
+          setSubmitting(false)
+          setError('Disculpe ha ocurrido un error al procesar el pago')
         })
     )
+  }
+
+  function onResetHandler(values, formikBag) {
+    // TODO: Limpiar errores una vez se vuelva a reenviar el formuario
+    //       hay que llamar a formikBag.handleReset()
+    setError()
   }
 
   return (
@@ -53,6 +69,7 @@ function WizardUserProfile({ profile, summary }) {
             profile={profile}
             onSubmit={onSubmitHandler}
             title="Ingrese sus datos"
+            error={error}
           />
         )}
       </PanelUserProfile>
