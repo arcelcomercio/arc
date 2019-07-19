@@ -26,7 +26,7 @@ const FAKE_BILLING_ADDRESS = {
 
 const RegisterSchema = schema({
   firstName: value => {
-    value
+    return value
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
@@ -43,8 +43,11 @@ const RegisterSchema = schema({
   documentNumber: value => {
     value.required(MESSAGE.REQUIRED).length(8, MESSAGE.DNI)
   },
-  mobilePhone: value => {
-    value.min(9, MESSAGE.CELULAR).max(12, MESSAGE.CELULAR)
+  phone: value => {
+    value
+      .min(9, MESSAGE.CELULAR)
+      .max(12, MESSAGE.CELULAR)
+      .required(MESSAGE.REQUIRED)
   },
   email: value => {
     value.required(MESSAGE.REQUIRED)
@@ -66,71 +69,79 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => (
   <Formik
     initialValues={profile}
     validate={values => {
-      //FIXME: Implementar errores correctamente
-      //return RegisterSchema(values)
-      return true
+      // FIXME: Implementar errores correctamente
+      // return RegisterSchema(values)
+      const erros = RegisterSchema(values)
+
+      if (Object.keys(erros).length > 0) {
+        return erros
+      }
     }}
     onSubmit={(values, actions) => {
       // TODO: Crear un servicio desde el que se pueda obtener billing address
       onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
     }}
     onReset={onReset}
-    render={() => (
-      <FormStyled>
-        <S.WrapTitle>
-          <S.Title>{title}</S.Title>
-        </S.WrapTitle>
-        <S.Wrap>
-          <S.WrapField>
-            <Field
-              name="firstName"
-              placeholder="Nombres"
-              component={InputFormik}
-            />
-          </S.WrapField>
-          <S.WrapField>
-            <Field
-              name="lastName"
-              placeholder="Apellido Paterno"
-              component={InputFormik}
-            />
-          </S.WrapField>
-          <S.WrapField>
-            <Field
-              name="secondLastName"
-              placeholder="Apellido Materno"
-              component={InputFormik}
-            />
-          </S.WrapField>
-          <S.WrapField>
-            <Field
-              name="documentNumber"
-              placeholder="Tipo de documento"
-              type="number"
-              prefix={<Select key="select" />}
-              component={InputFormik}
-            />
-          </S.WrapField>
-          <S.WrapField>
-            <Field
-              name="phone"
-              placeholder="Número de Celular"
-              type="number"
-              component={InputFormik}
-            />
-          </S.WrapField>
-          <S.WrapField>
-            <Field
-              name="email"
-              placeholder="Correo Electrónico"
-              component={InputFormik}
-            />
-          </S.WrapField>
-        </S.Wrap>
-        {error && <S.Error mb="20px" message={error} />}
-        <Button type="submit">CONTINUAR</Button>
-      </FormStyled>
-    )}
+    render={({ isSubmitting }) => {
+      return (
+        <FormStyled>
+          <S.WrapTitle>
+            <S.Title>{title}</S.Title>
+          </S.WrapTitle>
+          <S.Wrap>
+            <S.WrapField>
+              <Field
+                name="firstName"
+                placeholder="Nombres"
+                component={InputFormik}
+              />
+            </S.WrapField>
+            <S.WrapField>
+              <Field
+                name="lastName"
+                placeholder="Apellido Paterno"
+                component={InputFormik}
+              />
+            </S.WrapField>
+            <S.WrapField>
+              <Field
+                name="secondLastName"
+                placeholder="Apellido Materno"
+                component={InputFormik}
+              />
+            </S.WrapField>
+            <S.WrapField>
+              <Field
+                name="documentNumber"
+                placeholder="Tipo de documento"
+                type="number"
+                prefix={<Select key="select" />}
+                component={InputFormik}
+              />
+            </S.WrapField>
+            <S.WrapField>
+              <Field
+                name="phone"
+                placeholder="Número de Celular"
+                type="number"
+                component={InputFormik}
+              />
+            </S.WrapField>
+            <S.WrapField>
+              <Field
+                name="email"
+                placeholder="Correo Electrónico"
+                component={InputFormik}
+              />
+            </S.WrapField>
+          </S.Wrap>
+          {error && <S.Error mb="20px" message={error} />}
+          <Button disabled={isSubmitting} type="submit">
+            CONTINUAR
+          </Button>
+        </FormStyled>
+      )
+    }}
   />
 )
 

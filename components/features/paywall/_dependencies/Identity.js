@@ -40,8 +40,15 @@ const userProfile = (getAttr = []) => {
     promiseProfile = window.Identity.getUserProfile()
   }
   return promiseProfile.then(userPorfile => {
-    const { attributes, ...restProfile } = userPorfile
-    return Object.assign({}, restProfile, attrToObject(attributes, getAttr))
+    const { attributes, contacts, ...restProfile } = userPorfile
+    const [phone = {}] = contacts
+
+    return Object.assign(
+      {},
+      restProfile,
+      phone,
+      attrToObject(attributes, getAttr)
+    )
   })
 }
 
