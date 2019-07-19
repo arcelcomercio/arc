@@ -17,7 +17,7 @@ const classes = {
   date:
     'tabloid__date flex items-center justify-center position-absolute p-20 bg-base-200',
   dateLink: 'tabloid__date-link text-sm text-gray-300 font-bold',
-  face: 'tabloid__face object-contain',
+  face: 'tabloid__face object-cover',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-section'

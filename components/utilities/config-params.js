@@ -36,6 +36,17 @@ class ConfigParams {
 
   static OPTA_WIDGET = 'https://assets.trome.pe/opta'
 
+  // nombre de los Sitios
+  static SITE_PUBLIMETRO = 'publimetro'
+
+  static SITE_GESTION = 'gestion'
+
+  static SITE_DEPOR = 'depor'
+
+  static SITE_ELCOMERCIO = 'elcomercio'
+
+  static SITE_PERU21 = 'peru21'
+
   // opta
   static OPTA_CSS_LINK =
     'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
@@ -43,7 +54,7 @@ class ConfigParams {
   static OPTA_JS_LINK =
     'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js'
 
-  // Image Size 
+  // Image Size
   static IMAGE_ORIGINAL = 'original'
 
   static LANDSCAPE_XL = 'landscape_xl'
@@ -117,7 +128,7 @@ export const sizeImg = () => {
       width: 314,
       height: 374,
     },
-    // TODO: actualizar tamaño    
+    // TODO: actualizar tamaño
     portrait_s: {
       width: 161,
       height: 220,
@@ -127,7 +138,7 @@ export const sizeImg = () => {
       height: 90,
     },
     // square
-    // TODO: actualizar tamaño a todos 
+    // TODO: actualizar tamaño a todos
     square_xl: {
       width: 900,
       height: 900,
@@ -148,7 +159,7 @@ export const sizeImg = () => {
       width: 75,
       height: 75,
     },
-    // TODO: Eliminar estos tamaños despues de actualizar 
+    // TODO: Eliminar estos tamaños despues de actualizar
     // los tamaños de las imagenes de todos los componentes.
     small: {
       width: 100,
