@@ -81,17 +81,12 @@ export default {
   },
   legalLinks: [
     {
-<<<<<<< HEAD
       name: '¿Quiénes somos?',
       url: '/quienes-somos',
     },
     {
       name: 'Términos de uso',
       url: '/terminos-y-condiciones',
-=======
-      name: 'Términos y condiciones',
-      url: '/terminos-servicio',
->>>>>>> 30791b35e78d2c012479bf86edb04e46228bd35b
     },
     {
       name: 'Políticas de Privacidad',
