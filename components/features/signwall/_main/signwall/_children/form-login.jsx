@@ -179,7 +179,7 @@ class FormLogin extends Component {
     window.Identity.getUserProfile().then(resProfile => {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
-      Cookies.deleteCookie('mpp_sess');
+      Cookies.deleteCookie('mpp_sess')
     })
   }
 
