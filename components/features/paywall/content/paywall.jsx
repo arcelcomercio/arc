@@ -21,13 +21,9 @@ const Paywall = () => {
   const fusionContext = useFusionContext()
   const { contextPath, deployment, siteProperties } = fusionContext
 
-  const {
-    data: { summary = {}, plans },
-  } = useContent({
-    data: {
-      source: 'paywall-campaing',
-      query: { campaing: 'paywall-gestion-sandbox' },
-    },
+  const { summary = {}, plans } = useContent({
+    source: 'paywall-campaing',
+    query: { campaing: 'paywall-gestion-sandbox' },
   })
 
   const [profile, setProfile] = useState('')
