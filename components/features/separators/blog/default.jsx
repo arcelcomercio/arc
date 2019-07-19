@@ -1,28 +1,24 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import withSizes from 'react-sizes'
 
 import SeparatorBlogChildItem from './_children/item'
-import { sizeDevice } from '../_dependencies/functions'
 import { defaultImage } from '../../../utilities/helpers'
 
-const BLOG_BASE = '/blog'
-
 const classes = {
+  separator: 'blog-separator mb-20',
   header:
     'blog-separator__header flex flex-row justify-center mb-20 pt-20 position-relative items-center  ',
-  contentItem: 'flex overflow-hidden',
-  contentItemMovil: 'flex flex-col overflow-hidden',
+  itemsWrapper: 'flex flex-col overflow-hidden lg:flex-row',
   titleSeparator:
     'blog-separator__blog uppercase title-lg text-gray-300 blog-separator__title-header flex flex-row justify-left items-center',
   seeMoreText:
-    'blog-separator__see-more-text text-md text-center capitalize pt-10 pb-10 pr-10 pl-10 right-0',
-  wrapper: 'blog-separator__wrapper mb-20',
+    'blog-separator__see-more rounded-sm bg-white text-md text-center text-gray-300 capitalize p-10 right-0',
   seeMoreWrapper:
     'blog-separator__btn-wrapper flex items-center justify-center pt-20',
 }
-const PATH_BLOG = '/blog'
-@withSizes(({ width }) => sizeDevice(width))
+const BLOG_BASE = '/blog'
+const CONTENT_SOURCE = 'get-user-blog-and-posts'
+
 @Consumer
 class SeparatorBlog extends PureComponent {
   constructor(props) {
@@ -34,7 +30,7 @@ class SeparatorBlog extends PureComponent {
   fetchDataApi = (arcSite, storiesQty) => {
     this.fetchContent({
       dataApi: {
-        source: 'get-user-blog-and-posts',
+        source: CONTENT_SOURCE,
         query: {
           website: arcSite,
           blog_limit: storiesQty,
@@ -49,34 +45,24 @@ class SeparatorBlog extends PureComponent {
       arcSite,
       contextPath,
       deployment,
-      isMobile,
-      isTablet,
-      siteProperties: { siteUrl } = {},
+      // siteProperties: { siteUrl } = {},
     } = this.props
     let listPost = Object.values(dataApi)
     listPost = listPost.slice(0, 5)
 
-    const urlVerMas = `${siteUrl}${PATH_BLOG}`
+    // const urlVerMas = `${siteUrl}${BLOG_BASE}`
 
     return (
-      <div className={classes.wrapper}>
+      <div className={classes.separator}>
         <div className={classes.header}>
           <a className={classes.titleSeparator} href={BLOG_BASE}>
             FIRMAS
           </a>
-
-          {isMobile || isTablet ? null : (
-            <a href={urlVerMas} className={classes.seeMoreText}>
-              ver más
-            </a>
-          )}
+          {/*           <a href={urlVerMas} className={classes.seeMoreText}>
+            ver más
+          </a> */}
         </div>
-        <div
-          className={
-            isMobile || isTablet
-              ? classes.contentItemMovil
-              : classes.contentItem
-          }>
+        <div className={classes.itemsWrapper}>
           {listPost &&
             listPost.map(post => {
               const {
@@ -111,18 +97,17 @@ class SeparatorBlog extends PureComponent {
               return <SeparatorBlogChildItem key={blogUrl} {...data} />
             })}
         </div>
-        {isMobile || isTablet ? (
-          <div className={classes.seeMoreWrapper}>
-            <a href={urlVerMas} className={classes.seeMoreText}>
-              ver más
-            </a>
-          </div>
-        ) : null}
+        {/*         <div className={classes.seeMoreWrapper}>
+          <a href={urlVerMas} className={classes.seeMoreText}>
+            ver más
+          </a>
+        </div> */}
       </div>
     )
   }
 }
 
 SeparatorBlog.label = 'Separador de Blog'
+// SeparatorBlog.static = true
 
 export default SeparatorBlog
