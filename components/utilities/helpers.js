@@ -324,23 +324,26 @@ export const addParamToEndPath = (path, param) => {
     const index = pathData.indexOf(symbol)
     let onlyPath = pathData
     let queryString = ''
-    let haveQueryString = false 
-    if (index !==-1) {
+    let haveQueryString = false
+    if (index !== -1) {
       onlyPath = pathData.substr(0, index)
       queryString = pathData.substr(index)
       haveQueryString = true
     }
-    return {onlyPath, queryString, haveQueryString}
+    return { onlyPath, queryString, haveQueryString }
   }
   const addParam = (onlyPath, variable, queryString = '') => {
     return `${addSlashToEnd(onlyPath)}${addSlashToEnd(variable)}${queryString}`
   }
   let data = getPathAndString(path)
-  if(data.haveQueryString) return addParam(data.onlyPath, param, data.queryString)
+  if (data.haveQueryString)
+    return addParam(data.onlyPath, param, data.queryString)
   data = getPathAndString(path, '#')
-  if(data.haveQueryString) return addParam(data.onlyPath, param, data.queryString)
+  if (data.haveQueryString)
+    return addParam(data.onlyPath, param, data.queryString)
   data = getPathAndString(path, '&')
-  if(data.haveQueryString) return addParam(data.onlyPath, param, data.queryString)
+  if (data.haveQueryString)
+    return addParam(data.onlyPath, param, data.queryString)
   return addParam(path, param)
 }
 
@@ -431,14 +434,26 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
+    ConfigParams.OPTA_WIDGET
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
 }
 
 export const imageHtml = html => {
+  let resHtml = ''
   const rplImageCde =
-    '<amp-img class="media" src="https://$2" layout="responsive" width="1" height="1"></amp-img>'
-  return html.replace(/<img (.*)src="https:\/\/(.*?)" (.*)>/g, rplImageCde)
+    '<amp-img class="media" src="$2" layout="responsive" width="304" height="190"></amp-img>'
+  const rplImageCde1 =
+    '<amp-img class="media" src="$1" layout="responsive" width="304" height="190"></amp-img>'
+
+  resHtml = html.replace(/<img (.*)src="(.+?)" alt="(.+?)">/g, rplImageCde)
+  resHtml = resHtml.replace(
+    /<div class="nota-media"><img src="(.*?)" border="0" width="(.+)"(.*)><\/div>/g,
+    rplImageCde1
+  )
+  resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
+  return resHtml
 }
 
 export const playerHtml = html => {
