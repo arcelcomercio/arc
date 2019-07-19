@@ -58,7 +58,7 @@ class NavBarDefault extends PureComponent {
       showVerify: false,
       showReset: false,
       showRelogin: false,
-      nameUser: new GetProfile().username,
+      nameUser: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
       initialUser: new GetProfile().initname,
     }
     // Resizer.setResizeListener()
@@ -92,6 +92,22 @@ class NavBarDefault extends PureComponent {
 
     if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
       this.layerBackground.addEventListener('click', this._closeMenu)
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.checkSesion()) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        nameUser: new GetProfile().username,
+        initialUser: new GetProfile().initname,
+      })
+    } else {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        nameUser: new GetProfile().username,
+        initialUser: new GetProfile().initname,
+      })
     }
   }
 
@@ -173,22 +189,6 @@ class NavBarDefault extends PureComponent {
     this.setState({
       statusSidebar: false,
     })
-  }
-
-  componentDidUpdate() {
-    if (this.checkSesion()) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        nameUser: new GetProfile().username,
-        initialUser: new GetProfile().initname,
-      })
-    } else {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        nameUser: new GetProfile().username,
-        initialUser: new GetProfile().initname,
-      })
-    }
   }
 
   // Add - Remove Class active input and button search
@@ -444,23 +444,23 @@ class NavBarDefault extends PureComponent {
                 />
                 <button
                   type="button"
-                  className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
+                  className={`${classes.btnLogin} ${
+                    classes.btnSignwall
+                  } btn--outline`}
                   onClick={() => this.setState({ isActive: true })}>
-<<<<<<< HEAD
-                  {this.checkSession() ? 'Mi Cuenta' : 'Iniciar Sesión'}
-=======
                   <i
                     className={
                       initialUser
                         ? `${classes.iconSignwall} text-user text-xs`
-                        : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
+                        : `${classes.iconLogin} ${
+                            classes.iconSignwall
+                          } icon-user`
                     }>
                     {initialUser}
                   </i>
                   <span className="capitalize">
-                    {this.checkSesion() ? nameUser : 'Iniciar Sesión'}
+                    {this.checkSession() ? nameUser : 'Iniciar Sesión'}
                   </span>
->>>>>>> Sprint13
                 </button>
               </div>
               <div className={classes.searchContainer}>
@@ -500,7 +500,9 @@ class NavBarDefault extends PureComponent {
                 classes.hidden}`}>
               <button
                 type="button"
-                className={`${classes.btnLogin} border-1 border-solid border-white`}
+                className={`${
+                  classes.btnLogin
+                } border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
                 <i className={classes.iconLogin} />
               </button>
