@@ -56,7 +56,7 @@ const FormPay = ({ onSubmit, onReset }) => (
               component={RadioButton}
               label={<Icon type="mcard" />}
               name="cardMethod"
-              valueCheck="mcard"
+              valueCheck="mastercard"
             />
             <Field
               component={RadioButton}
