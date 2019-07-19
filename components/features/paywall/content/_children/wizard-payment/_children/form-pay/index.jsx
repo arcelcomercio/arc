@@ -18,16 +18,17 @@ const RadioCondition = styled(RadioButton)`
 
 const RegisterSchema = schema({})
 
-const FormPay = ({ nextStep }) => (
+const FormPay = ({ onSubmit, onReset }) => (
   <Formik
     initialValues={{}}
     validate={values => {
-      return RegisterSchema(values)
+      // FIXME: Validaciones y errores
+      // return RegisterSchema(values)
+      return true
     }}
+    onReset={onReset}
     onSubmit={(values, actions) => {
-      setTimeout(() => {
-        actions.setSubmitting(false)
-      }, 1000)
+      onSubmit(values, actions)
     }}
     render={() => (
       <Form>
@@ -43,25 +44,25 @@ const FormPay = ({ nextStep }) => (
             <Field
               component={RadioButton}
               label={<Icon type="visa" />}
-              name="card"
+              name="cardMethod"
               valueCheck="visa"
             />
             <Field
               component={RadioButton}
               label={<Icon type="mcard" />}
-              name="card"
+              name="cardMethod"
               valueCheck="mcard"
             />
             <Field
               component={RadioButton}
               label={<Icon type="amex" />}
-              name="card"
+              name="cardMethod"
               valueCheck="amex"
             />
             <Field
               component={RadioButton}
               label={<Icon type="diners" />}
-              name="card"
+              name="cardMethod"
               valueCheck="diners"
             />
           </S.Cards>
@@ -70,7 +71,7 @@ const FormPay = ({ nextStep }) => (
           <S.WrapInput min-width="310px">
             <Field
               component={Input}
-              name="card"
+              name="cardNumber"
               placeholder="Número de tarjeta"
             />
           </S.WrapInput>
@@ -78,12 +79,12 @@ const FormPay = ({ nextStep }) => (
           <S.WrapInput max-width="150px">
             <Field
               component={Input}
-              name="card"
+              name="expiryDate"
               placeholder="F. de Vencimiento"
             />
           </S.WrapInput>
           <S.WrapInput max-width="135px">
-            <Field component={Input} name="card" placeholder="CVV" />
+            <Field component={Input} name="cvv" placeholder="CVV" />
           </S.WrapInput>
         </S.WrapInputs>
 
@@ -104,9 +105,7 @@ const FormPay = ({ nextStep }) => (
           acuerdo con la información.
         </S.Span>
 
-        <Button type="submit" onClick={nextStep}>
-          CONTINUAR
-        </Button>
+        <Button type="submit">CONTINUAR</Button>
       </Form>
     )}
   />
