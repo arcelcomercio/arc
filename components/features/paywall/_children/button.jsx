@@ -18,6 +18,10 @@ const Button = styled.button`
   font-weight: 700;
   outline: 0;
   cursor: pointer;
+  &:disabled {
+    background-color: #e8e8e8;
+    color: #bbbbbb;
+  }
   @media (${devices.mobile}) {
     width: 100%;
   }

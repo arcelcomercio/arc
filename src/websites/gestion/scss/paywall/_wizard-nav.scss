@@ -3,9 +3,19 @@
         .nav-circle{
             background-color: $color-primary;
           }
-          .nav-number{
-            color: #FFF
-          }
+        .nav-number{
+          color: #FFF
+        }
+    }
+
+    @media (--only-mobile) {
+      .nav-step-name{
+        display: none;
+      }
+      .nav-step-active .nav-step-name{
+        display: block;
+      }
     }
 
 }
+
