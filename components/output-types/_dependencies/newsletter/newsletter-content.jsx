@@ -14,6 +14,7 @@ const StoryItem = props => {
     authorUrl,
     authorTwitterUrl,
     image,
+    imgtmp,
     volada,
     authorImage,
     authorSlug,
@@ -37,6 +38,7 @@ const StoryItem = props => {
       <url>{urlNew}</url>
       <id>{id}</id>
       <publishedAt>{publishedAt}</publishedAt>
+      <imgtmp>{imgtmp}</imgtmp>
       <imagen>
         <thumbnail_max> {thumbnailMax}</thumbnail_max>
         <thumbnail_min> {thumbnailMin} </thumbnail_min>
@@ -88,6 +90,7 @@ const NewsLetterContent = ({
       urlNew: `${siteUrl}${storydata.link}`,
       id: storydata.id,
       publishedAt: storydata.date,
+      imgtmp: storydata.multimedia,
       image: imagenNewsLetter,
       volada:null,
       epigraph: storydata.subTitle,
