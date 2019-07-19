@@ -21,8 +21,6 @@ function WizardPayment(props) {
   const {
     memo,
     summary,
-    currentStep,
-    nextStep,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
   } = props
   const [loading, setLoading] = useState()
