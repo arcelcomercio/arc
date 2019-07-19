@@ -59,6 +59,7 @@ export default {
       logo: `images/logo.svg`,
       confirmation: `images/adult-attire-blazer-173125.jpg`,
       confirmationx2: `images/adult-attire-blazer-173125@2x.jpg`,
+      lector: `images/img_lector.png`,
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)

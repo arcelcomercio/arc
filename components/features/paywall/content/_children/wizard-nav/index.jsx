@@ -17,7 +17,9 @@ function Nav({ totalSteps, stepsNames, currentStep, right = () => {} }) {
               <S.StepCircle className="nav-circle">
                 <S.StepNumber className="nav-number">{step}</S.StepNumber>
               </S.StepCircle>
-              <S.StepName>{stepsNames[index]}</S.StepName>
+              <S.StepName className="nav-step-name">
+                {stepsNames[index]}
+              </S.StepName>
             </S.Content>
           )
         })}
