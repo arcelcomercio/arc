@@ -54,12 +54,6 @@ export default {
       logo: 'white-logo.png',
       logoSomos: 'white-logo.png',
     },
-    header: {
-      logo: 'logo.png',
-    },
-    footer: {
-      logo: 'logo.png',
-    },
     path: `/resources/dist/gestion/`,
     paywall: {
       logo: `images/logo.svg`,
