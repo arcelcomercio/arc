@@ -157,35 +157,37 @@ function WizardPayment(props) {
             const expiryMonth = expiryDate.split('/')[0]
             const expiryYear = expiryDate.split('/')[1]
 
-            return addPayU(siteProperties)
-              .then(payU => {
-                payU.setURL(payuBaseUrl) //OK
-                payU.setPublicKey(publicKey) //OK
-                payU.setAccountID(accountId)
-                payU.setListBoxID('mylistID')
-                payU.getPaymentMethods()
-                payU.setLanguage('es')
-                payU.setCardDetails({
-                  number: cardNumber,
-                  name_card: ownerName,
-                  payer_id: documentNumber,
-                  exp_month: expiryMonth,
-                  exp_year: expiryYear,
-                  method: cardMethod.toUpperCase(),
-                  document: documentNumber,
-                  cvv,
-                })
-                return new Promise((resolve, reject) => {
-                  payU.createToken(response => {
-                    if (response.error) {
-                      reject(new Error(response.error))
-                    } else {
-                      resolve(response.token)
-                    }
+            return (
+              addPayU(siteProperties)
+                .then(payU => {
+                  payU.setURL(payuBaseUrl) //OK
+                  payU.setPublicKey(publicKey) //OK
+                  payU.setAccountID(accountId)
+                  payU.setListBoxID('mylistID')
+                  payU.getPaymentMethods()
+                  payU.setLanguage('es')
+                  payU.setCardDetails({
+                    number: cardNumber,
+                    name_card: ownerName,
+                    payer_id: documentNumber,
+                    exp_month: expiryMonth,
+                    exp_year: expiryYear,
+                    method: cardMethod.toUpperCase(),
+                    document: documentNumber,
+                    cvv,
+                  })
+                  return new Promise((resolve, reject) => {
+                    payU.createToken(response => {
+                      if (response.error) {
+                        reject(new Error(response.error))
+                      } else {
+                        resolve(response.token)
+                      }
+                    })
                   })
                 })
-              })
-              .then(token => {
+                // TODO: El servicio aun esta en desarrollo
+                /*.then(token => {
                 return apiPaymentRegister({
                   baseUrl,
                   orderNumber,
@@ -203,16 +205,18 @@ function WizardPayment(props) {
                   sku,
                   priceCode,
                   amount,
-                }).then(({ id, order }) => {
+                })
+              })*/
+                .then(res => {
                   return sales
-                    .finalizePayment(order, paymentMethodID, token)
+                    .finalizePayment(orderNumber, paymentMethodID, token)
                     .then(res => {
                       // Mezclamos valores del formulario con el payload de respuesta
                       const mergedValues = Object.assign({}, res, values)
                       onBeforeNextStep(mergedValues, props)
                     })
                 })
-              })
+            )
           }
         )
     })
