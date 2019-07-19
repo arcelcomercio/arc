@@ -63,7 +63,6 @@ const AppNexus = props => {
   const { isStory, globalContent } = props
   const isGallery = isStory && getTypeStory(globalContent)
   const data = getVars(props, isGallery)
-
   return (
     <script type="text/javascript" dangerouslySetInnerHTML={{ __html: data }} />
   )

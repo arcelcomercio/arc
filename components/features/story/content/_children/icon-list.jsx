@@ -135,6 +135,7 @@ class StoryContentChildIcon extends PureComponent {
     resizeableElements.forEach(elm => {
       const currSize =
         currIncrementIndex >= 9 ? parseFloat(elm.style.fontSize, 5) || 20 : 20
+      // eslint-disable-next-line no-param-reassign
       elm.style = `font-size:${currSize + currIncrementIndex}px`
     })
   }
@@ -163,9 +164,7 @@ class StoryContentChildIcon extends PureComponent {
                     {item.more.map((element, ii) => (
                       <li
                         key={UtilListKey(ii)}
-                        className={` ${classes.moreItem} ${
-                          element.mobileClass
-                        }`}>
+                        className={` ${classes.moreItem} ${element.mobileClass}`}>
                         <a
                           className={classes.moreLink}
                           href={element.link}

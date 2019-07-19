@@ -2,6 +2,7 @@ import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import InputFormik from '../input'
 import * as S from './styled'
+import Button from '../button'
 import schema from '../../_dependencies/schema'
 
 const MESSAGE = {
@@ -51,17 +52,14 @@ const Select = () => (
 
 const FormStyled = S.Form(Form)
 
-const UserProfile = ({ title = '', profile }) => (
+const UserProfile = ({ title = '', profile, onClick = () => {} }) => (
   <Formik
     initialValues={profile}
     validate={values => {
       return RegisterSchema(values)
     }}
     onSubmit={(values, actions) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2))
-        actions.setSubmitting(false)
-      }, 1000)
+      onClick()
     }}
     render={() => (
       <FormStyled>
@@ -69,41 +67,55 @@ const UserProfile = ({ title = '', profile }) => (
           <S.Title>{title}</S.Title>
         </S.WrapTitle>
         <S.Wrap>
-          <Field
-            name="firstName"
-            placeholder="Nombres"
-            component={InputFormik}
-          />
-          <Field
-            name="lastName"
-            placeholder="Apellido Paterno"
-            component={InputFormik}
-          />
-          <Field
-            name="secondLastName"
-            placeholder="Apellido Materno"
-            component={InputFormik}
-          />
-          <Field
-            name="documentNumber"
-            placeholder="Tipo de documento"
-            type="number"
-            prefix={<Select key="select" />}
-            component={InputFormik}
-          />
-          <Field
-            name="mobilePhone"
-            placeholder="Número de Celular"
-            type="number"
-            component={InputFormik}
-          />
-          <Field
-            name="email"
-            placeholder="Correo Electrónico"
-            component={InputFormik}
-          />
+          <S.WrapField>
+            <Field
+              name="firstName"
+              placeholder="Nombres"
+              component={InputFormik}
+            />
+          </S.WrapField>
+          <S.WrapField>
+            <Field
+              name="lastName"
+              placeholder="Apellido Paterno"
+              component={InputFormik}
+            />
+          </S.WrapField>
+          <S.WrapField>
+            <Field
+              name="secondLastName"
+              placeholder="Apellido Materno"
+              component={InputFormik}
+            />
+          </S.WrapField>
+          <S.WrapField>
+            <Field
+              name="documentNumber"
+              placeholder="Tipo de documento"
+              type="number"
+              prefix={<Select key="select" />}
+              component={InputFormik}
+            />
+          </S.WrapField>
+          <S.WrapField>
+            <Field
+              name="mobilePhone"
+              placeholder="Número de Celular"
+              type="number"
+              component={InputFormik}
+            />
+          </S.WrapField>
+          <S.WrapField>
+            <Field
+              name="email"
+              placeholder="Correo Electrónico"
+              component={InputFormik}
+            />
+          </S.WrapField>
         </S.Wrap>
-        <S.Button type="submit">CONTINUAR</S.Button>
+        <Button type="submit" onClick={onClick}>
+          CONTINUAR
+        </Button>
       </FormStyled>
     )}
   />

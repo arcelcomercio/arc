@@ -69,7 +69,7 @@ const TripletChildTriplet = props => {
             <a className={classes.mLink} href={story.link}>
               <img
                 className={classes.image}
-                src={story.multimedia}
+                src={story.multimediaPortraitXS}
                 alt={story.title}
               />
               <Icon type={story.multimediaType} iconClass={classes.icon} />

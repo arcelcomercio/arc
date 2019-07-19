@@ -1,3 +1,7 @@
+/* eslint-disable react/no-string-refs */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
+
 import React, { Component } from 'react'
 import Modal from '../../../common/modal'
 import FormValid from '../../../utils/form-valid'
@@ -13,8 +17,8 @@ class updatePassword extends Component {
       repeatPassword: null,
       oldPassword: '',
       showModalConfirm: false,
-      hiddenSuccessPass: false,
-      hiddenErrorPass: false,
+      showMsgSuccess: false,
+      showMsgError: false,
       MessageErrorPass: '',
       formErrors: {
         newPassword: '',
@@ -70,39 +74,39 @@ class updatePassword extends Component {
       this.setState({ sending: false })
 
       window.Identity.updatePassword(oldPassword, newPassword)
-        .then(res => {
-          console.log(res)
+        .then(() => {
           this.setState({
             newPassword: null,
             repeatPassword: null,
             oldPassword: '',
             showModalConfirm: false,
-            hiddenSuccessPass: true,
+            showMsgSuccess: true,
             sending: true,
           })
+          // eslint-disable-next-line react/no-string-refs
           this.refs.newPassword.value = ''
+          // eslint-disable-next-line react/no-string-refs
           this.refs.repeatPassword.value = ''
           setTimeout(() => {
             this.setState({
-              hiddenSuccessPass: false,
+              showMsgSuccess: false,
             })
           }, 5000)
         })
         .catch(err => {
-          console.log(err)
           this.setState({
             oldPassword: '',
             showModalConfirm: false,
-            hiddenErrorPass: true,
+            showMsgError: true,
             sending: true,
             MessageErrorPass:
               err.code === '300040'
-                ? 'Contraseña incorrecta'
+                ? 'Ha ocurrido un error, Contraseña incorrecta'
                 : 'Error inesperado',
           })
           setTimeout(() => {
             this.setState({
-              hiddenErrorPass: false,
+              showMsgError: false,
             })
           }, 5000)
         })
@@ -184,8 +188,8 @@ class updatePassword extends Component {
     const { formErrors } = this.state
     const {
       formErrorsConfirm,
-      hiddenSuccessPass,
-      hiddenErrorPass,
+      showMsgSuccess,
+      showMsgError,
       MessageErrorPass,
       checkpwdStrength,
       showModalConfirm,
@@ -199,13 +203,17 @@ class updatePassword extends Component {
           autoComplete="off">
           <div className="form-grid__row">
             <h3 className="form-grid__title">Cambiar contraseña</h3>
-            <div className="message" hidden={!hiddenSuccessPass}>
-              <p className="message--success">
+            <div className="message">
+              <p
+                className={`message--success uppercase ${showMsgSuccess &&
+                  'message--active'}`}>
                 LA CONTRASEÑA HA SIDO ACTUALIZADA
               </p>
-            </div>
-            <div className="message" hidden={!hiddenErrorPass}>
-              <p className="message-error">{MessageErrorPass}</p>
+              <p
+                className={`message--error uppercase ${showMsgError &&
+                  'message--active'}`}>
+                {MessageErrorPass}
+              </p>
             </div>
           </div>
           <div className="form-grid__row form-grid__row--three">
@@ -289,9 +297,8 @@ class updatePassword extends Component {
             bg="white"
             name="modal-div-confirmpass"
             id="modal-div-confirmpass">
-            <div className="grid-clear-20" />
-            <div className="col-8-sm col-10" />
-            <div className="col-4-sm col-2 col-center text-right">
+         
+            <div className="text-right">
               <button
                 type="button"
                 onClick={e => this.togglePopupModalConfirm(e)}>
@@ -300,20 +307,20 @@ class updatePassword extends Component {
             </div>
 
             <div className="modal-body__wrapper">
-              <div className="col-12">
+           
                 <form
                   className="form-grid"
                   onSubmit={e => this.submitConfirmPassword(e)}>
                   <div className="row-grid">
-                    <div className="col-12 col-center">
-                      <p className="form-grid__label form-grid__label--information">
+                  
+                      <p className="form-grid__label form-grid__label--information text-center">
                         Para confirmar el cambio, por favor ingresa tu
                         contraseña actual
                       </p>
-                    </div>
+                    
                   </div>
                   <div className="row-grid">
-                    <div className="col-7 col-12-sm">
+                   
                       <div className="form-group">
                         <input
                           type="password"
@@ -341,8 +348,8 @@ class updatePassword extends Component {
                           </span>
                         )}
                       </div>
-                    </div>
-                    <div className="col-5 col-12-sm">
+                 
+                   
                       <div className="form-group">
                         <input
                           type="submit"
@@ -351,11 +358,10 @@ class updatePassword extends Component {
                           disabled={!sending}
                         />
                       </div>
-                    </div>
+                   
                   </div>
-                  <div className="grid-clear-50" />
                 </form>
-              </div>
+              
             </div>
           </Modal>
         )}

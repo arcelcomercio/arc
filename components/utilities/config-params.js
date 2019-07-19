@@ -36,6 +36,17 @@ class ConfigParams {
 
   static OPTA_WIDGET = 'https://assets.trome.pe/opta'
 
+  // nombre de los Sitios
+  static SITE_PUBLIMETRO = 'publimetro'
+
+  static SITE_GESTION = 'gestion'
+
+  static SITE_DEPOR = 'depor'
+
+  static SITE_ELCOMERCIO = 'elcomercio'
+
+  static SITE_PERU21 = 'peru21'
+
   // opta
   static OPTA_CSS_LINK =
     'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
@@ -43,7 +54,9 @@ class ConfigParams {
   static OPTA_JS_LINK =
     'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js'
 
-  // Image Size 
+  // Image Size
+  static IMAGE_ORIGINAL = 'original'
+
   static LANDSCAPE_XL = 'landscape_xl'
 
   static LANDSCAPE_L = 'landscape_l'
@@ -61,7 +74,7 @@ class ConfigParams {
   static PORTRAIT_MD = 'portrait_md'
 
   static PORTRAIT_S = 'portrait_s'
-  
+
   static PORTRAIT_XS = 'portrait_xs'
 
   static SQUARE_XL = 'square_xl'
@@ -71,33 +84,35 @@ class ConfigParams {
   static SQUARE_MD = 'square_md'
 
   static SQUARE_S = 'square_s'
-  
+
   static SQUARE_XS = 'square_xs'
+
+  static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 }
 
 export const sizeImg = () => {
   return {
     // landscape
     landscape_xl: {
-      width: 900,
+      width: 980,
       height: 528,
     },
     landscape_l: {
-      width: 620,
+      width: 648,
       height: 374,
     },
     landscape_md: {
-      width: 300,
+      width: 314,
       height: 157,
-    },    
+    },
     landscape_s: {
-      width: 220,
+      width: 234,
       height: 161,
-    },    
+    },
     landscape_xs: {
       width: 118,
       height: 72,
-    },    
+    },
     // portrait
     // TODO: actualizar tamaño
     portrait_xl: {
@@ -107,23 +122,23 @@ export const sizeImg = () => {
     // TODO: actualizar tamaño
     portrait_l: {
       width: 374,
-      height: 620,
+      height: 648,
     },
     portrait_md: {
-      width: 300,
+      width: 314,
       height: 374,
     },
-    // TODO: actualizar tamaño    
+    // TODO: actualizar tamaño
     portrait_s: {
       width: 161,
       height: 220,
-    },    
+    },
     portrait_xs: {
       width: 75,
       height: 90,
-    }, 
+    },
     // square
-    // TODO: actualizar tamaño a todos 
+    // TODO: actualizar tamaño a todos
     square_xl: {
       width: 900,
       height: 900,
@@ -139,12 +154,12 @@ export const sizeImg = () => {
     square_s: {
       width: 150,
       height: 150,
-    },    
+    },
     square_xs: {
       width: 75,
       height: 75,
-    },  
-    // TODO: Eliminar estos tamaños despues de actualizar 
+    },
+    // TODO: Eliminar estos tamaños despues de actualizar
     // los tamaños de las imagenes de todos los componentes.
     small: {
       width: 100,

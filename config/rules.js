@@ -90,7 +90,7 @@ module.exports = (mode, type = 'index') => {
     },
   }
 
-  const rules = [styles, images, fonts]
+  const rules = [styles, fonts, images]
 
   if (type !== 'amp') {
     rules.unshift(javascript)

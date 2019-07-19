@@ -25,6 +25,13 @@ class PanelProfile extends Component {
     ModalProfile.style.overflow = 'auto'
   }
 
+  componentWillUnmount = () =>{
+    const ModalProfile =
+      document.querySelector('#arc-popup-profile').parentNode ||
+      document.querySelector('#arc-popup-profile').parentElement
+    ModalProfile.style.overflow = 'auto'
+  }
+
   render() {
     const { disabledSocial } = this.state
     return (

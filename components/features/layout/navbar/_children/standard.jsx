@@ -3,8 +3,15 @@ import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
 import Signwall from '../../../signwall/default'
+import SignWallHard from '../../../signwall/_main/signwall/hard'
+
+import SignWallVerify from '../../../signwall/_main/signwall/verify'
+import SignWallReset from '../../../signwall/_main/signwall/reset'
+import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
+
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
+import GetProfile from '../../../signwall/_main/utils/get-profile'
 
 import { getResponsiveClasses } from '../../../../utilities/helpers'
 
@@ -27,11 +34,16 @@ const classes = {
   logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
-  btnContainer: 'flex items-center justify-end header__btn-container hidden',
+  btnContainer: 'flex items-center justify-end header__btn-container', // agregar hidden ocultar signwall
+  hidden: 'hidden',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
+  iconSignwall: 'nav__icon rounded position-absolute uppercase',
+  btnSignwall: 'nav__btn--login',
 }
+
+const activeSignwall = ['elcomercio', 'gestion']
 
 @Consumer
 class NavBarDefault extends PureComponent {
@@ -42,6 +54,12 @@ class NavBarDefault extends PureComponent {
       statusSearch: false,
       scrolled: false,
       isActive: false,
+      showHard: false,
+      showVerify: false,
+      showReset: false,
+      showRelogin: false,
+      nameUser: new GetProfile().username,
+      initialUser: new GetProfile().initname,
     }
     // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
@@ -157,6 +175,22 @@ class NavBarDefault extends PureComponent {
     })
   }
 
+  componentDidUpdate() {
+    if (this.checkSesion()) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        nameUser: new GetProfile().username,
+        initialUser: new GetProfile().initname,
+      })
+    } else {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        nameUser: new GetProfile().username,
+        initialUser: new GetProfile().initname,
+      })
+    }
+  }
+
   // Add - Remove Class active input and button search
   activeSearch = () => {
     const { statusSearch } = this.state
@@ -205,6 +239,35 @@ class NavBarDefault extends PureComponent {
       return !(profileStorage === 'null' || sesionStorage === '{}') || false
     }
     return false
+  }
+
+  // check Url string popup
+  getUrlParam = name => {
+    const vars = {}
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+      vars[key] = value
+    })
+    if (vars[name]) {
+      setTimeout(() => {
+        switch (name) {
+          case 'signwallHard':
+            this.setState({ showHard: true })
+            break
+          case 'tokenVerify':
+            this.setState({ showVerify: true })
+            break
+          case 'tokenReset':
+            this.setState({ showReset: true })
+            break
+          case 'reloginEmail':
+            this.setState({ showRelogin: true })
+            break
+          default:
+          // return false
+        }
+      }, 500)
+    }
+    return vars[name]
   }
 
   // _handleDevice = device => {
@@ -260,6 +323,27 @@ class NavBarDefault extends PureComponent {
     this.setState({ isActive: false })
   }
 
+  closePopUp(name) {
+    switch (name) {
+      case 'signwallHard':
+        this.setState({ showHard: false })
+        break
+      case 'tokenVerify':
+        this.setState({ showVerify: false })
+        break
+      case 'tokenReset':
+        this.setState({ showReset: false })
+        break
+      case 'reloginEmail':
+        this.setState({ showRelogin: false })
+        break
+      default:
+        return null
+    }
+    window.history.pushState({}, document.title, '/')
+    return null
+  }
+
   // Close Search
   /* _handleCloseSectionsSearch = () => {
     setTimeout(() => {
@@ -270,7 +354,17 @@ class NavBarDefault extends PureComponent {
   } */
 
   render() {
-    const { statusSidebar, scrolled, isActive } = this.state
+    const {
+      statusSidebar,
+      scrolled,
+      isActive,
+      nameUser,
+      initialUser,
+      showHard,
+      showVerify,
+      showReset,
+      showRelogin,
+    } = this.state
     const {
       logo,
       arcSite,
@@ -339,7 +433,10 @@ class NavBarDefault extends PureComponent {
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
-              <div className={classes.btnContainer}>
+              <div
+                className={`${classes.btnContainer}  ${activeSignwall.indexOf(
+                  arcSite
+                ) < 0 && classes.hidden}`}>
                 <Button
                   btnText="Suscríbete"
                   btnClass={`${classes.btnSubscribe} btn--outline`}
@@ -347,9 +444,23 @@ class NavBarDefault extends PureComponent {
                 />
                 <button
                   type="button"
-                  className={`${classes.btnLogin} btn--outline`}
+                  className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
                   onClick={() => this.setState({ isActive: true })}>
+<<<<<<< HEAD
                   {this.checkSession() ? 'Mi Cuenta' : 'Iniciar Sesión'}
+=======
+                  <i
+                    className={
+                      initialUser
+                        ? `${classes.iconSignwall} text-user text-xs`
+                        : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
+                    }>
+                    {initialUser}
+                  </i>
+                  <span className="capitalize">
+                    {this.checkSesion() ? nameUser : 'Iniciar Sesión'}
+                  </span>
+>>>>>>> Sprint13
                 </button>
               </div>
               <div className={classes.searchContainer}>
@@ -385,12 +496,11 @@ class NavBarDefault extends PureComponent {
             <div
               className={`${classes.btnContainer} ${
                 classes.navMobileContainer
-              } ${responsiveClass}`}>
+              } ${responsiveClass} ${activeSignwall.indexOf(arcSite) < 0 &&
+                classes.hidden}`}>
               <button
                 type="button"
-                className={`${
-                  classes.btnLogin
-                } border-1 border-solid border-white`}
+                className={`${classes.btnLogin} border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
                 <i className={classes.iconLogin} />
               </button>
@@ -405,6 +515,38 @@ class NavBarDefault extends PureComponent {
           <div className="layer" />
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
+
+        {this.getUrlParam('signwallHard') && !this.checkSesion() && showHard ? (
+          <SignWallHard
+            closePopup={() => this.closePopUp('signwallHard')}
+            brandModal={arcSite}
+          />
+        ) : null}
+
+        {this.getUrlParam('tokenVerify') && showVerify ? (
+          <SignWallVerify
+            closePopup={() => this.closePopUp('tokenVerify')}
+            brandModal={arcSite}
+            tokenVerify={this.getUrlParam('tokenVerify')}
+          />
+        ) : null}
+
+        {this.getUrlParam('tokenReset') && showReset ? (
+          <SignWallReset
+            closePopup={() => this.closePopUp('tokenReset')}
+            brandModal={arcSite}
+            tokenReset={this.getUrlParam('tokenReset')}
+          />
+        ) : null}
+
+        {this.getUrlParam('reloginEmail') &&
+        !this.checkSesion() &&
+        showRelogin ? (
+          <SignWallRelogin
+            closePopup={() => this.closePopUp('reloginEmail')}
+            brandModal={arcSite}
+          />
+        ) : null}
       </>
     )
   }

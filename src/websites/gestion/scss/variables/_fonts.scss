@@ -2,6 +2,7 @@
 // $primary-font: 'open_sansregular';
 $primary-font: 'Judson'; // Regular, Bold: 700
 $secondary-font: 'Roboto';
+$tertiary-font: 'Libre Franklin', sans-serif;
 /*-----------------------*/
 
 /** ----------------------------*
@@ -23,3 +24,6 @@ $header-sm: $font-base * 1.5;
 $header-md: $font-base * 1.7;
 $header-lg: $font-base * 2;
 $header-xl: $font-base * 2.2;
+
+/******* Signwall fonts *******/
+$signwall-header-title: $font-base * 1.5;
