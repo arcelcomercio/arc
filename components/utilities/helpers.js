@@ -443,9 +443,9 @@ export const optaWidgetHtml = html => {
 export const imageHtml = html => {
   let resHtml = ''
   const rplImageCde =
-    '<amp-img class="media" src="$2" layout="responsive" width="1" height="1"></amp-img>'
+    '<amp-img class="media" src="$2" layout="responsive" width="304" height="190"></amp-img>'
   const rplImageCde1 =
-    '<amp-img class="media" src="$1" layout="responsive" width="1" height="1"></amp-img>'
+    '<amp-img class="media" src="$1" layout="responsive" width="304" height="190"></amp-img>'
 
   resHtml = html.replace(/<img (.*)src="(.+?)" alt="(.+?)">/g, rplImageCde)
   resHtml = resHtml.replace(
