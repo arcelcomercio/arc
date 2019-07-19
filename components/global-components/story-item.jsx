@@ -34,7 +34,7 @@ class StoriesList extends PureComponent {
       arcSite,
       defaultImgSize: 'sm',
     })
-
+    // console.log(this.props)
     return (
       <div
         className={`${classes.storyItem} ${
