@@ -43,10 +43,15 @@
     }
     .featured-story__category {
       order: 1;
-      background-color: $color-gray-200;
+      /*  background-color: $color-gray-200; */
       padding: 8px 20px;
       margin-bottom: 5px;
       margin-left: -20px;
+    }
+    .featured-story__category-link {
+      @media (--tablet) {
+        color: $color-base-300;
+      }
     }
     .featured-story__author {
       border-top: 0;

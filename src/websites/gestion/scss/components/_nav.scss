@@ -1,5 +1,10 @@
 .nav {
   background-color: $color-base-400;
+  &.active {
+    @media (--desktop) {
+      background-color: $color-base-400;
+    }
+  }
   &__btn,
   &__icon-search {
     @media (--desktop) {
@@ -39,5 +44,10 @@
     @media (--desktop) {
       border-color: $color-white;
     }
+  }
+  &__list-link {
+    font-weight: 700;
+    font-family: $tertiary-font;
+    color: $color-white;
   }
 }

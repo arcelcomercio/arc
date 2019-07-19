@@ -1,4 +1,9 @@
 .header {
+  background-color: transparent;
+  height: 80px;
+  &__logo {
+    height: auto;
+  }
   &__featured {
     justify-content: flex-start;
   }
