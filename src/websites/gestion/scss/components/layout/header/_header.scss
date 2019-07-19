@@ -30,4 +30,11 @@
   &__tags {
     font-family: $tertiary-font;
   }
+  &__wrapper--dashed {
+    @media (--tablet) {
+      border-bottom: 1px dashed $color-gray-200;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+  }
 }

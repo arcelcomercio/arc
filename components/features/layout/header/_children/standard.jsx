@@ -10,7 +10,8 @@ const classes = {
     'header__featured flex justify-around w-full font-normal overflow-hidden mr-20',
   item: 'header__item flex items-center justify-center h-inherit',
   link: 'header__link uppercase text-sm p-10',
-  navWrapper: 'nav__wrapper hidden md:flex justify-between',
+  navWrapper:
+    'nav__wrapper hidden md:flex justify-between header__wrapper--dashed',
   tags: 'header__tags justify-center mr-20 hidden md:flex',
   date: 'header__date justify-center uppercase ml-5 hidden lg:flex',
 }
