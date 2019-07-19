@@ -81,8 +81,12 @@ export default {
   },
   legalLinks: [
     {
-      name: 'Términos y condiciones',
-      url: '/terminos-servicio',
+      name: '¿Quiénes somos?',
+      url: '/quienes-somos',
+    },
+    {
+      name: 'Términos de uso',
+      url: '/terminos-y-condiciones',
     },
     {
       name: 'Políticas de Privacidad',
@@ -92,14 +96,19 @@ export default {
       name: 'Politicas de Cookies',
       url: '/politicas-cookies',
     },
+    {
+      name: 'Preguntas Frecuentes',
+      url: '/preguntas-frecuentes',
+    },
   ],
 
   footer: {
     siteLegal: [
-      'Empresa Editora El Comercio',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
-      'Copyright © Elcomercio.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
+      'Director periodístico',
+      'JULIO LIRA SEGURA',
+      '© Empresa Editora El Comercio S.A.',
+      'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
+      'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
     ],
 
     socialNetworks: [
