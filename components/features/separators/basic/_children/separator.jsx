@@ -63,7 +63,7 @@ const SeparatorsBasicChildSeparator = props => {
               title: el.title,
               link: el.link,
               numline,
-              imageUrl: el.multimedia,
+              imageUrl: el.multimediaLandscapeS,
               mediaIcon: el.multimediaType,
             }
             return <SeparatorItem key={el.link || '/'} {...params} />

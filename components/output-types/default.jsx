@@ -46,15 +46,16 @@ export default ({
     isAmp: false,
   }
 
-  const title =
+  const seoTitle =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? (isStory &&
-          metaValue('meta_title') &&
-          !metaValue('meta_title').match(/content/) &&
-          metaValue('meta_title')) ||
-        metaValue('title')
+      ? metaValue('title')
       : siteProperties.siteName
 
+  const metaTitle =
+    metaValue('meta_title') && !metaValue('meta_title').match(/content/)
+      ? metaValue('meta_title')
+      : null
+  const title = metaTitle || seoTitle
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`

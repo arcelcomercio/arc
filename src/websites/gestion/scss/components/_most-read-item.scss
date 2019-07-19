@@ -1,8 +1,20 @@
 .most-read-item {
+<<<<<<< HEAD
   border-color: $color-gray-300;
+=======
+  border-bottom: 1px solid $color-gray-200;
+
+>>>>>>> 429e29c880fe7ad858a8531f298deeb6f7f08120
   &__detail {
-    max-height: calc(13px * 1.33 * 3);
+    font-size: 16px;
     font-weight: 700;
+
+    &.three-lines {
+      max-height: calc(16px * 1.33 * 3);
+    }
+    &.four-lines {
+      max-height: calc(16px * 1.33 * 4);
+    }
   }
   &__icon {
     color: $color-base-200;
