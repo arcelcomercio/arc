@@ -1,5 +1,5 @@
 import { addResizedUrlItem } from './thumbs'
-import ConfigParams from './config-params'
+import ConfigParams, { sizeImg } from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -60,36 +60,38 @@ export const formatDateLocalTimeZone = publishDateString => {
   return formattedDate
 }
 
+export const arrayMonths = [
+  'enero',
+  'febrero',
+  'marzo',
+  'abril',
+  'mayo',
+  'junio',
+  'julio',
+  'agosto',
+  'septiembre',
+  'octubre',
+  'noviembre',
+  'diciembre',
+]
+
+export const arrayDays = [
+  'Domingo',
+  'Lunes',
+  'Martes',
+  'Miércoles',
+  'Jueves',
+  'Viernes',
+  'Sábado',
+]
+
 export const formatDayMonthYear = (date, showHour = true) => {
   const fecha = new Date(date)
-  const arrayMeses = [
-    'enero',
-    'febrero',
-    'marzo',
-    'abril',
-    'mayo',
-    'junio',
-    'julio',
-    'agosto',
-    'septiembre',
-    'octubre',
-    'noviembre',
-    'diciembre',
-  ]
-  const arrayDay = [
-    'Domingo',
-    'Lunes',
-    'Martes',
-    'Miércoles',
-    'Jueves',
-    'Viernes',
-    'Sábado',
-  ]
 
   const dateFormatter = `${
-    arrayDay[fecha.getUTCDay()]
+    arrayDays[fecha.getUTCDay()]
   } ${fecha.getUTCDate()} de ${
-    arrayMeses[fecha.getUTCMonth()]
+    arrayMonths[fecha.getUTCMonth()]
   } del ${fecha.getUTCFullYear()}`
   return showHour
     ? `${dateFormatter}, ${fecha.getHours()}:${fecha.getMinutes()}`
@@ -312,8 +314,34 @@ export const removeLastSlash = url => {
 }
 
 export const addSlashToEnd = url => {
-  if (url && url.trim() === '/') return url
-  return url && !url.endsWith('/') ? `${url}/` : url
+  const urlString = `${url}`
+  if (url && urlString.trim() === '/') return url
+  return url && !urlString.endsWith('/') ? `${url}/` : url
+}
+
+export const addParamToEndPath = (path, param) => {
+  const getPathAndString = (pathData, symbol = '?') => {
+    const index = pathData.indexOf(symbol)
+    let onlyPath = pathData
+    let queryString = ''
+    let haveQueryString = false 
+    if (index !==-1) {
+      onlyPath = pathData.substr(0, index)
+      queryString = pathData.substr(index)
+      haveQueryString = true
+    }
+    return {onlyPath, queryString, haveQueryString}
+  }
+  const addParam = (onlyPath, variable, queryString = '') => {
+    return `${addSlashToEnd(onlyPath)}${addSlashToEnd(variable)}${queryString}`
+  }
+  let data = getPathAndString(path)
+  if(data.haveQueryString) return addParam(data.onlyPath, param, data.queryString)
+  data = getPathAndString(path, '#')
+  if(data.haveQueryString) return addParam(data.onlyPath, param, data.queryString)
+  data = getPathAndString(path, '&')
+  if(data.haveQueryString) return addParam(data.onlyPath, param, data.queryString)
+  return addParam(path, param)
 }
 
 export const defaultImage = ({
@@ -575,6 +603,39 @@ export const formatDateStory = date => {
   return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
 }
 
+export const addResizedUrlsToStory = (
+  data,
+  resizerUrl,
+  resizerSecret,
+  addResizedUrls
+) => {
+  return (
+    data &&
+    data.map(item => {
+      const dataStory = item
+
+      const {
+        promo_items: { basic_gallery: contentElements = null } = {},
+      } = item
+
+      if (contentElements && contentElements.promo_items) {
+        const image = addResizedUrls(contentElements, {
+          resizerUrl,
+          resizerSecret,
+          presets: sizeImg(),
+        })
+        dataStory.promo_items.basic_gallery = image
+      }
+
+      return addResizedUrls(dataStory, {
+        resizerUrl,
+        resizerSecret,
+        presets: sizeImg(),
+      })
+    })
+  )
+}
+
 export const deleteQueryString = url => {
   return url.split('?')[0]
 }
@@ -587,4 +648,15 @@ export const isIE = () => {
     return true
   }
   return false
+}
+
+export const addSlashToDateEnd = url => {
+  let urlSlash = url
+  const fecha = new Date('2019-07-16T22:30:00')
+  const hoy = new Date()
+  if (fecha < hoy) {
+    urlSlash = addSlashToEnd(url)
+  }
+
+  return urlSlash
 }

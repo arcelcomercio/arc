@@ -9,7 +9,6 @@ import * as Icon from '../../common/iconos'
 import Services from '../../utils/services'
 import { ModalConsumer } from '../context'
 
-const Brand = 'gestion'
 const services = new Services()
 
 class FormForgotPass extends Component {
@@ -81,7 +80,7 @@ class FormForgotPass extends Component {
         }
       })
       .catch(errEco => {
-        console.log(errEco)
+        console.error(errEco)
       })
   }
 
@@ -95,12 +94,13 @@ class FormForgotPass extends Component {
         })
       })
       .catch(errReForgot => {
-        console.log(errReForgot)
+        console.error(errReForgot)
       })
   }
 
   templateSendEmail(changeTemplate) {
     const { formErrors, messageError, sending } = this.state
+    const { brandCurrent } = this.props
 
     return (
       <form
@@ -119,14 +119,16 @@ class FormForgotPass extends Component {
         <div className="form-grid__forgot-pass">
           <Icon.ForgotPass
             className="form-grid__icon"
-            bgcolor={Brand === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+            bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
           />
+
           <h1 className="form-grid__info">Olvidé mi contraseña</h1>
           <p className="form-grid__info-sub text-center">
             Ingresa tu correo electrónico para cambiar tu contraseña
           </p>
+
           <div className="form-grid__group">
-            <div className="form-grid--error" hidden={!messageError}>
+            <div className={`form-grid--error ${messageError && 'active'}`}>
               {messageError}
             </div>
             <div className="form-group">
@@ -166,7 +168,7 @@ class FormForgotPass extends Component {
   }
 
   templateSendedEmail(changeTemplate) {
-    const { closePopup } = this.props
+    const { closePopup, brandCurrent } = this.props
     return (
       <form className="form-grid">
         <div className="form-grid__back">
@@ -180,8 +182,8 @@ class FormForgotPass extends Component {
         </div>
         <div className="form-grid__forgot-pass">
           <Icon.MsgForgotPass
-            className="form-grid__icon"
-            bgcolor={Brand === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+            className="icon-message"
+            bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
           />
           <h1 className="form-grid__info">Correo enviado</h1>
           <p className="form-grid__info-sub text-center">

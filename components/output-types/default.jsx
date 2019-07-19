@@ -46,11 +46,16 @@ export default ({
     isAmp: false,
   }
 
-  const title =
+  const seoTitle =
     metaValue('title') && !metaValue('title').match(/content/)
-      ? `${metaValue('title')}`
+      ? metaValue('title')
       : siteProperties.siteName
 
+  const metaTitle =
+    metaValue('meta_title') && !metaValue('meta_title').match(/content/)
+      ? metaValue('meta_title')
+      : null
+  const title = metaTitle || seoTitle
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`
@@ -113,6 +118,7 @@ export default ({
           requestUri={requestUri}
           port={metaValue('port')}
           isStory={isStory}
+          globalContent={globalContent}
         />
         <TagManager {...siteProperties} />
         <meta charset="utf-8" />
@@ -173,6 +179,9 @@ export default ({
         {/* <!-- Rubicon BlueKai - Fin --> */}
 
         <Libs />
+        {/* Scripts Identity & Sales */}
+        <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-sales.min.js" />
+        <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js" />
       </head>
       <body className={isStory ? 'story' : ''}>
         <noscript>

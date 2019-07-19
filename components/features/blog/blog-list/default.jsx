@@ -7,8 +7,6 @@ import {
   defaultImage,
 } from '../../../utilities/helpers'
 
-// TODO: mover fetch
-
 const classes = {
   list: 'bg-white w-full p-15', // blog-list
   title: 'uppercase mb-20 title-xs', // blog-list__title
@@ -28,12 +26,6 @@ class BlogList extends PureComponent {
         query: {
           website: arcSite,
         },
-        // filter: '',
-        /**
-         * TODO:CARLOS: verificar si el fetch lo hace correcto sin filter
-         * o es obligatorio agregarlo al menos vacio.
-         */
-        tramsform: ({ total } = {}) => total,
       },
     })
   }
@@ -95,7 +87,7 @@ class BlogList extends PureComponent {
       query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
     } = globalContentConfig
     const { totalPosts } = this.state
-    // TODO:CARLOS: probar sin contenido console.log('---->', totalPosts)
+    const { total: totalItems = null } = totalPosts
     const blogs = Object.values(globalContent).filter(
       item => typeof item === 'object'
     )
@@ -112,9 +104,9 @@ class BlogList extends PureComponent {
             })}
           </div>
         </div>
-        {totalPosts && (
+        {totalItems && (
           <Pagination
-            totalElements={totalPosts}
+            totalElements={totalItems}
             storiesQty={blogLimit}
             currentPage={blogOffset || 1}
             requestUri={requestUri}

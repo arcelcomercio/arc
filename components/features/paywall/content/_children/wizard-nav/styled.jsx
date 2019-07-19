@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components'
+import { devices } from '../../../_dependencies/devices'
 
 const WizardNav = styled.div`
   display: flex;
@@ -23,6 +24,11 @@ const Content = styled.div`
   align-items: center;
   :not(:first-child) {
     margin-left: 100px;
+  }
+  @media (${devices.mobile}) {
+    :not(:first-child) {
+      margin-left: 50px;
+    }
   }
 `
 

@@ -18,7 +18,7 @@ class LoginRegister extends Component {
   }
 
   renderTemplate(template) {
-    const { closePopup } = this.props
+    const { closePopup, brandModal } = this.props
     const templates = {
       login: (
         <FormLogin
@@ -32,15 +32,16 @@ class LoginRegister extends Component {
           closePopup={closePopup}
           typePopUp="organico"
           typeForm="registro"
+          brandCurrent={brandModal}
         />
       ),
-      forgot: <FormForgotPass closePopup={closePopup} />,
+      forgot: <FormForgotPass closePopup={closePopup} brandCurrent={brandModal} />,
     }
-    return templates[template] || template.login
+    return templates[template] || templates.login
   }
 
   render() {
-    const { closePopup } = this.props
+    const { closePopup, brandModal } = this.props
     return (
       <ModalProvider>
         <ModalConsumer>
@@ -53,7 +54,7 @@ class LoginRegister extends Component {
               <Header closePopup={closePopup} />
               <div className="modal-body">
                 <div className="modal-body__left">
-                  <ListBenefits typeMessage="organic" />
+                  <ListBenefits typeMessage="organic" brandCurrent={brandModal} />
                 </div>
                 <div className="modal-body__right">
                   {this.renderTemplate(value.selectedTemplate)}

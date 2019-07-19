@@ -286,10 +286,10 @@ const peruRedShowTag = () => {
           apntag.showTag(id)
           apntag.onEvent('adAvailable', id, adObj => {
             // console.log("Objeto tipo => ", adObj);
-            document.querySelector(`.perured-header-${device}`).style.display =
+            /* document.querySelector(`.perured-header-${device}`).style.display =
               'block'
             document.querySelector(`.perured-footer-${device}`).style.display =
-              'block'
+              'block' */
 
             if (adObj.adType === 'native') {
               const ad = document.getElementById(adObj.targetId)
@@ -496,22 +496,6 @@ if (adUnits.length > 0) {
           bidCpmAdjustment: bidCpm => bidCpm * BIDDER_PERCENTAGE,
         }
       }
-      if (bd === 'smartadserver') {
-        bds[bd] = {
-          bidCpmAdjustment: (bidCpm, bid) => {
-            const nbcpm = bidCpm * 0.8
-            window.sessionStorage.setItem(
-              '4519_SMART',
-              JSON.stringify({
-                bidCpm,
-                bid,
-                new_bidCpm: nbcpm,
-              })
-            )
-            return nbcpm
-          },
-        }
-      }
       if (bd === 'audienceNetwork') {
         bds[bd] = {
           adserverTargeting: [
@@ -549,6 +533,10 @@ if (adUnits.length > 0) {
 
   // if (IS_DEBUG) console.log('HEADER BIDDING CARGADO')
 }
+
+dataLayer.push({
+  event: 'definir_eventos_appnexus',
+})
 
 // END EVENTS
 apntag.anq.push(() => {

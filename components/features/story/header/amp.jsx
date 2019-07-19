@@ -13,12 +13,14 @@ const classes = {
   description:
     'amp-story-header__description mt-0 text-md text-gray-300 secondary-font',
   gallery: 'amp-story-header bg-white w-full pr-20 pl-20 m-5 mx-auto',
+  adsAmp: 'text-center',
 }
 @Consumer
 class StoryHeaderAmp extends PureComponent {
   render() {
     const {
       arcSite,
+      siteProperties: { adsAmp },
       globalContent: {
         subheadlines: { basic: subtitle = '' } = {},
         headlines: { basic: titleElements = '' } = {},
@@ -28,8 +30,8 @@ class StoryHeaderAmp extends PureComponent {
         } = {},
       } = {},
     } = this.props
-    const dataSlot = `/28253241/${arcSite}-amp-320x50-top-movil1`
-    const placementId = 15011772
+    const dataSlot = `/${adsAmp.dataSlot}/${arcSite}-amp-320x50-top-movil1`
+    const placementId = adsAmp.movil1
     const width = '320'
     const height = '50'
     const parameters = { dataSlot, placementId, width, height }
@@ -44,7 +46,10 @@ class StoryHeaderAmp extends PureComponent {
               {formatDayMonthYear(date)}
             </time>
           </header>
-          <div dangerouslySetInnerHTML={publicidadAmp(parameters)} />
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmp(parameters)}
+          />
 
           {subtitle && <div className={classes.description}> {subtitle}</div>}
           <StoryHeaderChildAmpSocial />
