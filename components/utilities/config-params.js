@@ -86,25 +86,27 @@ class ConfigParams {
   static SQUARE_S = 'square_s'
 
   static SQUARE_XS = 'square_xs'
+
+  static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 }
 
 export const sizeImg = () => {
   return {
     // landscape
     landscape_xl: {
-      width: 900,
+      width: 980,
       height: 528,
     },
     landscape_l: {
-      width: 620,
+      width: 648,
       height: 374,
     },
     landscape_md: {
-      width: 300,
+      width: 314,
       height: 157,
     },
     landscape_s: {
-      width: 220,
+      width: 234,
       height: 161,
     },
     landscape_xs: {
@@ -120,10 +122,10 @@ export const sizeImg = () => {
     // TODO: actualizar tamaño
     portrait_l: {
       width: 374,
-      height: 620,
+      height: 648,
     },
     portrait_md: {
-      width: 300,
+      width: 314,
       height: 374,
     },
     // TODO: actualizar tamaño
@@ -157,7 +159,11 @@ export const sizeImg = () => {
       width: 75,
       height: 75,
     },
+<<<<<<< HEAD
     // TODO: Eliminar estos tamaños despues de actualizar
+=======
+    // TODO: Eliminar estos tamaños despues de actualizar 
+>>>>>>> 7c5ef571ca570aadaac794f2dc63cc1c0cb9d3b6
     // los tamaños de las imagenes de todos los componentes.
     small: {
       width: 100,
