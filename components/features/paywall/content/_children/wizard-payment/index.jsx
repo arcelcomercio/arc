@@ -135,15 +135,17 @@ function WizardPayment(props) {
       email,
     } = memo
     const { cvv, cardMethod, expiryDate, cardNumber } = values
+    let payUPaymentMethod
+
     Sales.then(sales => {
       setLoading(true)
       return sales
         .getPaymentOptions()
         .then(paymentMethods => {
-          const payUPaymentMethod = paymentMethods.find(
+          payUPaymentMethod = paymentMethods.find(
             m => m.paymentMethodType === 8
           )
-          const { paymentMethodType, paymentMethodID } = payUPaymentMethod
+          const { paymentMethodID } = payUPaymentMethod
           return sales.initializePayment(orderNumber, paymentMethodID)
         })
         .then(
@@ -207,7 +209,8 @@ function WizardPayment(props) {
                   amount,
                 })
               })*/
-                .then(res => {
+                .then(token => {
+                  const { paymentMethodID } = payUPaymentMethod
                   return sales
                     .finalizePayment(orderNumber, paymentMethodID, token)
                     .then(res => {
