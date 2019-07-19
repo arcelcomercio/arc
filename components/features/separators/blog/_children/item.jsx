@@ -2,17 +2,17 @@ import React from 'react'
 
 const classes = {
   separator: 'blog-separator bg-white flex-no-wrap w-full',
-  // separator: 'blog-separator bg-white flex flex-col flex-no-wrap w-full',  
-  boxTitle: 'blog-separator__box-title w-full overflow-hidden p-15',
+  boxTitle:
+    'blog-separator__box-title w-full overflow-hidden  pl-15 pr-15 pb-15',
   title: 'blog-separator__title font-normal text-lg',
-  link: 'blog-separator__link text-gray-300',
-  middle: 'blog-separator__box-middle flex flex-col justify-center pl-15 pr-15 pt-15',
+  link: 'blog-separator__link text-gray-300 title-xs',
+  middle:
+    'blog-separator__box-middle flex flex-col justify-center pl-15 pr-15 pt-15',
   section: 'blog-separator__section block text-sm',
-  author: 'blog-separator__author block mt-5 text-sm text-gray-300',
-  boxImg: 'flex justify-start pt-15 pl-15 ',
+  author: 'blog-separator__author block title-sm text-gray-300 primary-font',
+  boxImg: 'flex items-center md:items-start pt-15 pl-15 ',
   img: 'blog-separator__img object-contain',
 }
-// middle:'blog-separator__box-middle flex flex-col justify-center pt-10 pb-10 pr-15 pl-15 ',
 
 const SeparatorBlogChildItem = ({
   authorName,

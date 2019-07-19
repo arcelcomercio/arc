@@ -3,18 +3,23 @@ import Consumer from 'fusion:consumer'
 import withSizes from 'react-sizes'
 
 import SeparatorBlogChildItem from './_children/item'
-import {  sizeDevice } from '../_dependencies/functions'
+import { sizeDevice } from '../_dependencies/functions'
 import { defaultImage } from '../../../utilities/helpers'
 
 const BLOG_BASE = '/blog'
 
 const classes = {
-  header: 'blog-separator__header flex flex-row justify-center mb-30 pt-30 position-relative items-center  ',
-  contentItem:'flex overflow-hidden',
-  contentItemMovil:'flex flex-col overflow-hidden',
+  header:
+    'blog-separator__header flex flex-row justify-center mb-20 pt-20 position-relative items-center  ',
+  contentItem: 'flex overflow-hidden',
+  contentItemMovil: 'flex flex-col overflow-hidden',
   titleSeparator:
-    'blog-separator__blog uppercase title-sm text-gray-300 blog-separator__title-header flex flex-row justify-left items-center',
-  seeMoreText: 'blog-separator__see-more-text pt-10 pb-10 pr-10 pl-10 position-absolute right-0',
+    'blog-separator__blog uppercase title-lg text-gray-300 blog-separator__title-header flex flex-row justify-left items-center',
+  seeMoreText:
+    'blog-separator__see-more-text text-md text-center capitalize pt-10 pb-10 pr-10 pl-10 right-0',
+  wrapper: 'blog-separator__wrapper mb-20',
+  seeMoreWrapper:
+    'blog-separator__btn-wrapper flex items-center justify-center pt-20',
 }
 const PATH_BLOG = '/blog'
 @withSizes(({ width }) => sizeDevice(width))
@@ -40,22 +45,38 @@ class SeparatorBlog extends PureComponent {
 
   render() {
     const { dataApi = {} } = this.state
-    const { arcSite, contextPath, deployment, isMobile, isTablet,siteProperties:{siteUrl}={} } = this.props
+    const {
+      arcSite,
+      contextPath,
+      deployment,
+      isMobile,
+      isTablet,
+      siteProperties: { siteUrl } = {},
+    } = this.props
     let listPost = Object.values(dataApi)
     listPost = listPost.slice(0, 5)
-    
+
     const urlVerMas = `${siteUrl}${PATH_BLOG}`
 
     return (
-      <div>
+      <div className={classes.wrapper}>
         <div className={classes.header}>
           <a className={classes.titleSeparator} href={BLOG_BASE}>
             FIRMAS
           </a>
-          
-          {isMobile || isTablet ? null: (<a href={urlVerMas} className={classes.seeMoreText}>ver mas</a>)}
+
+          {isMobile || isTablet ? null : (
+            <a href={urlVerMas} className={classes.seeMoreText}>
+              ver más
+            </a>
+          )}
         </div>
-        <div className={isMobile || isTablet? classes.contentItemMovil : classes.contentItem}>
+        <div
+          className={
+            isMobile || isTablet
+              ? classes.contentItemMovil
+              : classes.contentItem
+          }>
           {listPost &&
             listPost.map(post => {
               const {
@@ -78,7 +99,7 @@ class SeparatorBlog extends PureComponent {
                   } = {},
                 ] = [],
               } = post
-              
+
               const data = {
                 authorName,
                 authorImg,
@@ -90,8 +111,13 @@ class SeparatorBlog extends PureComponent {
               return <SeparatorBlogChildItem key={blogUrl} {...data} />
             })}
         </div>
-        {isMobile || isTablet ? (<a href={urlVerMas} className={classes.seeMoreText}>ver mas</a>):null}
-
+        {isMobile || isTablet ? (
+          <div className={classes.seeMoreWrapper}>
+            <a href={urlVerMas} className={classes.seeMoreText}>
+              ver más
+            </a>
+          </div>
+        ) : null}
       </div>
     )
   }
