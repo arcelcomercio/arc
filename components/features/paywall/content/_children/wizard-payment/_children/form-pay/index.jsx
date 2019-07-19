@@ -20,7 +20,12 @@ const RegisterSchema = schema({})
 
 const FormPay = ({ onSubmit, onReset }) => (
   <Formik
-    initialValues={{}}
+    initialValues={{
+      cardMethod: 'visa',
+      cardNumber: '4437030140190994',
+      expiryDate: '10/2021',
+      cvv: '123',
+    }}
     validate={values => {
       // FIXME: Validaciones y errores
       // return RegisterSchema(values)
