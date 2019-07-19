@@ -1,6 +1,7 @@
 .most-read {
+  background-color: $color-base-200;
   &__title {
-    background-color: $color-base-300;
+    background-color: $color-gray-200;
   }
   &__icon {
     color: $color-primary;

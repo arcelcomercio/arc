@@ -11,9 +11,7 @@ export default `
                 type 
                 url
                 resized_urls { 
-                  small
-                  medium
-                  large
+                  landscape_s
                 }
               }
             }
@@ -25,9 +23,7 @@ export default `
                 type 
                 url
                 resized_urls { 
-                  small
-                  medium
-                  large
+                  landscape_s
                 }
               }
             }
@@ -36,9 +32,7 @@ export default `
             type 
             url
             resized_urls { 
-              small
-              medium
-              large
+              landscape_s
             }
           }
         }
