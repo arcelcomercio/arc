@@ -159,11 +159,7 @@ export const sizeImg = () => {
       width: 75,
       height: 75,
     },
-<<<<<<< HEAD
     // TODO: Eliminar estos tamaños despues de actualizar
-=======
-    // TODO: Eliminar estos tamaños despues de actualizar 
->>>>>>> 7c5ef571ca570aadaac794f2dc63cc1c0cb9d3b6
     // los tamaños de las imagenes de todos los componentes.
     small: {
       width: 100,

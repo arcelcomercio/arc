@@ -2,7 +2,7 @@ import React from 'react'
 import ENV from 'fusion:environment'
 import StoryData from '../../utilities/story-data'
 import { formatHtmlToText } from '../../utilities/helpers'
-
+import ConfigParams from '../../utilities/config-params'
 export default ({
   globalContent: data,
   arcSite,
@@ -162,7 +162,7 @@ export default ({
     }(document.createElement('script'),
         document.getElementsByTagName('script')[0],
         '//cdn.taboola.com/libtrc/grupoelcomercio-${
-          arcSite === 'publimetro' ? 'publimetrope' : arcSite
+          arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : arcSite
         }/loader.js',
         'tb_loader_script');
     if (window.performance && typeof window.performance.mark == 'function') {
