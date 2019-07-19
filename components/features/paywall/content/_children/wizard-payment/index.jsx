@@ -9,6 +9,7 @@ import * as S from './styled'
 import FormPay from './_children/form-pay'
 import { devices } from '../../../_dependencies/devices'
 import { addSales } from '../../../_dependencies/sales'
+import { addPayU } from '../../../_dependencies/payu'
 
 const PanelPayment = styled(Panel)`
   @media (${devices.mobile}) {
@@ -103,10 +104,17 @@ function WizardPayment(props) {
           Authorization: '3150babb4e158cd6ec7e15808cb6a4994cdc3cdf',
           'user-token': '[TOKEN_USER]',
         },
-      }).then(res => {
-        return resolve(res.json())
       })
+        .then(res => {
+          return resolve(res.json())
+        })
+        //FIXME: Devolver la respuesta exitosa del servicio real
+        .catch(e => ({
+          id: 10,
+          order: '8YCQ5B0I8699W0WC',
+        }))
     })
+
     return response
   }
 
@@ -136,60 +144,77 @@ function WizardPayment(props) {
             m => m.paymentMethodType === 8
           )
           const { paymentMethodType, paymentMethodID } = payUPaymentMethod
-          return Sales.initializePayment(orderNumber, paymentMethodID)
+          return sales.initializePayment(orderNumber, paymentMethodID)
         })
         .then(
           ({
             parameter1: publicKey,
             parameter2: accountId,
             parameter3: payuBaseUrl,
-            parameter4: deviceSessionId, // TODO: Verificar si api envia este parametro
+            parameter4: deviceSessionId,
           }) => {
             const ownerName = `${firstName} ${lastName} ${secondLastName}`.trim()
             const expiryMonth = expiryDate.split('/')[0]
             const expiryYear = expiryDate.split('/')[1]
 
-            return getPayUToken({
-              payuBaseUrl,
-              publicKey,
-              accountId,
-              deviceSessionId,
-              cardNumber,
-              expiryMonth,
-              expiryYear,
-              documentNumber,
-              ownerName,
-              cvv,
-              cardMethod: cardMethod.toUpperCase(),
-            })
+            return addPayU(siteProperties)
+              .then(payU => {
+                payU.setURL(payuBaseUrl) //OK
+                payU.setPublicKey(publicKey) //OK
+                payU.setAccountID(accountId)
+                payU.setListBoxID('mylistID')
+                payU.getPaymentMethods()
+                payU.setLanguage('es')
+                payU.setCardDetails({
+                  number: cardNumber,
+                  name_card: ownerName,
+                  payer_id: documentNumber,
+                  exp_month: expiryMonth,
+                  exp_year: expiryYear,
+                  method: cardMethod.toUpperCase(),
+                  document: documentNumber,
+                  cvv,
+                })
+                return new Promise((resolve, reject) => {
+                  payU.createToken(response => {
+                    if (response.error) {
+                      reject(new Error(response.error))
+                    } else {
+                      resolve(response.token)
+                    }
+                  })
+                })
+              })
+              .then(token => {
+                return apiPaymentRegister({
+                  baseUrl,
+                  orderNumber,
+                  firstName,
+                  lastName,
+                  secondLastName,
+                  documentType: 'DNI',
+                  documentNumber,
+                  email,
+                  phone,
+                  cardMethod,
+                  cardNumber,
+                  token,
+                  campaignCode,
+                  sku,
+                  priceCode,
+                  amount,
+                }).then(({ id, order }) => {
+                  return sales
+                    .finalizePayment(order, paymentMethodID, token)
+                    .then(res => {
+                      // Mezclamos valores del formulario con el payload de respuesta
+                      const mergedValues = Object.assign({}, res, values)
+                      onBeforeNextStep(mergedValues, props)
+                    })
+                })
+              })
           }
         )
-        .then(({ token }) => {
-          return apiPaymentRegister({
-            baseUrl,
-            orderNumber,
-            firstName,
-            lastName,
-            secondLastName,
-            documentType: 'DNI',
-            documentNumber,
-            email,
-            phone,
-            cardMethod,
-            cardNumber,
-            token,
-            campaignCode,
-            sku,
-            priceCode,
-            amount,
-          }).then(({ id, order }) => {
-            return Sales.finalizePayment(order, paymentMethodID, token).then(
-              res => {
-                onBeforeNextStep(res, props)
-              }
-            )
-          })
-        })
     })
   }
 
