@@ -7,8 +7,7 @@ export default {
   siteUrl: 'https://gestion.pe',
   resizerUrl: 'https://publimetro.pe/resizer', // Temporal hasta que activen el resizer para gestión
   resizerSecretKeyEnvVar: '',
-  urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KFQK83S',
   ampGoogleTagManagerId: 'UA-3055636-3',
@@ -18,8 +17,7 @@ export default {
   fbArticleStyle: 'LogoGestion',
   nameStoryRelated: 'VEA TAMBIÉN',
 
-  siteDescription:
-    'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  siteDescription: 'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   imagenNewsLetter: {
     "thumbnail_max": "https://img.elcomercio.pe/files/servicio_newsletter_648x364/uploads/2017/05/16/591b34b2c9508.jpeg",
@@ -52,6 +50,10 @@ export default {
   },
 
   assets: {
+    nav: {
+      logo: 'white-logo.png',
+      logoSomos: 'white-logo.png',
+    },
     path: `/resources/dist/gestion/`,
     paywall: {
       logo: `images/logo.svg`,
@@ -65,8 +67,7 @@ export default {
       return `${this.path}${this.paywall[image]}`
     },
   },
-  legalLinks: [
-    {
+  legalLinks: [{
       name: 'Términos y condiciones',
       url: '/terminos-servicio',
     },
@@ -88,8 +89,7 @@ export default {
       'Grupo El Comercio - Todos los derechos reservados',
     ],
 
-    socialNetworks: [
-      {
+    socialNetworks: [{
         name: 'facebook',
         url: 'https://www.facebook.com/elcomercio.pe',
       },
@@ -103,8 +103,7 @@ export default {
       },
     ],
 
-    contacts: [
-      {
+    contacts: [{
         position: 'Director Periodístico',
         name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
       },
