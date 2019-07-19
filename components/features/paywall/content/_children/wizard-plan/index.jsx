@@ -6,12 +6,20 @@ import Summary from './_children/summary'
 import * as S from './styled'
 import { addSales } from '../../../_dependencies/sales'
 
-function WizardPlan({ nextStep, summary, plans }) {
+function WizardPlan(props) {
+  const {
+    memo,
+    nextStep,
+    summary,
+    plans,
+    onBeforeNextStep = (res, goNextStep) => goNextStep(),
+  } = props
+
   const fusionContext = useFusionContext()
   const [loading, setLoading] = useState()
   const [errors, setErrors] = useState([])
 
-  const siteProperties = fusionContext.siteProperties
+  const { siteProperties } = fusionContext
   const Sales = addSales(siteProperties)
 
   function subscribePlanHandler(e, plan) {
@@ -21,7 +29,7 @@ function WizardPlan({ nextStep, summary, plans }) {
         .addItemToCart(plan.sku, plan.priceCode, 1)
         .then(res => {
           setLoading(false)
-          nextStep()
+          onBeforeNextStep(plan, props)
         })
         .catch(e => {
           setLoading(false)

@@ -43,9 +43,6 @@ const Paywall = props => {
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-
-        {/* Scripts Identity & Sales & PayU */}
-        <script src="https://gateway.payulatam.com/ppp-web-gateway/javascript/PayU.js"></script>
       </head>
       <body>
         <div id="fusion-app" role="application" className="layout-paywall">
