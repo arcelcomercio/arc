@@ -27,7 +27,7 @@ const infoStory = data => {
   }
 
   const getTagList = () => {
-    const { tags } = data.taxonomy
+    const { tags = [] } = data.taxonomy
     const listTags = tags.map(tag => tag.slug)
     const formatTags = listTags.join()
     return formatTags
