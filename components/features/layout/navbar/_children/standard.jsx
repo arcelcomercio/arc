@@ -45,10 +45,117 @@ class NavBarDefault extends PureComponent {
     }
     // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
+
+    this.dragFlag = false
+    this.initPointDrag = 0
+    this.distDrag = 0
+    this.limitScreenDrag = 100
+
+    this.listContainer = null
+    this.listWidth = 0
+    this.layerBackground = null
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this._handleScroll)
+    this.listContainer = document.querySelector('.nav-sidebar')
+    this.layerBackground = document.querySelector('.layer')
+
+    if (this.listContainer !== null && this.listContainer !== 'undefined') {
+      this.listWidth = this.listContainer.getBoundingClientRect().width
+      document.body.addEventListener('mousedown', this._initDrag)
+      document.body.addEventListener('mouseup', this._endDrag)
+      document.body.addEventListener('mousemove', this._moveDrag)
+
+      /* document.body.addEventListener('touchstart', this._initDrag)
+      document.body.addEventListener('touchend', this._endDrag)
+      document.body.addEventListener('touchmove', this._moveDrag) */
+    }
+
+    if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
+      this.layerBackground.addEventListener('click', this._closeMenu)
+    }
+  }
+
+  _initDrag = evt => {
+    const { statusSidebar } = this.state
+    this.initPointDrag = evt.offsetX || evt.changedTouches[0].clientX
+    document.body.classList.add('no-selected')
+    if (statusSidebar) {
+      if (this.initPointDrag < this.listWidth) {
+        this.dragFlag = true
+      }
+    } else if (this.initPointDrag < this.limitScreenDrag) {
+      this.dragFlag = true
+    }
+  }
+
+  _endDrag = () => {
+    const { statusSidebar } = this.state
+    this.dragFlag = false
+    document.body.classList.remove('no-selected')
+
+    if (this.distDrag < this.limitScreenDrag) {
+      if (!statusSidebar) this._closeMenu()
+      else this._openMenu()
+    }
+    this.distDrag = 0
+  }
+
+  _moveDrag = evt => {
+    if (this.dragFlag) {
+      const { offsetX, movementX, changedTouches } = evt
+
+      let dir = ''
+      if (movementX) {
+        dir = movementX > 0 ? 'right' : 'left'
+      } else if (changedTouches && changedTouches[0]) {
+        dir =
+          changedTouches[0].clientX - this.initPointDrag > 0 ? 'right' : 'left'
+      }
+
+      const posX = offsetX || changedTouches[0].clientX
+      this._drag(dir, posX)
+    }
+  }
+
+  _drag = (direction, posX) => {
+    const { statusSidebar } = this.state
+    if (direction === 'right') {
+      this.distDrag = !statusSidebar ? posX - this.initPointDrag : 0
+    } else {
+      this.distDrag = statusSidebar ? -(this.initPointDrag - posX) : 0
+    }
+    if (direction === 'right' || direction === 'left') {
+      const listPos = statusSidebar ? 1 : 0
+      this._setPosition(listPos + this.distDrag / this.listWidth)
+    }
+    if (Math.abs(this.distDrag) > this.limitScreenDrag) {
+      if (statusSidebar) this._closeMenu()
+      else this._openMenu()
+      this._endDrag()
+    }
+  }
+
+  _setPosition = posX => {
+    console.log(this.listContainer)
+    this.listContainer.style.transform = `scaleX(${posX})`
+  }
+
+  _openMenu = () => {
+    // this._setPosition(240)
+    this.layerBackground.style.display = 'block'
+    this.setState({
+      statusSidebar: true,
+    })
+  }
+
+  _closeMenu = () => {
+    // this._setPosition(0)
+    this.layerBackground.style.display = 'none'
+    this.setState({
+      statusSidebar: false,
+    })
   }
 
   // Add - Remove Class active input and button search
@@ -92,7 +199,7 @@ class NavBarDefault extends PureComponent {
   }
 
   // Saber si hay sesion inicada
-  checkSesion = () => {
+  checkSession = () => {
     const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
     const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
     if (profileStorage) {
@@ -146,9 +253,8 @@ class NavBarDefault extends PureComponent {
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
     this.toggleBodyOverflow()
-    this.setState({
-      statusSidebar: !statusSidebar,
-    })
+    if (statusSidebar) this._closeMenu()
+    else this._openMenu()
   }
 
   closeSignwall() {
@@ -244,7 +350,7 @@ class NavBarDefault extends PureComponent {
                   type="button"
                   className={`${classes.btnLogin} btn--outline`}
                   onClick={() => this.setState({ isActive: true })}>
-                  {this.checkSesion() ? 'Mi Cuenta' : 'Iniciar Sesión'}
+                  {this.checkSession() ? 'Mi Cuenta' : 'Iniciar Sesión'}
                 </button>
               </div>
               <div className={classes.searchContainer}>
@@ -297,6 +403,7 @@ class NavBarDefault extends PureComponent {
             contextPath={contextPath}
             siteProperties={siteProperties}
           />
+          <div className="layer" />
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
       </>
