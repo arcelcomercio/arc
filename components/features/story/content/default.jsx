@@ -67,6 +67,7 @@ class StoryContent extends PureComponent {
   render() {
     const {
       globalContent,
+      arcSite,
       siteProperties: {
         ids: { opta },
         siteUrl,
@@ -234,11 +235,13 @@ class StoryContent extends PureComponent {
           type="text/javascript"
           dangerouslySetInnerHTML={{ __html: structuredTaboola }}
         />
-        <div
-          className="fb-comments"
-          data-href={`${siteUrl}${websiteUrl}`}
-          data-numposts="5"
-        />
+        {arcSite === ConfigParams.SITE_PUBLIMETRO && (
+          <div
+            className="fb-comments"
+            data-href={`${siteUrl}${websiteUrl}`}
+            data-numposts="5"
+          />
+        )}
       </div>
     )
   }
