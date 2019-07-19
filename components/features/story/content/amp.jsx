@@ -27,6 +27,7 @@ const classes = {
   // TODO: Revisar video y imgTag
   relatedTitle:
     'related-content__title font-bold uppercase pt-20 pb-20 secondary-font',
+  adsAmp: 'text-center ',
 }
 
 @Consumer
@@ -79,7 +80,10 @@ class StoryContentAmp extends PureComponent {
       <>
         <div className={classes.content}>
           {promoItems && <ElePrincipal data={promoItems} />}
-          <div dangerouslySetInnerHTML={publicidadAmp(parameters)} />
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmp(parameters)}
+          />
           <p className={classes.author}>Por: Redacción DT</p>
           {contentPosicionPublicidadAmp && (
             <StoryContent
@@ -144,11 +148,12 @@ class StoryContentAmp extends PureComponent {
                   return (
                     <>
                       <Text
-                        content={replaceTags(content)}
+                        content={ampHtml(replaceTags(content))}
                         className={classes.textClasses}
                       />
                       {publicidad && (
                         <div
+                          className={classes.adsAmp}
                           dangerouslySetInnerHTML={publicidadAmp(
                             parametersMovil3
                           )}
@@ -165,7 +170,10 @@ class StoryContentAmp extends PureComponent {
               }}
             />
           )}
-          <div dangerouslySetInnerHTML={publicidadAmp(parametersMovil4)} />
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmp(parametersMovil4)}
+          />
           <StoryContentChildTags data={tags} {...isAmp} />
 
           {relatedContent.length > 0 && (
@@ -198,7 +206,10 @@ class StoryContentAmp extends PureComponent {
           />
         </div>
 
-        <div dangerouslySetInnerHTML={publicidadAmp(parametersMovil5)} />
+        <div
+          className={classes.adsAmp}
+          dangerouslySetInnerHTML={publicidadAmp(parametersMovil5)}
+        />
       </>
     )
   }

@@ -4,7 +4,11 @@
     max-width: 800px;
   }
 
-  /* &__title {} */
+  &__title {
+    @media (--tablet) {
+      font-size: 3rem;
+    }
+  }
 
   &__section {
     &:before {

@@ -1,41 +1,54 @@
 .story-item {
   border-bottom: dashed 2px $color-base-200;
+  padding-bottom: 0;
   &__section {
-    color: $color-gray-300;
+    color: $color-gray-200;
     font-weight: 700;
     border: 0;
     padding: 0;
+    font-size: 14px;
     @media (--tablet) {
       margin: 0;
-      font-size: 15px;
+      font-size: 16px;
     }
   }
   &__left {
+    padding-right: 25px;
     justify-content: start;
     flex-direction: column-reverse;
   }
   &__top {
+    justify-content: space-between;
     @media (--tablet) {
       margin-top: 20px;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
     }
   }
   &__date {
-    font-weight: 700;
+    font-weight: 500;
     color: $color-base-300;
+    font-size: 11px;
+    font-family: $tertiary-font;
     @media (--tablet) {
       margin: 0;
       font-size: 12px;
     }
   }
+  &__content-title {
+    margin-bottom: 10px;
+    @media (--tablet) {
+      margin-bottom: 0;
+    }
+  }
   &__title {
     font-weight: 700;
+    font-size: 16px;
+    max-height: calc(16px * 1.166 * 3);
+    margin-top: 0;
     @media (--tablet) {
       max-height: calc(20px * 1.166 * 3);
       font-size: 24px;
-      margin-top: 0;
     }
   }
   &__subtitle {

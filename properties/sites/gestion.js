@@ -2,7 +2,7 @@ export default {
   siteName: 'Gestión',
   colorPrimary: '#8F071F',
   colorSecondary: '#F4E0D2',
-  googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:400,700',
+  googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
   resizerUrl: 'https://publimetro.pe/resizer', // Temporal hasta que activen el resizer para gestión
@@ -16,9 +16,31 @@ export default {
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-3',
   fbArticleStyle: 'LogoGestion',
+  nameStoryRelated: 'VEA TAMBIÉN',
+
   siteDescription:
     'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
+  imagenNewsLetter: {
+    thumbnail_max:
+      'https://img.elcomercio.pe/files/servicio_newsletter_648x364/uploads/2017/05/16/591b34b2c9508.jpeg',
+    thumbnail_min:
+      'https://img.elcomercio.pe/files/servicio_newsletter_214x135/uploads/2017/05/16/591b34b2c9508.jpeg',
+    thumbnail_250x366:
+      'https://img.elcomercio.pe/files/servicio_newsletter_250x366/uploads/2017/05/16/591b34b2c9508.jpeg',
+    thumbnail_148x83:
+      'https://img.elcomercio.pe/files/servicio_newsletter_148x83/uploads/2017/05/16/591b34b2c9508.jpeg',
+    thumbnail_210x118:
+      'https://img.elcomercio.pe/files/servicio_newsletter_210x118/uploads/2017/05/16/591b34b2c9508.jpeg',
+    thumbnail_403x227:
+      'https://img.elcomercio.pe/files/servicio_newsletter_403x227/uploads/2017/05/16/591b34b2c9508.jpeg',
+    thumbnail_241x136:
+      'https://img.elcomercio.pe/files/servicio_newsletter_241x136/uploads/2017/05/16/591b34b2c9508.jpeg',
+    thumbnail_grande:
+      'https://img.elcomercio.pe/files/ec_content_newslatter_grande/uploads/2017/05/16/591b34b2c9508.jpeg',
+    thumbnail_flujo:
+      'https://img.elcomercio.pe/files/ec_content_newslatter_flujo/uploads/2017/05/16/591b34b2c9508.jpeg',
+  },
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
@@ -39,11 +61,16 @@ export default {
   },
 
   assets: {
+    nav: {
+      logo: 'white-logo.png',
+      logoSomos: 'white-logo.png',
+    },
     path: `/resources/dist/gestion/`,
     paywall: {
       logo: `images/logo.svg`,
       confirmation: `images/adult-attire-blazer-173125.jpg`,
       confirmationx2: `images/adult-attire-blazer-173125@2x.jpg`,
+      lector: `images/img_lector.png`,
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)
@@ -54,8 +81,12 @@ export default {
   },
   legalLinks: [
     {
-      name: 'Términos y condiciones',
-      url: '/terminos-servicio',
+      name: '¿Quiénes somos?',
+      url: '/quienes-somos',
+    },
+    {
+      name: 'Términos de uso',
+      url: '/terminos-y-condiciones',
     },
     {
       name: 'Políticas de Privacidad',
@@ -65,14 +96,19 @@ export default {
       name: 'Politicas de Cookies',
       url: '/politicas-cookies',
     },
+    {
+      name: 'Preguntas Frecuentes',
+      url: '/preguntas-frecuentes',
+    },
   ],
 
   footer: {
     siteLegal: [
-      'Empresa Editora El Comercio',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
-      'Copyright © Elcomercio.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
+      'Director periodístico',
+      'JULIO LIRA SEGURA',
+      '© Empresa Editora El Comercio S.A.',
+      'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
+      'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
     ],
 
     socialNetworks: [
