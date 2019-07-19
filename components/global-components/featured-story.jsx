@@ -33,7 +33,7 @@ const classes = {
   [SIZE_TWO_COL]: 'col-2',
   // Headbands
   headband: 'featured-story__headband mb-5 text-lg',
-  headbandLink: 'featured-story__headband-link font-bold text-white',
+  headbandLink: 'featured-story__headband-link font-bold text-white uppercase',
 
   live: 'featured-story--live',
   icon: `featured-story__icon`,

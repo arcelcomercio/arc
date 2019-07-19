@@ -1,0 +1,20 @@
+.blog-separator {
+  border-top: 1px dashed $color-gray-200;
+
+  @media (--desktop) {
+    padding-bottom: 20px;
+  }
+
+  &__item {
+    background-color: $color-base-200;
+  }
+
+  &__author {
+    font-weight: 700;
+  }
+
+  &__see-more-text {
+    font-family: $tertiary-font;
+    font-weight: 700;
+  }
+}
