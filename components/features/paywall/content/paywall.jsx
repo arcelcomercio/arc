@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import Consumer from 'fusion:consumer'
+import React from 'react'
 import Wizard from 'react-step-wizard'
-
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
@@ -17,66 +15,90 @@ const Right = () => {
   return <div>Ayuda</div>
 }
 
-const Paywall = () => {
-  const fusionContext = useFusionContext()
-  const { contextPath, deployment, siteProperties } = fusionContext
+@Consumer
+class Content extends React.Component {
+  constructor(props) {
+    super(props)
+    this.memo = {}
+    this.state = {
+      data: {},
+      profile: '',
+    }
+    this.fetch = this.fetch.bind(this)
+    this.fetch()
+  }
 
-  const { summary = {}, plans } = useContent({
-    source: 'paywall-campaing',
-    query: { campaing: 'paywall-gestion-sandbox' },
-  })
+  // eslint-disable-next-line react/sort-comp
+  fetch() {
+    this.fetchContent({
+      data: {
+        source: 'paywall-campaing',
+        query: { campaing: 'paywall-gestion-sandbox' },
+      },
+    })
+  }
 
-  const [profile, setProfile] = useState('')
-  useEffect(() => {
-    AddIdentity(siteProperties).then(() =>
+  componentDidMount() {
+    const { siteProperties } = this.props
+    AddIdentity(siteProperties).then(() => {
       userProfile(['documentNumber', 'mobilePhone', 'documentType']).then(
-        setProfile
+        profile => {
+          this.setState({ profile })
+        }
       )
-    )
-  })
+    })
+  }
 
-  const memo = useRef({})
-  function onBeforeNextStepHandler(response, { nextStep }) {
-    Object.assign(memo, response)
+  onBeforeNextStepHandler = (response, { nextStep }) => {
+    Object.assign(this.memo, response)
     nextStep()
   }
 
-  const { assets } = siteProperties
-  const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
+  render() {
+    const { data, profile } = this.state
+    const { summary = {}, plans } = data
 
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <S.Content>
-        <Wizard
-          isLazyMount
-          isHashEnabled
-          nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-          <WizardPlan
-            memo={memo}
-            plans={plans}
-            summary={summary}
-            onBeforeNextStep={onBeforeNextStepHandler}
-          />
-          <WizardUserProfile
-            memo={memo}
-            profile={profile}
-            summary={summary}
-            onBeforeNextStep={onBeforeNextStepHandler}
-          />
-          <WizardPayment
-            memo={memo}
-            summary={summary}
-            onBeforeNextStep={onBeforeNextStepHandler}
-          />
-          <WizardConfirmation
-            memo={memo}
-            assets={fullAssets}
-            onBeforeNextStep={onBeforeNextStepHandler}
-          />
-        </Wizard>
-      </S.Content>
-    </div>
-  )
+    const {
+      contextPath,
+      deployment,
+      siteProperties: { assets },
+    } = this.props
+    const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
+
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <S.Content>
+          <Wizard
+            isLazyMount
+            isHashEnabled
+            nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
+            <WizardPlan
+              memo={this.memo}
+              plans={plans}
+              summary={summary}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+            />
+            <WizardUserProfile
+              memo={this.memo}
+              profile={profile}
+              summary={summary}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+            />
+            <WizardPayment
+              memo={this.memo}
+              summary={summary}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+            />
+            <WizardConfirmation
+              memo={this.memo}
+              assets={fullAssets}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+            />
+          </Wizard>
+        </S.Content>
+      </div>
+    )
+  }
 }
 
-export default Paywall
+export default Content
