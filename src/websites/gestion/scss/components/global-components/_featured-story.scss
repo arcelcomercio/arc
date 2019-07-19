@@ -29,6 +29,7 @@
 
   &__title {
     order: 1;
+    margin-bottom: 0;
   }
   &__title-link {
     font-weight: 700;
@@ -37,9 +38,15 @@
       line-height: 1.2;
     }
   }
+  &-threeline {
+    -webkit-line-clamp: 4;
+    max-height: calc(1.3rem * 1.5 * 4);
+  }
   &.img-complete {
     .featured-story__detail {
-      padding-bottom: 20px !important;
+      @media (--tablet) {
+        height: 210px;
+      }
     }
     .featured-story__category {
       order: 1;
