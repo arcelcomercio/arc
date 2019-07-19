@@ -49,10 +49,10 @@ class NavBarDefault extends PureComponent {
     this.dragFlag = false
     this.initPointDrag = 0
     this.distDrag = 0
-    this.limitScreenDrag = 100
+    this.limitScreenDrag = 90
 
     this.listContainer = null
-    this.listWidth = 0
+    this.listWidth = 330
     this.layerBackground = null
   }
 
@@ -62,14 +62,14 @@ class NavBarDefault extends PureComponent {
     this.layerBackground = document.querySelector('.layer')
 
     if (this.listContainer !== null && this.listContainer !== 'undefined') {
-      this.listWidth = this.listContainer.getBoundingClientRect().width
+      // this.listWidth = this.listContainer.getBoundingClientRect().width
       document.body.addEventListener('mousedown', this._initDrag)
       document.body.addEventListener('mouseup', this._endDrag)
       document.body.addEventListener('mousemove', this._moveDrag)
 
-      /* document.body.addEventListener('touchstart', this._initDrag)
+      document.body.addEventListener('touchstart', this._initDrag)
       document.body.addEventListener('touchend', this._endDrag)
-      document.body.addEventListener('touchmove', this._moveDrag) */
+      document.body.addEventListener('touchmove', this._moveDrag)
     }
 
     if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
@@ -138,12 +138,11 @@ class NavBarDefault extends PureComponent {
   }
 
   _setPosition = posX => {
-    console.log(this.listContainer)
     this.listContainer.style.transform = `scaleX(${posX})`
   }
 
   _openMenu = () => {
-    // this._setPosition(240)
+    this._setPosition(1)
     this.layerBackground.style.display = 'block'
     this.setState({
       statusSidebar: true,
@@ -151,7 +150,7 @@ class NavBarDefault extends PureComponent {
   }
 
   _closeMenu = () => {
-    // this._setPosition(0)
+    this._setPosition(0)
     this.layerBackground.style.display = 'none'
     this.setState({
       statusSidebar: false,
