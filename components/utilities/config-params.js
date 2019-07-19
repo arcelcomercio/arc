@@ -93,7 +93,7 @@ export const sizeImg = () => {
       height: 157,
     },
     landscape_s: {
-      width: 220,
+      width: 234,
       height: 161,
     },
     landscape_xs: {
