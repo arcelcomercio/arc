@@ -82,6 +82,8 @@ const NewsLetterContent = ({
     defaultImgSize: 'sm',
   })
 
+
+
   const listItemStories = contentElements.map(story => {
     storydata.__data = story
 
