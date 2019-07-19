@@ -297,9 +297,8 @@ class updatePassword extends Component {
             bg="white"
             name="modal-div-confirmpass"
             id="modal-div-confirmpass">
-            <div className="grid-clear-20" />
-            <div className="col-8-sm col-10" />
-            <div className="col-4-sm col-2 col-center text-right">
+         
+            <div className="text-right">
               <button
                 type="button"
                 onClick={e => this.togglePopupModalConfirm(e)}>
@@ -308,20 +307,20 @@ class updatePassword extends Component {
             </div>
 
             <div className="modal-body__wrapper">
-              <div className="col-12">
+           
                 <form
                   className="form-grid"
                   onSubmit={e => this.submitConfirmPassword(e)}>
                   <div className="row-grid">
-                    <div className="col-12 col-center">
+                  
                       <p className="form-grid__label form-grid__label--information text-center">
                         Para confirmar el cambio, por favor ingresa tu
                         contraseña actual
                       </p>
-                    </div>
+                    
                   </div>
                   <div className="row-grid">
-                    <div className="col-7 col-12-sm">
+                   
                       <div className="form-group">
                         <input
                           type="password"
@@ -349,8 +348,8 @@ class updatePassword extends Component {
                           </span>
                         )}
                       </div>
-                    </div>
-                    <div className="col-5 col-12-sm">
+                 
+                   
                       <div className="form-group">
                         <input
                           type="submit"
@@ -359,11 +358,10 @@ class updatePassword extends Component {
                           disabled={!sending}
                         />
                       </div>
-                    </div>
+                   
                   </div>
-                  <div className="grid-clear-50" />
                 </form>
-              </div>
+              
             </div>
           </Modal>
         )}
