@@ -34,7 +34,7 @@ const classes = {
   listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
   logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
-  navMobileContainer: 'nav__mobile-container lg:hidden',
+  navMobileContainer: 'nav__mobile-container hidden',
   btnContainer: 'flex items-center justify-end header__btn-container', // agregar hidden ocultar signwall
   hidden: 'hidden',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo

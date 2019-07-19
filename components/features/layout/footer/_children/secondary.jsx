@@ -27,6 +27,7 @@ const classes = {
   listTitle: 'footer-secondary__title uppercase pb-15 font-bold text-md',
   facebookIcon: 'icon-facebook',
   twitterIcon: 'icon-twitter',
+  linkedinIcon: 'icon-linkedin',
 }
 
 const SecondaryFooter = props => {
@@ -100,6 +101,7 @@ const SecondaryFooter = props => {
                   href={facebookUrl}
                   className={classes.listSocialLink}>
                   <i className={classes.facebookIcon} />
+                  Facebook
                 </a>
               </li>
               <li className={classes.listSocialItem}>
@@ -109,6 +111,17 @@ const SecondaryFooter = props => {
                   href={twitterUrl}
                   className={classes.listSocialLink}>
                   <i className={classes.twitterIcon} />
+                  Twitter
+                </a>
+              </li>
+              <li className={classes.listSocialItem}>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={twitterUrl}
+                  className={classes.listSocialLink}>
+                  <i className={classes.linkedinIcon} />
+                  Linkedin
                 </a>
               </li>
             </ul>
