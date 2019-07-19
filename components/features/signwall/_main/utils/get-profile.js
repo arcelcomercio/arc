@@ -1,6 +1,4 @@
-/* eslint-disable class-methods-use-this */
-
-const skipValues = ['null', 'undefined'];
+const skipValues = ['null', 'undefined']
 const fieldsWhite = [
   'firstName',
   'lastName',
@@ -10,56 +8,55 @@ const fieldsWhite = [
   'attributes',
   'identities',
   'contacts',
-];
+]
 
 class GetProfile {
   constructor() {
     const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
-    this.profile = JSON.parse(localProfile);
-    this.publicProfile = this._getComplete();
+    this.profile = JSON.parse(localProfile)
+    this.publicProfile = this._getComplete()
     this.username = this._getUserName().nameUser
     this.initname = this._getUserName().inituser
   }
 
   _getComplete = () => {
-    return this.cleanProfile(this.profile);
-  };
-
-  cleanAttribute(attrValue) {
-    attrValue =
-      typeof attrValue === 'string' ? attrValue.toLowerCase() : attrValue;
-
-    return skipValues.includes(attrValue) ? null : attrValue;
+    return this.cleanProfile(this.profile)
   }
- 
-  cleanProfile(profile = {}, mapFn) {
-    if (profile === null) return;
 
-    // eslint-disable-next-line consistent-return
+  cleanAttribute = attrValue => {
+    const newAttrValue =
+      typeof attrValue === 'string' ? attrValue.toLowerCase() : attrValue
+    return skipValues.includes(newAttrValue) ? null : attrValue
+  }
+
+  cleanProfile = (profile = {}) => {
+    if (profile === null) return false
+
     return Object.keys(profile).reduce((prev, attr) => {
+      const newPrev = prev
       if (fieldsWhite.includes(attr)) {
         switch (attr) {
           case 'attributes':
-            prev[attr] = (profile[attr] || []).map(item => {
-              const { value } = item;
-              item.value = this.cleanAttribute(value);
-              return item;
-            });
-            break;
+            newPrev[attr] = (profile[attr] || []).map(item => {
+              const { value } = item
+              item.value = this.cleanAttribute(value)
+              return item
+            })
+            break
           case 'contacts':
-            prev[attr] = profile[attr] === null ? [] : profile[attr];
-            break;
+            newPrev[attr] = profile[attr] === null ? [] : profile[attr]
+            break
           default:
-            prev[attr] = this.cleanAttribute(profile[attr]);
-            break;
+            newPrev[attr] = this.cleanAttribute(profile[attr])
+            break
         }
       }
-      return prev;
-    }, {});
+      return prev
+    }, {})
   }
 
   _getUserName = () => {
-    const profileLS = this.profile;
+    const profileLS = this.profile
     let nameUser = 'Bienvenido Usuario'
     let inituser = false
 
@@ -70,34 +67,34 @@ class GetProfile {
       switch (true) {
         case (profileLS.firstName !== 'undefined' ||
           profileLS.firstName != null) &&
-        (profileLS.lastName === 'undefined' || profileLS.lastName == null):
+          (profileLS.lastName === 'undefined' || profileLS.lastName == null):
           if (profileLS.firstName === 'undefined') {
             nameUser = 'Bienvenido Usuario'
           } else {
             nameUser =
-              profileLS.firstName.length >= 15 ?
-              `${profileLS.firstName.slice(0, 15)}...` :
-              profileLS.firstName
+              profileLS.firstName.length >= 15
+                ? `${profileLS.firstName.slice(0, 15)}...`
+                : profileLS.firstName
             inituser = profileLS.firstName.slice(0, 2)
           }
           break
         case (profileLS.firstName !== 'undefined' ||
           profileLS.firstName != null) &&
-        (profileLS.lastName !== 'undefined' || profileLS.lastName != null):
+          (profileLS.lastName !== 'undefined' || profileLS.lastName != null):
           if (profileLS.firstName === 'undefined') {
             nameUser =
-              profileLS.lastName.length >= 15 ?
-              `${profileLS.lastName.slice(0, 15)}...` :
-              profileLS.lastName
+              profileLS.lastName.length >= 15
+                ? `${profileLS.lastName.slice(0, 15)}...`
+                : profileLS.lastName
             inituser = profileLS.lastName.slice(0, 2)
           } else {
             nameUser =
-              `${profileLS.firstName} ${profileLS.lastName}`.length >= 15 ?
-              `${`${profileLS.firstName} ${profileLS.lastName}`.slice(
+              `${profileLS.firstName} ${profileLS.lastName}`.length >= 15
+                ? `${`${profileLS.firstName} ${profileLS.lastName}`.slice(
                     0,
                     15
-                  )}...` :
-              `${profileLS.firstName} ${profileLS.lastName}`
+                  )}...`
+                : `${profileLS.firstName} ${profileLS.lastName}`
             inituser =
               profileLS.firstName.slice(0, 1) + profileLS.lastName.slice(0, 1)
           }
@@ -108,7 +105,7 @@ class GetProfile {
     }
     return {
       inituser,
-      nameUser
+      nameUser,
     }
   }
 }

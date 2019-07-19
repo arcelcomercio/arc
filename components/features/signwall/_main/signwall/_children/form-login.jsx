@@ -12,7 +12,7 @@ import AuthFacebook from './social-auths/auth-facebook'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
-import GetProfile from '../../utils/get-profile'
+// import GetProfile from '../../utils/get-profile'
 
 import { ModalConsumer } from '../context'
 
