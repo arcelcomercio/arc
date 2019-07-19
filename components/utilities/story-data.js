@@ -7,6 +7,7 @@ import {
   addSlashToEnd,
 } from './helpers'
 
+
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
 
@@ -15,6 +16,8 @@ class StoryData {
   static HTML = ConfigParams.HTML
 
   static IMAGE = ConfigParams.IMAGE
+
+  static AUTOR_SOCIAL_NETWORK_TWITTER = ConfigParams.AUTOR_SOCIAL_NETWORK_TWITTER
 
   constructor({
     data = {},
@@ -99,6 +102,12 @@ class StoryData {
 
   get authorSlug() {
     return StoryData.getDataAuthor(this._data).slugAuthor
+  }
+
+  get authorTwitterLink() {
+    const twitter = StoryData.getDataAuthor(this._data).socialLinks.filter(x => x.site === ConfigParams.AUTOR_SOCIAL_NETWORK_TWITTER)
+    const result = twitter && twitter[0] && twitter[0].url ? twitter[0].url : ''
+    return result
   }
 
   get defaultImg() {
@@ -532,8 +541,22 @@ class StoryData {
 
   static getPrimarySection(data) {
     const {
-      taxonomy: { primary_section: { name = '', path = '' } = {} } = {},
+      taxonomy: {
+        primary_section: { name = '', path = '' } = {},
+        sections = [],
+      } = {},
     } = data || {}
+
+    // En caso de que el primary section no devuelva "path" ni "name"
+    const { name: auxName, path: auxPath } = sections[0] || {}
+
+    if (!name && !path) {
+      return {
+        name: auxName,
+        path: auxPath,
+      }
+    }
+    // //////////////////////////////////
 
     return {
       name,
@@ -564,6 +587,8 @@ class StoryData {
     let nameAuthor = ''
     let urlAuthor = ''
     let slugAuthor = ''
+    let socialLinks = []
+
     let imageAuthor = authorImageDefault
     for (let i = 0; i < authorData.length; i++) {
       const iterator = authorData[i]
@@ -575,6 +600,7 @@ class StoryData {
           iterator.image && iterator.image.url && iterator.image.url !== ''
             ? iterator.image.url
             : authorImageDefault
+        socialLinks = iterator.social_links  ?iterator.social_links : []
         break
       }
     }
@@ -584,6 +610,7 @@ class StoryData {
       urlAuthor,
       slugAuthor,
       imageAuthor,
+      socialLinks,
     }
   }
 
@@ -669,7 +696,7 @@ class StoryData {
           } = data
           if (storyId !== id && i < 2) {
             const type = StoryData.getTypeMultimedia(data)
-            const urlImage = StoryData.getThumbnail(data, type)
+            const urlImage = StoryData.getThumbnailBySize(data, type)
             i += 1
             return {
               basic,

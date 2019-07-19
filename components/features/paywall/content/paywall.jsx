@@ -41,11 +41,9 @@ class Content extends React.Component {
   componentDidMount() {
     const { siteProperties } = this.props
     AddIdentity(siteProperties).then(() => {
-      userProfile(['documentNumber', 'mobilePhone', 'documentType']).then(
-        profile => {
-          this.setState({ profile })
-        }
-      )
+      userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
+        this.setState({ profile })
+      })
     })
   }
 
@@ -77,6 +75,7 @@ class Content extends React.Component {
               plans={plans}
               summary={summary}
               onBeforeNextStep={this.onBeforeNextStepHandler}
+              assets={fullAssets}
             />
             <WizardUserProfile
               memo={this.memo}

@@ -5,11 +5,12 @@ import CardPrice from './_children/card-price'
 import Summary from './_children/summary'
 import * as S from './styled'
 import { addSales } from '../../../_dependencies/sales'
+import { devices } from '../../../_dependencies/devices'
+import Icon from '../../../_children/icon'
 
 function WizardPlan(props) {
   const {
-    memo,
-    nextStep,
+    assets,
     summary,
     plans,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
@@ -58,6 +59,27 @@ function WizardPlan(props) {
           </S.Plans>
         </S.WrapPlan>
       </S.Wrap>
+      <S.Subscribed as="a">
+        <div>
+          <S.Picture>
+            <source srcSet={assets('lector')} />
+            <source
+              media={`(${devices.mobile})`}
+              srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+            />
+            <S.Img src={assets('lector')} alt="lector" />
+          </S.Picture>
+        </div>
+        <S.SubscribedContent>
+          <S.SubscribedText>
+            <span>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO?</span>
+            <S.Small>ACCEDE A UN DESCUENTO PARA TU PLAN DIGITAL.</S.Small>
+          </S.SubscribedText>
+          <div>
+            <Icon type="arrowRight" />
+          </div>
+        </S.SubscribedContent>
+      </S.Subscribed>
     </S.WizardPlan>
   )
 }
