@@ -7,5 +7,6 @@ import mcard from './mcard'
 import amex from './amex'
 import diners from './diners'
 import lock from './lock'
+import arrowRight from './arrow-right'
 
-export { check, devices, loading, mundog, visa, mcard, amex, diners, lock }
+export { check, devices, loading, mundog, visa, mcard, amex, diners, lock, arrowRight }

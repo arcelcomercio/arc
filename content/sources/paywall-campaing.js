@@ -11,13 +11,14 @@ export default {
     campaing: 'text',
   },
   transform(data) {
-    const { name, attributes, pricingStrategies } = data.products[0]
+    const { sku, name, attributes, pricingStrategies } = data.products[0]
 
     const plans = pricingStrategies.map(
       ({ pricingStrategyId, priceCode, description, rates }) => {
         const [price] = rates
         const { amount, billingFrequency } = price
         return {
+          sku,
           priceCode,
           pricingStrategyId,
           description: JSON.parse(description),

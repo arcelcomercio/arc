@@ -1,10 +1,9 @@
 import Consumer from 'fusion:consumer'
-import React, { Suspense } from 'react'
+import React from 'react'
 import Wizard from 'react-step-wizard'
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
-import Loading from '../_children/loading'
 import * as S from './styled'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
@@ -17,9 +16,10 @@ const Right = () => {
 }
 
 @Consumer
-class Content extends React.PureComponent {
+class Content extends React.Component {
   constructor(props) {
     super(props)
+    this.memo = {}
     this.state = {
       data: {},
       profile: '',
@@ -39,17 +39,21 @@ class Content extends React.PureComponent {
   }
 
   componentDidMount() {
-    AddIdentity(this.props.siteProperties).then(() => {
-      userProfile(['documentNumber', 'mobilePhone', 'documentType']).then(
-        profile => {
-          this.setState({ profile })
-        }
-      )
+    const { siteProperties } = this.props
+    AddIdentity(siteProperties).then(() => {
+      userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
+        this.setState({ profile })
+      })
     })
   }
 
+  onBeforeNextStepHandler = (response, { currentStep, nextStep }) => {
+    this.memo = Object.assign({}, this.memo, response)
+    nextStep()
+  }
+
   render() {
-    const { spinning, data, profile } = this.state
+    const { data, profile } = this.state
     const { summary = {}, plans } = data
 
     const {
@@ -60,21 +64,38 @@ class Content extends React.PureComponent {
     const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
     return (
-      <Loading spinning={false}>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <S.Content>
-            <Wizard
-              isLazyMount
-              isHashEnabled
-              nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
-              <WizardPlan plans={plans} summary={summary} />
-              <WizardUserProfile profile={profile} summary={summary} />
-              <WizardPayment summary={summary} />
-              <WizardConfirmation assets={fullAssets} />
-            </Wizard>
-          </S.Content>
-        </div>
-      </Loading>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <S.Content>
+          <Wizard
+            isLazyMount
+            isHashEnabled
+            nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
+            <WizardPlan
+              memo={this.memo}
+              plans={plans}
+              summary={summary}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+              assets={fullAssets}
+            />
+            <WizardUserProfile
+              memo={this.memo}
+              profile={profile}
+              summary={summary}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+            />
+            <WizardPayment
+              memo={this.memo}
+              summary={summary}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+            />
+            <WizardConfirmation
+              memo={this.memo}
+              assets={fullAssets}
+              onBeforeNextStep={this.onBeforeNextStepHandler}
+            />
+          </Wizard>
+        </S.Content>
+      </div>
     )
   }
 }

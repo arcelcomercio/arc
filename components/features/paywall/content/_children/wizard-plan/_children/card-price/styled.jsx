@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { devices } from '../../../_dependencies/devices'
+import { devices } from '../../../../../_dependencies/devices'
 
 const CardPrice = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ const Description = styled.div`
   justify-content: center;
   display: flex;
   font-weight: 300;
-  padding: 8px 60px;
+  padding: 10px 60px 20px;
   text-align: center;
   @media (${devices.mobile}) {
     padding: 8px 15px;
