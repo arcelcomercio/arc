@@ -141,8 +141,11 @@ function WizardPayment(props) {
       setLoading(true)
       return sales
         .getPaymentOptions()
-        .then(([paymentMethod]) => {
-          const { paymentMethodType, paymentMethodID } = paymentMethod
+        .then(paymentMethods => {
+          const payUPaymentMethod = paymentMethods.find(
+            m => m.paymentMethodType === 8
+          )
+          const { paymentMethodType, paymentMethodID } = payUPaymentMethod
           return Sales.initializePayment(orderNumber, paymentMethodID)
         })
         .then(({ orderNumber: orderNumber2, parameter3: payuBaseUrl }) => {
