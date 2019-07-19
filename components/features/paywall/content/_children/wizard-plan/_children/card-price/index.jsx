@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Panel from '../../../_children/panel'
+import Panel from '../../../../../_children/panel'
 import * as S from './styled'
 
 function CardPrice(props) {
