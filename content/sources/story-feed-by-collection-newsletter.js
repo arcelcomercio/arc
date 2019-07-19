@@ -1,5 +1,7 @@
-import { resizerSecret, resizerUrl }  from 'fusion:environment'
+import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import getProperties from 'fusion:properties'
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let website = ''
 
@@ -25,15 +27,23 @@ const pattern = (key = {}) => {
 }
 
 const transform = data => {
+  const dataStories = data
+  const { resizerUrl } = getProperties(website)
 
-  data
-  return data.map(item =>{
-    return addResizedUrls(item, { resizerUrl, resizerSecret, presets: {
-      small: { width: 50, height: 50 },
-      large: {width: 480 }
-    }});
-  })
-  
+  // TODO: Fix para que la función addResizedUrls funcione, preguntar a ARC
+  for (let i = 0; i < dataStories.content_elements.length; i++) {
+    dataStories.content_elements[i].content_elements = []
+  }
+  // ////////////////////////////////////////////////
+
+  dataStories.content_elements = addResizedUrlsToStory(
+    dataStories.content_elements,
+    resizerUrl,
+    resizerSecret,
+    addResizedUrls
+  )
+
+  return { ...dataStories }
 }
 const resolve = key => pattern(key)
 

@@ -179,4 +179,93 @@ export const sizeImg = () => {
   }
 }
 
+export const sizeImgNewsLetter = () => {
+  return {
+    // landscape
+    landscape_xl: {
+      width: 980,
+      height: 528,
+    },
+    landscape_l: {
+      width: 648,
+      height: 374,
+    },
+    landscape_md: {
+      width: 314,
+      height: 157,
+    },
+    landscape_s: {
+      width: 234,
+      height: 161,
+    },
+    landscape_xs: {
+      width: 118,
+      height: 72,
+    },
+    // portrait
+    // TODO: actualizar tamaño
+    portrait_xl: {
+      width: 528,
+      height: 900,
+    },
+    // TODO: actualizar tamaño
+    portrait_l: {
+      width: 374,
+      height: 648,
+    },
+    portrait_md: {
+      width: 314,
+      height: 374,
+    },
+    // TODO: actualizar tamaño
+    portrait_s: {
+      width: 161,
+      height: 220,
+    },
+    portrait_xs: {
+      width: 75,
+      height: 90,
+    },
+    // square
+    // TODO: actualizar tamaño a todos
+    square_xl: {
+      width: 900,
+      height: 900,
+    },
+    square_l: {
+      width: 600,
+      height: 600,
+    },
+    square_md: {
+      width: 300,
+      height: 300,
+    },
+    square_s: {
+      width: 150,
+      height: 150,
+    },
+    square_xs: {
+      width: 75,
+      height: 75,
+    },
+    // TODO: Eliminar estos tamaños despues de actualizar
+    // los tamaños de las imagenes de todos los componentes.
+    small: {
+      width: 100,
+      height: 200,
+    },
+    medium: {
+      width: 480,
+    },
+    large: {
+      width: 940,
+      height: 569,
+    },
+    amp: {
+      width: 600,
+      height: 375,
+    },
+  }
+}
+
 export default ConfigParams
