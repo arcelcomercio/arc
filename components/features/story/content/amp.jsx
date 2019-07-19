@@ -148,7 +148,7 @@ class StoryContentAmp extends PureComponent {
                   return (
                     <>
                       <Text
-                        content={replaceTags(content)}
+                        content={ampHtml(replaceTags(content))}
                         className={classes.textClasses}
                       />
                       {publicidad && (
