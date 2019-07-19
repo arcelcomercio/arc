@@ -10,6 +10,12 @@ import { addSales } from '../../../_dependencies/sales'
 
 const { styled } = S
 
+const ERROR = {
+  E300012: 'No se ha encontrado ningún carrito para el usuario.',
+  UNKNOWN: code =>
+    `ups, vamos a verificar que paso, error desconocido, Ex${code}`,
+}
+
 const PanelUserProfile = styled(Panel)`
   @media (${devices.mobile}) {
     margin-top: 30px;
@@ -48,9 +54,16 @@ function WizardUserProfile(props) {
           onBeforeNextStep(res, props)
         })
         .catch(e => {
+          switch (e.code) {
+            case '300012':
+              setError(ERROR.E300012)
+              break
+            default:
+              setError(ERROR.UNKNOWN(e.code))
+              break
+          }
           setLoading(false)
           setSubmitting(false)
-          setError('Disculpe ha ocurrido un error al procesar el pago')
         })
     )
   }
