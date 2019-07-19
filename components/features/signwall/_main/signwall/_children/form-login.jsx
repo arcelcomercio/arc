@@ -19,15 +19,6 @@ import { ModalConsumer } from '../context'
 const Cookies = new Cookie()
 const services = new Services()
 
-const errorMessage = error => {
-  const listError = {
-    130051: 'El Correo electrónico no ha sido verificado.',
-    300014: 'Tu cuenta ha sido bloqueada debido a demasiados intentos fallidos. Por favor inténtalo más tarde.',
-    default: error.message || '',
-  }
-  return listError[error] || listError.default
-}
-
 class FormLogin extends Component {
   constructor(props) {
     super(props)
@@ -79,50 +70,96 @@ class FormLogin extends Component {
         })
         .catch(errLogin => {
           let messageES = ''
-          if (errLogin.code === '300040' || errLogin.code === '300037') {
-            services
-              .reloginEcoID(email, password, 'organico', window)
-              .then(resEco => {
-                if (resEco.retry) {
-                  window.Identity.login(email, password, {
-                    rememberMe: true,
-                    cookie: true,
-                  })
-                    .then(() => {
-                      this.setState({ sending: true })
-                      this.handleGetProfile()
-                      // delete cookie mpp_sess
-                      Cookies.deleteCookie('mpp_sess')
+
+          switch (errLogin.code) {
+            case '300037':
+            case '300040':
+              // aqui va el api de Guido:
+              services
+                .reloginEcoID(
+                  email,
+                  password,
+                  tipCat === 'organico' ? 'organico' : '1',
+                  window
+                )
+                .then(resEco => {
+                  if (resEco.retry) {
+                    setTimeout(() => {
+                      window.Identity.login(email, password, {
+                        rememberMe: true,
+                        cookie: true,
+                      })
+                        .then(() => {
+                          this.setState({ sending: true })
+                          this.handleGetProfile()
+                          // delete cookie mpp_sess
+                          Cookies.deleteCookie('mpp_sess')
+                          // -- test de tageo success
+                          window.dataLayer.push({
+                            event: `${tipCat}_relogin_success`, // organico_relogin_success , hard_relogin_success
+                            eventCategory: `Web_Sign_Wall_${tipCat}`, // Web_Sign_Wall_organico, Web_Sign_Wall_hard
+                            eventAction: `${tipAct}_relogin_success_ingresar`, // web_swo_relogin_success, web_swh_relogin_success
+                          })
+                          // -- test de tageo success
+                        })
+                        .catch(errReLogin => {
+                          messageES = errReLogin
+                          // -- test de tageo error
+                          window.dataLayer.push({
+                            event: `${tipCat}_relogin_error`, // organico_relogin_error, hard_relogin_error
+                            eventCategory: `Web_Sign_Wall_${tipCat}`, // Web_Sign_Wall_organico, Web_Sign_Wall_hard
+                            eventAction: `${tipAct}_relogin_error_ingresar`, // web_swo_relogin_error, web_swh_relogin_error
+                          })
+                          // -- test de tageo error
+                        })
+                    }, 500)
+                  } else {
+                    this.setState({
+                      messageError:
+                        'Correo electrónico y/o  contraseña incorrecta.',
+                      sending: true,
                     })
-                    .catch(errReLogin => {
-                      messageES = errReLogin
+                    // -- test de tageo error
+                    window.dataLayer.push({
+                      event: 'login_error',
+                      eventCategory: `Web_Sign_Wall_${tipCat}`,
+                      eventAction: `${tipAct}_login_error_ingresar`,
                     })
-                } else {
-                  this.setState({
-                    messageError:
-                      'Correo electrónico y/o  contraseña incorrecta.',
-                    sending: true,
-                  })
-                }
-              })
-              .catch(errEco => {
-                console.log(errEco)
-              })
-          } else {
-            messageES = errorMessage(errLogin.code)
+                    // -- test de tageo error
+                  }
+                })
+                .catch(errEco => {
+                  console.log(errEco)
+                })
+              // aqui va el api de Guido:
+              return
+            case '130051`':
+              messageES = 'El Correo electrónico no ha sido verificado.'
+              break
+            case '300014':
+              messageES =
+                'Tu cuenta ha sido bloqueada debido a demasiados intentos fallidos. Por favor inténtalo más tarde.'
+              break
+            default:
+              messageES = errLogin.message
           }
-          this.setState({
-            messageError: messageES,
-            sending: true,
-          })
-          // -- test de tageo
-          window.dataLayer = window.dataLayer || []
-          window.dataLayer.push({
-            event: 'login_error',
-            eventCategory: `Web_Sign_Wall_${tipCat}`,
-            eventAction: `${tipAct}_login_error_ingresar`,
-          })
-          // -- test de tageo
+
+          if (messageES !== '') {
+            this.setState({
+              messageError:
+                messageES === 'Failed to fetch'
+                  ? 'Oops. Ocurrió un error inesperado.'
+                  : messageES,
+              sending: true,
+            })
+            // -- test de tageo error
+            window.dataLayer.push({
+              event: 'login_error',
+              eventCategory: `Web_Sign_Wall_${tipCat}`,
+              eventAction: `${tipAct}_login_error_ingresar`,
+            })
+            // -- test de tageo error
+          }
         })
     } else {
       const { formErrors } = this.state
@@ -142,9 +179,7 @@ class FormLogin extends Component {
     window.Identity.getUserProfile().then(resProfile => {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
-      // window.sessUser.setState({ accessPanel: true })
-      // window.nameUser.setState({ nameUser: new GetProfile().username })
-      // window.initialUser.setState({ initialUser: new GetProfile().initname })
+      Cookies.deleteCookie('mpp_sess')
     })
   }
 
