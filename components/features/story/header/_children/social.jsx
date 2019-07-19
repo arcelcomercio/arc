@@ -11,7 +11,7 @@ const classes = {
     'story-header__share flex items-center justify-between mb-20 p-20 border-b-1 border-t-1 border-solid border-base',
   breadcrumb: '',
   item: 'story-header__item',
-  category: 'text-gray-300 text-xl uppercase',
+  category: 'text-gray-300 text-xl uppercase story-header__title-section',
   link: 'story-header__link flex items-center justify-center text-gray-200',
   icon: 'story-header__icon title-xl',
   list: 'story-header__list flex justify-between',
@@ -20,7 +20,7 @@ const classes = {
   iconLinkedin: 'icon-linkedin-circle',
   iconRibbon: 'icon-ribbon',
   iconTwitter: 'icon-twitter-circle',
-  iconWhatsapp:'icon-whatsapp',
+  iconWhatsapp: 'icon-whatsapp',
 }
 @Consumer
 class StoryHeaderChildSocial extends PureComponent {
@@ -50,7 +50,7 @@ class StoryHeaderChildSocial extends PureComponent {
       postTitle,
       siteNameRedSocial
     )
-    
+
     this.shareButtons = {
       [this.firstList]: [
         {
@@ -100,10 +100,11 @@ class StoryHeaderChildSocial extends PureComponent {
   render() {
     const { currentList } = this.state
     const {
-      globalContent: { taxonomy: { primary_section: { name = ''} = {} } = {} } = {},
+      globalContent: {
+        taxonomy: { primary_section: { name = '' } = {} } = {},
+      } = {},
     } = this.props
 
-    
     return (
       <>
         <div className={classes.news}>
