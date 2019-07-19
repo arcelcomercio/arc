@@ -1,11 +1,13 @@
-// eslint-disable-next-line import/prefer-default-export
+/* eslint-disable import/prefer-default-export */
 export const clean = obj => {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const key in obj) {
-      if (obj[key] === null || obj[key] === undefined || obj[key] === '') {
-        // eslint-disable-next-line no-param-reassign
-        delete obj[key];
-      }
-    }
-  };
-  
+  const objParams = obj
+  const objKeys = Object.keys(objParams)
+  objKeys.forEach(
+    key =>
+      (objParams[key] === null ||
+        objParams[key] === undefined ||
+        objParams[key] === '') &&
+      delete objParams[key]
+  )
+  return objParams
+}

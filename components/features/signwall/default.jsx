@@ -27,9 +27,7 @@ class Signwall extends Component {
 
   componentWillMount() {
     const {
-      siteProperties: {
-        signwall: { ORIGIN_API, ORIGIN_PAYWALL } = {},
-      } = {},
+      siteProperties: { signwall: { ORIGIN_API, ORIGIN_PAYWALL } = {} } = {},
     } = this.props
 
     window.Identity.apiOrigin = ORIGIN_API
@@ -60,13 +58,11 @@ class Signwall extends Component {
   componentDidUpdate = () => {
     const { sessUser } = this.state
     if (this.checkSesion() && !sessUser) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: true,
       })
       this.togglePopupPanel()
     } else if (this.checkSesion() === false && sessUser) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: false,
       })

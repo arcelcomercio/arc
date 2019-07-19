@@ -47,9 +47,9 @@ class UpdateProfile extends Component {
     this.state = Object.assign(
       {},
       {
-        data_departments: [],
-        data_provinces: [],
-        data_districts: [],
+        dataDepartments: [],
+        dataProvinces: [],
+        dataDistricts: [],
         disableNames: sociales.includes(identitie.type.toLowerCase()),
         formErrors: {
           firstName: '',
@@ -84,12 +84,13 @@ class UpdateProfile extends Component {
 
     // return attributes.reduce((prev, { name, value }) => {
     return clearObject.reduce((prev, { name, value }) => {
+      const newPrev = prev
       switch (name) {
         case 'mobilePhone':
-          prev['contacts'] = [{ type: 'PRIMARY', phone: value }]
+          newPrev.contacts = [{ type: 'PRIMARY', phone: value }]
           break
         default:
-          prev[name] = value
+          newPrev[name] = value
           break
       }
       return prev
@@ -115,20 +116,19 @@ class UpdateProfile extends Component {
   _getUbigeo = (input, geo) => {
     const state = {}
     let value = input
-    // eslint-disable-next-line no-prototype-builtins
-    const hasTarget = input.hasOwnProperty('target')
+    const hasTarget = Object.prototype.hasOwnProperty.call(input, 'target')
     if (hasTarget) {
-      // eslint-disable-next-line prefer-destructuring
-      value = input.target.value
+      const newValue = input.target.value
+      value = newValue
       switch (geo) {
         case 'departament':
-          state['departament'] = 'default'
-          state['province'] = 'default'
-          state['district'] = 'default'
+          state.departament = 'default'
+          state.province = 'default'
+          state.district = 'default'
           break
         case 'province':
-          state['province'] = 'default'
-          state['district'] = 'default'
+          state.province = 'default'
+          state.district = 'default'
           break
         default:
           console.log('default')
@@ -149,9 +149,11 @@ class UpdateProfile extends Component {
   }
 
   getAtributes = (state, list = []) => {
-    return list.reduce((prev, item, index) => {
-      // eslint-disable-next-line no-prototype-builtins
-      if (state.hasOwnProperty(item) && state[item] !== '') {
+    return list.reduce((prev, item) => {
+      if (
+        Object.prototype.hasOwnProperty.call(state, item) &&
+        state[item] !== ''
+      ) {
         prev.push({
           name: item,
           value: state[item],
@@ -312,6 +314,9 @@ class UpdateProfile extends Component {
     const { formErrors } = this.state
     const { documentType } = this.state
 
+    const minLenghtInput = e.target.getAttribute('minlength')
+    const typeDoc = e.target.getAttribute('typedoc')
+
     switch (name) {
       case 'firstName':
         if (value.length < 3) {
@@ -350,10 +355,6 @@ class UpdateProfile extends Component {
         }
         break
       case 'documentNumber':
-        // eslint-disable-next-line no-case-declarations
-        const minLenghtInput = e.target.getAttribute('minlength')
-        // eslint-disable-next-line no-case-declarations
-        const typeDoc = e.target.getAttribute('typedoc')
         if (typeDoc === 'numeric') {
           if (value.length < minLenghtInput || value.length > minLenghtInput) {
             formErrors.documentNumber = `Longitud inválida, requiere ${minLenghtInput} dígitos`
@@ -440,9 +441,9 @@ class UpdateProfile extends Component {
       typeDocLenghtMin,
       typeDocLenghtMax,
       typeDoc,
-      data_departments,
-      data_provinces,
-      data_districts,
+      dataDepartments,
+      dataProvinces,
+      dataDistricts,
       textSubmit,
     } = this.state
 
@@ -713,7 +714,7 @@ class UpdateProfile extends Component {
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
-              {data_departments.map(([code, name]) => (
+              {dataDepartments.map(([code, name]) => (
                 <option key={code} value={code}>
                   {name}
                 </option>
@@ -740,7 +741,7 @@ class UpdateProfile extends Component {
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
-              {data_provinces.map(([code, name]) => (
+              {dataProvinces.map(([code, name]) => (
                 <option key={code} value={code}>
                   {name}
                 </option>
@@ -768,7 +769,7 @@ class UpdateProfile extends Component {
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
-              {data_districts.map(([code, name]) => (
+              {dataDistricts.map(([code, name]) => (
                 <option key={code} value={code}>
                   {name}
                 </option>
