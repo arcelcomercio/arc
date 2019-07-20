@@ -33,7 +33,7 @@ export default class Services {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }).then(() => resolve(true))
+      }).then(res => resolve(res.json()))
     })
     return response
   }

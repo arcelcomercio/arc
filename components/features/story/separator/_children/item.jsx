@@ -1,5 +1,4 @@
 import React from 'react'
-// import { addResizedUrlItem } from '../../../../utilities/thumbs'
 
 const classes = {
   item:
@@ -31,14 +30,6 @@ const StorySeparatorChildItem = ({ data, arcSite }) => {
   }
   const { title, link, section, sectionLink, multimedia, multimediaType } = data
 
-  // TODO: Este es el resizer que funciona?
-  /*   const aspectRatios = ['3:4|60x70']
-  const { resized_urls: resizedUrls } = addResizedUrlItem(
-    arcSite,
-    multimedia,
-    aspectRatios
-  ) */
-
   return (
     <article className={classes.item}>
       {multimediaType === 'video' && <span>&#8227;</span>}
@@ -57,9 +48,10 @@ const StorySeparatorChildItem = ({ data, arcSite }) => {
         {link && (
           <a href={link}>
             <img
-              src={multimedia /* resizedUrls['3:4'] */}
+              src={multimedia}
               alt=""
               className={classes.itemImage}
+              loading="lazy"
             />
           </a>
         )}

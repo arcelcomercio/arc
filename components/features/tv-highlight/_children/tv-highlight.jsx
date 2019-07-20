@@ -44,7 +44,7 @@ const TVHighlightChild = props => {
           </span>
         </div>
         <a href={urlTitle} className={classes.imageBox}>
-          <img className={classes.image} src={multimediaImg} alt="foto" />
+          <img className={classes.image} src={multimediaImg} alt="" />
           {multimediaType !== 'basic' && (
             <span className={classes.iconContainer}>
               <i

@@ -1,5 +1,5 @@
 import { addResizedUrlItem } from './thumbs'
-import ConfigParams, { sizeImg } from './config-params'
+import ConfigParams, { sizeImg, sizeImgNewsLetter } from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -646,6 +646,39 @@ export const addResizedUrlsToStory = (
         resizerUrl,
         resizerSecret,
         presets: sizeImg(),
+      })
+    })
+  )
+}
+
+export const addResizedUrlsToStoryNewsLetter = (
+  data,
+  resizerUrl,
+  resizerSecret,
+  addResizedUrls
+) => {
+  return (
+    data &&
+    data.map(item => {
+      const dataStory = item
+
+      const {
+        promo_items: { basic_gallery: contentElements = null } = {},
+      } = item
+
+      if (contentElements && contentElements.promo_items) {
+        const image = addResizedUrls(contentElements, {
+          resizerUrl,
+          resizerSecret,
+          presets: sizeImgNewsLetter(),
+        })
+        dataStory.promo_items.basic_gallery = image
+      }
+
+      return addResizedUrls(dataStory, {
+        resizerUrl,
+        resizerSecret,
+        presets: sizeImgNewsLetter(),
       })
     })
   )

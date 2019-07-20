@@ -25,7 +25,12 @@ const BlogRelatedPostsGridChildCard = ({
         <a className={classes.imageLink} href={postLink}>
           <picture>
             <source srcSet={imageLink} media="(max-width: 640px)" />
-            <img className={classes.image} src={imageLink} alt={title} />
+            <img
+              className={classes.image}
+              src={imageLink}
+              alt={title}
+              loading="lazy"
+            />
           </picture>
         </a>
       </figure>

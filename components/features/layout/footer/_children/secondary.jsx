@@ -48,7 +48,12 @@ const SecondaryFooter = props => {
       {/* Logo */}
       <div className={classes.logoContainer}>
         <a href="/" className={classes.logo}>
-          <img className={classes.logoImg} src={logoUrl} alt="" />
+          <img
+            className={classes.logoImg}
+            src={logoUrl}
+            alt={`Logo de ${arcSite}`}
+            loading="lazy"
+          />
         </a>
       </div>
       {/* Cuerpo */}

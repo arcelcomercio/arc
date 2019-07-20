@@ -179,4 +179,49 @@ export const sizeImg = () => {
   }
 }
 
+export const sizeImgNewsLetter = () => {
+  return {
+    // landscape
+    tbmax: {
+      width: 648,
+      height: 364,
+    },
+    tbmin: {
+      width: 214,
+      height: 135,
+    },
+    tb250x366: {
+      width: 250,
+      height: 366,
+    },
+    tb148x83: {
+      width: 148,
+      height: 83,
+    },
+    tb210x118: {
+      width: 210,
+      height: 118,
+    },
+    tb403x227: {
+      width: 403,
+      height: 227,
+    },
+
+    tb241x136: {
+      width: 241,
+      height: 136,
+    },
+    tbgrande: {
+      width: 618,
+      height: 348,
+    },
+
+    tbflujo: {
+      width: 290,
+      height: 163,
+    },
+    
+  }
+}
+
 export default ConfigParams
