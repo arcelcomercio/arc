@@ -65,6 +65,7 @@ class StoriesList extends PureComponent {
             </div>
           </div>
           <figure className={classes.right}>
+            {/* TODO: Actualizar iconos con multimediaIcon */}
             <a href={element.link} className={classes.rightLink}>
               {element.multimediaType.toLowerCase() === 'basic_gallery' && (
                 <span className={classes.iconGallery} />
@@ -77,6 +78,7 @@ class StoriesList extends PureComponent {
                 alt={element.title}
                 className={classes.img}
                 src={element.multimedia}
+                loading="lazy"
               />
             </a>
           </figure>
