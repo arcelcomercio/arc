@@ -22,7 +22,7 @@ export default ({
   requestUri,
   metaValue,
 }) => {
-  const APPNEXUS_ENV = ENV.ENVIROMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const APPNEXUS_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   const BASE_URL_ADS =
     APPNEXUS_ENV === 'prod'
       ? 'https://d1r08wok4169a5.cloudfront.net/ads-publimetro'
