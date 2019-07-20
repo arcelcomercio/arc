@@ -33,7 +33,6 @@ const OrderedStoriesGridAds = props => {
         <Ads {...params} />
         {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
       </div>
-      <Ads {...params} />
       {freeHtml && (
         <div
           className="no-desktop"

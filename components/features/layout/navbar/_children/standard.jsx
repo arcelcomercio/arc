@@ -20,12 +20,13 @@ const classes = {
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
-  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden lg:flex`,
-  navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10`,
-  searchContainer: 'flex items-center justify-start',
+  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden`,
+  navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10 lg:pl-10 border-r-1 border-solid`,
+  searchContainer:
+    'nav__search-box hidden lg:flex items-center border-r-1 border-solid',
   btnSearch: `flex items-center btn nav__btn nav__btn--search text-gray-200 hidden lg:flex`,
   btnSection: 'flex items-center btn nav__btn nav__btn--section p-5',
-  iconSearch: 'nav__icon-search text-primary-color icon-search title-xs',
+  iconSearch: 'nav__icon-search text-primary-color icon-search text-lg',
   iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
   list: `items-center nav__list h-inherit overflow-hidden hidden lg:flex pl-15`,
   listItem: 'nav__list-item text-center pr-15 h-full',
@@ -58,19 +59,45 @@ class NavBarDefault extends PureComponent {
       showVerify: false,
       showReset: false,
       showRelogin: false,
-      nameUser: new GetProfile().username,
+      nameUser: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
       initialUser: new GetProfile().initname,
     }
     // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
+
+    this.dragFlag = false
+    this.initPointDrag = 0
+    this.distDrag = 0
+    this.limitScreenDrag = 90
+
+    this.listContainer = null
+    this.listWidth = 330
+    this.layerBackground = null
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this._handleScroll)
+    this.listContainer = document.querySelector('.nav-sidebar')
+    this.layerBackground = document.querySelector('.layer')
+
+    if (this.listContainer !== null && this.listContainer !== 'undefined') {
+      // this.listWidth = this.listContainer.getBoundingClientRect().width
+      document.body.addEventListener('mousedown', this._initDrag)
+      document.body.addEventListener('mouseup', this._endDrag)
+      document.body.addEventListener('mousemove', this._moveDrag)
+
+      document.body.addEventListener('touchstart', this._initDrag)
+      document.body.addEventListener('touchend', this._endDrag)
+      document.body.addEventListener('touchmove', this._moveDrag)
+    }
+
+    if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
+      this.layerBackground.addEventListener('click', this._closeMenu)
+    }
   }
 
   componentDidUpdate() {
-    if (this.checkSesion()) {
+    if (this.checkSession()) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         nameUser: new GetProfile().username,
@@ -83,6 +110,86 @@ class NavBarDefault extends PureComponent {
         initialUser: new GetProfile().initname,
       })
     }
+  }
+
+  _initDrag = evt => {
+    const { statusSidebar } = this.state
+    this.initPointDrag = evt.offsetX || evt.changedTouches[0].clientX
+    document.body.classList.add('no-selected')
+    if (statusSidebar) {
+      if (this.initPointDrag < this.listWidth) {
+        this.dragFlag = true
+      }
+    } else if (this.initPointDrag < this.limitScreenDrag) {
+      this.dragFlag = true
+    }
+  }
+
+  _endDrag = () => {
+    const { statusSidebar } = this.state
+    this.dragFlag = false
+    document.body.classList.remove('no-selected')
+
+    if (this.distDrag < this.limitScreenDrag) {
+      if (!statusSidebar) this._closeMenu()
+      else this._openMenu()
+    }
+    this.distDrag = 0
+  }
+
+  _moveDrag = evt => {
+    if (this.dragFlag) {
+      const { offsetX, movementX, changedTouches } = evt
+
+      let dir = ''
+      if (movementX) {
+        dir = movementX > 0 ? 'right' : 'left'
+      } else if (changedTouches && changedTouches[0]) {
+        dir =
+          changedTouches[0].clientX - this.initPointDrag > 0 ? 'right' : 'left'
+      }
+
+      const posX = offsetX || changedTouches[0].clientX
+      this._drag(dir, posX)
+    }
+  }
+
+  _drag = (direction, posX) => {
+    const { statusSidebar } = this.state
+    if (direction === 'right') {
+      this.distDrag = !statusSidebar ? posX - this.initPointDrag : 0
+    } else {
+      this.distDrag = statusSidebar ? -(this.initPointDrag - posX) : 0
+    }
+    if (direction === 'right' || direction === 'left') {
+      const listPos = statusSidebar ? 1 : 0
+      this._setPosition(listPos + this.distDrag / this.listWidth)
+    }
+    if (Math.abs(this.distDrag) > this.limitScreenDrag) {
+      if (statusSidebar) this._closeMenu()
+      else this._openMenu()
+      this._endDrag()
+    }
+  }
+
+  _setPosition = posX => {
+    this.listContainer.style.transform = `scaleX(${posX})`
+  }
+
+  _openMenu = () => {
+    this._setPosition(1)
+    this.layerBackground.style.display = 'block'
+    this.setState({
+      statusSidebar: true,
+    })
+  }
+
+  _closeMenu = () => {
+    this._setPosition(0)
+    this.layerBackground.style.display = 'none'
+    this.setState({
+      statusSidebar: false,
+    })
   }
 
   // Add - Remove Class active input and button search
@@ -126,7 +233,7 @@ class NavBarDefault extends PureComponent {
   }
 
   // Saber si hay sesion inicada
-  checkSesion = () => {
+  checkSession = () => {
     const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
     const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
     if (profileStorage) {
@@ -209,9 +316,8 @@ class NavBarDefault extends PureComponent {
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
     this.toggleBodyOverflow()
-    this.setState({
-      statusSidebar: !statusSidebar,
-    })
+    if (statusSidebar) this._closeMenu()
+    else this._openMenu()
   }
 
   closeSignwall() {
@@ -295,6 +401,34 @@ class NavBarDefault extends PureComponent {
           <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}
 
+            <div className={classes.searchContainer}>
+              {/* <Ads
+                    adElement="zocaloNav1"
+                    isDesktop
+                    classes={{ desktop: classes.ads }}
+                  />
+                    <Ads
+                  adElement="zocaloNav2"
+                  isDesktop
+                  classes={{ desktop: classes.ads }}
+                /> */}
+              <form className={classes.form} onSubmit={e => e.preventDefault()}>
+                <input
+                  ref={this.inputSearch}
+                  type="search"
+                  /* onBlur={this._handleCloseSectionsSearch} */
+                  onKeyUp={this._handleKeyDown}
+                  placeholder="¿Qué Buscas?"
+                  className={`${classes.search} ${this.activeSearch()}`}
+                />
+                <Button
+                  iconClass={classes.iconSearch}
+                  btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
+                  onClick={this.optionButtonClick}
+                />
+              </form>
+            </div>
+
             <div className={classes.navBtnContainer}>
               <Button
                 iconClass={classes.iconMenu}
@@ -339,49 +473,24 @@ class NavBarDefault extends PureComponent {
                 />
                 <button
                   type="button"
-                  className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
+                  className={`${classes.btnLogin} ${
+                    classes.btnSignwall
+                  } btn--outline`}
                   onClick={() => this.setState({ isActive: true })}>
                   <i
                     className={
                       initialUser
                         ? `${classes.iconSignwall} text-user text-xs`
-                        : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
+                        : `${classes.iconLogin} ${
+                            classes.iconSignwall
+                          } icon-user`
                     }>
                     {initialUser}
                   </i>
                   <span className="capitalize">
-                    {this.checkSesion() ? nameUser : 'Iniciar Sesión'}
+                    {this.checkSession() ? nameUser : 'Iniciar Sesión'}
                   </span>
                 </button>
-              </div>
-              <div className={classes.searchContainer}>
-                {/* <Ads
-                    adElement="zocaloNav1"
-                    isDesktop
-                    classes={{ desktop: classes.ads }}
-                  />
-                    <Ads
-                  adElement="zocaloNav2"
-                  isDesktop
-                  classes={{ desktop: classes.ads }}
-                /> */}
-                <form
-                  className={classes.form}
-                  onSubmit={e => e.preventDefault()}>
-                  <input
-                    ref={this.inputSearch}
-                    type="search"
-                    /* onBlur={this._handleCloseSectionsSearch} */
-                    onKeyUp={this._handleKeyDown}
-                    placeholder="¿Qué Buscas?"
-                    className={`${classes.search} ${this.activeSearch()}`}
-                  />
-                  <Button
-                    iconClass={classes.iconSearch}
-                    btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
-                    onClick={this.optionButtonClick}
-                  />
-                </form>
               </div>
             </div>
             <div
@@ -391,7 +500,9 @@ class NavBarDefault extends PureComponent {
                 classes.hidden}`}>
               <button
                 type="button"
-                className={`${classes.btnLogin} border-1 border-solid border-white`}
+                className={`${
+                  classes.btnLogin
+                } border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
                 <i className={classes.iconLogin} />
               </button>
@@ -403,10 +514,13 @@ class NavBarDefault extends PureComponent {
             contextPath={contextPath}
             siteProperties={siteProperties}
           />
+          <div className="layer" />
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
-        {this.getUrlParam('signwallHard') && !this.checkSesion() && showHard ? (
+        {this.getUrlParam('signwallHard') &&
+        !this.checkSession() &&
+        showHard ? (
           <SignWallHard
             closePopup={() => this.closePopUp('signwallHard')}
             brandModal={arcSite}
@@ -430,7 +544,7 @@ class NavBarDefault extends PureComponent {
         ) : null}
 
         {this.getUrlParam('reloginEmail') &&
-        !this.checkSesion() &&
+        !this.checkSession() &&
         showRelogin ? (
           <SignWallRelogin
             closePopup={() => this.closePopUp('reloginEmail')}
