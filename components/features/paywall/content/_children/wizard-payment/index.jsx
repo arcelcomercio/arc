@@ -69,6 +69,11 @@ function WizardPayment(props) {
     priceCode,
     amount,
   }) {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      Authorization: 'Token deb904a03a4e31d420a014534514b8cc8ca4d111',
+      'user-token': Identity.userIdentity.accessToken,
+    })
     const response = new Promise(resolve => {
       fetch(`${baseUrl}/api/payment/register-pending/`, {
         method: 'POST',
@@ -91,28 +96,17 @@ function WizardPayment(props) {
           },
           product: [
             {
-              campaignCode,
+              //campaignCode,
               sku,
               price_code: priceCode,
               amount,
             },
           ],
         }),
-        headers: {
-          'Content-Type': 'application/json',
-          // eslint-disable-next-line prettier/prettier
-          Authorization: '3150babb4e158cd6ec7e15808cb6a4994cdc3cdf',
-          'user-token': '[TOKEN_USER]',
-        },
+        headers,
+      }).then(res => {
+        return resolve(res.json())
       })
-        .then(res => {
-          return resolve(res.json())
-        })
-        //FIXME: Devolver la respuesta exitosa del servicio real
-        .catch(e => ({
-          id: 10,
-          order: '8YCQ5B0I8699W0WC',
-        }))
     })
 
     return response
@@ -123,6 +117,7 @@ function WizardPayment(props) {
       sku,
       priceCode,
       pricingStrategyId,
+      campaignCode,
       description,
       amount,
       billingFrequency,
@@ -189,26 +184,26 @@ function WizardPayment(props) {
                   })
                 })
                 // TODO: El servicio aun esta en desarrollo
-                /*.then(token => {
-                return apiPaymentRegister({
-                  baseUrl,
-                  orderNumber,
-                  firstName,
-                  lastName,
-                  secondLastName,
-                  documentType: 'DNI',
-                  documentNumber,
-                  email,
-                  phone,
-                  cardMethod,
-                  cardNumber,
-                  token,
-                  campaignCode,
-                  sku,
-                  priceCode,
-                  amount,
+                .then(token => {
+                  return apiPaymentRegister({
+                    baseUrl: 'http://devpaywall.comerciosuscripciones.pe', //TODO token en duro, environment no funciona
+                    orderNumber,
+                    firstName,
+                    lastName,
+                    secondLastName,
+                    documentType: 'DNI',
+                    documentNumber,
+                    email,
+                    phone,
+                    cardMethod,
+                    cardNumber, //TODO: Convertir en formato de mascara
+                    token,
+                    campaignCode,
+                    sku,
+                    priceCode,
+                    amount,
+                  }).then(() => token)
                 })
-              })*/
                 .then(token => {
                   const { paymentMethodID } = payUPaymentMethod
                   return sales
