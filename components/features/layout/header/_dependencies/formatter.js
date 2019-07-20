@@ -111,7 +111,7 @@ export default class StandardHeader {
   }
 
   getDate = () => {
-    return formatDayMonthYear(new Date(), true)
+    return formatDayMonthYear(new Date(), false)
   }
   // TODO: Crear función para formatear data de secciones con subsecciones
 }
