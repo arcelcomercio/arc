@@ -1,4 +1,5 @@
 import React from 'react'
+import ENV from 'fusion:environment'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
@@ -21,6 +22,12 @@ export default ({
   requestUri,
   metaValue,
 }) => {
+  const APPNEXUS_ENV = ENV.ENVIROMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const BASE_URL_ADS =
+    APPNEXUS_ENV === 'prod'
+      ? 'https://d1r08wok4169a5.cloudfront.net/ads-publimetro'
+      : 'https://jab.pe/f/arc'
+
   const metaPageData = {
     globalContent,
     requestUri,
@@ -137,10 +144,9 @@ export default ({
           href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
           rel="stylesheet"
         />
-        <script
-          src={`https://d1r08wok4169a5.cloudfront.net/ads-publimetro/data_${arcSite}.js`}
-          async
-        />
+        {/* Script de data Ads AppNexus */}
+        <script src={`${BASE_URL_ADS}/data_${arcSite}.js`} async />
+
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         {isStory ? '' : <meta name="keywords" content={keywords} />}
@@ -159,7 +165,7 @@ export default ({
           src="//acdn.adnxs.com/ast/ast.js"
           async
         />
-        {/* Scripts de APPNEXUS */}
+        {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
         {/* <script

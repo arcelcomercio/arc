@@ -20,12 +20,13 @@ const classes = {
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
-  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden lg:flex`,
-  navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10`,
-  searchContainer: 'flex items-center justify-start',
+  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden`,
+  navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10 lg:pl-10 border-r-1 border-solid`,
+  searchContainer:
+    'nav__search-box hidden lg:flex items-center border-r-1 border-solid',
   btnSearch: `flex items-center btn nav__btn nav__btn--search text-gray-200 hidden lg:flex`,
   btnSection: 'flex items-center btn nav__btn nav__btn--section p-5',
-  iconSearch: 'nav__icon-search text-primary-color icon-search title-xs',
+  iconSearch: 'nav__icon-search text-primary-color icon-search text-lg',
   iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
   list: `items-center nav__list h-inherit overflow-hidden hidden lg:flex pl-15`,
   listItem: 'nav__list-item text-center pr-15 h-full',
@@ -295,6 +296,34 @@ class NavBarDefault extends PureComponent {
           <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}
 
+            <div className={classes.searchContainer}>
+              {/* <Ads
+                    adElement="zocaloNav1"
+                    isDesktop
+                    classes={{ desktop: classes.ads }}
+                  />
+                    <Ads
+                  adElement="zocaloNav2"
+                  isDesktop
+                  classes={{ desktop: classes.ads }}
+                /> */}
+              <form className={classes.form} onSubmit={e => e.preventDefault()}>
+                <input
+                  ref={this.inputSearch}
+                  type="search"
+                  /* onBlur={this._handleCloseSectionsSearch} */
+                  onKeyUp={this._handleKeyDown}
+                  placeholder="¿Qué Buscas?"
+                  className={`${classes.search} ${this.activeSearch()}`}
+                />
+                <Button
+                  iconClass={classes.iconSearch}
+                  btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
+                  onClick={this.optionButtonClick}
+                />
+              </form>
+            </div>
+
             <div className={classes.navBtnContainer}>
               <Button
                 iconClass={classes.iconMenu}
@@ -339,13 +368,17 @@ class NavBarDefault extends PureComponent {
                 />
                 <button
                   type="button"
-                  className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
+                  className={`${classes.btnLogin} ${
+                    classes.btnSignwall
+                  } btn--outline`}
                   onClick={() => this.setState({ isActive: true })}>
                   <i
                     className={
                       initialUser
                         ? `${classes.iconSignwall} text-user text-xs`
-                        : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
+                        : `${classes.iconLogin} ${
+                            classes.iconSignwall
+                          } icon-user`
                     }>
                     {initialUser}
                   </i>
@@ -353,35 +386,6 @@ class NavBarDefault extends PureComponent {
                     {this.checkSesion() ? nameUser : 'Iniciar Sesión'}
                   </span>
                 </button>
-              </div>
-              <div className={classes.searchContainer}>
-                {/* <Ads
-                    adElement="zocaloNav1"
-                    isDesktop
-                    classes={{ desktop: classes.ads }}
-                  />
-                    <Ads
-                  adElement="zocaloNav2"
-                  isDesktop
-                  classes={{ desktop: classes.ads }}
-                /> */}
-                <form
-                  className={classes.form}
-                  onSubmit={e => e.preventDefault()}>
-                  <input
-                    ref={this.inputSearch}
-                    type="search"
-                    /* onBlur={this._handleCloseSectionsSearch} */
-                    onKeyUp={this._handleKeyDown}
-                    placeholder="¿Qué Buscas?"
-                    className={`${classes.search} ${this.activeSearch()}`}
-                  />
-                  <Button
-                    iconClass={classes.iconSearch}
-                    btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
-                    onClick={this.optionButtonClick}
-                  />
-                </form>
               </div>
             </div>
             <div
@@ -391,7 +395,9 @@ class NavBarDefault extends PureComponent {
                 classes.hidden}`}>
               <button
                 type="button"
-                className={`${classes.btnLogin} border-1 border-solid border-white`}
+                className={`${
+                  classes.btnLogin
+                } border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
                 <i className={classes.iconLogin} />
               </button>

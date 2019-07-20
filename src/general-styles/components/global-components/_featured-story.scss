@@ -153,9 +153,14 @@ $image-height: 157px;
 
   &--live {
     .featured-story__headband-link {
-      padding: 6px;
       background-color: red;
-      display: inline-block;
+      position: relative;
+      left: 0;
+      width: 110px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
