@@ -131,15 +131,16 @@ class UpdateProfile extends Component {
           state.district = 'default'
           break
         default:
-          console.log('default')
+        // console.log('default')
       }
     }
     const result = services.getUbigeo(value)
 
     result
       .then(geoData => {
+        const GeoUpper = geo.charAt(0).toUpperCase() + geo.slice(1)
         Object.assign(state, {
-          [`data_${geo}s`]: geoData,
+          [`data${GeoUpper}s`]: geoData,
         })
         this.setState(state)
       })
@@ -271,7 +272,7 @@ class UpdateProfile extends Component {
         }
         break
       default:
-        console.log('default')
+      // console.log('default')
     }
 
     this.setState(state, () => {
@@ -395,7 +396,7 @@ class UpdateProfile extends Component {
         }
         break
       default:
-        console.log('default')
+      // console.log('default')
     }
 
     this.setState({ formErrors, [name]: value }, () => {

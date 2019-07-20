@@ -70,7 +70,7 @@ class FormLogin extends Component {
         })
         .catch(errLogin => {
           let messageES = ''
-
+          
           switch (errLogin.code) {
             case '300037':
             case '300040':
