@@ -91,10 +91,6 @@ export default class StandardHeader {
         value: this.getDate(),
       },
       tags: this.tags,
-      // TODO: Reemplazar por el nuevo formato de url para las busquedas (sin querystrings)
-      searchUrl: query => {
-        window.location.href = `/buscar?query=${query}`
-      },
     }
   }
 

@@ -701,3 +701,12 @@ export const addSlashToDateEnd = url => {
 
   return urlSlash
 }
+
+export const searchQuery = (query, sort) => {
+  if (query !== '')
+    // eslint-disable-next-line no-restricted-globals
+    location.href = `/buscar/${encodeURIComponent(query).replace(
+      /%20/g,
+      '+'
+    )}/todas/${sort || 'descendiente'}/`
+}

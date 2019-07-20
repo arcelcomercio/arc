@@ -13,7 +13,10 @@ import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
 import GetProfile from '../../../signwall/_main/utils/get-profile'
 
-import { getResponsiveClasses } from '../../../../utilities/helpers'
+import {
+  getResponsiveClasses,
+  searchQuery,
+} from '../../../../utilities/helpers'
 
 const classes = {
   nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font`,
@@ -214,13 +217,7 @@ class NavBarDefault extends PureComponent {
   // TODO: abstraer este método, se usa por 3 componentes
   _handleSearch = () => {
     const { value } = this.inputSearch.current
-    if (value !== '') {
-      // eslint-disable-next-line no-restricted-globals
-      location.href = `/buscar/${encodeURIComponent(value).replace(
-        /%20/g,
-        '+'
-      )}/todas/descendiente/`
-    }
+    searchQuery(value)
   }
 
   // Active find with enter key
