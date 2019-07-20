@@ -12,7 +12,12 @@ const ExtraordinayStoryGridSectionItem = props => {
     <div role="listitem" className={classes.itemContainer}>
       <a href={data.id}>
         <figure className={classes.imageContainer}>
-          <img className={classes.image} src={data.image} alt={data.name} />
+          <img
+            className={classes.image}
+            src={data.image}
+            alt={data.name}
+            loading="lazy"
+          />
         </figure>
         <p className={classes.title}>{data.name}</p>
       </a>

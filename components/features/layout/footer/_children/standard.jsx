@@ -57,7 +57,12 @@ const StandardFooter = props => {
     <footer className={classes.footer}>
       <div className={classes.info}>
         <a href="/" className={classes.logoContainer}>
-          <img className={classes.logoImg} src={logoUrl} alt="" />
+          <img
+            className={classes.logoImg}
+            src={logoUrl}
+            alt={`Logo de ${arcSite}`}
+            loading="lazy"
+          />
         </a>
         <ul className={classes.legalList}>
           {siteLegal.map(el => (
@@ -98,7 +103,9 @@ const StandardFooter = props => {
           {contacts.map(el => (
             <li className={classes.listItem} key={el.name}>
               <span
-                className={`${classes.listLinkTitle} ${classes.contactPosition}`}>
+                className={`${classes.listLinkTitle} ${
+                  classes.contactPosition
+                }`}>
                 {el.position}:
               </span>
               <span

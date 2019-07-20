@@ -2,10 +2,9 @@ import React from 'react'
 
 const classes = {
   item:
-    'blog-separator__item flex flex-row p-20 mb-10 bg-white flex-no-wrap w-full lg:flex-col lg:mb-0 lg:mr-20',
-  title:
-    'blog-separator__title inline-block w-full overflow-hidden pt-15 lg:pb-15',
-  link: 'blog-separator__link text-gray-300 font-normal title-xs',
+    'blog-separator__item flex flex-row p-20 mb-10 bg-white flex-no-wrap w-full lg:flex-col lg:mb-0 lg:mr-5',
+  title: 'blog-separator__title inline-block w-full overflow-hidden pt-15',
+  link: 'blog-separator__link text-gray-300 font-normal text-xl',
   author:
     'blog-separator__author flex flex-col justify-center title-sm text-gray-300 primary-font lg:pt-15',
   boxImg:
@@ -29,6 +28,7 @@ const SeparatorBlogChildItem = ({
             src={authorImg}
             alt={`Foto de perfil de ${authorName}`}
             className={classes.img}
+            loading="lazy"
           />
         </figure>
       </a>

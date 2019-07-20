@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
-import { removeLastSlash } from '../../utilities/helpers'
 
 const classes = {
   breakingnews: `breaking-news secondary-font flex justify-between pt-15 pb-15 pl-20 pr-20 text-white`,
@@ -60,7 +59,7 @@ class BreakingNews extends Component {
     } = this.props
 
     const params = {
-      website_url: removeLastSlash(storyLink),
+      website_url: storyLink,
       website: arcSite,
     }
 

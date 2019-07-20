@@ -3,6 +3,7 @@
   &__item {
     @media (--desktop) {
       width: 20%;
+      height: 300px;
     }
 
     &:last-child {
@@ -21,7 +22,12 @@
     }
   }
 
-  // &__title {}
+  &__title {
+    max-height: calc($font-xl * 1.6667 * 3);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
 
   &__author {
     &:before {
@@ -48,7 +54,7 @@
     }
 
     @media (--desktop) {
-      &:before {
+      &:after {
         margin-top: 15px;
       }
     }
