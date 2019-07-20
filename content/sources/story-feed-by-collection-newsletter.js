@@ -1,7 +1,7 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import { addResizedUrlsToStoryNewsLetter } from '../../components/utilities/helpers'
 
 let website = ''
 
@@ -36,7 +36,7 @@ const transform = data => {
   }
   // ////////////////////////////////////////////////
 
-  dataStories.content_elements = addResizedUrlsToStory(
+  dataStories.content_elements = addResizedUrlsToStoryNewsLetter(
     dataStories.content_elements,
     resizerUrl,
     resizerSecret,

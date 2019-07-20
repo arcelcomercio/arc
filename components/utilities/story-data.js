@@ -195,6 +195,7 @@ class StoryData {
     return StoryData.getTypeMultimedia(this._data)
   }
 
+
   get section() {
     // FIXME: deprecated
     return StoryData.getDataSection(this._data, this._website).name
