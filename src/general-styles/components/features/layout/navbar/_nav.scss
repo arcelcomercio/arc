@@ -154,6 +154,15 @@
     }
   }
 
+  .layer {
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0);
+    height: 100vh;
+    display: none;
+  }
+
   &.active {
     position: fixed; // No borrar, si no reconce sticky deja fixed
     position: sticky;

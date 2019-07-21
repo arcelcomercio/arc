@@ -152,7 +152,7 @@ export default class FeaturedStory extends PureComponent {
         </div>
         <a className={classes.imageLink} href={title.url}>
           <figure className={classes.imageBox}>
-            <img src={image} className={classes.image} alt="" />
+            <img src={image} className={classes.image} alt="" loading="lazy" />
             <Icon type={multimediaType} iconClass={classes.icon} />
           </figure>
         </a>

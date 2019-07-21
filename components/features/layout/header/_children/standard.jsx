@@ -41,7 +41,7 @@ const HeaderChildStandard = props => {
             ))}
           </ul>
         )}
-        {date.isShow && <div className={classes.date}>{date.value}</div>}
+        {date.active && <div className={classes.date}>{date.value}</div>}
       </nav>
     </>
   )

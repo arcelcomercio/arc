@@ -22,7 +22,7 @@ export default ({
   requestUri,
   metaValue,
 }) => {
-  const APPNEXUS_ENV = ENV.ENVIROMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const APPNEXUS_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   const BASE_URL_ADS =
     APPNEXUS_ENV === 'prod'
       ? 'https://d1r08wok4169a5.cloudfront.net/ads-publimetro'
@@ -54,15 +54,15 @@ export default ({
   }
 
   const seoTitle =
-    metaValue('title') && !metaValue('title').match(/content/)
-      ? metaValue('title')
-      : siteProperties.siteName
+    metaValue('title') &&
+    !metaValue('title').match(/content/) &&
+    metaValue('title')
 
   const metaTitle =
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
       ? metaValue('meta_title')
-      : null
-  const title = metaTitle || seoTitle
+      : seoTitle
+  const title = `${metaTitle || seoTitle} ${siteProperties.siteName}`
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`

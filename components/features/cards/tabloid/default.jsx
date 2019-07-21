@@ -81,13 +81,16 @@ class CardTabloid extends PureComponent {
           </h4>
         </div>
         <div className={classes.body}>
-          <figure>
-            <picture>
-              <a href={link}>
-                <img className={classes.face} src={multimedia} alt={title} />
-              </a>
-            </picture>
-          </figure>
+          <picture>
+            <a href={link}>
+              <img
+                className={classes.face}
+                src={multimedia}
+                alt={title}
+                loading="lazy"
+              />
+            </a>
+          </picture>
           <h3 className={classes.date}>
             <a className={classes.dateLink} href={link}>
               {nameDate}
