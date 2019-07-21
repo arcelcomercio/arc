@@ -42,14 +42,12 @@ export default class NavbarFormater {
         return {
           back: {
             logo: this.deployment(
-              `${this.contextPath}/resources/dist/${this.arcSite}/images/${logoSomos}`
+              `${this.contextPath}/resources/dist/${
+                this.arcSite
+              }/images/${logoSomos}`
             ),
             link: '/',
             alt: this.siteDomain,
-          },
-          // TODO: Reemplazar por la función reutilizable
-          searchUrl: query => {
-            window.location.href = `/buscar?query=${query}`
           },
         }
       },

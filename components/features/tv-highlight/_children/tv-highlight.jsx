@@ -62,7 +62,7 @@ const TVHighlightChild = props => {
               {tags.map(el => {
                 return (
                   <li key={el.slug} className={classes.item}>
-                    <a className={classes.link} href={`/tag/${el.slug}`}>
+                    <a className={classes.link} href={`/noticias/${el.slug}/`}>
                       {el.description}
                     </a>
                   </li>
