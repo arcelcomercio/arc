@@ -31,6 +31,16 @@ export const formatDate = date => {
   return fecha
 }
 
+export const formattedTime = date => {
+  const hours =
+    date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`
+
+  const minutes =
+    date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+
+  return `${hours}:${minutes}`
+}
+
 export const formatDateLocalTimeZone = publishDateString => {
   const publishDate = new Date(publishDateString)
   publishDate.setHours(publishDate.getHours() - 5)
@@ -43,20 +53,10 @@ export const formatDateLocalTimeZone = publishDateString => {
     (Math.abs(today - publishDate) / (1000 * 60 * 60)).toFixed(1)
   )
 
-  if (diff >= 24) {
+  if (diff >= 24)
     // eslint-disable-next-line prefer-destructuring
     formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
-  } else {
-    const hora =
-      publishDate.getHours() < 10
-        ? `0${publishDate.getHours()}`
-        : `${publishDate.getHours()}`
-    const minutes =
-      publishDate.getMinutes() < 10
-        ? `0${publishDate.getMinutes()}`
-        : `${publishDate.getMinutes()}`
-    formattedDate = `${hora}:${minutes}`
-  }
+  else formattedDate = formattedTime(publishDate)
   return formattedDate
 }
 
@@ -85,17 +85,13 @@ export const arrayDays = [
   'Sábado',
 ]
 
-export const formatDayMonthYear = (date, showHour = true) => {
+export const formatDayMonthYear = (date, showTime = true) => {
   const fecha = new Date(date)
 
-  const dateFormatter = `${
-    arrayDays[fecha.getUTCDay()]
-  } ${fecha.getUTCDate()} de ${
-    arrayMonths[fecha.getUTCMonth()]
-  } del ${fecha.getUTCFullYear()}`
-  return showHour
-    ? `${dateFormatter}, ${fecha.getHours()}:${fecha.getMinutes()}`
-    : dateFormatter
+  const formattedDate = `${arrayDays[fecha.getDay()]} ${fecha.getDate()} de ${
+    arrayMonths[fecha.getMonth()]
+  } del ${fecha.getFullYear()}`
+  return showTime ? `${formattedDate}, ${formattedTime(fecha)}` : formattedDate
 }
 
 // ex: 2019-04-29 22:34:13 or 2019/04/29T22:34:13
@@ -123,11 +119,6 @@ export const getFullDateIso8601 = (
 export const getActualDate = () => {
   const today = new Date()
 
-  /**
-   * TODO: temporal. Esto esta funcionando porque su gemelo en
-   * story-feed-by-section-and-date funciona desde server y ahora este tambien
-   * cuando el componente tiene static true y la fecha es distinta en local, eso creemos.
-   */
   if (today.getHours() <= 5) today.setDate(today.getDate() - 1)
 
   return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
@@ -615,7 +606,9 @@ export const formatDateStory = date => {
   const month = fecha.getMonth() + 1
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
-  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${fecha.getHours()}h${fecha.getMinutes()}`
+  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formattedTime(
+    fecha
+  )}`
 }
 
 export const addResizedUrlsToStory = (
