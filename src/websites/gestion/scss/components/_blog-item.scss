@@ -1,0 +1,12 @@
+.blog-item {
+  &__blog {
+    color: $color-primary;
+  }
+  &__blog,
+  &__author {
+    font-size: 16px;
+  }
+
+  &__post {
+  }
+}
