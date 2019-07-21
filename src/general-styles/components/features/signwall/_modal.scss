@@ -37,7 +37,6 @@
         background: #fff;
         z-index: 0;
         align-self: flex-start;
-
         @media (--tablet) {
           border-radius: 10px;
         }
@@ -84,6 +83,7 @@
         @media (--tablet) {
           width: 90%;
           height: auto;
+          background: transparent;
         }
 
         @media (--desktop) {

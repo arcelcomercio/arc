@@ -293,7 +293,7 @@ class FormRegister extends Component {
                       typeForm={typeForm}
                     /> */}
                   </div>
-                  <p className="form-grid__subtitle text-center">
+                  <p className="form-grid__subtitle text-center mt-40 mb-20">
                     o completa tus datos para registrarte
                   </p>
                 </div>

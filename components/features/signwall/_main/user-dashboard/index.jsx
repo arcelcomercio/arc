@@ -18,14 +18,13 @@ class ProfileAccount extends Component {
     const { publicProfile } = new GetProfile()
     const { identities = [] } = publicProfile
     const [identitie = { type: 'Password' }] = identities || []
-
     const [usernameid = { userName: '' }] = identities || []
     const nameInit = publicProfile.firstName || 'Usuario'
     const emailInit = publicProfile.email || 'admin@elcomercio.pe'
 
     this.state = {
       typeLogin: identitie.type.toLowerCase(),
-      nameUser: nameInit,
+      nameUser: nameInit.length >= 24 ? (`${nameInit.slice(0, 24)  }...`) : nameInit,
       emailUser: emailInit,
       userNameFB: usernameid.userName,
       disabledSocial: identitie.type !== 'Password',
@@ -38,7 +37,7 @@ class ProfileAccount extends Component {
       this.setState({
         activeProfile: true,
       })
-    }, 1000)
+    }, 500)
   }
 
   closeSession = () => {
@@ -125,7 +124,7 @@ class ProfileAccount extends Component {
                 </div>
               </div>
               <div className="profile__right profile__card">
-                {activeProfile ? <UpdateProfile /> : 'cargando...'}
+                {activeProfile ? <UpdateProfile /> : 'cargando....'}
                 <hr hidden={disabledSocial} />
                 <div hidden={disabledSocial}>
                   <UpdatePass />

@@ -8,7 +8,6 @@ const Title = props => {
     <>
       <h1 className="benefits__title">
         {content}
-
         {subTitleMore && (
           <>
             <br /> Además, con tu cuenta podrás:
@@ -96,7 +95,7 @@ const Benefits = props => {
           <BeneOne />
         </div>
 
-        <div>
+        <div className="benefits__info">
           <h3 className="benefits__item-title">
             Acceder a más de {brandCurrent === 'elcomercio' ? '400' : '100'}{' '}
             noticias nuevas al día
@@ -111,7 +110,7 @@ const Benefits = props => {
             <BeneFive />
           </div>
 
-          <div>
+          <div className="benefits__info">
             <h3 className="benefits__item-title">
               Escuchar podcasts con las primeras noticias del día
             </h3>
