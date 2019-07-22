@@ -115,10 +115,17 @@
         }
       }
       &--combo {
-        display: flex;
+        display: block;
+        width: 100%;
+        select,
+        input {
+          display: inline-block;
+        }
         select {
           width: 40%;
-          max-width: 120px;
+        }
+        input {
+          width: 60%;
         }
       }
       &--center {

@@ -1,9 +1,7 @@
-/* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-// TODO Agregar excepcion a eslint
+/* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react'
 import { sha256 } from 'js-sha256'
-
 import FormValid from '../../utils/form-valid'
 import * as Icon from '../../common/iconos'
 import ListBenefits from './benefits'
@@ -12,8 +10,6 @@ import AuthFacebook from './social-auths/auth-facebook'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
-// import GetProfile from '../../utils/get-profile'
-
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
@@ -23,14 +19,11 @@ class FormLogin extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      hiddendiv: false,
+      hiddenEnterUser: false,
       hiddenListBenefits: true,
       hiddenbutton: true,
-      hiddenSocialButtons: true,
-      hiddenTitleBenefits: true,
       showSocialButtons: false,
-      linkListBenefits: false,
-      hidden: true,
+      hiddenPass: true,
       email: null,
       password: null,
       formErrors: {
@@ -39,7 +32,6 @@ class FormLogin extends Component {
       },
       messageError: false,
       sending: true,
-      sendingFb: true,
     }
   }
 
@@ -70,7 +62,7 @@ class FormLogin extends Component {
         })
         .catch(errLogin => {
           let messageES = ''
-          
+
           switch (errLogin.code) {
             case '300037':
             case '300040':
@@ -129,7 +121,7 @@ class FormLogin extends Component {
                   }
                 })
                 .catch(errEco => {
-                  console.log(errEco)
+                  console.error(errEco)
                 })
               // aqui va el api de Guido:
               return
@@ -185,34 +177,20 @@ class FormLogin extends Component {
 
   handleLoginClick = () => {
     this.setState({
-      hiddendiv: true,
+      hiddenEnterUser: true,
       hiddenbutton: false,
-      linkListBenefits: true,
     })
 
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth < 1024) {
       this.setState({
         showSocialButtons: true,
-        hiddenSocialButtons: false,
-        hiddenTitleBenefits: false,
       })
     }
   }
 
-  handleLoginBackSocial = () => {
-    this.setState({
-      hiddendiv: false,
-      hiddenbutton: true,
-      hiddenSocialButtons: true,
-      showSocialButtons: false,
-      hiddenTitleBenefits: true,
-      linkListBenefits: false,
-    })
-  }
-
-  toggleShow = () => {
-    const { hidden } = this.state
-    this.setState({ hidden: !hidden })
+  toggleShowHidePass = () => {
+    const { hiddenPass } = this.state
+    this.setState({ hiddenPass: !hiddenPass })
   }
 
   componentDidMount = () => {
@@ -248,11 +226,18 @@ class FormLogin extends Component {
     })
   }
 
+  handleLoginBackSocial = () => {
+    this.setState({
+      hiddenEnterUser: false,
+      hiddenbutton: true,
+      showSocialButtons: false,
+    })
+  }
+
   hanbleShowListBenefits = () => {
-    const { hiddenListBenefits, linkListBenefits } = this.state
+    const { hiddenListBenefits } = this.state
     this.setState({
       hiddenListBenefits: !hiddenListBenefits,
-      linkListBenefits: !linkListBenefits,
     })
   }
 
@@ -261,9 +246,9 @@ class FormLogin extends Component {
       formErrors,
       showSocialButtons,
       hiddenListBenefits,
-      hiddendiv,
+      hiddenEnterUser,
       messageError,
-      hidden,
+      hiddenPass,
       sending,
       hiddenbutton,
     } = this.state
@@ -276,21 +261,24 @@ class FormLogin extends Component {
               className="form-grid"
               noValidate
               onSubmit={e => this.handleFormSubmit(e)}>
-              <div className="form-grid__back" hidden={!showSocialButtons}>
-                <button
-                  type="button"
-                  onClick={e => this.handleLoginBackSocial(e)}
-                  className="link-back">
-                  <Icon.Back />
-                  <span>Volver</span>
-                </button>
+              
+              <div className="form-grid__group" hidden={!showSocialButtons || !hiddenListBenefits}>
+                <div className="form-grid__back">
+                  <button
+                    type="button"
+                    onClick={e => this.handleLoginBackSocial(e)}
+                    className="link-back">
+                    <Icon.Back />
+                    <span>Volver</span>
+                  </button>
+                </div>
               </div>
 
               <div className="form-grid__group" hidden={hiddenListBenefits}>
                 <div className="form-grid__back">
                   <button
                     type="button"
-                    onClick={this.hanbleShowListBenefits}
+                    onClick={e => this.hanbleShowListBenefits(e)}
                     className="link-back">
                     <Icon.Back />
                     <span>Volver</span>
@@ -300,7 +288,9 @@ class FormLogin extends Component {
               </div>
 
               <div className="form-grid__group" hidden={!hiddenListBenefits}>
-                <h1 className="form-grid__title-big text-center hidden-tablet">
+                <h1
+                  className="form-grid__title-big text-center lg:hidden"
+                  hidden={hiddenEnterUser}>
                   Regístrate y mantente siempre informado con las noticias más
                   relevantes del Perú y el mundo
                 </h1>
@@ -309,7 +299,7 @@ class FormLogin extends Component {
                   Ingresa con tu cuenta de:
                 </h1>
 
-                <div className="form-grid__group">
+                <div className="form-grid__group" hidden={showSocialButtons}>
                   <div className="form-group form-group--unique">
                     <AuthFacebook
                       closePopup={closePopup}
@@ -320,7 +310,9 @@ class FormLogin extends Component {
                   </div>
                 </div>
 
-                <div className="form-grid__group mt-30" hidden={!hiddendiv}>
+                <div
+                  className="form-grid__group mt-30"
+                  hidden={!hiddenEnterUser}>
                   <div
                     className={`form-grid--error ${messageError && 'active'}`}>
                     {messageError}
@@ -342,6 +334,7 @@ class FormLogin extends Component {
                     <label htmlFor="email" className="form-group__label">
                       Correo Electrónico
                     </label>
+
                     {formErrors.email.length > 0 && (
                       <span className="message__error">{formErrors.email}</span>
                     )}
@@ -349,7 +342,7 @@ class FormLogin extends Component {
 
                   <div className="form-group row-pass">
                     <input
-                      type={hidden ? 'password' : 'text'}
+                      type={hiddenPass ? 'password' : 'text'}
                       name="password"
                       id="password"
                       className={
@@ -363,9 +356,9 @@ class FormLogin extends Component {
                     />
                     <input
                       type="button"
-                      onClick={e => this.toggleShow(e)}
+                      onClick={e => this.toggleShowHidePass(e)}
                       className={
-                        hidden
+                        hiddenPass
                           ? 'row-pass__btn row-pass--hide'
                           : 'row-pass__btn row-pass--show'
                       }
@@ -406,7 +399,8 @@ class FormLogin extends Component {
                   <button
                     onClick={e => this.handleLoginClick(e)}
                     type="button"
-                    name="enterDates"
+                    name="enterUserName"
+                    id="open_login_boton_ingresar"
                     className="btn btn-email">
                     <Icon.Mail />
                     <span className="btn-text">Ingresa con tu usuario</span>
@@ -415,29 +409,31 @@ class FormLogin extends Component {
               </div>
 
               <div className="form-grid__group">
-                <p className="form-grid__link text-center">
-                  ¿Aún no tienes una cuenta?{' '}
+                <p className="form-grid__link text-center text-sm pt-20 pb-20">
+                  ¿Aún no tienes una cuenta?
                   <button
                     type="button"
                     onClick={() => {
                       value.changeTemplate('register')
                     }}
-                    className="link-blue link-color">
+                    className="link-blue link-color text-sm">
                     Regístrate
                   </button>
                 </p>
-                <p className="form-grid__subtitle form-grid__subtitle--fb text-center">
+                <p className="form-grid__subtitle form-grid__subtitle--fb text-center mt-10 mb-20">
                   Al registrarte, nos ayudarás a mejorar tu experiencia de
                   navegación. Tus datos no se publicarán sin tu autorización.
                 </p>
               </div>
 
-              <div className="form-grid__group">
+              <div
+                className="form-grid__group lg:hidden"
+                hidden={!hiddenListBenefits}>
                 <p className="form-grid__subtitle text-center form-group--center">
                   <button
                     type="button"
-                    onClick={this.hanbleShowListBenefits}
-                    className="link-blue hidden-tablet link-color">
+                    onClick={e => this.hanbleShowListBenefits(e)}
+                    className="link-blue link-color">
                     Conoce aquí los beneficios de registrarte
                   </button>
                 </p>

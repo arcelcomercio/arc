@@ -47,8 +47,8 @@ class Content extends React.Component {
     })
   }
 
-  onBeforeNextStepHandler = (response, { currentStep, nextStep }) => {
-    this.memo = Object.assign({}, this.memo, response)
+  onBeforeNextStepHandler = (response, { nextStep }) => {
+    Object.assign(this.memo, response)
     nextStep()
   }
 

@@ -57,12 +57,12 @@ class Signwall extends Component {
 
   componentDidUpdate = () => {
     const { sessUser } = this.state
-    if (this.checkSesion() && !sessUser) {
+    if (this.checkSession() && !sessUser) {
       this.setState({
         sessUser: true,
       })
       this.togglePopupPanel()
-    } else if (this.checkSesion() === false && sessUser) {
+    } else if (this.checkSession() === false && sessUser) {
       this.setState({
         sessUser: false,
       })
@@ -72,7 +72,7 @@ class Signwall extends Component {
 
   componentDidMount = () => {
     const { sessUser } = this.state
-    if (this.checkSesion() && !sessUser) {
+    if (this.checkSession() && !sessUser) {
       this.setState({
         sessUser: true,
       })
@@ -82,7 +82,7 @@ class Signwall extends Component {
     }
   }
 
-  checkSesion = () => {
+  checkSession = () => {
     const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
     const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
     if (profileStorage) {
