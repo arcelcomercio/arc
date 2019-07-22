@@ -14,7 +14,7 @@ const classes = {
   itemTitleLink: 'related-content__link font-bold',
   multimedia: 'related-content__multimedia position-relative',
   link: 'block w-full h-full',
-  image: 'w-full h-full',
+  image: 'w-full h-full object-cover',
   icon: 'related-content__icon position-absolute p-5 rounded-lg title-xl',
   author: 'related-content__author uppercase text-gray-200',
 }
