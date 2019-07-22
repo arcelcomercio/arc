@@ -1,7 +1,7 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers';
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 const schemaName = 'stories'
 
@@ -55,7 +55,7 @@ const pattern = key => {
 
   website = key['arc-site'] || 'Arc Site no está definido'
   queryValue = key.query
-  const sort = key.sort === 'ascedente' ? 'asc' : 'desc'
+  const sort = key.sort === 'ascendente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 15}`
   const section = key.section || 'todas'
@@ -144,7 +144,12 @@ const resolve = key => pattern(key)
 const transform = data => {
   const dataStories = data
   const { resizerUrl } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(dataStories.content_elements, resizerUrl, resizerSecret, addResizedUrls)
+  dataStories.content_elements = addResizedUrlsToStory(
+    dataStories.content_elements,
+    resizerUrl,
+    resizerSecret,
+    addResizedUrls
+  )
   return {
     ...dataStories,
     query: queryValue,
