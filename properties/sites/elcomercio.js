@@ -6,6 +6,7 @@ export default {
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://elcomercio.pe',
+  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl:
     'https://elcomercio-elcomercio-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
