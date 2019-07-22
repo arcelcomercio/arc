@@ -42,6 +42,7 @@ class CardFeaturedStoryManual extends PureComponent {
         date: date3,
       },
     ]
+      .filter(el => el.path && el.date)
       .filter(el => actualDate > el.date)
       .sort((a, b) => (b.date > a.date ? 1 : -1))
 
