@@ -62,6 +62,12 @@ class ProfileAccount extends Component {
     ModalProfile.style.overflow = 'auto'
   }
 
+  handlerUpdateName = (name) => {
+    this.setState({
+      nameUser:name
+    })
+  }
+
   render() {
     const { closePopup } = this.props
     const {
@@ -124,7 +130,7 @@ class ProfileAccount extends Component {
                 </div>
               </div>
               <div className="profile__right profile__card">
-                {activeProfile ? <UpdateProfile /> : 'cargando....'}
+                {activeProfile ? <UpdateProfile  handlerUpdateName = {this.handlerUpdateName} /> : 'cargando....'}
                 <hr hidden={disabledSocial} />
                 <div hidden={disabledSocial}>
                   <UpdatePass />
