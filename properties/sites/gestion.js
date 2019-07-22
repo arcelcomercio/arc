@@ -131,7 +131,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@Gestion.pe',
+      user: '@Gestionpe',
       url: 'https://twitter.com/elcomercio_peru',
     },
     youtube: {
