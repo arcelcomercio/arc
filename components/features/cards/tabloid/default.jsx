@@ -44,6 +44,7 @@ class CardTabloid extends PureComponent {
 
   render() {
     const {
+      siteProperties: { linkTabloide = '' },
       deployment,
       contextPath,
       arcSite,
@@ -54,7 +55,7 @@ class CardTabloid extends PureComponent {
     const {
       multimedia = '',
       title = '',
-      date = '',
+      displayDate = '',
       section = '',
       link = '',
     } = new StoryData({
@@ -65,15 +66,14 @@ class CardTabloid extends PureComponent {
       defaultImgSize: 'sm',
     })
 
-    const nameDate = getLatinDate(date, ' del', true)
-
+    const nameDate = getLatinDate(displayDate, ' del', true)
     return (
       <div className={classes.tabloid}>
         <div className={classes.header}>
           <h4>
             <a
               className={classes.headerLink}
-              href={link}
+              href={link || linkTabloide}
               {...editableField('sectionName')}
               suppressContentEditableWarning>
               {sectionName || formatSlugToText(section)}
