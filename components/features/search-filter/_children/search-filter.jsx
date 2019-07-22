@@ -63,7 +63,6 @@ class SearchFilterChildSearchFilter extends PureComponent {
     // Verifica si hay "sort" en la URL o establece valor por defecto
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
-    console.log(`getsortfilter!! --> sort --> ${sort}`)
 
     return sort || DESC
   }
@@ -75,7 +74,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
 
     return section !== '' ? SECTION : ''
   }
-  //RECIBE ---> SORT, DESC
+  
   getUrl(type, value) {
     // Construye la URL para los botones del filtro
     const { globalContentConfig } = this.props
@@ -103,9 +102,6 @@ class SearchFilterChildSearchFilter extends PureComponent {
     this.setState({
       selected: event.target.name,
     })
-  }
-  _mostrarmensaje = () => {
-    alert("mostrando mensaje!")
   }
 
   render() {
@@ -198,7 +194,6 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 className={classes.link}
                 role="checkbox"
                 aria-checked="true"
-                //onClick={this._mostrarmensaje}
                 >
                 Más Recientes
               </a>
