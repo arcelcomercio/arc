@@ -204,7 +204,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                               ? element.resized_urls.large
                               : element.url
                           }
-                          alt={element.subtitle}
+                          alt={element.caption}
                           className={classes.image}
                           loading="lazy"
                         />
@@ -214,7 +214,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                       <span className={classes.quantity}>
                         {i + 1}/{sliders.length}
                       </span>
-                      <p className={classes.captionImage}>{element.subtitle}</p>
+                      <p className={classes.captionImage}>{element.caption}</p>
                     </figcaption>
                   </li>
                 ))}
