@@ -91,7 +91,8 @@ class FormReLogin extends Component {
                 .reloginEcoID(
                   email,
                   password,
-                  this.tipCat === 'relogin' ? 'relogin' : 'reloginemail'
+                  this.tipCat === 'relogin' ? 'relogin' : 'reloginemail',
+                  window
                 )
                 .then(resEco => {
                   if (resEco.retry === true) {

@@ -1,10 +1,12 @@
 /* eslint-disable class-methods-use-this */
+import ENV from 'fusion:environment'
 import getDevice from './get-device'
 
-const REACT_APP_ORIGIN_ECOID = 'https://pre.ecoid.pe'
-const REACT_APP_ORIGIN_API = 'https://api-sandbox.elcomercio.pe'
-// TODO Validar lo del pais
-export default class Services {
+const NAME_PATH = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+const ORIGIN_ECOID = NAME_PATH === 'prod' ? 'https://ecoid.pe' : 'https://pre.ecoid.pe'
+const ORIGIN_API = NAME_PATH === 'prod' ? 'https://api.gestion.pe' : 'https://api-sandbox.gestion.pe'
+
+ export default class Services {
   reloginEcoID(username, password, action, window) {
     const details = {
       email: username, // -> email
@@ -27,7 +29,7 @@ export default class Services {
     }
     formBody = formBody.join('&')
     const response = new Promise(resolve => {
-      fetch(`${REACT_APP_ORIGIN_ECOID}/api/v2/verify_credentials`, {
+      fetch(`${ORIGIN_ECOID}/api/v2/verify_credentials`, {
         method: 'POST',
         body: formBody,
         headers: {
@@ -40,7 +42,7 @@ export default class Services {
 
   loginFBeco(username, accessToken, type) {
     const response = new Promise(resolve => {
-      fetch(`${REACT_APP_ORIGIN_API}/identity/public/v1/auth/token`, {
+      fetch(`${ORIGIN_API}/identity/public/v1/auth/token`, {
         method: 'POST',
         body: JSON.stringify({
           userName: username,
@@ -51,14 +53,14 @@ export default class Services {
           'Content-Type': 'application/json',
         },
       }).then(res => resolve(res.json()))
-    });
-    return response;
+    })
+    return response
   }
 
   getUbigeo(item) {
     const response = new Promise(resolve => {
       fetch(
-        `${REACT_APP_ORIGIN_ECOID}/get_ubigeo/${item}?v=${new Date().getTime()}`
+        `${ORIGIN_ECOID}/get_ubigeo/${item}?v=${new Date().getTime()}`
       ).then(res => resolve(res.json()))
     })
     return response

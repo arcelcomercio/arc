@@ -22,8 +22,6 @@ export default {
   },
   signwall: {
     ORIGIN_API: 'https://api-sandbox.gestion.pe',
-    ORIGIN_PAYWALL:
-      'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/arc/subs/p.js',
     ORIGIN_IDENTITY_SDK:
       'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js',
     ORIGIN_SALES_SDK:
