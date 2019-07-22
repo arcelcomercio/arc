@@ -185,7 +185,7 @@ class StoryContentAmp extends PureComponent {
                 return type !== ConfigParams.ELEMENT_STORY ? (
                   ''
                 ) : (
-                  <StoryContentChildRelated key={key} {...item} />
+                  <StoryContentChildRelated key={key} {...item} isAmp="true" />
                 )
               })}
             </div>

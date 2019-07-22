@@ -57,7 +57,6 @@ class CardTabloid extends PureComponent {
       title = '',
       displayDate = '',
       section = '',
-      link = '',
     } = new StoryData({
       data: contentElements[0],
       deployment,
@@ -73,7 +72,7 @@ class CardTabloid extends PureComponent {
           <h4>
             <a
               className={classes.headerLink}
-              href={link || linkTabloide}
+              href={section}
               {...editableField('sectionName')}
               suppressContentEditableWarning>
               {sectionName || formatSlugToText(section)}
@@ -82,7 +81,7 @@ class CardTabloid extends PureComponent {
         </div>
         <div className={classes.body}>
           <picture>
-            <a href={link}>
+            <a href={linkTabloide}>
               <img
                 className={classes.face}
                 src={multimedia}
@@ -92,7 +91,7 @@ class CardTabloid extends PureComponent {
             </a>
           </picture>
           <h3 className={classes.date}>
-            <a className={classes.dateLink} href={link}>
+            <a className={classes.dateLink} href={linkTabloide}>
               {nameDate}
             </a>
           </h3>

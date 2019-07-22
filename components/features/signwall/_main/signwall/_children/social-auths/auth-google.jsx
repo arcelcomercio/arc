@@ -18,7 +18,7 @@ class AuthGoogle extends React.Component {
     const tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
     const tipForm = typeForm || ''
 
-    console.log(tipCat, tipAct, tipForm)
+    // console.log(tipCat, tipAct, tipForm)
 
     this.setState({
       sendingGo: false,
@@ -59,7 +59,6 @@ class AuthGoogle extends React.Component {
           // -- test de tageo
         })
         .catch(err => {
-          console.log(err)
           // -- test de tageo
           if (tipCat === 'organico' || tipCat === 'hard') {
             window.dataLayer = window.dataLayer || []

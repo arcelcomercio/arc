@@ -8,6 +8,7 @@ import SeparatorList from './_children/separator'
 import { getStoriesQty, sizeDevice } from '../_dependencies/functions'
 import StoryData from '../../../utilities/story-data'
 
+// TODO: wip
 const STORIES_QTY_DEFAULT = 4
 @withSizes(({ width }) => sizeDevice(width))
 @Consumer
