@@ -22,12 +22,15 @@ export default {
   },
   signwall: {
     ORIGIN_API: 'https://api-sandbox.gestion.pe',
-    ORIGIN_PAYWALL: 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/arc/subs/p.js',
-    ORIGIN_IDENTITY_SDK: 'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js',
-    ORIGIN_SALES_SDK: 'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-sales.min.js',
+    ORIGIN_PAYWALL:
+      'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/arc/subs/p.js',
+    ORIGIN_IDENTITY_SDK:
+      'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js',
+    ORIGIN_SALES_SDK:
+      'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-sales.min.js',
     ORIGIN_ECOID: 'https://pre.ecoid.pe',
-    ORIGIN_PAYU_VALIDATOR:
-      'https://gateway.payulatam.com/ppp-web-gateway/javascript/PayU.js',
+    ORIGIN_PAYU_SDK:
+      'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js',
     PAYU_PAYMENT_SERVICE:
       'https://sandbox.api.payulatam.com/payments-api/4.0/service',
     FACEBOOK_APPID: '287130908774061',

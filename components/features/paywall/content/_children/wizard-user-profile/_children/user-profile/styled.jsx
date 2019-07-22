@@ -55,25 +55,24 @@ const WrapError = styled.div`
   width: 100%;
   display: flex;
   border-radius: 4px;
-  background-color: lightsalmon;
+  background-color: rgba(219, 0, 0, 0.1);
 `
 
 const ErrorMessage = styled.span`
   width: 100%;
-  font-family: OpenSans;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
   font-style: normal;
   font-stretch: normal;
   text-align: center;
-  line-height: 1.83;
+  line-height: 22px;
   letter-spacing: normal;
   color: #db0000;
 `
 
-const Error = styled(({ message, children, style, className }) => {
+const Error = styled(({ message, children, className }) => {
   return (
-    <WrapError style={style} className={className}>
+    <WrapError className={className}>
       <ErrorMessage>{message || children}</ErrorMessage>
     </WrapError>
   )

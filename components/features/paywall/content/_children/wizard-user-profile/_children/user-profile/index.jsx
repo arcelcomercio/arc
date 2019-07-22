@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik'
 import InputFormik from '../../../../../_children/input'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
-import schema from '../../../../../_dependencies/schema'
+import schema, { clearNull } from '../../../../../_dependencies/schema'
 
 const MESSAGE = {
   MIN: 'Longitud inválida, mínimo 3 caracteres.',
@@ -26,7 +26,7 @@ const FAKE_BILLING_ADDRESS = {
 
 const RegisterSchema = schema({
   firstName: value => {
-    return value
+    value
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
@@ -45,9 +45,9 @@ const RegisterSchema = schema({
   },
   phone: value => {
     value
+      .required(MESSAGE.REQUIRED)
       .min(9, MESSAGE.CELULAR)
       .max(12, MESSAGE.CELULAR)
-      .required(MESSAGE.REQUIRED)
   },
   email: value => {
     value.required(MESSAGE.REQUIRED)
@@ -67,10 +67,8 @@ const FormStyled = S.Form(Form)
 
 const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => (
   <Formik
-    initialValues={profile}
+    initialValues={Object.assign({}, { documentNumber: null }, profile)}
     validate={values => {
-      // FIXME: Implementar errores correctamente
-      // return RegisterSchema(values)
       const erros = RegisterSchema(values)
 
       if (Object.keys(erros).length > 0) {
@@ -82,7 +80,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => (
       onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
     }}
     onReset={onReset}
-    render={({ isSubmitting }) => {
+    render={({ isSubmitting, isValid, ...p }) => {
       return (
         <FormStyled>
           <S.WrapTitle>

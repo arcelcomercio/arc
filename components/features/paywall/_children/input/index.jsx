@@ -7,6 +7,7 @@ const InputFormik = ({
   form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   placeholder,
   prefix,
+  type = 'text',
   ...props
 }) => {
   const { value, onBlur, ...rest } = field
@@ -23,6 +24,8 @@ const InputFormik = ({
     setHasText(!!value)
   }
 
+  const _value = value && type === 'number' ? parseInt(value, 10) : value
+
   const hasError = touched[field.name] && errors[field.name]
   if (hasError) placeholder = errors[field.name]
   return (
@@ -33,8 +36,8 @@ const InputFormik = ({
       <S.Wrap hasError={hasError}>
         {prefix ? [prefix, <Divider key="divider" />] : false}
         <S.Input
-          type="text"
-          defaultValue={value}
+          type={type}
+          defaultValue={_value}
           onFocus={focus}
           onBlur={blur}
           {...rest}
