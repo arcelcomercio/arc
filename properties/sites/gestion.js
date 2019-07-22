@@ -37,7 +37,7 @@ export default {
     integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
-    aboutUs: '',
+    aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
   },
 
   assets: {
@@ -70,11 +70,11 @@ export default {
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      url: '/politica-de-privacidad',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      url: '/politica-de-cookies',
     },
     {
       name: 'Preguntas Frecuentes',
