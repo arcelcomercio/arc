@@ -49,8 +49,7 @@ class BlogAuthorList extends PureComponent {
           const { day, month, fullYear } = getFullDateIso8601(postDate)
           const data = {
             postTitle,
-            // TODO:CARLOS: Verificar si estas urls general / al final. Sino, agregar
-            postPermaLink: `/blog/${postPermaLink}/`,
+            postPermaLink: `/blog/${postPermaLink}`,
             postDate: `${day}/${month}/${fullYear}`,
             image,
             author,
