@@ -6,6 +6,7 @@ export default {
   colorPrimary: '#265922',
   siteDomain: 'publimetro.pe',
   siteUrl: 'https://publimetro.pe',
+  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://publimetro.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:

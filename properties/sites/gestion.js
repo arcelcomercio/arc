@@ -5,6 +5,7 @@ export default {
   googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
+  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://publimetro.pe/resizer', // Temporal hasta que activen el resizer para gestión
   resizerSecretKeyEnvVar: '',
   urlPreroll:
