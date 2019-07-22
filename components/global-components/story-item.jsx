@@ -10,7 +10,7 @@ const classes = {
   section: 'story-item__section capitalize text-sm text-black md:mb-15',
   date: 'story-item__date font-thin ml-5 text-xs text-gray-300 md:mt-5 md:ml-0',
   bottom: 'story-item__bottom flex pb-20',
-  left: 'story-item__left flex flex-col justify-between pr-10 ',
+  left: 'story-item__left flex flex-col justify-between pr-20 ',
   contentTitle: 'story-item__content-title overflow-hidden',
   title: `story-item__title block overflow primary-font line-h-xs mt-10`,
   subtitle: `story-item__subtitle overflow-hidden hidden mt-10 mb-10 text-md text-gray-200 line-h-xs`,
