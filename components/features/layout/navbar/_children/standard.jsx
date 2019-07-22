@@ -23,7 +23,7 @@ const classes = {
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
-  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden`,
+  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden lg:inline-block`,
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10 lg:pl-10 border-r-1 border-solid`,
   searchContainer:
     'nav__search-box hidden lg:flex items-center border-r-1 border-solid',
@@ -45,6 +45,7 @@ const classes = {
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
+  iconSignwallMobile: 'rounded uppercase bg-primary'
 }
 
 const activeSignwall = ['elcomercio', 'gestion']
@@ -470,21 +471,17 @@ class NavBarDefault extends PureComponent {
                 />
                 <button
                   type="button"
-                  className={`${classes.btnLogin} ${
-                    classes.btnSignwall
-                  } btn--outline`}
+                  className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
                   onClick={() => this.setState({ isActive: true })}>
                   <i
                     className={
                       initialUser
-                        ? `${classes.iconSignwall} text-user text-xs`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwall
-                          } icon-user`
+                        ? `${classes.iconSignwall} text-user`
+                        : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
                     }>
                     {initialUser}
                   </i>
-                  <span className="capitalize">
+                  <span className="capitalize text-sm">
                     {this.checkSession() ? nameUser : 'Iniciar Sesión'}
                   </span>
                 </button>
@@ -497,11 +494,17 @@ class NavBarDefault extends PureComponent {
                 classes.hidden}`}>
               <button
                 type="button"
-                className={`${
-                  classes.btnLogin
-                } border-1 border-solid border-white`}
+                className={`${classes.btnLogin} border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
-                <i className={classes.iconLogin} />
+                {/* <i className={classes.iconLogin} /> */}
+                <i
+                  className={
+                    initialUser
+                      ? `${classes.iconSignwallMobile}`
+                      : `${classes.iconLogin} ${classes.iconSignwallMobile}`
+                  }>
+                  {initialUser}
+                </i>
               </button>
             </div>
           </div>

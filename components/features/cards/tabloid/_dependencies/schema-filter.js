@@ -3,7 +3,7 @@ export default arcSite => `
       content_elements{
         canonical_url
         website_url
-        publish_date
+        display_date
         websites {
           ${arcSite} {
             website_section {

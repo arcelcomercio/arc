@@ -5,6 +5,7 @@ import Pagination from '../../../global-components/pagination'
 import {
   formatDateLocalTimeZone,
   defaultImage,
+  addSlashToEnd,
 } from '../../../utilities/helpers'
 
 const classes = {
@@ -71,8 +72,8 @@ class BlogList extends PureComponent {
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
-      urlPost: `/blog/${postLink}/`,
-      urlBlog: `/blog/${path}/`,
+      urlPost: `/blog/${postLink}`,
+      urlBlog: addSlashToEnd(`/blog/${path}`),
       // TODO:CARLOS: Verificar si estas urls general / al final. Sino, agregar
     }
   }
@@ -86,7 +87,7 @@ class BlogList extends PureComponent {
     const {
       query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
     } = globalContentConfig
-    const { totalPosts } = this.state
+    const { totalPosts = {} } = this.state
     const { total: totalItems = null } = totalPosts
     const blogs = Object.values(globalContent).filter(
       item => typeof item === 'object'

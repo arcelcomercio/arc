@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 import SeparatorBlogChildItem from './_children/item'
-import { defaultImage } from '../../../utilities/helpers'
+import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
 
 const classes = {
   separator: 'blog-separator mb-20',
@@ -49,7 +49,6 @@ class SeparatorBlog extends PureComponent {
     } = this.props
     let listPost = Object.values(dataApi)
     listPost = listPost.slice(0, 5)
-
     const seeMoreUrl = `${siteUrl}${BLOG_BASE}`
 
     return (
@@ -91,9 +90,9 @@ class SeparatorBlog extends PureComponent {
               const data = {
                 authorName,
                 authorImg,
-                blogUrl: `${BLOG_BASE}/${blogUrl}`,
+                blogUrl: addSlashToEnd(`${BLOG_BASE}${blogUrl}`),
                 blogName,
-                postLink: `${BLOG_BASE}/${postLink}`,
+                postLink: `${BLOG_BASE}${postLink}`,
                 postTitle,
               }
               return <SeparatorBlogChildItem key={blogUrl} {...data} />

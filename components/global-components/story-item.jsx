@@ -10,7 +10,7 @@ const classes = {
   section: 'story-item__section capitalize text-sm text-black md:mb-15',
   date: 'story-item__date font-thin ml-5 text-xs text-gray-300 md:mt-5 md:ml-0',
   bottom: 'story-item__bottom flex pb-20',
-  left: 'story-item__left flex flex-col justify-between pr-10 ',
+  left: 'story-item__left flex flex-col justify-between pr-20 ',
   contentTitle: 'story-item__content-title overflow-hidden',
   title: `story-item__title block overflow primary-font line-h-xs mt-10`,
   subtitle: `story-item__subtitle overflow-hidden hidden mt-10 mb-10 text-md text-gray-200 line-h-xs`,
@@ -34,7 +34,6 @@ class StoriesList extends PureComponent {
       arcSite,
       defaultImgSize: 'sm',
     })
-    // console.log(this.props)
     return (
       <div
         className={`${classes.storyItem} ${
@@ -43,8 +42,8 @@ class StoriesList extends PureComponent {
         <div className={classes.bottom}>
           <div className={classes.left}>
             <div className={classes.top}>
-              <a href={element.sectionLink} className={classes.section}>
-                {element.section}
+              <a href={element.primarySectionLink} className={classes.section}>
+                {element.primarySection}
               </a>
               <p className={classes.date}>
                 {formatDateLocalTimeZone(element.date)}
@@ -74,12 +73,18 @@ class StoriesList extends PureComponent {
               {element.multimediaType.toLowerCase() === 'basic_video' && (
                 <span className={classes.iconVideo} />
               )}
-              <img
-                alt={element.title}
-                className={classes.img}
-                src={element.multimedia}
-                loading="lazy"
-              />
+              <picture>
+                <source
+                  media="(min-width: 640px)"
+                  srcSet={element.multimediaLandscapeS}
+                />
+                <img
+                  alt={element.title}
+                  className={classes.img}
+                  src={element.multimediaLandscapeXS}
+                  loading="lazy"
+                />
+              </picture>
             </a>
           </figure>
         </div>

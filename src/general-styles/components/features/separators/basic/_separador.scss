@@ -1,6 +1,4 @@
 .separator {
-  /*  grid-template-columns: 1fr; */
-
   &__title {
     display: -webkit-box;
     max-height: 57.63px;
@@ -20,16 +18,11 @@
   }
 
   &__body {
-    /*    grid-template-columns: 1fr;
-    gap: 3px; */
-
     @media (--tablet) {
-      /*       grid-template-columns: repeat(4, 1fr); */
       height: 161px;
     }
 
     &--items {
-      /*       grid-template-columns: repeat(6, 1fr); */
       height: 169px;
     }
   }
