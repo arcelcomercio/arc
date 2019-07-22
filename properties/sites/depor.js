@@ -2,10 +2,10 @@ export default {
   siteName: 'Depor',
 
   googleFonts: 'Noticia+Text|Roboto', // open_sansregular
-
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',
   siteUrl: 'https://depor.com',
+  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://elcomercio-depor-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
@@ -29,6 +29,7 @@ export default {
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
+    frequentQuestions: '',
   },
   infoPagesProd: {
     termsAndConditions: '',
@@ -38,6 +39,7 @@ export default {
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
+    frequentQuestions: '',
   },
 
   messages: {

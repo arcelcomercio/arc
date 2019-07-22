@@ -25,7 +25,7 @@ export default ({
   const APPNEXUS_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
   const BASE_URL_ADS =
     APPNEXUS_ENV === 'prod'
-      ? 'https://d1r08wok4169a5.cloudfront.net/ads-publimetro'
+      ? `https://d1r08wok4169a5.cloudfront.net/ads-${arcSite}`
       : 'https://jab.pe/f/arc'
 
   const metaPageData = {

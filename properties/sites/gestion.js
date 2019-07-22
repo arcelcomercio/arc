@@ -5,6 +5,7 @@ export default {
   googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
+  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://publimetro.pe/resizer', // Temporal hasta que activen el resizer para gestión
   resizerSecretKeyEnvVar: '',
   urlPreroll:
@@ -29,6 +30,7 @@ export default {
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
+    frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
   },
   infoPagesProd: {
     termsAndConditions: 'VD45IRL65ZGCDBGLHL4O6WVCJE',
@@ -38,6 +40,7 @@ export default {
     arcoProcedure: '',
     cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
     aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
+    frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
   },
 
   assets: {
@@ -93,16 +96,16 @@ export default {
 
     socialNetworks: [
       {
+        name: 'linkedin',
+        url: 'https://www.linkedin.com/company/diario-gestion/',
+      },
+      {
         name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
+        url: 'https://www.facebook.com/Gestionpe',
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
-      },
-      {
-        name: 'google+',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
+        url: 'https://twitter.com/gestionpe',
       },
     ],
 
@@ -124,13 +127,13 @@ export default {
   social: {
     facebook: {
       name: 'facebook',
-      user: '@elcomercio.pe',
-      url: 'https://www.facebook.com/elcomercio.pe',
+      user: '@Gestionpe',
+      url: 'https://www.facebook.com/Gestionpe',
     },
     twitter: {
       name: 'twitter',
-      user: '@Gestion.pe',
-      url: 'https://twitter.com/elcomercio_peru',
+      user: '@Gestionpe',
+      url: 'https://twitter.com/gestionpe',
     },
     youtube: {
       name: 'youtube',
