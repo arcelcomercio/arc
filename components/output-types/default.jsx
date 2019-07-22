@@ -22,7 +22,7 @@ export default ({
   requestUri,
   metaValue,
 }) => {
-  const APPNEXUS_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const APPNEXUS_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
   const BASE_URL_ADS =
     APPNEXUS_ENV === 'prod'
       ? `https://d1r08wok4169a5.cloudfront.net/ads-${arcSite}`
@@ -169,11 +169,6 @@ export default ({
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
-        {/* <script
-          async
-          src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
-        /> */}
-
         {/* Rubicon BlueKai - Inicio */}
         <script
           type="text/javascript"
@@ -188,9 +183,14 @@ export default ({
         {/* <!-- Rubicon BlueKai - Fin --> */}
 
         <Libs />
-        {/* Scripts Identity & Sales */}
-        <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-sales.min.js" />
-        <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js" />
+        {/* Scripts Identity & Sales & Paywall */}
+        {/* <script src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`} /> */}
+        <script
+          src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-identity.min.js`}
+        />
+        <script
+          src={`https://elcomercio-${arcSite}-${APPNEXUS_ENV}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date().getTime()}`}
+        />
       </head>
       <body className={isStory ? 'story' : ''}>
         <noscript>
