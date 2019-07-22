@@ -27,9 +27,7 @@ class Signwall extends Component {
 
   componentWillMount() {
     const {
-      siteProperties: {
-        signwall: { ORIGIN_API, ORIGIN_PAYWALL } = {},
-      } = {},
+      siteProperties: { signwall: { ORIGIN_API, ORIGIN_PAYWALL } = {} } = {},
     } = this.props
 
     window.Identity.apiOrigin = ORIGIN_API
@@ -59,14 +57,12 @@ class Signwall extends Component {
 
   componentDidUpdate = () => {
     const { sessUser } = this.state
-    if (this.checkSesion() && !sessUser) {
-      // eslint-disable-next-line react/no-did-update-set-state
+    if (this.checkSession() && !sessUser) {
       this.setState({
         sessUser: true,
       })
       this.togglePopupPanel()
-    } else if (this.checkSesion() === false && sessUser) {
-      // eslint-disable-next-line react/no-did-update-set-state
+    } else if (this.checkSession() === false && sessUser) {
       this.setState({
         sessUser: false,
       })
@@ -76,7 +72,7 @@ class Signwall extends Component {
 
   componentDidMount = () => {
     const { sessUser } = this.state
-    if (this.checkSesion() && !sessUser) {
+    if (this.checkSession() && !sessUser) {
       this.setState({
         sessUser: true,
       })
@@ -86,7 +82,7 @@ class Signwall extends Component {
     }
   }
 
-  checkSesion = () => {
+  checkSession = () => {
     const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
     const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
     if (profileStorage) {

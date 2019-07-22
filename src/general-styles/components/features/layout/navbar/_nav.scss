@@ -84,7 +84,8 @@
         left: 10px;
       }
       .text-user {
-        font-size: 10px;
+        font-size: 12px;
+        letter-spacing: 1px;
       }
     }
   }
@@ -151,6 +152,15 @@
       will-change: width;
       border: solid 1px $color-primary;
     }
+  }
+
+  .layer {
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0);
+    height: 100vh;
+    display: none;
   }
 
   &.active {

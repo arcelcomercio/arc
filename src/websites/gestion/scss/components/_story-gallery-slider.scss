@@ -1,0 +1,14 @@
+.story-gallery-slider {
+  &__quantity {
+    background-color: $color-secondary;
+    color: $color-gray-300;
+    font-family: $tertiary-font;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  &__caption-image {
+    font-family: $tertiary-font;
+    font-size: 14.4px;
+    font-weight: 500;
+  }
+}

@@ -51,6 +51,9 @@
     font-weight: 700;
     font-family: $tertiary-font;
     color: $color-white;
+    &:hover {
+      color: $color-white;
+    }
   }
   &__wrapper {
     &:first-child {

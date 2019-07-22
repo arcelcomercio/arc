@@ -51,6 +51,7 @@ const SeparatorsChildAuthorCard = props => {
             className={classes.opinionItemImageImg}
             src={imageUrl}
             alt={author || ''}
+            loading="lazy"
           />
         </figure>
         {/*  <h3 className={classes.opinionItemText}>

@@ -8,7 +8,7 @@ export default {
   resizerUrl: 'https://publimetro.pe/resizer', // Temporal hasta que activen el resizer para gestión
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/GESTION_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KFQK83S',
   ampGoogleTagManagerId: 'UA-3055636-3',
@@ -21,26 +21,6 @@ export default {
   siteDescription:
     'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
-  imagenNewsLetter: {
-    thumbnail_max:
-      'https://img.elcomercio.pe/files/servicio_newsletter_648x364/uploads/2017/05/16/591b34b2c9508.jpeg',
-    thumbnail_min:
-      'https://img.elcomercio.pe/files/servicio_newsletter_214x135/uploads/2017/05/16/591b34b2c9508.jpeg',
-    thumbnail_250x366:
-      'https://img.elcomercio.pe/files/servicio_newsletter_250x366/uploads/2017/05/16/591b34b2c9508.jpeg',
-    thumbnail_148x83:
-      'https://img.elcomercio.pe/files/servicio_newsletter_148x83/uploads/2017/05/16/591b34b2c9508.jpeg',
-    thumbnail_210x118:
-      'https://img.elcomercio.pe/files/servicio_newsletter_210x118/uploads/2017/05/16/591b34b2c9508.jpeg',
-    thumbnail_403x227:
-      'https://img.elcomercio.pe/files/servicio_newsletter_403x227/uploads/2017/05/16/591b34b2c9508.jpeg',
-    thumbnail_241x136:
-      'https://img.elcomercio.pe/files/servicio_newsletter_241x136/uploads/2017/05/16/591b34b2c9508.jpeg',
-    thumbnail_grande:
-      'https://img.elcomercio.pe/files/ec_content_newslatter_grande/uploads/2017/05/16/591b34b2c9508.jpeg',
-    thumbnail_flujo:
-      'https://img.elcomercio.pe/files/ec_content_newslatter_flujo/uploads/2017/05/16/591b34b2c9508.jpeg',
-  },
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
@@ -57,7 +37,7 @@ export default {
     integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
-    aboutUs: '',
+    aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
   },
 
   assets: {
@@ -90,11 +70,11 @@ export default {
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      url: '/politica-de-privacidad',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      url: '/politica-de-cookies',
     },
     {
       name: 'Preguntas Frecuentes',

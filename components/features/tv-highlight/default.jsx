@@ -2,87 +2,61 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
+import schemaFilter from './_dependencies/schema-filter'
 import TVHighlightChild from './_children/tv-highlight'
 import StoryData from '../../utilities/story-data'
+
+const CONTENT_SOURCE = 'story-by-section'
 
 @Consumer
 class TVHighlight extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      data: '',
-    }
-    this.fetch()
-  }
+    const { customFields: { section } = {} } = props
 
-  fetch() {
-    const { customFields, deployment, contextPath, arcSite } = this.props
-    const { section } = customFields
-    const schema = `{ 
-      headlines { basic }
-      credits {
-        by { name url type }
-      }
-      website_url
-      promo_items {
-        basic { url type resized_urls { small medium large} }
-        basic_video {
-          promo_items {
-            basic { url type resized_urls { small medium large} }
-          }
-        }
-        basic_gallery {
-          promo_items {
-            basic { url type resized_urls { small medium large} }
-          }
-        }
-      }
-      taxonomy {
-        primary_section {
-            name
-            path
-        }
-      }
-    }`
-    const source = 'story-by-section'
-    const params = {
-      section,
-      feedOffset: 0,
-      stories_qty: 1,
-    }
-    const { fetched } = this.getContent(source, params, schema)
-    fetched.then(story => {
-      const get = new StoryData({
-        data: story,
-        deployment,
-        contextPath,
-        arcSite,
-        defaultImgSize: 'lg',
-      })
-      const filterData = {
-        category: {
-          nameSection: get.section,
-          urlSection: get.sectionLink,
+    this.fetchContent({
+      data: {
+        source: CONTENT_SOURCE,
+        query: {
+          section,
+          feedOffset: 0,
+          stories_qty: 1,
         },
-        title: {
-          nameTitle: get.title,
-          urlTitle: get.link,
-        },
-        multimedia: {
-          multimediaType: get.multimediaType,
-          multimediaImg: get.multimedia,
-        },
-        tags: get.tags,
-      }
-      this.setState({
-        data: filterData,
-      })
+        filter: schemaFilter,
+        transform: data => this.filterData(data),
+      },
     })
   }
 
+  filterData = data => {
+    const { deployment, contextPath, arcSite } = this.props
+    const storyData = new StoryData({
+      data,
+      deployment,
+      contextPath,
+      arcSite,
+      defaultImgSize: 'lg',
+    })
+    return {
+      category: {
+        nameSection: storyData.primarySection,
+        urlSection: storyData.primarySectionLink,
+      },
+      title: {
+        nameTitle: storyData.title,
+        urlTitle: storyData.link,
+      },
+      multimedia: {
+        multimediaType: storyData.multimediaType,
+        multimediaImg: storyData.multimediaLandscapeXL,
+      },
+      tags: storyData.tags,
+    }
+  }
+
   render() {
-    const { data: params } = this.state
-    return <div>{params && <TVHighlightChild {...params} />}</div>
+    const { data = {} } = this.state
+    return data && <TVHighlightChild {...data} />
   }
 }
 
@@ -97,5 +71,6 @@ TVHighlight.propTypes = {
 }
 
 TVHighlight.label = 'Destaque TV'
+TVHighlight.static = true
 
 export default TVHighlight

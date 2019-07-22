@@ -297,7 +297,6 @@ class updatePassword extends Component {
             bg="white"
             name="modal-div-confirmpass"
             id="modal-div-confirmpass">
-         
             <div className="text-right">
               <button
                 type="button"
@@ -307,61 +306,52 @@ class updatePassword extends Component {
             </div>
 
             <div className="modal-body__wrapper">
-           
-                <form
-                  className="form-grid"
-                  onSubmit={e => this.submitConfirmPassword(e)}>
-                  <div className="row-grid">
-                  
-                      <p className="form-grid__label form-grid__label--information text-center">
-                        Para confirmar el cambio, por favor ingresa tu
-                        contraseña actual
-                      </p>
-                    
+              <form
+                className="form-grid"
+                onSubmit={e => this.submitConfirmPassword(e)}>
+                <div className="row-grid">
+                  <p className="form-grid__label form-grid__label--information text-center">
+                    Para confirmar el cambio, por favor ingresa tu contraseña
+                    actual
+                  </p>
+                </div>
+                <div className="row-grid">
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      name="oldPassword"
+                      className={
+                        formErrorsConfirm.oldPassword.length > 0
+                          ? 'form-group__input form-group__input--error'
+                          : 'form-group__input'
+                      }
+                      placeholder="Contraseña Actual"
+                      noValidate
+                      onChange={e => {
+                        this.setState({ oldPassword: e.target.value })
+                        this.changeValidationConfirm(e)
+                      }}
+                    />
+                    <label htmlFor="oldPassword" className="form-group__label">
+                      Contraseña actual
+                    </label>
+                    {formErrorsConfirm.oldPassword.length > 0 && (
+                      <span className="message__error">
+                        {formErrorsConfirm.oldPassword}
+                      </span>
+                    )}
                   </div>
-                  <div className="row-grid">
-                   
-                      <div className="form-group">
-                        <input
-                          type="password"
-                          name="oldPassword"
-                          className={
-                            formErrorsConfirm.oldPassword.length > 0
-                              ? 'form-group__input form-group__input--error'
-                              : 'form-group__input'
-                          }
-                          placeholder="Contraseña Actual"
-                          noValidate
-                          onChange={e => {
-                            this.setState({ oldPassword: e.target.value })
-                            this.changeValidationConfirm(e)
-                          }}
-                        />
-                        <label
-                          htmlFor="oldPassword"
-                          className="form-group__label">
-                          Contraseña actual
-                        </label>
-                        {formErrorsConfirm.oldPassword.length > 0 && (
-                          <span className="message__error">
-                            {formErrorsConfirm.oldPassword}
-                          </span>
-                        )}
-                      </div>
-                 
-                   
-                      <div className="form-group">
-                        <input
-                          type="submit"
-                          className="btn btn--blue btn-bg"
-                          value={!sending ? 'Confirmando...' : 'Confirmar'}
-                          disabled={!sending}
-                        />
-                      </div>
-                   
+
+                  <div className="form-group">
+                    <input
+                      type="submit"
+                      className="btn btn--blue btn-bg"
+                      value={!sending ? 'Confirmando...' : 'Confirmar'}
+                      disabled={!sending}
+                    />
                   </div>
-                </form>
-              
+                </div>
+              </form>
             </div>
           </Modal>
         )}

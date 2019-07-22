@@ -34,7 +34,6 @@ class StoriesList extends PureComponent {
       arcSite,
       defaultImgSize: 'sm',
     })
-    // console.log(this.props)
     return (
       <div
         className={`${classes.storyItem} ${
@@ -43,8 +42,8 @@ class StoriesList extends PureComponent {
         <div className={classes.bottom}>
           <div className={classes.left}>
             <div className={classes.top}>
-              <a href={element.sectionLink} className={classes.section}>
-                {element.section}
+              <a href={element.primarySectionLink} className={classes.section}>
+                {element.primarySection}
               </a>
               <p className={classes.date}>
                 {formatDateLocalTimeZone(element.date)}
@@ -65,6 +64,7 @@ class StoriesList extends PureComponent {
             </div>
           </div>
           <figure className={classes.right}>
+            {/* TODO: Actualizar iconos con multimediaIcon */}
             <a href={element.link} className={classes.rightLink}>
               {element.multimediaType.toLowerCase() === 'basic_gallery' && (
                 <span className={classes.iconGallery} />
@@ -73,11 +73,18 @@ class StoriesList extends PureComponent {
               {element.multimediaType.toLowerCase() === 'basic_video' && (
                 <span className={classes.iconVideo} />
               )}
-              <img
-                alt={element.title}
-                className={classes.img}
-                src={element.multimedia}
-              />
+              <picture>
+                <source
+                  media="(min-width: 640px)"
+                  srcSet={element.multimediaLandscapeS}
+                />
+                <img
+                  alt={element.title}
+                  className={classes.img}
+                  src={element.multimediaLandscapeXS}
+                  loading="lazy"
+                />
+              </picture>
             </a>
           </figure>
         </div>

@@ -125,7 +125,12 @@ class CardCinemaBillboard extends PureComponent {
           </h3>
           <figure className={classes.figure}>
             <a href={`${BASE_PATH}${MOVIES_BASE_PATH}/${url}`}>
-              <img src={img} alt={alt} className={classes.image} />
+              <img
+                src={img}
+                alt={alt}
+                className={classes.image}
+                loading="lazy"
+              />
             </a>
           </figure>
           <div className={classes.detail}>

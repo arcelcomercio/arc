@@ -7,7 +7,6 @@ import {
   addSlashToEnd,
 } from './helpers'
 
-
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
 
@@ -17,7 +16,8 @@ class StoryData {
 
   static IMAGE = ConfigParams.IMAGE
 
-  static AUTOR_SOCIAL_NETWORK_TWITTER = ConfigParams.AUTOR_SOCIAL_NETWORK_TWITTER
+  static AUTOR_SOCIAL_NETWORK_TWITTER =
+    ConfigParams.AUTOR_SOCIAL_NETWORK_TWITTER
 
   constructor({
     data = {},
@@ -105,7 +105,9 @@ class StoryData {
   }
 
   get authorTwitterLink() {
-    const twitter = StoryData.getDataAuthor(this._data).socialLinks.filter(x => x.site === ConfigParams.AUTOR_SOCIAL_NETWORK_TWITTER)
+    const twitter = StoryData.getDataAuthor(this._data).socialLinks.filter(
+      x => x.site === ConfigParams.AUTOR_SOCIAL_NETWORK_TWITTER
+    )
     const result = twitter && twitter[0] && twitter[0].url ? twitter[0].url : ''
     return result
   }
@@ -600,7 +602,7 @@ class StoryData {
           iterator.image && iterator.image.url && iterator.image.url !== ''
             ? iterator.image.url
             : authorImageDefault
-        socialLinks = iterator.social_links  ?iterator.social_links : []
+        socialLinks = iterator.social_links ? iterator.social_links : []
         break
       }
     }
