@@ -110,7 +110,11 @@ const FormPay = ({ onSubmit, onReset }) => (
           acuerdo con la información.
         </S.Span>
 
-        <Button type="submit">CONTINUAR</Button>
+        <S.WrapSubmit>
+          <Button type="submit" maxWidth="300px">
+            CONTINUAR
+          </Button>
+        </S.WrapSubmit>
       </Form>
     )}
   />

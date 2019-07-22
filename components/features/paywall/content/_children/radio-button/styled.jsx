@@ -6,7 +6,6 @@ export const Label = styled.label`
   align-items: center;
   @media (${devices.mobile}) {
     flex-direction: column-reverse;
-    margin: 0 8px;
   }
 `
 
