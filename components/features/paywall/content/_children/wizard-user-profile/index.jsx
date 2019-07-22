@@ -38,10 +38,8 @@ function WizardUserProfile(props) {
   const { siteProperties } = fusionContext
   const Sales = addSales(siteProperties)
 
-  function onSubmitHandler(
-    { email, phone, billingAddress },
-    { setSubmitting }
-  ) {
+  function onSubmitHandler(values, { setSubmitting }) {
+    const { email, phone, billingAddress } = values
     setError(false)
     setLoading(true)
     Sales.then(sales =>
@@ -51,7 +49,9 @@ function WizardUserProfile(props) {
           // TODO: validar respuesta y mostrar errores de API
           setLoading(false)
           setSubmitting(false)
-          onBeforeNextStep(res, props)
+          // Mezclamos valores del formulario con los valores de la respuesta
+          const mergeResValues = Object.assign({}, values, res)
+          onBeforeNextStep(mergeResValues, props)
         })
         .catch(e => {
           switch (e.code) {
