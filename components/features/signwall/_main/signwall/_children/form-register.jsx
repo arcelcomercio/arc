@@ -109,22 +109,7 @@ class FormRegister extends Component {
             sending: true,
           })
 
-          // window.Identity.requestVerifyEmail(EmailUserNew)
-          //   .then(res => {
-          //     console.log(res)
-          //   })
-          //   .catch(err => {
-          //     console.log(err)
-          //   })
-
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
-          // window.sessUser.setState({ accessPanel: true })
-          // window.nameUser.setState({
-          //   nameUser: new GetProfile().username,
-          // })
-          // window.initialUser.setState({
-          //   initialUser: new GetProfile().initname,
-          // })
 
           // -- test de tageo success
           if (tipCat === 'relogemail') {
@@ -145,11 +130,27 @@ class FormRegister extends Component {
         })
         .catch(err => {
           // console.log(err)
+          let messageES = ''
+          switch (err.code) {
+            case '300031':
+            case '300039':
+            case '300023':
+              messageES = 'El correo electrónico ingresado ya existe'
+              break
+            case '300040':
+              messageES =
+                'Oops. Ocurrió un error inesperado. Intenta inciar sesión'
+              this.setState({
+                showMessage: true,
+                sending: true,
+              })
+              break
+            default:
+              messageES = 'Oops. Ocurrió un error inesperado.'
+          }
+
           this.setState({
-            messageError:
-              err.code === '300031' || err.code === '300039'
-                ? 'El correo electrónico ingresado ya existe'
-                : err.message,
+            messageError: messageES,
             sending: true,
           })
 
