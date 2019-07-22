@@ -1,7 +1,11 @@
 import StoryData from './story-data'
 
 class FeaturedStoryFormatter {
-  constructor({ deployment, contextPath = '', arcSite = '' }) {
+  constructor({
+    deployment,
+    contextPath = '',
+    arcSite = ''
+  }) {
     this.contextPath = contextPath
     this.arcSite = arcSite
     this.schema = `{ 
@@ -10,15 +14,42 @@ class FeaturedStoryFormatter {
         by { name url type }
       }
       promo_items {
-        basic { url type resized_urls { landscape_l } }
+        basic { 
+          url 
+          type 
+          resized_urls { 
+            landscape_l 
+            landscape_md 
+            portrait_md 
+            square_s 
+          } 
+        }
         basic_video {
           promo_items {
-            basic { url type resized_urls { landscape_l } }
+            basic { 
+              url 
+              type 
+              resized_urls { 
+                landscape_l 
+                landscape_md 
+                portrait_md 
+                square_s 
+              } 
+            }
           }
         }
         basic_gallery {
           promo_items {
-            basic { url type resized_urls { landscape_l } }
+            basic { 
+              url 
+              type 
+              resized_urls { 
+                landscape_l 
+                landscape_md 
+                portrait_md 
+                square_s 
+              } 
+            }
           }
         }
       }
@@ -102,7 +133,10 @@ class FeaturedStoryFormatter {
 
     newState.author.name = this.storyDataInstace.author
     newState.author.url = this.storyDataInstace.authorLink
-    newState.image = imgField || this.storyDataInstace.multimediaLandscapeL
+    newState.multimediaLandscapeL = imgField || this.storyDataInstace.multimediaLandscapeL
+    newState.multimediaLandscapeMD = imgField || this.storyDataInstace.multimediaLandscapeMD
+    newState.multimediaPortraitMD = imgField || this.storyDataInstace.multimediaPortraitMD
+    newState.multimediaSquareS = imgField || this.storyDataInstace.multimediaSquareS
     newState.multimediaType = this.storyDataInstace.multimediaType
 
     return newState

@@ -10,6 +10,12 @@ import { addSales } from '../../../_dependencies/sales'
 
 const { styled } = S
 
+const ERROR = {
+  E300012: 'No se ha encontrado ningún carrito para el usuario.',
+  UNKNOWN: code =>
+    `ups, vamos a verificar que paso, error desconocido, Ex${code}`,
+}
+
 const PanelUserProfile = styled(Panel)`
   @media (${devices.mobile}) {
     margin-top: 30px;
@@ -32,10 +38,8 @@ function WizardUserProfile(props) {
   const { siteProperties } = fusionContext
   const Sales = addSales(siteProperties)
 
-  function onSubmitHandler(
-    { email, phone, billingAddress },
-    { setSubmitting }
-  ) {
+  function onSubmitHandler(values, { setSubmitting }) {
+    const { email, phone, billingAddress } = values
     setError(false)
     setLoading(true)
     Sales.then(sales =>
@@ -45,12 +49,21 @@ function WizardUserProfile(props) {
           // TODO: validar respuesta y mostrar errores de API
           setLoading(false)
           setSubmitting(false)
-          onBeforeNextStep(res, props)
+          // Mezclamos valores del formulario con los valores de la respuesta
+          const mergeResValues = Object.assign({}, values, res)
+          onBeforeNextStep(mergeResValues, props)
         })
         .catch(e => {
+          switch (e.code) {
+            case '300012':
+              setError(ERROR.E300012)
+              break
+            default:
+              setError(ERROR.UNKNOWN(e.code))
+              break
+          }
           setLoading(false)
           setSubmitting(false)
-          setError('Disculpe ha ocurrido un error al procesar el pago')
         })
     )
   }

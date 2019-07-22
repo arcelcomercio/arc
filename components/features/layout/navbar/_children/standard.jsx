@@ -13,14 +13,17 @@ import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
 import GetProfile from '../../../signwall/_main/utils/get-profile'
 
-import { getResponsiveClasses } from '../../../../utilities/helpers'
+import {
+  getResponsiveClasses,
+  searchQuery,
+} from '../../../../utilities/helpers'
 
 const classes = {
   nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font`,
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
-  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden`,
+  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden lg:inline-block`,
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10 lg:pl-10 border-r-1 border-solid`,
   searchContainer:
     'nav__search-box hidden lg:flex items-center border-r-1 border-solid',
@@ -34,7 +37,7 @@ const classes = {
   listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
   logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
-  navMobileContainer: 'nav__mobile-container lg:hidden',
+  navMobileContainer: 'nav__mobile-container hidden',
   btnContainer: 'flex items-center justify-end header__btn-container', // agregar hidden ocultar signwall
   hidden: 'hidden',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
@@ -42,6 +45,7 @@ const classes = {
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
+  iconSignwallMobile: 'rounded uppercase bg-primary'
 }
 
 const activeSignwall = ['elcomercio', 'gestion']
@@ -59,19 +63,45 @@ class NavBarDefault extends PureComponent {
       showVerify: false,
       showReset: false,
       showRelogin: false,
-      nameUser: new GetProfile().username,
+      nameUser: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
       initialUser: new GetProfile().initname,
     }
     // Resizer.setResizeListener()
     this.inputSearch = React.createRef()
+
+    this.dragFlag = false
+    this.initPointDrag = 0
+    this.distDrag = 0
+    this.limitScreenDrag = 90
+
+    this.listContainer = null
+    this.listWidth = 330
+    this.layerBackground = null
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this._handleScroll)
+    this.listContainer = document.querySelector('.nav-sidebar')
+    this.layerBackground = document.querySelector('.layer')
+
+    if (this.listContainer !== null && this.listContainer !== 'undefined') {
+      // this.listWidth = this.listContainer.getBoundingClientRect().width
+      /* document.body.addEventListener('mousedown', this._initDrag)
+      document.body.addEventListener('mouseup', this._endDrag)
+      document.body.addEventListener('mousemove', this._moveDrag) */
+
+      document.body.addEventListener('touchstart', this._initDrag)
+      document.body.addEventListener('touchend', this._endDrag)
+      document.body.addEventListener('touchmove', this._moveDrag)
+    }
+
+    if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
+      this.layerBackground.addEventListener('click', this._closeMenu)
+    }
   }
 
   componentDidUpdate() {
-    if (this.checkSesion()) {
+    if (this.checkSession()) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         nameUser: new GetProfile().username,
@@ -84,6 +114,86 @@ class NavBarDefault extends PureComponent {
         initialUser: new GetProfile().initname,
       })
     }
+  }
+
+  _initDrag = evt => {
+    const { statusSidebar } = this.state
+    this.initPointDrag = evt.offsetX || evt.changedTouches[0].clientX
+    document.body.classList.add('no-selected')
+    if (statusSidebar) {
+      if (this.initPointDrag < this.listWidth) {
+        this.dragFlag = true
+      }
+    } else if (this.initPointDrag < this.limitScreenDrag) {
+      this.dragFlag = true
+    }
+  }
+
+  _endDrag = () => {
+    const { statusSidebar } = this.state
+    this.dragFlag = false
+    document.body.classList.remove('no-selected')
+
+    if (this.distDrag < this.limitScreenDrag) {
+      if (!statusSidebar) this._closeMenu()
+      else this._openMenu()
+    }
+    this.distDrag = 0
+  }
+
+  _moveDrag = evt => {
+    if (this.dragFlag) {
+      const { offsetX, movementX, changedTouches } = evt
+
+      let dir = ''
+      if (movementX) {
+        dir = movementX > 0 ? 'right' : 'left'
+      } else if (changedTouches && changedTouches[0]) {
+        dir =
+          changedTouches[0].clientX - this.initPointDrag > 0 ? 'right' : 'left'
+      }
+
+      const posX = offsetX || changedTouches[0].clientX
+      this._drag(dir, posX)
+    }
+  }
+
+  _drag = (direction, posX) => {
+    const { statusSidebar } = this.state
+    if (direction === 'right') {
+      this.distDrag = !statusSidebar ? posX - this.initPointDrag : 0
+    } else {
+      this.distDrag = statusSidebar ? -(this.initPointDrag - posX) : 0
+    }
+    if (direction === 'right' || direction === 'left') {
+      const listPos = statusSidebar ? 1 : 0
+      this._setPosition(listPos + this.distDrag / this.listWidth)
+    }
+    if (Math.abs(this.distDrag) > this.limitScreenDrag) {
+      if (statusSidebar) this._closeMenu()
+      else this._openMenu()
+      this._endDrag()
+    }
+  }
+
+  _setPosition = posX => {
+    this.listContainer.style.transform = `scaleX(${posX})`
+  }
+
+  _openMenu = () => {
+    this._setPosition(1)
+    this.layerBackground.style.display = 'block'
+    this.setState({
+      statusSidebar: true,
+    })
+  }
+
+  _closeMenu = () => {
+    this._setPosition(0)
+    this.layerBackground.style.display = 'none'
+    this.setState({
+      statusSidebar: false,
+    })
   }
 
   // Add - Remove Class active input and button search
@@ -108,13 +218,7 @@ class NavBarDefault extends PureComponent {
   // TODO: abstraer este método, se usa por 3 componentes
   _handleSearch = () => {
     const { value } = this.inputSearch.current
-    if (value !== '') {
-      // eslint-disable-next-line no-restricted-globals
-      location.href = `/buscar/${encodeURIComponent(value).replace(
-        /%20/g,
-        '+'
-      )}/todas/descendiente/`
-    }
+    searchQuery(value)
   }
 
   // Active find with enter key
@@ -127,7 +231,7 @@ class NavBarDefault extends PureComponent {
   }
 
   // Saber si hay sesion inicada
-  checkSesion = () => {
+  checkSession = () => {
     const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
     const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
     if (profileStorage) {
@@ -210,9 +314,8 @@ class NavBarDefault extends PureComponent {
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
     this.toggleBodyOverflow()
-    this.setState({
-      statusSidebar: !statusSidebar,
-    })
+    if (statusSidebar) this._closeMenu()
+    else this._openMenu()
   }
 
   closeSignwall() {
@@ -368,22 +471,18 @@ class NavBarDefault extends PureComponent {
                 />
                 <button
                   type="button"
-                  className={`${classes.btnLogin} ${
-                    classes.btnSignwall
-                  } btn--outline`}
+                  className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
                   onClick={() => this.setState({ isActive: true })}>
                   <i
                     className={
                       initialUser
-                        ? `${classes.iconSignwall} text-user text-xs`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwall
-                          } icon-user`
+                        ? `${classes.iconSignwall} text-user`
+                        : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
                     }>
                     {initialUser}
                   </i>
-                  <span className="capitalize">
-                    {this.checkSesion() ? nameUser : 'Iniciar Sesión'}
+                  <span className="capitalize text-sm">
+                    {this.checkSession() ? nameUser : 'Iniciar Sesión'}
                   </span>
                 </button>
               </div>
@@ -395,11 +494,17 @@ class NavBarDefault extends PureComponent {
                 classes.hidden}`}>
               <button
                 type="button"
-                className={`${
-                  classes.btnLogin
-                } border-1 border-solid border-white`}
+                className={`${classes.btnLogin} border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
-                <i className={classes.iconLogin} />
+                {/* <i className={classes.iconLogin} /> */}
+                <i
+                  className={
+                    initialUser
+                      ? `${classes.iconSignwallMobile}`
+                      : `${classes.iconLogin} ${classes.iconSignwallMobile}`
+                  }>
+                  {initialUser}
+                </i>
               </button>
             </div>
           </div>
@@ -409,10 +514,13 @@ class NavBarDefault extends PureComponent {
             contextPath={contextPath}
             siteProperties={siteProperties}
           />
+          <div className="layer" />
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
-        {this.getUrlParam('signwallHard') && !this.checkSesion() && showHard ? (
+        {this.getUrlParam('signwallHard') &&
+        !this.checkSession() &&
+        showHard ? (
           <SignWallHard
             closePopup={() => this.closePopUp('signwallHard')}
             brandModal={arcSite}
@@ -436,7 +544,7 @@ class NavBarDefault extends PureComponent {
         ) : null}
 
         {this.getUrlParam('reloginEmail') &&
-        !this.checkSesion() &&
+        !this.checkSession() &&
         showRelogin ? (
           <SignWallRelogin
             closePopup={() => this.closePopUp('reloginEmail')}

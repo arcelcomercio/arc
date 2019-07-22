@@ -26,6 +26,7 @@ const TVHighlightChild = props => {
     multimedia: { multimediaImg, multimediaType },
     tags,
   } = props
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!', tags)
   return (
     <div className={classes.tv}>
       <div className={classes.container}>
@@ -44,7 +45,7 @@ const TVHighlightChild = props => {
           </span>
         </div>
         <a href={urlTitle} className={classes.imageBox}>
-          <img className={classes.image} src={multimediaImg} alt="foto" />
+          <img className={classes.image} src={multimediaImg} alt="" />
           {multimediaType !== 'basic' && (
             <span className={classes.iconContainer}>
               <i
@@ -62,7 +63,7 @@ const TVHighlightChild = props => {
               {tags.map(el => {
                 return (
                   <li key={el.slug} className={classes.item}>
-                    <a className={classes.link} href={`/tag/${el.slug}`}>
+                    <a className={classes.link} href={`/noticias/${el.slug}/`}>
                       {el.description}
                     </a>
                   </li>

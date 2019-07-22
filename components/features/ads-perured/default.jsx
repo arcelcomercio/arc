@@ -38,7 +38,7 @@ class Ads extends PureComponent {
             <div className={classes.iconContainer}>
               <img
                 src="https://cdn.perured.pe/static/desktop/i/logo_perured.png?pr"
-                alt=""
+                alt="Logo de perured"
                 className={classes.icon}
               />
             </div>

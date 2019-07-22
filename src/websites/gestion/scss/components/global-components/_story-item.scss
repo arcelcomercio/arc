@@ -14,7 +14,7 @@
   }
   &__left {
     padding-right: 25px;
-    justify-content: start;
+    // justify-content: start;
     flex-direction: column-reverse;
   }
   &__top {
@@ -66,5 +66,16 @@
   }
   &__right {
     margin-left: 0;
+  }
+
+  &--row {
+    .story-item__left {
+      padding-left: 0;
+      padding-right: 15px;
+      @media (--tablet) {
+        padding-left: 15px;
+        padding-right: 0;
+      }
+    }
   }
 }

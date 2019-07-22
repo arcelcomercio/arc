@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { searchQuery } from '../utilities/helpers'
 
 const classes = {
   container: `search-input__container flex items-center mb-15 lg:mb-0 lg:items-start lg:w-full`,
@@ -13,7 +14,7 @@ class SearchInput extends PureComponent {
     this.inputSearch = React.createRef() /* React ref del input */
   }
 
-   _handleSearch = e => {
+  _handleSearch = e => {
     e.preventDefault()
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}

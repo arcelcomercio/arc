@@ -62,13 +62,25 @@ class CardFeaturedStoryAuto extends PureComponent {
       contentElements[0],
       imgField
     )
-    const { category, title, author, image, multimediaType } = formattedData
+    const {
+      category,
+      title,
+      author,
+      multimediaLandscapeL,
+      multimediaLandscapeMD,
+      multimediaPortraitMD,
+      multimediaSquareS,
+      multimediaType,
+    } = formattedData
 
     const params = {
       title,
       category,
       author,
-      image,
+      multimediaLandscapeL,
+      multimediaLandscapeMD,
+      multimediaPortraitMD,
+      multimediaSquareS,
       imageSize,
       headband,
       size,
