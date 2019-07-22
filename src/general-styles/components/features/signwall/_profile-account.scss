@@ -7,7 +7,7 @@
       max-width: 1200px;
       margin: 0px auto;
       height: 100%;
-      @media (--desktop) and (min-height: 700px) {
+      @media (--desktop) and (min-height: 680px) {
         height: calc(100vh - 100px);
       }
     }
