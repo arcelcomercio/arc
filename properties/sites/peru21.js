@@ -6,6 +6,7 @@ export default {
   colorPrimary: '#f7c600',
   siteDomain: 'peru21.pe',
   siteUrl: 'https://peru21.pe',
+  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://elcomercio-peru21-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
