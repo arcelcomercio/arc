@@ -69,13 +69,9 @@ class LayoutFooter extends PureComponent {
       arcSite,
       customFields: { footerType } = {},
       siteProperties: {
-        social: {
-          facebook: { url: facebookUrl } = {},
-          twitter: { url: twitterUrl } = {},
-        } = {},
         gecSites,
         legalLinks,
-        footer: { contacts = [], siteLegal },
+        footer: { socialNetworks = [], contacts = [], siteLegal },
         assets: { footer: { logo } = {} } = {},
       },
     } = this.props
@@ -88,8 +84,7 @@ class LayoutFooter extends PureComponent {
     const sections = this.formatData(rawSections)
 
     const params = {
-      facebookUrl,
-      twitterUrl,
+      socialNetworks,
       gecSites,
       legalLinks,
       contacts,

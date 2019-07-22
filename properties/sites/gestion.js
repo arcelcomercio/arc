@@ -97,7 +97,7 @@ export default {
     socialNetworks: [
       {
         name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-gesti%C3%B3n/',
+        url: 'https://www.linkedin.com/company/diario-gestion/',
       },
       {
         name: 'facebook',
