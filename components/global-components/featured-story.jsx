@@ -27,7 +27,7 @@ const classes = {
   threeline: 'featured-story-threeline',
 
   imageLink: 'featured-story__img-link block h-full ml-10 md:ml-0',
-  imageBox: `featured-story__img-box position-relative overflow-hidden w-full h-full`,
+  imageBox: `featured-story__img-box block position-relative overflow-hidden w-full h-full`,
   image: 'featured-story__img w-full h-full object-cover',
 
   imgComplete: 'img-complete justify-end',
