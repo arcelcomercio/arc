@@ -22,5 +22,9 @@ export default `{
           name
           path
       }
+      tags {
+        description
+        slug
+      }
     }
   }`
