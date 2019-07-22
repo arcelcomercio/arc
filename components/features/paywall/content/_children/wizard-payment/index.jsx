@@ -36,7 +36,7 @@ function WizardPayment(props) {
     firstName,
     lastName,
     secondLastName,
-    documentType = 'DNI',
+    documentType,
     documentNumber,
     email,
     phone,
@@ -100,6 +100,7 @@ function WizardPayment(props) {
       lastName,
       secondLastName,
       documentNumber,
+      documentType,
       phone,
       email,
     } = memo
@@ -159,12 +160,12 @@ function WizardPayment(props) {
                 // TODO: El servicio aun esta en desarrollo
                 .then(token => {
                   return apiPaymentRegister({
-                    baseUrl: 'http://devpaywall.comerciosuscripciones.pe', //TODO token en duro, environment no funciona
+                    baseUrl: 'http://devpaywall.comerciosuscripciones.pe', //TODO url en duro, environment no funciona
                     orderNumber,
                     firstName,
                     lastName,
                     secondLastName,
-                    documentType: 'DNI',
+                    documentType,
                     documentNumber,
                     email,
                     phone,
