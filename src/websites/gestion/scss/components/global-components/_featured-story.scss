@@ -113,4 +113,17 @@
       }
     }
   }
+  &.featured-story--no-expanded {
+    .featured-story__title-link {
+      @media (--only-mobile) {
+        font-size: 15px;
+        -webkit-line-clamp: 2;
+      }
+    }
+    .featured-story__author-link {
+      @media (--only-mobile) {
+        font-size: 12px;
+      }
+    }
+  }
 }

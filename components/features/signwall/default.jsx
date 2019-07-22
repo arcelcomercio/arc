@@ -5,7 +5,6 @@ import Fingerprint2 from 'fingerprintjs2'
 import LoginRegister from './_main/signwall/index'
 
 import Panel from './_main/user-dashboard/index'
-import addScriptAsync from './_main/utils/script-async'
 import Cookie from './_main/utils/cookie'
 
 const Cookies = new Cookie()
@@ -27,32 +26,10 @@ class Signwall extends Component {
 
   componentWillMount() {
     const {
-      siteProperties: { signwall: { ORIGIN_API, ORIGIN_PAYWALL } = {} } = {},
+      siteProperties: { signwall: { ORIGIN_API } = {} } = {},
     } = this.props
 
     window.Identity.apiOrigin = ORIGIN_API
-
-    addScriptAsync({
-      name: 'Paywall',
-      url: `${ORIGIN_PAYWALL}?v=${new Date().toISOString().slice(0, 10)}`,
-    })
-      .then(() => {
-        window.ArcP.run({
-          paywallFunction: campaignURL => console.log('Paywall!', campaignURL),
-          // customPageData: () => ({
-          //   c: 'story',
-          //   s: 'business',
-          //   ci: 'https://www.your.domain.com/canonical/url'
-          // })
-        })
-          .then(results =>
-            console.log('Results from running paywall script: ', results)
-          )
-          .catch(() => console.error())
-      })
-      .catch(errPaywall => {
-        console.error('Error', errPaywall)
-      })
   }
 
   componentDidUpdate = () => {
