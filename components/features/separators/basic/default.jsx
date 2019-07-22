@@ -96,6 +96,7 @@ class SeparatorBasic extends PureComponent {
 SeparatorBasic.propTypes = {
   customFields,
 }
+
 SeparatorBasic.label = 'Separador Básico'
 
 export default SeparatorBasic
