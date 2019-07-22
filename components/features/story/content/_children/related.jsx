@@ -19,9 +19,9 @@ const classes = {
   author: 'related-content__author uppercase text-gray-200',
 }
 
-const RenderRelatedContentElement = (elements, i) => {
+const RenderRelatedContentElement = (props, i, isAmp) => {
   const get = new DataStory({
-    data: elements,
+    data: props,
   })
   const filterData = {
     nameTitle: get.title,
@@ -44,12 +44,24 @@ const RenderRelatedContentElement = (elements, i) => {
       </div>
       <figure className={classes.multimedia}>
         <a href={filterData.urlTitle} className={classes.link}>
-          <img
-            src={filterData.multimediaImg}
-            alt={filterData.nameTitle}
-            className={classes.image}
-            loading="lazy"
-          />
+          {isAmp ? (
+            <amp-img
+              src={filterData.multimediaImg}
+              alt={filterData.nameTitle}
+              class={classes.image}
+              height="285"
+              width="514"
+              layout="responsive"
+            />
+          ) : (
+            <img
+              src={filterData.multimediaImg}
+              alt={filterData.nameTitle}
+              className={classes.image}
+              loading="lazy"
+            />
+          )}
+
           {filterData.multimediaType === ConfigParams.IMAGE ||
           filterData.multimediaType === '' ? (
             ''
