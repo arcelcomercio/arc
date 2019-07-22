@@ -26,7 +26,6 @@ const TVHighlightChild = props => {
     multimedia: { multimediaImg, multimediaType },
     tags,
   } = props
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!', tags)
   return (
     <div className={classes.tv}>
       <div className={classes.container}>
