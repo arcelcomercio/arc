@@ -12,6 +12,9 @@ export default {
   },
   transform(data) {
     const { sku, name, attributes, pricingStrategies } = data.products[0]
+    const {
+      campaign: { name: campaignCode },
+    } = data
 
     const plans = pricingStrategies.map(
       ({ pricingStrategyId, priceCode, description, rates }) => {
@@ -21,6 +24,7 @@ export default {
           sku,
           priceCode,
           pricingStrategyId,
+          campaignCode,
           description: JSON.parse(description),
           amount: parseInt(amount, 10),
           billingFrequency,

@@ -150,4 +150,10 @@
       color: $color-white;
     }
   }
+  &__date {
+    order: -1;
+    @media (--tablet) {
+      order: 0;
+    }
+  }
 }

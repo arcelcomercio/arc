@@ -1,0 +1,11 @@
+.blog-list {
+  background-color: transparent;
+  &__title {
+    color: $color-primary;
+    border-bottom: 1px dashed$color-gray-200;
+    padding-bottom: 20px;
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+  }
+}
