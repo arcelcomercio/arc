@@ -6,11 +6,10 @@ import {
 
 export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
-  const patternPagination = /\/[0-9]+$|\/[0-9]+?(?=\?|\/$)/
+  const patternPagination = /\/[0-9]+\/?(?=\?|$)/
 
   const pages = getMetaPagesPagination(
     requestUri,
-    false,
     globalContent,
     patternPagination
   )
@@ -19,15 +18,13 @@ export default props => {
     pages.next,
     patternPagination,
     requestUri,
-    siteUrl,
-    false
+    siteUrl
   )
   const urlPrevPage = metaPaginationUrl(
     pages.prev,
     patternPagination,
     requestUri,
-    siteUrl,
-    false
+    siteUrl
   )
 
   return (

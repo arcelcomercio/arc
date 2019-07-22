@@ -191,38 +191,24 @@ export const metaPaginationUrl = (
   pageNumber,
   patternPagination,
   requestUri,
-  siteUrl,
-  isQuery
+  siteUrl
 ) => {
-  return requestUri.match(patternPagination) != null
-    ? `${siteUrl}${requestUri.replace(
-        patternPagination,
-        `${isQuery ? '&page=' : '/'}${pageNumber}`
-      )}`
-    : `${siteUrl}${
-        isQuery ? requestUri : `${requestUri.split('?')[0]}${pageNumber}`
-      }${
-        isQuery
-          ? `&page=${pageNumber}`
-          : `${requestUri.split('?')[1] ? requestUri.split('?')[1] : ''}`
+  return requestUri.match(patternPagination) !== null
+    ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
+    : `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
+        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
       }`
 }
 
 export const getMetaPagesPagination = (
   requestUri,
-  isQuery,
   globalContent,
   patternPagination
 ) => {
   const { next, previous } = globalContent || {}
   const pages = {
     current: requestUri.match(patternPagination)
-      ? parseInt(
-          requestUri
-            .match(patternPagination)[0]
-            .split(`${isQuery ? '=' : '/'}`)[1],
-          10
-        )
+      ? parseInt(requestUri.match(patternPagination)[0].split('/')[1], 10)
       : 1,
     next: false,
     prev: false,
