@@ -33,7 +33,7 @@ const classes = {
   [SIZE_TWO_COL]: 'col-2',
   // Headbands
   headband: 'featured-story__headband mb-5 text-lg',
-  headbandLink: 'featured-story__headband-link font-bold text-white',
+  headbandLink: 'featured-story__headband-link font-bold text-white uppercase',
 
   live: 'featured-story--live',
   icon: `featured-story__icon`,
@@ -152,7 +152,7 @@ export default class FeaturedStory extends PureComponent {
         </div>
         <a className={classes.imageLink} href={title.url}>
           <figure className={classes.imageBox}>
-            <img src={image} className={classes.image} alt="" />
+            <img src={image} className={classes.image} alt="" loading="lazy" />
             <Icon type={multimediaType} iconClass={classes.icon} />
           </figure>
         </a>

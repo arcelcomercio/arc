@@ -6,7 +6,7 @@ import { defaultImage } from '../utilities/helpers'
 const GOLDFISH = 'goldfish'
 const YOUTUBE = 'youtube'
 
-const GOLDFISH_ENV = ENV.ENVIROMENT === 'elcomercio' ? 'prod' : 'sandbox'
+const GOLDFISH_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const ORG_ID = 'elcomercio'
 
 const EmbedMultimedia = props => {

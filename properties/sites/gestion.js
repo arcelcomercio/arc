@@ -2,12 +2,13 @@ export default {
   siteName: 'Gestión',
   colorPrimary: '#8F071F',
   colorSecondary: '#F4E0D2',
-  googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:400,700',
+  googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
   resizerUrl: 'https://publimetro.pe/resizer', // Temporal hasta que activen el resizer para gestión
   resizerSecretKeyEnvVar: '',
-  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KFQK83S',
   ampGoogleTagManagerId: 'UA-3055636-3',
@@ -17,7 +18,8 @@ export default {
   fbArticleStyle: 'LogoGestion',
   nameStoryRelated: 'VEA TAMBIÉN',
 
-  siteDescription: 'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  siteDescription:
+    'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
@@ -57,9 +59,14 @@ export default {
       return `${this.path}${this.paywall[image]}`
     },
   },
-  legalLinks: [{
-      name: 'Términos y condiciones',
-      url: '/terminos-servicio',
+  legalLinks: [
+    {
+      name: '¿Quiénes somos?',
+      url: '/quienes-somos',
+    },
+    {
+      name: 'Términos de uso',
+      url: '/terminos-y-condiciones',
     },
     {
       name: 'Políticas de Privacidad',
@@ -69,17 +76,23 @@ export default {
       name: 'Politicas de Cookies',
       url: '/politicas-cookies',
     },
+    {
+      name: 'Preguntas Frecuentes',
+      url: '/preguntas-frecuentes',
+    },
   ],
 
   footer: {
     siteLegal: [
-      'Empresa Editora El Comercio',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
-      'Copyright © Elcomercio.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
+      'Director periodístico',
+      'JULIO LIRA SEGURA',
+      '© Empresa Editora El Comercio S.A.',
+      'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
+      'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
     ],
 
-    socialNetworks: [{
+    socialNetworks: [
+      {
         name: 'facebook',
         url: 'https://www.facebook.com/elcomercio.pe',
       },
@@ -93,7 +106,8 @@ export default {
       },
     ],
 
-    contacts: [{
+    contacts: [
+      {
         position: 'Director Periodístico',
         name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
       },

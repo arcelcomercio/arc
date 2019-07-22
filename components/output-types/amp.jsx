@@ -46,15 +46,15 @@ const AmpOutputType = ({
   }
 
   const seoTitle =
-    metaValue('title') && !metaValue('title').match(/content/)
-      ? metaValue('title')
-      : siteProperties.siteName
+    metaValue('title') &&
+    !metaValue('title').match(/content/) &&
+    metaValue('title')
 
   const metaTitle =
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
       ? metaValue('meta_title')
-      : null
-  const title = metaTitle || seoTitle
+      : seoTitle
+  const title = `${metaTitle || seoTitle} ${siteProperties.siteName}`
 
   const description =
     metaValue('description') && !metaValue('description').match(/content/)

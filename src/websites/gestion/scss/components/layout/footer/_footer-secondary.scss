@@ -1,0 +1,18 @@
+.footer-secondary {
+  &__title,
+  &__list-link,
+  &__social-link,
+  &__legal-item,
+  &__sites-item,
+  &__sites-title {
+    font-family: $tertiary-font;
+  }
+  &__legal-item {
+    &:nth-child(2) {
+      font-weight: 700;
+    }
+  }
+  &__sites {
+    background-color: $color-white;
+  }
+}

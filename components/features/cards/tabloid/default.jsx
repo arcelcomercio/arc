@@ -17,7 +17,7 @@ const classes = {
   date:
     'tabloid__date flex items-center justify-center position-absolute p-20 bg-base-200',
   dateLink: 'tabloid__date-link text-sm text-gray-300 font-bold',
-  face: 'tabloid__face object-contain',
+  face: 'tabloid__face object-cover',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-section'
@@ -81,13 +81,16 @@ class CardTabloid extends PureComponent {
           </h4>
         </div>
         <div className={classes.body}>
-          <figure>
-            <picture>
-              <a href={link}>
-                <img className={classes.face} src={multimedia} alt={title} />
-              </a>
-            </picture>
-          </figure>
+          <picture>
+            <a href={link}>
+              <img
+                className={classes.face}
+                src={multimedia}
+                alt={title}
+                loading="lazy"
+              />
+            </a>
+          </picture>
           <h3 className={classes.date}>
             <a className={classes.dateLink} href={link}>
               {nameDate}

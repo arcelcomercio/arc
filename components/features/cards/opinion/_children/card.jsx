@@ -35,6 +35,7 @@ const OpinionItem = ({
             {sectionName}
           </a>
         </h3>
+        {/* // TODO: Se puede reducir un nodo. */}
         <div className={`${classes.storyTitle} ${linesNumber}`}>
           <h2>
             <a className={classes.titleLink} href={urlNew}>
@@ -43,21 +44,15 @@ const OpinionItem = ({
           </h2>
         </div>
       </div>
-      <div className={classes.imageContainer}>
-        <img
-          className={classes.image}
-          data-type="src"
-          src={urlImg}
-          data-src={urlImg}
-          alt=""
-        />
-      </div>
+      <figure className={classes.imageContainer}>
+        <img className={classes.image} src={urlImg} alt="" loading="lazy" />
+      </figure>
     </div>
   )
 }
 
 const OpinionChildCard = ({ titleOpinion, dataList, arcSite }) => {
-  let linesNumber = ''
+  let linesNumber = 'type'
   switch (arcSite) {
     case 'elcomercio':
       linesNumber = classes.twoline

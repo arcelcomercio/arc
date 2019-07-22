@@ -22,7 +22,12 @@ const CardMostReadChildItem = props => {
       <article role="listitem" className={classes.article}>
         {viewImage && (
           <figure className={classes.figure}>
-            <img className={classes.img} src={imageUrl} alt={title} />
+            <img
+              className={classes.img}
+              src={imageUrl}
+              alt={title}
+              loading="lazy"
+            />
             <Icon type={storyType} iconClass={classes.icon} />
           </figure>
         )}

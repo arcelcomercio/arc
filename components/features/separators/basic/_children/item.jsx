@@ -21,7 +21,12 @@ export default ({ title, imageUrl, mediaIcon, link, numline }) => {
           <h3 className={`${classes.text} ${numline}`}>{title}</h3>
         </div>
         <figure className={classes.imgBox}>
-          <img src={imageUrl} alt={title} className={classes.img} />
+          <img
+            src={imageUrl}
+            alt={title}
+            className={classes.img}
+            loading="lazy"
+          />
         </figure>
       </article>
     </a>

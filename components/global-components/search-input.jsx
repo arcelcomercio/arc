@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { searchQuery } from '../utilities/helpers'
 
 const classes = {
   container: `search-input__container flex items-center mb-15 lg:mb-0 lg:items-start lg:w-full`,
@@ -13,20 +14,12 @@ class SearchInput extends PureComponent {
     this.inputSearch = React.createRef() /* React ref del input */
   }
 
-   _handleSearch = e => {
+  _handleSearch = e => {
     e.preventDefault()
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
     const { value } = this.inputSearch.current /* React ref del input */
-
-    /* Sólo genera la URI si "query" tiene contenido */
-    if (value !== '')
-      // eslint-disable-next-line no-restricted-globals
-      location.href = `/buscar/${encodeURIComponent(value).replace(
-        /%20/g,
-        '+'
-      )}/todas/${sort || 'descendiente'}/`
-    /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
+    searchQuery(value, sort)
   }
 
   render() {

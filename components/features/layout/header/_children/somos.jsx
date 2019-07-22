@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
-
-import { getResponsiveClasses } from '../../../../utilities/helpers'
+import {
+  getResponsiveClasses,
+  searchQuery,
+} from '../../../../utilities/helpers'
 
 const classes = {
   // header
@@ -48,8 +50,7 @@ class HeaderChildSomos extends PureComponent {
 
   handleSubmit(e) {
     const { searchValue } = this.state
-    const { searchUrl } = this.props
-    searchUrl(searchValue)
+    searchQuery(searchValue)
     e.preventDefault()
   }
 

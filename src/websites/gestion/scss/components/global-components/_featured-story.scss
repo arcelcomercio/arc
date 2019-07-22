@@ -1,7 +1,7 @@
 .featured-story {
   &__author {
     order: 2;
-    border-bottom: 1px solid #f5e9de;
+    border-top: 1px solid $color-base-100;
     padding-bottom: 10px;
     text-transform: capitalize;
   }
@@ -20,7 +20,7 @@
 
   &__category-link {
     text-transform: uppercase;
-    color: #ad8d76;
+    color: $color-base-300;
   }
 
   &__detail {
@@ -29,26 +29,80 @@
 
   &__title {
     order: 1;
+    margin-bottom: 0;
   }
-
+  &__title-link {
+    font-weight: 700;
+    @media (--tablet) {
+      font-size: 24px;
+      line-height: 1.2;
+    }
+  }
   &-threeline {
     -webkit-line-clamp: 4;
-    max-height: calc(#{$header-xs} * 1.5 * 4);
+    max-height: calc(1.3rem * 1.5 * 4);
   }
-
   &.img-complete {
     .featured-story__detail {
-      padding-bottom: 20px !important;
+      @media (--tablet) {
+        height: 210px;
+      }
     }
     .featured-story__category {
       order: 1;
-      background-color: $color-gray-300;
+      /*  background-color: $color-gray-200; */
       padding: 8px 20px;
       margin-bottom: 5px;
       margin-left: -20px;
     }
+    /*    .featured-story__category-link {
+      @media (--tablet) {
+        color: $color-base-300;
+      }
+    } */
     .featured-story__author {
-      border-bottom: 0;
+      border-top: 0;
+    }
+    &.featured-story--no-expanded.featured-story--live {
+      .featured-story__headband-link {
+        @media (--tablet) {
+          width: 110px;
+        }
+      }
+    }
+    &.featured-story--live {
+      .featured-story__headband {
+        position: relative;
+        left: -20px;
+        .featured-story__headband-link {
+          height: 28px;
+        }
+      }
+    }
+  }
+  &.featured-story--live {
+    .featured-story__headband {
+      position: absolute;
+      top: 0;
+      z-index: 1;
+      width: 100%;
+      left: 0;
+      .featured-story__headband-link {
+        left: 0;
+        width: 100%;
+        background-color: $color-gray-200;
+        height: 40px;
+      }
+    }
+    &.featured-story--no-expanded {
+      .featured-story__detail {
+        padding-top: 40px;
+      }
+    }
+    &.featured-story--no-expanded.featured-story--reverse {
+      .featured-story__detail {
+        padding-top: 10px;
+      }
     }
   }
 }

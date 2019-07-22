@@ -1,49 +1,48 @@
 import React from 'react'
 
 const classes = {
-  separator: 'blog-separator bg-white flex flex-col flex-no-wrap mr-5 w-full',
-  boxTitle: 'blog-separator__box-title w-full overflow-hidden p-20',
-  title: 'blog-separator__title font-normal text-lg',
-  link: 'blog-separator__link text-gray-300',
-  middle:
-    'blog-separator__box-middle flex flex-col justify-center pt-10 pb-10 pr-15 pl-15 ',
-  section: 'blog-separator__section block text-sm',
-  author: 'blog-separator__author block mt-5 text-sm text-gray-300',
-  boxImg: 'flex justify-center pt-15',
-  img: 'blog-separator__img object-contain',
+  item:
+    'blog-separator__item flex flex-row p-20 mb-10 bg-white flex-no-wrap w-full lg:flex-col lg:mb-0 lg:mr-5',
+  title: 'blog-separator__title inline-block w-full overflow-hidden pt-15',
+  link: 'blog-separator__link text-gray-300 font-normal text-xl',
+  author:
+    'blog-separator__author flex flex-col justify-center title-sm text-gray-300 primary-font lg:pt-15',
+  boxImg:
+    'flex items-center lg:items-start mr-20 pl-5 pr-5 lg:mr-0 lg:pl-0 lg:pr-0',
+  img: 'blog-separator__img object-cover rounded',
 }
 
 const SeparatorBlogChildItem = ({
   authorName,
   authorImg,
   blogUrl,
-  blogName,
+  // blogName,
   postLink,
   postTitle,
 }) => {
   return (
-    <div className={classes.separator}>
-      <div className={classes.boxImg}>
-        <a href={postLink}>
-          <img src={authorImg} alt="" className={classes.img} />
-        </a>
-      </div>
-      <div className={classes.middle}>
-        <a href={blogUrl} className={classes.section}>
-          {blogName}
-        </a>
+    <article className={classes.item}>
+      <a className={classes.boxImg} href={postLink}>
+        <figure>
+          <img
+            src={authorImg}
+            alt={`Foto de perfil de ${authorName}`}
+            className={classes.img}
+            loading="lazy"
+          />
+        </figure>
+      </a>
+      <div>
         <a href={blogUrl} className={classes.author}>
           {authorName}
         </a>
-      </div>
-      <div className={classes.boxTitle}>
-        <h1 className={classes.title}>
+        <h3 className={classes.title}>
           <a href={postLink} className={classes.link}>
             {postTitle}
           </a>
-        </h1>
+        </h3>
       </div>
-    </div>
+    </article>
   )
 }
 export default SeparatorBlogChildItem
