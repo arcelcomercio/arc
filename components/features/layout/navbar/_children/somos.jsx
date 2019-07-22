@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { searchQuery } from '../../../../utilities/helpers'
 
 const classes = {
   navbarSomos:
@@ -40,8 +41,7 @@ class HeaderChildSomos extends PureComponent {
 
   handleSubmit(e) {
     const { searchInputText } = this.state
-    const { searchUrl } = this.props
-    searchUrl(searchInputText)
+    searchQuery(searchInputText)
     e.preventDefault()
   }
 

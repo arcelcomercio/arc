@@ -1,4 +1,3 @@
-/* eslint-disable react/button-has-type */
 // TODO: Modificar estilos para colocar el input dentro del label y retirar excepciones del eslint
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -13,7 +12,7 @@ import ListBenefits from './benefits'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
-import GetProfile from '../../utils/get-profile'
+// import GetProfile from '../../utils/get-profile'
 import FormValid from '../../utils/form-valid'
 import { ModalConsumer } from '../context'
 
@@ -56,7 +55,6 @@ class FormReLogin extends Component {
     // log(this.tipCat, this.tipAct, this.tipForm);
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
-    this.toggleShow = this.toggleShow.bind(this)
     this.handleLoginClick = this.handleLoginClick.bind(this)
   }
 
@@ -323,6 +321,7 @@ class FormReLogin extends Component {
               onSubmit={e => this.handleFormSubmit(e)}>
               <div className="form-grid__back" hidden={!showSocialButtons}>
                 <button
+                  type="button"
                   onClick={e => this.handleLoginBackSocial(e)}
                   className="link-back">
                   <Icon.Back />
@@ -388,7 +387,7 @@ class FormReLogin extends Component {
                   <div className="form-group row-pass">
                     <input
                       type="button"
-                      onClick={this.toggleShow}
+                      onClick={() => this.toggleShow()}
                       className={
                         hidden
                           ? 'row-pass__btn row-pass--hide'
@@ -465,7 +464,7 @@ class FormReLogin extends Component {
               </div>
 
               <div className="form-grid__group">
-                <p className="form-grid__link text-center pt-40">
+                <p className="form-grid__link text-center text-sm pt-40 pb-20">
                   ¿Aún no tienes una cuenta?
                   <button
                     type="button"

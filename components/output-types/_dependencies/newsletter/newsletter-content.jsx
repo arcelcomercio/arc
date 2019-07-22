@@ -13,8 +13,7 @@ const StoryItem = props => {
     authorName,
     authorUrl,
     authorTwitterUrl,
-    image,
-    imgtmp,
+    thumb,
     volada,
     authorImage,
     authorSlug,
@@ -22,33 +21,33 @@ const StoryItem = props => {
   } = props
 
   const {
-    thumbnail_max: thumbnailMax = '',
-    thumbnail_min: thumbnailMin = '',
-    thumbnail_250x366: thumbnail250x366 = '',
-    thumbnail_148x83: thumbnail148x83 = '',
-    thumbnail_210x118: thumbnail210x118 = '',
-    thumbnail_403x227: thumbnail403x227 = '',
-    thumbnail_241x136: thumbnail241x136 = '',
-    thumbnail_grande: thumbnailGrande = '',
-    thumbnail_flujo: thumbnailFlujo = '',
-  } = image
+    tbmax = '',
+    tbmin = '',
+    tb250x366 = '',
+    tb148x83 = '',
+    tb210x118 = '',
+    tb403x227 = '',
+    tb241x136 = '',
+    tbgrande = '',
+    tbflujo = '',
+  } = thumb
+
   return (
     <article>
       <title>{title}</title>
       <url>{urlNew}</url>
       <id>{id}</id>
       <publishedAt>{publishedAt}</publishedAt>
-      <imgtmp>{imgtmp}</imgtmp>
       <imagen>
-        <thumbnail_max> {thumbnailMax}</thumbnail_max>
-        <thumbnail_min> {thumbnailMin} </thumbnail_min>
-        <thumbnail_250x366>{thumbnail250x366}</thumbnail_250x366>
-        <thumbnail_148x83>{thumbnail148x83}</thumbnail_148x83>
-        <thumbnail_210x118>{thumbnail210x118}</thumbnail_210x118>
-        <thumbnail_403x227>{thumbnail403x227}</thumbnail_403x227>
-        <thumbnail_241x136>{thumbnail241x136}</thumbnail_241x136>
-        <thumbnail_grande>{thumbnailGrande}</thumbnail_grande>
-        <thumbnail_flujo>{thumbnailFlujo}</thumbnail_flujo>
+        <thumbnail_max> {tbmax}</thumbnail_max>
+        <thumbnail_min> {tbmin} </thumbnail_min>
+        <thumbnail_250x366>{tb250x366}</thumbnail_250x366>
+        <thumbnail_148x83>{tb148x83}</thumbnail_148x83>
+        <thumbnail_210x118>{tb210x118}</thumbnail_210x118>
+        <thumbnail_403x227>{tb403x227}</thumbnail_403x227>
+        <thumbnail_241x136>{tb241x136}</thumbnail_241x136>
+        <thumbnail_grande>{tbgrande}</thumbnail_grande>
+        <thumbnail_flujo>{tbflujo}</thumbnail_flujo>
       </imagen>
       <volada>{volada}</volada>
       <epigraph> {epigraph}</epigraph>
@@ -85,23 +84,32 @@ const NewsLetterContent = ({
   const listItemStories = contentElements.map(story => {
     storydata.__data = story
 
+    const thumb =
+      story &&
+      story.promo_items &&
+      story.promo_items.basic &&
+      story.promo_items.basic.resized_urls
+        ? story.promo_items.basic.resized_urls
+        : {}
+    
+
     const params = {
       title: storydata.title,
       urlNew: `${siteUrl}${storydata.link}`,
       id: storydata.id,
       publishedAt: storydata.date,
-      imgtmp: storydata.multimedia,
+      thumb,
       image: imagenNewsLetter,
-      volada:null,
+      volada: 'null',
       epigraph: storydata.subTitle,
       seccion: storydata.section,
       urlSeccion: `${siteUrl}${storydata.sectionLink}`,
       authorName: storydata.author,
       authorUrl: `${siteUrl}${storydata.authorLink}`,
       authorTwitterUrl: storydata.authorTwitterLink,
-      authorImage: `${siteUrl}${storydata.authorImage}` ,
+      authorImage: `${siteUrl}${storydata.authorImage}`,
       authorSlug: storydata.authorSlug,
-      authorCargo: null,
+      authorCargo: 'null',
     }
     return <StoryItem {...params} />
   })

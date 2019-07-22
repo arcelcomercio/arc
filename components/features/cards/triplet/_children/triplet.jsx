@@ -71,6 +71,7 @@ const TripletChildTriplet = props => {
                 className={classes.image}
                 src={story.multimediaPortraitXS}
                 alt={story.title}
+                loading="lazy"
               />
               <Icon type={story.multimediaType} iconClass={classes.icon} />
             </a>

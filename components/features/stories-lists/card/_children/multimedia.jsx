@@ -22,12 +22,8 @@ const StoriesListsCardChildMultimedia = ({
       {multimedia ? (
         <a href={urlNews}>
           <picture>
-            <source
-              data-type="srcset"
-              srcSet={multimedia}
-              media="(max-width: 639px)"
-            />
-            <img data-type="src" className="w-full" src={multimedia} alt="" />
+            <source srcSet={multimedia} media="(max-width: 639px)" />
+            <img className="w-full" src={multimedia} alt="" loading="lazy" />
           </picture>
         </a>
       ) : null}

@@ -1,8 +1,8 @@
 .blog-separator {
-
   &__item {
     @media (--desktop) {
       width: 20%;
+      height: 300px;
     }
 
     &:last-child {
@@ -21,7 +21,12 @@
     }
   }
 
-  // &__title {}
+  &__title {
+    max-height: calc(#{$font-xl} * 1.6667 * 3);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
 
   &__author {
     &:before {
@@ -30,7 +35,6 @@
       width: 25px;
       background-color: $color-gray-200;
       margin-bottom: 5px;
-
     }
 
     @media (--desktop) {
@@ -48,7 +52,7 @@
     }
 
     @media (--desktop) {
-      &:before {
+      &:after {
         margin-top: 15px;
       }
     }

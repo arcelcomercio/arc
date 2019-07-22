@@ -21,13 +21,22 @@ const BlogListChildItem = ({
   urlPost = '',
   urlBlog = '',
 }) => {
+  /**
+   * TODO:CARLOS: verificar semantica en HTML
+   * no hay <hX> y es necesario dar descripcion al alt.
+   */
   return (
     <div className={classes.item}>
       <div className={classes.date}>{date}</div>
       <div className={classes.container}>
         <figure className={classes.containerAvatar}>
           <a href={urlBlog}>
-            <img src={imageUrl} alt="" className={classes.avatar} />
+            <img
+              src={imageUrl}
+              alt=""
+              className={classes.avatar}
+              loading="lazy"
+            />
           </a>
         </figure>
         <div className={classes.detail}>

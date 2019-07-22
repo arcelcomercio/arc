@@ -1,5 +1,5 @@
 import schemaFilter from './schema-filter'
-import {formatDayMonthYear} from '../../../../utilities/helpers'
+import { formatDayMonthYear } from '../../../../utilities/helpers'
 
 export default class StandardHeader {
   constructor(
@@ -13,7 +13,7 @@ export default class StandardHeader {
     customLogo = '',
     customLogoLink = '/',
     tags = '',
-    showDate = false,
+    showDate = false
   ) {
     this.deployment = deployment
     this.contextPath = contextPath
@@ -47,12 +47,11 @@ export default class StandardHeader {
       name: 'Lo último',
       url: '/archivo',
     }
-    const {
-      logo
-    } = this.headerProperties
+    const { logo } = this.headerProperties
     return {
       logo: {
-        src: this.customLogo ||
+        src:
+          this.customLogo ||
           this.deployment(
             `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
           ),
@@ -61,20 +60,19 @@ export default class StandardHeader {
       },
       sections: [newest, ...sections],
       date: {
-        isShow: this.showDate,
-        value: this.getDate()
+        active: this.showDate,
+        value: this.getDate(),
       },
       tags: this.tags,
     }
   }
 
   somos() {
-    const {
-      logo
-    } = this.headerProperties
+    const { logo } = this.headerProperties
     return {
       logo: {
-        src: this.customLogo ||
+        src:
+          this.customLogo ||
           this.deployment(
             `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
           ),
@@ -89,23 +87,17 @@ export default class StandardHeader {
       },
       sections: this.formatSections(),
       date: {
-        isShow: this.showDate,
-        value: this.getDate()
+        active: this.showDate,
+        value: this.getDate(),
       },
       tags: this.tags,
-      // TODO: Reemplazar por el nuevo formato de url para las busquedas (sin querystrings)
-      searchUrl: query => {
-        window.location.href = `/buscar?query=${query}`
-      },
     }
   }
 
   // Función para formatear data de las secciones
   formatSections = () => {
     const link = 'link'
-    const {
-      children = []
-    } = this.data || {}
+    const { children = [] } = this.data || {}
     return children.map(el => {
       return {
         name: el.node_type === link ? el.display_name : el.name,

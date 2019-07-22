@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { searchQuery } from '../../../../utilities/helpers'
 import Button from '../../../../global-components/button'
 
 const classes = {
@@ -29,13 +30,7 @@ class NavbarChildMenu extends PureComponent {
 
   _handleSearch = () => {
     const { value } = this.inputSearchMovil.current
-    if (value !== '') {
-      // eslint-disable-next-line no-restricted-globals
-      location.href = `/buscar/${encodeURIComponent(value).replace(
-        /%20/g,
-        '+'
-      )}/todas/descendiente/`
-    }
+    searchQuery(value)
   }
 
   renderSections = sections => {

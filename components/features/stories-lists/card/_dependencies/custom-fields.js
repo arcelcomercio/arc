@@ -21,7 +21,7 @@ const customFields = PropTypes.shape({
   }),
 
   storiesQty: PropTypes.number.tag({
-    name: 'Número de noticas',
+    name: 'Número de noticias',
     defaultValue: 5,
     group: 'Configuración',
   }),
@@ -38,7 +38,7 @@ const customFields = PropTypes.shape({
     group: 'Configuración',
   }),
   seeMoreurl: PropTypes.string.tag({
-    name: 'Ver más url',
+    name: 'URL de Ver más',
     group: 'Configuración',
   }),
 })
