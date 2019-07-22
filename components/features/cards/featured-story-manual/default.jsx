@@ -90,13 +90,25 @@ class CardFeaturedStoryManual extends PureComponent {
     // })
 
     const formattedData = this.storyFormatter.formatStory(data, imgField)
-    const { category, title, author, image, multimediaType } = formattedData
+    const {
+      category,
+      title,
+      author,
+      multimediaLandscapeL,
+      multimediaLandscapeMD,
+      multimediaPortraitMD,
+      multimediaSquareS,
+      multimediaType,
+    } = formattedData
 
     const params = {
       title,
       category,
       author,
-      image,
+      multimediaLandscapeL,
+      multimediaLandscapeMD,
+      multimediaPortraitMD,
+      multimediaSquareS,
       imageSize,
       headband,
       size,
