@@ -29,6 +29,7 @@ export default {
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
+    frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
   },
   infoPagesProd: {
     termsAndConditions: 'VD45IRL65ZGCDBGLHL4O6WVCJE',
@@ -37,7 +38,8 @@ export default {
     integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
-    aboutUs: '',
+    aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
+    frequentQuestions: '',
   },
 
   assets: {
@@ -70,11 +72,11 @@ export default {
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      url: '/politica-de-privacidad',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      url: '/politica-de-cookies',
     },
     {
       name: 'Preguntas Frecuentes',

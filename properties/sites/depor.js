@@ -29,6 +29,7 @@ export default {
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
+    frequentQuestions: '',
   },
   infoPagesProd: {
     termsAndConditions: '',
@@ -38,6 +39,7 @@ export default {
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
+    frequentQuestions: '',
   },
 
   messages: {
