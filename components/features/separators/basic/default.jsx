@@ -1,16 +1,16 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import withSizes from 'react-sizes'
 
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import SeparatorList from './_children/separator'
-import { getStoriesQty, sizeDevice } from '../_dependencies/functions'
+import { getStoriesQty } from '../_dependencies/functions'
 import StoryData from '../../../utilities/story-data'
 
-// TODO: wip
 const STORIES_QTY_DEFAULT = 4
-@withSizes(({ width }) => sizeDevice(width))
+const CONTENT_SOURCE = 'story-feed-by-section'
+const DEFAULT_TITLE = 'Últimas noticias'
+
 @Consumer
 class SeparatorBasic extends PureComponent {
   constructor(props) {
@@ -27,7 +27,7 @@ class SeparatorBasic extends PureComponent {
     } = this.props
     this.fetchContent({
       dataApi: {
-        source: 'story-feed-by-section',
+        source: CONTENT_SOURCE,
         query: {
           section,
           stories_qty: storiesQty,
@@ -72,13 +72,13 @@ class SeparatorBasic extends PureComponent {
     } = this.state
     const {
       arcSite,
-      isMobile,
-      isTablet,
+      // isMobile,
+      // isTablet,
       customFields: { titleSeparator, titleLink, htmlCode },
     } = this.props
-    const title = titleSeparator || sectionName || 'Últimas noticias'
-    const values = Object.values(data)
-    const items = values.slice(0, getStoriesQty(isMobile, isTablet, 4, 4, 1))
+    const title = titleSeparator || sectionName || DEFAULT_TITLE
+    const items = Object.values(data)
+    // const items = values.slice(0, getStoriesQty(isMobile, isTablet, 4, 4, 1))
     return { titleSeparator: title, arcSite, titleLink, htmlCode, items }
   }
 
@@ -99,5 +99,6 @@ SeparatorBasic.propTypes = {
 }
 
 SeparatorBasic.label = 'Separador Básico'
+SeparatorBasic.static = true
 
 export default SeparatorBasic
