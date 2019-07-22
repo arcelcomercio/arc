@@ -86,7 +86,7 @@ class BlogList extends PureComponent {
     const {
       query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
     } = globalContentConfig
-    const { totalPosts } = this.state
+    const { totalPosts = {} } = this.state
     const { total: totalItems = null } = totalPosts
     const blogs = Object.values(globalContent).filter(
       item => typeof item === 'object'

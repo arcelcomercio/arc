@@ -5,6 +5,9 @@ import Icon from './multimedia-icon'
 
 const SIZE_ONE_COL = 'oneCol'
 const SIZE_TWO_COL = 'twoCol'
+// const IMAGE_BOT = 'partialBot'
+const IMAGE_TOP = 'partialTop'
+const IMAGE_COMPLETE = 'complete'
 
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
@@ -45,7 +48,10 @@ export default class FeaturedStory extends PureComponent {
       category, // Se espera un objeto {name: '', url: ''}
       title, // Se espera un objeto {name: '', url: ''}
       author, // Se espera un objeto {name: '', url: ''}
-      image, // Url de la imágen
+      multimediaLandscapeL,
+      multimediaLandscapeMD,
+      multimediaPortraitMD,
+      multimediaSquareS, // Url de la imágen
       imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
       headband, // OPCIONAL, otros valores: "live"
       size, // Se espera "oneCol" o "twoCol"
@@ -63,9 +69,9 @@ export default class FeaturedStory extends PureComponent {
 
     const getImageSizeClass = () => {
       switch (imageSize) {
-        case 'complete':
+        case IMAGE_COMPLETE:
           return classes.imgComplete
-        case 'parcialTop':
+        case IMAGE_TOP:
           return size !== SIZE_TWO_COL
             ? classes.parcialTop
             : classes.imgComplete
@@ -109,6 +115,22 @@ export default class FeaturedStory extends PureComponent {
     if (headband === 'live') headbandText = 'En vivo'
     else if (headband === 'gestionTv') headbandText = 'Gestión TV'
 
+    const getMobileImage = () => {
+      if (hightlightOnMobile) {
+        if (imageSize === IMAGE_COMPLETE) return multimediaPortraitMD
+        return multimediaLandscapeMD
+      }
+      return multimediaSquareS
+    }
+
+    const getDesktopImage = () => {
+      if (size === SIZE_ONE_COL) {
+        if (imageSize === IMAGE_COMPLETE) return multimediaPortraitMD
+        return multimediaLandscapeMD
+      }
+      return multimediaLandscapeL
+    }
+
     return (
       <article
         className={`${
@@ -151,10 +173,16 @@ export default class FeaturedStory extends PureComponent {
           </address>
         </div>
         <a className={classes.imageLink} href={title.url}>
-          <figure className={classes.imageBox}>
-            <img src={image} className={classes.image} alt="" loading="lazy" />
+          <picture className={classes.imageBox}>
+            <source media="(min-width: 640px)" srcSet={getDesktopImage()} />
+            <img
+              src={getMobileImage()}
+              className={classes.image}
+              alt=""
+              loading="lazy"
+            />
             <Icon type={multimediaType} iconClass={classes.icon} />
-          </figure>
+          </picture>
         </a>
       </article>
     )
@@ -174,7 +202,10 @@ FeaturedStory.propTypes = {
     name: PropTypes.string,
     url: PropTypes.string,
   }),
-  image: PropTypes.string,
+  multimediaLandscapeL: PropTypes.string,
+  multimediaLandscapeMD: PropTypes.string,
+  multimediaPortraitMD: PropTypes.string,
+  multimediaSquareS: PropTypes.string,
   imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialBot']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf([SIZE_ONE_COL, SIZE_TWO_COL]),

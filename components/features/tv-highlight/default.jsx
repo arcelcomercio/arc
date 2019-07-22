@@ -30,7 +30,7 @@ class TVHighlight extends PureComponent {
 
   filterData = data => {
     const { deployment, contextPath, arcSite } = this.props
-    const get = new StoryData({
+    const storyData = new StoryData({
       data,
       deployment,
       contextPath,
@@ -39,18 +39,18 @@ class TVHighlight extends PureComponent {
     })
     return {
       category: {
-        nameSection: get.primarySection,
-        urlSection: get.primarySectionLink,
+        nameSection: storyData.primarySection,
+        urlSection: storyData.primarySectionLink,
       },
       title: {
-        nameTitle: get.title,
-        urlTitle: get.link,
+        nameTitle: storyData.title,
+        urlTitle: storyData.link,
       },
       multimedia: {
-        multimediaType: get.multimediaType,
-        multimediaImg: get.multimediaLandscapeXL,
+        multimediaType: storyData.multimediaType,
+        multimediaImg: storyData.multimediaLandscapeXL,
       },
-      tags: get.tags,
+      tags: storyData.tags,
     }
   }
 
