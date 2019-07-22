@@ -65,11 +65,14 @@
   }
   &__img {
     width: 115px;
+    height: 72px;
     height: 100%;
     object-fit: cover;
     object-position: center;
+    background-color: red;
     @media (--tablet) {
       width: 230px;
+      height: 161px;
     }
   }
 
