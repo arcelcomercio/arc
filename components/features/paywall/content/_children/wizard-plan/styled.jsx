@@ -19,6 +19,12 @@ export const Wrap = styled.div`
     height: auto;
     align-items: center;
   }
+  @media ${devices.tablet} {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+    max-width: 639px;
+  }
 `
 
 export const WrapPlan = styled.div`
@@ -29,6 +35,11 @@ export const WrapPlan = styled.div`
   @media (${devices.mobile}) {
     margin: 0;
     max-width: calc(100% - 40px);
+  }
+  @media ${devices.tablet} {
+    margin: 0;
+    max-width: calc(100% - 40px);
+    width: 100%;
   }
 `
 
