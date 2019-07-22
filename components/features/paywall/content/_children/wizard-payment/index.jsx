@@ -15,6 +15,8 @@ const PanelPayment = styled(Panel)`
   @media (${devices.mobile}) {
     margin-top: 30px;
     padding: 18px 30px;
+    box-sizing: border-box;
+    max-width: 100vw;
   }
 `
 

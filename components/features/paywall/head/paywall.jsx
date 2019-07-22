@@ -32,7 +32,7 @@ class Head extends React.PureComponent {
             <S.Right></S.Right>
           </S.Background>
           <S.Content>
-            <img
+            <S.Img
               src={deployment(`${contextPath}${assets.pwAssets()}`)}
               alt="Logo el comercio"
             />
