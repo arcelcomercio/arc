@@ -85,16 +85,16 @@ export default {
       url: '/quienes-somos',
     },
     {
-      name: 'Términos de uso',
+      name: 'Términos y Condiciones',
       url: '/terminos-y-condiciones',
     },
     {
-      name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      name: 'Política de Privacidad',
+      url: '/politica-de-privacidad',
     },
     {
-      name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      name: 'Politica de Cookies',
+      url: '/politica-de-cookies',
     },
     {
       name: 'Preguntas Frecuentes',
