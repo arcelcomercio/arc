@@ -37,8 +37,5 @@ const Newsletter = ({
 }
 
 Newsletter.contentType = 'text/xml'
-// Newsletter.contentType = 'application/json'
-// JsonOutputType.contentType = "text/javascript"
-// Newsletter.contentType = 'text/plain'
 
 export default Newsletter

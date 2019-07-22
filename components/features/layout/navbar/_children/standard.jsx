@@ -85,9 +85,9 @@ class NavBarDefault extends PureComponent {
 
     if (this.listContainer !== null && this.listContainer !== 'undefined') {
       // this.listWidth = this.listContainer.getBoundingClientRect().width
-      document.body.addEventListener('mousedown', this._initDrag)
+      /* document.body.addEventListener('mousedown', this._initDrag)
       document.body.addEventListener('mouseup', this._endDrag)
-      document.body.addEventListener('mousemove', this._moveDrag)
+      document.body.addEventListener('mousemove', this._moveDrag) */
 
       document.body.addEventListener('touchstart', this._initDrag)
       document.body.addEventListener('touchend', this._endDrag)

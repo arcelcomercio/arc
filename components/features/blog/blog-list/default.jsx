@@ -8,8 +8,8 @@ import {
 } from '../../../utilities/helpers'
 
 const classes = {
-  list: 'bg-white w-full p-15', // blog-list
-  title: 'uppercase mb-20 title-xs', // blog-list__title
+  list: 'bg-white w-full p-15 blog-list',
+  title: 'uppercase mb-20 title-xs blog-list__title',
 }
 
 const CONTENT_SOURCE = 'get-count-all-blogs'
