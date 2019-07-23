@@ -2,59 +2,72 @@
   &.active {
     .nav__wrapper {
       background-color: $color-base-400;
+
       @media (--tablet) {
         background-color: $color-base-400;
       }
     }
   }
+
   &__btn,
   &__icon-search {
     @media (--desktop) {
       color: $color-white;
     }
+
     &--section {
       padding-left: 0;
+
       span {
         font-family: $tertiary-font;
       }
     }
   }
+
   &__logo {
     padding: 10px 0;
   }
+
   &__container-right {
     background-color: transparent;
   }
+
   .btn--outline {
     background-color: $color-white;
     color: #555;
     border-color: transparent;
   }
+
   &__input-search {
-    background-color: transparent;
     color: $color-white;
     font-family: $tertiary-font;
     font-weight: 700;
+
     &::placeholder {
       color: $color-white;
     }
+
     &.active {
       border-color: $color-white;
     }
   }
+
   &__container-menu {
     @media (--desktop) {
       border-color: $color-white;
     }
   }
+
   &__list-link {
     font-weight: 700;
     font-family: $tertiary-font;
     color: $color-white;
+
     &:hover {
       color: $color-white;
     }
   }
+
   &__wrapper {
     &:first-child {
       background-color: $color-base-400;
