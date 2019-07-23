@@ -198,4 +198,11 @@
   &__search-box {
     height: 20px;
   }
+  &__loader-bar {
+    background-color: $color-primary;
+    height: 5px;
+    left: 0;
+    top: 46px;
+    z-index: 1;
+  }
 }

@@ -3,15 +3,20 @@ import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 
 const classes = {
-  storyContinue: 'story-continue position-relative',
-  storyLoad: 'story-continue__story-load position-absolute',
-  storyLoadLink: 'story-continue__story-load-link',
+  storyContinue:
+    'story-continue position-relative flex items-center justify-center pt-30 pb-30',
+  storyLoad:
+    'story-continue__story-load position-absolute flex items-center justify-center h-full',
+  storyLoadLink:
+    'story-continue__story-load-link flex items-center justify-center',
   storyLoadImage: 'story-continue__story-load-image position-absolute ',
-  storyCircle: 'story-continue__circlePercent position-relative',
-  storycounter: 'story-continue__counter position-absolute',
+  storyCircle: 'story-continue__circle position-relative rounded',
+  storycounter: 'story-continue__counter position-absolute rounded',
   storyProgres: 'story-continue__progress',
-  storyProgresEnd: 'story-continue__progressEnd',
-  storyLoadNews: 'story-continue__story-load-news position-absolute',
+  storyLoadNews: 'story-continue__story-load-news pl-30',
+  storyLoadText: 'story-continue__story-load-text block text-gray-200',
+  storyLoadTitle:
+    'story-continue__story-load-title font-bold text-gray-200 overflow-hidden',
 }
 
 @Consumer
@@ -46,9 +51,7 @@ class StoryContinue extends PureComponent {
     } else {
       this.setUpdateLoaderPage(progress, el, linker)
     }
-    this.setInitiateHeights(
-      document.getElementsByClassName('story-header__share')
-    )
+    this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
   }
 
   setInitiateHeights = e => {
@@ -78,7 +81,7 @@ class StoryContinue extends PureComponent {
     setTimeout(() => {
       const link = linker.getAttribute('href')
       if (link !== '') {
-        window.location = link
+        /* window.location = link */
       }
     }, 500)
   }
@@ -139,15 +142,17 @@ class StoryContinue extends PureComponent {
         <div className={classes.storyContinue}>
           <div className={classes.storyLoad} data-state="outviewport">
             <a href={websiteUrl} className={classes.storyLoadLink}>
-              <span className={classes.storyLoadImage} />
               <div className={classes.storyCircle}>
+                <span className={classes.storyLoadImage} />
                 <div className={classes.storycounter}> </div>
                 <div className={classes.storyProgres} size="180" />
                 <div className={classes.storyProgresEnd} />
               </div>
               <div className={classes.storyLoadNews}>
-                Cargando siguiente
-                <strong>{title}</strong>
+                <span className={classes.storyLoadText}>
+                  Cargando siguiente
+                </span>
+                <span className={classes.storyLoadTitle}>{title}</span>
               </div>
             </a>
           </div>

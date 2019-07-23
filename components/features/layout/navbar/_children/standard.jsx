@@ -45,6 +45,7 @@ const classes = {
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
+  navLoader: 'nav__loader-bar position-absolute',
 }
 
 const activeSignwall = ['elcomercio', 'gestion']
@@ -512,6 +513,7 @@ class NavBarDefault extends PureComponent {
             siteProperties={siteProperties}
           />
           <div className="layer" />
+          <div className={classes.navLoader} />
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
