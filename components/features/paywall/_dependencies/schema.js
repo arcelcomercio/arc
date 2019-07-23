@@ -50,10 +50,12 @@ function shape(value) {
       return this
     },
     creditCardNumber(cardType, message) {
-      const v = this.value.replace(/\D/g, '')
-      const match = cardPatterns[cardType.toUpperCase()].test(v)
-      if (!match) {
-        throw message
+      if (cardType) {
+        const v = this.value.replace(/\D/g, '')
+        const match = cardPatterns[cardType.toUpperCase()].test(v)
+        if (!match) {
+          throw message
+        }
       }
       return this
     },
