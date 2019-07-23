@@ -56,8 +56,8 @@ const StoryItem = props => {
       <autor>
         <nombre>{authorName}</nombre>
         <url>{authorUrl}</url>
-        <cargo>{authorCargo ? authorCargo : 'null'}</cargo>
-        <columna>// TODO</columna>
+        <cargo>{authorCargo===undefined ? authorCargo : 'null'}</cargo>
+        <columna>{'null'}</columna>
         <twitter>{authorTwitterUrl}</twitter>
         <imagen>{authorImage}</imagen>
         <thumb>{authorSlug}</thumb>
