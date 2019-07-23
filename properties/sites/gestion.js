@@ -126,13 +126,13 @@ export default {
   social: {
     facebook: {
       name: 'facebook',
-      user: '@elcomercio.pe',
-      url: 'https://www.facebook.com/elcomercio.pe',
+      user: '@Gestionpe',
+      url: 'https://www.facebook.com/Gestionpe',
     },
     twitter: {
       name: 'twitter',
-      user: '@Gestion.pe',
-      url: 'https://twitter.com/elcomercio_peru',
+      user: 'Gestionpe',
+      url: 'https://twitter.com/gestionpe',
     },
     youtube: {
       name: 'youtube',

@@ -254,9 +254,9 @@ export const socialMediaUrlShareList = (
 ) => {
   return {
     facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${postPermaLink}`,
-    twitter: `http://twitter.com/home?status=${encodeURIComponent(
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       postTitle
-    )}+${siteUrl}${postPermaLink}+via%20${siteNameRedSocial}`,
+    )}&url=${siteUrl}${postPermaLink}&via=${siteNameRedSocial}`,
     linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
     pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
     whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
