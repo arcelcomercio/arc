@@ -45,6 +45,11 @@ export default {
       logo: 'white-logo.png',
       logoSomos: 'white-logo.png',
     },
+    seo: {
+      logoAmp: 'logo-gestion-amp.png',
+      width: 118,
+      height: 26,
+    },
     path: `/resources/dist/gestion/`,
     paywall: {
       logo: `images/logo.svg`,
