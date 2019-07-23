@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-
+import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import Modal from '../common/modal'
 import Header from '../common/header'
 import Footer from '../common/footer'
 
 import FormVerify from './_children/form-verify'
-
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
@@ -17,24 +16,29 @@ class SignWallVerify extends Component {
     this.state = {
       showVerify: false,
     }
+
+    const { arcSite } = this.props
+    this.origin_api =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
+
     this.validateToken()
   }
 
-  validateToken = () => {
-    const {
-      tokenVerify,
-      siteProperties: {
-        signwall: { ORIGIN_API },
-      },
-    } = this.props
+  componentWillMount() {
+    window.Identity.apiOrigin = this.origin_api
+  }
 
-    window.Identity.apiOrigin = ORIGIN_API
-    window.Identity.verifyEmail(tokenVerify)
-      .then(() => {
-        this.setState({
-          showVerify: true,
-        })
+  validateToken = () => {
+    const { tokenVerify } = this.props
+
+    window.Identity.apiOrigin = this.origin_api
+    window.Identity.verifyEmail(tokenVerify).then(() => {
+      this.setState({
+        showVerify: true,
       })
+    })
   }
 
   renderTemplate(template) {

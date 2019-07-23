@@ -120,4 +120,5 @@ export default {
     movil4: 15011775,
     movil5: 15011776,
   },
+  activeSignwall: false
 }

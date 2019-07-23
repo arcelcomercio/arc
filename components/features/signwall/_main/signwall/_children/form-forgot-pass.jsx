@@ -2,7 +2,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 // TODO Agregar excepcion a eslint
 import React, { Component } from 'react'
-
+import ENV from 'fusion:environment'
+import Consumer from 'fusion:consumer'
 import { emailRegex } from '../../utils/regex'
 import FormValid from '../../utils/form-valid'
 import * as Icon from '../../common/iconos'
@@ -11,6 +12,7 @@ import { ModalConsumer } from '../context'
 
 const services = new Services()
 
+@Consumer
 class FormForgotPass extends Component {
   constructor(props) {
     super(props)
@@ -23,19 +25,56 @@ class FormForgotPass extends Component {
       showMessage: false,
       sending: true,
     }
+
+    const { arcSite } = this.props
+    this.origin_api =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
+
+    const { typePopUp, typeForm } = this.props
+    this.tipCat = typePopUp
+    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
+    this.tipForm = typeForm
+    // console.log(this.tipCat, this.tipAct, this.tipForm)
+  }
+
+  componentWillMount() {
+    window.Identity.apiOrigin = this.origin_api
   }
 
   handleFormSubmit = e => {
-    const { formErrors, useremail } = this.state
     e.preventDefault()
+    const { formErrors, useremail } = this.state
+
     if (FormValid(this.state)) {
       this.setState({ sending: false })
+      window.Identity.apiOrigin = this.origin_api
       window.Identity.requestResetPassword(useremail)
         .then(() => {
           this.setState({
             showMessage: true,
             sending: true,
           })
+          // -- test de tageo success
+          if (this.tipCat === 'relogemail') {
+            window.dataLayer.push({
+              event: 'olvidepass_sucess',
+              eventCategory: 'Web_Sign_Wall_Relog_Email',
+              eventAction: 'web_relog_email_contrasena_success_boton',
+            })
+          } else {
+            window.dataLayer.push({
+              event: 'olvidepass_sucess',
+              eventCategory: `Web_Sign_Wall_${
+                this.tipCat === 'relogin' ? 'Relogueo' : this.tipCat
+              }`,
+              eventAction: `${
+                this.tipAct === 'web_swr' ? 'web_relog' : this.tipAct
+              }_contrasena_success_boton`,
+            })
+          }
+          // -- test de tageo success
         })
         .catch(errForgot => {
           let messageES = ''
@@ -77,24 +116,86 @@ class FormForgotPass extends Component {
             messageError: 'Tu correo electrónico no está registrado.',
             sending: true,
           })
+          // -- test de tageo error
+          if (this.tipCat === 'relogemail') {
+            window.dataLayer.push({
+              event: 'olvidepass_error',
+              eventCategory: 'Web_Sign_Wall_Relog_Email',
+              eventAction: 'web_relog_email_contrasena_error_boton',
+            })
+          } else {
+            window.dataLayer.push({
+              event: 'olvidepass_error',
+              eventCategory: `Web_Sign_Wall_${
+                this.tipCat === 'relogin' ? 'Relogueo' : this.tipCat
+              }`,
+              eventAction: `${
+                this.tipAct === 'web_swr' ? 'web_relog' : this.tipAct
+              }_contrasena_error_boton`,
+            })
+          }
+          // -- test de tageo error
         }
       })
       .catch(errEco => {
         console.error(errEco)
+        this.setState({
+          messageError: `Tu correo electrónico no está registrado.`,
+          sending: true,
+        });
       })
   }
 
   pushStatePass() {
     const { useremail } = this.state
+    window.Identity.apiOrigin = this.origin_api
     window.Identity.requestResetPassword(useremail)
       .then(() => {
         this.setState({
           showMessage: true,
           sending: true,
         })
+        // -- test de tageo success
+        if (this.tipCat === 'relogemail') {
+          window.dataLayer.push({
+            event: 'olvidepass_sucess',
+            eventCategory: 'Web_Sign_Wall_Relog_Email',
+            eventAction: 'web_relog_email_contrasena_success_boton',
+          })
+        } else {
+          window.dataLayer.push({
+            event: 'olvidepass_sucess', // organico_olvidepass_success, hard_olvidepass_success, relogin_olvidepass_success
+            eventCategory: `Web_Sign_Wall_${
+              this.tipCat === 'relogin' ? 'Relogueo' : this.tipCat
+            }`,
+            eventAction: `${
+              this.tipAct === 'web_swr' ? 'web_relog' : this.tipAct
+            }_contrasena_success_boton`,
+          })
+        }
+        // -- test de tageo success
       })
       .catch(errReForgot => {
         console.error(errReForgot)
+        // -- test de tageo error
+        if (this.tipCat === 'relogemail') {
+          window.dataLayer.push({
+            event: 'olvidepass_error',
+            eventCategory: 'Web_Sign_Wall_Relog_Email',
+            eventAction: 'web_relog_email_contrasena_error_boton',
+          })
+        } else {
+          window.dataLayer.push({
+            event: 'olvidepass_error', // organico_olvidepass_error, hard_olvidepass_error, relogin_olvidepass_error
+            eventCategory: `Web_Sign_Wall_${
+              this.tipCat === 'relogin' ? 'Relogueo' : this.tipCat
+            }`, // Web_Sign_Wall_organico, Web_Sign_Wall_hard, Web_Sign_Wall_relogin
+            eventAction: `${
+              this.tipAct === 'web_swr' ? 'web_relog' : this.tipAct
+            }_contrasena_error_boton`, // web_swo_login_error_olvidepass, web_swh_login_error_olvidepass, web_swr_login_error_olvidepass
+          })
+        }
+        // -- test de tageo error
       })
   }
 
@@ -110,6 +211,7 @@ class FormForgotPass extends Component {
         <div className="form-grid__back">
           <button
             type="button"
+            id="olvidepass_link_volver"
             onClick={() => changeTemplate('login')}
             className="link-back">
             <Icon.Back />
@@ -156,6 +258,7 @@ class FormForgotPass extends Component {
             <div className="form-group">
               <input
                 type="submit"
+                id="olvidepass_boton_enviar"
                 className="btn btn--blue btn-bg"
                 value={!sending ? 'Enviando...' : 'Enviar'}
                 disabled={!sending}
@@ -193,6 +296,7 @@ class FormForgotPass extends Component {
             <div className="form-group">
               <input
                 type="button"
+                id="olvidepass_boton_aceptar"
                 className="btn btn--blue btn-bg"
                 value="Aceptar"
                 onClick={closePopup}

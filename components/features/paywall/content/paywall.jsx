@@ -45,6 +45,7 @@ class Content extends React.Component {
         this.setState({ profile })
       })
     })
+    document.querySelector('html').classList.add('ios')
   }
 
   onBeforeNextStepHandler = (response, { nextStep }) => {

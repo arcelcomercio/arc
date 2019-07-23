@@ -38,8 +38,7 @@ const classes = {
   logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
-  btnContainer: 'flex items-center justify-end header__btn-container', // agregar hidden ocultar signwall
-  hidden: 'hidden',
+  btnContainer: 'flex items-center justify-end header__btn-container',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
@@ -47,8 +46,6 @@ const classes = {
   btnSignwall: 'nav__btn--login',
   iconSignwallMobile: 'rounded uppercase bg-primary',
 }
-
-const activeSignwall = ['elcomercio', 'gestion']
 
 @Consumer
 class NavBarDefault extends PureComponent {
@@ -507,15 +504,41 @@ class NavBarDefault extends PureComponent {
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
+              {siteProperties.activeSignwall && (
+                <div className={`${classes.btnContainer}`}>
+                  <Button
+                    btnText="Suscríbete"
+                    btnClass={`${classes.btnSubscribe} btn--outline`}
+                    btnLink="#"
+                  />
+                  <button
+                    type="button"
+                    id={
+                      this.checkSession()
+                        ? 'web_link_ingresaperfil'
+                        : 'web_link_ingresacuenta'
+                    }
+                    className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
+                    onClick={() => this.setState({ isActive: true })}>
+                    <i
+                      className={
+                        initialUser
+                          ? `${classes.iconSignwall} text-user`
+                          : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
+                      }>
+                      {initialUser}
+                    </i>
+                    <span className="capitalize text-sm">
+                      {this.checkSession() ? nameUser : 'Iniciar Sesión'}
+                    </span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer}  ${activeSignwall.indexOf(
-                  arcSite
-                ) < 0 && classes.hidden}`}>
-                <Button
-                  btnText="Suscríbete"
-                  btnClass={`${classes.btnSubscribe} btn--outline`}
-                  btnLink="#"
-                />
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -523,53 +546,20 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  className={`${classes.btnLogin} ${
-                    classes.btnSignwall
-                  } btn--outline`}
+                  className={`${classes.btnLogin} border-1 border-solid border-white`}
                   onClick={() => this.setState({ isActive: true })}>
+                  {/* <i className={classes.iconLogin} /> */}
                   <i
                     className={
                       initialUser
-                        ? `${classes.iconSignwall} text-user`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwall
-                          } icon-user`
+                        ? `${classes.iconSignwallMobile}`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}`
                     }>
                     {initialUser}
                   </i>
-                  <span className="capitalize text-sm">
-                    {this.checkSession() ? nameUser : 'Iniciar Sesión'}
-                  </span>
                 </button>
               </div>
-            </div>
-            <div
-              className={`${classes.btnContainer} ${
-                classes.navMobileContainer
-              } ${responsiveClass} ${activeSignwall.indexOf(arcSite) < 0 &&
-                classes.hidden}`}>
-              <button
-                type="button"
-                id={
-                  this.checkSession()
-                    ? 'web_link_ingresaperfil'
-                    : 'web_link_ingresacuenta'
-                }
-                className={`${
-                  classes.btnLogin
-                } border-1 border-solid border-white`}
-                onClick={() => this.setState({ isActive: true })}>
-                {/* <i className={classes.iconLogin} /> */}
-                <i
-                  className={
-                    initialUser
-                      ? `${classes.iconSignwallMobile}`
-                      : `${classes.iconLogin} ${classes.iconSignwallMobile}`
-                  }>
-                  {initialUser}
-                </i>
-              </button>
-            </div>
+            )}
           </div>
           <Menu
             sections={sections}
@@ -583,14 +573,17 @@ class NavBarDefault extends PureComponent {
 
         {this.getUrlParam('signwallHard') &&
         !this.checkSession() &&
-        showHard ? (
+        showHard &&
+        siteProperties.activeSignwall ? (
           <SignWallHard
             closePopup={() => this.closePopUp('signwallHard')}
             brandModal={arcSite}
           />
         ) : null}
 
-        {this.getUrlParam('tokenVerify') && showVerify ? (
+        {this.getUrlParam('tokenVerify') &&
+        showVerify &&
+        siteProperties.activeSignwall ? (
           <SignWallVerify
             closePopup={() => this.closePopUp('tokenVerify')}
             brandModal={arcSite}
@@ -598,7 +591,9 @@ class NavBarDefault extends PureComponent {
           />
         ) : null}
 
-        {this.getUrlParam('tokenReset') && showReset ? (
+        {this.getUrlParam('tokenReset') &&
+        showReset &&
+        siteProperties.activeSignwall ? (
           <SignWallReset
             closePopup={() => this.closePopUp('tokenReset')}
             brandModal={arcSite}
@@ -608,7 +603,8 @@ class NavBarDefault extends PureComponent {
 
         {this.getUrlParam('reloginEmail') &&
         !this.checkSession() &&
-        showRelogin ? (
+        showRelogin &&
+        siteProperties.activeSignwall ? (
           <SignWallRelogin
             closePopup={() => this.closePopUp('reloginEmail')}
             brandModal={arcSite}
