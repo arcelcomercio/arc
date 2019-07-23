@@ -447,7 +447,11 @@ const iterableAuction = device === 'd' ? auction.desktop : auction.mobile
 const dataFilter = iterableAuction.map(el => {
   return {
     name: el.name,
-    val: el.values.filter(item => item.ports.find(val => val === type_space)),
+    val: el.values.filter(
+      item =>
+        Object.keys(item).length > 0 &&
+        item.ports.find(val => val === type_space)
+    ),
   }
 })
 const adUnits = []
