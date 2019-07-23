@@ -76,6 +76,15 @@ class FormReLogin extends Component {
         .then(() => {
           this.setState({ sending: true })
           this.handleGetProfile()
+
+          // -- test de tageo sucess
+          window.dataLayer.push({
+            event: 'login_success',
+            eventCategory: `Web_Sign_Wall_Relog_Email`,
+            eventAction: `web_relog_email_login_success_ingresar`,
+          })
+          // -- test de tageo success
+
         })
         .catch(errLogin => {
           let messageES = ''
@@ -123,7 +132,7 @@ class FormReLogin extends Component {
                         'Correo electrónico y/o  contraseña incorrecta.',
                       sending: true,
                     })
-
+                    
                     // -- test tageo error
                     window.dataLayer.push({
                       event:
@@ -141,6 +150,11 @@ class FormReLogin extends Component {
                       this.tipCat === 'relogin'
                         ? 'relogin_error'
                         : 'relogin_email_error',
+                  })
+                  this.setState({
+                    messageError:
+                      'Correo electrónico y/o  contraseña incorrecta.',
+                    sending: true,
                   })
                   // -- test tageo error
                 })
