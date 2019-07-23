@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+
+import { isIE } from '../utilities/helpers'
 
 const classes = {
   layout: 'flex justify-center',
@@ -12,6 +14,10 @@ const classes = {
 }
 
 const SidebarLayout = ({ children = [] }) => {
+  const [gridClass, setGridClass] = useState('grid')
+  useEffect(() => {
+    if (isIE()) setGridClass('ie-flex')
+  })
   return (
     <div className={classes.layout}>
       <div className={classes.zocalo}>{children[0] /* Zocalo izquierda */}</div>
@@ -20,7 +26,7 @@ const SidebarLayout = ({ children = [] }) => {
         {children[2] /* Barra de navegación */}
         {children[3] /* Cabecera de página */}
         {children[4] /* Encabezado */}
-        <div className={classes.content}>
+        <div className={`${gridClass} ${classes.content}`}>
           <div role="main" className={classes.main}>
             {children[5] /* Contenido */}
           </div>
