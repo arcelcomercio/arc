@@ -132,7 +132,7 @@ class StoryContinue extends PureComponent {
   render() {
     const { contextPath, globalContent: data } = this.props
     const {
-      recentList: [{ basic: title = '', websiteUrl = '' }],
+      recentStoryContinue: [{ basic: title = '', websiteUrl = '' }],
     } = new StoryData({
       data,
       contextPath,
