@@ -6,6 +6,7 @@ import * as S from './styled'
 import Button from '../../../../../_children/button'
 import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
+import schema from '../../../../../_dependencies/schema'
 import { devices } from '../../../../../_dependencies/devices'
 
 const RadioCondition = styled(RadioButton)`
@@ -15,77 +16,59 @@ const RadioCondition = styled(RadioButton)`
   }
 `
 
-const cardPatterns = {
-  VISA: /^(4)(\d{12}|\d{15})$|^(606374\d{10}$)/,
-  MASTERCARD: /^(5[1-5]\d{14}$)|^(2(?:2(?:2[1-9]|[3-9]\d)|[3-6]\d\d|7(?:[01]\d|20))\d{12}$)/,
-  AMEX: /^3[47][0-9]{13}$/,
-  DINERS: /(^[35](?:0[0-5]|[268][0-9])[0-9]{11}$)|(^30[0-5]{11}$)|(^3095(\d{10})$)|(^36{12}$)|(^3[89](\d{12})$)/,
-  NARANJA: /^(589562)\d{10}$/,
-  SHOPPING: /(^603488(\d{10})$)|(^2799(\d{9})$)/,
-  CABAL: /(^604(([23][0-9][0-9])|(400))(\d{10})$)|(^589657(\d{10})$)/,
-  ARGENCARD: /^(501105|532362)(\d{10}$)/,
-  CENCOSUD: /^603493(\d{10})$/,
-  HIPERCARD: /^(384100|384140|384160|606282)(\d{10}|\d{13})$/,
-  CODENSA: /^590712(\d{10})$/,
-  ELO: /(^(636368|438935|504175|451416|636297|650901|650485|650541|650700|650720|650720|650720|655021|650405)\d{10})$|(^(5090|5067|4576|4011)\d{12})$|(^(50904|50905|50906)\d{11})$/,
+const MESSAGE = {
+  REQUIRED: 'Este campo es requerido',
+  WRONG_CARD_NUMBER: 'Número tarjeta inválido',
+  WRONG_CVV: 'CVV Inválido',
+  WRONG_EXPIRY_DATE: 'Fecha incorrecta',
 }
 
-const cvvPatterns = {
-  VISA: /^\d{3}$/,
-  MASTERCARD: /^\d{3}$/,
-  AMEX: /^\d{3,4}$/,
-  DINERS: /^\d{3}$/,
-}
-
-const formValidations = values => {
-  const errors = {}
-  if (values.cardMethod && values.cardNumber) {
-    const cardNumber = values.cardNumber.replace(/\D/g, '').trim()
-    const regex = cardPatterns[values.cardMethod.toUpperCase()]
-    if (!regex.test(cardNumber)) {
-      errors.cardNumber = 'Número tarjeta inválido'
+const FormSchema = schema({
+  cardMethod: value => {
+    value.required(MESSAGE.REQUIRED)
+  },
+  cardNumber: (value, { cardMethod }) => {
+    value
+      .required(MESSAGE.REQUIRED)
+      .creditCardNumber(cardMethod, MESSAGE.WRONG_CARD_NUMBER)
+  },
+  cvv: (value, { cardMethod }) => {
+    value
+      .required(MESSAGE.REQUIRED)
+      .creditCardCvv(cardMethod, MESSAGE.WRONG_CVV)
+  },
+  expiryDate: value => {
+    const match = value.value.trim().match(/^(\d\d)\/(\d\d(\d\d)?)$/)
+    if (!match) throw MESSAGE.WRONG_EXPIRY_DATE
+    let _m = match[1]
+    let _y = match[2]
+    if (!(_m >= 0 && _m < 13)) {
+      throw MESSAGE.WRONG_EXPIRY_DATE
     }
-  }
-  if (values.expiryDate) {
-    const errorMsg = 'Fecha incorrecta'
-    const match = values.expiryDate.trim().match(/^(\d\d)\/(\d\d(\d\d)?)$/)
-    if (!match) errors.expiryDate = errorMsg
-    else {
-      let _m = match[1]
-      let _y = match[2]
-      if (!(_m >= 0 && _m < 13)) {
-        errors.expiryDate = errorMsg
-      }
-      if (_y.length === 2) {
-        _y = '20' + _y
-      }
-
-      if (_m.length === 1) {
-        _m = '0' + _m
-      }
-
-      var formDate = new Date(_y, _m - 1)
-      if (formDate < Date.now()) {
-        errors.expiryDate = errorMsg
-      }
+    if (_y.length === 2) {
+      _y = '20' + _y
     }
-  }
-  if (values.cvv) {
-    const match = cvvPatterns[values.cvv]
-    if (!match) {
-      errors.cvv = 'CVV inválido'
-    }
-  }
 
-  if (!values.term) {
-    errors.term = 'Debe seleccionar el check'
-  }
-  return errors
-}
+    if (_m.length === 1) {
+      _m = '0' + _m
+    }
+
+    const formDate = new Date(_y, _m - 1)
+    if (formDate < Date.now()) {
+      throw MESSAGE.WRONG_EXPIRY_DATE
+    }
+    return this
+  },
+})
 
 const FormPay = ({ onSubmit, onReset }) => (
   <Formik
-    validate={formValidations}
+    validate={values => {
+      const errors = new FormSchema(values)
+      if (Object.keys(errors).length > 0) {
+        return errors
+      }
+    }}
     onReset={onReset}
     onSubmit={(values, actions) => {
       onSubmit(values, actions)
