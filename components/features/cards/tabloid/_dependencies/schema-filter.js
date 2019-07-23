@@ -12,7 +12,7 @@ export default `
                 type 
                 url
                 resized_urls { 
-                  portraid_md
+                  portrait_md
                 }
               }
             }
@@ -24,7 +24,7 @@ export default `
                 type 
                 url
                 resized_urls { 
-                  portraid_md
+                  portrait_md
                 }
               }
             }
@@ -33,7 +33,7 @@ export default `
             type 
             url
             resized_urls { 
-              portraid_md
+              portrait_md
             }
           }
         }
