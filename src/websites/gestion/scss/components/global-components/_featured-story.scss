@@ -5,28 +5,23 @@
     padding-bottom: 10px;
     text-transform: capitalize;
   }
-
   &__category {
     order: 3;
     padding: 10px 0px;
     border: 0px;
-
     &::after {
       border: 0px;
       width: 0px;
       height: 0px;
     }
   }
-
   &__category-link {
     text-transform: uppercase;
     color: $color-base-300;
   }
-
   &__detail {
     padding-bottom: 0px !important;
   }
-
   &__title {
     order: 1;
     margin-bottom: 0;
@@ -71,13 +66,6 @@
         border-top: 0;
       }
     }
-    &.featured-story--no-expanded.featured-story--live {
-      .featured-story__headband-link {
-        @media (--tablet) {
-          width: 110px;
-        }
-      }
-    }
     &.featured-story--live {
       .featured-story__headband {
         position: relative;
@@ -98,18 +86,59 @@
       .featured-story__headband-link {
         left: 0;
         width: 100%;
-        background-color: $color-gray-200;
+        background-color: $color-primary; // $color-gray-200;
         height: 40px;
       }
     }
-    &.featured-story--no-expanded {
+    &.img-complete {
+      .featured-story__headband-link {
+        width: 110px;
+      }
       .featured-story__detail {
-        padding-top: 40px;
+        padding-top: 0px;
       }
     }
+    .featured-story__detail {
+      padding-top: calc(40px + 10px); // 40 cintillo
+    }
+
     &.featured-story--no-expanded.featured-story--reverse {
       .featured-story__detail {
         padding-top: 10px;
+      }
+    }
+  }
+  &.featured-story--livetv {
+    .featured-story__headband {
+      .featured-story__headband-link {
+        background-color: $color-gray-200;
+      }
+    }
+  }
+  &--no-expanded {
+    @media (--only-mobile) {
+      &.featured-story--live {
+        .featured-story__detail {
+          padding-top: 0;
+        }
+        .featured-story__headband {
+          position: static;
+          .featured-story__headband-link {
+            width: 80px;
+            height: 20px;
+            margin-top: 10px;
+          }
+        }
+      }
+      &.img-complete {
+        &.featured-story--live {
+          .featured-story__headband {
+            position: static;
+            .featured-story__headband-link {
+              height: 20px;
+            }
+          }
+        }
       }
     }
   }
