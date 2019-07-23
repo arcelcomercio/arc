@@ -9,6 +9,10 @@ export const WrapForm = styled.div`
 
 export const Cards = styled.div`
   display: flex;
+  @media (${devices.mobile}) {
+    width: 100%;
+    justify-content: space-around;
+  }
 `
 
 export const Security = styled.div`
@@ -31,7 +35,6 @@ export const WrapCards = styled.div`
   margin: 40px 0;
   @media (${devices.mobile}) {
     flex-direction: column;
-    margin: 30px 0;
   }
 `
 
@@ -68,4 +71,9 @@ export const WrapInput = styled.div`
 export const Span = styled.div`
   padding: 20px 0;
   display: block;
+`
+
+export const WrapSubmit = styled.div`
+  display: flex;
+  justify-content: center;
 `
