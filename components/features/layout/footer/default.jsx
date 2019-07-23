@@ -6,6 +6,12 @@ import PropTypes from 'prop-types'
 import StandardFooter from './_children/standard'
 import SecondaryFooter from './_children/secondary'
 
+/**
+ * TODO: Este feature que controla distintos componentes debe ser
+ * separado en distintos features, un por cada diseño, de esta manera
+ * se logra cargar sólo el código necesario para cada vista.
+ */
+
 const DEFAULT_HIERARCHY = 'footer-default'
 
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
