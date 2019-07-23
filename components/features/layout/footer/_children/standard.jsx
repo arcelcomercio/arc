@@ -42,8 +42,7 @@ const classes = {
 
 const StandardFooter = props => {
   const {
-    facebookUrl,
-    twitterUrl,
+    socialNetworks,
     gecSites,
     legalLinks,
     contacts,
@@ -103,7 +102,9 @@ const StandardFooter = props => {
           {contacts.map(el => (
             <li className={classes.listItem} key={el.name}>
               <span
-                className={`${classes.listLinkTitle} ${classes.contactPosition}`}>
+                className={`${classes.listLinkTitle} ${
+                  classes.contactPosition
+                }`}>
                 {el.position}:
               </span>
               <span
@@ -117,24 +118,20 @@ const StandardFooter = props => {
           <p className={classes.socialTitle}>Síguenos</p>
         </div>
         <ul className={classes.listSocial}>
-          <li className={classes.listSocialItem}>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={facebookUrl}
-              className={classes.listSocialLink}>
-              <i className={classes.facebookIcon} />
-            </a>
-          </li>
-          <li className={classes.listSocialItem}>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={twitterUrl}
-              className={classes.listSocialLink}>
-              <i className={classes.twitterIcon} />
-            </a>
-          </li>
+          {socialNetworks &&
+            socialNetworks.map(el => {
+              return (
+                <li className={classes.listSocialItem}>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={el.url}
+                    className={classes.listSocialLink}>
+                    <i className={classes[`${el.name}Icon`]} />
+                  </a>
+                </li>
+              )
+            })}
         </ul>
       </div>
       <div className={classes.sites}>
