@@ -121,7 +121,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@publimetrope',
+      user: 'publimetrope',
       url: 'http://twitter.com/publimetrope',
     },
     youtube: {
@@ -137,4 +137,5 @@ export default {
     movil4: 15011775,
     movil5: 15011776,
   },
+  activeSignwall: false
 }

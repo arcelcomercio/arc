@@ -48,6 +48,11 @@ export default {
       logo: 'white-logo.png',
       logoSomos: 'white-logo.png',
     },
+    seo: {
+      logoAmp: 'logo-gestion-amp.png',
+      width: 118,
+      height: 26,
+    },
     path: `/resources/dist/gestion/`,
     paywall: {
       logo: `images/logo.svg`,
@@ -132,7 +137,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@Gestionpe',
+      user: 'Gestionpe',
       url: 'https://twitter.com/gestionpe',
     },
     youtube: {
@@ -148,4 +153,5 @@ export default {
     movil4: 14971953,
     movil5: 14971957,
   },
+  activeSignwall: true
 }

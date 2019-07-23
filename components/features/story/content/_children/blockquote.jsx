@@ -5,7 +5,7 @@ import ConfigParams from '../../../../utilities/config-params'
 const classes = {
   blockquote: 'pquote',
   pull: 'pquote pquote__pull',
-  text: 'pquote pquote__text',
+  text: 'pquote__text title-xs line-h-sm p-15 text-primary-color',
 }
 
 const StoryContentChildBlockQuote = props => {

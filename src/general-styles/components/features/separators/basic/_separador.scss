@@ -8,26 +8,22 @@
     /* autoprefixer: on */
   }
 
-  &__header-title {
-    &--nota {
-      border-style: solid;
-      border-color: $color-gray-100;
-      border-width: 1px 0;
-      height: 46px;
-    }
-  }
-
   &__body {
     @media (--tablet) {
       height: 161px;
     }
-
-    &--items {
-      height: 169px;
-    }
   }
 
   &__item {
+    &:first-child {
+      display: block;
+    }
+
+    @media (--tablet) {
+      display: block;
+      flex-basis: 24.8%;
+    }
+
     &::before {
       content: '';
       position: absolute;
@@ -35,25 +31,9 @@
       height: 100%;
       bottom: 0;
       left: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0) 50%,
-        rgba(50, 50, 50, 0.7) 100%
-      );
-    }
-
-    @media (--tablet) {
-      flex-basis: 24.8%;
-    }
-
-    &--nota {
-      &::before {
-        background: none;
-      }
-
-      & figure {
-        height: 80px;
-      }
+      background: linear-gradient(to bottom,
+          rgba(255, 255, 255, 0) 50%,
+          rgba(50, 50, 50, 0.7) 100%);
     }
   }
 
@@ -64,19 +44,6 @@
     top: 15px;
     right: 15px;
     left: initial;
-  }
-
-  &__detail {
-    z-index: 2;
-    height: 60px;
-
-    @media (--desktop) {
-      height: 70px;
-    }
-
-    &--nota {
-      bottom: 44px;
-    }
   }
 
   &__img {
@@ -108,9 +75,5 @@
     @media (--desktop) {
       max-height: 56px;
     }
-  }
-
-  &--nota {
-    height: 254px;
   }
 }

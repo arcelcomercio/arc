@@ -18,5 +18,6 @@ GridContainer.propTypes = {
 }
 
 GridContainer.label = 'Contenedor de grilla'
+GridContainer.static = true
 
 export default GridContainer

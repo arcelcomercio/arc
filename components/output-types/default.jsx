@@ -153,7 +153,10 @@ export default ({
         {renderMetaPage(metaValue('id'), metaPageData)}
 
         {/* Scripts de APPNEXUS */}
-        <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js" />
+        <script
+          src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js"
+          async
+        />
         <script
           src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
           async
@@ -169,23 +172,30 @@ export default ({
         {/* Rubicon BlueKai - Inicio */}
         <script
           type="text/javascript"
+          async
           src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
         />
         <script
           type="text/javascript"
+          async
           src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
         />
         {/* <!-- Rubicon BlueKai - Fin --> */}
 
         <Libs />
-        {/* Scripts Identity & Sales & Paywall */}
-        {/* <script src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`} /> */}
-        <script
-          src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-identity.min.js`}
-        />
-        <script
-          src={`https://elcomercio-${arcSite}-${APPNEXUS_ENV}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date().getTime()}`}
-        />
+
+        {/* <!-- Identity & Sales & Paywall --> */}
+        {siteProperties.activeSignwall && (
+          <>
+            {/* <script src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`} /> */}
+            <script
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-identity.min.js`}
+            />
+            <script
+              src={`https://elcomercio-${arcSite}-${APPNEXUS_ENV}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date().getTime()}`}
+            />
+          </>
+        )}
       </head>
       <body className={isStory ? 'story' : ''}>
         <noscript>
@@ -222,6 +232,7 @@ export default ({
         {isStory && (
           <script
             type="text/javascript"
+            defer
             dangerouslySetInnerHTML={{ __html: structuredTaboola }}
           />
         )}

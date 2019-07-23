@@ -11,6 +11,12 @@ const WizardNav = styled.div`
 
 const Wrap = styled.div`
   display: flex;
+  justify-content: space-around;
+  flex: 1;
+  max-width: 470px;
+  @media (${devices.mobile}) {
+    max-width: 100vw;
+  }
 `
 
 const Right = styled.div`
@@ -22,14 +28,6 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  :not(:first-child) {
-    margin-left: 100px;
-  }
-  @media (${devices.mobile}) {
-    :not(:first-child) {
-      margin-left: 50px;
-    }
-  }
 `
 
 const StepName = styled.span`
