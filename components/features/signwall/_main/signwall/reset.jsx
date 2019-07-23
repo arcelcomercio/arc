@@ -26,7 +26,7 @@ class SignWallReset extends Component {
           brandCurrent={brandModal}
           tokenReset={tokenReset}
         />
-      )
+      ),
     }
     return templates[template] || templates.reset
   }

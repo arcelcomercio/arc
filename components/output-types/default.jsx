@@ -22,10 +22,10 @@ export default ({
   requestUri,
   metaValue,
 }) => {
-  const APPNEXUS_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const APPNEXUS_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
   const BASE_URL_ADS =
     APPNEXUS_ENV === 'prod'
-      ? 'https://d1r08wok4169a5.cloudfront.net/ads-publimetro'
+      ? `https://d1r08wok4169a5.cloudfront.net/ads-${arcSite}`
       : 'https://jab.pe/f/arc'
 
   const metaPageData = {
@@ -71,9 +71,7 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${
-          siteProperties.siteName
-        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -155,7 +153,10 @@ export default ({
         {renderMetaPage(metaValue('id'), metaPageData)}
 
         {/* Scripts de APPNEXUS */}
-        <script src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js" />
+        <script
+          src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js"
+          async
+        />
         <script
           src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
           async
@@ -168,34 +169,39 @@ export default ({
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
-        {/* <script
-          async
-          src="https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js"
-        /> */}
-
         {/* Rubicon BlueKai - Inicio */}
         <script
           type="text/javascript"
+          async
           src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
         />
         <script
           type="text/javascript"
+          async
           src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
         />
         {/* <!-- Rubicon BlueKai - Fin --> */}
 
         <Libs />
-        {/* Scripts Identity & Sales */}
-        <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-sales.min.js" />
-        <script src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js" />
+
+        {/* <!-- Identity & Sales & Paywall --> */}
+        {siteProperties.activeSignwall && (
+          <>
+            {/* <script src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`} /> */}
+            <script
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-identity.min.js`}
+            />
+            <script
+              src={`https://elcomercio-${arcSite}-${APPNEXUS_ENV}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date().getTime()}`}
+            />
+          </>
+        )}
       </head>
       <body className={isStory ? 'story' : ''}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerId
-            }`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -226,6 +232,7 @@ export default ({
         {isStory && (
           <script
             type="text/javascript"
+            defer
             dangerouslySetInnerHTML={{ __html: structuredTaboola }}
           />
         )}

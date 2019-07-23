@@ -14,9 +14,7 @@ export default `
             type
             caption
             resized_urls { 
-              small
-              medium
-              large
+              landscape_xs
             }
           }
           basic_video {
@@ -26,9 +24,7 @@ export default `
                 type
                 caption
                 resized_urls { 
-                  small
-                  medium
-                  large
+                  landscape_xs
                 }
               }
             }
@@ -40,9 +36,7 @@ export default `
                 type
                 caption
                 resized_urls { 
-                  small
-                  medium
-                  large
+                  landscape_xs
                 }
               }
             }

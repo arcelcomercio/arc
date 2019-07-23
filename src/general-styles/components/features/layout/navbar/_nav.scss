@@ -17,6 +17,7 @@
 
   &__container-menu {
     height: 20px;
+
     @media (--desktop) {
       border-right: solid 1px $color-gray-200;
     }
@@ -31,6 +32,7 @@
   &__btn {
     color: $color-white;
     outline: 0;
+
     &:hover {
       text-decoration: none;
     }
@@ -58,6 +60,7 @@
     }
 
     &--section {
+
       //padding: 4px;
       & span {
         font-weight: bold;
@@ -74,6 +77,7 @@
     &--login {
       position: relative;
       padding-left: 40px;
+
       .text-user,
       .icon-user {
         background: $signwall-login-bg;
@@ -82,9 +86,12 @@
         width: 24px;
         line-height: 24px;
         left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
       }
+
       .text-user {
-        font-size: 12px;
+        font-size: 11px;
         letter-spacing: 1px;
       }
     }
@@ -135,6 +142,7 @@
   // &__icon-search {}
 
   &__input-search {
+    background-color: transparent;
     outline: none;
     padding-right: 30px;
     height: 30px;
@@ -191,11 +199,13 @@
       .nav__logo {
         display: block;
       }
+
       .nav__search-box {
         display: none;
       }
     }
   }
+
   &__search-box {
     height: 20px;
   }

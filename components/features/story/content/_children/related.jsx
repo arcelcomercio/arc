@@ -14,20 +14,20 @@ const classes = {
   itemTitleLink: 'related-content__link font-bold',
   multimedia: 'related-content__multimedia position-relative',
   link: 'block w-full h-full',
-  image: 'w-full h-full',
+  image: 'w-full h-full object-cover',
   icon: 'related-content__icon position-absolute p-5 rounded-lg title-xl',
   author: 'related-content__author uppercase text-gray-200',
 }
 
-const RenderRelatedContentElement = (elements, i) => {
+const RenderRelatedContentElement = (props, i, isAmp) => {
   const get = new DataStory({
-    data: elements,
+    data: props,
   })
   const filterData = {
     nameTitle: get.title,
     urlTitle: get.link,
     multimediaType: get.multimediaType,
-    multimediaImg: get.multimedia,
+    multimediaImg: get.multimediaLandscapeMD,
   }
 
   return (
@@ -44,12 +44,24 @@ const RenderRelatedContentElement = (elements, i) => {
       </div>
       <figure className={classes.multimedia}>
         <a href={filterData.urlTitle} className={classes.link}>
-          <img
-            src={filterData.multimediaImg}
-            alt={filterData.nameTitle}
-            className={classes.image}
-            loading="lazy"
-          />
+          {isAmp ? (
+            <amp-img
+              src={filterData.multimediaImg}
+              alt={filterData.nameTitle}
+              class={classes.image}
+              height="285"
+              width="514"
+              layout="responsive"
+            />
+          ) : (
+            <img
+              src={filterData.multimediaImg}
+              alt={filterData.nameTitle}
+              className={classes.image}
+              loading="lazy"
+            />
+          )}
+
           {filterData.multimediaType === ConfigParams.IMAGE ||
           filterData.multimediaType === '' ? (
             ''

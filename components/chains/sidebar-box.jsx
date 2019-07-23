@@ -5,5 +5,6 @@ const SidebarBox = ({ children = [] }) => (
 )
 
 SidebarBox.label = 'Barra lateral'
+SidebarBox.static = true
 
 export default SidebarBox

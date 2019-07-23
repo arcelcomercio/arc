@@ -131,7 +131,6 @@ class UpdateProfile extends Component {
           state.district = 'default'
           break
         default:
-        // console.log('default')
       }
     }
     const result = services.getUbigeo(value)
@@ -167,6 +166,8 @@ class UpdateProfile extends Component {
 
   handleUpdateProfile = e => {
     e.preventDefault()
+
+    const { handlerUpdateName } = this.props
 
     const {
       firstName,
@@ -209,19 +210,12 @@ class UpdateProfile extends Component {
           })
         }, 5000)
 
-        // setTimeout(() => {
-        //   window.nameUser.setState({
-        //     nameUser: new GetProfile().username,
-        //   })
-        //   window.initialUser.setState({
-        //     initialUser: new GetProfile().initname,
-        //   })
-        // }, 500)
-
         const modalConfirmPass = document.querySelector('#arc-popup-profile')
         if (modalConfirmPass) {
           modalConfirmPass.scrollIntoView()
         }
+
+        handlerUpdateName(profile.firstName)
       })
       .catch(() => {
         this.setState({
@@ -272,7 +266,6 @@ class UpdateProfile extends Component {
         }
         break
       default:
-      // console.log('default')
     }
 
     this.setState(state, () => {
@@ -396,7 +389,6 @@ class UpdateProfile extends Component {
         }
         break
       default:
-      // console.log('default')
     }
 
     this.setState({ formErrors, [name]: value }, () => {
