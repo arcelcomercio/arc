@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react'
+import ENV from 'fusion:environment'
+import Consumer from 'fusion:consumer'
 import { sha256 } from 'js-sha256'
 import FormValid from '../../utils/form-valid'
 import * as Icon from '../../common/iconos'
 import ListBenefits from './benefits'
-// import AuthGoogle from './social-auths/auth-google'
 import AuthFacebook from './social-auths/auth-facebook'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
@@ -15,6 +16,7 @@ import { ModalConsumer } from '../context'
 const Cookies = new Cookie()
 const services = new Services()
 
+@Consumer
 class FormLogin extends Component {
   constructor(props) {
     super(props)
@@ -33,16 +35,32 @@ class FormLogin extends Component {
       messageError: false,
       sending: true,
     }
+
+    const { arcSite } = this.props
+    this.origin_api =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
+
+    const { typePopUp = '', typeForm = '' } = this.props
+    this.tipCat = typePopUp || ''
+    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
+    this.tipForm = typeForm
+    //  console.log(this.tipCat, this.tipAct, this.tipForm)
+  }
+
+  componentWillMount() {
+    window.Identity.apiOrigin = this.origin_api
   }
 
   handleFormSubmit = e => {
     e.preventDefault()
-    const { typePopUp } = this.props
     const { email, password } = this.state
-    const tipCat = typePopUp || ''
-    const tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
+
     if (FormValid(this.state)) {
       this.setState({ sending: false })
+
+      window.Identity.apiOrigin = this.origin_api
       window.Identity.login(email, password, {
         rememberMe: true,
         cookie: true,
@@ -55,8 +73,8 @@ class FormLogin extends Component {
           window.dataLayer = window.dataLayer || []
           window.dataLayer.push({
             event: 'login_success',
-            eventCategory: `Web_Sign_Wall_${tipCat}`,
-            eventAction: `${tipAct}_login_success_ingresar`,
+            eventCategory: `Web_Sign_Wall_${this.tipCat}`,
+            eventAction: `${this.tipAct}_login_success_ingresar`,
           })
           // -- test de tageo
         })
@@ -71,12 +89,13 @@ class FormLogin extends Component {
                 .reloginEcoID(
                   email,
                   password,
-                  tipCat === 'organico' ? 'organico' : '1',
+                  this.tipCat === 'organico' ? 'organico' : '1',
                   window
                 )
                 .then(resEco => {
                   if (resEco.retry) {
                     setTimeout(() => {
+                      window.Identity.apiOrigin = this.origin_api
                       window.Identity.login(email, password, {
                         rememberMe: true,
                         cookie: true,
@@ -88,9 +107,9 @@ class FormLogin extends Component {
                           Cookies.deleteCookie('mpp_sess')
                           // -- test de tageo success
                           window.dataLayer.push({
-                            event: `${tipCat}_relogin_success`, // organico_relogin_success , hard_relogin_success
-                            eventCategory: `Web_Sign_Wall_${tipCat}`, // Web_Sign_Wall_organico, Web_Sign_Wall_hard
-                            eventAction: `${tipAct}_relogin_success_ingresar`, // web_swo_relogin_success, web_swh_relogin_success
+                            event: `${this.tipCat}_relogin_success`, // organico_relogin_success , hard_relogin_success
+                            eventCategory: `Web_Sign_Wall_${this.tipCat}`, // Web_Sign_Wall_organico, Web_Sign_Wall_hard
+                            eventAction: `${this.tipAct}_relogin_success_ingresar`, // web_swo_relogin_success, web_swh_relogin_success
                           })
                           // -- test de tageo success
                         })
@@ -98,9 +117,9 @@ class FormLogin extends Component {
                           messageES = errReLogin
                           // -- test de tageo error
                           window.dataLayer.push({
-                            event: `${tipCat}_relogin_error`, // organico_relogin_error, hard_relogin_error
-                            eventCategory: `Web_Sign_Wall_${tipCat}`, // Web_Sign_Wall_organico, Web_Sign_Wall_hard
-                            eventAction: `${tipAct}_relogin_error_ingresar`, // web_swo_relogin_error, web_swh_relogin_error
+                            event: `${this.tipCat}_relogin_error`, // organico_relogin_error, hard_relogin_error
+                            eventCategory: `Web_Sign_Wall_${this.tipCat}`, // Web_Sign_Wall_organico, Web_Sign_Wall_hard
+                            eventAction: `${this.tipAct}_relogin_error_ingresar`, // web_swo_relogin_error, web_swh_relogin_error
                           })
                           // -- test de tageo error
                         })
@@ -114,8 +133,8 @@ class FormLogin extends Component {
                     // -- test de tageo error
                     window.dataLayer.push({
                       event: 'login_error',
-                      eventCategory: `Web_Sign_Wall_${tipCat}`,
-                      eventAction: `${tipAct}_login_error_ingresar`,
+                      eventCategory: `Web_Sign_Wall_${this.tipCat}`,
+                      eventAction: `${this.tipAct}_login_error_ingresar`,
                     })
                     // -- test de tageo error
                   }
@@ -147,8 +166,8 @@ class FormLogin extends Component {
             // -- test de tageo error
             window.dataLayer.push({
               event: 'login_error',
-              eventCategory: `Web_Sign_Wall_${tipCat}`,
-              eventAction: `${tipAct}_login_error_ingresar`,
+              eventCategory: `Web_Sign_Wall_${this.tipCat}`,
+              eventAction: `${this.tipAct}_login_error_ingresar`,
             })
             // -- test de tageo error
           }
@@ -168,6 +187,7 @@ class FormLogin extends Component {
 
   handleGetProfile = () => {
     const { closePopup } = this.props
+    window.Identity.apiOrigin = this.origin_api
     window.Identity.getUserProfile().then(resProfile => {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
@@ -261,8 +281,9 @@ class FormLogin extends Component {
               className="form-grid"
               noValidate
               onSubmit={e => this.handleFormSubmit(e)}>
-              
-              <div className="form-grid__group" hidden={!showSocialButtons || !hiddenListBenefits}>
+              <div
+                className="form-grid__group"
+                hidden={!showSocialButtons || !hiddenListBenefits}>
                 <div className="form-grid__back">
                   <button
                     type="button"
@@ -375,6 +396,7 @@ class FormLogin extends Component {
 
                     <p className="form-grid__pass">
                       <button
+                        id="link-recuperar-pass"
                         onClick={() => value.changeTemplate('forgot')}
                         type="button"
                         className="link-gray">
@@ -413,6 +435,7 @@ class FormLogin extends Component {
                   ¿Aún no tienes una cuenta?
                   <button
                     type="button"
+                    id="login_boton_registrate"
                     onClick={() => {
                       value.changeTemplate('register')
                     }}

@@ -1,13 +1,15 @@
 import React from 'react'
 import Context from 'fusion:context'
-import { Back, Close, Gestion, Comercio}  from './iconos'
+import { Back, Close, Gestion, Comercio } from './iconos'
 
 const Header = props => {
-  const { type, closePopup, refirectHome } = props
-
+  const { type, closePopup } = props
   const typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
     <>
-      {{ elcomercio: <Comercio color="black" width="159" height="24" size="1" />, gestion: <Gestion color="white"  width="138" height="30" size="1"/> }[arcSite] || (
+      {{
+        elcomercio: <Comercio color="black" width="159" height="24" size="1" />,
+        gestion: <Gestion color="white" width="138" height="30" size="1" />,
+      }[arcSite] || (
         <img
           className="modal-header__img"
           alt=""
@@ -20,6 +22,7 @@ const Header = props => {
       {type === 'large' ? (
         <button
           type="button"
+          id="close-modal-link"
           className="modal-header__back"
           onClick={closePopup}>
           <Back color={arcSite === 'elcomercio' ? 'black' : 'white'} />
@@ -28,14 +31,9 @@ const Header = props => {
       ) : (
         <button
           type="button"
+          id="close-modal"
           className="modal-header__close"
-          onClick={
-            refirectHome === true
-              ? () => {
-                  window.location.href = '/'
-                }
-              : closePopup
-          }>
+          onClick={closePopup}>
           <Close color={arcSite === 'elcomercio' ? 'black' : 'white'} />
         </button>
       )}
