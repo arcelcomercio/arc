@@ -33,7 +33,6 @@ class OrderedStoriesGrid extends PureComponent {
   }
 
   componentDidMount() {
-    console.log(isIE(), 'ES INTERNET EXPLORER')
     if (isIE()) this.setState({ gridClass: 'ie-flex' })
   }
 
