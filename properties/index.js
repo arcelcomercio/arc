@@ -26,7 +26,6 @@ export default {
       'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js',
     ORIGIN_SALES_SDK:
       'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-sales.min.js',
-    ORIGIN_ECOID: 'https://pre.ecoid.pe',
     ORIGIN_PAYU_SDK:
       'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js',
     PAYU_PAYMENT_SERVICE:

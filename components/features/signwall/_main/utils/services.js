@@ -2,11 +2,10 @@
 import ENV from 'fusion:environment'
 import getDevice from './get-device'
 
-const NAME_PATH = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
-const ORIGIN_ECOID = NAME_PATH === 'prod' ? 'https://ecoid.pe' : 'https://pre.ecoid.pe'
-const ORIGIN_API = NAME_PATH === 'prod' ? 'https://api.gestion.pe' : 'https://api-sandbox.gestion.pe'
+const ORIGIN_ECOID =
+  ENV.ENVIRONMENT === 'elcomercio' ? 'https://ecoid.pe' : 'https://pre.ecoid.pe'
 
- export default class Services {
+export default class Services {
   reloginEcoID(username, password, action, window) {
     const details = {
       email: username, // -> email
@@ -40,9 +39,9 @@ const ORIGIN_API = NAME_PATH === 'prod' ? 'https://api.gestion.pe' : 'https://ap
     return response
   }
 
-  loginFBeco(username, accessToken, type) {
+  loginFBeco(URL, username, accessToken, type) {
     const response = new Promise(resolve => {
-      fetch(`${ORIGIN_API}/identity/public/v1/auth/token`, {
+      fetch(`${URL}/identity/public/v1/auth/token`, {
         method: 'POST',
         body: JSON.stringify({
           userName: username,

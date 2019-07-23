@@ -198,11 +198,6 @@ class FormReLogin extends Component {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
-      // window.sessUser.setState({ accessPanel: true })
-      // window.nameUser.setState({ nameUser: new GetProfile().username })
-      // window.initialUser.setState({
-      //   initialUser: new GetProfile().initname,
-      // })
     })
   }
 
