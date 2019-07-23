@@ -137,7 +137,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@Gestionpe',
+      user: 'Gestionpe',
       url: 'https://twitter.com/gestionpe',
     },
     youtube: {
