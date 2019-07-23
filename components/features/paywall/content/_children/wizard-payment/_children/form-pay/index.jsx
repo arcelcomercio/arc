@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Formik, Form, Field } from 'formik'
-import RadioButton from '../../../radio-button'
+import Checkbox from '../../../checkbox'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
 import Input from '../../../../../_children/input'
@@ -9,7 +9,10 @@ import Icon from '../../../../../_children/icon'
 import schema from '../../../../../_dependencies/schema'
 import { devices } from '../../../../../_dependencies/devices'
 
-const RadioCondition = styled(RadioButton)`
+const RadioCondition = styled(Checkbox)``
+RadioCondition.defaultProps = { radio: true }
+
+const AgreementCheckbox = styled(Checkbox)`
   @media (${devices.mobile}) {
     flex-direction: row;
     margin: 0;
@@ -61,96 +64,109 @@ const FormSchema = schema({
   },
 })
 
-const FormPay = ({ onSubmit, onReset }) => (
-  <Formik
-    validate={values => new FormSchema(values)}
-    onReset={onReset}
-    onSubmit={(values, actions) => {
-      onSubmit(values, actions)
-    }}
-    render={() => (
-      <Form>
-        <S.Security>
-          <Icon type="lock" width="20" height="25" />
-          <S.TextSecurity>
-            Compra seguro. Esta web está protegida
-          </S.TextSecurity>
-        </S.Security>
-        <S.WrapCards>
-          <S.TextCard>Selecciona un tipo de tarjeta</S.TextCard>
-          <S.Cards>
-            <Field
-              component={RadioButton}
-              label={<Icon type="visa" />}
-              name="cardMethod"
-              valueCheck="visa"
-            />
-            <Field
-              component={RadioButton}
-              label={<Icon type="mcard" />}
-              name="cardMethod"
-              valueCheck="mastercard"
-            />
-            <Field
-              component={RadioButton}
-              label={<Icon type="amex" />}
-              name="cardMethod"
-              valueCheck="amex"
-            />
-            <Field
-              component={RadioButton}
-              label={<Icon type="diners" />}
-              name="cardMethod"
-              valueCheck="diners"
-            />
-          </S.Cards>
-        </S.WrapCards>
-        <S.WrapInputs>
-          <S.WrapInput min-width="310px">
-            <Field
-              component={Input}
-              name="cardNumber"
-              placeholder="Número de tarjeta"
-            />
-          </S.WrapInput>
+const FormPay = ({ onSubmit, onReset }) => {
+  const [agreed, setAgreed] = useState(false)
+  const [cardMethod, setCardMethod] = useState()
+  return (
+    <Formik
+      validate={values => new FormSchema(values)}
+      onReset={onReset}
+      onSubmit={(values, actions) => {
+        onSubmit(values, actions)
+      }}
+      render={({ isSubmitting }) => (
+        <Form>
+          <S.Security>
+            <Icon type="lock" width="20" height="25" />
+            <S.TextSecurity>
+              Compra seguro. Esta web está protegida
+            </S.TextSecurity>
+          </S.Security>
+          <S.WrapCards>
+            <S.TextCard>Selecciona un tipo de tarjeta</S.TextCard>
+            <S.Cards>
+              <Field
+                component={RadioCondition}
+                label={<Icon type="visa" />}
+                name="cardMethod"
+                checked={cardMethod === 'visa'}
+                onChange={() => setCardMethod('visa')}
+                value="visa"
+              />
+              <Field
+                component={RadioCondition}
+                label={<Icon type="mcard" />}
+                name="cardMethod"
+                checked={cardMethod === 'mastercard'}
+                onChange={() => setCardMethod('mastercard')}
+                value="mastercard"
+              />
+              <Field
+                component={RadioCondition}
+                label={<Icon type="amex" />}
+                name="cardMethod"
+                checked={cardMethod === 'amex'}
+                onChange={() => setCardMethod('amex')}
+                value="amex"
+              />
+              <Field
+                component={RadioCondition}
+                label={<Icon type="diners" />}
+                name="cardMethod"
+                checked={cardMethod === 'diners'}
+                onChange={() => setCardMethod('diners')}
+                value="diners"
+              />
+            </S.Cards>
+          </S.WrapCards>
+          <S.WrapInputs>
+            <S.WrapInput min-width="310px">
+              <Field
+                component={Input}
+                name="cardNumber"
+                placeholder="Número de tarjeta"
+              />
+            </S.WrapInput>
 
-          <S.WrapInput max-width="150px">
-            <Field
-              component={Input}
-              name="expiryDate"
-              placeholder="F. de Vencimiento"
-            />
-          </S.WrapInput>
-          <S.WrapInput max-width="135px">
-            <Field component={Input} name="cvv" placeholder="CVV" />
-          </S.WrapInput>
-        </S.WrapInputs>
+            <S.WrapInput max-width="150px">
+              <Field
+                component={Input}
+                name="expiryDate"
+                placeholder="F. de Vencimiento"
+              />
+            </S.WrapInput>
+            <S.WrapInput max-width="135px">
+              <Field component={Input} name="cvv" placeholder="CVV" />
+            </S.WrapInput>
+          </S.WrapInputs>
 
-        <Field
-          component={RadioCondition}
-          label={
-            <span>
-              Acepto las condiciones de servicio, política de privacidad y estoy
-              de acuerdo con la información.
-            </span>
-          }
-          name="term"
-          valueCheck="term"
-        />
+          <Field
+            component={AgreementCheckbox}
+            checked={agreed}
+            onChange={() => setAgreed(!agreed)}
+            label={
+              <span>
+                Acepto las condiciones de servicio, política de privacidad y
+                estoy de acuerdo con la información.
+              </span>
+            }
+            name="term"
+          />
 
-        <S.Span>
-          Acepto las condiciones de servicio, política de privacidad y estoy de
-          acuerdo con la información.
-        </S.Span>
+          <S.Span>
+            Acepto las condiciones de servicio, política de privacidad y estoy
+            de acuerdo con la información.
+          </S.Span>
 
-        <S.WrapSubmit>
-          <Button type="submit" maxWidth="300px">
-            CONTINUAR
-          </Button>
-        </S.WrapSubmit>
-      </Form>
-    )}
-  />
-)
+          <S.WrapSubmit>
+            <Button type="submit" maxWidth="300px">
+              CONTINUAR
+            </Button>
+          </S.WrapSubmit>
+        </Form>
+      )}
+    />
+  )
+}
 
 export default FormPay
