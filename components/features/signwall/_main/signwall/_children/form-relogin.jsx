@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react'
 import { sha256 } from 'js-sha256'
+import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
 
@@ -12,7 +13,6 @@ import ListBenefits from './benefits'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
-// import GetProfile from '../../utils/get-profile'
 import FormValid from '../../utils/form-valid'
 import { ModalConsumer } from '../context'
 
@@ -48,31 +48,32 @@ class FormReLogin extends Component {
       sendingFb: true,
     }
 
+    const { arcSite } = this.props
+    this.origin_api =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
+
     const { typePopUp = '', typeForm = '' } = props
     this.tipCat = typePopUp
     this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
     this.tipForm = typeForm
-    // log(this.tipCat, this.tipAct, this.tipForm);
+    console.log(this.tipCat, this.tipAct, this.tipForm)
+  }
 
-    this.handlePasswordChange = this.handlePasswordChange.bind(this)
-    this.handleLoginClick = this.handleLoginClick.bind(this)
+  componentWillMount() {
+    window.Identity.apiOrigin = this.origin_api
   }
 
   handleFormSubmit = e => {
     e.preventDefault()
-
-    const {
-      siteProperties: {
-        signwall: { ORIGIN_API },
-      },
-    } = this.props
 
     const { email, password } = this.state
 
     if (FormValid(this.state)) {
       this.setState({ sending: false })
 
-      window.Identity.apiOrigin = ORIGIN_API
+      window.Identity.apiOrigin = this.origin_api
       window.Identity.login(email, password, {
         rememberMe: true,
         cookie: true,
@@ -97,7 +98,7 @@ class FormReLogin extends Component {
                 .then(resEco => {
                   if (resEco.retry === true) {
                     setTimeout(() => {
-                      window.Identity.apiOrigin = ORIGIN_API
+                      window.Identity.apiOrigin = this.origin_api
                       window.Identity.login(email, password, {
                         rememberMe: true,
                         cookie: true,
@@ -186,33 +187,14 @@ class FormReLogin extends Component {
   }
 
   handleGetProfile = () => {
-    const {
-      closePopup,
-      siteProperties: {
-        signwall: { ORIGIN_API },
-      },
-    } = this.props
+    const { closePopup } = this.props
 
-    window.Identity.apiOrigin = ORIGIN_API
+    window.Identity.apiOrigin = this.origin_api
     window.Identity.getUserProfile().then(resGetProfile => {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
     })
-  }
-
-  handleLoginClick = () => {
-    this.setState({
-      hiddendiv: true,
-      hiddenbutton: false,
-      linkListBenefits: true,
-    })
-
-    if (window.innerWidth <= 768) {
-      this.setState({ showSocialButtons: true })
-      this.setState({ hiddenSocialButtons: false })
-      this.setState({ hiddenTitleBenefits: false })
-    }
   }
 
   handleLoginBackSocial = () => {
@@ -224,10 +206,6 @@ class FormReLogin extends Component {
       hiddenTitleBenefits: true,
       linkListBenefits: false,
     })
-  }
-
-  handlePasswordChange = e => {
-    this.setState({ password: e.target.value })
   }
 
   toggleShow = () => {
@@ -417,6 +395,7 @@ class FormReLogin extends Component {
 
                     <p className="form-grid__pass">
                       <button
+                        id="link-recuperar-pass"
                         onClick={() => value.changeTemplate('forgot')}
                         type="button"
                         className="link-gray">

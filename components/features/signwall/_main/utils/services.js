@@ -64,17 +64,4 @@ export default class Services {
     })
     return response
   }
-
-  fetch(url, options) {
-    const headers = {
-      'Content-Type': 'application/json',
-    }
-
-    return fetch(url, {
-      headers,
-      ...options,
-    })
-      .then(response => response.json())
-      .catch(err => err)
-  }
 }
