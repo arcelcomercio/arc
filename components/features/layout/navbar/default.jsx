@@ -7,6 +7,12 @@ import NavbarChildSomos from './_children/somos'
 
 import Formatter from './_dependencies/formatter'
 
+/**
+ * TODO: Este feature que controla distintos componentes debe ser
+ * separado en distintos features, un por cada diseño, de esta manera
+ * se logra cargar sólo el código necesario para cada vista.
+ */
+
 @Consumer
 class LayoutNavbar extends PureComponent {
   constructor(props) {

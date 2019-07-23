@@ -37,7 +37,7 @@ class CardTabloid extends PureComponent {
           section,
           stories_qty: 1,
         },
-        filter: schemaFilter(arcSite),
+        filter: schemaFilter,
       },
     })
   }
@@ -53,10 +53,11 @@ class CardTabloid extends PureComponent {
     } = this.props
     const { data: { content_elements: contentElements = [] } = {} } = this.state
     const {
-      multimedia = '',
+      multimediaPortraitMD,
       title = '',
       displayDate = '',
-      section = '',
+      primarySection = '',
+      primarySectionLink = '',
     } = new StoryData({
       data: contentElements[0],
       deployment,
@@ -72,26 +73,30 @@ class CardTabloid extends PureComponent {
           <h4>
             <a
               className={classes.headerLink}
-              href={section}
+              href={primarySectionLink}
               {...editableField('sectionName')}
               suppressContentEditableWarning>
-              {sectionName || formatSlugToText(section)}
+              {sectionName || formatSlugToText(primarySection)}
             </a>
           </h4>
         </div>
         <div className={classes.body}>
           <picture>
-            <a href={linkTabloide}>
+            <a href={linkTabloide} target="_blank" rel="noopener noreferrer">
               <img
                 className={classes.face}
-                src={multimedia}
+                src={multimediaPortraitMD}
                 alt={title}
                 loading="lazy"
               />
             </a>
           </picture>
           <h3 className={classes.date}>
-            <a className={classes.dateLink} href={linkTabloide}>
+            <a
+              className={classes.dateLink}
+              href={linkTabloide}
+              target="_blank"
+              rel="noopener noreferrer">
               {nameDate}
             </a>
           </h3>

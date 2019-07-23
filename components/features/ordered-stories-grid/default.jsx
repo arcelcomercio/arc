@@ -1,6 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { isIE } from '../../utilities/helpers'
 
 import DataStory from '../../utilities/story-data'
 import FeaturedStory from '../../global-components/featured-story'
@@ -19,12 +20,22 @@ const elements = [
 ]
 
 const classes = {
-  container:
-    'grid grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20',
+  container: ' grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20',
 }
 
 @Consumer
 class OrderedStoriesGrid extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      gridClass: 'grid',
+    }
+  }
+
+  componentDidMount() {
+    if (isIE()) this.setState({ gridClass: 'ie-flex' })
+  }
+
   renderGrilla() {
     const {
       globalContent,
@@ -91,7 +102,12 @@ class OrderedStoriesGrid extends PureComponent {
   }
 
   render() {
-    return <div className={classes.container}>{this.renderGrilla()}</div>
+    const { gridClass } = this.state
+    return (
+      <div className={gridClass.concat(classes.container)}>
+        {this.renderGrilla()}
+      </div>
+    )
   }
 }
 
@@ -128,6 +144,5 @@ OrderedStoriesGrid.propTypes = {
 }
 
 OrderedStoriesGrid.label = 'Grilla de Historias Ordenadas'
-OrderedStoriesGrid.static = true
 
 export default OrderedStoriesGrid

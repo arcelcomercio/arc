@@ -19,11 +19,11 @@ import {
 } from '../../../../utilities/helpers'
 
 const classes = {
-  nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font`,
+  nav: `nav text-white text-sm w-full flex flex items-center top-0 secondary-font`,
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
-  search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
-  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden lg:inline-block`,
+  search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
+  navContainerRight: `nav__container-right position-absolute hidden lg:inline-block`,
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10 lg:pl-10 border-r-1 border-solid`,
   searchContainer:
     'nav__search-box hidden lg:flex items-center border-r-1 border-solid',

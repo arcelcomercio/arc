@@ -39,6 +39,8 @@ const classes = {
   headbandLink: 'featured-story__headband-link font-bold text-white uppercase',
 
   live: 'featured-story--live',
+  livetv: 'featured-story--livetv',
+
   icon: `featured-story__icon`,
 }
 
@@ -86,7 +88,7 @@ export default class FeaturedStory extends PureComponent {
         return classes.live
       }
       if (headband === 'gestionTv') {
-        return classes.live
+        return `${classes.live} ${classes.livetv}`
       }
       return ''
     }
