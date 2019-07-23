@@ -1,8 +1,8 @@
 import { addResizedUrlItem } from './thumbs'
 import ConfigParams, { sizeImg, sizeImgNewsLetter } from './config-params'
 
-export const reduceWord = (word, len = 145, finalText = '...') => {
-  return word.length > len ? word.slice(0, len).concat(finalText) : word
+export const reduceWord = async(word, len = 145, finalText = '...') => {
+  return await word.length > len ? word.slice(0, len).concat(finalText) : word
 }
 
 export const appendScript = (code, position = 'body') => {
