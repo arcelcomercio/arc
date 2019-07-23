@@ -60,9 +60,11 @@ function shape(value) {
       return this
     },
     creditCardCvv(cardType, message) {
-      const match = cvvPatterns[cardType.toUpperCase()].test(this.value)
-      if (!match) {
-        throw message
+      if (cardType) {
+        const match = cvvPatterns[cardType.toUpperCase()].test(this.value)
+        if (!match) {
+          throw message
+        }
       }
       return this
     },
