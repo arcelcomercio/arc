@@ -81,7 +81,16 @@ function struct(schema) {
         const { [name]: value, ...values } = data
         s(shape(value), values)
       } catch (err) {
-        errors[name] = err
+        // Los errores de validacion deben lanzarse como string
+        // para poder disernir si es por validacion o de implementacion
+        // del validador
+        if (err instanceof Error) {
+          // Mostrar error por consola y en el input
+          console.error(err)
+          errors[name] = err.message
+        } else {
+          errors[name] = err
+        }
       }
     })
     return errors
