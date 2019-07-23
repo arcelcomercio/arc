@@ -1,6 +1,7 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React, { PureComponent, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { isIE } from '../../utilities/helpers'
 
 import DataStory from '../../utilities/story-data'
 import FeaturedStory from '../../global-components/featured-story'
@@ -91,7 +92,15 @@ class OrderedStoriesGrid extends PureComponent {
   }
 
   render() {
-    return <div className={classes.container}>{this.renderGrilla()}</div>
+    const [gridClass, setGridClass] = useState('grid')
+    useEffect(() => {
+      if (isIE()) setGridClass('ie-flex')
+    })
+    return (
+      <div className={`${gridClass} ${classes.container}`}>
+        {this.renderGrilla()}
+      </div>
+    )
   }
 }
 

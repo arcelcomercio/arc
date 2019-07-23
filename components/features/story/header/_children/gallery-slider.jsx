@@ -42,9 +42,10 @@ class StoryHeaderChildGallerySlider extends PureComponent {
   }
 
   componentDidMount() {
-    /* document.addEventListener('keydown', event => {
+    document.addEventListener('keydown', event => {
       this._controlKeysSlider(event)
-    }) */
+    })
+
     this.list = document.querySelector('.story-gallery-slider__content')
 
     if (this.list !== null) {
@@ -120,7 +121,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
 
   _handlePrevSlider = () => {
     const prevSlide = this.currentSlider - 1
-    if (prevSlide >= 0) {
+    if (prevSlide >= 1) {
       this.currentSlider = prevSlide
       window.history.pushState(null, '', this._getUrlGalleryImage(prevSlide))
       this._moveSlide()
@@ -130,7 +131,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
   _handleNextSlider = () => {
     const { totalSlides } = this.state
     const nextSlide = this.currentSlider + 1
-    if (nextSlide < totalSlides) {
+    if (nextSlide <= totalSlides) {
       this.currentSlider = nextSlide
       window.history.pushState(null, '', this._getUrlGalleryImage(nextSlide))
       this._moveSlide()
@@ -162,7 +163,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
 
   _getNewPosition() {
     const { slideWidth } = this.state
-    return this.currentSlider * -slideWidth
+    return (this.currentSlider - 1) * -slideWidth
   }
 
   _moveSlide() {
