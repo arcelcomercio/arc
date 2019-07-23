@@ -134,7 +134,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => (
             </S.WrapField>
           </S.Wrap>
           {error && <S.Error mb="20px" message={error} />}
-          <Button disabled={isSubmitting} type="submit">
+          <Button disabled={isSubmitting} maxWidth="300px" type="submit">
             CONTINUAR
           </Button>
         </FormStyled>

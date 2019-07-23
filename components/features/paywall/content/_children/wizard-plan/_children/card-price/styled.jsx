@@ -8,14 +8,8 @@ const CardPrice = styled.div`
   flex: 1 1;
   justify-content: space-between;
   width: 100%;
-  color: #bbbbbb;
+  color: #444444;
   font-weight: 700;
-  ${({ active }) =>
-    active &&
-    css`
-      color: #444444;
-      transition: color 300ms;
-    `}
 `
 
 const Frecuency = styled.div`
@@ -48,6 +42,7 @@ const Description = styled.div`
   text-align: center;
   @media (${devices.mobile}) {
     padding: 8px 15px;
+    min-height: 68px;
   }
 `
 
@@ -66,7 +61,7 @@ const Button = styled.button`
   font-size: 16px;
   padding: 24px 0;
   background-color: #e8e8e8;
-  color: #bbbbbb;
+  color: #444444;
   font-weight: 300;
   outline: none;
   transition: color 300ms, background-color 300ms;

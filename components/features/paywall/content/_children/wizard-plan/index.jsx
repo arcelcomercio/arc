@@ -47,8 +47,11 @@ function WizardPlan(props) {
           <S.PlanTitle>Selecciona un plan de pago:</S.PlanTitle>
           <S.Plans>
             {plans.map(plan => {
+              const { billingFrequency } = plan
+
               return (
                 <CardPrice
+                  active={billingFrequency === 'Month'}
                   key={plan.priceCode}
                   plan={plan}
                   onClick={subscribePlanHandler}

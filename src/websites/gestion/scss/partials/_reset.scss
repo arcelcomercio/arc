@@ -5,4 +5,7 @@
 
 html {
   font-size: 15px;
+  @media (--tablet) {
+    font-size: 15px;
+  }
 }

@@ -50,7 +50,7 @@ const WizardConfirmation = props => {
           <S.WrapButton>
             <Button>SIGUE NAVEGANDO</Button>
           </S.WrapButton>
-          <S.Detail>
+          {/* <S.Detail>
             <S.Span>Recuerda que con tu suscripción tienes Acceso a:</S.Span>
             <S.ContentBenefice>
               <S.WrapIcon>
@@ -72,7 +72,7 @@ const WizardConfirmation = props => {
                 </S.Span>
               </S.WrapText>
             </S.ContentBenefice>
-          </S.Detail>
+          </S.Detail> */}
         </S.Content>
       </Panel>
     </div>

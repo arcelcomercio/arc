@@ -1,4 +1,5 @@
 import styled, { ThemeProvider } from 'styled-components'
+import { devices } from '../_dependencies/devices'
 
 const Head = styled.div`
   height: 50px;
@@ -24,6 +25,9 @@ const WrapLogin = styled.div`
   color: #fff;
   align-items: center;
   display: flex;
+  @media (${devices.mobile}) {
+    max-width: 40%;
+  }
 `
 
 const Username = styled.span`
@@ -47,6 +51,11 @@ const Right = styled.div`
   flex: 1;
   background-color: #000;
 `
+const Img = styled.img`
+  @media (${devices.mobile}) {
+    max-height: 26px;
+  }
+`
 
 export {
   ThemeProvider,
@@ -57,4 +66,5 @@ export {
   Background,
   Left,
   Right,
+  Img,
 }

@@ -86,5 +86,6 @@ StoriesListCard.propTypes = {
 }
 
 StoriesListCard.label = 'Último minuto'
+StoriesListCard.static = true
 
 export default StoriesListCard

@@ -1,6 +1,7 @@
 import React from 'react'
 import StoriesListCardChildItem from './item'
 import StoryData from '../../../../utilities/story-data'
+import { formatDateLocalTimeZone } from '../../../../utilities/helpers'
 
 const classes = {
   list: 'stories-l-card__list overflow-y-auto pr-20 pl-20',
@@ -20,31 +21,7 @@ const StoriesListsCardChildList = ({
       {listNews.map((el, index) => {
         elementFormatter.__data = el
         const data = elementFormatter.attributesRaw
-        const fechaPublicacion = new Date(data.date)
-        let time = ''
-
-        const fechapresente = new Date().getTime()
-
-        if (
-          (fechapresente - new Date(data.date).getTime()) / 1000 / 60 / 60 >=
-          24
-        ) {
-          time = `${
-            fechaPublicacion.getDate() < 10
-              ? `0${fechaPublicacion.getDate()}`
-              : fechaPublicacion.getDate()
-          }/${
-            fechaPublicacion.getMonth() < 10
-              ? `0${fechaPublicacion.getMonth()}`
-              : fechaPublicacion.getMonth()
-          }/${fechaPublicacion.getFullYear()}`
-        } else {
-          time = `${fechaPublicacion.getHours()}:${
-            fechaPublicacion.getMinutes() < 10
-              ? `0${fechaPublicacion.getMinutes()}`
-              : fechaPublicacion.getMinutes()
-          }`
-        }
+        const displayTime = formatDateLocalTimeZone(data.date)
 
         return (
           <StoriesListCardChildItem
@@ -53,11 +30,10 @@ const StoriesListsCardChildList = ({
             seeImageNews={
               seeImageNews === true && index === 0 /* ? true : false */
             }
-            time={time}
-            rawDate={fechaPublicacion}
+            time={displayTime}
             title={data.title}
             urlNews={data.link}
-            multimedia={data.multimedia}
+            multimedia={data.multimediaLandscapeMD}
             multimediaType={data.multimediaType}
           />
         )

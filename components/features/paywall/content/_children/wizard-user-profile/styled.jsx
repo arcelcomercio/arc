@@ -8,5 +8,9 @@ const WizardUserProfile = styled.div`
     flex-direction: column-reverse;
     align-items: center;
   }
+  @media ${devices.tablet} {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `
 export { WizardUserProfile, styled }
