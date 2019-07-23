@@ -35,7 +35,6 @@ class FormRegister extends Component {
       },
       messageError: false,
       showMessage: false,
-      showMessageResetPass: false,
       sending: true,
     }
 
@@ -49,7 +48,7 @@ class FormRegister extends Component {
     this.tipCat = typePopUp || ''
     this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
     this.tipForm = typeForm
-    console.log(this.tipCat, this.tipAct, this.tipForm)
+    // console.log(this.tipCat, this.tipAct, this.tipForm)
   }
 
   componentWillMount() {

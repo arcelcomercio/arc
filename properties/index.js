@@ -143,4 +143,5 @@ export default {
     },
   ],
   urlAddfbInstantArticle: 'https://img.elcomercio.pe',
+  activeSignwall: false
 }

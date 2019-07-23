@@ -28,14 +28,10 @@ class FormReLogin extends Component {
     const profileMPP = JSON.parse(getProfileMPP)
 
     this.state = {
-      hiddendiv: false,
       hiddenListBenefits: true,
-      hiddenbutton: true,
-      hiddenSocialButtons: true,
       hiddenTitleBenefits: true,
-      showSocialButtons: false,
       linkListBenefits: false,
-      hidden: true,
+      hiddenPass: true,
       email: profileMPP ? profileMPP.email : null,
       password: null,
       formErrors: {
@@ -45,7 +41,6 @@ class FormReLogin extends Component {
       nameMPP: profileMPP ? profileMPP.firstName : 'Lector',
       messageError: false,
       sending: true,
-      sendingFb: true,
     }
 
     const { arcSite } = this.props
@@ -58,7 +53,7 @@ class FormReLogin extends Component {
     this.tipCat = typePopUp
     this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
     this.tipForm = typeForm
-    console.log(this.tipCat, this.tipAct, this.tipForm)
+    // console.log(this.tipCat, this.tipAct, this.tipForm)
   }
 
   componentWillMount() {
@@ -199,18 +194,14 @@ class FormReLogin extends Component {
 
   handleLoginBackSocial = () => {
     this.setState({
-      hiddendiv: false,
-      hiddenbutton: true,
-      hiddenSocialButtons: true,
-      showSocialButtons: false,
       hiddenTitleBenefits: true,
       linkListBenefits: false,
     })
   }
 
   toggleShow = () => {
-    const { hidden } = this.state
-    this.setState({ hidden: !hidden })
+    const { hiddenPass } = this.state
+    this.setState({ hiddenPass: !hiddenPass })
   }
 
   componentDidMount = () => {
@@ -272,16 +263,14 @@ class FormReLogin extends Component {
   render = () => {
     const {
       formErrors,
-      showSocialButtons,
       nameMPP,
       hiddenListBenefits,
       hiddenTitleBenefits,
       linkListBenefits,
       messageError,
       email,
-      hidden,
+      hiddenPass,
       sending,
-      hiddenSocialButtons,
     } = this.state
     const { closePopup, typePopUp, typeForm } = this.props
 
@@ -293,16 +282,6 @@ class FormReLogin extends Component {
               className="form-grid"
               noValidate
               onSubmit={e => this.handleFormSubmit(e)}>
-              <div className="form-grid__back" hidden={!showSocialButtons}>
-                <button
-                  type="button"
-                  onClick={e => this.handleLoginBackSocial(e)}
-                  className="link-back">
-                  <Icon.Back />
-                  <span>Volver</span>
-                </button>
-              </div>
-
               <div className="form-grid__group" hidden={hiddenListBenefits}>
                 <div className="form-grid__back">
                   <button
@@ -363,13 +342,13 @@ class FormReLogin extends Component {
                       type="button"
                       onClick={() => this.toggleShow()}
                       className={
-                        hidden
+                        hiddenPass
                           ? 'row-pass__btn row-pass--hide'
                           : 'row-pass__btn row-pass--show'
                       }
                     />
                     <input
-                      type={hidden ? 'password' : 'text'}
+                      type={hiddenPass ? 'password' : 'text'}
                       name="password"
                       className={
                         formErrors.password.length > 0
@@ -424,16 +403,14 @@ class FormReLogin extends Component {
                   </p>
                 </div>
 
-                <div hidden={!hiddenSocialButtons}>
-                  <div className="form-grid__group">
-                    <div className="form-group form-group--unique">
-                      <AuthFacebook
-                        closePopup={closePopup}
-                        id="facebook-sign-in-button"
-                        typePopUp={typePopUp}
-                        typeForm={typeForm}
-                      />
-                    </div>
+                <div className="form-grid__group">
+                  <div className="form-group form-group--unique">
+                    <AuthFacebook
+                      closePopup={closePopup}
+                      id="facebook-sign-in-button"
+                      typePopUp={typePopUp}
+                      typeForm={typeForm}
+                    />
                   </div>
                 </div>
               </div>
