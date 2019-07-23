@@ -25,7 +25,7 @@ function WizardPayment(props) {
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
   } = props
-  const [loading, setLoading] = useState()
+
   const [errors, setErrors] = useState([])
 
   const fusionContext = useFusionContext()
@@ -202,12 +202,19 @@ function WizardPayment(props) {
     setError()
   }
 
+  const { amount, billingFrequency, description } = memo
+
   return (
     <S.WizardPayment>
       <PanelPayment type="content" valing="jc-center">
         <FormPay onSubmit={onSubmitHandler} />
       </PanelPayment>
-      <Summary summary={summary} />
+      <Summary
+        amount={amount}
+        billingFrequency={billingFrequency}
+        description={description}
+        summary={summary}
+      />
     </S.WizardPayment>
   )
 }
