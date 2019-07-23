@@ -1,16 +1,9 @@
-export default arcSite => `
+export default `
     {
       content_elements{
         canonical_url
         website_url
         display_date
-        websites {
-          ${arcSite} {
-            website_section {
-              name
-            }
-          }
-        }
         promo_items{
           basic_video {
             type
@@ -19,9 +12,7 @@ export default arcSite => `
                 type 
                 url
                 resized_urls { 
-                  small
-                  medium
-                  large
+                  portraid_md
                 }
               }
             }
@@ -33,9 +24,7 @@ export default arcSite => `
                 type 
                 url
                 resized_urls { 
-                  small
-                  medium
-                  large
+                  portraid_md
                 }
               }
             }
@@ -44,14 +33,18 @@ export default arcSite => `
             type 
             url
             resized_urls { 
-              small
-              medium
-              large
+              portraid_md
             }
           }
         }
         headlines{
           basic
+        }
+        taxonomy {
+          primary_section { 
+            name 
+            path
+          }
         }
       }
     }
