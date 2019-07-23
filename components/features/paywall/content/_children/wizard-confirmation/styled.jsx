@@ -109,3 +109,9 @@ export const Span = styled.span`
 export const Picture = styled.picture`
   height: 100%;
 `
+
+export const DetailTitle = styled.div`
+  font-size: 14px;
+  line-height: 2.14;
+  margin-bottom: 15px;
+`

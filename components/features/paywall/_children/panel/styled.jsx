@@ -29,11 +29,13 @@ const Panel = styled.div`
     switch (type) {
       case 'content':
         return css`
+          padding: 30px 0;
           max-width: 740px;
         `
       case 'summary':
         return css`
           max-width: 360px;
+          align-items: end;
           @media (${devices.mobile}) {
             max-width: calc(100% - 40px);
             align-items: center;
