@@ -27,7 +27,7 @@ const RenderRelatedContentElement = (props, i, isAmp) => {
     nameTitle: get.title,
     urlTitle: get.link,
     multimediaType: get.multimediaType,
-    multimediaImg: get.multimedia,
+    multimediaImg: get.multimediaLandscapeMD,
   }
 
   return (
