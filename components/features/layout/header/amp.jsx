@@ -23,8 +23,9 @@ class LayoutAmpHeader extends PureComponent {
   render() {
     const { contextPath, arcSite, deployment } = this.props
     const imgLogo =
-      deployment(`${contextPath}/resources/dist/${arcSite}/images/logo.png`) ||
-      ''
+      deployment(
+        `${contextPath}/resources/dist/${arcSite}/images/logo-${arcSite}-amp.png`
+      ) || ''
     return (
       <>
         <header className={classes.header}>

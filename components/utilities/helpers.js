@@ -401,7 +401,7 @@ export const getUrlParameter = () => {
   const { location: { href: loc } = {} } = window || {}
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
-  return parseInt(tmp[1], 0) || 0
+  return parseInt(tmp[1], 0) || 1
 }
 
 export const getMultimediaIcon = multimediaType => {
