@@ -81,7 +81,7 @@ class LayoutFooter extends PureComponent {
       ''
 
     const { sections: rawSections = [] } = this.state || {}
-    const sections = this.formatData(rawSections)
+    const sections = rawSections && this.formatData(rawSections)
 
     const params = {
       socialNetworks,
@@ -107,6 +107,7 @@ class LayoutFooter extends PureComponent {
 }
 
 LayoutFooter.label = 'Pie de Página'
+LayoutFooter.static = true
 
 LayoutFooter.propTypes = {
   customFields: PropTypes.shape({

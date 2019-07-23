@@ -86,4 +86,5 @@ class LayoutAmpFooter extends PureComponent {
 }
 
 LayoutAmpFooter.label = 'Pie de Página'
+
 export default LayoutAmpFooter
