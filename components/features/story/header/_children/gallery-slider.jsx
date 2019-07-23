@@ -42,9 +42,10 @@ class StoryHeaderChildGallerySlider extends PureComponent {
   }
 
   componentDidMount() {
-    /* document.addEventListener('keydown', event => {
+    document.addEventListener('keydown', event => {
       this._controlKeysSlider(event)
-    }) */
+    })
+
     this.list = document.querySelector('.story-gallery-slider__content')
 
     if (this.list !== null) {
