@@ -6,6 +6,7 @@ export default {
   colorPrimary: '#f7c600',
   siteDomain: 'ojo.pe',
   siteUrl: 'https://ojo.pe',
+  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://elcomercio-ojo-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
@@ -29,6 +30,7 @@ export default {
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
+    frequentQuestions: '',
   },
   infoPagesProd: {
     termsAndConditions: '',
@@ -38,6 +40,7 @@ export default {
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
+    frequentQuestions: '',
   },
 
   legalLinks: [

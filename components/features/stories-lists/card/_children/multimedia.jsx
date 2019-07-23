@@ -12,21 +12,19 @@ const StoriesListsCardChildMultimedia = ({
   multimedia,
   multimediaType,
 }) => {
-  // const multimediaType = ConfigParams.VIDEO
   return (
     <figure className={classes.figure}>
       {getMultimediaIcon(multimediaType) && (
         <i className={`${getMultimediaIcon(multimediaType)} ${classes.icon}`} />
       )}
 
-      {multimedia ? (
+      {multimedia && (
         <a href={urlNews}>
           <picture>
-            <source srcSet={multimedia} media="(max-width: 639px)" />
             <img className="w-full" src={multimedia} alt="" loading="lazy" />
           </picture>
         </a>
-      ) : null}
+      )}
     </figure>
   )
 }

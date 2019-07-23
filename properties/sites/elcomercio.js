@@ -6,9 +6,12 @@ export default {
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://elcomercio.pe',
-  resizerUrl: 'https://elcomercio-elcomercio-prod.cdn.arcpublishing.com/resizer',
+  linkTabloide: 'https://peruquiosco.pe/',
+  resizerUrl:
+    'https://elcomercio-elcomercio-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
-  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KKXTKGP_',
   ampGoogleTagManagerId: 'UA-3055636-11',
@@ -17,7 +20,8 @@ export default {
   idGoogleAnalitics: 'UA-3055636-11',
   fbArticleStyle: 'LogoElcomercio',
   nameStoryRelated: 'VEA TAMBIÉN',
-  siteDescription: 'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  siteDescription:
+    'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
@@ -27,6 +31,7 @@ export default {
     arcoProcedure: 'ZJVJVIL7MJGJBCZMD3YELB7PWA',
     cookiesPolicy: '',
     aboutUs: '',
+    frequentQuestions: '',
   },
   infoPagesProd: {
     termsAndConditions: '',
@@ -36,6 +41,7 @@ export default {
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
+    frequentQuestions: '',
   },
 
   assets: {
@@ -60,7 +66,8 @@ export default {
     },
   },
 
-  legalLinks: [{
+  legalLinks: [
+    {
       name: 'Términos y condiciones',
       url: '/terminos-servicio',
     },
@@ -82,7 +89,8 @@ export default {
       'Grupo El Comercio - Todos los derechos reservados',
     ],
 
-    socialNetworks: [{
+    socialNetworks: [
+      {
         name: 'facebook',
         url: 'https://www.facebook.com/elcomercio.pe',
       },
@@ -96,7 +104,8 @@ export default {
       },
     ],
 
-    contacts: [{
+    contacts: [
+      {
         position: 'Director Periodístico',
         name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
       },

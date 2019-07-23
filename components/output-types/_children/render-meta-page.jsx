@@ -19,6 +19,7 @@ const renderMetaPage = (page, params) => {
     meta_story: <MetaStory {...params} />,
     default: false,
   }
+
   return options[page] || options.default
 }
 export default renderMetaPage
