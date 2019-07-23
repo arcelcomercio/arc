@@ -1,5 +1,17 @@
 import PropTypes from 'prop-types'
 
+// Valor por defecto en el custom field "Fecha de publicación", 6:00 del siguiente día
+const currentDate = new Date()
+const tomorrowDate = new Date(currentDate.setDate(currentDate.getDate() + 1))
+const defaultProgramDate = new Date(
+  tomorrowDate.getFullYear(),
+  tomorrowDate.getMonth(),
+  tomorrowDate.getDate(),
+  11,
+  0,
+  0
+).getTime()
+
 const customFields = PropTypes.shape({
   path: PropTypes.string.isRequired.tag({
     name: 'URL',
@@ -61,6 +73,7 @@ const customFields = PropTypes.shape({
   date1: PropTypes.dateTime.tag({
     name: 'Fecha de publicación',
     group: 'Programar Notas',
+    defaultValue: defaultProgramDate,
   }),
   note2: PropTypes.string.tag({
     name: 'Nota 2',
@@ -69,6 +82,7 @@ const customFields = PropTypes.shape({
   date2: PropTypes.dateTime.tag({
     name: 'Fecha de publicación',
     group: 'Programar Notas',
+    defaultValue: defaultProgramDate,
   }),
   note3: PropTypes.string.tag({
     name: 'Nota 3',
@@ -77,6 +91,7 @@ const customFields = PropTypes.shape({
   date3: PropTypes.dateTime.tag({
     name: 'Fecha de publicación',
     group: 'Programar Notas',
+    defaultValue: defaultProgramDate,
   }),
 })
 
