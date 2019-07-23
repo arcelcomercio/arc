@@ -226,15 +226,18 @@ class StoryContent extends PureComponent {
             })}
           </div>
         )}
-
-        <div
-          className={classes.taboola}
-          id="taboola-below-content-thumbnails"
-        />
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: structuredTaboola }}
-        />
+        {arcSite !== ConfigParams.SITE_GESTION && (
+          <>
+            <div
+              className={classes.taboola}
+              id="taboola-below-content-thumbnails"
+            />
+            <script
+              type="text/javascript"
+              dangerouslySetInnerHTML={{ __html: structuredTaboola }}
+            />
+          </>
+        )}
         {arcSite === ConfigParams.SITE_PUBLIMETRO && (
           <div
             className="fb-comments"

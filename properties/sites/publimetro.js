@@ -121,7 +121,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@publimetrope',
+      user: 'publimetrope',
       url: 'http://twitter.com/publimetrope',
     },
     youtube: {
