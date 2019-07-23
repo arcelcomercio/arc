@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik'
 import InputFormik from '../../../../../_children/input'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
-import schema, { clearNull } from '../../../../../_dependencies/schema'
+import schema from '../../../../../_dependencies/schema'
 
 const MESSAGE = {
   MIN: 'Longitud inválida, mínimo 3 caracteres.',

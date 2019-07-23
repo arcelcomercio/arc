@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 
 import CardPrice from './_children/card-price'
