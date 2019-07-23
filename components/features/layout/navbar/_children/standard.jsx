@@ -45,11 +45,8 @@ const classes = {
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
-<<<<<<< HEAD
   navLoader: 'nav__loader-bar position-absolute',
-=======
   iconSignwallMobile: 'rounded uppercase bg-primary',
->>>>>>> d173da5344b1f1b1635f00c1cc7a67a87f0ea6fe
 }
 
 const activeSignwall = ['elcomercio', 'gestion']
