@@ -19,6 +19,8 @@ const classes = {
     'story-continue__story-load-title font-bold text-gray-200 overflow-hidden',
 }
 
+const URLS_STORAGE = '_recents_articles_'
+
 @Consumer
 class StoryContinue extends PureComponent {
   componentDidMount() {
@@ -129,14 +131,42 @@ class StoryContinue extends PureComponent {
     progress.setAttribute('size', min)
   }
 
+  saveUrlSessionStorage = (url) => {
+    let isSaveUrl = false;
+    if (typeof(Storage) !== 'undefined') {
+      let arrUrls = [url]
+      if(window.sessionStorage.getItem(URLS_STORAGE)){
+        arrUrls = JSON.parse(window.sessionStorage.getItem(URLS_STORAGE))
+        if(arrUrls.indexOf(url) === -1){
+          arrUrls.push(url)
+          isSaveUrl = true
+        }
+      }
+      window.sessionStorage.setItem(URLS_STORAGE, JSON.stringify(arrUrls))
+    }
+    return isSaveUrl
+  }
+
+  getNextArticle = (recentStoryContinue) => {
+    let title = ''
+    let websiteUrl = ''
+    for (let i = 0; i < recentStoryContinue.length; i++) {
+      title =  recentStoryContinue[i].basic || ''
+      websiteUrl =  recentStoryContinue[i].websiteUrl || ''
+      if (recentStoryContinue.length-1 === i){
+        window.sessionStorage.removeItem(URLS_STORAGE)
+      } 
+      if(this.saveUrlSessionStorage(websiteUrl)){
+        break
+      }
+    }
+    return {title, websiteUrl}
+  }
+
   render() {
     const { contextPath, globalContent: data } = this.props
-    const {
-      recentStoryContinue: [{ basic: title = '', websiteUrl = '' }],
-    } = new StoryData({
-      data,
-      contextPath,
-    })
+    const { recentStoryContinue = [] } = new StoryData({ data, contextPath })
+    const { title, websiteUrl } = this.getNextArticle(recentStoryContinue)
     return (
       <>
         <div className={classes.storyContinue}>
