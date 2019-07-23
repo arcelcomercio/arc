@@ -49,9 +49,8 @@ class BlogRelatedPostsGrid extends PureComponent {
       customFields: { featureTitle } = {},
       globalContent: { related_posts: relatedPosts, blog } = {},
     } = this.props || {}
-    console.log(333)
     return (
-      isDesktop && (
+      /* isDesktop && */ (
         <div role="region" className={classes.bmInterestYou}>
           <h4
             className={classes.generalTitle}
@@ -84,7 +83,7 @@ class BlogRelatedPostsGrid extends PureComponent {
 }
 
 BlogRelatedPostsGrid.label = 'Blog - Te puede interesar'
-// BlogRelatedPostsGrid.static = true
+BlogRelatedPostsGrid.static = true
 
 BlogRelatedPostsGrid.propTypes = {
   customFields: PropTypes.shape({
