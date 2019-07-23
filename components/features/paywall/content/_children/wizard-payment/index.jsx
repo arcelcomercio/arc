@@ -182,17 +182,19 @@ function WizardPayment(props) {
                 })
                 .then(token => {
                   const { paymentMethodID } = payUPaymentMethod
-                  return sales
-                    .finalizePayment(orderNumber, paymentMethodID, token)
-                    .then(res => {
-                      // Mezclamos valores del formulario con el payload de respuesta
-                      const mergedValues = Object.assign({}, res, values)
-                      onBeforeNextStep(mergedValues, props)
-                    })
+                  return sales.finalizePayment(
+                    orderNumber,
+                    paymentMethodID,
+                    token
+                  )
                 })
             )
           }
         )
+    }).then(res => {
+      // Mezclamos valores del formulario con el payload de respuesta
+      const mergedValues = Object.assign({}, res, values)
+      onBeforeNextStep(mergedValues, props)
     })
   }
 
