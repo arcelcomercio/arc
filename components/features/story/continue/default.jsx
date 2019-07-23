@@ -4,14 +4,14 @@ import StoryData from '../../../utilities/story-data'
 
 const classes = {
   storyContinue: 'story-continue position-relative',
-  homeLoad: 'story-continue__home-load position-absolute',
-  homeLoadLink: 'story-continue__home-load-link',
-  homeLoadImage: 'story-continue__home-load-image position-absolute ',
-  homeCircle: 'story-continue__circlePercent position-relative',
-  homecounter: 'story-continue__counter position-absolute',
-  homeProgres: 'story-continue__progress',
-  homeProgresEnd: 'story-continue__progressEnd',
-  homeLoadNews: 'story-continue__home-load-news position-absolute',
+  storyLoad: 'story-continue__story-load position-absolute',
+  storyLoadLink: 'story-continue__story-load-link',
+  storyLoadImage: 'story-continue__story-load-image position-absolute ',
+  storyCircle: 'story-continue__circlePercent position-relative',
+  storycounter: 'story-continue__counter position-absolute',
+  storyProgres: 'story-continue__progress',
+  storyProgresEnd: 'story-continue__progressEnd',
+  storyLoadNews: 'story-continue__story-load-news position-absolute',
 }
 
 @Consumer
@@ -23,9 +23,9 @@ class StoryContinue extends PureComponent {
 
   setScrollLoaderPage = () => {
     const max = 350
-    const el = document.querySelector(`.story-continue__home-load`)
+    const el = document.querySelector(`.story-continue__story-load`)
     const progress = el.querySelector(`.story-continue__progress`)
-    const linker = el.querySelector(`.story-continue__home-load-link`)
+    const linker = el.querySelector(`.story-continue__story-load-link`)
     const html = document.documentElement
 
     if (window.innerHeight + window.scrollY >= html.scrollHeight) {
@@ -119,8 +119,8 @@ class StoryContinue extends PureComponent {
 
   setInitialLoaderPage = () => {
     const min = 180
-    const el = document.querySelector(`.${classes.homeLoad}`)
-    const progress = el.querySelector(`.${classes.homeProgres}`)
+    const el = document.querySelector(`.${classes.storyLoad}`)
+    const progress = el.querySelector(`.${classes.storyProgres}`)
     el.setAttribute('data-state', 'outviewport')
     progress.setAttribute('style', `transform: rotate(${min}deg)`)
     progress.setAttribute('size', min)
@@ -137,15 +137,15 @@ class StoryContinue extends PureComponent {
     return (
       <>
         <div className={classes.storyContinue}>
-          <div className={classes.homeLoad} data-state="outviewport">
-            <a href={websiteUrl} className={classes.homeLoadLink}>
-              <span className={classes.homeLoadImage} />
-              <div className={classes.homeCircle}>
-                <div className={classes.homecounter}> </div>
-                <div className={classes.homeProgres} size="180" />
-                <div className={classes.homeProgresEnd} />
+          <div className={classes.storyLoad} data-state="outviewport">
+            <a href={websiteUrl} className={classes.storyLoadLink}>
+              <span className={classes.storyLoadImage} />
+              <div className={classes.storyCircle}>
+                <div className={classes.storycounter}> </div>
+                <div className={classes.storyProgres} size="180" />
+                <div className={classes.storyProgresEnd} />
               </div>
-              <div className={classes.homeLoadNews}>
+              <div className={classes.storyLoadNews}>
                 Cargando siguiente
                 <strong>{title}</strong>
               </div>

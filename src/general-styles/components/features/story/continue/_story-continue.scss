@@ -1,11 +1,11 @@
 .story-continue {
-  &__home-load-link {
+  &__story-load-link {
     display: block;
     margin-bottom: 30px;
   }
-  &__home-load {
+  &__story-load {
   }
-  &__home-load-image {
+  &__story-load-image {
     background-image: url(https://assets.gestion.pe/img/ges_badge2.png);
     width: 32px;
     height: 36px;
@@ -30,7 +30,7 @@
     height: 100px;
     border-radius: 50px 0 0 50px;
   }
-  &__home-load-news {
+  &__story-load-news {
     width: 300px;
     left: 120px;
     top: 27px;
