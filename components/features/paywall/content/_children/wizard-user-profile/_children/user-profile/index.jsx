@@ -72,13 +72,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => (
       { documentNumber: null, documentType: 'DNI' },
       profile
     )}
-    validate={values => {
-      const erros = RegisterSchema(values)
-
-      if (Object.keys(erros).length > 0) {
-        return erros
-      }
-    }}
+    validate={values => RegisterSchema(values)}
     onSubmit={(values, actions) => {
       // TODO: Crear un servicio desde el que se pueda obtener billing address
       onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)

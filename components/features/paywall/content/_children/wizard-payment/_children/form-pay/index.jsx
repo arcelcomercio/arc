@@ -63,12 +63,7 @@ const FormSchema = schema({
 
 const FormPay = ({ onSubmit, onReset }) => (
   <Formik
-    validate={values => {
-      const errors = new FormSchema(values)
-      if (Object.keys(errors).length > 0) {
-        return errors
-      }
-    }}
+    validate={values => new FormSchema(values)}
     onReset={onReset}
     onSubmit={(values, actions) => {
       onSubmit(values, actions)
