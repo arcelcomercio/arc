@@ -15,8 +15,13 @@ const resolve = (key = {}) => {
       'Esta fuente de contenido requiere de un Slug y un sitio web'
     )
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const { _id: slug } = key
-  const requestUri = `/site/v3/website/${website}/section?_id=${slug}`
+  const { _id: slug = '' } = key
+
+  const requestUri =
+    slug === '' || slug === null
+      ? `/site/v3/website/${website}/section`
+      : `/site/v3/website/${website}/section?_id=${slug}`
+
   return requestUri
 }
 
