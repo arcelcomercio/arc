@@ -37,13 +37,14 @@ class CardTabloid extends PureComponent {
           section,
           stories_qty: 1,
         },
-        filter: schemaFilter(arcSite),
+        filter: schemaFilter,
       },
     })
   }
 
   render() {
     const {
+      siteProperties: { linkTabloide = '' },
       deployment,
       contextPath,
       arcSite,
@@ -52,11 +53,11 @@ class CardTabloid extends PureComponent {
     } = this.props
     const { data: { content_elements: contentElements = [] } = {} } = this.state
     const {
-      multimedia = '',
+      multimediaPortraitMD,
       title = '',
-      date = '',
-      section = '',
-      link = '',
+      displayDate = '',
+      primarySection = '',
+      primarySectionLink = '',
     } = new StoryData({
       data: contentElements[0],
       deployment,
@@ -65,34 +66,37 @@ class CardTabloid extends PureComponent {
       defaultImgSize: 'sm',
     })
 
-    const nameDate = getLatinDate(date, ' del', true)
-
+    const nameDate = getLatinDate(displayDate, ' del', true)
     return (
       <div className={classes.tabloid}>
         <div className={classes.header}>
           <h4>
             <a
               className={classes.headerLink}
-              href={link}
+              href={primarySectionLink}
               {...editableField('sectionName')}
               suppressContentEditableWarning>
-              {sectionName || formatSlugToText(section)}
+              {sectionName || formatSlugToText(primarySection)}
             </a>
           </h4>
         </div>
         <div className={classes.body}>
           <picture>
-            <a href={link}>
+            <a href={linkTabloide} target="_blank" rel="noopener noreferrer">
               <img
                 className={classes.face}
-                src={multimedia}
+                src={multimediaPortraitMD}
                 alt={title}
                 loading="lazy"
               />
             </a>
           </picture>
           <h3 className={classes.date}>
-            <a className={classes.dateLink} href={link}>
+            <a
+              className={classes.dateLink}
+              href={linkTabloide}
+              target="_blank"
+              rel="noopener noreferrer">
               {nameDate}
             </a>
           </h3>

@@ -14,6 +14,7 @@ const infoPages = {
   arcoProcedure: 'Derechos ARCO',
   cookiesPolicy: 'Políticas de cookies',
   aboutUs: 'Quienes Somos',
+  frequentQuestions: 'Preguntas frecuentes',
 }
 const DEFAULT_POLICY = 'termsAndConditions'
 const CONTENT_SOURCE = 'story-by-id'

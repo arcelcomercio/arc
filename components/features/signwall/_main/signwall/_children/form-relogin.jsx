@@ -414,7 +414,7 @@ class FormReLogin extends Component {
                     </label>
 
                     {formErrors.password.length > 0 && (
-                      <span className="error-message">
+                      <span className="message__error">
                         {formErrors.password}
                       </span>
                     )}
@@ -464,7 +464,7 @@ class FormReLogin extends Component {
               </div>
 
               <div className="form-grid__group">
-                <p className="form-grid__link text-center pt-40">
+                <p className="form-grid__link text-center text-sm pt-40 pb-20">
                   ¿Aún no tienes una cuenta?
                   <button
                     type="button"

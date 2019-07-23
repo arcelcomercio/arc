@@ -82,9 +82,12 @@
         width: 24px;
         line-height: 24px;
         left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
       }
       .text-user {
-        font-size: 10px;
+        font-size: 11px;
+        letter-spacing: 1px;
       }
     }
   }

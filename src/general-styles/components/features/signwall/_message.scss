@@ -4,11 +4,21 @@
       margin: 0px;
       font-size: 12px;
       font-weight: bold;
-      text-align: right;
       transition: all 0.5s ease-in-out;
-      position: absolute;
-      right: 0px;
-      top: 5px;
+      width: 50%;
+      text-align: right;
+
+      @media (--tablet) {
+        position: absolute;
+        right: 0px;
+        top: 5px;
+      }
+      @media (--desktop) {
+        position: absolute;
+        right: 0px;
+        top: 5px;
+      }
+
       &--success {
         color: #03d213;
         display: none;

@@ -23,7 +23,7 @@ const classes = {
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
-  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden`,
+  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden lg:inline-block`,
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10 lg:pl-10 border-r-1 border-solid`,
   searchContainer:
     'nav__search-box hidden lg:flex items-center border-r-1 border-solid',
@@ -37,7 +37,7 @@ const classes = {
   listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
   logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
-  navMobileContainer: 'nav__mobile-container hidden',
+  navMobileContainer: 'nav__mobile-container lg:hidden',
   btnContainer: 'flex items-center justify-end header__btn-container', // agregar hidden ocultar signwall
   hidden: 'hidden',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
@@ -45,7 +45,11 @@ const classes = {
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
+<<<<<<< HEAD
   navLoader: 'nav__loader-bar position-absolute',
+=======
+  iconSignwallMobile: 'rounded uppercase bg-primary',
+>>>>>>> d173da5344b1f1b1635f00c1cc7a67a87f0ea6fe
 }
 
 const activeSignwall = ['elcomercio', 'gestion']
@@ -80,6 +84,8 @@ class NavBarDefault extends PureComponent {
   }
 
   componentDidMount() {
+    const { arcSite } = this.props
+
     window.addEventListener('scroll', this._handleScroll)
     this.listContainer = document.querySelector('.nav-sidebar')
     this.layerBackground = document.querySelector('.layer')
@@ -98,6 +104,51 @@ class NavBarDefault extends PureComponent {
     if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
       this.layerBackground.addEventListener('click', this._closeMenu)
     }
+
+    // ----------------------- Start Active Rules Paywall ----------------------- //
+
+    if (arcSite === 'gestion') {
+      window.ArcP.run({
+        // paywallFunction: campaignURL => console.log('Paywall!', campaignURL),
+        paywallFunction: campaignURL => {
+          window.location.href = campaignURL
+        },
+        // customPageData: () => ({
+        //   c: 'story',
+        //   s: 'business',
+        //   ci: 'https://www.your.domain.com/canonical/url'
+        // })
+        userName: window.Identity.userIdentity.uuid
+          ? window.Identity.userIdentity.uuid
+          : null,
+        customSubCheck() {
+          // estado de suscripcion
+          return Promise.resolve({
+            s: false,
+            timeTaken: 100,
+            updated: Date.now(),
+          })
+        },
+        customRegCheck() {
+          // estado de registro
+          const start = Date.now()
+          const isLoggedIn = !!(
+            window.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+            window.localStorage.getItem('ArcId.USER_PROFILE')
+          )
+          return Promise.resolve({
+            l: isLoggedIn,
+            timeTaken: Date.now() - start,
+          })
+        },
+      })
+        .then(results =>
+          console.log('Results from running paywall script: ', results)
+        )
+        .catch(() => console.error())
+    }
+
+    // ----------------------- End Active Rules Paywall ----------------------- //
   }
 
   componentDidUpdate() {
@@ -471,6 +522,11 @@ class NavBarDefault extends PureComponent {
                 />
                 <button
                   type="button"
+                  id={
+                    this.checkSession()
+                      ? 'web_link_ingresaperfil'
+                      : 'web_link_ingresacuenta'
+                  }
                   className={`${classes.btnLogin} ${
                     classes.btnSignwall
                   } btn--outline`}
@@ -478,14 +534,14 @@ class NavBarDefault extends PureComponent {
                   <i
                     className={
                       initialUser
-                        ? `${classes.iconSignwall} text-user text-xs`
+                        ? `${classes.iconSignwall} text-user`
                         : `${classes.iconLogin} ${
                             classes.iconSignwall
                           } icon-user`
                     }>
                     {initialUser}
                   </i>
-                  <span className="capitalize">
+                  <span className="capitalize text-sm">
                     {this.checkSession() ? nameUser : 'Iniciar Sesión'}
                   </span>
                 </button>
@@ -498,11 +554,24 @@ class NavBarDefault extends PureComponent {
                 classes.hidden}`}>
               <button
                 type="button"
+                id={
+                  this.checkSession()
+                    ? 'web_link_ingresaperfil'
+                    : 'web_link_ingresacuenta'
+                }
                 className={`${
                   classes.btnLogin
                 } border-1 border-solid border-white`}
                 onClick={() => this.setState({ isActive: true })}>
-                <i className={classes.iconLogin} />
+                {/* <i className={classes.iconLogin} /> */}
+                <i
+                  className={
+                    initialUser
+                      ? `${classes.iconSignwallMobile}`
+                      : `${classes.iconLogin} ${classes.iconSignwallMobile}`
+                  }>
+                  {initialUser}
+                </i>
               </button>
             </div>
           </div>

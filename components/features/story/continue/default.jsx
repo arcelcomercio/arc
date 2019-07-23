@@ -81,7 +81,7 @@ class StoryContinue extends PureComponent {
     setTimeout(() => {
       const link = linker.getAttribute('href')
       if (link !== '') {
-        /* window.location = link */
+        window.location = link
       }
     }, 500)
   }

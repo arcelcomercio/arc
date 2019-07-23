@@ -6,11 +6,14 @@ const classes = {
   newsEmbed: 'story-content__embed',
 }
 
-const StoryContentChildImage = ({ data }) => {
+const StoryContentChildImage = ({ data, caption }) => {
   return (
     <>
       {data.includes('id="powa-') ? (
-        <Video data={data} />
+        <Video
+          data={data.replace('data-mp4="', 'data-stream="')}
+          description={caption}
+        />
       ) : (
         <RawHtml content={data} className={classes.newsEmbed} />
       )}
