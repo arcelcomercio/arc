@@ -12,6 +12,7 @@ const Paywall = props => {
     siteProperties,
     deployment,
   } = props
+
   const { colorPrimary, siteName, assets } = siteProperties
 
   return (

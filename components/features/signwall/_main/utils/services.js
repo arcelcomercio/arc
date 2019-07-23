@@ -1,9 +1,10 @@
 /* eslint-disable class-methods-use-this */
+import ENV from 'fusion:environment'
 import getDevice from './get-device'
 
-const REACT_APP_ORIGIN_ECOID = 'https://pre.ecoid.pe'
-const REACT_APP_ORIGIN_API = 'https://api-sandbox.elcomercio.pe'
-// TODO Validar lo del pais
+const ORIGIN_ECOID =
+  ENV.ENVIRONMENT === 'elcomercio' ? 'https://ecoid.pe' : 'https://pre.ecoid.pe'
+
 export default class Services {
   reloginEcoID(username, password, action, window) {
     const details = {
@@ -27,7 +28,7 @@ export default class Services {
     }
     formBody = formBody.join('&')
     const response = new Promise(resolve => {
-      fetch(`${REACT_APP_ORIGIN_ECOID}/api/v2/verify_credentials`, {
+      fetch(`${ORIGIN_ECOID}/api/v2/verify_credentials`, {
         method: 'POST',
         body: formBody,
         headers: {
@@ -38,9 +39,9 @@ export default class Services {
     return response
   }
 
-  loginFBeco(username, accessToken, type) {
+  loginFBeco(URL, username, accessToken, type) {
     const response = new Promise(resolve => {
-      fetch(`${REACT_APP_ORIGIN_API}/identity/public/v1/auth/token`, {
+      fetch(`${URL}/identity/public/v1/auth/token`, {
         method: 'POST',
         body: JSON.stringify({
           userName: username,
@@ -51,29 +52,16 @@ export default class Services {
           'Content-Type': 'application/json',
         },
       }).then(res => resolve(res.json()))
-    });
-    return response;
+    })
+    return response
   }
 
   getUbigeo(item) {
     const response = new Promise(resolve => {
       fetch(
-        `${REACT_APP_ORIGIN_ECOID}/get_ubigeo/${item}?v=${new Date().getTime()}`
+        `${ORIGIN_ECOID}/get_ubigeo/${item}?v=${new Date().getTime()}`
       ).then(res => resolve(res.json()))
     })
     return response
-  }
-
-  fetch(url, options) {
-    const headers = {
-      'Content-Type': 'application/json',
-    }
-
-    return fetch(url, {
-      headers,
-      ...options,
-    })
-      .then(response => response.json())
-      .catch(err => err)
   }
 }

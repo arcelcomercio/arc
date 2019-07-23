@@ -5,7 +5,7 @@ const classes = {
   info: 'footer__info p-20  bg-primary position-relative',
   sections: 'footer__sections  bg-primary position-relative md:pt-20 pb-20',
   contact: 'footer__contact  bg-primary md:pt-20 pb-20 hidden md:block',
-  sites: 'footer__sites flex flex-col p-20 bg-gray-100 hidden md:block',
+  sites: 'footer__sites flex flex-col p-20 hidden md:block',
   sitesList: 'footer__sites-list flex flex-wrap w-full p-0',
   sitesItem: `footer__sites-item mb-5 pr-10 text-sm line-h-xs uppercase flex items-center`,
   sitesItemTitle: 'text-sm text-gray-300 line-h-xs uppercase mb-10 font-bold',
@@ -103,9 +103,7 @@ const StandardFooter = props => {
           {contacts.map(el => (
             <li className={classes.listItem} key={el.name}>
               <span
-                className={`${classes.listLinkTitle} ${
-                  classes.contactPosition
-                }`}>
+                className={`${classes.listLinkTitle} ${classes.contactPosition}`}>
                 {el.position}:
               </span>
               <span

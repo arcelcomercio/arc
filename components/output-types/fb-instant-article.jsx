@@ -19,6 +19,7 @@ const FbInstantOutputType = ({
     idGoogleAnalitics = '',
     fbArticleStyle = '',
     urlAddfbInstantArticle = '',
+    listUrlAdvertisings=[]
   } = siteProperties
 
   const stories = contentElements
@@ -46,6 +47,7 @@ const FbInstantOutputType = ({
     idGoogleAnalitics,
     fbArticleStyle,
     urlAddfbInstantArticle,
+    listUrlAdvertisings,
   }
 
   let chanelSctring = Channel(chanelProps)

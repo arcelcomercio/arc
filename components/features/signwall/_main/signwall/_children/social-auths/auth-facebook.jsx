@@ -1,14 +1,17 @@
 import React from 'react'
+import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import { sha256 } from 'js-sha256'
 import { Facebook } from '../../../common/iconos'
-// import GetProfile from '../../../utils/get-profile'
 import Cookie from '../../../utils/cookie'
 import getDevice from '../../../utils/get-device'
 import Services from '../../../utils/services'
 
 const Cookies = new Cookie()
 const services = new Services()
+
+const ORIGIN_ECOID =
+  ENV.ENVIRONMENT === 'elcomercio' ? 'https://ecoid.pe' : 'https://pre.ecoid.pe'
 
 @Consumer
 class AuthFacebook extends React.Component {
@@ -18,26 +21,22 @@ class AuthFacebook extends React.Component {
       loadedFB: true,
       sendingFbText: 'Facebook',
     }
+    const { arcSite } = this.props
+    this.origin_api =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
 
     const { typePopUp = '', typeForm = '' } = props
     this.tipCat = typePopUp
     this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
     this.tipForm = typeForm
-    // log(this.tipCat, this.tipAct, this.tipForm);
 
     window.removeEventListener('message', this.OAuthFacebook)
     window.removeEventListener('onmessage', this.OAuthFacebook)
   }
 
   componentDidMount = () => {
-    const {
-      siteProperties: { signwall: { ORIGIN_API } = {} } = {},
-    } = this.props
-
-    if (window.Identity && window.Identity.apiOrigin === '') {
-      window.Identity.apiOrigin = ORIGIN_API
-    }
-
     const eventMethod = window.addEventListener
       ? 'addEventListener'
       : 'attachEvent'
@@ -52,10 +51,6 @@ class AuthFacebook extends React.Component {
   }
 
   clickLoginFacebookEcoID = () => {
-    const {
-      siteProperties: { signwall: { ORIGIN_ECOID } = {} } = {},
-    } = this.props
-
     const width = 780
     const height = 640
     const left = window.screen.width / 2 - 800 / 2
@@ -71,10 +66,6 @@ class AuthFacebook extends React.Component {
   }
 
   OAuthFacebook = data => {
-    const {
-      siteProperties: { signwall: { ORIGIN_API, ORIGIN_ECOID } = {} } = {},
-    } = this.props
-
     if (data.origin !== ORIGIN_ECOID) {
       return
     }
@@ -83,12 +74,10 @@ class AuthFacebook extends React.Component {
       sendingFbText: 'Cargando...',
     })
 
-    if (window.Identity && window.Identity.apiOrigin === '') {
-      window.Identity.apiOrigin = ORIGIN_API
-    }
+    window.Identity.apiOrigin = this.origin_api
 
     services
-      .loginFBeco('', data.data.accessToken, 'facebook')
+      .loginFBeco(this.origin_api, '', data.data.accessToken, 'facebook')
       .then(resLoginFb => {
         if (resLoginFb.accessToken) {
           this.setState({
@@ -285,11 +274,6 @@ class AuthFacebook extends React.Component {
   enterProfilePanel = () => {
     const { closePopup } = this.props
     Cookies.deleteCookie('mpp_sess') // borra session MPP
-    // setTimeout(() => {
-    //   window.sessUser.setState({ accessPanel: true });
-    //   window.nameUser.setState({ nameUser: new GetProfile().username });
-    //   window.initialUser.setState({ initialUser: new GetProfile().initname,});
-    // }, 500);
     closePopup()
   }
 }

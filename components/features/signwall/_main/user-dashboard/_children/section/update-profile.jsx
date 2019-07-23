@@ -210,15 +210,6 @@ class UpdateProfile extends Component {
           })
         }, 5000)
 
-        // setTimeout(() => {
-        //   window.nameUser.setState({
-        //     nameUser: new GetProfile().username,
-        //   })
-        //   window.initialUser.setState({
-        //     initialUser: new GetProfile().initname,
-        //   })
-        // }, 500)
-
         const modalConfirmPass = document.querySelector('#arc-popup-profile')
         if (modalConfirmPass) {
           modalConfirmPass.scrollIntoView()

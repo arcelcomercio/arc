@@ -4,52 +4,51 @@ import Bullet from '../bullet-point'
 import Icon from '../../../_children/icon'
 import * as S from './styled'
 
-const Summary = ({ summary }) => {
+const frequency = {
+  Month: '/ AL MES',
+  Year: '/ AL AÑO',
+}
+
+const Summary = ({ summary, amount, description = '', billingFrequency }) => {
+
   return (
     <Panel type="summary">
       <S.Summary>
         <Footer {...summary} />
-        <Content />
+        <Content
+          amount={amount}
+          description={description}
+          billingFrequency={billingFrequency}
+        />
       </S.Summary>
     </Panel>
   )
 }
 
-const offers = [
-  {
-    name: 'Precio del plan',
-    price: 'S/ 10.00',
-    discount: false,
-  },
-  {
-    name: 'Descuento de suscriptor',
-    price: '- S/ 15.00',
-    discount: true,
-  },
-]
-
-const Content = () => {
+const Content = ({ amount = 0, description, billingFrequency }) => {
   return (
     <div>
       <S.Content>
-        {offers.map(({ name, price, discount }) => (
-          <S.Expand key={name} discount={discount}>
-            <span>{name}</span>
-            <strong>
-              <span>{price}</span>
-            </strong>
-          </S.Expand>
-        ))}
+        <S.Expand>
+          <span>Precio del plan</span>
+          <strong>
+            <span> S/. {amount}</span>
+          </strong>
+        </S.Expand>
         <S.Expand size={18}>
           <strong>
             <span>TOTAL</span>
           </strong>
           <strong>
-            <span>
-              <span style={{ fontSize: '14px' }}>S/.</span> 29.00
-            </span>
+            <S.Amount>
+              <div>
+                <span style={{ fontSize: '14px' }}>S/.</span> {amount}
+              </div>
+              <S.Frequency>{frequency[billingFrequency]}</S.Frequency>
+            </S.Amount>
           </strong>
         </S.Expand>
+        <S.Description>{description.description}</S.Description>
       </S.Content>
     </div>
   )
