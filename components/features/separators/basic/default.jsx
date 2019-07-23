@@ -4,7 +4,6 @@ import React, { PureComponent } from 'react'
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import SeparatorList from './_children/separator'
-import { getStoriesQty } from '../_dependencies/functions'
 import StoryData from '../../../utilities/story-data'
 
 const STORIES_QTY_DEFAULT = 4
