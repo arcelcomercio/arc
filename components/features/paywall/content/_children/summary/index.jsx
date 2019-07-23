@@ -10,7 +10,6 @@ const frequency = {
 }
 
 const Summary = ({ summary, amount, description = '', billingFrequency }) => {
-  console.log(billingFrequency)
 
   return (
     <Panel type="summary">
