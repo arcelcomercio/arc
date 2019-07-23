@@ -21,7 +21,7 @@ const StoryContentChildVideo = ({ data }) => {
     })
     .filter(String)
 
-  const [{ url, urlImage }] = dataVideo
+  const [{ url, urlImage } = {}] = dataVideo
   return (
     <>
       <amp-video

@@ -25,13 +25,19 @@ const WrapLogin = styled.div`
   color: #fff;
   align-items: center;
   display: flex;
+  max-width: 300px;
+  width: 100%;
+  justify-content: center;
   @media (${devices.mobile}) {
     max-width: 40%;
   }
 `
 
 const Username = styled.span`
-  padding-left: 45px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 10px;
 `
 
 const Background = styled.div`
@@ -55,6 +61,13 @@ const Img = styled.img`
   @media (${devices.mobile}) {
     max-height: 26px;
   }
+`
+
+export const WrapIcon = styled.span`
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export {

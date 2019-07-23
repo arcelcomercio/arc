@@ -8,5 +8,18 @@ import amex from './amex'
 import diners from './diners'
 import lock from './lock'
 import arrowRight from './arrow-right'
+import profile from './profile'
 
-export { check, devices, loading, mundog, visa, mcard, amex, diners, lock, arrowRight }
+export {
+  check,
+  devices,
+  loading,
+  mundog,
+  visa,
+  mcard,
+  amex,
+  diners,
+  lock,
+  arrowRight,
+  profile,
+}

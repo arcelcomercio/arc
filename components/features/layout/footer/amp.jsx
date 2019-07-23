@@ -15,11 +15,6 @@ const classes = {
 
 @Consumer
 class LayoutAmpFooter extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   render() {
     const {
       contextPath,
@@ -86,4 +81,5 @@ class LayoutAmpFooter extends PureComponent {
 }
 
 LayoutAmpFooter.label = 'Pie de Página'
+
 export default LayoutAmpFooter

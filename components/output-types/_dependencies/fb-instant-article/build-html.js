@@ -1,5 +1,3 @@
-import ListAdvertisings from './list-advertising'
-
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 
 const buildIframeAdvertising = (urlAdvertising) => {
@@ -72,7 +70,7 @@ const BuildHtml = BuildHtmlProps => {
     paragraphsNews = [],
     author = '',
     fbArticleStyle = '',
-    
+    listUrlAdvertisings,
   } = BuildHtmlProps
 
   const numwords = 250
@@ -80,7 +78,7 @@ const BuildHtml = BuildHtmlProps => {
   const paramsBuildParagraph = {
     paragraphsNews,
     numwords,
-    arrayadvertising: ListAdvertisings(),
+    arrayadvertising: listUrlAdvertisings
     
   }
 
