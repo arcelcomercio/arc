@@ -67,7 +67,11 @@ const FormStyled = S.Form(Form)
 
 const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => (
   <Formik
-    initialValues={Object.assign({}, { documentNumber: null }, profile)}
+    initialValues={Object.assign(
+      {},
+      { documentNumber: null, documentType: 'DNI' },
+      profile
+    )}
     validate={values => {
       const erros = RegisterSchema(values)
 

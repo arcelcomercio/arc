@@ -1,3 +1,25 @@
+const cardPatterns = {
+  VISA: /^(4)(\d{12}|\d{15})$|^(606374\d{10}$)/,
+  MASTERCARD: /^(5[1-5]\d{14}$)|^(2(?:2(?:2[1-9]|[3-9]\d)|[3-6]\d\d|7(?:[01]\d|20))\d{12}$)/,
+  AMEX: /^3[47][0-9]{13}$/,
+  DINERS: /(^[35](?:0[0-5]|[268][0-9])[0-9]{11}$)|(^30[0-5]{11}$)|(^3095(\d{10})$)|(^36{12}$)|(^3[89](\d{12})$)/,
+  NARANJA: /^(589562)\d{10}$/,
+  SHOPPING: /(^603488(\d{10})$)|(^2799(\d{9})$)/,
+  CABAL: /(^604(([23][0-9][0-9])|(400))(\d{10})$)|(^589657(\d{10})$)/,
+  ARGENCARD: /^(501105|532362)(\d{10}$)/,
+  CENCOSUD: /^603493(\d{10})$/,
+  HIPERCARD: /^(384100|384140|384160|606282)(\d{10}|\d{13})$/,
+  CODENSA: /^590712(\d{10})$/,
+  ELO: /(^(636368|438935|504175|451416|636297|650901|650485|650541|650700|650720|650720|650720|655021|650405)\d{10})$|(^(5090|5067|4576|4011)\d{12})$|(^(50904|50905|50906)\d{11})$/,
+}
+
+const cvvPatterns = {
+  VISA: /^\d{3}$/,
+  MASTERCARD: /^\d{3}$/,
+  AMEX: /^\d{3,4}$/,
+  DINERS: /^\d{3}$/,
+}
+
 function shape(value) {
   return {
     value: value ? value.toString() : value,
@@ -27,6 +49,23 @@ function shape(value) {
       if (!this.value) throw message
       return this
     },
+    creditCardNumber(cardType, message) {
+      if (cardType) {
+        const v = this.value.replace(/\D/g, '')
+        const match = cardPatterns[cardType.toUpperCase()].test(v)
+        if (!match) {
+          throw message
+        }
+      }
+      return this
+    },
+    creditCardCvv(cardType, message) {
+      const match = cvvPatterns[cardType.toUpperCase()].test(this.value)
+      if (!match) {
+        throw message
+      }
+      return this
+    },
   }
 }
 
@@ -39,7 +78,8 @@ function struct(schema) {
       }
       try {
         const s = schema[name]
-        s(shape(data[name]))
+        const { [name]: value, ...values } = data
+        s(shape(value), values)
       } catch (err) {
         errors[name] = err
       }
