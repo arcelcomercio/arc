@@ -16,7 +16,7 @@ const classes = {
   storyLoadNews: 'story-continue__story-load-news pl-30',
   storyLoadText: 'story-continue__story-load-text block text-gray-200',
   storyLoadTitle:
-    'story-continue__story-load-title font-bold text-gray-200 overflow-hidden',
+    'story-continue__story-load-title font-bold text-gray-300 overflow-hidden',
 }
 
 const URLS_STORAGE = '_recents_articles_'
@@ -131,13 +131,13 @@ class StoryContinue extends PureComponent {
     progress.setAttribute('size', min)
   }
 
-  saveUrlSessionStorage = (url) => {
-    let isSaveUrl = false;
-    if (typeof(Storage) !== 'undefined') {
+  saveUrlSessionStorage = url => {
+    let isSaveUrl = false
+    if (typeof Storage !== 'undefined') {
       let arrUrls = [url]
-      if(window.sessionStorage.getItem(URLS_STORAGE)){
+      if (window.sessionStorage.getItem(URLS_STORAGE)) {
         arrUrls = JSON.parse(window.sessionStorage.getItem(URLS_STORAGE))
-        if(arrUrls.indexOf(url) === -1){
+        if (arrUrls.indexOf(url) === -1) {
           arrUrls.push(url)
           isSaveUrl = true
         }
@@ -147,20 +147,20 @@ class StoryContinue extends PureComponent {
     return isSaveUrl
   }
 
-  getNextArticle = (recentStoryContinue) => {
+  getNextArticle = recentStoryContinue => {
     let title = ''
     let websiteUrl = ''
     for (let i = 0; i < recentStoryContinue.length; i++) {
-      title =  recentStoryContinue[i].basic || ''
-      websiteUrl =  recentStoryContinue[i].websiteUrl || ''
-      if (recentStoryContinue.length-1 === i){
+      title = recentStoryContinue[i].basic || ''
+      websiteUrl = recentStoryContinue[i].websiteUrl || ''
+      if (recentStoryContinue.length - 1 === i) {
         window.sessionStorage.removeItem(URLS_STORAGE)
-      } 
-      if(this.saveUrlSessionStorage(websiteUrl)){
+      }
+      if (this.saveUrlSessionStorage(websiteUrl)) {
         break
       }
     }
-    return {title, websiteUrl}
+    return { title, websiteUrl }
   }
 
   render() {
