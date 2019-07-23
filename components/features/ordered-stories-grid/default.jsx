@@ -52,14 +52,17 @@ class OrderedStoriesGrid extends PureComponent {
             url: dataStory.link,
           },
           category: {
-            name: dataStory.section,
-            url: dataStory.sectionLink,
+            name: dataStory.primarySection,
+            url: dataStory.primarySectionLink,
           },
           author: {
             name: dataStory.author,
             url: dataStory.authorLink,
           },
-          image: dataStory.multimedia,
+          multimediaLandscapeL: dataStory.multimediaLandscapeL,
+          multimediaLandscapeMD: dataStory.multimediaLandscapeMD,
+          multimediaPortraitMD: dataStory.multimediaPortraitMD,
+          multimediaSquareS: dataStory.multimediaSquareS,
           imageSize: 'complete',
           headband: 'normal',
           size: element.col === 1 ? 'oneCol' : 'twoCol',
@@ -125,5 +128,6 @@ OrderedStoriesGrid.propTypes = {
 }
 
 OrderedStoriesGrid.label = 'Grilla de Historias Ordenadas'
+OrderedStoriesGrid.static = true
 
 export default OrderedStoriesGrid

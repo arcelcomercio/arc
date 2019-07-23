@@ -16,7 +16,6 @@ const StoriesListsCardChildItem = ({
   urlNews,
   multimedia,
   multimediaType,
-  rawDate,
 }) => {
   return (
     <article role="listitem" className={classes.story}>
@@ -31,12 +30,7 @@ const StoriesListsCardChildItem = ({
       <div className={classes.linkBox}>
         <a href={urlNews}>
           <h3 className={classes.link}>
-            {seeHour && (
-              <time dateTime={rawDate} className={classes.time}>
-                {time}
-              </time>
-            )}{' '}
-            {title}
+            {seeHour && <time className={classes.time}>{time}</time>} {title}
           </h3>
         </a>
       </div>

@@ -414,7 +414,7 @@ class FormReLogin extends Component {
                     </label>
 
                     {formErrors.password.length > 0 && (
-                      <span className="error-message">
+                      <span className="message__error">
                         {formErrors.password}
                       </span>
                     )}
