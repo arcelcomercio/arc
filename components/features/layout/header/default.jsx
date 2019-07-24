@@ -1,21 +1,25 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
-// import { setDevice } from '../../../utilities/resizer'
 
 import HeaderChildSomos from './_children/somos'
 import HeaderChildStandard from './_children/standard'
 import Formatter from './_dependencies/formatter'
+
+/**
+ * TODO: Este feature que controla distintos componentes debe ser
+ * separado en distintos features, un por cada diseño, de esta manera
+ * se logra cargar sólo el código necesario para cada vista.
+ * ------
+ * Ya se separó el header/standard, hasta que se separare por completo
+ * este feature, NO ELIMINAR.
+ */
 
 const DEFAULT_HIERARCHY = 'header-default'
 @Consumer
 class LayoutHeader extends PureComponent {
   constructor(props) {
     super(props)
-    /* this.state = {
-      device: setDevice(),
-      data: {},
-    } */
     const {
       contextPath,
       arcSite,
@@ -37,7 +41,7 @@ class LayoutHeader extends PureComponent {
       customLogo,
       customLogoLink,
       tags,
-      showDate,
+      showDate
     )
     this.getNavigationSections()
   }
@@ -45,7 +49,6 @@ class LayoutHeader extends PureComponent {
   /* componentDidMount() {
     // TODO: Si googleTagManager no ejecuta, descomentar.
     // const { googleTagManagerScript } = this.props.siteProperties
-    window.addEventListener('resize', this._handleResize)
   } */
 
   getNavigationSections() {
@@ -73,34 +76,6 @@ class LayoutHeader extends PureComponent {
       },
     })
   }
-
-  /* changesResize = device => {
-    const displayChangeEvent = 'displayChange'
-    this.setState({
-      device,
-    })
-    this.dispatchEvent(displayChangeEvent, device)
-  }
-
-  _handleResize = () => {
-    const wsize = window.innerWidth
-    const mobile = 'mobile'
-    const desktop = 'desktop'
-    const tablet = 'tablet'
-
-    const { device } = this.state
-
-    // ------ Set the new state if you change from mobile to desktop
-    if (wsize >= 1024 && device !== desktop) {
-      this.changesResize(desktop)
-    } else if (wsize < 1024 && wsize >= 640 && device !== tablet) {
-      // ------ Set the new state if you change from desktop to mobile
-      this.changesResize(tablet)
-    } else if (wsize < 640 && device !== mobile) {
-      // ------ Set the new state if you change from desktop to mobile
-      this.changesResize(mobile)
-    }
-  } */
 
   renderHeader = () => {
     const { data } = this.state
@@ -169,7 +144,7 @@ LayoutHeader.propTypes = {
       defaultValue: false,
     }),
     tags: PropTypes.string.tag({
-      name: 'Etiqueta'
+      name: 'Etiqueta',
     }),
     customLogo: PropTypes.string.tag({
       name: 'Url de la imagen',

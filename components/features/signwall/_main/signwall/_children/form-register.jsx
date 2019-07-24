@@ -2,24 +2,24 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react'
+import ENV from 'fusion:environment'
+import Consumer from 'fusion:consumer'
 import { sha256 } from 'js-sha256'
 import * as Icon from '../../common/iconos'
-// import Services from '../../apis/services';
 import {
   emailRegex,
   strongRegularExp,
   mediumRegularExp,
 } from '../../utils/regex'
-// import AuthGoogle from './social-auths/auth-google'
 import AuthFacebook from './social-auths/auth-facebook'
 import getDevice from '../../utils/get-device'
 import Cookie from '../../utils/cookie'
-// import GetProfile from '../../utils/get-profile'
 import FormValid from '../../utils/form-valid'
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
 
+@Consumer
 class FormRegister extends Component {
   constructor(props) {
     super(props)
@@ -35,25 +35,37 @@ class FormRegister extends Component {
       },
       messageError: false,
       showMessage: false,
-      showMessageResetPass: false,
       sending: true,
     }
+
+    const { arcSite } = this.props
+    this.origin_api =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
+
+    const { typePopUp = '', typeForm = '' } = this.props
+    this.tipCat = typePopUp || ''
+    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
+    this.tipForm = typeForm
+    // console.log(this.tipCat, this.tipAct, this.tipForm)
+  }
+
+  componentWillMount() {
+    window.Identity.apiOrigin = this.origin_api
   }
 
   handleFormSubmit = e => {
     e.preventDefault()
-    const { typePopUp } = this.props
+
     const { checked } = this.state
 
-    const tipCat = typePopUp || ''
-    const tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-
-    const originAction = tipcat => {
+    const originAction = tipcategory => {
       const isHard = document.querySelector('#arc-popup-signwallhard')
       if (isHard) {
         return 1
       }
-      if (tipcat === 'relogemail') {
+      if (tipcategory === 'relogemail') {
         return 'reloginemail'
       }
       return 0
@@ -63,6 +75,7 @@ class FormRegister extends Component {
       this.setState({ sending: false })
       const EmailUserNew = this.usernamereg.value
 
+      window.Identity.apiOrigin = this.origin_api
       window.Identity.signUp(
         {
           userName: this.usernamereg.value,
@@ -95,7 +108,7 @@ class FormRegister extends Component {
             },
             {
               name: 'originAction',
-              value: originAction(tipCat),
+              value: originAction(this.tipCat),
               type: 'String',
             },
           ],
@@ -112,15 +125,15 @@ class FormRegister extends Component {
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
 
           // -- test de tageo success
-          if (tipCat === 'relogemail') {
+          if (this.tipCat === 'relogemail') {
             window.dataLayer.push({
               event: 'relogin_email_registro_success',
             })
           } else {
             window.dataLayer.push({
               event: 'registro_success',
-              eventCategory: `Web_Sign_Wall_${tipCat}`,
-              eventAction: `${tipAct}_registro_success_registrarme`,
+              eventCategory: `Web_Sign_Wall_${this.tipCat}`,
+              eventAction: `${this.tipAct}_registro_success_registrarme`,
               userId: window.Identity
                 ? window.Identity.userIdentity.uuid
                 : null,
@@ -155,15 +168,15 @@ class FormRegister extends Component {
           })
 
           // -- test de tageo error
-          if (tipCat === 'relogemail') {
+          if (this.tipCat === 'relogemail') {
             window.dataLayer.push({
               event: 'relogin_email_registro_error',
             })
           } else {
             window.dataLayer.push({
               event: 'registro_error',
-              eventCategory: `Web_Sign_Wall_${tipCat}`,
-              eventAction: `${tipAct}_registro_error_registrarme`,
+              eventCategory: `Web_Sign_Wall_${this.tipCat}`,
+              eventAction: `${this.tipAct}_registro_error_registrarme`,
             })
           }
           // -- test de tageo error
@@ -267,15 +280,16 @@ class FormRegister extends Component {
                 onSubmit={e => this.handleFormSubmit(e)}>
                 <div className="form-grid__back">
                   <button
-                    onClick={() => val.changeTemplate('login')}
                     type="button"
+                    id="registrar_link_volver"
+                    onClick={() => val.changeTemplate('login')}
                     className="link-back">
                     <Icon.Back />
                     <span>Volver</span>
                   </button>
                 </div>
                 <h1 className="form-grid__title-login text-center">
-                  Accede fácilmente con:{' '}
+                  Accede fácilmente con:
                 </h1>
                 <div className="form-grid__group">
                   <div className="form-grid__row form-grid__row--two">

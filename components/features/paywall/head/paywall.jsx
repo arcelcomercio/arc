@@ -3,6 +3,7 @@ import Consumer from 'fusion:consumer'
 import ENV from 'fusion:environment'
 import * as S from './styled'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
+import Icon from '../_children/icon'
 
 @Consumer
 class Head extends React.PureComponent {
@@ -32,12 +33,17 @@ class Head extends React.PureComponent {
             <S.Right></S.Right>
           </S.Background>
           <S.Content>
-            <img
+            <S.Img
               src={deployment(`${contextPath}${assets.pwAssets()}`)}
               alt="Logo el comercio"
             />
             <S.WrapLogin>
-              <S.Username>Hola {firstName}</S.Username>
+              <S.Username>
+                <span>Hola {firstName && 'Lector'}</span>
+                <S.WrapIcon>
+                  <Icon type="profile" fill="#FFF" width="30" height="30" />
+                </S.WrapIcon>
+              </S.Username>
             </S.WrapLogin>
           </S.Content>
         </S.Head>

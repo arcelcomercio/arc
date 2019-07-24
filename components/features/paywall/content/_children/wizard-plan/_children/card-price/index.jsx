@@ -7,14 +7,14 @@ function CardPrice(props) {
     plan: { amount, billingFrequency, description },
     loading,
     onClick = i => i,
-    s,
+    active: defaultActive,
   } = props
 
   const frequency = {
     month: 'Mensual',
     year: 'Anual',
   }
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(defaultActive)
 
   const onFocus = () => {
     setActive(true)
@@ -27,7 +27,6 @@ function CardPrice(props) {
   return (
     <Panel type="card-price">
       <S.CardPrice
-        active={active}
         onBlur={onBlur}
         onMouseLeave={onBlur}
         onFocus={onFocus}
@@ -42,6 +41,7 @@ function CardPrice(props) {
         </S.Content>
         <S.Footer>
           <S.Button
+            className="button-buy"
             disabled={loading}
             active={active}
             onClick={e => onClick(e, props.plan)}

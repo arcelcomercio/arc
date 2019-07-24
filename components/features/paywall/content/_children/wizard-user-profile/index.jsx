@@ -31,6 +31,8 @@ function WizardUserProfile(props) {
     nextStep,
   } = props
 
+  const { amount, description, billingFrequency } = memo
+
   const fusionContext = useFusionContext()
   const [loading, setLoading] = useState()
   const [error, setError] = useState()
@@ -86,7 +88,12 @@ function WizardUserProfile(props) {
           />
         )}
       </PanelUserProfile>
-      <Summary summary={summary} />
+      <Summary
+        amount={amount}
+        billingFrequency={billingFrequency}
+        description={description}
+        summary={summary}
+      />
     </S.WizardUserProfile>
   )
 }
