@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Formik, Form, Field } from 'formik'
 import Checkbox from '../../../checkbox'
@@ -42,7 +42,7 @@ const FormSchema = schema({
       .creditCardCvv(cardMethod, MESSAGE.WRONG_CVV)
   },
   expiryDate: value => {
-    const match = value.value.trim().match(/^(\d\d)\/(\d\d(\d\d)?)$/)
+    const match = (value.value || '').match(/^(\d\d)\/(\d\d(\d\d)?)$/)
     if (!match) throw MESSAGE.WRONG_EXPIRY_DATE
     let _m = match[1]
     let _y = match[2]
@@ -67,16 +67,21 @@ const FormSchema = schema({
 })
 
 const FormPay = ({ onSubmit, onReset }) => {
-  const [agreed, setAgreed] = useState(false)
-  const [cardMethod, setCardMethod] = useState()
   return (
     <Formik
       validate={values => new FormSchema(values)}
       onReset={onReset}
       onSubmit={(values, actions) => {
-        onSubmit(values, actions)
+        onSubmit(
+          Object.assign({}, values, {
+            cardNumber:
+              // Remover espacios en blanco del numero de tarjeta
+              values.cardNumber && values.cardNumber.replace(/\D/g, ''),
+          }),
+          actions
+        )
       }}
-      render={({ isSubmitting }) => (
+      render={({ values: { cardMethod, agreed }, isSubmitting }) => (
         <Form>
           <S.Security>
             <Icon type="lock" width="20" height="25" />
@@ -89,7 +94,6 @@ const FormPay = ({ onSubmit, onReset }) => {
             <S.Cards>
               <Field
                 component={RadioCondition}
-                onChangeTap={() => setCardMethod('visa')}
                 label={<Icon type="visa" />}
                 name="cardMethod"
                 checked={cardMethod === 'visa'}
@@ -97,7 +101,6 @@ const FormPay = ({ onSubmit, onReset }) => {
               />
               <Field
                 component={RadioCondition}
-                onChangeTap={() => setCardMethod('mastercard')}
                 label={<Icon type="mcard" />}
                 name="cardMethod"
                 checked={cardMethod === 'mastercard'}
@@ -105,7 +108,6 @@ const FormPay = ({ onSubmit, onReset }) => {
               />
               <Field
                 component={RadioCondition}
-                onChangeTap={() => setCardMethod('amex')}
                 label={<Icon type="amex" />}
                 name="cardMethod"
                 checked={cardMethod === 'amex'}
@@ -113,7 +115,6 @@ const FormPay = ({ onSubmit, onReset }) => {
               />
               <Field
                 component={RadioCondition}
-                onChangeTap={() => setCardMethod('diners')}
                 label={<Icon type="diners" />}
                 name="cardMethod"
                 checked={cardMethod === 'diners'}
@@ -155,7 +156,6 @@ const FormPay = ({ onSubmit, onReset }) => {
 
           <Field
             component={AgreementCheckbox}
-            onChangeTap={() => setAgreed(!agreed)}
             name="agreed"
             checked={agreed}
             value={agreed}
@@ -179,7 +179,7 @@ const FormPay = ({ onSubmit, onReset }) => {
           </S.Span>
 
           <S.WrapSubmit>
-            <Button type="submit" maxWidth="300px">
+            <Button disabled={isSubmitting} type="submit" maxWidth="300px">
               PAGAR
             </Button>
           </S.WrapSubmit>
