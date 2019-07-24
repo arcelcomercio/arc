@@ -9,13 +9,33 @@ const SiteMapsItem = ({ siteUrl }) => {
   )
 }
 
-const ListSiteMaps = ({ sections, siteUrl }) => {
+export const ListSiteMaps = ({ sections, siteUrl }) => {
   const list = sections.map(section => {
-    const { _id = '' } = section
-    const url = `${siteUrl}/sitemaps${_id}.xml`
-    return <SiteMapsItem siteUrl={url} />
+    const { _id = '', parent = {} } = section
+    const { default: primary } = parent
+
+    let result = null
+    if (primary === '/') {
+      const url = `${siteUrl}/sitemaps${_id}.xml`
+      result = <SiteMapsItem siteUrl={url} />
+    }
+    return result
   })
   return list
 }
 
-export default ListSiteMaps
+export const ListNewsSiteMaps = ({ sections, siteUrl }) => {
+    const list = sections.map(section => {
+      const { _id = '', parent = {} } = section
+      const { default: primary } = parent
+  
+      let result = null
+      if (primary === '/') {
+        const url = `${siteUrl}/news-sitemaps${_id}.xml`
+        result = <SiteMapsItem siteUrl={url} />
+      }
+      return result
+    })
+    return list
+  }
+
