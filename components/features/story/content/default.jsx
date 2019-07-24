@@ -126,6 +126,7 @@ class StoryContent extends PureComponent {
                     <StoryContentChildImage
                       data={element}
                       className={classes.newsImage}
+                      resizer="true"
                     />
                   )
                 }

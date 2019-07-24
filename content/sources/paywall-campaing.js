@@ -25,7 +25,7 @@ export default {
           priceCode,
           pricingStrategyId,
           campaignCode,
-          description: JSON.parse(description),
+          description: JSON.parse(description.replace(/<p>|<\/p>/g, '')),
           amount: parseInt(amount, 10),
           billingFrequency,
         }

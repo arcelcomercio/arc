@@ -124,7 +124,8 @@ class PaginationByDate extends PureComponent {
             <a
               className={classes.paginationDateLink}
               href={`${this.getURL()}${this.getLastDay()}`}>
-              Anterior
+              <span className="non-tablet non-desktop">&#60;</span>
+              <span className="non-mobile">Anterior</span>
             </a>
           </li>
           {this.dateIterator.map((el, index) => {
@@ -155,7 +156,8 @@ class PaginationByDate extends PureComponent {
               <a
                 className={classes.paginationDateLink}
                 href={`${this.getURL()}${this.getNextDay()}`}>
-                Siguiente
+                <span className="non-tablet non-desktop">&#62;</span>
+                <span className="non-mobile">Siguiente</span>
               </a>
             </li>
           )}
