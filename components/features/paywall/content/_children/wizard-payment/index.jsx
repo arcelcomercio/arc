@@ -19,6 +19,10 @@ const PanelPayment = styled(Panel)`
   }
 `
 
+const MESSAGE = {
+  PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
+}
+
 function WizardPayment(props) {
   const {
     memo,
@@ -125,6 +129,7 @@ function WizardPayment(props) {
             parameter1: publicKey,
             parameter2: accountId,
             parameter3: payuBaseUrl,
+            parameter4: deviceSessionId,
           }) => {
             const ownerName = `${firstName} ${lastName} ${secondLastName}`.trim()
             const expiryMonth = expiryDate.split('/')[0]
@@ -154,7 +159,7 @@ function WizardPayment(props) {
                       if (response.error) {
                         reject(new Error(response.error))
                       } else {
-                        resolve(response.token)
+                        resolve(`${response.token}~${deviceSessionId}`)
                       }
                     })
                   })
@@ -182,11 +187,13 @@ function WizardPayment(props) {
                 })
                 .then(token => {
                   const { paymentMethodID } = payUPaymentMethod
-                  return sales.finalizePayment(
-                    orderNumber,
-                    paymentMethodID,
-                    token
-                  )
+                  return sales
+                    .finalizePayment(orderNumber, paymentMethodID, token)
+                    .then(({ status, total }) => {
+                      if (status !== 'Paid')
+                        throw new Error(MESSAGE.PAYMENT_FAIL)
+                      return { paid: { status, total } }
+                    })
                 })
             )
           }
