@@ -16,6 +16,7 @@ export const Input = styled.input`
   line-height: 22px;
   border: 0;
   width: 100%;
+  max-width: 100%;
   ${({ transform }) =>
     css`
       text-transform: ${transform};

@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import vMask from 'vanilla-masker'
 import Divider from '../divider'
 import * as S from './styled'
 
@@ -11,8 +12,16 @@ const InputFormik = ({
   type = 'text',
   ...props
 }) => {
+  const $el = useRef()
   const { value, onBlur, ...rest } = field
   const [hasText, setHasText] = useState(!!value)
+
+  useEffect(() => {
+    vMask($el.current, '99/9999')
+    console.log({ $el })
+    return () => {}
+  })
+
   const focus = () => {
     if (!hasText) {
       setHasText('__focus')
@@ -37,6 +46,7 @@ const InputFormik = ({
       <S.Wrap hasError={hasError}>
         {prefix ? [prefix, <Divider key="divider" />] : false}
         <S.Input
+          ref={$el}
           transform={transform}
           type={type}
           defaultValue={_value}
