@@ -38,11 +38,13 @@ function shape(value) {
       return this
     },
     max(limit, message) {
-      if (this.value === null || this.value.length > limit) throw message
+      if (this.value === null || this.value.length > limit)
+        throw message.replace(/\${max}/g, limit)
       return this
     },
     min(limit, message) {
-      if (this.value === null || this.value.length < limit) throw message
+      if (this.value === null || this.value.length < limit)
+        throw message.replace(/\${min}/g, limit)
       return this
     },
     required(message) {
@@ -64,6 +66,10 @@ function shape(value) {
       if (!match) {
         throw message
       }
+      return this
+    },
+    custom(regx, message) {
+      if (!regx.test(this.value)) throw message
       return this
     },
   }

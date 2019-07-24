@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 
 const Divider = styled.div`
-  margin: 0 8px;
-  width: 1px;
-  background: #aaa;
+  border-left: 1px solid #ccc;
   height: 1em;
+  margin: 0 7px;
 `
 
 export { Divider }
