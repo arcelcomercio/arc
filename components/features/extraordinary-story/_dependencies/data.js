@@ -1,6 +1,5 @@
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
-import { ResizeImageUrl } from '../../../utilities/helpers'
 
 class Data extends StoryData {
   static GOLDFISH = 'goldfish'
@@ -52,8 +51,8 @@ class Data extends StoryData {
     return this.customFields.contentOrientation || 'left'
   }
 
-  get section() {
-    return this.customFields.section || super.section
+  get primarySection() {
+    return this.customFields.section || super.primarySection
   }
 
   get multimedia() {
@@ -69,8 +68,12 @@ class Data extends StoryData {
   }
 
   get link() {
-    const { websites = {} } = this._data || {}
-    const { website_url: url = '' } = websites[`${this.arcSite}`] || {}
+    const {
+      websites = {}
+    } = this._data || {}
+    const {
+      website_url: url = ''
+    } = websites[`${this.arcSite}`] || {}
     return url
   }
 
@@ -99,7 +102,6 @@ class Data extends StoryData {
       // Custom config values
       multimediaService,
       multimediaSource,
-      multimediaOrientation,
       // Story Data values
       multimediaType,
       videoId,
@@ -117,8 +119,6 @@ class Data extends StoryData {
     return Data.getSourceMultimedia(
       multimediaTypeFeature,
       multimediaSourceFeature,
-      super.__website,
-      multimediaOrientation
     )
   }
 
@@ -153,38 +153,6 @@ class Data extends StoryData {
       multimediaTypeFeature = multimediaType
     }
     return multimediaTypeFeature
-  }
-
-  static resizeImg(url, website, orientation = 'original') {
-    const resize = {
-      top: {
-        ratio: '9:16',
-        size: '700x300',
-      },
-      bottom: {
-        ratio: '9:16',
-        size: '700x300',
-      },
-      left: {
-        ratio: '4:3',
-        size: '500x150',
-      },
-      right: {
-        ratio: '4:3',
-        size: '500x150',
-      },
-      grid: {
-        ratio: '9:16',
-        size: '700x400',
-      },
-    }
-    const urlResize = ResizeImageUrl(
-      website,
-      url,
-      resize[orientation].ratio,
-      resize[orientation].size
-    )
-    return urlResize
   }
 }
 

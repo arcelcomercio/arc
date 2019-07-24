@@ -14,9 +14,9 @@ const schemaFilter = arcSite => `{
                     type 
                     url
                     resized_urls { 
-                        small
-                        medium
-                        large
+                        landscape_xl
+                        landscape_l
+                        square_l
                     }
                 }
             }
@@ -29,9 +29,9 @@ const schemaFilter = arcSite => `{
                     type 
                     url
                     resized_urls { 
-                        small
-                        medium
-                        large
+                        landscape_xl
+                        landscape_l
+                        square_l
                     }
                 }
             }
@@ -40,9 +40,9 @@ const schemaFilter = arcSite => `{
             type 
             url
             resized_urls { 
-                small
-                medium
-                large
+                landscape_xl
+                landscape_l
+                square_l
             }
         }
     }
@@ -53,14 +53,16 @@ const schemaFilter = arcSite => `{
             url
         }
     }
+    taxonomy {
+        primary_section { 
+            name
+            path
+        }
+    }
     website
     websites {
         ${arcSite} {
             website_url
-            website_section {
-                name
-                path
-            }
         }
     }
 }`
