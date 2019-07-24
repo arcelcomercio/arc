@@ -101,6 +101,12 @@ class NavBarDefault extends PureComponent {
     // ----------------------- Start Active Rules Paywall ----------------------- //
 
     if (arcSite === 'gestion') {
+      const dataContentType = window.document.querySelector(
+        'meta[content-type]'
+      )
+      const dataContentSection = window.document.querySelector(
+        'meta[section-id]'
+      )
       window.ArcP.run({
         // paywallFunction: campaignURL => console.log('Paywall!', campaignURL),
         paywallFunction: campaignURL => {
@@ -111,6 +117,12 @@ class NavBarDefault extends PureComponent {
         //   s: 'business',
         //   ci: 'https://www.your.domain.com/canonical/url'
         // })
+        contentType: dataContentType
+          ? dataContentType.getAttribute('data-content-type')
+          : 'none',
+        section: dataContentSection
+          ? dataContentSection.getAttribute('data-section')
+          : 'none',
         userName: window.Identity.userIdentity.uuid
           ? window.Identity.userIdentity.uuid
           : null,
