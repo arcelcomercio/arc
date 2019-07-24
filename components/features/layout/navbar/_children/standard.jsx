@@ -19,11 +19,11 @@ import {
 } from '../../../../utilities/helpers'
 
 const classes = {
-  nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font`,
+  nav: `nav text-white text-sm w-full flex flex items-center top-0 secondary-font`,
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
-  search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
-  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden lg:inline-block`,
+  search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
+  navContainerRight: `nav__container-right position-absolute hidden lg:inline-block`,
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10 lg:pl-10 border-r-1 border-solid`,
   searchContainer:
     'nav__search-box hidden lg:flex items-center border-r-1 border-solid',
@@ -38,18 +38,15 @@ const classes = {
   logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
-  btnContainer: 'flex items-center justify-end header__btn-container', // agregar hidden ocultar signwall
-  hidden: 'hidden',
+  btnContainer: 'flex items-center justify-end header__btn-container',
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
-  navLoader: 'nav__loader-bar',
+  navLoader: 'nav__loader-bar position-absolute w-full h-full top-0',
   iconSignwallMobile: 'rounded uppercase bg-primary',
 }
-
-const activeSignwall = ['elcomercio', 'gestion']
 
 @Consumer
 class NavBarDefault extends PureComponent {
@@ -509,15 +506,47 @@ class NavBarDefault extends PureComponent {
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
+              {siteProperties.activeSignwall && (
+                <div className={`${classes.btnContainer}`}>
+                  <Button
+                    btnText="Suscríbete"
+                    btnClass={`${classes.btnSubscribe} btn--outline`}
+                    btnLink="#"
+                  />
+                  <button
+                    type="button"
+                    id={
+                      this.checkSession()
+                        ? 'web_link_ingresaperfil'
+                        : 'web_link_ingresacuenta'
+                    }
+                    className={`${classes.btnLogin} ${
+                      classes.btnSignwall
+                    } btn--outline`}
+                    onClick={() => this.setState({ isActive: true })}>
+                    <i
+                      className={
+                        initialUser
+                          ? `${classes.iconSignwall} text-user`
+                          : `${classes.iconLogin} ${
+                              classes.iconSignwall
+                            } icon-user`
+                      }>
+                      {initialUser}
+                    </i>
+                    <span className="capitalize text-sm">
+                      {this.checkSession() ? nameUser : 'Iniciar Sesión'}
+                    </span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer}  ${activeSignwall.indexOf(
-                  arcSite
-                ) < 0 && classes.hidden}`}>
-                <Button
-                  btnText="Suscríbete"
-                  btnClass={`${classes.btnSubscribe} btn--outline`}
-                  btnLink="#"
-                />
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -525,53 +554,23 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  className={`${classes.btnLogin} ${
-                    classes.btnSignwall
-                  } btn--outline`}
+                  className={`${
+                    classes.btnLogin
+                  } border-1 border-solid border-white`}
                   onClick={() => this.setState({ isActive: true })}>
+                  {/* <i className={classes.iconLogin} /> */}
                   <i
                     className={
                       initialUser
-                        ? `${classes.iconSignwall} text-user`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwall
-                          } icon-user`
+                        ? `${classes.iconSignwallMobile}`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}`
                     }>
                     {initialUser}
                   </i>
-                  <span className="capitalize text-sm">
-                    {this.checkSession() ? nameUser : 'Iniciar Sesión'}
-                  </span>
                 </button>
               </div>
-            </div>
-            <div
-              className={`${classes.btnContainer} ${
-                classes.navMobileContainer
-              } ${responsiveClass} ${activeSignwall.indexOf(arcSite) < 0 &&
-                classes.hidden}`}>
-              <button
-                type="button"
-                id={
-                  this.checkSession()
-                    ? 'web_link_ingresaperfil'
-                    : 'web_link_ingresacuenta'
-                }
-                className={`${
-                  classes.btnLogin
-                } border-1 border-solid border-white`}
-                onClick={() => this.setState({ isActive: true })}>
-                {/* <i className={classes.iconLogin} /> */}
-                <i
-                  className={
-                    initialUser
-                      ? `${classes.iconSignwallMobile}`
-                      : `${classes.iconLogin} ${classes.iconSignwallMobile}`
-                  }>
-                  {initialUser}
-                </i>
-              </button>
-            </div>
+            )}
+            <div className={classes.navLoader} />
           </div>
           <Menu
             sections={sections}
@@ -580,20 +579,22 @@ class NavBarDefault extends PureComponent {
             siteProperties={siteProperties}
           />
           <div className="layer" />
-          <div className={classes.navLoader} />
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
         {this.getUrlParam('signwallHard') &&
         !this.checkSession() &&
-        showHard ? (
+        showHard &&
+        siteProperties.activeSignwall ? (
           <SignWallHard
             closePopup={() => this.closePopUp('signwallHard')}
             brandModal={arcSite}
           />
         ) : null}
 
-        {this.getUrlParam('tokenVerify') && showVerify ? (
+        {this.getUrlParam('tokenVerify') &&
+        showVerify &&
+        siteProperties.activeSignwall ? (
           <SignWallVerify
             closePopup={() => this.closePopUp('tokenVerify')}
             brandModal={arcSite}
@@ -601,7 +602,9 @@ class NavBarDefault extends PureComponent {
           />
         ) : null}
 
-        {this.getUrlParam('tokenReset') && showReset ? (
+        {this.getUrlParam('tokenReset') &&
+        showReset &&
+        siteProperties.activeSignwall ? (
           <SignWallReset
             closePopup={() => this.closePopUp('tokenReset')}
             brandModal={arcSite}
@@ -611,7 +614,8 @@ class NavBarDefault extends PureComponent {
 
         {this.getUrlParam('reloginEmail') &&
         !this.checkSession() &&
-        showRelogin ? (
+        showRelogin &&
+        siteProperties.activeSignwall ? (
           <SignWallRelogin
             closePopup={() => this.closePopUp('reloginEmail')}
             brandModal={arcSite}

@@ -15,8 +15,8 @@ const createPaginator = (currentPage, totalPages) => {
   currentPage =
     Math.abs(currentPage) > totalPages ? totalPages : Math.abs(currentPage)
 
-  const leftPag = currentPage - initPage >= 6
-  const rightPag = totalPages - currentPage >= 6
+  const leftPag = currentPage - initPage >= 5
+  const rightPag = totalPages - currentPage >= 5
 
   if (leftPag && rightPag) {
     for (let i = currentPage - 3; i <= currentPage + 3; i++) {
@@ -25,13 +25,13 @@ const createPaginator = (currentPage, totalPages) => {
   }
 
   if (leftPag && !rightPag) {
-    for (let i = totalPages - 6; i <= totalPages; i++) {
+    for (let i = totalPages - 5; i <= totalPages; i++) {
       listPages.push(i)
     }
   }
 
   if (!leftPag && rightPag) {
-    for (let i = initPage; i <= initPage + 6; i++) {
+    for (let i = initPage; i <= initPage + 5; i++) {
       listPages.push(i)
     }
   }
@@ -106,7 +106,8 @@ const Pagination = props => {
             : ''
         }`}
         href={urlPrevPage}>
-        anterior
+        <span className="non-tablet non-desktop">&#60;</span>
+        <span className="non-mobile">anterior</span>
       </a>
       {pages.map((page, i) => {
         let tag = null
@@ -140,7 +141,8 @@ const Pagination = props => {
           currentPage === totalPages ? 'pagination__page--disabled' : ''
         }`}
         href={urlNextPage}>
-        siguiente
+        <span className="non-tablet non-desktop">&#62;</span>
+        <span className="non-mobile">siguiente</span>
       </a>
     </div>
   )

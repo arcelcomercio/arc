@@ -8,22 +8,9 @@
     /* autoprefixer: on */
   }
 
-  &__header-title {
-    &--nota {
-      border-style: solid;
-      border-color: $color-gray-100;
-      border-width: 1px 0;
-      height: 46px;
-    }
-  }
-
   &__body {
     @media (--tablet) {
       height: 161px;
-    }
-
-    &--items {
-      height: 169px;
     }
   }
 
@@ -48,16 +35,6 @@
           rgba(255, 255, 255, 0) 50%,
           rgba(50, 50, 50, 0.7) 100%);
     }
-
-    &--nota {
-      &::before {
-        background: none;
-      }
-
-      & figure {
-        height: 80px;
-      }
-    }
   }
 
   &__icon {
@@ -67,19 +44,6 @@
     top: 15px;
     right: 15px;
     left: initial;
-  }
-
-  &__detail {
-    z-index: 2;
-    height: 60px;
-
-    @media (--desktop) {
-      height: 70px;
-    }
-
-    &--nota {
-      bottom: 44px;
-    }
   }
 
   &__img {
@@ -111,9 +75,5 @@
     @media (--desktop) {
       max-height: 56px;
     }
-  }
-
-  &--nota {
-    height: 254px;
   }
 }

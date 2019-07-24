@@ -5,10 +5,10 @@ const classes = {
   info: 'footer__info p-20  bg-primary position-relative',
   sections: 'footer__sections  bg-primary position-relative md:pt-20 pb-20',
   contact: 'footer__contact  bg-primary md:pt-20 pb-20 hidden md:block',
-  sites: 'footer__sites flex flex-col p-20 bg-gray-100 hidden md:block',
+  sites: 'footer__sites flex flex-col p-20 hidden md:block',
   sitesList: 'footer__sites-list flex flex-wrap w-full p-0',
   sitesItem: `footer__sites-item mb-5 pr-10 text-sm line-h-xs uppercase flex items-center`,
-  sitesItemTitle: 'text-sm text-gray-300 line-h-xs uppercase mb-10',
+  sitesItemTitle: 'text-sm text-gray-300 line-h-xs uppercase mb-10 font-bold',
   sitesLink: 'footer__sites-link text-gray-200 primary-font',
   legalList: 'footer__legal-list text-md',
   legalItem: `footer__legal-item mb-10 text-gray-300 line-h-none text-xs primary-font`,
@@ -42,8 +42,7 @@ const classes = {
 
 const StandardFooter = props => {
   const {
-    facebookUrl,
-    twitterUrl,
+    socialNetworks,
     gecSites,
     legalLinks,
     contacts,
@@ -119,24 +118,20 @@ const StandardFooter = props => {
           <p className={classes.socialTitle}>Síguenos</p>
         </div>
         <ul className={classes.listSocial}>
-          <li className={classes.listSocialItem}>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={facebookUrl}
-              className={classes.listSocialLink}>
-              <i className={classes.facebookIcon} />
-            </a>
-          </li>
-          <li className={classes.listSocialItem}>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={twitterUrl}
-              className={classes.listSocialLink}>
-              <i className={classes.twitterIcon} />
-            </a>
-          </li>
+          {socialNetworks &&
+            socialNetworks.map(el => {
+              return (
+                <li className={classes.listSocialItem}>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={el.url}
+                    className={classes.listSocialLink}>
+                    <i className={classes[`${el.name}Icon`]} />
+                  </a>
+                </li>
+              )
+            })}
         </ul>
       </div>
       <div className={classes.sites}>

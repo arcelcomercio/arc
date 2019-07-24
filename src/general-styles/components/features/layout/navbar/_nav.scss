@@ -17,6 +17,7 @@
 
   &__container-menu {
     height: 20px;
+
     @media (--desktop) {
       border-right: solid 1px $color-gray-200;
     }
@@ -31,6 +32,7 @@
   &__btn {
     color: $color-white;
     outline: 0;
+
     &:hover {
       text-decoration: none;
     }
@@ -74,6 +76,7 @@
     &--login {
       position: relative;
       padding-left: 40px;
+
       .text-user,
       .icon-user {
         background: $signwall-login-bg;
@@ -85,6 +88,7 @@
         top: 50%;
         transform: translateY(-50%);
       }
+
       .text-user {
         font-size: 11px;
         letter-spacing: 1px;
@@ -137,6 +141,7 @@
   // &__icon-search {}
 
   &__input-search {
+    background-color: transparent;
     outline: none;
     padding-right: 30px;
     height: 30px;
@@ -193,15 +198,24 @@
       .nav__logo {
         display: block;
       }
+
       .nav__search-box {
         display: none;
       }
     }
   }
+
   &__search-box {
     height: 20px;
   }
+  /*   Estilos para nav loader en notas */
   &__loader-bar {
+    left: 0;
     background-color: $color-primary;
+    transition: width 0.5s;
+  }
+  &__container-menu,
+  &__mobile-logo {
+    z-index: 1;
   }
 }

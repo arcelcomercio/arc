@@ -1,4 +1,5 @@
 import styled, { ThemeProvider } from 'styled-components'
+import { devices } from '../_dependencies/devices'
 
 const Head = styled.div`
   height: 50px;
@@ -24,10 +25,19 @@ const WrapLogin = styled.div`
   color: #fff;
   align-items: center;
   display: flex;
+  max-width: 300px;
+  width: 100%;
+  justify-content: center;
+  @media (${devices.mobile}) {
+    max-width: 40%;
+  }
 `
 
 const Username = styled.span`
-  padding-left: 45px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 10px;
 `
 
 const Background = styled.div`
@@ -47,6 +57,18 @@ const Right = styled.div`
   flex: 1;
   background-color: #000;
 `
+const Img = styled.img`
+  @media (${devices.mobile}) {
+    max-height: 26px;
+  }
+`
+
+export const WrapIcon = styled.span`
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 export {
   ThemeProvider,
@@ -57,4 +79,5 @@ export {
   Background,
   Left,
   Right,
+  Img,
 }

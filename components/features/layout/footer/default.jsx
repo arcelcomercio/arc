@@ -7,6 +7,12 @@ import StandardFooter from './_children/standard'
 import SecondaryFooter from './_children/secondary'
 import StoryFooter from './_children/story'
 
+/**
+ * TODO: Este feature que controla distintos componentes debe ser
+ * separado en distintos features, un por cada diseño, de esta manera
+ * se logra cargar sólo el código necesario para cada vista.
+ */
+
 const DEFAULT_HIERARCHY = 'footer-default'
 
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -82,7 +88,7 @@ class LayoutFooter extends PureComponent {
       ''
 
     const { sections: rawSections = [] } = this.state || {}
-    const sections = this.formatData(rawSections)
+    const sections = rawSections && this.formatData(rawSections)
 
     const params = {
       socialNetworks,
@@ -109,6 +115,7 @@ class LayoutFooter extends PureComponent {
 }
 
 LayoutFooter.label = 'Pie de Página'
+LayoutFooter.static = true
 
 LayoutFooter.propTypes = {
   customFields: PropTypes.shape({

@@ -35,7 +35,14 @@ class LoginRegister extends Component {
           brandCurrent={brandModal}
         />
       ),
-      forgot: <FormForgotPass closePopup={closePopup} brandCurrent={brandModal} />,
+      forgot: (
+        <FormForgotPass
+          closePopup={closePopup}
+          typePopUp="organico"
+          typeForm="login"
+          brandCurrent={brandModal}
+        />
+      ),
     }
     return templates[template] || templates.login
   }
@@ -54,7 +61,10 @@ class LoginRegister extends Component {
               <Header closePopup={closePopup} />
               <div className="modal-body">
                 <div className="modal-body__left">
-                  <ListBenefits typeMessage="organic" brandCurrent={brandModal} />
+                  <ListBenefits
+                    typeMessage="organic"
+                    brandCurrent={brandModal}
+                  />
                 </div>
                 <div className="modal-body__right">
                   {this.renderTemplate(value.selectedTemplate)}

@@ -62,7 +62,7 @@ export default ({
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
       ? metaValue('meta_title')
       : seoTitle
-  const title = `${metaTitle || seoTitle} ${siteProperties.siteName}`
+  const title = `${metaTitle || seoTitle} | ${siteProperties.siteName}`
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`
@@ -71,7 +71,9 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -183,20 +185,27 @@ export default ({
         {/* <!-- Rubicon BlueKai - Fin --> */}
 
         <Libs />
-        {/* Scripts Identity & Sales & Paywall */}
-        {/* <script src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`} /> */}
-        <script
-          src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-identity.min.js`}
-        />
-        <script
-          src={`https://elcomercio-${arcSite}-${APPNEXUS_ENV}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date().getTime()}`}
-        />
+
+        {/* <!-- Identity & Sales & Paywall --> */}
+        {siteProperties.activeSignwall && (
+          <>
+            {/* <script src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`} /> */}
+            <script
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-identity.min.js`}
+            />
+            <script
+              src={`https://elcomercio-${arcSite}-${APPNEXUS_ENV}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date().getTime()}`}
+            />
+          </>
+        )}
       </head>
       <body className={isStory ? 'story' : ''}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -212,7 +221,7 @@ export default ({
           {children}
         </div>
         <script
-          async
+          defer
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
           )}

@@ -8,7 +8,8 @@ import Header from './_children/header'
 import List from './_children/list'
 
 const classes = {
-  lista: 'stories-l-card bg-white h-full flex flex-col overflow-hidden',
+  lista:
+    'stories-l-card bg-white h-full flex flex-col overflow-hidden border-1 border-solid border-base',
 }
 
 @Consumer

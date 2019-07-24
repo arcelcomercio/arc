@@ -7,4 +7,8 @@
   &__logo {
     padding: 10px 0;
   }
+  /*   Estilos para nav loader en notas */
+  &__loader-bar {
+    background-color: $color-base-200;
+  }
 }
