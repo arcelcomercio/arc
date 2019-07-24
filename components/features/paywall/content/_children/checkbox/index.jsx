@@ -2,19 +2,15 @@ import React from 'react'
 import * as S from './styled'
 
 const Checkbox = ({
-  field: { name, value, onChange: fieldOnChange, onBlur: fieldOnBlur },
+  field: { name, value, onChange, onBlur },
+  form: { touched, errors },
   radio,
   label,
   checked,
   className,
-  onChangeTap,
-  onBlurTap,
   ...props
 }) => {
-  const tapHandler = (tap, handler) => (...args) => {
-    handler(...args)
-    tap(...args)
-  }
+  const hasError = touched[name] && errors[name]
   return (
     <S.Label>
       <input
@@ -23,11 +19,11 @@ const Checkbox = ({
         value={value}
         type={radio ? 'radio' : 'checkbox'}
         checked={checked}
-        onChange={tapHandler(onChangeTap, fieldOnChange)}
-        onBlur={tapHandler(onBlurTap, fieldOnBlur)}
+        onChange={onChange}
+        onBlur={onBlur}
         {...props}
       />
-      <S.StyledCheckbox checked={checked}>
+      <S.StyledCheckbox hasError={hasError} checked={checked}>
         <S.Svg width="18" height="18" viewBox="0 0 24 24">
           <polyline points="20 6 9 17 4 12" />
         </S.Svg>
