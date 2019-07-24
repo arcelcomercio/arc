@@ -1,8 +1,6 @@
-.footer-story {
-  &.footer-secondary {
-    &__legal {
-      width: 100%;
-      border-right: 0;
-    }
+.footer-story.footer-secondary {
+  .footer-secondary__legal {
+    width: 100%;
+    border-right: 0;
   }
 }

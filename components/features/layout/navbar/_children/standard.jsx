@@ -45,8 +45,8 @@ const classes = {
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
   navLoader: 'nav__loader-bar position-absolute w-full h-full top-0',
-  navStoryTitle: 'nav__story-title',
-  navStorySocialNetwork: 'nav__story-social-network',
+  navStoryTitle: 'nav__story-title position-relative overflow-hidden',
+  navStorySocialNetwork: 'nav__story-social-network hidden',
   iconSignwallMobile: 'rounded uppercase bg-primary',
 }
 

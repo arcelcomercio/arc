@@ -6,7 +6,6 @@ const classes = {
     'footer-secondary__logo-wrapper flex items-center pl-20 pr-20 justify-center lg:justify-start',
   logo: 'footer-secondary__logo-link',
   logoImg: 'footer-secondary__logo-img',
-
   body:
     'flex justify-between pl-20 pr-20 pt-20 pb-20 lg:pt-30 lg:pb-30 flex-col lg:flex-row',
   legalWrapper:
