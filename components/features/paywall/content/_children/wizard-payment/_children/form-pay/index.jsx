@@ -42,7 +42,7 @@ const FormSchema = schema({
       .creditCardCvv(cardMethod, MESSAGE.WRONG_CVV)
   },
   expiryDate: value => {
-    const match = value.value.trim().match(/^(\d\d)\/(\d\d(\d\d)?)$/)
+    const match = (value.value || '').match(/^(\d\d)\/(\d\d(\d\d)?)$/)
     if (!match) throw MESSAGE.WRONG_EXPIRY_DATE
     let _m = match[1]
     let _y = match[2]
