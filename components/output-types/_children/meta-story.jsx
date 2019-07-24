@@ -1,8 +1,9 @@
 import React from 'react'
 import ENV from 'fusion:environment'
 import StoryData from '../../utilities/story-data'
-import { formatHtmlToText } from '../../utilities/helpers'
+import { formatHtmlToText, getMultimedia } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
+
 export default ({
   globalContent: data,
   arcSite,
@@ -29,6 +30,7 @@ export default ({
     relatedContent,
     seoKeywords,
     breadcrumbList,
+    multimediaType,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const videoSeoItems = videoSeo.map(
@@ -182,6 +184,7 @@ export default ({
       <meta name="bi3dArtTitle" content={title} />
       <meta name="cXenseParse:per-categories" content={section} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
+      <meta name="content-type" content={getMultimedia(multimediaType)} />
       <meta
         name="keywords"
         content={
