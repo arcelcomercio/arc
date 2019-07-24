@@ -156,7 +156,7 @@ export default ({
 
         {/* Scripts de APPNEXUS */}
         <script
-          src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js"
+          src="https://d34fzxxwb5p53o.cloudfront.net/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js?v2"
           async
         />
         <script
