@@ -717,7 +717,7 @@ export const getMultimedia = multimediaType => {
       type = 'gallery'
       break
     default:
-      type = 'image'
+      type = 'story'
   }
   return type
 }

@@ -184,7 +184,7 @@ export default ({
       <meta name="bi3dArtTitle" content={title} />
       <meta name="cXenseParse:per-categories" content={section} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
-      <meta name="storyType" content={getMultimedia(multimediaType)} />
+      <meta name="content-type" content={getMultimedia(multimediaType)} />
       <meta
         name="keywords"
         content={
