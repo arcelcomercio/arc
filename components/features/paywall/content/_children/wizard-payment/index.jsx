@@ -133,8 +133,8 @@ function WizardPayment(props) {
             return (
               addPayU(siteProperties)
                 .then(payU => {
-                  payU.setURL(payuBaseUrl) //OK
-                  payU.setPublicKey(publicKey) //OK
+                  payU.setURL(payuBaseUrl)
+                  payU.setPublicKey(publicKey)
                   payU.setAccountID(accountId)
                   payU.setListBoxID('mylistID')
                   payU.getPaymentMethods()
@@ -162,7 +162,7 @@ function WizardPayment(props) {
                 // TODO: El servicio aun esta en desarrollo
                 .then(token => {
                   return apiPaymentRegister({
-                    baseUrl: 'http://devpaywall.comerciosuscripciones.pe', //TODO url en duro, environment no funciona
+                    baseUrl: 'http://devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
                     orderNumber,
                     firstName,
                     lastName,
@@ -172,7 +172,7 @@ function WizardPayment(props) {
                     email,
                     phone,
                     cardMethod,
-                    cardNumber, //TODO: Convertir en formato de mascara
+                    cardNumber, // TODO: Convertir en formato de mascara
                     token,
                     campaignCode,
                     sku,
@@ -182,17 +182,19 @@ function WizardPayment(props) {
                 })
                 .then(token => {
                   const { paymentMethodID } = payUPaymentMethod
-                  return sales
-                    .finalizePayment(orderNumber, paymentMethodID, token)
-                    .then(res => {
-                      // Mezclamos valores del formulario con el payload de respuesta
-                      const mergedValues = Object.assign({}, res, values)
-                      onBeforeNextStep(mergedValues, props)
-                    })
+                  return sales.finalizePayment(
+                    orderNumber,
+                    paymentMethodID,
+                    token
+                  )
                 })
             )
           }
         )
+    }).then(res => {
+      // Mezclamos valores del formulario con el payload de respuesta
+      const mergedValues = Object.assign({}, res, values)
+      onBeforeNextStep(mergedValues, props)
     })
   }
 
