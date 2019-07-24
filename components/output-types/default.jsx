@@ -62,7 +62,7 @@ export default ({
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
       ? metaValue('meta_title')
       : seoTitle
-  const title = `${metaTitle || seoTitle} ${siteProperties.siteName}`
+  const title = `${metaTitle || seoTitle} | ${siteProperties.siteName}`
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`
@@ -156,7 +156,7 @@ export default ({
 
         {/* Scripts de APPNEXUS */}
         <script
-          src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js"
+          src="https://d34fzxxwb5p53o.cloudfront.net/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js?v2"
           async
         />
         <script
