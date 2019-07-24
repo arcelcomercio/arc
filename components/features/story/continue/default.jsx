@@ -152,7 +152,7 @@ class StoryContinue extends PureComponent {
     return isSaveUrl
   }
 
-  getNextArticle = recentStoryContinue => {
+  getNextArticle = (recentStoryContinue, siteUrl = '') => {
     let title = ''
     let websiteUrl = ''
     for (let i = 0; i < recentStoryContinue.length; i++) {
@@ -161,7 +161,7 @@ class StoryContinue extends PureComponent {
       if (recentStoryContinue.length - 1 === i) {
         window.sessionStorage.removeItem(URLS_STORAGE)
       }
-      if (this.saveUrlSessionStorage(websiteUrl)) {
+      if (this.saveUrlSessionStorage(siteUrl+websiteUrl)) {
         break
       }
     }
@@ -169,9 +169,10 @@ class StoryContinue extends PureComponent {
   }
 
   render() {
-    const { contextPath, globalContent: data } = this.props
+    const { contextPath, globalContent: data, siteProperties } = this.props
+    const { siteUrl } = siteProperties
     const { recentStoryContinue = [] } = new StoryData({ data, contextPath })
-    const { title, websiteUrl } = this.getNextArticle(recentStoryContinue)
+    const { title, websiteUrl } = this.getNextArticle(recentStoryContinue, siteUrl)
     return (
       <>
         <div className={classes.storyContinue}>
