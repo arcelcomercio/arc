@@ -6,6 +6,7 @@ const InputFormik = ({
   field, // { name, value, onChange, onBlur }
   form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   placeholder,
+  transform = 'none',
   prefix,
   type = 'text',
   ...props
@@ -36,6 +37,7 @@ const InputFormik = ({
       <S.Wrap hasError={hasError}>
         {prefix ? [prefix, <Divider key="divider" />] : false}
         <S.Input
+          transform={transform}
           type={type}
           defaultValue={_value}
           onFocus={focus}
