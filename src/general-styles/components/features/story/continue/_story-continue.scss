@@ -5,7 +5,6 @@
     width: 320px;
   }
   &__story-load-image {
-    background-image: url(https://assets.gestion.pe/img/ges_badge2.png);
     width: 32px;
     height: 36px;
     z-index: 9;
@@ -46,7 +45,7 @@
     font-weight: 400;
   }
   &__story-load-text {
-    color: $color-gray-200;
+    font-size: 14.4px;
   }
   &__story-load-title {
     text-overflow: ellipsis;
