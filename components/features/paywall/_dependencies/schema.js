@@ -80,14 +80,13 @@ function shape(value) {
 function struct(schema) {
   return data => {
     const errors = {}
-    Object.keys(data).forEach(name => {
-      if (!schema[name]) {
-        return
-      }
+    Object.keys(schema).forEach(name => {
       try {
         const s = schema[name]
-        const { [name]: value, ...values } = data
-        s(shape(value), values)
+        const restValues = Object.assign({}, data)
+        const value = data[name]
+        delete restValues[name]
+        s(shape(value), restValues)
       } catch (err) {
         // Los errores de validacion deben lanzarse como string
         // para poder disernir si es por validacion o de implementacion
