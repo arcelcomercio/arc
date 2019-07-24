@@ -32,6 +32,7 @@ class FormVerify extends Component {
           <div className="form-grid__group">
             <div className="form-group">
               <input
+                id="verificar_continuar_navegando"
                 type="button"
                 className="btn btn--blue btn-bg"
                 value="Continuar Navegando"
