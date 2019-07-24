@@ -125,8 +125,11 @@ const FormPay = ({ onSubmit, onReset }) => {
             <S.WrapInput min-width="310px">
               <Field
                 component={Input}
+                pattern="[0-9]*"
                 name="cardNumber"
-                placeholder="Número de tarjeta"
+                label="Número de tarjeta"
+                mask="9999 - 9999 - 999 - 9999"
+                placeholder="0000 - 0000 - 0000 - 0000"
               />
             </S.WrapInput>
 
@@ -134,11 +137,19 @@ const FormPay = ({ onSubmit, onReset }) => {
               <Field
                 component={Input}
                 name="expiryDate"
-                placeholder="F. de Vencimiento"
+                mask="99/9999"
+                placeholder="mm/aaaa"
+                label="F. de Vencimiento"
               />
             </S.WrapInput>
             <S.WrapInput max-width="135px">
-              <Field component={Input} name="cvv" placeholder="CVV" />
+              <Field
+                component={Input}
+                type="number"
+                name="cvv"
+                label="CVV"
+                placeholder="***"
+              />
             </S.WrapInput>
           </S.WrapInputs>
 
@@ -150,20 +161,26 @@ const FormPay = ({ onSubmit, onReset }) => {
             value={agreed}
             label={
               <span>
-                Acepto las condiciones de servicio, política de privacidad y
-                estoy de acuerdo con la información.
+                Acepto las{' '}
+                <S.Link href="#" target="_blank">
+                  condiciones de servicio
+                </S.Link>
+                ,{' '}
+                <S.Link href="#" target="_blank">
+                  política de privacidad
+                </S.Link>{' '}
+                , y estoy de acuerdo con la información.
               </span>
             }
           />
 
           <S.Span>
-            Acepto las condiciones de servicio, política de privacidad y estoy
-            de acuerdo con la información.
+            La suscripción se renovará automáticamente de acuerdo a tu plan.
           </S.Span>
 
           <S.WrapSubmit>
             <Button type="submit" maxWidth="300px">
-              CONTINUAR
+              PAGAR
             </Button>
           </S.WrapSubmit>
         </Form>

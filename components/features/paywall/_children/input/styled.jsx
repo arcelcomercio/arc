@@ -3,7 +3,7 @@ import { devices } from '../../_dependencies/devices'
 
 const FormGroup = styled.div`
   position: relative;
-  margin-bottom: 29px;
+  margin-bottom: 35px;
   width: 100%;
   @media (${devices.mobile}) {
     width: 100%;
@@ -23,7 +23,7 @@ export const Input = styled.input`
     `}
 `
 
-const Wrap = styled.div`
+export const Wrap = styled.div`
   display: flex;
   align-items: center;
   padding: 13px;
@@ -75,7 +75,15 @@ const Label = styled.label`
     `}
 `
 
-export { Label, Wrap, FormGroup }
+export const Error = styled.span`
+  color: #db0000;
+  margin-top: 5px;
+  display: block;
+  position: absolute;
+  bottom: -20px;
+`
+
+export { Label, FormGroup }
 
 // .__label.__focus{
 // transform: translate3d(0, -50%, 0);

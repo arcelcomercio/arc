@@ -16,7 +16,7 @@ const Checkbox = ({
     tap(...args)
   }
   return (
-    <S.Label>
+    <S.Label className={className}>
       <input
         style={{ display: 'none' }}
         name={name}

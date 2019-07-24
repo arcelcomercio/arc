@@ -3,6 +3,5 @@
     "files.exclude": {
         ".fusion/**/*": true,
         ".vscode/": true,
-        "node_modules": true,
     }
 }
