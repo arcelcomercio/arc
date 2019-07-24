@@ -48,12 +48,14 @@
     &:hover {
       transition: all 0.15s ease;
       background-color: rgba(0, 0, 0, 0.96);
-      padding-left: 10px;
     }
   }
 
   &__link {
     transition: all 0.15s ease;
+    &:hover {
+      transform: translateX(15px);
+    }
   }
 
   /* 	&__sub-menu {
