@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 import StandardFooter from './_children/standard'
 import SecondaryFooter from './_children/secondary'
+import StoryFooter from './_children/story'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 
@@ -97,6 +98,7 @@ class LayoutFooter extends PureComponent {
     const footers = {
       standard: <StandardFooter {...params} />,
       secondary: <SecondaryFooter {...params} />,
+      story: <StoryFooter {...params} />,
     }
     return footers[footerType] || footers.standard
   }
