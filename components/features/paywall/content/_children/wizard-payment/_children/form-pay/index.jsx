@@ -72,7 +72,14 @@ const FormPay = ({ onSubmit, onReset }) => {
       validate={values => new FormSchema(values)}
       onReset={onReset}
       onSubmit={(values, actions) => {
-        onSubmit(values, actions)
+        onSubmit(
+          Object.assign({}, values, {
+            cardNumber:
+              // Remover espacios en blanco del numero de tarjeta
+              values.cardNumber && values.cardNumber.replace(/\D/g, ''),
+          }),
+          actions
+        )
       }}
       render={({ values: { cardMethod, agreed }, isSubmitting }) => (
         <Form>
