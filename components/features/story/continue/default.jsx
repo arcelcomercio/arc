@@ -79,6 +79,11 @@ class StoryContinue extends PureComponent {
     } else e.style.width = '0%'
   }
 
+  setTitleHead = () => {
+    const titleNew = document.querySelector('.story-header__news-title')
+    document.querySelector('.nav__mobile-logo').textContent = titleNew
+  }
+
   setTimeoutLoadPage = linker => {
     setTimeout(() => {
       const link = linker.getAttribute('href')
