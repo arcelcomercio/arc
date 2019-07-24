@@ -2,13 +2,19 @@ import React from 'react'
 import * as S from './styled'
 
 const Checkbox = ({
-  field: { name, value },
+  field: { name, value, onChange: fieldOnChange, onBlur: fieldOnBlur },
   radio,
   label,
   checked,
   className,
+  onChangeTap,
+  onBlurTap,
   ...props
 }) => {
+  const tapHandler = (tap, handler) => (...args) => {
+    handler(...args)
+    tap(...args)
+  }
   return (
     <S.Label>
       <input
@@ -17,6 +23,8 @@ const Checkbox = ({
         value={value}
         type={radio ? 'radio' : 'checkbox'}
         checked={checked}
+        onChange={tapHandler(onChangeTap, fieldOnChange)}
+        onBlur={tapHandler(onBlurTap, fieldOnBlur)}
         {...props}
       />
       <S.StyledCheckbox checked={checked}>

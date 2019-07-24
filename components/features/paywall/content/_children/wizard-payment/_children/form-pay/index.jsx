@@ -24,6 +24,7 @@ const MESSAGE = {
   WRONG_CARD_NUMBER: 'Número tarjeta inválido',
   WRONG_CVV: 'CVV Inválido',
   WRONG_EXPIRY_DATE: 'Fecha incorrecta',
+  CHECK_REQUIRED: 'Debe seleccionar el check',
 }
 
 const FormSchema = schema({
@@ -62,6 +63,7 @@ const FormSchema = schema({
     }
     return this
   },
+  agreed: value => value.required(MESSAGE.REQUIRED),
 })
 
 const FormPay = ({ onSubmit, onReset }) => {
@@ -87,34 +89,34 @@ const FormPay = ({ onSubmit, onReset }) => {
             <S.Cards>
               <Field
                 component={RadioCondition}
+                onChangeTap={() => setCardMethod('visa')}
                 label={<Icon type="visa" />}
                 name="cardMethod"
                 checked={cardMethod === 'visa'}
-                onChange={() => setCardMethod('visa')}
                 value="visa"
               />
               <Field
                 component={RadioCondition}
+                onChangeTap={() => setCardMethod('mastercard')}
                 label={<Icon type="mcard" />}
                 name="cardMethod"
                 checked={cardMethod === 'mastercard'}
-                onChange={() => setCardMethod('mastercard')}
                 value="mastercard"
               />
               <Field
                 component={RadioCondition}
+                onChangeTap={() => setCardMethod('amex')}
                 label={<Icon type="amex" />}
                 name="cardMethod"
                 checked={cardMethod === 'amex'}
-                onChange={() => setCardMethod('amex')}
                 value="amex"
               />
               <Field
                 component={RadioCondition}
+                onChangeTap={() => setCardMethod('diners')}
                 label={<Icon type="diners" />}
                 name="cardMethod"
                 checked={cardMethod === 'diners'}
-                onChange={() => setCardMethod('diners')}
                 value="diners"
               />
             </S.Cards>
@@ -142,15 +144,16 @@ const FormPay = ({ onSubmit, onReset }) => {
 
           <Field
             component={AgreementCheckbox}
+            onChangeTap={() => setAgreed(!agreed)}
+            name="agreed"
             checked={agreed}
-            onChange={() => setAgreed(!agreed)}
+            value={agreed}
             label={
               <span>
                 Acepto las condiciones de servicio, política de privacidad y
                 estoy de acuerdo con la información.
               </span>
             }
-            name="term"
           />
 
           <S.Span>
