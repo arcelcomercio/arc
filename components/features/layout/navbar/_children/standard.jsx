@@ -45,6 +45,7 @@ const classes = {
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
   navLoader: 'nav__loader-bar position-absolute w-full h-full top-0',
+  navStoryTitle: 'nav__story-title',
   iconSignwallMobile: 'rounded uppercase bg-primary',
 }
 
@@ -502,6 +503,7 @@ class NavBarDefault extends PureComponent {
                 className={classes.logo}
               />
             </a>
+            <div className={classes.navStoryTitle} />
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>

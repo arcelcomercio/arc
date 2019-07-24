@@ -54,6 +54,7 @@ class StoryContinue extends PureComponent {
       this.setUpdateLoaderPage(progress, el, linker)
     }
     this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
+    this.setTitleHead()
   }
 
   setInitiateHeights = e => {
@@ -77,6 +78,12 @@ class StoryContinue extends PureComponent {
     if (height > 0) {
       e[0].style.width = `${(scrolled / (height - h)) * 100}%`
     } else e.style.width = '0%'
+  }
+
+  setTitleHead = () => {
+    const titleNew = document.querySelector('.story-header__news-title')
+      .textContent
+    document.querySelector('.nav__story-title').textContent = titleNew
   }
 
   setTimeoutLoadPage = linker => {
@@ -156,7 +163,7 @@ class StoryContinue extends PureComponent {
       if (recentStoryContinue.length - 1 === i) {
         window.sessionStorage.removeItem(URLS_STORAGE)
       }
-      if (this.saveUrlSessionStorage(siteUrl+websiteUrl)) {
+      if (this.saveUrlSessionStorage(siteUrl + websiteUrl)) {
         break
       }
     }
@@ -167,7 +174,10 @@ class StoryContinue extends PureComponent {
     const { contextPath, globalContent: data, siteProperties } = this.props
     const { siteUrl } = siteProperties
     const { recentStoryContinue = [] } = new StoryData({ data, contextPath })
-    const { title, websiteUrl } = this.getNextArticle(recentStoryContinue, siteUrl)
+    const { title, websiteUrl } = this.getNextArticle(
+      recentStoryContinue,
+      siteUrl
+    )
     return (
       <>
         <div className={classes.storyContinue}>
