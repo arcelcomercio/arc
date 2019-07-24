@@ -509,7 +509,7 @@ class NavBarDefault extends PureComponent {
                   <Button
                     btnText="Suscríbete"
                     btnClass={`${classes.btnSubscribe} btn--outline`}
-                    btnLink="#"
+                    btnLink={`https://suscripciones.${arcSite}.pe/?ref=${arcSite}`}
                   />
                   <button
                     type="button"

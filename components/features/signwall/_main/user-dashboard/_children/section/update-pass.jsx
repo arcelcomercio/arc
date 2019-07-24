@@ -38,17 +38,19 @@ class updatePassword extends Component {
       this.setState({
         showModalConfirm: true,
       })
+
       const ModalProfile =
         document.querySelector('#arc-popup-profile').parentNode ||
         document.querySelector('#arc-popup-profile').parentElement
       ModalProfile.style.overflow = 'hidden'
 
-      // setTimeout(() => {
-      //   const modalConfirmPass = document.querySelector(
-      //     '#modal-div-confirmpass',
-      //   );
-      //   modalConfirmPass.scrollIntoView();
-      // }, 1000);
+      setTimeout(() => {
+        const modalConfirmPass = document.querySelector(
+          '#arc-popup-profile',
+        );
+        modalConfirmPass.scrollIntoView();
+      }, 500);
+
     } else {
       // console.error('FORM INVALID', this.state.formErrors);
       if (newPassword == null) {

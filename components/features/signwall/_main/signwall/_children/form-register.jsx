@@ -461,7 +461,7 @@ class FormRegister extends Component {
                   <div className="form-group form-group--center mt-20">
                     <input
                       type="button"
-                      id="registro_continuarnavegando"
+                      id="registro_continuar_navegando"
                       className="btn btn--blue btn-md btn-bg"
                       value="Continuar Navegando"
                       onClick={() => closePopup()}

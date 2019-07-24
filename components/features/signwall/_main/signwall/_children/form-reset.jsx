@@ -256,6 +256,7 @@ class FormResetPass extends Component {
               <div className="form-group">
                 <input
                   type="button"
+                  id="reset_ingresar_cuenta"
                   className="btn btn--blue btn-bg"
                   value="Ingresa a tu cuenta"
                   onClick={() => {
