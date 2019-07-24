@@ -27,7 +27,7 @@ class AuthFacebook extends React.Component {
         ? `https://api.${arcSite}.pe`
         : `https://api-sandbox.${arcSite}.pe`
 
-    const { typePopUp = '', typeForm = '' } = props
+    const { typePopUp = '', typeForm = '' } = this.props
     this.tipCat = typePopUp
     this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
     this.tipForm = typeForm

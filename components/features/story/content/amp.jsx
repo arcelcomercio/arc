@@ -141,6 +141,7 @@ class StoryContentAmp extends PureComponent {
                       ImgTag={imgTag}
                       imgClassName={classes.image}
                       layout="responsive"
+                      resizer="true"
                     />
                   )
                 }

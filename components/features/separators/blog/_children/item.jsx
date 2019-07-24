@@ -6,7 +6,7 @@ const classes = {
   title: 'blog-separator__title inline-block w-full overflow-hidden pt-15',
   link: 'blog-separator__link text-gray-300 font-normal text-xl',
   author:
-    'blog-separator__author flex flex-col justify-center title-sm text-gray-300 primary-font lg:pt-15',
+    'blog-separator__author flex flex-col justify-center title-xs text-gray-300 primary-font lg:pt-15',
   boxImg:
     'flex items-center lg:items-start mr-20 pl-5 pr-5 lg:mr-0 lg:pl-0 lg:pr-0',
   img: 'blog-separator__img object-cover rounded',

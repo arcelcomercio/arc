@@ -10,7 +10,6 @@ const frequency = {
 }
 
 const Summary = ({ summary, amount, description = '', billingFrequency }) => {
-
   return (
     <Panel type="summary">
       <S.Summary>
@@ -48,7 +47,7 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
             </S.Amount>
           </strong>
         </S.Expand>
-        <S.Description>{description.description}</S.Description>
+        <S.Description>{description.cart}</S.Description>
       </S.Content>
     </div>
   )

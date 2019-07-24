@@ -7,7 +7,8 @@ const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
 }
 
-const StoryContentChildImage = ({ data, imgTag }) => {
+const StoryContentChildImage = ({ data, imgTag, resizer = false }) => {
+  const sizerImg = resizer ? 'original' : 'large'
   return (
     <>
       <Image
@@ -16,7 +17,7 @@ const StoryContentChildImage = ({ data, imgTag }) => {
         ImgTag={imgTag}
         imgClassName={classes.image}
         captionClassName={classes.caption}
-        sizePreset="large"
+        sizePreset={sizerImg}
         {...data}
       />
     </>

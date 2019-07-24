@@ -1,18 +1,19 @@
 import React from 'react'
 import ENV from 'fusion:environment'
 import StoryData from '../../utilities/story-data'
-import { formatHtmlToText } from '../../utilities/helpers'
+import { formatHtmlToText, getMultimedia } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
+
 export default ({
   globalContent: data,
   arcSite,
   contextPath,
-  siteName = '',
   socialName,
-  siteUrl = '',
   deployment,
   isAmp,
   siteAssets: { seo },
+  siteName = '',
+  siteUrl = '',
 }) => {
   const {
     seoTitle: title,
@@ -23,12 +24,14 @@ export default ({
     subTitle,
     seoAuthor,
     imagesSeo,
-    section,
+    primarySection,
+    primarySectionLink,
     videoSeo,
     contentElementsText: dataElement,
     relatedContent,
     seoKeywords,
     breadcrumbList,
+    multimediaType,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const videoSeoItems = videoSeo.map(
@@ -178,10 +181,12 @@ export default ({
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
       <meta name="bi3dArtId" content="639992" />
-      <meta name="bi3dSection" content={section} />
+      <meta name="bi3dSection" content={primarySection} />
       <meta name="bi3dArtTitle" content={title} />
-      <meta name="cXenseParse:per-categories" content={section} />
+      <meta name="cXenseParse:per-categories" content={primarySection} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
+      <meta name="content-type" content={getMultimedia(multimediaType)} />
+      <meta name="section-id" content={primarySectionLink} />
       <meta
         name="keywords"
         content={
@@ -193,7 +198,7 @@ export default ({
       <meta property="article:published_time" content={publishDate} />
       <meta property="article:modified_time" content={lastPublishDate} />
       <meta property="article:author" content={`Redacción ${siteName}`} />
-      <meta property="article:section" content={section} />
+      <meta property="article:section" content={primarySection} />
 
       {listItems.map(item => {
         return <meta property="article:tag" content={item} />

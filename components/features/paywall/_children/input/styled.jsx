@@ -10,12 +10,16 @@ const FormGroup = styled.div`
   }
 `
 
-const Input = styled.input`
+export const Input = styled.input`
   flex: 1;
   font-size: 14px;
   line-height: 22px;
   border: 0;
   width: 100%;
+  ${({ transform }) =>
+    css`
+      text-transform: ${transform};
+    `}
 `
 
 const Wrap = styled.div`
@@ -70,7 +74,7 @@ const Label = styled.label`
     `}
 `
 
-export { Label, Wrap, Input, FormGroup }
+export { Label, Wrap, FormGroup }
 
 // .__label.__focus{
 // transform: translate3d(0, -50%, 0);

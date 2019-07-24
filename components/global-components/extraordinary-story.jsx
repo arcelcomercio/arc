@@ -56,19 +56,17 @@ const ExtraordinaryStory = props => {
       numline = classes.twoline
       break
     default:
-      numline = classes.twoline
+      numline = classes.threeline
       break
   }
   return (
     <article
-      className={`${
-        classes.extraordinaryStory
-      } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
+      className={`${classes.extraordinaryStory} extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
       <div className={classes.groupContent}>
         {!isSection && (
           <p className={classes.section}>
-            <a href={data.sectionLink} className={classes.sectionLink}>
-              {data.section}
+            <a href={data.primarySectionLink} className={classes.sectionLink}>
+              {data.primarySection}
             </a>
           </p>
         )}
