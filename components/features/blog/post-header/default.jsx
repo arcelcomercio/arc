@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import {
   popUpWindow,
   socialMediaUrlShareList,
+  addSlashToEnd,
 } from '../../../utilities/helpers'
 
 const classes = {
@@ -26,7 +27,8 @@ class BlogPostHeader extends PureComponent {
     this.state = {
       currentList: this.firstList,
     }
-    const { globalContent, siteUrl } = props
+    const { globalContent, siteProperties } = props
+    const {siteUrl = ''} = siteProperties
     const {
       post: {
         post_permalink: postPermaLink = '',
@@ -34,43 +36,39 @@ class BlogPostHeader extends PureComponent {
       } = {},
     } = globalContent || {}
     const urlsShareList = socialMediaUrlShareList(
-      siteUrl,
+      addSlashToEnd(siteUrl),
       postPermaLink,
       postTitle
     )
     this.shareButtons = {
       [this.firstList]: [
         {
-          icon: 'L',
+          icon: 'icon-linkedin',
           link: urlsShareList.linkedin,
         },
         {
-          icon: 'F',
+          icon: 'icon-facebook',
           link: urlsShareList.facebook,
         },
         {
-          icon: 'T',
+          icon: 'icon-twitter',
           link: urlsShareList.twitter,
           mobileClass: 'no-mobile',
         },
         {
-          icon: 'W',
+          icon: 'icon-whatsapp',
           link: urlsShareList.whatsapp,
           mobileClass: 'no-desktop',
         },
       ],
       [this.secondList]: [
         {
-          icon: 'P',
-          link: urlsShareList.pinterest,
-        },
-        {
-          icon: 'T',
+          icon: 'icon-twitter',
           link: urlsShareList.twitter,
           mobileClass: 'no-desktop',
         },
         {
-          icon: 'IM',
+          icon: 'icon-print',
           link: '',
         },
       ],
@@ -107,7 +105,7 @@ class BlogPostHeader extends PureComponent {
                   const isPrint = i === 2 && currentList === this.secondList
                   this.openLink(event, item, isPrint)
                 }}>
-                <i>{item.icon}</i>
+                <i className={item.icon}></i>
                 <span className={classes.share}>
                   {i === 2 && currentList === this.secondList
                     ? 'Imprimir'

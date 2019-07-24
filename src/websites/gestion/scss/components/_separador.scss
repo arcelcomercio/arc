@@ -54,4 +54,12 @@
       bottom: 135px;
     }
   }
+  &__img {
+    @media (--tablet) {
+      height: 110px;
+    }
+    @media (--desktop) {
+      height: 168px;
+    }
+  }
 }

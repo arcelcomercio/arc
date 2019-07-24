@@ -18,8 +18,6 @@ class AuthGoogle extends React.Component {
     const tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
     const tipForm = typeForm || ''
 
-    // console.log(tipCat, tipAct, tipForm)
-
     this.setState({
       sendingGo: false,
     })

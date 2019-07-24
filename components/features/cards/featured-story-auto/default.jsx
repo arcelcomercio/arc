@@ -100,6 +100,6 @@ CardFeaturedStoryAuto.propTypes = {
 }
 
 CardFeaturedStoryAuto.label = 'Destaque por Sección'
-CardFeaturedStoryAuto.satic = true
+CardFeaturedStoryAuto.static = true
 
 export default CardFeaturedStoryAuto

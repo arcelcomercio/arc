@@ -7,7 +7,6 @@ import Footer from '../common/footer'
 import FormLogin from './_children/form-login'
 import FormRegister from './_children/form-register'
 import FormForgotPass from './_children/form-forgot-pass'
-
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
@@ -21,11 +20,7 @@ class SignWallHard extends Component {
     const { closePopup, brandModal } = this.props
     const templates = {
       login: (
-        <FormLogin
-          closePopup={closePopup}
-          typePopUp="hard"
-          typeForm="login"
-        />
+        <FormLogin closePopup={closePopup} typePopUp="hard" typeForm="login" />
       ),
       register: (
         <FormRegister
@@ -35,7 +30,14 @@ class SignWallHard extends Component {
           brandCurrent={brandModal}
         />
       ),
-      forgot: <FormForgotPass closePopup={closePopup} brandCurrent={brandModal} />,
+      forgot: (
+        <FormForgotPass
+          closePopup={closePopup}
+          typePopUp="hard"
+          typeForm="login"
+          brandCurrent={brandModal}
+        />
+      ),
     }
     return templates[template] || templates.login
   }

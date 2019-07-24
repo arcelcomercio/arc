@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
+import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import Fingerprint2 from 'fingerprintjs2'
-
 import LoginRegister from './_main/signwall/index'
-
 import Panel from './_main/user-dashboard/index'
 import Cookie from './_main/utils/cookie'
 
@@ -19,17 +18,19 @@ class Signwall extends Component {
       sessUser: false,
     }
 
+    const { arcSite } = this.props
+    this.origin_api =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
+
     Fingerprint2.getV18({}, result => {
       Cookies.setCookie('gecdigarc', result, 365)
     })
   }
 
   componentWillMount() {
-    const {
-      siteProperties: { signwall: { ORIGIN_API } = {} } = {},
-    } = this.props
-
-    window.Identity.apiOrigin = ORIGIN_API
+    window.Identity.apiOrigin = this.origin_api
   }
 
   componentDidUpdate = () => {

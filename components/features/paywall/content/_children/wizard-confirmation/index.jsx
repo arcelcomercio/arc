@@ -35,44 +35,21 @@ const WizardConfirmation = props => {
             negocios y finanzas.
           </S.Subtitle>
           <S.CardSummary>
-            <div>DETALLE DE COMPRA</div>
-            <Item label="PAQUETE:">PLAN DIGITAL</Item>
-            <Item label="NOMBRE:">ARMANDO BERAUN NEGRILLO</Item>
-            <Item label="PRECIO:">S/ 5.00</Item>
+            <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
+            <Item label="PAQUETE: ">PLAN DIGITAL</Item>
+            <Item label="NOMBRE: ">ARMANDO BERAUN NEGRILLO</Item>
+            <Item label="PRECIO: ">S/ 5.00</Item>
             <S.Small>
               LA SUSCRIPCIÓN SE RENOVARÁ AUTOMÁTICAMENTE DE ACUERDO A TU PLAN.
             </S.Small>
           </S.CardSummary>
           <S.Span>
             Enviaremos la boleta de compra de la suscripción al correo:
-            <strong>jberaunn@gmail.com</strong>
+            <strong> jberaunn@gmail.com</strong>
           </S.Span>
           <S.WrapButton>
             <Button>SIGUE NAVEGANDO</Button>
           </S.WrapButton>
-          {/* <S.Detail>
-            <S.Span>Recuerda que con tu suscripción tienes Acceso a:</S.Span>
-            <S.ContentBenefice>
-              <S.WrapIcon>
-                <Icon width="71" height="17" fill="#FFF" type="mundog" />
-              </S.WrapIcon>
-              <S.WrapText>
-                <S.Span>Conoce los beneficios de Mundo G</S.Span>
-              </S.WrapText>
-            </S.ContentBenefice>
-
-            <S.ContentBenefice>
-              <S.WrapIcon>logo</S.WrapIcon>
-              <S.WrapText>
-                <S.Span>
-                  Conoce los beneficios de mantener la versión impresa en PDF.
-                </S.Span>
-                <S.Span>
-                  Descarga la aplicación en Google Play o App Store
-                </S.Span>
-              </S.WrapText>
-            </S.ContentBenefice>
-          </S.Detail> */}
         </S.Content>
       </Panel>
     </div>

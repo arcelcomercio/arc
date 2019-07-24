@@ -2,11 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { devices } from '../../../../../_dependencies/devices'
 
-const Select = styled.select`
-  background-color: #fff;
-  border: 0;
-`
-
 const Wrap = styled.div`
   flex-wrap: wrap;
   width: 530px;
@@ -44,8 +39,10 @@ const Form = Component => {
 
 export const WrapField = styled.div`
   min-width: 250px;
+  max-width: 250px;
   @media (${devices.mobile}) {
     width: 100%;
+    max-width: 100%;
   }
 `
 const WrapError = styled.div`
@@ -80,4 +77,4 @@ const Error = styled(({ message, children, className }) => {
   margin-bottom: ${props => props.marginBottom || props.mb};
 `
 
-export { Select, Wrap, Form, Title, WrapTitle, Error }
+export { Wrap, Form, Title, WrapTitle, Error }

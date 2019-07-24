@@ -20,6 +20,10 @@ const PanelUserProfile = styled(Panel)`
   @media (${devices.mobile}) {
     margin-top: 30px;
   }
+  @media ${devices.tablet} {
+    margin-top: 30px;
+    padding: 30px;
+  }
 `
 
 function WizardUserProfile(props) {

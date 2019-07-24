@@ -623,11 +623,17 @@ class StoryData {
     let item = {}
     for (let i = 0; i <= items.length; i++) {
       item = promoItems[items[i]]
-      if (typeof item === 'object' && item !== null) {
+      if (
+        typeof item === 'object' &&
+        item !== null &&
+        item !== undefined &&
+        items[i] !== ConfigParams.HTML
+      ) {
         typeMultimedia = items[i]
         break
       }
     }
+
     return typeMultimedia
   }
 
