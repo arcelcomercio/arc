@@ -51,7 +51,9 @@ class StoryContinue extends PureComponent {
         newer = +1
       }
     } else {
-      this.setUpdateLoaderPage(progress, el, linker)
+      setTimeout(() => {
+        this.setUpdateLoaderPage(progress, el, linker)
+      }, 1000)
     }
     this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
     this.setTitleHead()
@@ -84,6 +86,11 @@ class StoryContinue extends PureComponent {
     const titleNew = document.querySelector('.story-header__news-title')
       .textContent
     document.querySelector('.nav__story-title').textContent = titleNew
+    const social = document.querySelector('.story-header__list ')
+
+    document.querySelector(
+      '.nav__story-social-network'
+    ).innerHTML = `<ul class='${social.className}'>${social.innerHTML}</ul>`
   }
 
   setTimeoutLoadPage = linker => {
@@ -136,6 +143,7 @@ class StoryContinue extends PureComponent {
     el.setAttribute('data-state', 'outviewport')
     progress.setAttribute('style', `transform: rotate(${min}deg)`)
     progress.setAttribute('size', min)
+    this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
   }
 
   saveUrlSessionStorage = url => {
@@ -182,7 +190,9 @@ class StoryContinue extends PureComponent {
       <>
         <div className={classes.storyContinue}>
           <div className={classes.storyLoad} data-state="outviewport">
-            <a href={websiteUrl} className={classes.storyLoadLink}>
+            <a
+              href={`${websiteUrl}?ref=nota&ft=autoload`}
+              className={classes.storyLoadLink}>
               <div className={classes.storyCircle}>
                 <span className={classes.storyLoadImage} />
                 <div className={classes.storycounter}> </div>
