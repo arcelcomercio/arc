@@ -102,10 +102,10 @@ class NavBarDefault extends PureComponent {
 
     if (arcSite === 'gestion') {
       const dataContentType = window.document.querySelector(
-        'meta[content-type]'
+        'meta[name="content-type"]'
       )
       const dataContentSection = window.document.querySelector(
-        'meta[section-id]'
+        'meta[name="section-id"]'
       )
       window.ArcP.run({
         // paywallFunction: campaignURL => console.log('Paywall!', campaignURL),
