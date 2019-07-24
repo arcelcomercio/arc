@@ -75,13 +75,13 @@ const RegisterSchema = schema({
 const FormStyled = S.Form(Form)
 
 const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
-  const [typeInput, setTypeInput] = useState('number')
-
+  const { documentType = 'DNI' } = profile
   const listTypesInput = {
     DNI: 'number',
     CEX: 'text',
     CDI: 'text',
   }
+  const [typeInput, setTypeInput] = useState(listTypesInput[documentType])
 
   const onSelectChange = e => {
     setTypeInput(listTypesInput[e.target.value])
@@ -98,7 +98,6 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
         }
       }}
       onSubmit={(values, actions) => {
-        return false
         // TODO: Crear un servicio desde el que se pueda obtener billing address
         onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
       }}
