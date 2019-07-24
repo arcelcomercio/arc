@@ -62,7 +62,7 @@ export default ({
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
       ? metaValue('meta_title')
       : seoTitle
-  const title = `${metaTitle || seoTitle} ${siteProperties.siteName}`
+  const title = `${metaTitle || seoTitle} | ${siteProperties.siteName}`
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`
@@ -71,7 +71,9 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -154,7 +156,7 @@ export default ({
 
         {/* Scripts de APPNEXUS */}
         <script
-          src="https://s3.amazonaws.com/assets-manager-dig/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js"
+          src="https://d34fzxxwb5p53o.cloudfront.net/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js?v2"
           async
         />
         <script
@@ -201,7 +203,9 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -217,7 +221,7 @@ export default ({
           {children}
         </div>
         <script
-          async
+          defer
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
           )}

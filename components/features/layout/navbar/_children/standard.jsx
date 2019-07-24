@@ -101,6 +101,12 @@ class NavBarDefault extends PureComponent {
     // ----------------------- Start Active Rules Paywall ----------------------- //
 
     if (arcSite === 'gestion') {
+      const dataContentType = window.document.querySelector(
+        'meta[name="content-type"]'
+      )
+      const dataContentSection = window.document.querySelector(
+        'meta[name="section-id"]'
+      )
       window.ArcP.run({
         // paywallFunction: campaignURL => console.log('Paywall!', campaignURL),
         paywallFunction: campaignURL => {
@@ -111,6 +117,12 @@ class NavBarDefault extends PureComponent {
         //   s: 'business',
         //   ci: 'https://www.your.domain.com/canonical/url'
         // })
+        contentType: dataContentType
+          ? dataContentType.getAttribute('content')
+          : 'none',
+        section: dataContentSection
+          ? dataContentSection.getAttribute('content')
+          : 'none',
         userName: window.Identity.userIdentity.uuid
           ? window.Identity.userIdentity.uuid
           : null,
@@ -509,7 +521,7 @@ class NavBarDefault extends PureComponent {
                   <Button
                     btnText="Suscríbete"
                     btnClass={`${classes.btnSubscribe} btn--outline`}
-                    btnLink="#"
+                    btnLink={`https://suscripciones.${arcSite}.pe/?ref=${arcSite}`}
                   />
                   <button
                     type="button"
@@ -518,13 +530,17 @@ class NavBarDefault extends PureComponent {
                         ? 'web_link_ingresaperfil'
                         : 'web_link_ingresacuenta'
                     }
-                    className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
+                    className={`${classes.btnLogin} ${
+                      classes.btnSignwall
+                    } btn--outline`}
                     onClick={() => this.setState({ isActive: true })}>
                     <i
                       className={
                         initialUser
                           ? `${classes.iconSignwall} text-user`
-                          : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
+                          : `${classes.iconLogin} ${
+                              classes.iconSignwall
+                            } icon-user`
                       }>
                       {initialUser}
                     </i>
@@ -538,7 +554,9 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -546,7 +564,9 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  className={`${classes.btnLogin} border-1 border-solid border-white`}
+                  className={`${
+                    classes.btnLogin
+                  } border-1 border-solid border-white`}
                   onClick={() => this.setState({ isActive: true })}>
                   {/* <i className={classes.iconLogin} /> */}
                   <i
