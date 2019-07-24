@@ -67,8 +67,6 @@ const FormSchema = schema({
 })
 
 const FormPay = ({ onSubmit, onReset }) => {
-  const [agreed, setAgreed] = useState(false)
-  const [cardMethod, setCardMethod] = useState()
   return (
     <Formik
       validate={values => new FormSchema(values)}
@@ -76,7 +74,7 @@ const FormPay = ({ onSubmit, onReset }) => {
       onSubmit={(values, actions) => {
         onSubmit(values, actions)
       }}
-      render={({ isSubmitting }) => (
+      render={({ values: { cardMethod, agreed }, isSubmitting }) => (
         <Form>
           <S.Security>
             <Icon type="lock" width="20" height="25" />
@@ -89,7 +87,6 @@ const FormPay = ({ onSubmit, onReset }) => {
             <S.Cards>
               <Field
                 component={RadioCondition}
-                onChangeTap={() => setCardMethod('visa')}
                 label={<Icon type="visa" />}
                 name="cardMethod"
                 checked={cardMethod === 'visa'}
@@ -97,7 +94,6 @@ const FormPay = ({ onSubmit, onReset }) => {
               />
               <Field
                 component={RadioCondition}
-                onChangeTap={() => setCardMethod('mastercard')}
                 label={<Icon type="mcard" />}
                 name="cardMethod"
                 checked={cardMethod === 'mastercard'}
@@ -105,7 +101,6 @@ const FormPay = ({ onSubmit, onReset }) => {
               />
               <Field
                 component={RadioCondition}
-                onChangeTap={() => setCardMethod('amex')}
                 label={<Icon type="amex" />}
                 name="cardMethod"
                 checked={cardMethod === 'amex'}
@@ -113,7 +108,6 @@ const FormPay = ({ onSubmit, onReset }) => {
               />
               <Field
                 component={RadioCondition}
-                onChangeTap={() => setCardMethod('diners')}
                 label={<Icon type="diners" />}
                 name="cardMethod"
                 checked={cardMethod === 'diners'}
@@ -144,7 +138,6 @@ const FormPay = ({ onSubmit, onReset }) => {
 
           <Field
             component={AgreementCheckbox}
-            onChangeTap={() => setAgreed(!agreed)}
             name="agreed"
             checked={agreed}
             value={agreed}
