@@ -69,6 +69,8 @@ const customFields = PropTypes.shape({
   note1: PropTypes.string.tag({
     name: 'Nota 1',
     group: 'Programar Notas',
+    description:
+      'Si la URL ingresada no está publicada o no existe, se mostrará la nota del campo "URL"',
   }),
   date1: PropTypes.dateTime.tag({
     name: 'Fecha de publicación',
@@ -78,6 +80,8 @@ const customFields = PropTypes.shape({
   note2: PropTypes.string.tag({
     name: 'Nota 2',
     group: 'Programar Notas',
+    description:
+      'Si la URL ingresada no está publicada o no existe, se mostrará la nota del campo "URL"',
   }),
   date2: PropTypes.dateTime.tag({
     name: 'Fecha de publicación',
@@ -87,6 +91,8 @@ const customFields = PropTypes.shape({
   note3: PropTypes.string.tag({
     name: 'Nota 3',
     group: 'Programar Notas',
+    description:
+      'Si la URL ingresada no está publicada o no existe, se mostrará la nota del campo "URL"',
   }),
   date3: PropTypes.dateTime.tag({
     name: 'Fecha de publicación',

@@ -45,5 +45,6 @@ OrderedStories.propTypes = {
 }
 
 OrderedStories.label = 'Grilla de historias ordenadas'
+// OrderedStories.static = true
 
 export default OrderedStories

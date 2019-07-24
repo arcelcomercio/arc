@@ -20,6 +20,10 @@ const PanelUserProfile = styled(Panel)`
   @media (${devices.mobile}) {
     margin-top: 30px;
   }
+  @media ${devices.tablet} {
+    margin-top: 30px;
+    padding: 30px;
+  }
 `
 
 function WizardUserProfile(props) {
@@ -30,6 +34,8 @@ function WizardUserProfile(props) {
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     nextStep,
   } = props
+
+  const { amount, description, billingFrequency } = memo
 
   const fusionContext = useFusionContext()
   const [loading, setLoading] = useState()
@@ -86,7 +92,12 @@ function WizardUserProfile(props) {
           />
         )}
       </PanelUserProfile>
-      <Summary summary={summary} />
+      <Summary
+        amount={amount}
+        billingFrequency={billingFrequency}
+        description={description}
+        summary={summary}
+      />
     </S.WizardUserProfile>
   )
 }

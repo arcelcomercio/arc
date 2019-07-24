@@ -3,9 +3,8 @@ import Icon from '../../../../global-components/multimedia-icon'
 
 const classes = {
   item: 'separator__item hidden w-full h-full p-0 position-relative',
-  detail: 'separator__detail position-absolute bottom-0 pr-15 pl-15',
+  detail: 'separator__detail position-absolute bottom-0 pr-15 pl-15 pb-15',
   text: 'separator__title overflow-hidden text-white text-md line-h-sm',
-  mvideo: 'separator--video',
   imgBox: 'p-0 m-0 w-full h-full',
   img: 'separator__img w-full h-full object-cover object-center',
   icon: `separator__icon`,

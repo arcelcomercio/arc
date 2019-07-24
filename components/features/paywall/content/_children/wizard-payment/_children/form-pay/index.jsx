@@ -16,20 +16,58 @@ const RadioCondition = styled(RadioButton)`
   }
 `
 
-const RegisterSchema = schema({})
+const MESSAGE = {
+  REQUIRED: 'Este campo es requerido',
+  WRONG_CARD_NUMBER: 'Número tarjeta inválido',
+  WRONG_CVV: 'CVV Inválido',
+  WRONG_EXPIRY_DATE: 'Fecha incorrecta',
+}
+
+const FormSchema = schema({
+  cardMethod: value => {
+    value.required(MESSAGE.REQUIRED)
+  },
+  cardNumber: (value, { cardMethod }) => {
+    value
+      .required(MESSAGE.REQUIRED)
+      .creditCardNumber(cardMethod, MESSAGE.WRONG_CARD_NUMBER)
+  },
+  cvv: (value, { cardMethod }) => {
+    value
+      .required(MESSAGE.REQUIRED)
+      .creditCardCvv(cardMethod, MESSAGE.WRONG_CVV)
+  },
+  expiryDate: value => {
+    const match = value.value.trim().match(/^(\d\d)\/(\d\d(\d\d)?)$/)
+    if (!match) throw MESSAGE.WRONG_EXPIRY_DATE
+    let _m = match[1]
+    let _y = match[2]
+    if (!(_m >= 0 && _m < 13)) {
+      throw MESSAGE.WRONG_EXPIRY_DATE
+    }
+    if (_y.length === 2) {
+      _y = '20' + _y
+    }
+
+    if (_m.length === 1) {
+      _m = '0' + _m
+    }
+
+    const formDate = new Date(_y, _m - 1)
+    if (formDate < Date.now()) {
+      throw MESSAGE.WRONG_EXPIRY_DATE
+    }
+    return this
+  },
+})
 
 const FormPay = ({ onSubmit, onReset }) => (
   <Formik
-    initialValues={{
-      cardMethod: 'visa',
-      cardNumber: '4437030140190994',
-      expiryDate: '10/2021',
-      cvv: '123',
-    }}
     validate={values => {
-      // FIXME: Validaciones y errores
-      // return RegisterSchema(values)
-      return true
+      const errors = new FormSchema(values)
+      if (Object.keys(errors).length > 0) {
+        return errors
+      }
     }}
     onReset={onReset}
     onSubmit={(values, actions) => {
@@ -102,7 +140,7 @@ const FormPay = ({ onSubmit, onReset }) => (
             </span>
           }
           name="term"
-          valueCheck="amex"
+          valueCheck="term"
         />
 
         <S.Span>
@@ -110,7 +148,11 @@ const FormPay = ({ onSubmit, onReset }) => (
           acuerdo con la información.
         </S.Span>
 
-        <Button type="submit">CONTINUAR</Button>
+        <S.WrapSubmit>
+          <Button type="submit" maxWidth="300px">
+            CONTINUAR
+          </Button>
+        </S.WrapSubmit>
       </Form>
     )}
   />

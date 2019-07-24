@@ -1,7 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import {
+  resizerSecret,
+  CONTENT_BASE
+} from 'fusion:environment'
+import {
+  addResizedUrls
+} from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import {
   addResizedUrlsToStory,
@@ -14,6 +19,12 @@ const options = {
 
 const schemaName = 'stories'
 
+const params = [{
+  name: 'website_url',
+  displayName: 'URL de la nota',
+  type: 'text',
+}, ]
+
 export const itemsToArray = (itemString = '') => {
   return itemString.split(',').map(item => {
     return item.replace(/"/g, '')
@@ -23,8 +34,7 @@ const queryStoryRecent = (section, site) => {
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               'revision.published': 'true',
             },
@@ -46,8 +56,7 @@ const queryStoryRecent = (section, site) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': sectionsIncluded,
                 },
@@ -69,7 +78,9 @@ const queryStoryRecent = (section, site) => {
 
 const transformImg = data => {
   const dataStory = data
-  const { resizerUrl } = getProperties(data.website)
+  const {
+    resizerUrl
+  } = getProperties(data.website)
   return (
     addResizedUrlsToStory(
       [dataStory],
@@ -93,7 +104,11 @@ const fetch = key => {
     const dataStory = collectionResp
 
     const {
-      taxonomy: { primary_section: { path: section } = {} } = {},
+      taxonomy: {
+        primary_section: {
+          path: section
+        } = {}
+      } = {},
     } = dataStory
 
     const encodedBody = queryStoryRecent(section, site)
@@ -119,7 +134,5 @@ const fetch = key => {
 export default {
   fetch,
   schemaName,
-  params: {
-    website_url: 'text',
-  },
+  params,
 }

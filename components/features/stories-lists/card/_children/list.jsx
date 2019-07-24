@@ -4,7 +4,7 @@ import StoryData from '../../../../utilities/story-data'
 import { formatDateLocalTimeZone } from '../../../../utilities/helpers'
 
 const classes = {
-  list: 'stories-l-card__list overflow-y-auto pr-20 pl-20',
+  list: 'stories-l-card__list bg-white overflow-y-auto pr-20 pl-20',
 }
 
 const StoriesListsCardChildList = ({
