@@ -518,13 +518,17 @@ class NavBarDefault extends PureComponent {
                         ? 'web_link_ingresaperfil'
                         : 'web_link_ingresacuenta'
                     }
-                    className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
+                    className={`${classes.btnLogin} ${
+                      classes.btnSignwall
+                    } btn--outline`}
                     onClick={() => this.setState({ isActive: true })}>
                     <i
                       className={
                         initialUser
                           ? `${classes.iconSignwall} text-user`
-                          : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
+                          : `${classes.iconLogin} ${
+                              classes.iconSignwall
+                            } icon-user`
                       }>
                       {initialUser}
                     </i>
@@ -538,7 +542,9 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -546,7 +552,9 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  className={`${classes.btnLogin} border-1 border-solid border-white`}
+                  className={`${
+                    classes.btnLogin
+                  } border-1 border-solid border-white`}
                   onClick={() => this.setState({ isActive: true })}>
                   {/* <i className={classes.iconLogin} /> */}
                   <i
