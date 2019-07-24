@@ -118,10 +118,10 @@ class NavBarDefault extends PureComponent {
         //   ci: 'https://www.your.domain.com/canonical/url'
         // })
         contentType: dataContentType
-          ? dataContentType.getAttribute('content-type')
+          ? dataContentType.getAttribute('content')
           : 'none',
         section: dataContentSection
-          ? dataContentSection.getAttribute('section-id')
+          ? dataContentSection.getAttribute('content')
           : 'none',
         userName: window.Identity.userIdentity.uuid
           ? window.Identity.userIdentity.uuid
