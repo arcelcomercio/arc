@@ -505,6 +505,7 @@ class NavBarDefault extends PureComponent {
                 className={classes.logo}
               />
             </a>
+            <div className="nav__title-story" />
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>

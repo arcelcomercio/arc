@@ -7,7 +7,7 @@ const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
 }
 
-const StoryContentChildImage = ({ data, imgTag }) => {
+const StoryContentChildImage = ({ data, imgTag, resizer = false }) => {
   return (
     <>
       <Image
