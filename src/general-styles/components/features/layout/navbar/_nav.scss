@@ -201,7 +201,14 @@
   &__search-box {
     height: 20px;
   }
+  /*   Estilos para nav loader en notas */
   &__loader-bar {
+    left: 0;
     background-color: $color-primary;
+    transition: width 0.5s;
+  }
+  &__container-menu,
+  &__mobile-logo {
+    z-index: 1;
   }
 }

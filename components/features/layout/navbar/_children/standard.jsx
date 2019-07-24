@@ -45,7 +45,7 @@ const classes = {
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
-  navLoader: 'nav__loader-bar',
+  navLoader: 'nav__loader-bar position-absolute w-full h-full top-0',
   iconSignwallMobile: 'rounded uppercase bg-primary',
 }
 
@@ -571,6 +571,7 @@ class NavBarDefault extends PureComponent {
                 </i>
               </button>
             </div>
+            <div className={classes.navLoader} />
           </div>
           <Menu
             sections={sections}
@@ -579,7 +580,6 @@ class NavBarDefault extends PureComponent {
             siteProperties={siteProperties}
           />
           <div className="layer" />
-          <div className={classes.navLoader} />
         </nav>
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
