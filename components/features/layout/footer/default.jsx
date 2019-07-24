@@ -110,11 +110,12 @@ LayoutFooter.label = 'Pie de Página'
 
 LayoutFooter.propTypes = {
   customFields: PropTypes.shape({
-    footerType: PropTypes.oneOf(['standard', 'secondary']).tag({
+    footerType: PropTypes.oneOf(['standard', 'secondary', 'story']).tag({
       name: 'Diseño del Pie de página',
       labels: {
         standard: 'Footer estándar',
         secondary: 'Footer 2',
+        story: 'Footer - Notas',
       },
       defaultValue: 'standard',
     }),

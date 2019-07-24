@@ -83,7 +83,7 @@ class StoryContinue extends PureComponent {
     setTimeout(() => {
       const link = linker.getAttribute('href')
       if (link !== '') {
-        window.location = link
+        //  window.location = link
       }
     }, 500)
   }
@@ -180,7 +180,7 @@ class StoryContinue extends PureComponent {
               </div>
               <div className={classes.storyLoadNews}>
                 <span className={classes.storyLoadText}>
-                  Cargando siguiente
+                  Cargando siguiente...
                 </span>
                 <span className={classes.storyLoadTitle}>{title}</span>
               </div>
