@@ -1,6 +1,9 @@
 .story-continue {
   &__story-load-image {
     background-image: url(/pf/resources/dist/publimetro/images/loader-publimetro.png);
+    width: 37px;
+    height: 37px;
+    background-size: cover;
   }
   &__counter {
     &::after {

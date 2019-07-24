@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  footer: 'footer-secondary',
+  footer: 'footer-secondary footer-story',
   logoContainer:
     'footer-secondary__logo-wrapper flex items-center pl-20 pr-20 justify-center lg:justify-start',
   logo: 'footer-secondary__logo-link',

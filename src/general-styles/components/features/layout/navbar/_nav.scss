@@ -210,6 +210,7 @@
   }
   /*   Estilos para nav loader en notas */
   &__loader-bar {
+    width: 0%;
     left: 0;
     background-color: $color-primary;
     transition: width 0.5s;
