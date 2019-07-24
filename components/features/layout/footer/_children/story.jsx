@@ -15,7 +15,7 @@ const classes = {
 }
 
 const SecondaryFooter = props => {
-  const { siteLegal, logoUrl, arcSite } = props
+  const { story, logoUrl, arcSite } = props
 
   return (
     <footer className={classes.footer}>
@@ -34,9 +34,10 @@ const SecondaryFooter = props => {
       <div className={classes.body}>
         {/* Información del sitio */}
         <div className={classes.legalWrapper}>
-          {siteLegal.map(el => (
-            <div className={classes.legalItem} key={el}>
-              {el}
+          {story.map(({ position, name }) => (
+            <div className={classes.legalItem} key={position}>
+              <div>{position}</div>
+              <div>{name}</div>
             </div>
           ))}
         </div>

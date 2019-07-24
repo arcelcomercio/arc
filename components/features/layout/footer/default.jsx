@@ -78,7 +78,7 @@ class LayoutFooter extends PureComponent {
       siteProperties: {
         gecSites,
         legalLinks,
-        footer: { socialNetworks = [], contacts = [], siteLegal },
+        footer: { socialNetworks = [], contacts = [], siteLegal, story },
         assets: { footer: { logo } = {} } = {},
       },
     } = this.props
@@ -99,6 +99,7 @@ class LayoutFooter extends PureComponent {
       logoUrl,
       sections,
       arcSite,
+      story,
     }
 
     const footers = {

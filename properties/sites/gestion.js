@@ -8,7 +8,8 @@ export default {
   linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://publimetro.pe/resizer', // Temporal hasta que activen el resizer para gestión
   resizerSecretKeyEnvVar: '',
-  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/GESTION_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/GESTION_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KFQK83S',
   ampGoogleTagManagerId: 'UA-3055636-3',
@@ -18,7 +19,8 @@ export default {
   fbArticleStyle: 'LogoGestion',
   nameStoryRelated: 'VEA TAMBIÉN',
 
-  siteDescription: 'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  siteDescription:
+    'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
@@ -65,7 +67,8 @@ export default {
       return `${this.path}${this.paywall[image]}`
     },
   },
-  legalLinks: [{
+  legalLinks: [
+    {
       name: '¿Quiénes somos?',
       url: '/quienes-somos',
     },
@@ -95,8 +98,22 @@ export default {
       'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
       'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
     ],
-
-    socialNetworks: [{
+    story: [
+      {
+        position: 'Director Periodístico',
+        name: 'JULIO LIRA SEGURA',
+      },
+      {
+        position: 'Empresa Editora Publimetro',
+        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
+      },
+      {
+        position: 'Copyright © publimetro.pe',
+        name: 'Grupo El Comercio - Todos los derechos reservados',
+      },
+    ],
+    socialNetworks: [
+      {
         name: 'linkedin',
         url: 'https://www.linkedin.com/company/diario-gestión/',
       },
@@ -110,7 +127,8 @@ export default {
       },
     ],
 
-    contacts: [{
+    contacts: [
+      {
         position: 'Director Periodístico',
         name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
       },
@@ -155,5 +173,5 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
   ],
-  activeSignwall: true
+  activeSignwall: true,
 }
