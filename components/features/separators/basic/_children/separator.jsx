@@ -35,7 +35,7 @@ const SeparatorsBasicChildSeparator = props => {
       numline = classes.threeline
       break
     default:
-      numline = classes.twoline
+      numline = classes.threeline
       break
   }
   return (

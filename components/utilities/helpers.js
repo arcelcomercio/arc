@@ -1,10 +1,5 @@
-import {
-  addResizedUrlItem
-} from './thumbs'
-import ConfigParams, {
-  sizeImg,
-  sizeImgNewsLetter
-} from './config-params'
+import { addResizedUrlItem } from './thumbs'
+import ConfigParams, { sizeImg, sizeImgNewsLetter } from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -30,9 +25,9 @@ export const formatDate = date => {
 
   const fechaEntrante = date.slice(0, 10)
   const fecha =
-    fechaEntrante === fechaGenerada ?
-    date.slice(date.indexOf('T') + 1, 16) :
-    fechaEntrante
+    fechaEntrante === fechaGenerada
+      ? date.slice(date.indexOf('T') + 1, 16)
+      : fechaEntrante
   return fecha
 }
 
@@ -90,11 +85,14 @@ export const arrayDays = [
   'Sábado',
 ]
 
-export const formatDayMonthYear = (currentDate, showTime = true, isStatic = false) => {
+export const formatDayMonthYear = (
+  currentDate,
+  showTime = true,
+  isStatic = false
+) => {
   const date = new Date(currentDate)
 
-  if (isStatic)
-    if (date.getHours() <= 5) date.setDate(date.getDate() - 1)
+  if (isStatic) if (date.getHours() <= 5) date.setDate(date.getDate() - 1)
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
@@ -201,9 +199,9 @@ export const metaPaginationUrl = (
   requestUri,
   siteUrl
 ) => {
-  return requestUri.match(patternPagination) !== null ?
-    `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}` :
-    `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
+  return requestUri.match(patternPagination) !== null
+    ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
+    : `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
         requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
       }`
 }
@@ -213,13 +211,11 @@ export const getMetaPagesPagination = (
   globalContent,
   patternPagination
 ) => {
-  const {
-    next,
-    previous
-  } = globalContent || {}
+  const { next, previous } = globalContent || {}
   const pages = {
-    current: requestUri.match(patternPagination) ?
-      parseInt(requestUri.match(patternPagination)[0].split('/')[1], 10) : 1,
+    current: requestUri.match(patternPagination)
+      ? parseInt(requestUri.match(patternPagination)[0].split('/')[1], 10)
+      : 1,
     next: false,
     prev: false,
   }
@@ -279,9 +275,9 @@ export const getCookie = cookieName => {
 
 export const formatSlugToText = (text = '') => {
   if (!text) return null
-  const splitText = text.slice(1).includes('/') ?
-    text.slice(1).split('/') :
-    text.split('/')
+  const splitText = text.slice(1).includes('/')
+    ? text.slice(1).split('/')
+    : text.split('/')
   const lastSection = splitText[splitText.length - 1]
   return lastSection
     .charAt(0)
@@ -320,7 +316,7 @@ export const addParamToEndPath = (path, param) => {
     return {
       onlyPath,
       queryString,
-      haveQueryString
+      haveQueryString,
     }
   }
   const addParam = (onlyPath, variable, queryString = '') => {
@@ -350,12 +346,7 @@ export const defaultImage = ({
   )
 }
 
-export const createScript = ({
-  src,
-  async,
-  defer,
-  textContent = ''
-}) => {
+export const createScript = ({ src, async, defer, textContent = '' }) => {
   const node = document.createElement('script')
   if (src) {
     node.type = 'text/javascript'
@@ -390,7 +381,8 @@ export const breadcrumbList = (url, siteUrl) => {
       if (i === 1 || (i === 2 && dataSeccion.length === 4)) {
         const separator = '/'
         arrayData[i] = {
-          name: element.charAt(0).toUpperCase() +
+          name:
+            element.charAt(0).toUpperCase() +
             element.slice(1).replace('-', ' '),
           url: siteUrl + separator + element,
         }
@@ -402,11 +394,7 @@ export const breadcrumbList = (url, siteUrl) => {
 }
 
 export const getUrlParameter = () => {
-  const {
-    location: {
-      href: loc
-    } = {}
-  } = window || {}
+  const { location: { href: loc } = {} } = window || {}
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
   return parseInt(tmp[1], 0) || 1
@@ -429,9 +417,9 @@ export const getMultimediaIcon = multimediaType => {
 
 export const optaWidgetHtml = html => {
   const matches = html.match(/<opta-widget(.*?)><\/opta-widget>/)
-  const matchesResult = matches ?
-    matches[1].replace(/="/g, '=').replace(/" /g, '&') :
-    ''
+  const matchesResult = matches
+    ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
+    : ''
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
@@ -576,12 +564,7 @@ export const ampHtml = (html = '') => {
   return resultData
 }
 
-export const publicidadAmp = ({
-  dataSlot,
-  placementId,
-  width,
-  height
-}) => {
+export const publicidadAmp = ({ dataSlot, placementId, width, height }) => {
   const resultData = createMarkup(`
   <amp-ad width="${width}" height="${height}" type="doubleclick"
   data-slot="${dataSlot}"
@@ -636,9 +619,7 @@ export const addResizedUrlsToStory = (
       const dataStory = item
 
       const {
-        promo_items: {
-          basic_gallery: contentElements = null
-        } = {},
+        promo_items: { basic_gallery: contentElements = null } = {},
       } = item
 
       if (contentElements && contentElements.promo_items) {
@@ -671,9 +652,7 @@ export const addResizedUrlsToStoryNewsLetter = (
       const dataStory = item
 
       const {
-        promo_items: {
-          basic_gallery: contentElements = null
-        } = {},
+        promo_items: { basic_gallery: contentElements = null } = {},
       } = item
 
       if (contentElements && contentElements.promo_items) {
@@ -726,4 +705,19 @@ export const searchQuery = (query, sort) => {
       /%20/g,
       '+'
     )}/todas/${sort || 'descendiente'}/`
+}
+
+export const getMultimedia = multimediaType => {
+  let type = ''
+  switch (multimediaType) {
+    case ConfigParams.VIDEO:
+      type = 'video'
+      break
+    case ConfigParams.GALLERY:
+      type = 'gallery'
+      break
+    default:
+      type = 'story'
+  }
+  return type
 }
