@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Formik, Form, Field } from 'formik'
 import Checkbox from '../../../checkbox'
@@ -163,7 +163,7 @@ const FormPay = ({ onSubmit, onReset }) => {
 
           <S.WrapSubmit>
             <Button type="submit" maxWidth="300px">
-              CONTINUAR
+              CONTINUAR{isSubmitting && '...'}
             </Button>
           </S.WrapSubmit>
         </Form>

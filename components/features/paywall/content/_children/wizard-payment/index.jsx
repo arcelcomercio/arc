@@ -30,7 +30,7 @@ function WizardPayment(props) {
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
   } = props
 
-  const [errors, setErrors] = useState([])
+  const [error, setError] = useState([])
 
   const fusionContext = useFusionContext()
   const { siteProperties } = fusionContext
