@@ -7,8 +7,9 @@ const classes = {
   description: 'story-content__news-media-description text-left',
 }
 
-const StoryContentChildAmpImage = props => {
-  const { data } = props
+const StoryContentChildAmpImage = ({ data, resizer = false }) => {
+  const sizerImg = resizer ? 'original' : 'large'
+
   return (
     <>
       <Image
@@ -16,7 +17,7 @@ const StoryContentChildAmpImage = props => {
         ImgTag="amp-img"
         className={classes.image}
         captionClassName={classes.description}
-        sizePreset="large"
+        sizePreset={sizerImg}
         {...data}
       />
     </>

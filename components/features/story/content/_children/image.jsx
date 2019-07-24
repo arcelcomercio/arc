@@ -8,6 +8,7 @@ const classes = {
 }
 
 const StoryContentChildImage = ({ data, imgTag, resizer = false }) => {
+  const sizerImg = resizer ? 'original' : 'large'
   return (
     <>
       <Image
@@ -16,7 +17,7 @@ const StoryContentChildImage = ({ data, imgTag, resizer = false }) => {
         ImgTag={imgTag}
         imgClassName={classes.image}
         captionClassName={classes.caption}
-        sizePreset="large"
+        sizePreset={sizerImg}
         {...data}
       />
     </>
