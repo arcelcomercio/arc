@@ -17,6 +17,9 @@
     @media (--desktop) {
       width: 313px;
       padding-left: 10px;
+      & > [class] {
+        margin-bottom: 20px;
+      }
     }
   }
 }
