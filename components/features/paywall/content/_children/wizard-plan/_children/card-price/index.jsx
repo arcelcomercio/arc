@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Panel from '../../../../../_children/panel'
 import * as S from './styled'
 
@@ -7,30 +7,19 @@ function CardPrice(props) {
     plan: { amount, billingFrequency, description },
     loading,
     onClick = i => i,
-    active: defaultActive,
+    onMouseOver,
+    onFocus,
+    active,
   } = props
 
   const frequency = {
     month: 'Mensual',
     year: 'Anual',
   }
-  const [active, setActive] = useState(defaultActive)
-
-  const onFocus = () => {
-    setActive(true)
-  }
-
-  const onBlur = () => {
-    setActive(false)
-  }
 
   return (
     <Panel type="card-price">
-      <S.CardPrice
-        onBlur={onBlur}
-        onMouseLeave={onBlur}
-        onFocus={onFocus}
-        onMouseOver={onFocus}>
+      <S.CardPrice onFocus={onFocus} onMouseOver={onMouseOver}>
         <S.Content>
           <S.Frecuency>{frequency[billingFrequency.toLowerCase()]}</S.Frecuency>
           <S.Amount>

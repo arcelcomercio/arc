@@ -18,7 +18,7 @@ function WizardPlan(props) {
 
   const fusionContext = useFusionContext()
   const [loadingPlan, setLoadingPlan] = useState()
-  const [errors, setErrors] = useState([])
+  const [activePlan, setActivePlan] = useState()
 
   const { siteProperties } = fusionContext
   const Sales = addSales(siteProperties)
@@ -34,7 +34,6 @@ function WizardPlan(props) {
         })
         .catch(e => {
           setLoadingPlan(false)
-          setErrors([...errors, e])
         })
     })
   }
@@ -44,16 +43,20 @@ function WizardPlan(props) {
       <S.Wrap>
         <Summary {...summary} />
         <S.WrapPlan>
-          <S.PlanTitle>Selecciona un plan de pago:</S.PlanTitle>
+          <S.PlanTitle>Selecciona el período de pago:</S.PlanTitle>
           <S.Plans>
-            {plans.map(plan => {
-              const { billingFrequency, priceCode } = plan
+            {plans.map((plan, idx) => {
+              const { priceCode } = plan
 
               return (
                 <CardPrice
-                  active={billingFrequency === 'Month'}
+                  active={
+                    activePlan === priceCode || (!activePlan && idx === 0)
+                  }
                   key={priceCode}
                   plan={plan}
+                  onMouseOver={() => setActivePlan(priceCode)}
+                  onFocus={() => setActivePlan(priceCode)}
                   onClick={subscribePlanHandler}
                   loading={loadingPlan && loadingPlan.priceCode === priceCode}
                 />

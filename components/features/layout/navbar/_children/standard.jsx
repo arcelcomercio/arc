@@ -45,6 +45,10 @@ const classes = {
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
+  navLoaderWrapper: 'nav__loader position-absolute w-full',
+  navLoader: 'nav__loader-bar  w-full h-full',
+  navStoryTitle: 'nav__story-title position-relative overflow-hidden',
+  navStorySocialNetwork: 'nav__story-social-network hidden',
   iconSignwallMobile: 'rounded uppercase bg-primary',
 }
 
@@ -514,6 +518,8 @@ class NavBarDefault extends PureComponent {
                 className={classes.logo}
               />
             </a>
+            <div className={classes.navStoryTitle} />
+            <div className={classes.navStorySocialNetwork} />
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
@@ -581,6 +587,9 @@ class NavBarDefault extends PureComponent {
                 </button>
               </div>
             )}
+            <div className={classes.navLoaderWrapper}>
+              <div className={classes.navLoader} />
+            </div>
           </div>
           <Menu
             sections={sections}

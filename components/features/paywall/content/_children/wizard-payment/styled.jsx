@@ -8,4 +8,9 @@ export const WizardPayment = styled.div`
     flex-direction: column-reverse;
     align-items: center;
   }
+
+  @media ${devices.tablet} {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `
