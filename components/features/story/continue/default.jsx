@@ -121,15 +121,16 @@ class StoryContinue extends PureComponent {
     const progress = storyLoader.querySelector(`.story-continue__progress`)
     storyLoader.setAttribute('data-state', 'outviewport')
     // TODO: retirar despues del 15 de agosto
-    const { arcSite } = this.props || {}
-    if (arcSite === 'gestion') {
-      document.querySelector('.nav__logo').src =
-        '/pf/resources/dist/gestion/images/logo.png?d=%24LATEST'
-    }
-    if (arcSite === 'publimetro') {
-      document.querySelector('.nav__logo').src =
-        '/pf/resources/dist/gestion/images/green-logo.png?d=%24LATEST'
-    }
+    /**
+     * Esto cambia el logo de la barra de navegación cuando estás viendo una noticia,
+     * es necesario porque por ahora el color es distinto.
+     */
+    const { arcSite, contextPath, deployment } = this.props || {}
+    document.querySelector('.nav__logo').src = deployment(
+      arcSite === 'publimetro'
+        ? `${contextPath}/resources/dist/gestion/images/logo.png`
+        : `${contextPath}/resources/dist/publimetro/images/green-logo.png`
+    )
     // TODO: finnnn
     this.setAttributeProgress(progress, MIN_PROGRESS)
   }
