@@ -18,6 +18,11 @@ const PanelPayment = styled(Panel)`
     box-sizing: border-box;
     max-width: 100vw;
   }
+  @media ${devices.tablet} {
+    margin-top: 30px;
+    padding: 18px 30px;
+    box-sizing: border-box;
+  }
 `
 
 const MESSAGE = {
@@ -164,7 +169,6 @@ function WizardPayment(props) {
                     payU.createToken(response => {
                       if (response.error) {
                         reject(new Error(response.error))
-                        setSubmitting(false)
                       } else {
                         resolve(response.token)
                       }
@@ -215,10 +219,6 @@ function WizardPayment(props) {
                         total,
                       }
                     })
-                })
-                .catch(e => {
-                  console.error({ e })
-                  setSubmitting(false)
                 })
             )
           }
