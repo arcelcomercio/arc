@@ -128,7 +128,7 @@ class StoryContinue extends PureComponent {
     }
     if (arcSite === 'publimetro') {
       document.querySelector('.nav__logo').src =
-        '/pf/resources/dist/gestion/images/green-logo.png?d=%24LATEST'
+        '/pf/resources/dist/publimetro/images/green-logo.png?d=%24LATEST'
     }
     // TODO: finnnn
     this.setAttributeProgress(progress, MIN_PROGRESS)
