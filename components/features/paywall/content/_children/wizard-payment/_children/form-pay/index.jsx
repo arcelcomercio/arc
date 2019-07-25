@@ -66,9 +66,19 @@ const FormSchema = schema({
   agreed: value => value.required(MESSAGE.REQUIRED),
 })
 
+const fakecard = () => {
+  return {
+    cardMethod: 'visa',
+    cardNumber: '4105740662590576',
+    cvv: '575',
+    expiryDate: '11/2021',
+  }
+}
+
 const FormPay = ({ onSubmit, onReset }) => {
   return (
     <Formik
+      initialValues={Object.assign({})}
       validate={values => new FormSchema(values)}
       onReset={onReset}
       onSubmit={(values, actions) => {
@@ -128,7 +138,7 @@ const FormPay = ({ onSubmit, onReset }) => {
                 component={Input}
                 name="cardNumber"
                 label="Número de tarjeta"
-                mask="9999 - 9999 - 999 - 9999"
+                mask="9999 - 9999 - 9999 - 9999"
                 placeholder="0000 - 0000 - 0000 - 0000"
               />
             </S.WrapInput>
