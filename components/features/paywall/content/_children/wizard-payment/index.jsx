@@ -169,7 +169,6 @@ function WizardPayment(props) {
                     payU.createToken(response => {
                       if (response.error) {
                         reject(new Error(response.error))
-                        setSubmitting(false)
                       } else {
                         resolve(response.token)
                       }
@@ -220,10 +219,6 @@ function WizardPayment(props) {
                         total,
                       }
                     })
-                })
-                .catch(e => {
-                  console.error({ e })
-                  setSubmitting(false)
                 })
             )
           }
