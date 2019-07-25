@@ -7,9 +7,11 @@
   }
   &__left {
     width: 100%;
+    margin-bottom: 20px;
     @media (--desktop) {
       width: calc(100% - 313px);
       padding-right: 10px;
+      margin-bottom: 0;
     }
   }
   &__right {
