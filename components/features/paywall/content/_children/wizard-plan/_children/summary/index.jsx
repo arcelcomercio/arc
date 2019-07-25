@@ -10,7 +10,6 @@ function Summary({ title, feature }) {
       <S.Wrap>
         <S.Head>
           <S.WrapTitle>
-            <S.SummaryTitle>Plan</S.SummaryTitle>
             <S.NamePlan>{title}</S.NamePlan>
           </S.WrapTitle>
           <Icon type="devices" width="66" height="54" />

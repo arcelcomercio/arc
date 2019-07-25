@@ -35,7 +35,7 @@ const Panel = styled.div`
       case 'summary':
         return css`
           max-width: 360px;
-          align-items: end;
+          align-items: flex-start;
           @media (${devices.mobile}) {
             max-width: calc(100% - 40px);
             align-items: center;

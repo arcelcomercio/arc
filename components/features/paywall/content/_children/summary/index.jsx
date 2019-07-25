@@ -57,8 +57,8 @@ const Footer = ({ title, feature }) => {
   return (
     <S.Footer>
       <S.WrapTitle>
-        <S.SummaryTitle>DETALLE DE COMPRA</S.SummaryTitle>
-        <S.NamePlan>Plan {title}</S.NamePlan>
+        <S.SummaryTitle>DETALLE DE LA SUSCRIPCIÓN</S.SummaryTitle>
+        <S.NamePlan>{title}</S.NamePlan>
       </S.WrapTitle>
       {feature.map((text, index) => {
         const key = index

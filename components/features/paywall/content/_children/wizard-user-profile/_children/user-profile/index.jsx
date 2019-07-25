@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik'
 import InputFormik from '../../../../../_children/input'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
-import schema, { clearNull } from '../../../../../_dependencies/schema'
+import schema from '../../../../../_dependencies/schema'
 import Select from '../select-formik'
 
 const MESSAGE = {
@@ -115,7 +115,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                   maxlength="50"
                   transform="capitalize"
                   name="firstName"
-                  placeholder="Nombres"
+                  label="Nombres"
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -123,7 +123,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   transform="capitalize"
                   name="lastName"
-                  placeholder="Apellido Paterno"
+                  label="Apellido Paterno"
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -131,14 +131,14 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   transform="capitalize"
                   name="secondLastName"
-                  placeholder="Apellido Materno"
+                  label="Apellido Materno"
                   component={InputFormik}
                 />
               </S.WrapField>
               <S.WrapField>
                 <Field
                   name="documentNumber"
-                  placeholder="Tipo de documento"
+                  label="Tipo de documento"
                   type={typeInput}
                   prefix={
                     <Field
@@ -154,7 +154,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               <S.WrapField>
                 <Field
                   name="phone"
-                  placeholder="Número de Celular"
+                  label="Número de Celular"
                   type="number"
                   component={InputFormik}
                 />
@@ -162,7 +162,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               <S.WrapField>
                 <Field
                   name="email"
-                  placeholder="Correo Electrónico"
+                  label="Correo Electrónico"
                   component={InputFormik}
                 />
               </S.WrapField>
