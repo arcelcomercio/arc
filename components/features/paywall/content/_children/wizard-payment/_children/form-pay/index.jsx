@@ -126,7 +126,6 @@ const FormPay = ({ onSubmit, onReset }) => {
             <S.WrapInput min-width="310px">
               <Field
                 component={Input}
-                pattern="[0-9]*"
                 name="cardNumber"
                 label="Número de tarjeta"
                 mask="9999 - 9999 - 999 - 9999"
