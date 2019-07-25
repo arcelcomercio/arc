@@ -174,7 +174,7 @@ function WizardPayment(props) {
                 // TODO: El servicio aun esta en desarrollo
                 .then(token => {
                   return apiPaymentRegister({
-                    baseUrl: 'http://devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
+                    baseUrl: '//devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
                     orderNumber,
                     firstName,
                     lastName,

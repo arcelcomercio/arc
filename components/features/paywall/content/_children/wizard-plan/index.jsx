@@ -43,7 +43,7 @@ function WizardPlan(props) {
       <S.Wrap>
         <Summary {...summary} />
         <S.WrapPlan>
-          <S.PlanTitle>Selecciona un plan de pago:</S.PlanTitle>
+          <S.PlanTitle>Selecciona el período de pago:</S.PlanTitle>
           <S.Plans>
             {plans.map((plan, idx) => {
               const { priceCode } = plan
