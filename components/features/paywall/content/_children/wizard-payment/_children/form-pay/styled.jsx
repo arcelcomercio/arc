@@ -77,3 +77,7 @@ export const WrapSubmit = styled.div`
   display: flex;
   justify-content: center;
 `
+
+export const Link = styled.a`
+  color: #0179af;
+`

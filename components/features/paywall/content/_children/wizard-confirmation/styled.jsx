@@ -14,6 +14,7 @@ export const Subtitle = styled.span`
   box-sizing: border-box;
   max-width: 480px;
   line-height: 1.71;
+  font-size: 14px;
   color: #444;
   @media (${devices.mobile}) {
     padding: 0;

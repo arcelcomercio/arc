@@ -39,7 +39,7 @@ class Head extends React.PureComponent {
             />
             <S.WrapLogin>
               <S.Username>
-                <span>Hola {firstName && 'Lector'}</span>
+                <span>Hola {firstName || 'Lector'}</span>
                 <S.WrapIcon>
                   <Icon type="profile" fill="#FFF" width="30" height="30" />
                 </S.WrapIcon>

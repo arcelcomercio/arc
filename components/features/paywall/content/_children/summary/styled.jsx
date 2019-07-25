@@ -45,7 +45,7 @@ const WrapTitle = styled.div`
 `
 
 const NamePlan = styled.span`
-  font-size: 26px;
+  font-size: 30px;
   font-family: var(--font-secondary);
   margin-bottom: 30px;
 `

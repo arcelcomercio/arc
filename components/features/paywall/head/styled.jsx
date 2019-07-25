@@ -58,6 +58,7 @@ const Right = styled.div`
   background-color: #000;
 `
 const Img = styled.img`
+  max-height: 30px;
   @media (${devices.mobile}) {
     max-height: 26px;
   }
