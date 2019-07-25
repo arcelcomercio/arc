@@ -83,6 +83,16 @@ export const Error = styled.span`
   bottom: -20px;
 `
 
+export const Prefix = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const WrapInput = styled.div`
+  display: flex;
+  flex: 1;
+`
+
 export { Label, FormGroup }
 
 // .__label.__focus{
