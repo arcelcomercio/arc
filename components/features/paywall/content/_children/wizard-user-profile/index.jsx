@@ -32,7 +32,6 @@ function WizardUserProfile(props) {
     profile,
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
-    nextStep,
   } = props
 
   const {

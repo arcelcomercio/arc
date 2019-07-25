@@ -20,6 +20,7 @@ export const Security = styled.div`
   align-items: center;
   color: #d6a730;
   font-weight: 700;
+  margin-bottom: 20px;
   @media (${devices.mobile}) {
     justify-content: center;
   }

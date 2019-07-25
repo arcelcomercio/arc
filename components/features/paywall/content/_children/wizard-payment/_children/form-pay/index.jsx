@@ -4,6 +4,7 @@ import { Formik, Form, Field } from 'formik'
 import Checkbox from '../../../checkbox'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
+import Error from '../../../../../_children/error'
 import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import schema from '../../../../../_dependencies/schema'
@@ -75,7 +76,7 @@ const fakecard = () => {
   }
 }
 
-const FormPay = ({ onSubmit, onReset }) => {
+const FormPay = ({ error, onSubmit, onReset }) => {
   return (
     <Formik
       initialValues={Object.assign({})}
@@ -99,6 +100,7 @@ const FormPay = ({ onSubmit, onReset }) => {
               Compra seguro. Esta web está protegida
             </S.TextSecurity>
           </S.Security>
+          {error && <Error mb="20px" message={error} />}
           <S.WrapCards>
             <S.TextCard>Selecciona un tipo de tarjeta</S.TextCard>
             <S.Cards>
