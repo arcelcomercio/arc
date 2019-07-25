@@ -82,6 +82,7 @@ function WizardPlan(props) {
             <Icon type="arrowRight" />
           </div>
         </S.SubscribedContent>
+        <S.Shadow />
       </S.Subscribed>
     </S.WizardPlan>
   )
