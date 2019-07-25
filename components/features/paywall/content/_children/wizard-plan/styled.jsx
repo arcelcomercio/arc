@@ -63,6 +63,7 @@ export const Subscribed = styled.div`
   cursor: pointer;
   margin-top: 60px;
   align-items: flex-end;
+  position: relative;
   @media (${devices.mobile}) {
     width: calc(100% - 40px);
     margin-top: 40px;
@@ -111,4 +112,14 @@ export const Img = styled.img`
   @media (${devices.mobile}) {
     display: none;
   }
+`
+
+export const Shadow = styled.div`
+  width: 100%;
+  position: absolute;
+  height: 50px;
+  z-index: -2;
+  background-color: #000;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
 `

@@ -32,11 +32,12 @@ const WrapTitle = styled.div`
   justify-content: center;
 `
 
-const NamePlan = styled.span`
-  font-size: 28px;
+export const NamePlan = styled.span`
+  font-size: 34px;
+  font-family: Judson;
 `
 
 const SummaryTitle = styled.span`
   font-size: 16px;
 `
-export { Head, Wrap, Separate, WrapFeature, WrapTitle, NamePlan, SummaryTitle }
+export { Head, Wrap, Separate, WrapFeature, WrapTitle, SummaryTitle }
