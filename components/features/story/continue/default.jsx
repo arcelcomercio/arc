@@ -43,8 +43,7 @@ class StoryContinue extends PureComponent {
       const t = r / 10
       for (let g = 0; g < t; g++) {
         let newer = cur + 10 * g + 10
-        progress.setAttribute('style', `transform: rotate(${newer}deg)`)
-        progress.setAttribute('size', newer)
+        this.setAttributeProgress(progress, newer)
         if (newer >= max) {
           this.setTimeoutLoadPage(linker)
         }
@@ -90,7 +89,7 @@ class StoryContinue extends PureComponent {
     setTimeout(() => {
       const link = linker.getAttribute('href')
       if (link !== '') {
-        //  window.location = link
+        window.location = link
       }
     }, 500)
   }
@@ -107,8 +106,7 @@ class StoryContinue extends PureComponent {
     if (window.innerHeight + window.scrollY + 50 >= html.scrollHeight) {
       direction = 'down'
     } else {
-      progress.setAttribute('style', `transform: rotate(${cur - 10}deg)`)
-      progress.setAttribute('size', cur - 10)
+      this.setAttributeProgress(progress, cur - 10)
       direction = 'up'
     }
 
@@ -124,8 +122,7 @@ class StoryContinue extends PureComponent {
       } else {
         newer = cur + 10
       }
-      progress.setAttribute('style', `transform: rotate(${newer}deg)`)
-      progress.setAttribute('size', newer)
+      this.setAttributeProgress(progress, newer)
     }
   }
 
@@ -134,6 +131,10 @@ class StoryContinue extends PureComponent {
     const el = document.querySelector(`.${classes.storyLoad}`)
     const progress = el.querySelector(`.${classes.storyProgres}`)
     el.setAttribute('data-state', 'outviewport')
+    this.setAttributeProgress(progress, min)
+  }
+
+  setAttributeProgress = (progress, min) => {
     progress.setAttribute('style', `transform: rotate(${min}deg)`)
     progress.setAttribute('size', min)
   }
@@ -155,8 +156,7 @@ class StoryContinue extends PureComponent {
   }
 
   getNextArticle = (recentStoryContinue, siteUrl = '') => {
-    let title = ''
-    let websiteUrl = ''
+    let { title, websiteUrl } = ''
     for (let i = 0; i < recentStoryContinue.length; i++) {
       title = recentStoryContinue[i].basic || ''
       websiteUrl = recentStoryContinue[i].websiteUrl || ''
@@ -171,7 +171,8 @@ class StoryContinue extends PureComponent {
   }
 
   render() {
-    const { contextPath, globalContent: data, siteProperties } = this.props
+    const { contextPath, globalContent: data, siteProperties } =
+      this.props || {}
     const { siteUrl } = siteProperties
     const { recentStoryContinue = [] } = new StoryData({ data, contextPath })
     const { title, websiteUrl } = this.getNextArticle(
