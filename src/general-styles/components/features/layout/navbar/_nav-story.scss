@@ -21,10 +21,11 @@
       background-color: $color-white;
     }
     .btn {
-      border-color: #444;
       color: $color-primary;
     }
-
+    .nav__container-menu {
+      border-color: $color-primary;
+    }
     .nav__story-title {
       color: #444;
     }

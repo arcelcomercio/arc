@@ -7,7 +7,7 @@ import {
 } from '../../../../utilities/helpers'
 
 const classes = {
-  header: 'post-header bg-white p-20',
+  header: 'post-header bg-white p-20 lg:pr-0',
   title:
     'post-header__title primary-font font-thin mb-25 title-md text-gray-300 line-h-xs',
   list: 'post-header__list flex',
