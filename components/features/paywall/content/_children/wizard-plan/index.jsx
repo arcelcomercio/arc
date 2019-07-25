@@ -18,7 +18,7 @@ function WizardPlan(props) {
 
   const fusionContext = useFusionContext()
   const [loadingPlan, setLoadingPlan] = useState()
-  const [errors, setErrors] = useState([])
+  const [activePlan, setActivePlan] = useState()
 
   const { siteProperties } = fusionContext
   const Sales = addSales(siteProperties)
@@ -34,7 +34,6 @@ function WizardPlan(props) {
         })
         .catch(e => {
           setLoadingPlan(false)
-          setErrors([...errors, e])
         })
     })
   }
