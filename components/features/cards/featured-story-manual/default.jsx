@@ -13,7 +13,15 @@ class CardFeaturedStoryManual extends PureComponent {
       arcSite,
       deployment,
       contextPath,
-      customFields: { path, note1, date1, note2, date2, note3, date3 } = {},
+      customFields: {
+        path = '',
+        note1,
+        date1,
+        note2,
+        date2,
+        note3,
+        date3,
+      } = {},
     } = this.props
 
     this.storyFormatter = new StoryFormatter({
@@ -21,6 +29,9 @@ class CardFeaturedStoryManual extends PureComponent {
       contextPath,
       arcSite,
     })
+
+    const regex = /^http/g
+    this.isExternalLink = regex.test(path)
 
     const { schema } = this.storyFormatter
 
@@ -89,6 +100,7 @@ class CardFeaturedStoryManual extends PureComponent {
         titleField,
         categoryField,
         imgField,
+        path = '',
       } = {},
     } = this.props
 
@@ -111,6 +123,11 @@ class CardFeaturedStoryManual extends PureComponent {
       multimediaSquareS,
       multimediaType,
     } = formattedData
+
+    if (this.isExternalLink) {
+      title.url = path
+      category.url = path
+    }
 
     const params = {
       title,
