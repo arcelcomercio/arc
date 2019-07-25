@@ -21,6 +21,12 @@ export const StyledCheckbox = styled.div`
       background-color: #0179af;
       border: solid 2px ${checked ? '#0179af' : 'gray'};
     `}
+
+  ${({ hasError }) =>
+    hasError &&
+    css`
+      border: solid 2px #db0000;
+    `}}
   border-radius: 2px;
   transition: all 150ms;
   ${({ shadowed }) =>

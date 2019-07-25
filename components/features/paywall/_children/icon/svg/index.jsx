@@ -9,6 +9,7 @@ import diners from './diners'
 import lock from './lock'
 import arrowRight from './arrow-right'
 import profile from './profile'
+import cvv from './cvv'
 
 export {
   check,
@@ -22,4 +23,5 @@ export {
   lock,
   arrowRight,
   profile,
+  cvv
 }
