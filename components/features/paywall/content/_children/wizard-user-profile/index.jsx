@@ -32,10 +32,11 @@ function WizardUserProfile(props) {
     profile,
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
-    nextStep,
   } = props
 
-  const { amount, description, billingFrequency } = memo
+  const {
+    plan: { amount, description, billingFrequency },
+  } = memo
 
   const fusionContext = useFusionContext()
   const [loading, setLoading] = useState()
@@ -56,7 +57,10 @@ function WizardUserProfile(props) {
           setLoading(false)
           setSubmitting(false)
           // Mezclamos valores del formulario con los valores de la respuesta
-          const mergeResValues = Object.assign({}, values, res)
+          const mergeResValues = Object.assign({}, memo, {
+            order: res,
+            profile: values,
+          })
           onBeforeNextStep(mergeResValues, props)
         })
         .catch(e => {

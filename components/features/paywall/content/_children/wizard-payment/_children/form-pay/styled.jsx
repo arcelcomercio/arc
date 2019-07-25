@@ -20,6 +20,7 @@ export const Security = styled.div`
   align-items: center;
   color: #d6a730;
   font-weight: 700;
+  margin-bottom: 20px;
   @media (${devices.mobile}) {
     justify-content: center;
   }
@@ -76,4 +77,8 @@ export const Span = styled.div`
 export const WrapSubmit = styled.div`
   display: flex;
   justify-content: center;
+`
+
+export const Link = styled.a`
+  color: #0179af;
 `

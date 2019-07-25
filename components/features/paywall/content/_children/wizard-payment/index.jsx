@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useFusionContext } from 'fusion:context'
@@ -19,6 +20,10 @@ const PanelPayment = styled(Panel)`
   }
 `
 
+const MESSAGE = {
+  PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
+}
+
 function WizardPayment(props) {
   const {
     memo,
@@ -26,7 +31,28 @@ function WizardPayment(props) {
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
   } = props
 
-  const [errors, setErrors] = useState([])
+  const {
+    plan: {
+      sku,
+      priceCode,
+      campaignCode,
+      amount,
+      billingFrequency,
+      description,
+    },
+    order: { orderNumber },
+    profile: {
+      firstName,
+      lastName,
+      secondLastName,
+      documentNumber,
+      documentType,
+      phone,
+      email,
+    },
+  } = memo
+
+  const [error, setError] = useState('')
 
   const fusionContext = useFusionContext()
   const { siteProperties } = fusionContext
@@ -91,26 +117,10 @@ function WizardPayment(props) {
     return response
   }
 
-  const onSubmitHandler = values => {
-    const {
-      sku,
-      priceCode,
-      campaignCode,
-      amount,
-      orderNumber,
-      firstName,
-      lastName,
-      secondLastName,
-      documentNumber,
-      documentType,
-      phone,
-      email,
-    } = memo
+  const onSubmitHandler = (values, { setSubmitting }) => {
     const { cvv, cardMethod, expiryDate, cardNumber } = values
     let payUPaymentMethod
-
     Sales.then(sales => {
-      setLoading(true)
       return sales
         .getPaymentOptions()
         .then(paymentMethods => {
@@ -125,6 +135,7 @@ function WizardPayment(props) {
             parameter1: publicKey,
             parameter2: accountId,
             parameter3: payuBaseUrl,
+            parameter4: deviceSessionId,
           }) => {
             const ownerName = `${firstName} ${lastName} ${secondLastName}`.trim()
             const expiryMonth = expiryDate.split('/')[0]
@@ -133,8 +144,8 @@ function WizardPayment(props) {
             return (
               addPayU(siteProperties)
                 .then(payU => {
-                  payU.setURL(payuBaseUrl) //OK
-                  payU.setPublicKey(publicKey) //OK
+                  payU.setURL(payuBaseUrl)
+                  payU.setPublicKey(publicKey)
                   payU.setAccountID(accountId)
                   payU.setListBoxID('mylistID')
                   payU.getPaymentMethods()
@@ -153,6 +164,7 @@ function WizardPayment(props) {
                     payU.createToken(response => {
                       if (response.error) {
                         reject(new Error(response.error))
+                        setSubmitting(false)
                       } else {
                         resolve(response.token)
                       }
@@ -162,7 +174,7 @@ function WizardPayment(props) {
                 // TODO: El servicio aun esta en desarrollo
                 .then(token => {
                   return apiPaymentRegister({
-                    baseUrl: 'http://devpaywall.comerciosuscripciones.pe', //TODO url en duro, environment no funciona
+                    baseUrl: '//devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
                     orderNumber,
                     firstName,
                     lastName,
@@ -172,7 +184,7 @@ function WizardPayment(props) {
                     email,
                     phone,
                     cardMethod,
-                    cardNumber, //TODO: Convertir en formato de mascara
+                    cardNumber, // TODO: Convertir en formato de mascara
                     token,
                     campaignCode,
                     sku,
@@ -181,33 +193,58 @@ function WizardPayment(props) {
                   }).then(() => token)
                 })
                 .then(token => {
-                  const { paymentMethodID } = payUPaymentMethod
+                  const {
+                    paymentMethodID,
+                    paymentMethodType,
+                  } = payUPaymentMethod
+                  //const sandboxToken = `${token}~${deviceSessionId}`
+                  const sandboxToken = `153e65fc-e239-40ca-a4eb-b43f90623cea~19bcf300adc002231a132661d9a72ca2`
                   return sales
-                    .finalizePayment(orderNumber, paymentMethodID, token)
-                    .then(res => {
-                      // Mezclamos valores del formulario con el payload de respuesta
-                      const mergedValues = Object.assign({}, res, values)
-                      onBeforeNextStep(mergedValues, props)
+                    .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
+                    .then(({ status, total }) => {
+                      if (status !== 'Paid')
+                        throw new Error(MESSAGE.PAYMENT_FAIL)
+                      return {
+                        publicKey,
+                        accountId,
+                        payuBaseUrl,
+                        deviceSessionId,
+                        paymentMethodID,
+                        paymentMethodType,
+                        status,
+                        total,
+                      }
                     })
+                })
+                .catch(e => {
+                  console.error({ e })
+                  setSubmitting(false)
                 })
             )
           }
         )
     })
+      .then(res => {
+        // Mezclamos valores del formulario con el payload de respuesta
+        const mergedValues = Object.assign({}, memo, {
+          payment: res,
+          cardInfo: values,
+        })
+        onBeforeNextStep(mergedValues, props)
+      })
+      .catch(e => {
+        console.error(e)
+        setError('Disculpe, ha ocurrido un error durante el pago')
+      })
+      .finally(() => {
+        setSubmitting(false)
+      })
   }
-
-  function onResetHandler(values, actions) {
-    // TODO: Limpiar errores una vez se vuelva a reenviar el formuario
-    //       hay que llamar a formikBag.handleReset()
-    setError()
-  }
-
-  const { amount, billingFrequency, description } = memo
 
   return (
     <S.WizardPayment>
       <PanelPayment type="content" valing="jc-center">
-        <FormPay onSubmit={onSubmitHandler} />
+        <FormPay error={error} onSubmit={onSubmitHandler} />
       </PanelPayment>
       <Summary
         amount={amount}

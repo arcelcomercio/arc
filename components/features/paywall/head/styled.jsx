@@ -38,6 +38,7 @@ const Username = styled.span`
   justify-content: flex-end;
   align-items: center;
   padding: 0 10px;
+  text-transform: capitalize;
 `
 
 const Background = styled.div`
@@ -58,6 +59,7 @@ const Right = styled.div`
   background-color: #000;
 `
 const Img = styled.img`
+  max-height: 30px;
   @media (${devices.mobile}) {
     max-height: 26px;
   }

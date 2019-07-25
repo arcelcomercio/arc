@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import {
   popUpWindow,
-  socialMediaUrlShareList,
+  socialMediaUrlShareListBlog,
   addSlashToEnd,
 } from '../../../utilities/helpers'
 
@@ -35,7 +35,7 @@ class BlogPostHeader extends PureComponent {
         post_title: postTitle = '',
       } = {},
     } = globalContent || {}
-    const urlsShareList = socialMediaUrlShareList(
+    const urlsShareList = socialMediaUrlShareListBlog(
       addSlashToEnd(siteUrl),
       postPermaLink,
       postTitle
