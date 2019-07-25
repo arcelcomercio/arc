@@ -23,7 +23,8 @@ class BreakingNews extends Component {
     const {
       customFields: { storyLink = '' },
     } = this.props
-    this.isExternalLink = storyLink.includes('http')
+    const regex = /^http/g
+    this.isExternalLink = regex.test(storyLink)
     if (!this.isExternalLink && storyLink) this.fetch()
   }
 

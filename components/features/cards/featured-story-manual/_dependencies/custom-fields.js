@@ -15,6 +15,8 @@ const defaultProgramDate = new Date(
 const customFields = PropTypes.shape({
   path: PropTypes.string.isRequired.tag({
     name: 'URL',
+    description:
+      'También puedes ingresar cualquier URL externa (ejemplo: https://google.com/)',
   }),
   imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
     name: 'Posición de la imagen',

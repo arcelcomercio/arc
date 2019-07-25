@@ -158,7 +158,7 @@ const transform = data => {
   return {
     ...dataStories,
     query: queryValue,
-    decoded_query: encodeURIComponent(queryValue).replace(/+/g, ' ')
+    decoded_query: decodeURIComponent(queryValue).replace(/\+/g, ' ')
   }
 }
 

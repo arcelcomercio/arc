@@ -27,13 +27,14 @@
   }
 
   /* Esto es importante definirlo por los scripts de Opta */
-  &__content>section {
+  &__content > section {
     width: 100%;
   }
 
   /* ----------------------------------------------------- */
 
-  &__font--secondary {
+  &__font--secondary,
+  &__content {
     word-wrap: break-word;
   }
 
@@ -65,13 +66,13 @@
       width: 100% !important;
       max-width: 500px;
 
-      &>span {
+      & > span {
         width: 100% !important;
 
-        &>[src*='facebook'] {
+        & > [src*='facebook'] {
           width: 100% !important;
 
-          &>[data-testid*='newsFeedStream'] {
+          & > [data-testid*='newsFeedStream'] {
             width: 100% !important;
           }
         }
