@@ -67,7 +67,7 @@ const Label = styled.label`
     focus &&
     css`
       transform: translate3d(0, -50%, 0);
-      left: 1rem;
+      left: 10px;
       bottom: inherit;
       top: inherit;
       font-size: 12px;

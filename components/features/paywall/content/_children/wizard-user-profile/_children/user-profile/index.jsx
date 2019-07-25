@@ -3,6 +3,7 @@ import { Formik, Form, Field } from 'formik'
 import InputFormik from '../../../../../_children/input'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
+import Error from '../../../../../_children/error'
 import schema from '../../../../../_dependencies/schema'
 import Select from '../select-formik'
 
@@ -91,10 +92,10 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
     <Formik
       initialValues={Object.assign({}, { documentNumber: null }, profile)}
       validate={values => {
-        const erros = RegisterSchema(values)
+        const errors = RegisterSchema(values)
 
-        if (Object.keys(erros).length > 0) {
-          return erros
+        if (Object.keys(errors).length > 0) {
+          return errors
         }
       }}
       onSubmit={(values, actions) => {
@@ -102,7 +103,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
         onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
       }}
       onReset={onReset}
-      render={({ isSubmitting, isValid, ...p }) => {
+      render={({ isSubmitting }) => {
         return (
           <FormStyled>
             <S.WrapTitle>
@@ -167,7 +168,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 />
               </S.WrapField>
             </S.Wrap>
-            {error && <S.Error mb="20px" message={error} />}
+            {error && <Error mb="20px" message={error} />}
             <Button disabled={isSubmitting} maxWidth="300px" type="submit">
               CONTINUAR
             </Button>

@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useFusionContext } from 'fusion:context'
@@ -51,7 +52,7 @@ function WizardPayment(props) {
     },
   } = memo
 
-  const [error, setError] = useState([])
+  const [error, setError] = useState('')
 
   const fusionContext = useFusionContext()
   const { siteProperties } = fusionContext
@@ -119,9 +120,7 @@ function WizardPayment(props) {
   const onSubmitHandler = (values, { setSubmitting }) => {
     const { cvv, cardMethod, expiryDate, cardNumber } = values
     let payUPaymentMethod
-
     Sales.then(sales => {
-      setLoading(true)
       return sales
         .getPaymentOptions()
         .then(paymentMethods => {
@@ -165,8 +164,9 @@ function WizardPayment(props) {
                     payU.createToken(response => {
                       if (response.error) {
                         reject(new Error(response.error))
+                        setSubmitting(false)
                       } else {
-                        resolve(`${response.token}~${deviceSessionId}`)
+                        resolve(response.token)
                       }
                     })
                   })
@@ -197,8 +197,10 @@ function WizardPayment(props) {
                     paymentMethodID,
                     paymentMethodType,
                   } = payUPaymentMethod
+                  //const sandboxToken = `${token}~${deviceSessionId}`
+                  const sandboxToken = `153e65fc-e239-40ca-a4eb-b43f90623cea~19bcf300adc002231a132661d9a72ca2`
                   return sales
-                    .finalizePayment(orderNumber, paymentMethodID, token)
+                    .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
                     .then(({ status, total }) => {
                       if (status !== 'Paid')
                         throw new Error(MESSAGE.PAYMENT_FAIL)
@@ -214,29 +216,35 @@ function WizardPayment(props) {
                       }
                     })
                 })
+                .catch(e => {
+                  console.error({ e })
+                  setSubmitting(false)
+                })
             )
           }
         )
-    }).then(res => {
-      // Mezclamos valores del formulario con el payload de respuesta
-      const mergedValues = Object.assign({}, memo, {
-        payment: res,
-        cardInfo: values,
-      })
-      onBeforeNextStep(mergedValues, props)
     })
-  }
-
-  function onResetHandler(values, actions) {
-    // TODO: Limpiar errores una vez se vuelva a reenviar el formuario
-    //       hay que llamar a formikBag.handleReset()
-    setError()
+      .then(res => {
+        // Mezclamos valores del formulario con el payload de respuesta
+        const mergedValues = Object.assign({}, memo, {
+          payment: res,
+          cardInfo: values,
+        })
+        onBeforeNextStep(mergedValues, props)
+      })
+      .catch(e => {
+        console.error(e)
+        setError('Disculpe, ha ocurrido un error durante el pago')
+      })
+      .finally(() => {
+        setSubmitting(false)
+      })
   }
 
   return (
     <S.WizardPayment>
       <PanelPayment type="content" valing="jc-center">
-        <FormPay onSubmit={onSubmitHandler} />
+        <FormPay error={error} onSubmit={onSubmitHandler} />
       </PanelPayment>
       <Summary
         amount={amount}
