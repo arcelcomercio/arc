@@ -60,7 +60,6 @@
     }
 
     &--section {
-
       //padding: 4px;
       & span {
         font-weight: bold;
@@ -208,5 +207,30 @@
 
   &__search-box {
     height: 20px;
+  }
+  /*   Estilos para nav loader en notas */
+  &__loader {
+    left: 0;
+    top: 46px;
+    height: 5px;
+    background-color: #eaeaea;
+  }
+  &__loader-bar {
+    width: 0%;
+
+    transition: width 0.5s;
+  }
+  &__container-menu,
+  &__mobile-logo {
+    z-index: 1;
+  }
+  &__story-title {
+    z-index: 1;
+    width: 300px;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    font-size: 14px;
+    font-weight: 700;
+    display: none;
   }
 }

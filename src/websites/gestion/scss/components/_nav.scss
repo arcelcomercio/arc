@@ -73,4 +73,8 @@
       background-color: $color-base-400;
     }
   }
+  /*   Estilos para nav loader en notas */
+  &__loader-bar {
+    background-color: #ea1f38;
+  }
 }

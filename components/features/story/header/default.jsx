@@ -5,6 +5,7 @@ import StoryHeaderChildShareSubheading from './_children/subheading'
 import StoryHeaderChildGallerySlider from './_children/gallery-slider'
 import StoryHeaderChildGallery from './_children/gallery'
 import StoryHeaderChildSocial from './_children/social'
+import StoryHeaderChildSocialGestion from './_children/social-gestion' // TODO Salida de gestion
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 
@@ -15,7 +16,7 @@ const classes = {
 @Consumer
 class StoryHeader extends PureComponent {
   render() {
-    const { contextPath, globalContent: data, subtype } = this.props
+    const { contextPath, globalContent: data, subtype, arcSite } = this.props
     const { contentElementGallery, title, subTitle, link } = new StoryData({
       data,
       contextPath,
@@ -26,11 +27,15 @@ class StoryHeader extends PureComponent {
       <>
         <div
           className={contentElementGallery ? classes.gallery : classes.story}>
-          <StoryHeaderChildSocial url={link} />
+          {arcSite !== ConfigParams.SITE_GESTION && ( // TODO Salida de gestion 30 de julio
+            <StoryHeaderChildSocial url={link} />
+          )}
 
           <StoryHeaderChildHeading {...parameters} />
           <StoryHeaderChildShareSubheading {...parameters} />
-
+          {arcSite === ConfigParams.SITE_GESTION && ( // TODO Salida de gestion 30 de julio
+            <StoryHeaderChildSocialGestion url={link} />
+          )}
           {subtype === ConfigParams.GALLERY_VERTICAL ? (
             <StoryHeaderChildGallery {...parameters} />
           ) : (
