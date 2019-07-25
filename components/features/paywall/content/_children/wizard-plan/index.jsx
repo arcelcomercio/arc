@@ -30,7 +30,7 @@ function WizardPlan(props) {
         .addItemToCart(plan.sku, plan.priceCode, 1)
         .then(res => {
           setLoadingPlan(false)
-          onBeforeNextStep(plan, props)
+          onBeforeNextStep({ plan }, props)
         })
         .catch(e => {
           setLoadingPlan(false)

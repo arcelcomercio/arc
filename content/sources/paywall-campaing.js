@@ -22,6 +22,7 @@ export default {
         const { amount, billingFrequency } = price
         return {
           sku,
+          name,
           priceCode,
           pricingStrategyId,
           campaignCode,

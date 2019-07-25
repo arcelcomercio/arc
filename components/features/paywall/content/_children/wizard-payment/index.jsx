@@ -30,6 +30,27 @@ function WizardPayment(props) {
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
   } = props
 
+  const {
+    plan: {
+      sku,
+      priceCode,
+      campaignCode,
+      amount,
+      billingFrequency,
+      description,
+    },
+    order: { orderNumber },
+    profile: {
+      firstName,
+      lastName,
+      secondLastName,
+      documentNumber,
+      documentType,
+      phone,
+      email,
+    },
+  } = memo
+
   const [error, setError] = useState([])
 
   const fusionContext = useFusionContext()
@@ -95,21 +116,7 @@ function WizardPayment(props) {
     return response
   }
 
-  const onSubmitHandler = values => {
-    const {
-      sku,
-      priceCode,
-      campaignCode,
-      amount,
-      orderNumber,
-      firstName,
-      lastName,
-      secondLastName,
-      documentNumber,
-      documentType,
-      phone,
-      email,
-    } = memo
+  const onSubmitHandler = (values, { setSubmitting }) => {
     const { cvv, cardMethod, expiryDate, cardNumber } = values
     let payUPaymentMethod
 
@@ -186,13 +193,25 @@ function WizardPayment(props) {
                   }).then(() => token)
                 })
                 .then(token => {
-                  const { paymentMethodID } = payUPaymentMethod
+                  const {
+                    paymentMethodID,
+                    paymentMethodType,
+                  } = payUPaymentMethod
                   return sales
                     .finalizePayment(orderNumber, paymentMethodID, token)
                     .then(({ status, total }) => {
                       if (status !== 'Paid')
                         throw new Error(MESSAGE.PAYMENT_FAIL)
-                      return { paid: { status, total } }
+                      return {
+                        publicKey,
+                        accountId,
+                        payuBaseUrl,
+                        deviceSessionId,
+                        paymentMethodID,
+                        paymentMethodType,
+                        status,
+                        total,
+                      }
                     })
                 })
             )
@@ -200,7 +219,10 @@ function WizardPayment(props) {
         )
     }).then(res => {
       // Mezclamos valores del formulario con el payload de respuesta
-      const mergedValues = Object.assign({}, res, values)
+      const mergedValues = Object.assign({}, memo, {
+        payment: res,
+        cardInfo: values,
+      })
       onBeforeNextStep(mergedValues, props)
     })
   }
@@ -210,8 +232,6 @@ function WizardPayment(props) {
     //       hay que llamar a formikBag.handleReset()
     setError()
   }
-
-  const { amount, billingFrequency, description } = memo
 
   return (
     <S.WizardPayment>
