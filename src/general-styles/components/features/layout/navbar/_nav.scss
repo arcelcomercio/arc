@@ -203,15 +203,6 @@
         display: none;
       }
     }
-    .nav__mobile-logo {
-      @media (--only-mobile) {
-        position: relative;
-        left: 50px;
-      }
-    }
-    .nav__story-title {
-      display: -webkit-box;
-    }
   }
 
   &__search-box {
