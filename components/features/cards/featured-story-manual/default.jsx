@@ -14,13 +14,13 @@ class CardFeaturedStoryManual extends PureComponent {
       deployment,
       contextPath,
       customFields: {
-        path = '',
         note1,
         date1,
         note2,
         date2,
         note3,
         date3,
+        path = '',
       } = {},
     } = this.props
 
