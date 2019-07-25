@@ -38,6 +38,7 @@ const Username = styled.span`
   justify-content: flex-end;
   align-items: center;
   padding: 0 10px;
+  text-transform: capitalize;
 `
 
 const Background = styled.div`

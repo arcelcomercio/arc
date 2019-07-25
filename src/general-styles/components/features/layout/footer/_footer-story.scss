@@ -1,0 +1,23 @@
+.footer-story.footer-secondary {
+  .footer-secondary__legal {
+    width: 100%;
+    border-right: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    @media (--desktop) {
+      flex-direction: row;
+    }
+  }
+  .footer-secondary__legal-item {
+    margin-bottom: 10px;
+    &:first-child {
+      div:nth-child(2) {
+        font-weight: 700;
+      }
+    }
+    &:nth-child(2) {
+      font-weight: 400;
+    }
+  }
+}
