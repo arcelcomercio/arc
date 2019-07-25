@@ -26,6 +26,15 @@
           width: 42%;
         }
       }
+      &__middle:first-child {
+        background: $color-primary;
+      }
+      &__middle {
+        min-height: 444px;
+        @media (--desktop) {
+          width: 50%;
+        }
+      }
       &__wrapper {
         width: 90%;
         margin-left: auto;

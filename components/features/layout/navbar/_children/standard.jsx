@@ -8,6 +8,7 @@ import SignWallHard from '../../../signwall/_main/signwall/hard'
 import SignWallVerify from '../../../signwall/_main/signwall/verify'
 import SignWallReset from '../../../signwall/_main/signwall/reset'
 import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
+// import SignWallPaywall from '../../../signwall/_main/signwall/paywall'
 
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
@@ -639,6 +640,7 @@ class NavBarDefault extends PureComponent {
             brandModal={arcSite}
           />
         ) : null}
+        {/* <SignWallPaywall brandModal={arcSite}/> */}
       </>
     )
   }
