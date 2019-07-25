@@ -24,8 +24,8 @@ const Newsletter = ({
     contentElements,
     siteUrl,
   }
-  const listNewsLetter = NewsLetterContent(propsNewsLetterContent)
   
+  const listNewsLetter = NewsLetterContent(propsNewsLetterContent)
   
   return (
     <NewElement nameElement="rss" propsNewElement={propsXml}>

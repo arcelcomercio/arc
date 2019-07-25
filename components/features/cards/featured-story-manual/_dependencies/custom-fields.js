@@ -15,6 +15,7 @@ const defaultProgramDate = new Date(
 const customFields = PropTypes.shape({
   path: PropTypes.string.isRequired.tag({
     name: 'URL',
+    description: `Puedes ingresar cualquier URL externa, incluyendo el dominio (ejemplo: https://dominio.pe/url-externa), o la URL de una nota interna, sin el dominio (ejemplo: /url-interna-de-noticia).`,
   }),
   imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
     name: 'Posición de la imagen',
@@ -47,8 +48,7 @@ const customFields = PropTypes.shape({
   hightlightOnMobile: PropTypes.bool.tag({
     name: 'Destacar en móvil',
     group: 'Configuración',
-    description:
-      'Si esta opción es activada, la vista del elemento en móvil será igual a su vista en escritorio.',
+    description: 'Si esta opción es activada, la vista del elemento en móvil será igual a su vista en escritorio.',
     defaultValue: false,
   }),
   categoryField: PropTypes.string.tag({
@@ -69,8 +69,7 @@ const customFields = PropTypes.shape({
   note1: PropTypes.string.tag({
     name: 'Nota 1',
     group: 'Programar Notas',
-    description:
-      'Si la URL ingresada no está publicada o no existe, se mostrará la nota del campo "URL"',
+    description: 'Si la URL ingresada no está publicada o no existe, se mostrará la nota del campo "URL"',
   }),
   date1: PropTypes.dateTime.tag({
     name: 'Fecha de publicación',
@@ -80,8 +79,7 @@ const customFields = PropTypes.shape({
   note2: PropTypes.string.tag({
     name: 'Nota 2',
     group: 'Programar Notas',
-    description:
-      'Si la URL ingresada no está publicada o no existe, se mostrará la nota del campo "URL"',
+    description: 'Si la URL ingresada no está publicada o no existe, se mostrará la nota del campo "URL"',
   }),
   date2: PropTypes.dateTime.tag({
     name: 'Fecha de publicación',
@@ -91,8 +89,7 @@ const customFields = PropTypes.shape({
   note3: PropTypes.string.tag({
     name: 'Nota 3',
     group: 'Programar Notas',
-    description:
-      'Si la URL ingresada no está publicada o no existe, se mostrará la nota del campo "URL"',
+    description: 'Si la URL ingresada no está publicada o no existe, se mostrará la nota del campo "URL"',
   }),
   date3: PropTypes.dateTime.tag({
     name: 'Fecha de publicación',

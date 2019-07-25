@@ -62,9 +62,11 @@ function shape(value) {
       return this
     },
     creditCardCvv(cardType, message) {
-      const match = cvvPatterns[cardType.toUpperCase()].test(this.value)
-      if (!match) {
-        throw message
+      if (cardType) {
+        const match = cvvPatterns[cardType.toUpperCase()].test(this.value)
+        if (!match) {
+          throw message
+        }
       }
       return this
     },
@@ -78,16 +80,24 @@ function shape(value) {
 function struct(schema) {
   return data => {
     const errors = {}
-    Object.keys(data).forEach(name => {
-      if (!schema[name]) {
-        return
-      }
+    Object.keys(schema).forEach(name => {
       try {
         const s = schema[name]
-        const { [name]: value, ...values } = data
-        s(shape(value), values)
+        const restValues = Object.assign({}, data)
+        const value = data[name]
+        delete restValues[name]
+        s(shape(value), restValues)
       } catch (err) {
-        errors[name] = err
+        // Los errores de validacion deben lanzarse como string
+        // para poder disernir si es por validacion o de implementacion
+        // del validador
+        if (err instanceof Error) {
+          // Mostrar error por consola y en el input
+          console.error(err)
+          errors[name] = err.message
+        } else {
+          errors[name] = err
+        }
       }
     })
     return errors
