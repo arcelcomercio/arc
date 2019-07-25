@@ -166,7 +166,7 @@ function WizardPayment(props) {
                       if (response.error) {
                         reject(new Error(response.error))
                       } else {
-                        resolve(`${response.token}~${deviceSessionId}`)
+                        resolve(response.token)
                       }
                     })
                   })
@@ -197,8 +197,10 @@ function WizardPayment(props) {
                     paymentMethodID,
                     paymentMethodType,
                   } = payUPaymentMethod
+                  //const sandboxToken = `${token}~${deviceSessionId}`
+                  const sandboxToken = `153e65fc-e239-40ca-a4eb-b43f90623cea~19bcf300adc002231a132661d9a72ca2`
                   return sales
-                    .finalizePayment(orderNumber, paymentMethodID, token)
+                    .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
                     .then(({ status, total }) => {
                       if (status !== 'Paid')
                         throw new Error(MESSAGE.PAYMENT_FAIL)
