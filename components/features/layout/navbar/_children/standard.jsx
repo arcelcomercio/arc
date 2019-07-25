@@ -44,7 +44,8 @@ const classes = {
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
-  navLoader: 'nav__loader-bar position-absolute w-full h-full top-0',
+  navLoaderWrapper: 'nav__loader position-absolute w-full',
+  navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network hidden',
   iconSignwallMobile: 'rounded uppercase bg-primary',
@@ -585,7 +586,9 @@ class NavBarDefault extends PureComponent {
                 </button>
               </div>
             )}
-            <div className={classes.navLoader} />
+            <div className={classes.navLoaderWrapper}>
+              <div className={classes.navLoader} />
+            </div>
           </div>
           <Menu
             sections={sections}

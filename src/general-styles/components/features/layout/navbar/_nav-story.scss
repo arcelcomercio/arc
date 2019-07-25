@@ -1,14 +1,32 @@
 .story {
   .nav.active {
-    background-color: red;
     .nav__mobile-logo {
-      @media (--only-mobile) {
-        position: relative;
-        left: 50px;
+      display: none;
+      @media (--desktop) {
+        display: block;
+        left: 20%;
       }
     }
     .nav__story-title {
       display: -webkit-box;
+      margin: auto;
+      @media (--desktop) {
+        position: absolute;
+        left: 30%;
+        width: 460px;
+        margin: 0;
+      }
+    }
+    .nav__wrapper {
+      background-color: $color-white;
+    }
+    .btn {
+      border-color: #444;
+      color: $color-primary;
+    }
+
+    .nav__story-title {
+      color: #444;
     }
   }
 }
