@@ -145,7 +145,9 @@ const FormPay = ({ onSubmit, onReset }) => {
             <S.WrapInput max-width="135px">
               <Field
                 component={Input}
+                sufix={<Icon type="cvv" />}
                 type="number"
+                mask="9999"
                 name="cvv"
                 label="CVV"
                 placeholder="***"
@@ -161,11 +163,15 @@ const FormPay = ({ onSubmit, onReset }) => {
             label={
               <span>
                 Acepto las{' '}
-                <S.Link href="#" target="_blank">
+                <S.Link
+                  href="https://suscripciones.gestion.pe/terminos/"
+                  target="_blank">
                   condiciones de servicio
                 </S.Link>
                 ,{' '}
-                <S.Link href="#" target="_blank">
+                <S.Link
+                  href="https://gestion.pe/politica-de-privacidad"
+                  target="_blank">
                   política de privacidad
                 </S.Link>{' '}
                 , y estoy de acuerdo con la información.

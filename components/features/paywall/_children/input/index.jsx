@@ -10,6 +10,7 @@ const InputFormik = ({
   label,
   transform = 'none',
   prefix,
+  sufix,
   type = 'text',
   mask,
   ...props
@@ -64,6 +65,7 @@ const InputFormik = ({
           {...rest}
           {...props}
         />
+        {sufix && sufix}
       </S.Wrap>
       <S.Error>{hasError && errors[field.name]}</S.Error>
     </S.FormGroup>

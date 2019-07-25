@@ -14,7 +14,14 @@ const Item = ({ label, children }) => {
 }
 
 const WizardConfirmation = props => {
-  const { assets } = props
+  const {
+    assets,
+    memo: {
+      profile: { firstName, lastName, secondLastName, email },
+      plan: { name: plan },
+      payment: { total: paidTotal },
+    },
+  } = props
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -29,23 +36,27 @@ const WizardConfirmation = props => {
         </S.Picture>
 
         <S.Content>
-          <S.Title>¡Bienvenido Armando!</S.Title>
+          <S.Title>¡Bienvenido {firstName}!</S.Title>
           <S.Subtitle>
             Disfruta de acceso ilimitado y contenido exclusivo en economía,
             negocios y finanzas.
           </S.Subtitle>
           <S.CardSummary>
             <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
-            <Item label="PAQUETE: ">PLAN DIGITAL</Item>
-            <Item label="NOMBRE: ">ARMANDO BERAUN NEGRILLO</Item>
-            <Item label="PRECIO: ">S/ 5.00</Item>
+            <Item label="PAQUETE: ">{plan.toUpperCase()}</Item>
+            <Item label="NOMBRE: ">
+              {firstName} {lastName} {secondLastName}
+            </Item>
+            <Item label="PRECIO: ">
+              S/ {paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+            </Item>
             <S.Small>
               LA SUSCRIPCIÓN SE RENOVARÁ AUTOMÁTICAMENTE DE ACUERDO A TU PLAN.
             </S.Small>
           </S.CardSummary>
           <S.Span>
             Enviaremos la boleta de compra de la suscripción al correo:
-            <strong> jberaunn@gmail.com</strong>
+            <strong> {email}</strong>
           </S.Span>
           <S.WrapButton>
             <Button>SIGUE NAVEGANDO</Button>
