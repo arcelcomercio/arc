@@ -23,7 +23,7 @@
     z-index: 2;
     &::after {
       content: '';
-      background: #f5e9de;
+      background: $color-white;
       width: 90px;
       height: 90px;
       top: 5px;
