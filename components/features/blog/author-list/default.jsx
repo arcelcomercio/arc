@@ -28,7 +28,7 @@ class BlogAuthorList extends PureComponent {
         posts_offset: postsOffset = '',
       } = {},
     } = globalContentConfig || {}
-    console.log(999)
+
     return (
       <div>
         {posts.map((post, i) => {
