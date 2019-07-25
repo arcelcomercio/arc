@@ -1,7 +1,7 @@
 .post-item {
   background-color: transparent;
-  border-top: 0;
-  margin-bottom: 20px;
+  border-top: 1px solid $color-gray-200;
+  // margin-bottom: 20px;
   &__date {
     display: none;
   }
