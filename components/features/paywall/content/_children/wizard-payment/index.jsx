@@ -19,6 +19,10 @@ const PanelPayment = styled(Panel)`
   }
 `
 
+const MESSAGE = {
+  PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
+}
+
 function WizardPayment(props) {
   const {
     memo,
@@ -26,7 +30,7 @@ function WizardPayment(props) {
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
   } = props
 
-  const [errors, setErrors] = useState([])
+  const [error, setError] = useState([])
 
   const fusionContext = useFusionContext()
   const { siteProperties } = fusionContext
@@ -125,6 +129,7 @@ function WizardPayment(props) {
             parameter1: publicKey,
             parameter2: accountId,
             parameter3: payuBaseUrl,
+            parameter4: deviceSessionId,
           }) => {
             const ownerName = `${firstName} ${lastName} ${secondLastName}`.trim()
             const expiryMonth = expiryDate.split('/')[0]
@@ -133,8 +138,8 @@ function WizardPayment(props) {
             return (
               addPayU(siteProperties)
                 .then(payU => {
-                  payU.setURL(payuBaseUrl) //OK
-                  payU.setPublicKey(publicKey) //OK
+                  payU.setURL(payuBaseUrl)
+                  payU.setPublicKey(publicKey)
                   payU.setAccountID(accountId)
                   payU.setListBoxID('mylistID')
                   payU.getPaymentMethods()
@@ -154,7 +159,7 @@ function WizardPayment(props) {
                       if (response.error) {
                         reject(new Error(response.error))
                       } else {
-                        resolve(response.token)
+                        resolve(`${response.token}~${deviceSessionId}`)
                       }
                     })
                   })
@@ -162,7 +167,7 @@ function WizardPayment(props) {
                 // TODO: El servicio aun esta en desarrollo
                 .then(token => {
                   return apiPaymentRegister({
-                    baseUrl: 'http://devpaywall.comerciosuscripciones.pe', //TODO url en duro, environment no funciona
+                    baseUrl: 'http://devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
                     orderNumber,
                     firstName,
                     lastName,
@@ -172,7 +177,7 @@ function WizardPayment(props) {
                     email,
                     phone,
                     cardMethod,
-                    cardNumber, //TODO: Convertir en formato de mascara
+                    cardNumber, // TODO: Convertir en formato de mascara
                     token,
                     campaignCode,
                     sku,
@@ -184,15 +189,19 @@ function WizardPayment(props) {
                   const { paymentMethodID } = payUPaymentMethod
                   return sales
                     .finalizePayment(orderNumber, paymentMethodID, token)
-                    .then(res => {
-                      // Mezclamos valores del formulario con el payload de respuesta
-                      const mergedValues = Object.assign({}, res, values)
-                      onBeforeNextStep(mergedValues, props)
+                    .then(({ status, total }) => {
+                      if (status !== 'Paid')
+                        throw new Error(MESSAGE.PAYMENT_FAIL)
+                      return { paid: { status, total } }
                     })
                 })
             )
           }
         )
+    }).then(res => {
+      // Mezclamos valores del formulario con el payload de respuesta
+      const mergedValues = Object.assign({}, res, values)
+      onBeforeNextStep(mergedValues, props)
     })
   }
 
