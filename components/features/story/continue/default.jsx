@@ -128,8 +128,8 @@ class StoryContinue extends PureComponent {
     const { arcSite, contextPath, deployment } = this.props || {}
     document.querySelector('.nav__logo').src = deployment(
       arcSite === 'publimetro'
-        ? `${contextPath}/resources/dist/gestion/images/logo.png`
-        : `${contextPath}/resources/dist/publimetro/images/green-logo.png`
+        ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
+        : `${contextPath}/resources/dist/gestion/images/logo.png`
     )
     // TODO: finnnn
     this.setAttributeProgress(progress, MIN_PROGRESS)
