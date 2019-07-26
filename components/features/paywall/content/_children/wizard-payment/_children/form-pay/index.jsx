@@ -4,6 +4,7 @@ import { Formik, Form, Field } from 'formik'
 import Checkbox from '../../../checkbox'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
+import Error from '../../../../../_children/error'
 import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import schema from '../../../../../_dependencies/schema'
@@ -66,7 +67,7 @@ const FormSchema = schema({
   agreed: value => value.required(MESSAGE.REQUIRED),
 })
 
-const FormPay = ({ onSubmit, onReset }) => {
+const FormPay = ({ error, onSubmit, onReset }) => {
   return (
     <Formik
       validate={values => new FormSchema(values)}
@@ -89,6 +90,7 @@ const FormPay = ({ onSubmit, onReset }) => {
               Compra seguro. Esta web está protegida
             </S.TextSecurity>
           </S.Security>
+          {error && <Error mb="20px" message={error} />}
           <S.WrapCards>
             <S.TextCard>Selecciona un tipo de tarjeta</S.TextCard>
             <S.Cards>
@@ -128,7 +130,7 @@ const FormPay = ({ onSubmit, onReset }) => {
                 component={Input}
                 name="cardNumber"
                 label="Número de tarjeta"
-                mask="9999 - 9999 - 999 - 9999"
+                mask="9999 - 9999 - 9999 - 9999"
                 placeholder="0000 - 0000 - 0000 - 0000"
               />
             </S.WrapInput>

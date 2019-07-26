@@ -67,7 +67,7 @@ const Label = styled.label`
     focus &&
     css`
       transform: translate3d(0, -50%, 0);
-      left: 1rem;
+      left: 10px;
       bottom: inherit;
       top: inherit;
       font-size: 12px;
@@ -81,6 +81,16 @@ export const Error = styled.span`
   display: block;
   position: absolute;
   bottom: -20px;
+`
+
+export const Prefix = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const WrapInput = styled.div`
+  display: flex;
+  flex: 1;
 `
 
 export { Label, FormGroup }
