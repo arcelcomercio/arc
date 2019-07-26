@@ -67,7 +67,7 @@ class PayWall extends Component {
                       </h2>
                       <h1>Plan Digital</h1>
                     </div>
-                    <div className="modal-body__middle">
+                    <div className="modal-body__middle intro-paywall">
                       {this.renderTemplate(value.selectedTemplate)}
                     </div>
                   </div>
