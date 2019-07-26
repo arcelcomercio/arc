@@ -1,0 +1,33 @@
+.search-filter {
+  &__link {
+    font-family: $font-regular;
+  }
+
+  &__item {
+    &.selected {
+      .search-filter__link {
+        background-color: $color-tertiary;
+
+        @media (--desktop) {
+          font-family: $primary-font;
+        }
+      }
+
+      &:before {
+        @media (--desktop) {
+          border-color: $color-tertiary transparent transparent;
+        }
+      }
+    }
+
+    &.active {
+      .search-filter__link {
+        color: $color-white;
+      }
+    }
+  }
+
+  &__sublink {
+    font-family: $font-regular;
+  }
+}
