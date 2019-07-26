@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import InputFormik from '../../../../../_children/input'
 import * as S from './styled'
@@ -18,6 +18,15 @@ const MESSAGE = {
   EMAIL: 'Correo inválido',
   CUSTOM: 'Formato inválido',
 }
+
+// prettier-ignore
+const DOCUMENT_TYPE_MASKS = {
+  DNI: [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
+  CEX: [/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/],
+  CDI: [/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/]
+};
+// prettier-ignore
+const PHONE_MASK = [/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/, " ", /\d/, /\d/,/\d/]
 
 // TODO: Falta obtener esta info que es obligatoria para crear una orden
 const FAKE_BILLING_ADDRESS = {
@@ -76,37 +85,19 @@ const RegisterSchema = schema({
 const FormStyled = S.Form(Form)
 
 const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
-  const { documentType = 'DNI', documentNumber = null } = profile
-
-  const MASKS = {
-    DNI: '99999999',
-    CEX: 'SSSSSSSSSSSSSSS',
-    CDI: 'SSSSSSSSSSSSSSS',
-  }
-  const _mask = MASKS[documentType.toUpperCase()]
-
-  const [maskDocument, setMaskDocument] = useState(_mask)
-
-  const changeMask = e => {
-    setMaskDocument(MASKS[e.target.value])
-  }
-
   return (
     <Formik
-      initialValues={Object.assign({}, profile, { documentNumber })}
-      validate={values => {
-        const errors = RegisterSchema(values)
-
-        if (Object.keys(errors).length > 0) {
-          return errors
-        }
-      }}
+      initialValues={Object.assign({}, profile, {
+        documentType: 'DNI',
+        documentNumber: profile.documentNumber || null,
+      })}
+      validate={values => new RegisterSchema(values)}
       onSubmit={(values, actions) => {
         // TODO: Crear un servicio desde el que se pueda obtener billing address
         onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
       }}
       onReset={onReset}
-      render={({ isSubmitting, values, handleChange, setFieldValue }) => {
+      render={({ isSubmitting, values: { documentType } }) => {
         return (
           <FormStyled>
             <S.WrapTitle>
@@ -141,19 +132,12 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   name="documentNumber"
                   label="Tipo de documento"
-                  onChange={handleChange}
-                  withDefault={false}
-                  value={values.documentNumber}
-                  mask={maskDocument}
+                  mask={DOCUMENT_TYPE_MASKS[documentType]}
                   type="text"
                   prefix={
                     <Field
                       name="documentType"
                       key="select"
-                      change={e => {
-                        changeMask(e)
-                        setFieldValue('documentNumber', '')
-                      }}
                       component={Select}
                     />
                   }
@@ -163,7 +147,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               <S.WrapField>
                 <Field
                   name="phone"
-                  mask="999999999999"
+                  mask={PHONE_MASK}
                   label="Número de Celular"
                   component={InputFormik}
                 />

@@ -9,14 +9,12 @@ const InputFormik = ({
   label,
   transform = 'none',
   prefix,
-  sufix,
+  suffix,
   mask,
   type = 'text',
   ...props
 }) => {
   const { value, name } = field
-
-  const _value = value && type === 'number' ? parseInt(value, 10) : value
   const Input = mask ? S.InputMask : S.Input
   const hasError = touched[name] && errors[name]
   return (
@@ -35,14 +33,13 @@ const InputFormik = ({
           <Input
             transform={transform}
             type={type}
-            defaultValue={_value}
             placeholder={placeholder}
             mask={mask}
             {...field}
             {...props}
           />
         </S.WrapInput>
-        <S.Prefix>{sufix && sufix}</S.Prefix>
+        <S.Prefix>{suffix && suffix}</S.Prefix>
       </S.Wrap>
       <S.Error>{hasError && errors[name]}</S.Error>
     </S.FormGroup>
