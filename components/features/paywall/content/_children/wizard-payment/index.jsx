@@ -202,8 +202,7 @@ function WizardPayment(props) {
                     paymentMethodID,
                     paymentMethodType,
                   } = payUPaymentMethod
-                  const sandboxToken = `${token}~${deviceSessionId}`
-                  console.log(sandboxToken)
+                  const sandboxToken = `${token}~${deviceSessionId}~${cvv}`
                   // const sandboxToken = `153e65fc-e239-40ca-a4eb-b43f90623cea~19bcf300adc002231a132661d9a72ca2`
                   return sales
                     .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
