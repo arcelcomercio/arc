@@ -56,47 +56,47 @@ class GetProfile {
   }
 
   _getUserName = () => {
-    const profileLS = this.profile
+    const { profile } = this
     let nameUser = 'Bienvenido Usuario'
     let inituser = false
 
     if (
-      profileLS != null &&
-      (profileLS.firstName != null || profileLS.lastName != null)
+      profile !== null &&
+      (profile.firstName !== null || profile.lastName !== null)
     ) {
       switch (true) {
-        case (profileLS.firstName !== 'undefined' ||
-          profileLS.firstName != null) &&
-          (profileLS.lastName === 'undefined' || profileLS.lastName == null):
-          if (profileLS.firstName === 'undefined') {
+        case (profile.firstName !== 'undefined' ||
+          profile.firstName !== null) &&
+          (profile.lastName === 'undefined' || profile.lastName === null):
+          if (profile.firstName === 'undefined' || profile.firstName === null) {
             nameUser = 'Bienvenido Usuario'
           } else {
             nameUser =
-              profileLS.firstName.length >= 15
-                ? `${profileLS.firstName.slice(0, 15)}...`
-                : profileLS.firstName
-            inituser = profileLS.firstName.slice(0, 2)
+              profile.firstName.length >= 15
+                ? `${profile.firstName.slice(0, 15)}...`
+                : profile.firstName
+            inituser = profile.firstName.slice(0, 2)
           }
           break
-        case (profileLS.firstName !== 'undefined' ||
-          profileLS.firstName != null) &&
-          (profileLS.lastName !== 'undefined' || profileLS.lastName != null):
-          if (profileLS.firstName === 'undefined') {
+        case (profile.firstName !== 'undefined' ||
+          profile.firstName !== null) &&
+          (profile.lastName !== 'undefined' || profile.lastName !== null):
+          if (profile.firstName === 'undefined' || profile.firstName === null) {
             nameUser =
-              profileLS.lastName.length >= 15
-                ? `${profileLS.lastName.slice(0, 15)}...`
-                : profileLS.lastName
-            inituser = profileLS.lastName.slice(0, 2)
+              profile.lastName.length >= 15
+                ? `${profile.lastName.slice(0, 15)}...`
+                : profile.lastName
+            inituser = profile.lastName.slice(0, 2)
           } else {
             nameUser =
-              `${profileLS.firstName} ${profileLS.lastName}`.length >= 15
-                ? `${`${profileLS.firstName} ${profileLS.lastName}`.slice(
+              `${profile.firstName} ${profile.lastName}`.length >= 15
+                ? `${`${profile.firstName} ${profile.lastName}`.slice(
                     0,
                     15
                   )}...`
-                : `${profileLS.firstName} ${profileLS.lastName}`
+                : `${profile.firstName} ${profile.lastName}`
             inituser =
-              profileLS.firstName.slice(0, 1) + profileLS.lastName.slice(0, 1)
+              profile.firstName.slice(0, 1) + profile.lastName.slice(0, 1)
           }
           break
         default:
