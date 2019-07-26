@@ -18,7 +18,6 @@ const FbInstantOutputType = ({
     siteDomain = '',
     idGoogleAnalitics = '',
     fbArticleStyle = '',
-    urlAddfbInstantArticle = '',
     listUrlAdvertisings=[]
   } = siteProperties
 
@@ -46,7 +45,6 @@ const FbInstantOutputType = ({
     siteDomain,
     idGoogleAnalitics,
     fbArticleStyle,
-    urlAddfbInstantArticle,
     listUrlAdvertisings,
   }
 
