@@ -20,7 +20,8 @@ const classes = {
 }
 
 const URLS_STORAGE = '_recents_articles_'
-
+const MAX_PROGRESS = 350
+const MIN_PROGRESS = 180
 @Consumer
 class StoryContinue extends PureComponent {
   componentDidMount() {
@@ -29,29 +30,24 @@ class StoryContinue extends PureComponent {
   }
 
   setScrollLoaderPage = () => {
-    const max = 350 // quizas => MAX_PROGRESS
-    // el => quizas storyLoader
-    const el = document.querySelector(`.story-continue__story-load`)
-    const progress = el.querySelector(`.story-continue__progress`)
-    const linker = el.querySelector(`.story-continue__story-load-link`)
+    const storyLoader = document.querySelector(`.story-continue__story-load`)
+    const progress = storyLoader.querySelector(`.story-continue__progress`)
+    const linker = storyLoader.querySelector(`.story-continue__story-load-link`)
     const html = document.documentElement
+    const concurrentProgress = parseInt(progress.getAttribute('size'), 10)
 
     if (window.innerHeight + window.scrollY >= html.scrollHeight) {
-      // Variables auto-descriptivas
-      const cur = parseInt(progress.getAttribute('size'), 10)
-      // cur se usa aqui y en setUpdateLoaderPage, "abstraer"
-      const r = max - cur
-      const t = r / 10
-      for (let g = 0; g < t; g++) {
-        let newer = cur + 10 * g + 10
-        this.setAttributeProgress(progress, newer)
-        if (newer >= max) {
+      const totalProgress = (MAX_PROGRESS - concurrentProgress) / 10
+      for (let i = 0; i < totalProgress; i++) {
+        let newerProgress = concurrentProgress + 10 * i + 10
+        this.setAttributeProgress(progress, newerProgress)
+        if (newerProgress >= MAX_PROGRESS) {
           this.setTimeoutLoadPage(linker)
         }
-        newer = +1
+        newerProgress = +1
       }
     } else {
-      this.setUpdateLoaderPage(progress, el, linker)
+      this.setUpdateLoaderPage(progress, concurrentProgress)
     }
     this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
     this.setTitleHead()
@@ -95,84 +91,85 @@ class StoryContinue extends PureComponent {
     }, 500)
   }
 
-  setUpdateLoaderPage = progress => {
-    // constantes globales
-    const min = 180
-    const max = 350
-
+  setUpdateLoaderPage = (progress, concurrentProgress) => {
+    const html = document.documentElement
     let direction = 'down'
-    const html = document.documentElement // puede venir de afiuera
-    const cur = parseInt(progress.getAttribute('size'), 10) // puede venir de afiuera
-
-    if (window.innerHeight + window.scrollY + 50 >= html.scrollHeight) {
-      direction = 'down' // no es necesaria esta asignacion
-    } else {
-      this.setAttributeProgress(progress, cur - 10)
+    if (window.innerHeight + window.scrollY + 50 <= html.scrollHeight) {
+      this.setAttributeProgress(progress, concurrentProgress - 10)
       direction = 'up'
     }
 
-    if (max >= cur && cur >= min) {
-      let newer = 0
+    if (
+      MAX_PROGRESS >= concurrentProgress &&
+      concurrentProgress >= MIN_PROGRESS
+    ) {
+      let newerProgress = concurrentProgress
       if (direction === 'up') {
-        const less = cur - 10
-        if (less >= min) {
-          newer = less
-        } else {
-          // se puede evitar este else haciendo esta asignacion al crear la var
-          newer = cur
+        const less = concurrentProgress - 10
+        if (less >= MIN_PROGRESS) {
+          newerProgress = less
         }
       } else {
-        newer = cur + 10
+        newerProgress = concurrentProgress + 10
       }
-      this.setAttributeProgress(progress, newer)
+      this.setAttributeProgress(progress, newerProgress)
     }
   }
 
   setInitialLoaderPage = () => {
-    const min = 180 // global const
-    // verificar el querySelector
-    const el = document.querySelector(`.${classes.storyLoad}`)
-    const progress = el.querySelector(`.${classes.storyProgres}`)
-    el.setAttribute('data-state', 'outviewport')
-    this.setAttributeProgress(progress, min)
+    const storyLoader = document.querySelector(`.story-continue__story-load`)
+    const progress = storyLoader.querySelector(`.story-continue__progress`)
+    storyLoader.setAttribute('data-state', 'outviewport')
+    // TODO: retirar despues del 15 de agosto
+    const { arcSite } = this.props || {}
+    if (arcSite === 'gestion') {
+      document.querySelector('.nav__logo').src =
+        '/pf/resources/dist/gestion/images/logo.png?d=%24LATEST'
+    }
+    if (arcSite === 'publimetro') {
+      document.querySelector('.nav__logo').src =
+        '/pf/resources/dist/publimetro/images/green-logo.png?d=%24LATEST'
+    }
+    // TODO: finnnn
+    this.setAttributeProgress(progress, MIN_PROGRESS)
   }
 
-  setAttributeProgress = (progress, min) => {
-    progress.setAttribute('style', `transform: rotate(${min}deg)`)
-    progress.setAttribute('size', min)
+  setAttributeProgress = (progress, value) => {
+    progress.setAttribute('style', `transform: rotate(${value}deg)`)
+    progress.setAttribute('size', value)
   }
 
   saveUrlSessionStorage = url => {
-    let isSaveUrl = false // isUrlSaved
+    let isUrlSaved = false
     if (typeof Storage !== 'undefined') {
       let arrUrls = [url]
-      // window.sessionStorage.getItem(URLS_STORAGE) puede estar en 1 const y reusar
-      if (window.sessionStorage.getItem(URLS_STORAGE)) {
-        arrUrls = JSON.parse(window.sessionStorage.getItem(URLS_STORAGE))
+      const existArrUrls = window.sessionStorage.getItem(URLS_STORAGE)
+      if (existArrUrls) {
+        arrUrls = JSON.parse(existArrUrls)
         if (arrUrls.indexOf(url) === -1) {
           arrUrls.push(url)
-          isSaveUrl = true
+          isUrlSaved = true
         }
       }
       window.sessionStorage.setItem(URLS_STORAGE, JSON.stringify(arrUrls))
     }
-    return isSaveUrl
+    return isUrlSaved
   }
 
   getNextArticle = (recentStoryContinue, siteUrl = '') => {
-    let { title, websiteUrl } = ''
+    let title = ''
+    let websiteUrl = ''
     for (let i = 0; i < recentStoryContinue.length; i++) {
       title = recentStoryContinue[i].basic || ''
       websiteUrl = recentStoryContinue[i].websiteUrl || ''
       if (recentStoryContinue.length - 1 === i) {
         window.sessionStorage.removeItem(URLS_STORAGE)
       }
-      // revisar el concat
-      if (this.saveUrlSessionStorage(siteUrl + websiteUrl)) {
+      if (this.saveUrlSessionStorage(`${siteUrl}${websiteUrl}`)) {
         break
       }
     }
-    return { title, websiteUrl } // esto devuelve undefined
+    return { title, websiteUrl }
   }
 
   render() {
@@ -192,20 +189,18 @@ class StoryContinue extends PureComponent {
               <div className={classes.storyCircle}>
                 <span className={classes.storyLoadImage} />
                 <div className={classes.storycounter}> </div>
-                {/* 
-                  quizas usar aria role="progress"
-                  https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_progressbar_role
-                */}
-                <div className={classes.storyProgres} size="180" />
+                <div
+                  role="progressbar"
+                  className={classes.storyProgres}
+                  size="180"
+                />
                 <div className={classes.storyProgresEnd} />
               </div>
               <div className={classes.storyLoadNews}>
                 <span className={classes.storyLoadText}>
                   Cargando siguiente...
                 </span>
-                <span /* semantica */ className={classes.storyLoadTitle}>
-                  {title}
-                </span>
+                <h3 className={classes.storyLoadTitle}>{title}</h3>
               </div>
             </a>
           </div>
