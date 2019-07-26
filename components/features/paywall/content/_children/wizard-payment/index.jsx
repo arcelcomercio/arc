@@ -176,26 +176,26 @@ function WizardPayment(props) {
                   })
                 })
                 // TODO: El servicio aun esta en desarrollo
-                .then(token => {
-                  return apiPaymentRegister({
-                    baseUrl: '//devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
-                    orderNumber,
-                    firstName,
-                    lastName,
-                    secondLastName,
-                    documentType,
-                    documentNumber,
-                    email,
-                    phone,
-                    cardMethod,
-                    cardNumber, // TODO: Convertir en formato de mascara
-                    token,
-                    campaignCode,
-                    sku,
-                    priceCode,
-                    amount,
-                  }).then(() => token)
-                })
+                // .then(token => {
+                //   return apiPaymentRegister({
+                //     baseUrl: '//devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
+                //     orderNumber,
+                //     firstName,
+                //     lastName,
+                //     secondLastName,
+                //     documentType,
+                //     documentNumber,
+                //     email,
+                //     phone,
+                //     cardMethod,
+                //     cardNumber, // TODO: Convertir en formato de mascara
+                //     token,
+                //     campaignCode,
+                //     sku,
+                //     priceCode,
+                //     amount,
+                //   }).then(() => token)
+                // })
                 .then(token => {
                   const {
                     paymentMethodID,
