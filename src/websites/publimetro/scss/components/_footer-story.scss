@@ -5,7 +5,9 @@
   .footer-secondary__legal-item {
     color: $color-white;
     &::after {
-      background-color: $color-white;
+      @media (--desktop) {
+        background-color: $color-white;
+      }
     }
   }
 }

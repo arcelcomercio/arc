@@ -3,25 +3,30 @@
     max-width: 700px;
     width: 100%;
     border-right: 0;
-    height: 50px;
     border-bottom: 0;
+    @media (--desktop) {
+      height: 50px;
+    }
   }
   .footer-secondary__legal-item {
     width: 100%;
     font-size: 11px;
     color: $color-primary;
+
     @media (--desktop) {
       width: 33%;
     }
     &::after {
-      content: '';
-      width: 1px;
-      height: 100%;
-      background-color: $color-primary;
-      display: block;
-      position: absolute;
-      right: 0;
-      top: 0;
+      @media (--desktop) {
+        content: '';
+        width: 1px;
+        height: 100%;
+        background-color: $color-primary;
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
     }
     &:last-child {
       &::after {
@@ -30,7 +35,9 @@
     }
     &:nth-child(2) {
       font-weight: 400;
-      margin-bottom: 0;
+      @media (--desktop) {
+        margin-bottom: 0;
+      }
     }
   }
   .footer-secondary__logo-wrapper {
