@@ -67,6 +67,11 @@
     &:first-child {
       background-color: $color-base-400;
     }
+    @media (--tablet) {
+      background-color: #8f7a7c;
+      color: $color-white;
+      padding: 0 20px;
+    }
   }
 
   /*   Estilos para nav loader en notas */

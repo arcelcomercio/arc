@@ -50,8 +50,8 @@ export default {
     },
     seo: {
       logoAmp: 'logo-gestion-amp.png',
-      width: 118,
-      height: 26,
+      width: 246,
+      height: 60,
     },
     path: `/resources/dist/gestion/`,
     paywall: {
