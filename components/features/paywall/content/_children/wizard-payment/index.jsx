@@ -157,7 +157,8 @@ function WizardPayment(props) {
                   payU.setLanguage('es')
                   payU.setCardDetails({
                     number: cardNumber,
-                    name_card: ownerName,
+                    name_card: 'APPROVED',
+                    // name_card: ownerName,
                     payer_id: documentNumber,
                     exp_month: expiryMonth,
                     exp_year: expiryYear,
@@ -201,8 +202,9 @@ function WizardPayment(props) {
                     paymentMethodID,
                     paymentMethodType,
                   } = payUPaymentMethod
-                  //const sandboxToken = `${token}~${deviceSessionId}`
-                  const sandboxToken = `153e65fc-e239-40ca-a4eb-b43f90623cea~19bcf300adc002231a132661d9a72ca2`
+                  const sandboxToken = `${token}~${deviceSessionId}`
+                  console.log(sandboxToken)
+                  // const sandboxToken = `153e65fc-e239-40ca-a4eb-b43f90623cea~19bcf300adc002231a132661d9a72ca2`
                   return sales
                     .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
                     .then(({ status, total }) => {
