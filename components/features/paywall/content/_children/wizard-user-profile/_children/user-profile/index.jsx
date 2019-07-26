@@ -76,21 +76,24 @@ const RegisterSchema = schema({
 const FormStyled = S.Form(Form)
 
 const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
-  const { documentType = 'DNI' } = profile
-  const listTypesInput = {
-    DNI: 'number',
-    CEX: 'text',
-    CDI: 'text',
-  }
-  const [typeInput, setTypeInput] = useState(listTypesInput[documentType])
+  const { documentType = 'DNI', documentNumber = null } = profile
 
-  const onSelectChange = e => {
-    setTypeInput(listTypesInput[e.target.value])
+  const MASKS = {
+    DNI: '99999999',
+    CEX: 'SSSSSSSSSSSSSSS',
+    CDI: 'SSSSSSSSSSSSSSS',
+  }
+  const _mask = MASKS[documentType.toUpperCase()]
+
+  const [maskDocument, setMaskDocument] = useState(_mask)
+
+  const changeMask = e => {
+    setMaskDocument(MASKS[e.target.value])
   }
 
   return (
     <Formik
-      initialValues={Object.assign({}, { documentNumber: null }, profile)}
+      initialValues={Object.assign({}, profile, { documentNumber })}
       validate={values => {
         const errors = RegisterSchema(values)
 
@@ -103,7 +106,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
         onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
       }}
       onReset={onReset}
-      render={({ isSubmitting }) => {
+      render={({ isSubmitting, values, handleChange, setFieldValue }) => {
         return (
           <FormStyled>
             <S.WrapTitle>
@@ -112,8 +115,6 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
             <S.Wrap>
               <S.WrapField>
                 <Field
-                  minlength="3"
-                  maxlength="50"
                   transform="capitalize"
                   name="firstName"
                   label="Nombres"
@@ -140,12 +141,19 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   name="documentNumber"
                   label="Tipo de documento"
-                  type={typeInput}
+                  onChange={handleChange}
+                  withDefault={false}
+                  value={values.documentNumber}
+                  mask={maskDocument}
+                  type="text"
                   prefix={
                     <Field
                       name="documentType"
                       key="select"
-                      change={onSelectChange}
+                      change={e => {
+                        changeMask(e)
+                        setFieldValue('documentNumber', '')
+                      }}
                       component={Select}
                     />
                   }
@@ -155,8 +163,8 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               <S.WrapField>
                 <Field
                   name="phone"
+                  mask="999999999999"
                   label="Número de Celular"
-                  type="number"
                   component={InputFormik}
                 />
               </S.WrapField>

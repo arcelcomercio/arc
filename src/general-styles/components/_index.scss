@@ -40,10 +40,12 @@
 @import './features/custom-title/custom-title';
 @import './features/extraordinary-story/grid/extraordinary-story-grid';
 @import './features/layout/footer/footer-secondary';
+@import './features/layout/footer/footer-story';
 @import './features/layout/footer/footer';
 @import './features/layout/header/header-somos';
 @import './features/layout/header/header';
 @import './features/layout/navbar/nav-sidebar';
+@import './features/layout/navbar/nav-story';
 @import './features/layout/navbar/nav';
 @import './features/layout/navbar/navbar-somos';
 @import './features/search-filter/search-filter';
@@ -91,6 +93,7 @@
 @import './features/story/content/related-internal';
 @import './features/story/content/story-content';
 @import './features/story/content/story-tags';
+@import './features/story/continue/story-continue';
 @import './features/story/header/story-gallery-slider';
 @import './features/story/header/story-gallery';
 @import './features/story/header/story-header';

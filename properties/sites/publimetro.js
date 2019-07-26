@@ -82,6 +82,20 @@ export default {
       'Copyright © publimetro.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
+    story: [
+      {
+        position: 'Director Periodístico',
+        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+      },
+      {
+        position: 'Empresa Editora Publimetro',
+        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
+      },
+      {
+        position: 'Copyright © publimetro.pe',
+        name: 'Grupo El Comercio - Todos los derechos reservados',
+      },
+    ],
 
     socialNetworks: [
       {

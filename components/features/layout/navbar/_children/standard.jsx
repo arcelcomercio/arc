@@ -8,6 +8,7 @@ import SignWallHard from '../../../signwall/_main/signwall/hard'
 import SignWallVerify from '../../../signwall/_main/signwall/verify'
 import SignWallReset from '../../../signwall/_main/signwall/reset'
 import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
+// import SignWallPaywall from '../../../signwall/_main/signwall/paywall'
 
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
@@ -44,6 +45,10 @@ const classes = {
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
   btnSignwall: 'nav__btn--login',
+  navLoaderWrapper: 'nav__loader position-absolute w-full',
+  navLoader: 'nav__loader-bar  w-full h-full',
+  navStoryTitle: 'nav__story-title position-relative overflow-hidden',
+  navStorySocialNetwork: 'nav__story-social-network hidden',
   iconSignwallMobile: 'rounded uppercase bg-primary',
 }
 
@@ -74,6 +79,8 @@ class NavBarDefault extends PureComponent {
     this.listContainer = null
     this.listWidth = 330
     this.layerBackground = null
+
+    this.isStory = false // TODO: temporal
   }
 
   componentDidMount() {
@@ -97,6 +104,8 @@ class NavBarDefault extends PureComponent {
     if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
       this.layerBackground.addEventListener('click', this._closeMenu)
     }
+
+    this.isStory = !!window.document.querySelector('meta[name="section-id"]') // TODO: temporal
 
     // ----------------------- Start Active Rules Paywall ----------------------- //
 
@@ -513,6 +522,8 @@ class NavBarDefault extends PureComponent {
                 className={classes.logo}
               />
             </a>
+            <div className={classes.navStoryTitle} />
+            <div className={classes.navStorySocialNetwork} />
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
@@ -530,17 +541,13 @@ class NavBarDefault extends PureComponent {
                         ? 'web_link_ingresaperfil'
                         : 'web_link_ingresacuenta'
                     }
-                    className={`${classes.btnLogin} ${
-                      classes.btnSignwall
-                    } btn--outline`}
+                    className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
                     onClick={() => this.setState({ isActive: true })}>
                     <i
                       className={
                         initialUser
                           ? `${classes.iconSignwall} text-user`
-                          : `${classes.iconLogin} ${
-                              classes.iconSignwall
-                            } icon-user`
+                          : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
                       }>
                       {initialUser}
                     </i>
@@ -554,9 +561,7 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${
-                  classes.navMobileContainer
-                } ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -564,9 +569,7 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  className={`${
-                    classes.btnLogin
-                  } border-1 border-solid border-white`}
+                  className={`${classes.btnLogin} border-1 border-solid border-white`}
                   onClick={() => this.setState({ isActive: true })}>
                   {/* <i className={classes.iconLogin} /> */}
                   <i
@@ -580,6 +583,11 @@ class NavBarDefault extends PureComponent {
                 </button>
               </div>
             )}
+            {this.isStory && (
+              <div className={classes.navLoaderWrapper}>
+                <div className={classes.navLoader} />
+              </div>
+            ) /** TODO: temporal */}
           </div>
           <Menu
             sections={sections}
@@ -630,6 +638,7 @@ class NavBarDefault extends PureComponent {
             brandModal={arcSite}
           />
         ) : null}
+        {/* <SignWallPaywall brandModal={arcSite}/> */}
       </>
     )
   }

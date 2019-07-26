@@ -6,7 +6,7 @@ import Icon from './multimedia-icon'
 const SIZE_ONE_COL = 'oneCol'
 const SIZE_TWO_COL = 'twoCol'
 // const IMAGE_BOT = 'partialBot'
-const IMAGE_TOP = 'partialTop'
+const IMAGE_TOP = 'parcialTop'
 const IMAGE_COMPLETE = 'complete'
 
 const classes = {
