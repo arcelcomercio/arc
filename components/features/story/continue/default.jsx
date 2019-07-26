@@ -125,12 +125,14 @@ class StoryContinue extends PureComponent {
      * Esto cambia el logo de la barra de navegación cuando estás viendo una noticia,
      * es necesario porque por ahora el color es distinto.
      */
-    const { arcSite, contextPath, deployment } = this.props || {}
-    document.querySelector('.nav__logo').src = deployment(
-      arcSite === 'publimetro'
-        ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
-        : `${contextPath}/resources/dist/gestion/images/logo.png`
-    )
+    if (window.screen.width > 1023) {
+      const { arcSite, contextPath, deployment } = this.props || {}
+      document.querySelector('.nav__logo').src = deployment(
+        arcSite === 'publimetro'
+          ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
+          : `${contextPath}/resources/dist/gestion/images/logo.png`
+      )
+    }
     // TODO: finnnn
     this.setAttributeProgress(progress, MIN_PROGRESS)
   }
@@ -186,7 +188,9 @@ class StoryContinue extends PureComponent {
       <>
         <div className={classes.storyContinue}>
           <div className={classes.storyLoad} data-state="outviewport">
-            <a href={websiteUrl} className={classes.storyLoadLink}>
+            <a
+              href={`${websiteUrl}?ref=nota&ft=autoload`}
+              className={classes.storyLoadLink}>
               <div className={classes.storyCircle}>
                 <span className={classes.storyLoadImage} />
                 <div className={classes.storycounter}> </div>
