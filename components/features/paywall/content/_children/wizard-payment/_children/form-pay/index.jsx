@@ -130,7 +130,8 @@ const FormPay = ({ error, onSubmit, onReset }) => {
                 component={Input}
                 name="cardNumber"
                 label="Número de tarjeta"
-                mask="9999 - 9999 - 9999 - 9999"
+                // prettier-ignore
+                mask={[ /\d/, /\d/, /\d/ ,/\d/, " ", /\d/, /\d/, /\d/ ,/\d/, " ", /\d/, /\d/, /\d/ ,/\d/, " ", /\d/, /\d/, /\d/ ,/\d/]}
                 placeholder="0000 - 0000 - 0000 - 0000"
               />
             </S.WrapInput>
@@ -139,7 +140,7 @@ const FormPay = ({ error, onSubmit, onReset }) => {
               <Field
                 component={Input}
                 name="expiryDate"
-                mask="99/9999"
+                mask={[/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
                 placeholder="mm/aaaa"
                 label="F. de Vencimiento"
               />
@@ -149,7 +150,7 @@ const FormPay = ({ error, onSubmit, onReset }) => {
                 component={Input}
                 sufix={<Icon type="cvv" />}
                 type="number"
-                mask="9999"
+                mask={[/\d/, /\d/, /\d/, /\d/]}
                 name="cvv"
                 label="CVV"
                 placeholder="***"
