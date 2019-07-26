@@ -8,7 +8,7 @@ import SignWallHard from '../../../signwall/_main/signwall/hard'
 import SignWallVerify from '../../../signwall/_main/signwall/verify'
 import SignWallReset from '../../../signwall/_main/signwall/reset'
 import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
-// import SignWallPaywall from '../../../signwall/_main/signwall/paywall'
+import SignWallPaywall from '../../../signwall/_main/signwall/paywall'
 
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
@@ -43,7 +43,7 @@ const classes = {
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
-  iconSignwall: 'nav__icon rounded position-absolute uppercase secondary-font font-bold',
+  iconSignwall: 'nav__icon rounded position-absolute uppercase secondary-font',
   btnSignwall: 'nav__btn--login',
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
@@ -547,7 +547,7 @@ class NavBarDefault extends PureComponent {
                     <i
                       className={
                         initialUser
-                          ? `${classes.iconSignwall} text-user`
+                          ? `${classes.iconSignwall} text-user font-bold`
                           : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
                       }>
                       {initialUser}
@@ -639,7 +639,7 @@ class NavBarDefault extends PureComponent {
             brandModal={arcSite}
           />
         ) : null}
-        {/* <SignWallPaywall brandModal={arcSite}/> */}
+        <SignWallPaywall brandModal={arcSite}/>
       </>
     )
   }
