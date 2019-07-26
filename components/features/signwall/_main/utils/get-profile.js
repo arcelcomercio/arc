@@ -61,12 +61,13 @@ class GetProfile {
     let inituser = false
 
     if (
-      profile != null &&
-      (profile.firstName != null || profile.lastName != null)
+      profile !== null &&
+      (profile.firstName !== null || profile.lastName !== null)
     ) {
       switch (true) {
-        case (profile.firstName !== 'undefined' || profile.firstName != null) &&
-          (profile.lastName === 'undefined' || profile.lastName == null):
+        case (profile.firstName !== 'undefined' ||
+          profile.firstName !== null) &&
+          (profile.lastName === 'undefined' || profile.lastName === null):
           if (profile.firstName === 'undefined' || profile.firstName === null) {
             nameUser = 'Bienvenido Usuario'
           } else {
@@ -77,8 +78,9 @@ class GetProfile {
             inituser = profile.firstName.slice(0, 2)
           }
           break
-        case (profile.firstName !== 'undefined' || profile.firstName != null) &&
-          (profile.lastName !== 'undefined' || profile.lastName != null):
+        case (profile.firstName !== 'undefined' ||
+          profile.firstName !== null) &&
+          (profile.lastName !== 'undefined' || profile.lastName !== null):
           if (profile.firstName === 'undefined' || profile.firstName === null) {
             nameUser =
               profile.lastName.length >= 15

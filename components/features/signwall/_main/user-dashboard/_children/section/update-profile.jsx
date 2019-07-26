@@ -467,7 +467,7 @@ class UpdateProfile extends Component {
               className={
                 formErrors.firstName.length > 0
                   ? 'form-group__input form-group__input--error capitalize'
-                  : 'form-group__input capitalizel'
+                  : 'form-group__input capitalize'
               }
               placeholder="Nombres"
               noValidate
