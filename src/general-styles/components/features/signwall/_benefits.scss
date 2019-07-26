@@ -59,5 +59,61 @@
         width: 75%;
       }
     }
+    .intro-paywall {
+      font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+      background: #fff6f0;
+      color: #444444;
+      padding: 40px 60px;
+      line-height: 20px;
+      .price,
+      .detail-price {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .price {
+        font-size: 4.5em;
+        font-weight: 600;
+        width: 40%;
+        letter-spacing: -2px;
+        i {
+          font-size: 0.5em;
+          font-weight: normal;
+          letter-spacing: 0px;
+        }
+      }
+      .detail-price {
+        width: 60%;
+        font-size: 16px;
+        line-height: 20px;
+      }
+      .title-line {
+        font-weight: bold;
+        display: table;
+        white-space: nowrap;
+        font-size: 14px;
+        &:before,
+        &:after {
+          border-top: 1px solid #a98e7c;
+          content: '';
+          display: table-cell;
+          position: relative;
+          top: 0.5em;
+          width: 45%;
+        }
+        &:before {
+          right: 3%;
+        }
+        &:after {
+          left: 3%;
+        }
+      }
+      .list-benefits {
+        font-size: 14px;
+        line-height: 24px;
+        list-style-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAYNJREFUOBGFUsFxgzAQBEEDqSDgBuIOogH/43QQXnmGdOBUELsC55mn/Qcjd0AaICqBArDJrgeIkB3nZsSduN3T3kmuY5mUMvB9/wW/Jda0S5fw2yzLFt1+cP4QIYjjeOm6LslO27ZfiLfwNXyAtTGxfez2AcglQHfYb5umSZVSus/ZPoqiJ2Dv8zxPTgWMk98uyTQLkCyEWFPh4XCQbtfzN0DscW6C7dgmQ2UtPM9LCaRsm2DuL5GZF1iScvqeZ7OZZMK0v8jECA4OS3PDduAKzGTNPe0amfnRNVIFCAmHhCK8yr05MPZMEg1KN3APgvIR3PInbbfbfRyPxwSqRtM2ycSBF5DLGSisaScf4W8RAnhVNplYtg6oGq4R4A0exuOpwj+fXj5uLvS01nUYhjeUPJlMnKqq9tf4IC+Qf8aBq6IoPs+eMpVA9itkawAHo2y8mXccNMfP4dENBYg0njS3JYppBiAFcFMsDm+FVlPGtFEB/uhOIkB2gyKJN6WgbGkr+wHP1//N8PmHWQAAAABJRU5ErkJggg==');
+        margin-left: 24px;
+        padding-left: 10px;
+      }
+    }
   }
 }

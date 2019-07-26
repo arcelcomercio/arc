@@ -2,9 +2,9 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
+
 import Signwall from '../../../signwall/default'
 import SignWallHard from '../../../signwall/_main/signwall/hard'
-
 import SignWallVerify from '../../../signwall/_main/signwall/verify'
 import SignWallReset from '../../../signwall/_main/signwall/reset'
 import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
@@ -43,13 +43,14 @@ const classes = {
   btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden md:inline-block`,
   iconLogin: 'nav__icon icon-user',
-  iconSignwall: 'nav__icon rounded position-absolute uppercase',
+  iconSignwall: 'nav__icon rounded position-absolute uppercase secondary-font font-bold',
   btnSignwall: 'nav__btn--login',
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network hidden',
-  iconSignwallMobile: 'rounded uppercase bg-primary',
+  iconSignwallMobile: 'uppercase ',
+  btnSignwallMobile: 'bg-secondary text-primary-color rounded',
 }
 
 @Consumer
@@ -569,14 +570,14 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  className={`${classes.btnLogin} border-1 border-solid border-white`}
+                  style={{ width: '34px', height: '34px' }}
+                  className={`${classes.btnSignwallMobile}`}
                   onClick={() => this.setState({ isActive: true })}>
-                  {/* <i className={classes.iconLogin} /> */}
                   <i
                     className={
                       initialUser
-                        ? `${classes.iconSignwallMobile}`
-                        : `${classes.iconLogin} ${classes.iconSignwallMobile}`
+                        ? `${classes.iconSignwallMobile} font-bold`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
                     }>
                     {initialUser}
                   </i>
