@@ -11,4 +11,9 @@
   &__loader-bar {
     background-color: $color-primary;
   }
+  &__wrapper {
+    @media (--desktop) {
+      background-color: transparent;
+    }
+  }
 }
