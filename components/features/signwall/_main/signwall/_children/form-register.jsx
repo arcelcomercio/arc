@@ -35,6 +35,7 @@ class FormRegister extends Component {
       },
       messageError: false,
       showMessage: false,
+      showMessageResetPass: false,
       sending: true,
     }
 
@@ -151,12 +152,21 @@ class FormRegister extends Component {
               messageES = 'El correo electrónico ingresado ya existe'
               break
             case '300040':
-              messageES =
-                'Oops. Ocurrió un error inesperado. Intenta inciar sesión'
-              this.setState({
-                showMessage: true,
-                sending: true,
-              })
+            case '300037':
+              // console.log('este usuario requiere reset pass');
+              window.Identity.requestResetPassword(EmailUserNew)
+                .then(resSend => {
+                  this.setState({
+                    showMessage: true,
+                    sending: true,
+                    showMessageResetPass: true,
+                  })
+                  window.localStorage.removeItem('ArcId.USER_PROFILE') // remueve profile creado por signup
+                  window.Identity.userProfile = null // remueve profile creado por signup
+                })
+                .catch(errSend => {
+                  console.error(errSend)
+                })
               break
             default:
               messageES = 'Oops. Ocurrió un error inesperado.'
@@ -451,10 +461,14 @@ class FormRegister extends Component {
                 </div>
                 <div className="form-grid__group">
                   <h1 className="form-grid__info text-center">
-                    Tu cuenta ha sido creada correctamente
+                    {this.state.showMessageResetPass
+                      ? 'Tu cuenta ya existe. solo falta un paso más'
+                      : 'Tu cuenta ha sido creada correctamente'}
                   </h1>
                   <p className="form-grid__info-sub text-center">
-                    Revisa tu bandeja de correo para confirmar tu solicitud
+                    {this.state.showMessageResetPass
+                      ? 'Revisa tu bandeja de correo para vincular tu cuenta'
+                      : 'Revisa tu bandeja de correo para confirmar tu solicitud'}
                   </p>
                 </div>
                 <div className="form-grid__group">
