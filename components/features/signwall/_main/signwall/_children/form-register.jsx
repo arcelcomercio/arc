@@ -154,6 +154,7 @@ class FormRegister extends Component {
             case '300040':
             case '300037':
               // console.log('este usuario requiere reset pass');
+              window.Identity.apiOrigin = this.origin_api
               window.Identity.requestResetPassword(EmailUserNew)
                 .then(resSend => {
                   this.setState({
