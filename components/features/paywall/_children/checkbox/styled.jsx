@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { devices } from '../../../_dependencies/devices'
+import { devices } from '../../_dependencies/devices'
 
 export const Label = styled.label`
   display: flex;

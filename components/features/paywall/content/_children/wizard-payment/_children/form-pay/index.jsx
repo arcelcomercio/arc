@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Formik, Form, Field } from 'formik'
-import Checkbox from '../../../checkbox'
+import Checkbox from '../../../../../_children/checkbox'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
 import Error from '../../../../../_children/error'
