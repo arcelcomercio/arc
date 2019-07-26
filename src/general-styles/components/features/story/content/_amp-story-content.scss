@@ -33,7 +33,8 @@
       background: url('../images/openquote.svg') top left no-repeat;
     } */
     &__pull {
-      background: url('https://elcomercio.pe/uploads/2019/05/23/5ce70bbecc85c.svg') top left no-repeat;
+      background: url('https://elcomercio.pe/uploads/2019/05/23/5ce70bbecc85c.svg')
+        top left no-repeat;
     }
 
     &__text {
@@ -53,4 +54,7 @@
   &__tags-link {
     font-size: 14px;
   }
+}
+.content-sidebar {
+  display: inline;
 }
