@@ -428,7 +428,7 @@ class FormRegister extends Component {
                   <p className="form-grid__required mt-25 mb-25">
                     * TODOS LOS CAMPOS SON OBLIGATORIOS
                   </p>
-                  <div className="form-group form-group--center mt-20 ">
+                  <div className="form-group form-group--center mt-20">
                     <input
                       type="submit"
                       id="registro_boton_registrarme"
