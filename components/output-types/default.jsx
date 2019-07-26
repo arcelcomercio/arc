@@ -145,7 +145,7 @@ export default ({
           rel="stylesheet"
         />
         {/* Script de data Ads AppNexus */}
-        <script src={`${BASE_URL_ADS}/data_${arcSite}.js`} async />
+        <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
 
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
