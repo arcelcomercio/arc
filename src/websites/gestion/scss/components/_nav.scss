@@ -52,9 +52,10 @@
     }
   }
 
-  &__container-menu {
+  &__container-menu,
+  &__search-box {
     @media (--desktop) {
-      border-color: $color-white;
+      border-right-color: $color-white;
     }
   }
 
@@ -78,6 +79,7 @@
       padding: 0 20px;
     }
   }
+
   /*   Estilos para nav loader en notas */
   &__loader-bar {
     background-color: #ea1f38;
