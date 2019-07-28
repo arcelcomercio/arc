@@ -2,6 +2,9 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import BlogItem from './_children/item'
 import Pagination from '../../../global-components/pagination'
+import { customFields } from '../_dependencies/custom-fields'
+import Ads from '../../../global-components/ads'
+
 import {
   formatDateLocalTimeZone,
   defaultImage,
@@ -11,6 +14,7 @@ import {
 const classes = {
   list: 'bg-white w-full p-15 blog-list',
   title: 'uppercase mb-20 title-xs blog-list__title',
+  adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
 const CONTENT_SOURCE = 'get-count-all-blogs'
@@ -30,6 +34,8 @@ class BlogList extends PureComponent {
       },
     })
   }
+
+  hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
 
   transformDate = postDate => {
     const arrayDate = formatDateLocalTimeZone(postDate).split(' ')
@@ -83,6 +89,7 @@ class BlogList extends PureComponent {
       requestUri,
       globalContent = {},
       globalContentConfig = {},
+      customFields: customFieldsProps = {},
     } = this.props
     const {
       query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
@@ -93,6 +100,18 @@ class BlogList extends PureComponent {
       item => typeof item === 'object'
     )
 
+    const activeAds = Object.keys(customFieldsProps)
+      .filter(prop => prop.match(/adsMobile(\d)/))
+      .filter(key => customFieldsProps[key] === true)
+
+    const activeAdsArray = activeAds.map(el => {
+      return {
+        name: `movil${el.slice(-1)}`,
+        pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
+        inserted: false,
+      }
+    })
+
     return (
       <>
         <div className={classes.list}>
@@ -101,7 +120,17 @@ class BlogList extends PureComponent {
             {blogs.map((blog, i) => {
               const params = this.buildParams(blog)
               const key = `blog-${i}-${params.urlPost}`
-              return <BlogItem key={key} {...params} />
+              const ads = this.hasAds(i + 1, activeAdsArray)
+              return (
+                <>
+                  <BlogItem key={key} {...params} />
+                  {ads.length > 0 && (
+                    <div className={classes.adsBox}>
+                      <Ads adElement={ads[0].name} isDesktop={false} isMobile />
+                    </div>
+                  )}
+                </>
+              )
             })}
           </div>
         </div>
@@ -116,6 +145,10 @@ class BlogList extends PureComponent {
       </>
     )
   }
+}
+
+BlogList.propTypes = {
+  customFields,
 }
 
 BlogList.label = 'Blog - Listado blogs'

@@ -11,7 +11,6 @@
   &__wrapper {
     @media (--desktop) {
       display: flex;
-      background-color: transparent;
     }
   }
 
@@ -61,7 +60,6 @@
     }
 
     &--section {
-
       //padding: 4px;
       & span {
         font-weight: bold;
@@ -75,6 +73,8 @@
       }
     }
 
+    /*  
+    Por ahora esto no está contemplado en diseño
     &--login {
       position: relative;
       padding-left: 40px;
@@ -95,7 +95,7 @@
         font-size: 11px;
         letter-spacing: 1px;
       }
-    }
+    } */
   }
 
   // &__list { }

@@ -1,16 +1,6 @@
 .signwall {
   * {
-    @media (max-width: 47.938em) {
-      //hasta 767
-      .hide-line-break-sm {
-        display: none;
-      }
-
-      #ads-movil-movil_1 #ads_m_movil1 {
-        z-index: 0;
-      }
-    }
-
+    
     .link-color {
       color: $signwall-color-link;
     }
@@ -105,22 +95,6 @@
 
     .overlay {
       overflow: hidden;
-    }
-
-    .mt-20 {
-      margin-top: 20px;
-    }
-
-    .none {
-      display: none;
-    }
-
-    .text-capital {
-      text-transform: capitalize;
-    }
-
-    .text-center {
-      text-align: center;
     }
 
     .text-left {
