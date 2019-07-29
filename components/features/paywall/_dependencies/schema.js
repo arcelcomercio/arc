@@ -45,16 +45,16 @@ function shape(value) {
       return this
     },
     length(limit, message) {
-      if (this.value === null || this.value.length !== limit) throw message
+      if (!this.value || this.value.length !== limit) throw message
       return this
     },
     max(limit, message) {
-      if (this.value === null || this.value.length > limit)
+      if (!this.value || this.value.length > limit)
         throw message.replace(/\${max}/g, limit)
       return this
     },
     min(limit, message) {
-      if (this.value === null || this.value.length < limit)
+      if (!this.value || this.value.length < limit)
         throw message.replace(/\${min}/g, limit)
       return this
     },
