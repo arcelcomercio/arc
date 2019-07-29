@@ -69,7 +69,13 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                     <Field
                       name="documentType"
                       key="select"
-                      component={Select}
+                      component={({ field, ...props }) => (
+                        <S.Select {...field} {...props}>
+                          <option value="DNI">DNI</option>
+                          <option value="CEX">CEX</option>
+                          <option value="CDI">CDI</option>
+                        </S.Select>
+                      )}
                     />
                   }
                   component={InputFormik}
