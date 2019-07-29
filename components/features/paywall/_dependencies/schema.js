@@ -20,6 +20,17 @@ const cvvPatterns = {
   DINERS: /^\d{3}$/,
 }
 
+// prettier-ignore
+export const Masks = {
+  CREDIT_CARD_NUMBER: [ /\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/],
+  EXPIRY_DATE: [/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
+  CREDIT_CARD_CVV: [/\d/, /\d/, /\d/, /\d/],
+  DNI: [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
+  CEX: [/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/],
+  CDI: [/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/],
+  PHONE: [/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/, " ", /\d/, /\d/,/\d/]
+};
+
 function shape(value) {
   return {
     value: value ? value.toString() : value,

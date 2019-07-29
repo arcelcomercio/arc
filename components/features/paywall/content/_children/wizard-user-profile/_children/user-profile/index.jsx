@@ -1,32 +1,10 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
-import InputFormik from '../../../../../_children/input'
 import * as S from './styled'
+import InputFormik from '../../../../../_children/input'
 import Button from '../../../../../_children/button'
 import Error from '../../../../../_children/error'
-import schema from '../../../../../_dependencies/schema'
-import Select from '../select-formik'
-
-const MESSAGE = {
-  // eslint-disable-next-line no-template-curly-in-string
-  MIN: 'Longitud inválida, mínimo ${min} caracteres.',
-  // eslint-disable-next-line no-template-curly-in-string
-  MAX: 'Longitud inválida, Máximo ${max} caracteres.',
-  REQUIRED: 'Este campo es requerido',
-  CELULAR: 'Longitud inválida, entre 9 y 12 caracteres',
-  DNI: 'Longitud inválida, requiere 8 dígitos',
-  EMAIL: 'Correo inválido',
-  CUSTOM: 'Formato inválido',
-}
-
-// prettier-ignore
-const DOCUMENT_TYPE_MASKS = {
-  DNI: [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
-  CEX: [/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/],
-  CDI: [/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/,/\w/]
-};
-// prettier-ignore
-const PHONE_MASK = [/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/, " ", /\d/, /\d/,/\d/]
+import { FormSchema, Masks } from './schema'
 
 // TODO: Falta obtener esta info que es obligatoria para crear una orden
 const FAKE_BILLING_ADDRESS = {
@@ -38,60 +16,13 @@ const FAKE_BILLING_ADDRESS = {
   postal: '01',
 }
 
-const RegisterSchema = schema({
-  firstName: value => {
-    value
-      .required(MESSAGE.REQUIRED)
-      .min(3, MESSAGE.MIN)
-      .max(50, MESSAGE.MAX)
-  },
-  lastName: value => {
-    value
-      .required(MESSAGE.REQUIRED)
-      .min(3, MESSAGE.MIN)
-      .max(50, MESSAGE.MAX)
-  },
-  secondLastName: value => {
-    value.min(3, MESSAGE.MIN).max(50, MESSAGE.MAX)
-  },
-  documentNumber: (value, { documentType }) => {
-    switch (documentType) {
-      default:
-      case 'DNI':
-        value.required(MESSAGE.REQUIRED).length(8, MESSAGE.DNI)
-        break
-      case 'CDI':
-      case 'CEX':
-        value
-          .required(MESSAGE.REQUIRED)
-          .custom(/^[ A-Za-z0-9-]*$/, MESSAGE.CUSTOM)
-          .min(5, MESSAGE.MIN)
-          .max(15, MESSAGE.MAX)
-        break
-    }
-  },
-  phone: value => {
-    value
-      .required(MESSAGE.REQUIRED)
-      .min(9, MESSAGE.CELULAR)
-      .max(12, MESSAGE.CELULAR)
-  },
-  email: value => {
-    value.required(MESSAGE.REQUIRED)
-    value.email(MESSAGE.EMAIL)
-  },
-})
-
 const FormStyled = S.Form(Form)
 
 const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
   return (
     <Formik
-      initialValues={Object.assign({}, profile, {
-        documentType: 'DNI',
-        documentNumber: profile.documentNumber || null,
-      })}
-      validate={values => new RegisterSchema(values)}
+      initialValues={Object.assign({}, profile, { documentType: 'DNI' })}
+      validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
         // TODO: Crear un servicio desde el que se pueda obtener billing address
         onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
@@ -132,7 +63,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   name="documentNumber"
                   label="Tipo de documento"
-                  mask={DOCUMENT_TYPE_MASKS[documentType]}
+                  mask={Masks[documentType.toUpperCase()]}
                   type="text"
                   prefix={
                     <Field
@@ -147,7 +78,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               <S.WrapField>
                 <Field
                   name="phone"
-                  mask={PHONE_MASK}
+                  mask={Masks.PHONE}
                   label="Número de Celular"
                   component={InputFormik}
                 />

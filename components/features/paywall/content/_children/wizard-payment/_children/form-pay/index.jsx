@@ -7,7 +7,7 @@ import Button from '../../../../../_children/button'
 import Error from '../../../../../_children/error'
 import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
-import schema from '../../../../../_dependencies/schema'
+import { FormSchema, Masks } from './schema'
 import { devices } from '../../../../../_dependencies/devices'
 
 const RadioCondition = styled(Checkbox)``
@@ -19,53 +19,6 @@ const AgreementCheckbox = styled(Checkbox)`
     margin: 0;
   }
 `
-
-const MESSAGE = {
-  REQUIRED: 'Este campo es requerido',
-  WRONG_CARD_NUMBER: 'Número tarjeta inválido',
-  WRONG_CVV: 'CVV Inválido',
-  WRONG_EXPIRY_DATE: 'Fecha incorrecta',
-  CHECK_REQUIRED: 'Debe seleccionar el check',
-}
-
-const FormSchema = schema({
-  cardMethod: value => {
-    value.required(MESSAGE.REQUIRED)
-  },
-  cardNumber: (value, { cardMethod }) => {
-    value
-      .required(MESSAGE.REQUIRED)
-      .creditCardNumber(cardMethod, MESSAGE.WRONG_CARD_NUMBER)
-  },
-  cvv: (value, { cardMethod }) => {
-    value
-      .required(MESSAGE.REQUIRED)
-      .creditCardCvv(cardMethod, MESSAGE.WRONG_CVV)
-  },
-  expiryDate: value => {
-    const match = (value.value || '').match(/^(\d\d)\/(\d\d(\d\d)?)$/)
-    if (!match) throw MESSAGE.WRONG_EXPIRY_DATE
-    let _m = match[1]
-    let _y = match[2]
-    if (!(_m >= 0 && _m < 13)) {
-      throw MESSAGE.WRONG_EXPIRY_DATE
-    }
-    if (_y.length === 2) {
-      _y = '20' + _y
-    }
-
-    if (_m.length === 1) {
-      _m = '0' + _m
-    }
-
-    const formDate = new Date(_y, _m - 1)
-    if (formDate < Date.now()) {
-      throw MESSAGE.WRONG_EXPIRY_DATE
-    }
-    return this
-  },
-  agreed: value => value.required(MESSAGE.REQUIRED),
-})
 
 const FormPay = ({ error, onSubmit }) => {
   return (
@@ -130,7 +83,7 @@ const FormPay = ({ error, onSubmit }) => {
                 name="cardNumber"
                 label="Número de tarjeta"
                 // prettier-ignore
-                mask={[ /\d/, /\d/, /\d/ ,/\d/, " ", /\d/, /\d/, /\d/ ,/\d/, " ", /\d/, /\d/, /\d/ ,/\d/, " ", /\d/, /\d/, /\d/ ,/\d/]}
+                mask={Masks.CREDIT_CARD_NUMBER}
                 placeholder="0000 - 0000 - 0000 - 0000"
               />
             </S.WrapInput>
@@ -139,7 +92,7 @@ const FormPay = ({ error, onSubmit }) => {
               <Field
                 component={Input}
                 name="expiryDate"
-                mask={[/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+                mask={Masks.EXPIRY_DATE}
                 placeholder="mm/aaaa"
                 label="F. de Vencimiento"
               />
@@ -149,7 +102,7 @@ const FormPay = ({ error, onSubmit }) => {
                 component={Input}
                 sufix={<Icon type="cvv" />}
                 type="number"
-                mask={[/\d/, /\d/, /\d/, /\d/]}
+                mask={Masks.CREDIT_CARD_CVV}
                 name="cvv"
                 label="CVV"
                 placeholder="***"
