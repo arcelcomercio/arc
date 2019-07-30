@@ -36,4 +36,11 @@
       margin-bottom: 10px;
     }
   }
+  &__btn-container {
+    .btn--outline {
+      background-color: $color-white;
+      border: 0;
+      color: $color-gray-300;
+    }
+  }
 }
