@@ -3,7 +3,7 @@ import * as S from './styled'
 
 const Checkbox = ({
   field: { name, value, onChange, onBlur },
-  form: { touched, errors },
+  form: { touched, errors, setFieldTouched, ...rest },
   radio,
   label,
   checked,

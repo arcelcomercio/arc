@@ -2,9 +2,9 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
+
 import Signwall from '../../../signwall/default'
 import SignWallHard from '../../../signwall/_main/signwall/hard'
-
 import SignWallVerify from '../../../signwall/_main/signwall/verify'
 import SignWallReset from '../../../signwall/_main/signwall/reset'
 import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
@@ -49,7 +49,8 @@ const classes = {
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network hidden',
-  iconSignwallMobile: 'rounded uppercase bg-primary',
+  iconSignwallMobile: 'uppercase ',
+  btnSignwallMobile: 'nav__btn--login-m bg-secondary text-primary-color rounded',
 }
 
 @Consumer
@@ -542,7 +543,9 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
+                      `${
+                        classes.btnLogin
+                      } btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     {/* 
@@ -550,7 +553,7 @@ class NavBarDefault extends PureComponent {
                     <i
                       className={
                         initialUser
-                          ? `${classes.iconSignwall} text-user`
+                          ? `${classes.iconSignwall} text-user font-bold`
                           : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
                       }>
                       {initialUser}
@@ -565,7 +568,9 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -573,14 +578,15 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  className={`${classes.btnLogin} border-1 border-solid border-white`}
+                  className={`${classes.btnSignwallMobile}`}
                   onClick={() => this.setState({ isActive: true })}>
-                  {/* <i className={classes.iconLogin} /> */}
                   <i
                     className={
                       initialUser
-                        ? `${classes.iconSignwallMobile}`
-                        : `${classes.iconLogin} ${classes.iconSignwallMobile}`
+                        ? `${classes.iconSignwallMobile} font-bold`
+                        : `${classes.iconLogin} ${
+                            classes.iconSignwallMobile
+                          }  title-sm`
                     }>
                     {initialUser}
                   </i>
