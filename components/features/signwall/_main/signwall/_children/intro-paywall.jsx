@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../../../../../global-components/button'
 
 const classes = {
-  btnSuscription: `flex items-center btn nav__btn text-gray-200 lg:flex btn btn--blue btn-lg btn-bg`,
+  btnSuscription: `flex items-center btn nav__btn input-button text-gray-200 lg:flex btn btn--blue btn-lg btn-bg`,
 }
 
 const IntroPaywall = props => {
@@ -29,8 +29,15 @@ const IntroPaywall = props => {
           desde todos los dispositivos
         </li>
       </ul>
-      <Button btnClass={classes.btnSuscription} btnText="Suscríbete" />
-      <p className="text-center mt-20 mb-20 text-sm">Si eres suscriptor del diario impreso,<br/> descubre tu descuento</p>
+      <div className="form-group">
+        <Button btnClass={classes.btnSuscription} btnText="Suscríbete" />
+        <Button btnClass={classes.btnSuscription} btnText="Iniciar Sesión" />
+      </div>
+
+      <p className="text-center mt-20 mb-20 text-sm">
+        Si eres suscriptor del diario impreso,
+        <br /> descubre tu descuento
+      </p>
     </div>
   )
 }
