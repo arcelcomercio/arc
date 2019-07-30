@@ -28,7 +28,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
         onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
       }}
       onReset={onReset}
-      render={({ isSubmitting, values: { documentType } }) => {
+      render={({ setFieldValue, isSubmitting, values: { documentType } }) => {
         return (
           <FormStyled>
             <S.WrapTitle>
@@ -69,8 +69,17 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                     <Field
                       name="documentType"
                       key="select"
-                      component={({ field, ...props }) => (
-                        <S.Select {...field} {...props}>
+                      component={({
+                        field: { onChange, ...restField },
+                        ...restProps
+                      }) => (
+                        <S.Select
+                          onChange={(...args) => {
+                            setFieldValue('documentNumber', '')
+                            onChange(...args)
+                          }}
+                          {...restField}
+                          {...restProps}>
                           <option value="DNI">DNI</option>
                           <option value="CEX">CEX</option>
                           <option value="CDI">CDI</option>
