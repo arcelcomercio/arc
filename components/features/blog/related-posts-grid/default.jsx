@@ -9,7 +9,7 @@ import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
 const classes = {
   bmInterestYou: 'br-stories-grid non-mobile non-tablet',
   generalTitle:
-    'br-stories-grid__title uppercase line-h-md pl-20 pr-20 font-bold',
+    'br-stories-grid__title uppercase line-h-md pl-20 pr-20 pt-20 font-bold',
   container: `br-stories-grid__container grid grid--content lg:pt-0 lg:pb-20 lg:pr-20 lg:pl-20`,
 }
 

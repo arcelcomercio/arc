@@ -67,11 +67,21 @@ const FormSchema = schema({
   agreed: value => value.required(MESSAGE.REQUIRED),
 })
 
-const FormPay = ({ error, onSubmit, onReset }) => {
+const FormPay = ({ error, onSubmit }) => {
   return (
     <Formik
-      validate={values => new FormSchema(values)}
-      onReset={onReset}
+      initialValues={{
+        agreed: null,
+        cardMethod: null,
+        cardNumber: null,
+        cvv: null,
+        expiryDate: null,
+      }}
+      validate={values => {
+        const erros = FormSchema(values)
+
+        return erros
+      }}
       onSubmit={(values, actions) => {
         onSubmit(
           Object.assign({}, values, {
@@ -82,7 +92,12 @@ const FormPay = ({ error, onSubmit, onReset }) => {
           actions
         )
       }}
-      render={({ values: { cardMethod, agreed }, isSubmitting }) => (
+      render={({
+        values: { cardMethod, agreed },
+        handleSubmit,
+        isSubmitting,
+        setTouched,
+      }) => (
         <Form>
           <S.Security>
             <Icon type="lock" width="20" height="25" />
@@ -140,7 +155,7 @@ const FormPay = ({ error, onSubmit, onReset }) => {
                 component={Input}
                 name="expiryDate"
                 mask="99/9999"
-                placeholder="mm/aaaa"
+                placeholder="Mes / Año"
                 label="F. de Vencimiento"
               />
             </S.WrapInput>

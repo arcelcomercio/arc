@@ -130,15 +130,15 @@ export default {
     contacts: [
       {
         position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+        name: 'JULIO LIRA SEGURA',
       },
       {
-        position: 'Editor Web',
-        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
+        position: '',
+        name: '',
       },
       {
-        position: 'Contacto comercial',
-        name: 'ventaspublimetro@publimetro.pe',
+        position: '',
+        name: '',
       },
     ],
   },

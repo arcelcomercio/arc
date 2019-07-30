@@ -146,83 +146,75 @@ function WizardPayment(props) {
             const expiryMonth = expiryDate.split('/')[0]
             const expiryYear = expiryDate.split('/')[1]
 
-            return (
-              addPayU(siteProperties)
-                .then(payU => {
-                  payU.setURL(payuBaseUrl)
-                  payU.setPublicKey(publicKey)
-                  payU.setAccountID(accountId)
-                  payU.setListBoxID('mylistID')
-                  payU.getPaymentMethods()
-                  payU.setLanguage('es')
-                  payU.setCardDetails({
-                    number: cardNumber,
-                    name_card: 'APPROVED',
-                    // name_card: ownerName,
-                    payer_id: documentNumber,
-                    exp_month: expiryMonth,
-                    exp_year: expiryYear,
-                    method: cardMethod.toUpperCase(),
-                    document: documentNumber,
-                    cvv,
-                  })
-                  return new Promise((resolve, reject) => {
-                    payU.createToken(response => {
-                      if (response.error) {
-                        reject(new Error(response.error))
-                      } else {
-                        resolve(response.token)
-                      }
-                    })
+            return addPayU(siteProperties)
+              .then(payU => {
+                payU.setURL(payuBaseUrl)
+                payU.setPublicKey(publicKey)
+                payU.setAccountID(accountId)
+                payU.setListBoxID('mylistID')
+                payU.getPaymentMethods()
+                payU.setLanguage('es')
+                payU.setCardDetails({
+                  number: cardNumber,
+                  name_card: 'APPROVED',
+                  // name_card: ownerName,
+                  payer_id: documentNumber,
+                  exp_month: expiryMonth,
+                  exp_year: expiryYear,
+                  method: cardMethod.toUpperCase(),
+                  document: documentNumber,
+                  cvv,
+                })
+                return new Promise((resolve, reject) => {
+                  payU.createToken(response => {
+                    if (response.error) {
+                      reject(new Error(response.error))
+                    } else {
+                      resolve(response.token)
+                    }
                   })
                 })
-                // TODO: El servicio aun esta en desarrollo
-                // .then(token => {
-                //   return apiPaymentRegister({
-                //     baseUrl: '//devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
-                //     orderNumber,
-                //     firstName,
-                //     lastName,
-                //     secondLastName,
-                //     documentType,
-                //     documentNumber,
-                //     email,
-                //     phone,
-                //     cardMethod,
-                //     cardNumber, // TODO: Convertir en formato de mascara
-                //     token,
-                //     campaignCode,
-                //     sku,
-                //     priceCode,
-                //     amount,
-                //   }).then(() => token)
-                // })
-                .then(token => {
-                  const {
-                    paymentMethodID,
-                    paymentMethodType,
-                  } = payUPaymentMethod
-                  const sandboxToken = `${token}~${deviceSessionId}`
-                  console.log(sandboxToken)
-                  // const sandboxToken = `153e65fc-e239-40ca-a4eb-b43f90623cea~19bcf300adc002231a132661d9a72ca2`
-                  return sales
-                    .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
-                    .then(({ status, total }) => {
-                      if (status !== 'Paid')
-                        throw new Error(MESSAGE.PAYMENT_FAIL)
-                      return {
-                        publicKey,
-                        accountId,
-                        payuBaseUrl,
-                        deviceSessionId,
-                        paymentMethodID,
-                        paymentMethodType,
-                        status,
-                        total,
-                      }
-                    })
-                })
-            )
+              })
+              .then(token => {
+                return apiPaymentRegister({
+                  baseUrl: '//devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
+                  orderNumber,
+                  firstName,
+                  lastName,
+                  secondLastName,
+                  documentType,
+                  documentNumber,
+                  email,
+                  phone,
+                  cardMethod,
+                  cardNumber, // TODO: Convertir en formato de mascara
+                  token,
+                  campaignCode,
+                  sku,
+                  priceCode,
+                  amount,
+                }).then(() => token)
+              })
+              .then(token => {
+                const { paymentMethodID, paymentMethodType } = payUPaymentMethod
+                const sandboxToken = `${token}~${deviceSessionId}~${cvv}`
+                // const sandboxToken = `153e65fc-e239-40ca-a4eb-b43f90623cea~19bcf300adc002231a132661d9a72ca2`
+                return sales
+                  .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
+                  .then(({ status, total }) => {
+                    if (status !== 'Paid') throw new Error(MESSAGE.PAYMENT_FAIL)
+                    return {
+                      publicKey,
+                      accountId,
+                      payuBaseUrl,
+                      deviceSessionId,
+                      paymentMethodID,
+                      paymentMethodType,
+                      status,
+                      total,
+                    }
+                  })
+              })
           }
         )
     })
