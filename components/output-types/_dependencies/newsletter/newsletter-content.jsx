@@ -91,15 +91,10 @@ const NewsLetterContent = ({
       story.promo_items.basic.resized_urls
         ? story.promo_items.basic.resized_urls
         : {}
-    const webSiteUrl =
-      story &&
-      story.websites &&
-      story.websites.gestion &&
-      story.websites.gestion.website_url ?story.websites.gestion.website_url : ''
 
     const params = {
       title: storydata.title,
-      urlNew: `${siteUrl}${webSiteUrl} AQUI`,
+      urlNew: `${siteUrl}${storydata.websiteLink}`,
       id: storydata.id,
       publishedAt: storydata.date,
       thumb,
