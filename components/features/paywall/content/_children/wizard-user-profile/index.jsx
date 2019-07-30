@@ -2,30 +2,16 @@ import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 
 import UserProfile from './_children/user-profile'
-import Panel from '../../../_children/panel'
 import Summary from '../summary'
 import * as S from './styled'
-import { devices } from '../../../_dependencies/devices'
 import { addSales } from '../../../_dependencies/sales'
 import Beforeunload from '../../_children/before-unload'
-
-const { styled } = S
 
 const ERROR = {
   E300012: 'No se ha encontrado ningún carrito para el usuario.',
   UNKNOWN: code =>
     `ups, vamos a verificar que paso, error desconocido, Ex${code}`,
 }
-
-const PanelUserProfile = styled(Panel)`
-  @media (${devices.mobile}) {
-    margin-top: 30px;
-  }
-  @media ${devices.tablet} {
-    margin-top: 30px;
-    padding: 30px;
-  }
-`
 
 function WizardUserProfile(props) {
   const {
@@ -88,7 +74,7 @@ function WizardUserProfile(props) {
   return (
     <Beforeunload onBeforeunload={() => 'message'}>
       <S.WizardUserProfile>
-        <PanelUserProfile type="content" valing="jc-center">
+        <S.PanelUserProfile type="content" valing="jc-center">
           {profile && (
             <UserProfile
               profile={profile}
@@ -97,7 +83,7 @@ function WizardUserProfile(props) {
               error={error}
             />
           )}
-        </PanelUserProfile>
+        </S.PanelUserProfile>
         <Summary
           amount={amount}
           billingFrequency={billingFrequency}
