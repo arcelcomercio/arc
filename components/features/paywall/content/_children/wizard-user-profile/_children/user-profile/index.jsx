@@ -24,8 +24,15 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
       initialValues={Object.assign({}, profile, { documentType: 'DNI' })}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
-        // TODO: Crear un servicio desde el que se pueda obtener billing address
-        onSubmit({ ...values, billingAddress: FAKE_BILLING_ADDRESS }, actions)
+        onSubmit(
+          {
+            ...values,
+            phone: values.phone.replace(/\D/g, ''),
+            // TODO: Crear un servicio desde el que se pueda obtener billing address
+            billingAddress: FAKE_BILLING_ADDRESS,
+          },
+          actions
+        )
       }}
       onReset={onReset}
       render={({ setFieldValue, isSubmitting, values: { documentType } }) => {
