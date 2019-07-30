@@ -30,9 +30,13 @@
         background: $color-primary;
       }
       &__middle {
-        min-height: 444px;
+        min-height: 150px;
         @media (--desktop) {
           width: 50%;
+          min-height: 444px;
+        }
+        @media (--tablet) {
+          min-height: 444px;
         }
       }
       &__wrapper {

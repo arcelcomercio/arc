@@ -59,12 +59,40 @@
         width: 75%;
       }
     }
+    .bg-paywall {
+      padding: 20px;
+      @media (--desktop) {
+        padding: 40px;
+      }
+      p,
+      h3 {
+        color: #ffffff;
+        text-align: center;
+        line-height: 30px;
+        text-shadow: 0px 4px 5px rgba(0, 0, 0, 0.49);
+      }
+      p {
+        @media (--desktop) {
+          margin-top: 30%;
+        }
+      }
+
+      h3 {
+        font-size: 40px;
+        @media (--desktop) {
+          font-size: 60px;
+        }
+      }
+    }
     .intro-paywall {
       font-family: 'Open Sans', Arial, Helvetica, sans-serif;
       background: #fff6f0;
       color: #444444;
-      padding: 40px 60px;
+      padding: 40px 40px;
       line-height: 20px;
+      @media (--desktop) {
+        padding: 40px 60px;
+      }
       .price,
       .detail-price {
         display: inline-block;
@@ -83,36 +111,42 @@
       }
       .detail-price {
         width: 60%;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 20px;
       }
       .title-line {
         font-weight: bold;
-        display: table;
-        white-space: nowrap;
+        // display: table;
+        // white-space: nowrap;
         font-size: 14px;
-        &:before,
-        &:after {
-          border-top: 1px solid #a98e7c;
-          content: '';
-          display: table-cell;
-          position: relative;
-          top: 0.5em;
-          width: 45%;
-        }
+        position: relative;
+        text-align: center;
         &:before {
-          right: 3%;
+          content: '';
+          display: block;
+          border-top: solid 1px #a98e7c;
+          width: 100%;
+          height: 2px;
+          position: absolute;
+          top: 50%;
+          z-index: 0;
         }
-        &:after {
-          left: 3%;
+        span {
+          background: #fff6f0;
+          padding: 0 10px;
+          position: relative;
+          z-index: 1;
         }
       }
       .list-benefits {
         font-size: 14px;
         line-height: 24px;
-        list-style-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAYNJREFUOBGFUsFxgzAQBEEDqSDgBuIOogH/43QQXnmGdOBUELsC55mn/Qcjd0AaICqBArDJrgeIkB3nZsSduN3T3kmuY5mUMvB9/wW/Jda0S5fw2yzLFt1+cP4QIYjjeOm6LslO27ZfiLfwNXyAtTGxfez2AcglQHfYb5umSZVSus/ZPoqiJ2Dv8zxPTgWMk98uyTQLkCyEWFPh4XCQbtfzN0DscW6C7dgmQ2UtPM9LCaRsm2DuL5GZF1iScvqeZ7OZZMK0v8jECA4OS3PDduAKzGTNPe0amfnRNVIFCAmHhCK8yr05MPZMEg1KN3APgvIR3PInbbfbfRyPxwSqRtM2ycSBF5DLGSisaScf4W8RAnhVNplYtg6oGq4R4A0exuOpwj+fXj5uLvS01nUYhjeUPJlMnKqq9tf4IC+Qf8aBq6IoPs+eMpVA9itkawAHo2y8mXccNMfP4dENBYg0njS3JYppBiAFcFMsDm+FVlPGtFEB/uhOIkB2gyKJN6WgbGkr+wHP1//N8PmHWQAAAABJRU5ErkJggg==');
-        margin-left: 24px;
-        padding-left: 10px;
+        li {
+          padding-left: 30px;
+          background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAYNJREFUOBGFUsFxgzAQBEEDqSDgBuIOogH/43QQXnmGdOBUELsC55mn/Qcjd0AaICqBArDJrgeIkB3nZsSduN3T3kmuY5mUMvB9/wW/Jda0S5fw2yzLFt1+cP4QIYjjeOm6LslO27ZfiLfwNXyAtTGxfez2AcglQHfYb5umSZVSus/ZPoqiJ2Dv8zxPTgWMk98uyTQLkCyEWFPh4XCQbtfzN0DscW6C7dgmQ2UtPM9LCaRsm2DuL5GZF1iScvqeZ7OZZMK0v8jECA4OS3PDduAKzGTNPe0amfnRNVIFCAmHhCK8yr05MPZMEg1KN3APgvIR3PInbbfbfRyPxwSqRtM2ycSBF5DLGSisaScf4W8RAnhVNplYtg6oGq4R4A0exuOpwj+fXj5uLvS01nUYhjeUPJlMnKqq9tf4IC+Qf8aBq6IoPs+eMpVA9itkawAHo2y8mXccNMfP4dENBYg0njS3JYppBiAFcFMsDm+FVlPGtFEB/uhOIkB2gyKJN6WgbGkr+wHP1//N8PmHWQAAAABJRU5ErkJggg==');
+          background-repeat: no-repeat;
+          background-position: 0px 4px;
+        }
       }
     }
   }

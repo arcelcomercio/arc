@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Consumer from 'fusion:consumer'
 
 import Modal from '../common/modal'
 
@@ -9,6 +10,7 @@ import IntroPaywall from './_children/intro-paywall'
 
 import { ModalProvider, ModalConsumer } from './context'
 
+@Consumer
 class PayWall extends Component {
   constructor(props) {
     super(props)
@@ -43,11 +45,12 @@ class PayWall extends Component {
       ),
       intro: <IntroPaywall />,
     }
-    return  templates.intro
+    return templates.intro
   }
 
   render() {
-    const { closePopup } = this.props
+    const { closePopup, contextPath, arcSite } = this.props
+    const ImageBg = `${contextPath}/resources/dist/${arcSite}/images/bg-popup.png`
     return (
       <div className="signwall">
         <div className="link-identity__content">
@@ -61,11 +64,15 @@ class PayWall extends Component {
                   id="arc-popup-paywall">
                   {/* <Header closePopup={closePopup} /> */}
                   <div className="modal-body">
-                    <div className="modal-body__middle">
-                      <h2>
+                    <div
+                      className="modal-body__middle bg-paywall"
+                      style={{
+                        background: `url(${ImageBg}) no-repeat`,
+                      }}>
+                      <p className="text-xl secondary-font">
                         Para acceder a este contenido exclusivo, adquiere tu
-                      </h2>
-                      <h1>Plan Digital</h1>
+                      </p>
+                      <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
                     </div>
                     <div className="modal-body__middle intro-paywall">
                       {this.renderTemplate(value.selectedTemplate)}
