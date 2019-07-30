@@ -1,24 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Formik, Form, Field } from 'formik'
-import Checkbox from '../../../../../_children/checkbox'
+
 import * as S from './styled'
 import Button from '../../../../../_children/button'
 import Error from '../../../../../_children/error'
 import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import { FormSchema, Masks } from './schema'
-import { devices } from '../../../../../_dependencies/devices'
-
-const RadioCondition = styled(Checkbox)``
-RadioCondition.defaultProps = { radio: true }
-
-const AgreementCheckbox = styled(Checkbox)`
-  @media (${devices.mobile}) {
-    flex-direction: row;
-    margin: 0;
-  }
-`
 
 const FormPay = ({ error, onSubmit }) => {
   return (
@@ -47,28 +35,28 @@ const FormPay = ({ error, onSubmit }) => {
             <S.TextCard>Selecciona un tipo de tarjeta</S.TextCard>
             <S.Cards>
               <Field
-                component={RadioCondition}
+                component={S.RadioCondition}
                 label={<Icon type="visa" />}
                 name="cardMethod"
                 checked={cardMethod === 'visa'}
                 value="visa"
               />
               <Field
-                component={RadioCondition}
+                component={S.RadioCondition}
                 label={<Icon type="mcard" />}
                 name="cardMethod"
                 checked={cardMethod === 'mastercard'}
                 value="mastercard"
               />
               <Field
-                component={RadioCondition}
+                component={S.RadioCondition}
                 label={<Icon type="amex" />}
                 name="cardMethod"
                 checked={cardMethod === 'amex'}
                 value="amex"
               />
               <Field
-                component={RadioCondition}
+                component={S.RadioCondition}
                 label={<Icon type="diners" />}
                 name="cardMethod"
                 checked={cardMethod === 'diners'}
@@ -100,7 +88,7 @@ const FormPay = ({ error, onSubmit }) => {
             <S.WrapInput max-width="135px">
               <Field
                 component={Input}
-                sufix={<Icon type="cvv" />}
+                suffix={<Icon type="cvv" />}
                 type="number"
                 mask={Masks.CREDIT_CARD_CVV}
                 name="cvv"
@@ -111,7 +99,7 @@ const FormPay = ({ error, onSubmit }) => {
           </S.WrapInputs>
 
           <Field
-            component={AgreementCheckbox}
+            component={S.AgreementCheckbox}
             name="agreed"
             checked={agreed}
             value={agreed}
