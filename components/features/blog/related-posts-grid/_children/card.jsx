@@ -4,7 +4,7 @@ const classes = {
   containerCard: 'br-stories-grid__card lg:inline-block',
   imageContainer: 'br-stories-grid__image-container overflow-hidden',
   imageLink: 'br-stories-grid__image-link text-gray-300',
-  image: 'w-full h-full',
+  image: 'w-full h-full object-cover',
   detail: 'br-stories-grid__detail lg:pt-10',
   categoryContainer: `br-stories-grid__category-container text-center text-xs lg:mb-5`,
   categoryLink: 'br-stories-grid__category-link text-gray-200 uppercase',
