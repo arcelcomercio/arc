@@ -50,7 +50,7 @@ const classes = {
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network hidden',
   iconSignwallMobile: 'uppercase ',
-  btnSignwallMobile: 'bg-secondary text-primary-color rounded',
+  btnSignwallMobile: 'nav__btn--login-m bg-secondary text-primary-color rounded',
 }
 
 @Consumer
@@ -578,7 +578,6 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  style={{ width: '34px', height: '34px' }}
                   className={`${classes.btnSignwallMobile}`}
                   onClick={() => this.setState({ isActive: true })}>
                   <i
