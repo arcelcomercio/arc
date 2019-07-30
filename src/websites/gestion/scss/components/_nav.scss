@@ -32,12 +32,6 @@
     background-color: transparent;
   }
 
-  .btn--outline {
-    background-color: $color-white;
-    color: #555;
-    border-color: transparent;
-  }
-
   &__input-search {
     color: $color-white;
     font-family: $tertiary-font;
@@ -52,9 +46,10 @@
     }
   }
 
-  &__container-menu {
+  &__container-menu,
+  &__search-box {
     @media (--desktop) {
-      border-color: $color-white;
+      border-right-color: $color-white;
     }
   }
 
@@ -72,7 +67,13 @@
     &:first-child {
       background-color: $color-base-400;
     }
+    @media (--tablet) {
+      background-color: #8f7a7c;
+      color: $color-white;
+      padding: 0 20px;
+    }
   }
+
   /*   Estilos para nav loader en notas */
   &__loader-bar {
     background-color: #ea1f38;

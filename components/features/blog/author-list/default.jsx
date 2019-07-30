@@ -2,10 +2,17 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PostItem from './_children/post-item'
 import Pagination from '../../../global-components/pagination'
+import { customFields } from '../_dependencies/custom-fields'
 import { defaultImage, getFullDateIso8601 } from '../../../utilities/helpers'
+import Ads from '../../../global-components/ads'
 
+const classes = {
+  adsBox: 'flex items-center flex-col no-desktop pb-20',
+}
 @Consumer
 class BlogAuthorList extends PureComponent {
+  hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
+
   render() {
     const {
       contextPath,
@@ -14,6 +21,7 @@ class BlogAuthorList extends PureComponent {
       globalContent,
       globalContentConfig,
       arcSite = '',
+      customFields: customFieldsProps = {},
     } = this.props
 
     const {
@@ -29,10 +37,23 @@ class BlogAuthorList extends PureComponent {
       } = {},
     } = globalContentConfig || {}
 
+    const activeAds = Object.keys(customFieldsProps)
+      .filter(prop => prop.match(/adsMobile(\d)/))
+      .filter(key => customFieldsProps[key] === true)
+
+    const activeAdsArray = activeAds.map(el => {
+      return {
+        name: `movil${el.slice(-1)}`,
+        pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
+        inserted: false,
+      }
+    })
+
     return (
       <div>
         {posts.map((post, i) => {
           const key = `post-${i}-${post.ID}`
+          const ads = this.hasAds(i + 1, activeAdsArray)
           const {
             post_title: postTitle,
             post_permalink: postPermaLink,
@@ -54,7 +75,16 @@ class BlogAuthorList extends PureComponent {
             image,
             author,
           }
-          return <PostItem key={key} {...data} />
+          return (
+            <>
+              <PostItem key={key} {...data} />
+              {ads.length > 0 && (
+                <div className={classes.adsBox}>
+                  <Ads adElement={ads[0].name} isDesktop={false} isMobile />
+                </div>
+              )}
+            </>
+          )
         })}
         <Pagination
           totalElements={countPosts}
@@ -65,6 +95,10 @@ class BlogAuthorList extends PureComponent {
       </div>
     )
   }
+}
+
+BlogAuthorList.propTypes = {
+  customFields,
 }
 
 BlogAuthorList.label = 'Blog - Posts por autor'

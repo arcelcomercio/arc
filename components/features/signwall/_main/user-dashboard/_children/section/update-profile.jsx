@@ -466,8 +466,8 @@ class UpdateProfile extends Component {
               name="firstName"
               className={
                 formErrors.firstName.length > 0
-                  ? 'form-group__input form-group__input--error text-capital'
-                  : 'form-group__input text-capital'
+                  ? 'form-group__input form-group__input--error capitalize'
+                  : 'form-group__input capitalize'
               }
               placeholder="Nombres"
               noValidate
@@ -494,8 +494,8 @@ class UpdateProfile extends Component {
               name="lastName"
               className={
                 formErrors.lastName.length > 0
-                  ? 'form-group__input form-group__input--error text-capital'
-                  : 'form-group__input text-capital'
+                  ? 'form-group__input form-group__input--error capitalize'
+                  : 'form-group__input capitalize'
               }
               placeholder="Apellido Paterno"
               noValidate
@@ -522,8 +522,8 @@ class UpdateProfile extends Component {
               name="secondLastName"
               className={
                 formErrors.secondLastName.length > 0
-                  ? 'form-group__input form-group__input--error text-capital'
-                  : 'form-group__input text-capital'
+                  ? 'form-group__input form-group__input--error capitalize'
+                  : 'form-group__input capitalize'
               }
               placeholder="Apellido Materno"
               noValidate

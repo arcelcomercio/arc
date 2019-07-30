@@ -78,7 +78,7 @@ function shape(value) {
 }
 
 function struct(schema) {
-  return data => {
+  const build = data => {
     const errors = {}
     Object.keys(schema).forEach(name => {
       try {
@@ -102,6 +102,8 @@ function struct(schema) {
     })
     return errors
   }
+  build.schema = schema
+  return build
 }
 
 export const clearNull = values => {

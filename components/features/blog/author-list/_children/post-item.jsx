@@ -31,12 +31,14 @@ const AuthorListChildPostItem = ({
       <div className={classes.content}>
         <figure className={classes.figure}>
           {/* // TODO:CARLOS: verificar si el alt de esta imagen es realmente author */}
-          <img
-            className={classes.image}
-            src={image}
-            alt={author}
-            loading="lazy"
-          />
+          <a href={postPermaLink}>
+            <img
+              className={classes.image}
+              src={image}
+              alt={author}
+              loading="lazy"
+            />
+          </a>
         </figure>
         <div className={classes.description}>
           <a href={postPermaLink}>

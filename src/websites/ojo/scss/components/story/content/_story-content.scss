@@ -1,0 +1,16 @@
+.story-content {
+  &__font--secondary {
+    font-family: $font-regular;
+    a {
+      color: $color-primary;
+      font-weight: bold;
+    }
+  }
+  &__caption {
+    color: $color-primary;
+  }
+
+  &__author {
+    font-family: $font-regular;
+  }
+}
