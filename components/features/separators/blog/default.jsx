@@ -55,7 +55,7 @@ class SeparatorBlog extends PureComponent {
       <div className={classes.separator}>
         <div className={classes.header}>
           <a className={classes.titleSeparator} href={BLOG_BASE}>
-            FIRMAS
+            BLOGS
           </a>
           <a
             href={seeMoreUrl}
