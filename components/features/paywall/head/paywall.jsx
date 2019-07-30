@@ -1,9 +1,9 @@
 import React from 'react'
 import Consumer from 'fusion:consumer'
 import ENV from 'fusion:environment'
-import * as S from './styled'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
+import './paywall.css'
 
 @Consumer
 class Head extends React.PureComponent {
@@ -12,7 +12,7 @@ class Head extends React.PureComponent {
   }
 
   componentDidMount() {
-    AddIdentity(this.props.siteProperties).then(Identity => {
+    AddIdentity(this.props.siteProperties).then(() => {
       userProfile().then(({ firstName }) => {
         this.setState({ firstName })
       })
@@ -22,32 +22,31 @@ class Head extends React.PureComponent {
   render() {
     const { siteProperties, contextPath, deployment } = this.props
 
-    const { assets, colorPrimary } = siteProperties
+    const { assets } = siteProperties
     const { firstName } = this.state
 
     return (
-      <S.ThemeProvider theme={{ colorPrimary }}>
-        <S.Head>
-          <S.Background>
-            <S.Left></S.Left>
-            <S.Right></S.Right>
-          </S.Background>
-          <S.Content>
-            <S.Img
-              src={deployment(`${contextPath}${assets.pwAssets()}`)}
-              alt="Logo el comercio"
-            />
-            <S.WrapLogin>
-              <S.Username>
-                <span>Hola {firstName || 'Lector'}</span>
-                <S.WrapIcon>
-                  <Icon type="profile" fill="#FFF" width="30" height="30" />
-                </S.WrapIcon>
-              </S.Username>
-            </S.WrapLogin>
-          </S.Content>
-        </S.Head>
-      </S.ThemeProvider>
+      <div className="head">
+        <div className="head__background">
+          <div className="background_left" />
+          <div className="background_right" />
+        </div>
+        <div className="head__content">
+          <img
+            className="content__img"
+            src={deployment(`${contextPath}${assets.pwAssets()}`)}
+            alt="Logo el comercio"
+          />
+          <div className="head__login">
+            <span className="login__username">
+              <span>Hola {firstName || 'Lector'}</span>
+              <span className="login_icon">
+                <Icon type="profile" fill="#FFF" width="30" height="30" />
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
     )
   }
 }

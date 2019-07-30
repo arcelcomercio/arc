@@ -12,7 +12,7 @@ import WizardPayment from './_children/wizard-payment'
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
 const Right = () => {
-  return <div>Ayuda</div>
+  return <div></div>
 }
 
 @Consumer
