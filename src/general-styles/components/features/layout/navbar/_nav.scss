@@ -11,15 +11,15 @@
   &__wrapper {
     @media (--desktop) {
       display: flex;
-      background-color: transparent;
     }
   }
 
-  &__container-menu {
+  &__container-menu,
+  &__search-box {
     height: 20px;
 
     @media (--desktop) {
-      border-right: solid 1px $color-gray-200;
+      border-right-color: $color-gray-200;
     }
   }
 
@@ -73,6 +73,8 @@
       }
     }
 
+    /*  
+    Por ahora esto no está contemplado en diseño
     &--login {
       position: relative;
       padding-left: 40px;
@@ -93,7 +95,7 @@
         font-size: 11px;
         letter-spacing: 1px;
       }
-    }
+    } */
   }
 
   // &__list { }
@@ -205,9 +207,6 @@
     }
   }
 
-  &__search-box {
-    height: 20px;
-  }
   /*   Estilos para nav loader en notas */
   &__loader {
     left: 0;
@@ -215,15 +214,18 @@
     height: 5px;
     background-color: #eaeaea;
   }
+
   &__loader-bar {
     width: 0%;
 
     transition: width 0.5s;
   }
+
   &__container-menu,
   &__mobile-logo {
     z-index: 1;
   }
+
   &__story-title {
     z-index: 1;
     width: 300px;

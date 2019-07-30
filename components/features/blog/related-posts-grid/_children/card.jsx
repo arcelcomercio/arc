@@ -7,7 +7,7 @@ const classes = {
   image: 'w-full h-full',
   detail: 'br-stories-grid__detail lg:pt-10',
   categoryContainer: `br-stories-grid__category-container text-center text-xs lg:mb-5`,
-  categoryLink: 'br-stories-grid__category-link text-gray-200',
+  categoryLink: 'br-stories-grid__category-link text-gray-200 uppercase',
   detailTitle: `br-stories-grid__detail-title position-relative text-center overflow-hidden font-bold text-md lg:pt-0 lg:pb-0 lg:pr-20 lg:pl-20`,
   detailTitleLink: 'br-stories-grid__detail-title-link line-h-sm',
 }

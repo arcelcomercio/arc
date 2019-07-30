@@ -248,6 +248,7 @@ Las siguientes clases relacionadas a textos definen la familia de fuente (normal
 
 - `primary-font`
 - `secondary-font`
+- `tertiary-font`
 - `font-thin` = 200
 - `font-normal` = 400
 - `font-bold` = 700

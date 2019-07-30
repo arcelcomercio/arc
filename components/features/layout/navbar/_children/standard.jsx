@@ -40,11 +40,16 @@ const classes = {
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
-  btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
-  btnSubscribe: `flex items-center btn hidden md:inline-block`,
+  btnLogin: 'nav__btn flex items-center btn capitalize text-md font-bold', // Tiene lógica abajo
+  btnSubscribe: `flex items-center btn hidden capitalize text-md font-bold md:inline-block`,
   iconLogin: 'nav__icon icon-user',
+<<<<<<< HEAD
+  iconSignwall: 'nav__icon rounded position-absolute uppercase',
+  // btnSignwall: 'nav__btn--login', No contemplado en diseño
+=======
   iconSignwall: 'nav__icon rounded position-absolute uppercase secondary-font font-bold',
   btnSignwall: 'nav__btn--login',
+>>>>>>> sandbox
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
@@ -542,8 +547,12 @@ class NavBarDefault extends PureComponent {
                         ? 'web_link_ingresaperfil'
                         : 'web_link_ingresacuenta'
                     }
-                    className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
+                    className={
+                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
+                    }
                     onClick={() => this.setState({ isActive: true })}>
+                    {/* 
+                    Por ahora esto no está contemplado en diseño
                     <i
                       className={
                         initialUser
@@ -551,8 +560,8 @@ class NavBarDefault extends PureComponent {
                           : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
                       }>
                       {initialUser}
-                    </i>
-                    <span className="capitalize text-sm">
+                    </i> */}
+                    <span>
                       {this.checkSession() ? nameUser : 'Iniciar Sesión'}
                     </span>
                   </button>
