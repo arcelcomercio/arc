@@ -239,6 +239,12 @@ class StoryData {
     return url
   }
 
+  get websiteLink() {
+    const { websites = {} } = this._data || {}
+    const brandWeb = websites[this._website] || {}
+    return brandWeb.website_url || ''
+  }
+
   get relatedContent() {
     const { related_content: { basic = [] } = {} } = this._data || {}
     return basic

@@ -51,7 +51,7 @@ const TripletChildTriplet = props => {
             <h2 className={`${classes.title} ${numline}`}>
               <a
                 className={classes.titleLink}
-                href={story.link}
+                href={story.websiteLink}
                 {...editableField(`title${index + 1}`)}
                 suppressContentEditableWarning>
                 {story.title}
@@ -66,7 +66,7 @@ const TripletChildTriplet = props => {
             </address>
           </div>
           <figure className={classes.multimedia}>
-            <a className={classes.mLink} href={story.link}>
+            <a className={classes.mLink} href={story.websiteLink}>
               <img
                 className={classes.image}
                 src={story.multimediaPortraitXS}
