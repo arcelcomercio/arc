@@ -142,6 +142,5 @@ export default {
       url: 'https://comercioxpress.com/',
     },
   ],
-  urlAddfbInstantArticle: 'https://img.elcomercio.pe',
   activeSignwall: false
 }
