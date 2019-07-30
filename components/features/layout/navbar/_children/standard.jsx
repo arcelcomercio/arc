@@ -43,13 +43,9 @@ const classes = {
   btnLogin: 'nav__btn flex items-center btn capitalize text-md font-bold', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden capitalize text-md font-bold md:inline-block`,
   iconLogin: 'nav__icon icon-user',
-<<<<<<< HEAD
-  iconSignwall: 'nav__icon rounded position-absolute uppercase',
-  // btnSignwall: 'nav__btn--login', No contemplado en diseño
-=======
-  iconSignwall: 'nav__icon rounded position-absolute uppercase secondary-font font-bold',
+  iconSignwall:
+    'nav__icon rounded position-absolute uppercase secondary-font font-bold',
   btnSignwall: 'nav__btn--login',
->>>>>>> sandbox
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
