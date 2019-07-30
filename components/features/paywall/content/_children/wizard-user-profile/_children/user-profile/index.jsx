@@ -27,6 +27,9 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
         onSubmit(
           {
             ...values,
+            firstName: values.firstName.trim(),
+            lastName: values.firstName.trim(),
+            secondLastName: values.firstName.trim(),
             phone: values.phone.replace(/\D/g, ''),
             // TODO: Crear un servicio desde el que se pueda obtener billing address
             billingAddress: FAKE_BILLING_ADDRESS,
@@ -47,6 +50,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                   transform="capitalize"
                   name="firstName"
                   label="Nombres"
+                  mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -55,6 +59,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                   transform="capitalize"
                   name="lastName"
                   label="Apellido Paterno"
+                  mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -63,6 +68,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                   transform="capitalize"
                   name="secondLastName"
                   label="Apellido Materno"
+                  mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
