@@ -43,15 +43,15 @@ const classes = {
   btnLogin: 'nav__btn flex items-center btn capitalize text-md font-bold', // Tiene lógica abajo
   btnSubscribe: `flex items-center btn hidden capitalize text-md font-bold md:inline-block`,
   iconLogin: 'nav__icon icon-user',
-  iconSignwall:
-    'nav__icon rounded position-absolute uppercase secondary-font font-bold',
-  btnSignwall: 'nav__btn--login',
+  iconSignwall: 'nav__icon rounded position-absolute uppercase',
+  // btnSignwall: 'nav__btn--login', No contemplado en diseño
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network hidden',
   iconSignwallMobile: 'uppercase ',
-  btnSignwallMobile: 'bg-secondary text-primary-color rounded',
+  btnSignwallMobile:
+    'nav__btn--login-m bg-secondary text-primary-color rounded',
 }
 
 @Consumer
@@ -552,7 +552,7 @@ class NavBarDefault extends PureComponent {
                     <i
                       className={
                         initialUser
-                          ? `${classes.iconSignwall} text-user`
+                          ? `${classes.iconSignwall} text-user font-bold`
                           : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
                       }>
                       {initialUser}
@@ -575,7 +575,6 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  style={{ width: '34px', height: '34px' }}
                   className={`${classes.btnSignwallMobile}`}
                   onClick={() => this.setState({ isActive: true })}>
                   <i

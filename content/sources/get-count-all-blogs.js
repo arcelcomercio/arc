@@ -1,5 +1,8 @@
+import { BLOG_URL_API } from 'fusion:environment'
+
 const resolve = () => {
-  return `https://dev-svc-blogs.gestion.pe/service/apiblogs.php?json=get_count_all_blogs&blog&token=xcvbn$987HUNJ$765`
+  const urlApiblog = BLOG_URL_API
+  return `${urlApiblog}?json=get_count_all_blogs&blog&token=xcvbn$987HUNJ$765`
 }
 
 export default {

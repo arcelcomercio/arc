@@ -30,10 +30,10 @@
     font-size: 13px;
     -webkit-line-clamp: 3;
     line-clamp: 3;
-    max-height: 55px;
+    height: 69px;
     @media (--desktop) {
       font-size: 18px;
-      max-height: 68px;
+      max-height: none;
     }
   }
 
