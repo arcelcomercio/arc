@@ -553,7 +553,7 @@ class NavBarDefault extends PureComponent {
                     <i
                       className={
                         initialUser
-                          ? `${classes.iconSignwall} text-user`
+                          ? `${classes.iconSignwall} text-user font-bold`
                           : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
                       }>
                       {initialUser}
