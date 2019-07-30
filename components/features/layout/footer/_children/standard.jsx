@@ -100,18 +100,24 @@ const StandardFooter = props => {
         <ul className={classes.list}>
           {/* <li className={classes.listTitle}>Contacto</li> */}
           {contacts.map(el => (
-            <li className={classes.listItem} key={el.name}>
-              <span
-                className={`${classes.listLinkTitle} ${
-                  classes.contactPosition
-                }`}>
-                {el.position}:
-              </span>
-              <span
-                className={`${classes.listLinkInfo} ${classes.contactName}`}>
-                {el.name}
-              </span>
-            </li>
+            <>
+              {el.position && (
+                <li className={classes.listItem} key={el.name}>
+                  <span
+                    className={`${classes.listLinkTitle} ${
+                      classes.contactPosition
+                    }`}>
+                    {el.position}:
+                  </span>
+                  <span
+                    className={`${classes.listLinkInfo} ${
+                      classes.contactName
+                    }`}>
+                    {el.name}
+                  </span>
+                </li>
+              )}
+            </>
           ))}
         </ul>
         <div className={classes.textContent}>
