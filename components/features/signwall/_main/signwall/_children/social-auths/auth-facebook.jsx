@@ -107,7 +107,7 @@ class AuthFacebook extends React.Component {
                 : `${resFbProfile.identities[0].userName}@facebook.com`
 
               if (resFbProfile.displayName === null) {
-                const originAction = tipcat => {
+                const originAction = (tipform, tipcat) => {
                   const isHard = document.querySelector(
                     '#arc-popup-signwallhard'
                   )
@@ -148,7 +148,7 @@ class AuthFacebook extends React.Component {
                     },
                     {
                       name: 'originAction',
-                      value: originAction(this.tipForm),
+                      value: originAction(this.tipForm, this.tipCat),
                       type: 'String',
                     },
                   ],
