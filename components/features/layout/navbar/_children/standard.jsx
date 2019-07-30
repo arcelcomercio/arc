@@ -50,7 +50,8 @@ const classes = {
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network hidden',
   iconSignwallMobile: 'uppercase ',
-  btnSignwallMobile: 'nav__btn--login-m bg-secondary text-primary-color rounded',
+  btnSignwallMobile:
+    'nav__btn--login-m bg-secondary text-primary-color rounded',
 }
 
 @Consumer
@@ -506,15 +507,28 @@ class NavBarDefault extends PureComponent {
 
             <ul className={classes.list}>
               {sections &&
-                sections.slice(0, 4).map(({ name, _id: id }) => {
-                  return (
-                    <li key={id} className={classes.listItem}>
-                      <a href={id} className={classes.listLink}>
-                        {name}
-                      </a>
-                    </li>
-                  )
-                })}
+                sections
+                  .slice(0, 4)
+                  .map(
+                    ({
+                      _id: id,
+                      url,
+                      name = '',
+                      display_name: displayName = '',
+                    }) => {
+                      return (
+                        <li
+                          key={`navbar-${id || url}`}
+                          className={classes.listItem}>
+                          <a
+                            href={id || url || '/'}
+                            className={classes.listLink}>
+                            {name || displayName}
+                          </a>
+                        </li>
+                      )
+                    }
+                  )}
             </ul>
             <a href="/" className={classes.mobileLogo}>
               <img
@@ -543,9 +557,7 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${
-                        classes.btnLogin
-                      } btn--outline` /* classes.btnSignwall */
+                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     {/* 
@@ -568,9 +580,7 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${
-                  classes.navMobileContainer
-                } ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -584,9 +594,7 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwallMobile
-                          }  title-sm`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
                     }>
                     {initialUser}
                   </i>
