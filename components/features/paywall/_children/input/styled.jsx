@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import TextMask from 'react-text-mask'
 import { devices } from '../../_dependencies/devices'
 
 const FormGroup = styled.div`
@@ -9,6 +10,20 @@ const FormGroup = styled.div`
     width: 100%;
   }
 `
+
+export const InputMask = styled(TextMask)`
+  flex: 1;
+  font-size: 14px;
+  line-height: 22px;
+  border: 0;
+  width: 100%;
+  max-width: 100%;
+  ${({ transform }) =>
+    css`
+      text-transform: ${transform};
+    `}
+`
+InputMask.defaultProps = { guide: false }
 
 export const Input = styled.input`
   flex: 1;

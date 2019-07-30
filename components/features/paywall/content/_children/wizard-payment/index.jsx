@@ -1,29 +1,12 @@
 /* eslint-disable no-shadow */
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import { useFusionContext } from 'fusion:context'
 
-import Panel from '../../../_children/panel'
 import Summary from '../summary'
 import * as S from './styled'
 import FormPay from './_children/form-pay'
-import { devices } from '../../../_dependencies/devices'
 import { addSales } from '../../../_dependencies/sales'
 import { addPayU } from '../../../_dependencies/payu'
-
-const PanelPayment = styled(Panel)`
-  @media (${devices.mobile}) {
-    margin-top: 30px;
-    padding: 18px 30px;
-    box-sizing: border-box;
-    max-width: 100vw;
-  }
-  @media ${devices.tablet} {
-    margin-top: 30px;
-    padding: 18px 30px;
-    box-sizing: border-box;
-  }
-`
 
 const MESSAGE = {
   PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
@@ -237,9 +220,9 @@ function WizardPayment(props) {
 
   return (
     <S.WizardPayment>
-      <PanelPayment type="content" valing="jc-center">
+      <S.PanelPayment type="content" valing="jc-center">
         <FormPay error={error} onSubmit={onSubmitHandler} />
-      </PanelPayment>
+      </S.PanelPayment>
       <Summary
         amount={amount}
         billingFrequency={billingFrequency}
