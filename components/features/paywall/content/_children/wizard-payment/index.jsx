@@ -10,6 +10,7 @@ import FormPay from './_children/form-pay'
 import { devices } from '../../../_dependencies/devices'
 import { addSales } from '../../../_dependencies/sales'
 import { addPayU } from '../../../_dependencies/payu'
+import Beforeunload from '../../_children/before-unload'
 
 const PanelPayment = styled(Panel)`
   @media (${devices.mobile}) {
@@ -83,7 +84,7 @@ function WizardPayment(props) {
     const headers = new Headers({
       'Content-Type': 'application/json',
       Authorization: 'Token deb904a03a4e31d420a014534514b8cc8ca4d111',
-      'user-token': Identity.userIdentity.accessToken,
+      'user-token': window.Identity.userIdentity.accessToken,
     })
     const response = new Promise(resolve => {
       fetch(`${baseUrl}/api/payment/register-pending/`, {
@@ -236,17 +237,19 @@ function WizardPayment(props) {
   }
 
   return (
-    <S.WizardPayment>
-      <PanelPayment type="content" valing="jc-center">
-        <FormPay error={error} onSubmit={onSubmitHandler} />
-      </PanelPayment>
-      <Summary
-        amount={amount}
-        billingFrequency={billingFrequency}
-        description={description}
-        summary={summary}
-      />
-    </S.WizardPayment>
+    <Beforeunload onBeforeunload={() => 'message'}>
+      <S.WizardPayment>
+        <PanelPayment type="content" valing="jc-center">
+          <FormPay error={error} onSubmit={onSubmitHandler} />
+        </PanelPayment>
+        <Summary
+          amount={amount}
+          billingFrequency={billingFrequency}
+          description={description}
+          summary={summary}
+        />
+      </S.WizardPayment>
+    </Beforeunload>
   )
 }
 

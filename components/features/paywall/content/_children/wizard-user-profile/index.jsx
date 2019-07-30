@@ -7,6 +7,7 @@ import Summary from '../summary'
 import * as S from './styled'
 import { devices } from '../../../_dependencies/devices'
 import { addSales } from '../../../_dependencies/sales'
+import Beforeunload from '../../_children/before-unload'
 
 const { styled } = S
 
@@ -85,24 +86,26 @@ function WizardUserProfile(props) {
   }
 
   return (
-    <S.WizardUserProfile>
-      <PanelUserProfile type="content" valing="jc-center">
-        {profile && (
-          <UserProfile
-            profile={profile}
-            onSubmit={onSubmitHandler}
-            title="Ingrese sus datos"
-            error={error}
-          />
-        )}
-      </PanelUserProfile>
-      <Summary
-        amount={amount}
-        billingFrequency={billingFrequency}
-        description={description}
-        summary={summary}
-      />
-    </S.WizardUserProfile>
+    <Beforeunload onBeforeunload={() => 'message'}>
+      <S.WizardUserProfile>
+        <PanelUserProfile type="content" valing="jc-center">
+          {profile && (
+            <UserProfile
+              profile={profile}
+              onSubmit={onSubmitHandler}
+              title="Ingrese sus datos"
+              error={error}
+            />
+          )}
+        </PanelUserProfile>
+        <Summary
+          amount={amount}
+          billingFrequency={billingFrequency}
+          description={description}
+          summary={summary}
+        />
+      </S.WizardUserProfile>
+    </Beforeunload>
   )
 }
 
