@@ -518,10 +518,10 @@ class NavBarDefault extends PureComponent {
                     }) => {
                       return (
                         <li
-                          key={`navbar-${id || url}`}
+                          key={`navbar-${url || id}`}
                           className={classes.listItem}>
                           <a
-                            href={id || url || '/'}
+                            href={url || id || '/'}
                             className={classes.listLink}>
                             {name || displayName}
                           </a>

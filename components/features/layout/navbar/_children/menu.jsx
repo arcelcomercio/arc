@@ -51,8 +51,8 @@ class NavbarChildMenu extends PureComponent {
                 className={`${classes.item}${
                   deep > 0 ? ` pl-${deep * 10}` : ''
                 }`}
-                key={`navbar-menu-${id || url}`}>
-                <a href={id || url || '/'} className={classes.link}>
+                key={`navbar-menu-${url || id}`}>
+                <a href={url || id || '/'} className={classes.link}>
                   {name || displayName}
                 </a>
               </li>
