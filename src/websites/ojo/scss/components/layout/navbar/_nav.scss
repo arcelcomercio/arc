@@ -1,0 +1,14 @@
+.nav {
+  &__btn {
+    &--section {
+      padding-left: 0;
+    }
+  }
+  &__logo {
+    padding: 10px 0;
+  }
+  /*   Estilos para nav loader en notas */
+  &__loader-bar {
+    background-color: $color-primary;
+  }
+}

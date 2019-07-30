@@ -4,7 +4,7 @@ import StoryData from '../../../utilities/story-data'
 
 const classes = {
   storyContinue:
-    'story-continue position-relative flex items-center justify-center pt-30 pb-30',
+    'story-continue position-relative flex items-center justify-center pt-30 pb-40',
   storyLoad:
     'story-continue__story-load position-absolute flex items-center justify-center h-full',
   storyLoadLink:
@@ -14,7 +14,7 @@ const classes = {
   storycounter: 'story-continue__counter position-absolute rounded',
   storyProgres: 'story-continue__progress',
   storyLoadNews: 'story-continue__story-load-news pl-30',
-  storyLoadText: 'story-continue__story-load-text block text-gray-200',
+  storyLoadText: 'story-continue__story-load-text block text-gray-200 pb-5',
   storyLoadTitle:
     'story-continue__story-load-title font-bold text-gray-300 overflow-hidden',
 }
@@ -88,7 +88,7 @@ class StoryContinue extends PureComponent {
       if (link !== '') {
         window.location = link
       }
-    }, 500)
+    }, 1000)
   }
 
   setUpdateLoaderPage = (progress, concurrentProgress) => {
@@ -125,12 +125,14 @@ class StoryContinue extends PureComponent {
      * Esto cambia el logo de la barra de navegación cuando estás viendo una noticia,
      * es necesario porque por ahora el color es distinto.
      */
-    const { arcSite, contextPath, deployment } = this.props || {}
-    document.querySelector('.nav__logo').src = deployment(
-      arcSite === 'publimetro'
-        ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
-        : `${contextPath}/resources/dist/gestion/images/logo.png`
-    )
+    if (window.screen.width > 1023) {
+      const { arcSite, contextPath, deployment } = this.props || {}
+      document.querySelector('.nav__logo').src = deployment(
+        arcSite === 'publimetro'
+          ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
+          : `${contextPath}/resources/dist/gestion/images/logo.png`
+      )
+    }
     // TODO: finnnn
     this.setAttributeProgress(progress, MIN_PROGRESS)
   }
@@ -186,7 +188,9 @@ class StoryContinue extends PureComponent {
       <>
         <div className={classes.storyContinue}>
           <div className={classes.storyLoad} data-state="outviewport">
-            <a href={websiteUrl} className={classes.storyLoadLink}>
+            <a
+              href={`${websiteUrl}?ref=nota&ft=autoload`}
+              className={classes.storyLoadLink}>
               <div className={classes.storyCircle}>
                 <span className={classes.storyLoadImage} />
                 <div className={classes.storycounter}> </div>
