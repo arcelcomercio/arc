@@ -68,8 +68,13 @@ class Content extends React.Component {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <S.Content>
           <Wizard
+            transitions={{
+              enterRight: 'enterRight',
+              enterLeft: 'enterLeft',
+              exitRight: 'exitRight',
+              exitLeft: 'exitLeft',
+            }}
             isLazyMount
-            isHashEnabled
             nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
             <WizardPlan
               memo={this.memo}

@@ -8,7 +8,8 @@ import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
 
 const classes = {
   bmInterestYou: 'br-stories-grid non-mobile non-tablet',
-  generalTitle: 'br-stories-grid__title uppercase line-h-md',
+  generalTitle:
+    'br-stories-grid__title uppercase line-h-md pl-20 pr-20 font-bold',
   container: `br-stories-grid__container grid grid--content lg:pt-0 lg:pb-20 lg:pr-20 lg:pl-20`,
 }
 
@@ -18,7 +19,9 @@ const BLOG_URL = `/blog/`
 @Consumer
 class BlogRelatedPostsGrid extends PureComponent {
   buildParams = (relatedPostItem, blog, contextPath, arcSite, deployment) => {
-    const postLink = addSlashToEnd(`${BLOG_URL}${relatedPostItem.post_permalink}`)
+    const postLink = addSlashToEnd(
+      `${BLOG_URL}${relatedPostItem.post_permalink}`
+    )
     const sectionLink = addSlashToEnd(`${BLOG_URL}${blog.path}`)
 
     const defaultImageSrc = defaultImage({
@@ -50,34 +53,32 @@ class BlogRelatedPostsGrid extends PureComponent {
       globalContent: { related_posts: relatedPosts, blog } = {},
     } = this.props || {}
     return (
-      /* isDesktop && */ (
-        <div role="region" className={classes.bmInterestYou}>
-          <h4
-            className={classes.generalTitle}
-            {...editableField('featureTitle')}
-            suppressContentEditableWarning>
-            {featureTitle || 'Te puede interesar'}
-          </h4>
-          <div role="list" className={classes.container}>
-            {relatedPosts &&
-              relatedPosts.map(item => {
-                const params = this.buildParams(
-                  item,
-                  blog,
-                  contextPath,
-                  arcSite,
-                  deployment
-                )
-                return (
-                  <BlogRelatedPostsGridChildCard
-                    key={params.postLink}
-                    {...params}
-                  />
-                )
-              })}
-          </div>
+      /* isDesktop && */ <div role="region" className={classes.bmInterestYou}>
+        <h4
+          className={classes.generalTitle}
+          {...editableField('featureTitle')}
+          suppressContentEditableWarning>
+          {featureTitle || 'Te puede interesar'}
+        </h4>
+        <div role="list" className={classes.container}>
+          {relatedPosts &&
+            relatedPosts.map(item => {
+              const params = this.buildParams(
+                item,
+                blog,
+                contextPath,
+                arcSite,
+                deployment
+              )
+              return (
+                <BlogRelatedPostsGridChildCard
+                  key={params.postLink}
+                  {...params}
+                />
+              )
+            })}
         </div>
-      )
+      </div>
     )
   }
 }

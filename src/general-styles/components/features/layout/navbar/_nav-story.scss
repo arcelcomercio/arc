@@ -2,14 +2,18 @@
   .nav.active {
     .nav__mobile-logo {
       display: none;
+
       @media (--desktop) {
         display: block;
         left: 20%;
       }
     }
+
     .nav__story-title {
       display: -webkit-box;
+      padding: 0 15px;
       margin: auto;
+
       @media (--desktop) {
         position: absolute;
         left: 30%;
@@ -17,15 +21,19 @@
         margin: 0;
       }
     }
+
     .nav__wrapper {
       background-color: $color-white;
     }
+
     .btn {
       color: $color-primary;
     }
+
     .nav__container-menu {
-      border-color: $color-primary;
+      border-right-color: $color-primary;
     }
+
     .nav__story-title {
       color: #444;
     }

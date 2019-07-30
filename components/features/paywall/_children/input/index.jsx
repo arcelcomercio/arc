@@ -13,6 +13,7 @@ const InputFormik = ({
   sufix,
   type = 'text',
   mask,
+  withDefault = true,
   ...props
 }) => {
   const $el = useRef()
@@ -41,6 +42,10 @@ const InputFormik = ({
 
   const _value = value && type === 'number' ? parseInt(value, 10) : value
 
+  if (withDefault) {
+    rest.defaultValue = _value
+  }
+
   const hasError = touched[field.name] && errors[field.name]
 
   return (
@@ -60,7 +65,6 @@ const InputFormik = ({
             ref={$el}
             transform={transform}
             type={type}
-            defaultValue={_value}
             onFocus={focus}
             onBlur={blur}
             mask={mask}
