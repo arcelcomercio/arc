@@ -11,6 +11,9 @@
 
   &__author {
     font-weight: 700;
+    @media (--desktop) {
+      height: 50px;
+    }
   }
 
   &__see-more-text {

@@ -5,7 +5,12 @@
   }
   &__author-link {
     font-family: $primary-font;
+    color: $color-primary;
     font-weight: 700;
+    &:hover {
+      color: $color-primary;
+    }
+
     @media (--tablet) {
       font-size: 19px;
     }
