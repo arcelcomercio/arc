@@ -7,16 +7,19 @@ import DataStory from '../../utilities/story-data'
 import FeaturedStory from '../../global-components/featured-story'
 import Ads from './_children/ads/default'
 
+const ADS = 'publicidad'
+const STORY = 'destaque'
+
 const elements = [
-  { col: 2, row: 1, type: 'destaque' },
-  { col: 1, row: 2, type: 'publicidad' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 2, row: 1, type: 'destaque' },
+  { col: 2, row: 1, type: STORY },
+  { col: 1, row: 2, type: ADS },
+  { col: 1, row: 1, type: STORY },
+  { col: 1, row: 1, type: STORY },
+  { col: 1, row: 1, type: STORY },
+  { col: 1, row: 1, type: STORY },
+  { col: 1, row: 1, type: STORY },
+  { col: 1, row: 1, type: STORY },
+  { col: 2, row: 1, type: STORY },
 ]
 
 const classes = {
@@ -55,7 +58,7 @@ class OrderedStoriesGrid extends PureComponent {
     let storyNumber = 0
 
     return elements.map(element => {
-      if (element.type === 'destaque') {
+      if (element.type === STORY) {
         dataStory.__data = contentElements[storyNumber]
         const params = {
           title: {
@@ -84,7 +87,7 @@ class OrderedStoriesGrid extends PureComponent {
         storyNumber += 1
         return <FeaturedStory key={dataStory.id} {...params} />
       }
-      if (element.type === 'publicidad') {
+      if (element.type === ADS) {
         const { adElement, isDesktop, isMobile, freeHtml } = customFields || {}
         return (
           <Ads

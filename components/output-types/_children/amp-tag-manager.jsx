@@ -1,19 +1,36 @@
 import React from 'react'
-import { createMarkup } from '../../utilities/helpers'
+import { createMarkup, getMultimedia } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
+import StoryData from '../../utilities/story-data'
 
-export default ({ autors, sections, siteProperties }) => {
+export default ({
+  autors,
+  sections,
+  siteProperties,
+  arcSite,
+  globalContent,
+}) => {
+  const { id, multimediaType } = new StoryData({
+    data: globalContent,
+    arcSite,
+  })
+
   /* eslint-disable no-template-curly-in-string */
   const ampAnalytics = `
   {
     "vars": {
-      "account": "${siteProperties.ampGoogleTagManagerId}"
+        "account": "${siteProperties.ampGoogleTagManagerId}"
     },
+    "extraUrlParams": {
+      "cd6": "AMP",
+      "cd7": "${getMultimedia(multimediaType, true)}",
+      "cd8": "${id}"
+    },       
     "triggers": {
-      "trackPageview": {
-        "on": "visible",
-        "request": "pageview"
-      }
+        "trackPageview": {
+            "on": "visible",
+            "request": "pageview"
+        }
     }
   }`
 

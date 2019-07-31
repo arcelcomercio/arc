@@ -4,6 +4,9 @@ import { createMarkup } from '../../utilities/helpers'
 import customFields from './_dependencies/custom-fields'
 import AdsChild from '../../global-components/ads'
 
+const NO_DESKTOP = 'no-desktop'
+const NO_MOBILE = 'no-mobile'
+
 const classes = {
   adsBox: 'flex items-center flex-col',
 }
@@ -34,27 +37,53 @@ class Ads extends PureComponent {
 
     const addRowsClass = () => (rows === 'empty' ? '' : rows)
 
+    const neverShow = () => !isDesktop && !isMobile
+    const alwaysShow = () => isDesktop && isMobile
+
     const hideInDevice = () => {
-      let classDevice = ''
-      if (!freeHtml) {
-        if (isDesktop && !isMobile) classDevice = 'no-mobile'
-        else if (!isDesktop && isMobile) classDevice = 'no-desktop'
+      let deviceClass = ''
+      // if (!freeHtml) { Esto se usaba para mostrar siempre el bloque cuando viniera HTML
+      if (isDesktop && !isMobile) deviceClass = NO_MOBILE
+      else if (!isDesktop && isMobile) deviceClass = NO_DESKTOP
+      // Por ahora isDesktop abarca Tablet y Desktop, se planea separar y crear isTablet.
+      // }
+      return deviceClass
+    }
+
+    const showHtmlInDevice = () => {
+      let deviceClass = ''
+      switch (hideInDevice()) {
+        case NO_MOBILE:
+          deviceClass = NO_DESKTOP
+          break
+        case NO_DESKTOP:
+          deviceClass = NO_MOBILE
+          break
+        default:
       }
-      return classDevice
+      return deviceClass
     }
 
     return (
       <>
-        {outputType !== 'amp' && (
-          <div
-            className={`${
-              classes.adsBox
-            } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()}`}>
-            <AdsChild {...params} />
-            {freeHtml && (
-              <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
+        {outputType !== 'amp' && !neverShow() && (
+          <>
+            <div
+              className={`${
+                classes.adsBox
+              } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()}`}>
+              <AdsChild {...params} />
+              {freeHtml && (
+                <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
+              )}
+            </div>
+            {!alwaysShow() && freeHtml && (
+              <div
+                className={showHtmlInDevice()}
+                dangerouslySetInnerHTML={createMarkup(freeHtml)}
+              />
             )}
-          </div>
+          </>
         )}
       </>
     )
