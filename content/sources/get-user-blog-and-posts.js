@@ -1,4 +1,4 @@
-import { BLOG_TOKEN } from 'fusion:environment'
+import { BLOG_TOKEN, BLOG_URL_API } from 'fusion:environment'
 
 const resolve = key => {
   const blogLimit = key.blog_limit || 16
@@ -6,8 +6,8 @@ const resolve = key => {
   const pagination = blogOffset > 0 ? blogLimit * (blogOffset - 1) : 0
   const postsLimit = key.posts_limit || 1
   const postsOffset = key.posts_offset || 0
-
-  const url = `https://dev-svc-blogs.gestion.pe/service/apiblogs.php?json=get_user_blog_and_posts&blog_limit=${blogLimit}&blog_offset=${pagination}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${process
+  const urlApiblog = BLOG_URL_API
+  const url = `${urlApiblog}?json=get_user_blog_and_posts&blog_limit=${blogLimit}&blog_offset=${pagination}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${process
     .env.TOKEN_BLOG || BLOG_TOKEN}`
 
   return url

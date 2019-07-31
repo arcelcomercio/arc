@@ -5,7 +5,9 @@ import {
   addResizedUrls
 } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import {
+  addResizedUrlsToStory
+} from '../../components/utilities/helpers'
 
 
 let auxKey
@@ -67,9 +69,11 @@ const resolve = key => pattern(key)
 const transform = data => {
   const dataStories = data || {}
 
-  const { resizerUrl } = getProperties(website)
+  const {
+    resizerUrl
+  } = getProperties(website)
   dataStories.content_elements = addResizedUrlsToStory(dataStories.content_elements, resizerUrl, resizerSecret, addResizedUrls)
-  
+
   const {
     name
   } = auxKey || {}
@@ -88,7 +92,7 @@ const transform = data => {
 
   const realAuthor = by.find(author => `/autor/${name}` === author.url)
   const authorName = {
-    author_name: realAuthor.name,
+    author_name: (realAuthor && realAuthor.name) || 'Autor',
   }
   return {
     ...dataStories,
