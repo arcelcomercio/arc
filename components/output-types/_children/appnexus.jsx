@@ -1,6 +1,7 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
 import { getMultimedia } from '../../utilities/helpers'
+
 const getSite = site => {
   const sites = {
     elcomercio: 'eco',
@@ -57,6 +58,11 @@ const getVars = (
     }
   }
 
+  const dataStory = isStory
+    ? `var tipo_nota = '${getMultimedia(multimediaType, true)}'
+      var id_nota = '${id}'`
+    : ''
+
   return `
   var type_space = '${typeSpace}'
   var site = '${getSite(site)}'
@@ -64,8 +70,7 @@ const getVars = (
   var section = '${section}'
   var subsection = '${subsection}'
   var path_name = '${path}'
-  var tipo_nota = '${getMultimedia(multimediaType, true)}'
-  var id_nota = '${id}'
+  ${dataStory}
 `
 }
 const AppNexus = props => {
