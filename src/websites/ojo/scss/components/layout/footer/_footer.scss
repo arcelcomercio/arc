@@ -6,4 +6,19 @@
   &__social-icon {
     color: $color-white;
   }
+  &__logo-container {
+    width: 104px;
+  }
+  &__legal-item,
+  &__legal-links,
+  &__list-title,
+  &__list-link,
+  &__social-title,
+  &__sites,
+  &__sites-link {
+    font-family: $secondary-font;
+  }
+  &__sites-link {
+    font-weight: 700;
+  }
 }

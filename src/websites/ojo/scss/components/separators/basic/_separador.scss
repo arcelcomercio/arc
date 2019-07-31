@@ -1,5 +1,6 @@
 .separator {
   border-top-color: $color-primary;
+  background-color: $color-primary;
   &__title {
     font-size: 13px;
   }
@@ -15,7 +16,7 @@
   }
 
   &__header-link {
-    color: $color-primary;
+    color: $color-white;
     font-weight: 400;
   }
 }

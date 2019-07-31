@@ -7,8 +7,9 @@
     font-size: 13px;
   }
   &__link {
-    color: $color-base-300;
+    color: $color-primary;
     font-family: $secondary-font;
+    font-weight: 700;
   }
   &__information {
     width: calc(100% - 114px);
