@@ -40,15 +40,15 @@ class NavbarChildMenu extends PureComponent {
     const aux = deep
     return (
       sections &&
-      sections.map(({ children, name = '', _id: id = '' }) => {
-        const idElem = `${nameId}-${name}`.toLowerCase()
+      sections.map(({ children, name = '', _id: id = '', display_name: displayName = '', url = ''}) => {
+        const idElem = `${nameId}-${name || displayName}`.toLowerCase()
         return (
           <>
             <li
               className={`${classes.item}${deep > 0 ? ` pl-20` : ''}`}
-              key={`navbar-menu-${id}`}>
-              <a href={id} className={classes.link}>
-                {name}
+              key={`navbar-menu-${url || id}`}>
+              <a href={url || id || '/'} className={classes.link}>
+                {name || displayName}
               </a>
               {children && children.length > 0 && (
                 <>

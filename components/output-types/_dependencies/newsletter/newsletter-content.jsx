@@ -94,7 +94,7 @@ const NewsLetterContent = ({
 
     const params = {
       title: storydata.title,
-      urlNew: `${siteUrl}${storydata.canonicalUrl}`,
+      urlNew: `${siteUrl}${storydata.websiteLink}`,
       id: storydata.id,
       publishedAt: storydata.date,
       thumb,

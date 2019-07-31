@@ -74,7 +74,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
 
     return section !== '' ? SECTION : ''
   }
-
+  
   getUrl(type, value) {
     // Construye la URL para los botones del filtro
     const { globalContentConfig } = this.props
@@ -193,7 +193,8 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 href={!isAdmin && this.getUrl(SORT, DESC)} // (type, value)
                 className={classes.link}
                 role="checkbox"
-                aria-checked="true">
+                aria-checked="true"
+                >
                 Más Recientes
               </a>
             </li>

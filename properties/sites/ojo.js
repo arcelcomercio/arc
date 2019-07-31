@@ -1,7 +1,7 @@
 export default {
   siteName: 'Ojo',
 
-  googleFonts: 'Roboto',
+  googleFonts: 'Alfa+Slab+One|Titillium+Web:400,700',
 
   colorPrimary: '#f7c600',
   siteDomain: 'ojo.pe',
@@ -23,12 +23,12 @@ export default {
     'Noticias de Perú y el mundo en ojo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: 'ND7742VX7JAILGYP7NTCU3P45Q',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'MBDXL6S4PJEDRJUL7BDV5SWYY4',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'FKYQXTQVJBBIXGT6P22O6E24OE',
     aboutUs: '',
     frequentQuestions: '',
   },
@@ -127,5 +127,5 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
   ],
-  activeSignwall: false
+  activeSignwall: false,
 }
