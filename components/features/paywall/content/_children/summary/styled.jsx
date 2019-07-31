@@ -20,13 +20,14 @@ const Content = styled.div`
   padding: 30px;
 `
 
-const Expand = styled.div`
+export const Expand = styled.div`
   display: flex;
   flex: 1;
   justify-content: space-between;
   line-height: 20px;
   margin-bottom: 20px;
-  font-size: ${({ size }) => `${size || 12}px`};
+  ${({ color }) => `color: ${color || '#000'};`}
+  font-size: ${({ size }) => `${size || 13}px`};
   ${({ discount }) =>
     discount &&
     css`
@@ -44,7 +45,7 @@ const WrapTitle = styled.div`
 `
 
 const NamePlan = styled.span`
-  font-size: 26px;
+  font-size: 30px;
   font-family: var(--font-secondary);
   margin-bottom: 30px;
 `
@@ -54,4 +55,24 @@ const SummaryTitle = styled.span`
   font-weight: 300;
 `
 
-export { Expand, Content, Footer, Summary, WrapTitle, NamePlan, SummaryTitle }
+export const Description = styled.div`
+  max-width: 150px;
+  display: flex;
+  flex: 1;
+  text-align: right;
+  margin-left: auto;
+  line-height: 1.67;
+`
+export const Amount = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`
+
+export const Frequency = styled.div`
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.29;
+`
+
+export { Content, Footer, Summary, WrapTitle, NamePlan, SummaryTitle }

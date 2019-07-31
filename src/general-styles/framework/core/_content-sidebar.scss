@@ -1,0 +1,27 @@
+.content-sidebar {
+  flex-direction: column;
+  width: 100%;
+  @media (--desktop) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  &__left {
+    width: 100%;
+    margin-bottom: 20px;
+    @media (--desktop) {
+      width: calc(100% - 313px);
+      padding-right: 10px;
+      margin-bottom: 0;
+    }
+  }
+  &__right {
+    width: 100%;
+    @media (--desktop) {
+      width: 313px;
+      padding-left: 10px;
+      & > [class] {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

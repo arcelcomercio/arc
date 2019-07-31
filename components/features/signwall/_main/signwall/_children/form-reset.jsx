@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 // TODO Agregar excepcion a eslint
 import React, { Component } from 'react'
+import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
 import { strongRegularExp, mediumRegularExp } from '../../utils/regex'
@@ -22,21 +23,25 @@ class FormResetPass extends Component {
       },
       messageError: false,
     }
+
+    const { arcSite } = this.props
+    this.origin_api =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
+  }
+
+  componentWillMount() {
+    window.Identity.apiOrigin = this.origin_api
   }
 
   handleFormSubmit = e => {
-    const {
-      tokenReset,
-      siteProperties: {
-        signwall: { ORIGIN_API },
-      },
-    } = this.props
-
+    const { tokenReset } = this.props
     const { newPassword, repeatPassword } = this.state
 
     e.preventDefault()
     if (FormValid(this.state)) {
-      window.Identity.apiOrigin = ORIGIN_API
+      window.Identity.apiOrigin = this.origin_api
       window.Identity.resetPassword(tokenReset, newPassword)
         .then(() => {
           this.setState({
@@ -251,6 +256,7 @@ class FormResetPass extends Component {
               <div className="form-group">
                 <input
                   type="button"
+                  id="reset_ingresar_cuenta"
                   className="btn btn--blue btn-bg"
                   value="Ingresa a tu cuenta"
                   onClick={() => {

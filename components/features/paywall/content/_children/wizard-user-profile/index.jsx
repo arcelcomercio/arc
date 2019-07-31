@@ -20,6 +20,10 @@ const PanelUserProfile = styled(Panel)`
   @media (${devices.mobile}) {
     margin-top: 30px;
   }
+  @media ${devices.tablet} {
+    margin-top: 30px;
+    padding: 30px;
+  }
 `
 
 function WizardUserProfile(props) {
@@ -28,8 +32,11 @@ function WizardUserProfile(props) {
     profile,
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
-    nextStep,
   } = props
+
+  const {
+    plan: { amount, description, billingFrequency },
+  } = memo
 
   const fusionContext = useFusionContext()
   const [loading, setLoading] = useState()
@@ -50,7 +57,10 @@ function WizardUserProfile(props) {
           setLoading(false)
           setSubmitting(false)
           // Mezclamos valores del formulario con los valores de la respuesta
-          const mergeResValues = Object.assign({}, values, res)
+          const mergeResValues = Object.assign({}, memo, {
+            order: res,
+            profile: values,
+          })
           onBeforeNextStep(mergeResValues, props)
         })
         .catch(e => {
@@ -86,7 +96,12 @@ function WizardUserProfile(props) {
           />
         )}
       </PanelUserProfile>
-      <Summary summary={summary} />
+      <Summary
+        amount={amount}
+        billingFrequency={billingFrequency}
+        description={description}
+        summary={summary}
+      />
     </S.WizardUserProfile>
   )
 }

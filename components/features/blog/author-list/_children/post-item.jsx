@@ -2,7 +2,7 @@ import React from 'react'
 
 const classes = {
   container:
-    'post-item bg-white flex secondary-font flex-col-reverse h-auto pt-5 pb-5 pr-15 pl-15 border-t-1 border-solid md:flex-col',
+    'post-item bg-white flex secondary-font flex-col-reverse h-auto pt-10 pb-10 pr-15 pl-15 border-t-1 border-solid border-gray md:flex-col',
   date:
     'post-item__date flex justify-start pt-5 pb-5 pr-10 pl-10 text-xs text-gray-200 md:pt-5 md:pb-5 md:pr-0 md:pl-0',
   content:
@@ -31,12 +31,14 @@ const AuthorListChildPostItem = ({
       <div className={classes.content}>
         <figure className={classes.figure}>
           {/* // TODO:CARLOS: verificar si el alt de esta imagen es realmente author */}
-          <img
-            className={classes.image}
-            src={image}
-            alt={author}
-            loading="lazy"
-          />
+          <a href={postPermaLink}>
+            <img
+              className={classes.image}
+              src={image}
+              alt={author}
+              loading="lazy"
+            />
+          </a>
         </figure>
         <div className={classes.description}>
           <a href={postPermaLink}>

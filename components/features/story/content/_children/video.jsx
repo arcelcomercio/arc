@@ -1,7 +1,11 @@
 // content/sources/content-api-v4.js
-import { PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import renderHTML from 'react-render-html'
 import Consumer from 'fusion:consumer'
+
+const classes = {
+  caption: 'story-content__caption pt-10 secondary-font text-md',
+}
 
 @Consumer
 class StoryContentChildVideo extends PureComponent {
@@ -44,8 +48,13 @@ class StoryContentChildVideo extends PureComponent {
   }
 
   render() {
-    const { data = {} } = this.props
-    return data && renderHTML(data.replace('[goldfish_publicidad]', ''))
+    const { data = {}, description = '' } = this.props
+    return (
+      <>
+        {data && renderHTML(data.replace('[goldfish_publicidad]', ''))}
+        <figcaption className={classes.caption}>{description} </figcaption>
+      </>
+    )
   }
 }
 export default StoryContentChildVideo

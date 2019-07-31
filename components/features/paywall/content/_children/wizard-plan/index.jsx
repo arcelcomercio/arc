@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 
 import CardPrice from './_children/card-price'
@@ -17,24 +17,23 @@ function WizardPlan(props) {
   } = props
 
   const fusionContext = useFusionContext()
-  const [loading, setLoading] = useState()
-  const [errors, setErrors] = useState([])
+  const [loadingPlan, setLoadingPlan] = useState()
+  const [activePlan, setActivePlan] = useState()
 
   const { siteProperties } = fusionContext
   const Sales = addSales(siteProperties)
 
   function subscribePlanHandler(e, plan) {
     Sales.then(sales => {
-      setLoading(true)
+      setLoadingPlan(plan)
       return sales
         .addItemToCart(plan.sku, plan.priceCode, 1)
         .then(res => {
-          setLoading(false)
-          onBeforeNextStep(plan, props)
+          setLoadingPlan(false)
+          onBeforeNextStep({ plan }, props)
         })
         .catch(e => {
-          setLoading(false)
-          setErrors([...errors, e])
+          setLoadingPlan(false)
         })
     })
   }
@@ -44,15 +43,22 @@ function WizardPlan(props) {
       <S.Wrap>
         <Summary {...summary} />
         <S.WrapPlan>
-          <S.PlanTitle>Selecciona un plan de pago:</S.PlanTitle>
+          <S.PlanTitle>Selecciona el período de pago:</S.PlanTitle>
           <S.Plans>
-            {plans.map(plan => {
+            {plans.map((plan, idx) => {
+              const { priceCode } = plan
+
               return (
                 <CardPrice
-                  key={plan.priceCode}
+                  active={
+                    activePlan === priceCode || (!activePlan && idx === 0)
+                  }
+                  key={priceCode}
                   plan={plan}
+                  onMouseOver={() => setActivePlan(priceCode)}
+                  onFocus={() => setActivePlan(priceCode)}
                   onClick={subscribePlanHandler}
-                  loading={loading}
+                  loading={loadingPlan && loadingPlan.priceCode === priceCode}
                 />
               )
             })}
@@ -79,6 +85,7 @@ function WizardPlan(props) {
             <Icon type="arrowRight" />
           </div>
         </S.SubscribedContent>
+        <S.Shadow />
       </S.Subscribed>
     </S.WizardPlan>
   )

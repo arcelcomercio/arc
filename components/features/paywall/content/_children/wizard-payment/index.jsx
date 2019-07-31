@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable no-shadow */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useFusionContext } from 'fusion:context'
@@ -15,8 +15,19 @@ const PanelPayment = styled(Panel)`
   @media (${devices.mobile}) {
     margin-top: 30px;
     padding: 18px 30px;
+    box-sizing: border-box;
+    max-width: 100vw;
+  }
+  @media ${devices.tablet} {
+    margin-top: 30px;
+    padding: 18px 30px;
+    box-sizing: border-box;
   }
 `
+
+const MESSAGE = {
+  PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
+}
 
 function WizardPayment(props) {
   const {
@@ -24,32 +35,33 @@ function WizardPayment(props) {
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
   } = props
-  const [loading, setLoading] = useState()
-  const [errors, setErrors] = useState([])
+
+  const {
+    plan: {
+      sku,
+      priceCode,
+      campaignCode,
+      amount,
+      billingFrequency,
+      description,
+    },
+    order: { orderNumber },
+    profile: {
+      firstName,
+      lastName,
+      secondLastName,
+      documentNumber,
+      documentType,
+      phone,
+      email,
+    },
+  } = memo
+
+  const [error, setError] = useState('')
 
   const fusionContext = useFusionContext()
   const { siteProperties } = fusionContext
   const Sales = addSales(siteProperties)
-
-  const getPayUToken = ({
-    baseUrl,
-    publicKey,
-    accountId,
-    cardNumber,
-    expiryMonth,
-    expiryYear,
-    cardDocument,
-    ownerName,
-    cvv,
-    cardMethod,
-  }) => {
-    const qs = `callback=jQuery19107734719643549919_1563491566646&public_key=${publicKey}&account_id=${accountId}&list_id=mylistID&_card%5Bnumber%5D=${cardNumber}&_card%5Bexp_month%5D=${expiryMonth}&_card%5Bexp_year%5D=${expiryYear}&_card%5Bdocument%5D=${cardDocument}&_card%5Bpayer_id%5D=10&_card%5Bname_card%5D=${ownerName}&_card%5Bcvc%5D=${cvv}&_card%5Bmethod%5D=${cardMethod}&_=1563491566648``callback=jQuery19107734719643549919_1563491566646&public_key=PKaC6H4cEDJD919n705L544kSU&account_id=512323&list_id=mylistID&_card%5Bnumber%5D=4437030140190994&_card%5Bexp_month%5D=10&_card%5Bexp_year%5D=2021&_card%5Bdocument%5D=44000001&_card%5Bpayer_id%5D=10&_card%5Bname_card%5D=jorge+duenas&_card%5Bcvc%5D=123&_card%5Bmethod%5D=VISA&_=1563491566648`
-    const url = `${baseUrl}.token?${encodeURIComponent(qs)}`
-    return fetch(url).then(res => {
-      const token = res.match(/token\:\s*'([a-z0-9-]+)/)
-      return token
-    })
-  }
 
   function apiPaymentRegister({
     baseUrl,
@@ -57,14 +69,13 @@ function WizardPayment(props) {
     firstName,
     lastName,
     secondLastName,
-    documentType = 'DNI',
+    documentType,
     documentNumber,
     email,
     phone,
     cardMethod,
     cardNumber,
     token,
-    campaignCode,
     sku,
     priceCode,
     amount,
@@ -96,7 +107,6 @@ function WizardPayment(props) {
           },
           product: [
             {
-              //campaignCode,
               sku,
               price_code: priceCode,
               amount,
@@ -112,28 +122,10 @@ function WizardPayment(props) {
     return response
   }
 
-  const onSubmitHandler = (values, actions) => {
-    const {
-      sku,
-      priceCode,
-      pricingStrategyId,
-      campaignCode,
-      description,
-      amount,
-      billingFrequency,
-      orderNumber,
-      firstName,
-      lastName,
-      secondLastName,
-      documentNumber,
-      phone,
-      email,
-    } = memo
+  const onSubmitHandler = (values, { setSubmitting }) => {
     const { cvv, cardMethod, expiryDate, cardNumber } = values
     let payUPaymentMethod
-
     Sales.then(sales => {
-      setLoading(true)
       return sales
         .getPaymentOptions()
         .then(paymentMethods => {
@@ -154,84 +146,106 @@ function WizardPayment(props) {
             const expiryMonth = expiryDate.split('/')[0]
             const expiryYear = expiryDate.split('/')[1]
 
-            return (
-              addPayU(siteProperties)
-                .then(payU => {
-                  payU.setURL(payuBaseUrl) //OK
-                  payU.setPublicKey(publicKey) //OK
-                  payU.setAccountID(accountId)
-                  payU.setListBoxID('mylistID')
-                  payU.getPaymentMethods()
-                  payU.setLanguage('es')
-                  payU.setCardDetails({
-                    number: cardNumber,
-                    name_card: ownerName,
-                    payer_id: documentNumber,
-                    exp_month: expiryMonth,
-                    exp_year: expiryYear,
-                    method: cardMethod.toUpperCase(),
-                    document: documentNumber,
-                    cvv,
+            return addPayU(siteProperties)
+              .then(payU => {
+                payU.setURL(payuBaseUrl)
+                payU.setPublicKey(publicKey)
+                payU.setAccountID(accountId)
+                payU.setListBoxID('mylistID')
+                payU.getPaymentMethods()
+                payU.setLanguage('es')
+                payU.setCardDetails({
+                  number: cardNumber,
+                  name_card: 'APPROVED',
+                  // name_card: ownerName,
+                  payer_id: documentNumber,
+                  exp_month: expiryMonth,
+                  exp_year: expiryYear,
+                  method: cardMethod.toUpperCase(),
+                  document: documentNumber,
+                  cvv,
+                })
+                return new Promise((resolve, reject) => {
+                  payU.createToken(response => {
+                    if (response.error) {
+                      reject(new Error(response.error))
+                    } else {
+                      resolve(response.token)
+                    }
                   })
-                  return new Promise((resolve, reject) => {
-                    payU.createToken(response => {
-                      if (response.error) {
-                        reject(new Error(response.error))
-                      } else {
-                        resolve(response.token)
-                      }
-                    })
+                })
+              })
+              .then(token => {
+                return apiPaymentRegister({
+                  baseUrl: '//devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
+                  orderNumber,
+                  firstName,
+                  lastName,
+                  secondLastName,
+                  documentType,
+                  documentNumber,
+                  email,
+                  phone,
+                  cardMethod,
+                  cardNumber, // TODO: Convertir en formato de mascara
+                  token,
+                  campaignCode,
+                  sku,
+                  priceCode,
+                  amount,
+                }).then(() => token)
+              })
+              .then(token => {
+                const { paymentMethodID, paymentMethodType } = payUPaymentMethod
+                const sandboxToken = `${token}~${deviceSessionId}~${cvv}`
+                // const sandboxToken = `153e65fc-e239-40ca-a4eb-b43f90623cea~19bcf300adc002231a132661d9a72ca2`
+                return sales
+                  .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
+                  .then(({ status, total }) => {
+                    if (status !== 'Paid') throw new Error(MESSAGE.PAYMENT_FAIL)
+                    return {
+                      publicKey,
+                      accountId,
+                      payuBaseUrl,
+                      deviceSessionId,
+                      paymentMethodID,
+                      paymentMethodType,
+                      status,
+                      total,
+                    }
                   })
-                })
-                // TODO: El servicio aun esta en desarrollo
-                .then(token => {
-                  return apiPaymentRegister({
-                    baseUrl: 'http://devpaywall.comerciosuscripciones.pe', //TODO token en duro, environment no funciona
-                    orderNumber,
-                    firstName,
-                    lastName,
-                    secondLastName,
-                    documentType: 'DNI',
-                    documentNumber,
-                    email,
-                    phone,
-                    cardMethod,
-                    cardNumber, //TODO: Convertir en formato de mascara
-                    token,
-                    campaignCode,
-                    sku,
-                    priceCode,
-                    amount,
-                  }).then(() => token)
-                })
-                .then(token => {
-                  const { paymentMethodID } = payUPaymentMethod
-                  return sales
-                    .finalizePayment(orderNumber, paymentMethodID, token)
-                    .then(res => {
-                      // Mezclamos valores del formulario con el payload de respuesta
-                      const mergedValues = Object.assign({}, res, values)
-                      onBeforeNextStep(mergedValues, props)
-                    })
-                })
-            )
+              })
           }
         )
     })
-  }
-
-  function onResetHandler(values, actions) {
-    // TODO: Limpiar errores una vez se vuelva a reenviar el formuario
-    //       hay que llamar a formikBag.handleReset()
-    setError()
+      .then(res => {
+        // Mezclamos valores del formulario con el payload de respuesta
+        const mergedValues = Object.assign({}, memo, {
+          payment: res,
+          cardInfo: values,
+        })
+        onBeforeNextStep(mergedValues, props)
+      })
+      .catch(e => {
+        console.error(e)
+        setError('Disculpe, ha ocurrido un error durante el pago')
+      })
+      .finally(() => {
+        setSubmitting(false)
+      })
   }
 
   return (
     <S.WizardPayment>
       <PanelPayment type="content" valing="jc-center">
-        <FormPay onSubmit={onSubmitHandler} />
+        <FormPay error={error} onSubmit={onSubmitHandler} />
       </PanelPayment>
-      <Summary summary={summary} />
+      <Summary
+        amount={amount}
+        billingFrequency={billingFrequency}
+        description={description}
+        summary={summary}
+      />
     </S.WizardPayment>
   )
 }

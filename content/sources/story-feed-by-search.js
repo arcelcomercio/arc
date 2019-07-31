@@ -1,15 +1,20 @@
-import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import {
+  resizerSecret
+} from 'fusion:environment'
+import {
+  addResizedUrls
+} from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import {
+  addResizedUrlsToStory
+} from '../../components/utilities/helpers'
 
 const schemaName = 'stories'
 
 let website = '' // Variable se usa en método fuera del fetch
 let queryValue = ''
 
-const params = [
-  {
+const params = [{
     name: 'sort',
     displayName: 'Orden',
     type: 'text',
@@ -66,8 +71,7 @@ const pattern = key => {
   const body = {
     query: {
       bool: {
-        must: [
-          {
+        must: [{
             term: {
               type: 'story',
             },
@@ -114,8 +118,7 @@ const pattern = key => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [
-              {
+            must: [{
                 terms: {
                   'taxonomy.sections._id': [`/${key.section}`],
                 },
@@ -143,7 +146,9 @@ const resolve = key => pattern(key)
 
 const transform = data => {
   const dataStories = data
-  const { resizerUrl } = getProperties(website)
+  const {
+    resizerUrl
+  } = getProperties(website)
   dataStories.content_elements = addResizedUrlsToStory(
     dataStories.content_elements,
     resizerUrl,
@@ -153,6 +158,7 @@ const transform = data => {
   return {
     ...dataStories,
     query: queryValue,
+    decoded_query: decodeURIComponent(queryValue).replace(/\+/g, ' ')
   }
 }
 

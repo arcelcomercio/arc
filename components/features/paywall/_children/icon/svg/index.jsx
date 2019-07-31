@@ -8,5 +8,24 @@ import amex from './amex'
 import diners from './diners'
 import lock from './lock'
 import arrowRight from './arrow-right'
+import profile from './profile'
+import cvv from './cvv'
+import appStore from './app-store'
+import googlePlay from './google-play'
 
-export { check, devices, loading, mundog, visa, mcard, amex, diners, lock, arrowRight }
+export {
+  check,
+  devices,
+  loading,
+  mundog,
+  visa,
+  mcard,
+  amex,
+  diners,
+  lock,
+  arrowRight,
+  profile,
+  cvv,
+  appStore,
+  googlePlay,
+}

@@ -233,6 +233,18 @@ class StoryData {
     return addSlashToEnd(url)
   }
 
+  get canonicalUrl() {
+    // obtiene el url de canonical para el content source story-feed-by-collection y story-feed-by-collection-newsletter
+    const { canonical_url: url = '' } = this._data || {}
+    return url
+  }
+
+  get websiteLink() {
+    const { websites = {} } = this._data || {}
+    const brandWeb = websites[this._website] || {}
+    return brandWeb.website_url || ''
+  }
+
   get relatedContent() {
     const { related_content: { basic = [] } = {} } = this._data || {}
     return basic
@@ -348,6 +360,14 @@ class StoryData {
       _id: id,
     } = this._data || {}
     return StoryData.recentList(contentElements, id)
+  }
+
+  get recentStoryContinue() {
+    const {
+      recent_stories: { content_elements: contentElements = [] } = {},
+      _id: id,
+    } = this._data || {}
+    return StoryData.recentList(contentElements, id, 6)
   }
 
   get seoKeywords() {
@@ -692,7 +712,7 @@ class StoryData {
     return thumb
   }
 
-  static recentList(recentElements, id) {
+  static recentList(recentElements, id, numero = 2) {
     let i = 0
     return (
       recentElements
@@ -702,7 +722,7 @@ class StoryData {
             website_url: websiteUrl,
             _id: storyId,
           } = data
-          if (storyId !== id && i < 2) {
+          if (storyId !== id && i < numero) {
             const type = StoryData.getTypeMultimedia(data)
             const urlImage = StoryData.getThumbnailBySize(data, type)
             i += 1

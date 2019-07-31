@@ -21,6 +21,7 @@
 @import './features/blog/related-posts-grid/blog-related-stories-grid';
 @import './features/breaking-news/breaking-news';
 @import './features/cards/cinema-billboard/cinema-card';
+@import './features/cards/featured-story-multimedia/featured-multimedia';
 @import './features/cards/most-read/most-read-item';
 @import './features/cards/most-read/most-read';
 @import './features/cards/opinion/opinion-card';
@@ -40,10 +41,12 @@
 @import './features/custom-title/custom-title';
 @import './features/extraordinary-story/grid/extraordinary-story-grid';
 @import './features/layout/footer/footer-secondary';
+@import './features/layout/footer/footer-story';
 @import './features/layout/footer/footer';
 @import './features/layout/header/header-somos';
 @import './features/layout/header/header';
 @import './features/layout/navbar/nav-sidebar';
+@import './features/layout/navbar/nav-story';
 @import './features/layout/navbar/nav';
 @import './features/layout/navbar/navbar-somos';
 @import './features/search-filter/search-filter';
@@ -52,7 +55,6 @@
 @import './features/separators/opinion/opinion-separator';
 @import './features/signwall/benefits';
 @import './features/signwall/button';
-@import './features/signwall/card-newsletter';
 @import './features/signwall/check-container';
 @import './features/signwall/footer';
 @import './features/signwall/form-desactive';
@@ -66,7 +68,6 @@
 @import './features/signwall/password-security';
 @import './features/signwall/profile-account';
 @import './features/signwall/row-pass';
-@import './features/signwall/suscription-content';
 @import './features/statics/concessionary-offices/concessionary-offices';
 @import './features/statics/cookie-policies/text-editor';
 @import './features/statics/error404/error404';
@@ -91,6 +92,7 @@
 @import './features/story/content/related-internal';
 @import './features/story/content/story-content';
 @import './features/story/content/story-tags';
+@import './features/story/continue/story-continue';
 @import './features/story/header/story-gallery-slider';
 @import './features/story/header/story-gallery';
 @import './features/story/header/story-header';

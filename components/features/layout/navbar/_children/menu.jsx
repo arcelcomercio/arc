@@ -6,7 +6,7 @@ const classes = {
   sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300`,
   content: `nav-sidebar__content flex flex-col justify-between h-full overflow-y`,
   item: 'nav-sidebar__item position-relative',
-  link: 'nav-sidebar__link block pt-15 pr-15 pb-15 pl-15 text-md text-white',
+  link: 'nav-sidebar__link block p-15 text-md text-white',
   top: 'nav-sidebar__top',
   header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30 hidden',
   btnBox: 'nav-sidebar__box-btn pb-15 border-b-1 border-solid border-gray',
@@ -16,7 +16,7 @@ const classes = {
   input: `nav-sidebar__input w-full inline-block pt-10 pr-15 pb-10 pl-15 bg-white border-0 text-md rounded-sm line-h-sm`,
   body: 'nav-sidebar__body pt-15 pr-0 pb-15 pl-15',
   list: 'nav- sidebar__list',
-  footer: `nav-sidebar__footer pt-30 pr-30 pb-30 pl-30 border-b-1 border-solid border-gray`,
+  footer: `nav-sidebar__footer p-30 border-b-1 border-solid border-gray`,
   text: `nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white`,
 }
 
@@ -33,19 +33,34 @@ class NavbarChildMenu extends PureComponent {
     searchQuery(value)
   }
 
-  renderSections = sections => {
+  renderSections = (sections, deep) => {
+    const aux = deep
     return (
       sections &&
-      sections.map(({ children, name = '', _id: id = '' }) => (
-        <>
-          <li className={classes.item} key={`navbar-menu-${id}`}>
-            <a href={id} className={classes.link}>
-              {name}
-            </a>
-          </li>
-          {children && this.renderSections(children)}
-        </>
-      ))
+      sections.map(
+        ({
+          children,
+          _id: id,
+          url,
+          name = '',
+          display_name: displayName = '',
+        }) => {
+          return (
+            <>
+              <li
+                className={`${classes.item}${
+                  deep > 0 ? ` pl-${deep * 10}` : ''
+                }`}
+                key={`navbar-menu-${url || id}`}>
+                <a href={url || id || '/'} className={classes.link}>
+                  {name || displayName}
+                </a>
+              </li>
+              {children && this.renderSections(children, aux + 1)}
+            </>
+          )
+        }
+      )
     )
   }
 
@@ -94,7 +109,7 @@ class NavbarChildMenu extends PureComponent {
             </div>
             <div className={classes.body}>
               <ul className={classes.list}>
-                {sections && this.renderSections(sections)}
+                {sections && this.renderSections(sections, 0)}
               </ul>
             </div>
           </div>

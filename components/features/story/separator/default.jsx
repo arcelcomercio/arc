@@ -1,24 +1,18 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import withSizes from 'react-sizes'
 
-import { sizeDevice } from '../../separators/_dependencies/functions'
 import schemaFilter from './_dependencies/schema-filter'
 import StorySeparatorChildItem from './_children/item'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 
 const classes = {
-  separator:
-    'story-separator bg-white block non-tablet w-full h-auto separator--nota',
-  /*   title:
-    'story-separator__header-title separator__header-title--nota grid text-center pb-20 pt-20', */
-  body:
-    'story-separator__body separator__body--items flex mt-0 mb-0 pt-20 pb-20 pr-0 pl-0',
-  mvideo: 'story-separator--video',
+  separator: 'story-separator block non-tablet non-mobile w-full h-auto',
+  body: 'story-separator__body flex mt-0 mb-0 pt-20 pb-20 pr-0 pl-0',
 }
 
-@withSizes(({ width }) => sizeDevice(width))
+const CONTENT_SOURCE = 'story-feed-by-section'
+
 @Consumer
 class StorySeparator extends PureComponent {
   constructor(props) {
@@ -33,7 +27,7 @@ class StorySeparator extends PureComponent {
   fetchDataApi = (arcSite, section, storiesQty) => {
     this.fetchContent({
       dataApi: {
-        source: 'story-feed-by-section',
+        source: CONTENT_SOURCE,
         query: {
           website: arcSite,
           section,
@@ -68,7 +62,7 @@ class StorySeparator extends PureComponent {
           link: instance.link,
           section: instance.primarySection,
           sectionLink: instance.primarySectionLink,
-          multimedia: instance.multimedia,
+          multimediaPortraitXS: instance.multimediaPortraitXS,
           multimediaType: instance.multimediaType,
         }
         return (
@@ -84,20 +78,17 @@ class StorySeparator extends PureComponent {
 
   render() {
     const { dataApi: { content_elements: stories } = {} } = this.state
-    const { globalContent, isMobile } = this.props
+    const { globalContent } = this.props
     const { website_url: excluir } = globalContent || {}
     return (
-      !isMobile && (
-        <div className={classes.separator}>
-          <div className={classes.body}>
-            {this.renderItems(stories, excluir)}
-          </div>
-        </div>
-      )
+      <div className={classes.separator}>
+        <div className={classes.body}>{this.renderItems(stories, excluir)}</div>
+      </div>
     )
   }
 }
 
 StorySeparator.label = 'Separador de artículo'
+StorySeparator.static = true
 
 export default StorySeparator

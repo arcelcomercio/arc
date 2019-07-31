@@ -13,14 +13,25 @@ class CardFeaturedStoryManual extends PureComponent {
       arcSite,
       deployment,
       contextPath,
-      customFields: { path, note1, date1, note2, date2, note3, date3 } = {},
+      customFields: {
+        note1,
+        date1,
+        note2,
+        date2,
+        note3,
+        date3,
+        path = '',
+      } = {},
     } = this.props
-    /* console.log('note3', note3) */
+
     this.storyFormatter = new StoryFormatter({
       deployment,
       contextPath,
       arcSite,
     })
+
+    const regex = /^http/g
+    this.isExternalLink = regex.test(path)
 
     const { schema } = this.storyFormatter
 
@@ -46,16 +57,8 @@ class CardFeaturedStoryManual extends PureComponent {
       .filter(el => actualDate > el.date)
       .sort((a, b) => (b.date > a.date ? 1 : -1))
 
-    /* console.log(
-      scheduledNotes.map(el => {
-        return new Date(el.date)
-      })
-    ) */
-
     const currentNotePath =
       scheduledNotes.length > 0 ? scheduledNotes[0].path : path
-
-    /* console.log('currentNotePath', currentNotePath) */
 
     this.fetchContent({
       data: {
@@ -64,6 +67,23 @@ class CardFeaturedStoryManual extends PureComponent {
           website_url: currentNotePath,
         },
         filter: schema,
+        // Si la nota programada no existe o no está publicada, usar la nota del campo "URL" (path)
+        // Esta nota se almacenará en el estado defaultData
+        transform: data => {
+          if (!data) {
+            this.fetchContent({
+              defaultData: {
+                source,
+                query: {
+                  website_url: path,
+                },
+                filter: schema,
+              },
+            })
+          }
+          // /////////////////////////
+          return data
+        },
       },
     })
   }
@@ -80,16 +100,19 @@ class CardFeaturedStoryManual extends PureComponent {
         titleField,
         categoryField,
         imgField,
+        path = '',
       } = {},
     } = this.props
 
-    const { data = {} } = this.state || {}
+    const { data = {}, defaultData = {} } = this.state || {}
 
-    // const printNote = arrDate.reduce((prev, acc, arr) => {
-    //   return prev.date > acc.date ? prev.note : arr[0].note
-    // })
-
-    const formattedData = this.storyFormatter.formatStory(data, imgField)
+    // Si la data no existe usar el estado defaultData
+    const existingData = data._id ? data : defaultData
+    // //////////////////////////////////////////////
+    const formattedData = this.storyFormatter.formatStory(
+      existingData,
+      imgField
+    )
     const {
       category,
       title,
@@ -100,6 +123,11 @@ class CardFeaturedStoryManual extends PureComponent {
       multimediaSquareS,
       multimediaType,
     } = formattedData
+
+    if (this.isExternalLink) {
+      title.url = path
+      category.url = path
+    }
 
     const params = {
       title,

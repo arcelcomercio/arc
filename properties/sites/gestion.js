@@ -1,12 +1,13 @@
 export default {
   siteName: 'Gestión',
-  colorPrimary: '#8F071F',
+  // colorPrimary: '#8F071F',
+  colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
   googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
   linkTabloide: 'https://peruquiosco.pe/',
-  resizerUrl: 'https://publimetro.pe/resizer', // Temporal hasta que activen el resizer para gestión
+  resizerUrl: 'https://gestion.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/GESTION_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
@@ -21,7 +22,7 @@ export default {
 
   siteDescription:
     'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
-  googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
+  googleNewsImage: 'https://gestion.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
@@ -47,6 +48,11 @@ export default {
     nav: {
       logo: 'white-logo.png',
       logoSomos: 'white-logo.png',
+    },
+    seo: {
+      logoAmp: 'logo-gestion-amp.png',
+      width: 246,
+      height: 60,
     },
     path: `/resources/dist/gestion/`,
     paywall: {
@@ -93,11 +99,24 @@ export default {
       'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
       'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
     ],
-
+    story: [
+      {
+        position: 'Director Periodístico',
+        name: 'JULIO LIRA SEGURA',
+      },
+      {
+        position: 'Empresa Editora Gestión',
+        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
+      },
+      {
+        position: 'Copyright © gestion.pe',
+        name: 'Grupo El Comercio - Todos los derechos reservados',
+      },
+    ],
     socialNetworks: [
       {
         name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-gestion/',
+        url: 'https://www.linkedin.com/company/diario-gestión/',
       },
       {
         name: 'facebook',
@@ -112,15 +131,15 @@ export default {
     contacts: [
       {
         position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+        name: 'JULIO LIRA SEGURA',
       },
       {
-        position: 'Editor Web',
-        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
+        position: '',
+        name: '',
       },
       {
-        position: 'Contacto comercial',
-        name: 'ventaspublimetro@publimetro.pe',
+        position: '',
+        name: '',
       },
     ],
   },
@@ -132,7 +151,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@Gestionpe',
+      user: 'Gestionpe',
       url: 'https://twitter.com/gestionpe',
     },
     youtube: {
@@ -148,4 +167,12 @@ export default {
     movil4: 14971953,
     movil5: 14971957,
   },
+  listUrlAdvertisings: [
+    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-22.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-23.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
+  ],
+  activeSignwall: true,
 }

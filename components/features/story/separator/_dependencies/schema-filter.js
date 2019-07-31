@@ -11,9 +11,7 @@ export default `
                 type 
                 url
                 resized_urls { 
-                  small
-                  medium
-                  large
+                  portrait_xs
                 }
               }
             }
@@ -25,9 +23,7 @@ export default `
                 type 
                 url
                 resized_urls { 
-                  small
-                  medium
-                  large
+                  portrait_xs
                 }
               }
             }
@@ -36,9 +32,7 @@ export default `
             type 
             url
             resized_urls { 
-              small
-              medium
-              large
+              portrait_xs
             }
           }
         }

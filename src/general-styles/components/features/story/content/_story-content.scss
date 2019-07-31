@@ -9,32 +9,36 @@
     }
   }
 
+  & * iframe {
+    width: 100%;
+  }
+
   .pquote {
     background: none;
-    color: #030;
-    font-size: 26px;
-    line-height: 0.9;
-    font-style: italic;
-    padding: 13px;
 
     /*     &__pull {
       background: url('../images/openquote.svg') top left no-repeat;
     } */
 
-    &__text:first-letter {
+    &__text {
+      font-style: italic;
+    }
+
+    &:first-letter {
       font-size: 1.5em;
       font-weight: bold;
     }
   }
 
   /* Esto es importante definirlo por los scripts de Opta */
-  &__content > section {
+  &__content>section {
     width: 100%;
   }
 
   /* ----------------------------------------------------- */
 
-  &__font--secondary {
+  &__font--secondary,
+  &__content {
     word-wrap: break-word;
   }
 
@@ -66,18 +70,19 @@
       width: 100% !important;
       max-width: 500px;
 
-      & > span {
+      &>span {
         width: 100% !important;
 
-        & > [src*='facebook'] {
+        &>[src*='facebook'] {
           width: 100% !important;
 
-          & > [data-testid*='newsFeedStream'] {
+          &>[data-testid*='newsFeedStream'] {
             width: 100% !important;
           }
         }
       }
     }
+
     & img {
       width: 100%;
     }
@@ -98,6 +103,7 @@
     width: 80px;
     right: 50px;
     box-shadow: 2px 6px 7px rgba(25, 57, 22, 0.2);
+
     &::after {
       content: '';
       display: block;
@@ -117,41 +123,51 @@
   &__tags-link {
     font-size: 14px;
   }
+
   &__more-link {
     &:hover {
       text-decoration: none;
     }
+
     .icon-facebook-circle {
       color: #3b5998;
     }
+
     .icon-twitter-circle {
       color: #00acee;
     }
   }
+
   .powa-shot-play-icon,
   .powa-shot-loading-icon {
     font-family: 'icomoon';
     background: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
   }
+
   .powa-shot-play-icon {
     &::before {
       content: '\e906';
     }
+
     &:hover {
       color: $color-white;
     }
   }
+
   .powa-shot-loading-icon {
     &::before {
       content: '\e917';
     }
+
     &:hover {
       color: $color-white;
     }
   }
+
   &__date {
     order: -1;
+
     @media (--tablet) {
       order: 0;
     }

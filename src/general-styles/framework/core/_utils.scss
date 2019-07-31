@@ -184,6 +184,10 @@ right;
   font-family: $secondary-font; // TODO: !important retirado por amp
 }
 
+.tertiary-font {
+  font-family: $tertiary-font;
+}
+
 $map-font-weight: (thin: 200,
   normal: 400,
   bold: 700,

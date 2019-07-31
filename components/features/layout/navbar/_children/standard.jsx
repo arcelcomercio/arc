@@ -2,12 +2,13 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
+
 import Signwall from '../../../signwall/default'
 import SignWallHard from '../../../signwall/_main/signwall/hard'
-
 import SignWallVerify from '../../../signwall/_main/signwall/verify'
 import SignWallReset from '../../../signwall/_main/signwall/reset'
 import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
+// import SignWallPaywall from '../../../signwall/_main/signwall/paywall'
 
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
@@ -19,11 +20,11 @@ import {
 } from '../../../../utilities/helpers'
 
 const classes = {
-  nav: `nav bg-gray-100 text-white text-sm w-full flex flex items-center top-0 secondary-font`,
+  nav: `nav text-white text-sm w-full flex flex items-center top-0 secondary-font`,
   wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
-  search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 bg-gray-100 rounded-sm line-h line-h-xs`,
-  navContainerRight: `nav__container-right position-absolute bg-gray-100 hidden lg:inline-block`,
+  search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
+  navContainerRight: `nav__container-right position-absolute hidden lg:inline-block`,
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10 lg:pl-10 border-r-1 border-solid`,
   searchContainer:
     'nav__search-box hidden lg:flex items-center border-r-1 border-solid',
@@ -38,17 +39,20 @@ const classes = {
   logo: 'nav__logo lg:hidden',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
-  btnContainer: 'flex items-center justify-end header__btn-container', // agregar hidden ocultar signwall
-  hidden: 'hidden',
-  btnLogin: 'nav__btn flex items-center btn', // Tiene lógica abajo
-  btnSubscribe: `flex items-center btn hidden md:inline-block`,
+  btnContainer: 'flex items-center justify-end header__btn-container',
+  btnLogin: 'nav__btn flex items-center btn capitalize text-md font-bold', // Tiene lógica abajo
+  btnSubscribe: `flex items-center btn hidden capitalize text-md font-bold md:inline-block`,
   iconLogin: 'nav__icon icon-user',
   iconSignwall: 'nav__icon rounded position-absolute uppercase',
-  btnSignwall: 'nav__btn--login',
-  iconSignwallMobile: 'rounded uppercase bg-primary',
+  // btnSignwall: 'nav__btn--login', No contemplado en diseño
+  navLoaderWrapper: 'nav__loader position-absolute w-full',
+  navLoader: 'nav__loader-bar  w-full h-full',
+  navStoryTitle: 'nav__story-title position-relative overflow-hidden',
+  navStorySocialNetwork: 'nav__story-social-network hidden',
+  iconSignwallMobile: 'uppercase ',
+  btnSignwallMobile:
+    'nav__btn--login-m bg-secondary text-primary-color rounded',
 }
-
-const activeSignwall = ['elcomercio', 'gestion']
 
 @Consumer
 class NavBarDefault extends PureComponent {
@@ -77,6 +81,8 @@ class NavBarDefault extends PureComponent {
     this.listContainer = null
     this.listWidth = 330
     this.layerBackground = null
+
+    this.isStory = false // TODO: temporal
   }
 
   componentDidMount() {
@@ -101,9 +107,17 @@ class NavBarDefault extends PureComponent {
       this.layerBackground.addEventListener('click', this._closeMenu)
     }
 
+    this.isStory = !!window.document.querySelector('meta[name="section-id"]') // TODO: temporal
+
     // ----------------------- Start Active Rules Paywall ----------------------- //
 
     if (arcSite === 'gestion') {
+      const dataContentType = window.document.querySelector(
+        'meta[name="content-type"]'
+      )
+      const dataContentSection = window.document.querySelector(
+        'meta[name="section-id"]'
+      )
       window.ArcP.run({
         // paywallFunction: campaignURL => console.log('Paywall!', campaignURL),
         paywallFunction: campaignURL => {
@@ -114,6 +128,12 @@ class NavBarDefault extends PureComponent {
         //   s: 'business',
         //   ci: 'https://www.your.domain.com/canonical/url'
         // })
+        contentType: dataContentType
+          ? dataContentType.getAttribute('content')
+          : 'none',
+        section: dataContentSection
+          ? dataContentSection.getAttribute('content')
+          : 'none',
         userName: window.Identity.userIdentity.uuid
           ? window.Identity.userIdentity.uuid
           : null,
@@ -487,15 +507,28 @@ class NavBarDefault extends PureComponent {
 
             <ul className={classes.list}>
               {sections &&
-                sections.slice(0, 4).map(({ name, _id: id }) => {
-                  return (
-                    <li key={id} className={classes.listItem}>
-                      <a href={id} className={classes.listLink}>
-                        {name}
-                      </a>
-                    </li>
-                  )
-                })}
+                sections
+                  .slice(0, 4)
+                  .map(
+                    ({
+                      _id: id,
+                      url,
+                      name = '',
+                      display_name: displayName = '',
+                    }) => {
+                      return (
+                        <li
+                          key={`navbar-${url || id}`}
+                          className={classes.listItem}>
+                          <a
+                            href={url || id || '/'}
+                            className={classes.listLink}>
+                            {name || displayName}
+                          </a>
+                        </li>
+                      )
+                    }
+                  )}
             </ul>
             <a href="/" className={classes.mobileLogo}>
               <img
@@ -504,18 +537,50 @@ class NavBarDefault extends PureComponent {
                 className={classes.logo}
               />
             </a>
+            <div className={classes.navStoryTitle} />
+            <div className={classes.navStorySocialNetwork} />
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
+              {siteProperties.activeSignwall && (
+                <div className={`${classes.btnContainer}`}>
+                  <Button
+                    btnText="Suscríbete"
+                    btnClass={`${classes.btnSubscribe} btn--outline`}
+                    btnLink={`https://suscripciones.${arcSite}.pe/?ref=${arcSite}`}
+                  />
+                  <button
+                    type="button"
+                    id={
+                      this.checkSession()
+                        ? 'web_link_ingresaperfil'
+                        : 'web_link_ingresacuenta'
+                    }
+                    className={
+                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
+                    }
+                    onClick={() => this.setState({ isActive: true })}>
+                    {/* 
+                    Por ahora esto no está contemplado en diseño
+                    <i
+                      className={
+                        initialUser
+                          ? `${classes.iconSignwall} text-user font-bold`
+                          : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
+                      }>
+                      {initialUser}
+                    </i> */}
+                    <span>
+                      {this.checkSession() ? nameUser : 'Iniciar Sesión'}
+                    </span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer}  ${activeSignwall.indexOf(
-                  arcSite
-                ) < 0 && classes.hidden}`}>
-                <Button
-                  btnText="Suscríbete"
-                  btnClass={`${classes.btnSubscribe} btn--outline`}
-                  btnLink="#"
-                />
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -523,47 +588,24 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  className={`${classes.btnLogin} ${classes.btnSignwall} btn--outline`}
+                  className={`${classes.btnSignwallMobile}`}
                   onClick={() => this.setState({ isActive: true })}>
                   <i
                     className={
                       initialUser
-                        ? `${classes.iconSignwall} text-user`
-                        : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
+                        ? `${classes.iconSignwallMobile} font-bold`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
                     }>
                     {initialUser}
                   </i>
-                  <span className="capitalize text-sm">
-                    {this.checkSession() ? nameUser : 'Iniciar Sesión'}
-                  </span>
                 </button>
               </div>
-            </div>
-            <div
-              className={`${classes.btnContainer} ${
-                classes.navMobileContainer
-              } ${responsiveClass} ${activeSignwall.indexOf(arcSite) < 0 &&
-                classes.hidden}`}>
-              <button
-                type="button"
-                id={
-                  this.checkSession()
-                    ? 'web_link_ingresaperfil'
-                    : 'web_link_ingresacuenta'
-                }
-                className={`${classes.btnLogin} border-1 border-solid border-white`}
-                onClick={() => this.setState({ isActive: true })}>
-                {/* <i className={classes.iconLogin} /> */}
-                <i
-                  className={
-                    initialUser
-                      ? `${classes.iconSignwallMobile}`
-                      : `${classes.iconLogin} ${classes.iconSignwallMobile}`
-                  }>
-                  {initialUser}
-                </i>
-              </button>
-            </div>
+            )}
+            {this.isStory && (
+              <div className={classes.navLoaderWrapper}>
+                <div className={classes.navLoader} />
+              </div>
+            ) /** TODO: temporal */}
           </div>
           <Menu
             sections={sections}
@@ -577,14 +619,17 @@ class NavBarDefault extends PureComponent {
 
         {this.getUrlParam('signwallHard') &&
         !this.checkSession() &&
-        showHard ? (
+        showHard &&
+        siteProperties.activeSignwall ? (
           <SignWallHard
             closePopup={() => this.closePopUp('signwallHard')}
             brandModal={arcSite}
           />
         ) : null}
 
-        {this.getUrlParam('tokenVerify') && showVerify ? (
+        {this.getUrlParam('tokenVerify') &&
+        showVerify &&
+        siteProperties.activeSignwall ? (
           <SignWallVerify
             closePopup={() => this.closePopUp('tokenVerify')}
             brandModal={arcSite}
@@ -592,7 +637,9 @@ class NavBarDefault extends PureComponent {
           />
         ) : null}
 
-        {this.getUrlParam('tokenReset') && showReset ? (
+        {this.getUrlParam('tokenReset') &&
+        showReset &&
+        siteProperties.activeSignwall ? (
           <SignWallReset
             closePopup={() => this.closePopUp('tokenReset')}
             brandModal={arcSite}
@@ -602,12 +649,14 @@ class NavBarDefault extends PureComponent {
 
         {this.getUrlParam('reloginEmail') &&
         !this.checkSession() &&
-        showRelogin ? (
+        showRelogin &&
+        siteProperties.activeSignwall ? (
           <SignWallRelogin
             closePopup={() => this.closePopUp('reloginEmail')}
             brandModal={arcSite}
           />
         ) : null}
+        {/* <SignWallPaywall brandModal={arcSite}/> */}
       </>
     )
   }

@@ -30,7 +30,7 @@ class SignWallRelogin extends Component {
         <FormRelogin
           closePopup={closePopup}
           typePopUp="relogemail"
-          typeForm="relogemail"
+          typeForm="login"
           brandCurrent={brandModal}
         />
       ),
@@ -38,12 +38,17 @@ class SignWallRelogin extends Component {
         <FormRegister
           closePopup={closePopup}
           typePopUp="relogemail"
-          typeForm="relogemail"
+          typeForm="register"
           brandCurrent={brandModal}
         />
       ),
       forgot: (
-        <FormForgotPass closePopup={closePopup} brandCurrent={brandModal} />
+        <FormForgotPass
+          closePopup={closePopup}
+          typePopUp="relogemail"
+          typeForm="relogemail"
+          brandCurrent={brandModal}
+        />
       ),
     }
     return templates[template] || templates.relogin

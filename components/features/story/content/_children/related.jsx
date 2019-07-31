@@ -20,14 +20,20 @@ const classes = {
 }
 
 const RenderRelatedContentElement = (props, i, isAmp) => {
+  const { deployment, contextPath, arcSite } = props
+
   const get = new DataStory({
     data: props,
+    contextPath,
+    deployment,
+    arcSite,
+    defaultImgSize: 'sm',
   })
   const filterData = {
     nameTitle: get.title,
     urlTitle: get.link,
     multimediaType: get.multimediaType,
-    multimediaImg: get.multimedia,
+    multimediaImg: get.multimediaLandscapeMD,
   }
 
   return (

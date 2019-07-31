@@ -7,20 +7,10 @@
 
   &__body {
     height: auto;
-
-    &--items {
-      height: 169px;
-    }
   }
 
   &__item {
     border-right-width: 2px;
-
-    &--nota {
-      & figure {
-        width: 90%;
-      }
-    }
 
     &:last-child {
       border-right: 0;
@@ -29,17 +19,8 @@
   }
 
   &__img {
-    height: 80px;
-    width: 45px;
-    @media (--desktop) {
-      width: 75px;
-    }
-  }
-
-  &__detail {
-    &--nota {
-      bottom: 44px;
-    }
+    height: 90px;
+    width: 75px;
   }
 
   &__title {
@@ -52,21 +33,6 @@
     -webkit-line-clamp: 3;
   }
 
-  &-oneline {
-    -webkit-line-clamp: 1;
-  }
-
-  &-twoline {
-    -webkit-line-clamp: 2;
-  }
-
-  &-threeline {
-    -webkit-line-clamp: 3;
-  }
-
-  &--nota {
-    height: 254px;
-  }
   &__category {
     word-wrap: break-word;
   }

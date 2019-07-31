@@ -1,30 +1,44 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { isIE } from '../../utilities/helpers'
 
 import DataStory from '../../utilities/story-data'
 import FeaturedStory from '../../global-components/featured-story'
 import Ads from './_children/ads/default'
 
+const ADS = 'publicidad'
+const STORY = 'destaque'
+
 const elements = [
-  { col: 2, row: 1, type: 'destaque' },
-  { col: 1, row: 2, type: 'publicidad' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 1, row: 1, type: 'destaque' },
-  { col: 2, row: 1, type: 'destaque' },
+  { col: 2, row: 1, type: STORY },
+  { col: 1, row: 2, type: ADS },
+  { col: 1, row: 1, type: STORY },
+  { col: 1, row: 1, type: STORY },
+  { col: 1, row: 1, type: STORY },
+  { col: 1, row: 1, type: STORY },
+  { col: 1, row: 1, type: STORY },
+  { col: 1, row: 1, type: STORY },
+  { col: 2, row: 1, type: STORY },
 ]
 
 const classes = {
-  container:
-    'grid grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20',
+  container: ' grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20',
 }
 
 @Consumer
 class OrderedStoriesGrid extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      gridClass: 'grid',
+    }
+  }
+
+  componentDidMount() {
+    if (isIE()) this.setState({ gridClass: 'ie-flex' })
+  }
+
   renderGrilla() {
     const {
       globalContent,
@@ -44,7 +58,7 @@ class OrderedStoriesGrid extends PureComponent {
     let storyNumber = 0
 
     return elements.map(element => {
-      if (element.type === 'destaque') {
+      if (element.type === STORY) {
         dataStory.__data = contentElements[storyNumber]
         const params = {
           title: {
@@ -73,7 +87,7 @@ class OrderedStoriesGrid extends PureComponent {
         storyNumber += 1
         return <FeaturedStory key={dataStory.id} {...params} />
       }
-      if (element.type === 'publicidad') {
+      if (element.type === ADS) {
         const { adElement, isDesktop, isMobile, freeHtml } = customFields || {}
         return (
           <Ads
@@ -91,7 +105,12 @@ class OrderedStoriesGrid extends PureComponent {
   }
 
   render() {
-    return <div className={classes.container}>{this.renderGrilla()}</div>
+    const { gridClass } = this.state
+    return (
+      <div className={gridClass.concat(classes.container)}>
+        {this.renderGrilla()}
+      </div>
+    )
   }
 }
 
@@ -128,6 +147,5 @@ OrderedStoriesGrid.propTypes = {
 }
 
 OrderedStoriesGrid.label = 'Grilla de Historias Ordenadas'
-OrderedStoriesGrid.static = true
 
 export default OrderedStoriesGrid

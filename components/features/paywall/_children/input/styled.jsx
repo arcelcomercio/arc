@@ -3,22 +3,27 @@ import { devices } from '../../_dependencies/devices'
 
 const FormGroup = styled.div`
   position: relative;
-  margin-bottom: 29px;
+  margin-bottom: 35px;
   width: 100%;
   @media (${devices.mobile}) {
     width: 100%;
   }
 `
 
-const Input = styled.input`
+export const Input = styled.input`
   flex: 1;
   font-size: 14px;
   line-height: 22px;
   border: 0;
   width: 100%;
+  max-width: 100%;
+  ${({ transform }) =>
+    css`
+      text-transform: ${transform};
+    `}
 `
 
-const Wrap = styled.div`
+export const Wrap = styled.div`
   display: flex;
   align-items: center;
   padding: 13px;
@@ -62,7 +67,7 @@ const Label = styled.label`
     focus &&
     css`
       transform: translate3d(0, -50%, 0);
-      left: 1rem;
+      left: 10px;
       bottom: inherit;
       top: inherit;
       font-size: 12px;
@@ -70,7 +75,25 @@ const Label = styled.label`
     `}
 `
 
-export { Label, Wrap, Input, FormGroup }
+export const Error = styled.span`
+  color: #db0000;
+  margin-top: 5px;
+  display: block;
+  position: absolute;
+  bottom: -20px;
+`
+
+export const Prefix = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const WrapInput = styled.div`
+  display: flex;
+  flex: 1;
+`
+
+export { Label, FormGroup }
 
 // .__label.__focus{
 // transform: translate3d(0, -50%, 0);

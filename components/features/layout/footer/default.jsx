@@ -5,6 +5,13 @@ import PropTypes from 'prop-types'
 
 import StandardFooter from './_children/standard'
 import SecondaryFooter from './_children/secondary'
+import StoryFooter from './_children/story'
+
+/**
+ * TODO: Este feature que controla distintos componentes debe ser
+ * separado en distintos features, un por cada diseño, de esta manera
+ * se logra cargar sólo el código necesario para cada vista.
+ */
 
 const DEFAULT_HIERARCHY = 'footer-default'
 
@@ -71,7 +78,7 @@ class LayoutFooter extends PureComponent {
       siteProperties: {
         gecSites,
         legalLinks,
-        footer: { socialNetworks = [], contacts = [], siteLegal },
+        footer: { socialNetworks = [], contacts = [], siteLegal, story },
         assets: { footer: { logo } = {} } = {},
       },
     } = this.props
@@ -81,7 +88,7 @@ class LayoutFooter extends PureComponent {
       ''
 
     const { sections: rawSections = [] } = this.state || {}
-    const sections = this.formatData(rawSections)
+    const sections = rawSections && this.formatData(rawSections)
 
     const params = {
       socialNetworks,
@@ -92,11 +99,13 @@ class LayoutFooter extends PureComponent {
       logoUrl,
       sections,
       arcSite,
+      story,
     }
 
     const footers = {
       standard: <StandardFooter {...params} />,
       secondary: <SecondaryFooter {...params} />,
+      story: <StoryFooter {...params} />,
     }
     return footers[footerType] || footers.standard
   }
@@ -107,14 +116,16 @@ class LayoutFooter extends PureComponent {
 }
 
 LayoutFooter.label = 'Pie de Página'
+LayoutFooter.static = true
 
 LayoutFooter.propTypes = {
   customFields: PropTypes.shape({
-    footerType: PropTypes.oneOf(['standard', 'secondary']).tag({
+    footerType: PropTypes.oneOf(['standard', 'secondary', 'story']).tag({
       name: 'Diseño del Pie de página',
       labels: {
         standard: 'Footer estándar',
         secondary: 'Footer 2',
+        story: 'Footer - Notas',
       },
       defaultValue: 'standard',
     }),

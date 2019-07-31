@@ -1,0 +1,14 @@
+.br-stories-grid {
+  &__title {
+    @media (--desktop) {
+      font-size: 12px;
+    }
+  }
+  &__detail-title-link {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}

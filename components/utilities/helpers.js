@@ -85,13 +85,19 @@ export const arrayDays = [
   'Sábado',
 ]
 
-export const formatDayMonthYear = (date, showTime = true) => {
-  const fecha = new Date(date)
+export const formatDayMonthYear = (
+  currentDate,
+  showTime = true,
+  isStatic = false
+) => {
+  const date = new Date(currentDate)
 
-  const formattedDate = `${arrayDays[fecha.getDay()]} ${fecha.getDate()} de ${
-    arrayMonths[fecha.getMonth()]
-  } del ${fecha.getFullYear()}`
-  return showTime ? `${formattedDate}, ${formattedTime(fecha)}` : formattedDate
+  if (isStatic) if (date.getHours() <= 5) date.setDate(date.getDate() - 1)
+
+  const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
+    arrayMonths[date.getMonth()]
+  } del ${date.getFullYear()}`
+  return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
 // ex: 2019-04-29 22:34:13 or 2019/04/29T22:34:13
@@ -240,13 +246,31 @@ export const socialMediaUrlShareList = (
 ) => {
   return {
     facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${postPermaLink}`,
-    twitter: `http://twitter.com/home?status=${encodeURIComponent(
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       postTitle
-    )}+${siteUrl}${postPermaLink}+via%20${siteNameRedSocial}`,
+    )}&url=${siteUrl}${postPermaLink}&via=${siteNameRedSocial}`,
     linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
     pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
     whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
     fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
+  }
+}
+
+export const socialMediaUrlShareListBlog = (
+  siteUrl,
+  postPermaLink,
+  postTitle,
+  siteNameRedSocial = 'Gestionpe'
+) => {
+  return {
+    facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}blog/${postPermaLink}`,
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      postTitle
+    )}&url=${siteUrl}blog/${postPermaLink}&via=${siteNameRedSocial}`,
+    linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}blog/${postPermaLink}`,
+    pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}blog/${postPermaLink}`,
+    whatsapp: `whatsapp://send?text=${siteUrl}blog/${postPermaLink}`,
+    fbmsg: `fb-messenger://share/?link=${siteUrl}blog/${postPermaLink}`,
   }
 }
 
@@ -307,7 +331,11 @@ export const addParamToEndPath = (path, param) => {
       queryString = pathData.substr(index)
       haveQueryString = true
     }
-    return { onlyPath, queryString, haveQueryString }
+    return {
+      onlyPath,
+      queryString,
+      haveQueryString,
+    }
   }
   const addParam = (onlyPath, variable, queryString = '') => {
     return `${addSlashToEnd(onlyPath)}${addSlashToEnd(variable)}${queryString}`
@@ -387,7 +415,7 @@ export const getUrlParameter = () => {
   const { location: { href: loc } = {} } = window || {}
   const getString = loc.split('?')[1] || ''
   const tmp = getString.split('foto=') || []
-  return parseInt(tmp[1], 0) || 0
+  return parseInt(tmp[1], 0) || 1
 }
 
 export const getMultimediaIcon = multimediaType => {
@@ -695,4 +723,19 @@ export const searchQuery = (query, sort) => {
       /%20/g,
       '+'
     )}/todas/${sort || 'descendiente'}/`
+}
+
+export const getMultimedia = (multimediaType, amp = false) => {
+  let type = ''
+  switch (multimediaType) {
+    case ConfigParams.VIDEO:
+      type = 'video'
+      break
+    case ConfigParams.GALLERY:
+      type = amp ? 'foto_galeria' : 'gallery'
+      break
+    default:
+      type = amp ? 'imagen' : 'story'
+  }
+  return type
 }

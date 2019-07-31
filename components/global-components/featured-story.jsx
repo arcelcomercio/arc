@@ -6,7 +6,7 @@ import Icon from './multimedia-icon'
 const SIZE_ONE_COL = 'oneCol'
 const SIZE_TWO_COL = 'twoCol'
 // const IMAGE_BOT = 'partialBot'
-const IMAGE_TOP = 'partialTop'
+const IMAGE_TOP = 'parcialTop'
 const IMAGE_COMPLETE = 'complete'
 
 const classes = {
@@ -39,6 +39,8 @@ const classes = {
   headbandLink: 'featured-story__headband-link font-bold text-white uppercase',
 
   live: 'featured-story--live',
+  livetv: 'featured-story--livetv',
+
   icon: `featured-story__icon`,
 }
 
@@ -86,7 +88,7 @@ export default class FeaturedStory extends PureComponent {
         return classes.live
       }
       if (headband === 'gestionTv') {
-        return classes.live
+        return `${classes.live} ${classes.livetv}`
       }
       return ''
     }

@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react'
 import { sha256 } from 'js-sha256'
+import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
 
@@ -12,7 +13,6 @@ import ListBenefits from './benefits'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
-// import GetProfile from '../../utils/get-profile'
 import FormValid from '../../utils/form-valid'
 import { ModalConsumer } from '../context'
 
@@ -28,14 +28,10 @@ class FormReLogin extends Component {
     const profileMPP = JSON.parse(getProfileMPP)
 
     this.state = {
-      hiddendiv: false,
       hiddenListBenefits: true,
-      hiddenbutton: true,
-      hiddenSocialButtons: true,
       hiddenTitleBenefits: true,
-      showSocialButtons: false,
       linkListBenefits: false,
-      hidden: true,
+      hiddenPass: true,
       email: profileMPP ? profileMPP.email : null,
       password: null,
       formErrors: {
@@ -45,34 +41,34 @@ class FormReLogin extends Component {
       nameMPP: profileMPP ? profileMPP.firstName : 'Lector',
       messageError: false,
       sending: true,
-      sendingFb: true,
     }
 
-    const { typePopUp = '', typeForm = '' } = props
+    const { arcSite } = this.props
+    this.origin_api =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
+
+    const { typePopUp = '', typeForm = '' } = this.props
     this.tipCat = typePopUp
     this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
     this.tipForm = typeForm
-    // log(this.tipCat, this.tipAct, this.tipForm);
+    // console.log(this.tipCat, this.tipAct, this.tipForm)
+  }
 
-    this.handlePasswordChange = this.handlePasswordChange.bind(this)
-    this.handleLoginClick = this.handleLoginClick.bind(this)
+  componentWillMount() {
+    window.Identity.apiOrigin = this.origin_api
   }
 
   handleFormSubmit = e => {
     e.preventDefault()
-
-    const {
-      siteProperties: {
-        signwall: { ORIGIN_API },
-      },
-    } = this.props
 
     const { email, password } = this.state
 
     if (FormValid(this.state)) {
       this.setState({ sending: false })
 
-      window.Identity.apiOrigin = ORIGIN_API
+      window.Identity.apiOrigin = this.origin_api
       window.Identity.login(email, password, {
         rememberMe: true,
         cookie: true,
@@ -80,6 +76,15 @@ class FormReLogin extends Component {
         .then(() => {
           this.setState({ sending: true })
           this.handleGetProfile()
+
+          // -- test de tageo sucess
+          window.dataLayer.push({
+            event: 'login_success',
+            eventCategory: `Web_Sign_Wall_Relog_Email`,
+            eventAction: `web_relog_email_login_success_ingresar`,
+          })
+          // -- test de tageo success
+
         })
         .catch(errLogin => {
           let messageES = ''
@@ -91,12 +96,13 @@ class FormReLogin extends Component {
                 .reloginEcoID(
                   email,
                   password,
-                  this.tipCat === 'relogin' ? 'relogin' : 'reloginemail'
+                  this.tipCat === 'relogin' ? 'relogin' : 'reloginemail',
+                  window
                 )
                 .then(resEco => {
                   if (resEco.retry === true) {
                     setTimeout(() => {
-                      window.Identity.apiOrigin = ORIGIN_API
+                      window.Identity.apiOrigin = this.origin_api
                       window.Identity.login(email, password, {
                         rememberMe: true,
                         cookie: true,
@@ -126,7 +132,7 @@ class FormReLogin extends Component {
                         'Correo electrónico y/o  contraseña incorrecta.',
                       sending: true,
                     })
-
+                    
                     // -- test tageo error
                     window.dataLayer.push({
                       event:
@@ -144,6 +150,11 @@ class FormReLogin extends Component {
                       this.tipCat === 'relogin'
                         ? 'relogin_error'
                         : 'relogin_email_error',
+                  })
+                  this.setState({
+                    messageError:
+                      'Correo electrónico y/o  contraseña incorrecta.',
+                    sending: true,
                   })
                   // -- test tageo error
                 })
@@ -185,58 +196,26 @@ class FormReLogin extends Component {
   }
 
   handleGetProfile = () => {
-    const {
-      closePopup,
-      siteProperties: {
-        signwall: { ORIGIN_API },
-      },
-    } = this.props
+    const { closePopup } = this.props
 
-    window.Identity.apiOrigin = ORIGIN_API
+    window.Identity.apiOrigin = this.origin_api
     window.Identity.getUserProfile().then(resGetProfile => {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
-      // window.sessUser.setState({ accessPanel: true })
-      // window.nameUser.setState({ nameUser: new GetProfile().username })
-      // window.initialUser.setState({
-      //   initialUser: new GetProfile().initname,
-      // })
     })
-  }
-
-  handleLoginClick = () => {
-    this.setState({
-      hiddendiv: true,
-      hiddenbutton: false,
-      linkListBenefits: true,
-    })
-
-    if (window.innerWidth <= 768) {
-      this.setState({ showSocialButtons: true })
-      this.setState({ hiddenSocialButtons: false })
-      this.setState({ hiddenTitleBenefits: false })
-    }
   }
 
   handleLoginBackSocial = () => {
     this.setState({
-      hiddendiv: false,
-      hiddenbutton: true,
-      hiddenSocialButtons: true,
-      showSocialButtons: false,
       hiddenTitleBenefits: true,
       linkListBenefits: false,
     })
   }
 
-  handlePasswordChange = e => {
-    this.setState({ password: e.target.value })
-  }
-
   toggleShow = () => {
-    const { hidden } = this.state
-    this.setState({ hidden: !hidden })
+    const { hiddenPass } = this.state
+    this.setState({ hiddenPass: !hiddenPass })
   }
 
   componentDidMount = () => {
@@ -298,16 +277,14 @@ class FormReLogin extends Component {
   render = () => {
     const {
       formErrors,
-      showSocialButtons,
       nameMPP,
       hiddenListBenefits,
       hiddenTitleBenefits,
       linkListBenefits,
       messageError,
       email,
-      hidden,
+      hiddenPass,
       sending,
-      hiddenSocialButtons,
     } = this.state
     const { closePopup, typePopUp, typeForm } = this.props
 
@@ -319,16 +296,6 @@ class FormReLogin extends Component {
               className="form-grid"
               noValidate
               onSubmit={e => this.handleFormSubmit(e)}>
-              <div className="form-grid__back" hidden={!showSocialButtons}>
-                <button
-                  type="button"
-                  onClick={e => this.handleLoginBackSocial(e)}
-                  className="link-back">
-                  <Icon.Back />
-                  <span>Volver</span>
-                </button>
-              </div>
-
               <div className="form-grid__group" hidden={hiddenListBenefits}>
                 <div className="form-grid__back">
                   <button
@@ -389,13 +356,13 @@ class FormReLogin extends Component {
                       type="button"
                       onClick={() => this.toggleShow()}
                       className={
-                        hidden
+                        hiddenPass
                           ? 'row-pass__btn row-pass--hide'
                           : 'row-pass__btn row-pass--show'
                       }
                     />
                     <input
-                      type={hidden ? 'password' : 'text'}
+                      type={hiddenPass ? 'password' : 'text'}
                       name="password"
                       className={
                         formErrors.password.length > 0
@@ -421,6 +388,7 @@ class FormReLogin extends Component {
 
                     <p className="form-grid__pass">
                       <button
+                        id="link-recuperar-pass"
                         onClick={() => value.changeTemplate('forgot')}
                         type="button"
                         className="link-gray">
@@ -449,16 +417,14 @@ class FormReLogin extends Component {
                   </p>
                 </div>
 
-                <div hidden={!hiddenSocialButtons}>
-                  <div className="form-grid__group">
-                    <div className="form-group form-group--unique">
-                      <AuthFacebook
-                        closePopup={closePopup}
-                        id="facebook-sign-in-button"
-                        typePopUp={typePopUp}
-                        typeForm={typeForm}
-                      />
-                    </div>
+                <div className="form-grid__group">
+                  <div className="form-group form-group--unique">
+                    <AuthFacebook
+                      closePopup={closePopup}
+                      id="facebook-sign-in-button"
+                      typePopUp={typePopUp}
+                      typeForm={typeForm}
+                    />
                   </div>
                 </div>
               </div>

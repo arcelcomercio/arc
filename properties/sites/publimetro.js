@@ -82,6 +82,20 @@ export default {
       'Copyright © publimetro.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
+    story: [
+      {
+        position: 'Director Periodístico',
+        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+      },
+      {
+        position: 'Empresa Editora Publimetro',
+        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
+      },
+      {
+        position: 'Copyright © publimetro.pe',
+        name: 'Grupo El Comercio - Todos los derechos reservados',
+      },
+    ],
 
     socialNetworks: [
       {
@@ -91,10 +105,6 @@ export default {
       {
         name: 'twitter',
         url: 'https://twitter.com/publimetrope',
-      },
-      {
-        name: 'google+',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
       },
     ],
 
@@ -121,7 +131,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@publimetrope',
+      user: 'publimetrope',
       url: 'http://twitter.com/publimetrope',
     },
     youtube: {
@@ -137,4 +147,12 @@ export default {
     movil4: 15011775,
     movil5: 15011776,
   },
+  listUrlAdvertisings: [
+    'https://d1r08wok4169a5.cloudfront.net/ads-publimetro/ads-fia-28253241-pub_ia_interna1-300x250-div-gpt-ad-8599377-41.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-publimetro/ads-fia-28253241-pub_ia_interna2-300x250-div-gpt-ad-8599377-42.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-publimetro/ads-fia-28253241-pub_ia_interna3-300x250-div-gpt-ad-8599377-43.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-publimetro/ads-fia-28253241-pub_ia_interna4-300x250-div-gpt-ad-8599377-44.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-publimetro/ads-fia-28253241-pub_ia_interna5-300x250-div-gpt-ad-8599377-45.html',
+  ],
+  activeSignwall: false,
 }

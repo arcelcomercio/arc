@@ -68,6 +68,8 @@ class StoryContent extends PureComponent {
     const {
       globalContent,
       arcSite,
+      deployment,
+      contextPath,
       siteProperties: {
         ids: { opta },
         siteUrl,
@@ -104,8 +106,8 @@ class StoryContent extends PureComponent {
         )}
         <div id="ads_m_movil2" />
         <div className={classes.content} id="contenedor">
-          <StoryContentChildIcon />
-
+          {/* TODO: se retira para el sitio de gestion por la salida del 30 de julio */}
+          {arcSite !== ConfigParams.SITE_GESTION && <StoryContentChildIcon />}{' '}
           <div id="ads_d_inline" />
           <div id="ads_m_movil_video" />
           <div id="ads_m_movil3" />
@@ -126,6 +128,7 @@ class StoryContent extends PureComponent {
                     <StoryContentChildImage
                       data={element}
                       className={classes.newsImage}
+                      resizer="true"
                     />
                   )
                 }
@@ -219,22 +222,31 @@ class StoryContent extends PureComponent {
               const { type } = item
               const key = `related-content-${i}`
               return type === ConfigParams.ELEMENT_STORY ? (
-                <StoryContentChildRelated key={key} {...item} />
+                <StoryContentChildRelated
+                  key={key}
+                  {...item}
+                  contextPath={contextPath}
+                  arcSite={arcSite}
+                  deployment={deployment}
+                />
               ) : (
                 ''
               )
             })}
           </div>
         )}
-
-        <div
-          className={classes.taboola}
-          id="taboola-below-content-thumbnails"
-        />
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: structuredTaboola }}
-        />
+        {arcSite !== ConfigParams.SITE_GESTION && (
+          <>
+            <div
+              className={classes.taboola}
+              id="taboola-below-content-thumbnails"
+            />
+            <script
+              type="text/javascript"
+              dangerouslySetInnerHTML={{ __html: structuredTaboola }}
+            />
+          </>
+        )}
         {arcSite === ConfigParams.SITE_PUBLIMETRO && (
           <div
             className="fb-comments"

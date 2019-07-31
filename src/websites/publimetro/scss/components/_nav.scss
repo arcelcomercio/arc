@@ -7,4 +7,13 @@
   &__logo {
     padding: 10px 0;
   }
+  /*   Estilos para nav loader en notas */
+  &__loader-bar {
+    background-color: $color-primary;
+  }
+  &__wrapper {
+    @media (--desktop) {
+      background-color: transparent;
+    }
+  }
 }

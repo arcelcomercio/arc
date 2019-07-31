@@ -11,7 +11,7 @@ const ListItemNews = (contentElements, buildProps) => {
     idGoogleAnalitics = '',
     siteUrl,
     fbArticleStyle = '',
-    urlAddfbInstantArticle = '',
+    listUrlAdvertisings,
   } = buildProps
 
   const storydata = new StoryData({
@@ -49,7 +49,7 @@ const ListItemNews = (contentElements, buildProps) => {
         author: storydata.author,
         paragraphsNews: storydata.paragraphsNews,
         fbArticleStyle,
-        urlAddfbInstantArticle,
+        listUrlAdvertisings,
       }
 
       const htmlString = BuildHtml(BuildHtmlProps)
