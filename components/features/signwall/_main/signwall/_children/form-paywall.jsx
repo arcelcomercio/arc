@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import { ModalConsumer } from '../context'
+import Cookie from '../../utils/cookie'
 
+const Cookies = new Cookie()
 @Consumer
 class SignWallPaywall extends Component {
   constructor(props) {
@@ -29,6 +31,7 @@ class SignWallPaywall extends Component {
 
   handleSuscription = e => {
     e.preventDefault()
+    Cookies.setCookie('paywall_last_url', window.document.referrer, 365)
     window.location.href =
       'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/paywall/?_website=gestion&outputType=paywall#step1'
   }
