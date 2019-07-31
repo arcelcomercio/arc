@@ -9,7 +9,9 @@
   }
   &__wrapper {
     &:first-child {
-      background-color: transparent;
+      @media (--desktop) {
+        background-color: transparent;
+      }
     }
   }
   /*   Estilos para nav loader en notas */
