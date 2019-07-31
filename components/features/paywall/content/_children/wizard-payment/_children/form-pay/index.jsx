@@ -12,6 +12,13 @@ const FormPay = ({ error, onSubmit }) => {
   return (
     <Formik
       validate={values => new FormSchema(values)}
+      initialValues={{
+        agreed: null,
+        cardMethod: null,
+        cardNumber: null,
+        cvv: null,
+        expiryDate: null,
+      }}
       onSubmit={(values, actions) => {
         onSubmit(
           Object.assign({}, values, {
