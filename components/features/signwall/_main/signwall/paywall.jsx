@@ -6,7 +6,7 @@ import Modal from '../common/modal'
 import FormLogin from './_children/form-login'
 import FormRegister from './_children/form-register'
 import FormForgotPass from './_children/form-forgot-pass'
-import IntroPaywall from './_children/intro-paywall'
+import FormPaywall from './_children/form-paywall'
 
 import { ModalProvider, ModalConsumer } from './context'
 
@@ -20,6 +20,14 @@ class PayWall extends Component {
   renderTemplate(template) {
     const { closePopup, brandModal } = this.props
     const templates = {
+      intro: (
+        <FormPaywall
+          closePopup={closePopup}
+          typePopUp="paywall"
+          typeForm="intro"
+          brandCurrent={brandModal}
+        />
+      ),
       login: (
         <FormLogin
           closePopup={closePopup}
@@ -43,14 +51,16 @@ class PayWall extends Component {
           brandCurrent={brandModal}
         />
       ),
-      intro: <IntroPaywall />,
     }
-    return templates.intro
+    return templates[template] || templates.intro
   }
 
   render() {
-    const { closePopup, contextPath, arcSite } = this.props
-    const ImageBg = `${contextPath}/resources/dist/${arcSite}/images/bg-popup.png`
+    const { closePopup, contextPath, arcSite, deployment } = this.props
+    const ImageBg =
+      deployment(
+        `${contextPath}/resources/dist/${arcSite}/images/bg-popup.png`
+      ) || ''
     return (
       <div className="signwall">
         <div className="link-identity__content">
@@ -62,12 +72,11 @@ class PayWall extends Component {
                   position="middle"
                   name="arc-popup-paywall"
                   id="arc-popup-paywall">
-                  {/* <Header closePopup={closePopup} /> */}
                   <div className="modal-body">
                     <div
                       className="modal-body__middle bg-paywall"
                       style={{
-                        background: `url(${ImageBg}) no-repeat`,
+                        backgroundImage: `url(${ImageBg})`,
                       }}>
                       <p className="text-xl secondary-font">
                         Para acceder a este contenido exclusivo, adquiere tu
@@ -75,7 +84,14 @@ class PayWall extends Component {
                       <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
                     </div>
                     <div className="modal-body__middle intro-paywall">
+                      <button
+                        type="button"
+                        className="btn-close"
+                        onClick={() => closePopup()}>
+                        <i className="icon-close"></i>
+                      </button>
                       {this.renderTemplate(value.selectedTemplate)}
+                      {/* {this.renderTemplate(value.selectedTemplate)} */}
                     </div>
                   </div>
                 </Modal>

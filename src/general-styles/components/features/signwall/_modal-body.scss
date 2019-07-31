@@ -26,18 +26,16 @@
           width: 42%;
         }
       }
-      &__middle:first-child {
-        background: $color-primary;
-      }
       &__middle {
         min-height: 150px;
+        @media (--tablet) {
+          min-height: 400px;
+          min-height: 140px;
+        }
         @media (--desktop) {
           width: 50%;
-          min-height: 444px;
-        }
-        @media (--tablet) {
-          min-height: 444px;
-        }
+          min-height: 440px;
+        } 
       }
       &__wrapper {
         width: 90%;

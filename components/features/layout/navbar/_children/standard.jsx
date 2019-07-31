@@ -50,7 +50,8 @@ const classes = {
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network hidden',
   iconSignwallMobile: 'uppercase ',
-  btnSignwallMobile: 'nav__btn--login-m bg-secondary text-primary-color rounded',
+  btnSignwallMobile:
+    'nav__btn--login-m bg-secondary text-primary-color rounded',
 }
 
 @Consumer
@@ -66,6 +67,7 @@ class NavBarDefault extends PureComponent {
       showVerify: false,
       showReset: false,
       showRelogin: false,
+      showPaywall: false,
       nameUser: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
       initialUser: new GetProfile().initname,
     }
@@ -327,6 +329,9 @@ class NavBarDefault extends PureComponent {
           case 'reloginEmail':
             this.setState({ showRelogin: true })
             break
+          case 'signwallPaywall':
+            this.setState({ showPaywall: true })
+            break
           default:
           // return false
         }
@@ -402,6 +407,9 @@ class NavBarDefault extends PureComponent {
       case 'reloginEmail':
         this.setState({ showRelogin: false })
         break
+      case 'signwallPaywall':
+        this.setState({ showPaywall: false })
+        break
       default:
         return null
     }
@@ -429,6 +437,7 @@ class NavBarDefault extends PureComponent {
       showVerify,
       showReset,
       showRelogin,
+      showPaywall,
     } = this.state
     const {
       logo,
@@ -543,9 +552,7 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${
-                        classes.btnLogin
-                      } btn--outline` /* classes.btnSignwall */
+                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     {/* 
@@ -568,9 +575,7 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${
-                  classes.navMobileContainer
-                } ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -584,9 +589,7 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwallMobile
-                          }  title-sm`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
                     }>
                     {initialUser}
                   </i>
@@ -648,7 +651,15 @@ class NavBarDefault extends PureComponent {
             brandModal={arcSite}
           />
         ) : null}
-        <SignWallPaywall brandModal={arcSite}/>
+
+        {this.getUrlParam('signwallPaywall') &&
+        showPaywall &&
+        siteProperties.activeSignwall ? (
+          <SignWallPaywall
+            closePopup={() => this.closePopUp('signwallPaywall')}
+            brandModal={arcSite}
+          />
+        ) : null}
       </>
     )
   }

@@ -61,7 +61,15 @@
     }
     .bg-paywall {
       padding: 20px;
+      background-color: #8f071f;
+      background-image: none;
+      background-size: 100%;
+      min-height: 150px !important;
+      @media (--tablet) {
+        min-height: 120px !important;
+      }
       @media (--desktop) {
+        background-color: none;
         padding: 40px;
       }
       p,
@@ -79,7 +87,9 @@
 
       h3 {
         font-size: 40px;
+        margin-top: 10px;
         @media (--desktop) {
+          margin-top: 30px;
           font-size: 60px;
         }
       }
@@ -88,10 +98,13 @@
       font-family: 'Open Sans', Arial, Helvetica, sans-serif;
       background: #fff6f0;
       color: #444444;
-      padding: 40px 40px;
+      padding: 40px 20px;
       line-height: 20px;
-      @media (--desktop) {
-        padding: 40px 60px;
+      position: relative;
+      .btn-close {
+        position: absolute;
+        right: 5%;
+        top: 5%;
       }
       .price,
       .detail-price {
@@ -101,7 +114,11 @@
       .price {
         font-size: 4.5em;
         font-weight: 600;
-        width: 40%;
+        width: 45%;
+        text-align: center;
+        @media (--desktop) {
+          text-align: left;
+        }
         letter-spacing: -2px;
         i {
           font-size: 0.5em;
@@ -110,7 +127,7 @@
         }
       }
       .detail-price {
-        width: 60%;
+        width: 55%;
         font-size: 14px;
         line-height: 20px;
       }
