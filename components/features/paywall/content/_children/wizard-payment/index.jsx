@@ -1,29 +1,13 @@
 /* eslint-disable no-shadow */
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import { useFusionContext } from 'fusion:context'
 
-import Panel from '../../../_children/panel'
 import Summary from '../summary'
 import * as S from './styled'
 import FormPay from './_children/form-pay'
-import { devices } from '../../../_dependencies/devices'
 import { addSales } from '../../../_dependencies/sales'
 import { addPayU } from '../../../_dependencies/payu'
-
-const PanelPayment = styled(Panel)`
-  @media (${devices.mobile}) {
-    margin-top: 30px;
-    padding: 18px 30px;
-    box-sizing: border-box;
-    max-width: 100vw;
-  }
-  @media ${devices.tablet} {
-    margin-top: 30px;
-    padding: 18px 30px;
-    box-sizing: border-box;
-  }
-`
+import Beforeunload from '../../_children/before-unload'
 
 const MESSAGE = {
   PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
@@ -83,7 +67,7 @@ function WizardPayment(props) {
     const headers = new Headers({
       'Content-Type': 'application/json',
       Authorization: 'Token deb904a03a4e31d420a014534514b8cc8ca4d111',
-      'user-token': Identity.userIdentity.accessToken,
+      'user-token': window.Identity.userIdentity.accessToken,
     })
     const response = new Promise(resolve => {
       fetch(`${baseUrl}/api/payment/register-pending/`, {
@@ -236,17 +220,19 @@ function WizardPayment(props) {
   }
 
   return (
-    <S.WizardPayment>
-      <PanelPayment type="content" valing="jc-center">
-        <FormPay error={error} onSubmit={onSubmitHandler} />
-      </PanelPayment>
-      <Summary
-        amount={amount}
-        billingFrequency={billingFrequency}
-        description={description}
-        summary={summary}
-      />
-    </S.WizardPayment>
+    <Beforeunload onBeforeunload={() => 'message'}>
+      <S.WizardPayment>
+        <S.PanelPayment type="content" valing="jc-center">
+          <FormPay error={error} onSubmit={onSubmitHandler} />
+        </S.PanelPayment>
+        <Summary
+          amount={amount}
+          billingFrequency={billingFrequency}
+          description={description}
+          summary={summary}
+        />
+      </S.WizardPayment>
+    </Beforeunload>
   )
 }
 
