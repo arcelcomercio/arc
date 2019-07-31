@@ -1,5 +1,6 @@
 import React from 'react'
-
+import StoryData from '../../utilities/story-data'
+import { getMultimedia } from '../../utilities/helpers'
 const getSite = site => {
   const sites = {
     elcomercio: 'eco',
@@ -22,9 +23,14 @@ const getTypeStory = data => {
 }
 
 const getVars = (
-  { arcSite, isStory, requestUri, port = 'port1' },
+  { globalContent, arcSite, isStory, requestUri, port = 'port1' },
   isGallery
 ) => {
+  const { id, multimediaType, primarySectionLink } = new StoryData({
+    data: globalContent,
+    arcSite,
+  })
+
   const typeSpace = isGallery ? 'nota2' : port
   const site = arcSite
   const template = isStory ? 'nota' : 'portada'
@@ -45,7 +51,8 @@ const getVars = (
         (hasStory && sectionList.length >= 3) ||
         (!hasStory && sectionList.length >= 2)
       ) {
-        subsection = sectionList[1].replace('-', '')
+        const subSectionList = primarySectionLink.split('/').slice(1)
+        subsection = subSectionList[1].replace('-', '')
       }
     }
   }
@@ -57,6 +64,8 @@ const getVars = (
   var section = '${section}'
   var subsection = '${subsection}'
   var path_name = '${path}'
+  var tipo_nota = '${getMultimedia(multimediaType, true)}'
+  var id_nota = '${id}'
 `
 }
 const AppNexus = props => {

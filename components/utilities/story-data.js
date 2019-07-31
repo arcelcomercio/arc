@@ -233,6 +233,18 @@ class StoryData {
     return addSlashToEnd(url)
   }
 
+  get canonicalUrl() {
+    // obtiene el url de canonical para el content source story-feed-by-collection y story-feed-by-collection-newsletter
+    const { canonical_url: url = '' } = this._data || {}
+    return url
+  }
+
+  get websiteLink() {
+    const { websites = {} } = this._data || {}
+    const brandWeb = websites[this._website] || {}
+    return brandWeb.website_url || ''
+  }
+
   get relatedContent() {
     const { related_content: { basic = [] } = {} } = this._data || {}
     return basic

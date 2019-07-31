@@ -56,7 +56,7 @@ const StoryItem = props => {
       <autor>
         <nombre>{authorName}</nombre>
         <url>{authorUrl}</url>
-        <cargo>{authorCargo===undefined ? authorCargo : 'null'}</cargo>
+        <cargo>{authorCargo === undefined ? authorCargo : 'null'}</cargo>
         <columna>{'null'}</columna>
         <twitter>{authorTwitterUrl}</twitter>
         <imagen>{authorImage}</imagen>
@@ -91,11 +91,10 @@ const NewsLetterContent = ({
       story.promo_items.basic.resized_urls
         ? story.promo_items.basic.resized_urls
         : {}
-    
 
     const params = {
       title: storydata.title,
-      urlNew: `${siteUrl}${storydata.link}`,
+      urlNew: `${siteUrl}${storydata.websiteLink}`,
       id: storydata.id,
       publishedAt: storydata.date,
       thumb,
