@@ -15,13 +15,13 @@ const classes = {
 }
 
 class NavbarChildMenu extends PureComponent {
-  renderSections = (sections, contextPath) => {
+  renderSections = sections => {
     return (
       sections &&
       sections.map(({ children, name = '', _id: id = '' }) => (
         <>
           <li className={classes.item} key={`navbar-menu-${id}`}>
-            <a href={`${contextPath}${id}`} className={classes.link}>
+            <a href={id} className={classes.link}>
               {name}
             </a>
           </li>
