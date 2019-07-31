@@ -1,29 +1,47 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 
-const Loading = styled.div`
+export const Loading = styled.div`
   position: relative;
+  ${fullscreen =>
+    fullscreen &&
+    css`
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      z-index: 1;
+    `}
 `
 
 const loadingCircle = keyframes`
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg)
-    }
+  50% { transform: scale(1.2) }
+  100% { transform: scale(1) }
 `
 
-const WrapIcon = styled.div`
-  animation: ${loadingCircle} 1s infinite linear;
+export const WrapIcon = styled.div`
+  min-width: 150px;
+  display: flex;
+  justify-content: space-between;
+  svg:nth-child(1) {
+    animation: ${loadingCircle} 700ms infinite linear;
+  }
+  svg:nth-child(2) {
+    animation: ${loadingCircle} 700ms infinite linear;
+    animation-delay: calc(350ms);
+  }
+  svg:nth-child(3) {
+    animation: ${loadingCircle} 700ms infinite linear;
+    animation-delay: calc(350ms * 2);
+  }
 `
 
-const Background = styled.div`
+export const Background = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.7);
   z-index: 100;
 `
-
-export { Loading, Background, WrapIcon }
