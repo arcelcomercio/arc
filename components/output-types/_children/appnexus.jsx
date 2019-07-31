@@ -64,11 +64,6 @@ const getVars = (
     }
   }
 
-  const dataStory = isStory
-    ? `var tipo_nota = '${getMultimedia(multimediaType, true)}'
-      var id_nota = '${id}'`
-    : ''
-
   return `
   var type_space = '${typeSpace}'
   var site = '${getSite(site)}'
