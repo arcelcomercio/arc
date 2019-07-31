@@ -35,6 +35,7 @@ class NavbarChildMenu extends PureComponent {
     const {
       contextPath,
       arcSite,
+      deployment,
       data: { children: sections = [] } = {},
       socialNetworks = {},
     } = this.props
@@ -68,7 +69,9 @@ class NavbarChildMenu extends PureComponent {
           layout="nodisplay"
           side="left">
           <amp-img
-            src={`${contextPath}/resources/assets/amp/icon-cross.png`}
+            src={deployment(
+              `${contextPath}/resources/assets/amp/icon-cross.png`
+            )}
             width="25"
             height="25"
             tabindex="0"
