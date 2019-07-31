@@ -1,86 +1,23 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Formik, Form, Field } from 'formik'
-import Checkbox from '../../../checkbox'
+
 import * as S from './styled'
 import Button from '../../../../../_children/button'
 import Error from '../../../../../_children/error'
 import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
-import schema from '../../../../../_dependencies/schema'
-import { devices } from '../../../../../_dependencies/devices'
-
-const RadioCondition = styled(Checkbox)``
-RadioCondition.defaultProps = { radio: true }
-
-const AgreementCheckbox = styled(Checkbox)`
-  @media (${devices.mobile}) {
-    flex-direction: row;
-    margin: 0;
-  }
-`
-
-const MESSAGE = {
-  REQUIRED: 'Este campo es requerido',
-  WRONG_CARD_NUMBER: 'Número tarjeta inválido',
-  WRONG_CVV: 'CVV Inválido',
-  WRONG_EXPIRY_DATE: 'Fecha incorrecta',
-  CHECK_REQUIRED: 'Debe seleccionar el check',
-}
-
-const FormSchema = schema({
-  cardMethod: value => {
-    value.required(MESSAGE.REQUIRED)
-  },
-  cardNumber: (value, { cardMethod }) => {
-    value
-      .required(MESSAGE.REQUIRED)
-      .creditCardNumber(cardMethod, MESSAGE.WRONG_CARD_NUMBER)
-  },
-  cvv: (value, { cardMethod }) => {
-    value
-      .required(MESSAGE.REQUIRED)
-      .creditCardCvv(cardMethod, MESSAGE.WRONG_CVV)
-  },
-  expiryDate: value => {
-    const match = (value.value || '').match(/^(\d\d)\/(\d\d(\d\d)?)$/)
-    if (!match) throw MESSAGE.WRONG_EXPIRY_DATE
-    let _m = match[1]
-    let _y = match[2]
-    if (!(_m >= 0 && _m < 13)) {
-      throw MESSAGE.WRONG_EXPIRY_DATE
-    }
-    if (_y.length === 2) {
-      _y = '20' + _y
-    }
-
-    if (_m.length === 1) {
-      _m = '0' + _m
-    }
-
-    const formDate = new Date(_y, _m - 1)
-    if (formDate < Date.now()) {
-      throw MESSAGE.WRONG_EXPIRY_DATE
-    }
-    return this
-  },
-  agreed: value => value.required(MESSAGE.REQUIRED),
-})
+import { FormSchema, Masks } from './schema'
 
 const FormPay = ({ error, onSubmit }) => {
   return (
     <Formik
+      validate={values => new FormSchema(values)}
       initialValues={{
         agreed: null,
         cardMethod: null,
         cardNumber: null,
         cvv: null,
         expiryDate: null,
-      }}
-      validate={values => {
-        const erros = FormSchema(values)
-
-        return erros
       }}
       onSubmit={(values, actions) => {
         onSubmit(
@@ -92,12 +29,7 @@ const FormPay = ({ error, onSubmit }) => {
           actions
         )
       }}
-      render={({
-        values: { cardMethod, agreed },
-        handleSubmit,
-        isSubmitting,
-        setTouched,
-      }) => (
+      render={({ values: { cardMethod, agreed }, isSubmitting }) => (
         <Form>
           <S.Security>
             <Icon type="lock" width="20" height="25" />
@@ -110,28 +42,28 @@ const FormPay = ({ error, onSubmit }) => {
             <S.TextCard>Selecciona un tipo de tarjeta</S.TextCard>
             <S.Cards>
               <Field
-                component={RadioCondition}
+                component={S.RadioCondition}
                 label={<Icon type="visa" />}
                 name="cardMethod"
                 checked={cardMethod === 'visa'}
                 value="visa"
               />
               <Field
-                component={RadioCondition}
+                component={S.RadioCondition}
                 label={<Icon type="mcard" />}
                 name="cardMethod"
                 checked={cardMethod === 'mastercard'}
                 value="mastercard"
               />
               <Field
-                component={RadioCondition}
+                component={S.RadioCondition}
                 label={<Icon type="amex" />}
                 name="cardMethod"
                 checked={cardMethod === 'amex'}
                 value="amex"
               />
               <Field
-                component={RadioCondition}
+                component={S.RadioCondition}
                 label={<Icon type="diners" />}
                 name="cardMethod"
                 checked={cardMethod === 'diners'}
@@ -145,7 +77,8 @@ const FormPay = ({ error, onSubmit }) => {
                 component={Input}
                 name="cardNumber"
                 label="Número de tarjeta"
-                mask="9999 - 9999 - 9999 - 9999"
+                // prettier-ignore
+                mask={Masks.CREDIT_CARD_NUMBER}
                 placeholder="0000 - 0000 - 0000 - 0000"
               />
             </S.WrapInput>
@@ -154,17 +87,17 @@ const FormPay = ({ error, onSubmit }) => {
               <Field
                 component={Input}
                 name="expiryDate"
-                mask="99/9999"
-                placeholder="Mes / Año"
+                mask={Masks.EXPIRY_DATE}
+                placeholder="mm/aaaa"
                 label="F. de Vencimiento"
               />
             </S.WrapInput>
             <S.WrapInput max-width="135px">
               <Field
                 component={Input}
-                sufix={<Icon type="cvv" />}
+                suffix={<Icon type="cvv" />}
                 type="number"
-                mask="9999"
+                mask={Masks.CREDIT_CARD_CVV}
                 name="cvv"
                 label="CVV"
                 placeholder="***"
@@ -173,7 +106,7 @@ const FormPay = ({ error, onSubmit }) => {
           </S.WrapInputs>
 
           <Field
-            component={AgreementCheckbox}
+            component={S.AgreementCheckbox}
             name="agreed"
             checked={agreed}
             value={agreed}

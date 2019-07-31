@@ -1,4 +1,6 @@
 import styled, { css } from 'styled-components'
+
+import Checkbox from '../../../../../_children/checkbox'
 import { devices } from '../../../../../_dependencies/devices'
 
 export const WrapForm = styled.div`
@@ -81,4 +83,14 @@ export const WrapSubmit = styled.div`
 
 export const Link = styled.a`
   color: #0179af;
+`
+
+export const RadioCondition = styled(Checkbox)``
+RadioCondition.defaultProps = { radio: true }
+
+export const AgreementCheckbox = styled(Checkbox)`
+  @media (${devices.mobile}) {
+    flex-direction: row;
+    margin: 0;
+  }
 `
