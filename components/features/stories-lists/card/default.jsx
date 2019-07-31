@@ -24,6 +24,7 @@ class StoriesListCard extends PureComponent {
     const params = {
       website,
       section,
+      excludeSections:'/impresa',
       stories_qty: storiesQty,
     }
 
