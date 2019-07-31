@@ -274,7 +274,6 @@ export const socialMediaUrlShareListBlog = (
   }
 }
 
-
 export const createMarkup = html => {
   return {
     __html: html,
@@ -726,17 +725,17 @@ export const searchQuery = (query, sort) => {
     )}/todas/${sort || 'descendiente'}/`
 }
 
-export const getMultimedia = multimediaType => {
+export const getMultimedia = (multimediaType, amp = false) => {
   let type = ''
   switch (multimediaType) {
     case ConfigParams.VIDEO:
       type = 'video'
       break
     case ConfigParams.GALLERY:
-      type = 'gallery'
+      type = amp ? 'foto_galeria' : 'gallery'
       break
     default:
-      type = 'story'
+      type = amp ? 'imagen' : 'story'
   }
   return type
 }
