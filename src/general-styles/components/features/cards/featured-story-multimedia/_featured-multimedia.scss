@@ -1,11 +1,12 @@
 .featured-multimedia {
   &__img {
-    width: 100%;
+    width: 100%; // CR: no necesario
     height: 140px;
   }
+
   &__button {
     height: 30px;
     width: 120px;
-    margin: 0 auto;
+    margin: 0 auto; // CR: no necesario
   }
 }
