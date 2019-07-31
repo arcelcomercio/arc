@@ -37,6 +37,7 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       arcSite,
       isAmp,
+      deployment,
       siteProperties: { siteUrl, adsAmp },
       globalContent: data = {},
     } = this.props
@@ -186,7 +187,14 @@ class StoryContentAmp extends PureComponent {
                 return type !== ConfigParams.ELEMENT_STORY ? (
                   ''
                 ) : (
-                  <StoryContentChildRelated key={key} {...item} isAmp="true" />
+                  <StoryContentChildRelated
+                    key={key}
+                    {...item}
+                    contextPath={contextPath}
+                    arcSite={arcSite}
+                    deployment={deployment}
+                    isAmp="true"
+                  />
                 )
               })}
             </div>
