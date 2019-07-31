@@ -1,7 +1,7 @@
 export default {
   siteName: 'Ojo',
 
-  googleFonts: 'Alfa+Slab+One|Lato',
+  googleFonts: 'Alfa+Slab+One|Titillium+Web:400,700',
 
   colorPrimary: '#f7c600',
   siteDomain: 'ojo.pe',
