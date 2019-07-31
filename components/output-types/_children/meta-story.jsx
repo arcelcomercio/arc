@@ -52,7 +52,9 @@ export default ({
     const { subtitle = false, url = '', resized_urls: { large } = {} } =
       image || {}
     const representativeOfPage = i === 0 ? '"representativeOfPage":true,' : ''
-    const description = subtitle ? `"description":"${subtitle}",` : ''
+    const description = subtitle
+      ? `"description":"${formatHtmlToText(subtitle)}",`
+      : ''
     return `{ 
          ${representativeOfPage}
          "@type":"ImageObject",
