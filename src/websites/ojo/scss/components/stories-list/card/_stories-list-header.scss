@@ -1,15 +1,16 @@
 .stories-l-header {
   &__title {
-    color: $color-primary;
+    color: $color-white;
+    font-size: 13px;
   }
   &__see-more {
-    background-color: $color-primary;
+    font-family: $secondary-font;
+    background-color: transparent;
     color: $color-white;
-    border-radius: 4px;
   }
 
   &.bg-info {
-    background-color: $color-base-100;
+    background-color: $color-primary;
   }
   &.bg-white {
     background-color: $color-gray-100;
