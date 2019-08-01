@@ -29,13 +29,13 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
             ...values,
             firstName: values.firstName
               .trim()
-              .replace(/\b([a-záéíóúäëïöü])/g, c => c.toUpperCase()),
+              .replace(/\b([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
             lastName: values.firstName
               .trim()
-              .replace(/\b([a-záéíóúäëïöü])/g, c => c.toUpperCase()),
+              .replace(/\b([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
             secondLastName: values.firstName
               .trim()
-              .replace(/\b([a-záéíóúäëïöü])/g, c => c.toUpperCase()),
+              .replace(/\b([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
             phone: values.phone.replace(/\D/g, ''),
             // TODO: Crear un servicio desde el que se pueda obtener billing address
             billingAddress: FAKE_BILLING_ADDRESS,
