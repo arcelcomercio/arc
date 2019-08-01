@@ -6,16 +6,6 @@ import Button from '../../../../../_children/button'
 import Error from '../../../../../_children/error'
 import { FormSchema, Masks } from './schema'
 
-// TODO: Falta obtener esta info que es obligatoria para crear una orden
-const FAKE_BILLING_ADDRESS = {
-  line1: 'Jr Francisco Arana 2018',
-  line2: 'Por la fabrica Donofrio',
-  locality: 'Lima',
-  region: 'LI',
-  country: 'PE',
-  postal: '01',
-}
-
 const FormStyled = S.Form(Form)
 
 const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
@@ -38,7 +28,9 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               .replace(/\b([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
             phone: values.phone.replace(/\D/g, ''),
             // TODO: Crear un servicio desde el que se pueda obtener billing address
-            billingAddress: FAKE_BILLING_ADDRESS,
+            billingAddress: {
+              country: 'PE',
+            },
           },
           actions
         )
