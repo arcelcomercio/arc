@@ -31,7 +31,7 @@
   }
 
   /* Esto es importante definirlo por los scripts de Opta */
-  &__content>section {
+  &__content > section {
     width: 100%;
   }
 
@@ -70,13 +70,13 @@
       width: 100% !important;
       max-width: 500px;
 
-      &>span {
+      & > span {
         width: 100% !important;
 
-        &>[src*='facebook'] {
+        & > [src*='facebook'] {
           width: 100% !important;
 
-          &>[data-testid*='newsFeedStream'] {
+          & > [data-testid*='newsFeedStream'] {
             width: 100% !important;
           }
         }
@@ -92,6 +92,11 @@
     margin-right: -49px;
   }
 
+  &__caption {
+    & > span {
+      display: none;
+    }
+  }
   // &__item {}
   // &__link {}
 
