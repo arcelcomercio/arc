@@ -30,8 +30,11 @@ class BlogPostContent extends PureComponent {
             {formatDate && `${day}/${month}/${fullYear} ${hours}:${minutes}`}
           </time>
         </div>
-        <div className={classes.story}>
-          {postContent && renderHTML(postContent)}
+        <div className={classes.story} id="contenedor">
+          <div id="ads_d_inline" />
+          <div id="ads_m_movil_video" />
+          <div id="ads_m_movil3" />
+          <section>{postContent && renderHTML(postContent)}</section>
         </div>
       </div>
     )
