@@ -19,7 +19,15 @@ class SearchInput extends PureComponent {
     const { globalContentConfig } = this.props
     const { query: { sort } = {} } = globalContentConfig || {}
     const { value } = this.inputSearch.current /* React ref del input */
-    searchQuery(value, sort)
+
+    /* Sólo genera la URI si "query" tiene contenido */
+    if (value !== '')
+      // eslint-disable-next-line no-restricted-globals
+      location.href = `/pf/buscar/${encodeURIComponent(value).replace(
+        /%20/g,
+        '+'
+      )}/todas/${sort || 'descendiente'}/?_website=gestion`
+    /* Si, la categoría por defecto se vuelve vacía al realizar nueva búsqueda */
   }
 
   render() {
