@@ -29,7 +29,7 @@ export const Masks = {
   PHONE: [/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/, " ", /\d/, /\d/,/\d/, " ", /\d/, /\d/,/\d/],
   CREDIT_CARD_NUMBER: [ /\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/],
   EXPIRY_DATE: [/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
-  CREDIT_CARD_CVV: [/\d/, /\d/, /\d/, /\d/],
+  CREDIT_CARD_CVV: [/\d/, /\d/, /\d/],
 };
 
 function shape(value) {
