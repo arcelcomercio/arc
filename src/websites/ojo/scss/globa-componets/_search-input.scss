@@ -1,3 +1,6 @@
 .search-input {
-  color: $color-primary;
+  color: $color-gray-300;
+  &__btn {
+    color: $color-primary;
+  }
 }
