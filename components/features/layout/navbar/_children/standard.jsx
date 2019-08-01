@@ -148,9 +148,13 @@ class NavBarDefault extends PureComponent {
         apiOrigin: 'https://api-sandbox.gestion.pe',
         customSubCheck: () => {
           // estado de suscripcion
+          const isLoggedIn = !!(
+            window.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+            window.localStorage.getItem('ArcId.USER_PROFILE')
+          )
           return this.getListSubs().then(p => {
             return {
-              s: true,
+              s: isLoggedIn,
               p,
               timeTaken: 100,
               updated: Date.now(),
