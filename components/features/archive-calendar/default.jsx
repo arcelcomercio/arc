@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
-import Calendar from 'react-calendar/dist/entry.nostyle'
+
+import ArchiveCalendarChild from './_children/calendar'
 
 const ArchiveCalendar = () => {
   const {
@@ -35,27 +36,16 @@ const ArchiveCalendar = () => {
     setStateDate(data)
     window.location.href = renderNewURL(data)
   }
-  // CR: Debe separarse la vista del controlador ( /_children )
-  return (
-    // CR: Los estilos deben ser movidos al objeto classes = {}
-    <div className="react-calendar__box">
-      <div className="react-calendar__header">
-        <h3 className="react-calendar__title">Archivo</h3>
-        <div className="react-calendar__brand">
-          <span className="icon-marca react-calendar__icon" />
-        </div>
-      </div>
-      <div className="react-calendar__content-calendar">
-        <Calendar
-          activeStartDate={getCalendarDate(urlDate)}
-          maxDate={new Date()}
-          minDate={new Date(2014, 0, 1)}
-          onChange={newDate => setNewDate(newDate)}
-          value={calendarDate}
-        />
-      </div>
-    </div>
-  )
+
+  const params = {
+    activeStartDate: getCalendarDate(urlDate),
+    maxDate: new Date(),
+    minDate: new Date(2014, 0, 1),
+    onChange: newDate => setNewDate(newDate),
+    value: calendarDate,
+  }
+
+  return <ArchiveCalendarChild {...params} />
 }
 
 ArchiveCalendar.label = 'Calendario Archivo'
