@@ -74,16 +74,16 @@ export default {
       url: '/quienes-somos',
     },
     {
-      name: 'Términos de uso',
+      name: 'Términos y Condiciones',
       url: '/terminos-y-condiciones',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politica-de-privacidad',
+      url: '/politicas-de-privacidad',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politica-de-cookies',
+      url: '/politicas-de-cookies',
     },
     {
       name: 'Preguntas Frecuentes',

@@ -21,9 +21,9 @@ const getSectionList = (sections, type) => {
   return ''
 }
 
-const infoStory = data => {
+const infoStory = (data, arcSite) => {
   const getAuthor = () => {
-    return (data.credits.by[0] && data.credits.by[0].name) || 'Publimetro'
+    return (data.credits.by[0] && data.credits.by[0].name) || arcSite
   }
 
   const getTagList = () => {
@@ -63,10 +63,10 @@ const infoStory = data => {
 }
 
 const ChartbeatBody = props => {
-  const { story, requestUri, metaValue, globalContent } = props
+  const { story, requestUri, metaValue, globalContent, arcSite } = props
   const page = metaValue('id')
   const sectionList = getSectionList(requestUri, page)
-  const dataStory = story && infoStory(globalContent)
+  const dataStory = story && infoStory(globalContent, arcSite)
   const { author, tags, typeStory } = dataStory || {}
   const { type, stringType } = typeStory || {}
   const renderSections = story ? sectionList.concat(tags) : sectionList
