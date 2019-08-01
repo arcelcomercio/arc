@@ -189,7 +189,9 @@ export default ({
         {/* <!-- Identity & Sales & Paywall --> */}
         {siteProperties.activeSignwall && (
           <>
-            {/* <script src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`} /> */}
+            <script
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`}
+            />
             <script
               src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-identity.min.js`}
             />
