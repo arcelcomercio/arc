@@ -383,7 +383,7 @@ const initAdserver = () => {
 }
 
 const inline = data => {
-  if (body_class.includes('story')) {
+  if (body_class.includes('story') || body_class.includes('blogPost')) {
     const { spaces } = data
     if (spaces && Array.isArray(spaces)) {
       spaces.forEach(space => {
@@ -424,21 +424,29 @@ const inline = data => {
 }
 
 const getTagInline = () => {
-  const nameSpace = IS_MOBILE ? 'ads_m_movil3' : 'ads_d_inline'
-  const nameSpaceVideo = IS_MOBILE ? 'ads_m_movil_video' : ''
+  const spaces = IS_MOBILE
+    ? [
+        {
+          target: '#contenedor',
+          name: 'ads_m_movil3',
+          position: 3,
+        },
+        {
+          target: '#contenedor',
+          name: 'ads_m_movil_video',
+          position: 1,
+        },
+      ]
+    : [
+        {
+          target: '#contenedor',
+          name: 'ads_d_inline',
+          position: 2,
+        },
+      ]
+
   return {
-    spaces: [
-      {
-        target: '#contenedor',
-        name: nameSpace,
-        position: 0,
-      },
-      {
-        target: '#contenedor',
-        name: nameSpaceVideo,
-        position: 1,
-      },
-    ],
+    spaces,
   }
 }
 

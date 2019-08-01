@@ -379,6 +379,7 @@ const AdsContent = () =>
   openx.com, 540322758, RESELLER, 6a698e2ec38604c6
   openx.com, 540362110, RESELLER, 6a698e2ec38604c6
   openx.com, 540662972, RESELLER, 6a698e2ec38604c6
+  openx.com, 540804929, RESELLER, 6a698e2ec38604c6
   openx.com, 83499, RESELLER
   openx.com, 83499, RESELLER, 6a698e2ec38604c6
   openx.com, a698e2ec38604c6, RESELLER
@@ -568,6 +569,7 @@ const AdsContent = () =>
   spotx.tv, 230805, RESELLER, 7842df1d2fe2db34
   spotx.tv, 238441, RESELLER, 7842df1d2fe2db34
   spotx.tv, 243239, RESELLER, 7842df1d2fe2db34
+  spotx.tv, 252842, RESELLER, 7842df1d2fe2db34
   spotx.tv, 71451, RESELLER
   spotx.tv, 79313, RESELLER, 7842df1d2fe2db34
   spotx.tv, 82069, RESELLER, 7842df1d2fe2db34
@@ -597,6 +599,7 @@ const AdsContent = () =>
   spotxchange.com, 230805, RESELLER, 7842df1d2fe2db34
   spotxchange.com, 238441, RESELLER, 7842df1d2fe2db34
   spotxchange.com, 243239, RESELLER, 7842df1d2fe2db34
+  spotxchange.com, 252842, RESELLER, 7842df1d2fe2db34
   spotxchange.com, 71451, RESELLER
   spotxchange.com, 79313, RESELLER, 7842df1d2fe2db34
   spotxchange.com, 82069, RESELLER, 7842df1d2fe2db34
