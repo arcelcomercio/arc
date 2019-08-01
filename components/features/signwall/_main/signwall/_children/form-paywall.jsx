@@ -82,7 +82,7 @@ class SignWallPaywall extends Component {
 
             <p className="text-center mt-20 text-sm">
               Si eres suscriptor del diario impreso,
-              <br /> descubre tu descuento
+              <br /> descubre tu descuento.
             </p>
           </div>
         )}
