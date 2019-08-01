@@ -31,7 +31,8 @@ class SignWallPaywall extends Component {
 
   handleSuscription = e => {
     e.preventDefault()
-    Cookies.setCookie('paywall_last_url', window.document.referrer, 365)
+    Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
+    window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
     window.location.href =
       'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/paywall/?_website=gestion&outputType=paywall#step1'
   }

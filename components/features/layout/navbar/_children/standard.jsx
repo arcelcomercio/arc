@@ -9,6 +9,7 @@ import SignWallVerify from '../../../signwall/_main/signwall/verify'
 import SignWallReset from '../../../signwall/_main/signwall/reset'
 import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
 import SignWallPaywall from '../../../signwall/_main/signwall/paywall'
+import Services from '../../../signwall/_main/utils/services'
 
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
@@ -18,6 +19,8 @@ import {
   getResponsiveClasses,
   searchQuery,
 } from '../../../../utilities/helpers'
+
+const services = new Services()
 
 const classes = {
   nav: `nav text-white text-sm w-full flex flex items-center top-0 secondary-font`,
@@ -84,6 +87,7 @@ class NavBarDefault extends PureComponent {
     this.layerBackground = null
 
     this.isStory = false // TODO: temporal
+    this.listSubs = null
   }
 
   componentDidMount() {
@@ -127,8 +131,8 @@ class NavBarDefault extends PureComponent {
         // customPageData: () => ({
         //   c: 'story',
         //   s: 'business',
-        //   ci: 'https://www.your.domain.com/canonical/url'
-        // })
+        //   ci: Date.now(),
+        // }),
         contentType: dataContentType
           ? dataContentType.getAttribute('content')
           : 'none',
@@ -138,15 +142,22 @@ class NavBarDefault extends PureComponent {
         userName: window.Identity.userIdentity.uuid
           ? window.Identity.userIdentity.uuid
           : null,
-        customSubCheck() {
+        jwt: window.Identity.userIdentity.accessToken
+          ? window.Identity.userIdentity.accessToken
+          : null,
+        apiOrigin: 'https://api-sandbox.gestion.pe',
+        customSubCheck: () => {
           // estado de suscripcion
-          return Promise.resolve({
-            s: false,
-            timeTaken: 100,
-            updated: Date.now(),
+          return this.getListSubs().then(p => {
+            return {
+              s: true,
+              p,
+              timeTaken: 100,
+              updated: Date.now(),
+            }
           })
         },
-        customRegCheck() {
+        customRegCheck: () => {
           // estado de registro
           const start = Date.now()
           const isLoggedIn = !!(
@@ -156,6 +167,7 @@ class NavBarDefault extends PureComponent {
           return Promise.resolve({
             l: isLoggedIn,
             timeTaken: Date.now() - start,
+            updated: Date.now(),
           })
         },
       })
@@ -182,6 +194,19 @@ class NavBarDefault extends PureComponent {
         initialUser: new GetProfile().initname,
       })
     }
+  }
+
+  getListSubs() {
+    return services
+      .getEntitlement(window.Identity.userIdentity.accessToken)
+      .then(res => {
+        const result = Object.keys(res.skus).map(key => {
+          return res.skus[key].sku
+        })
+        this.listSubs = result
+        return result
+      })
+      .catch(err => console.error(err))
   }
 
   _initDrag = evt => {
