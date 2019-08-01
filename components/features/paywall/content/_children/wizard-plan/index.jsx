@@ -27,7 +27,9 @@ function WizardPlan(props) {
     Sales.then(sales => {
       setLoadingPlan(plan)
       return sales
-        .addItemToCart(plan.sku, plan.priceCode, 1)
+        .addItemToCart([
+          { sku: plan.sku, priceCode: plan.priceCode, quantity: 1 },
+        ])
         .then(res => {
           setLoadingPlan(false)
           onBeforeNextStep({ plan }, props)

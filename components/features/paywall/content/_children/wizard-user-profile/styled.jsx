@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Panel from '../../../_children/panel'
 import { devices } from '../../../_dependencies/devices'
 
 const WizardUserProfile = styled.div`
@@ -13,4 +14,14 @@ const WizardUserProfile = styled.div`
     align-items: center;
   }
 `
-export { WizardUserProfile, styled }
+
+const PanelUserProfile = styled(Panel)`
+  @media (${devices.mobile}) {
+    margin-top: 30px;
+  }
+  @media ${devices.tablet} {
+    margin-top: 30px;
+    padding: 30px;
+  }
+`
+export { WizardUserProfile, PanelUserProfile }
