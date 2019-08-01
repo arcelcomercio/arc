@@ -96,7 +96,7 @@ const FormPay = ({ error, onSubmit }) => {
               <Field
                 component={Input}
                 suffix={<Icon type="cvv" />}
-                type="number"
+                type="text"
                 mask={Masks.CREDIT_CARD_CVV}
                 name="cvv"
                 label="CVV"
