@@ -3,12 +3,12 @@ import Form from './form'
 import Confirmation from './confirmation'
 
 const classes = {
-  newsletter: `newsletter flex flex-col-reverse items-center lg:justify-between lg:flex-row`,
+  newsletter: `newsletter flex flex-col-reverse items-center lg:justify-between lg:flex-row lg:justify-center`,
   boxSubscription: `newsletter__box-subscription pr-40 pl-40 primary-font lg:p-0 lg:pr-15 lg:pl-15`,
   errorMessage: 'newsletter__error-message block pt-5 text-xs',
   errorMessageMedium: 'text-lg mb-20',
   bannerImage: 'newsletter__banner-image w-full lg:w-inherit',
-  imageContainer: `newsletter__image-container bg-white overflow-hidden text-center border-solid border-gray lg:h-inherit`,
+  imageContainer: `newsletter__image-container bg-white overflow-hidden text-center border-solid border-gray lg:h-inherit lg:flex lg:items-center`,
   image: 'newsletter__image lg:w-full',
 }
 const Newsletter = props => {

@@ -40,7 +40,11 @@ class Foot extends React.PureComponent {
                 </a>
               </li>
               <li>
-                <a href="/" className="list_link">
+                <a
+                  href="https://gestion.pe/politica-de-privacidad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="list_link">
                   Políticas de privacidad
                 </a>
               </li>
@@ -51,12 +55,20 @@ class Foot extends React.PureComponent {
               </li>
 
               <li>
-                <a href="/" className="list_link">
+                <a
+                  href="http://ecomedia.pe/libro/registrar/elcomercio/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="list_link">
                   Libro de reclamaciones
                 </a>
               </li>
               <li>
-                <a href="/" className="list_link">
+                <a
+                  href="https://suscripciones.gestion.pe/terminos/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="list_link">
                   Términos y Condiciones
                 </a>
               </li>
