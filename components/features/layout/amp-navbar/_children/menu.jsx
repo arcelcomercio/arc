@@ -2,10 +2,13 @@ import React, { PureComponent } from 'react'
 
 const classes = {
   sidebar: 'amp-nav-sidebar w-full',
-  item: 'amp-nav-sidebar__item uppercase border-b-1 border-solid border-gray',
+  item: 'amp-nav-sidebar__item position-relative uppercase border-b-1 border-solid border-gray',
+  containerSubMenu: 'amp-nav-sidebar__container-submenu w-full overflow-hidden',
+  menuArrow: 'amp-nav-sidebar__menu-arrow hidden',
+  labelParentItem: 'amp-nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0',
   listItem: 'amp-nav-sidebar__list-item h-full title-sm line-h-xs pl-10 pr-10',
   link:
-    'amp-nav-sidebar__link block pt-15 pb-15 text-md secondary-font font-bold',
+    'amp-nav-sidebar__link block pt-15 pb-15 pl-15 text-md secondary-font font-bold',
   body: 'amp-nav-sidebar__body pt-15 pb-15 pr-0 pl-15',
   list: 'amp-nav-sidebar__list bg-gray-100',
   footer: 'amp-nav-sidebar__footer p-30 border-t-1 border-solid border-gray',
@@ -15,19 +18,33 @@ const classes = {
 }
 
 class NavbarChildMenu extends PureComponent {
-  renderSections = sections => {
+  renderSections = (sections, deep, nameId = 'root') => {
+    const aux = deep
     return (
       sections &&
-      sections.map(({ children, name = '', _id: id = '' }) => (
-        <>
-          <li className={classes.item} key={`navbar-menu-${id}`}>
-            <a href={id} className={classes.link}>
-              {name}
-            </a>
-          </li>
-          {children && this.renderSections(children)}
-        </>
-      ))
+      sections.map(({ children, name = '', _id: id = '', display_name: displayName = '', url = ''}) => {
+        const idElem = `${nameId}-${name || displayName}`.toLowerCase()
+        return (
+          <>
+            <li 
+              className={classes.item}
+              key={`navbar-menu-${url || id}`}>
+              <a href={url || id || '/'} className={`${classes.link}${deep > 0 ? ` pl-${15+(deep*15)}` : ''}`}>
+                {name || displayName}
+              </a>
+              {children && children.length > 0 && (
+                <>
+                  <input className={classes.menuArrow} type="checkbox" id={idElem} name="checkbox-submenu" />
+                  <label htmlFor={idElem} className={classes.labelParentItem}></label>
+                  <ul className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
+                    {this.renderSections(children, aux + 1, idElem)}
+                  </ul>
+                </>
+              )}
+            </li>
+          </>
+        )
+      })
     )
   }
 
@@ -81,7 +98,7 @@ class NavbarChildMenu extends PureComponent {
           />
 
           <ul className={classes.list}>
-            {sections.length > 0 && this.renderSections(sections, contextPath)}
+            {sections.length > 0 && this.renderSections(sections, 0)}
           </ul>
 
           <ul className={classes.social}>
