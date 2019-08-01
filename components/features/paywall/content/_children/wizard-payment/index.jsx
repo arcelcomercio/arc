@@ -9,6 +9,7 @@ import { addSales } from '../../../_dependencies/sales'
 import { addPayU } from '../../../_dependencies/payu'
 import Beforeunload from '../before-unload'
 import Loading from '../../../_children/loading'
+import { PayuError } from '../../_dependencies/handle-errors'
 
 const MESSAGE = {
   PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
@@ -155,7 +156,7 @@ function WizardPayment(props) {
                 return new Promise((resolve, reject) => {
                   payU.createToken(response => {
                     if (response.error) {
-                      reject(new Error(response.error))
+                      reject(new PayuError(response.error))
                       setLoading(false)
                     } else {
                       resolve(response.token)
@@ -214,8 +215,15 @@ function WizardPayment(props) {
         onBeforeNextStep(mergedValues, props)
       })
       .catch(e => {
+        const { name, message } = e
+        switch (name) {
+          case 'payU':
+            setError(message)
+            break
+          default:
+            setError('Disculpe, ha ocurrido un error durante el pago')
+        }
         console.error(e)
-        setError('Disculpe, ha ocurrido un error durante el pago')
       })
       .finally(() => {
         setLoading(false)
