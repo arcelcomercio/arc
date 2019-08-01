@@ -9,7 +9,7 @@ const classes = {
   containerSubMenu: 'nav-sidebar__container-submenu w-full overflow-hidden',
   menuArrow: 'nav-sidebar__menu-arrow hidden',
   labelParentItem: 'nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0',
-  link: 'nav-sidebar__link block p-15 pl-20 text-md text-white',
+  link: 'nav-sidebar__link block p-15 text-md text-white',
   top: 'nav-sidebar__top',
   header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30 hidden',
   btnBox: 'nav-sidebar__box-btn pb-15 border-b-1 border-solid border-gray',
@@ -45,9 +45,9 @@ class NavbarChildMenu extends PureComponent {
         return (
           <>
             <li
-              className={`${classes.item}${deep > 0 ? ` pl-20` : ''}`}
+              className={classes.item}
               key={`navbar-menu-${url || id}`}>
-              <a href={url || id || '/'} className={classes.link}>
+              <a href={url || id || '/'} className={`${classes.link}${deep > 0 ? ` pl-${15+(deep*15)}` : ''}`}>
                 {name || displayName}
               </a>
               {children && children.length > 0 && (
@@ -55,7 +55,7 @@ class NavbarChildMenu extends PureComponent {
                   <input className={classes.menuArrow} type="checkbox" id={idElem} name="checkbox-submenu" />
                   <label htmlFor={idElem} className={classes.labelParentItem}></label>
                   <ul className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
-                    {this.renderSections(children, aux + 1, `${idElem}`)}
+                    {this.renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>
               )}

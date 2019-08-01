@@ -38,10 +38,10 @@ export default ({
     "vars": {
         "uid" : ${siteProperties.charbeatAccountNumber},
         "domain" : "${siteProperties.siteDomain}",
-        "sections" : "${sections.map(({ name }) => {
+        "sections" : "${sections && sections.map(({ name }) => {
           return `'${name}'`
         })}",
-        "author" : "'Redacción ${autors.map(({ name }) => {
+        "author" : "'Redacción ${autors && autors.map(({ name }) => {
           return `'${name}'`
         })}'",
         "contentType" : "${ConfigParams.ELEMENT_TYPE_CHARBEAT}"
