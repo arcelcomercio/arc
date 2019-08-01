@@ -8,9 +8,7 @@ import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
 
 const CardFeaturedStoryMultimedia = props => {
-  const {
-    customFields: { section = '' },
-  } = props
+  const { customFields: { section = '', freeHtml = '' } = {} } = props
 
   const { arcSite, contextPath, deployment } = useFusionContext()
 
@@ -45,6 +43,7 @@ const CardFeaturedStoryMultimedia = props => {
         date,
         sectionName,
         section,
+        freeHtml,
       }}
     />
   )

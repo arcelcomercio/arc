@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 const customFields = PropTypes.shape({
   section: PropTypes.string.tag({
     name: 'URL de la sección',
-    /**
-     * CR: Validar si se puede agregar una descripción
-     * similar a como se hace con los otros featured-stories.
-     */
+    description:
+      'Si no se coloca la URL de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
+  }),
+  freeHtml: PropTypes.richtext.tag({
+    name: 'Código HTML',
+    group: 'Editar sección',
   }),
 })
 
