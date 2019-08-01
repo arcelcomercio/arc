@@ -12,7 +12,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-KKXTKGP',
+  googleTagManagerId: 'GTM-TZ52DLB',
   ampGoogleTagManagerId: 'UA-3055636-3',
   ampGoogleTagManagerName: 'ojo',
   charbeatAccountNumber: 57773,
@@ -21,7 +21,7 @@ export default {
   nameStoryRelated: 'VEA TAMBIÉN',
   siteDescription:
     'Noticias de Perú y el mundo en ojo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
-  googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
+  googleNewsImage: 'https://ojo.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: 'ND7742VX7JAILGYP7NTCU3P45Q',
     guidingPrinciples: '',
