@@ -1,0 +1,28 @@
+.newsletter {
+  // flex-direction: row-reverse;
+  @media (--desktop) {
+    flex-direction: row;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    align-items: center;
+  }
+  &__image-container {
+    height: auto;
+    max-height: 370px;
+    @media (--desktop) {
+      height: 370px;
+    }
+  }
+  &__title {
+    &::after {
+      background-color: $color-primary;
+      bottom: 0;
+      content: '';
+      height: 5px;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 115px;
+    }
+  }
+}

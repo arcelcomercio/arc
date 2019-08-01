@@ -91,10 +91,10 @@ const AmpOutputType = ({
     globalContent,
   }
   const {
-    canonical_url: canonicalUrl,
+    canonical_url: canonicalUrl = '',
     taxonomy: { sections } = {},
     credits: { by: autors } = {},
-  } = globalContent
+  } = globalContent || {}
   const parametros = {
     sections,
     autors,
