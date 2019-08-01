@@ -4,11 +4,18 @@
   }
   &__item {
     padding-left: 20px;
-    &:hover {
-      background-color: $color-primary;
+    transition: none;
+    &:focus {
+      outline: none;
     }
   }
   &__link {
     font-family: $secondary-font;
+  }
+  &__item,
+  &__link {
+    &:hover {
+      background-color: $color-primary;
+    }
   }
 }
