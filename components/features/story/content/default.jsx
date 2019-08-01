@@ -94,6 +94,7 @@ class StoryContent extends PureComponent {
       placement: 'Below Content Thumbnails',
       target_type: 'mix'
       });`
+
     return (
       <div className={classes.news}>
         {promoItems && <StoryContentChildMultimedia data={promoItems} />}
@@ -247,7 +248,7 @@ class StoryContent extends PureComponent {
             />
           </>
         )}
-        {arcSite === ConfigParams.SITE_PUBLIMETRO && (
+        {arcSite !== ConfigParams.SITE_GESTION && (
           <div
             className="fb-comments"
             data-href={`${siteUrl}${websiteUrl}`}
@@ -260,4 +261,5 @@ class StoryContent extends PureComponent {
 }
 
 StoryContent.label = 'Artículo - contenido'
+
 export default StoryContent

@@ -383,7 +383,7 @@ const initAdserver = () => {
 }
 
 const inline = data => {
-  if (body_class.includes('story')) {
+  if (body_class.includes('story') || body_class.includes('blogPost')) {
     const { spaces } = data
     if (spaces && Array.isArray(spaces)) {
       spaces.forEach(space => {
