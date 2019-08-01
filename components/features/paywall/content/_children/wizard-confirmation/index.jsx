@@ -5,6 +5,9 @@ import Button from '../../../_children/button'
 import Icon from '../../../_children/icon'
 import { devices } from '../../../_dependencies/devices'
 
+const HOME = 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/'
+const NAME_REDIRECT = 'paywall_last_url'
+
 const Item = ({ label, children }) => {
   return (
     <S.Item>
@@ -23,6 +26,14 @@ const WizardConfirmation = props => {
     },
   } = props
 
+  const handleClick = () => {
+    const { sessionStorage, location } = window
+    // eslint-disable-next-line no-prototype-builtins
+    location.href = sessionStorage.hasOwnProperty(NAME_REDIRECT)
+      ? sessionStorage.getItem(NAME_REDIRECT)
+      : HOME
+  }
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Panel maxWidth="1060px" direction="row">
@@ -36,7 +47,7 @@ const WizardConfirmation = props => {
         </S.Picture>
 
         <S.Content>
-          <S.Title>¡Bienvenido {firstName}!</S.Title>
+          <S.Title>¡Bienvenido(a) {firstName}!</S.Title>
           <S.Subtitle>
             Disfruta de acceso ilimitado y contenido exclusivo en economía,
             negocios y finanzas.
@@ -59,7 +70,7 @@ const WizardConfirmation = props => {
             <strong> {email}</strong>
           </S.Span>
           <S.WrapButton>
-            <Button>SIGUE NAVEGANDO</Button>
+            <Button onClick={handleClick}>SIGUE NAVEGANDO</Button>
           </S.WrapButton>
         </S.Content>
       </Panel>

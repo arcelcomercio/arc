@@ -5,7 +5,8 @@ import UserProfile from './_children/user-profile'
 import Summary from '../summary'
 import * as S from './styled'
 import { addSales } from '../../../_dependencies/sales'
-import Beforeunload from '../../_children/before-unload'
+import Beforeunload from '../before-unload'
+import Loading from '../../../_children/loading'
 
 const ERROR = {
   E300012: 'No se ha encontrado ningún carrito para el usuario.',
@@ -19,6 +20,7 @@ function WizardUserProfile(props) {
     profile,
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
+    setLoading,
   } = props
 
   const {
@@ -26,7 +28,6 @@ function WizardUserProfile(props) {
   } = memo
 
   const fusionContext = useFusionContext()
-  const [loading, setLoading] = useState()
   const [error, setError] = useState()
 
   const { siteProperties } = fusionContext
