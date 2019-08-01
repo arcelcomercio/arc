@@ -95,7 +95,13 @@ const AmpOutputType = ({
     taxonomy: { sections } = {},
     credits: { by: autors } = {},
   } = globalContent
-  const parametros = { sections, autors, siteProperties }
+  const parametros = {
+    sections,
+    autors,
+    siteProperties,
+    arcSite,
+    globalContent,
+  }
   return (
     <Html>
       <head>

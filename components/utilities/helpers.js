@@ -1,8 +1,8 @@
 import { addResizedUrlItem } from './thumbs'
 import ConfigParams, { sizeImg, sizeImgNewsLetter } from './config-params'
 
-export const reduceWord = (word, len = 145, finalText = '...') => {
-  return word.length > len ? word.slice(0, len).concat(finalText) : word
+export const reduceWord = async(word, len = 145, finalText = '...') => {
+  return await word.length > len ? word.slice(0, len).concat(finalText) : word
 }
 
 export const appendScript = (code, position = 'body') => {
@@ -273,7 +273,6 @@ export const socialMediaUrlShareListBlog = (
     fbmsg: `fb-messenger://share/?link=${siteUrl}blog/${postPermaLink}`,
   }
 }
-
 
 export const createMarkup = html => {
   return {
@@ -726,17 +725,17 @@ export const searchQuery = (query, sort) => {
     )}/todas/${sort || 'descendiente'}/`
 }
 
-export const getMultimedia = multimediaType => {
+export const getMultimedia = (multimediaType, amp = false) => {
   let type = ''
   switch (multimediaType) {
     case ConfigParams.VIDEO:
       type = 'video'
       break
     case ConfigParams.GALLERY:
-      type = 'gallery'
+      type = amp ? 'foto_galeria' : 'gallery'
       break
     default:
-      type = 'story'
+      type = amp ? 'imagen' : 'story'
   }
   return type
 }
