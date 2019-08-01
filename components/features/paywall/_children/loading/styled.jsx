@@ -2,7 +2,11 @@ import styled, { keyframes, css } from 'styled-components'
 
 export const Loading = styled.div`
   position: relative;
-  ${fullscreen =>
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+  transition: opacity 200ms ease-in-out;
+  ${({ fullscreen }) =>
     fullscreen &&
     css`
       position: fixed;
@@ -11,6 +15,12 @@ export const Loading = styled.div`
       top: 0;
       z-index: 1;
     `}
+  ${({ spinning }) =>
+    spinning &&
+    css`
+      opacity: 1;
+      pointer-events: inherit;
+    `};
 `
 
 const loadingCircle = keyframes`

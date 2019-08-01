@@ -25,10 +25,9 @@ const PortalFunction = ({ id, children }) => {
 const Portal = memo(PortalFunction)
 
 function Loading({ children, spinning, fullscreen }) {
-  if (!spinning) return <>{children}</>
   return (
     <Portal id="loading">
-      <S.Loading fullscreen={fullscreen}>
+      <S.Loading spinning={spinning} fullscreen={fullscreen}>
         <S.Background>
           <S.WrapIcon>
             <Icon type="gloading" />

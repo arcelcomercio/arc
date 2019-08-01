@@ -20,6 +20,7 @@ function WizardUserProfile(props) {
     profile,
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
+    setLoading,
   } = props
 
   const {
@@ -27,7 +28,6 @@ function WizardUserProfile(props) {
   } = memo
 
   const fusionContext = useFusionContext()
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
   const { siteProperties } = fusionContext
@@ -74,7 +74,6 @@ function WizardUserProfile(props) {
 
   return (
     <Beforeunload onBeforeunload={() => 'message'}>
-      <Loading fullscreen spinning={loading} />
       <S.WizardUserProfile>
         <S.PanelUserProfile type="content" valing="jc-center">
           {profile && (

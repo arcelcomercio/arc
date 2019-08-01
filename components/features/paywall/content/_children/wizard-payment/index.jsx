@@ -20,6 +20,7 @@ function WizardPayment(props) {
     memo,
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
+    setLoading,
   } = props
 
   const {
@@ -44,7 +45,6 @@ function WizardPayment(props) {
   } = memo
 
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
 
   const fusionContext = useFusionContext()
   const { siteProperties } = fusionContext
@@ -233,7 +233,6 @@ function WizardPayment(props) {
 
   return (
     <Beforeunload onBeforeunload={() => 'message'}>
-      <Loading fullscreen spinning={loading} />
       <S.WizardPayment>
         <S.PanelPayment type="content" valing="jc-center">
           <FormPay error={error} onSubmit={onSubmitHandler} />
