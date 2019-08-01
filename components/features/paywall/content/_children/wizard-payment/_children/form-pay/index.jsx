@@ -115,12 +115,14 @@ const FormPay = ({ error, onSubmit }) => {
                 Acepto las{' '}
                 <S.Link
                   href="https://suscripciones.gestion.pe/terminos/"
+                  rel="noopener noreferrer"
                   target="_blank">
                   condiciones de servicio
                 </S.Link>
                 ,{' '}
                 <S.Link
                   href="https://gestion.pe/politica-de-privacidad"
+                  rel="noopener noreferrer"
                   target="_blank">
                   política de privacidad
                 </S.Link>{' '}

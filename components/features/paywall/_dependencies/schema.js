@@ -22,11 +22,11 @@ const cvvPatterns = {
 
 // prettier-ignore
 export const Masks = {
-  PERSON_NAME: new Array(49).fill(/[ a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ']/),
+  PERSON_NAME: new Array(49).fill(/[ a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ']/),
   DNI: new Array(8).fill(/\d/),
   CEX: new Array(15).fill(/[a-zA-Z0-9-]/),
   CDI: new Array(15).fill(/[a-zA-Z0-9-]/),
-  PHONE: [/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/, " ", /\d/, /\d/,/\d/],
+  PHONE: [/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/, " ", /\d/, /\d/,/\d/, " ", /\d/, /\d/,/\d/],
   CREDIT_CARD_NUMBER: [ /\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/],
   EXPIRY_DATE: [/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
   CREDIT_CARD_CVV: [/\d/, /\d/, /\d/, /\d/],
