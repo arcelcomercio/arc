@@ -5,6 +5,10 @@ import getDevice from './get-device'
 const ORIGIN_ECOID =
   ENV.ENVIRONMENT === 'elcomercio' ? 'https://ecoid.pe' : 'https://pre.ecoid.pe'
 
+const API_ORIGIN =
+  ENV.ENVIRONMENT === 'elcomercio'
+    ? 'https://api.gestion.pe'
+    : 'https://api-sandbox.gestion.pe'
 export default class Services {
   reloginEcoID(username, password, action, window) {
     const details = {
@@ -61,6 +65,18 @@ export default class Services {
       fetch(
         `${ORIGIN_ECOID}/get_ubigeo/${item}?v=${new Date().getTime()}`
       ).then(res => resolve(res.json()))
+    })
+    return response
+  }
+
+  getEntitlement(jwt) {
+    const response = new Promise(resolve => {
+      fetch(`${API_ORIGIN}/sales/public/v1/entitlements`, {
+        method: 'GET',
+        headers: {
+          Authorization: jwt,
+        },
+      }).then(res => resolve(res.json()))
     })
     return response
   }

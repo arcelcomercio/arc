@@ -46,4 +46,10 @@ export const WrapField = styled.div`
   }
 `
 
+export const Select = styled.select`
+  background-color: #fff;
+  border: 0;
+  min-width: 40px;
+`
+
 export { Wrap, Form, Title, WrapTitle }

@@ -12,6 +12,7 @@ import profile from './profile'
 import cvv from './cvv'
 import appStore from './app-store'
 import googlePlay from './google-play'
+import gloading from './gloading'
 
 export {
   check,
@@ -28,4 +29,5 @@ export {
   cvv,
   appStore,
   googlePlay,
+  gloading,
 }

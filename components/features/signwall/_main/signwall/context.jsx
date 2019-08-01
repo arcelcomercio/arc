@@ -6,7 +6,7 @@ class ModalProvider extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedTemplate: 'login',
+      selectedTemplate: 'intro',
     }
   }
 

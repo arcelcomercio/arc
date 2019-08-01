@@ -8,11 +8,12 @@ import * as S from './styled'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
+import Loading from '../_children/loading'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
 const Right = () => {
-  return <div>Ayuda</div>
+  return <div></div>
 }
 
 @Consumer
@@ -23,6 +24,7 @@ class Content extends React.Component {
     this.state = {
       data: {},
       profile: '',
+      loading: false,
     }
     this.fetch = this.fetch.bind(this)
     this.fetch()
@@ -53,8 +55,14 @@ class Content extends React.Component {
     nextStep()
   }
 
+  setLoading = loading => {
+    this.setState({
+      loading,
+    })
+  }
+
   render() {
-    const { data, profile } = this.state
+    const { data, profile, loading } = this.state
     const { summary = {}, plans } = data
 
     const {
@@ -67,6 +75,7 @@ class Content extends React.Component {
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <S.Content>
+          <Loading fullscreen spinning={loading} />
           <Wizard
             transitions={{
               enterRight: 'enterRight',
@@ -88,11 +97,13 @@ class Content extends React.Component {
               profile={profile}
               summary={summary}
               onBeforeNextStep={this.onBeforeNextStepHandler}
+              setLoading={this.setLoading}
             />
             <WizardPayment
               memo={this.memo}
               summary={summary}
               onBeforeNextStep={this.onBeforeNextStepHandler}
+              setLoading={this.setLoading}
             />
             <WizardConfirmation
               memo={this.memo}
