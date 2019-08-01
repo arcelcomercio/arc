@@ -7,15 +7,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #d5e5ed;
+    background-color: $calendar-background;
     padding: 10px 15px;
   }
   &__title {
     font-size: 18px;
     text-transform: uppercase;
+    color: $calendar-title;
   }
   &__brand {
-    background-color: #fff;
+    background-color: $calendar-bg-icon;
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -25,6 +26,7 @@
   }
   &__icon {
     font-size: 14px;
+    color: $calendar-icon;
   }
   &__content-calendar {
     padding: 10px;
@@ -41,8 +43,8 @@
   }
   &__month-view__weekdays {
     padding: 10px 0;
-    border-bottom: solid 1px lighten($color-gray-200, 0.8);
-    border-top: solid 1px lighten($color-gray-200, 0.8);
+    border-bottom: solid 1px $calendar-line;
+    border-top: solid 1px $calendar-line;
   }
   &__month-view__weekdays__weekday {
     font-family: $secondary-font;
@@ -51,7 +53,7 @@
     justify-content: center;
     text-transform: uppercase;
     font-size: 12px;
-    color: lighten($color-gray-200, 0.8);
+    color: $calendar-day;
     & abbr {
       text-decoration: none;
     }
@@ -65,14 +67,15 @@
     padding: 9px 5px;
     font-size: 12px;
     font-family: $secondary-font;
-    border-bottom: solid 1px lighten($color-gray-200, 0.8);
+    border-bottom: solid 1px $calendar-line;
     &:hover {
       text-decoration: underline;
     }
   }
   &__tile {
     &--active {
-      background-color: #d5e5ed;
+      background-color: lighten($calendar-background, 0.5);
+      color: $calendar-title;
     }
   }
 }

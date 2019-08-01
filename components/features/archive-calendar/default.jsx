@@ -24,7 +24,9 @@ const ArchiveCalendar = () => {
     const formatDay = day < 10 ? `0${day}` : day
     const formatMonth = month < 10 ? `0${month}` : month
     const newFormatDate = `${year}-${formatMonth}-${formatDay}`
-    const url = `/archivo/${section}/${newFormatDate}/`
+    const url = section
+      ? `/archivo/${section}/${newFormatDate}/`
+      : `/archivo/todas/${newFormatDate}/`
     return url
   }
 
