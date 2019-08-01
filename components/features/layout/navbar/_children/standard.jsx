@@ -204,11 +204,14 @@ class NavBarDefault extends PureComponent {
     return services
       .getEntitlement(window.Identity.userIdentity.accessToken)
       .then(res => {
-        const result = Object.keys(res.skus).map(key => {
-          return res.skus[key].sku
-        })
-        this.listSubs = result
-        return result
+        if (res.skus) {
+          const result = Object.keys(res.skus).map(key => {
+            return res.skus[key].sku
+          })
+          this.listSubs = result
+          return result
+        }
+        return []
       })
       .catch(err => console.error(err))
   }

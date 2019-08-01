@@ -61,7 +61,7 @@ class SignWallPaywall extends Component {
             <ul className="list-benefits mb-20">
               <li>
                 Acceso a contenido exclusivo en gestion.pe y navegación
-                ilimitada desde todos los dispositivos
+                ilimitada desde todos tus dispositivos
               </li>
             </ul>
             <div className="form-group">
@@ -69,7 +69,7 @@ class SignWallPaywall extends Component {
                 <input
                   type="button"
                   className="btn btn--blue btn-bg"
-                  value="Suscríbete"
+                  value="Suscribirme"
                   onClick={e => this.handleSuscription(e)}></input>
               ) : (
                 <input
