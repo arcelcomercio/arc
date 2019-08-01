@@ -9,6 +9,7 @@ const classes = {
 
 const StoryContentChildImage = ({ data, imgTag, resizer = false }) => {
   const sizerImg = resizer ? 'original' : 'large'
+  const ampClass = imgTag === 'amp-img' ? 'amp-' : ''
   return (
     <>
       <Image
@@ -16,7 +17,7 @@ const StoryContentChildImage = ({ data, imgTag, resizer = false }) => {
         layout="responsive"
         ImgTag={imgTag}
         imgClassName={classes.image}
-        captionClassName={classes.caption}
+        captionClassName={`${ampClass}${classes.caption}`}
         sizePreset={sizerImg}
         {...data}
       />
