@@ -149,9 +149,13 @@ class NavBarDefault extends PureComponent {
         customSubCheck: () => {
           // estado de suscripcion
           return this.getListSubs().then(p => {
+            const isLoggedInSubs = !!(
+              window.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+              window.localStorage.getItem('ArcId.USER_PROFILE')
+            )
             return {
-              s: true,
-              p,
+              s: isLoggedInSubs,
+              p: p || null,
               timeTaken: 100,
               updated: Date.now(),
             }
@@ -200,11 +204,14 @@ class NavBarDefault extends PureComponent {
     return services
       .getEntitlement(window.Identity.userIdentity.accessToken)
       .then(res => {
-        const result = Object.keys(res.skus).map(key => {
-          return res.skus[key].sku
-        })
-        this.listSubs = result
-        return result
+        if (res.skus) {
+          const result = Object.keys(res.skus).map(key => {
+            return res.skus[key].sku
+          })
+          this.listSubs = result
+          return result
+        }
+        return []
       })
       .catch(err => console.error(err))
   }

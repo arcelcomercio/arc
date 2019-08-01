@@ -79,7 +79,8 @@ class PayWall extends Component {
                         backgroundImage: `url(${ImageBg})`,
                       }}>
                       <p className="text-xl secondary-font">
-                        Para acceder a este contenido exclusivo, adquiere tu
+                        Para continuar leyendo, adquiere el
+                        {/* Para acceder a este contenido exclusivo, adquiere tu */}
                       </p>
                       <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
                     </div>
