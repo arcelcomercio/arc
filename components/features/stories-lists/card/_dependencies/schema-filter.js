@@ -4,6 +4,7 @@ export default `
         canonical_url
         website_url
         publish_date
+        display_date
         promo_items{
           basic_video {
             type
