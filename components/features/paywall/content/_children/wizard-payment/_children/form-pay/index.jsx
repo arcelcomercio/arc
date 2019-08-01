@@ -96,6 +96,7 @@ const FormPay = ({ error, onSubmit }) => {
                   component={Input}
                   name="cardNumber"
                   label="Número de tarjeta"
+                  pipe={Masks.Pipes.trim}
                   mask={Masks.CREDIT_CARD_NUMBER}
                   placeholder="0000 - 0000 - 0000 - 0000"
                 />

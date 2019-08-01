@@ -30,6 +30,10 @@ export const Masks = {
   CREDIT_CARD_NUMBER: [ /\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/],
   EXPIRY_DATE: [/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
   CREDIT_CARD_CVV: [/\d/, /\d/, /\d/],
+  Pipes: {
+    capitalize: val => val.replace(/(^|\s)([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
+    trim: val => val.trim()
+  }
 };
 
 function shape(value) {

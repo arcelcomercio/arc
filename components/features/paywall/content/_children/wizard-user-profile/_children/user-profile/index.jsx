@@ -17,15 +17,6 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
         onSubmit(
           {
             ...values,
-            firstName: values.firstName
-              .trim()
-              .replace(/\b([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
-            lastName: values.firstName
-              .trim()
-              .replace(/\b([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
-            secondLastName: values.firstName
-              .trim()
-              .replace(/\b([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
             phone: values.phone.replace(/\D/g, ''),
             // TODO: Crear un servicio desde el que se pueda obtener billing address
             billingAddress: {
@@ -45,27 +36,27 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
             <S.Wrap>
               <S.WrapField>
                 <Field
-                  transform="capitalize"
                   name="firstName"
                   label="Nombres"
+                  pipe={Masks.Pipes.capitalize}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
               <S.WrapField>
                 <Field
-                  transform="capitalize"
                   name="lastName"
                   label="Apellido Paterno"
+                  pipe={Masks.Pipes.capitalize}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
               <S.WrapField>
                 <Field
-                  transform="capitalize"
                   name="secondLastName"
                   label="Apellido Materno"
+                  pipe={Masks.Pipes.capitalize}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -104,6 +95,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               <S.WrapField>
                 <Field
                   name="phone"
+                  pipe={Masks.Pipes.trim}
                   mask={Masks.PHONE}
                   label="Número de Celular"
                   component={InputFormik}
