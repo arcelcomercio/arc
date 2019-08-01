@@ -8,9 +8,9 @@ const ArchiveCalendar = () => {
   } = useFusionContext()
   const { date: urlDate } = query
 
-  const formatCalendarDate = (dt = new Date()) => {
-    if (dt instanceof Date) return dt
-    const [year, month, day] = dt.split('-')
+  const getCalendarDate = (date = new Date()) => {
+    if (date instanceof Date) return date
+    const [year, month, day] = date.split('-')
     const newDate = [year, Number(month - 1), Number(day)]
     return new Date(...newDate)
   }
@@ -21,21 +21,23 @@ const ArchiveCalendar = () => {
     const year = _date.getFullYear()
     const month = Number(_date.getMonth() + 1)
     const day = _date.getDate()
-    const formatDay = day < 10 ? `0${day}` : day
-    const formatMonth = month < 10 ? `0${month}` : month
-    const newFormatDate = `${year}-${formatMonth}-${formatDay}`
+    const dayFormat = day < 10 ? `0${day}` : day
+    const monthFormat = month < 10 ? `0${month}` : month
+    const newDateFormat = `${year}-${monthFormat}-${dayFormat}`
     const url = section
-      ? `/archivo/${section}/${newFormatDate}/`
-      : `/archivo/todas/${newFormatDate}/`
+      ? `/archivo/${section}/${newDateFormat}/`
+      : `/archivo/todas/${newDateFormat}/`
     return url
   }
 
-  const [calendarDate, setStateDate] = useState(formatCalendarDate(urlDate))
+  const [calendarDate, setStateDate] = useState(getCalendarDate(urlDate))
   const setNewDate = data => {
     setStateDate(data)
     window.location.href = renderNewURL(data)
   }
+  // CR: Debe separarse la vista del controlador ( /_children )
   return (
+    // CR: Los estilos deben ser movidos al objeto classes = {}
     <div className="react-calendar__box">
       <div className="react-calendar__header">
         <h3 className="react-calendar__title">Archivo</h3>
@@ -45,7 +47,7 @@ const ArchiveCalendar = () => {
       </div>
       <div className="react-calendar__content-calendar">
         <Calendar
-          activeStartDate={formatCalendarDate(urlDate)}
+          activeStartDate={getCalendarDate(urlDate)}
           maxDate={new Date()}
           minDate={new Date(2014, 0, 1)}
           onChange={newDate => setNewDate(newDate)}
@@ -57,4 +59,5 @@ const ArchiveCalendar = () => {
 }
 
 ArchiveCalendar.label = 'Calendario Archivo'
+
 export default ArchiveCalendar

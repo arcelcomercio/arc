@@ -1,51 +1,48 @@
 .react-calendar {
-  &__box {
-    display: flex;
-    flex-direction: column;
-  }
+
+  // &__box {}
   &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: $calendar-background;
-    padding: 10px 15px;
   }
+
   &__title {
     font-size: 18px;
-    text-transform: uppercase;
     color: $calendar-title;
   }
+
   &__brand {
     background-color: $calendar-bg-icon;
-    border-radius: 50%;
     width: 30px;
     height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
+
   &__icon {
     font-size: 14px;
     color: $calendar-icon;
   }
-  &__content-calendar {
-    padding: 10px;
-  }
+
+  // &__content-calendar {}
+
+  /** Estas clases son añadidas por la biblioteca */
   &__navigation {
     padding-bottom: 10px;
   }
+
   &__navigation__arrow {
     font-size: 20px;
   }
+
   &__navigation__label {
     text-transform: uppercase;
     font-size: 15px;
   }
+
   &__month-view__weekdays {
     padding: 10px 0;
     border-bottom: solid 1px $calendar-line;
     border-top: solid 1px $calendar-line;
   }
+
   &__month-view__weekdays__weekday {
     font-family: $secondary-font;
     font-weight: 600;
@@ -54,24 +51,29 @@
     text-transform: uppercase;
     font-size: 12px;
     color: $calendar-day;
+
     & abbr {
       text-decoration: none;
     }
   }
+
   &__year-view__months__month,
   &__decade-view__years__year {
     text-transform: uppercase;
     height: 20px;
   }
+
   &__month-view__days__day {
     padding: 9px 5px;
     font-size: 12px;
     font-family: $secondary-font;
     border-bottom: solid 1px $calendar-line;
+
     &:hover {
       text-decoration: underline;
     }
   }
+
   &__tile {
     &--active {
       background-color: lighten($calendar-background, 0.5);
