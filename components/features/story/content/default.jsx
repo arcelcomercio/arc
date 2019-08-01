@@ -68,6 +68,8 @@ class StoryContent extends PureComponent {
     const {
       globalContent,
       arcSite,
+      deployment,
+      contextPath,
       siteProperties: {
         ids: { opta },
         siteUrl,
@@ -220,7 +222,13 @@ class StoryContent extends PureComponent {
               const { type } = item
               const key = `related-content-${i}`
               return type === ConfigParams.ELEMENT_STORY ? (
-                <StoryContentChildRelated key={key} {...item} />
+                <StoryContentChildRelated
+                  key={key}
+                  {...item}
+                  contextPath={contextPath}
+                  arcSite={arcSite}
+                  deployment={deployment}
+                />
               ) : (
                 ''
               )
@@ -239,7 +247,7 @@ class StoryContent extends PureComponent {
             />
           </>
         )}
-        {arcSite === ConfigParams.SITE_PUBLIMETRO && (
+        {arcSite !== ConfigParams.SITE_GESTION && (
           <div
             className="fb-comments"
             data-href={`${siteUrl}${websiteUrl}`}
