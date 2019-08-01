@@ -94,6 +94,7 @@ class StoryContent extends PureComponent {
       placement: 'Below Content Thumbnails',
       target_type: 'mix'
       });`
+
     return (
       <div className={classes.news}>
         {promoItems && <StoryContentChildMultimedia data={promoItems} />}
@@ -260,4 +261,5 @@ class StoryContent extends PureComponent {
 }
 
 StoryContent.label = 'Artículo - contenido'
+
 export default StoryContent
