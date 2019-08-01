@@ -13,9 +13,9 @@ const classes = {
   headerLink:
     'tabloid__header-link text-white uppercase font-bold text-xl primary-font',
   body:
-    'tabloid__body flex items-center justify-center h-full position-relative pt-30 pb-20 pr-30 pl-30 bg-base-200',
+    'tabloid__body flex flex-col items-center justify-center h-full position-relative pt-30 pb-10 pr-30 pl-30 bg-base-200',
   date:
-    'tabloid__date flex items-center justify-center position-absolute p-20 bg-base-200',
+    'tabloid__date flex items-center justify-center p-20 bg-base-200',
   dateLink: 'tabloid__date-link text-sm text-gray-300 font-bold',
   face: 'tabloid__face object-cover',
 }
