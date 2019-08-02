@@ -1,20 +1,15 @@
-import {
-  resizerSecret
-} from 'fusion:environment'
-import {
-  addResizedUrls
-} from '@arc-core-components/content-source_content-api-v4'
+import { resizerSecret } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import {
-  addResizedUrlsToStory
-} from '../../components/utilities/helpers';
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let auxKey
 
 const schemaName = 'stories'
 let website = ''
 
-const params = [{
+const params = [
+  {
     name: 'name',
     displayName: 'Slug de la etiqueta',
     type: 'text',
@@ -35,9 +30,7 @@ const pattern = (key = {}) => {
   auxKey = key
 
   website = key['arc-site'] || 'Arc Site no está definido'
-  const {
-    name
-  } = key
+  const { name } = key
   const size = key.size || 50
 
   if (!name) {
@@ -53,7 +46,6 @@ const pattern = (key = {}) => {
 
   const from = `${validateFrom()}`
 
-
   /** TODO: Cambiar publish_date por display_name en los patterns???? */
   /** TODO: Manejar comportamiento cuando no se obtiene data */
 
@@ -66,22 +58,21 @@ const resolve = key => pattern(key)
 
 const transform = data => {
   const dataStories = data
-  const {
-    resizerUrl
-  } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(dataStories.content_elements, resizerUrl, resizerSecret, addResizedUrls)
-  const {
-    name
-  } = auxKey || {}
+  const { resizerUrl, siteName } = getProperties(website)
+  dataStories.content_elements = addResizedUrlsToStory(
+    dataStories.content_elements,
+    resizerUrl,
+    resizerSecret,
+    addResizedUrls
+  )
+  dataStories.siteName = siteName
+
+  const { name } = auxKey || {}
 
   if (!name || !dataStories) return dataStories
 
   const {
-    content_elements: [{
-      taxonomy: {
-        tags = []
-      } = {}
-    } = {}] = [],
+    content_elements: [{ taxonomy: { tags = [] } = {} } = {}] = [],
   } = dataStories
 
   if (tags.length === 0) return dataStories
