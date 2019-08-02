@@ -29,119 +29,143 @@ const FormPay = ({ error, onSubmit }) => {
           actions
         )
       }}
-      render={({ values: { cardMethod, agreed }, isSubmitting }) => (
-        <Form>
-          <S.Security>
-            <Icon type="lock" width="20" height="25" />
-            <S.TextSecurity>
-              Compra seguro. Esta web está protegida
-            </S.TextSecurity>
-          </S.Security>
-          {error && <Error mb="20px" message={error} />}
-          <S.WrapCards>
-            <S.TextCard>Selecciona un tipo de tarjeta</S.TextCard>
-            <S.Cards>
-              <Field
-                component={S.RadioCondition}
-                label={<Icon type="visa" />}
-                name="cardMethod"
-                checked={cardMethod === 'visa'}
-                value="visa"
-              />
-              <Field
-                component={S.RadioCondition}
-                label={<Icon type="mcard" />}
-                name="cardMethod"
-                checked={cardMethod === 'mastercard'}
-                value="mastercard"
-              />
-              <Field
-                component={S.RadioCondition}
-                label={<Icon type="amex" />}
-                name="cardMethod"
-                checked={cardMethod === 'amex'}
-                value="amex"
-              />
-              <Field
-                component={S.RadioCondition}
-                label={<Icon type="diners" />}
-                name="cardMethod"
-                checked={cardMethod === 'diners'}
-                value="diners"
-              />
-            </S.Cards>
-          </S.WrapCards>
-          <S.WrapInputs>
-            <S.WrapInput min-width="310px">
-              <Field
-                component={Input}
-                name="cardNumber"
-                label="Número de tarjeta"
-                // prettier-ignore
-                mask={Masks.CREDIT_CARD_NUMBER}
-                placeholder="0000 - 0000 - 0000 - 0000"
-              />
-            </S.WrapInput>
+      render={({
+        values: { cardMethod, agreed },
+        handleChange,
+        setFieldTouched,
+        setFieldValue,
+        isSubmitting,
+      }) => {
+        const clearField = field => {
+          return e => {
+            setFieldValue(field, '')
+            setFieldTouched(field, false)
+            handleChange(e)
+          }
+        }
 
-            <S.WrapInput max-width="150px">
-              <Field
-                component={Input}
-                name="expiryDate"
-                mask={Masks.EXPIRY_DATE}
-                placeholder="mm/aaaa"
-                label="F. de Vencimiento"
-              />
-            </S.WrapInput>
-            <S.WrapInput max-width="135px">
-              <Field
-                component={Input}
-                suffix={<Icon type="cvv" />}
-                type="text"
-                mask={Masks.CREDIT_CARD_CVV}
-                name="cvv"
-                label="CVV"
-                placeholder="***"
-              />
-            </S.WrapInput>
-          </S.WrapInputs>
+        return (
+          <Form>
+            <S.Security>
+              <Icon type="lock" width="20" height="25" />
+              <S.TextSecurity>
+                Compra seguro. Esta web está protegida
+              </S.TextSecurity>
+            </S.Security>
+            {error && <Error mb="20px" message={error} />}
+            <S.WrapCards>
+              <S.TextCard>Selecciona un tipo de tarjeta</S.TextCard>
+              <S.Cards>
+                <Field
+                  component={S.RadioCondition}
+                  label={<Icon type="visa" />}
+                  name="cardMethod"
+                  checked={cardMethod === 'visa'}
+                  onChange={clearField('cvv')}
+                  value="visa"
+                />
+                <Field
+                  component={S.RadioCondition}
+                  label={<Icon type="mcard" />}
+                  name="cardMethod"
+                  checked={cardMethod === 'mastercard'}
+                  onChange={clearField('cvv')}
+                  value="mastercard"
+                />
+                <Field
+                  component={S.RadioCondition}
+                  label={<Icon type="amex" />}
+                  name="cardMethod"
+                  checked={cardMethod === 'amex'}
+                  onChange={clearField('cvv')}
+                  value="amex"
+                />
+                <Field
+                  component={S.RadioCondition}
+                  label={<Icon type="diners" />}
+                  name="cardMethod"
+                  checked={cardMethod === 'diners'}
+                  onChange={clearField('cvv')}
+                  value="diners"
+                />
+              </S.Cards>
+            </S.WrapCards>
+            <S.WrapInputs>
+              <S.WrapInput min-width="310px">
+                <Field
+                  component={Input}
+                  name="cardNumber"
+                  label="Número de tarjeta"
+                  pipe={Masks.Pipes.trim}
+                  mask={Masks.CREDIT_CARD_NUMBER}
+                  placeholder="0000 - 0000 - 0000 - 0000"
+                />
+              </S.WrapInput>
 
-          <Field
-            component={S.AgreementCheckbox}
-            name="agreed"
-            checked={agreed}
-            value={agreed}
-            label={
-              <span>
-                Acepto las{' '}
-                <S.Link
-                  href="https://suscripciones.gestion.pe/terminos/"
-                  rel="noopener noreferrer"
-                  target="_blank">
-                  condiciones de servicio
-                </S.Link>
-                ,{' '}
-                <S.Link
-                  href="https://gestion.pe/politica-de-privacidad"
-                  rel="noopener noreferrer"
-                  target="_blank">
-                  política de privacidad
-                </S.Link>{' '}
-                , y estoy de acuerdo con la información.
-              </span>
-            }
-          />
+              <S.WrapInput max-width="150px">
+                <Field
+                  component={Input}
+                  name="expiryDate"
+                  mask={Masks.EXPIRY_DATE}
+                  placeholder="mm/aaaa"
+                  label="F. de Vencimiento"
+                />
+              </S.WrapInput>
+              <S.WrapInput max-width="135px">
+                <Field
+                  component={Input}
+                  suffix={<Icon type="cvv" />}
+                  type="text"
+                  mask={
+                    cardMethod === 'amex'
+                      ? [...Masks.CREDIT_CARD_CVV, /\d/]
+                      : Masks.CREDIT_CARD_CVV
+                  }
+                  name="cvv"
+                  label="CVV"
+                  placeholder={cardMethod === 'amex' ? '****' : '***'}
+                />
+              </S.WrapInput>
+            </S.WrapInputs>
 
-          <S.Span>
-            La suscripción se renovará automáticamente de acuerdo a tu plan.
-          </S.Span>
+            <Field
+              component={S.AgreementCheckbox}
+              name="agreed"
+              checked={agreed}
+              value={agreed}
+              label={
+                <span>
+                  Acepto las{' '}
+                  <S.Link
+                    href="https://suscripciones.gestion.pe/terminos/"
+                    rel="noopener noreferrer"
+                    target="_blank">
+                    condiciones de servicio
+                  </S.Link>
+                  ,{' '}
+                  <S.Link
+                    href="https://gestion.pe/politica-de-privacidad"
+                    rel="noopener noreferrer"
+                    target="_blank">
+                    política de privacidad
+                  </S.Link>{' '}
+                  , y estoy de acuerdo con la información.
+                </span>
+              }
+            />
 
-          <S.WrapSubmit>
-            <Button disabled={isSubmitting} type="submit" maxWidth="300px">
-              PAGAR
-            </Button>
-          </S.WrapSubmit>
-        </Form>
-      )}
+            <S.Span>
+              La suscripción se renovará automáticamente de acuerdo a tu plan.
+            </S.Span>
+
+            <S.WrapSubmit>
+              <Button disabled={isSubmitting} type="submit" maxWidth="300px">
+                PAGAR
+              </Button>
+            </S.WrapSubmit>
+          </Form>
+        )
+      }}
     />
   )
 }
