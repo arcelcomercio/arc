@@ -32,7 +32,9 @@ export const Masks = {
   CREDIT_CARD_CVV: [/\d/, /\d/, /\d/],
   Pipes: {
     capitalize: val => val.replace(/(^|\s)([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
-    trim: val => val.trim()
+    trim: val => val.trim(),
+    replace: (...args) => val => val.replace(...args),
+    combine: (...pipes) => val => pipes.reduce((prevVal, pipe)=>pipe(prevVal), val)
   }
 };
 

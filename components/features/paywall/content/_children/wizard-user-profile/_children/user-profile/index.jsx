@@ -7,6 +7,7 @@ import Error from '../../../../../_children/error'
 import { FormSchema, Masks } from './schema'
 
 const FormStyled = S.Form(Form)
+const { capitalize, combine, replace } = Masks.Pipes
 
 const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
   return (
@@ -38,7 +39,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   name="firstName"
                   label="Nombres"
-                  pipe={Masks.Pipes.capitalize}
+                  pipe={combine(replace(/(^|\s)[-']/, ''), capitalize)}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -47,7 +48,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   name="lastName"
                   label="Apellido Paterno"
-                  pipe={Masks.Pipes.capitalize}
+                  pipe={combine(replace(/(^|\s)[-']/, ''), capitalize)}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -56,7 +57,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   name="secondLastName"
                   label="Apellido Materno"
-                  pipe={Masks.Pipes.capitalize}
+                  pipe={combine(replace(/(^|\s)[-']/, ''), capitalize)}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
