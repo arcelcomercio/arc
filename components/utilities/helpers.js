@@ -439,7 +439,9 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
+    ConfigParams.OPTA_WIDGET
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
 }
 
@@ -483,13 +485,20 @@ export const twitterHtml = html => {
 
 export const iframeHtml = html => {
   const rplTwitter =
-    '<amp-iframe class="media" src="http$2"  height="400"  width="600"    title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
-  const htmlDataTwitter = html.replace(
-    /<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g,
-    rplTwitter
-  )
+    '<amp-iframe class="media" src="http$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
 
-  return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
+  const rplIframe =
+    '<amp-iframe class="media" src="http$2"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
+
+  const htmlDataTwitter = html
+    .replace(/<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g, rplTwitter)
+    .replace(/<iframe (.*)src="http(.+?)"><\/iframe>/g, rplIframe) //
+    .replace(/<iframe (.*)src="http(.*?)"(.*)><\/iframe>/g, rplTwitter)
+
+  return htmlDataTwitter
+    .replace(/(<script.*?>).*?(<\/script>)/g, '')
+    .replace(/<html_free><blockquote (.*)">/g, '')
+    .replace(/<\/blockquote><\/html_free>/g, '')
 }
 
 export const facebookHtml = html => {
