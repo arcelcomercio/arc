@@ -8,6 +8,12 @@
     &.selected {
       .search-filter__link {
         background-color: $color-tertiary;
+        color: $color-white;
+      }
+      &:before {
+        @media (--desktop) {
+          border-color: $color-tertiary transparent transparent;
+        }
       }
     }
 
