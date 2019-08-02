@@ -130,7 +130,7 @@ class StoryContinue extends PureComponent {
       document.querySelector('.nav__logo').src = deployment(
         arcSite === 'publimetro'
           ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
-          : `${contextPath}/resources/dist/gestion/images/logo.png`
+          : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
       )
     }
     // TODO: finnnn

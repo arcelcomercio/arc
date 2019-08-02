@@ -41,7 +41,8 @@ class Content extends React.Component {
   }
 
   componentDidMount() {
-    const { siteProperties } = this.props
+    const { siteProperties, globalContent } = this.props
+
     AddIdentity(siteProperties).then(() => {
       userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
         this.setState({ profile })
@@ -71,7 +72,7 @@ class Content extends React.Component {
       siteProperties: { assets },
     } = this.props
     const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
-
+    // return <div>test</div>
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <S.Content>
