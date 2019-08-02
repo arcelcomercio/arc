@@ -66,7 +66,7 @@ const getVars = (
   }
 
   if (isGallery) typeSpace = 'nota2'
-  if (section === 'publirreportaje') typeSpace = 'nota5'
+  if (section === 'publirreportaje' && isStory) typeSpace = 'nota5'
 
   return `
   var type_space = '${typeSpace}'
