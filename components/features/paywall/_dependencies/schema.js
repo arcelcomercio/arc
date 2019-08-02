@@ -29,7 +29,13 @@ export const Masks = {
   PHONE: [/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/, " ", /\d/, /\d/,/\d/, " ", /\d/, /\d/,/\d/],
   CREDIT_CARD_NUMBER: [ /\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/],
   EXPIRY_DATE: [/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
-  CREDIT_CARD_CVV: [/\d/, /\d/, /\d/, /\d/],
+  CREDIT_CARD_CVV: [/\d/, /\d/, /\d/],
+  Pipes: {
+    capitalize: val => val.replace(/(^|\s)([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
+    trim: val => val.trim(),
+    replace: (...args) => val => val.replace(...args),
+    combine: (...pipes) => val => pipes.reduce((prevVal, pipe)=>pipe(prevVal), val)
+  }
 };
 
 function shape(value) {
