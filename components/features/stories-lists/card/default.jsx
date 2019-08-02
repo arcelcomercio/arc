@@ -24,12 +24,13 @@ class StoriesListCard extends PureComponent {
     const params = {
       website,
       section,
+      excludeSections:'/impresa',
       stories_qty: storiesQty,
     }
 
     this.fetchContent({
       data: {
-        source: 'story-feed-by-section',
+        source: 'story-feed-by-section-order-by-displaydate',
         query: params,
         filter: schemaFilter,
       },

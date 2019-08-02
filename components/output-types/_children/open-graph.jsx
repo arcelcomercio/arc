@@ -15,15 +15,15 @@ export default ({
 }) => {
   const {
     link,
-    multimedia,
+    multimediaLandscapeXL,
     videoSeo: [{ url = '' } = {}] = [],
   } = new StoryData({
     data,
     arcSite,
   })
   const image =
-    story && multimedia
-      ? multimedia
+    story && multimediaLandscapeXL
+      ? multimediaLandscapeXL
       : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_fb.jpg`
   return (
     <>

@@ -42,6 +42,10 @@ export default ({
   }
 
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
+  const isBlogPost = requestUri.match(`^(/blog/(.*).html)`)
+
+  let classBody = isStory ? 'story' : ''
+  classBody = isBlogPost ? 'blogPost' : classBody
 
   const metaSiteData = {
     ...siteProperties,
@@ -189,7 +193,9 @@ export default ({
         {/* <!-- Identity & Sales & Paywall --> */}
         {siteProperties.activeSignwall && (
           <>
-            {/* <script src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`} /> */}
+            <script
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`}
+            />
             <script
               src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-identity.min.js`}
             />
@@ -199,7 +205,7 @@ export default ({
           </>
         )}
       </head>
-      <body className={isStory ? 'story' : ''}>
+      <body className={classBody}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"

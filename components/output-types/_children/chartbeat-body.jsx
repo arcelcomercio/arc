@@ -21,9 +21,9 @@ const getSectionList = (sections, type) => {
   return ''
 }
 
-const infoStory = data => {
+const infoStory = (data, arcSite) => {
   const getAuthor = () => {
-    return (data.credits.by[0] && data.credits.by[0].name) || 'Publimetro'
+    return (data.credits.by[0] && data.credits.by[0].name) || arcSite
   }
 
   const getTagList = () => {
@@ -63,14 +63,14 @@ const infoStory = data => {
 }
 
 const ChartbeatBody = props => {
-  const { story, requestUri, metaValue, globalContent } = props
+  const { story, requestUri, metaValue, globalContent, arcSite } = props
   const page = metaValue('id')
   const sectionList = getSectionList(requestUri, page)
-  const dataStory = story && infoStory(globalContent)
+  const dataStory = story && infoStory(globalContent, arcSite)
   const { author, tags, typeStory } = dataStory || {}
   const { type, stringType } = typeStory || {}
   const renderSections = story ? sectionList.concat(tags) : sectionList
-  const chartbeatScript = `
+  const chartbeatConfig = `
     var _sf_async_config = _sf_async_config || {};
 		_sf_async_config.sections = "${renderSections}";
 		${
@@ -83,17 +83,35 @@ const ChartbeatBody = props => {
         : ''
     }
 
-	`
+    (function() {
+
+          function loadChartbeat() {
+              window._sf_endpt = (new Date()).getTime();
+              var e = document.createElement('script');
+              e.setAttribute('language', 'javascript');
+              e.setAttribute('type', 'text/javascript');
+
+              e.setAttribute('src', '//static.chartbeat.com/js/chartbeat_video.js');
+              document.body.appendChild(e);
+          }
+          
+          
+          var oldonload = window.onload;
+          
+          window.onload = (typeof window.onload != 'function') 
+            ? loadChartbeat 
+            : function() {
+                oldonload();
+                loadChartbeat();
+            };
+
+      })();    
+  `
   return (
     <>
       <script
         type="text/javascript"
-        dangerouslySetInnerHTML={{ __html: chartbeatScript }}
-      />
-      <script
-        type="text/javascript"
-        async
-        src="//static.chartbeat.com/js/chartbeat_video.js"
+        dangerouslySetInnerHTML={{ __html: chartbeatConfig }}
       />
     </>
   )

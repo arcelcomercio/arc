@@ -439,9 +439,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
 }
 
@@ -625,6 +623,9 @@ export const formatDateStory = date => {
   )}`
 }
 
+/**
+ * Necesita CODE REVIEW
+ */
 export const addResizedUrlsToStory = (
   data,
   resizerUrl,
@@ -637,16 +638,29 @@ export const addResizedUrlsToStory = (
       const dataStory = item
 
       const {
-        promo_items: { basic_gallery: contentElements = null } = {},
+        promo_items: {
+          basic_gallery: basicGallery = null,
+          basic_video: basicVideo = null,
+        } = {},
       } = item
 
-      if (contentElements && contentElements.promo_items) {
-        const image = addResizedUrls(contentElements, {
+      if (basicGallery && basicGallery.promo_items) {
+        const image = addResizedUrls(basicGallery, {
           resizerUrl,
           resizerSecret,
           presets: sizeImg(),
         })
         dataStory.promo_items.basic_gallery = image
+      }
+
+      if (basicVideo && basicVideo.promo_items) {
+        basicVideo.content_elements = []
+        const image = addResizedUrls(basicVideo, {
+          resizerUrl,
+          resizerSecret,
+          presets: sizeImg(),
+        })
+        dataStory.promo_items.basic_video = image
       }
 
       return addResizedUrls(dataStory, {

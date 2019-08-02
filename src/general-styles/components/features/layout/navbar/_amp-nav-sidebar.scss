@@ -5,12 +5,40 @@
   }
 
   &__item {
-    &:hover {
-      transition: all 0.15s ease;
-      background-color: rgba(139, 131, 131, 0.96);
-      padding-left: 10px;
+    transition: all 0.15s ease;
+  }
+
+  &__parent-item {
+    transition: all .35s;
+    top: 5px;
+    cursor: pointer;
+
+    &::after {
+      content: "\276F";
     }
   }
+
+  &__container-submenu {
+    max-height: 0px;
+    transition: all .35s;
+  }
+
+  &__menu-arrow:checked {
+    + .amp-nav-sidebar__parent-item {
+      padding-left: 10px;
+      padding-top: 20px;
+      padding-right: 10px;
+      padding-bottom: 25px;
+      top: -5px;
+      right: 10px;
+      transform: rotate(90deg);
+    }
+
+    ~ .amp-nav-sidebar__container-submenu {
+      max-height: 100vh;
+    }
+  }
+
 
   &__list {
     width: 80vw;
@@ -18,9 +46,11 @@
   }
 
   &__link {
+    width: 100%;
     transition: all 0.15s ease;
     &:hover {
       color: $color-white;
+      background-color: rgba(139, 131, 131, 0.96);
     }
   }
 
