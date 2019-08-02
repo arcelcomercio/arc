@@ -25,6 +25,8 @@ const CardFeaturedStoryMultimedia = props => {
     title,
     multimediaType,
     date,
+    primarySectionLink,
+    primarySection,
   } = new StoryData({
     data,
     arcSite,
@@ -41,8 +43,12 @@ const CardFeaturedStoryMultimedia = props => {
         title,
         multimediaType,
         date,
-        sectionName,
-        section,
+        sectionName:
+          section === '' || section === '/' ? primarySection : sectionName,
+        section:
+          section === '' || section === '/'
+            ? primarySectionLink
+            : `${section}/`,
         freeHtml,
       }}
     />
