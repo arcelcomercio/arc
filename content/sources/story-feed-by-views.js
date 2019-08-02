@@ -8,7 +8,7 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers';
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let website = ''
 const schemaName = 'stories'
@@ -84,8 +84,14 @@ const resolve = key => pattern(key)
 
 const transform = data => {
   const dataStories = data
-  const { resizerUrl } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(dataStories.content_elements, resizerUrl, resizerSecret, addResizedUrls)
+  const { resizerUrl, siteName } = getProperties(website)
+  dataStories.content_elements = addResizedUrlsToStory(
+    dataStories.content_elements,
+    resizerUrl,
+    resizerSecret,
+    addResizedUrls
+  )
+  dataStories.siteName = siteName
   return {
     ...dataStories,
   }
