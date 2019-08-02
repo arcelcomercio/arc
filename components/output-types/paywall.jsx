@@ -45,7 +45,7 @@ const Paywall = props => {
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
       </head>
-      <body onbeforeunload={() => 'holi'}>
+      <body onbeforeunload={() => 'message'}>
         <div id="fusion-app" role="application" className="layout-paywall">
           {children}
         </div>
