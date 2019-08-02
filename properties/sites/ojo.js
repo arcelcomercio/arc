@@ -61,51 +61,64 @@ export default {
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
-      'Copyright © Elcomercio.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
+      'Prensmart Jirón Jorge Salazar Araoz 171  Lima 13 - Perú',
+      'Copyright © ojo.pe',
+      '2019 © PrenSmart S.A.C. Todos los derechos reservados',
     ],
-
+    story: [
+      {
+        position: 'Publicidad Online: fonoavisos@comercio.com.pe ',
+        name: 'Contacto Administrativo: contacto@prensmart.pe',
+      },
+      {
+        position: 'Empresa Editora Ojo',
+        name: 'Prensmart Jirón Jorge Salazar Araoz 171  Lima 13 - Perú',
+      },
+      {
+        position: 'Copyright © ojo.pe',
+        name: '2019 © PrenSmart S.A.C. Todos los derechos reservados',
+      },
+    ],
     socialNetworks: [
       {
         name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
+        url: 'https://www.facebook.com/DiarioOjo',
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
+        url: 'https://twitter.com/diarioojo',
       },
       {
-        name: 'google+',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
+        name: 'linkedin',
+        url: 'https://www.linkedin.com/company/ojo/',
       },
     ],
 
     contacts: [
       {
         position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+        name: '',
       },
       {
         position: 'Editor Web',
-        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
+        name: '',
       },
       {
-        position: 'Contacto comercial',
-        name: 'ventaspublimetro@publimetro.pe',
+        position: '',
+        name: '',
       },
     ],
   },
   social: {
     facebook: {
       name: 'facebook',
-      user: '@elcomercio.pe',
-      url: 'https://www.facebook.com/elcomercio.pe',
+      user: '@DiarioOjo',
+      url: 'https://www.facebook.com/DiarioOjo',
     },
     twitter: {
       name: 'twitter',
-      user: '@elcomercio_peru',
-      url: 'https://twitter.com/elcomercio_peru',
+      user: '@diarioojo',
+      url: 'https://twitter.com/diarioojo',
     },
     youtube: {
       name: 'youtube',
