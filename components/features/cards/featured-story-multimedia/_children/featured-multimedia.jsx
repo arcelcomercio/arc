@@ -40,7 +40,7 @@ export default ({
             dangerouslySetInnerHTML={createMarkup(freeHtml)}
           />
         ) : (
-          <a className={classes.sectionLink} href={`${section}/`}>
+          <a className={classes.sectionLink} href={section}>
             {sectionName}
           </a>
         )}
@@ -65,7 +65,7 @@ export default ({
         </a>
       </h2>
 
-      <a className={classes.editionLink} href={`${section}/`}>
+      <a className={classes.editionLink} href={section}>
         Ver ediciones
       </a>
     </article>
