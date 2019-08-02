@@ -117,7 +117,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@diarioojo',
+      user: 'diarioojo',
       url: 'https://twitter.com/diarioojo',
     },
     youtube: {
