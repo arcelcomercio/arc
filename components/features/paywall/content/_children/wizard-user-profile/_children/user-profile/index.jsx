@@ -12,7 +12,7 @@ const { capitalize, combine, replace } = Masks.Pipes
 const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
   return (
     <Formik
-      initialValues={Object.assign({}, profile, { documentType: 'DNI' })}
+      initialValues={Object.assign({}, { documentType: 'DNI' }, profile)}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
         onSubmit(
