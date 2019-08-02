@@ -27,13 +27,14 @@ const getVars = (
   { globalContent, arcSite, isStory, requestUri, port = 'port1' },
   isGallery
 ) => {
-  const typeSpace = isGallery ? 'nota2' : port
   const site = arcSite
   const template = isStory ? 'nota' : 'portada'
+  let typeSpace = port
   let path = requestUri.split('?')[0]
   let section = ''
   let subsection = ''
   let dataStory = ''
+
   if (requestUri) {
     if (path === '/homepage') {
       section = 'home'
@@ -63,6 +64,9 @@ const getVars = (
       }
     }
   }
+
+  if (isGallery) typeSpace = 'nota2'
+  if (section === 'publirreportaje') typeSpace = 'nota5'
 
   return `
   var type_space = '${typeSpace}'
