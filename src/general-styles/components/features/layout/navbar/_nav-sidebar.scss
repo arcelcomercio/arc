@@ -50,6 +50,7 @@
   &__parent-item {
     transition: all .35s;
     top: 5px;
+    cursor: pointer;
 
     &::after {
       content: "\276F";
