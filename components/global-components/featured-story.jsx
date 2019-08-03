@@ -13,7 +13,8 @@ const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
   detail: `featured-story__detail flex flex-col justify-between position relative md:p-20`,
 
-  category: 'featured-story__category pb-15 hidden md:inline-block',
+  category:
+    'featured-story__category pb-15 hidden md:inline-block position-relative',
   categoryLink: 'featured-story__category-link text-md capitalize',
 
   title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
