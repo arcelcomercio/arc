@@ -8,11 +8,20 @@ import { FormSchema, Masks } from './schema'
 
 const FormStyled = S.Form(Form)
 const { capitalize, combine, replace } = Masks.Pipes
+const initValue = {
+  firstName: null,
+  lastName: null,
+  secondLastName: null,
+  documentType: 'DNI',
+  documentNumber: null,
+  phone: null,
+  email: null,
+}
 
 const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
   return (
     <Formik
-      initialValues={Object.assign({}, profile, { documentType: 'DNI' })}
+      initialValues={Object.assign({}, initValue, profile)}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
         onSubmit(
@@ -65,7 +74,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               <S.WrapField>
                 <Field
                   name="documentNumber"
-                  label="Tipo de documento"
+                  label="Número de documento"
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
                   prefix={
