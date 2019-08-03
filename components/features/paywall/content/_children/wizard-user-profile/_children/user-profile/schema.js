@@ -48,6 +48,7 @@ export const FormSchema = schema({
   },
   phone: value => {
     value
+      .ignoreChars(' ')
       .required(MESSAGE.REQUIRED)
       .min(9, MESSAGE.CELULAR)
       .max(12, MESSAGE.CELULAR)
