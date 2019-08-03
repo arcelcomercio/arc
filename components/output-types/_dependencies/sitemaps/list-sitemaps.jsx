@@ -16,7 +16,7 @@ export const ListSiteMaps = ({ sections, siteUrl }) => {
 
     let result = null
     if (primary === '/') {
-      const url = `${siteUrl}/sitemaps${_id}.xml`
+      const url = `${siteUrl}/arcio/sitemap${_id}`
       result = <SiteMapsItem siteUrl={url} />
     }
     return result
@@ -31,7 +31,7 @@ export const ListNewsSiteMaps = ({ sections, siteUrl }) => {
   
       let result = null
       if (primary === '/') {
-        const url = `${siteUrl}/news-sitemaps${_id}.xml`
+        const url = `${siteUrl}/arcio/news-sitemap${_id}`
         result = <SiteMapsItem siteUrl={url} />
       }
       return result

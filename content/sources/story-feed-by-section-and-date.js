@@ -1,18 +1,15 @@
-import {
-  resizerSecret
-} from 'fusion:environment'
-import {
-  addResizedUrls
-} from '@arc-core-components/content-source_content-api-v4'
+import { resizerSecret } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers';
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let globalParams = {}
 
 const schemaName = 'stories'
 let website = ''
 
-const params = [{
+const params = [
+  {
     name: 'section',
     displayName: 'Sección',
     type: 'text',
@@ -27,16 +24,21 @@ const params = [{
 const getActualDate = () => {
   const today = new Date()
 
-  if (today.getHours() <= 5)
-    today.setDate(today.getDate() - 1)
+  if (today.getHours() <= 5) today.setDate(today.getDate() - 1)
 
   return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 }
 
 const transform = data => {
   const dataStories = data
-  const { resizerUrl } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(dataStories.content_elements, resizerUrl, resizerSecret, addResizedUrls)
+  const { resizerUrl, siteName } = getProperties(website)
+  dataStories.content_elements = addResizedUrlsToStory(
+    dataStories.content_elements,
+    resizerUrl,
+    resizerSecret,
+    addResizedUrls
+  )
+  dataStories.siteName = siteName
   const aux = {
     ...dataStories,
     params: {
@@ -48,10 +50,7 @@ const transform = data => {
 
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
-  const {
-    section,
-    date
-  } = key
+  const { section, date } = key
 
   /** Para enviar params a transform luego */
   globalParams = {
@@ -62,7 +61,8 @@ const pattern = (key = {}) => {
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               type: 'story',
             },
@@ -92,7 +92,8 @@ const pattern = (key = {}) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': [`/${section}`],
                 },

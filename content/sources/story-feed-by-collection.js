@@ -28,7 +28,7 @@ const pattern = (key = {}) => {
 
 const transform = data => {
   const dataStories = data
-  const { resizerUrl } = getProperties(website)
+  const { resizerUrl, siteName } = getProperties(website)
 
   // TODO: Fix para que la función addResizedUrls funcione, preguntar a ARC
   for (let i = 0; i < dataStories.content_elements.length; i++) {
@@ -42,6 +42,7 @@ const transform = data => {
     resizerSecret,
     addResizedUrls
   )
+  dataStories.siteName = siteName
 
   return { ...dataStories }
 }
