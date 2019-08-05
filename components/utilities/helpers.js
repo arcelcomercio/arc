@@ -762,3 +762,13 @@ export const getMultimedia = (multimediaType, amp = false) => {
   }
   return type
 }
+
+export const getRemoveSlug = slug => {
+  return slug
+    .replace(/[àáâãäå]/g, 'a')
+    .replace(/[èéêë]/g, 'e')
+    .replace(/[ìíîï]/g, 'i')
+    .replace(/ñ/g, 'n')
+    .replace(/[òóôõö]/g, 'o')
+    .replace(/[ùúûü]/g, 'u')
+}
