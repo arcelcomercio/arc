@@ -23,10 +23,6 @@ const classes = {
   author: 'featured-story__author uppercase',
   authorLink: 'featured-story__author-link text-gray-200 text-xs',
 
-  oneline: 'featured-story-oneline ',
-  twoline: 'featured-story-twoline',
-  threeline: 'featured-story-threeline',
-
   imageLink: 'featured-story__img-link block h-full ml-10 md:ml-0',
   imageBox: `featured-story__img-box block position-relative overflow-hidden w-full h-full`,
   image: 'featured-story__img w-full h-full object-cover',
@@ -97,6 +93,8 @@ export default class FeaturedStory extends PureComponent {
     const getEditableField = element =>
       editableField ? editableField(element) : null
 
+    // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
+
     let headbandText = ''
     if (headband === 'live') headbandText = 'En vivo'
     else if (headband === 'gestionTv') headbandText = 'Gestión TV'
@@ -150,7 +148,7 @@ export default class FeaturedStory extends PureComponent {
           )}
           <h2 className={classes.title}>
             <a
-              className={`${classes.titleLink} ${classes.threeline}`}
+              className={`${classes.titleLink}`}
               href={title.url}
               {...getEditableField('titleField')}
               suppressContentEditableWarning>
