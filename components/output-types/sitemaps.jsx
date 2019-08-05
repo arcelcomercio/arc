@@ -15,7 +15,6 @@ const SiteMaps = props => {
     sections: qresult,
     siteUrl,
   }
-
   return (
     <NewElement nameElement="sitemapindex" propsNewElement={propsXml}>
       <ListSiteMaps {...params} />

@@ -22,12 +22,12 @@ class Content extends React.Component {
     super(props)
     this.memo = {}
     this.state = {
-      data: {},
+      // data: props.globalContent,
       profile: '',
       loading: false,
     }
-    this.fetch = this.fetch.bind(this)
-    this.fetch()
+    // this.fetch = this.fetch.bind(this)
+    // this.fetch()
   }
 
   // eslint-disable-next-line react/sort-comp
@@ -42,6 +42,7 @@ class Content extends React.Component {
 
   componentDidMount() {
     const { siteProperties } = this.props
+
     AddIdentity(siteProperties).then(() => {
       userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
         this.setState({ profile })
@@ -63,7 +64,8 @@ class Content extends React.Component {
 
   render() {
     const { data, profile, loading } = this.state
-    const { summary = {}, plans } = data
+    const { globalContent } = this.props
+    const { summary = [], plans } = globalContent
 
     const {
       contextPath,
@@ -71,7 +73,7 @@ class Content extends React.Component {
       siteProperties: { assets },
     } = this.props
     const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
-
+    // return <div>test</div>
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <S.Content>

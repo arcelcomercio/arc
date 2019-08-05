@@ -71,9 +71,9 @@ class StoryContinue extends PureComponent {
       document.documentElement.scrollTop
     )
 
-    if (height > 0) {
+    if (height > 0 && e[0]) {
       e[0].style.width = `${(scrolled / (height - h)) * 100}%`
-    } else e.style.width = '0%'
+    }
   }
 
   setTitleHead = () => {
@@ -130,7 +130,7 @@ class StoryContinue extends PureComponent {
       document.querySelector('.nav__logo').src = deployment(
         arcSite === 'publimetro'
           ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
-          : `${contextPath}/resources/dist/gestion/images/logo.png`
+          : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
       )
     }
     // TODO: finnnn

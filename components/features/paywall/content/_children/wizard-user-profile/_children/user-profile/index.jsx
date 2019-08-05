@@ -6,39 +6,30 @@ import Button from '../../../../../_children/button'
 import Error from '../../../../../_children/error'
 import { FormSchema, Masks } from './schema'
 
-// TODO: Falta obtener esta info que es obligatoria para crear una orden
-const FAKE_BILLING_ADDRESS = {
-  line1: 'Jr Francisco Arana 2018',
-  line2: 'Por la fabrica Donofrio',
-  locality: 'Lima',
-  region: 'LI',
-  country: 'PE',
-  postal: '01',
-}
-
 const FormStyled = S.Form(Form)
+const { capitalize, combine, replace } = Masks.Pipes
+const personNamePipe = combine(replace(/(^|\s)[-']/, '$1'), capitalize)
 
-const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
+const UserProfile = ({
+  title = '',
+  initialValues,
+  error,
+  onSubmit,
+  onReset,
+}) => {
   return (
     <Formik
-      initialValues={Object.assign({}, profile, { documentType: 'DNI' })}
+      initialValues={Object.assign({}, { documentType: 'DNI' }, initialValues)}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
         onSubmit(
           {
             ...values,
-            firstName: values.firstName
-              .trim()
-              .replace(/\b([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
-            lastName: values.firstName
-              .trim()
-              .replace(/\b([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
-            secondLastName: values.firstName
-              .trim()
-              .replace(/\b([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
             phone: values.phone.replace(/\D/g, ''),
             // TODO: Crear un servicio desde el que se pueda obtener billing address
-            billingAddress: FAKE_BILLING_ADDRESS,
+            billingAddress: {
+              country: 'PE',
+            },
           },
           actions
         )
@@ -53,27 +44,27 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
             <S.Wrap>
               <S.WrapField>
                 <Field
-                  transform="capitalize"
                   name="firstName"
                   label="Nombres"
+                  pipe={personNamePipe}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
               <S.WrapField>
                 <Field
-                  transform="capitalize"
                   name="lastName"
                   label="Apellido Paterno"
+                  pipe={personNamePipe}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
               <S.WrapField>
                 <Field
-                  transform="capitalize"
                   name="secondLastName"
                   label="Apellido Materno"
+                  pipe={personNamePipe}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -81,7 +72,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               <S.WrapField>
                 <Field
                   name="documentNumber"
-                  label="Tipo de documento"
+                  label="Número de documento"
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
                   prefix={
@@ -112,6 +103,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               <S.WrapField>
                 <Field
                   name="phone"
+                  pipe={Masks.Pipes.trim}
                   mask={Masks.PHONE}
                   label="Número de Celular"
                   component={InputFormik}

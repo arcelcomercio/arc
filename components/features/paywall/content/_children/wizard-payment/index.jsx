@@ -235,7 +235,17 @@ function WizardPayment(props) {
     <Beforeunload onBeforeunload={() => 'message'}>
       <S.WizardPayment>
         <S.PanelPayment type="content" valing="jc-center">
-          <FormPay error={error} onSubmit={onSubmitHandler} />
+          <FormPay
+            initialValues={{
+              agreed: null,
+              cardMethod: null,
+              cardNumber: null,
+              cvv: null,
+              expiryDate: null,
+            }}
+            error={error}
+            onSubmit={onSubmitHandler}
+          />
         </S.PanelPayment>
         <Summary
           amount={amount}

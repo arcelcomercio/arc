@@ -9,9 +9,9 @@ const classes = {
   content: 'story-gallery-slider__content flex',
   figure: 'story-gallery-slider__figure position-relative',
   image: 'story-gallery-slider__img w-full object-fit-cover',
-  caption: 'story-gallery-slider__caption pt-20 pb-20 flex',
-  captionImage: `story-gallery-slider__caption-image pt-10 pl-15 text-sm text-white secondary-font line-h-sm`,
-  quantity: `story-gallery-slider__quantity title-xs flex items-center justify-center`,
+  caption: 'story-gallery-slider__caption pt-20 pb-20 ',
+  captionImage: `story-gallery-slider__caption-image pt-5 text-sm text-white secondary-font line-h-sm`,
+  quantity: `story-gallery-slider__quantity title-xs mr-10 flex items-center justify-center i-survey-share`,
   leftArrow: `story-gallery-slider__arrows story-gallery-slider__arrows--left icon-left text-white title-lg flex items-center justify-center h-full position-absolute top-0`,
   rightArrow: `story-gallery-slider__arrows story-gallery-slider__arrows--right icon-right text-white title-lg flex items-center justify-center h-full position-absolute top-0`,
 }

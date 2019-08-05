@@ -11,4 +11,10 @@
     font-size: 14.4px;
     font-weight: 500;
   }
+  &__arrows {
+    height: calc(100% - 50%);
+    @media (--desktop) {
+      height: calc(100% - 86px);
+    }
+  }
 }

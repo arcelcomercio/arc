@@ -22,19 +22,44 @@ const cvvPatterns = {
 
 // prettier-ignore
 export const Masks = {
-  PERSON_NAME: new Array(49).fill(/[ a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ']/),
+  PERSON_NAME: new Array(49).fill(/[ a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ'-]/),
   DNI: new Array(8).fill(/\d/),
   CEX: new Array(15).fill(/[a-zA-Z0-9-]/),
   CDI: new Array(15).fill(/[a-zA-Z0-9-]/),
   PHONE: [/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/, " ", /\d/, /\d/,/\d/, " ", /\d/, /\d/,/\d/],
   CREDIT_CARD_NUMBER: [ /\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/],
   EXPIRY_DATE: [/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
-  CREDIT_CARD_CVV: [/\d/, /\d/, /\d/, /\d/],
+  CREDIT_CARD_CVV: [/\d/, /\d/, /\d/],
+  Pipes: {
+    capitalize: val => val.replace(/(^|\s)([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
+    trim: val => val.trim(),
+    replace: (...args) => val => val.replace(...args),
+    combine: (...pipes) => val => pipes.reduce((prevVal, pipe)=>pipe(prevVal), val)
+  }
 };
 
 function shape(value) {
   return {
     value: value ? value.toString() : value,
+    replace(...args) {
+      this.value = this.value ? this.value.replace(...args) : this.value
+      return this
+    },
+    ignoreChars(chars) {
+      if (this.value) {
+        if (chars instanceof RegExp) {
+          this.value = this.value.replace(chars, '')
+        } else if (Array.isArray(chars)) {
+          this.value = this.value.replace(
+            new RegExp(`[${chars.join('')}]`, 'g'),
+            ''
+          )
+        } else if (typeof chars === 'string') {
+          this.value = this.value.replace(new RegExp(`[${chars}]`, 'g'), '')
+        }
+      }
+      return this
+    },
     email(message) {
       if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.value)) {
         throw message

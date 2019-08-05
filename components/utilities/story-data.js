@@ -657,15 +657,19 @@ class StoryData {
     return typeMultimedia
   }
 
-  static getThumbnailVideo(data) {
+  static getThumbnailVideo(data, size = ConfigParams.IMAGE_ORIGINAL) {
     const thumb =
       (data &&
         data.promo_items &&
         data.promo_items[ConfigParams.VIDEO] &&
         data.promo_items[ConfigParams.VIDEO].promo_items &&
         data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE] &&
-        data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
-          .url) ||
+        ((data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
+          .resized_urls &&
+          data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
+            .resized_urls[size]) ||
+          data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
+            .url)) ||
       ''
     return thumb
   }
@@ -703,7 +707,7 @@ class StoryData {
   static getThumbnailBySize(data, type, size) {
     let thumb = ''
     if (type === ConfigParams.VIDEO) {
-      thumb = StoryData.getThumbnailVideo(data)
+      thumb = StoryData.getThumbnailVideo(data, size)
     } else if (type === ConfigParams.GALLERY) {
       thumb = StoryData.getThumbnailGalleryBySize(data, size)
     } else if (type === ConfigParams.IMAGE) {

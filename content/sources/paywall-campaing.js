@@ -1,14 +1,28 @@
-const resolve = ({ campaing }) => {
-  return `https://api-sandbox.gestion.pe/retail/public/v1/offer/preview/${campaing}`
+const resolve = ({ doctype = 'DNI', docnumber }) => {
+  const PATH =
+    'https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/'
+  return docnumber ? `${PATH}?doctype=DNI&docnumber=${docnumber}` : PATH
+  // return `https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/?doctype=DNI&docnumber=41000001`
+  // return `https://api-sandbox.gestion.pe/retail/public/v1/offer/preview/${campaing}`
 }
 
-//https://api-sandbox.gestion.pe
-//paywall-gestion-sandbox
+const parse = string => {
+  try {
+    return JSON.parse(string)
+  } catch (error) {
+    return { err: 'is not a object' }
+  }
+}
+
+// https://api-sandbox.gestion.pe
+// paywall-gestion-sandbox
+// gprint-july-19
 
 export default {
   resolve,
   params: {
-    campaing: 'text',
+    docnumber: 'text',
+    doctype: 'text',
   },
   transform(data) {
     const { sku, name, attributes, pricingStrategies } = data.products[0]
@@ -20,13 +34,14 @@ export default {
       ({ pricingStrategyId, priceCode, description, rates }) => {
         const [price] = rates
         const { amount, billingFrequency } = price
+        const _description = description.replace(/<p>|<\/p>/g, '')
         return {
           sku,
           name,
           priceCode,
           pricingStrategyId,
           campaignCode,
-          description: JSON.parse(description.replace(/<p>|<\/p>/g, '')),
+          description: parse(_description),
           amount: parseInt(amount, 10),
           billingFrequency,
         }

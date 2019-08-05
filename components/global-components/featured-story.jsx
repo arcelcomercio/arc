@@ -13,7 +13,8 @@ const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
   detail: `featured-story__detail flex flex-col justify-between position relative md:p-20`,
 
-  category: 'featured-story__category pb-15 hidden md:inline-block',
+  category:
+    'featured-story__category pb-15 hidden md:inline-block position-relative',
   categoryLink: 'featured-story__category-link text-md capitalize',
 
   title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
@@ -21,10 +22,6 @@ const classes = {
 
   author: 'featured-story__author uppercase',
   authorLink: 'featured-story__author-link text-gray-200 text-xs',
-
-  oneline: 'featured-story-oneline ',
-  twoline: 'featured-story-twoline',
-  threeline: 'featured-story-threeline',
 
   imageLink: 'featured-story__img-link block h-full ml-10 md:ml-0',
   imageBox: `featured-story__img-box block position-relative overflow-hidden w-full h-full`,
@@ -62,7 +59,6 @@ export default class FeaturedStory extends PureComponent {
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
-      arcSite,
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
@@ -96,23 +92,6 @@ export default class FeaturedStory extends PureComponent {
     const getEditableField = element =>
       editableField ? editableField(element) : null
 
-    // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
-    let numline = ''
-    switch (arcSite) {
-      case 'elcomercio':
-        numline = classes.threeline
-        break
-      case 'publimetro':
-        numline = classes.threeline
-        break
-      case 'depor':
-        numline = classes.twoline
-        break
-      default:
-        numline = classes.threeline
-        break
-    }
-
     let headbandText = ''
     if (headband === 'live') headbandText = 'En vivo'
     else if (headband === 'gestionTv') headbandText = 'Gestión TV'
@@ -133,6 +112,12 @@ export default class FeaturedStory extends PureComponent {
       return multimediaLandscapeL
     }
 
+    const getCategorySectionClass = () => {
+      const { url } = category
+      if (url[0] === '/' && url[url.length - 1]) return url.slice(1, -1)
+      return url
+    }
+
     return (
       <article
         className={`${
@@ -142,7 +127,7 @@ export default class FeaturedStory extends PureComponent {
         } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
-            <h3 className={classes.category}>
+            <h3 className={`${classes.category} ${getCategorySectionClass()}`}>
               <a
                 className={classes.categoryLink}
                 href={category.url}
@@ -160,7 +145,7 @@ export default class FeaturedStory extends PureComponent {
           )}
           <h2 className={classes.title}>
             <a
-              className={`${classes.titleLink} ${numline}`}
+              className={classes.titleLink}
               href={title.url}
               {...getEditableField('titleField')}
               suppressContentEditableWarning>
