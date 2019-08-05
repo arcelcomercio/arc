@@ -8,6 +8,7 @@ import { FormSchema, Masks } from './schema'
 
 const FormStyled = S.Form(Form)
 const { capitalize, combine, replace } = Masks.Pipes
+const personNamePipe = combine(replace(/(^|\s)[-']/, '$1'), capitalize)
 
 const UserProfile = ({
   title = '',
@@ -45,7 +46,7 @@ const UserProfile = ({
                 <Field
                   name="firstName"
                   label="Nombres"
-                  pipe={combine(replace(/(^|\s)[-']/, ''), capitalize)}
+                  pipe={personNamePipe}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -54,7 +55,7 @@ const UserProfile = ({
                 <Field
                   name="lastName"
                   label="Apellido Paterno"
-                  pipe={combine(replace(/(^|\s)[-']/, ''), capitalize)}
+                  pipe={personNamePipe}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -63,7 +64,7 @@ const UserProfile = ({
                 <Field
                   name="secondLastName"
                   label="Apellido Materno"
-                  pipe={combine(replace(/(^|\s)[-']/, ''), capitalize)}
+                  pipe={personNamePipe}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
