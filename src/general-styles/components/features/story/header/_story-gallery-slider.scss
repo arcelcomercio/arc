@@ -35,7 +35,7 @@
   &__quantity {
     background-color: $color-primary;
     width: 102px;
-    height: 43px;
+    height: 40px;
     letter-spacing: 3px;
   }
   &__arrows {
@@ -44,7 +44,7 @@
     width: 50px;
   }
   &__caption-image {
-    max-width: calc(100% - 102px);
+    max-width: calc(100% - 0px);
   }
 
   &__figure {
