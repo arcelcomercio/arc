@@ -55,7 +55,9 @@ const WizardConfirmation = props => {
             <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
             <Item label="PAQUETE: ">{plan.toUpperCase()}</Item>
             <Item label="NOMBRE: ">
-              {firstName} {lastName} {secondLastName}
+              <S.Names>
+                {firstName} {lastName} {secondLastName}
+              </S.Names>
             </Item>
             <Item label="PRECIO: ">
               S/ {paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}

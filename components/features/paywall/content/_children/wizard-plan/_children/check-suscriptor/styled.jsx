@@ -1,5 +1,14 @@
 import styled from 'styled-components'
+import Button from '../../../../../_children/button'
 import { devices } from '../../../../../_dependencies/devices'
+
+export const Continue = styled(Button)`
+  max-width: 300px;
+  @media (${devices.mobile}) {
+    max-width: 100%;
+    width: 100%;
+  }
+`
 
 export const Background = styled.div`
   background-color: red;
@@ -23,7 +32,7 @@ export const Panel = styled.div`
   @media (${devices.mobile}) {
     flex-direction: column;
     height: auto;
-    max-width: calc(100% - 20px);
+    max-width: calc(100vw - 20px);
     padding: 30px 20px;
   }
 `
@@ -95,9 +104,13 @@ export const WrapDocument = styled.div`
   justify-content: space-around;
   strong {
     font-size: 16px;
+    margin-bottom: 30px;
   }
   @media (${devices.mobile}) {
-    margin-top: 40px;
+    padding: 20px 0;
+    form {
+      width: 100%;
+    }
   }
 `
 

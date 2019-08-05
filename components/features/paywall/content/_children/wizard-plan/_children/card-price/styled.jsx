@@ -20,13 +20,16 @@ const Frecuency = styled.div`
   margin: 24px 0 8px 0;
 `
 
-const Amount = styled.div`
+export const Amount = styled.div`
   font-size: 60px;
   justify-content: center;
   display: flex;
   align-items: flex-end;
   line-height: 50px;
   padding: 24px 0;
+  @media (${devices.mobile}) {
+    font-size: 50px;
+  }
 `
 
 const Currency = styled.span`
@@ -71,7 +74,7 @@ export const Button = styled(Btn)`
     `};
 `
 
-export { CardPrice, Frecuency, Amount, Currency, Description, Content, Footer }
+export { CardPrice, Frecuency, Currency, Description, Content, Footer }
 
 // .card-price--active{
 // color: #444444;
