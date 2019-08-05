@@ -114,7 +114,7 @@ export default class FeaturedStory extends PureComponent {
 
     const getCategorySectionClass = () => {
       const { url } = category
-      if (url[0] === '/' && url[url.length - 1]) return url.slice(1, -1)
+      if (url[0] === '/' && url[url.length - 1] === '/') return url.slice(1, -1)
       return url
     }
 
