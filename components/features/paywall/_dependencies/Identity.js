@@ -2,7 +2,7 @@ import addScriptAsync from '../../../utilities/script-async'
 
 export const attrToObject = (attributes = [], getAttributes = []) => {
   return getAttributes.reduce((prev, name) => {
-    const attrs = attributes.find(attr => attr.name === name)
+    const attrs = (attributes || []).find(attr => attr.name === name)
 
     if (attrs) {
       prev[name] = attrs.value

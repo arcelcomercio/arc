@@ -1,5 +1,9 @@
-const resolve = ({ campaing = 'paywall-gestion-sandbox' }) => {
-  return `https://api-sandbox.gestion.pe/retail/public/v1/offer/preview/${campaing}`
+const resolve = ({ doctype = 'DNI', docnumber }) => {
+  const PATH =
+    'https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/'
+  return docnumber ? `${PATH}?doctype=DNI&docnumber=${docnumber}` : PATH
+  // return `https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/?doctype=DNI&docnumber=41000001`
+  // return `https://api-sandbox.gestion.pe/retail/public/v1/offer/preview/${campaing}`
 }
 
 const parse = string => {
@@ -17,7 +21,8 @@ const parse = string => {
 export default {
   resolve,
   params: {
-    campaing: 'text',
+    docnumber: 'text',
+    doctype: 'text',
   },
   transform(data) {
     const { sku, name, attributes, pricingStrategies } = data.products[0]
