@@ -1,3 +1,6 @@
+$ojo-show: #ec008b;
+$deportes: #fe8032;
+
 .featured-story {
   &__category {
     height: 24px;
@@ -19,15 +22,15 @@
     }
 
     &.ojo-show {
-      background-color: #ec008b;
+      background-color: $ojo-show;
       &::after {
-        border-left: 14px solid #ec008b;
+        border-left: 14px solid $ojo-show;
       }
     }
     &.deportes {
-      background-color: #fe8032;
+      background-color: $deportes;
       &::after {
-        border-left: 14px solid #fe8032;
+        border-left: 14px solid $deportes;
       }
     }
   }
