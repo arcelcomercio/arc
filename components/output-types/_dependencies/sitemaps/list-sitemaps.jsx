@@ -25,17 +25,16 @@ export const ListSiteMaps = ({ sections, siteUrl }) => {
 }
 
 export const ListNewsSiteMaps = ({ sections, siteUrl }) => {
-    const list = sections.map(section => {
-      const { _id = '', parent = {} } = section
-      const { default: primary } = parent
-  
-      let result = null
-      if (primary === '/') {
-        const url = `${siteUrl}/arcio/news-sitemap${_id}`
-        result = <SiteMapsItem siteUrl={url} />
-      }
-      return result
-    })
-    return list
-  }
+  const list = sections.map(section => {
+    const { _id = '', parent = {} } = section
+    const { default: primary } = parent
 
+    let result = null
+    if (primary === '/') {
+      const url = `${siteUrl}/arcio/news-sitemap${_id}`
+      result = <SiteMapsItem siteUrl={url} />
+    }
+    return result
+  })
+  return list
+}
