@@ -22,6 +22,10 @@ const Button = styled.button`
     background-color: #e8e8e8;
     color: #bbbbbb;
   }
+  &:hover {
+    background-color: #005e89;
+    color: #fff;
+  }
   @media (${devices.mobile}) {
     width: 100%;
   }

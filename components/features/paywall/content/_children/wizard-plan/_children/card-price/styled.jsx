@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import { devices } from '../../../../../_dependencies/devices'
+import Btn from '../../../../../_children/button'
 
 const CardPrice = styled.div`
   display: flex;
@@ -52,19 +53,14 @@ const Content = styled.div`
 
 const Footer = styled.div``
 
-const Button = styled.button`
-  border: 0;
-  display: flex;
-  width: 100%;
-  flex: 1;
-  justify-content: center;
-  font-size: 16px;
-  padding: 24px 0;
+export const Button = styled(Btn)`
+  color: #444;
   background-color: #e8e8e8;
-  color: #444444;
+  font-size: 16px;
+  height: 70px;
+  border-radius: 0 0 5px 5px;
   font-weight: 300;
-  outline: none;
-  transition: color 300ms, background-color 300ms;
+  transition: color 300ms, background-color 300ms, font-weight 300ms;
   ${({ active }) =>
     active &&
     css`
@@ -72,23 +68,10 @@ const Button = styled.button`
       color: #fff;
       font-weight: 700;
       cursor: pointer;
-    `}
-  :hover {
-    background-color: #005e89;
-    color: #fff;
-  }
+    `};
 `
 
-export {
-  CardPrice,
-  Frecuency,
-  Amount,
-  Currency,
-  Description,
-  Content,
-  Footer,
-  Button,
-}
+export { CardPrice, Frecuency, Amount, Currency, Description, Content, Footer }
 
 // .card-price--active{
 // color: #444444;
