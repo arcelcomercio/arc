@@ -63,7 +63,9 @@ export default function CheckSuscription() {
         <Formik
           validate={values => new FormSchema(values)}
           initialValues={{ documentType: 'DNI', documentNumber: null }}
-          onSubmit={(values, actions) => {}}
+          onSubmit={({ documentType, documentNumber }, actions) => {
+            window.location.href = `/paywall/${documentType}/${documentNumber}?_website=gestion&outputType=paywall`
+          }}
           render={({
             setFieldValue,
             isSubmitting,

@@ -8,11 +8,18 @@ import { FormSchema, Masks } from './schema'
 
 const FormStyled = S.Form(Form)
 const { capitalize, combine, replace } = Masks.Pipes
+const personNamePipe = combine(replace(/(^|\s)[-']/, '$1'), capitalize)
 
-const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
+const UserProfile = ({
+  title = '',
+  initialValues,
+  error,
+  onSubmit,
+  onReset,
+}) => {
   return (
     <Formik
-      initialValues={Object.assign({}, profile, { documentType: 'DNI' })}
+      initialValues={Object.assign({}, { documentType: 'DNI' }, initialValues)}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
         onSubmit(
@@ -39,7 +46,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   name="firstName"
                   label="Nombres"
-                  pipe={combine(replace(/(^|\s)[-']/, ''), capitalize)}
+                  pipe={personNamePipe}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -48,7 +55,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   name="lastName"
                   label="Apellido Paterno"
-                  pipe={combine(replace(/(^|\s)[-']/, ''), capitalize)}
+                  pipe={personNamePipe}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -57,7 +64,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
                 <Field
                   name="secondLastName"
                   label="Apellido Materno"
-                  pipe={combine(replace(/(^|\s)[-']/, ''), capitalize)}
+                  pipe={personNamePipe}
                   mask={Masks.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -65,7 +72,7 @@ const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
               <S.WrapField>
                 <Field
                   name="documentNumber"
-                  label="Tipo de documento"
+                  label="Número de documento"
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
                   prefix={

@@ -22,7 +22,7 @@ const cvvPatterns = {
 
 // prettier-ignore
 export const Masks = {
-  PERSON_NAME: new Array(49).fill(/[ a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ']/),
+  PERSON_NAME: new Array(49).fill(/[ a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ'-]/),
   DNI: new Array(8).fill(/\d/),
   CEX: new Array(15).fill(/[a-zA-Z0-9-]/),
   CDI: new Array(15).fill(/[a-zA-Z0-9-]/),
@@ -41,6 +41,25 @@ export const Masks = {
 function shape(value) {
   return {
     value: value ? value.toString() : value,
+    replace(...args) {
+      this.value = this.value ? this.value.replace(...args) : this.value
+      return this
+    },
+    ignoreChars(chars) {
+      if (this.value) {
+        if (chars instanceof RegExp) {
+          this.value = this.value.replace(chars, '')
+        } else if (Array.isArray(chars)) {
+          this.value = this.value.replace(
+            new RegExp(`[${chars.join('')}]`, 'g'),
+            ''
+          )
+        } else if (typeof chars === 'string') {
+          this.value = this.value.replace(new RegExp(`[${chars}]`, 'g'), '')
+        }
+      }
+      return this
+    },
     email(message) {
       if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.value)) {
         throw message
