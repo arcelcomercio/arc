@@ -1,7 +1,13 @@
-import { BLOG_TOKEN, BLOG_URL_API, resizerSecret } from 'fusion:environment'
+import {
+  BLOG_TOKEN,
+  BLOG_URL_API,
+  resizerSecret
+} from 'fusion:environment'
 
 import getProperties from 'fusion:properties'
-import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
+import {
+  createUrlResizer
+} from '@arc-core-components/content-source_content-api-v4'
 
 let website = ''
 
@@ -20,8 +26,7 @@ const resolve = key => {
   return url
 }
 
-const params = [
-  {
+const params = [{
     name: 'blog_limit',
     displayName: 'Limite de Blog',
     type: 'text',
@@ -44,14 +49,27 @@ const params = [
 ]
 
 const transform = data => {
-  const { resizerUrl } = getProperties(website)
+  const {
+    resizerUrl
+  } = getProperties(website)
   const newData = data
   Object.keys(data).forEach(item => {
-    const { user: { user_avatarb: { guid } = {} } = {} } = data[item] || {}
+    const {
+      user: {
+        user_avatarb: {
+          guid
+        } = {}
+      } = {}
+    } = data[item] || {}
 
     if (guid) {
       const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
-        presets: { autor_sm: { width: 125, height: 125 } },
+        presets: {
+          author_sm: {
+            width: 125,
+            height: 125
+          }
+        },
       })({
         url: guid,
       })

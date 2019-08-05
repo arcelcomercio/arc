@@ -70,12 +70,16 @@ class SeparatorBlog extends PureComponent {
                 user: {
                   first_name: authorName = '',
                   user_avatarb: {
-                    guid: authorImg = defaultImage({
-                      deployment,
-                      contextPath,
-                      arcSite,
-                      size: 'sm',
-                    }),
+                    guid: {
+                      resized_urls: {
+                        author_sm: authorImg = defaultImage({
+                          deployment,
+                          contextPath,
+                          arcSite,
+                          size: 'sm',
+                        }),
+                      } = {},
+                    } = {},
                   } = {},
                 } = {},
                 blog: { path: blogUrl = '', blogname: blogName = '' } = {},
