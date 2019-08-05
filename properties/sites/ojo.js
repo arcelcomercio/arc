@@ -11,7 +11,7 @@ export default {
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
-  fbAppId: '1667917060088448',
+  fbAppId: '1579310032347237',
   googleTagManagerId: 'GTM-TZ52DLB',
   ampGoogleTagManagerId: 'UA-3055636-3',
   ampGoogleTagManagerName: 'ojo',
@@ -127,11 +127,11 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011772,
-    movil2: 15011773,
-    movil3: 15011774,
-    movil4: 15011775,
-    movil5: 15011776,
+    movil1: 15011747,
+    movil2: 15011749,
+    movil3: 15011750,
+    movil4: 15011751,
+    movil5: 15011752,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',
