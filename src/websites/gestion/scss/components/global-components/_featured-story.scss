@@ -146,7 +146,7 @@
     .featured-story__title-link {
       @media (--only-mobile) {
         font-size: 15px;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 4;
       }
     }
     .featured-story__author-link {
