@@ -142,7 +142,7 @@ export default class FeaturedStory extends PureComponent {
           )}
           <h2 className={classes.title}>
             <a
-              className={`${classes.titleLink}`}
+              className={classes.titleLink}
               href={title.url}
               {...getEditableField('titleField')}
               suppressContentEditableWarning>
