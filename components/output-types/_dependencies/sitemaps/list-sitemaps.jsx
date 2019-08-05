@@ -16,7 +16,7 @@ export const ListSiteMaps = ({ sections, siteUrl }) => {
 
     let result = null
     if (primary === '/') {
-      const url = `${siteUrl}/sitemaps${_id}.xml`
+      const url = `${siteUrl}/arcio/sitemap${_id}`
       result = <SiteMapsItem siteUrl={url} />
     }
     return result
@@ -25,17 +25,16 @@ export const ListSiteMaps = ({ sections, siteUrl }) => {
 }
 
 export const ListNewsSiteMaps = ({ sections, siteUrl }) => {
-    const list = sections.map(section => {
-      const { _id = '', parent = {} } = section
-      const { default: primary } = parent
-  
-      let result = null
-      if (primary === '/') {
-        const url = `${siteUrl}/news-sitemaps${_id}.xml`
-        result = <SiteMapsItem siteUrl={url} />
-      }
-      return result
-    })
-    return list
-  }
+  const list = sections.map(section => {
+    const { _id = '', parent = {} } = section
+    const { default: primary } = parent
 
+    let result = null
+    if (primary === '/') {
+      const url = `${siteUrl}/arcio/news-sitemap${_id}`
+      result = <SiteMapsItem siteUrl={url} />
+    }
+    return result
+  })
+  return list
+}

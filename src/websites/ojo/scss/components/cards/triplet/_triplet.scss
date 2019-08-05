@@ -1,13 +1,24 @@
 .triplet {
-  border-width: 0;
-  border-top-width: 1px;
-  border-top-color: $color-primary;
+  border-top: none;
+  background-color: $color-gray-100;
 
   &__title-link {
     color: $color-base-300;
+    font-size: 13px;
   }
-
   &__link {
-    font-family: $font-regular;
+    color: $color-primary;
+    font-family: $secondary-font;
+    font-weight: 700;
+  }
+  &__information {
+    width: calc(100% - 114px);
+  }
+  &__multimedia {
+    width: 114px;
+    height: 65px;
+  }
+  &__author {
+    margin-top: 15px;
   }
 }

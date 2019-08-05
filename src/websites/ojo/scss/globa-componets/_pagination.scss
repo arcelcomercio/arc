@@ -1,12 +1,10 @@
 .pagination {
   &__page {
-    font-family: $font-regular;
     font-weight: normal;
     margin-right: 10px;
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
-
   }
   &__page--current {
     background-color: $color-primary;
