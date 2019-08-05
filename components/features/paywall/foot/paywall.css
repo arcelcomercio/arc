@@ -94,6 +94,7 @@
 @media (max-width: 639px) {
   .footer-content {
     grid-template-columns: 1fr;
+    display: flex;
   }
 
   .image-content {
