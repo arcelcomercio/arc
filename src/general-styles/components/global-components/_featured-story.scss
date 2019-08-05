@@ -115,21 +115,6 @@ $image-height: 157px;
     }
   }
 
-  &-oneline {
-    -webkit-line-clamp: 1;
-    max-height: calc(#{$header-xs} * 1.5 * 1);
-  }
-
-  &-twoline {
-    -webkit-line-clamp: 2;
-    max-height: calc(#{$header-xs} * 1.5 * 2);
-  }
-
-  &-threeline {
-    -webkit-line-clamp: 3;
-    max-height: calc(#{$header-xs} * 1.5 * 3);
-  }
-
   &__title {
     max-width: 260px;
   }
