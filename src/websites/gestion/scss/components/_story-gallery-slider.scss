@@ -1,7 +1,9 @@
 .story-gallery-slider {
+  background-color: transparent;
+  padding: 0;
   &__quantity {
-    background-color: $color-secondary;
-    color: $color-gray-300;
+    background-color: $color-gray-300;
+    color: $color-white;
     font-family: $tertiary-font;
     font-size: 16px;
     font-weight: 700;
@@ -10,6 +12,7 @@
     font-family: $tertiary-font;
     font-size: 14.4px;
     font-weight: 500;
+    color: $color-gray-300;
   }
   &__arrows {
     height: calc(100% - 50%);
