@@ -8,20 +8,17 @@ import { FormSchema, Masks } from './schema'
 
 const FormStyled = S.Form(Form)
 const { capitalize, combine, replace } = Masks.Pipes
-const initValue = {
-  firstName: null,
-  lastName: null,
-  secondLastName: null,
-  documentType: 'DNI',
-  documentNumber: null,
-  phone: null,
-  email: null,
-}
 
-const UserProfile = ({ title = '', profile, error, onSubmit, onReset }) => {
+const UserProfile = ({
+  title = '',
+  initialValues,
+  error,
+  onSubmit,
+  onReset,
+}) => {
   return (
     <Formik
-      initialValues={Object.assign({}, initValue, profile)}
+      initialValues={Object.assign({}, { documentType: 'DNI' }, initialValues)}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
         onSubmit(

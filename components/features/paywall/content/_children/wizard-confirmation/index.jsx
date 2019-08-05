@@ -2,7 +2,6 @@ import React from 'react'
 import * as S from './styled'
 import { Panel } from '../../../_children/panel/styled'
 import Button from '../../../_children/button'
-import Icon from '../../../_children/icon'
 import { devices } from '../../../_dependencies/devices'
 
 const HOME = 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/'
