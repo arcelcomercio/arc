@@ -116,3 +116,7 @@ export const DetailTitle = styled.div`
   line-height: 2.14;
   margin-bottom: 15px;
 `
+
+export const Names = styled.span`
+  text-transform: capitalize;
+`

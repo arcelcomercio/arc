@@ -8,7 +8,7 @@ import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import { FormSchema, Masks } from './schema'
 
-const FormPay = ({ error, onSubmit }) => {
+const FormPay = ({ error, onSubmit, initialValues }) => {
   return (
     <Formik
       validate={values => new FormSchema(values)}

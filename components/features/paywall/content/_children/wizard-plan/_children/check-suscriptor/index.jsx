@@ -1,7 +1,6 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import * as S from './styled'
-import Button from '../../../../../_children/button'
 import InputFormik from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import schema, { Masks } from '../../../../../_dependencies/schema'
@@ -103,9 +102,9 @@ export default function CheckSuscription() {
                   component={InputFormik}
                 />
 
-                <Button disabled={isSubmitting} maxWidth="300px" type="submit">
+                <S.Continue disabled={isSubmitting} type="submit">
                   CONTINUAR
-                </Button>
+                </S.Continue>
               </Form>
             )
           }}

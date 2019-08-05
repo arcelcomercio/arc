@@ -18,9 +18,11 @@
 
   &__title-link {
     color: $color-base-300;
+    -webkit-line-clamp: 3;
+    max-height: calc(1.3rem * 1.333 * 3);
 
     @media (--tablet) {
-      padding-top: 10px;
+      margin-top: 10px;
     }
   }
 
@@ -60,7 +62,7 @@
     }
 
     .featured-story__title-link {
-      padding-top: 10px;
+      margin-top: 10px;
     }
 
     &.img-complete {

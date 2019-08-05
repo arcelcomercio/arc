@@ -9,6 +9,7 @@ import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
+import ENV from 'fusion:environment'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
@@ -42,7 +43,7 @@ class Content extends React.Component {
 
   componentDidMount() {
     const { siteProperties } = this.props
-
+    console.log({ ENV })
     AddIdentity(siteProperties).then(() => {
       userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
         this.setState({ profile })
