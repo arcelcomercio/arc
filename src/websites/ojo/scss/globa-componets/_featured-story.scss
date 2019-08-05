@@ -17,6 +17,19 @@
       top: 0px;
       left: 100%;
     }
+
+    &.ojo-show {
+      background-color: #ec008b;
+      &::after {
+        border-left: 14px solid #ec008b;
+      }
+    }
+    &.deportes {
+      background-color: #fe8032;
+      &::after {
+        border-left: 14px solid #fe8032;
+      }
+    }
   }
 
   &__category-link {
