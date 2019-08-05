@@ -61,6 +61,7 @@ export const Img = styled.img`
 
 export const Shadow = styled.div`
   width: 100%;
+  left: 0;
   position: absolute;
   height: 50px;
   z-index: -2;
