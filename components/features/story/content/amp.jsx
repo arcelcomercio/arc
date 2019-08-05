@@ -199,7 +199,7 @@ class StoryContentAmp extends PureComponent {
               })}
             </div>
           )}
-          {arcSite !== ConfigParams.SITE_GESTION ? (
+          {arcSite === ConfigParams.SITE_PUBLIMETRO ? (
             <amp-embed // TODO: publicidad taboola x definir de parte del cliente // se Retira para gestion
               width="100"
               height="100"
