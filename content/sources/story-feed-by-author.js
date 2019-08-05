@@ -1,21 +1,15 @@
-import {
-  resizerSecret
-} from 'fusion:environment'
-import {
-  addResizedUrls
-} from '@arc-core-components/content-source_content-api-v4'
+import { resizerSecret } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import {
-  addResizedUrlsToStory
-} from '../../components/utilities/helpers'
-
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let auxKey
 let website = ''
 
 const schemaName = 'stories'
 
-const params = [{
+const params = [
+  {
     name: 'name',
     displayName: 'Slug del autor',
     type: 'text',
@@ -33,9 +27,7 @@ const params = [{
 ]
 
 const pattern = (key = {}) => {
-  const {
-    name
-  } = key
+  const { name } = key
   auxKey = key
   website = key['arc-site'] || 'Arc Site no está definido'
   const size = key.size || 50
@@ -43,7 +35,6 @@ const pattern = (key = {}) => {
   if (!name) {
     throw new Error('Esta fuente de contenido necesita el Slug del autor')
   }
-
 
   const validateFrom = () => {
     if (key.from !== '1' && key.from) {
@@ -53,7 +44,6 @@ const pattern = (key = {}) => {
   }
 
   const from = `${validateFrom()}`
-
 
   /** TODO: La consulta se debe hacer por SLUG, no por URL del autor */
   /** TODO: Cambiar publish_date por display_name en los patterns???? */
@@ -69,23 +59,20 @@ const resolve = key => pattern(key)
 const transform = data => {
   const dataStories = data || {}
 
-  const {
-    resizerUrl
-  } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(dataStories.content_elements, resizerUrl, resizerSecret, addResizedUrls)
-
-  const {
-    name
-  } = auxKey || {}
+  const { resizerUrl, siteName } = getProperties(website)
+  dataStories.content_elements = addResizedUrlsToStory(
+    dataStories.content_elements,
+    resizerUrl,
+    resizerSecret,
+    addResizedUrls
+  )
+  dataStories.siteName = siteName
+  const { name } = auxKey || {}
 
   if (!name || !dataStories) return dataStories
 
   const {
-    content_elements: [{
-      credits: {
-        by = []
-      } = {}
-    } = {}] = [],
+    content_elements: [{ credits: { by = [] } = {} } = {}] = [],
   } = dataStories
 
   if (by.length === 0) return dataStories

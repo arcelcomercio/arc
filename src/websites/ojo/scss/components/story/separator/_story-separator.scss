@@ -1,0 +1,15 @@
+.story-separator {
+  &__body {
+    background-color: $color-base-200;
+  }
+  &__item {
+    border-color: $color-secondary;
+  }
+  &__category {
+    font-weight: 700;
+  }
+  &__title,
+  &__category {
+    font-family: $secondary-font;
+  }
+}

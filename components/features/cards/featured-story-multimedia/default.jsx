@@ -16,17 +16,17 @@ const CardFeaturedStoryMultimedia = props => {
     source: 'story-by-section',
     query: { section },
   })
-
+  // console.log('DATA--->', data)
   const { section_name: sectionName = '' } = data || {}
 
   const {
-    websiteLink,
+    websiteLink, // { websites { ${arcsite} { website_url } } }
     multimediaLandscapeMD,
-    title,
-    multimediaType,
-    date,
-    primarySectionLink,
-    primarySection,
+    title, // { headlines { basic } }
+    multimediaType, // { promo_items }
+    date, // { publish_date }
+    primarySectionLink, // { taxonomy { primary_section { path } } }
+    primarySection, // { taxonomy { primary_section { name } } }
   } = new StoryData({
     data,
     arcSite,
