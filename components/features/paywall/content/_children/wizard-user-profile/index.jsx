@@ -78,7 +78,7 @@ function WizardUserProfile(props) {
         <S.PanelUserProfile type="content" valing="jc-center">
           {profile && (
             <UserProfile
-              profile={profile}
+              initialValues={profile}
               onSubmit={onSubmitHandler}
               title="Ingrese sus datos"
               error={error}
