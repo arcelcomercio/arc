@@ -59,7 +59,6 @@ export default class FeaturedStory extends PureComponent {
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
-      // arcSite,
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
@@ -92,8 +91,6 @@ export default class FeaturedStory extends PureComponent {
 
     const getEditableField = element =>
       editableField ? editableField(element) : null
-
-    // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
 
     let headbandText = ''
     if (headband === 'live') headbandText = 'En vivo'
@@ -148,7 +145,7 @@ export default class FeaturedStory extends PureComponent {
           )}
           <h2 className={classes.title}>
             <a
-              className={`${classes.titleLink}`}
+              className={classes.titleLink}
               href={title.url}
               {...getEditableField('titleField')}
               suppressContentEditableWarning>

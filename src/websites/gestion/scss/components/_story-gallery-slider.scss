@@ -1,6 +1,8 @@
 .story-gallery-slider {
   background-color: transparent;
-  padding: 0;
+  @media (--desktop) {
+    padding: 0;
+  }
   &__quantity {
     background-color: $color-gray-300;
     color: $color-white;

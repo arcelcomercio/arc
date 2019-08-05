@@ -1,5 +1,6 @@
 import React from 'react'
 import UtilListKey from '../../../../utilities/list-keys'
+import { getRemoveSlug } from '../../../../utilities/helpers'
 
 const classes = {
   container: 'story-tags mt-25 mb-20',
@@ -11,6 +12,7 @@ const classes = {
 }
 const StoryContentChildTags = props => {
   const { data, isAmp } = props
+
   return (
     data.length > 0 && (
       <div className={classes.container}>
@@ -24,7 +26,7 @@ const StoryContentChildTags = props => {
               <h2 key={UtilListKey(idx)} className={classes.tag}>
                 <a
                   className={isAmp ? `amp-${classes.link}` : classes.link}
-                  href={slug && `/noticias/${slug}`}>
+                  href={slug && `/noticias/${getRemoveSlug(slug)}`}>
                   {text}
                 </a>
               </h2>
