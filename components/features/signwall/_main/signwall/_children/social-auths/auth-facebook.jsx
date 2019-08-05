@@ -151,6 +151,11 @@ class AuthFacebook extends React.Component {
                       value: originAction(this.tipForm, this.tipCat),
                       type: 'String',
                     },
+                    {
+                      name: 'termsCondPrivaPoli', // Terms Conditions and Privacy Policy
+                      value: '1',
+                      type: 'String',
+                    }
                   ],
                 }
 
