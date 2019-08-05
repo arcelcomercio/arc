@@ -114,6 +114,12 @@ export default class FeaturedStory extends PureComponent {
       return multimediaLandscapeL
     }
 
+    const getCategorySectionClass = () => {
+      const { url } = category
+      if (url[0] === '/' && url[url.length - 1] === '/') return url.slice(1, -1)
+      return url
+    }
+
     return (
       <article
         className={`${
@@ -123,7 +129,7 @@ export default class FeaturedStory extends PureComponent {
         } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
-            <h3 className={classes.category}>
+            <h3 className={`${classes.category} ${getCategorySectionClass()}`}>
               <a
                 className={classes.categoryLink}
                 href={category.url}
