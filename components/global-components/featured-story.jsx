@@ -18,7 +18,7 @@ const classes = {
   categoryLink: 'featured-story__category-link text-md capitalize',
 
   title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
-  titleLink: 'featured-story__title-link title-xs line-h-sm',
+  titleLink: 'featured-story__title-link title-xs line-h-sm ',
 
   author: 'featured-story__author uppercase',
   authorLink: 'featured-story__author-link text-gray-200 text-xs',
@@ -92,6 +92,8 @@ export default class FeaturedStory extends PureComponent {
     const getEditableField = element =>
       editableField ? editableField(element) : null
 
+    // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
+
     let headbandText = ''
     if (headband === 'live') headbandText = 'En vivo'
     else if (headband === 'gestionTv') headbandText = 'Gestión TV'
@@ -114,7 +116,7 @@ export default class FeaturedStory extends PureComponent {
 
     const getCategorySectionClass = () => {
       const { url } = category
-      if (url[0] === '/' && url[url.length - 1]) return url.slice(1, -1)
+      if (url[0] === '/' && url[url.length - 1] === '/') return url.slice(1, -1)
       return url
     }
 
