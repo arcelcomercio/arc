@@ -112,6 +112,11 @@ class FormRegister extends Component {
               value: originAction(this.tipCat),
               type: 'String',
             },
+            {
+              name: 'termsCondPrivaPoli', // Terms Conditions and Privacy Policy
+              value: '1',
+              type: 'String',
+            }
           ],
         },
         { doLogin: true },
