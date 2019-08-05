@@ -59,7 +59,6 @@ export default class FeaturedStory extends PureComponent {
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
-      // arcSite,
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
