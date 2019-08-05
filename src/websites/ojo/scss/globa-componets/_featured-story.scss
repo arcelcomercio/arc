@@ -1,12 +1,14 @@
+$ojo-show: #ec008b;
+$deportes: #fe8032;
+
 .featured-story {
   &__category {
     height: 24px;
     padding: 2px 11px;
     background-color: $color-primary;
-    @media (--tablet) {
-      display: flex;
-      align-items: center;
-    }
+    display: flex;
+    align-items: center;
+    width: fit-content;
 
     &::after {
       content: '';
@@ -17,10 +19,24 @@
       top: 0px;
       left: 100%;
     }
+
+    &.ojo-show {
+      background-color: $ojo-show;
+      &::after {
+        border-left: 14px solid $ojo-show;
+      }
+    }
+    &.deportes {
+      background-color: $deportes;
+      &::after {
+        border-left: 14px solid $deportes;
+      }
+    }
   }
 
   &__category-link {
     color: $color-white;
+    font-weight: 700;
   }
 
   &__author-link,
@@ -63,11 +79,11 @@
 
   &.expand {
     .featured-story__category {
-      border: 1px solid $color-primary;
+      display: flex;
+      align-items: center;
     }
-
     .featured-story__category-link {
-      color: $color-primary;
+      color: $color-white;
     }
 
     .featured-story__title-link {
@@ -76,7 +92,11 @@
 
     &.img-complete {
       .featured-story__category {
-        border: 1px solid $color-white;
+        border: 0;
+        display: flex;
+        &::after {
+          border-bottom: 11px solid transparent;
+        }
       }
 
       .featured-story__img-box {

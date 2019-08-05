@@ -59,7 +59,7 @@ export default class FeaturedStory extends PureComponent {
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
-      arcSite,
+      // arcSite,
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
@@ -93,8 +93,6 @@ export default class FeaturedStory extends PureComponent {
     const getEditableField = element =>
       editableField ? editableField(element) : null
 
-    // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
-
     let headbandText = ''
     if (headband === 'live') headbandText = 'En vivo'
     else if (headband === 'gestionTv') headbandText = 'Gestión TV'
@@ -115,6 +113,12 @@ export default class FeaturedStory extends PureComponent {
       return multimediaLandscapeL
     }
 
+    const getCategorySectionClass = () => {
+      const { url } = category
+      if (url[0] === '/' && url[url.length - 1]) return url.slice(1, -1)
+      return url
+    }
+
     return (
       <article
         className={`${
@@ -124,7 +128,7 @@ export default class FeaturedStory extends PureComponent {
         } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
         <div className={classes.detail}>
           {headband === 'normal' || !headband ? (
-            <h3 className={classes.category}>
+            <h3 className={`${classes.category} ${getCategorySectionClass()}`}>
               <a
                 className={classes.categoryLink}
                 href={category.url}
