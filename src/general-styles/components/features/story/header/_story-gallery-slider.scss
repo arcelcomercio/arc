@@ -35,8 +35,11 @@
   &__quantity {
     background-color: $color-primary;
     width: 102px;
-    height: 40px;
+    height: 30px;
     letter-spacing: 3px;
+    @media (--desktop) {
+      height: 40px;
+    }
   }
   &__arrows {
     outline: 0;
@@ -45,6 +48,11 @@
   }
   &__caption-image {
     max-width: calc(100% - 0px);
+    clear: both;
+    padding-top: 10px;
+    @media (--desktop) {
+      clear: none;
+    }
   }
 
   &__figure {
