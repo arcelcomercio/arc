@@ -7,13 +7,12 @@
     margin-top: 10px;
   }
 
-  @media (--tablet) {
+  /*   @media (--tablet) {
     padding: 0 0 20px 0;
-  }
+  } */
 
   &__section {
     color: $color-primary;
-    border: 1px solid $color-primary;
     padding: 7px;
 
     @media (--tablet) {
