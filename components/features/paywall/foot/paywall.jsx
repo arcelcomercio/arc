@@ -8,7 +8,7 @@ import Link from '../_children/link'
 
 const Foot = () => {
   const { siteProperties, contextPath, deployment } = useFusionContext()
-  const { assets } = siteProperties
+  const { assets, social } = siteProperties
   const [supportOpen, setSupportOpen] = React.useState(false)
 
   return (
@@ -96,7 +96,10 @@ const Foot = () => {
           </div>
         </div>
         <div className="social-content">
-          <a href="/">
+          <a
+            href={social.twitter.url}
+            target="_blank"
+            rel="noopener noreferrer">
             <i>
               <svg
                 width="1em"
@@ -108,7 +111,10 @@ const Foot = () => {
               </svg>
             </i>
           </a>
-          <a href="/">
+          <a
+            href={social.facebook.url}
+            target="_blank"
+            rel="noopener noreferrer">
             <i>
               <svg
                 width="1em"
@@ -120,7 +126,10 @@ const Foot = () => {
               </svg>
             </i>
           </a>
-          <a href="/">
+          <a
+            href={social.linkedin.url}
+            target="_blank"
+            rel="noopener noreferrer">
             <i>
               <svg
                 width="1em"
