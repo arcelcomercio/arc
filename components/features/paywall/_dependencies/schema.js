@@ -84,6 +84,7 @@ function shape(value) {
       return this
     },
     isRequired: false,
+    hasValue: value !== '' && value !== null,
     replace(...args) {
       this.value = this.value ? this.value.replace(...args) : this.value
       return this
@@ -126,13 +127,13 @@ function shape(value) {
       return this
     },
     max(limit, message) {
-      if (!this.isRequired && this.value) return this
+      if (!this.isRequired && !this.hasValue) return this
       if (!this.value || this.value.length > limit)
         throw message.replace(/\${max}/g, limit)
       return this
     },
     min(limit, message) {
-      if (!this.isRequired && this.value) return this
+      if (!this.isRequired && !this.hasValue) return this
       if (!this.value || this.value.length < limit)
         throw message.replace(/\${min}/g, limit)
       return this
