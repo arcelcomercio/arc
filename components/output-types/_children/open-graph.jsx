@@ -10,17 +10,33 @@ export default ({
   arcSite,
   siteName,
   story,
+  blog,
   deployment = () => {},
   globalContent: data,
 }) => {
-  const {
-    link,
-    multimediaLandscapeXL,
-    videoSeo: [{ url = '' } = {}] = [],
-  } = new StoryData({
-    data,
-    arcSite,
-  })
+  let link = ''
+  let multimediaLandscapeXL = ''
+  let url = ''
+
+  if (story) {
+    const {
+      link: linkStory,
+      multimediaLandscapeXL: multimediaLandscapeXLStory,
+      videoSeo: [{ url: urlStory = '' } = {}] = [],
+    } = new StoryData({
+      data,
+      arcSite,
+    })
+    link = linkStory
+    multimediaLandscapeXL = multimediaLandscapeXLStory
+    url = urlStory
+  }
+
+  if (blog) {
+    const { post: { post_permalink: postPermalink = '' } = {} } = data
+    link = `/blog/${postPermalink}`
+  }
+
   const image =
     story && multimediaLandscapeXL
       ? multimediaLandscapeXL
