@@ -1,8 +1,18 @@
 $ojo-show: #ec008b;
 $deportes: #fe8032;
+$locomundo: #01abad;
 
 .featured-story {
+  @media (--only-mobile) {
+    height: 132px;
+
+    .featured-story__headband {
+      margin-bottom: 0;
+    }
+  }
+
   &__category {
+    min-height: 24px;
     height: 24px;
     padding: 2px 11px;
     background-color: $color-primary;
@@ -35,6 +45,14 @@ $deportes: #fe8032;
         border-left: 14px solid $deportes;
       }
     }
+
+    &.locomundo {
+      background-color: $locomundo;
+
+      &::after {
+        border-left: 14px solid $locomundo;
+      }
+    }
   }
 
   &__category-link {
@@ -47,11 +65,14 @@ $deportes: #fe8032;
     font-family: $secondary-font;
   }
 
+  &__title {
+    margin-top: 10px;
+  }
+
   &__title-link {
     color: $color-primary;
     -webkit-line-clamp: 3;
     max-height: calc(1.3rem * 1.333 * 3);
-    margin-top: 10px;
   }
 
   &.img-complete {
@@ -59,10 +80,12 @@ $deportes: #fe8032;
       .featured-story__img-box {
         &::before {
           height: 100%;
-          background: linear-gradient(180deg,
-              rgba(14, 33, 13, 0.1) 30%,
-              rgba(14, 33, 13, 0.8) 80%,
-              #0e210d);
+          background: linear-gradient(
+            180deg,
+            rgba(14, 33, 13, 0.1) 30%,
+            rgba(14, 33, 13, 0.8) 80%,
+            #0e210d
+          );
         }
       }
     }
@@ -90,10 +113,13 @@ $deportes: #fe8032;
       color: $color-white;
     }
 
+    .featured-story__title {
+      margin-top: 10px;
+    }
+
     .featured-story__title-link {
       -webkit-line-clamp: 3;
       max-height: calc(1.3rem * 1.333 * 3);
-      margin-top: 10px;
     }
 
     &.img-complete {
@@ -109,10 +135,12 @@ $deportes: #fe8032;
       .featured-story__img-box {
         &::before {
           height: 100%;
-          background: linear-gradient(180deg,
-              rgba(14, 33, 13, 0.1) 30%,
-              rgba(14, 33, 13, 0.8) 80%,
-              #0e210d);
+          background: linear-gradient(
+            180deg,
+            rgba(14, 33, 13, 0.1) 30%,
+            rgba(14, 33, 13, 0.8) 80%,
+            #0e210d
+          );
         }
       }
     }
@@ -123,6 +151,16 @@ $deportes: #fe8032;
       background-color: $color-tertiary;
       color: $color-white;
       font-family: $secondary-font;
+    }
+  }
+
+  &--no-expanded {
+    &.img-complete {
+      @media (--only-mobile) {
+        .featured-story__author-link {
+          color: $color-gray-200;
+        }
+      }
     }
   }
 }
