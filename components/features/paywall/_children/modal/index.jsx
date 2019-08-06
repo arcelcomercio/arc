@@ -1,25 +1,39 @@
 import React, { useEffect } from 'react'
+import styled from 'styled-components'
 
+import Icon from '../icon'
 import Portal from '../portal'
 import * as S from './styled'
 
-function Modal({ children, close = () => {}, ...props }) {
+const CloseIcon = styled(Icon)`
+  position: absolute;
+  top: 30px;
+  right: 30px;
+`
+CloseIcon.defaultProps = {
+  type: 'close',
+}
+
+function Modal({ children, showClose, onClose = () => {}, ...props }) {
   useEffect(() => {
-    const onClose = ({ key }) => {
+    const _onClose = ({ key }) => {
       if (key === 'Escape') {
-        close()
+        onClose()
       }
     }
-    window.addEventListener('keydown', onClose)
+    window.addEventListener('keydown', _onClose)
     return () => {
-      window.removeEventListener('keydown', onClose)
+      window.removeEventListener('keydown', _onClose)
     }
   })
   return (
     <Portal id="modal">
       <S.Modal {...props}>
-        <S.Background onClick={close} />
-        <S.Content>{children}</S.Content>
+        <S.Background onClick={onClose} />
+        <S.Content>
+          {showClose && <CloseIcon onClick={onClose} />}
+          {children}
+        </S.Content>
       </S.Modal>
     </Portal>
   )

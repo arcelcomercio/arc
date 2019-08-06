@@ -17,18 +17,26 @@ export const MESSAGE = {
 export const FormSchema = schema({
   firstName: value => {
     value
+      .dedup(' ')
+      .trim()
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
   },
   lastName: value => {
     value
+      .dedup(' ')
+      .trim()
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
   },
   secondLastName: value => {
-    value.min(3, MESSAGE.MIN).max(50, MESSAGE.MAX)
+    value
+      .dedup(' ')
+      .trim()
+      .min(3, MESSAGE.MIN)
+      .max(50, MESSAGE.MAX)
   },
   documentNumber: (value, { documentType }) => {
     switch (documentType) {

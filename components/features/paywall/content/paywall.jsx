@@ -23,12 +23,9 @@ class Content extends React.Component {
     super(props)
     this.memo = {}
     this.state = {
-      // data: props.globalContent,
       profile: '',
       loading: false,
     }
-    // this.fetch = this.fetch.bind(this)
-    // this.fetch()
   }
 
   // eslint-disable-next-line react/sort-comp
