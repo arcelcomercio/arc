@@ -42,7 +42,13 @@ export default {
     aboutUs: '',
     frequentQuestions: '',
   },
-
+  assets: {
+    seo: {
+      logoAmp: 'logo-ojo-amp.png',
+      width: 246,
+      height: 60,
+    },
+  },
   legalLinks: [
     {
       name: 'Términos y Condiciones',
