@@ -9,6 +9,7 @@ import { addSales } from '../../../_dependencies/sales'
 import { addPayU } from '../../../_dependencies/payu'
 import Beforeunload from '../before-unload'
 import { PayuError } from '../../_dependencies/handle-errors'
+import { getBrowser } from '../../../_dependencies/browsers'
 
 const MESSAGE = {
   PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
@@ -212,6 +213,11 @@ function WizardPayment(props) {
           cardInfo: values,
         })
         onBeforeNextStep(mergedValues, props)
+        // eslint-disable-next-line no-unused-expressions
+        console.log({ isSafari: getBrowser().isSafari })
+        if (getBrowser().isSafari) {
+          setLoading(false)
+        }
       })
       .catch(e => {
         const { name, message } = e
