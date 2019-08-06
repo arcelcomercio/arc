@@ -103,15 +103,24 @@ export default {
     contacts: [
       {
         position: 'Director Periodístico',
-        name: '',
+        name: 'Jaime Marcos Antonio Asian Dominguez <jasian@grupoepensa.pe>',
       },
       {
         position: 'Editor Web',
-        name: '',
+        name: 'Ivonne Chavely, Chiroque Quiroz <ichiroque@grupoepensa.pe>',
       },
       {
-        position: '',
-        name: '',
+        position: '-',
+        name: 'Contacto comercial',
+      },
+      {
+        position: 'Publicidad Online',
+        name: 'fonoavisos@comercio.com.pe',
+      },
+
+      {
+        position: 'Call Center',
+        name: '+51 1708 9999',
       },
     ],
   },
