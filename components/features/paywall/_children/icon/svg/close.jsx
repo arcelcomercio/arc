@@ -3,7 +3,7 @@ import React from 'react'
 function CustomIcon({ width, height, fill = '#444', ...props }) {
   return (
     <svg
-      viewPort="0 0 12 12"
+      viewport="0 0 12 12"
       width="12px"
       height="12px"
       {...props}

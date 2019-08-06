@@ -1,18 +1,7 @@
 import React, { useEffect } from 'react'
-import styled from 'styled-components'
 
-import Icon from '../icon'
 import Portal from '../portal'
 import * as S from './styled'
-
-const CloseIcon = styled(Icon)`
-  position: absolute;
-  top: 30px;
-  right: 30px;
-`
-CloseIcon.defaultProps = {
-  type: 'close',
-}
 
 function Modal({ children, showClose, onClose = () => {}, ...props }) {
   useEffect(() => {
@@ -31,7 +20,7 @@ function Modal({ children, showClose, onClose = () => {}, ...props }) {
       <S.Modal {...props}>
         <S.Background onClick={onClose} />
         <S.Content>
-          {showClose && <CloseIcon onClick={onClose} />}
+          {showClose && <S.CloseIcon onClick={onClose} />}
           {children}
         </S.Content>
       </S.Modal>
