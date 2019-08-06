@@ -23,7 +23,7 @@ export default ({
       <meta
         name="twitter:image"
         content={deployment(
-          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo.png`
+          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_fb.jpg`
         )}
       />
       <meta name="twitter:description" content={description} />
