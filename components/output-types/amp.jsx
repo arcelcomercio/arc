@@ -34,7 +34,7 @@ const AmpOutputType = ({
   }
 
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
-  const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
+  const isBlogPost = requestUri.match(`^(/blogs?/.*)`)
 
   const metaSiteData = {
     ...siteProperties,

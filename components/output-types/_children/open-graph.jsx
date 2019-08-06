@@ -1,5 +1,6 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
+import { deleteQueryString } from '../../utilities/helpers'
 
 export default ({
   fbAppId,
@@ -10,32 +11,18 @@ export default ({
   arcSite,
   siteName,
   story,
-  blog,
   deployment = () => {},
   globalContent: data,
+  requestUri,
 }) => {
-  let link = ''
-  let multimediaLandscapeXL = ''
-  let url = ''
-
-  if (story) {
-    const {
-      link: linkStory,
-      multimediaLandscapeXL: multimediaLandscapeXLStory,
-      videoSeo: [{ url: urlStory = '' } = {}] = [],
-    } = new StoryData({
-      data,
-      arcSite,
-    })
-    link = linkStory
-    multimediaLandscapeXL = multimediaLandscapeXLStory
-    url = urlStory
-  }
-
-  if (blog) {
-    const { post: { post_permalink: postPermalink = '' } = {} } = data
-    link = `/blog/${postPermalink}`
-  }
+  const link = deleteQueryString(requestUri)
+  const {
+    multimediaLandscapeXL,
+    videoSeo: [{ url = '' } = {}] = [],
+  } = new StoryData({
+    data,
+    arcSite,
+  })
 
   const image =
     story && multimediaLandscapeXL

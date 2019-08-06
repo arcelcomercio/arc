@@ -42,7 +42,7 @@ export default ({
   }
 
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
-  const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
+  const isBlogPost = requestUri.match(`^(/blogs?/.*)`)
 
   let classBody = isStory ? 'story' : ''
   classBody = isBlogPost ? 'blogPost' : classBody
