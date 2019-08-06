@@ -89,6 +89,7 @@ export default ({
     twitterCreator: siteProperties.social.twitter.user,
     story: isStory, // check data origin - Boolean
     deployment,
+    globalContent,
   }
   const openGraphData = {
     fbAppId: siteProperties.fbAppId,
