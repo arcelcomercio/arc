@@ -8,7 +8,8 @@ const classes = {
   wrapper:
     ' amp-nav__wrapper flex items-center justify-between pr-15 pl-15 bg-white w-full h-inherit border-b-1 border-solid border-gray mx-auto',
   iconMenu: 'amp-nav__hamburger bg-gray-300 position-relative',
-  navBtnContainer: 'flex items-center justify-start amp-nav__container-menu',
+  navBtnContainer:
+    'amp-nav__container-menu mt-10 flex items-center justify-start ',
   btnContainer: 'flex items-center justify-end header__btn-container',
 }
 

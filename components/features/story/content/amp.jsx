@@ -46,6 +46,8 @@ class StoryContentAmp extends PureComponent {
       relatedContent,
       promoItems,
       tags,
+      authorLink,
+      author,
     } = new StoryData({
       data,
       arcSite,
@@ -85,7 +87,9 @@ class StoryContentAmp extends PureComponent {
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmp(parameters)}
           />
-          <p className={classes.author}>Por: Redacción DT</p>
+          <p className={classes.author}>
+            <a href={authorLink}>{author}</a>
+          </p>
           {contentPosicionPublicidadAmp && (
             <StoryContent
               data={contentPosicionPublicidadAmp}
@@ -199,7 +203,7 @@ class StoryContentAmp extends PureComponent {
               })}
             </div>
           )}
-          {arcSite !== ConfigParams.SITE_GESTION ? (
+          {arcSite === ConfigParams.SITE_PUBLIMETRO ? (
             <amp-embed // TODO: publicidad taboola x definir de parte del cliente // se Retira para gestion
               width="100"
               height="100"

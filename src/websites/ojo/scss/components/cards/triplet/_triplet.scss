@@ -3,7 +3,6 @@
   background-color: $color-gray-100;
 
   &__title-link {
-    color: $color-base-300;
     font-size: 13px;
   }
   &__link {
@@ -20,5 +19,6 @@
   }
   &__author {
     margin-top: 15px;
+    word-break: break-word;
   }
 }
