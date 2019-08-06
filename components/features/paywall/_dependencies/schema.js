@@ -67,20 +67,12 @@ function shape(value) {
       this.value = this.value ? this.value.trim() : this.value
       return this
     },
-    trimEnd() {
-      this.value = this.value ? this.value.trimEnd() : this.value
-      return this
-    },
     trimLeft() {
       this.value = this.value ? this.value.trimLeft() : this.value
       return this
     },
     trimRight() {
       this.value = this.value ? this.value.trimRight() : this.value
-      return this
-    },
-    trimStart() {
-      this.value = this.value ? this.value.trimStart() : this.value
       return this
     },
     isRequired: false,
