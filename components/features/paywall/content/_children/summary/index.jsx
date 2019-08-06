@@ -31,7 +31,7 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
         <S.Expand>
           <span>Precio del plan</span>
           <strong>
-            <span> S/. {amount}</span>
+            <span> {amount === 0 ? 'Gratis' : `S/. ${amount}`} </span>
           </strong>
         </S.Expand>
         <S.Expand size={18}>
@@ -41,7 +41,14 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
           <strong>
             <S.Amount>
               <div>
-                <span style={{ fontSize: '14px' }}>S/.</span> {amount}
+                {(() =>
+                  amount === 0 ? (
+                    'Gratis'
+                  ) : (
+                    <>
+                      <span style={{ fontSize: '14px' }}>S/.</span> {amount}
+                    </>
+                  ))()}
               </div>
               <S.Frequency>{frequency[billingFrequency]}</S.Frequency>
             </S.Amount>

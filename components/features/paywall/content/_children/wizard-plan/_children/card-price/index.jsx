@@ -2,6 +2,21 @@ import React from 'react'
 import Panel from '../../../../../_children/panel'
 import * as S from './styled'
 
+function Price({ amount }) {
+  return (
+    <>
+      {amount === 0 ? (
+        'Gratis'
+      ) : (
+        <div>
+          <S.Currency>S/</S.Currency>
+          <span>{amount}</span>
+        </div>
+      )}
+    </>
+  )
+}
+
 function CardPrice(props) {
   const {
     plan: { amount, billingFrequency, description },
@@ -23,8 +38,7 @@ function CardPrice(props) {
         <S.Content>
           <S.Frecuency>{frequency[billingFrequency.toLowerCase()]}</S.Frecuency>
           <S.Amount>
-            <S.Currency>S/</S.Currency>
-            <span>{amount}</span>
+            <Price amount={amount} />
           </S.Amount>
           <S.Description>{description.description}</S.Description>
         </S.Content>

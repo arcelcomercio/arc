@@ -248,7 +248,7 @@ class StoryContent extends PureComponent {
             />
           </>
         )}
-        {arcSite !== ConfigParams.SITE_GESTION && (
+        {arcSite === ConfigParams.SITE_PUBLIMETRO && (
           <div
             className="fb-comments"
             data-href={`${siteUrl}${websiteUrl}`}
