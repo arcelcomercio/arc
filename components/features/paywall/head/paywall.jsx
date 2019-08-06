@@ -4,29 +4,53 @@ import ENV from 'fusion:environment'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
 import './paywall.css'
+import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
 
 @Consumer
 class Head extends React.PureComponent {
   state = {
     firstName: 'cargando..',
+    showSignwall: false,
   }
 
   componentDidMount() {
-    AddIdentity(this.props.siteProperties).then(() => {
-      userProfile().then(({ firstName }) => {
-        this.setState({ firstName })
-      })
+    this.getFirstName()
+  }
+
+  getFirstName = () => {
+    window.dataLayer = window.dataLayer || []; // temporalmente hasta agregar GTM
+    const { siteProperties } = this.props
+    AddIdentity(siteProperties).then(() => {
+      userProfile()
+        .then(({ firstName }) => {
+          this.setState({ firstName })
+        })
+        .catch(() => {
+          this.setState({ showSignwall: true })
+        })
     })
   }
 
+  closeShowSignwall = () => {
+    const { showSignwall } = this.state
+    this.setState({ showSignwall: !showSignwall })
+    this.getFirstName()
+  }
+
   render() {
-    const { siteProperties, contextPath, deployment } = this.props
+    const { siteProperties, contextPath, deployment, arcSite } = this.props
 
     const { assets } = siteProperties
-    const { firstName } = this.state
+    const { firstName, showSignwall } = this.state
 
     return (
       <div className="head">
+        {showSignwall && (
+          <SignwallPaywall
+            brandModal={arcSite}
+            closePopup={() => this.closeShowSignwall()}
+          />
+        )}
         <div className="head__background">
           <div className="background_left" />
           <div className="background_right" />

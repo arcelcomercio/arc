@@ -12,7 +12,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1579310032347237',
-  googleTagManagerId: 'GTM-TZ52DLB',
+  googleTagManagerId: 'GTM-KZX7JN3',
   ampGoogleTagManagerId: 'UA-3055636-3',
   ampGoogleTagManagerName: 'ojo',
   charbeatAccountNumber: 57773,
