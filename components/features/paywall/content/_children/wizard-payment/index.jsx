@@ -8,7 +8,6 @@ import FormPay from './_children/form-pay'
 import { addSales } from '../../../_dependencies/sales'
 import { addPayU } from '../../../_dependencies/payu'
 import Beforeunload from '../before-unload'
-import Loading from '../../../_children/loading'
 import { PayuError } from '../../_dependencies/handle-errors'
 
 const MESSAGE = {
