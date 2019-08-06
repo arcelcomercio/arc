@@ -1,8 +1,18 @@
 $ojo-show: #ec008b;
 $deportes: #fe8032;
+$loco-mundo: #eee;
 
 .featured-story {
+  @media (--only-mobile) {
+    height: 132px;
+
+    .featured-story__headband {
+      margin-bottom: 0;
+    }
+  }
+
   &__category {
+    min-height: 24px;
     height: 24px;
     padding: 2px 11px;
     background-color: $color-primary;
@@ -47,11 +57,14 @@ $deportes: #fe8032;
     font-family: $secondary-font;
   }
 
+  &__title {
+    margin-top: 10px;
+  }
+
   &__title-link {
     color: $color-primary;
     -webkit-line-clamp: 3;
     max-height: calc(1.3rem * 1.333 * 3);
-    margin-top: 10px;
   }
 
   &.img-complete {
@@ -90,10 +103,13 @@ $deportes: #fe8032;
       color: $color-white;
     }
 
+    .featured-story__title {
+      margin-top: 10px;
+    }
+
     .featured-story__title-link {
       -webkit-line-clamp: 3;
       max-height: calc(1.3rem * 1.333 * 3);
-      margin-top: 10px;
     }
 
     &.img-complete {
