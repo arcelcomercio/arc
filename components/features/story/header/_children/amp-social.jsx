@@ -78,8 +78,8 @@ class StoryHeaderAmp extends PureComponent {
                   height="32"
                   viewBox={i === 2 ? '0 0 32.037 32.044' : '-2 -2 32 32'}>
                   <circle
-                    cx={i === 2 ? '16.044' : '14'}
-                    cy={i === 2 ? '16.044' : '14'}
+                    cx={i === 2 ? '16.044' : '15'}
+                    cy={i === 2 ? '16.044' : '15'}
                     r="15"
                     fill={item.color}
                   />
