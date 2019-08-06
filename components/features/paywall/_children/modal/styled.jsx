@@ -1,3 +1,4 @@
+import React from 'react'
 import styled, { css } from 'styled-components'
 
 import Icon from '../icon'
@@ -35,11 +36,14 @@ export const Content = styled.div`
   position: absolute;
 `
 
-export const CloseIcon = styled(Icon)`
+export const CloseButton = styled(props => (
+  <button type="button" {...props}>
+    <Icon type="close" />
+  </button>
+))`
   position: absolute;
   top: 30px;
   right: 30px;
+  border: none;
+  background: none;
 `
-CloseIcon.defaultProps = {
-  type: 'close',
-}

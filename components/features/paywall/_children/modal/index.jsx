@@ -20,7 +20,7 @@ function Modal({ children, showClose, onClose = () => {}, ...props }) {
       <S.Modal {...props}>
         <S.Background onClick={onClose} />
         <S.Content>
-          {showClose && <S.CloseIcon onClick={onClose} />}
+          {showClose && <S.CloseButton onClick={onClose} />}
           {children}
         </S.Content>
       </S.Modal>
