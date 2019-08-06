@@ -21,7 +21,7 @@ export default ({
     story && multimediaLandscapeXL
       ? multimediaLandscapeXL
       : deployment(
-          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_fb.jpg`
+          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_twitter.jpg`
         )
   return (
     <>

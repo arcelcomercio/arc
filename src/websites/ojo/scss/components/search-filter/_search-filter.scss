@@ -38,4 +38,14 @@
   &__select-name {
     font-family: $secondary-font;
   }
+  &__sublink {
+    font-family: $secondary-font;
+    font-size: $font-sm;
+    color: $color-primary;
+  }
+  &__subitem:before {
+    @media (--desktop) {
+      color: $color-primary;
+    }
+  }
 }

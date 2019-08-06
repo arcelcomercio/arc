@@ -1,4 +1,7 @@
 .story-item {
+  &__section {
+    border: 1px solid $color-primary;
+  }
   &__date {
     font-family: $font-regular;
     margin-left: 15px;
