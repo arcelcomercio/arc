@@ -1,0 +1,25 @@
+@import '../../../../general-styles/components/features/signwall/button';
+@import '../../../../general-styles/components/features/signwall/check-container';
+@import '../../../../general-styles/components/features/signwall/form-grid';
+@import '../../../../general-styles/components/features/signwall/form-group';
+@import '../../../../general-styles/components/features/signwall/message';
+@import '../../../../general-styles/components/features/signwall/modal-body';
+@import '../../../../general-styles/components/features/signwall/modal';
+@import '../../../../general-styles/components/features/signwall/old-utils';
+@import '../../../../general-styles/components/features/signwall/password-security';
+@import '../../../../general-styles/components/features/signwall/row-pass';
+
+.signwall {
+  .text-center {
+    text-align: center;
+  }
+  .link-back,
+  .link-gray,
+  .link-blue {
+    background: none;
+    border: 0px;
+  }
+  .link-blue {
+    padding-left: 10px;
+  }
+}
