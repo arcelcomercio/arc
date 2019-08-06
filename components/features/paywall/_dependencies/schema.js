@@ -34,10 +34,8 @@ export const Masks = {
     combine: (...pipes) => val => pipes.reduce((prevVal, pipe)=>pipe(prevVal), val),
     capitalize: () => val => val.replace(/(^|\s)([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
     trim: () => val => val.trim(),
-    trimEnd: () => val => val.trimEnd(),
     trimLeft: () => val => val.trimLeft(),
     trimRight: () => val => val.trimRight(),
-    trimStart: () => val => val.trimStart(),
     dedup: char => val => val.replace(new RegExp(`([${char}])+`, "g"), "$1"),
     replace: (...args) => val => val.replace(...args),
     ignoreChars: (chars) => val => {
