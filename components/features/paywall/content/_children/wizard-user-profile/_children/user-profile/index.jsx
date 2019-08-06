@@ -7,7 +7,7 @@ import Error from '../../../../../_children/error'
 import { FormSchema, Masks } from './schema'
 
 const FormStyled = S.Form(Form)
-const { capitalize, combine, replace } = Masks.Pipes
+const { capitalize, combine, replace, trim } = Masks.Pipes
 const personNamePipe = combine(replace(/(^|\s)[-']/, '$1'), capitalize)
 
 const UserProfile = ({
@@ -103,7 +103,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="phone"
-                  pipe={Masks.Pipes.trim}
+                  pipe={trim()}
                   mask={Masks.PHONE}
                   label="Número de Celular"
                   component={InputFormik}
