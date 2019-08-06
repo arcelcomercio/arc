@@ -18,7 +18,25 @@ class Newsletter extends PureComponent {
       }
     },
     suscription: data => {
-      const url = 'https://jab.pe/f/arc/services/newsletter.php'
+      const dataRequest = (params) => {
+        params['api_key'] = '024211b43976583c1ed7d3c21d0e1899'
+        return params
+      }
+      
+      const messageApi = (state) => {
+        const msg = {
+          'nuevo': 'Recibirás diariamente nuestro newsletter.',
+          'existe': 'El correo ingresado ya se encuentra registrado.'
+        }
+        return msg[state.toLowerCase()]? msg[state.toLowerCase()]: 'Error, inténtelo más tarde.'
+      }
+
+      const successApi = (response) => {
+        return response.toLowerCase() === 'nuevo'
+      }
+
+      // const url = 'https://jab.pe/f/arc/services/newsletter.php'
+      const url = 'http://di.ecodigital.com.pe/endpoint/form/gestion'
       fetch(url, {
         method: 'POST',
         mode: 'cors',
@@ -27,18 +45,20 @@ class Newsletter extends PureComponent {
           'Content-Type': 'application/json',
         },
       })
-        .catch(error => error)
-        .then(response => {
-          let confirmRegister = false
-          let formMessage = 'Error'
-          if (response && response.ok) {
-            response.json().then(json => {
-              confirmRegister = json.success
-              formMessage = json.message
-              this.setState({ confirmRegister, formMessage })
-            })
-          } else this.setState({ confirmRegister, formMessage })
-        })
+      .catch(error => error)
+      .then(response => {
+        let confirmRegister = false
+        let formMessage = 'Error'
+        if (response && response.ok) {
+          response.json().then(json => {
+            // confirmRegister = json.success
+            // formMessage = json.message
+            confirmRegister = successApi(json.message)
+            formMessage = messageApi(json.message)
+            this.setState({ confirmRegister, formMessage })
+          })
+        } else this.setState({ confirmRegister, formMessage })
+      })
     },
     email: event => {
       event.preventDefault()
@@ -52,7 +72,8 @@ class Newsletter extends PureComponent {
       event.preventDefault()
     },
     redirect: () => {
-      window.location.href = `/`
+      const { siteProperties: {siteUrl = ''} } = this.props
+      window.location.href = siteUrl
     },
   }
 
@@ -113,6 +134,7 @@ class Newsletter extends PureComponent {
   render() {
     const { submitForm, confirmRegister, formMessage } = this.state
     const { arcSite, contextPath, deployment, customFields } = this.props
+    console.log('props 5', this.props)
     const data = new Data(customFields, arcSite, contextPath)
     const params = {
       description: data.description,
