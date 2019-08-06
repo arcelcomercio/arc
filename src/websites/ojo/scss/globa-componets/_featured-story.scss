@@ -22,12 +22,15 @@ $deportes: #fe8032;
 
     &.ojo-show {
       background-color: $ojo-show;
+
       &::after {
         border-left: 14px solid $ojo-show;
       }
     }
+
     &.deportes {
       background-color: $deportes;
+
       &::after {
         border-left: 14px solid $deportes;
       }
@@ -43,12 +46,12 @@ $deportes: #fe8032;
   &__category-link {
     font-family: $secondary-font;
   }
+
   &__title-link {
     color: $color-primary;
-
-    @media (--tablet) {
-      padding-top: 10px;
-    }
+    -webkit-line-clamp: 3;
+    max-height: calc(1.3rem * 1.333 * 3);
+    margin-top: 10px;
   }
 
   &.img-complete {
@@ -56,15 +59,14 @@ $deportes: #fe8032;
       .featured-story__img-box {
         &::before {
           height: 100%;
-          background: linear-gradient(
-            180deg,
-            rgba(14, 33, 13, 0.1) 30%,
-            rgba(14, 33, 13, 0.8) 80%,
-            #0e210d
-          );
+          background: linear-gradient(180deg,
+              rgba(14, 33, 13, 0.1) 30%,
+              rgba(14, 33, 13, 0.8) 80%,
+              #0e210d);
         }
       }
     }
+
     .featured-story__category {
       &::after {
         @media (--tablet) {
@@ -72,6 +74,7 @@ $deportes: #fe8032;
         }
       }
     }
+
     .featured-story__author-link {
       color: $color-white;
     }
@@ -82,18 +85,22 @@ $deportes: #fe8032;
       display: flex;
       align-items: center;
     }
+
     .featured-story__category-link {
       color: $color-white;
     }
 
     .featured-story__title-link {
-      padding-top: 10px;
+      -webkit-line-clamp: 3;
+      max-height: calc(1.3rem * 1.333 * 3);
+      margin-top: 10px;
     }
 
     &.img-complete {
       .featured-story__category {
         border: 0;
         display: flex;
+
         &::after {
           border-bottom: 11px solid transparent;
         }
@@ -102,12 +109,10 @@ $deportes: #fe8032;
       .featured-story__img-box {
         &::before {
           height: 100%;
-          background: linear-gradient(
-            180deg,
-            rgba(14, 33, 13, 0.1) 30%,
-            rgba(14, 33, 13, 0.8) 80%,
-            #0e210d
-          );
+          background: linear-gradient(180deg,
+              rgba(14, 33, 13, 0.1) 30%,
+              rgba(14, 33, 13, 0.8) 80%,
+              #0e210d);
         }
       }
     }
