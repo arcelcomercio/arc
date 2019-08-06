@@ -1,3 +1,4 @@
+import ENV from 'fusion:environment'
 import addScriptAsync from '../../../utilities/script-async'
 
 export const attrToObject = (attributes = [], getAttributes = []) => {
@@ -11,17 +12,14 @@ export const attrToObject = (attributes = [], getAttributes = []) => {
   }, {})
 }
 
-const AddIdentity = siteProperties => {
-  const {
-    signwall: { ORIGIN_IDENTITY_SDK, ORIGIN_API },
-  } = siteProperties
-
+const AddIdentity = ({ services }) => {
+  const { getService } = services.setEnv(ENV)
   return addScriptAsync({
     name: 'sdkIndetityARC',
-    url: ORIGIN_IDENTITY_SDK,
+    url: getService('ORIGIN_IDENTITY_SDK'),
   }).then(added => {
     if (added) {
-      window.Identity.apiOrigin = ORIGIN_API
+      window.Identity.apiOrigin = getService('ORIGIN_API')
     }
     return window.Identity
   })

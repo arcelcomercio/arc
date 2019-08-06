@@ -1,16 +1,15 @@
+import ENV from 'fusion:environment'
 import addScriptAsync from '../../../utilities/script-async'
 
-const addSales = siteProperties => {
-  const {
-    signwall: { ORIGIN_SALES_SDK, ORIGIN_API },
-  } = siteProperties
-
+const addSales = ({ services }) => {
+  window.ENV = ENV;
+  const { getService } = services.setEnv(ENV)
   return addScriptAsync({
     name: 'sdkSalesARC',
-    url: ORIGIN_SALES_SDK,
+    url: getService('ORIGIN_SALES_SDK'),
   }).then(added => {
     if (added) {
-      window.Sales.apiOrigin = ORIGIN_API
+      window.Sales.apiOrigin = getService('ORIGIN_API')
     }
     return window.Sales
   })

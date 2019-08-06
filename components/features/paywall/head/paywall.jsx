@@ -1,6 +1,5 @@
 import React from 'react'
 import Consumer from 'fusion:consumer'
-import ENV from 'fusion:environment'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
 import './paywall.css'
@@ -12,7 +11,8 @@ class Head extends React.PureComponent {
   }
 
   componentDidMount() {
-    AddIdentity(this.props.siteProperties).then(() => {
+    const { siteProperties } = this.props
+    AddIdentity(siteProperties).then(() => {
       userProfile().then(({ firstName }) => {
         this.setState({ firstName })
       })

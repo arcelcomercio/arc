@@ -25,7 +25,17 @@ const WizardConfirmation = props => {
     },
   } = props
 
+  const handlePWA = () => {
+    // eslint-disable-next-line no-prototype-builtins
+    const isPWA = window.hasOwnProperty('nativeConnectionModal')
+    if (isPWA) {
+      window.nativeConnectionModal.pwaCloseWebView('paywall')
+    }
+    return isPWA
+  }
+
   const handleClick = () => {
+    if (handlePWA()) return
     const { sessionStorage, location } = window
     // eslint-disable-next-line no-prototype-builtins
     location.href = sessionStorage.hasOwnProperty(NAME_REDIRECT)

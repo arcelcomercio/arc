@@ -1,9 +1,8 @@
+import {ORIGIN_SUSCRIPCIONES} from 'fusion:environment'
+
 const resolve = ({ doctype = 'DNI', docnumber }) => {
-  const PATH =
-    'https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/'
-  return docnumber ? `${PATH}?doctype=DNI&docnumber=${docnumber}` : PATH
-  // return `https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/?doctype=DNI&docnumber=41000001`
-  // return `https://api-sandbox.gestion.pe/retail/public/v1/offer/preview/${campaing}`
+  const PATH = `${ORIGIN_SUSCRIPCIONES}/api/subscriber/validation/gestion/`
+  return docnumber ? `${PATH}?doctype=${doctype}&docnumber=${docnumber}` : PATH
 }
 
 const parse = string => {

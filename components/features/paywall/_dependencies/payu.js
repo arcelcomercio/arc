@@ -1,13 +1,12 @@
+import ENV from 'fusion:environment'
 import addScriptAsync from '../../../utilities/script-async'
 
-const addPayU = siteProperties => {
-  const {
-    signwall: { ORIGIN_PAYU_SDK },
-  } = siteProperties
+const addPayU = ({ services }) => {
+  const { getService } = services.setEnv(ENV)
 
   return addScriptAsync({
     name: 'sdkPayU',
-    url: ORIGIN_PAYU_SDK,
+    url: getService('ORIGIN_PAYU_SDK'),
   }).then(added => {
     return payU
   })

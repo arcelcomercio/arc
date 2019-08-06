@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
-import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
-
+import ENV from 'fusion:environment'
+import React, { useState } from 'react'
 import Summary from '../summary'
 import * as S from './styled'
 import FormPay from './_children/form-pay'
@@ -48,6 +48,8 @@ function WizardPayment(props) {
 
   const fusionContext = useFusionContext()
   const { siteProperties } = fusionContext
+  const { services } = siteProperties
+  const { getService } = services.setEnv(ENV)
   const Sales = addSales(siteProperties)
 
   function apiPaymentRegister({
@@ -166,7 +168,7 @@ function WizardPayment(props) {
               })
               .then(token => {
                 return apiPaymentRegister({
-                  baseUrl: '//devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
+                  baseUrl: ENV.ORIGIN_SUSCRIPCIONES,
                   orderNumber,
                   firstName,
                   lastName,
@@ -213,8 +215,6 @@ function WizardPayment(props) {
           cardInfo: values,
         })
         onBeforeNextStep(mergedValues, props)
-        // eslint-disable-next-line no-unused-expressions
-        console.log({ isSafari: getBrowser().isSafari })
         if (getBrowser().isSafari) {
           setLoading(false)
         }
