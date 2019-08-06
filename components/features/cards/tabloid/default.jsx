@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
-import { formatSlugToText } from '../../../utilities/helpers'
+import { defaultImage } from '../../../utilities/helpers'
 import getLatinDate from '../../../utilities/date-name'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
@@ -14,13 +14,12 @@ const classes = {
     'tabloid__header-link text-white uppercase font-bold text-xl primary-font',
   body:
     'tabloid__body flex flex-col items-center justify-center h-full position-relative pt-30 pb-10 pr-30 pl-30 bg-base-200',
-  date:
-    'tabloid__date flex items-center justify-center p-20 bg-base-200',
+  date: 'tabloid__date flex items-center justify-center p-20 bg-base-200',
   dateLink: 'tabloid__date-link text-sm text-gray-300 font-bold',
   face: 'tabloid__face object-cover',
 }
 
-const CONTENT_SOURCE = 'story-feed-by-section'
+const CONTENT_SOURCE = 'story-by-section-impresa'
 
 @Consumer
 class CardTabloid extends PureComponent {
@@ -37,34 +36,45 @@ class CardTabloid extends PureComponent {
           section,
           stories_qty: 1,
         },
-        filter: schemaFilter,
+        filter: schemaFilter(arcSite),
       },
     })
   }
 
   render() {
     const {
-      siteProperties: { linkTabloide = '' },
       deployment,
       contextPath,
       arcSite,
       editableField,
+      siteProperties: { linkTabloide = '' },
       customFields: { sectionName = '' } = {},
     } = this.props
-    const { data: { content_elements: contentElements = [] } = {} } = this.state
+    const { data = {} } = this.state
     const {
-      multimediaPortraitMD,
       title = '',
       displayDate = '',
-      primarySection = '',
       primarySectionLink = '',
     } = new StoryData({
-      data: contentElements[0],
-      deployment,
+      data,
       contextPath,
       arcSite,
-      defaultImgSize: 'sm',
     })
+    const {
+      section_name: sourceSectionName,
+      promo_items: {
+        basic: {
+          resized_urls: {
+            printed_md: printedImage = defaultImage({
+              deployment,
+              contextPath,
+              arcSite,
+              size: 'sm',
+            }),
+          } = {},
+        } = {},
+      } = {},
+    } = data
 
     const nameDate = getLatinDate(displayDate, ' del', true)
     return (
@@ -76,7 +86,7 @@ class CardTabloid extends PureComponent {
               href={primarySectionLink}
               {...editableField('sectionName')}
               suppressContentEditableWarning>
-              {sectionName || formatSlugToText(primarySection)}
+              {sectionName || sourceSectionName}
             </a>
           </h4>
         </div>
@@ -85,7 +95,7 @@ class CardTabloid extends PureComponent {
             <a href={linkTabloide} target="_blank" rel="noopener noreferrer">
               <img
                 className={classes.face}
-                src={multimediaPortraitMD}
+                src={printedImage}
                 alt={title}
                 loading="lazy"
               />
@@ -107,7 +117,7 @@ class CardTabloid extends PureComponent {
 }
 
 CardTabloid.label = 'Tabloide'
-CardTabloid.static = true
+// CardTabloid.static = true
 
 CardTabloid.propTypes = {
   customFields,
