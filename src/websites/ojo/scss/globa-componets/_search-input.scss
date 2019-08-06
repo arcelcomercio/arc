@@ -1,6 +1,9 @@
 .search-input {
   color: $color-gray-300;
-  font-family: $secondary-font;
+  font-family: $primary-font;
+  @media (--desktop) {
+    font-weight: 400;
+  }
   &__btn {
     color: $color-primary;
   }

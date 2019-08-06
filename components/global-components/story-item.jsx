@@ -5,7 +5,7 @@ import StoryData from '../utilities/story-data'
 import { reduceWord, formatDateLocalTimeZone } from '../utilities/helpers'
 
 const classes = {
-  storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray lg:p-0`,
+  storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray md:pl-0 md:pr-0  lg:p-0`,
   top: 'story-item__top flex items-center md:flex-col md:items-start',
   section: 'story-item__section capitalize text-sm text-black md:mb-15',
   date: 'story-item__date font-thin ml-5 text-xs text-gray-300 md:mt-5 md:ml-0',
@@ -20,7 +20,7 @@ const classes = {
   rightLink: 'story-item__link  h-full',
   iconGallery: `story-item__icon icon-img position-absolute flex items-center justify-center text-white w-full h-full`,
   iconVideo: `story-item__icon icon-video position-absolute flex items-center justify-center text-white w-full h-full`,
-  img: 'story-item__img object-cover w-full h-full',
+  img: 'story-item__img object-cover object-center w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
 }
 

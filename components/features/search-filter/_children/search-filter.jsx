@@ -18,9 +18,9 @@ const classes = {
   list: `search-filter__list bg-white left-0 position-absolute w-full flex-col lg:flex lg:flex-row`,
   item: `search-filter__item lg:p-0 lg-p-5`,
   link: `search-filter__link flex uppercase w-full pt-10 pb-10 pl-15 pr-15 text-sm text-gray-300 lg:justify-center lg:items-center lg:text-center lg:p-10 lg:font-thin`,
-  subList: `search-filter__sublist flex w-full flex-col pt-0 pb-0 pl-20 pr-20 lg:flex-row lg:mt-10 lg:left-0`,
+  subList: `search-filter__sublist flex flex-col pt-0 pb-0 pl-20 pr-20 lg:flex-row lg:mt-10 lg:left-0`,
   subItem: `search-filter__subitem flex items-center position-relative lg:p-0 lg:mr-15`,
-  subLink: 'search-filter__sublink capitalize w-full text-xs text-gray-200',
+  subLink: 'search-filter__sublink capitalize text-xs text-gray-200',
 }
 
 const DESC = 'descendiente'
@@ -74,7 +74,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
 
     return section !== '' ? SECTION : ''
   }
-  
+
   getUrl(type, value) {
     // Construye la URL para los botones del filtro
     const { globalContentConfig } = this.props
@@ -193,8 +193,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 href={!isAdmin && this.getUrl(SORT, DESC)} // (type, value)
                 className={classes.link}
                 role="checkbox"
-                aria-checked="true"
-                >
+                aria-checked="true">
                 Más Recientes
               </a>
             </li>
