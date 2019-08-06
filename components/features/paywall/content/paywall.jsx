@@ -40,7 +40,9 @@ class Content extends React.Component {
 
   componentDidMount() {
     const { siteProperties } = this.props
-    console.log({ ENV })
+    const { services } = siteProperties
+    console.log(services.setEnv(ENV).getService('ORIGIN_API'))
+    console.log({ siteProperties })
     AddIdentity(siteProperties).then(() => {
       userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
         this.setState({ profile })

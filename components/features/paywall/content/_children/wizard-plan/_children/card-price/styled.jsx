@@ -28,7 +28,7 @@ export const Amount = styled.div`
   line-height: 50px;
   padding: 24px 0;
   @media (${devices.mobile}) {
-    font-size: 50px;
+    font-size: 40px;
   }
 `
 

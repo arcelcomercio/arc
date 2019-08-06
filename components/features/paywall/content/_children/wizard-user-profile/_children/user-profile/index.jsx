@@ -14,7 +14,14 @@ const personNamePipe = combine(
   trimStart(),
   capitalize()
 )
-
+const _initValue = {
+  firstName: null,
+  lastName: null,
+  documentType: 'DNI',
+  documentNumber: null,
+  phone: null,
+  email: null,
+}
 const UserProfile = ({
   title = '',
   initialValues,
@@ -24,7 +31,7 @@ const UserProfile = ({
 }) => {
   return (
     <Formik
-      initialValues={Object.assign({}, { documentType: 'DNI' }, initialValues)}
+      initialValues={Object.assign({}, _initValue, initialValues)}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
         onSubmit(

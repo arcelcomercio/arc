@@ -85,6 +85,7 @@ function shape(value) {
       this.value = this.value ? this.value.trimStart() : this.value
       return this
     },
+    isRequired: false,
     replace(...args) {
       this.value = this.value ? this.value.replace(...args) : this.value
       return this
@@ -127,16 +128,19 @@ function shape(value) {
       return this
     },
     max(limit, message) {
+      if (!this.isRequired && this.value) return this
       if (!this.value || this.value.length > limit)
         throw message.replace(/\${max}/g, limit)
       return this
     },
     min(limit, message) {
+      if (!this.isRequired && this.value) return this
       if (!this.value || this.value.length < limit)
         throw message.replace(/\${min}/g, limit)
       return this
     },
     required(message) {
+      this.isRequired = true
       if (!this.value) throw message
       return this
     },

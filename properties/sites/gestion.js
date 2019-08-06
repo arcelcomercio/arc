@@ -44,6 +44,26 @@ export default {
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
   },
 
+  services: {
+    ORIGIN_API: ENV => {
+      const _env_ = ENV === 'prod' ? '' : '-sandbox'
+      return `https://api${_env_}.gestion.pe`
+    },
+    ORIGIN_IDENTITY_SDK: ENV => {
+      const _env_ = ENV === 'prod' ? 'prod' : 'sandbox' // included localhost
+      return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-identity.min.js`
+    },
+    ORIGIN_SALES_SDK: ENV => {
+      const _env_ = ENV === 'prod' ? 'prod' : 'sandbox' // included localhost
+      return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-sales.min.js`
+    },
+    setEnv({ ENVIRONMENT }) {
+      return {
+        getService: service => this[service](ENVIRONMENT),
+      }
+    },
+  },
+
   assets: {
     nav: {
       logo: 'white-logo.png',
