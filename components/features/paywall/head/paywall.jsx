@@ -4,7 +4,7 @@ import ENV from 'fusion:environment'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
 import './paywall.css'
-import SignwallPaywall from '../../signwall/_main/signwall/paywall'
+import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
 
 @Consumer
 class Head extends React.PureComponent {
@@ -14,6 +14,11 @@ class Head extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.getFirstName()
+  }
+
+  getFirstName = () => {
+    window.dataLayer = window.dataLayer || []; // temporalmente hasta agregar GTM
     const { siteProperties } = this.props
     AddIdentity(siteProperties).then(() => {
       userProfile()
@@ -26,6 +31,12 @@ class Head extends React.PureComponent {
     })
   }
 
+  closeShowSignwall = () => {
+    const { showSignwall } = this.state
+    this.setState({ showSignwall: !showSignwall })
+    this.getFirstName()
+  }
+
   render() {
     const { siteProperties, contextPath, deployment, arcSite } = this.props
 
@@ -34,7 +45,12 @@ class Head extends React.PureComponent {
 
     return (
       <div className="head">
-        {showSignwall && <SignwallPaywall brandModal={arcSite}/>}
+        {showSignwall && (
+          <SignwallPaywall
+            brandModal={arcSite}
+            closePopup={() => this.closeShowSignwall()}
+          />
+        )}
         <div className="head__background">
           <div className="background_left" />
           <div className="background_right" />
