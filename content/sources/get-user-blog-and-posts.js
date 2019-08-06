@@ -62,7 +62,7 @@ const transform = data => {
       } = {}
     } = data[item] || {}
 
-    if (guid && !guid.endsWith('.png')) {
+    if (guid) {
       const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
         presets: {
           author_sm: {

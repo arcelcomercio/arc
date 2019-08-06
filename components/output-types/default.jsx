@@ -42,7 +42,7 @@ export default ({
   }
 
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
-  const isBlogPost = requestUri.match(`^(/blog/(.*).html)`)
+  const isBlogPost = requestUri.match(`^(/blogs?/.*)`)
 
   let classBody = isStory ? 'story' : ''
   classBody = isBlogPost ? 'blogPost' : classBody
@@ -98,6 +98,7 @@ export default ({
     requestUri,
     siteName: siteProperties.siteName,
     story: isStory, // check data origin - Boolean
+    blog: isBlogPost, // check data origin - Boolean
     deployment,
     globalContent,
   }

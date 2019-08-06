@@ -22,8 +22,6 @@ const StoriesListsCardChildList = ({
         elementFormatter.__data = el
         const data = elementFormatter.attributesRaw
         const displayTime = formatDateLocalTimeZone(data.displayDate)
-        
-        debugger
 
         return (
           <StoriesListCardChildItem

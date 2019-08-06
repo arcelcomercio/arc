@@ -50,6 +50,8 @@ class BlogList extends PureComponent {
   }
 
   buildParams = blog => {
+    const { deployment, contextPath = '', arcSite = '' } = this.props
+
     const {
       blog: { blogname = '', path = '' } = {},
       posts: [
@@ -60,20 +62,23 @@ class BlogList extends PureComponent {
         } = {},
       ] = [],
       user: {
-        user_avatarb: { guid = '' } = {},
+        user_avatarb: {
+          resized_urls: {
+            author_sm: authorImg = defaultImage({
+              deployment,
+              contextPath,
+              arcSite,
+              size: 'sm',
+            }),
+          } = {},
+        } = {},
         first_name: firstName = '',
         last_name: lastName = '',
       } = {},
     } = blog
 
-    const { deployment, contextPath = '', arcSite = '' } = this.props
-
-    const imageUrl =
-      guid ||
-      defaultImage({ deployment, contextPath, arcSite, defaultImgSize: 'sm' })
-
     return {
-      imageUrl,
+      authorImg,
       date: this.transformDate(postDate),
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
@@ -152,6 +157,6 @@ BlogList.propTypes = {
 }
 
 BlogList.label = 'Blog - Listado blogs'
-BlogList.static = true // TODO:CARLOS: verificar si funciona asi
+BlogList.static = true
 
 export default BlogList

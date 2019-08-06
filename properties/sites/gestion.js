@@ -95,23 +95,23 @@ export default {
   legalLinks: [
     {
       name: '¿Quiénes somos?',
-      url: '/quienes-somos',
+      url: '/quienes-somos/',
     },
     {
       name: 'Términos y Condiciones',
-      url: '/terminos-y-condiciones',
+      url: '/terminos-y-condiciones/',
     },
     {
       name: 'Política de Privacidad',
-      url: '/politica-de-privacidad',
+      url: '/politica-de-privacidad/',
     },
     {
       name: 'Politica de Cookies',
-      url: '/politica-de-cookies',
+      url: '/politica-de-cookies/',
     },
     {
       name: 'Preguntas Frecuentes',
-      url: '/preguntas-frecuentes',
+      url: '/preguntas-frecuentes/',
     },
   ],
 

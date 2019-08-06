@@ -5,6 +5,9 @@
     font-size: 13px;
   }
   &__item {
+    @media (--tablet) {
+      flex-basis: 24.5%;
+    }
     &::before {
       background: linear-gradient(
         180deg,
