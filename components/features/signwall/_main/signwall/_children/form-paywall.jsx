@@ -53,7 +53,7 @@ class SignWallPaywall extends Component {
                   por 6 meses
                 </strong>
               </p>
-              <p> Luego S/39 cada mes</p>
+              <p> Luego S/ 39 cada mes</p>
             </div>
             <h3 className="title-line uppercase text-center mt-30 mb-20">
               <span>Beneficios</span>

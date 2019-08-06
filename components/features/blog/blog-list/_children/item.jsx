@@ -13,7 +13,7 @@ const classes = {
 }
 
 const BlogListChildItem = ({
-  imageUrl,
+  authorImg,
   date = '',
   blogTitle = '',
   author = '',
@@ -32,7 +32,7 @@ const BlogListChildItem = ({
         <figure className={classes.containerAvatar}>
           <a href={urlBlog}>
             <img
-              src={imageUrl}
+              src={authorImg}
               alt=""
               className={classes.avatar}
               loading="lazy"

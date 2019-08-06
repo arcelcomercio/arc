@@ -11,21 +11,21 @@ const classes = {
 
 const BlogAuthorTitleChildAuthorTitle = ({
   firstName,
-  guid,
-  blogname,
+  authorImg,
+  blogName,
   path,
 }) => {
   return (
     <div className={classes.authorTitle}>
       <div className={classes.title}>
         <a href={path} className={classes.url}>
-          {blogname}
+          {blogName}
         </a>
         <p className={classes.name}>{firstName}</p>
       </div>
       <div className={classes.section}>
         <img
-          src={guid}
+          src={authorImg}
           alt={`Foto del autor: ${firstName}`}
           className={classes.img}
           loading="lazy"

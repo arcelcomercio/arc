@@ -33,16 +33,22 @@ export default {
     frequentQuestions: '',
   },
   infoPagesProd: {
-    termsAndConditions: '',
+    termsAndConditions: 'OX3HQTTGGNGEFO6X2MH7OM2ZMI',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'WLQC74SD7RFMRHO45HGKQRG7AU',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'NH3NHETIQBEUDKMEVTH5KW576Q',
     aboutUs: '',
     frequentQuestions: '',
   },
-
+  assets: {
+    seo: {
+      logoAmp: 'logo-ojo-amp.png',
+      width: 246,
+      height: 60,
+    },
+  },
   legalLinks: [
     {
       name: 'Términos y Condiciones',

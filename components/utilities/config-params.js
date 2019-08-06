@@ -47,6 +47,8 @@ class ConfigParams {
 
   static SITE_PERU21 = 'peru21'
 
+  static SITE_OJO = 'ojo'
+
   // opta
   static OPTA_CSS_LINK =
     'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
@@ -220,7 +222,6 @@ export const sizeImgNewsLetter = () => {
       width: 290,
       height: 163,
     },
-    
   }
 }
 

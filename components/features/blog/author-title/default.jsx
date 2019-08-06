@@ -11,21 +11,23 @@ class BlogAuthorTitle extends PureComponent {
       user: {
         first_name: firstName = '',
         user_avatarb: {
-          guid = defaultImage({
-            deployment,
-            contextPath,
-            arcSite,
-            size: 'sm',
-          }),
+          resized_urls: {
+            author_sm: authorImg = defaultImage({
+              deployment,
+              contextPath,
+              arcSite,
+              size: 'sm',
+            }),
+          } = {},
         } = {},
       } = {},
-      blog: { blogname = '', path = '' } = {},
+      blog: { blogname: blogName = '', path = '' } = {},
     } = globalContent || {}
 
     const data = {
       firstName,
-      guid,
-      blogname,
+      authorImg,
+      blogName,
       path: `/blog/${path}/`,
       // TODO:CARLOS: Verificar si estas urls general / al final. Sino, agregar
     }
