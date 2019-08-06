@@ -1,9 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import {
-  popUpWindow,
-  socialMediaUrlShareList,
-} from '../../../../utilities/helpers'
+import { socialMediaUrlShareList } from '../../../../utilities/helpers'
 
 const classes = {
   share: 'amp-story-header__share ml-10 text-sm',
@@ -68,19 +65,6 @@ class StoryHeaderAmp extends PureComponent {
     }
   }
 
-  handleMoreButton = () => {
-    const { currentList } = this.state
-    const newList =
-      currentList === this.firstList ? this.secondList : this.firstList
-    this.setState({ currentList: newList })
-  }
-
-  openLink = (event, item, print) => {
-    event.preventDefault()
-    if (print) window.print()
-    else popUpWindow(item.link, '', 600, 400)
-  }
-
   render() {
     const { currentList } = this.state
     return (
@@ -88,15 +72,17 @@ class StoryHeaderAmp extends PureComponent {
         <ul className={classes.list}>
           {this.shareButtons[currentList].map((item, i) => (
             <li className={classes.item}>
-              <a
-                className={classes.link}
-                href={item.link}
-                onClick={event => {
-                  const isPrint = i === 2 && currentList === this.secondList
-                  this.openLink(event, item, isPrint)
-                }}>
-                <svg width="32" height="32" viewBox="-2 -2 32 32">
-                  <circle cx="14" cy="14" r="15" fill={item.color} />
+              <a className={classes.link} href={item.link}>
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox={i === 2 ? '0 0 32.037 32.044' : '-2 -2 32 32'}>
+                  <circle
+                    cx={i === 2 ? '16.044' : '15'}
+                    cy={i === 2 ? '16.044' : '15'}
+                    r="15"
+                    fill={item.color}
+                  />
                   <path className={classes.share} d={item.icon} />
                 </svg>
               </a>
