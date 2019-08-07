@@ -3,7 +3,7 @@ export default {
 
   googleFonts: 'Alfa+Slab+One|Titillium+Web:400,700',
 
-  colorPrimary: '#f7c600',
+  colorPrimary: '#007d33',
   siteDomain: 'ojo.pe',
   siteUrl: 'https://ojo.pe',
   linkTabloide: 'https://peruquiosco.pe/',
