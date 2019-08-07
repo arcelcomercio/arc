@@ -1,6 +1,7 @@
 @import './breaking-news/breaking-news';
 @import './layout/navbar/nav';
 @import './layout/navbar/nav-sidebar';
+@import './layout/navbar/nav-story';
 @import './layout/header/header';
 @import './separators/basic/separador';
 @import './cards/triplet/triplet';
@@ -22,3 +23,4 @@
 @import './story/separator/story-separator';
 @import './story/story/story';
 @import './custom-title/custom-title';
+@import './error404/error404';
