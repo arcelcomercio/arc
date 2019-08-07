@@ -715,7 +715,8 @@ export const addResizedUrlsToStoryNewsLetter = (
 }
 
 export const deleteQueryString = url => {
-  return url.split('?')[0]
+  const onlyUrl = url.split('?')[0]
+  return onlyUrl.split('#')[0]
 }
 
 export const isIE = () => {

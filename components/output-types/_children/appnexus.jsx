@@ -50,10 +50,12 @@ const getVars = (
           arcSite,
         })
         const subSectionList = primarySectionLink.split('/').slice(1)
-        subsection = subSectionList[1].replace(
-          '-',
-          ''
-        ) /** /sección/esta-es-la-sub-seccion */
+        subsection = subSectionList[1]
+          ? subSectionList[1].replace('-', '')
+          : sectionList[1].replace(
+              '-',
+              ''
+            ) /** /sección/esta-es-la-sub-seccion */
 
         dataStory = `
         var tipo_nota = '${getMultimedia(multimediaType, true)}'
@@ -66,7 +68,8 @@ const getVars = (
   }
 
   if (isGallery) typeSpace = 'nota2'
-  if (section === 'publirreportaje' && isStory) typeSpace = 'nota5'
+  if (section.match(/publirreportaje|publireportaje/) !== null && isStory)
+    typeSpace = 'nota5'
 
   return `
   var type_space = '${typeSpace}'

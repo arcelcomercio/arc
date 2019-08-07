@@ -12,7 +12,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1579310032347237',
-  googleTagManagerId: 'GTM-TZ52DLB',
+  googleTagManagerId: 'GTM-KZX7JN3',
   ampGoogleTagManagerId: 'UA-3055636-3',
   ampGoogleTagManagerName: 'ojo',
   charbeatAccountNumber: 57773,
@@ -42,7 +42,13 @@ export default {
     aboutUs: '',
     frequentQuestions: '',
   },
-
+  assets: {
+    seo: {
+      logoAmp: 'logo-ojo-amp.png',
+      width: 246,
+      height: 60,
+    },
+  },
   legalLinks: [
     {
       name: 'Términos y Condiciones',
@@ -97,15 +103,24 @@ export default {
     contacts: [
       {
         position: 'Director Periodístico',
-        name: '',
+        name: 'Jaime Marcos Antonio Asian Dominguez jasian@grupoepensa.pe',
       },
       {
         position: 'Editor Web',
-        name: '',
+        name: 'Ivonne Chavely, Chiroque Quiroz ichiroque@grupoepensa.pe',
       },
       {
-        position: '',
-        name: '',
+        position: '-',
+        name: 'Contacto comercial',
+      },
+      {
+        position: 'Publicidad Online',
+        name: 'fonoavisos@comercio.com.pe',
+      },
+
+      {
+        position: 'Call Center',
+        name: '+51 1708 9999',
       },
     ],
   },
@@ -134,11 +149,11 @@ export default {
     movil5: 15011752,
   },
   listUrlAdvertisings: [
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-22.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-23.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna1-300x250-div-gpt-ad-8599377-26.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna2-300x250-div-gpt-ad-8599377-27.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna3-300x250-div-gpt-ad-8599377-28.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna4-300x250-div-gpt-ad-8599377-29.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna5-300x250-div-gpt-ad-8599377-30.html',
   ],
   activeSignwall: false,
 }

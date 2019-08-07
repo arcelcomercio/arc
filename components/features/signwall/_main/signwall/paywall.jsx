@@ -59,7 +59,7 @@ class PayWall extends Component {
     const { closePopup, contextPath, arcSite, deployment } = this.props
     const ImageBg =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bg-popup.png`
+        `${contextPath}/resources/dist/${arcSite}/images/bg_paywall.png`
       ) || ''
     return (
       <div className="signwall">
@@ -77,6 +77,9 @@ class PayWall extends Component {
                       className="modal-body__middle bg-paywall"
                       style={{
                         backgroundImage: `url(${ImageBg})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
                       }}>
                       <p className="text-xl secondary-font">
                         Para continuar leyendo, adquiere el

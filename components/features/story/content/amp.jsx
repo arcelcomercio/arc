@@ -46,6 +46,8 @@ class StoryContentAmp extends PureComponent {
       relatedContent,
       promoItems,
       tags,
+      authorLink,
+      author,
     } = new StoryData({
       data,
       arcSite,
@@ -85,7 +87,9 @@ class StoryContentAmp extends PureComponent {
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmp(parameters)}
           />
-          <p className={classes.author}>Por: Redacción DT</p>
+          <p className={classes.author}>
+            <a href={authorLink}>{author}</a>
+          </p>
           {contentPosicionPublicidadAmp && (
             <StoryContent
               data={contentPosicionPublicidadAmp}

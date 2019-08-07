@@ -1,5 +1,6 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
+import { deleteQueryString } from '../../utilities/helpers'
 
 export default ({
   fbAppId,
@@ -12,19 +13,23 @@ export default ({
   story,
   deployment = () => {},
   globalContent: data,
+  requestUri,
 }) => {
+  const link = deleteQueryString(requestUri)
   const {
-    link,
     multimediaLandscapeXL,
     videoSeo: [{ url = '' } = {}] = [],
   } = new StoryData({
     data,
     arcSite,
   })
+
   const image =
     story && multimediaLandscapeXL
       ? multimediaLandscapeXL
-      : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_fb.jpg`
+      : deployment(
+          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_fb.jpg`
+        )
   return (
     <>
       {/* <!-- Facebook OG --> */}
@@ -34,8 +39,8 @@ export default ({
       <meta property="fb:app_id" content={fbAppId} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={deployment(image)} />
-      <meta property="og:image:secure_url" content={deployment(image)} />
+      <meta property="og:image" content={image} />
+      <meta property="og:image:secure_url" content={image} />
 
       {story && (
         <>
