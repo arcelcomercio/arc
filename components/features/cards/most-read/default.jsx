@@ -46,7 +46,13 @@ class CardMostRead extends Component {
   }
 
   render() {
-    const { customFields, arcSite, requestUri, editableField } = this.props
+    const {
+      customFields,
+      arcSite,
+      requestUri,
+      editableField,
+      isAdmin,
+    } = this.props
     const { viewImage = false, storiesQty = 5, customTitle = '' } =
       customFields || {}
     const { data: { stories } = {} } = this.state
@@ -58,6 +64,7 @@ class CardMostRead extends Component {
       stories,
       customTitle,
       editableField,
+      isAdmin,
     }
     return <CardMostReadList {...params} />
   }

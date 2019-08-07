@@ -23,6 +23,7 @@ const formatStories = ({
     aux.push({
       websiteUrl: element.link,
       imageUrl: element.multimediaLandscapeXS,
+      lazyImage: element.multimediaLazyDefault,
       storyType: element.multimediaType,
       title: element.title,
       id: el._id,

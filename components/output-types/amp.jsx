@@ -34,7 +34,6 @@ const AmpOutputType = ({
   }
 
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
-  const isBlogPost = requestUri.match(`^(/blogs?/.*)`)
 
   const metaSiteData = {
     ...siteProperties,
@@ -89,7 +88,6 @@ const AmpOutputType = ({
     requestUri,
     siteName: siteProperties.siteName,
     story: isStory, // check data origin - Boolean
-    blog: isBlogPost, // check data origin - Boolean
     deployment,
     globalContent,
   }

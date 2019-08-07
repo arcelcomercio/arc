@@ -117,8 +117,9 @@ export default {
 
   footer: {
     siteLegal: [
-      'Director periodístico',
-      'JULIO LIRA SEGURA',
+      // TODO: DESCOMENTAR ESTO PARA LA SEGUNDA SALIDA DE GESTIÓN
+      /* 'Director periodístico',
+      'JULIO LIRA SEGURA', */
       '© Empresa Editora El Comercio S.A.',
       'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
       'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
@@ -158,8 +159,8 @@ export default {
         name: 'JULIO LIRA SEGURA',
       },
       {
-        position: '',
-        name: '',
+        position: 'Editor Web',
+        name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
       },
       {
         position: '',
