@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
-  path: PropTypes.string.isRequired.tag({
-    name: 'URL',
-    description: `Puedes ingresar cualquier URL externa, incluyendo el dominio (ejemplo: https://dominio.pe/url-externa), o la URL de una nota interna, sin el dominio (ejemplo: /url-interna-de-noticia).`,
+  storyConfig: PropTypes.contentConfig('story').isRequired.tag({
+    name: 'Configuración del contenido',
   }),
   model: PropTypes.oneOf(['basic', 'twoCol', 'full']).tag({
     name: 'Modelo del Destaque',

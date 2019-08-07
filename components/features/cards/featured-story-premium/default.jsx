@@ -3,29 +3,27 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
-import DestaquePremiumChild from './_children/destaque-premium'
+import FeaturedStoryPremiumChild from './_children/feature-premium'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import StoryData from '../../utilities/story-data'
+import StoryData from '../../../utilities/story-data'
 
-const DestaquePremium = props => {
+const FeaturedStoryPremium = props => {
   const { arcSite, contextPath, deployment } = useFusionContext()
-  const { customFields: { path, model, bgColor } = {} } = props
-  const contentSource = path.match(/noticia(\/)?$/)
-    ? {
-        source: 'story-by-url',
-        query: { website_url: path },
-        filter: schemaFilter(arcSite),
-      }
-    : {
-        source: 'story-by-section',
-        query: { section: path },
-        filter: schemaFilter(arcSite),
-      }
+  const {
+    customFields: {
+      storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      model,
+      bgColor,
+    } = {},
+  } = props
 
-  const data = useContent({
-    ...contentSource,
-  })
+  const data =
+    useContent({
+      source: contentService,
+      query: contentConfigValues,
+      filter: schemaFilter(arcSite),
+    }) || {}
   const {
     isPremium,
     websiteLink,
@@ -63,12 +61,13 @@ const DestaquePremium = props => {
     primarySectionLink,
     primarySection,
   }
-  return <DestaquePremiumChild {...params} />
+  return <FeaturedStoryPremiumChild {...params} />
 }
 
-DestaquePremium.propTypes = {
+FeaturedStoryPremium.propTypes = {
   customFields,
 }
 
-DestaquePremium.label = 'Destaque Premium'
-export default DestaquePremium
+FeaturedStoryPremium.static = true
+FeaturedStoryPremium.label = 'Destaque Premium'
+export default FeaturedStoryPremium

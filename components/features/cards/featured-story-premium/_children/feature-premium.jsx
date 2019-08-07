@@ -1,33 +1,33 @@
 import React from 'react'
-import Icon from '../../../global-components/multimedia-icon'
+import Icon from '../../../../global-components/multimedia-icon'
 
 const classes = {
-  plusG: 'destaque-p',
-  left: 'destaque-p__left',
-  section: 'destaque-p__section',
-  title: 'destaque-p__title',
-  detail: 'destaque-p__detail',
-  read: 'destaque-p__read',
-  description: 'destaque-p__description',
-  author: 'destaque-p__author',
-  boxIcon: 'destaque-p__box-icon',
-  sectionSmall: 'destaque-p__section-small',
-  iconImage: 'destaque-p__icon-image',
-  right: 'destaque-p__right',
-  icon: 'destaque-p__icon icon-video',
-  image: 'destaque-p__image',
+  featuredPremium: 'featured-premium',
+  left: 'featured-premium__left',
+  section: 'featured-premium__section',
+  title: 'featured-premium__title',
+  detail: 'featured-premium__detail',
+  read: 'featured-premium__read',
+  description: 'featured-premium__description',
+  author: 'featured-premium__author',
+  boxIcon: 'featured-premium__box-icon',
+  sectionSmall: 'featured-premium__section-small',
+  iconImage: 'featured-premium__icon-image',
+  right: 'featured-premium__right',
+  icon: 'featured-premium__icon icon-video',
+  image: 'featured-premium__image',
 }
 
 const getModel = model => {
   const type = {
-    basic: ' destaque-p--card ',
+    basic: ' featured-premium--card ',
     twoCol: ' col-2 ',
     full: ' col-2 row-2 ',
   }
   return type[model] || type.basic
 }
 
-const DestaquePremiumChild = ({
+const FeaturedStoryPremiumChild = ({
   isPremium,
   model,
   bgColor,
@@ -45,9 +45,9 @@ const DestaquePremiumChild = ({
 }) => {
   return (
     <div
-      className={classes.plusG
+      className={classes.featuredPremium
         .concat(getModel(model))
-        .concat(` destaque-p--${bgColor}`)}>
+        .concat(` featured-premium--${bgColor}`)}>
       <div className={classes.left}>
         <h3 className={classes.section}>
           <a href={primarySectionLink}>{primarySection}</a>
@@ -104,4 +104,4 @@ const DestaquePremiumChild = ({
   )
 }
 
-export default DestaquePremiumChild
+export default FeaturedStoryPremiumChild
