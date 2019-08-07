@@ -21,6 +21,7 @@ function WizardPayment(props) {
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
+    printed,
   } = props
 
   const {
@@ -60,10 +61,10 @@ function WizardPayment(props) {
     secondLastName,
     documentType,
     documentNumber,
+    printed,
     email,
     phone,
     cardMethod,
-    cardNumber,
     token,
     sku,
     priceCode,
@@ -80,6 +81,7 @@ function WizardPayment(props) {
         body: JSON.stringify({
           order: orderNumber,
           total: amount,
+          printed,
           profile: {
             name: firstName,
             lastname: lastName,
@@ -91,7 +93,6 @@ function WizardPayment(props) {
           },
           card: {
             method: cardMethod.toUpperCase(),
-            number: cardNumber,
             token,
           },
           product: [
@@ -175,10 +176,10 @@ function WizardPayment(props) {
                   secondLastName,
                   documentType,
                   documentNumber,
+                  printed,
                   email,
                   phone,
                   cardMethod,
-                  cardNumber, // TODO: Convertir en formato de mascara
                   token,
                   campaignCode,
                   sku,
