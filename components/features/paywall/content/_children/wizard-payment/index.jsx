@@ -63,7 +63,6 @@ function WizardPayment(props) {
     email,
     phone,
     cardMethod,
-    cardNumber,
     token,
     sku,
     priceCode,
@@ -91,7 +90,6 @@ function WizardPayment(props) {
           },
           card: {
             method: cardMethod.toUpperCase(),
-            number: cardNumber,
             token,
           },
           product: [
@@ -178,7 +176,6 @@ function WizardPayment(props) {
                   email,
                   phone,
                   cardMethod,
-                  cardNumber, // TODO: Convertir en formato de mascara
                   token,
                   campaignCode,
                   sku,
