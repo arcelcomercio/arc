@@ -19,3 +19,5 @@ import './images/logo_fb.jpg'
 import './images/logo_twitter.jpg'
 import './images/loader-publimetro.png'
 import './images/green-logo.png'
+
+import '../../../components/utilities/lazyload'

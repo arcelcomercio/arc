@@ -15,15 +15,15 @@ const StoriesListsCardChildItem = ({
   title,
   urlNews,
   multimedia,
+  lazyImage,
   multimediaType,
+  isAdmin,
 }) => {
   return (
     <article role="listitem" className={classes.story}>
       {seeImageNews && (
         <Multimedia
-          urlNews={urlNews}
-          multimedia={multimedia}
-          multimediaType={multimediaType}
+          {...{ urlNews, multimedia, lazyImage, multimediaType, isAdmin }}
         />
       )}
 

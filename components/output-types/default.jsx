@@ -230,7 +230,7 @@ export default ({
           )}
         />
         <script
-          async
+          defer
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/js/index.js`
           )}

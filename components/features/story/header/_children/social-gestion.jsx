@@ -104,12 +104,12 @@ class StoryHeaderChildSocialGestion extends PureComponent {
                 className={classes.link}
                 href={item.link}
                 onClick={event => {
-                  const isPrint = i === 2 && currentList === this.secondList
+                  const isPrint = i === 1 && currentList === this.secondList
                   this.openLink(event, item, isPrint)
                 }}>
                 <i className={item.icon} />
                 <span className={classes.share}>
-                  {i === 2 && currentList === this.secondList
+                  {i === 1 && currentList === this.secondList
                     ? 'Imprimir'
                     : 'Compartir'}
                 </span>

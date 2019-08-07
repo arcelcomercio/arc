@@ -62,6 +62,7 @@ const storySchemaTypes = `
       square_md: String
       square_s: String
       square_xs: String
+      lazy_default: String
       small: String
       medium: String
       large: String
