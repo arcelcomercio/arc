@@ -50,7 +50,7 @@ class StoryHeaderChildSocial extends PureComponent {
       postTitle,
       siteNameRedSocial
     )
-    
+
     this.shareButtons = {
       [this.firstList]: [
         {
