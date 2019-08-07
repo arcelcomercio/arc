@@ -1,21 +1,21 @@
-export default `{ 
-    canonical_url 
+export default function(arcSite) {
+  return `{ 
     headlines { basic }
     subheadlines { basic }
     credits {
       by { name url type }
     }
-    website_url
+    websites { ${arcSite} { website_url } }
     promo_items {
-        basic { url type resized_urls { landscape_xl } }
+        basic { url type resized_urls { landscape_md landscape_l square_md  } }
         basic_video {
           promo_items {
-            basic { url type resized_urls { landscape_xl } }
+            basic { url type resized_urls { landscape_md landscape_l square_md  } }
           }
         }
         basic_gallery {
           promo_items {
-            basic { url type resized_urls { landscape_xl } }
+            basic { url type resized_urls { landscape_md landscape_l square_md  } }
           }
         }
       }
@@ -24,9 +24,6 @@ export default `{
           name
           path
       }
-      tags {
-        description
-        slug
-      }
     }
   }`
+}
