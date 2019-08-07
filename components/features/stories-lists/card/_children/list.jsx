@@ -14,6 +14,7 @@ const StoriesListsCardChildList = ({
   deployment,
   arcSite,
   contextPath,
+  isAdmin,
 }) => {
   const elementFormatter = new StoryData({ deployment, arcSite, contextPath })
   return (
@@ -21,22 +22,22 @@ const StoriesListsCardChildList = ({
       {listNews.map((el, index) => {
         elementFormatter.__data = el
         const data = elementFormatter.attributesRaw
-        const displayTime = formatDateLocalTimeZone(data.displayDate)
 
-        return (
-          <StoriesListCardChildItem
-            key={data.link}
-            seeHour={seeHour}
-            seeImageNews={
-              seeImageNews === true && index === 0 /* ? true : false */
-            }
-            time={displayTime}
-            title={data.title}
-            urlNews={data.link}
-            multimedia={data.multimediaLandscapeMD}
-            multimediaType={data.multimediaType}
-          />
-        )
+        const params = {
+          key: data.link,
+          seeHour,
+          seeImageNews:
+            seeImageNews === true && index === 0 /* ? true : false */,
+          time: formatDateLocalTimeZone(data.displayDate),
+          title: data.title,
+          urlNews: data.link,
+          multimedia: data.multimediaLandscapeMD,
+          lazyImage: data.multimediaLazyDefault,
+          multimediaType: data.multimediaType,
+          isAdmin,
+        }
+
+        return <StoriesListCardChildItem {...params} />
       })}
     </div>
   )

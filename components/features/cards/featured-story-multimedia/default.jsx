@@ -10,7 +10,7 @@ import StoryData from '../../../utilities/story-data'
 const CardFeaturedStoryMultimedia = props => {
   const { customFields: { section = '', freeHtml = '' } = {} } = props
 
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
   const data = useContent({
     source: 'story-by-section',
@@ -22,6 +22,7 @@ const CardFeaturedStoryMultimedia = props => {
   const {
     websiteLink, // { websites { ${arcsite} { website_url } } }
     multimediaLandscapeMD,
+    multimediaLazyDefault,
     title, // { headlines { basic } }
     multimediaType, // { promo_items }
     date, // { publish_date }
@@ -40,6 +41,7 @@ const CardFeaturedStoryMultimedia = props => {
       {...{
         websiteLink,
         multimediaLandscapeMD,
+        multimediaLazyDefault,
         title,
         multimediaType,
         date,
@@ -50,6 +52,7 @@ const CardFeaturedStoryMultimedia = props => {
             ? primarySectionLink
             : `${section}/`,
         freeHtml,
+        isAdmin,
       }}
     />
   )

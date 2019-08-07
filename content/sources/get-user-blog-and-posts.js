@@ -65,6 +65,10 @@ const transform = data => {
     if (guid) {
       const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
         presets: {
+          lazy_default: {
+            width: 5,
+            height: 5
+          },
           author_sm: {
             width: 125,
             height: 125

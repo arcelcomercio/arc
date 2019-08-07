@@ -8,7 +8,7 @@ const classes = {
 }
 
 const CardMostReadChildList = props => {
-  const { viewImage, stories, customTitle, editableField } = props
+  const { viewImage, stories, customTitle, editableField, isAdmin } = props
 
   return (
     <div role="list" className={classes.mostRead}>
@@ -22,7 +22,7 @@ const CardMostReadChildList = props => {
       {stories &&
         stories.map((item, i) => {
           const key = `most-read-${i}-${item.id}`
-          const params = { item, viewImage }
+          const params = { item, viewImage, isAdmin }
           return <CardMostReadItem key={key} {...params} />
         })}
     </div>
