@@ -15,6 +15,7 @@ export default `
             caption
             resized_urls { 
               landscape_xs
+              lazy_default
             }
           }
           basic_video {
@@ -25,6 +26,7 @@ export default `
                 caption
                 resized_urls { 
                   landscape_xs
+                  lazy_default
                 }
               }
             }
@@ -37,6 +39,7 @@ export default `
                 caption
                 resized_urls { 
                   landscape_xs
+                  lazy_default
                 }
               }
             }

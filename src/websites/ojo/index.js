@@ -16,3 +16,5 @@ import './images/default-md.png'
 import './images/default-lg.png'
 import './images/loader.jpg'
 import './images/logo-ojo-amp.png'
+
+import '../../../components/utilities/lazyload'

@@ -13,6 +13,8 @@ const EmbedMultimedia = props => {
   const image = (url, { deployment, contextPath, website, title = '' }) => {
     return (
       <img
+        // Siempre está en la parte inicial de la pag, no hace falta lazyload
+        // TODO: buscar la manera de aplicar resize a esta imagen.
         className="embed-multimedia-image w-full h-full object-cover"
         src={
           url ||

@@ -1,3 +1,4 @@
+// TODO: cambiar website_url por websites.[arcSite].website_url
 export default `
     {
       content_elements{
@@ -12,6 +13,7 @@ export default `
                 url
                 resized_urls { 
                   landscape_s
+                  lazy_default
                 }
               }
             }
@@ -24,6 +26,7 @@ export default `
                 url
                 resized_urls { 
                   landscape_s
+                  lazy_default
                 }
               }
             }
@@ -33,6 +36,7 @@ export default `
             url
             resized_urls { 
               landscape_s
+              lazy_default
             }
           }
         }
