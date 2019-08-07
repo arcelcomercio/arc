@@ -22,8 +22,7 @@ function WizardPlan(props) {
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
 
-  const { siteProperties } = fusionContext
-  const Sales = addSales(siteProperties)
+  const Sales = addSales()
 
   function subscribePlanHandler(e, plan) {
     Sales.then(sales => {

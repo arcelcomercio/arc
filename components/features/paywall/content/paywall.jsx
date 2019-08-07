@@ -38,10 +38,7 @@ class Content extends React.Component {
   }
 
   componentDidMount() {
-    const { siteProperties } = this.props
-    // console.log(.getService('ORIGIN_API'))
-
-    AddIdentity(siteProperties).then(() => {
+    AddIdentity().then(() => {
       userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
         this.setState({ profile })
       })
