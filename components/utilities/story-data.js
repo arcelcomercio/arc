@@ -573,7 +573,7 @@ class StoryData {
       }) => {
         return type === typeElement ? formatHtmlToText(content) : []
       })
-    )
+    ).join(' ')
   }
 
   static getContentElements(data = [], typeElement = '') {

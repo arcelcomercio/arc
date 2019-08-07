@@ -19,7 +19,7 @@ const classes = {
   face: 'tabloid__face object-cover',
 }
 
-const CONTENT_SOURCE = 'story-by-section-impresa'
+const CONTENT_SOURCE = 'story-by-section-printed'
 
 @Consumer
 class CardTabloid extends PureComponent {

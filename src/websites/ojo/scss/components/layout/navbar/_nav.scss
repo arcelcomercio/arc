@@ -6,6 +6,10 @@
   }
   &__logo {
     padding: 10px 0;
+    @media (--desktop) {
+      height: 51px;
+      padding: 0;
+    }
   }
   &__wrapper {
     &:first-child {

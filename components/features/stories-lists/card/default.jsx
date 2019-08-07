@@ -30,7 +30,7 @@ class StoriesListCard extends PureComponent {
 
     this.fetchContent({
       data: {
-        source: 'story-feed-by-section-order-by-displaydate',
+        source: 'story-feed-by-section',
         query: params,
         filter: schemaFilter,
       },

@@ -3,7 +3,7 @@ export default {
 
   googleFonts: 'Alfa+Slab+One|Titillium+Web:400,700',
 
-  colorPrimary: '#f7c600',
+  colorPrimary: '#007d33',
   siteDomain: 'ojo.pe',
   siteUrl: 'https://ojo.pe',
   linkTabloide: 'https://peruquiosco.pe/',
@@ -103,11 +103,11 @@ export default {
     contacts: [
       {
         position: 'Director Periodístico',
-        name: 'Jaime Marcos Antonio Asian Dominguez <jasian@grupoepensa.pe>',
+        name: 'Jaime Marcos Antonio Asian Dominguez jasian@grupoepensa.pe',
       },
       {
         position: 'Editor Web',
-        name: 'Ivonne Chavely, Chiroque Quiroz <ichiroque@grupoepensa.pe>',
+        name: 'Ivonne Chavely, Chiroque Quiroz ichiroque@grupoepensa.pe',
       },
       {
         position: '-',
@@ -149,11 +149,11 @@ export default {
     movil5: 15011752,
   },
   listUrlAdvertisings: [
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-22.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-23.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna1-300x250-div-gpt-ad-8599377-26.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna2-300x250-div-gpt-ad-8599377-27.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna3-300x250-div-gpt-ad-8599377-28.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna4-300x250-div-gpt-ad-8599377-29.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna5-300x250-div-gpt-ad-8599377-30.html',
   ],
   activeSignwall: false,
 }
