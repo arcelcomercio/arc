@@ -27,6 +27,7 @@ const DestaquePremium = props => {
     ...contentSource,
   })
   const {
+    isPremium,
     websiteLink,
     multimediaSquareMD,
     multimediaLandscapeMD,
@@ -47,6 +48,7 @@ const DestaquePremium = props => {
   })
 
   const params = {
+    isPremium,
     model,
     bgColor,
     websiteLink,
