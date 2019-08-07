@@ -47,6 +47,7 @@ class CardTabloid extends PureComponent {
       contextPath,
       arcSite,
       editableField,
+      isAdmin,
       siteProperties: { linkTabloide = '' },
       customFields: { sectionName = '' } = {},
     } = this.props
@@ -65,6 +66,7 @@ class CardTabloid extends PureComponent {
       promo_items: {
         basic: {
           resized_urls: {
+            lazy_default: lazyImage,
             printed_md: printedImage = defaultImage({
               deployment,
               contextPath,
@@ -94,8 +96,9 @@ class CardTabloid extends PureComponent {
           <picture>
             <a href={linkTabloide} target="_blank" rel="noopener noreferrer">
               <img
-                className={classes.face}
-                src={printedImage}
+                className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
+                src={isAdmin ? printedImage : lazyImage}
+                data-src={printedImage}
                 alt={title}
                 loading="lazy"
               />
@@ -117,7 +120,7 @@ class CardTabloid extends PureComponent {
 }
 
 CardTabloid.label = 'Tabloide'
-// CardTabloid.static = true
+CardTabloid.static = true
 
 CardTabloid.propTypes = {
   customFields,
