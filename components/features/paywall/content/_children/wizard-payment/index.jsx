@@ -21,6 +21,7 @@ function WizardPayment(props) {
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
+    printed,
   } = props
 
   const {
@@ -60,6 +61,7 @@ function WizardPayment(props) {
     secondLastName,
     documentType,
     documentNumber,
+    printed,
     email,
     phone,
     cardMethod,
@@ -79,6 +81,7 @@ function WizardPayment(props) {
         body: JSON.stringify({
           order: orderNumber,
           total: amount,
+          printed,
           profile: {
             name: firstName,
             lastname: lastName,
@@ -173,6 +176,7 @@ function WizardPayment(props) {
                   secondLastName,
                   documentType,
                   documentNumber,
+                  printed,
                   email,
                   phone,
                   cardMethod,

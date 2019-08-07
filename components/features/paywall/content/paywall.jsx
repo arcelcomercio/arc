@@ -63,7 +63,7 @@ class Content extends React.Component {
   render() {
     const { data, profile, loading } = this.state
     const { globalContent } = this.props
-    const { summary = [], plans } = globalContent
+    const { summary = [], plans, printed } = globalContent
 
     const {
       contextPath,
@@ -101,6 +101,7 @@ class Content extends React.Component {
             />
             <WizardPayment
               memo={this.memo}
+              printed={printed}
               summary={summary}
               onBeforeNextStep={this.onBeforeNextStepHandler}
               setLoading={this.setLoading}
