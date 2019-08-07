@@ -6,6 +6,7 @@ import Icon from '../icon'
 export const Colors = {
   BLACK: '#444444',
   CARMINE: '#8f071f',
+  LIGHT_PINK: '#fff6f0',
 }
 
 export const DialogContent = styled.div`
@@ -19,6 +20,7 @@ export const DialogContent = styled.div`
 export const ContentWrapper = styled.div`
   width: 310px;
   padding: 40px;
+  background-color: ${Colors.LIGHT_PINK};
 `
 
 export const Title = styled.div`
