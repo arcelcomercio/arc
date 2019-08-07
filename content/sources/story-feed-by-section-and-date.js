@@ -111,7 +111,7 @@ const pattern = (key = {}) => {
   }
 
   // TODO: Por defecto, los API's están limitados a 100 notas como máximo (no va a llegar a 500)
-  const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${website}&body=${JSON.stringify(
+  const requestUri = `/content/v4/search/published?sort=display_date:desc&website=${website}&body=${JSON.stringify(
     body
   )}&from=0&size=500`
 

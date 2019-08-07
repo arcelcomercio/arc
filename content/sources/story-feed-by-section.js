@@ -135,7 +135,7 @@ const pattern = (key = {}) => {
       throw new Error('Sección no encontrada')
     return request({
       uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
-        10}&from=${feedOffset || 0}&sort=publish_date:desc`,
+        10}&from=${feedOffset || 0}&sort=display_date:desc`,
       ...options,
     }).then(data => {
       const dataStory = data
