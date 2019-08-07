@@ -12,6 +12,7 @@ export default arcSite => `
           url
           resized_urls { 
             printed_md
+            lazy_default
           }
         }
       }
