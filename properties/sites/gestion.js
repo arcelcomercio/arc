@@ -167,6 +167,14 @@ export default {
       },
     ],
   },
+  apps: {
+    android: {
+      url: 'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer'
+    },
+    ios: {
+      url: 'https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer'
+    }
+  },
   social: {
     facebook: {
       name: 'facebook',

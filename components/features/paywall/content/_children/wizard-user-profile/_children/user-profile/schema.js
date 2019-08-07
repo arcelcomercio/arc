@@ -6,7 +6,7 @@ export const MESSAGE = {
   // eslint-disable-next-line no-template-curly-in-string
   MIN: 'Longitud inválida, mínimo ${min} caracteres.',
   // eslint-disable-next-line no-template-curly-in-string
-  MAX: 'Longitud inválida, Máximo ${max} caracteres.',
+  MAX: 'Longitud inválida, máximo ${max} caracteres.',
   REQUIRED: 'Este campo es requerido',
   CELULAR: 'Longitud inválida, entre 9 y 12 caracteres',
   DNI: 'Longitud inválida, requiere 8 dígitos',
