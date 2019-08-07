@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { devices } from '../../../_dependencies/devices'
-
+import ProgressComponent from '../../../_children/progress'
 export const Title = styled.div`
   font-size: 30px;
   font-weight: 700;
@@ -64,6 +64,7 @@ export const WrapButton = styled.div`
   width: 100%;
   justify-content: center;
   margin: 20px 0;
+  position: relative;
 `
 export const WrapIcon = styled.div`
   width: 86px;
@@ -119,4 +120,8 @@ export const DetailTitle = styled.div`
 
 export const Names = styled.span`
   text-transform: capitalize;
+`
+export const Progress = styled(ProgressComponent)`
+  position: absolute;
+  bottom: -7px;
 `

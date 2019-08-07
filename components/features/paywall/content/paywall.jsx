@@ -9,7 +9,6 @@ import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
-import ENV from 'fusion:environment'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
@@ -23,12 +22,9 @@ class Content extends React.Component {
     super(props)
     this.memo = {}
     this.state = {
-      // data: props.globalContent,
       profile: '',
       loading: false,
     }
-    // this.fetch = this.fetch.bind(this)
-    // this.fetch()
   }
 
   // eslint-disable-next-line react/sort-comp
@@ -43,7 +39,8 @@ class Content extends React.Component {
 
   componentDidMount() {
     const { siteProperties } = this.props
-    console.log({ ENV })
+    // console.log(.getService('ORIGIN_API'))
+
     AddIdentity(siteProperties).then(() => {
       userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
         this.setState({ profile })
@@ -66,7 +63,7 @@ class Content extends React.Component {
   render() {
     const { data, profile, loading } = this.state
     const { globalContent } = this.props
-    const { summary = [], plans } = globalContent
+    const { summary = [], plans, printed } = globalContent
 
     const {
       contextPath,
@@ -104,6 +101,7 @@ class Content extends React.Component {
             />
             <WizardPayment
               memo={this.memo}
+              printed={printed}
               summary={summary}
               onBeforeNextStep={this.onBeforeNextStepHandler}
               setLoading={this.setLoading}

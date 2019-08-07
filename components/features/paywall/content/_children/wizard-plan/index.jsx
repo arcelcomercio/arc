@@ -71,7 +71,7 @@ function WizardPlan(props) {
       </S.Wrap>
       <Modal
         open={openModal}
-        close={() => {
+        onClose={() => {
           setOpenModal(false)
         }}>
         <CheckSuscription />

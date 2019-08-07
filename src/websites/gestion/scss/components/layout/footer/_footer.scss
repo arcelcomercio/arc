@@ -26,4 +26,7 @@
       background-color: $color-gray-300;
     }
   }
+  &__list-link {
+    text-transform: none;
+  }
 }

@@ -100,6 +100,7 @@ class CardTriplet extends PureComponent {
     const {
       arcSite,
       editableField,
+      isAdmin,
       customFields: { webskedId, multimediaOrientation } = {},
     } = this.props
 
@@ -109,6 +110,7 @@ class CardTriplet extends PureComponent {
     const params = {
       arcSite,
       editableField,
+      isAdmin,
       data: dataFormatted,
       multimediaOrientation,
     }

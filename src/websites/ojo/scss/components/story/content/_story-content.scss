@@ -8,4 +8,9 @@
   &__caption {
     color: $color-primary;
   }
+  &__taboola {
+    .thumbnails-a {
+      width: 100% !important;
+    }
+  }
 }

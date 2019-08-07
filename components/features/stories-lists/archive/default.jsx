@@ -22,6 +22,7 @@ class StoriesListArchive extends PureComponent {
       deployment,
       contextPath,
       arcSite,
+      isAdmin,
       customFields: customFieldsProps = {},
     } = this.props
     const {
@@ -51,9 +52,7 @@ class StoriesListArchive extends PureComponent {
               <Fragment key={`Archivo-${story._id}`}>
                 <StoryItem
                   data={story}
-                  deployment={deployment}
-                  contextPath={contextPath}
-                  arcSite={arcSite}
+                  {...{ deployment, contextPath, arcSite, isAdmin }}
                 />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
