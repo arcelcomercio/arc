@@ -517,7 +517,7 @@ class StoryData {
       data.map(({ content, type }) => {
         return type === typeElement ? formatHtmlToText(content) : []
       })
-    )
+    ).join(' ')
   }
 
   static getContentElements(data = [], typeElement = '') {
