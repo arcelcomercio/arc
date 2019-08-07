@@ -1,15 +1,7 @@
 .story-item {
-  &:nth-last-child(1) {
-    margin-bottom: 0;
-  }
-
   &:nth-child(1) {
     margin-top: 10px;
   }
-
-  /*   @media (--tablet) {
-    padding: 0 0 20px 0;
-  } */
 
   &__section {
     color: $color-primary;
