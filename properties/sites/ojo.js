@@ -103,11 +103,11 @@ export default {
     contacts: [
       {
         position: 'Director Periodístico',
-        name: 'Jaime Marcos Antonio Asian Dominguez <jasian@grupoepensa.pe>',
+        name: 'Jaime Marcos Antonio Asian Dominguez jasian@grupoepensa.pe',
       },
       {
         position: 'Editor Web',
-        name: 'Ivonne Chavely, Chiroque Quiroz <ichiroque@grupoepensa.pe>',
+        name: 'Ivonne Chavely, Chiroque Quiroz ichiroque@grupoepensa.pe',
       },
       {
         position: '-',
