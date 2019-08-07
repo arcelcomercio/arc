@@ -42,7 +42,7 @@ export default ({
   }
 
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
-  const isBlogPost = requestUri.match(`^(/blogs?/.*)`)
+  const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory ? 'story' : ''
   classBody = isBlogPost ? 'blogPost' : classBody
@@ -89,6 +89,7 @@ export default ({
     twitterCreator: siteProperties.social.twitter.user,
     story: isStory, // check data origin - Boolean
     deployment,
+    globalContent,
   }
   const openGraphData = {
     fbAppId: siteProperties.fbAppId,
@@ -100,7 +101,6 @@ export default ({
     requestUri,
     siteName: siteProperties.siteName,
     story: isStory, // check data origin - Boolean
-    blog: isBlogPost, // check data origin - Boolean
     deployment,
     globalContent,
   }
