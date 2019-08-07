@@ -27,7 +27,9 @@ export default {
     const { sku, name, attributes, pricingStrategies } = data.products[0]
     const {
       campaign: { name: campaignCode },
+      subscriber = {}
     } = data
+    const { printed = undefined } = subscriber;
 
     const plans = pricingStrategies.map(
       ({ pricingStrategyId, priceCode, description, rates }) => {
@@ -61,6 +63,6 @@ export default {
       { feature: [] }
     )
 
-    return { name, summary, plans }
+    return { name, summary, plans, printed }
   },
 }

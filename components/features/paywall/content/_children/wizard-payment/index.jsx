@@ -49,8 +49,6 @@ function WizardPayment(props) {
 
   const fusionContext = useFusionContext()
   const { siteProperties } = fusionContext
-  const { services } = siteProperties
-  const { getService } = services.setEnv(ENV)
   const Sales = addSales(siteProperties)
 
   function apiPaymentRegister({

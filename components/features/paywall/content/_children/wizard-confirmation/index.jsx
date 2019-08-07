@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as S from './styled'
 import { Panel } from '../../../_children/panel/styled'
 import Button from '../../../_children/button'
@@ -82,6 +82,7 @@ const WizardConfirmation = props => {
           </S.Span>
           <S.WrapButton>
             <Button onClick={handleClick}>SIGUE NAVEGANDO</Button>
+            <S.Progress time="8s" onFinish={handleClick} />
           </S.WrapButton>
         </S.Content>
       </Panel>
