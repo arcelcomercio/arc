@@ -12,6 +12,11 @@
   &__item {
     border-right-width: 1px;
 
+    &:first-child {
+      .story-separator__detail {
+        padding-left: 0;
+      }
+    }
     &:last-child {
       border-right: 0;
       padding-right: 0;

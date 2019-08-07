@@ -4,9 +4,6 @@
   &__logo {
     height: auto;
   }
-  &__featured {
-    justify-content: flex-start;
-  }
 
   &__item {
     &:not(:last-child):after {

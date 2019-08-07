@@ -16,11 +16,6 @@ const schemaName = 'printed'
 
 const params = [
   {
-    name: 'section',
-    displayName: 'Sección',
-    type: 'text',
-  },
-  {
     name: 'feedOffset',
     displayName: 'Número de portada',
     type: 'number',
@@ -31,12 +26,14 @@ const options = {
   json: true,
 }
 
+// seccion a la que debe llamar
+const section = '/impresa'
+
 const fetch = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, feedOffset } = key
+  const { feedOffset } = key
 
   const clearSection = removeLastSlash(section) || '/'
-
 
   const body = {
     query: {

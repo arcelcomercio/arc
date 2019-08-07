@@ -8,7 +8,7 @@ import UtilListKey from '../../../utilities/list-keys'
 
 const classes = {
   separator: 'story-separator block non-tablet non-mobile w-full h-auto',
-  body: 'story-separator__body flex mt-0 mb-0 pt-20 pb-20 pr-0 pl-0',
+  body: 'story-separator__body flex mt-0 mb-0 p-20',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-section'
