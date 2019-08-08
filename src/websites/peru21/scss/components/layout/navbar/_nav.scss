@@ -18,6 +18,10 @@
       }
     }
   }
+  &__container-menu,
+  &__search-box {
+    border-right-color: $color-primary;
+  }
   /*   Estilos para nav loader en notas */
   &__loader-bar {
     background-color: $color-primary;
