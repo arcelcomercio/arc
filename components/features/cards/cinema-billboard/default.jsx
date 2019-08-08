@@ -129,7 +129,7 @@ class CardCinemaBillboard extends PureComponent {
                 src={img}
                 alt={alt}
                 className={classes.image}
-                loading="lazy"
+                
               />
             </a>
           </figure>

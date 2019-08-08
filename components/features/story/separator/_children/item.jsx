@@ -43,7 +43,7 @@ const StorySeparatorChildItem = ({ data }) => {
               src={multimediaPortraitXS}
               alt=""
               className={classes.itemImage}
-              loading="lazy"
+              
             />
           </a>
         )}
