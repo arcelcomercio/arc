@@ -17,7 +17,8 @@ function Modal({ children, showClose, onClose = () => {}, ...props }) {
     return () => {
       window.removeEventListener('keydown', _onClose)
     }
-  })
+  }, [])
+
   const childrens = React.Children.map(children, child =>
     React.cloneElement(child, { close })
   )
