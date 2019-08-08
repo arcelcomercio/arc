@@ -99,7 +99,6 @@ class CardTabloid extends PureComponent {
                 src={isAdmin ? printedImage : lazyImage}
                 data-src={printedImage}
                 alt={title}
-                
               />
             </a>
           </picture>
