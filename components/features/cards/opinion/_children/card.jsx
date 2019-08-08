@@ -45,7 +45,7 @@ const OpinionItem = ({
         </div>
       </div>
       <figure className={classes.imageContainer}>
-        <img className={classes.image} src={urlImg} alt="" loading="lazy" />
+        <img className={classes.image} src={urlImg} alt=""  />
       </figure>
     </div>
   )

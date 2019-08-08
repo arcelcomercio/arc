@@ -79,7 +79,7 @@ const transform = data => {
 
   if (tags.length === 0) return dataStories
 
-  const realTag = tags.find(tag => name === tag.slug)
+  const realTag = tags.find(tag => decodeURIComponent(name) === tag.slug)
   const tagName = {
     tag_name: (realTag && realTag.text) || 'Tag',
   }

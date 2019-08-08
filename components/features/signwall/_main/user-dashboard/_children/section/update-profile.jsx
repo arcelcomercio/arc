@@ -144,7 +144,7 @@ class UpdateProfile extends Component {
         this.setState(state)
       })
       .catch(() => {
-        console.error()
+        window.console.error()
       })
   }
 

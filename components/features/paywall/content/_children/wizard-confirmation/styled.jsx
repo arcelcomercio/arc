@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { devices } from '../../../_dependencies/devices'
 import ProgressComponent from '../../../_children/progress'
+
 export const Title = styled.div`
   font-size: 30px;
   font-weight: 700;

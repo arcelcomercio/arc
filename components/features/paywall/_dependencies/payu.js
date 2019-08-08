@@ -1,8 +1,8 @@
-import ENV from 'fusion:environment'
+import getService from './services'
 import addScriptAsync from '../../../utilities/script-async'
 
-const addPayU = ({ services }) => {
-  const { getService } = services.setEnv(ENV)
+const addPayU = () => {
+  
 
   return addScriptAsync({
     name: 'sdkPayU',

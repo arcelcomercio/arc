@@ -13,8 +13,7 @@ class Head extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { siteProperties } = this.props
-    AddIdentity(siteProperties).then(() => {
+    AddIdentity().then(() => {
       userProfile().then(({ firstName }) => {
         this.setState({ firstName })
       })
@@ -24,8 +23,7 @@ class Head extends React.PureComponent {
 
   getFirstName = () => {
     window.dataLayer = window.dataLayer || [] // temporalmente hasta agregar GTM
-    const { siteProperties } = this.props
-    AddIdentity(siteProperties).then(() => {
+    AddIdentity().then(() => {
       userProfile()
         .then(({ firstName }) => {
           this.setState({ firstName })

@@ -227,7 +227,7 @@ function WizardPayment(props) {
           default:
             setError('Disculpe, ha ocurrido un error durante el pago')
         }
-        console.error(e)
+        window.console.error(e)
       })
       .finally(() => {
         setLoading(false)

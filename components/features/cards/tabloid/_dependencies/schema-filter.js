@@ -6,6 +6,7 @@ export default arcSite => `
         }
       }
       display_date
+      section_name
       promo_items{
         basic {
           type 
