@@ -7,7 +7,7 @@ export const Subscribed = styled.div`
   max-width: 930px;
   color: #fff;
   cursor: pointer;
-  margin-top: 60px;
+  margin-top: 30px;
   align-items: flex-end;
   position: relative;
   @media (${devices.mobile}) {

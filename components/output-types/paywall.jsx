@@ -19,6 +19,7 @@ const Paywall = props => {
   return (
     <html lang="es" className={arcSite}>
       <head>
+        <TagManager {...siteProperties} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -56,10 +57,8 @@ const Paywall = props => {
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        <div id="modal">
-          <div id="fusion-app" role="application" className="layout-paywall">
-            {children}
-          </div>
+        <div id="fusion-app" role="application" className="layout-paywall">
+          {children}
         </div>
         <props.Fusion />
       </body>
