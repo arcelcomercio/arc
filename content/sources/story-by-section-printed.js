@@ -9,13 +9,6 @@ import {
 } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 
-const removeLastSlash = section => {
-  if (section === '/') return section
-  return section && section.endsWith('/') ?
-    section.slice(0, section.length - 1) :
-    section
-}
-
 let website = ''
 const schemaName = 'printed'
 
@@ -38,8 +31,6 @@ const fetch = (key = {}) => {
     feedOffset
   } = key
 
-  const clearSection = removeLastSlash(section) || '/'
-
   const body = {
     query: {
       bool: {
@@ -60,7 +51,7 @@ const fetch = (key = {}) => {
                 bool: {
                   must: [{
                       terms: {
-                        'taxonomy.sections._id': [clearSection],
+                        'taxonomy.sections._id': [section],
                       },
                     },
                     {
@@ -81,7 +72,7 @@ const fetch = (key = {}) => {
   const encodedBody = encodeURI(JSON.stringify(body))
 
   return request({
-    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${clearSection}`,
+    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${section}`,
     ...options,
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))

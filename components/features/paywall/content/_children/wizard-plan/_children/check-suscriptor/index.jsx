@@ -9,8 +9,13 @@ const MESSAGE = {
   REQUIRED: 'Este campo es requerido',
   WRONG_CARD_NUMBER: 'Número tarjeta inválido',
   WRONG_CVV: 'CVV Inválido',
+  // eslint-disable-next-line no-template-curly-in-string
+  MIN: 'Longitud inválida, mínimo ${min} caracteres.',
+  // eslint-disable-next-line no-template-curly-in-string
+  MAX: 'Longitud inválida, máximo ${max} caracteres.',
   WRONG_EXPIRY_DATE: 'Fecha incorrecta',
   CHECK_REQUIRED: 'Debe seleccionar el check',
+  DNI: 'Longitud inválida, requiere 8 dígitos',
 }
 
 export const FormSchema = schema({

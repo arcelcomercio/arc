@@ -1,4 +1,5 @@
 import addScriptAsync from '../../../utilities/script-async'
+import getService from './services'
 
 export const attrToObject = (attributes = [], getAttributes = []) => {
   return getAttributes.reduce((prev, name) => {
@@ -11,17 +12,13 @@ export const attrToObject = (attributes = [], getAttributes = []) => {
   }, {})
 }
 
-const AddIdentity = siteProperties => {
-  const {
-    signwall: { ORIGIN_IDENTITY_SDK, ORIGIN_API },
-  } = siteProperties
-
+const AddIdentity = () => {
   return addScriptAsync({
     name: 'sdkIndetityARC',
-    url: ORIGIN_IDENTITY_SDK,
+    url: getService('ORIGIN_IDENTITY_SDK'),
   }).then(added => {
     if (added) {
-      window.Identity.apiOrigin = ORIGIN_API
+      window.Identity.apiOrigin = getService('ORIGIN_API')
     }
     return window.Identity
   })

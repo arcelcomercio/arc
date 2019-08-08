@@ -6,7 +6,7 @@ export const MESSAGE = {
   // eslint-disable-next-line no-template-curly-in-string
   MIN: 'Longitud inválida, mínimo ${min} caracteres.',
   // eslint-disable-next-line no-template-curly-in-string
-  MAX: 'Longitud inválida, Máximo ${max} caracteres.',
+  MAX: 'Longitud inválida, máximo ${max} caracteres.',
   REQUIRED: 'Este campo es requerido',
   CELULAR: 'Longitud inválida, entre 9 y 12 caracteres',
   DNI: 'Longitud inválida, requiere 8 dígitos',
@@ -17,18 +17,26 @@ export const MESSAGE = {
 export const FormSchema = schema({
   firstName: value => {
     value
+      .dedup(' ')
+      .trim()
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
   },
   lastName: value => {
     value
+      .dedup(' ')
+      .trim()
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
   },
   secondLastName: value => {
-    value.min(3, MESSAGE.MIN).max(50, MESSAGE.MAX)
+    value
+      .dedup(' ')
+      .trim()
+      .min(3, MESSAGE.MIN)
+      .max(50, MESSAGE.MAX)
   },
   documentNumber: (value, { documentType }) => {
     switch (documentType) {

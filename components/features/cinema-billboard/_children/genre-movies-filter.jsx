@@ -142,7 +142,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                         }
                         alt={movie.title || ''}
                         className={classes.image}
-                        loading="lazy"
+                        
                       />
                       <figcaption className={classes.details}>
                         <h2 className={classes.title}>{movie.title || ''}</h2>

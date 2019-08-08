@@ -28,7 +28,7 @@ export const Amount = styled.div`
   line-height: 50px;
   padding: 24px 0;
   @media (${devices.mobile}) {
-    font-size: 50px;
+    font-size: 40px;
   }
 `
 
@@ -54,7 +54,7 @@ const Content = styled.div`
   pointer-events: none;
 `
 
-const Footer = styled.div``
+export const Footer = styled.div``
 
 export const Button = styled(Btn)`
   color: #444;
@@ -74,7 +74,7 @@ export const Button = styled(Btn)`
     `};
 `
 
-export { CardPrice, Frecuency, Currency, Description, Content, Footer }
+export { CardPrice, Frecuency, Currency, Description, Content }
 
 // .card-price--active{
 // color: #444444;
