@@ -17,63 +17,69 @@ class PaginationByDate extends PureComponent {
 
   // Devuelve un array con 5 fechas anterioes a el Dia actual o a la fecha pasada como parametro
   getFiveDays(comingDate) {
-    let fecha
-    if (comingDate) {
-      const inputDate = new Date(comingDate)
-      const today = new Date()
-      if (inputDate > today)
-        // Si la fecha en el parametro es mayor a HOY, devuelve HOY
-        fecha = null
-      else {
-        // Si la fecha es menor, se formatea y se pasa como parametro al new Date
-        const arrDate = comingDate.split('-')
-        fecha = arrDate.map((el, index) => {
-          if (el.startsWith('0'))
-            return index === 1 ? Number(el.slice(1)) - 1 : Number(el.slice(1))
-          return Number(el)
-        })
-      }
-    }
-
+    // Dias anteriores que quiero mostrar
+    const LESS_DAYS = 5
+    const DAY_LIST = []
+    // Formateador de fecha => 5 return 05
     const formatDate = date => (date < 10 ? `0${date}` : date)
+    // Transforma la fecha => 2019-01,01 return 2019,01,01
+    const parseDate = comingDate && comingDate.split('-').join(',')
 
-    const date = fecha ? new Date(...fecha) : new Date()
-    const today = date.getDate()
-    const month = date.getMonth() + 1
-    const formatMonth = formatDate(month)
-    const year = date.getFullYear()
-    const daysInPastMonth = new Date(year, month - 1, 0).getDate()
-    const pastMonth = new Date(year, month - 1, 0).getMonth() + 1
-    const passYear = new Date(year, month - 1, 0).getFullYear()
-    const formarPastMonth = formatDate(pastMonth)
-    const fiveDays = []
-    const getNextDay = new Date(year, date.getMonth(), date.getDate() + 1)
-    const nextDay = `${getNextDay.getFullYear()}-${formatDate(
-      getNextDay.getMonth() + 1
-    )}-${formatDate(getNextDay.getDate())}`
+    const _today = new Date()
+    const _inputDate = comingDate && new Date(parseDate)
+
+    // _date = Si hay fecha y la fecha es mayor a hoy, usa hoy.
+    const _date = comingDate && _inputDate < _today ? _inputDate : _today
+    const day = _date.getDate()
+    const month = _date.getMonth()
+    const year = _date.getFullYear()
+
+    // Variables de Mes Pasado
+    const _pastMonthDate = new Date(year, month, 0)
+    const pastMonth = _pastMonthDate.getMonth()
+    const pastYear = _pastMonthDate.getFullYear()
+    const daysInPastMonth = _pastMonthDate.getDate()
+
+    // Variables de Dia siguiente
+    const _newDay = new Date(year, month, day + 1)
+    const nextDayYear = _newDay.getFullYear()
+    const nextDayMonth = _newDay.getMonth()
+    const nextDayDay = _newDay.getDate()
+
+    // Dia Siguente al consultado
+    const nextDay = `${nextDayYear}-${formatDate(
+      nextDayMonth + 1
+    )}-${formatDate(nextDayDay)}`
+
     let ciclo = 0
 
-    for (let i = today; i > today - 5; i--) {
+    // Iteracion de dias anteriores para llenar el array de dias.
+    for (let i = day; i > day - LESS_DAYS; i--) {
       if (i < 1) {
         if (pastMonth > month) {
           // Si el mes pasado es mayor al mes actual, entonces pertenece a otro año
-          fiveDays.push(
-            `${passYear}-${formarPastMonth}-${daysInPastMonth - ciclo}`
+          DAY_LIST.push(
+            `${pastYear}-${formatDate(pastMonth + 1)}-${formatDate(
+              daysInPastMonth - ciclo
+            )}`
           )
           ciclo += 1
         } else {
           // Si no, pertenece a este año pero en el mes anterior
-          fiveDays.push(`${year}-${formarPastMonth}-${daysInPastMonth - ciclo}`)
+          DAY_LIST.push(
+            `${year}-${formatDate(pastMonth + 1)}-${formatDate(
+              daysInPastMonth - ciclo
+            )}`
+          )
           ciclo += 1
         }
       } else {
         // Si no, devuelve los 5 dias antes de HOY
-        fiveDays.push(`${year}-${formatMonth}-${formatDate(i)}`)
+        DAY_LIST.push(`${year}-${formatDate(month + 1)}-${formatDate(i)}`)
       }
     }
-
     return {
-      fiveDays: fiveDays.reverse(),
+      fiveDays: DAY_LIST.reverse(),
       nextDay,
     }
   }
