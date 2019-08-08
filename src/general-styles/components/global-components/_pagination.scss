@@ -1,7 +1,6 @@
 //$color-page: #777;
 
 .pagination {
-
   &__page {
     padding: 3px 7px;
 
@@ -16,7 +15,7 @@
     }
 
     &--disabled {
-      color: $color-base-100;
+      color: $color-gray-100;
       pointer-events: none;
     }
   }
