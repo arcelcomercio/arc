@@ -23,7 +23,7 @@ export default {
     docnumber: 'text',
     doctype: 'text',
   },
-  ttl: 30,
+  ttl: 20,
   transform(data) {
     const { sku, name, attributes, pricingStrategies } = data.products[0]
     const {
