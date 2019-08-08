@@ -1,9 +1,8 @@
+import {ORIGIN_SUSCRIPCIONES} from 'fusion:environment'
+
 const resolve = ({ doctype = 'DNI', docnumber }) => {
-  const PATH =
-    'https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/'
-  return docnumber ? `${PATH}?doctype=DNI&docnumber=${docnumber}` : PATH
-  // return `https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/?doctype=DNI&docnumber=41000001`
-  // return `https://api-sandbox.gestion.pe/retail/public/v1/offer/preview/${campaing}`
+  const PATH = `${ORIGIN_SUSCRIPCIONES}/api/subscriber/validation/gestion/`
+  return docnumber ? `${PATH}?doctype=${doctype}&docnumber=${docnumber}` : PATH
 }
 
 const parse = string => {
@@ -24,11 +23,15 @@ export default {
     docnumber: 'text',
     doctype: 'text',
   },
+  ttl: 20,
   transform(data) {
     const { sku, name, attributes, pricingStrategies } = data.products[0]
     const {
       campaign: { name: campaignCode },
+      subscriber = {},
+      error
     } = data
+    const { printed = undefined } = subscriber;
 
     const plans = pricingStrategies.map(
       ({ pricingStrategyId, priceCode, description, rates }) => {
@@ -62,6 +65,6 @@ export default {
       { feature: [] }
     )
 
-    return { name, summary, plans }
+    return Object.assign({ name, summary, plans, printed }, error ? {error} : {})
   },
 }

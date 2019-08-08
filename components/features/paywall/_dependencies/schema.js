@@ -31,16 +31,52 @@ export const Masks = {
   EXPIRY_DATE: [/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
   CREDIT_CARD_CVV: [/\d/, /\d/, /\d/],
   Pipes: {
-    capitalize: val => val.replace(/(^|\s)([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
-    trim: val => val.trim(),
+    combine: (...pipes) => val => pipes.reduce((prevVal, pipe)=>pipe(prevVal), val),
+    capitalize: () => val => val.replace(/(^|\s)([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
+    trim: () => val => val.trim(),
+    trimLeft: () => val => val.trimLeft(),
+    trimRight: () => val => val.trimRight(),
+    dedup: char => val => val.replace(new RegExp(`([${char}])+`, "g"), "$1"),
     replace: (...args) => val => val.replace(...args),
-    combine: (...pipes) => val => pipes.reduce((prevVal, pipe)=>pipe(prevVal), val)
+    ignoreChars: (chars) => val => {
+      if (val) {
+        if (chars instanceof RegExp) {
+          return val.replace(chars, "");
+        } 
+        if (Array.isArray(chars)) {
+          return val.replace(
+            new RegExp(`[${chars.join("")}]`, "g"),
+            ""
+          );
+        } 
+        if (typeof chars === "string") {
+          return val.replace(new RegExp(`[${chars}]`, "g"), "");
+        }
+      }
+      return val
+    }
   }
 };
 
 function shape(value) {
   return {
     value: value ? value.toString() : value,
+
+    // Transformations
+    trim() {
+      this.value = this.value ? this.value.trim() : this.value
+      return this
+    },
+    trimLeft() {
+      this.value = this.value ? this.value.trimLeft() : this.value
+      return this
+    },
+    trimRight() {
+      this.value = this.value ? this.value.trimRight() : this.value
+      return this
+    },
+    isRequired: false,
+    hasValue: value !== '' && value !== null,
     replace(...args) {
       this.value = this.value ? this.value.replace(...args) : this.value
       return this
@@ -60,6 +96,14 @@ function shape(value) {
       }
       return this
     },
+    dedup(char) {
+      this.value = this.value
+        ? this.value.replace(new RegExp(`([${char}])+`, 'g'), '$1')
+        : this.value
+      return this
+    },
+
+    // Validations
     email(message) {
       if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.value)) {
         throw message
@@ -75,16 +119,19 @@ function shape(value) {
       return this
     },
     max(limit, message) {
+      if (!this.isRequired && !this.hasValue) return this
       if (!this.value || this.value.length > limit)
         throw message.replace(/\${max}/g, limit)
       return this
     },
     min(limit, message) {
+      if (!this.isRequired && !this.hasValue) return this
       if (!this.value || this.value.length < limit)
         throw message.replace(/\${min}/g, limit)
       return this
     },
     required(message) {
+      this.isRequired = true
       if (!this.value) throw message
       return this
     },

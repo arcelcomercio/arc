@@ -2,7 +2,7 @@
   .nav__story-title {
     max-height: 15px;
     @media (--desktop) {
-      max-height: auto;
+      max-height: none;
     }
   }
 }

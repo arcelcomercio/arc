@@ -8,7 +8,7 @@ const classes = {
   body: 'position-relative overflow-hidden w-full',
   content: 'story-gallery-slider__content flex',
   figure: 'story-gallery-slider__figure position-relative',
-  image: 'story-gallery-slider__img w-full object-fit-cover',
+  image: 'story-gallery-slider__img w-full object-cover',
   caption: 'story-gallery-slider__caption pt-20 pb-20 ',
   captionImage: `story-gallery-slider__caption-image pt-5 text-sm text-white secondary-font line-h-sm`,
   quantity: `story-gallery-slider__quantity title-xs mr-10 flex items-center justify-center i-survey-share`,
@@ -175,7 +175,8 @@ class StoryHeaderChildGallerySlider extends PureComponent {
   }
 
   render() {
-    const { sliders = [], sliderWidth, slideWidth, positionSlide } = this.state
+    const { sliderWidth, slideWidth, positionSlide, sliders = [] } = this.state
+    const { isAdmin } = this.props
     const sliderStyle = {
       width: `${sliderWidth}%`,
       transform: `translateX(${positionSlide}%)`,
@@ -194,29 +195,43 @@ class StoryHeaderChildGallerySlider extends PureComponent {
               aria-valuemax="10"
               className={classes.body}>
               <ul style={sliderStyle} className={classes.content}>
-                {sliders.map((element, i) => (
+                {sliders.map((slide, i) => (
                   <li
-                    key={element._id}
+                    landscape_l
+                    key={slide._id}
                     style={slideStyle}
-                    className={classes.element}>
+                    className={classes.slide}>
                     <div className={classes.figure}>
-                      <figure>
+                      <picture>
+                        <source
+                          className={isAdmin ? '' : 'lazy'}
+                          media="(max-width: 639px)"
+                          srcSet={
+                            isAdmin
+                              ? slide.resized_urls.landscape_l
+                              : slide.resized_urls.lazy_default
+                          }
+                          data-srcset={slide.resized_urls.landscape_l}
+                        />
                         <img
                           src={
-                            element.resized_urls
-                              ? element.resized_urls.large
-                              : element.url
+                            isAdmin
+                              ? slide.resized_urls.landscape_xl
+                              : slide.resized_urls.lazy_default
                           }
-                          alt={element.caption}
-                          className={classes.image}
+                          data-src={slide.resized_urls.landscape_xl}
+                          alt={slide.caption}
+                          className={`${isAdmin ? '' : 'lazy'} ${
+                            classes.image
+                          }`}
                         />
-                      </figure>
+                      </picture>
                     </div>
                     <figcaption className={classes.caption}>
                       <span className={classes.quantity}>
                         {i + 1}/{sliders.length}
                       </span>
-                      <p className={classes.captionImage}>{element.caption}</p>
+                      <p className={classes.captionImage}>{slide.caption}</p>
                     </figcaption>
                   </li>
                 ))}

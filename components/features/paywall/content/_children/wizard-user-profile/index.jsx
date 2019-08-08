@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
-
 import UserProfile from './_children/user-profile'
 import Summary from '../summary'
 import * as S from './styled'
@@ -27,11 +26,8 @@ function WizardUserProfile(props) {
     plan: { amount, description, billingFrequency },
   } = memo
 
-  const fusionContext = useFusionContext()
   const [error, setError] = useState()
-
-  const { siteProperties } = fusionContext
-  const Sales = addSales(siteProperties)
+  const Sales = addSales()
 
   function onSubmitHandler(values, { setSubmitting }) {
     const { email, phone, billingAddress } = values

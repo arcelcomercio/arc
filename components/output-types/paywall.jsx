@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import * as Meta from './_children/meta'
+import TagManager from './_children/tag-manager'
 import './paywall.css'
 
 const Paywall = props => {
@@ -46,8 +47,19 @@ const Paywall = props => {
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
       </head>
       <body onbeforeunload={() => 'message'}>
-        <div id="fusion-app" role="application" className="layout-paywall">
-          {children}
+        <noscript>
+          <iframe
+            title="Google Tag Manager - No Script"
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+        <div id="modal">
+          <div id="fusion-app" role="application" className="layout-paywall">
+            {children}
+          </div>
         </div>
         <props.Fusion />
       </body>

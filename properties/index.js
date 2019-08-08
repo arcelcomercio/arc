@@ -33,6 +33,14 @@ export default {
     FACEBOOK_APPID: '287130908774061',
     GOOGLE_CLIENTID: '1038751133917-m10doi4gb3tl4u01s4uaje60vbukh2bs.apps.googleusercontent.com',
   },
+  apps: {
+    android: {
+      url: 'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer'
+    },
+    ios: {
+      url: 'https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer'
+    }
+  },
   ids: {
     opta: '782834e1fd5a215304e57cddad80b844',
   },

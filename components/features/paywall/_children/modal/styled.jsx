@@ -1,12 +1,13 @@
+import React from 'react'
 import styled, { css } from 'styled-components'
+
+import Icon from '../icon'
 
 export const Background = styled.div`
   background: rgba(0, 0, 0, 0.6);
   width: 100vw;
   height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
 `
 
 export const Modal = styled.div`
@@ -32,6 +33,18 @@ export const Modal = styled.div`
 `
 
 export const Content = styled.div`
-  /* position: absolute; */
-  z-index: 1;
+  position: relative;
+`
+
+export const CloseButton = styled(props => (
+  <button type="button" {...props}>
+    <Icon type="close" />
+  </button>
+))`
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  border: none;
+  z-index: 1000;
+  background: none;
 `

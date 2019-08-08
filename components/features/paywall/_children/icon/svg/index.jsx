@@ -13,6 +13,8 @@ import cvv from './cvv'
 import appStore from './app-store'
 import googlePlay from './google-play'
 import gloading from './gloading'
+import close from './close'
+import linkedin from './linkedin'
 
 export {
   check,
@@ -30,4 +32,6 @@ export {
   appStore,
   googlePlay,
   gloading,
+  close,
+  linkedin,
 }
