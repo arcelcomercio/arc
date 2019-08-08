@@ -300,7 +300,7 @@ class StoryData {
 
   // TODO: Cambiar la fecha a lo que se estandarice
   get date() {
-    return this.publishDate
+    return this.displayDate
   }
 
   get displayDate() {
