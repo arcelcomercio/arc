@@ -1,5 +1,9 @@
 import React from 'react'
-import { createMarkup, getMultimedia } from '../../utilities/helpers'
+import {
+  createMarkup,
+  getMultimedia,
+  formatSlugToText,
+} from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 import StoryData from '../../utilities/story-data'
 
@@ -10,40 +14,49 @@ export default ({
   arcSite,
   globalContent,
 }) => {
-  const { id, multimediaType } = new StoryData({
+  const { id, multimediaType, sectionLink, author, link } = new StoryData({
     data: globalContent,
     arcSite,
   })
 
-  /* eslint-disable no-template-curly-in-string */
+  const subSection = formatSlugToText(sectionLink, 2)
+  const section = formatSlugToText(sectionLink, 1)
+
   const ampAnalytics = `
   {
     "vars": {
         "account": "${siteProperties.ampGoogleTagManagerId}"
     },
     "extraUrlParams": {
+      "cd3": "${link.slice(1)}",
+      "cd4": "${section}",
+      "cd5": "${subSection}",
       "cd6": "AMP",
       "cd7": "${getMultimedia(multimediaType, true)}",
-      "cd8": "${id}"
-    },       
+      "cd8": "${id}",
+      "cd15": "${author}",
+      "ds": "AMP"
+    },        
     "triggers": {
         "trackPageview": {
             "on": "visible",
             "request": "pageview"
         }
     }
-  }`
+}`
 
   const chartbet = ` {
     "vars": {
         "uid" : ${siteProperties.charbeatAccountNumber},
         "domain" : "${siteProperties.siteDomain}",
-        "sections" : "${sections && sections.map(({ name }) => {
-          return `'${name}'`
-        })}",
-        "author" : "'Redacción ${autors && autors.map(({ name }) => {
-          return `'${name}'`
-        })}'",
+        "sections" : "${sections &&
+          sections.map(({ name }) => {
+            return `'${name}'`
+          })}",
+        "author" : "'Redacción ${autors &&
+          autors.map(({ name }) => {
+            return `'${name}'`
+          })}'",
         "contentType" : "${ConfigParams.ELEMENT_TYPE_CHARBEAT}"
 
     }
