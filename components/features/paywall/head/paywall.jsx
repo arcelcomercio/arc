@@ -13,12 +13,6 @@ class Head extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { siteProperties } = this.props
-    AddIdentity(siteProperties).then(() => {
-      userProfile().then(({ firstName }) => {
-        this.setState({ firstName })
-      })
-    })
     this.getFirstName()
   }
 

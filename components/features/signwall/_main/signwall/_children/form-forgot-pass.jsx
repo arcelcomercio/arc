@@ -138,7 +138,7 @@ class FormForgotPass extends Component {
         }
       })
       .catch(errEco => {
-        console.error(errEco)
+        window.console.error(errEco)
         this.setState({
           messageError: `Tu correo electrónico no está registrado.`,
           sending: true,
@@ -176,7 +176,7 @@ class FormForgotPass extends Component {
         // -- test de tageo success
       })
       .catch(errReForgot => {
-        console.error(errReForgot)
+        window.console.error(errReForgot)
         // -- test de tageo error
         if (this.tipCat === 'relogemail') {
           window.dataLayer.push({

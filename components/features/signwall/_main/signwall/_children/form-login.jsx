@@ -140,7 +140,7 @@ class FormLogin extends Component {
                   }
                 })
                 .catch(errEco => {
-                  console.error(errEco)
+                  window.console.error(errEco)
                 })
               // aqui va el api de Guido:
               return
