@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useFusionContext } from 'fusion:context'
 
 import CardPrice from './_children/card-price'
 import Summary from './_children/summary'
@@ -14,10 +13,11 @@ function WizardPlan(props) {
     assets,
     summary,
     plans,
+    message,
+    printed,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
   } = props
 
-  const fusionContext = useFusionContext()
   const [loadingPlan, setLoadingPlan] = useState()
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
@@ -43,6 +43,13 @@ function WizardPlan(props) {
 
   return (
     <S.WizardPlan>
+      {message && <S.Error>{message}</S.Error>}
+      {printed && (
+        <S.WelcomeSuscriptor>
+          ACCEDE A ESTOS <strong>PRECIOS ESPECIALES</strong> POR SER SUSCRIPTOR
+          IMPRESO
+        </S.WelcomeSuscriptor>
+      )}
       <S.Wrap>
         <Summary {...summary} />
         <S.WrapPlan>
@@ -75,12 +82,14 @@ function WizardPlan(props) {
         }}>
         <CheckSuscription />
       </Modal>
-      <BannerPromoSuscriptor
-        onClick={() => {
-          setOpenModal(true)
-        }}
-        assets={assets}
-      />
+      {!printed && (
+        <BannerPromoSuscriptor
+          onClick={() => {
+            setOpenModal(true)
+          }}
+          assets={assets}
+        />
+      )}
     </S.WizardPlan>
   )
 }
