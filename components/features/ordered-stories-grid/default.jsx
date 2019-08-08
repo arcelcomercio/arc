@@ -46,6 +46,7 @@ class OrderedStoriesGrid extends PureComponent {
       contextPath,
       arcSite,
       customFields,
+      isAdmin,
     } = this.props
     const { content_elements: contentElements = [] } = globalContent || {}
 
@@ -77,12 +78,14 @@ class OrderedStoriesGrid extends PureComponent {
           multimediaLandscapeMD: dataStory.multimediaLandscapeMD,
           multimediaPortraitMD: dataStory.multimediaPortraitMD,
           multimediaSquareS: dataStory.multimediaSquareS,
+          multimediaLazyDefault: dataStory.multimediaLazyDefault,
           imageSize: 'complete',
           headband: 'normal',
           size: element.col === 1 ? 'oneCol' : 'twoCol',
           hightlightOnMobile: true,
           arcSite,
           multimediaType: dataStory.multimediaType,
+          isAdmin,
         }
         storyNumber += 1
         return <FeaturedStory key={dataStory.id} {...params} />

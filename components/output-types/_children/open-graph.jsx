@@ -15,7 +15,8 @@ export default ({
   globalContent: data,
   requestUri,
 }) => {
-  const link = deleteQueryString(requestUri)
+  let link = deleteQueryString(requestUri)
+  link = link.replace(/\/homepage[/]?$/, '/')
   const {
     multimediaLandscapeXL,
     videoSeo: [{ url = '' } = {}] = [],

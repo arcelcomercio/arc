@@ -84,7 +84,8 @@ class FormRegister extends Component {
           grantType: 'password',
         },
         {
-          displayName: this.usernamereg.value.split('@')[0],
+          // displayName: this.usernamereg.value.split('@')[0],
+          displayName: this.usernamereg.value,
           email: this.usernamereg.value,
           attributes: [
             {
@@ -161,7 +162,7 @@ class FormRegister extends Component {
               // console.log('este usuario requiere reset pass');
               window.Identity.apiOrigin = this.origin_api
               window.Identity.requestResetPassword(EmailUserNew)
-                .then(resSend => {
+                .then(() => {
                   this.setState({
                     showMessage: true,
                     sending: true,
@@ -171,7 +172,7 @@ class FormRegister extends Component {
                   window.Identity.userProfile = null // remueve profile creado por signup
                 })
                 .catch(errSend => {
-                  console.error(errSend)
+                  window.console.error(errSend)
                 })
               break
             default:
