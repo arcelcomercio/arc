@@ -53,9 +53,11 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       this.list.addEventListener('mouseup', this._endDrag)
       this.list.addEventListener('mousemove', this._moveDrag)
 
-      this.list.addEventListener('touchstart', this._initDrag)
-      this.list.addEventListener('touchend', this._endDrag)
-      this.list.addEventListener('touchmove', this._moveDrag)
+      this.list.addEventListener('touchstart', this._initDrag, {
+        passive: true,
+      })
+      this.list.addEventListener('touchend', this._endDrag, { passive: true })
+      this.list.addEventListener('touchmove', this._moveDrag, { passive: true })
     }
 
     this._moveSlide()
@@ -207,7 +209,6 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                           }
                           alt={element.caption}
                           className={classes.image}
-                          
                         />
                       </figure>
                     </div>
