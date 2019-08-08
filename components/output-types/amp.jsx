@@ -210,6 +210,11 @@ const AmpOutputType = ({
           custom-element="amp-video"
           src="https://cdn.ampproject.org/v0/amp-video-0.1.js"
         />
+        <script
+          async
+          custom-element="amp-video-docking"
+          src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
+        />
       </head>
       <body className="">
         <AmpTagManager {...parametros} />
