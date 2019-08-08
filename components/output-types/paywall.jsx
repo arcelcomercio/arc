@@ -19,6 +19,7 @@ const Paywall = props => {
   return (
     <html lang="es" className={arcSite}>
       <head>
+        <TagManager {...siteProperties} />
         <meta charset="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
