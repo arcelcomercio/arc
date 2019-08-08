@@ -1,29 +1,19 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import {
-  resizerSecret,
-  CONTENT_BASE
-} from 'fusion:environment'
-import {
-  createUrlResizer
-} from '@arc-core-components/content-source_content-api-v4'
+import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-
-const removeLastSlash = section => {
-  if (section === '/') return section
-  return section && section.endsWith('/') ?
-    section.slice(0, section.length - 1) :
-    section
-}
 
 let website = ''
 const schemaName = 'printed'
 
-const params = [{
-  name: 'feedOffset',
-  displayName: 'Número de portada',
-  type: 'number',
-}, ]
+const params = [
+  {
+    name: 'feedOffset',
+    displayName: 'Número de portada',
+    type: 'number',
+  },
+]
 
 const options = {
   json: true,
@@ -34,16 +24,13 @@ const section = '/impresa'
 
 const fetch = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
-  const {
-    feedOffset
-  } = key
-
-  const clearSection = removeLastSlash(section) || '/'
+  const { feedOffset } = key
 
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               'revision.published': 'true',
             },
@@ -58,9 +45,10 @@ const fetch = (key = {}) => {
               path: 'taxonomy.sections',
               query: {
                 bool: {
-                  must: [{
+                  must: [
+                    {
                       terms: {
-                        'taxonomy.sections._id': [clearSection],
+                        'taxonomy.sections._id': [section],
                       },
                     },
                     {
@@ -81,7 +69,7 @@ const fetch = (key = {}) => {
   const encodedBody = encodeURI(JSON.stringify(body))
 
   return request({
-    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${clearSection}`,
+    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${section}`,
     ...options,
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
@@ -93,14 +81,10 @@ const fetch = (key = {}) => {
     }).then(storyData => {
       const data = storyData
       if (data) {
-        const {
-          resizerUrl
-        } = getProperties(website)
+        const { resizerUrl } = getProperties(website)
         const {
           promo_items: {
-            basic: {
-              url
-            },
+            basic: { url },
           },
         } = data
 
