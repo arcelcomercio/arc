@@ -9,6 +9,7 @@ import {
   Title,
   Subtitle,
   Paragraph,
+  LongMail,
 } from './styled'
 
 const SupportDialog = props => {
@@ -51,10 +52,12 @@ const SupportDialog = props => {
           <Paragraph paragraph>
             <b>Correos:</b>
             <br />
-            - Servicio al cliente y Ventas: suscriptores@diariogestión.com.pe
+            <span>
+              - Servicio al cliente y Ventas: suscriptores@diariogestión.com.pe
+            </span>
             <br />
-            - Pagos pendientes y Facturación:
-            cobranzas@suscripcionesintegrales.com.pe
+            <span>- Pagos pendientes y Facturación: </span>
+            <LongMail>cobranzas@suscripcionesintegrales.com.pe</LongMail>
             <br />
           </Paragraph>
         </ContentWrapper>

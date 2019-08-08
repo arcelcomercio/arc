@@ -23,11 +23,13 @@ export default {
     docnumber: 'text',
     doctype: 'text',
   },
+  ttl: 20,
   transform(data) {
     const { sku, name, attributes, pricingStrategies } = data.products[0]
     const {
       campaign: { name: campaignCode },
-      subscriber = {}
+      subscriber = {},
+      error
     } = data
     const { printed = undefined } = subscriber;
 
@@ -63,6 +65,6 @@ export default {
       { feature: [] }
     )
 
-    return { name, summary, plans, printed }
+    return Object.assign({ name, summary, plans, printed }, error ? {error} : {})
   },
 }
