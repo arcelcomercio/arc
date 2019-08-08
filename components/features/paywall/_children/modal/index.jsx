@@ -14,7 +14,7 @@ function Modal({ children, showClose, onClose = () => {}, ...props }) {
     return () => {
       window.removeEventListener('keydown', _onClose)
     }
-  })
+  }, [])
   return (
     <Portal id="modal">
       <S.Modal {...props}>
