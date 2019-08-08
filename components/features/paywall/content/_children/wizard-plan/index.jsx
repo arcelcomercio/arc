@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import CardPrice from './_children/card-price'
 import Summary from './_children/summary'
@@ -7,6 +7,8 @@ import { addSales } from '../../../_dependencies/sales'
 import BannerPromoSuscriptor from './_children/banner-promo-suscriptor'
 import Modal from '../../../_children/modal'
 import CheckSuscription from './_children/check-suscriptor'
+import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
+import { parseQueryString } from '../../../../../utilities/helpers'
 
 function WizardPlan(props) {
   const {
@@ -22,6 +24,10 @@ function WizardPlan(props) {
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
 
+  useEffect(() => {
+    sendAction(PixelActions.PAYMENT_PLAN)
+  }, [])
+
   const Sales = addSales()
 
   function subscribePlanHandler(e, plan) {
@@ -33,7 +39,15 @@ function WizardPlan(props) {
         ])
         .then(res => {
           setLoadingPlan(false)
-          onBeforeNextStep({ plan }, props)
+          const { location: search } = window
+          const qs = parseQueryString(search)
+          onBeforeNextStep(
+            {
+              plan: { printed, ...plan },
+              referer: qs.ref || 'organico',
+            },
+            props
+          )
         })
         .catch(e => {
           setLoadingPlan(false)
