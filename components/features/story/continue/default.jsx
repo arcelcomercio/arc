@@ -55,7 +55,7 @@ class StoryContinue extends PureComponent {
 
   setInitiateHeights = e => {
     const html = document.documentElement
-
+    const loader = document.getElementsByClassName('nav__loader')
     const height = Math.max(
       html.clientHeight,
       html.scrollHeight,
@@ -72,7 +72,9 @@ class StoryContinue extends PureComponent {
     )
 
     if (height > 0 && e[0]) {
-      e[0].style.width = `${(scrolled / (height - h)) * 100}%`
+      const width = (scrolled / (height - h)) * 100
+      e[0].style.width = `${width}%`
+      loader[0].style.display = width ? 'block' : 'none'
     }
   }
 
