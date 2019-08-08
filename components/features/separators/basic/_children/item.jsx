@@ -33,7 +33,7 @@ export default ({
             data-src={imageUrl}
             alt={title}
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-            loading="lazy"
+            
           />
         </figure>
       </article>

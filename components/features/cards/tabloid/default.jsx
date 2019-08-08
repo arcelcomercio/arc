@@ -26,15 +26,14 @@ class CardTabloid extends PureComponent {
   constructor(props) {
     super(props)
 
-    const { arcSite, customFields: { section = '' } = {} } = this.props
+    const { arcSite, customFields: { feedOffset = 0 } = {} } = this.props
 
     this.fetchContent({
       data: {
         source: CONTENT_SOURCE,
         query: {
           website: arcSite,
-          section,
-          stories_qty: 1,
+          feedOffset,
         },
         filter: schemaFilter(arcSite),
       },
@@ -100,7 +99,6 @@ class CardTabloid extends PureComponent {
                 src={isAdmin ? printedImage : lazyImage}
                 data-src={printedImage}
                 alt={title}
-                loading="lazy"
               />
             </a>
           </picture>
