@@ -16,8 +16,8 @@ export default {
   ampGoogleTagManagerId: 'UA-3055636-3',
   ampGoogleTagManagerName: 'ojo',
   charbeatAccountNumber: 57773,
-  idGoogleAnalitics: 'UA-3055636-11',
-  fbArticleStyle: '',
+  idGoogleAnalitics: 'UA-15668535-1',
+  fbArticleStyle: 'default',
   nameStoryRelated: 'VEA TAMBIÉN',
   siteDescription:
     'Noticias de Perú y el mundo en ojo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
