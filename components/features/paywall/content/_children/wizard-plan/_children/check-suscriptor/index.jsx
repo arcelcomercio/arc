@@ -37,7 +37,9 @@ export const FormSchema = schema({
   },
 })
 
-export default function CheckSuscription() {
+export default function CheckSuscription(props) {
+  const { close } = props
+
   return (
     <S.Panel>
       <S.Content>

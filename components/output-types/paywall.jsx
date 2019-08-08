@@ -57,10 +57,8 @@ const Paywall = props => {
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        <div id="modal">
-          <div id="fusion-app" role="application" className="layout-paywall">
-            {children}
-          </div>
+        <div id="fusion-app" role="application" className="layout-paywall">
+          {children}
         </div>
         <props.Fusion />
       </body>
