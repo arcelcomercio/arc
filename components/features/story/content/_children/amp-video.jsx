@@ -1,4 +1,5 @@
 import React from 'react'
+import { createMarkup } from '../../../../utilities/helpers'
 
 const StoryContentChildVideo = ({ data }) => {
   const {
@@ -22,14 +23,20 @@ const StoryContentChildVideo = ({ data }) => {
     .filter(String)
 
   const [{ url, urlImage } = {}] = dataVideo
+
   return (
     <>
       <amp-video
-        width="640"
-        height="360"
-        layout="responsive"
-        poster={urlImage}
+        controls
         src={url}
+        poster={urlImage}
+        artwork={urlImage}
+        title={caption}
+        album="Blender"
+        width="720"
+        height="405"
+        layout="responsive"
+        dock="#dock-slot"
       />
     </>
   )

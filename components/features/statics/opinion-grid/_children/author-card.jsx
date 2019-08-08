@@ -23,7 +23,7 @@ const OpinionGridAuthorCard = ({ isMobile, data: story }) => {
             className={classes.image}
             src={story.authorImage}
             alt={story.author}
-            loading="lazy"
+            
           />
         </figure>
         <div className={classes.detailsBox}>

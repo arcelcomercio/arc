@@ -100,7 +100,7 @@ class StoriesList extends PureComponent {
                       : element.multimediaLazyDefault
                   }
                   data-src={element.multimediaLandscapeS}
-                  loading="lazy"
+                  
                 />
               </picture>
             </a>

@@ -94,7 +94,7 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
                           }
                           alt={title}
                           className={classes.image}
-                          loading="lazy"
+                          
                         />
                         <figcaption>
                           <h3 className={classes.title}>{title}</h3>

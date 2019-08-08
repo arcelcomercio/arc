@@ -30,7 +30,7 @@ const OpinionGridEditorialCard = ({ data: story }) => {
                 className={classes.image}
                 src={story.authorImage}
                 alt={story.author}
-                loading="lazy"
+                
               />
             </a>
           </div>

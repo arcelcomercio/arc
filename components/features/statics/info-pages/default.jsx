@@ -62,7 +62,7 @@ class InfoPages extends PureComponent {
       : infoPagesEnv[DEFAULT_POLICY]
     const params = {
       _id: infoPageId,
-      published: 1,
+      published: 'false',
     }
 
     return params
