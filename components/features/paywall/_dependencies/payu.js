@@ -1,13 +1,12 @@
+import getService from './services'
 import addScriptAsync from '../../../utilities/script-async'
 
-const addPayU = siteProperties => {
-  const {
-    signwall: { ORIGIN_PAYU_SDK },
-  } = siteProperties
+const addPayU = () => {
+  
 
   return addScriptAsync({
     name: 'sdkPayU',
-    url: ORIGIN_PAYU_SDK,
+    url: getService('ORIGIN_PAYU_SDK'),
   }).then(added => {
     return payU
   })

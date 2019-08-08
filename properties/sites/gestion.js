@@ -60,6 +60,7 @@ export default {
       confirmation: `images/adult-attire-blazer-173125.jpg`,
       confirmationx2: `images/adult-attire-blazer-173125@2x.jpg`,
       lector: `images/img_lector.png`,
+      support: `images/img_soporte.png`,
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)
@@ -159,6 +160,10 @@ export default {
       name: 'youtube',
       url: 'https://plus.google.com/u/0/+elcomerciope',
     },
+    linkedin: {
+      name: 'linkedin',
+      url: 'https://www.linkedin.com/company/diario-gestión/'
+    }
   },
   adsAmp: {
     dataSlot: 28253241,
