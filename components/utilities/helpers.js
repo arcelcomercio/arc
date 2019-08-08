@@ -291,17 +291,21 @@ export const getCookie = cookieName => {
   return cookieValue ? cookieValue[2] : null
 }
 
-export const formatSlugToText = (text = '') => {
+export const formatSlugToText = (text = '', length = 0) => {
   if (!text) return null
   const splitText = text.slice(1).includes('/')
     ? text.slice(1).split('/')
     : text.split('/')
-  const lastSection = splitText[splitText.length - 1]
-  return lastSection
-    .charAt(0)
-    .toUpperCase()
-    .concat(lastSection.slice(1))
-    .replace(/-/, ' ')
+  const lastSection = length
+    ? splitText[length - 1]
+    : splitText[splitText.length - 1]
+  return length
+    ? lastSection
+    : lastSection
+        .charAt(0)
+        .toUpperCase()
+        .concat(lastSection.slice(1))
+        .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
