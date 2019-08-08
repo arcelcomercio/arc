@@ -1,7 +1,7 @@
 export default {
   siteName: 'Perú21',
 
-  googleFonts: 'Lato', // open_sansregular
+  googleFonts: 'Lato:400,700|Exo:500',
 
   colorPrimary: '#f7c600',
   siteDomain: 'peru21.pe',
@@ -127,5 +127,5 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
   ],
-  activeSignwall: false
+  activeSignwall: false,
 }

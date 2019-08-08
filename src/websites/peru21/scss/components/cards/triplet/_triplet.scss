@@ -1,0 +1,20 @@
+.triplet {
+  border-top: none;
+  background-color: $color-gray-100;
+
+  &__title-link {
+    font-size: 13px;
+  }
+  &__link {
+    color: $color-primary;
+    font-family: $secondary-font;
+    font-weight: 700;
+  }
+  &__information {
+    width: calc(100% - 114px);
+  }
+  &__author {
+    margin-top: 15px;
+    word-break: break-word;
+  }
+}

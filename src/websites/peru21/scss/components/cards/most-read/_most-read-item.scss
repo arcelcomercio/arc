@@ -1,0 +1,8 @@
+.most-read-item {
+  &__detail {
+    font-size: 12px;
+    &.four-lines {
+      max-height: calc(12px * 1.33 * 4);
+    }
+  }
+}

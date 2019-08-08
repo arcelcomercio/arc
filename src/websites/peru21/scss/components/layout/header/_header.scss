@@ -1,0 +1,10 @@
+.header {
+  &__link {
+    text-transform: capitalize;
+  }
+  &__logo {
+    @media (--desktop) {
+      height: 66px;
+    }
+  }
+}

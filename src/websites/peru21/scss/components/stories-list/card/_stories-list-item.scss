@@ -1,0 +1,19 @@
+.stories-l-item {
+  background-color: transparent;
+  border-color: $color-secondary;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &__time {
+    color: $color-primary;
+    display: block;
+    font-family: $secondary-font;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  &__link {
+    font-size: 12px;
+  }
+}

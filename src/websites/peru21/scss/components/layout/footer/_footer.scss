@@ -1,0 +1,50 @@
+.footer {
+  &__legal-item,
+  &__list-title,
+  &__list-link,
+  &__social-title,
+  &__social-icon,
+  &__legal-links {
+    color: $color-white;
+    font-weight: 700;
+  }
+  &__logo-container {
+    width: 104px;
+  }
+  &__legal-item,
+  &__legal-links,
+  &__list-title,
+  &__list-link,
+  &__social-title,
+  &__sites,
+  &__sites-link {
+    font-family: $secondary-font;
+  }
+  &__sites-link {
+    font-weight: 700;
+  }
+  &__list-item {
+    &:nth-child(3) {
+      .footer__list-link {
+        &:nth-child(1) {
+          display: none;
+        }
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-weight: 400;
+      }
+    }
+  }
+  &__list-title {
+    font-weight: 400;
+  }
+  &__list-link {
+    text-transform: none;
+  }
+  &__social-title {
+    font-weight: 400;
+    &::after {
+      display: none;
+    }
+  }
+}

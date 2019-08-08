@@ -1,0 +1,25 @@
+.nav {
+  &__btn {
+    &--section {
+      padding-left: 0;
+    }
+  }
+  &__logo {
+    padding: 10px 0;
+    @media (--desktop) {
+      height: 51px;
+      padding: 0;
+    }
+  }
+  &__wrapper {
+    &:first-child {
+      @media (--desktop) {
+        background-color: transparent;
+      }
+    }
+  }
+  /*   Estilos para nav loader en notas */
+  &__loader-bar {
+    background-color: $color-primary;
+  }
+}

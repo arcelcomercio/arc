@@ -1,0 +1,21 @@
+.extraordinary-story {
+  &__section-link {
+    text-transform: capitalize;
+    color: $color-primary;
+  }
+
+  &__title {
+    color: $color-base-300;
+    line-height: 1.1666666667;
+  }
+
+  &__title-link {
+    color: $color-base-300;
+  }
+
+  // TODO: cambio temporal de los números de lineas para publimetro, twocol era el por defecto
+  &--twoline {
+    -webkit-line-clamp: 4;
+    max-height: 145px;
+  }
+}

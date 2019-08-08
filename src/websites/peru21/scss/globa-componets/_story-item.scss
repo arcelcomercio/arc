@@ -1,0 +1,40 @@
+.story-item {
+  &__date {
+    margin-left: 20px;
+    @media (--tablet) {
+      margin-left: 0;
+    }
+  }
+
+  &__title {
+    color: $color-base-300;
+    @media (--tablet) {
+      max-height: calc(20px * 1.28 * 2);
+      line-height: 1.28;
+    }
+  }
+
+  &__subtitle {
+    color: $color-gray-300;
+    font-family: $secondary-font;
+  }
+  &__section {
+    background-color: $color-primary;
+    color: $color-white;
+    font-family: $secondary-font;
+    height: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    &:before {
+      content: '';
+      position: absolute;
+      border-top: 11px solid transparent;
+      border-left: 13px solid $color-primary;
+      border-bottom: 9px solid transparent;
+      top: 0px;
+      right: -13px;
+    }
+  }
+}

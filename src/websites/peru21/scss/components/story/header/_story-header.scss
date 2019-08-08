@@ -1,0 +1,9 @@
+.story-header {
+  &__news-title {
+    color: $color-base-300;
+  }
+  &__title-section {
+    color: $color-gray-200;
+    text-transform: capitalize;
+  }
+}
