@@ -25,11 +25,16 @@ const StoryContentChildVideo = ({ data }) => {
   return (
     <>
       <amp-video
-        width="640"
-        height="360"
-        layout="responsive"
-        poster={urlImage}
         src={url}
+        poster={urlImage}
+        artwork={urlImage}
+        title={caption}
+        album="Blender"
+        width="720"
+        height="405"
+        layout="responsive"
+        controls
+        dock="#dock-slot"
       />
     </>
   )
