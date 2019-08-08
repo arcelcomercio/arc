@@ -45,6 +45,7 @@ class SeparatorBlog extends PureComponent {
       arcSite,
       contextPath,
       deployment,
+      isAdmin,
       siteProperties: { siteUrl } = {},
     } = this.props
     let listPost = Object.values(dataApi)
@@ -71,6 +72,7 @@ class SeparatorBlog extends PureComponent {
                   first_name: authorName = '',
                   user_avatarb: {
                     resized_urls: {
+                      lazy_default: lazyImage,
                       author_sm: authorImg = defaultImage({
                         deployment,
                         contextPath,
@@ -91,11 +93,13 @@ class SeparatorBlog extends PureComponent {
 
               const data = {
                 authorName,
+                lazyImage,
                 authorImg,
                 blogUrl: addSlashToEnd(`${BLOG_BASE}${blogUrl}`),
                 blogName,
                 postLink: `${BLOG_BASE}${postLink}`,
                 postTitle,
+                isAdmin,
               }
               return <SeparatorBlogChildItem key={blogUrl} {...data} />
             })}

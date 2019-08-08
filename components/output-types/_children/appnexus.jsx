@@ -68,7 +68,8 @@ const getVars = (
   }
 
   if (isGallery) typeSpace = 'nota2'
-  if (section === 'publirreportaje' && isStory) typeSpace = 'nota5'
+  if (section.match(/publirreportaje|publireportaje/) !== null && isStory)
+    typeSpace = 'nota5'
 
   return `
   var type_space = '${typeSpace}'

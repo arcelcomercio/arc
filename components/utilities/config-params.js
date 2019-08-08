@@ -89,6 +89,8 @@ class ConfigParams {
 
   static SQUARE_XS = 'square_xs'
 
+  static LAZY_DEFAULT = 'lazy_default'
+
   static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 }
 
@@ -160,6 +162,10 @@ export const sizeImg = () => {
     square_xs: {
       width: 75,
       height: 75,
+    },
+    lazy_default: {
+      width: 5,
+      height: 5,
     },
     // TODO: Eliminar estos tamaños despues de actualizar
     // los tamaños de las imagenes de todos los componentes.

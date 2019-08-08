@@ -105,8 +105,8 @@ class NavBarDefault extends PureComponent {
 
     if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
       this.layerBackground.addEventListener('click', () => {
-        this.toggleBodyOverflow();
-        this._closeMenu();
+        this.toggleBodyOverflow()
+        this._closeMenu()
       })
     }
 
@@ -217,7 +217,6 @@ class NavBarDefault extends PureComponent {
   _initDrag = evt => {
     const { statusSidebar } = this.state
     this.initPointDrag = evt.offsetX || evt.changedTouches[0].clientX
-    document.body.classList.add('no-selected')
     if (statusSidebar) {
       if (this.initPointDrag < this.listWidth) {
         this.dragFlag = true
@@ -230,7 +229,6 @@ class NavBarDefault extends PureComponent {
   _endDrag = () => {
     const { statusSidebar } = this.state
     this.dragFlag = false
-    document.body.classList.remove('no-selected')
 
     if (this.distDrag < this.limitScreenDrag) {
       if (!statusSidebar) this._closeMenu()

@@ -5,23 +5,26 @@ import { useFusionContext } from 'fusion:context'
 
 import FeaturedMultimedia from './_children/featured-multimedia'
 import customFields from './_dependencies/custom-fields'
+import SchemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
 const CardFeaturedStoryMultimedia = props => {
   const { customFields: { section = '', freeHtml = '' } = {} } = props
 
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
   const data = useContent({
     source: 'story-by-section',
     query: { section },
+    filter: SchemaFilter(arcSite),
   })
-  // console.log('DATA--->', data)
-  const { section_name: sectionName = '' } = data || {}
+
+  const { section_name: sectionName = '' } = data || {} // { section_name }
 
   const {
     websiteLink, // { websites { ${arcsite} { website_url } } }
     multimediaLandscapeMD,
+    multimediaLazyDefault,
     title, // { headlines { basic } }
     multimediaType, // { promo_items }
     date, // { publish_date }
@@ -40,6 +43,7 @@ const CardFeaturedStoryMultimedia = props => {
       {...{
         websiteLink,
         multimediaLandscapeMD,
+        multimediaLazyDefault,
         title,
         multimediaType,
         date,
@@ -50,6 +54,7 @@ const CardFeaturedStoryMultimedia = props => {
             ? primarySectionLink
             : `${section}/`,
         freeHtml,
+        isAdmin,
       }}
     />
   )

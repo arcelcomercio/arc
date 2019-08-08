@@ -3,4 +3,8 @@
   max-height: $row-height;
 
   // &__list {}
+  &__image {
+    max-height: 157px;
+    // Esta altura está relacionada a la altura de "landscape_md"
+  }
 }

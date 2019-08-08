@@ -1,5 +1,8 @@
 .story-separator {
-
+  &__body {
+    padding-left: 0;
+    padding-right: 0;
+  }
   &__category,
   &__title {
     font-weight: 700;

@@ -44,6 +44,29 @@ export default {
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
   },
 
+  services: {
+    ORIGIN_API: ENV => {
+      const _env_ = ENV === 'elcomercio' ? '' : '-sandbox'
+      return `https://api${_env_}.gestion.pe`
+    },
+    ORIGIN_IDENTITY_SDK: ENV => {
+      const _env_ = ENV === 'elcomercio' ? 'prod' : 'sandbox' // included localhost
+      return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-identity.min.js`
+    },
+    ORIGIN_SALES_SDK: ENV => {
+      const _env_ = ENV === 'elcomercio' ? 'prod' : 'sandbox' // included localhost
+      return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-sales.min.js`
+    },
+    ORIGIN_PAYU_SDK: ENV => {
+      return `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`
+    },
+    setEnv({ ENVIRONMENT }) {
+      return {
+        getService: service => this[service](ENVIRONMENT),
+      }
+    },
+  },
+
   assets: {
     nav: {
       logo: 'white-logo.png',
@@ -60,6 +83,7 @@ export default {
       confirmation: `images/adult-attire-blazer-173125.jpg`,
       confirmationx2: `images/adult-attire-blazer-173125@2x.jpg`,
       lector: `images/img_lector.png`,
+      support: `images/img_soporte.png`,
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)
@@ -93,8 +117,9 @@ export default {
 
   footer: {
     siteLegal: [
-      'Director periodístico',
-      'JULIO LIRA SEGURA',
+      // TODO: DESCOMENTAR ESTO PARA LA SEGUNDA SALIDA DE GESTIÓN
+      /* 'Director periodístico',
+      'JULIO LIRA SEGURA', */
       '© Empresa Editora El Comercio S.A.',
       'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
       'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
@@ -134,14 +159,22 @@ export default {
         name: 'JULIO LIRA SEGURA',
       },
       {
-        position: '',
-        name: '',
+        position: 'Editor Web',
+        name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
       },
       {
         position: '',
         name: '',
       },
     ],
+  },
+  apps: {
+    android: {
+      url: 'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer'
+    },
+    ios: {
+      url: 'https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer'
+    }
   },
   social: {
     facebook: {
@@ -158,6 +191,10 @@ export default {
       name: 'youtube',
       url: 'https://plus.google.com/u/0/+elcomerciope',
     },
+    linkedin: {
+      name: 'linkedin',
+      url: 'https://www.linkedin.com/company/diario-gestión/'
+    }
   },
   adsAmp: {
     dataSlot: 28253241,

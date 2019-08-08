@@ -15,6 +15,7 @@ const classes = {
 const SeparatorsBasicChildSeparator = props => {
   const {
     editableField,
+    isAdmin,
     data: {
       items,
       arcSite,
@@ -64,7 +65,9 @@ const SeparatorsBasicChildSeparator = props => {
               link: el.link,
               numline,
               imageUrl: el.multimediaLandscapeS,
+              lazyImage: el.multimediaLazyDefault,
               mediaIcon: el.multimediaType,
+              isAdmin,
             }
             return <SeparatorItem key={el.link || '/'} {...params} />
           })}
