@@ -1,6 +1,5 @@
 import React from 'react'
 import UtilListKey from '../../../../utilities/list-keys'
-import { getRemoveSlug } from '../../../../utilities/helpers'
 
 const classes = {
   container: 'story-tags mt-25 mb-20',

@@ -26,15 +26,14 @@ class CardTabloid extends PureComponent {
   constructor(props) {
     super(props)
 
-    const { arcSite, customFields: { section = '' } = {} } = this.props
+    const { arcSite, customFields: { feedOffset = 0 } = {} } = this.props
 
     this.fetchContent({
       data: {
         source: CONTENT_SOURCE,
         query: {
           website: arcSite,
-          section,
-          stories_qty: 1,
+          feedOffset,
         },
         filter: schemaFilter(arcSite),
       },
@@ -47,6 +46,7 @@ class CardTabloid extends PureComponent {
       contextPath,
       arcSite,
       editableField,
+      isAdmin,
       siteProperties: { linkTabloide = '' },
       customFields: { sectionName = '' } = {},
     } = this.props
@@ -65,6 +65,7 @@ class CardTabloid extends PureComponent {
       promo_items: {
         basic: {
           resized_urls: {
+            lazy_default: lazyImage,
             printed_md: printedImage = defaultImage({
               deployment,
               contextPath,
@@ -94,10 +95,10 @@ class CardTabloid extends PureComponent {
           <picture>
             <a href={linkTabloide} target="_blank" rel="noopener noreferrer">
               <img
-                className={classes.face}
-                src={printedImage}
+                className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
+                src={isAdmin ? printedImage : lazyImage}
+                data-src={printedImage}
                 alt={title}
-                loading="lazy"
               />
             </a>
           </picture>
@@ -117,7 +118,7 @@ class CardTabloid extends PureComponent {
 }
 
 CardTabloid.label = 'Tabloide'
-// CardTabloid.static = true
+CardTabloid.static = true
 
 CardTabloid.propTypes = {
   customFields,

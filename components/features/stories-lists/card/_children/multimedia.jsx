@@ -29,7 +29,7 @@ const StoriesListsCardChildMultimedia = ({
               src={isAdmin ? multimedia : lazyImage}
               data-src={multimedia}
               alt=""
-              loading="lazy"
+              
             />
           </picture>
         </a>

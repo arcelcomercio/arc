@@ -44,7 +44,7 @@ const RelartedItem = ({ data } /* , i */) => {
               src={filterData.multimediaImg}
               alt={filterData.nameTitle}
               className={classes.image}
-              loading="lazy"
+              
             />
             {filterData.multimediaType === ConfigParams.IMAGE ||
             filterData.multimediaType === '' ? (

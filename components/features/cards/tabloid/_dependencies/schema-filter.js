@@ -6,12 +6,14 @@ export default arcSite => `
         }
       }
       display_date
+      section_name
       promo_items{
         basic {
           type 
           url
           resized_urls { 
             printed_md
+            lazy_default
           }
         }
       }
