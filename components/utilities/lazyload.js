@@ -1,13 +1,13 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-;(() => {
+;
+(() => {
   if (typeof window !== 'undefined') {
     document.addEventListener('DOMContentLoaded', () => {
       const lazyImages = [].slice.call(document.getElementsByClassName('lazy'))
 
       if (
-        'loading' in HTMLImageElement &&
         'IntersectionObserver' in window &&
         'IntersectionObserverEntry' in window &&
         'intersectionRatio' in window.IntersectionObserverEntry.prototype

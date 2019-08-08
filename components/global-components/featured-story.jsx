@@ -176,7 +176,7 @@ export default class FeaturedStory extends PureComponent {
               data-src={getDesktopImage()}
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               alt=""
-              loading="lazy"
+              
             />
             <Icon type={multimediaType} iconClass={classes.icon} />
           </picture>

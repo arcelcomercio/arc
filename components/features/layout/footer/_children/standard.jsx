@@ -60,7 +60,7 @@ const StandardFooter = props => {
             className={classes.logoImg}
             src={logoUrl}
             alt={`Logo de ${arcSite}`}
-            loading="lazy"
+            
           />
         </a>
         <ul className={classes.legalList}>

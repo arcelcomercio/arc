@@ -207,7 +207,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                           }
                           alt={element.caption}
                           className={classes.image}
-                          loading="lazy"
+                          
                         />
                       </figure>
                     </div>
