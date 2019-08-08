@@ -102,6 +102,7 @@ class CardTabloid extends PureComponent {
               />
             </a>
           </picture>
+          {/* // TODO: cambiar por una etiqueta time */}
           <h3 className={classes.date}>
             <a
               className={classes.dateLink}
