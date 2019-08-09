@@ -82,12 +82,12 @@ class SeparatorBasic extends PureComponent {
   }
 
   render() {
-    const { editableField } = this.props
+    const { editableField, isAdmin } = this.props
 
     return (
       <SeparatorList
         data={this.getDataComponent()}
-        editableField={editableField}
+        {...{ editableField, isAdmin }}
       />
     )
   }

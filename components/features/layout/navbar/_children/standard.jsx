@@ -98,9 +98,9 @@ class NavBarDefault extends PureComponent {
     this.layerBackground = document.querySelector('.layer')
 
     if (this.listContainer !== null && this.listContainer !== 'undefined') {
-      document.body.addEventListener('touchstart', this._initDrag)
-      document.body.addEventListener('touchend', this._endDrag)
-      document.body.addEventListener('touchmove', this._moveDrag)
+      document.body.addEventListener('touchstart', this._initDrag, { passive: true })
+      document.body.addEventListener('touchend', this._endDrag, { passive: true })
+      document.body.addEventListener('touchmove', this._moveDrag, { passive: true })
     }
 
     if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
@@ -174,9 +174,9 @@ class NavBarDefault extends PureComponent {
         },
       })
         .then(results =>
-          console.log('Results from running paywall script: ', results)
+          window.console.log('Results from running paywall script: ', results)
         )
-        .catch(() => console.error())
+        .catch(() => window.console.error())
     }
 
     // ----------------------- End Active Rules Paywall ----------------------- //
@@ -211,7 +211,7 @@ class NavBarDefault extends PureComponent {
         }
         return []
       })
-      .catch(err => console.error(err))
+      .catch(err => window.console.error(err))
   }
 
   _initDrag = evt => {

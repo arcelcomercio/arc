@@ -19,5 +19,8 @@ import './images/paywall/adult-attire-blazer-173125.jpg'
 import './images/paywall/adult-attire-blazer-173125@2x.jpg'
 import './images/paywall/img_lector.png'
 import './images/default-lg.png'
+import './images/img_soporte.png'
 import './images/signwall/bg_paywall.png'
 import './images/signwall/bg_login.png'
+
+import '../../../components/utilities/lazyload'

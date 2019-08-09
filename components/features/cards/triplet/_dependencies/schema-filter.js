@@ -11,6 +11,7 @@ export default arcSite => `{
                     url
                     resized_urls { 
                         portrait_xs
+                        lazy_default
                     }
                 }
             }
@@ -23,6 +24,7 @@ export default arcSite => `{
                     url
                     resized_urls { 
                         portrait_xs
+                        lazy_default
                     }
                 }
             }
@@ -32,6 +34,7 @@ export default arcSite => `{
             url
             resized_urls { 
                 portrait_xs
+                lazy_default
             }
         }
     }

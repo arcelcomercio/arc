@@ -2,8 +2,8 @@ import React from 'react'
 import Icon from '../../../../global-components/multimedia-icon'
 
 const CardMostReadChildItem = props => {
-  const { item, viewImage } = props
-  const { websiteUrl, imageUrl, title, storyType } = item
+  const { item, viewImage, isAdmin } = props
+  const { websiteUrl, imageUrl, lazyImage, title, storyType } = item
 
   const classes = {
     item: `most-read-item block border-solid border-b-1 border-base mr-20 ml-20`,
@@ -23,10 +23,11 @@ const CardMostReadChildItem = props => {
         {viewImage && (
           <figure className={classes.figure}>
             <img
-              className={classes.img}
-              src={imageUrl}
+              className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
+              src={isAdmin ? imageUrl : lazyImage}
+              data-src={imageUrl}
               alt={title}
-              loading="lazy"
+              
             />
             <Icon type={storyType} iconClass={classes.icon} />
           </figure>

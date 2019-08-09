@@ -34,7 +34,7 @@ const OpinionGridListItem = ({ data: story }) => {
                 src={story.authorImage}
                 className={classes.image}
                 alt={story.author}
-                loading="lazy"
+                
               />
             </a>
           </figure>

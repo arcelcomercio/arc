@@ -92,6 +92,7 @@ class CardFeaturedStoryManual extends PureComponent {
     const {
       editableField,
       arcSite,
+      isAdmin,
       customFields: {
         imageSize,
         headband,
@@ -121,6 +122,7 @@ class CardFeaturedStoryManual extends PureComponent {
       multimediaLandscapeMD,
       multimediaPortraitMD,
       multimediaSquareS,
+      multimediaLazyDefault,
       multimediaType,
     } = formattedData
 
@@ -137,6 +139,7 @@ class CardFeaturedStoryManual extends PureComponent {
       multimediaLandscapeMD,
       multimediaPortraitMD,
       multimediaSquareS,
+      multimediaLazyDefault,
       imageSize,
       headband,
       size,
@@ -146,6 +149,7 @@ class CardFeaturedStoryManual extends PureComponent {
       categoryField,
       arcSite,
       multimediaType,
+      isAdmin,
     }
     return <FeaturedStory {...params} />
   }

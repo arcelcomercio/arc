@@ -4,7 +4,7 @@ const classes = {
   item: `blog-item flex w-full flex-col-reverse pt-10 mt-0 mb-30 mx-auto border-t-1 border-solid border-gray md:flex-col`,
   date: 'blog-item__date text-sm text-gray-200 md:mb-10',
   container: `blog-item__container flex flex-row-reverse justify-between md:flex-row md:justify-start`,
-  containerAvatar: 'blog-item__container-avatar',
+  containerAvatar: 'blog-item__container-avatar overflow-hidden',
   avatar: 'w-full h-full object-cover',
   detail: 'blog-item__detail flex flex-col pr-20 md:pr-0 md:pl-20',
   blogTitle: 'blog-item__blog uppercase mb-5 text-sm',
@@ -13,6 +13,8 @@ const classes = {
 }
 
 const BlogListChildItem = ({
+  isAdmin,
+  lazyImage,
   authorImg,
   date = '',
   blogTitle = '',
@@ -32,10 +34,11 @@ const BlogListChildItem = ({
         <figure className={classes.containerAvatar}>
           <a href={urlBlog}>
             <img
-              src={authorImg}
+              src={isAdmin ? authorImg : lazyImage}
+              data-src={authorImg}
               alt=""
-              className={classes.avatar}
-              loading="lazy"
+              className={`${isAdmin ? '' : 'lazy'} ${classes.avatar}`}
+              
             />
           </a>
         </figure>

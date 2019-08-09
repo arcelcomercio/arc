@@ -6,6 +6,7 @@ const TripletChildTriplet = props => {
   const {
     arcSite,
     editableField,
+    isAdmin,
     data = [],
     multimediaOrientation = 'right',
   } = props
@@ -19,7 +20,7 @@ const TripletChildTriplet = props => {
     threeline: 'triplet--threeline',
     author: 'triplet__author uppercase text-xs',
     authorLink: 'triplet__link text-gray-200',
-    multimedia: 'triplet__multimedia',
+    multimedia: 'triplet__multimedia overflow-hidden',
     mLink: 'w-full h-full block position-relative',
     image: 'object-cover w-full h-full',
     icon: `triplet__icon`,
@@ -68,10 +69,14 @@ const TripletChildTriplet = props => {
           <figure className={classes.multimedia}>
             <a className={classes.mLink} href={story.websiteLink}>
               <img
-                className={classes.image}
-                src={story.multimediaPortraitXS}
+                className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+                src={
+                  isAdmin
+                    ? story.multimediaPortraitXS
+                    : story.multimediaLazyDefault
+                }
+                data-src={story.multimediaPortraitXS}
                 alt={story.title}
-                loading="lazy"
               />
               <Icon type={story.multimediaType} iconClass={classes.icon} />
             </a>

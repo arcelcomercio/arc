@@ -51,6 +51,7 @@ export default class FeaturedStory extends PureComponent {
       multimediaLandscapeMD,
       multimediaPortraitMD,
       multimediaSquareS, // Url de la imágen
+      multimediaLazyDefault,
       imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
       headband, // OPCIONAL, otros valores: "live"
       size, // Se espera "oneCol" o "twoCol"
@@ -59,6 +60,7 @@ export default class FeaturedStory extends PureComponent {
       titleField, // OPCIONAL, o pasar el customField de los props
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
+      isAdmin,
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
@@ -163,12 +165,18 @@ export default class FeaturedStory extends PureComponent {
         </div>
         <a className={classes.imageLink} href={title.url}>
           <picture className={classes.imageBox}>
-            <source media="(min-width: 640px)" srcSet={getDesktopImage()} />
+            <source
+              className={isAdmin ? '' : 'lazy'}
+              media="(max-width: 639px)"
+              srcSet={isAdmin ? getMobileImage() : multimediaLazyDefault}
+              data-srcset={getMobileImage()}
+            />
             <img
-              src={getMobileImage()}
-              className={classes.image}
+              src={isAdmin ? getDesktopImage() : multimediaLazyDefault}
+              data-src={getDesktopImage()}
+              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               alt=""
-              loading="lazy"
+              
             />
             <Icon type={multimediaType} iconClass={classes.icon} />
           </picture>
@@ -195,6 +203,7 @@ FeaturedStory.propTypes = {
   multimediaLandscapeMD: PropTypes.string,
   multimediaPortraitMD: PropTypes.string,
   multimediaSquareS: PropTypes.string,
+  multimediaLazyDefault: PropTypes.string,
   imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialBot']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf([SIZE_ONE_COL, SIZE_TWO_COL]),
@@ -208,4 +217,5 @@ FeaturedStory.propTypes = {
     StoryData.GALLERY,
     StoryData.HTML,
   ]),
+  isAdmin: PropTypes.bool,
 }

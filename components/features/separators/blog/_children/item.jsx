@@ -14,11 +14,13 @@ const classes = {
 
 const SeparatorBlogChildItem = ({
   authorName,
+  lazyImage,
   authorImg,
   blogUrl,
   // blogName,
   postLink,
   postTitle,
+  isAdmin,
 }) => {
   return (
     <article className={classes.item}>
@@ -35,10 +37,11 @@ const SeparatorBlogChildItem = ({
       <a className={classes.boxImg} href={postLink}>
         <figure>
           <img
-            src={authorImg}
+            src={isAdmin ? lazyImage : authorImg}
+            data-src={authorImg}
             alt={`Foto de perfil de ${authorName}`}
-            className={classes.img}
-            loading="lazy"
+            className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
+            
           />
         </figure>
       </a>

@@ -3,7 +3,7 @@ import { addParamToEndPath } from '../utilities/helpers'
 
 const classes = {
   pagination:
-    'pagination flex justify-center w-full flex-wrap mb-15 m-0 md:pt-30 md:pb-30 md:pr-0 md:pl-0',
+    'pagination flex justify-center w-full flex-wrap mb-15 m-0 md:pb-30 md:pr-0 md:pl-0',
   page: 'pagination__page uppercase h-full text-md text-gray-300',
 }
 

@@ -24,7 +24,7 @@ class StoriesListCard extends PureComponent {
     const params = {
       website,
       section,
-      excludeSections:'/impresa',
+      excludeSections: '/impresa',
       stories_qty: storiesQty,
     }
 
@@ -43,6 +43,7 @@ class StoriesListCard extends PureComponent {
       arcSite,
       contextPath,
       editableField,
+      isAdmin,
       customFields: {
         titleList,
         urlTitle,
@@ -71,6 +72,7 @@ class StoriesListCard extends PureComponent {
       deployment,
       arcSite,
       contextPath,
+      isAdmin,
       listNews: data || [],
     }
 

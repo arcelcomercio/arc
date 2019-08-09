@@ -10,7 +10,7 @@ const classes = {
   legalWrapper:
     'footer-secondary__legal flex items-center justify-between flex-col lg:flex-row',
   legalItem:
-    'footer-secondary__legal-item text-sm pr-20 pl-20 position-relative h-full flex justify-center flex-col mb-10 lg:mb-0',
+    'footer-secondary__legal-item text-sm pr-20 pl-20 position-relative h-full flex justify-center items-center lg:items-start flex-col mb-10 lg:mb-0',
 }
 
 const SecondaryFooter = props => {
@@ -25,7 +25,7 @@ const SecondaryFooter = props => {
             className={classes.logoImg}
             src={logoUrl}
             alt={`Logo de ${arcSite}`}
-            loading="lazy"
+            
           />
         </a>
         {/* Cuerpo */}

@@ -7,9 +7,21 @@ import Error from '../../../../../_children/error'
 import { FormSchema, Masks } from './schema'
 
 const FormStyled = S.Form(Form)
-const { capitalize, combine, replace } = Masks.Pipes
-const personNamePipe = combine(replace(/(^|\s)[-']/, '$1'), capitalize)
-
+const { capitalize, combine, replace, trim, trimLeft, dedup } = Masks.Pipes
+const personNamePipe = combine(
+  replace(/(^|\s)[-]/, '$1'),
+  dedup(' '),
+  trimLeft(),
+  capitalize()
+)
+const _initValue = {
+  firstName: null,
+  lastName: null,
+  documentType: 'DNI',
+  documentNumber: null,
+  phone: null,
+  email: null,
+}
 const UserProfile = ({
   title = '',
   initialValues,
@@ -19,7 +31,7 @@ const UserProfile = ({
 }) => {
   return (
     <Formik
-      initialValues={Object.assign({}, { documentType: 'DNI' }, initialValues)}
+      initialValues={Object.assign({}, _initValue, initialValues)}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
         onSubmit(
@@ -103,7 +115,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="phone"
-                  pipe={Masks.Pipes.trim}
+                  pipe={trim()}
                   mask={Masks.PHONE}
                   label="Número de Celular"
                   component={InputFormik}

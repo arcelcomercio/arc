@@ -12,7 +12,7 @@ const classes = {
   section: 'featured-multimedia__section overflow-hidden mb-10',
   sectionHtml: 'h-full',
   sectionLink: 'text-white text-md uppercase',
-  imgContainer: 'mb-25 bg-gray-300 position-relative',
+  imgContainer: 'mb-25 bg-gray-300 position-relative  overflow-hidden',
   img: 'featured-multimedia__img object-cover w-full block',
   time: 'text-primary-color text-md mb-5 secondary-font font-bold',
   title: 'flex-1 text-md line-h-sm',
@@ -24,12 +24,14 @@ const classes = {
 export default ({
   websiteLink,
   multimediaLandscapeMD,
+  multimediaLazyDefault,
   title,
   multimediaType,
   date,
   section,
   sectionName,
   freeHtml,
+  isAdmin,
 }) => {
   return (
     <article className={classes.featuredMultimedia}>
@@ -49,9 +51,11 @@ export default ({
       <a className={classes.imgContainer} href={websiteLink}>
         <picture>
           <img
-            className={classes.img}
-            src={multimediaLandscapeMD}
+            className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
+            src={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
+            data-src={multimediaLandscapeMD}
             alt={title}
+            
           />
           <Icon type={multimediaType} iconClass="" />
         </picture>

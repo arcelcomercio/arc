@@ -21,7 +21,8 @@ class FeaturedStoryFormatter {
             landscape_l 
             landscape_md 
             portrait_md 
-            square_s 
+            square_s
+            lazy_default 
           } 
         }
         basic_video {
@@ -33,7 +34,8 @@ class FeaturedStoryFormatter {
                 landscape_l 
                 landscape_md 
                 portrait_md 
-                square_s 
+                square_s
+                lazy_default 
               } 
             }
           }
@@ -47,7 +49,8 @@ class FeaturedStoryFormatter {
                 landscape_l 
                 landscape_md 
                 portrait_md 
-                square_s 
+                square_s
+                lazy_default 
               } 
             }
           }
@@ -137,6 +140,7 @@ class FeaturedStoryFormatter {
     newState.multimediaLandscapeMD = imgField || this.storyDataInstace.multimediaLandscapeMD
     newState.multimediaPortraitMD = imgField || this.storyDataInstace.multimediaPortraitMD
     newState.multimediaSquareS = imgField || this.storyDataInstace.multimediaSquareS
+    newState.multimediaLazyDefault = imgField || this.storyDataInstace.multimediaLazyDefault
     newState.multimediaType = this.storyDataInstace.multimediaType
 
     return newState

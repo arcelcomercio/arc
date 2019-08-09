@@ -50,7 +50,7 @@ class BlogList extends PureComponent {
   }
 
   buildParams = blog => {
-    const { deployment, contextPath = '', arcSite = '' } = this.props
+    const { isAdmin, deployment, contextPath = '', arcSite = '' } = this.props
 
     const {
       blog: { blogname = '', path = '' } = {},
@@ -64,6 +64,7 @@ class BlogList extends PureComponent {
       user: {
         user_avatarb: {
           resized_urls: {
+            lazy_default: lazyImage,
             author_sm: authorImg = defaultImage({
               deployment,
               contextPath,
@@ -78,6 +79,7 @@ class BlogList extends PureComponent {
     } = blog
 
     return {
+      lazyImage,
       authorImg,
       date: this.transformDate(postDate),
       blogTitle: blogname,
@@ -85,6 +87,7 @@ class BlogList extends PureComponent {
       postTitle,
       urlPost: `/blog/${postLink}`,
       urlBlog: addSlashToEnd(`/blog/${path}`),
+      isAdmin,
       // TODO:CARLOS: Verificar si estas urls general / al final. Sino, agregar
     }
   }

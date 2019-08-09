@@ -193,6 +193,10 @@ class StoryData {
     return this.getMultimediaBySize(ConfigParams.SQUARE_XS)
   }
 
+  get multimediaLazyDefault() {
+    return this.getMultimediaBySize(ConfigParams.LAZY_DEFAULT)
+  }
+
   get multimediaType() {
     return StoryData.getTypeMultimedia(this._data)
   }
@@ -300,7 +304,7 @@ class StoryData {
 
   // TODO: Cambiar la fecha a lo que se estandarice
   get date() {
-    return this.publishDate
+    return this.displayDate
   }
 
   get displayDate() {
@@ -441,6 +445,16 @@ class StoryData {
 
   get promoItems() {
     return (this._data && this._data.promo_items) || []
+  }
+
+  get contentRestrictions() {
+    return (
+      (this._data &&
+        this._data.content_restrictions &&
+        this._data.content_restrictions.content_code === 'premium' &&
+        true) ||
+      false
+    )
   }
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as S from './styled'
 import { Panel } from '../../../_children/panel/styled'
 import Button from '../../../_children/button'
@@ -25,7 +25,17 @@ const WizardConfirmation = props => {
     },
   } = props
 
+  const handlePWA = () => {
+    // eslint-disable-next-line no-prototype-builtins
+    const isPWA = window.hasOwnProperty('nativeConnectionModal')
+    if (isPWA) {
+      window.nativeConnectionModal.pwaCloseWebView('paywall')
+    }
+    return isPWA
+  }
+
   const handleClick = () => {
+    if (handlePWA()) return
     const { sessionStorage, location } = window
     // eslint-disable-next-line no-prototype-builtins
     location.href = sessionStorage.hasOwnProperty(NAME_REDIRECT)
@@ -72,6 +82,7 @@ const WizardConfirmation = props => {
           </S.Span>
           <S.WrapButton>
             <Button onClick={handleClick}>SIGUE NAVEGANDO</Button>
+            <S.Progress time="8s" onFinish={handleClick} />
           </S.WrapButton>
         </S.Content>
       </Panel>

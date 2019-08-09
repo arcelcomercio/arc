@@ -6,7 +6,6 @@ export default {
   googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
-  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://gestion.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
@@ -60,6 +59,7 @@ export default {
       confirmation: `images/adult-attire-blazer-173125.jpg`,
       confirmationx2: `images/adult-attire-blazer-173125@2x.jpg`,
       lector: `images/img_lector.png`,
+      support: `images/img_soporte.png`,
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)
@@ -134,10 +134,10 @@ export default {
         position: 'Director Periodístico',
         name: 'JULIO LIRA SEGURA',
       },
-      {
-        position: 'Editor Web',
-        name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
-      },
+      // {
+      //   position: 'Editor Web',
+      //   name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
+      // },
       {
         position: '',
         name: '',
@@ -158,6 +158,10 @@ export default {
     youtube: {
       name: 'youtube',
       url: 'https://plus.google.com/u/0/+elcomerciope',
+    },
+    linkedin: {
+      name: 'linkedin',
+      url: 'https://www.linkedin.com/company/diario-gestión/',
     },
   },
   adsAmp: {

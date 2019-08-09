@@ -22,6 +22,7 @@ class StoriesListPaginatedList extends PureComponent {
       contextPath,
       arcSite,
       requestUri,
+      isAdmin,
       customFields: customFieldsProps = {},
     } = this.props
     const { content_elements: stories = [], count = 0 } = globalContent || {}
@@ -48,9 +49,7 @@ class StoriesListPaginatedList extends PureComponent {
               <Fragment key={`Paginated-list-${story._id}`}>
                 <StoryItem
                   data={story}
-                  deployment={deployment}
-                  contextPath={contextPath}
-                  arcSite={arcSite}
+                  {...{ deployment, contextPath, arcSite, isAdmin }}
                 />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>

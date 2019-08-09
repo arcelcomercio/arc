@@ -2,7 +2,6 @@ import React from 'react'
 import * as S from './styled'
 import { devices } from '../../../../../_dependencies/devices'
 import Icon from '../../../../../_children/icon'
-import Modal from '../../../../../_children/modal'
 
 export default function BannerPromoSuscriptor(props) {
   const { assets, onClick } = props

@@ -3,21 +3,21 @@ export default {
 
   googleFonts: 'Alfa+Slab+One|Titillium+Web:400,700',
 
-  colorPrimary: '#f7c600',
+  colorPrimary: '#007d33',
   siteDomain: 'ojo.pe',
   siteUrl: 'https://ojo.pe',
-  linkTabloide: 'https://peruquiosco.pe/',
+  linkTabloide: 'http://ediciondigital.ojo.pe/lima/20190808/',
   resizerUrl: 'https://elcomercio-ojo-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Ojo_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1579310032347237',
   googleTagManagerId: 'GTM-KZX7JN3',
-  ampGoogleTagManagerId: 'UA-3055636-3',
+  ampGoogleTagManagerId: 'UA-15668535-1',
   ampGoogleTagManagerName: 'ojo',
   charbeatAccountNumber: 57773,
-  idGoogleAnalitics: 'UA-3055636-11',
-  fbArticleStyle: '',
+  idGoogleAnalitics: 'UA-15668535-1',
+  fbArticleStyle: 'default',
   nameStoryRelated: 'VEA TAMBIÉN',
   siteDescription:
     'Noticias de Perú y el mundo en ojo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
@@ -103,11 +103,11 @@ export default {
     contacts: [
       {
         position: 'Director Periodístico',
-        name: 'Jaime Marcos Antonio Asian Dominguez jasian@grupoepensa.pe',
+        name: 'Jaime Asian Dominguez   jasian@grupoepensa.pe',
       },
       {
         position: 'Editor Web',
-        name: 'Ivonne Chavely, Chiroque Quiroz ichiroque@grupoepensa.pe',
+        name: 'Chavely Chiroque Quiroz ichiroque@grupoepensa.pe',
       },
       {
         position: '-',

@@ -13,3 +13,5 @@ import './images/default-blog.jpg'
 import './images/default-sm.png'
 import './images/default-md.png'
 import './images/default-lg.png'
+
+import '../../../components/utilities/lazyload'

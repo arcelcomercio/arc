@@ -49,7 +49,9 @@ const pattern = (key = {}) => {
   /** TODO: Cambiar publish_date por display_name en los patterns???? */
   /** TODO: Manejar comportamiento cuando no se obtiene data */
 
-  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${name}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}`
+  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
+    name
+  )}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}`
 
   return requestUri
 }
@@ -77,7 +79,7 @@ const transform = data => {
 
   if (tags.length === 0) return dataStories
 
-  const realTag = tags.find(tag => name === tag.slug)
+  const realTag = tags.find(tag => decodeURIComponent(name) === tag.slug)
   const tagName = {
     tag_name: (realTag && realTag.text) || 'Tag',
   }

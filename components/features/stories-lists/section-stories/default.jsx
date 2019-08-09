@@ -22,6 +22,7 @@ class StoriesListSectionStories extends PureComponent {
       contextPath,
       arcSite,
       globalContentConfig,
+      isAdmin,
       customFields: customFieldsProps = {},
     } = this.props
 
@@ -58,9 +59,7 @@ class StoriesListSectionStories extends PureComponent {
                   <Fragment key={`Section-storie-${story._id}`}>
                     <StoryItem
                       data={story}
-                      deployment={deployment}
-                      contextPath={contextPath}
-                      arcSite={arcSite}
+                      {...{ deployment, contextPath, arcSite, isAdmin }}
                       formato="row"
                     />
                     {ads.length > 0 && (
