@@ -1,9 +1,42 @@
 import React from 'react'
 
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+
 import TvHeader from './_children/header'
 import Icon from '../../../global-components/multimedia-icon'
 
+import StoryData from '../../../utilities/story-data'
+import { formatDateLocalTimeZone } from '../../../utilities/helpers'
+
 const TvFeatured = () => {
+  const data = useContent({
+    source: 'story-by-section',
+    query: { section: '/peru21tv' },
+    // filter: SchemaFilter(arcSite),
+  })
+
+  const { arcSite, contextPath, deployment } = useFusionContext()
+
+  const {
+    websiteLink, // { websites { ${arcsite} { website_url } } }
+    multimediaLandscapeMD,
+    multimediaLazyDefault,
+    title, // { headlines { basic } }
+    multimediaType, // { promo_items }
+    date, // { publish_date }
+    primarySectionLink, // { taxonomy { primary_section { path } } }
+    primarySection, // { taxonomy { primary_section { name } } }
+  } = new StoryData({
+    data,
+    arcSite,
+    contextPath,
+    deployment,
+    defaultImgSize: 'sm',
+  })
+
+  console.log(data)
+
   return (
     <div className="tv-featured position-relative">
       <TvHeader />
@@ -32,12 +65,11 @@ const TvFeatured = () => {
               type="button"
               className="tv-featured__text-button text-white font-bold title-xs p-0 text-left"
               onClick={() => console.log('TODO: HACER EL POPUP')}>
-              Keiko Fujimori: Corte Suprema emite fallo de casación de Keiko
-              para determinar si continúa en prisión
+              {title}
             </button>
           </h2>
-          <time className="block text-white mb-15" dateTime="9/8/2019">
-            9/8/2019
+          <time className="block text-white mb-15" dateTime={date}>
+            {date && formatDateLocalTimeZone(date)}
           </time>
         </div>
       </div>
