@@ -1,8 +1,10 @@
 .most-read-item {
+  border-color: $color-base-400;
   &__detail {
-    font-size: 12px;
+    font-size: 13px;
+    font-family: $secondary-font;
     &.four-lines {
-      max-height: calc(12px * 1.33 * 4);
+      max-height: calc(13px * 1.33 * 4);
     }
   }
 }

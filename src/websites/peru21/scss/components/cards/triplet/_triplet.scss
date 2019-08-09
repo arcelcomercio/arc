@@ -1,7 +1,9 @@
 .triplet {
   border-top: none;
-  background-color: $color-gray-100;
-
+  background-color: transparent;
+  &__item {
+    border-color: $color-base-400;
+  }
   &__title-link {
     font-size: 13px;
   }
