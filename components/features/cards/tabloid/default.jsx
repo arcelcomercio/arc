@@ -53,7 +53,7 @@ class CardTabloid extends PureComponent {
     const { data = {} } = this.state
     const {
       title = '',
-      displayDate = '',
+      date = '',
       primarySectionLink = '',
     } = new StoryData({
       data,
@@ -77,7 +77,7 @@ class CardTabloid extends PureComponent {
       } = {},
     } = data
 
-    const nameDate = getLatinDate(displayDate, ' del', true)
+    const nameDate = getLatinDate(date, ' del', true)
     return (
       <div className={classes.tabloid}>
         <div className={classes.header}>
