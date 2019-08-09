@@ -24,7 +24,6 @@ const FeaturedStoryPremium = props => {
       query: contentConfigValues,
       filter: schemaFilter(arcSite),
     }) || {}
-  console.table(data)
   const {
     isPremium,
     websiteLink,
