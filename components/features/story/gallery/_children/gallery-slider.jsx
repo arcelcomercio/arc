@@ -220,7 +220,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                               : slide.resized_urls.lazy_default
                           }
                           data-src={slide.resized_urls.landscape_xl}
-                          alt={slide.caption}
+                          alt={slide.caption || slide.subtitle}
                           className={`${isAdmin ? '' : 'lazy'} ${
                             classes.image
                           }`}
@@ -231,7 +231,10 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                       <span className={classes.quantity}>
                         {i + 1}/{sliders.length}
                       </span>
-                      <p className={classes.captionImage}>{slide.caption}</p>
+                      <p className={classes.captionImage}>
+                        {' '}
+                        {slide.caption || slide.subtitle}
+                      </p>
                     </figcaption>
                   </li>
                 ))}
