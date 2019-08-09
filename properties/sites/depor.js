@@ -5,11 +5,9 @@ export default {
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',
   siteUrl: 'https://depor.com',
-  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://elcomercio-depor-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
-  urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-8',
@@ -18,8 +16,7 @@ export default {
   idGoogleAnalitics: 'UA-3055636-8',
   fbArticleStyle: 'LogoDepor',
   nameStoryRelated: 'VEA TAMBIÉN',
-  siteDescription:
-    'Noticias de Perú y el mundo en Depor.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  siteDescription: 'Noticias de Perú y el mundo en Depor.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
@@ -44,12 +41,10 @@ export default {
 
   messages: {
     errorTitle: '¡Oops! la pagina no fue encontrada en Depor',
-    errorDescription:
-      'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
+    errorDescription: 'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
   },
 
-  legalLinks: [
-    {
+  legalLinks: [{
       name: 'Términos y condiciones',
       url: '/terminos-servicio',
     },
@@ -71,8 +66,7 @@ export default {
       'Grupo Depor - Todos los derechos reservados',
     ],
 
-    socialNetworks: [
-      {
+    socialNetworks: [{
         name: 'facebook',
         url: 'https://www.facebook.com/depor.pe',
       },
@@ -86,8 +80,7 @@ export default {
       },
     ],
 
-    contacts: [
-      {
+    contacts: [{
         position: 'Director Periodístico',
         name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
       },

@@ -23,7 +23,7 @@ function Beforeunload({ children, onBeforeunload = () => {} }) {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload)
     }
-  })
+  }, [])
   return children
 }
 
