@@ -99,9 +99,15 @@ class NavBarDefault extends PureComponent {
     this.layerBackground = document.querySelector('.layer')
 
     if (this.listContainer !== null && this.listContainer !== 'undefined') {
-      document.body.addEventListener('touchstart', this._initDrag, { passive: true })
-      document.body.addEventListener('touchend', this._endDrag, { passive: true })
-      document.body.addEventListener('touchmove', this._moveDrag, { passive: true })
+      document.body.addEventListener('touchstart', this._initDrag, {
+        passive: true,
+      })
+      document.body.addEventListener('touchend', this._endDrag, {
+        passive: true,
+      })
+      document.body.addEventListener('touchmove', this._moveDrag, {
+        passive: true,
+      })
     }
 
     if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
@@ -125,7 +131,11 @@ class NavBarDefault extends PureComponent {
       )
 
       if (ENV.ENVIRONMENT !== 'elcomercio') {
-        if (dataContentPremium) window.location.href = '/?signwallPremium=1'
+        if (dataContentPremium) {
+          return this.getListSubs().then(p => {
+            if (p && p.length > 0) window.location.href = '/?signwallPremium=1'
+          })
+        }
       }
 
       window.ArcP.run({
