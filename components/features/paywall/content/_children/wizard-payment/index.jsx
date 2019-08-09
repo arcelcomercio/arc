@@ -1,10 +1,11 @@
 /* eslint-disable no-shadow */
 import { useFusionContext } from 'fusion:context'
 import ENV from 'fusion:environment'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Summary from '../summary'
 import * as S from './styled'
 import FormPay from './_children/form-pay'
+import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { addSales } from '../../../_dependencies/sales'
 import { addPayU } from '../../../_dependencies/payu'
 import Beforeunload from '../before-unload'
@@ -44,6 +45,10 @@ function WizardPayment(props) {
       email,
     },
   } = memo
+
+  useEffect(() => {
+    sendAction(PixelActions.PAYMENT_CARD_INFO)
+  }, [])
 
   const [error, setError] = useState('')
 
@@ -190,7 +195,7 @@ function WizardPayment(props) {
                 const sandboxToken = `${token}~${deviceSessionId}~${cvv}`
                 return sales
                   .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
-                  .then(({ status, total }) => {
+                  .then(({ status, total, subscriptionIDs }) => {
                     if (status !== 'Paid') throw new Error(MESSAGE.PAYMENT_FAIL)
                     return {
                       publicKey,
@@ -199,6 +204,7 @@ function WizardPayment(props) {
                       deviceSessionId,
                       paymentMethodID,
                       paymentMethodType,
+                      subscriptionIDs,
                       status,
                       total,
                     }
