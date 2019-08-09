@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { devices } from '../../../_dependencies/devices'
+import ErrorComponent from '../../../_children/error'
 
 export const WizardPlan = styled.div`
   display: flex;
@@ -53,4 +54,15 @@ export const PlanTitle = styled.div`
   font-size: 16px;
   margin: 12px 0;
   font-weight: 700;
+`
+
+export const Error = styled(ErrorComponent)`
+  max-width: 930px;
+  margin-bottom: 30px;
+`
+
+export const WelcomeSuscriptor = styled.div`
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 50px;
 `

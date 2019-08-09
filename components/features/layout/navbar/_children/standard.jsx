@@ -174,9 +174,9 @@ class NavBarDefault extends PureComponent {
         },
       })
         .then(results =>
-          console.log('Results from running paywall script: ', results)
+          window.console.log('Results from running paywall script: ', results)
         )
-        .catch(() => console.error())
+        .catch(() => window.console.error())
     }
 
     // ----------------------- End Active Rules Paywall ----------------------- //
@@ -211,7 +211,7 @@ class NavBarDefault extends PureComponent {
         }
         return []
       })
-      .catch(err => console.error(err))
+      .catch(err => window.console.error(err))
   }
 
   _initDrag = evt => {

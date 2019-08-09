@@ -37,6 +37,8 @@ class AuthFacebook extends React.Component {
   }
 
   componentDidMount = () => {
+    window.Identity.apiOrigin = this.origin_api
+
     const eventMethod = window.addEventListener
       ? 'addEventListener'
       : 'attachEvent'
@@ -74,8 +76,6 @@ class AuthFacebook extends React.Component {
       sendingFbText: 'Cargando...',
     })
 
-    window.Identity.apiOrigin = this.origin_api
-
     services
       .loginFBeco(this.origin_api, '', data.data.accessToken, 'facebook')
       .then(resLoginFb => {
@@ -90,7 +90,8 @@ class AuthFacebook extends React.Component {
           )
 
           window.Identity.userIdentity = resLoginFb
-
+          
+          window.Identity.apiOrigin = this.origin_api
           window.Identity.getUserProfile()
             .then(resFbProfile => {
               this.setState({
@@ -160,6 +161,8 @@ class AuthFacebook extends React.Component {
                 }
 
                 window.Identity.userProfile = newProfileFB
+
+                window.Identity.apiOrigin = this.origin_api
                 window.Identity.updateUserProfile(newProfileFB) // update profile add attibutes
 
                 if (EmailUserProfile) {
@@ -178,18 +181,18 @@ class AuthFacebook extends React.Component {
               }
             })
             .catch(errFbProfile => {
-              console.error(errFbProfile)
+              window.console.error(errFbProfile)
               this.taggeoError() // -- test de tageo error
             })
         } else {
           const { closePopup } = this.props
-          console.error(resLoginFb)
+          window.console.error(resLoginFb)
           this.taggeoError() // -- test de tageo error
           closePopup()
         }
       })
       .catch(errLoginFb => {
-        console.error(errLoginFb)
+        window.console.error(errLoginFb)
         this.taggeoError() // -- test de tageo error
       })
   }

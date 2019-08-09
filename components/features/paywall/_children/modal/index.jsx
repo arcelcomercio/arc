@@ -3,23 +3,33 @@ import React, { useEffect } from 'react'
 import Portal from '../portal'
 import * as S from './styled'
 
-function Modal({ children, close = () => {}, ...props }) {
+function Modal({ children, showClose, onClose = () => {}, ...props }) {
+  function close() {
+    onClose()
+  }
   useEffect(() => {
-    const onClose = ({ key }) => {
+    const _onClose = ({ key }) => {
       if (key === 'Escape') {
         close()
       }
     }
-    window.addEventListener('keydown', onClose)
+    window.addEventListener('keydown', _onClose)
     return () => {
-      window.removeEventListener('keydown', onClose)
+      window.removeEventListener('keydown', _onClose)
     }
-  })
+  }, [])
+
+  const childrens = React.Children.map(children, child =>
+    React.cloneElement(child, { close })
+  )
   return (
     <Portal id="modal">
       <S.Modal {...props}>
         <S.Background onClick={close} />
-        <S.Content>{children}</S.Content>
+        <S.Content>
+          {showClose && <S.CloseButton onClick={close} />}
+          {childrens}
+        </S.Content>
       </S.Modal>
     </Portal>
   )

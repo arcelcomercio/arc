@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const WrapError = styled.div`
@@ -9,6 +9,11 @@ const WrapError = styled.div`
   display: flex;
   border-radius: 4px;
   background-color: rgba(219, 0, 0, 0.1);
+  will-change: opacity;
+  transition: opacity 300ms ease-out;
+  &.hidden {
+    opacity: 0;
+  }
 `
 
 const ErrorMessage = styled.span`
@@ -23,13 +28,23 @@ const ErrorMessage = styled.span`
   color: #db0000;
 `
 
-const Error = styled(({ message, children, className }) => {
+function ErrorComponent({ message, children, className, autoClose }) {
+  const [classhide, setClassHidde] = useState('')
+
+  if (autoClose && autoClose > 0) {
+    setTimeout(() => {
+      setClassHidde(' hidden')
+    }, autoClose)
+  }
+
   return (
-    <WrapError className={className}>
+    <WrapError className={`${className}${classhide}`}>
       <ErrorMessage>{message || children}</ErrorMessage>
     </WrapError>
   )
-})`
+}
+
+const Error = styled(ErrorComponent)`
   margin-bottom: ${props => props.marginBottom || props.mb};
 `
 

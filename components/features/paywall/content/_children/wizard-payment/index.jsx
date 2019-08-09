@@ -1,15 +1,15 @@
 /* eslint-disable no-shadow */
-import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
-
+import ENV from 'fusion:environment'
+import React, { useState } from 'react'
 import Summary from '../summary'
 import * as S from './styled'
 import FormPay from './_children/form-pay'
 import { addSales } from '../../../_dependencies/sales'
 import { addPayU } from '../../../_dependencies/payu'
 import Beforeunload from '../before-unload'
-import Loading from '../../../_children/loading'
 import { PayuError } from '../../_dependencies/handle-errors'
+import { getBrowser } from '../../../_dependencies/browsers'
 
 const MESSAGE = {
   PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
@@ -21,6 +21,7 @@ function WizardPayment(props) {
     summary,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
+    printed,
   } = props
 
   const {
@@ -58,10 +59,10 @@ function WizardPayment(props) {
     secondLastName,
     documentType,
     documentNumber,
+    printed,
     email,
     phone,
     cardMethod,
-    cardNumber,
     token,
     sku,
     priceCode,
@@ -78,6 +79,7 @@ function WizardPayment(props) {
         body: JSON.stringify({
           order: orderNumber,
           total: amount,
+          printed,
           profile: {
             name: firstName,
             lastname: lastName,
@@ -89,7 +91,6 @@ function WizardPayment(props) {
           },
           card: {
             method: cardMethod.toUpperCase(),
-            number: cardNumber,
             token,
           },
           product: [
@@ -166,17 +167,17 @@ function WizardPayment(props) {
               })
               .then(token => {
                 return apiPaymentRegister({
-                  baseUrl: '//devpaywall.comerciosuscripciones.pe', // TODO url en duro, environment no funciona
+                  baseUrl: ENV.ORIGIN_SUSCRIPCIONES,
                   orderNumber,
                   firstName,
                   lastName,
                   secondLastName,
                   documentType,
                   documentNumber,
+                  printed,
                   email,
                   phone,
                   cardMethod,
-                  cardNumber, // TODO: Convertir en formato de mascara
                   token,
                   campaignCode,
                   sku,
@@ -213,6 +214,9 @@ function WizardPayment(props) {
           cardInfo: values,
         })
         onBeforeNextStep(mergedValues, props)
+        if (getBrowser().isSafari) {
+          setLoading(false)
+        }
       })
       .catch(e => {
         const { name, message } = e
@@ -223,7 +227,7 @@ function WizardPayment(props) {
           default:
             setError('Disculpe, ha ocurrido un error durante el pago')
         }
-        console.error(e)
+        window.console.error(e)
       })
       .finally(() => {
         setLoading(false)

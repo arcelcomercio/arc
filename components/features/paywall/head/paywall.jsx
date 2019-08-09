@@ -1,6 +1,5 @@
 import React from 'react'
 import Consumer from 'fusion:consumer'
-import ENV from 'fusion:environment'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
 import './paywall.css'
@@ -14,13 +13,17 @@ class Head extends React.PureComponent {
   }
 
   componentDidMount() {
+    AddIdentity().then(() => {
+      userProfile().then(({ firstName }) => {
+        this.setState({ firstName })
+      })
+    })
     this.getFirstName()
   }
 
   getFirstName = () => {
-    window.dataLayer = window.dataLayer || []; // temporalmente hasta agregar GTM
-    const { siteProperties } = this.props
-    AddIdentity(siteProperties).then(() => {
+    window.dataLayer = window.dataLayer || [] // temporalmente hasta agregar GTM
+    AddIdentity().then(() => {
       userProfile()
         .then(({ firstName }) => {
           this.setState({ firstName })

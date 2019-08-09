@@ -8,6 +8,8 @@ import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import { FormSchema, Masks } from './schema'
 
+const { trim } = Masks.Pipes
+
 const FormPay = ({ error, onSubmit, initialValues }) => {
   return (
     <Formik
@@ -90,7 +92,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                   component={Input}
                   name="cardNumber"
                   label="Número de tarjeta"
-                  pipe={Masks.Pipes.trim}
+                  pipe={trim()}
                   mask={Masks.CREDIT_CARD_NUMBER}
                   placeholder="0000 - 0000 - 0000 - 0000"
                 />
