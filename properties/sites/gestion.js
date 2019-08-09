@@ -6,7 +6,6 @@ export default {
   googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
-  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://gestion.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
@@ -135,10 +134,10 @@ export default {
         position: 'Director Periodístico',
         name: 'JULIO LIRA SEGURA',
       },
-      {
-        position: 'Editor Web',
-        name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
-      },
+      // {
+      //   position: 'Editor Web',
+      //   name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
+      // },
       {
         position: '',
         name: '',
@@ -162,8 +161,8 @@ export default {
     },
     linkedin: {
       name: 'linkedin',
-      url: 'https://www.linkedin.com/company/diario-gestión/'
-    }
+      url: 'https://www.linkedin.com/company/diario-gestión/',
+    },
   },
   adsAmp: {
     dataSlot: 28253241,
