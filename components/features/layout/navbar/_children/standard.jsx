@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
@@ -71,7 +72,7 @@ class NavBarDefault extends PureComponent {
       showReset: false,
       showRelogin: false,
       showPaywall: false,
-      nameUser: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
+      userName: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
       initialUser: new GetProfile().initname,
     }
     // Resizer.setResizeListener()
@@ -115,14 +116,19 @@ class NavBarDefault extends PureComponent {
     // ----------------------- Start Active Rules Paywall ----------------------- //
 
     if (arcSite === 'gestion') {
+      const dataContentPremium = window.content_paywall || false
       const dataContentType = window.document.querySelector(
         'meta[name="content-type"]'
       )
       const dataContentSection = window.document.querySelector(
         'meta[name="section-id"]'
       )
+
+      if (ENV.ENVIRONMENT !== 'elcomercio') {
+        if (dataContentPremium) window.location.href = '/?signwallPremium=1'
+      }
+
       window.ArcP.run({
-        // paywallFunction: campaignURL => console.log('Paywall!', campaignURL),
         paywallFunction: campaignURL => {
           window.location.href = campaignURL
         },
@@ -173,10 +179,10 @@ class NavBarDefault extends PureComponent {
           })
         },
       })
-        .then(results =>
-          window.console.log('Results from running paywall script: ', results)
-        )
-        .catch(() => window.console.error())
+      // .then(results =>
+      //   window.console.log('Results from running paywall script: ', results)
+      // )
+      // .catch(() => window.console.error())
     }
 
     // ----------------------- End Active Rules Paywall ----------------------- //
@@ -186,13 +192,13 @@ class NavBarDefault extends PureComponent {
     if (this.checkSession()) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        nameUser: new GetProfile().username,
+        userName: new GetProfile().username,
         initialUser: new GetProfile().initname,
       })
     } else {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        nameUser: new GetProfile().username,
+        userName: new GetProfile().username,
         initialUser: new GetProfile().initname,
       })
     }
@@ -359,6 +365,7 @@ class NavBarDefault extends PureComponent {
             this.setState({ showRelogin: true })
             break
           case 'signwallPaywall':
+          case 'signwallPremium':
             this.setState({ showPaywall: true })
             break
           default:
@@ -462,7 +469,7 @@ class NavBarDefault extends PureComponent {
       statusSidebar,
       scrolled,
       isActive,
-      nameUser,
+      userName,
       initialUser,
       showHard,
       showVerify,
@@ -596,9 +603,7 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${
-                        classes.btnLogin
-                      } btn--outline` /* classes.btnSignwall */
+                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     {/* 
@@ -612,7 +617,7 @@ class NavBarDefault extends PureComponent {
                       {initialUser}
                     </i> */}
                     <span>
-                      {this.checkSession() ? nameUser : 'Iniciar Sesión'}
+                      {this.checkSession() ? userName : 'Iniciar Sesión'}
                     </span>
                   </button>
                 </div>
@@ -621,9 +626,7 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${
-                  classes.navMobileContainer
-                } ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -637,9 +640,7 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwallMobile
-                          }  title-sm`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
                     }>
                     {initialUser}
                   </i>
@@ -702,12 +703,16 @@ class NavBarDefault extends PureComponent {
           />
         ) : null}
 
-        {this.getUrlParam('signwallPaywall') &&
+        {(this.getUrlParam('signwallPaywall') ||
+          this.getUrlParam('signwallPremium')) &&
         showPaywall &&
         siteProperties.activeSignwall ? (
           <SignWallPaywall
             closePopup={() => this.closePopUp('signwallPaywall')}
             brandModal={arcSite}
+            typeModal={
+              this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
+            }
           />
         ) : null}
       </>
