@@ -5,8 +5,7 @@
   &__social-title,
   &__social-icon,
   &__legal-links {
-    color: $color-white;
-    font-weight: 700;
+    color: $color-primary;
   }
   &__logo-container {
     width: 104px;
@@ -18,7 +17,7 @@
   &__social-title,
   &__sites,
   &__sites-link {
-    font-family: $secondary-font;
+    font-family: $primary-font;
   }
   &__sites-link {
     font-weight: 700;
@@ -46,5 +45,13 @@
     &::after {
       display: none;
     }
+  }
+  &__info,
+  &__sections,
+  &__contact {
+    background-color: transparent;
+  }
+  &__sites {
+    background-color: $color-gray-100;
   }
 }
