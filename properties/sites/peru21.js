@@ -56,6 +56,23 @@ export default {
       url: '/politicas-cookies',
     },
   ],
+  assets: {
+    nav: {
+      logo: 'logo.png',
+      logoSomos: 'white-logo.png',
+    },
+    header: {
+      logo: 'logo.png',
+    },
+    footer: {
+      logo: 'logo-footer.png',
+    },
+    seo: {
+      logoAmp: 'logo-publimetro-258x60.png',
+      width: 258,
+      height: 60,
+    },
+  },
 
   footer: {
     siteLegal: [

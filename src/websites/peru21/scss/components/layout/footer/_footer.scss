@@ -1,14 +1,14 @@
 .footer {
-  &__legal-item,
-  &__list-title,
-  &__list-link,
-  &__social-title,
-  &__social-icon,
-  &__legal-links {
-    color: $color-primary;
-  }
   &__logo-container {
     width: 104px;
+  }
+  &__social-title,
+  &__list-title,
+  &__social-icon {
+    color: $color-primary;
+  }
+  &__legal-links {
+    color: $color-gray-300;
   }
   &__legal-item,
   &__legal-links,
@@ -19,7 +19,9 @@
   &__sites-link {
     font-family: $primary-font;
   }
-  &__sites-link {
+  &__sites-link,
+  &__legal-item,
+  &__legal-links {
     font-weight: 700;
   }
   &__list-item {
@@ -30,20 +32,24 @@
         }
         margin-top: 10px;
         text-transform: uppercase;
-        font-weight: 400;
       }
     }
   }
-  &__list-title {
-    font-weight: 400;
-  }
+
   &__list-link {
     text-transform: none;
   }
   &__social-title {
-    font-weight: 400;
     &::after {
       display: none;
+    }
+  }
+  &__info,
+  &__sections {
+    &::after {
+      @media (--tablet) {
+        background-color: $color-gray-100;
+      }
     }
   }
   &__info,
@@ -53,5 +59,12 @@
   }
   &__sites {
     background-color: $color-gray-100;
+  }
+  &__contact {
+    .footer__list-link {
+      &:nth-child(1) {
+        font-weight: 400;
+      }
+    }
   }
 }
