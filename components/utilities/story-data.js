@@ -327,7 +327,7 @@ class StoryData {
     return (
       this.__data &&
       this.__data.content_restrictions &&
-      this.__data.content_restrictions.content_code === 'especial'
+      this.__data.content_restrictions.content_code === 'premium'
     )
   }
 
