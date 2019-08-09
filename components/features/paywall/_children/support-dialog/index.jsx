@@ -11,6 +11,7 @@ const SupportDialog = props => {
   const supportImageUrl = deployment(
     `${contextPath}${assets.path}${assets.paywall.support}`
   )
+  const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
   return (
     <Modal {...props}>
@@ -20,7 +21,8 @@ const SupportDialog = props => {
             media={`(${devices.mobile})`}
             srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
           />
-          <img src={supportImageUrl} alt="support" />
+          <source srcSet={fullAssets('support_webp')} type="image/webp" />
+          <img src={fullAssets('support')} alt="support" />
         </picture>
         <S.ContentWrapper>
           <S.Title>Soporte</S.Title>
