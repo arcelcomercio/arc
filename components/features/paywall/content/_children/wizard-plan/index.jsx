@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import CardPrice from './_children/card-price'
 import Summary from './_children/summary'
@@ -23,6 +23,12 @@ function WizardPlan(props) {
   const [openModal, setOpenModal] = useState(false)
 
   const Sales = addSales()
+
+  useEffect(() => {
+    Sales.then(sales => {
+      sales.clearCart()
+    })
+  }, [])
 
   function subscribePlanHandler(e, plan) {
     Sales.then(sales => {
