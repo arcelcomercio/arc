@@ -1,5 +1,5 @@
 .search-filter {
-  background-color: $color-base-200;
+  background-color: $color-base-400;
   &__item {
     font-family: $secondary-font;
     @media (--desktop) {
@@ -7,12 +7,12 @@
     }
     &.selected {
       .search-filter__link {
-        background-color: $color-tertiary;
+        background-color: $color-primary;
         color: $color-white;
       }
       &:before {
         @media (--desktop) {
-          border-color: $color-tertiary transparent transparent;
+          border-color: $color-primary transparent transparent;
         }
       }
     }
@@ -22,7 +22,7 @@
         color: $color-white;
 
         @media (--desktop) {
-          font-weight: 400;
+          font-weight: 700;
         }
       }
     }
@@ -47,5 +47,8 @@
     @media (--desktop) {
       color: $color-primary;
     }
+  }
+  &__link {
+    font-family: $primary-font;
   }
 }
