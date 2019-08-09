@@ -2,6 +2,7 @@
   &__section-logo {
     width: 105px;
     left: 15px;
+    z-index: 1;
     @media (--desktop) {
       left: 55px;
       width: 143px;
@@ -12,6 +13,7 @@
   }
   &__logo-container {
     right: 15px;
+    z-index: 1;
     @media (--desktop) {
       right: 55px;
     }
