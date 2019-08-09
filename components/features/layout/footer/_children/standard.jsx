@@ -29,8 +29,9 @@ const classes = {
   listSocial: 'footer__social flex pl-20 lg:pl-30',
   listSocialItem: 'footer__social-item',
   listSocialLink: 'footer__social-link',
+  linkedinIcon: 'footer__social-icon icon-linkedin pr-15',
   facebookIcon: 'footer__social-icon icon-facebook pr-15',
-  twitterIcon: 'footer__social-icon icon-twitter',
+  // twitterIcon: 'footer__social-icon icon-twitter',
 
   legalLinksWrapper: 'flex pt-20 text-white flex-wrap',
   legalLinks:
@@ -60,7 +61,6 @@ const StandardFooter = props => {
             className={classes.logoImg}
             src={logoUrl}
             alt={`Logo de ${arcSite}`}
-            
           />
         </a>
         <ul className={classes.legalList}>

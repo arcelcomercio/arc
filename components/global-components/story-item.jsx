@@ -7,7 +7,7 @@ import { reduceWord, formatDateLocalTimeZone } from '../utilities/helpers'
 const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray md:pl-0 md:pr-0  lg:p-0`,
   top: 'story-item__top flex items-center md:flex-col md:items-start',
-  section: 'story-item__section capitalize text-sm text-black md:mb-15',
+  section: 'story-item__section text-sm text-black md:mb-15',
   date: 'story-item__date font-thin ml-5 text-xs text-gray-300 md:mt-5 md:ml-0',
   bottom: 'story-item__bottom flex lg:pb-15',
   left: 'story-item__left flex flex-col justify-between pr-20 ',
@@ -100,7 +100,6 @@ class StoriesList extends PureComponent {
                       : element.multimediaLazyDefault
                   }
                   data-src={element.multimediaLandscapeS}
-                  
                 />
               </picture>
             </a>

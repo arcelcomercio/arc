@@ -112,7 +112,7 @@ const BuildHtml = BuildHtmlProps => {
             </figure>
             <p>${author}</p>
             <figure class="op-interactive">
-                <iframe frameborder="0" />
+                <iframe frameborder="0"></iframe>
             </figure>
             ${buildParagraph(paramsBuildParagraph)}
           </body>

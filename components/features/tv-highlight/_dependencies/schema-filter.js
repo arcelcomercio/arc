@@ -1,5 +1,7 @@
 export default `{ 
+    canonical_url 
     headlines { basic }
+    subheadlines { basic }
     credits {
       by { name url type }
     }
