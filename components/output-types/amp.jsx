@@ -104,11 +104,17 @@ const AmpOutputType = ({
     arcSite,
     globalContent,
   }
-  const { videoSeo } = new StoryData({
+  const {
+    videoSeo,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+  } = new StoryData({
     data: globalContent,
     arcSite,
     contextPath,
   })
+
+  const contenidoVideo =
+    content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
   return (
     <Html>
@@ -212,7 +218,7 @@ const AmpOutputType = ({
           custom-element="amp-facebook"
           src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"
         />
-        {videoSeo[0] && (
+        {contenidoVideo && (
           <>
             <script
               async

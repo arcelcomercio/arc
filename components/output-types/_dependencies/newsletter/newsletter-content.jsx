@@ -110,6 +110,10 @@ const NewsLetterContent = ({
       authorSlug: storydata.authorSlug,
       authorCargo: 'null',
     }
+
+
+    console.log("AQUI!!!!!!!!!!!!!!!!!!!!!")
+    console.log(thumb)
     return <StoryItem {...params} />
   })
   return listItemStories
