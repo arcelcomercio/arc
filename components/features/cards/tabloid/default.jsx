@@ -14,8 +14,8 @@ const classes = {
     'tabloid__header-link text-white uppercase font-bold text-xl primary-font',
   body:
     'tabloid__body flex flex-col items-center justify-center h-full position-relative pt-30 pb-10 pr-30 pl-30 bg-base-200',
-  date: 'tabloid__date flex items-center justify-center p-20 bg-base-200',
-  dateLink: 'tabloid__date-link text-sm text-gray-300 font-bold',
+  date:
+    'tabloid__date flex items-center justify-center text-sm text-gray-300 font-bold p-20 bg-base-200',
   face: 'tabloid__face object-cover',
 }
 
@@ -51,11 +51,7 @@ class CardTabloid extends PureComponent {
       customFields: { sectionName = '' } = {},
     } = this.props
     const { data = {} } = this.state
-    const {
-      title = '',
-      displayDate = '',
-      primarySectionLink = '',
-    } = new StoryData({
+    const { title = '', date = '', primarySectionLink = '' } = new StoryData({
       data,
       contextPath,
       arcSite,
@@ -77,42 +73,33 @@ class CardTabloid extends PureComponent {
       } = {},
     } = data
 
-    const nameDate = getLatinDate(displayDate, ' del', true)
+    const nameDate = getLatinDate(date, ' del', true)
     return (
       <div className={classes.tabloid}>
-        <div className={classes.header}>
-          <h4>
-            <a
-              className={classes.headerLink}
-              href={primarySectionLink}
-              {...editableField('sectionName')}
-              suppressContentEditableWarning>
-              {sectionName || sourceSectionName}
-            </a>
-          </h4>
-        </div>
-        <div className={classes.body}>
+        <h4 className={classes.header}>
+          <a
+            className={classes.headerLink}
+            href={primarySectionLink}
+            {...editableField('sectionName')}
+            suppressContentEditableWarning>
+            {sectionName || sourceSectionName}
+          </a>
+        </h4>
+        <a
+          className={classes.body}
+          href={linkTabloide}
+          target="_blank"
+          rel="noopener noreferrer">
           <picture>
-            <a href={linkTabloide} target="_blank" rel="noopener noreferrer">
-              <img
-                className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
-                src={isAdmin ? printedImage : lazyImage}
-                data-src={printedImage}
-                alt={title}
-              />
-            </a>
+            <img
+              className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
+              src={isAdmin ? printedImage : lazyImage}
+              data-src={printedImage}
+              alt={title}
+            />
           </picture>
-          {/* // TODO: cambiar por una etiqueta time */}
-          <h3 className={classes.date}>
-            <a
-              className={classes.dateLink}
-              href={linkTabloide}
-              target="_blank"
-              rel="noopener noreferrer">
-              {nameDate}
-            </a>
-          </h3>
-        </div>
+          <time className={classes.date}>{nameDate}</time>
+        </a>
       </div>
     )
   }
