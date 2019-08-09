@@ -35,6 +35,7 @@ const FeaturedStoryPremiumChild = ({
   multimediaSquareMD,
   multimediaLandscapeMD,
   multimediaLandscapeL,
+  multimediaLazyDefault,
   title,
   author,
   authorLink,
@@ -42,6 +43,7 @@ const FeaturedStoryPremiumChild = ({
   multimediaType,
   primarySectionLink,
   primarySection,
+  isAdmin,
 }) => {
   return (
     <div
@@ -89,11 +91,20 @@ const FeaturedStoryPremiumChild = ({
         <Icon type={multimediaType} iconClass={classes.icon} />
         <a href="/">
           <picture>
-            <source srcSet={multimediaLandscapeMD} media="(max-width: 367px)" />
-            <source srcSet={multimediaSquareMD} media="(max-width: 620px)" />
+            <source
+              srcSet={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
+              data-srcSet={multimediaLandscapeMD}
+              media="(max-width: 367px)"
+            />
+            <source
+              srcSet={isAdmin ? multimediaSquareMD : multimediaLazyDefault}
+              datasrcSet={multimediaSquareMD}
+              media="(max-width: 620px)"
+            />
             <img
-              className={classes.image}
-              src={multimediaLandscapeL}
+              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+              src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
+              data-src={multimediaLandscapeL}
               alt={title}
               loading="lazy"
             />

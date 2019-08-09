@@ -74,7 +74,7 @@ class NavBarDefault extends PureComponent {
       nameUser: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
       initialUser: new GetProfile().initname,
     }
-    // Resizer.setResizeListener()
+
     this.inputSearch = React.createRef()
 
     this.dragFlag = false
@@ -98,9 +98,15 @@ class NavBarDefault extends PureComponent {
     this.layerBackground = document.querySelector('.layer')
 
     if (this.listContainer !== null && this.listContainer !== 'undefined') {
-      document.body.addEventListener('touchstart', this._initDrag, { passive: true })
-      document.body.addEventListener('touchend', this._endDrag, { passive: true })
-      document.body.addEventListener('touchmove', this._moveDrag, { passive: true })
+      document.body.addEventListener('touchstart', this._initDrag, {
+        passive: true,
+      })
+      document.body.addEventListener('touchend', this._endDrag, {
+        passive: true,
+      })
+      document.body.addEventListener('touchmove', this._moveDrag, {
+        passive: true,
+      })
     }
 
     if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
@@ -378,7 +384,6 @@ class NavBarDefault extends PureComponent {
   // }
 
   toggleBodyOverflow = () => {
-    console.log('ejecuta')
     if (typeof window !== 'undefined') {
       if (document.body.classList.contains('overflow-hidden'))
         document.body.classList.remove('overflow-hidden')
@@ -414,7 +419,6 @@ class NavBarDefault extends PureComponent {
   // Open - Close Search
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
-    console.log('pasa handle')
     this.toggleBodyOverflow()
     if (statusSidebar) this._closeMenu()
     else this._openMenu()
@@ -596,9 +600,7 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${
-                        classes.btnLogin
-                      } btn--outline` /* classes.btnSignwall */
+                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     {/* 
@@ -621,9 +623,7 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${
-                  classes.navMobileContainer
-                } ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -637,9 +637,7 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwallMobile
-                          }  title-sm`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
                     }>
                     {initialUser}
                   </i>
