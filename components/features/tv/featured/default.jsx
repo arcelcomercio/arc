@@ -18,14 +18,14 @@ const TvFeatured = () => {
       </a>
 
       <div className="p-15">
-        <div className="bg-white">NUEVO EPISODIO</div>
+        <div className="text-white">NUEVO EPISODIO</div>
         <h2>
-          <a href="/">
+          <a href="/" className="text-white">
             Keiko Fujimori: Corte Suprema emite fallo de casación de Keiko para
             determinar si continúa en prisión
           </a>
         </h2>
-        <time className="" dateTime="9/8/2019">
+        <time className="text-white" dateTime="9/8/2019">
           9/8/2019
         </time>
       </div>

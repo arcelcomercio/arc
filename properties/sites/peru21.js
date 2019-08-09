@@ -1,14 +1,15 @@
 export default {
   siteName: 'Perú21',
 
-  googleFonts: 'Lato', // open_sansregular
+  googleFonts: 'Lato:400,700|Exo:500',
 
   colorPrimary: '#f7c600',
   siteDomain: 'peru21.pe',
   siteUrl: 'https://peru21.pe',
   resizerUrl: 'https://elcomercio-peru21-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
-  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KKXTKGP',
   ampGoogleTagManagerId: 'UA-3055636-3',
@@ -17,7 +18,8 @@ export default {
   idGoogleAnalitics: 'UA-3055636-4',
   fbArticleStyle: 'LogoPeru21',
   nameStoryRelated: 'VEA TAMBIÉN',
-  siteDescription: 'Noticias de Perú y el mundo en Peru21.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  siteDescription:
+    'Noticias de Perú y el mundo en Peru21.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
@@ -40,7 +42,8 @@ export default {
     frequentQuestions: '',
   },
 
-  legalLinks: [{
+  legalLinks: [
+    {
       name: 'Términos y condiciones',
       url: '/terminos-servicio',
     },
@@ -62,7 +65,8 @@ export default {
       'Grupo El Comercio - Todos los derechos reservados',
     ],
 
-    socialNetworks: [{
+    socialNetworks: [
+      {
         name: 'facebook',
         url: 'https://www.facebook.com/elcomercio.pe',
       },
@@ -76,7 +80,8 @@ export default {
       },
     ],
 
-    contacts: [{
+    contacts: [
+      {
         position: 'Director Periodístico',
         name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
       },
@@ -121,5 +126,5 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
   ],
-  activeSignwall: false
+  activeSignwall: false,
 }
