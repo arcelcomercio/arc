@@ -31,6 +31,6 @@ class StorySocial extends PureComponent {
   }
 }
 
-StorySocial.label = 'Artículo - Redes Sociales'
+StorySocial.label = 'Artículo - redes sociales'
 
 export default StorySocial

@@ -28,7 +28,7 @@ class StoryTitle extends PureComponent {
   }
 }
 
-StoryTitle.label = 'Artículo - Titulo'
+StoryTitle.label = 'Artículo - Título'
 StoryTitle.static = true
 
 export default StoryTitle
