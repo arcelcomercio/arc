@@ -5,6 +5,7 @@ const storySchemaBase = `
     content: String
     subtype: String!
     version: String!
+    content_restrictions:  ContentRestrictions
     description: Description
     headlines: Headlines
     subheadlines: Subheadlines
@@ -21,6 +22,9 @@ const storySchemaBase = `
   `
 
 const storySchemaTypes = `
+    type  ContentRestrictions {
+      content_code: String
+    } 
     type Description {
       basic: String
     }
