@@ -323,6 +323,14 @@ class StoryData {
     return (this._data && this._data.last_updated_date) || ''
   }
 
+  get isPremium() {
+    return (
+      this.__data &&
+      this.__data.content_restrictions &&
+      this.__data.content_restrictions.content_code === 'especial'
+    )
+  }
+
   get videoId() {
     return (
       (this._data &&
