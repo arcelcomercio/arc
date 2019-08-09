@@ -51,11 +51,7 @@ class CardTabloid extends PureComponent {
       customFields: { sectionName = '' } = {},
     } = this.props
     const { data = {} } = this.state
-    const {
-      title = '',
-      date = '',
-      primarySectionLink = '',
-    } = new StoryData({
+    const { title = '', date = '', primarySectionLink = '' } = new StoryData({
       data,
       contextPath,
       arcSite,
@@ -80,17 +76,15 @@ class CardTabloid extends PureComponent {
     const nameDate = getLatinDate(date, ' del', true)
     return (
       <div className={classes.tabloid}>
-        <div className={classes.header}>
-          <h4>
-            <a
-              className={classes.headerLink}
-              href={primarySectionLink}
-              {...editableField('sectionName')}
-              suppressContentEditableWarning>
-              {sectionName || sourceSectionName}
-            </a>
-          </h4>
-        </div>
+        <h4 className={classes.header}>
+          <a
+            className={classes.headerLink}
+            href={primarySectionLink}
+            {...editableField('sectionName')}
+            suppressContentEditableWarning>
+            {sectionName || sourceSectionName}
+          </a>
+        </h4>
         <div className={classes.body}>
           <picture>
             <a href={linkTabloide} target="_blank" rel="noopener noreferrer">
@@ -102,8 +96,7 @@ class CardTabloid extends PureComponent {
               />
             </a>
           </picture>
-          {/* // TODO: cambiar por una etiqueta time */}
-          <h3 className={classes.date}>
+          <time className={classes.date}>
             <a
               className={classes.dateLink}
               href={linkTabloide}
@@ -111,7 +104,7 @@ class CardTabloid extends PureComponent {
               rel="noopener noreferrer">
               {nameDate}
             </a>
-          </h3>
+          </time>
         </div>
       </div>
     )
