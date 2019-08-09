@@ -45,7 +45,12 @@ const getVars = (
         sectionList[0] === 'noticia' ? 'tags' : sectionList[0].replace('-', '')
 
       if (isStory && sectionList.length >= 3) {
-        const { id, multimediaType, primarySectionLink } = new StoryData({
+        const {
+          id,
+          multimediaType,
+          primarySectionLink,
+          contentRestrictions,
+        } = new StoryData({
           data: globalContent,
           arcSite,
         })
@@ -58,9 +63,10 @@ const getVars = (
             ) /** /sección/esta-es-la-sub-seccion */
 
         dataStory = `
-        var tipo_nota = '${getMultimedia(multimediaType, true)}'
-        var id_nota = '${id}'
-        `
+      var tipo_nota = '${getMultimedia(multimediaType, true)}'
+      var id_nota = '${id}' 
+      var content_paywall = ${contentRestrictions}
+      `
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')
       }
@@ -72,13 +78,14 @@ const getVars = (
     typeSpace = 'nota5'
 
   return `
-  var type_space = '${typeSpace}'
-  var site = '${getSite(site)}'
-  var type_template = '${template}'
-  var section = '${section}'
-  var subsection = '${subsection}'
-  var path_name = '${path}'
-  ${dataStory}
+      var type_space = '${typeSpace}'
+      var site = '${getSite(site)}'
+      var type_template = '${template}'
+      var section = '${section}'
+      var subsection = '${subsection}'
+      var path_name = '${path}'
+      ${dataStory}
+
 `
 }
 const AppNexus = props => {

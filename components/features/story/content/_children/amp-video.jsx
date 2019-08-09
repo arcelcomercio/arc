@@ -25,20 +25,18 @@ const StoryContentChildVideo = ({ data }) => {
   const [{ url, urlImage } = {}] = dataVideo
 
   return (
-    <>
-      <amp-video
-        controls
-        src={url}
-        poster={urlImage}
-        artwork={urlImage}
-        title={caption}
-        album="Blender"
-        width="720"
-        height="405"
-        layout="responsive"
-        dock="#dock-slot"
-      />
-    </>
+    <amp-video
+      src={url}
+      poster={urlImage}
+      artwork={urlImage}
+      title={caption}
+      album="Blender"
+      width="720"
+      height="405"
+      layout="responsive"
+      controls="controls"
+      dock="#dock-slot"
+    />
   )
 }
 export default StoryContentChildVideo
