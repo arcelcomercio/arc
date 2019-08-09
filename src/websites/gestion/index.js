@@ -22,5 +22,6 @@ import './images/default-lg.png'
 import './images/img_soporte.png'
 import './images/signwall/bg_paywall.png'
 import './images/signwall/bg_login.png'
+import './images/paywall/bg-planes-10.png'
 
 import '../../../components/utilities/lazyload'
