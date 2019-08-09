@@ -1,12 +1,23 @@
 .tabloid {
-  background-color: $color-base-200;
   &__header {
-    background-color: $color-primary;
+    background-color: $color-base-200;
   }
   &__header-link {
-    font-weight: 400;
+    font-weight: 700;
+  }
+  &__body {
+    background-color: $color-base-400;
+    padding-bottom: 30px;
+  }
+  &__face {
+    width: 273px;
+    height: 188px;
   }
   &__date {
-    display: none;
+    order: -1;
+    background-color: transparent;
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 16px;
   }
 }

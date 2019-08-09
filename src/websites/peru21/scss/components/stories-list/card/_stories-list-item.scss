@@ -1,19 +1,19 @@
 .stories-l-item {
   background-color: transparent;
-  border-color: $color-secondary;
+  border-color: $color-base-400;
 
   &:last-child {
     border-bottom: 0;
   }
 
   &__time {
-    color: $color-primary;
+    color: $color-base-200;
     display: block;
-    font-family: $secondary-font;
     font-weight: 700;
     margin-bottom: 5px;
   }
   &__link {
     font-size: 12px;
+    font-family: $secondary-font;
   }
 }
