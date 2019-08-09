@@ -9,7 +9,8 @@ export default {
   linkTabloide: 'http://ediciondigital.ojo.pe/lima/20190808/',
   resizerUrl: 'https://elcomercio-ojo-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
-  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Ojo_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Ojo_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1579310032347237',
   googleTagManagerId: 'GTM-KZX7JN3',
   ampGoogleTagManagerId: 'UA-15668535-1',
@@ -18,7 +19,8 @@ export default {
   idGoogleAnalitics: 'UA-15668535-1',
   fbArticleStyle: 'default',
   nameStoryRelated: 'VEA TAMBIÉN',
-  siteDescription: 'Noticias de Perú y el mundo en ojo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  siteDescription:
+    'Noticias de Perú y el mundo en ojo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://ojo.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: 'ND7742VX7JAILGYP7NTCU3P45Q',
@@ -47,7 +49,8 @@ export default {
       height: 60,
     },
   },
-  legalLinks: [{
+  legalLinks: [
+    {
       name: 'Términos y Condiciones',
       url: '/terminos-y-condiciones/',
     },
@@ -68,7 +71,8 @@ export default {
       'Copyright © ojo.pe',
       '2019 © PrenSmart S.A.C. Todos los derechos reservados',
     ],
-    story: [{
+    story: [
+      {
         position: 'Publicidad Online: fonoavisos@comercio.com.pe ',
         name: 'Contacto Administrativo: contacto@prensmart.pe',
       },
@@ -81,7 +85,8 @@ export default {
         name: '2019 © PrenSmart S.A.C. Todos los derechos reservados',
       },
     ],
-    socialNetworks: [{
+    socialNetworks: [
+      {
         name: 'facebook',
         url: 'https://www.facebook.com/DiarioOjo',
       },
@@ -95,7 +100,8 @@ export default {
       },
     ],
 
-    contacts: [{
+    contacts: [
+      {
         position: 'Director Periodístico',
         name: 'Jaime Asian Dominguez   jasian@grupoepensa.pe',
       },
