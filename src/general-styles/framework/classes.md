@@ -271,34 +271,34 @@ Las siguientes clases relacionadas a textos definen la familia de fuente (normal
 Las clases para definir tamaños de fuentes `font-size`, son construidas por un generador que puede ser visto en detalle en `framework/generators/_generate-font-sizes.scss`. Además, las variables usadas para definir los tamaños de fuentes están ubicadas en `framework/variables/_declare-sizes.scss`.
 Las clases disponibles son:
 
-- `text-xs` = \$font-xs = 0.7em
-- `text-sm` = \$font-sm = 0.8em
-- `text-md` = \$font-md = 0.9em
-- `text-lg` = \$font-lg = 1em
-- `text-xl` = \$font-xl = 1.1em
+- `text-xs` = \$font-xs = 0.7rem
+- `text-sm` = \$font-sm = 0.8rem
+- `text-md` = \$font-md = 0.9rem
+- `text-lg` = \$font-lg = 1rem
+- `text-xl` = \$font-xl = 1.1rem
 
-- `title-xs` = \$header-xs = 1.3em
-- `title-sm` = \$header-sm = 1.5em
-- `title-md` = \$header-md = 1.7em
-- `title-lg` = \$header-lg = 2em
-- `title-xl` = \$header-xl = 2.2em
+- `title-xs` = \$header-xs = 1.3rem
+- `title-sm` = \$header-sm = 1.5rem
+- `title-md` = \$header-md = 1.7rem
+- `title-lg` = \$header-lg = 2rem
+- `title-xl` = \$header-xl = 2.2rem
 
 ###### Ej.
 
 ```
 .text-lg {
-    font-size: 1em;
+    font-size: 1rem;
 }
 
 .title-xs {
-    font-size: 1.3em;
+    font-size: 1.3rem;
 }
 ```
 
 > Los tamaños de fuente base por breakpoint están definidos en la etiqueta html.
-> mobile = 1em = 13px
-> tablet = 1em = 14px
-> desktop = 1em = 16px
+> mobile = 1rem = 13px
+> tablet = 1rem = 14px
+> desktop = 1rem = 16px
 
 ### Colores de textos
 

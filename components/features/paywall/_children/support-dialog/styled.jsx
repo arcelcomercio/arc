@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
-import Icon from '../icon'
+import { devices } from '../../_dependencies/devices'
 
 export const Colors = {
   BLACK: '#444444',
@@ -11,13 +10,17 @@ export const Colors = {
 
 export const DialogContent = styled.div`
   display: flex;
+  justify-content: center;
+  width: calc(100vw - 48px);
   max-width: 820px;
   height: 530px;
   border-radius: 4px;
   background-color: #fefefe;
+  position: relative;
 `
 
 export const ContentWrapper = styled.div`
+  border-radius: 4px;
   width: 310px;
   padding: 40px;
   background-color: ${Colors.LIGHT_PINK};
@@ -57,4 +60,10 @@ export const Paragraph = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: ${Colors.BLACK};
+`
+
+export const LongMail = styled.span`
+  @media (${devices.mobile}) {
+    font-size: 12px;
+  }
 `

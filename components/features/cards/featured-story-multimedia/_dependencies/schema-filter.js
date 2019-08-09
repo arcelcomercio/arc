@@ -12,6 +12,7 @@ export default arcSite => {
         type 
         resized_urls { 
           landscape_md
+          lazy_default
         } 
       }
       basic_video {
@@ -21,6 +22,7 @@ export default arcSite => {
             type 
             resized_urls { 
               landscape_md
+              lazy_default
             } 
           }
         }
@@ -32,6 +34,7 @@ export default arcSite => {
             type 
             resized_urls { 
               landscape_md
+              lazy_default
             } 
           }
         }

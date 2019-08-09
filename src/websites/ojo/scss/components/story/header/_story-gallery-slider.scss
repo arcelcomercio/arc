@@ -2,12 +2,4 @@
   &__quantity {
     background-color: $color-white;
   }
-  &__arrows {
-    outline: 0;
-    height: calc(100% - 50%);
-    @media (--desktop) {
-      height: calc(100% - 86px);
-    }
-    width: 50px;
-  }
 }

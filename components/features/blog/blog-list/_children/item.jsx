@@ -38,7 +38,7 @@ const BlogListChildItem = ({
               data-src={authorImg}
               alt=""
               className={`${isAdmin ? '' : 'lazy'} ${classes.avatar}`}
-              loading="lazy"
+              
             />
           </a>
         </figure>

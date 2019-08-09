@@ -60,7 +60,7 @@ const SecondaryFooter = props => {
             className={classes.logoImg}
             src={logoUrl}
             alt={`Logo de ${arcSite}`}
-            loading="lazy"
+            
           />
         </a>
       </div>

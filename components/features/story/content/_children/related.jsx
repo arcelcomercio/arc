@@ -64,7 +64,7 @@ const RenderRelatedContentElement = (props, i, isAmp) => {
               src={filterData.multimediaImg}
               alt={filterData.nameTitle}
               className={classes.image}
-              loading="lazy"
+              
             />
           )}
 

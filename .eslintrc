@@ -42,7 +42,8 @@
       {
         "allowForLoopAfterthoughts": true
       }
-    ]
+    ],
+    "react-hooks/exhaustive-deps": 'warn'
   },
   "globals": {
     "document": true,

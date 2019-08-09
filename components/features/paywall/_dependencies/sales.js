@@ -1,9 +1,7 @@
-import ENV from 'fusion:environment'
+import getService from './services'
 import addScriptAsync from '../../../utilities/script-async'
 
-const addSales = ({ services }) => {
-  window.ENV = ENV;
-  const { getService } = services.setEnv(ENV)
+const addSales = () => {
   return addScriptAsync({
     name: 'sdkSalesARC',
     url: getService('ORIGIN_SALES_SDK'),

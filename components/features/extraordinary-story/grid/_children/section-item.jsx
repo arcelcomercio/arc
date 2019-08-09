@@ -16,7 +16,7 @@ const ExtraordinayStoryGridSectionItem = props => {
             className={classes.image}
             src={data.image}
             alt={data.name}
-            loading="lazy"
+            
           />
         </figure>
         <p className={classes.title}>{data.name}</p>

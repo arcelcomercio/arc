@@ -33,7 +33,7 @@ export const Modal = styled.div`
 `
 
 export const Content = styled.div`
-  position: absolute;
+  position: relative;
 `
 
 export const CloseButton = styled(props => (
@@ -45,5 +45,6 @@ export const CloseButton = styled(props => (
   top: 30px;
   right: 30px;
   border: none;
+  z-index: 1000;
   background: none;
 `

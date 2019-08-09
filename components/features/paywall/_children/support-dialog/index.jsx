@@ -3,13 +3,7 @@ import { useFusionContext } from 'fusion:context'
 
 import { devices } from '../../_dependencies/devices'
 import Modal from '../modal'
-import {
-  DialogContent,
-  ContentWrapper,
-  Title,
-  Subtitle,
-  Paragraph,
-} from './styled'
+import * as S from './styled'
 
 const SupportDialog = props => {
   const { contextPath, deployment, siteProperties } = useFusionContext()
@@ -20,7 +14,7 @@ const SupportDialog = props => {
 
   return (
     <Modal {...props}>
-      <DialogContent>
+      <S.DialogContent>
         <picture>
           <source
             media={`(${devices.mobile})`}
@@ -28,37 +22,39 @@ const SupportDialog = props => {
           />
           <img src={supportImageUrl} alt="support" />
         </picture>
-        <ContentWrapper>
-          <Title>Soporte</Title>
+        <S.ContentWrapper>
+          <S.Title>Soporte</S.Title>
           <br />
-          <Subtitle>
+          <S.Subtitle>
             Si tienes dudas o consultas, llámanos o envíanos un correo
-          </Subtitle>
+          </S.Subtitle>
           <br />
-          <Paragraph>
+          <S.Paragraph>
             <b>Central Telefónica:</b>
             <br />
             (+51) 311 5100
-          </Paragraph>
+          </S.Paragraph>
           <br />
-          <Paragraph>
+          <S.Paragraph>
             <b>Horario de atención:</b>
             <br />
             De lunes a viernes: 7 am - 2 pm <br />
             Sábados, domingos y feriados: de 7am - 1pm
-          </Paragraph>
+          </S.Paragraph>
           <br />
-          <Paragraph paragraph>
+          <S.Paragraph paragraph>
             <b>Correos:</b>
             <br />
-            - Servicio al cliente y Ventas: suscriptores@diariogestión.com.pe
+            <span>
+              - Servicio al cliente y Ventas: suscriptores@diariogestión.com.pe
+            </span>
             <br />
-            - Pagos pendientes y Facturación:
-            cobranzas@suscripcionesintegrales.com.pe
+            <span>- Pagos pendientes y Facturación: </span>
+            <S.LongMail>cobranzas@suscripcionesintegrales.com.pe</S.LongMail>
             <br />
-          </Paragraph>
-        </ContentWrapper>
-      </DialogContent>
+          </S.Paragraph>
+        </S.ContentWrapper>
+      </S.DialogContent>
     </Modal>
   )
 }

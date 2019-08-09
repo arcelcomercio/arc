@@ -1,5 +1,5 @@
-import ENV from 'fusion:environment'
 import addScriptAsync from '../../../utilities/script-async'
+import getService from './services'
 
 export const attrToObject = (attributes = [], getAttributes = []) => {
   return getAttributes.reduce((prev, name) => {
@@ -12,8 +12,7 @@ export const attrToObject = (attributes = [], getAttributes = []) => {
   }, {})
 }
 
-const AddIdentity = ({ services }) => {
-  const { getService } = services.setEnv(ENV)
+const AddIdentity = () => {
   return addScriptAsync({
     name: 'sdkIndetityARC',
     url: getService('ORIGIN_IDENTITY_SDK'),

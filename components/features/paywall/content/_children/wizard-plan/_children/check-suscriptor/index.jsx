@@ -15,6 +15,7 @@ const MESSAGE = {
   MAX: 'Longitud inválida, máximo ${max} caracteres.',
   WRONG_EXPIRY_DATE: 'Fecha incorrecta',
   CHECK_REQUIRED: 'Debe seleccionar el check',
+  DNI: 'Longitud inválida, requiere 8 dígitos',
 }
 
 export const FormSchema = schema({
@@ -36,7 +37,9 @@ export const FormSchema = schema({
   },
 })
 
-export default function CheckSuscription() {
+export default function CheckSuscription(props) {
+  const { close } = props
+
   return (
     <S.Panel>
       <S.Content>

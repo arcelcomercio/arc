@@ -38,7 +38,7 @@ const OpinionChildItem = ({
         </div>
       </div>
       <div className={classes.imageContainer}>
-        <img className={classes.image} src={urlImg} alt="" loading="lazy" />
+        <img className={classes.image} src={urlImg} alt=""  />
       </div>
     </div>
   )

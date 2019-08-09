@@ -38,10 +38,7 @@ class Content extends React.Component {
   }
 
   componentDidMount() {
-    const { siteProperties } = this.props
-    // console.log(.getService('ORIGIN_API'))
-
-    AddIdentity(siteProperties).then(() => {
+    AddIdentity().then(() => {
       userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
         this.setState({ profile })
       })
@@ -61,9 +58,9 @@ class Content extends React.Component {
   }
 
   render() {
-    const { data, profile, loading } = this.state
+    const { profile, loading } = this.state
     const { globalContent } = this.props
-    const { summary = [], plans, printed } = globalContent
+    const { summary = [], plans, printed, error: message } = globalContent
 
     const {
       contextPath,
@@ -86,6 +83,8 @@ class Content extends React.Component {
             isLazyMount
             nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
             <WizardPlan
+              message={message}
+              printed={!!printed}
               memo={this.memo}
               plans={plans}
               summary={summary}

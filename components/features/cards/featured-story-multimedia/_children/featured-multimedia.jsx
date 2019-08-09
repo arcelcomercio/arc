@@ -55,7 +55,7 @@ export default ({
             src={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
             data-src={multimediaLandscapeMD}
             alt={title}
-            loading="lazy"
+            
           />
           <Icon type={multimediaType} iconClass="" />
         </picture>

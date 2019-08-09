@@ -6,7 +6,6 @@ export default {
   googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
-  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://gestion.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
@@ -42,29 +41,6 @@ export default {
     cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
     aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
-  },
-
-  services: {
-    ORIGIN_API: ENV => {
-      const _env_ = ENV === 'elcomercio' ? '' : '-sandbox'
-      return `https://api${_env_}.gestion.pe`
-    },
-    ORIGIN_IDENTITY_SDK: ENV => {
-      const _env_ = ENV === 'elcomercio' ? 'prod' : 'sandbox' // included localhost
-      return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-identity.min.js`
-    },
-    ORIGIN_SALES_SDK: ENV => {
-      const _env_ = ENV === 'elcomercio' ? 'prod' : 'sandbox' // included localhost
-      return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-sales.min.js`
-    },
-    ORIGIN_PAYU_SDK: ENV => {
-      return `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`
-    },
-    setEnv({ ENVIRONMENT }) {
-      return {
-        getService: service => this[service](ENVIRONMENT),
-      }
-    },
   },
 
   assets: {
@@ -158,23 +134,15 @@ export default {
         position: 'Director Periodístico',
         name: 'JULIO LIRA SEGURA',
       },
-      {
-        position: 'Editor Web',
-        name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
-      },
+      // {
+      //   position: 'Editor Web',
+      //   name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
+      // },
       {
         position: '',
         name: '',
       },
     ],
-  },
-  apps: {
-    android: {
-      url: 'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer'
-    },
-    ios: {
-      url: 'https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer'
-    }
   },
   social: {
     facebook: {
@@ -193,8 +161,8 @@ export default {
     },
     linkedin: {
       name: 'linkedin',
-      url: 'https://www.linkedin.com/company/diario-gestión/'
-    }
+      url: 'https://www.linkedin.com/company/diario-gestión/',
+    },
   },
   adsAmp: {
     dataSlot: 28253241,

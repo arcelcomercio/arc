@@ -7,6 +7,7 @@ import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
 import AmpTagManager from './_children/amp-tag-manager'
 import { createMarkup, addSlashToEnd } from '../utilities/helpers'
+import StoryData from '../utilities/story-data'
 
 const AmpOutputType = ({
   children,
@@ -103,6 +104,18 @@ const AmpOutputType = ({
     arcSite,
     globalContent,
   }
+  const {
+    videoSeo,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+  } = new StoryData({
+    data: globalContent,
+    arcSite,
+    contextPath,
+  })
+
+  const contenidoVideo =
+    content.includes('id="powa-') || videoSeo[0] ? 1 : false
+
   return (
     <Html>
       <head>
@@ -205,11 +218,20 @@ const AmpOutputType = ({
           custom-element="amp-facebook"
           src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"
         />
-        <script
-          async
-          custom-element="amp-video"
-          src="https://cdn.ampproject.org/v0/amp-video-0.1.js"
-        />
+        {contenidoVideo && (
+          <>
+            <script
+              async
+              custom-element="amp-video"
+              src="https://cdn.ampproject.org/v0/amp-video-0.1.js"
+            />
+            <script
+              async
+              custom-element="amp-video-docking"
+              src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
+            />
+          </>
+        )}
       </head>
       <body className="">
         <AmpTagManager {...parametros} />

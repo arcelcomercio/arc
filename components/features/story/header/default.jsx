@@ -16,13 +16,19 @@ const classes = {
 @Consumer
 class StoryHeader extends PureComponent {
   render() {
-    const { contextPath, globalContent: data, subtype, arcSite } = this.props
+    const {
+      contextPath,
+      globalContent: data,
+      subtype,
+      arcSite,
+      isAdmin,
+    } = this.props
     const { contentElementGallery, title, subTitle, link } = new StoryData({
       data,
       contextPath,
     })
 
-    const parameters = { contentElementGallery, title, subTitle, link }
+    const parameters = { contentElementGallery, title, subTitle, link, isAdmin }
     return (
       <>
         <div
