@@ -97,7 +97,7 @@
       }
     } */
 
-    &--login-m{
+    &--login-m {
       width: 34px;
       height: 34px;
       padding: 6px;
@@ -209,6 +209,9 @@
 
       .nav__search-box {
         display: none;
+      }
+      .nav__container-menu {
+        border-right-color: $color-white;
       }
     }
   }
