@@ -24,6 +24,7 @@ const FeaturedStoryPremium = props => {
       query: contentConfigValues,
       filter: schemaFilter(arcSite),
     }) || {}
+  console.table(data)
   const {
     isPremium,
     websiteLink,
@@ -68,6 +69,6 @@ FeaturedStoryPremium.propTypes = {
   customFields,
 }
 
-FeaturedStoryPremium.static = true
+// FeaturedStoryPremium.static = true
 FeaturedStoryPremium.label = 'Destaque Premium'
 export default FeaturedStoryPremium
