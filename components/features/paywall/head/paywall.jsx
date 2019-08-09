@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
@@ -76,6 +77,16 @@ class Head extends React.PureComponent {
       </div>
     )
   }
+}
+
+Head.propTypes = {
+  customFields: PropTypes.shape({
+    forceLogin: PropTypes.bool.tag({
+      name: 'Forzar login:',
+      defaultValue: true,
+      description: 'Check para forzar a estar logeado.',
+    }),
+  }),
 }
 
 export default Head

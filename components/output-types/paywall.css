@@ -4,6 +4,10 @@ body{
     font-size: 12px
 }
 
+body.fix-modal{
+  overflow: hidden;
+}
+
 button,
 input,
 select,
@@ -15,3 +19,4 @@ textarea {
 input:focus, select:focus{
   outline: none
 }
+
