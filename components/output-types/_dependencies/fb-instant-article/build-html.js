@@ -1,6 +1,6 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 
-const buildIframeAdvertising = urlAdvertising => {
+const buildIframeAdvertising = (urlAdvertising) => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
 
@@ -8,53 +8,57 @@ const buildParagraph = ({
   paragraphsNews = [],
   numwords = 250,
   arrayadvertising = [],
+  
 }) => {
-  const newsWithAdd = []
-  let countWords = 0
-  let IndexAdd = 0
-  let resultParagraph = ''
+  const newsWithAdd = [];
+  let countWords = 0;
+  let IndexAdd = 0;
+  let resultParagraph = "";
 
   paragraphsNews.forEach((paragraphItem, index) => {
-    let paragraph = paragraphItem.trim()
-    paragraph = paragraph.replace(/<\/?br[^<>]+>/, '')
+    let paragraph = paragraphItem.trim();
+    paragraph = paragraph.replace(/<\/?br[^<>]+>/, "");
     // el primer script de publicidad se inserta despues del segundo parrafo
 
     if (index <= 1) {
       if (index === 1) {
         newsWithAdd.push(`<p>${paragraph}</p> 
-            ${arrayadvertising[IndexAdd] === undefined &&
-              buildIframeAdvertising(arrayadvertising[IndexAdd])}`)
-        IndexAdd += 1
+            ${
+              arrayadvertising[IndexAdd]
+                ? buildIframeAdvertising( arrayadvertising[IndexAdd])
+                : ""
+            }`);
+        IndexAdd += 1;
       } else {
-        newsWithAdd.push(`<p>${paragraph}</p>`)
+        newsWithAdd.push(`<p>${paragraph}</p>`);
       }
     } else {
       // al segundo parrafo se inserta cada 250 palabras (numwords)
-      let paragraphwithAdd = paragraph
-      paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
+      let paragraphwithAdd = paragraph;
+      paragraph = paragraph.replace(/(<([^>]+)>)/gi, "");
 
-      const arrayWords = paragraph.split(' ')
+      const arrayWords = paragraph.split(" ");
       if (arrayWords.length <= numwords) {
-        countWords += arrayWords.length
+        countWords += arrayWords.length;
       }
 
       if (countWords >= numwords) {
-        countWords = 0
+        countWords = 0;
         paragraphwithAdd = `<p>${paragraphwithAdd}</p> ${
           arrayadvertising[IndexAdd]
             ? buildIframeAdvertising(arrayadvertising[IndexAdd])
-            : ''
-        }`
-        IndexAdd += 1
+            : ""
+        }`;
+        IndexAdd += 1;
       } else {
-        paragraphwithAdd = `<p>${paragraphwithAdd}</p>`
+        paragraphwithAdd = `<p>${paragraphwithAdd}</p>`;
       }
-      newsWithAdd.push(`${paragraphwithAdd.trim()}`)
+      newsWithAdd.push(`${paragraphwithAdd.trim()}`);
     }
-  })
-  resultParagraph = newsWithAdd.map(item => item).join('')
-  return resultParagraph
-}
+  });
+  resultParagraph = newsWithAdd.map(item => item).join("");
+  return resultParagraph;
+};
 
 const BuildHtml = BuildHtmlProps => {
   const {
@@ -74,7 +78,8 @@ const BuildHtml = BuildHtmlProps => {
   const paramsBuildParagraph = {
     paragraphsNews,
     numwords,
-    arrayadvertising: listUrlAdvertisings,
+    arrayadvertising: listUrlAdvertisings
+    
   }
 
   const element = `
@@ -107,7 +112,7 @@ const BuildHtml = BuildHtmlProps => {
             </figure>
             <p>${author}</p>
             <figure class="op-interactive">
-                <iframe frameborder="0" ></iframe>
+                <iframe frameborder="0" />
             </figure>
             ${buildParagraph(paramsBuildParagraph)}
           </body>
