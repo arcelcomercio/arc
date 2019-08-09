@@ -1,38 +1,35 @@
 import React from 'react'
 
+import TvHeader from './_children/header'
+
 const TvFeatured = () => {
   return (
-    <>
-      <div className="tv-featured bg-black position-relative">
-        {/** Navbar */}
-        <a
-          href="https://peru21.pe/peru21tv"
-          className="tv-featured__section-logo block position-absolute mt-25">
+    <div className="tv-featured position-relative">
+      <TvHeader />
+
+      <a href="/" className="block">
+        <picture className="tv-featured__picture block ">
           <img
-            className="w-full"
-            src="https://assets.peru21.pe/img/p21tv/logo_p21tv.png"
+            className="object-cover w-full h-full"
+            src="https://img.peru21.pe/files/listing_p21_p21tv_home_destaque_principal/uploads/2019/08/09/5d4d848e6ba7e.jpeg"
             alt=""
           />
-        </a>
-        <div className="tv-featured__logo-container  position-absolute flex mt-25">
-          <button type="button" className="mr-20">
-            <i className="tv-featured__icon icon-hamburguer text-white"></i>
-          </button>
-          <a href="https://peru21.pe/" className="tv-featured__logo block">
-            <img
-              className="w-full"
-              src="https://assets.peru21.pe/img/p21tv/logo_peru21_m.png"
-              alt=""
-            />
+        </picture>
+      </a>
+
+      <div className="p-15">
+        <div className="bg-white">NUEVO EPISODIO</div>
+        <h2>
+          <a href="/">
+            Keiko Fujimori: Corte Suprema emite fallo de casación de Keiko para
+            determinar si continúa en prisión
           </a>
-        </div>
-        {/** Video destacado */}
-        <img
-          src="https://img.peru21.pe/files/listing_p21_p21tv_home_destaque_principal/uploads/2019/08/08/5d4c811fcb5d8.jpeg"
-          alt=""
-        />
+        </h2>
+        <time className="" dateTime="9/8/2019">
+          9/8/2019
+        </time>
       </div>
-    </>
+    </div>
   )
 }
 

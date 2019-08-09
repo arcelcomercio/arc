@@ -1,0 +1,22 @@
+.tv-header {
+  &__section-logo {
+    width: 105px;
+    left: 15px;
+    @media (--desktop) {
+      left: 55px;
+      width: 143px;
+    }
+  }
+  &__logo {
+    width: 32px;
+  }
+  &__logo-container {
+    right: 15px;
+    @media (--desktop) {
+      right: 55px;
+    }
+  }
+  &__icon {
+    font-size: 20px;
+  }
+}
