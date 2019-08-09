@@ -1,5 +1,24 @@
 .header {
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 40px;
+    width: 100px;
+    height: 50px;
+    background-image: url(/pf/resources/dist/peru21/images/otorongo.png);
+    background-size: cover;
+  }
   &__link {
     text-transform: capitalize;
+    font-weight: 700;
+    &:hover {
+      color: $color-white;
+    }
+  }
+  &__tags,
+  &__link,
+  &__date {
+    color: $color-white;
   }
 }
