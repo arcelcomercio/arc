@@ -34,34 +34,47 @@ const fetch = (key = {}) => {
   const body = {
     query: {
       bool: {
-        must: [{
-            term: {
-              'revision.published': 'true',
-            },
-          },
+        must: [
           {
             term: {
               type: 'story',
             },
           },
           {
-            nested: {
-              path: 'taxonomy.sections',
-              query: {
-                bool: {
-                  must: [{
-                      terms: {
-                        'taxonomy.sections._id': [section],
-                      },
-                    },
-                    {
-                      term: {
-                        'taxonomy.sections._website': website,
-                      },
-                    },
-                  ],
+            bool: {
+              should: [
+                {
+                  term: {
+                    'taxonomy.sites._id': section
+                  }
                 },
-              },
+                {
+                  nested: {
+                    path: 'taxonomy.sections',
+                    query: {
+                      bool: {
+                        must: [
+                          {
+                            term: {
+                              'taxonomy.sections._id': section
+                            }
+                          },
+                          {
+                            term: {
+                              'taxonomy.sections._website': website
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            term: {
+              'revision.published': 'false',
             },
           },
         ],
@@ -78,8 +91,7 @@ const fetch = (key = {}) => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
       throw new Error('Sección no encontrada')
     return request({
-      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=1&from=${feedOffset ||
-        0}&sort=publish_date:desc&single=true`,
+      uri: `${CONTENT_BASE}/content/v4/search?website=${website}&sort=created_date:desc&from=${feedOffset||0}&size=1&single=true&body=${encodedBody}`,
       ...options,
     }).then(storyData => {
       const data = storyData
@@ -90,26 +102,28 @@ const fetch = (key = {}) => {
         const {
           promo_items: {
             basic: {
-              url
-            },
-          },
+              url=''
+            } = {},
+          } = {},
         } = data
 
-        const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
-          presets: {
-            lazy_default: {
-              width: 5,
-              height: 5,
+        if(url){
+          const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
+            presets: {
+              lazy_default: {
+                width: 5,
+                height: 5,
+              },
+              printed_md: {
+                width: 236,
+                height: 266,
+              },
             },
-            printed_md: {
-              width: 236,
-              height: 266,
-            },
-          },
-        })({
-          url,
-        })
-        data.promo_items.basic.resized_urls = resizedUrls
+          })({
+            url,
+          })
+          data.promo_items.basic.resized_urls = resizedUrls
+        }
       }
 
       return {
