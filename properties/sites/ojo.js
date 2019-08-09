@@ -6,7 +6,7 @@ export default {
   colorPrimary: '#007d33',
   siteDomain: 'ojo.pe',
   siteUrl: 'https://ojo.pe',
-  linkTabloide: 'http://ediciondigital.ojo.pe/lima/20190808/',
+  linkTabloide: 'http://ediciondigital.ojo.pe/lima/',
   resizerUrl: 'https://elcomercio-ojo-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
