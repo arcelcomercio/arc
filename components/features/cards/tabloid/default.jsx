@@ -14,8 +14,8 @@ const classes = {
     'tabloid__header-link text-white uppercase font-bold text-xl primary-font',
   body:
     'tabloid__body flex flex-col items-center justify-center h-full position-relative pt-30 pb-10 pr-30 pl-30 bg-base-200',
-  date: 'tabloid__date flex items-center justify-center p-20 bg-base-200',
-  dateLink: 'tabloid__date-link text-sm text-gray-300 font-bold',
+  date:
+    'tabloid__date flex items-center justify-center text-sm text-gray-300 font-bold p-20 bg-base-200',
   face: 'tabloid__face object-cover',
 }
 
@@ -85,27 +85,21 @@ class CardTabloid extends PureComponent {
             {sectionName || sourceSectionName}
           </a>
         </h4>
-        <div className={classes.body}>
+        <a
+          className={classes.body}
+          href={linkTabloide}
+          target="_blank"
+          rel="noopener noreferrer">
           <picture>
-            <a href={linkTabloide} target="_blank" rel="noopener noreferrer">
-              <img
-                className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
-                src={isAdmin ? printedImage : lazyImage}
-                data-src={printedImage}
-                alt={title}
-              />
-            </a>
+            <img
+              className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
+              src={isAdmin ? printedImage : lazyImage}
+              data-src={printedImage}
+              alt={title}
+            />
           </picture>
-          <time className={classes.date}>
-            <a
-              className={classes.dateLink}
-              href={linkTabloide}
-              target="_blank"
-              rel="noopener noreferrer">
-              {nameDate}
-            </a>
-          </time>
-        </div>
+          <time className={classes.date}>{nameDate}</time>
+        </a>
       </div>
     )
   }
