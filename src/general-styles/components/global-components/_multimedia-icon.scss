@@ -1,11 +1,12 @@
 $base-icon-size: 50px;
 
 .m-icon {
-    font-size: $base-icon-size;
-    width: $base-icon-size;
-    height: $base-icon-size;
-    top: calc(50% - calc(#{$base-icon-size} / 2));
-    left: calc(50% - calc(#{$base-icon-size} / 2));
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
+  font-size: $base-icon-size;
+  width: $base-icon-size;
+  height: $base-icon-size;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }

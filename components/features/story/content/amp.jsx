@@ -73,7 +73,7 @@ class StoryContentAmp extends PureComponent {
       height,
     }
     const parametersMovil3 = {
-      dataSlot: `/${adsAmp.dataSlot}/${arcSite}-amp-300x250-inferior-movil3`,
+      dataSlot: `/${adsAmp.dataSlot}/${arcSite}-amp-300x250-inline-movil3`,
       placementId: adsAmp.movil3,
       width,
       height,

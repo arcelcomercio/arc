@@ -57,7 +57,7 @@ module.exports = (mode, type = 'index') => {
   }
 
   const images = {
-    test: /\.(jpeg|jpg|png|gif|svg)$/,
+    test: /\.(jpeg|jpg|png|gif|svg|webp)$/,
     use: {
       loader: 'file-loader',
       options: {
