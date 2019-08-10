@@ -73,12 +73,12 @@ const WizardConfirmation = props => {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Panel maxWidth="1060px" direction="row">
         <S.Picture>
-          <source srcSet={assets('confirmation')} />
           <source
             media={`(${devices.mobile})`}
             srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
           />
-          <S.Image src={assets('confirmation')} alt="Bar" />
+          <source srcSet={assets('confirmation_webp')} type="image/webp" />
+          <S.Image src={assets('confirmation')} alt="confirmación" />
         </S.Picture>
 
         <S.Content>
@@ -108,7 +108,7 @@ const WizardConfirmation = props => {
           </S.Span>
           <S.WrapButton>
             <Button onClick={handleClick}>SIGUE NAVEGANDO</Button>
-            <S.Progress time="8s" onFinish={handleClick} />
+            <S.Progress time="17s" onFinish={handleClick} />
           </S.WrapButton>
         </S.Content>
       </Panel>

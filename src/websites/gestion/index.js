@@ -15,13 +15,21 @@ import './images/logo_twitter.jpg'
 import './images/default-blog.jpg'
 import './images/default-sm.png'
 import './images/default-md.png'
-import './images/paywall/adult-attire-blazer-173125.jpg'
-import './images/paywall/adult-attire-blazer-173125@2x.jpg'
+import './images/paywall/img_confirmation.jpg'
+import './images/paywall/img_confirmation@2x.jpg'
 import './images/paywall/img_lector.png'
 import './images/default-lg.png'
 import './images/img_soporte.png'
 import './images/signwall/bg_paywall.png'
 import './images/signwall/bg_login.png'
 import './images/paywall/bg-planes-10.png'
+
+import './images/paywall/img_corporativo.webp'
+import './images/paywall/img_login.webp'
+import './images/paywall/img_soporte.webp'
+import './images/paywall/img_confirmation_1.webp'
+import './images/paywall/img_confirmation_2.webp'
+
+
 
 import '../../../components/utilities/lazyload'

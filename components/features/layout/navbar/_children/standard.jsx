@@ -75,7 +75,7 @@ class NavBarDefault extends PureComponent {
       userName: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
       initialUser: new GetProfile().initname,
     }
-    // Resizer.setResizeListener()
+
     this.inputSearch = React.createRef()
 
     this.dragFlag = false
@@ -395,7 +395,6 @@ class NavBarDefault extends PureComponent {
   // }
 
   toggleBodyOverflow = () => {
-    console.log('ejecuta')
     if (typeof window !== 'undefined') {
       if (document.body.classList.contains('overflow-hidden'))
         document.body.classList.remove('overflow-hidden')
@@ -431,7 +430,6 @@ class NavBarDefault extends PureComponent {
   // Open - Close Search
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
-    console.log('pasa handle')
     this.toggleBodyOverflow()
     if (statusSidebar) this._closeMenu()
     else this._openMenu()
