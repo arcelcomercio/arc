@@ -130,23 +130,16 @@ class NavBarDefault extends PureComponent {
         'meta[name="section-id"]'
       )
 
-      if (ENV.ENVIRONMENT !== 'elcomercio') {
-        if (dataContentPremium) {
-          return this.getListSubs().then(p => {
-            if (p && p.length > 0) window.location.href = '/?signwallPremium=1'
-          })
-        }
+      if (ENV.ENVIRONMENT !== 'elcomercio' && dataContentPremium) {
+        return this.getListSubs().then(p => {
+          if (p && p.length === 0) window.location.href = '/?signwallPremium=1'
+        })
       }
 
       window.ArcP.run({
         paywallFunction: campaignURL => {
           window.location.href = campaignURL
         },
-        // customPageData: () => ({
-        //   c: 'story',
-        //   s: 'business',
-        //   ci: Date.now(),
-        // }),
         contentType: dataContentType
           ? dataContentType.getAttribute('content')
           : 'none',
