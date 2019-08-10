@@ -29,7 +29,7 @@ export default props => {
   const submitForm = (values, { setSubmitting }) => {
     console.log('values', values)
     const fetchApi = () => {
-      return false
+      return true
     }
     if (fetchApi()) {
       props.nextStep()
