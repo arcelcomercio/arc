@@ -6,9 +6,9 @@ import { devices } from '../../_dependencies/devices'
 const Form = Component => {
   return styled(Component)`
   display:flex;
-  width: 60%;
-  padding: 4em;
-  flex-direction: column;
+  width: 100%;
+  padding: 4em 2em;
+  flex-direction: row;
 
   @media (${devices.mobile}) {
       width: 100%;
@@ -32,7 +32,8 @@ const FormContactUsContainter = styled.section`
 `
 
 const FormPicture = styled.picture`
-  width:40%;
+  // width:40%;
+  width:400px;
   @media(${devices.mobile}){
       display:none;
   }  
@@ -51,20 +52,10 @@ const WrapField = styled.div`
   }
 `
 
-const ContentLeft = styled.div`
+const ContentRow = styled.div`
     width: 50%;
     height: auto;
-    @media (${devices.mobile}) {
-        width: 100%;
-    }
-    @media (${devices.tablet}) {
-        width: 100%;
-    }       
-`
-
-const ContentRight = styled.div`
-    width: 50%;
-    height: auto;
+    padding: 0px 10px;
     @media (${devices.mobile}) {
         width: 100%;
     }
@@ -79,6 +70,5 @@ export {
   FormPicture,
   FormImg,
   WrapField,
-  ContentLeft,
-  ContentRight
+  ContentRow
 }

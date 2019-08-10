@@ -4,8 +4,7 @@ import InputFormik from '../../_children/input'
 import Button from '../../_children/button'
 import {
   WrapField,
-  ContentLeft,
-  ContentRight,
+  ContentRow,
   Form as FormStyle,
 } from '../_dependencies/styled'
 import { FormSchema, Masks, MESSAGE } from '../_dependencies/schema'
@@ -13,7 +12,7 @@ import { FormSchema, Masks, MESSAGE } from '../_dependencies/schema'
 const FormStyled = FormStyle(Form)
 
 export default props => {
-  console.log('props 33', props)
+  
   const initialValues = {
     email: '',
     name: '',
@@ -29,7 +28,7 @@ export default props => {
   const submitForm = (values, { setSubmitting }) => {
     console.log('values', values)
     const fetchApi = () => {
-      return false
+      return true
     }
     if (fetchApi()) {
       props.nextStep()
@@ -47,7 +46,7 @@ export default props => {
       {({ isSubmitting }) => (
         <FormStyled>
           <div>{error}</div>
-          <ContentLeft>
+          <ContentRow>
             <WrapField>
               <Field
                 name="email"
@@ -82,9 +81,9 @@ export default props => {
                 component={InputFormik}
               />
             </WrapField>
-          </ContentLeft>
+          </ContentRow>
 
-          <ContentRight>
+          <ContentRow>
             <WrapField>
               <Field
                 component="select"
@@ -116,7 +115,7 @@ export default props => {
             <Button type="submit" disabled={isSubmitting}>
               Enviar
             </Button>
-          </ContentRight>
+          </ContentRow>
         </FormStyled>
       )}
     </Formik>
