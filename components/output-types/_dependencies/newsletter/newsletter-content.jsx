@@ -57,7 +57,7 @@ const StoryItem = props => {
         <nombre>{authorName}</nombre>
         <url>{authorUrl}</url>
         <cargo>{authorCargo === undefined ? authorCargo : 'null'}</cargo>
-        <columna>{'null'}</columna>
+        <columna>null</columna>
         <twitter>{authorTwitterUrl}</twitter>
         <imagen>{authorImage}</imagen>
         <thumb>{authorSlug}</thumb>
@@ -110,6 +110,7 @@ const NewsLetterContent = ({
       authorSlug: storydata.authorSlug,
       authorCargo: 'null',
     }
+
     return <StoryItem {...params} />
   })
   return listItemStories

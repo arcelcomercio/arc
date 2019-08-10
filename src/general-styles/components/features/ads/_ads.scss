@@ -1,19 +1,21 @@
 .ads {
-    &__zocalo {
-        // NO TOCAR
-        width: 0;
-        overflow: hidden;
-        display: none;
+  &__zocalo {
+    // NO TOCAR
+    width: 0;
+    overflow: hidden;
+    display: none;
 
-        @media (--desktop) {
-            display: flex;
-            overflow: initial;
-            margin: 0 20px;
-            padding: 20px 0;
-            height: fit-content;
-            width: 160px;
-            position: sticky;
-            top: 0;
-        }
+    @media (--desktop) {
+      display: flex;
+      overflow: initial;
+      margin: 0 20px;
+      padding: 20px 0;
+      height: fit-content;
+      flex: 160px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
     }
+  }
 }

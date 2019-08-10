@@ -66,8 +66,6 @@ $triplet-icon-size: 25px;
     font-size: $triplet-icon-size;
     width: $triplet-icon-size;
     height: $triplet-icon-size;
-    top: calc(50% - calc(#{$triplet-icon-size} / 2));
-    left: calc(50% - calc(#{$triplet-icon-size} / 2));
   }
 
   &__information {

@@ -73,8 +73,9 @@ class StoryContinue extends PureComponent {
 
     if (height > 0 && e[0]) {
       const width = (scrolled / (height - h)) * 100
+      const round = Math.round(width)
       e[0].style.width = `${width}%`
-      loader[0].style.display = width ? 'block' : 'none'
+      loader[0].style.display = round > 2 ? 'block' : 'none'
     }
   }
 
