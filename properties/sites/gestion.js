@@ -61,6 +61,7 @@ export default {
       confirmationx2: `images/adult-attire-blazer-173125@2x.jpg`,
       lector: `images/img_lector.png`,
       support: `images/img_soporte.png`,
+      contactFormLeft: 'images/adult-attire-blazer-173125@2x.jpg',
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)
