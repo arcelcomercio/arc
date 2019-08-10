@@ -20,6 +20,9 @@ export default {
 
   siteDescription: 'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://gestion.pe/f/i/pub_40.png',
+  theme: {
+    color: '#8F071F'
+  },
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
@@ -40,7 +43,9 @@ export default {
     aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
   },
-
+  paywall: {
+    title: 'Gestión | Suscripciones Digitales'
+  },
   assets: {
     nav: {
       logo: 'white-logo.png',
@@ -53,6 +58,13 @@ export default {
     },
     path: `/resources/dist/gestion/`,
     paywall: {
+      icon: `images/favicon.png`,
+      apple_icon: 'images/apple-touch-icon.png',
+      apple_icon_76: 'images/apple-touch-icon-76x76.png',
+      apple_icon_120: 'images/apple-touch-icon-120x120.png',
+      apple_icon_144: 'images/apple-touch-icon-144x144.png',
+      apple_icon_152: 'images/apple-touch-icon-152x152.png',
+      apple_icon_180: 'images/apple-touch-icon-180x180.png',
       logo: `images/logo.svg`,
       lector: `images/img_lector.png`,
       confirmation: `images/img_confirmation.jpg`,

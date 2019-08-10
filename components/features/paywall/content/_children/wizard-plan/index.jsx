@@ -18,6 +18,7 @@ function WizardPlan(props) {
     message,
     printed,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
+    setLoading,
   } = props
 
   const [loadingPlan, setLoadingPlan] = useState()
@@ -38,13 +39,13 @@ function WizardPlan(props) {
 
   function subscribePlanHandler(e, plan) {
     Sales.then(sales => {
-      setLoadingPlan(plan)
+      setLoading(true)
       return sales
         .addItemToCart([
           { sku: plan.sku, priceCode: plan.priceCode, quantity: 1 },
         ])
         .then(res => {
-          setLoadingPlan(false)
+          setLoading(false)
           const { location: search } = window
           const qs = parseQueryString(search)
           onBeforeNextStep(
@@ -56,7 +57,7 @@ function WizardPlan(props) {
           )
         })
         .catch(e => {
-          setLoadingPlan(false)
+          setLoading(false)
         })
     })
   }
@@ -88,7 +89,6 @@ function WizardPlan(props) {
                   onMouseOver={() => setActivePlan(priceCode)}
                   onFocus={() => setActivePlan(priceCode)}
                   onClick={subscribePlanHandler}
-                  loading={loadingPlan && loadingPlan.priceCode === priceCode}
                 />
               )
             })}
