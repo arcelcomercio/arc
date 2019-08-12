@@ -71,6 +71,11 @@ class AuthFacebook extends React.Component {
     if (data.origin !== ORIGIN_ECOID) {
       return
     }
+
+    if (window.Identity.userIdentity.uuid) {
+      return
+    }
+
     this.setState({
       loadedFB: false,
       sendingFbText: 'Cargando...',
@@ -90,7 +95,7 @@ class AuthFacebook extends React.Component {
           )
 
           window.Identity.userIdentity = resLoginFb
-          
+
           window.Identity.apiOrigin = this.origin_api
           window.Identity.getUserProfile()
             .then(resFbProfile => {
@@ -98,16 +103,11 @@ class AuthFacebook extends React.Component {
                 sendingFbText: 'Cargando perfil...',
               })
 
-              window.localStorage.setItem(
-                'ArcId.USER_PROFILE',
-                JSON.stringify(resFbProfile)
-              )
-
               const EmailUserProfile = resFbProfile.email
                 ? resFbProfile.email
                 : `${resFbProfile.identities[0].userName}@facebook.com`
 
-              if (resFbProfile.displayName === null) {
+              if (!resFbProfile.displayName && !resFbProfile.attributes) {
                 const originAction = (tipform, tipcat) => {
                   const isHard = document.querySelector(
                     '#arc-popup-signwallhard'
@@ -129,12 +129,12 @@ class AuthFacebook extends React.Component {
                   attributes: [
                     {
                       name: 'originDomain',
-                      value: window.location.hostname,
+                      value: window.location.hostname || 'none',
                       type: 'String',
                     },
                     {
                       name: 'originReferer',
-                      value: window.location.href,
+                      value: window.location.href || 'none',
                       type: 'String',
                     },
                     {
@@ -144,23 +144,21 @@ class AuthFacebook extends React.Component {
                     },
                     {
                       name: 'originDevice',
-                      value: getDevice(window),
+                      value: getDevice(window) || 'none',
                       type: 'String',
                     },
                     {
                       name: 'originAction',
-                      value: originAction(this.tipForm, this.tipCat),
+                      value: originAction(this.tipForm, this.tipCat) || 'none',
                       type: 'String',
                     },
                     {
                       name: 'termsCondPrivaPoli', // Terms Conditions and Privacy Policy
                       value: '1',
                       type: 'String',
-                    }
+                    },
                   ],
                 }
-
-                window.Identity.userProfile = newProfileFB
 
                 window.Identity.apiOrigin = this.origin_api
                 window.Identity.updateUserProfile(newProfileFB) // update profile add attibutes

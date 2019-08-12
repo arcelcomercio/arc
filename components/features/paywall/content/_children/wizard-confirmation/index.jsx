@@ -53,9 +53,12 @@ const WizardConfirmation = props => {
 
   const handlePWA = () => {
     // eslint-disable-next-line no-prototype-builtins
-    const isPWA = window.hasOwnProperty('nativeConnectionModal')
+
+    const isPWA = window.opener && ref.toUpperCase() === 'PWA'
     if (isPWA) {
-      window.nativeConnectionModal.pwaCloseWebView('paywall')
+      const destiny = `https://pwa.gestion.pe`
+      window.opener.postMessage('successful_purchase', destiny)
+      window.close()
     }
     return isPWA
   }

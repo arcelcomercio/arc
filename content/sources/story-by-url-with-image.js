@@ -1,12 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import {
-  resizerSecret,
-  CONTENT_BASE
-} from 'fusion:environment'
-import {
-  addResizedUrls
-} from '@arc-core-components/content-source_content-api-v4'
+import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import {
   addResizedUrlsToStory,
@@ -19,11 +14,13 @@ const options = {
 
 const schemaName = 'stories'
 
-const params = [{
-  name: 'website_url',
-  displayName: 'URL de la nota',
-  type: 'text',
-}, ]
+const params = [
+  {
+    name: 'website_url',
+    displayName: 'URL de la nota',
+    type: 'text',
+  },
+]
 
 export const itemsToArray = (itemString = '') => {
   return itemString.split(',').map(item => {
@@ -34,7 +31,8 @@ const queryStoryRecent = (section, site) => {
   const body = {
     query: {
       bool: {
-        must: [{
+        must: [
+          {
             term: {
               'revision.published': 'true',
             },
@@ -56,7 +54,8 @@ const queryStoryRecent = (section, site) => {
         path: 'taxonomy.sections',
         query: {
           bool: {
-            must: [{
+            must: [
+              {
                 terms: {
                   'taxonomy.sections._id': sectionsIncluded,
                 },
@@ -78,9 +77,7 @@ const queryStoryRecent = (section, site) => {
 
 const transformImg = data => {
   const dataStory = data
-  const {
-    resizerUrl
-  } = getProperties(data.website)
+  const { resizerUrl } = getProperties(data.website)
   return (
     addResizedUrlsToStory(
       [dataStory],
@@ -98,17 +95,15 @@ const fetch = key => {
     site !== 'publimetro' ? addSlashToEnd(key.website_url) : key.website_url
 
   return request({
-    uri: `${CONTENT_BASE}/content/v4/?website=${site}&website_url=${websiteUrl}`,
+    uri: `${CONTENT_BASE}/content/v4/stories/?website=${site}&website_url=${websiteUrl}`,
     ...options,
   }).then(collectionResp => {
     const dataStory = collectionResp
 
+    if (dataStory.type === 'redirect') return dataStory
+
     const {
-      taxonomy: {
-        primary_section: {
-          path: section
-        } = {}
-      } = {},
+      taxonomy: { primary_section: { path: section } = {} } = {},
     } = dataStory
 
     const encodedBody = queryStoryRecent(section, site)
@@ -118,9 +113,7 @@ const fetch = key => {
     }).then(recientesResp => {
       dataStory.recent_stories = recientesResp
       return request({
-        uri: `${CONTENT_BASE}/content/v4/related-content/stories?_id=${
-          dataStory._id
-        }&website=${site}&published=true`,
+        uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${dataStory._id}&website=${site}&published=true`,
         ...options,
       }).then(idsResp => {
         dataStory.related_content = idsResp

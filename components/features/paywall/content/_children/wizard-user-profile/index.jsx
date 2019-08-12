@@ -73,6 +73,8 @@ function WizardUserProfile(props) {
     setError()
   }
 
+  console.log({ profile })
+
   return (
     <Beforeunload onBeforeunload={() => 'message'}>
       <S.WizardUserProfile>
