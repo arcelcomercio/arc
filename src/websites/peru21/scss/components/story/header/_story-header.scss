@@ -1,9 +1,15 @@
 .story-header {
+  &__share {
+    border-top: 0;
+    border-color: $color-base-400;
+  }
   &__news-title {
-    color: $color-base-300;
+    color: $color-primary;
+    font-weight: 700;
   }
   &__title-section {
-    color: $color-gray-200;
+    color: $color-gray-300;
     text-transform: capitalize;
+    font-weight: 700;
   }
 }
