@@ -27,12 +27,12 @@ const WideNavGridLayout = ({ children = [] }) => {
   })
   return (
     <div className={classes.container}>
-      {children[1] /* Publicidad Top */}
-      {children[2] /* Barra de navegación */}
-      {children[3] /* Cabecera de página */}
+      {children[0] /* Publicidad Top */}
+      {children[1] /* Barra de navegación */}
+      {children[2] /* Cabecera de página */}
       <div className={classes.layout}>
         <div className={classes.zocalo}>
-          {children[0] /* Zocalo izquierda */}
+          {children[3] /* Zocalo izquierda */}
         </div>
         <div className={classes.contentContainer}>
           {children[4] /* Encabezado */}
@@ -40,12 +40,12 @@ const WideNavGridLayout = ({ children = [] }) => {
             {children[5] /* Contenido */}
           </div>
           {children[6] && (
-            <section className={classes.aditional}>{children[6]}</section>
+            <section className={classes.aditional}>{children[7]}</section>
           ) /* Contenido adicional */}
         </div>
         <div className={classes.zocalo}>{children[8] /* Zocalo derecha */}</div>
       </div>
-      {children[7] /* Pie de página */}
+      {children[9] /* Pie de página */}
     </div>
   )
 }

@@ -23,9 +23,9 @@ class SearchInput extends PureComponent {
   }
 
   render() {
-    const { globalContentConfig: query  } = this.props
-    const queryParams = query.query
-    const search = queryParams.query || ''
+    const { globalContentConfig: query = {}  } = this.props
+    const queryParams = query.query 
+    const search = decodeURIComponent(queryParams.query || '').replace(/\+/g, ' ')
     return (
       <div className={classes.container}>
         <form className={classes.form} onSubmit={this._handleSearch}>
