@@ -38,7 +38,7 @@ const TvFeatured = () => {
   console.log(data)
 
   return (
-    <div className="tv-featured position-relative">
+    <div className="tv-featured position-relative mb-40">
       <TvHeader />
 
       <div className="tv-featured__body mx-auto">

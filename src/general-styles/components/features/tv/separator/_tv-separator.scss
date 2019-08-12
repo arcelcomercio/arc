@@ -1,0 +1,17 @@
+.tv-separator {
+  width: 185px;
+
+  &__text-button {
+    -webkit-line-clamp: 2;
+    max-height: calc(#{$font-xl} * 1.16 * 2);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__img-button {
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.6);
+  }
+}
