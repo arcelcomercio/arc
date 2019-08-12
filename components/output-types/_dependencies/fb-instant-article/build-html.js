@@ -146,8 +146,8 @@ const BuildHtml = BuildHtmlProps => {
             </figure>
             <p>${author}</p>
             ${ParagraphshWithAdds(paramsBuildParagraph)}
-          </body>
-          </article>
+            </article>
+            </body>
           </html>
           `
   return element
