@@ -4,10 +4,7 @@ import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import {
-  addResizedUrlsToStory,
-  addSlashToEnd,
-} from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let website = ''
 
@@ -25,11 +22,6 @@ const options = {
   json: true,
 }
 
-export const itemsToArray = (itemString = '') => {
-  return itemString.split(',').map(item => {
-    return item.replace(/"/g, '')
-  })
-}
 const queryStoryRecent = (section, site) => {
   const body = {
     query: {
@@ -51,7 +43,6 @@ const queryStoryRecent = (section, site) => {
   }
 
   if (section && section !== '/') {
-    const sectionsIncluded = itemsToArray(section)
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
@@ -60,7 +51,7 @@ const queryStoryRecent = (section, site) => {
             must: [
               {
                 terms: {
-                  'taxonomy.sections._id': sectionsIncluded,
+                  'taxonomy.sections._id': [section],
                 },
               },
               {
@@ -96,8 +87,7 @@ const resolve = (key = {}) => {
   if (!hasWebsiteUrl)
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
   website = key['arc-site'] || 'Arc Site no está definido'
-  const websiteUrl =
-    website !== 'publimetro' ? addSlashToEnd(key.website_url) : key.website_url
+  const { websiteUrl } = key
   const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}`
   return requestUri
 }
