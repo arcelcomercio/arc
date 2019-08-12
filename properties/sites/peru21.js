@@ -58,7 +58,7 @@ export default {
   ],
   assets: {
     nav: {
-      logo: 'logo.png',
+      logo: 'logo-footer.png',
       logoSomos: 'white-logo.png',
     },
     header: {
