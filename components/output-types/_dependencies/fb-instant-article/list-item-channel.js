@@ -38,6 +38,12 @@ const ListItemNews = (contentElements, buildProps) => {
         link: storydata.link,
         siteDomain,
         idGoogleAnalitics,
+        section: storydata.getPrimarySection,
+        
+        newsId:storydata.id,
+        author: storydata.author,
+
+        title: storydata.title,
       }
 
       const BuildHtmlProps = {

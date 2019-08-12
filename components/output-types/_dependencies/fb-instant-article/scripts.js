@@ -2,6 +2,10 @@ export const AnalyticsScript = ({
   link = '',
   siteDomain = '',
   idGoogleAnalitics = '',
+  newsId='',
+  section='',
+  author='',
+
 }) => `(function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
@@ -13,6 +17,23 @@ export const AnalyticsScript = ({
         m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
         ga('create', '${idGoogleAnalitics}', '${siteDomain}');
+        ga('set', 'dataSource', 'FbIA');
+        ga('require', 'displayfeatures');
+        ga('set', 'campaignSource', 'm.facebook.com');
+        ga('set', 'campaignMedium', 'referral');
+        ga('set', 'campaignName', 'FbIA');
+        ga('set', 'dimension3', '${'pendietne'}');
+        ga('set', 'dimension4', '${section}');
+        ga('set', 'dimension5', '{{sub_section}}');
+        ga('set', 'dimension6', 'FbIA');
+        ga('set', 'dimension7', '{{tipo_nota}}');
+        ga('set', 'dimension8', '${newsId}');
+        ga('set', 'dimension15', '${author}');
+        ga('send', 'pageview', '{{page_path}}');
+        ga('send', 'pageview', {title: '{{page_title}}'});  
+        
+
+
         ga('require', 'displayfeatures');
         ga('set', 'campaignSource', 'm.facebook.com');
         ga('set', 'campaignMedium', 'referral');
