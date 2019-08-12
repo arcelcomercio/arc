@@ -1,5 +1,10 @@
 .story-gallery-slider {
+  background-color: $color-gray-300;
   &__quantity {
-    background-color: $color-white;
+    background-color: $color-tertiary;
+    font-weight: 700;
+  }
+  &__caption-image {
+    font-family: $primary-font;
   }
 }
