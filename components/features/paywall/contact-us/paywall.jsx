@@ -11,8 +11,7 @@ import Thanks from './_children/thanks'
 import './paywall.css'
 
 const PaywallContactUs = props => {
-
-  const [showThanks, setShowThanks] = useState(false);
+  const [showThanks, setShowThanks] = useState(false)
 
   const {
     siteProperties: { assets = {}, siteUrl = '' },
@@ -20,9 +19,40 @@ const PaywallContactUs = props => {
     contextPath,
   } = useFusionContext()
 
+  const initialValuesForm = {
+    email: '',
+    name: '',
+    lastname: '',
+    company_name: '',
+    type_subscription: 0,
+    subject: '',
+    description: '',
+  }
+
+  const submitForm = (values, { setSubmitting }) => {
+    console.log('values', values)
+    const fetchApi = () => {
+      //code
+      return true
+    }
+    if (fetchApi()) {
+      setShowThanks(true)
+    } else {
+      error = MESSAGE.API_ERROR
+    }
+    setSubmitting(false)
+  }
+
   const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
-  const html = !showThanks ? <FormData showThanks={setShowThanks} /> : <Thanks siteUrl={siteUrl} />
+  const html = !showThanks ? (
+    <FormData
+      initialValues={initialValuesForm}
+      submitForm={submitForm}
+    />
+  ) : (
+    <Thanks siteUrl={siteUrl} />
+  )
 
   return (
     <div className="paywall-contact-us">

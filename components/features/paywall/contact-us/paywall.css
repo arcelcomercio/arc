@@ -36,7 +36,7 @@
 }
 
 .paywall-contact-us__picture {
-  width: 400px;
+  min-width: 400px;
 }
 
 .paywall-contact-us__picture img {
