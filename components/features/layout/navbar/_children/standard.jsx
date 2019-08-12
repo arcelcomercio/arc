@@ -119,76 +119,12 @@ class NavBarDefault extends PureComponent {
 
     this.isStory = !!window.document.querySelector('meta[name="section-id"]') // TODO: temporal
 
-    // ----------------------- Start Active Rules Paywall ----------------------- //
-
+    // ---------- Start Premium & Paywall ----------- //
     if (arcSite === 'gestion') {
-      const dataContentPremium = window.content_paywall || false
-      const dataContentType = window.document.querySelector(
-        'meta[name="content-type"]'
-      )
-      const dataContentSection = window.document.querySelector(
-        'meta[name="section-id"]'
-      )
-
-      if (ENV.ENVIRONMENT !== 'elcomercio' && dataContentPremium) {
-        return this.getListSubs().then(p => {
-          if (p && p.length === 0) window.location.href = '/?signwallPremium=1'
-        })
-      }
-
-      window.ArcP.run({
-        paywallFunction: campaignURL => {
-          window.location.href = campaignURL
-        },
-        contentType: dataContentType
-          ? dataContentType.getAttribute('content')
-          : 'none',
-        section: dataContentSection
-          ? dataContentSection.getAttribute('content')
-          : 'none',
-        userName: window.Identity.userIdentity.uuid
-          ? window.Identity.userIdentity.uuid
-          : null,
-        jwt: window.Identity.userIdentity.accessToken
-          ? window.Identity.userIdentity.accessToken
-          : null,
-        apiOrigin: 'https://api-sandbox.gestion.pe',
-        customSubCheck: () => {
-          // estado de suscripcion
-          return this.getListSubs().then(p => {
-            const isLoggedInSubs = !!(
-              window.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
-              window.localStorage.getItem('ArcId.USER_PROFILE')
-            )
-            return {
-              s: isLoggedInSubs,
-              p: p || null,
-              timeTaken: 100,
-              updated: Date.now(),
-            }
-          })
-        },
-        customRegCheck: () => {
-          // estado de registro
-          const start = Date.now()
-          const isLoggedIn = !!(
-            window.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
-            window.localStorage.getItem('ArcId.USER_PROFILE')
-          )
-          return Promise.resolve({
-            l: isLoggedIn,
-            timeTaken: Date.now() - start,
-            updated: Date.now(),
-          })
-        },
-      })
-      // .then(results =>
-      //   window.console.log('Results from running paywall script: ', results)
-      // )
-      // .catch(() => window.console.error())
+      this.getPremium()
+      this.getPaywall()
     }
-
-    // ----------------------- End Active Rules Paywall ----------------------- //
+    // ---------- End Premium & Paywall ------------ //
   }
 
   componentDidUpdate() {
@@ -207,9 +143,77 @@ class NavBarDefault extends PureComponent {
     }
   }
 
+  getPremium() {
+    const W = window
+
+    const dataContentPremium = W.content_paywall || false
+    if (ENV.ENVIRONMENT !== 'elcomercio' && dataContentPremium) {
+      // only sandbox ;)
+      return this.getListSubs().then(p => {
+        if (p && p.length === 0) W.location.href = '/?signwallPremium=1'
+      })
+    }
+    return false
+  }
+
+  getPaywall() {
+    const { arcSite } = this.props
+    const W = window
+
+    const dataContType = W.document.querySelector('meta[name="content-type"]')
+    const dataContSec = W.document.querySelector('meta[name="section-id"]')
+
+    W.ArcP.run({
+      paywallFunction: campaignURL => {
+        W.location.href = campaignURL
+      },
+      contentType: dataContType ? dataContType.getAttribute('content') : 'none',
+      section: dataContSec ? dataContSec.getAttribute('content') : 'none',
+      userName: W.Identity.userIdentity.uuid || null,
+      jwt: W.Identity.userIdentity.accessToken || null,
+      apiOrigin:
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`,
+      customSubCheck: () => {
+        // estado de suscripcion
+        return this.getListSubs().then(p => {
+          const isLoggedInSubs = !!(
+            W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+            W.localStorage.getItem('ArcId.USER_PROFILE')
+          )
+          return {
+            s: isLoggedInSubs,
+            p: p || null,
+            timeTaken: 100,
+            updated: Date.now(),
+          }
+        })
+      },
+      customRegCheck: () => {
+        // estado de registro
+        const start = Date.now()
+        const isLoggedIn = !!(
+          W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+          W.localStorage.getItem('ArcId.USER_PROFILE')
+        )
+        return Promise.resolve({
+          l: isLoggedIn,
+          timeTaken: Date.now() - start,
+          updated: Date.now(),
+        })
+      },
+    })
+    // .then(() => {
+    // W.console.log('Results from running paywall script: ', results)
+    // })
+    // .catch(() => W.console.error())
+  }
+
   getListSubs() {
+    const W = window
     return services
-      .getEntitlement(window.Identity.userIdentity.accessToken)
+      .getEntitlement(W.Identity.userIdentity.accessToken)
       .then(res => {
         if (res.skus) {
           const result = Object.keys(res.skus).map(key => {
@@ -220,7 +224,7 @@ class NavBarDefault extends PureComponent {
         }
         return []
       })
-      .catch(err => window.console.error(err))
+      .catch(err => W.console.error(err))
   }
 
   _initDrag = evt => {
