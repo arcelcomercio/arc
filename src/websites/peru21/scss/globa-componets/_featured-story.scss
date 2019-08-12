@@ -1,7 +1,3 @@
-$ojo-show: #ec008b;
-$deportes: #fe8032;
-$locomundo: #01abad;
-
 .featured-story {
   @media (--only-mobile) {
     height: 132px;
@@ -10,67 +6,24 @@ $locomundo: #01abad;
       margin-bottom: 0;
     }
   }
-
-  &__category {
-    min-height: 24px;
-    height: 24px;
-    padding: 2px 11px;
-    background-color: $color-primary;
-    display: flex;
-    align-items: center;
-    width: fit-content;
-
-    &::after {
-      content: '';
-      position: absolute;
-      border-top: 12px solid transparent;
-      border-left: 14px solid $color-primary;
-      border-bottom: 11px solid transparent;
-      top: 0px;
-      left: 100%;
-    }
-
-    &.ojo-show {
-      background-color: $ojo-show;
-
-      &::after {
-        border-left: 14px solid $ojo-show;
-      }
-    }
-
-    &.deportes {
-      background-color: $deportes;
-
-      &::after {
-        border-left: 14px solid $deportes;
-      }
-    }
-
-    &.locomundo {
-      background-color: $locomundo;
-
-      &::after {
-        border-left: 14px solid $locomundo;
-      }
-    }
+  &__category::after {
+    border-bottom: 1px solid $color-base-400;
   }
-
   &__category-link {
-    color: $color-white;
+    color: $color-primary;
     font-weight: 700;
-  }
-
-  &__author-link,
-  &__category-link {
-    font-family: $secondary-font;
   }
 
   &__title {
     margin-top: 10px;
+    @media (--only-mobile) {
+      margin-bottom: 0;
+    }
   }
 
   &__title-link {
-    color: $color-primary;
+    font-weight: 700;
+    color: $color-gray-300;
     -webkit-line-clamp: 3;
     max-height: calc(1.3rem * 1.333 * 3);
   }
@@ -90,14 +43,6 @@ $locomundo: #01abad;
       }
     }
 
-    .featured-story__category {
-      &::after {
-        @media (--tablet) {
-          border-bottom: 11px solid transparent;
-        }
-      }
-    }
-
     .featured-story__author-link {
       color: $color-white;
     }
@@ -110,7 +55,7 @@ $locomundo: #01abad;
     }
 
     .featured-story__category-link {
-      color: $color-white;
+      color: $color-primary;
     }
 
     .featured-story__title {
@@ -125,10 +70,10 @@ $locomundo: #01abad;
     &.img-complete {
       .featured-story__category {
         border: 0;
-        display: flex;
+        display: block;
 
         &::after {
-          border-bottom: 11px solid transparent;
+          border-bottom: 1px solid $color-white;
         }
       }
 
