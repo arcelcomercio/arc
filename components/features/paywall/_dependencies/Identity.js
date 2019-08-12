@@ -1,6 +1,8 @@
 import addScriptAsync from '../../../utilities/script-async'
 import getService from './services'
 
+
+
 export const attrToObject = (attributes = [], getAttributes = []) => {
   return getAttributes.reduce((prev, name) => {
     const attrs = (attributes || []).find(attr => attr.name === name)
@@ -12,7 +14,7 @@ export const attrToObject = (attributes = [], getAttributes = []) => {
   }, {})
 }
 
-const AddIdentity = () => {
+export const AddIdentity = () => {
   return addScriptAsync({
     name: 'sdkIndetityARC',
     url: getService('ORIGIN_IDENTITY_SDK'),
@@ -24,7 +26,14 @@ const AddIdentity = () => {
   })
 }
 
-const userProfile = (getAttr = []) => {
+export const isLogged = () => {
+  const { sessionStorage } = window;
+  return sessionStorage.getItem('ArcId.USER_INFO') === '{}' 
+  // eslint-disable-next-line no-prototype-builtins
+  && sessionStorage.hasOwnProperty('ArcId.USER_INFO')
+}
+
+export const userProfile = (getAttr = []) => {
   const hasIdentity = Object.prototype.hasOwnProperty.call(window, 'Identity')
   let promiseProfile = null
   if (!hasIdentity) {
@@ -49,4 +58,4 @@ const userProfile = (getAttr = []) => {
   })
 }
 
-export { AddIdentity, userProfile }
+
