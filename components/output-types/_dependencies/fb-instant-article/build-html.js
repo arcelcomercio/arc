@@ -5,35 +5,38 @@ const buildIframeAdvertising = urlAdvertising => {
 }
 
 const buildParagraph = paragraph => {
-  let result = null;
+  let result = null
 
-  // valida si el parrafo contiene un iframe con video o foto
-  if (paragraph.includes("<iframe")) {
-    result = `<figure class="op-interactive">${paragraph}</figure>`;
-    // result = paragraph
-    // valida blockquote de instagram
+  if (paragraph.includes('<iframe')) {
+    // valida si el parrafo contiene un iframe con video o foto
+
+    result = `<figure class="op-interactive">${paragraph}</figure>`
+  } else if (paragraph.includes('<img')) {
+    const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
+    const imageAlt = paragraph.match(/alt="([^"]+)/)[1]
+    
+    result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+  
   } else if (paragraph.includes('<blockquote class="instagram-media"')) {
+    // valida blockquote de instagram
     const instagramUrl = paragraph.match(
       /https:\/\/www\.instagram\.com\/p\/(?:[\w\d]+)\/?/
-    );
+    )
 
-    result = `<figure class="op-interactive"><iframe frameborder="0" width="100%" height="250" src="${
-      instagramUrl
-    }embed"></iframe></figure>`;
-
-    // valida blockquote de twitter
+    result = `<figure class="op-interactive"><iframe frameborder="0" width="560" height="315" src="${instagramUrl}embed"></iframe></figure>`
   } else if (paragraph.includes('<blockquote class="twitter-tweet"')) {
+    // valida blockquote de twitter
+    const twitterUrl = paragraph.match(
+      /https:\/\/twitter\.com\/(?:[\/\w\d\?\=\%]+)?/
+    )
 
-    const twitterUrl = paragraph.match(/https:\/\/twitter\.com\/(?:[\/\w\d\?\=\%]+)?/);
-
-    result = `<figure class="op-interactive"><iframe frameborder="0" width="100%" height="250" src="${twitterUrl}"></iframe></figure>`;
-
-    // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
+    result = `<figure class="op-interactive"><iframe frameborder="0" width="560" height="315" src="${twitterUrl}"></iframe></figure>`
   } else {
-    result = `<p>${paragraph}</p>`;
+    // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
+    result = `<p>${paragraph}</p>`
   }
-  return result;
-};
+  return result
+}
 
 const ParagraphshWithAdds = ({
   paragraphsNews = [],
@@ -63,10 +66,9 @@ const ParagraphshWithAdds = ({
         newsWithAdd.push(`${buildParagraph(paragraph)}`)
       }
     } else {
-
       // al segundo parrafo se inserta cada 250 palabras (numwords)
       let paragraphwithAdd = ''
-      const  paragraphOriginal = paragraph
+      const paragraphOriginal = paragraph
 
       paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
 
@@ -143,9 +145,6 @@ const BuildHtml = BuildHtmlProps => {
                 <figcaption>${title}</figcaption>
             </figure>
             <p>${author}</p>
-            <figure class="op-interactive">
-                <iframe frameborder="0"></iframe>
-            </figure>
             ${ParagraphshWithAdds(paramsBuildParagraph)}
           </body>
           </article>
