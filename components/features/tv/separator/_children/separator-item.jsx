@@ -1,11 +1,14 @@
 import React from 'react'
 
+import Icon from '../../../../global-components/multimedia-icon'
+
 export default () => {
+  const isNew = true
   return (
     <div className="tv-separator__item m-10 w-full">
       <button
         type="button"
-        className="tv-separator__img-button p-0 overflow-hidden rounded-sm mb-10">
+        className="tv-separator__img-button p-0 overflow-hidden rounded-sm mb-10  position-relative">
         <picture className="block w-full">
           <img
             className="w-full"
@@ -13,6 +16,12 @@ export default () => {
             alt=""
           />
         </picture>
+        {isNew && (
+          <div className="tv-separator__tag-new font-bold uppercase text-white bg-primary position-absolute text-xs p-5 rounded-sm">
+            Nuevo episodio
+          </div>
+        )}
+        <Icon type="basic_video" iconClass="tv-separator__icon" />
       </button>
       <h2 className="mb-15">
         <button
