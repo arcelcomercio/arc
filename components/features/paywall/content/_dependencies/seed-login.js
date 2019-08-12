@@ -1,3 +1,5 @@
+import getService from '../../_dependencies/services'
+
 export default {
     parse(string){
         try {
@@ -7,9 +9,8 @@ export default {
           }
     },
     _onMessage({origin, data}, callback){
-        if(origin !== 'https://pwa.gestion.pe') return
-        this.parse(data);
-        console.log({data})
+        console.log(getService('PWA_DOMAIN'))
+        if(origin !== getService('PWA_DOMAIN')) return
         window.localStorage.setItem('ArcId.USER_INFO', data)
         callback()
     },
