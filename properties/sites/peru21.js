@@ -9,11 +9,11 @@ export default {
   resizerUrl: 'https://elcomercio-peru21-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Peru21_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-KKXTKGP',
-  ampGoogleTagManagerId: 'UA-3055636-3',
-  ampGoogleTagManagerName: 'publimetro',
+  googleTagManagerId: 'GTM-P6ZDTW',
+  ampGoogleTagManagerId: 'UA-3055636-4',
+  ampGoogleTagManagerName: 'peru21',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-4',
   fbArticleStyle: 'LogoPeru21',
@@ -81,7 +81,24 @@ export default {
       'Copyright © Elcomercio.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
+<<<<<<< HEAD
 
+=======
+    story: [
+      {
+        position: 'Directora Periodística:',
+        name: 'Cecilia Valenzuela',
+      },
+      {
+        position: 'Diario Perú21: ',
+        name: 'Jr. Miró Quesada 247. Piso 6 Lima 1',
+      },
+      {
+        position: 'Copyright © gestion.pe',
+        name: 'Grupo El Comercio - Todos los derechos reservados',
+      },
+    ],
+>>>>>>> 16c70798f755e02f722524937de41c93a9245dfc
     socialNetworks: [
       {
         name: 'facebook',
@@ -99,16 +116,21 @@ export default {
 
     contacts: [
       {
+<<<<<<< HEAD
         position: 'Director Periodístico',
         name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+=======
+        position: 'Directora Periodística:',
+        name: 'Cecilia Valenzuela',
+>>>>>>> 16c70798f755e02f722524937de41c93a9245dfc
       },
       {
-        position: 'Editor Web',
-        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
+        position: 'Diario Perú21: ',
+        name: 'Jr. Miró Quesada 247. Piso 6 Lima 1',
       },
       {
         position: 'Contacto comercial',
-        name: 'ventaspublimetro@publimetro.pe',
+        name: '',
       },
     ],
   },
