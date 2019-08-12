@@ -43,17 +43,19 @@ class SignWallPaywall extends Component {
       <ModalConsumer>
         {value => (
           <div className="modal-body__wrapper">
-            <div className="price">
-              <i>s/</i>29
-            </div>
-            <div className="detail-price uppercase">
-              <p>
-                <strong>
-                  / Al mes <br />
-                  por 6 meses
-                </strong>
-              </p>
-              <p> Luego S/ 39 cada mes</p>
+            <div className="cont-price-detail">
+              <div className="price">
+                <i>s/</i>29
+              </div>
+              <div className="detail-price uppercase">
+                <p>
+                  <strong>
+                    / Al mes <br />
+                    por 6 meses
+                  </strong>
+                </p>
+                <p> Luego S/ 39 cada mes</p>
+              </div>
             </div>
             <h3 className="title-line uppercase text-center mt-30 mb-20">
               <span>Beneficios</span>

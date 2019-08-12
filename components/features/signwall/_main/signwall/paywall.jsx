@@ -11,7 +11,7 @@ import FormPaywall from './_children/form-paywall'
 import { ModalProvider, ModalConsumer } from './context'
 
 @Consumer
-class PayWall extends Component {
+class PayWallPremium extends Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -56,7 +56,13 @@ class PayWall extends Component {
   }
 
   render() {
-    const { closePopup, contextPath, arcSite, deployment } = this.props
+    const {
+      closePopup,
+      typeModal,
+      contextPath,
+      arcSite,
+      deployment,
+    } = this.props
     const ImageBg =
       deployment(
         `${contextPath}/resources/dist/${arcSite}/images/bg_paywall.png`
@@ -70,8 +76,8 @@ class PayWall extends Component {
                 <Modal
                   size="medium"
                   position="middle"
-                  name="arc-popup-paywall"
-                  id="arc-popup-paywall">
+                  name={`arc-popup-${typeModal}`}
+                  id={`arc-popup-${typeModal}`}>
                   <div className="modal-body">
                     <div
                       className="modal-body__middle bg-paywall"
@@ -82,8 +88,9 @@ class PayWall extends Component {
                         backgroundPosition: 'center',
                       }}>
                       <p className="text-xl secondary-font">
-                        Para continuar leyendo, adquiere el
-                        {/* Para acceder a este contenido exclusivo, adquiere tu */}
+                        {typeModal === 'paywall'
+                          ? 'Para continuar leyendo, adquiere el'
+                          : `Para acceder a este contenido exclusivo, adquiere tu`}
                       </p>
                       <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
                     </div>
@@ -95,7 +102,6 @@ class PayWall extends Component {
                         <i className="icon-close"></i>
                       </button>
                       {this.renderTemplate(value.selectedTemplate)}
-                      {/* {this.renderTemplate(value.selectedTemplate)} */}
                     </div>
                   </div>
                 </Modal>
@@ -108,4 +114,4 @@ class PayWall extends Component {
   }
 }
 
-export default PayWall
+export default PayWallPremium
