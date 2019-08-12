@@ -21,20 +21,23 @@ const getSectionList = (sections, type) => {
   return ''
 }
 
-const infoStory = (data, arcSite) => {
+const infoStory = (
+  { credits: { by = [] } = {}, taxonomy = {}, promo_items: promoItems = {} },
+  arcSite
+) => {
   const getAuthor = () => {
-    return (data.credits.by[0] && data.credits.by[0].name) || arcSite
+    return (by && by[0] && by[0].name) || arcSite
   }
 
   const getTagList = () => {
-    const { tags = [] } = data.taxonomy
+    const { tags = [] } = taxonomy
     const listTags = tags.map(tag => tag.slug)
     const formatTags = listTags.join()
     return formatTags
   }
 
   const getTypeStory = () => {
-    const type = data.promo_items
+    const type = promoItems
     const arrType = Object.keys(type)
 
     if (arrType[0] === 'basic_gallery') {
