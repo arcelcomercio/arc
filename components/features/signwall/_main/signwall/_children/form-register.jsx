@@ -117,7 +117,7 @@ class FormRegister extends Component {
               name: 'termsCondPrivaPoli', // Terms Conditions and Privacy Policy
               value: '1',
               type: 'String',
-            }
+            },
           ],
         },
         { doLogin: true },
@@ -305,7 +305,7 @@ class FormRegister extends Component {
                     <span>Volver</span>
                   </button>
                 </div>
-                <h1 className="form-grid__title-login text-center">
+                <h1 className="form-grid__title-login text-center mt-20 mb-10">
                   Accede fácilmente con:
                 </h1>
                 <div className="form-grid__group">
@@ -325,7 +325,7 @@ class FormRegister extends Component {
                       typeForm={typeForm}
                     /> */}
                   </div>
-                  <p className="form-grid__subtitle text-center mt-40 mb-20">
+                  <p className="form-grid__subtitle text-center mt-20 mb-10">
                     o completa tus datos para registrarte
                   </p>
                 </div>
@@ -442,10 +442,10 @@ class FormRegister extends Component {
                   )}
                 </div>
                 <div className="form-grid__group">
-                  <p className="form-grid__required mt-25 mb-25">
+                  <p className="form-grid__required mt-20 mb-20">
                     * TODOS LOS CAMPOS SON OBLIGATORIOS
                   </p>
-                  <div className="form-group form-group--center mt-20">
+                  <div className="form-group--center">
                     <input
                       type="submit"
                       id="registro_boton_registrarme"

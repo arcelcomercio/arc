@@ -59,8 +59,12 @@ class HeaderChildSomos extends PureComponent {
   }
 
   render() {
-    const { logo, logoIcon, firstSection, sections, deviceList } = this.props
+    const { logo, logoIcon, firstSection, sections, deviceList,
+    globalContentConfig: { query = {} } = {},  } = this.props
     const { isMenuActive, searchValue } = this.state
+
+    const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
+
     return (
       <>
         <div
@@ -109,6 +113,7 @@ class HeaderChildSomos extends PureComponent {
                   type="text"
                   placeholder="Buscar"
                   className={classes.menuSearchInput}
+                  defaultValue={search}
                   value={searchValue}
                   onChange={e => this.handleSearchInput(e)}
                 />

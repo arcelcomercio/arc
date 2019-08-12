@@ -44,6 +44,7 @@ class Content extends React.Component {
       })
     })
     document.querySelector('html').classList.add('ios')
+    window.addEventListener('message', console.log)
   }
 
   onBeforeNextStepHandler = (response, { nextStep }) => {
@@ -90,6 +91,7 @@ class Content extends React.Component {
               summary={summary}
               onBeforeNextStep={this.onBeforeNextStepHandler}
               assets={fullAssets}
+              setLoading={this.setLoading}
             />
             <WizardUserProfile
               memo={this.memo}
