@@ -8,16 +8,18 @@ export default {
   siteUrl: 'https://peru21.pe',
   resizerUrl: 'https://elcomercio-peru21-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
-  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Peru21_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-KKXTKGP',
-  ampGoogleTagManagerId: 'UA-3055636-3',
-  ampGoogleTagManagerName: 'publimetro',
+  googleTagManagerId: 'GTM-P6ZDTW',
+  ampGoogleTagManagerId: 'UA-3055636-4',
+  ampGoogleTagManagerName: 'peru21',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-4',
   fbArticleStyle: 'LogoPeru21',
   nameStoryRelated: 'VEA TAMBIÉN',
-  siteDescription: 'Noticias de Perú y el mundo en Peru21.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  siteDescription:
+    'Noticias de Perú y el mundo en Peru21.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
@@ -40,7 +42,8 @@ export default {
     frequentQuestions: '',
   },
 
-  legalLinks: [{
+  legalLinks: [
+    {
       name: 'Términos y condiciones',
       url: '/terminos-servicio',
     },
@@ -61,8 +64,22 @@ export default {
       'Copyright © Elcomercio.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
-
-    socialNetworks: [{
+    story: [
+      {
+        position: 'Directora Periodística:',
+        name: 'Cecilia Valenzuela',
+      },
+      {
+        position: 'Diario Perú21: ',
+        name: 'Jr. Miró Quesada 247. Piso 6 Lima 1',
+      },
+      {
+        position: 'Copyright © gestion.pe',
+        name: 'Grupo El Comercio - Todos los derechos reservados',
+      },
+    ],
+    socialNetworks: [
+      {
         name: 'facebook',
         url: 'https://www.facebook.com/elcomercio.pe',
       },
@@ -76,17 +93,18 @@ export default {
       },
     ],
 
-    contacts: [{
-        position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+    contacts: [
+      {
+        position: 'Directora Periodística:',
+        name: 'Cecilia Valenzuela',
       },
       {
-        position: 'Editor Web',
-        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
+        position: 'Diario Perú21: ',
+        name: 'Jr. Miró Quesada 247. Piso 6 Lima 1',
       },
       {
         position: 'Contacto comercial',
-        name: 'ventaspublimetro@publimetro.pe',
+        name: '',
       },
     ],
   },
@@ -121,5 +139,5 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
   ],
-  activeSignwall: false
+  activeSignwall: false,
 }
