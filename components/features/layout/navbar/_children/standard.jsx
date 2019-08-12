@@ -478,13 +478,13 @@ class NavBarDefault extends PureComponent {
       logo,
       arcSite,
       siteProperties,
-      globalContentConfig: { query = {} }, 
       contextPath,
       deviceList,
+      globalContentConfig: { query = {} } = {}, 
       data: { children: sections = [] } = {},
     } = this.props
 
-    const search = query.query
+    const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
 
     const responsiveClass = getResponsiveClasses(deviceList)
     // this._handleDevice(device)
