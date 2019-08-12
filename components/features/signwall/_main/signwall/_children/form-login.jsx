@@ -316,7 +316,7 @@ class FormLogin extends Component {
                   relevantes del Perú y el mundo
                 </h1>
 
-                <h1 className="form-grid__title-login text-center">
+                <h1 className="form-grid__title-login text-center mt-20 mb-10">
                   Ingresa con tu cuenta de:
                 </h1>
 
@@ -443,7 +443,7 @@ class FormLogin extends Component {
                     Regístrate
                   </button>
                 </p>
-                <p className="form-grid__subtitle form-grid__subtitle--fb text-center mt-10 mb-20">
+                <p className="form-grid__subtitle form-grid__subtitle--fb text-center mt-10">
                   Al registrarte, nos ayudarás a mejorar tu experiencia de
                   navegación. Tus datos no se publicarán sin tu autorización.
                 </p>
