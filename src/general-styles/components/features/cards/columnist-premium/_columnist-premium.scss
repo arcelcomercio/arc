@@ -1,0 +1,29 @@
+.columnist-premium {
+  &__profile {
+    width: 90px;
+  }
+  &__name {
+    font-size: 26px;
+    width: 60%;
+  }
+  &__section {
+    font-size: 15px;
+    &::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 1px;
+      background-color: $color-gray-300;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -7px;
+    }
+  }
+  &__description {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  &__logo {
+    width: 70px;
+  }
+}
