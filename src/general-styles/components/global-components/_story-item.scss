@@ -55,11 +55,17 @@
   }
 
   &__right {
-    max-height: 170px;
+    width: 115px;
+    height: 72px;
     margin-left: 5px;
+
+    @media (--tablet) {
+      width: 220px;
+      height: 161px;
+    }
   }
 
-  &__img {
+  /*   &__img {
     width: 115px;
     height: 72px;
 
@@ -67,7 +73,7 @@
       width: 220px;
       height: 161px;
     }
-  }
+  } */
 
   &--row {
     .story-item__bottom {

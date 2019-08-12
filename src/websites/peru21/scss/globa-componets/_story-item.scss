@@ -1,13 +1,15 @@
 .story-item {
   &__date {
     margin-left: 20px;
+    font-weight: 700;
     @media (--tablet) {
       margin-left: 0;
     }
   }
 
   &__title {
-    color: $color-base-300;
+    color: $color-gray-300;
+    margin-bottom: 10px;
     @media (--tablet) {
       max-height: calc(20px * 1.28 * 2);
       line-height: 1.28;
@@ -19,22 +21,17 @@
     font-family: $secondary-font;
   }
   &__section {
-    background-color: $color-primary;
-    color: $color-white;
-    font-family: $secondary-font;
-    height: 20px;
-    position: relative;
-    display: flex;
-    align-items: center;
+    color: $color-primary;
     font-weight: 700;
-    &:before {
-      content: '';
-      position: absolute;
-      border-top: 11px solid transparent;
-      border-left: 13px solid $color-primary;
-      border-bottom: 9px solid transparent;
-      top: 0px;
-      right: -13px;
+    padding-left: 0;
+  }
+  &__top {
+    justify-content: space-between;
+    @media (--tablet) {
+      flex-direction: row;
     }
+  }
+  &__left {
+    justify-content: flex-start;
   }
 }
