@@ -72,7 +72,7 @@ export default ({
       ? metaValue('meta_title')
       : seoTitle
 
-  const title = `${metaTitle || 'ddd'} | ${siteProperties.siteName}`
+  const title = `${metaTitle || seoTitle} | ${siteProperties.siteName}`
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`
