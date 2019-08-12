@@ -3,10 +3,30 @@ import React, { useEffect } from 'react'
 import Portal from '../portal'
 import * as S from './styled'
 
-function Modal({ children, showClose, onClose = () => {}, ...props }) {
+const MODAL = 'fix-modal'
+
+function Modal({
+  children,
+  showClose,
+  onClose = () => {},
+  open = false,
+  ...props
+}) {
   function close() {
     onClose()
   }
+  useEffect(() => {
+    if (open) {
+      window.document.body.classList.add(MODAL)
+    } else {
+      window.document.body.classList.remove(MODAL)
+    }
+
+    return () => {
+      window.document.body.classList.remove(MODAL)
+    }
+  }, [open])
+
   useEffect(() => {
     const _onClose = ({ key }) => {
       if (key === 'Escape') {
@@ -24,7 +44,7 @@ function Modal({ children, showClose, onClose = () => {}, ...props }) {
   )
   return (
     <Portal id="modal">
-      <S.Modal {...props}>
+      <S.Modal open={open} {...props}>
         <S.Background onClick={close} />
         <S.Content>
           {showClose && <S.CloseButton onClick={close} />}
