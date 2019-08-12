@@ -478,10 +478,13 @@ class NavBarDefault extends PureComponent {
       logo,
       arcSite,
       siteProperties,
+      globalContentConfig: { query = {} }, 
       contextPath,
       deviceList,
       data: { children: sections = [] } = {},
     } = this.props
+
+    const search = query.query
 
     const responsiveClass = getResponsiveClasses(deviceList)
     // this._handleDevice(device)
@@ -524,6 +527,7 @@ class NavBarDefault extends PureComponent {
                 <input
                   ref={this.inputSearch}
                   type="search"
+                  defaultValue={search}
                   /* onBlur={this._handleCloseSectionsSearch} */
                   onKeyUp={this._handleKeyDown}
                   placeholder="¿Qué Buscas?"
