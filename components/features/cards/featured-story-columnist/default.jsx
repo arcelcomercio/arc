@@ -52,4 +52,6 @@ FeaturedStoryColumnist.propTypes = {
 }
 
 FeaturedStoryColumnist.label = 'Columnista Premium'
+FeaturedStoryColumnist.static = true
+
 export default FeaturedStoryColumnist

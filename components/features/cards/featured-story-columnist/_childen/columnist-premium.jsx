@@ -1,7 +1,8 @@
 import React from 'react'
 
 const classes = {
-  columnistPremium: 'columnist-premium flex flex-col row-1 aling-center pt-10 pb-10 pl-30 pr-30',
+  columnistPremium:
+    'columnist-premium flex flex-col items-center justify-center row-1 bg-base-200 pt-10 pb-10 pl-30 pr-30',
   profile: 'columnist-premium__profile rounded',
   name: 'columnist-premium__name text-center mt-15',
   section: 'columnist-premium__section mt-10 position-relative text-uppercase',
@@ -20,13 +21,17 @@ const ColumnistPremium = props => {
   } = props
   return (
     <div className={classes.columnistPremium}>
-      <img alt={author} className={classes.profile} src={authorImage} />
+      <img
+        alt={`Foto de perfil de ${author}`}
+        className={classes.profile}
+        src={authorImage}
+      />
       <h4 className={classes.name}>
         <a href={authorLink}>{author}</a>
       </h4>
       <p className={classes.section}>Columnista</p>
       <p className={classes.description}>
-        {subTitle} <a href={websiteLink}>Leer Mas.</a>
+        {subTitle} <a href={websiteLink}>Leer Más.</a>
       </p>
       {isPremium && (
         <img
