@@ -145,6 +145,22 @@
 }
 
 
+@media (min-width: 640px) and (max-width: 1024px){
+  .portal__content{
+    flex-direction: column;
+    min-width: auto;
+    align-items: center;
+  }
+  .card{
+    min-height: 400px;
+    margin-bottom: 40px;
+    width: calc(100% - 20px);
+  }
+  .link--corporate{
+    min-width: calc(100% - 40px);
+  }
+}
+
 @media (max-width: 639px) {
   .portal__content{
     flex-direction: column;
@@ -160,3 +176,4 @@
     min-width: calc(100% - 40px);
   }
 }
+
