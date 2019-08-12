@@ -1,11 +1,11 @@
 import React from 'react'
 
 const classes = {
-  columnistPremium: 'columnist-premium flex flex-col row-1 aling-center',
-  profile: 'columnist-premium__profile',
-  name: 'columnist-premium__name',
-  section: 'columnist-premium__section mt-10',
-  description: 'columnist-premium__description',
+  columnistPremium: 'columnist-premium flex flex-col row-1 aling-center pt-10 pb-10 pl-30 pr-30',
+  profile: 'columnist-premium__profile rounded',
+  name: 'columnist-premium__name text-center mt-15',
+  section: 'columnist-premium__section mt-10 position-relative text-uppercase',
+  description: 'columnist-premium__description text-center mt-20',
   logo: 'columnist-premium__logo mt-20',
 }
 
