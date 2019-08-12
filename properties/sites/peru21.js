@@ -81,9 +81,6 @@ export default {
       'Copyright © Elcomercio.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
-<<<<<<< HEAD
-
-=======
     story: [
       {
         position: 'Directora Periodística:',
@@ -98,7 +95,6 @@ export default {
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
->>>>>>> 16c70798f755e02f722524937de41c93a9245dfc
     socialNetworks: [
       {
         name: 'facebook',
@@ -116,13 +112,8 @@ export default {
 
     contacts: [
       {
-<<<<<<< HEAD
-        position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
-=======
         position: 'Directora Periodística:',
         name: 'Cecilia Valenzuela',
->>>>>>> 16c70798f755e02f722524937de41c93a9245dfc
       },
       {
         position: 'Diario Perú21: ',
