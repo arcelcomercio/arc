@@ -8,6 +8,7 @@ import {
 } from './_dependencies/styled'
 import FormData from './_children/form'
 import Thanks from './_children/thanks'
+import './paywall.css'
 
 const PaywallContactUs = props => {
   const {
@@ -16,16 +17,14 @@ const PaywallContactUs = props => {
     contextPath,
   } = useFusionContext()
 
+  const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
+
   return (
-    <FormContactUsContainter>
-      <FormPicture>
-        <FormImg
-          src={deployment(
-            `${contextPath}${assets.pwAssets('contactFormLeft')}`
-          )}
-          alt=""
-        />
-      </FormPicture>
+    <div className="paywall-contact-us">
+      <picture className="paywall-contact-us__picture">
+        <source srcSet={fullAssets('contact_form_left')} type="image/webp" />
+        <img src={fullAssets('contact_form_left')} alt="" />
+      </picture>
       <Wizard
         transitions={{
           enterRight: 'enterRight',
@@ -34,7 +33,7 @@ const PaywallContactUs = props => {
         <FormData />
         <Thanks />
       </Wizard>
-    </FormContactUsContainter>
+    </div>
   )
 }
 

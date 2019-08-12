@@ -6,7 +6,6 @@ export default {
   googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
-  linkTabloide: 'https://peruquiosco.pe/',
   resizerUrl: 'https://gestion.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
@@ -23,6 +22,9 @@ export default {
   siteDescription:
     'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://gestion.pe/f/i/pub_40.png',
+  theme: {
+    color: '#8F071F'
+  },
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
@@ -43,7 +45,9 @@ export default {
     aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
   },
-
+  paywall: {
+    title: 'Gestión | Suscripciones Digitales'
+  },
   assets: {
     nav: {
       logo: 'white-logo.png',
@@ -56,12 +60,22 @@ export default {
     },
     path: `/resources/dist/gestion/`,
     paywall: {
+      icon: `images/favicon.png`,
+      apple_icon: 'images/apple-touch-icon.png',
+      apple_icon_76: 'images/apple-touch-icon-76x76.png',
+      apple_icon_120: 'images/apple-touch-icon-120x120.png',
+      apple_icon_144: 'images/apple-touch-icon-144x144.png',
+      apple_icon_152: 'images/apple-touch-icon-152x152.png',
+      apple_icon_180: 'images/apple-touch-icon-180x180.png',
       logo: `images/logo.svg`,
-      confirmation: `images/adult-attire-blazer-173125.jpg`,
-      confirmationx2: `images/adult-attire-blazer-173125@2x.jpg`,
       lector: `images/img_lector.png`,
+      confirmation: `images/img_confirmation.jpg`,
+      confirmationx2: `images/img_confirmation@2x.jpg`,
+      confirmation_webp: `images/img_confirmation_1.webp`,
       support: `images/img_soporte.png`,
-      contactFormLeft: 'images/adult-attire-blazer-173125@2x.jpg',
+      contact_form_left: 'images/adult-attire-blazer-173125@2x.jpg',
+      support_webp: `images/img_soporte.webp`,
+      backgroundx1: `images/bg-planes-10.png`,
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)
@@ -136,10 +150,10 @@ export default {
         position: 'Director Periodístico',
         name: 'JULIO LIRA SEGURA',
       },
-      {
-        position: 'Editor Web',
-        name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
-      },
+      // {
+      //   position: 'Editor Web',
+      //   name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
+      // },
       {
         position: '',
         name: '',
@@ -163,8 +177,8 @@ export default {
     },
     linkedin: {
       name: 'linkedin',
-      url: 'https://www.linkedin.com/company/diario-gestión/'
-    }
+      url: 'https://www.linkedin.com/company/diario-gestión/',
+    },
   },
   adsAmp: {
     dataSlot: 28253241,

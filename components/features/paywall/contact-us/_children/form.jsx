@@ -2,14 +2,8 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import InputFormik from '../../_children/input'
 import Button from '../../_children/button'
-import {
-  WrapField,
-  ContentRow,
-  Form as FormStyle,
-} from '../_dependencies/styled'
+import { WrapField, ContentRow } from '../_dependencies/styled'
 import { FormSchema, Masks, MESSAGE } from '../_dependencies/schema'
-
-const FormStyled = FormStyle(Form)
 
 export default props => {
   
@@ -28,6 +22,7 @@ export default props => {
   const submitForm = (values, { setSubmitting }) => {
     console.log('values', values)
     const fetchApi = () => {
+      //code
       return true
     }
     if (fetchApi()) {
@@ -44,9 +39,9 @@ export default props => {
       validate={values => new FormSchema(values)}
       onSubmit={submitForm}>
       {({ isSubmitting }) => (
-        <FormStyled>
+        <Form className="paywall-contact-us__form">
           <div>{error}</div>
-          <ContentRow>
+          <div className="paywall-contact-us__content-row">
             <WrapField>
               <Field
                 name="email"
@@ -81,11 +76,12 @@ export default props => {
                 component={InputFormik}
               />
             </WrapField>
-          </ContentRow>
+          </div>
 
-          <ContentRow>
+          <div className="paywall-contact-us__content-row">
             <WrapField>
               <Field
+                className="paywall-contact-us__field"
                 component="select"
                 name="type_subscription"
                 label="Tipo de subscripción">
@@ -106,6 +102,7 @@ export default props => {
             </WrapField>
             <WrapField>
               <Field
+                className="paywall-contact-us__field"
                 component="textarea"
                 name="description"
                 label="Descripción"
@@ -115,8 +112,8 @@ export default props => {
             <Button type="submit" disabled={isSubmitting}>
               Enviar
             </Button>
-          </ContentRow>
-        </FormStyled>
+          </div>
+        </Form>
       )}
     </Formik>
   )
