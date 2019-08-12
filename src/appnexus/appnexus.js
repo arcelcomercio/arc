@@ -554,17 +554,19 @@ const actionEvent = ({ type, targetId }) => {
   containerAd.classList.add('hidden')
 }
 
-const setGlobalEvents = (events, targetId) => {
-  events.forEach(evt => {
-    apntag.onEvent(evt, targetId, data =>
-      actionEvent({ type: evt, targetId, data })
+const setGlobalEvents = (eventList, targetId) => {
+  eventList.forEach(eventName => {
+    apntag.onEvent(eventName, targetId, () =>
+      actionEvent({ type: eventName, targetId })
     )
   })
 }
 
 const global_events = ['adNoBid', 'adBadRequest', 'adRequestFailure', 'adError']
 
-adsParams.forEach(val => val && setGlobalEvents(global_events, val.targetId))
+adsParams.forEach(
+  ({ targetId }) => targetId && setGlobalEvents(global_events, targetId)
+)
 
 dataLayer.push({
   event: 'definir_eventos_appnexus',
