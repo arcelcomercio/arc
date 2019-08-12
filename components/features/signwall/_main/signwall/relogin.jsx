@@ -15,11 +15,11 @@ class SignWallRelogin extends Component {
   constructor(props) {
     const getProfileMPP = window.localStorage.getItem('profileMPP')
     const profileMPP = JSON.parse(getProfileMPP)
-    const nameUser = profileMPP ? profileMPP.firstName : 'lector'
+    const userName = profileMPP ? profileMPP.firstName : 'lector'
 
     super(props)
     this.state = {
-      nameMPP: nameUser !== 'undefined' ? nameUser : 'lector',
+      nameMPP: userName !== 'undefined' ? userName : 'lector',
     }
   }
 

@@ -20,7 +20,6 @@ function Price({ amount }) {
 function CardPrice(props) {
   const {
     plan: { amount, billingFrequency, description },
-    loading,
     onClick = i => i,
     onMouseOver,
     onFocus,
@@ -45,11 +44,10 @@ function CardPrice(props) {
         <S.Footer>
           <S.Button
             className="button-buy"
-            disabled={loading}
             active={active}
             onClick={e => onClick(e, props.plan)}
             type="button">
-            SUSCRIBIRME{loading && '...'}
+            SUSCRIBIRME
           </S.Button>
         </S.Footer>
       </S.CardPrice>

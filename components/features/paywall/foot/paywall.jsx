@@ -59,7 +59,9 @@ const Foot = () => {
               </a>
             </li>
             <li>
-              <a href="/" className="list_link">
+              <a
+                href={`${contextPath}/paywall/faqs?_website=gestion&outputType=paywall`}
+                className="list_link">
                 Preguntas frecuentes
               </a>
             </li>

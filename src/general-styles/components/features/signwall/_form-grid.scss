@@ -1,11 +1,11 @@
 .signwall {
   * {
     .form-grid {
-      padding: 20px 15px;
+      padding: 10px;
       font-size: 14px;
       font-family: $secondary-font;
       @media (--tablet) {
-        padding: 20px 0px;
+        padding: 0px;
         min-height: auto;
       }
       &__row {
@@ -55,8 +55,6 @@
         line-height: 1.5;
         font-family: $primary-font;
         color: black;
-        margin-top: 0px;
-        margin-bottom: 20px;
         @media (--tablet) {
           font-size: 20px;
           font-weight: 600;
@@ -146,9 +144,6 @@
         margin-bottom: 10px;
         color: black;
       }
-      &__back {
-        margin-bottom: 20px;
-      }
       &__forgot-pass,
       &__reset-pass,
       &__verify-account {
@@ -175,7 +170,6 @@
       & .link-back {
         color: #000000;
         text-decoration: none;
-        margin: 10px 0px;
         font-family: $secondary-font;
         font-size: 14px;
         -webkit-appearance: none;

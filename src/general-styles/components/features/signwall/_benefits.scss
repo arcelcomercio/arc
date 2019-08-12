@@ -98,7 +98,7 @@
       font-family: 'Open Sans', Arial, Helvetica, sans-serif;
       background: #fff6f0;
       color: #444444;
-      padding: 40px 20px;
+      padding: 20px 20px;
       line-height: 20px;
       position: relative;
       .btn-close {
@@ -106,30 +106,33 @@
         right: 5%;
         top: 5%;
       }
-      .price,
-      .detail-price {
-        display: inline-block;
-        vertical-align: middle;
-      }
-      .price {
-        font-size: 4.5em;
-        font-weight: 600;
-        width: 45%;
-        text-align: center;
-        @media (--desktop) {
-          text-align: left;
+      .cont-price-detail {
+        margin-top: 20px;
+        .price,
+        .detail-price {
+          display: inline-block;
+          vertical-align: middle;
         }
-        letter-spacing: -2px;
-        i {
-          font-size: 0.5em;
-          font-weight: normal;
-          letter-spacing: 0px;
+        .price {
+          font-size: 4.5em;
+          font-weight: 600;
+          width: 45%;
+          text-align: center;
+          @media (--desktop) {
+            text-align: left;
+          }
+          letter-spacing: -2px;
+          i {
+            font-size: 0.5em;
+            font-weight: normal;
+            letter-spacing: 0px;
+          }
         }
-      }
-      .detail-price {
-        width: 55%;
-        font-size: 14px;
-        line-height: 20px;
+        .detail-price {
+          width: 55%;
+          font-size: 14px;
+          line-height: 20px;
+        }
       }
       .title-line {
         font-weight: bold;
