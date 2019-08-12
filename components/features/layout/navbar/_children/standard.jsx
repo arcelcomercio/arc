@@ -120,10 +120,9 @@ class NavBarDefault extends PureComponent {
     this.isStory = !!window.document.querySelector('meta[name="section-id"]') // TODO: temporal
 
     // ---------- Start Premium & Paywall ----------- //
-    if (arcSite === 'gestion') {
-      this.getPremium()
-      this.getPaywall()
-    }
+
+    if (arcSite === 'gestion') this.getPaywall()
+
     // ---------- End Premium & Paywall ------------ //
   }
 
@@ -162,6 +161,8 @@ class NavBarDefault extends PureComponent {
 
     const dataContType = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
+
+    this.getPremium()
 
     W.ArcP.run({
       paywallFunction: campaignURL => {
