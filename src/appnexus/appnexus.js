@@ -550,7 +550,9 @@ if (adUnits.length > 0) {
 
 const actionEvent = ({ type, targetId }) => {
   console.warn('Appnexus', type)
-  const containerAd = document.querySelector(`#${targetId}`).parentNode
+  const adsSpace = document.querySelector(`#${targetId}`)
+  const containerAd =
+    adsSpace.parentNode.childNodes.length === 1 ? adsSpace.parentNode : adsSpace
   containerAd.classList.add('hidden')
 }
 
