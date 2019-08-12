@@ -46,7 +46,9 @@ function WizardPlan(props) {
         ])
         .then(res => {
           setLoading(false)
-          const { location: search } = window
+          const {
+            location: { search },
+          } = window
           const qs = parseQueryString(search)
           onBeforeNextStep(
             {
