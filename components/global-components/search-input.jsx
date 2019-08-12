@@ -23,6 +23,9 @@ class SearchInput extends PureComponent {
   }
 
   render() {
+    const { globalContentConfig: query = {}  } = this.props
+    const queryParams = query.query 
+    const search = decodeURIComponent(queryParams.query || '').replace(/\+/g, ' ')
     return (
       <div className={classes.container}>
         <form className={classes.form} onSubmit={this._handleSearch}>
@@ -30,6 +33,7 @@ class SearchInput extends PureComponent {
           <input
             className={classes.input}
             ref={this.inputSearch}
+            defaultValue={search}
             type="search"
             placeholder="Buscar"
             aria-label="Campo de búsqueda"

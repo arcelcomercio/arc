@@ -42,7 +42,11 @@ export default ({
     deployment,
   }
 
-  const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
+  const { headlines: { basic: storyTitle = '' } = {} } = globalContent || {}
+
+  const isStory =
+    requestUri.match(`^(/(.*)/.*-noticia)`) ||
+    requestUri.match(`^/preview/([A-Z0-9]{26})/?`)
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory ? 'story' : ''
@@ -59,15 +63,17 @@ export default ({
   }
 
   const seoTitle =
-    metaValue('title') &&
-    !metaValue('title').match(/content/) &&
-    metaValue('title')
+    (metaValue('title') &&
+      !metaValue('title').match(/content/) &&
+      metaValue('title')) ||
+    storyTitle
 
   const metaTitle =
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
       ? metaValue('meta_title')
       : seoTitle
-  const title = `${metaTitle || seoTitle} | ${siteProperties.siteName}`
+
+  const title = `${metaTitle || 'ddd'} | ${siteProperties.siteName}`
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`

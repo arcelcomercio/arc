@@ -24,7 +24,7 @@ class ProfileAccount extends Component {
 
     this.state = {
       typeLogin: identitie.type.toLowerCase(),
-      nameUser: nameInit.length >= 24 ? (`${nameInit.slice(0, 24)  }...`) : nameInit,
+      userName: nameInit.length >= 24 ? (`${nameInit.slice(0, 24)  }...`) : nameInit,
       emailUser: emailInit,
       userNameFB: usernameid.userName,
       disabledSocial: identitie.type !== 'Password',
@@ -64,7 +64,7 @@ class ProfileAccount extends Component {
 
   handlerUpdateName = (name) => {
     this.setState({
-      nameUser:name
+      userName:name
     })
   }
 
@@ -72,7 +72,7 @@ class ProfileAccount extends Component {
     const { closePopup } = this.props
     const {
       typeLogin,
-      nameUser,
+      userName,
       emailUser,
       userNameFB,
       disabledSocial,
@@ -95,7 +95,7 @@ class ProfileAccount extends Component {
               <div className="profile__left profile__card">
                 <div>
                   <h1 className="profile__title">
-                    Hola {nameUser !== 'undefined' ? nameUser : 'Usuario'}
+                    Hola {userName !== 'undefined' ? userName : 'Usuario'}
                   </h1>
                   <span className="profile__text">Bienvenido a tu perfil</span>
 
