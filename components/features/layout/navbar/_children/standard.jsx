@@ -488,8 +488,11 @@ class NavBarDefault extends PureComponent {
       siteProperties,
       contextPath,
       deviceList,
+      globalContentConfig: { query = {} } = {}, 
       data: { children: sections = [] } = {},
     } = this.props
+
+    const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
 
     const responsiveClass = getResponsiveClasses(deviceList)
     // this._handleDevice(device)
@@ -532,6 +535,7 @@ class NavBarDefault extends PureComponent {
                 <input
                   ref={this.inputSearch}
                   type="search"
+                  defaultValue={search}
                   /* onBlur={this._handleCloseSectionsSearch} */
                   onKeyUp={this._handleKeyDown}
                   placeholder="¿Qué Buscas?"
