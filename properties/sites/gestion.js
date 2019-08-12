@@ -73,9 +73,10 @@ export default {
       confirmationx2: `images/img_confirmation@2x.jpg`,
       confirmation_webp: `images/img_confirmation_1.webp`,
       support: `images/img_soporte.png`,
-      contact_form_left: 'images/adult-attire-blazer-173125@2x.jpg',
+      contact_form_left: 'images/img_soporte.png',
       support_webp: `images/img_soporte.webp`,
       backgroundx1: `images/bg-planes-10.png`,
+      check: `images/check2.png`,
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)

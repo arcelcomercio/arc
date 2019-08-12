@@ -79,7 +79,6 @@ const Thanks = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:cyan;
 `
 const ThanksImg = styled.img`
     width: 26%;
@@ -99,15 +98,17 @@ const ThanksContent = styled.p`
     font-size: 1.1em;
     line-height: 1.4em;
 `
-const ThanksBtn = styled.div`
+const ThanksBtn = styled.a`
     color: white;
     font-size: .9em;
     border-radius: 2px;
     background-color: #2768b2;
     text-transform: uppercase;
-    padding: 1em 0;
+    padding: 1em 5em;
     font-weight: 600;
     box-shadow: 0px 1px 2px 1px #2768b261;
+    cursor: pointer;
+    text-decoration: none;
 `
 
 export {

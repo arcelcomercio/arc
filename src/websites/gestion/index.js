@@ -23,6 +23,7 @@ import './images/img_soporte.png'
 import './images/signwall/bg_paywall.png'
 import './images/signwall/bg_login.png'
 import './images/paywall/bg-planes-10.png'
+import './images/paywall/check2.png'
 
 import './images/paywall/img_corporativo.webp'
 import './images/paywall/img_login.webp'

@@ -6,7 +6,7 @@ import { WrapField, ContentRow } from '../_dependencies/styled'
 import { FormSchema, Masks, MESSAGE } from '../_dependencies/schema'
 
 export default props => {
-  
+  const {showThanks} = props
   const initialValues = {
     email: '',
     name: '',
@@ -26,7 +26,7 @@ export default props => {
       return true
     }
     if (fetchApi()) {
-      props.nextStep()
+      showThanks(true)
     } else {
       error = MESSAGE.API_ERROR
     }
@@ -40,67 +40,68 @@ export default props => {
       onSubmit={submitForm}>
       {({ isSubmitting }) => (
         <Form className="paywall-contact-us__form">
-          <div>{error}</div>
-          <div className="paywall-contact-us__content-row">
-            <WrapField>
+          <div className="paywall-contact-us__message">
+            <div className="paywall-contact-us__error">{error}erorr</div>
+            <div className="paywall-contact-us__description">
+              Por favor envíanos tus datos para brindarte información sobre
+              nuestras suscripciones corporativas.
+            </div>
+          </div>
+          <div className="paywall-contact-us__content">
+            <div className="paywall-contact-us__content-row">
               <Field
+                className="paywall-contact-us__field"
                 name="email"
-                label="Correo Electrónico*"
-                component={InputFormik}
+                label="Correo Electrónico"
+                placeholder="Correo Electrónico"
               />
-            </WrapField>
-            <WrapField>
+              <ErrorMessage name="email" component="div" />
               <Field
+                className="paywall-contact-us__field"
                 transform="capitalize"
                 name="name"
                 label="Nombres"
+                placeholder="Nombres"
                 mask={Masks.PERSON_NAME}
-                component={InputFormik}
               />
-            </WrapField>
-            <WrapField>
+              <ErrorMessage name="name" component="div" />
               <Field
+                className="paywall-contact-us__field"
                 transform="capitalize"
                 name="lastname"
                 label="Apellidos"
+                placeholder="Apellidos"
                 mask={Masks.PERSON_NAME}
-                component={InputFormik}
               />
-            </WrapField>
-            <WrapField>
               <Field
+                className="paywall-contact-us__field"
                 transform="capitalize"
                 name="company_name"
                 label="Organización"
+                placeholder="Organización"
                 mask={Masks.PERSON_NAME}
-                component={InputFormik}
               />
-            </WrapField>
-          </div>
+            </div>
 
-          <div className="paywall-contact-us__content-row">
-            <WrapField>
+            <div className="paywall-contact-us__content-row">
               <Field
                 className="paywall-contact-us__field"
                 component="select"
                 name="type_subscription"
                 label="Tipo de subscripción">
-                <option value="0">Tipo de consulta de subscripción</option>
-                <option value="1">type 1</option>
-                <option value="2">type 2</option>
-                <option value="3">type 3</option>
+                <option value="0">Tipo de consulta de suscripción</option>
+                <option value="1">tipo 1</option>
+                <option value="2">tipo 2</option>
+                <option value="3">tipo 3</option>
               </Field>
-            </WrapField>
-            <WrapField>
               <Field
+                className="paywall-contact-us__field"
                 transform="capitalize"
                 name="subject"
                 label="Asunto"
+                placeholder="Asunto"
                 mask={Masks.PERSON_NAME}
-                component={InputFormik}
               />
-            </WrapField>
-            <WrapField>
               <Field
                 className="paywall-contact-us__field"
                 component="textarea"
@@ -108,10 +109,10 @@ export default props => {
                 label="Descripción"
                 placeholder="Descripción"
               />
-            </WrapField>
-            <Button type="submit" disabled={isSubmitting}>
-              Enviar
-            </Button>
+              <button className="paywall-contact-us__button" type="submit" disabled={isSubmitting}>
+                Enviar
+              </button>
+            </div>
           </div>
         </Form>
       )}

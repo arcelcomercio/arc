@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 import Wizard from 'react-step-wizard'
 import {
@@ -11,13 +11,18 @@ import Thanks from './_children/thanks'
 import './paywall.css'
 
 const PaywallContactUs = props => {
+
+  const [showThanks, setShowThanks] = useState(false);
+
   const {
-    siteProperties: { assets = {} },
+    siteProperties: { assets = {}, siteUrl = '' },
     deployment,
     contextPath,
   } = useFusionContext()
 
   const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
+
+  const html = !showThanks ? <FormData showThanks={setShowThanks} /> : <Thanks siteUrl={siteUrl} />
 
   return (
     <div className="paywall-contact-us">
@@ -25,14 +30,7 @@ const PaywallContactUs = props => {
         <source srcSet={fullAssets('contact_form_left')} type="image/webp" />
         <img src={fullAssets('contact_form_left')} alt="" />
       </picture>
-      <Wizard
-        transitions={{
-          enterRight: 'enterRight',
-          exitLeft: 'exitLeft',
-        }}>
-        <FormData />
-        <Thanks />
-      </Wizard>
+      {html}
     </div>
   )
 }
