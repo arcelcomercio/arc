@@ -41,7 +41,6 @@ class Content extends React.Component {
   componentDidMount() {
     const f = () => {
       userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
-        console.log({ profile })
         this.setState({ profile })
       })
     }
