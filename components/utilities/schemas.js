@@ -21,7 +21,32 @@ const storySchemaBase = `
     taxonomy: Taxonomy
   `
 
-const storySchemaTypes = `
+const storySchemaTypes = presets => {
+  const auxPresets =
+    presets ||
+    `
+    original: String
+    landscape_xl: String
+    landscape_l: String
+    landscape_md: String
+    landscape_s: String
+    landscape_xs: String
+    portrait_xl: String
+    portrait_l: String
+    portrait_md: String
+    portrait_s: String
+    portrait_xs: String
+    square_xl: String
+    square_l: String
+    square_md: String
+    square_s: String
+    square_xs: String
+    lazy_default: String
+    small: String
+    medium: String
+    large: String
+  `
+  return `
     type  ContentRestrictions {
       content_code: String
     } 
@@ -50,26 +75,7 @@ const storySchemaTypes = `
       by: [By]
     }
     type ResizedUrls {
-      original: String
-      landscape_xl: String
-      landscape_l: String
-      landscape_md: String
-      landscape_s: String
-      landscape_xs: String
-      portrait_xl: String
-      portrait_l: String
-      portrait_md: String
-      portrait_s: String
-      portrait_xs: String
-      square_xl: String
-      square_l: String
-      square_md: String
-      square_s: String
-      square_xs: String
-      lazy_default: String
-      small: String
-      medium: String
-      large: String
+      ${auxPresets}
     }
     type AdditionalPropertiesImage {
       mime_type: String
@@ -195,24 +201,39 @@ const storySchemaTypes = `
       gestion: DataWebsites
     }
   `
+}
 
 export const storySchema = `
-    ${storySchemaTypes}
+    ${storySchemaTypes()}
     type Query {
       ${storySchemaBase}
     }
   `
 
 export const storiesSchema = `
-    ${storySchemaTypes}
-    type ContentElements {
-      ${storySchemaBase}
-    }
-    type Query {
-      content_elements: [ContentElements]
-      section_name: String
-      author_name: String
-      tag_name: String
-      count: Int
-    }
+  ${storySchemaTypes()}
+  type ContentElements {
+    ${storySchemaBase}
+  }
+  type Query {
+    content_elements: [ContentElements]
+    section_name: String
+    author_name: String
+    tag_name: String
+    count: Int
+  }
   `
+
+export const storiesSchemaWhitCustomPresets = `
+  ${storySchemaTypes('preset1 preset2 preset3')}
+  type ContentElements {
+    ${storySchemaBase}
+  }
+  type Query {
+    content_elements: [ContentElements]
+    section_name: String
+    author_name: String
+    tag_name: String
+    count: Int
+  }
+`
