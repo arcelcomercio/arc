@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import UserProfile from './_children/user-profile'
 import Summary from '../summary'
 import * as S from './styled'
+import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { addSales } from '../../../_dependencies/sales'
 import Beforeunload from '../before-unload'
 import Loading from '../../../_children/loading'
@@ -21,6 +22,10 @@ function WizardUserProfile(props) {
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
+
+  useEffect(() => {
+    sendAction(PixelActions.PAYMENT_PROFILE)
+  }, [])
 
   const {
     plan: { amount, description, billingFrequency },

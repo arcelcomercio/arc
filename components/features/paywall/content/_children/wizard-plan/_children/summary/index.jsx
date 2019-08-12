@@ -2,7 +2,7 @@ import React from 'react'
 import * as S from './styled'
 import Icon from '../../../../../_children/icon'
 import Panel from '../../../../../_children/panel'
-import Bullet from '../../../bullet-point'
+import Bullet from '../../../../../_children/bullet-point'
 
 function Summary({ title, feature }) {
   return (
