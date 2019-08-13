@@ -15,6 +15,7 @@ import googlePlay from './google-play'
 import gloading from './gloading'
 import close from './close'
 import linkedin from './linkedin'
+import support from './support'
 
 export {
   check,
@@ -34,4 +35,5 @@ export {
   gloading,
   close,
   linkedin,
+  support
 }

@@ -18,7 +18,6 @@ export default {
   idGoogleAnalitics: 'UA-3055636-3',
   fbArticleStyle: 'LogoGestion',
   nameStoryRelated: 'VEA TAMBIÉN',
-
   siteDescription:
     'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://gestion.pe/f/i/pub_40.png',
@@ -46,7 +45,8 @@ export default {
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
   },
   paywall: {
-    title: 'Gestión | Suscripciones Digitales'
+    title: 'Gestión | Suscripciones Digitales',
+    clickToCall: 'https://c2c.kontactame.com/call/?id=162'
   },
   assets: {
     nav: {
