@@ -44,7 +44,7 @@ export default {
   },
   assets: {
     seo: {
-      logoAmp: 'logo-ojo-amp.png',
+      logoAmp: 'logo-amp.png',
       width: 246,
       height: 60,
     },
@@ -103,7 +103,7 @@ export default {
     contacts: [
       {
         position: 'Director Periodístico',
-        name: 'Jaime Asian Dominguez   jasian@grupoepensa.pe',
+        name: 'Jaime Asián Domínguez   jasian@grupoepensa.pe',
       },
       {
         position: 'Editor Web',

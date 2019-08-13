@@ -23,7 +23,7 @@ export default {
     'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://gestion.pe/f/i/pub_40.png',
   theme: {
-    color: '#8F071F'
+    color: '#8F071F',
   },
   infoPagesDev: {
     termsAndConditions: '',
@@ -46,7 +46,7 @@ export default {
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
   },
   paywall: {
-    title: 'Gestión | Suscripciones Digitales'
+    title: 'Gestión | Suscripciones Digitales',
   },
   assets: {
     nav: {
@@ -54,7 +54,7 @@ export default {
       logoSomos: 'white-logo.png',
     },
     seo: {
-      logoAmp: 'logo-gestion-amp.png',
+      logoAmp: 'logo-amp.png',
       width: 246,
       height: 60,
     },
@@ -75,7 +75,7 @@ export default {
       support: `images/img_soporte.png`,
       contact_form_left: 'images/adult-attire-blazer-173125@2x.jpg',
       support_webp: `images/img_soporte.webp`,
-      backgroundx1: `images/bg-planes-10.png`,
+      backgroundx1: `images/bg_planes_10.jpg`,
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)
