@@ -26,18 +26,23 @@ class CardTabloid extends PureComponent {
   constructor(props) {
     super(props)
 
-    const { arcSite, customFields: { feedOffset = 0 } = {} } = this.props
+    const {
+      arcSite,
+      customFields: { feedOffset = 0, urlImage = '' } = {},
+    } = this.props
 
-    this.fetchContent({
-      data: {
-        source: CONTENT_SOURCE,
-        query: {
-          website: arcSite,
-          feedOffset,
+    if (!urlImage) {
+      this.fetchContent({
+        data: {
+          source: CONTENT_SOURCE,
+          query: {
+            website: arcSite,
+            feedOffset,
+          },
+          filter: schemaFilter(arcSite),
         },
-        filter: schemaFilter(arcSite),
-      },
-    })
+      })
+    }
   }
 
   render() {
@@ -48,20 +53,25 @@ class CardTabloid extends PureComponent {
       editableField,
       isAdmin,
       siteProperties: { linkTabloide = '' },
-      customFields: { sectionName = '' } = {},
+      customFields: { sectionName = '', urlImage = '', link = '', date: dateField } = {},
     } = this.props
-    const { data = {} } = this.state
-    const { title = '', date = '', primarySectionLink = '' } = new StoryData({
+
+    const { data = {} } = this.state || {}
+
+    console.log('data 44', data)
+
+    const { title = '', createdDate = '', primarySectionLink = '' } = new StoryData({
       data,
       contextPath,
       arcSite,
     })
+
     const {
-      section_name: sourceSectionName,
+      section_name: sourceSectionName = '',
       promo_items: {
         basic: {
           resized_urls: {
-            lazy_default: lazyImage,
+            lazy_default: lazyImage = '',
             printed_md: printedImage = defaultImage({
               deployment,
               contextPath,
@@ -73,13 +83,13 @@ class CardTabloid extends PureComponent {
       } = {},
     } = data
 
-    const nameDate = getLatinDate(date, ' del', true)
+    const nameDate = getLatinDate(createdDate, ' del', true)
     return (
       <div className={classes.tabloid}>
         <h4 className={classes.header}>
           <a
             className={classes.headerLink}
-            href={primarySectionLink}
+            href={link || primarySectionLink || '/impresa/'}
             {...editableField('sectionName')}
             suppressContentEditableWarning>
             {sectionName || sourceSectionName}
@@ -87,18 +97,18 @@ class CardTabloid extends PureComponent {
         </h4>
         <a
           className={classes.body}
-          href={linkTabloide}
+          href={link || linkTabloide}
           target="_blank"
           rel="noopener noreferrer">
           <picture>
             <img
               className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
-              src={isAdmin ? printedImage : lazyImage}
-              data-src={printedImage}
+              src={urlImage || (isAdmin ? printedImage : lazyImage)}
+              data-src={urlImage || printedImage}
               alt={title}
             />
           </picture>
-          <time className={classes.date}>{nameDate}</time>
+          <time className={classes.date}>{dateField || nameDate}</time>
         </a>
       </div>
     )
