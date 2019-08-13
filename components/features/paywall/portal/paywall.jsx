@@ -4,53 +4,53 @@ import { devices } from '../_dependencies/devices'
 import Card from './_children/card'
 import './paywall.css'
 
-const serviceData = [
-  {
-    title: 'Digital',
-    price: { amount: 29, currency: 'S/' },
-    detail: {
-      frequency: 'MES',
-      duration: 'POR 6 MESES',
-      aditional: 'LUEGO S/ 20 CADA MES',
-    },
-    features: [
-      'Acceso a contenido exclusivo en gestion.pe y navegación ilimitada desde todos tus dispositivos',
-    ],
-  },
-  {
-    title: 'Digital + Impreso',
-    recommended: true,
-    price: { amount: 49, currency: 'S/' },
-    detail: {
-      frequency: 'MES',
-      duration: 'POR 6 MESES',
-      aditional: 'LUEGO S/ 20 CADA MES',
-    },
-    aditional: '',
-    features: [
-      'Acceso a contenido exclusivo en gestion.pe y navegación ilimitada desde todos tus dispositivos',
-      'Diario impreso de Lunes a Viernes',
-      'Acceso a la versión impresa en formato digital: PDF',
-      'Descuentos ilimitados del club de beneficios',
-      'Revista G',
-    ],
-  },
-  {
-    title: 'Impreso',
-    price: { amount: 49, currency: 'S/' },
-    detail: {
-      frequency: 'MES',
-      duration: '',
-      aditional: '',
-    },
-    features: [
-      'Diario impreso de Lunes a Viernes',
-      'Acceso a la versión impresa en formato digital: PDF',
-      'Descuentos ilimitados del club de beneficios',
-      'Revista G',
-    ],
-  },
-]
+// const serviceData = [
+//   {
+//     title: 'Digital',
+//     price: { amount: 29, currency: 'S/' },
+//     detail: {
+//       frequency: 'MES',
+//       duration: 'POR 6 MESES',
+//       aditional: 'LUEGO S/ 20 CADA MES',
+//     },
+//     features: [
+//       'Acceso a contenido exclusivo en gestion.pe y navegación ilimitada desde todos tus dispositivos',
+//     ],
+//   },
+//   {
+//     title: 'Digital + Impreso',
+//     recommended: true,
+//     price: { amount: 49, currency: 'S/' },
+//     detail: {
+//       frequency: 'MES',
+//       duration: 'POR 6 MESES',
+//       aditional: 'LUEGO S/ 20 CADA MES',
+//     },
+//     aditional: '',
+//     features: [
+//       'Acceso a contenido exclusivo en gestion.pe y navegación ilimitada desde todos tus dispositivos',
+//       'Diario impreso de Lunes a Viernes',
+//       'Acceso a la versión impresa en formato digital: PDF',
+//       'Descuentos ilimitados del club de beneficios',
+//       'Revista G',
+//     ],
+//   },
+//   {
+//     title: 'Impreso',
+//     price: { amount: 49, currency: 'S/' },
+//     detail: {
+//       frequency: 'MES',
+//       duration: '',
+//       aditional: '',
+//     },
+//     features: [
+//       'Diario impreso de Lunes a Viernes',
+//       'Acceso a la versión impresa en formato digital: PDF',
+//       'Descuentos ilimitados del club de beneficios',
+//       'Revista G',
+//     ],
+//   },
+// ]
 
 @Consumer
 class Portal extends React.PureComponent {
@@ -62,22 +62,29 @@ class Portal extends React.PureComponent {
       siteProperties: { assets },
     } = props
     const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
-    this.background = `url(${fullAssets('backgroundx1')})`
-
-    this.state = { background: this.background }
+    this.BACKGROUND = `url(${fullAssets('backgroundx1')})`
+    this.fetchContent({
+      serviceData: {
+        source: 'paywall-home-campaing',
+      },
+    })
   }
 
   componentDidMount() {
-    const mq = window.matchMedia(`(${devices.mobile})`)
-    if (mq.matches) {
-      this.setState({ background: `#e4dccf` })
-    } else {
-      this.setState({ background: this.background })
-    }
+    const mqt = window.matchMedia(`${devices.tablet}`)
+    const mqm = window.matchMedia(`(${devices.mobile})`)
+    mqt.addListener(() => this.backgroundMediaQuery(mqt, mqm))
+    mqm.addListener(() => this.backgroundMediaQuery(mqt, mqm))
+    this.backgroundMediaQuery(mqt, mqm)
+  }
+
+  backgroundMediaQuery = (mqt, mqm) => {
+    const background = mqt.matches || mqm.matches ? '#e4dccf' : this.BACKGROUND
+    this.setState({ background })
   }
 
   render() {
-    const { background } = this.state
+    const { background, serviceData = [] } = this.state
     return (
       <div className="portal" style={{ background }}>
         <div className="portal__content">
