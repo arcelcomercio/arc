@@ -1,0 +1,18 @@
+.most-read-item {
+  border-color: $color-gray-200;
+
+  &__detail {
+    font-size: 16px;
+    font-weight: 700;
+
+    &.three-lines {
+      max-height: calc(16px * 1.33 * 3);
+    }
+    &.four-lines {
+      max-height: calc(16px * 1.33 * 4);
+    }
+  }
+  &__icon {
+    color: $color-base-200;
+  }
+}

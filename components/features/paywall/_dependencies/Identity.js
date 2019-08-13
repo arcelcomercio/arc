@@ -27,10 +27,10 @@ export const AddIdentity = () => {
 }
 
 export const isLogged = () => {
-  const { sessionStorage } = window;
-  return sessionStorage.getItem('ArcId.USER_INFO') === '{}' 
-  // eslint-disable-next-line no-prototype-builtins
-  && sessionStorage.hasOwnProperty('ArcId.USER_INFO')
+  const { localStorage } = window;
+      // eslint-disable-next-line no-prototype-builtins
+      return localStorage.hasOwnProperty('ArcId.USER_INFO') 
+      && localStorage.getItem('ArcId.USER_INFO') !== '{}'
 }
 
 export const userProfile = (getAttr = []) => {

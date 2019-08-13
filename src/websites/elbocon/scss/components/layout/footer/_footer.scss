@@ -1,0 +1,32 @@
+.footer {
+  &__info,
+  &__sections,
+  &__contact,
+  &__sites {
+    background-color: transparent;
+  }
+  &__legal-links {
+    color: $color-gray-300;
+    &::after {
+      background-color: $color-gray-300;
+    }
+  }
+  &__list-title {
+    color: $color-gray-300;
+    font-weight: 700;
+  }
+  &__sites {
+    border-top: 1px dashed $border-color-base;
+  }
+  &__sites-link {
+    color: $color-gray-300;
+  }
+  &__sites-item {
+    &::after {
+      background-color: $color-gray-300;
+    }
+  }
+  &__list-link {
+    text-transform: none;
+  }
+}

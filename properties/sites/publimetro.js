@@ -8,7 +8,8 @@ export default {
   siteUrl: 'https://publimetro.pe',
   resizerUrl: 'https://publimetro.pe/resizer',
   resizerSecretKeyEnvVar: '',
-  urlPreroll: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Publimetro_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+  urlPreroll:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Publimetro_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '189362231408765',
   googleTagManagerId: 'GTM-NSWLD37',
   ampGoogleTagManagerId: 'UA-3055636-18',
@@ -17,7 +18,8 @@ export default {
   idGoogleAnalitics: 'UA-3055636-18',
   fbArticleStyle: 'LogoPublimetro',
   nameStoryRelated: 'Relacionadas',
-  siteDescription: 'Noticias de Perú y el mundo en Publimetro.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  siteDescription:
+    'Noticias de Perú y el mundo en Publimetro.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: 'H64O2THIKJA6XADJ5SZ5H45TNQ',
@@ -50,14 +52,10 @@ export default {
     footer: {
       logo: 'logo.png',
     },
-    seo: {
-      logoAmp: 'logo-publimetro-258x60.png',
-      width: 258,
-      height: 60,
-    },
   },
 
-  legalLinks: [{
+  legalLinks: [
+    {
       name: 'Términos y Condiciones',
       url: '/terminos-y-condiciones/',
     },
@@ -78,7 +76,8 @@ export default {
       'Copyright © publimetro.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
-    story: [{
+    story: [
+      {
         position: 'Director Periodístico',
         name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
       },
@@ -92,7 +91,8 @@ export default {
       },
     ],
 
-    socialNetworks: [{
+    socialNetworks: [
+      {
         name: 'facebook',
         url: 'https://www.facebook.com/publimetrope',
       },
@@ -102,7 +102,8 @@ export default {
       },
     ],
 
-    contacts: [{
+    contacts: [
+      {
         position: 'Director Periodístico',
         name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
       },

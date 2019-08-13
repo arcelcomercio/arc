@@ -1,0 +1,17 @@
+.stories-l-item {
+  background-color: transparent;
+  border-color: $color-gray-200;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &__link {
+    font-family: $primary-font;
+    font-weight: 700;
+  }
+
+  &__time {
+    color: $color-base-300;
+  }
+}
