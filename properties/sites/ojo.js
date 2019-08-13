@@ -103,7 +103,7 @@ export default {
     contacts: [
       {
         position: 'Director Periodístico',
-        name: 'Jaime Asian Dominguez   jasian@grupoepensa.pe',
+        name: 'Jaime Asián Domínguez   jasian@grupoepensa.pe',
       },
       {
         position: 'Editor Web',
