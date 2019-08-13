@@ -50,7 +50,7 @@ const ParagraphshWithAdds = ({
 
   paragraphsNews.forEach((paragraphItem, index) => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
-    // paragraph = paragraph.replace(/<\/?br[^<>]+>/, '')
+    
     // el primer script de publicidad se inserta despues del segundo parrafo
 
     if (index <= 1) {
@@ -136,20 +136,19 @@ const BuildHtml = BuildHtmlProps => {
                 </iframe>
               </figure>
             
-            <header>
-              <h1>${title}</h1>
-              <h2>${subTitle}</h2>
-            </header>
-            <figure>
-                <img src="${multimedia}" />
-                <figcaption>${title}</figcaption>
-            </figure>
-            <p>${author}</p>
-            ${ParagraphshWithAdds(paramsBuildParagraph)}
+              <header>
+                <h1>${title}</h1>
+                <h2>${subTitle}</h2>
+              </header>
+              <figure>
+                  <img src="${multimedia}" />
+                  <figcaption>${title}</figcaption>
+              </figure>
+              <p>${author}</p>
+              ${ParagraphshWithAdds(paramsBuildParagraph)}
             </article>
-            </body>
-          </html>
-          `
+          </body>
+        </html>`
   return element
 }
 
