@@ -1,0 +1,54 @@
+/******* Framework Variables*******/
+@import './partials/import-icons';
+@import '../../../general-styles/framework/variables/index';
+/*---------------------*/
+
+/******* Site Variables *******/
+@import './variables/index';
+@import '../../../general-styles/framework/core/index';
+@import './partials/import-fonts';
+@import '../../../general-styles/framework/generators/index';
+/*---------------------*/
+
+/******* Partials *******/
+@import './partials/base';
+@import './partials/reset';
+/*---------------------*/
+
+/******* Components *******/
+@import '../../../general-styles/components/index';
+/*---------------------*/
+
+/******* Modificadores *******/
+@import './components/most-read';
+@import './components/most-read-item';
+@import './components/global-components/story-item';
+@import './components/layout/header/header';
+@import './components/global-components/featured-story';
+@import './components/stories-list-header';
+@import './components/stories-list-card';
+@import './components/stories-list-item';
+@import './components/blog-separator';
+@import './components/tabloid';
+@import './components/separador';
+@import './components/nav';
+@import './components/story-header';
+@import './components/story-content';
+@import './components/story-tags';
+@import './components/related-content';
+@import './components/story-separator';
+@import './components/layout/footer/footer-secondary';
+@import './components/layout/footer/footer';
+@import './components/layout/footer/footer-story';
+@import './components/blog-list';
+@import './components/blog-item';
+@import './components/search-filter';
+@import './components/story-gallery-slider';
+@import './components/author-details';
+@import './components/post-item';
+@import './components/info-pages';
+@import './components/story-continue';
+@import './components/blog-related-stories-grid';
+@import './components/story';
+@import './components/newsletter';
+/*---------------------*/

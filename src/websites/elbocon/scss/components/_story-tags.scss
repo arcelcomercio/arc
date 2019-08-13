@@ -1,0 +1,21 @@
+.story-tags {
+  &__title {
+    color: $color-primary;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 15px;
+    @media (--tablet) {
+      font-size: 19px;
+    }
+  }
+  &__link {
+    font-weight: 700;
+    background-color: transparent;
+    color: $color-gray-300;
+    text-decoration: underline;
+    padding-left: 0;
+    @media (--tablet) {
+      font-size: 18px;
+    }
+  }
+}

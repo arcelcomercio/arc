@@ -44,7 +44,7 @@ export default {
   },
   assets: {
     seo: {
-      logoAmp: 'logo-ojo-amp.png',
+      logoAmp: 'logo-amp.png',
       width: 246,
       height: 60,
     },
