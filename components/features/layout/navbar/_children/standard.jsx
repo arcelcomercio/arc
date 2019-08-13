@@ -146,13 +146,15 @@ class NavBarDefault extends PureComponent {
     const W = window
 
     const dataContentPremium = W.content_paywall || false
-    if (ENV.ENVIRONMENT !== 'elcomercio' && dataContentPremium) {
-      // only sandbox ;)
+    if (dataContentPremium && this.checkSession()) {
       return this.getListSubs().then(p => {
         if (p && p.length === 0) W.location.href = '/?signwallPremium=1'
       })
     }
-    return false
+
+    return () => {
+      W.location.href = '/?signwallPremium=1'
+    }
   }
 
   getPaywall() {
@@ -162,7 +164,9 @@ class NavBarDefault extends PureComponent {
     const dataContType = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
 
-    this.getPremium()
+    if (ENV.ENVIRONMENT !== 'elcomercio') { // only sandbox ;)
+      this.getPremium()
+    }
 
     W.ArcP.run({
       paywallFunction: campaignURL => {
@@ -489,7 +493,7 @@ class NavBarDefault extends PureComponent {
       siteProperties,
       contextPath,
       deviceList,
-      globalContentConfig: { query = {} } = {}, 
+      globalContentConfig: { query = {} } = {},
       data: { children: sections = [] } = {},
     } = this.props
 
