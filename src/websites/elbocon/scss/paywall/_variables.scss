@@ -1,0 +1,13 @@
+@import "../../../../general-styles/framework/variables/breakpoints";
+@import "../variables/colors";
+
+$font-primary: 'Open Sans', sans-serif;
+$font-secondary: 'Judson', serif;
+
+:root{
+    --font-primary: #{$font-primary} ;
+    --font-secondary: #{$font-secondary};
+
+    --color-primary: #{$color-primary};
+    --color-secondary: #{$color-secondary};
+}

@@ -99,16 +99,20 @@ const Pagination = props => {
 
   return (
     <div role="navigation" className={classes.pagination}>
-      <a
-        className={`${classes.page} ${
-          currentPage === 1 || currentPage === 0
-            ? 'pagination__page--disabled'
-            : ''
-        }`}
-        href={urlPrevPage}>
-        <span className="non-tablet non-desktop">&#60;</span>
-        <span className="non-mobile">anterior</span>
-      </a>
+      {currentPage === 1 || currentPage === 0 ? (
+        <p
+          className={`${classes.page} pagination__page--disabled`}
+          href={urlPrevPage}>
+          <span className="non-tablet non-desktop">&#60;</span>
+          <span className="non-mobile">anterior</span>
+        </p>
+      ) : (
+        <a className={classes.page} href={urlPrevPage}>
+          <span className="non-tablet non-desktop">&#60;</span>
+          <span className="non-mobile">anterior</span>
+        </a>
+      )}
+
       {pages.map((page, i) => {
         let tag = null
         const key = `pagination-${i}-${page || ''}`
@@ -136,14 +140,19 @@ const Pagination = props => {
         }
         return tag
       })}
-      <a
-        className={`${classes.page} ${
-          currentPage === totalPages ? 'pagination__page--disabled' : ''
-        }`}
-        href={urlNextPage}>
-        <span className="non-tablet non-desktop">&#62;</span>
-        <span className="non-mobile">siguiente</span>
-      </a>
+      {currentPage === totalPages ? (
+        <p
+          className={`${classes.page} pagination__page--disabled`}
+          href={urlNextPage}>
+          <span className="non-tablet non-desktop">&#62;</span>
+          <span className="non-mobile">siguiente</span>
+        </p>
+      ) : (
+        <a className={classes.page} href={urlNextPage}>
+          <span className="non-tablet non-desktop">&#62;</span>
+          <span className="non-mobile">siguiente</span>
+        </a>
+      )}
     </div>
   )
 }

@@ -14,6 +14,7 @@ export default ({
   deployment,
   arcSite,
   globalContent,
+  globalContentConfig,
   // CssLinks,
   Fusion,
   Libs,
@@ -62,11 +63,17 @@ export default ({
     isAmp: false,
   }
 
+  const defineTitle = (page = 'default', config) => {
+    if (page === 'meta_author' || page === 'meta_tag') return config.query.name
+    return ''
+  }
+
   const seoTitle =
     (metaValue('title') &&
       !metaValue('title').match(/content/) &&
       metaValue('title')) ||
-    storyTitle
+    storyTitle ||
+    defineTitle(metaValue('id'), globalContentConfig)
 
   const metaTitle =
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
@@ -214,12 +221,6 @@ export default ({
         )}
       </head>
       <body className={classBody}>
-        <script
-          defer
-          src={deployment(
-            `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
-          )}
-        />
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -240,6 +241,12 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
+        <script
+          defer
+          src={deployment(
+            `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
+          )}
+        />
         <script
           defer
           src={deployment(
