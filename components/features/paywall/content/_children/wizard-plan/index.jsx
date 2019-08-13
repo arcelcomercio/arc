@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import CardPrice from './_children/card-price'
 import Summary from './_children/summary'
@@ -7,6 +7,8 @@ import { addSales } from '../../../_dependencies/sales'
 import BannerPromoSuscriptor from './_children/banner-promo-suscriptor'
 import Modal from '../../../_children/modal'
 import CheckSuscription from './_children/check-suscriptor'
+import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
+import { parseQueryString } from '../../../../../utilities/helpers'
 
 function WizardPlan(props) {
   const {
@@ -16,27 +18,48 @@ function WizardPlan(props) {
     message,
     printed,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
+    setLoading,
   } = props
 
   const [loadingPlan, setLoadingPlan] = useState()
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
 
+  useEffect(() => {
+    sendAction(PixelActions.PAYMENT_PLAN)
+  }, [])
+
   const Sales = addSales()
+
+  useEffect(() => {
+    Sales.then(sales => {
+      sales.clearCart()
+    })
+  }, [])
 
   function subscribePlanHandler(e, plan) {
     Sales.then(sales => {
-      setLoadingPlan(plan)
+      setLoading(true)
       return sales
         .addItemToCart([
           { sku: plan.sku, priceCode: plan.priceCode, quantity: 1 },
         ])
         .then(res => {
-          setLoadingPlan(false)
-          onBeforeNextStep({ plan }, props)
+          setLoading(false)
+          const {
+            location: { search },
+          } = window
+          const qs = parseQueryString(search)
+          onBeforeNextStep(
+            {
+              plan: { printed, ...plan },
+              referer: qs.ref || 'organico',
+            },
+            props
+          )
         })
         .catch(e => {
-          setLoadingPlan(false)
+          setLoading(false)
         })
     })
   }
@@ -68,7 +91,6 @@ function WizardPlan(props) {
                   onMouseOver={() => setActivePlan(priceCode)}
                   onFocus={() => setActivePlan(priceCode)}
                   onClick={subscribePlanHandler}
-                  loading={loadingPlan && loadingPlan.priceCode === priceCode}
                 />
               )
             })}

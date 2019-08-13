@@ -9,7 +9,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
 const FeaturedStoryPremium = props => {
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -30,6 +30,7 @@ const FeaturedStoryPremium = props => {
     multimediaSquareMD,
     multimediaLandscapeMD,
     multimediaLandscapeL,
+    multimediaLazyDefault,
     title,
     subTitle,
     author,
@@ -53,6 +54,7 @@ const FeaturedStoryPremium = props => {
     multimediaSquareMD,
     multimediaLandscapeMD,
     multimediaLandscapeL,
+    multimediaLazyDefault,
     title,
     subTitle,
     author,
@@ -60,6 +62,7 @@ const FeaturedStoryPremium = props => {
     multimediaType,
     primarySectionLink,
     primarySection,
+    isAdmin,
   }
   return <FeaturedStoryPremiumChild {...params} />
 }
@@ -68,6 +71,7 @@ FeaturedStoryPremium.propTypes = {
   customFields,
 }
 
-FeaturedStoryPremium.static = true
 FeaturedStoryPremium.label = 'Destaque Premium'
+FeaturedStoryPremium.static = true
+
 export default FeaturedStoryPremium

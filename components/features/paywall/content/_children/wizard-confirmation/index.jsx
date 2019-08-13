@@ -3,6 +3,7 @@ import * as S from './styled'
 import { Panel } from '../../../_children/panel/styled'
 import Button from '../../../_children/button'
 import { devices } from '../../../_dependencies/devices'
+import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 
 const HOME = 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/'
 const NAME_REDIRECT = 'paywall_last_url'
@@ -19,17 +20,45 @@ const WizardConfirmation = props => {
   const {
     assets,
     memo: {
+      order: { orderNumber },
       profile: { firstName, lastName, secondLastName, email },
-      plan: { name: plan },
-      payment: { total: paidTotal },
+      plan: { name: plan, sku, amount, billingFrequency, printed },
+      referer: ref,
+      payment: { total: paidTotal, subscriptionIDs },
     },
   } = props
 
+  useEffect(() => {
+    sendAction(PixelActions.PAYMENT_CONFIRMATION, {
+      transactionId: orderNumber,
+      transactionAffiliation: 'Suscripciones Gestión',
+      transactionTotal: paidTotal,
+      transactionTax: 0,
+      transactionShipping: 0,
+      transactionProducts: [
+        {
+          sku,
+          name: plan,
+          category: 'Planes',
+          price: amount,
+          quantity: 1,
+        },
+      ],
+      confirmacionID: subscriptionIDs[0], // Por ahora solo un producto
+      periodo: billingFrequency,
+      suscriptorImpreso: printed ? 'si' : 'no',
+      medioCompra: ref,
+    })
+  }, [])
+
   const handlePWA = () => {
     // eslint-disable-next-line no-prototype-builtins
-    const isPWA = window.hasOwnProperty('nativeConnectionModal')
+
+    const isPWA = window.opener && ref.toUpperCase() === 'PWA'
     if (isPWA) {
-      window.nativeConnectionModal.pwaCloseWebView('paywall')
+      const destiny = `https://pwa.gestion.pe`
+      window.opener.postMessage('successful_purchase', destiny)
+      window.close()
     }
     return isPWA
   }
@@ -47,12 +76,12 @@ const WizardConfirmation = props => {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Panel maxWidth="1060px" direction="row">
         <S.Picture>
-          <source srcSet={assets('confirmation')} />
           <source
             media={`(${devices.mobile})`}
             srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
           />
-          <S.Image src={assets('confirmation')} alt="Bar" />
+          <source srcSet={assets('confirmation_webp')} type="image/webp" />
+          <S.Image src={assets('confirmation')} alt="confirmación" />
         </S.Picture>
 
         <S.Content>
@@ -82,7 +111,7 @@ const WizardConfirmation = props => {
           </S.Span>
           <S.WrapButton>
             <Button onClick={handleClick}>SIGUE NAVEGANDO</Button>
-            <S.Progress time="8s" onFinish={handleClick} />
+            <S.Progress time="17s" onFinish={handleClick} />
           </S.WrapButton>
         </S.Content>
       </Panel>

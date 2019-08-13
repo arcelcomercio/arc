@@ -168,6 +168,7 @@ export default class FeaturedStory extends PureComponent {
             <source
               className={isAdmin ? '' : 'lazy'}
               media="(max-width: 639px)"
+              type="image/jpeg"
               srcSet={isAdmin ? getMobileImage() : multimediaLazyDefault}
               data-srcset={getMobileImage()}
             />
@@ -176,7 +177,6 @@ export default class FeaturedStory extends PureComponent {
               data-src={getDesktopImage()}
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               alt=""
-              
             />
             <Icon type={multimediaType} iconClass={classes.icon} />
           </picture>

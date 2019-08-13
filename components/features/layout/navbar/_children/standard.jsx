@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
@@ -71,10 +72,10 @@ class NavBarDefault extends PureComponent {
       showReset: false,
       showRelogin: false,
       showPaywall: false,
-      nameUser: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
+      userName: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
       initialUser: new GetProfile().initname,
     }
-    // Resizer.setResizeListener()
+
     this.inputSearch = React.createRef()
 
     this.dragFlag = false
@@ -98,9 +99,15 @@ class NavBarDefault extends PureComponent {
     this.layerBackground = document.querySelector('.layer')
 
     if (this.listContainer !== null && this.listContainer !== 'undefined') {
-      document.body.addEventListener('touchstart', this._initDrag, { passive: true })
-      document.body.addEventListener('touchend', this._endDrag, { passive: true })
-      document.body.addEventListener('touchmove', this._moveDrag, { passive: true })
+      document.body.addEventListener('touchstart', this._initDrag, {
+        passive: true,
+      })
+      document.body.addEventListener('touchend', this._endDrag, {
+        passive: true,
+      })
+      document.body.addEventListener('touchmove', this._moveDrag, {
+        passive: true,
+      })
     }
 
     if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
@@ -112,95 +119,101 @@ class NavBarDefault extends PureComponent {
 
     this.isStory = !!window.document.querySelector('meta[name="section-id"]') // TODO: temporal
 
-    // ----------------------- Start Active Rules Paywall ----------------------- //
-
+    // ---------- Start Premium & Paywall ----------- //
     if (arcSite === 'gestion') {
-      const dataContentType = window.document.querySelector(
-        'meta[name="content-type"]'
-      )
-      const dataContentSection = window.document.querySelector(
-        'meta[name="section-id"]'
-      )
-      window.ArcP.run({
-        // paywallFunction: campaignURL => console.log('Paywall!', campaignURL),
-        paywallFunction: campaignURL => {
-          window.location.href = campaignURL
-        },
-        // customPageData: () => ({
-        //   c: 'story',
-        //   s: 'business',
-        //   ci: Date.now(),
-        // }),
-        contentType: dataContentType
-          ? dataContentType.getAttribute('content')
-          : 'none',
-        section: dataContentSection
-          ? dataContentSection.getAttribute('content')
-          : 'none',
-        userName: window.Identity.userIdentity.uuid
-          ? window.Identity.userIdentity.uuid
-          : null,
-        jwt: window.Identity.userIdentity.accessToken
-          ? window.Identity.userIdentity.accessToken
-          : null,
-        apiOrigin: 'https://api-sandbox.gestion.pe',
-        customSubCheck: () => {
-          // estado de suscripcion
-          return this.getListSubs().then(p => {
-            const isLoggedInSubs = !!(
-              window.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
-              window.localStorage.getItem('ArcId.USER_PROFILE')
-            )
-            return {
-              s: isLoggedInSubs,
-              p: p || null,
-              timeTaken: 100,
-              updated: Date.now(),
-            }
-          })
-        },
-        customRegCheck: () => {
-          // estado de registro
-          const start = Date.now()
-          const isLoggedIn = !!(
-            window.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
-            window.localStorage.getItem('ArcId.USER_PROFILE')
-          )
-          return Promise.resolve({
-            l: isLoggedIn,
-            timeTaken: Date.now() - start,
-            updated: Date.now(),
-          })
-        },
-      })
-        .then(results =>
-          window.console.log('Results from running paywall script: ', results)
-        )
-        .catch(() => window.console.error())
+      this.getPremium()
+      this.getPaywall()
     }
-
-    // ----------------------- End Active Rules Paywall ----------------------- //
+    // ---------- End Premium & Paywall ------------ //
   }
 
   componentDidUpdate() {
     if (this.checkSession()) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        nameUser: new GetProfile().username,
+        userName: new GetProfile().username,
         initialUser: new GetProfile().initname,
       })
     } else {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        nameUser: new GetProfile().username,
+        userName: new GetProfile().username,
         initialUser: new GetProfile().initname,
       })
     }
   }
 
+  getPremium() {
+    const W = window
+
+    const dataContentPremium = W.content_paywall || false
+    if (ENV.ENVIRONMENT !== 'elcomercio' && dataContentPremium) {
+      // only sandbox ;)
+      return this.getListSubs().then(p => {
+        if (p && p.length === 0) W.location.href = '/?signwallPremium=1'
+      })
+    }
+    return false
+  }
+
+  getPaywall() {
+    const { arcSite } = this.props
+    const W = window
+
+    const dataContType = W.document.querySelector('meta[name="content-type"]')
+    const dataContSec = W.document.querySelector('meta[name="section-id"]')
+
+    W.ArcP.run({
+      paywallFunction: campaignURL => {
+        W.location.href = campaignURL
+      },
+      contentType: dataContType ? dataContType.getAttribute('content') : 'none',
+      section: dataContSec ? dataContSec.getAttribute('content') : 'none',
+      userName: W.Identity.userIdentity.uuid || null,
+      jwt: W.Identity.userIdentity.accessToken || null,
+      apiOrigin:
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`,
+      customSubCheck: () => {
+        // estado de suscripcion
+        return this.getListSubs().then(p => {
+          const isLoggedInSubs = !!(
+            W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+            W.localStorage.getItem('ArcId.USER_PROFILE')
+          )
+          return {
+            s: isLoggedInSubs,
+            p: p || null,
+            timeTaken: 100,
+            updated: Date.now(),
+          }
+        })
+      },
+      customRegCheck: () => {
+        // estado de registro
+        const start = Date.now()
+        const isLoggedIn = !!(
+          W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+          W.localStorage.getItem('ArcId.USER_PROFILE')
+        )
+        return Promise.resolve({
+          l: isLoggedIn,
+          timeTaken: Date.now() - start,
+          updated: Date.now(),
+        })
+      },
+    })
+    // .then(() => {
+    // W.console.log('Results from running paywall script: ', results)
+    // })
+    // .catch(() => W.console.error())
+  }
+
   getListSubs() {
+    const W = window
     return services
-      .getEntitlement(window.Identity.userIdentity.accessToken)
+      .getEntitlement(W.Identity.userIdentity.accessToken)
       .then(res => {
         if (res.skus) {
           const result = Object.keys(res.skus).map(key => {
@@ -211,7 +224,7 @@ class NavBarDefault extends PureComponent {
         }
         return []
       })
-      .catch(err => window.console.error(err))
+      .catch(err => W.console.error(err))
   }
 
   _initDrag = evt => {
@@ -359,6 +372,7 @@ class NavBarDefault extends PureComponent {
             this.setState({ showRelogin: true })
             break
           case 'signwallPaywall':
+          case 'signwallPremium':
             this.setState({ showPaywall: true })
             break
           default:
@@ -378,7 +392,6 @@ class NavBarDefault extends PureComponent {
   // }
 
   toggleBodyOverflow = () => {
-    console.log('ejecuta')
     if (typeof window !== 'undefined') {
       if (document.body.classList.contains('overflow-hidden'))
         document.body.classList.remove('overflow-hidden')
@@ -414,7 +427,6 @@ class NavBarDefault extends PureComponent {
   // Open - Close Search
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
-    console.log('pasa handle')
     this.toggleBodyOverflow()
     if (statusSidebar) this._closeMenu()
     else this._openMenu()
@@ -462,7 +474,7 @@ class NavBarDefault extends PureComponent {
       statusSidebar,
       scrolled,
       isActive,
-      nameUser,
+      userName,
       initialUser,
       showHard,
       showVerify,
@@ -476,8 +488,11 @@ class NavBarDefault extends PureComponent {
       siteProperties,
       contextPath,
       deviceList,
+      globalContentConfig: { query = {} } = {}, 
       data: { children: sections = [] } = {},
     } = this.props
+
+    const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
 
     const responsiveClass = getResponsiveClasses(deviceList)
     // this._handleDevice(device)
@@ -520,6 +535,7 @@ class NavBarDefault extends PureComponent {
                 <input
                   ref={this.inputSearch}
                   type="search"
+                  defaultValue={search}
                   /* onBlur={this._handleCloseSectionsSearch} */
                   onKeyUp={this._handleKeyDown}
                   placeholder="¿Qué Buscas?"
@@ -596,9 +612,7 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${
-                        classes.btnLogin
-                      } btn--outline` /* classes.btnSignwall */
+                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     {/* 
@@ -612,7 +626,7 @@ class NavBarDefault extends PureComponent {
                       {initialUser}
                     </i> */}
                     <span>
-                      {this.checkSession() ? nameUser : 'Iniciar Sesión'}
+                      {this.checkSession() ? userName : 'Iniciar Sesión'}
                     </span>
                   </button>
                 </div>
@@ -621,9 +635,7 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${
-                  classes.navMobileContainer
-                } ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -637,9 +649,7 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwallMobile
-                          }  title-sm`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
                     }>
                     {initialUser}
                   </i>
@@ -702,12 +712,16 @@ class NavBarDefault extends PureComponent {
           />
         ) : null}
 
-        {this.getUrlParam('signwallPaywall') &&
+        {(this.getUrlParam('signwallPaywall') ||
+          this.getUrlParam('signwallPremium')) &&
         showPaywall &&
         siteProperties.activeSignwall ? (
           <SignWallPaywall
             closePopup={() => this.closePopUp('signwallPaywall')}
             brandModal={arcSite}
+            typeModal={
+              this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
+            }
           />
         ) : null}
       </>

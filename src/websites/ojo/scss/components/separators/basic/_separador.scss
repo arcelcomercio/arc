@@ -22,4 +22,10 @@
     color: $color-white;
     font-weight: 400;
   }
+  &__threeline {
+    -webkit-line-clamp: 4;
+    @media (--desktop) {
+      max-height: 67px;
+    }
+  }
 }

@@ -14,7 +14,14 @@ const Paywall = props => {
     deployment,
   } = props
 
-  const { colorPrimary, siteName, assets } = siteProperties
+  const {
+    theme: { color },
+    siteName,
+    assets,
+    paywall: { title },
+  } = siteProperties
+
+  const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
   return (
     <html lang="es" className={arcSite}>
@@ -26,26 +33,26 @@ const Paywall = props => {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <title>{metaValue('title') || 'Default Title'}</title>
+        <title>{metaValue('title') || title}</title>
 
         <props.Libs />
         <props.CssLinks />
-        <Meta.Theme {...colorPrimary} {...siteName} />
-        <Meta.Icon {...contextPath} assets={assets} />
+        <Meta.Theme color={color} {...siteName} />
+        <Meta.Icon assets={fullAssets} />
         <link
           rel="stylesheet"
           href={deployment(
             `${contextPath}/resources/dist/${arcSite}/css/paywall.css`
           )}
         />
-        <link
-          href="https://fonts.googleapis.com/css?family=Open+Sans:300,700&display=swap"
-          rel="stylesheet"
-        />
         <props.MetaTags />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <link
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,700&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body onbeforeunload={() => 'message'}>
         <noscript>
