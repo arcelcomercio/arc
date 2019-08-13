@@ -1,6 +1,7 @@
-import schema, {Masks as M} from '../../_dependencies/schema'
+import schema, {Masks as M, PipedMasks as P} from '../../_dependencies/schema'
 
 export const Masks = M
+export const PipedMasks = P
 
 export const MESSAGE = {
   // eslint-disable-next-line no-template-curly-in-string

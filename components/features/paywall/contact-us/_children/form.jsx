@@ -4,11 +4,11 @@ import InputFormik from '../../_children/input'
 import Button from '../../_children/button'
 import Error from '../../_children/error'
 import { WrapField, ContentRow } from '../_dependencies/styled'
-import { FormSchema, Masks, MESSAGE } from '../_dependencies/schema'
+import { FormSchema, PipedMasks } from '../_dependencies/schema'
 
 export default props => {
   const { initialValues, submitForm, error } = props
-  console.log('window', window.location.host)
+  console.log('window', window.location.host) //NOTE: bypass render server side
   return (
     <Formik
       initialValues={initialValues}
@@ -37,7 +37,7 @@ export default props => {
                   transform="capitalize"
                   name="name"
                   label="Nombres"
-                  mask={Masks.PERSON_NAME}
+                  {...PipedMasks.PERSON_NAME}
                   component={InputFormik}
                 />
               </WrapField>
@@ -46,7 +46,7 @@ export default props => {
                   transform="capitalize"
                   name="lastname"
                   label="Apellidos"
-                  mask={Masks.PERSON_NAME}
+                  {...PipedMasks.PERSON_NAME}
                   component={InputFormik}
                 />
               </WrapField>
@@ -55,7 +55,7 @@ export default props => {
                   transform="capitalize"
                   name="company_name"
                   label="Organización"
-                  mask={Masks.PERSON_NAME}
+                  {...PipedMasks.PERSON_NAME}
                   component={InputFormik}
                 />
               </WrapField>
@@ -84,7 +84,7 @@ export default props => {
               </WrapField>
               <WrapField>
                 <Field
-                  className="paywall-contact-us__field"
+                  multiline
                   name="description"
                   label="Descripción"
                   component={InputFormik}

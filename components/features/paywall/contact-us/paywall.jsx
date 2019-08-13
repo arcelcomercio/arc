@@ -29,16 +29,18 @@ const PaywallContactUs = props => {
     description: '',
   }
 
+  let errorForm = ''
+
   const submitForm = (values, { setSubmitting }) => {
     console.log('values', values)
     const fetchApi = () => {
       //code
-      return true
+      return false
     }
     if (fetchApi()) {
       setShowThanks(true)
     } else {
-      error = MESSAGE.API_ERROR
+      errorForm = 'error'
     }
     setSubmitting(false)
   }
@@ -49,6 +51,7 @@ const PaywallContactUs = props => {
     <FormData
       initialValues={initialValuesForm}
       submitForm={submitForm}
+      error={errorForm}
     />
   ) : (
     <Thanks siteUrl={siteUrl} />

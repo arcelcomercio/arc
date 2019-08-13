@@ -10,19 +10,33 @@ const InputFormik = ({
   transform = 'none',
   prefix,
   suffix,
+  multiline,
   mask,
   type = 'text',
   ...props
 }) => {
   const { value, name } = field
-  const Input = mask ? S.InputMask : S.Input
+  const Input = mask ? S.InputMask : multiline ? S.Textarea : S.Input
+  /* let Input = S.Input
+  if (mask) {
+    if (multiline) {
+      // Input = props => <S.InputMask component="textarea" {...props} />
+    } else {
+      Input = S.InputMask
+    }
+  } else if (multiline) {
+    Input = S.TextArea
+  } */
+
   const hasError = touched[name] && errors[name]
   return (
     <S.FormGroup>
       <S.Label
         hasError={hasError}
         focus={!!value || !!placeholder}
-        prefix={prefix}>
+        prefix={prefix}
+        multiline={multiline}
+        >
         {label}
       </S.Label>
       <S.Wrap hasError={hasError}>
