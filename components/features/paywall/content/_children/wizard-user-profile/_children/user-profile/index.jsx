@@ -84,7 +84,6 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="documentNumber"
-                  inputmode="numeric"
                   label="Número de documento"
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
