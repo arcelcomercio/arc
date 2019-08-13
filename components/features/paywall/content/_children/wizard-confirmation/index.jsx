@@ -56,9 +56,9 @@ const WizardConfirmation = props => {
 
     const isPWA = window.opener && ref.toUpperCase() === 'PWA'
     if (isPWA) {
-      const { location } = window
-      const destiny = `${location.protocol}//${location.hostname}`
+      const destiny = `https://pwa.gestion.pe`
       window.opener.postMessage('successful_purchase', destiny)
+      window.close()
     }
     return isPWA
   }

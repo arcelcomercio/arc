@@ -5,10 +5,11 @@ import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
 import * as S from './styled'
-import { AddIdentity, userProfile } from '../_dependencies/Identity'
+import { AddIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
+import PWA from './_dependencies/seed-login'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
@@ -38,13 +39,21 @@ class Content extends React.Component {
   }
 
   componentDidMount() {
-    AddIdentity().then(() => {
+    const f = () => {
       userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
         this.setState({ profile })
       })
+    }
+
+    AddIdentity().then(() => {
+      if (isLogged()) {
+        f()
+      }
     })
     document.querySelector('html').classList.add('ios')
-    window.addEventListener('message', console.log)
+    PWA.mount(() => {
+      window.location.reload()
+    })
   }
 
   onBeforeNextStepHandler = (response, { nextStep }) => {
