@@ -568,10 +568,6 @@ const setGlobalEvents = (eventList, targetId) => {
 
 const global_events = ['adNoBid', 'adBadRequest', 'adRequestFailure', 'adError']
 
-adsParams.forEach(
-  ({ targetId }) => targetId && setGlobalEvents(global_events, targetId)
-)
-
 dataLayer.push({
   event: 'definir_eventos_appnexus',
 })
