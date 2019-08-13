@@ -20,6 +20,42 @@ const cvvPatterns = {
   DINERS: /^\d{3}$/,
 }
 
+const Pipes = {
+  combine: (...pipes) => val =>
+    pipes.reduce((prevVal, pipe) => pipe(prevVal), val),
+  capitalize: () => val =>
+    val.replace(/(^|\s)([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
+  trim: () => val => val.trim(),
+  trimLeft: () => val => val.trimLeft(),
+  trimRight: () => val => val.trimRight(),
+  dedup: char => val => val.replace(new RegExp(`([${char}])+`, 'g'), '$1'),
+  replace: (...args) => val => val.replace(...args),
+  ignoreChars: chars => val => {
+    if (val) {
+      if (chars instanceof RegExp) {
+        return val.replace(chars, '')
+      }
+      if (Array.isArray(chars)) {
+        return val.replace(new RegExp(`[${chars.join('')}]`, 'g'), '')
+      }
+      if (typeof chars === 'string') {
+        return val.replace(new RegExp(`[${chars}]`, 'g'), '')
+      }
+    }
+    return val
+  },
+}
+
+// ----  PIPES ESPECIALES  -----
+
+Pipes.personName = () =>
+  Pipes.combine(
+    Pipes.replace(/(^|\s)[-]/, '$1'), // No espacios/guiones al inicio de palabra
+    Pipes.dedup(' '), // No mas de un espacio de separacion entre palabras
+    Pipes.trimLeft(), // No espacio al inicio
+    Pipes.capitalize() // Palabras capitalizadas
+  )
+
 // prettier-ignore
 export const Masks = {
   PERSON_NAME: new Array(49).fill(/[ a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ'-]/),
@@ -30,33 +66,15 @@ export const Masks = {
   CREDIT_CARD_NUMBER: [ /\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/,/\d/],
   EXPIRY_DATE: [/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
   CREDIT_CARD_CVV: [/\d/, /\d/, /\d/],
-  Pipes: {
-    combine: (...pipes) => val => pipes.reduce((prevVal, pipe)=>pipe(prevVal), val),
-    capitalize: () => val => val.replace(/(^|\s)([a-zñáéíóúäëïöü])/g, c => c.toUpperCase()),
-    trim: () => val => val.trim(),
-    trimLeft: () => val => val.trimLeft(),
-    trimRight: () => val => val.trimRight(),
-    dedup: char => val => val.replace(new RegExp(`([${char}])+`, "g"), "$1"),
-    replace: (...args) => val => val.replace(...args),
-    ignoreChars: (chars) => val => {
-      if (val) {
-        if (chars instanceof RegExp) {
-          return val.replace(chars, "");
-        } 
-        if (Array.isArray(chars)) {
-          return val.replace(
-            new RegExp(`[${chars.join("")}]`, "g"),
-            ""
-          );
-        } 
-        if (typeof chars === "string") {
-          return val.replace(new RegExp(`[${chars}]`, "g"), "");
-        }
-      }
-      return val
-    }
-  }
+  Pipes
 };
+
+export const PipedMasks = {
+  PERSON_NAME: {
+    mask: Masks.PERSON_NAME,
+    pipe: Pipes.personName(),
+  },
+}
 
 function shape(value) {
   return {
