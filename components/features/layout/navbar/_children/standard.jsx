@@ -9,7 +9,7 @@ import SignWallHard from '../../../signwall/_main/signwall/hard'
 import SignWallVerify from '../../../signwall/_main/signwall/verify'
 import SignWallReset from '../../../signwall/_main/signwall/reset'
 import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
-import SignWallPaywall from '../../../signwall/_main/signwall/paywall'
+import SignWallPayPre from '../../../signwall/_main/signwall/paywall-premium'
 import Services from '../../../signwall/_main/utils/services'
 
 import Menu from './menu'
@@ -713,7 +713,7 @@ class NavBarDefault extends PureComponent {
           this.getUrlParam('signwallPremium')) &&
         showPaywall &&
         siteProperties.activeSignwall ? (
-          <SignWallPaywall
+          <SignWallPayPre
             closePopup={() => this.closePopUp('signwallPaywall')}
             brandModal={arcSite}
             typeModal={

@@ -113,12 +113,12 @@ class AuthFacebook extends React.Component {
                     '#arc-popup-signwallhard'
                   )
                   if (isHard) {
-                    return 1
+                    return '1'
                   }
                   if (tipcat === 'relogemail') {
                     return 'reloginemail'
                   }
-                  return 0
+                  return '0'
                 }
 
                 const newProfileFB = {

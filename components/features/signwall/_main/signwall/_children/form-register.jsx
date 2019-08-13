@@ -64,12 +64,12 @@ class FormRegister extends Component {
     const originAction = tipcategory => {
       const isHard = document.querySelector('#arc-popup-signwallhard')
       if (isHard) {
-        return 1
+        return '1'
       }
       if (tipcategory === 'relogemail') {
         return 'reloginemail'
       }
-      return 0
+      return '0'
     }
 
     if (FormValid(this.state) && checked !== false) {
@@ -90,12 +90,12 @@ class FormRegister extends Component {
           attributes: [
             {
               name: 'originDomain',
-              value: window.location.hostname,
+              value: window.location.hostname || 'none',
               type: 'String',
             },
             {
               name: 'originReferer',
-              value: window.location.href,
+              value: window.location.href || 'none',
               type: 'String',
             },
             {
@@ -105,12 +105,12 @@ class FormRegister extends Component {
             },
             {
               name: 'originDevice',
-              value: getDevice(window),
+              value: getDevice(window) || 'none',
               type: 'String',
             },
             {
               name: 'originAction',
-              value: originAction(this.tipCat),
+              value: originAction(this.tipCat) || 'none',
               type: 'String',
             },
             {

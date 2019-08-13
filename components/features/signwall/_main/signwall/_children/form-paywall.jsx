@@ -3,6 +3,7 @@ import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import { ModalConsumer } from '../context'
 import Cookie from '../../utils/cookie'
+import Taggeo from '../../utils/taggeo'
 
 const Cookies = new Cookie()
 @Consumer
@@ -33,12 +34,12 @@ class SignWallPaywall extends Component {
     e.preventDefault()
     Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
     window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
-    window.location.href =
-      'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/paywall/?_website=gestion&outputType=paywall#step1'
+    window.location.href = '/paywall/?_website=gestion&outputType=paywall#step1' // URL LANDING
   }
 
   render() {
     const { showPaywallBtn } = this.state
+    const { typePopUp } = this.props
     return (
       <ModalConsumer>
         {value => (
@@ -72,11 +73,23 @@ class SignWallPaywall extends Component {
                   type="button"
                   className="btn btn--blue btn-bg"
                   value="Suscribirme"
-                  onClick={e => this.handleSuscription(e)}></input>
+                  onClick={e => {
+                    Taggeo(
+                      `Web_${typePopUp}_Hard`,
+                      `web_${typePopUp}_boton_suscribirme`
+                    )
+                    this.handleSuscription(e)
+                  }}></input>
               ) : (
                 <input
                   type="button"
-                  onClick={() => value.changeTemplate('login')}
+                  onClick={() => {
+                    Taggeo(
+                      `Web_${typePopUp}_Hard`,
+                      `web_${typePopUp}_boton_iniciar_sesion`
+                    )
+                    value.changeTemplate('login')
+                  }}
                   className="btn btn--blue btn-bg"
                   value="Iniciar Sesión"></input>
               )}
