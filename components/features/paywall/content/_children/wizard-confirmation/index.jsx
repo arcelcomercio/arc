@@ -4,6 +4,7 @@ import { Panel } from '../../../_children/panel/styled'
 import Button from '../../../_children/button'
 import { devices } from '../../../_dependencies/devices'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
+import getService from '../../../_dependencies/services'
 
 const HOME = 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/'
 const NAME_REDIRECT = 'paywall_last_url'
@@ -56,8 +57,7 @@ const WizardConfirmation = props => {
 
     const isPWA = window.opener && ref.toUpperCase() === 'PWA'
     if (isPWA) {
-      const destiny = `https://pwa.gestion.pe`
-      window.opener.postMessage('successful_purchase', destiny)
+      window.opener.postMessage('successful_purchase', getService('PWA_DOMAIN'))
       window.close()
     }
     return isPWA
