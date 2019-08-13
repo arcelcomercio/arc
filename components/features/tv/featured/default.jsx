@@ -38,8 +38,6 @@ const TvFeatured = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  console.log(data)
-
   return (
     <>
       <div className="tv-featured position-relative mb-40">
@@ -68,7 +66,7 @@ const TvFeatured = () => {
               <button
                 type="button"
                 className="tv-featured__text-button text-white font-bold title-xs p-0 text-left"
-                onClick={() => console.log('TODO: HACER EL POPUP')}>
+                onClick={() => setIsModalOpen(!isModalOpen)}>
                 {title}
               </button>
             </h2>
@@ -78,7 +76,15 @@ const TvFeatured = () => {
           </div>
         </div>
       </div>
-      {isModalOpen && <Modal />}
+      {isModalOpen && (
+        <Modal
+          close={() => {
+            setIsModalOpen(!isModalOpen)
+          }}
+          // youtubeId="_oQINN93ET4"
+          multimediaSource="4dc92932-7143-4776-94b7-798421d06108"
+        />
+      )}
     </>
   )
 }
