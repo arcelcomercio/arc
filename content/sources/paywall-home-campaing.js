@@ -10,6 +10,7 @@ const resolve = () => {
 
 const HARD_CAMPAIGNS = [{
   title: 'Digital + Impreso',
+  url : '',
   recommended: true,
   price: { amount: 49, currency: 'S/' },
   detail: {
@@ -28,6 +29,7 @@ const HARD_CAMPAIGNS = [{
 },
 {
   title: 'Impreso',
+  url : '',
   price: { amount: 49, currency: 'S/' },
   detail: {
     frequency: 'MES',
@@ -92,7 +94,8 @@ export default {
       { feature: [] }
     )
     const {title, feature: features} = summary;
+    const url = ''
 
-    return [Object.assign({ name, title, features, price, detail }), ...HARD_CAMPAIGNS]
+    return [Object.assign({ name, url, title, features, price, detail }), ...HARD_CAMPAIGNS]
   },
 }
