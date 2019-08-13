@@ -38,5 +38,10 @@
     "_id": "ojo",
     "display_name": "Ojo",
     "is_default_website": false
+  },
+  {
+    "_id": "elbocon",
+    "display_name": "El Bocón",
+    "is_default_website": false
   }
 ]
