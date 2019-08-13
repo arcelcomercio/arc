@@ -11,6 +11,7 @@ import AuthFacebook from './social-auths/auth-facebook'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
+import Taggeo from '../../utils/taggeo'
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
@@ -397,7 +398,13 @@ class FormLogin extends Component {
                     <p className="form-grid__pass">
                       <button
                         id="link-recuperar-pass"
-                        onClick={() => value.changeTemplate('forgot')}
+                        onClick={() => {
+                          Taggeo(
+                            `Web_Sign_Wall_${typePopUp}`,
+                            `web_sw${typePopUp[0]}_contrasena_link_olvide`
+                          )
+                          value.changeTemplate('forgot')
+                        }}
                         type="button"
                         className="link-gray">
                         Olvidé mi contraseña
@@ -412,6 +419,12 @@ class FormLogin extends Component {
                       id="login_boton_ingresar"
                       className="btn input-button"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
+                      onClick={() =>
+                        Taggeo(
+                          `Web_Sign_Wall_${typePopUp}`,
+                          `web_sw${typePopUp[0]}_login_boton_ingresar`
+                        )
+                      }
                       disabled={!sending}
                     />
                   </div>
@@ -419,7 +432,13 @@ class FormLogin extends Component {
 
                 <div className="form-grid__group" hidden={!hiddenbutton}>
                   <button
-                    onClick={e => this.handleLoginClick(e)}
+                    onClick={e => {
+                      this.handleLoginClick(e)
+                      Taggeo(
+                        `Web_Sign_Wall_${typePopUp}`,
+                        `sw${typePopUp[0]}_open_login_boton_ingresar`
+                      )
+                    }}
                     type="button"
                     name="enterUserName"
                     id="open_login_boton_ingresar"
@@ -437,6 +456,10 @@ class FormLogin extends Component {
                     type="button"
                     id="login_boton_registrate"
                     onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typePopUp}`,
+                        `web_sw${typePopUp[0]}_login_boton_registrate`
+                      )
                       value.changeTemplate('register')
                     }}
                     className="link-blue link-color text-sm">

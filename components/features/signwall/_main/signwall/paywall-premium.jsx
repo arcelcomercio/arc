@@ -48,14 +48,14 @@ class PayWallPremium extends Component {
       login: (
         <FormLogin
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp={typeModal}
           typeForm="login"
         />
       ),
       register: (
         <FormRegister
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp={typeModal}
           typeForm="registro"
           brandCurrent={brandModal}
         />
@@ -63,7 +63,7 @@ class PayWallPremium extends Component {
       forgot: (
         <FormForgotPass
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp={typeModal}
           typeForm="login"
           brandCurrent={brandModal}
         />

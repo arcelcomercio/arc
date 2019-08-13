@@ -145,10 +145,12 @@ class NavBarDefault extends PureComponent {
   getPremium() {
     const W = window
 
-    const dataContentPremium = W.content_paywall || false
-    if (dataContentPremium && this.checkSession()) {
+    if (this.checkSession()) {
       return this.getListSubs().then(p => {
-        if (p && p.length === 0) W.location.href = '/?signwallPremium=1'
+        if (p && p.length === 0) {
+          W.location.href = '/?signwallPremium=1'
+        }
+        return false // tengo subs :D
       })
     }
 
@@ -161,58 +163,61 @@ class NavBarDefault extends PureComponent {
     const { arcSite } = this.props
     const W = window
 
-    const dataContType = W.document.querySelector('meta[name="content-type"]')
+    const dataContTyp = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
+    const dataContentPremium = W.content_paywall || false
 
-    if (ENV.ENVIRONMENT !== 'elcomercio') { // only sandbox ;)
-      this.getPremium()
-    }
+    const URL_ORIGIN =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
 
-    W.ArcP.run({
-      paywallFunction: campaignURL => {
-        W.location.href = campaignURL
-      },
-      contentType: dataContType ? dataContType.getAttribute('content') : 'none',
-      section: dataContSec ? dataContSec.getAttribute('content') : 'none',
-      userName: W.Identity.userIdentity.uuid || null,
-      jwt: W.Identity.userIdentity.accessToken || null,
-      apiOrigin:
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-sandbox.${arcSite}.pe`,
-      customSubCheck: () => {
-        // estado de suscripcion
-        return this.getListSubs().then(p => {
-          const isLoggedInSubs = !!(
+    if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
+      this.getPremium() // Only sandbox ;)
+    } else {
+      W.ArcP.run({
+        paywallFunction: campaignURL => {
+          W.location.href = campaignURL
+        },
+        contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
+        section: dataContSec ? dataContSec.getAttribute('content') : 'none',
+        userName: W.Identity.userIdentity.uuid || null,
+        jwt: W.Identity.userIdentity.accessToken || null,
+        apiOrigin: URL_ORIGIN,
+        customSubCheck: () => {
+          // estado de suscripcion
+          return this.getListSubs().then(p => {
+            const isLoggedInSubs = !!(
+              W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+              W.localStorage.getItem('ArcId.USER_PROFILE')
+            )
+            return {
+              s: isLoggedInSubs,
+              p: p || null,
+              timeTaken: 100,
+              updated: Date.now(),
+            }
+          })
+        },
+        customRegCheck: () => {
+          // estado de registro
+          const start = Date.now()
+          const isLoggedIn = !!(
             W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
             W.localStorage.getItem('ArcId.USER_PROFILE')
           )
-          return {
-            s: isLoggedInSubs,
-            p: p || null,
-            timeTaken: 100,
+          return Promise.resolve({
+            l: isLoggedIn,
+            timeTaken: Date.now() - start,
             updated: Date.now(),
-          }
-        })
-      },
-      customRegCheck: () => {
-        // estado de registro
-        const start = Date.now()
-        const isLoggedIn = !!(
-          W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
-          W.localStorage.getItem('ArcId.USER_PROFILE')
-        )
-        return Promise.resolve({
-          l: isLoggedIn,
-          timeTaken: Date.now() - start,
-          updated: Date.now(),
-        })
-      },
-    })
-    // .then(() => {
-    // W.console.log('Results from running paywall script: ', results)
-    // })
-    // .catch(() => W.console.error())
+          })
+        },
+      })
+      // .then(() => {
+      // W.console.log('Results from running paywall script: ', results)
+      // })
+      // .catch(() => W.console.error())
+    }
   }
 
   getListSubs() {
