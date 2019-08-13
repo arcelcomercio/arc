@@ -214,12 +214,6 @@ export default ({
         )}
       </head>
       <body className={classBody}>
-        <script
-          defer
-          src={deployment(
-            `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
-          )}
-        />
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
@@ -240,6 +234,12 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
+        <script
+          defer
+          src={deployment(
+            `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
+          )}
+        />
         <script
           defer
           src={deployment(
