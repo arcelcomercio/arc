@@ -9,7 +9,6 @@ export default {
           }
     },
     _onMessage({origin, data}, callback){
-        console.log(getService('PWA_DOMAIN'))
         if(origin !== getService('PWA_DOMAIN')) return
         window.localStorage.setItem('ArcId.USER_INFO', data)
         callback()
