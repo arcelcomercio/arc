@@ -69,6 +69,7 @@ export default {
       apple_icon_180: 'images/apple-touch-icon-180x180.png',
       logo: `images/logo.svg`,
       lector: `images/img_lector.png`,
+      corporativo: `images/img_corporativo.webp`,
       confirmation: `images/img_confirmation.jpg`,
       confirmationx2: `images/img_confirmation@2x.jpg`,
       confirmation_webp: `images/img_confirmation_1.webp`,

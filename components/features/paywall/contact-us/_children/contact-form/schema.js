@@ -1,7 +1,6 @@
-import schema, {Masks as M, PipedMasks as P} from '../../_dependencies/schema'
+import schema, { Masks as M } from '../../../_dependencies/schema'
 
 export const Masks = M
-export const PipedMasks = P
 
 export const MESSAGE = {
   // eslint-disable-next-line no-template-curly-in-string
@@ -11,35 +10,38 @@ export const MESSAGE = {
   REQUIRED: 'Este campo es requerido',
   EMAIL: 'Correo inválido',
   SUBJECT: 'Ingrese el Asunto',
-  API_ERROR: 'Intentlo más tarde'
+  API_ERROR: 'Intentlo más tarde',
 }
 
 export const FormSchema = schema({
-  email: value => {
+  correo: value => {
     value.required(MESSAGE.REQUIRED)
     value.email(MESSAGE.EMAIL)
   },
-  name: value => {
+  nombre: value => {
     value
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
   },
-  lastname: value => {
+  apellido: value => {
     value
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
   },
-  company_name: value => {
+  organizacion: value => {
     value.required(MESSAGE.REQUIRED)
     value.min(1, MESSAGE.MIN)
     value.max(50, MESSAGE.MAX)
   },
-  subject: value => {
+  asunto: value => {
     value.required(MESSAGE.SUBJECT)
     value.min(3, MESSAGE.MIN)
     value.max(100, MESSAGE.MAX)
+  },
+  tipo_consulta: value => {
+    value.required('Debe seleccionar un tipo')
   },
   /* description: value => {
     value.required(MESSAGE.REQUIRED)

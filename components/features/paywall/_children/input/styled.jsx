@@ -38,7 +38,7 @@ export const Input = styled.input`
     `}
 `
 
-export const Textarea = styled.textarea`
+export const TextArea = styled.textarea`
   flex: 1;
   font-size: 14px;
   line-height: 22px;
