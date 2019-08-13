@@ -71,8 +71,8 @@ $locomundo: #01abad;
 
   &__title-link {
     color: $color-primary;
-    -webkit-line-clamp: 3;
-    max-height: calc(1.3rem * 1.333 * 3);
+    -webkit-line-clamp: 4;
+    max-height: calc(1.3rem * 1.333 * 4);
   }
 
   &.img-complete {
@@ -118,8 +118,8 @@ $locomundo: #01abad;
     }
 
     .featured-story__title-link {
-      -webkit-line-clamp: 3;
-      max-height: calc(1.3rem * 1.333 * 3);
+      -webkit-line-clamp: 4;
+      max-height: calc(1.3rem * 1.333 * 4);
     }
 
     &.img-complete {

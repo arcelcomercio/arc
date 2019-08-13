@@ -9,7 +9,9 @@ const StoryContentChildHtml = ({
   },
   basicHtml: { content },
 }) => {
-  const urlMp4 = content.replace(/(.*)data-stream="(.*?)"(.*)/, '$2')
+  const urlMp4 = content
+    .replace('data-mp4="', 'data-stream="')
+    .replace(/(.*)data-stream="(.*?)"(.*)/, '$2')
 
   return (
     <>
