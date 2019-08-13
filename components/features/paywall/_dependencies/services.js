@@ -1,6 +1,11 @@
 import {environment} from 'fusion:environment'
 
 const services = {
+    PWA_DOMAIN : ENV => {
+      // https://pwa.dev.gestion.pe
+      const _env_ = ENV === 'elcomercio' ? '' : '.dev'
+      return `https://pwa${_env_}.gestion.pe`;
+    },
     ORIGIN_API: ENV => {
       const _env_ = ENV === 'elcomercio' ? '' : '-sandbox'
       return `https://api${_env_}.gestion.pe`

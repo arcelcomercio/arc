@@ -75,7 +75,7 @@ export default {
       support: `images/img_soporte.png`,
       contact_form_left: 'images/adult-attire-blazer-173125@2x.jpg',
       support_webp: `images/img_soporte.webp`,
-      backgroundx1: `images/bg-planes-10.png`,
+      backgroundx1: `images/bg_planes_10.jpg`,
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)
