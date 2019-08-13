@@ -136,7 +136,6 @@ const BuildHtml = BuildHtmlProps => {
                 </iframe>
               </figure>
             
-<<<<<<< HEAD
               <header>
                 <h1>${title}</h1>
                 <h2>${subTitle}</h2>
@@ -149,23 +148,7 @@ const BuildHtml = BuildHtmlProps => {
               ${ParagraphshWithAdds(paramsBuildParagraph)}
             </article>
           </body>
-        </html>
-=======
-            <header>
-              <h1>${title}</h1>
-              <h2>${subTitle}</h2>
-            </header>
-            <figure>
-                <img src="${multimedia}" />
-                <figcaption>${title}</figcaption>
-            </figure>
-            <p>${author}</p>
-            ${ParagraphshWithAdds(paramsBuildParagraph)}
-            </article>
-            </body>
-          </html>
->>>>>>> Sprint14
-          `
+        </html>`
   return element
 }
 
