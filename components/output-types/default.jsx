@@ -14,6 +14,7 @@ export default ({
   deployment,
   arcSite,
   globalContent,
+  globalContentConfig,
   // CssLinks,
   Fusion,
   Libs,
@@ -62,11 +63,17 @@ export default ({
     isAmp: false,
   }
 
+  const defineTitle = (page = 'default', config) => {
+    if(page === 'meta_author' || page === 'meta_tag' )
+      return config.query.name
+    return ''
+  }
+
   const seoTitle =
     (metaValue('title') &&
       !metaValue('title').match(/content/) &&
       metaValue('title')) ||
-    storyTitle
+    storyTitle || defineTitle(metaValue('id'), globalContentConfig)
 
   const metaTitle =
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
