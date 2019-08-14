@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
@@ -10,11 +11,12 @@ import Modal from '../../../global-components/tv-modal'
 import StoryData from '../../../utilities/story-data'
 import { formatDateLocalTimeZone } from '../../../utilities/helpers'
 
-const TvFeatured = () => {
+const TvFeatured = props => {
+  const { customFields: { section = '' } = {} } = props
   const { content_elements: contentElements = [] } =
     useContent({
       source: 'story-feed-by-section-with-custom-presets',
-      query: { section: '/peru21tv', preset1: '1350x570' },
+      query: { section, preset1: '1350x570' },
       // filter: SchemaFilter(arcSite),
     }) || []
   const data = contentElements[0] || {}
@@ -123,6 +125,16 @@ const TvFeatured = () => {
       )}
     </>
   )
+}
+
+TvFeatured.propTypes = {
+  customFields: PropTypes.shape({
+    section: PropTypes.string.tag({
+      name: 'URL de la sección',
+      description:
+        'Si no se coloca la URL de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
+    }),
+  }),
 }
 
 export default TvFeatured
