@@ -11,7 +11,7 @@ import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 
 import Loading from '../_children/loading'
-import PWA from './_dependencies/seed-login'
+import PWA from './_dependencies/seed-pwa'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
@@ -60,9 +60,7 @@ class Content extends React.Component {
       }
     })
     document.querySelector('html').classList.add('ios')
-    PWA.mount(() => {
-      window.location.reload()
-    })
+    PWA.mount(() => window.location.reload())
   }
 
   onBeforeNextStepHandler = (response, { nextStep }) => {
