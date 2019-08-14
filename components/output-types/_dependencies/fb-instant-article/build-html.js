@@ -16,20 +16,13 @@ const buildParagraph = paragraph => {
     const imageAlt = paragraph.match(/alt="([^"]+)/)[1]
 
     result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-  } else if (paragraph.includes('<blockquote class="instagram-media"')) {
-    // valida blockquote de instagram
-    const instagramUrl = paragraph.match(
-      /https:\/\/www\.instagram\.com\/p\/(?:[\w\d]+)\/?/
-    )
+  
+  } else if (paragraph.includes('<blockquote class="instagram-media"') || paragraph.includes('<blockquote class="twitter-tweet"')) {
+    // ára twitter y para instagram
+    result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
+  }else if(paragraph.includes("https://www.facebook.com/plugins")){
 
-    result = `<figure class="op-interactive"><iframe frameborder="0" width="560" height="315" src="${instagramUrl}embed"></iframe></figure>`
-  } else if (paragraph.includes('<blockquote class="twitter-tweet"')) {
-    // valida blockquote de twitter
-    const twitterUrl = paragraph.match(
-      /https:\/\/twitter\.com\/(?:[\/\w\d\?\=\%]+)?/
-    )
-
-    result = `<figure class="op-interactive"><iframe frameborder="0" width="560" height="315" src="${twitterUrl}"></iframe></figure>`
+    result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
   } else {
     // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
     result = `<p>${paragraph}</p>`
@@ -46,29 +39,25 @@ const ParagraphshWithAdds = ({
   let countWords = 0
   let IndexAdd = 0
   let resultParagraph = ''
-  let flagFirstAdd = true
-  let flagNextFirstAdd = false
+  // let flagFirstAdd = true
+  // let flagNextFirstAdd = false
 
   paragraphsNews.forEach(paragraphItem => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
     // el primer script de publicidad se inserta despues del segundo parrafo
 
-    if (flagFirstAdd === true) {
-      let paragraphwithAdd = ''
-      const paragraphOriginal = paragraph
+    let paragraphwithAdd = ''
+    const paragraphOriginal = paragraph
+    paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
+    const arrayWords = paragraph.split(' ')
 
-      paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
-
-      const arrayWords = paragraph.split(' ')
+    if (IndexAdd === 0) {
       if (arrayWords.length <= 50) {
         countWords += arrayWords.length
       }
 
       if (countWords >= 50) {
         countWords = 0
-
-        flagFirstAdd = false
-        flagNextFirstAdd = true
 
         paragraphwithAdd = `${buildParagraph(paragraphOriginal)} ${
           arrayadvertising[IndexAdd]
@@ -79,17 +68,11 @@ const ParagraphshWithAdds = ({
       } else {
         paragraphwithAdd = `${buildParagraph(paragraphOriginal)}`
       }
-      newsWithAdd.push(`${paragraphwithAdd.trim()}`)
-    }
 
-    if (flagNextFirstAdd === true) {
-      // al segundo parrafo se inserta cada 250 palabras (numwords)
-      let paragraphwithAdd = ''
-      const paragraphOriginal = paragraph
+      newsWithAdd.push(`${paragraphwithAdd}`)
+    } else {
+      // a partir del segundo parrafo se inserta cada 250 palabras (numwords)
 
-      paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
-
-      const arrayWords = paragraph.split(' ')
       if (arrayWords.length <= numwords) {
         countWords += arrayWords.length
       }
@@ -105,8 +88,10 @@ const ParagraphshWithAdds = ({
       } else {
         paragraphwithAdd = `${buildParagraph(paragraphOriginal)}`
       }
-      newsWithAdd.push(`${paragraphwithAdd.trim()}`)
+      newsWithAdd.push(`${paragraphwithAdd}`)
     }
+
+   
   })
   resultParagraph = newsWithAdd.map(item => item).join('')
   return resultParagraph
