@@ -546,6 +546,28 @@ if (adUnits.length > 0) {
   // if (IS_DEBUG) console.log('HEADER BIDDING CARGADO')
 }
 
+// START APPNEXUS EVENTS
+
+const actionEvent = ({ type, targetId }) => {
+  console.warn('Appnexus', type)
+  const adsSpace = document.querySelector(`#${targetId}`)
+  const containerAd =
+    adsSpace.parentNode.childNodes.length === 1 ? adsSpace.parentNode : adsSpace
+  containerAd.classList.add('hidden')
+}
+
+const setGlobalEvents = (eventList, targetId) => {
+  eventList.forEach(eventName => {
+    if (apntag) {
+      apntag.onEvent(eventName, targetId, () =>
+        actionEvent({ type: eventName, targetId })
+      )
+    }
+  })
+}
+
+const global_events = ['adNoBid', 'adBadRequest', 'adRequestFailure', 'adError']
+
 dataLayer.push({
   event: 'definir_eventos_appnexus',
 })
@@ -568,6 +590,9 @@ apntag.anq.push(() => {
     apntag.defineTag({
       ...val,
     })
+  )
+  adsParams.forEach(
+    ({ targetId }) => targetId && setGlobalEvents(global_events, targetId)
   )
   // if (IS_DEBUG) console.log('APP NEXUS CARGADO!!!!')
 })

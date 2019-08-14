@@ -18,12 +18,11 @@ export default {
   idGoogleAnalitics: 'UA-3055636-3',
   fbArticleStyle: 'LogoGestion',
   nameStoryRelated: 'VEA TAMBIÉN',
-
   siteDescription:
     'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://gestion.pe/f/i/pub_40.png',
   theme: {
-    color: '#8F071F'
+    color: '#8F071F',
   },
   infoPagesDev: {
     termsAndConditions: '',
@@ -46,7 +45,8 @@ export default {
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
   },
   paywall: {
-    title: 'Gestión | Suscripciones Digitales'
+    title: 'Gestión | Suscripciones Digitales',
+    clickToCall: 'https://c2c.kontactame.com/call/?id=162'
   },
   assets: {
     nav: {
@@ -54,7 +54,7 @@ export default {
       logoSomos: 'white-logo.png',
     },
     seo: {
-      logoAmp: 'logo-gestion-amp.png',
+      logoAmp: 'logo-amp.png',
       width: 246,
       height: 60,
     },
@@ -71,12 +71,11 @@ export default {
       lector: `images/img_lector.png`,
       corporativo: `images/img_corporativo.webp`,
       confirmation: `images/img_confirmation.jpg`,
-      confirmationx2: `images/img_confirmation@2x.jpg`,
       confirmation_webp: `images/img_confirmation_1.webp`,
       support: `images/img_soporte.png`,
       contact_form_left: 'images/img_soporte.png',
       support_webp: `images/img_soporte.webp`,
-      backgroundx1: `images/bg-planes-10.png`,
+      backgroundx1: `images/bg_planes_10.jpg`,
       check: `images/check2.png`,
     },
     fullAssets(contextPath, deployment = path => path) {

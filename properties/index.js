@@ -12,36 +12,44 @@ export default {
       logo: 'logo.png',
     },
     seo: {
-      logoAmp: 'logo-publimetro-258x60.png',
+      logoAmp: 'logo-amp.png',
       width: 258,
       height: 60,
     },
   },
   messages: {
     errorTitle: '¡Oops! la pagina no fue encontrada',
-    errorDescription: 'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
+    errorDescription:
+      'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
   },
   signwall: {
     ORIGIN_API: 'https://api-sandbox.gestion.pe',
-    ORIGIN_IDENTITY_SDK: 'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js',
-    ORIGIN_SALES_SDK: 'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-sales.min.js',
-    ORIGIN_PAYU_SDK: 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js',
-    PAYU_PAYMENT_SERVICE: 'https://sandbox.api.payulatam.com/payments-api/4.0/service',
+    ORIGIN_IDENTITY_SDK:
+      'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js',
+    ORIGIN_SALES_SDK:
+      'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-sales.min.js',
+    ORIGIN_PAYU_SDK:
+      'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js',
+    PAYU_PAYMENT_SERVICE:
+      'https://sandbox.api.payulatam.com/payments-api/4.0/service',
     FACEBOOK_APPID: '287130908774061',
-    GOOGLE_CLIENTID: '1038751133917-m10doi4gb3tl4u01s4uaje60vbukh2bs.apps.googleusercontent.com',
+    GOOGLE_CLIENTID:
+      '1038751133917-m10doi4gb3tl4u01s4uaje60vbukh2bs.apps.googleusercontent.com',
   },
   apps: {
     android: {
-      url: 'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer'
+      url:
+        'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer',
     },
     ios: {
-      url: 'https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer'
-    }
+      url: 'https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer',
+    },
   },
   ids: {
     opta: '782834e1fd5a215304e57cddad80b844',
   },
-  gecSites: [{
+  gecSites: [
+    {
       name: 'elcomercio.pe',
       arcSite: 'elcomercio',
       url: 'https://elcomercio.pe',
@@ -142,5 +150,5 @@ export default {
       url: 'https://comercioxpress.com/',
     },
   ],
-  activeSignwall: false
+  activeSignwall: false,
 }

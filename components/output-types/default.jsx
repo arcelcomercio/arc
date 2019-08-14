@@ -14,6 +14,7 @@ export default ({
   deployment,
   arcSite,
   globalContent,
+  globalContentConfig,
   // CssLinks,
   Fusion,
   Libs,
@@ -22,9 +23,10 @@ export default ({
   requestUri,
   metaValue,
 }) => {
-  const APPNEXUS_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT =
+    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
   const BASE_URL_ADS =
-    APPNEXUS_ENV === 'prod'
+    CURRENT_ENVIRONMENT === 'prod'
       ? `https://d1r08wok4169a5.cloudfront.net/ads-${arcSite}`
       : 'https://jab.pe/f/arc'
 
@@ -45,7 +47,7 @@ export default ({
 
   const isStory =
     requestUri.match(`^(/(.*)/.*-noticia)`) ||
-    requestUri.match(`^(/pf/preview/[A-Z].+)/`)
+    requestUri.match(`^/preview/([A-Z0-9]{26})/?`)
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory ? 'story' : ''
@@ -61,18 +63,24 @@ export default ({
     isAmp: false,
   }
 
+  const defineTitle = (page = 'default', config) => {
+    if (page === 'meta_author' || page === 'meta_tag') return config.query.name
+    return ''
+  }
+
   const seoTitle =
     (metaValue('title') &&
       !metaValue('title').match(/content/) &&
       metaValue('title')) ||
-    storyTitle
+    storyTitle ||
+    defineTitle(metaValue('id'), globalContentConfig)
 
   const metaTitle =
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
       ? metaValue('meta_title')
       : seoTitle
 
-  const title = `${metaTitle || 'ddd'} | ${siteProperties.siteName}`
+  const title = `${metaTitle || seoTitle} | ${siteProperties.siteName}`
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`
@@ -201,13 +209,13 @@ export default ({
         {siteProperties.activeSignwall && (
           <>
             <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-sales.min.js`}
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-sales.min.js`}
             />
             <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${APPNEXUS_ENV}/sdk-identity.min.js`}
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js`}
             />
             <script
-              src={`https://elcomercio-${arcSite}-${APPNEXUS_ENV}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date().getTime()}`}
+              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date().getTime()}`}
             />
           </>
         )}

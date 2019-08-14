@@ -1,0 +1,30 @@
+/******* Families *******/
+// $primary-font: 'open_sansregular';
+$primary-font: 'Judson'; // Regular, Bold: 700
+$secondary-font: 'Roboto';
+$tertiary-font: 'Libre Franklin',
+sans-serif;
+/*-----------------------*/
+
+/** ----------------------------*
+*            FONT SIZES         *
+*-------------------------------*/
+$font-base: 1rem;
+
+/******* text-[size] *******/
+// Example px size in desktop -----------v
+$font-xs: $font-base * 0.7;
+$font-sm: $font-base * 0.8;
+$font-md: $font-base * 0.9;
+$font-lg: $font-base * 1;
+$font-xl: $font-base * 1.1;
+
+/******* title-[size] *******/
+$header-xs: $font-base * 1.3;
+$header-sm: $font-base * 1.5;
+$header-md: $font-base * 1.7;
+$header-lg: $font-base * 2;
+$header-xl: $font-base * 2.2;
+
+/******* Signwall fonts *******/
+$signwall-header-title: $font-base * 1.5;
