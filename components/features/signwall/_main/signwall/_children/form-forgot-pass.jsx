@@ -8,6 +8,7 @@ import { emailRegex } from '../../utils/regex'
 import FormValid from '../../utils/form-valid'
 import * as Icon from '../../common/iconos'
 import Services from '../../utils/services'
+import Taggeo from '../../utils/taggeo'
 import { ModalConsumer } from '../context'
 
 const services = new Services()
@@ -31,12 +32,6 @@ class FormForgotPass extends Component {
       ENV.ENVIRONMENT === 'elcomercio'
         ? `https://api.${arcSite}.pe`
         : `https://api-sandbox.${arcSite}.pe`
-
-    const { typePopUp, typeForm } = this.props
-    this.tipCat = typePopUp
-    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    this.tipForm = typeForm
-    // console.log(this.tipCat, this.tipAct, this.tipForm)
   }
 
   componentWillMount() {
@@ -56,25 +51,7 @@ class FormForgotPass extends Component {
             showMessage: true,
             sending: true,
           })
-          // -- test de tageo success
-          if (this.tipCat === 'relogemail') {
-            window.dataLayer.push({
-              event: 'olvidepass_sucess',
-              eventCategory: 'Web_Sign_Wall_Relog_Email',
-              eventAction: 'web_relog_email_contrasena_success_boton',
-            })
-          } else {
-            window.dataLayer.push({
-              event: 'olvidepass_sucess',
-              eventCategory: `Web_Sign_Wall_${
-                this.tipCat === 'relogin' ? 'Relogueo' : this.tipCat
-              }`,
-              eventAction: `${
-                this.tipAct === 'web_swr' ? 'web_relog' : this.tipAct
-              }_contrasena_success_boton`,
-            })
-          }
-          // -- test de tageo success
+          this.taggeoSuccess() // -- test de tageo success
         })
         .catch(errForgot => {
           let messageES = ''
@@ -116,25 +93,7 @@ class FormForgotPass extends Component {
             messageError: 'Tu correo electrónico no está registrado.',
             sending: true,
           })
-          // -- test de tageo error
-          if (this.tipCat === 'relogemail') {
-            window.dataLayer.push({
-              event: 'olvidepass_error',
-              eventCategory: 'Web_Sign_Wall_Relog_Email',
-              eventAction: 'web_relog_email_contrasena_error_boton',
-            })
-          } else {
-            window.dataLayer.push({
-              event: 'olvidepass_error',
-              eventCategory: `Web_Sign_Wall_${
-                this.tipCat === 'relogin' ? 'Relogueo' : this.tipCat
-              }`,
-              eventAction: `${
-                this.tipAct === 'web_swr' ? 'web_relog' : this.tipAct
-              }_contrasena_error_boton`,
-            })
-          }
-          // -- test de tageo error
+          this.taggeoError() // -- test de tageo error
         }
       })
       .catch(errEco => {
@@ -142,7 +101,7 @@ class FormForgotPass extends Component {
         this.setState({
           messageError: `Tu correo electrónico no está registrado.`,
           sending: true,
-        });
+        })
       })
   }
 
@@ -155,53 +114,71 @@ class FormForgotPass extends Component {
           showMessage: true,
           sending: true,
         })
-        // -- test de tageo success
-        if (this.tipCat === 'relogemail') {
-          window.dataLayer.push({
-            event: 'olvidepass_sucess',
-            eventCategory: 'Web_Sign_Wall_Relog_Email',
-            eventAction: 'web_relog_email_contrasena_success_boton',
-          })
-        } else {
-          window.dataLayer.push({
-            event: 'olvidepass_sucess', // organico_olvidepass_success, hard_olvidepass_success, relogin_olvidepass_success
-            eventCategory: `Web_Sign_Wall_${
-              this.tipCat === 'relogin' ? 'Relogueo' : this.tipCat
-            }`,
-            eventAction: `${
-              this.tipAct === 'web_swr' ? 'web_relog' : this.tipAct
-            }_contrasena_success_boton`,
-          })
-        }
-        // -- test de tageo success
+        this.taggeoSuccess() // -- test de tageo success
       })
       .catch(errReForgot => {
         window.console.error(errReForgot)
-        // -- test de tageo error
-        if (this.tipCat === 'relogemail') {
-          window.dataLayer.push({
-            event: 'olvidepass_error',
-            eventCategory: 'Web_Sign_Wall_Relog_Email',
-            eventAction: 'web_relog_email_contrasena_error_boton',
-          })
-        } else {
-          window.dataLayer.push({
-            event: 'olvidepass_error', // organico_olvidepass_error, hard_olvidepass_error, relogin_olvidepass_error
-            eventCategory: `Web_Sign_Wall_${
-              this.tipCat === 'relogin' ? 'Relogueo' : this.tipCat
-            }`, // Web_Sign_Wall_organico, Web_Sign_Wall_hard, Web_Sign_Wall_relogin
-            eventAction: `${
-              this.tipAct === 'web_swr' ? 'web_relog' : this.tipAct
-            }_contrasena_error_boton`, // web_swo_login_error_olvidepass, web_swh_login_error_olvidepass, web_swr_login_error_olvidepass
-          })
-        }
-        // -- test de tageo error
+        this.taggeoError() // -- test de tageo error
       })
+  }
+
+  taggeoSuccess() {
+    const { typePopUp } = this.props
+
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      if (typePopUp === 'relogemail') {
+        window.dataLayer.push({
+          event: 'olvidepass_sucess',
+          eventCategory: 'Web_Sign_Wall_Relog_Email',
+          eventAction: 'web_relog_email_contrasena_success_boton',
+        })
+      } else {
+        window.dataLayer.push({
+          event: 'olvidepass_sucess',
+          eventCategory: `Web_Sign_Wall_${
+            typePopUp === 'relogin' ? 'Relogueo' : typePopUp
+          }`,
+          eventAction: `web_sw${typePopUp[0]}_contrasena_success_boton`, // web_relog ahora sera 'web_swr'
+        })
+      }
+    } else {
+      Taggeo(
+        `Web_Sign_Wall_${typePopUp}`,
+        `web_sw${typePopUp[0]}_contrasena_success_boton`
+      )
+    }
+  }
+
+  taggeoError() {
+    const { typePopUp } = this.props
+
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      if (typePopUp === 'relogemail') {
+        window.dataLayer.push({
+          event: 'olvidepass_error',
+          eventCategory: 'Web_Sign_Wall_Relog_Email',
+          eventAction: 'web_relog_email_contrasena_error_boton',
+        })
+      } else {
+        window.dataLayer.push({
+          event: 'olvidepass_error',
+          eventCategory: `Web_Sign_Wall_${
+            typePopUp === 'relogin' ? 'Relogueo' : typePopUp
+          }`,
+          eventAction: `web_sw${typePopUp[0]}_contrasena_error_boton`, // web_relog ahora sera 'web_swr'
+        })
+      }
+    } else {
+      Taggeo(
+        `Web_Sign_Wall_${typePopUp}`,
+        `web_sw${typePopUp[0]}_contrasena_error_boton`
+      )
+    }
   }
 
   templateSendEmail(changeTemplate) {
     const { formErrors, messageError, sending } = this.state
-    const { brandCurrent } = this.props
+    const { brandCurrent, typePopUp } = this.props
 
     return (
       <form
@@ -212,7 +189,13 @@ class FormForgotPass extends Component {
           <button
             type="button"
             id="olvidepass_link_volver"
-            onClick={() => changeTemplate('login')}
+            onClick={() => {
+              Taggeo(
+                `Web_Sign_Wall_${typePopUp}`,
+                `web_sw${typePopUp[0]}_contrasena_link_volver`
+              )
+              changeTemplate('login')
+            }}
             className="link-back">
             <Icon.Back />
             <span>Volver</span>
@@ -261,6 +244,12 @@ class FormForgotPass extends Component {
                 id="olvidepass_boton_enviar"
                 className="btn btn--blue btn-bg"
                 value={!sending ? 'Enviando...' : 'Enviar'}
+                onClick={() =>
+                  Taggeo(
+                    `Web_Sign_Wall_${typePopUp}`,
+                    `web_sw${typePopUp[0]}_contrasena_boton_recuperar`
+                  )
+                }
                 disabled={!sending}
               />
             </div>
@@ -271,7 +260,7 @@ class FormForgotPass extends Component {
   }
 
   templateSendedEmail(changeTemplate) {
-    const { closePopup, brandCurrent } = this.props
+    const { closePopup, brandCurrent, typePopUp } = this.props
     return (
       <form className="form-grid">
         <div className="form-grid__back">
@@ -299,7 +288,13 @@ class FormForgotPass extends Component {
                 id="olvidepass_boton_aceptar"
                 className="btn btn--blue btn-bg"
                 value="Aceptar"
-                onClick={closePopup}
+                onClick={() => {
+                  Taggeo(
+                    `Web_Sign_Wall_${typePopUp}`,
+                    `web_sw${typePopUp[0]}_contrasena_boton_aceptar`
+                  )
+                  closePopup()
+                }}
               />
             </div>
           </div>

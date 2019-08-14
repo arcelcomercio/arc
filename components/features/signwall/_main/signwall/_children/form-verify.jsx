@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Taggeo from '../../utils/taggeo'
 import * as Icon from '../../common/iconos'
 
 class FormVerify extends Component {
@@ -37,6 +38,7 @@ class FormVerify extends Component {
                 className="btn btn--blue btn-bg"
                 value="Continuar Navegando"
                 onClick={() => {
+                  Taggeo('Web_Sign_Wall_Verify', 'web_verify_continuar_boton')
                   closePopup()
                 }}
               />

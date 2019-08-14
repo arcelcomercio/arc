@@ -4,6 +4,7 @@ import Consumer from 'fusion:consumer'
 import Modal from '../common/modal'
 import Header from '../common/header'
 import Footer from '../common/footer'
+import Taggeo from '../utils/taggeo'
 
 import FormVerify from './_children/form-verify'
 import ListBenefits from './_children/benefits'
@@ -26,8 +27,19 @@ class SignWallVerify extends Component {
     this.validateToken()
   }
 
-  componentWillMount() {
+  componentDidMount() {
     window.Identity.apiOrigin = this.origin_api
+    Taggeo('Web_Sign_Wall_Verify', 'web_verify_open')
+    window.addEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  handleLeavePage = e => {
+    e.preventDefault()
+    Taggeo('Web_Sign_Wall_Verify', 'web_verify_leave')
   }
 
   validateToken = () => {
@@ -72,7 +84,7 @@ class SignWallVerify extends Component {
                       position="middle"
                       name="arc-popup-verifyaccount"
                       id="arc-popup-verifyaccount">
-                      <Header closePopup={closePopup} />
+                      <Header closePopup={closePopup} typePopUp="verify" />
                       <div className="modal-body">
                         <div className="modal-body__left">
                           <ListBenefits

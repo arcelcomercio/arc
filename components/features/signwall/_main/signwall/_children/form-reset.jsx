@@ -7,6 +7,7 @@ import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
 import { strongRegularExp, mediumRegularExp } from '../../utils/regex'
 import FormValid from '../../utils/form-valid'
+import Taggeo from '../../utils/taggeo'
 
 @Consumer
 class FormResetPass extends Component {
@@ -47,13 +48,8 @@ class FormResetPass extends Component {
           this.setState({
             showMessage: true,
           })
-          // -- test de tageo success
-          window.dataLayer.push({
-            event: 'resetpass_success',
-            // eventCategory: 'Web_Sign_Wall_Resetpass',
-            // eventAction: 'web_resetpass_aceptar_success',
-          })
-          // -- test de tageo success
+
+          this.taggeoSuccess() // -- test de tageo success
         })
         .catch(errReset => {
           this.setState({
@@ -62,13 +58,8 @@ class FormResetPass extends Component {
                 ? 'Enlace no encontrado o caducado'
                 : errReset.message,
           })
-          // -- test de tageo error
-          window.dataLayer.push({
-            event: 'resetpass_error',
-            // eventCategory: 'Web_Sign_Wall_Resetpass',
-            // eventAction: 'web_resetpass_aceptar_error',
-          })
-          // -- test de tageo error
+
+          this.taggeoError() // -- test de tageo error
         })
     } else {
       const { formErrors } = this.state
@@ -132,6 +123,30 @@ class FormResetPass extends Component {
 
     // this.setState({ formErrors, [name]: value }, () => console.log(this.state));
     this.setState({ formErrors, [name]: value })
+  }
+
+  taggeoSuccess = () => {
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      window.dataLayer.push({
+        event: 'resetpass_success',
+        // eventCategory: 'Web_Sign_Wall_Resetpass',
+        // eventAction: 'web_resetpass_aceptar_success',
+      })
+    } else {
+      Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_aceptar_success')
+    }
+  }
+
+  taggeoError = () => {
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      window.dataLayer.push({
+        event: 'resetpass_error',
+        // eventCategory: 'Web_Sign_Wall_Resetpass',
+        // eventAction: 'web_resetpass_aceptar_error',
+      })
+    } else {
+      Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_aceptar_error')
+    }
   }
 
   render() {
@@ -235,6 +250,9 @@ class FormResetPass extends Component {
                   id="resetpass_boton_aceptar"
                   className="btn btn--blue btn-bg"
                   value="Aceptar"
+                  onClick={
+                    Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_aceptar_boton')
+                  }
                 />
               </div>
             </div>
@@ -260,6 +278,7 @@ class FormResetPass extends Component {
                   className="btn btn--blue btn-bg"
                   value="Ingresa a tu cuenta"
                   onClick={() => {
+                    Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_continuar_boton')
                     closePopup()
                     document.querySelector('#web_link_ingresacuenta').click()
                   }}

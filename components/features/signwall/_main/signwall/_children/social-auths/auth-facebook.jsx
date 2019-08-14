@@ -6,6 +6,7 @@ import { Facebook } from '../../../common/iconos'
 import Cookie from '../../../utils/cookie'
 import getDevice from '../../../utils/get-device'
 import Services from '../../../utils/services'
+import Taggeo from '../../../utils/taggeo'
 
 const Cookies = new Cookie()
 const services = new Services()
@@ -26,11 +27,6 @@ class AuthFacebook extends React.Component {
       ENV.ENVIRONMENT === 'elcomercio'
         ? `https://api.${arcSite}.pe`
         : `https://api-sandbox.${arcSite}.pe`
-
-    const { typePopUp = '', typeForm = '' } = this.props
-    this.tipCat = typePopUp
-    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    this.tipForm = typeForm
 
     window.removeEventListener('message', this.OAuthFacebook)
     window.removeEventListener('onmessage', this.OAuthFacebook)
@@ -98,34 +94,35 @@ class AuthFacebook extends React.Component {
 
           window.Identity.apiOrigin = this.origin_api
           window.Identity.getUserProfile()
-            .then(resFbProfile => {
+            .then(resPro => {
               this.setState({
                 sendingFbText: 'Cargando perfil...',
               })
 
-              const EmailUserProfile = resFbProfile.email
-                ? resFbProfile.email
-                : `${resFbProfile.identities[0].userName}@facebook.com`
+              const { typePopUp } = this.props
 
-              if (!resFbProfile.displayName && !resFbProfile.attributes) {
-                const originAction = (tipform, tipcat) => {
+              const EMAIL_USER =
+                resPro.email || `${resPro.identities[0].userName}@facebook.com`
+
+              if (!resPro.displayName && !resPro.attributes) {
+                const originAction = tipmodal => {
                   const isHard = document.querySelector(
                     '#arc-popup-signwallhard'
                   )
                   if (isHard) {
                     return '1'
                   }
-                  if (tipcat === 'relogemail') {
+                  if (tipmodal === 'relogemail') {
                     return 'reloginemail'
                   }
                   return '0'
                 }
 
                 const newProfileFB = {
-                  firstName: resFbProfile.firstName.replace(/\./g, ''),
-                  lastName: resFbProfile.lastName.replace(/\./g, ''),
-                  displayName: EmailUserProfile,
-                  email: EmailUserProfile,
+                  firstName: resPro.firstName.replace(/\./g, ''),
+                  lastName: resPro.lastName.replace(/\./g, ''),
+                  displayName: EMAIL_USER,
+                  email: EMAIL_USER,
                   attributes: [
                     {
                       name: 'originDomain',
@@ -149,7 +146,7 @@ class AuthFacebook extends React.Component {
                     },
                     {
                       name: 'originAction',
-                      value: originAction(this.tipForm, this.tipCat) || 'none',
+                      value: originAction(typePopUp) || 'none',
                       type: 'String',
                     },
                     {
@@ -163,18 +160,16 @@ class AuthFacebook extends React.Component {
                 window.Identity.apiOrigin = this.origin_api
                 window.Identity.updateUserProfile(newProfileFB) // update profile add attibutes
 
-                if (EmailUserProfile) {
-                  Cookies.setCookie('arc_e_id', sha256(EmailUserProfile), 365)
+                if (EMAIL_USER) {
+                  Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
                 }
 
-                this.taggeoSuccess() // -- test de tageo success REGISTRO
                 this.enterProfilePanel()
               } else {
-                if (EmailUserProfile) {
-                  Cookies.setCookie('arc_e_id', sha256(EmailUserProfile), 365)
+                if (EMAIL_USER) {
+                  Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
                 }
 
-                this.taggeoSuccess() // -- test de tageo  success LOGIN
                 this.enterProfilePanel()
               }
             })
@@ -196,69 +191,83 @@ class AuthFacebook extends React.Component {
   }
 
   taggeoSuccess = () => {
-    switch (this.tipCat) {
-      case 'organico':
-      case 'hard':
-        window.dataLayer.push({
-          event: `${this.tipForm}_fb_success`,
-          eventCategory: `Web_Sign_Wall_${this.tipCat}`,
-          eventAction: `${this.tipAct}_${this.tipForm}_success_facebook`,
-        })
-        break
-      case 'relogin':
-        window.dataLayer.push({
-          event: 'relogin_fb_success',
-        })
-        break
-      case 'relogemail':
-        if (this.tipForm === 'login') {
+    const { typePopUp, typeForm } = this.props
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      switch (typePopUp) {
+        case 'organico':
+        case 'hard':
           window.dataLayer.push({
-            event: 'relogin_email_fb_success',
+            event: `${typeForm}_fb_success`,
+            eventCategory: `Web_Sign_Wall_${typePopUp}`,
+            eventAction: `web_sw${typePopUp[0]}_${typeForm}_success_facebook`,
           })
-        } else if (this.tipForm === 'register') {
+          break
+        case 'relogin':
           window.dataLayer.push({
-            event: 'relogin_email_registro_fb_success',
+            event: 'relogin_fb_success',
           })
-        }
-        break
-      default:
-        return null
+          break
+        case 'relogemail':
+          if (typeForm === 'login') {
+            window.dataLayer.push({
+              event: 'relogin_email_fb_success',
+            })
+          } else if (typeForm === 'register') {
+            window.dataLayer.push({
+              event: 'relogin_email_registro_fb_success',
+            })
+          }
+          break
+        default:
+      }
+    } else {
+      Taggeo(
+        `Web_Sign_Wall_${typePopUp}`,
+        `web_sw${typePopUp[0]}_${typeForm}_success_facebook`
+      )
     }
   }
 
   taggeoError = () => {
-    switch (this.tipCat) {
-      case 'organico':
-      case 'hard':
-        window.dataLayer.push({
-          event: `${this.tipForm}_fb_error`,
-          eventCategory: `Web_Sign_Wall_${this.tipCat}`,
-          eventAction: `${this.tipAct}_${this.tipForm}_error_facebook`,
-        })
-        break
-      case 'relogin':
-        window.dataLayer.push({
-          event: 'relogin_fb_error',
-        })
-        break
-      case 'relogemail':
-        if (this.tipForm === 'login') {
+    const { typePopUp, typeForm } = this.props
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      switch (typePopUp) {
+        case 'organico':
+        case 'hard':
           window.dataLayer.push({
-            event: 'relogin_email_fb_error',
+            event: `${typeForm}_fb_error`,
+            eventCategory: `Web_Sign_Wall_${typePopUp}`,
+            eventAction: `web_sw${typePopUp[0]}_${typeForm}_error_facebook`,
           })
-        } else if (this.tipForm === 'register') {
+          break
+        case 'relogin':
           window.dataLayer.push({
-            event: 'relogin_email_registro_fb_error',
+            event: 'relogin_fb_error',
           })
-        }
-        break
-      default:
-        return null
+          break
+        case 'relogemail':
+          if (typeForm === 'login') {
+            window.dataLayer.push({
+              event: 'relogin_email_fb_error',
+            })
+          } else if (typeForm === 'register') {
+            window.dataLayer.push({
+              event: 'relogin_email_registro_fb_error',
+            })
+          }
+          break
+        default:
+      }
+    } else {
+      Taggeo(
+        `Web_Sign_Wall_${typePopUp}`,
+        `web_sw${typePopUp[0]}_${typeForm}_error_facebook`
+      )
     }
   }
 
   render = () => {
-    const { id, align } = this.props
+    const { id, align, typePopUp, typeForm } = this.props
     const { sendingFb, loadedFB, sendingFbText } = this.state
 
     return (
@@ -268,7 +277,13 @@ class AuthFacebook extends React.Component {
           name="facebook"
           id={id}
           className={`btn btn-facebook ${align}`}
-          onClick={this.clickLoginFacebookEcoID}
+          onClick={() => {
+            Taggeo(
+              `Web_Sign_Wall_${typePopUp}`,
+              `web_sw${typePopUp[0]}_${typeForm}_boton_facebook`
+            )
+            this.clickLoginFacebookEcoID()
+          }}
           disabled={sendingFb || !loadedFB}>
           <Facebook />
           <span>{sendingFbText}</span>
@@ -280,6 +295,7 @@ class AuthFacebook extends React.Component {
   enterProfilePanel = () => {
     const { closePopup } = this.props
     Cookies.deleteCookie('mpp_sess') // borra session MPP
+    this.taggeoSuccess() // -- test de tageo sucess
     closePopup()
   }
 }

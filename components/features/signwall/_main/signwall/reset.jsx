@@ -5,6 +5,7 @@ import Header from '../common/header'
 import Footer from '../common/footer'
 
 import FormReset from './_children/form-reset'
+import Taggeo from '../utils/taggeo'
 
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
@@ -13,6 +14,20 @@ class SignWallReset extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+  }
+
+  componentDidMount() {
+    Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_open')
+    window.addEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  handleLeavePage = e => {
+    e.preventDefault()
+    Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_leave')
   }
 
   renderTemplate(template) {
@@ -44,7 +59,7 @@ class SignWallReset extends Component {
                   position="middle"
                   name="arc-popup-resetpass"
                   id="arc-popup-resetpass">
-                  <Header closePopup={closePopup} />
+                  <Header closePopup={closePopup} typePopUp="resetpass" />
                   <div className="modal-body">
                     <div className="modal-body__left">
                       <ListBenefits

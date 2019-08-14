@@ -5,40 +5,31 @@ import React, { Component } from 'react'
 import { sha256 } from 'js-sha256'
 import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
-import * as Icon from '../../common/iconos'
 
 import AuthFacebook from './social-auths/auth-facebook'
 
-import ListBenefits from './benefits'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
-import Services from '../../utils/services'
 import FormValid from '../../utils/form-valid'
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
-const services = new Services()
 
 @Consumer
-class FormReLogin extends Component {
+class FormLoginPaywall extends Component {
   constructor(props) {
     super(props)
-
-    const getProfileMPP = window.localStorage.getItem('profileMPP')
-    const profileMPP = JSON.parse(getProfileMPP)
-
     this.state = {
       hiddenListBenefits: true,
       hiddenTitleBenefits: true,
       linkListBenefits: false,
       hiddenPass: true,
-      email: profileMPP ? profileMPP.email : null,
+      email: null,
       password: null,
       formErrors: {
         email: '',
         password: '',
       },
-      nameMPP: profileMPP ? profileMPP.firstName : 'Lector',
       messageError: false,
       sending: true,
     }
@@ -48,12 +39,6 @@ class FormReLogin extends Component {
       ENV.ENVIRONMENT === 'elcomercio'
         ? `https://api.${arcSite}.pe`
         : `https://api-sandbox.${arcSite}.pe`
-
-    const { typePopUp = '', typeForm = '' } = this.props
-    this.tipCat = typePopUp
-    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    this.tipForm = typeForm
-    // console.log(this.tipCat, this.tipAct, this.tipForm)
   }
 
   componentWillMount() {
@@ -76,89 +61,15 @@ class FormReLogin extends Component {
         .then(() => {
           this.setState({ sending: true })
           this.handleGetProfile()
-
           // -- test de tageo sucess
-          // window.dataLayer.push({
-          //   event: 'login_success',
-          //   eventCategory: `Web_Sign_Wall_Relog_Email`,
-          //   eventAction: `web_relog_email_login_success_ingresar`,
-          // })
-          // -- test de tageo success
         })
         .catch(errLogin => {
           let messageES = ''
           switch (errLogin.code) {
             case '300040':
             case '300037':
-              // aqui va el api de Guido:
-              services
-                .reloginEcoID(
-                  email,
-                  password,
-                  this.tipCat === 'relogin' ? 'relogin' : 'reloginemail',
-                  window
-                )
-                .then(resEco => {
-                  if (resEco.retry === true) {
-                    setTimeout(() => {
-                      window.Identity.apiOrigin = this.origin_api
-                      window.Identity.login(email, password, {
-                        rememberMe: true,
-                        cookie: true,
-                      })
-                        .then(() => {
-                          this.handleGetProfile()
-                        })
-                        .catch(errReLogin => {
-                          this.setState({
-                            messageError: errReLogin,
-                            sending: true,
-                          })
-                        })
-                    }, 500)
-
-                    // -- test tageo success
-                    // window.dataLayer.push({
-                    //   event:
-                    //     this.tipCat === 'relogin'
-                    //       ? 'relogin_success'
-                    //       : 'relogin_email_success',
-                    // })
-                    // -- test tageo success
-                  } else {
-                    this.setState({
-                      messageError:
-                        'Correo electrónico y/o  contraseña incorrecta.',
-                      sending: true,
-                    })
-
-                    // -- test tageo error
-                    // window.dataLayer.push({
-                    //   event:
-                    //     this.tipCat === 'relogin'
-                    //       ? 'relogin_error'
-                    //       : 'relogin_email_error',
-                    // })
-                    // -- test tageo error
-                  }
-                })
-                .catch(() => {
-                  // -- test tageo error
-                  // window.dataLayer.push({
-                  //   event:
-                  //     this.tipCat === 'relogin'
-                  //       ? 'relogin_error'
-                  //       : 'relogin_email_error',
-                  // })
-                  // this.setState({
-                  //   messageError:
-                  //     'Correo electrónico y/o  contraseña incorrecta.',
-                  //   sending: true,
-                  // })
-                  // -- test tageo error
-                })
-              // aqui va el api de Guido:
-              return
+              messageES = 'Correo electrónico y/o  contraseña incorrecta.'
+              break
 
             case '130051`':
               messageES = 'El Correo electrónico no ha sido verificado.'
@@ -180,7 +91,6 @@ class FormReLogin extends Component {
           })
         })
     } else {
-      // console.error('FORM INVALID', this.state.formErrors);
       const { formErrors } = this.state
 
       if (email === null) {
@@ -202,13 +112,6 @@ class FormReLogin extends Component {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
-    })
-  }
-
-  handleLoginBackSocial = () => {
-    this.setState({
-      hiddenTitleBenefits: true,
-      linkListBenefits: false,
     })
   }
 
@@ -257,29 +160,13 @@ class FormReLogin extends Component {
         break
     }
 
-    // this.setState({ formErrors, [name]: value }, () => console.log(this.state));
     this.setState({ formErrors, [name]: value })
-  }
-
-  hanbleShowListBenefits = () => {
-    const { hiddenListBenefits, linkListBenefits } = this.state
-    const modalRelogEmail = document.querySelector('#arc-popup-relogin-email')
-    const modalRelog = document.querySelector('#arc-popup-relogin')
-    if (modalRelogEmail) modalRelogEmail.scrollTop = '0px'
-    if (modalRelog) modalRelog.scrollTop = '0px'
-    this.setState({
-      hiddenListBenefits: !hiddenListBenefits,
-      linkListBenefits: !linkListBenefits,
-    })
   }
 
   render = () => {
     const {
       formErrors,
-      nameMPP,
       hiddenListBenefits,
-      hiddenTitleBenefits,
-      linkListBenefits,
       messageError,
       email,
       hiddenPass,
@@ -436,4 +323,4 @@ class FormReLogin extends Component {
   }
 }
 
-export default FormReLogin
+export default FormLoginPaywall

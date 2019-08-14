@@ -49,11 +49,8 @@ class FormReLogin extends Component {
         ? `https://api.${arcSite}.pe`
         : `https://api-sandbox.${arcSite}.pe`
 
-    const { typePopUp = '', typeForm = '' } = this.props
+    const { typePopUp } = this.props
     this.tipCat = typePopUp
-    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    this.tipForm = typeForm
-    // console.log(this.tipCat, this.tipAct, this.tipForm)
   }
 
   componentWillMount() {
@@ -64,6 +61,7 @@ class FormReLogin extends Component {
     e.preventDefault()
 
     const { email, password } = this.state
+    const { typePopUp } = this.props
 
     if (FormValid(this.state)) {
       this.setState({ sending: false })
@@ -77,14 +75,11 @@ class FormReLogin extends Component {
           this.setState({ sending: true })
           this.handleGetProfile()
 
-          // -- test de tageo sucess
           window.dataLayer.push({
             event: 'login_success',
             eventCategory: `Web_Sign_Wall_Relog_Email`,
             eventAction: `web_relog_email_login_success_ingresar`,
           })
-          // -- test de tageo success
-
         })
         .catch(errLogin => {
           let messageES = ''
@@ -96,7 +91,7 @@ class FormReLogin extends Component {
                 .reloginEcoID(
                   email,
                   password,
-                  this.tipCat === 'relogin' ? 'relogin' : 'reloginemail',
+                  typePopUp === 'relogin' ? 'relogin' : 'reloginemail',
                   window
                 )
                 .then(resEco => {
@@ -118,45 +113,25 @@ class FormReLogin extends Component {
                         })
                     }, 500)
 
-                    // -- test tageo success
-                    window.dataLayer.push({
-                      event:
-                        this.tipCat === 'relogin'
-                          ? 'relogin_success'
-                          : 'relogin_email_success',
-                    })
-                    // -- test tageo success
+                    this.taggeoSuccess() // -- test tageo success
                   } else {
                     this.setState({
                       messageError:
                         'Correo electrónico y/o  contraseña incorrecta.',
                       sending: true,
                     })
-                    
-                    // -- test tageo error
-                    window.dataLayer.push({
-                      event:
-                        this.tipCat === 'relogin'
-                          ? 'relogin_error'
-                          : 'relogin_email_error',
-                    })
-                    // -- test tageo error
+
+                    this.taggeoError() // -- test tageo error
                   }
                 })
                 .catch(() => {
-                  // -- test tageo error
-                  window.dataLayer.push({
-                    event:
-                      this.tipCat === 'relogin'
-                        ? 'relogin_error'
-                        : 'relogin_email_error',
-                  })
                   this.setState({
                     messageError:
                       'Correo electrónico y/o  contraseña incorrecta.',
                     sending: true,
                   })
-                  // -- test tageo error
+
+                  this.taggeoError() // -- test tageo error
                 })
               // aqui va el api de Guido:
               return
@@ -271,6 +246,23 @@ class FormReLogin extends Component {
     this.setState({
       hiddenListBenefits: !hiddenListBenefits,
       linkListBenefits: !linkListBenefits,
+    })
+  }
+
+  taggeoSuccess = () => {
+    const { typePopUp } = this.props
+
+    window.dataLayer.push({
+      event:
+        typePopUp === 'relogin' ? 'relogin_success' : 'relogin_email_success',
+    })
+  }
+
+  taggeoError = () => {
+    const { typePopUp } = this.props
+
+    window.dataLayer.push({
+      event: typePopUp === 'relogin' ? 'relogin_error' : 'relogin_email_error',
     })
   }
 

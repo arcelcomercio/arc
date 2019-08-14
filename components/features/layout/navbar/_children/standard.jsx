@@ -144,8 +144,9 @@ class NavBarDefault extends PureComponent {
 
   getPremium() {
     const W = window
-
-    if (this.checkSession()) {
+    if (!this.checkSession()) {
+      W.location.href = '/?signwallPremium=1'
+    } else {
       return this.getListSubs().then(p => {
         if (p && p.length === 0) {
           W.location.href = '/?signwallPremium=1'
@@ -153,10 +154,7 @@ class NavBarDefault extends PureComponent {
         return false // tengo subs :D
       })
     }
-
-    return () => {
-      W.location.href = '/?signwallPremium=1'
-    }
+    return false
   }
 
   getPaywall() {

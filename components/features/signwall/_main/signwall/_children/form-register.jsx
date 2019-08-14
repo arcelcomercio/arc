@@ -15,6 +15,7 @@ import AuthFacebook from './social-auths/auth-facebook'
 import getDevice from '../../utils/get-device'
 import Cookie from '../../utils/cookie'
 import FormValid from '../../utils/form-valid'
+import Taggeo from '../../utils/taggeo'
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
@@ -44,12 +45,6 @@ class FormRegister extends Component {
       ENV.ENVIRONMENT === 'elcomercio'
         ? `https://api.${arcSite}.pe`
         : `https://api-sandbox.${arcSite}.pe`
-
-    const { typePopUp = '', typeForm = '' } = this.props
-    this.tipCat = typePopUp || ''
-    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    this.tipForm = typeForm
-    // console.log(this.tipCat, this.tipAct, this.tipForm)
   }
 
   componentWillMount() {
@@ -60,13 +55,14 @@ class FormRegister extends Component {
     e.preventDefault()
 
     const { checked } = this.state
+    const { typePopUp } = this.props
 
-    const originAction = tipcategory => {
+    const originAction = tipmodal => {
       const isHard = document.querySelector('#arc-popup-signwallhard')
       if (isHard) {
         return '1'
       }
-      if (tipcategory === 'relogemail') {
+      if (tipmodal === 'relogemail') {
         return 'reloginemail'
       }
       return '0'
@@ -110,7 +106,7 @@ class FormRegister extends Component {
             },
             {
               name: 'originAction',
-              value: originAction(this.tipCat) || 'none',
+              value: originAction(typePopUp) || 'none',
               type: 'String',
             },
             {
@@ -131,22 +127,7 @@ class FormRegister extends Component {
 
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
 
-          // -- test de tageo success
-          if (this.tipCat === 'relogemail') {
-            window.dataLayer.push({
-              event: 'relogin_email_registro_success',
-            })
-          } else {
-            window.dataLayer.push({
-              event: 'registro_success',
-              eventCategory: `Web_Sign_Wall_${this.tipCat}`,
-              eventAction: `${this.tipAct}_registro_success_registrarme`,
-              userId: window.Identity
-                ? window.Identity.userIdentity.uuid
-                : null,
-            })
-          }
-          // -- test de tageo success
+          this.taggeoSuccess() // -- test de tageo success
         })
         .catch(err => {
           // console.log(err)
@@ -184,19 +165,7 @@ class FormRegister extends Component {
             sending: true,
           })
 
-          // -- test de tageo error
-          if (this.tipCat === 'relogemail') {
-            window.dataLayer.push({
-              event: 'relogin_email_registro_error',
-            })
-          } else {
-            window.dataLayer.push({
-              event: 'registro_error',
-              eventCategory: `Web_Sign_Wall_${this.tipCat}`,
-              eventAction: `${this.tipAct}_registro_error_registrarme`,
-            })
-          }
-          // -- test de tageo error
+          this.taggeoError() // -- test de tageo error
         })
     } else {
       // console.error('FORM INVALID', this.state.formErrors);
@@ -276,6 +245,53 @@ class FormRegister extends Component {
     this.setState({ formErrors, [name]: value })
   }
 
+  taggeoError() {
+    const { typePopUp } = this.props
+
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      if (typePopUp === 'relogemail') {
+        window.dataLayer.push({
+          event: 'relogin_email_registro_error',
+        })
+      } else {
+        window.dataLayer.push({
+          event: 'registro_error',
+          eventCategory: `Web_Sign_Wall_${typePopUp}`,
+          eventAction: `web_sw${typePopUp[0]}_registro_error_registrarme`,
+        })
+      }
+    } else {
+      Taggeo(
+        `Web_Sign_Wall_${typePopUp}`,
+        `web_sw${typePopUp[0]}_registro_error_registrarme`
+      )
+    }
+  }
+
+  taggeoSuccess() {
+    const { typePopUp } = this.props
+
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      if (typePopUp === 'relogemail') {
+        window.dataLayer.push({
+          event: 'relogin_email_registro_success',
+        })
+      } else {
+        window.dataLayer.push({
+          event: 'registro_success',
+          eventCategory: `Web_Sign_Wall_${typePopUp}`,
+          eventAction: `web_sw${typePopUp[0]}_registro_success_registrarme`,
+          userId: window.Identity ? window.Identity.userIdentity.uuid : null,
+        })
+      }
+    } else {
+      Taggeo(
+        `Web_Sign_Wall_${typePopUp}`,
+        `web_sw${typePopUp[0]}_registro_success_registrarme`
+      )
+    }
+  }
+
   render = () => {
     const {
       formErrors,
@@ -284,6 +300,7 @@ class FormRegister extends Component {
       checkpwdStrength,
       checked,
       sending,
+      showMessageResetPass,
     } = this.state
     const { closePopup, typePopUp, typeForm, brandCurrent } = this.props
 
@@ -299,7 +316,13 @@ class FormRegister extends Component {
                   <button
                     type="button"
                     id="registrar_link_volver"
-                    onClick={() => val.changeTemplate('login')}
+                    onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typePopUp}`,
+                        `web_sw${typePopUp[0]}_registro_link_volver`
+                      )
+                      val.changeTemplate('login')
+                    }}
                     className="link-back">
                     <Icon.Back />
                     <span>Volver</span>
@@ -451,6 +474,12 @@ class FormRegister extends Component {
                       id="registro_boton_registrarme"
                       className="btn btn-md input-button"
                       value={!sending ? 'Registrando...' : 'Registrarme'}
+                      onClick={() =>
+                        Taggeo(
+                          `Web_Sign_Wall_${typePopUp}`,
+                          `web_sw${typePopUp[0]}_registro_boton_registrarme`
+                        )
+                      }
                       disabled={!sending}
                     />
                   </div>
@@ -468,12 +497,12 @@ class FormRegister extends Component {
                 </div>
                 <div className="form-grid__group">
                   <h1 className="form-grid__info text-center">
-                    {this.state.showMessageResetPass
+                    {showMessageResetPass
                       ? 'Tu cuenta ya existe. solo falta un paso más'
                       : 'Tu cuenta ha sido creada correctamente'}
                   </h1>
                   <p className="form-grid__info-sub text-center">
-                    {this.state.showMessageResetPass
+                    {showMessageResetPass
                       ? 'Revisa tu bandeja de correo para vincular tu cuenta'
                       : 'Revisa tu bandeja de correo para confirmar tu solicitud'}
                   </p>
@@ -485,7 +514,13 @@ class FormRegister extends Component {
                       id="registro_continuar_navegando"
                       className="btn btn--blue btn-md btn-bg"
                       value="Continuar Navegando"
-                      onClick={() => closePopup()}
+                      onClick={() => {
+                        Taggeo(
+                          `Web_Sign_Wall_${typePopUp}`,
+                          `sw${typePopUp[0]}_registro_continuarnavegando`
+                        )
+                        closePopup()
+                      }}
                     />
                   </div>
                 </div>
