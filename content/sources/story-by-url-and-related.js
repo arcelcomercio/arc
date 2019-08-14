@@ -87,7 +87,7 @@ const resolve = (key = {}) => {
   if (!hasWebsiteUrl)
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
   website = key['arc-site'] || 'Arc Site no está definido'
-  const { websiteUrl } = key
+  const { website_url: websiteUrl } = key
   const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}`
   return requestUri
 }
@@ -106,7 +106,9 @@ const transform = dataStory => {
   }).then(recientesResp => {
     dataStory.recent_stories = recientesResp
     return request({
-      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${dataStory._id}&website=${website}&published=true`,
+      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${
+        dataStory._id
+      }&website=${website}&published=true`,
       ...options,
     }).then(idsResp => {
       dataStory.related_content = idsResp

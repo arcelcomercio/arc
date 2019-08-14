@@ -15,5 +15,6 @@ package-lock.json
 /resources/dist/
 dist/
 coverage/
+mocks/user
 
 components/features/paywall/bundle.js
