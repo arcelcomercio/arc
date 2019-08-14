@@ -197,7 +197,6 @@ class StoryHeaderChildGallerySlider extends PureComponent {
               <ul style={sliderStyle} className={classes.content}>
                 {sliders.map((slide, i) => (
                   <li
-                    landscape_l
                     key={slide._id}
                     style={slideStyle}
                     className={classes.slide}>
