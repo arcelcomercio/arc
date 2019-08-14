@@ -91,7 +91,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                 <Field
                   component={Input}
                   name="cardNumber"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   label="Número de tarjeta"
                   pipe={trim()}
                   mask={Masks.CREDIT_CARD_NUMBER}
@@ -105,7 +105,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                   name="expiryDate"
                   mask={Masks.EXPIRY_DATE}
                   placeholder="mm/aaaa"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   label="F. de Vencimiento"
                 />
               </S.WrapInput>
@@ -113,7 +113,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                 <Field
                   component={Input}
                   suffix={<Icon type="cvv" />}
-                  inputmode="numeric"
+                  inputMode="numeric"
                   type="text"
                   mask={
                     cardMethod === 'amex'

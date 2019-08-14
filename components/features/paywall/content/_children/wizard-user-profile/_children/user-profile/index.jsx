@@ -115,7 +115,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="phone"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   pipe={trim()}
                   mask={Masks.PHONE}
                   label="Número de Celular"
@@ -125,7 +125,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="email"
-                  inputmode="email"
+                  inputMode="email"
                   label="Correo Electrónico"
                   component={InputFormik}
                 />
