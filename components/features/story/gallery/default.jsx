@@ -34,7 +34,7 @@ const StoryGallery = () => {
   const parameters = { contentElementGallery, title, subTitle, link, isAdmin }
 
   const {
-    basic: { caption = '' },
+    basic: { caption = '' } = {},
     infografia: { content: embedHtmlPromoItems = '' } = {},
   } = promoItems
 
