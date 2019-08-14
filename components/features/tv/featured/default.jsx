@@ -11,6 +11,13 @@ import Modal from '../../../global-components/tv-modal'
 import StoryData from '../../../utilities/story-data'
 import { formatDateLocalTimeZone } from '../../../utilities/helpers'
 
+/**
+ * CR: Por favor, recuerda agregar algo a los alt="" :c
+ * ayuda a las personas que no tienen la misma suerte que tú
+ * al tener dos ojos sanos y la capacidad de ver las
+ * bellezas de la vida en full HD 4k.
+ */
+
 const TvFeatured = props => {
   const { customFields: { section = '' } = {} } = props
   const { content_elements: contentElements = [] } =
@@ -20,6 +27,14 @@ const TvFeatured = props => {
       // filter: SchemaFilter(arcSite),
     }) || []
   const data = contentElements[0] || {}
+  /**
+   * CR: Sería mejor si se destructura de una vez entrando al primer elemento:
+   *
+   * const { content_elements: [ data = {} ] = [] } = ...
+   *
+   * o si en la query se envía "stories_qty = 1" para evitar consumir
+   * data innecesaria.
+   */
 
   const { arcSite, contextPath, deployment } = useFusionContext()
 
@@ -45,6 +60,19 @@ const TvFeatured = props => {
           basic_video: {
             promo_items: {
               basic: { resized_urls: { preset1 = '' } = {} } = {},
+              /**
+               * CR: Creo que la evaluación de preset1 se hace dos veces,
+               * la primera cuando se destructura y por defecto se asigna ''
+               * y la segunda cuando se evalua = preset1 || multimedia.
+               * Si preset1 al no tener contenido viene como 'undefined',
+               * podría ser mejor destructurar { preset1 = multimedia } y
+               * sólo asignar image = preset1 (aunque de esta manera se
+               * pierde un poco la autodocumentación del código ya que
+               * preset1 también podría significar "multimedia"). La otra
+               * opción podría ser simplemente no hacer la asignación por
+               * defecto de '' a preset1 en la destructuración, ya que no
+               * servirá de nada si abajo se hace = preset1 || multimedia.
+               */
             } = {},
           } = {},
         } = {},
@@ -107,7 +135,9 @@ const TvFeatured = props => {
                 {title}
               </button>
             </h2>
-            <time className="block text-white mb-15" dateTime={date}>
+            <time
+              className="block text-white mb-15"
+              dateTime={date /** CD: También valida esta peeeee */}>
               {date && formatDateLocalTimeZone(date)}
             </time>
           </div>
