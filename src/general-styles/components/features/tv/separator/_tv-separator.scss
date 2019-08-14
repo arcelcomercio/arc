@@ -15,6 +15,12 @@
   &__item {
     // width: 23%;
     max-width: 280px;
+    @media (--tablet) {
+      max-width: calc((100% / 4) - 20px);
+    }
+    @media (--desktop) {
+      max-width: calc((100% / 6) - 20px);
+    }
     // min-width: 185px;
 
     &:nth-child(2) {
