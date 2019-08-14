@@ -354,6 +354,10 @@ class StoryData {
     return (this._data && this._data.publish_date) || ''
   }
 
+  get createdDate() {
+    return (this._data && this._data.created_date) || ''
+  }
+
   get firstPublishDate() {
     return (this._data && this._data.first_publish_date) || ''
   }

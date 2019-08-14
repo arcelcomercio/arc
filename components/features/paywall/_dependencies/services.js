@@ -21,7 +21,10 @@ const services = {
     ORIGIN_PAYU_SDK: ENV => {
       return `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`
     },
-    getService: function getService(service){
+  ORIGIN_SUBSCRIPTION_CORP_API: ENV => {
+    return `http://devpaywall.comerciosuscripciones.pe/api/subs-corporativa/`
+  },
+  getService: function getService(service){
         return this[service](environment)
     }
   }
