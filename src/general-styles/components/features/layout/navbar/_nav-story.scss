@@ -1,4 +1,7 @@
 .story {
+  .nav__story-social-network {
+    display: none;
+  }
   .nav.active {
     .nav__mobile-logo {
       display: none;
@@ -34,13 +37,29 @@
     .nav__container-menu {
       border-right-color: $color-primary;
     }
-  }
-  .nav__story-social-network {
-    .story-header__list {
-      width: 110px;
-    }
-    .story-header__icon {
-      font-size: 23px;
+    .nav__story-social-network {
+      display: block;
+      .story-header__list {
+        background-color: $color-white;
+        width: auto;
+        padding: 10px;
+        flex-direction: column;
+        top: 30px;
+        position: absolute;
+        right: -10px;
+        z-index: 1;
+        box-shadow: -1px 7px 11px rgba(0, 0, 0, 0.3);
+      }
+      .story-header__item {
+        margin-bottom: 10px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      .story-header__icon,
+      .story-header__share-icon {
+        font-size: 23px;
+      }
     }
   }
 }

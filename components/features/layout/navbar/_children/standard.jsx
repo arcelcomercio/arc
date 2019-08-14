@@ -55,7 +55,7 @@ const classes = {
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
-  navStorySocialNetwork: 'nav__story-social-network ',
+  navStorySocialNetwork: 'nav__story-social-network position-relative',
   iconSignwallMobile: 'uppercase ',
   btnSignwallMobile:
     'nav__btn--login-m bg-secondary text-primary-color rounded',
@@ -70,6 +70,7 @@ const classes = {
   iconRibbon: 'icon-ribbon',
   iconTwitter: 'icon-twitter-circle',
   iconWhatsapp: 'icon-whatsapp',
+  iconMore: 'story-header__share-icon icon-share text-gray-200',
 }
 
 @Consumer
@@ -683,7 +684,6 @@ class NavBarDefault extends PureComponent {
                         this.openLink(event, 3)
                       }}>
                       <i className={`${classes.iconMore}`} />
-                      sss
                     </a>
                   </div>
 
