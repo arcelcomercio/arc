@@ -14,6 +14,8 @@ export default {
         callback()
     },
     mount(callback){
+        if(window.opener)
+            window.opener.postMessage('paywall-ready', getService('PWA_DOMAIN'));
         window.addEventListener('message', (e) => this._onMessage(e, callback))
     }
 }
