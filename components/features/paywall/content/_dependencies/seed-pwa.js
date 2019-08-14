@@ -18,12 +18,12 @@ export default {
         }
     },
     mount(callback){
-        if( !this.isPWA ) return;
+        if( !this.isPWA() ) return;
         window.nativeConnection.postMessage('paywall_ready')
         window.addEventListener('message', (e) => this._onMessage(e, callback))
     },
     finalize(){
-        if( !this.isPWA ) return;
+        if( !this.isPWA() ) return;
         window.nativeConnection.postMessage('successful_purchase');
         window.nativeConnectionModal.pwaCloseWebView();
     }
