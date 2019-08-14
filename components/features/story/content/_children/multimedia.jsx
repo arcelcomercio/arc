@@ -12,6 +12,7 @@ const StoryContentChildMultimedia = ({ data }) => {
       description: { basic: descriptionVideo = '' } = {},
     } = {},
     basic = {},
+    infografia: { type: typeInfo = '' },
     basic_html: {
       type: typeEmbed = '',
       content: embedHtmlPromoItems = '',
@@ -20,9 +21,9 @@ const StoryContentChildMultimedia = ({ data }) => {
   const { type: typeImage, caption = '' } = basic || {}
   return (
     <>
-      {typeImage === ConfigParams.ELEMENT_IMAGE &&
-        typeEmbed !== ConfigParams.ELEMENT_RAW_HTML && <Imagen data={basic} />}
-      {typeEmbed === ConfigParams.ELEMENT_RAW_HTML && (
+      {!typeInfo && !typeEmbed && typeImage ? (
+        <Imagen data={basic} />
+      ) : (
         <Html data={embedHtmlPromoItems} caption={caption} />
       )}
       {type === ConfigParams.ELEMENT_VIDEO &&
