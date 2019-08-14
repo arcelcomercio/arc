@@ -13,7 +13,7 @@ const TvSeparator = props => {
   const { content_elements: contentElements = [], section_name: sectionName } =
     useContent({
       source: 'story-feed-by-section-with-custom-presets',
-      query: { section, preset1: '280x157' },
+      query: { section, stories_qty: 6, preset1: '280x157' },
       // filter: SchemaFilter(arcSite),
     }) || {}
   const dataStoryInstance = new StoryData({
