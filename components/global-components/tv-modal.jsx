@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react'
 import ENV from 'fusion:environment'
 
-/** CR: Ya no se llamará GOLDFISH :V */
-/** CR: ¿Revisaste si esto se puede homologar un un componente
- * que creo se llama embed-multimedia? Hay algo de código duplicado
- * entre ambos.
- */
-const GOLDFISH_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+const VIDEO_CENTER_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const ORG_ID = 'elcomercio'
 
 export default ({ close, youtubeId, multimediaSource }) => {
@@ -36,7 +31,7 @@ export default ({ close, youtubeId, multimediaSource }) => {
         {youtubeId ? (
           <div className="tv-modal__embed">
             <iframe
-              title="This is a unique title" // CR: TODO: Recuerda modificar este title
+              title={`Youtube - ${youtubeId}`}
               width="100%"
               height="100%"
               src={`https://www.youtube.com/embed/${youtubeId}?&autoplay=1`}
@@ -46,8 +41,8 @@ export default ({ close, youtubeId, multimediaSource }) => {
         ) : (
           <div
             id={`powa-${multimediaSource}`}
-            data-env={GOLDFISH_ENV}
-            data-api={GOLDFISH_ENV}
+            data-env={VIDEO_CENTER_ENV}
+            data-api={VIDEO_CENTER_ENV}
             data-org={ORG_ID}
             data-uuid={multimediaSource}
             data-autoplay="true"
