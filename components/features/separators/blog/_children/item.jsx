@@ -37,11 +37,10 @@ const SeparatorBlogChildItem = ({
       <a className={classes.boxImg} href={postLink}>
         <figure>
           <img
-            src={isAdmin ? lazyImage : authorImg}
+            src={isAdmin ? authorImg : lazyImage}
             data-src={authorImg}
             alt={`Foto de perfil de ${authorName}`}
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-            
           />
         </figure>
       </a>

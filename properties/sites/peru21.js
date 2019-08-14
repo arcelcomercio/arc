@@ -39,14 +39,14 @@ export default {
     },
   },
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: 'OY6E6FMKWVDXFC7P3S7VKRMWAU',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'U2FDMRFNEVDVJNASRBJD7BWE3I',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'F5UCK5TMLZBRPN3OFRXIAW6HWY',
     aboutUs: '',
-    frequentQuestions: '',
+    frequentQuestions: '2ILZRA4AUBFSXK7JLGGN3SZ2XE',
   },
   infoPagesProd: {
     termsAndConditions: '',
@@ -62,15 +62,15 @@ export default {
   legalLinks: [
     {
       name: 'Términos y condiciones',
-      url: '/terminos-servicio',
+      url: '/terminos-y-condiciones',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      url: '/politicas-de-privacidad',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      url: '/politicas-de-cookies',
     },
   ],
 
