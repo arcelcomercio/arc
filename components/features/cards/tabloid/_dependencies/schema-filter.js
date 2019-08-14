@@ -5,7 +5,7 @@ export default arcSite => `
           website_url
         }
       }
-      display_date
+      created_date
       section_name
       promo_items{
         basic {

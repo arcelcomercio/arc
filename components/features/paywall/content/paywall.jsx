@@ -3,18 +3,27 @@ import React from 'react'
 import Wizard from 'react-step-wizard'
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
+import Icon from '../_children/icon'
 import WizardPlan from './_children/wizard-plan'
 import * as S from './styled'
 import { AddIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
+
 import Loading from '../_children/loading'
 import PWA from './_dependencies/seed-login'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
-const Right = () => {
-  return <div></div>
+const Right = ({ href }) => {
+  return (
+    <S.Button as="a" href={href} target="_blank" rel="noopener noreferrer">
+      <span>
+        ¿Necesitas ayuda?
+        <Icon type="support" />
+      </span>
+    </S.Button>
+  )
 }
 
 @Consumer
@@ -75,10 +84,13 @@ class Content extends React.Component {
     const {
       contextPath,
       deployment,
-      siteProperties: { assets },
+      siteProperties: {
+        assets,
+        paywall: { clickToCall },
+      },
     } = this.props
     const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
-    // return <div>test</div>
+
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <S.Content>
@@ -91,7 +103,12 @@ class Content extends React.Component {
               exitLeft: 'exitLeft',
             }}
             isLazyMount
-            nav={<Nav stepsNames={_stepsNames} right={<Right />} />}>
+            nav={
+              <Nav
+                stepsNames={_stepsNames}
+                right={<Right href={clickToCall} />}
+              />
+            }>
             <WizardPlan
               message={message}
               printed={!!printed}
