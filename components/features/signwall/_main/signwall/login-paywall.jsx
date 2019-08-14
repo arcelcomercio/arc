@@ -24,6 +24,7 @@ class LoginPaywall extends Component {
           closePopup={closePopup}
           typePopUp="organico"
           typeForm="login"
+          reloadLogin
         />
       ),
       register: (
@@ -32,6 +33,7 @@ class LoginPaywall extends Component {
           typePopUp="organico"
           typeForm="registro"
           brandCurrent={brandModal}
+          reloadRegister
         />
       ),
       forgot: (

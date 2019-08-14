@@ -105,13 +105,17 @@ class FormLoginPaywall extends Component {
   }
 
   handleGetProfile = () => {
-    const { closePopup } = this.props
+    const { closePopup, reloadLogin } = this.props
 
     window.Identity.apiOrigin = this.origin_api
     window.Identity.getUserProfile().then(resGetProfile => {
-      closePopup()
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
+      if (reloadLogin) {
+        window.location.reload()
+      } else {
+        closePopup()
+      }
     })
   }
 

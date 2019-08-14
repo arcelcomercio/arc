@@ -302,7 +302,13 @@ class FormRegister extends Component {
       sending,
       showMessageResetPass,
     } = this.state
-    const { closePopup, typePopUp, typeForm, brandCurrent } = this.props
+    const {
+      closePopup,
+      typePopUp,
+      typeForm,
+      brandCurrent,
+      reloadRegister,
+    } = this.props
 
     return (
       <ModalConsumer>
@@ -519,7 +525,11 @@ class FormRegister extends Component {
                           `Web_Sign_Wall_${typePopUp}`,
                           `sw${typePopUp[0]}_registro_continuarnavegando`
                         )
-                        closePopup()
+                        if (reloadRegister) {
+                          window.location.reload()
+                        } else {
+                          closePopup()
+                        }
                       }}
                     />
                   </div>

@@ -10,12 +10,34 @@ const InputFormik = ({
   transform = 'none',
   prefix,
   suffix,
+  multiline,
   mask,
   type = 'text',
   ...props
 }) => {
   const { value, name } = field
-  const Input = mask ? S.InputMask : S.Input
+
+  let Input
+  if (mask) {
+    if (multiline) {
+      // Input = ({ field, ...props }) => (
+      //   <S.InputMask {...props} render={S.TextArea} />
+      // )
+      // FIXME: Necesito soportar textarea con mascaras
+      Input = S.TextArea
+    } else {
+      Input = S.InputMask
+    }
+  } else {
+    // eslint-disable-next-line no-lonely-if
+    if (multiline) {
+      Input = S.TextArea
+    } else {
+      // eslint-disable-next-line prefer-destructuring
+      Input = S.Input
+    }
+  }
+
   const hasError = touched[name] && errors[name]
   return (
     <S.FormGroup>
