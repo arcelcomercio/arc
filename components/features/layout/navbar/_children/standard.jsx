@@ -62,7 +62,7 @@ const classes = {
   listIcon: 'story-header__list flex justify-between',
   item: 'story-header__item',
   link: 'story-header__link flex items-center justify-center text-gray-200',
-  icon: 'story-header__icon title-xl',
+  icon: 'story-header__icon',
   mobileClass: 'flex justify-center',
   iconFacebook: 'icon-facebook-circle',
   iconLinkedin: 'icon-linkedin-circle',

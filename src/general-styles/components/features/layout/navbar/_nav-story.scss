@@ -13,6 +13,7 @@
       display: -webkit-box;
       padding: 0 15px;
       margin: auto;
+      color: #444;
 
       @media (--desktop) {
         position: absolute;
@@ -33,9 +34,13 @@
     .nav__container-menu {
       border-right-color: $color-primary;
     }
-
-    .nav__story-title {
-      color: #444;
+  }
+  .nav__story-social-network {
+    .story-header__list {
+      width: 110px;
+    }
+    .story-header__icon {
+      font-size: 23px;
     }
   }
 }
