@@ -1,6 +1,13 @@
 .separator {
   border-top-color: $color-primary;
   background-color: $color-primary;
+  padding-left: 0;
+  padding-right: 0;
+  &__body {
+    @media (--tablet) {
+      height: 291px;
+    }
+  }
   &__title {
     font-size: 13px;
   }
