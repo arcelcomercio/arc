@@ -14,7 +14,6 @@ export default ({
   deployment,
   arcSite,
   globalContent,
-  globalContentConfig,
   // CssLinks,
   Fusion,
   Libs,
@@ -63,17 +62,11 @@ export default ({
     isAmp: false,
   }
 
-  const defineTitle = (page = 'default', config) => {
-    if (page === 'meta_author' || page === 'meta_tag') return config.query.name
-    return ''
-  }
-
   const seoTitle =
     (metaValue('title') &&
       !metaValue('title').match(/content/) &&
       metaValue('title')) ||
-    storyTitle ||
-    defineTitle(metaValue('id'), globalContentConfig)
+    storyTitle
 
   const metaTitle =
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
@@ -89,9 +82,7 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${
-          siteProperties.siteName
-        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -224,9 +215,7 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerId
-            }`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

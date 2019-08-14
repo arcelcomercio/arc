@@ -1,3 +1,8 @@
+import { resizerSecret } from 'fusion:environment'
+import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import getProperties from 'fusion:properties'
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+
 let website = ''
 
 const schemaName = 'story'
@@ -20,8 +25,22 @@ const resolve = (key = {}) => {
   return requestUri
 }
 
+const transform = data => {
+  if (data.type === 'redirect') return data
+  const { resizerUrl } = getProperties(website)
+  return (
+    addResizedUrlsToStory(
+      [data],
+      resizerUrl,
+      resizerSecret,
+      addResizedUrls
+    )[0] || null
+  )
+}
+
 export default {
   resolve,
+  transform,
   schemaName,
   params,
 }

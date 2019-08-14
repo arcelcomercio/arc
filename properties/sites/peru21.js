@@ -1,9 +1,9 @@
 export default {
-  siteName: 'Perú21',
+  siteName: 'Peru21',
 
   googleFonts: 'Lato', // open_sansregular
 
-  colorPrimary: '#f7c600',
+  colorPrimary: '#005fa5',
   siteDomain: 'peru21.pe',
   siteUrl: 'https://peru21.pe',
   resizerUrl: 'https://elcomercio-peru21-prod.cdn.arcpublishing.com/resizer',
@@ -21,15 +21,32 @@ export default {
   siteDescription:
     'Noticias de Perú y el mundo en Peru21.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
+  assets: {
+    nav: {
+      logo: 'white-logo.png',
+      logoSomos: 'white-logo.png',
+    },
+    header: {
+      logo: 'white-logo.png',
+    },
+    footer: {
+      logo: 'white-logo.png',
+    },
+    seo: {
+      logoAmp: 'logo-amp.png',
+      width: 258,
+      height: 60,
+    },
+  },
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: 'OY6E6FMKWVDXFC7P3S7VKRMWAU',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'U2FDMRFNEVDVJNASRBJD7BWE3I',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'F5UCK5TMLZBRPN3OFRXIAW6HWY',
     aboutUs: '',
-    frequentQuestions: '',
+    frequentQuestions: '2ILZRA4AUBFSXK7JLGGN3SZ2XE',
   },
   infoPagesProd: {
     termsAndConditions: '',
@@ -45,15 +62,15 @@ export default {
   legalLinks: [
     {
       name: 'Términos y condiciones',
-      url: '/terminos-servicio',
+      url: '/terminos-y-condiciones',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      url: '/politicas-de-privacidad',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      url: '/politicas-de-cookies',
     },
   ],
 

@@ -1,5 +1,15 @@
 .git*
+.vscode/
 .fusion/
 data/
 dist/
 node_modules/
+src/
+config/
+jest/
+gulpfile.js
+setupTests.js
+.eslintrc
+.browserslistrc
+.babelrc
+.prettierrc
