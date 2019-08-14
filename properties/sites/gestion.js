@@ -70,7 +70,6 @@ export default {
       logo: `images/logo.svg`,
       lector: `images/img_lector.png`,
       confirmation: `images/img_confirmation.jpg`,
-      confirmationx2: `images/img_confirmation@2x.jpg`,
       confirmation_webp: `images/img_confirmation_1.webp`,
       support: `images/img_soporte.png`,
       contact_form_left: 'images/adult-attire-blazer-173125@2x.jpg',
