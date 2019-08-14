@@ -25,9 +25,10 @@ const StoryContentChildMultimedia = ({ data }) => {
       {typeEmbed === ConfigParams.ELEMENT_RAW_HTML && (
         <Html data={embedHtmlPromoItems} caption={caption} />
       )}
-      {type === ConfigParams.ELEMENT_VIDEO && (
-        <Video data={embedHtml} description={descriptionVideo} />
-      )}
+      {type === ConfigParams.ELEMENT_VIDEO &&
+        typeEmbed !== ConfigParams.ELEMENT_RAW_HTML && (
+          <Video data={embedHtml} description={descriptionVideo} />
+        )}
     </>
   )
 }

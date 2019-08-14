@@ -11,6 +11,7 @@ import SignWallReset from '../../../signwall/_main/signwall/reset'
 import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
 import SignWallPaywall from '../../../signwall/_main/signwall/paywall'
 import Services from '../../../signwall/_main/utils/services'
+import ConfigParams from '../../../../utilities/config-params'
 
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
@@ -19,6 +20,8 @@ import GetProfile from '../../../signwall/_main/utils/get-profile'
 import {
   getResponsiveClasses,
   searchQuery,
+  popUpWindow,
+  socialMediaUrlShareList,
 } from '../../../../utilities/helpers'
 
 const services = new Services()
@@ -52,10 +55,20 @@ const classes = {
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
-  navStorySocialNetwork: 'nav__story-social-network hidden',
+  navStorySocialNetwork: 'nav__story-social-network ',
   iconSignwallMobile: 'uppercase ',
   btnSignwallMobile:
     'nav__btn--login-m bg-secondary text-primary-color rounded',
+  listIcon: 'story-header__list flex justify-between',
+  item: 'story-header__item',
+  link: 'story-header__link flex items-center justify-center text-gray-200',
+  icon: 'story-header__icon title-xl',
+  mobileClass: 'flex justify-center',
+  iconFacebook: 'icon-facebook-circle',
+  iconLinkedin: 'icon-linkedin-circle',
+  iconRibbon: 'icon-ribbon',
+  iconTwitter: 'icon-twitter-circle',
+  iconWhatsapp: 'icon-whatsapp',
 }
 
 @Consumer
@@ -89,6 +102,52 @@ class NavBarDefault extends PureComponent {
 
     this.isStory = false // TODO: temporal
     this.listSubs = null
+
+    const {
+      siteProperties: {
+        social: {
+          twitter: { user: siteNameRedSocial },
+        },
+        siteUrl,
+      },
+      globalContent: {
+        website_url: postPermaLink,
+        headlines: { basic: postTitle } = {},
+      },
+    } = props
+
+    const urlsShareList = socialMediaUrlShareList(
+      siteUrl,
+      postPermaLink,
+      postTitle,
+      siteNameRedSocial
+    )
+
+    this.shareButtons = {
+      firstList: [
+        {
+          icon: classes.iconFacebook,
+          link: urlsShareList.facebook,
+          mobileClass: classes.mobileClass,
+        },
+
+        {
+          icon: classes.iconTwitter,
+          link: urlsShareList.twitter,
+          mobileClass: classes.mobileClass,
+        },
+        {
+          icon: classes.iconLinkedin,
+          link: urlsShareList.linkedin,
+          mobileClass: classes.mobileClass,
+        },
+        {
+          icon: classes.iconWhatsapp,
+          link: urlsShareList.whatsapp,
+          mobileClass: `block md:hidden ${classes.mobileClass}`,
+        },
+      ],
+    }
   }
 
   componentDidMount() {
@@ -469,6 +528,12 @@ class NavBarDefault extends PureComponent {
     }, 250)
   } */
 
+  openLink = (event, item, print) => {
+    event.preventDefault()
+    if (print) window.print()
+    else popUpWindow(item.link, '', 600, 400)
+  }
+
   render() {
     const {
       statusSidebar,
@@ -488,7 +553,8 @@ class NavBarDefault extends PureComponent {
       siteProperties,
       contextPath,
       deviceList,
-      globalContentConfig: { query = {} } = {}, 
+      globalContentConfig: { query = {} } = {},
+      globalContent: { type = {} },
       data: { children: sections = [] } = {},
     } = this.props
 
@@ -593,7 +659,27 @@ class NavBarDefault extends PureComponent {
               />
             </a>
             <div className={classes.navStoryTitle} />
-            <div className={classes.navStorySocialNetwork} />
+
+            <div className={classes.navStorySocialNetwork}>
+              {type === ConfigParams.ELEMENT_STORY && (
+                <ul className={classes.listIcon}>
+                  {this.shareButtons.firstList.map((item, i) => (
+                    <li
+                      key={item.icon}
+                      className={` ${classes.item} ${item.mobileClass}`}>
+                      <a
+                        className={classes.link}
+                        href={item.link}
+                        onClick={event => {
+                          this.openLink(event, item)
+                        }}>
+                        <i className={`${item.icon} ${classes.icon}`} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
@@ -612,7 +698,9 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
+                      `${
+                        classes.btnLogin
+                      } btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     {/* 
@@ -635,7 +723,9 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -649,7 +739,9 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
+                        : `${classes.iconLogin} ${
+                            classes.iconSignwallMobile
+                          }  title-sm`
                     }>
                     {initialUser}
                   </i>
