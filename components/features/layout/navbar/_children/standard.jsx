@@ -60,6 +60,7 @@ const classes = {
   btnSignwallMobile:
     'nav__btn--login-m bg-secondary text-primary-color rounded',
   listIcon: 'story-header__list flex justify-between',
+  moreLink: 'story-content__more-link',
   item: 'story-header__item',
   link: 'story-header__link flex items-center justify-center text-gray-200',
   icon: 'story-header__icon title-xl',
@@ -528,10 +529,21 @@ class NavBarDefault extends PureComponent {
     }, 250)
   } */
 
-  openLink = (event, item, print) => {
+  openLink = (event, item) => {
     event.preventDefault()
-    if (print) window.print()
+    if (item === 3) this.moreList()
     else popUpWindow(item.link, '', 600, 400)
+  }
+
+  moreList = () => {
+    const el = document.querySelector('.story-header__list')
+    if (el.classList.contains('block')) {
+      el.classList.remove('block')
+      el.classList.add('hidden')
+    } else {
+      el.classList.remove('hidden')
+      el.classList.add('block')
+    }
   }
 
   render() {
@@ -662,22 +674,36 @@ class NavBarDefault extends PureComponent {
 
             <div className={classes.navStorySocialNetwork}>
               {type === ConfigParams.ELEMENT_STORY && (
-                <ul className={classes.listIcon}>
-                  {this.shareButtons.firstList.map((item, i) => (
-                    <li
-                      key={item.icon}
-                      className={` ${classes.item} ${item.mobileClass}`}>
-                      <a
-                        className={classes.link}
-                        href={item.link}
-                        onClick={event => {
-                          this.openLink(event, item)
-                        }}>
-                        <i className={`${item.icon} ${classes.icon}`} />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <>
+                  <div>
+                    <a
+                      className={classes.moreLink}
+                      href={classes.moreLink}
+                      onClick={event => {
+                        this.openLink(event, 3)
+                      }}>
+                      <i className={`${classes.iconMore}`} />
+                      sss
+                    </a>
+                  </div>
+
+                  <ul className={classes.listIcon}>
+                    {this.shareButtons.firstList.map((item, i) => (
+                      <li
+                        key={item.icon}
+                        className={` ${classes.item} ${item.mobileClass}`}>
+                        <a
+                          className={classes.link}
+                          href={item.link}
+                          onClick={event => {
+                            this.openLink(event, item)
+                          }}>
+                          <i className={`${item.icon} ${classes.icon}`} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
               )}
             </div>
             {/** ************* RIGHT *************** */}
