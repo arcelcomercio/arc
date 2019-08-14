@@ -63,17 +63,11 @@ export default ({
     isAmp: false,
   }
 
-  const defineTitle = (page = 'default', config) => {
-    if (page === 'meta_author' || page === 'meta_tag') return config.query.name
-    return ''
-  }
-
   const seoTitle =
     (metaValue('title') &&
       !metaValue('title').match(/content/) &&
       metaValue('title')) ||
-    storyTitle ||
-    defineTitle(metaValue('id'), globalContentConfig)
+    storyTitle
 
   const metaTitle =
     metaValue('meta_title') && !metaValue('meta_title').match(/content/)
