@@ -86,7 +86,9 @@ class Portal extends React.PureComponent {
   render() {
     const { background, serviceData = [] } = this.state
     const {
-      paywall: { corporate },
+      siteProperties: {
+        paywall: { corporate },
+      },
     } = this.props
     return (
       <div className="portal" style={{ background }}>
