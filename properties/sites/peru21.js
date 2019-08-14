@@ -75,11 +75,11 @@ export default {
   ],
   assets: {
     nav: {
-      logo: 'logo-footer.png',
+      logo: 'white-logo.png',
       logoSomos: 'white-logo.png',
     },
     header: {
-      logo: 'logo.png',
+      logo: 'white-logo.png',
     },
     footer: {
       logo: 'logo-footer.png',

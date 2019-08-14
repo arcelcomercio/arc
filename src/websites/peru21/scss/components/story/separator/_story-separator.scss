@@ -1,15 +1,11 @@
 .story-separator {
   &__body {
-    background-color: $color-base-200;
+    background-color: $color-base-400;
   }
   &__item {
-    border-color: $color-secondary;
+    border-color: $color-gray-200;
   }
   &__category {
     font-weight: 700;
-  }
-  &__title,
-  &__category {
-    font-family: $secondary-font;
   }
 }
