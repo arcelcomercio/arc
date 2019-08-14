@@ -14,9 +14,8 @@ const buildParagraph = paragraph => {
   } else if (paragraph.includes('<img')) {
     const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
     const imageAlt = paragraph.match(/alt="([^"]+)/)[1]
-    
+
     result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-  
   } else if (paragraph.includes('<blockquote class="instagram-media"')) {
     // valida blockquote de instagram
     const instagramUrl = paragraph.match(
@@ -47,25 +46,43 @@ const ParagraphshWithAdds = ({
   let countWords = 0
   let IndexAdd = 0
   let resultParagraph = ''
+  let flagFirstAdd = true
+  let flagNextFirstAdd = false
 
-  paragraphsNews.forEach((paragraphItem, index) => {
+  paragraphsNews.forEach(paragraphItem => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
-    // paragraph = paragraph.replace(/<\/?br[^<>]+>/, '')
     // el primer script de publicidad se inserta despues del segundo parrafo
 
-    if (index <= 1) {
-      if (index === 1) {
-        newsWithAdd.push(`${buildParagraph(paragraph)} 
-            ${
-              arrayadvertising[IndexAdd]
-                ? buildIframeAdvertising(arrayadvertising[IndexAdd])
-                : ''
-            }`)
+    if (flagFirstAdd === true) {
+      let paragraphwithAdd = ''
+      const paragraphOriginal = paragraph
+
+      paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
+
+      const arrayWords = paragraph.split(' ')
+      if (arrayWords.length <= 50) {
+        countWords += arrayWords.length
+      }
+
+      if (countWords >= 50) {
+        countWords = 0
+
+        flagFirstAdd = false
+        flagNextFirstAdd = true
+
+        paragraphwithAdd = `${buildParagraph(paragraphOriginal)} ${
+          arrayadvertising[IndexAdd]
+            ? buildIframeAdvertising(arrayadvertising[IndexAdd])
+            : ''
+        }`
         IndexAdd += 1
       } else {
-        newsWithAdd.push(`${buildParagraph(paragraph)}`)
+        paragraphwithAdd = `${buildParagraph(paragraphOriginal)}`
       }
-    } else {
+      newsWithAdd.push(`${paragraphwithAdd.trim()}`)
+    }
+
+    if (flagNextFirstAdd === true) {
       // al segundo parrafo se inserta cada 250 palabras (numwords)
       let paragraphwithAdd = ''
       const paragraphOriginal = paragraph
@@ -136,20 +153,19 @@ const BuildHtml = BuildHtmlProps => {
                 </iframe>
               </figure>
             
-            <header>
-              <h1>${title}</h1>
-              <h2>${subTitle}</h2>
-            </header>
-            <figure>
-                <img src="${multimedia}" />
-                <figcaption>${title}</figcaption>
-            </figure>
-            <p>${author}</p>
-            ${ParagraphshWithAdds(paramsBuildParagraph)}
+              <header>
+                <h1>${title}</h1>
+                <h2>${subTitle}</h2>
+              </header>
+              <figure>
+                  <img src="${multimedia}" />
+                  <figcaption>${title}</figcaption>
+              </figure>
+              <p>${author}</p>
+              ${ParagraphshWithAdds(paramsBuildParagraph)}
             </article>
-            </body>
-          </html>
-          `
+          </body>
+        </html>`
   return element
 }
 
