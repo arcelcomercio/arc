@@ -20,13 +20,13 @@ const PaywallContactUs = props => {
   } = useFusionContext()
 
   const initialValuesForm = {
-    correo: 'hendrul@gmail.com',
-    nombre: 'Raul',
-    apellido: 'Contreras',
-    organizacion: 'Comercio',
-    tipo_consulta: 1,
-    asunto: 'Cosmetico Fucsia',
-    descripcion: 'Neseser',
+    correo: '',
+    nombre: '',
+    apellido: '',
+    organizacion: '',
+    tipo_consulta: 0,
+    asunto: '',
+    descripcion: '',
   }
 
   const onSubmitHandler = useCallback((values, { setSubmitting }) => {
