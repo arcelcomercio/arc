@@ -11,30 +11,65 @@ import StoryData from '../../../utilities/story-data'
 import { formatDateLocalTimeZone } from '../../../utilities/helpers'
 
 const TvFeatured = () => {
-  const data = useContent({
-    source: 'story-by-section',
-    query: { section: '/peru21tv' },
-    // filter: SchemaFilter(arcSite),
-  })
+  const { content_elements: contentElements = [] } =
+    useContent({
+      source: 'story-feed-by-section-with-custom-presets',
+      query: { section: '/peru21tv', preset1: '1350x570' },
+      // filter: SchemaFilter(arcSite),
+    }) || []
+  const data = contentElements[0] || {}
 
   const { arcSite, contextPath, deployment } = useFusionContext()
 
   const {
-    // websiteLink, // { websites { ${arcsite} { website_url } } }
-    // multimediaLandscapeMD,
-    // multimediaLazyDefault,
-    title, // { headlines { basic } }
-    // multimediaType, // { promo_items }
-    date, // { publish_date }
-    // primarySectionLink, // { taxonomy { primary_section { path } } }
-    // primarySection, // { taxonomy { primary_section { name } } }
+    title,
+    date,
+    multimediaType, // basic | basic_video
+    multimedia,
+    videoId,
   } = new StoryData({
     data,
     arcSite,
     contextPath,
     deployment,
-    defaultImgSize: 'sm',
+    defaultImgSize: 'lg',
   })
+
+  const getMultimedia = () => {
+    let image = ''
+    if (multimediaType === 'basic_video') {
+      const {
+        promo_items: {
+          basic_video: {
+            promo_items: {
+              basic: { resized_urls: { preset1 = '' } = {} } = {},
+            } = {},
+          } = {},
+        } = {},
+      } = data
+      image = preset1 || multimedia
+    } else if (multimediaType === 'basic') {
+      const {
+        promo_items: {
+          basic: { resized_urls: { preset1 = '' } = {} } = {},
+        } = {},
+      } = data
+      image = preset1 || multimedia
+    }
+    return image
+  }
+
+  const getVideoId = () => {
+    let auxVideoId = {}
+    const { promo_items: { youtube_id: { content = '' } = {} } = {} } = data
+    if (multimediaType === 'basic_video') {
+      auxVideoId = { multimediaSource: videoId }
+    } else if (multimediaType === 'basic') {
+      /** Si es un video de Youtube */
+      auxVideoId = { youtubeId: content }
+    }
+    return auxVideoId
+  }
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -51,11 +86,11 @@ const TvFeatured = () => {
             <picture className="tv-featured__picture block position-relative">
               <img
                 className="tv-featured__img object-cover w-full h-full"
-                src="https://img.peru21.pe/files/listing_p21_p21tv_home_destaque_principal/uploads/2019/08/09/5d4dd028d1489.jpeg"
+                src={getMultimedia()}
                 alt=""
               />
-              <Icon type="basic_video" iconClass="" />
             </picture>
+            <Icon type="basic_video" iconClass="" />
           </button>
 
           <div className="tv-featured__content p-15 lg:ml-35">
@@ -81,8 +116,9 @@ const TvFeatured = () => {
           close={() => {
             setIsModalOpen(!isModalOpen)
           }}
+          {...getVideoId()}
           // youtubeId="_oQINN93ET4"
-          multimediaSource="4dc92932-7143-4776-94b7-798421d06108"
+          // multimediaSource="4dc92932-7143-4776-94b7-798421d06108"
         />
       )}
     </>
