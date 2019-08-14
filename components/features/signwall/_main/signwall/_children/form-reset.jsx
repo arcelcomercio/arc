@@ -129,11 +129,9 @@ class FormResetPass extends Component {
     if (ENV.ENVIRONMENT === 'elcomercio') {
       window.dataLayer.push({
         event: 'resetpass_success',
-        // eventCategory: 'Web_Sign_Wall_Resetpass',
-        // eventAction: 'web_resetpass_aceptar_success',
       })
     } else {
-      Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_aceptar_success')
+      Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_success')
     }
   }
 
@@ -141,11 +139,9 @@ class FormResetPass extends Component {
     if (ENV.ENVIRONMENT === 'elcomercio') {
       window.dataLayer.push({
         event: 'resetpass_error',
-        // eventCategory: 'Web_Sign_Wall_Resetpass',
-        // eventAction: 'web_resetpass_aceptar_error',
       })
     } else {
-      Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_aceptar_error')
+      Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_error')
     }
   }
 
@@ -251,7 +247,7 @@ class FormResetPass extends Component {
                   className="btn btn--blue btn-bg"
                   value="Aceptar"
                   onClick={
-                    Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_aceptar_boton')
+                    Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_boton')
                   }
                 />
               </div>
@@ -278,7 +274,7 @@ class FormResetPass extends Component {
                   className="btn btn--blue btn-bg"
                   value="Ingresa a tu cuenta"
                   onClick={() => {
-                    Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_continuar_boton')
+                    Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_continuar_boton')
                     closePopup()
                     document.querySelector('#web_link_ingresacuenta').click()
                   }}

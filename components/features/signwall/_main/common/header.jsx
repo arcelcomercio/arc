@@ -35,7 +35,7 @@ const Header = props => {
           id="close-modal"
           className="modal-header__close"
           onClick={() => {
-            Taggeo(`Web_Sign_Wall_${typePopUp}`, `web_sw${typePopUp[0]}_close`)
+            Taggeo(`Web_Sign_Wall_${typePopUp}`, `web_sw${typePopUp[0]}_boton_cerrar`)
             closePopup()
           }}>
           <Close color={arcSite === 'elcomercio' ? 'black' : 'white'} />

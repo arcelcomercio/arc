@@ -17,7 +17,7 @@ class SignWallReset extends Component {
   }
 
   componentDidMount() {
-    Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_open')
+    Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_open')
     window.addEventListener('beforeunload', this.handleLeavePage)
   }
 
@@ -27,7 +27,7 @@ class SignWallReset extends Component {
 
   handleLeavePage = e => {
     e.preventDefault()
-    Taggeo('Web_Sign_Wall_Resetpass', 'web_resetpass_leave')
+    Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_leave')
   }
 
   renderTemplate(template) {

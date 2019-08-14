@@ -29,7 +29,7 @@ class SignWallVerify extends Component {
 
   componentDidMount() {
     window.Identity.apiOrigin = this.origin_api
-    Taggeo('Web_Sign_Wall_Verify', 'web_verify_open')
+    Taggeo('Web_Sign_Wall_Verify', 'web_swv_open')
     window.addEventListener('beforeunload', this.handleLeavePage)
   }
 
@@ -39,7 +39,7 @@ class SignWallVerify extends Component {
 
   handleLeavePage = e => {
     e.preventDefault()
-    Taggeo('Web_Sign_Wall_Verify', 'web_verify_leave')
+    Taggeo('Web_Sign_Wall_Verify', 'web_swv_leave')
   }
 
   validateToken = () => {

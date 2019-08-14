@@ -38,7 +38,7 @@ class FormVerify extends Component {
                 className="btn btn--blue btn-bg"
                 value="Continuar Navegando"
                 onClick={() => {
-                  Taggeo('Web_Sign_Wall_Verify', 'web_verify_continuar_boton')
+                  Taggeo('Web_Sign_Wall_Verify', 'web_swv_continuar_boton')
                   closePopup()
                 }}
               />

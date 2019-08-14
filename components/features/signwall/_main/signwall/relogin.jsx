@@ -25,7 +25,7 @@ class SignWallRelogin extends Component {
   }
 
   componentDidMount() {
-    Taggeo('Web_Sign_Wall_Relog_Email', 'web_relog_email_open')
+    Taggeo('Web_Sign_Wall_Relogemail', 'web_swr_open')
     window.addEventListener('beforeunload', this.handleLeavePage)
   }
 
@@ -35,7 +35,7 @@ class SignWallRelogin extends Component {
 
   handleLeavePage = e => {
     e.preventDefault()
-    Taggeo('Web_Sign_Wall_Relog_Email', 'web_relog_email_leave')
+    Taggeo('Web_Sign_Wall_Relogemail', 'web_swr_leave')
   }
 
   renderTemplate(template) {

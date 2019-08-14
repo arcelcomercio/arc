@@ -12,6 +12,8 @@ class SignWallPaywall extends Component {
     super(props)
     this.state = {
       showPaywallBtn: false,
+      paywallPrice: '0',
+      paywallDescripcion: 'none',
     }
 
     const { arcSite } = this.props
@@ -28,6 +30,17 @@ class SignWallPaywall extends Component {
         showPaywallBtn: true,
       })
     }
+    this.getCampain()
+  }
+
+  getCampain() {
+    const { fetched } = this.getContent('paywall-campaing')
+    fetched.then(resCam => {
+      this.setState({
+        paywallPrice: resCam.plans[0].amount || 'none',
+        paywallDescripcion: resCam.plans[0].description.description || 'none',
+      })
+    })
   }
 
   handleSuscription = e => {
@@ -38,7 +51,7 @@ class SignWallPaywall extends Component {
   }
 
   render() {
-    const { showPaywallBtn } = this.state
+    const { showPaywallBtn, paywallPrice, paywallDescripcion } = this.state
     const { typePopUp } = this.props
     return (
       <ModalConsumer>
@@ -46,16 +59,18 @@ class SignWallPaywall extends Component {
           <div className="modal-body__wrapper">
             <div className="cont-price-detail">
               <div className="price">
-                <i>s/</i>29
+                <i>s/</i>
+                {paywallPrice}
               </div>
               <div className="detail-price uppercase">
-                <p>
+                {/* <p>
                   <strong>
                     / Al mes <br />
                     por 6 meses
                   </strong>
                 </p>
-                <p> Luego S/ 39 cada mes</p>
+                <p> Luego S/ 39 cada mes</p> */}
+                <p>{paywallDescripcion}</p>
               </div>
             </div>
             <h3 className="title-line uppercase text-center mt-30 mb-20">
