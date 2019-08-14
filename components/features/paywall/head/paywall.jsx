@@ -14,11 +14,6 @@ class Head extends React.PureComponent {
   }
 
   componentDidMount() {
-    AddIdentity().then(() => {
-      userProfile().then(({ firstName }) => {
-        this.setState({ firstName })
-      })
-    })
     this.getFirstName()
   }
 
@@ -53,6 +48,7 @@ class Head extends React.PureComponent {
           <SignwallPaywall
             brandModal={arcSite}
             closePopup={() => this.closeShowSignwall()}
+            reloadLogin
           />
         )}
         <div className="head__background">

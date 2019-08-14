@@ -285,7 +285,13 @@ class FormRegister extends Component {
       checked,
       sending,
     } = this.state
-    const { closePopup, typePopUp, typeForm, brandCurrent } = this.props
+    const {
+      closePopup,
+      typePopUp,
+      typeForm,
+      brandCurrent,
+      reloadRegister,
+    } = this.props
 
     return (
       <ModalConsumer>
@@ -485,7 +491,13 @@ class FormRegister extends Component {
                       id="registro_continuar_navegando"
                       className="btn btn--blue btn-md btn-bg"
                       value="Continuar Navegando"
-                      onClick={() => closePopup()}
+                      onClick={() => {
+                        if (reloadRegister) {
+                          window.location.reload()
+                        } else {
+                          closePopup()
+                        }
+                      }}
                     />
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import { useFusionContext } from 'fusion:context'
 import FormData from './_children/contact-form'
 import Thanks from './_children/thanks'
 import ClientOnly from '../_children/client-only'
+import Loading from '../_children/loading'
 import { devices } from '../_dependencies/devices'
 import getService from '../_dependencies/services'
 import * as S from './styled'
@@ -12,6 +13,7 @@ const url = getService('ORIGIN_SUBSCRIPTION_CORP_API')
 const PaywallContactUs = props => {
   const [showThanks, setShowThanks] = useState(false)
   const [error, setError] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
 
   const {
     siteProperties: { assets = {}, siteUrl = '' },
@@ -20,16 +22,17 @@ const PaywallContactUs = props => {
   } = useFusionContext()
 
   const initialValuesForm = {
-    correo: 'hendrul@gmail.com',
-    nombre: 'Raul',
-    apellido: 'Contreras',
-    organizacion: 'Comercio',
-    tipo_consulta: 1,
-    asunto: 'Cosmetico Fucsia',
-    descripcion: 'Neseser',
+    correo: '',
+    nombre: '',
+    apellido: '',
+    organizacion: '',
+    tipo_consulta: 0,
+    asunto: '',
+    descripcion: '',
   }
 
   const onSubmitHandler = useCallback((values, { setSubmitting }) => {
+    setLoading(true)
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(values),
@@ -53,6 +56,9 @@ const PaywallContactUs = props => {
         console.error(err)
         setError('Disculpe ha ocurrido un error de nuestro lado.')
       })
+      .finally(() => {
+        setLoading(false)
+      })
   })
 
   const ContactUsImage = React.useMemo(
@@ -63,6 +69,7 @@ const PaywallContactUs = props => {
 
   return (
     <ClientOnly>
+      <Loading fullscreen spinning={loading} />
       <S.WrapContent>
         <picture>
           <source
