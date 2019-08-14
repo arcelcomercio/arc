@@ -47,7 +47,8 @@ export default {
   paywall: {
     title: 'Gestión | Suscripciones Digitales',
     clickToCall: 'https://c2c.kontactame.com/call/?id=162',
-    corporate: '/suscripcionesdigitales/empresa/'
+    corporate: '/suscripcionesdigitales/empresa/',
+    faq: '/suscripcionesdigitales/faq/',
   },
   assets: {
     nav: {

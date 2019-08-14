@@ -1,8 +1,7 @@
 import {environment} from 'fusion:environment'
 
-const services = {
+const domains = {
     PWA_DOMAIN : ENV => {
-      // https://pwa.dev.gestion.pe
       const _env_ = ENV === 'elcomercio' ? '' : '.dev'
       return `https://pwa${_env_}.gestion.pe`;
     },
@@ -24,9 +23,9 @@ const services = {
   ORIGIN_SUBSCRIPTION_CORP_API: ENV => {
     return `http://devpaywall.comerciosuscripciones.pe/api/subs-corporativa/`
   },
-  getService: function getService(service){
+  get: function getService(service){
         return this[service](environment)
     }
   }
 
-  export default services.getService.bind(services);
+  export default domains.get.bind(domains);
