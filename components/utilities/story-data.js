@@ -221,22 +221,6 @@ class StoryData {
     return addSlashToEnd(StoryData.getPrimarySection(this._data).path) || ''
   }
 
-  get subSection() {
-    // const {} = this.data.taxonomy
-    let result = null
-    if (
-      this._data.taxonomy &&
-      this._data.taxonomy.primary_section &&
-      this._data.taxonomy.primary_section.parent
-    ) {
-      if (this._data.taxonomy.primary_section.parent.default !== '/') {
-        result = this._data.taxonomy.primary_section.name
-      }
-    }
-
-    return result
-  }
-
   get sectionsFIa() {
     let result = {section:null,subsection:null}
     if (
@@ -247,15 +231,9 @@ class StoryData {
       result = { section: null, subsection: null }
       const listSections = this._data.taxonomy.primary_section.path.split('/')
 
-      
-      // const section = listSections[1] !== undefined ?listSections[1] : null
-      // const subsection = listSections[2] !== undefined ?listSections[2] : null
-      
       result.section = listSections[1] !== undefined ?listSections[1] : null
       result.subsection = listSections[2] !== undefined ?listSections[2] : null
-        
-      // result.section = this._data.taxonomy.primary_section.path.split('/')[1] ===undefined ? this._data.taxonomy.primary_section.path.split('/')[1] : null
-      // result.subsection = this._data.taxonomy.primary_section.path.split('/')[2] ===undefined ? this._data.taxonomy.primary_section.path.split('/')[2] : null
+
     }
     return result
   }
