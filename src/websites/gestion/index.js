@@ -18,9 +18,11 @@ import './images/default-md.png'
 import './images/default-lg.png'
 import './images/paywall/img_confirmation.jpg'
 import './images/paywall/img_lector.png'
+import './images/paywall/bg_planes_10.jpg'
 import './images/img_soporte.png'
 import './images/signwall/bg_paywall.png'
 import './images/signwall/bg_login.png'
+
 
 import './images/paywall/img_corporativo.webp'
 import './images/paywall/img_login.webp'
