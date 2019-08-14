@@ -317,7 +317,7 @@ class FormReLogin extends Component {
                   </h1>
                 </div>
 
-                <h1 className="form-grid__title-login text-center">
+                <h1 className="form-grid__title-login text-center mt-20 mb-10">
                   Ingresa con
                 </h1>
 

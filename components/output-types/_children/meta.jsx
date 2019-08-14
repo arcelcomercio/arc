@@ -1,59 +1,52 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Icon({ contextPath, assets }) {
-  const { path } = assets
+function Icon({ assets }) {
   return (
     <>
-      <link
-        rel="icon"
-        type="image/x-icon"
-        href={`${contextPath}${path.concat('favicon.ico')}`}
-      />
-      <link
-        rel="shortcut icon"
-        href={`${contextPath}${path.concat('favicon.ico')}`}
-      />
-      <link
-        rel="apple-touch-icon"
-        href={`${contextPath}${path.concat('apple-touch-icon.png')}`}
-      />
+      <link rel="icon" type="image/x-icon" href={assets('icon')} />
+      <link rel="shortcut icon" href={assets('icon')} />
+      <link rel="apple-touch-icon" href={assets('apple_icon')} />
       <link
         rel="apple-touch-icon"
         sizes="76x76"
-        href={`${contextPath}${path.concat('apple-touch-icon-76x76.png')}`}
+        href={assets('apple_icon_76')}
       />
       <link
         rel="apple-touch-icon"
         sizes="120x120"
-        href={`${contextPath}${path.concat('apple-touch-icon-120x120.png')}`}
+        href={assets('apple_icon_120')}
       />
       <link
         rel="apple-touch-icon"
         sizes="144x144"
-        href={`${contextPath}${path.concat('apple-touch-icon-144x144.png')}`}
+        href={assets('apple_icon_144')}
       />
       <link
         rel="apple-touch-icon"
         sizes="152x152"
-        href={`${contextPath}${path.concat('apple-touch-icon-152x152.png')}`}
+        href={assets('apple_icon_152')}
       />
       <link
         rel="apple-touch-icon"
         sizes="180x180"
-        href={`${contextPath}${path.concat('apple-touch-icon-180x180.png')}`}
+        href={assets('apple_icon_180')}
       />
     </>
   )
 }
 
-function Theme({ colorPrimary, siteName }) {
+function Theme({ color, siteName }) {
   return (
     <>
-      <meta name="theme-color" content={colorPrimary} />
-      <meta name="msapplication-TileColor" content={colorPrimary} />
+      <meta name="theme-color" content={color} />
+      <meta name="msapplication-TileColor" content={color} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
       <meta name="application-name" content={siteName} />
+      <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+      />
     </>
   )
 }

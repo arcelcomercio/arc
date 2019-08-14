@@ -15,7 +15,7 @@ class GetProfile {
     const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
     this.profile = JSON.parse(localProfile)
     this.publicProfile = this._getComplete()
-    this.username = this._getUserName().nameUser
+    this.username = this._getUserName().userName
     this.initname = this._getUserName().inituser
   }
 
@@ -57,7 +57,7 @@ class GetProfile {
 
   _getUserName = () => {
     const { profile } = this
-    let nameUser = 'Bienvenido Usuario'
+    let userName = 'Bienvenido Usuario'
     let inituser = false
 
     if (
@@ -69,9 +69,9 @@ class GetProfile {
           profile.firstName !== null) &&
           (profile.lastName === 'undefined' || profile.lastName === null):
           if (profile.firstName === 'undefined' || profile.firstName === null) {
-            nameUser = 'Bienvenido Usuario'
+            userName = 'Bienvenido Usuario'
           } else {
-            nameUser =
+            userName =
               profile.firstName.length >= 15
                 ? `${profile.firstName.slice(0, 15)}...`
                 : profile.firstName
@@ -82,13 +82,13 @@ class GetProfile {
           profile.firstName !== null) &&
           (profile.lastName !== 'undefined' || profile.lastName !== null):
           if (profile.firstName === 'undefined' || profile.firstName === null) {
-            nameUser =
+            userName =
               profile.lastName.length >= 15
                 ? `${profile.lastName.slice(0, 15)}...`
                 : profile.lastName
             inituser = profile.lastName.slice(0, 2)
           } else {
-            nameUser =
+            userName =
               `${profile.firstName} ${profile.lastName}`.length >= 15
                 ? `${`${profile.firstName} ${profile.lastName}`.slice(
                     0,
@@ -105,7 +105,7 @@ class GetProfile {
     }
     return {
       inituser,
-      nameUser,
+      userName,
     }
   }
 }

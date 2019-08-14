@@ -1,0 +1,37 @@
+.newsletter {
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  @media (--desktop) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    // Estos paddings evitan que la base fije padding: 0 60px;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+
+  &__image-container {
+    /* height: auto;
+    max-height: 370px; */
+    display: none;
+
+    @media (--desktop) {
+      height: 370px;
+      max-height: auto;
+      // display: flex;
+    }
+  }
+
+  &__title {
+    &::after {
+      background-color: $color-primary;
+      bottom: 0;
+      content: '';
+      height: 5px;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 115px;
+    }
+  }
+}
