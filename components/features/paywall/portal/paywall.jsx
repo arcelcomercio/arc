@@ -85,6 +85,11 @@ class Portal extends React.PureComponent {
 
   render() {
     const { background, serviceData = [] } = this.state
+    const {
+      siteProperties: {
+        paywall: { corporate },
+      },
+    } = this.props
     return (
       <div className="portal" style={{ background }}>
         <div className="portal__content">
@@ -93,7 +98,7 @@ class Portal extends React.PureComponent {
           ))}
         </div>
         <div className="portal__footer">
-          <a href="/" className="link link--corporate">
+          <a href={corporate} className="link link--corporate">
             SUSCRIPCIONES CORPORATIVAS
           </a>
         </div>

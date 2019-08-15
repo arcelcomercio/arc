@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import * as S from './styled'
 import { Panel } from '../../../_children/panel/styled'
 import Button from '../../../_children/button'
 import { devices } from '../../../_dependencies/devices'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
-import getService from '../../../_dependencies/services'
+import PWA from '../../_dependencies/seed-pwa'
 
 const HOME = 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/'
 const NAME_REDIRECT = 'paywall_last_url'
@@ -53,14 +53,8 @@ const WizardConfirmation = props => {
   }, [])
 
   const handlePWA = () => {
-    // eslint-disable-next-line no-prototype-builtins
-
-    const isPWA = window.opener && ref.toUpperCase() === 'PWA'
-    if (isPWA) {
-      window.opener.postMessage('successful_purchase', getService('PWA_DOMAIN'))
-      window.close()
-    }
-    return isPWA
+    PWA.finalize()
+    return PWA.isPWA()
   }
 
   const handleClick = () => {
