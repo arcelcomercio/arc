@@ -12,8 +12,19 @@ const buildParagraph = paragraph => {
 
     result = `<figure class="op-interactive">${paragraph}</figure>`
   } else if (paragraph.includes('<img')) {
-    const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
-    const imageAlt = paragraph.match(/alt="([^"]+)/)[1]
+    const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)
+      ? paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
+      : ''
+
+    const imageAlt = paragraph.match(/alt="([^"]+)?/)
+      ? paragraph.match(/alt="([^"]+)?/)[1]
+      : ''
+
+    if (imageUrl !== '') {
+      result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+    } else {
+      result = ''
+    }
 
     result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
   } else if (
