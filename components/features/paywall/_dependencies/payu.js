@@ -1,4 +1,4 @@
-import getService from './services'
+import getDomain from './services'
 import addScriptAsync from '../../../utilities/script-async'
 
 const addPayU = () => {
@@ -6,7 +6,7 @@ const addPayU = () => {
 
   return addScriptAsync({
     name: 'sdkPayU',
-    url: getService('ORIGIN_PAYU_SDK'),
+    url: getDomain('ORIGIN_PAYU_SDK'),
   }).then(added => {
     return payU
   })

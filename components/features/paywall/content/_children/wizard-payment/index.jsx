@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import { useFusionContext } from 'fusion:context'
-import ENV from 'fusion:environment'
+import { ORIGIN_SUSCRIPCIONES, ENVIRONMENT } from 'fusion:environment'
 import React, { useState, useEffect } from 'react'
 import Summary from '../summary'
 import * as S from './styled'
@@ -12,6 +12,7 @@ import Beforeunload from '../before-unload'
 import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
 
+const isProd = ENVIRONMENT === 'elcomercio'
 const MESSAGE = {
   PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
 }
@@ -137,8 +138,10 @@ function WizardPayment(props) {
             parameter4: deviceSessionId,
           }) => {
             const ownerName = `${firstName} ${lastName} ${secondLastName}`.trim()
+
             const expiryMonth = expiryDate.split('/')[0]
             const expiryYear = expiryDate.split('/')[1]
+            const nameCard = isProd ? ownerName : 'APPROVED'
 
             return addPayU(siteProperties)
               .then(payU => {
@@ -150,8 +153,7 @@ function WizardPayment(props) {
                 payU.setLanguage('es')
                 payU.setCardDetails({
                   number: cardNumber,
-                  name_card: 'APPROVED',
-                  // name_card: ownerName,
+                  name_card: nameCard,
                   payer_id: documentNumber,
                   exp_month: expiryMonth,
                   exp_year: expiryYear,
@@ -172,7 +174,7 @@ function WizardPayment(props) {
               })
               .then(token => {
                 return apiPaymentRegister({
-                  baseUrl: ENV.ORIGIN_SUSCRIPCIONES,
+                  baseUrl: ORIGIN_SUSCRIPCIONES,
                   orderNumber,
                   firstName,
                   lastName,
