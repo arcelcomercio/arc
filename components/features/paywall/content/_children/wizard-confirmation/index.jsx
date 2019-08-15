@@ -54,7 +54,7 @@ const WizardConfirmation = props => {
 
   const handlePWA = () => {
     PWA.finalize()
-    return PWA.isPWA
+    return PWA.isPWA()
   }
 
   const handleClick = () => {
