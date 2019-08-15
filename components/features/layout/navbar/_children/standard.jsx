@@ -55,7 +55,7 @@ const classes = {
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
-  navStorySocialNetwork: 'nav__story-social-network position-relative',
+  navStorySocialNetwork: 'nav__story-social-network position-relative lg:mt-10',
   iconSignwallMobile: 'uppercase ',
   btnSignwallMobile:
     'nav__btn--login-m bg-secondary text-primary-color rounded',
