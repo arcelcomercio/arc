@@ -6,10 +6,10 @@ const classes = {
   newsEmbed: 'story-content__embed',
 }
 
-const StoryContentChildImage = ({ data, caption }) => {
+const StoryContentChildImage = ({ data, caption, header = false }) => {
   return (
     <>
-      {data.includes('id="powa-') ? (
+      {data.includes('id="powa-') && !header ? (
         <Video
           data={data.replace('data-mp4="', 'data-stream="')}
           description={caption}
