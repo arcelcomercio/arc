@@ -1,16 +1,14 @@
 export const AnalyticsScript = ({
-  link = '',
   siteDomain = '',
   idGoogleAnalitics = '',
-  newsId='',
-  name='',
-  section='',
-  subsection='',
-  author='',
-  pagePath='',
-  newsType='',
-  newsTitle=''
-
+  newsId = '',
+  name = '',
+  section = '',
+  subsection = '',
+  author = '',
+  pagePath = '',
+  newsType = '',
+  newsTitle = '',
 }) => `(function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
@@ -28,16 +26,24 @@ export const AnalyticsScript = ({
         ga('set', 'campaignMedium', 'referral');
         ga('set', 'campaignName', 'FbIA');
         ga('set', 'dimension3', '${name}');
-        ${section!==null &&`ga('set', 'dimension4','${section}');`}
-        ${subsection!==null &&`ga('set', 'dimension5','${subsection}');`}
+        ${
+          section !== false && section !== null
+            ? `ga('set', 'dimension4','${section}');`
+            : ''
+        }
+        ${
+          subsection !== false && subsection !== null
+            ? `ga('set', 'dimension5','${subsection}');`
+            : ''
+        }
         ga('set', 'dimension6', 'FbIA');
         ga('set', 'dimension7', '${newsType}');
         ga('set', 'dimension8', '${newsId}');
         ga('set', 'dimension15', '${author}');
         ga('send', 'pageview', '${pagePath}');
-        ga('send', 'pageview', {title: '${newsTitle}');
+        ga('send', 'pageview', {title: '${newsTitle}'});
         `
-        
+
 export const ScriptElement = () =>
   `var _comscore = _comscore || [];
           _comscore.push({
