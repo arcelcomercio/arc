@@ -141,7 +141,7 @@ function WizardPayment(props) {
 
             const expiryMonth = expiryDate.split('/')[0]
             const expiryYear = expiryDate.split('/')[1]
-            const nameCard = isProd ? ownerName : 'APPROVED'
+            const nameCard = isProd ? ownerName : firstName // APPROVED
 
             return addPayU(siteProperties)
               .then(payU => {
