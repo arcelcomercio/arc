@@ -53,14 +53,21 @@ class CardTabloid extends PureComponent {
       editableField,
       isAdmin,
       siteProperties: { linkTabloide = '' },
-      customFields: { sectionName = '', urlImage = '', link = '', date: dateField } = {},
+      customFields: {
+        sectionName = '',
+        urlImage = '',
+        link = '',
+        date: dateField,
+      } = {},
     } = this.props
 
     const { data = {} } = this.state || {}
 
-    console.log('data 44', data)
-
-    const { title = '', createdDate = '', primarySectionLink = '' } = new StoryData({
+    const {
+      title = '',
+      createdDate = '',
+      primarySectionLink = '',
+    } = new StoryData({
       data,
       contextPath,
       arcSite,
@@ -83,6 +90,7 @@ class CardTabloid extends PureComponent {
       } = {},
     } = data
 
+    const tabloidImage = urlImage || printedImage
     const nameDate = getLatinDate(createdDate, ' del', true)
     return (
       <div className={classes.tabloid}>
@@ -103,8 +111,8 @@ class CardTabloid extends PureComponent {
           <picture>
             <img
               className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
-              src={urlImage || (isAdmin ? printedImage : lazyImage)}
-              data-src={urlImage || printedImage}
+              src={isAdmin ? tabloidImage : lazyImage}
+              data-src={tabloidImage}
               alt={title}
             />
           </picture>
