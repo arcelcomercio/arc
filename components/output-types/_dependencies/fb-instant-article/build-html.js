@@ -16,16 +16,30 @@ const buildParagraph = paragraph => {
     const imageAlt = paragraph.match(/alt="([^"]+)/)[1]
 
     result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-  
-  } else if (paragraph.includes('<blockquote class="instagram-media"') || paragraph.includes('<blockquote class="twitter-tweet"')) {
+  } else if (
+    paragraph.includes('<blockquote class="instagram-media"') ||
+    paragraph.includes('<blockquote class="twitter-tweet"')
+  ) {
     // ára twitter y para instagram
     result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-  }else if(paragraph.includes("https://www.facebook.com/plugins")){
-
+  } else if (paragraph.includes('https://www.facebook.com/plugins')) {
     result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
   } else {
     // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
     result = `<p>${paragraph}</p>`
+  }
+  return result
+}
+
+const validateMultimediaParagraph = paragraph => {
+  let result = false
+  if (
+    paragraph.includes('<iframe') ||
+    paragraph.includes('<img') ||
+    paragraph.includes('<blockquote class="instagram-media"') ||
+    paragraph.includes('<blockquote class="twitter-tweet"')
+  ) {
+    result = true
   }
   return result
 }
@@ -46,7 +60,7 @@ const ParagraphshWithAdds = ({
     // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
 
     let paragraphwithAdd = ''
-    const paragraphOriginal = paragraph
+    const originalParagraph = paragraph
     paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
     const arrayWords = paragraph.split(' ')
 
@@ -58,39 +72,42 @@ const ParagraphshWithAdds = ({
       if (countWords >= firstAdd) {
         countWords = 0
 
-        paragraphwithAdd = `${buildParagraph(paragraphOriginal)} ${
+        paragraphwithAdd = `${buildParagraph(originalParagraph)} ${
           arrayadvertising[IndexAdd]
             ? buildIframeAdvertising(arrayadvertising[IndexAdd])
             : ''
         }`
         IndexAdd += 1
       } else {
-        paragraphwithAdd = `${buildParagraph(paragraphOriginal)}`
+        paragraphwithAdd = `${buildParagraph(originalParagraph)}`
       }
 
       newsWithAdd.push(`${paragraphwithAdd}`)
     } else {
       // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
 
+      // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
       if (arrayWords.length <= nextAdds) {
-        countWords += arrayWords.length
+        if (validateMultimediaParagraph(originalParagraph)) {
+          countWords += 70
+        } else {
+          countWords += arrayWords.length
+        }
       }
 
       if (countWords >= nextAdds) {
         countWords = 0
-        paragraphwithAdd = `${buildParagraph(paragraphOriginal)} ${
+        paragraphwithAdd = `${buildParagraph(originalParagraph)} ${
           arrayadvertising[IndexAdd]
             ? buildIframeAdvertising(arrayadvertising[IndexAdd])
             : ''
         }`
         IndexAdd += 1
       } else {
-        paragraphwithAdd = `${buildParagraph(paragraphOriginal)}`
+        paragraphwithAdd = `${buildParagraph(originalParagraph)}`
       }
       newsWithAdd.push(`${paragraphwithAdd}`)
     }
-
-   
   })
   resultParagraph = newsWithAdd.map(item => item).join('')
   return resultParagraph
