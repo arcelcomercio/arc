@@ -1,6 +1,7 @@
 import md5 from 'md5'
 import BuildHtml from './build-html'
 import StoryData from '../../../utilities/story-data'
+import { getMultimedia } from '../../../utilities/helpers'
 
 const ListItemNews = (contentElements, buildProps) => {
   const {
@@ -25,6 +26,8 @@ const ListItemNews = (contentElements, buildProps) => {
     .map(story => {
       storydata.__data = story
 
+      const pagePath = `${siteUrl}${storydata.link}`
+
       const propsScriptHeader = {
         siteDomain,
         title: storydata.title,
@@ -35,9 +38,16 @@ const ListItemNews = (contentElements, buildProps) => {
       }
 
       const scriptAnaliticaProps = {
-        link: storydata.link,
         siteDomain,
         idGoogleAnalitics,
+        name: siteDomain,
+        section: storydata.sectionsFIa.section,
+        subsection: storydata.sectionsFIa.subsection,
+        newsId: storydata.id,
+        author: storydata.author,
+        newsType: getMultimedia(storydata.multimediaType),
+        pagePath,
+        newsTitle: storydata.title,
       }
 
       const BuildHtmlProps = {
@@ -56,7 +66,7 @@ const ListItemNews = (contentElements, buildProps) => {
       const codigoGUID = md5(storydata.id)
 
       const ItemDataXml = {
-        siteUrl,
+        pagePath,
         siteDomain,
         title: storydata.title,
         date: storydata.date,
@@ -68,12 +78,10 @@ const ListItemNews = (contentElements, buildProps) => {
         <item>
           <title>${ItemDataXml.title}</title>
           <pubDate>${ItemDataXml.date}</pubDate>
-          <link>${ItemDataXml.siteUrl}${storydata.link}</link>
+          <link>${ItemDataXml.pagePath}</link>
           <guid>${ItemDataXml.codigoGUID}</guid>
           <author>${ItemDataXml.author}</author>
-          <content:encoded><![CDATA[${
-            ItemDataXml.htmlString
-          }]]></content:encoded>
+          <content:encoded><![CDATA[${ItemDataXml.htmlString}]]></content:encoded>
           <slash:comments>0</slash:comments>
         </item>
       `

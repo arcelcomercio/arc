@@ -27,7 +27,7 @@ const CardFeaturedStoryMultimedia = props => {
     multimediaLazyDefault,
     title, // { headlines { basic } }
     multimediaType, // { promo_items }
-    date, // { publish_date }
+    date, // { display_date }
     primarySectionLink, // { taxonomy { primary_section { path } } }
     primarySection, // { taxonomy { primary_section { name } } }
   } = new StoryData({

@@ -1,5 +1,4 @@
 import React from 'react'
-import { createMarkup } from '../../../../utilities/helpers'
 
 const StoryContentChildVideo = ({ data }) => {
   const {

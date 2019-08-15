@@ -113,6 +113,7 @@
     padding: 0;
     height: 374px;
     @media (--desktop) {
+      flex-direction: column;
       height: 768px;
     }
     .featured-premium__left {
@@ -129,6 +130,7 @@
       width: 100%;
       @media (--desktop) {
         height: 374px;
+        width: 100%;
       }
     }
     .featured-premium__section {
