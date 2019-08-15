@@ -1,5 +1,6 @@
 export default {
   linkTabloide: 'https://peruquiosco.pe/',
+  newsletterBrand: '',
   assets: {
     nav: {
       logo: 'logo.png',
