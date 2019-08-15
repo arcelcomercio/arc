@@ -108,7 +108,7 @@ const fetch = key => {
 
     const encodedBody = queryStoryRecent(section, site)
     return request({
-      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${site}&size=6&from=0&sort=publish_date:desc`,
+      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${site}&size=6&from=0&sort=display_date:desc`,
       ...options,
     }).then(recientesResp => {
       dataStory.recent_stories = recientesResp

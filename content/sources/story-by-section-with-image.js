@@ -3,7 +3,7 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers';
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let website = ''
 
@@ -22,14 +22,21 @@ const params = [
 const resolve = key => {
   website = key['arc-site'] || 'Arc Site no está definido'
   const requestUri = `/content/v4/search/published?q=taxonomy.sites.path:"/${key.section ||
-    ''}"&sort=publish_date:desc&from=0&size=1&website=${website}`
+    ''}"&sort=display_date:desc&from=0&size=1&website=${website}`
   return requestUri
 }
 
 const transform = data => {
   const dataStory = data
   const { resizerUrl } = getProperties(website)
-  return addResizedUrlsToStory([dataStory], resizerUrl, resizerSecret, addResizedUrls)[0] || null
+  return (
+    addResizedUrlsToStory(
+      [dataStory],
+      resizerUrl,
+      resizerSecret,
+      addResizedUrls
+    )[0] || null
+  )
 }
 
 export default {

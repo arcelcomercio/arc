@@ -28,7 +28,7 @@ const pattern = (key = {}) => {
   const q = `canonical_website:${website}+${slugSearch}AND+type:story+AND+revision.published:true`
 
   const requestUri = `/content/v4/search/published?q=${q}&size=1&from=${feedOffset ||
-    0}&sort=publish_date:desc&website=${website}&single=true`
+    0}&sort=display_date:desc&website=${website}&single=true`
 
   return requestUri
 }
@@ -38,7 +38,14 @@ const resolve = key => pattern(key)
 const transform = data => {
   const dataStory = data
   const { resizerUrl } = getProperties(website)
-  return addResizedUrlsToStory([dataStory], resizerUrl, resizerSecret, addResizedUrls)[0] || null
+  return (
+    addResizedUrlsToStory(
+      [dataStory],
+      resizerUrl,
+      resizerSecret,
+      addResizedUrls
+    )[0] || null
+  )
 }
 
 const source = {
