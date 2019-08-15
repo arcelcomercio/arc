@@ -221,6 +221,23 @@ class StoryData {
     return addSlashToEnd(StoryData.getPrimarySection(this._data).path) || ''
   }
 
+  get sectionsFIa() {
+    let result = {section:null,subsection:null}
+    if (
+      this._data.taxonomy &&
+      this._data.taxonomy.primary_section &&
+      this._data.taxonomy.primary_section.path
+    ) {
+      result = { section: null, subsection: null }
+      const listSections = this._data.taxonomy.primary_section.path.split('/')
+
+      result.section = listSections[1] !== undefined ?listSections[1] : null
+      result.subsection = listSections[2] !== undefined ?listSections[2] : null
+
+    }
+    return result
+  }
+  
   get allSections() {
     let sections = []
     let result = []
@@ -313,6 +330,10 @@ class StoryData {
 
   get publishDate() {
     return (this._data && this._data.publish_date) || ''
+  }
+
+  get createdDate() {
+    return (this._data && this._data.created_date) || ''
   }
 
   get firstPublishDate() {

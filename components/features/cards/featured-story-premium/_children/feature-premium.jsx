@@ -60,7 +60,7 @@ const FeaturedStoryPremiumChild = ({
           </a>
         </h2>
         <p className={classes.detail}>
-          {subTitle}
+          {subTitle}{' '}
           <a className={classes.read} href={websiteLink}>
             Leer
           </a>
@@ -73,8 +73,8 @@ const FeaturedStoryPremiumChild = ({
           </h6>
           <div className={classes.boxIcon}>
             <p>
-              <a className={classes.sectionSmall} href="/">
-                Tegnologia
+              <a className={classes.sectionSmall} href={primarySectionLink}>
+                {primarySection || 'Sección'}
               </a>
             </p>
             {isPremium && (

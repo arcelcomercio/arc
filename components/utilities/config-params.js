@@ -26,7 +26,7 @@ class ConfigParams {
 
   static ELEMENT_RAW_HTML = 'raw_html'
 
-  static ELEMENT_RAW_HTML = 'infografia'
+  static ELEMENT_INFOGRAFIA = 'infografia'
 
   static ELEMENT_TEXT = 'text'
 

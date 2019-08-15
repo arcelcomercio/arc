@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Markdown from 'react-markdown'
 
+import ClientOnly from '../_children/client-only'
 import * as S from './styled'
 import faqsData from './data'
 
-const Faqs = ({ url, perPage }) => {
+const Faqs = () => {
   const [data, setData] = React.useState([])
 
   const loadFakeQuestions = React.useCallback(
@@ -19,12 +20,14 @@ const Faqs = ({ url, perPage }) => {
   }, [loadFakeQuestions])
 
   return (
-    <S.Container>
-      <S.TitleContainer>
-        <S.Title>Preguntas Frecuentes</S.Title>
-      </S.TitleContainer>
-      <FaqList faqs={data} />
-    </S.Container>
+    <ClientOnly>
+      <S.Container>
+        <S.TitleContainer>
+          <S.Title>Preguntas Frecuentes</S.Title>
+        </S.TitleContainer>
+        <FaqList faqs={data} />
+      </S.Container>
+    </ClientOnly>
   )
 }
 Faqs.propTypes = {

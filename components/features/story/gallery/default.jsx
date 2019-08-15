@@ -20,7 +20,13 @@ const StoryGallery = () => {
     isAdmin,
   } = useFusionContext()
 
-  const { contentElementGallery, title, subTitle, link } = new StoryData({
+  const {
+    contentElementGallery,
+    title,
+    subTitle,
+    link,
+    promoItems,
+  } = new StoryData({
     data,
     contextPath,
   })
@@ -28,28 +34,28 @@ const StoryGallery = () => {
   const parameters = { contentElementGallery, title, subTitle, link, isAdmin }
 
   const {
-    basic = {},
-    basic_html: { content: embedHtmlPromoItems = '' } = {},
-  } = data
-  const { caption = '' } = basic || {}
+    basic: { caption = '' } = {},
+    infografia: { content: embedHtmlPromoItems = '' } = {},
+  } = promoItems
 
   return (
     <>
-      {contentElementGallery && (
+      {contentElementGallery ? (
         <div className={classes.gallery}>
           {subtype === ConfigParams.GALLERY_VERTICAL ? (
             <StoryGalleryChildGallery {...parameters} />
           ) : (
             <StoryGalleryChildGallerySlider {...parameters} />
           )}
-          {subtype === ConfigParams.ELEMENT_INFOGRAFIA && (
-            <Infografia
-              data={embedHtmlPromoItems}
-              caption={caption}
-              header="true"
-            />
-          )}
         </div>
+      ) : (
+        embedHtmlPromoItems && (
+          <Infografia
+            data={embedHtmlPromoItems}
+            caption={caption}
+            header="true"
+          />
+        )
       )}
     </>
   )

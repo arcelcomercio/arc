@@ -558,17 +558,15 @@ const actionEvent = ({ type, targetId }) => {
 
 const setGlobalEvents = (eventList, targetId) => {
   eventList.forEach(eventName => {
-    apntag.onEvent(eventName, targetId, () =>
-      actionEvent({ type: eventName, targetId })
-    )
+    if (apntag) {
+      apntag.onEvent(eventName, targetId, () =>
+        actionEvent({ type: eventName, targetId })
+      )
+    }
   })
 }
 
 const global_events = ['adNoBid', 'adBadRequest', 'adRequestFailure', 'adError']
-
-adsParams.forEach(
-  ({ targetId }) => targetId && setGlobalEvents(global_events, targetId)
-)
 
 dataLayer.push({
   event: 'definir_eventos_appnexus',
@@ -592,6 +590,9 @@ apntag.anq.push(() => {
     apntag.defineTag({
       ...val,
     })
+  )
+  adsParams.forEach(
+    ({ targetId }) => targetId && setGlobalEvents(global_events, targetId)
   )
   // if (IS_DEBUG) console.log('APP NEXUS CARGADO!!!!')
 })

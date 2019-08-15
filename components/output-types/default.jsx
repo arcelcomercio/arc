@@ -14,7 +14,6 @@ export default ({
   deployment,
   arcSite,
   globalContent,
-  globalContentConfig,
   // CssLinks,
   Fusion,
   Libs,
@@ -43,7 +42,9 @@ export default ({
     deployment,
   }
 
-  const { headlines: { basic: storyTitle = '' } = {} } = globalContent || {}
+  const {
+    headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+  } = globalContent || {}
 
   const isStory =
     requestUri.match(`^(/(.*)/.*-noticia)`) ||
@@ -63,24 +64,15 @@ export default ({
     isAmp: false,
   }
 
-  const defineTitle = (page = 'default', config) => {
-    if (page === 'meta_author' || page === 'meta_tag') return config.query.name
-    return ''
-  }
+  const storyTitleRe = (StoryMetaTitle && StoryMetaTitle) || storyTitle
 
   const seoTitle =
-    (metaValue('title') &&
-      !metaValue('title').match(/content/) &&
-      metaValue('title')) ||
-    storyTitle ||
-    defineTitle(metaValue('id'), globalContentConfig)
+    metaValue('title') &&
+    !metaValue('title').match(/content/) &&
+    metaValue('title')
 
-  const metaTitle =
-    metaValue('meta_title') && !metaValue('meta_title').match(/content/)
-      ? metaValue('meta_title')
-      : seoTitle
+  const title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
 
-  const title = `${metaTitle || seoTitle} | ${siteProperties.siteName}`
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`

@@ -21,12 +21,19 @@ const params = [
   },
 ]
 
+const getFormattedDate = date =>
+  date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+
 const getActualDate = () => {
   const today = new Date()
-
   if (today.getHours() <= 5) today.setDate(today.getDate() - 1)
+  return getFormattedDate(today)
+}
 
-  return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+const getNextDate = date => {
+  const requestedDate = new Date(date)
+  requestedDate.setDate(requestedDate.getDate() + 1)
+  return getFormattedDate(requestedDate)
 }
 
 const transform = data => {
@@ -39,6 +46,11 @@ const transform = data => {
     addResizedUrls
   )
   dataStories.siteName = siteName
+  console.log(
+    '----------------->>>>>>>',
+    globalParams.date,
+    getNextDate(globalParams.date)
+  )
   const aux = {
     ...dataStories,
     params: {
@@ -69,9 +81,9 @@ const pattern = (key = {}) => {
           },
           {
             range: {
-              publish_date: {
-                gte: `${globalParams.date}T00:00:00`, // 2019-03-05T00:00:00-05:00
-                lte: `${globalParams.date}T23:59:59`, // 2019-03-06T00:00:00-05:00
+              display_date: {
+                gte: `${globalParams.date}T05:00:00`,
+                lte: `${getNextDate(globalParams.date)}T04:59:59`,
               },
             },
           },
