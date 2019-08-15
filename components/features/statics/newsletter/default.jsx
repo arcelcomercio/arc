@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import { NEWSLETTER_API } from 'fusion:environment'
 
 import customFieldsExtern from './_dependencies/custom-fields'
 import NewsletterChild from './_children/newsletter'
@@ -18,47 +19,54 @@ class Newsletter extends PureComponent {
       }
     },
     suscription: data => {
-      const dataRequest = (params) => {
-        params['api_key'] = '024211b43976583c1ed7d3c21d0e1899'
-        return params
+      const dataRequest = params => {
+        const {
+          siteProperties: { newsletterBrand = '' },
+        } = this.props
+        return Object.assign(params, {
+          brand: newsletterBrand,
+        })
       }
-      
-      const messageApi = (state) => {
-        const msg = {
-          'nuevo': 'Recibirás diariamente nuestro newsletter.',
-          'existe': 'El correo ingresado ya se encuentra registrado.'
+
+      const messageApi = response => {
+        let msg = ''
+        if (
+          response &&
+          response.status !== undefined &&
+          response.status === false
+        ) {
+          msg = response.message || ''
         }
-        return msg[state.toLowerCase()]? msg[state.toLowerCase()]: 'Error, inténtelo más tarde.'
+        return msg
       }
 
-      const successApi = (response) => {
-        return response.toLowerCase() === 'nuevo'
+      const successApi = response => {
+        return response && response.result && response.status === undefined
       }
 
-      // const url = 'https://jab.pe/f/arc/services/newsletter.php'
-      const url = 'http://di.ecodigital.com.pe/endpoint/form/gestion'
+      const url = NEWSLETTER_API
       fetch(url, {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataRequest(data)),
         headers: {
           'Content-Type': 'application/json',
         },
       })
-      .catch(error => error)
-      .then(response => {
-        let confirmRegister = false
-        let formMessage = 'Error'
-        if (response && response.ok) {
-          response.json().then(json => {
-            // confirmRegister = json.success
-            // formMessage = json.message
-            confirmRegister = successApi(json.message)
-            formMessage = messageApi(json.message)
-            this.setState({ confirmRegister, formMessage })
-          })
-        } else this.setState({ confirmRegister, formMessage })
-      })
+        .catch(error => error)
+        .then(response => {
+          let confirmRegister = false
+          let formMessage = 'Error'
+          if (response && response.ok) {
+            response.json().then(json => {
+              // confirmRegister = json.success
+              // formMessage = json.message
+              confirmRegister = successApi(json)
+              formMessage = messageApi(json)
+              this.setState({ confirmRegister, formMessage })
+            })
+          } else this.setState({ confirmRegister, formMessage })
+        })
     },
     email: event => {
       event.preventDefault()
@@ -72,7 +80,9 @@ class Newsletter extends PureComponent {
       event.preventDefault()
     },
     redirect: () => {
-      const { siteProperties: {siteUrl = ''} } = this.props
+      const {
+        siteProperties: { siteUrl = '' },
+      } = this.props
       window.location.href = siteUrl
     },
   }
@@ -134,7 +144,6 @@ class Newsletter extends PureComponent {
   render() {
     const { submitForm, confirmRegister, formMessage } = this.state
     const { arcSite, contextPath, deployment, customFields } = this.props
-    console.log('props 5', this.props)
     const data = new Data(customFields, arcSite, contextPath)
     const params = {
       description: data.description,

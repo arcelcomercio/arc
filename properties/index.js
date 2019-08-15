@@ -1,4 +1,5 @@
 export default {
+  newsletterBrand: '',
   assets: {
     nav: {
       logo: 'logo.png',
