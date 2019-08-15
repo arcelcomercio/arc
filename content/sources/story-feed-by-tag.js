@@ -46,7 +46,6 @@ const pattern = (key = {}) => {
 
   const from = `${validateFrom()}`
 
-  /** TODO: Cambiar publish_date por display_name en los patterns???? */
   /** TODO: Manejar comportamiento cuando no se obtiene data */
 
   const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(

@@ -132,7 +132,7 @@ const fetch = (key = {}) => {
       throw new Error('Sección no encontrada')
     return request({
       uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=1&from=${feedOffset ||
-        0}&sort=publish_date:desc&single=true`,
+        0}&sort=display_date:desc&single=true`,
       ...options,
     }).then(storyData => {
       const { resizerUrl } = getProperties(website)

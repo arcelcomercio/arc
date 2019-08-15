@@ -8,7 +8,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
 const FeaturedStoryColumnist = props => {
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const { customFields: { slug, story } = {} } = props
 
   const data =
@@ -34,7 +34,12 @@ const FeaturedStoryColumnist = props => {
     defaultImgSize: 'sm',
   })
 
+  const lazyImage = deployment(
+    `${contextPath}/resources/assets/author-grid/author.png`
+  )
+
   const params = {
+    lazyImage,
     authorImage,
     author,
     authorLink,
@@ -42,6 +47,7 @@ const FeaturedStoryColumnist = props => {
     subTitle,
     isPremium,
     websiteLink,
+    isAdmin,
   }
 
   return <ColumnistPremium {...params} />
