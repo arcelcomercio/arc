@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
+import MenuTV from './menu'
 
 const TvHeader = () => {
+  const [statusMenu, changeStatus] = useState(false)
+  const toggleMenu = () => {
+    changeStatus(!statusMenu)
+  }
   return (
     <header className="tv-header">
       <a
@@ -13,8 +18,8 @@ const TvHeader = () => {
         />
       </a>
       <div className="tv-header__logo-container  position-absolute flex mt-25">
-        <button type="button" className="mr-15">
-          <i className="tv-header__icon icon-hamburguer text-white"></i>
+        <button type="button" className="mr-15" onClick={() => toggleMenu()}>
+          <i className="tv-header__icon icon-hamburguer text-white" />
         </button>
         <a href="https://peru21.pe/" className="tv-header__logo block">
           <img
@@ -24,6 +29,7 @@ const TvHeader = () => {
           />
         </a>
       </div>
+      {statusMenu && <MenuTV toggleMenu={toggleMenu} />}
     </header>
   )
 }

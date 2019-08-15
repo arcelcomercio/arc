@@ -26,13 +26,14 @@ export default ({ close, youtubeId, multimediaSource }) => {
             closeModal()
           }
         }}
-        onClick={() => closeModal()}></div>
+        onClick={() => closeModal()}
+      />
       <div className="video-modal__embed-container bg-black">
         <button
           type="button"
           className="video-modal__close-button p-0"
           onClick={() => closeModal()}>
-          <i className="video-modal__close-icon icon-close text-gray-200 text-lg"></i>
+          <i className="video-modal__close-icon icon-close text-gray-200 text-lg" />
         </button>
         {youtubeId ? (
           <div className="video-modal__embed">
@@ -42,7 +43,8 @@ export default ({ close, youtubeId, multimediaSource }) => {
               height="100%"
               src={`https://www.youtube.com/embed/${youtubeId}?&autoplay=1`}
               frameBorder="0"
-              allowFullScreen></iframe>
+              allowFullScreen
+            />
           </div>
         ) : (
           <div
