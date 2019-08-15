@@ -5,6 +5,7 @@ import './paywall.css'
 import Icon from '../_children/icon'
 import SupportDialog from '../_children/support-dialog'
 import Link from '../_children/link'
+import getDomain from '../_dependencies/domains'
 
 const Foot = () => {
   const { siteProperties, contextPath, deployment } = useFusionContext()
@@ -59,9 +60,7 @@ const Foot = () => {
               </a>
             </li>
             <li>
-              <a
-                href={`${contextPath}/paywall/faqs?_website=gestion&outputType=paywall`}
-                className="list_link">
+              <a href={getDomain('URL_FAQ')} className="list_link">
                 Preguntas frecuentes
               </a>
             </li>
