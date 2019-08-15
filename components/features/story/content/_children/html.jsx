@@ -4,6 +4,7 @@ import Video from './video'
 
 const classes = {
   newsEmbed: 'story-content__embed',
+  caption: 'story-content__caption pt-10 secondary-font text-md pb-10',
 }
 
 const StoryContentChildImage = ({ data, caption, header = false }) => {
@@ -15,7 +16,10 @@ const StoryContentChildImage = ({ data, caption, header = false }) => {
           description={caption}
         />
       ) : (
-        <RawHtml content={data} className={classes.newsEmbed} />
+        <>
+          <RawHtml content={data} className={classes.newsEmbed} />
+          {caption && data && <div className={classes.caption}>{caption}</div>}
+        </>
       )}
     </>
   )

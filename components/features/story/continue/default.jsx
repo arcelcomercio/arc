@@ -133,9 +133,12 @@ class StoryContinue extends PureComponent {
         nav.classList.remove('active')
         navWrapper.classList.add('somos-menu--active')
       } else {
-        nav.classList.add('active')
+        if (window.scrollY < 50) nav.classList.remove('active')
+        else nav.classList.add('active')
+
         navWrapper.classList.remove('somos-menu--active')
       }
+
       this.preview = window.scrollY
     }
   }

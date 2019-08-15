@@ -41,6 +41,7 @@ const UserProfile = ({
             // TODO: Crear un servicio desde el que se pueda obtener billing address
             billingAddress: {
               country: 'PE',
+              line2: `${values.documentType}_${values.documentNumber}`,
             },
           },
           actions
