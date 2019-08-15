@@ -12,16 +12,28 @@ const buildParagraph = paragraph => {
 
     result = `<figure class="op-interactive">${paragraph}</figure>`
   } else if (paragraph.includes('<img')) {
-    const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
-    const imageAlt = paragraph.match(/alt="([^"]+)/)[1]
+    const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)
+      ? paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
+      : ''
+
+    const imageAlt = paragraph.match(/alt="([^"]+)?/)
+      ? paragraph.match(/alt="([^"]+)?/)[1]
+      : ''
+
+    if (imageUrl !== '') {
+      result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+    } else {
+      result = ''
+    }
 
     result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-  
-  } else if (paragraph.includes('<blockquote class="instagram-media"') || paragraph.includes('<blockquote class="twitter-tweet"')) {
+  } else if (
+    paragraph.includes('<blockquote class="instagram-media"') ||
+    paragraph.includes('<blockquote class="twitter-tweet"')
+  ) {
     // ára twitter y para instagram
     result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-  }else if(paragraph.includes("https://www.facebook.com/plugins")){
-
+  } else if (paragraph.includes('https://www.facebook.com/plugins')) {
     result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
   } else {
     // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
@@ -30,9 +42,23 @@ const buildParagraph = paragraph => {
   return result
 }
 
+const validateMultimediaParagraph = paragraph => {
+  let result = false
+  if (
+    paragraph.includes('<iframe') ||
+    paragraph.includes('<img') ||
+    paragraph.includes('<blockquote class="instagram-media"') ||
+    paragraph.includes('<blockquote class="twitter-tweet"')
+  ) {
+    result = true
+  }
+  return result
+}
+
 const ParagraphshWithAdds = ({
   paragraphsNews = [],
-  numwords = 250,
+  firstAdd = 50,
+  nextAdds = 250,
   arrayadvertising = [],
 }) => {
   const newsWithAdd = []
@@ -44,49 +70,54 @@ const ParagraphshWithAdds = ({
 
   paragraphsNews.forEach(paragraphItem => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
-    // el primer script de publicidad se inserta despues del segundo parrafo
+    // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
 
     let paragraphwithAdd = ''
-    const paragraphOriginal = paragraph
+    const originalParagraph = paragraph
     paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
     const arrayWords = paragraph.split(' ')
 
     if (IndexAdd === 0) {
-      if (arrayWords.length <= 50) {
+      if (arrayWords.length <= firstAdd) {
         countWords += arrayWords.length
       }
 
-      if (countWords >= 50) {
+      if (countWords >= firstAdd) {
         countWords = 0
 
-        paragraphwithAdd = `${buildParagraph(paragraphOriginal)} ${
+        paragraphwithAdd = `${buildParagraph(originalParagraph)} ${
           arrayadvertising[IndexAdd]
             ? buildIframeAdvertising(arrayadvertising[IndexAdd])
             : ''
         }`
         IndexAdd += 1
       } else {
-        paragraphwithAdd = `${buildParagraph(paragraphOriginal)}`
+        paragraphwithAdd = `${buildParagraph(originalParagraph)}`
       }
 
       newsWithAdd.push(`${paragraphwithAdd}`)
     } else {
-      // a partir del segundo parrafo se inserta cada 250 palabras (numwords)
+      // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
 
-      if (arrayWords.length <= numwords) {
-        countWords += arrayWords.length
+      // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
+      if (arrayWords.length <= nextAdds) {
+        if (validateMultimediaParagraph(originalParagraph)) {
+          countWords += 70
+        } else {
+          countWords += arrayWords.length
+        }
       }
 
-      if (countWords >= numwords) {
+      if (countWords >= nextAdds) {
         countWords = 0
-        paragraphwithAdd = `${buildParagraph(paragraphOriginal)} ${
+        paragraphwithAdd = `${buildParagraph(originalParagraph)} ${
           arrayadvertising[IndexAdd]
             ? buildIframeAdvertising(arrayadvertising[IndexAdd])
             : ''
         }`
         IndexAdd += 1
       } else {
-        paragraphwithAdd = `${buildParagraph(paragraphOriginal)}`
+        paragraphwithAdd = `${buildParagraph(originalParagraph)}`
       }
       newsWithAdd.push(`${paragraphwithAdd}`)
     }
@@ -110,11 +141,13 @@ const BuildHtml = BuildHtmlProps => {
     listUrlAdvertisings,
   } = BuildHtmlProps
 
-  const numwords = 250
+  const firstAdd = 50
+  const nextAdds = 250
 
   const paramsBuildParagraph = {
     paragraphsNews,
-    numwords,
+    firstAdd,
+    nextAdds,
     arrayadvertising: listUrlAdvertisings,
   }
 

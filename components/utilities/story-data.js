@@ -237,7 +237,7 @@ class StoryData {
     }
     return result
   }
-
+  
   get allSections() {
     let sections = []
     let result = []
