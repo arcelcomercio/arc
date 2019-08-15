@@ -1,16 +1,18 @@
-import {ENVIRONMENT, CONTEXT_PATH} from 'fusion:environment'
+import { ENVIRONMENT, CONTEXT_PATH } from 'fusion:environment'
 
-const isProd = ENVIRONMENT === 'elcomercio';
+const isProd = ENVIRONMENT === 'elcomercio'
 const queryString = isProd ? '' : '?_website=gestion&outputType=paywall'
-const context = isProd ? '' : CONTEXT_PATH;
+const context = isProd ? '' : CONTEXT_PATH
 
 const domains = {
-  URL_CORPORATE : () => `${context}/suscripcionesdigitales/empresa/${queryString}`,
-  URL_FAQ : () => `${context}/suscripcionesdigitales/faq/${queryString}`,
-  VALIDATE_SUSCRIPTOR : (ENV, documentType, documentNumber) => `${context}/suscripcionesdigitales/${documentType}/${documentNumber}${queryString}`,
-  PWA_DOMAIN : ENV => {
+  URL_CORPORATE: () =>
+    `${context}/suscripcionesdigitales/empresa/${queryString}`,
+  URL_FAQ: () => `${context}/suscripcionesdigitales/faq/${queryString}`,
+  VALIDATE_SUSCRIPTOR: (ENV, documentType, documentNumber) =>
+    `${context}/suscripcionesdigitales/${documentType}/${documentNumber}${queryString}`,
+  PWA_DOMAIN: ENV => {
     const _env_ = ENV === 'elcomercio' ? '' : '.dev'
-    return `https://pwa${_env_}.gestion.pe`;
+    return `https://pwa${_env_}.gestion.pe`
   },
   ORIGIN_API: ENV => {
     const _env_ = ENV === 'elcomercio' ? '' : '-sandbox'
@@ -31,10 +33,10 @@ const domains = {
     return `https://devpaywall.comerciosuscripciones.pe/api/subs-corporativa/`
   },
 
-  get: function getService(...params){
-      const [ service, ...rest ] = params;
-        return this[service](ENVIRONMENT, ...rest)
-    }
-  }
+  get: function getService(...params) {
+    const [service, ...rest] = params
+    return this[service](ENVIRONMENT, ...rest)
+  },
+}
 
-  export default domains.get.bind(domains);
+export default domains.get.bind(domains)
