@@ -1,5 +1,4 @@
 .react-calendar {
-
   // &__box {}
   &__header {
     background-color: $calendar-background;
@@ -68,6 +67,7 @@
     font-size: 12px;
     font-family: $secondary-font;
     border-bottom: solid 1px $calendar-line;
+    margin: 0;
 
     &:hover {
       text-decoration: underline;
