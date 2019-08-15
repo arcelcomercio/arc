@@ -100,7 +100,7 @@ const FeaturedStoryPremiumChild = ({
             <source
               className={isAdmin ? '' : 'lazy'}
               srcSet={isAdmin ? multimediaSquareMD : multimediaLazyDefault}
-              datasrcSet={multimediaSquareMD}
+              data-srcSet={multimediaSquareMD}
               media="(max-width: 620px)"
             />
             <img

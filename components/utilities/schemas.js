@@ -146,6 +146,7 @@ const storySchemaTypes = presets => {
       basic_html: BasicHtml
       basic_video: BasicVideo
       basic_gallery: BasicGallery
+      youtube_id: BasicHtml
     }
     type Tags {
       text: String

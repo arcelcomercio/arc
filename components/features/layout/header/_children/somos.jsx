@@ -59,8 +59,14 @@ class HeaderChildSomos extends PureComponent {
   }
 
   render() {
-    const { logo, logoIcon, firstSection, sections, deviceList,
-    globalContentConfig: { query = {} } = {},  } = this.props
+    const {
+      logo,
+      logoIcon,
+      firstSection,
+      sections,
+      deviceList,
+      globalContentConfig: { query = {} } = {},
+    } = this.props
     const { isMenuActive, searchValue } = this.state
 
     const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
