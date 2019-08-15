@@ -28,7 +28,7 @@ const domains = {
     return `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`
   },
   ORIGIN_SUBSCRIPTION_CORP_API: ENV => {
-    return `http://devpaywall.comerciosuscripciones.pe/api/subs-corporativa/`
+    return `https://devpaywall.comerciosuscripciones.pe/api/subs-corporativa/`
   },
 
   get: function getService(...params){
