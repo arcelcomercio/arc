@@ -71,7 +71,9 @@ export default ({
     !metaValue('title').match(/content/) &&
     metaValue('title')
 
-  const title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
+  const title = isStory
+    ? `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
+    : `${seoTitle} | ${siteProperties.siteName}`
 
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
