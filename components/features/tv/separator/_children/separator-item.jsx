@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Icon from '../../../../global-components/multimedia-icon'
 import { formatDateLocalTimeZone } from '../../../../utilities/helpers'
-import Modal from '../../../../global-components/tv-modal'
+import Modal from '../../../../global-components/video-modal'
 
 export default ({ date, multimedia, title, videoId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)

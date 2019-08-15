@@ -6,7 +6,7 @@ import { useFusionContext } from 'fusion:context'
 
 import TvHeader from './_children/header'
 import Icon from '../../../global-components/multimedia-icon'
-import Modal from '../../../global-components/tv-modal'
+import Modal from '../../../global-components/video-modal'
 
 import StoryData from '../../../utilities/story-data'
 import { formatDateLocalTimeZone } from '../../../utilities/helpers'

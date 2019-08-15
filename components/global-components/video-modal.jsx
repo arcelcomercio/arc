@@ -18,7 +18,7 @@ export default ({ close, youtubeId, multimediaSource }) => {
   return (
     <>
       <div
-        className="tv-modal__gradient"
+        className="video-modal__gradient"
         role="button"
         tabIndex="0"
         onKeyDown={e => {
@@ -27,9 +27,15 @@ export default ({ close, youtubeId, multimediaSource }) => {
           }
         }}
         onClick={() => closeModal()}></div>
-      <div className="tv-modal__embed-container bg-black">
+      <div className="video-modal__embed-container bg-black">
+        <button
+          type="button"
+          className="video-modal__close-button p-0"
+          onClick={() => closeModal()}>
+          <i className="video-modal__close-icon icon-close text-gray-200 text-lg"></i>
+        </button>
         {youtubeId ? (
-          <div className="tv-modal__embed">
+          <div className="video-modal__embed">
             <iframe
               title={`Youtube - ${youtubeId}`}
               width="100%"
