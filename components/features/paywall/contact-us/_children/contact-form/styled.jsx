@@ -30,6 +30,9 @@ const StyledForm = styled(Form)`
   padding: 2em 2em;
   flex-direction: column;
   align-self: center;
+  @media ${devices.tablet} {
+    padding: 2em 7em;
+  }
 `
 
 const Message = styled.div`

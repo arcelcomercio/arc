@@ -1,7 +1,11 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import {
+  addResizedUrlsToStory,
+  getYYYYMMDDfromISO,
+  getActualDate,
+} from '../../components/utilities/helpers'
 
 let globalParams = {}
 
@@ -21,19 +25,10 @@ const params = [
   },
 ]
 
-const getFormattedDate = date =>
-  date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
-
-const getActualDate = () => {
-  const today = new Date()
-  if (today.getHours() <= 5) today.setDate(today.getDate() - 1)
-  return getFormattedDate(today)
-}
-
 const getNextDate = date => {
   const requestedDate = new Date(date)
   requestedDate.setDate(requestedDate.getDate() + 1)
-  return getFormattedDate(requestedDate)
+  return getYYYYMMDDfromISO(requestedDate)
 }
 
 const transform = data => {
@@ -46,11 +41,7 @@ const transform = data => {
     addResizedUrls
   )
   dataStories.siteName = siteName
-  console.log(
-    '----------------->>>>>>>',
-    globalParams.date,
-    getNextDate(globalParams.date)
-  )
+
   const aux = {
     ...dataStories,
     params: {
