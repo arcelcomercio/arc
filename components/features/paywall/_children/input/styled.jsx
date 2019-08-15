@@ -38,6 +38,19 @@ export const Input = styled.input`
     `}
 `
 
+export const TextArea = styled.textarea`
+  flex: 1;
+  font-size: 14px;
+  line-height: 22px;
+  border: 0;
+  width: 100%;
+  max-width: 100%;
+  ${({ transform }) =>
+    css`
+      text-transform: ${transform};
+    `}
+`
+
 export const Wrap = styled.div`
   display: flex;
   align-items: center;
@@ -61,7 +74,11 @@ export const Wrap = styled.div`
 const Label = styled.label`
   position: absolute;
   transform: translate3d(0, 50%, 0);
-  bottom: 50%;
+  ${({ multiline }) =>
+    multiline &&
+    css`
+      bottom: 50%;
+    `}
   left: 1rem;
   color: #bbbbbb;
   pointer-events: none;

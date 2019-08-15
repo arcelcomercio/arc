@@ -108,17 +108,17 @@ class AuthFacebook extends React.Component {
                 : `${resFbProfile.identities[0].userName}@facebook.com`
 
               if (!resFbProfile.displayName && !resFbProfile.attributes) {
-                const originAction = (tipform, tipcat) => {
+                const originAction = tipcat => {
                   const isHard = document.querySelector(
                     '#arc-popup-signwallhard'
                   )
                   if (isHard) {
-                    return 1
+                    return '1'
                   }
                   if (tipcat === 'relogemail') {
                     return 'reloginemail'
                   }
-                  return 0
+                  return '0'
                 }
 
                 const newProfileFB = {
@@ -149,7 +149,7 @@ class AuthFacebook extends React.Component {
                     },
                     {
                       name: 'originAction',
-                      value: originAction(this.tipForm, this.tipCat) || 'none',
+                      value: originAction(this.tipCat) || 'none',
                       type: 'String',
                     },
                     {

@@ -84,7 +84,6 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="documentNumber"
-                  inputmode="numeric"
                   label="Número de documento"
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
@@ -116,7 +115,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="phone"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   pipe={trim()}
                   mask={Masks.PHONE}
                   label="Número de Celular"
@@ -126,7 +125,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="email"
-                  inputmode="email"
+                  inputMode="email"
                   label="Correo Electrónico"
                   component={InputFormik}
                 />

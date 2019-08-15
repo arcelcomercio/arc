@@ -46,16 +46,6 @@ const Pipes = {
   },
 }
 
-// ----  PIPES ESPECIALES  -----
-
-Pipes.personName = () =>
-  Pipes.combine(
-    Pipes.replace(/(^|\s)[-]/, '$1'), // No espacios/guiones al inicio de palabra
-    Pipes.dedup(' '), // No mas de un espacio de separacion entre palabras
-    Pipes.trimLeft(), // No espacio al inicio
-    Pipes.capitalize() // Palabras capitalizadas
-  )
-
 // prettier-ignore
 export const Masks = {
   PERSON_NAME: new Array(49).fill(/[ a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ'-]/),
@@ -72,9 +62,16 @@ export const Masks = {
 export const PipedMasks = {
   PERSON_NAME: {
     mask: Masks.PERSON_NAME,
-    pipe: Pipes.personName(),
+    pipe: Pipes.combine(
+      Pipes.replace(/(^|\s)[-]/, '$1'), // No espacios/guiones al inicio de palabra
+      Pipes.dedup(' '), // No mas de un espacio de separacion entre palabras
+      Pipes.trimLeft(), // No espacio al inicio
+      Pipes.capitalize() // Palabras capitalizadas
+    ),
   },
 }
+
+Masks.Piped = PipedMasks
 
 function shape(value) {
   return {
