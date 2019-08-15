@@ -27,10 +27,15 @@ const buildParagraph = paragraph => {
     }
 
     result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+<<<<<<< HEAD
   } else if (
     paragraph.includes('<blockquote class="instagram-media"') ||
     paragraph.includes('<blockquote class="twitter-tweet"')
   ) {
+=======
+  
+  } else if (paragraph.includes('<blockquote class="instagram-media"') || paragraph.includes('<blockquote class="twitter-tweet"')) {
+>>>>>>> sandbox
     // ára twitter y para instagram
     result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
   } else if (paragraph.includes('https://www.facebook.com/plugins')) {
@@ -65,8 +70,11 @@ const ParagraphshWithAdds = ({
   let countWords = 0
   let IndexAdd = 0
   let resultParagraph = ''
+<<<<<<< HEAD
   // let flagFirstAdd = true
   // let flagNextFirstAdd = false
+=======
+>>>>>>> sandbox
 
   paragraphsNews.forEach(paragraphItem => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
@@ -85,7 +93,11 @@ const ParagraphshWithAdds = ({
       if (countWords >= firstAdd) {
         countWords = 0
 
+<<<<<<< HEAD
         paragraphwithAdd = `${buildParagraph(originalParagraph)} ${
+=======
+        paragraphwithAdd = `${buildParagraph(paragraphOriginal)} ${
+>>>>>>> sandbox
           arrayadvertising[IndexAdd]
             ? buildIframeAdvertising(arrayadvertising[IndexAdd])
             : ''

@@ -12,6 +12,7 @@ const Content = styled.div`
 export const Button = styled(ButtonComponent)`
   background-color: #ffebdd;
   padding: 0 15px;
+  box-sizing: border-box;
   text-decoration: none;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.3);
   display: flex;

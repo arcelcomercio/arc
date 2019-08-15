@@ -1,11 +1,7 @@
 import StoryData from './story-data'
 
 class FeaturedStoryFormatter {
-  constructor({
-    deployment,
-    contextPath = '',
-    arcSite = ''
-  }) {
+  constructor({ deployment, contextPath = '', arcSite = '' }) {
     this.contextPath = contextPath
     this.arcSite = arcSite
     this.schema = `{ 
@@ -77,6 +73,7 @@ class FeaturedStoryFormatter {
       }
       website_url
       publish_date
+      display_date
     }`
     this.initialState = {
       category: {
@@ -136,11 +133,16 @@ class FeaturedStoryFormatter {
 
     newState.author.name = this.storyDataInstace.author
     newState.author.url = this.storyDataInstace.authorLink
-    newState.multimediaLandscapeL = imgField || this.storyDataInstace.multimediaLandscapeL
-    newState.multimediaLandscapeMD = imgField || this.storyDataInstace.multimediaLandscapeMD
-    newState.multimediaPortraitMD = imgField || this.storyDataInstace.multimediaPortraitMD
-    newState.multimediaSquareS = imgField || this.storyDataInstace.multimediaSquareS
-    newState.multimediaLazyDefault = imgField || this.storyDataInstace.multimediaLazyDefault
+    newState.multimediaLandscapeL =
+      imgField || this.storyDataInstace.multimediaLandscapeL
+    newState.multimediaLandscapeMD =
+      imgField || this.storyDataInstace.multimediaLandscapeMD
+    newState.multimediaPortraitMD =
+      imgField || this.storyDataInstace.multimediaPortraitMD
+    newState.multimediaSquareS =
+      imgField || this.storyDataInstace.multimediaSquareS
+    newState.multimediaLazyDefault =
+      imgField || this.storyDataInstace.multimediaLazyDefault
     newState.multimediaType = this.storyDataInstace.multimediaType
 
     return newState

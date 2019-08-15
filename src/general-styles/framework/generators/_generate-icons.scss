@@ -30,6 +30,7 @@ $map-icons: (img: $img,
   twitter-circle: $twitter-circle,
   whatsapp: $whatsapp,
   loading: $loading,
+  share: $share,
 ) !default;
 
 @mixin generate-icons() {
