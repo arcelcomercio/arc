@@ -5,10 +5,10 @@ import Thanks from './_children/thanks'
 import ClientOnly from '../_children/client-only'
 import Loading from '../_children/loading'
 import { devices } from '../_dependencies/devices'
-import getService from '../_dependencies/services'
+import getDomain from '../_dependencies/domains'
 import * as S from './styled'
 
-const url = getService('ORIGIN_SUBSCRIPTION_CORP_API')
+const url = getDomain('ORIGIN_SUBSCRIPTION_CORP_API')
 
 const PaywallContactUs = props => {
   const [showThanks, setShowThanks] = useState(false)
