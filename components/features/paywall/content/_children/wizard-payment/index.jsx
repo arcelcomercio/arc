@@ -11,6 +11,7 @@ import { addPayU } from '../../../_dependencies/payu'
 import Beforeunload from '../before-unload'
 import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
+import { parseQueryString } from '../../../../../utilities/helpers'
 
 const isProd = ENVIRONMENT === 'elcomercio'
 const MESSAGE = {
@@ -141,7 +142,11 @@ function WizardPayment(props) {
 
             const expiryMonth = expiryDate.split('/')[0]
             const expiryYear = expiryDate.split('/')[1]
-            const nameCard = isProd ? ownerName : 'APPROVED'
+
+            const qs = parseQueryString(window.location.search)
+            const forSandbox = qs.qa ? firstName : 'APPROVED'
+
+            const nameCard = isProd ? ownerName : forSandbox
 
             return addPayU(siteProperties)
               .then(payU => {
