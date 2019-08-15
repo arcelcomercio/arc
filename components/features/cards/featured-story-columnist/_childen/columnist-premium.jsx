@@ -12,19 +12,22 @@ const classes = {
 
 const ColumnistPremium = props => {
   const {
+    lazyImage,
     author,
     authorLink,
     authorImage,
     subTitle,
     websiteLink,
     isPremium,
+    isAdmin,
   } = props
   return (
     <div className={classes.columnistPremium}>
       <img
         alt={`Foto de perfil de ${author}`}
-        className={classes.profile}
-        src={authorImage}
+        className={`${isAdmin ? '' : 'lazy'} ${classes.profile}`}
+        src={isAdmin ? authorImage : lazyImage}
+        data-src={authorImage}
       />
       <h4 className={classes.name}>
         <a href={authorLink}>{author}</a>
