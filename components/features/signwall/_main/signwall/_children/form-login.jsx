@@ -253,6 +253,7 @@ class FormLogin extends Component {
         `Web_Sign_Wall_${typePopUp}`,
         `web_sw${typePopUp[0]}_login_success_ingresar`
       )
+      // esta pendiente el taggeo de relogin 
     }
   }
 
@@ -455,7 +456,7 @@ class FormLogin extends Component {
                       this.handleLoginClick(e)
                       Taggeo(
                         `Web_Sign_Wall_${typePopUp}`,
-                        `sw${typePopUp[0]}_open_login_boton_ingresar`
+                        `web_sw${typePopUp[0]}_open_login_boton_ingresar`
                       )
                     }}
                     type="button"

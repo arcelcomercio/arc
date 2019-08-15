@@ -53,7 +53,7 @@ class SignWallRelogin extends Component {
         <FormRegister
           closePopup={closePopup}
           typePopUp="relogemail"
-          typeForm="register"
+          typeForm="registro"
           brandCurrent={brandModal}
         />
       ),

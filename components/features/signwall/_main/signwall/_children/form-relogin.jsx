@@ -14,6 +14,7 @@ import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
 import FormValid from '../../utils/form-valid'
+import Taggeo from '../../utils/taggeo'
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
@@ -75,11 +76,18 @@ class FormReLogin extends Component {
           this.setState({ sending: true })
           this.handleGetProfile()
 
-          window.dataLayer.push({
-            event: 'login_success',
-            eventCategory: `Web_Sign_Wall_Relog_Email`,
-            eventAction: `web_relog_email_login_success_ingresar`,
-          })
+          if (ENV.ENVIRONMENT === 'elcomercio') {
+            window.dataLayer.push({
+              event: 'login_success',
+              eventCategory: `Web_Sign_Wall_Relog_Email`,
+              eventAction: `web_relog_email_login_success_ingresar`,
+            })
+          } else {
+            Taggeo(
+              `Web_Sign_Wall_${typePopUp}`,
+              `web_sw${typePopUp[0]}_email_login_success_ingresar`
+            )
+          }
         })
         .catch(errLogin => {
           let messageES = ''
@@ -252,18 +260,32 @@ class FormReLogin extends Component {
   taggeoSuccess = () => {
     const { typePopUp } = this.props
 
-    window.dataLayer.push({
-      event:
-        typePopUp === 'relogin' ? 'relogin_success' : 'relogin_email_success',
-    })
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      window.dataLayer.push({
+        event:
+          typePopUp === 'relogin' ? 'relogin_success' : 'relogin_email_success',
+      })
+    } else {
+      Taggeo(
+        `Web_Sign_Wall_${typePopUp}`,
+        `web_sw${typePopUp[0]}_email_login_success`
+      )
+    }
   }
 
   taggeoError = () => {
     const { typePopUp } = this.props
-
-    window.dataLayer.push({
-      event: typePopUp === 'relogin' ? 'relogin_error' : 'relogin_email_error',
-    })
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      window.dataLayer.push({
+        event:
+          typePopUp === 'relogin' ? 'relogin_error' : 'relogin_email_error',
+      })
+    } else {
+      Taggeo(
+        `Web_Sign_Wall_${typePopUp}`,
+        `web_sw${typePopUp[0]}_email_login_error`
+      )
+    }
   }
 
   render = () => {
@@ -381,7 +403,13 @@ class FormReLogin extends Component {
                     <p className="form-grid__pass">
                       <button
                         id="link-recuperar-pass"
-                        onClick={() => value.changeTemplate('forgot')}
+                        onClick={() => {
+                          Taggeo(
+                            `Web_Sign_Wall_${typePopUp}`,
+                            `web_sw${typePopUp[0]}_contrasena_link_olvide`
+                          )
+                          value.changeTemplate('forgot')
+                        }}
                         type="button"
                         className="link-gray">
                         Olvidé mi contraseña
@@ -399,6 +427,12 @@ class FormReLogin extends Component {
                       disabled={!sending}
                       // eslint-disable-next-line jsx-a11y/tabindex-no-positive
                       tabIndex="3"
+                      onClick={() =>
+                        Taggeo(
+                          `Web_Sign_Wall_${typePopUp}`,
+                          `web_sw${typePopUp[0]}_email_login_boton`
+                        )
+                      }
                     />
                   </div>
                 </div>
@@ -427,6 +461,10 @@ class FormReLogin extends Component {
                   <button
                     type="button"
                     onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typePopUp}`,
+                        `web_sw${typePopUp[0]}_login_boton_registrate`
+                      )
                       value.changeTemplate('register')
                     }}
                     id="login_boton_registrate"

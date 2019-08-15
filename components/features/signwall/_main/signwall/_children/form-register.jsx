@@ -523,7 +523,7 @@ class FormRegister extends Component {
                       onClick={() => {
                         Taggeo(
                           `Web_Sign_Wall_${typePopUp}`,
-                          `sw${typePopUp[0]}_registro_continuarnavegando`
+                          `web_sw${typePopUp[0]}_registro_continuar_navegando`
                         )
                         if (reloadRegister) {
                           window.location.reload()

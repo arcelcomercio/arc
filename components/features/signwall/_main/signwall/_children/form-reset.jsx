@@ -246,9 +246,9 @@ class FormResetPass extends Component {
                   id="resetpass_boton_aceptar"
                   className="btn btn--blue btn-bg"
                   value="Aceptar"
-                  onClick={
+                  onClick={() => {
                     Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_boton')
-                  }
+                  }}
                 />
               </div>
             </div>
