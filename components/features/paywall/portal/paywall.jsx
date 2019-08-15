@@ -1,6 +1,7 @@
 import React from 'react'
 import Consumer from 'fusion:consumer'
 import { devices } from '../_dependencies/devices'
+import getDomain from '../_dependencies/domains'
 import Card from './_children/card'
 import './paywall.css'
 
@@ -85,11 +86,7 @@ class Portal extends React.PureComponent {
 
   render() {
     const { background, serviceData = [] } = this.state
-    const {
-      siteProperties: {
-        paywall: { corporate },
-      },
-    } = this.props
+
     return (
       <div className="portal" style={{ background }}>
         <div className="portal__content">
@@ -98,7 +95,7 @@ class Portal extends React.PureComponent {
           ))}
         </div>
         <div className="portal__footer">
-          <a href={corporate} className="link link--corporate">
+          <a href={getDomain('URL_CORPORATE')} className="link link--corporate">
             SUSCRIPCIONES CORPORATIVAS
           </a>
         </div>

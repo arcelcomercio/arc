@@ -1,5 +1,5 @@
 import addScriptAsync from '../../../utilities/script-async'
-import getDomain from './services'
+import getDomain from './domains'
 
 
 
