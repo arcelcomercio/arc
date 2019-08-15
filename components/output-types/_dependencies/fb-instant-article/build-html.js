@@ -32,19 +32,18 @@ const buildParagraph = paragraph => {
 
 const ParagraphshWithAdds = ({
   paragraphsNews = [],
-  numwords = 250,
+  firstAdd = 50,
+  nextAdds = 250,
   arrayadvertising = [],
 }) => {
   const newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
   let resultParagraph = ''
-  // let flagFirstAdd = true
-  // let flagNextFirstAdd = false
 
   paragraphsNews.forEach(paragraphItem => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
-    // el primer script de publicidad se inserta despues del segundo parrafo
+    // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
 
     let paragraphwithAdd = ''
     const paragraphOriginal = paragraph
@@ -52,11 +51,11 @@ const ParagraphshWithAdds = ({
     const arrayWords = paragraph.split(' ')
 
     if (IndexAdd === 0) {
-      if (arrayWords.length <= 50) {
+      if (arrayWords.length <= firstAdd) {
         countWords += arrayWords.length
       }
 
-      if (countWords >= 50) {
+      if (countWords >= firstAdd) {
         countWords = 0
 
         paragraphwithAdd = `${buildParagraph(paragraphOriginal)} ${
@@ -71,13 +70,13 @@ const ParagraphshWithAdds = ({
 
       newsWithAdd.push(`${paragraphwithAdd}`)
     } else {
-      // a partir del segundo parrafo se inserta cada 250 palabras (numwords)
+      // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
 
-      if (arrayWords.length <= numwords) {
+      if (arrayWords.length <= nextAdds) {
         countWords += arrayWords.length
       }
 
-      if (countWords >= numwords) {
+      if (countWords >= nextAdds) {
         countWords = 0
         paragraphwithAdd = `${buildParagraph(paragraphOriginal)} ${
           arrayadvertising[IndexAdd]
@@ -110,11 +109,13 @@ const BuildHtml = BuildHtmlProps => {
     listUrlAdvertisings,
   } = BuildHtmlProps
 
-  const numwords = 250
+  const firstAdd = 50
+  const nextAdds = 250
 
   const paramsBuildParagraph = {
     paragraphsNews,
-    numwords,
+    firstAdd,
+    nextAdds,
     arrayadvertising: listUrlAdvertisings,
   }
 
