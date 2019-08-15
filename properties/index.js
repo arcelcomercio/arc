@@ -151,9 +151,5 @@ export default {
       url: 'https://comercioxpress.com/',
     },
   ],
-<<<<<<< HEAD
   activeSignwall: false,
-=======
-  activeSignwall: false
->>>>>>> sprint14-hu-9022
 }
