@@ -1,5 +1,6 @@
 export default {
   linkTabloide: 'https://peruquiosco.pe/',
+  newsletterBrand: '',
   assets: {
     nav: {
       logo: 'logo.png',
@@ -150,5 +151,9 @@ export default {
       url: 'https://comercioxpress.com/',
     },
   ],
+<<<<<<< HEAD
   activeSignwall: false,
+=======
+  activeSignwall: false
+>>>>>>> sprint14-hu-9022
 }
