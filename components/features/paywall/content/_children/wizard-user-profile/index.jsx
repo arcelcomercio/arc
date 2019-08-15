@@ -35,12 +35,26 @@ function WizardUserProfile(props) {
   const Sales = addSales()
 
   function onSubmitHandler(values, { setSubmitting }) {
-    const { email, phone, billingAddress } = values
+    const {
+      email,
+      phone,
+      billingAddress,
+      firstName,
+      lastName,
+      secondLastName,
+    } = values
     setError(false)
     setLoading(true)
     Sales.then(sales =>
       sales
-        .createOrder(email, phone, billingAddress)
+        .createOrder(
+          email,
+          phone,
+          billingAddress,
+          firstName,
+          lastName,
+          secondLastName
+        )
         .then(res => {
           // TODO: validar respuesta y mostrar errores de API
           setLoading(false)

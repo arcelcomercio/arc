@@ -73,7 +73,7 @@ const pattern = key => {
     })
   }
 
-  const requestUri = `/content/v4/search/published?sort=publish_date:desc&website=${website}&body=${JSON.stringify(
+  const requestUri = `/content/v4/search/published?sort=display_date:desc&website=${website}&body=${JSON.stringify(
     body
   )}&from=0&size=${size || 5}`
 

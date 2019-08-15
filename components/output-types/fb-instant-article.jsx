@@ -18,7 +18,7 @@ const FbInstantOutputType = ({
     siteDomain = '',
     idGoogleAnalitics = '',
     fbArticleStyle = '',
-    listUrlAdvertisings=[]
+    listUrlAdvertisings = [],
   } = siteProperties
 
   const stories = contentElements
@@ -48,16 +48,25 @@ const FbInstantOutputType = ({
     listUrlAdvertisings,
   }
 
-  let chanelSctring = Channel(chanelProps)
-  const itemsString = ListItemNews(stories, buildProps)
+  let result = null
+  try {
+    let chanelSctring = Channel(chanelProps)
+    const itemsString = ListItemNews(stories, buildProps)
 
-  chanelSctring = chanelSctring.replace('@ListItems', itemsString)
+    chanelSctring = chanelSctring.replace('@ListItems', itemsString)
 
-  return (
-    <NewElement nameElement="rss" propsNewElement={propsXml}>
-      <channel dangerouslySetInnerHTML={{ __html: chanelSctring }} />
-    </NewElement>
-  )
+    result = (
+      <NewElement nameElement="rss" propsNewElement={propsXml}>
+        <channel dangerouslySetInnerHTML={{ __html: chanelSctring }} />
+      </NewElement>
+    )
+  } catch (ex) {
+    
+    console.log(ex)
+    result = null
+  }
+
+  return result
 }
 
 FbInstantOutputType.contentType = 'text/xml'
