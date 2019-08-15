@@ -11,6 +11,7 @@ class CardFeaturedStoryManual extends PureComponent {
     super(props)
     const {
       arcSite,
+      isAdmin,
       deployment,
       contextPath,
       customFields: {
@@ -23,6 +24,7 @@ class CardFeaturedStoryManual extends PureComponent {
         path = '',
       } = {},
     } = this.props
+
 
     this.storyFormatter = new StoryFormatter({
       deployment,
@@ -59,6 +61,54 @@ class CardFeaturedStoryManual extends PureComponent {
 
     const currentNotePath =
       scheduledNotes.length > 0 ? scheduledNotes[0].path : path
+
+    const validateScheduledNotes = () => {
+      const filter = '{ publish_date }'
+      this.fetchContent({
+        nota1: {
+          source,
+          query: {
+            website_url: note1,
+            published: 'false'
+          },
+          filter
+        }
+      })
+
+      this.fetchContent({
+        nota2: {
+          source,
+          query: {
+            website_url: note2,
+            published: 'false'
+          },
+          filter
+        }
+      })
+
+      this.fetchContent({
+        nota3: {
+          source,
+          query: {
+            website_url: note3,
+            published: 'false'
+          },
+          filter
+        }
+      })
+      const { nota1 = {}, nota2 = {}, nota3 = {} } = this.state
+      const dateNote1 = nota1.publish_date && new Date(nota1.publish_date)
+      const dateNote2 = nota2.publish_date && new Date(nota2.publish_date)
+      const dateNote3 = nota3.publish_date && new Date(nota3.publish_date)
+
+      console.log(note1 !== '' && date1 < dateNote1, 'NOTA-1')
+      console.log(note2 !== '' && date2 < dateNote2, 'NOTA-2')
+      console.log(note3 !== '' && date3 < dateNote3, 'NOTA-3')
+    } 
+    
+    if(isAdmin){
+      validateScheduledNotes()
+    }
 
     this.fetchContent({
       data: {
@@ -150,6 +200,7 @@ class CardFeaturedStoryManual extends PureComponent {
       arcSite,
       multimediaType,
       isAdmin,
+      hasError: true
     }
     return <FeaturedStory {...params} />
   }
@@ -160,6 +211,6 @@ CardFeaturedStoryManual.propTypes = {
 }
 
 CardFeaturedStoryManual.label = 'Destaque por URL'
-CardFeaturedStoryManual.static = true
+// CardFeaturedStoryManual.static = true
 
 export default CardFeaturedStoryManual

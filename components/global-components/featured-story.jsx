@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 import Icon from './multimedia-icon'
+import Notify from './notify'
 
 const SIZE_ONE_COL = 'oneCol'
 const SIZE_TWO_COL = 'twoCol'
@@ -61,6 +62,7 @@ export default class FeaturedStory extends PureComponent {
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
       isAdmin,
+      hasError
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
@@ -181,6 +183,7 @@ export default class FeaturedStory extends PureComponent {
             <Icon type={multimediaType} iconClass={classes.icon} />
           </picture>
         </a>
+        { hasError &&  <Notify message="No concuerda la fecha de elipsis con la programada" />}
       </article>
     )
   }
