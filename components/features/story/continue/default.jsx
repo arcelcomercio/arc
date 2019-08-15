@@ -135,6 +135,9 @@ class StoryContinue extends PureComponent {
           ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
           : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
       )
+
+      const el = document.querySelector('.story-header__list')
+      el.classList.add('hidden')
     }
     // TODO: finnnn
     this.setAttributeProgress(progress, MIN_PROGRESS)
