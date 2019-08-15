@@ -38,7 +38,6 @@ const ListItemNews = (contentElements, buildProps) => {
       }
 
       const scriptAnaliticaProps = {
-        link: storydata.link,
         siteDomain,
         idGoogleAnalitics,
         name: siteDomain,
