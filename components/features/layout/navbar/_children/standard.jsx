@@ -59,8 +59,9 @@ const classes = {
   iconSignwallMobile: 'uppercase ',
   btnSignwallMobile:
     'nav__btn--login-m bg-secondary text-primary-color rounded',
-  listIcon: 'story-header__list flex justify-between',
+  listIcon: 'story-header__list flex justify-between  ',
   moreLink: 'story-content__more-link',
+
   item: 'story-header__item',
   link: 'story-header__link flex items-center justify-center text-gray-200',
   icon: 'story-header__icon',
