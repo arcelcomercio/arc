@@ -1,12 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Icon from '../../../../global-components/multimedia-icon'
-import { formatDateLocalTimeZone } from '../../../../utilities/helpers'
+import { formattedTime } from '../../../../utilities/helpers'
 import Modal from '../../../../global-components/video-modal'
 
 export default ({ date, multimedia, title, videoId }) => {
+  const formatDateLocalTimeZone = rawDate => {
+    const auxDate = new Date(rawDate)
+    const today = new Date()
+    if (
+      auxDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0] ===
+      today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+    ) {
+      return formattedTime(auxDate)
+    }
+    return `${auxDate.getUTCDate()}/${auxDate.getUTCMonth() +
+      1}/${auxDate.getUTCFullYear()}`
+  }
+
+  const validateNewStory = (rawDate, hours = 24) => {
+    const initDate = new Date(rawDate)
+    const timeStamp = Math.round(new Date().getTime() / 1000)
+    const timeStampYesterday = timeStamp - hours * 3600
+    return initDate >= new Date(timeStampYesterday * 1000).getTime()
+  }
+
+  const [clientDate, setClientDate] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const isNew = true
+
+  useEffect(() => {
+    if (date) {
+      setClientDate(formatDateLocalTimeZone(date))
+    }
+  })
+
   return (
     <div className="tv-separator__item m-10 w-full">
       <button
@@ -16,7 +43,7 @@ export default ({ date, multimedia, title, videoId }) => {
         <picture className="block w-full">
           <img className="w-full" src={multimedia} alt="" />
         </picture>
-        {isNew && (
+        {validateNewStory(date) && (
           <div className="tv-separator__tag-new font-bold uppercase text-white bg-primary position-absolute text-xs p-5 rounded-sm">
             Nuevo episodio
           </div>
@@ -34,7 +61,7 @@ export default ({ date, multimedia, title, videoId }) => {
         </button>
       </h2>
       <time className="block text-white text-md" dateTime={date}>
-        {formatDateLocalTimeZone(date)}
+        {clientDate}
       </time>
       {isModalOpen && (
         <Modal
