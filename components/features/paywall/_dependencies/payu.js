@@ -1,4 +1,4 @@
-import getDomain from './services'
+import getDomain from './domains'
 import addScriptAsync from '../../../utilities/script-async'
 
 const addPayU = () => {
