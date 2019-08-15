@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
@@ -8,20 +7,22 @@ import TvHeader from './_children/header'
 import Icon from '../../../global-components/multimedia-icon'
 import Modal from '../../../global-components/video-modal'
 
+import schemaFilter from './_dependencies/schema-filter'
+import customFields from './_dependencies/custom-fields'
+
 import StoryData from '../../../utilities/story-data'
 import { formattedTime } from '../../../utilities/helpers'
 
 const TvFeatured = props => {
   const { customFields: { section = '' } = {} } = props
+  const { arcSite, contextPath, deployment } = useFusionContext()
   const { content_elements: contentElements = [] } =
     useContent({
       source: 'story-feed-by-section-with-custom-presets',
       query: { section, stories_qty: 1, preset1: '1350x570' },
-      // filter: SchemaFilter(arcSite),
+      filter: schemaFilter,
     }) || {}
   const data = contentElements[0] || {}
-
-  const { arcSite, contextPath, deployment } = useFusionContext()
 
   const {
     title,
@@ -156,13 +157,7 @@ const TvFeatured = props => {
 }
 
 TvFeatured.propTypes = {
-  customFields: PropTypes.shape({
-    section: PropTypes.string.tag({
-      name: 'URL de la sección',
-      description:
-        'Si no se coloca la URL de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
-    }),
-  }),
+  customFields,
 }
 
 export default TvFeatured

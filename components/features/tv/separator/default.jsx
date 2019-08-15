@@ -1,8 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+
+import schemaFilter from './_dependencies/schema-filter'
+import customFields from './_dependencies/custom-fields'
 
 import TvSeparatorItem from './_children/separator-item'
 import StoryData from '../../../utilities/story-data'
@@ -14,13 +16,13 @@ const TvSeparator = props => {
     useContent({
       source: 'story-feed-by-section-with-custom-presets',
       query: { section, stories_qty: 6, preset1: '280x157' },
-      // filter: SchemaFilter(arcSite),
+      filter: schemaFilter,
     }) || {}
   const dataStoryInstance = new StoryData({
     arcSite,
     contextPath,
     deployment,
-    defaultImgSize: 'lg',
+    defaultImgSize: 'md',
   })
 
   const getMultimedia = ({ data, multimedia, multimediaType }) => {
@@ -109,13 +111,7 @@ const TvSeparator = props => {
 }
 
 TvSeparator.propTypes = {
-  customFields: PropTypes.shape({
-    section: PropTypes.string.tag({
-      name: 'URL de la sección',
-      description:
-        'Si no se coloca la URL de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
-    }),
-  }),
+  customFields,
 }
 
 export default TvSeparator
