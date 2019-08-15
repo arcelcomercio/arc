@@ -7,6 +7,7 @@ const context = isProd ? '' : CONTEXT_PATH;
 const domains = {
   URL_CORPORATE : () => `${context}/suscripcionesdigitales/empresa/${queryString}`,
   URL_FAQ : () => `${context}/suscripcionesdigitales/faq/${queryString}`,
+  VALIDATE_SUSCRIPTOR : (ENV, documentType, documentNumber) => `${context}/suscripcionesdigitales/${documentType}/${documentNumber}${queryString}`,
   PWA_DOMAIN : ENV => {
     const _env_ = ENV === 'elcomercio' ? '' : '.dev'
     return `https://pwa${_env_}.gestion.pe`;
@@ -30,8 +31,9 @@ const domains = {
     return `http://devpaywall.comerciosuscripciones.pe/api/subs-corporativa/`
   },
 
-  get: function getService(service){
-        return this[service](ENVIRONMENT)
+  get: function getService(...params){
+      const [ service, ...rest ] = params;
+        return this[service](ENVIRONMENT, ...rest)
     }
   }
 
