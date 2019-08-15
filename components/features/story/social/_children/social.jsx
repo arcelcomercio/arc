@@ -1,5 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+import rawHtml from 'react-render-html'
+
 import {
   popUpWindow,
   socialMediaUrlShareList,
@@ -110,7 +112,7 @@ class StoryHeaderChildSocial extends PureComponent {
       <>
         <div className={classes.news}>
           <div className={classes.category}>
-            {(editorNote && editorNote) || name}
+            {(editorNote && rawHtml(editorNote)) || name}
           </div>
           <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (
