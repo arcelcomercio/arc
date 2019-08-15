@@ -25,7 +25,6 @@ class CardFeaturedStoryManual extends PureComponent {
       } = {},
     } = this.props
 
-
     this.storyFormatter = new StoryFormatter({
       deployment,
       contextPath,
@@ -69,10 +68,10 @@ class CardFeaturedStoryManual extends PureComponent {
           source,
           query: {
             website_url: note1,
-            published: 'false'
+            published: 'false',
           },
-          filter
-        }
+          filter,
+        },
       })
 
       this.fetchContent({
@@ -80,10 +79,10 @@ class CardFeaturedStoryManual extends PureComponent {
           source,
           query: {
             website_url: note2,
-            published: 'false'
+            published: 'false',
           },
-          filter
-        }
+          filter,
+        },
       })
 
       this.fetchContent({
@@ -91,22 +90,33 @@ class CardFeaturedStoryManual extends PureComponent {
           source,
           query: {
             website_url: note3,
-            published: 'false'
+            published: 'false',
           },
-          filter
-        }
+          filter,
+        },
       })
       const { nota1 = {}, nota2 = {}, nota3 = {} } = this.state
       const dateNote1 = nota1.publish_date && new Date(nota1.publish_date)
       const dateNote2 = nota2.publish_date && new Date(nota2.publish_date)
       const dateNote3 = nota3.publish_date && new Date(nota3.publish_date)
 
-      console.log(note1 !== '' && date1 < dateNote1, 'NOTA-1')
-      console.log(note2 !== '' && date2 < dateNote2, 'NOTA-2')
-      console.log(note3 !== '' && date3 < dateNote3, 'NOTA-3')
-    } 
-    
-    if(isAdmin){
+      const arrError = []
+      if (note1 !== '' && date1 < dateNote1) {
+        arrError.push('Nota 1')
+      }
+      if (note2 !== '' && date2 < dateNote2) {
+        arrError.push('Nota 2')
+      }
+      if (note3 !== '' && date3 < dateNote3) {
+        arrError.push('Nota 3')
+      }
+
+      this.state = {
+        errorList: arrError,
+      }
+    }
+
+    if (isAdmin) {
       validateScheduledNotes()
     }
 
@@ -155,7 +165,7 @@ class CardFeaturedStoryManual extends PureComponent {
       } = {},
     } = this.props
 
-    const { data = {}, defaultData = {} } = this.state || {}
+    const { errorList, data = {}, defaultData = {} } = this.state || {}
 
     // Si la data no existe usar el estado defaultData
     const existingData = data._id ? data : defaultData
@@ -200,7 +210,7 @@ class CardFeaturedStoryManual extends PureComponent {
       arcSite,
       multimediaType,
       isAdmin,
-      hasError: true
+      errorList,
     }
     return <FeaturedStory {...params} />
   }
@@ -211,6 +221,6 @@ CardFeaturedStoryManual.propTypes = {
 }
 
 CardFeaturedStoryManual.label = 'Destaque por URL'
-// CardFeaturedStoryManual.static = true
+CardFeaturedStoryManual.static = true
 
 export default CardFeaturedStoryManual

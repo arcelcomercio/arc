@@ -62,7 +62,7 @@ export default class FeaturedStory extends PureComponent {
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
       isAdmin,
-      hasError
+      errorList
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
@@ -124,6 +124,10 @@ export default class FeaturedStory extends PureComponent {
       return url
     }
 
+    const renderMessage = () => {
+      return `Nota Programada: Error en ${errorList.join(', ')}, la fecha programada.`
+    }
+
     return (
       <article
         className={`${
@@ -183,7 +187,7 @@ export default class FeaturedStory extends PureComponent {
             <Icon type={multimediaType} iconClass={classes.icon} />
           </picture>
         </a>
-        { hasError &&  <Notify message="No concuerda la fecha de elipsis con la programada" />}
+        { isAdmin && errorList.length > 0 &&  <Notify message={renderMessage()} />}
       </article>
     )
   }
