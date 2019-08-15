@@ -36,6 +36,7 @@ const AmpOutputType = ({
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
   } = globalContent || {}
+
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
 
   const metaSiteData = {
@@ -55,9 +56,7 @@ const AmpOutputType = ({
     !metaValue('title').match(/content/) &&
     metaValue('title')
 
-  const title = isStory
-    ? `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
-    : `${seoTitle} | ${siteProperties.siteName}`
+  const title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
 
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
