@@ -8,6 +8,9 @@ import {
 } from '../../utilities/helpers'
 
 // TODO: aplicar context para usar solo customFields
+const classes = {
+  htmlContainer: 'htmlContainer overflow-x-auto overflow-y-hidden',
+}
 
 @Consumer
 class BasicHtml extends PureComponent {
@@ -39,7 +42,7 @@ class BasicHtml extends PureComponent {
     const addEmptyBackground = () => (!freeHtml && isAdmin ? 'bg-gray-200' : '')
 
     return (
-      <>
+      <div className={classes.htmlContainer}>
         {freeHtml && outputType !== 'amp' && (
           <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
         )}
@@ -49,7 +52,7 @@ class BasicHtml extends PureComponent {
             className={addEmptyBackground()}
           />
         )}
-      </>
+      </div>
     )
   }
 }

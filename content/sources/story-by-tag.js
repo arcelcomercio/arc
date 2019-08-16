@@ -23,7 +23,7 @@ const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
   const { name, feedOffset } = key
 
-  const slugSearch = name ? `AND+taxonomy.tags.slug:${name}+` : ''
+  const slugSearch = name ? `AND+taxonomy.tags.slug:${name.toLowerCase()}+` : ''
 
   const q = `canonical_website:${website}+${slugSearch}AND+type:story+AND+revision.published:true`
 
@@ -32,6 +32,8 @@ const pattern = (key = {}) => {
 
   return requestUri
 }
+
+// TODO: Buscar de devolver el tag_name de alguna manera.
 
 const resolve = key => pattern(key)
 

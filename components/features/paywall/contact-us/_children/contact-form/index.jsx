@@ -70,9 +70,9 @@ export default props => {
                   label="Tipo de subscripción"
                   touched={values.type_subscription}>
                   <option value="">Tipo de consulta de suscripción</option>
-                  <option value="1">tipo 1</option>
-                  <option value="2">tipo 2</option>
-                  <option value="3">tipo 3</option>
+                  <option value="1">Quiero una suscripción</option>
+                  <option value="2">Tengo una suscripción</option>
+                  <option value="3">Otros</option>
                 </Field>
               </S.WrapField>
               <S.WrapField>

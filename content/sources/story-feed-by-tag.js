@@ -50,7 +50,7 @@ const pattern = (key = {}) => {
 
   const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
     name
-  )}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}`
+  ).toLowerCase()}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}`
 
   return requestUri
 }
@@ -78,7 +78,9 @@ const transform = data => {
 
   if (tags.length === 0) return dataStories
 
-  const realTag = tags.find(tag => decodeURIComponent(name) === tag.slug)
+  const realTag = tags.find(
+    tag => decodeURIComponent(name).toLowerCase() === tag.slug
+  )
   const tagName = {
     tag_name: (realTag && realTag.text) || 'Tag',
   }
