@@ -13,6 +13,18 @@ export const appendScript = (code, position = 'body') => {
   return document.body.append(script)
 }
 
+export const formatAMPM = _date => {
+  const date = new Date(_date)
+  let hours = date.getHours()
+  let minutes = date.getMinutes()
+  const ampm = hours >= 12 ? 'pm' : 'am'
+  hours %= 12
+  hours = hours || 12 // the hour '0' should be '12'
+  minutes = minutes < 10 ? `0${minutes}` : minutes
+  const strTime = `${hours}:${minutes} ${ampm}`
+  return strTime
+}
+
 export const formatDate = date => {
   const actual = new Date()
   const day = actual.getDate()
@@ -441,7 +453,9 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
+    ConfigParams.OPTA_WIDGET
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
 }
 

@@ -19,7 +19,7 @@ export default ({
   return (
     <>
       <div className="tv-featured position-relative mb-40">
-        <TvHeader {...{ section: `${section}/`, menuSections }} />
+        <TvHeader {...{ section, menuSections }} />
 
         <div className="tv-featured__body mx-auto">
           <button
