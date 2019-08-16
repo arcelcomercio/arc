@@ -23,7 +23,7 @@ const WizardConfirmation = props => {
     memo: {
       order: { orderNumber },
       profile: { firstName, lastName, secondLastName, email },
-      plan: { name: plan, sku, amount, billingFrequency, printed },
+      plan: { title: plan, sku, amount, billingFrequency, printed },
       referer: ref,
       payment: { total: paidTotal, subscriptionIDs },
     },
@@ -86,7 +86,7 @@ const WizardConfirmation = props => {
           </S.Subtitle>
           <S.CardSummary>
             <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
-            <Item label="PAQUETE: ">{plan.toUpperCase()}</Item>
+            <Item label="PAQUETE: ">{(plan || '').toUpperCase()}</Item>
             <Item label="NOMBRE: ">
               <S.Names>
                 {firstName} {lastName} {secondLastName}

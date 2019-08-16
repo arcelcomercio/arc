@@ -1,8 +1,11 @@
 import styled from 'styled-components'
 
+import _CheckImage from './check-img'
+
 export const Thanks = styled.div`
   width: 100%;
   height: auto;
+  min-height: 540px;
   max-width: 230px;
   margin: 0 auto;
   display: flex;
@@ -12,7 +15,7 @@ export const Thanks = styled.div`
   justify-content: center;
   align-items: center;
 `
-export const ThanksImg = styled.img`
+export const ThanksImg = styled(_CheckImage)`
   width: 26%;
   height: auto;
   background: white;

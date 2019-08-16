@@ -1,3 +1,5 @@
+import { isLogged } from "../../_dependencies/Identity";
+
 export default {
     isPWA(){
         return !!window.nativeConnection
@@ -18,9 +20,10 @@ export default {
         }
     },
     mount(callback){
-        if( !this.isPWA() ) return;
-        window.nativeConnection.postMessage('paywall_ready')
-        window.addEventListener('message', (e) => this._onMessage(e, callback))
+        if( this.isPWA() && !isLogged() ){
+            window.nativeConnection.postMessage('paywall_ready')
+            window.addEventListener('message', (e) => this._onMessage(e, callback))
+        }
     },
     finalize(){
         if( !this.isPWA() ) return;
