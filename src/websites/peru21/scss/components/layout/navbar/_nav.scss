@@ -29,6 +29,9 @@
     color: $color-primary;
     font-family: $primary-font;
   }
+  &__input-search {
+    font-family: $primary-font;
+  }
   /*   Estilos para nav loader en notas */
   &__loader-bar {
     background-color: $color-primary;
