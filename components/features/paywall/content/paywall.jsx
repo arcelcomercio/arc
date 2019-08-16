@@ -9,9 +9,9 @@ import * as S from './styled'
 import { AddIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
-
 import Loading from '../_children/loading'
 import PWA from './_dependencies/seed-pwa'
+import Sentry from '../_dependencies/sentry'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
@@ -48,6 +48,7 @@ class Content extends React.Component {
   }
 
   componentDidMount() {
+    console.log(Sentry)
     const f = () => {
       userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
         this.setState({ profile })
