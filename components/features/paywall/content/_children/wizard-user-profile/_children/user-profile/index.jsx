@@ -38,7 +38,6 @@ const UserProfile = ({
           {
             ...values,
             phone: values.phone.replace(/\D/g, ''),
-            // TODO: Crear un servicio desde el que se pueda obtener billing address
             billingAddress: {
               country: 'PE',
               line2: `${values.documentType}_${values.documentNumber}`,
@@ -59,8 +58,7 @@ const UserProfile = ({
                 <Field
                   name="firstName"
                   label="Nombres"
-                  pipe={personNamePipe}
-                  mask={Masks.PERSON_NAME}
+                  {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -68,8 +66,7 @@ const UserProfile = ({
                 <Field
                   name="lastName"
                   label="Apellido Paterno"
-                  pipe={personNamePipe}
-                  mask={Masks.PERSON_NAME}
+                  {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -77,8 +74,7 @@ const UserProfile = ({
                 <Field
                   name="secondLastName"
                   label="Apellido Materno"
-                  pipe={personNamePipe}
-                  mask={Masks.PERSON_NAME}
+                  {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>

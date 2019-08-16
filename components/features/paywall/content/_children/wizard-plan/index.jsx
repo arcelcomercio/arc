@@ -50,9 +50,10 @@ function WizardPlan(props) {
             location: { search },
           } = window
           const qs = parseQueryString(search)
+          const { title } = summary
           onBeforeNextStep(
             {
-              plan: { printed, ...plan },
+              plan: { printed, ...plan, title },
               referer: qs.ref || 'organico',
             },
             props
