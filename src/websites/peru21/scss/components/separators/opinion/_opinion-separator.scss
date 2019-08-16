@@ -22,9 +22,9 @@
       height: 84px;
     }
     &--item-twoline {
-      font-family: $secondary-font;
       -webkit-line-clamp: 3;
       max-height: 58px;
+
       display: -webkit-box;
       -webkit-box-orient: vertical;
       font-size: 16px;

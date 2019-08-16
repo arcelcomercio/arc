@@ -6,6 +6,10 @@
     .breaking-news__btn-icon {
       color: $color-white;
       font-family: $primary-font;
+      font-size: 15px;
+      @media (--desktop) {
+        font-size: 22px;
+      }
     }
   }
 }

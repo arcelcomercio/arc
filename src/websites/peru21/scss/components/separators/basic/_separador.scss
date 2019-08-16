@@ -1,6 +1,6 @@
 .separator {
   border-top-color: $color-primary;
-  background-color: $color-primary;
+  background-color: transparent;
   padding-left: 0;
   padding-right: 0;
   &__body {
@@ -18,7 +18,10 @@
   }
   &__item {
     @media (--tablet) {
-      flex-basis: 24.5%;
+      flex-basis: 24.2%;
+    }
+    @media (--desktop) {
+      flex-basis: 23.5%;
     }
     &::before {
       background: linear-gradient(
@@ -29,7 +32,9 @@
       );
     }
   }
-
+  &__header-title {
+    background-color: $color-primary;
+  }
   &__header-link {
     color: $color-white;
     padding-left: 20px;
