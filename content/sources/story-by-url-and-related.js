@@ -101,14 +101,12 @@ const transform = dataStory => {
 
   const encodedBody = queryStoryRecent(section, website)
   return request({
-    uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=6&from=0&sort=publish_date:desc`,
+    uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=6&from=0&sort=display_date:desc`,
     ...options,
   }).then(recientesResp => {
     dataStory.recent_stories = recientesResp
     return request({
-      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${
-        dataStory._id
-      }&website=${website}&published=true`,
+      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${dataStory._id}&website=${website}&published=true`,
       ...options,
     }).then(idsResp => {
       dataStory.related_content = idsResp

@@ -38,9 +38,9 @@ const UserProfile = ({
           {
             ...values,
             phone: values.phone.replace(/\D/g, ''),
-            // TODO: Crear un servicio desde el que se pueda obtener billing address
             billingAddress: {
               country: 'PE',
+              line2: `${values.documentType}_${values.documentNumber}`,
             },
           },
           actions
@@ -58,8 +58,7 @@ const UserProfile = ({
                 <Field
                   name="firstName"
                   label="Nombres"
-                  pipe={personNamePipe}
-                  mask={Masks.PERSON_NAME}
+                  {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -67,8 +66,7 @@ const UserProfile = ({
                 <Field
                   name="lastName"
                   label="Apellido Paterno"
-                  pipe={personNamePipe}
-                  mask={Masks.PERSON_NAME}
+                  {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -76,15 +74,13 @@ const UserProfile = ({
                 <Field
                   name="secondLastName"
                   label="Apellido Materno"
-                  pipe={personNamePipe}
-                  mask={Masks.PERSON_NAME}
+                  {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
               </S.WrapField>
               <S.WrapField>
                 <Field
                   name="documentNumber"
-                  inputmode="numeric"
                   label="Número de documento"
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
@@ -116,7 +112,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="phone"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   pipe={trim()}
                   mask={Masks.PHONE}
                   label="Número de Celular"
@@ -126,7 +122,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="email"
-                  inputmode="email"
+                  inputMode="email"
                   label="Correo Electrónico"
                   component={InputFormik}
                 />

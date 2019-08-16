@@ -66,6 +66,7 @@ const ParagraphshWithAdds = ({
   let IndexAdd = 0
   let resultParagraph = ''
 
+  
   paragraphsNews.forEach(paragraphItem => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
     // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
@@ -146,41 +147,45 @@ const BuildHtml = BuildHtmlProps => {
     nextAdds,
     arrayadvertising: listUrlAdvertisings,
   }
-
-  const element = `
-          <html lang="es" prefix="op: http://media.facebook.com/op#">
-          <head>
-              <meta charset="utf-8" />
-              <meta property="op:markup_version" content="v1.0" />
-              <meta property="fb:article_style" content="${fbArticleStyle}" />
-          </head>
-          <body>
-            <article>
-              <figure class="op-tracker">
-                <iframe>
-                  <script>${AnalyticsScript(scriptAnaliticaProps)}</script>
-                  <script type="text/javascript">${ScriptHeader(
-                    propsScriptHeader
-                  )}</script>
-                  <script defer src="//static.chartbeat.com/js/chartbeat_fia.js"></script>
-                  <script>${ScriptElement()}</script>
-                </iframe>
-              </figure>
-            
-              <header>
-                <h1>${title}</h1>
-                <h2>${subTitle}</h2>
-              </header>
-              <figure>
-                  <img src="${multimedia}" />
-                  <figcaption>${title}</figcaption>
-              </figure>
-              <p>${author}</p>
-              ${ParagraphshWithAdds(paramsBuildParagraph)}
-            </article>
-          </body>
-        </html>`
-  return element
+  try {
+    const element = `
+  <html lang="es" prefix="op: http://media.facebook.com/op#">
+  <head>
+      <meta charset="utf-8" />
+      <meta property="op:markup_version" content="v1.0" />
+      <meta property="fb:article_style" content="${fbArticleStyle}" />
+  </head>
+  <body>
+    <article>
+      <figure class="op-tracker">
+        <iframe>
+          <script>${AnalyticsScript(scriptAnaliticaProps)}</script>
+          <script type="text/javascript">${ScriptHeader(
+            propsScriptHeader
+          )}</script>
+          <script defer src="//static.chartbeat.com/js/chartbeat_fia.js"></script>
+          <script>${ScriptElement()}</script>
+        </iframe>
+      </figure>
+    
+      <header>
+        <h1>${title}</h1>
+        <h2>${subTitle}</h2>
+      </header>
+      <figure>
+          <img src="${multimedia}" />
+          <figcaption>${title}</figcaption>
+      </figure>
+      <p>${author}</p>
+      ${ParagraphshWithAdds(paramsBuildParagraph)}
+    </article>
+  </body>
+</html>`
+    return element
+  } catch (ex) {
+    console.log(ex)
+    return null
+  }
 }
 
 export default BuildHtml

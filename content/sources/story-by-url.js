@@ -13,6 +13,11 @@ const params = [
     displayName: 'URL de la nota',
     type: 'text',
   },
+  {
+    name: 'published',
+    displayName: 'Esta Nota esta publica? (Defecto es true)',
+    type: 'text',
+  },
 ]
 
 const resolve = (key = {}) => {
@@ -20,8 +25,9 @@ const resolve = (key = {}) => {
   if (!hasWebsiteUrl)
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
   website = key['arc-site'] || 'Arc Site no está definido'
-  const { website_url: websiteUrl } = key
-  const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}`
+  const { website_url: websiteUrl, published = '' } = key
+  const isPublished = published === 'false' ? 'false' : 'true'
+  const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}&published=${isPublished}`
   return requestUri
 }
 

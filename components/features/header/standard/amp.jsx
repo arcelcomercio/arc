@@ -24,7 +24,7 @@ class HeaderAmpStandard extends PureComponent {
     const { contextPath, arcSite, deployment } = this.props
     const imgLogo =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/logo-${arcSite}-amp.png`
+        `${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
       ) || ''
     return (
       <>

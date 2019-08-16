@@ -2,11 +2,18 @@ import styled, { css } from 'styled-components'
 
 import Checkbox from '../../../../../_children/checkbox'
 import { devices } from '../../../../../_dependencies/devices'
+import ErrorComponent from '../../../../../_children/error'
 
 export const WrapForm = styled.div`
   @media (${devices.mobile}) {
     padding: 18px 30px;
   }
+`
+
+export const Error = styled(ErrorComponent)`
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 40px;
 `
 
 export const Cards = styled.div`
@@ -36,6 +43,7 @@ export const WrapCards = styled.div`
   display: flex;
   align-items: center;
   margin: 40px 0;
+  justify-content: space-between;
   @media (${devices.mobile}) {
     flex-direction: column;
   }

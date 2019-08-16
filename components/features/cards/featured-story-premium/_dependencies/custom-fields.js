@@ -18,9 +18,9 @@ const customFields = PropTypes.shape({
     name: 'Color de fondo',
     group: 'Configuración',
     labels: {
-      white: 'white',
-      gray: 'gray',
-      transparent: 'transparent',
+      white: 'Blanco',
+      gray: 'Gris',
+      transparent: 'Transparente',
     },
     defaultValue: 'transparent',
   }),

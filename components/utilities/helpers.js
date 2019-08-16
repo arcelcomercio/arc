@@ -41,6 +41,15 @@ export const formattedTime = date => {
   return `${hours}:${minutes}`
 }
 
+export const getYYYYMMDDfromISO = date =>
+  date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+
+export const getActualDate = () => {
+  const today = new Date()
+  today.setHours(today.getHours() - 5)
+  return getYYYYMMDDfromISO(today)
+}
+
 export const formatDateLocalTimeZone = publishDateString => {
   const publishDate = new Date(publishDateString)
   publishDate.setHours(publishDate.getHours() - 5)
@@ -49,14 +58,11 @@ export const formatDateLocalTimeZone = publishDateString => {
   today.setHours(today.getHours() - 5)
 
   let formattedDate = ''
-  const diff = parseFloat(
-    (Math.abs(today - publishDate) / (1000 * 60 * 60)).toFixed(1)
-  )
 
-  if (diff >= 24)
-    // eslint-disable-next-line prefer-destructuring
-    formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
-  else formattedDate = formattedTime(publishDate)
+  if (getYYYYMMDDfromISO(publishDate) === getYYYYMMDDfromISO(today))
+    formattedDate = formattedTime(publishDate)
+  // eslint-disable-next-line prefer-destructuring
+  else formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
   return formattedDate
 }
 
@@ -92,7 +98,7 @@ export const formatDayMonthYear = (
 ) => {
   const date = new Date(currentDate)
 
-  if (isStatic) if (date.getHours() <= 5) date.setDate(date.getDate() - 1)
+  if (isStatic) date.setHours(date.getHours() - 5)
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
@@ -120,14 +126,6 @@ export const getFullDateIso8601 = (
     minutes,
     seconds,
   }
-}
-
-export const getActualDate = () => {
-  const today = new Date()
-
-  if (today.getHours() <= 5) today.setDate(today.getDate() - 1)
-
-  return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 }
 
 export const isEmpty = val => {
@@ -443,9 +441,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
 }
 

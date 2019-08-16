@@ -1,4 +1,5 @@
 import {ORIGIN_SUSCRIPCIONES} from 'fusion:environment'
+import getDomain from '../../components/features/paywall/_dependencies/domains'
 
 const resolve = () => {
   return `${ORIGIN_SUSCRIPCIONES}/api/subscriber/validation/gestion/`
@@ -10,7 +11,7 @@ const resolve = () => {
 
 const HARD_CAMPAIGNS = [{
   title: 'Digital + Impreso',
-  url : '',
+  url : 'http://pre.suscripciones.gestion.pe/payment/8/97/',
   recommended: true,
   price: { amount: 49, currency: 'S/' },
   detail: {
@@ -29,7 +30,7 @@ const HARD_CAMPAIGNS = [{
 },
 {
   title: 'Impreso',
-  url : '',
+  url : 'http://pre.suscripciones.gestion.pe/payment/7/96/',
   price: { amount: 49, currency: 'S/' },
   detail: {
     frequency: 'MES',
@@ -94,7 +95,7 @@ export default {
       { feature: [] }
     )
     const {title, feature: features} = summary;
-    const url = ''
+    const url = `${getDomain('URL_DIGITAL')}`;
 
     return [Object.assign({ name, url, title, features, price, detail }), ...HARD_CAMPAIGNS]
   },

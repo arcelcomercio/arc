@@ -1,5 +1,6 @@
 export default {
   siteName: 'Gestión',
+  newsletterBrand: 'gestion',
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
@@ -18,7 +19,6 @@ export default {
   idGoogleAnalitics: 'UA-3055636-3',
   fbArticleStyle: 'LogoGestion',
   nameStoryRelated: 'VEA TAMBIÉN',
-
   siteDescription:
     'Noticias de Perú y el mundo en Gestion.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://gestion.pe/f/i/pub_40.png',
@@ -46,7 +46,10 @@ export default {
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
   },
   paywall: {
-    title: 'Gestión | Suscripciones Digitales',
+    title: 'Suscripciones Digitales | Gestión',
+    clickToCall: 'https://c2c.kontactame.com/call/?id=162',
+    corporate: '/suscripcionesdigitales/empresa/',
+    faq: '/suscripcionesdigitales/faq/',
   },
   assets: {
     nav: {
@@ -69,13 +72,14 @@ export default {
       apple_icon_180: 'images/apple-touch-icon-180x180.png',
       logo: `images/logo.svg`,
       lector: `images/img_lector.png`,
+      corporativo: `images/img_corporativo.webp`,
       confirmation: `images/img_confirmation.jpg`,
-      confirmationx2: `images/img_confirmation@2x.jpg`,
       confirmation_webp: `images/img_confirmation_1.webp`,
       support: `images/img_soporte.png`,
-      contact_form_left: 'images/adult-attire-blazer-173125@2x.jpg',
+      contact_form_left: 'images/img_soporte.png',
       support_webp: `images/img_soporte.webp`,
       backgroundx1: `images/bg_planes_10.jpg`,
+      check: `images/check2.png`,
     },
     fullAssets(contextPath, deployment = path => path) {
       return image => deployment(`${contextPath}${this.pwAssets(image)}`)

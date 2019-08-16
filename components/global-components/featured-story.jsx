@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
 import Icon from './multimedia-icon'
+import Notify from './notify'
 
 const SIZE_ONE_COL = 'oneCol'
 const SIZE_TWO_COL = 'twoCol'
@@ -61,6 +62,7 @@ export default class FeaturedStory extends PureComponent {
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
       isAdmin,
+      errorList = [],
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
@@ -122,6 +124,12 @@ export default class FeaturedStory extends PureComponent {
       return url
     }
 
+    const renderMessage = () => {
+      return `Nota Programada: Error en ${errorList.join(
+        ', '
+      )}, la fecha programada.`
+    }
+
     return (
       <article
         className={`${
@@ -181,6 +189,9 @@ export default class FeaturedStory extends PureComponent {
             <Icon type={multimediaType} iconClass={classes.icon} />
           </picture>
         </a>
+        {isAdmin && errorList.length > 0 && (
+          <Notify message={renderMessage()} />
+        )}
       </article>
     )
   }

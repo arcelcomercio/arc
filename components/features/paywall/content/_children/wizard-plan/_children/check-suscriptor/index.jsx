@@ -4,6 +4,7 @@ import * as S from './styled'
 import InputFormik from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import schema, { Masks } from '../../../../../_dependencies/schema'
+import getDomain from '../../../../../_dependencies/domains'
 
 const MESSAGE = {
   REQUIRED: 'Este campo es requerido',
@@ -70,7 +71,11 @@ export default function CheckSuscription(props) {
           validate={values => new FormSchema(values)}
           initialValues={{ documentType: 'DNI', documentNumber: null }}
           onSubmit={({ documentType, documentNumber }, actions) => {
-            window.location.href = `/paywall/${documentType}/${documentNumber}?_website=gestion&outputType=paywall`
+            window.location.href = getDomain(
+              'VALIDATE_SUSCRIPTOR',
+              documentType,
+              documentNumber
+            )
           }}
           render={({
             setFieldValue,

@@ -9,8 +9,9 @@ import SignWallHard from '../../../signwall/_main/signwall/hard'
 import SignWallVerify from '../../../signwall/_main/signwall/verify'
 import SignWallReset from '../../../signwall/_main/signwall/reset'
 import SignWallRelogin from '../../../signwall/_main/signwall/relogin'
-import SignWallPaywall from '../../../signwall/_main/signwall/paywall'
+import SignWallPayPre from '../../../signwall/_main/signwall/paywall-premium'
 import Services from '../../../signwall/_main/utils/services'
+import ConfigParams from '../../../../utilities/config-params'
 
 import Menu from './menu'
 // import Ads from '../../../../global-components/ads'
@@ -19,13 +20,15 @@ import GetProfile from '../../../signwall/_main/utils/get-profile'
 import {
   getResponsiveClasses,
   searchQuery,
+  popUpWindow,
+  socialMediaUrlShareList,
 } from '../../../../utilities/helpers'
 
 const services = new Services()
 
 const classes = {
   nav: `nav text-white text-sm w-full flex flex items-center top-0 secondary-font`,
-  wrapper: `flex items-center nav__wrapper bg-primary w-full h-inherit justify-between lg:justify-start pl-15 pr-15`,
+  wrapper: `nav__wrapper flex items-center nav__wrapper bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
   navContainerRight: `nav__container-right position-absolute hidden lg:inline-block`,
@@ -52,10 +55,23 @@ const classes = {
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden',
-  navStorySocialNetwork: 'nav__story-social-network hidden',
+  navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
   iconSignwallMobile: 'uppercase ',
   btnSignwallMobile:
     'nav__btn--login-m bg-secondary text-primary-color rounded',
+  listIcon: 'story-header__list flex justify-between ',
+  moreLink: 'story-content__more-link',
+
+  item: 'story-header__item',
+  link: 'story-header__link flex items-center justify-center text-gray-200',
+  icon: 'story-header__icon',
+  mobileClass: 'flex justify-center',
+  iconFacebook: 'icon-facebook-circle',
+  iconLinkedin: 'icon-linkedin-circle',
+  iconRibbon: 'icon-ribbon',
+  iconTwitter: 'icon-twitter-circle',
+  iconWhatsapp: 'icon-whatsapp',
+  iconMore: 'story-header__share-icon icon-share text-gray-200',
 }
 
 @Consumer
@@ -89,6 +105,52 @@ class NavBarDefault extends PureComponent {
 
     this.isStory = false // TODO: temporal
     this.listSubs = null
+
+    const {
+      siteProperties: {
+        social: {
+          twitter: { user: siteNameRedSocial },
+        },
+        siteUrl,
+      },
+      globalContent: {
+        website_url: postPermaLink,
+        headlines: { basic: postTitle } = {},
+      },
+    } = props
+
+    const urlsShareList = socialMediaUrlShareList(
+      siteUrl,
+      postPermaLink,
+      postTitle,
+      siteNameRedSocial
+    )
+
+    this.shareButtons = {
+      firstList: [
+        {
+          icon: classes.iconFacebook,
+          link: urlsShareList.facebook,
+          mobileClass: classes.mobileClass,
+        },
+
+        {
+          icon: classes.iconTwitter,
+          link: urlsShareList.twitter,
+          mobileClass: classes.mobileClass,
+        },
+        {
+          icon: classes.iconLinkedin,
+          link: urlsShareList.linkedin,
+          mobileClass: classes.mobileClass,
+        },
+        {
+          icon: classes.iconWhatsapp,
+          link: urlsShareList.whatsapp,
+          mobileClass: `block md:hidden ${classes.mobileClass}`,
+        },
+      ],
+    }
   }
 
   componentDidMount() {
@@ -120,10 +182,9 @@ class NavBarDefault extends PureComponent {
     this.isStory = !!window.document.querySelector('meta[name="section-id"]') // TODO: temporal
 
     // ---------- Start Premium & Paywall ----------- //
-    if (arcSite === 'gestion') {
-      this.getPremium()
-      this.getPaywall()
-    }
+
+    if (arcSite === 'gestion') this.getPaywall()
+
     // ---------- End Premium & Paywall ------------ //
   }
 
@@ -145,12 +206,14 @@ class NavBarDefault extends PureComponent {
 
   getPremium() {
     const W = window
-
-    const dataContentPremium = W.content_paywall || false
-    if (ENV.ENVIRONMENT !== 'elcomercio' && dataContentPremium) {
-      // only sandbox ;)
+    if (!this.checkSession()) {
+      W.location.href = '/?signwallPremium=1'
+    } else {
       return this.getListSubs().then(p => {
-        if (p && p.length === 0) W.location.href = '/?signwallPremium=1'
+        if (p && p.length === 0) {
+          W.location.href = '/?signwallPremium=1'
+        }
+        return false // tengo subs :D
       })
     }
     return false
@@ -160,54 +223,61 @@ class NavBarDefault extends PureComponent {
     const { arcSite } = this.props
     const W = window
 
-    const dataContType = W.document.querySelector('meta[name="content-type"]')
+    const dataContTyp = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
+    const dataContentPremium = W.content_paywall || false
 
-    W.ArcP.run({
-      paywallFunction: campaignURL => {
-        W.location.href = campaignURL
-      },
-      contentType: dataContType ? dataContType.getAttribute('content') : 'none',
-      section: dataContSec ? dataContSec.getAttribute('content') : 'none',
-      userName: W.Identity.userIdentity.uuid || null,
-      jwt: W.Identity.userIdentity.accessToken || null,
-      apiOrigin:
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-sandbox.${arcSite}.pe`,
-      customSubCheck: () => {
-        // estado de suscripcion
-        return this.getListSubs().then(p => {
-          const isLoggedInSubs = !!(
+    const URL_ORIGIN =
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.${arcSite}.pe`
+        : `https://api-sandbox.${arcSite}.pe`
+
+    if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
+      this.getPremium() // Only sandbox ;)
+    } else {
+      W.ArcP.run({
+        paywallFunction: campaignURL => {
+          W.location.href = campaignURL
+        },
+        contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
+        section: dataContSec ? dataContSec.getAttribute('content') : 'none',
+        userName: W.Identity.userIdentity.uuid || null,
+        jwt: W.Identity.userIdentity.accessToken || null,
+        apiOrigin: URL_ORIGIN,
+        customSubCheck: () => {
+          // estado de suscripcion
+          return this.getListSubs().then(p => {
+            const isLoggedInSubs = !!(
+              W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+              W.localStorage.getItem('ArcId.USER_PROFILE')
+            )
+            return {
+              s: isLoggedInSubs,
+              p: p || null,
+              timeTaken: 100,
+              updated: Date.now(),
+            }
+          })
+        },
+        customRegCheck: () => {
+          // estado de registro
+          const start = Date.now()
+          const isLoggedIn = !!(
             W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
             W.localStorage.getItem('ArcId.USER_PROFILE')
           )
-          return {
-            s: isLoggedInSubs,
-            p: p || null,
-            timeTaken: 100,
+          return Promise.resolve({
+            l: isLoggedIn,
+            timeTaken: Date.now() - start,
             updated: Date.now(),
-          }
-        })
-      },
-      customRegCheck: () => {
-        // estado de registro
-        const start = Date.now()
-        const isLoggedIn = !!(
-          W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
-          W.localStorage.getItem('ArcId.USER_PROFILE')
-        )
-        return Promise.resolve({
-          l: isLoggedIn,
-          timeTaken: Date.now() - start,
-          updated: Date.now(),
-        })
-      },
-    })
-    // .then(() => {
-    // W.console.log('Results from running paywall script: ', results)
-    // })
-    // .catch(() => W.console.error())
+          })
+        },
+      })
+      // .then(() => {
+      // W.console.log('Results from running paywall script: ', results)
+      // })
+      // .catch(() => W.console.error())
+    }
   }
 
   getListSubs() {
@@ -469,6 +539,23 @@ class NavBarDefault extends PureComponent {
     }, 250)
   } */
 
+  openLink = (event, item) => {
+    event.preventDefault()
+    if (item === 3) this.moreList()
+    else popUpWindow(item.link, '', 600, 400)
+  }
+
+  moreList = () => {
+    const el = document.querySelector('.story-header__list')
+    if (el.classList.contains('block')) {
+      el.classList.remove('block')
+      el.classList.add('hidden')
+    } else {
+      el.classList.remove('hidden')
+      el.classList.add('block')
+    }
+  }
+
   render() {
     const {
       statusSidebar,
@@ -488,7 +575,8 @@ class NavBarDefault extends PureComponent {
       siteProperties,
       contextPath,
       deviceList,
-      globalContentConfig: { query = {} } = {}, 
+      globalContentConfig: { query = {} } = {},
+      globalContent: { type = {} },
       data: { children: sections = [] } = {},
     } = this.props
 
@@ -593,7 +681,40 @@ class NavBarDefault extends PureComponent {
               />
             </a>
             <div className={classes.navStoryTitle} />
-            <div className={classes.navStorySocialNetwork} />
+
+            <div className={classes.navStorySocialNetwork}>
+              {type === ConfigParams.ELEMENT_STORY && (
+                <>
+                  <div>
+                    <a
+                      className={classes.moreLink}
+                      href={classes.moreLink}
+                      onClick={event => {
+                        this.openLink(event, 3)
+                      }}>
+                      <i className={`${classes.iconMore}`} />
+                    </a>
+                  </div>
+
+                  <ul className={classes.listIcon}>
+                    {this.shareButtons.firstList.map((item, i) => (
+                      <li
+                        key={item.icon}
+                        className={` ${classes.item} ${item.mobileClass}`}>
+                        <a
+                          className={classes.link}
+                          href={item.link}
+                          onClick={event => {
+                            this.openLink(event, item)
+                          }}>
+                          <i className={`${item.icon} ${classes.icon}`} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
@@ -612,7 +733,9 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
+                      `${
+                        classes.btnLogin
+                      } btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     {/* 
@@ -635,7 +758,9 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -649,7 +774,9 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
+                        : `${classes.iconLogin} ${
+                            classes.iconSignwallMobile
+                          }  title-sm`
                     }>
                     {initialUser}
                   </i>
@@ -716,7 +843,7 @@ class NavBarDefault extends PureComponent {
           this.getUrlParam('signwallPremium')) &&
         showPaywall &&
         siteProperties.activeSignwall ? (
-          <SignWallPaywall
+          <SignWallPayPre
             closePopup={() => this.closePopUp('signwallPaywall')}
             brandModal={arcSite}
             typeModal={

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import { NEWSLETTER_API } from 'fusion:environment'
 
 import customFieldsExtern from './_dependencies/custom-fields'
 import NewsletterChild from './_children/newsletter'
@@ -18,11 +19,36 @@ class Newsletter extends PureComponent {
       }
     },
     suscription: data => {
-      const url = 'https://jab.pe/f/arc/services/newsletter.php'
+      const dataRequest = params => {
+        const {
+          siteProperties: { newsletterBrand = '' },
+        } = this.props
+        return Object.assign(params, {
+          brand: newsletterBrand,
+        })
+      }
+
+      const messageApi = response => {
+        let msg = ''
+        if (
+          response &&
+          response.status !== undefined &&
+          response.status === false
+        ) {
+          msg = response.message || ''
+        }
+        return msg
+      }
+
+      const successApi = response => {
+        return response && response.result && response.status === undefined
+      }
+
+      const url = NEWSLETTER_API
       fetch(url, {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataRequest(data)),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -33,8 +59,10 @@ class Newsletter extends PureComponent {
           let formMessage = 'Error'
           if (response && response.ok) {
             response.json().then(json => {
-              confirmRegister = json.success
-              formMessage = json.message
+              // confirmRegister = json.success
+              // formMessage = json.message
+              confirmRegister = successApi(json)
+              formMessage = messageApi(json)
               this.setState({ confirmRegister, formMessage })
             })
           } else this.setState({ confirmRegister, formMessage })
@@ -52,7 +80,10 @@ class Newsletter extends PureComponent {
       event.preventDefault()
     },
     redirect: () => {
-      window.location.href = `/`
+      const {
+        siteProperties: { siteUrl = '' },
+      } = this.props
+      window.location.href = siteUrl
     },
   }
 
