@@ -127,7 +127,7 @@ export default class FeaturedStory extends PureComponent {
     const renderMessage = () => {
       return `Nota Programada: Error en ${errorList.join(
         ', '
-      )}, la fecha programada.`
+      )}. La fecha Programada es menor a la fecha de publicación de la nota`
     }
 
     return (
