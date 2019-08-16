@@ -1,0 +1,24 @@
+.tv-header {
+  &__section-logo {
+    width: 100px;
+    left: 15px;
+    z-index: 1;
+    @media (--desktop) {
+      left: 55px;
+      width: 120px;
+    }
+  }
+  &__logo {
+    width: 28px;
+  }
+  &__logo-container {
+    right: 15px;
+    z-index: 1;
+    @media (--desktop) {
+      right: 55px;
+    }
+  }
+  &__icon {
+    font-size: 20px;
+  }
+}
