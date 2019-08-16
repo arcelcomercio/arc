@@ -73,7 +73,7 @@ const PaywallContactUs = props => {
       <S.WrapContent>
         <picture>
           <source
-            media={`(${devices.mobile})`}
+            media="(max-width: 1024px)"
             srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
           />
           <img src={ContactUsImage} alt="contact_us" />
