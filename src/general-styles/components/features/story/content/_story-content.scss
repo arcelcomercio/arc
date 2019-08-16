@@ -195,4 +195,20 @@
       order: 0;
     }
   }
+  & ul {
+    list-style-type: disc;
+    padding-left: 30px;
+  }
+  & li {
+    margin-bottom: 10px;
+    font-family: $secondary-font;
+    line-height: 1.5;
+    font-size: 16.9px;
+    @media (--tablet) {
+      font-size: 18px;
+    }
+    @media (--desktop) {
+      font-size: 20px;
+    }
+  }
 }
