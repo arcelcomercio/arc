@@ -9,10 +9,12 @@
 @import './global-components/search-input';
 @import './global-components/story-item';
 @import './global-components/story-table';
+@import './global-components/video-modal';
 /******* Features *******/
 @import './features/ads-perured/ads-perured';
 @import './features/ads/ads';
 @import './features/archive-calendar/calendar';
+@import './features/basic-html/basic-html';
 @import './features/blog/author-details/author-details';
 @import './features/blog/author-list/post-item';
 @import './features/blog/author-title/author-title';
@@ -102,3 +104,8 @@
 @import './features/story/header/story-header';
 @import './features/story/separator/story-separator';
 @import './features/tv-highlight/tv-highlight';
+@import './features/tv/featured/tv-featured';
+@import './features/tv/header/tv-header';
+@import './features/tv/layout.jsx/tv';
+@import './features/tv/menu/menu';
+@import './features/tv/separator/tv-separator';
