@@ -21,6 +21,20 @@ const TvFeatured = props => {
       filter: schemaFilter,
     }) || {}
   const data = contentElements[0] || {}
+  const menuSections =
+    useContent({
+      source: 'navigation-by-hierarchy',
+      query: { hierarchy: 'tv-menu-default' },
+      filter: `{ 
+        children {
+          name
+          _id
+          display_name
+          url
+          node_type
+        }
+      }`,
+    }) || {}
 
   const {
     title,
@@ -90,6 +104,24 @@ const TvFeatured = props => {
     return initDate >= new Date(timeStampYesterday * 1000).getTime()
   }
 
+  const formatMenuSections = res => {
+    const { children = [] } = res || {}
+    const auxList = children.map(el => {
+      if (el.node_type === 'link') {
+        return {
+          name: el.display_name,
+          url: el.url,
+          node_type: el.node_type,
+        }
+      }
+      return {
+        name: el.name,
+        url: el._id,
+        node_type: el.node_type,
+      }
+    })
+    return auxList
+  }
   /** Estados */
   const [clientDate, setClientDate] = useState('')
 
@@ -108,6 +140,7 @@ const TvFeatured = props => {
         date,
         clientDate,
         videoId: getVideoId(),
+        menuSections: formatMenuSections(menuSections),
       }}
     />
   )

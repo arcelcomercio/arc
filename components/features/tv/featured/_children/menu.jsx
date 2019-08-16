@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const arr = ['21Noticias', 'La voz del 21', 'Entrevistas 21']
-
-const MenuTV = ({ toggleMenu }) => {
+const MenuTV = ({ toggleMenu, menuSections }) => {
   useEffect(() => {
     document.body.classList.add('overflow-hidden')
   })
@@ -35,12 +33,12 @@ const MenuTV = ({ toggleMenu }) => {
           </button>
         </div>
         <ul className="tv-menu__list">
-          {arr &&
-            arr.map(el => {
+          {menuSections &&
+            menuSections.map(el => {
               return (
                 <li className="tv-menu__item">
-                  <a className="tv-menu__link" href="/">
-                    {el}
+                  <a className="tv-menu__link" href={el.url}>
+                    {el.name}
                   </a>
                 </li>
               )
