@@ -315,7 +315,10 @@ class UpdateProfile extends Component {
       case 'firstName':
         if (value.length < 3) {
           formErrors.firstName = 'Longitud inválida, mínimo 3 caracteres'
-        } else if (namesRegex.test(value)) {
+        } else if (
+          namesRegex.test(value) &&
+          (value !== 'null' && value !== 'undefined')
+        ) {
           formErrors.firstName = ''
         } else {
           formErrors.firstName = 'Formato inválido, solo letras'
@@ -324,7 +327,10 @@ class UpdateProfile extends Component {
       case 'lastName':
         if (value.length < 3) {
           formErrors.lastName = 'Longitud inválida, mínimo 3 caracteres'
-        } else if (namesRegex.test(value)) {
+        } else if (
+          namesRegex.test(value) &&
+          (value !== 'null' && value !== 'undefined')
+        ) {
           formErrors.lastName = ''
         } else {
           formErrors.lastName = 'Formato inválido, solo letras'
@@ -333,7 +339,10 @@ class UpdateProfile extends Component {
       case 'secondLastName':
         if (value.length < 3) {
           formErrors.secondLastName = 'Longitud inválida, mínimo 3 caracteres'
-        } else if (namesRegex.test(value)) {
+        } else if (
+          namesRegex.test(value) &&
+          (value !== 'null' && value !== 'undefined')
+        ) {
           formErrors.secondLastName = ''
         } else {
           formErrors.secondLastName = 'Formato inválido, solo letras'

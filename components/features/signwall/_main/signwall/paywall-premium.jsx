@@ -7,6 +7,7 @@ import FormLogin from './_children/form-login'
 import FormRegister from './_children/form-register'
 import FormForgotPass from './_children/form-forgot-pass'
 import FormPaywall from './_children/form-paywall'
+import Taggeo from '../utils/taggeo'
 
 import { ModalProvider, ModalConsumer } from './context'
 
@@ -17,13 +18,29 @@ class PayWallPremium extends Component {
     this.state = {}
   }
 
+  componentDidMount() {
+    const { typeModal } = this.props
+    Taggeo(`Web_${typeModal}_Hard`, `web_${typeModal}_open`)
+    window.addEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  handleLeavePage = e => {
+    e.preventDefault()
+    const { typeModal } = this.props
+    Taggeo(`Web_${typeModal}_Hard`, `web_${typeModal}_leave`)
+  }
+
   renderTemplate(template) {
-    const { closePopup, brandModal } = this.props
+    const { closePopup, brandModal, typeModal } = this.props
     const templates = {
       intro: (
         <FormPaywall
           closePopup={closePopup}
-          typePopUp="paywall"
+          typePopUp={typeModal} // paywall, premium
           typeForm="intro"
           brandCurrent={brandModal}
         />
@@ -31,14 +48,14 @@ class PayWallPremium extends Component {
       login: (
         <FormLogin
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp={typeModal}// paywall, premium
           typeForm="login"
         />
       ),
       register: (
         <FormRegister
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp={typeModal}// paywall, premium
           typeForm="registro"
           brandCurrent={brandModal}
         />
@@ -46,7 +63,7 @@ class PayWallPremium extends Component {
       forgot: (
         <FormForgotPass
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp={typeModal}// paywall, premium
           typeForm="login"
           brandCurrent={brandModal}
         />
@@ -98,7 +115,13 @@ class PayWallPremium extends Component {
                       <button
                         type="button"
                         className="btn-close"
-                        onClick={() => closePopup()}>
+                        onClick={e => {
+                          Taggeo(
+                            `Web_${typeModal}_Hard`,
+                            `web_${typeModal}_cerrar`
+                          )
+                          closePopup(e)
+                        }}>
                         <i className="icon-close"></i>
                       </button>
                       {this.renderTemplate(value.selectedTemplate)}
