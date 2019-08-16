@@ -8,10 +8,6 @@
 
   &__title {
     color: $color-base-300;
-    @media (--tablet) {
-      max-height: calc(20px * 1.28 * 2);
-      line-height: 1.28;
-    }
   }
 
   &__subtitle {
