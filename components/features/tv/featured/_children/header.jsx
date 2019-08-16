@@ -3,7 +3,7 @@ import { useFusionContext } from 'fusion:context'
 
 import MenuTV from './menu'
 
-const TvHeader = ({ section }) => {
+const TvHeader = ({ section, menuSections }) => {
   const { contextPath, deployment } = useFusionContext()
   const [statusMenu, changeStatus] = useState(false)
 
@@ -38,7 +38,7 @@ const TvHeader = ({ section }) => {
           />
         </a>
       </div>
-      {statusMenu && <MenuTV toggleMenu={toggleMenu} />}
+      {statusMenu && <MenuTV toggleMenu={toggleMenu} {...{ menuSections }} />}
     </header>
   )
 }
