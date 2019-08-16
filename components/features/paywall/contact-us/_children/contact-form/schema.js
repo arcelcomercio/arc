@@ -43,9 +43,7 @@ export const FormSchema = schema({
   tipo_consulta: value => {
     value.required('Debe seleccionar un tipo')
   },
-  /* description: value => {
-    value.required(MESSAGE.REQUIRED)
-    value.min(12, MESSAGE.MIN)
-    value.max(1000, MESSAGE.MAX)    
-  } */
+  description: value => {
+    value.max(500, MESSAGE.MAX)
+  },
 })
