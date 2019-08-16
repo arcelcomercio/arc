@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import StoryData from '../utilities/story-data'
+import { formatAMPM } from '../utilities/helpers'
 import Icon from './multimedia-icon'
 import Notify from './notify'
 
@@ -124,10 +125,32 @@ export default class FeaturedStory extends PureComponent {
       return url
     }
 
+    const formaZeroDate = (numb = 0) => {
+      return numb < 10 ? `0${numb}` : numb
+    }
+
+    const formateDate = (fecha = '') => {
+      return () => {
+        const date = fecha.toString()
+        const _date = new Date(date.slice(0, date.indexOf('GMT') - 1))
+        const day = formaZeroDate(_date.getDate())
+        const month = formaZeroDate(_date.getMonth() + 1)
+        const year = _date.getFullYear()
+
+        return `${day}/${month}/${year} - ${formatAMPM(date)}`
+      }
+    }
+
+    let fechaProgramada = ''
+    let fechaPublicacion = ''
     const renderMessage = () => {
-      return `Nota Programada: Error en ${errorList.join(
-        ', '
-      )}. La fecha Programada es menor a la fecha de publicación de la nota`
+      return errorList.map(el => {
+        fechaProgramada = formateDate(new Date(el.programate_date))
+        fechaPublicacion = formateDate(el.publish_date)
+        return `Nota Programada: Error en ${
+          el.note
+        }. La fecha Programada (${fechaProgramada()}) es menor a la fecha de publicación de la nota (${fechaPublicacion()})`
+      })
     }
 
     return (
