@@ -32,6 +32,7 @@ export default ({
     seoKeywords,
     breadcrumbList,
     multimediaType,
+    sourceId,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const videoSeoItems = videoSeo.map(
@@ -184,6 +185,9 @@ export default ({
       <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
+      {sourceId && (
+        <meta name="cms_old_id" content={sourceId.match(/([0-9]+)/, '$1')[1]} />
+      )}
       <meta name="bi3dArtId" content="639992" />
       <meta name="bi3dSection" content={primarySection} />
       <meta name="bi3dArtTitle" content={title} />
