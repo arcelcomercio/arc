@@ -55,9 +55,11 @@
         width: 100px;
       }
       .story-header__item {
-        margin-bottom: 10px;
-        &:last-child {
-          margin-bottom: 0;
+        @media (--only-mobile) {
+          margin-bottom: 10px;
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
       }
       .story-header__icon,

@@ -25,7 +25,7 @@ export default {
   },
   ttl: 20,
   transform(data) {
-    const { sku, name, attributes, pricingStrategies } = data.products[0]
+    const { sku, attributes, pricingStrategies } = data.products[0]
     const {
       campaign: { name: campaignCode },
       subscriber = {},
@@ -55,6 +55,17 @@ export default {
       (prev, { name: _name, value }) => {
         const prez = prev
         const _value = value.replace(/<p>|<\/p>/g, '')
+        switch(_name){
+          case 'feature': 
+          prez[_name].push(_value)
+          break;
+          case 'title':
+            prez[_name] = _value
+          break;
+        default :
+        prez[_name] = _value
+        break;
+        }
         if (_name === 'feature') {
           prez[_name].push(_value)
         } else {
@@ -64,6 +75,8 @@ export default {
       },
       { feature: [] }
     )
+
+    const {title: name = 'Plan Digital'} = summary;
 
     return Object.assign({ name, summary, plans, printed }, error ? {error} : {})
   },
