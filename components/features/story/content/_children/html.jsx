@@ -4,7 +4,8 @@ import Video from './video'
 
 const classes = {
   newsEmbed: 'story-content__embed',
-  caption: 'story-content__caption pt-10 secondary-font text-md pb-10',
+  caption:
+    'story-content__caption pt-10 secondary-font text-md pb-10 pr-20 pl-20',
 }
 
 const StoryContentChildImage = ({ data, caption, header = false }) => {

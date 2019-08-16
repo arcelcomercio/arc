@@ -1,7 +1,7 @@
 export default {
   siteName: 'Peru21',
 
-  googleFonts: 'Lato', // open_sansregular
+  googleFonts: 'Lato:400,700|Exo:500',
 
   colorPrimary: '#005fa5',
   siteDomain: 'peru21.pe',
