@@ -117,4 +117,6 @@ TvFeatured.propTypes = {
   customFields,
 }
 
+TvFeatured.label = 'Tv - destaque'
+
 export default TvFeatured
