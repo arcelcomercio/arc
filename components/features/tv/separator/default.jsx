@@ -114,4 +114,6 @@ TvSeparator.propTypes = {
   customFields,
 }
 
+TvSeparator.label = 'Tv - separador'
+
 export default TvSeparator
