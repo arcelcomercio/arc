@@ -1,9 +1,10 @@
 import React from 'react'
 import Context from 'fusion:context'
 import { Back, Close, Gestion, Comercio } from './iconos'
+import Taggeo from '../utils/taggeo'
 
 const Header = props => {
-  const { type, closePopup } = props
+  const { type, closePopup, typePopUp } = props
   const typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
     <>
       {{
@@ -33,7 +34,10 @@ const Header = props => {
           type="button"
           id="close-modal"
           className="modal-header__close"
-          onClick={closePopup}>
+          onClick={() => {
+            Taggeo(`Web_Sign_Wall_${typePopUp}`, `web_sw${typePopUp[0]}_boton_cerrar`)
+            closePopup()
+          }}>
           <Close color={arcSite === 'elcomercio' ? 'black' : 'white'} />
         </button>
       )}
