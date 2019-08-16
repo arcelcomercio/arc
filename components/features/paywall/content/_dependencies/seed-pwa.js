@@ -8,7 +8,8 @@ export default {
         try {
             return JSON.parse(string)
           } catch (error) {
-            throw new Error('No se pudo almacenar, por que no son los datos esperados `ArcId_USER_INFO`')
+              console.warn('No se pudo parsear el JSON, por que no son los datos esperados `ArcId_USER_INFO`');
+              return {}
           }
     },
     _onMessage({origin, data}, callback){
@@ -28,6 +29,6 @@ export default {
     finalize(){
         if( !this.isPWA() ) return;
         window.nativeConnection.postMessage('successful_purchase');
-        window.nativeConnectionModal.pwaCloseWebView();
+        window.nativeConnection.pwaCloseWebView();
     }
 }
