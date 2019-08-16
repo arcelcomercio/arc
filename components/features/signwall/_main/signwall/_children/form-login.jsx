@@ -11,6 +11,7 @@ import AuthFacebook from './social-auths/auth-facebook'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
+import Taggeo from '../../utils/taggeo'
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
@@ -41,12 +42,6 @@ class FormLogin extends Component {
       ENV.ENVIRONMENT === 'elcomercio'
         ? `https://api.${arcSite}.pe`
         : `https://api-sandbox.${arcSite}.pe`
-
-    const { typePopUp = '', typeForm = '' } = this.props
-    this.tipCat = typePopUp || ''
-    this.tipAct = typePopUp ? `web_sw${typePopUp.slice(0, 1)}` : ''
-    this.tipForm = typeForm
-    //  console.log(this.tipCat, this.tipAct, this.tipForm)
   }
 
   componentWillMount() {
@@ -69,17 +64,12 @@ class FormLogin extends Component {
           this.setState({ sending: true })
           this.handleGetProfile()
           Cookies.deleteCookie('mpp_sess')
-          // -- test de tageo
-          window.dataLayer = window.dataLayer || []
-          window.dataLayer.push({
-            event: 'login_success',
-            eventCategory: `Web_Sign_Wall_${this.tipCat}`,
-            eventAction: `${this.tipAct}_login_success_ingresar`,
-          })
-          // -- test de tageo
+
+          this.taggeoSuccess() // -- test de tageo success
         })
         .catch(errLogin => {
           let messageES = ''
+          const { typePopUp } = this.props
 
           switch (errLogin.code) {
             case '300037':
@@ -89,7 +79,7 @@ class FormLogin extends Component {
                 .reloginEcoID(
                   email,
                   password,
-                  this.tipCat === 'organico' ? 'organico' : '1',
+                  typePopUp === 'organico' ? 'organico' : '1',
                   window
                 )
                 .then(resEco => {
@@ -105,23 +95,13 @@ class FormLogin extends Component {
                           this.handleGetProfile()
                           // delete cookie mpp_sess
                           Cookies.deleteCookie('mpp_sess')
-                          // -- test de tageo success
-                          window.dataLayer.push({
-                            event: `${this.tipCat}_relogin_success`, // organico_relogin_success , hard_relogin_success
-                            eventCategory: `Web_Sign_Wall_${this.tipCat}`, // Web_Sign_Wall_organico, Web_Sign_Wall_hard
-                            eventAction: `${this.tipAct}_relogin_success_ingresar`, // web_swo_relogin_success, web_swh_relogin_success
-                          })
-                          // -- test de tageo success
+
+                          this.taggeoSuccess() // -- test de tageo success
                         })
                         .catch(errReLogin => {
                           messageES = errReLogin
-                          // -- test de tageo error
-                          window.dataLayer.push({
-                            event: `${this.tipCat}_relogin_error`, // organico_relogin_error, hard_relogin_error
-                            eventCategory: `Web_Sign_Wall_${this.tipCat}`, // Web_Sign_Wall_organico, Web_Sign_Wall_hard
-                            eventAction: `${this.tipAct}_relogin_error_ingresar`, // web_swo_relogin_error, web_swh_relogin_error
-                          })
-                          // -- test de tageo error
+
+                          this.taggeoError() // -- test de tageo error
                         })
                     }, 500)
                   } else {
@@ -130,13 +110,8 @@ class FormLogin extends Component {
                         'Correo electrónico y/o  contraseña incorrecta.',
                       sending: true,
                     })
-                    // -- test de tageo error
-                    window.dataLayer.push({
-                      event: 'login_error',
-                      eventCategory: `Web_Sign_Wall_${this.tipCat}`,
-                      eventAction: `${this.tipAct}_login_error_ingresar`,
-                    })
-                    // -- test de tageo error
+
+                    this.taggeoError() // -- test de tageo error
                   }
                 })
                 .catch(errEco => {
@@ -163,13 +138,8 @@ class FormLogin extends Component {
                   : messageES,
               sending: true,
             })
-            // -- test de tageo error
-            window.dataLayer.push({
-              event: 'login_error',
-              eventCategory: `Web_Sign_Wall_${this.tipCat}`,
-              eventAction: `${this.tipAct}_login_error_ingresar`,
-            })
-            // -- test de tageo error
+
+            this.taggeoError() // -- test de tageo error
           }
         })
     } else {
@@ -259,6 +229,57 @@ class FormLogin extends Component {
     this.setState({
       hiddenListBenefits: !hiddenListBenefits,
     })
+  }
+
+  taggeoSuccess() {
+    const { typePopUp } = this.props
+
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      if (typePopUp === 'relogin') {
+        window.dataLayer.push({
+          event: `${typePopUp}_relogin_success`,
+          eventCategory: `Web_Sign_Wall_${typePopUp}`,
+          eventAction: `web_sw${typePopUp[0]}_relogin_success_ingresar`,
+        })
+      } else {
+        window.dataLayer.push({
+          event: 'login_success',
+          eventCategory: `Web_Sign_Wall_${typePopUp}`,
+          eventAction: `web_sw${typePopUp[0]}_login_success_ingresar`,
+        })
+      }
+    } else {
+      Taggeo(
+        `Web_Sign_Wall_${typePopUp}`,
+        `web_sw${typePopUp[0]}_login_success_ingresar`
+      )
+      // esta pendiente el taggeo de relogin 
+    }
+  }
+
+  taggeoError() {
+    const { typePopUp } = this.props
+
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      if (typePopUp === 'relogin') {
+        window.dataLayer.push({
+          event: `${typePopUp}_relogin_error`,
+          eventCategory: `Web_Sign_Wall_${typePopUp}`,
+          eventAction: `web_sw${typePopUp[0]}_relogin_error_ingresar`,
+        })
+      } else {
+        window.dataLayer.push({
+          event: 'login_error',
+          eventCategory: `Web_Sign_Wall_${typePopUp}`,
+          eventAction: `web_sw${typePopUp[0]}_login_error_ingresar`,
+        })
+      }
+    } else {
+      Taggeo(
+        `Web_Sign_Wall_${typePopUp}`,
+        `web_sw${typePopUp[0]}_login_error_ingresar`
+      )
+    }
   }
 
   render = () => {
@@ -397,7 +418,13 @@ class FormLogin extends Component {
                     <p className="form-grid__pass">
                       <button
                         id="link-recuperar-pass"
-                        onClick={() => value.changeTemplate('forgot')}
+                        onClick={() => {
+                          Taggeo(
+                            `Web_Sign_Wall_${typePopUp}`,
+                            `web_sw${typePopUp[0]}_contrasena_link_olvide`
+                          )
+                          value.changeTemplate('forgot')
+                        }}
                         type="button"
                         className="link-gray">
                         Olvidé mi contraseña
@@ -412,6 +439,12 @@ class FormLogin extends Component {
                       id="login_boton_ingresar"
                       className="btn input-button"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
+                      onClick={() =>
+                        Taggeo(
+                          `Web_Sign_Wall_${typePopUp}`,
+                          `web_sw${typePopUp[0]}_login_boton_ingresar`
+                        )
+                      }
                       disabled={!sending}
                     />
                   </div>
@@ -419,7 +452,13 @@ class FormLogin extends Component {
 
                 <div className="form-grid__group" hidden={!hiddenbutton}>
                   <button
-                    onClick={e => this.handleLoginClick(e)}
+                    onClick={e => {
+                      this.handleLoginClick(e)
+                      Taggeo(
+                        `Web_Sign_Wall_${typePopUp}`,
+                        `web_sw${typePopUp[0]}_open_login_boton_ingresar`
+                      )
+                    }}
                     type="button"
                     name="enterUserName"
                     id="open_login_boton_ingresar"
@@ -437,6 +476,10 @@ class FormLogin extends Component {
                     type="button"
                     id="login_boton_registrate"
                     onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typePopUp}`,
+                        `web_sw${typePopUp[0]}_login_boton_registrate`
+                      )
                       value.changeTemplate('register')
                     }}
                     className="link-blue link-color text-sm">
