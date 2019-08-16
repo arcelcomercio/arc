@@ -18,6 +18,8 @@ export const WizardPayment = styled.div`
 `
 
 export const PanelPayment = styled(Panel)`
+  padding: 30px;
+  box-sizing: border-box;
   @media (${devices.mobile}) {
     margin-top: 30px;
     padding: 18px 30px;
