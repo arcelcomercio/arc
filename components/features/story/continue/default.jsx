@@ -123,7 +123,7 @@ class StoryContinue extends PureComponent {
       this.setAttributeProgress(progress, newerProgress)
     }
 
-    if (window.screen.width < 1023) {
+    if (window.screen.width < 630) {
       const storyHeader = document.querySelector('.story-header__list')
       storyHeader.classList.add('hidden')
       const nav = document.querySelector('.nav')

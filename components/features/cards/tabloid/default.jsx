@@ -21,6 +21,9 @@ const classes = {
 
 const CONTENT_SOURCE = 'story-by-section-printed'
 
+// TODO: Modificar para usar Hooks.
+// TODO: Aplicar resizer a la imagen cuando viene por URL personalizada.
+
 @Consumer
 class CardTabloid extends PureComponent {
   constructor(props) {

@@ -1,0 +1,6 @@
+.htmlContainer {
+  -webkit-overflow-scrolling: touch;
+  @media (--desktop) {
+    overflow: hidden;
+  }
+}

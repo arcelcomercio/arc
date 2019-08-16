@@ -14,10 +14,7 @@
 *          DIMENSIONS           *
 *-------------------------------*/
 
-$map-dimens: 100%,
-auto,
-inherit,
-0;
+$map-dimens: 100%, auto, inherit, 0;
 
 @each $dimen-value in $map-dimens {
   $dimen-class: get-fixed-class($dimen-value);
@@ -30,15 +27,15 @@ inherit,
 *        OBJECT-FIT & POS       *
 *-------------------------------*/
 
-$map-objects: (cover: object-fit,
+$map-objects: (
+  cover: object-fit,
   contain: object-fit,
   center: object-position,
   top: object-position,
   bottom: object-position,
 );
 
-@each $object-val,
-$object-attr in $map-objects {
+@each $object-val, $object-attr in $map-objects {
   @include build-class(object-#{$object-val}, $object-attr, $object-val);
 }
 
@@ -46,13 +43,7 @@ $object-attr in $map-objects {
 *           DISPLAYS            *
 *-------------------------------*/
 
-$map-displays: block,
-flex,
-grid,
-inline,
-inline-block,
-table,
-none;
+$map-displays: block, flex, grid, inline, inline-block, table, none;
 // inline-flex
 
 @each $display in $map-displays {
@@ -115,12 +106,12 @@ none;
   overflow-y: scroll;
 }
 
-.overflow-y-auto {
-  overflow-y: auto;
-}
-
 .overflow-x {
   overflow-x: scroll;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }
 
 .overflow-x-auto {
@@ -129,6 +120,14 @@ none;
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
 }
 
 /** ----------------------------*
@@ -143,10 +142,7 @@ none;
   position: absolute;
 }
 
-$map-pos-0: top,
-right,
-bottom,
-left;
+$map-pos-0: top, right, bottom, left;
 
 @each $pos-0 in $map-pos-0 {
   @include build-class(#{$pos-0}-0, $pos-0, 0);
@@ -156,9 +152,7 @@ left;
 *               TEXT            *
 *-------------------------------*/
 
-$map-text-pos: left,
-center,
-right;
+$map-text-pos: left, center, right;
 
 @each $text-pos in $map-text-pos {
   @include build-class(text-#{$text-pos}, text-align, $text-pos);
@@ -188,14 +182,14 @@ right;
   font-family: $tertiary-font;
 }
 
-$map-font-weight: (thin: 200,
+$map-font-weight: (
+  thin: 200,
   normal: 400,
   bold: 700,
   xbold: 900,
 );
 
-@each $font-weight,
-$font-weight-val in $map-font-weight {
+@each $font-weight, $font-weight-val in $map-font-weight {
   @include build-class(font-#{$font-weight}, font-weight, $font-weight-val);
 }
 
@@ -203,20 +197,18 @@ $font-weight-val in $map-font-weight {
 *            RADIUS             *
 *-------------------------------*/
 
-$map-radius: (none: 0,
+$map-radius: (
+  none: 0,
   sm: 4px,
   md: 16px,
   lg: 50px,
   '': 50%,
 );
 
-@each $radius-class,
-$radius in $map-radius {
-  @if $radius-class=='' {
+@each $radius-class, $radius in $map-radius {
+  @if $radius-class== '' {
     @include build-class(rounded, border-radius, $radius);
-  }
-
-  @else {
+  } @else {
     @include build-class(rounded-#{$radius-class}, border-radius, $radius);
   }
 }
