@@ -22,7 +22,7 @@ export default ({
         <div className="tv-featured__body mx-auto">
           <button
             type="button"
-            className="block p-0"
+            className="block p-0 w-full"
             onClick={() => setIsModalOpen(!isModalOpen)}>
             <picture className="tv-featured__picture block position-relative">
               <img
@@ -30,8 +30,8 @@ export default ({
                 src={multimedia}
                 alt={title}
               />
+              <Icon type="basic_video" iconClass="" />
             </picture>
-            <Icon type="basic_video" iconClass="" />
           </button>
 
           <div className="tv-featured__content p-15 lg:ml-35">

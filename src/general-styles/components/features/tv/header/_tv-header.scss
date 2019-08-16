@@ -1,11 +1,11 @@
 .tv-header {
   &__section-logo {
-    width: 105px;
+    width: 100px;
     left: 15px;
     z-index: 1;
     @media (--desktop) {
       left: 55px;
-      width: 143px;
+      width: 120px;
     }
   }
   &__logo {

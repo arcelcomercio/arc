@@ -27,7 +27,7 @@ export default `
       }
       headlines { basic }
       display_date
-      section_name
     }
+    section_name
   }
   `

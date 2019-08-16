@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
+import { useFusionContext } from 'fusion:context'
+
 import MenuTV from './menu'
 
 const TvHeader = () => {
+  const { contextPath, deployment } = useFusionContext()
   const [statusMenu, changeStatus] = useState(false)
+
   const toggleMenu = () => {
     changeStatus(!statusMenu)
   }
@@ -13,8 +17,10 @@ const TvHeader = () => {
         className="tv-header__section-logo block position-absolute mt-25">
         <img
           className="w-full"
-          src="https://assets.peru21.pe/img/p21tv/logo_p21tv.png"
-          alt=""
+          src={deployment(
+            `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
+          )}
+          alt="Perú21TV"
         />
       </a>
       <div className="tv-header__logo-container  position-absolute flex mt-25">

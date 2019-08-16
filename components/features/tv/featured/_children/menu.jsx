@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const arr = ['21Noticias', 'La voz del 21', 'Entrevistas 21']
 
@@ -6,14 +6,16 @@ const MenuTV = ({ toggleMenu }) => {
   useEffect(() => {
     document.body.classList.add('overflow-hidden')
   })
+  const [closeClass, setCloseClass] = useState('')
   const closeModal = () => {
-    toggleMenu()
+    setCloseClass('close')
+    setTimeout(() => toggleMenu(), 300)
     document.body.classList.remove('overflow-hidden')
   }
   return (
     <>
       <div
-        className="video-modal__gradient"
+        className={`video-modal__gradient ${closeClass}`}
         role="button"
         tabIndex="0"
         onKeyDown={e => {
@@ -23,7 +25,7 @@ const MenuTV = ({ toggleMenu }) => {
         }}
         onClick={() => closeModal()}
       />
-      <div className="tv-menu">
+      <div className={`tv-menu ${closeClass}`}>
         <div className="tv-menu__header">
           <p className="tv-menu__title">Portada</p>
           <button type="button" onClick={() => closeModal()}>

@@ -8,6 +8,10 @@
   padding: 15px;
   z-index: 20;
   background-color: $color-gray-300;
+  animation: tvMenu 0.3s forwards 0s ease;
+  &.close {
+    animation: tvMenuClose 0.3s forwards 0s ease;
+  }
   &__header {
     display: flex;
     justify-content: space-between;
@@ -41,5 +45,22 @@
     font-size: 14px;
     color: white;
     font-family: $secondary-font;
+  }
+}
+
+@keyframes tvMenu {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes tvMenuClose {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
