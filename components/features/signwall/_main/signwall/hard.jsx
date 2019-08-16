@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Modal from '../common/modal'
 import Header from '../common/header'
 import Footer from '../common/footer'
+import Taggeo from '../utils/taggeo'
 
 import FormLogin from './_children/form-login'
 import FormRegister from './_children/form-register'
@@ -14,6 +15,20 @@ class SignWallHard extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+  }
+
+  componentDidMount() {
+    Taggeo('Web_Sign_Wall_Hard', 'web_swh_open')
+    window.addEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  handleLeavePage = e => {
+    e.preventDefault()
+    Taggeo('Web_Sign_Wall_Hard', 'web_swh_leave')
   }
 
   renderTemplate(template) {
@@ -55,7 +70,7 @@ class SignWallHard extends Component {
                   position="middle"
                   name="arc-popup-signwallhard"
                   id="arc-popup-signwallhard">
-                  <Header closePopup={closePopup} />
+                  <Header closePopup={closePopup} typePopUp="hard" />
                   <div className="modal-body">
                     <div className="modal-body__left">
                       <ListBenefits

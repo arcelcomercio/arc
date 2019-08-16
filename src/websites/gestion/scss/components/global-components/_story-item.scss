@@ -42,10 +42,8 @@
   &__title {
     font-weight: 700;
     font-size: 16px;
-    max-height: calc(16px * 1.166 * 3);
     margin-top: 0;
     @media (--tablet) {
-      max-height: calc(20px * 1.166 * 3);
       font-size: 24px;
     }
   }
@@ -56,7 +54,6 @@
     @media (--tablet) {
       font-weight: 300;
       font-size: 15px;
-      max-height: calc(0.9rem * 1.333 * 3);
     }
   }
   &__icon {
