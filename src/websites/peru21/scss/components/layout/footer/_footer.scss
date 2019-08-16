@@ -67,4 +67,12 @@
       }
     }
   }
+  &__sites-link {
+    color: $color-gray-300;
+  }
+  &__sites-item {
+    &:after {
+      background-color: $color-gray-300;
+    }
+  }
 }
