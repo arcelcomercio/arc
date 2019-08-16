@@ -1,8 +1,7 @@
-import {ORIGIN_SUSCRIPCIONES} from 'fusion:environment'
 import getDomain from '../../components/features/paywall/_dependencies/domains'
 
 const resolve = () => {
-  return `${ORIGIN_SUSCRIPCIONES}/api/subscriber/validation/gestion/`
+  return `${getDomain('ORIGIN_SUSCRIPCIONES')}/api/subscriber/validation/gestion/`
 }
 
 // https://api-sandbox.gestion.pe

@@ -1,7 +1,7 @@
-import {ORIGIN_SUSCRIPCIONES} from 'fusion:environment'
+import getDomain from '../../components/features/paywall/_dependencies/domains'
 
 const resolve = ({ doctype = 'DNI', docnumber }) => {
-  const PATH = `${ORIGIN_SUSCRIPCIONES}/api/subscriber/validation/gestion/`
+  const PATH = `${getDomain('ORIGIN_SUSCRIPCIONES')}/api/subscriber/validation/gestion/`
   return docnumber ? `${PATH}?doctype=${doctype}&docnumber=${docnumber}` : PATH
 }
 
