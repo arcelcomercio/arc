@@ -36,6 +36,10 @@ class Head extends React.PureComponent {
     this.getFirstName()
   }
 
+  userName = name => {
+    return name.length > 6 ? `${name.substring(0, 6)}..` : name
+  }
+
   render() {
     const {
       siteProperties,
