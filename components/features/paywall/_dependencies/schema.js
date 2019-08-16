@@ -49,7 +49,7 @@ const Pipes = {
   },
 }
 
-const regx = new RegExp(`[ a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ'-${isProd ? '':'_'}]`)
+const regx = new RegExp(`[ ${isProd ? '' : '_'}a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ'-]`)
 // prettier-ignore
 export const Masks = {
   PERSON_NAME: new Array(49).fill(regx),
