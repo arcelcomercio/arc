@@ -1,4 +1,5 @@
 import {ORIGIN_SUSCRIPCIONES} from 'fusion:environment'
+import getDomain from '../../components/features/paywall/_dependencies/domains'
 
 const resolve = () => {
   return `${ORIGIN_SUSCRIPCIONES}/api/subscriber/validation/gestion/`
@@ -94,7 +95,7 @@ export default {
       { feature: [] }
     )
     const {title, feature: features} = summary;
-    const url = 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/paywall/?_website=gestion&outputType=paywall'
+    const url = `${getDomain('URL_DIGITAL')}`;
 
     return [Object.assign({ name, url, title, features, price, detail }), ...HARD_CAMPAIGNS]
   },
