@@ -9,8 +9,10 @@ const MenuTV = ({ toggleMenu }) => {
   const [closeClass, setCloseClass] = useState('')
   const closeModal = () => {
     setCloseClass('close')
-    setTimeout(() => toggleMenu(), 300)
-    document.body.classList.remove('overflow-hidden')
+    setTimeout(() => {
+      document.body.classList.remove('overflow-hidden')
+      toggleMenu()
+    }, 300)
   }
   return (
     <>

@@ -12,12 +12,13 @@ export default ({
   date,
   clientDate,
   videoId,
+  section,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   return (
     <>
       <div className="tv-featured position-relative mb-40">
-        <TvHeader />
+        <TvHeader {...{ section: `${section}/` }} />
 
         <div className="tv-featured__body mx-auto">
           <button
