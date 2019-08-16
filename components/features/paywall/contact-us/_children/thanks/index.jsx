@@ -1,18 +1,11 @@
 import React from 'react'
 import * as S from './styled'
-import { useFusionContext } from 'fusion:context'
 
 export default props => {
   const { siteUrl = '' } = props
-  const {
-    siteProperties: { assets = {} },
-    deployment,
-    contextPath,
-  } = useFusionContext()
-  const checkImage = assets.fullAssets(contextPath, deployment)('check')
   return (
     <S.Thanks>
-      <S.ThanksImg src={checkImage} alt="check" />
+      <S.ThanksImg />
       <S.ThanksTitle>Gracias</S.ThanksTitle>
       <S.ThanksContent>
         Tu mensaje ha sido enviado, nos pondremos en contacto con usted.
