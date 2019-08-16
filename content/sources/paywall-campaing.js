@@ -76,8 +76,8 @@ export default {
       { feature: [] }
     )
 
-    const {title: name = 'Plan Digital', ...restSummuary} = summary;
+    const {title: name = 'Plan Digital'} = summary;
 
-    return Object.assign({ name, summary: restSummuary, plans, printed }, error ? {error} : {})
+    return Object.assign({ name, summary, plans, printed }, error ? {error} : {})
   },
 }
