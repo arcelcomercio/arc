@@ -24,6 +24,7 @@ class LoginPaywall extends Component {
           closePopup={closePopup}
           typePopUp="organico"
           typeForm="login"
+          reloadLogin
         />
       ),
       register: (
@@ -32,6 +33,7 @@ class LoginPaywall extends Component {
           typePopUp="organico"
           typeForm="registro"
           brandCurrent={brandModal}
+          reloadRegister
         />
       ),
       forgot: (
@@ -47,7 +49,7 @@ class LoginPaywall extends Component {
   }
 
   render() {
-    const { closePopup, contextPath, arcSite, deployment } = this.props
+    const { contextPath, arcSite, deployment } = this.props
     const ImageBg =
       deployment(
         `${contextPath}/resources/dist/${arcSite}/images/bg_login.png`
@@ -73,14 +75,7 @@ class LoginPaywall extends Component {
                         backgroundPosition: 'center',
                       }}></div>
                     <div className="modal-body__middle intro-paywall">
-                      {/* <button
-                        type="button"
-                        className="btn-close"
-                        onClick={() => closePopup()}>
-                        <i className="icon-close"></i>
-                      </button> */}
                       {this.renderTemplate(value.selectedTemplate)}
-                      {/* {this.renderTemplate(value.selectedTemplate)} */}
                     </div>
                   </div>
                 </Modal>

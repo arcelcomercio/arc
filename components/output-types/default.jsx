@@ -42,7 +42,9 @@ export default ({
     deployment,
   }
 
-  const { headlines: { basic: storyTitle = '' } = {} } = globalContent || {}
+  const {
+    headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+  } = globalContent || {}
 
   const isStory =
     requestUri.match(`^(/(.*)/.*-noticia)`) ||
@@ -62,18 +64,17 @@ export default ({
     isAmp: false,
   }
 
+  const storyTitleRe = (StoryMetaTitle && StoryMetaTitle) || storyTitle
+
   const seoTitle =
-    (metaValue('title') &&
-      !metaValue('title').match(/content/) &&
-      metaValue('title')) ||
-    storyTitle
+    metaValue('title') &&
+    !metaValue('title').match(/content/) &&
+    metaValue('title')
 
-  const metaTitle =
-    metaValue('meta_title') && !metaValue('meta_title').match(/content/)
-      ? metaValue('meta_title')
-      : seoTitle
+  const title = isStory
+    ? `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
+    : `${seoTitle} | ${siteProperties.siteName}`
 
-  const title = `${metaTitle || seoTitle} | ${siteProperties.siteName}`
   const description =
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')}`
@@ -82,7 +83,9 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -215,7 +218,9 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

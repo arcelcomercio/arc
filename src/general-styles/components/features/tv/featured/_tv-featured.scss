@@ -1,0 +1,65 @@
+.tv-featured {
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.47);
+  @media (--tablet) {
+    background-color: $color-black;
+  }
+  &__body {
+    max-width: 1350px;
+  }
+  &__picture {
+    height: 285px;
+    @media (--tablet) {
+      height: 100%;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 45%;
+      height: 285px;
+      @media (--tablet) {
+        height: 100%;
+      }
+      background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.9) 0,
+        transparent 100%
+      );
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      width: 45%;
+      height: 285px;
+      @media (--tablet) {
+        height: 100%;
+      }
+      background: linear-gradient(
+        to right,
+        transparent 0,
+        rgba(0, 0, 0, 0.9) 100%
+      );
+    }
+  }
+  &__img {
+    @media (--tablet) {
+      min-height: 450px;
+    }
+  }
+  &__new-episode {
+    font-size: 12px; // FIJO
+  }
+  &__content {
+    @media (--tablet) {
+      position: absolute;
+      transform: translateY(-100%);
+      width: 350px;
+    }
+  }
+  &__text-button {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

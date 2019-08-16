@@ -1,3 +1,6 @@
+import {ENVIRONMENT} from 'fusion:environment'
+
+const isProd = ENVIRONMENT === 'elcomercio'
 const cardPatterns = {
   VISA: /^(4)(\d{12}|\d{15})$|^(606374\d{10}$)/,
   MASTERCARD: /^(5[1-5]\d{14}$)|^(2(?:2(?:2[1-9]|[3-9]\d)|[3-6]\d\d|7(?:[01]\d|20))\d{12}$)/,
@@ -46,19 +49,10 @@ const Pipes = {
   },
 }
 
-// ----  PIPES ESPECIALES  -----
-
-Pipes.personName = () =>
-  Pipes.combine(
-    Pipes.replace(/(^|\s)[-]/, '$1'), // No espacios/guiones al inicio de palabra
-    Pipes.dedup(' '), // No mas de un espacio de separacion entre palabras
-    Pipes.trimLeft(), // No espacio al inicio
-    Pipes.capitalize() // Palabras capitalizadas
-  )
-
+const regx = new RegExp(`[ ${isProd ? '' : '_'}a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ'-]`)
 // prettier-ignore
 export const Masks = {
-  PERSON_NAME: new Array(49).fill(/[ a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ'-]/),
+  PERSON_NAME: new Array(49).fill(regx),
   DNI: new Array(8).fill(/\d/),
   CEX: new Array(15).fill(/[a-zA-Z0-9-]/),
   CDI: new Array(15).fill(/[a-zA-Z0-9-]/),
@@ -72,9 +66,16 @@ export const Masks = {
 export const PipedMasks = {
   PERSON_NAME: {
     mask: Masks.PERSON_NAME,
-    pipe: Pipes.personName(),
+    pipe: Pipes.combine(
+      Pipes.replace(/(^|\s)[-]/, '$1'), // No espacios/guiones al inicio de palabra
+      Pipes.dedup(' '), // No mas de un espacio de separacion entre palabras
+      Pipes.trimLeft(), // No espacio al inicio
+      Pipes.capitalize() // Palabras capitalizadas
+    ),
   },
 }
+
+Masks.Piped = PipedMasks
 
 function shape(value) {
   return {

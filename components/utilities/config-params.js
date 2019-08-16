@@ -26,6 +26,8 @@ class ConfigParams {
 
   static ELEMENT_RAW_HTML = 'raw_html'
 
+  static ELEMENT_INFOGRAFIA = 'infografia'
+
   static ELEMENT_TEXT = 'text'
 
   static ELEMENT_BLOCKQUOTE = 'blockquote'

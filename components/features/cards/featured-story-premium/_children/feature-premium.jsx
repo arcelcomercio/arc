@@ -60,7 +60,7 @@ const FeaturedStoryPremiumChild = ({
           </a>
         </h2>
         <p className={classes.detail}>
-          {subTitle}
+          {subTitle}{' '}
           <a className={classes.read} href={websiteLink}>
             Leer
           </a>
@@ -73,8 +73,8 @@ const FeaturedStoryPremiumChild = ({
           </h6>
           <div className={classes.boxIcon}>
             <p>
-              <a className={classes.sectionSmall} href="/">
-                Tegnologia
+              <a className={classes.sectionSmall} href={primarySectionLink}>
+                {primarySection || 'Sección'}
               </a>
             </p>
             {isPremium && (
@@ -92,13 +92,15 @@ const FeaturedStoryPremiumChild = ({
         <a href="/">
           <picture>
             <source
+              className={isAdmin ? '' : 'lazy'}
               srcSet={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
               data-srcSet={multimediaLandscapeMD}
               media="(max-width: 367px)"
             />
             <source
+              className={isAdmin ? '' : 'lazy'}
               srcSet={isAdmin ? multimediaSquareMD : multimediaLazyDefault}
-              datasrcSet={multimediaSquareMD}
+              data-srcSet={multimediaSquareMD}
               media="(max-width: 620px)"
             />
             <img

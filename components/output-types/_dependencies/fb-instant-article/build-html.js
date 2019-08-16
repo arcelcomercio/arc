@@ -12,25 +12,29 @@ const buildParagraph = paragraph => {
 
     result = `<figure class="op-interactive">${paragraph}</figure>`
   } else if (paragraph.includes('<img')) {
-    const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
-    const imageAlt = paragraph.match(/alt="([^"]+)/)[1]
-    
+    const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)
+      ? paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
+      : ''
+
+    const imageAlt = paragraph.match(/alt="([^"]+)?/)
+      ? paragraph.match(/alt="([^"]+)?/)[1]
+      : ''
+
+    if (imageUrl !== '') {
+      result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+    } else {
+      result = ''
+    }
+
     result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-  
-  } else if (paragraph.includes('<blockquote class="instagram-media"')) {
-    // valida blockquote de instagram
-    const instagramUrl = paragraph.match(
-      /https:\/\/www\.instagram\.com\/p\/(?:[\w\d]+)\/?/
-    )
-
-    result = `<figure class="op-interactive"><iframe frameborder="0" width="560" height="315" src="${instagramUrl}embed"></iframe></figure>`
-  } else if (paragraph.includes('<blockquote class="twitter-tweet"')) {
-    // valida blockquote de twitter
-    const twitterUrl = paragraph.match(
-      /https:\/\/twitter\.com\/(?:[\/\w\d\?\=\%]+)?/
-    )
-
-    result = `<figure class="op-interactive"><iframe frameborder="0" width="560" height="315" src="${twitterUrl}"></iframe></figure>`
+  } else if (
+    paragraph.includes('<blockquote class="instagram-media"') ||
+    paragraph.includes('<blockquote class="twitter-tweet"')
+  ) {
+    // ára twitter y para instagram
+    result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
+  } else if (paragraph.includes('https://www.facebook.com/plugins')) {
+    result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
   } else {
     // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
     result = `<p>${paragraph}</p>`
@@ -38,9 +42,23 @@ const buildParagraph = paragraph => {
   return result
 }
 
+const validateMultimediaParagraph = paragraph => {
+  let result = false
+  if (
+    paragraph.includes('<iframe') ||
+    paragraph.includes('<img') ||
+    paragraph.includes('<blockquote class="instagram-media"') ||
+    paragraph.includes('<blockquote class="twitter-tweet"')
+  ) {
+    result = true
+  }
+  return result
+}
+
 const ParagraphshWithAdds = ({
   paragraphsNews = [],
-  numwords = 250,
+  firstAdd = 50,
+  nextAdds = 250,
   arrayadvertising = [],
 }) => {
   const newsWithAdd = []
@@ -48,47 +66,59 @@ const ParagraphshWithAdds = ({
   let IndexAdd = 0
   let resultParagraph = ''
 
-  paragraphsNews.forEach((paragraphItem, index) => {
+  
+  paragraphsNews.forEach(paragraphItem => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
-    // paragraph = paragraph.replace(/<\/?br[^<>]+>/, '')
-    // el primer script de publicidad se inserta despues del segundo parrafo
+    // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
 
-    if (index <= 1) {
-      if (index === 1) {
-        newsWithAdd.push(`${buildParagraph(paragraph)} 
-            ${
-              arrayadvertising[IndexAdd]
-                ? buildIframeAdvertising(arrayadvertising[IndexAdd])
-                : ''
-            }`)
-        IndexAdd += 1
-      } else {
-        newsWithAdd.push(`${buildParagraph(paragraph)}`)
-      }
-    } else {
-      // al segundo parrafo se inserta cada 250 palabras (numwords)
-      let paragraphwithAdd = ''
-      const paragraphOriginal = paragraph
+    let paragraphwithAdd = ''
+    const originalParagraph = paragraph
+    paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
+    const arrayWords = paragraph.split(' ')
 
-      paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
-
-      const arrayWords = paragraph.split(' ')
-      if (arrayWords.length <= numwords) {
+    if (IndexAdd === 0) {
+      if (arrayWords.length <= firstAdd) {
         countWords += arrayWords.length
       }
 
-      if (countWords >= numwords) {
+      if (countWords >= firstAdd) {
         countWords = 0
-        paragraphwithAdd = `${buildParagraph(paragraphOriginal)} ${
+
+        paragraphwithAdd = `${buildParagraph(originalParagraph)} ${
           arrayadvertising[IndexAdd]
             ? buildIframeAdvertising(arrayadvertising[IndexAdd])
             : ''
         }`
         IndexAdd += 1
       } else {
-        paragraphwithAdd = `${buildParagraph(paragraphOriginal)}`
+        paragraphwithAdd = `${buildParagraph(originalParagraph)}`
       }
-      newsWithAdd.push(`${paragraphwithAdd.trim()}`)
+
+      newsWithAdd.push(`${paragraphwithAdd}`)
+    } else {
+      // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
+
+      // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
+      if (arrayWords.length <= nextAdds) {
+        if (validateMultimediaParagraph(originalParagraph)) {
+          countWords += 70
+        } else {
+          countWords += arrayWords.length
+        }
+      }
+
+      if (countWords >= nextAdds) {
+        countWords = 0
+        paragraphwithAdd = `${buildParagraph(originalParagraph)} ${
+          arrayadvertising[IndexAdd]
+            ? buildIframeAdvertising(arrayadvertising[IndexAdd])
+            : ''
+        }`
+        IndexAdd += 1
+      } else {
+        paragraphwithAdd = `${buildParagraph(originalParagraph)}`
+      }
+      newsWithAdd.push(`${paragraphwithAdd}`)
     }
   })
   resultParagraph = newsWithAdd.map(item => item).join('')
@@ -108,49 +138,54 @@ const BuildHtml = BuildHtmlProps => {
     listUrlAdvertisings,
   } = BuildHtmlProps
 
-  const numwords = 250
+  const firstAdd = 50
+  const nextAdds = 250
 
   const paramsBuildParagraph = {
     paragraphsNews,
-    numwords,
+    firstAdd,
+    nextAdds,
     arrayadvertising: listUrlAdvertisings,
   }
-
-  const element = `
-          <html lang="es" prefix="op: http://media.facebook.com/op#">
-          <head>
-              <meta charset="utf-8" />
-              <meta property="op:markup_version" content="v1.0" />
-              <meta property="fb:article_style" content="${fbArticleStyle}" />
-          </head>
-          <body>
-            <article>
-              <figure class="op-tracker">
-                <iframe>
-                  <script>${AnalyticsScript(scriptAnaliticaProps)}</script>
-                  <script type="text/javascript">${ScriptHeader(
-                    propsScriptHeader
-                  )}</script>
-                  <script defer src="//static.chartbeat.com/js/chartbeat_fia.js"></script>
-                  <script>${ScriptElement()}</script>
-                </iframe>
-              </figure>
-            
-            <header>
-              <h1>${title}</h1>
-              <h2>${subTitle}</h2>
-            </header>
-            <figure>
-                <img src="${multimedia}" />
-                <figcaption>${title}</figcaption>
-            </figure>
-            <p>${author}</p>
-            ${ParagraphshWithAdds(paramsBuildParagraph)}
-            </article>
-            </body>
-          </html>
-          `
-  return element
+  try {
+    const element = `
+  <html lang="es" prefix="op: http://media.facebook.com/op#">
+  <head>
+      <meta charset="utf-8" />
+      <meta property="op:markup_version" content="v1.0" />
+      <meta property="fb:article_style" content="${fbArticleStyle}" />
+  </head>
+  <body>
+    <article>
+      <figure class="op-tracker">
+        <iframe>
+          <script>${AnalyticsScript(scriptAnaliticaProps)}</script>
+          <script type="text/javascript">${ScriptHeader(
+            propsScriptHeader
+          )}</script>
+          <script defer src="//static.chartbeat.com/js/chartbeat_fia.js"></script>
+          <script>${ScriptElement()}</script>
+        </iframe>
+      </figure>
+    
+      <header>
+        <h1>${title}</h1>
+        <h2>${subTitle}</h2>
+      </header>
+      <figure>
+          <img src="${multimedia}" />
+          <figcaption>${title}</figcaption>
+      </figure>
+      <p>${author}</p>
+      ${ParagraphshWithAdds(paramsBuildParagraph)}
+    </article>
+  </body>
+</html>`
+    return element
+  } catch (ex) {
+    console.log(ex)
+    return null
+  }
 }
 
 export default BuildHtml

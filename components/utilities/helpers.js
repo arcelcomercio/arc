@@ -13,6 +13,18 @@ export const appendScript = (code, position = 'body') => {
   return document.body.append(script)
 }
 
+export const formatAMPM = _date => {
+  const date = new Date(_date)
+  let hours = date.getHours()
+  let minutes = date.getMinutes()
+  const ampm = hours >= 12 ? 'pm' : 'am'
+  hours %= 12
+  hours = hours || 12 // the hour '0' should be '12'
+  minutes = minutes < 10 ? `0${minutes}` : minutes
+  const strTime = `${hours}:${minutes} ${ampm}`
+  return strTime
+}
+
 export const formatDate = date => {
   const actual = new Date()
   const day = actual.getDate()
@@ -41,6 +53,15 @@ export const formattedTime = date => {
   return `${hours}:${minutes}`
 }
 
+export const getYYYYMMDDfromISO = date =>
+  date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+
+export const getActualDate = () => {
+  const today = new Date()
+  today.setHours(today.getHours() - 5)
+  return getYYYYMMDDfromISO(today)
+}
+
 export const formatDateLocalTimeZone = publishDateString => {
   const publishDate = new Date(publishDateString)
   publishDate.setHours(publishDate.getHours() - 5)
@@ -49,14 +70,11 @@ export const formatDateLocalTimeZone = publishDateString => {
   today.setHours(today.getHours() - 5)
 
   let formattedDate = ''
-  const diff = parseFloat(
-    (Math.abs(today - publishDate) / (1000 * 60 * 60)).toFixed(1)
-  )
 
-  if (diff >= 24)
-    // eslint-disable-next-line prefer-destructuring
-    formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
-  else formattedDate = formattedTime(publishDate)
+  if (getYYYYMMDDfromISO(publishDate) === getYYYYMMDDfromISO(today))
+    formattedDate = formattedTime(publishDate)
+  // eslint-disable-next-line prefer-destructuring
+  else formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
   return formattedDate
 }
 
@@ -92,7 +110,7 @@ export const formatDayMonthYear = (
 ) => {
   const date = new Date(currentDate)
 
-  if (isStatic) if (date.getHours() <= 5) date.setDate(date.getDate() - 1)
+  if (isStatic) date.setHours(date.getHours() - 5)
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
@@ -120,14 +138,6 @@ export const getFullDateIso8601 = (
     minutes,
     seconds,
   }
-}
-
-export const getActualDate = () => {
-  const today = new Date()
-
-  if (today.getHours() <= 5) today.setDate(today.getDate() - 1)
-
-  return today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 }
 
 export const isEmpty = val => {

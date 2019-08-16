@@ -3,7 +3,6 @@ import { Formik, Form, Field } from 'formik'
 
 import * as S from './styled'
 import Button from '../../../../../_children/button'
-import Error from '../../../../../_children/error'
 import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import { FormSchema, Masks } from './schema'
@@ -48,10 +47,10 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                 Compra seguro. Esta web está protegida
               </S.TextSecurity>
             </S.Security>
-            {error && <Error mb="20px" message={error} />}
+            {error && <S.Error mb="20px" message={error} />}
             <S.WrapCards>
               <S.TextCard>Selecciona un tipo de tarjeta</S.TextCard>
-              <S.Cards>
+              <S.Cards className="cards">
                 <Field
                   component={S.RadioCondition}
                   label={<Icon type="visa" />}
@@ -91,6 +90,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                 <Field
                   component={Input}
                   name="cardNumber"
+                  inputMode="numeric"
                   label="Número de tarjeta"
                   pipe={trim()}
                   mask={Masks.CREDIT_CARD_NUMBER}
@@ -104,6 +104,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                   name="expiryDate"
                   mask={Masks.EXPIRY_DATE}
                   placeholder="mm/aaaa"
+                  inputMode="numeric"
                   label="F. de Vencimiento"
                 />
               </S.WrapInput>
@@ -111,6 +112,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                 <Field
                   component={Input}
                   suffix={<Icon type="cvv" />}
+                  inputMode="numeric"
                   type="text"
                   mask={
                     cardMethod === 'amex'

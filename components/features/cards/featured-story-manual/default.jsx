@@ -11,6 +11,7 @@ class CardFeaturedStoryManual extends PureComponent {
     super(props)
     const {
       arcSite,
+      isAdmin,
       deployment,
       contextPath,
       customFields: {
@@ -60,6 +61,77 @@ class CardFeaturedStoryManual extends PureComponent {
     const currentNotePath =
       scheduledNotes.length > 0 ? scheduledNotes[0].path : path
 
+    const validateScheduledNotes = () => {
+      const filter = '{ publish_date }'
+      this.fetchContent({
+        nota1: {
+          source,
+          query: {
+            website_url: note1,
+            published: 'false',
+          },
+          filter,
+        },
+      })
+
+      this.fetchContent({
+        nota2: {
+          source,
+          query: {
+            website_url: note2,
+            published: 'false',
+          },
+          filter,
+        },
+      })
+
+      this.fetchContent({
+        nota3: {
+          source,
+          query: {
+            website_url: note3,
+            published: 'false',
+          },
+          filter,
+        },
+      })
+      const { nota1 = {}, nota2 = {}, nota3 = {} } = this.state
+      const dateNote1 = nota1.publish_date && new Date(nota1.publish_date)
+      const dateNote2 = nota2.publish_date && new Date(nota2.publish_date)
+      const dateNote3 = nota3.publish_date && new Date(nota3.publish_date)
+
+      const arrError = []
+      if (note1 !== '' && date1 < dateNote1) {
+        arrError.push({
+          note: 'Nota 1',
+          publish_date: dateNote1,
+          programate_date: date1,
+        })
+      }
+      if (note2 !== '' && date2 < dateNote2) {
+        arrError.push({
+          note: 'Nota 2',
+          publish_date: dateNote2,
+          programate_date: date2,
+        })
+      }
+      if (note3 !== '' && date3 < dateNote3) {
+        arrError.push({
+          note: 'Nota 3',
+          publish_date: dateNote3,
+          programate_date: date3,
+        })
+      }
+
+      this.state = {
+        errorList: arrError,
+      }
+    }
+
+    if (isAdmin) {
+      validateScheduledNotes()
+    }
+
     this.fetchContent({
       data: {
         source,
@@ -105,7 +177,7 @@ class CardFeaturedStoryManual extends PureComponent {
       } = {},
     } = this.props
 
-    const { data = {}, defaultData = {} } = this.state || {}
+    const { errorList, data = {}, defaultData = {} } = this.state || {}
 
     // Si la data no existe usar el estado defaultData
     const existingData = data._id ? data : defaultData
@@ -150,6 +222,7 @@ class CardFeaturedStoryManual extends PureComponent {
       arcSite,
       multimediaType,
       isAdmin,
+      errorList,
     }
     return <FeaturedStory {...params} />
   }

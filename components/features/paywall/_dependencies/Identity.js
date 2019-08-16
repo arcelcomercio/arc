@@ -1,5 +1,5 @@
 import addScriptAsync from '../../../utilities/script-async'
-import getService from './services'
+import getDomain from './domains'
 
 
 
@@ -17,10 +17,10 @@ export const attrToObject = (attributes = [], getAttributes = []) => {
 export const AddIdentity = () => {
   return addScriptAsync({
     name: 'sdkIndetityARC',
-    url: getService('ORIGIN_IDENTITY_SDK'),
+    url: getDomain('ORIGIN_IDENTITY_SDK'),
   }).then(added => {
     if (added) {
-      window.Identity.apiOrigin = getService('ORIGIN_API')
+      window.Identity.apiOrigin = getDomain('ORIGIN_API')
     }
     return window.Identity
   })
