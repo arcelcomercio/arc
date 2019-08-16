@@ -46,7 +46,7 @@ export default {
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
   },
   paywall: {
-    title: 'Gestión | Suscripciones Digitales',
+    title: 'Suscripciones Digitales | Gestión',
     clickToCall: 'https://c2c.kontactame.com/call/?id=162',
     corporate: '/suscripcionesdigitales/empresa/',
     faq: '/suscripcionesdigitales/faq/',

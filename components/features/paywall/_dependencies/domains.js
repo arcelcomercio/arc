@@ -5,12 +5,11 @@ const queryString = isProd ? '' : '?_website=gestion&outputType=paywall'
 const context = isProd ? '' : CONTEXT_PATH
 
 const domains = {
-  URL_CORPORATE: () =>
-    `${context}/suscripcionesdigitales/empresa/${queryString}`,
-  URL_FAQ: () => `${context}/suscripcionesdigitales/faq/${queryString}`,
-  VALIDATE_SUSCRIPTOR: (ENV, documentType, documentNumber) =>
-    `${context}/suscripcionesdigitales/${documentType}/${documentNumber}${queryString}`,
-  PWA_DOMAIN: ENV => {
+  URL_CORPORATE : () => `${context}/suscripcionesdigitales/empresa/${queryString}`,
+  URL_FAQ : () => `${context}/suscripcionesdigitales/faq/${queryString}`,
+  URL_DIGITAL : () => `${context}/suscripcionesdigitales${queryString}`,
+  VALIDATE_SUSCRIPTOR : (ENV, documentType, documentNumber) => `${context}/suscripcionesdigitales/${documentType}/${documentNumber}${queryString}`,
+  PWA_DOMAIN : ENV => {
     const _env_ = ENV === 'elcomercio' ? '' : '.dev'
     return `https://pwa${_env_}.gestion.pe`
   },

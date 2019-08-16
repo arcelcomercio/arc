@@ -57,6 +57,7 @@ const PaywallContactUs = props => {
         setError('Disculpe ha ocurrido un error de nuestro lado.')
       })
       .finally(() => {
+        setSubmitting(false)
         setLoading(false)
       })
   })
