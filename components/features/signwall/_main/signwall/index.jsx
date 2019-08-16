@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Modal from '../common/modal'
 import Header from '../common/header'
 import Footer from '../common/footer'
+import Taggeo from '../utils/taggeo'
 
 import FormLogin from './_children/form-login'
 import FormRegister from './_children/form-register'
@@ -15,6 +16,20 @@ class LoginRegister extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+  }
+
+  componentDidMount() {
+    Taggeo('Web_Sign_Wall_Organico', 'web_swo_open')
+    window.addEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  handleLeavePage = e => {
+    e.preventDefault()
+    Taggeo('Web_Sign_Wall_0rganico', 'web_swo_leave')
   }
 
   renderTemplate(template) {
@@ -58,7 +73,7 @@ class LoginRegister extends Component {
               position="middle"
               name="arc-popup-signwall"
               id="arc-popup-signwall">
-              <Header closePopup={closePopup} />
+              <Header closePopup={closePopup} typePopUp="organico" />
               <div className="modal-body">
                 <div className="modal-body__left">
                   <ListBenefits

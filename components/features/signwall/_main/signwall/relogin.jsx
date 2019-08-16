@@ -7,6 +7,7 @@ import Footer from '../common/footer'
 import FormRelogin from './_children/form-relogin'
 import FormForgotPass from './_children/form-forgot-pass'
 import FormRegister from './_children/form-register'
+import Taggeo from '../utils/taggeo'
 
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
@@ -21,6 +22,20 @@ class SignWallRelogin extends Component {
     this.state = {
       nameMPP: userName !== 'undefined' ? userName : 'lector',
     }
+  }
+
+  componentDidMount() {
+    Taggeo('Web_Sign_Wall_Relogemail', 'web_swr_open')
+    window.addEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  handleLeavePage = e => {
+    e.preventDefault()
+    Taggeo('Web_Sign_Wall_Relogemail', 'web_swr_leave')
   }
 
   renderTemplate(template) {
@@ -38,7 +53,7 @@ class SignWallRelogin extends Component {
         <FormRegister
           closePopup={closePopup}
           typePopUp="relogemail"
-          typeForm="register"
+          typeForm="registro"
           brandCurrent={brandModal}
         />
       ),
@@ -68,7 +83,7 @@ class SignWallRelogin extends Component {
                   position="middle"
                   name="arc-popup-relogin-email"
                   id="arc-popup-relogin-email">
-                  <Header closePopup={closePopup} />
+                  <Header closePopup={closePopup} typePopUp="relogemail" />
                   <div className="modal-body">
                     <div className="modal-body__left">
                       <ListBenefits
