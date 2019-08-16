@@ -11,7 +11,6 @@ export const Colors = {
 export const DialogContent = styled.div`
   display: flex;
   justify-content: center;
-  width: calc(100vw - 48px);
   max-width: 820px;
   height: 530px;
   border-radius: 4px;

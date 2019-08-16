@@ -41,7 +41,7 @@ export default arcSite => {
       }
     }
     headlines { basic }
-    publish_date
+    display_date
     taxonomy {
       primary_section {
         path
