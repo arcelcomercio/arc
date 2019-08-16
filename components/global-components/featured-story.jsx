@@ -62,7 +62,7 @@ export default class FeaturedStory extends PureComponent {
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
       isAdmin,
-      errorList
+      errorList = [],
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
@@ -125,7 +125,9 @@ export default class FeaturedStory extends PureComponent {
     }
 
     const renderMessage = () => {
-      return `Nota Programada: Error en ${errorList.join(', ')}, la fecha programada.`
+      return `Nota Programada: Error en ${errorList.join(
+        ', '
+      )}, la fecha programada.`
     }
 
     return (
@@ -187,7 +189,9 @@ export default class FeaturedStory extends PureComponent {
             <Icon type={multimediaType} iconClass={classes.icon} />
           </picture>
         </a>
-        { isAdmin && errorList.length > 0 &&  <Notify message={renderMessage()} />}
+        {isAdmin && errorList.length > 0 && (
+          <Notify message={renderMessage()} />
+        )}
       </article>
     )
   }
