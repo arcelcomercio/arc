@@ -110,13 +110,13 @@ const TvFeatured = props => {
       if (el.node_type === 'link') {
         return {
           name: el.display_name,
-          url: el.url,
+          url: `${el.url}/`,
           node_type: el.node_type,
         }
       }
       return {
         name: el.name,
-        url: el._id,
+        url: `${el._id}/`,
         node_type: el.node_type,
       }
     })
@@ -138,6 +138,7 @@ const TvFeatured = props => {
         multimedia: getMultimedia(),
         isNewStory: validateNewStory(date),
         date,
+        section: `${section}/`,
         clientDate,
         videoId: getVideoId(),
         menuSections: formatMenuSections(menuSections),

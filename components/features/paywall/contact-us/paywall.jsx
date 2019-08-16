@@ -7,6 +7,7 @@ import Loading from '../_children/loading'
 import { devices } from '../_dependencies/devices'
 import getDomain from '../_dependencies/domains'
 import * as S from './styled'
+import { MESSAGE } from './_children/contact-form/schema'
 
 const url = getDomain('ORIGIN_SUBSCRIPTION_CORP_API')
 
@@ -49,12 +50,12 @@ const PaywallContactUs = props => {
           // eslint-disable-next-line no-throw-literal
           setError('Entrada invalida')
         } else if (res.status >= 500) {
-          setError('Disculpe ha ocurrido un error de nuestro lado.')
+          setError(MESSAGE.API_ERROR)
         }
       })
       .catch(err => {
         console.error(err)
-        setError('Disculpe ha ocurrido un error de nuestro lado.')
+        setError(MESSAGE.API_ERROR)
       })
       .finally(() => {
         setSubmitting(false)
