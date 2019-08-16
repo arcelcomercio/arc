@@ -9,10 +9,10 @@ export default props => {
     deployment,
     contextPath,
   } = useFusionContext()
-  const sideImage = assets.fullAssets(contextPath, deployment)('check')
+  const checkImage = assets.fullAssets(contextPath, deployment)('check')
   return (
     <S.Thanks>
-      <S.ThanksImg src={sideImage} alt="check" />
+      <S.ThanksImg src={checkImage} alt="check" />
       <S.ThanksTitle>Gracias</S.ThanksTitle>
       <S.ThanksContent>
         Tu mensaje ha sido enviado, nos pondremos en contacto con usted.

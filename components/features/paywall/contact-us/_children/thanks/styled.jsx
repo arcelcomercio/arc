@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Thanks = styled.div`
   width: 100%;
   height: auto;
+  min-height: 540px;
   max-width: 230px;
   margin: 0 auto;
   display: flex;
