@@ -33,6 +33,24 @@
   /* Esto es importante definirlo por los scripts de Opta */
   &__content > section {
     width: 100%;
+    & > h1 {
+      font-size: 2em;
+    }
+    & > h2 {
+      font-size: 1.81em;
+    }
+    & > h3 {
+      font-size: 1.601em;
+    }
+    & > h4 {
+      font-size: 1.379em;
+    }
+    & > h5 {
+      font-size: 1.25em;
+    }
+    & > h6 {
+      font-size: 1.188em;
+    }
   }
 
   /* ----------------------------------------------------- */

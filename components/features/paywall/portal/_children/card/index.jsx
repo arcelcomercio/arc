@@ -21,6 +21,7 @@ function Promotion() {
 function Card({ item }) {
   const {
     title,
+    url,
     recommended = false,
     features,
     price: { amount, currency },
@@ -54,7 +55,7 @@ function Card({ item }) {
         </div>
       </div>
       <div className="card__footer">
-        <a href="/same" className="link link--suscribe">
+        <a href={url} className="link link--suscribe">
           SUSCRIBIRME
         </a>
       </div>
