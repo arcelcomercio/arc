@@ -73,13 +73,13 @@ const PaywallContactUs = props => {
     <ClientOnly>
       <Loading fullscreen spinning={loading} />
       <S.WrapContent>
-        <picture>
+        <S.Picture>
           <source
             media="(max-width: 1024px)"
             srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
           />
           <img src={ContactUsImage} alt="contact_us" />
-        </picture>
+        </S.Picture>
         {showThanks ? (
           <Thanks siteUrl={siteUrl} />
         ) : (
