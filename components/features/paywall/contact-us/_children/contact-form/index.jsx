@@ -79,6 +79,7 @@ export default props => {
                 <Field
                   transform="capitalize"
                   name="asunto"
+                  mask={new Array(100).fill(/./)}
                   label="Asunto"
                   component={InputFormik}
                 />
@@ -88,6 +89,7 @@ export default props => {
                   multiline
                   name="descripcion"
                   label="Descripción"
+                  mask={new Array(500).fill(/./)}
                   component={InputFormik}
                 />
               </S.WrapField>
