@@ -100,7 +100,7 @@ class SeparatorOpinion extends PureComponent {
       customFields: { titleSection, htmlCode },
     } = this.props
     let data = dataApi && Object.values(dataApi)
-    const numStory = getStoriesQty(isMobile, isTablet)
+    const numStory = 5 // getStoriesQty(isMobile, isTablet)
     data = data.slice(0, numStory)
     return (
       <div className={classes.separator}>
