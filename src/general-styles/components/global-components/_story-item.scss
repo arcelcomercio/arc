@@ -49,13 +49,9 @@
   }
 
   &__right {
-    max-height: 170px;
-    margin-left: 5px;
-  }
-
-  &__img {
     width: 115px;
     height: 72px;
+    margin-left: 5px;
 
     @media (--tablet) {
       width: 220px;

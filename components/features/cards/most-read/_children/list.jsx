@@ -3,7 +3,7 @@ import CardMostReadItem from './item'
 
 const classes = {
   mostRead: 'flex flex-col most-read bg-white lg:p-0',
-  title: `most-read__title flex flex-row items-center bg-base-200 uppercase font-bold justify-between text-left text-white pr-20 pl-20`,
+  title: `most-read__title flex flex-row items-center bg-base-200 uppercase font-bold justify-between text-left text-white pr-20 pl-20 position-relative`,
   link: 'most-read__link',
   icon: 'most-read__icon icon-marca',
 }
