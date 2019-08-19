@@ -1,9 +1,11 @@
 .story-continue {
   &__story-load-image {
-    background-image: url(/pf/resources/dist/ojo/images/loader.jpg);
+    background-image: url(/pf/resources/dist/peru21/images/logo.png);
     width: 53px;
     height: 37px;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   &__counter {
     &::after {
