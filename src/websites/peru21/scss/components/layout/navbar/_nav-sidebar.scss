@@ -1,0 +1,21 @@
+.nav-sidebar {
+  &__body {
+    padding-left: 0;
+  }
+  &__item {
+    padding-left: 20px;
+    transition: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__link {
+    font-family: $secondary-font;
+  }
+  &__item,
+  &__link {
+    &:hover {
+      background-color: $color-primary;
+    }
+  }
+}

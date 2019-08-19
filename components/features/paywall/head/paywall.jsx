@@ -9,7 +9,7 @@ import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
 @Consumer
 class Head extends React.PureComponent {
   state = {
-    firstName: 'cargando..',
+    firstName: 'Invitado',
     showSignwall: false,
   }
 
@@ -36,21 +36,31 @@ class Head extends React.PureComponent {
     this.getFirstName()
   }
 
-  render() {
-    const { siteProperties, contextPath, deployment, arcSite } = this.props
+  userName = name => {
+    return name.length > 6 ? `${name.substring(0, 6)}..` : name
+  }
 
+  render() {
+    const {
+      siteProperties,
+      contextPath,
+      deployment,
+      arcSite,
+      customFields,
+    } = this.props
     const { assets } = siteProperties
     const { firstName, showSignwall } = this.state
+    const checkForceLogin = customFields.forceLogin || true
 
     return (
       <div className="head">
-        {showSignwall && (
+        {showSignwall && checkForceLogin ? (
           <SignwallPaywall
             brandModal={arcSite}
             closePopup={() => this.closeShowSignwall()}
             reloadLogin
           />
-        )}
+        ) : null}
         <div className="head__background">
           <div className="background_left" />
           <div className="background_right" />

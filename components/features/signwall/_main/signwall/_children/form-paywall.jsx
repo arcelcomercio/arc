@@ -12,8 +12,8 @@ class SignWallPaywall extends Component {
     super(props)
     this.state = {
       showPaywallBtn: false,
-      paywallPrice: '0',
-      paywallDescripcion: 'none',
+      paywallPrice: '-',
+      paywallDescripcion: '-',
     }
 
     const { arcSite } = this.props
@@ -37,8 +37,8 @@ class SignWallPaywall extends Component {
     const { fetched } = this.getContent('paywall-campaing')
     fetched.then(resCam => {
       this.setState({
-        paywallPrice: resCam.plans[0].amount || 'none',
-        paywallDescripcion: resCam.plans[0].description.description || 'none',
+        paywallPrice: resCam.plans[0].amount || '-',
+        paywallDescripcion: resCam.plans[0].description.description || '-',
       })
     })
   }

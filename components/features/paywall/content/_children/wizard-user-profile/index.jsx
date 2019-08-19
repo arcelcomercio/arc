@@ -8,22 +8,28 @@ import { addSales } from '../../../_dependencies/sales'
 import Beforeunload from '../before-unload'
 import Loading from '../../../_children/loading'
 import { parseQueryString } from '../../../../../utilities/helpers'
+import { deepMapValues } from '../../../_dependencies/utils'
 
 const isProd = ENVIRONMENT === 'elcomercio'
 const ERROR = {
   E300012: 'No se ha encontrado ningún carrito para el usuario.',
-  UNKNOWN: code =>
-    `ups, vamos a verificar que paso, error desconocido, Ex${code}`,
+  UNKNOWN: 'Ha ocurrido un error, inténtelo de nuevo mas tarde',
 }
 
 function WizardUserProfile(props) {
   const {
     memo,
-    profile,
     summary,
+    profile,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
+
+  const sanitizeValues = value =>
+    typeof value === 'string'
+      ? value.trim().replace(/undefined|null/i, null)
+      : value
+  const sanitizedProfile = deepMapValues(profile, sanitizeValues)
 
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_PROFILE)
@@ -80,7 +86,7 @@ function WizardUserProfile(props) {
               setError(ERROR.E300012)
               break
             default:
-              setError(ERROR.UNKNOWN(e.code))
+              setError(ERROR.UNKNOWN)
               break
           }
           setLoading(false)
@@ -99,9 +105,9 @@ function WizardUserProfile(props) {
     <Beforeunload onBeforeunload={() => 'message'}>
       <S.WizardUserProfile>
         <S.PanelUserProfile type="content" valing="jc-center">
-          {profile && (
+          {sanitizedProfile && (
             <UserProfile
-              initialValues={profile}
+              initialValues={sanitizedProfile}
               onSubmit={onSubmitHandler}
               title="Ingrese sus datos"
               error={error}
