@@ -383,19 +383,22 @@ class StoryData {
         
         switch (type) {
           case ConfigParams.ELEMENT_TEXT:
-            result.payload = content && content
+            result.payload = content 
+            // && content
             break
           case ConfigParams.ELEMENT_IMAGE:
-            result.payload = url && url
+            result.payload = url 
+            // && url
             break
           case ConfigParams.ELEMENT_VIDEO:
             result.payload = _id
             break
           case ConfigParams.ELEMENT_RAW_HTML:
-            result.payload = content && content
+            result.payload = content 
+            // && content
             break
           default:
-            result.payload = ''
+            result.payload = content
             break
         }
         return result

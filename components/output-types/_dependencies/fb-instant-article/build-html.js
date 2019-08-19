@@ -14,7 +14,7 @@ const buildParagraph = (paragraph, type = '') => {
   }
 
   if (type === ConfigParams.ELEMENT_VIDEO) {
-    result = `<iframe src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaEmbed.html?org=elcomercio&env=sandbox&api=sandbox&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`
+    result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaEmbed.html?org=elcomercio&env=sandbox&api=sandbox&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
   }
 
   if (type === ConfigParams.ELEMENT_IMAGE) {
@@ -56,16 +56,31 @@ const buildParagraph = (paragraph, type = '') => {
   return result
 }
 
-const validateMultimediaParagraph = paragraph => {
+const validateMultimediaParagraph = (paragraph, type) => {
   let result = false
-  if (
-    paragraph.includes('<iframe') ||
-    paragraph.includes('<img') ||
-    paragraph.includes('<blockquote class="instagram-media"') ||
-    paragraph.includes('<blockquote class="twitter-tweet"')
-  ) {
-    result = true
+  switch (type) {
+    case ConfigParams.ELEMENT_VIDEO:
+      result = true
+      break
+    case ConfigParams.ELEMENT_IMAGE:
+      result = true
+      break
+    case ConfigParams.ELEMENT_RAW_HTML:
+      if (
+        paragraph.includes('<iframe') ||
+        paragraph.includes('<img') ||
+        paragraph.includes('<blockquote class="instagram-media"') ||
+        paragraph.includes('<blockquote class="twitter-tweet"')
+      ) {
+        result = true
+      }
+      break
+
+    default:
+      result = false
+      break
   }
+  
   return result
 }
 
@@ -113,7 +128,7 @@ const ParagraphshWithAdds = ({
 
       // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
       if (arrayWords.length <= nextAdds) {
-        if (validateMultimediaParagraph(originalParagraph)) {
+        if (validateMultimediaParagraph(originalParagraph, type)) {
           countWords += 70
         } else {
           countWords += arrayWords.length
