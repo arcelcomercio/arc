@@ -34,7 +34,7 @@ export default {
     },
     seo: {
       logoAmp: 'logo-amp.png',
-      width: 258,
+      width: 230,
       height: 60,
     },
   },
