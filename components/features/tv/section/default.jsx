@@ -1,14 +1,37 @@
 import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
+
+import {
+  popUpWindow,
+  socialMediaUrlShareList,
+  addSlashToEnd,
+} from '../../../utilities/helpers'
 
 const TvSection = () => {
   const {
     globalContent: {
+      _id,
       name: sectionName,
       site_topper: { site_logo_image: sectionImg } = {},
     } = {},
+    arcSite,
   } = useFusionContext()
+
+  const { siteUrl = '' } = getProperties(arcSite)
+
+  const urlsShareList = socialMediaUrlShareList(
+    addSlashToEnd(siteUrl),
+    _id,
+    sectionName,
+    'peru21noticias' // TODO: Agregar esto a site properties si es que se va a usar en otros sitios
+  )
+
+  const openLink = (event, link) => {
+    event.preventDefault()
+    popUpWindow(link, '', 600, 400)
+  }
 
   return (
     <>
@@ -30,17 +53,20 @@ const TvSection = () => {
         </div>
         <div className="flex">
           <a
-            href="/asd"
+            href={urlsShareList.facebook}
+            onClick={event => openLink(event, urlsShareList.facebook)}
             className="tv-section__icon-link block border-1 border-white rounded border-solid flex justify-center items-center">
             <i className="icon-facebook text-white" />
           </a>
           <a
-            href="/asd"
+            href={urlsShareList.twitter}
+            onClick={event => openLink(event, urlsShareList.twitter)}
             className="tv-section__icon-link block border-1 border-white rounded border-solid ml-10 md:ml-15 flex justify-center items-center">
             <i className="icon-twitter text-white" />
           </a>
           <a
-            href="/asd"
+            href={urlsShareList.whatsapp}
+            onClick={event => openLink(event, urlsShareList.whatsapp)}
             className="tv-section__icon-link block border-1 border-white rounded border-solid ml-10 md:ml-15 flex justify-center items-center md:hidden">
             <i className="icon-whatsapp text-white" />
           </a>

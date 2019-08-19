@@ -7,7 +7,7 @@ const GOLDFISH_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
 const classes = {
   layout: 'tv-layout',
-  content: 'tv-layout__content mx-auto position-relative',
+  content: 'tv-layout__content mx-auto position-relative h-full',
 }
 
 const TvLayout = ({ children = [] }) => {
@@ -17,9 +17,12 @@ const TvLayout = ({ children = [] }) => {
         <div className={classes.content}>
           {children[0]}
           <div role="main">{children[1]}</div>
-          {children[2]}
         </div>
       </div>
+      <div className="flex justify-center mt-15">
+        <div className="tv-layout__footer-content">{children[2]}</div>
+      </div>
+
       <script
         async
         src={`https://d1tqo5nrys2b20.cloudfront.net/${GOLDFISH_ENV}/powaBoot.js?org=elcomercio`}
