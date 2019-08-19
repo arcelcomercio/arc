@@ -7,13 +7,8 @@ import Error from '../../../../../_children/error'
 import { FormSchema, Masks } from './schema'
 
 const FormStyled = S.Form(Form)
-const { capitalize, combine, replace, trim, trimLeft, dedup } = Masks.Pipes
-const personNamePipe = combine(
-  replace(/(^|\s)[-]/, '$1'),
-  dedup(' '),
-  trimLeft(),
-  capitalize()
-)
+const { trim } = Masks.Pipes
+
 const _initValue = {
   firstName: null,
   lastName: null,
