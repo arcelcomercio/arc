@@ -1,11 +1,15 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
-
+import ConfigParams from '../../../utilities/config-params'
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
 
-const buildParagraph = paragraph => {
+const buildParagraph = (paragraph, type = '') => {
   let result = null
+
+  if (type === ConfigParams.ELEMENT_VIDEO) {
+    result = `<iframe src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaEmbed.html?org=elcomercio&env=sandbox&api=sandbox&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`
+  }
 
   if (paragraph.includes('<iframe')) {
     // valida si el parrafo contiene un iframe con video o foto
@@ -37,8 +41,10 @@ const buildParagraph = paragraph => {
     result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
   } else {
     // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
+
     result = `<p>${paragraph}</p>`
   }
+
   return result
 }
 
@@ -66,8 +72,7 @@ const ParagraphshWithAdds = ({
   let IndexAdd = 0
   let resultParagraph = ''
 
-  
-  paragraphsNews.forEach(paragraphItem => {
+  paragraphsNews.forEach(({ payload: paragraphItem, type }) => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
     // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
 
@@ -84,14 +89,14 @@ const ParagraphshWithAdds = ({
       if (countWords >= firstAdd) {
         countWords = 0
 
-        paragraphwithAdd = `${buildParagraph(originalParagraph)} ${
+        paragraphwithAdd = `${buildParagraph(originalParagraph, type)} ${
           arrayadvertising[IndexAdd]
             ? buildIframeAdvertising(arrayadvertising[IndexAdd])
             : ''
         }`
         IndexAdd += 1
       } else {
-        paragraphwithAdd = `${buildParagraph(originalParagraph)}`
+        paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
       }
 
       newsWithAdd.push(`${paragraphwithAdd}`)
@@ -109,14 +114,14 @@ const ParagraphshWithAdds = ({
 
       if (countWords >= nextAdds) {
         countWords = 0
-        paragraphwithAdd = `${buildParagraph(originalParagraph)} ${
+        paragraphwithAdd = `${buildParagraph(originalParagraph, type)} ${
           arrayadvertising[IndexAdd]
             ? buildIframeAdvertising(arrayadvertising[IndexAdd])
             : ''
         }`
         IndexAdd += 1
       } else {
-        paragraphwithAdd = `${buildParagraph(originalParagraph)}`
+        paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
       }
       newsWithAdd.push(`${paragraphwithAdd}`)
     }
