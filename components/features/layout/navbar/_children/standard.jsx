@@ -502,6 +502,32 @@ class NavBarDefault extends PureComponent {
     else this._openMenu()
   }
 
+  // Close Search
+  /* _handleCloseSectionsSearch = () => {
+    setTimeout(() => {
+      this.setState({
+        statusSearch: false,
+      })
+    }, 250)
+  } */
+
+  openLink = (event, item) => {
+    event.preventDefault()
+    if (item === 3) this.moreList()
+    else popUpWindow(item.link, '', 600, 400)
+  }
+
+  moreList = () => {
+    const el = document.querySelector('.story-header__list')
+    if (el.classList.contains('block')) {
+      el.classList.remove('block')
+      el.classList.add('hidden')
+    } else {
+      el.classList.remove('hidden')
+      el.classList.add('block')
+    }
+  }
+
   closeSignwall() {
     this.setState({ isActive: false })
   }
@@ -528,32 +554,6 @@ class NavBarDefault extends PureComponent {
     }
     window.history.pushState({}, document.title, '/')
     return null
-  }
-
-  // Close Search
-  /* _handleCloseSectionsSearch = () => {
-    setTimeout(() => {
-      this.setState({
-        statusSearch: false,
-      })
-    }, 250)
-  } */
-
-  openLink = (event, item) => {
-    event.preventDefault()
-    if (item === 3) this.moreList()
-    else popUpWindow(item.link, '', 600, 400)
-  }
-
-  moreList = () => {
-    const el = document.querySelector('.story-header__list')
-    if (el.classList.contains('block')) {
-      el.classList.remove('block')
-      el.classList.add('hidden')
-    } else {
-      el.classList.remove('hidden')
-      el.classList.add('block')
-    }
   }
 
   render() {
@@ -733,9 +733,7 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${
-                        classes.btnLogin
-                      } btn--outline` /* classes.btnSignwall */
+                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     {/* 
@@ -758,9 +756,7 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${
-                  classes.navMobileContainer
-                } ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -774,9 +770,7 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwallMobile
-                          }  title-sm`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
                     }>
                     {initialUser}
                   </i>

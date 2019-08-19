@@ -2,7 +2,7 @@ import React from 'react'
 
 const classes = {
   opinionItem:
-    'separator__opinion--item position-relative pt-20 pb-20 pr-20 pl-20 bg-tertiary',
+    'separator__opinion--item position-relative pt-20 pb-20 pr-20 pl-20 bg-tertiary hidden',
   opinionItemDetails: 'separator__opinion--item-details',
   opinionItemText: 'mb-15',
   opinionItemLink: 'separator__opinion-link uppercase text-sm font-normal',

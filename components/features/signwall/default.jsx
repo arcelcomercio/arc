@@ -3,6 +3,7 @@ import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import Fingerprint2 from 'fingerprintjs2'
 import LoginRegister from './_main/signwall/index'
+import LoginPaywall from './_main/signwall/login-paywall'
 import Panel from './_main/user-dashboard/index'
 import Cookie from './_main/utils/cookie'
 
@@ -89,12 +90,19 @@ class Signwall extends Component {
 
   render() {
     const { showLogin, showPanel } = this.state
-    const { arcSite } = this.props
+    const { arcSite, singleSign } = this.props
     return (
       <div className="signwall">
         <div className="link-identity__content">
-          {showLogin && (
+          {showLogin && !singleSign && (
             <LoginRegister
+              closePopup={() => this.togglePopupLogin()}
+              brandModal={arcSite}
+            />
+          )}
+
+          {showLogin && singleSign && (
+            <LoginPaywall
               closePopup={() => this.togglePopupLogin()}
               brandModal={arcSite}
             />

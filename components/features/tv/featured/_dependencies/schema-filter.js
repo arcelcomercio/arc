@@ -7,6 +7,8 @@ export default `
           type 
           resized_urls { 
             preset1
+            preset2
+            preset3
           } 
         }
         basic_video {
@@ -17,6 +19,8 @@ export default `
               type 
               resized_urls { 
                 preset1
+                preset2
+                preset3
               } 
             }
           }

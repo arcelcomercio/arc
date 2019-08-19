@@ -48,14 +48,14 @@ class PayWallPremium extends Component {
       login: (
         <FormLogin
           closePopup={closePopup}
-          typePopUp={typeModal}// paywall, premium
+          typePopUp={typeModal} // paywall, premium
           typeForm="login"
         />
       ),
       register: (
         <FormRegister
           closePopup={closePopup}
-          typePopUp={typeModal}// paywall, premium
+          typePopUp={typeModal} // paywall, premium
           typeForm="registro"
           brandCurrent={brandModal}
         />
@@ -63,7 +63,7 @@ class PayWallPremium extends Component {
       forgot: (
         <FormForgotPass
           closePopup={closePopup}
-          typePopUp={typeModal}// paywall, premium
+          typePopUp={typeModal} // paywall, premium
           typeForm="login"
           brandCurrent={brandModal}
         />
@@ -115,12 +115,12 @@ class PayWallPremium extends Component {
                       <button
                         type="button"
                         className="btn-close"
-                        onClick={e => {
+                        onClick={() => {
                           Taggeo(
                             `Web_${typeModal}_Hard`,
                             `web_${typeModal}_cerrar`
                           )
-                          closePopup(e)
+                          closePopup()
                         }}>
                         <i className="icon-close"></i>
                       </button>

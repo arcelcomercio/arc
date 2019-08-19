@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 
 import Modal from '../common/modal'
+import { Close } from '../common/iconos'
 
 import FormLoginPaywall from './_children/form-login-paywall'
 import FormRegister from './_children/form-register'
@@ -49,7 +50,7 @@ class LoginPaywall extends Component {
   }
 
   render() {
-    const { contextPath, arcSite, deployment } = this.props
+    const { contextPath, arcSite, deployment, closePopup } = this.props
     const ImageBg =
       deployment(
         `${contextPath}/resources/dist/${arcSite}/images/bg_login.png`
@@ -75,6 +76,14 @@ class LoginPaywall extends Component {
                         backgroundPosition: 'center',
                       }}></div>
                     <div className="modal-body__middle intro-paywall">
+                      <button
+                        type="button"
+                        className="btn-close"
+                        onClick={() => {
+                          closePopup()
+                        }}>
+                        <Close color="#333333" />
+                      </button>
                       {this.renderTemplate(value.selectedTemplate)}
                     </div>
                   </div>
