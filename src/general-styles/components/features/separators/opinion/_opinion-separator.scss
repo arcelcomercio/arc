@@ -20,6 +20,20 @@
     }
 
     &--item {
+      &:nth-child(1) {
+        display: block;
+      }
+
+      @media (--tablet) {
+        &:nth-child(-n + 3) {
+          display: block;
+        }
+      }
+
+      @media (--desktop) {
+        display: block;
+      }
+
       &-oneline {
         -webkit-line-clamp: 1;
         max-height: 35.63px;
@@ -54,7 +68,6 @@
     }
 
     &-name {
-
       &::before,
       &::after {
         content: '';
