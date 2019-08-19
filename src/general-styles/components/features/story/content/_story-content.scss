@@ -195,8 +195,12 @@
       order: 0;
     }
   }
-  & ul {
+  & ul.story-content__paragraph-list {
     list-style-type: disc;
+    padding-left: 30px;
+  }
+  & ol.story-content__paragraph-list {
+    list-style-type: decimal;
     padding-left: 30px;
   }
   & li {
