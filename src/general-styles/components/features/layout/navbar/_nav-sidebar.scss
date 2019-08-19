@@ -48,22 +48,22 @@
 
   &__parent-item {
     will-change: transform;
-    transition: all .5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     top: 5px;
     cursor: pointer;
 
     &::after {
-      content: "\276F";
+      content: '\276F';
     }
   }
 
   &__container-submenu {
     max-height: 0;
-    transition: max-height .5s ease-in-out;
+    transition: max-height 0.5s ease-in-out;
   }
 
   &__menu-arrow:checked {
-    +.nav-sidebar__parent-item {
+    + .nav-sidebar__parent-item {
       padding-left: 10px;
       padding-top: 20px;
       padding-right: 10px;
@@ -73,7 +73,7 @@
       transform: rotate(90deg);
     }
 
-    ~.nav-sidebar__container-submenu {
+    ~ .nav-sidebar__container-submenu {
       max-height: 100vh;
     }
   }
@@ -88,4 +88,8 @@
     }
   }
 
+  @media (--only-mobile) {
+    position: fixed;
+    z-index: 999;
+  }
 }
