@@ -4,7 +4,7 @@ import StoryData from '../../../utilities/story-data'
 
 const classes = {
   storyContinue:
-    'story-continue position-relative flex items-center justify-center pt-30 pb-40',
+    'story-continue position-relative flex items-center justify-center pt-50 pb-50',
   storyLoad:
     'story-continue__story-load position-absolute flex items-center justify-center h-full',
   storyLoadLink:
@@ -48,14 +48,12 @@ class StoryContinue extends PureComponent {
         let newerProgress = concurrentProgress + 10 * i + 10
         this.setAttributeProgress(progress, newerProgress)
         if (newerProgress >= MAX_PROGRESS) {
-          this.setTimeoutLoadPage(linker)
+          this.setTimeoutLoadPage(linker, html)
         }
         newerProgress = +1
       }
     } else {
-      if (this.position % 2 === 0) {
-        this.setUpdateLoaderPage(progress, concurrentProgress)
-      }
+      this.setUpdateLoaderPage(progress, concurrentProgress)
 
       this.position = +1
     }
@@ -95,13 +93,16 @@ class StoryContinue extends PureComponent {
     document.querySelector('.nav__story-title').textContent = titleNew
   }
 
-  setTimeoutLoadPage = linker => {
+  setTimeoutLoadPage = (linker, html = '') => {
     setTimeout(() => {
       const link = linker.getAttribute('href')
-      if (link !== '') {
+      if (
+        link !== '' &&
+        window.innerHeight + window.scrollY >= html.scrollHeight
+      ) {
         window.location = link
       }
-    }, 2500)
+    }, 2000)
   }
 
   setUpdateLoaderPage = (progress, concurrentProgress) => {
