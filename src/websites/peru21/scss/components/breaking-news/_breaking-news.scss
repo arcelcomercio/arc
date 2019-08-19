@@ -1,0 +1,15 @@
+.breaking-news {
+  &--bgcolor-1 {
+    background-color: $color-base-300;
+    .breaking-news__text,
+    .breaking-news__link,
+    .breaking-news__btn-icon {
+      color: $color-white;
+      font-family: $primary-font;
+      font-size: 15px;
+      @media (--desktop) {
+        font-size: 22px;
+      }
+    }
+  }
+}

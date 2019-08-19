@@ -27,6 +27,7 @@ class StoryContinue extends PureComponent {
   constructor(props) {
     super(props)
     this.preview = 0
+    this.position = 0
   }
 
   componentDidMount() {
@@ -52,7 +53,11 @@ class StoryContinue extends PureComponent {
         newerProgress = +1
       }
     } else {
-      this.setUpdateLoaderPage(progress, concurrentProgress)
+      if (this.position % 2 === 0) {
+        this.setUpdateLoaderPage(progress, concurrentProgress)
+      }
+
+      this.position = +1
     }
     this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
     this.setTitleHead()
@@ -96,7 +101,7 @@ class StoryContinue extends PureComponent {
       if (link !== '') {
         window.location = link
       }
-    }, 1000)
+    }, 2500)
   }
 
   setUpdateLoaderPage = (progress, concurrentProgress) => {
@@ -125,6 +130,7 @@ class StoryContinue extends PureComponent {
 
     if (window.screen.width < 630) {
       const storyHeader = document.querySelector('.story-header__list')
+      const navSidebar = document.querySelector('.nav-sidebar')
       storyHeader.classList.add('hidden')
       const nav = document.querySelector('.nav')
       const navWrapper = document.querySelector('.nav__wrapper')
@@ -132,6 +138,7 @@ class StoryContinue extends PureComponent {
       if (window.scrollY < this.preview) {
         nav.classList.remove('active')
         navWrapper.classList.add('somos-menu--active')
+        navSidebar.classList.add('somos-menu--active')
       } else {
         if (window.scrollY < 50) nav.classList.remove('active')
         else nav.classList.add('active')

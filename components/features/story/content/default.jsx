@@ -40,6 +40,8 @@ const classes = {
   relatedList: 'related-content__list pt-10',
   relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
   taboola: 'story-content__taboola',
+  listClasses: 'story-content__paragraph-list',
+  alignmentClasses: 'story-content__alignment',
 }
 
 @Consumer
@@ -123,6 +125,7 @@ class StoryContent extends PureComponent {
                   subtype,
                   raw_oembed: rawOembed,
                   content,
+                  alignment = '',
                 } = element
                 if (type === ConfigParams.ELEMENT_IMAGE) {
                   return (
@@ -174,10 +177,15 @@ class StoryContent extends PureComponent {
                 }
 
                 if (type === ConfigParams.ELEMENT_TEXT) {
+                  const alignmentClass = alignment
+                    ? `${classes.textClasses} ${
+                        classes.alignmentClasses
+                      }-${alignment}`
+                    : classes.textClasses
                   return (
                     <Text
                       content={replaceTags(content)}
-                      className={classes.textClasses}
+                      className={alignmentClass}
                     />
                   )
                 }
