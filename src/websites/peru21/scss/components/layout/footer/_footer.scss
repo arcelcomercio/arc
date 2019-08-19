@@ -5,10 +5,13 @@
   &__social-title,
   &__list-title,
   &__social-icon {
-    color: $color-primary;
+    color: $color-base-500;
   }
   &__legal-links {
-    color: $color-gray-300;
+    color: $color-base-500;
+    &::after {
+      background-color: $color-base-500;
+    }
   }
   &__legal-item,
   &__legal-links,
@@ -18,6 +21,7 @@
   &__sites,
   &__sites-link {
     font-family: $primary-font;
+    color: $color-base-500;
   }
   &__sites-link,
   &__legal-item,
@@ -48,14 +52,14 @@
   &__sections {
     &::after {
       @media (--tablet) {
-        background-color: $color-gray-100;
+        background-color: $color-base-500;
       }
     }
   }
   &__info,
   &__sections,
   &__contact {
-    background-color: transparent;
+    background-color: $color-gray-300;
   }
   &__sites {
     background-color: $color-gray-100;
@@ -66,13 +70,23 @@
         font-weight: 400;
       }
     }
+    .footer__list-item {
+      &:first-child {
+        .footer__list-link {
+          color: $color-white;
+        }
+      }
+    }
   }
   &__sites-link {
-    color: $color-gray-300;
+    color: $color-base-500;
   }
   &__sites-item {
     &:after {
-      background-color: $color-gray-300;
+      background-color: $color-base-500;
     }
+  }
+  &__legal-item {
+    color: #c8c8c8;
   }
 }
