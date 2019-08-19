@@ -373,11 +373,34 @@ class StoryData {
 
   get paragraphsNews() {
     const { content_elements: contentElements = [] } = this._data
-    const parrafo = contentElements.map(({ content = '' }) =>
-      content !== '' || content !== undefined ? content : null
+
+    const parrafo = contentElements.map(
+      ({ content = '', type = '', _id = '' }) => {
+        // ELEMENT_VIDEO
+        // ELEMENT_IMAGE
+        // ELEMENT_TEXT
+        let result = null
+        result = { _id, type, payload: '' }
+        switch (type) {
+          case ConfigParams.ELEMENT_TEXT:
+            result.payload =
+              content !== '' || content !== undefined ? content : null
+            break
+          case ConfigParams.ELEMENT_IMAGE:
+            result.payload = ''
+            break
+          case ConfigParams.ELEMENT_VIDEO:
+            result.payload = content !== '' || _id !== undefined ? _id : null
+            break
+          default:
+            result.payload = ''
+            break
+        }
+        return result
+      }
     )
 
-    const result = parrafo.filter(x => x !== null)
+    const result = parrafo.filter(x => x.payload !== null)
     return result
   }
 
