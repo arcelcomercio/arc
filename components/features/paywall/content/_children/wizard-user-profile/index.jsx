@@ -13,8 +13,7 @@ import { deepMapValues } from '../../../_dependencies/utils'
 const isProd = ENVIRONMENT === 'elcomercio'
 const ERROR = {
   E300012: 'No se ha encontrado ningún carrito para el usuario.',
-  UNKNOWN: code =>
-    `ups, vamos a verificar que paso, error desconocido, Ex${code}`,
+  UNKNOWN: 'Ha ocurrido un error, inténtelo de nuevo mas tarde',
 }
 
 function WizardUserProfile(props) {
@@ -87,7 +86,7 @@ function WizardUserProfile(props) {
               setError(ERROR.E300012)
               break
             default:
-              setError(ERROR.UNKNOWN(e.code))
+              setError(ERROR.UNKNOWN)
               break
           }
           setLoading(false)

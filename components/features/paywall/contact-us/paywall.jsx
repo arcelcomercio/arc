@@ -45,6 +45,7 @@ const PaywallContactUs = props => {
           setSubmitting(false)
           setLoading(false)
           setShowThanks(true)
+          window.scrollTo(0, 0)
         }
         if (res.status >= 400 && res.status < 500) {
           // eslint-disable-next-line no-throw-literal

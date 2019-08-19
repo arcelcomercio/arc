@@ -178,7 +178,7 @@ class StoryContent extends PureComponent {
 
                 if (type === ConfigParams.ELEMENT_TEXT) {
                   const alignmentClass = alignment
-                    ? `${classes.textClasses} - ${
+                    ? `${classes.textClasses} ${
                         classes.alignmentClasses
                       }-${alignment}`
                     : classes.textClasses
