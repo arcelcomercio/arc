@@ -102,13 +102,25 @@ class CardFeaturedStoryManual extends PureComponent {
 
       const arrError = []
       if (note1 !== '' && date1 < dateNote1) {
-        arrError.push('Nota 1')
+        arrError.push({
+          note: 'Nota 1',
+          publish_date: dateNote1,
+          programate_date: date1,
+        })
       }
       if (note2 !== '' && date2 < dateNote2) {
-        arrError.push('Nota 2')
+        arrError.push({
+          note: 'Nota 2',
+          publish_date: dateNote2,
+          programate_date: date2,
+        })
       }
       if (note3 !== '' && date3 < dateNote3) {
-        arrError.push('Nota 3')
+        arrError.push({
+          note: 'Nota 3',
+          publish_date: dateNote3,
+          programate_date: date3,
+        })
       }
 
       this.state = {

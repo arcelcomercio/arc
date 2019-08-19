@@ -31,4 +31,14 @@
       color: #0e6dc1;
     }
   }
+  & ul {
+    list-style-type: disc;
+    padding-left: 30px;
+  }
+  & li {
+    & a {
+      color: #0e6dc1;
+      font-weight: 700;
+    }
+  }
 }
