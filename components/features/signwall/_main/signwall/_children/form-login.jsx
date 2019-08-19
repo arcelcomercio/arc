@@ -156,12 +156,21 @@ class FormLogin extends Component {
   }
 
   handleGetProfile = () => {
-    const { closePopup } = this.props
+    const { closePopup, arcSite } = this.props
     window.Identity.apiOrigin = this.origin_api
     window.Identity.getUserProfile().then(resProfile => {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
+
+      // set token cookie
+      const cookieName = 'ArcId.USER_INFO'
+      const cookieValue = window.Identity.userIdentity || '{}'
+      const myDate = new Date()
+      myDate.setDate(myDate.getDate() + 1)
+      document.cookie = `${cookieName}=${JSON.stringify(
+        cookieValue
+      )};expires=${myDate};domain=.${arcSite}.pe;path=/`
     })
   }
 
@@ -253,7 +262,7 @@ class FormLogin extends Component {
         `Web_Sign_Wall_${typePopUp}`,
         `web_sw${typePopUp[0]}_login_success_ingresar`
       )
-      // esta pendiente el taggeo de relogin 
+      // esta pendiente el taggeo de relogin
     }
   }
 

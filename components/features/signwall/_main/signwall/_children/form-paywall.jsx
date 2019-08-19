@@ -12,8 +12,8 @@ class SignWallPaywall extends Component {
     super(props)
     this.state = {
       showPaywallBtn: false,
-      paywallPrice: '0',
-      paywallDescripcion: 'none',
+      paywallPrice: '-',
+      paywallDescripcion: '-',
     }
 
     const { arcSite } = this.props
@@ -37,8 +37,8 @@ class SignWallPaywall extends Component {
     const { fetched } = this.getContent('paywall-campaing')
     fetched.then(resCam => {
       this.setState({
-        paywallPrice: resCam.plans[0].amount || 'none',
-        paywallDescripcion: resCam.plans[0].description.description || 'none',
+        paywallPrice: resCam.plans[0].amount || '-',
+        paywallDescripcion: resCam.plans[0].description.description || '-',
       })
     })
   }
@@ -47,7 +47,12 @@ class SignWallPaywall extends Component {
     e.preventDefault()
     Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
     window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
-    window.location.href = '/paywall/?_website=gestion&outputType=paywall#step1' // URL LANDING
+    if (ENV.ENVIRONMENT === 'elcomercio') {
+      window.location.href = '/suscripcionesdigitales/' // URL LANDING
+    } else {
+      window.location.href =
+        '/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1' // URL LANDING
+    }
   }
 
   render() {
