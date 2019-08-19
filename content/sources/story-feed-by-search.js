@@ -79,7 +79,7 @@ const pattern = key => {
           },
           {
             simple_query_string: {
-              query: `${valueQuery}`,
+              query: `"${decodeURI(valueQuery)}"`,
             },
           },
         ],
