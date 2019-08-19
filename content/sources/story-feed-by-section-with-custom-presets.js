@@ -54,8 +54,8 @@ const params = [
 
 const customPresets = ({ preset1 = '', preset2 = '', preset3 = '' }) => {
   const auxPreset1 = preset1.split('x')
-  const auxPreset2 = preset1.split('x')
-  const auxPreset3 = preset1.split('x')
+  const auxPreset2 = preset2.split('x')
+  const auxPreset3 = preset3.split('x')
   const presets = {}
   if (preset1)
     presets.preset1 = {
