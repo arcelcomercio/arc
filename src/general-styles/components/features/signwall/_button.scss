@@ -152,6 +152,16 @@
         margin: 0 4px;
         line-height: 16px;
       }
+
+      &-close {
+        position: absolute;
+        background: none;
+        cursor: pointer;
+        border: 0px;
+        right: 20px;
+        top: 20px;
+        overflow: none;
+      }
     }
   }
 }

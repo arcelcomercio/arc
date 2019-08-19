@@ -1,5 +1,7 @@
 @import '../../../../general-styles/components/features/signwall/button';
 @import '../../../../general-styles/components/features/signwall/check-container';
+@import '../../../../general-styles/components/features/signwall/header';
+@import '../../../../general-styles/components/features/signwall/footer';
 @import '../../../../general-styles/components/features/signwall/form-grid';
 @import '../../../../general-styles/components/features/signwall/form-group';
 @import '../../../../general-styles/components/features/signwall/message';
@@ -8,6 +10,7 @@
 @import '../../../../general-styles/components/features/signwall/old-utils';
 @import '../../../../general-styles/components/features/signwall/password-security';
 @import '../../../../general-styles/components/features/signwall/row-pass';
+@import '../../../../general-styles/components/features/signwall/profile-account';
 
 .signwall {
   .text-center {
@@ -21,5 +24,14 @@
   }
   .link-blue {
     padding-left: 10px;
+  }
+  .profile__menu-link,
+  .modal-header__back {
+    background: none;
+    border: 0px;
+  }
+  .profile__menu {
+    list-style: none;
+    padding: 0px;
   }
 }

@@ -4,17 +4,35 @@ import Consumer from 'fusion:consumer'
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
 import './paywall.css'
+import Signwall from '../../signwall/default'
 import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
+import GetProfile from '../../signwall/_main/utils/get-profile'
 
 @Consumer
 class Head extends React.PureComponent {
   state = {
     firstName: 'Invitado',
+    isActive: false,
     showSignwall: false,
+    userName: new GetProfile().username,
   }
 
   componentDidMount() {
     this.getFirstName()
+  }
+
+  componentDidUpdate() {
+    if (this.checkSession()) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        userName: new GetProfile().username,
+      })
+    } else {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        userName: new GetProfile().username,
+      })
+    }
   }
 
   getFirstName = () => {
@@ -30,6 +48,15 @@ class Head extends React.PureComponent {
     })
   }
 
+  checkSession = () => {
+    const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
+    const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
+    if (profileStorage) {
+      return !(profileStorage === 'null' || sesionStorage === '{}') || false
+    }
+    return false
+  }
+
   closeShowSignwall = () => {
     const { showSignwall } = this.state
     this.setState({ showSignwall: !showSignwall })
@@ -38,6 +65,10 @@ class Head extends React.PureComponent {
 
   userName = name => {
     return name.length > 6 ? `${name.substring(0, 6)}..` : name
+  }
+
+  closeSignwall() {
+    this.setState({ isActive: false })
   }
 
   render() {
@@ -49,8 +80,8 @@ class Head extends React.PureComponent {
       customFields,
     } = this.props
     const { assets } = siteProperties
-    const { firstName, showSignwall } = this.state
-    const checkForceLogin = customFields.forceLogin || true
+    const { firstName, showSignwall, userName, isActive } = this.state
+    const checkForceLogin = customFields.forceLogin
 
     return (
       <div className="head">
@@ -73,13 +104,27 @@ class Head extends React.PureComponent {
           />
           <div className="head__login">
             <span className="login__username">
-              <span>Hola {firstName || 'Lector'}</span>
+              <button
+                type="button"
+                className="head__btn-login"
+                onClick={() => this.setState({ isActive: true })}>
+                <span>
+                  {this.checkSession() ? `Hola ${userName}` : 'Iniciar Sesión'}
+                </span>
+              </button>
+              {/* <span>
+                {this.checkSession() ? `Hola ${userName}` : 'Iniciar Sesión'}
+              </span> */}
+              {/* <span>Hola {firstName || 'Lector'}</span> */}
               <span className="login_icon">
                 <Icon type="profile" fill="#FFF" width="30" height="30" />
               </span>
             </span>
           </div>
         </div>
+        {isActive && (
+          <Signwall singleSign closeSignwall={() => this.closeSignwall()} />
+        )}
       </div>
     )
   }
