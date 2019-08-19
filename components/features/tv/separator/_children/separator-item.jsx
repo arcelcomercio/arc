@@ -36,7 +36,9 @@ export default ({ date, multimedia, title, videoId, maxStories }) => {
 
   return (
     <div
-      className={`tv-separator__item m-10 w-full ${maxStories ? '' : 'limit'}`}>
+      className={`tv-separator__item m-10 w-full ${
+        maxStories > 6 ? '' : 'limit'
+      }`}>
       <button
         type="button"
         className="tv-separator__img-button p-0 overflow-hidden rounded-sm mb-10  position-relative"

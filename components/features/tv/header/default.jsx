@@ -84,4 +84,6 @@ const TvHeader = () => {
   )
 }
 
+TvHeader.label = 'Tv - cabecera'
+
 export default TvHeader
