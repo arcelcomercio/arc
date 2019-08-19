@@ -4,7 +4,6 @@ import FormData from './_children/contact-form'
 import Thanks from './_children/thanks'
 import ClientOnly from '../_children/client-only'
 import Loading from '../_children/loading'
-import { devices } from '../_dependencies/devices'
 import getDomain from '../_dependencies/domains'
 import * as S from './styled'
 import { MESSAGE } from './_children/contact-form/schema'
@@ -44,20 +43,23 @@ const PaywallContactUs = props => {
       .then((res = {}) => {
         if (res.status === 200) {
           setSubmitting(false)
+          setLoading(false)
           setShowThanks(true)
         }
         if (res.status >= 400 && res.status < 500) {
           // eslint-disable-next-line no-throw-literal
           setError('Entrada invalida')
+          setSubmitting(false)
+          setLoading(false)
         } else if (res.status >= 500) {
           setError(MESSAGE.API_ERROR)
+          setSubmitting(false)
+          setLoading(false)
         }
       })
       .catch(err => {
         console.error(err)
         setError(MESSAGE.API_ERROR)
-      })
-      .finally(() => {
         setSubmitting(false)
         setLoading(false)
       })
