@@ -4,7 +4,7 @@ import Icon from '../../../../global-components/multimedia-icon'
 import { formattedTime } from '../../../../utilities/helpers'
 import Modal from '../../../../global-components/video-modal'
 
-export default ({ date, multimedia, title, videoId }) => {
+export default ({ date, multimedia, title, videoId, maxStories }) => {
   const formatDateLocalTimeZone = rawDate => {
     const auxDate = new Date(rawDate)
     const today = new Date()
@@ -35,7 +35,10 @@ export default ({ date, multimedia, title, videoId }) => {
   })
 
   return (
-    <div className="tv-separator__item m-10 w-full">
+    <div
+      className={`tv-separator__item m-10 w-full ${
+        maxStories > 6 ? '' : 'limit'
+      }`}>
       <button
         type="button"
         className="tv-separator__img-button p-0 overflow-hidden rounded-sm mb-10  position-relative"

@@ -24,7 +24,7 @@ class CustomTitle extends PureComponent {
       return 'ÚLTIMO MINUTO'
     }
 
-    // TODO: Usar librería como "moment" o "luxon"
+    // TODO: Usar librería como luxon"
     const dateObj = new Date(date)
 
     return `ARCHIVO, ${arrayDays[
