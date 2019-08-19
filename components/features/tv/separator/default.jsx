@@ -10,12 +10,19 @@ import TvSeparatorItem from './_children/separator-item'
 import StoryData from '../../../utilities/story-data'
 
 const TvSeparator = props => {
-  const { customFields: { section = '' } = {} } = props
+  const {
+    customFields: {
+      section = '',
+      maxStories = 6,
+      customTitle = '',
+      deleteLinks,
+    } = {},
+  } = props
   const { arcSite, contextPath, deployment } = useFusionContext()
   const { content_elements: contentElements = [], section_name: sectionName } =
     useContent({
       source: 'story-feed-by-section-with-custom-presets',
-      query: { section, stories_qty: 6, preset1: '280x157' },
+      query: { section, stories_qty: maxStories, preset1: '280x157' },
       filter: schemaFilter,
     }) || {}
   const dataStoryInstance = new StoryData({
@@ -81,6 +88,7 @@ const TvSeparator = props => {
           multimediaType,
         }),
         videoId: getVideoId({ data: element, multimediaType, videoId }),
+        maxStories,
       })
     })
     return auxParams
@@ -90,20 +98,28 @@ const TvSeparator = props => {
     <div className="tv-separator ml-10 mr-10 lg:ml-30 lg:mr-30 mb-25">
       <div className="flex justify-between items-center mb-20">
         <h2>
-          <a
-            href={`${section}/`}
-            className="title-lg text-white font-bold uppercase">
-            {sectionName}
-          </a>
+          {deleteLinks ? (
+            <span className="title-lg text-white font-bold uppercase">
+              {customTitle || sectionName}
+            </span>
+          ) : (
+            <a
+              href={`${section}/`}
+              className="title-lg text-white font-bold uppercase">
+              {customTitle || sectionName}
+            </a>
+          )}
         </h2>
-        <a href={`${section}/`} className="tv-separator__program font-bold">
-          Ver programa
-        </a>
+        {!deleteLinks && (
+          <a href={`${section}/`} className="tv-separator__program font-bold">
+            Ver programa
+          </a>
+        )}
       </div>
 
-      <div className="flex justify-center md:justify-start">
+      <div className="flex justify-center md:justify-start flex-wrap">
         {getParams().map(params => (
-          <TvSeparatorItem {...params} />
+          <TvSeparatorItem {...params} key={params.title} />
         ))}
       </div>
     </div>

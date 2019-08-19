@@ -17,24 +17,16 @@ const TvFeatured = props => {
   const { content_elements: contentElements = [] } =
     useContent({
       source: 'story-feed-by-section-with-custom-presets',
-      query: { section, stories_qty: 1, preset1: '1350x570' },
+      query: {
+        section,
+        stories_qty: 1,
+        preset1: '1350x570',
+        preset2: '1023x450',
+        preset3: '624x285',
+      },
       filter: schemaFilter,
     }) || {}
   const data = contentElements[0] || {}
-  const menuSections =
-    useContent({
-      source: 'navigation-by-hierarchy',
-      query: { hierarchy: 'tv-menu-default' },
-      filter: `{ 
-        children {
-          name
-          _id
-          display_name
-          url
-          node_type
-        }
-      }`,
-    }) || {}
 
   const {
     title,
@@ -58,17 +50,27 @@ const TvFeatured = props => {
         promo_items: {
           basic_video: {
             promo_items: {
-              basic: { resized_urls: { preset1 } = {} } = {},
+              basic: { resized_urls: { preset1, preset2, preset3 } = {} } = {},
             } = {},
           } = {},
         } = {},
       } = data
-      image = preset1 || multimedia
+      image = {
+        desktop: preset1 || multimedia,
+        tablet: preset2,
+        mobile: preset3,
+      }
     } else if (multimediaType === 'basic') {
       const {
-        promo_items: { basic: { resized_urls: { preset1 } = {} } = {} } = {},
+        promo_items: {
+          basic: { resized_urls: { preset1, preset2, preset3 } = {} } = {},
+        } = {},
       } = data
-      image = preset1 || multimedia
+      image = {
+        desktop: preset1 || multimedia,
+        tablet: preset2,
+        mobile: preset3,
+      }
     }
     return image
   }
@@ -104,24 +106,6 @@ const TvFeatured = props => {
     return initDate >= new Date(timeStampYesterday * 1000).getTime()
   }
 
-  const formatMenuSections = res => {
-    const { children = [] } = res || {}
-    const auxList = children.map(el => {
-      if (el.node_type === 'link') {
-        return {
-          name: el.display_name,
-          url: `${el.url}/`,
-          node_type: el.node_type,
-        }
-      }
-      return {
-        name: el.name,
-        url: `${el._id}/`,
-        node_type: el.node_type,
-      }
-    })
-    return auxList
-  }
   /** Estados */
   const [clientDate, setClientDate] = useState('')
 
@@ -138,10 +122,10 @@ const TvFeatured = props => {
         multimedia: getMultimedia(),
         isNewStory: validateNewStory(date),
         date,
-        section: `${section}/`,
+        // section: `${section}/`,
         clientDate,
         videoId: getVideoId(),
-        menuSections: formatMenuSections(menuSections),
+        // menuSections: formatMenuSections(menuSections),
       }}
     />
   )

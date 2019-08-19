@@ -14,6 +14,7 @@ const resolve = (key = {}) => {
   //   throw new Error(
   //     'Esta fuente de contenido requiere de un Slug y un sitio web'
   //   )
+  console.log('HAAAAAA->', key)
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { _id: slug = '' } = key
 
