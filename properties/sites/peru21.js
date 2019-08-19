@@ -30,7 +30,7 @@ export default {
       logo: 'white-logo.png',
     },
     footer: {
-      logo: 'white-logo.png',
+      logo: 'logo.png',
     },
     seo: {
       logoAmp: 'logo-amp.png',
