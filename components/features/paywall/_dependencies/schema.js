@@ -1,6 +1,3 @@
-import {ENVIRONMENT} from 'fusion:environment'
-
-const isProd = ENVIRONMENT === 'elcomercio'
 const cardPatterns = {
   VISA: /^(4)(\d{12}|\d{15})$|^(606374\d{10}$)/,
   MASTERCARD: /^(5[1-5]\d{14}$)|^(2(?:2(?:2[1-9]|[3-9]\d)|[3-6]\d\d|7(?:[01]\d|20))\d{12}$)/,
@@ -49,7 +46,7 @@ const Pipes = {
   },
 }
 
-const regx = new RegExp(`[ ${isProd ? '' : '_'}a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ'-]`)
+const regx = new RegExp(`[ a-zA-ZÑñáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ'-]`)
 // prettier-ignore
 export const Masks = {
   PERSON_NAME: new Array(49).fill(regx),
@@ -68,6 +65,7 @@ export const PipedMasks = {
     mask: Masks.PERSON_NAME,
     pipe: Pipes.combine(
       Pipes.replace(/(^|\s)[-]/, '$1'), // No espacios/guiones al inicio de palabra
+      Pipes.dedup('-'), // No mas de un guión seguido
       Pipes.dedup(' '), // No mas de un espacio de separacion entre palabras
       Pipes.trimLeft(), // No espacio al inicio
       Pipes.capitalize() // Palabras capitalizadas

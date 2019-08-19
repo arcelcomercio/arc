@@ -10,7 +10,7 @@ export const MESSAGE = {
   REQUIRED: 'Este campo es requerido',
   EMAIL: 'Correo inválido',
   SUBJECT: 'Ingrese el Asunto',
-  API_ERROR: 'Ha ocurrido un error, intentelo más tarde',
+  API_ERROR: 'Ha ocurrido un error. Inténtelo más tarde',
 }
 
 export const FormSchema = schema({
