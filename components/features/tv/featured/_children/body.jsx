@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import TvHeader from './header'
+// import TvHeader from './header'
 
 import Icon from '../../../../global-components/multimedia-icon'
 import Modal from '../../../../global-components/video-modal'
@@ -12,14 +12,15 @@ export default ({
   date,
   clientDate,
   videoId,
-  section,
-  menuSections,
+  // section,
+  // menuSections,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { desktop, tablet, mobile } = multimedia || {}
   return (
     <>
       <div className="tv-featured position-relative mb-40">
-        <TvHeader {...{ section, menuSections }} />
+        {/* <TvHeader {...{ section, menuSections }} /> */}
 
         <div className="tv-featured__body mx-auto">
           <button
@@ -27,9 +28,19 @@ export default ({
             className="block p-0 w-full"
             onClick={() => setIsModalOpen(!isModalOpen)}>
             <picture className="tv-featured__picture block position-relative">
+              <source
+                media="(max-width: 639px)"
+                type="image/jpeg"
+                srcSet={mobile}
+              />
+              <source
+                media="(max-width: 1023px)"
+                type="image/jpeg"
+                srcSet={tablet}
+              />
               <img
                 className="tv-featured__img object-cover w-full h-full"
-                src={multimedia}
+                src={desktop}
                 alt={title}
               />
               <Icon type="basic_video" iconClass="" />
