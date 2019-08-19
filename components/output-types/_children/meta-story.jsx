@@ -33,6 +33,7 @@ export default ({
     breadcrumbList,
     multimediaType,
     sourceId,
+    isPremium,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const videoSeoItems = videoSeo.map(
@@ -96,6 +97,16 @@ export default ({
    }`
     : ''
 
+  const storyPremium = !isAmp
+    ? ` "isAccessibleForFree": "False",
+    "hasPart":
+      {
+      "@type": "WebPageElement",
+      "isAccessibleForFree": "False",
+      "cssSelector" : ".paywall"
+      },`
+    : ''
+
   const structuredData = `{  
     "@context":"http://schema.org",
     "@type":"NewsArticle",
@@ -128,7 +139,8 @@ export default ({
           "height":${seo.height},
           "width":${seo.width}
        }
-    },
+    },    
+    ${(isPremium && storyPremium) || ''}
     "keywords":[${
       seoKeywordsItems[0]
         ? seoKeywordsItems.map(item => item)
