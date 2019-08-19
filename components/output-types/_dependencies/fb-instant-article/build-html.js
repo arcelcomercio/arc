@@ -9,40 +9,40 @@ const buildParagraph = (paragraph, type = '') => {
 
   if (type === ConfigParams.ELEMENT_VIDEO) {
     result = `<iframe src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaEmbed.html?org=elcomercio&env=sandbox&api=sandbox&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`
-  } else {
-    if (paragraph.includes('<iframe')) {
-      // valida si el parrafo contiene un iframe con video o foto
+  }
 
-      result = `<figure class="op-interactive">${paragraph}</figure>`
-    } else if (paragraph.includes('<img')) {
-      const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)
-        ? paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
-        : ''
+  if (paragraph.includes('<iframe')) {
+    // valida si el parrafo contiene un iframe con video o foto
 
-      const imageAlt = paragraph.match(/alt="([^"]+)?/)
-        ? paragraph.match(/alt="([^"]+)?/)[1]
-        : ''
+    result = `<figure class="op-interactive">${paragraph}</figure>`
+  } else if (paragraph.includes('<img')) {
+    const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)
+      ? paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
+      : ''
 
-      if (imageUrl !== '') {
-        result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-      } else {
-        result = ''
-      }
+    const imageAlt = paragraph.match(/alt="([^"]+)?/)
+      ? paragraph.match(/alt="([^"]+)?/)[1]
+      : ''
 
-      result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-    } else if (
-      paragraph.includes('<blockquote class="instagram-media"') ||
-      paragraph.includes('<blockquote class="twitter-tweet"')
-    ) {
-      // ára twitter y para instagram
-      result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-    } else if (paragraph.includes('https://www.facebook.com/plugins')) {
-      result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
+    if (imageUrl !== '') {
+      result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
     } else {
-      // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
-
-      result = `<p>${paragraph}</p>`
+      result = ''
     }
+
+    result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+  } else if (
+    paragraph.includes('<blockquote class="instagram-media"') ||
+    paragraph.includes('<blockquote class="twitter-tweet"')
+  ) {
+    // ára twitter y para instagram
+    result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
+  } else if (paragraph.includes('https://www.facebook.com/plugins')) {
+    result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
+  } else {
+    // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
+
+    result = `<p>${paragraph}</p>`
   }
 
   return result
@@ -75,14 +75,6 @@ const ParagraphshWithAdds = ({
   paragraphsNews.forEach(({ payload: paragraphItem, type }) => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
     // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
-
-    if (paragraphItem === null) {
-      console.log('parrafo!!!!!!!')
-      console.log(paragraphItem)
-
-      console.log('typo!!!!!!!')
-      console.log(type)
-    }
 
     let paragraphwithAdd = ''
     const originalParagraph = paragraph
