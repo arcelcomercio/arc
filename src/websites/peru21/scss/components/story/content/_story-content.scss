@@ -1,0 +1,16 @@
+.story-content {
+  &__font--secondary {
+    a {
+      color: $color-primary;
+      font-weight: bold;
+    }
+  }
+  &__caption {
+    color: $color-primary;
+  }
+  &__taboola {
+    .thumbnails-a {
+      width: 100% !important;
+    }
+  }
+}

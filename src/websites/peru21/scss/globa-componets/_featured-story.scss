@@ -1,0 +1,112 @@
+.featured-story {
+  @media (--only-mobile) {
+    height: 132px;
+
+    .featured-story__headband {
+      margin-bottom: 0;
+    }
+  }
+  &__category::after {
+    border-bottom: 1px solid $color-base-400;
+  }
+  &__category-link {
+    color: $color-primary;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin-top: 10px;
+    @media (--only-mobile) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__title-link {
+    font-weight: 700;
+    color: $color-gray-300;
+    -webkit-line-clamp: 3;
+    max-height: calc(1.3rem * 1.333 * 3);
+  }
+
+  &.img-complete {
+    @media (--tablet) {
+      .featured-story__img-box {
+        &::before {
+          height: 100%;
+          background: linear-gradient(
+            180deg,
+            rgba(14, 33, 13, 0.1) 30%,
+            rgba(14, 33, 13, 0.8) 80%,
+            #0e210d
+          );
+        }
+      }
+    }
+
+    .featured-story__author-link {
+      color: $color-white;
+    }
+  }
+
+  &.expand {
+    .featured-story__category {
+      display: flex;
+      align-items: center;
+    }
+
+    .featured-story__category-link {
+      color: $color-primary;
+    }
+
+    .featured-story__title {
+      margin-top: 10px;
+    }
+
+    .featured-story__title-link {
+      -webkit-line-clamp: 3;
+      max-height: calc(1.3rem * 1.333 * 3);
+    }
+
+    &.img-complete {
+      .featured-story__category {
+        border: 0;
+        display: block;
+
+        &::after {
+          border-bottom: 1px solid $color-white;
+        }
+      }
+
+      .featured-story__img-box {
+        &::before {
+          height: 100%;
+          background: linear-gradient(
+            180deg,
+            rgba(14, 33, 13, 0.1) 30%,
+            rgba(14, 33, 13, 0.8) 80%,
+            #0e210d
+          );
+        }
+      }
+    }
+  }
+
+  &.featured-story--live {
+    .featured-story__headband-link {
+      background-color: $color-tertiary;
+      color: $color-white;
+      font-family: $secondary-font;
+    }
+  }
+
+  &--no-expanded {
+    &.img-complete {
+      @media (--only-mobile) {
+        .featured-story__author-link {
+          color: $color-gray-200;
+        }
+      }
+    }
+  }
+}
