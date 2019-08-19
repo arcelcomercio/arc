@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import TvHeader from './header'
+// import TvHeader from './header'
 
 import Icon from '../../../../global-components/multimedia-icon'
 import Modal from '../../../../global-components/video-modal'
@@ -12,14 +12,14 @@ export default ({
   date,
   clientDate,
   videoId,
-  section,
-  menuSections,
+  // section,
+  // menuSections,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   return (
     <>
       <div className="tv-featured position-relative mb-40">
-        <TvHeader {...{ section, menuSections }} />
+        {/* <TvHeader {...{ section, menuSections }} /> */}
 
         <div className="tv-featured__body mx-auto">
           <button

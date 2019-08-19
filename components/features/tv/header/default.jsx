@@ -1,19 +1,55 @@
 import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
+import { useContent } from 'fusion:content'
 
-import MenuTV from './menu'
+import MenuTV from './_children/menu'
 
-const TvHeader = ({ section, menuSections }) => {
+const TvHeader = () => {
   const { contextPath, deployment } = useFusionContext()
   const [statusMenu, changeStatus] = useState(false)
+
+  const menuSections =
+    useContent({
+      source: 'navigation-by-hierarchy',
+      query: { hierarchy: 'tv-menu-default' },
+      filter: `{ 
+        children {
+          name
+          _id
+          display_name
+          url
+          node_type
+        }
+      }`,
+    }) || {}
 
   const toggleMenu = () => {
     changeStatus(!statusMenu)
   }
+
+  const formatMenuSections = res => {
+    const { children = [] } = res || {}
+    const auxList = children.map(el => {
+      if (el.node_type === 'link') {
+        return {
+          name: el.display_name,
+          url: `${el.url}/`,
+          node_type: el.node_type,
+        }
+      }
+      return {
+        name: el.name,
+        url: `${el._id}/`,
+        node_type: el.node_type,
+      }
+    })
+    return auxList
+  }
+
   return (
     <header className="tv-header">
       <a
-        href={section}
+        href="/asdf" // TODO
         className="tv-header__section-logo block position-absolute mt-25">
         <img
           className="w-full"
@@ -38,7 +74,12 @@ const TvHeader = ({ section, menuSections }) => {
           />
         </a>
       </div>
-      {statusMenu && <MenuTV toggleMenu={toggleMenu} {...{ menuSections }} />}
+      {statusMenu && (
+        <MenuTV
+          toggleMenu={toggleMenu}
+          {...{ menuSections: formatMenuSections(menuSections) }}
+        />
+      )}
     </header>
   )
 }
