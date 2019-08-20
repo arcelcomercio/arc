@@ -29,8 +29,11 @@ export default function CheckSuscription({ onClose, ...props }) {
           </S.Wrapbenefit>
           <S.Foot>
             <S.FootContent>
-              <S.SpanFoot>Por los 3 primeros meses.</S.SpanFoot>
-              <S.SpanFoot>Luego, S/ 19 cada mes.</S.SpanFoot>
+              <S.SpanFoot>
+                por los 3 primeros meses.
+                <br />
+                Luego, S/ 19 cada mes.
+              </S.SpanFoot>
             </S.FootContent>
             <S.FootContent>
               <S.SpanFoot>Precio Regular: S/ 29.00 al mes</S.SpanFoot>
