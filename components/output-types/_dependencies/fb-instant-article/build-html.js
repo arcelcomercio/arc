@@ -50,7 +50,7 @@ const buildParagraph = (paragraph, type = '') => {
       result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
     } else if (paragraph.includes('https://www.facebook.com/plugins')) {
       result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-    }else{
+    } else {
       result = paragraph
     }
   }
@@ -107,7 +107,7 @@ const ParagraphshWithAdds = ({
     const arrayWords = paragraph.split(' ')
 
     if (IndexAdd === 0) {
-      if (arrayWords.length <= firstAdd) {
+      if (countWords <= firstAdd) {
         countWords += arrayWords.length
       }
 
@@ -129,7 +129,7 @@ const ParagraphshWithAdds = ({
       // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
 
       // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
-      if (arrayWords.length <= nextAdds) {
+      if (countWords <= nextAdds) {
         if (validateMultimediaParagraph(originalParagraph, type)) {
           countWords += 70
         } else {
@@ -155,19 +155,17 @@ const ParagraphshWithAdds = ({
   return resultParagraph
 }
 
-const BuildHtml = BuildHtmlProps => {
-  const {
-    scriptAnaliticaProps,
-    propsScriptHeader,
-    title,
-    subTitle,
-    multimedia,
-    paragraphsNews = [],
-    author = '',
-    fbArticleStyle = '',
-    listUrlAdvertisings,
-  } = BuildHtmlProps
-
+const BuildHtml = ({
+  scriptAnaliticaProps,
+  propsScriptHeader,
+  title,
+  subTitle,
+  multimedia,
+  paragraphsNews = [],
+  author = '',
+  fbArticleStyle = '',
+  listUrlAdvertisings,
+}) => {
   const firstAdd = 50
   const nextAdds = 250
 
