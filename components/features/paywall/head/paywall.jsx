@@ -15,19 +15,12 @@ class Head extends React.PureComponent {
     isActive: false,
     showSignwall: false,
     userName: new GetProfile().username,
+    stepForm: 0,
   }
 
   componentDidMount() {
-    this.addEventListener('currentStep', currentStepHandler)
+    this.addEventListener('currentStep', this.currentStepHandler)
     this.getFirstName()
-  }
-
-  componentWillUnmount() {
-    this.removeEventListener(currentStepHandler)
-  }
-
-  currentStepHandler = currentStep => {
-    // TODO: currentStep
   }
 
   componentDidUpdate() {
@@ -37,6 +30,14 @@ class Head extends React.PureComponent {
         userName: new GetProfile().username,
       })
     }
+  }
+
+  componentWillUnmount() {
+    this.removeEventListener(this.currentStepHandler)
+  }
+
+  currentStepHandler = currentStep => {
+    this.setState({ stepForm: currentStep })
   }
 
   getFirstName = () => {
@@ -84,7 +85,7 @@ class Head extends React.PureComponent {
       customFields,
     } = this.props
     const { assets } = siteProperties
-    const { firstName, showSignwall, userName, isActive } = this.state
+    const { firstName, showSignwall, userName, isActive, stepForm } = this.state
     const checkForceLogin = customFields.forceLogin
 
     return (
@@ -108,14 +109,23 @@ class Head extends React.PureComponent {
           />
           <div className="head__login">
             <span className="login__username">
-              <button
-                type="button"
-                className="head__btn-login"
-                onClick={() => this.setState({ isActive: true })}>
+              {stepForm !== 0 ? (
                 <span>
-                  {this.checkSession() ? `Hola ${userName}` : 'Iniciar Sesión'}
+                  {this.checkSession() ? `${userName}` : 'Hola Invitado'}
                 </span>
-              </button>
+              ) : (
+                <button
+                  type="button"
+                  className="head__btn-login"
+                  onClick={() => this.setState({ isActive: true })}>
+                  <span>
+                    {this.checkSession()
+                      ? `Hola ${userName}`
+                      : 'Iniciar Sesión'}
+                  </span>
+                </button>
+              )}
+
               {/* <span>
                 {this.checkSession() ? `Hola ${userName}` : 'Iniciar Sesión'}
               </span> */}

@@ -108,9 +108,7 @@ class Signwall extends Component {
             />
           )}
 
-          {showPanel && !singleSign ? (
-            <Panel closePopup={() => this.togglePopupPanel()} />
-          ) : null}
+          {showPanel && <Panel closePopup={() => this.togglePopupPanel()} />}
         </div>
       </div>
     )

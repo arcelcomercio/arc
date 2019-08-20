@@ -24,7 +24,8 @@ class ProfileAccount extends Component {
 
     this.state = {
       typeLogin: identitie.type.toLowerCase(),
-      userName: nameInit.length >= 24 ? (`${nameInit.slice(0, 24)  }...`) : nameInit,
+      userName:
+        nameInit.length >= 24 ? `${nameInit.slice(0, 24)}...` : nameInit,
       emailUser: emailInit,
       userNameFB: usernameid.userName,
       disabledSocial: identitie.type !== 'Password',
@@ -45,7 +46,12 @@ class ProfileAccount extends Component {
     window.Identity.clearSession()
     Cookies.deleteCookie('arc_e_id')
     Cookies.deleteCookie('mpp_sess')
-    closePopup()
+    Cookies.deleteCookie('ArcId.USER_INFO')
+    if (window.location.pathname.indexOf('suscripciones') >= 0) {
+      window.location.reload()
+    } else {
+      closePopup()
+    }
   }
 
   componentWillUpdate = () => {
@@ -62,9 +68,9 @@ class ProfileAccount extends Component {
     ModalProfile.style.overflow = 'auto'
   }
 
-  handlerUpdateName = (name) => {
+  handlerUpdateName = name => {
     this.setState({
-      userName:name
+      userName: name,
     })
   }
 
@@ -130,7 +136,11 @@ class ProfileAccount extends Component {
                 </div>
               </div>
               <div className="profile__right profile__card">
-                {activeProfile ? <UpdateProfile  handlerUpdateName = {this.handlerUpdateName} /> : 'cargando....'}
+                {activeProfile ? (
+                  <UpdateProfile handlerUpdateName={this.handlerUpdateName} />
+                ) : (
+                  'cargando....'
+                )}
                 <hr hidden={disabledSocial} />
                 <div hidden={disabledSocial}>
                   <UpdatePass />
