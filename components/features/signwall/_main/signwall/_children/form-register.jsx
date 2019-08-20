@@ -55,7 +55,7 @@ class FormRegister extends Component {
     e.preventDefault()
 
     const { checked } = this.state
-    const { typePopUp } = this.props
+    const { typePopUp, arcSite } = this.props
 
     const originAction = tipmodal => {
       const isHard = document.querySelector('#arc-popup-signwallhard')
@@ -128,6 +128,15 @@ class FormRegister extends Component {
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
 
           this.taggeoSuccess() // -- test de tageo success
+
+          // set token cookie
+          const cookieName = 'ArcId.USER_INFO'
+          const cookieValue = window.Identity.userIdentity || '{}'
+          const myDate = new Date()
+          myDate.setDate(myDate.getDate() + 1)
+          document.cookie = `${cookieName}=${JSON.stringify(
+            cookieValue
+          )};expires=${myDate};domain=.${arcSite}.pe;path=/`
         })
         .catch(err => {
           // console.log(err)

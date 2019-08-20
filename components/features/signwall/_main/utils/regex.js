@@ -21,7 +21,7 @@ const namesRegex = new RegExp(
 const numberRegex = new RegExp(/^([0-9])+$/);
 
 // eslint-disable-next-line no-useless-escape
-const docRegex = new RegExp(/^([0-9a-zA-Z.-])+$/)
+const docRegex = new RegExp(/^([0-9a-zA-Z-])+$/)
 
 const phoneRegex = new RegExp(/^[0-9-]+$/)
 

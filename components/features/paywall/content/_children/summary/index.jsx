@@ -24,7 +24,7 @@ const Summary = ({ summary, amount, description = '', billingFrequency }) => {
   )
 }
 
-const Content = ({ amount = 0, description, billingFrequency }) => {
+const Content = ({ amount = 0, description }) => {
   return (
     <div>
       <S.Content>
@@ -50,7 +50,6 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
                     </>
                   ))()}
               </div>
-              <S.Frequency>{frequency[billingFrequency]}</S.Frequency>
             </S.Amount>
           </strong>
         </S.Expand>

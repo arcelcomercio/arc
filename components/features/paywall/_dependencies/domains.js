@@ -18,11 +18,11 @@ const domains = {
     return `https://api${_env_}.gestion.pe`
   },
   ORIGIN_IDENTITY_SDK: ENV => {
-    const _env_ = ENV === 'elcomercio' ? 'prod' : 'sandbox' // included localhost
+    const _env_ = ENV === 'elcomercio' ? 'prod' : 'sandbox'
     return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-identity.min.js`
   },
   ORIGIN_SALES_SDK: ENV => {
-    const _env_ = ENV === 'elcomercio' ? 'prod' : 'sandbox' // included localhost
+    const _env_ = ENV === 'elcomercio' ? 'prod' : 'sandbox'
     return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-sales.min.js`
   },
   ORIGIN_PAYU_SDK: ENV => {
@@ -30,6 +30,10 @@ const domains = {
   },
   ORIGIN_SUBSCRIPTION_CORP_API: ENV => {
     return `https://devpaywall.comerciosuscripciones.pe/api/subs-corporativa/`
+  },
+  ORIGIN_SUSCRIPCIONES: ENV => {
+    const _env_ = ENV === 'elcomercio' ? '' : 'dev'
+    return `https://${_env_}paywall.comerciosuscripciones.pe`
   },
 
   get: function getService(...params) {

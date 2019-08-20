@@ -45,6 +45,12 @@ export const TextArea = styled.textarea`
   border: 0;
   width: 100%;
   max-width: 100%;
+  ${props =>
+    !props.resizable
+      ? css`
+          resize: none;
+        `
+      : css``}
   ${({ transform }) =>
     css`
       text-transform: ${transform};

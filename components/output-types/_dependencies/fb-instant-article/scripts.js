@@ -7,6 +7,7 @@ export const AnalyticsScript = ({
   subsection = '',
   author = '',
   pagePath = '',
+  pageview='',
   newsType = '',
   newsTitle = '',
 }) => `(function(i, s, o, g, r, a, m) {
@@ -40,7 +41,7 @@ export const AnalyticsScript = ({
         ga('set', 'dimension7', '${newsType}');
         ga('set', 'dimension8', '${newsId}');
         ga('set', 'dimension15', '${author}');
-        ga('send', 'pageview', '${pagePath}');
+        ga('send', 'pageview', '${pageview}');
         ga('send', 'pageview', {title: '${newsTitle}'});
         `
 

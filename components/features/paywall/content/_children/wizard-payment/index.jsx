@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import { useFusionContext } from 'fusion:context'
-import { ORIGIN_SUSCRIPCIONES, ENVIRONMENT } from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import React, { useState, useEffect } from 'react'
 import Summary from '../summary'
 import * as S from './styled'
@@ -12,6 +12,7 @@ import Beforeunload from '../before-unload'
 import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
 import { parseQueryString } from '../../../../../utilities/helpers'
+import core from './_children/core'
 
 const isProd = ENVIRONMENT === 'elcomercio'
 const MESSAGE = {
@@ -26,27 +27,13 @@ function WizardPayment(props) {
     setLoading,
     printed,
   } = props
+  const { plan, order, profile } = memo
+  const { firstName, lastName, secondLastName, documentNumber } = profile
+  const { orderNumber } = order
+  const { amount, billingFrequency, description } = plan
+  profile.printed = printed
 
-  const {
-    plan: {
-      sku,
-      priceCode,
-      campaignCode,
-      amount,
-      billingFrequency,
-      description,
-    },
-    order: { orderNumber },
-    profile: {
-      firstName,
-      lastName,
-      secondLastName,
-      documentNumber,
-      documentType,
-      phone,
-      email,
-    },
-  } = memo
+  const { apiPaymentRegister } = core(profile, order, plan)
 
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_CARD_INFO)
@@ -58,69 +45,11 @@ function WizardPayment(props) {
   const { siteProperties } = fusionContext
   const Sales = addSales(siteProperties)
 
-  function apiPaymentRegister({
-    baseUrl,
-    orderNumber,
-    firstName,
-    lastName,
-    secondLastName,
-    documentType,
-    documentNumber,
-    printed,
-    email,
-    phone,
-    cardMethod,
-    token,
-    sku,
-    priceCode,
-    amount,
-  }) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      Authorization: 'Token deb904a03a4e31d420a014534514b8cc8ca4d111',
-      'user-token': window.Identity.userIdentity.accessToken,
-    })
-    const response = new Promise(resolve => {
-      fetch(`${baseUrl}/api/payment/register-pending/`, {
-        method: 'POST',
-        body: JSON.stringify({
-          order: orderNumber,
-          total: amount,
-          printed,
-          profile: {
-            name: firstName,
-            lastname: lastName,
-            lastname_mother: secondLastName,
-            doc_type: documentType,
-            doc_number: documentNumber,
-            email,
-            phone,
-          },
-          card: {
-            method: cardMethod.toUpperCase(),
-            token,
-          },
-          product: [
-            {
-              sku,
-              price_code: priceCode,
-              amount,
-            },
-          ],
-        }),
-        headers,
-      }).then(res => {
-        return resolve(res.json())
-      })
-    })
-
-    return response
-  }
-
   const onSubmitHandler = (values, { setSubmitting }) => {
     setLoading(true)
     const { cvv, cardMethod, expiryDate, cardNumber } = values
     let payUPaymentMethod
+
     Sales.then(sales => {
       return sales
         .getPaymentOptions()
@@ -178,24 +107,7 @@ function WizardPayment(props) {
                 })
               })
               .then(token => {
-                return apiPaymentRegister({
-                  baseUrl: ORIGIN_SUSCRIPCIONES,
-                  orderNumber,
-                  firstName,
-                  lastName,
-                  secondLastName,
-                  documentType,
-                  documentNumber,
-                  printed,
-                  email,
-                  phone,
-                  cardMethod,
-                  token,
-                  campaignCode,
-                  sku,
-                  priceCode,
-                  amount,
-                }).then(() => token)
+                return apiPaymentRegister(cardMethod, token)
               })
               .then(token => {
                 const { paymentMethodID, paymentMethodType } = payUPaymentMethod

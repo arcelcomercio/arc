@@ -50,7 +50,7 @@ const buildParagraph = (paragraph, type = '') => {
       result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
     } else if (paragraph.includes('https://www.facebook.com/plugins')) {
       result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-    }else{
+    } else {
       result = paragraph
     }
   }
@@ -155,19 +155,17 @@ const ParagraphshWithAdds = ({
   return resultParagraph
 }
 
-const BuildHtml = BuildHtmlProps => {
-  const {
-    scriptAnaliticaProps,
-    propsScriptHeader,
-    title,
-    subTitle,
-    multimedia,
-    paragraphsNews = [],
-    author = '',
-    fbArticleStyle = '',
-    listUrlAdvertisings,
-  } = BuildHtmlProps
-
+const BuildHtml = ({
+  scriptAnaliticaProps,
+  propsScriptHeader,
+  title,
+  subTitle,
+  multimedia,
+  paragraphsNews = [],
+  author = '',
+  fbArticleStyle = '',
+  listUrlAdvertisings,
+}) => {
   const firstAdd = 50
   const nextAdds = 250
 

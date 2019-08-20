@@ -4,9 +4,9 @@ import FormData from './_children/contact-form'
 import Thanks from './_children/thanks'
 import ClientOnly from '../_children/client-only'
 import Loading from '../_children/loading'
-import { devices } from '../_dependencies/devices'
 import getDomain from '../_dependencies/domains'
 import * as S from './styled'
+import { MESSAGE } from './_children/contact-form/schema'
 
 const url = getDomain('ORIGIN_SUBSCRIPTION_CORP_API')
 
@@ -43,20 +43,24 @@ const PaywallContactUs = props => {
       .then((res = {}) => {
         if (res.status === 200) {
           setSubmitting(false)
+          setLoading(false)
           setShowThanks(true)
+          window.scrollTo(0, 0)
         }
         if (res.status >= 400 && res.status < 500) {
           // eslint-disable-next-line no-throw-literal
           setError('Entrada invalida')
+          setSubmitting(false)
+          setLoading(false)
         } else if (res.status >= 500) {
-          setError('Disculpe ha ocurrido un error de nuestro lado.')
+          setError(MESSAGE.API_ERROR)
+          setSubmitting(false)
+          setLoading(false)
         }
       })
       .catch(err => {
         console.error(err)
-        setError('Disculpe ha ocurrido un error de nuestro lado.')
-      })
-      .finally(() => {
+        setError(MESSAGE.API_ERROR)
         setSubmitting(false)
         setLoading(false)
       })
@@ -72,13 +76,13 @@ const PaywallContactUs = props => {
     <ClientOnly>
       <Loading fullscreen spinning={loading} />
       <S.WrapContent>
-        <picture>
+        <S.Picture>
           <source
             media="(max-width: 1024px)"
             srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
           />
           <img src={ContactUsImage} alt="contact_us" />
-        </picture>
+        </S.Picture>
         {showThanks ? (
           <Thanks siteUrl={siteUrl} />
         ) : (
