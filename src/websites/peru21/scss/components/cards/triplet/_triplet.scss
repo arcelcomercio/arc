@@ -19,4 +19,10 @@
     margin-top: 15px;
     word-break: break-word;
   }
+  &--threeline {
+    -webkit-line-clamp: 4;
+    @media (--desktop) {
+      max-height: 83px;
+    }
+  }
 }
