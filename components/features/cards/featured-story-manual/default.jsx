@@ -63,42 +63,49 @@ class CardFeaturedStoryManual extends PureComponent {
 
     const validateScheduledNotes = () => {
       const filter = '{ publish_date }'
-      this.fetchContent({
-        nota1: {
-          source,
-          query: {
-            website_url: note1,
-            published: 'false',
+      if (note1 !== '') {
+        this.fetchContent({
+          auxNote1: {
+            source,
+            query: {
+              website_url: note1,
+              published: 'false',
+            },
+            filter,
           },
-          filter,
-        },
-      })
+        })
+      }
 
-      this.fetchContent({
-        nota2: {
-          source,
-          query: {
-            website_url: note2,
-            published: 'false',
+      if (note2 !== '') {
+        this.fetchContent({
+          auxNote2: {
+            source,
+            query: {
+              website_url: note2,
+              published: 'false',
+            },
+            filter,
           },
-          filter,
-        },
-      })
+        })
+      }
 
-      this.fetchContent({
-        nota3: {
-          source,
-          query: {
-            website_url: note3,
-            published: 'false',
+      if (note3 !== '') {
+        this.fetchContent({
+          auxNote3: {
+            source,
+            query: {
+              website_url: note3,
+              published: 'false',
+            },
+            filter,
           },
-          filter,
-        },
-      })
-      const { nota1 = {}, nota2 = {}, nota3 = {} } = this.state
-      const dateNote1 = nota1.publish_date && new Date(nota1.publish_date)
-      const dateNote2 = nota2.publish_date && new Date(nota2.publish_date)
-      const dateNote3 = nota3.publish_date && new Date(nota3.publish_date)
+        })
+      }
+
+      const { auxNote1 = {}, auxNote2 = {}, auxNote3 = {} } = this.state
+      const dateNote1 = auxNote1.publish_date && new Date(auxNote1.publish_date)
+      const dateNote2 = auxNote2.publish_date && new Date(auxNote2.publish_date)
+      const dateNote3 = auxNote3.publish_date && new Date(auxNote3.publish_date)
 
       const arrError = []
       if (note1 !== '' && date1 < dateNote1) {
@@ -122,14 +129,11 @@ class CardFeaturedStoryManual extends PureComponent {
           programate_date: date3,
         })
       }
-
-      this.state = {
-        errorList: arrError,
-      }
+      return arrError
     }
 
     if (isAdmin) {
-      validateScheduledNotes()
+      this.errorList = validateScheduledNotes()
     }
 
     this.fetchContent({
@@ -177,7 +181,7 @@ class CardFeaturedStoryManual extends PureComponent {
       } = {},
     } = this.props
 
-    const { errorList, data = {}, defaultData = {} } = this.state || {}
+    const { data = {}, defaultData = {} } = this.state || {}
 
     // Si la data no existe usar el estado defaultData
     const existingData = data._id ? data : defaultData
@@ -222,7 +226,7 @@ class CardFeaturedStoryManual extends PureComponent {
       arcSite,
       multimediaType,
       isAdmin,
-      errorList,
+      errorList: this.errorList || [],
     }
     return <FeaturedStory {...params} />
   }
