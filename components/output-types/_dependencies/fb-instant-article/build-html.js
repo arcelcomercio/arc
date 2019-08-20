@@ -107,7 +107,7 @@ const ParagraphshWithAdds = ({
     const arrayWords = paragraph.split(' ')
 
     if (IndexAdd === 0) {
-      if (arrayWords.length <= firstAdd) {
+      if (countWords <= firstAdd) {
         countWords += arrayWords.length
       }
 
@@ -129,7 +129,7 @@ const ParagraphshWithAdds = ({
       // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
 
       // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
-      if (arrayWords.length <= nextAdds) {
+      if (countWords <= nextAdds) {
         if (validateMultimediaParagraph(originalParagraph, type)) {
           countWords += 70
         } else {
