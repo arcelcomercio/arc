@@ -1,0 +1,32 @@
+.section-video {
+  &__top {
+    display: flex;
+  }
+  &__left {
+    width: 100%;
+    @media (--desktop) {
+      width: 60%;
+    }
+  }
+  &__right {
+    width: 100%;
+    @media (--desktop) {
+      width: 40%;
+    }
+  }
+  &__bottom {
+    display: flex;
+  }
+  &__share {
+    width: 100%;
+    @media (--desktop) {
+      width: 60%;
+    }
+  }
+  &__detail {
+    width: 100%;
+    @media (--desktop) {
+      width: 40%;
+    }
+  }
+}
