@@ -6,7 +6,6 @@ export const AnalyticsScript = ({
   section = '',
   subsection = '',
   author = '',
-  pagePath = '',
   pageview='',
   newsType = '',
   newsTitle = '',
