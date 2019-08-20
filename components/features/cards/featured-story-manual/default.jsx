@@ -65,7 +65,7 @@ class CardFeaturedStoryManual extends PureComponent {
       const filter = '{ publish_date }'
       if (note1 !== '') {
         this.fetchContent({
-          nota1: {
+          auxNote1: {
             source,
             query: {
               website_url: note1,
@@ -78,7 +78,7 @@ class CardFeaturedStoryManual extends PureComponent {
 
       if (note2 !== '') {
         this.fetchContent({
-          nota2: {
+          auxNote2: {
             source,
             query: {
               website_url: note2,
@@ -91,7 +91,7 @@ class CardFeaturedStoryManual extends PureComponent {
 
       if (note3 !== '') {
         this.fetchContent({
-          nota3: {
+          auxNote3: {
             source,
             query: {
               website_url: note3,
@@ -102,10 +102,10 @@ class CardFeaturedStoryManual extends PureComponent {
         })
       }
 
-      const { nota1 = {}, nota2 = {}, nota3 = {} } = this.state
-      const dateNote1 = nota1.publish_date && new Date(nota1.publish_date)
-      const dateNote2 = nota2.publish_date && new Date(nota2.publish_date)
-      const dateNote3 = nota3.publish_date && new Date(nota3.publish_date)
+      const { auxNote1 = {}, auxNote2 = {}, auxNote3 = {} } = this.state
+      const dateNote1 = auxNote1.publish_date && new Date(auxNote1.publish_date)
+      const dateNote2 = auxNote2.publish_date && new Date(auxNote2.publish_date)
+      const dateNote3 = auxNote3.publish_date && new Date(auxNote3.publish_date)
 
       const arrError = []
       if (note1 !== '' && date1 < dateNote1) {
