@@ -18,7 +18,16 @@ class Head extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.addEventListener('currentStep', currentStepHandler)
     this.getFirstName()
+  }
+
+  componentWillUnmount() {
+    this.removeEventListener(currentStepHandler)
+  }
+
+  currentStepHandler = currentStep => {
+    // TODO: currentStep
   }
 
   componentDidUpdate() {

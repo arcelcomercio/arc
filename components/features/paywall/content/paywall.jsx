@@ -63,8 +63,9 @@ class Content extends React.Component {
     PWA.mount(() => window.location.reload())
   }
 
-  onBeforeNextStepHandler = (response, { nextStep }) => {
+  onBeforeNextStepHandler = (response, { nextStep, currentStep }) => {
     Object.assign(this.memo, response)
+    this.dispatchEvent('currentStep', currentStep)
     nextStep()
     window.scrollTo(0, 0)
   }
