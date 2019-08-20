@@ -1,4 +1,7 @@
 .story-content {
+  &__content {
+    display: flex !important;
+  }
   &__font--secondary {
     a {
       color: $color-primary;
