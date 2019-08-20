@@ -66,6 +66,7 @@ class Content extends React.Component {
   onBeforeNextStepHandler = (response, { nextStep }) => {
     Object.assign(this.memo, response)
     nextStep()
+    window.scrollTo(0, 0)
   }
 
   setLoading = loading => {
