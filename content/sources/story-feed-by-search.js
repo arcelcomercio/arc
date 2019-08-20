@@ -61,8 +61,8 @@ const pattern = key => {
   const section = key.section || 'todas'
 
   // const page = `page=${'1'}`
-  const queryString = key.query.replace(/\+/g, ' ')
-  const valueQuery = encodeURIComponent(queryString).replace(/-/g, '+') || '*'
+  let valueQuery = key.query.replace(/\+/g, ' ')
+  valueQuery = valueQuery.replace(/-/g, '+') || '*'
 
   const body = {
     query: {
@@ -80,7 +80,7 @@ const pattern = key => {
           },
           {
             simple_query_string: {
-              query: `"${decodeURI(valueQuery)}"`,
+              query: `"${decodeURI(valueQuery)}"`, //NOTA: El navegador encodea las tildes
             },
           },
         ],
