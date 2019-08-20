@@ -1,10 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import withSizes from 'react-sizes'
-
 import { customFields } from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import { getStoriesQty, sizeDevice } from '../_dependencies/functions'
 import { createMarkup } from '../../../utilities/helpers'
 import StoryData from '../../../utilities/story-data'
 import AuthorCard from './_children/author-card'
@@ -25,13 +22,11 @@ const HeaderHTML = ({ htmlCode }) => {
   )
 }
 
-@withSizes(({ width }) => sizeDevice(width))
 @Consumer
 class SeparatorOpinion extends PureComponent {
   constructor(props) {
     super(props)
-    const { isMobile, isTablet } = this.props
-    this.fetchDataApi(getStoriesQty(isMobile, isTablet))
+    this.fetchDataApi()
   }
 
   listAuthorCard = (data, arcSite) => {
@@ -43,7 +38,7 @@ class SeparatorOpinion extends PureComponent {
     )
   }
 
-  fetchDataApi = storiesQty => {
+  fetchDataApi = (storiesQty = 5) => {
     const {
       arcSite,
       deployment,
@@ -66,7 +61,7 @@ class SeparatorOpinion extends PureComponent {
     })
   }
 
-  processDataApi = (data, deployment, contextPath, arcSite, numStory) => {
+  processDataApi = (data, deployment, contextPath, arcSite) => {
     const { content_elements: dataElements = [] } = data || {}
     const dataFormat = new StoryData({
       deployment,
@@ -76,7 +71,6 @@ class SeparatorOpinion extends PureComponent {
     const newData = []
     const dataTemp = {}
     for (let i = 0; i < dataElements.length; i++) {
-      if (i >= numStory) break
       dataFormat.__data = dataElements[i]
       dataTemp.id = dataFormat.id
       dataTemp.author = dataFormat.author
@@ -95,13 +89,9 @@ class SeparatorOpinion extends PureComponent {
     const { dataApi = {} } = this.state
     const {
       arcSite,
-      isMobile,
-      isTablet,
       customFields: { titleSection, htmlCode },
     } = this.props
-    let data = dataApi && Object.values(dataApi)
-    const numStory = getStoriesQty(isMobile, isTablet)
-    data = data.slice(0, numStory)
+    const data = dataApi && Object.values(dataApi)
     return (
       <div className={classes.separator}>
         {titleSection ? (
@@ -110,7 +100,7 @@ class SeparatorOpinion extends PureComponent {
           <HeaderHTML htmlCode={htmlCode} />
         )}
         <div className={classes.opinionBody}>
-          {data && this.listAuthorCard(data, arcSite, numStory)}
+          {data && this.listAuthorCard(data, arcSite)}
         </div>
       </div>
     )

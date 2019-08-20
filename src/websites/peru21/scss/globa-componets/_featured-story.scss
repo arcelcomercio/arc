@@ -1,4 +1,5 @@
 .featured-story {
+  background-color: #eaeaea;
   @media (--only-mobile) {
     height: 132px;
 
@@ -50,6 +51,7 @@
   }
 
   &.expand {
+    background-color: #eaeaea;
     .featured-story__category {
       display: flex;
       align-items: center;
@@ -89,6 +91,9 @@
           );
         }
       }
+      .featured-story__detail {
+        background-color: transparent;
+      }
     }
   }
 
@@ -103,10 +108,17 @@
   &--no-expanded {
     &.img-complete {
       @media (--only-mobile) {
+        background-color: transparent;
         .featured-story__author-link {
           color: $color-gray-200;
         }
       }
+      .featured-story__detail {
+        background-color: transparent;
+      }
     }
+  }
+  &__detail {
+    background-color: #eaeaea;
   }
 }

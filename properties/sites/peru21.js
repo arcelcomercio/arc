@@ -30,12 +30,15 @@ export default {
       logo: 'white-logo.png',
     },
     footer: {
-      logo: 'white-logo.png',
+      logo: 'logo.png',
     },
     seo: {
       logoAmp: 'logo-amp.png',
-      width: 258,
+      width: 230,
       height: 60,
+    },
+    tv: {
+      siteLogo: 'favicon.png',
     },
   },
   infoPagesDev: {
@@ -73,23 +76,6 @@ export default {
       url: '/politicas-de-cookies',
     },
   ],
-  assets: {
-    nav: {
-      logo: 'white-logo.png',
-      logoSomos: 'white-logo.png',
-    },
-    header: {
-      logo: 'white-logo.png',
-    },
-    footer: {
-      logo: 'logo-footer.png',
-    },
-    seo: {
-      logoAmp: 'logo-publimetro-258x60.png',
-      width: 258,
-      height: 60,
-    },
-  },
 
   footer: {
     siteLegal: [
@@ -174,4 +160,8 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
   ],
   activeSignwall: false,
+  tv: {
+    logoUrl: '/peru21tv/',
+    logoAlt: 'Perú21Tv',
+  },
 }

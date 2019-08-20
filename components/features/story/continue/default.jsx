@@ -4,7 +4,7 @@ import StoryData from '../../../utilities/story-data'
 
 const classes = {
   storyContinue:
-    'story-continue position-relative flex items-center justify-center pt-30 pb-40',
+    'story-continue position-relative flex items-center justify-center pt-50 pb-50',
   storyLoad:
     'story-continue__story-load position-absolute flex items-center justify-center h-full',
   storyLoadLink:
@@ -27,6 +27,7 @@ class StoryContinue extends PureComponent {
   constructor(props) {
     super(props)
     this.preview = 0
+    this.position = 0
   }
 
   componentDidMount() {
@@ -47,12 +48,14 @@ class StoryContinue extends PureComponent {
         let newerProgress = concurrentProgress + 10 * i + 10
         this.setAttributeProgress(progress, newerProgress)
         if (newerProgress >= MAX_PROGRESS) {
-          this.setTimeoutLoadPage(linker)
+          this.setTimeoutLoadPage(linker, html)
         }
         newerProgress = +1
       }
     } else {
       this.setUpdateLoaderPage(progress, concurrentProgress)
+
+      this.position = +1
     }
     this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
     this.setTitleHead()
@@ -90,13 +93,16 @@ class StoryContinue extends PureComponent {
     document.querySelector('.nav__story-title').textContent = titleNew
   }
 
-  setTimeoutLoadPage = linker => {
+  setTimeoutLoadPage = (linker, html = '') => {
     setTimeout(() => {
       const link = linker.getAttribute('href')
-      if (link !== '') {
+      if (
+        link !== '' &&
+        window.innerHeight + window.scrollY >= html.scrollHeight
+      ) {
         window.location = link
       }
-    }, 1000)
+    }, 2000)
   }
 
   setUpdateLoaderPage = (progress, concurrentProgress) => {
