@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 
 const classes = {
   layout: 'flex justify-center',
-  contentContainer: 'flex flex-col content-layout-container w-full',
+  contentContainer:
+    'flex flex-col content-layout-container w-full bg-container',
   aditional: 'mb-20',
   zocalo: 'ads__zocalo',
 }

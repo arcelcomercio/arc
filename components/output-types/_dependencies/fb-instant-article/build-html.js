@@ -1,63 +1,88 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../utilities/config-params'
+
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
 
 const buildParagraph = (paragraph, type = '') => {
-  let result = null
+  let result = ''
 
-  if (type === ConfigParams.ELEMENT_VIDEO) {
-    result = `<iframe src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaEmbed.html?org=elcomercio&env=sandbox&api=sandbox&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`
+  if (type === ConfigParams.ELEMENT_TEXT) {
+    // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
+    result = `<p>${paragraph}</p>`
   }
 
-  if (paragraph.includes('<iframe')) {
-    // valida si el parrafo contiene un iframe con video o foto
+  if (type === ConfigParams.ELEMENT_VIDEO) {
+    result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaEmbed.html?org=elcomercio&env=sandbox&api=sandbox&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
+  }
 
-    result = `<figure class="op-interactive">${paragraph}</figure>`
-  } else if (paragraph.includes('<img')) {
-    const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)
-      ? paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
-      : ''
+  if (type === ConfigParams.ELEMENT_IMAGE) {
+    result = `<figure data-feedback="fb:likes, fb:comments"><img src="${paragraph}" /><figcaption>Inspectores de la Municipalidad de La Molina</figcaption></figure>`
+  }
 
-    const imageAlt = paragraph.match(/alt="([^"]+)?/)
-      ? paragraph.match(/alt="([^"]+)?/)[1]
-      : ''
+  if (type === ConfigParams.ELEMENT_RAW_HTML) {
+    if (paragraph.includes('<iframe')) {
+      // valida si el parrafo contiene un iframe con video o foto
 
-    if (imageUrl !== '') {
-      result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+      result = `<figure class="op-interactive">${paragraph}</figure>`
+    } else if (paragraph.includes('<img')) {
+      const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)
+        ? paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
+        : ''
+
+      const imageAlt = paragraph.match(/alt="([^"]+)?/)
+        ? paragraph.match(/alt="([^"]+)?/)[1]
+        : ''
+
+      if (imageUrl !== '') {
+        result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+      } else {
+        result = ''
+      }
+
+      result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+    } else if (
+      paragraph.includes('<blockquote class="instagram-media"') ||
+      paragraph.includes('<blockquote class="twitter-tweet"')
+    ) {
+      // ára twitter y para instagram
+      result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
+    } else if (paragraph.includes('https://www.facebook.com/plugins')) {
+      result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
     } else {
-      result = ''
+      result = paragraph
     }
-
-    result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-  } else if (
-    paragraph.includes('<blockquote class="instagram-media"') ||
-    paragraph.includes('<blockquote class="twitter-tweet"')
-  ) {
-    // ára twitter y para instagram
-    result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-  } else if (paragraph.includes('https://www.facebook.com/plugins')) {
-    result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-  } else {
-    // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
-
-    result = `<p>${paragraph}</p>`
   }
 
   return result
 }
 
-const validateMultimediaParagraph = paragraph => {
+const validateMultimediaParagraph = (paragraph, type) => {
   let result = false
-  if (
-    paragraph.includes('<iframe') ||
-    paragraph.includes('<img') ||
-    paragraph.includes('<blockquote class="instagram-media"') ||
-    paragraph.includes('<blockquote class="twitter-tweet"')
-  ) {
-    result = true
+  switch (type) {
+    case ConfigParams.ELEMENT_VIDEO:
+      result = true
+      break
+    case ConfigParams.ELEMENT_IMAGE:
+      result = true
+      break
+    case ConfigParams.ELEMENT_RAW_HTML:
+      if (
+        paragraph.includes('<iframe') ||
+        paragraph.includes('<img') ||
+        paragraph.includes('<blockquote class="instagram-media"') ||
+        paragraph.includes('<blockquote class="twitter-tweet"')
+      ) {
+        result = true
+      }
+      break
+
+    default:
+      result = false
+      break
   }
+
   return result
 }
 
@@ -82,7 +107,7 @@ const ParagraphshWithAdds = ({
     const arrayWords = paragraph.split(' ')
 
     if (IndexAdd === 0) {
-      if (arrayWords.length <= firstAdd) {
+      if (countWords <= firstAdd) {
         countWords += arrayWords.length
       }
 
@@ -104,8 +129,8 @@ const ParagraphshWithAdds = ({
       // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
 
       // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
-      if (arrayWords.length <= nextAdds) {
-        if (validateMultimediaParagraph(originalParagraph)) {
+      if (countWords <= nextAdds) {
+        if (validateMultimediaParagraph(originalParagraph, type)) {
           countWords += 70
         } else {
           countWords += arrayWords.length
@@ -130,19 +155,17 @@ const ParagraphshWithAdds = ({
   return resultParagraph
 }
 
-const BuildHtml = BuildHtmlProps => {
-  const {
-    scriptAnaliticaProps,
-    propsScriptHeader,
-    title,
-    subTitle,
-    multimedia,
-    paragraphsNews = [],
-    author = '',
-    fbArticleStyle = '',
-    listUrlAdvertisings,
-  } = BuildHtmlProps
-
+const BuildHtml = ({
+  scriptAnaliticaProps,
+  propsScriptHeader,
+  title,
+  subTitle,
+  multimedia,
+  paragraphsNews = [],
+  author = '',
+  fbArticleStyle = '',
+  listUrlAdvertisings,
+}) => {
   const firstAdd = 50
   const nextAdds = 250
 

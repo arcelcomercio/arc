@@ -13,13 +13,38 @@
     text-transform: capitalize;
     font-weight: 700;
     font-size: 14px;
+    display: flex;
+    align-items: center;
     &:hover {
-      color: $color-white;
+      color: $color-base-600;
     }
   }
   &__tags,
   &__link,
   &__date {
-    color: $color-white;
+    color: $color-base-600;
+  }
+  &__item {
+    &::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 80%;
+      background-color: #ebebeb;
+      margin-right: 20px;
+      margin-left: 20px;
+    }
+
+    &:last-child {
+      &::after {
+        display: none;
+      }
+    }
+  }
+  &__featured {
+    justify-content: center;
+    @media (--tablet) {
+      justify-content: flex-start;
+    }
   }
 }
