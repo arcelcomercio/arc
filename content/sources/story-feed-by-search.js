@@ -80,7 +80,7 @@ const pattern = key => {
           },
           {
             simple_query_string: {
-              query: `"${decodeURI(valueQuery)}"`, //NOTA: El navegador encodea las tildes
+              query: `"${decodeURI(valueQuery)}"`, // NOTA: El navegador encodea las tildes
             },
           },
         ],
