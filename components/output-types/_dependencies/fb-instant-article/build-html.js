@@ -14,7 +14,7 @@ const buildParagraph = (paragraph, type = '') => {
   }
 
   if (type === ConfigParams.ELEMENT_VIDEO) {
-    result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaEmbed.html?org=elcomercio&env=sandbox&api=sandbox&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
+    result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
   }
 
   if (type === ConfigParams.ELEMENT_IMAGE) {
@@ -107,7 +107,7 @@ const ParagraphshWithAdds = ({
     const arrayWords = paragraph.split(' ')
 
     if (IndexAdd === 0) {
-      if (arrayWords.length <= firstAdd) {
+      if (countWords <= firstAdd) {
         countWords += arrayWords.length
       }
 
@@ -129,7 +129,7 @@ const ParagraphshWithAdds = ({
       // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
 
       // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
-      if (arrayWords.length <= nextAdds) {
+      if (countWords <= nextAdds) {
         if (validateMultimediaParagraph(originalParagraph, type)) {
           countWords += 70
         } else {
