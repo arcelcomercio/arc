@@ -82,6 +82,7 @@
 
     [src*='youtube'] {
       width: 100% !important;
+      margin: 20px 0;
     }
 
     .fb-post {
@@ -208,7 +209,7 @@
       color: $color-primary;
       font-weight: 700;
     }
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-family: $secondary-font;
     line-height: 1.5;
     font-size: 16.9px;
