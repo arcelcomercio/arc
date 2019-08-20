@@ -221,7 +221,7 @@ class StoryData {
     return addSlashToEnd(StoryData.getPrimarySection(this._data).path) || ''
   }
 
-  get sectionsFIa() {
+  get sectionsFIA() {
     let result = { section: null, subsection: null }
     if (
       this._data.taxonomy &&
@@ -375,33 +375,38 @@ class StoryData {
     const { content_elements: contentElements = [] } = this._data
 
     const parrafo = contentElements.map(
-      ({ content = '', type = '', _id = '' }) => {
+      ({ content = '', type = '', _id = '', url = '' }) => {
         // ELEMENT_VIDEO
         // ELEMENT_IMAGE
         // ELEMENT_TEXT
-        let result = null
-        result = { _id, type, payload: '' }
+        const result = { _id, type, payload: '' }
+        
         switch (type) {
           case ConfigParams.ELEMENT_TEXT:
-            result.payload =
-              content !== '' || content !== undefined ? content : null
+            result.payload = content 
+            // && content
             break
           case ConfigParams.ELEMENT_IMAGE:
-            result.payload = ''
+            result.payload = url 
+            // && url
             break
           case ConfigParams.ELEMENT_VIDEO:
-            result.payload = content !== '' || _id !== undefined ? _id : null
+            result.payload = _id
+            break
+          case ConfigParams.ELEMENT_RAW_HTML:
+            result.payload = content 
+            // && content
             break
           default:
-            result.payload = ''
+            result.payload = content
             break
         }
         return result
       }
     )
 
-    const result = parrafo.filter(x => x.payload !== null)
-    return result
+    // const result = parrafo.filter(x => x.payload !== null)
+    return parrafo
   }
 
   get breadcrumbList() {
