@@ -10,6 +10,7 @@ export default function CheckSuscription({ onClose, ...props }) {
   let resetForm = React.useRef()
   return (
     <Modal
+      showClose
       onClose={() => {
         resetForm && resetForm()
         onClose()
