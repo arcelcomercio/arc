@@ -5,7 +5,6 @@ import Summary from './_children/summary'
 import * as S from './styled'
 import { addSales } from '../../../_dependencies/sales'
 import BannerPromoSuscriptor from './_children/banner-promo-suscriptor'
-import Modal from '../../../_children/modal'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { parseQueryString } from '../../../../../utilities/helpers'
@@ -98,13 +97,12 @@ function WizardPlan(props) {
           </S.Plans>
         </S.WrapPlan>
       </S.Wrap>
-      <Modal
+      <CheckSuscription
         open={openModal}
         onClose={() => {
           setOpenModal(false)
-        }}>
-        <CheckSuscription />
-      </Modal>
+        }}
+      />
       {!printed && (
         <BannerPromoSuscriptor
           onClick={() => {
