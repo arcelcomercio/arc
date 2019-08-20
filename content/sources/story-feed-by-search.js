@@ -61,7 +61,8 @@ const pattern = key => {
   const section = key.section || 'todas'
 
   // const page = `page=${'1'}`
-  const valueQuery = encodeURIComponent(key.query).replace(/-/g, '+') || '*'
+  const queryString = key.query.replace(/\+/g, ' ')
+  const valueQuery = encodeURIComponent(queryString).replace(/-/g, '+') || '*'
 
   const body = {
     query: {
