@@ -48,7 +48,7 @@ export default function CheckSuscription({ onClose, ...props }) {
             validate={values => new FormSchema(values)}
             initialValues={{ documentType: 'DNI', documentNumber: null }}
             onSubmit={({ documentType, documentNumber }, actions) => {
-              window.location.href = `/paywall/${documentType}/${documentNumber}?_website=gestion&outputType=paywall`
+              window.location.href = `/suscripcionesdigitales/${documentType}/${documentNumber}?_website=gestion&outputType=paywall`
             }}
             render={({
               resetForm: _resetForm,
