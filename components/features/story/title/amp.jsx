@@ -1,8 +1,8 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import { formatDayMonthYear, publicidadAmp } from '../../../utilities/helpers'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
+import StoryHeaderChildAmpGallery from '../header/_children/amp-gallery'
 
 const classes = {
   stories: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
@@ -28,6 +28,7 @@ class StoryTitleAmp extends PureComponent {
         promo_items: {
           basic_gallery: { content_elements: galleryItems } = {},
         } = {},
+        website_url: websiteUrl,
       } = {},
     } = this.props
     const dataSlot = `/${adsAmp.dataSlot}/${arcSite}-amp-320x50-top-movil1`
@@ -53,8 +54,14 @@ class StoryTitleAmp extends PureComponent {
 
           {subtitle && <div className={classes.description}> {subtitle}</div>}
           <StorySocialChildAmpSocial />
+
           {galleryItems && (
-            <AMPCarousel data={galleryItems} width="500" height="300" />
+            <StoryHeaderChildAmpGallery
+              data={galleryItems}
+              websiteUrl={websiteUrl}
+              width="500"
+              height="300"
+            />
           )}
         </div>
       </>
