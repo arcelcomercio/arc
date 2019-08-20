@@ -27,11 +27,6 @@ class Head extends React.PureComponent {
       this.setState({
         userName: new GetProfile().username,
       })
-    } else {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        userName: new GetProfile().username,
-      })
     }
   }
 
