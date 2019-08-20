@@ -8,7 +8,7 @@ const NO_DESKTOP = 'no-desktop'
 const NO_MOBILE = 'no-mobile'
 
 const classes = {
-  adsBox: 'flex items-center flex-col',
+  adsBox: 'flex items-center justify-center flex-col',
 }
 @Consumer
 class Ads extends PureComponent {
