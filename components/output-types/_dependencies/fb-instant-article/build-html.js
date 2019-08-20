@@ -14,7 +14,7 @@ const buildParagraph = (paragraph, type = '') => {
   }
 
   if (type === ConfigParams.ELEMENT_VIDEO) {
-    result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/sandbox/powaEmbed.html?org=elcomercio&env=sandbox&api=sandbox&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
+    result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
   }
 
   if (type === ConfigParams.ELEMENT_IMAGE) {
