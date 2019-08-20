@@ -50,6 +50,8 @@ const buildParagraph = (paragraph, type = '') => {
       result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
     } else if (paragraph.includes('https://www.facebook.com/plugins')) {
       result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
+    }else{
+      result = paragraph
     }
   }
 
@@ -80,7 +82,7 @@ const validateMultimediaParagraph = (paragraph, type) => {
       result = false
       break
   }
-  
+
   return result
 }
 
