@@ -115,11 +115,11 @@ export default {
 
     contacts: [
       {
-        position: 'Directora Periodística:',
+        position: 'Directora Periodística',
         name: 'Cecilia Valenzuela',
       },
       {
-        position: 'Diario Perú21: ',
+        position: 'Diario Perú21',
         name: 'Jr. Miró Quesada 247. Piso 6 Lima 1',
       },
       {
