@@ -232,9 +232,9 @@ class NavBarDefault extends PureComponent {
         ? `https://api.${arcSite}.pe`
         : `https://api-sandbox.${arcSite}.pe`
 
-    this.checkIsEco().then(res => {
-      window.console.log(res)
-    })
+    // this.checkIsEco().then(res => {
+    //   window.console.log(res)
+    // })
 
     if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
       this.getPremium() // Only sandbox ;)
