@@ -18,7 +18,7 @@ export default ({ siteName = '', siteUrl = '' }) => {
         rel="alternate"
         type="application/rss+xml"
         title={`${siteName} - Últimas noticias`}
-        href={`${siteUrl}/feed`}
+        href={`${siteUrl}/feeds/?outputType=fb-instant-article`}
       />
       <script
         type="application/ld+json"
