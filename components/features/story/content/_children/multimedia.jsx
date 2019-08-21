@@ -11,6 +11,7 @@ const StoryContentChildMultimedia = ({ data }) => {
     } = {},
     basic = {},
     infografia: { type: typeInfo = '' } = {},
+    youtube_id: { content: youtubeId = '' } = {},
     basic_html: {
       type: typeEmbed = '',
       content: embedHtmlPromoItems = '',
@@ -19,12 +20,24 @@ const StoryContentChildMultimedia = ({ data }) => {
   const { type: typeImage, caption = '' } = basic || {}
   return (
     <>
-      {!typeInfo && !typeEmbed && typeImage ? (
+      {!youtubeId && !typeInfo && !typeEmbed && typeImage ? (
         <Imagen data={basic} />
       ) : (
         <Html data={embedHtmlPromoItems} caption={caption} />
       )}
-      {embedHtml && <Video data={embedHtml} description={descriptionVideo} />}
+
+      {youtubeId ? (
+        <iframe
+          title={`Youtube - ${youtubeId}`}
+          width="100%"
+          height="373"
+          src={`https://www.youtube.com/embed/${youtubeId}?&autoplay=1`}
+          frameBorder="0"
+          allowFullScreen
+        />
+      ) : (
+        embedHtml && <Video data={embedHtml} description={descriptionVideo} />
+      )}
     </>
   )
 }
