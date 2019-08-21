@@ -2,10 +2,17 @@
   border-collapse: collapse;
 
   &__cell {
-    padding: 2px 4px 1px;
+    padding: 10px;
+    border-color: $color-gray-300;
   }
-
-  &__row:nth-child(even) .story-table__cell {
-    background-color: #e6e6e6;
+  thead {
+    border-bottom: 1px solid $color-gray-300;
+    th {
+      padding: 5px;
+      border-right: 1px solid $color-gray-300;
+      &:last-child {
+        border-right: 0;
+      }
+    }
   }
 }
