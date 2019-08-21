@@ -69,6 +69,10 @@ class StoryData {
     )
   }
 
+  get subtype() {
+    return (this._data && this._data.subtype) || ''
+  }
+
   get tags() {
     return (this._data && this._data.taxonomy && this._data.taxonomy.tags) || []
   }
@@ -291,17 +295,21 @@ class StoryData {
   }
 
   get getVideoPrincipal() {
-    return (this._data &&
-      this._data.promo_items &&
-      StoryData.getSeoMultimedia(this._data.promo_items, 'video')) ||
+    return (
+      (this._data &&
+        this._data.promo_items &&
+        StoryData.getSeoMultimedia(this._data.promo_items, 'video')) ||
       []
+    )
   }
 
   get getGallery() {
-    return (this._data &&
+    return (
+      (this._data &&
         this._data.promo_items &&
         StoryData.getSeoMultimedia(this._data.promo_items, 'image')) ||
       []
+    )
   }
 
   get imagesSeo() {
@@ -394,21 +402,21 @@ class StoryData {
         // ELEMENT_IMAGE
         // ELEMENT_TEXT
         const result = { _id, type, payload: '' }
-        
+
         switch (type) {
           case ConfigParams.ELEMENT_TEXT:
-            result.payload = content 
+            result.payload = content
             // && content
             break
           case ConfigParams.ELEMENT_IMAGE:
-            result.payload = url 
+            result.payload = url
             // && url
             break
           case ConfigParams.ELEMENT_VIDEO:
             result.payload = _id
             break
           case ConfigParams.ELEMENT_RAW_HTML:
-            result.payload = content 
+            result.payload = content
             // && content
             break
           default:
@@ -572,9 +580,9 @@ class StoryData {
                 }
               : []
           })
-          .filter(String)          
-          const cantidadVideo = dataVideo.length
-        return [dataVideo[cantidadVideo-1]]
+          .filter(String)
+        const cantidadVideo = dataVideo.length
+        return [dataVideo[cantidadVideo - 1]]
       }
 
       return {
