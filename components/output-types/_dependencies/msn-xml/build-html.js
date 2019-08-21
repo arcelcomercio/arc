@@ -1,4 +1,3 @@
-import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../utilities/config-params'
 
 const buildIframeAdvertising = urlAdvertising => {
