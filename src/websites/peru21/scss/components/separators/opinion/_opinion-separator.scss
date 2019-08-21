@@ -6,8 +6,19 @@
       color: $color-white;
       font-weight: 700;
     }
+    &--body {
+      @media (--only-mobile) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+    }
     &--item {
       background-color: $color-base-400;
+      &:nth-child(2) {
+        @media (--only-mobile) {
+          display: block;
+        }
+      }
     }
     &--item-details {
       display: flex;
