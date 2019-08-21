@@ -70,7 +70,6 @@ class FormLoginPaywall extends Component {
             case '300037':
               messageES = 'Correo electrónico y/o  contraseña incorrecta.'
               break
-
             case '130051`':
               messageES = 'El Correo electrónico no ha sido verificado.'
               break

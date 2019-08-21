@@ -43,6 +43,7 @@ class LoginPaywall extends Component {
           typePopUp="organico"
           typeForm="login"
           brandCurrent={brandModal}
+          reloadForgot
         />
       ),
     }
