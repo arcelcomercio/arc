@@ -31,6 +31,9 @@ const domains = {
   ORIGIN_SUBSCRIPTION_CORP_API: ENV => {
     return `https://devpaywall.comerciosuscripciones.pe/api/subs-corporativa/`
   },
+  ORIGIN_SUBSCRIPTION_ONLINE_TOKEN: ENV => {
+    return `https://devpaywall.comerciosuscripciones.pe/api/subscription-online/token/`
+  },
   ORIGIN_SUSCRIPCIONES: ENV => {
     const _env_ = ENV === 'elcomercio' ? '' : 'dev'
     return `https://${_env_}paywall.comerciosuscripciones.pe`
