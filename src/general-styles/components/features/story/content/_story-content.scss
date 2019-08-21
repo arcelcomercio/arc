@@ -220,4 +220,13 @@
       font-size: 20px;
     }
   }
+  &__alignment-center {
+    text-align: center;
+  }
+  &__alignment-left {
+    text-align: left;
+  }
+  &__alignment-right {
+    text-align: right;
+  }
 }
