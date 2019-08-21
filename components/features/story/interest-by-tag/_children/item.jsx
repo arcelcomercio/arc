@@ -1,15 +1,14 @@
 import React from 'react'
 
 const classes = {
-  item:
-    'story-interest__item flex justify-between w-full position-relative pt-0 pr-5 pb-0 pl-0 border-solid border-gray',
+  item: 'story-interest__item w-full border-solid border-white border-r-1',
   detail: 'story-interest__detail w-full pl-10 pr-10',
   separatorCategory: 'story-interest__category mb-10 text-xl',
   separatorTitle:
-    'story-interest__title overflow-hidden text-left text-sm text-gray-300 line-h-sm',
+    'story-interest__title overflow-hidden text-sm text-gray-300 line-h-sm text-center',
   titleLink: '',
   itemImage: 'story-interest__img object-cover',
-  figure: 'story-interest__figure',
+  figure: 'story-interest__figure m-auto',
 }
 
 const StorySeparatorChildItem = ({ data }) => {
@@ -23,7 +22,7 @@ const StorySeparatorChildItem = ({ data }) => {
   } = data
 
   return (
-    <article className={classes.item}>
+    <li className={classes.item}>
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       <figure className={classes.figure}>
@@ -37,7 +36,7 @@ const StorySeparatorChildItem = ({ data }) => {
           </a>
         )}
       </figure>
-      
+
       <div className={classes.detail}>
         <h2 className={classes.separatorCategory}>
           <a href={sectionLink}>{section}</a>{' '}
@@ -48,7 +47,7 @@ const StorySeparatorChildItem = ({ data }) => {
           </a>
         </h3>
       </div>
-    </article>
+    </li>
   )
 }
 

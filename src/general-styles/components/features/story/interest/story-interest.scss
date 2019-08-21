@@ -1,2 +1,7 @@
 .story-interest {
+  &__item {
+    &:last-child {
+      border-right: 0;
+    }
+  }
 }

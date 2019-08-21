@@ -14,6 +14,7 @@ const classes = {
     'story-interest block non-tablet non-mobile w-full h-auto p-20',
   title:
     'story-interest__titleList block non-tablet non-mobile w-full h-auto font-bold mb-30',
+  list: 'story-interest__list flex',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
@@ -57,30 +58,32 @@ const InterestByTag = props => {
     <>
       <div className={classes.storyInterest}>
         <div className={classes.title}>Te puede interesar:</div>
-        {storyData &&
-          storyData.map((story, i) => {
-            if (key === 4) return false
-            const { website_url: websiteUrl } = story
-            if (websiteUrl === excluir) return false
-            instance.__data = story
-            key += 1
+        <ul className={classes.list}>
+          {storyData &&
+            storyData.map((story, i) => {
+              if (key === 4) return false
+              const { website_url: websiteUrl } = story
+              if (websiteUrl === excluir) return false
+              instance.__data = story
+              key += 1
 
-            const data = {
-              title: instance.title,
-              link: instance.link,
-              section: instance.primarySection,
-              sectionLink: instance.primarySectionLink,
-              multimediaPortraitXS: instance.multimediaPortraitXS,
-              multimediaType: instance.multimediaType,
-            }
-            return (
-              <StorySeparatorChildItem
-                data={data}
-                key={UtilListKey(i)}
-                arcSite={arcSite}
-              />
-            )
-          })}
+              const data = {
+                title: instance.title,
+                link: instance.link,
+                section: instance.primarySection,
+                sectionLink: instance.primarySectionLink,
+                multimediaPortraitXS: instance.multimediaPortraitXS,
+                multimediaType: instance.multimediaType,
+              }
+              return (
+                <StorySeparatorChildItem
+                  data={data}
+                  key={UtilListKey(i)}
+                  arcSite={arcSite}
+                />
+              )
+            })}
+        </ul>
       </div>
     </>
   )
