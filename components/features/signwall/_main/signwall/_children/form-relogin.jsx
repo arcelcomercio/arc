@@ -76,18 +76,16 @@ class FormReLogin extends Component {
           this.setState({ sending: true })
           this.handleGetProfile()
 
-          if (ENV.ENVIRONMENT === 'elcomercio') {
-            window.dataLayer.push({
-              event: 'login_success',
-              eventCategory: `Web_Sign_Wall_Relog_Email`,
-              eventAction: `web_relog_email_login_success_ingresar`,
-            })
-          } else {
-            Taggeo(
-              `Web_Sign_Wall_${typePopUp}`,
-              `web_sw${typePopUp[0]}_email_login_success_ingresar`
-            )
-          }
+          // window.dataLayer.push({
+          //   event: 'login_success',
+          //   eventCategory: `Web_Sign_Wall_Relog_Email`,
+          //   eventAction: `web_relog_email_login_success_ingresar`,
+          // })
+
+          Taggeo(
+            `Web_Sign_Wall_${typePopUp}`,
+            `web_sw${typePopUp[0]}_email_login_success_ingresar`
+          )
         })
         .catch(errLogin => {
           let messageES = ''
@@ -260,32 +258,29 @@ class FormReLogin extends Component {
   taggeoSuccess = () => {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      window.dataLayer.push({
-        event:
-          typePopUp === 'relogin' ? 'relogin_success' : 'relogin_email_success',
-      })
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_email_login_success`
-      )
-    }
+    // window.dataLayer.push({
+    //   event:
+    //     typePopUp === 'relogin' ? 'relogin_success' : 'relogin_email_success',
+    // })
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_email_login_success`
+    )
   }
 
   taggeoError = () => {
     const { typePopUp } = this.props
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      window.dataLayer.push({
-        event:
-          typePopUp === 'relogin' ? 'relogin_error' : 'relogin_email_error',
-      })
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_email_login_error`
-      )
-    }
+
+    // window.dataLayer.push({
+    //   event:
+    //     typePopUp === 'relogin' ? 'relogin_error' : 'relogin_email_error',
+    // })
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_email_login_error`
+    )
   }
 
   render = () => {
