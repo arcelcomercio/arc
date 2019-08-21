@@ -5,10 +5,10 @@ export default props => {
   return (
     <>
       {adElement && isMobile && (
-        <div id={`ads_m_${adElement}`} className={classes && classes.mobile} />
+        <div id={`ads_m_${adElement}`} className={`flex justify-center ${classes && classes.mobile}`} />
       )}
       {adElement && isDesktop && (
-        <div id={`ads_d_${adElement}`} className={classes && classes.desktop} />
+        <div id={`ads_d_${adElement}`} className={`flex justify-center ${classes && classes.desktop}`} />
       )}
     </>
   )
