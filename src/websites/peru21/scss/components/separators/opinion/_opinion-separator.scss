@@ -33,7 +33,7 @@
       height: 84px;
     }
     &--item-twoline {
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       max-height: 58px;
 
       display: -webkit-box;
@@ -43,6 +43,12 @@
       line-height: 1.19;
     }
     &-name {
+      -webkit-line-clamp: 2;
+      height: 54px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+
       &:before,
       &:after {
         display: none;

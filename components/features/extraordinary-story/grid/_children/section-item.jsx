@@ -4,7 +4,7 @@ const ExtraordinayStoryGridSectionItem = props => {
   const classes = {
     itemContainer: 'sections-grid-item p-10',
     imageContainer: 'sections-grid-item__image-container overflow-hidden',
-    image: 'w-full',
+    image: 'w-full h-full object-cover',
     title: 'sections-grid-item__title text-left text-sm text-white',
   }
   const { data } = props

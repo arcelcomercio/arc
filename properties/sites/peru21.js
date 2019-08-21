@@ -11,7 +11,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Peru21_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-P6ZDTW',
+  googleTagManagerId: 'GTM-KKQFJ3Z',
   ampGoogleTagManagerId: 'UA-3055636-4',
   ampGoogleTagManagerName: 'peru21',
   charbeatAccountNumber: 57773,
@@ -115,11 +115,11 @@ export default {
 
     contacts: [
       {
-        position: 'Directora Periodística:',
+        position: 'Directora Periodística',
         name: 'Cecilia Valenzuela',
       },
       {
-        position: 'Diario Perú21: ',
+        position: 'Diario Perú21',
         name: 'Jr. Miró Quesada 247. Piso 6 Lima 1',
       },
       {

@@ -17,7 +17,9 @@
 
   &__information {
     padding: 20px 0px;
-
+    h2 {
+      font-size: 20px;
+    }
     @media (--tablet) {
       background-color: $color-gray-100;
       padding: 20px 10px;
