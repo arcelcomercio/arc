@@ -27,7 +27,7 @@ function WizardUserProfile(props) {
 
   const sanitizeValues = value =>
     typeof value === 'string'
-      ? value.trim().replace(/undefined|null/i, null)
+      ? value.trim().replace(/undefined|null/i, '')
       : value
   const sanitizedProfile = deepMapValues(profile, sanitizeValues)
 

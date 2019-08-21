@@ -121,6 +121,7 @@ export const Divider = styled.div`
 
 export const SpanFoot = styled.span`
   line-height: 24px;
+  text-align: right;
 `
 
 export const Icon = styled.i`
