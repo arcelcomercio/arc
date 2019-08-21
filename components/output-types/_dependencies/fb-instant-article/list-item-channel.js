@@ -27,7 +27,7 @@ const ListItemNews = (contentElements, buildProps) => {
       storydata.__data = story
 
       const pagePath = `${siteUrl}${storydata.link}`
-
+      const pageview = `${storydata.link}?outputType=fia`
       const propsScriptHeader = {
         siteDomain,
         title: storydata.title,
@@ -46,7 +46,7 @@ const ListItemNews = (contentElements, buildProps) => {
         newsId: storydata.id,
         author: storydata.author,
         newsType: getMultimedia(storydata.multimediaType),
-        pagePath,
+        pageview,
         newsTitle: storydata.title,
       }
 
