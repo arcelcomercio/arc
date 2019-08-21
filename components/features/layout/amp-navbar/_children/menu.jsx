@@ -97,10 +97,8 @@ class NavbarChildMenu extends PureComponent {
             type="doubleclick"
             data-slot={dataSlot}
             data-multi-size="320x50,300x100,300x50"
-            data-multi-size-validation="false">
-            <div placeholder />
-            <div fallback />
-          </amp-ad>
+            data-multi-size-validation="false"
+          />
         </amp-sticky-ad>
 
         <amp-sidebar
