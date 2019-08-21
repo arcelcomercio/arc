@@ -1,3 +1,6 @@
 .story-interest {
   background-color: $color-base-200;
+  &__titleList {
+    color: $color-white;
+  }
 }
