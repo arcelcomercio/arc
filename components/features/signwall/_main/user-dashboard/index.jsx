@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
+import ENV from 'fusion:environment'
 import Modal from '../common/modal'
 import Header from '../common/header'
 import Footer from '../common/footer'
 import Gravatar from '../common/gravatar'
 import Cookie from '../utils/cookie'
 import GetProfile from '../utils/get-profile'
-
-import UpdateProfile from './_children/section/update-profile'
-import UpdatePass from './_children/section/update-pass'
+import Loading from '../common/loading'
+import MiPerfil from './_children/section/index'
 
 const Cookies = new Cookie()
 
@@ -28,7 +28,6 @@ class ProfileAccount extends Component {
         nameInit.length >= 24 ? `${nameInit.slice(0, 24)}...` : nameInit,
       emailUser: emailInit,
       userNameFB: usernameid.userName,
-      disabledSocial: identitie.type !== 'Password',
       activeProfile: false,
     }
   }
@@ -38,7 +37,7 @@ class ProfileAccount extends Component {
       this.setState({
         activeProfile: true,
       })
-    }, 500)
+    }, 800)
   }
 
   closeSession = () => {
@@ -81,10 +80,9 @@ class ProfileAccount extends Component {
       userName,
       emailUser,
       userNameFB,
-      disabledSocial,
       activeProfile,
     } = this.state
-    const urlNone = '#'
+    const url = '#'
 
     return (
       <Modal
@@ -107,15 +105,28 @@ class ProfileAccount extends Component {
 
                   <ul className="profile__menu">
                     <li className="profile__menu-item">
-                      <a href={urlNone} className="profile__menu-link active">
+                      <a href={url} className="profile__menu-link active">
                         Mis Datos
                       </a>
                     </li>
+
+                    {/* <li className="profile__menu-item">
+                      <a href={url} className="profile__menu-link active">
+                        Mis Datos
+                      </a>
+                    </li>
+
+                    <li className="profile__menu-item">
+                      <a href={url} className="profile__menu-link">
+                        Mis Suscripciones
+                      </a>
+                    </li> */}
+
                     <li className="profile__menu-item">
                       <button
                         type="button"
                         id="web_link_cerrarsesion"
-                        className="profile__menu-link"
+                        className="profile__menu-link-close"
                         onClick={e => this.closeSession(e)}>
                         Cerrar Sesión
                       </button>
@@ -124,27 +135,16 @@ class ProfileAccount extends Component {
                 </div>
                 <div className="profile__avatar">
                   <picture>
-                    {typeLogin === 'facebook' ? (
-                      <img
-                        src={`https://graph.facebook.com/${userNameFB}/picture?type=large&redirect=true&width=500&height=500`}
-                        alt="facebook"
-                      />
-                    ) : (
-                      <Gravatar email={emailUser} />
-                    )}
+                    <Gravatar
+                      email={emailUser}
+                      type={typeLogin === 'facebook' ? 'facebook' : 'password'}
+                      fbID={userNameFB}
+                    />
                   </picture>
                 </div>
               </div>
               <div className="profile__right profile__card">
-                {activeProfile ? (
-                  <UpdateProfile handlerUpdateName={this.handlerUpdateName} />
-                ) : (
-                  'cargando....'
-                )}
-                <hr hidden={disabledSocial} />
-                <div hidden={disabledSocial}>
-                  <UpdatePass />
-                </div>
+                {activeProfile ? <MiPerfil /> : <Loading />}
               </div>
             </div>
           </div>
