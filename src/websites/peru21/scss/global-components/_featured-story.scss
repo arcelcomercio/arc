@@ -92,6 +92,9 @@
         background-color: transparent;
       }
     }
+    .featured-story__detail {
+      background-color: #eaeaea;
+    }
   }
 
   &.featured-story--live {
@@ -125,6 +128,9 @@
     }
   }
   &__detail {
-    background-color: #eaeaea;
+    background-color: $color-white;
+    @media (--tablet) {
+      background-color: #eaeaea;
+    }
   }
 }
