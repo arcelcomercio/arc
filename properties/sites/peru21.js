@@ -131,13 +131,13 @@ export default {
   social: {
     facebook: {
       name: 'facebook',
-      user: '@elcomercio.pe',
-      url: 'https://www.facebook.com/elcomercio.pe',
+      user: '@peru21.pe',
+      url: 'https://www.facebook.com/peru21',
     },
     twitter: {
       name: 'twitter',
-      user: '@elcomercio_peru',
-      url: 'https://twitter.com/elcomercio_peru',
+      user: 'peru21noticias',
+      url: 'https://twitter.com/peru21noticias',
     },
     youtube: {
       name: 'youtube',
