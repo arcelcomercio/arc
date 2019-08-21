@@ -12,7 +12,6 @@ import Beforeunload from '../before-unload'
 import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
 import { parseQueryString } from '../../../../../utilities/helpers'
-import core from './_children/core'
 
 const isProd = ENVIRONMENT === 'elcomercio'
 const MESSAGE = {
@@ -32,8 +31,6 @@ function WizardPayment(props) {
   const { orderNumber } = order
   const { amount, billingFrequency, description } = plan
   profile.printed = printed
-
-  const { apiPaymentRegister } = core(profile, order, plan)
 
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_CARD_INFO)
@@ -105,9 +102,6 @@ function WizardPayment(props) {
                     }
                   })
                 })
-              })
-              .then(token => {
-                return apiPaymentRegister(cardMethod, token)
               })
               .then(token => {
                 const { paymentMethodID, paymentMethodType } = payUPaymentMethod
