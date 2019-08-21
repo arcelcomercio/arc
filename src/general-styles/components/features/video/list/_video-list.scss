@@ -1,0 +1,12 @@
+.video-list {
+  &__item {
+    width: 80%;
+    max-width: 230px;
+    @media (--tablet) {
+      width: 195px;
+    }
+    @media (--desktop) {
+      width: 230px;
+    }
+  }
+}
