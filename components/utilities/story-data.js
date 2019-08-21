@@ -290,6 +290,20 @@ class StoryData {
     return metaTitle || basic
   }
 
+  get getVideoPrincipal() {
+    return (this._data &&
+      this._data.promo_items &&
+      StoryData.getSeoMultimedia(this._data.promo_items, 'video')) ||
+      []
+  }
+
+  get getGallery() {
+    return (this._data &&
+        this._data.promo_items &&
+        StoryData.getSeoMultimedia(this._data.promo_items, 'image')) ||
+      []
+  }
+
   get imagesSeo() {
     const imagesContent =
       StoryData.getContentElements(
@@ -558,8 +572,9 @@ class StoryData {
                 }
               : []
           })
-          .filter(String)
-        return [dataVideo[0]]
+          .filter(String)          
+          const cantidadVideo = dataVideo.length
+        return [dataVideo[cantidadVideo-1]]
       }
 
       return {

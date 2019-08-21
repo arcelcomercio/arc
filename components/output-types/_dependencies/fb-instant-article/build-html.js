@@ -92,12 +92,11 @@ const ParagraphshWithAdds = ({
   nextAdds = 250,
   arrayadvertising = [],
 }) => {
-  const newsWithAdd = []
+  let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
-  let resultParagraph = ''
 
-  paragraphsNews.forEach(({ payload: paragraphItem, type }) => {
+  newsWithAdd = paragraphsNews.map(({ payload: paragraphItem, type }) => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
     // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
 
@@ -124,7 +123,8 @@ const ParagraphshWithAdds = ({
         paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
       }
 
-      newsWithAdd.push(`${paragraphwithAdd}`)
+      // return `${paragraphwithAdd}`
+      // newsWithAdd.push(`${paragraphwithAdd}`)
     } else {
       // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
 
@@ -148,11 +148,13 @@ const ParagraphshWithAdds = ({
       } else {
         paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
       }
-      newsWithAdd.push(`${paragraphwithAdd}`)
+
     }
-  })
-  resultParagraph = newsWithAdd.map(item => item).join('')
-  return resultParagraph
+
+    return `${paragraphwithAdd}`
+  }).join('')
+  
+  return newsWithAdd
 }
 
 const BuildHtml = ({
