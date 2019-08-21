@@ -45,6 +45,7 @@ const customFieldsSection = {
 
   logo: PropTypes.string.tag({
     name: 'Logo',
+    description: 'Colocar una url de logo (opcional)',
   }),
 }
 
