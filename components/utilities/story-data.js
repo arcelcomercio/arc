@@ -291,9 +291,10 @@ class StoryData {
   }
 
   get getVideoPrincipal() {
-    return this._data &&
+    return (this._data &&
       this._data.promo_items &&
-      StoryData.getSeoMultimedia(this._data.promo_items, 'video')
+      StoryData.getSeoMultimedia(this._data.promo_items, 'video')) ||
+      []
   }
 
   get getGallery() {
