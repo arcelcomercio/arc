@@ -6,7 +6,8 @@ import { devices } from '../../../_dependencies/devices'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import PWA from '../../_dependencies/seed-pwa'
 
-const HOME = 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/'
+// const HOME = 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/'
+const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
 
 const Item = ({ label, children }) => {
@@ -61,7 +62,7 @@ const WizardConfirmation = props => {
     if (handlePWA()) return
     const { sessionStorage, location } = window
     // eslint-disable-next-line no-prototype-builtins
-    location.href = sessionStorage.hasOwnProperty(NAME_REDIRECT)
+    location.href = sessionStorage.hasOwnProperty(NAME_REDIRECT) && sessionStorage.getItem(NAME_REDIRECT) !== ''
       ? sessionStorage.getItem(NAME_REDIRECT)
       : HOME
   }
