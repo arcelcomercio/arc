@@ -13,6 +13,8 @@ import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
 import { parseQueryString } from '../../../../../utilities/helpers'
 
+import { getArcErrorMessage } from '../../../_dependencies/utils'
+
 const isProd = ENVIRONMENT === 'elcomercio'
 const MESSAGE = {
   PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
@@ -108,7 +110,11 @@ function WizardPayment(props) {
                 const sandboxToken = `${token}~${deviceSessionId}~${cvv}`
                 return sales
                   .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
-                  .then(({ status, total, subscriptionIDs }) => {
+                  .then(res => {
+                    if (res.code) {
+                      throw new Error(getArcErrorMessage(res.code))
+                    }
+                    const { status, total, subscriptionIDs } = res
                     if (status !== 'Paid') throw new Error(MESSAGE.PAYMENT_FAIL)
                     return {
                       publicKey,
