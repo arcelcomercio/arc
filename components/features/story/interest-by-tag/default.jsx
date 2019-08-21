@@ -52,34 +52,35 @@ const InterestByTag = props => {
 
   let key = 0
   return (
-    (storyData &&
-      storyData.map((story, i) => {
-        if (key === 4) return false
-        const { website_url: websiteUrl } = story
-        if (websiteUrl === excluir) return false
-        instance.__data = story
-        key += 1
+    <>
+      <div className={classes.storyInterest}>
+        <div className={classes.title}>Te puede interesar:</div>
+        {storyData &&
+          storyData.map((story, i) => {
+            if (key === 4) return false
+            const { website_url: websiteUrl } = story
+            if (websiteUrl === excluir) return false
+            instance.__data = story
+            key += 1
 
-        const data = {
-          title: instance.title,
-          link: instance.link,
-          section: instance.primarySection,
-          sectionLink: instance.primarySectionLink,
-          multimediaPortraitXS: instance.multimediaPortraitXS,
-          multimediaType: instance.multimediaType,
-        }
-        return (
-          <div className={classes.storyInterest}>
-            <div className={classes.title}>Te puede interesar:</div>
-            <StorySeparatorChildItem
-              data={data}
-              key={UtilListKey(i)}
-              arcSite={arcSite}
-            />
-          </div>
-        )
-      })) ||
-    ''
+            const data = {
+              title: instance.title,
+              link: instance.link,
+              section: instance.primarySection,
+              sectionLink: instance.primarySectionLink,
+              multimediaPortraitXS: instance.multimediaPortraitXS,
+              multimediaType: instance.multimediaType,
+            }
+            return (
+              <StorySeparatorChildItem
+                data={data}
+                key={UtilListKey(i)}
+                arcSite={arcSite}
+              />
+            )
+          })}
+      </div>
+    </>
   )
 }
 
