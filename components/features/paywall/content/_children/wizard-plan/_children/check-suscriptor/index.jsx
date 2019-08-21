@@ -71,7 +71,7 @@ const Content = props => {
           validate={values => new FormSchema(values)}
           initialValues={{ documentType: 'DNI', documentNumber: null }}
           onSubmit={({ documentType, documentNumber }, actions) => {
-            window.location.href = `/suscripcionesdigitales/${documentType}/${documentNumber}/${attemptToken}?_website=gestion&outputType=paywall`
+            window.location.href = getDomain("VALIDATE_SUSCRIPTOR", documentType, documentNumber, attemptToken)
           }}
           render={({
             resetForm: _resetForm,

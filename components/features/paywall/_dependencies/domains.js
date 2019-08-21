@@ -8,7 +8,9 @@ const domains = {
   URL_CORPORATE : () => `${context}/suscripcionesdigitales/empresa/${queryString}`,
   URL_FAQ : () => `${context}/suscripcionesdigitales/faq/${queryString}`,
   URL_DIGITAL : () => `${context}/suscripcionesdigitales${queryString}`,
-  VALIDATE_SUSCRIPTOR : (ENV, documentType, documentNumber) => `${context}/suscripcionesdigitales/${documentType}/${documentNumber}${queryString}`,
+  VALIDATE_SUSCRIPTOR : (ENV, documentType, documentNumber, attemptToken) => {
+    return `${context}/suscripcionesdigitales/${documentType}/${documentNumber}/${attemptToken}${queryString}`
+  },
   PWA_DOMAIN : ENV => {
     const _env_ = ENV === 'elcomercio' ? '' : '.dev'
     return `https://pwa${_env_}.gestion.pe`
