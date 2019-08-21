@@ -11,29 +11,32 @@ import customFields from './_dependencies/custom-fields'
 
 const classes = {
   storyInterest: 'story-interest block non-tablet non-mobile w-full h-auto',
+  title: 'story-interest__titleList block non-tablet non-mobile w-full h-auto',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
 const InterestByTag = props => {
-  const { customFields: { section = '', freeHtml = '' } = {} } = props
+  const { customFields: { section = '' } = {} } = props
   const {
     arcSite,
     globalContent: dataContent,
     contextPath,
   } = useFusionContext()
-  const { tags: [{ text = 'Peru' } = {}] = [] } = new StoryData({
+  const {
+    tags: [{ text = 'Peru' } = {}] = [],
+    websiteUrl: excluir,
+  } = new StoryData({
     data: dataContent,
     contextPath,
   })
-  console.log('ddddddddddddd', text)
   const { content_elements: storyData } =
     useContent({
       source: CONTENT_SOURCE,
       query: {
         website: arcSite,
         name: section || text,
-        sizer: 1,
+        size: 5,
       },
       filter: schemaFilter,
     }) || ''
@@ -52,8 +55,8 @@ const InterestByTag = props => {
     (storyData &&
       storyData.map((story, i) => {
         if (key === 4) return false
-        // const { website_url: websiteUrl } = story
-        // if (websiteUrl === excluir) return false
+        const { website_url: websiteUrl } = story
+        if (websiteUrl === excluir) return false
         instance.__data = story
         key += 1
 
@@ -67,6 +70,7 @@ const InterestByTag = props => {
         }
         return (
           <div className={classes.storyInterest}>
+            <div className={classes.title}>Te puede interesar:</div>
             <StorySeparatorChildItem
               data={data}
               key={UtilListKey(i)}
