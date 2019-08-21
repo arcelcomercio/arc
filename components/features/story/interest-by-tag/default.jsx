@@ -54,7 +54,7 @@ const InterestByTag = props => {
   return (
     <>
       <div className={classes.storyInterest}>
-        <div className={classes.title}>Te puede interesar:</div>
+        {storyData && <div className={classes.title}>Te puede interesar:</div>}
         {storyData &&
           storyData.map((story, i) => {
             if (key === 4) return false

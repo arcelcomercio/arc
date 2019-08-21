@@ -216,7 +216,7 @@ export default ({
         content={
           seoKeywordsItems[0]
             ? seoKeywordsItems.map(item => item)
-            : listItems.map(item => item)
+            : (listItems[0] && listItems.map(item => item)) || arcSite
         }
       />
       <meta property="article:published_time" content={publishDate} />
