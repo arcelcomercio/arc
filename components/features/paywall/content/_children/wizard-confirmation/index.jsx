@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import * as S from './styled'
-import { Panel } from '../../../_children/panel/styled'
 import Button from '../../../_children/button'
 import { devices } from '../../../_dependencies/devices'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import PWA from '../../_dependencies/seed-pwa'
 
-const HOME = 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/'
+const HOME = 'https://gestion.pe/'
 const NAME_REDIRECT = 'paywall_last_url'
+const PIXEL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
 
 const Item = ({ label, children }) => {
   return (
@@ -58,6 +58,7 @@ const WizardConfirmation = props => {
   }
 
   const handleClick = () => {
+    return
     if (handlePWA()) return
     const { sessionStorage, location } = window
     // eslint-disable-next-line no-prototype-builtins
@@ -68,11 +69,15 @@ const WizardConfirmation = props => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <Panel maxWidth="1060px" direction="row">
+      <S.Panel maxWidth="1060px" direction="row">
         <S.Picture>
           <source
             media={`(${devices.mobile})`}
-            srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+            srcSet={PIXEL}
+          />
+          <source
+            media={`${devices.tablet}`}
+            srcSet={PIXEL}
           />
           <source srcSet={assets('confirmation_webp')} type="image/webp" />
           <S.Image src={assets('confirmation')} alt="confirmación" />
@@ -108,7 +113,7 @@ const WizardConfirmation = props => {
             <S.Progress time="17s" onFinish={handleClick} />
           </S.WrapButton>
         </S.Content>
-      </Panel>
+      </S.Panel>
     </div>
   )
 }
