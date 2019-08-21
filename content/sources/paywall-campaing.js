@@ -66,11 +66,6 @@ export default {
         prez[_name] = _value
         break;
         }
-        if (_name === 'feature') {
-          prez[_name].push(_value)
-        } else {
-          prez[_name] = _value
-        }
         return prez
       },
       { feature: [] }

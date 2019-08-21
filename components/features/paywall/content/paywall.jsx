@@ -79,8 +79,8 @@ class Content extends React.Component {
   render() {
     const { profile, loading } = this.state
     const { globalContent } = this.props
-    const { summary = [], plans, printed, error: message } = globalContent
-
+    const { summary = [], plans = [], printed, error: message } = globalContent
+    
     const {
       contextPath,
       deployment,
