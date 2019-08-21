@@ -2,10 +2,12 @@ import React, { PureComponent } from 'react'
 
 const classes = {
   sidebar: 'amp-nav-sidebar w-full',
-  item: 'amp-nav-sidebar__item position-relative uppercase border-b-1 border-solid border-gray',
+  item:
+    'amp-nav-sidebar__item position-relative uppercase border-b-1 border-solid border-gray',
   containerSubMenu: 'amp-nav-sidebar__container-submenu w-full overflow-hidden',
   menuArrow: 'amp-nav-sidebar__menu-arrow hidden',
-  labelParentItem: 'amp-nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0',
+  labelParentItem:
+    'amp-nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0',
   listItem: 'amp-nav-sidebar__list-item h-full title-sm line-h-xs pl-10 pr-10',
   link:
     'amp-nav-sidebar__link block pt-15 pb-15 pl-15 text-md secondary-font font-bold',
@@ -22,29 +24,50 @@ class NavbarChildMenu extends PureComponent {
     const aux = deep
     return (
       sections &&
-      sections.map(({ children, name = '', _id: id = '', display_name: displayName = '', url = ''}) => {
-        const idElem = `${nameId}-${name || displayName}`.toLowerCase()
-        return (
-          <>
-            <li 
-              className={classes.item}
-              key={`navbar-menu-${url || id}`}>
-              <a href={url || id || '/'} className={`${classes.link}${deep > 0 ? ` pl-${15+(deep*15)}` : ''}`}>
-                {name || displayName}
-              </a>
-              {children && children.length > 0 && (
-                <>
-                  <input className={classes.menuArrow} type="checkbox" id={idElem} name="checkbox-submenu" />
-                  <label htmlFor={idElem} className={classes.labelParentItem}></label>
-                  <ul className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
-                    {this.renderSections(children, aux + 1, idElem)}
-                  </ul>
-                </>
-              )}
-            </li>
-          </>
-        )
-      })
+      sections.map(
+        ({
+          children,
+          name = '',
+          _id: id = '',
+          display_name: displayName = '',
+          url = '',
+        }) => {
+          const idElem = `${nameId}-${name || displayName}`.toLowerCase()
+          return (
+            <>
+              <li className={classes.item} key={`navbar-menu-${url || id}`}>
+                <a
+                  href={url || id || '/'}
+                  className={`${classes.link}${
+                    deep > 0 ? ` pl-${15 + deep * 15}` : ''
+                  }`}>
+                  {name || displayName}
+                </a>
+                {children && children.length > 0 && (
+                  <>
+                    <input
+                      className={classes.menuArrow}
+                      type="checkbox"
+                      id={idElem}
+                      name="checkbox-submenu"
+                    />
+                    <label
+                      htmlFor={idElem}
+                      className={classes.labelParentItem}
+                    />
+                    <ul
+                      className={`${
+                        classes.containerSubMenu
+                      } deep-${deep} ${idElem}`}>
+                      {this.renderSections(children, aux + 1, idElem)}
+                    </ul>
+                  </>
+                )}
+              </li>
+            </>
+          )
+        }
+      )
     )
   }
 
@@ -70,7 +93,7 @@ class NavbarChildMenu extends PureComponent {
         <amp-sticky-ad layout="nodisplay">
           <amp-ad
             width="320"
-            height="100"
+            height="50"
             type="doubleclick"
             data-slot={dataSlot}
             data-multi-size="320x50,300x100,300x50"
