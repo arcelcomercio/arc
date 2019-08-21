@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 import { devices } from '../../../_dependencies/devices'
 import ProgressComponent from '../../../_children/progress'
+import { Panel as PanelComponent } from '../../../_children/panel/styled'
 
 export const Title = styled.div`
   font-size: 30px;
   font-weight: 700;
   font-family: var(--font-secondary);
+  text-align: center;
 `
 
 export const Subtitle = styled.span`
@@ -125,4 +127,10 @@ export const Names = styled.span`
 export const Progress = styled(ProgressComponent)`
   position: absolute;
   bottom: -7px;
+`
+export const Panel = styled(PanelComponent)`
+  @media ${devices.tablet} {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `

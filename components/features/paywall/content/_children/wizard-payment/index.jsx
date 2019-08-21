@@ -73,7 +73,7 @@ function WizardPayment(props) {
             const expiryYear = expiryDate.split('/')[1]
 
             const qs = parseQueryString(window.location.search)
-            const forSandbox = !qs.qa ? firstName : 'APPROVED'
+            const forSandbox = qs.hasOwnProperty('qa') ? firstName : 'APPROVED'
 
             const nameCard = isProd ? ownerName : forSandbox
 
