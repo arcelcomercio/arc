@@ -232,12 +232,29 @@ class NavBarDefault extends PureComponent {
         ? `https://api.${arcSite}.pe`
         : `https://api-sandbox.${arcSite}.pe`
 
+    this.checkIsEco().then(res => {
+      window.console.log(res)
+    })
+
     if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
       this.getPremium() // Only sandbox ;)
     } else {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          W.location.href = campaignURL
+          if (dataContentPremium && ENV.ENVIRONMENT === 'elcomercio') {
+            if (
+              campaignURL.indexOf('signwallPaywall') >= 0 &&
+              W.location.pathname.indexOf('podcast') >= 0
+            ) {
+              this.checkIsEco().then(res => {
+                if (res === true) W.location.href = campaignURL
+              })
+            } else if (campaignURL.indexOf('signwallHard') >= 0) {
+              W.location.href = campaignURL
+            }
+          } else {
+            W.location.href = campaignURL
+          }
         },
         contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
         section: dataContSec ? dataContSec.getAttribute('content') : 'none',
@@ -526,6 +543,17 @@ class NavBarDefault extends PureComponent {
       el.classList.remove('hidden')
       el.classList.add('block')
     }
+  }
+
+  checkIsEco = () => {
+    const response = services.getIpEco().then(res => {
+      return !!(
+        res.ip === '200.4.199.49' ||
+        res.ip === '201.234.125.242' ||
+        res.ip === '201.234.62.52'
+      )
+    })
+    return response
   }
 
   closeSignwall() {
