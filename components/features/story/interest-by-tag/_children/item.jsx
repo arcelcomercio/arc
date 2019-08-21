@@ -26,16 +26,6 @@ const StorySeparatorChildItem = ({ data }) => {
     <article className={classes.item}>
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
-      <div className={classes.detail}>
-        <h2 className={classes.separatorCategory}>
-          <a href={sectionLink}>{section}</a>{' '}
-        </h2>
-        <h3 className={classes.separatorTitle}>
-          <a className={classes.titleLink} href={link}>
-            {title}
-          </a>
-        </h3>
-      </div>
       <figure className={classes.figure}>
         {link && (
           <a href={link}>
@@ -47,6 +37,17 @@ const StorySeparatorChildItem = ({ data }) => {
           </a>
         )}
       </figure>
+      
+      <div className={classes.detail}>
+        <h2 className={classes.separatorCategory}>
+          <a href={sectionLink}>{section}</a>{' '}
+        </h2>
+        <h3 className={classes.separatorTitle}>
+          <a className={classes.titleLink} href={link}>
+            {title}
+          </a>
+        </h3>
+      </div>
     </article>
   )
 }
