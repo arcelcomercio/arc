@@ -2,6 +2,7 @@
 import { useFusionContext } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
 import React, { useState, useEffect } from 'react'
+import removeAccents from 'remove-accents'
 import Summary from '../summary'
 import * as S from './styled'
 import FormPay from './_children/form-pay'
@@ -74,7 +75,8 @@ function WizardPayment(props) {
             const qs = parseQueryString(window.location.search)
             const forSandbox = qs.hasOwnProperty('qa') ? firstName : 'APPROVED'
 
-            const nameCard = isProd ? ownerName : forSandbox
+            let nameCard = isProd ? ownerName : forSandbox
+            nameCard = removeAccents(nameCard)
 
             return addPayU(siteProperties)
               .then(payU => {
