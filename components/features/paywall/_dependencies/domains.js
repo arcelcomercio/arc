@@ -29,7 +29,12 @@ const domains = {
     return `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`
   },
   ORIGIN_SUBSCRIPTION_CORP_API: ENV => {
-    return `https://devpaywall.comerciosuscripciones.pe/api/subs-corporativa/`
+    const _env_ = ENV === 'elcomercio' ? '' : 'dev'
+    return `https://${_env_}paywall.comerciosuscripciones.pe/api/subs-corporativa/`
+  },
+  ORIGIN_SUBSCRIPTION_ONLINE_TOKEN: ENV => {
+    const _env_ = ENV === 'elcomercio' ? '' : 'dev'
+    return `https://${_env_}paywall.comerciosuscripciones.pe/api/subscription-online/token/`
   },
   ORIGIN_SUSCRIPCIONES: ENV => {
     const _env_ = ENV === 'elcomercio' ? '' : 'dev'

@@ -119,9 +119,7 @@ class Head extends React.PureComponent {
                   className="head__btn-login"
                   onClick={() => this.setState({ isActive: true })}>
                   <span>
-                    {this.checkSession()
-                      ? `Hola ${userName}`
-                      : 'Iniciar Sesión'}
+                    {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
                   </span>
                 </button>
               )}
