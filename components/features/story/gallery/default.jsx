@@ -13,18 +13,14 @@ const classes = {
 }
 
 const StoryGallery = () => {
-  const {
-    contextPath,
-    globalContent: data,
-    subtype,
-    isAdmin,
-  } = useFusionContext()
+  const { contextPath, globalContent: data, isAdmin } = useFusionContext()
 
   const {
     contentElementGallery,
     title,
     subTitle,
     link,
+    subtype,
     promoItems,
   } = new StoryData({
     data,
