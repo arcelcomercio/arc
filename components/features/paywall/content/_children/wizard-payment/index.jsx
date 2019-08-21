@@ -2,6 +2,7 @@
 import { useFusionContext } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
 import React, { useState, useEffect } from 'react'
+import removeAccents from 'remove-accents'
 import Summary from '../summary'
 import * as S from './styled'
 import FormPay from './_children/form-pay'
@@ -12,7 +13,8 @@ import Beforeunload from '../before-unload'
 import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
 import { parseQueryString } from '../../../../../utilities/helpers'
-import core from './_children/core'
+
+import { getArcErrorMessage } from '../../../_dependencies/utils'
 
 const isProd = ENVIRONMENT === 'elcomercio'
 const MESSAGE = {
@@ -33,8 +35,6 @@ function WizardPayment(props) {
   const { amount, billingFrequency, description } = plan
   profile.printed = printed
 
-  const { apiPaymentRegister } = core(profile, order, plan)
-
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_CARD_INFO)
   }, [])
@@ -53,84 +53,90 @@ function WizardPayment(props) {
     Sales.then(sales => {
       return sales
         .getPaymentOptions()
-        .then(paymentMethods => {
-          payUPaymentMethod = paymentMethods.find(
-            m => m.paymentMethodType === 8
-          )
+        .then(res => {
+          if (res.code) {
+            throw new Error(getArcErrorMessage(res.code))
+          }
+          payUPaymentMethod = res.find(m => m.paymentMethodType === 8)
           const { paymentMethodID } = payUPaymentMethod
           return sales.initializePayment(orderNumber, paymentMethodID)
         })
-        .then(
-          ({
+        .then(res => {
+          if (res.code) {
+            throw new Error(getArcErrorMessage(res.code))
+          }
+          const {
             parameter1: publicKey,
             parameter2: accountId,
             parameter3: payuBaseUrl,
             parameter4: deviceSessionId,
-          }) => {
-            const ownerName = `${firstName} ${lastName} ${secondLastName}`.trim()
+          } = res
 
-            const expiryMonth = expiryDate.split('/')[0]
-            const expiryYear = expiryDate.split('/')[1]
+          const ownerName = `${firstName} ${lastName} ${secondLastName}`.trim()
 
-            const qs = parseQueryString(window.location.search)
-            const forSandbox = qs.qa ? firstName : 'APPROVED'
+          const expiryMonth = expiryDate.split('/')[0]
+          const expiryYear = expiryDate.split('/')[1]
 
-            const nameCard = isProd ? ownerName : forSandbox
+          const qs = parseQueryString(window.location.search)
+          const forSandbox = qs.hasOwnProperty('qa') ? firstName : 'APPROVED'
 
-            return addPayU(siteProperties)
-              .then(payU => {
-                payU.setURL(payuBaseUrl)
-                payU.setPublicKey(publicKey)
-                payU.setAccountID(accountId)
-                payU.setListBoxID('mylistID')
-                payU.getPaymentMethods()
-                payU.setLanguage('es')
-                payU.setCardDetails({
-                  number: cardNumber,
-                  name_card: nameCard,
-                  payer_id: documentNumber,
-                  exp_month: expiryMonth,
-                  exp_year: expiryYear,
-                  method: cardMethod.toUpperCase(),
-                  document: documentNumber,
-                  cvv,
+          let nameCard = isProd ? ownerName : forSandbox
+          nameCard = removeAccents(nameCard)
+
+          return addPayU(siteProperties)
+            .then(payU => {
+              payU.setURL(payuBaseUrl)
+              payU.setPublicKey(publicKey)
+              payU.setAccountID(accountId)
+              payU.setListBoxID('mylistID')
+              payU.getPaymentMethods()
+              payU.setLanguage('es')
+              payU.setCardDetails({
+                number: cardNumber,
+                name_card: nameCard,
+                payer_id: documentNumber,
+                exp_month: expiryMonth,
+                exp_year: expiryYear,
+                method: cardMethod.toUpperCase(),
+                document: documentNumber,
+                cvv,
+              })
+              return new Promise((resolve, reject) => {
+                payU.createToken(response => {
+                  if (response.error) {
+                    reject(new PayuError(response.error))
+                    setLoading(false)
+                  } else {
+                    resolve(response.token)
+                  }
                 })
-                return new Promise((resolve, reject) => {
-                  payU.createToken(response => {
-                    if (response.error) {
-                      reject(new PayuError(response.error))
-                      setLoading(false)
-                    } else {
-                      resolve(response.token)
-                    }
-                  })
+              })
+            })
+            .then(token => {
+              const { paymentMethodID, paymentMethodType } = payUPaymentMethod
+              const sandboxToken = `${token}~${deviceSessionId}~${cvv}`
+              return sales
+                .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
+                .then(res => {
+                  if (res.code) {
+                    throw new Error(getArcErrorMessage(res.code))
+                  }
+                  const { status, total, subscriptionIDs } = res
+                  if (status !== 'Paid') throw new Error(MESSAGE.PAYMENT_FAIL)
+                  return {
+                    publicKey,
+                    accountId,
+                    payuBaseUrl,
+                    deviceSessionId,
+                    paymentMethodID,
+                    paymentMethodType,
+                    subscriptionIDs,
+                    status,
+                    total,
+                  }
                 })
-              })
-              .then(token => {
-                return apiPaymentRegister(cardMethod, token)
-              })
-              .then(token => {
-                const { paymentMethodID, paymentMethodType } = payUPaymentMethod
-                const sandboxToken = `${token}~${deviceSessionId}~${cvv}`
-                return sales
-                  .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
-                  .then(({ status, total, subscriptionIDs }) => {
-                    if (status !== 'Paid') throw new Error(MESSAGE.PAYMENT_FAIL)
-                    return {
-                      publicKey,
-                      accountId,
-                      payuBaseUrl,
-                      deviceSessionId,
-                      paymentMethodID,
-                      paymentMethodType,
-                      subscriptionIDs,
-                      status,
-                      total,
-                    }
-                  })
-              })
-          }
-        )
+            })
+        })
     })
       .then(res => {
         // Mezclamos valores del formulario con el payload de respuesta

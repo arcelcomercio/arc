@@ -82,10 +82,8 @@ class SignWallPaywall extends Component {
               <span>Beneficios</span>
             </h3>
             <ul className="list-benefits mb-20">
-              <li>
-                Acceso a contenido exclusivo en gestion.pe y navegación
-                ilimitada desde todos tus dispositivos
-              </li>
+              <li>Acesso a contenido especial en gestion.pe</li>
+              <li>Navegación ilimitada desde todos tus dispositivos</li>
             </ul>
             <div className="form-group">
               {showPaywallBtn ? (

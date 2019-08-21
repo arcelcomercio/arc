@@ -47,6 +47,9 @@ export default {
   },
   paywall: {
     title: 'Suscripciones Digitales | Gestión',
+    description: 'Suscríbete al Plan Digital y accede a contenido exclusivo ilimitadamente desde todos tus dispositivos.Gestión El diario de Economía y Negocios.',
+    canonical: 'https://gestion.pe/suscripcionesdigitales/',
+    image: 'https://gestion.pe/pf/resources/dist/gestion/images/logo_fb.jpg?d=158',
     clickToCall: 'https://c2c.kontactame.com/call/?id=162',
     corporate: '/suscripcionesdigitales/empresa/',
     faq: '/suscripcionesdigitales/faq/',

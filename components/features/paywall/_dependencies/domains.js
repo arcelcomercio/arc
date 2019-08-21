@@ -8,7 +8,9 @@ const domains = {
   URL_CORPORATE : () => `${context}/suscripcionesdigitales/empresa/${queryString}`,
   URL_FAQ : () => `${context}/suscripcionesdigitales/faq/${queryString}`,
   URL_DIGITAL : () => `${context}/suscripcionesdigitales${queryString}`,
-  VALIDATE_SUSCRIPTOR : (ENV, documentType, documentNumber) => `${context}/suscripcionesdigitales/${documentType}/${documentNumber}${queryString}`,
+  VALIDATE_SUSCRIPTOR : (ENV, documentType, documentNumber, attemptToken) => {
+    return `${context}/suscripcionesdigitales/${documentType}/${documentNumber}/${attemptToken}${queryString}`
+  },
   PWA_DOMAIN : ENV => {
     const _env_ = ENV === 'elcomercio' ? '' : '.dev'
     return `https://pwa${_env_}.gestion.pe`
@@ -29,7 +31,12 @@ const domains = {
     return `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`
   },
   ORIGIN_SUBSCRIPTION_CORP_API: ENV => {
-    return `https://devpaywall.comerciosuscripciones.pe/api/subs-corporativa/`
+    const _env_ = ENV === 'elcomercio' ? '' : 'dev'
+    return `https://${_env_}paywall.comerciosuscripciones.pe/api/subs-corporativa/`
+  },
+  ORIGIN_SUBSCRIPTION_ONLINE_TOKEN: ENV => {
+    const _env_ = ENV === 'elcomercio' ? '' : 'dev'
+    return `https://${_env_}paywall.comerciosuscripciones.pe/api/subscription-online/token/`
   },
   ORIGIN_SUSCRIPCIONES: ENV => {
     const _env_ = ENV === 'elcomercio' ? '' : 'dev'
