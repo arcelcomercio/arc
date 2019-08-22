@@ -44,7 +44,7 @@ const InputFormik = ({
       <S.Label
         hasError={hasError}
         focus={!!value || !!placeholder}
-        prefix={prefix}>
+        >
         {label}
       </S.Label>
       <S.Wrap hasError={hasError}>
