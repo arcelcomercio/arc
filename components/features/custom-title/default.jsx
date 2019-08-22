@@ -44,7 +44,7 @@ class CustomTitle extends PureComponent {
     const { globalContent } = this.props
     const { count = 0 } = globalContent || {}
 
-    let search = query && query.replace('+', ' ')
+    let search = query && query.replace(/\+/g, ' ')
     search = decodeURIComponent(search)
     const title = search
       ? `SE ENCONTRARON ${count} RESULTADOS PARA: ${search.toUpperCase()}` // SE ENCONTRARON 99 RESULTADOS PARA: MADURO
