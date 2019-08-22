@@ -523,6 +523,15 @@ class StoryData {
     )
   }
 
+  get relatedInternal() {
+    const galleryContentResul =
+      StoryData.getContentElements(
+        this._data && this._data.content_elements,
+        'story'
+      ) || []
+    return galleryContentResul.filter(String)
+  }
+
   get contentRestrictions() {
     return (
       (this._data &&
