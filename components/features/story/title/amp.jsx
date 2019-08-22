@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import { formatDayMonthYear, publicidadAmp } from '../../../utilities/helpers'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
-import StoryHeaderChildAmpGallery from '../header/_children/amp-gallery'
+import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
 
 const classes = {
   stories: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',

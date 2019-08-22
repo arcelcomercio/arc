@@ -54,6 +54,7 @@ class CardFeaturedStoryAuto extends PureComponent {
         categoryField,
         imgField,
       } = {},
+      siteProperties: { siteName = '' } = {},
     } = this.props
 
     const { data: { content_elements: contentElements = [] } = {} } =
@@ -94,6 +95,7 @@ class CardFeaturedStoryAuto extends PureComponent {
       arcSite,
       multimediaType,
       isAdmin,
+      siteName,
     }
     return <FeaturedStory {...params} />
   }

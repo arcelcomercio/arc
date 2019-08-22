@@ -19,8 +19,8 @@ const classes = {
   author: 'related-content__author uppercase text-gray-200',
 }
 
-const RenderRelatedContentElement = (props, i, isAmp) => {
-  const { deployment, contextPath, arcSite } = props
+const RenderRelatedContentElement = (props, i) => {
+  const { deployment, contextPath, arcSite, isAmp = '' } = props
 
   const get = new DataStory({
     data: props,
@@ -35,7 +35,6 @@ const RenderRelatedContentElement = (props, i, isAmp) => {
     multimediaType: get.multimediaType,
     multimediaImg: get.multimediaLandscapeMD,
   }
-
   return (
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div className={classes.info}>
