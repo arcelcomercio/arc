@@ -6,18 +6,16 @@
       color: $color-white;
       font-weight: 700;
     }
-    &--body {
-      @media (--only-mobile) {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 6px;
-      }
-    }
+
     &--item {
       background-color: $color-base-400;
       &:nth-child(2) {
         @media (--only-mobile) {
           display: block;
         }
+      }
+      @media (--only-mobile) {
+        flex-basis: 49%;
       }
     }
     &--item-details {
@@ -28,13 +26,13 @@
     }
     &--item-image {
       order: 1;
-      margin: 70px auto 0 auto;
+      margin: 60px auto 0 auto;
       width: 84px;
       height: 84px;
     }
     &--item-twoline {
       -webkit-line-clamp: 2;
-      max-height: 42px;
+      height: 42px;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       font-size: 16px;
