@@ -1,7 +1,5 @@
 import schemaFilter from './schema-filter'
-import {
-  formatDayMonthYear
-} from '../../../../utilities/helpers'
+import { formatDayMonthYear } from '../../../../utilities/helpers'
 
 export default class StandardHeader {
   constructor(
@@ -40,9 +38,7 @@ export default class StandardHeader {
   // Función para formatear data de las secciones
   formatSections = () => {
     const link = 'link'
-    const {
-      children = []
-    } = this.data || {}
+    const { children = [] } = this.data || {}
     return children.map(el => {
       return {
         name: el.node_type === link ? el.display_name : el.name,
@@ -62,17 +58,24 @@ export default class StandardHeader {
       name: 'Lo último',
       url: '/archivo',
     }
-    const {
-      logo
-    } = this.headerProperties
+    const { logo } = this.headerProperties
     return {
       logo: {
-        src: this.customLogo ||
+        src:
+          this.customLogo ||
           this.deployment(
             `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
           ),
         link: this.customLogoLink,
         alt: this.siteDomain,
+      },
+      logoLetf: {
+        src: this.deployment(
+          `${this.contextPath}/resources/dist/${
+            this.arcSite
+          }/images/otorongo.png`
+        ),
+        alt: this.arcSite,
       },
       sections: [newest, ...sections],
       date: {
@@ -80,6 +83,7 @@ export default class StandardHeader {
         value: this.getDate(),
       },
       tags: this.tags,
+      arcSite: this.arcSite,
     }
   }
 }
