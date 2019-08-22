@@ -10,21 +10,11 @@ import { AddIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
+import ClickToCall from '../_children/click-to-call'
 import PWA from './_dependencies/seed-pwa'
 import '../_dependencies/sentry'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
-
-const Right = ({ href }) => {
-  return (
-    <S.Button as="a" href={href} target="_blank" rel="noopener noreferrer">
-      <span>
-        ¿Necesitas ayuda?
-        <Icon type="support" />
-      </span>
-    </S.Button>
-  )
-}
 
 @Consumer
 class Content extends React.Component {
@@ -106,7 +96,7 @@ class Content extends React.Component {
             nav={
               <Nav
                 stepsNames={_stepsNames}
-                right={<Right href={clickToCall} />}
+                right={<ClickToCall href={clickToCall} />}
               />
             }>
             <WizardPlan
