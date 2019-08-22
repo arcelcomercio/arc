@@ -807,3 +807,12 @@ export const getRemoveSlug = slug => {
     .replace(/[òóôõö]/g, 'o')
     .replace(/[ùúûü]/g, 'u')
 }
+
+export const getRelatedIds = data => {
+  return (
+    data &&
+    data.map(({ _id }) => {
+      return _id
+    })
+  )
+}
