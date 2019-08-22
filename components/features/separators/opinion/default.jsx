@@ -11,6 +11,7 @@ const classes = {
   opinionBody: 'separator__opinion--body mt-0 mb-0 ',
   opinionTitle:
     'separator__opinion-title uppercase title-md pt-15 pb-25 pr-20 pl-20 text-black',
+  colorText:'text-white',
 }
 
 const HeaderHTML = ({ htmlCode }) => {
@@ -89,13 +90,15 @@ class SeparatorOpinion extends PureComponent {
     const { dataApi = {} } = this.state
     const {
       arcSite,
-      customFields: { titleSection, htmlCode },
+      customFields: { titleSection, htmlCode, section },
     } = this.props
     const data = dataApi && Object.values(dataApi)
     return (
       <div className={classes.separator}>
         {titleSection ? (
-          <div className={classes.opinionTitle}>{titleSection}</div>
+          <div className={classes.opinionTitle}>
+            <a href={section} className={classes.colorText}>{titleSection}</a>
+          </div>
         ) : (
           <HeaderHTML htmlCode={htmlCode} />
         )}
