@@ -1,10 +1,12 @@
 .story-interest {
-  background-color: $color-white;
-  @media (--tablet) {
-    background-color: $color-base-200;
-  }
-  @media (--desktop) {
-    width: 570px;
+  &__container {
+    background-color: $color-white;
+    @media (--tablet) {
+      background-color: $color-base-200;
+    }
+    @media (--desktop) {
+      width: 570px;
+    }
   }
 
   &__titleList {
