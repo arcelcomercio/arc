@@ -68,8 +68,6 @@ const InterestByTag = props => {
               instance.__data = story
               key += 1
 
-              console.log('instance=>>>>>>>>>>>>', instance)
-
               const data = {
                 title: instance.title,
                 link: instance.link,
