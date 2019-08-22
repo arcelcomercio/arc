@@ -28,13 +28,13 @@
     }
     &--item-image {
       order: 1;
-      margin: 70px auto 0 auto;
+      margin: 60px auto 0 auto;
       width: 84px;
       height: 84px;
     }
     &--item-twoline {
       -webkit-line-clamp: 2;
-      max-height: 42px;
+      height: 42px;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       font-size: 16px;
