@@ -10,7 +10,9 @@ import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  storyInterest: 'story-interest block w-full h-auto ml-20',
+  storyInterest: 'story-interest w-full h-auto pr-20 pl-20',
+  container: 'story-interest__container block w-full h-auto ',
+
   title:
     'story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-20 text-center md:text-left',
   list: 'story-interest__list flex pl-20 pr-20',
@@ -58,33 +60,35 @@ const InterestByTag = props => {
   return (
     <>
       <div className={classes.storyInterest}>
-        <div className={classes.title}>Te puede interesar:</div>
-        <ul className={classes.list}>
-          {storyData &&
-            storyData.map((story, i) => {
-              if (key === 4) return false
-              const { website_url: websiteUrl } = story
-              if (websiteUrl === excluir) return false
-              instance.__data = story
-              key += 1
+        <div className={classes.container}>
+          <div className={classes.title}>Te puede interesar:</div>
+          <ul className={classes.list}>
+            {storyData &&
+              storyData.map((story, i) => {
+                if (key === 4) return false
+                const { website_url: websiteUrl } = story
+                if (websiteUrl === excluir) return false
+                instance.__data = story
+                key += 1
 
-              const data = {
-                title: instance.title,
-                link: instance.link,
-                section: instance.primarySection,
-                sectionLink: instance.primarySectionLink,
-                multimediaPortraitXS: instance.multimediaPortraitMD,
-                multimediaType: instance.multimediaType,
-              }
-              return (
-                <StorySeparatorChildItem
-                  data={data}
-                  key={UtilListKey(i)}
-                  arcSite={arcSite}
-                />
-              )
-            })}
-        </ul>
+                const data = {
+                  title: instance.title,
+                  link: instance.link,
+                  section: instance.primarySection,
+                  sectionLink: instance.primarySectionLink,
+                  multimediaPortraitXS: instance.multimediaPortraitMD,
+                  multimediaType: instance.multimediaType,
+                }
+                return (
+                  <StorySeparatorChildItem
+                    data={data}
+                    key={UtilListKey(i)}
+                    arcSite={arcSite}
+                  />
+                )
+              })}
+          </ul>
+        </div>
       </div>
     </>
   )

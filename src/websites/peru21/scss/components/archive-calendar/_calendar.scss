@@ -1,22 +1,20 @@
-.most-read {
-  background-color: transparent;
-
+.react-calendar {
   &__title {
     color: $color-primary;
-    background-color: $color-base-400;
-
+    font-size: 15px;
     &:after {
       content: '';
       display: block;
       position: absolute;
-      right: 20px;
+      right: 0px;
+      top: -2px;
       width: 20px;
       height: 20px;
-      background-image: url(/pf/resources/dist/peru21/images/logo-sm.png);
+      background-image: url(/pf/resources/dist/peru21/images/logo-sm.png?d=380);
       background-size: cover;
     }
   }
-  &__icon {
+  &__brand {
     display: none;
   }
 }
