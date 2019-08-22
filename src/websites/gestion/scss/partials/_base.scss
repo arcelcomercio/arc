@@ -1,9 +1,16 @@
 body {
-  background: $color-base-100;
   overflow-x: hidden;
 }
 
 .story {
   /* TODO: se agrega para la salida del 30 de julio*/
   background: $color-white;
+
+  .bg-container {
+    background: $color-white;
+  }
+}
+body,
+.bg-container {
+  background: $color-base-100;
 }

@@ -6,7 +6,7 @@ export const AnalyticsScript = ({
   section = '',
   subsection = '',
   author = '',
-  pagePath = '',
+  pageview='',
   newsType = '',
   newsTitle = '',
 }) => `(function(i, s, o, g, r, a, m) {
@@ -40,7 +40,7 @@ export const AnalyticsScript = ({
         ga('set', 'dimension7', '${newsType}');
         ga('set', 'dimension8', '${newsId}');
         ga('set', 'dimension15', '${author}');
-        ga('send', 'pageview', '${pagePath}');
+        ga('send', 'pageview', '${pageview}');
         ga('send', 'pageview', {title: '${newsTitle}'});
         `
 
@@ -69,9 +69,9 @@ export const ScriptHeader = ({
   author = '',
   typeNews,
 }) => {
-  const listTag = tags.map(tg => ` '${tg.text}'`)
+  const listTag = tags.map(tg => tg.text && ` '${tg.text}'`).join(', ')
 
-  const listSec = sections.map(seccionName => ` '${seccionName}'`)
+  const listSec = sections.map(seccionName => seccionName && ` '${seccionName}'`).join(',')
 
   let TipoNota = ''
 
@@ -92,7 +92,7 @@ export const ScriptHeader = ({
                       _sf_async_config.uid = 57773;
                       _sf_async_config.domain = '${siteDomain}';
                       _sf_async_config.title = '${title}';
-                      _sf_async_config.sections = ${listSec}, ${listTag};
+                      _sf_async_config.sections = ${listSec}${listSec === '' ?'':','} ${listTag};
                       _sf_async_config.authors = '${author}';
                       _sf_async_config.type = '${TipoNota}';
                       _sf_async_config.useCanonical = true; /** CONFIGURATION END **/

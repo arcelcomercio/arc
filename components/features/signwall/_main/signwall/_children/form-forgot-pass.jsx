@@ -260,7 +260,7 @@ class FormForgotPass extends Component {
   }
 
   templateSendedEmail(changeTemplate) {
-    const { closePopup, brandCurrent, typePopUp } = this.props
+    const { closePopup, brandCurrent, typePopUp, reloadForgot } = this.props
     return (
       <form className="form-grid">
         <div className="form-grid__back">
@@ -293,7 +293,11 @@ class FormForgotPass extends Component {
                     `Web_Sign_Wall_${typePopUp}`,
                     `web_sw${typePopUp[0]}_contrasena_boton_aceptar`
                   )
-                  closePopup()
+                  if (reloadForgot) {
+                    window.location.reload()
+                  } else {
+                    closePopup()
+                  }
                 }}
               />
             </div>

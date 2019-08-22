@@ -38,7 +38,7 @@
           background: linear-gradient(
             to top,
             #445e76 0%,
-            rgba(134, 174, 204, 0) 50%
+            rgba(134, 174, 204, 0) 76%
           );
         }
       }
@@ -84,13 +84,16 @@
           background: linear-gradient(
             to top,
             #445e76 0%,
-            rgba(134, 174, 204, 0) 50%
+            rgba(134, 174, 204, 0) 76%
           );
         }
       }
       .featured-story__detail {
         background-color: transparent;
       }
+    }
+    .featured-story__detail {
+      background-color: #eaeaea;
     }
   }
 
@@ -125,6 +128,9 @@
     }
   }
   &__detail {
-    background-color: #eaeaea;
+    background-color: $color-white;
+    @media (--tablet) {
+      background-color: #eaeaea;
+    }
   }
 }

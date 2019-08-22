@@ -1,0 +1,9 @@
+.story-interest {
+  background-color: $color-base-200;
+  &__titleList {
+    color: $color-white;
+  }
+  &__category {
+    color: $color-base-400;
+  }
+}

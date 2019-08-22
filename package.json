@@ -34,6 +34,7 @@
     "react-sizes": "^2.0.0",
     "react-step-wizard": "^5.3.0",
     "react-text-mask": "^5.4.3",
+    "remove-accents": "^0.4.2",
     "styled-components": "^4.3.2",
     "thumbor": "^0.1.5"
   },
@@ -43,7 +44,7 @@
   "devDependencies": {
     "@arc-core-components/content-source_story-feed_author-v4": "^1.0.4-beta.0",
     "@arc-core-components/content-source_story-feed_tag-v4": "^1.0.4-beta.0",
-    "@arc-fusion/cli": "^1.0.3",
+    "@arc-fusion/cli": "^1.0.4",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-decorators": "^7.4.4",
@@ -100,22 +101,22 @@
     "webpack-cli": "^3.2.1"
   },
   "scripts": {
-    "fusion": "fusion",
-    "start": "fusion start",
-    "dev:amp": "webpack --config ./config/webpack.config.js --env.dev --env.amp",
-    "prod:amp": "webpack --config ./config/webpack.config.js --env.prod --env.amp",
-    "watch:amp": "webpack --config ./config/webpack.config.js --watch --env.dev --env.amp",
     "dev": "webpack --config ./config/webpack.config.js --env.dev && gulp ",
-    "prod": "webpack --config ./config/webpack.config.js --env.prod && gulp",
-    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='index, amp:css, paywall:css' ",
     "dev:all": "webpack --config ./config/webpack.config.js --env.dev --env.outputs='index, amp:css, paywall:css' && gulp",
+    "dev:amp": "webpack --config ./config/webpack.config.js --env.dev --env.amp",
+    "fusion": "fusion",
+    "prod": "webpack --config ./config/webpack.config.js --env.prod && gulp",
     "prod:all": "webpack --config ./config/webpack.config.js --env.prod --env.outputs='index, amp:css, paywall:css' && gulp",
-    "zip": "npm run pw:clean && npm run prod:all && npx fusion zip",
+    "prod:amp": "webpack --config ./config/webpack.config.js --env.prod --env.amp",
+    "pw:clean": "rm -rf components/features/paywall/dist",
+    "pw:mv": "npm run dev:all && cp -a resources/dist components/features/paywall",
+    "start": "fusion start",
+    "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
-    "test": "jest",
-    "pw:clean": "rm -rf components/features/paywall/dist",
-    "pw:mv": "npm run dev:all && cp -a resources/dist components/features/paywall"
+    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='index, amp:css, paywall:css' ",
+    "watch:amp": "webpack --config ./config/webpack.config.js --watch --env.dev --env.amp",
+    "zip": "npm run pw:clean && npm run prod:all && npx fusion zip"
   },
   "jest": {
     "automock": false,

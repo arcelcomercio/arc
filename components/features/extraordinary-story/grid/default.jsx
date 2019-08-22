@@ -10,13 +10,6 @@ import SectionData from '../../../utilities/section-data'
 class ExtraordinaryStoryGrid extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      storyData: {},
-      section1: {},
-      section2: {},
-      section3: {},
-      section4: {},
-    }
     // this.isVideo = false
     this.initFetch()
   }
@@ -33,52 +26,33 @@ class ExtraordinaryStoryGrid extends PureComponent {
     const { urlStory = {}, multimediaService = '' } = customFieldsData
 
     if (multimediaService === Data.AUTOMATIC) {
-      const { fetched: fetchStory = {} } = this.fetch(
-        urlStory,
-        storySchema(arcSite)
-      )
-      fetchStory.then(response => {
-        this.setState({ storyData: response })
-      })
+      // const { contentConfigValues: { section = '' } = {} } = urlStory
+      // if (section !== '')
+      this.fetch('storyData', urlStory, storySchema(arcSite))
     }
 
-    const sections = {}
-    const sectionsFetch = []
     for (let i = 1; i <= 4; i++) {
       const { contentConfigValues: { _id = '' } = {} } =
         customFieldsData[`section${i}`] || {}
       if (_id !== '') {
-        sections[`section${i}`] = _id
-        const { fetched } = this.fetch(
+        this.fetch(
+          `section${i}`,
           customFieldsData[`section${i}`],
           sectionSchema
         )
-        sectionsFetch.push(fetched)
       }
-    }
-
-    if (sectionsFetch.length > 0) {
-      Promise.all(sectionsFetch)
-        .then(results => {
-          const jsonSections = {}
-          results.forEach(res => {
-            const { _id = '' } = res || {}
-            const sectionActive = Object.keys(sections)[
-              Object.values(sections).indexOf(_id)
-            ]
-            jsonSections[sectionActive] = res || {}
-          })
-          this.setState(jsonSections)
-        })
-        .catch(err => {
-          throw new Error(err)
-        })
     }
   }
 
-  fetch(contentConfig, schema) {
+  fetch(state, contentConfig, schema) {
     const { contentService = '', contentConfigValues = {} } = contentConfig
-    return this.getContent(contentService, contentConfigValues, schema)
+    return this.fetchContent({
+      [state]: {
+        source: contentService,
+        query: contentConfigValues,
+        filter: schema,
+      },
+    })
   }
 
   render() {
@@ -88,7 +62,13 @@ class ExtraordinaryStoryGrid extends PureComponent {
       arcSite,
       customFields: customFieldsData,
     } = this.props
-    const { storyData, section1, section2, section3, section4 } = this.state
+    const {
+      storyData = {},
+      section1 = {},
+      section2 = {},
+      section3 = {},
+      section4 = {},
+    } = this.state || {}
     const formattedStoryData = new Data({
       customFields: customFieldsData,
       data: storyData,
@@ -129,5 +109,6 @@ ExtraordinaryStoryGrid.propTypes = {
 }
 
 ExtraordinaryStoryGrid.label = 'Apertura extraordinaria con grilla'
+ExtraordinaryStoryGrid.static = true
 
 export default ExtraordinaryStoryGrid
