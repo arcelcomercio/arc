@@ -2,6 +2,8 @@
   background-color: #eaeaea;
   @media (--only-mobile) {
     height: 132px;
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 10px;
 
     .featured-story__headband {
       margin-bottom: 0;

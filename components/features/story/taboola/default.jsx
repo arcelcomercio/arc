@@ -1,8 +1,7 @@
 import React from 'react'
 
 const classes = {
-  story: 'w-full text-white ',
-  taboola: 'story-content__taboola',
+  taboola: 'story-content__taboola pt-20  pr-20 pl-20',
 }
 
 const StoryComentario = () => {
@@ -26,7 +25,7 @@ const StoryComentario = () => {
   )
 }
 
-StoryComentario.label = 'Artículo - Comentario'
+StoryComentario.label = 'Artículo - Taboola'
 StoryComentario.static = true
 
 export default StoryComentario
