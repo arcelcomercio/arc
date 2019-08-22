@@ -11,7 +11,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Peru21_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-P6ZDTW',
+  googleTagManagerId: 'GTM-KKQFJ3Z',
   ampGoogleTagManagerId: 'UA-3055636-4',
   ampGoogleTagManagerName: 'peru21',
   charbeatAccountNumber: 57773,
@@ -91,21 +91,21 @@ export default {
       },
       {
         position: 'Diario Perú21: ',
-        name: 'Jr. Miró Quesada 247. Piso 6 Lima 1',
+        name: 'Jr. Santa Rosa #300. Piso 6 Lima 1',
       },
       {
-        position: 'Copyright © gestion.pe',
+        position: 'Copyright © Peru21.pe',
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
     socialNetworks: [
       {
         name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
+        url: 'https://www.facebook.com/peru21',
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
+        url: 'https://twitter.com/peru21noticias',
       },
       {
         name: 'google+',
@@ -120,7 +120,7 @@ export default {
       },
       {
         position: 'Diario Perú21',
-        name: 'Jr. Miró Quesada 247. Piso 6 Lima 1',
+        name:'Jr. Santa Rosa 247. Piso 6 Lima 1'
       },
       {
         position: 'Contacto comercial',
@@ -131,13 +131,13 @@ export default {
   social: {
     facebook: {
       name: 'facebook',
-      user: '@elcomercio.pe',
-      url: 'https://www.facebook.com/elcomercio.pe',
+      user: '@peru21.pe',
+      url: 'https://www.facebook.com/peru21',
     },
     twitter: {
       name: 'twitter',
-      user: '@elcomercio_peru',
-      url: 'https://twitter.com/elcomercio_peru',
+      user: 'peru21noticias',
+      url: 'https://twitter.com/peru21noticias',
     },
     youtube: {
       name: 'youtube',

@@ -47,18 +47,15 @@ const SeparatorsChildAuthorCard = props => {
     <article className={classes.opinionItem}>
       <div className={classes.opinionItemDetails}>
         <figure className={classes.opinionItemImage}>
-          <img
-            className={classes.opinionItemImageImg}
-            src={imageUrl}
-            alt={author || ''}
-            
-          />
-        </figure>
-        {/*  <h3 className={classes.opinionItemText}>
-          <a href={sectionUrl} className={classes.opinionItemLink}>
-            {section}
+          <a href={authorUrl}>
+            <img
+              className={classes.opinionItemImageImg}
+              src={imageUrl}
+              alt={author || ''}
+            />
           </a>
-        </h3> */}
+        </figure>
+        
         <h5 className={classes.opinionItemName}>
           <a href={authorUrl} className={classes.opinionItemNameLink}>
             {author}
