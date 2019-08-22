@@ -4,8 +4,8 @@ import Calendar from 'react-calendar/dist/entry.nostyle'
 const classes = {
   box: 'react-calendar__box flex flex-col',
   header:
-    'react-calendar__header flex justify-between items-center pt-10 pb-10 pr-15 pl-15',
-  title: 'react-calendar__title uppercase',
+    'react-calendar__header flex justify-between items-center pt-10 pb-10 pr-20 pl-20',
+  title: 'react-calendar__title uppercase w-full position-relative font-bold',
   brand: 'react-calendar__brand rounded flex justify-center items-center',
   icon: 'icon-marca react-calendar__icon',
   content: 'react-calendar__content-calendar p-10',
