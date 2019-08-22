@@ -2,11 +2,7 @@
   .most-read {
     border: none;
   }
-  .most-read__title {
-    border-top: 1px solid $color-primary;
-    border-left: 1px solid $color-primary;
-    border-right: 1px solid $color-primary;
-  }
+
   .nav__logo {
     height: 50px;
     padding: 10px 0;
@@ -14,7 +10,7 @@
   .nav__story-title {
     line-height: 1.4;
   }
-  .header::after {
+  .header__logo-left {
     display: none;
   }
 }

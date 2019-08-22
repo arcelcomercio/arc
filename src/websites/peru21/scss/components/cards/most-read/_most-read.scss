@@ -4,6 +4,7 @@
   &__title {
     color: $color-primary;
     background-color: $color-base-400;
+
     &:after {
       content: '';
       display: block;

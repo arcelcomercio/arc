@@ -2,6 +2,8 @@
   background-color: #eaeaea;
   @media (--only-mobile) {
     height: 132px;
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 10px;
 
     .featured-story__headband {
       margin-bottom: 0;
@@ -38,7 +40,7 @@
           background: linear-gradient(
             to top,
             #445e76 0%,
-            rgba(134, 174, 204, 0) 50%
+            rgba(134, 174, 204, 0) 76%
           );
         }
       }
@@ -84,7 +86,7 @@
           background: linear-gradient(
             to top,
             #445e76 0%,
-            rgba(134, 174, 204, 0) 50%
+            rgba(134, 174, 204, 0) 76%
           );
         }
       }

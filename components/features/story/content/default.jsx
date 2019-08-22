@@ -16,7 +16,7 @@ import {
 
 import StoryContentChildVideo from './_children/video'
 import StoryContentChildImage from './_children/image'
-import StoryHeaderChildGallery from '../header/_children/gallery'
+import StoryHeaderChildGallery from '../gallery/_children/gallery'
 import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildRelated from './_children/related'

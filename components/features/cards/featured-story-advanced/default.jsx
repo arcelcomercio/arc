@@ -46,6 +46,7 @@ class CardFeaturedStoryAdvanced extends PureComponent {
         categoryField,
         imgField,
       } = {},
+      siteProperties: { siteName = '' } = {},
     } = this.props
     const { data = {} } = this.state || {}
     const formattedData = this.storyFormatter.formatStory(data, imgField)
@@ -80,6 +81,7 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       arcSite,
       multimediaType,
       isAdmin,
+      siteName,
     }
     return <FeaturedStory {...params} />
   }

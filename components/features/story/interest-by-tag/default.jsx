@@ -10,8 +10,12 @@ import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  storyInterest: 'story-interest block non-tablet non-mobile w-full h-auto',
-  title: 'story-interest__titleList block non-tablet non-mobile w-full h-auto',
+  storyInterest: 'story-interest w-full h-auto pr-20 pl-20',
+  container: 'story-interest__container block w-full h-auto ',
+
+  title:
+    'story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-20 text-center md:text-left',
+  list: 'story-interest__list flex pl-20 pr-20',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
@@ -22,9 +26,10 @@ const InterestByTag = props => {
     arcSite,
     globalContent: dataContent,
     contextPath,
+    deployment,
   } = useFusionContext()
   const {
-    tags: [{ text = 'Peru' } = {}] = [],
+    tags: [{ slug = 'Peru' } = {}] = [],
     websiteUrl: excluir,
   } = new StoryData({
     data: dataContent,
@@ -35,7 +40,7 @@ const InterestByTag = props => {
       source: CONTENT_SOURCE,
       query: {
         website: arcSite,
-        name: section || text,
+        name: section || slug,
         size: 5,
       },
       filter: schemaFilter,
@@ -44,42 +49,48 @@ const InterestByTag = props => {
   const instance =
     storyData &&
     new StoryData({
-      storyData,
+      deployment,
       contextPath,
       arcSite,
       defaultImgSize: 'sm',
     })
 
   let key = 0
-  return (
-    (storyData &&
-      storyData.map((story, i) => {
-        if (key === 4) return false
-        const { website_url: websiteUrl } = story
-        if (websiteUrl === excluir) return false
-        instance.__data = story
-        key += 1
 
-        const data = {
-          title: instance.title,
-          link: instance.link,
-          section: instance.primarySection,
-          sectionLink: instance.primarySectionLink,
-          multimediaPortraitXS: instance.multimediaPortraitXS,
-          multimediaType: instance.multimediaType,
-        }
-        return (
-          <div className={classes.storyInterest}>
-            <div className={classes.title}>Te puede interesar:</div>
-            <StorySeparatorChildItem
-              data={data}
-              key={UtilListKey(i)}
-              arcSite={arcSite}
-            />
-          </div>
-        )
-      })) ||
-    ''
+  return (
+    <>
+      <div className={classes.storyInterest}>
+        <div className={classes.container}>
+          <div className={classes.title}>Te puede interesar:</div>
+          <ul className={classes.list}>
+            {storyData &&
+              storyData.map((story, i) => {
+                if (key === 4) return false
+                const { website_url: websiteUrl } = story
+                if (websiteUrl === excluir) return false
+                instance.__data = story
+                key += 1
+
+                const data = {
+                  title: instance.title,
+                  link: instance.link,
+                  section: instance.primarySection,
+                  sectionLink: instance.primarySectionLink,
+                  multimediaPortraitXS: instance.multimediaPortraitMD,
+                  multimediaType: instance.multimediaType,
+                }
+                return (
+                  <StorySeparatorChildItem
+                    data={data}
+                    key={UtilListKey(i)}
+                    arcSite={arcSite}
+                  />
+                )
+              })}
+          </ul>
+        </div>
+      </div>
+    </>
   )
 }
 
