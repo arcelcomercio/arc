@@ -91,21 +91,21 @@ export default {
       },
       {
         position: 'Diario Perú21: ',
-        name: 'Jr. Miró Quesada 247. Piso 6 Lima 1',
+        name: 'Jr. Santa Rosa #300. Piso 6 Lima 1',
       },
       {
-        position: 'Copyright © gestion.pe',
+        position: 'Copyright © Peru21.pe',
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
     socialNetworks: [
       {
         name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
+        url: 'https://www.facebook.com/peru21',
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
+        url: 'https://twitter.com/peru21noticias',
       },
       {
         name: 'google+',
@@ -120,7 +120,7 @@ export default {
       },
       {
         position: 'Diario Perú21',
-        name: 'Jr. Miró Quesada 247. Piso 6 Lima 1',
+        name:'Jr. Santa Rosa 241. Piso 6 Lima 1'
       },
       {
         position: 'Contacto comercial',
