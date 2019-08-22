@@ -10,7 +10,7 @@ import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  storyInterest: 'story-interest block w-full h-auto',
+  storyInterest: 'story-interest block w-full h-auto ml-20',
   title:
     'story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-20 text-center md:text-left',
   list: 'story-interest__list flex pl-20 pr-20',
@@ -68,12 +68,14 @@ const InterestByTag = props => {
               instance.__data = story
               key += 1
 
+              console.log('instance=>>>>>>>>>>>>', instance)
+
               const data = {
                 title: instance.title,
                 link: instance.link,
                 section: instance.primarySection,
                 sectionLink: instance.primarySectionLink,
-                multimediaPortraitXS: instance.multimediaPortraitXS,
+                multimediaPortraitXS: instance.multimediaPortraitMD,
                 multimediaType: instance.multimediaType,
               }
               return (
