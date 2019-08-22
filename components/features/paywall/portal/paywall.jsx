@@ -4,7 +4,7 @@ import { devices } from '../_dependencies/devices'
 import getDomain from '../_dependencies/domains'
 import Card from './_children/card'
 import './paywall.css'
-import ClickToCall from '../_children/click-to-call';
+import ClickToCall from '../_children/click-to-call'
 
 @Consumer
 class Portal extends React.PureComponent {
@@ -39,6 +39,7 @@ class Portal extends React.PureComponent {
 
   render() {
     const { background, serviceData = [] } = this.state
+    const { paywall: { clickToCall }} = props
 
     return (
       <div className="portal" style={{ background }}>
@@ -54,8 +55,9 @@ class Portal extends React.PureComponent {
               className="link link--corporate">
               SUSCRIPCIONES CORPORATIVAS
             </a>
-            <div className="wrap__click-to-call"
-            ><ClickToCall href="hola" /></div>
+            <div className="wrap__click-to-call">
+              <ClickToCall href={clickToCall} />
+            </div>
           </div>
         </div>
       </div>
