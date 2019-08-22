@@ -10,11 +10,10 @@ import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  storyInterest:
-    'story-interest block non-tablet non-mobile w-full h-auto p-20',
+  storyInterest: 'story-interest block w-full h-auto',
   title:
-    'story-interest__titleList block non-tablet non-mobile w-full h-auto font-bold mb-30',
-  list: 'story-interest__list flex flex-wrap',
+    'story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-20 text-center md:text-left',
+  list: 'story-interest__list flex pl-20 pr-20',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
