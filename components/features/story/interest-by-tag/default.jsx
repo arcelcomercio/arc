@@ -27,7 +27,7 @@ const InterestByTag = props => {
     contextPath,
   } = useFusionContext()
   const {
-    tags: [{ text = 'Peru' } = {}] = [],
+    tags: [{ slug = 'Peru' } = {}] = [],
     websiteUrl: excluir,
   } = new StoryData({
     data: dataContent,
@@ -38,7 +38,7 @@ const InterestByTag = props => {
       source: CONTENT_SOURCE,
       query: {
         website: arcSite,
-        name: section || text,
+        name: section || slug,
         size: 5,
       },
       filter: schemaFilter,
@@ -54,6 +54,7 @@ const InterestByTag = props => {
     })
 
   let key = 0
+
   return (
     <>
       <div className={classes.storyInterest}>

@@ -9,7 +9,7 @@ import StoryContentChildRelated from './_children/item'
 
 const classes = {
   // Related-content
-  relatedList: 'related-content__list pt-10 pr-20 pl-20',
+  relatedList: 'related-content__list pt-20 pr-20 pl-20',
   relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
   taboola: 'story-content__taboola',
   listClasses: 'story-content__paragraph-list',
