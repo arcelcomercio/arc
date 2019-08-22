@@ -58,7 +58,7 @@ const EmbedMultimedia = props => {
           data-org={ORG_ID}
           data-uuid={multimediaSource}
           data-aspect-ratio="0.562"
-          className="powa"
+          className="powa w-full"
         />
         <script
           async

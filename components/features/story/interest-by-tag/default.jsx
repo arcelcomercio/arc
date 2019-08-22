@@ -10,7 +10,7 @@ import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  storyInterest: 'story-interest block w-full h-auto',
+  storyInterest: 'story-interest block w-full h-auto ml-20',
   title:
     'story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-20 text-center md:text-left',
   list: 'story-interest__list flex pl-20 pr-20',
@@ -24,9 +24,10 @@ const InterestByTag = props => {
     arcSite,
     globalContent: dataContent,
     contextPath,
+    deployment,
   } = useFusionContext()
   const {
-    tags: [{ text = 'Peru' } = {}] = [],
+    tags: [{ slug = 'Peru' } = {}] = [],
     websiteUrl: excluir,
   } = new StoryData({
     data: dataContent,
@@ -37,7 +38,7 @@ const InterestByTag = props => {
       source: CONTENT_SOURCE,
       query: {
         website: arcSite,
-        name: section || text,
+        name: section || slug,
         size: 5,
       },
       filter: schemaFilter,
@@ -46,13 +47,14 @@ const InterestByTag = props => {
   const instance =
     storyData &&
     new StoryData({
-      storyData,
+      deployment,
       contextPath,
       arcSite,
       defaultImgSize: 'sm',
     })
 
   let key = 0
+
   return (
     <>
       <div className={classes.storyInterest}>
@@ -71,7 +73,7 @@ const InterestByTag = props => {
                 link: instance.link,
                 section: instance.primarySection,
                 sectionLink: instance.primarySectionLink,
-                multimediaPortraitXS: instance.multimediaPortraitXS,
+                multimediaPortraitXS: instance.multimediaPortraitMD,
                 multimediaType: instance.multimediaType,
               }
               return (

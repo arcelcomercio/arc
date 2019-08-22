@@ -51,7 +51,6 @@ const pattern = (key = {}) => {
   const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
     name
   ).toLowerCase()}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}`
-
   return requestUri
 }
 
