@@ -179,6 +179,7 @@ class CardFeaturedStoryManual extends PureComponent {
         imgField,
         path = '',
       } = {},
+      siteProperties: { siteName = '' } = {},
     } = this.props
 
     const { data = {}, defaultData = {} } = this.state || {}
@@ -226,6 +227,7 @@ class CardFeaturedStoryManual extends PureComponent {
       arcSite,
       multimediaType,
       isAdmin,
+      siteName,
       errorList: this.errorList || [],
     }
     return <FeaturedStory {...params} />

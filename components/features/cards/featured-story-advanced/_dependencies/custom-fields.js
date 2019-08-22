@@ -22,13 +22,13 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'oneCol',
   }),
-  headband: PropTypes.oneOf(['normal', 'live', 'gestionTv']).tag({
+  headband: PropTypes.oneOf(['normal', 'live', 'tv']).tag({
     name: 'Cintillo',
     group: 'Configuración',
     labels: {
       normal: 'Normal',
       live: 'En vivo',
-      gestionTv: 'Gestión TV',
+      tv: 'Tv',
     },
     defaultValue: 'normal',
   }),
