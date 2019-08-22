@@ -7,7 +7,8 @@ import ConfigParams from '../../../../utilities/config-params'
 const classes = {
   header: `header bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden lg:flex position-relative`,
   logo: 'header__logo',
-  logoLeft: 'header__logo-left',
+  logoLeft: 'header__logo-secondary',
+  logoImage: 'w-full h-full object-cover',
   featured: 'header__featured flex w-full font-normal overflow-hidden mr-20',
   item: 'header__item flex items-center justify-center h-inherit',
   link: 'header__link uppercase text-sm p-10',
@@ -30,7 +31,11 @@ const HeaderChildStandard = props => {
           <a
             className={classes.logoLeft}
             href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
-            <img src={logoLetf.src} alt={logo.alt} className={classes.logo} />
+            <img
+              src={logoLetf.src}
+              alt={logo.alt}
+              className={classes.logoImage}
+            />
           </a>
         )}
       </header>
