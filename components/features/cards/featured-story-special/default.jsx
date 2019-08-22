@@ -25,6 +25,7 @@ const CardsFeaturedStorySpecial = props => {
           type 
           resized_urls { 
             landscape_xl
+            landscape_l
           } 
         }
         basic_video {
@@ -34,6 +35,7 @@ const CardsFeaturedStorySpecial = props => {
               type 
               resized_urls { 
                 landscape_xl
+                landscape_l
               } 
             }
           }
@@ -45,6 +47,7 @@ const CardsFeaturedStorySpecial = props => {
               type 
               resized_urls { 
                 landscape_xl
+                landscape_l
               } 
             }
           }
@@ -75,6 +78,7 @@ const CardsFeaturedStorySpecial = props => {
   const {
     websiteLink, // { websites { ${arcsite} { website_url } } }
     multimediaLandscapeXL,
+    multimediaLandscapeL,
     title, // { headlines { basic } }
     // multimediaType, // { promo_items }
     primarySectionLink, // { taxonomy { primary_section { path } } }
@@ -91,6 +95,11 @@ const CardsFeaturedStorySpecial = props => {
     <div className="featured-special position-relative">
       <a href="/asd" className="featured-special__img-link block">
         <picture className="featured-special__picture block">
+          <source
+            media="(max-width: 1023px)"
+            type="image/jpeg"
+            srcSet={multimediaLandscapeL}
+          />
           <img
             className="featured-special__img w-full object-cover"
             src={multimediaLandscapeXL}
@@ -101,7 +110,7 @@ const CardsFeaturedStorySpecial = props => {
       <div className="position-absolute ml-20 mb-20 md:ml-40 md:mb-40 bottom-0">
         <a
           href={primarySectionLink}
-          className="featured-special__section-link inline-block font-bold text-white p-5 pl-20 pr-20 mb-15 text-xl bg-primary">
+          className="featured-special__section-link inline-block font-bold text-white p-5 pl-30 pr-30 mb-15 text-xl bg-primary">
           {primarySection}
         </a>
         <h2 className="featured-special__title-link block">
