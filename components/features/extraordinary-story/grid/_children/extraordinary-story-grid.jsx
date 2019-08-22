@@ -41,13 +41,17 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
       <div className={classes.gridContainer}>
         <div className={classes.gridHeaderText}>
           Estás viendo
-          <img
-            className={classes.gridHeaderImage}
-            src={imgLogo}
-            alt={`Logo especial de ${arcSite}`}
-          />
+          <a href={storyData.primarySectionLink}>
+            <img
+              className={classes.gridHeaderImage}
+              src={imgLogo}
+              alt={`Logo especial de ${arcSite}`}
+            />
+          </a>
         </div>
-        <h2 className={classes.gridListTitle}>Programas del día</h2>
+        <a href={storyData.primarySectionLink}>
+          <h2 className={classes.gridListTitle}>Programas del día</h2>
+        </a>
         <div role="list" className={classes.gridListItems}>
           {section1.id !== '' && <SectionItem data={section1} />}
           {section2.id !== '' && <SectionItem data={section2} />}

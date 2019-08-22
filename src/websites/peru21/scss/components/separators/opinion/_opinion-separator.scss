@@ -33,6 +33,7 @@
     &--item-twoline {
       -webkit-line-clamp: 2;
       height: 42px;
+      max-height: none;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       font-size: 16px;
