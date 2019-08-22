@@ -402,7 +402,7 @@ export const createLink = url => {
 }
 
 export const appendToBody = node => {
-  document.body.appendChild(node)
+  document.body.append(node)
 }
 
 export const breadcrumbList = (url, siteUrl) => {
