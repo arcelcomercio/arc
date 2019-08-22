@@ -120,7 +120,7 @@ export default {
       },
       {
         position: 'Diario Perú21',
-        name:'Jr. Santa Rosa #300. Piso 6 Lima 1'
+        name: 'Jr. Santa Rosa #300. Piso 6 Lima 1',
       },
       {
         position: 'Contacto comercial',
