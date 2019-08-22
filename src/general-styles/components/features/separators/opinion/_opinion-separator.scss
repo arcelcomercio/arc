@@ -5,17 +5,25 @@
     }
 
     &--body {
-      display: grid;
-      grid-template-columns: 1fr;
+      // display: grid;
+      // grid-template-columns: 1fr;
+      display: flex;
+      justify-content: space-between;
       min-height: 290px;
 
       @media (--tablet) {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
+        // grid-template-columns: repeat(3, 1fr);
+        // gap: 6px;
+        & .separator__opinion--item {
+          width: calc(100% / 3 - 5px);
+        }
       }
 
       @media (--desktop) {
-        grid-template-columns: repeat(5, 1fr);
+        // grid-template-columns: repeat(5, 1fr);
+        & .separator__opinion--item {
+          width: calc(100% / 5 - 4px);
+        }
       }
     }
 

@@ -10,6 +10,9 @@
   }
   &__caption {
     color: $color-primary;
+    font-family: $primary-font;
+    font-weight: 700;
+    line-height: 1.3;
   }
   &__taboola {
     .thumbnails-a {
