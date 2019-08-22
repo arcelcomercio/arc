@@ -75,8 +75,12 @@ export default ({
   const listItemsTagsKeywords = tags.map(({ description }) => {
     return `"${description}"`
   })
-  const seoKeywordsItems = seoKeywords.map(item => {
+  const seoKeyWordsStructurada = seoKeywords.map(item => {
     return `"${item}"`
+  })
+
+  const seoKeywordsItems = seoKeywords.map(item => {
+    return `${item}`
   })
 
   const relatedContentItem = relatedContent.map((content, i) => {
@@ -142,8 +146,8 @@ export default ({
     },    
     ${(isPremium && storyPremium) || ''}
     "keywords":[${
-      seoKeywordsItems[0]
-        ? seoKeywordsItems.map(item => item)
+      seoKeyWordsStructurada[0]
+        ? seoKeyWordsStructurada.map(item => item)
         : listItemsTagsKeywords.map(item => item)
     }]
  }`
@@ -212,7 +216,7 @@ export default ({
         content={
           seoKeywordsItems[0]
             ? seoKeywordsItems.map(item => item)
-            : listItems.map(item => item)
+            : (listItems[0] && listItems.map(item => item)) || arcSite
         }
       />
       <meta property="article:published_time" content={publishDate} />

@@ -181,7 +181,11 @@ class AuthFacebook extends React.Component {
           const { closePopup } = this.props
           window.console.error(resLoginFb)
           this.taggeoError() // -- test de tageo error
-          closePopup()
+          if (window.location.pathname.indexOf('suscripciones') >= 0) {
+            window.location.reload()
+          } else {
+            closePopup()
+          }
         }
       })
       .catch(errLoginFb => {
@@ -296,7 +300,11 @@ class AuthFacebook extends React.Component {
     const { closePopup } = this.props
     Cookies.deleteCookie('mpp_sess') // borra session MPP
     this.taggeoSuccess() // -- test de tageo sucess
-    closePopup()
+    if (window.location.pathname.indexOf('suscripciones') >= 0) {
+      window.location.reload()
+    } else {
+      closePopup()
+    }
   }
 }
 

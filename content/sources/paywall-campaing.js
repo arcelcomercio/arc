@@ -1,8 +1,8 @@
 import getDomain from '../../components/features/paywall/_dependencies/domains'
 
-const resolve = ({ doctype = 'DNI', docnumber }) => {
+const resolve = ({ doctype = 'DNI', docnumber, token }) => {
   const PATH = `${getDomain('ORIGIN_SUSCRIPCIONES')}/api/subscriber/validation/gestion/`
-  return docnumber ? `${PATH}?doctype=${doctype}&docnumber=${docnumber}` : PATH
+  return docnumber ? `${PATH}?doctype=${doctype}&docnumber=${docnumber}&token=${token}` : PATH
 }
 
 const parse = string => {
@@ -22,6 +22,7 @@ export default {
   params: {
     docnumber: 'text',
     doctype: 'text',
+    token: 'text',
   },
   ttl: 20,
   transform(data) {
@@ -65,11 +66,6 @@ export default {
         default :
         prez[_name] = _value
         break;
-        }
-        if (_name === 'feature') {
-          prez[_name].push(_value)
-        } else {
-          prez[_name] = _value
         }
         return prez
       },

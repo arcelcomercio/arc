@@ -47,8 +47,7 @@ function Modal({
       <S.Modal open={open} {...props}>
         <S.Background onClick={close} />
         <S.Content>
-          {showClose && <S.CloseButton onClick={close} />}
-          {childrens}
+          {open && [showClose && <S.CloseButton onClick={close} />, childrens]}
         </S.Content>
       </S.Modal>
     </Portal>

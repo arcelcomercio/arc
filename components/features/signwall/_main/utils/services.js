@@ -80,4 +80,13 @@ export default class Services {
     })
     return response
   }
+
+  getIpEco() {
+    const response = new Promise(resolve => {
+      fetch(`https://geoapi.eclabs.io/location`, {
+        method: 'GET',
+      }).then(res => resolve(res.json()))
+    })
+    return response
+  }
 }

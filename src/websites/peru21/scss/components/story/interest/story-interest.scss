@@ -1,0 +1,19 @@
+.story-interest {
+  background-color: $color-base-200;
+  &__titleList {
+    color: $color-white;
+  }
+  &__item {
+    flex-basis: 50%;
+  }
+  &__category {
+    color: $color-base-400;
+  }
+  &__figure {
+    width: 244px;
+    height: 137px;
+  }
+  &__category-link {
+    color: $color-base-400;
+  }
+}

@@ -63,9 +63,11 @@ class Content extends React.Component {
     PWA.mount(() => window.location.reload())
   }
 
-  onBeforeNextStepHandler = (response, { nextStep }) => {
+  onBeforeNextStepHandler = (response, { nextStep, currentStep }) => {
     Object.assign(this.memo, response)
+    this.dispatchEvent('currentStep', currentStep)
     nextStep()
+    window.scrollTo(0, 0)
   }
 
   setLoading = loading => {
@@ -77,8 +79,8 @@ class Content extends React.Component {
   render() {
     const { profile, loading } = this.state
     const { globalContent } = this.props
-    const { summary = [], plans, printed, error: message } = globalContent
-
+    const { summary = [], plans = [], printed, error: message } = globalContent
+    
     const {
       contextPath,
       deployment,
