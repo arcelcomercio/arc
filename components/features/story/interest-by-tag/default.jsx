@@ -25,6 +25,7 @@ const InterestByTag = props => {
     arcSite,
     globalContent: dataContent,
     contextPath,
+    deployment,
   } = useFusionContext()
   const {
     tags: [{ slug = 'Peru' } = {}] = [],
@@ -47,7 +48,7 @@ const InterestByTag = props => {
   const instance =
     storyData &&
     new StoryData({
-      storyData,
+      deployment,
       contextPath,
       arcSite,
       defaultImgSize: 'sm',
