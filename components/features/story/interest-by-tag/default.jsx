@@ -14,7 +14,7 @@ const classes = {
     'story-interest block non-tablet non-mobile w-full h-auto p-20',
   title:
     'story-interest__titleList block non-tablet non-mobile w-full h-auto font-bold mb-30',
-  list: 'story-interest__list flex',
+  list: 'story-interest__list flex flex-wrap',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
