@@ -14,17 +14,15 @@ import {
   replaceHtmlMigracion,
 } from '../../../utilities/helpers'
 
-import StoryContentChildVideo from './_children/video'
-import StoryContentChildImage from './_children/image'
+import StoryContentsChildVideo from './_children/video'
+import StoryContentsChildImage from './_children/image'
 import StoryHeaderChildGallery from '../gallery/_children/gallery'
-import StoryContentChildBlockQuote from './_children/blockquote'
-import StoryContentChildTable from '../../../global-components/story-table'
-import StoryContentChildRelated from './_children/related'
-import StoryContentChildTags from './_children/tags'
-import StoryContentChildAuthor from './_children/author'
-import StoryContentChildMultimedia from './_children/multimedia'
-import StoryContentChildRelatedInternal from './_children/related-internal'
-import StoryContentChildIcon from './_children/icon-list'
+import StoryContentsChildBlockQuote from './_children/blockquote'
+import StoryContentsChildTable from '../../../global-components/story-table'
+import StoryContentsChildAuthor from './_children/author'
+import StoryContentsChildMultimedia from './_children/multimedia'
+import StoryContentsChildRelatedInternal from './_children/related-internal'
+import StoryContentsChildIcon from './_children/icon-list'
 import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
@@ -36,16 +34,12 @@ const classes = {
   newsEmbed: 'story-content__embed',
   tags: 'story-content',
   section: 'w-full',
-  // Related-content
-  relatedList: 'related-content__list pt-10',
-  relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
-  taboola: 'story-content__taboola',
   listClasses: 'story-content__paragraph-list',
   alignmentClasses: 'story-content__alignment',
 }
 
 @Consumer
-class StoryContent extends PureComponent {
+class StoryContents extends PureComponent {
   handleOptaWidget = ({ id, css, js, defer }) => {
     appendToBody(
       createScript({
@@ -70,12 +64,8 @@ class StoryContent extends PureComponent {
     const {
       globalContent,
       arcSite,
-      deployment,
-      contextPath,
       siteProperties: {
         ids: { opta },
-        siteUrl,
-        nameStoryRelated,
       },
     } = this.props
     const {
@@ -84,24 +74,14 @@ class StoryContent extends PureComponent {
       publish_date: date,
       display_date: updatedDate,
       credits: author,
-      taxonomy: { tags = {} },
       related_content: { basic: relatedContent } = {},
-      website_url: websiteUrl,
     } = globalContent || {}
-    const structuredTaboola = `
-      window._taboola = window._taboola || [];
-      _taboola.push({
-      mode: 'thumbnails-a',
-      container: 'taboola-below-content-thumbnails',
-      placement: 'Below Content Thumbnails',
-      target_type: 'mix'
-      });`
 
     return (
       <div className={classes.news}>
-        {promoItems && <StoryContentChildMultimedia data={promoItems} />}
+        {promoItems && <StoryContentsChildMultimedia data={promoItems} />}
         {author && (
-          <StoryContentChildAuthor
+          <StoryContentsChildAuthor
             {...author}
             date={date}
             updatedDate={updatedDate}
@@ -110,7 +90,7 @@ class StoryContent extends PureComponent {
         <div id="ads_m_movil2" />
         <div className={classes.content} id="contenedor">
           {/* TODO: se retira para el sitio de gestion por la salida del 30 de julio */}
-          {arcSite !== ConfigParams.SITE_GESTION && <StoryContentChildIcon />}{' '}
+          {arcSite !== ConfigParams.SITE_GESTION && <StoryContentsChildIcon />}{' '}
           <div id="ads_d_inline" />
           <div id="ads_m_movil_video" />
           <div id="ads_m_movil3" />
@@ -129,7 +109,7 @@ class StoryContent extends PureComponent {
                 } = element
                 if (type === ConfigParams.ELEMENT_IMAGE) {
                   return (
-                    <StoryContentChildImage
+                    <StoryContentsChildImage
                       data={element}
                       className={classes.newsImage}
                       resizer="true"
@@ -138,7 +118,7 @@ class StoryContent extends PureComponent {
                 }
                 if (type === ConfigParams.ELEMENT_VIDEO) {
                   return (
-                    <StoryContentChildVideo
+                    <StoryContentsChildVideo
                       data={element.embed_html}
                       className={classes.newsImage}
                     />
@@ -153,10 +133,10 @@ class StoryContent extends PureComponent {
                   )
                 }
                 if (type === ConfigParams.ELEMENT_TABLE) {
-                  return <StoryContentChildTable data={element} type={type} />
+                  return <StoryContentsChildTable data={element} type={type} />
                 }
                 if (type === ConfigParams.ELEMENT_QUOTE) {
-                  return <StoryContentChildBlockQuote data={element} />
+                  return <StoryContentsChildBlockQuote data={element} />
                 }
                 if (type === ConfigParams.ELEMENT_OEMBED) {
                   return (
@@ -169,7 +149,7 @@ class StoryContent extends PureComponent {
                 }
                 if (type === ConfigParams.ELEMENT_STORY) {
                   return (
-                    <StoryContentChildRelatedInternal
+                    <StoryContentsChildRelatedInternal
                       stories={relatedContent}
                       id={_id}
                     />
@@ -201,7 +181,7 @@ class StoryContent extends PureComponent {
                     })
 
                   return content.includes('id="powa-') ? (
-                    <StoryContentChildVideo
+                    <StoryContentsChildVideo
                       data={content}
                       className={classes.newsImage}
                     />
@@ -217,57 +197,11 @@ class StoryContent extends PureComponent {
             />
           )}
         </div>
-
-        <div id="ads_m_movil4" />
-
-        <StoryContentChildTags data={tags} className={classes.tags} />
-        <div id="ads_d_left" />
-        <div id="ads_d_recomendador" />
-
-        {relatedContent && relatedContent.length > 0 && (
-          <div role="list" className={classes.relatedList}>
-            <h4 className={classes.relatedTitle}>{nameStoryRelated} </h4>
-            {relatedContent.map((item, i) => {
-              const { type } = item
-              const key = `related-content-${i}`
-              return type === ConfigParams.ELEMENT_STORY ? (
-                <StoryContentChildRelated
-                  key={key}
-                  {...item}
-                  contextPath={contextPath}
-                  arcSite={arcSite}
-                  deployment={deployment}
-                />
-              ) : (
-                ''
-              )
-            })}
-          </div>
-        )}
-        {arcSite !== ConfigParams.SITE_GESTION && (
-          <>
-            <div
-              className={classes.taboola}
-              id="taboola-below-content-thumbnails"
-            />
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{ __html: structuredTaboola }}
-            />
-          </>
-        )}
-        {arcSite === ConfigParams.SITE_PUBLIMETRO && (
-          <div
-            className="fb-comments"
-            data-href={`${siteUrl}${websiteUrl}`}
-            data-numposts="5"
-          />
-        )}
       </div>
     )
   }
 }
 
-StoryContent.label = 'Artículo - contenido'
+StoryContents.label = 'Artículo - contenidos'
 
-export default StoryContent
+export default StoryContents

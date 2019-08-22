@@ -1,14 +1,18 @@
 import React from 'react'
 
 const classes = {
-  item: 'story-interest__item w-full border-solid border-white border-r-1',
-  detail: 'story-interest__detail w-full pl-10 pr-10',
-  separatorCategory: 'story-interest__category mb-10 text-xl',
-  separatorTitle:
-    'story-interest__title overflow-hidden text-sm text-gray-300 line-h-sm text-center',
-  titleLink: '',
-  itemImage: 'story-interest__img object-cover',
-  figure: 'story-interest__figure m-auto',
+  item:
+    'story-interest__item w-full border-solid border-white border-r-1 mb-40',
+  detail: 'story-interest__detail w-full pl-10 pr-10 pt-10',
+  separatorCategory:
+    'story-interest__category mb-10 lg:text-center hidden md:block',
+  separatorCategoryLink: 'story-interest__category-link text-xl',
+  separatorTitle: 'story-interest__title overflow-hidden lg:text-center',
+  titleLink:
+    'story-interest__title-link text-md text-white line-h-sm font-bold',
+  link: '',
+  itemImage: 'story-interest__img w-full h-full object-cover',
+  figure: 'story-interest__figure hidden md:block',
 }
 
 const StorySeparatorChildItem = ({ data }) => {
@@ -39,7 +43,9 @@ const StorySeparatorChildItem = ({ data }) => {
 
       <div className={classes.detail}>
         <h2 className={classes.separatorCategory}>
-          <a href={sectionLink}>{section}</a>{' '}
+          <a href={sectionLink} className={classes.separatorCategoryLink}>
+            {section}
+          </a>{' '}
         </h2>
         <h3 className={classes.separatorTitle}>
           <a className={classes.titleLink} href={link}>
