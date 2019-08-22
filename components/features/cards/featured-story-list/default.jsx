@@ -10,6 +10,7 @@ const CardsFeaturedStoryList = props => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      imageSize = '',
     } = {},
   } = props
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
@@ -133,7 +134,7 @@ const CardsFeaturedStoryList = props => {
       multimediaPortraitMD,
       multimediaSquareS, // Url de la imágen
       multimediaLazyDefault,
-      // imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
+      imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
       // headband, // OPCIONAL, otros valores: "live"
       // size, // Se espera "oneCol" o "twoCol"
       // hightlightOnMobile,
@@ -158,6 +159,15 @@ CardsFeaturedStoryList.propTypes = {
   customFields: PropTypes.shape({
     storyConfig: PropTypes.contentConfig('stories').isRequired.tag({
       name: 'Configuración del contenido',
+    }),
+    imageSize: PropTypes.oneOf(['parcialBot', 'parcialTop', 'complete']).tag({
+      name: 'Posición de la imagen',
+      labels: {
+        parcialBot: 'Parcial inferior',
+        parcialTop: 'Parcial Superior',
+        complete: 'Completa',
+      },
+      defaultValue: 'parcialBot',
     }),
   }),
 }

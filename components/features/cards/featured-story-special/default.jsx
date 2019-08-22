@@ -91,7 +91,11 @@ const CardsFeaturedStorySpecial = props => {
     <div className="featured-special position-relative">
       <a href="/asd" className="featured-special__img-link block">
         <picture className="featured-special__picture block">
-          <img className="w-full" src={multimediaLandscapeXL} alt={title} />
+          <img
+            className="featured-special__img w-full object-cover"
+            src={multimediaLandscapeXL}
+            alt={title}
+          />
         </picture>
       </a>
       <div className="position-absolute ml-20 mb-20 md:ml-40 md:mb-40 bottom-0">
