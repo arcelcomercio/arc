@@ -28,7 +28,7 @@ const services = new Services()
 
 const classes = {
   nav: `nav text-white text-sm w-full flex flex items-center top-0 secondary-font`,
-  wrapper: `nav__wrapper flex items-center nav__wrapper bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-15 pr-15`,
+  wrapper: `nav__wrapper flex items-center bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
   navContainerRight: `nav__container-right position-absolute hidden lg:inline-block`,

@@ -6,8 +6,7 @@ import DataStory from '../../../../utilities/story-data'
 
 // Basic flex stuff
 const classes = {
-  related:
-    'related-internal position-relative mt-20 md:pb-10 md:pt-10 md:pr-20 md:pl-20',
+  related: 'related-internal position-relative md:pb-10 md:pr-20 md:pl-20',
   title: 'related-internal__title font-bold uppercase mb-10',
   multimedia: 'position-relative',
   image: 'w-full',
@@ -44,7 +43,6 @@ const RelartedItem = ({ data } /* , i */) => {
               src={filterData.multimediaImg}
               alt={filterData.nameTitle}
               className={classes.image}
-              
             />
             {filterData.multimediaType === ConfigParams.IMAGE ||
             filterData.multimediaType === '' ? (
