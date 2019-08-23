@@ -28,7 +28,7 @@ const services = new Services()
 
 const classes = {
   nav: `nav text-white text-sm w-full flex flex items-center top-0 secondary-font`,
-  wrapper: `nav__wrapper flex items-center nav__wrapper bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-15 pr-15`,
+  wrapper: `nav__wrapper flex items-center bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
   navContainerRight: `nav__container-right position-absolute hidden lg:inline-block`,
@@ -44,6 +44,7 @@ const classes = {
   mobileLogo: 'nav__mobile-logo position-absolute',
   listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
   logo: 'nav__logo lg:hidden',
+  logoLeft: 'header__logo-secondary',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
@@ -602,6 +603,7 @@ class NavBarDefault extends PureComponent {
     } = this.state
     const {
       logo,
+      logoLetf,
       arcSite,
       siteProperties,
       contextPath,
@@ -711,6 +713,20 @@ class NavBarDefault extends PureComponent {
                 className={classes.logo}
               />
             </a>
+
+            {type !== ConfigParams.ELEMENT_STORY &&
+              arcSite === ConfigParams.SITE_PERU21 && (
+                <a
+                  className={classes.logoLeft}
+                  href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
+                  <img
+                    src={logoLetf.src}
+                    alt={logo.alt}
+                    className={classes.logoImage}
+                  />
+                </a>
+              )}
+
             <div className={classes.navStoryTitle} />
 
             <div className={classes.navStorySocialNetwork}>
@@ -764,7 +780,9 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
+                      `${
+                        classes.btnLogin
+                      } btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     {/* 
@@ -787,7 +805,9 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -801,7 +821,9 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
+                        : `${classes.iconLogin} ${
+                            classes.iconSignwallMobile
+                          }  title-sm`
                     }>
                     {initialUser}
                   </i>

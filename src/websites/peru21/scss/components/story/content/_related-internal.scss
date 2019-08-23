@@ -3,5 +3,8 @@
     @media (--tablet) {
       background-color: $color-gray-100;
     }
+    a {
+      color: $color-primary;
+    }
   }
 }

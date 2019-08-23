@@ -28,10 +28,8 @@ const InterestByTag = props => {
     contextPath,
     deployment,
   } = useFusionContext()
-  const {
-    tags: [{ slug = 'Peru' } = {}] = [],
-    websiteUrl: excluir,
-  } = new StoryData({
+
+  const { tags: [{ slug = 'Peru' } = {}] = [], id: excluir } = new StoryData({
     data: dataContent,
     contextPath,
   })
@@ -57,17 +55,19 @@ const InterestByTag = props => {
 
   let key = 0
 
+  const dataInterest = storyData.map(story => {
+    return story && story._id !== excluir ? story : ''
+  })
+
   return (
     <>
-      <div className={classes.storyInterest}>
-        <div className={classes.container}>
-          <div className={classes.title}>Te puede interesar:</div>
-          <ul className={classes.list}>
-            {storyData &&
-              storyData.map((story, i) => {
+      {dataInterest && dataInterest[0] && (
+        <div className={classes.storyInterest}>
+          <div className={classes.container}>
+            <div className={classes.title}>Te puede interesar:</div>
+            <ul className={classes.list}>
+              {dataInterest.map((story, i) => {
                 if (key === 4) return false
-                const { website_url: websiteUrl } = story
-                if (websiteUrl === excluir) return false
                 instance.__data = story
                 key += 1
 
@@ -87,9 +87,10 @@ const InterestByTag = props => {
                   />
                 )
               })}
-          </ul>
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </>
   )
 }
@@ -97,7 +98,7 @@ const InterestByTag = props => {
 InterestByTag.propTypes = {
   customFields,
 }
-InterestByTag.label = 'Interes por Tags'
+InterestByTag.label = 'Artículo - te pude interesar'
 InterestByTag.static = true
 
 export default InterestByTag
