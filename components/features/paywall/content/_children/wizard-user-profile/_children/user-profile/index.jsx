@@ -137,16 +137,25 @@ const UserProfile = ({
 
 UserProfile.propTypes = {
   initialValues: PropTypes.shape({
-    firstName: PropTypes.oneOfType([PropTypes.string, null]),
-    lastName: PropTypes.oneOfType([PropTypes.string, null]),
+    firstName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(null),
+    ]),
+    lastName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(null),
+    ]),
     documentType: PropTypes.oneOf(['DNI', 'CEX', 'CDI']),
-    documentNumber: PropTypes.oneOfType([PropTypes.string, null]),
-    phone: PropTypes.oneOfType([PropTypes.string, null]),
-    email: PropTypes.oneOfType([PropTypes.string, null]),
+    documentNumber: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(null),
+    ]),
+    phone: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(null)]),
+    email: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(null)]),
   }),
   onSubmit: PropTypes.func,
   title: PropTypes.string,
-  error: PropTypes.bool,
+  error: PropTypes.anyOf([PropTypes.string, PropTypes.bool]),
 }
 
 export default UserProfile
