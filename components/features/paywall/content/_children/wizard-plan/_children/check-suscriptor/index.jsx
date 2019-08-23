@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field } from 'formik'
+import * as Sentry from '@sentry/browser'
+
 import * as S from './styled'
 import { FormSchema, Masks } from './schema'
 import InputFormik from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import Modal from '../../../../../_children/modal'
 import getDomain from '../../../../../_dependencies/domains'
-import Sentry from '../../../../../_dependencies/sentry'
 
 const Content = props => {
   const [attemptToken, setAttemptToken] = useState()
@@ -71,7 +72,12 @@ const Content = props => {
           validate={values => new FormSchema(values)}
           initialValues={{ documentType: 'DNI', documentNumber: null }}
           onSubmit={({ documentType, documentNumber }, actions) => {
-            window.location.href = getDomain("VALIDATE_SUSCRIPTOR", documentType, documentNumber, attemptToken)
+            window.location.href = getDomain(
+              'VALIDATE_SUSCRIPTOR',
+              documentType,
+              documentNumber,
+              attemptToken
+            )
           }}
           render={({
             resetForm: _resetForm,
