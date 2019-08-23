@@ -14,6 +14,7 @@ const { trim } = Masks.Pipes
 const _initValue = {
   firstName: null,
   lastName: null,
+  secondLastName: null,
   documentType: 'DNI',
   documentNumber: null,
   phone: null,
