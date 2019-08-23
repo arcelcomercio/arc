@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Form, Field } from 'formik'
+import pick from 'object.pick'
 import * as S from './styled'
 import InputFormik from '../../../../../_children/input'
 import Button from '../../../../../_children/button'
@@ -20,14 +21,18 @@ const _initValue = {
 }
 const UserProfile = ({
   title = '',
-  initialValues,
+  initialValues = {},
   error,
   onSubmit,
   onReset,
 }) => {
   return (
     <Formik
-      initialValues={Object.assign({}, _initValue, initialValues)}
+      initialValues={Object.assign(
+        {},
+        _initValue,
+        pick(initialValues, Object.keys(_initValue))
+      )}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
         onSubmit(
