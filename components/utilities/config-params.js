@@ -38,6 +38,8 @@ class ConfigParams {
 
   static OPTA_WIDGET = 'https://assets.trome.pe/opta'
 
+  static ELEMENT_YOUTUBE_ID = 'youtube_id'
+
   // nombre de los Sitios
   static SITE_PUBLIMETRO = 'publimetro'
 
