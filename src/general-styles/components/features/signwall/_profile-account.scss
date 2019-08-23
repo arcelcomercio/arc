@@ -116,7 +116,7 @@
         }
       }
 
-      &__menu-link-close{
+      &__menu-link-close {
         font-family: $secondary-font;
         color: $signwall-text-menu-color-secondary;
         font-size: 13px;
@@ -179,12 +179,12 @@
       }
 
       &__loader {
-        background: white;
+        background: transparent;
         position: relative;
       }
 
       &__cont-loader {
-        width: 300px;
+        width: 200px;
         height: 50px;
         margin: 50% auto;
         text-align: center;
@@ -214,6 +214,160 @@
       }
       100% {
         transform: scale(1);
+      }
+    }
+
+    .resume {
+      &__dates {
+        width: 100%;
+        position: relative;
+        color: black;
+        margin-bottom: 50px;
+        @media (--tablet) {
+          margin-bottom: 30px;
+        }
+        .cont-dates,
+        .cont-subs {
+          display: inline-block;
+          vertical-align: top;
+          min-height: auto;
+          @media (--desktop) {
+            min-height: 190px;
+          }
+        }
+        .title-dates {
+          display: inline-block;
+          vertical-align: top;
+          min-height: auto;
+        }
+        .title-dates {
+          width: 100%;
+          @media (--desktop) {
+            width: 25%;
+          }
+          .title,
+          .link {
+            font-weight: bold;
+          }
+          .title {
+            line-height: 26px;
+            font-size: 24px;
+          }
+          .link {
+            color: #0179af;
+            text-decoration: underline;
+            padding: 15px 0px;
+            font-size: 12px;
+            text-transform: uppercase;
+          }
+        }
+        .cont-note {
+          width: 100%;
+          display: inline-block;
+          vertical-align: top;
+          @media (--desktop) {
+            width: 75%;
+          }
+          .note-subs {
+            color: #444444;
+            font-size: 14px;
+            padding: 10px 0px;
+            @media (--desktop) {
+              font-size: 11px;
+            }
+          }
+        }
+        .cont-dates,
+        .cont-subs {
+          background: #e8e8e8;
+          padding: 20px 15px;
+          border-radius: 8px;
+          width: 100%;
+          font-size: 14px;
+          line-height: 30px;
+          @media (--desktop) {
+            width: 75%;
+          }
+          .pass {
+            font-size: 30px;
+            vertical-align: middle;
+            letter-spacing: 4px;
+          }
+          .first-dates,
+          .last-dates {
+            display: inline-block;
+            vertical-align: top;
+          }
+          .first-dates,
+          .last-dates {
+            width: 100%;
+            @media (--desktop) {
+              width: 50%;
+            }
+          }
+        }
+        .cont-subs {
+          padding: 0px;
+          min-height: auto;
+          @media (--desktop) {
+            min-height: 150px;
+          }
+          .first-subs,
+          .last-subs {
+            display: inline-block;
+            vertical-align: top;
+          }
+          .first-subs {
+            background: #444444;
+            color: white;
+            padding: 40px;
+            width: 100%;
+            font-size: 12px;
+            line-height: 20px;
+            min-height: auto;
+            border-radius: 5px 0px 0px 5px;
+            @media (--desktop) {
+              min-height: 150px;
+              width: 40%;
+            }
+            h3 {
+              font-weight: bold;
+              font-family: $primary-font;
+              font-size: 30px;
+              margin-top: 10px;
+            }
+          }
+          .last-subs {
+            padding: 30px 40px;
+            width: 100%;
+            text-align: center;
+            @media (--desktop) {
+              min-height: 150px;
+              width: 60%;
+            }
+            .btn-subs {
+              background: #0179af;
+              color: white;
+              padding: 10px;
+              border-radius: 5px;
+            }
+            h3 {
+              font-weight: bold;
+              font-size: 16px;
+            }
+            p {
+              color: #444444;
+              font-size: 14px;
+              text-align: left;
+            }
+            .mini {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+      &__dates:last-child {
+        margin-bottom: 0px;
       }
     }
   }

@@ -7,7 +7,9 @@ import Gravatar from '../common/gravatar'
 import Cookie from '../utils/cookie'
 import GetProfile from '../utils/get-profile'
 import Loading from '../common/loading'
-import MiPerfil from './_children/section/index'
+import Home from './_children/home/index'
+import MiPerfil from './_children/profile/index'
+import { ModalProvider, ModalConsumer } from '../signwall/context'
 
 const Cookies = new Cookie()
 
@@ -73,6 +75,14 @@ class ProfileAccount extends Component {
     })
   }
 
+  renderTemplate = template => {
+    const templates = {
+      home: <Home />,
+      profile: <MiPerfil />,
+    }
+    return templates[template] || templates.home
+  }
+
   render() {
     const { closePopup } = this.props
     const {
@@ -85,73 +95,98 @@ class ProfileAccount extends Component {
     const url = '#'
 
     return (
-      <Modal
-        size="full"
-        position="fit"
-        color="#f4f4f4"
-        name="arc-popup-profile"
-        id="arc-popup-profile">
-        <Header closePopup={closePopup} type="large" />
+      <ModalProvider>
+        <ModalConsumer>
+        {value => (
+          <Modal
+            size="full"
+            position="fit"
+            color="#f4f4f4"
+            name="arc-popup-profile"
+            id="arc-popup-profile">
+            <Header closePopup={closePopup} type="large" />
 
-        <div className="bg_white">
-          <div className="container">
-            <div className="profile">
-              <div className="profile__left profile__card">
-                <div>
-                  <h1 className="profile__title">
-                    Hola {userName !== 'undefined' ? userName : 'Usuario'}
-                  </h1>
-                  <span className="profile__text">Bienvenido a tu perfil</span>
+            <div className="bg_white">
+              <div className="container">
+                <div className="profile">
+                  <div className="profile__left profile__card">
+                    <div>
+                      <h1 className="profile__title">
+                        Hola {userName !== 'undefined' ? userName : 'Usuario'}
+                      </h1>
+                      <span className="profile__text">
+                        Bienvenido a tu perfil
+                      </span>
 
-                  <ul className="profile__menu">
-                    <li className="profile__menu-item">
-                      <a href={url} className="profile__menu-link active">
-                        Mis Datos
-                      </a>
-                    </li>
+                      <ul className="profile__menu">
+                        {window.document.cookie.indexOf('isECO=true') >= 0 ? (
+                          <>
+                            <li className="profile__menu-item">
+                              <a
+                                href={url}
+                                className="profile__menu-link active">
+                                Inicio
+                              </a>
+                            </li>
 
-                    {/* <li className="profile__menu-item">
-                      <a href={url} className="profile__menu-link active">
-                        Mis Datos
-                      </a>
-                    </li>
+                            <li className="profile__menu-item">
+                              <a href={url} className="profile__menu-link">
+                                Mis Datos
+                              </a>
+                            </li>
 
-                    <li className="profile__menu-item">
-                      <a href={url} className="profile__menu-link">
-                        Mis Suscripciones
-                      </a>
-                    </li> */}
+                            <li className="profile__menu-item">
+                              <a href={url} className="profile__menu-link">
+                                Mis Suscripciones
+                              </a>
+                            </li>
+                          </>
+                        ) : (
+                          <li className="profile__menu-item">
+                            <a href={url} className="profile__menu-link active">
+                              Mis Datos
+                            </a>
+                          </li>
+                        )}
 
-                    <li className="profile__menu-item">
-                      <button
-                        type="button"
-                        id="web_link_cerrarsesion"
-                        className="profile__menu-link-close"
-                        onClick={e => this.closeSession(e)}>
-                        Cerrar Sesión
-                      </button>
-                    </li>
-                  </ul>
+                        <li className="profile__menu-item">
+                          <button
+                            type="button"
+                            id="web_link_cerrarsesion"
+                            className="profile__menu-link-close"
+                            onClick={e => this.closeSession(e)}>
+                            Cerrar Sesión
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="profile__avatar">
+                      <picture>
+                        <Gravatar
+                          email={emailUser}
+                          type={
+                            typeLogin === 'facebook' ? 'facebook' : 'password'
+                          }
+                          fbID={userNameFB}
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                  <div className="profile__right profile__card">
+                    {/* {activeProfile ? <Home /> : <Loading />} */}
+
+                      <div>{this.renderTemplate(value.selectedTemplate)}</div>
+                    
+                  </div>
                 </div>
-                <div className="profile__avatar">
-                  <picture>
-                    <Gravatar
-                      email={emailUser}
-                      type={typeLogin === 'facebook' ? 'facebook' : 'password'}
-                      fbID={userNameFB}
-                    />
-                  </picture>
-                </div>
-              </div>
-              <div className="profile__right profile__card">
-                {activeProfile ? <MiPerfil /> : <Loading />}
               </div>
             </div>
-          </div>
-        </div>
 
-        <Footer position="center" />
-      </Modal>
+            <Footer position="center" />
+          </Modal>
+           )}
+        </ModalConsumer>
+      </ModalProvider>
     )
   }
 }

@@ -36,7 +36,7 @@ function WizardUserProfile(props) {
       }
     }
     return typeof value === 'string'
-      ? value.trim().replace(/undefined|null/i, '')
+      ? value.trim().replace(/undefined|null/i, undefined)
       : value
   }
   const sanitizedProfile = deepMapValues(profile, sanitizeValues)
