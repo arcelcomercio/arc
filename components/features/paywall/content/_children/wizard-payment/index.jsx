@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-shadow */
 import { useFusionContext } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
@@ -14,7 +15,7 @@ import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
 import { parseQueryString } from '../../../../../utilities/helpers'
 
-import { getArcErrorMessage } from '../../../_dependencies/utils'
+import Errors from '../../../_dependencies/errors'
 
 const isProd = ENVIRONMENT === 'elcomercio'
 const MESSAGE = {
@@ -55,7 +56,7 @@ function WizardPayment(props) {
         .getPaymentOptions()
         .then(res => {
           if (res.code) {
-            throw new Error(getArcErrorMessage(res.code))
+            throw new Error(Errors.getMessage(res.code))
           }
           payUPaymentMethod = res.find(m => m.paymentMethodType === 8)
           const { paymentMethodID } = payUPaymentMethod
@@ -63,7 +64,7 @@ function WizardPayment(props) {
         })
         .then(res => {
           if (res.code) {
-            throw new Error(getArcErrorMessage(res.code))
+            throw new Error(Errors.getMessage(res.code))
           }
           const {
             parameter1: publicKey,
@@ -119,7 +120,7 @@ function WizardPayment(props) {
                 .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
                 .then(res => {
                   if (res.code) {
-                    throw new Error(getArcErrorMessage(res.code))
+                    throw new Error(Errors.getMessage(res.code))
                   }
                   const { status, total, subscriptionIDs } = res
                   if (status !== 'Paid') throw new Error(MESSAGE.PAYMENT_FAIL)
