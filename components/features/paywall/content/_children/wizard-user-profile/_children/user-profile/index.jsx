@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Formik, Form, Field } from 'formik'
 import * as S from './styled'
 import InputFormik from '../../../../../_children/input'
@@ -139,6 +140,20 @@ const UserProfile = ({
       }}
     />
   )
+}
+
+UserProfile.propTypes = {
+  initialValues: PropTypes.shape({
+    firstName: PropTypes.oneOfType([PropTypes.string, null]),
+    lastName: PropTypes.oneOfType([PropTypes.string, null]),
+    documentType: PropTypes.oneOf(['DNI', 'CEX', 'CDI']),
+    documentNumber: PropTypes.oneOfType([PropTypes.string, null]),
+    phone: PropTypes.oneOfType([PropTypes.string, null]),
+    email: PropTypes.oneOfType([PropTypes.string, null]),
+  }),
+  onSubmit: PropTypes.func,
+  title: PropTypes.string,
+  error: PropTypes.bool,
 }
 
 export default UserProfile
