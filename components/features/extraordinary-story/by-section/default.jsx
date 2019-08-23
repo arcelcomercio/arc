@@ -39,7 +39,7 @@ class ExtraordinaryStoryBySection extends PureComponent {
 
   render() {
     const { deployment, contextPath, arcSite, customFields } = this.props
-    const { data: { content_elements: contentElements = [] } = {} } = this.state
+    const { data: { content_elements: contentElements = [] } = {} } = this.state || {}
     const data =
       contentElements && contentElements.length > 0 ? contentElements[0] : {}
     const formattedData = new Data({
@@ -69,5 +69,6 @@ ExtraordinaryStoryBySection.propTypes = {
 }
 
 ExtraordinaryStoryBySection.label = 'Apertura extraordinaria por sección'
+ExtraordinaryStoryBySection.static = true
 
 export default ExtraordinaryStoryBySection
