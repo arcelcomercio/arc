@@ -56,7 +56,7 @@ function WizardUserProfile(props) {
 
     Sentry.addBreadcrumb({
       category: 'compra',
-      message: 'Valores en formulario de datos de pago',
+      message: 'Valores en formulario de perfil de pago',
       data: values,
       level: Sentry.Severity.Info,
     })
