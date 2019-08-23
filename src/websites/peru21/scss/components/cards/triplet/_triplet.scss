@@ -1,5 +1,4 @@
 .triplet {
-  border-top: none;
   background-color: transparent;
   &__item {
     border-color: $color-base-400;
@@ -8,7 +7,7 @@
     font-size: 13px;
   }
   &__link {
-    color: $color-primary;
+    color: $color-base-200;
     font-family: $secondary-font;
     font-weight: 700;
   }
@@ -20,9 +19,9 @@
     word-break: break-word;
   }
   &--threeline {
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
     @media (--desktop) {
-      max-height: 83px;
+      max-height: 63px;
     }
   }
 }
