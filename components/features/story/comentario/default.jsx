@@ -19,7 +19,7 @@ class StoryComentario extends PureComponent {
     const {
       customFields: { comment = '', spotId = 'sp_LX2WRR7S' } = {},
     } = this.props
-
+    console.log('this.props', this.props)
     if (comment) {
       const recirculation = `https://recirculation.spot.im/spot/${spotId}`
       const launcher = `https://launcher.spot.im/spot/${spotId}`
