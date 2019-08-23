@@ -1,4 +1,7 @@
 .react-calendar {
+  &__header {
+    background-color: $color-base-400;
+  }
   &__title {
     color: $color-primary;
     font-size: 15px;
@@ -16,5 +19,8 @@
   }
   &__brand {
     display: none;
+  }
+  &__tile--active {
+    background-color: $color-base-400;
   }
 }
