@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import * as Sentry from '@sentry/browser'
 
 import CardPrice from './_children/card-price'
 import Summary from './_children/summary'
@@ -39,12 +40,30 @@ function WizardPlan(props) {
   function subscribePlanHandler(e, plan) {
     Sales.then(sales => {
       setLoading(true)
+      const selectedPlan = {
+        sku: plan.sku,
+        priceCode: plan.priceCode,
+        quantity: 1,
+      }
+      Sentry.addBreadcrumb({
+        category: 'compra',
+        message: 'Plan seleccionado',
+        data: selectedPlan,
+        level: Sentry.Severity.Info,
+      })
+
       return sales
-        .addItemToCart([
-          { sku: plan.sku, priceCode: plan.priceCode, quantity: 1 },
-        ])
-        .then(res => {
+        .addItemToCart([selectedPlan])
+        .then(response => {
           setLoading(false)
+
+          Sentry.addBreadcrumb({
+            category: 'compra',
+            message: 'Añadió plan a carrito de compras',
+            data: { response },
+            level: Sentry.Severity.Info,
+          })
+
           const {
             location: { search },
           } = window
@@ -60,6 +79,7 @@ function WizardPlan(props) {
         })
         .catch(e => {
           setLoading(false)
+          Sentry.captureException(e)
         })
     })
   }

@@ -87,7 +87,9 @@ function WizardUserProfile(props) {
           Sentry.addBreadcrumb({
             category: 'compra',
             message: 'Orden de compra generada',
-            data: { ...res, items: JSON.stringify(res.items, null, 2) },
+            data: {
+              response: { ...res, items: JSON.stringify(res.items, null, 2) },
+            },
             level: Sentry.Severity.Info,
           })
           sendAction(PixelActions.PAYMENT_PROFILE, {
