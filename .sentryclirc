@@ -1,0 +1,7 @@
+[auth]
+dsn=https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82
+token=c4257b15d158443e8c582698f4d68d00ee92eb0491cc43a4a5c26e5d70766f02
+
+[defaults]
+url=https://sentry.ec.pe
+project=paywall-web-client
