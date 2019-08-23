@@ -5,8 +5,10 @@
     "prettier/react",
     "plugin:jest/recommended"
   ],
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "react-hooks"],
   "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -42,8 +44,7 @@
       {
         "allowForLoopAfterthoughts": true
       }
-    ],
-    "react-hooks/exhaustive-deps": 'warn'
+    ]
   },
   "globals": {
     "document": true,
