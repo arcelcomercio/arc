@@ -25,10 +25,20 @@ function WizardUserProfile(props) {
     setLoading,
   } = props
 
-  const sanitizeValues = value =>
-    typeof value === 'string'
+  const sanitizeValues = (value, key) => {
+    if (key === 'documentType') {
+      switch (value) {
+        case 'CEX':
+        case 'CDI':
+          return value
+        default:
+          return 'DNI'
+      }
+    }
+    return typeof value === 'string'
       ? value.trim().replace(/undefined|null/i, '')
       : value
+  }
   const sanitizedProfile = deepMapValues(profile, sanitizeValues)
 
   useEffect(() => {
