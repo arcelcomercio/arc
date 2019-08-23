@@ -9,9 +9,14 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'facebook',
   }),
-  spotId: PropTypes.richtext.tag({
+  spotId: PropTypes.string.tag({
     name: 'id spotim ',
     description: 'spotId ejemplo: sp_LX2WRR7S',
+  }),
+
+  excluir: PropTypes.richtext.tag({
+    name: 'Excluir seccion ',
+    description: 'Excluir secciones ejemplo: politica|economia',
   }),
 })
 
