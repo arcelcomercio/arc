@@ -160,7 +160,7 @@ UserProfile.propTypes = {
   }),
   onSubmit: PropTypes.func,
   title: PropTypes.string,
-  error: PropTypes.anyOf([PropTypes.string, PropTypes.bool]),
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 }
 
 export default UserProfile
