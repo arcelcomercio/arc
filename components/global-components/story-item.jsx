@@ -47,12 +47,6 @@ class StoriesList extends PureComponent {
       defaultImgSize: 'sm',
     })
 
-    console.log('AQUI!!!!!!!')
-    console.log(element.title)
-    console.log(element.multimediaType)
-    // console.log(element.multimediaTypeForLists)
-    console.log(getMultimediaTypeForList(element))
-
     const multimediaType = getMultimediaTypeForList(element)
 
     return (
@@ -87,7 +81,6 @@ class StoriesList extends PureComponent {
           <figure className={classes.right}>
             {/* TODO: Actualizar iconos con multimediaIcon */}
             <a href={element.link} className={classes.rightLink}>
-
               {multimediaType !== null &&
                 multimediaType === ConfigParams.GALLERY && (
                   <span className={classes.iconGallery} />
