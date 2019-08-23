@@ -36,7 +36,7 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
           deployment={deployment}
           contextPath={contextPath}
           website={arcSite}
-          storyLink={storyData.link}
+          linkStory={storyData.link}
         />
       </div>
       <div className={classes.gridContainer}>
