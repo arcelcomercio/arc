@@ -65,6 +65,14 @@ export default class NavbarFormater {
           logo: this.deployment(
             `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
           ),
+          logoLetf: {
+            src: this.deployment(
+              `${this.contextPath}/resources/dist/${
+                this.arcSite
+              }/images/otorongo.png`
+            ),
+            alt: this.arcSite,
+          },
         }
       },
       fetch: () => {
