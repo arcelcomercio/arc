@@ -54,7 +54,6 @@ const UserProfile = ({
                 <Field
                   name="firstName"
                   label="Nombres"
-                  tabIndex="1"
                   {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -63,7 +62,6 @@ const UserProfile = ({
                 <Field
                   name="lastName"
                   label="Apellido Paterno"
-                  tabIndex="2"
                   {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -72,7 +70,6 @@ const UserProfile = ({
                 <Field
                   name="secondLastName"
                   label="Apellido Materno"
-                  tabIndex="3"
                   {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -83,12 +80,10 @@ const UserProfile = ({
                   label="Número de documento"
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
-                  tabIndex="5"
                   prefix={
                     <Field
                       name="documentType"
                       key="select"
-                      tabIndex="4"
                       component={({
                         field: { onChange, ...restField },
                         ...restProps
@@ -116,7 +111,6 @@ const UserProfile = ({
                   inputMode="numeric"
                   pipe={trim()}
                   mask={Masks.PHONE}
-                  tabIndex="6"
                   label="Número de Celular"
                   component={InputFormik}
                 />
@@ -124,7 +118,6 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="email"
-                  tabIndex="7"
                   inputMode="email"
                   label="Correo Electrónico"
                   component={InputFormik}
