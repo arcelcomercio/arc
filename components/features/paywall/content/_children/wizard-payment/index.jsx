@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-shadow */
 import { useFusionContext } from 'fusion:context'
@@ -102,12 +103,14 @@ function WizardPayment(props) {
 
           let cardName = ownerName
           const { qa } = parseQueryString(window.location.search)
-          if (!isProd) cardName = !qa ? firstName : 'APPROVED'
+          if (!isProd) cardName = qa ? firstName : 'APPROVED'
           cardName = removeAccents(cardName)
 
           Sentry.addBreadcrumb({
             category: 'compra',
-            message: `CardName${!isProd && qa ? ' (QA)' : ''}: ${cardName}`,
+            message: `CardName ${
+              !isProd && qa ? '(QA)' : !isProd ? '(Sandbox)' : '(Prod)'
+            } : ${cardName}`,
             level: Sentry.Severity.Info,
           })
 
