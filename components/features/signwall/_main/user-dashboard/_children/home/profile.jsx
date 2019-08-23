@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import GetProfile from '../../../utils/get-profile'
 import Services from '../../../utils/services'
-import { ModalConsumer } from '../../../signwall/context'
+// import { ModalConsumer } from '../../../signwall/context'
 
 const services = new Services()
 
@@ -120,88 +120,87 @@ class Profile extends Component {
     const [primaryPhone = { phone: null }] = contacts
     const { phone } = primaryPhone
     return (
-      <ModalConsumer>
-        {val => (
-          <div className="resume__dates">
-            <div className="title-dates">
-              <h2 className="title">Datos personales</h2>
-              <button
-                className="link"
-                type="button"
-                onClick={() => {
-                  val.changeTemplate('profile')
-                }}>
-                Editar Datos
-              </button>
-            </div>
-            <div className="cont-dates">
-              <div className="first-dates">
-                <p>
-                  <strong>Nombre: </strong> {firstName || '-'} {lastName || '-'}{' '}
-                  {secondLastName || '-'}
-                </p>
-                <p>
-                  <strong>Correo: </strong> {email || '-'}
-                </p>
-                <p>
-                  <strong>Contraseña: </strong>
-                  <span className="pass">
-                    &bull;&bull;&bull;&bull;&bull;&bull;
-                  </span>
-                </p>
-                <p>
-                  <strong>Número de Documento: </strong> {documentNumber || '-'}
-                </p>
-                <p>
-                  <strong>Estado Civil: </strong>
-                  {{
-                    so: 'Soltero(a)',
-                    ca: 'Casado(a)',
-                    di: 'Divorciado(a)',
-                    vi: 'Viudo(a)',
-                  }[civilStatus] || '-'}
-                </p>
-              </div>
-
-              <div className="last-dates">
-                <p>
-                  <strong>País: </strong> {country || 'Perú'}
-                </p>
-                <p>
-                  <strong>Departamento: </strong>
-                  {dataDepartments.map(([code, name]) => {
-                    if (parseInt(department, 10) === code) {
-                      return <span key={name}>{name}</span>
-                    }
-                    return null
-                  })}
-                </p>
-                <p>
-                  <strong>Provincia: </strong>
-                  {dataProvinces.map(([code, name]) => {
-                    if (parseInt(province, 10) === code) {
-                      return <span key={name}>{name}</span>
-                    }
-                    return null
-                  })}
-                </p>
-                <p>
-                  <strong>Distrito: </strong>
-                  {dataDistricts.map(([code, name]) => {
-                    if (parseInt(district, 10) === code) {
-                      return <span key={name}>{name}</span>
-                    }
-                    return null
-                  })}
-                </p>
-                <p>
-                  <strong>Celular: </strong> {phone || '-'}
-                </p>
-              </div>
-            </div>
+      // <ModalConsumer>
+      //   {val => (
+      <div className="resume__dates">
+        <div className="title-dates">
+          <h2 className="title">Datos personales</h2>
+          <button
+            className="link"
+            type="button"
+            onClick={() => {
+              document.getElementById('btn-menu-profile').click()
+              // val.changeTemplate('profile')
+            }}>
+            Editar Datos
+          </button>
+        </div>
+        <div className="cont-dates">
+          <div className="first-dates">
+            <p>
+              <strong>Nombre: </strong> {firstName || '-'} {lastName || ''}{' '}
+              {secondLastName || ''}
+            </p>
+            <p>
+              <strong>Correo: </strong> {email || '-'}
+            </p>
+            <p>
+              <strong>Contraseña: </strong>
+              <span className="pass">&bull;&bull;&bull;&bull;&bull;&bull;</span>
+            </p>
+            <p>
+              <strong>Número de Documento: </strong> {documentNumber || '-'}
+            </p>
+            <p>
+              <strong>Estado Civil: </strong>
+              {{
+                so: 'Soltero(a)',
+                ca: 'Casado(a)',
+                di: 'Divorciado(a)',
+                vi: 'Viudo(a)',
+              }[civilStatus] || '-'}
+            </p>
           </div>
-        )}
-      </ModalConsumer>
+
+          <div className="last-dates">
+            <p>
+              <strong>País: </strong> {country ? 'Perú' : '-'}
+            </p>
+            <p>
+              <strong>Departamento: </strong> {!department ? '-' : ''}
+              {dataDepartments.map(([code, name]) => {
+                if (parseInt(department, 10) === code) {
+                  return <span key={name}>{name}</span>
+                }
+                return null
+              })}
+            </p>
+            <p>
+              <strong>Provincia: </strong> {!province ? '-' : ''}
+              {dataProvinces.map(([code, name]) => {
+                if (parseInt(province, 10) === code) {
+                  return <span key={name}>{name}</span>
+                }
+                return null
+              })}
+            </p>
+            <p>
+              <strong>Distrito: </strong> {!district ? '-' : ''}
+              {dataDistricts.map(([code, name]) => {
+                if (parseInt(district, 10) === code) {
+                  return <span key={name}>{name}</span>
+                }
+                return null
+              })}
+            </p>
+            <p>
+              <strong>Celular: </strong> {phone || '-'}
+            </p>
+          </div>
+        </div>
+      </div>
+      //   )}
+      // </ModalConsumer>
     )
   }
 }

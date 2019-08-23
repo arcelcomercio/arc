@@ -94,6 +94,7 @@
         }
       }
     }
+
     .intro-paywall {
       font-family: 'Open Sans', Arial, Helvetica, sans-serif;
       background: #fff6f0;
@@ -162,6 +163,12 @@
           background-repeat: no-repeat;
           background-position: 0px 4px;
         }
+      }
+    }
+    .bg-white {
+      background: white;
+      .title-line span {
+        background: white;
       }
     }
   }

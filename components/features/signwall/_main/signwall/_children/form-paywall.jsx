@@ -16,6 +16,7 @@ class SignWallPaywall extends Component {
       paywallPrice: '-',
       paywallDescripcion: '-',
       featuresDescription: [],
+      isLoading: true,
     }
 
     const { arcSite } = this.props
@@ -42,6 +43,7 @@ class SignWallPaywall extends Component {
         paywallPrice: resCam.plans[0].amount || '-',
         paywallDescripcion: resCam.plans[0].description.description || '-',
         featuresDescription: resCam.summary.feature || [],
+        isLoading: false,
       })
     })
   }
@@ -64,6 +66,7 @@ class SignWallPaywall extends Component {
       paywallPrice,
       paywallDescripcion,
       featuresDescription,
+      isLoading,
     } = this.state
     const { typePopUp } = this.props
 
@@ -71,7 +74,9 @@ class SignWallPaywall extends Component {
       <ModalConsumer>
         {value => (
           <div className="modal-body__wrapper">
-            {paywallPrice !== '-' ? (
+            {isLoading ? (
+              <Loading />
+            ) : (
               <>
                 <div className="cont-price-detail">
                   <div className="price">
@@ -123,8 +128,6 @@ class SignWallPaywall extends Component {
                   <br /> descubre tu descuento.
                 </p>
               </>
-            ) : (
-              <Loading />
             )}
           </div>
         )}

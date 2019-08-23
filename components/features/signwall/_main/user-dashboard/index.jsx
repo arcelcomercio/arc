@@ -9,6 +9,7 @@ import GetProfile from '../utils/get-profile'
 import Loading from '../common/loading'
 import Home from './_children/home/index'
 import MiPerfil from './_children/profile/index'
+import MiSubscrip from './_children/subs/index'
 import { ModalProvider, ModalConsumer } from '../signwall/context'
 
 const Cookies = new Cookie()
@@ -48,11 +49,12 @@ class ProfileAccount extends Component {
     Cookies.deleteCookie('arc_e_id')
     Cookies.deleteCookie('mpp_sess')
     Cookies.deleteCookie('ArcId.USER_INFO')
-    if (window.location.pathname.indexOf('suscripciones') >= 0) {
-      window.location.reload()
-    } else {
-      closePopup()
-    }
+    // if (window.location.pathname.indexOf('suscripciones') >= 0) {
+    //   window.location.reload()
+    // } else {
+    //   closePopup()
+    // }
+    window.location.reload()
   }
 
   componentWillUpdate = () => {
@@ -75,10 +77,20 @@ class ProfileAccount extends Component {
     })
   }
 
+  linkActive = link => {
+    const LinkCurent = link.target
+    const listLi = document.querySelectorAll('.profile__menu-link')
+    for (let i = 0; i < listLi.length; i++) {
+      listLi[i].classList.remove('active')
+    }
+    LinkCurent.classList.add('active')
+  }
+
   renderTemplate = template => {
     const templates = {
       home: <Home />,
       profile: <MiPerfil />,
+      subscrip: <MiSubscrip />,
     }
     return templates[template] || templates.home
   }
@@ -124,8 +136,10 @@ class ProfileAccount extends Component {
                               <li className="profile__menu-item">
                                 <a
                                   href={url}
-                                  onClick={() => {
+                                  id="btn-menu-home"
+                                  onClick={e => {
                                     value.changeTemplate('home')
+                                    this.linkActive(e)
                                   }}
                                   className="profile__menu-link active">
                                   Inicio
@@ -135,8 +149,10 @@ class ProfileAccount extends Component {
                               <li className="profile__menu-item">
                                 <a
                                   href={url}
-                                  onClick={() => {
+                                  id="btn-menu-profile"
+                                  onClick={e => {
                                     value.changeTemplate('profile')
+                                    this.linkActive(e)
                                   }}
                                   className="profile__menu-link">
                                   Mis Datos
@@ -144,7 +160,14 @@ class ProfileAccount extends Component {
                               </li>
 
                               <li className="profile__menu-item">
-                                <a href={url} className="profile__menu-link">
+                                <a
+                                  href={url}
+                                  id="btn-menu-subscrip"
+                                  onClick={e => {
+                                    value.changeTemplate('subscrip')
+                                    this.linkActive(e)
+                                  }}
+                                  className="profile__menu-link">
                                   Mis Suscripciones
                                 </a>
                               </li>
@@ -183,19 +206,19 @@ class ProfileAccount extends Component {
                       </div>
                     </div>
                     <div className="profile__right profile__card">
-                      {/* {activeProfile ? ( */}
+                      {activeProfile ? (
                         <div>
                           {window.document.cookie.indexOf('isECO=true') >= 0 ? (
                             <div>
                               {this.renderTemplate(value.selectedTemplate)}
                             </div>
                           ) : (
-                            <Home />
+                            <MiPerfil />
                           )}
                         </div>
-                      {/* ) : (
+                      ) : (
                         <Loading />
-                      )} */}
+                      )}
                     </div>
                   </div>
                 </div>
