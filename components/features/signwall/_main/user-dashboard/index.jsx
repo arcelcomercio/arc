@@ -39,7 +39,7 @@ class ProfileAccount extends Component {
       this.setState({
         activeProfile: true,
       })
-    }, 800)
+    }, 1000)
   }
 
   closeSession = () => {
@@ -97,94 +97,113 @@ class ProfileAccount extends Component {
     return (
       <ModalProvider>
         <ModalConsumer>
-        {value => (
-          <Modal
-            size="full"
-            position="fit"
-            color="#f4f4f4"
-            name="arc-popup-profile"
-            id="arc-popup-profile">
-            <Header closePopup={closePopup} type="large" />
+          {value => (
+            <Modal
+              size="full"
+              position="fit"
+              color="#f4f4f4"
+              name="arc-popup-profile"
+              id="arc-popup-profile">
+              <Header closePopup={closePopup} type="large" />
 
-            <div className="bg_white">
-              <div className="container">
-                <div className="profile">
-                  <div className="profile__left profile__card">
-                    <div>
-                      <h1 className="profile__title">
-                        Hola {userName !== 'undefined' ? userName : 'Usuario'}
-                      </h1>
-                      <span className="profile__text">
-                        Bienvenido a tu perfil
-                      </span>
+              <div className="bg_white">
+                <div className="container">
+                  <div className="profile">
+                    <div className="profile__left profile__card">
+                      <div>
+                        <h1 className="profile__title">
+                          Hola {userName !== 'undefined' ? userName : 'Usuario'}
+                        </h1>
+                        <span className="profile__text">
+                          Bienvenido a tu perfil
+                        </span>
 
-                      <ul className="profile__menu">
-                        {window.document.cookie.indexOf('isECO=true') >= 0 ? (
-                          <>
+                        <ul className="profile__menu">
+                          {window.document.cookie.indexOf('isECO=true') >= 0 ? (
+                            <>
+                              <li className="profile__menu-item">
+                                <a
+                                  href={url}
+                                  onClick={() => {
+                                    value.changeTemplate('home')
+                                  }}
+                                  className="profile__menu-link active">
+                                  Inicio
+                                </a>
+                              </li>
+
+                              <li className="profile__menu-item">
+                                <a
+                                  href={url}
+                                  onClick={() => {
+                                    value.changeTemplate('profile')
+                                  }}
+                                  className="profile__menu-link">
+                                  Mis Datos
+                                </a>
+                              </li>
+
+                              <li className="profile__menu-item">
+                                <a href={url} className="profile__menu-link">
+                                  Mis Suscripciones
+                                </a>
+                              </li>
+                            </>
+                          ) : (
                             <li className="profile__menu-item">
                               <a
                                 href={url}
                                 className="profile__menu-link active">
-                                Inicio
-                              </a>
-                            </li>
-
-                            <li className="profile__menu-item">
-                              <a href={url} className="profile__menu-link">
                                 Mis Datos
                               </a>
                             </li>
+                          )}
 
-                            <li className="profile__menu-item">
-                              <a href={url} className="profile__menu-link">
-                                Mis Suscripciones
-                              </a>
-                            </li>
-                          </>
-                        ) : (
                           <li className="profile__menu-item">
-                            <a href={url} className="profile__menu-link active">
-                              Mis Datos
-                            </a>
+                            <button
+                              type="button"
+                              id="web_link_cerrarsesion"
+                              className="profile__menu-link-close"
+                              onClick={e => this.closeSession(e)}>
+                              Cerrar Sesión
+                            </button>
                           </li>
-                        )}
-
-                        <li className="profile__menu-item">
-                          <button
-                            type="button"
-                            id="web_link_cerrarsesion"
-                            className="profile__menu-link-close"
-                            onClick={e => this.closeSession(e)}>
-                            Cerrar Sesión
-                          </button>
-                        </li>
-                      </ul>
+                        </ul>
+                      </div>
+                      <div className="profile__avatar">
+                        <picture>
+                          <Gravatar
+                            email={emailUser}
+                            type={
+                              typeLogin === 'facebook' ? 'facebook' : 'password'
+                            }
+                            fbID={userNameFB}
+                          />
+                        </picture>
+                      </div>
                     </div>
-                    <div className="profile__avatar">
-                      <picture>
-                        <Gravatar
-                          email={emailUser}
-                          type={
-                            typeLogin === 'facebook' ? 'facebook' : 'password'
-                          }
-                          fbID={userNameFB}
-                        />
-                      </picture>
+                    <div className="profile__right profile__card">
+                      {/* {activeProfile ? ( */}
+                        <div>
+                          {window.document.cookie.indexOf('isECO=true') >= 0 ? (
+                            <div>
+                              {this.renderTemplate(value.selectedTemplate)}
+                            </div>
+                          ) : (
+                            <Home />
+                          )}
+                        </div>
+                      {/* ) : (
+                        <Loading />
+                      )} */}
                     </div>
-                  </div>
-                  <div className="profile__right profile__card">
-                    {/* {activeProfile ? <Home /> : <Loading />} */}
-
-                      <div>{this.renderTemplate(value.selectedTemplate)}</div>
-                    
                   </div>
                 </div>
               </div>
-            </div>
 
-            <Footer position="center" />
-          </Modal>
-           )}
+              <Footer position="center" />
+            </Modal>
+          )}
         </ModalConsumer>
       </ModalProvider>
     )

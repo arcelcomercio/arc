@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Services from '../../../utils/services'
+import Loading from '../../../common/loading'
 
 const services = new Services()
 
@@ -8,6 +9,7 @@ class Subs extends Component {
     super(props)
     this.state = {
       isSubs: false,
+      isLoad: true,
     }
   }
 
@@ -18,6 +20,9 @@ class Subs extends Component {
           isSubs: true,
         })
       }
+      this.setState({
+        isLoad: false,
+      })
     })
   }
 
@@ -37,9 +42,15 @@ class Subs extends Component {
       .catch(err => window.console.error(err))
   }
 
+  handlePageChange = () => {
+    window.location.href = '/suscripcionesdigitales/'
+  }
+
   render() {
-    const { isSubs } = this.state
-    return (
+    const { isSubs, isLoad } = this.state
+    return isLoad ? (
+      <Loading />
+    ) : (
       <div className="resume__dates">
         <div className="title-dates">
           <h2 className="title">Mi suscripción</h2>
@@ -70,7 +81,10 @@ class Subs extends Component {
                 <h3>Plan Digital</h3>
               </div>
               <div className="last-subs">
-                <button className="btn-subs" type="button">
+                <button
+                  className="btn-subs"
+                  type="button"
+                  onClick={() => this.handlePageChange()}>
                   <h3>SUSCRÍBETE</h3>
                   <span>DESDE S/ 29 MENSUALES</span>
                 </button>
