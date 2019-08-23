@@ -11,8 +11,8 @@ import {
 
 const classes = {
   story: 'w-full text-white pt-20 pr-20 pl-20 ',
-  spotim: 'story-spotim',
-  spotimScript: 'story-spotim-script',
+  spotim: 'story-spotim pt-20 pr-20 pl-20',
+  spotimScript: 'story-spotim-script pt-20 pr-20 pl-20',
 }
 
 @Consumer
@@ -61,8 +61,7 @@ class StoryComentario extends PureComponent {
       data,
       contextPath,
     })
-    const excluirComment = excluir.split('|')
-    const excluirCommentd = excluirComment.indexOf(primarySection)
+    const excluirComment = excluir.split('|').indexOf(primarySection)
     return (
       <>
         {comment === 'faceboosk' && (
@@ -74,7 +73,7 @@ class StoryComentario extends PureComponent {
             />
           </div>
         )}
-        {comment === 'spotim' && comments && excluirCommentd === -1 && (
+        {comment === 'spotim' && comments && excluirComment === -1 && (
           <>
             <div
               data-spotim-module="recirculation"
