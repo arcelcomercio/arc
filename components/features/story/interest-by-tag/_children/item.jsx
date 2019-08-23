@@ -1,8 +1,7 @@
 import React from 'react'
 
 const classes = {
-  item:
-    'story-interest__item w-full border-solid border-white border-r-1 mb-40',
+  item: 'story-interest__item w-full mb-40',
   detail: 'story-interest__detail w-full pl-10 pr-10 pt-10',
   separatorCategory:
     'story-interest__category mb-10 lg:text-center hidden md:block',

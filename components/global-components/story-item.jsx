@@ -1,8 +1,13 @@
 import React, { PureComponent } from 'react'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
-
+import ConfigParams from '../utilities/config-params'
 import StoryData from '../utilities/story-data'
-import { reduceWord, formatDateLocalTimeZone } from '../utilities/helpers'
+
+import {
+  reduceWord,
+  formatDateLocalTimeZone,
+  getMultimediaTypeForList,
+} from '../utilities/helpers'
 
 const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray md:pl-0 md:pr-0  lg:p-0`,
@@ -41,6 +46,9 @@ class StoriesList extends PureComponent {
       arcSite,
       defaultImgSize: 'sm',
     })
+
+    const multimediaType = getMultimediaTypeForList(element)
+
     return (
       <div
         className={`${classes.storyItem} ${
@@ -73,13 +81,18 @@ class StoriesList extends PureComponent {
           <figure className={classes.right}>
             {/* TODO: Actualizar iconos con multimediaIcon */}
             <a href={element.link} className={classes.rightLink}>
-              {element.multimediaType.toLowerCase() === 'basic_gallery' && (
-                <span className={classes.iconGallery} />
-              )}
-
-              {element.multimediaType.toLowerCase() === 'basic_video' && (
-                <span className={classes.iconVideo} />
-              )}
+              {multimediaType !== null &&
+                multimediaType === ConfigParams.GALLERY && (
+                  <span className={classes.iconGallery} />
+                )}
+              {multimediaType !== null &&
+                multimediaType === ConfigParams.VIDEO && (
+                  <span className={classes.iconVideo} />
+                )}
+              {multimediaType !== null &&
+                multimediaType === ConfigParams.ELEMENT_YOUTUBE_ID && (
+                  <span className={classes.iconVideo} />
+                )}
               <picture>
                 <source
                   className={isAdmin ? '' : 'lazy'}
