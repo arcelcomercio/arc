@@ -447,14 +447,19 @@ class NavBarDefault extends PureComponent {
   }
 
   initCounters = () => {
-    const UUID = window.Identity.userIdentity.uuid || null
+    const userId = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO'))
+    const UUID = userId ? userId.uuid : window.Identity.userIdentity.uuid
     const localCounter = JSON.parse(window.localStorage.getItem('ArcP'))
-    if (localCounter !== null) {
-      const cAnon = localCounter.anonymous.v.ci.length || 0
-      this.setState({
-        countAnonymous: cAnon,
-      })
-      if (UUID !== null) {
+
+    if (localCounter) {
+      if (localCounter.anonymous) {
+        const cAnon = localCounter.anonymous.v.ci.length || 0
+        this.setState({
+          countAnonymous: cAnon,
+        })
+      }
+
+      if (UUID && localCounter[UUID]) {
         const cReg = localCounter[UUID].v.ci.length || 0
         this.setState({
           countRegister: cReg,
@@ -804,9 +809,7 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${
-                        classes.btnLogin
-                      } btn--outline` /* classes.btnSignwall */
+                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     <span>
@@ -824,9 +827,7 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${
-                  classes.navMobileContainer
-                } ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -840,9 +841,7 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwallMobile
-                          }  title-sm`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
                     }>
                     {initialUser}
                   </i>
