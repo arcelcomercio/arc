@@ -6,7 +6,6 @@ import StoryData from '../utilities/story-data'
 import {
   reduceWord,
   formatDateLocalTimeZone,
-  getMultimediaTypeForList,
 } from '../utilities/helpers'
 
 const classes = {
@@ -47,8 +46,6 @@ class StoriesList extends PureComponent {
       defaultImgSize: 'sm',
     })
 
-    const multimediaType = getMultimediaTypeForList(element)
-
     return (
       <div
         className={`${classes.storyItem} ${
@@ -81,16 +78,12 @@ class StoriesList extends PureComponent {
           <figure className={classes.right}>
             {/* TODO: Actualizar iconos con multimediaIcon */}
             <a href={element.link} className={classes.rightLink}>
-              {multimediaType !== null &&
-                multimediaType === ConfigParams.GALLERY && (
+              {element.multimediaType !== null &&
+                element.multimediaType === ConfigParams.GALLERY && (
                   <span className={classes.iconGallery} />
                 )}
-              {multimediaType !== null &&
-                multimediaType === ConfigParams.VIDEO && (
-                  <span className={classes.iconVideo} />
-                )}
-              {multimediaType !== null &&
-                multimediaType === ConfigParams.ELEMENT_YOUTUBE_ID && (
+              {element.multimediaType !== null &&
+                element.multimediaType === ConfigParams.VIDEO && (
                   <span className={classes.iconVideo} />
                 )}
               <picture>

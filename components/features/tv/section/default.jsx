@@ -6,7 +6,6 @@ import getProperties from 'fusion:properties'
 import {
   popUpWindow,
   socialMediaUrlShareList,
-  addSlashToEnd,
 } from '../../../utilities/helpers'
 
 const TvSection = () => {
@@ -22,7 +21,7 @@ const TvSection = () => {
   const { siteUrl = '' } = getProperties(arcSite)
 
   const urlsShareList = socialMediaUrlShareList(
-    addSlashToEnd(siteUrl),
+    siteUrl,
     _id,
     sectionName,
     'peru21noticias' // TODO: Agregar esto a site properties si es que se va a usar en otros sitios
