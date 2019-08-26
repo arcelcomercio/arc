@@ -149,4 +149,5 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-publimetro/ads-fia-28253241-pub_ia_interna5-300x250-div-gpt-ad-8599377-45.html',
   ],
   activeSignwall: false,
+  activePaywall: false,
 }
