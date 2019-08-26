@@ -38,9 +38,6 @@
   }
   .header__logo-secondary {
     height: auto;
-    @media (--only-mobile) {
-      right: 20px;
-    }
     img {
       @media (--only-mobile) {
         height: 47px;
