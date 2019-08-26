@@ -91,6 +91,8 @@ class NavBarDefault extends PureComponent {
       showPaywall: false,
       userName: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
       initialUser: new GetProfile().initname,
+      countAnonymous: 0,
+      countRegister: 0,
     }
 
     this.inputSearch = React.createRef()
@@ -184,7 +186,10 @@ class NavBarDefault extends PureComponent {
 
     // ---------- Start Premium & Paywall ----------- //
 
-    if (arcSite === 'gestion') this.getPaywall()
+    if (arcSite === 'gestion') {
+      this.getPaywall()
+      this.initCounters()
+    }
 
     // ---------- End Premium & Paywall ------------ //
   }
@@ -199,8 +204,8 @@ class NavBarDefault extends PureComponent {
     } else {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        userName: new GetProfile().username,
-        initialUser: new GetProfile().initname,
+        userName: 'Iniciar Sesión',
+        initialUser: false,
       })
     }
   }
@@ -441,6 +446,23 @@ class NavBarDefault extends PureComponent {
     return false
   }
 
+  initCounters = () => {
+    const UUID = window.Identity.userIdentity.uuid || null
+    const localCounter = JSON.parse(window.localStorage.getItem('ArcP'))
+    if (localCounter !== null) {
+      const cAnon = localCounter.anonymous.v.ci.length || 0
+      this.setState({
+        countAnonymous: cAnon,
+      })
+      if (UUID !== null) {
+        const cReg = localCounter[UUID].v.ci.length || 0
+        this.setState({
+          countRegister: cReg,
+        })
+      }
+    }
+  }
+
   // check Url string popup
   getUrlParam = name => {
     const vars = {}
@@ -600,6 +622,8 @@ class NavBarDefault extends PureComponent {
       showReset,
       showRelogin,
       showPaywall,
+      countAnonymous,
+      countRegister,
     } = this.state
     const {
       logo,
@@ -785,20 +809,15 @@ class NavBarDefault extends PureComponent {
                       } btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
-                    {/* 
-                    Por ahora esto no está contemplado en diseño
-                    <i
-                      className={
-                        initialUser
-                          ? `${classes.iconSignwall} text-user font-bold`
-                          : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
-                      }>
-                      {initialUser}
-                    </i> */}
                     <span>
                       {this.checkSession() ? userName : 'Iniciar Sesión'}
                     </span>
                   </button>
+                  {window.document.cookie.indexOf('isECO=true') >= 0 ? (
+                    <strong>
+                      {this.checkSession() ? countRegister : countAnonymous}
+                    </strong>
+                  ) : null}
                 </div>
               )}
             </div>

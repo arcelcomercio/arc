@@ -71,24 +71,19 @@ const WizardConfirmation = props => {
     if (handlePWA()) return
     const { sessionStorage, location } = window
     // eslint-disable-next-line no-prototype-builtins
-    location.href = sessionStorage.hasOwnProperty(NAME_REDIRECT) && sessionStorage.getItem(NAME_REDIRECT) !== ''
+    location.href =
+      sessionStorage.hasOwnProperty(NAME_REDIRECT) &&
+      sessionStorage.getItem(NAME_REDIRECT) !== ''
         ? sessionStorage.getItem(NAME_REDIRECT)
         : HOME
   }
-
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
         <S.Picture>
-          <source
-            media={`(${devices.mobile})`}
-            srcSet={PIXEL}
-          />
-          <source
-            media={`${devices.tablet}`}
-            srcSet={PIXEL}
-          />
+          <source media={`(${devices.mobile})`} srcSet={PIXEL} />
+          <source media={`${devices.tablet}`} srcSet={PIXEL} />
           <source srcSet={assets('confirmation_webp')} type="image/webp" />
           <S.Image src={assets('confirmation')} alt="confirmación" />
         </S.Picture>

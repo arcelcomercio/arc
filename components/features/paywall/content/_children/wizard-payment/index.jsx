@@ -1,8 +1,12 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-shadow */
 import { useFusionContext } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
 import React, { useState, useEffect } from 'react'
+import * as Sentry from '@sentry/browser'
 import removeAccents from 'remove-accents'
+
 import Summary from '../summary'
 import * as S from './styled'
 import FormPay from './_children/form-pay'
@@ -14,7 +18,7 @@ import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
 import { parseQueryString } from '../../../../../utilities/helpers'
 
-import { getArcErrorMessage } from '../../../_dependencies/utils'
+import Errors from '../../../_dependencies/errors'
 
 const isProd = ENVIRONMENT === 'elcomercio'
 const MESSAGE = {
@@ -50,12 +54,19 @@ function WizardPayment(props) {
     const { cvv, cardMethod, expiryDate, cardNumber } = values
     let payUPaymentMethod
 
+    Sentry.addBreadcrumb({
+      category: 'compra',
+      message: 'Valores en formulario de pago',
+      data: values,
+      level: Sentry.Severity.Info,
+    })
+
     Sales.then(sales => {
       return sales
         .getPaymentOptions()
         .then(res => {
           if (res.code) {
-            throw new Error(getArcErrorMessage(res.code))
+            throw new Error(Errors.getMessage(res.code))
           }
           payUPaymentMethod = res.find(m => m.paymentMethodType === 8)
           const { paymentMethodID } = payUPaymentMethod
@@ -63,8 +74,9 @@ function WizardPayment(props) {
         })
         .then(res => {
           if (res.code) {
-            throw new Error(getArcErrorMessage(res.code))
+            throw new Error(Errors.getMessage(res.code))
           }
+
           const {
             parameter1: publicKey,
             parameter2: accountId,
@@ -72,16 +84,35 @@ function WizardPayment(props) {
             parameter4: deviceSessionId,
           } = res
 
+          Sentry.addBreadcrumb({
+            category: 'compra',
+            message: 'Pago inicializado',
+            data: {
+              publicKey,
+              accountId,
+              payuBaseUrl,
+              deviceSessionId,
+            },
+            level: Sentry.Severity.Info,
+          })
+
           const ownerName = `${firstName} ${lastName} ${secondLastName}`.trim()
 
           const expiryMonth = expiryDate.split('/')[0]
           const expiryYear = expiryDate.split('/')[1]
 
-          const qs = parseQueryString(window.location.search)
-          const forSandbox = qs.hasOwnProperty('qa') ? firstName : 'APPROVED'
+          let cardName = ownerName
+          const { qa } = parseQueryString(window.location.search)
+          if (!isProd) cardName = qa ? firstName : 'APPROVED'
+          cardName = removeAccents(cardName)
 
-          let nameCard = isProd ? ownerName : forSandbox
-          nameCard = removeAccents(nameCard)
+          Sentry.addBreadcrumb({
+            category: 'compra',
+            message: `CardName ${
+              !isProd && qa ? '(QA)' : !isProd ? '(Sandbox)' : '(Prod)'
+            } : ${cardName}`,
+            level: Sentry.Severity.Info,
+          })
 
           return addPayU(siteProperties)
             .then(payU => {
@@ -93,7 +124,7 @@ function WizardPayment(props) {
               payU.setLanguage('es')
               payU.setCardDetails({
                 number: cardNumber,
-                name_card: nameCard,
+                name_card: cardName,
                 payer_id: documentNumber,
                 exp_month: expiryMonth,
                 exp_year: expiryYear,
@@ -113,16 +144,43 @@ function WizardPayment(props) {
               })
             })
             .then(token => {
+              Sentry.addBreadcrumb({
+                category: 'compra',
+                message: 'Token PayU',
+                data: { token },
+                level: Sentry.Severity.Info,
+              })
+              return token
+            })
+            .then(token => {
               const { paymentMethodID, paymentMethodType } = payUPaymentMethod
               const sandboxToken = `${token}~${deviceSessionId}~${cvv}`
+              Sentry.addBreadcrumb({
+                category: 'compra',
+                message: 'Token enviado a Arc',
+                data: { token: sandboxToken },
+                level: Sentry.Severity.Info,
+              })
               return sales
                 .finalizePayment(orderNumber, paymentMethodID, sandboxToken)
                 .then(res => {
                   if (res.code) {
-                    throw new Error(getArcErrorMessage(res.code))
+                    const screenError = new Error(Errors.getMessage(res.code))
+                    const internalError = new Error(res.message)
+                    internalError.code = res.code
+                    Sentry.captureException(internalError)
+                    throw screenError
                   }
+                  Sentry.addBreadcrumb({
+                    category: 'compra',
+                    message: 'Pago finalizado',
+                    data: res,
+                    level: Sentry.Severity.Info,
+                  })
                   const { status, total, subscriptionIDs } = res
-                  if (status !== 'Paid') throw new Error(MESSAGE.PAYMENT_FAIL)
+                  if (status !== 'Paid') {
+                    throw new Error(MESSAGE.PAYMENT_FAIL)
+                  }
                   return {
                     publicKey,
                     accountId,
@@ -158,6 +216,7 @@ function WizardPayment(props) {
           default:
             setError('Disculpe, ha ocurrido un error durante el pago')
         }
+        Sentry.captureException(e)
         window.console.error(e)
       })
       .finally(() => {
