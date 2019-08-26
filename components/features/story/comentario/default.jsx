@@ -61,7 +61,8 @@ class StoryComentario extends PureComponent {
       data,
       contextPath,
     })
-    const excluirComment = excluir.split('|').indexOf(primarySection)
+    const excluirArray = excluir.split('|')
+    const excluirComment = excluirArray.indexOf(primarySection)
     return (
       <>
         {comment === 'faceboosk' && (

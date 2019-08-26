@@ -73,34 +73,13 @@
       }
     }
 
-    /*  
-    Por ahora esto no está contemplado en diseño
-    &--login {
-      position: relative;
-      padding-left: 40px;
-
-      .text-user,
-      .icon-user {
-        background: $signwall-login-bg;
-        color: $signwall-login-text;
-        height: 24px;
-        width: 24px;
-        line-height: 24px;
-        left: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      .text-user {
-        font-size: 11px;
-        letter-spacing: 1px;
-      }
-    } */
-
     &--login-m {
       width: 34px;
       height: 34px;
       padding: 6px;
+      i{
+        font-style: normal
+      }
     }
   }
 

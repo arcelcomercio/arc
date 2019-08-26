@@ -126,23 +126,19 @@ class FormResetPass extends Component {
   }
 
   taggeoSuccess = () => {
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      window.dataLayer.push({
-        event: 'resetpass_success',
-      })
-    } else {
-      Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_success')
-    }
+    // window.dataLayer.push({
+    //   event: 'resetpass_success',
+    // })
+
+    Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_success')
   }
 
   taggeoError = () => {
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      window.dataLayer.push({
-        event: 'resetpass_error',
-      })
-    } else {
-      Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_error')
-    }
+    // window.dataLayer.push({
+    //   event: 'resetpass_error',
+    // })
+
+    Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_error')
   }
 
   render() {

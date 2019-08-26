@@ -37,11 +37,13 @@ class Signwall extends Component {
   componentDidUpdate = () => {
     const { sessUser } = this.state
     if (this.checkSession() && !sessUser) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: true,
       })
       this.togglePopupPanel()
     } else if (this.checkSession() === false && sessUser) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: false,
       })
@@ -58,6 +60,10 @@ class Signwall extends Component {
       this.togglePopupPanel()
     } else {
       this.togglePopupLogin()
+    }
+    if (ENV.ENVIRONMENT !== 'elcomercio') {
+      // add cookie isECO only SANDBOX
+      Cookies.setCookie('isECO', true, 1)
     }
   }
 
