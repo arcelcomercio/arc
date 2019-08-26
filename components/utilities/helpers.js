@@ -796,24 +796,6 @@ export const getMultimedia = (multimediaType, amp = false) => {
   return type
 }
 
-export const getMultimediaTypeForList = data => {
-  let typeMultimedia = null
-  const promoItems = (data && data.promoItems && data.promoItems) || {}
-  const items = Object.keys(promoItems)
-  if (items.length > 0) {
-    if (items.includes(ConfigParams.ELEMENT_VIDEO)) {
-      typeMultimedia = ConfigParams.ELEMENT_VIDEO
-    } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
-      typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
-    } else if (items.includes(ConfigParams.ELEMENT_GALLERY)) {
-      typeMultimedia = ConfigParams.ELEMENT_GALLERY
-    } else if (items.includes(ConfigParams.IMAGE)) {
-      typeMultimedia = ConfigParams.IMAGE
-    }
-  }
-  return typeMultimedia
-}
-
 export const getRemoveSlug = slug => {
   return slug
     .replace(/[àáâãäå]/g, 'a')

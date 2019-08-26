@@ -80,7 +80,7 @@ export default {
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
+      'Jr. Santa Rosa 247. Piso 6 Lima 1',
       'Copyright © Elcomercio.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
@@ -91,7 +91,7 @@ export default {
       },
       {
         position: 'Diario Perú21: ',
-        name: 'Jr. Santa Rosa #300. Piso 6 Lima 1',
+        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
       },
       {
         position: 'Copyright © Peru21.pe',
@@ -120,7 +120,7 @@ export default {
       },
       {
         position: 'Diario Perú21',
-        name: 'Jr. Santa Rosa #300. Piso 6 Lima 1',
+        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
       },
       {
         position: 'Contacto comercial',
