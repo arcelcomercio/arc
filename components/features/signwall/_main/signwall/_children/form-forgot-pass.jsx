@@ -83,8 +83,9 @@ class FormForgotPass extends Component {
   }
 
   sendEmail(email) {
+    const { arcSite } = this.props
     services
-      .reloginEcoID(email, '', 'forgotpass', window)
+      .reloginEcoID(email, '', 'forgotpass', arcSite, window)
       .then(resEco => {
         if (resEco.retry) {
           this.pushStatePass()

@@ -16,7 +16,7 @@ const API_ORIGIN =
 //     : 'https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/'
 
 export default class Services {
-  reloginEcoID(username, password, action, window) {
+  reloginEcoID(username, password, action, site, window) {
     const details = {
       email: username, // -> email
       password, // -> pass
@@ -25,6 +25,7 @@ export default class Services {
       domain: window.location.hostname, // -> elcomercio.pe
       referer: window.location.href, // -> url actual
       action,
+      site,
     }
 
     let formBody = []
