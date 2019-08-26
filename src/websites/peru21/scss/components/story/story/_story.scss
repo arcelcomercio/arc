@@ -10,7 +10,20 @@
   .nav__story-title {
     line-height: 1.4;
   }
-  .header__logo-left {
+  .header__logo-secondary {
     display: none;
+  }
+  .header {
+    justify-content: center;
+    .header__logo {
+      margin-left: 0;
+    }
+  }
+  .nav.active {
+    .nav__logo {
+      @media (--desktop) {
+        margin-left: 0;
+      }
+    }
   }
 }

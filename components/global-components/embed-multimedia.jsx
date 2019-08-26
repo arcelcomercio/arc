@@ -12,7 +12,7 @@ const ORG_ID = 'elcomercio'
 const EmbedMultimedia = props => {
   const image = (url, { deployment, contextPath, website, title = '', linkStory = '' }) => {
     return (
-      <a href={linkStory}>
+      <a href={linkStory} className="w-full h-full">
         <img
           // Siempre está en la parte inicial de la pag, no hace falta lazyload
           // TODO: buscar la manera de aplicar resize a esta imagen.

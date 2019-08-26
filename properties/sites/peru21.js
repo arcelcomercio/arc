@@ -80,7 +80,7 @@ export default {
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
+      'Jr. Santa Rosa 247. Piso 6 Lima 1',
       'Copyright © Elcomercio.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
@@ -91,7 +91,7 @@ export default {
       },
       {
         position: 'Diario Perú21: ',
-        name: 'Jr. Santa Rosa #300. Piso 6 Lima 1',
+        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
       },
       {
         position: 'Copyright © Peru21.pe',
@@ -120,7 +120,7 @@ export default {
       },
       {
         position: 'Diario Perú21',
-        name: 'Jr. Santa Rosa #300. Piso 6 Lima 1',
+        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
       },
       {
         position: 'Contacto comercial',
@@ -159,7 +159,8 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
   ],
-  activeSignwall: false,
+  activeSignwall: true,
+  activePaywall: false,
   tv: {
     logoUrl: '/peru21tv/',
     logoAlt: 'Perú21Tv',

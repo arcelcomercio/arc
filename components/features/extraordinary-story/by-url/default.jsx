@@ -33,7 +33,7 @@ class ExtraordinaryStoryByUrl extends PureComponent {
 
   render() {
     const { deployment, contextPath, arcSite, customFields } = this.props
-    const { data = {} } = this.state
+    const { data = {} } = this.state || {}
     const formattedData = new Data({
       data,
       deployment,
@@ -62,5 +62,6 @@ ExtraordinaryStoryByUrl.propTypes = {
 }
 
 ExtraordinaryStoryByUrl.label = 'Apertura extraordinaria por historia'
+ExtraordinaryStoryByUrl.static = true
 
 export default ExtraordinaryStoryByUrl

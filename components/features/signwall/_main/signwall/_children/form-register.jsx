@@ -257,48 +257,44 @@ class FormRegister extends Component {
   taggeoError() {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      if (typePopUp === 'relogemail') {
-        window.dataLayer.push({
-          event: 'relogin_email_registro_error',
-        })
-      } else {
-        window.dataLayer.push({
-          event: 'registro_error',
-          eventCategory: `Web_Sign_Wall_${typePopUp}`,
-          eventAction: `web_sw${typePopUp[0]}_registro_error_registrarme`,
-        })
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_registro_error_registrarme`
-      )
-    }
+    // if (typePopUp === 'relogemail') {
+    //   window.dataLayer.push({
+    //     event: 'relogin_email_registro_error',
+    //   })
+    // } else {
+    //   window.dataLayer.push({
+    //     event: 'registro_error',
+    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
+    //     eventAction: `web_sw${typePopUp[0]}_registro_error_registrarme`,
+    //   })
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_registro_error_registrarme`
+    )
   }
 
   taggeoSuccess() {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      if (typePopUp === 'relogemail') {
-        window.dataLayer.push({
-          event: 'relogin_email_registro_success',
-        })
-      } else {
-        window.dataLayer.push({
-          event: 'registro_success',
-          eventCategory: `Web_Sign_Wall_${typePopUp}`,
-          eventAction: `web_sw${typePopUp[0]}_registro_success_registrarme`,
-          userId: window.Identity ? window.Identity.userIdentity.uuid : null,
-        })
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_registro_success_registrarme`
-      )
-    }
+    // if (typePopUp === 'relogemail') {
+    //   window.dataLayer.push({
+    //     event: 'relogin_email_registro_success',
+    //   })
+    // } else {
+    //   window.dataLayer.push({
+    //     event: 'registro_success',
+    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
+    //     eventAction: `web_sw${typePopUp[0]}_registro_success_registrarme`,
+    //     userId: window.Identity ? window.Identity.userIdentity.uuid : null,
+    //   })
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_registro_success_registrarme`
+    )
   }
 
   render = () => {

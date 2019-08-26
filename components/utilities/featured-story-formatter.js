@@ -10,6 +10,9 @@ class FeaturedStoryFormatter {
         by { name url type }
       }
       promo_items {
+        youtube_id {
+          content
+        }
         basic { 
           url 
           type 
