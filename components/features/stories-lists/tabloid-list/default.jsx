@@ -6,25 +6,25 @@ import TabloidListChild from './_children/story-tabloid'
 import schemaFilter from './_dependencies/filter-schema'
 
 const TabloidList = () => {
-  const {
-    globalContentConfig,
+  const { globalContent, arcSite, contextPath, deployment } = useFusionContext()
+  const section = globalContent._id
+  const data =
+    useContent({
+      source: 'story-feed-by-section',
+      query: {
+        section,
+      },
+      filter: schemaFilter(arcSite),
+    }) || {}
+
+  const params = {
+    data: data.content_elements,
+    section,
     arcSite,
     contextPath,
     deployment,
-    isAdmin,
-  } = useFusionContext()
-  // const { section } = globalContentConfig
-  console.log(globalContentConfig, 'GLOBAAAAAAAAAAAL')
-  // const data =
-  //   useContent({
-  //     source: 'story-feed-by-section',
-  //     query: {
-  //       section
-  //     },
-  //     filter: schemaFilter(arcSite),
-  //   }) || {}
-
-  return <TabloidListChild />
+  }
+  return <TabloidListChild {...params} />
 }
 
 TabloidList.label = 'Listado Tabloide'
