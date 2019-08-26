@@ -114,7 +114,7 @@ function WizardPayment(props) {
             level: Sentry.Severity.Info,
           })
 
-          return addPayU(siteProperties)
+          return addPayU(deviceSessionId)
             .then(payU => {
               payU.setURL(payuBaseUrl)
               payU.setPublicKey(publicKey)
