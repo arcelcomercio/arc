@@ -48,7 +48,7 @@ class StoriesList extends PureComponent {
     })
 
     const multimediaType = getMultimediaTypeForList(element)
-
+    
     return (
       <div
         className={`${classes.storyItem} ${
