@@ -34,6 +34,9 @@ export const Modal = styled.div`
 
 export const Content = styled.div`
   position: relative;
+  max-height: 100vh;
+  overflow: auto;
+  padding: 10px;
 `
 
 export const CloseButton = styled(props => (
