@@ -48,6 +48,8 @@
   &__logo-secondary {
     position: absolute;
     right: 12px;
-    height: 54px;
+    top: 50%;
+    transform: translateY(-50%);
+    // height: 54px;
   }
 }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
+import Modal from '../../../common/modal'
 import Loading from '../../../common/loading'
+import { Close } from '../../../common/iconos'
 
 @Consumer
 class MySubs extends Component {
@@ -11,6 +13,7 @@ class MySubs extends Component {
       paywallPrice: '-',
       paywallDescripcion: '-',
       featuresDescription: [],
+      showModalConfirm: false,
       loading: true,
       isSubs: false,
     }
@@ -65,6 +68,37 @@ class MySubs extends Component {
     }
   }
 
+  openModalConfirm = () => {
+    this.setState({
+      showModalConfirm: true,
+    })
+    const ModalProfile =
+      document.querySelector('#arc-popup-profile').parentNode ||
+      document.querySelector('#arc-popup-profile').parentElement
+    ModalProfile.style.overflow = 'hidden'
+
+    setTimeout(() => {
+      const modalConfirmPass = document.querySelector('#arc-popup-profile')
+      modalConfirmPass.scrollIntoView()
+    }, 500)
+  }
+
+  closeModalConfirm() {
+    const { showModalConfirm } = this.state
+    this.setState({
+      showModalConfirm: !showModalConfirm,
+    })
+
+    const ModalProfile =
+      document.querySelector('#arc-popup-profile').parentNode ||
+      document.querySelector('#arc-popup-profile').parentElement
+    if (showModalConfirm) {
+      ModalProfile.style.overflow = 'auto'
+    } else {
+      ModalProfile.style.overflow = 'hidden'
+    }
+  }
+
   render() {
     const {
       paywallPrice,
@@ -72,6 +106,7 @@ class MySubs extends Component {
       featuresDescription,
       loading,
       isSubs,
+      showModalConfirm,
     } = this.state
     return loading ? (
       <Loading />
@@ -101,7 +136,10 @@ class MySubs extends Component {
             </div>
             <hr />
             <div className="cont-link">
-              <button type="button" className="link">
+              <button
+                type="button"
+                className="link"
+                onClick={() => this.openModalConfirm()}>
                 ANULAR MI SUSCRIPCIÓN
               </button>
             </div>
@@ -151,6 +189,52 @@ class MySubs extends Component {
               </div>
             </div>
           </div>
+        )}
+
+        {showModalConfirm && (
+          <Modal
+            size="small"
+            position="middle"
+            bg="white"
+            name="modal-div-confirmpass"
+            id="modal-div-confirmpass">
+            <div className="text-right">
+              <button type="button" onClick={e => this.closeModalConfirm(e)}>
+                <Close />
+              </button>
+            </div>
+
+            <div className="modal-body__wrapper">
+              <form
+                className="form-grid"
+                onSubmit={e => this.submitConfirmPassword(e)}>
+                <div className="row-grid">
+                  <h2 className="form-grid__label--title text-center">
+                    ¿Estás seguro que deseas anular tu suscripción a
+                    www.gestion.pe?
+                  </h2>
+                  <p className="form-grid__label form-grid__label--information text-center">
+                    Ten en cuenta que tu suscripción se desactivará al finalizar
+                    tu periodo de facturación.
+                  </p>
+                </div>
+                <div className="row-grid">
+                  <div className="form-group form-froup-confirm">
+                    <input
+                      type="button"
+                      className="btn btn--blue btn-bg"
+                      value="NO"
+                    />
+                    <input
+                      type="button"
+                      className="btn input-button"
+                      value="SI"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </Modal>
         )}
       </>
     )
