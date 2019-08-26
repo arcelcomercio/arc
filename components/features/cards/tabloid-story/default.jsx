@@ -24,7 +24,7 @@ const CardsTabloidStory = props => {
         stories_qty: 1,
         feedOffset: storyNumber,
         preset1: '394x222',
-        preset2: '5x5',
+        preset2: '9x5',
       },
       filter: `
       {
