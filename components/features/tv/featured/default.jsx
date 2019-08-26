@@ -28,20 +28,16 @@ const TvFeatured = props => {
     }) || {}
   const data = contentElements[0] || {}
 
-  const {
-    title,
-    date,
-    multimediaType, // basic | basic_video
-    multimedia,
-    videoId,
-  } = new StoryData({
-    data,
-    arcSite,
-    contextPath,
-    deployment,
-    defaultImgSize: 'lg',
-  })
-
+  const { title, date, getPromoItemsType, multimedia, videoId } = new StoryData(
+    {
+      data,
+      arcSite,
+      contextPath,
+      deployment,
+      defaultImgSize: 'lg',
+    }
+  )
+  const multimediaType = getPromoItemsType()
   /** Funciones */
   const getMultimedia = () => {
     let image = ''
@@ -57,10 +53,10 @@ const TvFeatured = props => {
       } = data
       image = {
         desktop: preset1 || multimedia,
-        tablet: preset2,
-        mobile: preset3,
+        tablet: preset2 || multimedia,
+        mobile: preset3 || multimedia,
       }
-    } else if (multimediaType === 'basic') {
+    } else {
       const {
         promo_items: {
           basic: { resized_urls: { preset1, preset2, preset3 } = {} } = {},
@@ -68,8 +64,8 @@ const TvFeatured = props => {
       } = data
       image = {
         desktop: preset1 || multimedia,
-        tablet: preset2,
-        mobile: preset3,
+        tablet: preset2 || multimedia,
+        mobile: preset3 || multimedia,
       }
     }
     return image
@@ -80,7 +76,7 @@ const TvFeatured = props => {
     const { promo_items: { youtube_id: { content = '' } = {} } = {} } = data
     if (multimediaType === 'basic_video') {
       auxVideoId = { multimediaSource: videoId }
-    } else if (multimediaType === 'basic') {
+    } else if (multimediaType === 'youtube_id') {
       auxVideoId = { youtubeId: content }
     }
     return auxVideoId
@@ -113,7 +109,7 @@ const TvFeatured = props => {
     if (date) {
       setClientDate(formatDateLocalTimeZone(date))
     }
-  })
+  }, [date])
 
   return (
     <TvBody
