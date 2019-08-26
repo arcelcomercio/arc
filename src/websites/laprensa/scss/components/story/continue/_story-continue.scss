@@ -1,0 +1,16 @@
+.story-continue {
+  &__story-load-image {
+    background-image: url(/pf/resources/dist/publimetro/images/loader.png);
+    width: 37px;
+    height: 37px;
+    background-size: cover;
+  }
+  &__counter {
+    &::after {
+      background: $color-white;
+    }
+  }
+  &__story-load-text {
+    font-family: $font-regular;
+  }
+}

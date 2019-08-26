@@ -1,0 +1,17 @@
+.separator {
+  border-top-color: $color-primary;
+
+  &__item {
+    &::before {
+      background: linear-gradient(180deg, rgba(14, 33, 13, 0.1) 30%, rgba(14, 33, 13, 0.8) 80%, #0e210d);
+    }
+  }
+
+  &__title {
+    font-family: $font-regular;
+  }
+
+  &__header-link {
+    color: $color-primary;
+  }
+}
