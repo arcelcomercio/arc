@@ -532,12 +532,21 @@ class StoryData {
     return galleryContentResul.filter(String)
   }
 
-  get comments() {
+  get commentsDisplay() {
     const comments =
       (this._data &&
         this._data.comments &&
-        (this._data.comments.display_comments ||
-          this._data.comments.display_comments)) ||
+        this._data.comments.display_comments) ||
+      ''
+
+    return comments
+  }
+
+  get commentsAllow() {
+    const comments =
+      (this._data &&
+        this._data.comments &&
+        this._data.comments.allow_comments) ||
       ''
 
     return comments
