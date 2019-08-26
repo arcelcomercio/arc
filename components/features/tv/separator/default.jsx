@@ -45,7 +45,7 @@ const TvSeparator = props => {
         } = {},
       } = data
       image = preset1 || multimedia
-    } else if (multimediaType === 'basic') {
+    } else {
       const {
         promo_items: {
           basic: { resized_urls: { preset1 = '' } = {} } = {},
@@ -61,7 +61,7 @@ const TvSeparator = props => {
     const { promo_items: { youtube_id: { content = '' } = {} } = {} } = data
     if (multimediaType === 'basic_video') {
       auxVideoId = { multimediaSource: videoId }
-    } else if (multimediaType === 'basic') {
+    } else if (multimediaType === 'youtube_id') {
       /** Si es un video de Youtube */
       auxVideoId = { youtubeId: content }
     }
@@ -75,10 +75,11 @@ const TvSeparator = props => {
       const {
         title,
         date,
-        multimediaType, // basic | basic_video
+        getPromoItemsType,
         multimedia,
         videoId,
       } = dataStoryInstance
+      const multimediaType = getPromoItemsType()
       auxParams.push({
         title,
         date,
