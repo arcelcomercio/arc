@@ -1,12 +1,12 @@
 /******* Brand colors *******/
-$color-primary: #265922;
-$color-secondary: #000000;
-$color-tertiary: #f3da4a;
-
-$color-base-400: #0e210d;
-$color-base-300: #193916;
-$color-base-200: #88a486;
-$color-base-100: #c3d1c2;
+$color-primary: #007c31;
+$color-secondary: #d4d63c;
+$color-tertiary: #f35910;
+/*-----------------------*/
+$color-base-400: #016023;
+$color-base-300: #2aa55b;
+$color-base-200: #85dfa9;
+$color-base-100: #c5f6d9;
 /*-----------------------*/
 
 /******* Other colors *******/
@@ -17,19 +17,18 @@ $color-link: #006097;
 *        GENERAL CONFIG         *
 *-------------------------------*/
 /******** border colors *********/
-$border-color-gray: $color-gray-200;
-$border-color-base: $color-base-100;
+$border-color-base: $color-primary;
 
 /******* Header colors *******/
 $header-bg-color: $color-primary;
-$header-text-color: $color-gray-300;
+$header-text-color: $color-white;
 /*-----------------------*/
 
 /******* Nav colors *******/
-$nav-color: $color-gray-100;
+$nav-color: $color-gray-300;
 /*-----------------------*/
 
-/******* Footer colors *******/
-$footer-background: $color-gray-300;
-$footer-text-color: $color-white;
+/******* Footer Amp colors *******/
+$footer-background: $color-primary;
+$footer-text-color: $color-black;
 /*-----------------------*/

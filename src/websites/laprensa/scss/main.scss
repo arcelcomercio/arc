@@ -12,7 +12,6 @@
 
 /******* Partials *******/
 @import './partials/base';
-@import './partials/buttons';
 /*---------------------*/
 
 /******* Components *******/
@@ -20,6 +19,5 @@
 /*---------------------*/
 
 /******* Modificadores *******/
-@import './global-components/_';
-@import './components/_';
+@import './modificadores.scss';
 /*---------------------*/
