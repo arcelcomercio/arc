@@ -206,10 +206,6 @@ class StoryData {
     return StoryData.getMultimediaIconType(this._data)
   }
 
-  get multimediaIconType() {
-    return StoryData.getMultimediaIconType(this._data)
-  }
-
   get section() {
     // FIXME: deprecated
     return StoryData.getDataSection(this._data, this._website).name
@@ -585,6 +581,25 @@ class StoryData {
         size
       ) || this.defaultImg
     )
+  }
+
+  getPromoItemsType = () => {
+    let typeMultimedia = null
+    const { promo_items: promoItems = {} } = this._data || {}
+    const items = Object.keys(promoItems)
+
+    if (items.length > 0) {
+      if (items.includes(ConfigParams.VIDEO)) {
+        typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
+        typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
+      } else if (items.includes(ConfigParams.GALLERY)) {
+        typeMultimedia = ConfigParams.GALLERY
+      } else if (items.includes(ConfigParams.IMAGE)) {
+        typeMultimedia = ConfigParams.IMAGE
+      }
+    }
+    return typeMultimedia
   }
 
   static getSeoMultimedia(
