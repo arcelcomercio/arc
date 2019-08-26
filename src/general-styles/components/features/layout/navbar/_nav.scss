@@ -160,7 +160,11 @@
   &.active {
     position: fixed; // No borrar, si no reconce sticky deja fixed
     position: sticky;
-
+    width: 980px;
+    @supports (position: sticky) {
+      width: 100%;
+      max-width: 980px;
+    }
     @media (--desktop) {
       background-color: $color-primary;
 
