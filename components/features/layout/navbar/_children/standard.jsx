@@ -44,7 +44,7 @@ const classes = {
   mobileLogo: 'nav__mobile-logo position-absolute',
   listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
   logo: 'nav__logo lg:hidden',
-  logoLeft: 'header__logo-secondary',
+  logoLeft: 'header__logo-secondary bg-white',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
@@ -188,7 +188,6 @@ class NavBarDefault extends PureComponent {
 
     if (arcSite === 'gestion') {
       this.getPaywall()
-      this.initCounters()
     }
 
     // ---------- End Premium & Paywall ------------ //
@@ -244,7 +243,7 @@ class NavBarDefault extends PureComponent {
 
     if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
       this.getPremium() // Only sandbox ;)
-    } else {
+    } else if (window.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
           if (ENV.ENVIRONMENT === 'elcomercio') {
@@ -298,6 +297,8 @@ class NavBarDefault extends PureComponent {
             updated: Date.now(),
           })
         },
+      }).then(() => {
+        this.initCounters()
       })
       // .then(() => {
       // W.console.log('Results from running paywall script: ', results)
@@ -796,11 +797,14 @@ class NavBarDefault extends PureComponent {
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
               {siteProperties.activeSignwall && (
                 <div className={`${classes.btnContainer}`}>
-                  <Button
-                    btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe} btn--outline`}
-                    btnLink={`https://suscripciones.${arcSite}.pe/?ref=${arcSite}`}
-                  />
+                  {siteProperties.activePaywall && (
+                    <Button
+                      btnText="Suscríbete"
+                      btnClass={`${classes.btnSubscribe} btn--outline`}
+                      btnLink={`https://suscripciones.${arcSite}.pe/?ref=${arcSite}`}
+                    />
+                  )}
+
                   <button
                     type="button"
                     id={

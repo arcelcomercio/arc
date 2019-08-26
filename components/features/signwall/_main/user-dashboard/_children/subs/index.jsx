@@ -5,6 +5,8 @@ import Modal from '../../../common/modal'
 import Loading from '../../../common/loading'
 import { Close } from '../../../common/iconos'
 
+import ResumeSubs from '../home/subs'
+
 @Consumer
 class MySubs extends Component {
   constructor(props) {
@@ -113,37 +115,38 @@ class MySubs extends Component {
     ) : (
       <>
         {isSubs ? (
-          <div className="resume__dates">
-            <div className="cont-subs-large">
-              <div className="first-subs">
-                <p>DETALLE DE LA SUSCRIPCIÓN</p>
-                <h3>Digital</h3>
-                <br />
-                <p>Plan de pago: Mensual</p>
-                <p>Precio: S/{paywallPrice}*</p>
-                <p className="mini">*{paywallDescripcion}</p>
-              </div>
-              <div className="last-subs">
-                <p>
-                  <strong>Beneficios</strong>
-                </p>
-                <ul className="list-benefits mb-20">
-                  {featuresDescription.map(item => {
-                    return <li key={item}>{item}</li>
-                  })}
-                </ul>
-              </div>
-            </div>
-            <hr />
-            <div className="cont-link">
-              <button
-                type="button"
-                className="link"
-                onClick={() => this.openModalConfirm()}>
-                ANULAR MI SUSCRIPCIÓN
-              </button>
-            </div>
-          </div>
+           <ResumeSubs />
+          // <div className="resume__dates">
+          //   <div className="cont-subs-large">
+          //     <div className="first-subs">
+          //       <p>DETALLE DE LA SUSCRIPCIÓN</p>
+          //       <h3>Plan Digital</h3>
+          //       <br />
+          //       <p>Plan de pago: Mensual</p>
+          //       <p>Precio: S/{paywallPrice}*</p>
+          //       <p className="mini">*{paywallDescripcion}</p>
+          //     </div>
+          //     <div className="last-subs">
+          //       <p>
+          //         <strong>Beneficios</strong>
+          //       </p>
+          //       <ul className="list-benefits mb-20">
+          //         {featuresDescription.map(item => {
+          //           return <li key={item}>{item}</li>
+          //         })}
+          //       </ul>
+          //     </div>
+          //   </div>
+          //   <hr />
+          //   <div className="cont-link">
+          //     <button
+          //       type="button"
+          //       className="link"
+          //       onClick={() => this.openModalConfirm()}>
+          //       ANULAR MI SUSCRIPCIÓN
+          //     </button>
+          //   </div>
+          // </div>
         ) : (
           <div className="resume__dates">
             <div className="cont-plan">
@@ -191,7 +194,7 @@ class MySubs extends Component {
           </div>
         )}
 
-        {showModalConfirm && (
+        {/* {showModalConfirm && (
           <Modal
             size="small"
             position="middle"
@@ -199,7 +202,7 @@ class MySubs extends Component {
             name="modal-div-confirmpass"
             id="modal-div-confirmpass">
             <div className="text-right">
-              <button type="button" onClick={e => this.closeModalConfirm(e)}>
+              <button type="button" className="link-close" onClick={e => this.closeModalConfirm(e)}>
                 <Close />
               </button>
             </div>
@@ -235,7 +238,7 @@ class MySubs extends Component {
               </form>
             </div>
           </Modal>
-        )}
+        )} */}
       </>
     )
   }

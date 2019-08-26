@@ -28,7 +28,7 @@ class ProfileAccount extends Component {
     this.state = {
       typeLogin: identitie.type.toLowerCase(),
       userName:
-        nameInit.length >= 24 ? `${nameInit.slice(0, 24)}...` : nameInit,
+        nameInit.length >= 20 ? `${nameInit.slice(0, 20)}...` : nameInit,
       emailUser: emailInit,
       userNameFB: usernameid.userName,
       activeProfile: false,
@@ -124,7 +124,7 @@ class ProfileAccount extends Component {
                     <div className="profile__left profile__card">
                       <div>
                         <h1 className="profile__title">
-                          Hola {userName !== 'undefined' ? userName : 'Usuario'}
+                          Hola <br/> {userName !== 'undefined' ? userName : 'Usuario'}
                         </h1>
                         <span className="profile__text">
                           Bienvenido a tu perfil
