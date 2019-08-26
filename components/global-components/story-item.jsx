@@ -89,10 +89,6 @@ class StoriesList extends PureComponent {
                 multimediaType === ConfigParams.VIDEO && (
                   <span className={classes.iconVideo} />
                 )}
-              {multimediaType !== null &&
-                multimediaType === ConfigParams.ELEMENT_YOUTUBE_ID && (
-                  <span className={classes.iconVideo} />
-                )}
               <picture>
                 <source
                   className={isAdmin ? '' : 'lazy'}
