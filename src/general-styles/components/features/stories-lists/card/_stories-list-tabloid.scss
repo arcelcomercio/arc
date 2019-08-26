@@ -4,9 +4,9 @@
   flex-wrap: wrap;
   &__item {
     padding: 20px;
+    width: 100%;
     padding-bottom: 0;
     border-bottom: solid 1px $color-gray-200;
-    flex-basis: calc(100% / 2);
     position: relative;
     // &:nth-child(even) {
     //   margin-left: 20px;
@@ -24,6 +24,9 @@
     }
     &:nth-last-child(-n + 2) {
       border-bottom: 0;
+    }
+    @media (--tablet) {
+      flex-basis: calc(100% / 2);
     }
   }
   &__image-link {
