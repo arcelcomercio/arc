@@ -14,7 +14,7 @@ const SupportDialog = props => {
   const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
   return (
-    <Modal {...props}>
+    <Modal scrollable {...props}>
       <S.DialogContent>
         <picture>
           <source
