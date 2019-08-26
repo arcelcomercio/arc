@@ -10,11 +10,8 @@ import ClickToCall from '../_children/click-to-call'
 class Portal extends React.PureComponent {
   constructor(props) {
     super(props)
-    const {
-      contextPath,
-      deployment,
-      siteProperties: { assets },
-    } = props
+    const { contextPath, deployment, siteProperties } = props
+    const { assets } = siteProperties
     const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
     this.BACKGROUND = `url(${fullAssets('backgroundx1')})`
     this.fetchContent({
@@ -39,8 +36,11 @@ class Portal extends React.PureComponent {
 
   render() {
     const { background, serviceData = [] } = this.state
-    const { paywall: { clickToCall }} = props
-
+    const {
+      siteProperties: {
+        paywall: { clickToCallUrl },
+      },
+    } = this.props
     return (
       <div className="portal" style={{ background }}>
         <div className="portal__content">
@@ -56,7 +56,7 @@ class Portal extends React.PureComponent {
               SUSCRIPCIONES CORPORATIVAS
             </a>
             <div className="wrap__click-to-call">
-              <ClickToCall href={clickToCall} />
+              <ClickToCall href={clickToCallUrl} />
             </div>
           </div>
         </div>
