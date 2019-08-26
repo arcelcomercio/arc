@@ -16,6 +16,7 @@ export default ({
   siteUrl = '',
 }) => {
   const {
+    id,
     seoTitle: title,
     tags,
     link,
@@ -198,6 +199,7 @@ export default ({
       {!isAmp && (
         <link rel="amphtml" href={`${siteUrl}${link}?outputType=amp`} />
       )}
+      <meta name="data-article-id" content={id} />
       <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
