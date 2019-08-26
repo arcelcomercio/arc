@@ -25,11 +25,11 @@ class ExtraordinaryStoryGrid extends PureComponent {
 
     const { urlStory = {}, multimediaService = '' } = customFieldsData
 
-    if (multimediaService === Data.AUTOMATIC) {
-      // const { contentConfigValues: { section = '' } = {} } = urlStory
-      // if (section !== '')
-      this.fetch('storyData', urlStory, storySchema(arcSite))
-    }
+    // if (multimediaService === Data.AUTOMATIC) {
+    // const { contentConfigValues: { section = '' } = {} } = urlStory
+    // if (section !== '')
+    this.fetch('storyData', urlStory, storySchema(arcSite))
+    // }
 
     for (let i = 1; i <= 4; i++) {
       const { contentConfigValues: { _id = '' } = {} } =
