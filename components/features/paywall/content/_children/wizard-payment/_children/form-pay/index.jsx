@@ -42,7 +42,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
         return (
           <Form>
             <S.Security>
-              <Icon type="lock" width="20" height="25" />
+              <Icon type="lock" width="20" height="25" fill="#249109" />
               <S.TextSecurity>
                 Compra seguro. Esta web está protegida
               </S.TextSecurity>
