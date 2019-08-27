@@ -71,7 +71,7 @@ class Stick extends PureComponent {
   }
 }
 
-StoryComentario.propTypes = {
+Stick.propTypes = {
   customFields,
 }
 
