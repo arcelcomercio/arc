@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import ExtraordinaryStoryGridChild from './_children/extraordinary-story-grid'
 import customFields from './_dependencies/custom-fields'
-import { storySchema, sectionSchema } from './_dependencies/schemas-filter'
+import { storySchema, sectionSchema } from './_dependencies/schema-filter'
 import Data from '../_dependencies/data'
 import SectionData from '../../../utilities/section-data'
 
@@ -23,7 +23,7 @@ class ExtraordinaryStoryGrid extends PureComponent {
   initFetch = () => {
     const { customFields: customFieldsData = {}, arcSite = '' } = this.props
 
-    const { urlStory = {}, multimediaService = '' } = customFieldsData
+    const { urlStory = {} /* multimediaService = '' */ } = customFieldsData
 
     // if (multimediaService === Data.AUTOMATIC) {
     // const { contentConfigValues: { section = '' } = {} } = urlStory
