@@ -22,8 +22,9 @@ class Stick extends PureComponent {
       customFields: { urlpwd = '', appData = '', href = '' } = {},
     } = this.props
 
-    var aOpenApp = document.getElementById('button-app')
-    var dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
+    const aOpenAppClose = document.querySelector('.stick__close-app')
+    const aOpenApp = document.getElementById('button-app')
+    const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
 
     aOpenApp.addEventListener('click', function(ev) {
       ev.preventDefault()
@@ -33,6 +34,11 @@ class Stick extends PureComponent {
       }?appData=/${dataPageId !== '/' && 'news'}${dataPageId}${appData}${
         window.location.href
       }${href}`
+    })
+
+    aOpenAppClose.addEventListener('click', function(ev) {
+      ev.preventDefault()
+      aOpenAppClose.classList.add('hidden')
     })
   }
 
