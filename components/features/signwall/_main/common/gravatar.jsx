@@ -1,9 +1,20 @@
 import React from 'react'
 // import md5 from 'md5'
 
-const Gravatar = () => {
+const Gravatar = props => {
   // const { email } = props
   // const hash = md5(email)
+
+  const { type, fbID } = props
+
+  if (type === 'facebook') {
+    return (
+      <img
+        src={`https://graph.facebook.com/${fbID}/picture?type=large&redirect=true&width=500&height=500`}
+        alt="facebook"
+      />
+    )
+  }
 
   return (
     <img

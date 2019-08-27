@@ -4,64 +4,14 @@ import { devices } from '../_dependencies/devices'
 import getDomain from '../_dependencies/domains'
 import Card from './_children/card'
 import './paywall.css'
-
-// const serviceData = [
-//   {
-//     title: 'Digital',
-//     price: { amount: 29, currency: 'S/' },
-//     detail: {
-//       frequency: 'MES',
-//       duration: 'POR 6 MESES',
-//       aditional: 'LUEGO S/ 20 CADA MES',
-//     },
-//     features: [
-//       'Acceso a contenido exclusivo en gestion.pe y navegación ilimitada desde todos tus dispositivos',
-//     ],
-//   },
-//   {
-//     title: 'Digital + Impreso',
-//     recommended: true,
-//     price: { amount: 49, currency: 'S/' },
-//     detail: {
-//       frequency: 'MES',
-//       duration: 'POR 6 MESES',
-//       aditional: 'LUEGO S/ 20 CADA MES',
-//     },
-//     aditional: '',
-//     features: [
-//       'Acceso a contenido exclusivo en gestion.pe y navegación ilimitada desde todos tus dispositivos',
-//       'Diario impreso de Lunes a Viernes',
-//       'Acceso a la versión impresa en formato digital: PDF',
-//       'Descuentos ilimitados del club de beneficios',
-//       'Revista G',
-//     ],
-//   },
-//   {
-//     title: 'Impreso',
-//     price: { amount: 49, currency: 'S/' },
-//     detail: {
-//       frequency: 'MES',
-//       duration: '',
-//       aditional: '',
-//     },
-//     features: [
-//       'Diario impreso de Lunes a Viernes',
-//       'Acceso a la versión impresa en formato digital: PDF',
-//       'Descuentos ilimitados del club de beneficios',
-//       'Revista G',
-//     ],
-//   },
-// ]
+import ClickToCall from '../_children/click-to-call'
 
 @Consumer
 class Portal extends React.PureComponent {
   constructor(props) {
     super(props)
-    const {
-      contextPath,
-      deployment,
-      siteProperties: { assets },
-    } = props
+    const { contextPath, deployment, siteProperties } = props
+    const { assets } = siteProperties
     const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
     this.BACKGROUND = `url(${fullAssets('backgroundx1')})`
     this.fetchContent({
@@ -86,7 +36,11 @@ class Portal extends React.PureComponent {
 
   render() {
     const { background, serviceData = [] } = this.state
-
+    const {
+      siteProperties: {
+        paywall: { clickToCallUrl },
+      },
+    } = this.props
     return (
       <div className="portal" style={{ background }}>
         <div className="portal__content">
@@ -95,9 +49,16 @@ class Portal extends React.PureComponent {
           ))}
         </div>
         <div className="portal__footer">
-          <a href={getDomain('URL_CORPORATE')} className="link link--corporate">
-            SUSCRIPCIONES CORPORATIVAS
-          </a>
+          <div className="footer__content">
+            <a
+              href={getDomain('URL_CORPORATE')}
+              className="link link--corporate">
+              SUSCRIPCIONES CORPORATIVAS
+            </a>
+            <div className="wrap__click-to-call">
+              <ClickToCall href={clickToCallUrl} />
+            </div>
+          </div>
         </div>
       </div>
     )

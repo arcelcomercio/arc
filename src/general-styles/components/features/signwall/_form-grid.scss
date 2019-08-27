@@ -201,6 +201,12 @@
         font-size: 15px;
         line-height: 24px;
       }
+      &__label--title {
+        font-size: 18px;
+        color: #000000;
+        font-weight: bold;
+        line-height: 32px;
+      }
     }
 
     // @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {

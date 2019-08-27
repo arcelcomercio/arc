@@ -27,7 +27,7 @@ export const Cards = styled.div`
 export const Security = styled.div`
   display: flex;
   align-items: center;
-  color: #d6a730;
+  color: #249109;
   font-weight: 700;
   margin-bottom: 20px;
   @media (${devices.mobile}) {

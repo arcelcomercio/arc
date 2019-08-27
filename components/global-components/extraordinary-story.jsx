@@ -61,7 +61,9 @@ const ExtraordinaryStory = props => {
   }
   return (
     <article
-      className={`${classes.extraordinaryStory} extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
+      className={`${
+        classes.extraordinaryStory
+      } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
       <div className={classes.groupContent}>
         {!isSection && (
           <p className={classes.section}>
@@ -89,19 +91,18 @@ const ExtraordinaryStory = props => {
         </div>
       </div>
       <div className={classes.multimedia}>
-        <a href={data.link}>
-          <EmbedMultimedia
-            type={data.typeMultimediaGeneral}
-            title={data.title}
-            source={data.sourceMultimedia}
-            deployment={deployment}
-            contextPath={contextPath}
-            website={arcSite}
-          />
-          {multimediaType === ConfigParams.GALLERY && (
-            <Icon type={multimediaType} />
-          )}
-        </a>
+        <EmbedMultimedia
+          type={data.typeMultimediaGeneral}
+          title={data.title}
+          source={data.sourceMultimedia}
+          deployment={deployment}
+          contextPath={contextPath}
+          website={arcSite}
+          linkStory={data.link}
+        />
+        {multimediaType === ConfigParams.GALLERY && (
+          <Icon type={multimediaType} />
+        )}
       </div>
     </article>
   )

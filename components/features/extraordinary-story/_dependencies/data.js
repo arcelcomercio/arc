@@ -78,8 +78,7 @@ class Data extends StoryData {
   }
 
   get primarySectionLink() {
-    const { contentConfigValues: { section = '' } = {} } = this.customFields.urlStory || {}
-    return super.primarySectionLink || section
+    return (this.customFields && this.customFields.sectionLink) || super.primarySectionLink
   }
 
   /* get isVideo() {

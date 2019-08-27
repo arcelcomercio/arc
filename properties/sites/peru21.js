@@ -1,7 +1,7 @@
 export default {
   siteName: 'Peru21',
-
-  googleFonts: 'Lato:400,700|Exo:500',
+  newsletterBrand: 'peru21',
+  googleFonts: 'Lato:300,400,700,900|Exo:500',
 
   colorPrimary: '#005fa5',
   siteDomain: 'peru21.pe',
@@ -65,23 +65,23 @@ export default {
   legalLinks: [
     {
       name: 'Términos y condiciones',
-      url: '/terminos-y-condiciones',
+      url: '/terminos-y-condiciones/',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-de-privacidad',
+      url: '/politicas-de-privacidad/',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-de-cookies',
+      url: '/politicas-de-cookies/',
     },
   ],
 
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
-      'Copyright © Elcomercio.pe',
+      'Jr. Miró Quesada 247. Piso 6 Lima 1',
+      'Copyright © Peru21.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
     story: [
@@ -91,7 +91,7 @@ export default {
       },
       {
         position: 'Diario Perú21: ',
-        name: 'Jr. Santa Rosa #300. Piso 6 Lima 1',
+        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
       },
       {
         position: 'Copyright © Peru21.pe',
@@ -107,10 +107,6 @@ export default {
         name: 'twitter',
         url: 'https://twitter.com/peru21noticias',
       },
-      {
-        name: 'google+',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
     ],
 
     contacts: [
@@ -119,12 +115,12 @@ export default {
         name: 'Cecilia Valenzuela',
       },
       {
-        position: 'Diario Perú21',
-        name:'Jr. Santa Rosa 247. Piso 6 Lima 1'
+        position: 'Editora Web',
+        name: 'Esther Vargas - esther.vargas@peru21.com',
       },
       {
-        position: 'Contacto comercial',
-        name: '',
+        position: 'Publicidad Web',
+        name: 'fonoavisos@comercio.pe',
       },
     ],
   },
@@ -153,13 +149,14 @@ export default {
     movil5: 15011776,
   },
   listUrlAdvertisings: [
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-22.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-23.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna1-300x250-div-gpt-ad-8599377-31.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna2-300x250-div-gpt-ad-8599377-32.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna3-300x250-div-gpt-ad-8599377-33.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna4-300x250-div-gpt-ad-8599377-34.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna5-300x250-div-gpt-ad-8599377-35.html',
   ],
-  activeSignwall: false,
+  activeSignwall: true,
+  activePaywall: false,
   tv: {
     logoUrl: '/peru21tv/',
     logoAlt: 'Perú21Tv',

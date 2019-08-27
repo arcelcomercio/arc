@@ -202,7 +202,8 @@ class StoryData {
   }
 
   get multimediaType() {
-    return StoryData.getTypeMultimedia(this._data)
+    // return StoryData.getTypeMultimedia(this._data)
+    return StoryData.getMultimediaIconType(this._data)
   }
 
   get section() {
@@ -532,12 +533,21 @@ class StoryData {
     return galleryContentResul.filter(String)
   }
 
-  get comments() {
+  get commentsDisplay() {
     const comments =
       (this._data &&
         this._data.comments &&
-        (this._data.comments.display_comments ||
-          this._data.comments.display_comments)) ||
+        this._data.comments.display_comments) ||
+      ''
+
+    return comments
+  }
+
+  get commentsAllow() {
+    const comments =
+      (this._data &&
+        this._data.comments &&
+        this._data.comments.allow_comments) ||
       ''
 
     return comments
@@ -571,6 +581,25 @@ class StoryData {
         size
       ) || this.defaultImg
     )
+  }
+
+  getPromoItemsType = () => {
+    let typeMultimedia = null
+    const { promo_items: promoItems = {} } = this._data || {}
+    const items = Object.keys(promoItems)
+
+    if (items.length > 0) {
+      if (items.includes(ConfigParams.VIDEO)) {
+        typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
+        typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
+      } else if (items.includes(ConfigParams.GALLERY)) {
+        typeMultimedia = ConfigParams.GALLERY
+      } else if (items.includes(ConfigParams.IMAGE)) {
+        typeMultimedia = ConfigParams.IMAGE
+      }
+    }
+    return typeMultimedia
   }
 
   static getSeoMultimedia(
@@ -773,6 +802,26 @@ class StoryData {
       }
     }
 
+    return typeMultimedia
+  }
+
+  static getMultimediaIconType = data => {
+    let typeMultimedia = null
+    const { promo_items: promoItems = {} } = data || {}
+    const items = Object.keys(promoItems)
+
+    if (items.length > 0) {
+      if (items.includes(ConfigParams.VIDEO)) {
+        typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
+        // typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
+        typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.GALLERY)) {
+        typeMultimedia = ConfigParams.GALLERY
+      } else if (items.includes(ConfigParams.IMAGE)) {
+        typeMultimedia = ConfigParams.IMAGE
+      }
+    }
     return typeMultimedia
   }
 

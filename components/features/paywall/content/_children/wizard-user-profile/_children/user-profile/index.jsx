@@ -1,5 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Formik, Form, Field } from 'formik'
+import pick from 'object.pick'
 import * as S from './styled'
 import InputFormik from '../../../../../_children/input'
 import Button from '../../../../../_children/button'
@@ -12,6 +14,7 @@ const { trim } = Masks.Pipes
 const _initValue = {
   firstName: null,
   lastName: null,
+  secondLastName: null,
   documentType: 'DNI',
   documentNumber: null,
   phone: null,
@@ -19,14 +22,18 @@ const _initValue = {
 }
 const UserProfile = ({
   title = '',
-  initialValues,
+  initialValues = {},
   error,
   onSubmit,
   onReset,
 }) => {
   return (
     <Formik
-      initialValues={Object.assign({}, _initValue, initialValues)}
+      initialValues={Object.assign(
+        {},
+        _initValue,
+        pick(initialValues, Object.keys(_initValue))
+      )}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
         onSubmit(
@@ -132,6 +139,29 @@ const UserProfile = ({
       }}
     />
   )
+}
+
+UserProfile.propTypes = {
+  initialValues: PropTypes.shape({
+    firstName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(null),
+    ]),
+    lastName: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(null),
+    ]),
+    documentType: PropTypes.oneOf(['DNI', 'CEX', 'CDI']),
+    documentNumber: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(null),
+    ]),
+    phone: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(null)]),
+    email: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(null)]),
+  }),
+  onSubmit: PropTypes.func,
+  title: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 }
 
 export default UserProfile

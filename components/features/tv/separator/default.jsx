@@ -18,11 +18,16 @@ const TvSeparator = props => {
       deleteLinks,
     } = {},
   } = props
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const { content_elements: contentElements = [], section_name: sectionName } =
     useContent({
       source: 'story-feed-by-section-with-custom-presets',
-      query: { section, stories_qty: maxStories, preset1: '280x157' },
+      query: {
+        section,
+        stories_qty: maxStories,
+        preset1: '9x5',
+        preset2: '280x157',
+      },
       filter: schemaFilter,
     }) || {}
   const dataStoryInstance = new StoryData({
@@ -34,26 +39,29 @@ const TvSeparator = props => {
 
   const getMultimedia = ({ data, multimedia, multimediaType }) => {
     let image = ''
+    let lazyImage = ''
     if (multimediaType === 'basic_video') {
       const {
         promo_items: {
           basic_video: {
             promo_items: {
-              basic: { resized_urls: { preset1 = '' } = {} } = {},
+              basic: { resized_urls: { preset1 = '', preset2 = '' } = {} } = {},
             } = {},
           } = {},
         } = {},
       } = data
-      image = preset1 || multimedia
-    } else if (multimediaType === 'basic') {
+      image = preset2 || multimedia
+      lazyImage = preset1 || ''
+    } else {
       const {
         promo_items: {
-          basic: { resized_urls: { preset1 = '' } = {} } = {},
+          basic: { resized_urls: { preset1 = '', preset2 = '' } = {} } = {},
         } = {},
       } = data
-      image = preset1 || multimedia
+      image = preset2 || multimedia
+      lazyImage = preset1 || ''
     }
-    return image
+    return { image, lazyImage }
   }
 
   const getVideoId = ({ data, multimediaType, videoId }) => {
@@ -61,7 +69,7 @@ const TvSeparator = props => {
     const { promo_items: { youtube_id: { content = '' } = {} } = {} } = data
     if (multimediaType === 'basic_video') {
       auxVideoId = { multimediaSource: videoId }
-    } else if (multimediaType === 'basic') {
+    } else if (multimediaType === 'youtube_id') {
       /** Si es un video de Youtube */
       auxVideoId = { youtubeId: content }
     }
@@ -75,10 +83,11 @@ const TvSeparator = props => {
       const {
         title,
         date,
-        multimediaType, // basic | basic_video
+        getPromoItemsType,
         multimedia,
         videoId,
       } = dataStoryInstance
+      const multimediaType = getPromoItemsType()
       auxParams.push({
         title,
         date,
@@ -89,13 +98,14 @@ const TvSeparator = props => {
         }),
         videoId: getVideoId({ data: element, multimediaType, videoId }),
         maxStories,
+        isAdmin,
       })
     })
     return auxParams
   }
 
   return (
-    <div className="tv-separator ml-10 mr-10 lg:ml-30 lg:mr-30 mb-25">
+    <div className="tv-separator ml-10 mr-10 lg:ml-30 lg:mr-30 pb-25">
       <div className="flex justify-between items-center mb-20">
         <h2>
           {deleteLinks ? (

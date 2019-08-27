@@ -107,7 +107,7 @@ const CardsFeaturedStorySpecial = props => {
           />
         </picture>
       </a>
-      <div className="position-absolute ml-20 mb-20 md:ml-40 md:mb-40 bottom-0">
+      <div className="featured-special__content overflow-hidden position-absolute ml-20 mb-20 md:ml-40 md:mb-40 bottom-0">
         <a
           href={primarySectionLink}
           className="featured-special__section-link inline-block font-bold text-white p-5 pl-30 pr-30 mb-15 text-xl bg-primary">
