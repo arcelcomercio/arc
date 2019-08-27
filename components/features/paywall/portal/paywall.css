@@ -6,9 +6,10 @@
 .portal__content {
   display: flex;
   justify-content: space-between;
-  min-width: 1120px;
+  max-width: 1120px;
   margin-top: 40px;
   align-self: center;
+  width: 100%;
 }
 .portal__footer {
   height: 90px;
@@ -18,6 +19,22 @@
   align-items: center;
   justify-content: center;
   margin-top: 35px;
+}
+
+.wrap__click-to-call{
+  position: absolute;
+    top: -25%;
+    right: 0;
+}
+
+.footer__content {
+  display: flex;
+  max-width: 1120px;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  height: 100%;
+  align-items: center;
 }
 
 .card {
@@ -35,32 +52,30 @@
   max-height: 90px;
 }
 
-.card__head--promotion{
+.card__head--promotion {
   position: relative;
 }
 
 .card__head__promotion {
-    position: absolute;
-    border-radius: 0 0 4px 4px;
-    height: 40px;
-    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
-    background-color: #d64445;
-    transform: translate3d(-50%, -30%, 0);
-    left: 50%;
-    color: #FFF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 145px;
-    font-weight: 700;
-    letter-spacing: 1.68px;
+  position: absolute;
+  border-radius: 0 0 4px 4px;
+  height: 40px;
+  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
+  background-color: #d64445;
+  transform: translate3d(-50%, -30%, 0);
+  left: 50%;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 145px;
+  font-weight: 700;
+  letter-spacing: 1.68px;
 }
 
-.card__head.card__head--promotion .head{
+.card__head.card__head--promotion .head {
   padding: 40px 0 10px;
 }
-
-
 
 .card__head .head {
   font-family: Judson;
@@ -144,36 +159,35 @@
   line-height: 1.83;
 }
 
-
-@media (min-width: 640px) and (max-width: 1024px){
-  .portal__content{
+@media (min-width: 640px) and (max-width: 1024px) {
+  .portal__content {
     flex-direction: column;
     min-width: auto;
     align-items: center;
   }
-  .card{
+  .card {
     min-height: 400px;
     margin-bottom: 40px;
     width: calc(100% - 20px);
+    max-width: 450px;
   }
-  .link--corporate{
+  .link--corporate {
     min-width: calc(100% - 40px);
   }
 }
 
 @media (max-width: 639px) {
-  .portal__content{
+  .portal__content {
     flex-direction: column;
     min-width: auto;
     align-items: center;
   }
-  .card{
+  .card {
     min-height: 400px;
     margin-bottom: 40px;
     width: calc(100% - 20px);
   }
-  .link--corporate{
+  .link--corporate {
     min-width: calc(100% - 40px);
   }
 }
-

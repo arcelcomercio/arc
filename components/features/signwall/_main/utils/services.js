@@ -9,6 +9,12 @@ const API_ORIGIN =
   ENV.ENVIRONMENT === 'elcomercio'
     ? 'https://api.gestion.pe'
     : 'https://api-sandbox.gestion.pe'
+
+// const API_CAMPAING =
+//   ENV.ENVIRONMENT === 'elcomercio'
+//     ? 'https://paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/'
+//     : 'https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/'
+
 export default class Services {
   reloginEcoID(username, password, action, window) {
     const details = {
@@ -80,4 +86,22 @@ export default class Services {
     })
     return response
   }
+
+  getIpEco() {
+    const response = new Promise(resolve => {
+      fetch(`https://geoapi.eclabs.io/location`, {
+        method: 'GET',
+      }).then(res => resolve(res.json()))
+    })
+    return response
+  }
+
+  // getCampaing() {
+  //   const response = new Promise(resolve => {
+  //     fetch(`${API_CAMPAING}`, { method: 'GET' }).then(res =>
+  //       resolve(res.json())
+  //     )
+  //   })
+  //   return response
+  // }
 }

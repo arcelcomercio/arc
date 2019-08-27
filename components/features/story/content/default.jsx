@@ -3,7 +3,6 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import ArcStoryContent, {
   Oembed,
-  RawHtml,
   Text,
 } from '@arc-core-components/feature_article-body'
 import {
@@ -11,12 +10,12 @@ import {
   createLink,
   createScript,
   replaceTags,
-  replaceHtmlMigracion,
 } from '../../../utilities/helpers'
 
 import StoryContentChildVideo from './_children/video'
+import StoryContentChildRawHTML from './_children/rawHtml'
 import StoryContentChildImage from './_children/image'
-import StoryHeaderChildGallery from '../header/_children/gallery'
+import StoryHeaderChildGallery from '../gallery/_children/gallery'
 import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildRelated from './_children/related'
@@ -206,10 +205,7 @@ class StoryContent extends PureComponent {
                       className={classes.newsImage}
                     />
                   ) : (
-                    <RawHtml
-                      content={replaceHtmlMigracion(content)}
-                      className={classes.newsEmbed}
-                    />
+                    <StoryContentChildRawHTML content={content} />
                   )
                 }
                 return ''

@@ -91,4 +91,7 @@
     text-decoration: underline;
     cursor: pointer;
     outline: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

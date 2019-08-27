@@ -91,10 +91,6 @@ export default {
         url: 'https://www.facebook.com/DiarioOjo',
       },
       {
-        name: 'twitter',
-        url: 'https://twitter.com/diarioojo',
-      },
-      {
         name: 'linkedin',
         url: 'https://www.linkedin.com/company/ojo/',
       },
@@ -156,4 +152,5 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna5-300x250-div-gpt-ad-8599377-30.html',
   ],
   activeSignwall: false,
+  activePaywall: false,
 }

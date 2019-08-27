@@ -4,6 +4,7 @@ $color-secondary: #388aca;
 $color-tertiary: #ebc12f;
 /*-----------------------*/
 
+$color-base-800: #0e6dc1;
 $color-base-700: aliceblue;
 $color-base-600: #555;
 $color-base-500: #7f7f7f;
@@ -15,6 +16,7 @@ $color-base-100: #e8f2f9;
 
 /******* Other colors *******/
 $color-link: #524cff;
+
 /*-----------------------*/
 
 /** ----------------------------*
@@ -32,3 +34,12 @@ $header-text-color: $color-gray-300;
 /******* Nav colors *******/
 $nav-color: $color-gray-300;
 /*-----------------------*/
+/*-------------CALENDAR----------------*/
+$calendar-background: $color-base-400 !default;
+$calendar-title: #19191d !default;
+$calendar-bg-icon: #ffffff !default;
+$calendar-icon: #ffffff !default;
+$calendar-line: #cac4c4 !default;
+$calendar-month: #8c8c8c !default;
+$calendar-day: #8c8c8c !default;
+/*-------------CALENDAR----------------*/

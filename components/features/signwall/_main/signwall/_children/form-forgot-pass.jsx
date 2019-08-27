@@ -125,55 +125,51 @@ class FormForgotPass extends Component {
   taggeoSuccess() {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      if (typePopUp === 'relogemail') {
-        window.dataLayer.push({
-          event: 'olvidepass_sucess',
-          eventCategory: 'Web_Sign_Wall_Relog_Email',
-          eventAction: 'web_relog_email_contrasena_success_boton',
-        })
-      } else {
-        window.dataLayer.push({
-          event: 'olvidepass_sucess',
-          eventCategory: `Web_Sign_Wall_${
-            typePopUp === 'relogin' ? 'Relogueo' : typePopUp
-          }`,
-          eventAction: `web_sw${typePopUp[0]}_contrasena_success_boton`, // web_relog ahora sera 'web_swr'
-        })
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_contrasena_success_boton`
-      )
-    }
+    // if (typePopUp === 'relogemail') {
+    //   window.dataLayer.push({
+    //     event: 'olvidepass_sucess',
+    //     eventCategory: 'Web_Sign_Wall_Relog_Email',
+    //     eventAction: 'web_relog_email_contrasena_success_boton',
+    //   })
+    // } else {
+    //   window.dataLayer.push({
+    //     event: 'olvidepass_sucess',
+    //     eventCategory: `Web_Sign_Wall_${
+    //       typePopUp === 'relogin' ? 'Relogueo' : typePopUp
+    //     }`,
+    //     eventAction: `web_sw${typePopUp[0]}_contrasena_success_boton`, // web_relog ahora sera 'web_swr'
+    //   })
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_contrasena_success_boton`
+    )
   }
 
   taggeoError() {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      if (typePopUp === 'relogemail') {
-        window.dataLayer.push({
-          event: 'olvidepass_error',
-          eventCategory: 'Web_Sign_Wall_Relog_Email',
-          eventAction: 'web_relog_email_contrasena_error_boton',
-        })
-      } else {
-        window.dataLayer.push({
-          event: 'olvidepass_error',
-          eventCategory: `Web_Sign_Wall_${
-            typePopUp === 'relogin' ? 'Relogueo' : typePopUp
-          }`,
-          eventAction: `web_sw${typePopUp[0]}_contrasena_error_boton`, // web_relog ahora sera 'web_swr'
-        })
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_contrasena_error_boton`
-      )
-    }
+    // if (typePopUp === 'relogemail') {
+    //   window.dataLayer.push({
+    //     event: 'olvidepass_error',
+    //     eventCategory: 'Web_Sign_Wall_Relog_Email',
+    //     eventAction: 'web_relog_email_contrasena_error_boton',
+    //   })
+    // } else {
+    //   window.dataLayer.push({
+    //     event: 'olvidepass_error',
+    //     eventCategory: `Web_Sign_Wall_${
+    //       typePopUp === 'relogin' ? 'Relogueo' : typePopUp
+    //     }`,
+    //     eventAction: `web_sw${typePopUp[0]}_contrasena_error_boton`, // web_relog ahora sera 'web_swr'
+    //   })
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_contrasena_error_boton`
+    )
   }
 
   templateSendEmail(changeTemplate) {
@@ -260,7 +256,7 @@ class FormForgotPass extends Component {
   }
 
   templateSendedEmail(changeTemplate) {
-    const { closePopup, brandCurrent, typePopUp } = this.props
+    const { closePopup, brandCurrent, typePopUp, reloadForgot } = this.props
     return (
       <form className="form-grid">
         <div className="form-grid__back">
@@ -293,7 +289,11 @@ class FormForgotPass extends Component {
                     `Web_Sign_Wall_${typePopUp}`,
                     `web_sw${typePopUp[0]}_contrasena_boton_aceptar`
                   )
-                  closePopup()
+                  if (reloadForgot) {
+                    window.location.reload()
+                  } else {
+                    closePopup()
+                  }
                 }}
               />
             </div>

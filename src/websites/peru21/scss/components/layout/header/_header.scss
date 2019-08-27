@@ -1,13 +1,11 @@
 .header {
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    right: 40px;
-    width: 100px;
-    height: 50px;
-    background-image: url(/pf/resources/dist/peru21/images/otorongo.png);
-    background-size: cover;
+  @media (--tablet) {
+    justify-content: flex-start;
+  }
+  &__logo {
+    @media (--desktop) {
+      margin-left: 7px;
+    }
   }
   &__link {
     text-transform: capitalize;
@@ -45,6 +43,15 @@
     justify-content: center;
     @media (--tablet) {
       justify-content: flex-start;
+    }
+  }
+  &__logo-secondary {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 54px;
+    @media (--desktop) {
+      right: 12px;
     }
   }
 }

@@ -28,7 +28,7 @@ const services = new Services()
 
 const classes = {
   nav: `nav text-white text-sm w-full flex flex items-center top-0 secondary-font`,
-  wrapper: `nav__wrapper flex items-center nav__wrapper bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-15 pr-15`,
+  wrapper: `nav__wrapper flex items-center bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
   navContainerRight: `nav__container-right position-absolute hidden lg:inline-block`,
@@ -44,6 +44,7 @@ const classes = {
   mobileLogo: 'nav__mobile-logo position-absolute',
   listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
   logo: 'nav__logo lg:hidden',
+  logoLeft: 'header__logo-secondary',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
@@ -90,6 +91,8 @@ class NavBarDefault extends PureComponent {
       showPaywall: false,
       userName: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
       initialUser: new GetProfile().initname,
+      countAnonymous: 0,
+      countRegister: 0,
     }
 
     this.inputSearch = React.createRef()
@@ -183,7 +186,10 @@ class NavBarDefault extends PureComponent {
 
     // ---------- Start Premium & Paywall ----------- //
 
-    if (arcSite === 'gestion') this.getPaywall()
+    if (arcSite === 'gestion') {
+      this.getPaywall()
+      this.initCounters()
+    }
 
     // ---------- End Premium & Paywall ------------ //
   }
@@ -198,8 +204,8 @@ class NavBarDefault extends PureComponent {
     } else {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        userName: new GetProfile().username,
-        initialUser: new GetProfile().initname,
+        userName: 'Iniciar Sesión',
+        initialUser: false,
       })
     }
   }
@@ -232,12 +238,32 @@ class NavBarDefault extends PureComponent {
         ? `https://api.${arcSite}.pe`
         : `https://api-sandbox.${arcSite}.pe`
 
+    // this.checkIsEco().then(res => {
+    //   window.console.log(res)
+    // })
+
     if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
       this.getPremium() // Only sandbox ;)
     } else {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          W.location.href = campaignURL
+          if (ENV.ENVIRONMENT === 'elcomercio') {
+            if (
+              campaignURL.indexOf('signwallPaywall') >= 0 &&
+              W.location.pathname.indexOf('podcast') >= 0
+            ) {
+              window.console.log('signwallPaywall')
+              this.checkIsEco().then(res => {
+                if (res === true) W.location.href = campaignURL
+              })
+            } else if (campaignURL.indexOf('signwallHard') >= 0) {
+              window.console.log('signwallHard')
+              W.location.href = campaignURL
+            }
+          } else {
+            window.console.log('signwallHard & signwallPaywall')
+            W.location.href = campaignURL
+          }
         },
         contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
         section: dataContSec ? dataContSec.getAttribute('content') : 'none',
@@ -420,6 +446,28 @@ class NavBarDefault extends PureComponent {
     return false
   }
 
+  initCounters = () => {
+    const userId = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO'))
+    const UUID = userId ? userId.uuid : window.Identity.userIdentity.uuid
+    const localCounter = JSON.parse(window.localStorage.getItem('ArcP'))
+
+    if (localCounter) {
+      if (localCounter.anonymous) {
+        const cAnon = localCounter.anonymous.v.ci.length || 0
+        this.setState({
+          countAnonymous: cAnon,
+        })
+      }
+
+      if (UUID && localCounter[UUID]) {
+        const cReg = localCounter[UUID].v.ci.length || 0
+        this.setState({
+          countRegister: cReg,
+        })
+      }
+    }
+  }
+
   // check Url string popup
   getUrlParam = name => {
     const vars = {}
@@ -528,6 +576,17 @@ class NavBarDefault extends PureComponent {
     }
   }
 
+  checkIsEco = () => {
+    const response = services.getIpEco().then(res => {
+      return !!(
+        res.ip === '200.4.199.49' ||
+        res.ip === '201.234.125.242' ||
+        res.ip === '201.234.62.52'
+      )
+    })
+    return response
+  }
+
   closeSignwall() {
     this.setState({ isActive: false })
   }
@@ -568,9 +627,12 @@ class NavBarDefault extends PureComponent {
       showReset,
       showRelogin,
       showPaywall,
+      countAnonymous,
+      countRegister,
     } = this.state
     const {
       logo,
+      logoLetf,
       arcSite,
       siteProperties,
       contextPath,
@@ -680,6 +742,20 @@ class NavBarDefault extends PureComponent {
                 className={classes.logo}
               />
             </a>
+
+            {type !== ConfigParams.ELEMENT_STORY &&
+              arcSite === ConfigParams.SITE_PERU21 && (
+                <a
+                  className={classes.logoLeft}
+                  href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
+                  <img
+                    src={logoLetf.src}
+                    alt={logo.alt}
+                    className={classes.logoImage}
+                  />
+                </a>
+              )}
+
             <div className={classes.navStoryTitle} />
 
             <div className={classes.navStorySocialNetwork}>
@@ -736,20 +812,15 @@ class NavBarDefault extends PureComponent {
                       `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
-                    {/* 
-                    Por ahora esto no está contemplado en diseño
-                    <i
-                      className={
-                        initialUser
-                          ? `${classes.iconSignwall} text-user font-bold`
-                          : `${classes.iconLogin} ${classes.iconSignwall} icon-user`
-                      }>
-                      {initialUser}
-                    </i> */}
                     <span>
                       {this.checkSession() ? userName : 'Iniciar Sesión'}
                     </span>
                   </button>
+                  {window.document.cookie.indexOf('isECO=true') >= 0 ? (
+                    <strong>
+                      {this.checkSession() ? countRegister : countAnonymous}
+                    </strong>
+                  ) : null}
                 </div>
               )}
             </div>

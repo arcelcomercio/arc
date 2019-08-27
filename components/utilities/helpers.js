@@ -402,7 +402,7 @@ export const createLink = url => {
 }
 
 export const appendToBody = node => {
-  document.body.appendChild(node)
+  document.body.append(node)
 }
 
 export const breadcrumbList = (url, siteUrl) => {
@@ -472,6 +472,7 @@ export const imageHtml = html => {
     rplImageCde1
   )
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
+  resHtml = resHtml.replace(/<p><img src="(.*?)">/g, rplImageCde1)
   return resHtml
 }
 
@@ -806,4 +807,13 @@ export const getRemoveSlug = slug => {
     .replace(/ñ/g, 'n')
     .replace(/[òóôõö]/g, 'o')
     .replace(/[ùúûü]/g, 'u')
+}
+
+export const getRelatedIds = data => {
+  return (
+    data &&
+    data.map(({ _id }) => {
+      return _id
+    })
+  )
 }

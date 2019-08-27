@@ -12,14 +12,14 @@ const Taggeo = (cat, acc) => {
   const TRIGGER = 'tag_signwall'
   window.dataLayer = window.dataLayer || []
 
+  window.dataLayer.push({
+    event: TRIGGER,
+    eventCategory: titleCase(cat),
+    eventAction: acc,
+  })
+
   if (ENV.ENVIRONMENT !== 'elcomercio') {
     // Only sandbox ;)
-    window.dataLayer.push({
-      event: TRIGGER,
-      eventCategory: titleCase(cat),
-      eventAction: acc,
-    })
-
     window.console.log({
       event: TRIGGER,
       eventCategory: titleCase(cat),

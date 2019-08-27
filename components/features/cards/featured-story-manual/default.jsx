@@ -102,7 +102,7 @@ class CardFeaturedStoryManual extends PureComponent {
         })
       }
 
-      const { auxNote1 = {}, auxNote2 = {}, auxNote3 = {} } = this.state
+      const { auxNote1 = {}, auxNote2 = {}, auxNote3 = {} } = this.state || {}
       const dateNote1 = auxNote1.publish_date && new Date(auxNote1.publish_date)
       const dateNote2 = auxNote2.publish_date && new Date(auxNote2.publish_date)
       const dateNote3 = auxNote3.publish_date && new Date(auxNote3.publish_date)
@@ -179,6 +179,7 @@ class CardFeaturedStoryManual extends PureComponent {
         imgField,
         path = '',
       } = {},
+      siteProperties: { siteName = '' } = {},
     } = this.props
 
     const { data = {}, defaultData = {} } = this.state || {}
@@ -226,6 +227,7 @@ class CardFeaturedStoryManual extends PureComponent {
       arcSite,
       multimediaType,
       isAdmin,
+      siteName,
       errorList: this.errorList || [],
     }
     return <FeaturedStory {...params} />

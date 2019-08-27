@@ -6,15 +6,17 @@ import getProperties from 'fusion:properties'
 import {
   /* removeLastSlash, */
   addResizedUrlsToStory,
+  removeLastSlash,
 } from '../../components/utilities/helpers'
 
 // Fix temporal
-const removeLastSlash = section => {
-  if (section === '/') return section
-  return section && section.endsWith('/')
-    ? section.slice(0, section.length - 1)
-    : section
-}
+
+// const removeLastSlash = section => {
+//   if (section === '/') return section
+//   return section && section.endsWith('/')
+//     ? section.slice(0, section.length - 1)
+//     : section
+// }
 
 const SCHEMA_NAME = 'stories'
 let website = ''

@@ -1,30 +1,20 @@
 import Consumer from 'fusion:consumer'
 import React from 'react'
 import Wizard from 'react-step-wizard'
+
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
-import Icon from '../_children/icon'
 import WizardPlan from './_children/wizard-plan'
 import * as S from './styled'
 import { AddIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
+import ClickToCall from '../_children/click-to-call'
 import PWA from './_dependencies/seed-pwa'
 import '../_dependencies/sentry'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
-
-const Right = ({ href }) => {
-  return (
-    <S.Button as="a" href={href} target="_blank" rel="noopener noreferrer">
-      <span>
-        ¿Necesitas ayuda?
-        <Icon type="support" />
-      </span>
-    </S.Button>
-  )
-}
 
 @Consumer
 class Content extends React.Component {
@@ -63,9 +53,11 @@ class Content extends React.Component {
     PWA.mount(() => window.location.reload())
   }
 
-  onBeforeNextStepHandler = (response, { nextStep }) => {
+  onBeforeNextStepHandler = (response, { nextStep, currentStep }) => {
     Object.assign(this.memo, response)
+    this.dispatchEvent('currentStep', currentStep)
     nextStep()
+    window.scrollTo(0, 0)
   }
 
   setLoading = loading => {
@@ -77,7 +69,7 @@ class Content extends React.Component {
   render() {
     const { profile, loading } = this.state
     const { globalContent } = this.props
-    const { summary = [], plans, printed, error: message } = globalContent
+    const { summary = [], plans = [], printed, error: message } = globalContent
 
     const {
       contextPath,
@@ -104,7 +96,7 @@ class Content extends React.Component {
             nav={
               <Nav
                 stepsNames={_stepsNames}
-                right={<Right href={clickToCall} />}
+                right={<ClickToCall href={clickToCall} />}
               />
             }>
             <WizardPlan

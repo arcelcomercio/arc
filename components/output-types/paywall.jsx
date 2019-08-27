@@ -18,7 +18,7 @@ const Paywall = props => {
     theme: { color },
     siteName,
     assets,
-    paywall: { title },
+    paywall: { title, description, canonical, image },
   } = siteProperties
 
   const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
@@ -34,6 +34,24 @@ const Paywall = props => {
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
         <title>{metaValue('title') || title}</title>
+
+        {/* METAS SUGERIDOS */}
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+        <meta name="theme-color" content="#444444" />
+        <meta name="msapplication-TileColor" content="#444444" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@Gestionpe" />
+        <meta name="twitter:title" content="Suscripciones Digitales" />
+        <meta name="twitter:image" content={image} />
+        <meta name="twitter:description" content={description} />
+        <meta property="og:title" content="Suscripciones Digitales" />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:site_name" content="Gestión" />
+        <meta property="og:type" content="website" />
+        {/* METAS SUGERIDOS */}
 
         <props.Libs />
         <props.CssLinks />

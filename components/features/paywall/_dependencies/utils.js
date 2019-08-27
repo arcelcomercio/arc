@@ -1,3 +1,3 @@
-import deepMap from 'deep-map-object'
+import deepMap from 'map-values-deep'
 
-export const deepMapValues = (obj, modifier) => deepMap(modifier)(obj)
+export const deepMapValues = (obj, modifier) => deepMap(obj, modifier)
