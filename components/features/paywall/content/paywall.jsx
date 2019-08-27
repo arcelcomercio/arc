@@ -20,7 +20,10 @@ const Paywall = () => {
   const {
     contextPath,
     deployment,
-    siteProperties,
+    siteProperties: {
+      assets,
+      paywall: { clickToCall },
+    },
     globalContent: { summary = [], plans = [], printed, error: message },
   } = useFusionContext()
 
@@ -44,10 +47,6 @@ const Paywall = () => {
     window.scrollTo(0, 0)
   })
 
-  const {
-    assets,
-    paywall: { clickToCall },
-  } = siteProperties
   const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
   const [loading, setLoading] = useState(false)
