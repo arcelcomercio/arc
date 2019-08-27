@@ -52,14 +52,14 @@ export default {
     frequentQuestions: '2ILZRA4AUBFSXK7JLGGN3SZ2XE',
   },
   infoPagesProd: {
-    termsAndConditions: '',
+    termsAndConditions: 'WBMYZQNJ4FD7HFCQM5RKK4P7UU',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'ZNXM3U7ERBCV5LO5RRTFWTYDKA',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
-    aboutUs: '',
-    frequentQuestions: '',
+    cookiesPolicy: 'UVEA77IFONATBI6K2HBEVES75Y',
+    aboutUs: 'TSXLSV7JIVCPHHKSPJHZQWLG2I',
+    frequentQuestions: 'SLSILPSVUZBPTCQVL4VL6VBRXA',
   },
 
   legalLinks: [
