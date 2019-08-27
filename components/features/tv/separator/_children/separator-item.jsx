@@ -47,7 +47,9 @@ export default ({ date, multimedia, title, videoId, maxStories, isAdmin }) => {
         onClick={() => setIsModalOpen(!isModalOpen)}>
         <picture className="block w-full">
           <img
-            className={`tv-separator__img ${isAdmin ? '' : 'lazy'} w-full`}
+            className={`tv-separator__img block ${
+              isAdmin ? '' : 'lazy'
+            } w-full`}
             src={isAdmin ? multimedia.image : multimedia.lazyImage}
             data-src={multimedia.image}
             alt=""
