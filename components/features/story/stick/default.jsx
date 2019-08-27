@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import customFields from './_dependencies/custom-fields'
+import StoryData from '../../../utilities/story-data'
 
 const classes = {
   stick: 'stick',
