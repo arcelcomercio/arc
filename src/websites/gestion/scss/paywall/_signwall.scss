@@ -18,7 +18,8 @@
   }
   .link-back,
   .link-gray,
-  .link-blue {
+  .link-blue,
+  .link-close {
     background: none;
     border: 0px;
   }
@@ -51,7 +52,7 @@
 @media screen and (min-width: 640px) {
   .signwall {
     .profile__left {
-      height: 250px !important;
+      height: 320px !important;
     }
   }
 }

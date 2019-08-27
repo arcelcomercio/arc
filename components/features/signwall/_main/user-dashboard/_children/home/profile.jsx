@@ -106,9 +106,9 @@ class Profile extends Component {
       secondLastName,
       province,
       documentNumber,
-      civilStatus,
       contacts,
       country,
+      civilStatus,
       department,
       district,
       email,
@@ -117,6 +117,7 @@ class Profile extends Component {
       dataDistricts,
     } = this.state
 
+    const CIVIL_STATUS = civilStatus ? civilStatus.toLowerCase() : null
     const [primaryPhone = { phone: null }] = contacts
     const { phone } = primaryPhone
     return (
@@ -138,9 +139,19 @@ class Profile extends Component {
         <div className="cont-dates">
           <div className="first-dates">
             <p>
-              <strong>Nombre: </strong> {firstName || '-'} {lastName || ''}{' '}
-              {secondLastName || ''}
+              <strong>Nombre: </strong>{' '}
+              {!firstName && !lastName && !secondLastName ? '-' : null}
+              {firstName && firstName.length > 20
+                ? `${firstName.slice(0, 20)}... `
+                : firstName && `${firstName} `}
+              {lastName && lastName.length > 20
+                ? `${lastName.slice(0, 20)}... `
+                : lastName && `${lastName} `}
+              {secondLastName && secondLastName.length > 20
+                ? `${secondLastName.slice(0, 20)}...`
+                : secondLastName && `${secondLastName}`}
             </p>
+
             <p>
               <strong>Correo: </strong> {email || '-'}
             </p>
@@ -158,7 +169,7 @@ class Profile extends Component {
                 ca: 'Casado(a)',
                 di: 'Divorciado(a)',
                 vi: 'Viudo(a)',
-              }[civilStatus] || '-'}
+              }[CIVIL_STATUS] || '-'}
             </p>
           </div>
 

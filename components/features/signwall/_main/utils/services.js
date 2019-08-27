@@ -10,13 +10,8 @@ const API_ORIGIN =
     ? 'https://api.gestion.pe'
     : 'https://api-sandbox.gestion.pe'
 
-// const API_CAMPAING =
-//   ENV.ENVIRONMENT === 'elcomercio'
-//     ? 'https://paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/'
-//     : 'https://devpaywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/'
-
 export default class Services {
-  reloginEcoID(username, password, action, window) {
+  reloginEcoID(username, password, action, site, window) {
     const details = {
       email: username, // -> email
       password, // -> pass
@@ -25,6 +20,7 @@ export default class Services {
       domain: window.location.hostname, // -> elcomercio.pe
       referer: window.location.href, // -> url actual
       action,
+      site,
     }
 
     let formBody = []
@@ -95,13 +91,4 @@ export default class Services {
     })
     return response
   }
-
-  // getCampaing() {
-  //   const response = new Promise(resolve => {
-  //     fetch(`${API_CAMPAING}`, { method: 'GET' }).then(res =>
-  //       resolve(res.json())
-  //     )
-  //   })
-  //   return response
-  // }
 }
