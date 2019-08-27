@@ -1,7 +1,6 @@
 import React from 'react'
 
 import StoryData from '../../../../utilities/story-data'
-import { formatAMPM } from '../../../../utilities/helpers'
 
 export default props => {
   const { data, section, arcSite, contextPath, deployment } = props
@@ -68,7 +67,23 @@ export default props => {
           })}
       </div>
       <div className={classes.listadoSeeMore}>
-        <a href={seeMorePath} tabIndex="0" role="button">
+        <a
+          href={seeMorePath}
+          tabIndex="0"
+          /** TODO:
+           * Si no me equivoco, los <a> por defecto tienen tabIndex 0,
+           * se suele agregar cuando intentas hacer que un elemento
+           * no dinamico como un <span> o <div> se comporten
+           * como elementos dinamicos.
+           */
+          role="button"
+          /** TODO:
+           * En este caso creo que no es necesario el role
+           * por que realmente un <a> ya tiene sentido semantico,
+           * no veo necesario decir que se debe comportar
+           * como boton.
+           */
+        >
           Ver más
         </a>
       </div>
