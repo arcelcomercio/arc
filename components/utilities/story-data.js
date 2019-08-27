@@ -873,12 +873,15 @@ class StoryData {
   }
 
   static getThumbnailBySize(data, type, size) {
+    
     let thumb = ''
     if (type === ConfigParams.VIDEO) {
       thumb = StoryData.getThumbnailVideo(data, size)
     } else if (type === ConfigParams.GALLERY) {
       thumb = StoryData.getThumbnailGalleryBySize(data, size)
     } else if (type === ConfigParams.IMAGE) {
+      thumb = StoryData.getImageBySize(data, size)
+    } else if (type === ConfigParams.ELEMENT_YOUTUBE_ID) {
       thumb = StoryData.getImageBySize(data, size)
     }
     return thumb

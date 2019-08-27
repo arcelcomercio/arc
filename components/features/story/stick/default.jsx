@@ -1,17 +1,21 @@
+import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
 
 const classes = {
-  stick: 'stick',
-  closeApp: 'stick__close-app',
+  stickWrapper: 'stick hidden w-full pl-20 pr-20',
+  stick:
+    'stick__content position-relative flex items-center justify-between p-10',
+  closeApp:
+    'stick__close-app position-absolute icon-close text-white flex items-center justify-center',
   logo: 'stick__logo',
   logoLink: 'stick__logo-link',
-  description: 'stick__description',
+  description: 'stick__description text-center pl-10 pr-10',
   logoLink: 'button-app',
-  link: 'button-app',
+  buttonApp: 'stick__button p-10 text-center',
 }
-
+@Consumer
 class Stick extends PureComponent {
   componentDidMount() {
     const {
@@ -33,25 +37,34 @@ class Stick extends PureComponent {
   }
 
   render() {
-    const { customFields: { urlPwd = '' } = {} } = this.props
-
-    const { globalContent, contextPath } = this.props
+    const {
+      globalContent,
+      contextPath,
+      arcSite,
+      deployment,
+      customFields: { urlPwd = '' } = {},
+    } = this.props
 
     const { link } = new StoryData({
       data: globalContent,
       contextPath,
     })
+    const imgLogo = deployment(
+      `${contextPath}/resources/dist/${arcSite}/images/logo-p21.png`
+    )
 
     return (
-      <div className={classes.stick}>
-        <a href="#" className={classes.closeApp} />
-        <div className={classes.logo}>
-          <a className={classes.logoLink} />
-        </div>
-        <div className={classes.description}>
-          Sigue actualizado en nuestra APP
-        </div>
-        <div className={classes.link}>
+      <div className={classes.stickWrapper}>
+        <div className={classes.stick}>
+          <a href="#" className={classes.closeApp} />
+          <div className={classes.logo}>
+            <a className={classes.logoLink}>
+              <img src={imgLogo} />
+            </a>
+          </div>
+          <div className={classes.description}>
+            Sigue actualizado en nuestra APP
+          </div>
           <a
             href=""
             className={classes.buttonApp}
