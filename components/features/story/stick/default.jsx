@@ -49,7 +49,6 @@ class Stick extends PureComponent {
       data: globalContent,
       contextPath,
     })
-    console.log('deployment=>>>>>>>>>>>>>>>>ssssssssssssssssssssss', this.props)
     const imgLogo = deployment(
       `${contextPath}/resources/dist/${arcSite}/images/logo-p21.png`
     )
