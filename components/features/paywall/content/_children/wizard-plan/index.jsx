@@ -31,12 +31,6 @@ function WizardPlan(props) {
 
   const Sales = addSales()
 
-  useEffect(() => {
-    Sales.then(sales => {
-      sales.clearCart()
-    })
-  }, [])
-
   function subscribePlanHandler(e, plan) {
     Sales.then(sales => {
       setLoading(true)
@@ -53,29 +47,31 @@ function WizardPlan(props) {
       })
 
       return sales
-        .addItemToCart([selectedPlan])
-        .then(response => {
-          setLoading(false)
+        .clearCart()
+        .then(() => {
+          return sales.addItemToCart([selectedPlan]).then(response => {
+            setLoading(false)
 
-          Sentry.addBreadcrumb({
-            category: 'compra',
-            message: 'Añadió plan a carrito de compras',
-            data: { response },
-            level: Sentry.Severity.Info,
+            Sentry.addBreadcrumb({
+              category: 'compra',
+              message: 'Añadió plan a carrito de compras',
+              data: { response },
+              level: Sentry.Severity.Info,
+            })
+
+            const {
+              location: { search },
+            } = window
+            const qs = parseQueryString(search)
+            const { title } = summary
+            onBeforeNextStep(
+              {
+                plan: { printed, ...plan, title },
+                referer: qs.ref || 'organico',
+              },
+              props
+            )
           })
-
-          const {
-            location: { search },
-          } = window
-          const qs = parseQueryString(search)
-          const { title } = summary
-          onBeforeNextStep(
-            {
-              plan: { printed, ...plan, title },
-              referer: qs.ref || 'organico',
-            },
-            props
-          )
         })
         .catch(e => {
           setLoading(false)
