@@ -57,10 +57,10 @@ class CardTabloid extends PureComponent {
       isAdmin,
       siteProperties: { linkTabloide = '' },
       customFields: {
+        date: dateField,
         sectionName = '',
         urlImage = '',
         link = '',
-        date: dateField,
       } = {},
     } = this.props
 
