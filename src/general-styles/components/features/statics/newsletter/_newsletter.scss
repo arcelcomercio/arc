@@ -55,7 +55,7 @@
     color: #666;
 
     &::after {
-      background-color: #f7c600;
+      background-color: $color-primary;
       bottom: 0;
       content: '';
       height: 5px;
