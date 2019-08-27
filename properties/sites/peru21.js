@@ -1,6 +1,6 @@
 export default {
   siteName: 'Peru21',
-
+  newsletterBrand: 'peru21',
   googleFonts: 'Lato:400,700|Exo:500',
 
   colorPrimary: '#005fa5',
