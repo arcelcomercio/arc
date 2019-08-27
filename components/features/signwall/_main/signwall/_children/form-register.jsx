@@ -446,9 +446,12 @@ class FormRegister extends Component {
                     Al crear la cuenta acepto los{' '}
                     <a
                       href={`https://ecoid.pe/terminos_y_condiciones/${
-                        brandCurrent === 'elcomercio'
-                          ? `a94a8fe5ccb19ba61c4c0873d391e987982fbbd3`
-                          : `108f85a3d8e750a325ced951af6cd758a90e73a34`
+                        {
+                          elcomercio:
+                            'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
+                          gestion: '108f85a3d8e750a325ced951af6cd758a90e73a34',
+                          peru21: 'f7bd562ca9912019255511635185bf2b',
+                        }[brandCurrent]
                       }`}
                       className="link-blue link-color"
                       target="_blank"
@@ -458,9 +461,12 @@ class FormRegister extends Component {
                     y{' '}
                     <a
                       href={`https://ecoid.pe/politica_privacidad/${
-                        brandCurrent === 'elcomercio'
-                          ? `a94a8fe5ccb19ba61c4c0873d391e987982fbbd3`
-                          : `108f85a3d8e750a325ced951af6cd758a90e73a34`
+                        {
+                          elcomercio:
+                            'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
+                          gestion: '108f85a3d8e750a325ced951af6cd758a90e73a34',
+                          peru21: 'f7bd562ca9912019255511635185bf2b',
+                        }[brandCurrent]
                       }`}
                       className="link-blue link-color"
                       target="_blank"
