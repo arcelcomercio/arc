@@ -25,7 +25,7 @@ const TvSeparator = props => {
       query: {
         section,
         stories_qty: maxStories,
-        preset1: '4x4',
+        preset1: '9x5',
         preset2: '280x157',
       },
       filter: schemaFilter,
