@@ -14,11 +14,11 @@ class ExtraordinaryStoryGrid extends PureComponent {
     this.initFetch()
   }
 
-  componentDidMount() {
+  /* componentDidMount() {
     if (window.powaBoot) {
       window.powaBoot()
     }
-  }
+  } */
 
   initFetch = () => {
     const { customFields: customFieldsData = {}, arcSite = '' } = this.props
