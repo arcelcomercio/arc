@@ -17,6 +17,7 @@ import {
 import StoryContentsChildVideo from './_children/video'
 import StoryContentsChildImage from './_children/image'
 import StoryHeaderChildGallery from '../gallery/_children/gallery'
+import StoryContentChildRawHTML from './_children/rawHtml'
 import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthor from './_children/author'
@@ -197,10 +198,7 @@ class StoryContents extends PureComponent {
                       className={classes.newsImage}
                     />
                   ) : (
-                    <RawHtml
-                      content={replaceHtmlMigracion(content)}
-                      className={classes.newsEmbed}
-                    />
+                    <StoryContentChildRawHTML content={content} />
                   )
                 }
                 return ''
