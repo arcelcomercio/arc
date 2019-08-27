@@ -21,12 +21,6 @@ class Stick extends PureComponent {
     var aOpenApp = document.getElementById('button-app')
     var dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
 
-    console.log(
-      'b: =>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
-      `${urlPwd}${window.location.pathname}/?appData=/${dataPageId !== '/' &&
-        'news/'}${dataPageId}${appData}${window.location.href}${href}`
-    )
-
     aOpenApp.addEventListener('click', function(ev) {
       ev.preventDefault()
 
