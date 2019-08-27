@@ -238,4 +238,12 @@
   &__alignment-right {
     text-align: right;
   }
+  & paper-prev {
+    background-color: rgba(206, 177, 177, 0.5);
+    color: $color-white;
+    height: 100%;
+    text-align: center;
+    width: 60px;
+    z-index: 1;
+  }
 }
