@@ -1,3 +1,5 @@
+import { removeLastSlash } from '../../components/utilities/helpers'
+
 const schemaName = 'section'
 
 const params = [
@@ -14,14 +16,15 @@ const resolve = (key = {}) => {
   //   throw new Error(
   //     'Esta fuente de contenido requiere de un Slug y un sitio web'
   //   )
-  console.log('HAAAAAA->', key)
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { _id: slug = '' } = key
+
+  const clearSlug = removeLastSlash(slug)
 
   const requestUri =
     slug === '' || slug === null
       ? `/site/v3/website/${website}/section`
-      : `/site/v3/website/${website}/section?_id=${slug}`
+      : `/site/v3/website/${website}/section?_id=${clearSlug}`
 
   return requestUri
 }
