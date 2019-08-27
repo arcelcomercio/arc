@@ -9,6 +9,12 @@ import customFields from './_dependencies/custom-fields'
 import TvSeparatorItem from './_children/separator-item'
 import StoryData from '../../../utilities/story-data'
 
+/** TODO:
+ * El codigo relacionado al lazyloading de imagenes que no se esta
+ * usando, no borrar, se estan haciendo validaciones pero se desactivo
+ * para la salida.
+ */
+
 const TvSeparator = props => {
   const {
     customFields: {
