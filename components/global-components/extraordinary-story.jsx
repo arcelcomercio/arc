@@ -98,7 +98,7 @@ const ExtraordinaryStory = props => {
           deployment={deployment}
           contextPath={contextPath}
           website={arcSite}
-          storyLink={data.link}
+          linkStory={data.link}
         />
         {multimediaType === ConfigParams.GALLERY && (
           <Icon type={multimediaType} />

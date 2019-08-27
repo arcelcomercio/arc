@@ -1,7 +1,7 @@
 export default {
   siteName: 'Peru21',
-
-  googleFonts: 'Lato:400,700|Exo:500',
+  newsletterBrand: 'peru21',
+  googleFonts: 'Lato:300,400,700,900|Exo:500',
 
   colorPrimary: '#005fa5',
   siteDomain: 'peru21.pe',
@@ -153,11 +153,11 @@ export default {
     movil5: 15011776,
   },
   listUrlAdvertisings: [
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-22.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-23.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna1-300x250-div-gpt-ad-8599377-31.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna2-300x250-div-gpt-ad-8599377-32.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna3-300x250-div-gpt-ad-8599377-33.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna4-300x250-div-gpt-ad-8599377-34.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna5-300x250-div-gpt-ad-8599377-35.html',
   ],
   activeSignwall: true,
   activePaywall: false,
