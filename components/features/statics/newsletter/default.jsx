@@ -41,7 +41,7 @@ class Newsletter extends PureComponent {
       }
 
       const successApi = response => {
-        return response && response.result && response.status === undefined
+        return response && response.status !== false
       }
 
       const url = NEWSLETTER_API
