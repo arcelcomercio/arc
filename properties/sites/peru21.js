@@ -36,6 +36,8 @@ export default {
       logoAmp: 'logo-peru21-214x60.png',
       width: 214,
       height: 60,
+      widthAmp: 110,
+      heightAmp: 28,
     },
     tv: {
       siteLogo: 'favicon.png',
