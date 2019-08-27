@@ -29,8 +29,8 @@ const classes = {
   listSocial: 'footer__social flex pl-20 lg:pl-30',
   listSocialItem: 'footer__social-item',
   listSocialLink: 'footer__social-link',
-  linkedinIcon: 'footer__social-icon icon-linkedin pr-15',
-  facebookIcon: 'footer__social-icon icon-facebook pr-15',
+  // linkedinIcon: 'footer__social-icon icon-linkedin pr-15',
+  // facebookIcon: 'footer__social-icon icon-facebook pr-15',
   // twitterIcon: 'footer__social-icon icon-twitter',
 
   legalLinksWrapper: 'flex pt-20 text-white flex-wrap',
@@ -104,15 +104,11 @@ const StandardFooter = props => {
               {el.position && (
                 <li className={classes.listItem} key={el.name}>
                   <span
-                    className={`${classes.listLinkTitle} ${
-                      classes.contactPosition
-                    }`}>
+                    className={`${classes.listLinkTitle} ${classes.contactPosition}`}>
                     {el.position}:
                   </span>
                   <span
-                    className={`${classes.listLinkInfo} ${
-                      classes.contactName
-                    }`}>
+                    className={`${classes.listLinkInfo} ${classes.contactName}`}>
                     {el.name}
                   </span>
                 </li>
@@ -133,7 +129,9 @@ const StandardFooter = props => {
                     rel="noopener noreferrer"
                     href={el.url}
                     className={classes.listSocialLink}>
-                    <i className={classes[`${el.name}Icon`]} />
+                    <i
+                      className={`icon-${el.name} footer__social-icon pr-15`}
+                    />
                   </a>
                 </li>
               )
