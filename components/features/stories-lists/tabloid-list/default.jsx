@@ -27,5 +27,6 @@ const TabloidList = () => {
   return <TabloidListChild {...params} />
 }
 
+TabloidList.static = true
 TabloidList.label = 'Listado Tabloide'
 export default TabloidList
