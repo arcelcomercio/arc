@@ -111,6 +111,4 @@ ExtraordinaryStoryGrid.propTypes = {
 ExtraordinaryStoryGrid.label = 'Apertura extraordinaria con grilla'
 ExtraordinaryStoryGrid.static = true
 
-// TODO: Realmente funciona el static true en este caso con didMount?
-
 export default ExtraordinaryStoryGrid
