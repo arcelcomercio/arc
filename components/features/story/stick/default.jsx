@@ -35,7 +35,7 @@ class Stick extends PureComponent {
   render() {
     const { customFields: { urlPwd = '' } = {} } = this.props
 
-    const { globalContent, contextPath } = this.props
+    const { globalContent, contextPath, arcSite, deployment } = this.props
 
     const { link } = new StoryData({
       data: globalContent,
@@ -47,7 +47,13 @@ class Stick extends PureComponent {
         <a href="#" className={classes.closeApp} />
         <div className={classes.logo}>
           <a className={classes.logoLink} />
+          <img
+            src={deployment(
+              `${contextPath}/resources/dist/${arcSite}/images/logo-p21.png`
+            )}
+          />
         </div>
+
         <div className={classes.description}>
           Sigue actualizado en nuestra APP
         </div>
