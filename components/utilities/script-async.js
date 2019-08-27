@@ -2,11 +2,11 @@ const scriptsAsync = []
 let isLoading = false
 let index = 0
 
-const loadScriptAsync = includeNoScript => {
+const loadScriptAsync = () => {
   if (isLoading) return
   isLoading = true
   // eslint-disable-next-line
-  const { url, resolve, reject, type } = scriptsAsync[index++]
+  const { url, resolve, reject, type, includeNoScript } = scriptsAsync[index++]
   const script = document.createElement('script')
   script.async = true
   script.src = url
@@ -52,7 +52,7 @@ const addScriptAsync = props => {
     })
     newScript.promise = promise
     scriptsAsync.push(newScript)
-    loadScriptAsync(props.includeNoScript)
+    loadScriptAsync()
     return promise
   }
   return script.promise

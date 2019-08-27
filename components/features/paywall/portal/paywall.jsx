@@ -1,5 +1,6 @@
 import React from 'react'
 import Consumer from 'fusion:consumer'
+import addScriptAsync from '../../../utilities/script-async'
 import { devices } from '../_dependencies/devices'
 import getDomain from '../_dependencies/domains'
 import Card from './_children/card'
@@ -27,6 +28,11 @@ class Portal extends React.PureComponent {
     mqt.addListener(() => this.backgroundMediaQuery(mqt, mqm))
     mqm.addListener(() => this.backgroundMediaQuery(mqt, mqm))
     this.backgroundMediaQuery(mqt, mqm)
+
+    addScriptAsync({
+      name: 'sdkSalesARC',
+      url: getDomain('ORIGIN_SALES_SDK'),
+    })
   }
 
   backgroundMediaQuery = (mqt, mqm) => {
