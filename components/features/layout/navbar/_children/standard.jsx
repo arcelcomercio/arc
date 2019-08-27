@@ -188,7 +188,6 @@ class NavBarDefault extends PureComponent {
 
     if (arcSite === 'gestion') {
       this.getPaywall()
-      this.initCounters()
     }
 
     // ---------- End Premium & Paywall ------------ //
@@ -244,7 +243,7 @@ class NavBarDefault extends PureComponent {
 
     if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
       this.getPremium() // Only sandbox ;)
-    } else {
+    } else if (window.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
           if (ENV.ENVIRONMENT === 'elcomercio') {
@@ -298,6 +297,8 @@ class NavBarDefault extends PureComponent {
             updated: Date.now(),
           })
         },
+      }).then(() => {
+        this.initCounters()
       })
       // .then(() => {
       // W.console.log('Results from running paywall script: ', results)
@@ -796,11 +797,14 @@ class NavBarDefault extends PureComponent {
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
               {siteProperties.activeSignwall && (
                 <div className={`${classes.btnContainer}`}>
-                  <Button
-                    btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe} btn--outline`}
-                    btnLink={`https://suscripciones.${arcSite}.pe/?ref=${arcSite}`}
-                  />
+                  {siteProperties.activePaywall && (
+                    <Button
+                      btnText="Suscríbete"
+                      btnClass={`${classes.btnSubscribe} btn--outline`}
+                      btnLink={`https://suscripciones.${arcSite}.pe/?ref=${arcSite}`}
+                    />
+                  )}
+
                   <button
                     type="button"
                     id={
@@ -835,7 +839,9 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  className={`${classes.btnSignwallMobile}`}
+                  className={`${classes.btnSignwallMobile} ${
+                    arcSite === 'peru21' ? 'bg-white' : null
+                  }`}
                   onClick={() => this.setState({ isActive: true })}>
                   <i
                     className={

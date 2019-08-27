@@ -23,7 +23,7 @@ const WizardConfirmation = props => {
     memo: {
       order: { orderNumber },
       profile: { firstName, lastName, secondLastName, email },
-      plan: { title: plan, sku, amount, billingFrequency, printed },
+      plan: { title: plan, sku, priceCode, amount, billingFrequency, printed },
       referer: ref,
       payment: { total: paidTotal, subscriptionIDs },
     },
@@ -47,6 +47,7 @@ const WizardConfirmation = props => {
       ],
       confirmacionID: subscriptionIDs[0], // Por ahora solo un producto
       periodo: billingFrequency,
+      priceCode,
       suscriptorImpreso: printed ? 'si' : 'no',
       medioCompra: ref,
     })

@@ -68,14 +68,14 @@ class SignWallPaywall extends Component {
       featuresDescription,
       isLoading,
     } = this.state
-    const { typePopUp } = this.props
+    const { typePopUp, arcSite } = this.props
 
     return (
       <ModalConsumer>
         {value => (
           <div className="modal-body__wrapper">
             {isLoading ? (
-              <Loading />
+              <Loading site={arcSite} />
             ) : (
               <>
                 <div className="cont-price-detail">
