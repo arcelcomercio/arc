@@ -49,7 +49,7 @@ class FormRegister extends Component {
     } else {
       this.origin_api =
         ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api-elcomercio-peru21-prod.cdn.arcpublishing.com`
+          ? `https://api.${arcSite}.pe`
           : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
     }
   }
@@ -509,7 +509,11 @@ class FormRegister extends Component {
                   <Icon.MsgRegister
                     className="form-grid__icon text-center"
                     bgcolor={
-                      brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'
+                      {
+                        elcomercio: '#fecd26',
+                        gestion: '#F4E0D2',
+                        peru21: '#d5ecff',
+                      }[brandCurrent]
                     }
                   />
                 </div>

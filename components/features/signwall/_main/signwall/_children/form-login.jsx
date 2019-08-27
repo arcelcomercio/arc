@@ -46,7 +46,7 @@ class FormLogin extends Component {
     } else {
       this.origin_api =
         ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api-elcomercio-peru21-prod.cdn.arcpublishing.com`
+          ? `https://api.${arcSite}.pe`
           : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
     }
   }
@@ -306,7 +306,7 @@ class FormLogin extends Component {
       sending,
       hiddenbutton,
     } = this.state
-    const { closePopup, typePopUp, typeForm } = this.props
+    const { closePopup, typePopUp, typeForm, arcSite } = this.props
     return (
       <ModalConsumer>
         {value => (
@@ -343,12 +343,14 @@ class FormLogin extends Component {
               </div>
 
               <div className="form-grid__group" hidden={!hiddenListBenefits}>
-                <h1
-                  className="form-grid__title-big text-center lg:hidden"
-                  hidden={hiddenEnterUser}>
-                  Regístrate y mantente siempre informado con las noticias más
-                  relevantes del Perú y el mundo
-                </h1>
+                {arcSite !== 'peru21' ? (
+                  <h1
+                    className="form-grid__title-big text-center lg:hidden"
+                    hidden={hiddenEnterUser}>
+                    Regístrate y mantente siempre informado con las noticias más
+                    relevantes del Perú y el mundo
+                  </h1>
+                ) : null}
 
                 <h1 className="form-grid__title-login text-center mt-20 mb-10">
                   Ingresa con tu cuenta de:
@@ -505,18 +507,20 @@ class FormLogin extends Component {
                 </p>
               </div>
 
-              <div
-                className="form-grid__group lg:hidden"
-                hidden={!hiddenListBenefits}>
-                <p className="form-grid__subtitle text-center form-group--center">
-                  <button
-                    type="button"
-                    onClick={e => this.hanbleShowListBenefits(e)}
-                    className="link-blue link-color">
-                    Conoce aquí los beneficios de registrarte
-                  </button>
-                </p>
-              </div>
+              {arcSite !== 'peru21' ? (
+                <div
+                  className="form-grid__group lg:hidden"
+                  hidden={!hiddenListBenefits}>
+                  <p className="form-grid__subtitle text-center form-group--center">
+                    <button
+                      type="button"
+                      onClick={e => this.hanbleShowListBenefits(e)}
+                      className="link-blue link-color">
+                      Conoce aquí los beneficios de registrarte
+                    </button>
+                  </p>
+                </div>
+              ) : null}
             </form>
           </div>
         )}

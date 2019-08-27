@@ -27,7 +27,7 @@ class SignWallVerify extends Component {
     } else {
       this.origin_api =
         ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api-elcomercio-peru21-prod.cdn.arcpublishing.com`
+          ? `https://api.${arcSite}.pe`
           : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
     }
 

@@ -136,12 +136,14 @@ class Subs extends Component {
       paywallDescripcion,
       idSubsDelete,
     } = this.state
+
+    const { arcSite } = this.props
     return (
       // <ModalConsumer>
       //   {val => (
       <>
         {isLoad ? (
-          <Loading />
+          <Loading site={arcSite} />
         ) : (
           <>
             {isSubs ? (
@@ -190,7 +192,7 @@ class Subs extends Component {
                     )
                   }
                   return (
-                    <div className="resume__dates"  key={reSubs.subscriptionID}>
+                    <div className="resume__dates" key={reSubs.subscriptionID}>
                       <div className="title-dates">
                         <h2 className="title">Mi suscripción</h2>
                       </div>

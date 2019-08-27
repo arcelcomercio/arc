@@ -44,7 +44,7 @@ const classes = {
   mobileLogo: 'nav__mobile-logo position-absolute',
   listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
   logo: 'nav__logo lg:hidden',
-  logoLeft: 'header__logo-secondary bg-white',
+  logoLeft: 'header__logo-secondary',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
@@ -839,7 +839,9 @@ class NavBarDefault extends PureComponent {
                       ? 'web_link_ingresaperfil'
                       : 'web_link_ingresacuenta'
                   }
-                  className={`${classes.btnSignwallMobile}`}
+                  className={`${classes.btnSignwallMobile} ${
+                    arcSite === 'peru21' ? 'bg-white' : null
+                  }`}
                   onClick={() => this.setState({ isActive: true })}>
                   <i
                     className={

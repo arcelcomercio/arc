@@ -110,12 +110,16 @@ class MySubs extends Component {
       isSubs,
       showModalConfirm,
     } = this.state
+
+    const { arcSite } = this.props
+
     return loading ? (
-      <Loading />
+      <Loading site={arcSite} />
     ) : (
       <>
         {isSubs ? (
-           <ResumeSubs />
+          <ResumeSubs />
+        ) : (
           // <div className="resume__dates">
           //   <div className="cont-subs-large">
           //     <div className="first-subs">
@@ -147,7 +151,6 @@ class MySubs extends Component {
           //     </button>
           //   </div>
           // </div>
-        ) : (
           <div className="resume__dates">
             <div className="cont-plan">
               <div className="first-plan">
