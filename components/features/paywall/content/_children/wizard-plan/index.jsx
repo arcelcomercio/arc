@@ -86,7 +86,7 @@ function WizardPlan(props) {
 
   return (
     <S.WizardPlan>
-      {message && <S.Error autoClose={7000}>{message}</S.Error>}
+      {message && <S.Error>{message}</S.Error>}
       {printed && (
         <S.WelcomeSuscriptor>
           ACCEDE A ESTOS <strong>PRECIOS ESPECIALES</strong> POR SER SUSCRIPTOR
