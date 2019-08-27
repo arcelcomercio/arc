@@ -18,5 +18,6 @@ import './images/logo-footer.png'
 import './images/otorongo.png'
 import './images/logo-sm.png'
 import './images/logo-amp.png'
+import './images/logo-p21.png'
 
 import '../../../components/utilities/lazyload'
