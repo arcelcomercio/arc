@@ -46,12 +46,15 @@ export default ({ date, multimedia, title, videoId, maxStories, isAdmin }) => {
         className="tv-separator__img-button p-0 overflow-hidden rounded-sm mb-10  position-relative"
         onClick={() => setIsModalOpen(!isModalOpen)}>
         <picture className="block w-full">
-          <img
-            className={`${isAdmin ? '' : 'lazy'} w-full`}
+          <img className="w-full" src={multimedia.image} alt="" />
+          {/* <img
+            className={`tv-separator__img block ${
+              isAdmin ? '' : 'lazy'
+            } w-full`}
             src={isAdmin ? multimedia.image : multimedia.lazyImage}
             data-src={multimedia.image}
             alt=""
-          />
+          /> */}
         </picture>
         {validateNewStory(date) && (
           <div className="tv-separator__tag-new font-bold uppercase text-white bg-primary position-absolute text-xs p-5 rounded-sm">

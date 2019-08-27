@@ -9,6 +9,12 @@ import customFields from './_dependencies/custom-fields'
 import TvSeparatorItem from './_children/separator-item'
 import StoryData from '../../../utilities/story-data'
 
+/** TODO:
+ * El codigo relacionado al lazyloading de imagenes que no se esta
+ * usando, no borrar, se estan haciendo validaciones pero se desactivo
+ * para la salida.
+ */
+
 const TvSeparator = props => {
   const {
     customFields: {
@@ -25,7 +31,7 @@ const TvSeparator = props => {
       query: {
         section,
         stories_qty: maxStories,
-        preset1: '4x4',
+        preset1: '9x5',
         preset2: '280x157',
       },
       filter: schemaFilter,
@@ -105,7 +111,7 @@ const TvSeparator = props => {
   }
 
   return (
-    <div className="tv-separator ml-10 mr-10 lg:ml-30 lg:mr-30 mb-25">
+    <div className="tv-separator ml-10 mr-10 lg:ml-30 lg:mr-30 pb-25">
       <div className="flex justify-between items-center mb-20">
         <h2>
           {deleteLinks ? (
