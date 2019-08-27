@@ -38,13 +38,18 @@ function WizardUserProfile(props) {
   }
   const sanitizedProfile = deepMapValues(profile, sanitizeValues)
 
-  useEffect(() => {
-    // sendAction(PixelActions.PAYMENT_PROFILE, {})
-  }, [])
-
   const {
     plan: { sku, printed, priceCode, amount, description, billingFrequency },
   } = memo
+
+  useEffect(() => {
+    sendAction(PixelActions.PAYMENT_PROFILE, {
+      sku: `${sku}${priceCode}`,
+      periodo: billingFrequency,
+      priceCode,
+      suscriptorImpreso: printed ? 'si' : 'no',
+    })
+  }, [])
 
   const [error, setError] = useState()
   const Sales = addSales()
@@ -91,12 +96,6 @@ function WizardUserProfile(props) {
               response: { ...res, items: JSON.stringify(res.items, null, 2) },
             },
             level: Sentry.Severity.Info,
-          })
-          sendAction(PixelActions.PAYMENT_PROFILE, {
-            sku: `${sku}${priceCode}`,
-            periodo: billingFrequency,
-            priceCode,
-            suscriptorImpreso: printed ? 'si' : 'no',
           })
           onBeforeNextStep(mergeResValues, props)
         })
