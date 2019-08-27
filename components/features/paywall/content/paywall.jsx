@@ -1,5 +1,5 @@
-import Consumer from 'fusion:consumer'
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { useFusionContext } from 'fusion:context'
 import Wizard from 'react-step-wizard'
 
 import WizardUserProfile from './_children/wizard-user-profile'
@@ -16,123 +16,92 @@ import '../_dependencies/sentry'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
-@Consumer
-class Content extends React.Component {
-  constructor(props) {
-    super(props)
-    this.memo = {}
-    this.state = {
-      profile: '',
-      loading: false,
-    }
-  }
+const Paywall = () => {
+  const {
+    contextPath,
+    deployment,
+    siteProperties,
+    globalContent: { summary = [], plans = [], printed, error: message },
+  } = useFusionContext()
 
-  // eslint-disable-next-line react/sort-comp
-  fetch() {
-    this.fetchContent({
-      data: {
-        source: 'paywall-campaing',
-        query: { campaing: 'paywall-gestion-sandbox' },
-      },
-    })
-  }
-
-  componentDidMount() {
-    const f = () => {
-      userProfile(['documentNumber', 'phone', 'documentType']).then(profile => {
-        this.setState({ profile })
-      })
-    }
-
+  const [profile, setProfile] = useState('')
+  useEffect(() => {
     AddIdentity().then(() => {
       if (isLogged()) {
-        f()
+        userProfile(['documentNumber', 'phone', 'documentType']).then(
+          setProfile
+        )
       }
     })
     document.querySelector('html').classList.add('ios')
     PWA.mount(() => window.location.reload())
-  }
+  })
 
-  onBeforeNextStepHandler = (response, { nextStep, currentStep }) => {
-    Object.assign(this.memo, response)
-    this.dispatchEvent('currentStep', currentStep)
+  const memo = useRef({})
+  const onBeforeNextStepHandler = useRef((response, { nextStep }) => {
+    Object.assign(memo, response)
     nextStep()
     window.scrollTo(0, 0)
-  }
+  })
 
-  setLoading = loading => {
-    this.setState({
-      loading,
-    })
-  }
+  const {
+    assets,
+    paywall: { clickToCall },
+  } = siteProperties
+  const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
-  render() {
-    const { profile, loading } = this.state
-    const { globalContent } = this.props
-    const { summary = [], plans = [], printed, error: message } = globalContent
-
-    const {
-      contextPath,
-      deployment,
-      siteProperties: {
-        assets,
-        paywall: { clickToCall },
-      },
-    } = this.props
-    const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
-
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <S.Content>
-          <Loading fullscreen spinning={loading} />
-          <Wizard
-            transitions={{
-              enterRight: 'enterRight',
-              enterLeft: 'enterLeft',
-              exitRight: 'exitRight',
-              exitLeft: 'exitLeft',
-            }}
-            isLazyMount
-            nav={
-              <Nav
-                stepsNames={_stepsNames}
-                right={<ClickToCall href={clickToCall} />}
-              />
-            }>
-            <WizardPlan
-              message={message}
-              printed={!!printed}
-              memo={this.memo}
-              plans={plans}
-              summary={summary}
-              onBeforeNextStep={this.onBeforeNextStepHandler}
-              assets={fullAssets}
-              setLoading={this.setLoading}
+  const [loading, setLoading] = useState(false)
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <S.Content>
+        <Loading fullscreen spinning={loading} />
+        <Wizard
+          transitions={{
+            enterRight: 'enterRight',
+            enterLeft: 'enterLeft',
+            exitRight: 'exitRight',
+            exitLeft: 'exitLeft',
+          }}
+          isLazyMount
+          nav={
+            <Nav
+              stepsNames={_stepsNames}
+              right={<ClickToCall href={clickToCall} />}
             />
-            <WizardUserProfile
-              memo={this.memo}
-              profile={profile}
-              summary={summary}
-              onBeforeNextStep={this.onBeforeNextStepHandler}
-              setLoading={this.setLoading}
-            />
-            <WizardPayment
-              memo={this.memo}
-              printed={printed}
-              summary={summary}
-              onBeforeNextStep={this.onBeforeNextStepHandler}
-              setLoading={this.setLoading}
-            />
-            <WizardConfirmation
-              memo={this.memo}
-              assets={fullAssets}
-              onBeforeNextStep={this.onBeforeNextStepHandler}
-            />
-          </Wizard>
-        </S.Content>
-      </div>
-    )
-  }
+          }>
+          <WizardPlan
+            message={message}
+            printed={!!printed}
+            memo={memo}
+            plans={plans}
+            summary={summary}
+            onBeforeNextStep={onBeforeNextStepHandler}
+            assets={fullAssets}
+            setLoading={setLoading}
+          />
+          <WizardUserProfile
+            memo={memo}
+            profile={profile}
+            summary={summary}
+            onBeforeNextStep={onBeforeNextStepHandler}
+            setLoading={setLoading}
+          />
+          <WizardPayment
+            memo={memo}
+            printed={printed}
+            summary={summary}
+            onBeforeNextStep={onBeforeNextStepHandler}
+            setLoading={setLoading}
+          />
+          <WizardConfirmation
+            memo={memo}
+            assets={fullAssets}
+            onBeforeNextStep={onBeforeNextStepHandler}
+          />
+        </Wizard>
+      </S.Content>
+    </div>
+  )
 }
 
-export default Content
+export default Paywall
