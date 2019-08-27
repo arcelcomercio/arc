@@ -17,7 +17,7 @@ const classes = {
   moreList: 'story-content__list',
   moreItem: 'story-content__item',
   icon: 'title-md',
-  moreLink: 'story-content__more-link',
+  moreLink: 'story-content__more-link flex items-center',
   mobileClass: 'flex justify-center',
   iconPrint: 'icon-print story-content__icon title-xl',
   iconZoom: 'icon-zoom story-content__icon title-xl',
@@ -164,7 +164,9 @@ class StoryContentChildIcon extends PureComponent {
                     {item.more.map((element, ii) => (
                       <li
                         key={UtilListKey(ii)}
-                        className={` ${classes.moreItem} ${element.mobileClass}`}>
+                        className={` ${classes.moreItem} ${
+                          element.mobileClass
+                        }`}>
                         <a
                           className={classes.moreLink}
                           href={element.link}
