@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ENV from 'fusion:environment'
+import Consumer from 'fusion:consumer'
 import Modal from '../common/modal'
 import Header from '../common/header'
 import Footer from '../common/footer'
@@ -14,6 +15,7 @@ import { ModalProvider, ModalConsumer } from '../signwall/context'
 
 const Cookies = new Cookie()
 
+@Consumer
 class ProfileAccount extends Component {
   constructor(props) {
     super(props)
@@ -28,7 +30,7 @@ class ProfileAccount extends Component {
     this.state = {
       typeLogin: identitie.type.toLowerCase(),
       userName:
-        nameInit.length >= 24 ? `${nameInit.slice(0, 24)}...` : nameInit,
+        nameInit.length >= 20 ? `${nameInit.slice(0, 20)}...` : nameInit,
       emailUser: emailInit,
       userNameFB: usernameid.userName,
       activeProfile: false,
@@ -96,7 +98,8 @@ class ProfileAccount extends Component {
   }
 
   render() {
-    const { closePopup } = this.props
+    const { closePopup, arcSite } = this.props
+
     const {
       typeLogin,
       userName,
@@ -124,14 +127,16 @@ class ProfileAccount extends Component {
                     <div className="profile__left profile__card">
                       <div>
                         <h1 className="profile__title">
-                          Hola {userName !== 'undefined' ? userName : 'Usuario'}
+                          Hola <br />{' '}
+                          {userName !== 'undefined' ? userName : 'Usuario'}
                         </h1>
                         <span className="profile__text">
                           Bienvenido a tu perfil
                         </span>
 
                         <ul className="profile__menu">
-                          {window.document.cookie.indexOf('isECO=true') >= 0 ? (
+                          {window.document.cookie.indexOf('isECO=true') >= 0 &&
+                          arcSite === 'gestion' ? (
                             <>
                               <li className="profile__menu-item">
                                 <a
@@ -208,7 +213,8 @@ class ProfileAccount extends Component {
                     <div className="profile__right profile__card">
                       {activeProfile ? (
                         <div>
-                          {window.document.cookie.indexOf('isECO=true') >= 0 ? (
+                          {window.document.cookie.indexOf('isECO=true') >= 0 &&
+                          arcSite === 'gestion' ? (
                             <div>
                               {this.renderTemplate(value.selectedTemplate)}
                             </div>
@@ -217,7 +223,7 @@ class ProfileAccount extends Component {
                           )}
                         </div>
                       ) : (
-                        <Loading />
+                        <Loading site={arcSite} />
                       )}
                     </div>
                   </div>

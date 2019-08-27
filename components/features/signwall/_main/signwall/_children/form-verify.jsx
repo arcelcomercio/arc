@@ -16,7 +16,13 @@ class FormVerify extends Component {
           <div className="form-grid__verify-account">
             <Icon.ResetPass
               className="icon-message"
-              bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+              bgcolor={
+                {
+                  elcomercio: '#fecd26',
+                  gestion: '#F4E0D2',
+                  peru21: '#d5ecff',
+                }[brandCurrent]
+              }
             />
           </div>
 

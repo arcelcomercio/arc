@@ -38,11 +38,11 @@
         padding: 14px 25px 0;
 
         @media (--tablet) {
-          flex-direction: column-reverse;
+          flex-direction: column;
           padding: 70px 34px 34px;
           margin: 120px 0px 20px 40px;
           width: 30%;
-          height: 350px;
+          height: 380px;
         }
 
         @media (--desktop) {
@@ -349,6 +349,9 @@
           .last-dates {
             display: inline-block;
             vertical-align: top;
+            p:first-child {
+              text-transform: capitalize;
+            }
             p {
               margin: 0px;
             }
@@ -395,7 +398,7 @@
               font-weight: bold;
               font-family: $primary-font;
               font-size: 30px;
-              margin-top: 10px;
+              line-height: 30px;
             }
           }
           .last-subs {

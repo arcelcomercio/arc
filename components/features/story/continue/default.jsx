@@ -32,7 +32,7 @@ class StoryContinue extends PureComponent {
 
   componentDidMount() {
     window.addEventListener('scroll', this.setScrollLoaderPage)
-    window.addEventListener('load', this.setInitialLoaderPage)
+    window.addEventListener('DOMContentLoaded', this.setInitialLoaderPage)
   }
 
   setScrollLoaderPage = () => {
