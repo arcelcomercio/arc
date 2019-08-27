@@ -21,7 +21,6 @@ function WizardPlan(props) {
     setLoading,
   } = props
 
-  const [loadingPlan, setLoadingPlan] = useState()
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
 
