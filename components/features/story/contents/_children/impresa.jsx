@@ -15,6 +15,7 @@ const classes = {
 const RenderRelatedContentImpresa = ({ data: { basic = {} } = {} }) => {
   const sizerImg = 'impresa'
   const ampClass = 'amp-'
+
   return (
     <>
       <div className={classes.paperNav}>

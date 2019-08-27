@@ -102,7 +102,7 @@ class StoryContinue extends PureComponent {
       ) {
         window.location = link
       }
-    }, 2000)
+    }, 5000)
   }
 
   setUpdateLoaderPage = (progress, concurrentProgress) => {

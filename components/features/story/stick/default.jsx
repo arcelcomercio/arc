@@ -11,7 +11,7 @@ const classes = {
     'stick__close-app position-absolute icon-close text-white flex items-center justify-center',
   logo: 'stick__logo',
   logoLink: 'stick__logo-link',
-  description: 'stick__description',
+  description: 'stick__description text-center pl-10 pr-10',
   logoLink: 'button-app',
   buttonApp: 'stick__button p-10 text-center',
 }
@@ -49,7 +49,6 @@ class Stick extends PureComponent {
       data: globalContent,
       contextPath,
     })
-    console.log('deployment=>>>>>>>>>>>>>>>>ssssssssssssssssssssss', this.props)
     const imgLogo = deployment(
       `${contextPath}/resources/dist/${arcSite}/images/logo-p21.png`
     )
