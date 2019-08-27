@@ -3,7 +3,7 @@ export default function(arcSite) {
     content_elements { 
       headlines { basic }
       websites { ${arcSite} { website_url } }
-      publish_date
+      display_date
       promo_items {
         basic { url type resized_urls { landscape_md lazy_default  } }
         basic_video {
