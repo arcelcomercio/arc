@@ -47,9 +47,11 @@ export default {
   },
   paywall: {
     title: 'Suscripciones Digitales | Gestión',
-    description: 'Suscríbete al Plan Digital y accede a contenido exclusivo ilimitadamente desde todos tus dispositivos.Gestión El diario de Economía y Negocios.',
+    description:
+      'Suscríbete al Plan Digital y accede a contenido exclusivo ilimitadamente desde todos tus dispositivos.Gestión El diario de Economía y Negocios.',
     canonical: 'https://gestion.pe/suscripcionesdigitales/',
-    image: 'https://gestion.pe/pf/resources/dist/gestion/images/logo_fb.jpg?d=158',
+    image:
+      'https://gestion.pe/pf/resources/dist/gestion/images/logo_fb.jpg?d=158',
     clickToCall: 'https://c2c.kontactame.com/call/?id=162',
     corporate: '/suscripcionesdigitales/empresa/',
     faq: '/suscripcionesdigitales/faq/',
@@ -146,10 +148,10 @@ export default {
         name: 'facebook',
         url: 'https://www.facebook.com/Gestionpe',
       },
-      {
+      /* {
         name: 'twitter',
         url: 'https://twitter.com/gestionpe',
-      },
+      }, */
     ],
 
     contacts: [
@@ -203,4 +205,5 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
   ],
   activeSignwall: true,
+  activePaywall: true,
 }

@@ -17,5 +17,6 @@ import './images/default-lg.png'
 import './images/logo-footer.png'
 import './images/otorongo.png'
 import './images/logo-sm.png'
+import './images/logo-amp.png'
 
 import '../../../components/utilities/lazyload'

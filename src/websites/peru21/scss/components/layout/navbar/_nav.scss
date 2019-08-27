@@ -36,4 +36,27 @@
   &__loader-bar {
     background-color: $color-primary;
   }
+  .header__logo-secondary {
+    height: auto;
+    img {
+      @media (--only-mobile) {
+        height: 47px;
+      }
+    }
+    @media (--desktop) {
+      display: none;
+    }
+  }
+  &.active {
+    .header__logo-secondary {
+      display: block;
+    }
+  }
+
+  &__mobile-logo {
+    left: 116px;
+    @media (--desktop) {
+      left: 183px;
+    }
+  }
 }

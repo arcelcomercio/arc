@@ -7,6 +7,7 @@ const MODAL = 'fix-modal'
 
 function Modal({
   children,
+  scrollable,
   showClose,
   onClose = () => {},
   open = false,
@@ -46,7 +47,7 @@ function Modal({
     <Portal id="modal">
       <S.Modal open={open} {...props}>
         <S.Background onClick={close} />
-        <S.Content>
+        <S.Content scrollable={scrollable}>
           {open && [showClose && <S.CloseButton onClick={close} />, childrens]}
         </S.Content>
       </S.Modal>

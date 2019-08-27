@@ -3,6 +3,7 @@ export default `
       content_elements{
         canonical_url
         website_url
+        _id
         promo_items{
           basic_video {
             type

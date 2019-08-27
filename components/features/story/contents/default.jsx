@@ -17,6 +17,7 @@ import {
 import StoryContentsChildVideo from './_children/video'
 import StoryContentsChildImage from './_children/image'
 import StoryHeaderChildGallery from '../gallery/_children/gallery'
+import StoryContentChildRawHTML from './_children/rawHtml'
 import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthor from './_children/author'
@@ -24,6 +25,8 @@ import StoryContentsChildMultimedia from './_children/multimedia'
 import StoryContentsChildRelatedInternal from './_children/related-internal'
 import StoryContentsChildIcon from './_children/icon-list'
 import ConfigParams from '../../../utilities/config-params'
+import StoryData from '../../../utilities/story-data'
+import StoryContentsChildImpresa from './_children/impresa'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -64,22 +67,31 @@ class StoryContents extends PureComponent {
     const {
       globalContent,
       arcSite,
+      contextPath,
       siteProperties: {
         ids: { opta },
       },
     } = this.props
+    const { credits: author, related_content: { basic: relatedContent } = {} } =
+      globalContent || {}
+
     const {
-      content_elements: contentElements,
-      promo_items: promoItems,
-      publish_date: date,
-      display_date: updatedDate,
-      credits: author,
-      related_content: { basic: relatedContent } = {},
-    } = globalContent || {}
+      publishDate: date,
+      promoItems,
+      displayDate: updatedDate,
+      contentElements,
+      primarySection,
+    } = new StoryData({
+      data: globalContent,
+      contextPath,
+    })
 
     return (
       <div className={classes.news}>
-        {promoItems && <StoryContentsChildMultimedia data={promoItems} />}
+        {primarySection === 'Impresa'
+          ? promoItems && <StoryContentsChildImpresa data={promoItems} />
+          : promoItems && <StoryContentsChildMultimedia data={promoItems} />}
+
         {author && (
           <StoryContentsChildAuthor
             {...author}
@@ -186,10 +198,7 @@ class StoryContents extends PureComponent {
                       className={classes.newsImage}
                     />
                   ) : (
-                    <RawHtml
-                      content={replaceHtmlMigracion(content)}
-                      className={classes.newsEmbed}
-                    />
+                    <StoryContentChildRawHTML content={content} />
                   )
                 }
                 return ''
