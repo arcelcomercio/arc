@@ -105,7 +105,7 @@ const TvSeparator = props => {
   }
 
   return (
-    <div className="tv-separator ml-10 mr-10 lg:ml-30 lg:mr-30 mb-25">
+    <div className="tv-separator ml-10 mr-10 lg:ml-30 lg:mr-30 pb-25">
       <div className="flex justify-between items-center mb-20">
         <h2>
           {deleteLinks ? (
