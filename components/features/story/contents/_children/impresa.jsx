@@ -11,8 +11,6 @@ const classes = {
 }
 
 const RenderRelatedContentImpresa = ({ data: { basic = {} } = {} }) => {
-  console.log('primarySection=>>>>>>>>>>>>>>>>', basic)
-
   const sizerImg = 'impresa'
   const ampClass = 'amp-'
   return (
