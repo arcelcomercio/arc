@@ -1,3 +1,4 @@
+import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
@@ -14,7 +15,7 @@ const classes = {
   logoLink: 'button-app',
   buttonApp: 'stick__button p-10 text-center',
 }
-
+@Consumer
 class Stick extends PureComponent {
   componentDidMount() {
     const {
@@ -36,14 +37,22 @@ class Stick extends PureComponent {
   }
 
   render() {
-    const { customFields: { urlPwd = '' } = {} } = this.props
-
-    const { globalContent, contextPath, arcSite, deployment } = this.props
+    const {
+      globalContent,
+      contextPath,
+      arcSite,
+      deployment,
+      customFields: { urlPwd = '' } = {},
+    } = this.props
 
     const { link } = new StoryData({
       data: globalContent,
       contextPath,
     })
+    console.log('deployment=>>>>>>>>>>>>>>>>ssssssssssssssssssssss', this.props)
+    const imgLogo = deployment(
+      `${contextPath}/resources/dist/${arcSite}/images/logo-p21.png`
+    )
 
     return (
       <div className={classes.stickWrapper}>
@@ -51,11 +60,7 @@ class Stick extends PureComponent {
           <a href="#" className={classes.closeApp} />
           <div className={classes.logo}>
             <a className={classes.logoLink}>
-              <img
-                src={deployment(
-                  `${contextPath}/resources/dist/${arcSite}/images/logo-p21.png`
-                )}
-              />
+              <img src={imgLogo} />
             </a>
           </div>
           <div className={classes.description}>
