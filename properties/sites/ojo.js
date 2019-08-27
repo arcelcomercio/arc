@@ -91,10 +91,6 @@ export default {
         url: 'https://www.facebook.com/DiarioOjo',
       },
       {
-        name: 'twitter',
-        url: 'https://twitter.com/diarioojo',
-      },
-      {
         name: 'linkedin',
         url: 'https://www.linkedin.com/company/ojo/',
       },

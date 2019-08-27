@@ -28,17 +28,6 @@
   &__legal-links {
     font-weight: 700;
   }
-  &__list-item {
-    &:nth-child(3) {
-      .footer__list-link {
-        &:nth-child(1) {
-          display: none;
-        }
-        margin-top: 10px;
-        text-transform: uppercase;
-      }
-    }
-  }
 
   &__list-link {
     text-transform: none;

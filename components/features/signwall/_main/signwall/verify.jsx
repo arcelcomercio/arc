@@ -3,7 +3,7 @@ import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import Modal from '../common/modal'
 import Header from '../common/header'
-import Footer from '../common/footer'
+// import Footer from '../common/footer'
 import Taggeo from '../utils/taggeo'
 
 import FormVerify from './_children/form-verify'
@@ -19,10 +19,17 @@ class SignWallVerify extends Component {
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    if (arcSite !== 'peru21') {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`
+    } else {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+    }
 
     this.validateToken()
   }
@@ -96,7 +103,7 @@ class SignWallVerify extends Component {
                           {this.renderTemplate(value.selectedTemplate)}
                         </div>
                       </div>
-                      <Footer position="right" />
+                      {/* <Footer position="right" /> */}
                     </Modal>
                   )}
                 </ModalConsumer>

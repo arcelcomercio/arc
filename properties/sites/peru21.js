@@ -1,7 +1,7 @@
 export default {
   siteName: 'Peru21',
-
-  googleFonts: 'Lato:400,700|Exo:500',
+  newsletterBrand: 'peru21',
+  googleFonts: 'Lato:300,400,700,900|Exo:500',
 
   colorPrimary: '#005fa5',
   siteDomain: 'peru21.pe',
@@ -52,36 +52,36 @@ export default {
     frequentQuestions: '2ILZRA4AUBFSXK7JLGGN3SZ2XE',
   },
   infoPagesProd: {
-    termsAndConditions: '',
+    termsAndConditions: 'WBMYZQNJ4FD7HFCQM5RKK4P7UU',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'ZNXM3U7ERBCV5LO5RRTFWTYDKA',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
-    aboutUs: '',
-    frequentQuestions: '',
+    cookiesPolicy: 'UVEA77IFONATBI6K2HBEVES75Y',
+    aboutUs: 'TSXLSV7JIVCPHHKSPJHZQWLG2I',
+    frequentQuestions: 'SLSILPSVUZBPTCQVL4VL6VBRXA',
   },
 
   legalLinks: [
     {
       name: 'Términos y condiciones',
-      url: '/terminos-y-condiciones',
+      url: '/terminos-y-condiciones/',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-de-privacidad',
+      url: '/politicas-de-privacidad/',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-de-cookies',
+      url: '/politicas-de-cookies/',
     },
   ],
 
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
-      'Jr. Santa Rosa 247. Piso 6 Lima 1',
-      'Copyright © Elcomercio.pe',
+      'Jr. Miró Quesada 247. Piso 6 Lima 1',
+      'Copyright © Peru21.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
     story: [
@@ -107,10 +107,6 @@ export default {
         name: 'twitter',
         url: 'https://twitter.com/peru21noticias',
       },
-      {
-        name: 'google+',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
     ],
 
     contacts: [
@@ -119,12 +115,12 @@ export default {
         name: 'Cecilia Valenzuela',
       },
       {
-        position: 'Diario Perú21',
-        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
+        position: 'Editora Web',
+        name: 'Esther Vargas - esther.vargas@peru21.com',
       },
       {
-        position: 'Contacto comercial',
-        name: '',
+        position: 'Publicidad Web',
+        name: 'fonoavisos@comercio.pe',
       },
     ],
   },

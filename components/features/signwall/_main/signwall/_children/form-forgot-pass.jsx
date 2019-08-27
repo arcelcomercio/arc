@@ -28,10 +28,17 @@ class FormForgotPass extends Component {
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    if (arcSite !== 'peru21') {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`
+    } else {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+    }
   }
 
   componentWillMount() {
@@ -83,8 +90,9 @@ class FormForgotPass extends Component {
   }
 
   sendEmail(email) {
+    const { arcSite } = this.props
     services
-      .reloginEcoID(email, '', 'forgotpass', window)
+      .reloginEcoID(email, '', 'forgotpass', arcSite, window)
       .then(resEco => {
         if (resEco.retry) {
           this.pushStatePass()
@@ -200,7 +208,13 @@ class FormForgotPass extends Component {
         <div className="form-grid__forgot-pass">
           <Icon.ForgotPass
             className="form-grid__icon"
-            bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+            bgcolor={
+              {
+                elcomercio: '#fecd26',
+                gestion: '#F4E0D2',
+                peru21: '#d5ecff',
+              }[brandCurrent]
+            }
           />
 
           <h1 className="form-grid__info">Olvidé mi contraseña</h1>
@@ -271,7 +285,13 @@ class FormForgotPass extends Component {
         <div className="form-grid__forgot-pass">
           <Icon.MsgForgotPass
             className="icon-message"
-            bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+            bgcolor={
+              {
+                elcomercio: '#fecd26',
+                gestion: '#F4E0D2',
+                peru21: '#d5ecff',
+              }[brandCurrent]
+            }
           />
           <h1 className="form-grid__info">Correo enviado</h1>
           <p className="form-grid__info-sub text-center">

@@ -151,6 +151,9 @@
       right: -6px;
       top: calc(50% - 8px);
     }
+    .story-content__item {
+      margin-bottom: 0;
+    }
   }
 
   &__tags-link {
@@ -237,5 +240,13 @@
   }
   &__alignment-right {
     text-align: right;
+  }
+  & paper-prev {
+    background-color: rgba(206, 177, 177, 0.5);
+    color: $color-white;
+    height: 100%;
+    text-align: center;
+    width: 60px;
+    z-index: 1;
   }
 }
