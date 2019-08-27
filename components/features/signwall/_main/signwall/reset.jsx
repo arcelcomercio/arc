@@ -71,7 +71,7 @@ class SignWallReset extends Component {
                       {this.renderTemplate(value.selectedTemplate)}
                     </div>
                   </div>
-                  <Footer position="right" />
+                  {/* <Footer position="right" /> */}
                 </Modal>
               )}
             </ModalConsumer>
