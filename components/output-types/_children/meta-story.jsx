@@ -35,6 +35,7 @@ export default ({
     multimediaType,
     sourceId,
     isPremium,
+    sourceUrlOld,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const videoSeoItems = videoSeo.map(
@@ -206,6 +207,7 @@ export default ({
       {sourceId && (
         <meta name="cms_old_id" content={sourceId.match(/([0-9]+)/, '$1')[1]} />
       )}
+      {sourceUrlOld && <meta name="cms_old_url" content={sourceUrlOld} />}
       <meta name="bi3dArtId" content="639992" />
       <meta name="bi3dSection" content={primarySection} />
       <meta name="bi3dArtTitle" content={title} />
