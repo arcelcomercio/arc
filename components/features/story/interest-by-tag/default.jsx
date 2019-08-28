@@ -33,7 +33,7 @@ const InterestByTag = props => {
     data: dataContent,
     contextPath,
   })
-  const { content_elements: storyData } =
+  const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
       query: {

@@ -75,7 +75,7 @@ const EmbedMultimedia = props => {
     if (type === GOLDFISH || type === ConfigParams.VIDEO) {
       return videoGoldfish
     }
-    if (type === YOUTUBE) {
+    if (type === YOUTUBE || type === ConfigParams.ELEMENT_YOUTUBE_ID) {
       return videoYoutube
     }
     return image
