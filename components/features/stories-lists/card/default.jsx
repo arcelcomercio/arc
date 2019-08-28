@@ -1,5 +1,7 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
+
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
@@ -12,77 +14,58 @@ const classes = {
     'stories-l-card bg-white flex flex-col overflow-hidden border-1 border-solid border-base',
 }
 
-@Consumer
-class StoriesListCard extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {
-      arcSite: website,
-      customFields: { section, storiesQty },
-    } = this.props
-
-    const params = {
-      website,
+const StoriesListCard = props => {
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const {
+    customFields: {
       section,
-      excludeSections: '/impresa',
-      stories_qty: storiesQty,
-    }
-
-    this.fetchContent({
-      data: {
-        source: 'story-feed-by-section',
-        query: params,
-        filter: schemaFilter,
-      },
-    })
-  }
-
-  render() {
-    const {
-      deployment,
-      arcSite,
-      contextPath,
-      editableField,
-      isAdmin,
-      customFields: {
-        titleList,
-        urlTitle,
-        background,
-        seeMore,
-        seeMoreurl,
-        seeHour,
-        seeImageNews,
-      },
-    } = this.props
-
-    const { data: { content_elements: data = [] } = {} } = this.state || {}
-
-    const paramsHeader = {
+      storiesQty,
       titleList,
-      editableField,
       urlTitle,
       background,
       seeMore,
       seeMoreurl,
-    }
-
-    const paramsList = {
       seeHour,
       seeImageNews,
-      deployment,
-      arcSite,
-      contextPath,
-      isAdmin,
-      listNews: data || [],
-    }
+    },
+  } = props
 
-    return (
-      <div className={classes.lista}>
-        <Header {...paramsHeader} />
-        <List {...paramsList} />
-      </div>
-    )
+  const params = {
+    section,
+    excludeSections: '/impresa',
+    stories_qty: storiesQty,
   }
+  const data =
+    useContent({
+      source: 'story-feed-by-section',
+      query: params,
+      filter: schemaFilter(arcSite),
+    }) || {}
+
+  const paramsHeader = {
+    titleList,
+    urlTitle,
+    background,
+    seeMore,
+    seeMoreurl,
+  }
+
+  const paramsList = {
+    seeHour,
+    seeImageNews,
+    deployment,
+    arcSite,
+    contextPath,
+    isAdmin,
+    listNews: data.content_elements || [],
+  }
+
+  return (
+    <div className={classes.lista}>
+      <Header {...paramsHeader} />
+      <List {...paramsList} />
+    </div>
+  )
 }
 
 StoriesListCard.propTypes = {
