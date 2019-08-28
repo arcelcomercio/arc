@@ -35,6 +35,19 @@ class ProfileAccount extends Component {
       userNameFB: usernameid.userName,
       activeProfile: false,
     }
+
+    const { arcSite } = this.props
+    if (arcSite !== 'peru21') {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`
+    } else {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+    }
   }
 
   componentDidMount() {
@@ -47,19 +60,26 @@ class ProfileAccount extends Component {
 
   closeSession = () => {
     const { closePopup, arcSite } = this.props
-    window.Identity.clearSession()
     Cookies.deleteCookie('arc_e_id')
     Cookies.deleteCookie('mpp_sess')
     Cookies.deleteCookie('ArcId.USER_INFO')
-    if (
-      window.location.pathname.indexOf('suscripciones') >= 0 ||
-      arcSite === 'gestion'
-    ) {
-      window.location.reload()
-    } else {
-      closePopup()
-    }
-    // window.location.reload()
+
+    window.Sales.apiOrigin = this.origin_api
+    window.Identity.logout()
+      .then(() => {
+        // window.Identity.clearSession()
+        if (
+          window.location.pathname.indexOf('suscripciones') >= 0 ||
+          arcSite === 'gestion'
+        ) {
+          window.location.reload()
+        } else {
+          closePopup()
+        }
+      })
+      .catch(() => {
+        window.location.reload()
+      })
   }
 
   componentWillUpdate = () => {
