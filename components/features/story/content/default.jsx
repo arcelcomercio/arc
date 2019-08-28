@@ -138,11 +138,13 @@ class StoryContent extends PureComponent {
                 if (type === ConfigParams.ELEMENT_VIDEO) {
                   return (
                     <>
-                      {element && element.embed_html && (
+                      {element && element.embed_html ? (
                         <StoryContentChildVideo
                           data={element.embed_html}
                           className={classes.newsImage}
                         />
+                      ) : (
+                        ''
                       )}
                     </>
                   )
