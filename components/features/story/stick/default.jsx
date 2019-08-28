@@ -38,7 +38,8 @@ class Stick extends PureComponent {
 
     aOpenAppClose.addEventListener('click', function(ev) {
       ev.preventDefault()
-      aOpenAppClose.classList.add('hidden')
+      const stick = document.querySelector('.stick')
+      stick.setAttribute('style', 'display: none')
     })
   }
 
