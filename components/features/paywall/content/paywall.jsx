@@ -40,12 +40,12 @@ const Paywall = () => {
     PWA.mount(() => window.location.reload())
   }, [])
 
-  const memo = useRef({})
+  const memo = useRef({}).current
   const onBeforeNextStepHandler = useRef((response, { nextStep }) => {
     Object.assign(memo, response)
     nextStep()
     window.scrollTo(0, 0)
-  })
+  }).current
 
   const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
