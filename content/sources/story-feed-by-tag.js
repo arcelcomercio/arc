@@ -47,7 +47,6 @@ const pattern = (key = {}) => {
   const from = `${validateFrom()}`
 
   /** TODO: Manejar comportamiento cuando no se obtiene data */
-
   const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
     name
   ).toLowerCase()}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}`

@@ -22,7 +22,7 @@ class Stick extends PureComponent {
       customFields: { urlpwd = '', appData = '', href = '' } = {},
     } = this.props
 
-    const aOpenAppClose = document.querySelector('.stick__close-app')
+    const aOpenAppClose = document.getElementById('stick__close-app')
     const aOpenApp = document.getElementById('button-app')
     const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
 
