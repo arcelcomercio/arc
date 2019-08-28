@@ -45,6 +45,9 @@ const schemaFilter = arcSite => `{
                 square_l
             }
         }
+        youtube_id {
+            content
+        }
     }
     credits {
         by {

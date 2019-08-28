@@ -39,6 +39,12 @@ const SeparatorsBasicChildSeparator = props => {
       numline = classes.threeline
       break
   }
+  const getImgUrl = el => {
+    if (arcSite === 'peru21') {
+      return el.multimediaPortraitMD
+    }
+    return el.multimediaLandscapeS
+  }
   return (
     <div className={classes.separator}>
       {htmlCode ? (
@@ -64,7 +70,7 @@ const SeparatorsBasicChildSeparator = props => {
               title: el.title,
               link: el.link,
               numline,
-              imageUrl: el.multimediaLandscapeS,
+              imageUrl: getImgUrl(el),
               lazyImage: el.multimediaLazyDefault,
               mediaIcon: el.multimediaType,
               isAdmin,

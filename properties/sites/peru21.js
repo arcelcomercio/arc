@@ -33,9 +33,11 @@ export default {
       logo: 'white-logo.png',
     },
     seo: {
-      logoAmp: 'logo-amp.png',
-      width: 230,
+      logoAmp: 'logo-peru21-214x60.png',
+      width: 214,
       height: 60,
+      widthAmp: 110,
+      heightAmp: 28,
     },
     tv: {
       siteLogo: 'favicon.png',
@@ -142,11 +144,11 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011772,
-    movil2: 15011773,
-    movil3: 15011774,
-    movil4: 15011775,
-    movil5: 15011776,
+    movil1: 14926789,
+    movil2: 14904301,
+    movil3: 14926493,
+    movil4: 14926495,
+    movil5: 14926496,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna1-300x250-div-gpt-ad-8599377-31.html',
