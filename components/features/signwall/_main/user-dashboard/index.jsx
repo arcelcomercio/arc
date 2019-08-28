@@ -3,7 +3,7 @@ import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import Modal from '../common/modal'
 import Header from '../common/header'
-import Footer from '../common/footer'
+// import Footer from '../common/footer'
 import Gravatar from '../common/gravatar'
 import Cookie from '../utils/cookie'
 import GetProfile from '../utils/get-profile'
@@ -230,7 +230,7 @@ class ProfileAccount extends Component {
                 </div>
               </div>
 
-              <Footer position="center" />
+              {/* <Footer position="center" /> */}
             </Modal>
           )}
         </ModalConsumer>
