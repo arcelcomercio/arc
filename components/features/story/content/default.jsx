@@ -137,10 +137,16 @@ class StoryContent extends PureComponent {
                 }
                 if (type === ConfigParams.ELEMENT_VIDEO) {
                   return (
-                    <StoryContentChildVideo
-                      data={element.embed_html}
-                      className={classes.newsImage}
-                    />
+                    <>
+                      {element && element.embed_html ? (
+                        <StoryContentChildVideo
+                          data={element.embed_html}
+                          className={classes.newsImage}
+                        />
+                      ) : (
+                        ''
+                      )}
+                    </>
                   )
                 }
                 if (type === ConfigParams.ELEMENT_GALLERY) {
