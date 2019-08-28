@@ -353,23 +353,25 @@ class FormLogin extends Component {
                   </h1>
                 ) : null}
 
-                <div className="row-grid form-group col-center">
-                  <p className="text-center mt-20 mb-20">
-                    Ingresa con tus redes sociales
-                  </p>
-                </div>
-
                 {!showSocialButtons && (
-                  <div className="form-grid__group">
-                    <div className="form-group form-group--unique">
-                      <AuthFacebook
-                        closePopup={closePopup}
-                        id="facebook-sign-in-button"
-                        typePopUp={typePopUp}
-                        typeForm={typeForm}
-                      />
+                  <>
+                    <div className="row-grid form-group col-center">
+                      <p className="text-center mt-20 mb-20">
+                        Ingresa con tus redes sociales
+                      </p>
                     </div>
-                  </div>
+
+                    <div className="form-grid__group">
+                      <div className="form-group form-group--unique">
+                        <AuthFacebook
+                          closePopup={closePopup}
+                          id="facebook-sign-in-button"
+                          typePopUp={typePopUp}
+                          typeForm={typeForm}
+                        />
+                      </div>
+                    </div>
+                  </>
                 )}
 
                 {hiddenEnterUser && (

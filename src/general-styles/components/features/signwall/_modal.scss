@@ -71,6 +71,21 @@
         }
       }
 
+      &__size-mini {
+        width: 80%;
+        height: auto;
+        padding: 20px;
+        @media (--tablet) {
+          width: 60%;
+          height: auto;
+        }
+
+        @media (--desktop) {
+          max-width: 380px;
+          width: 50%;
+        }
+      }
+
       &__size-medium {
         width: 100%;
         @media (--tablet) {

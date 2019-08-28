@@ -294,7 +294,7 @@ class updatePassword extends Component {
 
         {showModalConfirm && (
           <Modal
-            size="small"
+            size="mini"
             position="middle"
             bg="white"
             name="modal-div-confirmpass"
