@@ -20,6 +20,7 @@ export default ({
   const {
     multimediaLandscapeXL,
     videoSeo: [{ url = '' } = {}] = [],
+    title: seoTitle,
   } = new StoryData({
     data,
     arcSite,
@@ -38,7 +39,7 @@ export default ({
       <meta property="og:locale" content="es_PE" />
 
       <meta property="fb:app_id" content={fbAppId} />
-      <meta property="og:title" content={title} />
+      <meta property="og:title" content={story ? seoTitle : title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       <meta property="og:image:secure_url" content={image} />

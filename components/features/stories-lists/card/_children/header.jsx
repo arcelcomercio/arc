@@ -10,7 +10,6 @@ const StoriesListsCardChildHeader = ({
   titleList,
   background,
   seeMore,
-  editableField,
   urlTitle = '/',
   seeMoreurl = '/',
 }) => {
@@ -18,17 +17,10 @@ const StoriesListsCardChildHeader = ({
     <div className={`${classes.header} ${background}`}>
       {urlTitle ? (
         <a href={urlTitle} className={classes.title}>
-          <h4 {...editableField('titleList')} suppressContentEditableWarning>
-            {titleList}
-          </h4>
+          <h4>{titleList}</h4>
         </a>
       ) : (
-        <h4
-          {...editableField('titleList')}
-          suppressContentEditableWarning
-          className={classes.title}>
-          {titleList}
-        </h4>
+        <h4 className={classes.title}>{titleList}</h4>
       )}
       {seeMore && (
         <a href={seeMoreurl} className={classes.seeMore}>
