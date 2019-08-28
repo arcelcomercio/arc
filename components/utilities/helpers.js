@@ -323,12 +323,12 @@ export const formatHtmlToText = (html = '') => {
   return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
 }
 
-export const removeLastSlash = url => {
+export const removeLastSlash = (url = '') => {
   if (url === '/' || !url.endsWith('/')) return url
   return url && url.endsWith('/') ? url.slice(0, url.length - 1) : url
 }
 
-export const addSlashToEnd = url => {
+export const addSlashToEnd = (url = '') => {
   const urlString = `${url}`
   if (url && urlString.trim() === '/') return url
   return url && !urlString.endsWith('/') ? `${url}/` : url

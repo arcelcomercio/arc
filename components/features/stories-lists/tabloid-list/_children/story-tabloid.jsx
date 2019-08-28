@@ -1,7 +1,6 @@
 import React from 'react'
 
 import StoryData from '../../../../utilities/story-data'
-import formatAMPM from '../../../../utilities/helpers'
 
 export default props => {
   const { data, section, arcSite, contextPath, deployment } = props
