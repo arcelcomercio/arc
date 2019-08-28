@@ -3,7 +3,7 @@
     border: 1px solid $color-primary;
   }
   &__date {
-    font-family: $font-regular;
+    /* font-family: $font-regular; */
     margin-left: 15px;
 
     @media (--tablet) {
@@ -16,11 +16,11 @@
   }
 
   &__subtitle {
-    font-family: $font-regular;
+    /* font-family: $font-regular; */
     color: $color-gray-300;
   }
 
   &__author {
-    font-family: $font-regular;
+    /* font-family: $font-regular; */
   }
 }

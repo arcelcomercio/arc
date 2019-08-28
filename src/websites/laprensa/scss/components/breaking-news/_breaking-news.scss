@@ -1,10 +1,10 @@
 .breaking-news {
   &--bgcolor-1 {
-    background-color: $color-attention;
+    background-color: $color-base-300;
     .breaking-news__text,
     .breaking-news__link,
     .breaking-news__btn-icon {
-      color: $color-base-400;
+      color: $color-white;
     }
   }
   &__text,

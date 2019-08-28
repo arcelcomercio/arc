@@ -1,6 +1,8 @@
 .most-read {
   &__title {
-    color: $color-primary;
-    background-color: $color-base-100;
+    background-color: $color-primary;
+  }
+  &__link {
+    color: $color-white;
   }
 }
