@@ -201,7 +201,14 @@ class ProfileAccount extends Component {
                           </li>
                         </ul>
                       </div>
-                      <div className="profile__avatar">
+                      <div
+                        className="profile__avatar"
+                        style={{
+                          borderColor: {
+                            peru21: '#efdb96',
+                            gestion: '#f4e0d2',
+                          }[arcSite],
+                        }}>
                         <picture>
                           <Gravatar
                             email={emailUser}
