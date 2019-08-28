@@ -16,24 +16,29 @@ const StoriesListsCardChildList = ({
   contextPath,
   isAdmin,
 }) => {
-  const elementFormatter = new StoryData({ deployment, arcSite, contextPath })
+  const Story = new StoryData({
+    arcSite,
+    contextPath,
+    deployment,
+    defaultImgSize: 'sm',
+  })
   return (
     <div role="list" className={classes.list}>
       {listNews.map((el, index) => {
-        elementFormatter.__data = el
-        const data = elementFormatter.attributesRaw
+        Story.__data = el
+        // const data = Story.attributesRaw
 
         const params = {
-          key: data.link,
+          key: Story.websiteLink,
           seeHour,
           seeImageNews:
             seeImageNews === true && index === 0 /* ? true : false */,
-          time: formatDateLocalTimeZone(data.displayDate),
-          title: data.title,
-          urlNews: data.link,
-          multimedia: data.multimediaLandscapeMD,
-          lazyImage: data.multimediaLazyDefault,
-          multimediaType: data.multimediaType,
+          time: formatDateLocalTimeZone(Story.displayDate),
+          title: Story.title,
+          urlNews: Story.websiteLink,
+          multimedia: Story.multimediaLandscapeMD,
+          lazyImage: Story.multimediaLazyDefault,
+          multimediaType: Story.multimediaType,
           isAdmin,
         }
 

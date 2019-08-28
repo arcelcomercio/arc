@@ -457,6 +457,11 @@ class StoryData {
     return seoKeywords
   }
 
+  get sourceUrlOld() {
+    const { additional_properties: { source_url: sourceUrl = '' } = {} } =
+      this._data || {}
+    return sourceUrl
+  }
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
