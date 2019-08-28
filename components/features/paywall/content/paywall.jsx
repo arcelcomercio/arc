@@ -38,7 +38,7 @@ const Paywall = () => {
     })
     document.querySelector('html').classList.add('ios')
     PWA.mount(() => window.location.reload())
-  })
+  }, [])
 
   const memo = useRef({})
   const onBeforeNextStepHandler = useRef((response, { nextStep }) => {
