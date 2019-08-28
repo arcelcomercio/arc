@@ -452,7 +452,11 @@ class FormLogin extends Component {
                       type="submit"
                       name="ingresar"
                       id="login_boton_ingresar"
-                      className="btn input-button"
+                      className={
+                        arcSite !== 'peru21'
+                          ? 'btn input-button'
+                          : 'btn btn--blue btn-bg'
+                      }
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                       onClick={() =>
                         Taggeo(
