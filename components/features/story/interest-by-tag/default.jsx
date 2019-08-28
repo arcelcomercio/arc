@@ -102,6 +102,6 @@ InterestByTag.propTypes = {
   customFields,
 }
 InterestByTag.label = 'Artículo - te pude interesar'
-//InterestByTag.static = true
+InterestByTag.static = true
 
 export default InterestByTag
