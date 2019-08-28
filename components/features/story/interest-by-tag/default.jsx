@@ -29,17 +29,16 @@ const InterestByTag = props => {
     deployment,
   } = useFusionContext()
 
-  const { tags: [{ slug = '/peru/' } = {}] = [], id: excluir } = new StoryData({
+  const { tags: [{ slug = 'Peru' } = {}] = [], id: excluir } = new StoryData({
     data: dataContent,
     contextPath,
   })
-  const urlTag = slug ? `/${slug}/` : section
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
       query: {
         website: arcSite,
-        name: urlTag,
+        name: section || slug,
         size: 5,
       },
       filter: schemaFilter,
@@ -56,11 +55,9 @@ const InterestByTag = props => {
 
   let key = 0
 
-  const dataInterest = storyData
-    .map(story => {
-      return story && story._id !== excluir ? story : ''
-    })
-    .filter(String)
+  const dataInterest = storyData.map(story => {
+    return story && story._id !== excluir ? story : ''
+  })
 
   return (
     <>
@@ -102,6 +99,6 @@ InterestByTag.propTypes = {
   customFields,
 }
 InterestByTag.label = 'Artículo - te pude interesar'
-InterestByTag.static = true
+//InterestByTag.static = true
 
 export default InterestByTag
