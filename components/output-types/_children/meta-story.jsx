@@ -205,7 +205,7 @@ export default ({
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
       {sourceId && (
-        <meta name="cms_old_id" content={sourceId.match(/([0-9]+)/, '$1')[1]} />
+        <meta name="cms_old_id" content={sourceId.match(/_story([0-9]+)/, '$1')[1]} />
       )}
       {sourceUrlOld && <meta name="cms_old_url" content={sourceUrlOld} />}
       <meta name="bi3dArtId" content="639992" />
