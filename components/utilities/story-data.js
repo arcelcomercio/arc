@@ -206,6 +206,10 @@ class StoryData {
     return StoryData.getMultimediaIconType(this._data)
   }
 
+  get promoItemsType() {
+    return this.getPromoItemsType() || ''
+  }
+
   get section() {
     // FIXME: deprecated
     return StoryData.getDataSection(this._data, this._website).name
@@ -375,13 +379,7 @@ class StoryData {
   }
 
   get videoId() {
-    return (
-      (this._data &&
-        this._data.promo_items &&
-        this._data.promo_items[ConfigParams.VIDEO] &&
-        this._data.promo_items[ConfigParams.VIDEO]._id) ||
-      ''
-    )
+    return StoryData.getIdGoldfish(this.__data)
   }
 
   get video() {
@@ -561,6 +559,17 @@ class StoryData {
         true) ||
       false
     )
+  }
+
+  get videoIdContent() {
+    let video = ''
+    const typeItem = this.promoItemsType
+    if (typeItem === ConfigParams.VIDEO) {
+      video = StoryData.getIdGoldfish(this._data)
+    } else if (typeItem === ConfigParams.ELEMENT_YOUTUBE_ID) {
+      video = StoryData.getIdYoutube(this._data)
+    }
+    return video
   }
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
@@ -861,6 +870,26 @@ class StoryData {
     return thumb
   }
 
+  static getIdGoldfish(data) {
+    return (
+      (data &&
+        data.promo_items &&
+        data.promo_items[ConfigParams.VIDEO] &&
+        data.promo_items[ConfigParams.VIDEO]._id) ||
+      ''
+    )
+  }
+
+  static getIdYoutube(data) {
+    const video =
+      (data &&
+        data.promo_items &&
+        data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID] &&
+        data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID].content) ||
+      ''
+    return video
+  }
+
   static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
     const { url = '', resized_urls: resizeUrls = {}, type = null } =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
@@ -873,7 +902,6 @@ class StoryData {
   }
 
   static getThumbnailBySize(data, type, size) {
-    
     let thumb = ''
     if (type === ConfigParams.VIDEO) {
       thumb = StoryData.getThumbnailVideo(data, size)

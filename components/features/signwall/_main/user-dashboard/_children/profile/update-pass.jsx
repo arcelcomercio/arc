@@ -302,6 +302,7 @@ class updatePassword extends Component {
             <div className="text-right">
               <button
                 type="button"
+                className="btn-close"
                 onClick={e => this.togglePopupModalConfirm(e)}>
                 <Close />
               </button>

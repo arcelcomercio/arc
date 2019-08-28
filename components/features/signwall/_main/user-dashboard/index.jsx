@@ -46,17 +46,20 @@ class ProfileAccount extends Component {
   }
 
   closeSession = () => {
-    const { closePopup } = this.props
+    const { closePopup, arcSite } = this.props
     window.Identity.clearSession()
     Cookies.deleteCookie('arc_e_id')
     Cookies.deleteCookie('mpp_sess')
     Cookies.deleteCookie('ArcId.USER_INFO')
-    // if (window.location.pathname.indexOf('suscripciones') >= 0) {
-    //   window.location.reload()
-    // } else {
-    //   closePopup()
-    // }
-    window.location.reload()
+    if (
+      window.location.pathname.indexOf('suscripciones') >= 0 ||
+      arcSite === 'gestion'
+    ) {
+      window.location.reload()
+    } else {
+      closePopup()
+    }
+    // window.location.reload()
   }
 
   componentWillUpdate = () => {
@@ -198,7 +201,14 @@ class ProfileAccount extends Component {
                           </li>
                         </ul>
                       </div>
-                      <div className="profile__avatar">
+                      <div
+                        className="profile__avatar"
+                        style={{
+                          borderColor: {
+                            peru21: '#efdb96',
+                            gestion: '#f4e0d2',
+                          }[arcSite],
+                        }}>
                         <picture>
                           <Gravatar
                             email={emailUser}

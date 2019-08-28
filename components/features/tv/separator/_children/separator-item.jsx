@@ -46,7 +46,7 @@ export default ({ date, multimedia, title, videoId, maxStories, isAdmin }) => {
         className="tv-separator__img-button p-0 overflow-hidden rounded-sm mb-10  position-relative"
         onClick={() => setIsModalOpen(!isModalOpen)}>
         <picture className="block w-full">
-          <img className="w-full" src={multimedia.image} alt="" />
+          <img className="w-full block" src={multimedia.image} alt="" />
           {/* <img
             className={`tv-separator__img block ${
               isAdmin ? '' : 'lazy'

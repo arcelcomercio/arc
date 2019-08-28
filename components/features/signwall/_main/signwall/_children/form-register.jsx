@@ -320,6 +320,7 @@ class FormRegister extends Component {
       typeForm,
       brandCurrent,
       reloadRegister,
+      arcSite,
     } = this.props
 
     return (
@@ -496,7 +497,11 @@ class FormRegister extends Component {
                     <input
                       type="submit"
                       id="registro_boton_registrarme"
-                      className="btn btn-md input-button"
+                      className={
+                        arcSite !== 'peru21'
+                          ? 'btn btn-md input-button'
+                          : 'btn btn--blue btn-bg'
+                      }
                       value={!sending ? 'Registrando...' : 'Registrarme'}
                       onClick={() =>
                         Taggeo(

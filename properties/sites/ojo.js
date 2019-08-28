@@ -47,6 +47,8 @@ export default {
       logoAmp: 'logo-amp.png',
       width: 246,
       height: 60,
+      widthAmp: 65,
+      heightAmp: 40,
     },
   },
   legalLinks: [

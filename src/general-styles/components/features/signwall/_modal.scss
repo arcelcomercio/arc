@@ -57,15 +57,16 @@
       }
 
       &__size-small {
-        width: 300px;
+        width: 100%;
+        height: 100%;
         padding: 0px;
-
         @media (--tablet) {
           width: 90%;
+          height: auto;
         }
 
         @media (--desktop) {
-          max-width: 520px;
+          max-width: 480px;
           width: 60%;
         }
       }

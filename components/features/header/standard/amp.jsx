@@ -21,7 +21,15 @@ const classes = {
 @Consumer
 class HeaderAmpStandard extends PureComponent {
   render() {
-    const { contextPath, arcSite, deployment } = this.props
+    const {
+      contextPath,
+      arcSite,
+      deployment,
+      siteProperties: {
+        assets: { seo },
+      },
+    } = this.props
+
     const imgLogo =
       deployment(
         `${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
@@ -35,8 +43,8 @@ class HeaderAmpStandard extends PureComponent {
                 <amp-img
                   src={imgLogo}
                   alt={arcSite}
-                  width={arcSite === ConfigParams.SITE_OJO ? 65 : 120}
-                  height={arcSite === ConfigParams.SITE_OJO ? 40 : 26}
+                  width={seo.widthAmp}
+                  height={seo.heightAmp}
                   tabindex="0"
                 />
               </a>
@@ -53,6 +61,6 @@ class HeaderAmpStandard extends PureComponent {
   }
 }
 
-HeaderAmpStandard.label = 'Cabecera de Página'
+HeaderAmpStandard.label = 'Cabecera de Estándar'
 
 export default HeaderAmpStandard
