@@ -87,19 +87,26 @@ class SignWallVerify extends Component {
                 <ModalConsumer>
                   {value => (
                     <Modal
-                      size="large"
+                      size={brandModal !== 'peru21' ? 'large' : 'small'}
                       position="middle"
                       name="arc-popup-verifyaccount"
                       id="arc-popup-verifyaccount">
                       <Header closePopup={closePopup} typePopUp="verify" />
                       <div className="modal-body">
-                        <div className="modal-body__left">
-                          <ListBenefits
-                            typeMessage="organic"
-                            brandCurrent={brandModal}
-                          />
-                        </div>
-                        <div className="modal-body__right">
+                        {brandModal !== 'peru21' ? (
+                          <div className="modal-body__left">
+                            <ListBenefits
+                              typeMessage="organic"
+                              brandCurrent={brandModal}
+                            />
+                          </div>
+                        ) : null}
+                        <div
+                          className={
+                            brandModal !== 'peru21'
+                              ? 'modal-body__right'
+                              : 'modal-body__full'
+                          }>
                           {this.renderTemplate(value.selectedTemplate)}
                         </div>
                       </div>
