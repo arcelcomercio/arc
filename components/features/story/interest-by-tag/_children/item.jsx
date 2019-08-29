@@ -20,8 +20,10 @@ const StorySeparatorChildItem = ({ data }) => {
     link,
     section,
     sectionLink,
-    multimediaPortraitXS,
+    lazyImage,
+    multimediaLandscapeMD,
     multimediaType,
+    isAdmin,
   } = data
 
   return (
@@ -32,9 +34,11 @@ const StorySeparatorChildItem = ({ data }) => {
         {link && (
           <a href={link}>
             <img
-              src={multimediaPortraitXS}
+              className={`${isAdmin ? '' : 'lazy'} ${classes.itemImage}`}
+              src={isAdmin ? multimediaLandscapeMD : lazyImage}
+              data-src={multimediaLandscapeMD}
               alt=""
-              className={classes.itemImage}
+              title={title}
             />
           </a>
         )}

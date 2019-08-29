@@ -20,7 +20,7 @@ const classes = {
 }
 
 const RenderRelatedContentElement = (props, i) => {
-  const { deployment, contextPath, arcSite, isAmp = '' } = props
+  const { deployment, contextPath, arcSite, isAdmin, isAmp = '' } = props
 
   const get = new DataStory({
     data: props,
@@ -33,7 +33,8 @@ const RenderRelatedContentElement = (props, i) => {
     nameTitle: get.title,
     urlTitle: get.link,
     multimediaType: get.multimediaType,
-    multimediaImg: get.multimediaLandscapeMD,
+    multimediaImg: get.multimediaLandscapeS,
+    lazyImage: get.multimediaLazyDefault,
   }
   return (
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
@@ -48,9 +49,13 @@ const RenderRelatedContentElement = (props, i) => {
         </a>
       </div>
       <figure className={classes.multimedia}>
-        <a href={filterData.urlTitle} className={classes.link}>
+        <a
+          href={filterData.urlTitle}
+          className={classes.link}
+          title={filterData.nameTitle}>
           {isAmp ? (
             <amp-img
+              // TODO: En amp se puede usar lazyload para las imagenes?
               src={filterData.multimediaImg}
               alt={filterData.nameTitle}
               class={classes.image}
@@ -60,9 +65,10 @@ const RenderRelatedContentElement = (props, i) => {
             />
           ) : (
             <img
-              src={filterData.multimediaImg}
+              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+              src={isAdmin ? filterData.multimediaImg : filterData.lazyImage}
+              data-src={filterData.multimediaImg}
               alt={filterData.nameTitle}
-              className={classes.image}
             />
           )}
 

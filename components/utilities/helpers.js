@@ -648,18 +648,45 @@ export const formatDateStory = date => {
 }
 
 /**
- * Necesita CODE REVIEW
+ * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
   data,
   resizerUrl,
   resizerSecret,
-  addResizedUrls
+  addResizedUrls,
+  preset = 'basic'
 ) => {
   return (
     data &&
     data.map(item => {
-      const dataStory = item
+      const storyData = item
+      if (!storyData.content_elements) storyData.content_elements = []
+
+      let presets = {}
+      switch (preset) {
+        case 'newsletter':
+          presets = sizeImgNewsLetter()
+          break
+        case 'related':
+          presets = {
+            landscape_s: {
+              width: 234,
+              height: 161,
+            },
+            landscape_xs: {
+              width: 118,
+              height: 72,
+            },
+            lazy_default: {
+              width: 7,
+              height: 4,
+            },
+          }
+          break
+        default:
+          presets = sizeImg()
+      }
 
       const {
         promo_items: {
@@ -672,9 +699,9 @@ export const addResizedUrlsToStory = (
         const image = addResizedUrls(basicGallery, {
           resizerUrl,
           resizerSecret,
-          presets: sizeImg(),
+          presets,
         })
-        dataStory.promo_items.basic_gallery = image
+        storyData.promo_items.basic_gallery = image
       }
 
       if (basicVideo && basicVideo.promo_items) {
@@ -682,48 +709,15 @@ export const addResizedUrlsToStory = (
         const image = addResizedUrls(basicVideo, {
           resizerUrl,
           resizerSecret,
-          presets: sizeImg(),
+          presets,
         })
-        dataStory.promo_items.basic_video = image
+        storyData.promo_items.basic_video = image
       }
 
-      return addResizedUrls(dataStory, {
+      return addResizedUrls(storyData, {
         resizerUrl,
         resizerSecret,
-        presets: sizeImg(),
-      })
-    })
-  )
-}
-
-export const addResizedUrlsToStoryNewsLetter = (
-  data,
-  resizerUrl,
-  resizerSecret,
-  addResizedUrls
-) => {
-  return (
-    data &&
-    data.map(item => {
-      const dataStory = item
-
-      const {
-        promo_items: { basic_gallery: contentElements = null } = {},
-      } = item
-
-      if (contentElements && contentElements.promo_items) {
-        const image = addResizedUrls(contentElements, {
-          resizerUrl,
-          resizerSecret,
-          presets: sizeImgNewsLetter(),
-        })
-        dataStory.promo_items.basic_gallery = image
-      }
-
-      return addResizedUrls(dataStory, {
-        resizerUrl,
-        resizerSecret,
-        presets: sizeImgNewsLetter(),
+        presets,
       })
     })
   )

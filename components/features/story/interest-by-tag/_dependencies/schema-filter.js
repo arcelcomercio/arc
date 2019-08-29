@@ -12,7 +12,8 @@ export default `
                 type 
                 url
                 resized_urls { 
-                  portrait_xs
+                  landscape_md
+                  lazy_default
                 }
               }
             }
@@ -24,7 +25,8 @@ export default `
                 type 
                 url
                 resized_urls { 
-                  portrait_xs
+                  landscape_md
+                  lazy_default
                 }
               }
             }
@@ -33,7 +35,8 @@ export default `
             type 
             url
             resized_urls { 
-              portrait_xs
+              landscape_md
+              lazy_default
             }
           }
         }
