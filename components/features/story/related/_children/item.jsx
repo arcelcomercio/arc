@@ -33,14 +33,17 @@ const RenderRelatedContentElement = (props, i) => {
     nameTitle: get.title,
     urlTitle: get.link,
     multimediaType: get.multimediaType,
-    multimediaImg: get.multimediaLandscapeS,
+    multimediaImg: get.multimediaLandscapeMD,
     lazyImage: get.multimediaLazyDefault,
   }
   return (
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div className={classes.info}>
         <h2 className={classes.itemTitle}>
-          <a href={filterData.urlTitle} className={classes.itemTitleLink}>
+          <a
+            href={filterData.urlTitle}
+            className={classes.itemTitleLink}
+            title={filterData.nameTitle}>
             {filterData.nameTitle}
           </a>
         </h2>

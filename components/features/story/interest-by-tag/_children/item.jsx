@@ -21,7 +21,8 @@ const StorySeparatorChildItem = ({ data }) => {
     section,
     sectionLink,
     lazyImage,
-    multimediaLandscapeMD,
+    multimediaLandscapeS,
+    multimediaLandscapeXS,
     multimediaType,
     isAdmin,
   } = data
@@ -30,19 +31,24 @@ const StorySeparatorChildItem = ({ data }) => {
     <li className={classes.item}>
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
-      <figure className={classes.figure}>
-        {link && (
-          <a href={link}>
+      {link && (
+        <a href={link} title={title}>
+          <picture className={classes.figure}>
+            <source
+              className={isAdmin ? '' : 'lazy'}
+              media="(max-width: 1023px)"
+              srcSet={isAdmin ? multimediaLandscapeXS : lazyImage}
+              data-srcset={multimediaLandscapeXS}
+            />
             <img
               className={`${isAdmin ? '' : 'lazy'} ${classes.itemImage}`}
-              src={isAdmin ? multimediaLandscapeMD : lazyImage}
-              data-src={multimediaLandscapeMD}
-              alt=""
-              title={title}
+              src={isAdmin ? multimediaLandscapeS : lazyImage}
+              data-src={multimediaLandscapeS}
+              alt={title}
             />
-          </a>
-        )}
-      </figure>
+          </picture>
+        </a>
+      )}
 
       <div className={classes.detail}>
         <h2 className={classes.separatorCategory}>

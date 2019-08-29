@@ -670,13 +670,9 @@ export const addResizedUrlsToStory = (
           break
         case 'related':
           presets = {
-            landscape_s: {
-              width: 234,
-              height: 161,
-            },
-            landscape_xs: {
-              width: 118,
-              height: 72,
+            landscape_md: {
+              width: 314,
+              height: 157,
             },
             lazy_default: {
               width: 7,
