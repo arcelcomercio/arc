@@ -906,7 +906,7 @@ class StoryData {
 
   static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
     const { url = '', resized_urls: resizeUrls = {}, type = null } =
-      (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
+      (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || {}
     if (size === ConfigParams.IMAGE_ORIGINAL) return url
     return (
       (type === ConfigParams.ELEMENT_IMAGE && resizeUrls[size]
