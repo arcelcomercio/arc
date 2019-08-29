@@ -1,0 +1,13 @@
+.footer-story.footer-secondary {
+  border-top: 0;
+  background-color: $color-primary;
+
+  .footer-secondary__legal-item {
+    color: $color-white;
+    &::after {
+      @media (--desktop) {
+        background-color: $color-white;
+      }
+    }
+  }
+}
