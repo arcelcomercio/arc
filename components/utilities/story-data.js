@@ -577,6 +577,15 @@ class StoryData {
     return video
   }
 
+  get nucleoOrigen() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.nucleo &&
+        this._data.label.nucleo.url) ||
+      ''
+    )
+  }
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
