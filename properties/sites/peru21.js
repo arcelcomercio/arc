@@ -64,6 +64,10 @@ export default {
 
   legalLinks: [
     {
+      name: 'Quiénes Somos',
+      url: '/quienes-somos/',
+    },
+    {
       name: 'Términos y condiciones',
       url: '/terminos-y-condiciones/',
     },
@@ -75,6 +79,10 @@ export default {
       name: 'Politicas de Cookies',
       url: '/politicas-de-cookies/',
     },
+    {
+      name: 'Preguntas Frecuentes',
+      url: '/preguntas-frecuentes/',
+    }
   ],
 
   footer: {
