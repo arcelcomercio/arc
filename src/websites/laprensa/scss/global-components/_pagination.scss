@@ -1,0 +1,13 @@
+.pagination {
+  &__page {
+    /*   font-family: $font-regular; */
+    font-weight: normal;
+    margin-right: 10px;
+    &:last-child {
+      margin-right: 0;
+    }
+    &--current {
+      background-color: $color-primary;
+    }
+  }
+}

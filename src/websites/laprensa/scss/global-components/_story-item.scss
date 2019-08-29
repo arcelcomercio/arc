@@ -1,0 +1,26 @@
+.story-item {
+  &__section {
+    border: 1px solid $color-primary;
+  }
+  &__date {
+    /* font-family: $font-regular; */
+    margin-left: 15px;
+
+    @media (--tablet) {
+      margin-left: 0;
+    }
+  }
+
+  &__title {
+    color: $color-base-300;
+  }
+
+  &__subtitle {
+    /* font-family: $font-regular; */
+    color: $color-gray-300;
+  }
+
+  &__author {
+    /* font-family: $font-regular; */
+  }
+}
