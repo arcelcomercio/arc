@@ -3,10 +3,7 @@ import React, { PureComponent } from 'react'
 import ConfigParams from '../utilities/config-params'
 import StoryData from '../utilities/story-data'
 
-import {
-  reduceWord,
-  formatDateLocalTimeZone,
-} from '../utilities/helpers'
+import { reduceWord, formatDateLocalTimeZone } from '../utilities/helpers'
 
 const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray md:pl-0 md:pr-0  lg:p-0`,
@@ -95,7 +92,7 @@ class StoriesList extends PureComponent {
                       ? element.multimediaLandscapeXS
                       : element.multimediaLazyDefault
                   }
-                  data-srcSet={element.multimediaLandscapeXS}
+                  data-srcset={element.multimediaLandscapeXS}
                 />
                 <img
                   alt={element.title}
