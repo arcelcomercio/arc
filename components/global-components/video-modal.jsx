@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import ENV from 'fusion:environment'
+import { createMarkup } from '../utilities/helpers'
 
 const VIDEO_CENTER_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const ORG_ID = 'elcomercio'
 
-export default ({ close, youtubeId, multimediaSource }) => {
+export default ({ close, youtubeId, multimediaSource, multimediaEmbed }) => {
   useEffect(() => {
     document.body.classList.add('overflow-hidden')
     if (window.powaBoot) {
@@ -35,7 +36,7 @@ export default ({ close, youtubeId, multimediaSource }) => {
           onClick={() => closeModal()}>
           <i className="video-modal__close-icon icon-close text-gray-200 text-lg" />
         </button>
-        {youtubeId ? (
+        {youtubeId && (
           <div className="video-modal__embed">
             <iframe
               title={`Youtube - ${youtubeId}`}
@@ -46,7 +47,8 @@ export default ({ close, youtubeId, multimediaSource }) => {
               allowFullScreen
             />
           </div>
-        ) : (
+        )}
+        {multimediaSource && (
           <div
             id={`powa-${multimediaSource}`}
             data-env={VIDEO_CENTER_ENV}
@@ -56,6 +58,13 @@ export default ({ close, youtubeId, multimediaSource }) => {
             data-autoplay="true"
             data-aspect-ratio="0.562"
             className="powa"
+          />
+        )}
+        {multimediaEmbed && (
+          <div
+            dangerouslySetInnerHTML={createMarkup(
+              multimediaEmbed.replace(/^<div/, '<div data-autoplay="true"')
+            )}
           />
         )}
       </div>

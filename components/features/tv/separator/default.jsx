@@ -72,12 +72,16 @@ const TvSeparator = props => {
 
   const getVideoId = ({ data, multimediaType, videoId }) => {
     let auxVideoId = {}
-    const { promo_items: { youtube_id: { content = '' } = {} } = {} } = data
+
     if (multimediaType === 'basic_video') {
       auxVideoId = { multimediaSource: videoId }
     } else if (multimediaType === 'youtube_id') {
+      const { promo_items: { youtube_id: { content = '' } = {} } = {} } = data
       /** Si es un video de Youtube */
       auxVideoId = { youtubeId: content }
+    } else {
+      const { promo_items: { basic_html: { content = '' } = {} } = {} } = data
+      auxVideoId = { multimediaEmbed: content }
     }
     return auxVideoId
   }

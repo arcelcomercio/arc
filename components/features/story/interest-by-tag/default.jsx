@@ -27,13 +27,15 @@ const InterestByTag = props => {
     globalContent: dataContent,
     contextPath,
     deployment,
+    isAdmin,
   } = useFusionContext()
 
-  const { tags: [{ slug = '/peru/' } = {}] = [], id: excluir } = new StoryData({
+  const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
     data: dataContent,
     contextPath,
   })
-  const urlTag = slug ? `/${slug}/` : section
+
+  const urlTag = section ? section : `/${slug}/`
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
@@ -79,8 +81,11 @@ const InterestByTag = props => {
                   link: instance.link,
                   section: instance.primarySection,
                   sectionLink: instance.primarySectionLink,
-                  multimediaPortraitXS: instance.multimediaPortraitMD,
+                  lazyImage: instance.multimediaLazyDefault,
+                  multimediaLandscapeS: instance.multimediaLandscapeS,
+                  multimediaLandscapeXS: instance.multimediaLandscapeXS,
                   multimediaType: instance.multimediaType,
+                  isAdmin,
                 }
                 return (
                   <StorySeparatorChildItem
@@ -101,6 +106,8 @@ const InterestByTag = props => {
 InterestByTag.propTypes = {
   customFields,
 }
-InterestByTag.label = 'Artículo - te pude interesar'
+
+InterestByTag.label = 'Artículo - Te puede interesar'
+InterestByTag.static = true
 
 export default InterestByTag

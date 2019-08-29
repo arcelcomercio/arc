@@ -123,8 +123,6 @@ const ParagraphshWithAdds = ({
         paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
       }
 
-      // return `${paragraphwithAdd}`
-      // newsWithAdd.push(`${paragraphwithAdd}`)
     } else {
       // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
 
