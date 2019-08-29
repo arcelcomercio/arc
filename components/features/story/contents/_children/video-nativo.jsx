@@ -14,7 +14,7 @@ const StoryContentChildVideoNativo = ({ streams } = []) => {
   const vdeoResul = dataVideo[cantidadVideo - 1]
   return (
     <>
-      <video width="580" controls>
+      <video width="100%" controls>
         <source src={vdeoResul.url} type="video/mp4" />
       </video>
     </>
