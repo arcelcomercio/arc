@@ -7,16 +7,16 @@ const ExtraordinayStoryGridSectionItem = props => {
     image: 'w-full h-full object-cover',
     title: 'sections-grid-item__title text-left text-sm text-white',
   }
-  const { data } = props
+  const { data, isAdmin } = props
   return (
     <div role="listitem" className={classes.itemContainer}>
       <a href={data.id}>
         <figure className={classes.imageContainer}>
           <img
-            className={classes.image}
-            src={data.image}
+            className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
             alt={data.name}
-            
+            src={isAdmin ? data.imageLandscapeXS : data.imageLazyDefault}
+            data-src={data.imageLandscapeXS}
           />
         </figure>
         <p className={classes.title}>{data.name}</p>

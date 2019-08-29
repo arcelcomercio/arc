@@ -1,0 +1,29 @@
+.story {
+  .most-read {
+    border: none;
+  }
+
+  .nav__logo {
+    height: 50px;
+    padding: 10px 0;
+  }
+  .nav__story-title {
+    line-height: 1.4;
+  }
+  .header__logo-secondary {
+    display: none;
+  }
+  .header {
+    justify-content: center;
+    .header__logo {
+      margin-left: 0;
+    }
+  }
+  .nav.active {
+    .nav__logo {
+      @media (--desktop) {
+        margin-left: 0;
+      }
+    }
+  }
+}

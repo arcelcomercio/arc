@@ -1,0 +1,14 @@
+.breaking-news {
+  &--bgcolor-1 {
+    background-color: $color-base-300;
+    .breaking-news__text,
+    .breaking-news__link,
+    .breaking-news__btn-icon {
+      color: $color-white;
+    }
+  }
+  &__text,
+  &__link {
+    font-weight: 600;
+  }
+}
