@@ -5,7 +5,7 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import {
   /* removeLastSlash, */
-  addResizedUrlsToStoryNewsLetter,
+  addResizedUrlsToStory,
   removeLastSlash,
 } from '../../components/utilities/helpers'
 
@@ -142,11 +142,12 @@ const pattern = (key = {}) => {
     }).then(data => {
       const dataStory = data
       const { resizerUrl, siteName } = getProperties(website)
-      dataStory.content_elements = addResizedUrlsToStoryNewsLetter(
+      dataStory.content_elements = addResizedUrlsToStory(
         dataStory.content_elements,
         resizerUrl,
         resizerSecret,
-        addResizedUrls
+        addResizedUrls,
+        'newsletter'
       )
       dataStory.siteName = siteName
 

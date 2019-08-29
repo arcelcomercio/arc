@@ -70,11 +70,19 @@ const queryStoryRecent = (section, site) => {
 }
 
 const transformImg = data => {
-  const dataStory = data
+  const storyData = data
   const { resizerUrl } = getProperties(data.website)
+  if (storyData.related_content && storyData.related_content.basic)
+    storyData.related_content.basic = addResizedUrlsToStory(
+      storyData.related_content.basic,
+      resizerUrl,
+      resizerSecret,
+      addResizedUrls,
+      'related'
+    )
   return (
     addResizedUrlsToStory(
-      [dataStory],
+      [storyData],
       resizerUrl,
       resizerSecret,
       addResizedUrls
@@ -92,25 +100,27 @@ const resolve = (key = {}) => {
   return requestUri
 }
 
-const transform = dataStory => {
-  if (dataStory.type === 'redirect') return dataStory
+const transform = storyData => {
+  if (storyData.type === 'redirect') return storyData
 
   const {
     taxonomy: { primary_section: { path: section } = {} } = {},
-  } = dataStory
+  } = storyData
 
   const encodedBody = queryStoryRecent(section, website)
   return request({
     uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=6&from=0&sort=display_date:desc`,
     ...options,
   }).then(recientesResp => {
-    dataStory.recent_stories = recientesResp
+    storyData.recent_stories = recientesResp
     return request({
-      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${dataStory._id}&website=${website}&published=true`,
+      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${
+        storyData._id
+      }&website=${website}&published=true`,
       ...options,
     }).then(idsResp => {
-      dataStory.related_content = idsResp
-      const result = transformImg(dataStory)
+      storyData.related_content = idsResp
+      const result = transformImg(storyData)
       return result
     })
   })
