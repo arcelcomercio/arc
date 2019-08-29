@@ -55,12 +55,16 @@ const ListItemNews = (contentElements, buildProps) => {
         propsScriptHeader,
         title: storydata.title,
         subTitle: storydata.subTitle,
-        multimedia: storydata.multimedia,
+        multimedia: storydata.multimediaNews,
         author: storydata.author,
         paragraphsNews: storydata.paragraphsNews,
         fbArticleStyle,
         listUrlAdvertisings,
       }
+
+      // console.log("\n")
+      // console.log("AQUI!!!!!")
+      // console.log(storydata.multimediaNews)
 
       const htmlString = BuildHtml(BuildHtmlProps)
       const codigoGUID = md5(storydata.id)
