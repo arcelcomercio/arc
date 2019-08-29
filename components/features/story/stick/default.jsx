@@ -22,7 +22,7 @@ class Stick extends PureComponent {
       customFields: { urlpwd = '', appData = '', href = '' } = {},
     } = this.props
 
-    const aOpenAppClose = document.querySelector('.stick__close-app')
+    const aOpenAppClose = document.getElementById('close-app')
     const aOpenApp = document.getElementById('button-app')
     const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
 
@@ -38,7 +38,8 @@ class Stick extends PureComponent {
 
     aOpenAppClose.addEventListener('click', function(ev) {
       ev.preventDefault()
-      aOpenAppClose.classList.add('hidden')
+      const stick = document.querySelector('.stick')
+      stick.setAttribute('style', 'display: none')
     })
   }
 
@@ -62,7 +63,7 @@ class Stick extends PureComponent {
     return (
       <div className={classes.stickWrapper}>
         <div className={classes.stick}>
-          <a href="#" className={classes.closeApp} />
+          <a href="#" id="close-app" className={classes.closeApp} />
           <div className={classes.logo}>
             <a className={classes.logoLink}>
               <img src={imgLogo} />

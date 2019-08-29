@@ -13,7 +13,7 @@ export default ({
   deployment = () => {},
   globalContent: data,
 }) => {
-  const { multimediaLandscapeXL } = new StoryData({
+  const { multimediaLandscapeXL, title: seoTitle } = new StoryData({
     data,
     arcSite,
   })
@@ -31,7 +31,8 @@ export default ({
         content={story ? 'summary_large_image' : 'summary'}
       />
       <meta name="twitter:site" content={twitterUser} />
-      <meta name="twitter:title" content={title} />
+
+      <meta name="twitter:title" content={story ? seoTitle : title} />
       <meta name="twitter:image" content={image} />
       <meta name="twitter:description" content={description} />
       {story && <meta name="twitter:creator" content={twitterCreator} />}

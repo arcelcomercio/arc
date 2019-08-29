@@ -27,6 +27,7 @@ import StoryContentsChildIcon from './_children/icon-list'
 import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
 import StoryContentsChildImpresa from './_children/impresa'
+import StoryContentsChildVideoNativo from './_children/video-nativo'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -130,10 +131,18 @@ class StoryContents extends PureComponent {
                 }
                 if (type === ConfigParams.ELEMENT_VIDEO) {
                   return (
-                    <StoryContentsChildVideo
-                      data={element.embed_html}
-                      className={classes.newsImage}
-                    />
+                    <>
+                      {element && element.embed_html ? (
+                        <StoryContentsChildVideo
+                          data={element.embed_html}
+                          className={classes.newsImage}
+                        />
+                      ) : (
+                        <StoryContentsChildVideoNativo
+                          streams={element && element.streams}
+                        />
+                      )}
+                    </>
                   )
                 }
                 if (type === ConfigParams.ELEMENT_GALLERY) {
