@@ -23,22 +23,19 @@ export default {
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   assets: {
     nav: {
-      logo: 'white-logo.png',
-      logoSomos: 'white-logo.png',
+      logo: 'logo-white.png',
+      logoSomos: 'logo-white.png',
     },
     header: {
-      logo: 'white-logo.png',
+      logo: 'logo-white.png',
     },
     footer: {
-      logo: 'white-logo.png',
+      logo: 'logo-footer-md.png',
     },
     seo: {
       logoAmp: 'logo-amp.png',
       width: 230,
       height: 60,
-    },
-    tv: {
-      siteLogo: 'favicon.png',
     },
   },
   infoPagesDev: {

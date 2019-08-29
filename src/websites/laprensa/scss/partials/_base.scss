@@ -1,8 +1,12 @@
 body {
-  background: $color-gray-100;
   overflow-x: hidden;
 }
 
 .story {
   background: $color-white;
+}
+
+body,
+.bg-container {
+  background: #f4f4f4;
 }

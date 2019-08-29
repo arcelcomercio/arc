@@ -34,6 +34,7 @@ const getVars = (
   let section = ''
   let subsection = ''
   let dataStory = ''
+  let dataNucleoOrigen = ''
 
   if (requestUri) {
     if (path === '/homepage') {
@@ -50,6 +51,7 @@ const getVars = (
           multimediaType,
           primarySectionLink,
           contentRestrictions,
+          nucleoOrigen,
         } = new StoryData({
           data: globalContent,
           arcSite,
@@ -65,8 +67,9 @@ const getVars = (
         dataStory = `
       var tipo_nota = '${getMultimedia(multimediaType, true)}'
       var id_nota = '${id}' 
-      var content_paywall = ${contentRestrictions}
-      `
+      var content_paywall = ${contentRestrictions}`
+        dataNucleoOrigen =
+          nucleoOrigen && `var nucleo_origen = '${nucleoOrigen}'`
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')
       }
@@ -84,8 +87,8 @@ const getVars = (
       var section = '${section}'
       var subsection = '${subsection}'
       var path_name = '${path}'
-      ${dataStory}
-
+      ${dataStory} 
+      ${dataNucleoOrigen}
 `
 }
 const AppNexus = props => {

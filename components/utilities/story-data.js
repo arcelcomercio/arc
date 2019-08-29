@@ -620,6 +620,15 @@ class StoryData {
     return video
   }
 
+  get nucleoOrigen() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.nucleo &&
+        this._data.label.nucleo.url) ||
+      ''
+    )
+  }
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -959,7 +968,7 @@ class StoryData {
 
   static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
     const { url = '', resized_urls: resizeUrls = {}, type = null } =
-      (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
+      (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || {}
     if (size === ConfigParams.IMAGE_ORIGINAL) return url
     return (
       (type === ConfigParams.ELEMENT_IMAGE && resizeUrls[size]

@@ -6,7 +6,7 @@ import Modal from '../../../../global-components/video-modal'
 
 // TODO: Las clases deben extraerse a la parte superior
 
-export default ({ date, multimedia, title, videoId, maxStories, isAdmin }) => {
+export default ({ date, multimedia, title, videoId, maxStories }) => {
   const formatDateLocalTimeZone = rawDate => {
     const auxDate = new Date(rawDate)
     const today = new Date()
@@ -34,7 +34,7 @@ export default ({ date, multimedia, title, videoId, maxStories, isAdmin }) => {
     if (date) {
       setClientDate(formatDateLocalTimeZone(date))
     }
-  })
+  }, [date])
 
   return (
     <div

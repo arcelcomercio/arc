@@ -3,4 +3,10 @@
     color: $color-primary;
     font-weight: 700;
   }
+   &__box{
+    padding-bottom: 30px;
+     @media (--only-mobile){
+      padding: 0px 30px; 
+    }
+  }
 }

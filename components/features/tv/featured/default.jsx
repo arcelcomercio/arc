@@ -73,11 +73,15 @@ const TvFeatured = props => {
 
   const getVideoId = () => {
     let auxVideoId = {}
-    const { promo_items: { youtube_id: { content = '' } = {} } = {} } = data
+
     if (multimediaType === 'basic_video') {
       auxVideoId = { multimediaSource: videoId }
     } else if (multimediaType === 'youtube_id') {
+      const { promo_items: { youtube_id: { content = '' } = {} } = {} } = data
       auxVideoId = { youtubeId: content }
+    } else {
+      const { promo_items: { basic_html: { content = '' } = {} } = {} } = data
+      auxVideoId = { multimediaEmbed: content }
     }
     return auxVideoId
   }

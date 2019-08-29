@@ -30,17 +30,12 @@ const InterestByTag = props => {
     isAdmin,
   } = useFusionContext()
 
-  const { tags: [{ slug = '/peru/' } = {}] = [], id: excluir } = new StoryData({
+  const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
     data: dataContent,
     contextPath,
   })
-  /**
-   * TODO: Solucionar
-   * si slug viene undefined, se asignara por defecto /peru/
-   * por lo tanto urlTag sera //peru//.
-   */
 
-  const urlTag = slug ? `/${slug}/` : section
+  const urlTag = section ? section : `/${slug}/`
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
