@@ -21,7 +21,6 @@ function WizardPlan(props) {
     setLoading,
   } = props
 
-  const [loadingPlan, setLoadingPlan] = useState()
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
 
@@ -30,12 +29,6 @@ function WizardPlan(props) {
   }, [])
 
   const Sales = addSales()
-
-  useEffect(() => {
-    Sales.then(sales => {
-      sales.clearCart()
-    })
-  }, [])
 
   function subscribePlanHandler(e, plan) {
     Sales.then(sales => {
@@ -53,29 +46,31 @@ function WizardPlan(props) {
       })
 
       return sales
-        .addItemToCart([selectedPlan])
-        .then(response => {
-          setLoading(false)
+        .clearCart()
+        .then(() => {
+          return sales.addItemToCart([selectedPlan]).then(response => {
+            setLoading(false)
 
-          Sentry.addBreadcrumb({
-            category: 'compra',
-            message: 'Añadió plan a carrito de compras',
-            data: { response },
-            level: Sentry.Severity.Info,
+            Sentry.addBreadcrumb({
+              category: 'compra',
+              message: 'Añadió plan a carrito de compras',
+              data: { response },
+              level: Sentry.Severity.Info,
+            })
+
+            const {
+              location: { search },
+            } = window
+            const qs = parseQueryString(search)
+            const { title } = summary
+            onBeforeNextStep(
+              {
+                plan: { printed, ...plan, title },
+                referer: qs.ref || 'organico',
+              },
+              props
+            )
           })
-
-          const {
-            location: { search },
-          } = window
-          const qs = parseQueryString(search)
-          const { title } = summary
-          onBeforeNextStep(
-            {
-              plan: { printed, ...plan, title },
-              referer: qs.ref || 'organico',
-            },
-            props
-          )
         })
         .catch(e => {
           setLoading(false)
@@ -86,7 +81,7 @@ function WizardPlan(props) {
 
   return (
     <S.WizardPlan>
-      {message && <S.Error autoClose={7000}>{message}</S.Error>}
+      {message && <S.Error>{message}</S.Error>}
       {printed && (
         <S.WelcomeSuscriptor>
           ACCEDE A ESTOS <strong>PRECIOS ESPECIALES</strong> POR SER SUSCRIPTOR
