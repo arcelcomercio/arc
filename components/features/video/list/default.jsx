@@ -4,7 +4,7 @@ import VideoListItem from './_children/item'
 
 const VideoList = () => {
   return (
-    <div className="flex justify-center md:justify-between flex-wrap">
+    <div className="flex justify-center md:justify-between mt-50 flex-wrap">
       <VideoListItem />
       <VideoListItem />
       <VideoListItem />
@@ -13,4 +13,5 @@ const VideoList = () => {
   )
 }
 
+VideoList.label = 'Video - Lista'
 export default VideoList

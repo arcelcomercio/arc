@@ -1,0 +1,20 @@
+.video-navbar {
+  background-color: rgb(27, 27, 27);
+  &.fixed {
+    position: fixed;
+    top: 200px;
+    width: 980px;
+  }
+  &__list {
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+  }
+  &__item {
+  }
+  &__link {
+    display: block;
+    padding: 0 10px;
+    color: #fff;
+  }
+}

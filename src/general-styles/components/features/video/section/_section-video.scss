@@ -1,6 +1,8 @@
 .section-video {
   background-color: $color-gray-300;
-  padding: 10px;
+  &__box {
+    padding: 10px;
+  }
   &__wrapper {
     color: white;
     padding-bottom: 20px;
@@ -11,6 +13,7 @@
         width: 280px;
         height: 180px;
         left: 300px;
+        top: 10px;
       }
       .section-video__fixed {
         display: flex;
