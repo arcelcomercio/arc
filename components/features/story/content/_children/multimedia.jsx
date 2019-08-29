@@ -1,12 +1,15 @@
 import React from 'react'
-import Video from './video'
+import Videos from './video'
 import Imagen from './image'
 import Html from './html'
+import VideoNativo from '../../contents/_children/video-nativo'
 
 const StoryContentChildMultimedia = ({ data }) => {
   const {
     basic_video: {
       embed_html: embedHtml = '',
+      type: typoVideo = '',
+      streams,
       description: { basic: descriptionVideo = '' } = {},
     } = {},
     basic = {},
@@ -18,6 +21,7 @@ const StoryContentChildMultimedia = ({ data }) => {
     } = {},
   } = data
   const { type: typeImage, caption = '' } = basic || {}
+
   return (
     <>
       {!youtubeId && !typeInfo && !typeEmbed && typeImage ? (
@@ -26,7 +30,7 @@ const StoryContentChildMultimedia = ({ data }) => {
         <Html data={embedHtmlPromoItems} caption={caption} />
       )}
 
-      {youtubeId ? (
+      {youtubeId && (
         <iframe
           title={`Youtube - ${youtubeId}`}
           width="100%"
@@ -35,8 +39,12 @@ const StoryContentChildMultimedia = ({ data }) => {
           frameBorder="0"
           allowFullScreen
         />
+      )}
+
+      {typoVideo === 'video' && embedHtml ? (
+        <Videos data={embedHtml} description={descriptionVideo} />
       ) : (
-        embedHtml && <Video data={embedHtml} description={descriptionVideo} />
+        <>{streams && <VideoNativo streams={streams} />}</>
       )}
     </>
   )

@@ -27,6 +27,7 @@ import StoryContentsChildIcon from './_children/icon-list'
 import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
 import StoryContentsChildImpresa from './_children/impresa'
+import StoryContentsChildVideoNativo from './_children/video-nativo'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -137,7 +138,9 @@ class StoryContents extends PureComponent {
                           className={classes.newsImage}
                         />
                       ) : (
-                        ''
+                        <StoryContentsChildVideoNativo
+                          streams={element && element.streams}
+                        />
                       )}
                     </>
                   )
