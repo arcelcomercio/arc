@@ -14,11 +14,11 @@ class ExtraordinaryStoryGrid extends PureComponent {
     this.initFetch()
   }
 
-  componentDidMount() {
+  /* componentDidMount() {
     if (window.powaBoot) {
       window.powaBoot()
     }
-  }
+  } */
 
   initFetch = () => {
     const { customFields: customFieldsData = {}, arcSite = '' } = this.props
@@ -61,6 +61,7 @@ class ExtraordinaryStoryGrid extends PureComponent {
       contextPath,
       arcSite,
       customFields: customFieldsData,
+      isAdmin,
     } = this.props
     const {
       storyData = {},
@@ -99,6 +100,7 @@ class ExtraordinaryStoryGrid extends PureComponent {
       contextPath,
       arcSite,
       imgLogo,
+      isAdmin,
     }
     return <ExtraordinaryStoryGridChild {...params} />
   }

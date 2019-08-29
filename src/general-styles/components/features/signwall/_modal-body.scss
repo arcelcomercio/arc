@@ -26,6 +26,13 @@
           width: 42%;
         }
       }
+      &__full {
+        background-color: $color-white;
+        min-height: 480px;
+        @media (--desktop) {
+          width: 100%;
+        }
+      }
       &__middle {
         min-height: 150px;
         @media (--tablet) {

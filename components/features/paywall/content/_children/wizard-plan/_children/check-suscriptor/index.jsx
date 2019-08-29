@@ -61,7 +61,7 @@ const Content = props => {
             </S.SpanFoot>
           </S.FootContent>
           <S.FootContent>
-            <S.SpanFoot>Precio Regular: S/ 29.00 al mes</S.SpanFoot>
+            <S.SpanFoot>Precio Regular: S/ 29 al mes</S.SpanFoot>
           </S.FootContent>
         </S.Foot>
       </S.Content>

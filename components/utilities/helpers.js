@@ -323,12 +323,12 @@ export const formatHtmlToText = (html = '') => {
   return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
 }
 
-export const removeLastSlash = url => {
+export const removeLastSlash = (url = '') => {
   if (url === '/' || !url.endsWith('/')) return url
   return url && url.endsWith('/') ? url.slice(0, url.length - 1) : url
 }
 
-export const addSlashToEnd = url => {
+export const addSlashToEnd = (url = '') => {
   const urlString = `${url}`
   if (url && urlString.trim() === '/') return url
   return url && !urlString.endsWith('/') ? `${url}/` : url
@@ -648,18 +648,41 @@ export const formatDateStory = date => {
 }
 
 /**
- * Necesita CODE REVIEW
+ * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
   data,
   resizerUrl,
   resizerSecret,
-  addResizedUrls
+  addResizedUrls,
+  preset = 'basic'
 ) => {
   return (
     data &&
     data.map(item => {
-      const dataStory = item
+      const storyData = item
+      if (!storyData.content_elements) storyData.content_elements = []
+
+      let presets = {}
+      switch (preset) {
+        case 'newsletter':
+          presets = sizeImgNewsLetter()
+          break
+        case 'related':
+          presets = {
+            landscape_md: {
+              width: 314,
+              height: 157,
+            },
+            lazy_default: {
+              width: 7,
+              height: 4,
+            },
+          }
+          break
+        default:
+          presets = sizeImg()
+      }
 
       const {
         promo_items: {
@@ -672,9 +695,9 @@ export const addResizedUrlsToStory = (
         const image = addResizedUrls(basicGallery, {
           resizerUrl,
           resizerSecret,
-          presets: sizeImg(),
+          presets,
         })
-        dataStory.promo_items.basic_gallery = image
+        storyData.promo_items.basic_gallery = image
       }
 
       if (basicVideo && basicVideo.promo_items) {
@@ -682,48 +705,15 @@ export const addResizedUrlsToStory = (
         const image = addResizedUrls(basicVideo, {
           resizerUrl,
           resizerSecret,
-          presets: sizeImg(),
+          presets,
         })
-        dataStory.promo_items.basic_video = image
+        storyData.promo_items.basic_video = image
       }
 
-      return addResizedUrls(dataStory, {
+      return addResizedUrls(storyData, {
         resizerUrl,
         resizerSecret,
-        presets: sizeImg(),
-      })
-    })
-  )
-}
-
-export const addResizedUrlsToStoryNewsLetter = (
-  data,
-  resizerUrl,
-  resizerSecret,
-  addResizedUrls
-) => {
-  return (
-    data &&
-    data.map(item => {
-      const dataStory = item
-
-      const {
-        promo_items: { basic_gallery: contentElements = null } = {},
-      } = item
-
-      if (contentElements && contentElements.promo_items) {
-        const image = addResizedUrls(contentElements, {
-          resizerUrl,
-          resizerSecret,
-          presets: sizeImgNewsLetter(),
-        })
-        dataStory.promo_items.basic_gallery = image
-      }
-
-      return addResizedUrls(dataStory, {
-        resizerUrl,
-        resizerSecret,
-        presets: sizeImgNewsLetter(),
+        presets,
       })
     })
   )

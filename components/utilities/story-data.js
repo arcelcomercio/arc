@@ -206,6 +206,10 @@ class StoryData {
     return StoryData.getMultimediaIconType(this._data)
   }
 
+  get promoItemsType() {
+    return this.getPromoItemsType() || ''
+  }
+
   get section() {
     // FIXME: deprecated
     return StoryData.getDataSection(this._data, this._website).name
@@ -375,13 +379,7 @@ class StoryData {
   }
 
   get videoId() {
-    return (
-      (this._data &&
-        this._data.promo_items &&
-        this._data.promo_items[ConfigParams.VIDEO] &&
-        this._data.promo_items[ConfigParams.VIDEO]._id) ||
-      ''
-    )
+    return StoryData.getIdGoldfish(this.__data)
   }
 
   get video() {
@@ -459,6 +457,11 @@ class StoryData {
     return seoKeywords
   }
 
+  get sourceUrlOld() {
+    const { additional_properties: { source_url: sourceUrl = '' } = {} } =
+      this._data || {}
+    return sourceUrl
+  }
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
@@ -563,6 +566,26 @@ class StoryData {
     )
   }
 
+  get videoIdContent() {
+    let video = ''
+    const typeItem = this.promoItemsType
+    if (typeItem === ConfigParams.VIDEO) {
+      video = StoryData.getIdGoldfish(this._data)
+    } else if (typeItem === ConfigParams.ELEMENT_YOUTUBE_ID) {
+      video = StoryData.getIdYoutube(this._data)
+    }
+    return video
+  }
+
+  get nucleoOrigen() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.nucleo &&
+        this._data.label.nucleo.url) ||
+      ''
+    )
+  }
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -861,6 +884,26 @@ class StoryData {
     return thumb
   }
 
+  static getIdGoldfish(data) {
+    return (
+      (data &&
+        data.promo_items &&
+        data.promo_items[ConfigParams.VIDEO] &&
+        data.promo_items[ConfigParams.VIDEO]._id) ||
+      ''
+    )
+  }
+
+  static getIdYoutube(data) {
+    const video =
+      (data &&
+        data.promo_items &&
+        data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID] &&
+        data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID].content) ||
+      ''
+    return video
+  }
+
   static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
     const { url = '', resized_urls: resizeUrls = {}, type = null } =
       (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
@@ -879,6 +922,8 @@ class StoryData {
     } else if (type === ConfigParams.GALLERY) {
       thumb = StoryData.getThumbnailGalleryBySize(data, size)
     } else if (type === ConfigParams.IMAGE) {
+      thumb = StoryData.getImageBySize(data, size)
+    } else if (type === ConfigParams.ELEMENT_YOUTUBE_ID) {
       thumb = StoryData.getImageBySize(data, size)
     }
     return thumb

@@ -25,7 +25,7 @@ export default props => {
 
   const formateDate = (fecha = '') => {
     const date = fecha.toString()
-    const _date = new Date(date.slice(0, date.indexOf('GMT') - 1))
+    const _date = new Date(date)
     _date.setHours(_date.getHours() - 5)
     const day = formaZeroDate(_date.getDate())
     const month = formaZeroDate(_date.getMonth() + 1)
@@ -56,7 +56,7 @@ export default props => {
                   <a
                     href={Story.websiteLink}
                     className="stories-l-tabloid__date">
-                    {formateDate(Story.publishDate)}
+                    {formateDate(Story.displayDate)}
                   </a>
                   <p className="stories-l-tabloid__section">
                     {Story.primarySection}

@@ -36,11 +36,16 @@ function WizardPayment(props) {
   const { plan, order, profile } = memo
   const { firstName, lastName, secondLastName, documentNumber } = profile
   const { orderNumber } = order
-  const { amount, billingFrequency, description } = plan
+  const { sku, priceCode, amount, billingFrequency, description } = plan
   profile.printed = printed
 
   useEffect(() => {
-    sendAction(PixelActions.PAYMENT_CARD_INFO)
+    sendAction(PixelActions.PAYMENT_CARD_INFO, {
+      sku: `${sku}${priceCode}`,
+      periodo: billingFrequency,
+      priceCode,
+      suscriptorImpreso: printed ? 'si' : 'no',
+    })
   }, [])
 
   const [error, setError] = useState('')

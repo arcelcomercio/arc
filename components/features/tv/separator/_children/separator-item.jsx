@@ -6,7 +6,7 @@ import Modal from '../../../../global-components/video-modal'
 
 // TODO: Las clases deben extraerse a la parte superior
 
-export default ({ date, multimedia, title, videoId, maxStories, isAdmin }) => {
+export default ({ date, multimedia, title, videoId, maxStories }) => {
   const formatDateLocalTimeZone = rawDate => {
     const auxDate = new Date(rawDate)
     const today = new Date()
@@ -34,7 +34,7 @@ export default ({ date, multimedia, title, videoId, maxStories, isAdmin }) => {
     if (date) {
       setClientDate(formatDateLocalTimeZone(date))
     }
-  })
+  }, [date])
 
   return (
     <div
@@ -46,7 +46,7 @@ export default ({ date, multimedia, title, videoId, maxStories, isAdmin }) => {
         className="tv-separator__img-button p-0 overflow-hidden rounded-sm mb-10  position-relative"
         onClick={() => setIsModalOpen(!isModalOpen)}>
         <picture className="block w-full">
-          <img className="w-full" src={multimedia.image} alt="" />
+          <img className="w-full block" src={multimedia.image} alt="" />
           {/* <img
             className={`tv-separator__img block ${
               isAdmin ? '' : 'lazy'

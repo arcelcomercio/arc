@@ -19,20 +19,27 @@ const classes = {
 class Stick extends PureComponent {
   componentDidMount() {
     const {
-      customFields: { urlPwd = '', appData = '', href = '' } = {},
+      customFields: { urlpwd = '', appData = '', href = '' } = {},
     } = this.props
 
-    var aOpenApp = document.getElementById('button-app')
-    var dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
+    const aOpenAppClose = document.getElementById('close-app')
+    const aOpenApp = document.getElementById('button-app')
+    const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
 
     aOpenApp.addEventListener('click', function(ev) {
       ev.preventDefault()
 
-      window.location.href = `${urlPwd}${
+      window.location.href = `${urlpwd}${
         window.location.pathname
-      }/?appData=/${dataPageId !== '/' && 'news/'}${dataPageId}${appData}${
+      }?appData=/${dataPageId !== '/' && 'news'}${dataPageId}${appData}${
         window.location.href
       }${href}`
+    })
+
+    aOpenAppClose.addEventListener('click', function(ev) {
+      ev.preventDefault()
+      const stick = document.querySelector('.stick')
+      stick.setAttribute('style', 'display: none')
     })
   }
 
@@ -49,7 +56,6 @@ class Stick extends PureComponent {
       data: globalContent,
       contextPath,
     })
-    console.log('deployment=>>>>>>>>>>>>>>>>ssssssssssssssssssssss', this.props)
     const imgLogo = deployment(
       `${contextPath}/resources/dist/${arcSite}/images/logo-p21.png`
     )
@@ -57,7 +63,7 @@ class Stick extends PureComponent {
     return (
       <div className={classes.stickWrapper}>
         <div className={classes.stick}>
-          <a href="#" className={classes.closeApp} />
+          <a href="#" id="close-app" className={classes.closeApp} />
           <div className={classes.logo}>
             <a className={classes.logoLink}>
               <img src={imgLogo} />

@@ -1,15 +1,22 @@
 import React from 'react'
 import { LoadingGes } from './iconos'
 
-const Loading = () => {
+const Loading = props => {
+  const { site } = props
   return (
-    <div className="profile__loader">
-      <div className="profile__cont-loader">
-        <LoadingGes />
-        <LoadingGes />
-        <LoadingGes />
-      </div>
-    </div>
+    <>
+      {site === 'gestion' ? (
+        <div className="profile__loader">
+          <div className="profile__cont-loader">
+            <LoadingGes />
+            <LoadingGes />
+            <LoadingGes />
+          </div>
+        </div>
+      ) : (
+        'Cargando...'
+      )}
+    </>
   )
 }
 
