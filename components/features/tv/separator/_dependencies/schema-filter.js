@@ -26,6 +26,9 @@ export default `
         youtube_id {
           content
         }
+        basic_html {
+          content
+        }
       }
       headlines { basic }
       display_date
