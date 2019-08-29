@@ -1,3 +1,5 @@
+import ConfigParams from './config-params'
+
 class SectionData {
   constructor(data = {}, website = '') {
     this._data = data
@@ -37,13 +39,32 @@ class SectionData {
   }
 
   get image() {
-    return (
-      (this._data.site_topper && this._data.site_topper.site_logo_image) || ''
-    )
+    return SectionData.getImageBySize(this.__data)
+  }
+
+  get imageLandscapeXL() {
+    return SectionData.getImageBySize(this.__data, ConfigParams.LANDSCAPE_XL)
+  }
+
+  get imageLandscapeXS() {
+    return SectionData.getImageBySize(this.__data, ConfigParams.LANDSCAPE_XS)
+  }
+
+  get imageLazyDefault() {
+    return SectionData.getImageBySize(this.__data, ConfigParams.LAZY_DEFAULT)
   }
 
   get isInactive() {
     return this._data.inactive || false
+  }
+
+  static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
+    const {
+      site_logo_image: siteLogoImage = '',
+      resized_urls: resizeUrls = {},
+    } = (data && data.site_topper) || {}
+    if (size === ConfigParams.IMAGE_ORIGINAL) return siteLogoImage
+    return resizeUrls[size] || ''
   }
 }
 

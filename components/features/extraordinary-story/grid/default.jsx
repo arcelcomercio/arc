@@ -61,6 +61,7 @@ class ExtraordinaryStoryGrid extends PureComponent {
       contextPath,
       arcSite,
       customFields: customFieldsData,
+      isAdmin,
     } = this.props
     const {
       storyData = {},
@@ -99,6 +100,7 @@ class ExtraordinaryStoryGrid extends PureComponent {
       contextPath,
       arcSite,
       imgLogo,
+      isAdmin,
     }
     return <ExtraordinaryStoryGridChild {...params} />
   }
