@@ -1,22 +1,23 @@
 .signwall {
   * {
     .bg_white {
-      background: white;
+      background: #eeeeee;
+      height: auto;
     }
     .container {
       max-width: 1200px;
       margin: 0px auto;
       height: 100%;
-      @media (--desktop) and (min-height: 680px) {
-        height: calc(100vh - 100px);
-      }
+      // @media (--desktop) and (min-height: 680px) {
+      //   height: calc(100vh - 100px);
+      // }
     }
 
     .profile {
       width: 100%;
       display: flex;
       flex-direction: column;
-      background: white;
+      background: #eeeeee;
 
       @media (--desktop) {
         flex-direction: row;
