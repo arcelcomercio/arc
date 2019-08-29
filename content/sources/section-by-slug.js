@@ -45,8 +45,8 @@ const transform = data => {
           height: 220,
         },
         landscape_xs: {
-          width: 157,
-          height: 50,
+          width: 304,
+          height: 90,
         },
       },
     })({
