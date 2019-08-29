@@ -22,6 +22,7 @@ const StoryRelated = () => {
     globalContent: data,
     arcSite,
     deployment,
+    isAdmin,
     siteProperties: { nameStoryRelated },
   } = useFusionContext()
 
@@ -46,6 +47,7 @@ const StoryRelated = () => {
                 contextPath={contextPath}
                 arcSite={arcSite}
                 deployment={deployment}
+                isAdmin={isAdmin}
               />
             ) : (
               ''

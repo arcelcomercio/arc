@@ -27,7 +27,7 @@ const Paywall = props => {
     <html lang="es" className={arcSite}>
       <head>
         <TagManager {...siteProperties} />
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
@@ -76,7 +76,9 @@ const Paywall = props => {
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
