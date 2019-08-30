@@ -108,7 +108,6 @@ const FeaturedStoryPremiumChild = ({
               src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
               data-src={multimediaLandscapeL}
               alt={title}
-              loading="lazy"
             />
           </picture>
         </a>
