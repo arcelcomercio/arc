@@ -55,7 +55,7 @@ const ListItemNews = (contentElements, buildProps) => {
         propsScriptHeader,
         title: storydata.title,
         subTitle: storydata.subTitle,
-        multimedia: storydata.multimedia,
+        multimedia: storydata.multimediaNews,
         author: storydata.author,
         paragraphsNews: storydata.paragraphsNews,
         fbArticleStyle,

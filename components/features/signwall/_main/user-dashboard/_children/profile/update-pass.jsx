@@ -294,7 +294,7 @@ class updatePassword extends Component {
 
         {showModalConfirm && (
           <Modal
-            size="small"
+            size="mini"
             position="middle"
             bg="white"
             name="modal-div-confirmpass"
@@ -302,6 +302,7 @@ class updatePassword extends Component {
             <div className="text-right">
               <button
                 type="button"
+                className="btn-close"
                 onClick={e => this.togglePopupModalConfirm(e)}>
                 <Close />
               </button>

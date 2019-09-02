@@ -392,14 +392,57 @@ class StoryData {
     )
   }
 
+  get multimediaNews() {
+    const type = StoryData.getMultimediaIconTypeFIA(this._data) || ''
+    let result = { type, payload: '' }
+
+    switch (type) {
+      case ConfigParams.IMAGE:
+        result.payload = this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
+        break
+      case ConfigParams.VIDEO:
+        result.payload =
+          (this._data &&
+            this._data.promo_items &&
+            this._data.promo_items[ConfigParams.VIDEO] &&
+            this._data.promo_items[ConfigParams.VIDEO]._id) ||
+          ''
+        break
+
+      case ConfigParams.GALLERY:
+        const ImageItems =
+          (this._data &&
+            this._data.promo_items &&
+            this._data.promo_items[ConfigParams.GALLERY] &&
+            this._data.promo_items[ConfigParams.GALLERY].content_elements) ||
+          []
+
+        result.payload =
+          ImageItems.map(({ additional_properties }) => {
+            const { resizeUrl } = additional_properties
+            return resizeUrl ? resizeUrl : null
+          }) || []
+        break
+      case ConfigParams.ELEMENT_YOUTUBE_ID:
+        result.payload =
+          (this._data &&
+            this._data.promo_items &&
+            this._data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID] &&
+            this._data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID].content) ||
+          ''
+        break
+      default:
+        result.payload = ''
+        break
+    }
+    return result
+  }
+
   get paragraphsNews() {
     const { content_elements: contentElements = [] } = this._data
 
     const parrafo = contentElements.map(
       ({ content = '', type = '', _id = '', url = '' }) => {
-        // ELEMENT_VIDEO
-        // ELEMENT_IMAGE
-        // ELEMENT_TEXT
         const result = { _id, type, payload: '' }
 
         switch (type) {
@@ -839,6 +882,25 @@ class StoryData {
       } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
         // typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
         typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.GALLERY)) {
+        typeMultimedia = ConfigParams.GALLERY
+      } else if (items.includes(ConfigParams.IMAGE)) {
+        typeMultimedia = ConfigParams.IMAGE
+      }
+    }
+    return typeMultimedia
+  }
+
+  static getMultimediaIconTypeFIA = data => {
+    let typeMultimedia = null
+    const { promo_items: promoItems = {} } = data || {}
+    const items = Object.keys(promoItems)
+
+    if (items.length > 0) {
+      if (items.includes(ConfigParams.VIDEO)) {
+        typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
+        typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
       } else if (items.includes(ConfigParams.GALLERY)) {
         typeMultimedia = ConfigParams.GALLERY
       } else if (items.includes(ConfigParams.IMAGE)) {
