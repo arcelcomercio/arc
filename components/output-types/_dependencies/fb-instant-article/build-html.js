@@ -179,9 +179,6 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
   return result
 }
 
-{
-  /* <iframe width="560" height="315" src="https://www.youtube.com/embed/idErYWqCzr4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */
-}
 const BuildHtml = ({
   scriptAnaliticaProps,
   propsScriptHeader,
@@ -202,14 +199,7 @@ const BuildHtml = ({
     nextAdds,
     arrayadvertising: listUrlAdvertisings,
   }
-  // <figure>
-  //         <img src="${multimedia}" />
-  //         <figcaption>${title}</figcaption>
-  //     </figure>
-  // console.log("\n")
-  // console.log("AQUI!!!")
-  // console.log(multimedia)
-  // console.log(multimediaHeader(multimedia,title))
+
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">

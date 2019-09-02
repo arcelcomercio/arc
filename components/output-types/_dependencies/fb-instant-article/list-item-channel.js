@@ -62,10 +62,6 @@ const ListItemNews = (contentElements, buildProps) => {
         listUrlAdvertisings,
       }
 
-      // console.log("\n")
-      // console.log("AQUI!!!!!")
-      // console.log(storydata.multimediaNews)
-
       const htmlString = BuildHtml(BuildHtmlProps)
       const codigoGUID = md5(storydata.id)
 
