@@ -546,10 +546,15 @@ export const youtubeHtml = html => {
   const rplYoutube =
     '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="$2"></amp-youtube>'
 
-  return html.replace(
-    /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
-    rplYoutube
-  )
+  return html
+    .replace(
+      /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
+      rplYoutube
+    )
+    .replace(
+      /<iframe width="(.*?)" height="(.*?)" src="\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
+      rplYoutube
+    )
 }
 export const replaceHtmlMigracion = html => {
   return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
@@ -566,7 +571,10 @@ export const instagramHtml = html => {
 }
 export const freeHtml = html => {
   const strHtmlFree = '/<html_free>(.*?)</html_free>/g'
-  return html.replace(strHtmlFree, '$1')
+  return html
+    .replace(strHtmlFree, '$1')
+    .replace(/<html_free><\/html_free>/g, '')
+    .replace(/="&quot;http?(.*?)"/g, '="http$1"')
 }
 
 export const ampHtml = (html = '') => {
