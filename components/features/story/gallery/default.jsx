@@ -6,7 +6,7 @@ import StoryGalleryChildGallerySlider from './_children/gallery-slider'
 import StoryGalleryChildGallery from './_children/gallery'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
-import Infografia from '../content/_children/html'
+import Infografia from '../contents/_children/html'
 
 const classes = {
   gallery: 'w-full',
