@@ -18,12 +18,12 @@ const buildParagraph = (paragraph, type = '') => {
   }
 
   if (type === ConfigParams.ELEMENT_IMAGE) {
-    result = `<figure data-feedback="fb:likes, fb:comments"><img src="${paragraph}" /><figcaption>Inspectores de la Municipalidad de La Molina</figcaption></figure>`
+    result = `<figure data-feedback="fb:likes, fb:comments"><img src="${paragraph}" /><figcaption></figcaption></figure>`
   }
 
   if (type === ConfigParams.ELEMENT_RAW_HTML) {
     if (paragraph.includes('<iframe')) {
-      // valida si el parrafo contiene un iframe con video o foto
+      // valida si el parrafo contiene un iframe con video youtube o foto
 
       result = `<figure class="op-interactive">${paragraph}</figure>`
     } else if (paragraph.includes('<img')) {
@@ -96,63 +96,87 @@ const ParagraphshWithAdds = ({
   let countWords = 0
   let IndexAdd = 0
 
-  newsWithAdd = paragraphsNews.map(({ payload: paragraphItem, type }) => {
-    let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
-    // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
+  newsWithAdd = paragraphsNews
+    .map(({ payload: paragraphItem, type }) => {
+      let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
+      // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
 
-    let paragraphwithAdd = ''
-    const originalParagraph = paragraph
-    paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
-    const arrayWords = paragraph.split(' ')
+      let paragraphwithAdd = ''
+      const originalParagraph = paragraph
+      paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
+      const arrayWords = paragraph.split(' ')
 
-    if (IndexAdd === 0) {
-      if (countWords <= firstAdd) {
-        countWords += arrayWords.length
-      }
-
-      if (countWords >= firstAdd) {
-        countWords = 0
-
-        paragraphwithAdd = `${buildParagraph(originalParagraph, type)} ${
-          arrayadvertising[IndexAdd]
-            ? buildIframeAdvertising(arrayadvertising[IndexAdd])
-            : ''
-        }`
-        IndexAdd += 1
-      } else {
-        paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
-      }
-
-    } else {
-      // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
-
-      // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
-      if (countWords <= nextAdds) {
-        if (validateMultimediaParagraph(originalParagraph, type)) {
-          countWords += 70
-        } else {
+      if (IndexAdd === 0) {
+        if (countWords <= firstAdd) {
           countWords += arrayWords.length
+        }
+
+        if (countWords >= firstAdd) {
+          countWords = 0
+
+          paragraphwithAdd = `${buildParagraph(originalParagraph, type)} ${
+            arrayadvertising[IndexAdd]
+              ? buildIframeAdvertising(arrayadvertising[IndexAdd])
+              : ''
+          }`
+          IndexAdd += 1
+        } else {
+          paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
+        }
+      } else {
+        // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
+
+        // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
+        if (countWords <= nextAdds) {
+          if (validateMultimediaParagraph(originalParagraph, type)) {
+            countWords += 70
+          } else {
+            countWords += arrayWords.length
+          }
+        }
+
+        if (countWords >= nextAdds) {
+          countWords = 0
+          paragraphwithAdd = `${buildParagraph(originalParagraph, type)} ${
+            arrayadvertising[IndexAdd]
+              ? buildIframeAdvertising(arrayadvertising[IndexAdd])
+              : ''
+          }`
+          IndexAdd += 1
+        } else {
+          paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
         }
       }
 
-      if (countWords >= nextAdds) {
-        countWords = 0
-        paragraphwithAdd = `${buildParagraph(originalParagraph, type)} ${
-          arrayadvertising[IndexAdd]
-            ? buildIframeAdvertising(arrayadvertising[IndexAdd])
-            : ''
-        }`
-        IndexAdd += 1
-      } else {
-        paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
-      }
+      return `${paragraphwithAdd}`
+    })
+    .join('')
 
-    }
-
-    return `${paragraphwithAdd}`
-  }).join('')
-  
   return newsWithAdd
+}
+
+const multimediaHeader = ({ type = '', payload = '' }, title) => {
+  let result = ''
+  switch (type) {
+    case ConfigParams.IMAGE:
+      result = `<figure data-feedback="fb:likes, fb:comments"><img src="${payload}" /><figcaption>${title}</figcaption></figure>`
+      break
+    case ConfigParams.VIDEO:
+      result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${payload}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><figcaption>${title}</figcaption></figure>`
+      break
+    case ConfigParams.GALLERY:
+      result = `<figure class="op-slideshow">${payload.map(
+        url => `<figure><img src="${url}" /></figure>`
+      )}<figcaption>${title}</figcaption></figure>`
+      break
+    case ConfigParams.ELEMENT_YOUTUBE_ID:
+      result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
+      break
+    default:
+      result = ''
+  }
+
+  return result
 }
 
 const BuildHtml = ({
@@ -175,6 +199,7 @@ const BuildHtml = ({
     nextAdds,
     arrayadvertising: listUrlAdvertisings,
   }
+
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
@@ -200,10 +225,8 @@ const BuildHtml = ({
         <h1>${title}</h1>
         <h2>${subTitle}</h2>
       </header>
-      <figure>
-          <img src="${multimedia}" />
-          <figcaption>${title}</figcaption>
-      </figure>
+      ${multimediaHeader(multimedia,title)}
+      
       <p>${author}</p>
       ${ParagraphshWithAdds(paramsBuildParagraph)}
     </article>
