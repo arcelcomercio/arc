@@ -1,0 +1,58 @@
+.separator {
+  &__opinion {
+    padding: 0;
+    &-title {
+      background-color: $color-primary;
+      font-weight: 700;
+    }
+
+    &--item {
+      background-color: $color-base-400;
+      &:nth-child(2) {
+        @media (--only-mobile) {
+          display: block;
+        }
+      }
+      @media (--only-mobile) {
+        flex-basis: 49%;
+      }
+    }
+    &--item-details {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: flex-start;
+    }
+    &--item-image {
+      order: 1;
+      margin: 60px auto 0 auto;
+      width: 84px;
+      height: 84px;
+    }
+    &--item-twoline {
+      -webkit-line-clamp: 2;
+      height: 42px;
+      max-height: none;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      font-size: 16px;
+      overflow: hidden;
+      line-height: 1.19;
+    }
+    &-name {
+      -webkit-line-clamp: 2;
+      height: 54px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+
+      &:before,
+      &:after {
+        display: none;
+      }
+      a {
+        color: $color-base-200;
+      }
+    }
+  }
+}

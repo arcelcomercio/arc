@@ -1,0 +1,9 @@
+.triplet {
+  border-width: 0;
+  border-top-width: 1px;
+  border-top-color: $color-primary;
+
+  &__title-link {
+    color: $color-base-200;
+  }
+}
