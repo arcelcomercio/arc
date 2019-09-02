@@ -116,6 +116,13 @@ class StoryData {
     return result
   }
 
+  get authorRole() {
+    const { credits: { by = [] } = {} } = this._data || {}
+    const { additional_properties: { original: { role = '' } = {} } = {} } =
+      by[0] || {}
+    return role
+  }
+
   get defaultImg() {
     return defaultImage({
       deployment: this._deployment,
@@ -462,6 +469,7 @@ class StoryData {
       this._data || {}
     return sourceUrl
   }
+
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
@@ -586,6 +594,7 @@ class StoryData {
       ''
     )
   }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
