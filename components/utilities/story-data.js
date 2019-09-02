@@ -129,6 +129,7 @@ class StoryData {
     return (
       StoryData.getDataAuthor(this._data, {
         contextPath: this._contextPath,
+        deployment: this._deployment,
       }).imageAuthor || this.defaultImg
     )
   }
@@ -816,9 +817,11 @@ class StoryData {
     }
   }
 
-  static getDataAuthor(data, { contextPath = '' } = {}) {
+  static getDataAuthor(data, { contextPath = '', deployment = () => {} } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
-    const authorImageDefault = `${contextPath}/resources/assets/author-grid/author.png`
+    const authorImageDefault = deployment(
+      `${contextPath}/resources/assets/author-grid/author.png`
+    )
 
     let nameAuthor = ''
     let urlAuthor = ''

@@ -6,6 +6,12 @@ import { useFusionContext } from 'fusion:context'
 import FeaturedStory from '../../../global-components/featured-story'
 import StoryData from '../../../utilities/story-data'
 
+/**
+ * TODO:
+ * Separar _dependencies
+ *
+ */
+
 const CardsFeaturedStoryList = props => {
   const {
     customFields: {
