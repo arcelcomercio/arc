@@ -1,0 +1,40 @@
+.nav {
+  background-color: $color-gray-100;
+  &__wrapper {
+    &:first-child {
+      background-color: $color-base-100;
+    }
+  }
+  &__btn {
+    &.btn--outline {
+      color: $color-base-100;
+    }
+    @media (--desktop) {
+      color: $color-white;
+    }
+  }
+
+  &__icon-search {
+    color: $color-white;
+  }
+  .nav__container-menu,
+  .nav__search-box {
+    border-color: $color-white;
+  }
+  &.active {
+    .btn {
+      color: $color-base-100;
+    }
+    .nav__container-menu {
+      border-color: $color-white;
+    }
+    .nav__container-right {
+      @media (--desktop) {
+        display: block;
+      }
+    }
+    .btn--outline {
+      color: $color-base-100;
+    }
+  }
+}

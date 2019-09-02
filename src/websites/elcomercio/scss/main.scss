@@ -19,9 +19,6 @@
 /*---------------------*/
 
 /******* Modificadores *******/
-@import './components/breaking-news';
-@import './components/nav';
-@import './components/header';
-@import './components/buttons';
-@import './components/tabloid';
+@import './global-components/_';
+@import './components/_';
 /*---------------------*/
