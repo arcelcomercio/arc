@@ -303,7 +303,7 @@ class AuthFacebook extends React.Component {
   }
 
   enterProfilePanel = () => {
-    const { closePopup } = this.props
+    const { closePopup, arcSite } = this.props
     Cookies.deleteCookie('mpp_sess') // borra session MPP
     this.taggeoSuccess() // -- test de tageo sucess
     if (window.location.pathname.indexOf('suscripciones') >= 0) {
@@ -311,6 +311,15 @@ class AuthFacebook extends React.Component {
     } else {
       closePopup()
     }
+
+    // set token cookie
+    const cookieName = 'ArcId.USER_INFO'
+    const cookieValue = window.Identity.userIdentity || '{}'
+    const myDate = new Date()
+    myDate.setDate(myDate.getDate() + 1)
+    document.cookie = `${cookieName}=${JSON.stringify(
+      cookieValue
+    )};expires=${myDate};domain=.${arcSite}.pe;path=/`
   }
 }
 
