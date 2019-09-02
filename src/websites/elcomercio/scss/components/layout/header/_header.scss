@@ -1,5 +1,12 @@
-.header__item {
-    a {
-        color: $color-secondary;
-    }
+.header {
+  &__link {
+    color: $color-gray-300;
+    font-weight: 700;
+  }
+  &__wrapper--dashed {
+    border-bottom: 1px dashed $color-gray-200;
+  }
+  &__date {
+    font-family: $secondary-font;
+  }
 }

@@ -17,9 +17,18 @@
   &__icon-search {
     color: $color-white;
   }
-  .nav__container-menu,
-  .nav__search-box {
+  &__container-menu,
+  &__search-box {
     border-color: $color-white;
+  }
+  &__input-search {
+    &.active {
+      border-color: $color-white;
+      color: $color-white;
+      &::placeholder {
+        color: $color-white;
+      }
+    }
   }
   &.active {
     .btn {
@@ -34,7 +43,12 @@
       }
     }
     .btn--outline {
-      color: $color-base-100;
+      @media (--desktop) {
+        color: $color-base-100;
+      }
+    }
+    .nav__icon-menu {
+      color: $color-white;
     }
   }
 }
