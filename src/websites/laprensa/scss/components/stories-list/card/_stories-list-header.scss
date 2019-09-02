@@ -1,0 +1,21 @@
+.stories-l-header {
+  &__title {
+    color: $color-white;
+    h4 {
+      font-weight: 700;
+    }
+  }
+  &__see-more {
+    background-color: $color-white;
+    color: $color-primary;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+
+  &.bg-info {
+    background-color: $color-primary;
+  }
+  &.bg-white {
+    background-color: $color-gray-100;
+  }
+}

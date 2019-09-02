@@ -18,3 +18,5 @@ coverage/
 mocks/user
 
 components/features/paywall/bundle.js
+
+/.scannerwork
