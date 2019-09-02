@@ -6,6 +6,13 @@ import { useFusionContext } from 'fusion:context'
 import StoryData from '../../../utilities/story-data'
 import getLatinDate from '../../../utilities/date-name'
 
+/**
+ * TODO:
+ * Extraer classes
+ * Extrear _dependencies
+ * Separar vista de controlador
+ */
+
 const CardsTabloidStory = props => {
   /* const {
     customFields: {
