@@ -104,6 +104,8 @@ const ParagraphshWithAdds = ({
       let paragraphwithAdd = ''
       const originalParagraph = paragraph
       paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
+      paragraph = paragraph.replace('   ', ' ')
+      paragraph = paragraph.replace('  ', ' ')
       const arrayWords = paragraph.split(' ')
 
       if (IndexAdd === 0) {
