@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import PlayList from './play-list'
 import VideoBar from './video-navbar'
+import { arrayMonths } from '../../../../utilities/helpers'
 
-export default () => {
+export default ({ principalVideo, playListVideo }) => {
   useEffect(() => {
     const playList = document.querySelector('.play-list')
     const sectionVideo = document.querySelector('.section-video__wrapper')
@@ -20,6 +21,22 @@ export default () => {
       }
     })
   })
+
+  const formateDay = () => {
+    const _date = new Date(principalVideo.displayDate)
+    const day = _date.getDate()
+    const month = _date.getMonth()
+    const year = _date.getFullYear()
+    const hora = _date.getHours()
+    const minutes = _date.getMinutes()
+    return {
+      fecha: `${day} de ${arrayMonths[month]} de ${year}`,
+      hora: `${hora}:${minutes}`,
+    }
+  }
+
+  const { fecha, hora } = formateDay()
+
   return (
     <div className="section-video">
       <div className="section-video__box">
@@ -41,32 +58,32 @@ export default () => {
               <div>
                 <div className="section-video__breadcrumbs">
                   <span className="section-video__sub">
-                    <a href="/">Video</a>
+                    <a href="/videos">Video</a>
                   </span>
                   <span className="section-video__sub">
-                    <a href="/">Mundo</a>
+                    <a href={principalVideo.primarySectionLink}>
+                      {principalVideo.primarySection}
+                    </a>
                   </span>
                 </div>
-                <h1 className="section-video__title">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </h1>
+                <h1 className="section-video__title">{principalVideo.title}</h1>
                 <p className="section-video__subtitle">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-                  voluptas nesciunt. Maxime rerum doloribus enim earum
-                  dignissimos ad dolore assumenda.
+                  {principalVideo.subTitle}
                 </p>
               </div>
-              <p className="section-video__author">Foto y video (AFP)</p>
+              <p className="section-video__author">
+                Foto y video {principalVideo.author}
+              </p>
             </div>
           </div>
           <div className="section-video__fixed">
             <div className="section-video__min">
               <div className="section-video__desc">
-                <span>0:30</span>
-                <span>Deportes</span>
+                <span>0:30 </span>
+                <span>{principalVideo.primarySection}</span>
               </div>
               <h2 className="section-video__des-title">
-                Lorem ipsum dolor, sit amet consectetur adipisicing.
+                {principalVideo.title}
               </h2>
               <div className="section-video__share">
                 <button type="button" className="section-video__btn">
@@ -100,13 +117,13 @@ export default () => {
               </button>
             </div>
             <div className="section-video__detail">
-              <span className="section-video__text">15 de Agosto de 2019</span>
-              <span className="section-video__text">13:25</span>
-              <span className="section-video__text">Duracion: 00:40</span>
+              <span className="section-video__text">{fecha}</span>
+              <span className="section-video__text">{hora}</span>
+              <span className="section-video__text">Duracion:...</span>
             </div>
           </div>
         </div>
-        <PlayList />
+        <PlayList {...playListVideo} />
       </div>
       <VideoBar />
     </div>
