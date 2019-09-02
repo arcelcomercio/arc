@@ -46,8 +46,8 @@ class SectionData {
     return SectionData.getImageBySize(this.__data, ConfigParams.LANDSCAPE_XL)
   }
 
-  get imageLandscapeXS() {
-    return SectionData.getImageBySize(this.__data, ConfigParams.LANDSCAPE_XS)
+  get imageLandscapeS() {
+    return SectionData.getImageBySize(this.__data, ConfigParams.LANDSCAPE_S)
   }
 
   get imageLazyDefault() {
