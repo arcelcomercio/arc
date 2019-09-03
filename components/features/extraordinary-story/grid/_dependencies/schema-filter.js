@@ -10,7 +10,7 @@ export const sectionSchema = `{
         resized_urls {
             lazy_default
             landscape_xl
-            landscape_xs
+            landscape_s
         }
     }
 }`

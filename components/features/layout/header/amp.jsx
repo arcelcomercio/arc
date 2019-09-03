@@ -35,8 +35,8 @@ class LayoutAmpHeader extends PureComponent {
                 <amp-img
                   src={imgLogo}
                   alt={arcSite}
-                  width="120"
-                  height="26"
+                  width="73"
+                  height="51"
                   tabindex="0"
                 />
               </a>

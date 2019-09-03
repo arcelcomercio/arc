@@ -47,4 +47,15 @@
       display: none;
     }
   }
+  &__info,
+  &__contact,
+  &__sections {
+    background: $color-gray-300;
+  }
+  @media (--tablet) {
+    &__info::after,
+    &__sections::after {
+      background-color: $color-white;
+    }
+  }
 }
