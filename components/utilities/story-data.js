@@ -116,6 +116,13 @@ class StoryData {
     return result
   }
 
+  get authorRole() {
+    const { credits: { by = [] } = {} } = this._data || {}
+    const { additional_properties: { original: { role = '' } = {} } = {} } =
+      by[0] || {}
+    return role
+  }
+
   get defaultImg() {
     return defaultImage({
       deployment: this._deployment,
@@ -395,8 +402,9 @@ class StoryData {
 
   get multimediaNews() {
     const type = StoryData.getMultimediaIconTypeFIA(this._data) || ''
-    let result = { type, payload: '' }
-
+    const result = { type, payload: '' }
+    let imageItems=''
+    
     switch (type) {
       case ConfigParams.IMAGE:
         result.payload = this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
@@ -411,7 +419,7 @@ class StoryData {
         break
 
       case ConfigParams.GALLERY:
-        const ImageItems =
+        imageItems =
           (this._data &&
             this._data.promo_items &&
             this._data.promo_items[ConfigParams.GALLERY] &&
@@ -419,9 +427,9 @@ class StoryData {
           []
 
         result.payload =
-          ImageItems.map(({ additional_properties }) => {
-            const { resizeUrl } = additional_properties
-            return resizeUrl ? resizeUrl : null
+          imageItems.map(({ additional_properties: additionalProperties }) => {
+            const { resizeUrl = '' } = additionalProperties
+            return resizeUrl
           }) || []
         break
       case ConfigParams.ELEMENT_YOUTUBE_ID:
@@ -506,6 +514,7 @@ class StoryData {
       this._data || {}
     return sourceUrl
   }
+
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
@@ -630,6 +639,7 @@ class StoryData {
       ''
     )
   }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
