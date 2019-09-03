@@ -58,10 +58,17 @@ class LayoutNavbar extends PureComponent {
       deployment,
       siteProperties: {
         footer: { socialNetworks },
+        siteUrl,
       },
     } = this.props
 
-    const parameters = { contextPath, deployment, socialNetworks, arcSite }
+    const parameters = {
+      contextPath,
+      deployment,
+      socialNetworks,
+      arcSite,
+      siteUrl,
+    }
 
     const NavBarType = {
       standard: <Menu data={data} {...parameters} />,

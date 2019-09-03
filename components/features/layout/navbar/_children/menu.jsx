@@ -75,9 +75,12 @@ class NavbarChildMenu extends PureComponent {
                      * */}
                     <label
                       htmlFor={idElem}
-                      className={classes.labelParentItem}></label>
+                      className={classes.labelParentItem}
+                    />
                     <ul
-                      className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
+                      className={`${
+                        classes.containerSubMenu
+                      } deep-${deep} ${idElem}`}>
                       {this.renderSections(children, aux + 1, idElem)}
                     </ul>
                   </>
