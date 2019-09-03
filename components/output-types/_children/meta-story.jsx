@@ -129,8 +129,9 @@ export default ({
       "width": 696
     },`
 
-  const dataVideo = `  "video":[ ${videoSeoItems}
-  ],`
+  const dataVideo =
+    `  "video":[ ${videoSeoItems}
+  ],` || ''
   const structuredData = `{  
     "@context":"http://schema.org",
     "@type":"NewsArticle",
@@ -144,7 +145,7 @@ export default ({
        "@id":"${siteUrl}${link}"
     },
     ${imagenDefoult}
-    ${videoSeoItems[0] && dataVideo}
+    ${(videoSeoItems[0] && dataVideo) || ''}
     "author":{  
        "@type":"Person",
        "name":"${seoAuthor}"
