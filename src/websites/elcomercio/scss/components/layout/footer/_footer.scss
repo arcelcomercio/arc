@@ -12,7 +12,7 @@
   &__info,
   &__sections {
     &::after {
-      @media (--desktop) {
+      @media (--tablet) {
         border-right: 1px dashed;
         background-color: transparent;
       }

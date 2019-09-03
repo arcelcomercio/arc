@@ -23,10 +23,15 @@
   }
   &__input-search {
     &.active {
-      border-color: $color-white;
-      color: $color-white;
-      &::placeholder {
-        color: $color-white;
+      background-color: $color-white;
+      color: $color-base-100;
+      font-weight: 600;
+    }
+  }
+  &__btn--search {
+    &.active {
+      .nav__icon-search {
+        color: $color-base-100;
       }
     }
   }
