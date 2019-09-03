@@ -395,8 +395,9 @@ class StoryData {
 
   get multimediaNews() {
     const type = StoryData.getMultimediaIconTypeFIA(this._data) || ''
-    let result = { type, payload: '' }
-
+    const result = { type, payload: '' }
+    let imageItems=''
+    
     switch (type) {
       case ConfigParams.IMAGE:
         result.payload = this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
@@ -411,7 +412,7 @@ class StoryData {
         break
 
       case ConfigParams.GALLERY:
-        const ImageItems =
+        imageItems =
           (this._data &&
             this._data.promo_items &&
             this._data.promo_items[ConfigParams.GALLERY] &&
@@ -419,9 +420,9 @@ class StoryData {
           []
 
         result.payload =
-          ImageItems.map(({ additional_properties }) => {
-            const { resizeUrl } = additional_properties
-            return resizeUrl ? resizeUrl : null
+          imageItems.map(({ additional_properties: additionalProperties }) => {
+            const { resizeUrl = '' } = additionalProperties
+            return resizeUrl
           }) || []
         break
       case ConfigParams.ELEMENT_YOUTUBE_ID:
