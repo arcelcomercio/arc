@@ -52,5 +52,11 @@
         line-height: 1.4;
       }
     }
+    &-title {
+      a {
+        color: $color-gray-300;
+        font-weight: 700;
+      }
+    }
   }
 }

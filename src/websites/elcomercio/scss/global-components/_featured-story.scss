@@ -1,0 +1,17 @@
+.featured-story {
+  &__category-link,
+  &__title-link {
+    font-weight: 700;
+  }
+  &__category::before {
+    content: '';
+    border-bottom: 1px solid $color-gray-300;
+    display: block;
+    height: 1px;
+    left: 0;
+    overflow: hidden;
+    position: relative;
+    width: 25px;
+    top: -2px;
+  }
+}
