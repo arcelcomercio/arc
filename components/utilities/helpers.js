@@ -530,6 +530,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<\/blockquote><\/html_free>/g, '')
     .replace('</p>', '')
     .replace('<p>', '')
+    .replace('http://', 'https://')
 }
 
 export const facebookHtml = html => {
