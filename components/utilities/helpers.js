@@ -498,14 +498,22 @@ export const twitterHtml = html => {
   return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
 }
 
-export const iframeHtml = html => {
+export const iframeHtml = (html, arcSite = '') => {
+  let htmlDataTwitter = html
+  if (ConfigParams.SITE_PERU21 === arcSite) {
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(\/media\/([0-9-A-Z])\w+)/g,
+      'https://g21.peru21.pe$1'
+    )
+  }
+
   const rplTwitter =
     '<amp-iframe class="media" src="http$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
 
   const rplIframe =
     '<amp-iframe class="media" src="http$2"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
 
-  const htmlDataTwitter = html
+  htmlDataTwitter = htmlDataTwitter
     .replace(/<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g, rplTwitter)
     .replace(/<iframe (.*)src="http(.+?)"><\/iframe>/g, rplIframe) //
     .replace(/<iframe (.*)src="http(.*?)"(.*)><\/iframe>/g, rplTwitter)
@@ -577,7 +585,7 @@ export const freeHtml = html => {
     .replace(/="&quot;http?(.*?)"/g, '="http$1"')
 }
 
-export const ampHtml = (html = '') => {
+export const ampHtml = (html = '', arcSite = '') => {
   let resultData = html
   // Opta Widget
   resultData = replaceHtmlMigracion(html)
@@ -607,7 +615,7 @@ export const ampHtml = (html = '') => {
   resultData = freeHtml(resultData)
 
   // HTML Iframe
-  resultData = iframeHtml(resultData)
+  resultData = iframeHtml(resultData, arcSite)
 
   return resultData
 }

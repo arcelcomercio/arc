@@ -402,8 +402,9 @@ class StoryData {
 
   get multimediaNews() {
     const type = StoryData.getMultimediaIconTypeFIA(this._data) || ''
-    let result = { type, payload: '' }
-
+    const result = { type, payload: '' }
+    let imageItems=''
+    
     switch (type) {
       case ConfigParams.IMAGE:
         result.payload = this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
@@ -418,7 +419,7 @@ class StoryData {
         break
 
       case ConfigParams.GALLERY:
-        const ImageItems =
+        imageItems =
           (this._data &&
             this._data.promo_items &&
             this._data.promo_items[ConfigParams.GALLERY] &&
@@ -426,9 +427,9 @@ class StoryData {
           []
 
         result.payload =
-          ImageItems.map(({ additional_properties }) => {
-            const { resizeUrl } = additional_properties
-            return resizeUrl ? resizeUrl : null
+          imageItems.map(({ additional_properties: additionalProperties }) => {
+            const { resizeUrl = '' } = additionalProperties
+            return resizeUrl
           }) || []
         break
       case ConfigParams.ELEMENT_YOUTUBE_ID:
@@ -522,6 +523,17 @@ class StoryData {
       if (attr !== 'attributesRaw') attributesObject[attr] = this[attr]
     }
     return attributesObject
+  }
+
+  get contentElementsHtml() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsHtml(
+          this._data.content_elements,
+          'raw_html'
+        )) ||
+      ''
+    )
   }
 
   get contentElementsText() {
@@ -740,6 +752,15 @@ class StoryData {
       data &&
       data.map(({ content, type }) => {
         return type === typeElement ? formatHtmlToText(content) : []
+      })
+    ).join(' ')
+  }
+
+  static getContentElementsHtml(data = [], typeElement = '') {
+    return (
+      data &&
+      data.map(({ content, type }) => {
+        return type === typeElement ? content : []
       })
     ).join(' ')
   }
