@@ -91,7 +91,7 @@ function WizardPlan(props) {
       <S.Wrap>
         <Summary {...summary} />
         <S.WrapPlan>
-          <S.PlanTitle>Selecciona el período de pago:</S.PlanTitle>
+          {/* <S.PlanTitle>Selecciona el período de pago:</S.PlanTitle> */}
           <S.Plans>
             {plans.map((plan, idx) => {
               const { priceCode } = plan
@@ -119,12 +119,23 @@ function WizardPlan(props) {
         }}
       />
       {!printed && (
-        <BannerPromoSuscriptor
-          onClick={() => {
-            setOpenModal(true)
-          }}
-          assets={assets}
-        />
+        <S.ContentBanner>
+          <BannerPromoSuscriptor
+            onClick={() => {
+              setOpenModal(true)
+            }}
+            assets={assets}
+            type='left'
+          />
+
+          <BannerPromoSuscriptor
+            onClick={() => {
+              setOpenModal(true)
+            }}
+            assets={assets}
+            type='right'
+          />
+        </S.ContentBanner>
       )}
     </S.WizardPlan>
   )

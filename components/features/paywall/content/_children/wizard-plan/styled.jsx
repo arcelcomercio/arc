@@ -66,3 +66,11 @@ export const WelcomeSuscriptor = styled.div`
   text-align: center;
   margin-bottom: 50px;
 `
+
+export const ContentBanner = styled.div`
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  max-width: 930px;
+  width: 100%;
+`

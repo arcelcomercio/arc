@@ -92,8 +92,9 @@ const WizardConfirmation = props => {
         <S.Content>
           <S.Title>¡Bienvenido(a) {firstName}!</S.Title>
           <S.Subtitle>
-            Disfruta de acceso ilimitado y contenido exclusivo en economía,
-            negocios y finanzas.
+            <strong>POR SER UN SUSCRIPTOR PREMIUM</strong><br />
+            tienes acceso ilimitado a las noticias más relevantes del Perú y el
+            mundo totalmente gratis.
           </S.Subtitle>
           <S.CardSummary>
             <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
@@ -116,7 +117,7 @@ const WizardConfirmation = props => {
           </S.Span>
           <S.WrapButton>
             <Button onClick={handleClick}>SIGUE NAVEGANDO</Button>
-            <S.Progress time="17s" onFinish={handleClick} />
+            {/* <S.Progress time="17s" onFinish={handleClick} /> */}
           </S.WrapButton>
         </S.Content>
       </S.Panel>
