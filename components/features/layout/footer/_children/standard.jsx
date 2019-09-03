@@ -104,11 +104,15 @@ const StandardFooter = props => {
               {el.position && (
                 <li className={classes.listItem} key={el.name}>
                   <span
-                    className={`${classes.listLinkTitle} ${classes.contactPosition}`}>
+                    className={`${classes.listLinkTitle} ${
+                      classes.contactPosition
+                    }`}>
                     {el.position}:
                   </span>
                   <span
-                    className={`${classes.listLinkInfo} ${classes.contactName}`}>
+                    className={`${classes.listLinkInfo} ${
+                      classes.contactName
+                    }`}>
                     {el.name}
                   </span>
                 </li>
@@ -142,20 +146,18 @@ const StandardFooter = props => {
         <p className={classes.sitesItemTitle}>Red el comercio</p>
         <ul className={classes.sitesList}>
           {gecSites.map(site => {
-            if (site.arcSite !== arcSite) {
-              return (
-                <li className={classes.sitesItem} key={site.url}>
-                  <a
-                    className={classes.sitesLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={site.url}>
-                    {site.name}
-                  </a>
-                </li>
-              )
-            }
-            return ''
+            if (site.arcSite === arcSite) return ''
+            return (
+              <li className={classes.sitesItem} key={site.url}>
+                <a
+                  className={classes.sitesLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={site.url}>
+                  {site.name}
+                </a>
+              </li>
+            )
           })}
         </ul>
       </div>
