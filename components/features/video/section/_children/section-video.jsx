@@ -1,23 +1,31 @@
 import React, { useEffect } from 'react'
 import PlayList from './play-list'
 import VideoBar from './video-navbar'
-import { arrayMonths } from '../../../../utilities/helpers'
 
-export default ({ principalVideo, playListVideo }) => {
+export default ({
+  principalVideo,
+  playListVideo,
+  arcSite,
+  contextPath,
+  deployment,
+}) => {
   useEffect(() => {
     const playList = document.querySelector('.play-list')
     const sectionVideo = document.querySelector('.section-video__wrapper')
     const videoNavBar = document.querySelector('.video-navbar')
-    const offTop = playList.offsetTop
+    const videoList = document.querySelector('.video-list')
+    const playOff = playList.offsetTop
     window.addEventListener('scroll', () => {
       const scrollHeight = window.scrollY
-      if (scrollHeight >= offTop) {
+      if (scrollHeight >= playOff) {
         sectionVideo.classList.add('fixed')
         videoNavBar.classList.add('fixed')
+        videoList.style.marginTop = '570px'
       }
-      if (scrollHeight < offTop) {
+      if (scrollHeight < playOff) {
         sectionVideo.classList.remove('fixed')
         videoNavBar.classList.remove('fixed')
+        videoList.style.marginTop = '50px'
       }
     })
   })
@@ -30,12 +38,19 @@ export default ({ principalVideo, playListVideo }) => {
     const hora = _date.getHours()
     const minutes = _date.getMinutes()
     return {
-      fecha: `${day} de ${arrayMonths[month]} de ${year}`,
+      fecha: `${day}.${month + 1}.${year}`,
       hora: `${hora}:${minutes}`,
     }
   }
 
-  const { fecha, hora } = formateDay()
+  const { fecha } = formateDay()
+
+  const playListParams = {
+    ...playListVideo,
+    arcSite,
+    contextPath,
+    deployment,
+  }
 
   return (
     <div className="section-video">
@@ -45,10 +60,8 @@ export default ({ principalVideo, playListVideo }) => {
             <div className="section-video__left">
               <iframe
                 title="video"
-                width="560"
-                height="315"
                 className="section-video__frame"
-                src="https://www.youtube.com/embed/-sRBWb1_6ys"
+                src="https://www.youtube.com/embed/60ItHLz5WEA"
                 frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
@@ -56,7 +69,7 @@ export default ({ principalVideo, playListVideo }) => {
             </div>
             <div className="section-video__right">
               <div>
-                <div className="section-video__breadcrumbs">
+                {/* <div className="section-video__breadcrumbs">
                   <span className="section-video__sub">
                     <a href="/videos">Video</a>
                   </span>
@@ -65,21 +78,23 @@ export default ({ principalVideo, playListVideo }) => {
                       {principalVideo.primarySection}
                     </a>
                   </span>
+                </div> */}
+                <div className="section-video__box-section">
+                  <p className="section-video__section">
+                    {principalVideo.primarySection}
+                  </p>
                 </div>
                 <h1 className="section-video__title">{principalVideo.title}</h1>
                 <p className="section-video__subtitle">
                   {principalVideo.subTitle}
                 </p>
               </div>
-              <p className="section-video__author">
-                Foto y video {principalVideo.author}
-              </p>
             </div>
           </div>
           <div className="section-video__fixed">
             <div className="section-video__min">
               <div className="section-video__desc">
-                <span>0:30 </span>
+                {/* <span>0:30 </span> */}
                 <span>{principalVideo.primarySection}</span>
               </div>
               <h2 className="section-video__des-title">
@@ -101,6 +116,9 @@ export default ({ principalVideo, playListVideo }) => {
               </div>
             </div>
           </div>
+          <div className="section-video__detail">
+            <span className="section-video__text">{fecha}</span>
+          </div>
           <div className="section-video__bottom">
             <div className="section-video__share">
               <button type="button" className="section-video__btn">
@@ -116,14 +134,9 @@ export default ({ principalVideo, playListVideo }) => {
                 <span className="icon-share" />
               </button>
             </div>
-            <div className="section-video__detail">
-              <span className="section-video__text">{fecha}</span>
-              <span className="section-video__text">{hora}</span>
-              <span className="section-video__text">Duracion:...</span>
-            </div>
           </div>
         </div>
-        <PlayList {...playListVideo} />
+        <PlayList {...playListParams} />
       </div>
       <VideoBar />
     </div>

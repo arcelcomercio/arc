@@ -4,6 +4,7 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
+import ConfigParams from '../../../utilities/config-params'
 import { removeLastSlash } from '../../../utilities/helpers'
 import ChildrenSectionVideo from './_children/section-video'
 import {
@@ -17,27 +18,31 @@ const SectionVideo = () => {
   let section = null
 
   const principalVideo = data => {
-    const {
-      title,
-      subTitle,
-      author,
-      displayDate,
-      primarySection,
-      primarySectionLink,
-    } = new StoryData({
+    const Story = new StoryData({
       data,
       arcSite,
       contextPath,
       deployment,
       defaultImgSize: 'sm',
     })
+    const {
+      title,
+      subTitle,
+      displayDate,
+      primarySection,
+      primarySectionLink,
+      multimediaType,
+    } = Story
     dataVideo.principalVideo = {
       primarySection,
       primarySectionLink,
       title,
       subTitle,
-      author,
       displayDate,
+      multimediaType,
+    }
+    if (multimediaType === ConfigParams.VIDEO) {
+      console.log(Story.videoId, 'VIDEO IDDDDDDD')
     }
     section = removeLastSlash(primarySectionLink)
   }
@@ -72,8 +77,14 @@ const SectionVideo = () => {
     playListVideo()
     principalVideo(fetchPrincipalVideo)
   }
+  const params = {
+    ...dataVideo,
+    arcSite,
+    contextPath,
+    deployment,
+  }
 
-  return <ChildrenSectionVideo {...dataVideo} />
+  return <ChildrenSectionVideo {...params} />
 }
 
 export default SectionVideo

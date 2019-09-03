@@ -4,9 +4,6 @@ export const SchemaSingleStory = arcSite => {
     headlines { basic }
     subheadlines { basic }
     display_date
-    credits {
-      by { name }
-    }
     taxonomy {
       primary_section { name path }
     }
