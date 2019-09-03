@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ConfigParams from '../../../../utilities/config-params'
 import PlayList from './play-list'
 import VideoBar from './video-navbar'
 
@@ -8,26 +9,34 @@ export default ({
   arcSite,
   contextPath,
   deployment,
+  isAdmin,
 }) => {
   useEffect(() => {
-    const playList = document.querySelector('.play-list')
-    const sectionVideo = document.querySelector('.section-video__wrapper')
-    const videoNavBar = document.querySelector('.video-navbar')
-    const videoList = document.querySelector('.video-list')
-    const playOff = playList.offsetTop
-    window.addEventListener('scroll', () => {
-      const scrollHeight = window.scrollY
-      if (scrollHeight >= playOff) {
-        sectionVideo.classList.add('fixed')
-        videoNavBar.classList.add('fixed')
-        videoList.style.marginTop = '570px'
+    if (window.powaBoot) {
+      window.powaBoot()
+    }
+    if (!isAdmin) {
+      const playList = document.querySelector('.play-list')
+      const sectionVideo = document.querySelector('.section-video__wrapper')
+      const videoNavBar = document.querySelector('.video-navbar')
+      const videoList = document.querySelector('.video-list')
+      const playOff = playList.offsetTop
+      if (window.innerWidth > 1024) {
+        window.addEventListener('scroll', () => {
+          const scrollHeight = window.scrollY
+          if (scrollHeight >= playOff) {
+            sectionVideo.classList.add('fixed')
+            videoNavBar.classList.add('fixed')
+            videoList.style.marginTop = '570px'
+          }
+          if (scrollHeight < playOff) {
+            sectionVideo.classList.remove('fixed')
+            videoNavBar.classList.remove('fixed')
+            videoList.style.marginTop = '50px'
+          }
+        })
       }
-      if (scrollHeight < playOff) {
-        sectionVideo.classList.remove('fixed')
-        videoNavBar.classList.remove('fixed')
-        videoList.style.marginTop = '50px'
-      }
-    })
+    }
   })
 
   const formateDay = () => {
@@ -58,14 +67,30 @@ export default ({
         <div className="section-video__wrapper">
           <div className="section-video__top">
             <div className="section-video__left">
-              <iframe
+              {principalVideo.video &&
+              principalVideo.video === ConfigParams.VIDEO ? (
+                <div
+                  className="section-video__frame"
+                  dangerouslySetInnerHTML={{ __html: principalVideo.video }}
+                />
+              ) : (
+                <iframe
+                  className="section-video__frame"
+                  src={`https://www.youtube.com/embed/${principalVideo.video}`}
+                  frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                />
+              )}
+
+              {/* <iframe
                 title="video"
                 className="section-video__frame"
                 src="https://www.youtube.com/embed/60ItHLz5WEA"
                 frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
-              />
+              /> */}
             </div>
             <div className="section-video__right">
               <div>

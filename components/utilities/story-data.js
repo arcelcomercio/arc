@@ -641,6 +641,10 @@ class StoryData {
     return video
   }
 
+  get idYoutube() {
+    return StoryData.getIdYoutube(this._data)
+  }
+
   get nucleoOrigen() {
     return (
       (this._data &&

@@ -13,7 +13,13 @@ import {
 } from './_dependencies/schema-filter'
 
 const SectionVideo = () => {
-  const { globalContent, arcSite, contextPath, deployment } = useFusionContext()
+  const {
+    globalContent,
+    arcSite,
+    contextPath,
+    deployment,
+    isAdmin,
+  } = useFusionContext()
   const dataVideo = {}
   let section = null
 
@@ -31,7 +37,7 @@ const SectionVideo = () => {
       displayDate,
       primarySection,
       primarySectionLink,
-      multimediaType,
+      promoItemsType,
     } = Story
     dataVideo.principalVideo = {
       primarySection,
@@ -39,11 +45,21 @@ const SectionVideo = () => {
       title,
       subTitle,
       displayDate,
-      multimediaType,
+      promoItemsType,
     }
-    if (multimediaType === ConfigParams.VIDEO) {
-      console.log(Story.video, 'VIDEO EMBEEEEEEED')
-      console.log(Story.getIdGoldfish, 'VIDEO IDDDDDDDDd')
+    if (promoItemsType === ConfigParams.VIDEO) {
+      const { video } = Story
+      dataVideo.principalVideo = {
+        ...dataVideo.principalVideo,
+        video,
+      }
+    }
+    if (promoItemsType === ConfigParams.ELEMENT_YOUTUBE_ID) {
+      const video = Story.idYoutube
+      dataVideo.principalVideo = {
+        ...dataVideo.principalVideo,
+        video,
+      }
     }
     section = removeLastSlash(primarySectionLink)
   }
@@ -83,6 +99,7 @@ const SectionVideo = () => {
     arcSite,
     contextPath,
     deployment,
+    isAdmin,
   }
 
   return <ChildrenSectionVideo {...params} />
