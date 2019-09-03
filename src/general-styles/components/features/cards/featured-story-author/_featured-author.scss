@@ -1,0 +1,15 @@
+.featured-author {
+  &__img {
+    max-height: 157px;
+  }
+  &__author-img {
+    width: 42px;
+    height: 42px;
+  }
+  &__title-link {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    max-height: calc(1.5rem * 1.16667 * 3);
+  }
+}
