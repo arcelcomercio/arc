@@ -21,11 +21,13 @@
         display: block;
         margin-bottom: 10px;
       }
-      flex-basis: 49%;
     }
     &-description {
       @media (--only-mobile) {
-        margin-left: 66px;
+        position: relative;
+        left: 76px;
+        top: -18px;
+        width: calc(100% - 76px);
       }
     }
     &-name {
@@ -33,15 +35,21 @@
       /* autoprefixer: off */
       -webkit-box-orient: vertical;
       /* autoprefixer: on */
-      max-height: 35px;
-      -webkit-line-clamp: 2;
+      max-height: 42px;
+      -webkit-line-clamp: 1;
       overflow: hidden;
       @media (--only-mobile) {
+        max-height: 40px;
+        width: calc(100% - 75px);
         margin-bottom: 0;
+        padding-left: 10px;
       }
       &::before,
       &::after {
         margin: 5px 0;
+      }
+      a {
+        line-height: 1.4;
       }
     }
   }
