@@ -68,13 +68,16 @@ class Data extends StoryData {
   }
 
   get link() {
-    const {
-      websites = {}
-    } = this._data || {}
-    const {
-      website_url: url = ''
-    } = websites[`${this.arcSite}`] || {}
+    const { websites = {} } = this._data || {}
+    const { website_url: url = '' } = websites[`${this.arcSite}`] || {}
     return url
+  }
+
+  get primarySectionLink() {
+    return (
+      (this.customFields && this.customFields.sectionLink) ||
+      super.primarySectionLink
+    )
   }
 
   /* get isVideo() {
@@ -93,7 +96,7 @@ class Data extends StoryData {
   get typeMultimediaGeneral() {
     return Data.getTypeMultimediaGeneral(
       this.multimediaService,
-      this.multimediaType
+      this.promoItemsType
     )
   }
 
@@ -103,22 +106,25 @@ class Data extends StoryData {
       multimediaService,
       multimediaSource,
       // Story Data values
-      multimediaType,
-      videoId,
+      promoItemsType,
+      videoIdContent,
       multimedia,
     } = this
     const multimediaTypeFeature = Data.getTypeMultimediaGeneral(
       multimediaService,
-      multimediaType
+      promoItemsType
     )
     let multimediaSourceFeature = multimediaSource
     if (Data.AUTOMATIC === multimediaService) {
       multimediaSourceFeature =
-        multimediaType === ConfigParams.VIDEO ? videoId : multimedia
+        promoItemsType === ConfigParams.VIDEO ||
+        promoItemsType === ConfigParams.ELEMENT_YOUTUBE_ID
+          ? videoIdContent
+          : multimedia
     }
     return Data.getSourceMultimedia(
       multimediaTypeFeature,
-      multimediaSourceFeature,
+      multimediaSourceFeature
     )
   }
 
@@ -126,6 +132,7 @@ class Data extends StoryData {
     let multimediaContent = ''
     if (
       (multimediaType === ConfigParams.VIDEO ||
+        multimediaType === ConfigParams.ELEMENT_YOUTUBE_ID ||
         multimediaType === Data.YOUTUBE ||
         multimediaType === Data.GOLDFISH) &&
       multimedia !== ''

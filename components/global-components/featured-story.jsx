@@ -63,6 +63,7 @@ export default class FeaturedStory extends PureComponent {
       categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
       isAdmin,
+      siteName,
       errorList = [],
     } = this.props
 
@@ -88,7 +89,7 @@ export default class FeaturedStory extends PureComponent {
       if (headband === 'live') {
         return classes.live
       }
-      if (headband === 'gestionTv') {
+      if (headband === 'tv') {
         return `${classes.live} ${classes.livetv}`
       }
       return ''
@@ -97,11 +98,9 @@ export default class FeaturedStory extends PureComponent {
     const getEditableField = element =>
       editableField ? editableField(element) : null
 
-    // TODO: !IMPORTE, esto debería detectar el navegador para agregarle los 3 puntos, NO la marca
-
     let headbandText = ''
     if (headband === 'live') headbandText = 'En vivo'
-    else if (headband === 'gestionTv') headbandText = 'Gestión TV'
+    else if (headband === 'tv') headbandText = `${siteName} TV`
 
     const getMobileImage = () => {
       if (hightlightOnMobile) {
@@ -182,6 +181,7 @@ export default class FeaturedStory extends PureComponent {
             <a
               className={classes.titleLink}
               href={title.url}
+              title={titleField || title.name}
               {...getEditableField('titleField')}
               suppressContentEditableWarning>
               {titleField || title.name}

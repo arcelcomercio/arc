@@ -1,6 +1,9 @@
 .related-content {
+  &__item {
+    border-color: $color-gray-200;
+  }
   &__link {
-    color: $color-base-300;
+    color: $color-primary;
     font-family: $primary-font;
   }
 }

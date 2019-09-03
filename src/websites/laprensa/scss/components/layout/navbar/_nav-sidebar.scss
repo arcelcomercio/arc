@@ -1,0 +1,25 @@
+.nav-sidebar {
+  &__body {
+    padding-left: 0;
+  }
+  &__item {
+    padding-left: 20px;
+    transition: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__link {
+    padding-left: 11px;
+  }
+  &__link,
+  &__text {
+    font-family: $secondary-font;
+  }
+  &__item,
+  &__link {
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}

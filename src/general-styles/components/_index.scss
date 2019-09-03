@@ -26,7 +26,9 @@
 @import './features/breaking-news/breaking-news';
 @import './features/cards/cinema-billboard/cinema-card';
 @import './features/cards/columnist-premium/columnist-premium';
+@import './features/cards/featured-story-author/featured-author';
 @import './features/cards/featured-story-multimedia/featured-multimedia';
+@import './features/cards/featured-story-special/featured-special';
 @import './features/cards/most-read/most-read-item';
 @import './features/cards/most-read/most-read';
 @import './features/cards/opinion/opinion-card';
@@ -34,6 +36,7 @@
 @import './features/cards/survey/card-survey-choices';
 @import './features/cards/survey/card-survey-result';
 @import './features/cards/survey/card-survey';
+@import './features/cards/tabloid-story/tabloid-story';
 @import './features/cards/tabloid/tabloid';
 @import './features/cards/triplet/triplet';
 @import './features/cinema-billboard/genre-movies-filter';
@@ -92,6 +95,7 @@
 @import './features/stories-lists/card/stories-list-card';
 @import './features/stories-lists/card/stories-list-header';
 @import './features/stories-lists/card/stories-list-item';
+@import './features/stories-lists/card/stories-list-tabloid';
 @import './features/story/related-internal';
 @import './features/story/story-header-amp';
 @import './features/story/content/related-content';

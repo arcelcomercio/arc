@@ -5,13 +5,15 @@
 .story-video-box {
   background: #2e2e2e;
   padding: 80px 12px 12px;
+  min-height: 280px;
 
   @media (--tablet) {
-    max-width: 60%;
+    /* max-width: 60%; */
   }
 
   @media (--desktop) {
     width: 602px;
+    max-height: 364px;
   }
 }
 
@@ -46,7 +48,7 @@
   width: 50%;
 
   &__image-container {
-    max-height: 94px;
+    height: 85px;
     margin-bottom: 3px;
   }
 }

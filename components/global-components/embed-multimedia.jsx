@@ -10,23 +10,25 @@ const GOLDFISH_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const ORG_ID = 'elcomercio'
 
 const EmbedMultimedia = props => {
-  const image = (url, { deployment, contextPath, website, title = '' }) => {
+  const image = (url, { deployment, contextPath, website, title = '', linkStory = '' }) => {
     return (
-      <img
-        // Siempre está en la parte inicial de la pag, no hace falta lazyload
-        // TODO: buscar la manera de aplicar resize a esta imagen.
-        className="embed-multimedia-image w-full h-full object-cover"
-        src={
-          url ||
-          defaultImage({
-            deployment,
-            contextPath,
-            arcSite: website,
-            size: 'md',
-          })
-        }
-        alt={title}
-      />
+      <a href={linkStory} className="w-full h-full">
+        <img
+          // Siempre está en la parte inicial de la pag, no hace falta lazyload
+          // TODO: buscar la manera de aplicar resize a esta imagen.
+          className="embed-multimedia-image w-full h-full object-cover"
+          src={
+            url ||
+            defaultImage({
+              deployment,
+              contextPath,
+              arcSite: website,
+              size: 'md',
+            })
+          }
+          alt={title}
+        />
+      </a>
     )
   }
 
@@ -58,7 +60,7 @@ const EmbedMultimedia = props => {
           data-org={ORG_ID}
           data-uuid={multimediaSource}
           data-aspect-ratio="0.562"
-          className="powa"
+          className="powa w-full"
         />
         <script
           async
@@ -73,18 +75,31 @@ const EmbedMultimedia = props => {
     if (type === GOLDFISH || type === ConfigParams.VIDEO) {
       return videoGoldfish
     }
-    if (type === YOUTUBE) {
+    if (type === YOUTUBE || type === ConfigParams.ELEMENT_YOUTUBE_ID) {
       return videoYoutube
     }
     return image
   }
 
-  const { type, source, deployment, contextPath, website, title = '' } = props
+  const {
+    type,
+    source,
+    deployment,
+    contextPath,
+    website,
+    title = '',
+    linkStory = '',
+    width = '100%',
+    height = '100%',
+  } = props
   return getMultimedia(type)(source, {
     deployment,
     contextPath,
     title,
     website,
+    linkStory,
+    width,
+    height,
   })
 }
 

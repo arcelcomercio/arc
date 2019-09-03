@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import * as S from './styled'
-import { Panel } from '../../../_children/panel/styled'
 import Button from '../../../_children/button'
 import { devices } from '../../../_dependencies/devices'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import PWA from '../../_dependencies/seed-pwa'
 
-const HOME = 'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/'
+const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
+const PIXEL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
 
 const Item = ({ label, children }) => {
   return (
@@ -23,7 +23,7 @@ const WizardConfirmation = props => {
     memo: {
       order: { orderNumber },
       profile: { firstName, lastName, secondLastName, email },
-      plan: { title: plan, sku, amount, billingFrequency, printed },
+      plan: { title: plan, sku, priceCode, amount, billingFrequency, printed },
       referer: ref,
       payment: { total: paidTotal, subscriptionIDs },
     },
@@ -47,6 +47,7 @@ const WizardConfirmation = props => {
       ],
       confirmacionID: subscriptionIDs[0], // Por ahora solo un producto
       periodo: billingFrequency,
+      priceCode,
       suscriptorImpreso: printed ? 'si' : 'no',
       medioCompra: ref,
     })
@@ -57,23 +58,33 @@ const WizardConfirmation = props => {
     return PWA.isPWA()
   }
 
+  // const handleClick = () => {
+  //   return
+  //   if (handlePWA()) return
+  //   const { sessionStorage, location } = window
+  //   // eslint-disable-next-line no-prototype-builtins
+  //   location.href = sessionStorage.hasOwnProperty(NAME_REDIRECT) && sessionStorage.getItem(NAME_REDIRECT) !== ''
+  //     ? sessionStorage.getItem(NAME_REDIRECT)
+  //     : HOME
+  // }
+
   const handleClick = () => {
     if (handlePWA()) return
     const { sessionStorage, location } = window
     // eslint-disable-next-line no-prototype-builtins
-    location.href = sessionStorage.hasOwnProperty(NAME_REDIRECT)
-      ? sessionStorage.getItem(NAME_REDIRECT)
-      : HOME
+    location.href =
+      sessionStorage.hasOwnProperty(NAME_REDIRECT) &&
+      sessionStorage.getItem(NAME_REDIRECT) !== ''
+        ? sessionStorage.getItem(NAME_REDIRECT)
+        : HOME
   }
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <Panel maxWidth="1060px" direction="row">
+      <S.Panel maxWidth="1060px" direction="row">
         <S.Picture>
-          <source
-            media={`(${devices.mobile})`}
-            srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-          />
+          <source media={`(${devices.mobile})`} srcSet={PIXEL} />
+          <source media={`${devices.tablet}`} srcSet={PIXEL} />
           <source srcSet={assets('confirmation_webp')} type="image/webp" />
           <S.Image src={assets('confirmation')} alt="confirmación" />
         </S.Picture>
@@ -108,7 +119,7 @@ const WizardConfirmation = props => {
             <S.Progress time="17s" onFinish={handleClick} />
           </S.WrapButton>
         </S.Content>
-      </Panel>
+      </S.Panel>
     </div>
   )
 }

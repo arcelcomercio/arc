@@ -16,6 +16,8 @@ export default {
       logoAmp: 'logo-amp.png',
       width: 258,
       height: 60,
+      widthAmp: 120,
+      heightAmp: 26,
     },
   },
   messages: {
@@ -152,4 +154,5 @@ export default {
     },
   ],
   activeSignwall: false,
+  activePaywall: false,
 }

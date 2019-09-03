@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import * as Sentry from '@sentry/browser'
 import { ENVIRONMENT } from 'fusion:environment'
 import UserProfile from './_children/user-profile'
 import Summary from '../summary'
@@ -6,15 +7,11 @@ import * as S from './styled'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { addSales } from '../../../_dependencies/sales'
 import Beforeunload from '../before-unload'
-import Loading from '../../../_children/loading'
 import { parseQueryString } from '../../../../../utilities/helpers'
 import { deepMapValues } from '../../../_dependencies/utils'
+import Errors from '../../../_dependencies/errors'
 
 const isProd = ENVIRONMENT === 'elcomercio'
-const ERROR = {
-  E300012: 'No se ha encontrado ningún carrito para el usuario.',
-  UNKNOWN: 'Ha ocurrido un error, inténtelo de nuevo mas tarde',
-}
 
 function WizardUserProfile(props) {
   const {
@@ -25,39 +22,53 @@ function WizardUserProfile(props) {
     setLoading,
   } = props
 
-  const sanitizeValues = value =>
-    typeof value === 'string'
-      ? value.trim().replace(/undefined|null/i, null)
+  const sanitizeValues = (value, key) => {
+    if (key === 'documentType') {
+      switch (value) {
+        case 'CEX':
+        case 'CDI':
+          return value
+        default:
+          return 'DNI'
+      }
+    }
+    return typeof value === 'string'
+      ? value.trim().replace(/undefined|null/i, '')
       : value
+  }
   const sanitizedProfile = deepMapValues(profile, sanitizeValues)
 
-  useEffect(() => {
-    sendAction(PixelActions.PAYMENT_PROFILE)
-  }, [])
-
   const {
-    plan: { amount, description, billingFrequency },
+    plan: { sku, printed, priceCode, amount, description, billingFrequency },
   } = memo
+
+  useEffect(() => {
+    sendAction(PixelActions.PAYMENT_PROFILE, {
+      sku: `${sku}${priceCode}`,
+      periodo: billingFrequency,
+      priceCode,
+      suscriptorImpreso: printed ? 'si' : 'no',
+    })
+  }, [])
 
   const [error, setError] = useState()
   const Sales = addSales()
 
   function onSubmitHandler(values, { setSubmitting }) {
-    const {
-      email,
-      phone,
-      billingAddress,
-      firstName: fn,
-      lastName,
-      secondLastName,
-    } = values
+    const { email, phone, billingAddress, lastName, secondLastName } = values
     setError(false)
     setLoading(true)
 
-    const qs = parseQueryString(window.location.search)
-    const forSandbox = qs.qa ? 'DEMO SANDBOX' : fn
+    Sentry.addBreadcrumb({
+      category: 'compra',
+      message: 'Valores en formulario de perfil de pago',
+      data: values,
+      level: Sentry.Severity.Info,
+    })
 
-    const firstName = isProd ? fn : forSandbox
+    const qs = parseQueryString(window.location.search)
+    const sandboxName = qs.qa ? 'DEMO SANDBOX' : props.firstName
+    const firstName = isProd ? props.firstName : sandboxName
 
     Sales.then(sales =>
       sales
@@ -78,27 +89,23 @@ function WizardUserProfile(props) {
             order: res,
             profile: values,
           })
+          Sentry.addBreadcrumb({
+            category: 'compra',
+            message: 'Orden de compra generada',
+            data: {
+              response: { ...res, items: JSON.stringify(res.items, null, 2) },
+            },
+            level: Sentry.Severity.Info,
+          })
           onBeforeNextStep(mergeResValues, props)
         })
         .catch(e => {
-          switch (e.code) {
-            case '300012':
-              setError(ERROR.E300012)
-              break
-            default:
-              setError(ERROR.UNKNOWN)
-              break
-          }
+          Sentry.captureException(e)
+          setError(Errors.getMessage(e.code))
           setLoading(false)
           setSubmitting(false)
         })
     )
-  }
-
-  function onResetHandler(values, formikBag) {
-    // TODO: Limpiar errores una vez se vuelva a reenviar el formuario
-    //       hay que llamar a formikBag.handleReset()
-    setError()
   }
 
   return (

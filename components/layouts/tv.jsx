@@ -19,7 +19,7 @@ const TvLayout = ({ children = [] }) => {
           <div role="main">{children[1]}</div>
         </div>
       </div>
-      <div className="flex justify-center mt-15">
+      <div className="flex justify-center bg-gray-300">
         <div className="tv-layout__footer-content">{children[2]}</div>
       </div>
 

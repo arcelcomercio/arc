@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
-
+import ConfigParams from '../utilities/config-params'
 import StoryData from '../utilities/story-data'
+
 import { reduceWord, formatDateLocalTimeZone } from '../utilities/helpers'
 
 const classes = {
@@ -41,6 +42,7 @@ class StoriesList extends PureComponent {
       arcSite,
       defaultImgSize: 'sm',
     })
+
     return (
       <div
         className={`${classes.storyItem} ${
@@ -58,7 +60,10 @@ class StoriesList extends PureComponent {
             </div>
             <div>
               <h2 className={classes.contentTitle}>
-                <a className={classes.title} href={element.link}>
+                <a
+                  className={classes.title}
+                  href={element.link}
+                  title={element.title}>
                   {reduceWord(element.title)}
                 </a>
               </h2>
@@ -73,13 +78,14 @@ class StoriesList extends PureComponent {
           <figure className={classes.right}>
             {/* TODO: Actualizar iconos con multimediaIcon */}
             <a href={element.link} className={classes.rightLink}>
-              {element.multimediaType.toLowerCase() === 'basic_gallery' && (
-                <span className={classes.iconGallery} />
-              )}
-
-              {element.multimediaType.toLowerCase() === 'basic_video' && (
-                <span className={classes.iconVideo} />
-              )}
+              {element.multimediaType !== null &&
+                element.multimediaType === ConfigParams.GALLERY && (
+                  <span className={classes.iconGallery} />
+                )}
+              {element.multimediaType !== null &&
+                element.multimediaType === ConfigParams.VIDEO && (
+                  <span className={classes.iconVideo} />
+                )}
               <picture>
                 <source
                   className={isAdmin ? '' : 'lazy'}
@@ -89,7 +95,7 @@ class StoriesList extends PureComponent {
                       ? element.multimediaLandscapeXS
                       : element.multimediaLazyDefault
                   }
-                  data-srcSet={element.multimediaLandscapeXS}
+                  data-srcset={element.multimediaLandscapeXS}
                 />
                 <img
                   alt={element.title}

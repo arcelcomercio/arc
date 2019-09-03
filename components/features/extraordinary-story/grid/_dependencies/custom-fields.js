@@ -42,9 +42,13 @@ const customFieldsSection = {
     name: 'Sección 4 ',
     group: 'Grilla',
   }),
-
   logo: PropTypes.string.tag({
     name: 'Logo',
+    description: 'Colocar una url de imagen para cambiar el logo (opcional).',
+  }),
+  sectionLink: PropTypes.string.tag({
+    name: 'Url de la sección',
+    description: 'Colocar una url de sección para el logo. Ejm: /deportes. Por defecto imprime las sección principal de la nota.',
   }),
 }
 

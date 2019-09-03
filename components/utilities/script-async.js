@@ -6,7 +6,7 @@ const loadScriptAsync = () => {
   if (isLoading) return
   isLoading = true
   // eslint-disable-next-line
-  const { url, resolve, reject, type } = scriptsAsync[index++]
+  const { url, resolve, reject, type, includeNoScript } = scriptsAsync[index++]
   const script = document.createElement('script')
   script.async = true
   script.src = url
@@ -27,7 +27,19 @@ const loadScriptAsync = () => {
       loadScriptAsync()
     }
   }
+
   document.body.appendChild(script)
+
+  // When no javascript available
+  if (includeNoScript) {
+    const noscript = document.createElement('noscript')
+    const iframe = document.createElement('iframe')
+    iframe.style =
+      'width: 100px; height: 100px; border: 0; position: absolute; top: -5000px;'
+    iframe.src = url
+    noscript.appendChild(iframe)
+    document.body.appendChild(noscript)
+  }
 }
 
 const addScriptAsync = props => {

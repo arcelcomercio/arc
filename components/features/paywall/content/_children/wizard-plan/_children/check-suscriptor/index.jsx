@@ -1,45 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field } from 'formik'
+import * as Sentry from '@sentry/browser'
+
 import * as S from './styled'
+import { FormSchema, Masks } from './schema'
 import InputFormik from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
-import schema, { Masks } from '../../../../../_dependencies/schema'
+import Modal from '../../../../../_children/modal'
 import getDomain from '../../../../../_dependencies/domains'
 
-const MESSAGE = {
-  REQUIRED: 'Este campo es requerido',
-  WRONG_CARD_NUMBER: 'Número tarjeta inválido',
-  WRONG_CVV: 'CVV Inválido',
-  // eslint-disable-next-line no-template-curly-in-string
-  MIN: 'Longitud inválida, mínimo ${min} caracteres.',
-  // eslint-disable-next-line no-template-curly-in-string
-  MAX: 'Longitud inválida, máximo ${max} caracteres.',
-  WRONG_EXPIRY_DATE: 'Fecha incorrecta',
-  CHECK_REQUIRED: 'Debe seleccionar el check',
-  DNI: 'Longitud inválida, requiere 8 dígitos',
-}
+const Content = props => {
+  const [attemptToken, setAttemptToken] = useState()
+  let resetForm = React.useRef()
 
-export const FormSchema = schema({
-  documentNumber: (value, { documentType }) => {
-    switch (documentType) {
-      default:
-      case 'DNI':
-        value.required(MESSAGE.REQUIRED).length(8, MESSAGE.DNI)
-        break
-      case 'CDI':
-      case 'CEX':
-        value
-          .required(MESSAGE.REQUIRED)
-          .custom(/^[ A-Za-z0-9-]*$/, MESSAGE.CUSTOM)
-          .min(5, MESSAGE.MIN)
-          .max(15, MESSAGE.MAX)
-        break
-    }
-  },
-})
-
-export default function CheckSuscription(props) {
-  const { close } = props
+  useEffect(() => {
+    const url = getDomain('ORIGIN_SUBSCRIPTION_ONLINE_TOKEN')
+    fetch(url, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'user-token': window.Identity.userIdentity.accessToken,
+      }),
+    })
+      .then(res => {
+        if (res.ok) {
+          res.json().then(({ token }) => {
+            setAttemptToken(token)
+          })
+        } else {
+          const msg = `Estado de peticion a ${url} no es 200 sino ${res.status}`
+          const err = new Error(msg)
+          Sentry.captureException(err)
+        }
+      })
+      .catch(err => {
+        Sentry.captureException(err)
+      })
+    return () => resetForm && resetForm()
+  }, [])
 
   return (
     <S.Panel>
@@ -56,11 +54,14 @@ export default function CheckSuscription(props) {
         </S.Wrapbenefit>
         <S.Foot>
           <S.FootContent>
-            <S.SpanFoot>Por los 3 primeros meses.</S.SpanFoot>
-            <S.SpanFoot>Luego, S/ 19 cada mes.</S.SpanFoot>
+            <S.SpanFoot>
+              por los 3 primeros meses.
+              <br />
+              Luego, S/ 19 cada mes.
+            </S.SpanFoot>
           </S.FootContent>
           <S.FootContent>
-            <S.SpanFoot>Precio Regular: S/ 29.00 al mes</S.SpanFoot>
+            <S.SpanFoot>Precio Regular: S/ 29 al mes</S.SpanFoot>
           </S.FootContent>
         </S.Foot>
       </S.Content>
@@ -74,14 +75,17 @@ export default function CheckSuscription(props) {
             window.location.href = getDomain(
               'VALIDATE_SUSCRIPTOR',
               documentType,
-              documentNumber
+              documentNumber,
+              attemptToken
             )
           }}
           render={({
+            resetForm: _resetForm,
             setFieldValue,
             isSubmitting,
             values: { documentType },
           }) => {
+            resetForm = _resetForm
             return (
               <Form>
                 <Field
@@ -114,7 +118,9 @@ export default function CheckSuscription(props) {
                   component={InputFormik}
                 />
 
-                <S.Continue disabled={isSubmitting} type="submit">
+                <S.Continue
+                  disabled={isSubmitting || !attemptToken}
+                  type="submit">
                   CONTINUAR
                 </S.Continue>
               </Form>
@@ -123,5 +129,13 @@ export default function CheckSuscription(props) {
         />
       </S.WrapDocument>
     </S.Panel>
+  )
+}
+
+export default function CheckSuscription({ onClose, ...props }) {
+  return (
+    <Modal showClose onClose={onClose} {...props}>
+      <Content />
+    </Modal>
   )
 }

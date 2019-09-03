@@ -12,14 +12,24 @@
     }
   }
   &__wrapper {
+    background: $new-color-primary;
     &:first-child {
       @media (--desktop) {
         background-color: transparent;
       }
     }
+    @media (--desktop) {
+      background-color: transparent;
+    }
   }
   /*   Estilos para nav loader en notas */
   &__loader-bar {
     background-color: $color-primary;
+  }
+  &.active {
+    background: $new-color-primary;
+    @media (--desktop) {
+      background-color: $new-color-primary;
+    }
   }
 }

@@ -323,12 +323,12 @@ export const formatHtmlToText = (html = '') => {
   return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
 }
 
-export const removeLastSlash = url => {
+export const removeLastSlash = (url = '') => {
   if (url === '/' || !url.endsWith('/')) return url
   return url && url.endsWith('/') ? url.slice(0, url.length - 1) : url
 }
 
-export const addSlashToEnd = url => {
+export const addSlashToEnd = (url = '') => {
   const urlString = `${url}`
   if (url && urlString.trim() === '/') return url
   return url && !urlString.endsWith('/') ? `${url}/` : url
@@ -402,7 +402,7 @@ export const createLink = url => {
 }
 
 export const appendToBody = node => {
-  document.body.appendChild(node)
+  document.body.append(node)
 }
 
 export const breadcrumbList = (url, siteUrl) => {
@@ -472,6 +472,7 @@ export const imageHtml = html => {
     rplImageCde1
   )
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
+  resHtml = resHtml.replace(/<p><img src="(.*?)">/g, rplImageCde1)
   return resHtml
 }
 
@@ -497,14 +498,22 @@ export const twitterHtml = html => {
   return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
 }
 
-export const iframeHtml = html => {
+export const iframeHtml = (html, arcSite = '') => {
+  let htmlDataTwitter = html
+  if (ConfigParams.SITE_PERU21 === arcSite) {
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(\/media\/([0-9-A-Z])\w+)/g,
+      'https://g21.peru21.pe$1'
+    )
+  }
+
   const rplTwitter =
     '<amp-iframe class="media" src="http$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
 
   const rplIframe =
     '<amp-iframe class="media" src="http$2"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
 
-  const htmlDataTwitter = html
+  htmlDataTwitter = htmlDataTwitter
     .replace(/<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g, rplTwitter)
     .replace(/<iframe (.*)src="http(.+?)"><\/iframe>/g, rplIframe) //
     .replace(/<iframe (.*)src="http(.*?)"(.*)><\/iframe>/g, rplTwitter)
@@ -545,10 +554,15 @@ export const youtubeHtml = html => {
   const rplYoutube =
     '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="$2"></amp-youtube>'
 
-  return html.replace(
-    /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
-    rplYoutube
-  )
+  return html
+    .replace(
+      /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
+      rplYoutube
+    )
+    .replace(
+      /<iframe width="(.*?)" height="(.*?)" src="\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
+      rplYoutube
+    )
 }
 export const replaceHtmlMigracion = html => {
   return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
@@ -565,10 +579,13 @@ export const instagramHtml = html => {
 }
 export const freeHtml = html => {
   const strHtmlFree = '/<html_free>(.*?)</html_free>/g'
-  return html.replace(strHtmlFree, '$1')
+  return html
+    .replace(strHtmlFree, '$1')
+    .replace(/<html_free><\/html_free>/g, '')
+    .replace(/="&quot;http?(.*?)"/g, '="http$1"')
 }
 
-export const ampHtml = (html = '') => {
+export const ampHtml = (html = '', arcSite = '') => {
   let resultData = html
   // Opta Widget
   resultData = replaceHtmlMigracion(html)
@@ -598,7 +615,7 @@ export const ampHtml = (html = '') => {
   resultData = freeHtml(resultData)
 
   // HTML Iframe
-  resultData = iframeHtml(resultData)
+  resultData = iframeHtml(resultData, arcSite)
 
   return resultData
 }
@@ -647,18 +664,41 @@ export const formatDateStory = date => {
 }
 
 /**
- * Necesita CODE REVIEW
+ * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
   data,
   resizerUrl,
   resizerSecret,
-  addResizedUrls
+  addResizedUrls,
+  preset = 'basic'
 ) => {
   return (
     data &&
     data.map(item => {
-      const dataStory = item
+      const storyData = item
+      if (!storyData.content_elements) storyData.content_elements = []
+
+      let presets = {}
+      switch (preset) {
+        case 'newsletter':
+          presets = sizeImgNewsLetter()
+          break
+        case 'related':
+          presets = {
+            landscape_md: {
+              width: 314,
+              height: 157,
+            },
+            lazy_default: {
+              width: 7,
+              height: 4,
+            },
+          }
+          break
+        default:
+          presets = sizeImg()
+      }
 
       const {
         promo_items: {
@@ -671,9 +711,9 @@ export const addResizedUrlsToStory = (
         const image = addResizedUrls(basicGallery, {
           resizerUrl,
           resizerSecret,
-          presets: sizeImg(),
+          presets,
         })
-        dataStory.promo_items.basic_gallery = image
+        storyData.promo_items.basic_gallery = image
       }
 
       if (basicVideo && basicVideo.promo_items) {
@@ -681,48 +721,15 @@ export const addResizedUrlsToStory = (
         const image = addResizedUrls(basicVideo, {
           resizerUrl,
           resizerSecret,
-          presets: sizeImg(),
+          presets,
         })
-        dataStory.promo_items.basic_video = image
+        storyData.promo_items.basic_video = image
       }
 
-      return addResizedUrls(dataStory, {
+      return addResizedUrls(storyData, {
         resizerUrl,
         resizerSecret,
-        presets: sizeImg(),
-      })
-    })
-  )
-}
-
-export const addResizedUrlsToStoryNewsLetter = (
-  data,
-  resizerUrl,
-  resizerSecret,
-  addResizedUrls
-) => {
-  return (
-    data &&
-    data.map(item => {
-      const dataStory = item
-
-      const {
-        promo_items: { basic_gallery: contentElements = null } = {},
-      } = item
-
-      if (contentElements && contentElements.promo_items) {
-        const image = addResizedUrls(contentElements, {
-          resizerUrl,
-          resizerSecret,
-          presets: sizeImgNewsLetter(),
-        })
-        dataStory.promo_items.basic_gallery = image
-      }
-
-      return addResizedUrls(dataStory, {
-        resizerUrl,
-        resizerSecret,
-        presets: sizeImgNewsLetter(),
+        presets,
       })
     })
   )
@@ -806,4 +813,13 @@ export const getRemoveSlug = slug => {
     .replace(/ñ/g, 'n')
     .replace(/[òóôõö]/g, 'o')
     .replace(/[ùúûü]/g, 'u')
+}
+
+export const getRelatedIds = data => {
+  return (
+    data &&
+    data.map(({ _id }) => {
+      return _id
+    })
+  )
 }

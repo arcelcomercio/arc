@@ -28,10 +28,17 @@ class FormForgotPass extends Component {
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    if (arcSite !== 'peru21') {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`
+    } else {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+    }
   }
 
   componentWillMount() {
@@ -83,8 +90,9 @@ class FormForgotPass extends Component {
   }
 
   sendEmail(email) {
+    const { arcSite } = this.props
     services
-      .reloginEcoID(email, '', 'forgotpass', window)
+      .reloginEcoID(email, '', 'forgotpass', arcSite, window)
       .then(resEco => {
         if (resEco.retry) {
           this.pushStatePass()
@@ -125,55 +133,51 @@ class FormForgotPass extends Component {
   taggeoSuccess() {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      if (typePopUp === 'relogemail') {
-        window.dataLayer.push({
-          event: 'olvidepass_sucess',
-          eventCategory: 'Web_Sign_Wall_Relog_Email',
-          eventAction: 'web_relog_email_contrasena_success_boton',
-        })
-      } else {
-        window.dataLayer.push({
-          event: 'olvidepass_sucess',
-          eventCategory: `Web_Sign_Wall_${
-            typePopUp === 'relogin' ? 'Relogueo' : typePopUp
-          }`,
-          eventAction: `web_sw${typePopUp[0]}_contrasena_success_boton`, // web_relog ahora sera 'web_swr'
-        })
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_contrasena_success_boton`
-      )
-    }
+    // if (typePopUp === 'relogemail') {
+    //   window.dataLayer.push({
+    //     event: 'olvidepass_sucess',
+    //     eventCategory: 'Web_Sign_Wall_Relog_Email',
+    //     eventAction: 'web_relog_email_contrasena_success_boton',
+    //   })
+    // } else {
+    //   window.dataLayer.push({
+    //     event: 'olvidepass_sucess',
+    //     eventCategory: `Web_Sign_Wall_${
+    //       typePopUp === 'relogin' ? 'Relogueo' : typePopUp
+    //     }`,
+    //     eventAction: `web_sw${typePopUp[0]}_contrasena_success_boton`, // web_relog ahora sera 'web_swr'
+    //   })
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_contrasena_success_boton`
+    )
   }
 
   taggeoError() {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      if (typePopUp === 'relogemail') {
-        window.dataLayer.push({
-          event: 'olvidepass_error',
-          eventCategory: 'Web_Sign_Wall_Relog_Email',
-          eventAction: 'web_relog_email_contrasena_error_boton',
-        })
-      } else {
-        window.dataLayer.push({
-          event: 'olvidepass_error',
-          eventCategory: `Web_Sign_Wall_${
-            typePopUp === 'relogin' ? 'Relogueo' : typePopUp
-          }`,
-          eventAction: `web_sw${typePopUp[0]}_contrasena_error_boton`, // web_relog ahora sera 'web_swr'
-        })
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_contrasena_error_boton`
-      )
-    }
+    // if (typePopUp === 'relogemail') {
+    //   window.dataLayer.push({
+    //     event: 'olvidepass_error',
+    //     eventCategory: 'Web_Sign_Wall_Relog_Email',
+    //     eventAction: 'web_relog_email_contrasena_error_boton',
+    //   })
+    // } else {
+    //   window.dataLayer.push({
+    //     event: 'olvidepass_error',
+    //     eventCategory: `Web_Sign_Wall_${
+    //       typePopUp === 'relogin' ? 'Relogueo' : typePopUp
+    //     }`,
+    //     eventAction: `web_sw${typePopUp[0]}_contrasena_error_boton`, // web_relog ahora sera 'web_swr'
+    //   })
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_contrasena_error_boton`
+    )
   }
 
   templateSendEmail(changeTemplate) {
@@ -204,7 +208,13 @@ class FormForgotPass extends Component {
         <div className="form-grid__forgot-pass">
           <Icon.ForgotPass
             className="form-grid__icon"
-            bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+            bgcolor={
+              {
+                elcomercio: '#fecd26',
+                gestion: '#F4E0D2',
+                peru21: '#d5ecff',
+              }[brandCurrent]
+            }
           />
 
           <h1 className="form-grid__info">Olvidé mi contraseña</h1>
@@ -260,7 +270,7 @@ class FormForgotPass extends Component {
   }
 
   templateSendedEmail(changeTemplate) {
-    const { closePopup, brandCurrent, typePopUp } = this.props
+    const { closePopup, brandCurrent, typePopUp, reloadForgot } = this.props
     return (
       <form className="form-grid">
         <div className="form-grid__back">
@@ -275,7 +285,13 @@ class FormForgotPass extends Component {
         <div className="form-grid__forgot-pass">
           <Icon.MsgForgotPass
             className="icon-message"
-            bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+            bgcolor={
+              {
+                elcomercio: '#fecd26',
+                gestion: '#F4E0D2',
+                peru21: '#d5ecff',
+              }[brandCurrent]
+            }
           />
           <h1 className="form-grid__info">Correo enviado</h1>
           <p className="form-grid__info-sub text-center">
@@ -293,7 +309,11 @@ class FormForgotPass extends Component {
                     `Web_Sign_Wall_${typePopUp}`,
                     `web_sw${typePopUp[0]}_contrasena_boton_aceptar`
                   )
-                  closePopup()
+                  if (reloadForgot) {
+                    window.location.reload()
+                  } else {
+                    closePopup()
+                  }
                 }}
               />
             </div>

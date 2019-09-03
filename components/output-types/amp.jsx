@@ -108,14 +108,16 @@ const AmpOutputType = ({
   const {
     videoSeo,
     promoItems: { basic_html: { content = '' } = {} } = {},
+    contentElementsHtml: dataElement,
   } = new StoryData({
     data: globalContent,
     arcSite,
     contextPath,
   })
-
   const contenidoVideo =
-    content.includes('id="powa-') || videoSeo[0] ? 1 : false
+    content.includes('id="powa-') || videoSeo[0] || dataElement.includes('.mp4')
+      ? 1
+      : false
 
   return (
     <Html>

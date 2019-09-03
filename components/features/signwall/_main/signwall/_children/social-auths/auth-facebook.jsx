@@ -22,11 +22,19 @@ class AuthFacebook extends React.Component {
       loadedFB: true,
       sendingFbText: 'Facebook',
     }
+
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    if (arcSite !== 'peru21') {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`
+    } else {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+    }
 
     window.removeEventListener('message', this.OAuthFacebook)
     window.removeEventListener('onmessage', this.OAuthFacebook)
@@ -181,7 +189,11 @@ class AuthFacebook extends React.Component {
           const { closePopup } = this.props
           window.console.error(resLoginFb)
           this.taggeoError() // -- test de tageo error
-          closePopup()
+          if (window.location.pathname.indexOf('suscripciones') >= 0) {
+            window.location.reload()
+          } else {
+            closePopup()
+          }
         }
       })
       .catch(errLoginFb => {
@@ -192,78 +204,76 @@ class AuthFacebook extends React.Component {
 
   taggeoSuccess = () => {
     const { typePopUp, typeForm } = this.props
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      switch (typePopUp) {
-        case 'organico':
-        case 'hard':
-          window.dataLayer.push({
-            event: `${typeForm}_fb_success`,
-            eventCategory: `Web_Sign_Wall_${typePopUp}`,
-            eventAction: `web_sw${typePopUp[0]}_${typeForm}_success_facebook`,
-          })
-          break
-        case 'relogin':
-          window.dataLayer.push({
-            event: 'relogin_fb_success',
-          })
-          break
-        case 'relogemail':
-          if (typeForm === 'login') {
-            window.dataLayer.push({
-              event: 'relogin_email_fb_success',
-            })
-          } else if (typeForm === 'register') {
-            window.dataLayer.push({
-              event: 'relogin_email_registro_fb_success',
-            })
-          }
-          break
-        default:
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_${typeForm}_success_facebook`
-      )
-    }
+
+    // switch (typePopUp) {
+    //   case 'organico':
+    //   case 'hard':
+    //     window.dataLayer.push({
+    //       event: `${typeForm}_fb_success`,
+    //       eventCategory: `Web_Sign_Wall_${typePopUp}`,
+    //       eventAction: `web_sw${typePopUp[0]}_${typeForm}_success_facebook`,
+    //     })
+    //     break
+    //   case 'relogin':
+    //     window.dataLayer.push({
+    //       event: 'relogin_fb_success',
+    //     })
+    //     break
+    //   case 'relogemail':
+    //     if (typeForm === 'login') {
+    //       window.dataLayer.push({
+    //         event: 'relogin_email_fb_success',
+    //       })
+    //     } else if (typeForm === 'register') {
+    //       window.dataLayer.push({
+    //         event: 'relogin_email_registro_fb_success',
+    //       })
+    //     }
+    //     break
+    //   default:
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_${typeForm}_success_facebook`
+    )
   }
 
   taggeoError = () => {
     const { typePopUp, typeForm } = this.props
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      switch (typePopUp) {
-        case 'organico':
-        case 'hard':
-          window.dataLayer.push({
-            event: `${typeForm}_fb_error`,
-            eventCategory: `Web_Sign_Wall_${typePopUp}`,
-            eventAction: `web_sw${typePopUp[0]}_${typeForm}_error_facebook`,
-          })
-          break
-        case 'relogin':
-          window.dataLayer.push({
-            event: 'relogin_fb_error',
-          })
-          break
-        case 'relogemail':
-          if (typeForm === 'login') {
-            window.dataLayer.push({
-              event: 'relogin_email_fb_error',
-            })
-          } else if (typeForm === 'register') {
-            window.dataLayer.push({
-              event: 'relogin_email_registro_fb_error',
-            })
-          }
-          break
-        default:
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_${typeForm}_error_facebook`
-      )
-    }
+
+    // switch (typePopUp) {
+    //   case 'organico':
+    //   case 'hard':
+    //     window.dataLayer.push({
+    //       event: `${typeForm}_fb_error`,
+    //       eventCategory: `Web_Sign_Wall_${typePopUp}`,
+    //       eventAction: `web_sw${typePopUp[0]}_${typeForm}_error_facebook`,
+    //     })
+    //     break
+    //   case 'relogin':
+    //     window.dataLayer.push({
+    //       event: 'relogin_fb_error',
+    //     })
+    //     break
+    //   case 'relogemail':
+    //     if (typeForm === 'login') {
+    //       window.dataLayer.push({
+    //         event: 'relogin_email_fb_error',
+    //       })
+    //     } else if (typeForm === 'register') {
+    //       window.dataLayer.push({
+    //         event: 'relogin_email_registro_fb_error',
+    //       })
+    //     }
+    //     break
+    //   default:
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_${typeForm}_error_facebook`
+    )
   }
 
   render = () => {
@@ -293,10 +303,23 @@ class AuthFacebook extends React.Component {
   }
 
   enterProfilePanel = () => {
-    const { closePopup } = this.props
+    const { closePopup, arcSite } = this.props
     Cookies.deleteCookie('mpp_sess') // borra session MPP
     this.taggeoSuccess() // -- test de tageo sucess
-    closePopup()
+    if (window.location.pathname.indexOf('suscripciones') >= 0) {
+      window.location.reload()
+    } else {
+      closePopup()
+    }
+
+    // set token cookie
+    const cookieName = 'ArcId.USER_INFO'
+    const cookieValue = window.Identity.userIdentity || '{}'
+    const myDate = new Date()
+    myDate.setDate(myDate.getDate() + 1)
+    document.cookie = `${cookieName}=${JSON.stringify(
+      cookieValue
+    )};expires=${myDate};domain=.${arcSite}.pe;path=/`
   }
 }
 

@@ -7,5 +7,10 @@ export const sectionSchema = `{
     name
     site_topper {
         site_logo_image
+        resized_urls {
+            lazy_default
+            landscape_xl
+            landscape_s
+        }
     }
 }`

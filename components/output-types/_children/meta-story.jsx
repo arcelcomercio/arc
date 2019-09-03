@@ -16,6 +16,7 @@ export default ({
   siteUrl = '',
 }) => {
   const {
+    id,
     seoTitle: title,
     tags,
     link,
@@ -34,6 +35,7 @@ export default ({
     multimediaType,
     sourceId,
     isPremium,
+    sourceUrlOld,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const videoSeoItems = videoSeo.map(
@@ -75,8 +77,12 @@ export default ({
   const listItemsTagsKeywords = tags.map(({ description }) => {
     return `"${description}"`
   })
-  const seoKeywordsItems = seoKeywords.map(item => {
+  const seoKeyWordsStructurada = seoKeywords.map(item => {
     return `"${item}"`
+  })
+
+  const seoKeywordsItems = seoKeywords.map(item => {
+    return `${item}`
   })
 
   const relatedContentItem = relatedContent.map((content, i) => {
@@ -107,6 +113,20 @@ export default ({
       },`
     : ''
 
+  const imagenData = imagesSeoItems[1]
+    ? `"image":[ ${imagesSeoItems} ],`
+    : `"image": ${imagesSeoItems},`
+
+  const imagenDefoult = imagesSeoItems[0]
+    ? imagenData
+    : ` "image": {
+      "@type": "ImageObject",
+      "url": "http://cde.3.elcomercio.pe/ima/0/1/3/7/6/1376021/base_image.jpg",
+      "description": "${siteName}",
+      "height": 418,
+      "width": 696
+    },`
+
   const structuredData = `{  
     "@context":"http://schema.org",
     "@type":"NewsArticle",
@@ -119,9 +139,7 @@ export default ({
        "@type":"WebPage",
        "@id":"${siteUrl}${link}"
     },
-    "image":[  
-       ${imagesSeoItems}
-    ],
+    ${imagenDefoult}
     "video":[ ${videoSeoItems}
     ],
     "author":{  
@@ -142,8 +160,8 @@ export default ({
     },    
     ${(isPremium && storyPremium) || ''}
     "keywords":[${
-      seoKeywordsItems[0]
-        ? seoKeywordsItems.map(item => item)
+      seoKeyWordsStructurada[0]
+        ? seoKeyWordsStructurada.map(item => item)
         : listItemsTagsKeywords.map(item => item)
     }]
  }`
@@ -194,12 +212,17 @@ export default ({
       {!isAmp && (
         <link rel="amphtml" href={`${siteUrl}${link}?outputType=amp`} />
       )}
+      <meta name="data-article-id" content={id} />
       <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
       {sourceId && (
-        <meta name="cms_old_id" content={sourceId.match(/([0-9]+)/, '$1')[1]} />
+        <meta
+          name="cms_old_id"
+          content={sourceId.match(/_story([0-9]+)/, '$1')[1]}
+        />
       )}
+      {sourceUrlOld && <meta name="cms_old_url" content={sourceUrlOld} />}
       <meta name="bi3dArtId" content="639992" />
       <meta name="bi3dSection" content={primarySection} />
       <meta name="bi3dArtTitle" content={title} />
@@ -212,7 +235,7 @@ export default ({
         content={
           seoKeywordsItems[0]
             ? seoKeywordsItems.map(item => item)
-            : listItems.map(item => item)
+            : (listItems[0] && listItems.map(item => item)) || arcSite
         }
       />
       <meta property="article:published_time" content={publishDate} />

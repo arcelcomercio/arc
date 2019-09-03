@@ -20,10 +20,17 @@ class Signwall extends Component {
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    if (arcSite !== 'peru21') {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`
+    } else {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+    }
 
     Fingerprint2.getV18({}, result => {
       Cookies.setCookie('gecdigarc', result, 365)
@@ -37,11 +44,13 @@ class Signwall extends Component {
   componentDidUpdate = () => {
     const { sessUser } = this.state
     if (this.checkSession() && !sessUser) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: true,
       })
       this.togglePopupPanel()
     } else if (this.checkSession() === false && sessUser) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: false,
       })
@@ -58,6 +67,10 @@ class Signwall extends Component {
       this.togglePopupPanel()
     } else {
       this.togglePopupLogin()
+    }
+    if (ENV.ENVIRONMENT !== 'elcomercio') {
+      // add cookie isECO only SANDBOX
+      Cookies.setCookie('isECO', true, 1)
     }
   }
 

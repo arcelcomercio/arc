@@ -1,0 +1,33 @@
+/******* Brand colors *******/
+$color-primary: #0b3a6a;
+$color-secondary: #fff95f;
+/*-----------------------*/
+
+$color-base-300: #1375b4;
+$color-base-200: #061e37;
+$color-base-100: #909090;
+/*-----------------------*/
+
+/******* Other colors *******/
+$color-link: #006097;
+/*-----------------------*/
+
+/** ----------------------------*
+*        GENERAL CONFIG         *
+*-------------------------------*/
+/******** border colors *********/
+$border-color-base: $color-primary;
+
+/******* Header colors *******/
+$header-bg-color: $color-primary;
+$header-text-color: $color-white;
+/*-----------------------*/
+
+/******* Nav colors *******/
+$nav-color: $color-gray-300;
+/*-----------------------*/
+
+/******* Footer Amp colors *******/
+$footer-background: $color-primary;
+$footer-text-color: $color-black;
+/*-----------------------*/

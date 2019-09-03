@@ -31,7 +31,7 @@ const StorySeparatorChildItem = ({ data }) => {
           <a href={sectionLink}>{section}</a>{' '}
         </h2>
         <h3 className={classes.separatorTitle}>
-          <a className={classes.titleLink} href={link}>
+          <a className={classes.titleLink} href={link} title={title}>
             {title}
           </a>
         </h3>
@@ -43,7 +43,6 @@ const StorySeparatorChildItem = ({ data }) => {
               src={multimediaPortraitXS}
               alt=""
               className={classes.itemImage}
-              
             />
           </a>
         )}

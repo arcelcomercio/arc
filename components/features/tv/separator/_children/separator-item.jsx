@@ -4,6 +4,8 @@ import Icon from '../../../../global-components/multimedia-icon'
 import { formattedTime } from '../../../../utilities/helpers'
 import Modal from '../../../../global-components/video-modal'
 
+// TODO: Las clases deben extraerse a la parte superior
+
 export default ({ date, multimedia, title, videoId, maxStories }) => {
   const formatDateLocalTimeZone = rawDate => {
     const auxDate = new Date(rawDate)
@@ -32,7 +34,7 @@ export default ({ date, multimedia, title, videoId, maxStories }) => {
     if (date) {
       setClientDate(formatDateLocalTimeZone(date))
     }
-  })
+  }, [date])
 
   return (
     <div
@@ -44,7 +46,15 @@ export default ({ date, multimedia, title, videoId, maxStories }) => {
         className="tv-separator__img-button p-0 overflow-hidden rounded-sm mb-10  position-relative"
         onClick={() => setIsModalOpen(!isModalOpen)}>
         <picture className="block w-full">
-          <img className="w-full" src={multimedia} alt="" />
+          <img className="w-full block" src={multimedia.image} alt="" />
+          {/* <img
+            className={`tv-separator__img block ${
+              isAdmin ? '' : 'lazy'
+            } w-full`}
+            src={isAdmin ? multimedia.image : multimedia.lazyImage}
+            data-src={multimedia.image}
+            alt=""
+          /> */}
         </picture>
         {validateNewStory(date) && (
           <div className="tv-separator__tag-new font-bold uppercase text-white bg-primary position-absolute text-xs p-5 rounded-sm">

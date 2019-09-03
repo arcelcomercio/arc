@@ -18,7 +18,8 @@
   }
   .link-back,
   .link-gray,
-  .link-blue {
+  .link-blue,
+  .link-close {
     background: none;
     border: 0px;
   }
@@ -33,5 +34,25 @@
   .profile__menu {
     list-style: none;
     padding: 0px;
+  }
+  // .profile__right {
+  //   padding: 0px !important;
+  // }
+  .form-grid {
+    padding: 20px !important;
+  }
+  .profile__title {
+    margin-top: 20px;
+  }
+  .form-grid__info {
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .signwall {
+    .profile__left {
+      height: 320px !important;
+    }
   }
 }

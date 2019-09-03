@@ -28,7 +28,7 @@ const StoriesListsCardChildItem = ({
       )}
 
       <div className={classes.linkBox}>
-        <a href={urlNews}>
+        <a href={urlNews} title={title}>
           <h3 className={classes.link}>
             {seeHour && <time className={classes.time}>{time}</time>} {title}
           </h3>

@@ -107,7 +107,11 @@ class PayWallPremium extends Component {
                       <p className="text-xl secondary-font">
                         {typeModal === 'paywall'
                           ? 'Para continuar leyendo, adquiere el'
-                          : `Para acceder a este contenido exclusivo, adquiere tu`}
+                          : 'Para acceder a este contenido'}
+                        <br />
+                        {typeModal === 'paywall'
+                          ? ''
+                          : 'exclusivo, adquiere tu'}
                       </p>
                       <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
                     </div>

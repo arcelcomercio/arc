@@ -42,7 +42,8 @@ const SectionVideo = () => {
       multimediaType,
     }
     if (multimediaType === ConfigParams.VIDEO) {
-      console.log(Story.videoId, 'VIDEO IDDDDDDD')
+      console.log(Story.video, 'VIDEO EMBEEEEEEED')
+      console.log(Story.getIdGoldfish, 'VIDEO IDDDDDDDDd')
     }
     section = removeLastSlash(primarySectionLink)
   }

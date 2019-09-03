@@ -41,10 +41,17 @@ class FormRegister extends Component {
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    if (arcSite !== 'peru21') {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`
+    } else {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+    }
   }
 
   componentWillMount() {
@@ -257,48 +264,44 @@ class FormRegister extends Component {
   taggeoError() {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      if (typePopUp === 'relogemail') {
-        window.dataLayer.push({
-          event: 'relogin_email_registro_error',
-        })
-      } else {
-        window.dataLayer.push({
-          event: 'registro_error',
-          eventCategory: `Web_Sign_Wall_${typePopUp}`,
-          eventAction: `web_sw${typePopUp[0]}_registro_error_registrarme`,
-        })
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_registro_error_registrarme`
-      )
-    }
+    // if (typePopUp === 'relogemail') {
+    //   window.dataLayer.push({
+    //     event: 'relogin_email_registro_error',
+    //   })
+    // } else {
+    //   window.dataLayer.push({
+    //     event: 'registro_error',
+    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
+    //     eventAction: `web_sw${typePopUp[0]}_registro_error_registrarme`,
+    //   })
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_registro_error_registrarme`
+    )
   }
 
   taggeoSuccess() {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      if (typePopUp === 'relogemail') {
-        window.dataLayer.push({
-          event: 'relogin_email_registro_success',
-        })
-      } else {
-        window.dataLayer.push({
-          event: 'registro_success',
-          eventCategory: `Web_Sign_Wall_${typePopUp}`,
-          eventAction: `web_sw${typePopUp[0]}_registro_success_registrarme`,
-          userId: window.Identity ? window.Identity.userIdentity.uuid : null,
-        })
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_registro_success_registrarme`
-      )
-    }
+    // if (typePopUp === 'relogemail') {
+    //   window.dataLayer.push({
+    //     event: 'relogin_email_registro_success',
+    //   })
+    // } else {
+    //   window.dataLayer.push({
+    //     event: 'registro_success',
+    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
+    //     eventAction: `web_sw${typePopUp[0]}_registro_success_registrarme`,
+    //     userId: window.Identity ? window.Identity.userIdentity.uuid : null,
+    //   })
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_registro_success_registrarme`
+    )
   }
 
   render = () => {
@@ -317,6 +320,7 @@ class FormRegister extends Component {
       typeForm,
       brandCurrent,
       reloadRegister,
+      arcSite,
     } = this.props
 
     return (
@@ -443,9 +447,12 @@ class FormRegister extends Component {
                     Al crear la cuenta acepto los{' '}
                     <a
                       href={`https://ecoid.pe/terminos_y_condiciones/${
-                        brandCurrent === 'elcomercio'
-                          ? `a94a8fe5ccb19ba61c4c0873d391e987982fbbd3`
-                          : `108f85a3d8e750a325ced951af6cd758a90e73a34`
+                        {
+                          elcomercio:
+                            'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
+                          gestion: '108f85a3d8e750a325ced951af6cd758a90e73a34',
+                          peru21: 'f7bd562ca9912019255511635185bf2b',
+                        }[brandCurrent]
                       }`}
                       className="link-blue link-color"
                       target="_blank"
@@ -455,9 +462,12 @@ class FormRegister extends Component {
                     y{' '}
                     <a
                       href={`https://ecoid.pe/politica_privacidad/${
-                        brandCurrent === 'elcomercio'
-                          ? `a94a8fe5ccb19ba61c4c0873d391e987982fbbd3`
-                          : `108f85a3d8e750a325ced951af6cd758a90e73a34`
+                        {
+                          elcomercio:
+                            'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
+                          gestion: '108f85a3d8e750a325ced951af6cd758a90e73a34',
+                          peru21: 'f7bd562ca9912019255511635185bf2b',
+                        }[brandCurrent]
                       }`}
                       className="link-blue link-color"
                       target="_blank"
@@ -487,7 +497,11 @@ class FormRegister extends Component {
                     <input
                       type="submit"
                       id="registro_boton_registrarme"
-                      className="btn btn-md input-button"
+                      className={
+                        arcSite !== 'peru21'
+                          ? 'btn btn-md input-button'
+                          : 'btn btn--blue btn-bg'
+                      }
                       value={!sending ? 'Registrando...' : 'Registrarme'}
                       onClick={() =>
                         Taggeo(
@@ -506,7 +520,11 @@ class FormRegister extends Component {
                   <Icon.MsgRegister
                     className="form-grid__icon text-center"
                     bgcolor={
-                      brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'
+                      {
+                        elcomercio: '#fecd26',
+                        gestion: '#F4E0D2',
+                        peru21: '#d5ecff',
+                      }[brandCurrent]
                     }
                   />
                 </div>

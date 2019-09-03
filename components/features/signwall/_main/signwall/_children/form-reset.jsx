@@ -26,10 +26,17 @@ class FormResetPass extends Component {
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    if (arcSite !== 'peru21') {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`
+    } else {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+    }
   }
 
   componentWillMount() {
@@ -126,23 +133,19 @@ class FormResetPass extends Component {
   }
 
   taggeoSuccess = () => {
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      window.dataLayer.push({
-        event: 'resetpass_success',
-      })
-    } else {
-      Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_success')
-    }
+    // window.dataLayer.push({
+    //   event: 'resetpass_success',
+    // })
+
+    Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_success')
   }
 
   taggeoError = () => {
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      window.dataLayer.push({
-        event: 'resetpass_error',
-      })
-    } else {
-      Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_error')
-    }
+    // window.dataLayer.push({
+    //   event: 'resetpass_error',
+    // })
+
+    Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_error')
   }
 
   render() {
@@ -164,7 +167,13 @@ class FormResetPass extends Component {
             <div className="form-grid__reset-pass">
               <Icon.ResetPass
                 className="form-grid__icon"
-                bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+                bgcolor={
+                  {
+                    elcomercio: '#fecd26',
+                    gestion: '#F4E0D2',
+                    peru21: '#d5ecff',
+                  }[brandCurrent]
+                }
               />
             </div>
 
@@ -258,7 +267,13 @@ class FormResetPass extends Component {
             <div className="form-grid__forgot-pass">
               <Icon.MsgResetPass
                 className="icon-message"
-                bgcolor={brandCurrent === 'elcomercio' ? '#fecd26' : '#F4E0D2'}
+                bgcolor={
+                  {
+                    elcomercio: '#fecd26',
+                    gestion: '#F4E0D2',
+                    peru21: '#d5ecff',
+                  }[brandCurrent]
+                }
               />
             </div>
 

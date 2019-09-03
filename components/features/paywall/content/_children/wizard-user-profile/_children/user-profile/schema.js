@@ -22,7 +22,6 @@ export const FormSchema = schema({
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
-      .custom(/[^\s]$/, MESSAGE.EXTRA_SPACE)
   },
   lastName: value => {
     value
@@ -30,14 +29,12 @@ export const FormSchema = schema({
       .required(MESSAGE.REQUIRED)
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
-      .custom(/[^\s]$/, MESSAGE.EXTRA_SPACE)
   },
   secondLastName: value => {
     value
       .dedup(' ')
       .min(3, MESSAGE.MIN)
       .max(50, MESSAGE.MAX)
-      .custom(/[^\s]$/, MESSAGE.EXTRA_SPACE)
   },
   documentNumber: (value, { documentType }) => {
     switch (documentType) {

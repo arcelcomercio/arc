@@ -38,10 +38,17 @@ class FormLogin extends Component {
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    if (arcSite !== 'peru21') {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`
+    } else {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+    }
   }
 
   componentWillMount() {
@@ -69,7 +76,7 @@ class FormLogin extends Component {
         })
         .catch(errLogin => {
           let messageES = ''
-          const { typePopUp } = this.props
+          const { typePopUp, arcSite } = this.props
 
           switch (errLogin.code) {
             case '300037':
@@ -80,6 +87,7 @@ class FormLogin extends Component {
                   email,
                   password,
                   typePopUp === 'organico' ? 'organico' : '1',
+                  arcSite,
                   window
                 )
                 .then(resEco => {
@@ -243,52 +251,48 @@ class FormLogin extends Component {
   taggeoSuccess() {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      if (typePopUp === 'relogin') {
-        window.dataLayer.push({
-          event: `${typePopUp}_relogin_success`,
-          eventCategory: `Web_Sign_Wall_${typePopUp}`,
-          eventAction: `web_sw${typePopUp[0]}_relogin_success_ingresar`,
-        })
-      } else {
-        window.dataLayer.push({
-          event: 'login_success',
-          eventCategory: `Web_Sign_Wall_${typePopUp}`,
-          eventAction: `web_sw${typePopUp[0]}_login_success_ingresar`,
-        })
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_login_success_ingresar`
-      )
-      // esta pendiente el taggeo de relogin
-    }
+    // if (typePopUp === 'relogin') {
+    //   window.dataLayer.push({
+    //     event: `${typePopUp}_relogin_success`,
+    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
+    //     eventAction: `web_sw${typePopUp[0]}_relogin_success_ingresar`,
+    //   })
+    // } else {
+    //   window.dataLayer.push({
+    //     event: 'login_success',
+    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
+    //     eventAction: `web_sw${typePopUp[0]}_login_success_ingresar`,
+    //   })
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_login_success_ingresar`
+    )
+    // esta pendiente el taggeo de relogin
   }
 
   taggeoError() {
     const { typePopUp } = this.props
 
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      if (typePopUp === 'relogin') {
-        window.dataLayer.push({
-          event: `${typePopUp}_relogin_error`,
-          eventCategory: `Web_Sign_Wall_${typePopUp}`,
-          eventAction: `web_sw${typePopUp[0]}_relogin_error_ingresar`,
-        })
-      } else {
-        window.dataLayer.push({
-          event: 'login_error',
-          eventCategory: `Web_Sign_Wall_${typePopUp}`,
-          eventAction: `web_sw${typePopUp[0]}_login_error_ingresar`,
-        })
-      }
-    } else {
-      Taggeo(
-        `Web_Sign_Wall_${typePopUp}`,
-        `web_sw${typePopUp[0]}_login_error_ingresar`
-      )
-    }
+    // if (typePopUp === 'relogin') {
+    //   window.dataLayer.push({
+    //     event: `${typePopUp}_relogin_error`,
+    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
+    //     eventAction: `web_sw${typePopUp[0]}_relogin_error_ingresar`,
+    //   })
+    // } else {
+    //   window.dataLayer.push({
+    //     event: 'login_error',
+    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
+    //     eventAction: `web_sw${typePopUp[0]}_login_error_ingresar`,
+    //   })
+    // }
+
+    Taggeo(
+      `Web_Sign_Wall_${typePopUp}`,
+      `web_sw${typePopUp[0]}_login_error_ingresar`
+    )
   }
 
   render = () => {
@@ -302,7 +306,8 @@ class FormLogin extends Component {
       sending,
       hiddenbutton,
     } = this.state
-    const { closePopup, typePopUp, typeForm } = this.props
+    const { closePopup, typePopUp, typeForm, arcSite } = this.props
+
     return (
       <ModalConsumer>
         {value => (
@@ -339,143 +344,168 @@ class FormLogin extends Component {
               </div>
 
               <div className="form-grid__group" hidden={!hiddenListBenefits}>
-                <h1
-                  className="form-grid__title-big text-center lg:hidden"
-                  hidden={hiddenEnterUser}>
-                  Regístrate y mantente siempre informado con las noticias más
-                  relevantes del Perú y el mundo
-                </h1>
+                {arcSite !== 'peru21' ? (
+                  <h1
+                    className="form-grid__title-big text-center lg:hidden"
+                    hidden={hiddenEnterUser}>
+                    Regístrate y mantente siempre informado con las noticias más
+                    relevantes del Perú y el mundo
+                  </h1>
+                ) : null}
 
-                <h1 className="form-grid__title-login text-center mt-20 mb-10">
-                  Ingresa con tu cuenta de:
-                </h1>
+                {!showSocialButtons && (
+                  <>
+                    <div className="row-grid form-group col-center">
+                      <p className="text-center mt-20 mb-20">
+                        Ingresa con tus redes sociales
+                      </p>
+                    </div>
 
-                <div className="form-grid__group" hidden={showSocialButtons}>
-                  <div className="form-group form-group--unique">
-                    <AuthFacebook
-                      closePopup={closePopup}
-                      id="facebook-sign-in-button"
-                      typePopUp={typePopUp}
-                      typeForm={typeForm}
-                    />
-                  </div>
-                </div>
+                    <div className="form-grid__group">
+                      <div className="form-group form-group--unique">
+                        <AuthFacebook
+                          closePopup={closePopup}
+                          id="facebook-sign-in-button"
+                          typePopUp={typePopUp}
+                          typeForm={typeForm}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
 
-                <div
-                  className="form-grid__group mt-30"
-                  hidden={!hiddenEnterUser}>
-                  <div
-                    className={`form-grid--error ${messageError && 'active'}`}>
-                    {messageError}
-                  </div>
+                {hiddenEnterUser && (
+                  <div className="form-grid__group mt-30">
+                    <p className="text-center mb-20 col-center">
+                      O ingresa con tu usuario
+                    </p>
 
-                  <div className="form-group">
-                    <input
-                      type="email"
-                      name="email"
-                      className={
-                        formErrors.email.length > 0
-                          ? 'form-group__input form-group__input--error'
-                          : 'form-group__input'
-                      }
-                      placeholder="Correo Electrónico"
-                      noValidate
-                      onChange={this.handleChangeValidation}
-                    />
-                    <label htmlFor="email" className="form-group__label">
-                      Correo Electrónico
-                    </label>
+                    <div
+                      className={`form-grid--error ${messageError &&
+                        'active'}`}>
+                      {messageError}
+                    </div>
 
-                    {formErrors.email.length > 0 && (
-                      <span className="message__error">{formErrors.email}</span>
-                    )}
-                  </div>
+                    <div className="form-group">
+                      <input
+                        type="email"
+                        name="email"
+                        className={
+                          formErrors.email.length > 0
+                            ? 'form-group__input form-group__input--error'
+                            : 'form-group__input'
+                        }
+                        placeholder="Correo Electrónico"
+                        noValidate
+                        onChange={this.handleChangeValidation}
+                      />
+                      <label htmlFor="email" className="form-group__label">
+                        Correo Electrónico
+                      </label>
 
-                  <div className="form-group row-pass">
-                    <input
-                      type={hiddenPass ? 'password' : 'text'}
-                      name="password"
-                      id="password"
-                      className={
-                        formErrors.password.length > 0
-                          ? 'form-group__input form-group__input--error'
-                          : 'form-group__input'
-                      }
-                      placeholder="Contraseña"
-                      noValidate
-                      onChange={this.handleChangeValidation}
-                    />
-                    <input
-                      type="button"
-                      onClick={e => this.toggleShowHidePass(e)}
-                      className={
-                        hiddenPass
-                          ? 'row-pass__btn row-pass--hide'
-                          : 'row-pass__btn row-pass--show'
-                      }
-                    />
-                    <label htmlFor="password" className="form-group__label">
-                      Contraseña
-                    </label>
+                      {formErrors.email.length > 0 && (
+                        <span className="message__error">
+                          {formErrors.email}
+                        </span>
+                      )}
+                    </div>
 
-                    {formErrors.password.length > 0 && (
-                      <span className="message__error">
-                        {formErrors.password}
-                      </span>
-                    )}
+                    <div className="form-group row-pass">
+                      <input
+                        type={hiddenPass ? 'password' : 'text'}
+                        name="password"
+                        id="password"
+                        className={
+                          formErrors.password.length > 0
+                            ? 'form-group__input form-group__input--error'
+                            : 'form-group__input'
+                        }
+                        placeholder="Contraseña"
+                        noValidate
+                        onChange={this.handleChangeValidation}
+                      />
+                      <input
+                        type="button"
+                        onClick={e => this.toggleShowHidePass(e)}
+                        className={
+                          hiddenPass
+                            ? 'row-pass__btn row-pass--hide'
+                            : 'row-pass__btn row-pass--show'
+                        }
+                      />
+                      <label htmlFor="password" className="form-group__label">
+                        Contraseña
+                      </label>
 
-                    <p className="form-grid__pass">
-                      <button
-                        id="link-recuperar-pass"
-                        onClick={() => {
+                      {formErrors.password.length > 0 && (
+                        <span className="message__error">
+                          {formErrors.password}
+                        </span>
+                      )}
+
+                      <p className="form-grid__pass">
+                        <button
+                          id="link-recuperar-pass"
+                          onClick={() => {
+                            Taggeo(
+                              `Web_Sign_Wall_${typePopUp}`,
+                              `web_sw${typePopUp[0]}_contrasena_link_olvide`
+                            )
+                            value.changeTemplate('forgot')
+                          }}
+                          type="button"
+                          className={
+                            arcSite !== 'peru21'
+                              ? 'link-gray'
+                              : 'link-blue link-color text-sm'
+                          }>
+                          Olvidé mi contraseña
+                        </button>
+                      </p>
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        type="submit"
+                        name="ingresar"
+                        id="login_boton_ingresar"
+                        className={
+                          arcSite !== 'peru21'
+                            ? 'btn input-button'
+                            : 'btn btn--blue btn-bg'
+                        }
+                        value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
+                        onClick={() =>
                           Taggeo(
                             `Web_Sign_Wall_${typePopUp}`,
-                            `web_sw${typePopUp[0]}_contrasena_link_olvide`
+                            `web_sw${typePopUp[0]}_login_boton_ingresar`
                           )
-                          value.changeTemplate('forgot')
-                        }}
-                        type="button"
-                        className="link-gray">
-                        Olvidé mi contraseña
-                      </button>
-                    </p>
+                        }
+                        disabled={!sending}
+                      />
+                    </div>
                   </div>
+                )}
 
-                  <div className="form-group">
-                    <input
-                      type="submit"
-                      name="ingresar"
-                      id="login_boton_ingresar"
-                      className="btn input-button"
-                      value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
-                      onClick={() =>
+                {hiddenbutton && (
+                  <div className="form-grid__group">
+                    <button
+                      onClick={e => {
+                        this.handleLoginClick(e)
                         Taggeo(
                           `Web_Sign_Wall_${typePopUp}`,
-                          `web_sw${typePopUp[0]}_login_boton_ingresar`
+                          `web_sw${typePopUp[0]}_open_login_boton_ingresar`
                         )
-                      }
-                      disabled={!sending}
-                    />
+                      }}
+                      type="button"
+                      name="enterUserName"
+                      id="open_login_boton_ingresar"
+                      className="btn btn-email">
+                      <Icon.Mail />
+                      <span className="btn-text">Ingresa con tu usuario</span>
+                    </button>
                   </div>
-                </div>
-
-                <div className="form-grid__group" hidden={!hiddenbutton}>
-                  <button
-                    onClick={e => {
-                      this.handleLoginClick(e)
-                      Taggeo(
-                        `Web_Sign_Wall_${typePopUp}`,
-                        `web_sw${typePopUp[0]}_open_login_boton_ingresar`
-                      )
-                    }}
-                    type="button"
-                    name="enterUserName"
-                    id="open_login_boton_ingresar"
-                    className="btn btn-email">
-                    <Icon.Mail />
-                    <span className="btn-text">Ingresa con tu usuario</span>
-                  </button>
-                </div>
+                )}
               </div>
 
               <div className="form-grid__group">
@@ -496,23 +526,25 @@ class FormLogin extends Component {
                   </button>
                 </p>
                 <p className="form-grid__subtitle form-grid__subtitle--fb text-center mt-10">
-                  Al registrarte, nos ayudarás a mejorar tu experiencia de
-                  navegación. Tus datos no se publicarán sin tu autorización.
+                  Con tus datos, mejoraremos tu experiencia de <br /> navegación
+                  y nunca publicaremos en sin tu permiso
                 </p>
               </div>
 
-              <div
-                className="form-grid__group lg:hidden"
-                hidden={!hiddenListBenefits}>
-                <p className="form-grid__subtitle text-center form-group--center">
-                  <button
-                    type="button"
-                    onClick={e => this.hanbleShowListBenefits(e)}
-                    className="link-blue link-color">
-                    Conoce aquí los beneficios de registrarte
-                  </button>
-                </p>
-              </div>
+              {arcSite !== 'peru21' ? (
+                <div
+                  className="form-grid__group lg:hidden"
+                  hidden={!hiddenListBenefits}>
+                  <p className="form-grid__subtitle text-center form-group--center">
+                    <button
+                      type="button"
+                      onClick={e => this.hanbleShowListBenefits(e)}
+                      className="link-blue link-color">
+                      Conoce aquí los beneficios de registrarte
+                    </button>
+                  </p>
+                </div>
+              ) : null}
             </form>
           </div>
         )}

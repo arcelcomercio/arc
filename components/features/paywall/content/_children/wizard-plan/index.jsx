@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import * as Sentry from '@sentry/browser'
 
 import CardPrice from './_children/card-price'
 import Summary from './_children/summary'
 import * as S from './styled'
 import { addSales } from '../../../_dependencies/sales'
 import BannerPromoSuscriptor from './_children/banner-promo-suscriptor'
-import Modal from '../../../_children/modal'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { parseQueryString } from '../../../../../utilities/helpers'
@@ -21,7 +21,6 @@ function WizardPlan(props) {
     setLoading,
   } = props
 
-  const [loadingPlan, setLoadingPlan] = useState()
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
 
@@ -31,43 +30,58 @@ function WizardPlan(props) {
 
   const Sales = addSales()
 
-  useEffect(() => {
-    Sales.then(sales => {
-      sales.clearCart()
-    })
-  }, [])
-
   function subscribePlanHandler(e, plan) {
     Sales.then(sales => {
       setLoading(true)
+      const selectedPlan = {
+        sku: plan.sku,
+        priceCode: plan.priceCode,
+        quantity: 1,
+      }
+      Sentry.addBreadcrumb({
+        category: 'compra',
+        message: 'Plan seleccionado',
+        data: selectedPlan,
+        level: Sentry.Severity.Info,
+      })
+
       return sales
-        .addItemToCart([
-          { sku: plan.sku, priceCode: plan.priceCode, quantity: 1 },
-        ])
-        .then(res => {
-          setLoading(false)
-          const {
-            location: { search },
-          } = window
-          const qs = parseQueryString(search)
-          const { title } = summary
-          onBeforeNextStep(
-            {
-              plan: { printed, ...plan, title },
-              referer: qs.ref || 'organico',
-            },
-            props
-          )
+        .clearCart()
+        .then(() => {
+          return sales.addItemToCart([selectedPlan]).then(response => {
+            setLoading(false)
+
+            Sentry.addBreadcrumb({
+              category: 'compra',
+              message: 'Añadió plan a carrito de compras',
+              data: { response },
+              level: Sentry.Severity.Info,
+            })
+
+            const {
+              location: { search },
+            } = window
+            const qs = parseQueryString(search)
+            const { title } = summary
+            onBeforeNextStep(
+              {
+                plan: { printed, ...plan, title },
+                referer: qs.ref || 'organico',
+              },
+              props
+            )
+          })
         })
         .catch(e => {
           setLoading(false)
+          Sentry.captureException(e)
         })
     })
   }
 
   return (
     <S.WizardPlan>
-      {message && <S.Error autoClose={7000}>{message}</S.Error>}
+      {message && <S.Error>{message}</S.Error>}
       {printed && (
         <S.WelcomeSuscriptor>
           ACCEDE A ESTOS <strong>PRECIOS ESPECIALES</strong> POR SER SUSCRIPTOR
@@ -98,13 +112,12 @@ function WizardPlan(props) {
           </S.Plans>
         </S.WrapPlan>
       </S.Wrap>
-      <Modal
+      <CheckSuscription
         open={openModal}
         onClose={() => {
           setOpenModal(false)
-        }}>
-        <CheckSuscription />
-      </Modal>
+        }}
+      />
       {!printed && (
         <BannerPromoSuscriptor
           onClick={() => {

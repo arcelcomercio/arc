@@ -69,6 +69,10 @@ class StoryData {
     )
   }
 
+  get subtype() {
+    return (this._data && this._data.subtype) || ''
+  }
+
   get tags() {
     return (this._data && this._data.taxonomy && this._data.taxonomy.tags) || []
   }
@@ -112,6 +116,13 @@ class StoryData {
     return result
   }
 
+  get authorRole() {
+    const { credits: { by = [] } = {} } = this._data || {}
+    const { additional_properties: { original: { role = '' } = {} } = {} } =
+      by[0] || {}
+    return role
+  }
+
   get defaultImg() {
     return defaultImage({
       deployment: this._deployment,
@@ -125,6 +136,7 @@ class StoryData {
     return (
       StoryData.getDataAuthor(this._data, {
         contextPath: this._contextPath,
+        deployment: this._deployment,
       }).imageAuthor || this.defaultImg
     )
   }
@@ -198,7 +210,12 @@ class StoryData {
   }
 
   get multimediaType() {
-    return StoryData.getTypeMultimedia(this._data)
+    // return StoryData.getTypeMultimedia(this._data)
+    return StoryData.getMultimediaIconType(this._data)
+  }
+
+  get promoItemsType() {
+    return this.getPromoItemsType() || ''
   }
 
   get section() {
@@ -290,6 +307,24 @@ class StoryData {
     return metaTitle || basic
   }
 
+  get getVideoPrincipal() {
+    return (
+      (this._data &&
+        this._data.promo_items &&
+        StoryData.getSeoMultimedia(this._data.promo_items, 'video')) ||
+      []
+    )
+  }
+
+  get getGallery() {
+    return (
+      (this._data &&
+        this._data.promo_items &&
+        StoryData.getSeoMultimedia(this._data.promo_items, 'image')) ||
+      []
+    )
+  }
+
   get imagesSeo() {
     const imagesContent =
       StoryData.getContentElements(
@@ -352,13 +387,7 @@ class StoryData {
   }
 
   get videoId() {
-    return (
-      (this._data &&
-        this._data.promo_items &&
-        this._data.promo_items[ConfigParams.VIDEO] &&
-        this._data.promo_items[ConfigParams.VIDEO]._id) ||
-      ''
-    )
+    return StoryData.getIdGoldfish(this.__data)
   }
 
   get video() {
@@ -371,30 +400,74 @@ class StoryData {
     )
   }
 
+  get multimediaNews() {
+    const type = StoryData.getMultimediaIconTypeFIA(this._data) || ''
+    const result = { type, payload: '' }
+    let imageItems=''
+    
+    switch (type) {
+      case ConfigParams.IMAGE:
+        result.payload = this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
+        break
+      case ConfigParams.VIDEO:
+        result.payload =
+          (this._data &&
+            this._data.promo_items &&
+            this._data.promo_items[ConfigParams.VIDEO] &&
+            this._data.promo_items[ConfigParams.VIDEO]._id) ||
+          ''
+        break
+
+      case ConfigParams.GALLERY:
+        imageItems =
+          (this._data &&
+            this._data.promo_items &&
+            this._data.promo_items[ConfigParams.GALLERY] &&
+            this._data.promo_items[ConfigParams.GALLERY].content_elements) ||
+          []
+
+        result.payload =
+          imageItems.map(({ additional_properties: additionalProperties }) => {
+            const { resizeUrl = '' } = additionalProperties
+            return resizeUrl
+          }) || []
+        break
+      case ConfigParams.ELEMENT_YOUTUBE_ID:
+        result.payload =
+          (this._data &&
+            this._data.promo_items &&
+            this._data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID] &&
+            this._data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID].content) ||
+          ''
+        break
+      default:
+        result.payload = ''
+        break
+    }
+    return result
+  }
+
   get paragraphsNews() {
     const { content_elements: contentElements = [] } = this._data
 
     const parrafo = contentElements.map(
       ({ content = '', type = '', _id = '', url = '' }) => {
-        // ELEMENT_VIDEO
-        // ELEMENT_IMAGE
-        // ELEMENT_TEXT
         const result = { _id, type, payload: '' }
-        
+
         switch (type) {
           case ConfigParams.ELEMENT_TEXT:
-            result.payload = content 
+            result.payload = content
             // && content
             break
           case ConfigParams.ELEMENT_IMAGE:
-            result.payload = url 
+            result.payload = url
             // && url
             break
           case ConfigParams.ELEMENT_VIDEO:
             result.payload = _id
             break
           case ConfigParams.ELEMENT_RAW_HTML:
-            result.payload = content 
+            result.payload = content
             // && content
             break
           default:
@@ -436,6 +509,12 @@ class StoryData {
     return seoKeywords
   }
 
+  get sourceUrlOld() {
+    const { additional_properties: { source_url: sourceUrl = '' } = {} } =
+      this._data || {}
+    return sourceUrl
+  }
+
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
@@ -444,6 +523,17 @@ class StoryData {
       if (attr !== 'attributesRaw') attributesObject[attr] = this[attr]
     }
     return attributesObject
+  }
+
+  get contentElementsHtml() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsHtml(
+          this._data.content_elements,
+          'raw_html'
+        )) ||
+      ''
+    )
   }
 
   get contentElementsText() {
@@ -501,6 +591,35 @@ class StoryData {
     )
   }
 
+  get relatedInternal() {
+    const galleryContentResul =
+      StoryData.getContentElements(
+        this._data && this._data.content_elements,
+        'story'
+      ) || []
+    return galleryContentResul.filter(String)
+  }
+
+  get commentsDisplay() {
+    const comments =
+      (this._data &&
+        this._data.comments &&
+        this._data.comments.display_comments) ||
+      ''
+
+    return comments
+  }
+
+  get commentsAllow() {
+    const comments =
+      (this._data &&
+        this._data.comments &&
+        this._data.comments.allow_comments) ||
+      ''
+
+    return comments
+  }
+
   get contentRestrictions() {
     return (
       (this._data &&
@@ -508,6 +627,27 @@ class StoryData {
         this._data.content_restrictions.content_code === 'premium' &&
         true) ||
       false
+    )
+  }
+
+  get videoIdContent() {
+    let video = ''
+    const typeItem = this.promoItemsType
+    if (typeItem === ConfigParams.VIDEO) {
+      video = StoryData.getIdGoldfish(this._data)
+    } else if (typeItem === ConfigParams.ELEMENT_YOUTUBE_ID) {
+      video = StoryData.getIdYoutube(this._data)
+    }
+    return video
+  }
+
+  get nucleoOrigen() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.nucleo &&
+        this._data.label.nucleo.url) ||
+      ''
     )
   }
 
@@ -529,6 +669,25 @@ class StoryData {
         size
       ) || this.defaultImg
     )
+  }
+
+  getPromoItemsType = () => {
+    let typeMultimedia = null
+    const { promo_items: promoItems = {} } = this._data || {}
+    const items = Object.keys(promoItems)
+
+    if (items.length > 0) {
+      if (items.includes(ConfigParams.VIDEO)) {
+        typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
+        typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
+      } else if (items.includes(ConfigParams.GALLERY)) {
+        typeMultimedia = ConfigParams.GALLERY
+      } else if (items.includes(ConfigParams.IMAGE)) {
+        typeMultimedia = ConfigParams.IMAGE
+      }
+    }
+    return typeMultimedia
   }
 
   static getSeoMultimedia(
@@ -559,7 +718,8 @@ class StoryData {
               : []
           })
           .filter(String)
-        return [dataVideo[0]]
+        const cantidadVideo = dataVideo.length
+        return [dataVideo[cantidadVideo - 1]]
       }
 
       return {
@@ -592,6 +752,15 @@ class StoryData {
       data &&
       data.map(({ content, type }) => {
         return type === typeElement ? formatHtmlToText(content) : []
+      })
+    ).join(' ')
+  }
+
+  static getContentElementsHtml(data = [], typeElement = '') {
+    return (
+      data &&
+      data.map(({ content, type }) => {
+        return type === typeElement ? content : []
       })
     ).join(' ')
   }
@@ -678,9 +847,11 @@ class StoryData {
     }
   }
 
-  static getDataAuthor(data, { contextPath = '' } = {}) {
+  static getDataAuthor(data, { contextPath = '', deployment = () => {} } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
-    const authorImageDefault = `${contextPath}/resources/assets/author-grid/author.png`
+    const authorImageDefault = deployment(
+      `${contextPath}/resources/assets/author-grid/author.png`
+    )
 
     let nameAuthor = ''
     let urlAuthor = ''
@@ -733,6 +904,45 @@ class StoryData {
     return typeMultimedia
   }
 
+  static getMultimediaIconType = data => {
+    let typeMultimedia = null
+    const { promo_items: promoItems = {} } = data || {}
+    const items = Object.keys(promoItems)
+
+    if (items.length > 0) {
+      if (items.includes(ConfigParams.VIDEO)) {
+        typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
+        // typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
+        typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.GALLERY)) {
+        typeMultimedia = ConfigParams.GALLERY
+      } else if (items.includes(ConfigParams.IMAGE)) {
+        typeMultimedia = ConfigParams.IMAGE
+      }
+    }
+    return typeMultimedia
+  }
+
+  static getMultimediaIconTypeFIA = data => {
+    let typeMultimedia = null
+    const { promo_items: promoItems = {} } = data || {}
+    const items = Object.keys(promoItems)
+
+    if (items.length > 0) {
+      if (items.includes(ConfigParams.VIDEO)) {
+        typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
+        typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
+      } else if (items.includes(ConfigParams.GALLERY)) {
+        typeMultimedia = ConfigParams.GALLERY
+      } else if (items.includes(ConfigParams.IMAGE)) {
+        typeMultimedia = ConfigParams.IMAGE
+      }
+    }
+    return typeMultimedia
+  }
+
   static getThumbnailVideo(data, size = ConfigParams.IMAGE_ORIGINAL) {
     const thumb =
       (data &&
@@ -769,9 +979,29 @@ class StoryData {
     return thumb
   }
 
+  static getIdGoldfish(data) {
+    return (
+      (data &&
+        data.promo_items &&
+        data.promo_items[ConfigParams.VIDEO] &&
+        data.promo_items[ConfigParams.VIDEO]._id) ||
+      ''
+    )
+  }
+
+  static getIdYoutube(data) {
+    const video =
+      (data &&
+        data.promo_items &&
+        data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID] &&
+        data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID].content) ||
+      ''
+    return video
+  }
+
   static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
     const { url = '', resized_urls: resizeUrls = {}, type = null } =
-      (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || null
+      (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || {}
     if (size === ConfigParams.IMAGE_ORIGINAL) return url
     return (
       (type === ConfigParams.ELEMENT_IMAGE && resizeUrls[size]
@@ -787,6 +1017,8 @@ class StoryData {
     } else if (type === ConfigParams.GALLERY) {
       thumb = StoryData.getThumbnailGalleryBySize(data, size)
     } else if (type === ConfigParams.IMAGE) {
+      thumb = StoryData.getImageBySize(data, size)
+    } else if (type === ConfigParams.ELEMENT_YOUTUBE_ID) {
       thumb = StoryData.getImageBySize(data, size)
     }
     return thumb

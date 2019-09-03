@@ -7,6 +7,7 @@ export default `
           type 
           resized_urls { 
             preset1
+            preset2
           } 
         }
         basic_video {
@@ -17,11 +18,15 @@ export default `
               type 
               resized_urls { 
                 preset1
+                preset2
               } 
             }
           }
         }
         youtube_id {
+          content
+        }
+        basic_html {
           content
         }
       }

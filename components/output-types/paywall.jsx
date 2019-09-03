@@ -18,7 +18,7 @@ const Paywall = props => {
     theme: { color },
     siteName,
     assets,
-    paywall: { title },
+    paywall: { title, description, canonical, image },
   } = siteProperties
 
   const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
@@ -27,13 +27,31 @@ const Paywall = props => {
     <html lang="es" className={arcSite}>
       <head>
         <TagManager {...siteProperties} />
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
         <title>{metaValue('title') || title}</title>
+
+        {/* METAS SUGERIDOS */}
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+        <meta name="theme-color" content="#444444" />
+        <meta name="msapplication-TileColor" content="#444444" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@Gestionpe" />
+        <meta name="twitter:title" content="Suscripciones Digitales" />
+        <meta name="twitter:image" content={image} />
+        <meta name="twitter:description" content={description} />
+        <meta property="og:title" content="Suscripciones Digitales" />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:site_name" content="Gestión" />
+        <meta property="og:type" content="website" />
+        {/* METAS SUGERIDOS */}
 
         <props.Libs />
         <props.CssLinks />
@@ -58,7 +76,9 @@ const Paywall = props => {
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

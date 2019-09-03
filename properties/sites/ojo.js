@@ -47,6 +47,8 @@ export default {
       logoAmp: 'logo-amp.png',
       width: 246,
       height: 60,
+      widthAmp: 65,
+      heightAmp: 40,
     },
   },
   legalLinks: [
@@ -89,10 +91,6 @@ export default {
       {
         name: 'facebook',
         url: 'https://www.facebook.com/DiarioOjo',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/diarioojo',
       },
       {
         name: 'linkedin',
@@ -156,4 +154,5 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna5-300x250-div-gpt-ad-8599377-30.html',
   ],
   activeSignwall: false,
+  activePaywall: false,
 }

@@ -23,6 +23,7 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
     contextPath,
     arcSite,
     imgLogo,
+    isAdmin,
   } = props
   storyData.multimediaOrientation = 'grid'
 
@@ -36,23 +37,29 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
           deployment={deployment}
           contextPath={contextPath}
           website={arcSite}
+          linkStory={storyData.link}
+          width='578px'
         />
       </div>
       <div className={classes.gridContainer}>
         <div className={classes.gridHeaderText}>
           Estás viendo
-          <img
-            className={classes.gridHeaderImage}
-            src={imgLogo}
-            alt={`Logo especial de ${arcSite}`}
-          />
+          <a href={storyData.primarySectionLink}>
+            <img
+              className={classes.gridHeaderImage}
+              src={imgLogo}
+              alt={`Logo especial de ${arcSite}`}
+            />
+          </a>
         </div>
-        <h2 className={classes.gridListTitle}>Programas del día</h2>
+        <a href={storyData.primarySectionLink}>
+          <h2 className={classes.gridListTitle}>Programas del día</h2>
+        </a>
         <div role="list" className={classes.gridListItems}>
-          {section1.id !== '' && <SectionItem data={section1} />}
-          {section2.id !== '' && <SectionItem data={section2} />}
-          {section3.id !== '' && <SectionItem data={section3} />}
-          {section4.id !== '' && <SectionItem data={section4} />}
+          {section1.id !== '' && <SectionItem data={section1} isAdmin={isAdmin} />}
+          {section2.id !== '' && <SectionItem data={section2} isAdmin={isAdmin} />}
+          {section3.id !== '' && <SectionItem data={section3} isAdmin={isAdmin} />}
+          {section4.id !== '' && <SectionItem data={section4} isAdmin={isAdmin} />}
         </div>
       </div>
     </div>

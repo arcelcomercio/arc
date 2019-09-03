@@ -3,7 +3,7 @@ import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import Modal from '../common/modal'
 import Header from '../common/header'
-import Footer from '../common/footer'
+// import Footer from '../common/footer'
 import Taggeo from '../utils/taggeo'
 
 import FormVerify from './_children/form-verify'
@@ -19,10 +19,17 @@ class SignWallVerify extends Component {
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    if (arcSite !== 'peru21') {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-sandbox.${arcSite}.pe`
+    } else {
+      this.origin_api =
+        ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${arcSite}.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+    }
 
     this.validateToken()
   }
@@ -80,23 +87,30 @@ class SignWallVerify extends Component {
                 <ModalConsumer>
                   {value => (
                     <Modal
-                      size="large"
+                      size={brandModal !== 'peru21' ? 'large' : 'small'}
                       position="middle"
                       name="arc-popup-verifyaccount"
                       id="arc-popup-verifyaccount">
                       <Header closePopup={closePopup} typePopUp="verify" />
                       <div className="modal-body">
-                        <div className="modal-body__left">
-                          <ListBenefits
-                            typeMessage="organic"
-                            brandCurrent={brandModal}
-                          />
-                        </div>
-                        <div className="modal-body__right">
+                        {brandModal !== 'peru21' ? (
+                          <div className="modal-body__left">
+                            <ListBenefits
+                              typeMessage="organic"
+                              brandCurrent={brandModal}
+                            />
+                          </div>
+                        ) : null}
+                        <div
+                          className={
+                            brandModal !== 'peru21'
+                              ? 'modal-body__right'
+                              : 'modal-body__full'
+                          }>
                           {this.renderTemplate(value.selectedTemplate)}
                         </div>
                       </div>
-                      <Footer position="right" />
+                      {/* <Footer position="right" /> */}
                     </Modal>
                   )}
                 </ModalConsumer>
