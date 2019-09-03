@@ -15,7 +15,7 @@ const params = [
   },
   {
     name: 'feedOffset',
-    displayName: 'Número de la noticia',
+    displayName: 'Número de la noticia', // Para este API la pos. inic. es 1
     type: 'number',
   },
 ]
@@ -23,14 +23,23 @@ const params = [
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
 
-  const { id, feedOffset } = key
+  const { id, feedOffset: rawFeedOffset } = key
+  const feedOffset =
+    rawFeedOffset === null ||
+    rawFeedOffset === undefined ||
+    rawFeedOffset === ''
+      ? 1
+      : rawFeedOffset
 
   if (!id) {
     throw new Error('Esta fuente de contenido necesita el ID de la collección')
   }
+  if (feedOffset < 1) {
+    throw new Error('El campo "Número de la noticia" debe ser mayor a 0')
+  }
 
-  return `/content/v4/collections?website=${website}&_id=${id}&size=1&from=${feedOffset ||
-    0}`
+  return `/content/v4/collections?website=${website}&_id=${id}&size=1&from=${feedOffset -
+    1}`
 }
 
 const transform = data => {
