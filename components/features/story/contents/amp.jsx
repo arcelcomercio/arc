@@ -215,7 +215,7 @@ class StoryContentAmp extends PureComponent {
               layout="responsive"
               heights="(min-width:1862px) 213%, (min-width:1293px) 218%, (min-width:909px) 226%, (min-width:647px) 236%, (min-width:500px) 252%, (min-width:397px) 272%, 297%"
               data-publisher={`grupoelcomercio-${
-                arcSite === 'publimetro' ? 'peru21' : arcSite
+                arcSite === 'publimetro' ? 'publimetrope' : arcSite
               }`}
               data-mode="thumbnails-a-amp"
               data-placement="Mobile Below Article Thumbnails AMP"
