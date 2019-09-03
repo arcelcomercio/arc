@@ -21,7 +21,7 @@ export default ({
   isAdmin,
 }) => {
   return (
-    <a href={link} className={classes.item}>
+    <a href={link} className={classes.item} title={title}>
       <article role="listitem" className={classes.article}>
         <Icon type={mediaIcon} iconClass={classes.icon} />
         <div className={classes.detail}>
@@ -33,7 +33,6 @@ export default ({
             data-src={imageUrl}
             alt={title}
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-            
           />
         </figure>
       </article>

@@ -3,11 +3,8 @@ import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import Modal from '../../../common/modal'
 import { Close } from '../../../common/iconos'
-// import Services from '../../../utils/services'
 import Loading from '../../../common/loading'
 // import { ModalConsumer } from '../../../signwall/context'
-
-// const services = new Services()
 
 @Consumer
 class Subs extends Component {
@@ -142,7 +139,6 @@ class Subs extends Component {
       paywallDescripcion,
       idSubsDelete,
     } = this.state
-
     const { arcSite } = this.props
     return (
       // <ModalConsumer>
@@ -171,7 +167,6 @@ class Subs extends Component {
                             }}>
                             EDITAR MÉTODO DE PAGO
                           </button> */}
-
                           <button
                             type="button"
                             className="link"
@@ -197,37 +192,7 @@ class Subs extends Component {
                       </div>
                     )
                   }
-                  return (
-                    <div className="resume__dates" key={reSubs.subscriptionID}>
-                      <div className="title-dates">
-                        <h2 className="title">Mi suscripción</h2>
-                      </div>
-                      <div className="cont-subs">
-                        <div className="first-subs">
-                          <p>
-                            Accede a nuestro contenido exclusivo, adquiere tu
-                          </p>
-                          <h3>{paywallName}</h3>
-                        </div>
-                        <div className="last-subs">
-                          <button
-                            className="btn-subs"
-                            type="button"
-                            onClick={() => this.handlePageChange()}>
-                            <h3>SUSCRÍBETE</h3>
-                            <span>DESDE S/ {paywallPrice} MENSUALES</span>
-                          </button>
-                        </div>
-                      </div>
-                      <div className="title-dates"></div>
-                      <div className="cont-note">
-                        <p className="note-subs">
-                          *si cuentas con alguna suscripción adquirida por otro
-                          canal, por el momento, no podrás visualizarla aquí.
-                        </p>
-                      </div>
-                    </div>
-                  )
+                  return null
                 })}
               </>
             ) : (
@@ -247,6 +212,7 @@ class Subs extends Component {
                       onClick={() => this.handlePageChange()}>
                       <h3>SUSCRÍBETE</h3>
                       <span>DESDE S/ {paywallPrice} MENSUALES</span>
+                      {/* <span>{paywallDescripcion}</span> */}
                     </button>
                   </div>
                 </div>
@@ -270,7 +236,7 @@ class Subs extends Component {
                 <div className="text-right">
                   <button
                     type="button"
-                    className="link-close"
+                    className="btn-close"
                     onClick={e => this.closeModalConfirm(e)}>
                     <Close />
                   </button>

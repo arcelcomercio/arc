@@ -116,6 +116,13 @@ class StoryData {
     return result
   }
 
+  get authorRole() {
+    const { credits: { by = [] } = {} } = this._data || {}
+    const { additional_properties: { original: { role = '' } = {} } = {} } =
+      by[0] || {}
+    return role
+  }
+
   get defaultImg() {
     return defaultImage({
       deployment: this._deployment,
@@ -129,6 +136,7 @@ class StoryData {
     return (
       StoryData.getDataAuthor(this._data, {
         contextPath: this._contextPath,
+        deployment: this._deployment,
       }).imageAuthor || this.defaultImg
     )
   }
@@ -392,14 +400,58 @@ class StoryData {
     )
   }
 
+  get multimediaNews() {
+    const type = StoryData.getMultimediaIconTypeFIA(this._data) || ''
+    const result = { type, payload: '' }
+    let imageItems=''
+    
+    switch (type) {
+      case ConfigParams.IMAGE:
+        result.payload = this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
+        break
+      case ConfigParams.VIDEO:
+        result.payload =
+          (this._data &&
+            this._data.promo_items &&
+            this._data.promo_items[ConfigParams.VIDEO] &&
+            this._data.promo_items[ConfigParams.VIDEO]._id) ||
+          ''
+        break
+
+      case ConfigParams.GALLERY:
+        imageItems =
+          (this._data &&
+            this._data.promo_items &&
+            this._data.promo_items[ConfigParams.GALLERY] &&
+            this._data.promo_items[ConfigParams.GALLERY].content_elements) ||
+          []
+
+        result.payload =
+          imageItems.map(({ additional_properties: additionalProperties }) => {
+            const { resizeUrl = '' } = additionalProperties
+            return resizeUrl
+          }) || []
+        break
+      case ConfigParams.ELEMENT_YOUTUBE_ID:
+        result.payload =
+          (this._data &&
+            this._data.promo_items &&
+            this._data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID] &&
+            this._data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID].content) ||
+          ''
+        break
+      default:
+        result.payload = ''
+        break
+    }
+    return result
+  }
+
   get paragraphsNews() {
     const { content_elements: contentElements = [] } = this._data
 
     const parrafo = contentElements.map(
       ({ content = '', type = '', _id = '', url = '' }) => {
-        // ELEMENT_VIDEO
-        // ELEMENT_IMAGE
-        // ELEMENT_TEXT
         const result = { _id, type, payload: '' }
 
         switch (type) {
@@ -462,6 +514,7 @@ class StoryData {
       this._data || {}
     return sourceUrl
   }
+
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
@@ -470,6 +523,17 @@ class StoryData {
       if (attr !== 'attributesRaw') attributesObject[attr] = this[attr]
     }
     return attributesObject
+  }
+
+  get contentElementsHtml() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsHtml(
+          this._data.content_elements,
+          'raw_html'
+        )) ||
+      ''
+    )
   }
 
   get contentElementsText() {
@@ -586,6 +650,7 @@ class StoryData {
       ''
     )
   }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -691,6 +756,15 @@ class StoryData {
     ).join(' ')
   }
 
+  static getContentElementsHtml(data = [], typeElement = '') {
+    return (
+      data &&
+      data.map(({ content, type }) => {
+        return type === typeElement ? content : []
+      })
+    ).join(' ')
+  }
+
   static getContentElements(data = [], typeElement = '') {
     return (
       data.map(item => {
@@ -773,9 +847,11 @@ class StoryData {
     }
   }
 
-  static getDataAuthor(data, { contextPath = '' } = {}) {
+  static getDataAuthor(data, { contextPath = '', deployment = () => {} } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
-    const authorImageDefault = `${contextPath}/resources/assets/author-grid/author.png`
+    const authorImageDefault = deployment(
+      `${contextPath}/resources/assets/author-grid/author.png`
+    )
 
     let nameAuthor = ''
     let urlAuthor = ''
@@ -839,6 +915,25 @@ class StoryData {
       } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
         // typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
         typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.GALLERY)) {
+        typeMultimedia = ConfigParams.GALLERY
+      } else if (items.includes(ConfigParams.IMAGE)) {
+        typeMultimedia = ConfigParams.IMAGE
+      }
+    }
+    return typeMultimedia
+  }
+
+  static getMultimediaIconTypeFIA = data => {
+    let typeMultimedia = null
+    const { promo_items: promoItems = {} } = data || {}
+    const items = Object.keys(promoItems)
+
+    if (items.length > 0) {
+      if (items.includes(ConfigParams.VIDEO)) {
+        typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
+        typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
       } else if (items.includes(ConfigParams.GALLERY)) {
         typeMultimedia = ConfigParams.GALLERY
       } else if (items.includes(ConfigParams.IMAGE)) {

@@ -74,7 +74,10 @@ const ExtraordinaryStory = props => {
         )}
         <div className={classes.content}>
           <h2 className={`${classes.title} ${numline}`}>
-            <a href={data.link} className={classes.titleLink}>
+            <a
+              href={data.link}
+              className={classes.titleLink}
+              title={data.title}>
               {data.title}
             </a>
           </h2>
