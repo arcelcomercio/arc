@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import ButtonComponent from '../button'
 import { devices } from '../../_dependencies/devices'
 
+// eslint-disable-next-line import/prefer-default-export
 export const Button = styled(ButtonComponent)`
   background-color: #555;
   padding: 15px 15px;
@@ -11,6 +12,7 @@ export const Button = styled(ButtonComponent)`
   display: flex;
   width: auto !important;
   &:hover {
+    background-color: #555;
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3);
   }
   span {
