@@ -121,12 +121,16 @@ export default ({
     ? imagenData
     : ` "image": {
       "@type": "ImageObject",
-      "url": "http://cde.3.elcomercio.pe/ima/0/1/3/7/6/1376021/base_image.jpg",
+      "url": "${siteUrl}${deployment(
+        `${contextPath}/resources/dist/${arcSite}/images/logo-story-default.jpg`
+      )}",
       "description": "${siteName}",
       "height": 418,
       "width": 696
     },`
 
+  const dataVideo = `  "video":[ ${videoSeoItems}
+  ],`
   const structuredData = `{  
     "@context":"http://schema.org",
     "@type":"NewsArticle",
@@ -140,8 +144,7 @@ export default ({
        "@id":"${siteUrl}${link}"
     },
     ${imagenDefoult}
-    "video":[ ${videoSeoItems}
-    ],
+    ${videoSeoItems[0] && dataVideo}
     "author":{  
        "@type":"Person",
        "name":"${seoAuthor}"
