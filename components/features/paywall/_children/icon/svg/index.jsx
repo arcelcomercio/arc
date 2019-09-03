@@ -17,6 +17,7 @@ import gloading from './gloading'
 import close from './close'
 import linkedin from './linkedin'
 import support from './support'
+import phone from './phone'
 
 export {
   check,
@@ -37,5 +38,6 @@ export {
   gloading,
   close,
   linkedin,
-  support
+  support,
+  phone,
 }
