@@ -38,6 +38,7 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
           contextPath={contextPath}
           website={arcSite}
           linkStory={storyData.link}
+          width='578px'
         />
       </div>
       <div className={classes.gridContainer}>

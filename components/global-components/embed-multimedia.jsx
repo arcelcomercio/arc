@@ -89,6 +89,8 @@ const EmbedMultimedia = props => {
     website,
     title = '',
     linkStory = '',
+    width = '100%',
+    height = '100%',
   } = props
   return getMultimedia(type)(source, {
     deployment,
@@ -96,6 +98,8 @@ const EmbedMultimedia = props => {
     title,
     website,
     linkStory,
+    width,
+    height,
   })
 }
 
