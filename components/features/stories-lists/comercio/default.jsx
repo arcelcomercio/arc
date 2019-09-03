@@ -23,8 +23,7 @@ const StoriesListCard = props => {
       titleList,
       urlTitle,
       background,
-      seeMore,
-      seeMoreurl,
+      
       seeHour,
       seeImageNews,
     },
@@ -46,8 +45,6 @@ const StoriesListCard = props => {
     titleList,
     urlTitle,
     background,
-    seeMore,
-    seeMoreurl,
   }
 
   const paramsList = {
@@ -72,7 +69,7 @@ StoriesListCard.propTypes = {
   customFields,
 }
 
-StoriesListCard.label = 'Último minuto'
+StoriesListCard.label = 'Noticias por sección'
 StoriesListCard.static = true
 
 export default StoriesListCard

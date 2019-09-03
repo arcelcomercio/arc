@@ -25,10 +25,7 @@ const customFields = PropTypes.shape({
     defaultValue: 5,
     group: 'Configuración',
   }),
-  seeMore: PropTypes.bool.tag({
-    name: 'Ver más',
-    group: 'Configuración',
-  }),
+  
   seeHour: PropTypes.bool.tag({
     name: 'Ver hora',
     group: 'Configuración',

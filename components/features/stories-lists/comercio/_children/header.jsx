@@ -9,9 +9,7 @@ const classes = {
 const StoriesListsCardChildHeader = ({
   titleList,
   background,
-  seeMore,
   urlTitle = '/',
-  seeMoreurl = '/',
 }) => {
   return (
     <div className={`${classes.header} ${background}`}>
@@ -21,11 +19,6 @@ const StoriesListsCardChildHeader = ({
         </a>
       ) : (
         <h4 className={classes.title}>{titleList}</h4>
-      )}
-      {seeMore && (
-        <a href={seeMoreurl} className={classes.seeMore}>
-          Ver más
-        </a>
       )}
     </div>
   )
