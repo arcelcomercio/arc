@@ -16,6 +16,7 @@ import './images/logo-amp.png'
 // import './images/logo-publimetro.png'
 import './images/logo_fb.jpg'
 import './images/logo_twitter.jpg'
+import './images/logo-story-default.jpg'
 import './images/loader.png'
 import './images/green-logo.png'
 
