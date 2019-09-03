@@ -91,6 +91,7 @@ const transformImg = data => {
 }
 
 const resolve = (key = {}) => {
+  console.log('VVVkeykeykeykey=>>>>>>>>>>>>>>>>>>>>>>><',key)
   const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
   if (!hasWebsiteUrl)
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
