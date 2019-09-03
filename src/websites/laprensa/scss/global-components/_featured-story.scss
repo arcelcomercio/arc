@@ -20,6 +20,7 @@
     color: $color-primary;
     -webkit-line-clamp: 3;
     max-height: calc(1.3rem * 1.333 * 3);
+    font-weight: 700;
 
     @media (--tablet) {
       margin-top: 10px;
@@ -47,6 +48,9 @@
           );
         }
       }
+    }
+    .featured-story__detail {
+      background-color: transparent;
     }
   }
 
@@ -86,6 +90,11 @@
     .featured-story__headband-link {
       background-color: $color-tertiary;
       color: $color-primary;
+    }
+  }
+  &--no-expanded {
+    .featured-story__detail {
+      background-color: $color-white;
     }
   }
 }

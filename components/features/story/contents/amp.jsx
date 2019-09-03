@@ -119,7 +119,10 @@ class StoryContentAmp extends PureComponent {
                       className={classes.newsImage}
                     />
                   ) : (
-                    <RawHtml content={ampHtml(content)} rawHtmlClasses="" />
+                    <RawHtml
+                      content={ampHtml(content, arcSite)}
+                      rawHtmlClasses=""
+                    />
                   )
                 }
 
@@ -154,7 +157,7 @@ class StoryContentAmp extends PureComponent {
                   return (
                     <>
                       <Text
-                        content={ampHtml(replaceTags(content))}
+                        content={ampHtml(replaceTags(content), arcSite)}
                         className={classes.textClasses}
                       />
                       {publicidad && (
@@ -203,15 +206,17 @@ class StoryContentAmp extends PureComponent {
               })}
             </div>
           )}
-          {arcSite === ConfigParams.SITE_PUBLIMETRO ? (
+          {arcSite === ConfigParams.SITE_PUBLIMETRO ||
+          arcSite === ConfigParams.SITE_PERU21 ? (
             <amp-embed // TODO: publicidad taboola x definir de parte del cliente // se Retira para gestion
               width="100"
               height="100"
               type="taboola"
               layout="responsive"
               heights="(min-width:1862px) 213%, (min-width:1293px) 218%, (min-width:909px) 226%, (min-width:647px) 236%, (min-width:500px) 252%, (min-width:397px) 272%, 297%"
-              data-publisher={`grupoelcomercio-${arcSite === 'publimetro' &&
-                'peru21'}`}
+              data-publisher={`grupoelcomercio-${
+                arcSite === 'publimetro' ? 'publimetrope' : arcSite
+              }`}
               data-mode="thumbnails-a-amp"
               data-placement="Mobile Below Article Thumbnails AMP"
               data-target_type="mix"

@@ -5,6 +5,14 @@ import { useFusionContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 
+/**
+ * TODO:
+ * Extraer classes
+ * Extrear _dependencies
+ * Separar vista de controlador
+ * Aplicar Lazyload para las imagenes (guiate del destaque global)
+ */
+
 const CardsFeaturedStorySpecial = props => {
   const {
     customFields: {

@@ -22,10 +22,13 @@ const StoryContentChildVideo = ({ data }) => {
     .filter(String)
 
   const [{ url, urlImage } = {}] = dataVideo
-
+  const videoMatch = !url && data.match(/(https:\/\/peru21.pe(.*).mp4)/g)
+  const urlVideo = videoMatch
+    ? videoMatch[0].replace('peru21.pe', 'g21.peru21.pe')
+    : url
   return (
     <amp-video
-      src={url}
+      src={urlVideo}
       poster={urlImage}
       artwork={urlImage}
       title={caption}
