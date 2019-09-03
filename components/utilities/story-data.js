@@ -525,6 +525,17 @@ class StoryData {
     return attributesObject
   }
 
+  get contentElementsHtml() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsHtml(
+          this._data.content_elements,
+          'raw_html'
+        )) ||
+      ''
+    )
+  }
+
   get contentElementsText() {
     return (
       (this._data &&
@@ -741,6 +752,15 @@ class StoryData {
       data &&
       data.map(({ content, type }) => {
         return type === typeElement ? formatHtmlToText(content) : []
+      })
+    ).join(' ')
+  }
+
+  static getContentElementsHtml(data = [], typeElement = '') {
+    return (
+      data &&
+      data.map(({ content, type }) => {
+        return type === typeElement ? content : []
       })
     ).join(' ')
   }
