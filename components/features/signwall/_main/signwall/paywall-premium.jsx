@@ -77,9 +77,11 @@ class PayWallPremium extends Component {
       closePopup,
       typeModal,
       contextPath,
+      siteProperties,
       arcSite,
       deployment,
     } = this.props
+
     const ImageBg =
       deployment(
         `${contextPath}/resources/dist/${arcSite}/images/bg_paywall.png`
@@ -106,14 +108,23 @@ class PayWallPremium extends Component {
                       }}>
                       <p className="text-xl secondary-font">
                         {typeModal === 'paywall'
-                          ? 'Para continuar leyendo, adquiere el'
+                          ? 'Has alcanzado el límite de noticias.'
                           : 'Para acceder a este contenido'}
                         <br />
                         {typeModal === 'paywall'
-                          ? ''
+                          ? 'Para continuar leyendo, adquiere el'
                           : 'exclusivo, adquiere tu'}
                       </p>
                       <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
+                      <center>
+                        <img
+                          className="modal-header__img mt-40"
+                          alt=""
+                          src={deployment(
+                            `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.nav.logo}`
+                          )}
+                        />
+                      </center>
                     </div>
                     <div className="modal-body__middle intro-paywall">
                       <button
