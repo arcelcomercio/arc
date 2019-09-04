@@ -8,7 +8,7 @@ const classes = {
   imgBox: 'p-0 m-0 w-full h-full overflow-hidden',
   img: 'separator__img w-full h-full object-cover object-center',
   icon: `separator__icon`,
-  article: `h-full`,
+  article: `separator__article h-full`,
 }
 
 export default ({

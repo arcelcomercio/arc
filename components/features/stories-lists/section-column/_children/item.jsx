@@ -7,7 +7,7 @@ const classes = {
   time: 'stories-l-item__time text-md line-h-sm mr-5',
   linkBox:
     'stories-l-item__link-box flex flex-col text-gray-300 border-b-1 border-dashed border-gray pb-10 ',
-  link: 'stories-l-item__link mb-15 text-md text-gray-300 line-h-sm font-bold',
+  link: 'stories-l-item__link mb-15 text-gray-300 line-h-sm font-bold',
   autorLink: 'stories-l-item__autor text-gray-200 ',
 }
 
