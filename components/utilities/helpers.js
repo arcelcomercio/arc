@@ -461,11 +461,9 @@ export const optaWidgetHtml = html => {
 
 export const imageHtml = html => {
   let resHtml = ''
-  resHtml = html
-    .replace('<figure>', '')
-    .replace('</figure>', '')
-    .replace(/(width="(.+?)")/g, '')
-    .replace(/(height="(.+?)")/g, '')
+  resHtml = html.replace('<figure>', '').replace('</figure>', '')
+  //.replace(/(width="(.+?)")/g, '')
+  //.replace(/(height="(.+?)")/g, '')
 
   const rplImageCde =
     '<amp-img class="media" src="$2" layout="responsive" width="304" height="200"></amp-img>'
@@ -573,6 +571,7 @@ export const youtubeHtml = html => {
       rplYoutube
     )
 }
+
 export const replaceHtmlMigracion = html => {
   return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }
