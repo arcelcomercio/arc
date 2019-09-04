@@ -674,7 +674,10 @@ export const preventDefault = e => {
 }
 
 export const replaceTags = text => {
-  return text.replace(/(\s\w)=.(.*?)/g, '$2')
+  return text
+    .replace(/(\s\w)=.(.*?)/g, '$2')
+    .replace('http://http://', 'https://')
+    .replace(/href=&quot;(.+)&quot;>/g, 'href="$1">')
 }
 
 export const formatDateStory = date => {
