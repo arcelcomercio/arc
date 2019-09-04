@@ -14,12 +14,9 @@
   &__wrapper {
     background: $new-color-primary;
     &:first-child {
-      @media (--tablet) {
+      @media (--desktop) {
         background-color: transparent;
       }
-    }
-    @media (--desktop) {
-      background-color: transparent;
     }
   }
   /*   Estilos para nav loader en notas */
@@ -31,5 +28,10 @@
     @media (--desktop) {
       background-color: $new-color-primary;
     }
+  }
+}
+nav.nav__wrapper {
+  @media (--tablet) {
+    background-color: transparent;
   }
 }
