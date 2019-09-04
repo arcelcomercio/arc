@@ -60,7 +60,9 @@ export const Item = styled.div`
 `
 
 export const Small = styled.div`
-  color: #818181;
+  font-size: 14px;
+  line-height: 26px;
+  color: #444444;
 `
 
 export const WrapButton = styled.div`
@@ -107,6 +109,9 @@ export const Detail = styled.div`
 `
 
 export const Span = styled.span`
+  font-size: 14px;
+  text-align: center;
+  line-height: 24px;
   @media (${devices.mobile}) {
     text-align: center;
   }

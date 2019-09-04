@@ -81,6 +81,7 @@ const WizardConfirmation = props => {
 
   console.log(props)
   console.log(paidTotal)
+  console.log(billingFrequency)
   
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -101,7 +102,7 @@ const WizardConfirmation = props => {
           </S.Subtitle>
           <S.CardSummary>
             <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
-            <Item label="PAQUETE: ">{(plan || '').toUpperCase()}</Item>
+            <Item label="PAQUETE: ">{(plan || '').toUpperCase()} - {(billingFrequency || '').toUpperCase()}</Item>
             <Item label="NOMBRE: ">
               <S.Names>
                 {firstName} {lastName} {secondLastName}
@@ -115,7 +116,7 @@ const WizardConfirmation = props => {
             </S.Small>
           </S.CardSummary>
           <S.Span>
-            Enviaremos la boleta de compra de la suscripción al correo:
+            Enviaremos la boleta de compra de la<br/> suscripción al correo:
             <strong> {email}</strong>
           </S.Span>
           <S.WrapButton>
