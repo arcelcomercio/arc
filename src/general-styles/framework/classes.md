@@ -229,6 +229,7 @@ Estas clases hacen referencia a la alineación de textos y las transformaciones 
 - `text-right`
 - `uppercase`
 - `capitalize`
+- `underline`
 
 ###### Ej.
 
