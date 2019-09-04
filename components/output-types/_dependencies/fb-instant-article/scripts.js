@@ -6,9 +6,10 @@ export const AnalyticsScript = ({
   section = '',
   subsection = '',
   author = '',
-  pageview='',
+  pageview = '',
   newsType = '',
   newsTitle = '',
+  nucleoOrigen = '',
 }) => `(function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
@@ -42,6 +43,7 @@ export const AnalyticsScript = ({
         ga('set', 'dimension15', '${author}');
         ga('send', 'pageview', '${pageview}');
         ga('send', 'pageview', {title: '${newsTitle}'});
+        ga('set', 'dimension16', '${nucleoOrigen}');
         `
 
 export const ScriptElement = () =>
@@ -71,7 +73,9 @@ export const ScriptHeader = ({
 }) => {
   const listTag = tags.map(tg => tg.text && ` '${tg.text}'`).join(', ')
 
-  const listSec = sections.map(seccionName => seccionName && ` '${seccionName}'`).join(',')
+  const listSec = sections
+    .map(seccionName => seccionName && ` '${seccionName}'`)
+    .join(',')
 
   let TipoNota = ''
 
@@ -92,7 +96,9 @@ export const ScriptHeader = ({
                       _sf_async_config.uid = 57773;
                       _sf_async_config.domain = '${siteDomain}';
                       _sf_async_config.title = '${title}';
-                      _sf_async_config.sections = ${listSec}${listSec === '' ?'':','} ${listTag};
+                      _sf_async_config.sections = ${listSec}${
+    listSec === '' ? '' : ','
+  } ${listTag};
                       _sf_async_config.authors = '${author}';
                       _sf_async_config.type = '${TipoNota}';
                       _sf_async_config.useCanonical = true; /** CONFIGURATION END **/

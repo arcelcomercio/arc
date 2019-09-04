@@ -1,0 +1,48 @@
+.extraordinary-story {
+  &__section {
+    &::after {
+      border-bottom: 1px solid $color-base-400;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      overflow: hidden;
+      position: relative;
+      width: 25px;
+      bottom: -5px;
+    }
+  }
+  &__section-link {
+    text-transform: uppercase;
+    color: $color-primary;
+    font-weight: 700;
+  }
+
+  &__title {
+    line-height: 1.1666666667;
+  }
+
+  &__title-link {
+    font-weight: 700;
+  }
+  &__link,
+  &__author-link {
+    font-weight: 500;
+  }
+  &__author-link {
+    font-family: $secondary-font;
+  }
+
+  &--twoline {
+    -webkit-line-clamp: 4;
+    max-height: 145px;
+  }
+  &--right,
+  &--left {
+    .extraordinary-story__group-content {
+      @media (--desktop) {
+        min-width: 40%;
+      }
+    }
+  }
+}

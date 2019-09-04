@@ -1,0 +1,10 @@
+.related-internal {
+  &__information {
+    @media (--tablet) {
+      background-color: $color-gray-100;
+    }
+    a {
+      color: $color-primary;
+    }
+  }
+}
