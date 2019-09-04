@@ -67,16 +67,40 @@ export default {
 
   legalLinks: [
     {
-      name: 'Términos y condiciones',
-      url: '/terminos-servicio',
+      name: 'Términos y condiciones de uso',
+      url: '/terminos-y-condiciones',
+    },
+    {
+      name: 'Trabaja para Grupo El Comercio',
+      url: 'https://elcomercio.aptitus.com/',
+    },
+    {
+      name: 'Libro de Reclamaciones',
+      url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
+    },
+    {
+      name: 'Oficinas Concesionarias',
+      url: '/oficinas-concesionarias',
+    },
+    {
+      name: 'Principios Rectores',
+      url: '/principios-rectores',
     },
     {
       name: 'Políticas de Privacidad',
       url: '/politicas-privacidad',
     },
     {
+      name: 'Política integrada de gestión',
+      url: '/politica-integrada-de-gestion',
+    },
+    {
+      name: 'Derechos Arco',
+      url: '/procedimiento-arco',
+    },
+    {
       name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      url: '/politica-de-cookies',
     },
   ],
 
@@ -103,18 +127,58 @@ export default {
       },
     ],
 
-    contacts: [
+    directors: [
+      {
+        position: 'Director General',
+        names: ['FRANCISCO MIRÓ QUESADA CANTUARIAS'],
+      },
       {
         position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
+        names: ['JUAN JOSÉ GARRIDO KOECHLIN'],
       },
       {
-        position: 'Editor Web',
-        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
+        position: 'Directores Fundadores',
+        names: [
+          'Manuel Amunátegui [1839-1875] y',
+          'Alejandro Villota [1839-1861]',
+        ],
       },
       {
-        position: 'Contacto comercial',
-        name: 'ventaspublimetro@publimetro.pe',
+        position: 'Directores',
+        names: [
+          'Francisco Miró Quesada Cantuarias',
+          'Luis Carranza [1875-1898]',
+          'José Antonio Miró Quesada [1875-1905]',
+          'Antonio Miró Quesada de la Guerra [1905-1935]',
+          'Aurelio Miró Quesada de la Guerra [1935-1950]',
+          'Luis Miró Quesada de la Guerra [1935-1974]',
+          'Óscar Miró Quesada de la Guerra [1980-1981]',
+          'Aurelio Miró Quesada Sosa [1980-1998]',
+          'Alejandro Miró Quesada Garland [1980-2011]',
+          'Alejandro Miró Quesada Cisneros [1999-2008]',
+          'Francisco Miró Quesada Rada [2008-2013]',
+          'Fritz Du Bois Freund [2013-2014]',
+          'Fernando Berckemeyer Olaechea [2014-2018]',
+        ],
+      },
+    ],
+
+    contacts: [
+      {
+        position: 'Suscripciones',
+        name: 'suscriptores@comercio.com.pe',
+      },
+      {
+        position: 'Publicidad',
+        name: 'fonoavisos@comercio.com.pe',
+      },
+      {
+        position: 'Club El Comercio',
+        name: 'clubelcomercio@comercio.com.pe',
+        link: {
+          name: 'Compromiso de Autorregulación Comercial',
+          url: '/compromiso-autoregulacion-comercial.pdf',
+        },
       },
     ],
   },
@@ -151,4 +215,5 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
+  gda: true, // Grupo Diarios de America
 }

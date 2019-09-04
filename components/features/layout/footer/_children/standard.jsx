@@ -12,7 +12,7 @@ const classes = {
   sitesLink: 'footer__sites-link text-gray-200 primary-font',
   legalList: 'footer__legal-list text-md',
   legalItem: `footer__legal-item mb-10 text-gray-300 line-h-none text-xs primary-font`,
-  logoContainer: 'footer__logo footer__logo-container block mb-15',
+  logoContainer: 'footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list pt-0 pb-20 pr-20 pl-20 md:pl-30',
   listItem: 'footer__list-item pt-10 pb-10',
@@ -104,11 +104,15 @@ const StandardFooter = props => {
               {el.position && (
                 <li className={classes.listItem} key={el.name}>
                   <span
-                    className={`${classes.listLinkTitle} ${classes.contactPosition}`}>
+                    className={`${classes.listLinkTitle} ${
+                      classes.contactPosition
+                    }`}>
                     {el.position}:
                   </span>
                   <span
-                    className={`${classes.listLinkInfo} ${classes.contactName}`}>
+                    className={`${classes.listLinkInfo} ${
+                      classes.contactName
+                    }`}>
                     {el.name}
                   </span>
                 </li>
@@ -142,20 +146,18 @@ const StandardFooter = props => {
         <p className={classes.sitesItemTitle}>Red el comercio</p>
         <ul className={classes.sitesList}>
           {gecSites.map(site => {
-            if (site.arcSite !== arcSite) {
-              return (
-                <li className={classes.sitesItem} key={site.url}>
-                  <a
-                    className={classes.sitesLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={site.url}>
-                    {site.name}
-                  </a>
-                </li>
-              )
-            }
-            return ''
+            if (site.arcSite === arcSite) return ''
+            return (
+              <li className={classes.sitesItem} key={site.url}>
+                <a
+                  className={classes.sitesLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={site.url}>
+                  {site.name}
+                </a>
+              </li>
+            )
           })}
         </ul>
       </div>
