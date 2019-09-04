@@ -175,6 +175,10 @@ export default {
       {
         position: 'Club El Comercio',
         name: 'clubelcomercio@comercio.com.pe',
+        link: {
+          name: 'Compromiso de Autorregulación Comercial',
+          url: '/compromiso-autoregulacion-comercial.pdf',
+        },
       },
     ],
   },

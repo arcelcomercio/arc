@@ -1,36 +1,40 @@
 import React from 'react'
 
 const classes = {
-  // TODO: tama;o de fuentes fijas
-  // TODO: tama;o de imagen
-  footer: '',
+  footer: 'secondary-font',
   container: 'flex flex-col p-30 bg-primary md:flex-row',
   /** ---------------------- */
-  info: 'flex-1 pr-20 pl-20 position-relative',
-  logoBox: 'block mb-15',
+  info: 'flex-1 pr-20 pl-20 position-relative text-center md:text-left',
+  logoBox: 'footer__logo-container inline-block mb-15',
   logo: 'w-full',
   legalList: 'font-normal',
-  legalItem: 'text-sm line-h-sm text-center md:text-left',
-  // TODO: gda must be inside of a block
-  gdaImg: 'position-absolute bottom-0', // TODO: hide in mobile
-  gdaText: 'position-absolute bottom-0 text-sm line-h-sm',
+  legalItem: 'text-sm line-h-md text-center md:text-left',
+  legalLink: '',
+  gda: 'position-absolute bottom-0 hidden md:block',
+  gdaImg: 'mb-5',
+  gdaText: 'text-sm line-h-sm',
   /** ---------------------- */
-  directors: 'flex-1 pr-20 pl-20 hidden md:block',
+  directors:
+    'flex-1 pr-20 pl-20 hidden border-l-1 border-dashed border-black md:block',
   directorsItem: 'mb-20',
-  directorsTitle: 'text-sm line-h-sm uppercase',
-  directorsNames: 'text-sm line-h-md font-bold',
+  directorsTitle: 'text-sm line-h-xs uppercase mb-5',
+  directorsNames: 'text-xs line-h-lg font-bold',
   /** ---------------------- */
-  contact: 'flex-1 pr-20 pl-20 hidden lg:block',
+  contact:
+    'flex-1 pr-20 pl-20 hidden border-l-1 border-dashed border-black lg:block',
   contactList: '',
   contactItem: 'mb-20',
   contactTitle: 'text-sm line-h-sm',
-  contactLink: 'text-md line-h-md underline',
+  contactLink: 'text-sm line-h-md underline',
+  linksList: '',
+  linksItem: 'text-sm line-h-md mb-5 text-left',
+  linksLink: 'block',
   /** ---------------------- */
   sites: 'p-20',
   sitesTitle: 'text-sm line-h-sm text-center uppercase mb-10 font-bold',
   sitesList: 'flex flex-wrap justify-center',
-  sitesItem: 'border-r-1 border-solid border-black',
-  sitesLink: 'pt-5 pb-5 pr-10 pl-10 text-sm line-h-sm',
+  sitesItem: 'footer__sites-item position-relative',
+  sitesLink: 'pb-5 pr-10 pl-10 text-sm line-h-sm inline-block',
 }
 
 const SITES_TITLE = 'Visite también'
@@ -42,6 +46,7 @@ const ElComercioChildFooter = ({
   directors,
   contacts,
   logoUrl,
+  gdaLogo,
   gecSites,
   gda,
   arcSite,
@@ -67,10 +72,15 @@ const ElComercioChildFooter = ({
             ))}
           </address>
           {gda && (
-            <>
-              <span className={classes.gdaImg}>X</span>
+            <div className={classes.gda}>
+              <img
+                className={`${isAdmin ? '' : 'lazy'} ${classes.gdaImg}`}
+                src={isAdmin ? gdaLogo : ''}
+                data-src={gdaLogo}
+                alt={`Logo de ${GDA_TEXT}`}
+              />
               <p className={classes.gdaText}>{GDA_TEXT}</p>
-            </>
+            </div>
           )}
         </div>
         <div className={classes.directors}>
@@ -101,7 +111,7 @@ const ElComercioChildFooter = ({
           <ul className={classes.contactList}>
             {contacts &&
               contacts.map(
-                ({ position, name }) =>
+                ({ position, name, link }) =>
                   position &&
                   name && (
                     <li className={classes.contactItem} key={`contact-${name}`}>
@@ -111,22 +121,37 @@ const ElComercioChildFooter = ({
                         }`}>
                         {position}
                       </h5>
-                      <a href="/" className={classes.contactLink}>
+                      <a
+                        href={name.includes('@') ? `mailto:${name}` : name}
+                        className={classes.contactLink}>
                         {name}
                       </a>
+                      {link && (
+                        <>
+                          <br />
+                          <a
+                            href={
+                              link.url && link.url.includes('@')
+                                ? `mailto:${link.url}`
+                                : link.url
+                            }
+                            className={classes.contactLink}>
+                            {link.name}
+                          </a>
+                        </>
+                      )}
                     </li>
                   )
               )}
           </ul>
           {legalLinks && (
-            // TODO: Custom classes for legalLinks
-            <ul className={classes.contactList}>
+            <ul className={classes.linksList}>
               {legalLinks.map(
                 ({ name, url }) =>
                   name &&
                   url && (
-                    <li className={classes.contactItem} key={`contact-${name}`}>
-                      <a href={url} className={classes.contactLink}>
+                    <li className={classes.linksItem} key={`legal-${name}`}>
+                      <a href={url} className={classes.linksLink}>
                         - {name}
                       </a>
                     </li>

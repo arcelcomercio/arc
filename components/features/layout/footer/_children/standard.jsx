@@ -12,7 +12,7 @@ const classes = {
   sitesLink: 'footer__sites-link text-gray-200 primary-font',
   legalList: 'footer__legal-list text-md',
   legalItem: `footer__legal-item mb-10 text-gray-300 line-h-none text-xs primary-font`,
-  logoContainer: 'footer__logo footer__logo-container block mb-15',
+  logoContainer: 'footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list pt-0 pb-20 pr-20 pl-20 md:pl-30',
   listItem: 'footer__list-item pt-10 pb-10',

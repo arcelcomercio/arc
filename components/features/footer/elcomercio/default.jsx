@@ -19,12 +19,16 @@ const FooterElComercio = () => {
   const logoUrl =
     deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) || ''
 
+  const gdaLogo =
+    deployment(`${contextPath}/resources/assets/footer/logo-gda.png`) || ''
+
   const params = {
     legalLinks,
     siteLegal,
     directors,
     contacts,
     logoUrl,
+    gdaLogo,
     gecSites,
     gda,
     arcSite,
@@ -35,5 +39,6 @@ const FooterElComercio = () => {
 }
 
 FooterElComercio.label = 'Pié de página - El Comercio'
+FooterElComercio.static = true
 
 export default FooterElComercio
