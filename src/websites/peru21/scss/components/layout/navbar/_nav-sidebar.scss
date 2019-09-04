@@ -1,6 +1,7 @@
 .nav-sidebar {
   background-color: $color-base-700;
   &__body {
+    padding-top: 0;
     padding-left: 0;
   }
   &__item {
@@ -26,5 +27,12 @@
   }
   &__parent-item {
     color: $color-base-600;
+  }
+  &__footer {
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
+  &__search {
+    padding-bottom: 0;
   }
 }

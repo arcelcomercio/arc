@@ -461,18 +461,24 @@ export const optaWidgetHtml = html => {
 
 export const imageHtml = html => {
   let resHtml = ''
-  const rplImageCde =
-    '<amp-img class="media" src="$2" layout="responsive" width="304" height="190"></amp-img>'
-  const rplImageCde1 =
-    '<amp-img class="media" src="$1" layout="responsive" width="304" height="190"></amp-img>'
+  resHtml = html
+    .replace('<figure>', '')
+    .replace('</figure>', '')
+    .replace(/(width="(.+?)")/g, '')
+    .replace(/(height="(.+?)")/g, '')
 
-  resHtml = html.replace(/<img (.*)src="(.+?)" alt="(.+?)">/g, rplImageCde)
+  const rplImageCde =
+    '<amp-img class="media" src="$2" layout="responsive" width="304" height="200"></amp-img>'
+  const rplImageCde1 =
+    '<amp-img class="media" src="$1" layout="responsive" width="304" height="200"></amp-img>'
+
+  resHtml = resHtml.replace(/<img (.*)src="(.+?)" alt="(.+?)">/g, rplImageCde)
   resHtml = resHtml.replace(
     /<div class="nota-media"><img src="(.*?)" border="0" width="(.+)"(.*)><\/div>/g,
     rplImageCde1
   )
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
-  resHtml = resHtml.replace(/<p><img src="(.*?)">/g, rplImageCde1)
+  resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
   return resHtml
 }
 
@@ -522,6 +528,9 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/(<script.*?>).*?(<\/script>)/g, '')
     .replace(/<html_free><blockquote (.*)">/g, '')
     .replace(/<\/blockquote><\/html_free>/g, '')
+    .replace('</p>', '')
+    .replace('<p>', '')
+    .replace('http://', 'https://')
 }
 
 export const facebookHtml = html => {

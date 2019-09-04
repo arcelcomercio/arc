@@ -19,8 +19,8 @@ export default ({
     arcSite,
   })
 
-  const subSection = formatSlugToText(sectionLink, 2)
-  const section = formatSlugToText(sectionLink, 1)
+  const subSection = formatSlugToText(sectionLink, 2) || 'not set'
+  const section = formatSlugToText(sectionLink, 1) || 'not set'
 
   const ampAnalytics = `
   {
