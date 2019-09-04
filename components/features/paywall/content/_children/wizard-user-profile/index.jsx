@@ -67,8 +67,8 @@ function WizardUserProfile(props) {
     })
 
     const qs = parseQueryString(window.location.search)
-    const sandboxName = qs.qa ? 'DEMO SANDBOX' : props.firstName
-    const firstName = isProd ? props.firstName : sandboxName
+    const sandboxName = qs.qa ? values.firstName : 'DEMO SANDBOX'
+    const firstName = isProd ? values.firstName : sandboxName
 
     Sales.then(sales =>
       sales
