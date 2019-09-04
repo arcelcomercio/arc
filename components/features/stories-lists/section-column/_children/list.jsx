@@ -3,7 +3,7 @@ import StoriesListCardChildItem from './item'
 import StoryData from '../../../../utilities/story-data'
 
 const classes = {
-  list: 'stories-l-card__list bg-white overflow-y-auto pr-20 pl-20',
+  list: 'stories-l-card__list bg-white overflow-y-auto',
 }
 
 const StoriesListsCardChildList = ({

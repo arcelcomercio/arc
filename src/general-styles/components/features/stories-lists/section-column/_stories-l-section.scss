@@ -1,0 +1,22 @@
+.stories-l-section {
+  .stories-l-header {
+    background-color: $color-base-200;
+  }
+  .stories-l-item {
+    border-style: dashed;
+    &:first-child {
+      padding-top: 0;
+      .stories-l-item__link {
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
+  }
+  .stories-l-card__image {
+    height: 169px;
+    max-height: none;
+  }
+  .stories-l-item__link {
+    font-size: 14px;
+  }
+}
