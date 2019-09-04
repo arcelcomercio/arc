@@ -14,7 +14,14 @@ export default ({
   arcSite,
   globalContent,
 }) => {
-  const { id, multimediaType, sectionLink, author, link } = new StoryData({
+  const {
+    id,
+    multimediaType,
+    sectionLink,
+    author,
+    link,
+    nucleoOrigen,
+  } = new StoryData({
     data: globalContent,
     arcSite,
   })
@@ -35,6 +42,7 @@ export default ({
       "cd7": "${getMultimedia(multimediaType, true)}",
       "cd8": "${id}",
       "cd15": "${author}",
+      "cd16": "${nucleoOrigen}",
       "ds": "AMP"
     },        
     "triggers": {

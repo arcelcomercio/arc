@@ -461,18 +461,16 @@ export const optaWidgetHtml = html => {
 
 export const imageHtml = html => {
   let resHtml = ''
-  resHtml = html
-    .replace('<figure>', '')
-    .replace('</figure>', '')
-    .replace(/(width="(.+?)")/g, '')
-    .replace(/(height="(.+?)")/g, '')
+  resHtml = html.replace('<figure>', '').replace('</figure>', '')
 
   const rplImageCde =
-    '<amp-img class="media" src="$2" layout="responsive" width="304" height="200"></amp-img>'
+    '<amp-img class="media 1" src="$2" layout="responsive" width="304" height="200"></amp-img>'
   const rplImageCde1 =
-    '<amp-img class="media" src="$1" layout="responsive" width="304" height="200"></amp-img>'
+    '<amp-img class="media 2" src="$1" layout="responsive" width="304" height="200"></amp-img>'
 
-  resHtml = resHtml.replace(/<img (.*)src="(.+?)" alt="(.+?)">/g, rplImageCde)
+  resHtml = resHtml
+    .replace(/<img (.*) src="(.*)" width="(.*?)" (.*)\/>/g, rplImageCde)
+    .replace(/<img (.*)src="(.+?)" alt="(.+?)">/g, rplImageCde)
   resHtml = resHtml.replace(
     /<div class="nota-media"><img src="(.*?)" border="0" width="(.+)"(.*)><\/div>/g,
     rplImageCde1
@@ -508,7 +506,7 @@ export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
   if (ConfigParams.SITE_PERU21 === arcSite) {
     htmlDataTwitter = htmlDataTwitter.replace(
-      /(\/media\/([0-9-A-Z])\w+)/g,
+      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://g21.peru21.pe$1'
     )
   }
@@ -530,10 +528,15 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<\/blockquote><\/html_free>/g, '')
     .replace('</p>', '')
     .replace('<p>', '')
+    .replace(
+      /<iframe frameborder="(.*)" src="(.*)"><\/iframe>/g,
+      '<amp-youtube class="media" data-videoid="$2" layout="responsive" width="550" height="1"></amp-youtube>'
+    )
     .replace('http://', 'https://')
 }
 
 export const facebookHtml = html => {
+  let resultHtml = html
   const strFacebook = '/<iframe src="(.*?)&width=500"></iframe>/g'
   const rplFacebook =
     '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
@@ -548,15 +551,23 @@ export const facebookHtml = html => {
   const rplFacebookPage =
     '<amp-facebook-page width="340" height="130" layout="fixed" data-hide-cover="$5" data-href="$1"></amp-facebook-page>'
   const strFacebookRoot = '/<div id="fb-root"></div>/g'
-  return html
+  const facebookResult = resultHtml.match(
+    /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/
+  )
+
+  if (facebookResult) {
+    resultHtml = resultHtml.replace(
+      /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/g,
+      rplFacebook3
+    )
+    resultHtml = decodeURIComponent(resultHtml)
+  }
+
+  return resultHtml
     .replace(strFacebookPage, rplFacebookPage)
     .replace(strFacebookRoot, '')
     .replace(strFacebook, rplFacebook)
     .replace(strFacebook2, rplFacebook2)
-    .replace(
-      /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/g,
-      decodeURIComponent(rplFacebook3)
-    )
 }
 
 export const youtubeHtml = html => {
@@ -573,6 +584,7 @@ export const youtubeHtml = html => {
       rplYoutube
     )
 }
+
 export const replaceHtmlMigracion = html => {
   return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
 }
