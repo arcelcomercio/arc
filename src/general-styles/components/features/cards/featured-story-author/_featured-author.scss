@@ -12,4 +12,18 @@
     -webkit-line-clamp: 3;
     max-height: calc(1.5rem * 1.16667 * 3);
   }
+
+  &.second {
+    .featured-author {
+      &__img-link {
+        width: 50%;
+      }
+      &__content {
+        width: 50%;
+      }
+      &__img {
+        max-height: 374px;
+      }
+    }
+  }
 }

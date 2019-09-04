@@ -20,6 +20,8 @@ const params = [
   },
 ]
 
+let storyNumber = ''
+
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
 
@@ -37,28 +39,35 @@ const pattern = (key = {}) => {
   if (feedOffset < 1) {
     throw new Error('El campo "Número de la noticia" debe ser mayor a 0')
   }
+  storyNumber = feedOffset - 1
 
-  return `/content/v4/collections?website=${website}&_id=${id}&size=1&from=${feedOffset -
-    1}`
+  return `/content/v4/collections?website=${website}&_id=${id}`
 }
 
 const transform = data => {
-  const { content_elements: stories = [] } = data || {}
+  if (data === null || data === undefined || data === '') {
+    return {}
+  }
 
-  const { resizerUrl } = getProperties(website)
+  const { content_elements: rawStories = [] } = data || {}
+
+  const stories = rawStories.filter(story => story.type === 'story')
 
   for (let i = 0; i < stories.length; i++) {
     stories[i].content_elements = []
   }
-  if (stories.length > 0) {
+
+  if (stories[storyNumber]) {
+    const { resizerUrl } = getProperties(website)
+
     return addResizedUrlsToStory(
-      stories,
+      [stories[storyNumber]],
       resizerUrl,
       resizerSecret,
       addResizedUrls
     )[0]
   }
-  return {}
+  throw new Error(`No existe una historia en la posición ${storyNumber + 1}`)
 }
 const resolve = key => pattern(key)
 
