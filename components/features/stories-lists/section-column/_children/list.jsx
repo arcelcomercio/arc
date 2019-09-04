@@ -33,6 +33,7 @@ const StoriesListsCardChildList = ({
           multimediaType: Story.multimediaType,
           isAdmin,
           author: Story.author,
+          urlAutor: Story.authorLink,
         }
 
         return <StoriesListCardChildItem {...params} />

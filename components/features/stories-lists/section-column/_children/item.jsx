@@ -17,6 +17,7 @@ const StoriesListsCardChildItem = ({
   multimediaType,
   isAdmin,
   author,
+  urlAutor,
 }) => {
   return (
     <article role="listitem" className={classes.story}>
@@ -28,12 +29,12 @@ const StoriesListsCardChildItem = ({
 
       <div className={classes.linkBox}>
         <a href={urlNews} title={title}>
-          <h3 className={classes.link}>
-            {title}
-          </h3>
+          <h3 className={classes.link}>{title}</h3>
         </a>
       </div>
-      <span>{author}</span>
+      <span>
+        <a href={urlAutor}>{author}</a>
+      </span>
     </article>
   )
 }
