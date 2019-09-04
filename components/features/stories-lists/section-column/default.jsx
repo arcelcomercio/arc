@@ -61,6 +61,6 @@ SectionColumnListCard.propTypes = {
 }
 
 SectionColumnListCard.label = 'Noticias por sección'
-SectionColumnListCard.static = true
+// SectionColumnListCard.static = true
 
 export default SectionColumnListCard

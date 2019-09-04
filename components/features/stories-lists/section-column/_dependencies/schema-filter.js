@@ -17,12 +17,12 @@ export default arcSite => {
               basic { url type resized_urls { landscape_md lazy_default  } }
             }
           }
-          credits{
-            by{
-              type
-              name
-              url
-            }
+        }
+        credits{
+          by{
+            type
+            name
+            url
           }
         }
       }

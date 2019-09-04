@@ -23,9 +23,6 @@ const StoriesListsCardChildList = ({
     <div role="list" className={classes.list}>
       {listNews.map((el, index) => {
         Story.__data = el
-        // const data = Story.attributesRaw
-        debugger
-
         const params = {
           key: Story.websiteLink,
           seeImageNews: index === 0 && true,
