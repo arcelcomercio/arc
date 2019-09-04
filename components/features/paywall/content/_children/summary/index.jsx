@@ -75,8 +75,9 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
         </S.Expand>
         {/* <S.Description>{description.cart}</S.Description> */}
         <S.Description>
-          <Markdown>{description.description}</Markdown>
+          <strong>{description.title}</strong>
         </S.Description>
+        <S.Description>{description.description}</S.Description>
       </S.Content>
     </div>
   )
