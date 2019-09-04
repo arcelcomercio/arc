@@ -155,4 +155,5 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  gda: false, // Grupo Diarios de America
 }
