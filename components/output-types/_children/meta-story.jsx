@@ -113,6 +113,25 @@ export default ({
       },`
     : ''
 
+  const imagenData = imagesSeoItems[1]
+    ? `"image":[ ${imagesSeoItems} ],`
+    : `"image": ${imagesSeoItems},`
+
+  const imagenDefoult = imagesSeoItems[0]
+    ? imagenData
+    : ` "image": {
+      "@type": "ImageObject",
+      "url": "${siteUrl}${deployment(
+        `${contextPath}/resources/dist/${arcSite}/images/logo-story-default.jpg`
+      )}",
+      "description": "${siteName}",
+      "height": 418,
+      "width": 696
+    },`
+
+  const dataVideo =
+    `  "video":[ ${videoSeoItems}
+  ],` || ''
   const structuredData = `{  
     "@context":"http://schema.org",
     "@type":"NewsArticle",
@@ -125,11 +144,8 @@ export default ({
        "@type":"WebPage",
        "@id":"${siteUrl}${link}"
     },
-    "image":[  
-       ${imagesSeoItems}
-    ],
-    "video":[ ${videoSeoItems}
-    ],
+    ${imagenDefoult}
+    ${(videoSeoItems[0] && dataVideo) || ''}
     "author":{  
        "@type":"Person",
        "name":"${seoAuthor}"
@@ -205,7 +221,10 @@ export default ({
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDate} />
       {sourceId && (
-        <meta name="cms_old_id" content={sourceId.match(/_story([0-9]+)/, '$1')[1]} />
+        <meta
+          name="cms_old_id"
+          content={sourceId.match(/_story([0-9]+)/, '$1')[1]}
+        />
       )}
       {sourceUrlOld && <meta name="cms_old_url" content={sourceUrlOld} />}
       <meta name="bi3dArtId" content="639992" />

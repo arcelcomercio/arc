@@ -21,10 +21,15 @@ const classes = {
 @Consumer
 class LayoutAmpHeader extends PureComponent {
   render() {
-    const { contextPath, arcSite, deployment } = this.props
+    const {
+      contextPath,
+      arcSite,
+      deployment,
+      siteProperties: { siteUrl },
+    } = this.props
     const imgLogo =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
+        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
       ) || ''
     return (
       <>
@@ -35,8 +40,8 @@ class LayoutAmpHeader extends PureComponent {
                 <amp-img
                   src={imgLogo}
                   alt={arcSite}
-                  width="120"
-                  height="26"
+                  width="73"
+                  height="51"
                   tabindex="0"
                 />
               </a>

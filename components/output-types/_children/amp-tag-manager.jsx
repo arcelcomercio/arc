@@ -14,13 +14,20 @@ export default ({
   arcSite,
   globalContent,
 }) => {
-  const { id, multimediaType, sectionLink, author, link } = new StoryData({
+  const {
+    id,
+    multimediaType,
+    sectionLink,
+    author,
+    link,
+    nucleoOrigen,
+  } = new StoryData({
     data: globalContent,
     arcSite,
   })
 
-  const subSection = formatSlugToText(sectionLink, 2)
-  const section = formatSlugToText(sectionLink, 1)
+  const subSection = formatSlugToText(sectionLink, 2) || 'not set'
+  const section = formatSlugToText(sectionLink, 1) || 'not set'
 
   const ampAnalytics = `
   {
@@ -35,6 +42,7 @@ export default ({
       "cd7": "${getMultimedia(multimediaType, true)}",
       "cd8": "${id}",
       "cd15": "${author}",
+      "cd16": "${nucleoOrigen}",
       "ds": "AMP"
     },        
     "triggers": {

@@ -48,5 +48,10 @@
     "_id": "laprensa",
     "display_name": "La Prensa",
     "is_default_website": false
+  },
+  {
+    "_id": "peru21g21",
+    "display_name": "Peru21 G21",
+    "is_default_website": false
   }
 ]
