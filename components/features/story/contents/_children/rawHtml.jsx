@@ -15,9 +15,10 @@ class rawHTML extends PureComponent {
       const beginURL = content.indexOf('<script')
       const endURL = content.lastIndexOf('</script>')
       const script = content.slice(beginURL, endURL + 9)
-      this.newContent = content.replace(script, '')
+      const scriptResult = script.replace('src="//', 'src="https://')
+      this.newContent = content.replace(scriptResult, '')
       const rgexpURL = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/
-      const [URI] = rgexpURL.exec(script)
+      const [URI] = rgexpURL.exec(scriptResult)
       this.URL = URI
     } else {
       this.newContent = content
@@ -25,7 +26,7 @@ class rawHTML extends PureComponent {
   }
 
   componentDidMount() {
-    if (this.URL) {
+    if (this.URL && 1 === 2) {
       appendToBody(createScript({ src: this.URL, async: true }))
     }
   }

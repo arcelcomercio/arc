@@ -516,6 +516,8 @@ export const iframeHtml = (html, arcSite = '') => {
 
   const rplIframe =
     '<amp-iframe class="media" src="http$2"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
+  const rplIframe1 =
+    '<amp-iframe class="media" src="$1"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
 
   htmlDataTwitter = htmlDataTwitter
     .replace(/<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g, rplTwitter)
@@ -533,6 +535,8 @@ export const iframeHtml = (html, arcSite = '') => {
       '<amp-youtube class="media" data-videoid="$2" layout="responsive" width="550" height="1"></amp-youtube>'
     )
     .replace('http://', 'https://')
+    .replace(/<iframe src="(.*)" width="(.*?)" (.*)><\/iframe>/g, rplIframe1)
+    .replace('src="//', 'src="https://')
 }
 
 export const facebookHtml = html => {
