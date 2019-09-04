@@ -9,15 +9,14 @@ const classes = {
 }
 
 const StoriesListsCardChildItem = ({
-  seeHour,
   seeImageNews,
-  time,
   title,
   urlNews,
   multimedia,
   lazyImage,
   multimediaType,
   isAdmin,
+  author,
 }) => {
   return (
     <article role="listitem" className={classes.story}>
@@ -30,10 +29,11 @@ const StoriesListsCardChildItem = ({
       <div className={classes.linkBox}>
         <a href={urlNews} title={title}>
           <h3 className={classes.link}>
-            {seeHour && <time className={classes.time}>{time}</time>} {title}
+            {title}
           </h3>
         </a>
       </div>
+      <span>{author}</span>
     </article>
   )
 }

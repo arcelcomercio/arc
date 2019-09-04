@@ -1,15 +1,12 @@
 import React from 'react'
 import StoriesListCardChildItem from './item'
 import StoryData from '../../../../utilities/story-data'
-import { formatDateLocalTimeZone } from '../../../../utilities/helpers'
 
 const classes = {
   list: 'stories-l-card__list bg-white overflow-y-auto pr-20 pl-20',
 }
 
 const StoriesListsCardChildList = ({
-  seeHour,
-  seeImageNews,
   listNews,
   deployment,
   arcSite,
@@ -27,19 +24,18 @@ const StoriesListsCardChildList = ({
       {listNews.map((el, index) => {
         Story.__data = el
         // const data = Story.attributesRaw
+        debugger
 
         const params = {
           key: Story.websiteLink,
-          seeHour,
-          seeImageNews:
-            seeImageNews === true && index === 0 /* ? true : false */,
-          time: formatDateLocalTimeZone(Story.displayDate),
+          seeImageNews: index === 0 && true,
           title: Story.title,
           urlNews: Story.websiteLink,
           multimedia: Story.multimediaLandscapeMD,
           lazyImage: Story.multimediaLazyDefault,
           multimediaType: Story.multimediaType,
           isAdmin,
+          author: Story.author,
         }
 
         return <StoriesListCardChildItem {...params} />

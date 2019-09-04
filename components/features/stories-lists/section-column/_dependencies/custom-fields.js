@@ -19,25 +19,6 @@ const customFields = PropTypes.shape({
     defaultValue: 'bg-info',
     group: 'Configuración',
   }),
-
-  storiesQty: PropTypes.number.tag({
-    name: 'Número de noticias',
-    defaultValue: 5,
-    group: 'Configuración',
-  }),
-  
-  seeHour: PropTypes.bool.tag({
-    name: 'Ver hora',
-    group: 'Configuración',
-  }),
-  seeImageNews: PropTypes.bool.tag({
-    name: 'Ver imagen',
-    group: 'Configuración',
-  }),
-  seeMoreurl: PropTypes.string.tag({
-    name: 'URL de Ver más',
-    group: 'Configuración',
-  }),
 })
 
 export default customFields

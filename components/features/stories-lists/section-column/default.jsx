@@ -14,25 +14,18 @@ const classes = {
     'stories-l-card bg-white flex flex-col overflow-hidden border-1 border-solid border-base',
 }
 
-const StoriesListCard = props => {
+const newsNumber =5
+
+const SectionColumnListCard = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const {
-    customFields: {
-      section,
-      storiesQty,
-      titleList,
-      urlTitle,
-      background,
-      
-      seeHour,
-      seeImageNews,
-    },
+    customFields: { section, titleList, urlTitle, background },
   } = props
 
   const params = {
     section,
     excludeSections: '/impresa',
-    stories_qty: storiesQty,
+    stories_qty: newsNumber,
   }
   const data =
     useContent({
@@ -48,8 +41,6 @@ const StoriesListCard = props => {
   }
 
   const paramsList = {
-    seeHour,
-    seeImageNews,
     deployment,
     arcSite,
     contextPath,
@@ -65,11 +56,11 @@ const StoriesListCard = props => {
   )
 }
 
-StoriesListCard.propTypes = {
+SectionColumnListCard.propTypes = {
   customFields,
 }
 
-StoriesListCard.label = 'Noticias por sección'
-StoriesListCard.static = true
+SectionColumnListCard.label = 'Noticias por sección'
+SectionColumnListCard.static = true
 
-export default StoriesListCard
+export default SectionColumnListCard
