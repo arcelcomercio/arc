@@ -55,6 +55,7 @@ export const CardSummary = styled.div`
 `
 
 export const Item = styled.div`
+  font-size: 14px;
   margin-bottom: 17px;
 `
 
@@ -116,7 +117,7 @@ export const Picture = styled.picture`
 `
 
 export const DetailTitle = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   line-height: 2.14;
   margin-bottom: 15px;
 `
