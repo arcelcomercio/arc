@@ -48,6 +48,7 @@ const ListItemNews = (contentElements, buildProps) => {
         newsType: getMultimedia(storydata.multimediaType),
         pageview,
         newsTitle: storydata.title,
+        nucleoOrigen: storydata.nucleoOrigen,
       }
 
       const BuildHtmlProps = {
@@ -81,7 +82,9 @@ const ListItemNews = (contentElements, buildProps) => {
           <link>${ItemDataXml.pagePath}</link>
           <guid>${ItemDataXml.codigoGUID}</guid>
           <author>${ItemDataXml.author}</author>
-          <content:encoded><![CDATA[${ItemDataXml.htmlString}]]></content:encoded>
+          <content:encoded><![CDATA[${
+            ItemDataXml.htmlString
+          }]]></content:encoded>
           <slash:comments>0</slash:comments>
         </item>
       `
