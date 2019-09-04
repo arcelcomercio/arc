@@ -40,12 +40,12 @@ const WideNavGridLayout = ({ children = [] }) => {
             {children[5] /* Contenido */}
           </div>
           {children[6] && (
-            <section className={classes.aditional}>{children[7]}</section>
+            <section className={classes.aditional}>{children[6]}</section>
           ) /* Contenido adicional */}
         </div>
-        <div className={classes.zocalo}>{children[8] /* Zocalo derecha */}</div>
+        <div className={classes.zocalo}>{children[7] /* Zocalo derecha */}</div>
       </div>
-      {children[9] /* Pie de página */}
+      {children[8] /* Pie de página */}
     </div>
   )
 }
