@@ -1,0 +1,22 @@
+.stories-l-header {
+  &__title {
+    color: $color-primary;
+    font-size: 13px;
+    h4 {
+      font-weight: 700;
+    }
+  }
+  &__see-more {
+    font-family: $secondary-font;
+    background-color: transparent;
+    color: $color-primary;
+    font-weight: 700;
+  }
+
+  &.bg-info {
+    background-color: $color-base-400;
+  }
+  &.bg-white {
+    background-color: $color-gray-100;
+  }
+}
