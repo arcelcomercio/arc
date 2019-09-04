@@ -37,6 +37,7 @@ export const Security = styled.div`
 
 export const TextSecurity = styled.span`
   margin-left: 10px;
+  font-size: 14px;
 `
 
 export const WrapCards = styled.div`
@@ -82,6 +83,8 @@ export const WrapInput = styled.div`
 export const Span = styled.div`
   padding: 20px 0;
   display: block;
+  font-size: 14px;
+  line-height: 24px;
 `
 
 export const WrapSubmit = styled.div`

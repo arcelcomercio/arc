@@ -79,6 +79,9 @@ const WizardConfirmation = props => {
         : HOME
   }
 
+  console.log(props)
+  console.log(paidTotal)
+  
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
@@ -108,7 +111,7 @@ const WizardConfirmation = props => {
               S/ {paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
             </Item>
             <S.Small>
-              LA SUSCRIPCIÓN SE RENOVARÁ AUTOMÁTICAMENTE DE ACUERDO A TU PLAN.
+              El precio de la suscripción se cargará automáticamente en tu tarjeta cada mes o año, según el período elegido.
             </S.Small>
           </S.CardSummary>
           <S.Span>

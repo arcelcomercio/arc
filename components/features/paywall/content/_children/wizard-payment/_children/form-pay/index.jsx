@@ -155,7 +155,8 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
             />
 
             <S.Span>
-              La suscripción se renovará automáticamente de acuerdo a tu plan.
+              El precio de la suscripción se cargará automáticamente en tu
+              tarjeta cada mes o año, según el período elegido.
             </S.Span>
 
             <S.WrapSubmit>

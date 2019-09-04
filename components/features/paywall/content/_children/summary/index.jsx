@@ -29,29 +29,37 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
   return (
     <div>
       <S.Content>
-        {amount === 0 && (
+        {amount === 0 || description.price_origin ? (
           <>
-            <S.Expand>
+            <S.Expand color="#aaaaaa">
               <span>Precio del plan</span>
               <strong>
-                <span> {`S/ ${amount}`} </span>
+                {/* <span> {`S/ ${amount}`} </span> */}
+                <span>{`S/ ${description.price_origin}`}</span>
               </strong>
             </S.Expand>
-            <S.Expand>
-              <span>Descuento de suscriptor</span>
+            <S.Expand color="#a98e7c">
+              <span>
+                <strong>Descuento de suscriptor</strong>
+              </span>
               <strong>
-                <span> {`- S/ ${amount}`} </span>
+                {/* <span> {`- S/ ${amount}`} </span> */}
+                <span>
+                  {amount === 0
+                    ? `- S/ ${description.price_origin}`
+                    : `- S/ ${description.price_origin - amount}`}
+                </span>
               </strong>
             </S.Expand>
           </>
-        )}
+        ) : null}
         {/* <S.Expand>
           <span>Precio del plan</span>
           <strong>
             <span> {amount === 0 ? 'Gratis' : `S/ ${amount}`} </span>
           </strong>
         </S.Expand> */}
-        <S.Expand size={18}>
+        <S.Expand size={18} style={{ paddingTop: '20px' }}>
           <strong>
             <span>TOTAL</span>
           </strong>
@@ -60,7 +68,7 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
               <div>
                 {(() =>
                   amount === 0 ? (
-                    'Gratis'
+                    <span style={{ fontSize: '24px' }}>Gratis</span>
                   ) : (
                     <>
                       <span style={{ fontSize: '14px' }}>S/ </span> {amount}
