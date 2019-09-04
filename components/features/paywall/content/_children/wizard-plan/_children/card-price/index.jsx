@@ -1,4 +1,5 @@
 import React from 'react'
+import Markdown from 'react-markdown'
 import Panel from '../../../../../_children/panel'
 import * as S from './styled'
 
@@ -41,12 +42,17 @@ function CardPrice(props) {
   return (
     <Panel type="card-price">
       <S.CardPrice onFocus={onFocus} onMouseOver={onMouseOver}>
+        {billingFrequency === 'Month' && (
+          <S.Header>PROMOCIÓN DE LANZAMIENTO</S.Header>
+        )}
         <S.Content>
           <S.Frecuency>{frequency[billingFrequency.toLowerCase()]}</S.Frecuency>
           <S.Amount>
             <Price amount={amount} frequency={billingFrequency} />
           </S.Amount>
-          <S.Description>{description.description}</S.Description>
+          <S.Description>
+            <Markdown>{description.description}</Markdown>
+          </S.Description>
         </S.Content>
         <S.Footer>
           <S.Button

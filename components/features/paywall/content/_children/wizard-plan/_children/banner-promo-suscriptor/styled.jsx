@@ -11,9 +11,13 @@ export const Subscribed = styled.div`
   margin-top: 30px;
   align-items: flex-end;
   position: relative;
+  @media ${devices.tablet} {
+    width: 50%;
+  }
   @media (${devices.mobile}) {
     width: calc(100% - 40px);
     margin-top: 40px;
+    margin-left: 0px;
   }
 `
 
@@ -32,9 +36,11 @@ export const SubscribedContent = styled.div`
   align-items: center;
   justify-content: space-between;
   max-height: 50px;
-  background: #d64445;
   background: ${ props => props.red ? "#d64445" : "#444444"};
-  font-size: 18px;
+  font-size: 16px;
+  @media ${devices.tablet} {
+    padding: 40px 25px;
+  }
   @media (${devices.mobile}) {
     padding: 18px 20px;
     max-height: 100px;

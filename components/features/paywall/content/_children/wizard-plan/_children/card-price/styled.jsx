@@ -11,13 +11,14 @@ const CardPrice = styled.div`
   width: 100%;
   color: #444444;
   font-weight: 700;
+  position: relative;
 `
 
 const Frecuency = styled.div`
   font-size: 16px;
   justify-content: center;
   display: flex;
-  margin: 24px 0 8px 0;
+  margin: 40px 0 8px 0;
   font-weight: normal;
 `
 
@@ -27,7 +28,7 @@ export const Amount = styled.div`
   display: flex;
   align-items: flex-end;
   line-height: 50px;
-  padding: 24px 0;
+  padding: 10px 0;
   @media (${devices.mobile}) {
     font-size: 40px;
   }
@@ -44,11 +45,11 @@ const Period = styled.span`
 `
 
 const Description = styled.div`
-  font-size: 12px;
+  font-size: 16px;
   justify-content: center;
   display: flex;
   font-weight: 300;
-  padding: 10px 60px 20px;
+  padding: 5px 60px;
   text-align: center;
   @media (${devices.mobile}) {
     padding: 8px 15px;
@@ -80,7 +81,21 @@ export const Button = styled(Btn)`
     `};
 `
 
-export { CardPrice, Frecuency, Currency, Period, Description, Content }
+const Header = styled.div`
+  background: #e05e2f;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  width: 80%;
+  margin-left: 10%;
+  text-align: center;
+  box-sizing: border-box;
+  margin-top: -15px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16);
+  position: absolute;
+`
+
+export { CardPrice, Frecuency, Currency, Period, Description, Content, Header }
 
 // .card-price--active{
 // color: #444444;

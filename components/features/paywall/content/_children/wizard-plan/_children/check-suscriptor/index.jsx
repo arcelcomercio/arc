@@ -43,26 +43,28 @@ const Content = props => {
     <S.Panel>
       <S.Content>
         <S.Title>
-          VALIDANDO TU SUSCRIPCIÓN AL DIARIO IMPRESO, APROVECHA EL DESCUENTO QUE
-          TENEMOS PARA TI:
+          Valida tu N° de documento y<br />{' '}
+          <strong>aprovecha la promoción</strong> que tenemos para ti:
         </S.Title>
         <S.Wrapbenefit>
           <S.SpanIcon>
-            <Icon type="check" /> Beneficio especial para suscriptores
+            <Icon type="check" /> Beneficio especial para
+            <br /> suscriptores del diario impreso
           </S.SpanIcon>
-          <S.Free>GRATIS</S.Free>
+          <S.Free>Gratis</S.Free>
         </S.Wrapbenefit>
         <S.Foot>
           <S.FootContent>
+            <S.SpanFoot title>
+              durante 3 meses 
+            </S.SpanFoot>
             <S.SpanFoot>
-              por los 3 primeros meses.
-              <br />
               Luego, S/ 19 cada mes.
             </S.SpanFoot>
           </S.FootContent>
-          <S.FootContent>
+          {/* <S.FootContent>
             <S.SpanFoot>Precio Regular: S/ 29 al mes</S.SpanFoot>
-          </S.FootContent>
+          </S.FootContent> */}
         </S.Foot>
       </S.Content>
       <S.Divider />

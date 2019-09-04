@@ -9,6 +9,7 @@ import BannerPromoSuscriptor from './_children/banner-promo-suscriptor'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { parseQueryString } from '../../../../../utilities/helpers'
+import getDomain from '../../../_dependencies/domains'
 
 function WizardPlan(props) {
   const {
@@ -125,15 +126,15 @@ function WizardPlan(props) {
               setOpenModal(true)
             }}
             assets={assets}
-            type='left'
+            type="left"
           />
 
           <BannerPromoSuscriptor
             onClick={() => {
-              setOpenModal(true)
+              window.location.href = getDomain('URL_CORPORATE')
             }}
             assets={assets}
-            type='right'
+            type="right"
           />
         </S.ContentBanner>
       )}
