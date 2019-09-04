@@ -44,7 +44,7 @@ class Portal extends React.PureComponent {
     const { background, serviceData = [] } = this.state
     const {
       siteProperties: {
-        paywall: { clickToCallUrl },
+        paywall: { clickToCall },
       },
     } = this.props
     return (
@@ -62,7 +62,7 @@ class Portal extends React.PureComponent {
               SUSCRIPCIONES CORPORATIVAS
             </a>
             <div className="wrap__click-to-call">
-              <ClickToCall href={clickToCallUrl} />
+              <ClickToCall href={clickToCall} />
             </div>
           </div>
         </div>

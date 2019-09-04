@@ -3,16 +3,21 @@ import { devices } from '../../../../../_dependencies/devices'
 
 export const Subscribed = styled.div`
   display: flex;
-  width: 100%;
+  width: ${ props => props.left ? "60%" : "40%"};
+  margin-left: ${ props => props.right ? "20px" : "0px"};
   max-width: 930px;
   color: #fff;
   cursor: pointer;
   margin-top: 30px;
   align-items: flex-end;
   position: relative;
+  @media ${devices.tablet} {
+    width: 50%;
+  }
   @media (${devices.mobile}) {
     width: calc(100% - 40px);
     margin-top: 40px;
+    margin-left: 0px;
   }
 `
 
@@ -25,14 +30,17 @@ export const SubscribedText = styled.div`
 `
 
 export const SubscribedContent = styled.div`
-  padding: 25px 50px;
+  padding: 25px;
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: space-between;
   max-height: 50px;
-  background: #d64445;
-  font-size: 18px;
+  background: ${ props => props.red ? "#d64445" : "#444444"};
+  font-size: 16px;
+  @media ${devices.tablet} {
+    padding: 40px 25px;
+  }
   @media (${devices.mobile}) {
     padding: 18px 20px;
     max-height: 100px;

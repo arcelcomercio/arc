@@ -10,12 +10,14 @@ import lock from './lock'
 import arrowRight from './arrow-right'
 import profile from './profile'
 import cvv from './cvv'
+import cvvfront from './cvv-front'
 import appStore from './app-store'
 import googlePlay from './google-play'
 import gloading from './gloading'
 import close from './close'
 import linkedin from './linkedin'
 import support from './support'
+import phone from './phone'
 
 export {
   check,
@@ -30,10 +32,12 @@ export {
   arrowRight,
   profile,
   cvv,
+  cvvfront,
   appStore,
   googlePlay,
   gloading,
   close,
   linkedin,
-  support
+  support,
+  phone,
 }
