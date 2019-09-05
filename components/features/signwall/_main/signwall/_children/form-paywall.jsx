@@ -100,7 +100,7 @@ class SignWallPaywall extends Component {
                     <input
                       type="button"
                       className="btn btn--blue btn-bg"
-                      value="Suscribirme"
+                      value="VER PLANES"
                       onClick={e => {
                         Taggeo(
                           `Web_${typePopUp}_Hard`,
@@ -124,8 +124,8 @@ class SignWallPaywall extends Component {
                 </div>
 
                 <p className="text-center mt-20 text-sm">
-                  Si eres suscriptor del diario impreso,
-                  <br /> descubre tu descuento.
+                  ¿ESTÁS SUSCRITO AL DIARIO IMPRESO? <br />
+                  Disfruta <strong>3 meses GRATIS</strong> y luego S/19 al mes.
                 </p>
               </>
             )}

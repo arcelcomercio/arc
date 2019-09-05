@@ -45,8 +45,12 @@ const Panel = styled.div`
         return css`
           max-width: 265px;
           @media (${devices.mobile}) {
-            max-width: calc(50% - 10px);
+            max-width: calc(100% - 10px);
             height: 100%;
+            margin-bottom: 40px;
+          }
+          &:last-child {
+            margin-bottom: 0px;
           }
         `
       default:

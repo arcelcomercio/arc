@@ -27,12 +27,13 @@ class HeaderAmpStandard extends PureComponent {
       deployment,
       siteProperties: {
         assets: { seo },
+        siteUrl,
       },
     } = this.props
 
     const imgLogo =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
+        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
       ) || ''
     return (
       <>

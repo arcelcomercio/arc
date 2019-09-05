@@ -913,7 +913,7 @@ class NavBarDefault extends PureComponent {
         {(this.getUrlParam('signwallPaywall') ||
           this.getUrlParam('signwallPremium')) &&
         showPaywall &&
-        siteProperties.activeSignwall ? (
+        siteProperties.activePaywall ? (
           <SignWallPayPre
             closePopup={() => this.closePopUp('signwallPaywall')}
             brandModal={arcSite}

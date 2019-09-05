@@ -25,7 +25,6 @@ export const Expand = styled.div`
   flex: 1;
   justify-content: space-between;
   line-height: 20px;
-  margin-bottom: 20px;
   ${({ color }) => `color: ${color || '#000'};`}
   font-size: ${({ size }) => `${size || 13}px`};
   ${({ discount }) =>
@@ -62,11 +61,13 @@ export const Description = styled.div`
   text-align: right;
   margin-left: auto;
   line-height: 1.67;
+  font-size: 14px;
 `
 export const Amount = styled.span`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  font-size: 36px;
 `
 
 export const Frequency = styled.div`

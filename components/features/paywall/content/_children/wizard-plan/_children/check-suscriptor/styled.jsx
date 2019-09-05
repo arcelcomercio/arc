@@ -21,7 +21,7 @@ export const Background = styled.div`
 
 export const Panel = styled.div`
   box-sizing: border-box;
-  width: 820px;
+  width: 860px;
   height: 300px;
   border-radius: 4px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
@@ -29,6 +29,9 @@ export const Panel = styled.div`
   padding: 40px 50px;
   display: flex;
   color: #444;
+  @media ${devices.tablet} {
+    width: 800px;
+  }
   @media (${devices.mobile}) {
     flex-direction: column;
     height: auto;
@@ -43,8 +46,8 @@ export const Content = styled.div`
 `
 
 export const Title = styled.span`
-  font-size: 14px;
-  line-height: 2;
+  font-size: 18px;
+  line-height: 32px;
   letter-spacing: 0.56px;
   text-align: center;
   margin-bottom: 35px;
@@ -65,7 +68,7 @@ export const Wrapbenefit = styled.div`
 `
 
 export const Free = styled.span`
-  font-size: 18px;
+  font-size: 40px;
   font-weight: bold;
 `
 
@@ -73,7 +76,6 @@ export const Foot = styled.div`
   display: flex;
   flex: 1;
   font-size: 12px;
-  justify-content: flex-end;
   flex-direction: column;
   align-items: flex-end;
   @media (${devices.mobile}) {
@@ -87,7 +89,6 @@ export const FootContent = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
-  margin-top: 25px;
   @media (${devices.mobile}) {
     margin: 0;
     max-width: inherit;
@@ -122,6 +123,11 @@ export const Divider = styled.div`
 export const SpanFoot = styled.span`
   line-height: 24px;
   text-align: right;
+  font-size: ${props => (props.title ? '16px' : '14px')};
+  font-weight: ${props => (props.title ? 'bold' : 'normal')};
+  @media (${devices.mobile}) {
+    text-align: center;
+  }
 `
 
 export const Icon = styled.i`
