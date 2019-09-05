@@ -122,6 +122,7 @@ export const Divider = styled.div`
 export const SpanFoot = styled.span`
   line-height: 24px;
   text-align: right;
+  display: block;
   font-size: ${props => (props.title ? '16px' : '14px')};
   font-weight: ${props => (props.title ? 'bold' : 'normal')};
   @media (${devices.mobile}) {
