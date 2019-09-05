@@ -1,4 +1,3 @@
-import schemaFilter from './schema-filter'
 import { formatDayMonthYear } from '../../../../utilities/helpers'
 
 export default class StandardHeader {
@@ -8,7 +7,8 @@ export default class StandardHeader {
     siteDomain = '',
     headerProperties = {},
     arcSite = '',
-    data = {},
+    bandData = {},
+    menuData = {},
     customLogo = '',
     customLogoLink = '/',
     tags = '',
@@ -19,26 +19,25 @@ export default class StandardHeader {
     this.siteDomain = siteDomain
     this.headerProperties = headerProperties
     this.arcSite = arcSite
-    this.data = data
+    this.bandData = bandData
+    this.menuData = menuData
     this.customLogo = customLogo
     this.customLogoLink = customLogoLink
-    this.schema = schemaFilter
     this.tags = tags
     this.showDate = showDate
   }
 
-  getSchema() {
-    return this.schema
+  setBandData(bandData) {
+    this.bandData = bandData
   }
 
-  setData(data) {
-    this.data = data
+  setMenuData(menuData) {
+    this.menuData = menuData
   }
 
-  // Función para formatear data de las secciones
-  formatSections = () => {
+  formatBandData = () => {
     const link = 'link'
-    const { children = [] } = this.data || {}
+    const { children = [] } = this.bandData || {}
     return children.map(el => {
       return {
         name: el.node_type === link ? el.display_name : el.name,
@@ -50,15 +49,16 @@ export default class StandardHeader {
   getDate = () => {
     return formatDayMonthYear(new Date(), false, true) // date, showTime, isStatic
   }
-  // TODO: Crear función para formatear data de secciones con subsecciones
 
   getParams() {
-    const sections = this.formatSections()
-    const newest = {
+    const bandLinks = this.formatBandData()
+    const menuSections = []
+    const archive = {
       name: 'Lo último',
       url: '/archivo',
     }
     const { logo } = this.headerProperties
+
     return {
       logo: {
         src:
@@ -69,21 +69,14 @@ export default class StandardHeader {
         link: this.customLogoLink,
         alt: this.siteDomain,
       },
-      logoLeft: {
-        src: this.deployment(
-          `${this.contextPath}/resources/dist/${
-            this.arcSite
-          }/images/otorongo.png`
-        ),
-        alt: this.arcSite,
-      },
-      sections: [newest, ...sections],
+      bandLinks: [archive, ...bandLinks],
+      menuSections: [archive, ...menuSections],
       date: {
         active: this.showDate,
         value: this.getDate(),
       },
       tags: this.tags,
-      arcSite: this.arcSite,
+      // arcSite: this.arcSite,
     }
   }
 }

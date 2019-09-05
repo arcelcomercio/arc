@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { getResponsiveClasses } from '../../../../utilities/helpers'
-import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
   header: `header bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden lg:flex position-relative`,
@@ -17,36 +16,17 @@ const classes = {
   tags: 'header__tags justify-center mr-20 hidden md:flex',
   date: 'header__date justify-center uppercase ml-5 hidden lg:flex',
 }
+
 // TODO: Agregar el click afuera del menu
-const HeaderChildStandard = props => {
-  const { logo, logoLeft, sections, deviceList, tags, date, arcSite } = props
+const HeaderChildStandard = ({ logo, bandLinks, menuSections, tags, date }) => {
   return (
     <>
-      <header
-        className={`${classes.header} ${getResponsiveClasses(deviceList)}`}>
-        <a href={logo.link}>
-          <img src={logo.src} alt={logo.alt} className={classes.logo} />
-        </a>
-        {arcSite === ConfigParams.SITE_PERU21 && (
-          <a
-            className={classes.logoLeft}
-            href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
-            <img
-              src={logoLeft.src}
-              alt={logo.alt}
-              className={classes.logoImage}
-            />
-          </a>
-        )}
-      </header>
-      <nav
-        className={`${deviceList.showInDesktop &&
-          classes.navWrapper} ${getResponsiveClasses(deviceList)}`}>
+      <nav className={classes.navWrapper}>
         {tags !== '' && <div className={classes.tags}>{tags}</div>}
-        {sections[0] && (
+        {bandLinks && bandLinks[0] && (
           <ul className={classes.featured}>
-            {sections.map(section => (
-              <li className={classes.item} key={section.url}>
+            {bandLinks.map(section => (
+              <li className={classes.item} key={`band-${section.url}`}>
                 <a className={classes.link} href={section.url}>
                   {section.name}
                 </a>
@@ -56,6 +36,11 @@ const HeaderChildStandard = props => {
         )}
         {date.active && <div className={classes.date}>{date.value}</div>}
       </nav>
+      <header className={classes.header}>
+        <a href={logo.link}>
+          <img src={logo.src} alt={logo.alt} className={classes.logo} />
+        </a>
+      </header>
     </>
   )
 }
@@ -66,7 +51,7 @@ HeaderChildStandard.propTypes = {
     link: PropTypes.string,
     alt: PropTypes.string,
   }),
-  sections: PropTypes.arrayOf(
+  bandLinks: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       url: PropTypes.string,

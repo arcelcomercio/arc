@@ -5,6 +5,7 @@ import { useContent } from 'fusion:content'
 import getProperties from 'fusion:properties'
 
 import Formatter from './_dependencies/formatter'
+import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import HeaderChildElComercio from './_children/header'
 
@@ -47,7 +48,7 @@ const HeaderStandard = props => {
     hierarchyConfig || {}
 
   const isHierarchyReady = !!contentConfigValues.hierarchy
-  const source = isHierarchyReady ? contentService : CONTENT_SOURCE
+  const bandSource = isHierarchyReady ? contentService : CONTENT_SOURCE
   const params = isHierarchyReady
     ? contentConfigValues
     : {
@@ -55,19 +56,25 @@ const HeaderStandard = props => {
         hierarchy: BAND_HIERARCHY,
       }
 
-  const data = useContent({
-    source,
+  const bandData = useContent({
+    source: bandSource,
     query: params,
-    filter: formatter.getSchema(),
+    filter: schemaFilter,
   })
+  const menuData = {} /* useContent({
+    source: MENU_HIERARCHY,
+    query: params,
+    filter: schemaFilter,
+  }) */
 
-  formatter.setData(data)
+  formatter.setBandData(bandData)
+  formatter.setMenuData(menuData)
 
   return <HeaderChildElComercio {...formatter.getParams()} />
 }
 
-HeaderStandard.label = 'Cabecera - Estándar'
-// HeaderStandard.static = true
+HeaderStandard.label = 'Cabecera - El Comercio'
+HeaderStandard.static = true
 
 HeaderStandard.propTypes = {
   customFields,
