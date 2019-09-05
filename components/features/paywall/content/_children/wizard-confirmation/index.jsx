@@ -51,7 +51,7 @@ const WizardConfirmation = props => {
       suscriptorImpreso: printed ? 'si' : 'no',
       medioCompra: ref,
     })
-  }, [amount, billingFrequency, orderNumber, paidTotal, plan, priceCode, printed, ref, sku, subscriptionIDs])
+  }, [])
 
   const handlePWA = () => {
     PWA.finalize()
