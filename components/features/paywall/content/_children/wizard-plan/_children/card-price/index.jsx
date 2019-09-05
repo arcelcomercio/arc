@@ -2,8 +2,7 @@ import React from 'react'
 import Panel from '../../../../../_children/panel'
 import * as S from './styled'
 
-function Price({ amount, frequency}) {
-
+function Price({ amount, frequency }) {
   const period = {
     month: ' al mes',
     year: ' al año',
@@ -43,13 +42,13 @@ function CardPrice(props) {
       <S.CardPrice onFocus={onFocus} onMouseOver={onMouseOver}>
         {billingFrequency === 'Month' && amount !== 0 ? (
           <S.Header>PROMOCIÓN DE LANZAMIENTO</S.Header>
-        ):null}
+        ) : null}
         <S.Content>
           <S.Frecuency>{frequency[billingFrequency.toLowerCase()]}</S.Frecuency>
           <S.Amount>
             <Price amount={amount} frequency={billingFrequency} />
           </S.Amount>
-          <S.Description>
+          <S.Description bold>
             <strong>{description.title}</strong>
           </S.Description>
           <S.Description>{description.description}</S.Description>

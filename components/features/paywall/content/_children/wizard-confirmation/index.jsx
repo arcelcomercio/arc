@@ -51,7 +51,7 @@ const WizardConfirmation = props => {
       suscriptorImpreso: printed ? 'si' : 'no',
       medioCompra: ref,
     })
-  }, [])
+  }, [amount, billingFrequency, orderNumber, paidTotal, plan, priceCode, printed, ref, sku, subscriptionIDs])
 
   const handlePWA = () => {
     PWA.finalize()
@@ -121,7 +121,8 @@ const WizardConfirmation = props => {
               </S.Names>
             </Item>
             <Item label="PRECIO: ">
-              S/ {paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+               {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
+               { paidTotal !== 0 ?  `S/ ${paidTotal}` : 'GRATIS' }
             </Item>
             <S.Small>
               El precio de la suscripción se cargará automáticamente en tu
