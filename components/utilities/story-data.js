@@ -783,6 +783,7 @@ class StoryData {
       dataVideo
         .map(
           ({
+            _id: idVideo = '',
             promo_image: { url: urlImage },
             streams,
             publish_date: date,
@@ -792,6 +793,7 @@ class StoryData {
               .map(({ url = '', stream_type: streamType = '' }) => {
                 return streamType === 'mp4'
                   ? {
+                      idVideo,
                       url,
                       caption,
                       urlImage,
