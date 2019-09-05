@@ -76,12 +76,12 @@ function WizardUserProfile(props) {
     Sales.then(sales =>
       sales
         .createOrder(
-          email.trim(),
+          email,
           phone,
           billingAddress,
-          firstName.trim(),
-          lastName.trim(),
-          secondLastName ? secondLastName.trim() : secondLastName
+          firstName,
+          lastName,
+          secondLastName
         )
         .then(res => {
           // TODO: validar respuesta y mostrar errores de API
