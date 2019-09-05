@@ -633,7 +633,7 @@ class NavBarDefault extends PureComponent {
     } = this.state
     const {
       logo,
-      logoLetf,
+      logoLeft,
       arcSite,
       siteProperties,
       contextPath,
@@ -750,7 +750,7 @@ class NavBarDefault extends PureComponent {
                   className={classes.logoLeft}
                   href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
                   <img
-                    src={logoLetf.src}
+                    src={logoLeft.src}
                     alt={logo.alt}
                     className={classes.logoImage}
                   />

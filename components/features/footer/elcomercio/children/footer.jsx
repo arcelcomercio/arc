@@ -40,7 +40,7 @@ const classes = {
 const SITES_TITLE = 'Visite también'
 const GDA_TEXT = 'Miembro del Grupo de Diarios de América'
 
-const ElComercioChildFooter = ({
+const FooterChildElComercio = ({
   legalLinks,
   siteLegal,
   directors,
@@ -185,4 +185,4 @@ const ElComercioChildFooter = ({
   )
 }
 
-export default ElComercioChildFooter
+export default FooterChildElComercio
