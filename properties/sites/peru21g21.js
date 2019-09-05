@@ -5,8 +5,8 @@ export default {
 
   colorPrimary: '#005fa5',
   siteDomain: 'peru21.pe',
-  siteUrl: 'https://peru21.pe',
-  resizerUrl: 'https://elcomercio-peru21-prod.cdn.arcpublishing.com/resizer',
+  siteUrl: 'https://g21.peru21.pe',
+  resizerUrl: 'https://peru21.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Peru21_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
@@ -36,8 +36,8 @@ export default {
       logoAmp: 'logo-peru21-214x60.png',
       width: 214,
       height: 60,
-      widthAmp: 110,
-      heightAmp: 28,
+      widthAmp: 57,
+      heightAmp: 36,
     },
     tv: {
       siteLogo: 'favicon.png',

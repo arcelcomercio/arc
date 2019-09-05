@@ -111,7 +111,9 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
               <S.WrapInput max-width="135px">
                 <Field
                   component={Input}
-                  suffix={<Icon type="cvv" />}
+                  suffix={
+                    <Icon type={cardMethod === 'amex' ? 'cvvfront' : 'cvv'} />
+                  }
                   inputMode="numeric"
                   type="text"
                   mask={

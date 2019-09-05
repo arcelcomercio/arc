@@ -33,12 +33,13 @@ export const WrapPlan = styled.div`
   flex-direction: column;
   flex: 1;
   margin-left: 20px;
+  margin-top: 30px;
   @media (${devices.mobile}) {
-    margin: 0;
+    margin: 50px 0 0 0;
     max-width: calc(100% - 40px);
   }
   @media ${devices.tablet} {
-    margin: 0;
+    margin: 50px 0 0 0;
     max-width: calc(100% - 40px);
     width: 100%;
   }
@@ -48,6 +49,9 @@ export const Plans = styled.div`
   display: flex;
   flex: 1;
   justify-content: space-between;
+  @media (${devices.mobile}) {
+    display: contents;
+  }
 `
 
 export const PlanTitle = styled.div`
@@ -65,4 +69,18 @@ export const WelcomeSuscriptor = styled.div`
   font-size: 20px;
   text-align: center;
   margin-bottom: 50px;
+`
+
+export const ContentBanner = styled.div`
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  max-width: 930px;
+  width: 100%;
+  @media (${devices.mobile}) {
+    display: contents;
+  }
+  @media ${devices.tablet} {
+    width: 95%;
+  }
 `
