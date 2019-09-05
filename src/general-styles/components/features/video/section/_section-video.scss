@@ -7,27 +7,29 @@
     background-color: $color-gray-300;
     color: white;
     padding-bottom: 20px;
-    &.fixed {
-      .section-video__frame {
-        position: fixed;
-        z-index: 11;
-        width: 280px;
-        height: 180px;
-        left: 300px;
-        top: 52px;
-      }
-      .section-video__fixed {
-        display: flex;
-        justify-content: flex-end;
-        position: fixed;
-        z-index: 10;
-        top: 46px;
-        width: 980px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-      .section-video__share {
-        justify-content: flex-start;
+    @media (--desktop) {
+      &.fixed {
+        .section-video__frame {
+          position: fixed;
+          z-index: 11;
+          width: 280px;
+          height: 180px;
+          left: 300px;
+          top: 52px;
+        }
+        .section-video__fixed {
+          display: flex;
+          justify-content: flex-end;
+          position: fixed;
+          z-index: 10;
+          top: 46px;
+          width: 980px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        .section-video__share {
+          justify-content: flex-start;
+        }
       }
     }
   }

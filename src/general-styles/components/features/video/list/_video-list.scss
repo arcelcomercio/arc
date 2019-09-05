@@ -1,13 +1,22 @@
 .video-list {
+  margin-top: 50px;
+  @media (--desktop) {
+    &.fixed {
+      margin-top: 570px;
+    }
+  }
   &__item {
     width: 80%;
-    max-width: 230px;
+    margin-bottom: 10px;
     @media (--tablet) {
-      width: 195px;
+      width: calc(100% / 3 - 10px);
     }
     @media (--desktop) {
-      width: 230px;
+      width: calc(100% / 4 - 10px);
     }
+  }
+  &__image {
+    height: 142px;
   }
   &__link {
     display: block;

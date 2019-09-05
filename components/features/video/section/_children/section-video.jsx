@@ -21,18 +21,20 @@ export default ({
       const videoNavBar = document.querySelector('.video-navbar')
       const videoList = document.querySelector('.video-list')
       const playOff = playList.offsetTop
-      if (window.innerWidth > 1024) {
+      if (window.innerWidth >= 1024) {
         window.addEventListener('scroll', () => {
           const scrollHeight = window.scrollY
           if (scrollHeight >= playOff) {
             sectionVideo.classList.add('fixed')
             videoNavBar.classList.add('fixed')
-            videoList.style.marginTop = '570px'
+            videoList.classList.add('fixed')
+            // videoList.style.marginTop = '570px'
           }
           if (scrollHeight < playOff) {
             sectionVideo.classList.remove('fixed')
             videoNavBar.classList.remove('fixed')
-            videoList.style.marginTop = '50px'
+            videoList.classList.remove('fixed')
+            // videoList.style.marginTop = '50px'
           }
         })
       }

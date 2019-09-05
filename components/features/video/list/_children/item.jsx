@@ -8,10 +8,14 @@ export default ({
   primarySectionLink,
 }) => {
   return (
-    <div className="video-list__item m-10">
+    <div className="video-list__item">
       <picture className="block mb-10">
         <a className="video-list__link" href={websiteLink}>
-          <img className="w-full" src={multimediaSquareMD} alt={title} />
+          <img
+            className="video-list__image object-cover w-full"
+            src={multimediaSquareMD}
+            alt={title}
+          />
         </a>
       </picture>
       <div className="flex">

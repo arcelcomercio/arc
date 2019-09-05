@@ -3,18 +3,21 @@
   background-color: transparent;
   border-top: dashed 1px $color-gray-200;
   border-bottom: dashed 1px $color-gray-200;
-  &.fixed {
-    position: fixed;
-    top: 246px;
-    width: 980px;
-    z-index: 10;
-    background-color: rgb(27, 27, 27);
-    border-top: 0;
-    border-bottom: 0;
-    .video-navbar__link {
-      color: white;
+  @media (--desktop) {
+    &.fixed {
+      position: fixed;
+      top: 246px;
+      width: 980px;
+      z-index: 10;
+      background-color: rgb(27, 27, 27);
+      border-top: 0;
+      border-bottom: 0;
+      .video-navbar__link {
+        color: white;
+      }
     }
   }
+
   &__list {
     padding: 15px 0;
     display: flex;
