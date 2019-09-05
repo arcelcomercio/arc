@@ -128,6 +128,8 @@ const source = {
   schemaName,
   transform,
   params,
+  cache: false,
+  // ttl: 120,
 }
 
 export default source
