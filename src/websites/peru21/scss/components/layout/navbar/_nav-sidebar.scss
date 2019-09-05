@@ -35,4 +35,9 @@
   &__search {
     padding-bottom: 0;
   }
+  &__content {
+    @media (--only-mobile) {
+      height: 95%;
+    }
+  }
 }
