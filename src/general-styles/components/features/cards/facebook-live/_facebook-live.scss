@@ -1,0 +1,7 @@
+.facebook-live {
+  @media (--tablet) {
+    -ms-grid-row-span: 1;
+    grid-row: span 1;
+    height: 374px;
+  }
+}

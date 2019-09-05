@@ -51,9 +51,11 @@ const Description = styled.div`
   font-weight: 300;
   padding: 5px 60px;
   text-align: center;
+  &:last-child {
+    padding: 0px 40px 20px 40px;
+  }
   @media (${devices.mobile}) {
     padding: 8px 15px;
-    min-height: 68px;
   }
 `
 

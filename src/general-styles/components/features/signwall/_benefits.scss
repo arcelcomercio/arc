@@ -80,6 +80,8 @@
         text-shadow: 0px 4px 5px rgba(0, 0, 0, 0.49);
       }
       p {
+        font-size: 18px;
+        line-height: 32px;
         @media (--desktop) {
           margin-top: 30%;
         }
@@ -107,10 +109,10 @@
         .price,
         .detail-price {
           display: inline-block;
-          vertical-align: middle;
+          vertical-align: initial ;
         }
         .price {
-          font-size: 4.5em;
+          font-size: 5em;
           font-weight: 600;
           width: 45%;
           text-align: center;
@@ -126,7 +128,7 @@
         }
         .detail-price {
           width: 55%;
-          font-size: 14px;
+          font-size: 16px;
           line-height: 20px;
         }
       }
@@ -162,7 +164,11 @@
           background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAYNJREFUOBGFUsFxgzAQBEEDqSDgBuIOogH/43QQXnmGdOBUELsC55mn/Qcjd0AaICqBArDJrgeIkB3nZsSduN3T3kmuY5mUMvB9/wW/Jda0S5fw2yzLFt1+cP4QIYjjeOm6LslO27ZfiLfwNXyAtTGxfez2AcglQHfYb5umSZVSus/ZPoqiJ2Dv8zxPTgWMk98uyTQLkCyEWFPh4XCQbtfzN0DscW6C7dgmQ2UtPM9LCaRsm2DuL5GZF1iScvqeZ7OZZMK0v8jECA4OS3PDduAKzGTNPe0amfnRNVIFCAmHhCK8yr05MPZMEg1KN3APgvIR3PInbbfbfRyPxwSqRtM2ycSBF5DLGSisaScf4W8RAnhVNplYtg6oGq4R4A0exuOpwj+fXj5uLvS01nUYhjeUPJlMnKqq9tf4IC+Qf8aBq6IoPs+eMpVA9itkawAHo2y8mXccNMfP4dENBYg0njS3JYppBiAFcFMsDm+FVlPGtFEB/uhOIkB2gyKJN6WgbGkr+wHP1//N8PmHWQAAAABJRU5ErkJggg==');
           background-repeat: no-repeat;
           background-position: 0px 4px;
+          margin-bottom: 10px;
         }
+      }
+      .message-paywall{
+        line-height: 30px;
       }
     }
     .bg-white {
