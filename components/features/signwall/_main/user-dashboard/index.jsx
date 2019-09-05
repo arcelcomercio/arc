@@ -64,7 +64,7 @@ class ProfileAccount extends Component {
     Cookies.deleteCookie('mpp_sess')
     Cookies.deleteCookie('ArcId.USER_INFO')
 
-    window.Sales.apiOrigin = this.origin_api
+    window.Identity.apiOrigin = this.origin_api
     window.Identity.logout()
       .then(() => {
         // window.Identity.clearSession()

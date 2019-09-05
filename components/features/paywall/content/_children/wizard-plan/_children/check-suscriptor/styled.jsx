@@ -63,7 +63,6 @@ export const Wrapbenefit = styled.div`
   @media (${devices.mobile}) {
     flex-direction: column;
     align-items: center;
-    line-height: 2.5;
   }
 `
 
@@ -85,7 +84,7 @@ export const Foot = styled.div`
 
 export const FootContent = styled.div`
   max-width: 180px;
-  display: flex;
+  display: contents;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
@@ -143,8 +142,11 @@ export const Select = styled.select`
 
 export const SpanIcon = styled.span`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   svg {
     margin-right: 1em;
+  }
+  @media (${devices.mobile}) {
+    margin-bottom: 20px;
   }
 `

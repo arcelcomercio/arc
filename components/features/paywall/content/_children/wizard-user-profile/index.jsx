@@ -55,7 +55,14 @@ function WizardUserProfile(props) {
   const Sales = addSales()
 
   function onSubmitHandler(values, { setSubmitting }) {
-    const { email, phone, billingAddress, lastName, secondLastName } = values
+    const {
+      email,
+      phone,
+      billingAddress,
+      firstName,
+      lastName,
+      secondLastName,
+    } = values
     setError(false)
     setLoading(true)
 
@@ -66,19 +73,15 @@ function WizardUserProfile(props) {
       level: Sentry.Severity.Info,
     })
 
-    const qs = parseQueryString(window.location.search)
-    const sandboxName = qs.qa ? 'DEMO SANDBOX' : props.firstName
-    const firstName = isProd ? props.firstName : sandboxName
-
     Sales.then(sales =>
       sales
         .createOrder(
-          email,
+          email.trim(),
           phone,
           billingAddress,
-          firstName,
-          lastName,
-          secondLastName
+          firstName.trim(),
+          lastName.trim(),
+          secondLastName.trim()
         )
         .then(res => {
           // TODO: validar respuesta y mostrar errores de API

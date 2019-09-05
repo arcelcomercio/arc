@@ -60,7 +60,11 @@ const Foot = () => {
               </a>
             </li>
             <li>
-              <a href={getDomain('URL_FAQ')} className="list_link">
+              <a
+                href={getDomain('URL_FAQ')}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="list_link">
                 Preguntas frecuentes
               </a>
             </li>
