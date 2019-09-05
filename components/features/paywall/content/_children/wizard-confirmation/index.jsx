@@ -82,6 +82,11 @@ const WizardConfirmation = props => {
   console.log(props)
   console.log(paidTotal)
   console.log(billingFrequency)
+
+  const Frecuency = {
+    "Month" : "Mensual",
+    "Year" : "Anual"
+  }
   
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -95,14 +100,21 @@ const WizardConfirmation = props => {
 
         <S.Content>
           <S.Title>¡Bienvenido(a) {firstName}!</S.Title>
-          <S.Subtitle>
-            <strong>POR SER UN SUSCRIPTOR PREMIUM</strong><br />
+
+          {/* <S.Subtitle>
+            <strong>POR SER UN SUSCRIPTOR PREMIUM</strong>
+            <br />
             tienes acceso ilimitado a las noticias más relevantes del Perú y el
             mundo totalmente gratis.
-          </S.Subtitle>
+          </S.Subtitle> */}
+
+          <S.Subtitle large>Tu suscripción ha sido exitosa.</S.Subtitle>
+          
           <S.CardSummary>
             <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
-            <Item label="PAQUETE: ">{(plan || '').toUpperCase()} - {(billingFrequency || '').toUpperCase()}</Item>
+            <Item label="PAQUETE: ">
+              {(plan || '').toUpperCase()} - { Frecuency[billingFrequency].toUpperCase() }
+            </Item>
             <Item label="NOMBRE: ">
               <S.Names>
                 {firstName} {lastName} {secondLastName}
@@ -112,11 +124,13 @@ const WizardConfirmation = props => {
               S/ {paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
             </Item>
             <S.Small>
-              El precio de la suscripción se cargará automáticamente en tu tarjeta cada mes o año, según el período elegido.
+              El precio de la suscripción se cargará automáticamente en tu
+              tarjeta cada mes o año, según el período elegido.
             </S.Small>
           </S.CardSummary>
           <S.Span>
-            Enviaremos la boleta de compra de la<br/> suscripción al correo:
+            Enviaremos la boleta de compra de la
+            <br /> suscripción al correo:
             <strong> {email}</strong>
           </S.Span>
           <S.WrapButton>

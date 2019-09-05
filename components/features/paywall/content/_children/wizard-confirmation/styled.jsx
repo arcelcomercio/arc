@@ -16,8 +16,8 @@ export const Subtitle = styled.span`
   text-align: center;
   box-sizing: border-box;
   max-width: 480px;
-  line-height: 1.71;
-  font-size: 14px;
+  line-height: ${props => (props.large ? '24px' : '1.71')};
+  font-size: ${props => (props.large ? '20px' : '14px')};
   color: #444;
   @media (${devices.mobile}) {
     padding: 0;
