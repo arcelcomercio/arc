@@ -4,7 +4,7 @@ import { devices } from '../../../_dependencies/devices'
 const WizardNav = styled.div`
   display: flex;
   justify-content: center;
-  margin: 30px 0;
+  margin: 40px 0;
   position: relative;
   align-items: center;
 `
@@ -28,10 +28,32 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  min-height: 60px;
+  &:after{
+    display: inline-block;
+    content: "";
+    border-top: 1px solid #818181;
+    width: 20px;
+    transform: translateY(-1rem);
+    margin-right: -120px;
+  }
+  &:last-child:after{
+    color: red;
+    border-top: 0px solid #818181;
+    content: "";
+  }
+  @media (${devices.mobile}) {
+    &:after{
+      margin-right: -90px;
+    }
+  }
 `
 
 const StepName = styled.span`
   margin-top: 14px;
+  position: absolute;
+  top: 50%;
 `
 
 const StepCircle = styled.div`
