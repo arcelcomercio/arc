@@ -79,10 +79,6 @@ const WizardConfirmation = props => {
         : HOME
   }
 
-  console.log(props)
-  console.log(paidTotal)
-  console.log(billingFrequency)
-
   const Frecuency = {
     "Month" : "Mensual",
     "Year" : "Anual"
@@ -121,7 +117,8 @@ const WizardConfirmation = props => {
               </S.Names>
             </Item>
             <Item label="PRECIO: ">
-              S/ {paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+               {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
+               { paidTotal !== 0 ?  `S/ ${paidTotal}` : 'GRATIS' }
             </Item>
             <S.Small>
               El precio de la suscripción se cargará automáticamente en tu

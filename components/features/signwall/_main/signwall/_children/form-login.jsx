@@ -307,7 +307,6 @@ class FormLogin extends Component {
       hiddenbutton,
     } = this.state
     const { closePopup, typePopUp, typeForm, arcSite } = this.props
-
     return (
       <ModalConsumer>
         {value => (
@@ -530,21 +529,22 @@ class FormLogin extends Component {
                   y nunca publicaremos en sin tu permiso
                 </p>
               </div>
-
-              {arcSite !== 'peru21' ? (
+              {arcSite !== 'peru21' && (
                 <div
                   className="form-grid__group lg:hidden"
                   hidden={!hiddenListBenefits}>
-                  <p className="form-grid__subtitle text-center form-group--center">
-                    <button
-                      type="button"
-                      onClick={e => this.hanbleShowListBenefits(e)}
-                      className="link-blue link-color">
-                      Conoce aquí los beneficios de registrarte
-                    </button>
-                  </p>
+                  {typePopUp !== 'paywall' && (
+                    <p className="form-grid__subtitle text-center form-group--center">
+                      <button
+                        type="button"
+                        onClick={e => this.hanbleShowListBenefits(e)}
+                        className="link-blue link-color">
+                        Conoce aquí los beneficios de registrarte
+                      </button>
+                    </p>
+                  )}
                 </div>
-              ) : null}
+              )}
             </form>
           </div>
         )}
