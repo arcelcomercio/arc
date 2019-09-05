@@ -40,6 +40,9 @@ export const Content = styled.div`
   padding: 40px 100px;
   align-items: center;
   flex: 1;
+  @media ${devices.tablet} {
+    min-height: 500px;
+  }
   @media (${devices.mobile}) {
     padding: 30px;
   }
@@ -119,6 +122,9 @@ export const Span = styled.span`
 
 export const Picture = styled.picture`
   height: 100%;
+  @media ${devices.tablet} {
+    display: none;
+  }
 `
 
 export const DetailTitle = styled.div`

@@ -79,10 +79,6 @@ const WizardConfirmation = props => {
         : HOME
   }
 
-  console.log(props)
-  console.log(paidTotal)
-  console.log(billingFrequency)
-
   const Frecuency = {
     "Month" : "Mensual",
     "Year" : "Anual"
