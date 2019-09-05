@@ -31,7 +31,7 @@
       }
     }
     @media (--tablet) {
-      flex-basis: calc(100% / 2);
+      width: calc(100% / 2);
     }
   }
   &__image-link {
