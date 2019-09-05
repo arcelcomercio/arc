@@ -81,7 +81,7 @@ function WizardUserProfile(props) {
           billingAddress,
           firstName.trim(),
           lastName.trim(),
-          secondLastName.trim()
+          secondLastName ? secondLastName.trim() : secondLastName
         )
         .then(res => {
           // TODO: validar respuesta y mostrar errores de API
