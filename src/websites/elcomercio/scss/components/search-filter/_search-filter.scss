@@ -1,3 +1,35 @@
 .search-filter {
   background-color: $color-base-300;
+  &__link {
+    font-family: $secondary-font;
+    @media (--desktop) {
+      background-color: $color-base-400;
+    }
+  }
+  &__item {
+    &.active {
+      .search-filter__link {
+        @media (--desktop) {
+          font-family: $secondary-font;
+        }
+      }
+    }
+    &.selected {
+      &::before {
+        @media (--desktop) {
+          border-color: $color-base-500 transparent transparent;
+        }
+      }
+      .search-filter__link {
+        background-color: $color-base-500;
+        outline: none;
+        &:hover {
+          color: $color-gray-300;
+        }
+      }
+    }
+  }
+  &__select {
+    background-color: $color-base-400;
+  }
 }
