@@ -504,12 +504,10 @@ export const twitterHtml = html => {
 
 export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
-  if (ConfigParams.SITE_PERU21 === arcSite) {
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
-      'https://g21.peru21.pe$1'
-    )
-  }
+  htmlDataTwitter = htmlDataTwitter.replace(
+    /(\/media\/([0-9-a-z-A-Z])\w+)/g,
+    'https://g21.peru21.pe$1'
+  )
 
   const rplTwitter =
     '<amp-iframe class="media" src="http$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
@@ -518,6 +516,8 @@ export const iframeHtml = (html, arcSite = '') => {
     '<amp-iframe class="media" src="http$2"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
   const rplIframe1 =
     '<amp-iframe class="media" src="$1"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
+  const rplIframe2 =
+    '<amp-iframe class="media" src="$2"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
 
   htmlDataTwitter = htmlDataTwitter
     .replace(/<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g, rplTwitter)
@@ -530,13 +530,10 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<\/blockquote><\/html_free>/g, '')
     .replace('</p>', '')
     .replace('<p>', '')
-    .replace(
-      /<iframe frameborder="(.*)" src="(.*)"><\/iframe>/g,
-      '<amp-youtube class="media" data-videoid="$2" layout="responsive" width="550" height="1"></amp-youtube>'
-    )
     .replace('http://', 'https://')
     .replace(/<iframe src="(.*)" width="(.*?)" (.*)><\/iframe>/g, rplIframe1)
     .replace('src="//', 'src="https://')
+    .replace(/<iframe (.*) src='(.*)' (.*)><\/iframe>/g, rplIframe2)
 }
 
 export const facebookHtml = html => {
@@ -577,7 +574,8 @@ export const facebookHtml = html => {
 export const youtubeHtml = html => {
   const rplYoutube =
     '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="$2"></amp-youtube>'
-
+  const rplYoutube1 =
+    '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="350"></amp-youtube>'
   return html
     .replace(
       /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
@@ -586,6 +584,10 @@ export const youtubeHtml = html => {
     .replace(
       /<iframe width="(.*?)" height="(.*?)" src="\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
       rplYoutube
+    )
+    .replace(
+      /<iframe (.*) src="(.+)?youtube.com\/embed\/(.*?)" (.*)><\/iframe>/g,
+      rplYoutube1
     )
 }
 
