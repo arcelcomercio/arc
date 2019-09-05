@@ -1,11 +1,12 @@
 import React from 'react'
 import SectionItem from './section-item'
 import EmbedMultimedia from '../../../../global-components/embed-multimedia'
+import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
-  extraordinayStoryGridContainer: `extraordinary-story-grid flex position-relative p-10 flex-col md:flex-row`,
-  videoBox: `story-video-box flex items-center position-relative w-full rounded-sm md:p-10`,
-  gridContainer: 'sections-grid w-full pl-10 md:pl-30',
+  extraordinayStoryGridContainer: `extraordinary-story-grid flex position-relative p-10 flex-col lg:flex-row`,
+  videoBox: `story-video-box flex items-center position-relative w-full rounded-sm lg:mt-0 md:p-10`,
+  gridContainer: 'sections-grid w-full pl-10 lg:pl-30',
   gridHeaderText: `sections-grid__text flex position-absolute items-center text-lg text-gray-200 pl-10`,
   gridHeaderImage: 'sections-grid__text-image ml-10',
   gridListTitle: 'sections-grid__title p-10 title-sm text-white',
@@ -26,9 +27,10 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
     isAdmin,
   } = props
   storyData.multimediaOrientation = 'grid'
+  const youtubeClass = storyData.typeMultimediaGeneral === ConfigParams.ELEMENT_YOUTUBE_ID ? 'youtube-box':''
 
   return (
-    <div className={classes.extraordinayStoryGridContainer}>
+    <div className={`${classes.extraordinayStoryGridContainer} ${youtubeClass}`}>
       <div className={classes.videoBox}>
         <EmbedMultimedia
           type={storyData.typeMultimediaGeneral}
