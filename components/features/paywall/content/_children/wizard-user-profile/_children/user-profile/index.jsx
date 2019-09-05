@@ -36,13 +36,28 @@ const UserProfile = ({
       )}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
+        const {
+          email,
+          firstName,
+          lastName,
+          secondLastName,
+          phone,
+          documentType,
+          documentNumber,
+        } = values
         onSubmit(
           {
             ...values,
-            phone: values.phone.replace(/\D/g, ''),
+            email: email.trim(),
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            secondLastName: secondLastName
+              ? secondLastName.trim()
+              : secondLastName,
+            phone: phone.replace(/\D/g, ''),
             billingAddress: {
               country: 'PE',
-              line2: `${values.documentType}_${values.documentNumber}`,
+              line2: `${documentType}_${documentNumber}`,
             },
           },
           actions
