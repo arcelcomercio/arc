@@ -13,6 +13,8 @@ class MySubs extends Component {
     super(props)
     this.state = {
       paywallPrice: '-',
+      paywallFrecuency: '-',
+      paywallTitle: '-',
       paywallDescripcion: '-',
       featuresDescription: [],
       showModalConfirm: false,
@@ -60,6 +62,8 @@ class MySubs extends Component {
     fetched.then(resCam => {
       this.setState({
         paywallPrice: resCam.plans[0].amount || '-',
+        paywallFrecuency: resCam.plans[0].billingFrequency || '-',
+        paywallTitle: resCam.plans[0].description.title || '-',
         paywallDescripcion: resCam.plans[0].description.description || '-',
         featuresDescription: resCam.summary.feature || [],
       })
@@ -108,8 +112,16 @@ class MySubs extends Component {
   }
 
   render() {
+
+    const frecuency = {
+      Month: 'al mes',
+      Year: 'al año',
+    }
+
     const {
       paywallPrice,
+      paywallFrecuency,
+      paywallTitle,
       paywallDescripcion,
       featuresDescription,
       loading,
@@ -172,6 +184,12 @@ class MySubs extends Component {
                       {paywallPrice}
                     </div>
                     <div className="detail-price uppercase">
+                      <p>
+                        <strong>{frecuency[paywallFrecuency]}</strong>
+                      </p>
+                      <p>
+                        <strong>{paywallTitle}</strong>
+                      </p>
                       <p>{paywallDescripcion}</p>
                     </div>
                   </div>
@@ -187,15 +205,15 @@ class MySubs extends Component {
                     <input
                       type="button"
                       className="btn btn--blue btn-bg"
-                      value="Suscribirme"
+                      value="VER PLANES"
                       onClick={e => {
                         this.handleSuscription(e)
                       }}></input>
                   </div>
 
                   <p className="text-center mt-20 text-sm">
-                    Si eres suscriptor del diario impreso,
-                    <br /> descubre tu descuento.
+                  ¿ESTÁS SUSCRITO AL DIARIO IMPRESO? <br />
+                  Disfruta <strong>3 meses GRATIS</strong> y luego S/19 al mes.
                   </p>
                 </div>
               </div>

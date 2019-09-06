@@ -42,6 +42,7 @@ class PayWallPremium extends Component {
           closePopup={closePopup}
           typePopUp={typeModal} // paywall, premium
           typeForm="intro"
+          removeBefore={() => window.removeEventListener('beforeunload', this.handleLeavePage)}
           brandCurrent={brandModal}
         />
       ),
@@ -125,9 +126,8 @@ class PayWallPremium extends Component {
                             `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.nav.logo}`
                           )}
                         /> */}
-
                         <img
-                          style={{ maxWidth: '320px'}}
+                          style={{ maxWidth: '320px', height: 'auto' }}
                           className="modal-header__img mt-40"
                           alt=""
                           src={deployment(
