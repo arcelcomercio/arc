@@ -1,0 +1,33 @@
+.story-item {
+  &__bottom {
+    position: relative;
+    @media (--tablet) {
+      flex-direction: row-reverse;
+      padding-left: 100px;
+    }
+  }
+  &__top {
+    @media (--tablet) {
+      position: absolute;
+      left: 0;
+    }
+  }
+  &__left {
+    @media (--tablet) {
+      padding-right: 0;
+      padding-left: 20px;
+    }
+  }
+  &__section {
+    display: none;
+    @media (--only-mobile) {
+      display: block;
+    }
+    &.story-item__section--desktop {
+      display: none;
+      @media (--tablet) {
+        display: block;
+      }
+    }
+  }
+}
