@@ -141,6 +141,7 @@ export default ({
           globalContent={globalContent}
         />
         <TagManager {...siteProperties} />
+         {renderMetaPage(metaValue('id'), metaPageData)}
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -165,7 +166,7 @@ export default ({
         {isStory ? '' : <meta name="keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-        {renderMetaPage(metaValue('id'), metaPageData)}
+       
 
         {/* Scripts de APPNEXUS */}
         <script
