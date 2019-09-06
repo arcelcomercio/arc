@@ -9,6 +9,7 @@ import {
 } from '../../components/utilities/helpers'
 
 const options = {
+  gzip: true,
   json: true,
 }
 

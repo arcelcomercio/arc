@@ -43,6 +43,7 @@ const params = [
   },
 ]
 const options = {
+  gzip: true,
   json: true,
 }
 
@@ -164,8 +165,8 @@ const source = {
   fetch,
   schemaName: SCHEMA_NAME,
   params,
-  cache: false,
-  // ttl: 120,
+  // cache: false,
+  ttl: 120,
 }
 
 export default source
