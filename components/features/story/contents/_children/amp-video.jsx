@@ -32,7 +32,7 @@ const StoryContentChildVideo = ({ data }) => {
       src={urlVideo}
       poster={urlImage}
       artwork={urlImage}
-      class={id}
+      class={`id-${id}`}
       title={caption}
       album="Blender"
       width="720"
