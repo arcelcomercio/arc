@@ -17,6 +17,7 @@ const classes = {
   social:
     'amp-nav-sidebar__sidebar-social bg-gray-100 flex items-center justify-center pl-20',
   close: 'amp-nav-sidebar__close position-absolute',
+  mvil0: 'ad-amp-movil',
 }
 
 class NavbarChildMenu extends PureComponent {
@@ -101,6 +102,7 @@ class NavbarChildMenu extends PureComponent {
             height="50"
             type="doubleclick"
             data-slot={dataSlot}
+            class={classes.mvil0}
             data-multi-size="320x50,300x100,300x50"
             data-multi-size-validation="false"
           />

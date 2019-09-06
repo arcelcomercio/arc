@@ -456,7 +456,7 @@ export const optaWidgetHtml = html => {
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
   }/optawidget?${matchesResult} ></amp-iframe>`
-  return html.replace(/<opta-widget (.*?)><\/opta-widget>/, rplOptaWidget)
+  return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
 export const imageHtml = html => {
@@ -534,6 +534,12 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<iframe src="(.*)" width="(.*?)" (.*)><\/iframe>/g, rplIframe1)
     .replace('src="//', 'src="https://')
     .replace(/<iframe (.*) src='(.*)' (.*)><\/iframe>/g, rplIframe2)
+    .replace(/<iframe (.*) src="(.*)" (.*)><\/iframe>/g, rplIframe2)
+    .replace(/<(-?\/)?html_free>/g, '')
+    .replace(/<(-?\/)?object(-?.+)?>/g, '')
+    .replace(/<embed(.*)><\/embed>/g, '')
+    .replace('target="blank"', 'target="_blank"')
+    .replace(/<(-?\/)?blockquote(-?.+)?>/g, '')
 }
 
 export const facebookHtml = html => {

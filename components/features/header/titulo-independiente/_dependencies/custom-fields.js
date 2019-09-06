@@ -21,18 +21,22 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'transparent',
   }),
-  fontColor: PropTypes.oneOf(['bg-primary', 'bg-secondary', 'transparent']).tag(
-    {
-      name: 'Color de título',
-      group: 'Configuración',
-      labels: {
-        white: 'Color Primario',
-        gray: 'Color Secundario',
-        transparent: 'Transparente',
-      },
-      defaultValue: 'transparent',
-    }
-  ),
+  fontColor: PropTypes.oneOf([
+    'text-primary-color',
+    'text-white',
+    'text-black',
+    'transparent',
+  ]).tag({
+    name: 'Color de título',
+    group: 'Configuración',
+    labels: {
+      white: 'Color Primario',
+      gray: 'Color blanco',
+      gray: 'Color negro',
+      transparent: 'Transparente',
+    },
+    defaultValue: 'transparent',
+  }),
 })
 
 export default customFields
