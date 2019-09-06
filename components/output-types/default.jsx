@@ -133,21 +133,8 @@ export default ({
   return (
     <html lang="es">
       <head>
-        <AppNexus
-          arcSite={arcSite}
-          requestUri={requestUri}
-          port={metaValue('port')}
-          isStory={isStory}
-          globalContent={globalContent}
-        />
+   
         <TagManager {...siteProperties} />
-         {renderMetaPage(metaValue('id'), metaPageData)}
-        <meta charSet="utf-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-        />
         <title>{title}</title>
         <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -158,14 +145,31 @@ export default ({
           href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
           rel="stylesheet"
         />
-        {/* Script de data Ads AppNexus */}
-        <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
-
+         {renderMetaPage(metaValue('id'), metaPageData)}
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         {isStory ? '' : <meta name="keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
+
+
+             <AppNexus
+          arcSite={arcSite}
+          requestUri={requestUri}
+          port={metaValue('port')}
+          isStory={isStory}
+          globalContent={globalContent}
+        />
+        {/* Script de data Ads AppNexus */}
+        <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
+
+      
        
 
         {/* Scripts de APPNEXUS */}
