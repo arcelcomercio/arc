@@ -158,8 +158,7 @@ export default ({
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
 
-
-             <AppNexus
+        <AppNexus
           arcSite={arcSite}
           requestUri={requestUri}
           port={metaValue('port')}
@@ -168,9 +167,6 @@ export default ({
         />
         {/* Script de data Ads AppNexus */}
         <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
-
-      
-       
 
         {/* Scripts de APPNEXUS */}
         <script
