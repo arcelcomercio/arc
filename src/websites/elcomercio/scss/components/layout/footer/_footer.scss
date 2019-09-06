@@ -1,0 +1,21 @@
+.footer {
+  &__legal-links {
+    color: $color-gray-300;
+    &::after {
+      background-color: $color-gray-300;
+    }
+  }
+  &__legal-links,
+  &__legal-item {
+    font-weight: 600;
+  }
+  &__info,
+  &__sections {
+    &::after {
+      @media (--tablet) {
+        border-right: 1px dashed;
+        background-color: transparent;
+      }
+    }
+  }
+}

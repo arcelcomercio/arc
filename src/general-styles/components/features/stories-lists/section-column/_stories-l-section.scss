@@ -1,0 +1,25 @@
+.stories-l-section {
+  .stories-l-header {
+    background-color: $color-base-200;
+    height: 40px;
+  }
+  .stories-l-item {
+    &:first-child {
+      padding-top: 0;
+      .stories-l-item__link {
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  .stories-l-card__image {
+    height: 169px;
+    max-height: none;
+  }
+  .stories-l-item__link {
+    font-size: 14px;
+  }
+}

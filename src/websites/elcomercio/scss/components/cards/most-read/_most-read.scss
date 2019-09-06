@@ -1,0 +1,14 @@
+.most-read {
+  &__title {
+    background-color: $color-tertiary;
+  }
+  &__link {
+    color: $color-gray-300;
+  }
+  &__icon {
+    color: $color-gray-300;
+    background: $color-base-200;
+    padding: 5px;
+    border-radius: 50px;
+  }
+}

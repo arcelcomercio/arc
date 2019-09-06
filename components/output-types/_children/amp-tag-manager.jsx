@@ -20,6 +20,7 @@ export default ({
     sectionLink,
     author,
     link,
+    videoSeo,
     nucleoOrigen,
   } = new StoryData({
     data: globalContent,
@@ -28,6 +29,43 @@ export default ({
 
   const subSection = formatSlugToText(sectionLink, 2) || 'not set'
   const section = formatSlugToText(sectionLink, 1) || 'not set'
+  const videoSeoItems = videoSeo.map(
+    ({ caption, idVideo = '' } = {}, index) => {
+      const totalIndex = index !== 0 ? `_${index}` : ''
+      return `    
+      "trackVideoPlay${totalIndex}": {
+        "on": "video-play",
+        "request": "event",
+        "selector": ".id-${idVideo}",
+        "vars": {
+          "eventCategory": "PowaAMP",
+          "eventAction": "playbackPlay",
+          "eventLabel": "${idVideo} | ${caption}"
+        }
+      },
+      "trackVideoPause${totalIndex}": {
+        "on": "video-pause",
+        "request": "event",
+        "selector": ".id-${idVideo}",
+        "vars": {
+          "eventCategory": "PowaAMP",
+          "eventAction": "playbackPaused",
+          "eventLabel": "${idVideo} | ${caption}"
+        }
+      },
+      "trackVideoComplete${totalIndex}": {
+        "on": "video-ended",
+        "request": "event",
+        "selector": ".id-${idVideo}",
+        "vars": {
+          "eventCategory": "PowaAMP",
+          "eventAction": "playbackFinished",
+          "eventLabel": "${idVideo} | ${caption}"
+        }
+      }
+     `
+    }
+  )
 
   const ampAnalytics = `
   {
@@ -50,6 +88,7 @@ export default ({
             "on": "visible",
             "request": "pageview"
         }
+        ${videoSeoItems[0] ? `, ${videoSeoItems}` : ''}
     }
 }`
 
