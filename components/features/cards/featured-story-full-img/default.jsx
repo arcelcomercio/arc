@@ -1,15 +1,69 @@
 import React from 'react'
 
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+
 import FeatureFullImageChild from './_children/feature-full-image'
 import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
+import StoryData from '../../../utilities/story-data'
 
 const FeatureStoryFullImage = props => {
-  const { customFields: { crossY, crossX, model } = {} } = props
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const {
+    customFields: {
+      storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      crossY,
+      crossX,
+      model,
+      sectionCustom,
+    } = {},
+  } = props
+
+  const data =
+    useContent({
+      source: contentService,
+      query: contentConfigValues,
+      filter: schemaFilter(arcSite),
+    }) || {}
+
+  const {
+    author,
+    authorLink,
+    primarySection,
+    primarySectionLink,
+    title,
+    multimediaLandscapeL,
+    multimediaSquareXL,
+    multimediaPortraitMD,
+    multimediaType,
+    websiteLink,
+  } = new StoryData({
+    data,
+    arcSite,
+    contextPath,
+    deployment,
+    defaultImgSize: 'sm',
+  })
+
+  const section = sectionCustom || primarySection
+
   const params = {
+    author,
+    authorLink,
+    primarySectionLink,
+    title,
+    multimediaLandscapeL,
+    multimediaPortraitMD,
+    multimediaSquareXL,
+    multimediaType,
+    websiteLink,
     crossY,
     crossX,
     model,
+    section,
   }
+
   return <FeatureFullImageChild {...params} />
 }
 

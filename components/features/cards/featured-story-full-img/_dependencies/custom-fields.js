@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
+  storyConfig: PropTypes.contentConfig('story').isRequired.tag({
+    name: 'Configuración del contenido',
+  }),
+  sectionCustom: PropTypes.string.tag({
+    name: 'Renombrar Sección',
+    description: 'Nombre que reemplazara a la seccion de la noticia.',
+  }),
   model: PropTypes.oneOf(['basic', 'twoCol', 'full']).tag({
     name: 'Modelo del Destaque',
     group: 'Configuración',
