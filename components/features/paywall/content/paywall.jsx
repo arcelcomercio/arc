@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import Consumer from 'fusion:consumer'
 import { useFusionContext } from 'fusion:context'
 import Wizard from 'react-step-wizard'
 
@@ -16,7 +17,7 @@ import '../_dependencies/sentry'
 
 const _stepsNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 
-const Paywall = () => {
+const Paywall = ({ dispatchEvent }) => {
   const {
     contextPath,
     deployment,
@@ -41,11 +42,14 @@ const Paywall = () => {
   }, [])
 
   const memo = useRef({}).current
-  const onBeforeNextStepHandler = useRef((response, { nextStep }) => {
-    Object.assign(memo, response)
-    nextStep()
-    window.scrollTo(0, 0)
-  }).current
+  const onBeforeNextStepHandler = useRef(
+    (response, { nextStep, currentStep }) => {
+      Object.assign(memo, response)
+      dispatchEvent('currentStep', currentStep)
+      nextStep()
+      window.scrollTo(0, 0)
+    }
+  ).current
 
   const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
@@ -103,4 +107,11 @@ const Paywall = () => {
   )
 }
 
-export default Paywall
+@Consumer
+class PaywallWrapper extends React.Component {
+  render() {
+    return <Paywall dispatchEvent={this.dispatchEvent.bind(this)} />
+  }
+}
+
+export default PaywallWrapper

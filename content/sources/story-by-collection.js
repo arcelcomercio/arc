@@ -29,21 +29,10 @@ const options = {
 const fetch = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
 
-  const { id, feedOffset: rawFeedOffset } = key
-  const feedOffset =
-    rawFeedOffset === null ||
-    rawFeedOffset === undefined ||
-    rawFeedOffset === ''
-      ? 1
-      : rawFeedOffset
-
-  const storyNumber = feedOffset - 1
+  const { id } = key
 
   if (!id) {
     throw new Error('Esta fuente de contenido necesita el ID de la collección')
-  }
-  if (feedOffset < 1) {
-    throw new Error('El campo "Número de la noticia" debe ser mayor a 0')
   }
 
   return request({
@@ -54,6 +43,14 @@ const fetch = (key = {}) => {
       return {}
     }
 
+    const { feedOffset: rawFeedOffset } = key
+    const feedOffset =
+      rawFeedOffset === null ||
+      rawFeedOffset === undefined ||
+      rawFeedOffset === ''
+        ? 0
+        : rawFeedOffset
+
     const { content_elements: rawStories = [] } = data || {}
 
     const stories = rawStories.filter(story => story.type === 'story')
@@ -62,11 +59,11 @@ const fetch = (key = {}) => {
       stories[i].content_elements = []
     }
 
-    if (stories[storyNumber]) {
+    if (stories[feedOffset]) {
       const { resizerUrl } = getProperties(website)
 
       return addResizedUrlsToStory(
-        [stories[storyNumber]],
+        [stories[feedOffset]],
         resizerUrl,
         resizerSecret,
         addResizedUrls
@@ -80,6 +77,7 @@ const source = {
   fetch,
   schemaName,
   params,
+  ttl: 120,
 }
 
 export default source
