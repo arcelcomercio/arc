@@ -100,6 +100,7 @@ const Paywall = ({ dispatchEvent }) => {
     const currpath = `${pathname}${search}`
     history.replace(currpath, state)
     history.push(`${basePath}/${stepSlug}/${search}`, currMemo)
+    dispatchEvent('currentStep', currentStep)
     goToStep(currentStep + 1)
     window.scrollTo(0, 0)
   }).current
