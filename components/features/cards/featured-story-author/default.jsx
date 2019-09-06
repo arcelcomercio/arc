@@ -11,14 +11,15 @@ const CardFeaturedStoryAuthor = props => {
     storyImgLink: 'featured-author__img-link block',
     storyPicture: 'block',
     storyImg: 'featured-author__img w-full object-cover',
-    content: 'featured-author__content',
+    content:
+      'featured-author__content pl-20 pr-20 md:pl-10 md:pr-10 pt-5 md:pt-5 pb-20',
     section: 'flex justify-center mt-10 mb-10',
     sectionLink: 'text-gray-200 title-sm',
     title: 'flex justify-center mb-15',
     titleLink:
       'featured-author__title-link text-center line-h-xs overflow-hidden',
-    subtitle: '',
-    subtitleLink: '',
+    subtitle: 'mb-20',
+    subtitleLink: 'block text-center text-md line-h-sm',
     authorContainer: 'flex justify-center',
     authorImgLink: 'rounded overflow-hidden bg-tertiary',
     authorPicture: '',
@@ -47,7 +48,7 @@ const CardFeaturedStoryAuthor = props => {
 
   const {
     title,
-    link,
+    websiteLink,
     primarySection,
     primarySectionLink,
     author,
@@ -55,6 +56,7 @@ const CardFeaturedStoryAuthor = props => {
     authorImage,
     multimediaLandscapeMD,
     multimediaPortraitMD,
+    multimediaLandscapeL,
     authorRole,
     subTitle,
   } = new StoryData({
@@ -65,19 +67,53 @@ const CardFeaturedStoryAuthor = props => {
     defaultImgSize: 'sm',
   })
 
-  let storyImage = multimediaLandscapeMD
+  const storyImages = {
+    desktop: multimediaLandscapeMD,
+    mobile: multimediaLandscapeL,
+  }
   /** Estilos por cada diseño */
   if (design === 'second') {
     classes.featuredAuthor =
-      'featured-author second row-1 col-2 flex flex-row-reverse'
-    storyImage = multimediaPortraitMD
+      'featured-author second row-1 col-2 md:flex md:flex-row-reverse bg-tertiary'
+    classes.content = 'featured-author__content pl-20 pr-20 md:pt-25 pt-5 pb-20'
+
+    storyImages.desktop = multimediaPortraitMD
+    storyImages.mobile = multimediaLandscapeL
+  }
+  if (design === 'third') {
+    classes.featuredAuthor =
+      'featured-author third row-1 col-2 position-relative flex items-center'
+    classes.storyImgLink =
+      'featured-author__img-link block position-absolute right-0 w-full h-full'
+    classes.storyPicture = 'block h-full'
+    classes.storyImg = 'featured-author__img w-full object-cover h-full'
+    classes.content =
+      'featured-author__content pl-20 pr-20 md:pt-20 pt-5 pb-20 position-relative'
+    classes.sectionLink = 'text-white title-sm'
+    classes.titleLink =
+      'featured-author__title-link text-center line-h-xs overflow-hidden text-white'
+    classes.subtitleLink = 'block text-center text-md line-h-sm text-white'
+    classes.authorNameLink = 'text-md line-h-xs text-white'
+    classes.authorRole = 'text-sm text-white'
+
+    storyImages.desktop = multimediaLandscapeL
+    storyImages.mobile = multimediaLandscapeL
   }
 
   return (
     <article className={classes.featuredAuthor}>
-      <a className={classes.storyImgLink} href={link}>
+      <a className={classes.storyImgLink} href={websiteLink}>
         <picture className={classes.storyPicture}>
-          <img className={classes.storyImg} src={storyImage} alt={title} />
+          <source
+            media="(max-width: 639px)"
+            type="image/jpeg"
+            srcSet={storyImages.mobile}
+          />
+          <img
+            className={classes.storyImg}
+            src={storyImages.desktop}
+            alt={title}
+          />
         </picture>
       </a>
       <div className={classes.content}>
@@ -87,13 +123,13 @@ const CardFeaturedStoryAuthor = props => {
           </a>
         </h3>
         <h2 className={classes.title}>
-          <a className={classes.titleLink} href={link}>
+          <a className={classes.titleLink} href={websiteLink}>
             {title}
           </a>
         </h2>
         {design !== 'first' && (
           <h3 className={classes.subtitle}>
-            <a className={classes.subtitleLink} href={{ link }}>
+            <a className={classes.subtitleLink} href={websiteLink}>
               {subTitle}
             </a>
           </h3>

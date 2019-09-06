@@ -1,6 +1,11 @@
 .featured-author {
+  @media (--only-mobile) {
+    height: auto;
+  }
   &__img {
-    max-height: 157px;
+    @media (--tablet) {
+      max-height: 157px;
+    }
   }
   &__author-img {
     width: 42px;
@@ -16,10 +21,26 @@
   &.second {
     .featured-author {
       &__img-link {
-        width: 50%;
+        @media (--tablet) {
+          width: 50%;
+        }
       }
       &__content {
-        width: 50%;
+        @media (--tablet) {
+          width: 50%;
+        }
+      }
+      &__img {
+        max-height: 374px;
+      }
+    }
+  }
+  &.third {
+    .featured-author {
+      &__content {
+        @media (--tablet) {
+          width: 50%;
+        }
       }
       &__img {
         max-height: 374px;
