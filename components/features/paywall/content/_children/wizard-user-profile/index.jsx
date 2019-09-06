@@ -6,7 +6,6 @@ import Summary from '../summary'
 import * as S from './styled'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { addSales } from '../../../_dependencies/sales'
-import Beforeunload from '../before-unload'
 import { parseQueryString } from '../../../../../utilities/helpers'
 import { deepMapValues } from '../../../_dependencies/utils'
 import Errors from '../../../_dependencies/errors'
@@ -112,26 +111,24 @@ function WizardUserProfile(props) {
   }
 
   return (
-    <Beforeunload onBeforeunload={() => 'message'}>
-      <S.WizardUserProfile>
-        <S.PanelUserProfile type="content" valing="jc-center">
-          {sanitizedProfile && (
-            <UserProfile
-              initialValues={sanitizedProfile}
-              onSubmit={onSubmitHandler}
-              title="Ingrese sus datos"
-              error={error}
-            />
-          )}
-        </S.PanelUserProfile>
-        <Summary
-          amount={amount}
-          billingFrequency={billingFrequency}
-          description={description}
-          summary={summary}
-        />
-      </S.WizardUserProfile>
-    </Beforeunload>
+    <S.WizardUserProfile>
+      <S.PanelUserProfile type="content" valing="jc-center">
+        {sanitizedProfile && (
+          <UserProfile
+            initialValues={sanitizedProfile}
+            onSubmit={onSubmitHandler}
+            title="Ingrese sus datos"
+            error={error}
+          />
+        )}
+      </S.PanelUserProfile>
+      <Summary
+        amount={amount}
+        billingFrequency={billingFrequency}
+        description={description}
+        summary={summary}
+      />
+    </S.WizardUserProfile>
   )
 }
 
