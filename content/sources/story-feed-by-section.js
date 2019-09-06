@@ -43,6 +43,7 @@ const params = [
   },
 ]
 const options = {
+  gzip: true,
   json: true,
 }
 

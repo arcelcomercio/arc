@@ -6,7 +6,7 @@ import ConfigParams from '../../../../utilities/config-params'
 const classes = {
   extraordinayStoryGridContainer: `extraordinary-story-grid flex position-relative p-10 flex-col lg:flex-row`,
   videoBox: `story-video-box flex items-center position-relative w-full rounded-sm lg:mt-0 md:p-10`,
-  gridContainer: 'sections-grid w-full pl-10 lg:pl-30',
+  gridContainer: 'sections-grid w-full lg:pl-30',
   gridHeaderText: `sections-grid__text flex position-absolute items-center text-lg text-gray-200 pl-10`,
   gridHeaderImage: 'sections-grid__text-image ml-10',
   gridListTitle: 'sections-grid__title p-10 title-sm text-white',

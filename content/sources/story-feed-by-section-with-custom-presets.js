@@ -116,6 +116,7 @@ const addResizedUrlsToStory = (data, resizerUrl, presets) => {
 }
 
 const options = {
+  gzip: true,
   json: true,
 }
 

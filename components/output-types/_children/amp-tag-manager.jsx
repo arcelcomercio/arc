@@ -36,7 +36,7 @@ export default ({
       "trackVideoPlay${totalIndex}": {
         "on": "video-play",
         "request": "event",
-        "selector": ".${idVideo}",
+        "selector": ".id-${idVideo}",
         "vars": {
           "eventCategory": "PowaAMP",
           "eventAction": "playbackPlay",
@@ -46,7 +46,7 @@ export default ({
       "trackVideoPause${totalIndex}": {
         "on": "video-pause",
         "request": "event",
-        "selector": ".${idVideo}",
+        "selector": ".id-${idVideo}",
         "vars": {
           "eventCategory": "PowaAMP",
           "eventAction": "playbackPaused",
@@ -56,7 +56,7 @@ export default ({
       "trackVideoComplete${totalIndex}": {
         "on": "video-ended",
         "request": "event",
-        "selector": ".${idVideo}",
+        "selector": ".id-${idVideo}",
         "vars": {
           "eventCategory": "PowaAMP",
           "eventAction": "playbackFinished",
