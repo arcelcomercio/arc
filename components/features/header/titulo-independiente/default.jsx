@@ -6,8 +6,8 @@ import StoryData from '../../../utilities/story-data'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  titulo: 'w-full text-white ',
-  link: ' ',
+  titulo: 'w-full text-white pt-10 pb-10',
+  link: 'flex justify-center title-lg ',
 }
 
 const HeaderTitleIndependiente = () => {
@@ -35,7 +35,7 @@ const HeaderTitleIndependiente = () => {
       <div className={`${classes.titulo} ${bgColor}`}>
         <a
           href={link}
-          className={`${classes.titulo} ${fontColor}`}
+          className={`${classes.link} ${fontColor}`}
           href={sectionUrl}>
           {title}
         </a>

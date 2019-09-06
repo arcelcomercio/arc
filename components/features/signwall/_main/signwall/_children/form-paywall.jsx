@@ -14,8 +14,8 @@ class SignWallPaywall extends Component {
     this.state = {
       showPaywallBtn: false,
       paywallPrice: '-',
-      paywallFrecuency:'-',
-      paywallTitle:'-',
+      paywallFrecuency: '-',
+      paywallTitle: '-',
       paywallDescripcion: '-',
       featuresDescription: [],
       isLoading: true,
@@ -41,7 +41,6 @@ class SignWallPaywall extends Component {
   getCampain() {
     const { fetched } = this.getContent('paywall-campaing')
     fetched.then(resCam => {
-      console.log(resCam)
       this.setState({
         paywallPrice: resCam.plans[0].amount || '-',
         paywallFrecuency: resCam.plans[0].billingFrequency || '-',
@@ -54,9 +53,11 @@ class SignWallPaywall extends Component {
   }
 
   handleSuscription = e => {
+    const { removeBefore } = this.props
     e.preventDefault()
     Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
     window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
+    removeBefore() // dismount before
     if (ENV.ENVIRONMENT === 'elcomercio') {
       window.location.href = '/suscripcionesdigitales/' // URL LANDING
     } else {
@@ -66,10 +67,9 @@ class SignWallPaywall extends Component {
   }
 
   render() {
-
     const frecuency = {
-      "Month" : "al mes",
-      "Year" : "al año"
+      Month: 'al mes',
+      Year: 'al año',
     }
     const {
       showPaywallBtn,
@@ -96,8 +96,12 @@ class SignWallPaywall extends Component {
                     {paywallPrice}
                   </div>
                   <div className="detail-price">
-                    <p><strong>{ frecuency[paywallFrecuency] }</strong></p>
-                    <p><strong>{paywallTitle}</strong></p>
+                    <p>
+                      <strong>{frecuency[paywallFrecuency]}</strong>
+                    </p>
+                    <p>
+                      <strong>{paywallTitle}</strong>
+                    </p>
                     <p>{paywallDescripcion}</p>
                   </div>
                 </div>
