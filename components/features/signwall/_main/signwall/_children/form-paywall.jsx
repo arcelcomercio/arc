@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import { ModalConsumer } from '../context'
 import Cookie from '../../utils/cookie'
 import Loading from '../../common/loading'
 import Taggeo from '../../utils/taggeo'
+import Domains from '../../utils/domains'
 
 const Cookies = new Cookie()
 @Consumer
@@ -22,10 +22,7 @@ class SignWallPaywall extends Component {
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentWillMount() {
@@ -58,12 +55,7 @@ class SignWallPaywall extends Component {
     Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
     window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
     removeBefore() // dismount before
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      window.location.href = '/suscripcionesdigitales/' // URL LANDING
-    } else {
-      window.location.href =
-        '/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1' // URL LANDING
-    }
+    window.location.href = Domains.getUrlPaywall()
   }
 
   render() {

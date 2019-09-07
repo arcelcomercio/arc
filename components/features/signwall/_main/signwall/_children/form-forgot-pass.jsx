@@ -2,13 +2,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 // TODO Agregar excepcion a eslint
 import React, { Component } from 'react'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import { emailRegex } from '../../utils/regex'
 import FormValid from '../../utils/form-valid'
 import * as Icon from '../../common/iconos'
 import Services from '../../utils/services'
 import Taggeo from '../../utils/taggeo'
+import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
 
 const services = new Services()
@@ -28,17 +28,7 @@ class FormForgotPass extends Component {
     }
 
     const { arcSite } = this.props
-    if (arcSite !== 'peru21') {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-sandbox.${arcSite}.pe`
-    } else {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
-    }
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentWillMount() {
@@ -133,22 +123,6 @@ class FormForgotPass extends Component {
   taggeoSuccess() {
     const { typePopUp } = this.props
 
-    // if (typePopUp === 'relogemail') {
-    //   window.dataLayer.push({
-    //     event: 'olvidepass_sucess',
-    //     eventCategory: 'Web_Sign_Wall_Relog_Email',
-    //     eventAction: 'web_relog_email_contrasena_success_boton',
-    //   })
-    // } else {
-    //   window.dataLayer.push({
-    //     event: 'olvidepass_sucess',
-    //     eventCategory: `Web_Sign_Wall_${
-    //       typePopUp === 'relogin' ? 'Relogueo' : typePopUp
-    //     }`,
-    //     eventAction: `web_sw${typePopUp[0]}_contrasena_success_boton`, // web_relog ahora sera 'web_swr'
-    //   })
-    // }
-
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
       `web_sw${typePopUp[0]}_contrasena_success_boton`
@@ -157,22 +131,6 @@ class FormForgotPass extends Component {
 
   taggeoError() {
     const { typePopUp } = this.props
-
-    // if (typePopUp === 'relogemail') {
-    //   window.dataLayer.push({
-    //     event: 'olvidepass_error',
-    //     eventCategory: 'Web_Sign_Wall_Relog_Email',
-    //     eventAction: 'web_relog_email_contrasena_error_boton',
-    //   })
-    // } else {
-    //   window.dataLayer.push({
-    //     event: 'olvidepass_error',
-    //     eventCategory: `Web_Sign_Wall_${
-    //       typePopUp === 'relogin' ? 'Relogueo' : typePopUp
-    //     }`,
-    //     eventAction: `web_sw${typePopUp[0]}_contrasena_error_boton`, // web_relog ahora sera 'web_swr'
-    //   })
-    // }
 
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
