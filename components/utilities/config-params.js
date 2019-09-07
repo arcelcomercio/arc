@@ -30,6 +30,10 @@ class ConfigParams {
 
   static ELEMENT_TEXT = 'text'
 
+  static ELEMENT_LIST = 'list'
+
+  static ELEMENT_HEADER ='header'  
+
   static ELEMENT_BLOCKQUOTE = 'blockquote'
 
   static ELEMENT_TYPE_CHARBEAT = 'Articulo Nota Simple'

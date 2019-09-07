@@ -451,13 +451,19 @@ class StoryData {
     const { content_elements: contentElements = [] } = this._data
 
     const parrafo = contentElements.map(
-      ({ content = '', type = '', _id = '', url = '' }) => {
+      ({ content = '', type = '', _id = '', url = '', items = [] }) => {
         const result = { _id, type, payload: '' }
 
         switch (type) {
           case ConfigParams.ELEMENT_TEXT:
             result.payload = content
             // && content
+            break
+          case ConfigParams.ELEMENT_LIST:
+            result.payload = items
+            break
+          case ConfigParams.ELEMENT_HEADER:
+            result.payload = content
             break
           case ConfigParams.ELEMENT_IMAGE:
             result.payload = url

@@ -63,6 +63,7 @@ const ListItemNews = (contentElements, buildProps) => {
         listUrlAdvertisings,
       }
 
+
       const htmlString = BuildHtml(BuildHtmlProps)
       const codigoGUID = md5(storydata.id)
 
