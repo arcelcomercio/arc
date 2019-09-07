@@ -13,7 +13,7 @@ const classes = {
   description:
     'amp-story-header__description mt-0 text-md text-gray-300 secondary-font',
   gallery: 'amp-story-header bg-white w-full pr-20 pl-20 m-5 mx-auto',
-  adsAmp: 'text-center',
+  adsAmp: 'text-center ad-amp-movil',
 }
 @Consumer
 class StoryTitleAmp extends PureComponent {
