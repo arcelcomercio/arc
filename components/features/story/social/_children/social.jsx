@@ -7,6 +7,8 @@ import {
   socialMediaUrlShareList,
 } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
+import StoryData from '../../../../utilities/story-data'
+import StorySocialChildAuthor from './author'
 
 const classes = {
   news:
@@ -80,19 +82,6 @@ class StoryHeaderChildSocial extends PureComponent {
     }
   }
 
-  getSeccionPrimary = dataStory => {
-    return dataStory.taxonomy
-      ? dataStory.taxonomy.primary_section
-      : { name: '', section: '' }
-  }
-
-  handleMoreButton = () => {
-    const { currentList } = this.state
-    const newList =
-      currentList === this.firstList ? this.secondList : this.firstList
-    this.setState({ currentList: newList })
-  }
-
   openLink = (event, item, print) => {
     event.preventDefault()
     if (print) window.print()
@@ -101,18 +90,40 @@ class StoryHeaderChildSocial extends PureComponent {
 
   render() {
     const { currentList } = this.state
+    const { globalContent = {}, contextPath } = this.props
+
     const {
-      globalContent: {
-        taxonomy: { primary_section: { name = '' } = {} } = {},
-        editor_note: editorNote,
-      } = {},
-    } = this.props
+      publishDate: date,
+      displayDate: updatedDate,
+      editorNote,
+      authorImage,
+      authorLink,
+      author,
+      authorEmail,
+      primarySection,
+      primarySectionLink,
+    } = new StoryData({
+      data: globalContent,
+      contextPath,
+    })
+
+    const params = {
+      authorImage,
+      author,
+      authorLink,
+      updatedDate,
+      date,
+      primarySection,
+      primarySectionLink,
+      authorEmail,
+    }
 
     return (
       <>
         <div className={classes.news}>
           <div className={classes.category}>
-            {(editorNote && rawHtml(editorNote)) || name}
+            {(editorNote && rawHtml(editorNote)) || primarySection}
+            <StorySocialChildAuthor {...params} />
           </div>
           <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (

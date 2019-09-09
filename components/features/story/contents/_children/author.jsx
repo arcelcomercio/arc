@@ -12,33 +12,37 @@ const classes = {
     'story-content__author-email secondary-font text-md text-gray-200 line-h-sm',
 }
 
-const StoryContentChildAuthor = props => {
-  const { date, by = [], updatedDate } = props
-  const [
-    {
-      name,
-      url,
-      additional_properties: { original: { email } = {} } = {},
-    } = {},
-  ] = by || []
+const StoryContentChildAuthor = ({
+  author,
+  authorLink,
+  updatedDate,
+  date,
+  authorEmail,
+  primarySection = '',
+}) => {
   return (
-    <div className={classes.author}>
-      {/* // TODO: Cambiar este div por <address> */}
-      <div>
-        {name && (
-          <a href={url} className={classes.authorNameLink}>
-            {name}
-          </a>
+    <>
+      <div className={classes.author}>
+        {/* // TODO: Cambiar este div por <address> */}
+        {primarySection !== 'Columnistas' && (
+          <div>
+            {author && (
+              <a href={authorLink} className={classes.authorNameLink}>
+                {author}
+              </a>
+            )}
+            {authorEmail && true && (
+              <p className={classes.authorEmail}> {authorEmail} </p>
+            )}
+          </div>
         )}
-        {email && true && <p className={classes.authorEmail}> {email} </p>}
+        <div className={classes.authorDate}>
+          <time dateTime={date}>
+            {updatedDate && formatDateStory(updatedDate)}
+          </time>
+        </div>
       </div>
-      <div className={classes.authorDate}>
-        <time dateTime={date}>
-          {' '}
-          {updatedDate && formatDateStory(updatedDate)}
-        </time>
-      </div>
-    </div>
+    </>
   )
 }
 
