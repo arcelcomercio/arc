@@ -403,8 +403,8 @@ class StoryData {
   get multimediaNews() {
     const type = StoryData.getMultimediaIconTypeFIA(this._data) || ''
     const result = { type, payload: '' }
-    let imageItems=''
-    
+    let imageItems = ''
+
     switch (type) {
       case ConfigParams.IMAGE:
         result.payload = this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
@@ -704,6 +704,7 @@ class StoryData {
   ) {
     if (basicVideo.promo_image && (type === 'video' || type === 'image')) {
       const {
+        _id: idVideo = '',
         streams = [],
         publish_date: date = '',
         promo_image: { url: urlImage = '' } = {},
@@ -714,6 +715,7 @@ class StoryData {
           .map(({ url, stream_type: streamType }) => {
             return streamType === 'mp4'
               ? {
+                  idVideo,
                   url,
                   caption,
                   urlImage,
@@ -785,6 +787,7 @@ class StoryData {
       dataVideo
         .map(
           ({
+            _id: idVideo = '',
             promo_image: { url: urlImage },
             streams,
             publish_date: date,
@@ -794,6 +797,7 @@ class StoryData {
               .map(({ url = '', stream_type: streamType = '' }) => {
                 return streamType === 'mp4'
                   ? {
+                      idVideo,
                       url,
                       caption,
                       urlImage,

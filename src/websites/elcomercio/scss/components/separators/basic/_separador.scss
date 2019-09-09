@@ -1,0 +1,30 @@
+.separator {
+  &__article {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+  }
+  &__body {
+    @media (--tablet) {
+      height: 220px;
+    }
+  }
+  &__item {
+    background-color: $color-base-300;
+    &:before {
+      display: none;
+    }
+  }
+  &__detail {
+    position: relative;
+    @media (--only-mobile) {
+      padding-top: 10px;
+    }
+  }
+  &__title {
+    color: $color-gray-300;
+  }
+  &__img {
+    max-height: 130px;
+  }
+}

@@ -48,6 +48,7 @@ class LayoutAmpFooter extends PureComponent {
       "pages": [${recentResult}],
       "hideSelectors": [
         ".amp-header",
+        ".ad-amp-movil",
         ".amp-nav__wrapper",
         ".amp-nav",
         ".footer"

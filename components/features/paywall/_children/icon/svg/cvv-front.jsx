@@ -4,47 +4,47 @@ function CustomIcon({ width, height, fill = '#444' }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="46.5"
-      height="28.121"
-      viewBox="0 0 46.5 28.121">
-      <g
-        id="Grupo_684"
-        data-name="Grupo 684"
-        transform="translate(-758.5 -352)">
-        <g id="XMLID_7_" transform="translate(759 347)">
-          <path
-            id="XMLID_130_"
-            d="M32.114,32.621H1.886A1.885,1.885,0,0,1,0,30.735V9.886A1.885,1.885,0,0,1,1.886,8H32.114A1.886,1.886,0,0,1,34,9.886V30.735a1.886,1.886,0,0,1-1.886,1.886"
+      width="42"
+      height="22"
+      viewBox="0 0 42 22">
+      <g id="Grupo_687" data-name="Grupo 687" transform="translate(-759 -406)">
+        <g id="XMLID_7_" transform="translate(759 398)">
+          <g
+            id="Rectángulo_980"
+            data-name="Rectángulo 980"
+            transform="translate(0 8)"
             fill="#fff"
             stroke="#707070"
-            stroke-width="1"
-          />
+            stroke-width="1">
+            <rect width="34" height="22" rx="2" stroke="none" />
+            <rect x="0.5" y="0.5" width="33" height="21" rx="1.5" fill="none" />
+          </g>
           <rect
             id="XMLID_129_"
             width="5"
             height="4"
-            transform="translate(3 25)"
+            transform="translate(3 22)"
             fill="#707070"
           />
           <rect
             id="XMLID_128_"
             width="5"
             height="4"
-            transform="translate(11 25)"
+            transform="translate(11 22)"
             fill="#707070"
           />
           <rect
             id="XMLID_127_"
             width="5"
             height="4"
-            transform="translate(18 25)"
+            transform="translate(18 22)"
             fill="#707070"
           />
           <rect
             id="XMLID_126_"
             width="5"
             height="4"
-            transform="translate(26 25)"
+            transform="translate(26 22)"
             fill="#707070"
           />
           <path
@@ -109,24 +109,29 @@ function CustomIcon({ width, height, fill = '#444' }) {
           />
         </g>
         <g
-          id="Elipse_204"
-          data-name="Elipse 204"
-          transform="translate(783 352)"
-          fill="#fff"
-          stroke="#ff006c"
-          stroke-width="2">
-          <circle cx="11" cy="15" r="11" stroke="none" />
-          <circle cx="11" cy="15" r="10" fill="none" />
+          id="Trazado_865"
+          data-name="Trazado 865"
+          transform="translate(781 407)"
+          fill="#fff">
+          <path
+            d="M 10 19 C 5.037380218505859 19 1 14.96261978149414 1 10 C 1 5.037380218505859 5.037380218505859 1 10 1 C 14.96261978149414 1 19 5.037380218505859 19 10 C 19 14.96261978149414 14.96261978149414 19 10 19 Z"
+            stroke="none"
+          />
+          <path
+            d="M 10 2 C 5.588789939880371 2 2 5.588789939880371 2 10 C 2 14.41121006011963 5.588789939880371 18 10 18 C 14.41121006011963 18 18 14.41121006011963 18 10 C 18 5.588789939880371 14.41121006011963 2 10 2 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z"
+            stroke="none"
+            fill="#ff006c"
+          />
         </g>
         <text
           id="XXXX"
-          transform="translate(787 365)"
+          transform="translate(784 419)"
           fill="#ff006c"
           font-size="5"
           font-family="OpenSans-Bold, Open Sans"
           font-weight="700"
           letter-spacing="0.04em">
-          <tspan x="0" y="4">
+          <tspan x="0" y="0">
             XXXX
           </tspan>
         </text>

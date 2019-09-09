@@ -2,6 +2,7 @@ import React from 'react'
 
 const StoryContentChildVideo = ({ data }) => {
   const {
+    _id: id = '',
     streams = [],
     publish_date: date = '',
     headlines: { basic: caption = '' } = {},
@@ -31,6 +32,7 @@ const StoryContentChildVideo = ({ data }) => {
       src={urlVideo}
       poster={urlImage}
       artwork={urlImage}
+      class={`id-${id}`}
       title={caption}
       album="Blender"
       width="720"
