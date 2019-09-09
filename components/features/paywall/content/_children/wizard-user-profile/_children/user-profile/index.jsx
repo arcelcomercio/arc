@@ -151,7 +151,7 @@ const UserProfile = ({
             <Button disabled={isSubmitting} maxWidth="300px" type="submit">
               CONTINUAR
             </Button>
-            <Persist name="paywall-profile-form" />
+            <Persist name="paywall-profile-form" isSessionStorage />
           </FormStyled>
         )
       }}
