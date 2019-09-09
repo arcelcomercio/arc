@@ -25,6 +25,7 @@ const classes = {
   iconVideo: `story-item__icon icon-video position-absolute flex items-center justify-center text-white w-full h-full`,
   img: 'story-item__img object-cover object-center w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
+  wrapperTitle: 'w-full',
 }
 
 class StoriesList extends PureComponent {
@@ -60,7 +61,7 @@ class StoriesList extends PureComponent {
                 {formatDateLocalTimeZone(element.date)}
               </p>
             </div>
-            <div>
+            <div className={classes.wrapperTitle}>
               <h2 className={classes.contentTitle}>
                 <a
                   className={classes.title}
