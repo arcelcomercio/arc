@@ -27,7 +27,7 @@ const classes = {
   // TODO: Revisar video y imgTag
   relatedTitle:
     'related-content__title font-bold uppercase pt-20 pb-20 secondary-font',
-  adsAmp: 'text-center ',
+  adsAmp: 'text-center ad-amp-movil',
 }
 
 @Consumer
