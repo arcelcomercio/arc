@@ -13,13 +13,14 @@ const CardFeaturedStoryAuthor = props => {
     storyImg: 'featured-author__img w-full object-cover',
     content:
       'featured-author__content pl-20 pr-20 md:pl-10 md:pr-10 pt-5 md:pt-5 pb-20',
-    section: 'flex justify-center mt-10 mb-10',
-    sectionLink: 'text-gray-200 title-sm',
+    section: 'featured-author__section flex justify-center mt-10 mb-10',
+    sectionLink: 'featured-author__section-link text-gray-200 title-sm',
     title: 'flex justify-center mb-15',
     titleLink:
       'featured-author__title-link text-center line-h-xs overflow-hidden',
-    subtitle: 'mb-20',
-    subtitleLink: 'block text-center text-md line-h-sm',
+    subtitle: 'featured-author__subtitle mb-20',
+    subtitleLink:
+      'featured-author__subtitle-link block text-center text-md line-h-sm overflow-hidden',
     authorContainer: 'flex justify-center',
     authorImgLink: 'rounded overflow-hidden bg-tertiary',
     authorPicture: '',
@@ -89,12 +90,20 @@ const CardFeaturedStoryAuthor = props => {
     classes.storyImg = 'featured-author__img w-full object-cover h-full'
     classes.content =
       'featured-author__content pl-20 pr-20 md:pt-20 pt-5 pb-20 position-relative'
-    classes.sectionLink = 'text-white title-sm'
+    classes.sectionLink = 'featured-author__section-link text-white title-sm'
     classes.titleLink =
       'featured-author__title-link text-center line-h-xs overflow-hidden text-white'
-    classes.subtitleLink = 'block text-center text-md line-h-sm text-white'
+    classes.subtitle = 'featured-author__subtitle hidden md:block mb-20'
+    classes.subtitleLink =
+      'featured-author__subtitle-link block text-center text-md line-h-sm text-white overflow-hidden'
     classes.authorNameLink = 'text-md line-h-xs text-white'
     classes.authorRole = 'text-sm text-white'
+
+    storyImages.desktop = multimediaLandscapeL
+    storyImages.mobile = multimediaLandscapeL
+  }
+  if (design === 'fourth') {
+    classes.featuredAuthor = 'featured-author fourth bg-tertiary row-2 col-2'
 
     storyImages.desktop = multimediaLandscapeL
     storyImages.mobile = multimediaLandscapeL
