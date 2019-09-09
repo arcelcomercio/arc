@@ -110,6 +110,22 @@ const buildTexParagraph = paragraph => {
   return result
 }
 
+const buildListParagraph = listParagraph => {
+  const objTextsProcess = { listTextProcess: [], totalwords: 0 }
+  let countwords = 0
+  let textProcess = {}
+  listParagraph.forEach(({ type = '', content = '' }) => {
+    if (type === ConfigParams.ELEMENT_TEXT) {
+      textProcess = buildTexParagraph(content)
+      objTextsProcess.listTextProcess.push(textProcess)
+      countwords += textProcess.numberWords
+    }
+  })
+
+  objTextsProcess.totalwords = countwords
+  return objTextsProcess
+}
+
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
@@ -123,7 +139,8 @@ const analyzeParagraph = ({
     numberWords: 0,
     processedParagraph: '',
   }
-  let processedParagraph = originalParagraph
+
+  const processedParagraph = originalParagraph
   let textProcess = {}
   switch (type) {
     case ConfigParams.ELEMENT_TEXT:
@@ -141,8 +158,9 @@ const analyzeParagraph = ({
 
       break
     case ConfigParams.ELEMENT_LIST:
-      
-      processedParagraph = ''
+      console.log('AQUI Result!!!!!')
+      console.log(buildListParagraph(originalParagraph))
+
       break
     case ConfigParams.ELEMENT_VIDEO:
       result.numberWords = numberWordMultimedia
@@ -197,8 +215,6 @@ const analyzeParagraph = ({
       break
   }
 
-  console.log('AQUI!!!!')
-  console.log(result)
   return result
 }
 
