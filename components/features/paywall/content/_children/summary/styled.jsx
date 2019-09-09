@@ -25,6 +25,10 @@ export const Expand = styled.div`
   flex: 1;
   justify-content: space-between;
   line-height: 20px;
+  padding: 5px 0px;
+  &:last-child {
+    padding: 20px 0px;
+  }
   ${({ color }) => `color: ${color || '#000'};`}
   font-size: ${({ size }) => `${size || 13}px`};
   ${({ discount }) =>
@@ -56,7 +60,6 @@ const SummaryTitle = styled.span`
 
 export const Description = styled.div`
   max-width: 150px;
-  display: flex;
   flex: 1;
   text-align: right;
   margin-left: auto;

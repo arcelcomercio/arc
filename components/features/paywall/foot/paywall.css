@@ -4,6 +4,16 @@
   color: #fff;
   padding: 30px;
   margin-top: 30px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1024px), (max-height: 890px) {
+  .foot{
+    position: relative;
+  }
 }
 
 .footer-content {

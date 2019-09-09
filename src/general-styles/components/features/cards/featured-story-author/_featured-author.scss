@@ -1,6 +1,11 @@
 .featured-author {
+  @media (--only-mobile) {
+    height: auto;
+  }
   &__img {
-    max-height: 157px;
+    @media (--tablet) {
+      max-height: 157px;
+    }
   }
   &__author-img {
     width: 42px;
@@ -16,13 +21,46 @@
   &.second {
     .featured-author {
       &__img-link {
-        width: 50%;
+        @media (--tablet) {
+          width: 50%;
+        }
       }
       &__content {
-        width: 50%;
+        @media (--tablet) {
+          width: 50%;
+        }
       }
       &__img {
         max-height: 374px;
+      }
+    }
+  }
+  &.third {
+    min-height: 374px;
+    .featured-author {
+      &__content {
+        @media (--tablet) {
+          width: 50%;
+        }
+      }
+      &__img {
+        max-height: 374px;
+      }
+      &__img-picture {
+        &::before {
+          content: '';
+          position: absolute;
+          pointer-events: none;
+          width: 70%;
+          height: 100%;
+          bottom: 0;
+          left: 0;
+          background: linear-gradient(
+            to left,
+            rgba(68, 68, 68, 0) 0%,
+            rgba(0, 0, 0, 0.5)
+          );
+        }
       }
     }
   }
