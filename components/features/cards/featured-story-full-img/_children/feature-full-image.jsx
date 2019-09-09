@@ -46,7 +46,7 @@ export default ({
     <div
       className={`${classes.fullImg} ${crossY} ${crossX} ${getModel(model)}`}>
       <div className={classes.boxImg}>
-        {getModel(model) === 'col-2 row-1' && (
+        {model === 'twoCol' && (
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaLandscapeL}
@@ -54,7 +54,7 @@ export default ({
             alt={title}
           />
         )}
-        {getModel(model) === 'col-2 row-2' && (
+        {model === 'full' && (
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaSquareXL}
@@ -62,7 +62,7 @@ export default ({
             alt={title}
           />
         )}
-        {getModel(model) === 'row-1' && (
+        {model === 'basic' && (
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaPortraitMD}
