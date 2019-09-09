@@ -10,8 +10,7 @@ $cinema-height: 89px;
   }
 
   &__figure {
-    // Modificar la altura cuando se tenga el diseño definido
-    height: 145px;
+    height: 400px;
   }
 
   &__detail {
@@ -44,5 +43,14 @@ $cinema-height: 89px;
   &__button {
     height: 34px;
     width: 100px;
+  }
+  &__category {
+    background-color: $color-base-200;
+    color: $color-gray-300;
+    font-weight: 700;
+    padding: 0 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
   }
 }

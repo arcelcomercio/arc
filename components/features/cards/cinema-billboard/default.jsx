@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  cinemaCard: 'cinema-card bg-white p-20 row-1',
+  cinemaCard: 'cinema-card bg-white row-1',
   container: 'position-relative',
   gradient: 'cinema-card__gradient w-full position-absolute bottom-0 left-0',
   category: `cinema-card__category uppercase primary-font mb-0 pb-15 text-xl line-h-none`,
@@ -125,12 +125,7 @@ class CardCinemaBillboard extends PureComponent {
           </h3>
           <figure className={classes.figure}>
             <a href={`${BASE_PATH}${MOVIES_BASE_PATH}/${url}`}>
-              <img
-                src={img}
-                alt={alt}
-                className={classes.image}
-                
-              />
+              <img src={img} alt={alt} className={classes.image} />
             </a>
           </figure>
           <div className={classes.detail}>
