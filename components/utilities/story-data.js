@@ -73,6 +73,10 @@ class StoryData {
     return (this._data && this._data.subtype) || ''
   }
 
+  get editorNote() {
+    return (this._data && this._data.editor_note) || ''
+  }
+
   get tags() {
     return (this._data && this._data.taxonomy && this._data.taxonomy.tags) || []
   }
@@ -88,6 +92,10 @@ class StoryData {
 
   get author() {
     return StoryData.getDataAuthor(this._data).nameAuthor
+  }
+
+  get authorEmail() {
+    return StoryData.getDataAuthor(this._data).mailAuthor
   }
 
   get seoAuthor() {
@@ -860,6 +868,7 @@ class StoryData {
     let nameAuthor = ''
     let urlAuthor = ''
     let slugAuthor = ''
+    let mailAuthor = ''
     let socialLinks = []
 
     let imageAuthor = authorImageDefault
@@ -874,6 +883,11 @@ class StoryData {
             ? iterator.image.url
             : authorImageDefault
         socialLinks = iterator.social_links ? iterator.social_links : []
+        mailAuthor =
+          (iterator.additional_properties &&
+            iterator.additional_properties.original &&
+            iterator.additional_properties.original.email) ||
+          ''
         break
       }
     }
@@ -884,6 +898,7 @@ class StoryData {
       slugAuthor,
       imageAuthor,
       socialLinks,
+      mailAuthor,
     }
   }
 

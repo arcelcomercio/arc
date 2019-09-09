@@ -69,11 +69,12 @@ class StoryContents extends PureComponent {
       globalContent,
       arcSite,
       contextPath,
+      deployment,
       siteProperties: {
         ids: { opta },
       },
     } = this.props
-    const { credits: author, related_content: { basic: relatedContent } = {} } =
+    const { related_content: { basic: relatedContent } = {} } =
       globalContent || {}
 
     const {
@@ -81,11 +82,29 @@ class StoryContents extends PureComponent {
       promoItems,
       displayDate: updatedDate,
       contentElements,
+      authorImage,
+      authorLink,
+      author,
       primarySection,
+      authorEmail,
+      primarySectionLink,
     } = new StoryData({
       data: globalContent,
       contextPath,
+      deployment,
+      arcSite,
     })
+
+    const params = {
+      authorImage,
+      author,
+      authorLink,
+      updatedDate,
+      date,
+      primarySectionLink,
+      authorEmail,
+      primarySection,
+    }
 
     return (
       <div className={classes.news}>
@@ -93,13 +112,8 @@ class StoryContents extends PureComponent {
           ? promoItems && <StoryContentsChildImpresa data={promoItems} />
           : promoItems && <StoryContentsChildMultimedia data={promoItems} />}
 
-        {author && (
-          <StoryContentsChildAuthor
-            {...author}
-            date={date}
-            updatedDate={updatedDate}
-          />
-        )}
+        <StoryContentsChildAuthor {...params} />
+
         <div id="ads_m_movil2" />
         <div className={classes.content} id="contenedor">
           {/* TODO: se retira para el sitio de gestion por la salida del 30 de julio */}
