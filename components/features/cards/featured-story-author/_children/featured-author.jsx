@@ -117,13 +117,16 @@ export default ({
           </a>
         </h3>
         <h2 className={classes.title}>
-          <a className={classes.titleLink} href={websiteLink}>
+          <a className={classes.titleLink} href={websiteLink} title={title}>
             {title}
           </a>
         </h2>
         {design !== 'first' && (
           <h3 className={classes.subtitle}>
-            <a className={classes.subtitleLink} href={websiteLink}>
+            <a
+              className={classes.subtitleLink}
+              href={websiteLink}
+              title={subTitle}>
               {subTitle}
             </a>
           </h3>

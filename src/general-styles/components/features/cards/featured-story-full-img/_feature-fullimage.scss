@@ -1,0 +1,126 @@
+@mixin overlay($orientacion) {
+  &::before {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(
+      to #{$orientacion},
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0) 55%
+    );
+  }
+}
+
+.feature-fullimage {
+  &.top {
+    align-items: flex-start;
+  }
+  &.middle {
+    align-items: center;
+  }
+  &.end {
+    justify-content: flex-end;
+  }
+  &__box-image {
+    @include overlay(top);
+  }
+  &__image {
+  }
+  &__box-detail {
+    z-index: 1;
+    // position: absolute;
+    // bottom: 0;
+    // left: 0;
+    // padding: 20px 10px 20px 20px;
+  }
+  &[class*=' col-2'] {
+    .feature-fullimage__box-detail {
+      width: 50%;
+    }
+  }
+  &__section {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.7);
+      top: -2px;
+      left: 0;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.7);
+      bottom: -3px;
+      left: 0;
+    }
+  }
+  &__title {
+  }
+  &__author {
+  }
+  &__box-icon {
+    top: 20px;
+    right: 20px;
+    height: 50px;
+    width: 50px;
+  }
+  &__icon {
+    font-size: 40px;
+  }
+  &[class*=' top start col-2'],
+  &[class*=' top end row-1'],
+  &[class*=' top start row-1'] {
+    .feature-fullimage__box-icon {
+      top: inherit;
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+  &[class*=' top end'] {
+    .feature-fullimage__box-icon {
+      top: inherit;
+      bottom: 20px;
+      left: 20px;
+      right: inherit;
+    }
+    .feature-fullimage__box-image {
+      @include overlay(bottom);
+    }
+  }
+  &[class*=' bottom end col-2'] {
+    .feature-fullimage__box-icon {
+      top: 20px;
+      left: 20px;
+      right: inherit;
+    }
+  }
+  &[class*=' top start'] {
+    .feature-fullimage__box-image {
+      @include overlay(bottom);
+    }
+  }
+  &[class*=' middle start col-2'] {
+    .feature-fullimage__box-image {
+      @include overlay(right);
+    }
+  }
+  &[class*=' middle end col-2'] {
+    .feature-fullimage__box-icon {
+      top: 20px;
+      left: 20px;
+      right: inherit;
+    }
+    .feature-fullimage__box-image {
+      @include overlay(left);
+    }
+  }
+}
