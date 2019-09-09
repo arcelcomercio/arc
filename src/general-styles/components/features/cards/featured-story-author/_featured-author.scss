@@ -15,7 +15,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    max-height: calc(1.5rem * 1.16667 * 3);
+    max-height: calc(1.7rem * 1.16667 * 3);
   }
   &__subtitle-link {
     display: -webkit-box;
@@ -83,9 +83,24 @@
     }
   }
   &.fourth {
+    @media (--only-mobile) {
+      grid-row: span 1;
+    }
     .featured-author {
       &__img {
         max-height: 374px;
+      }
+      &__title-link {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        max-height: calc(2rem * 1.16667 * 3);
+      }
+      &__subtitle-link {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        max-height: calc(1rem * 1.3333 * 3);
       }
     }
   }
