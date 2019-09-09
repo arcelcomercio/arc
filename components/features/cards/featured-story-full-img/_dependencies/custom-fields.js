@@ -10,7 +10,6 @@ const customFields = PropTypes.shape({
   }),
   model: PropTypes.oneOf(['basic', 'twoCol', 'full']).tag({
     name: 'Modelo del Destaque',
-    group: 'Configuración',
     labels: {
       basic: 'Basico',
       twoCol: '2 Columnas',
@@ -20,7 +19,6 @@ const customFields = PropTypes.shape({
   }),
   crossY: PropTypes.oneOf(['top', 'middle', 'bottom']).tag({
     name: 'Orientación',
-    group: 'Configuración',
     labels: {
       top: 'Arriba',
       middle: 'Medio',
@@ -30,7 +28,6 @@ const customFields = PropTypes.shape({
   }),
   crossX: PropTypes.oneOf(['start', 'end']).tag({
     name: 'Posición',
-    group: 'Configuración',
     labels: {
       start: 'Inicio',
       end: 'Fin',
