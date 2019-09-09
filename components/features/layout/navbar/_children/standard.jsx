@@ -422,7 +422,6 @@ class NavBarDefault extends PureComponent {
     this.inputSearch.current.focus()
   }
 
-  // TODO: abstraer este método, se usa por 3 componentes
   _handleSearch = () => {
     const { value } = this.inputSearch.current
     searchQuery(value)

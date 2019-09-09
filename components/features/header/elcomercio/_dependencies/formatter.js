@@ -1,5 +1,11 @@
 import { formatDayMonthYear } from '../../../../utilities/helpers'
 
+const LINK = 'link'
+const BAND = 'band'
+const MENU = 'menu'
+const ARCHIVE_TEXT = 'Lo último'
+const ARCHIVE_LINK = '/archivo'
+
 export default class StandardHeader {
   constructor(
     deployment,
@@ -35,15 +41,14 @@ export default class StandardHeader {
     this.menuData = menuData
   }
 
-  formatBandData = () => {
-    const link = 'link'
-    const { children = [] } = this.bandData || {}
-    return children.map(el => {
-      return {
-        name: el.node_type === link ? el.display_name : el.name,
-        url: el.node_type === link ? el.url : el._id,
-      }
-    })
+  formatData = (data = {}, type = BAND) => {
+    const { children = [] } = data || {}
+    return children.map(child => ({
+      name: child.node_type === LINK ? child.display_name : child.name,
+      url: child.node_type === LINK ? child.url : child._id,
+      children:
+        type === MENU && child.children ? this.formatData(child, MENU) : [],
+    }))
   }
 
   getDate = () => {
@@ -51,11 +56,11 @@ export default class StandardHeader {
   }
 
   getParams() {
-    const bandLinks = this.formatBandData()
-    const menuSections = []
+    const bandLinks = this.formatData(this.bandData, BAND)
+    const menuSections = this.formatData(this.menuData, MENU)
     const archive = {
-      name: 'Lo último',
-      url: '/archivo',
+      name: ARCHIVE_TEXT,
+      url: ARCHIVE_LINK,
     }
     const { logo } = this.headerProperties
 
@@ -70,7 +75,7 @@ export default class StandardHeader {
         alt: this.siteDomain,
       },
       bandLinks: [archive, ...bandLinks],
-      menuSections: [archive, ...menuSections],
+      menuSections: [...menuSections],
       date: {
         active: this.showDate,
         value: this.getDate(),

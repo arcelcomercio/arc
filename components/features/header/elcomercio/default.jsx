@@ -5,7 +5,7 @@ import { useContent } from 'fusion:content'
 import getProperties from 'fusion:properties'
 
 import Formatter from './_dependencies/formatter'
-import schemaFilter from './_dependencies/schema-filter'
+import { bandFilter, menuFilter } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import HeaderChildElComercio from './_children/header'
 
@@ -24,12 +24,19 @@ const HeaderStandard = props => {
     },
   } = props
 
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    deployment,
+    globalContentConfig: { query = {} } = {},
+  } = useFusionContext()
 
   const {
     siteDomain,
     assets: { header: headerProperties },
   } = getProperties(arcSite)
+
+  const search = decodeURIComponent(query || '').replace(/\+/g, ' ')
 
   const formatter = new Formatter(
     deployment,
@@ -59,22 +66,27 @@ const HeaderStandard = props => {
   const bandData = useContent({
     source: bandSource,
     query: params,
-    filter: schemaFilter,
+    filter: bandFilter,
   })
-  const menuData = {} /* useContent({
-    source: MENU_HIERARCHY,
-    query: params,
-    filter: schemaFilter,
-  }) */
+  const menuData = useContent({
+    source: CONTENT_SOURCE,
+    query: {
+      website: arcSite,
+      hierarchy: MENU_HIERARCHY,
+    },
+    filter: menuFilter,
+  })
 
   formatter.setBandData(bandData)
   formatter.setMenuData(menuData)
 
-  return <HeaderChildElComercio {...formatter.getParams()} />
+  console.log('----->', formatter.getParams())
+
+  return <HeaderChildElComercio {...formatter.getParams()} search={query} />
 }
 
 HeaderStandard.label = 'Cabecera - El Comercio'
-HeaderStandard.static = true
+// HeaderStandard.static = true
 
 HeaderStandard.propTypes = {
   customFields,
