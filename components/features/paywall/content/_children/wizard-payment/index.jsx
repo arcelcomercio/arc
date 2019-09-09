@@ -13,7 +13,6 @@ import FormPay from './_children/form-pay'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { addSales } from '../../../_dependencies/sales'
 import { addPayU } from '../../../_dependencies/payu'
-import Beforeunload from '../before-unload'
 import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
 import { parseQueryString } from '../../../../../utilities/helpers'
@@ -231,29 +230,27 @@ function WizardPayment(props) {
   }
 
   return (
-    <Beforeunload onBeforeunload={() => 'message'}>
-      <S.WizardPayment>
-        <S.PanelPayment type="content" valing="jc-center">
-          <FormPay
-            initialValues={{
-              agreed: null,
-              cardMethod: null,
-              cardNumber: null,
-              cvv: null,
-              expiryDate: null,
-            }}
-            error={error}
-            onSubmit={onSubmitHandler}
-          />
-        </S.PanelPayment>
-        <Summary
-          amount={amount}
-          billingFrequency={billingFrequency}
-          description={description}
-          summary={summary}
+    <S.WizardPayment>
+      <S.PanelPayment type="content" valing="jc-center">
+        <FormPay
+          initialValues={{
+            agreed: null,
+            cardMethod: null,
+            cardNumber: null,
+            cvv: null,
+            expiryDate: null,
+          }}
+          error={error}
+          onSubmit={onSubmitHandler}
         />
-      </S.WizardPayment>
-    </Beforeunload>
+      </S.PanelPayment>
+      <Summary
+        amount={amount}
+        billingFrequency={billingFrequency}
+        description={description}
+        summary={summary}
+      />
+    </S.WizardPayment>
   )
 }
 

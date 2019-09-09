@@ -308,9 +308,10 @@ class NavBarDefault extends PureComponent {
   }
 
   getListSubs() {
+    const { arcSite } = this.props
     const W = window
     return services
-      .getEntitlement(W.Identity.userIdentity.accessToken)
+      .getEntitlement(W.Identity.userIdentity.accessToken, arcSite)
       .then(res => {
         if (res.skus) {
           const result = Object.keys(res.skus).map(key => {
