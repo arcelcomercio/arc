@@ -10,11 +10,15 @@ $cinema-height: 89px;
   }
 
   &__figure {
-    height: 400px;
+    height: 230px;
+    @media (--tablet) {
+      height: 400px;
+    }
   }
 
   &__detail {
     z-index: 5;
+    background-color: $color-base-200;
   }
 
   &__premiere {
@@ -27,17 +31,21 @@ $cinema-height: 89px;
     max-width: 180px;
   }
 
+  &__p-link {
+    color: $color-gray-300;
+  }
   &__movies-list {
     background-color: #e8f2f7;
   }
 
   &__select {
-    background-color: #d1e6f0;
+    background-color: $color-white;
     // TODO: Cambiar por el icono respectivo
     background-image: url(https://elcomercio.pe/img/arrow_down.png);
-    background-position: right 0;
+    background-position: right 10px;
     background-repeat: no-repeat;
-    height: 30px;
+    height: 50px;
+    font-size: 13px;
   }
 
   &__button {
@@ -46,7 +54,6 @@ $cinema-height: 89px;
   }
   &__category {
     background-color: $color-base-200;
-    color: $color-gray-300;
     font-weight: 700;
     padding: 0 20px;
     height: 40px;

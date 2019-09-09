@@ -3,24 +3,24 @@ import Consumer from 'fusion:consumer'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  cinemaCard: 'cinema-card bg-white row-1',
+  cinemaCard: 'cinema-card bg-white',
   container: 'position-relative',
   gradient: 'cinema-card__gradient w-full position-absolute bottom-0 left-0',
   category: `cinema-card__category uppercase primary-font mb-0 pb-15 text-xl line-h-none`,
   link: 'cinema-card__link text-gray-300',
   figure: 'cinema-card__figure overflow-hidden',
   image: 'w-full h-full object-cover',
-  detail: `cinema-card__detail w-full position-absolute bottom-0 pr-15 pl-15 pb-10`,
+  detail: `cinema-card__detail w-full position-absolute bottom-0 pt-15 pb-15 pl-20 pr-20`,
   premiere: 'cinema-card__premiere text-xl line-h-xs',
   movieTitle: 'cinema-card__p-title overflow-hidden text-xl text-white',
   movieLink: 'cinema-card__p-link font-normal text-white line-h-xs',
   moviesList: 'cinema-card__movies-list p-10',
-  title: `cinema-card__title uppercase primary-font font-bold mb-10 text-md line-h-none`,
+  title: `cinema-card__title uppercase primary-font font-bold  pt-20 pb-20 pl-10 pr-10 text-md line-h-none`,
   form: 'text-right',
   selectsContainer: 'mb-10',
-  select: 'cinema-card__select w-full primary-font mb-5 pl-10 text-xs',
+  select: 'cinema-card__select w-full primary-font mb-10 pl-10 text-xs',
   option: 'cinema-card__option bg-white',
-  button: `cinema-card__button bg-white inline-block uppercase font-bold primary-font border-0 text-xs rounded-sm`,
+  button: `cinema-card__button bg-white inline-block uppercase font-bold primary-font border-0 text-md rounded-sm`,
 }
 
 const BASE_PATH = '/cartelera'
