@@ -18,7 +18,7 @@ const customFields = PropTypes.shape({
     defaultValue: 'basic',
   }),
   crossY: PropTypes.oneOf(['top', 'middle', 'bottom']).tag({
-    name: 'Orientación',
+    name: 'Orientación vertical del texto',
     labels: {
       top: 'Arriba',
       middle: 'Medio',
@@ -27,7 +27,7 @@ const customFields = PropTypes.shape({
     defaultValue: 'bottom',
   }),
   crossX: PropTypes.oneOf(['start', 'end']).tag({
-    name: 'Posición',
+    name: 'Orientación horizontal del texto',
     labels: {
       start: 'Inicio',
       end: 'Fin',

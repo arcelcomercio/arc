@@ -36,6 +36,7 @@ const FeatureStoryFullImage = props => {
     multimediaLandscapeL,
     multimediaSquareXL,
     multimediaPortraitMD,
+    multimediaLazyDefault,
     multimediaType,
     websiteLink,
   } = new StoryData({
@@ -56,12 +57,14 @@ const FeatureStoryFullImage = props => {
     multimediaLandscapeL,
     multimediaPortraitMD,
     multimediaSquareXL,
+    multimediaLazyDefault,
     multimediaType,
     websiteLink,
     crossY,
     crossX,
     model,
     section,
+    isAdmin,
   }
 
   return <FeatureFullImageChild {...params} />
@@ -71,5 +74,7 @@ FeatureStoryFullImage.propTypes = {
   customFields,
 }
 
-FeatureStoryFullImage.label = 'Destaque Full Imagén'
+FeatureStoryFullImage.label = 'Destaque Full Imagen'
+FeatureStoryFullImage.static = true
+
 export default FeatureStoryFullImage
