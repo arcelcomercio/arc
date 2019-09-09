@@ -118,7 +118,6 @@ class StoryHeaderChildSocial extends PureComponent {
       authorEmail,
     }
 
-    console.log('params=>>>>>>>>>>>>>>>>', params)
     return (
       <>
         <div className={classes.news}>

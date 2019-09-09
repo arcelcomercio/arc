@@ -13,30 +13,29 @@ const classes = {
 }
 
 const StoryContentChildAuthor = ({
-  authorImage,
   author,
   authorLink,
   updatedDate,
   date,
-  primarySectionLink,
   authorEmail,
-  primarySection,
-  typo = '',
+  primarySection = '',
 }) => {
   return (
     <>
       <div className={classes.author}>
         {/* // TODO: Cambiar este div por <address> */}
-        <div>
-          {author && (
-            <a href={authorLink} className={classes.authorNameLink}>
-              {author}
-            </a>
-          )}
-          {authorEmail && true && (
-            <p className={classes.authorEmail}> {authorEmail} </p>
-          )}
-        </div>
+        {primarySection !== 'Columnistas' && (
+          <div>
+            {author && (
+              <a href={authorLink} className={classes.authorNameLink}>
+                {author}
+              </a>
+            )}
+            {authorEmail && true && (
+              <p className={classes.authorEmail}> {authorEmail} </p>
+            )}
+          </div>
+        )}
         <div className={classes.authorDate}>
           <time dateTime={date}>
             {updatedDate && formatDateStory(updatedDate)}
