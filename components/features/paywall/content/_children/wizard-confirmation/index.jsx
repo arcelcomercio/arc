@@ -79,6 +79,11 @@ const WizardConfirmation = props => {
         : HOME
   }
 
+  const Frecuency = {
+    "Month" : "Mensual",
+    "Year" : "Anual"
+  }
+  
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
@@ -91,28 +96,38 @@ const WizardConfirmation = props => {
 
         <S.Content>
           <S.Title>¡Bienvenido(a) {firstName}!</S.Title>
-          <S.Subtitle>
-            <strong>POR SER UN SUSCRIPTOR PREMIUM</strong><br />
+
+          {/* <S.Subtitle>
+            <strong>POR SER UN SUSCRIPTOR PREMIUM</strong>
+            <br />
             tienes acceso ilimitado a las noticias más relevantes del Perú y el
             mundo totalmente gratis.
-          </S.Subtitle>
+          </S.Subtitle> */}
+
+          <S.Subtitle large>Tu suscripción ha sido exitosa.</S.Subtitle>
+          
           <S.CardSummary>
             <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
-            <Item label="PAQUETE: ">{(plan || '').toUpperCase()}</Item>
+            <Item label="PAQUETE: ">
+              {(plan || '').toUpperCase()} - { Frecuency[billingFrequency].toUpperCase() }
+            </Item>
             <Item label="NOMBRE: ">
               <S.Names>
                 {firstName} {lastName} {secondLastName}
               </S.Names>
             </Item>
             <Item label="PRECIO: ">
-              S/ {paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+               {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
+               { paidTotal !== 0 ?  `S/ ${paidTotal}` : 'GRATIS' }
             </Item>
             <S.Small>
-              LA SUSCRIPCIÓN SE RENOVARÁ AUTOMÁTICAMENTE DE ACUERDO A TU PLAN.
+              El precio de la suscripción se cargará automáticamente en tu
+              tarjeta cada mes o año, según el período elegido.
             </S.Small>
           </S.CardSummary>
           <S.Span>
-            Enviaremos la boleta de compra de la suscripción al correo:
+            Enviaremos la boleta de compra de la
+            <br /> suscripción al correo:
             <strong> {email}</strong>
           </S.Span>
           <S.WrapButton>

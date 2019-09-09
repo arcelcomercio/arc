@@ -16,8 +16,8 @@ export const Subtitle = styled.span`
   text-align: center;
   box-sizing: border-box;
   max-width: 480px;
-  line-height: 1.71;
-  font-size: 14px;
+  line-height: ${props => (props.large ? '24px' : '1.71')};
+  font-size: ${props => (props.large ? '20px' : '14px')};
   color: #444;
   @media (${devices.mobile}) {
     padding: 0;
@@ -40,6 +40,9 @@ export const Content = styled.div`
   padding: 40px 100px;
   align-items: center;
   flex: 1;
+  @media ${devices.tablet} {
+    min-height: 500px;
+  }
   @media (${devices.mobile}) {
     padding: 30px;
   }
@@ -60,7 +63,9 @@ export const Item = styled.div`
 `
 
 export const Small = styled.div`
-  color: #818181;
+  font-size: 14px;
+  line-height: 26px;
+  color: #444444;
 `
 
 export const WrapButton = styled.div`
@@ -107,6 +112,9 @@ export const Detail = styled.div`
 `
 
 export const Span = styled.span`
+  font-size: 14px;
+  text-align: center;
+  line-height: 24px;
   @media (${devices.mobile}) {
     text-align: center;
   }
@@ -114,6 +122,9 @@ export const Span = styled.span`
 
 export const Picture = styled.picture`
   height: 100%;
+  @media ${devices.tablet} {
+    display: none;
+  }
 `
 
 export const DetailTitle = styled.div`

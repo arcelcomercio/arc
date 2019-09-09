@@ -25,16 +25,17 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
         )
       }}
       render={({
-        values: { cardMethod, agreed },
+        values: { cardMethod, cvv, agreed },
         handleChange,
-        setFieldTouched,
         setFieldValue,
         isSubmitting,
       }) => {
         const clearField = field => {
           return e => {
-            setFieldValue(field, '')
-            setFieldTouched(field, false)
+            const method = e.currentTarget.defaultValue
+            if (method !== 'amex') {
+              setFieldValue(field, cvv ? cvv.slice(0, 3) : cvv)
+            }
             handleChange(e)
           }
         }
@@ -155,7 +156,8 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
             />
 
             <S.Span>
-              La suscripción se renovará automáticamente de acuerdo a tu plan.
+              El precio de la suscripción se cargará automáticamente en tu
+              tarjeta cada mes o año, según el período elegido.
             </S.Span>
 
             <S.WrapSubmit>
