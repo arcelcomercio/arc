@@ -166,7 +166,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                 PAGAR
               </Button>
             </S.WrapSubmit>
-            <Persist name="paywall-payment-form" />
+            <Persist name="paywall-payment-form" isSessionStorage />
           </Form>
         )
       }}
