@@ -215,14 +215,35 @@ class StoryContents extends PureComponent {
                       defer: true,
                     })
 
-                  return content.includes('id="powa-') ? (
+                  let htmlReturn = ''
+                  let contentVideo = content
+                  if (contentVideo.includes('id="powa-')) {
+                    if (arcSite === ConfigParams.ARC_SITE_PERU21) {
+                      contentVideo = content.replace(
+                        /peru21.pe\/upload/gi,
+                        'g21.peru21.pe/upload'
+                      )
+                    }
+                    htmlReturn = (
+                      <StoryContentsChildVideo
+                        data={contentVideo}
+                        className={classes.newsImage}
+                      />
+                    )
+                  } else {
+                    htmlReturn = (
+                      <StoryContentChildRawHTML content={contentVideo} />
+                    )
+                  }
+                  return htmlReturn
+                  /* return content.includes('id="powa-') ? (
                     <StoryContentsChildVideo
                       data={content}
                       className={classes.newsImage}
                     />
                   ) : (
                     <StoryContentChildRawHTML content={content} />
-                  )
+                  ) */
                 }
                 return ''
               }}
