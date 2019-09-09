@@ -72,15 +72,25 @@ function WizardUserProfile(props) {
       level: Sentry.Severity.Info,
     })
 
+    const selectedPlan = {
+      sku,
+      priceCode,
+      quantity: 1,
+    }
+
     Sales.then(sales =>
       sales
-        .createOrder(
-          email,
-          phone,
-          billingAddress,
-          firstName,
-          lastName,
-          secondLastName
+        .clearCart()
+        .then(() => sales.addItemToCart([selectedPlan]))
+        .then(() =>
+          sales.createOrder(
+            email,
+            phone,
+            billingAddress,
+            firstName,
+            lastName,
+            secondLastName
+          )
         )
         .then(res => {
           // TODO: validar respuesta y mostrar errores de API
