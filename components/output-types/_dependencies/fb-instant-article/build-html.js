@@ -160,6 +160,9 @@ const analyzeParagraph = ({
     case ConfigParams.ELEMENT_LIST:
       console.log('AQUI Result!!!!!')
       console.log(buildListParagraph(originalParagraph))
+      const { listTextProcess = [], totalwords = 0 } = buildListParagraph(
+        originalParagraph
+      )
 
       break
     case ConfigParams.ELEMENT_VIDEO:
