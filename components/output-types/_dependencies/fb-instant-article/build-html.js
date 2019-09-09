@@ -192,7 +192,7 @@ const analyzeParagraph = ({
       break
 
     default:
-      result.processedParagraph = ''
+      result.numberWords = 0
       result.processedParagraph = ''
       break
   }
