@@ -24,7 +24,7 @@ const stepSlugs = ['planes', 'datos', 'pago', 'confirmacion']
 let history
 let finalized = false
 
-const Paywall = ({ dispatchEvent }) => {
+const Paywall = ({ dispatchEvent, addEventListener }) => {
   const {
     contextPath,
     deployment,
@@ -35,6 +35,13 @@ const Paywall = ({ dispatchEvent }) => {
     globalContent: { summary = [], plans = [], printed, error: message },
     requestUri,
   } = useFusionContext()
+
+  const clearPaywallStorage = useRef(() => {
+    sessionStorage.removeItem('paywall-profile-form')
+    sessionStorage.removeItem('paywall-payment-form')
+  }).current
+
+  addEventListener('logout', clearPaywallStorage)
 
   const wizardRef = useRef(null)
   const featureSlug = useRef(requestUri.match(/^\/(\w+)\/?/)[1]).current
@@ -91,7 +98,7 @@ const Paywall = ({ dispatchEvent }) => {
         case `${basePath}/${stepSlugs[3]}/`: 
           doStep(4)
           finalized = true
-          sessionStorage.clear()
+          clearPaywallStorage()
           break;
       }
     })
@@ -168,7 +175,12 @@ const Paywall = ({ dispatchEvent }) => {
 @Consumer
 class PaywallWrapper extends React.Component {
   render() {
-    return <Paywall dispatchEvent={this.dispatchEvent.bind(this)} />
+    return (
+      <Paywall
+        dispatchEvent={this.dispatchEvent.bind(this)}
+        addEventListener={this.addEventListener.bind(this)}
+      />
+    )
   }
 }
 
