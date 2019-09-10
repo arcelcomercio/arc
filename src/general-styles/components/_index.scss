@@ -28,9 +28,11 @@
 @import './features/cards/columnist-premium/columnist-premium';
 @import './features/cards/facebook-live/facebook-live';
 @import './features/cards/featured-story-author/featured-author';
+@import './features/cards/featured-story-full-img/feature-fullimage';
 @import './features/cards/featured-story-multimedia/featured-multimedia';
 @import './features/cards/featured-story-special/featured-special';
-@import './features/cards/most-read/most-read-item';
+@import './features/cards/featured-opening/featured-opening' @import
+  './features/cards/most-read/most-read-item';
 @import './features/cards/most-read/most-read';
 @import './features/cards/opinion/opinion-card';
 @import './features/cards/survey/card-survey-bar';
@@ -97,6 +99,7 @@
 @import './features/stories-lists/card/stories-list-header';
 @import './features/stories-lists/card/stories-list-item';
 @import './features/stories-lists/card/stories-list-tabloid';
+@import './features/stories-lists/section-column/stories-l-section';
 @import './features/story/related-internal';
 @import './features/story/story-header-amp';
 @import './features/story/content/related-content';
@@ -116,3 +119,6 @@
 @import './features/tv/section/tv-section';
 @import './features/tv/separator/tv-separator';
 @import './features/video/list/video-list';
+@import './features/video/section/play-list';
+@import './features/video/section/section-video';
+@import './features/video/section/video-navbar';

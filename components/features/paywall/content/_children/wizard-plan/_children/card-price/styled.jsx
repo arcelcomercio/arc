@@ -48,12 +48,14 @@ const Description = styled.div`
   font-size: 16px;
   justify-content: center;
   display: flex;
-  font-weight: 300;
+  font-weight: ${props => (props.bold ? 'bold' : '300')};
   padding: 5px 60px;
   text-align: center;
+  &:last-child {
+    padding: 0px 40px 20px 40px;
+  }
   @media (${devices.mobile}) {
     padding: 8px 15px;
-    min-height: 68px;
   }
 `
 
@@ -91,7 +93,7 @@ const Header = styled.div`
   text-align: center;
   box-sizing: border-box;
   margin-top: -15px;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
   position: absolute;
 `
 

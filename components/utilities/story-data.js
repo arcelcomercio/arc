@@ -73,6 +73,10 @@ class StoryData {
     return (this._data && this._data.subtype) || ''
   }
 
+  get editorNote() {
+    return (this._data && this._data.editor_note) || ''
+  }
+
   get tags() {
     return (this._data && this._data.taxonomy && this._data.taxonomy.tags) || []
   }
@@ -88,6 +92,10 @@ class StoryData {
 
   get author() {
     return StoryData.getDataAuthor(this._data).nameAuthor
+  }
+
+  get authorEmail() {
+    return StoryData.getDataAuthor(this._data).mailAuthor
   }
 
   get seoAuthor() {
@@ -403,8 +411,8 @@ class StoryData {
   get multimediaNews() {
     const type = StoryData.getMultimediaIconTypeFIA(this._data) || ''
     const result = { type, payload: '' }
-    let imageItems=''
-    
+    let imageItems = ''
+
     switch (type) {
       case ConfigParams.IMAGE:
         result.payload = this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
@@ -641,6 +649,10 @@ class StoryData {
     return video
   }
 
+  get idYoutube() {
+    return StoryData.getIdYoutube(this._data)
+  }
+
   get nucleoOrigen() {
     return (
       (this._data &&
@@ -700,6 +712,7 @@ class StoryData {
   ) {
     if (basicVideo.promo_image && (type === 'video' || type === 'image')) {
       const {
+        _id: idVideo = '',
         streams = [],
         publish_date: date = '',
         promo_image: { url: urlImage = '' } = {},
@@ -710,6 +723,7 @@ class StoryData {
           .map(({ url, stream_type: streamType }) => {
             return streamType === 'mp4'
               ? {
+                  idVideo,
                   url,
                   caption,
                   urlImage,
@@ -781,6 +795,7 @@ class StoryData {
       dataVideo
         .map(
           ({
+            _id: idVideo = '',
             promo_image: { url: urlImage },
             streams,
             publish_date: date,
@@ -790,6 +805,7 @@ class StoryData {
               .map(({ url = '', stream_type: streamType = '' }) => {
                 return streamType === 'mp4'
                   ? {
+                      idVideo,
                       url,
                       caption,
                       urlImage,
@@ -856,6 +872,7 @@ class StoryData {
     let nameAuthor = ''
     let urlAuthor = ''
     let slugAuthor = ''
+    let mailAuthor = ''
     let socialLinks = []
 
     let imageAuthor = authorImageDefault
@@ -870,6 +887,11 @@ class StoryData {
             ? iterator.image.url
             : authorImageDefault
         socialLinks = iterator.social_links ? iterator.social_links : []
+        mailAuthor =
+          (iterator.additional_properties &&
+            iterator.additional_properties.original &&
+            iterator.additional_properties.original.email) ||
+          ''
         break
       }
     }
@@ -880,6 +902,7 @@ class StoryData {
       slugAuthor,
       imageAuthor,
       socialLinks,
+      mailAuthor,
     }
   }
 

@@ -19,6 +19,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
       type: typeEmbed = '',
       content: embedHtmlPromoItems = '',
     } = {},
+    subtype,
   } = data
   const { type: typeImage, caption = '' } = basic || {}
 

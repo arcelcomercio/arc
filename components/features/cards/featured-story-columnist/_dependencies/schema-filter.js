@@ -3,7 +3,7 @@ export default function(arcSite) {
     subheadlines { basic }
     content_restrictions { content_code }
     credits {
-      by { name url type image }
+      by { name url type image { url } }
     }
     websites { ${arcSite} { website_url } }
     taxonomy {
