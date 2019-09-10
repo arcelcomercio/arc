@@ -88,6 +88,7 @@ class StoryContents extends PureComponent {
       primarySection,
       authorEmail,
       primarySectionLink,
+      subtype,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -104,13 +105,18 @@ class StoryContents extends PureComponent {
       primarySectionLink,
       authorEmail,
       primarySection,
+      subtype,
+      ...promoItems,
     }
 
     return (
       <div className={classes.news}>
         {primarySection === 'Impresa'
           ? promoItems && <StoryContentsChildImpresa data={promoItems} />
-          : promoItems && <StoryContentsChildMultimedia data={promoItems} />}
+          : promoItems &&
+            subtype !== ConfigParams.BIG_IMAGE && (
+              <StoryContentsChildMultimedia data={params} />
+            )}
 
         <StoryContentsChildAuthor {...params} />
 
