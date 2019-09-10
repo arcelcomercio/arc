@@ -35,6 +35,12 @@
       }
     }
   }
+  &__list-link {
+    color: $color-white;
+    &:hover {
+      color: $color-white;
+    }
+  }
   &.active {
     .btn {
       color: $color-base-100;
