@@ -27,21 +27,21 @@ const ListItemNews = (contentElements, buildProps) => {
         subTitle: storydata.subTitle,
         author: storydata.author,
         paragraphsNews: storydata.paragraphsNews,
-        gallery : storydata.getGallery,
-        video : storydata.getVideoPrincipal,
+        gallery: storydata.getGallery,
+        video: storydata.getVideoPrincipal,
         typeNota: storydata.multimediaType,
       }
 
       const htmlMultimedia = {
         multimedia: storydata.multimedia,
-        title : storydata.title,
-        type : storydata.multimediaType
+        title: storydata.title,
+        type: storydata.multimediaType,
       }
 
       const htmlString = BuildHtml(BuildHtmlProps)
       const codigoGUID = md5(storydata.id)
       const mediaContentHtml = mediaContent(htmlMultimedia)
-      const tagList = storydata.tags.map(tg => `${tg.text}`)
+      const tagList = storydata.tags.map(tg => `${tg.text.replace('&', '-')}`)
 
       const ItemDataXml = {
         siteUrl,
@@ -54,14 +54,17 @@ const ListItemNews = (contentElements, buildProps) => {
         tags: tagList,
         subTitle: storydata.subTitle,
         mediaContentHtml,
-        multimediaUrl : storydata.multimedia
+        multimediaUrl: storydata.multimedia,
       }
       const template = `
         <item>
           <title><![CDATA[${ItemDataXml.title}]]></title>
           <pubDate>${ItemDataXml.date}</pubDate>
           <dcterms:modified>${ItemDataXml.date}</dcterms:modified>
-          <dcterms:alternative>${ItemDataXml.title}</dcterms:alternative>
+          <dcterms:alternative>${ItemDataXml.title.replace(
+            '&',
+            '-'
+          )}</dcterms:alternative>
           <link>${ItemDataXml.siteUrl}${storydata.link}</link>
           <guid isPermaLink="false">${ItemDataXml.codigoGUID}</guid>
           <author>${ItemDataXml.author}</author>
@@ -71,7 +74,11 @@ const ListItemNews = (contentElements, buildProps) => {
           <content:encoded><![CDATA[${
             ItemDataXml.htmlString
           }]]></content:encoded>
-          <media:content url="${ItemDataXml.multimediaUrl}" type="image/jpeg" medium="image">${ItemDataXml.mediaContentHtml}</media:content>
+          <media:content url="${
+            ItemDataXml.multimediaUrl
+          }" type="image/jpeg" medium="image">${
+        ItemDataXml.mediaContentHtml
+      }</media:content>
         </item>
       `
       return template

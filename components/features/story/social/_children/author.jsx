@@ -1,5 +1,4 @@
 import React from 'react'
-import { formatDateStory } from '../../../../utilities/helpers'
 
 const classes = {
   author:
@@ -10,21 +9,23 @@ const classes = {
     'story-content__date flex items-center secondary-font text-md text-gray-200 line-h-sm',
   authorEmail:
     'story-content__author-email secondary-font text-md text-gray-200 line-h-sm',
+  authorImag: 'story-content__author-img',
 }
 
-const StoryContentChildAuthor = ({
+const StorySocialChildAuthor = ({
+  authorImage,
   author,
   authorLink,
-  updatedDate,
-  date,
+  primarySection,
   authorEmail,
-  primarySection = '',
 }) => {
   return (
     <>
-      <div className={classes.author}>
-        {/* // TODO: Cambiar este div por <address> */}
-        {primarySection !== 'Columnistas' && (
+      {primarySection === 'Columnistas' && (
+        <div className={classes.author}>
+          <div className={classes.authorImag}>
+            <img src={authorImage} alt={author} />
+          </div>
           <div>
             {author && (
               <a href={authorLink} className={classes.authorNameLink}>
@@ -35,15 +36,10 @@ const StoryContentChildAuthor = ({
               <p className={classes.authorEmail}> {authorEmail} </p>
             )}
           </div>
-        )}
-        <div className={classes.authorDate}>
-          <time dateTime={date}>
-            {updatedDate && formatDateStory(updatedDate)}
-          </time>
         </div>
-      </div>
+      )}
     </>
   )
 }
 
-export default StoryContentChildAuthor
+export default StorySocialChildAuthor

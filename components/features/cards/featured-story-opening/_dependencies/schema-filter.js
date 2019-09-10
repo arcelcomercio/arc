@@ -1,9 +1,10 @@
-export default function(arcSite) {
+export const schemaNote = arcSite => {
   return `{ 
+    headlines { basic }
     subheadlines { basic }
     content_restrictions { content_code }
     credits {
-      by { name url type image { url } }
+      by { name url type }
     }
     websites { ${arcSite} { website_url } }
     taxonomy {
@@ -12,5 +13,12 @@ export default function(arcSite) {
           path
       }
     }
+  }`
+}
+
+export const schemaURL = () => {
+  return `{ 
+    headlines { basic }
+    website_url
   }`
 }

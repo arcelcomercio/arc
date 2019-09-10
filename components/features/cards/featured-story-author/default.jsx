@@ -41,6 +41,7 @@ const CardFeaturedStoryAuthor = props => {
     multimediaLazyDefault,
     authorRole,
     subTitle,
+    multimediaType,
   } = new StoryData({
     data,
     arcSite,
@@ -65,6 +66,7 @@ const CardFeaturedStoryAuthor = props => {
         multimediaLazyDefault,
         authorRole,
         subTitle: subTitleField || subTitle,
+        multimediaType,
         design,
         isAdmin,
       }}
