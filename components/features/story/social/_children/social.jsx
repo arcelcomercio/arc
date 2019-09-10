@@ -8,6 +8,7 @@ import {
 } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 import StoryData from '../../../../utilities/story-data'
+import ConfigParams from '../../../../utilities/config-params'
 import StorySocialChildAuthor from './author'
 
 const classes = {
@@ -123,9 +124,11 @@ class StoryHeaderChildSocial extends PureComponent {
       <>
         <div
           className={`${classes.news} ${
-            subtype === 'especial_basico' ? 'justify-center' : 'justify-between'
+            subtype === ConfigParams.SPECIAL_BASIC
+              ? 'justify-center'
+              : 'justify-between'
           }`}>
-          {subtype !== 'especial_basico' && (
+          {subtype !== ConfigParams.SPECIAL_BASIC && (
             <div className={classes.category}>
               {(editorNote && rawHtml(editorNote)) || primarySection}
               <StorySocialChildAuthor {...params} />

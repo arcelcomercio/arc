@@ -45,6 +45,7 @@ export default ({
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     taxonomy: { primary_section: { path: nameSeccion = '' } = {} } = {},
+    subtype = '',
   } = globalContent || {}
 
   const isStory =
@@ -52,7 +53,7 @@ export default ({
     requestUri.match(`^/preview/([A-Z0-9]{26})/?`)
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
-  let classBody = isStory ? `story ${nameSeccion.split('/')[1]}` : ''
+  let classBody = isStory ? `story ${nameSeccion.split('/')[1]} ${subtype}` : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
   const metaSiteData = {
