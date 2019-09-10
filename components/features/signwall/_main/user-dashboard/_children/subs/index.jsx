@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import Modal from '../../../common/modal'
 import Loading from '../../../common/loading'
 import { Close } from '../../../common/iconos'
+import Domains from '../../../utils/domains'
 
 import ResumeSubs from '../home/subs'
 
@@ -23,17 +23,7 @@ class MySubs extends Component {
     }
 
     const { arcSite } = this.props
-    if (arcSite !== 'peru21') {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-sandbox.${arcSite}.pe`
-    } else {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
-    }
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentDidMount() {
@@ -72,12 +62,7 @@ class MySubs extends Component {
 
   handleSuscription = e => {
     e.preventDefault()
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      window.location.href = '/suscripcionesdigitales/' // URL LANDING
-    } else {
-      window.location.href =
-        '/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1' // URL LANDING
-    }
+    window.location.href = Domains.getUrlPaywall()
   }
 
   openModalConfirm = () => {
@@ -183,7 +168,7 @@ class MySubs extends Component {
                       <i>s/</i>
                       {paywallPrice}
                     </div>
-                    <div className="detail-price uppercase">
+                    <div className="detail-price">
                       <p>
                         <strong>{frecuency[paywallFrecuency]}</strong>
                       </p>
@@ -211,7 +196,7 @@ class MySubs extends Component {
                       }}></input>
                   </div>
 
-                  <p className="text-center mt-20 text-sm">
+                  <p className="text-center mt-20 text-sm message-paywall">
                   ¿ESTÁS SUSCRITO AL DIARIO IMPRESO? <br />
                   Disfruta <strong>3 meses GRATIS</strong> y luego S/19 al mes.
                   </p>

@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 
 import Modal from '../common/modal'
 import Header from '../common/header'
-// import Footer from '../common/footer'
-
 import FormRelogin from './_children/form-relogin'
 import FormForgotPass from './_children/form-forgot-pass'
 import FormRegister from './_children/form-register'
@@ -96,7 +94,6 @@ class SignWallRelogin extends Component {
                       {this.renderTemplate(value.selectedTemplate)}
                     </div>
                   </div>
-                  {/* <Footer position="right" /> */}
                 </Modal>
               )}
             </ModalConsumer>

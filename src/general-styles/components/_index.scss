@@ -27,7 +27,9 @@
 @import './features/cards/cinema-billboard/cinema-card';
 @import './features/cards/columnist-premium/columnist-premium';
 @import './features/cards/facebook-live/facebook-live';
+@import './features/cards/featured-opening/featured-opening';
 @import './features/cards/featured-story-author/featured-author';
+@import './features/cards/featured-story-full-img/feature-fullimage';
 @import './features/cards/featured-story-multimedia/featured-multimedia';
 @import './features/cards/featured-story-special/featured-special';
 @import './features/cards/most-read/most-read-item';
@@ -66,8 +68,6 @@
 @import './features/signwall/benefits';
 @import './features/signwall/button';
 @import './features/signwall/check-container';
-@import './features/signwall/footer';
-@import './features/signwall/form-desactive';
 @import './features/signwall/form-grid';
 @import './features/signwall/form-group';
 @import './features/signwall/header';
@@ -117,3 +117,6 @@
 @import './features/tv/section/tv-section';
 @import './features/tv/separator/tv-separator';
 @import './features/video/list/video-list';
+@import './features/video/section/play-list';
+@import './features/video/section/section-video';
+@import './features/video/section/video-navbar';

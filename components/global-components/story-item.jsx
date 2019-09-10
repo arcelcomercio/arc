@@ -9,6 +9,8 @@ const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray md:pl-0 md:pr-0  lg:p-0`,
   top: 'story-item__top flex items-center md:flex-col md:items-start',
   section: 'story-item__section text-sm text-black md:mb-15',
+  sectionHidden:
+    'story-item__section story-item__section--desktop text-sm text-black md:mb-15 hidden',
   date: 'story-item__date font-thin ml-5 text-xs text-gray-300 md:mt-5 md:ml-0',
   bottom: 'story-item__bottom flex lg:pb-15',
   left: 'story-item__left flex flex-col justify-between pr-20 ',
@@ -23,6 +25,7 @@ const classes = {
   iconVideo: `story-item__icon icon-video position-absolute flex items-center justify-center text-white w-full h-full`,
   img: 'story-item__img object-cover object-center w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
+  wrapperTitle: 'w-full',
 }
 
 class StoriesList extends PureComponent {
@@ -58,7 +61,7 @@ class StoriesList extends PureComponent {
                 {formatDateLocalTimeZone(element.date)}
               </p>
             </div>
-            <div>
+            <div className={classes.wrapperTitle}>
               <h2 className={classes.contentTitle}>
                 <a
                   className={classes.title}
@@ -68,6 +71,11 @@ class StoriesList extends PureComponent {
                 </a>
               </h2>
               <p className={classes.subtitle}>{reduceWord(element.subTitle)}</p>
+              <a
+                href={element.primarySectionLink}
+                className={classes.sectionHidden}>
+                {element.primarySection}
+              </a>
             </div>
             <div className={classes.contenetAuthor}>
               <a href={element.authorLink} className={classes.author}>

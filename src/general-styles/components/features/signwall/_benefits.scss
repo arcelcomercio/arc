@@ -83,7 +83,7 @@
         font-size: 18px;
         line-height: 32px;
         @media (--desktop) {
-          margin-top: 30%;
+          margin-top: 18%;
         }
       }
 
@@ -112,9 +112,9 @@
           vertical-align: initial ;
         }
         .price {
-          font-size: 5em;
+          font-size: 4em;
           font-weight: 600;
-          width: 45%;
+          width: 40%;
           text-align: center;
           @media (--desktop) {
             text-align: left;
@@ -124,10 +124,11 @@
             font-size: 0.5em;
             font-weight: normal;
             letter-spacing: 0px;
+            font-style: normal;
           }
         }
         .detail-price {
-          width: 55%;
+          width: 60%;
           font-size: 16px;
           line-height: 20px;
         }
