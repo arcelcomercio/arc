@@ -5,6 +5,7 @@ class ConfigParams {
 
   // TIPO DE GALLERRY: NUEVA OPCION DE ELLIPSIS
   static GALLERY_VERTICAL = 'gallery_vertical'
+  static BIG_IMAGE = 'imagen_grande'
 
   static HTML = 'basic_html'
 

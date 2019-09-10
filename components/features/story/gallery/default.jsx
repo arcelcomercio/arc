@@ -7,9 +7,11 @@ import StoryGalleryChildGallery from './_children/gallery'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 import Infografia from '../contents/_children/html'
+import StoryContentsChildImage from '../contents/_children/image'
 
 const classes = {
   gallery: 'w-full',
+  image: 'w-full pl-20 pr-20',
 }
 
 const StoryGallery = () => {
@@ -52,6 +54,15 @@ const StoryGallery = () => {
             header="true"
           />
         )
+      )}
+      {subtype === ConfigParams.BIG_IMAGE && (
+        <div className={classes.image}>
+          <StoryContentsChildImage
+            data={promoItems && promoItems.basic}
+            className={classes.newsImage}
+            resizer="true"
+          />
+        </div>
       )}
     </>
   )
