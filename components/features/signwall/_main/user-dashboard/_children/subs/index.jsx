@@ -4,7 +4,7 @@ import Modal from '../../../common/modal'
 import Loading from '../../../common/loading'
 import { Close } from '../../../common/iconos'
 import Domains from '../../../utils/domains'
-
+import addScriptAsync from '../../../utils/script-async'
 import ResumeSubs from '../home/subs'
 
 @Consumer
@@ -27,24 +27,36 @@ class MySubs extends Component {
   }
 
   componentDidMount() {
-    this.getCampain()
-    this.getListSubs()
+    if (!window.Sales) {
+      addScriptAsync({
+        name: 'sdkSalesARC',
+        url: Domains.getScriptSales(),
+      }).then(() => {
+        this.getCampain()
+        this.getListSubs()
+      })
+    } else {
+      this.getCampain()
+      this.getListSubs()
+    }
   }
 
   getListSubs() {
-    window.Sales.apiOrigin = this.origin_api
-    window.Sales.getAllActiveSubscriptions()
-      .then(res => {
-        if (res.length > 0) {
+    if (window.Sales) {
+      window.Sales.apiOrigin = this.origin_api
+      window.Sales.getAllActiveSubscriptions()
+        .then(res => {
+          if (res.length > 0) {
+            this.setState({
+              isSubs: true,
+            })
+          }
           this.setState({
-            isSubs: true,
+            loading: false,
           })
-        }
-        this.setState({
-          loading: false,
         })
-      })
-      .catch(err => window.console.error(err))
+        .catch(err => window.console.error(err))
+    }
   }
 
   getCampain() {
@@ -97,7 +109,6 @@ class MySubs extends Component {
   }
 
   render() {
-
     const frecuency = {
       Month: 'al mes',
       Year: 'al año',
@@ -197,8 +208,9 @@ class MySubs extends Component {
                   </div>
 
                   <p className="text-center mt-20 text-sm message-paywall">
-                  ¿ESTÁS SUSCRITO AL DIARIO IMPRESO? <br />
-                  Disfruta <strong>3 meses GRATIS</strong> y luego S/19 al mes.
+                    ¿ESTÁS SUSCRITO AL DIARIO IMPRESO? <br />
+                    Disfruta <strong>3 meses GRATIS</strong> y luego S/19 al
+                    mes.
                   </p>
                 </div>
               </div>
