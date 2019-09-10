@@ -241,7 +241,9 @@ class NavBarDefault extends PureComponent {
     //   window.console.log(res)
     // })
 
-    if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
+    // if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
+
+    if (dataContentPremium && W.document.cookie.indexOf('isECO=true') >= 0) {
       this.getPremium() // Only sandbox ;)
     } else if (window.ArcP) {
       W.ArcP.run({
