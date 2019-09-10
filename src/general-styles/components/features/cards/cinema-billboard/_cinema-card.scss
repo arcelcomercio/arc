@@ -21,16 +21,13 @@ $cinema-height: 89px;
     background-color: $color-base-200;
   }
 
-  &__premiere {
-    color: #f7c600;
-  }
-
   &__p-title {
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 180px;
   }
 
+  &__premiere,
   &__p-link {
     color: $color-gray-300;
   }
