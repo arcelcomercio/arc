@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Icon from '../../../../global-components/multimedia-icon'
+
 export default ({
   title,
   websiteLink,
@@ -14,13 +16,15 @@ export default ({
   multimediaLazyDefault,
   authorRole,
   subTitle,
+  multimediaType,
   design,
   isAdmin,
 }) => {
   const classes = {
     featuredAuthor: 'featured-author row-1',
     storyImgLink: 'featured-author__img-link block',
-    storyPicture: 'featured-author__img-picture block',
+    storyPicture: 'featured-author__img-picture block position-relative',
+    icon: 'featured-author__icon right-0 m-10',
     storyImg: 'featured-author__img w-full object-cover',
     content:
       'featured-author__content pl-20 pr-20 md:pl-10 md:pr-10 pt-5 md:pt-5 pb-20',
@@ -59,7 +63,8 @@ export default ({
       'featured-author third row-1 col-2 position-relative flex items-end md:items-center'
     classes.storyImgLink =
       'featured-author__img-link block position-absolute right-0 w-full h-full'
-    classes.storyPicture = 'featured-author__img-picture block h-full'
+    classes.storyPicture =
+      'featured-author__img-picture block position-relative h-full'
     classes.storyImg = 'featured-author__img w-full object-cover h-full'
     classes.content =
       'featured-author__content pl-20 pr-20 md:pt-20 pt-5 pb-20 position-relative'
@@ -108,6 +113,7 @@ export default ({
             src={isAdmin ? storyImages.desktop : multimediaLazyDefault}
             alt={title}
           />
+          <Icon type={multimediaType} iconClass={classes.icon} />
         </picture>
       </a>
       <div className={classes.content}>
