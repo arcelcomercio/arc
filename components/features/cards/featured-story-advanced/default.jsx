@@ -95,6 +95,7 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       deployment,
       urlVideoFacebook,
     }
+
     return (
       <>
         {!flagLive && <FeaturedStory {...paramsFeaturedStory} />}
