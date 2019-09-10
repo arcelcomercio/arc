@@ -9,12 +9,16 @@ import StoryData from '../../../utilities/story-data'
 
 const FeaturedStoryColumnist = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
-  const { customFields: { slug, story } = {} } = props
+  const {
+    customFields: {
+      storyConfig: { contentService = '', contentConfigValues = {} } = {},
+    } = {},
+  } = props
 
   const data =
     useContent({
-      source: 'story-by-author',
-      query: { name: slug, feedOffset: story },
+      source: contentService,
+      query: contentConfigValues,
       filter: schemaFilter(arcSite),
     }) || {}
 
@@ -23,6 +27,7 @@ const FeaturedStoryColumnist = props => {
     author,
     authorLink,
     primarySection,
+    primarySectionLink,
     subTitle,
     isPremium,
     websiteLink,
@@ -44,12 +49,12 @@ const FeaturedStoryColumnist = props => {
     author,
     authorLink,
     primarySection,
+    primarySectionLink,
     subTitle,
     isPremium,
     websiteLink,
     isAdmin,
   }
-
   return <ColumnistPremium {...params} />
 }
 
@@ -58,6 +63,6 @@ FeaturedStoryColumnist.propTypes = {
 }
 
 FeaturedStoryColumnist.label = 'Columnista Premium'
-FeaturedStoryColumnist.static = true
+// FeaturedStoryColumnist.static = true
 
 export default FeaturedStoryColumnist

@@ -2,7 +2,10 @@ export default arcSite => {
   return `{ 
     headlines { basic }
     credits {
-      by { name url type }
+      by { 
+        name url type 
+        image { url }
+      }
     }
     websites { ${arcSite} { website_url } }
     promo_items {

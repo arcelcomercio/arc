@@ -10,17 +10,18 @@ const classes = {
   logo: 'columnist-premium__logo mt-20',
 }
 
-const ColumnistPremium = props => {
-  const {
-    lazyImage,
-    author,
-    authorLink,
-    authorImage,
-    subTitle,
-    websiteLink,
-    isPremium,
-    isAdmin,
-  } = props
+const ColumnistPremium = ({
+  lazyImage,
+  authorImage,
+  author,
+  authorLink,
+  primarySection,
+  primarySectionLink,
+  subTitle,
+  isPremium,
+  websiteLink,
+  isAdmin,
+}) => {
   return (
     <div className={classes.columnistPremium}>
       <img
@@ -32,7 +33,9 @@ const ColumnistPremium = props => {
       <h4 className={classes.name}>
         <a href={authorLink}>{author}</a>
       </h4>
-      <p className={classes.section}>Columnista</p>
+      <a href={primarySectionLink} className={classes.section}>
+        {primarySection}
+      </a>
       <p className={classes.description}>
         {subTitle} <a href={websiteLink}>Leer Más.</a>
       </p>
