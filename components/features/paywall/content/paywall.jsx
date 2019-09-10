@@ -81,6 +81,7 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
         }
         if (action !== 'REPLACE') {
           goToStep(step)
+          dispatchEvent('currentStep', step)
         }
       }
       // prettier-ignore
@@ -112,7 +113,6 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
     const currpath = `${pathname}${search}`
     history.replace(currpath, currMemo)
     history.push(`${basePath}/${stepSlug}/${search}`, currMemo)
-    dispatchEvent('currentStep', currentStep)
     window.scrollTo(0, 0)
   }).current
 
