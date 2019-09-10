@@ -4,6 +4,7 @@ import Consumer from 'fusion:consumer'
 import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
+import FacebookLive from './_children/facebook-live'
 
 @Consumer
 class CardFeaturedStoryAdvanced extends PureComponent {
@@ -37,6 +38,8 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       editableField,
       arcSite,
       isAdmin,
+      contextPath,
+      deployment,
       customFields: {
         imageSize,
         headband,
@@ -45,6 +48,8 @@ class CardFeaturedStoryAdvanced extends PureComponent {
         titleField,
         categoryField,
         imgField,
+        flagLive,
+        urlVideoFacebook,
       } = {},
       siteProperties: { siteName = '' } = {},
     } = this.props
@@ -62,7 +67,7 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       multimediaType,
     } = formattedData
 
-    const params = {
+    const paramsFeaturedStory = {
       title,
       category,
       author,
@@ -83,7 +88,19 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       isAdmin,
       siteName,
     }
-    return <FeaturedStory {...params} />
+
+    const paramsFacebook = {
+      arcSite,
+      contextPath,
+      deployment,
+      urlVideoFacebook,
+    }
+    return (
+      <>
+        {!flagLive && <FeaturedStory {...paramsFeaturedStory} />}
+        {flagLive && <FacebookLive {...paramsFacebook} />}
+      </>
+    )
   }
 }
 
