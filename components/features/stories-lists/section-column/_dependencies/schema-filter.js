@@ -17,6 +17,9 @@ export default arcSite => {
               basic { url type resized_urls { landscape_md lazy_default  } }
             }
           }
+          youtube_id {
+            content
+          }
         }
         credits{
           by{
