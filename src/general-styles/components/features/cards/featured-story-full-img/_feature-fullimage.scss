@@ -9,8 +9,8 @@
     left: 0;
     background: linear-gradient(
       to #{$orientacion},
-      rgba(0, 0, 0, 0.5) 0%,
-      rgba(0, 0, 0, 0) 55%
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0) 60%
     );
   }
 }
@@ -64,6 +64,10 @@
     }
   }
   &__title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    max-height: calc(1.333rem * 1.333 * 4);
   }
   &__author {
   }

@@ -44,6 +44,7 @@ export default ({
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+    taxonomy: { primary_section: { path: nameSeccion = '' } = {} } = {},
   } = globalContent || {}
 
   const isStory =
@@ -51,7 +52,7 @@ export default ({
     requestUri.match(`^/preview/([A-Z0-9]{26})/?`)
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
-  let classBody = isStory ? 'story' : ''
+  let classBody = isStory ? `story ${nameSeccion.split('/')[1]}` : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
   const metaSiteData = {
@@ -133,7 +134,6 @@ export default ({
   return (
     <html lang="es">
       <head>
-   
         <TagManager {...siteProperties} />
         <title>{title}</title>
         <link rel="dns-prefetch" href="//ecoid.pe" />
@@ -145,7 +145,7 @@ export default ({
           href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
           rel="stylesheet"
         />
-         {renderMetaPage(metaValue('id'), metaPageData)}
+        {renderMetaPage(metaValue('id'), metaPageData)}
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -223,7 +223,9 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

@@ -7,10 +7,12 @@ import {
   socialMediaUrlShareList,
 } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
+import StoryData from '../../../../utilities/story-data'
+import StorySocialChildAuthor from './author'
 
 const classes = {
   news:
-    'story-header__share flex items-center justify-between mb-20 p-20 border-b-1 border-t-1 border-solid border-base',
+    'story-header__share flex items-center mb-20 p-20 border-b-1 border-t-1 border-solid border-base',
   breadcrumb: '',
   item: 'story-header__item',
   category: 'text-gray-300 text-xl uppercase story-header__title-section',
@@ -80,19 +82,6 @@ class StoryHeaderChildSocial extends PureComponent {
     }
   }
 
-  getSeccionPrimary = dataStory => {
-    return dataStory.taxonomy
-      ? dataStory.taxonomy.primary_section
-      : { name: '', section: '' }
-  }
-
-  handleMoreButton = () => {
-    const { currentList } = this.state
-    const newList =
-      currentList === this.firstList ? this.secondList : this.firstList
-    this.setState({ currentList: newList })
-  }
-
   openLink = (event, item, print) => {
     event.preventDefault()
     if (print) window.print()
@@ -101,19 +90,47 @@ class StoryHeaderChildSocial extends PureComponent {
 
   render() {
     const { currentList } = this.state
+    const { globalContent = {}, contextPath } = this.props
+
     const {
-      globalContent: {
-        taxonomy: { primary_section: { name = '' } = {} } = {},
-        editor_note: editorNote,
-      } = {},
-    } = this.props
+      publishDate: date,
+      displayDate: updatedDate,
+      editorNote,
+      authorImage,
+      authorLink,
+      author,
+      authorEmail,
+      primarySection,
+      primarySectionLink,
+      subtype,
+    } = new StoryData({
+      data: globalContent,
+      contextPath,
+    })
+
+    const params = {
+      authorImage,
+      author,
+      authorLink,
+      updatedDate,
+      date,
+      primarySection,
+      primarySectionLink,
+      authorEmail,
+    }
 
     return (
       <>
-        <div className={classes.news}>
-          <div className={classes.category}>
-            {(editorNote && rawHtml(editorNote)) || name}
-          </div>
+        <div
+          className={`${classes.news} ${
+            subtype === 'especial_basico' ? 'justify-center' : 'justify-between'
+          }`}>
+          {subtype !== 'especial_basico' && (
+            <div className={classes.category}>
+              {(editorNote && rawHtml(editorNote)) || primarySection}
+              <StorySocialChildAuthor {...params} />
+            </div>
+          )}
           <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (
               <li
