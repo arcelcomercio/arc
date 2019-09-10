@@ -14,7 +14,7 @@ const classes = {
     'stories-l-section bg-white flex flex-col overflow-hidden border-1 border-solid border-gray',
 }
 
-const newsNumber = 5
+const newsNumber = 4
 
 const SectionColumnListCard = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
@@ -61,6 +61,6 @@ SectionColumnListCard.propTypes = {
 }
 
 SectionColumnListCard.label = 'Noticias por sección'
-SectionColumnListCard.static = true
+// SectionColumnListCard.static = true
 
 export default SectionColumnListCard
