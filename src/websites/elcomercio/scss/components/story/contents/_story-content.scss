@@ -1,0 +1,25 @@
+.story {
+  &.opinion {
+    .story-header__title-section {
+      display: flex;
+      align-items: center;
+    }
+    .story-content__author {
+      display: flex;
+      align-items: center;
+    }
+    .story-content__author-img {
+      & img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+      }
+    }
+  }
+}
+
+.opinion .content-sidebar {
+  background-color: $color-tertiary;
+  padding-left: 10px;
+  padding-right: 10px;
+}

@@ -3,14 +3,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react'
 import { sha256 } from 'js-sha256'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
-
 import AuthFacebook from './social-auths/auth-facebook'
-
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import FormValid from '../../utils/form-valid'
+import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
@@ -35,10 +33,7 @@ class FormLoginPaywall extends Component {
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentWillMount() {

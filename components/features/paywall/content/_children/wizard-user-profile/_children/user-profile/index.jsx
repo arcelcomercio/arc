@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Form, Field } from 'formik'
 import pick from 'object.pick'
+
+import { Persist } from '../../../../../_children/formik-persist'
 import * as S from './styled'
 import InputFormik from '../../../../../_children/input'
 import Button from '../../../../../_children/button'
@@ -51,9 +53,7 @@ const UserProfile = ({
             email: email.trim(),
             firstName: firstName.trim(),
             lastName: lastName.trim(),
-            secondLastName: secondLastName
-              ? secondLastName.trim()
-              : secondLastName,
+            secondLastName: secondLastName ? secondLastName.trim() : undefined,
             phone: phone.replace(/\D/g, ''),
             billingAddress: {
               country: 'PE',
@@ -149,6 +149,7 @@ const UserProfile = ({
             <Button disabled={isSubmitting} maxWidth="300px" type="submit">
               CONTINUAR
             </Button>
+            <Persist name="paywall-profile-form" isSessionStorage />
           </FormStyled>
         )
       }}

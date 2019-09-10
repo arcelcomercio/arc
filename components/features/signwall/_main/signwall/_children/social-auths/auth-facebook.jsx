@@ -1,5 +1,4 @@
 import React from 'react'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import { sha256 } from 'js-sha256'
 import { Facebook } from '../../../common/iconos'
@@ -7,12 +6,10 @@ import Cookie from '../../../utils/cookie'
 import getDevice from '../../../utils/get-device'
 import Services from '../../../utils/services'
 import Taggeo from '../../../utils/taggeo'
+import Domains from '../../../utils/domains'
 
 const Cookies = new Cookie()
 const services = new Services()
-
-const ORIGIN_ECOID =
-  ENV.ENVIRONMENT === 'elcomercio' ? 'https://ecoid.pe' : 'https://pre.ecoid.pe'
 
 @Consumer
 class AuthFacebook extends React.Component {
@@ -24,17 +21,7 @@ class AuthFacebook extends React.Component {
     }
 
     const { arcSite } = this.props
-    if (arcSite !== 'peru21') {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-sandbox.${arcSite}.pe`
-    } else {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
-    }
+    this.origin_api = Domains.getOriginAPI(arcSite)
 
     window.removeEventListener('message', this.OAuthFacebook)
     window.removeEventListener('onmessage', this.OAuthFacebook)
@@ -61,7 +48,7 @@ class AuthFacebook extends React.Component {
     const height = 640
     const left = window.screen.width / 2 - 800 / 2
     const top = window.screen.height / 2 - 600 / 2
-    const url = `${ORIGIN_ECOID}/mpp/facebook/login/`
+    const url = `${Domains.getUrlECOID()}/mpp/facebook/login/`
     return window.open(
       url,
       '',
@@ -72,7 +59,7 @@ class AuthFacebook extends React.Component {
   }
 
   OAuthFacebook = data => {
-    if (data.origin !== ORIGIN_ECOID) {
+    if (data.origin !== Domains.getUrlECOID()) {
       return
     }
 
@@ -205,34 +192,6 @@ class AuthFacebook extends React.Component {
   taggeoSuccess = () => {
     const { typePopUp, typeForm } = this.props
 
-    // switch (typePopUp) {
-    //   case 'organico':
-    //   case 'hard':
-    //     window.dataLayer.push({
-    //       event: `${typeForm}_fb_success`,
-    //       eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //       eventAction: `web_sw${typePopUp[0]}_${typeForm}_success_facebook`,
-    //     })
-    //     break
-    //   case 'relogin':
-    //     window.dataLayer.push({
-    //       event: 'relogin_fb_success',
-    //     })
-    //     break
-    //   case 'relogemail':
-    //     if (typeForm === 'login') {
-    //       window.dataLayer.push({
-    //         event: 'relogin_email_fb_success',
-    //       })
-    //     } else if (typeForm === 'register') {
-    //       window.dataLayer.push({
-    //         event: 'relogin_email_registro_fb_success',
-    //       })
-    //     }
-    //     break
-    //   default:
-    // }
-
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
       `web_sw${typePopUp[0]}_${typeForm}_success_facebook`
@@ -241,34 +200,6 @@ class AuthFacebook extends React.Component {
 
   taggeoError = () => {
     const { typePopUp, typeForm } = this.props
-
-    // switch (typePopUp) {
-    //   case 'organico':
-    //   case 'hard':
-    //     window.dataLayer.push({
-    //       event: `${typeForm}_fb_error`,
-    //       eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //       eventAction: `web_sw${typePopUp[0]}_${typeForm}_error_facebook`,
-    //     })
-    //     break
-    //   case 'relogin':
-    //     window.dataLayer.push({
-    //       event: 'relogin_fb_error',
-    //     })
-    //     break
-    //   case 'relogemail':
-    //     if (typeForm === 'login') {
-    //       window.dataLayer.push({
-    //         event: 'relogin_email_fb_error',
-    //       })
-    //     } else if (typeForm === 'register') {
-    //       window.dataLayer.push({
-    //         event: 'relogin_email_registro_fb_error',
-    //       })
-    //     }
-    //     break
-    //   default:
-    // }
 
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
