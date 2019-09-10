@@ -12,7 +12,7 @@ import StorySocialChildAuthor from './author'
 
 const classes = {
   news:
-    'story-header__share flex items-center justify-between mb-20 p-20 border-b-1 border-t-1 border-solid border-base',
+    'story-header__share flex items-center mb-20 p-20 border-b-1 border-t-1 border-solid border-base',
   breadcrumb: '',
   item: 'story-header__item',
   category: 'text-gray-300 text-xl uppercase story-header__title-section',
@@ -102,6 +102,7 @@ class StoryHeaderChildSocial extends PureComponent {
       authorEmail,
       primarySection,
       primarySectionLink,
+      subtype,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -120,11 +121,16 @@ class StoryHeaderChildSocial extends PureComponent {
 
     return (
       <>
-        <div className={classes.news}>
-          <div className={classes.category}>
-            {(editorNote && rawHtml(editorNote)) || primarySection}
-            <StorySocialChildAuthor {...params} />
-          </div>
+        <div
+          className={`${classes.news} ${
+            subtype === 'especial_basico' ? 'justify-center' : 'justify-between'
+          }`}>
+          {subtype !== 'especial_basico' && (
+            <div className={classes.category}>
+              {(editorNote && rawHtml(editorNote)) || primarySection}
+              <StorySocialChildAuthor {...params} />
+            </div>
+          )}
           <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (
               <li
