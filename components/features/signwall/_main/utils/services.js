@@ -1,14 +1,6 @@
 /* eslint-disable class-methods-use-this */
-import ENV from 'fusion:environment'
 import getDevice from './get-device'
-
-const ORIGIN_ECOID =
-  ENV.ENVIRONMENT === 'elcomercio' ? 'https://ecoid.pe' : 'https://pre.ecoid.pe'
-
-const API_ORIGIN =
-  ENV.ENVIRONMENT === 'elcomercio'
-    ? 'https://api.gestion.pe'
-    : 'https://api-sandbox.gestion.pe'
+import Domains from './domains'
 
 export default class Services {
   reloginEcoID(username, password, action, site, window) {
@@ -34,7 +26,7 @@ export default class Services {
     }
     formBody = formBody.join('&')
     const response = new Promise(resolve => {
-      fetch(`${ORIGIN_ECOID}/api/v2/verify_credentials`, {
+      fetch(`${Domains.getUrlECOID()}/api/v2/verify_credentials`, {
         method: 'POST',
         body: formBody,
         headers: {
@@ -65,15 +57,15 @@ export default class Services {
   getUbigeo(item) {
     const response = new Promise(resolve => {
       fetch(
-        `${ORIGIN_ECOID}/get_ubigeo/${item}?v=${new Date().getTime()}`
+        `${Domains.getUrlECOID()}/get_ubigeo/${item}?v=${new Date().getTime()}`
       ).then(res => resolve(res.json()))
     })
     return response
   }
 
-  getEntitlement(jwt) {
+  getEntitlement(jwt, site) {
     const response = new Promise(resolve => {
-      fetch(`${API_ORIGIN}/sales/public/v1/entitlements`, {
+      fetch(`${Domains.getOriginAPI(site)}/sales/public/v1/entitlements`, {
         method: 'GET',
         headers: {
           Authorization: jwt,

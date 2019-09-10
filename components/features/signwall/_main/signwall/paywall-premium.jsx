@@ -120,7 +120,7 @@ class PayWallPremium extends Component {
                       <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
                       <center>
                         {/* <img
-                          className="modal-header__img mt-40"
+                          className="mt-40"
                           alt=""
                           src={deployment(
                             `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.nav.logo}`
@@ -128,7 +128,7 @@ class PayWallPremium extends Component {
                         /> */}
                         <img
                           style={{ maxWidth: '320px', height: 'auto' }}
-                          className="modal-header__img mt-40"
+                          className="mt-40"
                           alt=""
                           src={deployment(
                             `${contextPath}/resources/dist/${arcSite}/images/logo_ges.png`

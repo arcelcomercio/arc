@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import Modal from '../../../common/modal'
 import { Close } from '../../../common/iconos'
 import Loading from '../../../common/loading'
+import Domains from '../../../utils/domains'
 // import { ModalConsumer } from '../../../signwall/context'
 
 @Consumer
@@ -22,17 +22,7 @@ class Subs extends Component {
     }
 
     const { arcSite } = this.props
-    if (arcSite !== 'peru21') {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-sandbox.${arcSite}.pe`
-    } else {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
-    }
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentDidMount() {
@@ -68,13 +58,9 @@ class Subs extends Component {
     })
   }
 
-  handlePageChange = () => {
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      window.location.href = '/suscripcionesdigitales/' // URL LANDING
-    } else {
-      window.location.href =
-        '/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1' // URL LANDING
-    }
+  handlePageChange = e => {
+    e.preventDefault()
+    window.location.href = Domains.getUrlPaywall()
   }
 
   notIsSub = () => {
@@ -209,7 +195,7 @@ class Subs extends Component {
                     <button
                       className="btn-subs"
                       type="button"
-                      onClick={() => this.handlePageChange()}>
+                      onClick={e => this.handlePageChange(e)}>
                       <h3>SUSCRÍBETE</h3>
                       <span>DESDE S/ {paywallPrice} MENSUALES</span>
                       {/* <span>{paywallDescripcion}</span> */}

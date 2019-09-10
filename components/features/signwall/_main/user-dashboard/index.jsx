@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import Modal from '../common/modal'
 import Header from '../common/header'
-// import Footer from '../common/footer'
 import Gravatar from '../common/gravatar'
 import Cookie from '../utils/cookie'
 import GetProfile from '../utils/get-profile'
@@ -11,6 +9,7 @@ import Loading from '../common/loading'
 import Home from './_children/home/index'
 import MiPerfil from './_children/profile/index'
 import MiSubscrip from './_children/subs/index'
+import Domains from '../utils/domains'
 import { ModalProvider, ModalConsumer } from '../signwall/context'
 
 const Cookies = new Cookie()
@@ -37,17 +36,7 @@ class ProfileAccount extends Component {
     }
 
     const { arcSite } = this.props
-    if (arcSite !== 'peru21') {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-sandbox.${arcSite}.pe`
-    } else {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
-    }
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentDidMount() {
@@ -259,8 +248,6 @@ class ProfileAccount extends Component {
                   </div>
                 </div>
               </div>
-
-              {/* <Footer position="center" /> */}
             </Modal>
           )}
         </ModalConsumer>
