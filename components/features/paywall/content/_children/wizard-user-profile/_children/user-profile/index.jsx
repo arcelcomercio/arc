@@ -53,9 +53,7 @@ const UserProfile = ({
             email: email.trim(),
             firstName: firstName.trim(),
             lastName: lastName.trim(),
-            secondLastName: secondLastName
-              ? secondLastName.trim()
-              : secondLastName,
+            secondLastName: secondLastName ? secondLastName.trim() : undefined,
             phone: phone.replace(/\D/g, ''),
             billingAddress: {
               country: 'PE',
