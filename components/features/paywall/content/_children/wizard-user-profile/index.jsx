@@ -123,14 +123,12 @@ function WizardUserProfile(props) {
   return (
     <S.WizardUserProfile>
       <S.PanelUserProfile type="content" valing="jc-center">
-        {sanitizedProfile && (
-          <UserProfile
-            initialValues={sanitizedProfile}
-            onSubmit={onSubmitHandler}
-            title="Ingrese sus datos"
-            error={error}
-          />
-        )}
+        <UserProfile
+          initialValues={sanitizedProfile}
+          onSubmit={onSubmitHandler}
+          title="Ingrese sus datos"
+          error={error}
+        />
       </S.PanelUserProfile>
       <Summary
         amount={amount}
