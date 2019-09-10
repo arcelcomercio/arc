@@ -22,6 +22,7 @@ const stepNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 const stepSlugs = ['planes', 'datos', 'pago', 'confirmacion']
 
 let history
+let finalized = false
 
 const Paywall = ({ dispatchEvent }) => {
   const {
@@ -66,9 +67,12 @@ const Paywall = ({ dispatchEvent }) => {
     return history.listen((location, action) => {
       const { goToStep } = wizardRef.current
       const doStep = step => {
+        // Retornar a planes si retrocede luego de finalizar la compra
+        if (finalized) {
+          window.location.href = `${basePath}/planes/${location.search}`
+          return
+        }
         if (action !== 'REPLACE') {
-          memo.current = location.state
-          // setMemo(location.state)
           goToStep(step)
         }
       }
@@ -86,6 +90,8 @@ const Paywall = ({ dispatchEvent }) => {
           break;
         case `${basePath}/${stepSlugs[3]}/`: 
           doStep(4)
+          finalized = true
+          sessionStorage.clear()
           break;
       }
     })
@@ -93,15 +99,13 @@ const Paywall = ({ dispatchEvent }) => {
 
   const onBeforeNextStepHandler = useRef(result => {
     Object.assign(currMemo, result)
-    const { search, pathname, state } = history.location
-    const { goToStep } = wizardRef.current
+    const { search, pathname } = history.location
     const currentStep = wizardRef.current.state.activeStep + 1
     const stepSlug = stepSlugs[currentStep]
     const currpath = `${pathname}${search}`
-    history.replace(currpath, state)
+    history.replace(currpath, currMemo)
     history.push(`${basePath}/${stepSlug}/${search}`, currMemo)
     dispatchEvent('currentStep', currentStep)
-    goToStep(currentStep + 1)
     window.scrollTo(0, 0)
   }).current
 
