@@ -23,6 +23,7 @@ const _initValue = {
   email: null,
 }
 const UserProfile = ({
+  name,
   title = '',
   initialValues = {},
   error,
@@ -149,7 +150,7 @@ const UserProfile = ({
             <Button disabled={isSubmitting} maxWidth="300px" type="submit">
               CONTINUAR
             </Button>
-            <Persist name="paywall-profile-form" isSessionStorage />
+            <Persist name={name} isSessionStorage />
           </FormStyled>
         )
       }}

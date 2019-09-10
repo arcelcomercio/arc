@@ -20,6 +20,8 @@ import '../_dependencies/sentry'
 
 const stepNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 const stepSlugs = ['planes', 'datos', 'pago', 'confirmacion']
+const PROFILE_FORM_NAME = 'paywall-profile-form'
+const PAYMENT_FORM_NAME = 'paywall-payment-form'
 
 let history
 let finalized = false
@@ -37,8 +39,8 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
   } = useFusionContext()
 
   const clearPaywallStorage = useRef(() => {
-    sessionStorage.removeItem('paywall-profile-form')
-    sessionStorage.removeItem('paywall-payment-form')
+    sessionStorage.removeItem(PROFILE_FORM_NAME)
+    sessionStorage.removeItem(PAYMENT_FORM_NAME)
   }).current
 
   addEventListener('logout', clearPaywallStorage)
@@ -150,6 +152,7 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
           <WizardUserProfile
             memo={currMemo}
             profile={profile}
+            formName={PROFILE_FORM_NAME}
             summary={summary}
             onBeforeNextStep={onBeforeNextStepHandler}
             setLoading={setLoading}
@@ -158,6 +161,7 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
             memo={currMemo}
             printed={printed}
             summary={summary}
+            formName={PAYMENT_FORM_NAME}
             onBeforeNextStep={onBeforeNextStepHandler}
             setLoading={setLoading}
           />

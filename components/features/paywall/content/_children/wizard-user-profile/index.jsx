@@ -17,6 +17,7 @@ function WizardUserProfile(props) {
     memo,
     summary,
     profile,
+    formName,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
@@ -124,6 +125,7 @@ function WizardUserProfile(props) {
     <S.WizardUserProfile>
       <S.PanelUserProfile type="content" valing="jc-center">
         <UserProfile
+          name={formName}
           initialValues={sanitizedProfile}
           onSubmit={onSubmitHandler}
           title="Ingrese sus datos"
