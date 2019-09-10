@@ -6,6 +6,7 @@ import LoginRegister from './_main/signwall/index'
 import LoginPaywall from './_main/signwall/login-paywall'
 import Panel from './_main/user-dashboard/index'
 import Cookie from './_main/utils/cookie'
+import Domains from './_main/utils/domains'
 
 const Cookies = new Cookie()
 
@@ -20,17 +21,7 @@ class Signwall extends Component {
     }
 
     const { arcSite } = this.props
-    if (arcSite !== 'peru21') {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-sandbox.${arcSite}.pe`
-    } else {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
-    }
+    this.origin_api = Domains.getOriginAPI(arcSite)
 
     Fingerprint2.getV18({}, result => {
       Cookies.setCookie('gecdigarc', result, 365)

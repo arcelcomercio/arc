@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 import Modal from '../common/modal'
 import Header from '../common/header'
-// import Footer from '../common/footer'
 import Taggeo from '../utils/taggeo'
 
 import FormLogin from './_children/form-login'
@@ -93,8 +92,6 @@ class LoginRegister extends Component {
                   {this.renderTemplate(value.selectedTemplate)}
                 </div>
               </div>
-
-              {/* <Footer position="right" /> */}
             </Modal>
           )}
         </ModalConsumer>
