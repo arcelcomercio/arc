@@ -73,14 +73,17 @@ export default {
     {
       name: 'Trabaja para Grupo El Comercio',
       url: 'https://elcomercio.aptitus.com/',
+      type: 'external',
     },
     {
       name: 'Libro de Reclamaciones',
       url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
+      type: 'external',
     },
     {
       name: 'Oficinas Concesionarias',
       url: '/oficinas-concesionarias',
+      type: 'external',
     },
     {
       name: 'Principios Rectores',
