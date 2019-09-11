@@ -1,14 +1,110 @@
-.nav {
-  position: relative;
+$nav-height-active: 46px;
+
+.header-ec {
   height: $nav-height;
   z-index: 20;
-  // max-width: 980px;
 
   @media print {
     display: none;
   }
 
-  &__wrapper {
+  .header__logo {
+    height: 36px;
+  }
+
+  .nav__mobile-logo {
+    top: initial;
+    left: initial;
+    transform: translateX(0);
+  }
+
+  &__btn-search,
+  &__btn-menu {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &__btn-search {
+    &.active {
+      color: $color-base-100;
+      border: none;
+    }
+  }
+
+  &__btn-menu {
+    span {
+      display: none;
+
+      @media (--tablet) {
+        display: inline-block;
+      }
+    }
+  }
+
+  &.active {
+    position: fixed; // No borrar, si no reconce sticky deja fixed
+    position: sticky;
+    background-color: $color-base-100;
+    height: $nav-height-active;
+
+    @supports (position: sticky) {
+      width: 100%;
+    }
+
+    &.nav__loader {
+      top: 0;
+    }
+
+    .header__logo {
+      height: 44px;
+    }
+
+    .header-ec__btn-menu,
+    .header-ec__btn-search {
+      color: $color-white;
+    }
+
+    .header-ec__btn-subs {
+      display: flex;
+    }
+
+    .btn {
+      background-color: $color-white;
+      color: $color-base-100;
+    }
+
+    .story-header__icon {
+      font-size: 26px;
+    }
+
+    .nav-sidebar {
+      top: $nav-height-active;
+      height: calc(100vh - #{$nav-height-active});
+    }
+  }
+
+  /* .nav__wrapper {
+      justify-content: space-between;
+    }
+
+    .nav__list,
+    .nav__container-right {
+      display: none;
+    }
+*/
+  /* .nav__logo {
+      display: block;
+    }
+
+    .nav__search-box {
+      display: none;
+    }
+    .nav__container-menu {
+      border-right-color: $color-white;
+    } */
+
+  /*   &__wrapper {
     @media (--desktop) {
       display: flex;
     }
@@ -21,17 +117,24 @@
     @media (--desktop) {
       border-right-color: $color-gray-200;
     }
-  }
+  } */
 
-  &__container-right {
-    top: 50%;
-    transform: translateY(-50%);
-    right: 15px;
-  }
-
-  &__btn {
+  /* &__btn {
     color: $color-white;
     outline: 0;
+    &--section {
+      //padding: 4px;
+      & span {
+        font-weight: bold;
+        display: none;
+        font-family: $secondary-font;
+
+        @media (--desktop) {
+          display: inline;
+          margin-left: 8px;
+        }
+      }
+    }
 
     &:hover {
       text-decoration: none;
@@ -59,19 +162,6 @@
       padding: 6px;
     }
 
-    &--section {
-      //padding: 4px;
-      & span {
-        font-weight: bold;
-        display: none;
-        font-family: $secondary-font;
-
-        @media (--desktop) {
-          display: inline;
-          margin-left: 8px;
-        }
-      }
-    }
 
     &--login-m {
       width: 34px;
@@ -81,11 +171,11 @@
         font-style: normal;
       }
     }
-  }
+  } */
 
   // &__list { }
 
-  &__list-item {
+  /*  &__list-item {
     &:nth-last-child(1) {
       padding-right: 0;
     }
@@ -104,33 +194,33 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-  }
+  } */
 
-  &__logo {
+  /* &__logo {
     height: $nav-height;
-  }
+  } */
 
-  &__ads {
+  /* &__ads {
     // TODO: Temporal
     width: 100px;
-    height: 30px;
+    height: 30px; 
     // --------------
-  }
+  }*/
 
   // &__header-sub {  }
-  &__icon {
+  /* &__icon {
     width: 16px;
     height: 16px;
     background-size: cover;
-  }
+  } */
 
   // &__icon-menu {}
   // &__icon-search {}
 
-  &__input-search {
+  /* &__input-search {
     background-color: transparent;
     outline: none;
-    padding-right: 40px;
+    padding-right: 30px;
     height: 30px;
     text-indent: 0;
     display: initial;
@@ -155,52 +245,10 @@
     background: rgba(0, 0, 0, 0);
     height: 100vh;
     display: none;
-  }
-
-  &.active {
-    position: fixed; // No borrar, si no reconce sticky deja fixed
-    position: sticky;
-    width: 980px;
-    @supports (position: sticky) {
-      width: 100%;
-      max-width: 980px;
-    }
-    @media (--desktop) {
-      background-color: $color-primary;
-
-      .nav__btn {
-        color: $color-white;
-      }
-
-      .btn {
-        border-color: $color-white;
-        color: $color-white;
-      }
-
-      .nav__wrapper {
-        justify-content: space-between;
-      }
-
-      .nav__list,
-      .nav__container-right {
-        display: none;
-      }
-
-      .nav__logo {
-        display: block;
-      }
-
-      .nav__search-box {
-        display: none;
-      }
-      .nav__container-menu {
-        border-right-color: $color-white;
-      }
-    }
-  }
+  } */
 
   /*   Estilos para nav loader en notas */
-  &__loader {
+  /*   &__loader {
     left: 0;
     top: 46px;
     height: 5px;
@@ -226,5 +274,14 @@
     font-size: 14px;
     font-weight: 700;
     display: none;
+  } */
+}
+
+.nav__btn--section {
+  & span {
+    @media (--tablet) {
+      display: inline;
+      margin-left: 8px;
+    }
   }
 }

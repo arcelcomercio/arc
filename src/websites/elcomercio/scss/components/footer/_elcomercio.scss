@@ -1,0 +1,17 @@
+.footer {
+  &__sites-item {
+    &::after {
+      width: 1px;
+      position: absolute;
+      right: 0;
+      height: 7px;
+      background-color: $border-color-black;
+      top: 50%;
+      transform: translateY(-50%);
+
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+}
