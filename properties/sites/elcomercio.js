@@ -111,7 +111,21 @@ export default {
       'Copyright © Elcomercio.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
-
+    story: [
+      {
+        position: 'DIRECTOR PERIODÍSTICO:',
+        name: 'Juan José Garrido Koechlin',
+      },
+      {
+        position: 'Empresa Editora El Comercio',
+        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
+      },
+      {
+        position: 'Copyright © ojo.pe',
+        name:
+          '© Empresa Editora El Comercio - Copyright © Elcomercio.pe - Grupo El Comercio - Todos los derechos reservados.',
+      },
+    ],
     socialNetworks: [
       {
         name: 'facebook',
