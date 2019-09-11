@@ -57,8 +57,8 @@ class StoryContinue extends PureComponent {
 
       this.position = +1
     }
-    this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
     this.setTitleHead()
+    this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
   }
 
   setInitiateHeights = e => {

@@ -39,6 +39,7 @@ const classes = {
   /** ------------ */
   navStoryTitle: 'nav__story-title position-absolute overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
+  navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
 
   listIcon: 'story-header__list flex justify-between rounded-sm',
   moreLink: 'story-content__more-link',
@@ -277,8 +278,8 @@ const HeaderChildStandard = ({
           </time>
         )}
       </nav>
-      <header
-        className={`${classes.header} ${scrolled ? 'active nav__loader' : ''}`}>
+      <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
+        <div className={classes.navLoader} />
         {/** ************* LEFT *************** */}
         <div
           className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
@@ -374,7 +375,6 @@ const HeaderChildStandard = ({
           siteProperties={siteProperties}
         />
         <div className="layer" />
-        {/* <div className="nav__loader-bar position-absolute w-full h-full" /> */}
       </header>
     </>
   )
