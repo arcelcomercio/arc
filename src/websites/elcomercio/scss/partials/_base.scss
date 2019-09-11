@@ -16,7 +16,8 @@ body,
     // background-color: $color-gray-200;
     & > div,
     & > section,
-    & > article {
+    & > article,
+    & > h1 {
       margin: 10px;
       position: relative;
       width: auto;
