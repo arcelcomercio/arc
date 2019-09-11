@@ -75,6 +75,6 @@ FeatureStoryFullImage.propTypes = {
 }
 
 FeatureStoryFullImage.label = 'Destaque Full Imagen'
-// FeatureStoryFullImage.static = true
+FeatureStoryFullImage.static = true
 
 export default FeatureStoryFullImage
