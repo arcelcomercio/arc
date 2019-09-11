@@ -62,23 +62,19 @@ const HeaderStandard = props => {
       {
         icon: 'icon-facebook-circle',
         link: urlsShareList.facebook,
-        /* mobileClass: classes.mobileClass, */
       },
 
       {
         icon: 'icon-twitter-circle',
         link: urlsShareList.twitter,
-        /* mobileClass: classes.mobileClass, */
       },
       {
         icon: 'icon-linkedin-circle',
         link: urlsShareList.linkedin,
-        /* mobileClass: classes.mobileClass, */
       },
       {
         icon: 'icon-whatsapp',
         link: urlsShareList.whatsapp,
-        /* mobileClass: `block md:hidden ${classes.mobileClass}`, */
       },
     ],
   }
@@ -136,7 +132,6 @@ const HeaderStandard = props => {
 }
 
 HeaderStandard.label = 'Cabecera - El Comercio'
-// HeaderStandard.static = true
 
 HeaderStandard.propTypes = {
   customFields,

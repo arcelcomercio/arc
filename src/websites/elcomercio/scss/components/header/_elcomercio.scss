@@ -1,7 +1,6 @@
 $nav-height-active: 46px;
 
 .header-ec {
-  position: relative;
   height: $nav-height;
   z-index: 20;
 
@@ -11,6 +10,12 @@ $nav-height-active: 46px;
 
   .header__logo {
     height: 36px;
+  }
+
+  .nav__mobile-logo {
+    top: initial;
+    left: initial;
+    transform: translateX(0);
   }
 
   &__btn-search,

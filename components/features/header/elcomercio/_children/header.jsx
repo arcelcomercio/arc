@@ -7,15 +7,16 @@ import Button from '../../../../global-components/button'
 import Menu from './menu'
 
 const CLUB_URL = 'https://clubelcomercio.pe/?ref=home&ft=menu'
+const CLUB_TEXT = 'Club'
 const SUBSCRIBE_URL = 'https://suscripciones.elcomercio.pe/?ref=ec_home&ft=menu'
+const SUBSCRIBE_TEXT = 'Suscríbete'
 const DRAG_SCREEN_LIMIT = 90
 const LIST_WIDTH = 330
 
 const classes = {
   header: `header header-ec bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
+  logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
-  logoLeft: 'header__logo-secondary',
-  logoImage: 'w-full h-full object-cover',
   featured: 'header__featured flex w-full font-normal overflow-hidden mr-20',
   item: 'header__item flex items-center justify-center h-inherit',
   link: 'header__link uppercase text-sm p-10',
@@ -36,10 +37,10 @@ const classes = {
   btnClub: 'header-ec__btn-club',
   btnSubs: 'header-ec__btn-subs',
   /** ------------ */
-  navStoryTitle: 'nav__story-title position-relative overflow-hidden',
+  navStoryTitle: 'nav__story-title position-absolute overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
 
-  listIcon: 'story-header__list flex justify-between ',
+  listIcon: 'story-header__list flex justify-between rounded-sm',
   moreLink: 'story-content__more-link',
   shareItem: 'story-header__item',
   shareLink: 'story-header__link flex items-center justify-center text-white',
@@ -307,7 +308,7 @@ const HeaderChildStandard = ({
           />
         </div>
         {/** ************* // LEFT *************** */}
-        <a href={logo.link} className="nav__mobile-logo">
+        <a href={logo.link} className={classes.logoContainer}>
           <img
             src={scrolled ? auxLogo.src : logo.src}
             alt={logo.alt}
@@ -352,13 +353,13 @@ const HeaderChildStandard = ({
             <>
               <Button
                 btnClass={`${classes.btnProfile} ${classes.btnClub}`}
-                btnText="Club"
+                btnText={CLUB_TEXT}
                 onClick={_handleToggleSectionElements}
                 btnLink={CLUB_URL}
               />
               <Button
                 btnClass={`${classes.btnProfile} ${classes.btnSubs}`}
-                btnText="Suscríbete"
+                btnText={SUBSCRIBE_TEXT}
                 onClick={_handleToggleSectionElements}
                 btnLink={SUBSCRIBE_URL}
               />
@@ -373,6 +374,7 @@ const HeaderChildStandard = ({
           siteProperties={siteProperties}
         />
         <div className="layer" />
+        {/* <div className="nav__loader-bar position-absolute w-full h-full" /> */}
       </header>
     </>
   )
