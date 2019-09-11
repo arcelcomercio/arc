@@ -9,6 +9,10 @@ import {
 
 const classes = {
   title: 'w-full mt-20 custom-title',
+  button:
+    'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200',
+  darkButton:
+    'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-white border-solid p-10 text-white',
 }
 
 @Consumer
@@ -60,7 +64,12 @@ class CustomTitle extends PureComponent {
       editableField,
       customFields: {
         isUppercase,
+        isThreeCol,
+        isCustomBorder,
+        seeMoreButton,
         customText,
+        isDarkBg,
+        seeMoreButtonLink = '',
         TextType = 'h1',
         textAlign = 'left',
       } = {},
@@ -76,8 +85,12 @@ class CustomTitle extends PureComponent {
       <TextType
         {...editableField('customText')}
         suppressContentEditableWarning
-        className={`${classes.title}  text-${textAlign} ${
+        className={`${classes.title} text-${textAlign} ${
           isUppercase ? 'uppercase' : ''
+        } ${isThreeCol ? 'col-3' : ''} ${
+          isCustomBorder ? 'custom-border' : ''
+        } ${seeMoreButton ? 'position-relative ' : ''} ${
+          isDarkBg ? 'dark-bg text-white bg-base-100' : ''
         }`}>
         {customText ||
           sectionName ||
@@ -87,6 +100,13 @@ class CustomTitle extends PureComponent {
           this.getArchivoTitle() ||
           formatSlugToText(section) ||
           'Título'}
+        {seeMoreButton && (
+          <a
+            href={seeMoreButtonLink}
+            className={isDarkBg ? classes.darkButton : classes.button}>
+            VER MÁS
+          </a>
+        )}
       </TextType>
     )
   }
@@ -111,11 +131,26 @@ CustomTitle.propTypes = {
       },
       defaultValue: 'left',
     }),
+    customText: PropTypes.string.tag({
+      name: 'Título personalizado',
+    }),
     isUppercase: PropTypes.bool.tag({
       name: 'Texto en mayúsculas',
     }),
-    customText: PropTypes.string.tag({
-      name: 'Título personalizado',
+    isThreeCol: PropTypes.bool.tag({
+      name: 'Ancho de 3 columnas',
+    }),
+    isCustomBorder: PropTypes.bool.tag({
+      name: 'Borde perzonalizado',
+    }),
+    isDarkBg: PropTypes.bool.tag({
+      name: 'Fondo personalizado',
+    }),
+    seeMoreButton: PropTypes.bool.tag({
+      name: 'Agregar botón "Ver más"',
+    }),
+    seeMoreButtonLink: PropTypes.string.tag({
+      name: 'Url del botón "Ver más"',
     }),
   }),
   editableField: PropTypes.func,

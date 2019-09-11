@@ -3,18 +3,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react'
 import { sha256 } from 'js-sha256'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
-
 import AuthFacebook from './social-auths/auth-facebook'
-
 import ListBenefits from './benefits'
 import Cookie from '../../utils/cookie'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
 import FormValid from '../../utils/form-valid'
 import Taggeo from '../../utils/taggeo'
+import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
@@ -44,13 +42,8 @@ class FormReLogin extends Component {
       sending: true,
     }
 
-    const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
-
-    const { typePopUp } = this.props
+    const { arcSite, typePopUp } = this.props
+    this.origin_api = Domains.getOriginAPI(arcSite)
     this.tipCat = typePopUp
   }
 
@@ -75,12 +68,6 @@ class FormReLogin extends Component {
         .then(() => {
           this.setState({ sending: true })
           this.handleGetProfile()
-
-          // window.dataLayer.push({
-          //   event: 'login_success',
-          //   eventCategory: `Web_Sign_Wall_Relog_Email`,
-          //   eventAction: `web_relog_email_login_success_ingresar`,
-          // })
 
           Taggeo(
             `Web_Sign_Wall_${typePopUp}`,
@@ -259,11 +246,6 @@ class FormReLogin extends Component {
   taggeoSuccess = () => {
     const { typePopUp } = this.props
 
-    // window.dataLayer.push({
-    //   event:
-    //     typePopUp === 'relogin' ? 'relogin_success' : 'relogin_email_success',
-    // })
-
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
       `web_sw${typePopUp[0]}_email_login_success`
@@ -272,11 +254,6 @@ class FormReLogin extends Component {
 
   taggeoError = () => {
     const { typePopUp } = this.props
-
-    // window.dataLayer.push({
-    //   event:
-    //     typePopUp === 'relogin' ? 'relogin_error' : 'relogin_email_error',
-    // })
 
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
