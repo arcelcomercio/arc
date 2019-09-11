@@ -28,6 +28,7 @@ function WizardPayment(props) {
   const {
     memo,
     summary,
+    formName,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
     printed,
@@ -233,6 +234,7 @@ function WizardPayment(props) {
     <S.WizardPayment>
       <S.PanelPayment type="content" valing="jc-center">
         <FormPay
+          name={formName}
           initialValues={{
             agreed: null,
             cardMethod: null,

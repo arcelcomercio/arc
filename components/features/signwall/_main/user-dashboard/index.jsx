@@ -61,7 +61,8 @@ class ProfileAccount extends Component {
           window.location.pathname.indexOf('suscripciones') >= 0 ||
           arcSite === 'gestion'
         ) {
-          window.sessionStorage.clear()
+          this.dispatchEvent('logout')
+          // window.sessionStorage.clear()
           window.location.reload()
         } else {
           closePopup()
