@@ -147,13 +147,23 @@ const FooterChildElComercio = ({
           {legalLinks && (
             <ul className={classes.linksList}>
               {legalLinks.map(
-                ({ name, url }) =>
+                ({ name, url, external }) =>
                   name &&
                   url && (
                     <li className={classes.linksItem} key={`legal-${name}`}>
-                      <a href={url} className={classes.linksLink}>
-                        - {name}
-                      </a>
+                      {external ? (
+                        <a
+                          href={url}
+                          className={classes.linksLink}
+                          target="_blank"
+                          rel="noopener noreferrer">
+                          - {name}
+                        </a>
+                      ) : (
+                        <a href={url} className={classes.linksLink}>
+                          - {name}
+                        </a>
+                      )}
                     </li>
                   )
               )}

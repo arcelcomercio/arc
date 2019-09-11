@@ -39,7 +39,7 @@ class LayoutAmpFooter extends PureComponent {
           `{  
               "image":"${urlImage}",
               "title":"${basic}",
-              "ampUrl":"${pathUrl}${websiteUrl}?_website=ojo&outputType=amp&pageNext=2"
+              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp&pageNext=2"
             }`
         )
       }
