@@ -1,7 +1,9 @@
 .stories-l-section {
   .stories-l-header {
-    background-color: $color-base-200;
     height: 40px;
+    &.bg-info {
+      background-color: $color-base-200;
+    }
   }
   .stories-l-item {
     &:first-child {
