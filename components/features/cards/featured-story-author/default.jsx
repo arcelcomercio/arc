@@ -39,7 +39,7 @@ const CardFeaturedStoryAuthor = props => {
     multimediaPortraitMD,
     multimediaLandscapeL,
     multimediaLazyDefault,
-    authorRole,
+    authorOccupation,
     subTitle,
     multimediaType,
   } = new StoryData({
@@ -64,7 +64,7 @@ const CardFeaturedStoryAuthor = props => {
         multimediaPortraitMD,
         multimediaLandscapeL,
         multimediaLazyDefault,
-        authorRole,
+        authorOccupation,
         subTitle: subTitleField || subTitle,
         multimediaType,
         design,

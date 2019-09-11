@@ -124,6 +124,18 @@ class StoryData {
     return result
   }
 
+  get authorOccupation() {
+    const { credits: { by = [] } = {} } = this._data || {}
+    const {
+      additional_properties: {
+        original: { role = '', education = '' } = {},
+      } = {},
+    } = by[0] || {}
+    const { name = '' } = education[0] || {}
+
+    return name || role || 'Autor'
+  }
+
   get authorRole() {
     const { credits: { by = [] } = {} } = this._data || {}
     const { additional_properties: { original: { role = '' } = {} } = {} } =
