@@ -1,7 +1,9 @@
 .facebook-live {
+  height: 200px;
   &.hasVideo {
     padding-top: 30px;
     padding-bottom: 56.25%;
+    height: 0;
   }
   @media (--tablet) {
     -ms-grid-row-span: 1;
