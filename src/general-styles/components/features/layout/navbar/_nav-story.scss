@@ -2,7 +2,8 @@
   .nav__story-social-network {
     display: none;
   }
-  .nav.active {
+  .nav.active,
+  .header-ec.active {
     .nav__mobile-logo {
       display: none;
 

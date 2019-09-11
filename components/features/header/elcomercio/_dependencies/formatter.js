@@ -17,7 +17,7 @@ export default class StandardHeader {
     menuData = {},
     customLogo = '',
     customLogoLink = '/',
-    tags = '',
+    tags = 'HOY INTERESA',
     showDate = false
   ) {
     this.deployment = deployment
@@ -62,7 +62,7 @@ export default class StandardHeader {
       name: ARCHIVE_TEXT,
       url: ARCHIVE_LINK,
     }
-    const { logo } = this.headerProperties
+    const { logo, auxLogo } = this.headerProperties
 
     return {
       logo: {
@@ -74,14 +74,23 @@ export default class StandardHeader {
         link: this.customLogoLink,
         alt: this.siteDomain,
       },
+      auxLogo: {
+        src:
+          this.customLogo ||
+          this.deployment(
+            `${this.contextPath}/resources/dist/${
+              this.arcSite
+            }/images/${auxLogo}`
+          ),
+      },
       bandLinks: [archive, ...bandLinks],
       menuSections: [...menuSections],
       date: {
         active: this.showDate,
-        value: this.getDate(),
+        value: `LIMA - ${this.getDate()}`,
+        raw: new Date(),
       },
       tags: this.tags,
-      // arcSite: this.arcSite,
     }
   }
 }

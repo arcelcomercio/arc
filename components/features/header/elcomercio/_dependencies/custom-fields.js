@@ -7,6 +7,7 @@ const customFields = PropTypes.shape({
   }),
   tags: PropTypes.string.tag({
     name: 'Etiqueta',
+    defaultValue: 'Hoy interesa',
   }),
   customLogo: PropTypes.string.tag({
     name: 'Url de la imagen',
