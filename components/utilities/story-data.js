@@ -1057,8 +1057,8 @@ class StoryData {
 
   static paragraphsNews(contentElements) {
     const paragraphs = contentElements.map(
-      ({ content = '', type = '', _id = '', url = '', items = [] }) => {
-        const result = { _id, type, payload: '' }
+      ({ content = '', type = '', _id = '', url = '', items = [], level = null }) => {
+        const result = { _id, type, level, payload: '' }
 
         switch (type) {
           case ConfigParams.ELEMENT_TEXT:
