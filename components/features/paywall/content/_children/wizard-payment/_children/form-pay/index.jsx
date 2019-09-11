@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
 
+import { Persist } from '../../../../../_children/formik-persist'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
 import Input from '../../../../../_children/input'
@@ -165,6 +166,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                 PAGAR
               </Button>
             </S.WrapSubmit>
+            <Persist name="paywall-payment-form" isSessionStorage />
           </Form>
         )
       }}
