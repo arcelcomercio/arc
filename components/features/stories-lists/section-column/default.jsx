@@ -10,8 +10,7 @@ import Header from './_children/header'
 import List from './_children/list'
 
 const classes = {
-  lista:
-    'stories-l-section bg-white flex flex-col overflow-hidden border-1 border-solid border-gray',
+  lista: 'stories-l-section bg-white flex flex-col',
 }
 
 const newsNumber = 4
@@ -61,6 +60,6 @@ SectionColumnListCard.propTypes = {
 }
 
 SectionColumnListCard.label = 'Noticias por sección'
-// SectionColumnListCard.static = true
+SectionColumnListCard.static = true
 
 export default SectionColumnListCard
