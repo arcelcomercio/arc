@@ -1,4 +1,5 @@
 .separator {
+  border: 0;
   &__article {
     display: flex;
     flex-direction: column-reverse;
@@ -20,6 +21,9 @@
     @media (--only-mobile) {
       padding-top: 10px;
     }
+  }
+  &__header-title {
+    display: none;
   }
   &__title {
     color: $color-gray-300;
