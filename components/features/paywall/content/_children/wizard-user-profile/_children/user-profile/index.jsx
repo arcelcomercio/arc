@@ -93,7 +93,21 @@ const UserProfile = ({
                   name="secondLastName"
                   label="Apellido Materno"
                   {...Masks.Piped.PERSON_NAME}
-                  component={InputFormik}
+                  component={({
+                    field: { onChange, ...restField },
+                    ...restProps
+                  }) => (
+                    <InputFormik
+                      onChange={e => {
+                        if (!e.currentTarget.value) {
+                          setFieldValue('secondLastName', '')
+                        }
+                        onChange(e)
+                      }}
+                      field={{ ...restField }}
+                      {...restProps}
+                    />
+                  )}
                 />
               </S.WrapField>
               <S.WrapField>
