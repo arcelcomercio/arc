@@ -859,3 +859,7 @@ export const getRelatedIds = data => {
     })
   )
 }
+
+export const nbspToSpace = text => {
+  return text.replace(/&nbsp;/gi, ' ')
+}

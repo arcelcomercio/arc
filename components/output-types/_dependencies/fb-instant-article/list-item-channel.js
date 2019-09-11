@@ -1,7 +1,7 @@
 import md5 from 'md5'
 import BuildHtml from './build-html'
 import StoryData from '../../../utilities/story-data'
-import { getMultimedia } from '../../../utilities/helpers'
+import { getMultimedia, nbspToSpace } from '../../../utilities/helpers'
 
 const ListItemNews = (contentElements, buildProps) => {
   const {
@@ -30,10 +30,10 @@ const ListItemNews = (contentElements, buildProps) => {
       const pageview = `${storydata.link}?outputType=fia`
       const propsScriptHeader = {
         siteDomain,
-        title: storydata.title,
+        title: nbspToSpace(storydata.title),
         sections: storydata.allSections,
         tags: storydata.tags,
-        author: storydata.author,
+        author: nbspToSpace(storydata.author),
         typeNews: storydata.multimediaType,
       }
 
@@ -44,24 +44,25 @@ const ListItemNews = (contentElements, buildProps) => {
         section: storydata.sectionsFIA.section,
         subsection: storydata.sectionsFIA.subsection,
         newsId: storydata.id,
-        author: storydata.author,
+        author: nbspToSpace(storydata.author),
         newsType: getMultimedia(storydata.multimediaType),
         pageview,
-        newsTitle: storydata.title,
+        newsTitle: nbspToSpace(storydata.title),
         nucleoOrigen: storydata.nucleoOrigen,
       }
 
       const BuildHtmlProps = {
         scriptAnaliticaProps,
         propsScriptHeader,
-        title: storydata.title,
-        subTitle: storydata.subTitle,
+        title: nbspToSpace(storydata.title),
+        subTitle: nbspToSpace(storydata.subTitle),
         multimedia: storydata.multimediaNews,
-        author: storydata.author,
+        author: nbspToSpace(storydata.author),
         paragraphsNews: storydata.paragraphsNews,
         fbArticleStyle,
         listUrlAdvertisings,
       }
+
 
       const htmlString = BuildHtml(BuildHtmlProps)
       const codigoGUID = md5(storydata.id)
@@ -77,11 +78,11 @@ const ListItemNews = (contentElements, buildProps) => {
       }
       const template = `
         <item>
-          <title>${ItemDataXml.title}</title>
+          <title>${nbspToSpace(ItemDataXml.title)}</title>
           <pubDate>${ItemDataXml.date}</pubDate>
           <link>${ItemDataXml.pagePath}</link>
           <guid>${ItemDataXml.codigoGUID}</guid>
-          <author>${ItemDataXml.author}</author>
+          <author>${nbspToSpace(ItemDataXml.author)}</author>
           <content:encoded><![CDATA[${
             ItemDataXml.htmlString
           }]]></content:encoded>
