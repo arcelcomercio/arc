@@ -1,6 +1,11 @@
 .triplet {
+  border: 0;
+  &__item {
+    border-color: $color-gray-100;
+  }
   &__title-link {
     font-weight: 700;
+    font-size: 13px;
   }
   &__information {
     width: 100%;
