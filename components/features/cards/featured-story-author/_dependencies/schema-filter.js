@@ -7,7 +7,7 @@ export default arcSite => {
       by { 
         name url type 
         image { url }
-        additional_properties { original { role } } 
+        additional_properties { original { role education { name } } } 
       }
     }
     promo_items {
