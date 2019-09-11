@@ -1,5 +1,6 @@
 import React from 'react'
-import ConfigParams from '../../../../utilities/config-params'
+// import ConfigParams from '../../../../utilities/config-params'
+import Icon from '../../../../global-components/multimedia-icon'
 
 const getModel = model => {
   const type = {
@@ -88,15 +89,9 @@ export default ({
           </a>
         </p>
       </div>
-      {multimediaType !== 'basic' && (
-        <div className={classes.boxIcon}>
-          {multimediaType === ConfigParams.VIDEO ? (
-            <i className={`${classes.icon} icon-video`} />
-          ) : (
-            <i className={`${classes.icon} icon-img`} />
-          )}
-        </div>
-      )}
+      <div className={classes.boxIcon}>
+        <Icon type={multimediaType} iconClass={classes.icon} />
+      </div>
     </div>
   )
 }
