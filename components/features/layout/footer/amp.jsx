@@ -30,7 +30,8 @@ class LayoutAmpFooter extends PureComponent {
       siteUrl,
     })
 
-    const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ''
+    const pathUrl =
+      ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : 'http://localhost'
     const recentResult = recentList.map(
       ({ basic, websiteUrl, urlImage } = {}) => {
         return (
@@ -38,7 +39,7 @@ class LayoutAmpFooter extends PureComponent {
           `{  
               "image":"${urlImage}",
               "title":"${basic}",
-              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp"
+              "ampUrl":"${pathUrl}${websiteUrl}?_website=ojo&outputType=amp&pageNext=2"
             }`
         )
       }

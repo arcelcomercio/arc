@@ -34,7 +34,7 @@ class ConfigParams {
 
   static ELEMENT_LIST = 'list'
 
-  static ELEMENT_HEADER ='header'  
+  static ELEMENT_HEADER = 'header'
 
   static ELEMENT_BLOCKQUOTE = 'blockquote'
 
