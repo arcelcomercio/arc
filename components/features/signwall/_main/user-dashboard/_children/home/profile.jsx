@@ -125,7 +125,7 @@ class Profile extends Component {
       //   {val => (
       <div className="resume__dates">
         <div className="title-dates">
-          <h2 className="title">Datos personales</h2>
+          <h2 className="title">Datos <br/> personales</h2>
           <button
             className="link"
             type="button"

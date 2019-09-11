@@ -243,7 +243,9 @@ class NavBarDefault extends PureComponent {
     //   window.console.log(res)
     // })
 
-    if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
+    // if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
+
+    if (dataContentPremium && W.document.cookie.indexOf('isECO=true') >= 0) {
       this.getPremium() // Only sandbox ;)
     } else if (window.ArcP) {
       W.ArcP.run({
@@ -310,9 +312,10 @@ class NavBarDefault extends PureComponent {
   }
 
   getListSubs() {
+    const { arcSite } = this.props
     const W = window
     return services
-      .getEntitlement(W.Identity.userIdentity.accessToken)
+      .getEntitlement(W.Identity.userIdentity.accessToken, arcSite)
       .then(res => {
         if (res.skus) {
           const result = Object.keys(res.skus).map(key => {

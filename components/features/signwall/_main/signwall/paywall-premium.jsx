@@ -42,6 +42,7 @@ class PayWallPremium extends Component {
           closePopup={closePopup}
           typePopUp={typeModal} // paywall, premium
           typeForm="intro"
+          removeBefore={() => window.removeEventListener('beforeunload', this.handleLeavePage)}
           brandCurrent={brandModal}
         />
       ),
@@ -86,6 +87,7 @@ class PayWallPremium extends Component {
       deployment(
         `${contextPath}/resources/dist/${arcSite}/images/bg_paywall.png`
       ) || ''
+
     return (
       <div className="signwall">
         <div className="link-identity__content">
@@ -117,11 +119,19 @@ class PayWallPremium extends Component {
                       </p>
                       <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
                       <center>
-                        <img
-                          className="modal-header__img mt-40"
+                        {/* <img
+                          className="mt-40"
                           alt=""
                           src={deployment(
                             `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.nav.logo}`
+                          )}
+                        /> */}
+                        <img
+                          style={{ maxWidth: '320px', height: 'auto' }}
+                          className="mt-40"
+                          alt=""
+                          src={deployment(
+                            `${contextPath}/resources/dist/${arcSite}/images/logo_ges.png`
                           )}
                         />
                       </center>

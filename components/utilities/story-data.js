@@ -73,6 +73,10 @@ class StoryData {
     return (this._data && this._data.subtype) || ''
   }
 
+  get editorNote() {
+    return (this._data && this._data.editor_note) || ''
+  }
+
   get tags() {
     return (this._data && this._data.taxonomy && this._data.taxonomy.tags) || []
   }
@@ -88,6 +92,10 @@ class StoryData {
 
   get author() {
     return StoryData.getDataAuthor(this._data).nameAuthor
+  }
+
+  get authorEmail() {
+    return StoryData.getDataAuthor(this._data).mailAuthor
   }
 
   get seoAuthor() {
@@ -114,6 +122,18 @@ class StoryData {
     )
     const result = twitter && twitter[0] && twitter[0].url ? twitter[0].url : ''
     return result
+  }
+
+  get authorOccupation() {
+    const { credits: { by = [] } = {} } = this._data || {}
+    const {
+      additional_properties: {
+        original: { role = '', education = '' } = {},
+      } = {},
+    } = by[0] || {}
+    const { name = '' } = education[0] || {}
+
+    return name || role || 'Autor'
   }
 
   get authorRole() {
@@ -449,37 +469,7 @@ class StoryData {
 
   get paragraphsNews() {
     const { content_elements: contentElements = [] } = this._data
-
-    const parrafo = contentElements.map(
-      ({ content = '', type = '', _id = '', url = '' }) => {
-        const result = { _id, type, payload: '' }
-
-        switch (type) {
-          case ConfigParams.ELEMENT_TEXT:
-            result.payload = content
-            // && content
-            break
-          case ConfigParams.ELEMENT_IMAGE:
-            result.payload = url
-            // && url
-            break
-          case ConfigParams.ELEMENT_VIDEO:
-            result.payload = _id
-            break
-          case ConfigParams.ELEMENT_RAW_HTML:
-            result.payload = content
-            // && content
-            break
-          default:
-            result.payload = content
-            break
-        }
-        return result
-      }
-    )
-
-    // const result = parrafo.filter(x => x.payload !== null)
-    return parrafo
+    return StoryData.paragraphsNews(contentElements)
   }
 
   get breadcrumbList() {
@@ -641,6 +631,10 @@ class StoryData {
     return video
   }
 
+  get idYoutube() {
+    return StoryData.getIdYoutube(this._data)
+  }
+
   get nucleoOrigen() {
     return (
       (this._data &&
@@ -783,6 +777,7 @@ class StoryData {
       dataVideo
         .map(
           ({
+            _id: idVideo = '',
             promo_image: { url: urlImage },
             streams,
             publish_date: date,
@@ -792,6 +787,7 @@ class StoryData {
               .map(({ url = '', stream_type: streamType = '' }) => {
                 return streamType === 'mp4'
                   ? {
+                      idVideo,
                       url,
                       caption,
                       urlImage,
@@ -858,6 +854,7 @@ class StoryData {
     let nameAuthor = ''
     let urlAuthor = ''
     let slugAuthor = ''
+    let mailAuthor = ''
     let socialLinks = []
 
     let imageAuthor = authorImageDefault
@@ -872,6 +869,11 @@ class StoryData {
             ? iterator.image.url
             : authorImageDefault
         socialLinks = iterator.social_links ? iterator.social_links : []
+        mailAuthor =
+          (iterator.additional_properties &&
+            iterator.additional_properties.original &&
+            iterator.additional_properties.original.email) ||
+          ''
         break
       }
     }
@@ -882,6 +884,7 @@ class StoryData {
       slugAuthor,
       imageAuthor,
       socialLinks,
+      mailAuthor,
     }
   }
 
@@ -1050,6 +1053,44 @@ class StoryData {
         })
         .filter(String) || {}
     )
+  }
+
+  static paragraphsNews(contentElements) {
+    const paragraphs = contentElements.map(
+      ({ content = '', type = '', _id = '', url = '', items = [] }) => {
+        const result = { _id, type, payload: '' }
+
+        switch (type) {
+          case ConfigParams.ELEMENT_TEXT:
+            result.payload = content
+            // && content
+            break
+          case ConfigParams.ELEMENT_LIST:
+            result.payload = items
+            break
+          case ConfigParams.ELEMENT_HEADER:
+            result.payload = content
+            break
+          case ConfigParams.ELEMENT_IMAGE:
+            result.payload = url
+            // && url
+            break
+          case ConfigParams.ELEMENT_VIDEO:
+            result.payload = _id
+            break
+          case ConfigParams.ELEMENT_RAW_HTML:
+            result.payload = content
+            // && content
+            break
+          default:
+            result.payload = content
+            break
+        }
+        return result
+      }
+    )
+    // const result = paragraphs.filter(x => x.payload !== null)
+    return paragraphs
   }
 }
 

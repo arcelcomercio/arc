@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 import Button from '../../../../../_children/button'
-import { devices } from '../../../../../_dependencies/devices'
 
 export const Continue = styled(Button)`
   max-width: 300px;
-  @media (${devices.mobile}) {
+  @media (max-width: 1024px) {
     max-width: 100%;
     width: 100%;
   }
@@ -29,14 +28,14 @@ export const Panel = styled.div`
   padding: 40px 50px;
   display: flex;
   color: #444;
-  @media ${devices.tablet} {
-    width: 800px;
-  }
-  @media (${devices.mobile}) {
+  @media (max-width: 1024px) {
     flex-direction: column;
     height: auto;
-    max-width: calc(100vw - 20px);
+    max-width: calc(100vw - 300px);
     padding: 30px 20px;
+  }
+  @media (max-width: 767px) {
+    max-width: calc(100vw - 20px);
   }
 `
 
@@ -51,7 +50,7 @@ export const Title = styled.span`
   letter-spacing: 0.56px;
   text-align: center;
   margin-bottom: 35px;
-  @media (${devices.mobile}) {
+  @media (max-width: 1024px) {
     margin-bottom: 30px;
   }
 `
@@ -60,10 +59,9 @@ export const Wrapbenefit = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  @media (${devices.mobile}) {
+  @media (max-width: 1024px) {
     flex-direction: column;
     align-items: center;
-    line-height: 2.5;
   }
 `
 
@@ -78,18 +76,18 @@ export const Foot = styled.div`
   font-size: 12px;
   flex-direction: column;
   align-items: flex-end;
-  @media (${devices.mobile}) {
+  @media (max-width: 1024px) {
     align-items: center;
   }
 `
 
 export const FootContent = styled.div`
   max-width: 180px;
-  display: flex;
+  display: contents;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
-  @media (${devices.mobile}) {
+  @media (max-width: 1024px) {
     margin: 0;
     max-width: inherit;
     flex: 1;
@@ -107,7 +105,7 @@ export const WrapDocument = styled.div`
     font-size: 16px;
     margin-bottom: 30px;
   }
-  @media (${devices.mobile}) {
+  @media (max-width: 1024px) {
     padding: 20px 0;
     form {
       width: 100%;
@@ -123,9 +121,10 @@ export const Divider = styled.div`
 export const SpanFoot = styled.span`
   line-height: 24px;
   text-align: right;
+  display: block;
   font-size: ${props => (props.title ? '16px' : '14px')};
   font-weight: ${props => (props.title ? 'bold' : 'normal')};
-  @media (${devices.mobile}) {
+  @media (max-width: 1024px) {
     text-align: center;
   }
 `
@@ -143,8 +142,11 @@ export const Select = styled.select`
 
 export const SpanIcon = styled.span`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   svg {
     margin-right: 1em;
+  }
+  @media (max-width: 1024px) {
+    margin-bottom: 20px;
   }
 `

@@ -6,6 +6,10 @@ class ConfigParams {
   // TIPO DE GALLERRY: NUEVA OPCION DE ELLIPSIS
   static GALLERY_VERTICAL = 'gallery_vertical'
 
+  static BIG_IMAGE = 'image_big'
+
+  static SPECIAL_BASIC = 'special_basic'
+
   static HTML = 'basic_html'
 
   static IMAGE = 'basic'
@@ -29,6 +33,10 @@ class ConfigParams {
   static ELEMENT_INFOGRAFIA = 'infografia'
 
   static ELEMENT_TEXT = 'text'
+
+  static ELEMENT_LIST = 'list'
+
+  static ELEMENT_HEADER = 'header'
 
   static ELEMENT_BLOCKQUOTE = 'blockquote'
 
@@ -96,6 +104,13 @@ class ConfigParams {
   static LAZY_DEFAULT = 'lazy_default'
 
   static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
+
+  // Sites
+  static ARC_SITE_PERU21 = 'peru21'
+
+  static ARC_SITE_PUBLIMETRO = 'publimetro'
+
+  static ARC_SITE_GESTION = 'gestion'
 }
 
 export const sizeImg = () => {

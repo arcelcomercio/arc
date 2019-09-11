@@ -2,12 +2,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 // TODO Agregar excepcion a eslint
 import React, { Component } from 'react'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
 import { strongRegularExp, mediumRegularExp } from '../../utils/regex'
 import FormValid from '../../utils/form-valid'
 import Taggeo from '../../utils/taggeo'
+import Domains from '../../utils/domains'
 
 @Consumer
 class FormResetPass extends Component {
@@ -26,17 +26,7 @@ class FormResetPass extends Component {
     }
 
     const { arcSite } = this.props
-    if (arcSite !== 'peru21') {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-sandbox.${arcSite}.pe`
-    } else {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
-    }
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentWillMount() {
@@ -133,18 +123,10 @@ class FormResetPass extends Component {
   }
 
   taggeoSuccess = () => {
-    // window.dataLayer.push({
-    //   event: 'resetpass_success',
-    // })
-
     Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_success')
   }
 
   taggeoError = () => {
-    // window.dataLayer.push({
-    //   event: 'resetpass_error',
-    // })
-
     Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_error')
   }
 

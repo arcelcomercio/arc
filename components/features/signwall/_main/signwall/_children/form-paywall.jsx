@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import { ModalConsumer } from '../context'
 import Cookie from '../../utils/cookie'
 import Loading from '../../common/loading'
 import Taggeo from '../../utils/taggeo'
+import Domains from '../../utils/domains'
 
 const Cookies = new Cookie()
 @Consumer
@@ -14,16 +14,15 @@ class SignWallPaywall extends Component {
     this.state = {
       showPaywallBtn: false,
       paywallPrice: '-',
+      paywallFrecuency: '-',
+      paywallTitle: '-',
       paywallDescripcion: '-',
       featuresDescription: [],
       isLoading: true,
     }
 
     const { arcSite } = this.props
-    this.origin_api =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentWillMount() {
@@ -41,6 +40,8 @@ class SignWallPaywall extends Component {
     fetched.then(resCam => {
       this.setState({
         paywallPrice: resCam.plans[0].amount || '-',
+        paywallFrecuency: resCam.plans[0].billingFrequency || '-',
+        paywallTitle: resCam.plans[0].description.title || '-',
         paywallDescripcion: resCam.plans[0].description.description || '-',
         featuresDescription: resCam.summary.feature || [],
         isLoading: false,
@@ -49,21 +50,24 @@ class SignWallPaywall extends Component {
   }
 
   handleSuscription = e => {
+    const { removeBefore } = this.props
     e.preventDefault()
     Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
     window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
-    if (ENV.ENVIRONMENT === 'elcomercio') {
-      window.location.href = '/suscripcionesdigitales/' // URL LANDING
-    } else {
-      window.location.href =
-        '/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1' // URL LANDING
-    }
+    removeBefore() // dismount before
+    window.location.href = Domains.getUrlPaywall()
   }
 
   render() {
+    const frecuency = {
+      Month: 'al mes',
+      Year: 'al año',
+    }
     const {
       showPaywallBtn,
       paywallPrice,
+      paywallFrecuency,
+      paywallTitle,
       paywallDescripcion,
       featuresDescription,
       isLoading,
@@ -83,7 +87,13 @@ class SignWallPaywall extends Component {
                     <i>s/</i>
                     {paywallPrice}
                   </div>
-                  <div className="detail-price uppercase">
+                  <div className="detail-price">
+                    <p>
+                      <strong>{frecuency[paywallFrecuency]}</strong>
+                    </p>
+                    <p>
+                      <strong>{paywallTitle}</strong>
+                    </p>
                     <p>{paywallDescripcion}</p>
                   </div>
                 </div>
@@ -123,7 +133,7 @@ class SignWallPaywall extends Component {
                   )}
                 </div>
 
-                <p className="text-center mt-20 text-sm">
+                <p className="text-center mt-20 text-md message-paywall">
                   ¿ESTÁS SUSCRITO AL DIARIO IMPRESO? <br />
                   Disfruta <strong>3 meses GRATIS</strong> y luego S/19 al mes.
                 </p>

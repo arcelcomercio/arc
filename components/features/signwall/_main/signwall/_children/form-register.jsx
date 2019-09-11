@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react'
-import ENV from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import { sha256 } from 'js-sha256'
 import * as Icon from '../../common/iconos'
@@ -16,6 +15,7 @@ import getDevice from '../../utils/get-device'
 import Cookie from '../../utils/cookie'
 import FormValid from '../../utils/form-valid'
 import Taggeo from '../../utils/taggeo'
+import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
 
 const Cookies = new Cookie()
@@ -41,17 +41,7 @@ class FormRegister extends Component {
     }
 
     const { arcSite } = this.props
-    if (arcSite !== 'peru21') {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-sandbox.${arcSite}.pe`
-    } else {
-      this.origin_api =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? `https://api.${arcSite}.pe`
-          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
-    }
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentWillMount() {
@@ -264,18 +254,6 @@ class FormRegister extends Component {
   taggeoError() {
     const { typePopUp } = this.props
 
-    // if (typePopUp === 'relogemail') {
-    //   window.dataLayer.push({
-    //     event: 'relogin_email_registro_error',
-    //   })
-    // } else {
-    //   window.dataLayer.push({
-    //     event: 'registro_error',
-    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //     eventAction: `web_sw${typePopUp[0]}_registro_error_registrarme`,
-    //   })
-    // }
-
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
       `web_sw${typePopUp[0]}_registro_error_registrarme`
@@ -284,19 +262,6 @@ class FormRegister extends Component {
 
   taggeoSuccess() {
     const { typePopUp } = this.props
-
-    // if (typePopUp === 'relogemail') {
-    //   window.dataLayer.push({
-    //     event: 'relogin_email_registro_success',
-    //   })
-    // } else {
-    //   window.dataLayer.push({
-    //     event: 'registro_success',
-    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //     eventAction: `web_sw${typePopUp[0]}_registro_success_registrarme`,
-    //     userId: window.Identity ? window.Identity.userIdentity.uuid : null,
-    //   })
-    // }
 
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
@@ -446,14 +411,7 @@ class FormRegister extends Component {
                     />
                     Al crear la cuenta acepto los{' '}
                     <a
-                      href={`https://ecoid.pe/terminos_y_condiciones/${
-                        {
-                          elcomercio:
-                            'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
-                          gestion: '108f85a3d8e750a325ced951af6cd758a90e73a34',
-                          peru21: 'f7bd562ca9912019255511635185bf2b',
-                        }[brandCurrent]
-                      }`}
+                      href={Domains.getPoliticsTerms('terms', arcSite)}
                       className="link-blue link-color"
                       target="_blank"
                       rel="noopener noreferrer">
@@ -461,14 +419,7 @@ class FormRegister extends Component {
                     </a>{' '}
                     y{' '}
                     <a
-                      href={`https://ecoid.pe/politica_privacidad/${
-                        {
-                          elcomercio:
-                            'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
-                          gestion: '108f85a3d8e750a325ced951af6cd758a90e73a34',
-                          peru21: 'f7bd562ca9912019255511635185bf2b',
-                        }[brandCurrent]
-                      }`}
+                      href={Domains.getPoliticsTerms('politics', arcSite)}
                       className="link-blue link-color"
                       target="_blank"
                       rel="noopener noreferrer">

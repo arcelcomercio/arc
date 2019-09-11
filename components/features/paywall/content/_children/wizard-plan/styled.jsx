@@ -37,6 +37,7 @@ export const WrapPlan = styled.div`
   @media (${devices.mobile}) {
     margin: 50px 0 0 0;
     max-width: calc(100% - 40px);
+    width: 100%;
   }
   @media ${devices.tablet} {
     margin: 50px 0 0 0;
@@ -63,12 +64,35 @@ export const PlanTitle = styled.div`
 export const Error = styled(ErrorComponent)`
   max-width: 930px;
   margin-bottom: 30px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  font-size: 18px;
+  line-height: 26px;
+  @media (${devices.mobile}) {
+    font-size: 14px;
+    padding: 12px 30px;
+    width: 90%;
+  }
 `
 
 export const WelcomeSuscriptor = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   margin-bottom: 50px;
+  background: #dbe9d8;
+  color: #22810b;
+  padding: 12px 0px;
+  border-radius: 4px;
+  max-width: 930px;
+  width: 100%;
+  line-height: 26px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  @media (${devices.mobile}) {
+    font-size: 14px;
+    padding: 12px 30px;
+    width: 90%;
+  }
 `
 
 export const ContentBanner = styled.div`

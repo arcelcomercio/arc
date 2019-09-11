@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import ButtonComponent from '../button'
-import { devices } from '../../_dependencies/devices'
 
 // eslint-disable-next-line import/prefer-default-export
 export const Button = styled(ButtonComponent)`
@@ -22,13 +21,13 @@ export const Button = styled(ButtonComponent)`
     color: #fff;
     span {
       margin-right: 10px;
-      @media (${devices.mobile}) {
+      @media (max-width: 1024px) {
         display: none;
         margin-right: 0px;
       }
     }
   }
-  @media (${devices.mobile}) {
+  @media (max-width: 1024px) {
     position: fixed;
     bottom: 5%;
     left: 5%;
