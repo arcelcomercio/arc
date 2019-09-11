@@ -54,6 +54,9 @@ const FeaturedStoryColumnist = props => {
     isPremium,
     websiteLink,
     isAdmin,
+    logo: deployment(
+      `${contextPath}/resources/dist/${arcSite}/images/favicon.png`
+    ),
   }
   return <ColumnistPremium {...params} />
 }

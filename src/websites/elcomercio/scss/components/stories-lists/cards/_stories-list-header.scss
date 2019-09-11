@@ -1,0 +1,13 @@
+.stories-l-header {
+  &.bg-info {
+    background-color: $color-base-300;
+  }
+  &__see-more {
+    color: $color-gray-300;
+  }
+  &__title {
+    h4 {
+      font-weight: 700;
+    }
+  }
+}
