@@ -191,7 +191,7 @@ export default {
         name: 'clubelcomercio@comercio.com.pe',
         link: {
           name: 'Compromiso de Autorregulación Comercial',
-          url: '/compromiso-autoregulacion-comercial.pdf',
+          url: 'https://elcomercio.pe/compromiso-autoregulacion-comercial.pdf',
         },
       },
     ],

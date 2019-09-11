@@ -55,6 +55,7 @@
   }
 
   &__link {
+    position: relative;
     @media (--desktop) {
       color: $color-base-300;
     }
@@ -69,7 +70,10 @@
         height: 5px;
         border-radius: 50px;
         background-color: #585858;
-        margin-right: 15px;
+        position: absolute;
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
   }
