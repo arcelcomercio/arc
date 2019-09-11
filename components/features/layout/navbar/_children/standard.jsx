@@ -27,7 +27,7 @@ import {
 const services = new Services()
 
 const classes = {
-  nav: `nav text-white text-sm w-full flex flex items-center top-0 secondary-font`,
+  nav: `nav text-white text-sm w-full flex items-center top-0 secondary-font`,
   wrapper: `nav__wrapper flex items-center bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
@@ -89,7 +89,7 @@ class NavBarDefault extends PureComponent {
       showReset: false,
       showRelogin: false,
       showPaywall: false,
-      userName: new GetProfile().username, // TODO: El nombre de la variable de estado deberia ser Username
+      userName: new GetProfile().username,
       initialUser: new GetProfile().initname,
       countAnonymous: 0,
       countRegister: 0,
@@ -159,7 +159,9 @@ class NavBarDefault extends PureComponent {
   componentDidMount() {
     const { arcSite } = this.props
 
-    window.addEventListener('scroll', this._handleScroll)
+    window.addEventListener('scroll', this._handleScroll, {
+      passive: true,
+    })
     this.listContainer = document.querySelector('.nav-sidebar')
     this.layerBackground = document.querySelector('.layer')
 
@@ -425,7 +427,6 @@ class NavBarDefault extends PureComponent {
     this.inputSearch.current.focus()
   }
 
-  // TODO: abstraer este método, se usa por 3 componentes
   _handleSearch = () => {
     const { value } = this.inputSearch.current
     searchQuery(value)
@@ -636,7 +637,7 @@ class NavBarDefault extends PureComponent {
     } = this.state
     const {
       logo,
-      logoLetf,
+      logoLeft,
       arcSite,
       siteProperties,
       contextPath,
@@ -753,7 +754,7 @@ class NavBarDefault extends PureComponent {
                   className={classes.logoLeft}
                   href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
                   <img
-                    src={logoLetf.src}
+                    src={logoLeft.src}
                     alt={logo.alt}
                     className={classes.logoImage}
                   />
@@ -816,7 +817,9 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
+                      `${
+                        classes.btnLogin
+                      } btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     <span>
@@ -834,7 +837,9 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -850,7 +855,9 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
+                        : `${classes.iconLogin} ${
+                            classes.iconSignwallMobile
+                          }  title-sm`
                     }>
                     {initialUser}
                   </i>

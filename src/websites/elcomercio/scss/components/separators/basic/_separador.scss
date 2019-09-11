@@ -1,4 +1,7 @@
 .separator {
+  border: 0;
+  padding: 0;
+  margin: 0;
   &__article {
     display: flex;
     flex-direction: column-reverse;
@@ -21,8 +24,12 @@
       padding-top: 10px;
     }
   }
+  &__header-title {
+    display: none;
+  }
   &__title {
     color: $color-gray-300;
+    font-weight: 700;
   }
   &__img {
     max-height: 130px;
