@@ -1,4 +1,10 @@
 .story {
+  .nav.active {
+    .nav__story-social-network .story-header__icon {
+      background-color: transparent;
+      color: $color-gray-200;
+    }
+  }
   &.opinion {
     .story-header__title-section {
       display: flex;
@@ -50,6 +56,48 @@
     }
     .story-header__news-title {
       border-bottom: 1px dashed $color-gray-100;
+    }
+    .story-special-title {
+      padding-bottom: 20px;
+      border-bottom: 1px dashed $color-gray-200;
+      margin-bottom: 20px;
+    }
+    .story-content__font--secondary {
+      font-family: $primary-font;
+    }
+    .story-content__icon {
+      background-color: $color-white;
+      color: $color-gray-200;
+      border-radius: 50%;
+    }
+    .stories-l-header.bg-info {
+      background-color: $color-white;
+    }
+    .most-read__title {
+      background-color: $color-white;
+    }
+  }
+  &.special_basic {
+    .story-special-title_note {
+      border-top: 1px solid #cbcbcb;
+      border-bottom: 1px dashed #cbcbcb;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .story-header__news-title {
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .story-header__share {
+      border: 0;
+    }
+    .story-header__icon {
+      background-color: $color-gray-200;
+      color: $color-white;
+      border-radius: 50%;
     }
   }
 }
