@@ -1,129 +1,40 @@
 /* eslint-disable no-case-declarations */
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../utilities/config-params'
+import StoryData from '../../../utilities/story-data'
+import { nbspToSpace } from '../../../utilities/helpers'
+
+const NUMBER_WORD_MULTIMEDIA = 70
 
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
 
-// const buildParagraph = (paragraph, type = '') => {
-//   let result = ''
-
-//   if (type === ConfigParams.ELEMENT_TEXT) {
-//     // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
-//     result = `<p>${paragraph}</p>`
-//   }
-
-//   if (type === ConfigParams.ELEMENT_LIST) {
-//     // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
-//     // result = paragraph.items.map(({content}) => `<p>${content}</p>`)
-//     // result = ''
-//     // console.log("AQUI!!!!")
-//     // console.log(paragraph)
-//   }
-
-//   if (type === ConfigParams.ELEMENT_VIDEO) {
-//     result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
-//   }
-
-//   if (type === ConfigParams.ELEMENT_IMAGE) {
-//     result = `<figure data-feedback="fb:likes, fb:comments"><img src="${paragraph}" /><figcaption></figcaption></figure>`
-//   }
-
-//   if (type === ConfigParams.ELEMENT_RAW_HTML) {
-//     if (paragraph.includes('<iframe')) {
-//       // valida si el parrafo contiene un iframe con video youtube o foto
-
-//       result = `<figure class="op-interactive">${paragraph}</figure>`
-//     } else if (paragraph.includes('<img')) {
-//       const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)
-//         ? paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
-//         : ''
-
-//       const imageAlt = paragraph.match(/alt="([^"]+)?/)
-//         ? paragraph.match(/alt="([^"]+)?/)[1]
-//         : ''
-
-//       if (imageUrl !== '') {
-//         result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-//       } else {
-//         result = ''
-//       }
-
-//       result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-//     } else if (
-//       paragraph.includes('<blockquote class="instagram-media"') ||
-//       paragraph.includes('<blockquote class="twitter-tweet"')
-//     ) {
-//       // ára twitter y para instagram
-//       result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-//     } else if (paragraph.includes('https://www.facebook.com/plugins')) {
-//       result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-//     } else {
-//       result = paragraph
-//     }
-//   }
-
-//   return result
-// }
-
-// const validateMultimediaParagraph = (paragraph, type) => {
-//   let result = false
-//   switch (type) {
-//     case ConfigParams.ELEMENT_VIDEO:
-//       result = true
-//       break
-//     case ConfigParams.ELEMENT_IMAGE:
-//       result = true
-//       break
-//     case ConfigParams.ELEMENT_RAW_HTML:
-//       if (
-//         paragraph.includes('<iframe') ||
-//         paragraph.includes('<img') ||
-//         paragraph.includes('<blockquote class="instagram-media"') ||
-//         paragraph.includes('<blockquote class="twitter-tweet"')
-//       ) {
-//         result = true
-//       }
-//       break
-
-//     default:
-//       result = false
-//       break
-//   }
-
-//   return result
-// }
-
-const buildTexParagraph = paragraph => {
-  const result = { numberWords: 0, processedParagraph: '' }
-  result.numberWords = paragraph
+const clearHtml = paragraph => {
+  return nbspToSpace(paragraph
     .trim()
     .replace(/<\/?br[^<>]+>/, '')
     .replace(/(<([^>]+)>)/gi, '')
     .replace('   ', ' ')
-    .replace('  ', ' ')
-    .split(' ').length
+    .replace('  ', ' '))
+}
 
-  result.processedParagraph = `<p>${paragraph.replace(/<\/?br[^<>]+>/, '')}</p>`
+const buildHeaderParagraph = (paragraph, tag = 'h2') => {
+  const result = { numberWords: 0, processedParagraph: '' }
+  result.numberWords = clearHtml(paragraph).split(' ').length
+
+  result.processedParagraph = `<${tag}>${clearHtml(paragraph)}</${tag}>`
 
   return result
 }
 
-const buildListParagraph = listParagraph => {
-  const objTextsProcess = { listTextProcess: [], totalwords: 0 }
-  let countwords = 0
-  let textProcess = {}
-  listParagraph.forEach(({ type = '', content = '' }) => {
-    if (type === ConfigParams.ELEMENT_TEXT) {
-      textProcess = buildTexParagraph(content)
-      objTextsProcess.listTextProcess.push(textProcess)
-      countwords += textProcess.numberWords
-    }
-  })
+const buildTexParagraph = paragraph => {
+  const result = { numberWords: 0, processedParagraph: '' }
+  result.numberWords = clearHtml(paragraph).split(' ').length
 
-  objTextsProcess.totalwords = countwords
-  return objTextsProcess
+  result.processedParagraph = `<p>${clearHtml(paragraph)}</p>`
+
+  return result
 }
 
 const analyzeParagraph = ({
@@ -151,19 +62,17 @@ const analyzeParagraph = ({
 
       break
     case ConfigParams.ELEMENT_HEADER:
-      textProcess = buildTexParagraph(processedParagraph)
+      textProcess = buildHeaderParagraph(processedParagraph)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
 
       break
     case ConfigParams.ELEMENT_LIST:
-      console.log('AQUI Result!!!!!')
-      console.log(buildListParagraph(originalParagraph))
-      const { listTextProcess = [], totalwords = 0 } = buildListParagraph(
-        originalParagraph
-      )
-
+      // eslint-disable-next-line no-use-before-define
+      textProcess = buildListParagraph(processedParagraph)
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
       break
     case ConfigParams.ELEMENT_VIDEO:
       result.numberWords = numberWordMultimedia
@@ -221,6 +130,24 @@ const analyzeParagraph = ({
   return result
 }
 
+const buildListParagraph = listParagraph => {
+  const objTextsProcess = { processedParagraph: '', numberWords: 0 }
+  const newListParagraph = StoryData.paragraphsNews(listParagraph)
+  newListParagraph.forEach(({ type = '', payload = '' }) => {
+    const { processedParagraph, numberWords } = analyzeParagraph({
+      originalParagraph: payload,
+      type,
+      numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
+    })
+    objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
+    objTextsProcess.numberWords += numberWords
+  })
+
+  objTextsProcess.processedParagraph = `<ul>${objTextsProcess.processedParagraph}</ul>`
+  // objTextsProcess.totalwords = countwords
+  return objTextsProcess
+}
+
 const ParagraphshWithAdds = ({
   paragraphsNews = [],
   firstAdd = 50,
@@ -230,7 +157,7 @@ const ParagraphshWithAdds = ({
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
-  const numberWordMultimedia = 70
+  const numberWordMultimedia = NUMBER_WORD_MULTIMEDIA
 
   newsWithAdd = paragraphsNews
     .map(({ payload: originalParagraph, type }) => {
