@@ -863,3 +863,7 @@ export const getRelatedIds = data => {
 export const nbspToSpace = text => {
   return text.replace(/&nbsp;/gi, ' ')
 }
+
+export const countWords = (text, delimitter = ' ') => {
+  return !isEmpty(text) ? text.split(delimitter).length : 0
+}
