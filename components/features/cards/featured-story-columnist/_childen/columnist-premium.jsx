@@ -2,12 +2,15 @@ import React from 'react'
 
 const classes = {
   columnistPremium:
-    'columnist-premium flex flex-col items-center justify-center row-1 bg-base-200 pt-10 pb-10 pl-30 pr-30',
+    'columnist-premium flex flex-col items-center justify-center row-1 bg-base-200 pt-30 pb-30 pl-30 pr-30 md:pt-10 md:pb-10',
   profile: 'columnist-premium__profile rounded',
-  name: 'columnist-premium__name text-center mt-15',
-  section: 'columnist-premium__section mt-10 position-relative text-uppercase',
-  description: 'columnist-premium__description text-center mt-20',
+  name: 'columnist-premium__name text-center mt-15 title-sm font-bold',
+  section:
+    'columnist-premium__section mt-10 position-relative uppercase text-md',
+  description:
+    'columnist-premium__description text-center mt-20 line-h-sm text-md overflow-hidden',
   logo: 'columnist-premium__logo mt-20',
+  link: 'underline ml-5',
 }
 
 const ColumnistPremium = ({
@@ -24,7 +27,7 @@ const ColumnistPremium = ({
   logo,
 }) => {
   return (
-    <div className={classes.columnistPremium}>
+    <article className={classes.columnistPremium}>
       <img
         alt={`Foto de perfil de ${author}`}
         className={`${isAdmin ? '' : 'lazy'} ${classes.profile}`}
@@ -37,11 +40,16 @@ const ColumnistPremium = ({
       <a href={primarySectionLink} className={classes.section}>
         {primarySection}
       </a>
+
       <p className={classes.description}>
-        {subTitle} <a href={websiteLink}>Leer Más.</a>
+        {subTitle}
+        <a className={classes.link} href={websiteLink}>
+          Leer
+        </a>
       </p>
+
       {isPremium && <img alt="" className={classes.logo} src={logo} />}
-    </div>
+    </article>
   )
 }
 

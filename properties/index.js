@@ -19,6 +19,9 @@ export default {
       widthAmp: 120,
       heightAmp: 26,
     },
+    premium: {
+      logo: 'favicon.png',
+    },
   },
   messages: {
     errorTitle: '¡Oops! la pagina no fue encontrada',
