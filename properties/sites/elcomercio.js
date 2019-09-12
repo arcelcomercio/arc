@@ -76,14 +76,17 @@ export default {
     {
       name: 'Trabaja para Grupo El Comercio',
       url: 'https://elcomercio.aptitus.com/',
+      type: 'external',
     },
     {
       name: 'Libro de Reclamaciones',
       url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
+      type: 'external',
     },
     {
       name: 'Oficinas Concesionarias',
       url: '/oficinas-concesionarias',
+      type: 'external',
     },
     {
       name: 'Principios Rectores',
@@ -194,7 +197,7 @@ export default {
         name: 'clubelcomercio@comercio.com.pe',
         link: {
           name: 'Compromiso de Autorregulación Comercial',
-          url: '/compromiso-autoregulacion-comercial.pdf',
+          url: 'https://elcomercio.pe/compromiso-autoregulacion-comercial.pdf',
         },
       },
     ],

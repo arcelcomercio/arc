@@ -2,7 +2,7 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
-import { nbspToSpace } from '../../../utilities/helpers'
+import { countWords, nbspToSpace, isEmpty } from '../../../utilities/helpers'
 
 const NUMBER_WORD_MULTIMEDIA = 70
 
@@ -11,28 +11,33 @@ const buildIframeAdvertising = urlAdvertising => {
 }
 
 const clearHtml = paragraph => {
-  return nbspToSpace(paragraph
-    .trim()
-    .replace(/<\/?br[^<>]+>/, '')
-    .replace(/(<([^>]+)>)/gi, '')
-    .replace('   ', ' ')
-    .replace('  ', ' '))
+  return nbspToSpace(
+    paragraph
+      .trim()
+      .replace(/<\/?br[^<>]+>/, '')
+      .replace(/(<([^>]+)>)/gi, '')
+      .replace('   ', ' ')
+      .replace('  ', ' ')
+  )
 }
 
-const buildHeaderParagraph = (paragraph, tag = 'h2') => {
+const buildHeaderParagraph = (paragraph, level = '2') => {
   const result = { numberWords: 0, processedParagraph: '' }
-  result.numberWords = clearHtml(paragraph).split(' ').length
+  const text = clearHtml(paragraph)
+  result.numberWords = countWords(text)
 
-  result.processedParagraph = `<${tag}>${clearHtml(paragraph)}</${tag}>`
+  result.processedParagraph =
+    result.numberWords > 0 ? `<h${level}>${text}</h${level}>` : ''
 
   return result
 }
 
 const buildTexParagraph = paragraph => {
   const result = { numberWords: 0, processedParagraph: '' }
-  result.numberWords = clearHtml(paragraph).split(' ').length
+  const text = clearHtml(paragraph)
+  result.numberWords = countWords(text)
 
-  result.processedParagraph = `<p>${clearHtml(paragraph)}</p>`
+  result.processedParagraph = result.numberWords > 0 ? `<p>${text}</p>` : ''
 
   return result
 }
@@ -41,6 +46,7 @@ const analyzeParagraph = ({
   originalParagraph,
   type = '',
   numberWordMultimedia,
+  level = null,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -62,7 +68,7 @@ const analyzeParagraph = ({
 
       break
     case ConfigParams.ELEMENT_HEADER:
-      textProcess = buildHeaderParagraph(processedParagraph)
+      textProcess = buildHeaderParagraph(processedParagraph, level)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
@@ -143,7 +149,9 @@ const buildListParagraph = listParagraph => {
     objTextsProcess.numberWords += numberWords
   })
 
-  objTextsProcess.processedParagraph = `<ul>${objTextsProcess.processedParagraph}</ul>`
+  objTextsProcess.processedParagraph = `<ul>${
+    objTextsProcess.processedParagraph
+  }</ul>`
   // objTextsProcess.totalwords = countwords
   return objTextsProcess
 }
@@ -160,13 +168,14 @@ const ParagraphshWithAdds = ({
   const numberWordMultimedia = NUMBER_WORD_MULTIMEDIA
 
   newsWithAdd = paragraphsNews
-    .map(({ payload: originalParagraph, type }) => {
+    .map(({ payload: originalParagraph, type, level }) => {
       let paragraphwithAdd = ''
 
       const { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph,
         type,
         numberWordMultimedia,
+        level,
       })
 
       if (countWords <= firstAdd) {
@@ -278,11 +287,11 @@ const BuildHtml = ({
     
       <header>
         <h1>${title}</h1>
-        <h2>${subTitle}</h2>
+        ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
       </header>
       ${multimediaHeader(multimedia, title)}
       
-      <p>${author}</p>
+      ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
     </article>
   </body>

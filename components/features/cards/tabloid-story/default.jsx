@@ -146,7 +146,7 @@ const CardsTabloidStory = props => {
   )
 }
 
-CardsTabloidStory.label = 'Tabloide - nota'
+CardsTabloidStory.label = 'Tabloide - Artículo'
 CardsTabloidStory.static = true
 
 CardsTabloidStory.propTypes = {
