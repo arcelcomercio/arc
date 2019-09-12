@@ -63,6 +63,9 @@ export default {
       width: 316,
       height: 60,
     },
+    premium: {
+      logo: 'premium-logo.png',
+    },
   },
 
   legalLinks: [
@@ -73,14 +76,17 @@ export default {
     {
       name: 'Trabaja para Grupo El Comercio',
       url: 'https://elcomercio.aptitus.com/',
+      type: 'external',
     },
     {
       name: 'Libro de Reclamaciones',
       url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
+      type: 'external',
     },
     {
       name: 'Oficinas Concesionarias',
       url: '/oficinas-concesionarias',
+      type: 'external',
     },
     {
       name: 'Principios Rectores',
@@ -111,7 +117,21 @@ export default {
       'Copyright © Elcomercio.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
-
+    story: [
+      {
+        position: 'DIRECTOR PERIODÍSTICO:',
+        name: 'Juan José Garrido Koechlin',
+      },
+      {
+        position: 'Empresa Editora El Comercio',
+        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
+      },
+      {
+        position: 'Copyright © ojo.pe',
+        name:
+          '© Empresa Editora El Comercio - Copyright © Elcomercio.pe - Grupo El Comercio - Todos los derechos reservados.',
+      },
+    ],
     socialNetworks: [
       {
         name: 'facebook',
@@ -177,7 +197,7 @@ export default {
         name: 'clubelcomercio@comercio.com.pe',
         link: {
           name: 'Compromiso de Autorregulación Comercial',
-          url: '/compromiso-autoregulacion-comercial.pdf',
+          url: 'https://elcomercio.pe/compromiso-autoregulacion-comercial.pdf',
         },
       },
     ],

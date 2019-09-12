@@ -16,11 +16,13 @@ body,
     // background-color: $color-gray-200;
     & > div,
     & > section,
-    & > article {
+    & > article,
+    & > h1 {
       margin: 10px;
       position: relative;
       width: auto;
       min-width: auto;
+      overflow: visible;
       &:before {
         content: '';
         position: absolute;

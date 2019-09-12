@@ -40,7 +40,7 @@ const classes = {
 const SITES_TITLE = 'Visite también'
 const GDA_TEXT = 'Miembro del Grupo de Diarios de América'
 
-const ElComercioChildFooter = ({
+const FooterChildElComercio = ({
   legalLinks,
   siteLegal,
   directors,
@@ -147,13 +147,23 @@ const ElComercioChildFooter = ({
           {legalLinks && (
             <ul className={classes.linksList}>
               {legalLinks.map(
-                ({ name, url }) =>
+                ({ name, url, external }) =>
                   name &&
                   url && (
                     <li className={classes.linksItem} key={`legal-${name}`}>
-                      <a href={url} className={classes.linksLink}>
-                        - {name}
-                      </a>
+                      {external ? (
+                        <a
+                          href={url}
+                          className={classes.linksLink}
+                          target="_blank"
+                          rel="noopener noreferrer">
+                          - {name}
+                        </a>
+                      ) : (
+                        <a href={url} className={classes.linksLink}>
+                          - {name}
+                        </a>
+                      )}
                     </li>
                   )
               )}
@@ -185,4 +195,4 @@ const ElComercioChildFooter = ({
   )
 }
 
-export default ElComercioChildFooter
+export default FooterChildElComercio
