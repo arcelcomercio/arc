@@ -23,6 +23,7 @@ const _initValue = {
   email: null,
 }
 const UserProfile = ({
+  name,
   title = '',
   initialValues = {},
   error,
@@ -88,12 +89,9 @@ const UserProfile = ({
                 />
               </S.WrapField>
               <S.WrapField>
-                <Field
-                  name="secondLastName"
-                  label="Apellido Materno"
-                  {...Masks.Piped.PERSON_NAME}
-                  component={InputFormik}
-                />
+                <Field name="secondLastName">
+                  {props => <InputFormik {...props} label="Apellido Materno" />}
+                </Field>
               </S.WrapField>
               <S.WrapField>
                 <Field
@@ -102,26 +100,21 @@ const UserProfile = ({
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
                   prefix={
-                    <Field
-                      name="documentType"
-                      key="select"
-                      component={({
-                        field: { onChange, ...restField },
-                        ...restProps
-                      }) => (
+                    <Field name="documentType">
+                      {({ field: { onChange, ...restField } }) => (
                         <S.Select
+                          key="select"
                           onChange={(...args) => {
                             setFieldValue('documentNumber', '')
                             onChange(...args)
                           }}
-                          {...restField}
-                          {...restProps}>
+                          {...restField}>
                           <option value="DNI">DNI</option>
                           <option value="CEX">CEX</option>
                           <option value="CDI">CDI</option>
                         </S.Select>
                       )}
-                    />
+                    </Field>
                   }
                   component={InputFormik}
                 />
@@ -149,7 +142,7 @@ const UserProfile = ({
             <Button disabled={isSubmitting} maxWidth="300px" type="submit">
               CONTINUAR
             </Button>
-            <Persist name="paywall-profile-form" isSessionStorage />
+            <Persist name={name} isSessionStorage />
           </FormStyled>
         )
       }}

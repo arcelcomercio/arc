@@ -2,7 +2,7 @@ import React from 'react'
 import { defaultImage } from '../../../../utilities/helpers'
 
 const classes = {
-  containerLive: `facebook-live col-2 position-relative flex justify-center h-0`,
+  containerLive: `facebook-live col-2 position-relative flex justify-center`,
   containerMask: `bg-white flex justify-center items-center h-full w-full flex-col`,
   iframeVideo: `facebook-live__iframe overflow-hidden border-none position-absolute top-0 left-0`,
   label: 'position-absolute',
@@ -26,10 +26,12 @@ const FacebookLive = props => {
 
   const showVideo = encodeURLFace && isValidUrl
   let textError
-  if (!encodeURLFace) textError = 'Por favor ingrese la URL del En Vivo.'
-  else if (!isValidUrl) textError = 'Por favor ingrese una URL válida.'
 
-  console.log(encodeURLFace, isValidUrl)
+  if (urlVideoFacebook === '')
+    textError = 'Por favor ingrese la URL del En Vivo.'
+  else if (encodeURLFace === '')
+    textError = 'Por favor ingrese una URL de video válida.'
+
   return (
     <div className={`${classes.containerLive}${!showVideo ? '' : ' hasVideo'}`}>
       {!showVideo && (
