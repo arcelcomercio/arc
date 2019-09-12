@@ -31,7 +31,9 @@ class LayoutAmpFooter extends PureComponent {
     })
 
     const pathUrl =
-      ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : 'http://localhost'
+      ENV.ENVIRONMENT === 'elcomercio'
+        ? siteUrl
+        : `http://elcomercio-${arcSite}-sandbox.cdn.arcpublishing.com`
     const recentResult = recentList.map(
       ({ basic, websiteUrl, urlImage } = {}) => {
         return (
