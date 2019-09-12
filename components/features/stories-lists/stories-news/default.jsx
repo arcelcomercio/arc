@@ -1,11 +1,13 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import StoryItem from '../../../global-components/story-item'
+import StoryData from '../../../utilities/story-data'
+import { reduceWord } from '../../../utilities/helpers'
+import StoryItem from '../../../global-components/story-new'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -21,9 +23,10 @@ const StoriesListNew = props => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      linkSeeMore,
     } = {},
   } = props
-  const { customFields: customFieldsProps = {} } = props
+  const customFieldsProps = customFields
 
   const data =
     useContent({
@@ -47,8 +50,13 @@ const StoriesListNew = props => {
     }
   })
 
-  // Archivo sólo está disponible para secciones principales, no subsecciones.
-  // const seeMorePath = `/archivo/${section.split('/')[1]}/`
+  const Story = new StoryData({
+    data,
+    deployment,
+    contextPath,
+    arcSite,
+    defaultImgSize: 'sm',
+  })
 
   return (
     <div className={classes.listado}>
@@ -56,24 +64,52 @@ const StoriesListNew = props => {
         {stories &&
           stories.map((story, index) => {
             const ads = hasAds(index + 1, activeAdsArray)
+            Story.__data = story
+            const {
+              primarySectionLink,
+              primarySection,
+              date,
+              link,
+              title,
+              subTitle,
+              authorLink,
+              author,
+              multimediaType,
+              multimediaLandscapeXS,
+              multimediaLazyDefault,
+              multimediaLandscapeS,
+            } = Story
             return (
-              <Fragment key={`Section-storie-${story._id}`}>
+              <>
                 <StoryItem
-                  data={story}
-                  {...{ deployment, contextPath, arcSite, isAdmin }}
-                  formato="row"
+                  {...{
+                    isAdmin,
+                    primarySectionLink,
+                    primarySection,
+                    date,
+                    link,
+                    title: reduceWord(title),
+                    subTitle: reduceWord(subTitle),
+                    authorLink,
+                    author,
+                    multimediaType,
+                    multimediaLandscapeXS,
+                    multimediaLazyDefault,
+                    multimediaLandscapeS,
+                    formato: 'row',
+                  }}
                 />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
                     <Ads adElement={ads[0].name} isDesktop={false} isMobile />
                   </div>
                 )}
-              </Fragment>
+              </>
             )
           })}
       </div>
       <div className={classes.listadoSeeMore}>
-        <a href="/" tabIndex="0" role="button">
+        <a href={linkSeeMore} tabIndex="0" role="button">
           Ver más
         </a>
       </div>
@@ -86,6 +122,6 @@ StoriesListNew.propTypes = {
 }
 
 StoriesListNew.label = 'Listado de Noticia'
-StoriesListNew.static = true
+// StoriesListNew.static = true
 
 export default StoriesListNew
