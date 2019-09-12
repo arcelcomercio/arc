@@ -159,9 +159,7 @@ class NavBarDefault extends PureComponent {
   componentDidMount() {
     const { arcSite } = this.props
 
-    window.addEventListener('scroll', this._handleScroll, {
-      passive: true,
-    })
+    window.addEventListener('scroll', this._handleScroll)
     this.listContainer = document.querySelector('.nav-sidebar')
     this.layerBackground = document.querySelector('.layer')
 
