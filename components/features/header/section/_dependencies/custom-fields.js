@@ -20,16 +20,26 @@ const customFields = PropTypes.shape({
   // tags: PropTypes.string.tag({
   //   name: 'Etiqueta',
   // }),
-  // customLogo: PropTypes.string.tag({
-  //   name: 'Url de la imagen',
-  //   group: 'Editar logo',
-  // }),
-  // customLogoLink: PropTypes.string.tag({
-  //   name: 'Path de redireccionamiento',
-  //   description:
-  //     'Por defecto la url del logo es "/". Ejemplo de path: "/somos"',
-  //   group: 'Editar logo',
-  // }),
+  customLogo: PropTypes.string.tag({
+    name: 'Url de la imagen',
+    group: 'Editar logo',
+  }),
+  customLogoLink: PropTypes.string.tag({
+    name: 'Path de redireccionamiento',
+    description:
+      'Por defecto la url del logo es "/". Ejemplo de path: "/somos"',
+    group: 'Editar logo',
+  }),
+  showIconHome: PropTypes.bool.tag({
+    name: 'Mostrar Icono Home',
+    defaultValue: true,
+    group: 'Diseño',
+  }),
+  showVinetas: PropTypes.bool.tag({
+    name: 'Mostrar Viñetas',
+    defaultValue: true,
+    group: 'Diseño',
+  }),
   hierarchyConfig: PropTypes.contentConfig('navigation').tag({
     name: 'Editar navegación',
     group: 'Configuración del contenido',
