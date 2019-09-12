@@ -4,7 +4,7 @@ const classes = {
   columnistPremium:
     'columnist-premium flex flex-col items-center justify-center row-1 bg-base-200 pt-30 pb-30 pl-30 pr-30 md:pt-10 md:pb-10',
   profile: 'columnist-premium__profile rounded',
-  name: 'columnist-premium__name text-center mt-15 title-sm font-bold',
+  name: 'columnist-premium__name text-center mt-10 title-sm font-bold',
   section:
     'columnist-premium__section mt-10 position-relative uppercase text-md',
   description:
@@ -28,12 +28,15 @@ const ColumnistPremium = ({
 }) => {
   return (
     <article className={classes.columnistPremium}>
-      <img
-        alt={`Foto de perfil de ${author}`}
-        className={`${isAdmin ? '' : 'lazy'} ${classes.profile}`}
-        src={isAdmin ? authorImage : lazyImage}
-        data-src={authorImage}
-      />
+      <a href={authorLink}>
+        <img
+          alt={`Foto de perfil de ${author}`}
+          className={`${isAdmin ? '' : 'lazy'} ${classes.profile}`}
+          src={isAdmin ? authorImage : lazyImage}
+          data-src={authorImage}
+        />
+      </a>
+
       <h4 className={classes.name}>
         <a href={authorLink}>{author}</a>
       </h4>
