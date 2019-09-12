@@ -165,13 +165,14 @@ class FormLogin extends Component {
       const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
       Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
-      if (typePopUp === 'premium') {
-        this.setState({
-          showCheckPremium: true,
-        })
-      } else {
-        closePopup()
-      }
+      closePopup()
+      // if (typePopUp === 'premium') {
+      //   this.setState({
+      //     showCheckPremium: true,
+      //   })
+      // } else {
+      //   closePopup()
+      // }
     })
   }
 
