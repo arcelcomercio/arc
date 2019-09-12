@@ -116,8 +116,8 @@ export default ({
       "comscorekw": "amp"
     }
   }`
-
-  const pageNext = requestUri.match(`^(/(.*)/.*&pageNext=2)`)
+  /* TODO: cambiar el Analytics por pixel en amp
+  const pageNext = requestUri.match(`^(/(.*)/.*pageNext=2)`)
   const urlStory = `${siteProperties.siteUrl}${link}?outputType=amp`
 
   const urlPixel = `https://www.google-analytics.com/r/collect?v=1&ds=AMP&t=pageview&tid=${
@@ -125,34 +125,31 @@ export default ({
   }&cid=CLIENT_ID(_ga)&dl=${urlStory}&dt=${title}&cd4=noticias&cd5=&cd6=AMP&cd7=${getMultimedia(
     multimediaType,
     true
-  )}&cd8=${id}&cd15=${author}&cd1    `
+  )}&cd8=${id}&cd15=${author}&cd1    ` */
 
   return (
     <>
-      {pageNext && <amp-pixel src={urlPixel} layout="nodisplay" />}
-      <>
-        <amp-analytics
-          type="googleanalytics"
-          id={`analytics-${siteProperties.ampGoogleTagManagerName}`}>
-          <script
-            type="application/json"
-            dangerouslySetInnerHTML={createMarkup(ampAnalytics)}
-          />
-        </amp-analytics>
+      <amp-analytics
+        type="googleanalytics"
+        id={`analytics-${siteProperties.ampGoogleTagManagerName}`}>
+        <script
+          type="application/json"
+          dangerouslySetInnerHTML={createMarkup(ampAnalytics)}
+        />
+      </amp-analytics>
 
-        <amp-analytics type="comscore">
-          <script
-            type="application/json"
-            dangerouslySetInnerHTML={createMarkup(comscore)}
-          />
-        </amp-analytics>
-        <amp-analytics type="chartbeat">
-          <script
-            type="application/json"
-            dangerouslySetInnerHTML={createMarkup(chartbet)}
-          />
-        </amp-analytics>
-      </>
+      <amp-analytics type="comscore">
+        <script
+          type="application/json"
+          dangerouslySetInnerHTML={createMarkup(comscore)}
+        />
+      </amp-analytics>
+      <amp-analytics type="chartbeat">
+        <script
+          type="application/json"
+          dangerouslySetInnerHTML={createMarkup(chartbet)}
+        />
+      </amp-analytics>
     </>
   )
 }
