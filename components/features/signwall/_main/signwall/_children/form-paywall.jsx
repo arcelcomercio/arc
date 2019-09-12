@@ -129,7 +129,7 @@ class SignWallPaywall extends Component {
                         value.changeTemplate('login')
                       }}
                       className="btn btn--blue btn-bg"
-                      value="Iniciar Sesión"></input>
+                      value="CONTINUAR"></input>
                   )}
                 </div>
 
