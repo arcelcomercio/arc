@@ -1,13 +1,14 @@
 .columnist-premium {
+  @media (--only-mobile) {
+    height: auto;
+  }
   &__profile {
     width: 90px;
   }
   &__name {
-    font-size: 26px;
     width: 60%;
   }
   &__section {
-    font-size: 15px;
     &::before {
       content: '';
       position: absolute;
@@ -20,10 +21,12 @@
     }
   }
   &__description {
-    font-size: 14px;
-    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    max-height: calc(1rem * 1.33333 * 5);
   }
   &__logo {
-    width: 70px;
+    max-width: 70px;
   }
 }

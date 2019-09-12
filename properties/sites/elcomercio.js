@@ -63,6 +63,9 @@ export default {
       width: 316,
       height: 60,
     },
+    premium: {
+      logo: 'premium-logo.png',
+    },
   },
 
   legalLinks: [
