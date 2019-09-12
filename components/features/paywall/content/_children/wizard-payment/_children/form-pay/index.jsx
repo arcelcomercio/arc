@@ -10,7 +10,7 @@ import { FormSchema, Masks } from './schema'
 
 const { trim } = Masks.Pipes
 
-const FormPay = ({ error, onSubmit, initialValues }) => {
+const FormPay = ({ name, error, onSubmit, initialValues }) => {
   return (
     <Formik
       validate={values => new FormSchema(values)}
@@ -166,7 +166,7 @@ const FormPay = ({ error, onSubmit, initialValues }) => {
                 PAGAR
               </Button>
             </S.WrapSubmit>
-            <Persist name="paywall-payment-form" isSessionStorage />
+            <Persist name={name} isSessionStorage />
           </Form>
         )
       }}

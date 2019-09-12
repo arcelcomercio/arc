@@ -19,7 +19,7 @@ const classes = {
 }
 // TODO: Agregar el click afuera del menu
 const HeaderChildStandard = props => {
-  const { logo, logoLetf, sections, deviceList, tags, date, arcSite } = props
+  const { logo, logoLeft, sections, deviceList, tags, date, arcSite } = props
   return (
     <>
       <header
@@ -32,7 +32,7 @@ const HeaderChildStandard = props => {
             className={classes.logoLeft}
             href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
             <img
-              src={logoLetf.src}
+              src={logoLeft.src}
               alt={logo.alt}
               className={classes.logoImage}
             />

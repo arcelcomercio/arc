@@ -54,6 +54,16 @@ const customFields = PropTypes.shape({
     group: 'Editar campos',
     description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
+  flagLive: PropTypes.bool.tag({
+    name: 'Activar en vivo',
+    group: 'Video en vivo',
+  }),
+  urlVideoFacebook: PropTypes.string.tag({
+    name: 'URL de facebook',
+    group: 'Video en vivo',
+    description:
+      'Url del video en vivo que facebook ofrece desde la plataforma',
+  }),
 })
 
 export default customFields

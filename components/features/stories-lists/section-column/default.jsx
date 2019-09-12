@@ -10,11 +10,10 @@ import Header from './_children/header'
 import List from './_children/list'
 
 const classes = {
-  lista:
-    'stories-l-section bg-white flex flex-col overflow-hidden border-1 border-solid border-gray',
+  lista: 'stories-l-section bg-white flex flex-col',
 }
 
-const newsNumber = 5
+const newsNumber = 4
 
 const SectionColumnListCard = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()

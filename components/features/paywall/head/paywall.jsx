@@ -15,7 +15,7 @@ class Head extends React.PureComponent {
     isActive: false,
     showSignwall: false,
     userName: new GetProfile().username,
-    stepForm: 0,
+    stepForm: 1,
   }
 
   componentDidMount() {
@@ -109,7 +109,7 @@ class Head extends React.PureComponent {
           />
           <div className="head__login">
             <span className="login__username">
-              {stepForm !== 0 ? (
+              {stepForm !== 1 ? (
                 <span>
                   {this.checkSession() ? `${userName}` : 'Hola Invitado'}
                 </span>

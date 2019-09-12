@@ -14,7 +14,7 @@ export default ({
   multimediaPortraitMD,
   multimediaLandscapeL,
   multimediaLazyDefault,
-  authorRole,
+  authorOccupation,
   subTitle,
   multimediaType,
   design,
@@ -154,7 +154,7 @@ export default ({
               </a>
             </h4>
             <a className={classes.authorRole} href={authorLink}>
-              {authorRole}
+              {authorOccupation}
             </a>
           </div>
         </div>

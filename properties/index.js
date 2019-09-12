@@ -8,6 +8,7 @@ export default {
     },
     header: {
       logo: 'logo.png',
+      auxLogo: 'white-logo.png',
     },
     footer: {
       logo: 'logo.png',
@@ -18,6 +19,9 @@ export default {
       height: 60,
       widthAmp: 120,
       heightAmp: 26,
+    },
+    premium: {
+      logo: 'favicon.png',
     },
   },
   messages: {

@@ -104,6 +104,7 @@ const AmpOutputType = ({
     siteProperties,
     arcSite,
     globalContent,
+    requestUri,
   }
   const {
     videoSeo,
