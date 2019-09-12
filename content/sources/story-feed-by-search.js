@@ -133,8 +133,7 @@ const pattern = key => {
     })
   }
 
-  encodedBody = encodeURI(JSON.stringify(body))
-
+  encodedBody = encodeURIComponent(JSON.stringify(body))
   const requestUri = `/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&body=${encodedBody}`
 
   return requestUri
