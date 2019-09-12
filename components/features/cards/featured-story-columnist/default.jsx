@@ -8,7 +8,18 @@ import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
 const FeaturedStoryColumnist = props => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    deployment,
+    isAdmin,
+    siteProperties,
+  } = useFusionContext()
+  const {
+    assets: {
+      premium: { logo },
+    },
+  } = siteProperties || {}
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -54,9 +65,7 @@ const FeaturedStoryColumnist = props => {
     isPremium,
     websiteLink,
     isAdmin,
-    logo: deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/favicon.png`
-    ),
+    logo: deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`),
   }
   return <ColumnistPremium {...params} />
 }
