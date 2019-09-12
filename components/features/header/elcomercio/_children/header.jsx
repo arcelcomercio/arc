@@ -50,7 +50,7 @@ const classes = {
 }
 
 // TODO: Agregar el click afuera del menu
-const HeaderChildStandard = ({
+const HeaderChildElComercio = ({
   logo,
   auxLogo,
   bandLinks,
@@ -61,11 +61,11 @@ const HeaderChildStandard = ({
   isStory,
   shareButtons,
 }) => {
-  const { contextPath, siteProperties } = useFusionContext()
-
   const [scrolled, setScrolled] = useState(false)
-  const [statusSearch, setStatusSearch] = useState(false)
   const [statusSidebar, setStatusSidebar] = useState(false)
+  const [statusSearch, setStatusSearch] = useState(false)
+
+  const { contextPath, siteProperties } = useFusionContext()
 
   const inputSearch = useRef()
 
@@ -73,8 +73,8 @@ const HeaderChildStandard = ({
   let initPointDrag = 0
   let distDrag = 0
 
-  let listContainer = null
-  let layerBackground = null
+  // let listContainer = null
+  // let layerBackground = null
 
   const _handleScroll = () => {
     // ------ Logic to set state to hidden or show logo in navbar
@@ -83,9 +83,9 @@ const HeaderChildStandard = ({
     const { scrollTop: scrollElement = 0 } = documentElement
     const scroll = scrollBody || scrollElement
 
-    const header = Array.from(document.getElementsByTagName('header'))
-    const headerTop = (header[0] && header[0].offsetTop) || 0
-
+    const headerTop = 0
+    // const header = Array.from(document.getElementsByTagName('header'))
+    // const headerTop = (header[0] && header[0].offsetTop) || 0
     if (!scrolled && scroll > headerTop) setScrolled(true)
     else if (scrolled && scroll <= headerTop) setScrolled(false)
   }
@@ -231,10 +231,8 @@ const HeaderChildStandard = ({
   }
 
   useEffect(() => {
-    window.addEventListener('scroll', _handleScroll, {
-      passive: true,
-    })
-    listContainer = document.querySelector('.nav-sidebar')
+    window.addEventListener('scroll', _handleScroll)
+    /* listContainer = document.querySelector('.nav-sidebar')
     layerBackground = document.querySelector('.layer')
 
     if (listContainer !== null && listContainer !== 'undefined') {
@@ -253,8 +251,8 @@ const HeaderChildStandard = ({
       layerBackground.addEventListener('click', () => {
         toggleBodyOverflow()
         _closeMenu()
-      })
-    }
+      }) 
+    } */
   }, [])
 
   return (
@@ -380,7 +378,7 @@ const HeaderChildStandard = ({
   )
 }
 
-HeaderChildStandard.propTypes = {
+HeaderChildElComercio.propTypes = {
   logo: PropTypes.shape({
     src: PropTypes.string,
     link: PropTypes.string,
@@ -394,4 +392,4 @@ HeaderChildStandard.propTypes = {
   ),
 }
 
-export default HeaderChildStandard
+export default HeaderChildElComercio

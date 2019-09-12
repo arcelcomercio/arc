@@ -52,41 +52,36 @@ class NavbarChildMenu extends PureComponent {
         }) => {
           const idElem = `${nameId}-${name || displayName}`.toLowerCase()
           return (
-            <>
-              <li className={classes.item} key={`navbar-menu-${url || id}`}>
-                <a
-                  href={url || id || '/'}
-                  className={`${classes.link}${
-                    deep > 0 ? ` pl-${25 + deep * 15}` : ''
-                  }`}>
-                  {name || displayName}
-                </a>
-                {children && children.length > 0 && (
-                  <>
-                    <input
-                      className={classes.menuArrow}
-                      type="checkbox"
-                      id={idElem}
-                      name="checkbox-submenu"
-                    />
-                    {/** TODO: verificar si se puede mejorar, el input debería estar dentro
-                     * del label pero por problemas de estilos para hecer la funcionalidad
-                     * con puro CSS no se encontró forma.
-                     * */}
-                    <label
-                      htmlFor={idElem}
-                      className={classes.labelParentItem}
-                    />
-                    <ul
-                      className={`${
-                        classes.containerSubMenu
-                      } deep-${deep} ${idElem}`}>
-                      {this.renderSections(children, aux + 1, idElem)}
-                    </ul>
-                  </>
-                )}
-              </li>
-            </>
+            <li className={classes.item} key={`navbar-menu-${url || id}`}>
+              <a
+                href={url || id || '/'}
+                className={`${classes.link}${
+                  deep > 0 ? ` pl-${25 + deep * 15}` : ''
+                }`}>
+                {name || displayName}
+              </a>
+              {children && children.length > 0 && (
+                <>
+                  <input
+                    className={classes.menuArrow}
+                    type="checkbox"
+                    id={idElem}
+                    name="checkbox-submenu"
+                  />
+                  {/** TODO: verificar si se puede mejorar, el input debería estar dentro
+                   * del label pero por problemas de estilos para hecer la funcionalidad
+                   * con puro CSS no se encontró forma.
+                   * */}
+                  <label htmlFor={idElem} className={classes.labelParentItem} />
+                  <ul
+                    className={`${
+                      classes.containerSubMenu
+                    } deep-${deep} ${idElem}`}>
+                    {this.renderSections(children, aux + 1, idElem)}
+                  </ul>
+                </>
+              )}
+            </li>
           )
         }
       )

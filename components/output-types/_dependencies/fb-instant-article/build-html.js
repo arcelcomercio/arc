@@ -2,7 +2,7 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
-import { countWords, nbspToSpace } from '../../../utilities/helpers'
+import { countWords, nbspToSpace, isEmpty } from '../../../utilities/helpers'
 
 const NUMBER_WORD_MULTIMEDIA = 70
 
@@ -287,11 +287,11 @@ const BuildHtml = ({
     
       <header>
         <h1>${title}</h1>
-        <h2>${subTitle}</h2>
+        ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
       </header>
       ${multimediaHeader(multimedia, title)}
       
-      <p>${author}</p>
+      ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
     </article>
   </body>

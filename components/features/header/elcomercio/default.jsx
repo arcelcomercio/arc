@@ -15,7 +15,7 @@ const BAND_HIERARCHY = 'header-default'
 const MENU_HIERARCHY = 'navbar-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
-const HeaderStandard = props => {
+const HeaderElComercio = props => {
   const {
     customFields: {
       hierarchyConfig,
@@ -131,10 +131,10 @@ const HeaderStandard = props => {
   return <HeaderChildElComercio {...formatter.getParams()} {...params} />
 }
 
-HeaderStandard.label = 'Cabecera - El Comercio'
+HeaderElComercio.label = 'Cabecera - El Comercio'
 
-HeaderStandard.propTypes = {
+HeaderElComercio.propTypes = {
   customFields,
 }
 
-export default HeaderStandard
+export default HeaderElComercio

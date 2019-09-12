@@ -83,7 +83,7 @@ class StoryContinue extends PureComponent {
       const width = (scrolled / (height - h)) * 100
       const round = Math.round(width)
       e[0].style.width = `${width}%`
-      loader[0].style.display = round > 2 ? 'block' : 'none'
+      if (loader[0]) loader[0].style.display = round > 2 ? 'block' : 'none'
     }
   }
 
@@ -132,19 +132,19 @@ class StoryContinue extends PureComponent {
     if (window.screen.width < 630) {
       const storyHeader = document.querySelector('.story-header__list')
       const navSidebar = document.querySelector('.nav-sidebar')
-      storyHeader.classList.add('hidden')
+      if (storyHeader) storyHeader.classList.add('hidden')
       const nav = document.querySelector('.nav')
       const navWrapper = document.querySelector('.nav__wrapper')
 
       if (window.scrollY < this.preview) {
-        nav.classList.remove('active')
-        navWrapper.classList.add('somos-menu--active')
-        navSidebar.classList.add('somos-menu--active')
+        if (nav) nav.classList.remove('active')
+        if (navWrapper) navWrapper.classList.add('somos-menu--active')
+        if (navSidebar) navSidebar.classList.add('somos-menu--active')
       } else {
-        if (window.scrollY < 50) nav.classList.remove('active')
-        else nav.classList.add('active')
+        if (window.scrollY < 50 && nav) nav.classList.remove('active')
+        else if (nav) nav.classList.add('active')
 
-        navWrapper.classList.remove('somos-menu--active')
+        if (navWrapper) navWrapper.classList.remove('somos-menu--active')
       }
 
       this.preview = window.scrollY
@@ -160,9 +160,10 @@ class StoryContinue extends PureComponent {
      * Esto cambia el logo de la barra de navegación cuando estás viendo una noticia,
      * es necesario porque por ahora el color es distinto.
      */
-    if (window.screen.width > 1023) {
+    const navLogo = document.querySelector('.nav__logo')
+    if (window.screen.width > 1023 && navLogo) {
       const { arcSite, contextPath, deployment } = this.props || {}
-      document.querySelector('.nav__logo').src = deployment(
+      navLogo.src = deployment(
         arcSite === 'publimetro'
           ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
           : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
