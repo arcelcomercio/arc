@@ -4,6 +4,7 @@ import Modal from '../../../common/modal'
 import { Close } from '../../../common/iconos'
 import Loading from '../../../common/loading'
 import Domains from '../../../utils/domains'
+import addScriptAsync from '../../../utils/script-async'
 // import { ModalConsumer } from '../../../signwall/context'
 
 @Consumer
@@ -26,25 +27,50 @@ class Subs extends Component {
   }
 
   componentDidMount() {
-    this.getListSubs()
-    this.getCampain()
+    if (!window.Sales) {
+      addScriptAsync({
+        name: 'sdkSalesARC',
+        url: Domains.getScriptSales(),
+      }).then(() => {
+        this.getListSubs()
+        this.getCampain()
+      })
+    } else {
+      this.getListSubs()
+      this.getCampain()
+    }
   }
 
   getListSubs() {
-    window.Sales.apiOrigin = this.origin_api
-    window.Sales.getAllActiveSubscriptions()
-      .then(res => {
-        if (res.length > 0) {
+    if (window.Sales) {
+      window.Sales.apiOrigin = this.origin_api
+      window.Sales.getAllActiveSubscriptions()
+        .then(res => {
+          let count = 0
+          for (let i = 0; i < res.length; i++) {
+            const current = res[i]
+            if (current.paymentMethod) count += 1
+          }
+
+          // if (res.length > 0 && count >= 1) {
+          if (count >= 1) {
+            this.setState({
+              userSubs: res,
+              isSubs: true,
+            })
+          } else {
+            this.setState({
+              userSubs: res,
+              isSubs: false,
+            })
+          }
+
           this.setState({
-            userSubs: res,
-            isSubs: true,
+            isLoad: false,
           })
-        }
-        this.setState({
-          isLoad: false,
         })
-      })
-      .catch(err => window.console.error(err))
+        .catch(err => window.console.error(err))
+    }
   }
 
   getCampain() {
@@ -104,12 +130,15 @@ class Subs extends Component {
 
   deleteSub() {
     const { idSubsDelete } = this.state
-    window.console.log(idSubsDelete)
     window.Sales.apiOrigin = this.origin_api
     window.Sales.cancelSubscription(idSubsDelete, { reason: undefined }).then(
       res => {
         window.console.log(res)
-        window.location.reload()
+        this.getListSubs()
+        this.closeModalConfirm()
+        // window.location.reload()
+        // const htmlCurrent = document.getElementById(idSubsDelete)
+        // if (htmlCurrent) htmlCurrent.remove()
       }
     )
   }
@@ -141,7 +170,8 @@ class Subs extends Component {
                     return (
                       <div
                         className="resume__dates"
-                        key={reSubs.subscriptionID}>
+                        key={reSubs.subscriptionID}
+                        id={reSubs.subscriptionID}>
                         <div className="title-dates">
                           <h2 className="title">Mi suscripción</h2>
                           {/* <button
@@ -156,7 +186,7 @@ class Subs extends Component {
                           <button
                             type="button"
                             className="link"
-                            id={reSubs.subscriptionID}
+                            // id={reSubs.subscriptionID}
                             onClick={() =>
                               this.openModalConfirm(reSubs.subscriptionID)
                             }>
@@ -170,7 +200,8 @@ class Subs extends Component {
                             <h3>{reSubs.productName}</h3>
                           </div>
                           <div className="last-subs">
-                            <p>Plan de pago: Mensual</p>
+                            <p>Plan de pago: - </p>
+                            <p>Precio: - </p>
                             {/* <p>Precio: S/ {paywallPrice}*</p>
                             <p className="mini">*{paywallDescripcion}</p> */}
                           </div>
