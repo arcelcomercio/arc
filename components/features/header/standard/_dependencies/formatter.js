@@ -69,7 +69,7 @@ export default class StandardHeader {
         link: this.customLogoLink,
         alt: this.siteDomain,
       },
-      logoLetf: {
+      logoLeft: {
         src: this.deployment(
           `${this.contextPath}/resources/dist/${
             this.arcSite

@@ -1,10 +1,13 @@
 .nav {
   background-color: $color-gray-100;
   &__wrapper {
+    display: flex;
+    justify-content: flex-start;
     &:first-child {
       background-color: $color-base-100;
     }
   }
+
   &__btn {
     &.btn--outline {
       color: $color-base-100;
@@ -29,6 +32,7 @@
     }
   }
   &__btn--search {
+    display: block;
     &.active {
       .nav__icon-search {
         color: $color-base-100;
@@ -37,18 +41,67 @@
   }
   &__list-link {
     color: $color-white;
+    font-weight: 700;
     &:hover {
       color: $color-white;
     }
   }
+  &__logo {
+    display: none;
+  }
+  &__icon-menu {
+    margin-right: 5px;
+    @media (--desktop) {
+      margin-right: 0;
+    }
+  }
+  &__search-box {
+    @media (--tablet) {
+      display: flex;
+    }
+  }
+  &__btn--section span {
+    display: block;
+  }
+  &__mobile-container {
+    display: none;
+  }
+  &__container-menu {
+    @media (--only-mobile) {
+      border-color: transparent;
+    }
+  }
+  &__container-menu,
+  &__search-box {
+    @media (--desktop) {
+      border-color: $color-white;
+    }
+  }
+  &__container-right {
+    display: block;
+    .btn {
+      padding: 6px;
+    }
+  }
+
   &.active {
+    .nav__logo {
+      display: block;
+    }
     .btn {
       color: $color-base-100;
     }
+
     .nav__container-menu {
-      border-color: $color-white;
+      border-color: transparent;
+      @media (--tablet) {
+        border-color: $color-white;
+      }
     }
     .nav__container-right {
+      @media (--tablet) {
+        display: block;
+      }
       @media (--desktop) {
         display: block;
       }
@@ -60,6 +113,28 @@
     }
     .nav__icon-menu {
       color: $color-white;
+    }
+    .nav__search-box {
+      border-color: $color-white;
+      @media (--desktop) {
+        display: block;
+      }
+    }
+    .nav__wrapper {
+      @media (--desktop) {
+        justify-content: flex-start;
+      }
+    }
+    .nav__btn--section span {
+      display: block;
+      color: $color-white;
+    }
+
+    .nav__btn--search {
+      top: 2px;
+      @media (--desktop) {
+        top: -4px;
+      }
     }
   }
 }

@@ -1,7 +1,23 @@
 .facebook-live {
+  height: 200px;
+  &.hasVideo {
+    padding-top: 30px;
+    padding-bottom: 56.25%;
+    height: 0;
+  }
   @media (--tablet) {
     -ms-grid-row-span: 1;
     grid-row: span 1;
     height: 374px;
+  }
+  &__iframe {
+    width: 95%;
+    height: 85%;
+    left: 50%;
+    transform: translateX(-50%);
+    @media (--tablet) {
+      width: 100%;
+      height: 95%;
+    }
   }
 }

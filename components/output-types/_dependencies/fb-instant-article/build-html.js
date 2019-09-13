@@ -1,89 +1,159 @@
+/* eslint-disable no-case-declarations */
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../utilities/config-params'
+import StoryData from '../../../utilities/story-data'
+import { countWords, nbspToSpace, isEmpty } from '../../../utilities/helpers'
+
+const NUMBER_WORD_MULTIMEDIA = 70
 
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
 
-const buildParagraph = (paragraph, type = '') => {
-  let result = ''
+const clearHtml = paragraph => {
+  return nbspToSpace(
+    paragraph
+      .trim()
+      .replace(/<\/?br[^<>]+>/, '')
+      .replace(/(<([^>]+)>)/gi, '')
+      .replace('   ', ' ')
+      .replace('  ', ' ')
+  )
+}
 
-  if (type === ConfigParams.ELEMENT_TEXT) {
-    // si no comple con las anteriores condiciones es un parrafo de texto y retorna el contenido en etiquetas p
-    result = `<p>${paragraph}</p>`
+const buildHeaderParagraph = (paragraph, level = '2') => {
+  const result = { numberWords: 0, processedParagraph: '' }
+  const text = clearHtml(paragraph)
+  result.numberWords = countWords(text)
+
+  result.processedParagraph =
+    result.numberWords > 0 ? `<h${level}>${text}</h${level}>` : ''
+
+  return result
+}
+
+const buildTexParagraph = paragraph => {
+  const result = { numberWords: 0, processedParagraph: '' }
+  const text = clearHtml(paragraph)
+  result.numberWords = countWords(text)
+
+  result.processedParagraph = result.numberWords > 0 ? `<p>${text}</p>` : ''
+
+  return result
+}
+
+const analyzeParagraph = ({
+  originalParagraph,
+  type = '',
+  numberWordMultimedia,
+  level = null,
+}) => {
+  // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
+
+  const result = {
+    originalParagraph,
+    type,
+    numberWords: 0,
+    processedParagraph: '',
   }
 
-  if (type === ConfigParams.ELEMENT_VIDEO) {
-    result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${paragraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
-  }
+  const processedParagraph = originalParagraph
+  let textProcess = {}
+  switch (type) {
+    case ConfigParams.ELEMENT_TEXT:
+      textProcess = buildTexParagraph(processedParagraph)
 
-  if (type === ConfigParams.ELEMENT_IMAGE) {
-    result = `<figure data-feedback="fb:likes, fb:comments"><img src="${paragraph}" /><figcaption></figcaption></figure>`
-  }
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
 
-  if (type === ConfigParams.ELEMENT_RAW_HTML) {
-    if (paragraph.includes('<iframe')) {
-      // valida si el parrafo contiene un iframe con video youtube o foto
+      break
+    case ConfigParams.ELEMENT_HEADER:
+      textProcess = buildHeaderParagraph(processedParagraph, level)
 
-      result = `<figure class="op-interactive">${paragraph}</figure>`
-    } else if (paragraph.includes('<img')) {
-      const imageUrl = paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)
-        ? paragraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
-        : ''
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
 
-      const imageAlt = paragraph.match(/alt="([^"]+)?/)
-        ? paragraph.match(/alt="([^"]+)?/)[1]
-        : ''
+      break
+    case ConfigParams.ELEMENT_LIST:
+      // eslint-disable-next-line no-use-before-define
+      textProcess = buildListParagraph(processedParagraph)
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
+      break
+    case ConfigParams.ELEMENT_VIDEO:
+      result.numberWords = numberWordMultimedia
+      result.processedParagraph = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${processedParagraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
+      break
 
-      if (imageUrl !== '') {
-        result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-      } else {
-        result = ''
+    case ConfigParams.ELEMENT_IMAGE:
+      result.numberWords = numberWordMultimedia
+      result.processedParagraph = `<figure><img src="${processedParagraph}" /><figcaption></figcaption></figure>`
+      break
+
+    case ConfigParams.ELEMENT_RAW_HTML:
+      if (processedParagraph.includes('<iframe')) {
+        // valida si el parrafo contiene un iframe con video youtube o foto
+
+        result.processedParagraph = `<figure class="op-interactive">${processedParagraph}</figure>`
+      } else if (processedParagraph.includes('<img')) {
+        // obtiene el valor del src de la imagen y el alt
+        const imageUrl = processedParagraph.match(
+          /img.+"(http(?:[s])?:\/\/[^"]+)/
+        )
+          ? processedParagraph.match(/img.+"(http(?:[s])?:\/\/[^"]+)/)[1]
+          : ''
+
+        const imageAlt = processedParagraph.match(/alt="([^"]+)?/)
+          ? processedParagraph.match(/alt="([^"]+)?/)[1]
+          : ''
+
+        if (imageUrl !== '') {
+          result.processedParagraph = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+        } else {
+          result.processedParagraph = ''
+        }
+      } else if (
+        processedParagraph.includes('<blockquote class="instagram-media"') ||
+        processedParagraph.includes('<blockquote class="twitter-tweet"')
+      ) {
+        // para twitter y para instagram
+        result.processedParagraph = `<figure class="op-interactive"><iframe>${processedParagraph}</iframe></figure>`
+      } else if (
+        processedParagraph.includes('https://www.facebook.com/plugins')
+      ) {
+        // para facebook
+        result.processedParagraph = `<figure class="op-interactive"><iframe>${processedParagraph}</iframe></figure>`
       }
+      result.numberWords = processedParagraph !== '' ? numberWordMultimedia : 0
+      break
 
-      result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-    } else if (
-      paragraph.includes('<blockquote class="instagram-media"') ||
-      paragraph.includes('<blockquote class="twitter-tweet"')
-    ) {
-      // ára twitter y para instagram
-      result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-    } else if (paragraph.includes('https://www.facebook.com/plugins')) {
-      result = `<figure class="op-interactive"><iframe>${paragraph}</iframe></figure>`
-    } else {
-      result = paragraph
-    }
+    default:
+      result.numberWords = 0
+      result.processedParagraph = ''
+      break
   }
 
   return result
 }
 
-const validateMultimediaParagraph = (paragraph, type) => {
-  let result = false
-  switch (type) {
-    case ConfigParams.ELEMENT_VIDEO:
-      result = true
-      break
-    case ConfigParams.ELEMENT_IMAGE:
-      result = true
-      break
-    case ConfigParams.ELEMENT_RAW_HTML:
-      if (
-        paragraph.includes('<iframe') ||
-        paragraph.includes('<img') ||
-        paragraph.includes('<blockquote class="instagram-media"') ||
-        paragraph.includes('<blockquote class="twitter-tweet"')
-      ) {
-        result = true
-      }
-      break
+const buildListParagraph = listParagraph => {
+  const objTextsProcess = { processedParagraph: '', numberWords: 0 }
+  const newListParagraph = StoryData.paragraphsNews(listParagraph)
+  newListParagraph.forEach(({ type = '', payload = '' }) => {
+    const { processedParagraph, numberWords } = analyzeParagraph({
+      originalParagraph: payload,
+      type,
+      numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
+    })
+    objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
+    objTextsProcess.numberWords += numberWords
+  })
 
-    default:
-      result = false
-      break
-  }
-
-  return result
+  objTextsProcess.processedParagraph = `<ul>${
+    objTextsProcess.processedParagraph
+  }</ul>`
+  // objTextsProcess.totalwords = countwords
+  return objTextsProcess
 }
 
 const ParagraphshWithAdds = ({
@@ -95,58 +165,50 @@ const ParagraphshWithAdds = ({
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
+  const numberWordMultimedia = NUMBER_WORD_MULTIMEDIA
 
   newsWithAdd = paragraphsNews
-    .map(({ payload: paragraphItem, type }) => {
-      let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
-      // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
-
+    .map(({ payload: originalParagraph, type, level }) => {
       let paragraphwithAdd = ''
-      const originalParagraph = paragraph
-      paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
-      paragraph = paragraph.replace('   ', ' ')
-      paragraph = paragraph.replace('  ', ' ')
-      const arrayWords = paragraph.split(' ')
+
+      const { processedParagraph, numberWords } = analyzeParagraph({
+        originalParagraph,
+        type,
+        numberWordMultimedia,
+        level,
+      })
+
+      if (countWords <= firstAdd) {
+        countWords += numberWords
+      }
 
       if (IndexAdd === 0) {
-        if (countWords <= firstAdd) {
-          countWords += arrayWords.length
-        }
-
         if (countWords >= firstAdd) {
           countWords = 0
 
-          paragraphwithAdd = `${buildParagraph(originalParagraph, type)} ${
+          paragraphwithAdd = `${processedParagraph} ${
             arrayadvertising[IndexAdd]
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
           }`
           IndexAdd += 1
         } else {
-          paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
+          paragraphwithAdd = `${processedParagraph}`
         }
       } else {
         // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
-
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
-        if (countWords <= nextAdds) {
-          if (validateMultimediaParagraph(originalParagraph, type)) {
-            countWords += 70
-          } else {
-            countWords += arrayWords.length
-          }
-        }
-
+        // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
           countWords = 0
-          paragraphwithAdd = `${buildParagraph(originalParagraph, type)} ${
+          paragraphwithAdd = `${processedParagraph} ${
             arrayadvertising[IndexAdd]
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
           }`
           IndexAdd += 1
         } else {
-          paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
+          paragraphwithAdd = `${processedParagraph}`
         }
       }
 
@@ -161,7 +223,7 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
   let result = ''
   switch (type) {
     case ConfigParams.IMAGE:
-      result = `<figure data-feedback="fb:likes, fb:comments"><img src="${payload}" /><figcaption>${title}</figcaption></figure>`
+      result = `<figure><img src="${payload}" /><figcaption>${title}</figcaption></figure>`
       break
     case ConfigParams.VIDEO:
       result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${payload}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><figcaption>${title}</figcaption></figure>`
@@ -225,11 +287,11 @@ const BuildHtml = ({
     
       <header>
         <h1>${title}</h1>
-        <h2>${subTitle}</h2>
+        ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
       </header>
-      ${multimediaHeader(multimedia,title)}
+      ${multimediaHeader(multimedia, title)}
       
-      <p>${author}</p>
+      ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
     </article>
   </body>

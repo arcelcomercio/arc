@@ -78,7 +78,6 @@
     width: 50px;
   }
   &__icon {
-    font-size: 40px;
   }
   &[class*=' top start col-2'],
   &[class*=' top end row-1'],
@@ -125,6 +124,14 @@
     }
     .feature-fullimage__box-image {
       @include overlay(left);
+    }
+  }
+  &[class*=' col-2'] {
+    @media (--only-mobile) {
+      height: $row-height;
+      .feature-fullimage__box-detail {
+        width: 100%;
+      }
     }
   }
 }

@@ -8,7 +8,7 @@ import rawHtml from 'react-render-html'
 
 const classes = {
   story: 'story-special-title w-full justify-center ',
-  note: 'story-special-title_note w-full flex justify-center ',
+  note: 'story-special-title_note w-full flex justify-center uppercase',
 }
 
 const StorySpecialTitle = () => {
