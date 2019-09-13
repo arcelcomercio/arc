@@ -75,7 +75,8 @@
       background-color: $color-white;
     }
   }
-  &.special_basic {
+  &.special,
+  .special_basic {
     .story-special-title_note {
       border-top: 1px solid #cbcbcb;
       border-bottom: 1px dashed #cbcbcb;
