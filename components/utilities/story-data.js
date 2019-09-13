@@ -157,6 +157,7 @@ class StoryData {
       StoryData.getDataAuthor(this._data, {
         contextPath: this._contextPath,
         deployment: this._deployment,
+        website: this._website,
       }).imageAuthor || this.defaultImg
     )
   }
@@ -845,10 +846,13 @@ class StoryData {
     }
   }
 
-  static getDataAuthor(data, { contextPath = '', deployment = () => {} } = {}) {
+  static getDataAuthor(
+    data,
+    { contextPath = '', deployment = () => {}, website = '' } = {}
+  ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = deployment(
-      `${contextPath}/resources/assets/author-grid/author.png`
+      `${contextPath}/resources/dist/${website}/images/author.png`
     )
 
     let nameAuthor = ''
@@ -1057,7 +1061,14 @@ class StoryData {
 
   static paragraphsNews(contentElements) {
     const paragraphs = contentElements.map(
-      ({ content = '', type = '', _id = '', url = '', items = [], level = null }) => {
+      ({
+        content = '',
+        type = '',
+        _id = '',
+        url = '',
+        items = [],
+        level = null,
+      }) => {
         const result = { _id, type, level, payload: '' }
 
         switch (type) {
