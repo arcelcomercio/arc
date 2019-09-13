@@ -283,8 +283,13 @@ class StoryData {
     result = sections.filter(x => x !== null || x !== undefined || x !== '')
     return result
   }
-  // TODO: Validar que link regrese la url correcta de la nota
 
+  get type() {
+    const { type = '' } = this._data || {}
+    return type
+  }
+
+  // TODO: Validar que link regrese la url correcta de la nota
   get link() {
     const { website_url: url = '' } = this._data || {}
     return addSlashToEnd(url)
@@ -1057,7 +1062,14 @@ class StoryData {
 
   static paragraphsNews(contentElements) {
     const paragraphs = contentElements.map(
-      ({ content = '', type = '', _id = '', url = '', items = [], level = null }) => {
+      ({
+        content = '',
+        type = '',
+        _id = '',
+        url = '',
+        items = [],
+        level = null,
+      }) => {
         const result = { _id, type, level, payload: '' }
 
         switch (type) {

@@ -5,31 +5,48 @@ import { useContent } from 'fusion:content'
 import getProperties from 'fusion:properties'
 import { socialMediaUrlShareList } from '../../../utilities/helpers'
 import ConfigParams from '../../../utilities/config-params'
+import StoryData from '../../../utilities/story-data'
 
 import Formatter from './_dependencies/formatter'
 import menuFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
+
 import HeaderChildSpecial from './_children/special'
+import SectionTitle from '../../../global-components/independent-title'
 
 const MENU_HIERARCHY = 'navbar-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
 const HeaderElComercio = props => {
   const {
-    customFields: { customLogo, customLogoLink },
+    customFields: {
+      customLogo,
+      customLogoLink,
+      section = '',
+      sectionUrl = '',
+      bgColor = '',
+      fontColor = '',
+    },
   } = props
 
   const {
     arcSite,
     contextPath,
     deployment,
-    globalContent: {
-      type,
-      website_url: postPermaLink,
-      headlines: { basic: postTitle } = {},
-    },
+    globalContent,
     globalContentConfig: { query = {} } = {},
   } = useFusionContext()
+
+  const {
+    primarySectionLink,
+    primarySection,
+    title,
+    link,
+    type,
+  } = new StoryData({
+    globalContent,
+    contextPath,
+  })
 
   const {
     siteDomain,
@@ -43,10 +60,13 @@ const HeaderElComercio = props => {
   const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
   const isStory = type === ConfigParams.ELEMENT_STORY
 
+  const sectionTitle = section || primarySection
+  const sectionLink = sectionUrl || primarySectionLink
+
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
-    postPermaLink,
-    postTitle,
+    link,
+    title,
     siteNameRedSocial
   )
 
@@ -94,13 +114,25 @@ const HeaderElComercio = props => {
 
   formatter.setData(data)
 
-  const params = {
+  const headerParams = {
     search,
     isStory,
     shareButtons,
   }
 
-  return <HeaderChildSpecial {...formatter.getParams()} {...params} />
+  const sectionTitleParams = {
+    title: sectionTitle,
+    link: sectionLink,
+    bgColor,
+    fontColor,
+  }
+
+  return (
+    <div className="w-full position-absolute">
+      <HeaderChildSpecial {...formatter.getParams()} {...headerParams} />
+      <SectionTitle {...sectionTitleParams} />
+    </div>
+  )
 }
 
 HeaderElComercio.label = 'Cabecera - Noticia Especial'

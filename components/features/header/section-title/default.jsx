@@ -5,13 +5,9 @@ import { useFusionContext } from 'fusion:context'
 import StoryData from '../../../utilities/story-data'
 import customFields from './_dependencies/custom-fields'
 
-const classes = {
-  titulo: 'title-independient w-full text-white pt-10 pb-10',
-  link:
-    'title-independient__link flex justify-center title-xs font-bold uppercase',
-}
+import SectionTitle from '../../../global-components/independent-title'
 
-const HeaderIndependentTitle = ({
+const HeaderSectionTitle = ({
   customFields: {
     section = '',
     sectionUrl = '',
@@ -29,20 +25,21 @@ const HeaderIndependentTitle = ({
   const title = section || primarySection
   const link = sectionUrl || primarySectionLink
 
-  return (
-    <div className={`${classes.titulo} ${bgColor}`}>
-      <a href={link} className={`${classes.link} ${fontColor}`}>
-        {title}
-      </a>
-    </div>
-  )
+  const params = {
+    title,
+    link,
+    bgColor,
+    fontColor,
+  }
+
+  return <SectionTitle {...params} />
 }
 
-HeaderIndependentTitle.propTypes = {
+HeaderSectionTitle.propTypes = {
   customFields,
 }
 
-HeaderIndependentTitle.label = 'Cabecera - Título independiente'
-HeaderIndependentTitle.static = true
+HeaderSectionTitle.label = 'Cabecera - Título independiente'
+HeaderSectionTitle.static = true
 
-export default HeaderIndependentTitle
+export default HeaderSectionTitle

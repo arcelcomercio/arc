@@ -14,7 +14,7 @@ const DRAG_SCREEN_LIMIT = 90
 const LIST_WIDTH = 330
 
 const classes = {
-  header: `header header-ec position-absolute secondary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
+  header: `header header-ec secondary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
   logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
   navBtnContainer: `flex items-center justify-start nav__container-menu position-absolute`,
@@ -51,6 +51,10 @@ const HeaderChildSpecial = ({
   search,
   isStory,
   shareButtons,
+  sectionTitle,
+  sectionLink,
+  bgColor,
+  fontColor,
 }) => {
   const [scrolled, setScrolled] = useState(false)
   const [statusSidebar, setStatusSidebar] = useState(false)
