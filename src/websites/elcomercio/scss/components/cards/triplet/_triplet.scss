@@ -1,5 +1,6 @@
 .triplet {
   border: 0;
+  padding: 10px;
   &__item {
     border-color: $color-gray-100;
   }
@@ -9,5 +10,13 @@
   }
   &__information {
     width: 100%;
+  }
+
+  &--threeline {
+    -webkit-line-clamp: 4;
+    max-height: 70px;
+    @media (--desktop) {
+      max-height: 82px;
+    }
   }
 }
