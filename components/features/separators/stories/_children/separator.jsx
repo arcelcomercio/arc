@@ -1,6 +1,6 @@
 import React from 'react'
 import { createMarkup } from '../../../../utilities/helpers'
-import SeparatorItem from './item'
+import Icon from '../../../../global-components/multimedia-icon'
 
 const classes = {
   separator: `separator bg-white mt-20 w-full pt-0 pr-20 pb-15 pl-20 border-t-1 border-solid`,
@@ -10,68 +10,89 @@ const classes = {
   twoline: 'separator__twoline',
   threeline: 'separator__threeline',
   body: 'separator__body mt-0 mb-0 flex justify-between',
+
+  item: 'separator__item hidden w-full h-full p-0 position-relative',
+  detail: 'separator__detail position-absolute bottom-0 pr-15 pl-15 pb-15',
+  text: 'separator__title overflow-hidden text-white text-md line-h-sm',
+  imgBox: 'p-0 m-0 w-full h-full overflow-hidden',
+  img: 'separator__img w-full h-full object-cover object-center',
+  icon: `separator__icon`,
+  article: `separator__article h-full`,
 }
 
-const SeparatorsBasicChildSeparator = props => {
-  const {
-    isAdmin,
-    data: {
-      items,
-      arcSite,
-      titleSeparator = '',
-      titleLink = '/',
-      htmlCode = '',
-    } = {},
-  } = props
-  let numline = ''
-  switch (arcSite) {
-    case 'elcomercio':
-      numline = classes.threeline
-      break
-    case 'depor':
-      numline = classes.twoline
-      break
-    case 'publimetro':
-      numline = classes.threeline
-      break
-    default:
-      numline = classes.threeline
-      break
-  }
-  const getImgUrl = el => {
-    if (arcSite === 'peru21') {
-      return el.multimediaPortraitMD
-    }
-    return el.multimediaLandscapeS
-  }
+const SeparatorsBasicChildSeparator = ({
+  isThreeCol,
+  htmlCode,
+  titleLink,
+  titleSeparator,
+  stories,
+  isAuthorVisible,
+  isAdmin,
+}) => {
   return (
-    <div className={classes.separator}>
+    <div className={`${classes.separator}${isThreeCol ? ' col-3' : ''}`}>
       {htmlCode ? (
         <div
           className={classes.title}
           dangerouslySetInnerHTML={createMarkup(htmlCode)}
         />
       ) : (
-        <h2 className={`${classes.title}`}>
-          <a href={titleLink} className={`${classes.titleLink}`}>
+        <h2 className={classes.title}>
+          <a href={titleLink} className={classes.titleLink}>
             {titleSeparator}
           </a>
         </h2>
       )}
       <div role="list" className={classes.body}>
-        {items &&
-          items.map(el => {
-            const params = {
-              title: el.title,
-              link: el.link,
-              numline,
-              imageUrl: getImgUrl(el),
-              lazyImage: el.multimediaLazyDefault,
-              mediaIcon: el.multimediaType,
-              isAdmin,
-            }
-            return <SeparatorItem key={el.link || '/'} {...params} />
-          })}
+        {stories.map(
+          ({
+            title,
+            link,
+            multimediaLazyDefault,
+            multimediaType,
+            imageUrl,
+            author,
+            authorLink,
+            imageUrlMobile,
+          }) => (
+            <div className={classes.item} key={titleLink}>
+              <article role="listitem" className={classes.article}>
+                <Icon type={multimediaType} iconClass={classes.icon} />
+                <div className={classes.detail}>
+                  <a href={link} title={title}>
+                    <h3 className={classes.text}>{title}</h3>
+                  </a>
+                  {isAuthorVisible && (
+                    <h2>
+                      <a
+                        href={authorLink}
+                        className="block text-sm uppercase text-gray-200 mt-10 mb-20">
+                        {author}
+                      </a>
+                    </h2>
+                  )}
+                </div>
+                <a href={link}>
+                  <picture className={classes.imgBox}>
+                    <source
+                      className={isAdmin ? '' : 'lazy'}
+                      media="(max-width: 639px)"
+                      type="image/jpeg"
+                      srcSet={isAdmin ? imageUrlMobile : multimediaLazyDefault}
+                      data-srcset={imageUrlMobile}
+                    />
+                    <img
+                      src={isAdmin ? imageUrl : multimediaLazyDefault}
+                      data-src={imageUrl}
+                      alt={title}
+                      className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
+                    />
+                  </picture>
+                </a>
+              </article>
+            </div>
+          )
+        )}
       </div>
     </div>
   )
