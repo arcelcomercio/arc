@@ -49,7 +49,7 @@ const AmpOutputType = ({
     isAmp: true,
   }
 
-  const storyTitleRe = (StoryMetaTitle && StoryMetaTitle) || storyTitle
+  const storyTitleRe = StoryMetaTitle || storyTitle
 
   const seoTitle =
     metaValue('title') &&
