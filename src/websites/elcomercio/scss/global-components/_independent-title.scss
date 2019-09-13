@@ -2,4 +2,7 @@
   &.bg-secondary {
     background-color: $color-gray-300;
   }
+  &.special {
+    top: $nav-height;
+  }
 }
