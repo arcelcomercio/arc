@@ -77,7 +77,6 @@ class FormRegister extends Component {
           grantType: 'password',
         },
         {
-          // displayName: this.usernamereg.value.split('@')[0],
           displayName: this.usernamereg.value,
           email: this.usernamereg.value,
           attributes: [
@@ -127,13 +126,10 @@ class FormRegister extends Component {
           this.taggeoSuccess() // -- test de tageo success
 
           // set token cookie
-          const cookieName = 'ArcId.USER_INFO'
-          const cookieValue = window.Identity.userIdentity || '{}'
-          const myDate = new Date()
-          myDate.setDate(myDate.getDate() + 1)
-          document.cookie = `${cookieName}=${JSON.stringify(
-            cookieValue
-          )};expires=${myDate};domain=.${arcSite}.pe;path=/`
+          const USER_IDENTITY = JSON.stringify(
+            window.Identity.userIdentity || {}
+          )
+          Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
         })
         .catch(err => {
           // console.log(err)
@@ -247,7 +243,6 @@ class FormRegister extends Component {
         return null
     }
 
-    // this.setState({ formErrors, [name]: value }, () => console.log(this.state));
     this.setState({ formErrors, [name]: value })
   }
 
