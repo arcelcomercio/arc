@@ -3,6 +3,7 @@
     .bg_white {
       background: #eeeeee;
       height: auto;
+      min-height: calc(100vh - 50px);
     }
     .container {
       max-width: 1200px;
@@ -43,7 +44,7 @@
           padding: 70px 34px 34px;
           margin: 120px 0px 20px 40px;
           width: 30%;
-          height: 380px;
+          height: 420px;
         }
 
         @media (--desktop) {
@@ -258,7 +259,7 @@
           .title {
             font-weight: bold;
             line-height: 26px;
-            font-size: 22px;
+            font-size: 20px;
           }
         }
 

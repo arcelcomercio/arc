@@ -23,7 +23,7 @@ const WizardConfirmation = props => {
     memo: {
       order: { orderNumber },
       profile: { firstName, lastName, secondLastName, email },
-      plan: { title: plan, sku, priceCode, amount, billingFrequency, printed },
+      plan: { title: plan, sku, priceCode, amount, billingFrequency, printed, description },
       referer: ref,
       payment: { total: paidTotal, subscriptionIDs },
     },
@@ -51,6 +51,7 @@ const WizardConfirmation = props => {
       suscriptorImpreso: printed ? 'si' : 'no',
       medioCompra: ref,
     })
+    document.getElementsByClassName('foot')[0].style.position = "relative";
   }, [])
 
   const handlePWA = () => {
@@ -118,7 +119,7 @@ const WizardConfirmation = props => {
             </Item>
             <Item label="PRECIO: ">
                {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
-               { paidTotal !== 0 ?  `S/ ${paidTotal}` : 'GRATIS' }
+               { paidTotal !== 0 ?  `S/ ${paidTotal}` : `GRATIS ${description.title} ${description.description}` }
             </Item>
             <S.Small>
               El precio de la suscripción se cargará automáticamente en tu
