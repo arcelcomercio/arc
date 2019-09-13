@@ -22,8 +22,8 @@ const HeaderElComercio = props => {
     customFields: {
       customLogo,
       customLogoLink,
-      section = '',
-      sectionUrl = '',
+      section,
+      sectionUrl,
       bgColor = '',
       fontColor = '',
     },
@@ -38,8 +38,8 @@ const HeaderElComercio = props => {
   } = useFusionContext()
 
   const {
-    primarySectionLink,
     primarySection,
+    primarySectionLink,
     title,
     link,
     type,
@@ -59,9 +59,6 @@ const HeaderElComercio = props => {
 
   const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
   const isStory = type === ConfigParams.ELEMENT_STORY
-
-  const sectionTitle = section || primarySection
-  const sectionLink = sectionUrl || primarySectionLink
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
@@ -121,8 +118,8 @@ const HeaderElComercio = props => {
   }
 
   const sectionTitleParams = {
-    title: sectionTitle,
-    link: sectionLink,
+    title: section || primarySection,
+    link: sectionUrl || primarySectionLink,
     bgColor,
     fontColor,
   }
