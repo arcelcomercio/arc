@@ -18,7 +18,8 @@ const classes = {
 class Stick extends PureComponent {
   componentDidMount() {
     const {
-      customFields: { urlpwd = '', appData = '', href = '' } = {},
+      customFields: { urlpwd = ''} = {},
+      arcSite
     } = this.props
 
     const aOpenAppClose = document.getElementById('close-app')
@@ -28,11 +29,16 @@ class Stick extends PureComponent {
     aOpenApp.addEventListener('click', function(ev) {
       ev.preventDefault()
 
-      window.location.href = `${urlpwd}${
+      const urlpwdbase = `${urlpwd}/?link=https://${arcSite}.pe/`
+      const appData = `?appData=/&apn=com.eeec.${arcSite}&amv=30&ibi=com.eeec.${arcSite}&ipbi=com.eeec.${arcSite}&isi=991197788&imv=31&ofl=HREF`
+      const href = `&efr=1&utm_source=btn_openapp_home&mt=8&ct=btn_openapp_home`
+
+      window.location.href = `${urlpwdbase}/?link=https://${arcSite}.pe/${
         window.location.pathname
       }?appData=/${dataPageId !== '/' && 'news'}${dataPageId}${appData}${
         window.location.href
       }${href}`
+
     })
 
     aOpenAppClose.addEventListener('click', function(ev) {
@@ -49,6 +55,7 @@ class Stick extends PureComponent {
       arcSite,
       deployment,
       customFields: { urlPwd = '' } = {},
+      siteProperties:{ stick:{logo = 'default_logo.png'}}
     } = this.props
 
     const { link } = new StoryData({
@@ -56,7 +63,7 @@ class Stick extends PureComponent {
       contextPath,
     })
     const imgLogo = deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/logo-p21.png`
+      `${contextPath}/resources/dist/${arcSite}/images/${logo}`
     )
 
     return (
