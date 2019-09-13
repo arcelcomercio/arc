@@ -1,0 +1,8 @@
+.title-independient {
+  &.bg-secondary {
+    background-color: $color-gray-300;
+  }
+  &__link {
+    font-family: $primary-font;
+  }
+}

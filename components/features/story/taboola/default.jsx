@@ -4,7 +4,7 @@ const classes = {
   taboola: 'story-content__taboola pt-20  pr-20 pl-20',
 }
 
-const StoryComentario = () => {
+const StoryTaboola = () => {
   const structuredTaboola = `
       window._taboola = window._taboola || [];
       _taboola.push({
@@ -25,7 +25,7 @@ const StoryComentario = () => {
   )
 }
 
-StoryComentario.label = 'Artículo - Taboola'
-StoryComentario.static = true
+StoryTaboola.label = 'Artículo - Taboola'
+StoryTaboola.static = true
 
-export default StoryComentario
+export default StoryTaboola

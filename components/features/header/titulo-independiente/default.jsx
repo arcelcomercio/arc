@@ -6,8 +6,9 @@ import StoryData from '../../../utilities/story-data'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  titulo: 'w-full text-white pt-10 pb-10',
-  link: 'flex justify-center title-lg ',
+  titulo: 'title-independient w-full text-white pt-10 pb-10',
+  link:
+    'title-independient__link flex justify-center title-xs font-bold uppercase',
 }
 
 const HeaderTitleIndependiente = () => {

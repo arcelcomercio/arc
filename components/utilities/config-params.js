@@ -5,7 +5,9 @@ class ConfigParams {
 
   // TIPO DE GALLERRY: NUEVA OPCION DE ELLIPSIS
   static GALLERY_VERTICAL = 'gallery_vertical'
+
   static BIG_IMAGE = 'image_big'
+
   static SPECIAL_BASIC = 'special_basic'
 
   static HTML = 'basic_html'
@@ -31,6 +33,10 @@ class ConfigParams {
   static ELEMENT_INFOGRAFIA = 'infografia'
 
   static ELEMENT_TEXT = 'text'
+
+  static ELEMENT_LIST = 'list'
+
+  static ELEMENT_HEADER = 'header'
 
   static ELEMENT_BLOCKQUOTE = 'blockquote'
 

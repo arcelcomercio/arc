@@ -35,7 +35,7 @@
       /* autoprefixer: off */
       -webkit-box-orient: vertical;
       /* autoprefixer: on */
-      max-height: 42px;
+      max-height: 48px;
       -webkit-line-clamp: 1;
       overflow: hidden;
       @media (--only-mobile) {
@@ -49,10 +49,11 @@
         margin: 5px 0;
       }
       a {
-        line-height: 1.4;
+        line-height: 1.5;
       }
     }
     &-title {
+      display: none;
       a {
         color: $color-gray-300;
         font-weight: 700;

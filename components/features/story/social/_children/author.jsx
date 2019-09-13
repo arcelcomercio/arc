@@ -1,8 +1,7 @@
 import React from 'react'
 
 const classes = {
-  author:
-    'story-content__author flex justify-between pt-30 mb-20 flex-col md:flex-row',
+  author: 'story-content__author flex justify-between',
   authorNameLink:
     'secondary-font font-bold story-content__author-link header__link text-lg text-gray-200 line-h-sm',
   authorDate:

@@ -1,5 +1,6 @@
 import React from 'react'
-import ConfigParams from '../../../../utilities/config-params'
+// import ConfigParams from '../../../../utilities/config-params'
+import Icon from '../../../../global-components/multimedia-icon'
 
 const getModel = model => {
   const type = {
@@ -13,7 +14,7 @@ const getModel = model => {
 const classes = {
   fullImg:
     'feature-fullimage position-relative flex justify-start items-end w-full',
-  boxImg: 'feature-fullimage__box-image h-full w-full position-absolute',
+  boxImg: 'feature-fullimage__box-image block h-full w-full position-absolute',
   img: 'feature-fullimage__image h-full w-full object-cover object-center',
   boxDetail: 'feature-fullimage__box-detail w-full p-20',
   author: 'feature-fullimage__author font-thin text-xs uppercase text-white',
@@ -45,7 +46,7 @@ export default ({
   return (
     <div
       className={`${classes.fullImg} ${crossY} ${crossX} ${getModel(model)}`}>
-      <div className={classes.boxImg}>
+      <a href={websiteLink} className={classes.boxImg}>
         {model === 'twoCol' && (
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
@@ -70,7 +71,7 @@ export default ({
             alt={title}
           />
         )}
-      </div>
+      </a>
       <div className={classes.boxDetail}>
         <h3>
           <a className={classes.section} href={primarySectionLink}>
@@ -88,15 +89,9 @@ export default ({
           </a>
         </p>
       </div>
-      {multimediaType !== 'basic' && (
-        <div className={classes.boxIcon}>
-          {multimediaType === ConfigParams.VIDEO ? (
-            <i className={`${classes.icon} icon-video`} />
-          ) : (
-            <i className={`${classes.icon} icon-img`} />
-          )}
-        </div>
-      )}
+      <div className={classes.boxIcon}>
+        <Icon type={multimediaType} iconClass={classes.icon} />
+      </div>
     </div>
   )
 }

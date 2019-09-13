@@ -65,7 +65,7 @@ export default class NavbarFormater {
           logo: this.deployment(
             `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
           ),
-          logoLetf: {
+          logoLeft: {
             src: this.deployment(
               `${this.contextPath}/resources/dist/${
                 this.arcSite

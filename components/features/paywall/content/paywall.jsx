@@ -20,11 +20,13 @@ import '../_dependencies/sentry'
 
 const stepNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 const stepSlugs = ['planes', 'datos', 'pago', 'confirmacion']
+const PROFILE_FORM_NAME = 'paywall-profile-form'
+const PAYMENT_FORM_NAME = 'paywall-payment-form'
 
 let history
 let finalized = false
 
-const Paywall = ({ dispatchEvent }) => {
+const Paywall = ({ dispatchEvent, addEventListener }) => {
   const {
     contextPath,
     deployment,
@@ -35,6 +37,13 @@ const Paywall = ({ dispatchEvent }) => {
     globalContent: { summary = [], plans = [], printed, error: message },
     requestUri,
   } = useFusionContext()
+
+  const clearPaywallStorage = useRef(() => {
+    sessionStorage.removeItem(PROFILE_FORM_NAME)
+    sessionStorage.removeItem(PAYMENT_FORM_NAME)
+  }).current
+
+  addEventListener('logout', clearPaywallStorage)
 
   const wizardRef = useRef(null)
   const featureSlug = useRef(requestUri.match(/^\/(\w+)\/?/)[1]).current
@@ -74,6 +83,7 @@ const Paywall = ({ dispatchEvent }) => {
         }
         if (action !== 'REPLACE') {
           goToStep(step)
+          dispatchEvent('currentStep', step)
         }
       }
       // prettier-ignore
@@ -91,7 +101,7 @@ const Paywall = ({ dispatchEvent }) => {
         case `${basePath}/${stepSlugs[3]}/`: 
           doStep(4)
           finalized = true
-          sessionStorage.clear()
+          clearPaywallStorage()
           break;
       }
     })
@@ -105,7 +115,6 @@ const Paywall = ({ dispatchEvent }) => {
     const currpath = `${pathname}${search}`
     history.replace(currpath, currMemo)
     history.push(`${basePath}/${stepSlug}/${search}`, currMemo)
-    dispatchEvent('currentStep', currentStep)
     window.scrollTo(0, 0)
   }).current
 
@@ -143,6 +152,7 @@ const Paywall = ({ dispatchEvent }) => {
           <WizardUserProfile
             memo={currMemo}
             profile={profile}
+            formName={PROFILE_FORM_NAME}
             summary={summary}
             onBeforeNextStep={onBeforeNextStepHandler}
             setLoading={setLoading}
@@ -151,6 +161,7 @@ const Paywall = ({ dispatchEvent }) => {
             memo={currMemo}
             printed={printed}
             summary={summary}
+            formName={PAYMENT_FORM_NAME}
             onBeforeNextStep={onBeforeNextStepHandler}
             setLoading={setLoading}
           />
@@ -168,7 +179,12 @@ const Paywall = ({ dispatchEvent }) => {
 @Consumer
 class PaywallWrapper extends React.Component {
   render() {
-    return <Paywall dispatchEvent={this.dispatchEvent.bind(this)} />
+    return (
+      <Paywall
+        dispatchEvent={this.dispatchEvent.bind(this)}
+        addEventListener={this.addEventListener.bind(this)}
+      />
+    )
   }
 }
 

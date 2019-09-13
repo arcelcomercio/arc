@@ -3,7 +3,7 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import ElComercioChildFooter from './children/footer'
+import FooterChildElComercio from './children/footer'
 
 const FooterElComercio = () => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
@@ -35,7 +35,7 @@ const FooterElComercio = () => {
     isAdmin,
   }
 
-  return <ElComercioChildFooter {...params} />
+  return <FooterChildElComercio {...params} />
 }
 
 FooterElComercio.label = 'Pié de página - El Comercio'

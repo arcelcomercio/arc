@@ -13,6 +13,7 @@ export default ({
   siteProperties,
   arcSite,
   globalContent,
+  requestUri,
 }) => {
   const {
     id,
@@ -22,6 +23,7 @@ export default ({
     link,
     videoSeo,
     nucleoOrigen,
+    title,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -29,10 +31,9 @@ export default ({
 
   const subSection = formatSlugToText(sectionLink, 2) || ''
   const section = formatSlugToText(sectionLink, 1) || ''
-  const videoSeoItems = videoSeo.map(
-    ({ caption, idVideo = '' } = {}, index) => {
-      const totalIndex = index !== 0 ? `_${index}` : ''
-      return `    
+  const videoSeoItems = videoSeo.map(({ idVideo = '' } = {}, index) => {
+    const totalIndex = index !== 0 ? `_${index}` : ''
+    return `    
       "trackVideoPlay${totalIndex}": {
         "on": "video-play",
         "request": "event",
@@ -40,7 +41,7 @@ export default ({
         "vars": {
           "eventCategory": "PowaAMP",
           "eventAction": "playbackPlay",
-          "eventLabel": "${idVideo} | ${caption}"
+          "eventLabel": "${idVideo} | ${link}"
         }
       },
       "trackVideoPause${totalIndex}": {
@@ -50,7 +51,7 @@ export default ({
         "vars": {
           "eventCategory": "PowaAMP",
           "eventAction": "playbackPaused",
-          "eventLabel": "${idVideo} | ${caption}"
+          "eventLabel": "${idVideo} | ${link}"
         }
       },
       "trackVideoComplete${totalIndex}": {
@@ -60,12 +61,11 @@ export default ({
         "vars": {
           "eventCategory": "PowaAMP",
           "eventAction": "playbackFinished",
-          "eventLabel": "${idVideo} | ${caption}"
+          "eventLabel": "${idVideo} | ${link}"
         }
       }
      `
-    }
-  )
+  })
 
   const ampAnalytics = `
   {
@@ -80,8 +80,7 @@ export default ({
       "cd7": "${getMultimedia(multimediaType, true)}",
       "cd8": "${id}",
       "cd15": "${author}",
-      "cd16": "${nucleoOrigen}",
-      "ds": "AMP"
+      "cd16": "${nucleoOrigen}"
     },        
     "triggers": {
         "trackPageview": {
@@ -117,6 +116,16 @@ export default ({
       "comscorekw": "amp"
     }
   }`
+  /* TODO: cambiar el Analytics por pixel en amp
+  const pageNext = requestUri.match(`^(/(.*)/.*pageNext=2)`)
+  const urlStory = `${siteProperties.siteUrl}${link}?outputType=amp`
+
+  const urlPixel = `https://www.google-analytics.com/r/collect?v=1&ds=AMP&t=pageview&tid=${
+    siteProperties.ampGoogleTagManagerId
+  }&cid=CLIENT_ID(_ga)&dl=${urlStory}&dt=${title}&cd4=noticias&cd5=&cd6=AMP&cd7=${getMultimedia(
+    multimediaType,
+    true
+  )}&cd8=${id}&cd15=${author}&cd1    ` */
 
   return (
     <>
@@ -128,6 +137,7 @@ export default ({
           dangerouslySetInnerHTML={createMarkup(ampAnalytics)}
         />
       </amp-analytics>
+
       <amp-analytics type="comscore">
         <script
           type="application/json"
