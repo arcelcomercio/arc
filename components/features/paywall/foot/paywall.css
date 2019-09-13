@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 
-@media (max-width: 1024px), (max-height: 890px) {
+@media (max-width: 1024px), (max-height: 780px) {
   .foot{
     position: relative;
   }
