@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
-import { searchQuery } from '../../../../utilities/helpers'
-import Button from '../../../../global-components/button'
+import { searchQuery } from '../utilities/helpers'
+import Button from './button'
 
 const classes = {
   sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300`,
