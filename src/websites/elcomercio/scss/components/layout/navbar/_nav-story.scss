@@ -3,6 +3,14 @@
     display: none;
   }
   .nav.active {
+    .header__btn-container {
+      display: none;
+    }
+    .nav__logo {
+      @media (--desktop) {
+        display: none;
+      }
+    }
     .nav__mobile-logo {
       display: none;
 
@@ -28,6 +36,7 @@
 
     .nav__wrapper {
       background-color: $color-white;
+      justify-content: space-between;
     }
 
     .btn {

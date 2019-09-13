@@ -44,4 +44,9 @@
     height: auto;
     background-color: transparent;
   }
+  .footer-secondary__logo-img {
+    @media (--desktop) {
+      height: 33px;
+    }
+  }
 }
