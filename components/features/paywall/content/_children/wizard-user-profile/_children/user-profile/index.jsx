@@ -90,7 +90,13 @@ const UserProfile = ({
               </S.WrapField>
               <S.WrapField>
                 <Field name="secondLastName">
-                  {props => <InputFormik {...props} label="Apellido Materno" />}
+                  {props => (
+                    <InputFormik
+                      label="Apellido Materno"
+                      {...Masks.Piped.PERSON_NAME}
+                      {...props}
+                    />
+                  )}
                 </Field>
               </S.WrapField>
               <S.WrapField>
