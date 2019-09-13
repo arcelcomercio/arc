@@ -8,7 +8,7 @@ const domains = {
   URL_CORPORATE: () =>
     `${context}/suscripcionesdigitales/empresa/${queryString}`,
   URL_FAQ: () => `${context}/suscripcionesdigitales/faq/${queryString}`,
-  URL_DIGITAL: () => `${context}/suscripcionesdigitales${queryString}`,
+  URL_DIGITAL: () => `${context}/suscripcionesdigitales`,
   VALIDATE_SUSCRIPTOR: (ENV, documentType, documentNumber, attemptToken) => {
     return `${context}/suscripcionesdigitales/${documentType}/${documentNumber}/${attemptToken}${queryString}`
   },

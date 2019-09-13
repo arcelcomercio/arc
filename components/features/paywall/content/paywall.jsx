@@ -16,6 +16,7 @@ import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
 import ClickToCall from '../_children/click-to-call'
 import PWA from './_dependencies/seed-pwa'
+import getDomain from '../_dependencies/domains'
 import '../_dependencies/sentry'
 
 const stepNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
@@ -34,8 +35,12 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
       assets,
       paywall: { clickToCall },
     },
-    globalContent: { summary = [], plans = [], printed, error: message },
-    requestUri,
+    globalContent: {
+      summary = [],
+      plans = [],
+      printedSubscriber,
+      error: message,
+    },
   } = useFusionContext()
 
   const clearPaywallStorage = useRef(() => {
@@ -46,8 +51,7 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
   addEventListener('logout', clearPaywallStorage)
 
   const wizardRef = useRef(null)
-  const featureSlug = useRef(requestUri.match(/^\/(\w+)\/?/)[1]).current
-  const basePath = `${contextPath}/${featureSlug}`
+  const basePath = getDomain('URL_DIGITAL')
 
   const [profile, setProfile] = useState('')
   useEffect(() => {
@@ -63,7 +67,7 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
   }, [])
 
   // const [memo, setMemo] = useState({})
-  const memo = useRef({})
+  const memo = useRef({ printedSubscriber })
   const currMemo = memo.current
   useEffect(() => {
     history = createBrowserHistory({
@@ -141,7 +145,7 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
           }>
           <WizardPlan
             message={message}
-            printed={!!printed}
+            printedSubscriber={printedSubscriber}
             memo={currMemo}
             plans={plans}
             summary={summary}
@@ -159,7 +163,6 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
           />
           <WizardPayment
             memo={currMemo}
-            printed={printed}
             summary={summary}
             formName={PAYMENT_FORM_NAME}
             onBeforeNextStep={onBeforeNextStepHandler}
