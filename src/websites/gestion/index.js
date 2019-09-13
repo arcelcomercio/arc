@@ -26,6 +26,7 @@ import './images/img_soporte.png'
 import './images/signwall/bg_paywall.png'
 import './images/signwall/logo_ges.png'
 import './images/signwall/bg_login.png'
+import './images/author.png'
 
 import './images/paywall/img_corporativo.webp'
 import './images/paywall/check2.png'
