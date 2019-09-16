@@ -46,6 +46,11 @@ class Domains {
         return `not link, not site`
     }
   }
+
+  getScriptSales = () => {
+    const _env_ = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+    return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-sales.min.js`
+  }
 }
 
 export default new Domains()

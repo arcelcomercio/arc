@@ -2,7 +2,7 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
-import { countWords, nbspToSpace } from '../../../utilities/helpers'
+import { countWords, nbspToSpace, isEmpty } from '../../../utilities/helpers'
 
 const NUMBER_WORD_MULTIMEDIA = 70
 
@@ -87,7 +87,7 @@ const analyzeParagraph = ({
 
     case ConfigParams.ELEMENT_IMAGE:
       result.numberWords = numberWordMultimedia
-      result.processedParagraph = `<figure data-feedback="fb:likes, fb:comments"><img src="${processedParagraph}" /><figcaption></figcaption></figure>`
+      result.processedParagraph = `<figure><img src="${processedParagraph}" /><figcaption></figcaption></figure>`
       break
 
     case ConfigParams.ELEMENT_RAW_HTML:
@@ -223,7 +223,7 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
   let result = ''
   switch (type) {
     case ConfigParams.IMAGE:
-      result = `<figure data-feedback="fb:likes, fb:comments"><img src="${payload}" /><figcaption>${title}</figcaption></figure>`
+      result = `<figure><img src="${payload}" /><figcaption>${title}</figcaption></figure>`
       break
     case ConfigParams.VIDEO:
       result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${payload}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><figcaption>${title}</figcaption></figure>`
@@ -287,11 +287,11 @@ const BuildHtml = ({
     
       <header>
         <h1>${title}</h1>
-        <h2>${subTitle}</h2>
+        ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
       </header>
       ${multimediaHeader(multimedia, title)}
       
-      <p>${author}</p>
+      ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
     </article>
   </body>

@@ -4,7 +4,7 @@ import { useFusionContext } from 'fusion:context'
 
 import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
 import Button from '../../../../global-components/button'
-import Menu from './menu'
+import Menu from '../../../../global-components/menu'
 
 const CLUB_URL = 'https://clubelcomercio.pe/?ref=home&ft=menu'
 const CLUB_TEXT = 'Club'
@@ -39,6 +39,7 @@ const classes = {
   /** ------------ */
   navStoryTitle: 'nav__story-title position-absolute overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
+  navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
 
   listIcon: 'story-header__list flex justify-between rounded-sm',
   moreLink: 'story-content__more-link',
@@ -49,7 +50,7 @@ const classes = {
 }
 
 // TODO: Agregar el click afuera del menu
-const HeaderChildStandard = ({
+const HeaderChildElComercio = ({
   logo,
   auxLogo,
   bandLinks,
@@ -60,11 +61,11 @@ const HeaderChildStandard = ({
   isStory,
   shareButtons,
 }) => {
-  const { contextPath, siteProperties } = useFusionContext()
-
   const [scrolled, setScrolled] = useState(false)
-  const [statusSearch, setStatusSearch] = useState(false)
   const [statusSidebar, setStatusSidebar] = useState(false)
+  const [statusSearch, setStatusSearch] = useState(false)
+
+  const { contextPath, siteProperties } = useFusionContext()
 
   const inputSearch = useRef()
 
@@ -72,8 +73,8 @@ const HeaderChildStandard = ({
   let initPointDrag = 0
   let distDrag = 0
 
-  let listContainer = null
-  let layerBackground = null
+  // let listContainer = null
+  // let layerBackground = null
 
   const _handleScroll = () => {
     // ------ Logic to set state to hidden or show logo in navbar
@@ -82,9 +83,9 @@ const HeaderChildStandard = ({
     const { scrollTop: scrollElement = 0 } = documentElement
     const scroll = scrollBody || scrollElement
 
-    const header = Array.from(document.getElementsByTagName('header'))
-    const headerTop = (header[0] && header[0].offsetTop) || 0
-
+    const headerTop = 0
+    // const header = Array.from(document.getElementsByTagName('header'))
+    // const headerTop = (header[0] && header[0].offsetTop) || 0
     if (!scrolled && scroll > headerTop) setScrolled(true)
     else if (scrolled && scroll <= headerTop) setScrolled(false)
   }
@@ -230,10 +231,8 @@ const HeaderChildStandard = ({
   }
 
   useEffect(() => {
-    window.addEventListener('scroll', _handleScroll, {
-      passive: true,
-    })
-    listContainer = document.querySelector('.nav-sidebar')
+    window.addEventListener('scroll', _handleScroll)
+    /* listContainer = document.querySelector('.nav-sidebar')
     layerBackground = document.querySelector('.layer')
 
     if (listContainer !== null && listContainer !== 'undefined') {
@@ -252,8 +251,8 @@ const HeaderChildStandard = ({
       layerBackground.addEventListener('click', () => {
         toggleBodyOverflow()
         _closeMenu()
-      })
-    }
+      }) 
+    } */
   }, [])
 
   return (
@@ -277,8 +276,8 @@ const HeaderChildStandard = ({
           </time>
         )}
       </nav>
-      <header
-        className={`${classes.header} ${scrolled ? 'active nav__loader' : ''}`}>
+      <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
+        <div className={classes.navLoader} />
         {/** ************* LEFT *************** */}
         <div
           className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
@@ -374,13 +373,12 @@ const HeaderChildStandard = ({
           siteProperties={siteProperties}
         />
         <div className="layer" />
-        {/* <div className="nav__loader-bar position-absolute w-full h-full" /> */}
       </header>
     </>
   )
 }
 
-HeaderChildStandard.propTypes = {
+HeaderChildElComercio.propTypes = {
   logo: PropTypes.shape({
     src: PropTypes.string,
     link: PropTypes.string,
@@ -394,4 +392,4 @@ HeaderChildStandard.propTypes = {
   ),
 }
 
-export default HeaderChildStandard
+export default HeaderChildElComercio

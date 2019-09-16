@@ -3,23 +3,23 @@ import PropTypes from 'prop-types'
 const customFields = PropTypes.shape({
   section: PropTypes.string.tag({
     name: 'Nombre de la sección',
-    description: 'Nombre de la -seccion. Ejemplo: Politica',
+    description: 'Nombre de la sección. Ejemplo: Política',
   }),
 
   sectionUrl: PropTypes.string.tag({
-    name: 'Url de la sección',
-    description: 'Url de la Sección. Ejemplo: /politica',
+    name: 'URL de la sección',
+    description: 'Url de la sección. Ejemplo: /politica',
   }),
 
   bgColor: PropTypes.oneOf(['bg-primary', 'bg-secondary', 'transparent']).tag({
     name: 'Color de fondo',
     group: 'Configuración',
     labels: {
-      white: 'Color Primario',
-      gray: 'Color Secundario',
+      'bg-primary': 'Color Primario',
+      'bg-secondary': 'Color Secundario',
       transparent: 'Transparente',
     },
-    defaultValue: 'transparent',
+    defaultValue: 'bg-secondary',
   }),
   fontColor: PropTypes.oneOf([
     'text-primary-color',
@@ -30,12 +30,12 @@ const customFields = PropTypes.shape({
     name: 'Color de título',
     group: 'Configuración',
     labels: {
-      white: 'Color Primario',
-      gray: 'Color blanco',
-      gray: 'Color negro',
+      'text-primary-color': 'Color Primario',
+      'text-white': 'Color blanco',
+      'text-black': 'Color negro',
       transparent: 'Transparente',
     },
-    defaultValue: 'transparent',
+    defaultValue: 'text-white',
   }),
 })
 

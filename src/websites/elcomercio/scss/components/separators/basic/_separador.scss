@@ -5,15 +5,22 @@
   &__article {
     display: flex;
     flex-direction: column-reverse;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
   &__body {
+    flex-direction: column;
     @media (--tablet) {
-      height: 220px;
+      flex-direction: row;
+      height: auto;
     }
   }
   &__item {
+    display: block;
+    height: auto;
     background-color: $color-base-300;
+    @media (--tablet) {
+      flex-basis: 24.5%;
+    }
     &:before {
       display: none;
     }
@@ -30,8 +37,19 @@
   &__title {
     color: $color-gray-300;
     font-weight: 700;
+    margin-top: 5px;
+    max-height: calc(0.9rem * 1.3333 * 4);
+    -webkit-line-clamp: 4;
   }
   &__img {
-    max-height: 130px;
+    max-height: none;
+    max-height: 235px;
+    @media (--tablet) {
+      height: 101px;
+    }
+    @media (--desktop) {
+      height: auto;
+      max-height: 130px;
+    }
   }
 }

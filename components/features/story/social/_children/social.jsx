@@ -43,6 +43,7 @@ class StoryHeaderChildSocial extends PureComponent {
         },
         siteUrl,
       },
+      arcSite,
       globalContent: {
         website_url: postPermaLink,
         headlines: { basic: postTitle } = {},
@@ -124,16 +125,18 @@ class StoryHeaderChildSocial extends PureComponent {
       <>
         <div
           className={`${classes.news} ${
-            subtype === ConfigParams.SPECIAL_BASIC
+            subtype === ConfigParams.SPECIAL_BASIC ||
+            subtype === ConfigParams.SPECIAL
               ? 'justify-center'
               : 'justify-between'
           }`}>
-          {subtype !== ConfigParams.SPECIAL_BASIC && (
-            <div className={classes.category}>
-              {(editorNote && rawHtml(editorNote)) || primarySection}
-              <StorySocialChildAuthor {...params} />
-            </div>
-          )}
+          {subtype !== ConfigParams.SPECIAL_BASIC &&
+            subtype !== ConfigParams.SPECIAL && (
+              <div className={classes.category}>
+                {(editorNote && rawHtml(editorNote)) || primarySection}
+                <StorySocialChildAuthor {...params} />
+              </div>
+            )}
           <ul className={classes.list}>
             {this.shareButtons[currentList].map((item, i) => (
               <li

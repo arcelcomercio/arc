@@ -13,7 +13,7 @@ import SignWallPayPre from '../../../signwall/_main/signwall/paywall-premium'
 import Services from '../../../signwall/_main/utils/services'
 import ConfigParams from '../../../../utilities/config-params'
 
-import Menu from './menu'
+import Menu from '../../../../global-components/menu'
 // import Ads from '../../../../global-components/ads'
 import GetProfile from '../../../signwall/_main/utils/get-profile'
 
@@ -159,9 +159,7 @@ class NavBarDefault extends PureComponent {
   componentDidMount() {
     const { arcSite } = this.props
 
-    window.addEventListener('scroll', this._handleScroll, {
-      passive: true,
-    })
+    window.addEventListener('scroll', this._handleScroll)
     this.listContainer = document.querySelector('.nav-sidebar')
     this.layerBackground = document.querySelector('.layer')
 

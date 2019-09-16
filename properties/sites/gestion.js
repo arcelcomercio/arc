@@ -92,6 +92,9 @@ export default {
     pwAssets(image = 'logo') {
       return `${this.path}${this.paywall[image]}`
     },
+    premium: {
+      logo: 'plusg.png',
+    },
   },
   legalLinks: [
     {
@@ -206,4 +209,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
+  stick: {
+    logo: 'logo-gestion.png'
+  }
 }
