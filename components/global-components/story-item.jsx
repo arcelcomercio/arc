@@ -1,7 +1,6 @@
 // TODO
 // Se comenzara a usar story-new a partir del comercio
-// y luego se ira reemplazando por este
-
+// y esto se eliminará junto con su feature
 import React, { PureComponent } from 'react'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 import ConfigParams from '../utilities/config-params'
