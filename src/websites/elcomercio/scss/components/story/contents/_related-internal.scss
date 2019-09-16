@@ -1,25 +1,38 @@
 .related-internal {
   background-color: #f5f5f5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   @media (--tablet) {
-    float: none;
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+    float: none;
+    padding: 0;
+  }
+  &__title {
+    width: 100%;
   }
 
   &__information {
-    @media (--tablet) {
-      background-color: $color-gray-100;
+    background-color: $color-gray-100;
+    width: calc(100% - 180px);
+    height: 110px;
+    @media (--only-mobile) {
+      padding: 15px;
     }
   }
-
+  &__figure {
+    width: 180px;
+    height: 110px;
+  }
   &__multimedia-icon {
     top: 50%;
     margin-top: -15px;
     left: 50%;
     margin-left: -15px;
     background-color: rgba(255, 255, 255, 0.5);
+  }
+  &__title-link {
+    font-weight: 700;
+    font-size: 16px;
   }
 }
