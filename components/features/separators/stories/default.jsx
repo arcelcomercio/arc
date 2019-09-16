@@ -39,7 +39,7 @@ const SeparatorStories = props => {
     storyData._data = story
     const {
       title,
-      link,
+      websiteLink,
       multimediaLazyDefault,
       multimediaPortraitMD,
       multimediaLandscapeL,
@@ -50,7 +50,7 @@ const SeparatorStories = props => {
     } = storyData
     return {
       title,
-      link,
+      websiteLink,
       multimediaLazyDefault,
       imageUrl:
         arcSite === 'peru21' ? multimediaPortraitMD : multimediaLandscapeS,

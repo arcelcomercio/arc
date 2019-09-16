@@ -261,11 +261,9 @@ class StoryData {
 
   get sectionsFIA() {
     let result = { section: null, subsection: null }
-    if (
-      this._data.taxonomy &&
-      this._data.taxonomy.primary_section &&
-      this._data.taxonomy.primary_section.path
-    ) {
+    const { taxonomy: { primary_section: { path } = {} } = {} } =
+      this._data || {}
+    if (path) {
       result = { section: null, subsection: null }
       const listSections = this._data.taxonomy.primary_section.path.split('/')
 
@@ -276,12 +274,13 @@ class StoryData {
   }
 
   get allSections() {
-    let sections = []
+    let auxSections = []
     let result = []
-    if (this._data.taxonomy && this._data.taxonomy.sections) {
-      sections = this._data.taxonomy.sections.map(sec => sec.name)
+    const { taxonomy: { sections = [] } = {} } = this._data || {}
+    if (sections) {
+      auxSections = sections.map(sec => sec.name)
     }
-    result = sections.filter(x => x !== null || x !== undefined || x !== '')
+    result = auxSections.filter(x => x !== null || x !== undefined || x !== '')
     return result
   }
 
@@ -474,7 +473,7 @@ class StoryData {
   }
 
   get paragraphsNews() {
-    const { content_elements: contentElements = [] } = this._data
+    const { content_elements: contentElements = [] } = this._data || {}
     return StoryData.paragraphsNews(contentElements)
   }
 
@@ -558,7 +557,7 @@ class StoryData {
 
   get contentPosicionPublicidadAmp() {
     let i = 0
-    const { content_elements: contentElements = null } = this._data
+    const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
