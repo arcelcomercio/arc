@@ -1,8 +1,9 @@
 .independent-title {
+  z-index: 10;
   &.bg-secondary {
     background-color: $color-gray-300;
   }
   &.special {
-    top: $nav-height;
+    top: $header-ec-height;
   }
 }
