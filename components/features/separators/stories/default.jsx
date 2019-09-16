@@ -34,7 +34,7 @@ const SeparatorStories = props => {
     deployment,
     defaultImgSize: 'sm',
   })
-  console.log('DATA--->', contentElements)
+
   const stories = contentElements.map(story => {
     storyData._data = story
     const {
