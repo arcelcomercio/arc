@@ -82,7 +82,9 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
       const doStep = step => {
         // Retornar a planes si retrocede luego de finalizar la compra
         if (finalized) {
-          window.location.href = `${basePath}/planes/${location.search}`
+          window.location.href = `${basePath}/${stepSlugs[0]}/${
+            location.search
+          }`
           return
         }
         if (action !== 'REPLACE') {
