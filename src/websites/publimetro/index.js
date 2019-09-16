@@ -19,5 +19,6 @@ import './images/logo_twitter.jpg'
 import './images/logo-story-default.jpg'
 import './images/loader.png'
 import './images/green-logo.png'
+import './images/author.png'
 
 import '../../../components/utilities/lazyload'

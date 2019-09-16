@@ -7,5 +7,6 @@ import './images/logo-white.png'
 import './images/logo-blue.png'
 import './images/logo-footer-md.png'
 import './images/logo-footer-sm.png'
+import './images/author.png'
 
 import '../../../components/utilities/lazyload'

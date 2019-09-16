@@ -157,6 +157,7 @@ class StoryData {
       StoryData.getDataAuthor(this._data, {
         contextPath: this._contextPath,
         deployment: this._deployment,
+        website: this._website,
       }).imageAuthor || this.defaultImg
     )
   }
@@ -260,11 +261,9 @@ class StoryData {
 
   get sectionsFIA() {
     let result = { section: null, subsection: null }
-    if (
-      this._data.taxonomy &&
-      this._data.taxonomy.primary_section &&
-      this._data.taxonomy.primary_section.path
-    ) {
+    const { taxonomy: { primary_section: { path } = {} } = {} } =
+      this._data || {}
+    if (path) {
       result = { section: null, subsection: null }
       const listSections = this._data.taxonomy.primary_section.path.split('/')
 
@@ -275,12 +274,13 @@ class StoryData {
   }
 
   get allSections() {
-    let sections = []
+    let auxSections = []
     let result = []
-    if (this._data.taxonomy && this._data.taxonomy.sections) {
-      sections = this._data.taxonomy.sections.map(sec => sec.name)
+    const { taxonomy: { sections = [] } = {} } = this._data || {}
+    if (sections) {
+      auxSections = sections.map(sec => sec.name)
     }
-    result = sections.filter(x => x !== null || x !== undefined || x !== '')
+    result = auxSections.filter(x => x !== null || x !== undefined || x !== '')
     return result
   }
   // TODO: Validar que link regrese la url correcta de la nota
@@ -468,7 +468,7 @@ class StoryData {
   }
 
   get paragraphsNews() {
-    const { content_elements: contentElements = [] } = this._data
+    const { content_elements: contentElements = [] } = this._data || {}
     return StoryData.paragraphsNews(contentElements)
   }
 
@@ -552,7 +552,7 @@ class StoryData {
 
   get contentPosicionPublicidadAmp() {
     let i = 0
-    const { content_elements: contentElements = null } = this._data
+    const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
@@ -845,10 +845,13 @@ class StoryData {
     }
   }
 
-  static getDataAuthor(data, { contextPath = '', deployment = () => {} } = {}) {
+  static getDataAuthor(
+    data,
+    { contextPath = '', deployment = () => {}, website = '' } = {}
+  ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = deployment(
-      `${contextPath}/resources/assets/author-grid/author.png`
+      `${contextPath}/resources/dist/${website}/images/author.png`
     )
 
     let nameAuthor = ''
@@ -1057,7 +1060,14 @@ class StoryData {
 
   static paragraphsNews(contentElements) {
     const paragraphs = contentElements.map(
-      ({ content = '', type = '', _id = '', url = '', items = [], level = null }) => {
+      ({
+        content = '',
+        type = '',
+        _id = '',
+        url = '',
+        items = [],
+        level = null,
+      }) => {
         const result = { _id, type, level, payload: '' }
 
         switch (type) {
