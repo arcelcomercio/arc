@@ -89,6 +89,7 @@ class StoryContents extends PureComponent {
       authorEmail,
       primarySectionLink,
       subtype,
+      isPremium,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -122,7 +123,9 @@ class StoryContents extends PureComponent {
         <StoryContentsChildAuthor {...params} />
 
         <div id="ads_m_movil2" />
-        <div className={classes.content} id="contenedor">
+        <div
+          className={`${classes.content} ${isPremium && 'paywall'} `}
+          id="contenedor">
           {/* TODO: se retira para el sitio de gestion por la salida del 30 de julio */}
           {arcSite !== ConfigParams.SITE_GESTION && <StoryContentsChildIcon />}{' '}
           <div id="ads_d_inline" />

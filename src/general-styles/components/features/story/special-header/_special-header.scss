@@ -1,0 +1,12 @@
+.story-special-h {
+  top: 50%;
+
+  &__note {
+    border-top: 1px solid $color-white;
+    border-bottom: 1px dashed $color-white;
+  }
+
+  .story-header__news-title {
+    color: $color-white;
+  }
+}
