@@ -56,11 +56,13 @@ const StoryGallery = () => {
         )
       )}
       {subtype === ConfigParams.BIG_IMAGE ||
-        (subtype === ConfigParams.SPECIAL_BASIC && (
-          <div className={classes.image}>
-            <StoryContentsChildMultimedia data={promoItems} />
-          </div>
-        ))}
+      subtype === ConfigParams.SPECIAL_BASIC ? (
+        <div className={classes.image}>
+          <StoryContentsChildMultimedia data={promoItems} />
+        </div>
+      ) : (
+        ''
+      )}
     </>
   )
 }

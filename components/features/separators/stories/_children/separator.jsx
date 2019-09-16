@@ -47,7 +47,7 @@ const SeparatorsBasicChildSeparator = ({
         {stories.map(
           ({
             title,
-            link,
+            websiteLink,
             multimediaLazyDefault,
             multimediaType,
             imageUrl,
@@ -59,7 +59,7 @@ const SeparatorsBasicChildSeparator = ({
               <article role="listitem" className={classes.article}>
                 <Icon type={multimediaType} iconClass={classes.icon} />
                 <div className={classes.detail}>
-                  <a href={link} title={title}>
+                  <a href={websiteLink} title={title}>
                     <h3 className={classes.text}>{title}</h3>
                   </a>
                   {isAuthorVisible && (
@@ -72,7 +72,7 @@ const SeparatorsBasicChildSeparator = ({
                     </h2>
                   )}
                 </div>
-                <a href={link}>
+                <a href={websiteLink}>
                   <picture className={classes.imgBox}>
                     <source
                       className={isAdmin ? '' : 'lazy'}

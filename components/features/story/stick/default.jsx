@@ -26,8 +26,8 @@ class Stick extends PureComponent {
     const aOpenApp = document.getElementById('button-app')
     const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
 
-    aOpenApp.addEventListener('click', function(ev) {
-      ev.preventDefault()
+    aOpenApp.addEventListener('click', function(e) {
+      e.preventDefault()
 
       const urlpwdbase = `${urlpwd}/?link=https://${arcSite}.pe/`
       const appData = `?appData=/&apn=com.eeec.${arcSite}&amv=30&ibi=com.eeec.${arcSite}&ipbi=com.eeec.${arcSite}&isi=991197788&imv=31&ofl=HREF`
@@ -41,8 +41,8 @@ class Stick extends PureComponent {
 
     })
 
-    aOpenAppClose.addEventListener('click', function(ev) {
-      ev.preventDefault()
+    aOpenAppClose.addEventListener('click', function(e) {
+      e.preventDefault()
       const stick = document.querySelector('.stick')
       stick.setAttribute('style', 'display: none')
     })

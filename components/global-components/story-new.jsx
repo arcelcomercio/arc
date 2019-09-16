@@ -73,7 +73,6 @@ export default ({
           </div>
         </div>
         <figure className={classes.right}>
-          {/* TODO: Actualizar iconos con multimediaIcon */}
           <a href={websiteLink} className={classes.rightLink}>
             <Icon type={multimediaType} iconClass={classes.icon} />
             <picture>
