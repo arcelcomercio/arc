@@ -16,6 +16,9 @@
     background-color: $color-gray-100;
     width: calc(100% - 180px);
     height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     @media (--only-mobile) {
       padding: 15px;
     }
@@ -32,7 +35,14 @@
     background-color: rgba(255, 255, 255, 0.5);
   }
   &__title-link {
-    font-weight: 700;
     font-size: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  &__link-author {
+    color: $color-gray-200;
+    display: block;
   }
 }
