@@ -10,7 +10,7 @@ const domains = {
   URL_FAQ: () => `${context}/suscripcionesdigitales/faq/${queryString}`,
   URL_DIGITAL: () => `${context}/suscripcionesdigitales`,
   VALIDATE_SUSCRIPTOR: (ENV, documentType, documentNumber, attemptToken) => {
-    return `${context}/suscripcionesdigitales/${documentType}/${documentNumber}/${attemptToken}${queryString}`
+    return `${context}/suscripcionesdigitales/${documentType}/${documentNumber}/${attemptToken}/${queryString}`
   },
   PWA_DOMAIN: (ENV, opts) => {
     const _env_ = ENV === 'elcomercio' ? '' : '.dev'
