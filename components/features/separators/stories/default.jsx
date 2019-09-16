@@ -25,7 +25,7 @@ const SeparatorStories = props => {
     useContent({
       source: contentService,
       query: contentConfigValues,
-      filter: schemaFilter,
+      filter: schemaFilter(arcSite),
     }) || {}
 
   const storyData = new StoryData({
@@ -34,7 +34,7 @@ const SeparatorStories = props => {
     deployment,
     defaultImgSize: 'sm',
   })
-
+  console.log('DATA--->', contentElements)
   const stories = contentElements.map(story => {
     storyData._data = story
     const {
