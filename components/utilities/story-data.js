@@ -405,9 +405,11 @@ class StoryData {
 
   get isPremium() {
     return (
-      this.__data &&
-      this.__data.content_restrictions &&
-      this.__data.content_restrictions.content_code === 'premium'
+      (this.__data &&
+        this.__data.content_restrictions &&
+        this.__data.content_restrictions.content_code === 'premium' &&
+        true) ||
+      false
     )
   }
 
