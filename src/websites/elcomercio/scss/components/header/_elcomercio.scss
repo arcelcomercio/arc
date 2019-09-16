@@ -1,7 +1,7 @@
 $nav-height-active: 46px;
 
 .header-ec {
-  height: $nav-height;
+  height: $header-ec-height;
   z-index: 20;
 
   @media print {
@@ -197,7 +197,7 @@ $nav-height-active: 46px;
   } */
 
   /* &__logo {
-    height: $nav-height;
+    height: $header-ec-height;
   } */
 
   /* &__ads {

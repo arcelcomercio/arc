@@ -6,7 +6,7 @@ import { isIE } from '../utilities/helpers'
 const classes = {
   container: 'flex flex-col w-full',
   layout: 'flex justify-center',
-  contentContainer: 'flex flex-col content-layout-container w-full',
+  contentContainer: 'flex flex-col content-layout-container w-full position-relative',
   content:
     'grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mt-20 mb-20',
   aditional: 'mb-20',
