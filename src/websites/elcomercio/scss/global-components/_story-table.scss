@@ -1,0 +1,14 @@
+.story-table {
+  border-color: $color-gray-300;
+  thead {
+    background-color: $color-primary;
+    color: $color-gray-300;
+  }
+  tbody {
+    tr {
+      &:nth-child(2n) {
+        background-color: #ebebeb;
+      }
+    }
+  }
+}
