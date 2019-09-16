@@ -160,13 +160,10 @@ const AmpOutputType = ({
             ) : null
           }}
         </Resource>
-        {isPremium && (
-          <script
-            async
-            custom-element="amp-subscriptions"
-            src="https://cdn.ampproject.org/v0/amp-subscriptions-0.1.js"
-          />
-        )}
+        {
+          //* TODO habilitar subscriptions en AMP
+          // isPremium && ( <script async custom-element="amp-subscriptions" src="https://cdn.ampproject.org/v0/amp-subscriptions-0.1.js"  /> )*/
+        }
         <script
           async
           custom-element="amp-analytics"
