@@ -36,6 +36,7 @@ class FormLogin extends Component {
       messageError: false,
       sending: true,
       showCheckPremium: false,
+      userWithSubs: false,
     }
 
     const { arcSite } = this.props
@@ -44,6 +45,24 @@ class FormLogin extends Component {
 
   componentWillMount() {
     window.Identity.apiOrigin = this.origin_api
+  }
+
+  getListSubs() {
+    const { arcSite } = this.props
+    const W = window
+    return services
+      .getEntitlement(W.Identity.userIdentity.accessToken, arcSite)
+      .then(res => {
+        if (res.skus) {
+          const result = Object.keys(res.skus).map(key => {
+            return res.skus[key].sku
+          })
+          this.listSubs = result
+          return result
+        }
+        return []
+      })
+      .catch(err => W.console.error(err))
   }
 
   handleFormSubmit = e => {
@@ -165,14 +184,24 @@ class FormLogin extends Component {
       const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
       Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
-      closePopup()
-      // if (typePopUp === 'premium') {
-      //   this.setState({
-      //     showCheckPremium: true,
-      //   })
-      // } else {
-      //   closePopup()
-      // }
+      if (typePopUp === 'premium') {
+        this.setState({
+          showCheckPremium: true, // no tengo subs
+        })
+        this.getListSubs().then(p => {
+          if (p && p.length === 0) {
+            this.setState({
+              userWithSubs: false, // no tengo subs
+            })
+          } else {
+            this.setState({
+              userWithSubs: true, // tengo subs
+            })
+          }
+        })
+      } else {
+        closePopup()
+      }
     })
   }
 
@@ -242,6 +271,15 @@ class FormLogin extends Component {
     })
   }
 
+  handleSuscription = e => {
+    const { removeBefore } = this.props
+    e.preventDefault()
+    Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
+    window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
+    removeBefore() // dismount before
+    window.location.href = Domains.getUrlPaywall()
+  }
+
   taggeoSuccess() {
     const { typePopUp } = this.props
 
@@ -300,6 +338,7 @@ class FormLogin extends Component {
       sending,
       hiddenbutton,
       showCheckPremium,
+      userWithSubs,
     } = this.state
     const { closePopup, typePopUp, typeForm, arcSite } = this.props
     return (
@@ -363,6 +402,7 @@ class FormLogin extends Component {
                             id="facebook-sign-in-button"
                             typePopUp={typePopUp}
                             typeForm={typeForm}
+                            checkPremium={() => this.handleGetProfile()}
                           />
                         </div>
                       </div>
@@ -543,7 +583,50 @@ class FormLogin extends Component {
                 )}
               </form>
             ) : (
-              <h1>Bienvenido Usuario ahora puedes continuar con tu compra</h1>
+              <form className="form-grid">
+                <div className="form-grid__group form-group--center">
+                  <Icon.MsgRegister
+                    className="form-grid__icon text-center"
+                    bgcolor={
+                      {
+                        elcomercio: '#fecd26',
+                        gestion: '#F4E0D2',
+                        peru21: '#d5ecff',
+                      }[arcSite]
+                    }
+                  />
+                </div>
+                <div className="form-grid__group">
+                  <h1 className="form-grid__info text-center">
+                    Bienvenido{' '}
+                    {window.Identity.userProfile.firstName || 'Usuario'}
+                  </h1>
+                  <p className="form-grid__info-sub text-center">
+                    {userWithSubs
+                      ? 'Sigue disfrutando del contenido exclusivo que tenemos para ti'
+                      : 'Ahora puedes continuar con tu compra'}
+                  </p>
+                </div>
+                <div className="form-grid__group">
+                  <div className="form-group form-group--center mt-20">
+                    {userWithSubs ? (
+                      <input
+                        type="button"
+                        className="btn btn--blue btn-md btn-bg"
+                        value="SIGUE NAVEGANDO"
+                        onClick={() => closePopup()}
+                      />
+                    ) : (
+                      <input
+                        type="button"
+                        className="btn btn--blue btn-md btn-bg"
+                        value="VER PLANES"
+                        onClick={e => this.handleSuscription(e)}
+                      />
+                    )}
+                  </div>
+                </div>
+              </form>
             )}
           </div>
         )}

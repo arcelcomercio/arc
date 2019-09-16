@@ -84,11 +84,10 @@ export default class Services {
     return response
   }
 
-  // eslint-disable-next-line class-methods-use-this
   sendNewsLettersUser(uuid, email, site, token, data) {
     const response = new Promise(resolve => {
       fetch(
-        `https://vq01ksb95d.execute-api.us-east-1.amazonaws.com/dev/userprofile/public/v1/newsletter/events?v=${new Date().getTime()}`,
+        `${Domains.getUrlNewsLetters()}/newsletter/events?v=${new Date().getTime()}`,
         {
           method: 'POST',
           cache: 'no-cache',
@@ -114,27 +113,22 @@ export default class Services {
     return response
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getNewsLettersUser(uuid, site) {
     const response = new Promise(resolve => {
       fetch(
-        `https://vq01ksb95d.execute-api.us-east-1.amazonaws.com/dev/userprofile/public/v1/newsletter/?brand=${site}&type=NLT&uuid=${uuid}&v=${new Date().getTime()}`,
+        `${Domains.getUrlNewsLetters()}/newsletter/?brand=${site}&type=NLT&uuid=${uuid}&v=${new Date().getTime()}`,
         {
           cache: 'no-cache',
-          // headers: {
-          //   'Cache-Control': 'no-cache'
-          // }
         }
       ).then(res => resolve(res.json()))
     })
     return response
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getNewsLetters() {
     const response = new Promise(resolve => {
       fetch(
-        `https://vq01ksb95d.execute-api.us-east-1.amazonaws.com/dev/userprofile/public/v1/newsletter/list?v=${new Date().getTime()}`,
+        `${Domains.getUrlNewsLetters()}/newsletter/list?v=${new Date().getTime()}`,
         {
           cache: 'no-cache',
         }
