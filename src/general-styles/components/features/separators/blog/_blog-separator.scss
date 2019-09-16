@@ -1,5 +1,6 @@
 .blog-separator {
   &__item {
+    background-color: $color-base-200;
     @media (--desktop) {
       width: 20%;
       height: 300px;
@@ -29,42 +30,25 @@
   &__author {
     color: #666;
     border: 0;
-    @media (--desktop) {
-      border-bottom: 1px solid #999;
-      border-top: 1px solid #999;
-    }
-  }
-  /* &__author {
+    font-size: 20px;
     &:before {
       content: '';
+      display: block;
       height: 1px;
-        width: 25px; 
-      width: 100%;
-      background-color: #999;
+      width: 25px;
+      background-color: $color-gray-300;
       margin-bottom: 5px;
-    }
-
-    @media (--desktop) {
-      &:before {
-        margin-bottom: 12px;
-      }
     }
 
     &:after {
       content: '';
+      display: block;
       height: 1px;
-      width: 100%;
-     width: 25px; 
-      background-color: #999;
+      width: 25px;
+      background-color: $color-gray-300;
       margin-top: 8px;
     }
-
-    @media (--desktop) {
-      &:after {
-        margin-top: 13px;
-      }
-    }
-  } */
+  }
   &__link {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -73,13 +57,8 @@
     -webkit-box-orient: vertical;
   }
   &__img {
-    width: 100px;
-    height: 100px;
-    margin: auto;
-
-    @media (--tablet) {
-      width: 125px;
-      height: 125px;
-    }
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
   }
 }
