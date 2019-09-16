@@ -5,4 +5,5 @@ const Doblete = () => {
   return <DobleteCard />
 }
 
+Doblete.label = 'Doblete'
 export default Doblete
