@@ -7,7 +7,6 @@
 @import './layout/navbar/nav-sidebar';
 @import './layout/navbar/nav-story';
 @import './layout/header/header';
-@import './header/titulo-independiente/titulo-independiente';
 @import './layout/footer/footer';
 @import './layout/footer/footer-story';
 @import './header/elcomercio';
@@ -19,8 +18,10 @@
 @import './story/contents/story-content';
 @import './story/contents/related-content';
 @import './story/contents/story-tags';
+@import './story/contents/related-internal';
 @import './story/interest/story-interest';
 @import './story/header/story-gallery';
+@import './story/story/story';
 @import './stories-lists/cards/stories-list-card';
 @import './stories-lists/cards/stories-list-header';
 @import './columnist-premium.scss/columnist-premium';

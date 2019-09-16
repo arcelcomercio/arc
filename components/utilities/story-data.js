@@ -283,8 +283,13 @@ class StoryData {
     result = auxSections.filter(x => x !== null || x !== undefined || x !== '')
     return result
   }
-  // TODO: Validar que link regrese la url correcta de la nota
 
+  get type() {
+    const { type = '' } = this._data || {}
+    return type
+  }
+
+  // TODO: Validar que link regrese la url correcta de la nota
   get link() {
     const { website_url: url = '' } = this._data || {}
     return addSlashToEnd(url)

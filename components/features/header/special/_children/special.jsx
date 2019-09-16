@@ -14,15 +14,9 @@ const DRAG_SCREEN_LIMIT = 90
 const LIST_WIDTH = 330
 
 const classes = {
-  header: `header header-ec bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
+  header: `header header-ec position-absolute secondary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
   logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
-  featured: 'header__featured flex w-full font-normal overflow-hidden mr-20',
-  item: 'header__item flex items-center justify-center h-inherit',
-  link: 'header__link uppercase text-sm p-10',
-  band: 'hidden justify-between md:flex',
-  tags: 'header__tags justify-center ml-20 mr-10 hidden md:flex',
-  date: 'header__date justify-center uppercase mr-20 hidden lg:flex',
   navBtnContainer: `flex items-center justify-start nav__container-menu position-absolute`,
   leftBtnContainer: `left-0 ml-10 lg:ml-20`,
   rightBtnContainer: `right-0 mr-10 lg:mr-20`,
@@ -50,13 +44,10 @@ const classes = {
 }
 
 // TODO: Agregar el click afuera del menu
-const HeaderChildElComercio = ({
+const HeaderChildSpecial = ({
   logo,
   auxLogo,
-  bandLinks,
   menuSections,
-  tags,
-  date,
   search,
   isStory,
   shareButtons,
@@ -83,7 +74,7 @@ const HeaderChildElComercio = ({
     const { scrollTop: scrollElement = 0 } = documentElement
     const scroll = scrollBody || scrollElement
 
-    const headerTop = 0
+    const headerTop = 10
     // const header = Array.from(document.getElementsByTagName('header'))
     // const headerTop = (header[0] && header[0].offsetTop) || 0
     if (!scrolled && scroll > headerTop) setScrolled(true)
@@ -232,6 +223,9 @@ const HeaderChildElComercio = ({
 
   useEffect(() => {
     window.addEventListener('scroll', _handleScroll)
+    const sectionTitle = document.querySelector('.independent-title')
+    if (sectionTitle) sectionTitle.classList.add('position-absolute', 'special')
+
     /* listContainer = document.querySelector('.nav-sidebar')
     layerBackground = document.querySelector('.layer')
 
@@ -257,25 +251,6 @@ const HeaderChildElComercio = ({
 
   return (
     <>
-      <nav className={classes.band}>
-        {tags && <div className={classes.tags}>{tags}</div>}
-        {bandLinks && bandLinks[0] && (
-          <ul className={classes.featured}>
-            {bandLinks.map(section => (
-              <li className={classes.item} key={`band-${section.url}`}>
-                <a className={classes.link} href={section.url}>
-                  {section.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-        {date.active && (
-          <time className={classes.date} dateTime={date.raw}>
-            {date.value}
-          </time>
-        )}
-      </nav>
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
         <div className={classes.navLoader} />
         {/** ************* LEFT *************** */}
@@ -378,18 +353,12 @@ const HeaderChildElComercio = ({
   )
 }
 
-HeaderChildElComercio.propTypes = {
+HeaderChildSpecial.propTypes = {
   logo: PropTypes.shape({
     src: PropTypes.string,
     link: PropTypes.string,
     alt: PropTypes.string,
   }),
-  bandLinks: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      url: PropTypes.string,
-    })
-  ),
 }
 
-export default HeaderChildElComercio
+export default HeaderChildSpecial
