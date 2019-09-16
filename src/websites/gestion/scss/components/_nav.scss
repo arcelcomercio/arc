@@ -75,7 +75,13 @@
   }
 
   /*   Estilos para nav loader en notas */
+  &__loader {
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: $color-gray-300;
+  }
   &__loader-bar {
-    background-color: #ea1f38;
+    background-color: #9f2321;
   }
 }
