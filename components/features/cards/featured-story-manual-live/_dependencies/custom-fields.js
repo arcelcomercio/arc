@@ -114,7 +114,7 @@ const customFields = PropTypes.shape({
     defaultValue: 'facebook',
   }),
   urlVideo: PropTypes.string.tag({
-    name: 'URL de Video / ID Youtube',
+    name: 'URL de Video en Dacebook / ID de Youtube',
     group: 'Video en vivo',
     description:
       'Url del video en vivo que ofrece facebook o el id del video de youtube.',
