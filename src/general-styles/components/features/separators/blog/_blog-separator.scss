@@ -1,4 +1,8 @@
 .blog-separator {
+  border-top: 1px dashed $color-gray-200;
+  @media (--desktop) {
+    padding-bottom: 20px;
+  }
   &__item {
     background-color: $color-base-200;
     @media (--desktop) {
@@ -21,16 +25,30 @@
       position: absolute;
     }
   }
-
+  &__see-more-text {
+    font-family: $tertiary-font;
+    font-weight: 700;
+  }
   &__title {
-    height: 94px;
     font-size: 20px;
+    @media (--desktop) {
+      height: 94px;
+    }
   }
 
   &__author {
-    color: #666;
-    border: 0;
+    color: $color-gray-300;
     font-size: 20px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    @media (--desktop) {
+      height: 76px;
+      -webkit-line-clamp: 3;
+    }
     &:before {
       content: '';
       display: block;
@@ -53,8 +71,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    height: 43px;
+    @media (--desktop) {
+      -webkit-line-clamp: 4;
+      height: 82px;
+    }
   }
   &__img {
     width: 80px;
