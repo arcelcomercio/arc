@@ -237,20 +237,16 @@ class AuthFacebook extends React.Component {
     const { closePopup, arcSite } = this.props
     Cookies.deleteCookie('mpp_sess') // borra session MPP
     this.taggeoSuccess() // -- test de tageo sucess
+
+    // set token cookie
+    const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+    Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+
     if (window.location.pathname.indexOf('suscripciones') >= 0) {
       window.location.reload()
     } else {
       closePopup()
     }
-
-    // set token cookie
-    const cookieName = 'ArcId.USER_INFO'
-    const cookieValue = window.Identity.userIdentity || '{}'
-    const myDate = new Date()
-    myDate.setDate(myDate.getDate() + 1)
-    document.cookie = `${cookieName}=${JSON.stringify(
-      cookieValue
-    )};expires=${myDate};domain=.${arcSite}.pe;path=/`
   }
 }
 
