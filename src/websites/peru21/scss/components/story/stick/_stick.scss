@@ -1,34 +1,40 @@
+// .stick {
+//   z-index: 10;
+//   position: fixed;
+//   bottom: 55px;
+//   @media (--only-mobile) {
+//     display: block;
+//   }
+//   &__content {
+//     box-shadow: 0 0 24px 0 #969696;
+//     background-color: $color-white;
+//     border-radius: 5px;
+//   }
+//   &__close-app {
+//     background: #434343;
+//     height: 12px;
+//     width: 12px;
+//     left: -5px;
+//     top: -5px;
+//     border-radius: 5px;
+//     font-size: 6px;
+//   }
+//   &__description {
+//     font-size: 14px;
+//     font-family: $primary-font;
+//     color: #b3b3b3;
+//   }
+//   &__button {
+//     background: #00b562;
+//     color: $color-white;
+//     font-size: 13px;
+//     font-family: $primary-font;
+//     width: 124px;
+//   }
+// }
+
 .stick {
-  z-index: 10;
-  position: fixed;
-  bottom: 55px;
-  @media (--only-mobile) {
-    display: block;
-  }
-  &__content {
-    box-shadow: 0 0 24px 0 #969696;
-    background-color: $color-white;
-    border-radius: 5px;
-  }
-  &__close-app {
-    background: #434343;
-    height: 12px;
-    width: 12px;
-    left: -5px;
-    top: -5px;
-    border-radius: 5px;
-    font-size: 6px;
-  }
-  &__description {
-    font-size: 14px;
-    font-family: $primary-font;
-    color: #b3b3b3;
-  }
   &__button {
     background: #00b562;
-    color: $color-white;
-    font-size: 13px;
-    font-family: $primary-font;
-    width: 124px;
   }
 }

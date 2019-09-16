@@ -209,4 +209,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
+  stick: {
+    logo: 'logo-gestion.png'
+  }
 }
