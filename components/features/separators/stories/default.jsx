@@ -25,7 +25,7 @@ const SeparatorStories = props => {
     useContent({
       source: contentService,
       query: contentConfigValues,
-      filter: schemaFilter,
+      filter: schemaFilter(arcSite),
     }) || {}
 
   const storyData = new StoryData({
