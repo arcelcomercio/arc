@@ -43,6 +43,7 @@ class StoryHeaderChildSocial extends PureComponent {
         },
         siteUrl,
       },
+      arcSite,
       globalContent: {
         website_url: postPermaLink,
         headlines: { basic: postTitle } = {},
@@ -125,7 +126,7 @@ class StoryHeaderChildSocial extends PureComponent {
         <div
           className={`${classes.news} ${
             subtype === ConfigParams.SPECIAL_BASIC ||
-            subtype !== ConfigParams.SPECIAL
+            subtype === ConfigParams.SPECIAL
               ? 'justify-center'
               : 'justify-between'
           }`}>

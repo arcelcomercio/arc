@@ -32,13 +32,14 @@ class LayoutAmpFooter extends PureComponent {
 
     const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ``
     const recentResult = recentList.map(
-      ({ basic, websiteUrl, urlImage } = {}) => {
+      ({ basic, websiteUrl, urlImage } = {}, index) => {
         return (
           urlImage &&
           `{  
               "image":"${urlImage}",
               "title":"${basic}",
-              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp&next"
+              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp&next=${index +
+            1}"
             }`
         )
       }
