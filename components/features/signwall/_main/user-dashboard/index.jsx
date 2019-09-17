@@ -9,6 +9,7 @@ import Loading from '../common/loading'
 import Home from './_children/home/index'
 import MiPerfil from './_children/profile/index'
 import MiSubscrip from './_children/subs/index'
+import { NewsLetter } from './_children/newsletters'
 import Domains from '../utils/domains'
 import { ModalProvider, ModalConsumer } from '../signwall/context'
 
@@ -52,6 +53,7 @@ class ProfileAccount extends Component {
     Cookies.deleteCookie('arc_e_id')
     Cookies.deleteCookie('mpp_sess')
     Cookies.deleteCookie('ArcId.USER_INFO')
+    window.sessionStorage.setItem('preferencesNews', '[]')
 
     window.Identity.apiOrigin = this.origin_api
     window.Identity.logout()
@@ -107,6 +109,7 @@ class ProfileAccount extends Component {
       home: <Home />,
       profile: <MiPerfil />,
       subscrip: <MiSubscrip />,
+      newsletters: <NewsLetter />,
     }
     return templates[template] || templates.home
   }
@@ -188,6 +191,18 @@ class ProfileAccount extends Component {
                                   }}
                                   className="profile__menu-link">
                                   Mis Suscripciones
+                                </a>
+                              </li>
+                              <li className="profile__menu-item">
+                                <a
+                                  href={url}
+                                  id="btn-menu-newsleters"
+                                  onClick={e => {
+                                    value.changeTemplate('newsletters')
+                                    this.linkActive(e)
+                                  }}
+                                  className="profile__menu-link">
+                                  Mis Newsletters
                                 </a>
                               </li>
                             </>

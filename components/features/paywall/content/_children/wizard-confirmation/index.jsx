@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 import React, { useEffect } from 'react'
 import * as S from './styled'
 import Button from '../../../_children/button'
@@ -23,9 +24,10 @@ const WizardConfirmation = props => {
     memo: {
       order: { orderNumber },
       profile: { firstName, lastName, secondLastName, email },
-      plan: { title: plan, sku, priceCode, amount, billingFrequency, printed },
+      plan: { title: plan, sku, priceCode, amount, billingFrequency, description },
       referer: ref,
       payment: { total: paidTotal, subscriptionIDs },
+      printedSubscriber,
     },
   } = props
 
@@ -48,9 +50,10 @@ const WizardConfirmation = props => {
       confirmacionID: subscriptionIDs[0], // Por ahora solo un producto
       periodo: billingFrequency,
       priceCode,
-      suscriptorImpreso: printed ? 'si' : 'no',
+      suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       medioCompra: ref,
     })
+    document.getElementsByClassName('foot')[0].style.position = "relative";
   }, [])
 
   const handlePWA = () => {
@@ -118,7 +121,7 @@ const WizardConfirmation = props => {
             </Item>
             <Item label="PRECIO: ">
                {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
-               { paidTotal !== 0 ?  `S/ ${paidTotal}` : 'GRATIS' }
+               { paidTotal !== 0 ?  `S/ ${paidTotal}` : `GRATIS ${description.title} ${description.description}` }
             </Item>
             <S.Small>
               El precio de la suscripción se cargará automáticamente en tu

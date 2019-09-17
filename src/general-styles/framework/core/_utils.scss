@@ -134,12 +134,10 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 *           POSITION            *
 *-------------------------------*/
 
-.position-relative {
-  position: relative;
-}
+$map-pos: relative, absolute;
 
-.position-absolute {
-  position: absolute;
+@each $pos in $map-pos {
+  @include build-class(position-#{$pos}, position, $pos);
 }
 
 $map-pos-0: top, right, bottom, left;
