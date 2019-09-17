@@ -48,6 +48,7 @@ export default ({
   customLogoLink = '/',
   showIconHome,
   showVinetas,
+  linkIconHome,
 }) => {
   const [isMenuActive, toggleMenu] = useState(false)
   const [searchValue, changeSearchValue] = useState('')
@@ -132,7 +133,7 @@ export default ({
           <ul className={classes.menuList}>
             {showIconHome && (
               <li className={classes.menuItemLink}>
-                <a href="/somos" className={classes.menuLinkIcon}>
+                <a href={linkIconHome || '/'} className={classes.menuLinkIcon}>
                   <i className={classes.iconHome} />
                 </a>
               </li>
