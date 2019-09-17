@@ -42,7 +42,9 @@ class PayWallPremium extends Component {
           closePopup={closePopup}
           typePopUp={typeModal} // paywall, premium
           typeForm="intro"
-          removeBefore={() => window.removeEventListener('beforeunload', this.handleLeavePage)}
+          removeBefore={() =>
+            window.removeEventListener('beforeunload', this.handleLeavePage)
+          }
           brandCurrent={brandModal}
         />
       ),
@@ -51,6 +53,9 @@ class PayWallPremium extends Component {
           closePopup={closePopup}
           typePopUp={typeModal} // paywall, premium
           typeForm="login"
+          removeBefore={() =>
+            window.removeEventListener('beforeunload', this.handleLeavePage)
+          }
         />
       ),
       register: (
@@ -59,6 +64,9 @@ class PayWallPremium extends Component {
           typePopUp={typeModal} // paywall, premium
           typeForm="registro"
           brandCurrent={brandModal}
+          removeBefore={() =>
+            window.removeEventListener('beforeunload', this.handleLeavePage)
+          }
         />
       ),
       forgot: (
