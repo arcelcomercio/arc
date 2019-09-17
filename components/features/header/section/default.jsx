@@ -31,6 +31,7 @@ const LayoutHeader = props => {
       showIconHome,
       showVinetas,
       hierarchyConfig,
+      linkIconHome,
     } = {},
   } = props
 
@@ -82,6 +83,7 @@ const LayoutHeader = props => {
     customLogoLink,
     showIconHome,
     showVinetas,
+    linkIconHome,
   }
 
   return (

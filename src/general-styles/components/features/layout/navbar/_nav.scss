@@ -208,9 +208,11 @@
   }
 
   &__loader-bar {
-    width: 0%;
-
-    transition: width 0.5s;
+    width: 100%;
+    will-change: transform;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.3s;
   }
 
   &__container-menu,
