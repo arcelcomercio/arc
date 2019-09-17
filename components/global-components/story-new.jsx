@@ -31,7 +31,7 @@ export default ({
   primarySectionLink,
   primarySection,
   date,
-  link,
+  websiteLink,
   title,
   subTitle,
   authorLink,
@@ -57,7 +57,7 @@ export default ({
           </div>
           <div className={classes.wrapperTitle}>
             <h2 className={classes.contentTitle}>
-              <a className={classes.title} href={link} title={title}>
+              <a className={classes.title} href={websiteLink} title={title}>
                 {title}
               </a>
             </h2>
@@ -73,8 +73,7 @@ export default ({
           </div>
         </div>
         <figure className={classes.right}>
-          {/* TODO: Actualizar iconos con multimediaIcon */}
-          <a href={link} className={classes.rightLink}>
+          <a href={websiteLink} className={classes.rightLink}>
             <Icon type={multimediaType} iconClass={classes.icon} />
             <picture>
               <source

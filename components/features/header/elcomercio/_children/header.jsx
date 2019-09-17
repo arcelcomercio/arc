@@ -4,7 +4,7 @@ import { useFusionContext } from 'fusion:context'
 
 import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
 import Button from '../../../../global-components/button'
-import Menu from './menu'
+import Menu from '../../../../global-components/menu'
 
 const CLUB_URL = 'https://clubelcomercio.pe/?ref=home&ft=menu'
 const CLUB_TEXT = 'Club'
@@ -87,7 +87,7 @@ const HeaderChildElComercio = ({
     // const header = Array.from(document.getElementsByTagName('header'))
     // const headerTop = (header[0] && header[0].offsetTop) || 0
     if (!scrolled && scroll > headerTop) setScrolled(true)
-    else if (scrolled && scroll <= headerTop) setScrolled(false)
+    else if (!scrolled && scroll <= headerTop) setScrolled(false)
   }
 
   /** ------ SEARCH ----- */

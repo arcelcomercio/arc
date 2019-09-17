@@ -69,7 +69,7 @@ const StoriesListNew = props => {
               primarySectionLink,
               primarySection,
               date,
-              link,
+              websiteLink,
               title,
               subTitle,
               authorLink,
@@ -87,7 +87,7 @@ const StoriesListNew = props => {
                     primarySectionLink,
                     primarySection,
                     date,
-                    link,
+                    websiteLink,
                     title: reduceWord(title),
                     subTitle: reduceWord(subTitle),
                     authorLink,
@@ -122,6 +122,6 @@ StoriesListNew.propTypes = {
 }
 
 StoriesListNew.label = 'Listado de Noticia'
-// StoriesListNew.static = true
+StoriesListNew.static = true
 
 export default StoriesListNew

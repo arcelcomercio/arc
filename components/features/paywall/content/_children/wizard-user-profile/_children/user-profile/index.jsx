@@ -27,6 +27,7 @@ const UserProfile = ({
   title = '',
   initialValues = {},
   error,
+  printedSubscriber,
   onSubmit,
   onReset,
 }) => {
@@ -35,7 +36,8 @@ const UserProfile = ({
       initialValues={Object.assign(
         {},
         _initValue,
-        pick(initialValues, Object.keys(_initValue))
+        pick(initialValues, Object.keys(_initValue)),
+        printedSubscriber
       )}
       validate={values => new FormSchema(values)}
       onSubmit={(values, actions) => {
@@ -90,7 +92,13 @@ const UserProfile = ({
               </S.WrapField>
               <S.WrapField>
                 <Field name="secondLastName">
-                  {props => <InputFormik {...props} label="Apellido Materno" />}
+                  {props => (
+                    <InputFormik
+                      label="Apellido Materno"
+                      {...Masks.Piped.PERSON_NAME}
+                      {...props}
+                    />
+                  )}
                 </Field>
               </S.WrapField>
               <S.WrapField>
@@ -99,6 +107,7 @@ const UserProfile = ({
                   label="Número de documento"
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
+                  disabled={!!printedSubscriber}
                   prefix={
                     <Field name="documentType">
                       {({ field: { onChange, ...restField } }) => (
@@ -108,6 +117,7 @@ const UserProfile = ({
                             setFieldValue('documentNumber', '')
                             onChange(...args)
                           }}
+                          disabled={!!printedSubscriber}
                           {...restField}>
                           <option value="DNI">DNI</option>
                           <option value="CEX">CEX</option>
@@ -142,7 +152,13 @@ const UserProfile = ({
             <Button disabled={isSubmitting} maxWidth="300px" type="submit">
               CONTINUAR
             </Button>
-            <Persist name={name} isSessionStorage />
+            <Persist
+              name={name}
+              ignoreFields={
+                printedSubscriber ? ['documentType', 'documentNumber'] : []
+              }
+              isSessionStorage
+            />
           </FormStyled>
         )
       }}
