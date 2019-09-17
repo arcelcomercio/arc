@@ -13,16 +13,14 @@
     width: calc(100% - 45px - 70px);
   }
   &-social__list {
-    width: 70px;
-  }
-  &-social__item {
-    margin-bottom: 0;
+    border-left: 1px solid #d6d6d6;
+    padding-left: 8px;
+    width: 75px;
   }
   &-social__link {
     width: 30px;
     height: 30px;
     border-radius: 15px;
     background-color: #999999;
-    color: $color-white;
   }
 }
