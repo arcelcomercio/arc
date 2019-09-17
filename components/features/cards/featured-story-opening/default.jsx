@@ -9,7 +9,18 @@ import { schemaNote, schemaURL } from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
 const CardFeaturedOpening = props => {
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    deployment,
+    siteProperties,
+  } = useFusionContext()
+
+  const {
+    assets: {
+      premium: { logo },
+    },
+  } = siteProperties || {}
 
   const { customFields: { url, customTitle, note1, note2 } = {} } = props
 
@@ -84,6 +95,7 @@ const CardFeaturedOpening = props => {
     note1Link,
     note2Title,
     note2Link,
+    logo: deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`),
   }
 
   return <FeaturedOpening {...params} />

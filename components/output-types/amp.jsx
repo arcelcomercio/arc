@@ -111,6 +111,7 @@ const AmpOutputType = ({
     videoSeo,
     promoItems: { basic_html: { content = '' } = {} } = {},
     contentElementsHtml: dataElement,
+    isPremium,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -160,7 +161,13 @@ const AmpOutputType = ({
             ) : null
           }}
         </Resource>
-
+        {isPremium && (
+          <script
+            async
+            custom-element="amp-subscriptions"
+            src="https://cdn.ampproject.org/v0/amp-subscriptions-0.1.js"
+          />
+        )}
         <script
           async
           custom-element="amp-analytics"
