@@ -61,29 +61,29 @@ class StoryContinue extends PureComponent {
     this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
   }
 
-  setInitiateHeights = e => {
-    const html = document.documentElement
-    const loader = document.getElementsByClassName('nav__loader')
-    const height = Math.max(
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    )
-    const h =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
+  setInitiateHeights = ([e] = []) => {
+    const progressBar = e
+    const {
+      clientHeight,
+      scrollHeight,
+      offsetHeight,
+      scrollTop,
+    } = document.documentElement
+    const {
+      clientHeight: bodyClientHeight,
+      scrollTop: bodyScrollTop,
+    } = document.body
 
-    const scrolled = Math.max(
-      document.body.scrollTop,
-      document.documentElement.scrollTop
-    )
+    const [loader] = document.getElementsByClassName('nav__loader')
+    const height = Math.max(clientHeight, scrollHeight, offsetHeight)
+    const h = window.innerHeight || clientHeight || bodyClientHeight
+    const scrolled = Math.max(bodyScrollTop, scrollTop)
 
-    if (height > 0 && e[0]) {
-      const width = (scrolled / (height - h)) * 100
-      const round = Math.round(width)
-      e[0].style.width = `${width}%`
-      if (loader[0]) loader[0].style.display = round > 2 ? 'block' : 'none'
+    if (height > 0 && progressBar) {
+      const scale = scrolled / (height - h)
+      const round = Math.round(scale)
+      progressBar.style.transform = `scaleX(${scale})`
+      if (loader) loader.style.opacity = round > 2 ? '1' : '0'
     }
   }
 
@@ -106,9 +106,10 @@ class StoryContinue extends PureComponent {
   }
 
   setUpdateLoaderPage = (progress, concurrentProgress) => {
-    const html = document.documentElement
+    const { scrollHeight } = document.documentElement
+    const { innerHeight, scrollY, screen } = window
     let direction = 'down'
-    if (window.innerHeight + window.scrollY + 50 <= html.scrollHeight) {
+    if (innerHeight + scrollY + 50 <= scrollHeight) {
       this.setAttributeProgress(progress, concurrentProgress - 10)
       direction = 'up'
     }
@@ -129,25 +130,25 @@ class StoryContinue extends PureComponent {
       this.setAttributeProgress(progress, newerProgress)
     }
 
-    if (window.screen.width < 630) {
+    if (screen.width < 630) {
       const storyHeader = document.querySelector('.story-header__list')
       const navSidebar = document.querySelector('.nav-sidebar')
       if (storyHeader) storyHeader.classList.add('hidden')
       const nav = document.querySelector('.nav')
       const navWrapper = document.querySelector('.nav__wrapper')
 
-      if (window.scrollY < this.preview) {
+      if (scrollY < this.preview) {
         if (nav) nav.classList.remove('active')
         if (navWrapper) navWrapper.classList.add('somos-menu--active')
         if (navSidebar) navSidebar.classList.add('somos-menu--active')
       } else {
-        if (window.scrollY < 50 && nav) nav.classList.remove('active')
+        if (scrollY < 50 && nav) nav.classList.remove('active')
         else if (nav) nav.classList.add('active')
 
         if (navWrapper) navWrapper.classList.remove('somos-menu--active')
       }
 
-      this.preview = window.scrollY
+      this.preview = scrollY
     }
   }
 

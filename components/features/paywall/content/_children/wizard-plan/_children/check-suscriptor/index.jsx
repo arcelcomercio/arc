@@ -9,7 +9,7 @@ import Icon from '../../../../../_children/icon'
 import Modal from '../../../../../_children/modal'
 import getDomain from '../../../../../_dependencies/domains'
 
-const Content = props => {
+const Content = ({ onSubmit }) => {
   const [attemptToken, setAttemptToken] = useState()
   let resetForm = React.useRef()
 
@@ -73,13 +73,8 @@ const Content = props => {
         <Formik
           validate={values => new FormSchema(values)}
           initialValues={{ documentType: 'DNI', documentNumber: null }}
-          onSubmit={({ documentType, documentNumber }, actions) => {
-            window.location.href = getDomain(
-              'VALIDATE_SUSCRIPTOR',
-              documentType,
-              documentNumber,
-              attemptToken
-            )
+          onSubmit={({ documentType, documentNumber }, ...args) => {
+            onSubmit({ documentType, documentNumber, attemptToken }, ...args)
           }}
           render={({
             resetForm: _resetForm,
@@ -134,10 +129,10 @@ const Content = props => {
   )
 }
 
-export default function CheckSuscription({ onClose, ...props }) {
+export default function CheckSuscription({ onClose, onSubmit, ...props }) {
   return (
     <Modal showClose onClose={onClose} {...props}>
-      <Content />
+      <Content onSubmit={onSubmit} />
     </Modal>
   )
 }
