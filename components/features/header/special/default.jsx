@@ -10,7 +10,7 @@ import Formatter from './_dependencies/formatter'
 import menuFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 
-import HeaderChildSpecial from './_children/special'
+import HeaderSpecialChildSpecial from './_children/special'
 
 const MENU_HIERARCHY = 'navbar-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -101,7 +101,9 @@ const HeaderElComercio = props => {
     shareButtons,
   }
 
-  return <HeaderChildSpecial {...formatter.getParams()} {...headerParams} />
+  return (
+    <HeaderSpecialChildSpecial {...formatter.getParams()} {...headerParams} />
+  )
 }
 
 HeaderElComercio.label = 'Cabecera - Noticia Especial'

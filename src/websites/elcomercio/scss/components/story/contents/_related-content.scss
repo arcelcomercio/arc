@@ -1,0 +1,30 @@
+$border-gray: #c1c1c1;
+.related-content {
+  &__title {
+    border-top: 1px solid $border-gray;
+    border-bottom: 1px solid $border-gray;
+  }
+  &__link {
+    @media (--tablet) {
+      font-size: 16px;
+    }
+  }
+  &__item {
+    border-bottom: 1px dashed $border-gray;
+    border-top: 0;
+    @media (--tablet) {
+      justify-content: flex-end;
+      flex-direction: row-reverse;
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  &__multimedia {
+    margin-right: 20px;
+    @media (--tablet) {
+      width: 80px;
+      height: 90px;
+    }
+  }
+}

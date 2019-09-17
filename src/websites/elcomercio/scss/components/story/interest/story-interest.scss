@@ -1,0 +1,35 @@
+.story-interest {
+  &__titleList {
+    border-top: 1px solid $border-gray;
+  }
+  &__list {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0;
+  }
+  &__item {
+    border-top: 1px solid $border-gray;
+    padding-top: 10px;
+    width: 100%;
+    @media (--tablet) {
+      width: 47%;
+    }
+  }
+  &__figure {
+    height: 190px;
+    display: block;
+  }
+  &__category {
+    display: block;
+    font-weight: bold;
+    word-break: break-word;
+    overflow: hidden;
+    -webkit-line-clamp: 4;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    @media (--desktop) {
+      text-align: left;
+    }
+  }
+}
