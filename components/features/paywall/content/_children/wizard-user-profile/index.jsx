@@ -47,6 +47,7 @@ function WizardUserProfile(props) {
     sendAction(PixelActions.PAYMENT_PROFILE, {
       sku: `${sku}${priceCode}`,
       periodo: billingFrequency,
+      referer: localStorage.getItem('paywall_last_url'),
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
     })
