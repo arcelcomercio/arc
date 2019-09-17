@@ -42,6 +42,9 @@
   &__list-link {
     color: $color-white;
     font-weight: 700;
+    font-size: 12px;
+    line-height: 17px;
+    font-family: $tertiary-font;
     &:hover {
       color: $color-white;
     }
