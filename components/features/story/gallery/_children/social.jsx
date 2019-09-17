@@ -8,11 +8,11 @@ import {
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
-  item: 'story-galleri-social__item',
+  item: 'story-gallery-social__item',
   link:
-    'story-galleri-social__link flex items-center justify-center text-gray-200',
-  icon: 'story-galleri-social__icon title-xl',
-  list: 'story-galleri-social__list flex justify-between',
+    'story-gallery-social__link flex items-center justify-center text-gray-200',
+  icon: 'story-gallery-social__icon title-xl',
+  list: 'story-gallery-social__list flex justify-between',
   mobileClass: 'flex justify-center',
   iconFacebook: 'icon-facebook-circle',
   iconTwitter: 'icon-twitter-circle',
