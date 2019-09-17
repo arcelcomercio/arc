@@ -145,6 +145,8 @@
   }
   &-content__font--secondary {
     font-family: $primary-font;
+    a {
+    }
   }
   &-content__caption {
     color: $color-gray-200;
@@ -155,6 +157,9 @@
   &-content {
     li {
       font-family: $primary-font;
+    }
+    .pquote__text {
+      color: $color-link;
     }
   }
 }

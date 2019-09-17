@@ -7,7 +7,12 @@ const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
 }
 
-const StoryContentChildImage = ({ data, imgTag, resizer = false }) => {
+const StoryContentChildImage = ({
+  data,
+  imgTag,
+  showCaption = true,
+  resizer = false,
+}) => {
   const sizerImg = resizer ? 'original' : 'large'
   const ampClass = imgTag === 'amp-img' ? 'amp-' : ''
   return (
@@ -17,7 +22,9 @@ const StoryContentChildImage = ({ data, imgTag, resizer = false }) => {
         layout="responsive"
         ImgTag={imgTag}
         imgClassName={classes.image}
-        captionClassName={`${ampClass}${classes.caption}`}
+        captionClassName={`${ampClass}${classes.caption} ${
+          showCaption ? '' : 'hidden'
+        }`}
         sizePreset={sizerImg}
         {...data}
       />
