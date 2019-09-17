@@ -83,10 +83,10 @@ const HeaderChildElComercio = ({
     const { scrollTop: scrollElement = 0 } = documentElement
     const scroll = scrollBody || scrollElement
 
-    const headerTop = 1
+    const headerTop = 0
     // const header = Array.from(document.getElementsByTagName('header'))
     // const headerTop = (header[0] && header[0].offsetTop) || 0
-    if (!scrolled && scroll >= headerTop) setScrolled(true)
+    if (!scrolled && scroll > headerTop) setScrolled(true)
     else if (!scrolled && scroll <= headerTop) setScrolled(false)
   }
 
