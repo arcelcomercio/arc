@@ -1,10 +1,5 @@
 import getDomain from '../../components/features/paywall/_dependencies/domains'
 
-const resolve = ({ doctype = 'DNI', docnumber, token }) => {
-  const PATH = `${getDomain('ORIGIN_SUSCRIPCIONES')}/api/subscriber/validation/gestion/`
-  return docnumber ? `${PATH}?doctype=${doctype}&docnumber=${docnumber}&token=${token}` : PATH
-}
-
 const parse = string => {
   try {
     return JSON.parse(string)
@@ -18,7 +13,18 @@ const parse = string => {
 // gprint-july-19
 
 export default {
-  resolve,
+  resolve({ doctype = 'DNI', docnumber, token }) {
+    this.document = {
+      documentType: doctype,
+      documentNumber: docnumber,
+    }
+    const PATH = `${getDomain(
+      'ORIGIN_SUSCRIPCIONES'
+    )}/api/subscriber/validation/gestion/`
+    return docnumber
+      ? `${PATH}?doctype=${doctype}&docnumber=${docnumber}&token=${token}`
+      : PATH
+  },
   params: {
     docnumber: 'text',
     doctype: 'text',
@@ -30,7 +36,7 @@ export default {
     const {
       campaign: { name: campaignCode },
       subscriber = {},
-      error
+      error,
     } = data
     const { printed = undefined } = subscriber;
 
@@ -72,8 +78,16 @@ export default {
       { feature: [] }
     )
 
-    const {title: name = 'Plan Digital'} = summary;
+    const { title: name = 'Plan Digital' } = summary
 
-    return Object.assign({ name, summary, plans, printed }, error ? {error} : {})
+    return Object.assign(
+      {
+        name,
+        summary,
+        plans,
+        printedSubscriber: printed ? this.document : undefined,
+      },
+      error ? { error } : {}
+    )
   },
 }

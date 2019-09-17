@@ -83,4 +83,57 @@ export default class Services {
     })
     return response
   }
+
+  sendNewsLettersUser(uuid, email, site, token, data) {
+    const response = new Promise(resolve => {
+      fetch(
+        `${Domains.getUrlNewsLetters()}/newsletter/events?v=${new Date().getTime()}`,
+        {
+          method: 'POST',
+          cache: 'no-cache',
+          body: JSON.stringify({
+            type: 'NLT',
+            eventName: 'build_preference',
+            uuid,
+            email,
+            attributes: {
+              preferences: data,
+              first_name: '',
+              last_name: '',
+            },
+            brand: site,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token,
+          },
+        }
+      ).then(res => resolve(res.json()))
+    })
+    return response
+  }
+
+  getNewsLettersUser(uuid, site) {
+    const response = new Promise(resolve => {
+      fetch(
+        `${Domains.getUrlNewsLetters()}/newsletter/?brand=${site}&type=NLT&uuid=${uuid}&v=${new Date().getTime()}`,
+        {
+          cache: 'no-cache',
+        }
+      ).then(res => resolve(res.json()))
+    })
+    return response
+  }
+
+  getNewsLetters() {
+    const response = new Promise(resolve => {
+      fetch(
+        `${Domains.getUrlNewsLetters()}/newsletter/list?v=${new Date().getTime()}`,
+        {
+          cache: 'no-cache',
+        }
+      ).then(res => resolve(res.json()))
+    })
+    return response
+  }
 }

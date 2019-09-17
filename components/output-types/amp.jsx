@@ -110,7 +110,6 @@ const AmpOutputType = ({
     videoSeo,
     promoItems: { basic_html: { content = '' } = {} } = {},
     contentElementsHtml: dataElement,
-    isPremium,
   } = new StoryData({
     data: globalContent,
     arcSite,
