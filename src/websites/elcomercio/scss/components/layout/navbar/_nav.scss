@@ -84,15 +84,27 @@
     display: block;
     .btn {
       padding: 6px;
+      font-family: $tertiary-font;
     }
   }
 
   &.active {
+    .nav__mobile-logo {
+      @media (--only-mobile) {
+        top: auto;
+      }
+    }
     .nav__logo {
       display: block;
+      @media (--only-mobile) {
+        height: 32px;
+      }
     }
     .btn {
       color: $color-base-100;
+      @media (--only-mobile) {
+        padding: 4px;
+      }
     }
 
     .nav__container-menu {
@@ -102,6 +114,9 @@
       }
     }
     .nav__container-right {
+      @media (--only-mobile) {
+        right: 10px;
+      }
       @media (--tablet) {
         display: block;
       }
@@ -124,6 +139,9 @@
       }
     }
     .nav__wrapper {
+      @media (--only-mobile) {
+        padding: 0 10px;
+      }
       @media (--desktop) {
         justify-content: flex-start;
       }
