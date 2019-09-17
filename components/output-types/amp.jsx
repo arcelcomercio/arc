@@ -6,6 +6,7 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
 import AmpTagManager from './_children/amp-tag-manager'
+import AmpPixel from './_children/amp-pixel'
 import { createMarkup, addSlashToEnd } from '../utilities/helpers'
 import StoryData from '../utilities/story-data'
 
@@ -240,6 +241,7 @@ const AmpOutputType = ({
       <body className="">
         <AmpTagManager {...parametros} />
         {children}
+        <AmpPixel {...parametros} />
       </body>
     </Html>
   )

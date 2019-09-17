@@ -30,7 +30,8 @@ class LayoutAmpFooter extends PureComponent {
       siteUrl,
     })
 
-    const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ``
+    const pathUrl =
+      ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : `http://localhost`
     const recentResult = recentList.map(
       ({ basic, websiteUrl, urlImage } = {}, index) => {
         return (
@@ -38,7 +39,7 @@ class LayoutAmpFooter extends PureComponent {
           `{  
               "image":"${urlImage}",
               "title":"${basic}",
-              "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp&next=${index +
+              "ampUrl":"${pathUrl}${websiteUrl}?_website=ojo&outputType=amp&next=${index +
             1}"
             }`
         )
@@ -58,16 +59,6 @@ class LayoutAmpFooter extends PureComponent {
 
     return (
       <>
-        <div className={classes.nextPageSeparator} separator>
-          <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
-        </div>
-        <amp-next-page>
-          <script
-            type="application/json"
-            dangerouslySetInnerHTML={{ __html: structuredRecent }}
-          />
-        </amp-next-page>
-
         <footer className={classes.footer}>
           <div className={classes.footerInfo}>
             <a
@@ -77,6 +68,16 @@ class LayoutAmpFooter extends PureComponent {
             </a>
           </div>
         </footer>
+
+        <amp-next-page>
+          <script
+            type="application/json"
+            dangerouslySetInnerHTML={{ __html: structuredRecent }}
+          />
+        </amp-next-page>
+        <div className={classes.nextPageSeparator} separator>
+          <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
+        </div>
       </>
     )
   }
