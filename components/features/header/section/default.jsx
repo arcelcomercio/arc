@@ -5,7 +5,7 @@ import { useFusionContext } from 'fusion:context'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 
-import HeaderChildSomos from './_children/somos-header'
+import HeaderChildSomos from './_children/section-header'
 
 const DEFAULT_HIERARCHY = 'header-default'
 
@@ -26,6 +26,10 @@ const LayoutHeader = props => {
       showInDesktop = true,
       showInTablet = true,
       showInMobile = true,
+      customLogo,
+      customLogoLink,
+      showIconHome,
+      showVinetas,
       hierarchyConfig,
     } = {},
   } = props
@@ -61,8 +65,13 @@ const LayoutHeader = props => {
   }
 
   const logo = () => {
-    return deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/${headerProperties.logo}`
+    return (
+      customLogo ||
+      deployment(
+        `${contextPath}/resources/dist/${arcSite}/images/${
+          headerProperties.logo
+        }`
+      )
     )
   }
 
@@ -70,6 +79,9 @@ const LayoutHeader = props => {
     sections: formatSections(),
     logo: logo(),
     queryInput,
+    customLogoLink,
+    showIconHome,
+    showVinetas,
   }
 
   return (
@@ -83,5 +95,5 @@ const LayoutHeader = props => {
 LayoutHeader.propTypes = {
   customFields,
 }
-LayoutHeader.label = 'Cabecera - Somos'
+LayoutHeader.label = 'Cabecera - Sección'
 export default LayoutHeader

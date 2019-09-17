@@ -4,6 +4,8 @@
   &__cell {
     padding: 10px;
     border-color: $color-gray-300;
+    vertical-align: middle;
+    text-align: center;
   }
   thead {
     border-bottom: 1px solid $color-gray-300;
