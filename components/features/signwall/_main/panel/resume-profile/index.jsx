@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ModalConsumer } from '../../../signwall/context'
+// import { ModalConsumer } from '../../signwall/context'
 import Profile from './profile'
 import Subscripcions from './subs'
 import { News } from './news'
