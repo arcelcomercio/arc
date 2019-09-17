@@ -103,20 +103,14 @@ export default ({
    }`
     : ''
 
-  const storyPremium = ` "isAccessibleForFree": "False",
+  const storyPremium = !isAmp
+    ? ` "isAccessibleForFree": "False",
     "hasPart":
       {
       "@type": "WebPageElement",
       "isAccessibleForFree": "False",
       "cssSelector" : ".paywall"
       },`
-
-  const storyPremiumAmp = isAmp
-    ? `"isPartOf": {
-      "@type": ["CreativeWork", "Product"],
-      "name": "${siteName}",
-      "productID": "${arcSite}.pe:basic"
-     },`
     : ''
 
   const imagenData = imagesSeoItems[1]
@@ -169,7 +163,6 @@ export default ({
        }
     },    
     ${(isPremium && storyPremium) || ''} 
-    ${(isPremium && storyPremiumAmp) || ''}
     "keywords":[${
       seoKeyWordsStructurada[0]
         ? seoKeyWordsStructurada.map(item => item)
