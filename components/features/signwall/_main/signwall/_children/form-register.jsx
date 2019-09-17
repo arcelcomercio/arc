@@ -36,7 +36,7 @@ class FormRegister extends Component {
       },
       messageError: false,
       showMessage: false,
-      showMessageResetPass: false,
+      showMsgConfirm: false,
       sending: true,
     }
 
@@ -149,7 +149,7 @@ class FormRegister extends Component {
                   this.setState({
                     showMessage: true,
                     sending: true,
-                    showMessageResetPass: true,
+                    showMsgConfirm: true,
                   })
                   window.localStorage.removeItem('ArcId.USER_PROFILE') // remueve profile creado por signup
                   window.Identity.userProfile = null // remueve profile creado por signup
@@ -189,6 +189,14 @@ class FormRegister extends Component {
         this.setState({ formErrors, ischecked: '' })
       }
     }
+  }
+
+  handleGetProfile = () => {
+    // solo cambia a confirmacion se usa para verificar premium
+    this.setState({
+      showMessage: true,
+      sending: true,
+    })
   }
 
   handleForcePassword = e => {
@@ -246,6 +254,15 @@ class FormRegister extends Component {
     this.setState({ formErrors, [name]: value })
   }
 
+  handleSuscription = e => {
+    const { removeBefore } = this.props
+    e.preventDefault()
+    Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
+    window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
+    removeBefore() // dismount before
+    window.location.href = Domains.getUrlPaywall()
+  }
+
   taggeoError() {
     const { typePopUp } = this.props
 
@@ -272,7 +289,7 @@ class FormRegister extends Component {
       checkpwdStrength,
       checked,
       sending,
-      showMessageResetPass,
+      showMsgConfirm,
     } = this.state
     const {
       closePopup,
@@ -318,6 +335,7 @@ class FormRegister extends Component {
                       id="registro_boton_facebook"
                       typePopUp={typePopUp}
                       typeForm={typeForm}
+                      checkPremium={() => this.handleGetProfile()}
                     />
                     {/* <AuthGoogle
                       align="middle"
@@ -476,35 +494,47 @@ class FormRegister extends Component {
                 </div>
                 <div className="form-grid__group">
                   <h1 className="form-grid__info text-center">
-                    {showMessageResetPass
+                    {showMsgConfirm
                       ? 'Tu cuenta ya existe. solo falta un paso más'
                       : 'Tu cuenta ha sido creada correctamente'}
                   </h1>
-                  <p className="form-grid__info-sub text-center">
-                    {showMessageResetPass
-                      ? 'Revisa tu bandeja de correo para vincular tu cuenta'
-                      : 'Revisa tu bandeja de correo para confirmar tu solicitud'}
-                  </p>
+                  {typePopUp !== 'premium' ? (
+                    <p className="form-grid__info-sub text-center">
+                      {showMsgConfirm
+                        ? 'Revisa tu bandeja de correo para vincular tu cuenta'
+                        : 'Revisa tu bandeja de correo para confirmar tu solicitud'}
+                    </p>
+                  ) : null}
                 </div>
                 <div className="form-grid__group">
                   <div className="form-group form-group--center mt-20">
-                    <input
-                      type="button"
-                      id="registro_continuar_navegando"
-                      className="btn btn--blue btn-md btn-bg"
-                      value="Continuar Navegando"
-                      onClick={() => {
-                        Taggeo(
-                          `Web_Sign_Wall_${typePopUp}`,
-                          `web_sw${typePopUp[0]}_registro_continuar_navegando`
-                        )
-                        if (reloadRegister) {
-                          window.location.reload()
-                        } else {
-                          closePopup()
-                        }
-                      }}
-                    />
+                    {typePopUp === 'premium' ? (
+                      <input
+                        type="button"
+                        id="registro_continuar_navegando"
+                        className="btn btn--blue btn-md btn-bg"
+                        value="VER PLANES"
+                        onClick={e => this.handleSuscription(e)}
+                      />
+                    ) : (
+                      <input
+                        type="button"
+                        id="registro_continuar_navegando"
+                        className="btn btn--blue btn-md btn-bg"
+                        value="Continuar Navegando"
+                        onClick={() => {
+                          Taggeo(
+                            `Web_Sign_Wall_${typePopUp}`,
+                            `web_sw${typePopUp[0]}_registro_continuar_navegando`
+                          )
+                          if (reloadRegister) {
+                            window.location.reload()
+                          } else {
+                            closePopup()
+                          }
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
               </form>
